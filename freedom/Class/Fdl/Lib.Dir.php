@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.22 2002/07/30 12:34:31 eric Exp $
+// $Id: Lib.Dir.php,v 1.23 2002/08/05 16:09:03 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -246,26 +246,30 @@ function getChildDirId($dbaccess, $dirid, $notfldsearch=false) {
 
 
 // --------------------------------------------------------------------
-function getRChildDirId($dbaccess,$dirid, $level=0) {
+function getRChildDirId($dbaccess, $dirid, $rchilds=array(), $level=0) {
   // --------------------------------------------------------------------
-    // query to find child directories (RECURSIVE)
-      
-      
-      if ($level > 20) exit; // limit recursivity
-	
-	$childs = getChildDirId($dbaccess, $dirid, true);
-  $rchilds = $childs;
+  // query to find child directories (RECURSIVE)
+  global $action;
+
   
-  if (count($childs) > 0) {
-    
-    while(list($k,$v) = each($childs)) 
-      {
-	
-	$rchilds = array_merge($rchilds, getRChildDirId($dbaccess,$v,$level+1));
-      }
+  if ($level > 20) {
+    $action->log->warning("Max dir deep [$level levels] reached");
+    echo("<h3>Max dir deep [$level levels] reached</h3>");
+    exit; // limit recursivity
   }
-  
-  
+
+  $rchilds[] = $dirid;
+
+  $childs = getChildDirId($dbaccess, $dirid, true);
+
+  if (count($childs) > 0) {
+    while(list($k,$v) = each($childs)) {
+      if (!in_array($v,$rchilds)) {
+	$t = array_merge($rchilds, getRChildDirId($dbaccess,$v,$rchilds,$level+1));
+	if (is_array($t)) $rchilds = array_values(array_unique($t));
+      }
+    }
+  } 
   return($rchilds);
 }
 
