@@ -80,16 +80,19 @@ function wgcal_storeevent(&$action) {
   $withme = GetHttpVars("withMe", "off");
   $oldatt_id    = $event->getTValue("CALEV_ATTID", array());
   $oldatt_state = $event->getTValue("CALEV_ATTSTATE", array());
-  $attendees = explode("|", GetHttpVars("attendees", array()));
-  $attendeesname = array();
-  $attendeesstate = array();
-  foreach ($attendees as $ka => $va) {
-    if ($va<=0||$va=="") continue;
-    $att = new Doc($db, $va);
-    $attendeesname[$ka] = $att->title;
-    $attendeesstate[$ka] = 0;
-    foreach ($oldatt_id as $ko => $vo) {
-      if ($vo == $va) $attendeesstate[$ka] = $oldatt_state[$ko];
+  $attl = GetHttpVars("attendees", "");
+  if ($attl!="") {
+    $attendees = explode("|", $attl);
+    $attendeesname = array();
+    $attendeesstate = array();
+    foreach ($attendees as $ka => $va) {
+      if ($va<=0||$va=="") continue;
+      $att = new Doc($db, $va);
+      $attendeesname[$ka] = $att->title;
+      $attendeesstate[$ka] = 0;
+      foreach ($oldatt_id as $ko => $vo) {
+	if ($vo == $va) $attendeesstate[$ka] = $oldatt_state[$ko];
+      }
     }
   }
   if ($withme=="on") {
