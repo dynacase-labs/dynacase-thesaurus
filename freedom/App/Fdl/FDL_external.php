@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.35 2004/11/03 17:44:33 eric Exp $
+ * @version $Id: FDL_external.php,v 1.36 2004/12/28 17:14:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -72,7 +72,7 @@ function lmail( $dbaccess, $name) {
 
   $filter=array();
   if ($name != "") {
-    $filter[]="title ~* '.*$name.*'";
+    $filter[]="title ~* '$name'";
   }
 
   $famid=getFamIdFromName($dbaccess,"USER");
@@ -91,22 +91,28 @@ function lmail( $dbaccess, $name) {
 }
 
 // liste des familles
-function lfamilies($dbaccess, $name='') {
+function lfamilies($dbaccess, $name='',$subfam="") {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
   
-
-  $tinter = GetClassesDoc($dbaccess, $action->user->id);
+  if ($subfam=="") {
+    $tinter = GetClassesDoc($dbaccess, $action->user->id,"TABLE");
+  } else {
+    if (! is_numeric($subfam)) $subfam=getFamIdFromName($dbaccess,$subfam);
+    $cdoc = new Doc($dbaccess,$subfam);
+    $tinter = $cdoc->GetChildFam();
+    $tinter[]=get_object_vars($cdoc);
+  }
   
   $tr = array();
 
 
   while(list($k,$v) = each($tinter)) {
             
-    if (($name == "") || (eregi("$name", $v->title , $reg))) {
+    if (($name == "") || (eregi("$name", $v["title"] , $reg))) {
 
-      $tr[] = array($v->title ,
-		    $v->id,$v->title);
+      $tr[] = array($v["title"] ,
+		    $v["id"],$v["title"]);
     
     }
   }
