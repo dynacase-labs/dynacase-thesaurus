@@ -1,6 +1,6 @@
+var notalone=true;
 function completechoice(index,tattrid,tattrv,winfo) {
   var rvalue;
-
   for (i=0; i< tattrid.length; i++) {
       if  (tattrv[index][i].substring(0,1) != '?')  {
 	
