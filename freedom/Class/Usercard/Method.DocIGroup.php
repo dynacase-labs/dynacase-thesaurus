@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.18 2004/10/04 09:17:36 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.19 2005/02/01 16:23:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -13,7 +13,11 @@
 
 
 var $eviews=array("USERCARD:CHOOSEGROUP");
-
+var $exportLdap = array(
+		      // posixGroup
+			"gidNumber" => "GRP_GIDNUMBER",
+			"description" => "GRP_DESC" );
+var $ldapobjectclass="posixGroup";
 function specRefresh() {
   //  $err=$this->ComputeGroup();
   $err="";
@@ -33,7 +37,28 @@ function specRefresh() {
 
   return $err;
 }
+function getExchangeLDAP() {
+    return $this->exportLdap;  
+}
+function specLDAPexport(&$infoldap) {
+  $tu=$this->getTValue("GRP_IDRUSER");
 
+  $tmid=array();
+  foreach ($tu as $k=>$v) {
+    $td=getTDoc($this->dbaccess,$v);
+    if ($td["us_uidnumber"] > 0) $tmid[]=$td["us_uidnumber"];
+    
+    
+  }
+  if (count($tmid) > 0) $infoldap["memberUid"]=$tmid;
+}
+/**
+ * test if the document can be set in LDAP
+ */
+function canUpdateLdapCard() {
+  return  true;
+
+}
 /**
  * recompute only parent group 
  * call {@see ComputeGroup()}
@@ -85,6 +110,7 @@ function PostModify() {
     // get members 
     $this->RefreshGroup();
     $this->refreshParentGroup();
+    $err=$this->RefreshLdapCard();  
   } 
 
 
@@ -93,6 +119,13 @@ function PostModify() {
   return $err;
 } 
 
+
+/**
+ * update LDAP menbers after imodification of containt
+ */
+function specPostInsert() {
+    return $this->RefreshLdapCard();  
+}
 /**
  * update groups table in USER database
  * @return string error message 
@@ -201,6 +234,7 @@ function insertGroups() {
     }
     $err=$this->QuickInsertMSDocId($tfid);// without postInsert
     
+    $this->specPostInsert();
 
   } 
   return $err;

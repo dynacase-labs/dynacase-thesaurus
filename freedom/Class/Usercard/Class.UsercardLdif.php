@@ -3,7 +3,7 @@
  * Class use to import and  export Ldif format (like LDAP) with FREEDOM USER Family
  *
  * @author Anakeen 2001
- * @version \$Id: Class.UsercardLdif.php,v 1.8 2004/04/29 08:41:24 eric Exp $
+ * @version \$Id: Class.UsercardLdif.php,v 1.9 2005/02/01 16:23:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.UsercardLdif.php,v 1.8 2004/04/29 08:41:24 eric Exp $
+// $Id: Class.UsercardLdif.php,v 1.9 2005/02/01 16:23:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardLdif.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,12 +96,7 @@ Class UsercardLdif
 		      "x500uniqueIdentifier"            => "",
 		      "preferredLanguage"               => "",
 		      "userSMIMECertificate"            => "",
-		      "userPKCS12"                      => "",
-		      
-		      
-		      
-		      
-		      "objectclass" => "");
+		      "userPKCS12"                      => "");
   
   function g_ReadCard(&$tattr) 
     {

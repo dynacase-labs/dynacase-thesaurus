@@ -3,7 +3,7 @@
  * Function utilities to manipulate users
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Usercard.php,v 1.1 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Lib.Usercard.php,v 1.2 2005/02/01 16:23:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -73,6 +73,7 @@ function refresgOneGroup($gid,$refresh) {
       if ($refresh) $doc->refreshMembers();
       $doc->SetGroupMail(($doc->GetValue("US_IDDOMAIN")>1));
       $doc->modify();
+      $doc->specPostInsert();
     }
   }
 }

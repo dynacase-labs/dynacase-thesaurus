@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.7 2004/09/03 07:38:41 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.8 2005/02/01 16:23:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -76,10 +76,9 @@ function ChooseGroup($target="_self",$ulink=true,$abstract=false) {
   $q2= new queryDb("","User");
   $groups=$q2->Query(0,0,"TABLE","select users.*, groups.idgroup, domain.name as domain from users, groups, domain where users.id = groups.iduser and users.iddomain=domain.iddomain and users.isgroup='Y'");
 
-
   $q2= new queryDb("","User");
   $mgroups=$q2->Query(0,0,"TABLE","select users.*, domain.name as domain from users,domain where users.iddomain=domain.iddomain and isgroup='Y' and id not in (select iduser from groups)");
-
+  
   if ($groups) {
     foreach ($groups as $k=>$v) {
       $groupuniq[$v["id"]]=$v;

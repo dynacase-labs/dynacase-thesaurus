@@ -3,7 +3,7 @@
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocGroup.php,v 1.11 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Method.DocGroup.php,v 1.12 2005/02/01 16:23:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -36,6 +36,7 @@ function RefreshGroup() {
   if (!isset($refreshedGrpId[$this->id])) {
     $err=$this->SetGroupMail();
     $err.=$this->modify();
+    $this->specPostInsert();
     $refreshedGrpId[$this->id]=true;
     
   }
@@ -48,6 +49,7 @@ function RefreshGroup() {
 function postInsertDoc($docid,$multiple) {
   $this->SetGroupMail();
   $this->refreshMembers();
+  $this->specPostInsert();
 }
 /**
  * update groups table in USER database
@@ -56,6 +58,7 @@ function postInsertDoc($docid,$multiple) {
 function postMInsertDoc($tdocid) {
   $this->SetGroupMail();
   $this->refreshMembers();
+  $this->specPostInsert();
 }
 /**
  * update groups table in USER database before suppress
@@ -64,7 +67,16 @@ function postMInsertDoc($tdocid) {
 function postUnlinkDoc($docid) {
   $this->SetGroupMail();
   $this->refreshMembers();
+  $this->specPostInsert();
 }
+
+
+/**
+ * special method for child classes 
+ * call after insert user in group
+ * @return string error message 
+ */
+function specPostInsert() {;}
 
 /**
  * compute the mail of the group 

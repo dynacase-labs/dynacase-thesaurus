@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.23 2004/11/12 11:17:29 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.24 2005/02/01 16:23:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -11,6 +11,27 @@
  /**
  */
 var $eviews=array("USERCARD:CHOOSEGROUP");
+  var $exportLdap = array(
+
+		      // posixAccount
+		      "uidNumber" => "US_UIDNUMBER",
+		      "gidNumber" => "US_GIDNUMBER",
+		      "loginShell" => "US_LOGINSHELL",
+		      "gecos" => "US_GECOS",
+		      "description" => "US_DESCRIPTION",
+		      "homeDirectory" => "US_HOMEDIRECTORY",
+
+		      // shadow Account
+		      "shadowLastChange" => "US_SHADOWLASTCHANGE",
+		      "shadowMin" => "US_SHADOWMIN",
+		      "shadowMax" => "US_SHADOWMAX",
+		      "shadowWarning" => "US_SHADOWWARNING",
+		      "shadowInactive" => "US_SHADOWINACTIVE",
+		      "shadowExpire" => "US_SHADOWEXPIRE",
+		      "shadowFlag" => "US_SHADOWFLAG"  );
+var $ldapobjectclass=array("inetOrgPerson",
+			   "posixAccount",
+			   "shadowAccount");
 
 function SpecRefresh() {
   $err=_USER::SpecRefresh();
@@ -40,6 +61,12 @@ function canUpdateLdapCard() {
 
 }
 
+function getExchangeLDAP() {
+    include_once("FDL/Class.UsercardLdif.php");
+    $oldif=new UsercardLdif();
+
+    return array_merge($oldif->import,  $this->exportLdap);
+}
 
   
 function GetOtherGroups() {
