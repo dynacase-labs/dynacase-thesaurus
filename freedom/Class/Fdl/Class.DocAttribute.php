@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.18 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.19 2004/07/01 13:50:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.18 2004/02/05 15:42:58 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.19 2004/07/01 13:50:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -123,7 +123,12 @@ Class NormalAttribute extends BasicAttribute {
 	  global $action;
 	  $action->exitError(sprintf(_("the external pluggin file %s cannot be read"), $this->phpfile));
 	}
-	$this->phpfunc = call_user_func($this->phpfunc);
+	if (ereg("(.*)\((.*)\)", $this->phpfunc, $reg)) {	 
+	  $args=explode(",",$reg[2]);
+	  $this->phpfunc = call_user_func_array($reg[1],$args);	  
+	} else {
+	  AddWarningMsg(sprintf(_("invalid syntax for [%s] for enum attribute"),$this->phpfunc));
+	}
       }
 
       $sphpfunc = str_replace("\\.", "-dot-",$this->phpfunc); // to replace dot & comma separators

@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.31 2004/06/17 14:50:23 eric Exp $
+ * @version $Id: FDL_external.php,v 1.32 2004/07/01 13:50:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -47,6 +47,20 @@ function gettitle($dbaccess, $docid) {
   return array("?"," "); // suppress
 }
 
+/**
+ * link enum definition from other def
+ */
+function linkenum($famid,$attrid) {
+  
+  $dbaccess=getParam("FREEDOM_DB");
+  if (! is_numeric($famid)) $famid=getFamIdFromName($dbaccess,$famid);
+  $soc = new Doc($dbaccess, $famid);
+  if ($soc->isAffected()) {
+    $a = $soc->getAttribute($attrid);
+    return $a->phpfunc;
+  }
+  return "";
+}
 // liste de personnes
 function lmail( $dbaccess, $name) {     
 

@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.69 2004/06/25 14:48:08 eric Exp $
+ * @version $Id: import_file.php,v 1.70 2004/07/01 13:50:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -293,8 +293,7 @@ function add_import_file(&$action, $fimport="") {
 	$oattr->title = ($data[4] == "Y")?"Y":"N";
 	$oattr->abstract = ($data[5] == "Y")?"Y":"N";
       }
-      if (($data[6] != "enum")  &&
-	  ($data[6] != "enumlist") || 
+      if (((($data[11]!="")&&($data[11]!="-")) || (($data[6] != "enum")  && ($data[6] != "enumlist"))) || 
 	  ($oattr->phpfunc == "")) $oattr->phpfunc = $data[12]; // don(t modify  enum possibilities
       $oattr->type = $data[6];
 
