@@ -48,7 +48,7 @@
 
   
  <input align="right" type="button" value="[TEXT:Close]" onclick="self.close()"> 
- <input type="submit" value="[TEXT:Validate]"> 
+ <input type="submit" value="[TEXT:Validate]" onclick="setTimeout('self.close()',1000)"> 
 
 
 
