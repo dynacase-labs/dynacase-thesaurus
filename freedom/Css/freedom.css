@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.63 2005/01/14 17:52:43 eric Exp $
+ * $Id: freedom.css,v 1.64 2005/01/20 16:44:41 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -367,7 +367,7 @@ IMG.unselect {
   border-width: 3;
   border-style : none
   width:40;
-  height:auto;  
+  height:40;  
   cursor: crosshair;
 }
 IMG.unselect:hover {
@@ -384,7 +384,7 @@ IMG.select {
   border-width: 1px;
   border-color: [CORE_FGCOLOR];
   width:40;
-  height:auto;  
+  height:40;  
   background-color:[CORE_BGCOLORALTERN];
   border-style : solid;
   cursor: crosshair;
@@ -429,7 +429,7 @@ DIV.icon{
   text-align: center;
   /*font-variant: small-caps;*/
   width:70;
-  height:100;
+  height:80;
   float:left;
   border-style:none;
   border-color:[CORE_FGCOLOR];
