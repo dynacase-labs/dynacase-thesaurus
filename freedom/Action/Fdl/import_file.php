@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.73 2004/08/05 09:47:21 eric Exp $
+ * @version $Id: import_file.php,v 1.74 2004/08/09 07:58:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -146,7 +146,7 @@ function add_import_file(&$action, $fimport="") {
       if (!isset($torder[$fromid])) $torder[$fromid]=array();
 
       $tcr[$nline]=csvAddDoc($dbaccess, $data, $dirid,$analyze,
-		    '',$policy,array("title"),array(),$torder[$fromid]);
+		    '',$policy,array("title"),array(),$tcolorder[$fromid]);
       if ($tcr[$nline]["err"]=="") $nbdoc++;
       break;    
       // -----------------------------------
@@ -333,7 +333,7 @@ function add_import_file(&$action, $fimport="") {
       else $orfromid = getFamIdFromName($dbaccess,$data[1]);
       
       $tcolorder[$orfromid]=getOrder($data);
-      $tcr[$nline]["msg"]=sprintf(_("new column order %s"),implode(";",$tcolorder));
+      $tcr[$nline]["msg"]=sprintf(_("new column order %s"),implode(" - ",$tcolorder[$orfromid]));
       
       break;
     case "PROFIL":  
@@ -342,6 +342,7 @@ function add_import_file(&$action, $fimport="") {
       
       if (! ($pid>0)) $tcr[$nline]["err"]=sprintf(_("profil id unkonow %s"),$data[1]);
       else {
+
 	$pdoc = new Doc($dbaccess, $pid);
 	if ($pdoc->isAlive()) {
 	  $tcr[$nline]["msg"]=sprintf(_("change profil %s"),$data[1]);	  
@@ -354,7 +355,8 @@ function add_import_file(&$action, $fimport="") {
 	  }
 	  $tacls=array_slice($data, 2); 
 	  foreach ($tacls as $acl) {
-	    if (ereg("([a-z]+)=(.*)",$acl, $reg)) {
+	    
+	    if (ereg("([a-zA-Z_]+)=(.*)",$acl, $reg)) {
 	      $tuid= explode(",",$reg[2]);
 	      $perr="";
 	      foreach ($tuid as $uid) {
@@ -455,13 +457,18 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     $tcr["err"]=$err;
     return false;
   }
-  $lattr = $doc->GetImportAttributes();
+
+  
 
 
-  if (count($torder) == 0) $torder=array_keys($lattr);
+  if (count($torder) == 0) {
+    $lattr = $doc->GetImportAttributes();
+    $torder=array_keys($lattr);
+  } else {
+    $lattr = $doc->GetNormalAttributes();
+  }
 
   $iattr = 4; // begin in 5th column
-
 
   foreach ($torder as $attrid) {
     if (isset($lattr[$attrid])) {
