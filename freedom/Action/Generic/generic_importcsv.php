@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_importcsv.php,v 1.9 2004/03/16 14:15:01 eric Exp $
+ * @version $Id: generic_importcsv.php,v 1.10 2004/03/25 11:10:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_importcsv.php,v 1.9 2004/03/16 14:15:01 eric Exp $
+// $Id: generic_importcsv.php,v 1.10 2004/03/25 11:10:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_importcsv.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -45,7 +45,7 @@ include_once("GENERIC/generic_util.php");
 // -----------------------------------
 function generic_importcsv(&$action) {
   // -----------------------------------
-  global $HTTP_POST_FILES;
+  global $_FILES;
 
   // Get all the params      
   $id=GetHttpVars("id");
@@ -59,10 +59,10 @@ function generic_importcsv(&$action) {
 
 
 
-  if (isset($HTTP_POST_FILES["vcardfile"]))    
+  if (isset($_FILES["vcardfile"]))    
     {
       // importation 
-      $vcardfile = $HTTP_POST_FILES["vcardfile"]["tmp_name"];
+      $vcardfile = $_FILES["vcardfile"]["tmp_name"];
       
     } else {      
       $vcardfile = GetHttpVars("file"); 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_importvcard.php,v 1.13 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: usercard_importvcard.php,v 1.14 2004/03/25 11:10:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: usercard_importvcard.php,v 1.13 2003/08/18 15:47:03 eric Exp $
+// $Id: usercard_importvcard.php,v 1.14 2004/03/25 11:10:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_importvcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -45,7 +45,7 @@ include_once("GENERIC/generic_util.php");
 // -----------------------------------
 function usercard_importvcard(&$action) {
   // -----------------------------------
-  global $HTTP_POST_FILES;
+  global $_FILES;
 
   // Get all the params      
   $id=GetHttpVars("id");
@@ -61,10 +61,10 @@ function usercard_importvcard(&$action) {
   $action->lay->Set("CR","");
   $vcard_import = new UsercardVcard();
 
-  if (isset($HTTP_POST_FILES["vcardfile"]))    
+  if (isset($_FILES["vcardfile"]))    
     {
       // importation 
-      $vcardfile = $HTTP_POST_FILES["vcardfile"]["tmp_name"];
+      $vcardfile = $_FILES["vcardfile"]["tmp_name"];
       
     } else {      
       $vcardfile = GetHttpVars("file"); 

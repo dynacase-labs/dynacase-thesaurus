@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.193 2004/03/18 08:29:43 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.194 2004/03/25 11:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -786,12 +786,12 @@ create unique index i_docir on doc(initid, revision);";
       $this->revdate = $date['sec']; // Delete date
 
       global $action;
-      global $HTTP_SERVER_VARS;
+      global $_SERVER;
       $this->AddComment(sprintf(_("delete by %s by action %s on %s from %s"),
 				$action->user->firstname." ".$action->user->lastname,
-				$HTTP_SERVER_VARS["REQUEST_URI"],
-				$HTTP_SERVER_VARS["HTTP_HOST"],
-				$HTTP_SERVER_VARS["REMOTE_ADDR"]));
+				$_SERVER["REQUEST_URI"],
+				$_SERVER["HTTP_HOST"],
+				$_SERVER["REMOTE_ADDR"]));
 
 
       if (!$nopost) $msg=$this->PostDelete();

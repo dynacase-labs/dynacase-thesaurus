@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.62 2004/03/16 14:05:50 eric Exp $
+ * @version $Id: modcard.php,v 1.63 2004/03/25 11:10:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.62 2004/03/16 14:05:50 eric Exp $
+// $Id: modcard.php,v 1.63 2004/03/25 11:10:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -202,10 +202,10 @@ function modcard(&$action, &$ndocid) {
 
 function setPostVars(&$doc) {
     // update POSGRES text values
-  global $HTTP_POST_VARS;
-  global $HTTP_POST_FILES;
+  global $_POST;
+  global $_FILES;
   $err="";
-  foreach ($HTTP_POST_VARS as $k=>$v)    {
+  foreach ($_POST as $k=>$v)    {
       
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{	  
@@ -225,7 +225,7 @@ function setPostVars(&$doc) {
     }
     // ------------------------------
   // update POSGRES files values
-  foreach ($HTTP_POST_FILES as $k=>$v)    {
+  foreach ($_FILES as $k=>$v)    {
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{	  
 	  $k=substr($k,1);
@@ -253,12 +253,12 @@ function insert_file($dbaccess,$docid, $attrid)
 {
   
   global $action;
-  global $HTTP_POST_FILES;
+  global $_FILES;
   
   global $upload_max_filesize;
   
 
-  $postfiles = $HTTP_POST_FILES["_".$attrid];
+  $postfiles = $_FILES["_".$attrid];
 
 
   $toldfile=array();
@@ -352,8 +352,8 @@ function insert_file($dbaccess,$docid, $attrid)
 // -----------------------------------
 function specialmodcard(&$action,$usefor) {
   
-  global $HTTP_POST_VARS;
-  global $HTTP_POST_FILES;
+  global $_POST;
+  global $_FILES;
 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -363,7 +363,7 @@ function specialmodcard(&$action,$usefor) {
 
  
 
-  foreach ($HTTP_POST_VARS as $k=>$v)    {
+  foreach ($_POST as $k=>$v)    {
       //print $k.":".$v."<BR>";
       
       if ($k[0] == "_") // freedom attributes  begin with  _
@@ -388,7 +388,7 @@ function specialmodcard(&$action,$usefor) {
   
   // ------------------------------
   // update POSGRES files values
-  foreach ($HTTP_POST_FILES as $k=>$v)    {
+  foreach ($_FILES as $k=>$v)    {
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{	  
 	  $k=substr($k,1);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_bgimport.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_bgimport.php,v 1.6 2004/03/25 11:10:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_bgimport.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_bgimport.php,v 1.6 2004/03/25 11:10:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_bgimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -43,7 +43,7 @@ include_once("FDL/Class.Dir.php");
 // -----------------------------------
 function freedom_bgimport(&$action) {
   // -----------------------------------
-  global $HTTP_POST_FILES;
+  global $_FILES;
 
   // Get all the params      
 
@@ -56,11 +56,11 @@ function freedom_bgimport(&$action) {
 
 
 
-  if (isset($HTTP_POST_FILES["file"]))    
+  if (isset($_FILES["file"]))    
     {
       // importation 
-      $file = $HTTP_POST_FILES["file"]["tmp_name"];
-      $filename = $HTTP_POST_FILES["file"]["name"];
+      $file = $_FILES["file"]["tmp_name"];
+      $filename = $_FILES["file"]["name"];
 
       
     } 

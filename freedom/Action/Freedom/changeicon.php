@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: changeicon.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: changeicon.php,v 1.5 2004/03/25 11:10:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: changeicon.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+// $Id: changeicon.php,v 1.5 2004/03/25 11:10:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/changeicon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,6 +34,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: changeicon.php,v $
+// Revision 1.5  2004/03/25 11:10:10  eric
+// Replace global variable HTTP_ by _
+//
 // Revision 1.4  2003/08/18 15:47:03  eric
 // phpdoc
 //
@@ -75,7 +78,7 @@ include_once("VAULT/Class.VaultFile.php");
 
 function changeicon(&$action) 
 {
-  global $HTTP_POST_FILES;
+  global $_FILES;
 
   $destdir="./".GetHttpVars("app")."/Upload/";
 
@@ -86,8 +89,8 @@ function changeicon(&$action)
 
   $doc= new Doc($dbaccess,$docid);
 
-  //print_r($HTTP_POST_FILES);
-  $fileinfo = $HTTP_POST_FILES["ifile"];
+  //print_r($_FILES);
+  $fileinfo = $_FILES["ifile"];
 
 
   if (is_array($fileinfo )) {
