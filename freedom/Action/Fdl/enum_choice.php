@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.25 2004/01/28 10:23:38 eric Exp $
+ * @version $Id: enum_choice.php,v 1.26 2004/02/05 15:43:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.25 2004/01/28 10:23:38 eric Exp $
+// $Id: enum_choice.php,v 1.26 2004/02/05 15:43:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -103,7 +103,7 @@ function enum_choice(&$action) {
 	$arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
 	
       } else {
-	if ($a && ($a->usefor=="P")) {
+	if ($a && ($a->usefor=="Q")) {
 	  $arg[$k]=$doc->getParamValue($v);
 	} else if ($a && $a->inArray()) {
 	  if (($a->fieldSet->id == $oattr->fieldSet->id)) { // search with index
@@ -118,7 +118,7 @@ function enum_choice(&$action) {
 	  }
 	} else $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
       }
-      if ($a && ($a->usefor=="P")) {
+      if ($a && ($a->usefor=="Q")) {
 	if (GetHttpVars("_".strtolower($v),false)===false) $arg[$k]=$doc->getParamValue($v);
       } 
     }

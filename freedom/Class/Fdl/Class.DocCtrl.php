@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocCtrl.php,v 1.11 2003/12/17 17:25:27 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.12 2004/02/05 15:42:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -11,7 +11,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.11 2003/12/17 17:25:27 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.12 2004/02/05 15:42:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.11 2003/12/17 17:25:27 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.12 2004/02/05 15:42:58 eric Exp $';
 
 
 
@@ -53,7 +53,7 @@ define ("POS_CONT", 6);
 define ("POS_VACL", 7);
 define ("POS_MACL", 8);
 define ("POS_CREATE", 5);
-// 7 up 11 undefined for the moment
+// 9 up 11 undefined for the moment
 
 define ("POS_WF", 12); // begin of workflow privilege definition 
 // end of privilege is 31 : (coded on 32bits)

@@ -73,7 +73,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&usefor=D&classid=[id]','');closeMenu('popupcard')" >[TEXT:Set default values]</a>
 
 <a href="#" id="param" 
-    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&usefor=P&classid=[id]','');closeMenu('popupcard')" >[TEXT:Parameters values]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&usefor=Q&classid=[id]','');closeMenu('popupcard')" >[TEXT:Parameters values]</a>
 
 <a href="#" id="chgtitle" 
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=QUERYTITLE&id=[id]','');closeMenu('popupcard')" >[TEXT:Rename]</a>

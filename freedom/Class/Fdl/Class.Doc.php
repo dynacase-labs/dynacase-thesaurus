@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.183 2004/02/03 09:39:24 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.184 2004/02/05 15:42:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.183 2004/02/03 09:39:24 eric Exp $
+// $Id: Class.Doc.php,v 1.184 2004/02/05 15:42:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -1115,8 +1115,8 @@ create unique index i_docir on doc(initid, revision);";
       while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute") && (!$v->inArray()) && 
 	    ($v->mvisibility != "I" )) {  // I means not editable
-	  if ((($this->usefor=="P") && ($v->usefor=="P")) ||
-	      (($this->usefor!="P") && ($v->usefor!="P")))
+	  if ((($this->usefor=="Q") && ($v->usefor=="Q")) ||
+	      (($this->usefor!="Q") && ($v->usefor!="Q")))
 	    $tsa[$v->id]=$v;    //special parameters
 	}
       }
@@ -1163,7 +1163,7 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->usefor != 'D') { // not applicable for default document
 	reset($this->attributes->attr);
 	while (list($k,$v) = each($this->attributes->attr)) {
-	  if ((get_class($v) == "normalattribute") && ($v->needed) && ($v->usefor!='P')) $tsa[$v->id]=$v;      
+	  if ((get_class($v) == "normalattribute") && ($v->needed) && ($v->usefor!='Q')) $tsa[$v->id]=$v;      
 	}
       }
       return $tsa;

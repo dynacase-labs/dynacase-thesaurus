@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.58 2004/02/03 10:12:01 eric Exp $
+ * @version $Id: import_file.php,v 1.59 2004/02/05 15:43:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.58 2004/02/03 10:12:01 eric Exp $
+// $Id: import_file.php,v 1.59 2004/02/05 15:43:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -253,7 +253,7 @@ function add_import_file(&$action, $fimport="") {
       if ($analyze) continue;
       $oattr=new DocAttr($dbaccess, array($doc->id,strtolower($data[1])));
      
-      if ($data[0]=="PARAM") $oattr->usefor='P'; // parameters
+      if ($data[0]=="PARAM") $oattr->usefor='Q'; // parameters
       
       $oattr->docid = $doc->id;
       $oattr->id = strtolower($data[1]);

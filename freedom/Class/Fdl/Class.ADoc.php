@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.ADoc.php,v 1.4 2004/01/28 08:22:11 eric Exp $
+ * @version $Id: Class.ADoc.php,v 1.5 2004/02/05 15:42:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,7 +35,7 @@ Class ADoc  {
       if (isset($this->attr)) {
 	reset($this->attr);
 	while (list($k,$v) = each($this->attr)) {
-	  if ((get_class($v) == "normalattribute") && ($v->usefor != "P")) $tsa[$v->id]=$v;
+	  if ((get_class($v) == "normalattribute") && ($v->usefor != "Q")) $tsa[$v->id]=$v;
 	}
       }
       return $tsa;      

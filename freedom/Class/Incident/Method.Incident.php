@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Incident.php,v 1.6 2004/02/03 08:41:23 eric Exp $
+ * @version $Id: Method.Incident.php,v 1.7 2004/02/05 15:42:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Incident.php,v 1.6 2004/02/03 08:41:23 eric Exp $
+// $Id: Method.Incident.php,v 1.7 2004/02/05 15:42:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.Incident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -75,7 +75,7 @@ function SpecRefresh() {
   $ncontrat= $this->GetValue('IN_CONTRACT');
 
   if (($society == "") && ($ncontrat == ""))  $ref="FI/".$this->initid."/".$this->GetValue('IN_TITLE');
-  else $ref = "FI/".$this->initid."/$society/$ncontrat";
+  else $ref = "FI/".$this->initid."/$society";
   
   $this->setValue("IN_REF", $ref);
 

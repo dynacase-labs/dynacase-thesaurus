@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.56 2004/02/02 12:45:14 caroline Exp $
+ * @version $Id: modcard.php,v 1.57 2004/02/05 15:42:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.56 2004/02/02 12:45:14 caroline Exp $
+// $Id: modcard.php,v 1.57 2004/02/05 15:42:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,7 +58,7 @@ function modcard(&$action, &$ndocid) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $ndocid=$docid;
 
-  if (($usefor=="D")||($usefor=="P")) {
+  if (($usefor=="D")||($usefor=="Q")) {
     //  set values to family document
     specialmodcard($action,$usefor);
     return "";
@@ -377,7 +377,7 @@ function specialmodcard(&$action,$usefor) {
 	  else $value = stripslashes($v);
 	  if ($value != "") {
 	   if ($usefor=="D") $cdoc->setDefValue($attrid,$value);
-	   else if ($usefor=="P") $cdoc->setParam($attrid,$value);
+	   else if ($usefor=="Q") $cdoc->setParam($attrid,$value);
 	  }
 	      
 	      

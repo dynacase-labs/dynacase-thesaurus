@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.32 2004/01/28 10:23:39 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.33 2004/02/05 15:42:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.32 2004/01/28 10:23:39 eric Exp $
+// $Id: Lib.Attr.php,v 1.33 2004/02/05 15:42:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -165,7 +165,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 				 "phpconstraint"=>$v->phpconstraint,
 					     "usefor"=>$v->usefor);
 	 
-	if (($v->type != "array") && ($v->usefor!="P")) {
+	if (($v->type != "array") && ($v->usefor!="Q")) {
 	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>strtolower($v->id));	 
 	if (($repeat=="true") || ($tnormal[$v->frameid]["type"]=="array")) {
 	  $attrids[$v->id] = strtolower($v->id)." text";  // for the moment all repeat are text

@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.17 2004/01/28 10:23:39 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.18 2004/02/05 15:42:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.17 2004/01/28 10:23:39 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.18 2004/02/05 15:42:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,7 +80,7 @@ Class NormalAttribute extends BasicAttribute {
   var $elink; // extra link
   var $ordered;
   var $phpconstraint; // special constraint set
-  var $usefor; // = P if parameters
+  var $usefor; // = Q if parameters
   function NormalAttribute($id, $docid, $label, $type, $format, $repeat, $order, $link,
 			   $visibility, $needed,$isInTitle,$isInAbstract,
 			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint="",$usefor="") {
@@ -154,11 +154,15 @@ Class NormalAttribute extends BasicAttribute {
     return $this->enum;
   }
 
-  function getEnumLabel() {  
+  function getEnumLabel($enumid="") {  
     global $__tlenum;
 
     $this->getEnum();
-    if (isset($__tlenum[$this->id])) return $__tlenum[$this->id]; // not twice
+    if (isset($__tlenum[$this->id])){
+      if ($enumid=="") return $__tlenum[$this->id]; // not twice
+      else if (isset($__tlenum[$this->id][$enumid])) return $__tlenum[$this->id][$enumid];
+      else return $enumid;
+    }
     
   
   }

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.79 2004/01/15 10:13:17 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.80 2004/02/05 15:42:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.79 2004/01/15 10:13:17 eric Exp $
+// $Id: Lib.Dir.php,v 1.80 2004/02/05 15:42:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -210,18 +210,19 @@ function getSqlSearchDoc($dbaccess,
  * @param int $fromid identificator of family document
  * @param bool $distinct if true all revision of the document are returned else only latest
  * @param string $orderby field order
+ * @param bool $latest if true only latest else all revision
  * @return array/Doc
  */
 function getChildDoc($dbaccess, 
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
 		     $userid=1, 
-		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title") {
+		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
   
   // query to find child documents            
   
   if (($fromid!="") && (! is_numeric($fromid))) $fromid=getFamIdFromName($dbaccess,$fromid);
-  $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct);
+  $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest);
 
   if ($userid > 1) { // control view privilege
      $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
@@ -233,7 +234,8 @@ function getChildDoc($dbaccess,
   if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
   else  {
     if ($fromid == "") $orderby="title";
-    $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
+    if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
+    else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
   }
    
    if ($fromid > 0) include_once "FDLGEN/Class.Doc$fromid.php";
@@ -246,7 +248,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
 
