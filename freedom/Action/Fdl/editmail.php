@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editmail.php,v 1.1 2002/07/29 12:42:23 eric Exp $
+// $Id: editmail.php,v 1.2 2002/07/29 13:34:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/editmail.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,5 +30,9 @@ function editmail(&$action) {
   $docid = GetHttpVars("mid"); 
   
   
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $doc = new Doc($dbaccess, $docid);
   $action->lay->Set("mid",$docid);
+  $action->lay->Set("title",$doc->title);
+  
 }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.1 2002/07/29 12:42:23 eric Exp $
+// $Id: mailcard.php,v 1.2 2002/07/29 13:34:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,6 +39,7 @@ function mailcard(&$action) {
   $from = GetHttpVars("_MAIL_FROM","");
   $to = GetHttpVars("_MAIL_TO",'eric.brison@i-cesam.com');
   $cc = GetHttpVars("_MAIL_CC","");
+  $comment = GetHttpVars("_MAIL_CM","");
 
   $subject = GetHttpVars("_MAIL_SUBJECT");
 
@@ -57,6 +58,11 @@ function mailcard(&$action) {
 
 
   $docmail = new Layout($action->GetLayoutFile("maildoc.xml"),$action);
+
+  if ($comment != "") {
+    $docmail->setBlockData("COMMENT", array(array("boo")));
+    $docmail->set("comment", nl2br($comment));
+  }
 
   $sgen = $docmail->gen();
 
@@ -119,7 +125,7 @@ function mailcard(&$action) {
     
   }
 
-  print ($cmd);
+
   system ($cmd, $status);
 
   if ($status == 0)  $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $to));
