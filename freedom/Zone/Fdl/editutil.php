@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.86 2005/02/01 13:39:38 eric Exp $
+ * @version $Id: editutil.php,v 1.87 2005/02/08 11:36:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -730,7 +730,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
       // get default values
       $ddoc = createDoc($doc->dbaccess, $doc->fromid==0?$doc->id:$doc->fromid,false);
       $tad = $ddoc->attributes->getArrayElements($attrid);
-
+      $tval=array();
       $nbcolattr=0; // number of column
       foreach($ta as $k=>$v) {
 	if ($v->mvisibility=="R") {
