@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewfolder.php,v 1.51 2004/03/16 14:07:35 eric Exp $
+ * @version $Id: viewfolder.php,v 1.52 2004/06/01 12:58:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.51 2004/03/16 14:07:35 eric Exp $
+// $Id: viewfolder.php,v 1.52 2004/06/01 12:58:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -340,7 +340,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 function orderbyfromid($a, $b) {
   
-    if ($a["fromid"] == $b["fromid"]) return 0;
+    if ($a["fromid"] == $b["fromid"]) {
+      return strcasecmp($a["title"],$b["title"]);
+      return 0;
+    }
     if ($a["fromid"] > $b["fromid"]) return 1;
   
   return -1;
