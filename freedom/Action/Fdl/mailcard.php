@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.10 2002/09/30 11:46:44 eric Exp $
+// $Id: mailcard.php,v 1.11 2002/10/11 13:00:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -120,7 +120,13 @@ function sendmailcard(&$action) {
   if (ereg("pdf",$format, $reg)) {
     // ---------------------------
     // contruct PDF mail
-    $docmail2 = new Layout($action->GetLayoutFile($layout),$action);
+    if ($action->parent->name == "FDL")
+      $docmail2 = new Layout($action->GetLayoutFile($layout),$action);
+    else {
+      $appl = new Application();
+      $appl->Set("FDL",	     $action->parent);
+      $docmail2 = new Layout($appl->GetLayoutFile($layout),$action);
+    }
 
 
     $docmail2->Set("zone", $zonebodycard);
