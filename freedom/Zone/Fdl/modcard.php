@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.59 2004/02/17 11:01:07 eric Exp $
+ * @version $Id: modcard.php,v 1.60 2004/02/24 08:40:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.59 2004/02/17 11:01:07 eric Exp $
+// $Id: modcard.php,v 1.60 2004/02/24 08:40:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -113,9 +113,9 @@ function modcard(&$action, &$ndocid) {
 
   // ------------------------------
 
-  setPostVars($doc);
+  $err=setPostVars($doc);
 
-  
+  if ($err != "") $action->Addwarningmsg($err);
   
   
   
@@ -202,7 +202,7 @@ function setPostVars(&$doc) {
     // update POSGRES text values
   global $HTTP_POST_VARS;
   global $HTTP_POST_FILES;
-
+  $err="";
   foreach ($HTTP_POST_VARS as $k=>$v)    {
       
       if ($k[0] == "_") // freedom attributes  begin with  _
@@ -216,7 +216,7 @@ function setPostVars(&$doc) {
 	  }
 	  else $value = stripslashes($v);
 
-	  $doc->SetValue($attrid, $value);	      
+	  $err=$doc->SetValue($attrid, $value);	      
 	      
 	      
 	}      
@@ -241,6 +241,7 @@ function setPostVars(&$doc) {
 	}
     }
   
+  return $err;
 }
 
 
