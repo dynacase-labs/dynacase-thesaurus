@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.34 2004/09/28 13:24:45 eric Exp $
+ * @version $Id: FDL_external.php,v 1.35 2004/11/03 17:44:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -125,7 +125,7 @@ function lfamilies($dbaccess, $name='') {
  * @param array $filter additionnals SQL filters
  * @return array/string*3 array of (title, identifier, title)
  */
-function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array(),$idid="id") {
+function lfamilly($dbaccess, $famid, $name="", $dirid=0, $filter=array(),$idid="id") {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
   
@@ -156,7 +156,7 @@ function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array(),$idid="id"
 }
 
 // alias name
-function lfamily($dbaccess, $famid, $name, $dirid=0, $filter=array(),$idid="id") {
+function lfamily($dbaccess, $famid, $name="", $dirid=0, $filter=array(),$idid="id") {
   return lfamilly($dbaccess, $famid, $name, $dirid, $filter,$idid);
 }
 
