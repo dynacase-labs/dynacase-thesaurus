@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.20 2004/01/09 09:36:40 eric Exp $
+ * @version $Id: enum_choice.php,v 1.21 2004/01/14 14:17:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.20 2004/01/09 09:36:40 eric Exp $
+// $Id: enum_choice.php,v 1.21 2004/01/14 14:17:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -99,10 +99,17 @@ function enum_choice(&$action) {
     else {
       $a = $doc->GetAttribute($v);
       
-      if ($a && $a->inArray()) { // search with index
-	$ta = GetHttpVars("_".strtolower($v),$v);
+      if ($a && $a->inArray()) {
+	if (($a->fieldSet->id == $oattr->fieldSet->id)) { // search with index
+	  $ta = GetHttpVars("_".strtolower($v),$v);
+	  
+	  $arg[$k]=trim($ta[$index]);
+	} else {
+	  $ta = GetHttpVars("_".strtolower($v),$v);
+	  unset($ta["-1"]); // suppress hidden row because not set yet
 
-	$arg[$k]=trim($ta[$index]);
+	  $arg[$k]= $ta;
+	}
       } else $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
     }
   }
