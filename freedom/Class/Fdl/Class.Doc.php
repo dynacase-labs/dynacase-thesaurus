@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.182 2004/02/02 12:49:20 caroline Exp $
+ * @version $Id: Class.Doc.php,v 1.183 2004/02/03 09:39:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.182 2004/02/02 12:49:20 caroline Exp $
+// $Id: Class.Doc.php,v 1.183 2004/02/03 09:39:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -1163,7 +1163,7 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->usefor != 'D') { // not applicable for default document
 	reset($this->attributes->attr);
 	while (list($k,$v) = each($this->attributes->attr)) {
-	  if ((get_class($v) == "normalattribute") && ($v->needed)) $tsa[$v->id]=$v;      
+	  if ((get_class($v) == "normalattribute") && ($v->needed) && ($v->usefor!='P')) $tsa[$v->id]=$v;      
 	}
       }
       return $tsa;
@@ -1681,27 +1681,37 @@ create unique index i_docir on doc(initid, revision);";
    * 
    * the auto lock is unlocked when the user discard edition or when he's modify document
    * @param bool $auto if true it is a automatic lock due to an edition (@see editcard()}
+   * @param int $userid if set lock with another userid, the edit control will be disabled
    * 
    * @return string error message, if no error empty string, if message
    * @see Doc::CanLockFile()
    * @see Doc::unlock()
    */
-  function lock($auto=false) {
-    $err=$this->CanLockFile();
-    if ($err != "") return $err;
-      
+  function lock($auto=false,$userid="") {
+
+    $err="";
+    if ($userid=="") {
+      $err=$this->CanLockFile();
+      if ($err != "") return $err;
+      $userid=$this->userid;
+    } else {
+      $this->disableEditControl();
+    }
+    
+
     // test if is not already locked
     if ($auto) {
-      if (($this->userid != 1) && ($this->locked == 0)) {
-	$this->locked = -$this->userid; // in case of auto lock the locked id is negative
+      if (($userid != 1) && ($this->locked == 0)) {
+	$this->locked = -$userid; // in case of auto lock the locked id is negative
 	$err=$this->modify(false,array("locked"));
       }
     } else { 
-      if ($this->locked != $this->userid) {
-	$this->locked = $this->userid;     
+      if ($this->locked != $userid) {
+	$this->locked = $userid;     
 	$err=$this->modify(false,array("locked"));
       }
     }
+    $this->enableEditControl();
     
     return $err;
   }
