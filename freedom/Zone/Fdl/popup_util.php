@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popup_util.php,v 1.11 2005/01/28 17:09:13 eric Exp $
+ * @version $Id: popup_util.php,v 1.12 2005/03/01 17:19:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.11 2005/01/28 17:09:13 eric Exp $
+// $Id: popup_util.php,v 1.12 2005/03/01 17:19:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -144,9 +144,10 @@ function popupGen($kdiv) {
     $action->parent->AddJsRef($action->Getparam("CORE_PUBURL")."/FDL/Layout/popupfunc.js");
 
     // css pour popup
-    $cssfile=$action->Getparam("CORE_PUBDIR")."/FDL/Layout/popup.css";
-    $csslay = new Layout($cssfile,$action);
-    $action->parent->AddCssCode($csslay->gen());
+ //    $cssfile=$action->Getparam("CORE_PUBDIR")."/FDL/Layout/popup.css";
+//     $csslay = new Layout($cssfile,$action);
+//     $action->parent->AddCssCode($csslay->gen());
+    $action->parent->AddCssRef("FDL:POPUP.CSS",true);
         $first=0;
   }
   $lpopup = new Layout($action->Getparam("CORE_PUBDIR")."/FDL/Layout/popup.js",$action);
