@@ -3,7 +3,7 @@
  * Folder managing
  *
  * @author Anakeen 2001
- * @version $Id: Class.QueryDir.php,v 1.13 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Class.QueryDir.php,v 1.14 2004/02/24 08:37:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -11,7 +11,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.13 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.QueryDir.php,v 1.14 2004/02/24 08:37:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.13 2003/08/18 15:47:04 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.14 2004/02/24 08:37:24 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -77,11 +77,11 @@ create sequence seq_id_fld start 100";
     {
       // test if not already exist 
       if ($this->qtype != "M") {
-	$query = new QueryDb($this->dbaccess,"QueryDir");
-	$query->AddQuery("dirid=".$this->dirid);
-	$query->AddQuery("childid='".$this->childid."'");
-	$query->Query(0,0,"TABLE");
-	if ($query->nb != 0) return _("already exist : not added");
+// 	$query = new QueryDb($this->dbaccess,"QueryDir");
+// 	$query->AddQuery("dirid=".$this->dirid);
+// 	$query->AddQuery("childid='".$this->childid."'");
+// 	$query->Query(0,0,"TABLE");
+// 	if ($query->nb != 0) return _("already exist : not added");
       }
       // compute new id
       if ($this->id == "") {
