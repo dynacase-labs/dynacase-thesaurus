@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.44 2003/03/28 17:52:38 eric Exp $
+// $Id: import_file.php,v 1.45 2003/04/02 13:22:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -99,10 +99,11 @@ function add_import_file(&$action, $fimport="") {
       if (isset($data[2])) {
 	if  ($data[2] > 0) { // dirid
 	  $dir = new Doc($dbaccess, $data[2]);
-	  $dir->AddFile($doc->id);
+	  if ($dir->isAlive())	  $dir->AddFile($doc->id);
 	} else if ($data[2] ==  0) {
 	  $dir = new Doc($dbaccess, $dirid);
-	  $dir->AddFile($doc->id);
+	  if ((method_exists($dir,"AddFile")) &&
+	      ($dir->isAlive()))	$dir->AddFile($doc->id);
 	}
       }
 
@@ -160,6 +161,11 @@ function add_import_file(&$action, $fimport="") {
     // -----------------------------------
     case "TYPE":
       $doc->doctype =  $data[1];
+    break;
+    // -----------------------------------
+    case "ICON":
+      //      if ($doc->icon == "")
+	if (! $analyze) $doc->changeIcon($data[1]);
     break;
     // -----------------------------------
     case "DFLDID":
@@ -322,7 +328,7 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
     } else if ($data[3] ==  0) {
       if ($dirid > 0) {
 	$dir = new Doc($dbaccess, $dirid);
-	if ($dir->isAffected()) {
+	if ($dir->isAlive() && method_exists($dir,"AddFile")) {
 	  if (! $analyze) $dir->AddFile($doc->id);
 	  $msg .= $err." ".sprintf(_("and add  in %s folder "),$dir->title); 
 	}

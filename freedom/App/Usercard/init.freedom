@@ -1,11 +1,12 @@
-"// ";fromid;titre;id;class;name;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
 BEGIN;0;personne;120;;USER;;;;;;;;
 TYPE;C;;;;;;;;;;;;
 DFLDID;121;;;;;;;;;;;;
+ICON;personne.gif;;;;;;;;;;;;
 METHOD;Method.DocUser.php;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
-ATTR;US_FR_IDENT;;"Etat civil";N;N;frame;10;W;;;;;
+ATTR;US_FR_IDENT;;Etat civil;N;N;frame;10;W;;;;;
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;W;Y;;;;
 ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;W;Y;;;;
 ATTR;US_PHOTO;US_FR_IDENT;photographie;N;N;image;40;W;;;;;
@@ -18,12 +19,12 @@ ATTR;US_PHONE;US_FR_COORD;téléphone;N;Y;text;90;W;;;;;
 ATTR;US_FAX;US_FR_COORD;fax;N;N;text;110;W;;;;;
 ATTR;US_MOBILE;US_FR_COORD;mobile;N;N;text;120;W;;;;;
 ATTR;US_FR_SOC;;Société;N;N;frame;130;W;;;;;
-ATTR;US_IDSOCIETY;US_FR_SOC;"id société";N;N;text;140;H;;;;;
-ATTR;US_SOCADDR;US_FR_SOC;"même adresse ?";N;N;text;150;H;;;;;
-ATTR;US_SOCIETY;US_FR_SOC;"site société";N;Y;text;160;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%
+ATTR;US_IDSOCIETY;US_FR_SOC;id société;N;N;text;140;H;;;;;
+ATTR;US_SOCADDR;US_FR_SOC;même adresse ?;N;N;text;150;H;;;;;
+ATTR;US_SOCIETY;US_FR_SOC;site société;N;Y;text;160;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%
 ATTR;US_TYPE;US_FR_SOC;fonction;N;N;text;170;W;;;;;
 ATTR;US_WORKADDR;US_FR_SOC;adresse;N;N;longtext;180;W;;;usercard.php;laddrsoc(D,US_IDSOCIETY):US_SOCADDR,US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX;
-ATTR;US_WORKPOSTALCODE;US_FR_SOC;"code postal";N;N;text;190;W;;;;;
+ATTR;US_WORKPOSTALCODE;US_FR_SOC;code postal;N;N;text;190;W;;;;;
 ATTR;US_WORKTOWN;US_FR_SOC;ville;N;N;text;200;W;;;;;
 ATTR;US_WORKCEDEX;US_FR_SOC;cedex;N;N;text;210;W;;;;;
 ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;220;W;;http://%US_WORKWEB%;;;
@@ -33,10 +34,10 @@ ATTR;US_VCARD;US_FR_SOC;Vcard;N;N;text;0;M;;%S%&app=USERCARD&action=USERCARD_VCA
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 END;0;;;;;;;;;;;;
-"// ";fromid;titre;id;class;name;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
 BEGIN;0;société;124;;SOCIETY;;;;;;;;
 TYPE;C;;;;;;;;;;;;
-;;;;;;;;;;;;;
+ICON;societe.gif;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
 ATTR;SI_FR_IDENT;;Identification;N;N;frame;10;W;;;;;
@@ -48,70 +49,27 @@ ATTR;SI_PHONE;SI_FR_COORD;téléphone;N;Y;text;70;W;;;;;
 ATTR;SI_MOBILE;SI_FR_COORD;mobile;N;N;text;80;W;;;;;
 ATTR;SI_FAX;SI_FR_COORD;fax;N;N;text;100;W;;;;;
 ATTR;SI_ADDR;SI_FR_COORD;adresse;N;N;longtext;110;W;;;;;
-ATTR;SI_POSTCODE;SI_FR_COORD;"code postal";N;N;text;120;W;;;;;
+ATTR;SI_POSTCODE;SI_FR_COORD;code postal;N;N;text;120;W;;;;;
 ATTR;SI_TOWN;SI_FR_COORD;ville;N;N;text;130;W;Y;;;;
 ATTR;SI_CEDEX;SI_FR_COORD;cedex;N;A;text;132;W;;;;;
 ATTR;SI_WEB;SI_FR_COORD;web;N;N;text;140;W;;http://%SI_WEB%;;;
 ;;;;;;;;;;;;;
 END;0;;;;;;;;;;;;
-"// ";fromid;titre;id;class;name;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
 BEGIN;124;site;126;;SITE;;;;;;;;
 TYPE;C;;;;;;;;;;;;
+ICON;site.gif;;;;;;;;;;;;
 METHOD;Method.DocSite.php;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;needed;link;phpfile;phpfunc;elink
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
-ATTR;SI_IDSOC;0;"id société";N;N;text;11;H;N;;;;
+ATTR;SI_IDSOC;0;id société;N;N;text;11;H;N;;;;
 ATTR;SI_SOCIETY;SI_FR_IDENT;société;Y;N;text;31;W;Y;%S%&app=FDL&action=FDL_CARD&id=%SI_IDSOC%;usercard.php;lsociety(D,SI_SOCIETY):SI_IDSOC,SI_SOCIETY;%S%app=USERCARD&action=GENERIC_EDIT&id=%SI_IDSOC%&classid={SOCIETY}&si_society=%SI_SOCIETY%
 ATTR;SI_LOCAL;SI_FR_IDENT;nom;Y;N;text;32;W;N;;;;
 ATTR;SI_TOWN;SI_FR_COORD;ville;Y;N;text;130;W;Y;;;;
 END;0;;;;;;;;;;;;
-"// ";fromid;titre;id;class;name;;;;;;;
-BEGIN;120;"personne entreprise";123;;USERSOCATA;;;;;;;
-TYPE;C;;;;;;;;;;;
-DFLDID;121;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;
-;;;;;;;;;;;;
-ATTR;US_MATRICULE;US_FR_COORD;matricule;N;N;text;300;W;;;;
-ATTR;US_SOCFIL;US_FR_COORD;"filtre société";N;N;text;310;W;;;;
-ATTR;US_GENDER;US_FR_COORD;genre;N;N;text;320;W;;;;
-ATTR;US_SERV;US_FR_COORD;service;N;N;text;330;W;;;;
-ATTR;US_LOCALISATION;US_FR_COORD;implantation;N;N;text;340;W;;;;
-ATTR;US_X400ADDR;US_FR_COORD;"adresse X400";N;N;text;350;W;;;;
-ATTR;US_HOMEPHONE;US_FR_COORD;"téléphone personnel";N;N;text;360;W;;;;
-ATTR;US_EXTSOCIETY;US_FR_COORD;"société externe";N;N;text;370;W;;;;
-ATTR;US_MAILPOINT;US_FR_COORD;"point courrier";N;N;text;380;W;;;;
-ATTR;US_FR_SECRETARIES;;Secrétaires;N;N;frame;390;W;;;;
-ATTR;US_MATSECR1;US_FR_SECRETARIES;matricule1;N;N;text;400;W;;;;
-ATTR;US_MATSECR2;US_FR_SECRETARIES;matricule2;N;N;text;410;W;;;;
-ATTR;US_MATSECR3;US_FR_SECRETARIES;matricule3;N;N;text;420;W;;;;
-ATTR;US_MATSECR4;US_FR_SECRETARIES;matricule4;N;N;text;430;W;;;;
-ATTR;US_MATSECR5;US_FR_SECRETARIES;matricule5;N;N;text;440;W;;;;
-ATTR;US_FR_COORD2;;"Coordonnées secondaire";N;N;frame;450;;;;;
-ATTR;US_LOC2;US_FR_COORD2;lieu;N;N;text;460;W;;;;
-ATTR;US_SIG2;US_FR_COORD2;sigle;N;N;text;470;W;;;;
-ATTR;US_PHONE2;US_FR_COORD2;téléphone;N;N;text;480;W;;;;
-ATTR;US_INTPHONE2;US_FR_COORD2;colisée;N;N;text;490;W;;;;
-ATTR;US_FR_COORD3;;"Coordonnées tertiaire";N;N;frame;500;;;;;
-ATTR;US_LOC3;US_FR_COORD3;lieu;N;N;text;510;W;;;;
-ATTR;US_SIG3;US_FR_COORD3;sigle;N;N;text;520;W;;;;
-ATTR;US_PHONE3;US_FR_COORD3;téléphone;N;N;text;530;W;;;;
-ATTR;US_INTPHONE3;US_FR_COORD3;colisée;N;N;text;540;W;;;;
-ATTR;US_FR_COORD4;;"Coordonnées quaternaire";N;N;frame;550;;;;;
-ATTR;US_LOC4;US_FR_COORD4;lieu;N;N;text;560;W;;;;
-ATTR;US_SIG4;US_FR_COORD4;sigle;N;N;text;570;W;;;;
-ATTR;US_PHONE4;US_FR_COORD4;téléphone;N;N;text;580;W;;;;
-ATTR;US_INTPHONE4;US_FR_COORD4;colisée;N;N;text;590;W;;;;
-ATTR;US_FR_MSE;;"MSE exchange";N;N;frame;600;;;;;
-ATTR;US_MSEDIR;US_FR_MSE;DirectoryName;N;N;text;610;W;;;;
-ATTR;US_MSECOUNTRY;US_FR_MSE;Country;N;N;text;620;W;;;;
-ATTR;US_MSEDEPT;US_FR_MSE;DepartementMSX;N;N;text;630;W;;;;
-;;;;;;;;;;;;
-;;;;;;;;;;;;
-END;0;;;;;;;;;;;
-"// creation dossier personne";;;;
-//DOC;Famille;"<special id>";"<special dirid>";titre
-DOC;2;121;;"carnet d'adresses"
-"// creation requete all users";;;;
-//SEARCH;"<special id>";"<special dir id>";titre;requête
+// creation dossier personne;;;;
+//DOC;Famille;<special id>;<special dirid>;titre
+DOC;2;121;;carnet d'adresses
+// creation requete all users;;;;
+//SEARCH;<special id>;<special dir id>;titre;requête

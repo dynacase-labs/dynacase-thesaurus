@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.108 2003/04/02 07:36:12 eric Exp $
+// $Id: Class.Doc.php,v 1.109 2003/04/02 13:22:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.108 2003/04/02 07:36:12 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.109 2003/04/02 13:22:10 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1162,9 +1162,11 @@ create unique index i_docir on doc(initid, revision);";
       
     if ($this->icon != "") {
     
-      ereg ("(.*)\|(.*)", $this->icon, $reg); 
-    
-      $efile="FDL/geticon.php?vaultid=".$reg[2]."&mimetype=".$reg[1];
+      if (ereg ("(.*)\|(.*)", $this->icon, $reg)) {    
+	$efile="FDL/geticon.php?vaultid=".$reg[2]."&mimetype=".$reg[1];
+      } else {
+	$efile=$action->GetImageUrl($this->icon);
+      }
       return $efile;
 
     } else {
@@ -1190,7 +1192,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($this->doctype == "C") { //  a class
       $query = new QueryDb($this->dbaccess,"Doc");
       $tableq=$query->Query(0,0,"LIST",
-			    "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != 'C') AND ((icon is null) OR (icon = '".$this->icon."'))");
+			    "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != 'C') ");
     
 
 

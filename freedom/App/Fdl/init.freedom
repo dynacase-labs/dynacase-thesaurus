@@ -10,6 +10,7 @@ END;0;-1;;;;;;;;;;
 // famille dossier;;;id;class;name;;;;;;;;
 BEGIN;1;dossier;2;Dir;DIR;;;;;;;;
 TYPE;C;;;;;;;;;;;;
+ICON;dossier.gif;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 ATTR;BA_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;
 ATTR;FLD_FR_REST;;Restrictions;N;N;frame;0;F;;;;;
@@ -30,6 +31,7 @@ DOC;2;10;9;import;Documents importés lors d'installation;;;;;;;;
 // famille chemise;;;id;class;name;;;;;;;
 BEGIN;2;chemise;17;;PORTFOLIO;;;;;;;
 TYPE;C;;;;;;;;;;;
+ICON;chemise.gif;;;;;;;;;;;
 METHOD;Method.PortFolio.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ;;;;;;;;;;;;
@@ -41,6 +43,7 @@ END;1;-1;;;;;;;;;;
 // famille cycle;;;id;class;name;;;;;;;
 BEGIN;1;cycle de vie;20;WDoc;WDOC;;;;;;;
 TYPE;C;;;;;;;;;;;
+ICON;cycle.gif;;;;;;;;;;;
 USEFOR;W;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;WF_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;
@@ -51,6 +54,7 @@ END;1;-1;;;;;;;;;;
 // famille mask;;;id;class;name;;;;;;;
 BEGIN;1;masque de saisie;21;;MASK;;;;;;;
 TYPE;C;;;;;;;;;;;
+ICON;masque.gif;;;;;;;;;;;
 METHOD;Method.Mask.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;MSK_FR_REST;;Famille;N;N;frame;0;F;;;;
@@ -64,6 +68,7 @@ END;1;-1;;;;;;;;;;
 // famille dossier;inherit;;id;class;name;;;;;;;
 BEGIN;0;mail;15;;MAIL;;;;;;;
 TYPE;C;;;;;;;;;;;
+ICON;dmail.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;MAIL_FR;;Adresses;N;Y;frame;10;F;;;;
 ATTR;MAIL_FROM;MAIL_FR;de;N;Y;text;20;W;;;;
@@ -77,7 +82,7 @@ END;0;;;;;;;;;;;
 ;;;;;;;;;;;;
 BEGIN;1;recherche;5;DocSearch;SEARCH;;;;;;;
 TYPE;C;;;;;;;;;;;
-;;;;;;;;;;;;
+ICON;search.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;SE_CRIT;;critère;N;N;frame;0;F;;;;
 ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;10;W;;;;
@@ -100,6 +105,7 @@ SEARCH;22;9;les cycles;select * from doc where doctype='W';;;;;;;;
 ;;;;;;;;;;;;
 BEGIN;5;recherche détaillée;16;;DSEARCH;;;;;;;
 TYPE;C;;;;;;;;;;;
+ICON;searchd.gif;;;;;;;;;;;
 METHOD;Method.DetailSearch.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;SE_FR_DETAIL;;Conditions;N;N;frame;0;F;;;;
@@ -132,27 +138,27 @@ END;0;;;;;;;;;;;;
 BEGIN;1;profile de document;3;PDoc;PDOC
 USEFORPROF;;;;;
 TYPE;C;;;;
-;;;;;
+ICON;profil.gif;;;;
 END;1;9;;;
 ;;;;;
 // famille profile dossier;;;;;name
 BEGIN;3;profile de dossier;4;PDir;PDIR
 USEFORPROF;;;;;
 TYPE;C;;;;
-;;;;;
+ICON;profil_dossier.gif;;;;
 END;1;9;;;
 ;;;;;
 // famille profile recherche;;;;;name
 BEGIN;3;profile de recherche;6;PDocSearch;PSEARCH
 USEFORPROF;;;;;
 TYPE;C;;;;
-;;;;;
+ICON;profil_recherche.gif;;;;
 END;1;9;;;
 // famille fichier;;;id;class;name;;;;;;;
 BEGIN;0;fichier;7;;FILE;;;;;;;
 METHOD;Method.DocFile.php;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;
-;;;;;;;;;;;;
+ICON;fichier.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ;;;;;;;;;;;;
 ATTR;FI_FRFILE;;fichier;N;N;frame;;F;;;;
@@ -164,7 +170,7 @@ END;-;9;;;;;;;;;;
 BEGIN;0;image;8;;IMAGE;;;;;;;
 METHOD;Method.DocImg.php;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;
-;;;;;;;;;;;;
+ICON;photo.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ;;;;;;;;;;;;
 ATTR;IMG_FRFILE;;image;N;N;frame;0;F;;;;
