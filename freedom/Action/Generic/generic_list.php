@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Id: generic_list.php,v 1.2 2002/04/17 15:25:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -54,8 +54,10 @@ function generic_list(&$action) {
   $action->lay->Set("nexticon",""); 
   $action->lay->Set("previcon",""); 
 
+  $doc = new Doc($dbaccess,$action->GetParam("DEFAULT_FAMILY"));
   // add filters like view control see DocUser::Control
-    $sqlfilters=array("fromid = ".$action->GetParam("DEFAULT_FAMILY"));
+    $sqlfilters=array("fromid = ".$action->GetParam("DEFAULT_FAMILY"),
+		     $doc->GetSqlViewCond() );
 
 
   if (viewfolder($action, true, false,$slice, $sqlfilters) == $slice) {

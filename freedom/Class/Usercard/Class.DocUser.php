@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.7 2002/04/17 12:50:15 eric Exp $
+// $Id: Class.DocUser.php,v 1.8 2002/04/17 15:25:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.7 2002/04/17 12:50:15 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.8 2002/04/17 15:25:03 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -373,6 +373,15 @@ Class DocUser extends Doc
 
     return "object not initialized : $aclname";
   }
+
+
+  function GetSqlViewCond() {
+    
+    global $action; // necessary to see information about user privilege
+          
+      return "(profid = 0 ) or (owner = ".$action->user->id.")";
+  }
+  
 }
 
 ?>

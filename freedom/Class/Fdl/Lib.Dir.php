@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.8 2002/04/15 07:49:39 eric Exp $
+// $Id: Lib.Dir.php,v 1.9 2002/04/17 15:25:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,37 +50,16 @@ function getFirstDir($dbaccess) {
       if (!($dirid > 0)) return array();   
 
     // search classid and appid to test privilege
-    global $action; // necessary to see information about user privilege
-    $classdirid = $action->parent->GetIdFromName('dir'); 
 
-      $acl=new Acl();
-      if ( ! $acl->Set('view', $classdirid)) {
-	    $this->log->warning("Acl $method not available for App $idclassapp ");    
-	    $err = "Acl $method not available for App $idclassapp ";
-	    $this->coid[$method]=$err; 
-	    return $err;
-      }
 
-    $condfld = "(doc.doctype='D') and ".
-      "hasprivilege(".$action->user->id.",doc.profid,$classdirid,".$acl->id.") and ".
-	"hasprivilege(".$action->user->id.",doc.id,$classdirid,".$acl->id.") ";
+      $docfld = new Dir($dbaccess);
+      $condfld=$docfld->GetSqlViewCond();
 
     if (! $notfldsearch) {
       // include conditions for get search document
-
-      $classsearchid = $action->parent->GetIdFromName('docsearch'); 
-      $aclsearch=new Acl();
-      if ( ! $aclsearch->Set('view', $classsearchid)) {
-	    $this->log->warning("Acl $method not available for App $idclassapp ");    
-	    $err = "Acl $method not available for App $idclassapp ";
-	    $this->coid[$method]=$err; 
-	    return $err;
-      }
-      $condsearch = "(doc.doctype='S') and ".
-      "hasprivilege(".$action->user->id.",doc.profid,$classsearchid,".$aclsearch->id.") and ".
-	"hasprivilege(".$action->user->id.",doc.id,$classsearchid,".$aclsearch->id.") ";
-
-
+      
+      $docse = new DocSearch($dbaccess);
+      $condsearch=$docse->GetSqlViewCond();
       $condfld = "($condfld) OR ($condsearch)";
 
     }
@@ -90,7 +69,6 @@ function getFirstDir($dbaccess) {
     $qsql =  "select doc.* from fld, doc where fld.dirid=$dirid ".
       "and doc.id=fld.childid and ($condfld) ".
 	  "order by doc.title";
-
 
     $query = new QueryDb($dbaccess,"Doc");
     $tableq=$query->Query(0,0,$restype,$qsql);
