@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.23 2004/01/28 08:22:11 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.24 2004/03/01 08:50:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.23 2004/01/28 08:22:11 eric Exp $
+// $Id: freedom_edit.php,v 1.24 2004/03/01 08:50:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -68,12 +68,15 @@ function freedom_edit(&$action) {
     // new document select special classes
     if ($dirid > 0) {
       $dir = new Doc($dbaccess, $dirid);
-      if (method_exists($dir,"getAuthorizedFamilies")) {
+      if (method_exists($dir,"isAuthorized")) {
 
-	$tclassdoc=$dir->getAuthorizedFamilies($classid);
-
-	// verify if classid is possible
-	if (! isset($tclassdoc[$classid])) {
+	
+	if ($dir->isAuthorized($classid)) { 
+	  // verify if classid is possible
+	  if ($dir->norestrict) $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
+	  else $tclassdoc=$dir->getAuthorizedFamilies();
+	} else  {
+	  $tclassdoc=$dir->getAuthorizedFamilies();
 	  $first = current($tclassdoc);
 	  $classid = $first["id"];
 	  setHttpVar("classid",$classid); // propagate to subzones
@@ -184,7 +187,25 @@ function freedom_edit(&$action) {
   uasort($selectclass, "cmpselect");
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);
 
-
+  // control view of special constraint button
+  $action->lay->Set("boverdisplay", "none");
+  
+  if (GetHttpVars("viewconstraint")=="Y") {
+    $action->lay->Set("bconsdisplay", "none");
+    if ($action->user->id==1) $action->lay->Set("boverdisplay", ""); // only admin can do this
+    
+  } else {
+    // verify if at least on attribute constraint
+    
+    $action->lay->Set("bconsdisplay", "none");
+    $listattr = $doc->GetNormalAttributes();
+    foreach ($listattr as $k => $v) {
+      if ($v->phpconstraint != "")  {
+	$action->lay->Set("bconsdisplay", "");
+	break;
+      }
+    }
+  }
  
     
 
