@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.81 2004/11/19 09:55:05 eric Exp $
+ * @version $Id: editutil.php,v 1.82 2004/12/01 15:52:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -49,10 +49,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
   $idisabled = " style=\"background-color:".getParam("CORE_BGCOLORALTERN")."\" disabled readonly title=\""._("read only")."\" ";
   $input="";
 		
-  if (($value == "") && ($docid==0)) {
+  //if (($value == "") && ($docid==0)) {
     // only for create doc because can be a security failure 
+  if ($value == "") 
     $value = GetHttpVars($attrid); 
-  }
+    //
 
   if ($visibility == "H") {
     $input="<input  type=\"hidden\" name=\"".$attrin."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";    
@@ -102,9 +103,10 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
    
 		      
       // input 
-      $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\">";
-      $input .="<input $oc class=\"fullresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_UPL".$attrin."\"";
-      $input .= " id=\"".$attridk."\" "; 
+      $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\" id=\"".$attridk."\">";
+      $input .="<input type=\"hidden\" value=\"".$value."\" id=\"INIV".$attridk."\">";
+      $input .="<input onchange=\"document.isChanged=true;document.getElementById('$attridk').value=(this.value=='')?document.getElementById('INIV$attridk').value:this.value;\" class=\"fullresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_UPL".$attrin."\"";
+      
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " > "; 
       break;
@@ -149,9 +151,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       $input = "<span class=\"FREEDOMText\">".$fname."</span><BR>";
 		      
       // input 
-      $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\">";
-      $input .="<input $oc class=\"\" size=15 type=\"file\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
-      $input .= " id=\"".$attridk."\" "; 
+      $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\" id=\"".$attridk."\">";
+      $input .="<input type=\"hidden\" value=\"".$value."\" id=\"INIV".$attridk."\">";
+
+      $input .="<input onchange=\"document.isChanged=true;document.getElementById('$attridk').value=(this.value=='')?document.getElementById('INIV$attridk').value:this.value;\"  class=\"\" size=15 type=\"file\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " > "; 
       break;
