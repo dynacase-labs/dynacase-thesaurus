@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.12 2005/01/20 11:06:13 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.13 2005/01/26 08:42:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -35,15 +35,20 @@ function printhdiv($hdiv, $hd) {
 }
 
 
-function wgcal_getRessDisplayed(&$action) {
+function wgcal_getRessDisplayed(&$action, $rlist) {
   $r = array();
   $ir = 0;
-  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", ""));
+  if ($rlist=="") {
+    $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", ""));
+  } else {
+    $cals = explode("|", $rlist);
+  }
   while (list($k,$v) = each($cals)) {
     $tc = explode("%", $v);
     if ($tc[0] != "" && $tc[1] == 1) {
       $r[$ir]->id = $tc[0];
-      $r[$ir]->color = $tc[2]; 
+      if ($tc[0] == $action->user->fid) $r[$ir]->color = $action->GetParam("WGCAL_U_MYCOLOR", "black");
+      else $r[$ir]->color = $tc[2]; 
       $ir++;
     }
   }
@@ -81,8 +86,9 @@ function wgcal_calendar(&$action) {
   SetRegisterDate($action, $sdate);
   $sdatef = strftime("%d/%m/%Y", $sdate);
   
-  $ress = wgcal_getRessDisplayed($action);
-  //echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." (".$v->color.") |";
+  $rlist = GetHttpVars("rlist", "");
+  $ress = wgcal_getRessDisplayed($action, $rlist);
+  echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." (".$v->color.") |";
 
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);

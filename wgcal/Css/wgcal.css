@@ -118,6 +118,18 @@ TD {
   background-color : [CORE_BGCOLORALTERN];
 }
 
+.WGCWaitingRv {
+  border : 2px outset red;
+}
+.WGCwrvover {
+  border : 1px outset red;
+  color : red;
+}
+.WGCwrvdefault {
+  border : 1px inset transparent;
+  color : red;
+}
+
 .WGCListRess {
   border : 2px outset [CORE_BGCOLORALTERN];
   background-color : white;

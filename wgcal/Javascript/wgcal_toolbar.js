@@ -1,19 +1,26 @@
-var cp = new ColorPicker();
+var cp = new ColorPicker('window');
 
 var curRessource = -1;
 
 function pickColor(color) {
-  if (curRessource==-1) return;
-  idx = getRessourcePos(curRessource);
-  ressourceList[idx][1] = color;
-  document.getElementById('cp'+curRessource).style.background = color;
-  ressourcesChange = 1;
+  if (curRessource!=-1) {
+    idx = getRessourcePos(curRessource);
+    ressourceList[idx][1] = color;
+    document.getElementById('cp'+curRessource).style.background = color;
+    ressourcesChange = 1;
+    document.getElementById('cp'+curRessource).style.background = color;
+  } else {
+    document.getElementById('cpmycolor').style.background = color;
+    usetparam("WGCAL_U_MYCOLOR", color);
+ }
 }
    
 function showColorPicker(event, id, idress) {
   curRessource = idress;
   cp.show(id);
 }
+
+
 
 var picker = null;
 
@@ -119,12 +126,12 @@ function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate ) {
   document.getElementById('cp'+rid).style.background = rcolor;
 }
 
-function setRessourceState(rid, setStyle, unsetStyle) {
+function setRessourceState(rid, setStyle, unsetStyle, memo) {
   if (rid==-1) {
     alert('[TEXT: invalid ressource id]');
     return;
   }
-  ressourcesChange = 1;
+  if (memo==1) ressourcesChange = 1;
   idx = getRessourcePos(rid);
   if (ressourceList[idx][2] == 1) {
     ressourceList[idx][2] = 0;
@@ -141,19 +148,20 @@ function setRessourceState(rid, setStyle, unsetStyle) {
 function saveRessources() {
   var rlist= "";
   for (i=0; i<ressourceList.length;i++) {
-    if (ressourceList[i][0] != -1 ) rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
+    if (ressourceList[i][0] != -1 ) 
+      rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
   }
-  document.getElementById('savelist').value = rlist;
-  document.getElementById('f_saveress').submit();
+  usetparam("WGCAL_U_RESSDISPLAYED", rlist);
   ressourcesChange = 0;
   return;
 }
 
 function updateCalendar() {
-  if (ressourcesChange == 1) {
-    ok = confirm('[TEXT: ressource list changed, save it ?]');
-    if (ok) saveRessources();
+  var rlist= "";
+  for (i=0; i<ressourceList.length;i++) {
+    if (ressourceList[i][0] != -1 ) rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
   }
+  document.getElementById('rlist').value = rlist;
   document.getElementById('updatecal').submit();
 }
 

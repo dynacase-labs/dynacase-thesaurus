@@ -1,3 +1,3 @@
-// Method.CalEvent.php
 
-//var $defaultedit = "WGCAL:WGCAL_EDITEVENT:S";
+function explodeEvt($d1, $d2) {
+}

@@ -13,8 +13,8 @@ $app_desc= array (
 
 $app_acl = array (
   array ( "name" => "WGCAL_ADMIN", "description" => N_("admin access"), "group_default"  => "N" ),
-  array ( "name" => "WGCAL_USER",  "description" => N_("user access"), "group_default"  => "Y" ),
-  array ( "name" => "WGCAL_NONE",  "description" => N_("no access"), "group_default"  => "N" )
+  array ( "name" => "WGCAL_USER",  "description" => N_("user access"), "group_default"  => "N" ),
+  array ( "name" => "WGCAL_NONE",  "description" => N_("no access"), "group_default"  => "Y" )
 );
 
 
@@ -46,10 +46,7 @@ $action_desc = array (
          "short_name" =>N_("ressource picker : list"), "toc" => "N", "root" =>"N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SELECTRESS", "short_name" =>N_("select ressource for display"), "toc" => "N", "root" =>"N"),
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SAVERESSOURCES", "short_name" =>N_("save ressource selection"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_INITRESSOURCES", "short_name" =>N_("init ressource selection"), "toc" => "N", "root" =>"N"),
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETCALCOLOR", "short_name" =>N_("set color for calendar"), "toc" => "N", "root" =>"N"),
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETRESSDISPLAY", "short_name" =>N_("change display/not displayed ress status"), "toc" => "N", "root" =>"N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_CALENDAR", "short_name" =>N_("calendar view"), "toc" => "N", "root" =>"N"),
 

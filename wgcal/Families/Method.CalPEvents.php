@@ -4,15 +4,15 @@ var $eventAttBeginDate = "CALEV_START";
 var $eventAttEndDate   = "CALEV_END";
 var $eventAttDesc      = "CALEV_TITLE";
 var $eventAttCode      = "RV";
-var $eventRessources   = array("CALEV_ATTID");
-var $eventFamily       = "CALEVENT";
+var $eventFamily       = "EVENT_FROM_CAL";
 
 function postModify() {
+  $err = $this->setEvent(); //modification de l'événement à chaque modification du producteur
   print_r2($this);
-   $this->setEvent(); //modification de l'événement à chaque modification du producteur
+  if ($err!="") print_r2($err);
 }
 
 
-function explodeEvt($d1, $d2) {
-  include_once("FDL/Lib.Util.php");
+function getEventRessources() {
+  return $this->getTValue("CALEV_ATTID", array());
 }

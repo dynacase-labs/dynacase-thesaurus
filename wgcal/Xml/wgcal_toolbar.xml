@@ -13,6 +13,21 @@
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE">
      <input id="toolsvis" name="toolsvis" type="hidden" value="">
 </form>
+
+<!-- Rendez-vous en attente -->
+[BLOCK befWAITRV]<fieldset id='waitrv' class="WGCWaitingRv">
+<legend class="WGCToolTitle" style="cursor:pointer">
+    <img id="iwaitrv" src="WGCAL/Images/waitrv.png" title="[TEXT:waiting rv]" height="20">[TEXT:waiting rv]</legend>[ENDBLOCK befWAITRV]
+[BLOCK WAITRV]
+<div id="wrv[wrvid]" style="cursor:pointer;" title="[wrvfulldescr]"
+     onmouseover="this.className = 'WGCwrvover'"
+     onmouseout="this.className = 'WGCwrvdefault'"
+     class="WGCwrvdefault"
+     onclick="subwindow(300, 500, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[wrvid]');"  >
+ <img id="iwaitrv" src="WGCAL/Images/waitrv.png" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
+[BLOCK aftWAITRV][nop]</fieldset>[ENDBLOCK aftWAITRV]
+
+<br>
  
 <!-- [ ZONE WGCAL:WGCAL_NAVIGATOR ]  -->
 <fieldset id='vinav' class="WGCListRess">
@@ -53,9 +68,10 @@
       <input type="hidden" value="-1" name="sid">
 </form>
 
-<form id="updatecal" target="wgcal_calendar" name="updatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
+<form id="updatecal" target="wgcal_calendar" name="updatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR">
+<input type="hidden" value="" id="rlist" name="rlist">
+</form>
 
-<form id="f_saveress" target="wgcal_hidden" name="saveress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SAVERESSOURCES"><input id="savelist" name="savelist" type="hidden" value=""></form>
 
 <form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 
@@ -64,7 +80,7 @@
     <img id='idimgical' src="WGCAL/Images/wgcal-arrow[RESSLISTico].gif" title="[TEXT:calendar selector]"
          onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
                   resslistVisible = WGCalChangeVisibility(resslistVisible,'vvical');">
-    [TEXT:my calendars]
+    <span onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif'); resslistVisible = WGCalChangeVisibility(resslistVisible,'vvical');">[TEXT:my calendars]</span>
 <img id="resssel" style="cursor:pointer;" onclick="updateCalendar();" height="15"
      src="WGCAL/Images/calendar.gif" title="[TEXT:update calendar]">
 <img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15"
@@ -80,6 +96,21 @@
  
 <table cellspacing="0" cellpadding="0">
 <tbody id="tabress">
+
+<tr style="" id="trressme">
+<td></td>
+<td>&nbsp;&nbsp;</td>
+<td nowrap>
+<span id="[myrid]" width="90%" class="WGCRessSelected"
+    onclick="setRessourceState('[myrid]', 'WGCRessSelected', 'WGCRessDefault', 0);"
+    onmouseover="WGCalChangeClass(event, '[myrid]', 'WGCRessSelected', 'WGCRessOver');" 
+    onmouseout="WGCalChangeClass(event, '[myrid]', 'WGCRessSelected', 'WGCRessDefault');">
+    <img id="im[myrid]" width="20px" height="20px" align="absbottom" src="[myricon]">&nbsp;[myrdesc]</span>
+</td>
+<td>&nbsp;</td>
+<td><span id="cpmycolor" name="cpmycolor" style="background:[myrcolor]; cursor:pointer;border:1px outset grey;" onClick="showColorPicker(event, 'cpmycolor', -1);" title="[TEXT:change my event color]">&nbsp;&nbsp;</span></td>
+</tr>
+
 <tr style="display:none" id="trsample">
 <td> <img style="cursor:pointer;border:0px" height="15"  src="WGCAL/Images/wm-delete.png" 
           onclick="suppress = confirm('[TEXT:supress ressource] %RDESCR%'); if (suppress) deleteRessource('%RID%');" 
@@ -87,14 +118,14 @@
 </td>
 <td>&nbsp;&nbsp;</td>
 <td nowrap>
-<span id="%RID%" width="90%"
-    onclick="setRessourceState('%RID%', 'WGCRessSelected', 'WGCRessDefault');"
+<span id="%RID%" width="90%" 
+    onclick="setRessourceState('%RID%', 'WGCRessSelected', 'WGCRessDefault', 1);"
     onmouseover="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessOver');" 
     onmouseout="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessDefault');">
     <img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%</span>
 </td>
 <td>&nbsp;</td>
-<td><span id="cp%RID%" name="cp%RID%" style="cursor:pointer;border:1px inset grey;" onClick="showColorPicker(event, 'cp%RID%', '%RID%');" title="[TEXT:change color for ressource] %RDESCR%">&nbsp;&nbsp;</span></td>
+<td><span id="cp%RID%" name="cp%RID%" style="cursor:pointer;border:1px outset grey;" onClick="showColorPicker(event, 'cp%RID%', '%RID%');" title="[TEXT:change color for ressource] %RDESCR%">&nbsp;&nbsp;</span></td>
 </tr>
 </tbody>
 </table>
@@ -106,6 +137,7 @@
 </fieldset>
 
 <script type="text/javascript">
+storeRessource('[myrid]', '[myrcolor]', '1', '[myricon]', '[myrdesc]', 'WGCRessSelected');
 [BLOCK L_RESS]
 InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]');[ENDBLOCK L_RESS]
 datePickerVisible = [DATENAV];

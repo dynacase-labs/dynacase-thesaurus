@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.6 2005/01/17 19:07:50 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.7 2005/01/26 08:42:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -32,6 +32,7 @@ function wgcal_toolbar(&$action) {
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
 
+   _waitrv($action);
    _navigator($action);
    _listress($action);
 
@@ -48,6 +49,30 @@ function wgcal_toolbar(&$action) {
      }
    }
 
+}
+
+function _waitrv(&$action) {
+
+  // recherche magique
+
+  $wrv = array( array("id"=>1, "date"=> "lun 12 janvier, 15h00", "title"=>"Revue de spec mairie de cugnaux", "owner"=>"Jean Demars"),
+		array("id"=>2, "date"=> "lun 3 fevrier, 9h00", "title"=>"Avancement d&eacute;veloppement", "owner"=>"Eric Brison") );
+  $action->lay->SetBlockData("WAITRV", null);
+  $action->lay->SetBlockData("befWAITRV", null);
+  $action->lay->SetBlockData("aftWAITRV", null);
+  if (count($wrv)>0) {
+    $t = array();
+    $it=0;
+    foreach ($wrv as $k => $v) {
+      $t[$it]["wrvid"] = $v["id"];
+      $t[$it]["wrvtitle"] = $v["title"];
+      $t[$it]["wrvfulldescr"] = $v["date"]." : ".$v["title"]." (".$v["owner"].")";
+      $it++;
+    }
+    $action->lay->SetBlockData("WAITRV", $t);
+    //   $action->lay->SetBlockData("befWAITRV", array( array( "nop" => "")));
+    //    $action->lay->SetBlockData("aftWAITRV", array( array( "nop" => "")));
+  }
 }
 
 function _navigator(&$action) {
@@ -74,6 +99,12 @@ function _listress(&$action)
   $i = 0;
   $j = 0;
 
+  $rd = new Doc($dbaccess, $action->user->fid);
+  $action->lay->set("myrid", $rd->id);
+  $action->lay->set("myricon", $rd->getIcon());
+  $action->lay->set("myrdesc", $rd->title);
+  $action->lay->set("myrcolor", $action->GetParam("WGCAL_U_MYCOLOR", "black"));
+
   $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
 
   $lress = explode("|", $curress);
@@ -84,12 +115,12 @@ function _listress(&$action)
       $sid = ($tt[1]!="" ? $tt[1] : 0);
       $cid = ($tt[2]!="" ? $tt[2] : "blue");
       $rd = new Doc($dbaccess, $rid);
-      if ($rd->IsAffected()) {
+      if ($rd->IsAffected() && $rd->id != $action->user->fid) {
 	$t[$i]["RID"] = $rd->id;
 	$t[$i]["RDESCR"] = $rd->title;
 	$t[$i]["RICON"] =  $rd->getIcon();
 	$t[$i]["RCOLOR"] = $cid;
-        $t[$i]["RSTATE"] = $sid;
+	$t[$i]["RSTATE"] = $sid;
 	if ($sid==1) $t[$i]["RSTYLE"] = "WGCRessSelected";
 	else $t[$i]["RSTYLE"] = "WGCRessDefault";
 	$i++;

@@ -93,9 +93,16 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
     
   $err = $event->Modify();
- 
-  if ($err!="") AddWarningMsg("$err");
-  else redirect($action, "WGCAL","WGCAL_EDITEVENT&evt=".$event->id);
+//   if ($err!="") AddWarningMsg("$err");
+//   else {
+//     $err = $event->PostModify();
+//     if ($err!="") AddWarningMsg("$err");
+//   }
+  
+  $changed = true;
+  if ($changed) mail_rv($action, $event);
+
+  redirect($action, "WGCAL","WGCAL_EDITEVENT&evt=".$event->id);
 }
 
 function wgcal_getArrayVal($key, $def=null) {
@@ -110,5 +117,60 @@ function date2db($d, $hm = true) {
   $s = strftime($fmt, $d);
   return $s;
 }
+
+
+
+function mail_rv(&$action, $event) {
+
+  $from = $event->getValue("CALEV_OWNER");
+  $mailadd = "";
+  $att = $event->getTValue("CALEV_ATTID", array()); 
+  foreach ($att as $k => $v) {
+    $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
+    $ma = $u->getValue("US_MAIL");
+    if ($ma!="") {
+      print_r2($ma);
+      $mailadd .= ($mailadd==""?"":", ") . $u->getValue("US_FNAME"). " " .$u->getValue("US_LNAME"). " <".$ma.">";
+    }
+  }
+  if ($to=!"") {
+
+    $m = new Layout( "WGCAL/Layout/mail_rv_".$action->GetParam("CORE_LANG", "fr_FR").".xml", 
+		     $action );
+    $m->set("rvowner", $event->getValue("CALEV_OWNER"));
+    $m->set("rvtitle", $event->getValue("CALEV_TITLE"));
+    $m->set("dstart",  $event->getValue("CALEV_START"));
+    $m->set("dstart",  $event->getValue("CALEV_END"));
+    $out = $m->gen();
+    $tmpf = uniqid("/tmp/rv".$doc->id);
+    $fout = fopen($tmpf,"w");
+    fwrite($fout,$out);
+    fclose($fout);
+    
+    $icsf = makeIcsFile($action, $event);
+
+    $subject = "[proposition de rendez-vous | meeting proposal] ".$event->getValue("CALEV_TITLE");
+    $cmd = "metasend  -b -S 4000000 -c '$from' -F '$from' -t '$mailadd' -s \"$subject\"  ";
+    $cmd .= " -m 'text/plain' -e 'quoted-printable' -i event -f '$tmpf' ";
+    $cmd .= " -m 'text/html' -e 'quoted-printable' -i ICS -f '$icsf' ";
+    
+    $cmd = "export LANG=C;".$cmd;
+    echo "<div style=\"background:red\"> $cmd <div>";
+    system ($cmd, $status);
+    unlink($fout);
+    unlink($icsf);
+  }
+}
+
+function makeIcsFile(&$action, $event) {
+  $m = new Layout( "WGCAL/Layout/event.ics", $action );
+  $tmpf = uniqid("/tmp/event".$doc->id.".ics");
+  $fout = fopen($tmpf,"w");
+  $out = $m->gen();
+  fwrite($fout,$out);
+  fclose($fout);
+  return $tmpf;
+}
+
 
 ?>

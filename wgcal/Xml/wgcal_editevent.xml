@@ -1,6 +1,6 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="eventid" name="eventid" value="[EVENTID]"> </form>
-<form id="editevent" name="editevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
+<form id="editevent" name="editevent" method="POST" target="wgcal_hiddenX" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 <input type="hidden" id="ownerid" name="ownerid" value="[ownerid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
