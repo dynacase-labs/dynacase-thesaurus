@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.29 2003/05/15 13:48:08 eric Exp $
+// $Id: editutil.php,v 1.30 2003/05/19 10:42:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -278,7 +278,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       $input .= " >&nbsp;"; 
       if (!(($visibility == "R")||($visibility == "S"))) {
 	$input.="<input type=\"button\" value=\"&#133;\"".
-	  " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attrid."')\"".
+	  " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attridk."')\"".
 	  ">";
       }
       break;      
