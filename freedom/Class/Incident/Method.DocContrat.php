@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocContrat.php,v 1.7 2004/01/15 10:10:12 eric Exp $
+ * @version $Id: Method.DocContrat.php,v 1.8 2004/01/16 09:20:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocContrat.php,v 1.7 2004/01/15 10:10:12 eric Exp $
+// $Id: Method.DocContrat.php,v 1.8 2004/01/16 09:20:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocContrat.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,19 +96,22 @@ function setCallerPhone() {
   $tcsite = $this->getTvalue("CO_CSITES");
   $tcphone = $this->getTvalue("CO_CPHONE");
   $tcmail = $this->getTvalue("CO_CMAIL");
-  while (list($k,$v) = each($tproduct)) {
+  $tcname = $this->getTvalue("CO_CALLER");
+  foreach($tproduct as $k=>$v) {
     $prodoc = getTDoc($this->dbaccess, $v);
     if ($prodoc) {
        $tcidsite[$k]=getv($prodoc,"us_idsociety");
        $tcsite[$k]=getv($prodoc,"us_society");
        $tcphone[$k]=getv($prodoc,"us_phone");
        $tcmail[$k]=getv($prodoc,"us_mail");
+       $tcname[$k]=getv($prodoc,"title");
     } 
   }
   $this->setValue("CO_CPHONE",$tcphone);
   $this->setValue("CO_CSITES",$tcsite);
   $this->setValue("CO_CMAIL",$tcmail);
   $this->setValue("CO_IDCSITES",$tcidsite);
+  $this->setValue("CO_CALLER",$tcname);
 }
 	
 function setProductContract() {
