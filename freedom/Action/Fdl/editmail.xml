@@ -43,11 +43,11 @@
        class="fborder" 
        name="modifydoc" 
        method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=N&props=N&id=[mid]" >
+       action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&props=N&id=[mid]" >
 
 <input type="hidden" name="zone" value="[mzone]">
-<input type="hidden" name="szone" value="[szone]">
 <input type="hidden" name="dochead" value="[dochead]">
+<input type="hidden" name="ulink" value="[ulink]">
 
 <table class="tableborder"  cellspacing="0" width="100%">
 <thead>
@@ -86,7 +86,7 @@
 <!--  FOOT HTML -->
 
 
-<iframe width="100%" src="[CORE_STANDURL]&app=FDL&action=FDL_CARD&dochead=[dochead]&zone=[mzone]&szone=[szone]&id=[mid]"></iframe>
+<iframe width="100%" src="[CORE_STANDURL]&app=FDL&action=MAILCARD&viewonly=Y&ulink=[ulink]&dochead=[dochead]&zone=[mzone]&id=[mid]"></iframe>
 
 
 </body>

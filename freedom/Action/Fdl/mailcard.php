@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.23 2003/03/11 17:12:37 eric Exp $
+// $Id: mailcard.php,v 1.24 2003/03/21 17:57:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,7 @@ function sendmailcard(&$action) {
 		  GetHttpVars("_mail_cc",""),
 		  GetHttpVars("_mail_subject"),
 		  GetHttpVars("zone"),
-		  GetHttpVars("szone","N")=="Y",
+		  GetHttpVars("ulink","N")=="Y",
 		  GetHttpVars("_mail_cm",""),
 		  GetHttpVars("_mail_from",""), 
 		  GetHttpVars("_mail_bcc",""), 
@@ -61,12 +61,14 @@ function sendCard(&$action,
 		  $docid,
 		  $to,$cc,$subject,
 		  $zonebodycard, // define mail layout
-		  $szone=false,// the zonebodycard is a standalone zone ?
+		  $ulink=false,// the zonebodycard is a standalone zone ?
 		  $comment="",
 		  $from="",
 		  $bcc="",
 		  $format="html"// define view action
 		  ) {
+  // -----------------------------------
+  $viewonly=  (GetHttpVars("viewonly","N")=="Y");
   // -----------------------------------
   global $ifiles;
   global $vf; 
@@ -86,7 +88,8 @@ function sendCard(&$action,
   $title = str_replace(array(" ","/"), "_",$doc->title);
   $vf = new VaultFile($dbaccess, "FREEDOM");
   $pubdir = $action->getParam("CORE_PUBDIR");
-
+  $szone=false;
+  
 
   if ($bcc != "") $bcc = "\\nBcc:$bcc";
   
@@ -109,14 +112,20 @@ function sendCard(&$action,
   }
   $layout="maildoc.xml"; // the default
  
+  if ($zonebodycard == "") $zonebodycard=$doc->defaultmview;
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
   if ($zonebodycard == "") $zonebodycard="FDL:VIEWCARD";
+
+
+  if (ereg("[A-Z]+:[^:]+:S", $zonebodycard, $reg))  $szone=true;// the zonebodycard is a standalone zone ?
+  if (ereg("[A-Z]+:[^:]+:T", $zonebodycard, $reg))  setHttpVar("dochead","N");// the zonebodycard without head ?
+
   if (ereg("html",$format, $reg)) {
     // ---------------------------
     if ($szone) {
 
      
-      $sgen = $doc->viewDoc($zonebodycard,"mail",false);
+      $sgen = $doc->viewDoc($zonebodycard,"mail",$ulink);
 
       if ($comment != "") {
 	$comment= nl2br($comment);
@@ -144,6 +153,7 @@ function sendCard(&$action,
 
       $sgen = $docmail->gen();
     }
+    if ($viewonly) {echo $sgen;exit;}
     $sgen = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
 			 "srcfile('\\1')",
 			 $sgen);

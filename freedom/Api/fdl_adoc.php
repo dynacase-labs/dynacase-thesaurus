@@ -50,7 +50,7 @@ if ($query->nb > 0)	{
     print $msg;
     if ($v["usefor"] == "W") { // add special attribute for workflow
       $wdoc= createDoc($dbaccess,$v["id"]);
-      $wdoc->CreateProfileAttribute();
+            $wdoc->CreateProfileAttribute();
     }
     
   }	 

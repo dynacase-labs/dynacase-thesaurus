@@ -19,14 +19,14 @@
 
  </head>
 
-<body class="freedom"  >
+<body class="freedom"   >
 
 [BLOCK COMMENT]
 <P>[comment]</P>
 <HR>
 [ENDBLOCK COMMENT]
-
+<div width="100%" class="tablesimple">
 [ZONE FDL:VIEWCARD]
-
+</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.42 2003/03/17 12:04:32 eric Exp $
+// $Id: import_file.php,v 1.43 2003/03/21 17:57:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -213,7 +213,7 @@ function add_import_file(&$action, $fimport="") {
       $oattr->type = $data[6];
 
       $oattr->ordered = $data[7];
-      $oattr->visibility = ($oattr->type=="frame")?"F":$data[8];
+      $oattr->visibility = ($oattr->type=="frame")&&($data[8]!="H")&&($data[8]!="R")?"F":$data[8];
       $oattr->needed =  ($data[9]=="Y")?"Y":"N";
       $oattr->link = $data[10];
       $oattr->phpfile = $data[11];

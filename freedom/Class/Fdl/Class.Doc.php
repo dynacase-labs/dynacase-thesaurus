@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.100 2003/03/20 10:23:09 eric Exp $
+// $Id: Class.Doc.php,v 1.101 2003/03/21 17:57:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.100 2003/03/20 10:23:09 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.101 2003/03/21 17:57:58 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -113,6 +113,7 @@ create unique index i_docir on doc(initid, revision);";
   var $defaultview= "FDL:VIEWBODYCARD";
   var $defaultedit = "FDL:EDITBODYCARD";
   var $defaultabstract = "FDL:VIEWABSTRACTCARD";
+  var $defaultmview = ""; // for email : the same as $defaultview by default
  
 
   // --------------------------------------------------------------------
@@ -1291,16 +1292,6 @@ create unique index i_docir on doc(initid, revision);";
 	      
 	      
 	break;
-      case "url": 
-	$htmlval="<A target=\"_blank\" href=\"". 
-	  htmlentities($value)."\">".$value.
-	  "</A>";
-	break;
-      case "mail": 
-	$htmlval="<A href=\"mailto:". 
-	  htmlentities($value)."\">".$value.
-	  "</A>";
-	break;
       case "file": 
 	if (ereg ("(.*)\|(.*)", $value, $reg)) {
 	  // reg[1] is mime type
@@ -1388,9 +1379,15 @@ create unique index i_docir on doc(initid, revision);";
     // add link if needed
     if ($htmllink && ($oattr->link != "") && 
 	($ulink = $this->urlWhatEncode( $oattr->link))) {
-      $abegin="<A target=\"$target\" onclick=\"document.noselect=true;\" href=\"";
-      $abegin.= $ulink;
-      $abegin.="\">";
+      if ($target == "mail") {
+	$abegin="<A target=\"$target\"  href=\"";
+	$abegin.= $action->GetParam("CORE_PUBURL")."/".$ulink;
+	$abegin.="\">";
+      } else {
+	$abegin="<A target=\"$target\" onclick=\"document.noselect=true;\" href=\"";
+	$abegin.= $ulink;
+	$abegin.="\">";
+      }
       $aend="</A>";
     } else {
       $abegin="";
@@ -1466,7 +1463,7 @@ create unique index i_docir on doc(initid, revision);";
     global $action;
 
 
-    if (! ereg("([A-Z]*):(.*)", $layout, $reg)) 
+    if (! ereg("([A-Z]+):([^:]+):{0,1}[S]{0,1}", $layout, $reg)) 
       $action->exitError(sprintf(_("error in pzone format %s"),$layout));
      
   
@@ -1484,7 +1481,12 @@ create unique index i_docir on doc(initid, revision);";
 
     if (! $ulink) {
       // suppress href attributes
-      return preg_replace("/href=\"[^\"]*\"/i", "" ,$this->lay->gen() );
+      return preg_replace(array("/href=\"[^\"]*\"/i", "/onclick=\"[^\"]*\"/i"), 
+			  array("","") ,$this->lay->gen() );
+    }
+    if ($target=="mail") {
+      // suppress session id
+      return preg_replace("/\?session=[^&]*&/", "?" ,$this->lay->gen() );
     }
     return $this->lay->gen();
   }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.10 2003/02/25 09:54:48 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.11 2003/03/21 17:57:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.10 2003/02/25 09:54:48 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.11 2003/03/21 17:57:58 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -162,7 +162,7 @@ Class WDocIncident extends WDoc
 
       $this->sendOfficialMail(
 			  sprintf(_("[%s] incident registration"), $this->doc->initid), 
-			  "INCIDENT:INCIDENT_MAILRECORD");
+			  "INCIDENT:INCIDENT_MAILRECORD:S");
     break;
 
     case qualified:
@@ -184,7 +184,7 @@ Class WDocIncident extends WDoc
       // send traited mail to clients
       $this->sendOfficialMail(
 			      sprintf(_("[%s] incident traited"), $this->doc->initid), 
-			      "INCIDENT:INCIDENT_MAILTRAITED");
+			      "INCIDENT:INCIDENT_MAILTRAITED:S");
 
       
     break;

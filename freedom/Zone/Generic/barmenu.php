@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.6 2003/03/05 16:49:28 eric Exp $
+// $Id: barmenu.php,v 1.7 2003/03/21 17:57:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,7 +56,7 @@ function barmenu(&$action) {
   $action->lay->SetBlockData("NEWFAM", $tchild);
   $action->lay->Set("ftitle", $fdoc->title);
 
-  $action->lay->Set("idfamuser", $famid);
+  $action->lay->Set("famid", $famid);
 
 
   include_once("FDL/popup_util.php");
@@ -73,6 +73,7 @@ function barmenu(&$action) {
 		     "vkind"=>"kind".$a->id);
       $tvkind=array();
       $tmkind=array($a->id."00");
+      $tmkind[]=$a->id."kedit";
       while (list($kk,$ki) = each($a->enum)) {
 	$tvkind[]=array("ktitle" => strstr($ki, '/')?strstr($ki, '/'):$ki,
 			"level" =>  substr_count($kk, '.')*20,
@@ -86,6 +87,8 @@ function barmenu(&$action) {
       while (list($km,$vid) = each($tmkind)) {
 	popupActive($a->id."menu",1,$vid); 
       }
+
+      if (! $action->HasPermission("GENERIC_MASTER")) popupInvisible($a->id."menu",1,$a->id."kedit");
     }
 
   }

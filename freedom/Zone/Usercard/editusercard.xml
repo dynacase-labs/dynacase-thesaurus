@@ -1,9 +1,9 @@
 
-<tbody>
-<tr><td colspan="3" ><table width="100%">
-[ZONE FDL:EDITCARD?zone=FDL:EDITBODYCARD]
-</table></td></tr>
 
+[ZONE FDL:EDITCARD?zone=FDL:EDITBODYCARD]
+
+
+<table width="100%" cellspacing="0">
 <tr class="FREEDOMBack1">
   <td colspan="2" >
   [TEXT:confidentiality] :
@@ -20,3 +20,4 @@
 
 
 </tbody>
+</table>

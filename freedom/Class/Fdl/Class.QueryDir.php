@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.10 2002/11/22 18:08:22 eric Exp $
+// $Id: Class.QueryDir.php,v 1.11 2003/03/21 17:57:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.10 2002/11/22 18:08:22 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.11 2003/03/21 17:57:58 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -60,22 +60,21 @@ create sequence seq_id_fld start 100";
     // --------------------------------------------------------------------
     {
       // test if not already exist 
-      $query = new QueryDb($this->dbaccess,"QueryDir");
-      $query->AddQuery("dirid=".$this->dirid);
-      $query->AddQuery("childid='".$this->childid."'");
-      $query->Query(0,0,"TABLE");
-      if ($query->nb != 0) return _("already exist : not added");
-	// compute new id
-	if ($this->id == "") {
-	  $res = pg_exec($this->dbid, "select nextval ('seq_id_fld')");
-	  $arr = pg_fetch_array ($res, 0);
-	  $this->id = $arr[0];
+      if ($this->qtype != "M") {
+	$query = new QueryDb($this->dbaccess,"QueryDir");
+	$query->AddQuery("dirid=".$this->dirid);
+	$query->AddQuery("childid='".$this->childid."'");
+	$query->Query(0,0,"TABLE");
+	if ($query->nb != 0) return _("already exist : not added");
+      }
+      // compute new id
+      if ($this->id == "") {
+	$res = pg_exec($this->dbid, "select nextval ('seq_id_fld')");
+	$arr = pg_fetch_array ($res, 0);
+	$this->id = $arr[0];
 	  
-	}
+      }
     }
  
- 
-
-
 }
 ?>
