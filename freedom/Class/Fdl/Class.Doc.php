@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.218 2004/10/08 07:44:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.219 2004/10/11 12:07:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1450,8 +1450,11 @@ create unique index i_docir on doc(initid, revision);";
       if ($oattr->mvisibility=="I") return sprintf(_("no permission to modify this attribute %s"),$attrid);
       if ($value == " ") {
 	$value=""; // erase value
-	$this->hasChanged=true;
-	$this->$attrid="";
+	if  ($this->$attrid != "") {
+	  $this->hasChanged=true;
+	  //print "change by delete $attrid  <BR>";
+	  $this->$attrid="";
+	}
       } else {
 
 	$value=trim($value," \x0B\r");// suppress white spaces end & begin
@@ -1459,7 +1462,7 @@ create unique index i_docir on doc(initid, revision);";
 
 	if  ($this->$attrid != $value) 	  {
 	  $this->hasChanged=true;
-	  //   print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
+	  //print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
 	
 	}
 
