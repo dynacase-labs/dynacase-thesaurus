@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.44 2003/12/30 10:12:57 eric Exp $
+ * @version $Id: freedom_util.php,v 1.45 2004/01/14 14:20:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.44 2003/12/30 10:12:57 eric Exp $
+// $Id: freedom_util.php,v 1.45 2004/01/14 14:20:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -251,20 +251,7 @@ function getTDoc($dbaccess, $id) {
 
     return $arr;
   }
-  return false;
-  $q = new QueryDb($dbaccess, "Doc");
-  $q->AddQuery("id=$id");
-  $ql=$q->Query(0,0,"TABLE");
-
-  if ($q->nb == 1) {
-//     $attrs = explode("£",$ql[0]["attrids"]);
-//     $vals = explode("£",$ql[0]["values"]);
-//     while(list($k,$v) = each($attrs)) {
-//       $ql[0][$v]=$vals[$k];
-//     }
-    return $ql[0];
-  }
-  
+  return false;  
 } 
 /**
  * return the value of an array item
@@ -377,6 +364,33 @@ function ComputeVisibility($vis, $fvis) {
 
 }
 
+/**
+ * return doc array of latest revision of initid
+ *
+ * @param string $dbaccess database specification
+ * @param string $initid initial identificator of the  document 
+ * @return array values array if found. False if initid not avalaible
+ */
+function getLatestTDoc($dbaccess, $initid) {
+
+  if (!($initid > 0)) return false;
+  $dbid=getDbid($dbaccess);   
+  $table="doc";
+  $fromid= getFromId($dbaccess, $initid);
+  if ($fromid > 0) $table="doc$fromid";
+  else if ($fromid == -1) $table="docfam";
+    
+
+  $result = pg_exec($dbid,"select * from only $table where initid=$initid and locked != -1;");
+  if (pg_numrows ($result) > 0) {
+    $arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
+
+    return $arr;
+  }
+  return false;  
+} 
+
+//============================== XML =======================
 
 function fromxml($xml,&$idoc){
   global $action;
