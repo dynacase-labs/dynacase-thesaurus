@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.44 2005/02/18 17:06:30 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.45 2005/03/01 17:18:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -122,16 +122,19 @@ function AttrToPhp($dbaccess, $tdoc) {
 	if (substr($v->phpfunc,0,2)=="::") {
 	  if (ereg("::([^\(]+)\(([^\)]*)\)[:]{0,1}(.*)",$v->phpfunc, $reg)) {
 	    $iattr = explode(",",$reg[2]);
+	    $iattr2 = $iattr;
 	    $tiattr=array();
 	    while(list($ka,$va) = each($iattr))   {
 	      $tiattr[]= array("niarg"=>trim($va));
+	      if ($va[0] == "'") unset($iattr2[$ka]); // not really attribute
+	      
 	    }
 	    
 	    $phpAdoc->SetBlockData("biattr".$v->id, $tiattr);
 	    $tcattr[]=array("method"=>$reg[1],
 			    "biattr"=>"biattr".$v->id,
 			    "rarg"=>($reg[3]=="")?$v->id:trim($reg[3]),
-			    "niargs"=>implode(",",$iattr));
+			    "niargs"=>implode(",",$iattr2));
 	  }
 	}
 	
