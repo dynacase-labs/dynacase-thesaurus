@@ -309,7 +309,7 @@ ATTR;PIT_IDADOC;PIT_FR_DOC;id doc attaché;N;N;docid;80;H;;;;::getTitle(PIT_IDADO
 ATTR;PIT_ADOC;PIT_FR_DOC;doc attaché;N;N;text;90;R;;%S%app=FDL&action=FDL_CARD&id=%PIT_IDADOC%;;;
 ATTR;PIT_VIEWDOC;;voir le document associé;N;N;menu;100;M;;%S%app=FDL&action=FDL_CARD&id=%PIT_IDADOC%;;;
 ;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
+DEFAULT;PIT_DATE;::getDate();;;;;;;;;;;
+DEFAULT;PIT_IDUSER;::userDocId();;;;;;;;;;;
+DEFAULT;PIT_COLOR;#FFFFCC;;;;;;;;;;;
 END;;;;;;;;;;;;;
