@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.36 2004/12/28 17:14:37 eric Exp $
+ * @version $Id: FDL_external.php,v 1.37 2005/01/18 18:16:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -96,7 +96,7 @@ function lfamilies($dbaccess, $name='',$subfam="") {
   global $action;
   
   if ($subfam=="") {
-    $tinter = GetClassesDoc($dbaccess, $action->user->id,"TABLE");
+    $tinter = GetClassesDoc($dbaccess, $action->user->id,0,"TABLE");
   } else {
     if (! is_numeric($subfam)) $subfam=getFamIdFromName($dbaccess,$subfam);
     $cdoc = new Doc($dbaccess,$subfam);
