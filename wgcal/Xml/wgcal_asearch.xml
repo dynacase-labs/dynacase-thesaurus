@@ -1,0 +1,11 @@
+<html>
+<head>
+<title>[TEXT:freedom groupware calendar]</title>
+</head>
+
+<frameset name="wgcal" id="wgcal" frameborder="2" framespacing="0" border="0" rows="50pt,*">
+    <frame name="wgcal_asearchquery"  src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_ASEARCHQUERY" scrolling="no">
+    <frame name="wgcal_asearchresult" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_HIDDEN" scrolling="needed">
+</frameset>
+
+</html>

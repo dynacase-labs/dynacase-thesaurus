@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.15 2005/02/01 14:07:00 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.16 2005/02/01 15:09:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -22,8 +22,7 @@ function wgcal_editevent(&$action) {
   $db = $action->getParam("FREEDOM_DB");
 
   $fq = getIdFromName($dbaccess, "WG_DISPONIBILITY");
-  echo "fq = $fq<br>";
-  $action->lay->set("idq", 1041);
+  $action->lay->set("idq", $fq);
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");

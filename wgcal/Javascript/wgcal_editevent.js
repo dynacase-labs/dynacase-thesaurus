@@ -294,6 +294,5 @@ function viewattdispo() {
   var td = new Date(rvs*1000);
   js.value = cal_to_jd( "CE", td.getFullYear(), td.getMonth()+1, td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
   je.value = parseFloat(js.value) + 14.0;
-  alert(' rvs = '+rvs+'  sdate=['+js.value+']  edate=['+je.value+']');
   f.submit();
 }

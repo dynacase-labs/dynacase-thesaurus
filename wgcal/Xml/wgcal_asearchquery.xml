@@ -1,0 +1,52 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+<form id="asearch" name="asearch" target="wgcal_asearchresult"  method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH">
+<table width="100%" style="margin: 0em;" cellspacing="0" cellpadding="0">
+<tr><td>
+<input type="hidden" id="searchdstart" name="searchdstart" value="[dstart]">
+<script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField   : "searchdstart",        
+      displayArea  : "Trvstart",        
+      ifFormat     : "%s",   
+      daFormat     : "[dateformat]",
+      showsTime    : false,
+      button       : "Brvstart",
+      date         : new Date([mdstart]),
+      weekNumbers  : false,
+      firstDay     : 1
+    }
+  );
+</script>
+<input type="hidden" id="searchdend" name="searchdend" value="-1">
+<script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField   : "searchdend",        
+      displayArea  : "Trvend",        
+      ifFormat     : "%s",   
+      daFormat     : "[dateformat]",
+      showsTime    : false,
+      button       : "Brvend",
+      date         : new Date([mdend]),
+      weekNumbers  : false,
+      firstDay     : 1
+    }
+  );
+</script>
+[TEXT:search phrase] : <input type="text" size="40" id="searchphrase" name="searchphrase" type="hidden" value=""><br>
+[TEXT:between] : <span id="Trvstart">[rdstart]</span>
+<img style="cursor:pointer" id="Brvstart"  title="[TEXT:start date]" src="WGCAL/Images/cal-other.gif" height="15" >
+ [TEXT:and] <span id="Trvend">[rdend]</span>
+<img style="cursor:pointer" id="Brvend"  title="[TEXT:end date]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;
+[TEXT:status] : <select id="rvstatus" name="rvstatus"><option value="-1" selected>[TEXT:all state][BLOCK RVSTATUS]<option value="[value]">[descr][ENDBLOCK RVSTATUS]</select>
+</td>
+<td>
+<img src="WGCAL/Images/wgcal-search+.png" 
+  height="20" title="[TEXT:search]" class="WGCalButton" style="border:0px" onclick="document.getElementById('asearch').submit();">
+</td></tr>
+</table>
+</form>
+
+
+[ZONE WGCAL:WGCAL_HTMLFOOT]

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.17 2005/02/01 14:07:00 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.18 2005/02/01 15:09:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -169,7 +169,7 @@ function wgcal_calendar(&$action) {
 	if ($h==($hstart-1)) $tcell[$itc]["nh"] = 1;
 	else $tcell[$itc]["nh"] = 0;
 	$tcell[$itc]["times"] = d2s($firstWeekDay+($id*SEC_PER_DAY)+($h*SEC_PER_HOUR)+ ($hd*$mdiv), "%s");
-	$tcell[$itc]["timee"] = $tcell[$itc]["times"] + (($hd==0?1:$hd) * $mdiv) - 1;
+	$tcell[$itc]["timee"] = $tcell[$itc]["times"] + (($hd==0?1:$hd) * $mdiv);
 	$tcell[$itc]["rtime"] = d2s($firstWeekDay+($id*SEC_PER_DAY), "%a %d %B %Y, ");
 	$tcell[$itc]["rtime"] .= d2s($tcell[$itc]["times"],"%H:%M")." - ";
 	$tcell[$itc]["rtime"] .= d2s($tcell[$itc]["timee"],"%H:%M");
