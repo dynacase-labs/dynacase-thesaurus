@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.10 2003/02/05 17:04:21 eric Exp $
+// $Id: defattr.php,v 1.11 2003/03/24 16:59:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -248,6 +248,12 @@ function defattr(&$action)
     $newelem[$k]["neweltid"]=$k;
     $newelem[$k]["attrname"]="";
     $newelem[$k]["disabledid"]="";
+    $newelem[$k]["typevalue"]="";
+    $newelem[$k]["visibility"]="W";
+    $newelem[$k]["link"]="W";
+    $newelem[$k]["elink"]="";
+    $newelem[$k]["phpfile"]="";
+    $newelem[$k]["phpfunc"]="";
     $newelem[$k]["order"]="";
     $newelem[$k]["attrid"]="";
     $newelem[$k]["SELECTOPTION"]="SELECTOPTION_$k";

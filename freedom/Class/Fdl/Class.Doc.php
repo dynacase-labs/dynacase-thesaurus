@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.102 2003/03/24 16:17:48 eric Exp $
+// $Id: Class.Doc.php,v 1.103 2003/03/24 16:59:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.102 2003/03/24 16:17:48 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.103 2003/03/24 16:59:01 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -246,6 +246,7 @@ create unique index i_docir on doc(initid, revision);";
 
   // get current sequence number :: numbre of doc for this family
   function getCurSequence() {
+    if ($this->doctype=='C') return 0;
     // cannot use currval if nextval is not use before
     $res = pg_exec($this->init_dbid(), "select nextval ('seq_doc".$this->fromid."')");
     $arr = pg_fetch_array ($res, 0);
@@ -258,7 +259,7 @@ create unique index i_docir on doc(initid, revision);";
   // set next sequence family
   function nextSequence($fromid=0) {
     if ($fromid==0) $fromid=$this->fromid;
-
+    if ($this->doctype=='C') return 0;
     // cannot use currval if nextval is not use before
     $res = pg_exec($this->init_dbid(), "select nextval ('seq_doc".$fromid."')");   
     $arr = pg_fetch_array ($res, 0);
