@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.33 2005/04/04 15:51:30 eric Exp $
+ * @version $Id: generic_edit.php,v 1.34 2005/04/04 15:56:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -89,7 +89,7 @@ function generic_edit(&$action) {
   if ($zonebodycard == "") $zonebodycard = $doc->defaultedit;
   $action->lay->Set("HEAD", (! ereg("[A-Z]+:[^:]+:[T|S|U]", $zonebodycard, $reg)));
   $action->lay->Set("FOOT", (! ereg("[A-Z]+:[^:]+:[S|U]", $zonebodycard, $reg)));
-  $action->lay->Set("NOFORM", (! ereg("[A-Z]+:[^:]+:U", $zonebodycard, $reg)));
+  $action->lay->Set("NOFORM", (ereg("[A-Z]+:[^:]+:U", $zonebodycard, $reg)));
 
   $action->lay->Set("iconsrc", $doc->geticon());
   
