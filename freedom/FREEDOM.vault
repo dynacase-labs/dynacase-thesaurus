@@ -1,11 +1,11 @@
 <?php
 // Vault Sample definition
 
-$chrono = TRUE;
+$chrono = FALSE;
 
 // Vault username and group 
-$u_owner = "nobody";
-$g_owner = "nobody";
+$u_owner = "http";
+$g_owner = "http";
 
 // Vault file & directory mode
 $f_mode = 0600;
@@ -30,14 +30,7 @@ $fs = array (
                 "subdir_cnt_bydir" => 2,
                 "subdir_deep" => 1,
                 "max_entries_by_dir" => 100,
-                "r_path" => "/share/freedom/fs1"
-             ),
-         "FS2" =>  array (
-                "max_size" => "200000000",
-                "subdir_cnt_bydir" => 2,
-                "subdir_deep" => 1,
-                "max_entries_by_dir" => 110,
-                "r_path" => "/share/freedom/fs2"
+                "r_path" => "/var/freedom/fs1"
              )
          );
 	

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.37 2003/03/05 16:49:28 eric Exp $
+// $Id: viewfolder.php,v 1.38 2003/03/06 18:41:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,6 @@ include_once("FDL/Class.DocAttr.php");
 include_once("FDL/Class.DocValue.php");
 include_once("FDL/freedom_util.php");
 include_once("FDL/Class.QueryDir.php");
-include_once("FDL/viewabstractcard.php");
 
 // -----------------------------------
 // -----------------------------------

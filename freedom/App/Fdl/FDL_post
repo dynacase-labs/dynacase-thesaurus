@@ -9,8 +9,12 @@ if [ "$1" = "I" ] ; then
 
   echo "Create freedom database"
   su - postgres -c "createdb --encoding LATIN1 freedom" 2>&1 >>/dev/null
-  echo "Add plpgsql language"
-  su - postgres -c "createlang --dbname=freedom --pglib=/usr/lib/pgsql plpgsql" 2>&1 >>/dev/null
+  log "Add plpgsql language"
+  if [ -f /usr/lib/pgsql/plpgsql.so ]; then
+      su - postgres -c "createlang --dbname=freedom --pglib=/usr/lib/pgsql plpgsql" 2>&1 >>/dev/null
+  else
+      su - postgres -c "createlang --dbname=freedom --pglib=/usr/lib/postgresql plpgsql" 2>&1 >>/dev/null
+  fi
   
   su - postgres -c "psql freedom anakeen -f /home/httpd/what/WHAT/getprivilege.sql"
   su - postgres -c "psql freedom anakeen -f /home/httpd/what/FDL/fdl.sql"
