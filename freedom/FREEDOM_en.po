@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-09 14:49+0000\n"
+"POT-Creation-Date: 2004-08-10 07:33+0000\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -644,8 +644,9 @@ msgstr "Update LDAP server"
 msgid "and add in %s folder "
 msgstr ""
 
-msgid "locked files of "
-msgstr ""
+#, fuzzy
+msgid "locked document of "
+msgstr "Import"
 
 #, c-format
 msgid "basket of %s"
@@ -677,6 +678,86 @@ msgstr ""
 #, c-format
 msgid "Delete %d in %s folder"
 msgstr ""
+
+msgid "uncomplete request"
+msgstr ""
+
+msgid "request not found"
+msgstr ""
+
+msgid "locked files of "
+msgstr ""
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+#, fuzzy
+msgid "no filename"
+msgstr "Firstname"
+
+#, c-format
+msgid "parameters for %s state"
+msgstr ""
+
+#, c-format
+msgid "id %s profile"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s profile"
+msgstr "Category"
+
+#, c-format
+msgid "id %s mask"
+msgstr ""
+
+#, c-format
+msgid "%s mask"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr ""
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state : %s to %s"
+msgstr "Category"
+
+#, c-format
+msgid "%s new state %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr "Category"
 
 #, fuzzy, c-format
 msgid "untitle %s %d"
@@ -755,10 +836,6 @@ msgstr ""
 msgid "vault file error"
 msgstr ""
 
-#, fuzzy
-msgid "no filename"
-msgstr "Firstname"
-
 #, c-format
 msgid "cannot control : object not initialized : %s"
 msgstr ""
@@ -770,79 +847,6 @@ msgstr ""
 #, c-format
 msgid "new %s"
 msgstr ""
-
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
-#, c-format
-msgid "parameters for %s state"
-msgstr ""
-
-#, c-format
-msgid "id %s profile"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s profile"
-msgstr "Category"
-
-#, c-format
-msgid "id %s mask"
-msgstr ""
-
-#, c-format
-msgid "%s mask"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr ""
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state : %s to %s"
-msgstr "Category"
-
-#, c-format
-msgid "%s new state %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr "Category"
 
 msgid "not perm for admin"
 msgstr ""
@@ -952,6 +956,17 @@ msgstr ""
 msgid "the date %s is in the past: today is %s"
 msgstr ""
 
+msgid "errldapadd"
+msgstr ""
+"Card is not modify in LDAP server : one of this attribute is not appropriate"
+
+msgid "errldapconnect"
+msgstr "LDAP server cannot be contacted"
+
+#, fuzzy
+msgid "errldaporginit"
+msgstr "LDAP server cannot be contacted"
+
 msgid "user is desactivated"
 msgstr ""
 
@@ -974,17 +989,6 @@ msgstr ""
 
 msgid "Expiration delay must not be 0 to keep expiration date"
 msgstr ""
-
-msgid "errldapadd"
-msgstr ""
-"Card is not modify in LDAP server : one of this attribute is not appropriate"
-
-msgid "errldapconnect"
-msgstr "LDAP server cannot be contacted"
-
-#, fuzzy
-msgid "errldaporginit"
-msgstr "LDAP server cannot be contacted"
 
 #, c-format
 msgid "group #%d does not exist"
@@ -1986,7 +1990,7 @@ msgid "Properties:"
 msgstr ""
 
 #, fuzzy
-msgid "edition: "
+msgid "import edition"
 msgstr "Edit"
 
 msgid "Only one line by document is authorized"
@@ -2081,6 +2085,10 @@ msgstr "Category"
 
 msgid "help"
 msgstr ""
+
+#, fuzzy
+msgid "edition: "
+msgstr "Edit"
 
 #, fuzzy
 msgid "view constraints"

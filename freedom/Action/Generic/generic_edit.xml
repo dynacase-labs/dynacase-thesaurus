@@ -37,7 +37,7 @@
 <body class="freedom" 
       onLoad="editOnLoad();autoHresize()"
       onsubmit="selectall()"
-      onUnLoad="closechoose();pleaseSave(event) ;autoUnlock('[id]')"
+      onUnLoad="closechoose();pleaseSave(event) ;if (! document.isCancelled) autoUnlock('[id]')"
      >
 
 <!-- for idoc -->
@@ -106,7 +106,7 @@
  <input type="submit" title="[TEXT:override constraints]" style="display:[boverdisplay]" value="[editaction]!" onclick="document.isSubmitted=true;enableall();document.modifydoc.noconstraint.value='Y';return true"> 
   </td>
   <td  align="right">
- <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]'"> 
+ <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[id]'"> 
   </td>
   
 </tr>
