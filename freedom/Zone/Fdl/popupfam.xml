@@ -6,7 +6,7 @@
 
 [BLOCK ADDLINK]
 <a href="#" id="[idlink]"  
-    onclick="activate(this,'[url]','[target]');closeMenu('popupcard');">
+    onclick="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) activate(this,'[url]','[target]');closeMenu('popupcard');">
 [descr]</a>
 
 [ENDBLOCK ADDLINK]

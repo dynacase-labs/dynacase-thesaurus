@@ -34,7 +34,7 @@ function placeicons(dy) {
   if (! dy) dy=30;
       winW=getFrameWidth();
 	nbicons=[nbdiv];
-	nbcol = Math.floor(winW/60);
+	nbcol = Math.floor(winW/70);
 	if (nbcol < 1) nbcol=1;
 
  	for (i=1; i <= nbicons; i++) {
