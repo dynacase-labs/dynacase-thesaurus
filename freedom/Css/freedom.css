@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.62 2004/12/13 17:15:05 eric Exp $
+ * $Id: freedom.css,v 1.63 2005/01/14 17:52:43 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -367,15 +367,24 @@ IMG.unselect {
   border-width: 3;
   border-style : none
   width:40;
-  height:40;  
+  height:auto;  
   cursor: crosshair;
+}
+IMG.unselect:hover {
+  border-style: hidden;
+  border-width: 1px;
+  border-color: [CORE_FGCOLOR];
+  background-color:[CORE_BGCOLORALTERN];
+  border-style : solid;
+  cursor: pointer;
+  -moz-border-radius:25px;
 }
 IMG.select {
   border-style: hidden;
   border-width: 1px;
   border-color: [CORE_FGCOLOR];
   width:40;
-  height:40;  
+  height:auto;  
   background-color:[CORE_BGCOLORALTERN];
   border-style : solid;
   cursor: crosshair;
@@ -427,10 +436,14 @@ DIV.icon{
   overflow : hidden;
 }
 
-IMG.aicon {
+IMG.aicon, IMG.aiconnoh {
 	margin:0pt;
 	padding:0pt;
 	-moz-border-radius:0px 0px 0px 25px;
+}
+IMG.aicon:hover {
+  cursor: pointer;
+  background-color:[CORE_BGCOLORALTERN];
 }
 
 TR.fileclass TD {	

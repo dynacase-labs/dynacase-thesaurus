@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.58 2004/12/28 17:06:32 eric Exp $
+ * @version $Id: viewfolder.php,v 1.59 2005/01/14 17:52:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -179,14 +179,40 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	$tdoc[$k]["divid"] = $kdiv;
 
 	$tdoc[$k]["locked"] ="";
+	$tdoc[$k]["emblem"] = $action->GetImageUrl("1x1.png");
+	$tdoc[$k]["emblemt"] ="";
+	$tdoc[$k]["emblemw"] ="0";
+	$tdoc[$k]["canedit"] =1;
 	
-	  if ($doc->locked == -1) $tdoc[$k]["locked"] = $action->GetIcon("revised.gif",N_("fixed"), 20,20);
-	  else if ((abs($doc->locked) == $action->parent->user->id)) $tdoc[$k]["locked"] = $action->GetIcon("clef1.gif",N_("locked"), 20,20);
-	  else if ($doc->locked != 0) $tdoc[$k]["locked"] = $action->GetIcon("clef2.gif",N_("locked"), 20,20);
-	  else if ($doc->control("edit") != "")  $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("read-only"), 20,20);
-	  else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
-	
+	if ($doc->locked == -1) {
+	  $tdoc[$k]["emblem"] = $action->GetImageUrl("revised.gif");
+	  $tdoc[$k]["emblemt"] = N_("fixed");
+	  $tdoc[$k]["emblemw"] ="12";
+	  $tdoc[$k]["canedit"] =false;
+	  $tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
+	} else if ((abs($doc->locked) == $action->parent->user->id)) {
 
+	  $tdoc[$k]["emblem"] = $action->GetImageUrl("clef1.gif");
+	  $tdoc[$k]["emblemt"] = N_("locked");
+	  $tdoc[$k]["emblemw"] ="12";
+	  $tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
+
+	} else if ($doc->locked != 0) {
+	  $tdoc[$k]["emblem"] = $action->GetImageUrl("clef2.gif");
+	  $tdoc[$k]["emblemt"] = N_("locked");
+	  $tdoc[$k]["emblemw"] ="12";
+	  $tdoc[$k]["canedit"] =false;
+	  $tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
+
+	} else if ($doc->control("edit") != "")  {
+	  $tdoc[$k]["emblem"] = $action->GetImageUrl("nowrite.gif");
+	  $tdoc[$k]["emblemt"] = N_("read-only");
+	  $tdoc[$k]["emblemw"] ="12";
+	  $tdoc[$k]["canedit"] =false;
+	  $tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
+	}
+	//else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
+	
 	$tdoc[$k]["iconsrc"]= $doc->geticon();
 	
 	if ($with_popup) {
@@ -294,6 +320,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $tboo[0]["boo"]="";
   $action->lay->SetBlockData("VIEWPROP",$tboo);
 
+  $action->lay->Set("TEST1",true);
+  $action->lay->Set("TEST2",true);
   $action->lay->Set("nbdiv",$kdiv-1);
   if ($column){
     $action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
