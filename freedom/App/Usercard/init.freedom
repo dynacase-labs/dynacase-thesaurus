@@ -124,7 +124,7 @@ ATTR;SI_TOWN;SI_FR_COORD;ville;N;N;text;130;W;Y;;;;
 ATTR;SI_CEDEX;SI_FR_COORD;cedex;N;A;text;140;W;;;;;
 ATTR;SI_COUNTRY;SI_FR_COORD;pays;N;N;text;150;W;;;;;
 ATTR;SI_WEB;SI_FR_COORD;web;N;N;text;160;W;;http://%SI_WEB%;;;
-;;;;;;;;;;;;;
+ATTR;SI_MEMBERS;;membres;N;N;menu;170;M;;%S%app=GENERIC&action=GENERIC_ISEARCH&id=%I%&famid=USER;;;
 END;0;;;;;;;;;;;;
 // ;fromid;titre;id;class;name;;;;;;;;
 BEGIN;124;site;126;;SITE;;;;;;;;
