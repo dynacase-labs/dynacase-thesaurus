@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewattr.php,v 1.1 2002/06/14 08:58:34 eric Exp $
+// $Id: viewattr.php,v 1.2 2002/07/11 13:24:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,7 +32,7 @@ include_once("FDL/freedom_util.php");
 
 // Compute value to be inserted in a specific layout
 // -----------------------------------
-function viewattr(&$action) {
+function viewattr(&$action, $htmlval=true, $htmllink=true) {
   // -----------------------------------
 
   // GetAllParameters
@@ -48,7 +48,7 @@ function viewattr(&$action) {
   $doc = new Doc($dbaccess, $docid);
 
   
-  $listattr = $doc->GetAttributes();
+  $listattr = $doc->GetAttributes(false,true);
     
     
 
@@ -68,7 +68,7 @@ function viewattr(&$action) {
 	$action->lay->Set("V_".$v->id,"");
 	$action->lay->Set("L_".$v->id,"");
       } else {
-	$action->lay->Set("V_".$v->id,$doc->GetHtmlValue($v,$value));
+	$action->lay->Set("V_".$v->id,$htmlval?$doc->GetHtmlValue($v,$value,"_self",$htmllink):$value);
 	$action->lay->Set("L_".$v->id,$v->labeltext);
       }
   
