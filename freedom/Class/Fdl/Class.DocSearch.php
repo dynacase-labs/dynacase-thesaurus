@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.15 2004/02/17 10:49:27 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.16 2004/03/08 11:18:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.15 2004/02/17 10:49:27 eric Exp $
+// $Id: Class.DocSearch.php,v 1.16 2004/03/08 11:18:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.15 2004/02/17 10:49:27 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.16 2004/03/08 11:18:56 eric Exp $';
 
 
 include_once("FDL/Class.PDocSearch.php");
@@ -98,7 +98,7 @@ Class DocSearch extends PDocSearch {
       $filters[] = "lmodify = 'L'";       
     }
     $filters[] = "usefor = 'N'";
-    $keyword= addslashes($keyword);
+    $keyword= pg_escape_string($keyword);
     $keyword= str_replace("^","£",$keyword);
     $keyword= str_replace("$","\0",$keyword);
     if ($keyword != "") {
