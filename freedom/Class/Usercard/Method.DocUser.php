@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.8 2003/02/20 11:34:04 eric Exp $
+// $Id: Method.DocUser.php,v 1.9 2003/03/11 17:04:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,8 +42,9 @@
 // -----------------------------------
    function viewabstractcard($target="finfo",$ulink=true,$abstract="Y") {
      // -----------------------------------
-     doc::viewabstractcard($target,$ulink,$abstract);
+     //     doc::viewabstractcard($target,$ulink,$abstract);
      $this->viewprop($target,$ulink,$abstract);
+     $this->viewattr($target,$ulink,$abstract);
    }
 
 
