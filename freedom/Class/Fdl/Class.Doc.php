@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.148 2003/07/22 13:15:17 eric Exp $
+// $Id: Class.Doc.php,v 1.149 2003/07/24 13:03:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.148 2003/07/22 13:15:17 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.149 2003/07/24 13:03:57 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/07/22 13:15:17 $
-// Version         $Revision: 1.148 $
+// Last Update     $Date: 2003/07/24 13:03:57 $
+// Version         $Revision: 1.149 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -74,7 +74,8 @@ Class Doc extends DocCtrl {
 			"state",
 			"wid",
 			"values",
-			"attrids");
+			"attrids",
+			"postitid");
 
   var $id_fields = array ("id");
 
@@ -106,7 +107,8 @@ create table doc ( id int not null,
                    state varchar(64),
                    wid int DEFAULT 0,  
                    values text,  
-                   attrids text
+                   attrids text,  
+                   postitid int
                    );
 create sequence seq_id_doc start 1000;
 create sequence seq_id_tdoc start 1000000000;
@@ -212,7 +214,10 @@ create unique index i_docir on doc(initid, revision);";
       // set default values
 
       if ($this->initid == "") $this->initid=$this->id;
-      if (chop($this->title) == "") $this->title =_("untitle document");
+      if (chop($this->title) == "") {
+	$fdoc=$this->getFamDoc();
+	$this->title =sprintf(_("untitle %s %d"),$fdoc->title,$this->initid);
+      }
       if ($this->doctype == "")  $this->doctype = $this->defDoctype;
       if ($this->revision == "") $this->revision = "0";
 
@@ -303,7 +308,12 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   function isRevisable() {
-    return (($this->doctype == 'F') && ($this->usefor != 'P'));
+    if (($this->doctype == 'F') && ($this->usefor != 'P')) {
+      $fdoc = $this->getFamDoc();
+      if ($fdoc->schar != "S") return true;
+
+    }
+    return false;
   }
  
   // copy values from anothers document (must be same family or descendant)
@@ -430,6 +440,11 @@ create unique index i_docir on doc(initid, revision);";
   }
 
 
+  function getFamDoc() {
+    if (! isset($this->famdoc)) $this->famdoc= new Doc($this->dbaccess, $this->fromid);
+    return $this->famdoc;
+  }
+
   // ----------------------------------------------------------------------
   function GetFreedomFromTitle($title) {
     // --------------------------------------------------------------------
@@ -532,30 +547,56 @@ create unique index i_docir on doc(initid, revision);";
     }
 
 
+  function ReallyDelete() {
+    return DbObj::delete();
+  }
+
   function Delete($really=false) {
 
+
+
     if ($really) {
-      if ($this->id != "")  return(DbObj::delete());
+      if ($this->id != "") {
+	// delete all revision also
+	$rev=$this->GetRevisions();
+	while (list($k,$v) = each($rev)) {
+	  $v->ReallyDelete();
+	}
+      }
     } else {
-    $msg=$this->PreDocDelete();
-    if ($msg!='') return $msg;
+      $msg=$this->PreDocDelete();
+      if ($msg!='') return $msg;
 
-    $this->doctype='Z'; // Zombie Doc
-    $this->locked= -1; 
-    $date = gettimeofday();
-    $this->revdate = $date['sec']; // Delete date
+      $this->doctype='Z'; // Zombie Doc
+      $this->locked= -1; 
+      $date = gettimeofday();
+      $this->revdate = $date['sec']; // Delete date
 
-    global $action;
-    global $HTTP_SERVER_VARS;
-    $this->AddComment(sprintf(_("delete by %s by action %s on %s from %s"),
-			      $action->user->firstname." ".$action->user->lastname,
-			      $HTTP_SERVER_VARS["REQUEST_URI"],
-			      $HTTP_SERVER_VARS["HTTP_HOST"],
-			      $HTTP_SERVER_VARS["REMOTE_ADDR"]));
+      global $action;
+      global $HTTP_SERVER_VARS;
+      $this->AddComment(sprintf(_("delete by %s by action %s on %s from %s"),
+				$action->user->firstname." ".$action->user->lastname,
+				$HTTP_SERVER_VARS["REQUEST_URI"],
+				$HTTP_SERVER_VARS["HTTP_HOST"],
+				$HTTP_SERVER_VARS["REMOTE_ADDR"]));
 
 
-    $msg=$this->PostDelete();
-    return $msg;
+      $msg=$this->PostDelete();
+
+
+      // delete all revision also
+      $rev=$this->GetRevisions();
+      while (list($k,$v) = each($rev)) {
+	
+	if ($v->doctype != 'Z') {
+	  $v->doctype='Z'; // Zombie Doc
+	  $v->locked= -1; 
+	  $v->modify();
+	}
+	    
+      }
+    
+      return $msg;
     }
   }
 
@@ -609,7 +650,7 @@ create unique index i_docir on doc(initid, revision);";
 
       $this->fathers=array();
       if ($this->fromid > 0) {
-	$fdoc= new Doc($this->dbaccess,$this->fromid);
+	$fdoc= $this->getFamDoc();
 	$this->fathers=array_merge($this->fromid, $fdoc->GetFathersDoc());
       }
     }
@@ -1187,9 +1228,15 @@ create unique index i_docir on doc(initid, revision);";
 
     if ($this->locked == -1) return _("document already revised");
 
+    $fdoc = $this->getFamDoc();
+   
+    if ($fdoc->schar == "S") return sprintf(_("the document of %s family cannot be revised"),$fdoc->title);
+
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
     $this->owner = $this->userid; // rev user 
+    $postitid = $this->postitid; // transfert post-it to latest revision
+    $this->postitid=0;
     $date = gettimeofday();
     $this->revdate = $date['sec']; // change rev date
     if ($comment != '') $this->Addcomment($comment);
@@ -1203,7 +1250,7 @@ create unique index i_docir on doc(initid, revision);";
     $this->locked = "0"; // the file is unlocked
     $this->comment = ""; // change comment
     $this->revision = $this->revision+1;
-
+    $this->postitid=$postitid;
     $this->Add();
     $this->modify(); // need to applicate SQL triggers
        
@@ -1222,10 +1269,12 @@ create unique index i_docir on doc(initid, revision);";
     $copy->locked = "0";
     $copy->state = "";
     if ($temporary) $copy->doctype = "T";
-    $cdoc= new Doc($this->dbaccess, $this->fromid);
+    $cdoc= $this->getFamDoc();
     $copy->profid = $cdoc->cprofid;;
 
     $err = $copy->Add();
+
+    if ($err != "") return $err;
 
     return $copy;
   }
@@ -1793,7 +1842,7 @@ create unique index i_docir on doc(initid, revision);";
     global $action;
 
 
-    if (! ereg("([A-Z_-]+):([^:]+):{0,1}[S]{0,1}", $layout, $reg)) 
+    if (! ereg("([A-Z_-]+):([^:]+):{0,1}[A-Z]{0,1}", $layout, $reg)) 
       $action->exitError(sprintf(_("error in pzone format %s"),$layout));
      
   
@@ -2146,7 +2195,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
       if ($this->fromid > 0) {
-	$cdoc= new Doc($this->dbaccess,$this->fromid);
+	$cdoc= $this->getFamDoc();
 	$this->lay->Set("TITLE", sprintf(_("new %s"),$cdoc->title));
      
       }
@@ -2582,7 +2631,7 @@ create unique index i_docir on doc(initid, revision);";
     global $action;
     $this->lay = new Layout("FDL/Layout/viewdtd.xml", $action);
 
-    $fam_doc=new Doc($this->dbaccess,$this->fromid);
+    $fam_doc=$this->getFamDoc();
     $name=str_replace(" ","_",$fam_doc->title);
     $this->lay->Set("doctype",$this->doctype);
     $this->lay->Set("idfam",$this->fromid);
