@@ -1,0 +1,40 @@
+
+
+<script language="JavaScript">
+
+  function getFrameWidth() {
+      winW = window.innerWidth;
+      if (! winW)	   
+            winW = document.body.clientWidth;
+
+      return (winW);
+  }
+
+
+function resizeImg(th) {
+      winW=getFrameWidth();
+
+
+
+  if ((th.width+53) > winW) th.width=winW - 53;
+}
+</script>
+
+
+<!-- TABLEBODY -->
+<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
+[BLOCK TABLEIMG]
+
+
+
+
+<tr class="FREEDOMBack1">
+   <td colspan="3" align="center"><a href="[imgsrc]" target="_blank"> 
+       <img onLoad="resizeImg(this)"
+            style="border:outset 4px" src="[imgsrc]" title="[name]" type="[type]"></A>
+  </td>
+</tr>
+
+
+[ENDBLOCK TABLEIMG]
+

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.6 2002/04/24 09:39:45 eric Exp $
+// $Id: viewcard.php,v 1.7 2002/06/10 16:38:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,7 +41,7 @@ function viewcard(&$action) {
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
   $props = (GetHttpVars("props",'Y') == "Y"); // view doc properties
-
+  $zonebodycard = GetHttpVars("zone"); // define view action
 
   // Set the globals elements
 
@@ -50,18 +50,26 @@ function viewcard(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
+  $doc = new Doc($dbaccess, $docid);
 
-
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  
+  // set view zone
+  if ($zonebodycard == "") {
+    $zonebodycard = $doc->dviewzone;
+  }
+  if ($zonebodycard == "") {
+    $zonebodycard ="FDL:VIEWBODYCARD";
+  }
+  $action->lay->Set("ZONEBODYCARD", $zonebodycard);
   
 
 
 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
-  $tfile=array(); // array of file attributes 
-  $kf=0; // number of files
 
-  $doc = new Doc($dbaccess, $docid);
+
+
   $err=$doc->refresh();
   if ($err != "") $action->exitError($err);
   //------------------------------
@@ -144,155 +152,28 @@ function viewcard(&$action) {
 
 
 
-
-  $frames= array();
   
 
   if ($props) {
     $action->lay->SetBlockData("PROP",array(array("boo"=>1)));
   }
-    if ($abstract){
-      // only 3 properties for abstract mode
-      $listattr = $doc->GetAbstractAttributes();
-      $nprop=4;
-    } else {
-      $listattr = $doc->GetAttributes();
-      if ($props) $action->lay->SetBlockData("ALLPROP",array(array("boo"=>1)));
-      $nprop=7;
+  if ($abstract){
+    // only 3 properties for abstract mode
+    $listattr = $doc->GetAbstractAttributes();
+    $nprop=4;
+  } else {
+    $listattr = $doc->GetAttributes();
+    if ($props) $action->lay->SetBlockData("ALLPROP",array(array("boo"=>1)));
+    $nprop=7;
     
-    }
-    // see locker for lockable document
-    if ($doc->isRevisable())  {
-      if ($props) $action->lay->SetBlockData("LOCK",array(array("boo"=>1)));  
-    } else  $nprop-=2; // revision & locker
-    $action->lay->Set("nprop",$nprop);  
+  }
+  // see locker for lockable document
+  if ($doc->isRevisable())  {
+    if ($props) $action->lay->SetBlockData("LOCK",array(array("boo"=>1)));  
+  } else  $nprop-=2; // revision & locker
+  $action->lay->Set("nprop",$nprop);  
 
     
-
-  $nattr = count($listattr); // attributes list count
-
-
-  $k=0; // number of frametext
-  $v=0;// number of value in one frametext
-  $nbimg=0;// number of image in one frametext
-  $currentFrameId="";
-
-  $changeframe=false; // is true when need change frame
-  $tableframe=array();
-  $tableimage=array();
-  $vf = new VaultFile($dbaccess, "FREEDOM");
-  for ($i=0; $i < $nattr + 1; $i++)
-    {
-
-      //------------------------------
-      // Compute value elements
-      if ($i < $nattr)
-	{
-	  
-	  $value = chop($doc->GetValue($listattr[$i]->id));
-	 
-
-	  if ($value != "") // to define when change frame
-	    {
-	      if ( $currentFrameId != $listattr[$i]->frameid) {
-		if ($currentFrameId != "") $changeframe=true;
-	      }
-	    }
-	}
-
-
-      //------------------------------
-      // change frame if needed
-
-      if (($i == $nattr) ||  // to generate final frametext
-	  $changeframe)
-	{
-	  $changeframe=false;
-	  if (($v+$nbimg) > 0) // one value detected
-	    {
-				      
-	      $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
-	      $frames[$k]["rowspan"]=$v+1; // for images cell
-	      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
-
-	      $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
-					 $tableframe);
-	      $frames[$k]["IMAGES"]="IMAGES_$k";
-	      $action->lay->SetBlockData($frames[$k]["IMAGES"],
-					 $tableimage);
-	      unset($tableframe);
-	      unset($tableimage);
-	      $tableframe=array();
-	      $tableimage=array();
-	      $k++;
-	    }
-	  $v=0;
-	  $nbimg=0;
-	}
-
-
-      //------------------------------
-      // Set the table value elements
-      if ($i < $nattr)
-	{
-      
-	  if (($value != "") && ($listattr[$i]->visibility != "H"))
-	    {
-		
-	      $currentFrameId = $listattr[$i]->frameid;
-
-	      // print values
-	      switch ($listattr[$i]->type)
-		{
-	      
-		case "image": 
-		  
-		  $tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($listattr[$i],$value);
-		break;
-		
-		
-		case "file": 
-		  
-		  $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value);
-		$tfile[$kf]["file"]=$listattr[$i]->labeltext;
-		$tfile[$kf]["attrid"]=$listattr[$i]->id;
-		$kf++;
-		break;
-		
-		default : 
-		  $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value);
-		break;
-		
-		}
-
-
-	
-	      // print name except image (printed otherthere)
-	      if ($listattr[$i]->type != "image")
-		{
-		  $tableframe[$v]["name"]=$action->text($doc->GetLabel($listattr[$i]->id));
-		  $v++;
-		}
-	      else
-		{
-		  $tableimage[$nbimg]["imgalt"]=$action->text($doc->GetLabel($listattr[$i]->id));
-		  $nbimg++;
-		}
-
-	      
-	    }
-	}
-  
-    }
-
-  // Out
-
-
-
-  // unused menu items
-  //$tmenuaccess[$kdiv]["vmenuitem9"]=0;
-
-  $action->lay->SetBlockData("TABLEBODY",$frames);
   
 
   $owner = new User("", abs($doc->owner));

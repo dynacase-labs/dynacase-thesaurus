@@ -1,0 +1,32 @@
+
+<style>
+.button A {
+  color: #000000;  
+  border-color: [CORE_BGCOLORALTERN];
+  background-color: [CORE_BGCOLORALTERN];
+  border-style:outset;
+  padding: 2px;
+  line-height:20pt;
+  text-decoration: none;
+}
+.button A:hover {
+  border-style:inset;
+}
+</style>
+
+<!-- TABLEBODY -->
+<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
+[BLOCK TABLEFILE]
+
+
+
+
+<tr class="FREEDOMBack1">
+   <td colspan="3" align="center"> 
+     <span class="button">[imgsrc]</span>([size] ko)
+  </td>
+</tr>
+
+
+[ENDBLOCK TABLEFILE]
+

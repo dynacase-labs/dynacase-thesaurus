@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.5 2002/03/14 14:56:54 eric Exp $
+// $Id: freedom_util.php,v 1.6 2002/06/10 16:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -112,7 +112,9 @@ function createDoc($dbaccess,$fromid) {
     $doc->fromid = $fromid;
     $doc->profid = $cdoc->cprofid; // inherit from its familly	
     $doc->icon = $cdoc->icon; // inherit from its familly	
-    $doc->useforprof = $cdoc->useforprof; // inherit from its familly	
+    $doc->useforprof = $cdoc->useforprof; // inherit from its familly
+    $doc->dviewzone = $cdoc->dviewzone; // inherit from its familly
+    $doc->deditzone = $cdoc->deditzone; // inherit from its familly	
        return ($doc);
     
   }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.10 2002/06/10 09:09:39 eric Exp $
+// $Id: import_file.php,v 1.11 2002/06/10 16:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,6 +128,14 @@ function add_import_file(&$action, $fimport="") {
     // -----------------------------------
     case "TYPE":
       $doc->doctype =  $data[1];
+    break;
+    // -----------------------------------
+    case "DVIEWZONE":
+      $doc->dviewzone =  $data[1];
+    break;
+    // -----------------------------------
+    case "DEDITZONE":
+      $doc->deditzone =  $data[1];
     break;
     // -----------------------------------
     case "USEFORPROF":     
