@@ -31,6 +31,8 @@ $action_desc = array (
   // ---------------------------
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_EDITEVENT", 
          "short_name" =>N_("edit event"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_STOREEVENT", 
+         "short_name" =>N_("store event"), "toc" => "N", "root" =>"N"),
 
   // ---------------------------
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_RESSPICKER_MAIN", 

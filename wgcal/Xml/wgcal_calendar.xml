@@ -1,6 +1,6 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
-  <table width="100%" cellspacing="0" border="0" id="week">
+<div id="root"><table width="100%" cellspacing="0" border="0" id="week">
     <tr height="[WGCAL_U_HLINETITLE]px">[F_LINE]</tr>
     <tr height="[WGCAL_U_HLINETITLE]px">
        <td class="WGCAL_Period" width="[WGCAL_U_HCOLW]px"></td>
@@ -10,7 +10,7 @@
         <tr height="[HLINEHOURS]px">
            <td id="L[LID]" width="[WGCAL_U_HCOLW]px" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>
 [ENDBLOCK HOURS]
-</table>
+</table></div>
 
 <form target="wgcal_calhidden" style="display:none" id="textform" method="POST">
 <input id="Xtext" type="hidden" value="0">
@@ -21,7 +21,9 @@
 
 <script type="text/javascript"> 
 window.onresize = WGCalResetSizes;
-WGCalViewInit('fevroot', '[IDSTART]', '[IDSTOP]', '[DAYCOUNT]', '[HCOUNT]', '[HSTART]');
+[BLOCK DAYS]Days[[iday]] = [days];
+[ENDBLOCK DAYS]
+WGCalViewInit('[IDSTART]', '[IDSTART]', '[IDSTOP]', '[DAYCOUNT]', '[HCOUNT]', '[HSTART]');
 </script>
 
 [BLOCK RVS]<script type="text/javascript">WGCalAddEvent('fevroot', [ID], [START], [END])</script>

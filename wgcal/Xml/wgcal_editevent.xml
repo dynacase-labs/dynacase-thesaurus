@@ -1,28 +1,17 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
-<script type="text/javascript">
+<form id="editevent" name="editevent" target="xxxx" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
+<input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 
-function saveEvent() {
+<div width="100%" style="margin-top: 1em;">
+<input class="WGCalButton" type="button" id=closeevent" name="closeevent" title="[TEXT:save]" value="[TEXT:save]"
+       onclick="saveEvent()" >
+<input class="WGCalButton" type="button" id=closeevent" name="closeevent" title="[TEXT:]" value="[TEXT:cancel]"
+       onclick="cancelEvent();">
+</div>
 
-}
-</script>
-
-<table width="100%">
-<tr>
-<td align="left">
-<img id="saveevent" style="cursor:pointer;" onclick="saveEvent(); window.close();" height="15" 
-     src="WGCAL/Images/wgcal-save.gif" title="[TEXT:save event]">
-</td>
-<td align="center">
-</td>
-<td align="right">
-<img id="closeevent" style="cursor:pointer;" onclick="ok = confirm('[TEXT: close whithout saving]'); if (ok) window.close();" height="15" 
-     src="WGCAL/Images/wgcal-close.gif" title="[TEXT:save event]">
-</td>
-</tr>
-</table>
-
-
+<hr>
+ 
 <fieldset>
 
 <legend>
@@ -38,7 +27,7 @@ function saveEvent() {
 
 <div id="evmainzone" style="display:">
 
-[TEXT:rv title] : <input id="rvtitle" size="50" type="text" value="[TITLE]">
+[TEXT:rv title] : <input id="rvtitle" name="rvtitle" size="50" type="text" value="[TITLE]">
 
 <hr>
 
@@ -109,26 +98,21 @@ function saveEvent() {
 
 <hr>
 
-[TEXT:confidentiality] : <select id="rvconfid">
-<option value="0" selected>[TEXT:public]
-<option value="0">[TEXT:private]
-<option value="0">[TEXT:my groups]
+[TEXT:confidentiality] : <select id="rvconfid" name="rvconfid[]">
+[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]
 </select>
 
-[TEXT:calendar] : <select id="rvcalendar">
-<option value="0" selected>[TEXT:my agenda]
-<option value="0">[TEXT:birthdays]
-<option value="0">[TEXT:school]
+[TEXT:calendar] : <select id="rvcalendar" name="rvcalendar[]">
+[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]
 </select>
-[TEXT:status] : <select id="rvcalendar">
-<option value="0" selected>[TEXT:definitive]
-<option value="1">[TEXT:to be confirmed]
-<option value="2">[TEXT:rejected]
+
+[TEXT:status] : <select id="rvstatus"  name="rvstatus[]">
+[BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]
 </select>
 
 <hr>
 
-[TEXT:alarm] : <input id="AlarmCheck" type="checkbox"
+[TEXT:alarm] : <input id="AlarmCheck" name="AlarmCheck" type="checkbox"
                       onClick="ChangeAlarm(-1)" >
 
 <span id="AlarmVis"">
@@ -207,10 +191,6 @@ function delExclDate() {
 
 <div id="evrepeatzone" style="display:none">
 
-<fieldset><legend>[TEXT:repeat] : <input id="chkrepeat" type="checkbox" onClick="ViewElement('chkrepeat', 'ifreapeat');" [REPEAT_SELECTED]> 
-</legend>
-<br>
-<div id="ifreapeat" style=" display:none">
 
 <div>
 
@@ -253,10 +233,10 @@ function delExclDate() {
   <input type="radio" id="runtil0" name="runtil" onClick="ViewElement('runtil1', 'vrununtil');" value="0" [D_RUNTIL_0]>[TEXT:forever]
   <input type="radio" id="runtil1" name="runtil" onClick="ViewElement('runtil1', 'vrununtil');" value="1" [D_RUNTIL_1]>[TEXT:this date]&nbsp;:&nbsp;
   <span id="vrununtil" style="display:[RUNUNTIL_DATE_DISPLAY]">
-  <input style="cursor:pointer; border: 1px outset [CORE_BGCOLORHIGH]" 
+  <input style="border: 1px outset [CORE_BGCOLORHIGH]" 
          type="text" value="[uDate]" id="runtildate" 
-         name="runtildate" size="8" title="[TEXT:click to change the date]" 
-         readonly>  
+         name="runtildate" title="[TEXT:click to change the date]" 
+         readonly>
  <img style="cursor:pointer" id="runtildatebutton"  name="runtildatebutton" title="[TEXT:click to select a date]"  src="RENDEZVOUS/Images/cal-other.gif">
  <script type="text/javascript">
     Calendar.setup(
@@ -281,7 +261,7 @@ function delExclDate() {
      height="15" src="WGCAL/Images/wgcal-plus.gif">
 
 
-<select id="listexcldate" name="excldate[]" width="20" size="5" multiple>
+<select id="listexcldate" name="listexcldate[]" width="20" size="5" multiple>
 [BLOCK EXCLDATE]<option id="exdate[iDate]" value="[mDate]">[rDate]</option>[ENDBLOCK EXCLDATE]
 </select>
 <img title="[TEXT:del selected dates]" onClick="delExclDate()" 
@@ -306,10 +286,7 @@ Calendar.setup(
 
 </div>
 
-</fieldset>
-
 </div> <!-- end of repeat zone -->
-
 
 
 <div id="evattendeeszone" style="display:none">
@@ -357,16 +334,16 @@ Calendar.setup(
 </div>
 
 
-</div>
 
 
 <script type="text/javascript">
  ChangeNoHour([NOHOUR]);
  ChangeAllDay([ALLDAY]);
  ChangeAlarm([ALARM]);
-window.onunload = attkillwins;
+ //window.onunload = cancelEvent;
 </script>
 
+</form>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]
  

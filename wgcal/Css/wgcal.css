@@ -18,7 +18,6 @@ INPUT, SELECT, TEXTAREA {
 	background: [CORE_BGCOLORALTERN]; 
 	font-size: 10px;
 	font-family: Helvetica, Arial, sans-serif ;
-	border : 0px;
 	border : 1px inset white;
 }
 TD {
@@ -29,7 +28,7 @@ TD {
 
 .WGCalButton {
   cursor : pointer;
-  border : 1px inset [CORE_BGCOLORHIGH];
+  border : 2px outset [CORE_BGCOLORHIGH];
 }
 
 .WGCalZoneSelected {
@@ -71,12 +70,13 @@ TD {
 
 .WGCAL_DayHours {
   background-color : [CORE_BGCOLORALTERN];
+  font-weight: bold;
   border-top : 2px outset [CORE_BGCOLORHIGH];
   border-left : 1px outset [CORE_BGCOLORHIGH];
   border-right : 1px outset [CORE_BGCOLORHIGH];
 }
 .WGCAL_DayMin {
-  font-size: 8px;
+  font-size: 7px;
   background-color : [CORE_BGCOLORALTERN];
   border-top : 1px solid [CORE_BGCOLORHIGH];
   border-bottom : 1px outset [CORE_BGCOLORHIGH];

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.4 2004/12/17 15:46:25 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.5 2004/12/24 12:37:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,6 +12,7 @@
  */
 
 include_once("FDL/Class.Doc.php");
+include_once("WGCAL/WGCAL_calevent.php");
 
 function wgcal_editevent(&$action) {
 
@@ -42,13 +43,43 @@ function wgcal_editevent(&$action) {
 
 function InitNewRv(&$action, $time) {
 
+  $action->lay->set("EVENTID", -1);
   $action->lay->set("TITLE", "");
   $action->lay->set("DESCR", "");
 
   $action->lay->set("ALLDAY", 0);
   $action->lay->set("NOHOUR", 0);
 
+  $avis = CAL_getEventVisibilities($action->GetParam("FREEDOM_DB"), "");
+  $ic = 0;
+  foreach ($avis as $k => $v) {
+    $tconf[$ic]["value"] = $k;
+    $tconf[$ic]["descr"] = $v;
+    $tconf[$ic++]["selected"] = "";
+  }
+  $action->lay->SetBlockData("RVCONFID", $tconf);
+
+  $acal = CAL_getCalendars($action->GetParam("FREEDOM_DB"), $action->user->id);
+  $ic = 0;
+  foreach ($acal as $k => $v) {
+    $tconf[$ic]["value"] = $k;
+    $tconf[$ic]["descr"] = $v;
+    $tconf[$ic++]["selected"] = "";
+  }
+  $action->lay->SetBlockData("CALS", $tconf);
+
+  // Set status for this event
+  $acal = CAL_getEventStates($action->GetParam("FREEDOM_DB"), "");
+  $ic = 0;
+  foreach ($acal as $k => $v) {
+    $tconf[$ic]["value"] = $k;
+    $tconf[$ic]["descr"] = $v;
+    $tconf[$ic++]["selected"] = "";
+  }
+  $action->lay->SetBlockData("RVSTATUS", $tconf);
+
   $action->lay->set("ALARM", 0);
+
   $inc = 5;
   for ($min=0; $min<60; $min+=$inc) {
     $r = ($min==0?0:($min/$inc));

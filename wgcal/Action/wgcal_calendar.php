@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.7 2004/12/17 15:46:25 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.8 2004/12/24 12:37:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -103,8 +103,11 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WEEKNUMBER", $week);
   $classalt = array ( 0 => "WGCAL_Day1", 1 => "WGCAL_Day2" );
   $curday = -1;
+  $tabdays = array(); $itd=0;
   for ($i=0; $i<$ndays; $i++) 
     { 
+      $tabdays[$itd]["iday"] =  $itd;
+      $tabdays[$itd++]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
       $ld = strftime("%d/%m/%Y", $firstWeekDay+($i*SEC_PER_DAY));
       if (!strcmp($ld,$today)) {
 	$class[$i] = $classh[$i] = "WGCAL_DayLineCur";
@@ -171,11 +174,12 @@ function wgcal_calendar(&$action) {
         }
     }
   $action->lay->SetBlockData("HOURS", $thr);
+  $action->lay->SetBlockData("DAYS", $tabdays);
 
   $action->lay->set("DAYCOUNT", $ndays);
-  $action->lay->set("HCOUNT", ($hstop - $hstart + 2)); // Minutes
+  $action->lay->set("HCOUNT", (($hstop - $hstart + 1) * $hdiv ) + 1 ); // Minutes
   $action->lay->set("HSTART", ($hstart - 1)); // Minutes
-  $action->lay->set("IDSTART", "D0H".($hstart-1));
+  $action->lay->set("IDSTART", "root");
   $action->lay->set("IDSTOP", "D".($ndays-1)."H".($nl-1));
   $action->lay->set("RVWIDTH", $rvwidth);
  

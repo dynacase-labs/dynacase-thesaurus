@@ -1,7 +1,7 @@
 [BLOCK CELLS]
-<td id="[cellref]"  title="[rtime]" class="[cclass]"  
-    onDblClick="DblClickCalendarCell(this, '[urlroot]', [time]);"  
-    onClick="ClickCalendarCell(this);"  
-    onmouseover="OverCalendarCell(this, '[lref]', '[cref]')" 
-    onmouseout="OutCalendarCell(this, '[lref]', '[cref]', '[cclass]', '[hourclass]', '[dayclass]') ">
+<td id="[cellref]"  name="[cellref]"  title="[rtime]" class="[cclass]"  
+    onDblClick="DblClickCalendarCell(event, this, '[urlroot]', [time]);"  
+    onClick="ClickCalendarCell(event, this);"  
+    onmouseover="OverCalendarCell(event, this, '[lref]', '[cref]')" 
+    onmouseout="OutCalendarCell(event, this, '[lref]', '[cref]', '[cclass]', '[hourclass]', '[dayclass]') ">
 </td>[ENDBLOCK CELLS]

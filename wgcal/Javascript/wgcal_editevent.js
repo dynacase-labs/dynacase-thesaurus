@@ -152,3 +152,14 @@ function attkillwins() {
   if (attpicker != null) attpicker.close();
 }
 
+function saveEvent() {
+  document.getElementById('editevent').submit();
+  //displayEvent(document.getElementById('eventid').value;	
+  //self.close();
+}
+
+function cancelEvent() {
+  ok = confirm('[TEXT: close whithout saving]'); 
+  if (ok) self.close();
+}
+
