@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewfolder.php,v 1.50 2004/03/01 08:47:51 eric Exp $
+ * @version $Id: viewfolder.php,v 1.51 2004/03/16 14:07:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.50 2004/03/01 08:47:51 eric Exp $
+// $Id: viewfolder.php,v 1.51 2004/03/16 14:07:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -290,7 +290,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  $tvalues=array();
 	  while (list($ka,$attr) = each($lattr))  {	
 	    //$tvalues[]=$doc->getValue($attr->id,"-");
-	      $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target);
+	    if ($attr->type=="image") $tvalues[]='<img src="'.$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target).'"  height="30">';
+	    else  $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target);
 	  }
 	  $tdoc[$k]["values"]=implode('</td><td class="tlist">',$tvalues);
 	}
