@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.13 2003/01/24 14:10:46 eric Exp $
+// $Id: generic_search.php,v 1.14 2003/01/30 12:36:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,10 +38,16 @@ function generic_search(&$action) {
 
   // Get all the params      
   $keyword=GetHttpVars("keyword"); // keyword to search
-  $dirid=GetHttpVars("catg", getDefFld($action)); // folder where search
-
+  $catgid=GetHttpVars("catg", getDefFld($action)); // folder where search
+  $dirid=GetHttpVars("dirid", getDefFld($action)); // folder where search
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  if ($keyword[0]!=">") {
+    $dirid=$catgid; // search sub searches   
+  } else {
+    $keyword=substr($keyword,1);
+  }
 
   $doc = new Doc($dbaccess, $dirid);
 
@@ -71,7 +77,7 @@ function generic_search(&$action) {
 
   $sqlfilter[]= "locked != -1";
   $sqlfilter[]= "doctype='F'";
-  $sqlfilter[] = "usefor = 'N'";
+  $sqlfilter[]= "usefor = 'N'";
   $sqlfilter[]= "values ~* '$keyword' ";
 
   $query=getSqlSearchDoc($dbaccess, 
@@ -81,7 +87,7 @@ function generic_search(&$action) {
 
   $sdoc-> AddQuery($query);
 
-  redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&catg=$dirid");
+  redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&catg=$catgid");
   
   
 }

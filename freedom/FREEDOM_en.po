@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-01-24 15:05+0100\n"
+	"POT-Creation-Date: 2003-01-30 11:45+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -78,6 +78,18 @@ msgstr	"Update Title Cards"
 msgid	"undefined gravity"
 msgstr	""
 
+#, fuzzy, c-format
+msgid	"search %s"
+msgstr	"Start search"
+
+#, fuzzy, c-format
+msgid	"search %s is %s"
+msgstr	"Start search"
+
+#, fuzzy, c-format
+msgid	"search %s is %s in %s"
+msgstr	"Start search"
+
 #, c-format
 msgid	"cannot see unknow reference %s"
 msgstr	""
@@ -103,10 +115,6 @@ msgstr	""
 #, c-format
 msgid	"%s has been modified"
 msgstr	""
-
-#, fuzzy, c-format
-msgid	"search %s"
-msgstr	"Start search"
 
 #, c-format
 msgid	"search  contains %s in all state"
@@ -174,6 +182,9 @@ msgstr	""
 #, fuzzy, c-format
 msgid	"%s new revision %d"
 msgstr	"Organisation"
+
+msgid	"kind of search is not defined"
+msgstr	""
 
 #, fuzzy
 msgid	"new search "
@@ -697,13 +708,13 @@ msgstr	"Firstname"
 msgid	"no image"
 msgstr	"Firstname"
 
+msgid	"clear inputs"
+msgstr	""
+
 msgid	"date picker"
 msgstr	""
 
 msgid	"choose inputs"
-msgstr	""
-
-msgid	"clear inputs"
 msgstr	""
 
 msgid	"add inputs"
@@ -1175,6 +1186,9 @@ msgstr	"Import"
 msgid	"search a generict"
 msgstr	"Start search"
 
+msgid	"search with kind criteria"
+msgstr	""
+
 msgid	"default document family"
 msgstr	""
 
@@ -1238,9 +1252,6 @@ msgid	"modify preferences"
 msgstr	"Modify"
 
 msgid	"Access To Onefam Management"
-msgstr	""
-
-msgid	"yes"
 msgstr	""
 
 #, fuzzy
@@ -1332,8 +1343,11 @@ msgid	"Bilan"
 msgstr	""
 
 #, fuzzy
-msgid	"New category"
-msgstr	"Category"
+msgid	"All catg"
+msgstr	"All"
+
+msgid	"All kind"
+msgstr	""
 
 msgid	"client bilan"
 msgstr	""
@@ -1457,16 +1471,11 @@ msgstr	""
 msgid	"Creation"
 msgstr	"Edit"
 
-#, fuzzy
-msgid	"Category"
-msgstr	"Category"
-
 msgid	"Tools"
 msgstr	""
 
-#, fuzzy
-msgid	"All catg"
-msgstr	"All"
+msgid	"Freedom"
+msgstr	""
 
 msgid	"Properties:"
 msgstr	""
@@ -1504,9 +1513,6 @@ msgid	"personn added"
 msgstr	""
 
 msgid	"personn deleted"
-msgstr	""
-
-msgid	"Catg"
 msgstr	""
 
 msgid	"bilan"
@@ -1587,6 +1593,9 @@ msgstr	""
 msgid	"Import documents"
 msgstr	"Import"
 
+msgid	"Attributes definition"
+msgstr	""
+
 msgid	"inherit from"
 msgstr	""
 
@@ -1613,6 +1622,9 @@ msgid	"A?"
 msgstr	""
 
 msgid	"T?"
+msgstr	""
+
+msgid	"N?"
 msgstr	""
 
 msgid	"Vi"
@@ -1879,6 +1891,9 @@ msgstr	"Edit"
 msgid	"send mail"
 msgstr	""
 
+msgid	"yes"
+msgstr	""
+
 msgid	"no"
 msgstr	""
 
@@ -1938,6 +1953,10 @@ msgstr	"Category"
 
 msgid	"History"
 msgstr	""
+
+#, fuzzy
+msgid	"Duplicate"
+msgstr	"Edit"
 
 msgid	"goaccess"
 msgstr	"Control access"
@@ -2037,8 +2056,12 @@ msgid	"View properties"
 msgstr	""
 
 #, fuzzy
-msgid	"Duplicate"
-msgstr	"Edit"
+#~ msgid	"New category"
+#~ msgstr	"Category"
+
+#, fuzzy
+#~ msgid	"Category"
+#~ msgstr	"Category"
 
 #, fuzzy
 #~ msgid	"unlock generic"

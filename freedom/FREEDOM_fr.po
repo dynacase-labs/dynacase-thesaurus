@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-01-24 15:05+0100\n"
+	"POT-Creation-Date: 2003-01-30 11:45+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -71,12 +71,24 @@ msgid	"undefined gravity"
 msgstr	"indéfinie"
 
 #, c-format
+msgid	"search %s"
+msgstr	"recherche %s"
+
+#, c-format
+msgid	"search %s is %s"
+msgstr "recherche %s est %s"
+
+#, c-format
+msgid	"search %s is %s in %s"
+msgstr "recherche %s est %s dans %s"
+
+#, c-format
 msgid	"cannot see unknow reference %s"
 msgstr	"impossible de voir : la référence %s est inconnue"
 
 #, c-format
 msgid	"creation %s"
-msgstr "création %s"
+msgstr	"création %s"
 
 msgid	"new card"
 msgstr	"Nouvelle carte"
@@ -93,10 +105,6 @@ msgstr	"pas de fichier d'import CSV spécifié"
 #, c-format
 msgid	"%s has been modified"
 msgstr	"%s a été modifié"
-
-#, c-format
-msgid	"search %s"
-msgstr	"recherche %s"
 
 #, c-format
 msgid	"search  contains %s in all state"
@@ -166,11 +174,14 @@ msgstr	"pas de commentaire"
 msgid	"%s new revision %d"
 msgstr	"%s nouvelle révision %d"
 
+msgid	"kind of search is not defined"
+msgstr "type de recherche non défini"
+
 msgid	"new search "
 msgstr	"Recherche "
 
 msgid	"detailled search result"
-msgstr "résultat de la recherche détaillée"
+msgstr	"résultat de la recherche détaillée"
 
 #, c-format
 msgid	"new title for %s"
@@ -236,7 +247,7 @@ msgid	"change default folder"
 msgstr	"changer le dossier par défaut"
 
 msgid	"change current folder"
-msgstr "changer le dossier courant"
+msgstr	"changer le dossier courant"
 
 msgid	"all"
 msgstr	"tous les mots"
@@ -613,22 +624,22 @@ msgid	"send official mail to %s (cc: %s - bcc:%s)"
 msgstr	"mail officiel envoyé à %s (cc: %s - bcc:%s)"
 
 msgid	"include"
-msgstr "contient"
+msgstr	"contient"
 
 msgid	"equal"
-msgstr "égal"
+msgstr	"égal"
 
 msgid	"not equal"
-msgstr "pas égal"
+msgstr	"pas égal"
 
 msgid	"not include"
-msgstr "ne contient pas"
+msgstr	"ne contient pas"
 
 msgid	"and"
-msgstr "et"
+msgstr	"et"
 
 msgid	"or"
-msgstr "ou"
+msgstr	"ou"
 
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
@@ -664,14 +675,14 @@ msgstr	"erreur dans le nom de fichier"
 msgid	"no image"
 msgstr	"pas d'image"
 
+msgid	"clear inputs"
+msgstr	"effacer entrée(s)"
+
 msgid	"date picker"
 msgstr	"choix de date"
 
 msgid	"choose inputs"
 msgstr	"choisir une valeur"
-
-msgid	"clear inputs"
-msgstr	"effacer entrée(s)"
 
 msgid	"add inputs"
 msgstr	"ajouter entrée"
@@ -892,7 +903,7 @@ msgid	"Access Action Library"
 msgstr	"Bibliothèque pour les droits"
 
 msgid	"Access to edit action"
-msgstr "Accès aux actions d'édition"
+msgstr	"Accès aux actions d'édition"
 
 msgid	"For export functions"
 msgstr	"Pour les fonctions d'export"
@@ -922,14 +933,13 @@ msgid	"view standalone card"
 msgstr	"voir une carte autonome"
 
 msgid	"view card"
-msgstr "voir une carte"
+msgstr	"voir une carte"
 
 msgid	"lock file to edit"
 msgstr	"verrouillez le document pour l'éditer"
 
-#, fuzzy
 msgid	"unlock file to discard edit"
-msgstr	"verrouillez le document pour l'éditer"
+msgstr "déverrouillez le document pour l'éditer"
 
 msgid	"init workflow profile attributes"
 msgstr	"initialisation des attributs profil"
@@ -951,7 +961,7 @@ msgid	"file %d"
 msgstr	"fichier %d"
 
 msgid	"default confidential"
-msgstr "confidentialité par défaut"
+msgstr	"confidentialité par défaut"
 
 msgid	"nom du serveur LDAP"
 msgstr	""
@@ -1115,6 +1125,9 @@ msgstr	"Import csv"
 msgid	"search a generict"
 msgstr	"rechercher une carte"
 
+msgid	"search with kind criteria"
+msgstr "recherche avec des critères de catégories"
+
 msgid	"default document family"
 msgstr	"famille de document par défaut"
 
@@ -1171,9 +1184,6 @@ msgstr	"modifier les préférences"
 
 msgid	"Access To Onefam Management"
 msgstr	"Accès à la gestion par famille"
-
-msgid	"yes"
-msgstr	"oui"
 
 msgid	"Import vcard"
 msgstr	"Importation Vcard"
@@ -1260,8 +1270,11 @@ msgstr	"Recherche"
 msgid	"Bilan"
 msgstr	"Bilan"
 
-msgid	"New category"
-msgstr	"Nouvelle catégorie"
+msgid	"All catg"
+msgstr	"Toutes catg."
+
+msgid	"All kind"
+msgstr "tout type"
 
 msgid	"client bilan"
 msgstr	"bilan client"
@@ -1371,14 +1384,11 @@ msgstr	"Problème"
 msgid	"Creation"
 msgstr	"Création"
 
-msgid	"Category"
-msgstr	"Catégorie"
-
 msgid	"Tools"
 msgstr	"Outils"
 
-msgid	"All catg"
-msgstr	"Toutes catg."
+msgid	"Freedom"
+msgstr "Freedom"
 
 msgid	"Properties:"
 msgstr	"Propriétés:"
@@ -1415,9 +1425,6 @@ msgstr	"Personnes ajoutées"
 
 msgid	"personn deleted"
 msgstr	"Personnes supprimées"
-
-msgid	"Catg"
-msgstr	"Catg"
 
 msgid	"bilan"
 msgstr	"bilan"
@@ -1468,7 +1475,7 @@ msgid	"simple"
 msgstr	"Simple"
 
 msgid	"detailled"
-msgstr "détaillée"
+msgstr	"détaillée"
 
 msgid	"fulltext"
 msgstr	"plein texte"
@@ -1487,6 +1494,9 @@ msgstr	"colonne"
 
 msgid	"Import documents"
 msgstr	"Importer des documents"
+
+msgid	"Attributes definition"
+msgstr	"définition des attributs"
 
 msgid	"inherit from"
 msgstr	"hérite de"
@@ -1514,6 +1524,9 @@ msgstr	"R?"
 
 msgid	"T?"
 msgstr	"T?"
+
+msgid	"N?"
+msgstr "O?"
 
 msgid	"Vi"
 msgstr	"Vi"
@@ -1743,23 +1756,26 @@ msgstr	"édition de mail"
 msgid	"send mail"
 msgstr	"envoyer le mail"
 
+msgid	"yes"
+msgstr	"oui"
+
 msgid	"no"
 msgstr	"non"
 
 msgid	"Conditions"
-msgstr "Conditions"
+msgstr	"Conditions"
 
 msgid	"up"
-msgstr	""
+msgstr "monter"
 
 msgid	"down"
-msgstr	""
+msgstr "descendre"
 
 msgid	"addcond"
-msgstr "attributs"
+msgstr	"attributs"
 
 msgid	"addstate"
-msgstr "état"
+msgstr	"état"
 
 msgid	"some needed attributes are empty"
 msgstr	"certains attributs obligatoires sont vides"
@@ -1797,6 +1813,9 @@ msgstr	"Changer de profil"
 msgid	"History"
 msgstr	"Historique"
 
+msgid	"Duplicate"
+msgstr	"Dupliquer"
+
 msgid	"goaccess"
 msgstr	"accessibilités..."
 
@@ -1816,7 +1835,7 @@ msgid	"Change default folder"
 msgstr	"Changer dossier par défaut"
 
 msgid	"Change current folder"
-msgstr "Changer dossier courant"
+msgstr	"Changer dossier courant"
 
 msgid	"delconfirm"
 msgstr	"Voulez-vous supprimer"
@@ -1858,10 +1877,10 @@ msgid	"Familly Document"
 msgstr	"Famille de document"
 
 msgid	"created profile"
-msgstr "Profil crée"
+msgstr	"Profil crée"
 
 msgid	"current folder"
-msgstr "dossier courant"
+msgstr	"dossier courant"
 
 msgid	"to"
 msgstr	"vers"
@@ -1881,8 +1900,14 @@ msgstr	"Changer de catégorie"
 msgid	"View properties"
 msgstr	"Voir les propriétés"
 
-msgid	"Duplicate"
-msgstr	"Dupliquer"
+#~ msgid	"New category"
+#~ msgstr	"Nouvelle catégorie"
+
+#~ msgid	"Category"
+#~ msgstr	"Catégorie"
+
+#~ msgid	"Catg"
+#~ msgstr	"Catg"
 
 #~ msgid	"abord edition"
 #~ msgstr	"abandon de l'édition"
@@ -1964,9 +1989,6 @@ msgstr	"Dupliquer"
 
 #~ msgid	"suspended incident"
 #~ msgstr	"incidents suspendus"
-
-#~ msgid	"all incident"
-#~ msgstr	"tous les incidents"
 
 #~ msgid	"Newfam"
 #~ msgstr	"Nouvelle"

@@ -63,7 +63,7 @@ function SendSearch(e) {
      else keyCode = e.which;
 
      if (keyCode==13) {
-        document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&catg=[catg]&keyword='+document.getElementById('keyword').value;
+        document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&dirid=[dirid]&catg=[catg]&keyword='+document.getElementById('keyword').value;
      }
 }
 
