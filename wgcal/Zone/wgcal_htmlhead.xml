@@ -5,7 +5,6 @@
   <LINK REL="SHORTCUT ICON" HREF="CORE/Images/logo32.ico" >
   <title>[TEXT:freeevent app name]</title>
 
-  <!-- LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" -->
   <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS" >
   [CSS:REF]
 
@@ -23,11 +22,12 @@
  </head>
 
 <body>
+<div style="display:none">
 <form id="usetparam" target="wgcal_hidden" name="usetparam" method="POST"
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_USETPARAM">
      <input id="pname" name="pname" type="hidden" value="">
      <input id="pvalue" name="pvalue" type="hidden" value="">
      <input id="taction" name="taction" type="hidden" value="">
 </form>
-
+</div>
 <!-- END HEAD HTML -->

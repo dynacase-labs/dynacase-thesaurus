@@ -3,21 +3,21 @@
 body {
   padding : 0px;
   margin : 0px;
-  font-size: 10px; 
-  font-family: [CORE_FONTLIST1];
-  background: url('CORE/Images/bg.gif');
-  color: [CORE_TEXTFGCOLOR];
+  font-size: [WTH_FONTSIZE_NORMAL]px; 
+  font-family: [WTH_FONTLIST];
+  background: [WTH_BGIMG]; 
+  color: [WTH_TEXTCOLOR_1];
 }
 
 table {
-	font-size: 10px;
-	font-family: Helvetica, Arial, sans-serif ;
+	font-size: [WTH_FONTSIZE_NORMAL]px;
+	font-family: [WTH_FONTLIST];
 }
 
 INPUT, SELECT, TEXTAREA {
-	background: [CORE_BGCOLORALTERN]; 
-	font-size: 10px;
-	font-family: Helvetica, Arial, sans-serif ;
+	background: [WTH_COLOR_1]; 
+	font-size: [WTH_FONTSIZE_NORMAL]px;
+	font-family: [WTH_FONTLIST];
 	border : thin inset white;
 }
 INPUT.Mandatory {
@@ -58,70 +58,70 @@ TD {
 
 /* Zone d'affichage des infos mois, semaine et jours */
 .WGCAL_Period {
-  background-color : [CORE_BGCOLORALTERN];
-  border : 1px outset [CORE_BGCOLORHIGH];
+  background-color : [WTH_COLOR_1];
+  border : 1px outset [WTH_COLOR_2];
   font-weight: bold;
 }
 /* Periode selectionne : mise en évidence jour / heure */
 .WGCAL_PeriodSelected {
-  background-color : [CORE_BGCOLORHIGH];
-  border : 1px inset [CORE_BGCOLORALTERN];
+  background-color : [WTH_COLOR_2];
+  border : 1px inset [WTH_COLOR_1];
   font-weight: bold;
 }
       
 /* Journée courante */
 .WGCAL_DayLineCur {
-  border : 1px outset [CORE_BGCOLORALTERN];
+  border : 1px outset [WTH_COLOR_1];
   font-weight: bold;
-  background-color : [CORE_BGCOLORHIGH];
+  background-color : [WTH_COLOR_2];
 }
 
 .WGCAL_DayNoHours {
-  background-color : [CORE_BGCOLORALTERN];
+  background-color : [WTH_COLOR_1];
 }
 
 .WGCAL_DayHours {
-  background-color : [CORE_BGCOLORALTERN];
+  background-color : [WTH_COLOR_1];
   font-weight: bold;
-  border-top : 2px outset [CORE_BGCOLORHIGH];
-  border-left : 1px outset [CORE_BGCOLORHIGH];
-  border-right : 1px outset [CORE_BGCOLORHIGH];
+  border-top : 2px outset [WTH_COLOR_2];
+  border-left : 1px outset [WTH_COLOR_2];
+  border-right : 1px outset [WTH_COLOR_2];
 }
 .WGCAL_DayMin {
-  font-size: 7px;
-  background-color : [CORE_BGCOLORALTERN];
-  border-top : 1px solid [CORE_BGCOLORHIGH];
-  border-bottom : 1px outset [CORE_BGCOLORHIGH];
-  border-left : 1px outset [CORE_BGCOLORHIGH];
-  border-right : 1px outset [CORE_BGCOLORHIGH];
+  font-size: [WTH_FONTSIZE_SMALL]px;
+  background-color : [WTH_COLOR_1];
+  border-top : 1px solid [WTH_COLOR_2];
+  border-bottom : 1px outset [WTH_COLOR_2];
+  border-left : 1px outset [WTH_COLOR_2];
+  border-right : 1px outset [WTH_COLOR_2];
 }
 
 .WGCAL_DayLineOver {
-  background-color : [CORE_BGCOLORALTERN];
-  border : 1px outset [CORE_BGCOLORHIGH];
+  background-color : [WTH_COLOR_1];
+  border : 1px outset [WTH_COLOR_2];
 }
 
 .WGCAL_Day {
 	border-left: 0px;
-	border-bottom: 1px solid [CORE_BGCOLORHIGH];
- 	border-right: 1px solid #93A3C5;
+	border-bottom: 1px solid [WTH_COLOR_2];
+ 	border-right: 1px solid WTH_COLOR_3;
 }
 .WGCAL_DayWE {
 	border-left: 0px;
-	border-bottom: 1px solid [CORE_BGCOLORHIGH];
- 	border-right: 1px solid #93A3C5;
+	border-bottom: 1px solid [WTH_COLOR_2];
+ 	border-right: 1px solid WTH_COLOR_3;
         background-color : [WGCAL_U_WEDAY];
 }
 .WGCAL_DayCur {
 	border-left: 0px;
-	border-bottom: 1px solid [CORE_BGCOLORHIGH];
-  	border-right: 1px solid #93A3C5;
+	border-bottom: 1px solid [WTH_COLOR_2];
+  	border-right: 1px solid WTH_COLOR_3;
         background-color : [WGCAL_U_CURDAY];
 }
 .WGCAL_DaySelected {
 	border-left: 0px;
-	border-bottom: 1px solid [CORE_BGCOLORHIGH];
-	border-right: 1px solid #93A3C5;
+	border-bottom: 1px solid [WTH_COLOR_2];
+	border-right: 1px solid WTH_COLOR_3;
         background-color : [WGCAL_U_SELDAY];
 }
 
@@ -135,15 +135,15 @@ TD {
 }
 .WGCwrvdefault {
   cursor:pointer; 
-  border : 1px outset [CORE_BGCOLORALTERN];
+  border : 1px outset [WTH_COLOR_1];
 }
 
 .WGCListRess {
-  border : 2px outset [CORE_BGCOLORALTERN];
+  border : 2px outset [WTH_COLOR_1];
   background-color : white;
 }
 .WGCRessOver {
-  border : 1px outset [CORE_BGCOLORALTERN];
+  border : 1px outset [WTH_COLOR_1];
   cursor:pointer;
 }
 .WGCRessDefault {
@@ -151,14 +151,14 @@ TD {
 }
 
 .WGCRessSelected {
-  background-color : [CORE_BGCOLORHIGH];
-  border : 1px inset [CORE_BGCOLORALTERN];
+  background-color : [WTH_COLOR_2];
+  border : 1px inset [WTH_COLOR_1];
   cursor:pointer;
 }
 
 .WGCFamSelected {
-  background-color : [CORE_BGCOLORHIGH];
-  border : 1px inset [CORE_BGCOLORALTERN];
+  background-color : [WTH_COLOR_2];
+  border : 1px inset [WTH_COLOR_1];
   cursor:pointer;
 }
 
@@ -166,62 +166,62 @@ TD {
  * Really use in final product !
  */
 .wToolButton {
-  background-color : [CORE_BGCOLORALTERN];
+  background-color : [WTH_COLOR_1];
   font-weight : bold;
-  border : 2px outset [CORE_BGCOLORALTERN];
+  border : 2px outset [WTH_COLOR_1];
   cursor:pointer;
   height : 22px;
 }
 .wToolButtonOver {
-  background-color : [CORE_BGCOLORHIGH];
+  background-color : [WTH_COLOR_2];
   font-weight : bold;
-  border : 2px inset [CORE_BGCOLORALTERN];
+  border : 2px inset [WTH_COLOR_1];
   cursor:pointer;
   height : 22px;
 }
 .wToolArea {
-  border : 1px outset [CORE_BGCOLORALTERN];
+  border : 1px outset [WTH_COLOR_1];
   padding : 2px;
 }
 .wMonthTextTitle {
   font-weight : bold;
-  font-size : 14pt;
+  font-size : [WTH_FONTSIZE_BIG]pt;
   border-top : 1px solid black;
   border-bottom : 1px solid black;
   width: 100%;
-  background-color : black;
-  color : white;
+  background-color : [WTH_TEXTCOLOR_1];
+  color : [WTH_TEXTCOLOR_2];
 }
 .wMonthTextTitlePrevNext {
   font-weight : bold;
   border-top : 1px solid black;
   border-bottom : 1px solid black;
-  background-color : black;
-  color : white;
+  background-color : [WTH_TEXTCOLOR_1];
+  color : [WTH_TEXTCOLOR_2];
   cursor:pointer;
 }
 .wMonthTextDayTitle {
   font-weight : bold;
   border-bottom : 1px solid black;
-  background-color : lightgrey;
-  color : black;
+  background-color : [WTH_TEXTCOLOR_1];
+  color : [WTH_TEXTCOLOR_2];
 }
 .wMonthTextTD {
   border-right : thin solid grey;
   border-bottom : thin solid grey;
   width : 14%;
-  background-color : white;
+  background-color : [WTH_COLOR_1];
   color : black;
 }
 .wMonthTextTDUnused {
   border-right : thin solid grey;
   border-bottom : thin solid grey;
   width : 14%;
-  background-color : #EFEFEF;
+  background-color : [WTH_COLOR_2];
   color : black;
 }
 .wTextActive {
-  background-color: [CORE_BGCOLORHIGH];
+  background-color: [WTH_COLOR_2];
   cursor:pointer;
 }
 .wTextNormal {

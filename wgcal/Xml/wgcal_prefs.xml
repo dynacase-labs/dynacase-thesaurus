@@ -1,0 +1,24 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+
+<script type="text/javascript">
+var Zone = new Array();
+[BLOCK ZoneJS]Zone[[izone]] = '[tzone]';
+[ENDBLOCK ZoneJS]
+
+function SetZone(iz) {
+  var e = document.getElementById('p'+iz);
+  if (e) {
+    for (i=0; i<Zone.length; i++) {
+      document.getElementById('p'+Zone[i]).style.display = 'none';
+    }
+    e.style.display = '';
+  }
+}
+</script>
+<fieldset><legend>[BLOCK ZoneIcons]
+<img id="b[tzone]" src="WGCAL/Images/wm-[tzone].png" height="22" title="[dzone]" style="border:0px; cursor:pointer;" onClick="SetZone('[tzone]');" >[ENDBLOCK ZoneIcons]
+
+
+[BLOCK ZoneXml]<div id="p[tzone]" style="display:[vzone]">[ZONE WGCAL:WGCAL_PREFS_[azone]]</div>[ENDBLOCK ZoneXml]
+
+[ZONE WGCAL:WGCAL_HTMLFOOT]

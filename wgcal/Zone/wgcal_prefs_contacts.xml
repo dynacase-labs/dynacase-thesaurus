@@ -1,0 +1,25 @@
+<h4>[TEXT:my prefered contacts]</h4>
+<table width="100%" style="margin:0px;"><tr>
+<td><fieldset>
+<legend>
+<span onmouseover="this.className='wTextActive'" 
+      onmouseout="this.className='wTextNormal'" 
+      onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN')">[TEXT:add prefered contact]</span></legend>
+
+<table width="100%" style="margin:0px;"><tr>
+<thead></thead>
+<tbody id="tabress">
+<tr style="display:none" id="trsample">
+  <td><img style="cursor:pointer;border:0px" height="15"  src="WGCAL/Images/wm-delete.png" onclick="suppress = confirm('[TEXT:supress ressource] %RDESCR%'); if (suppress) deleteContact('%RID%');" title="[TEXT:suppress ressource] %RDESCR%"></td>
+  <td id="%RID%" name="%RID%" ><img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%<span id="cp%RID%" style="display:none"></span></td>
+</tr>
+</table>
+</fielset></td>
+<td><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="UseContactInRv();" title="[TEXT:use for event creation]"><input id="usecontact" name="usecontact" type="checkbox" style="cursor:pointer;" onclick="UseContactInRv();" [usecontactstate]>[TEXT:use for event creation]</span>
+</td>
+</tr><tfoot></tfoot></table>
+
+<script type="text/javascript">
+[BLOCK L_RESS]InsertPrefContact('[RDESCR]', '[RID]', '[RICON]');
+[ENDBLOCK L_RESS]
+</script>

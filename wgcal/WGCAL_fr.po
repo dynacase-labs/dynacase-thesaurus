@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-16 18:02+0100\n"
+"POT-Creation-Date: 2005-02-17 08:08+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -88,8 +88,8 @@ msgstr "Afficher les icones et les heures sur l'agenda"
 msgid "alt postion is fixed"
 msgstr "Position des popup fixe"
 
-msgid "alt display timer"
-msgstr "Délai avant affichage du popup"
+msgid "general theme"
+msgstr "Thème"
 
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
@@ -484,6 +484,12 @@ msgstr "Recherche avancée"
 msgid " interface look"
 msgstr "Aspect et comportement de l'interface"
 
+msgid "general options"
+msgstr "Options générales"
+
+msgid "theme caracteristics"
+msgstr "Thème utilisé"
+
 msgid "information popup management"
 msgstr "Gestion de l'affichage des détails des rendez-vous (pop-up)"
 
@@ -566,6 +572,15 @@ msgstr "jusqu'au"
 msgid "there is excluded days"
 msgstr "il y a des jours exclus"
 
+msgid "the default theme"
+msgstr "défaut"
+
+msgid "orange"
+msgstr "Orange"
+
+msgid "for the girls"
+msgstr "Pour les filles"
+
 msgid "view icon in event"
 msgstr "Afficher les icones et les heures sur l'agenda"
 
@@ -613,6 +628,9 @@ msgstr "à confirmer"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"
+
+#~ msgid "alt display timer"
+#~ msgstr "Délai avant affichage du popup"
 
 #~ msgid "close"
 #~ msgstr "Fermer"
