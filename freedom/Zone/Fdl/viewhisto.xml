@@ -8,8 +8,7 @@
 <tr><td class="CORETblHeadBold" align="center" colspan="5">[title]</td><tr>
 <tr><td class="CORETblHeadBold">[TEXT:rev]</td>
     <td class="CORETblHeadBold">[TEXT:state]</td>
-    <td class="CORETblHeadBold">[TEXT:comment]</td>
-    <td class="CORETblHeadBold">[TEXT:revised by]</td>
+    <td class="CORETblHeadBold">[TEXT:author]</td>
     <td class="CORETblHeadBold" style="text-align:left;">[TEXT: date]</td>
 </tr>
 </thead>
@@ -21,21 +20,21 @@
 <tr class="unselect" id="d[id]"
     style="cursor:pointer"
      onMouseDown="select(this,[id],[divid]);subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
-<td class="tlist"  >[revision]</td>
-<td class="tlist" align="center" >[state]</td>
-<td class="tlist" >  
-     [BLOCK [COMMENT]]
-       <B>[cdate]</B> <I>[cauthor]</I><P style="margin-left:20pt;color:black"> [ccomment]</P>
-       [ENDBLOCK [COMMENT]]
-</td>
-     <td class="tlist"  ><I>[owner]</I></td>
-     <td class="tlist"  >[date]</td>
+<td>[revision]</td>
+<td><b>[state]</b></td>
+     <td title="[TEXT:revised by]"><I>[owner]</I></td>
+     <td  >[date]</td>
 
     
 </tr>
 
-</tbody>
+     [BLOCK [COMMENT]]
+<tr class="dash"><td colspan="2"  >  
+       <P style="margin-left:20pt;color:black"> [ccomment]</P>
+</td><td><I>[cauthor]</I></td><td>[cdate]</td> </tr>
+       [ENDBLOCK [COMMENT]]
 [ENDBLOCK TABLEBODY]
+</tbody>
 </table>
 <!-- /TABLEBODY -->
 

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-04 08:19+0000\n"
-"PO-Revision-Date: 2004-10-04 10:24+0200\n"
+"POT-Creation-Date: 2004-10-11 11:52+0000\n"
+"PO-Revision-Date: 2004-10-11 13:52+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -980,6 +980,20 @@ msgstr "l'utilisateur n°%d n'existe pas"
 msgid "user has not identificator"
 msgstr "L'utilisateur n'a pas d'identificateur"
 
+msgid "direct"
+msgstr "direct"
+
+msgid "errldapadd"
+msgstr ""
+"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces attributs "
+"n'est pas conforme"
+
+msgid "errldapconnect"
+msgstr "Le server LDAP n'a pas pu être contacté"
+
+msgid "errldaporginit"
+msgstr "Le server LDAP n'a pas pu être contacté"
+
 msgid "user is desactivated"
 msgstr "l'utilisateur est désactivé"
 
@@ -997,20 +1011,6 @@ msgid "Expiration delay must not be 0 to keep expiration date"
 msgstr ""
 "Le délai d'expiration doit être supérieur à zéro pour avoir une date "
 "d'expiration"
-
-msgid "direct"
-msgstr "direct"
-
-msgid "errldapadd"
-msgstr ""
-"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces attributs "
-"n'est pas conforme"
-
-msgid "errldapconnect"
-msgstr "Le server LDAP n'a pas pu être contacté"
-
-msgid "errldaporginit"
-msgstr "Le server LDAP n'a pas pu être contacté"
 
 #, c-format
 msgid "group #%d does not exist"
@@ -1204,6 +1204,9 @@ msgstr "dossier inconnu, ne peut être consulté"
 
 msgid "read-only"
 msgstr "lecture seule"
+
+msgid "current"
+msgstr "courant"
 
 msgid "error in filename"
 msgstr "erreur dans le nom de fichier"
@@ -1635,6 +1638,27 @@ msgstr "géométrie de la mini vue       "
 #, c-format
 msgid "file %d"
 msgstr "fichier %d"
+
+msgid "default confidential"
+msgstr "confidentialité par défaut"
+
+msgid "LDAP server name"
+msgstr "nom du serveur LDAP"
+
+msgid "LDAP server port"
+msgstr "n° de port du serveur LDAP"
+
+msgid "LDAP server root"
+msgstr "racine du serveur LDAP"
+
+msgid "LDAP admin identificatot"
+msgstr "identification de l'administrateur LDAP"
+
+msgid "LDAP admin passord"
+msgstr "mot de passe administrateur LDAP"
+
+msgid "LDAP activated"
+msgstr "Activation LDAP"
 
 msgid "User Card"
 msgstr "Carnet d'adresses"
@@ -2757,17 +2781,17 @@ msgstr "contrôle de vues"
 msgid "rev"
 msgstr "rev"
 
-msgid "comment"
-msgstr " commentaire"
+msgid " date"
+msgstr " date"
 
 msgid "revised by"
 msgstr "révisé par"
 
-msgid " date"
-msgstr " date"
-
 msgid "view abstract card"
 msgstr "Carte résumé"
+
+msgid "comment"
+msgstr " commentaire"
 
 msgid "select"
 msgstr "sélectionner"
@@ -2843,27 +2867,6 @@ msgstr "Changer de catégorie"
 
 msgid "View properties"
 msgstr "Voir les propriétés"
-
-#~ msgid "default confidential"
-#~ msgstr "confidentialité par défaut"
-
-#~ msgid "LDAP server name"
-#~ msgstr "nom du serveur LDAP"
-
-#~ msgid "LDAP server port"
-#~ msgstr "n° de port du serveur LDAP"
-
-#~ msgid "LDAP server root"
-#~ msgstr "racine du serveur LDAP"
-
-#~ msgid "LDAP admin identificatot"
-#~ msgstr "identification de l'administrateur LDAP"
-
-#~ msgid "LDAP admin passord"
-#~ msgstr "mot de passe administrateur LDAP"
-
-#~ msgid "LDAP activated"
-#~ msgstr "Activation LDAP"
 
 #~ msgid "some needed attributes are empty"
 #~ msgstr "certains attributs obligatoires sont vides"

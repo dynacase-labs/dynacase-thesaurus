@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.9 2004/01/15 16:32:17 eric Exp $
+ * @version $Id: viewhisto.php,v 1.10 2004/10/11 12:06:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: viewhisto.php,v 1.9 2004/01/15 16:32:17 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewhisto.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 
 include_once("FDL/Class.Doc.php");
@@ -61,7 +40,7 @@ function viewhisto(&$action)
     $owner = new User("", $rdoc->owner);
     $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
     $trdoc[$k]["revision"]= $rdoc->revision;
-    $trdoc[$k]["state"]= ($rdoc->state=="")?"":_($rdoc->state);
+    $trdoc[$k]["state"]= ($rdoc->state=="")?"":(($rdoc->locked==-1)?_($rdoc->state):_("current"));
     $trdoc[$k]["COMMENT"]="COMMENT$k";
     $tc = explode("\n",$rdoc->comment);
     $tlc = array();
@@ -70,7 +49,12 @@ function viewhisto(&$action)
       if (ereg("(.*)\[(.*)\](.*)",$vc,$reg)) {
 
 	$kc++;
-	$tlc[$kc]=array("cdate"=>$reg[1],
+	if (ereg("([0-9]{1,2})/([0-9]{1,2})/([0-9]{1,4}) ([0-2]{0,1}[0-9]):([0-5]{0,1}[0-9])", 
+		 $reg[1], $regt)) {   
+	  $stime=strftime ("%a %d %b %Y %H:%M",mktime($regt[4],$regt[5],$regt[6],$regt[2],$regt[1],$regt[3]));
+	} else $stime=$reg[1];
+
+	$tlc[$kc]=array("cdate"=>$stime,
 			"cauthor"=>$reg[2],
 			"ccomment"=>$reg[3]);
       } else {
