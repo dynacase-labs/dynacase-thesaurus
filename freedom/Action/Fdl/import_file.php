@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.81 2004/12/28 16:59:59 eric Exp $
+ * @version $Id: import_file.php,v 1.82 2005/01/14 17:57:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -307,6 +307,53 @@ function add_import_file(&$action, $fimport="") {
       $doc->setParam($data[1],str_replace('\n',"\n",$data[2]));
 
       $tcr[$nline]["msg"]=sprintf(_("add default value %s %s"),$data[1],$data[2]);
+      break;
+    case "IATTR":
+      // import attribute definition from another family
+      $fiid=$data[3];
+      if (! is_numeric($fiid))    $fiid =  getFamIdFromName($dbaccess,$fiid);
+      $fi=new Doc($dbaccess,$fiid);
+      if ($fi->isAffected()) {
+	$fa=$fi->getAttribute($data[1]);
+	if ($fa) {
+	  $oattri=new DocAttr($dbaccess, array($fiid,strtolower($data[1])));
+	  $oattr=new DocAttr($dbaccess, array($doc->id,strtolower($data[1])));
+	  $oattri->docid=$doc->id; 
+	  $tcr[$nline]["msg"]=sprintf(_("copy attribute %s from %s"),$data[1],$data[3]);
+	  if (!$analyze) {
+	    if ($oattr->isAffected()) {
+	      $err=$oattri->modify();
+	    } else {
+	      $err=$oattri->add();
+	    }
+	    $tcr[$nline]["err"]=$err;
+	  }
+
+	  if (($err=="") && (get_class($fa) == "fieldsetattribute")) {
+	    $frameid=$fa->id;
+	    // import attributes included in fieldset
+	    foreach($fi->attributes->attr as $k=>$v) {
+	      if (get_class($v) == "normalattribute") {
+		
+		if ($v->fieldSet->id == $frameid) {
+		  $tcr[$nline]["msg"].="\n".sprintf(_("copy attribute %s from %s"),$v->id,$data[3]);
+		  $oattri=new DocAttr($dbaccess, array($fiid,$v->id));
+		  $oattr=new DocAttr($dbaccess, array($doc->id,$v->id));
+		  $oattri->docid=$doc->id; 
+		  if (!$analyze) {
+		    if ($oattr->isAffected()) {
+		      $err=$oattri->modify();
+		    } else {
+		      $err=$oattri->add();
+		    }
+		    $tcr[$nline]["err"].=$err;
+		  }
+		}
+	      }
+	    }
+	  }
+	}
+      }
       break;
       // -----------------------------------
     case "ATTR":
