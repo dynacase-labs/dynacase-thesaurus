@@ -180,12 +180,52 @@ function getInputValue(id,index) {
   return '';
 }
 
+function getInputLocked() {
+  var tlock=new Array();
+  for (var c=0; c< tain.length; c++) {
+    ndis = true;
+    for (var i=0; i< tain[c].length; i++) {
+      vin = getInputValue(tain[c][i]);
+      if ((vin == '') || (vin == ' ')) ndis = false;
+    }
+    if (ndis) {
+      // the attribute can lock others
+
+      tlock=tlock.concat(taout[c]);
+    }
+  }
+ 
+  return (tlock);
+}
+
+function isInputLocked(id) {
+  var tlock=new Array();
+  for (var c=0; c< tain.length; c++) {
+    ndis = true;
+    for (var i=0; i< tain[c].length; i++) {
+      vin = getInputValue(tain[c][i]);
+      if ((vin == '') || (vin == ' ')) ndis = false;
+    }
+    if (ndis) {
+      // the attribute can lock others
+      
+      for (var i=0; i< taout[c].length; i++) {
+	//	alert(tain[c][i] + '/' + id);
+	if (taout[c][i] == id) return true;
+      }
+    }
+  }
+  return false;;
+}
+
+
 function disableReadAttribute() {
     
   var ndis = true;
   var i;
   var vin;
   var lin;
+  var inx,inc; // input button
   for (var c=0; c< tain.length; c++) {
     ndis = true;
     for (var i=0; i< tain[c].length; i++) {
@@ -198,7 +238,19 @@ function disableReadAttribute() {
       if (document.getElementById(taout[c][i])) {
 	if (document.getElementById(taout[c][i]).type != 'hidden') {
 	  document.getElementById(taout[c][i]).disabled=ndis;
-	  document.getElementById(taout[c][i]).style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
+	  inc=document.getElementById('ic_'+taout[c][i]);
+	  inx=document.getElementById('ix_'+taout[c][i]);
+	  if (inc) inc.disabled=ndis;
+	 
+	  if (ndis) {
+	    document.getElementById(taout[c][i]).style.backgroundColor='[CORE_BGCOLORALTERN]';
+	    if (inc)  inc.style.backgroundColor='[CORE_BGCOLORALTERN]';	      	    
+	  } else {
+	    
+	    if (inc) inc.style.backgroundColor='';
+	    if (document.getElementById(taout[c][i]).style.backgroundColor == '[CORE_BGCOLORALTERN]')
+	      document.getElementById(taout[c][i]).style.backgroundColor == '';
+	  }
 	}
       } else {
 	// search in arrays
@@ -221,6 +273,7 @@ function disableReadAttribute() {
       }
     }
   }
+ 
 }
 
 function editOnLoad() {
@@ -231,15 +284,25 @@ function editOnLoad() {
 
 function clearInputs(tinput, idx) {
   var iinput;
+  var err='';
   for (var i=0; i< tinput.length; i++) {
     iinput=tinput[i]+idx;
+   
     if (document.getElementById(iinput)) {
-      document.getElementById(iinput).value=' ';
-      document.getElementById(iinput).style.backgroundColor='[CORE_BGCOLORHIGH]';
-    }    
+      if (! isInputLocked(iinput)) {
+	document.getElementById(iinput).value=' ';
+	document.getElementById(iinput).style.backgroundColor='[CORE_BGCOLORHIGH]';
+	
+      } else {
+	err = err + "\n" + iinput;
+      }
+    } else {
+      alert('[TEXT:Attribute not found]'+' : '+iinput);
+    }
   }
   disableReadAttribute();
 
+  if (err != '')  alert('[TEXT:NOT Clear]'+err);
 }
 
 

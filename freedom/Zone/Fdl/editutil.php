@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.50 2003/10/13 16:10:31 eric Exp $
+ * @version $Id: editutil.php,v 1.51 2003/10/28 16:30:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.50 2003/10/13 16:10:31 eric Exp $
+// $Id: editutil.php,v 1.51 2003/10/28 16:30:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -356,7 +356,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	$input.="<option  style=\"display:none\"  value=\" \"></option>"; 
      
 	$input .= "</select> "; 
-	$input.="<input type=\"button\" value=\"&times;\"".
+	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	  " title=\""._("clear inputs")."\"".
 	  " onclick=\"unselectInput('$attrid')\">";
       } else {
@@ -373,6 +373,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	  else $selected="";
 	  $input.="<option $selected value=\"$k\">$v</option>"; 
 	}
+	$input .= "</select> "; 
       }
     
       break;      
@@ -407,7 +408,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 
       $input .= " >&nbsp;"; 
       if (!(($visibility == "R")||($visibility == "S"))) {
-	$input.="<input type=\"button\" value=\"&#133;\"".
+	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
 	  " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attridk."')\"".
 	  ">";
 	$input.="<input type=\"button\" value=\"&diams;\"".
@@ -470,7 +471,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
     if (($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
       if (ereg("list",$attrtype, $reg)) $ctype="multiple";
       else $ctype="single";
-      $input.="<input type=\"button\" value=\"&#133;\"".
+      $input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
 	" title=\""._("choose inputs")."\"".
 	" onclick=\"sendEnumChoice(event,".$docid.
 	",this,'$ctype')\">";
@@ -485,32 +486,36 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	}
 	if (count($arg) > 0) {
 	  $jarg="'".implode("','",$arg)."'";
-	  $input.="<input type=\"button\" value=\"&times;\"".
+	  $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	    " title=\""._("clear inputs")."\"".
 	    " onclick=\"clearInputs([$jarg],'$index')\">";
 	}
       } 
     } 	else if ($oattr->type == "date") {
-      $input.="<input type=\"button\" value=\"&times;\"".
+      $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	" title=\""._("clear inputs")."\"".
 	" onclick=\"clearInputs(['$attrid'],'$index')\">";
       
     }else if ($oattr->type == "color") {
-      $input.="<input type=\"button\" value=\"&times;\"".
+      $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	" title=\""._("clear inputs")."\"".
 	" onclick=\"clearInputs(['$attrid'],'$index')\">";      
     }else if ($oattr->type == "time") {
-      $input.="<input type=\"button\" value=\"&times;\"".
+      $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	" title=\""._("clear inputs")."\"".
 	" onclick=\"clearTime('$attridk')\">";      
     }
 		
     if ($oattr->elink != "") {
+      $url= elinkEncode($doc,$oattr->elink,$index,$ititle,$isymbol);
+
+      $target= $attrid;
+      /* --- for idoc ---
       if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
-	//print_r($reg);      
+	// special case wit javascript inputs
+
 	$oattr->elink=$reg[2];
 	$tabFunction=explode(":",$reg[1]);
-	//	print_r($tabFunction);
 
 	if ( $tabFunction[0]!=""){
 	  $target = $tabFunction[0];
@@ -531,18 +536,17 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	}
       }
       
-
     
 
 
       else {
 	$target= $attrid;
       }
+      --- end for idoc */
    
      
-      $url= elinkEncode($doc,$oattr->elink,$index);
-      $input.="<input type=\"button\" value=\"+\"".
-	" title=\""._("add inputs")."\"".
+      $input.="<input type=\"button\" value=\"$isymbol\"".
+	" title=\"".$ititle."\"".
 	" onclick=\"subwindowm(300,500,'$target','$url');";
       if ($function) {
 	$input.="$string_function\">";
@@ -562,12 +566,23 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
   
 }
 
-function elinkEncode(&$doc, $link,$index) {
+function elinkEncode(&$doc, $link,$index,&$ititle,&$isymbol) {
   // -----------------------------------
     
-   
+  $ititle=_("add inputs");
+  $isymbol='+';
     
   $urllink="";
+  if ($link[0] == "[") {
+    if (ereg('\[(.*)\|(.*)\](.*)', $link, $reg)) {   
+      $link=$reg[3];
+      $ititle=$reg[1];
+      $isymbol=$reg[2];
+    }
+  }
+
+
+
   for ($i=0; $i < strlen($link); $i++) {
     switch ($link[$i]) {
       
