@@ -138,7 +138,7 @@ function sendFirstFile(docid) {
 
 function openFld(docid) {
   url='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW&dirid='+docid;
-  subwindow(300,400,'finfo',url);
+  subwindow(300,400,'flist',url);
 }
 //--------------------- DRAG & DROP  --------------------------
 document.drag=0;

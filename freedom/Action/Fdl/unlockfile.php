@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.16 2003/01/24 14:10:46 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
+// $Id: unlockfile.php,v 1.1 2003/01/24 14:10:45 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/unlockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,47 +23,33 @@
 // ---------------------------------------------------------------
 
 
-
-include_once("FDL/Lib.Dir.php");
-
-include_once("FDL/freedom_util.php");  
-
-
-
-include_once("FDL/modcard.php");
-
-
-// -----------------------------------
-function search(&$action) {
-  // -----------------------------------
-
-  $docid = GetHttpVars("id",0);
-  $classid=GetHttpVars("classid",0);
+include_once("FDL/Class.Doc.php");
+function unlockfile(&$action) 
+{
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  if ($docid > 0) {
-    $ndoc = new Doc($dbaccess, $docid);
-
-  } else {
-    // new doc
-    $ndoc = createDoc($dbaccess, $classid);
-    if (! $ndoc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
-    
-    $ndoc->doctype='T';
-    $err = $ndoc-> Add();
-    if ($err != "")  $action->ExitError($err);
-
-    SetHttpVar("id", $ndoc->id);
-    $err = modcard($action, $ndocid); // ndocid change if new doc
-    
-  }
+  $docid = GetHttpVars("id",0);
+  $auto = (GetHttpVars("auto","N")=="Y"); // just auto unlock
 
 
 
-  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=".$ndoc->id);
+  $doc= new Doc($dbaccess,$docid);
+
+
+
+
+  $err=$doc->UnLock($auto);
+  if ($err != "") $action->ExitError($err);
   
+
+  if (! $auto)  $action->AddLogMsg(sprintf(_("%s has been unlocked"),$doc->title));
+
+    
   
+    
+  redirect($action,"FDL","FDL_CARD&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
 }
+
 
 
 ?>

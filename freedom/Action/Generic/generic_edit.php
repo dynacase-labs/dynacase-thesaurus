@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.13 2003/01/21 15:43:35 eric Exp $
+// $Id: generic_edit.php,v 1.14 2003/01/24 14:10:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,24 +39,16 @@ function generic_edit(&$action) {
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
 
 
-
-
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
    
 
 
- 
-
-
-
- 
-
   if ($docid == 0)
     {
     if ($classid > 0) {
       $cdoc= new Doc($dbaccess,$classid);
-      $action->lay->Set("TITLE", sprintf(_("new %s"),$cdoc->title));
+      $action->lay->Set("TITLE", sprintf(_("creation %s"),$cdoc->title));
     } else {
       $action->lay->Set("TITLE",_("new card"));
     }

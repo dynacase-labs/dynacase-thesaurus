@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.13 2003/01/20 19:09:28 eric Exp $
+// $Id: Class.WDoc.php,v 1.14 2003/01/24 14:10:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.13 2003/01/20 19:09:28 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.14 2003/01/24 14:10:46 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -38,7 +38,7 @@ Class WDoc extends Doc {
 
   var $defDoctype='W';
   var $defClassname='WDoc';
-    var $attrPrefix="WF"; // prefix attribute
+  var $attrPrefix="WF"; // prefix attribute
   // --------------------------------------------------------------------
   //----------------------  TRANSITION DEFINITION --------------------
   var $transitions = array();// set by childs classes

@@ -15,7 +15,7 @@
 
      <frameset frameborder="yes"   rows="40%,*" >
   
-       <frame name="finfo" src="about:blank" 
+       <frame name="flist" src="about:blank" 
               scrolling="needed" bordercolor="[CORE_FGCOLOR]"  >
        <frame name="fdoc" src="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO"          
              scrolling="needed" bordercolor="[CORE_FGCOLOR]" >

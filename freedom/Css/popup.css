@@ -28,7 +28,8 @@ a.menuItem {
 
 a.menuItemCtrl {
   color: [CORE_TEXTBGCOLOR];
-  border-style:none inset none inset;
+  border-style:none solid none solid;
+  border-color:[CORE_BGCOLORALTERN];
   border-width:1px;
   cursor: default;
   display: block;
@@ -69,7 +70,8 @@ a.menuItemDisabled, a.menuItemCtrlDisabled {
   text-decoration: none;
 }
 a.menuItemCtrlDisabled {
-  border-style:none inset none inset;
+  border-style:none solid none solid;
+  border-color:[CORE_BGCOLORALTERN];
   border-width:1px;	
 }
 

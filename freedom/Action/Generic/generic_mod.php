@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.13 2003/01/20 19:09:28 eric Exp $
+// $Id: generic_mod.php,v 1.14 2003/01/24 14:10:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,9 +76,10 @@ function generic_mod(&$action) {
   } 
 
   
-  $action->register("reload$ndocid","Y");// to reload cached client file
+  //  $action->register("reload$ndocid","Y");// to reload cached client file
   redirect($action,GetHttpVars("redirect_app","FDL"),
-	   GetHttpVars("redirect_act","FDL_CARD&id=$ndocid"));
+	   GetHttpVars("redirect_act","FDL_CARD&refreshfld=Y&id=$ndocid"),
+	   $action->GetParam("CORE_STANDURL"));
   
 }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.19 2003/01/13 18:59:26 eric Exp $
+// $Id: mailcard.php,v 1.20 2003/01/24 14:10:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -84,6 +84,9 @@ function sendmailcard(&$action) {
     $bcc .="\\nReturn-Path:$from";
   }
 
+  if ($from != "") {    
+    $bcc .="\\nReturn-Path:$from";
+  }
   $layout="maildoc.xml"; // the default
  
   if ($zonebodycard == "") $zonebodycard="FDL:VIEWCARD";

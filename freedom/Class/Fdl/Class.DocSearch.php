@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.8 2002/12/11 08:24:45 eric Exp $
+// $Id: Class.DocSearch.php,v 1.9 2003/01/24 14:10:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.8 2002/12/11 08:24:45 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.9 2003/01/24 14:10:46 eric Exp $';
 
 
 include_once("FDL/Class.PDocSearch.php");
@@ -33,6 +33,7 @@ Class DocSearch extends PDocSearch {
   
 
   var $defDoctype='S';
+  var $defaultedit= "FREEDOM:EDITSEARCH";
 
 
   function DocSearch($dbaccess='', $id='',$res='',$dbid=0) {
@@ -82,7 +83,7 @@ Class DocSearch extends PDocSearch {
     //if ($latest)       $filters[] = "locked != -1";
     $filters[] = "usefor = 'N'";
     $keyword= str_replace("^","£",$keyword);
-    $keyword= str_replace("$","£",$keyword);
+    $keyword= str_replace("$","\0",$keyword);
     if ($keyword != "") {
       if ($sensitive) $filters[] = "values ~ '$keyword' ";
       else $filters[] = "values ~* '$keyword' ";
@@ -101,12 +102,36 @@ Class DocSearch extends PDocSearch {
     if ($this->getValue("se_latest") != "") {
       $query=$this->ComputeQuery($this->getValue("se_key"),
 				 $this->getValue("se_famid"),
-				 $this->getValue("se_latest")==_("yes"),
-				 $this->getValue("se_case")==_("yes"),
+				 $this->getValue("se_latest")=="yes",
+				 $this->getValue("se_case")=="yes",
 				 $this->getValue("se_idfld"));
 
       $this->AddQuery($query);
     }
+  }
+  function editsearch() {
+
+    
+  global $action;
+
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/edittable.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
+
+  $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id);
+
+  $this->lay->set("selfam",_("no family"));
+  while (list($k,$cdoc)= each ($tclassdoc)) {
+    $selectclass[$k]["idcdoc"]=$cdoc->initid;
+    $selectclass[$k]["classname"]=$cdoc->title;
+    if ($cdoc->initid == $famid) {
+      $selectclass[$k]["selected"]="selected";
+      $this->lay->set("selfam",$cdoc->title);
+    } else $selectclass[$k]["selected"]="";
+  }
+  
+  $this->lay->SetBlockData("SELECTCLASS", $selectclass);
+
+    $this->editattr();
   }
 }
 

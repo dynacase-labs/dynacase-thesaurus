@@ -13,6 +13,10 @@ if ("[LGTEXTERROR]" != "0") {
   centerError();
   window.onscroll=centerError;
 }
+if ("[refreshfld]" == "Y") {
+ 
+   if (parent.flist) parent.flist.location.reload();
+}
 -->
 </script>
 

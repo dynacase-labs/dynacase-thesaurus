@@ -1,0 +1,74 @@
+
+
+<tbody>
+<tr >
+  <td>&nbsp</td>
+  <td class="FREEDOMLabel" align="right">
+       [L_SE_KEY]&nbsp;: </td>
+  <td   >
+      [V_SE_KEY]</td>
+</tr>
+<tr class="FREEDOMBack1">
+  <td>&nbsp</td>
+  <td class="FREEDOMLabel" align="right">
+      [TEXT:only latest revision]&nbsp;: </td>
+  <td   >
+      <input type="checkbox"
+             onclick="document.getElementById('se_latest').value=(this.checked)?'yes':'no';" 
+             name="latest" value="true" checked>
+      <input type="hidden" id="se_latest" name="_se_latest" value="yes" > </td>
+</tr>
+<tr class="FREEDOMBack1">
+  <td>&nbsp</td>
+  <td class="FREEDOMLabel" align="right">
+       [TEXT:from current folder]&nbsp;: </td>
+  <td   >
+      <input type="checkbox" name="fromdir" value="true" 
+             onclick="document.getElementById('se_idfld').value=(this.checked)?parent.ffolder.dirid:'0';document.getElementById('se_cfld').value=(this.checked)?'dossier':' ';" > 
+      <input type="hidden" id="se_idfld" name="_se_idfld" value="0" >
+      <input type="hidden" id="se_cfld" name="_se_cfld" value=" " ></td>
+</tr>
+
+<tr class="FREEDOMBack1">
+  <td>&nbsp</td>
+  <td class="FREEDOMLabel" align="right">
+       [TEXT:case sensitive]&nbsp;: </td>
+  <td >
+      <input type="checkbox" 
+             onclick="document.getElementById('se_case').value=(this.checked)?'yes':'no';" 
+	     name="sensitive" value="true" > 
+      <input type="hidden" id="se_case" name="_se_case" value="no" ></td>
+</tr>
+
+<tr class="FREEDOMBack1">
+  <td>&nbsp</td>
+  <td class="FREEDOMLabel" align="right">
+     [TEXT:familly]&nbsp;: </td>
+  <td >
+     <select name="_se_famid" onchange="document.getElementById('se_fam').value=this.options[this.selectedIndex].text">  
+           <option VALUE="0" >[TEXT:any familly]</option> 
+         [BLOCK SELECTCLASS]
+           <option VALUE="[idcdoc]" [selected] >[classname]</option>   
+         [ENDBLOCK SELECTCLASS]
+    </select> 
+
+    <input type="hidden" id="se_fam" name="_se_fam" value="[selfam]"> </td>
+</tr>
+
+
+<tr class="FREEDOMBack1">
+  <td  align="right" >
+ 
+ <input type="button" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH')"> </td>
+  <td  align="right"></td>
+</tr>
+
+<tr >
+  <td>&nbsp</td>
+  <td class="FREEDOMLabel" align="right">
+     [L_BA_TITLE]&nbsp;: </td>
+  <td   >
+      [V_BA_TITLE]</td>
+</tr>
+ 
+</tbody>

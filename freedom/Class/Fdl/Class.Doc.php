@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.87 2003/01/20 19:09:28 eric Exp $
+// $Id: Class.Doc.php,v 1.88 2003/01/24 14:10:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.87 2003/01/20 19:09:28 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.88 2003/01/24 14:10:46 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -776,6 +776,11 @@ create unique index i_docir on doc(initid, revision);";
     global $gdocs;// optimize for speed :: reference is not a pointer !!
     $gdocs[$this->id]=&$this;
     
+
+     if ($this->hasChanged) {
+       $this->postModify();
+       $this->hasChanged=false;
+     }
   }
 
   // recompute the title from attribute values
@@ -1268,7 +1273,17 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
     return $sql;
   }
 
-
+  function SetDefaultAttributes() {
+  // transform hidden to writted attribut for default document
+  if ($this->usefor == "D") {
+    $listattr = $this->GetAttributes();
+    while (list($i,$attr) = each($listattr)) {
+      if (($attr->visibility == "H") || ($attr->visibility == "R")) {
+	$this->attributes->attr[$i]->visibility="W";
+      }
+    }
+  }
+  }
   // --------------------------------------------------------------------
   // generate HTML code for view doc
   // --------------------------------------------------------------------
@@ -1278,6 +1293,8 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
       $action->exitError(sprintf(_("error in pzone format %s"),$layout));
      
   
+    $this->SetDefaultAttributes();
+
     $this->lay = new Layout($reg[1]."/Layout/".strtolower($reg[2]).".xml", $action);
 
     $method = strtolower($reg[2]);
@@ -1608,6 +1625,7 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
       if (! $this->isAlive()) $action->ExitError(_("document not referenced"));
 	
 	
+      $this->SetDefaultAttributes();
       $this->lay->Set("TITLE", $this->title);
 	
     }
@@ -1633,7 +1651,7 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
     $frames=array();
     $listattr = $this->GetAttributes();
   
-  
+
   
     $nattr = count($listattr); // number of attributes
     
@@ -1647,6 +1665,7 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
     $tableframe=array();
 
     $iattr=0;
+    reset($listattr);
     while (list($i,$attr) = each($listattr)) {
       if ((get_class($attr) != "normalattribute")) continue;
       $iattr++;
@@ -1765,8 +1784,8 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
 		      getHtmlInput($this,
 				   $v, 
 				   $value));
-      
-      $this->lay->Set("L_".strtoupper($v->id),$v->labelText);
+      if ($v->needed == "Y") $this->lay->Set("L_".strtoupper($v->id),"<B>".$v->labelText."</B>");
+      else $this->lay->Set("L_".strtoupper($v->id),$v->labelText);
       
     }
   

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.12 2002/12/04 17:13:36 eric Exp $
+// $Id: generic_search.php,v 1.13 2003/01/24 14:10:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,6 +65,9 @@ function generic_search(&$action) {
 
   $famid = getDefFam($action);
 
+
+  $keyword= str_replace("^","£",$keyword);
+  $keyword= str_replace("$","£",$keyword);
 
   $sqlfilter[]= "locked != -1";
   $sqlfilter[]= "doctype='F'";
