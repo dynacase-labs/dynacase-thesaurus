@@ -249,7 +249,7 @@ function floatMenu () {
 
 <!-- Build the browser's objects and display default view of the 
      tree. -->
-<script>initializeDocument()</script>
+<script>var now=new Date();initializeDocument();var now2=new Date();alert(now2.getTime() - now.getTime()+"ms")</script>
 <img id="micon" width="20" height="20"  style="position:absolute;visibility:hidden">
 
 </html>

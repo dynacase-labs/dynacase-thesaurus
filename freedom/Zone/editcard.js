@@ -1,5 +1,6 @@
 
-
+// auxilarry window to select choice
+var wichoose= false;
 
 function sendmodifydoc(event,docid, attrid, sorm) {
 
@@ -10,16 +11,23 @@ function sendmodifydoc(event,docid, attrid, sorm) {
   oldtar = f.target;
   f.action = '[CORE_STANDURL]&app=[FREEDOM_APP]&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&wname='+window.name;
 
+  var xw, yw;
+  if (window.event) {
+      xw = window.event.screenX;
+      yw = window.event.screenY;
+  } else {
+      xw = event.screenX;
+      yw = event.screenY;
 
-  f.target='ichoose';
-
-
-  GetXY(event);
-  with (document.getElementById('choose')) {
-     style.visibility='visible';
-     style.top = Ypos;
-     style.left = Xpos-100;
   }
+  status = xw +"+"+yw;
+  wichoose = window.open('', 'wchoose', 'resizable=yes,height=30,width=40,left='+xw+',top='+yw);
+  wichoose.focus();
+  wichoose.moveTo(xw, yw);
+  f.target='wchoose';
+
+
+  
   f.submit();
   // reset to initial action
   f.action=oldact;
@@ -49,4 +57,10 @@ function resizeInputFields() {
            elements[i].cols=newsize;
        }
   }
+}
+
+// close auxillary window if open
+function closechoose() {
+
+    if (wichoose) wichoose.close();
 }

@@ -35,14 +35,10 @@
 
 <body class="freedom" 
       onLoad="resizeInputFields()"
+      onUnLoad="closechoose()"
       onResize="resizeInputFields()">
 
-<iframe  style="visibility:hidden;position:absolute;top:0;left:0;padding:0pt;marging:0pt;" 
-         scrolling="no"
-         SRC="about:blank" NAME="ichoose" id="choose" width="400px" marginwidth="0" marginheight="0" frameborder="0" > 
-   You will not see this text if your browser supports IFRAME.
-If you CAN see this, you are in a bad way.
-</iframe>
+
 
 
 

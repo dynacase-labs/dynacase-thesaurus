@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.11 2002/01/28 16:51:35 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.12 2002/01/31 13:51:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.12  2002/01/31 13:51:14  eric
+// utilisation de window au lieu de iframe pour saisir choix enum
+//
 // Revision 1.11  2002/01/28 16:51:35  eric
 // modif pour cache dbobj
 //
@@ -59,7 +62,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.11 2002/01/28 16:51:35 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.12 2002/01/31 13:51:14 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -201,7 +204,7 @@ create table dirv ( dirid      int not null,
 
     if ($notfldsearch) $odoctype='D';
     else $odoctype='S';
-    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  ((t0.doctype='D') OR (t0.doctype='$odoctype')) and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and  (t2.dirid=$dirid) and (not useforprof);";
+    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  ((t0.doctype='D') OR (t0.doctype='$odoctype')) and (t2.dirid=$dirid) and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and  (not useforprof);";
 
 
     $tableid = array();
@@ -209,17 +212,9 @@ create table dirv ( dirid      int not null,
     $query -> AddQuery("dirid=".$dirid);
 
     $tableq=$query->Query(0,0,"LIST",$qsql);
-    if ($query->nb > 0)
-      {
-	while(list($k,$v) = each($tableq)) 
-	  {
-	      $tableid[] = $v;
-	  }
-	unset ($tableq);
-      }
+    if ($query->nb == 0) return array();            
 
-
-    return($tableid);
+    return($tableq);
   }
 
   function getChildDirId($dirid) {
