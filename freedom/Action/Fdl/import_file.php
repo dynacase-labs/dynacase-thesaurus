@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.13 2002/06/19 12:32:28 eric Exp $
+// $Id: import_file.php,v 1.14 2002/07/23 07:31:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -95,7 +95,7 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "DOC":
-      $ndoc=csvAddDoc($dbaccess, $data);
+      $ndoc=csvAddDoc($dbaccess, $data, $dirid);
       if (! isset($HTTP_POST_FILES["tsvfile"])) {
 	// log of batch mode
 	print $ndoc->title."\n";
@@ -224,7 +224,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10) {
     }
     // update title in finish
     $doc->modify();
-
+  $doc->refresh(); // compute read attribute
     if ($data[3] > 0) { // dirid
       $dir = new Dir($dbaccess, $data[3]);
       $dir->AddFile($doc->id);
