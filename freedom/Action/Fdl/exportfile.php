@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfile.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: exportfile.php,v 1.2 2002/04/15 07:46:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -105,7 +105,9 @@ function DownloadVault(&$action, $vaultid, $mimetype="") {
     {
       //Header("Location: $url");
       Http_DownloadFile($info->path, $info->name, $mimetype);
+      if (! $info->public_access)   AddlogMsg(sprintf(_("%s has be sended"),$info->name));
     }
+
   exit;
 }
 
