@@ -23,7 +23,7 @@ function _CloseOnEsc(ev) {
     // IE
     ev = window.event;
   }
-  if (ev.keyCode == 27) {
+  if (ev && (ev.keyCode == 27)) {
     // update_parent();
     window.close();
     return;
