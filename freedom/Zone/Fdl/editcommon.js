@@ -239,7 +239,8 @@ function getInputValue(id,index) {
     return document.getElementById(id).value;
   } else {
     
-    le = document.getElementsByName('_'+id+'[]');
+    if (isNetscape) le = document.getElementsByName('_'+id+'[]');
+    else le = getInputsByName('_'+id);
     if ((le.length - 1) >= index) {
       return le[index].value;
     }    
@@ -250,7 +251,9 @@ function getInputValue(id,index) {
 // return values for input multiples 
 function getInputValues(n) {
  var v='';
- var ta = document.getElementsByName('_'+n+'[]');
+ var ta;
+ if (isNetscape) ta=  document.getElementsByName('_'+n+'[]');
+ else  ta = getInputsByName('_'+n);
  if (ta.length==0) ta = document.getElementsByName('_'+n);
  if (ta.length==0) return false;
   for (var j=0; j< ta.length; j++) {
@@ -305,6 +308,20 @@ function getInputsByName(n) {
   if (t.length == 0) { 
     // try with select
     ti= document.getElementsByTagName("select");
+    
+    for (var i=0; i< ti.length; i++) {       
+      pos=ti[i].name.indexOf('[');
+      if (pos==-1) ni=ti[i].name;
+      else ni=ti[i].name.substr(0,pos);
+      if ((ni == n) && (ti[i].name.substr(ti[i].name.length-4,4) != '[-1]')) {		
+	t.push(ti[i]);
+      }
+    }      
+  }  
+
+  if (t.length == 0) { 
+    // try with select
+    ti= document.getElementsByTagName("textarea");
     
     for (var i=0; i< ti.length; i++) {       
       pos=ti[i].name.indexOf('[');
@@ -399,8 +416,11 @@ function disableReadAttribute() {
 	}
       } else {
 	// search in arrays
-	lin = document.getElementsByName('_'+taout[c][i]+'[]');
-
+	if (isNetscape) lin = document.getElementsByName('_'+taout[c][i]+'[]');
+	else lin = getInputsByName('_'+taout[c][i]);
+	//	alert(taout[c][i]+'/'+lin.length);
+	//	alert(document.getElementsByTagName('input').length);
+	//alert(getInputsByName('_'+taout[c][i]).length);
 	for (var j=0; j< lin.length; j++) {
 	  ndis=true;
 	  for (var k=0; k< tain[c].length; k++) {
@@ -408,6 +428,7 @@ function disableReadAttribute() {
 	    if ((vin == '') || (vin == ' ')) ndis = false;
 	    
 	  }
+	  //	  alert(tain[c].toString()+'['+j+']'+ndis);
 	  if (lin[j].type != 'hidden') {
 	    lin[j].disabled=ndis;
 	    lin[j].style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
@@ -1020,16 +1041,21 @@ function fixedPosition() {
   var h;
 
   if (fspan && ftable) {
+    
     xy=getAnchorPosition(fspan.id);
     h=parseInt(getObjectHeight(ftable))-xy.y;
     if (h>0) fspan.style.height=h+'px';;
   }
    fspan=document.getElementById('fixspanfoot');
    ftable=document.getElementById('fixtablefoot');
+   ftable.style.position='fixed';
+   ftable.style.top='auto';
+   ftable.style.right='0px';
+   ftable.style.left='0px';
 
   if (fspan && ftable) {
     fspan.style.height=parseInt(getObjectHeight(ftable))+'px';;
-
+    
   }
   
 }
