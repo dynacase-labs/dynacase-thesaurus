@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.7 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_util.php,v 1.8 2002/07/15 07:04:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -31,7 +31,7 @@ include_once("FDL/Class.DocValue.php");
 // ------------------------------------------------------
 // construction of a sql disjonction
 // ------------------------------------------------------
-function GetSqlCond($Table, $column) 
+function GetSqlCond2($Table, $column) 
 // ------------------------------------------------------
 {
   $sql_cond="";
@@ -48,6 +48,23 @@ function GetSqlCond($Table, $column)
   return $sql_cond;
 }
 
+
+function GetSqlCond($Table, $column) 
+// ------------------------------------------------------
+{
+  $sql_cond="";
+  if (count($Table) > 0)
+    {
+      $sql_cond = "$column in ('$Table[0]'";
+      for ($i=1; $i< count($Table); $i++)
+	{
+	  $sql_cond .= ",'$Table[$i]'";
+	}
+      $sql_cond .= ")";
+    }
+
+  return $sql_cond;
+}
 
 
 

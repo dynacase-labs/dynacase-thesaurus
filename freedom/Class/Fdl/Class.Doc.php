@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.31 2002/07/11 13:22:25 eric Exp $
+// $Id: Class.Doc.php,v 1.32 2002/07/15 07:04:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.31 2002/07/11 13:22:25 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.32 2002/07/15 07:04:53 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -449,6 +449,7 @@ create sequence seq_id_doc start 1000";
       //      $query->AddQuery("initid=id");
       }
       
+		$query->AddQuery("hasviewprivilege(".$this->userid.",doc.profid)");
       return $query->Query();
     }
 
@@ -855,7 +856,8 @@ create sequence seq_id_doc start 1000";
 	  else if ($v == "I") $arg[$k]= $this->id;
 	  else {
 	    $arg[$k]= $this->GetValue($v);
-	    if ($arg[$k] == "") return;
+	    //if ($arg[$k] == "") AddLogMsg("missing $v");
+	    if ($arg[$k] == "") continue;
 	  }
 	}
 	// activate plug	

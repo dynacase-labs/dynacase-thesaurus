@@ -138,6 +138,12 @@ function completechoices() {
 }
 
 function resizeIFrame() {
+  // see if only one possibility
+  if (tattrv.length == 1) {
+     completechoice(0);
+     self.close();
+  }
+
 
   document.getElementById('dchoose').style.width= document.getElementById('schoose').offsetWidth+2;
   document.getElementById('dchoose').style.height= document.getElementById('schoose').offsetHeight+30;
