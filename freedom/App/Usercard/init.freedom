@@ -7,7 +7,7 @@ TYPE;C;;;;;;;;;;
 ATTR;US_FR_IDENT;;Etat civil;N;N;frame;10;W;;;
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;W;;;
 ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;W;;;
-ATTR;US_PHOTO;US_FR_IDENT;photographie;N;Y;image;40;W;;;
+ATTR;US_PHOTO;US_FR_IDENT;photographie;N;N;image;40;W;;;
 ATTR;US_FR_COORD;;Coordonnées;N;N;frame;50;W;;;
 ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;60;W;mailto:%US_MAIL%;;
 ATTR;US_PHONE;US_FR_COORD;téléphone;N;Y;text;70;W;;;
