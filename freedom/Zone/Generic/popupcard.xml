@@ -11,7 +11,7 @@
 
 
 <a href="#" id="editstate"
-    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDITSTATE&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Change state]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDITSTATE&id=[id]','');closeMenu('popupcard')" >[TEXT:Change state]</a>
 
 <a href="#" id="unlockdoc"
     onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=UNLOCKFILE&id=[id]','finfo');closeMenu('popupcard')" >[TEXT:Unlock]</a>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: deldirfile.php,v 1.9 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: deldirfile.php,v 1.10 2003/12/09 10:51:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: deldirfile.php,v 1.9 2003/08/18 15:47:03 eric Exp $
+// $Id: deldirfile.php,v 1.10 2003/12/09 10:51:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/deldirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -62,7 +62,8 @@ function deldirfile(&$action) {
   if ($err != "") $action->exitError($err);
 
   
-  RedirectSender($action);// return to sender
+  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");
+  //RedirectSender($action);// return to sender
   
 
 }

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modacl.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: modacl.php,v 1.4 2003/12/09 10:51:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modacl.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+// $Id: modacl.php,v 1.4 2003/12/09 10:51:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/modacl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -42,8 +42,7 @@ include_once("FDL/Class.Doc.php");
 
 // -----------------------------------
 function modacl(&$action) {
-  // -----------------------------------
-
+  // ----------------------------------- 
   // get all parameters
   $userid=GetHttpVars("userid");
 

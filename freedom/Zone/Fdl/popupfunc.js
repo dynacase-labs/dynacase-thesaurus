@@ -40,7 +40,15 @@ function getScrollYOffset() {
 }
 
 
-
+function openSubMenu(event, th, menuid) {
+  var xy=getAnchorPosition(th.id);
+  //  alert(th.parentNode.id);
+  //  alert(th.parentNode.style.width);
+  //alert(th.parentNode.currentStyle.width);
+  //  alert(window.getComputedStyle(th.parentNode, null).width);
+  var dx=th.parentNode.offsetWidth;
+  openMenuXY(event,menuid,xy.x+dx,+xy.y);
+}
 
 
 function openMenu(event, menuid, itemid) {
@@ -128,11 +136,11 @@ function closeMenu(menuid) {
 function activate(th, url, wname) {
   if ((th.className == 'menuItem') || (th.className == 'menuItemCtrl')) {
     // add referer url for client doesn't not support it
-    var urlref;
-    if (isNetscape) urlref=url;
-    else urlref= url+'&http_referer='+escape(window.location.href);
-    if (wname == "") window.location.href=urlref;
-    else subwindowm(300,400,wname,urlref);
+    //  var urlref;
+  //   if (isNetscape) urlref=url;
+//     else urlref= url+'&http_referer='+escape(window.location.href);
+    if (wname == "") window.location.href=url;
+    else subwindowm(300,400,wname,url);
    
   }
 }

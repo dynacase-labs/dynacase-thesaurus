@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_modaccess.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_modaccess.php,v 1.6 2003/12/09 10:51:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_modaccess.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_modaccess.php,v 1.6 2003/12/09 10:51:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -75,7 +75,6 @@ function freedom_modaccess(&$action) {
   
  
   
-  global $HTTP_SERVER_VARS;
-  Header("Location: ".$HTTP_SERVER_VARS["HTTP_REFERER"]); // return to sender
+  RedirectSender($action); // return to sender
 }
 ?>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.35 2003/11/17 10:43:29 eric Exp $
+ * @version $Id: popupcard.php,v 1.36 2003/12/09 10:51:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.35 2003/11/17 10:43:29 eric Exp $
+// $Id: popupcard.php,v 1.36 2003/12/09 10:51:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -87,7 +87,7 @@ function popupcard(&$action) {
   $clf = ($doc->CanLockFile() == "");
   $cuf = ($doc->CanUnLockFile() == "");
   $cud = ($doc->CanUpdateDoc() == "");
-
+  
   popupInvisible('popupcard',$kdiv,'toxml'); // don't display for the moment
   popupCtrlActive('popupcard',$kdiv,'reference'); 
 
@@ -227,6 +227,20 @@ function popupcard(&$action) {
 
   if ($doc->postitid > 0) popupInvisible('popupcard',$kdiv,'addpostit');
   else PopupCtrlactive('popupcard',$kdiv,'addpostit');
+
+  // ------------
+  // add special views
+//   $tviews = $doc->views;
+
+//   popupInit('popupview',  array(
+// 				'test1',
+// 				'test2'));
+//   Popupactive('subpopup',$kdiv,'test1');
+//   PopupCtrlactive('subpopup',$kdiv,'test2');
+  
+
+
+
 
   popupGen($kdiv);
 }
