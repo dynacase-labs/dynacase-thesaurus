@@ -3,8 +3,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2003/06/24 10:38:15 $
-// Version         $Revision: 1.5 $
+// Last Update     $Date: 2003/07/11 16:10:47 $
+// Version         $Revision: 1.6 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -68,7 +68,7 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
   // --------------------------
   // display headers column  
   $rfamid = $this->getValue("SE_FAMID",1);
-  $rdoc=createDoc($this->dbaccess, $rfamid);
+  $rdoc=createDoc($this->dbaccess, $rfamid, false);
   $lattr=$rdoc->GetNormalAttributes();
   $tcolumn1=array();
   $tcolumn2=array();
