@@ -175,8 +175,8 @@ function escondeFolder()
 } 
  
 function listUrl(url) {
-  if (parent.flist) {
-    parent.flist.location.href=url;
+  if (parent.fvfolder) {
+    parent.fvfolder.location.href=url;
   } else {
     subwindow(300,300,'list',url);
   }

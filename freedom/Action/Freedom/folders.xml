@@ -51,13 +51,13 @@ var micon=false;
 var cdocid=0;
 function initDrag() {
 
-  if (! parent.flist) return;
-  if (! parent.flist.drag) return;
-  if (parent.flist.drag == 1) {
+  if (! parent.fvfolder) return;
+  if (! parent.fvfolder.drag) return;
+  if (parent.fvfolder.drag == 1) {
     drag=1;
-    cdocid = parent.flist.document.docid;
-    parent.flist.drag=0;
-    imicon = parent.flist.document.getElementById('micon');
+    cdocid = parent.fvfolder.document.docid;
+    parent.fvfolder.drag=0;
+    imicon = parent.fvfolder.document.getElementById('micon');
     micon.src=imicon.src;
     //    alert(micon.src);
     imicon.style.visibility="hidden";
@@ -203,10 +203,10 @@ function viewhome(event) {
 <div  id="poppaste" class="popup">
 
 <a href="#" id="pastelatest"        
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'flist');closeMenu('poppaste');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'fvfolder');closeMenu('poppaste');return false">
    [TEXT:Copy reference]</a>
 <a href="#" id="staticpaste"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=MOVEDIRFILE&todirid='+dirid+'&fromdirid='+parent.flist.document.dirid+'&docid='+cdocid,'flist');closeMenu('poppaste');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=MOVEDIRFILE&todirid='+dirid+'&fromdirid='+parent.fvfolder.document.dirid+'&docid='+cdocid,'fvfolder');closeMenu('poppaste');return false">
    [TEXT:Move reference] </a>
 <a href="#" id="cancel2"  
     onClick="closeMenu('poppaste');return false">[TEXT:cancel]</a>

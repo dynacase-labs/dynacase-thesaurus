@@ -3,7 +3,7 @@
  * Definition of bar menu for folder navigation
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.11 2005/03/25 17:09:41 eric Exp $
+ * @version $Id: barmenu.php,v 1.12 2005/04/01 17:20:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -26,8 +26,8 @@ include_once("FDL/popup_util.php");
 function barmenu(&$action) {
   // -----------------------------------
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','newwf'));
-  popupInit("searchmenu", array( 'newsearch','newdsearch','newsearchfulltext'));
+  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','newwf','newact'));
+  popupInit("searchmenu", array( 'speedsearch','newsearch','newdsearch','newsearchfulltext'));
  
   popupInit("helpmenu", array('help','import','importtar'));
 
@@ -59,6 +59,7 @@ function barmenu(&$action) {
 
   popupActive("newmenu",1,'newdoc'); 
   popupActive("newmenu",1,'newfld'); 
+  popupActive("newmenu",1,'newact'); 
   popupActive("newmenu",1,'newprof');
   if ($action->HasPermission("FREEDOM_MASTER")) {
     popupActive("helpmenu",1,'import'); 
@@ -73,6 +74,7 @@ function barmenu(&$action) {
   }
   popupActive("searchmenu",1,'newsearch');
   popupActive("searchmenu",1,'newdsearch');
+  popupInvisible("searchmenu",1,'speedsearch');
   if ($action->GetParam("FULLTEXT_SEARCH") == "yes") popupActive("searchmenu",1,'newsearchfulltext');
   else popupInvisible("searchmenu",1,'newsearchfulltext');
  

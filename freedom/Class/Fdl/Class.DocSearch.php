@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.25 2005/03/03 17:14:49 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.26 2005/04/01 17:20:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -172,6 +172,9 @@ Class DocSearch extends PDocSearch {
     $this->editattr();
   }
 
+  function editspeedsearch() {
+    return $this->editsearch();
+  }
 
   /**
    * return document includes in search folder

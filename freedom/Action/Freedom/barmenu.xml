@@ -60,6 +60,8 @@ function SendSearchId(e,id) {
 
 <a  id="newfld" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=2&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Folder]</a>
 
+<a  id="newact" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=36&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Action]</a>
+
 <a  id="newprof" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=3&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Profile]</a>
 
      <a  id="newfam" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=DEFATTR&classid=1&id=0&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Family]</a>
@@ -81,6 +83,7 @@ function SendSearchId(e,id) {
 
 <!-- ------------ MENU SEARCH  --------------------- -->
 <div  id="searchmenu" class="popup">
+  <a  id="speedsearch" href="#" onClick="fsearch.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&classid=5&zone=FREEDOM:EDITSPEEDSEARCH:S';closeAllMenu();">[TEXT:speed]</a>
   <a  id="newsearch" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&classid=5&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:simple]</a>
   <a  id="newdsearch" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&classid=16&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:detailled]</a>
   <a  id="newsearchfulltext" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&classid=FTEXTSEARCH&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:fulltext]</a>

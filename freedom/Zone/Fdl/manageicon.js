@@ -142,7 +142,7 @@ function sendFirstFile(docid) {
 
 function openFld(docid) {
   url='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW&dirid='+docid;
-  subwindow([FDL_HD2SIZE],[FDL_VD2SIZE],'flist',url);
+  subwindow([FDL_HD2SIZE],[FDL_VD2SIZE],'fvfolder',url);
 }
 //--------------------- DRAG & DROP  --------------------------
 var drag=0;

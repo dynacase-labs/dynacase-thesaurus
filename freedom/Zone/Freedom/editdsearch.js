@@ -27,7 +27,7 @@ function sendsearch(faction) {
       var nt=document.getElementById('newstate');
       if (nt)   disabledInput(nt,true);
     }
-    target='flist';
+    target='fvfolder';
     action=faction;
     submit();
     target=editTarget;
