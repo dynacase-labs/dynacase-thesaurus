@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.31 2005/01/14 17:52:56 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.32 2005/01/18 18:17:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -14,16 +14,10 @@
 
 
 
-var $defaultedit= "FREEDOM:EDITDSEARCH";
-var $defaultview= "FREEDOM:VIEWDSEARCH";
+var $defaultedit= "FREEDOM:EDITDSEARCH";#N_("include") N_("equal") N_("equal") _("not equal") N_("is empty") N_("is not empty") N_("one value equal")
+var $defaultview= "FREEDOM:VIEWDSEARCH"; #N_("not include") N_("not equal") N_("&gt; or equal") N_("&lt; or equal")
 
-;#N_("include")
-;#N_("equal")
-;#N_("not equal")
-;#N_("not include")
-;#N_("not equal")
-;#N_("&gt; or equal") N_("&lt; or equal")
-;#N_("is empty") N_("is not empty") N_("one value equal")
+
 
 var $top=array("~*"=>array("label"=>"include"),
 	       "=" => array("label"=>"equal"),            
@@ -134,7 +128,7 @@ function getSqlDetailFilter() {
 }
 
 /**
- * return true if the search need parameters
+ * return true if the search has parameters
  */
 function isParameterizable() {
   $tkey = $this->getTValue("SE_KEYS");
@@ -152,7 +146,24 @@ function isParameterizable() {
   }
   return false;
 }
+/**
+ * return true if the search need parameters
+ */
+function needParameters() {
+  $tkey = $this->getTValue("SE_KEYS");
 
+  if ((count($tkey) > 1) || ($tkey[0] != "")) {
+
+    foreach ($tkey as $k=>$v) {
+     
+       if ($v[0]=='?') {
+	 if (getHttpVars(substr($v,1),"-") == "-") return true;
+       }
+				    
+    }
+  }
+  return false;
+}
 /**
  * Add parameters 
  */
@@ -228,8 +239,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
  				    ($tkey[$k]!="")?_($tkey[$k]):$tkey[$k]);
        if ($v[0]=='?') {
  	$tparm[substr($v,1)]=$taid[$k];
-       }
-				    
+       }				    
     }
     $this->lay->SetBlockData("COND", $tcond);
   }
@@ -263,6 +273,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
     $this->lay->setBlockData("VPARAM1",array(array("zou")));
     $this->lay->setBlockData("VPARAM2",array(array("zou")));
     $this->lay->setBlockData("VPARAM3",array(array("zou")));
+    $this->lay->set("stext",_("send search"));
     $this->lay->set("saction",getHttpVars("saction","FREEDOM_VIEW"));
     $this->lay->set("sapp",getHttpVars("sapp","FREEDOM"));
     $this->lay->set("sid",getHttpVars("sid","dirid"));
