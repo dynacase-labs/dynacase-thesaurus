@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.21 2004/06/11 16:10:44 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.22 2004/06/17 14:49:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -65,14 +65,14 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   if ((count($taid) > 1) || ($taid[0] != "")) {
     // special loop for revdate
     foreach($tkey as $k=>$v) {
-      if ($taid[$k] == "revdate") {
-	list($dd,$mm,$yyyy) = explode("/",$v);
-	$tkey[$k]=mktime (0,0,0,$mm,$dd,$yyyy);
-      }
       if (substr($v,0,2)=="::") {
 	// it's method call
 	$rv = $this->ApplyMethod($v);
 	$tkey[$k]=$rv;
+      }
+      if ($taid[$k] == "revdate") {
+	list($dd,$mm,$yyyy) = explode("/",$tkey[$k]);
+	$tkey[$k]=mktime (0,0,0,$mm,$dd,$yyyy);
       }
     }
     

@@ -1,9 +1,9 @@
 <?php
 /**
- * Detailled search
+ * Grouped searches
  *
- * @author Anakeen 2000 
- * @version $Id: Method.GroupSearch.php,v 1.1 2004/06/11 16:10:44 eric Exp $
+ * @author Anakeen 2004
+ * @version $Id: Method.GroupSearch.php,v 1.2 2004/06/17 14:49:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
