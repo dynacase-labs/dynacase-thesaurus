@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.70 2004/08/27 15:16:31 eric Exp $
+ * @version $Id: editutil.php,v 1.71 2004/08/31 14:06:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.70 2004/08/27 15:16:31 eric Exp $
+// $Id: editutil.php,v 1.71 2004/08/31 14:06:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -275,7 +275,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
     case "array": 
 
       $lay = new Layout("FDL/Layout/editarray.xml", $action);
-      getLayArray($lay,$doc,$attrid);
+      getLayArray($lay,$doc,$oattr);
 		      
       $input =$lay->gen(); 
       break;
@@ -661,10 +661,10 @@ function elinkEncode(&$doc, $link,$index,&$ititle,&$isymbol) {
     
 }
 
-function getLayArray(&$lay,&$doc,$attrid) {
+function getLayArray(&$lay,&$doc,&$oattr) {
   global $action;
 
- 
+  $attrid=$oattr->id;
   $ta = $doc->attributes->getArrayElements($attrid);
      
       $talabel=array();
@@ -720,6 +720,7 @@ function getLayArray(&$lay,&$doc,$attrid) {
       $lay->setBlockData("IATTR",$tilabel);
       $lay->setBlockData("VATTR",$tvattr);
       $lay->set("attrid",$attrid);
+
       $lay->set("caption",$oattr->labelText);
      
       $lay->set("footspan",count($ta)*2);
