@@ -33,7 +33,7 @@
 
 
 <img id="micon" width="20" height="20"   style="position:absolute;visibility:hidden;z-index:10" border="0" src="FREEDOM/Images/doc.gif">
-
+<p align="center">[dirtitle]</p>
 <p class="anakeen" align="center">[nbdoc] [TEXT:document(s) found]</p>
 
 [ZONE FREEDOM:POPUPFOLIO]
@@ -48,7 +48,6 @@
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
      align="absbottom"  src="[iconsrc]"><br>
 
-  
   [abrvtitle]
 
 
