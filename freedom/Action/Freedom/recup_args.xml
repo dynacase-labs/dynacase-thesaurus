@@ -12,7 +12,8 @@ formulaire.submit();
 <form id="parametre"
       action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT2&famid=[famid]&type_attr=idoc&attrid=[attrid]&mod=special"
       method="POST"
-      ENCTYPE="multipart/form-data"    
+      ENCTYPE="multipart/form-data"
+      target="_self"    
            
 >
 <input type="hidden" id="xml" name="xml" value="[xml2]">

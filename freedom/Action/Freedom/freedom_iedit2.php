@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_iedit2.php,v 1.1 2003/06/27 07:40:45 mathieu Exp $
+// $Id: freedom_iedit2.php,v 1.2 2003/06/27 09:43:02 mathieu Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_iedit2.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,7 +62,7 @@ function freedom_iedit2(&$action) {
 	$xml.=$temp;
 	
 
-		printf($xml);
+	//	printf($xml);
 
  
   $famid = GetHttpVars("famid");
