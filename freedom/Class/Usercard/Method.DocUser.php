@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.19 2003/10/28 16:34:29 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.20 2003/12/15 08:38:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.19 2003/10/28 16:34:29 eric Exp $
+// $Id: Method.DocUser.php,v 1.20 2003/12/15 08:38:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,6 +51,9 @@
   var $defaultabstract= "USERCARD:VIEWABSTRACTCARD";
   var $defaultedit = "USERCARD:EDITUSERCARD";
   
+   
+  var $cviews=array("USERCARD:VIEWABSTRACTCARD");
+  var $eviews=array("USERCARD:EDITUSERCARD");
 // -----------------------------------
    function viewabstractcard($target="finfo",$ulink=true,$abstract="Y") {
      // -----------------------------------

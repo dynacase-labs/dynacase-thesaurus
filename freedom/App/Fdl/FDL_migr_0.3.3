@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ 
+
+pubdir="/home/httpd/what";
+echo "alter table doc add column cvid int;" | psql freedom anakeen
+echo "alter table doc add column name text;" | psql freedom anakeen
+echo "alter table docfam add column ccvid int;" | psql freedom anakeen

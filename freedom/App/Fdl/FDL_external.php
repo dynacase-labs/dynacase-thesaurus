@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.26 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: FDL_external.php,v 1.27 2003/12/15 08:38:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -230,6 +230,44 @@ function lmask($dbaccess, $name, $maskfamid="") {
   return lfamilly($dbaccess, "MASK", $name, 0, $filter);
   
 }
+
+// liste des zones possibles
+// $tview VCONS|VEDIT
+function lzone_($dbaccess, $tview, $famid ="") {
+  $tz=array();
+
+  $filter=array();
+  if ($famid > 0) {
+    $fdoc = new Doc($dbaccess,$famid);
+    $cdoc=createDoc($dbaccess,$famid,false);
+    if ($tview == "VEDIT") $tz=$cdoc->eviews;
+    else $tz=$cdoc->cviews;
+    $oz=lzone_($dbaccess, $tview, $fdoc->fromid);
+    $tz = array_merge($oz,$tz);
+    
+  } else {
+    $fdoc = new Doc($dbaccess);
+    if ($tview == "VEDIT") $tz=$fdoc->eviews;
+    else $tz=$fdoc->cviews;
+  }
+  
+
+  return $tz;
+  
+}
+
+function lzone($dbaccess, $tview, $famid ="") {
+  $tz=lzone_($dbaccess, $tview, $famid);
+  $tz=array_unique($tz);
+  foreach ($tz as $v) {
+    $tr[]=array($v,$v);
+  }
+  
+
+  return $tr;
+  
+}
+
 
 // liste des attributs d'une famille
 function getDocAttr($dbaccess, $famid, $name="") {

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.171 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.172 2003/12/15 08:38:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.171 2003/12/12 15:45:25 eric Exp $
+// $Id: Class.Doc.php,v 1.172 2003/12/15 08:38:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -210,7 +210,9 @@ Class Doc extends DocCtrl {
    * 
    * @var array
    */
-  var $views=array();
+  var $cviews=array("FDL:VIEWBODYCARD",
+		    "FDL:VIEWABSTRACTCARD");
+  var $eviews=array("FDL:EDITBODYCARD");
 
 
 
