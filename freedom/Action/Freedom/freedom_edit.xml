@@ -50,6 +50,7 @@ function refreshfld(dirid) {
        target="doc_properties" 
        class="fborder" 
        name="modifydoc" 
+       
        onsubmit="setTimeout('refreshfld([dirid])',20)"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
@@ -79,8 +80,12 @@ function refreshfld(dirid) {
 <tfoot>
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
-  <td colspan="3" >
- <input type="submit" value=[editaction] onClick="enableall();document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO'"> 
+  <td  >
+ <input type="button" value=[editaction] onclick="enableall();document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO';document.modifydoc.submit()"> 
+  </td>
+  <td>&nbsp;</td>
+  <td  align="right">
+ <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO';"> 
   </td>
 </tr>
 </tfoot>
