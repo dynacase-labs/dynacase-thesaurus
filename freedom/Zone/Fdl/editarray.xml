@@ -1,22 +1,19 @@
 <fieldset ><legend>[caption]</legend>
-<table width="100%" border=1 class="tarray">
+<table width="100%" border=1 cellspacing="0" class="tarray">
    <thead><tr><td></td>
     [BLOCK TATTR]<th colspan="2" style="visibility:[ahvis]" width="[ahw]">[alabel]</th> [ENDBLOCK TATTR]
    </tr></thead>
  <tbody id="tbody[attrid]" >
   
-     [BLOCK EATTR]<tr ><td><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onclick="selecttr(this.parentNode.parentNode);return false;"><img style="visibility:hidden" name="insertup" src="[IMG:up22.gif]"  title="[TEXT:insert up]" onclick="movetr(this.parentNode.parentNode);return false;"></td>
+     [BLOCK EATTR]<tr onmouseup="sdrag(event,this);" ><td align="left"><img  name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>
     [BLOCK [bevalue]]<td width="[vhw]">[eivalue]</td>[ENDBLOCK [bevalue]]
  </tr>[ENDBLOCK EATTR]
 <tr id="lasttr[attrid]">
-<td class="und" align="left" colspan="[footspan]">
-  <img  title="[TEXT:unselect]" align="bottom" onclick="unseltr()" src="[IMG:next22.gif]">
-  <img name="insertup" style="visibility:hidden" title="[TEXT:insert up]" align="top" onclick="movetr(this.parentNode.parentNode)" src="[IMG:up22.gif]">
-  <img  name="insertup" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]">
-  <img src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;">
-</td><td>&nbsp;</td></tr>
+<td class="und" align="right" >
+  <img  name="unselect" style="visibility:hidden" title="[TEXT:unselect]" align="bottom" onclick="unseltr()" src="[IMG:point22.gif]">      
+</td><td colspan="[footspan]"><img src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;"></td></tr>
   </tbody>
-   <tfoot><tr style="display:none" id="tnew[attrid]"><td><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onclick="selecttr(this.parentNode.parentNode);return false;"><img  src="[IMG:up22.gif]" name="insertup" style="visibility:hidden" title="[TEXT:insert up]" onclick="movetr(this.parentNode.parentNode);return false;"></td>
+   <tfoot><tr style="display:none" onmouseup="sdrag(event,this);" id="tnew[attrid]"><td align="le"f><img   name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>
     [BLOCK IATTR]<td  style="visibility:[ihvis]" width="[ihw]">[ilabel]</td> [ENDBLOCK IATTR]
    </tr>
   </tfoot>

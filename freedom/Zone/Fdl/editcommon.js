@@ -339,7 +339,10 @@ function getInputsByName(n) {
 function getIValue(i) {
   if (i) {
     if (i.tagName == "TEXTAREA") return i.value;
-    if (i.tagName == "INPUT") return i.value;
+    if (i.tagName == "INPUT") {
+      if ((i.type=='radio')||(i.type=='checkbox')) return i.checked;      
+      return i.value;
+    }
     if (i.tagName == "SELECT") {
       if (i.selectedIndex >= 0)   return i.options[i.selectedIndex].value;
       else return '';
@@ -350,7 +353,14 @@ function getIValue(i) {
 function setIValue(i,v) {
   if (i) {
    
-    if (i.tagName == "INPUT")  i.value=v;
+    if (i.tagName == "INPUT") {
+      if ((i.type=='radio')||(i.type=='checkbox')) {
+	i.checked=v;
+	if (v && (i.type=='radio')) changeCheckClasses(i,false);
+      }
+      else i.value=v;
+    }
+    else if (i.tagName == "TEXTAREA")  i.value=v;
     else  if (i.tagName == "SELECT") {
       for (var k=0;k<i.options.length;k++) {
 	if (i.options[k].value == v) i.selectedIndex=k;
@@ -665,17 +675,20 @@ function checkinput(cid,check,iin) {
 }
 // change style classes for check input
 function changeCheckClasses(th,iin) {
-  if (th) {
+  if (th && th.name) {
     var icheck=document.getElementsByName(th.name);
-    /*var icheck=new Array();
-      p=th.parentNode.childNodes[0];// firstSibling;
-      for (var i=0;i<th.parentNode.childNodes.length;i++) {
-      alert(th.parentNode.childNodes[i].name);
-      if (th.parentNode.childNodes[i].name && (th.parentNode.childNodes[i].name == th.name)) {
-      icheck.push(th.parentNode.childNodes[i]);
+    if (icheck.length==0) {
+      // other method for IE
+      icheck=new Array();
+      var ti=th.parentNode.parentNode.parentNode.getElementsByTagName('input');     
+      for (var i=0;i<ti.length;i++) {
+ 	if (ti[i].name && (ti[i].name == th.name)) {
+	  icheck.push(ti[i]);
+ 	}
       }
-      }*/
-    //alert (icheck.length);
+    }
+
+    if (icheck.length==0) return;
     var  needuncheck=false;
     for (var i=0;i<icheck.length;i++) {
       if (icheck[i].checked) icheck[i].parentNode.parentNode.className='checked';
@@ -686,9 +699,8 @@ function changeCheckClasses(th,iin) {
     for (var i=0;i<icheck.length-1;i++) {
       if (icheck[i].checked) needuncheck=true;
     }
-    
     icheck[icheck.length-1].checked=(!needuncheck);
-    if (iin) {
+    if (iin) {      
       for (var i=0;i<icheck.length;i++) {
 	if (icheck[i].checked) {
 	  var oi=document.getElementById(iin);
@@ -810,8 +822,9 @@ function addtr(trid, tbodyid) {
   nodereplacestr(ntr,'-1',ntable.childNodes.length);
   resizeInputFields(); // need to revaluate input width
  
-  if (seltr)  {
+  if (seltr && (seltr.parentNode == ntr.parentNode))  {
     seltr.parentNode.insertBefore(ntr,seltr);
+    resetTrInputs(ntr);
   } else {
     var ltr = ntable.getElementsByTagName('tr');
     var ltrfil=new Array();
@@ -820,6 +833,7 @@ function addtr(trid, tbodyid) {
     }
     if (ltrfil.length > 1) ltrfil[ltrfil.length-2].parentNode.insertBefore(ntr,ltrfil[ltrfil.length-2]);
   }
+  return ntr;
   
 }
 
@@ -828,7 +842,7 @@ function deltr(tr) {
 
 
   tr.parentNode.removeChild(tr);
-  
+
   return;
   
 }
@@ -909,17 +923,45 @@ function downtr(trnode) {
 
 // use to delete an article
 function delseltr() {
-
-
   if (seltr) {
     seltr.parentNode.removeChild(seltr);  
-    seltr=false;
-    visibilityinsert('insertup','hidden');
   }
+  unseltr();
   return;
   
 }
-
+function duptr() {
+  var dsel;
+  var tbodysel;
+  var i;
+  if (seltr) {
+    tbodysel=seltr.parentNode;
+    tbodyselid=tbodysel.id;
+    tnewid='tnew'+tbodyselid.substr(5);
+    ntr=addtr(tnewid,tbodyselid);
+    
+    ti1= seltr.getElementsByTagName("input");
+    ti2= ntr.getElementsByTagName("input");
+    for ( i=0; i< ti1.length; i++) {
+      setIValue(ti2[i],getIValue(ti1[i]));
+    }
+    ti1= seltr.getElementsByTagName("textarea");
+    ti2= ntr.getElementsByTagName("textarea");
+    for ( i=0; i< ti1.length; i++) {
+      setIValue(ti2[i],getIValue(ti1[i]));
+    }
+    ti1= seltr.getElementsByTagName("select");
+    ti2= ntr.getElementsByTagName("select");
+    for ( i=0; i< ti1.length; i++) {
+      setIValue(ti2[i],getIValue(ti1[i]));
+    }
+    
+    
+    disableReadAttribute();
+    
+  }
+  
+}
 function visibilityinsert(n,d) {
   var ti = document.getElementsByName(n);
   for (var i=0; i< ti.length; i++) { 
@@ -927,19 +969,23 @@ function visibilityinsert(n,d) {
   }
 }
 
-function selecttr(tr) {
+function selecttr(o,tr) {
 
+  visibilityinsert('trash','hidden');
+  visibilityinsert('unselect','hidden');
+  var ti = tr.parentNode.getElementsByTagName('img');
+  for (var i=0; i< ti.length; i++) { 
+    if (ti[i].name=='unselect') ti[i].style.visibility='visible';
+  }
   if (seltr) {
     seltr.style.backgroundColor='';
     
-  } else {
-    
-    visibilityinsert('insertup','visible');
-  }
+  } 
+  o.previousSibling.style.visibility='visible';
 
   seltr=tr;
 
-  seltr.style.backgroundColor='lightgrey';
+  seltr.style.backgroundColor='[CORE_BGCOLORHIGH]';
 
 
   return;  
@@ -953,7 +999,8 @@ function unseltr() {
     
     visibilityinsert('insertup','hidden');
   }
-
+  visibilityinsert('trash','hidden');
+  visibilityinsert('unselect','hidden');
   seltr=false;
 
   return;  
@@ -1182,4 +1229,138 @@ function preview(faction) {
       disabledInput(nt,false);
     }    
   }
+}
+
+
+
+addEvent(document,"keypress",trackKeys);
+
+// ~~~~~~~~~~~~~~~~~ for ARRAY inputs ~~~~~~~~~~~~~
+function trackKeys(event)
+{
+  var intKeyCode;
+  if (isNetscape) {
+    intKeyCode = event.which;
+    altKey = event.altKey
+    ctrlKey = event.ctrlKey
+   }  else {
+    intKeyCode = window.event.keyCode;
+    altKey = window.event.altKey;
+    ctrlKey = window.event.ctrlKey
+   }
+  
+  window.status=intKeyCode + ':'+altKey+ ':'+ctrlKey;
+
+  if (((intKeyCode == 118)||(intKeyCode == 22)) && (altKey || ctrlKey)) {
+    // Ctrl-V
+    duptr();
+  if (event.stopPropagation) event.stopPropagation();
+  else event.cancelBubble=true;
+  if (event.preventDefault) event.preventDefault();
+  else event.returnValue=true;
+    return false;
+  }
+  return true;
+}
+var dro=null; // clone use to move
+var idro=null; // real tr to move
+var hidro=null; // height of idro
+var ytr=0;
+var draggo=false;
+
+
+function adraggo(event) {
+  if (dro) {
+    dro.style.cursor='move';
+    if (idro) {
+      idro.style.visibility='hidden'; 
+      var ti=dro.getElementsByTagName('input');    
+      for (var i=0;i<ti.length;i++) { // to avoid conflict with others inputs
+	ti[i].id='';
+	ti[i].name='';
+	ti[i].disabled=true;
+      }
+      
+      idro.parentNode.appendChild(dro); 
+      visibilityinsert('trash','hidden');
+    }
+    //    dragtr(event); 
+    draggo=true;
+  }
+}
+
+
+function adrag(event,o) {
+  GetXY(event);
+  dro=o.parentNode.parentNode.cloneNode(true);
+  dro.style.position='absolute';
+  if (isNetscape)  dro.style.MozOpacity=0.5;
+  //  else dro.style.filter="alpha(opacity=50)";
+  dro.style.width=getObjectWidth(o.parentNode.parentNode);
+  idro=o.parentNode.parentNode;
+  hidro=getObjectHeight(idro);
+  dro.style.top=Ypos-Math.round(hidro/2);
+  ytr=Ypos;  
+  addEvent(document,"mousemove",dragtr);
+  if (event.stopPropagation) event.stopPropagation();
+  else event.cancelBubble=true;
+  if (event.preventDefault) event.preventDefault();
+  else event.returnValue=true;
+
+  setTimeout('adraggo()',300); 
+  //adraggo(event);
+}
+function sdrag(event,o) {
+  var dytr; //delta
+  if (dro && draggo) {
+    if (dro.parentNode) dro.parentNode.removeChild(dro);
+    GetXY(event); 
+    dytr=Ypos-ytr;
+    if (dytr > 0) dytr=dytr-(hidro/2);
+    dtr=Math.round(dytr/hidro);
+    //alert(hidro+'/'+dytr+'/'+dytr/hidro+'/'+dtr);
+    
+    trmo=idro;
+    if (dtr > 0) {
+      while (trmo && (dtr >= 0)) {
+	trmo=trmo.nextSibling;
+	while (trmo && (trmo.nodeType != 1)) trmo = trmo.nextSibling; // case TEXT attribute in mozilla between TR
+	dtr--;
+      }
+      if (trmo) {
+	seltr=idro;
+	movetr(trmo);
+      }
+    } else if (dtr < 0) {
+      while (trmo && (dtr < -1)) {
+	trmo=trmo.previousSibling;
+	while (trmo && (trmo.nodeType != 1)) trmo = trmo.previousSibling; // case TEXT attribute in mozilla between TR
+	dtr++;
+      }
+      if (trmo) {
+	seltr=idro;
+	movetr(trmo);
+      }
+    }
+  }
+  if (idro) idro.style.visibility='visible';
+  dro=null;
+  idro=null;
+  draggo=false;
+  delEvent(document,"mousemove",dragtr);   
+  if (event.stopPropagation) event.stopPropagation();
+  else event.cancelBubble=true;
+  if (event.preventDefault) event.preventDefault();
+  else event.returnValue=true;
+
+  
+}
+function dragtr(event) {  
+  if (dro && draggo) {
+    GetXY(event); 
+    dro.style.top=Ypos-Math.round(hidro/2);
+    //    dro.style.left=Xpos-10;
+    // window.status='drag='+Ypos+'x'+Xpos;
+  }
+  return false;
 }

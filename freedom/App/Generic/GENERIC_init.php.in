@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC_init.php.in,v 1.5 2003/10/16 09:38:02 eric Exp $
+// $Id: GENERIC_init.php.in,v 1.6 2005/01/27 13:07:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,6 +50,14 @@ $app_const= array(
 			 "user"=>"Y"),
   "GENE_SPLITMODE" => array("val"=>"",
 			 "descr"=>N_("split view mode by family"),
+			 "global"=>"Y",
+			 "user"=>"Y"),
+  "GENE_PREFSEARCH" => array("val"=>"",
+			 "descr"=>N_("prefered search"),
+			 "global"=>"Y",
+			 "user"=>"Y"),
+  "GENE_LATESTTXTSEARCH" => array("val"=>"",
+			 "descr"=>N_("last search text typed"),
 			 "global"=>"Y",
 			 "user"=>"Y")
 );
