@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.32 2003/07/16 08:10:44 eric Exp $
+// $Id: mailcard.php,v 1.33 2003/07/30 14:55:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,8 +44,11 @@ function mailcard(&$action) {
 
   if ($cr == "Y") {
     if ($err != "") $action->exitError($err);
-    else $action->exitError(sprintf(_("the document %s has been sended"),$doc->title));
+    else $action->addWarningMsg(sprintf(_("the document %s has been sended"),$doc->title));
   }
+  redirect($action,GetHttpVars("redirect_app","FDL"),
+	   GetHttpVars("redirect_act","FDL_CARD&latest=Y&refreshfld=Y&id=".$doc->id),
+	   $action->GetParam("CORE_STANDURL"));
 
 }
 // -----------------------------------
@@ -325,11 +328,13 @@ function sendCard(&$action,
   $err="";
   if ($status == 0)  {
     $doc->addcomment(sprintf(_("sended to %s"), $to));
-    $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to));   
+    $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to)); 
+    $action->addwarningmsg(sprintf(_("sending %s to %s"),$title, $to));   
   } else {
     print ($cmd);
     $err=sprintf(_("%s cannot be sent"),$title);
     $action->addlogmsg(sprintf(_("%s cannot be sent"),$title));
+    $action->addwarningmsg(sprintf(_("%s cannot be sent"),$title));
   }
 
   
