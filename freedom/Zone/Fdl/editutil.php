@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.54 2003/11/25 08:25:51 eric Exp $
+ * @version $Id: editutil.php,v 1.55 2003/12/01 13:30:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.54 2003/11/25 08:25:51 eric Exp $
+// $Id: editutil.php,v 1.55 2003/12/01 13:30:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -280,7 +280,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       $tvattr = array();
 
       // get default values
-      $ddoc = createDoc($doc->dbaccess, $doc->fromid==0?$doc->id:$doc->fromid);
+      $ddoc = createDoc($doc->dbaccess, $doc->fromid==0?$doc->id:$doc->fromid,false);
       $tad = $ddoc->attributes->getArrayElements($attrid);
 
 
