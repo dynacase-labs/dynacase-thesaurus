@@ -66,7 +66,7 @@
 
 
 <table class="tableborder"   cellspacing="0" width="100%"
-     style="cursor:crosshair;border-top: 0pt;background-color:transparent"
+     style="cursor:crosshair;border-top: 0pt;"
      onContextMenu="openMenu(event,'popupcard',1);return false" 
      onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard',1)"      >
 <!-- TABLEBODY -->
