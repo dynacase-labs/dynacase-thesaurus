@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.3 2001/11/14 15:31:03 eric Exp $
+// $Id: freedom_icons.php,v 1.4 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.4  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.3  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -61,7 +64,7 @@ function freedom_icons(&$action, $with_abstract=true) {
   // Get all the params      
   $dirid=GetHttpVars("dirid"); // directory to see
   
-  $dir = new Doc($dbaccess,$dirid);
+  $dir = newDoc($dbaccess,$dirid);
   $dirid=$dir->initid;  // use initial id for directories
 
   $action->lay->Set("dirid",$dirid);

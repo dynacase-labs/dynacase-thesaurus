@@ -51,7 +51,7 @@
   </td> 
   <td class="FREEDOMTblTitle" align="right"><span class="FREEDOMTextName">[TEXT:inherit from]</span>
    <select name="classid" >   
-           <option VALUE="0">[TEXT:no class document]</option>      
+           <option VALUE="0">[TEXT:no document family]</option>      
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]

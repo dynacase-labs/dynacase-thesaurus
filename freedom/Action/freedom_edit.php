@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.3 2001/11/14 15:31:03 eric Exp $
+// $Id: freedom_edit.php,v 1.4 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.4  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.3  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -32,29 +35,6 @@
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
-// Revision 1.8  2001/10/17 14:35:55  eric
-// mise en place de i18n via gettext
-//
-// Revision 1.7  2001/10/03 15:56:03  eric
-// ajout type date pour roaming
-//
-// Revision 1.6  2001/09/10 16:51:45  eric
-// ajout accessibilté objet
-//
-// Revision 1.5  2001/07/11 15:59:39  eric
-// gestion erreur ldap
-//
-// Revision 1.4  2001/06/22 09:46:12  eric
-// support attribut multimédia
-//
-// Revision 1.3  2001/06/19 16:08:17  eric
-// correction pour type image
-//
-// Revision 1.2  2001/06/15 10:32:48  eric
-// typage des attributs avec ajout image
-//
-// Revision 1.1  2001/06/13 14:39:53  eric
-// Freedom address book
 //
 // ---------------------------------------------------------------
 include_once("FREEDOM/Class.Doc.php");
@@ -91,7 +71,7 @@ function freedom_edit(&$action) {
   $classid = GetHttpVars("classid"); // use when new doc or change class
   $dirid = GetHttpVars("dirid"); // directory to place doc if new doc
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= newDoc($dbaccess,$docid);
 
   
 
@@ -103,6 +83,14 @@ function freedom_edit(&$action) {
   $query->AddQuery("doctype='C'");
 
   $selectclass=array();
+  if ($classid == 2) { // new directory
+    $query->AddQuery("id = 2");
+  } else
+  if (($classid == 3) || ($classid == 4)) { // new profile
+    $query->AddQuery("(id = 3) OR (id = 4)");
+  } else {
+    $query->AddQuery("(id = 1) OR (id > 9)");
+  }
   $tclassdoc = $query->Query();
   while (list($k,$cdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$cdoc->initid;
@@ -110,13 +98,28 @@ function freedom_edit(&$action) {
     $selectclass[$k]["selected"]="";
   }
 
+  // add no inherit for class document
+  if ($doc->doctype=="C") {
+      $selectclass[$k+1]["idcdoc"]="0";
+      $selectclass[$k+1]["classname"]=_("no document type");
+  }
 
   if ($docid == "")
     {
-      $action->lay->Set("TITLE", _("new document"));
+      switch ($classid) {
+	case 2:
+	  $action->lay->Set("TITLE", _("new directory"));
+	break;
+	case 3:	  
+	case 4:	  
+	  $action->lay->Set("TITLE", _("new profile"));
+	break;
+      default:
+	$action->lay->Set("TITLE", _("new document"));
+      }
       $action->lay->Set("editaction", $action->text("create"));
       if ($classid > 0) {
-	$doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
+	$doc=newDoc($dbaccess,$classid); // the doc inherit from chosen class
       }
       // selected the current class document
       while (list($k,$cdoc)= each ($selectclass)) {	
@@ -127,6 +130,9 @@ function freedom_edit(&$action) {
     }
   else
     {      
+
+
+
       if ($doc->locked==0) { // lock if not yet
 	$err = $doc->Lock();
 	if ($err != "")   $action->ExitError($err);	

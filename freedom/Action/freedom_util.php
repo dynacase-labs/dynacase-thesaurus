@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: freedom_util.php,v 1.2 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_util.php,v $
+// Revision 1.2  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -39,6 +42,7 @@
 // Freedom address book
 //
 // ---------------------------------------------------------------
+
 include_once("FREEDOM/Class.Doc.php");
 include_once("FREEDOM/Class.DocAttr.php");
 include_once("FREEDOM/Class.DocValue.php");
@@ -213,5 +217,43 @@ function freedom_get_attr_card($dbaccess, $docid,&$title, &$tattr) {
 	    }
 	}
 }
+
+
+// return document object in type concordance
+function newDoc($dbaccess, $docid=0) {
+
+  if ($docid==0) return new Doc($dbaccess);
+
+        if ($dbaccess=="") {
+          // don't test if file exist or must be searched in include_path 
+             include("dbaccess.php");
+           
+        }
+        global $CORE_DBID;
+	$dbid=$CORE_DBID["$dbaccess"];
+
+	$result = pg_exec($dbid,"select doctype from doc where id=$docid;");
+	if (pg_numrows ($result) > 0) {
+	  $arr = pg_fetch_array ($result, 0);
+
+	    
+	  switch ($arr[0]) {
+	  case "D":
+	    include_once("FREEDOM/Class.Dir.php");
+	    return (new Dir($dbaccess, $docid));
+	    //	  case "P":
+	    //include_once("FREEDOM/Class.Profil.php");
+	    // return (new Profil($dbaccess, $docid));
+	  default:
+	    return (new Doc($dbaccess, $docid));
+	  
+	  }
+	} else {
+	  return new Doc($dbaccess);
+	}
+}
+
+
+
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocValue.php,v 1.2 2001/11/14 15:31:03 eric Exp $
+// $Id: Class.DocValue.php,v 1.3 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocValue.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocValue.php,v $
+// Revision 1.3  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.2  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -30,10 +33,15 @@
 //
 //
 // ---------------------------------------------------------------
-$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.2 2001/11/14 15:31:03 eric Exp $';
+$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.3 2001/11/15 17:51:50 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
+
+
+
+
+
 Class Docvalue extends DbObj
 {
   var $fields = array ( "docid","attrid","value");

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.1 2001/11/09 09:35:47 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.2 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM_init.php.in,v $
+// Revision 1.2  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.1  2001/11/09 09:35:47  eric
 // gestion documentaire
 //
@@ -66,8 +69,12 @@ $app_const= array(
 );
 
 include_once("FREEDOM/Class.Doc.php");
+include_once("FREEDOM/Class.Dir.php");
+include_once("FREEDOM/Class.Profil.php");
 
 $ofreedom = new Doc($app_const["FREEDOM_DB"]);
+$ofreedom->InitObjectAcl();
+$ofreedom = new Dir($app_const["FREEDOM_DB"]);
 $ofreedom->InitObjectAcl();
 
 ?>

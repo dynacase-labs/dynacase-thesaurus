@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: revision.php,v 1.2 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: revision.php,v $
+// Revision 1.2  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -37,7 +40,7 @@ function revision(&$action)
   $docid = GetHttpVars("id",0);
 
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= newDoc($dbaccess,$docid);
 
   $err = $doc->CanUpdateDoc();
   if ($err != "") $action->ExitError($err);

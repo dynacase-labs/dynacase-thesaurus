@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: Class.QueryDir.php,v 1.2 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDir.php,v $
+// Revision 1.2  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -29,7 +32,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.1 2001/11/09 09:41:14 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.2 2001/11/15 17:51:50 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -84,7 +87,7 @@ create sequence seq_id_qdoc start 10";
       if ($query->nb > 0)
       {
 	$oqdv = new QueryDirV($this->dbaccess);
-	$dir = new Doc($this->dbaccess,$this->dirid);
+	$dir = newDoc($this->dbaccess,$this->dirid);
 	$oqdv->dirid = $dir->initid;
 	while(list($k,$v) = each($tableq)) 
 	  {
@@ -102,7 +105,7 @@ create sequence seq_id_qdoc start 10";
     // --------------------------------------------------------------------    
     {
       // refresh values of QueryDirV table
-      $dir = new Doc($this->dbaccess,$dirid);// use initial id for directories
+      $dir = newDoc($this->dbaccess,$dirid);// use initial id for directories
       $oqdv = new QueryDirV($this->dbaccess,$dir->initid);
       $oqdv-> Delete();
 

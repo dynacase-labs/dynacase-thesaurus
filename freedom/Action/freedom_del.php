@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_del.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: freedom_del.php,v 1.2 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_del.php,v $
+// Revision 1.2  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -60,7 +63,7 @@ function freedom_del(&$action) {
     return;
 
 
-  $ofreedom = new Doc($dbaccess, $docid);
+  $ofreedom = newDoc($dbaccess, $docid);
   
   // ------------------------------
   // delete POSGRES card

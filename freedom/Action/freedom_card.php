@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.2 2001/11/14 15:31:03 eric Exp $
+// $Id: freedom_card.php,v 1.3 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.3  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.2  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -95,7 +98,7 @@ function freedom_card(&$action) {
   $tfile=array(); // array of file attributes 
   $kf=0; // number of files
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = newDoc($dbaccess, $docid);
   //------------------------------
   // display document attributes
   $action->lay->Set("reference", $doc->initid);
@@ -115,13 +118,13 @@ function freedom_card(&$action) {
     }
   }
   if ($doc->fromid > 0) {
-    $cdoc = new Doc($dbaccess, $doc->fromid);
+    $cdoc = newDoc($dbaccess, $doc->fromid);
     $action->lay->Set("classtitle", $cdoc->title);
   } else {
     $action->lay->Set("classtitle", _("no class"));
   }
   if ($doc->profid > 0) {
-    $pdoc = new Doc($dbaccess, $doc->profid);
+    $pdoc = newDoc($dbaccess, $doc->profid);
     $action->lay->Set("profile", $pdoc->title);
   } else {
     if ($doc->profid == 0)
@@ -130,7 +133,7 @@ function freedom_card(&$action) {
       $action->lay->Set("profile", _("specific control"));
       
   }
-  $action->lay->Set("iconalt","---");
+  $action->lay->Set("iconalt","icon");
   
   $action->lay->Set("iconsrc", $doc->geticon());
 

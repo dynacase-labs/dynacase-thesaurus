@@ -55,7 +55,10 @@
 </script>   
  </head>
 
-<body class="freedom" onLoad="initmicon();" onResize="">
+<body class="freedom" 
+      onLoad="initmicon();" 
+      onClick="closeMenu('popup');" 
+      onResize="">
 
 
 

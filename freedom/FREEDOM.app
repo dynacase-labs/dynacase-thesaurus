@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.3 2001/11/14 15:31:03 eric Exp $
+// $Id: FREEDOM.app,v 1.4 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.4  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.3  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -157,7 +160,7 @@ $action_desc = array (
   array( 
    "name"		=>"EXPORTFILE",
    "short_name"		=>N_("export file to consulting"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM_READ",
   ) ,
   array( 
    "name"		=>"LOCKFILE",

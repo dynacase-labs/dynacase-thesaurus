@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: uploadfile.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: uploadfile.php,v 1.2 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/uploadfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: uploadfile.php,v $
+// Revision 1.2  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -48,7 +51,7 @@ function uploadfile(&$action)
 
   $action->lay->Set("docid",$docid);
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= newDoc($dbaccess,$docid);
 
   //print_r($HTTP_POST_FILES);
   $fileinfo = $HTTP_POST_FILES["ifile"];

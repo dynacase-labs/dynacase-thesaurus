@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.3 2001/11/14 15:31:03 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.4 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.4  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.3  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -35,7 +38,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.3 2001/11/14 15:31:03 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.4 2001/11/15 17:51:50 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -128,7 +131,7 @@ create table dirv ( dirid      int not null,
 
   function getChildRep($dirid) {
     // query to find child directories
-    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  (t0.doctype='D') and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and  (t2.dirid=$dirid);";
+    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  (t0.doctype='D') and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and  (t2.dirid=$dirid) and (not useforprof);";
 
 
     $tableid = array();
@@ -174,7 +177,7 @@ create table dirv ( dirid      int not null,
 
 		} else {
 		  //print ("set profile :".$v->profid);
-		  $pdoc = new Doc($this->dbaccess, $v->profid);
+		  $pdoc = newDoc($this->dbaccess, $v->profid);
 		  //		  $pdoc ->operm-> GetPrivileges();
 		  $pdoc->Control("view");
 		  $pdoc->Control("edit");

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.2 2001/11/14 15:31:03 eric Exp $
+// $Id: defattr.php,v 1.3 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: defattr.php,v $
+// Revision 1.3  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.2  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -47,11 +50,11 @@ function defattr(&$action)
   $action->lay->Set("docid",$docid);
 
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= newDoc($dbaccess,$docid);
   // build values type array
   $odocattr= new DocAttr($dbaccess);
 
-  $action->lay->Set("TITLE",_("new class document"));
+  $action->lay->Set("TITLE",_("new document family"));
 
 
 

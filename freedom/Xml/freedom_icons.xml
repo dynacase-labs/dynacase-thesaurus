@@ -76,7 +76,8 @@
 </script>   
  </head>
 
-<body class="freedom" onLoad="initmicon();placeicons();" onResize="placeicons()">
+<body class="freedom" onLoad="initmicon();placeicons();" onResize="placeicons()"
+      onClick="closeMenu('popup');" >
 
 
 

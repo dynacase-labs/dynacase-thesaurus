@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.2 2001/11/14 15:31:03 eric Exp $
+// $Id: modattr.php,v 1.3 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: modattr.php,v $
+// Revision 1.3  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.2  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -62,7 +65,7 @@ function modattr(&$action) {
   $bdfreedomattr = new DocAttr($dbaccess);
   if ( $docid == 0 )
     {
-      $ofreedom = new Doc($dbaccess);
+      $ofreedom = newDoc($dbaccess);
       // add new freedom
       $ofreedom->title = _("new document");
       $ofreedom->owner = $action->user->id;
@@ -70,6 +73,7 @@ function modattr(&$action) {
       $ofreedom->doctype = 'C'; // it is a new class document
       $ofreedom->fromid = GetHttpVars("classid"); // inherit from
       $ofreedom->profid = "0"; // NO PROFILE ACCESS
+      $ofreedom->useforprof = false;
       $ofreedom-> Add();
       $docid = $ofreedom-> id;
       
@@ -80,7 +84,7 @@ function modattr(&$action) {
     {
 
       // initialise object
-      $ofreedom = new Doc($dbaccess,$docid);
+      $ofreedom = newDoc($dbaccess,$docid);
       
       // test object permission before modify values (no access control on values yet)
       $err=$ofreedom-> CanUpdateDoc();

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.3 2001/11/14 15:31:03 eric Exp $
+// $Id: Class.Doc.php,v 1.4 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.4  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.3  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -35,8 +38,8 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.3 2001/11/14 15:31:03 eric Exp $';
-include_once('Class.DbObj.php');
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.4 2001/11/15 17:51:50 eric Exp $';
+
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
 include_once('Class.DbObjCtrl.php');
@@ -44,10 +47,12 @@ include_once("FREEDOM/freedom_util.php");
 include_once("FREEDOM/Class.DocAttr.php");
 include_once("FREEDOM/Class.FileDisk.php");
 
-  
+
+
+
 Class Doc extends DbObjCtrl
 {
-  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid");
+  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof");
 
   var $id_fields = array ("id");
 
@@ -69,7 +74,8 @@ create table doc ( id      int not null,
                      locked int,
                      icon varchar(256),
                      lmodify varchar(1),
-                     profid int
+                     profid int,
+                     useforprof bool
                    );
 create sequence seq_id_doc start 10";
 
@@ -92,11 +98,14 @@ create sequence seq_id_doc start 10";
 
   // --------------------------------------------------------------------
 
+
+  var $defDoctype='F';
+
   function PostInit() {
     $this->id=1;
     $this->initid=$this->id;
     $this->owner=1; //admin
-    $this->title=N_("basic documentation class");
+    $this->title=N_("basic documentation family");
     $this->revision="0";
     $this->doctype='C'; // class type        
     $this->Add();
@@ -108,21 +117,55 @@ create sequence seq_id_doc start 10";
     $oattr->docid = $this->initid;
     $oattr ->Add();
 
+    // 같같같같같같같같같같같같같같같같같같같같
     $this->id=2;
     $this->initid=$this->id;
     $this->owner=1; //admin
     $this->title=N_("directory class");
     $this->revision="0";
-    $this->doctype='C'; // directory class type        
+    $this->doctype='C'; //  class type        
     $this->Add();
 
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->labeltext=_("title");
+    $oattr->title = "Y";
+    $oattr->abstract = "N";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+    // 같같같같같같같같같같같같같같같같같같같같
     $this->id=3;
+    $this->fromid=1; // from basic doc
     $this->initid=$this->id;
     $this->owner=1; //admin
-    $this->title=N_("profile access class");
+    $this->title=N_("profile documentation access class");
     $this->revision="0";
-    $this->doctype='C'; // access class type        
+    $this->doctype='C'; //  class type        
     $this->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->labeltext=_("title");
+    $oattr->title = "Y";
+    $oattr->abstract = "N";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+    // 같같같같같같같같같같같같같같같같같같같같
+    $this->id=4;
+    $this->initid=$this->id;
+    $this->fromid=2; // from directory
+    $this->owner=1; //admin
+    $this->title=N_("profile directory access class");
+    $this->revision="0";
+    $this->doctype='C'; //  class type        
+    $this->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->labeltext=_("title");
+    $oattr->title = "Y";
+    $oattr->abstract = "N";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
 
   }
 
@@ -330,6 +373,7 @@ create sequence seq_id_doc start 10";
 
       
       $query->AddQuery("doctype='C'");
+      $query->AddQuery("(id = 1) OR (id > 9)");
       //      $query->AddQuery("initid=id");
     
       
@@ -341,10 +385,11 @@ create sequence seq_id_doc start 10";
   function GetProfileDoc()
     // --------------------------------------------------------------------
     {
-      $query = new QueryDb($this->dbaccess,"Doc");
+      $query = new QueryDb($this->dbaccess, get_class($this));
 
       
-      $query->AddQuery("doctype='P'");
+      $query->AddQuery("useforprof");
+      $query->AddQuery("doctype='$this->defDoctype'");
     
       
       return $query->Query();
@@ -356,7 +401,7 @@ create sequence seq_id_doc start 10";
     if (! isset($this->fathers)) {
       $this->fathers=array();
       if ($this->fromid > 0) {
-	$fdoc= new Doc($this->dbaccess,$this->fromid);
+	$fdoc= newDoc($this->dbaccess,$this->fromid);
 	$this->fathers=array_merge($this->fromid, $fdoc->GetFathersDoc());
       }
     }
@@ -513,6 +558,7 @@ create sequence seq_id_doc start 10";
 
 
     } 
+    $this->title = AddSlashes($this->title);
     $this->icon = $icon;
     $this->Modify();
   }
@@ -530,4 +576,5 @@ create sequence seq_id_doc start 10";
   }
   
 }
+
 ?>

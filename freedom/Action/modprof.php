@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.1 2001/11/14 15:31:03 eric Exp $
+// $Id: modprof.php,v 1.2 2001/11/15 17:51:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: modprof.php,v $
+// Revision 1.2  2001/11/15 17:51:50  eric
+// structuration des profils
+//
 // Revision 1.1  2001/11/14 15:31:03  eric
 // optimisation & divers...
 //
@@ -31,6 +34,7 @@
 // ---------------------------------------------------------------
 
 include_once("FREEDOM/Class.Doc.php");
+include_once("FREEDOM/Class.Dir.php");
 include_once("FREEDOM/Class.DocAttr.php");
 include_once("FREEDOM/freedom_util.php");  
 
@@ -54,8 +58,15 @@ function modprof(&$action) {
       
       
       // initialise object
-      $ofreedom = new Doc($dbaccess,$docid);
+      $ofreedom = newDoc($dbaccess,$docid);
       
+  switch ($ofreedom->fromid) {
+  case 2: // directory
+    $ofreedom = new Dir($dbaccess);
+  break;
+  default:
+    ;
+  }
       // test object permission before modify values (no access control on values yet)
       $err=$ofreedom-> CanUpdateDoc();
       if ($err != "")
