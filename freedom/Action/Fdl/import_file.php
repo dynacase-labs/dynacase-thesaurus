@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.54 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: import_file.php,v 1.55 2004/01/14 14:21:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.54 2003/12/16 15:05:39 eric Exp $
+// $Id: import_file.php,v 1.55 2004/01/14 14:21:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -207,7 +207,20 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "METHOD":
-      $doc->methods =  $data[1];
+
+      if ($data[1][0]=="+") {
+	if ($doc->methods == "") {
+	  $doc->methods =  substr($data[1],1);
+	} else {
+	  $doc->methods .= "\n".substr($data[1],1);
+	  // not twice
+	  $tmeth = explode("\n",$doc->methods);
+	  $tmeth=array_unique($tmeth);
+	  $doc->methods =  implode("\n",$tmeth);
+	}
+      } else  $doc->methods =  $data[1];
+      
+      
     break;
     // -----------------------------------
     case "USEFORPROF":     
