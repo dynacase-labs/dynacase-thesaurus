@@ -63,11 +63,14 @@ function pEventDefault() {
   $evt->setValue("evt_idcreator",$this->getEventOwner());
   $evt->setValue("evt_transft", 'pEventDefault');
   $evt->setValue("evt_itransft",'mEventDefault');
-  $evt->setValue("evt_idinitiator",$this->id);
+  $evt->setValue("evt_idinitiator",$this->initid);
   $evt->setValue("evt_title",$this->getEventTitle());
   $evt->setValue("evt_idres",$this->getEventRessources());
-  if (!$evt->isAlive())     $err=$evt->Add();
-
+  if (!$evt->isAlive())    {
+    $err=$evt->Add();
+  } else {
+  }
+  $err=$evt->refresh();
   if ($err=="") $err=$evt->modify();
 
   return $err;

@@ -11,36 +11,54 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   include_once("FREEEVENT/Lib.DCalendar.php");
   include_once("FDL/Lib.Color.php");
   global $action;
-  $tevt=$this->getEvents();
 
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/jdate.js");
+  $tevt=$this->getEvents();
+  $byres= (getHttpVars("byres","N")=="Y");
   $mb=microtime();
  
-  // search ressources
-  $dstart=toDate(getv($tevt[0],"evt_begdate"));
-  $dend=toDate(getv($tevt[0],"evt_enddate"));
+  // window time interval
+  $wstart=FrenchDateToJD("10/11/2004 00:00:00");
+  $wend=FrenchDateToJD("10/12/2004 23:59:59");
+  print "<br>$wstart:".jd2cal($wstart);
+  print "<br>$wend:".jd2cal($wend);
   
-  $mstart=DatetoMinute($dstart);
-  $mend=DatetoMinute($dend);
-  $wdate=new Date();
+
+  if ($wstart) {
+    $mstart=$wstart;
+    $mend=$wend;
+  $mstart=floor($mstart)-0.5; // begin at 00:00
+  $mend=floor($mend)+0.5; // end at 00:00
+  } else {    
+    $mstart=5000000; // vers 9999
+    $mend=0;
+  }
+  
   foreach ($tevt as $k=>$v) {
-    // toIso8601(getv($v,"evt_begdate"));
-    //toIso8601(getv($v,"evt_enddate"));
-    $wdate->setDate(toIso8601(getv($v,"evt_begdate")));
-    $mdate=DatetoMinute($wdate);
 
-    if ($mstart > $mdate) $mstart=$mdate;
-    $tevt[$k]["m1"]=$mdate;
-    $wdate->setDate(toIso8601(getv($v,"evt_enddate")));
+    $mdate1=FrenchDateToJD(getv($v,"evt_begdate"));
+    $mdate2=FrenchDateToJD(getv($v,"evt_enddate"));
+    if ($wstart) {
+
+      if (($mdate2<$mstart) || ($mdate1>$wend)) {
+	unset($tevt[$k]);       
+      } else {  
+	$tevt[$k]["m1"]=max($mdate1,$mstart);
+	$tevt[$k]["m2"]=min($mdate2,$mend);
+      } 
+    } else {
+      if ($mstart > $mdate1) $mstart=$mdate1;
+      $tevt[$k]["m1"]=$mdate1;
+      if ($mdate2 > $mend) $mend=$mdate2;
+      $tevt[$k]["m2"]=$mdate2;
+      
+    }
     
-    $mdate=DatetoMinute($wdate);
-
-    if ($mend < $mdate) $mend=$mdate;
-    $tevt[$k]["m2"]=$mdate;
   }
   uasort($tevt,"cmpevtm1");
   $ridx=0;
   $delta=$mend-$mstart;
-  $sub=1;
+  $sub=0;
   $idc=0;
   print "delta=$delta";
   print " - <B>".microtime_diff(microtime(),$mb)."</B> ";
@@ -50,19 +68,22 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
     $w=floor(100*($v["m2"]-$v["m1"])/$delta);
     foreach ($tr as $ki=>$ir) {
       if (! isset($colorredid[$ir])) $colorredid[$ir]=$idc++;
-      $sub++;
       $RN[$ir][]=array("w"=>sprintf("%d",($w<1)?1:$w),
 		       "absx"=>$v["m1"],
 		       "absw"=>$v["m2"]-$v["m1"],
 		       "line"=>$k,
-		       //		       "subline"=>$sub++,
-		       "subline"=>$colorredid[$ir],
+		       "subline"=>$byres?$colorredid[$ir]:$sub,
+		       //"subline"=>$colorredid[$ir],
 		       "divid"=>"div$k$ki",
-		       "idx"=>$sub-2,
+		       "idx"=>$sub,
 		       "rid"=>getv($v,"evt_idinitiator"),
 		       "eid"=>getv($v,"id"),
-		       "bartitle"=>sprintf("[%s] %s - %s",$v["title"],getv($v,"evt_begdate"),getv($v,"evt_enddate")));
+		       "divtitle"=>$v["title"],
+		       "bartitle"=>sprintf("%s - %s",
+					   substr(getv($v,"evt_begdate"),0,10),
+					   substr(getv($v,"evt_enddate"),0,10)));
       $SX[$ir]+=$w;
+      $sub++;
       $tres[$ir]=array("BAR"=>"bar$ir",
 		       "res"=>getv($v,"evt_res"));
       
@@ -80,9 +101,17 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
     $this->lay->setBlockData("bar$k",$RN[$k]);
   }
   $this->lay->setBlockData("RES",$tres);
-  $this->lay->set("barimg",$action->GetImageUrl('baqua.png'));
-  $this->lay->set("begdate",MinutetoDate($mstart));
-  $this->lay->set("enddate",MinutetoDate($mend));
+  if ($action->Read("navigator","")=="NETSCAPE") $this->lay->set("barimg",$action->GetImageUrl('baqua.png'));
+  else  $this->lay->set("barimg","none");
+
+
+    if (!$wstart) {
+      $mstart=floor($mstart)-0.5; // begin at 00:00
+      $mend=floor($mend)+0.5; // end at 00:00
+    }
+
+  $this->lay->set("begdate",jd2cal($mstart));
+  $this->lay->set("enddate",jd2cal($mend));
   $this->lay->set("mstart",$mstart);
   $this->lay->set("mend",$mend);
 

@@ -1,28 +1,216 @@
 <script>
 var mstart=[mstart];
 var mend=[mend];
+var mdelta=mend-mstart;
 var tevents=new Array();
 var zoom=1;
+var maxw;
+var maxh=300;;
+var dh=17;
+var bx=50;
+var by=120;
+var rw=50; // ressource column width
+var oy=60; // margin offset in y
+var eh=20; // offset event position
+
+
 function placeEvt(divid,line,subline,x,w) {
-  var dw=500*zoom;
-  var dih=10*zoom;
+  var dw=maxw*zoom;
+  var dih=dh*zoom;
   var oimg= document.getElementById(divid);
+  var ores= document.getElementById('res'+divid);
   if (oimg) {
-    oimg.style.left=(x-mstart)*dw/(mend-mstart);
-    oimg.style.top=300+(subline*dih);
-    oimg.width=(w)*dw/(mend-mstart);
-    oimg.height=dih;
+    oimg.style.left=rw+bx+(x-mstart)*dw/mdelta;
+    h=eh+by+(subline*dih);
+    if (h>maxh) maxh=h;
+    oimg.style.top=h;
+    //oimg.width=(w)*dw/(mend-mstart);
+    //oimg.height=dih;
+   
+    oimg.style.width=(w)*dw/mdelta;
+    oimg.style.height=(dh-2)*zoom;
+    oimg.style.display='';;
+    
+    ores.style.top=h;
+    ores.style.left=bx;
+    ores.style.width=rw;
+    ores.style.height=(dh-2)*zoom;
+    ores.style.display='';;
   }
 }
 function placeEvents() {
+  var xyby=getAnchorPosition('bgmilli');
+  viewgyro(true);
+  by=xyby.y+oy;
+  bx=xyby.x;
+  maxh=100;
+  maxw=Math.max(getObjectWidth(document.body),400)-bx-rw;
   for (i=0;i<tevents.length;i++) {
     placeEvt(tevents[i][0],tevents[i][1],tevents[i][2],tevents[i][3],tevents[i][4]);
+  }
+  dmilli=document.getElementById('bgmilli');
+  if (dmilli) {
+    dmilli.style.height=(maxh)-xyby.y+(dh*zoom);
+    dmilli.style.width=parseInt(maxw*zoom)+rw+bx;
+  }
+  placeDays();
+  viewgyro(false);
+  
+}
+function placeDays() {
+  var nbday=mdelta;
+  var odday=document.getElementById('dday');
+  var ocdday=document.getElementById('cdday');
+
+
+  var onday;
+  var nWeek=0;
+  var dw=(maxw/mdelta);
+  while (ocdday.childNodes.length>0) {
+    ocdday.removeChild(ocdday.childNodes[0]);
+  }
+  pXMonth=parseInt(rw+bx); // precedent 
+  pXYear=pXMonth;
+  for (var i=0;i<nbday;i++) {
+    onday=odday.cloneNode(true);
+    onday.id='dday'+i;
+    dx=dw*i;
+    onday.title=weekDay(mstart+i)+jd_to_cal(mstart+i);
+    if (weekDay(mstart+i)=='Monday') {
+      // begin week
+      if ((dw*zoom*7) > 10) { // mini 10 pixel
+	if (nWeek==0) {
+	  onweek=odday.cloneNode(true);
+	  onweek.id='dweek0'+i;
+	
+	  onweek.innerHTML=jdToWeekNUmber(mstart+i-1);
+	  onweek.style.width=parseInt(dx*zoom);
+	  onweek.style.height=20;
+	  onweek.style.top=by-20;
+	  onweek.style.left=parseInt(rw+bx);
+	  if ((nWeek % 2) == 1) onweek.style.backgroundColor='orange';
+	  else onweek.style.backgroundColor='green';
+	  ocdday.appendChild(onweek);	
+	}
+	onweek=odday.cloneNode(true);
+	onweek.id='dweek'+i;
+	onweek.innerHTML=jdToWeekNUmber(mstart+i);
+	onweek.title=jd_to_cal(mstart+i);
+	onweek.style.width=Math.min(parseInt(dw*zoom*7),(maxw-dx)*zoom);
+	onweek.style.height=20;
+	onweek.style.top=by-20;
+	onweek.style.left=parseInt(rw+bx+(dx*zoom));
+	if ((nWeek % 2) == 0) onweek.style.backgroundColor='orange';
+	else onweek.style.backgroundColor='green';
+	ocdday.appendChild(onweek);
+	nWeek++;
+      }
+    }
+    nDay=parseInt(jd_to_cal(mstart+i,'d'));
+    
+    if (nDay == 1) {
+      nMonth=(jd_to_cal(mstart+i,'M'));
+      
+      if ((dw*zoom*30) > 10) { // mini 10 pixel
+	// begin month
+	onmonth=odday.cloneNode(true);
+	onmonth.id='dmonth0'+i;
+
+	onmonth.innerHTML=month[(nMonth+10)%12];
+	onmonth.style.width=parseInt(rw+bx+(dx*zoom))-pXMonth;
+	onmonth.style.height=20;
+	onmonth.style.top=by-40;
+	onmonth.style.left=pXMonth;
+	if ((nMonth % 2) == 1) onmonth.style.backgroundColor='pink';
+	else onmonth.style.backgroundColor='salmon';
+	ocdday.appendChild(onmonth);	
+	pXMonth=parseInt(rw+bx+(dx*zoom));
+      }
+      if (nMonth == 1) {
+	// happy new year
+	onyear=odday.cloneNode(true);
+	onyear.id='dyear'+i;
+
+	onyear.innerHTML=jd_to_cal(mstart+i-1,'Y');
+	onyear.style.width=parseInt(rw+bx+(dx*zoom))-pXYear;
+	onyear.style.height=20;
+	onyear.style.top=by-60;
+	onyear.style.left=pXYear; 
+	onyear.style.backgroundColor='yellow';
+	ocdday.appendChild(onyear);	
+	pXYear=parseInt(rw+bx+(dx*zoom));
+      }
+    }
+    if ((dw*zoom) > 10) {
+      onday.innerHTML=jd_to_cal(mstart+i,'d');
+      onday.style.top=by;
+      
+      onday.style.width=parseInt(dw*zoom);
+      onday.style.height=maxh;
+      onday.style.left=parseInt(rw+bx+(dx*zoom));
+      if ((i % 2) == 0) onday.style.backgroundColor='lightyellow';
+      else onday.style.backgroundColor='lightblue';
+      ocdday.appendChild(onday);
+    }
+  }
+
+  // last month
+  if ((dw*zoom*30) > 10) { // mini 10 pixel
+    nMonth=parseInt(jd_to_cal(mstart+i-0.01,'M'));
+    // begin month
+    onmonth=odday.cloneNode(true);
+    onmonth.id='dmonth'+i;
+	
+    onmonth.innerHTML=month[(nMonth+11)%12];
+    onmonth.style.width=parseInt(rw+bx+((dw+dx)*zoom))-pXMonth;
+    onmonth.style.height=20;
+    onmonth.style.top=by-40;
+    onmonth.style.left=pXMonth;
+    if ((nMonth % 2) == 1) onmonth.style.backgroundColor='pink';
+    else onmonth.style.backgroundColor='salmon';
+    ocdday.appendChild(onmonth);	
+    pXMonth=parseInt(rw+bx+(dx*zoom));
+  }
+  // last year
+	// happy new year
+	onyear=odday.cloneNode(true);
+	onyear.id='dyear'+i;
+
+	onyear.innerHTML=jd_to_cal(mstart+i,'Y');
+	onyear.style.width=parseInt(rw+bx+((dw+dx)*zoom))-pXYear;
+	onyear.style.height=20;
+	onyear.style.top=by-60;
+	onyear.style.left=pXYear; 
+	onyear.style.backgroundColor='yellow';
+	ocdday.appendChild(onyear);	
+	pXYear=parseInt(rw+bx+(dx*zoom));
+  
+}
+
+function viewgyro(v) {
+  var wimgo = document.getElementById('WGYRO');
+  if (wimgo) {
+    if (v)  {
+      wimgo.style.visibility='visible';
+      wimgo.style.zIndex=200;
+
+      //CenterDiv(wimgo.id);
+    } else {
+       wimgo.style.visibility='hidden';
+    }
+    
   }
 }
 addEvent(window,"load",placeEvents);
 </script>
 
-<div width="100%" height="100%" style="background-image:url('[IMG:millimetre.png]')">
+<button onclick="zoom=zoom*2;placeEvents();" >+10</button>
+<button onclick="zoom=1;placeEvents();" >0</button>
+<button onclick="zoom=zoom/2;placeEvents();" >-10</button>
+<div id="dday" name="dday" title="XX" style="overflow:hidden;text-align:center;-moz-opacity:.8;filter:alpha(opacity=80);position:absolute;left=0px;top=0px;border:solid black 1pt;')">XX</div>
+<div id="cdday"   style="position:absolute;left:0px;top:0px;border:solid black 1pt;background-color:yellow')"></div>
+
+
 
 
 <table width="100%" border="1" style="background-color:transparent">
@@ -30,15 +218,18 @@ addEvent(window,"load",placeEvents);
 <tr><td width="100px" align="right">[begdate]</td><td align="right">[enddate]</td></tr>
 </thead>
 </table>
+<div id="bgmilli" width="100%" height="100%" style="background-image:url('[IMG:millimetre.png]')">
 [BLOCK RES]
-<P style="background-image:url('[barimg]');background-color:[rescolor]">[res]</P>
 [BLOCK [BAR]]
-<img id="[divid]" style="background-color:[color];border:solid blue 1px;cursor:pointer;position:absolute" title="[bartitle]"   src="[barimg]" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'helpwhat','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')">
+<b id="res[divid]" style="display:none;overflow:hidden;background-image:url('[barimg]');background-color:[rescolor];position:absolute;left:0px;top:0px;font-size:7pt">[res]</b>
+
+<div id="[divid]" style="-moz-border-radius:9px;display:none;overflow:hidden;background-image:url('[barimg]');background-color:[color];border:solid blue 1px;cursor:pointer;position:absolute" title="[bartitle]"   src="[barimg]" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'helpwhat','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')"><span style="font-size:7pt">[divtitle]</span></div>
 <script>
 tevents[[idx]]=['[divid]',[line],[subline],[absx],[absw]];
 </script>
 [ENDBLOCK [BAR]]
 [ENDBLOCK RES]
 </div>
-<button onclick="zoom=zoom*1.1;placeEvents();" >+10</button>
-<button onclick="zoom=zoom/1.1;placeEvents();" >-10</button>
+
+
+<img id="WGYRO" src="Images/gyro.gif" style="position:absolute;left:100px;top:100px">
