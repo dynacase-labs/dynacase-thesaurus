@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.22 2003/03/20 10:23:09 eric Exp $
+// $Id: FREEDOM.app,v 1.23 2003/05/19 10:45:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -351,6 +351,16 @@ $action_desc = array (
    "name"		=>"FOLIOTAB",
    "short_name"		=>N_("portfolio tab"),
    "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_EDITPREFFAM",
+   "short_name"		=>N_("choose preferred families"),
+   "acl"		=>"FREEDOM"
+  )  ,
+  array( 
+   "name"		=>"FREEDOM_MODPREFFAM",
+   "short_name"		=>N_("modify preferred families"),
+   "acl"		=>"FREEDOM"
   ) 
                       );
    

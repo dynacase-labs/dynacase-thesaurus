@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_editpref.php,v 1.4 2003/05/19 10:45:02 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_editpref.php,v $
+// $Id: freedom_editpreffam.php,v 1.1 2003/05/19 10:45:02 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_editpreffam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -26,14 +26,14 @@
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Lib.Dir.php");
 
-function onefam_editpref(&$action) 
+function freedom_editpreffam(&$action) 
 {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $tcdoc=GetClassesDoc($dbaccess,$action->user->id);
+  $tcdoc=GetClassesDoc($dbaccess,$action->user->id,1);
   
-  $idsfam = $action->GetParam("ONEFAM_IDS");
+  $idsfam = $action->GetParam("FREEDOM_PREFFAMIDS");
   $tidsfam = explode(",",$idsfam);
 
 
@@ -41,11 +41,11 @@ function onefam_editpref(&$action)
   $selectclass=array();
   if (is_array($tcdoc)) {
     while (list($k,$pdoc)= each ($tcdoc)) {
-      if ($pdoc->dfldid > 0) {
+    
 	$selectclass[$k]["cid"]=$pdoc->id;
 	$selectclass[$k]["ctitle"]=$pdoc->title;
 	$selectclass[$k]["selected"]=(in_array($pdoc->id,$tidsfam))?"checked":"";
-      }
+      
     }
     
   }

@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_editpref.php,v 1.4 2003/05/19 10:45:02 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_editpref.php,v $
+// $Id: freedom_modpreffam.php,v 1.1 2003/05/19 10:45:02 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modpreffam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -19,41 +19,24 @@
 //
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
-
+// 59 Temple Place, Suite 330, Boston, MA 02111-1307 
 
 include_once("FDL/Class.Doc.php");
-include_once("FDL/Lib.Dir.php");
 
-function onefam_editpref(&$action) 
+function freedom_modpreffam(&$action) 
 {
+  $tidsfam = GetHttpVars("idsfam"); // preferenced families
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $tcdoc=GetClassesDoc($dbaccess,$action->user->id);
+
   
-  $idsfam = $action->GetParam("ONEFAM_IDS");
-  $tidsfam = explode(",",$idsfam);
+  $idsfam = $action->GetParam("FREEDOM_PREFFAMIDS");
+  $idsfam = implode(",",$tidsfam);
 
-
-
-  $selectclass=array();
-  if (is_array($tcdoc)) {
-    while (list($k,$pdoc)= each ($tcdoc)) {
-      if ($pdoc->dfldid > 0) {
-	$selectclass[$k]["cid"]=$pdoc->id;
-	$selectclass[$k]["ctitle"]=$pdoc->title;
-	$selectclass[$k]["selected"]=(in_array($pdoc->id,$tidsfam))?"checked":"";
-      }
-    }
-    
-  }
-
-  $action->lay->SetBlockData("SELECTPREF", $selectclass);
+  $action->parent->param->Set("FREEDOM_PREFFAMIDS",$idsfam,PARAM_USER.$action->user->id,$action->parent->id);
 	  
       
-    
+  redirect($action,"CORE","FOOTER");
   
 
 

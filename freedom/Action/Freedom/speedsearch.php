@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_editpref.php,v 1.4 2003/05/19 10:45:02 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_editpref.php,v $
+// $Id: speedsearch.php,v 1.1 2003/05/19 10:45:02 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/speedsearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,40 +23,52 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Doc.php");
+
+
 include_once("FDL/Lib.Dir.php");
 
-function onefam_editpref(&$action) 
-{
+
+
+// -----------------------------------
+function speedsearch(&$action) {
+  // -----------------------------------
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $tcdoc=GetClassesDoc($dbaccess,$action->user->id);
+
+  // Get all the params      
+  $dir=GetHttpVars("dirid"); // insert search in this folder
   
-  $idsfam = $action->GetParam("ONEFAM_IDS");
-  $tidsfam = explode(",",$idsfam);
+  $action->lay->Set("dirid", $dir);
+
+  $idsfam = $action->GetParam("FREEDOM_PREFFAMIDS");
 
 
+  if ($idsfam != "") {
+    $tidsfam = explode(",",$idsfam);
 
-  $selectclass=array();
-  if (is_array($tcdoc)) {
-    while (list($k,$pdoc)= each ($tcdoc)) {
-      if ($pdoc->dfldid > 0) {
-	$selectclass[$k]["cid"]=$pdoc->id;
-	$selectclass[$k]["ctitle"]=$pdoc->title;
-	$selectclass[$k]["selected"]=(in_array($pdoc->id,$tidsfam))?"checked":"";
-      }
+    $selectclass=array();
+    while (list($k,$cid)= each ($tidsfam)) {
+      $cdoc= new Doc($dbaccess, $cid);
+     
+	$selectclass[$k]["idcdoc"]=$cdoc->initid;
+	$selectclass[$k]["classname"]=$cdoc->title;
+      
+      
     }
-    
+    $action->lay->SetBlockData("SELECTPREFCLASS", $selectclass);
   }
 
-  $action->lay->SetBlockData("SELECTPREF", $selectclass);
-	  
-      
-    
+  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,1);
+
+  while (list($k,$cdoc)= each ($tclassdoc)) {
+    $selectclass[$k]["idcdoc"]=$cdoc->initid;
+    $selectclass[$k]["classname"]=$cdoc->title;
+  }
   
-
-
+  $action->lay->SetBlockData("SELECTCLASS", $selectclass);
+  
 }
+
 
 ?>

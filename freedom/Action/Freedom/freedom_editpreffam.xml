@@ -1,6 +1,3 @@
-
-<!-- HEAD HTML -->
-
 <html>
   <head>
 
@@ -33,7 +30,7 @@
 
                          
 <!-- Title Table -->
-<form  class="fborder" target="famlist" name="modpref" method="POST"  action="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_MODPREF" >
+<form  class="fborder" target="foot" name="modpref" method="POST"  action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_MODPREFFAM" >
 
 
                          
