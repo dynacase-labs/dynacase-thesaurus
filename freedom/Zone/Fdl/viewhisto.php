@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.10 2004/10/11 12:06:29 eric Exp $
+ * @version $Id: viewhisto.php,v 1.11 2004/12/01 08:06:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,8 +46,7 @@ function viewhisto(&$action)
     $tlc = array();
     $kc=0; // index comment
     foreach ($tc as $vc) {
-      if (ereg("(.*)\[(.*)\](.*)",$vc,$reg)) {
-
+      if (ereg("([^\[]*)\[([^]]*)\](.*)",$vc,$reg)) {
 	$kc++;
 	if (ereg("([0-9]{1,2})/([0-9]{1,2})/([0-9]{1,4}) ([0-2]{0,1}[0-9]):([0-5]{0,1}[0-9])", 
 		 $reg[1], $regt)) {   
