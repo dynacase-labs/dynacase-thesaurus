@@ -96,7 +96,7 @@
 <tr class="FREEDOMBack1">
   <td colspan="2" >
 <input type="hidden" name="catgid" >
- <input id="iSubmit" type="submit" value=[editaction] onmousedown="multiple_for_select();" onclick="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"> 
+ <input id="iSubmit" type="submit" value="[editaction]" onmousedown="multiple_for_select();" onclick="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"> 
   </td>
   <td  align="right">
  <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'"> 
