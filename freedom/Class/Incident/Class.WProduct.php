@@ -3,7 +3,7 @@
  * Product Workflow
  *
  * @author Anakeen 2002
- * @version \$Id: Class.WProduct.php,v 1.1 2003/11/03 09:03:41 eric Exp $
+ * @version \$Id: Class.WProduct.php,v 1.2 2003/11/04 14:20:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.WProduct.php,v 1.1 2003/11/03 09:03:41 eric Exp $
+// $Id: Class.WProduct.php,v 1.2 2003/11/04 14:20:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WProduct.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,9 +41,9 @@ include_once("FDL/Class.WDoc.php");
 
 
 
-define ("created",  "created");   # N_("created")
+define ("virtual",  "virtual");   # N_("virtual")
 define ("consumed", "consumed");  # N_("consumed")
-define ("locked",   "locked");    # N_("locked")
+define ("plocked",   "plocked");    # N_("plocked")
 define ("asav",     "asav");      # N_("asav")
 define ("aclient",  "aclient");   # N_("aclient")
 define ("returned", "returned");  # N_("returned")
@@ -52,7 +52,7 @@ define ("out",       "out");      # N_("out")
 
 
 
-define ("Tcreated",  "Tcreated");   # N_("Tcreated")
+define ("Tvirtual",  "Tvirtual");   # N_("Tvirtual")
 define ("Tconsumed", "Tconsumed");  # N_("Tconsumed")
 define ("Tlocked",   "Tlocked");    # N_("Tlocked")
 define ("Tasav",     "Tasav");      # N_("Tasav")
@@ -72,10 +72,10 @@ Class WProduct extends WDoc {
 
   // ------------
   var $attrPrefix="PWF"; // prefix attribute
-  var $firstState="created";
+  var $firstState="virtual";
 
   var $transitions = array(
-			   "Tcreated"  =>array(""),
+			   "Tvirtual"  =>array(""),
 			   "Tconsumed" =>array(""),
 			   "Tlocked"   =>array(""),
 			   "Tasav"     =>array(""),
@@ -85,27 +85,27 @@ Class WProduct extends WDoc {
 			   "Tout"      =>array(""));
   
     var $cycle = array(
-			  array("e1"=>created,
+			  array("e1"=>virtual,
 				"e2"=>consumed, 
 				"t"=>Tconsumed),	
 
-			  array("e1"=>created,
-				"e2"=>locked, 
+			  array("e1"=>virtual,
+				"e2"=>plocked, 
 				"t"=>Tlocked),	
 
-			  array("e1"=>created,
+			  array("e1"=>virtual,
 				"e2"=>asav, 
 				"t"=>Tasav),	
 
-			  array("e1"=>created,
+			  array("e1"=>virtual,
 				"e2"=>aclient, 
 				"t"=>Taclient),	
 
-			  array("e1"=>created,
+			  array("e1"=>virtual,
 				"e2"=>returned, 
 				"t"=>Treturned),	
 
-			  array("e1"=>created,
+			  array("e1"=>virtual,
 				"e2"=>stocked, 
 				"t"=>Tstocked),	
 
@@ -145,11 +145,11 @@ Class WProduct extends WDoc {
 				"e2"=>stocked, 
 				"t"=>Tstocked),		
 
-			  array("e1"=>locked,
+			  array("e1"=>plocked,
 				"e2"=>out, 
 				"t"=>Tout),		
 
-			  array("e1"=>locked,
+			  array("e1"=>plocked,
 				"e2"=>stocked, 
 				"t"=>Tstocked),	
 
@@ -158,7 +158,7 @@ Class WProduct extends WDoc {
 				"t"=>Tconsumed),	
 
 			  array("e1"=>stocked,
-				"e2"=>locked, 
+				"e2"=>plocked, 
 				"t"=>Tlocked),	
 
 			  array("e1"=>stocked,
