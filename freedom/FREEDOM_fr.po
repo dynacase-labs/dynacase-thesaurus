@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-15 11:37+0100\n"
+	"POT-Creation-Date: 2002-03-18 12:12+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -272,6 +272,9 @@ msgstr	"Personnes supprimées"
 msgid	" history"
 msgstr	" historique"
 
+msgid	"in progress incident"
+msgstr "incidents en cours"
+
 msgid	"unclosed incident"
 msgstr	"incidents non clôts"
 
@@ -279,7 +282,7 @@ msgid	"traited incident"
 msgstr	"incidents traités"
 
 msgid	"suspended incident"
-msgstr "incidents suspendus"
+msgstr	"incidents suspendus"
 
 msgid	"all incident"
 msgstr	"tous les incidents"

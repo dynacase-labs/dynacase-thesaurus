@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-15 11:37+0100\n"
+	"POT-Creation-Date: 2002-03-18 12:12+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -283,6 +283,9 @@ msgid	"personn deleted"
 msgstr	""
 
 msgid	" history"
+msgstr	""
+
+msgid	"in progress incident"
 msgstr	""
 
 msgid	"unclosed incident"

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.5 2002/03/14 14:56:54 eric Exp $
+// $Id: import_file.php,v 1.6 2002/03/18 13:57:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,6 +30,7 @@ include_once("FDL/Class.QueryDir.php");
 function add_import_file(&$action, $fimport="") {
   // -----------------------------------
   global $HTTP_POST_FILES;
+  $gerr=""; // general errors
 
   $dirid = GetHttpVars("dirid",10); // directory to place imported doc 
 
@@ -62,7 +63,7 @@ function add_import_file(&$action, $fimport="") {
     if (($err != "") && ($doc->id > 0)) { // case only modify
       if ($doc -> Select($doc->id)) $err = "";
     }
-    if ($err != "") $action->exitError($err);
+    if ($err != "") $gerr="\nline $nline:".$err;
     $bdvalue = new DocValue($dbaccess);
     $bdvalue->docid = $doc->id;
 	  
@@ -104,7 +105,7 @@ function add_import_file(&$action, $fimport="") {
     if (($err != "") && ($doc->id > 0)) { // case only modify
       if ($doc -> Select($doc->id)) $err = "";
     }
-    if ($err != "") $action->exitError($err);
+    if ($err != "") $gerr="\nline $nline:".$err;
     
     // update title in finish
     $doc->title =  $data[3];
@@ -116,7 +117,7 @@ function add_import_file(&$action, $fimport="") {
 	$qf->qtype='M'; // complex query
 	$qf->query=$data[4];
 	$err = $qf->Add();
-	if ($err != "") $action->exitError($err);
+	if ($err != "") $gerr="\nline $nline:".$err;
       }
 
     if ($data[2] > 0) { // dirid
@@ -155,7 +156,7 @@ function add_import_file(&$action, $fimport="") {
 	  
     $err = $oattr ->Add();
     if ($err != "") $err = $oattr ->Modify();
-    if ($err != "") $action->exitError($err);
+    if ($err != "") $gerr="\nline $nline:".$err;
     break;
     // -----------------------------------
     case ($data[0] > 0):
@@ -172,6 +173,7 @@ function add_import_file(&$action, $fimport="") {
   }
       
   fclose ($fdoc);
+  if ($gerr != "") $action->exitError($gerr);
 
 
   if (isset($HTTP_POST_FILES["tsvfile"]))  
@@ -190,7 +192,11 @@ function csvAddDoc($dbaccess, $data, $dirid=10) {
     if (($err != "") && ($doc->id > 0)) { // case only modify
       if ($doc -> Select($doc->id)) $err = "";
     }
-    if ($err != "") $action->exitError($err);
+  if ($err != "") {
+    global $nline, $gerr;
+    $gerr="\nline $nline:".$err;
+    return false;
+  }
     $lattr = $doc->GetAttributes();
 
 

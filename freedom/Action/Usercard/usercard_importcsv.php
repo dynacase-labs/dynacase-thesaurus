@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_importcsv.php,v 1.1 2002/03/11 10:26:48 eric Exp $
+// $Id: usercard_importcsv.php,v 1.2 2002/03/18 13:57:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_importcsv.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -76,6 +76,7 @@ function usercard_importcsv(&$action) {
 	
       case "DOC":
 	$doc =csvAddDoc($dbaccess, $data);
+	if (!$doc) continue;
 
 	$bdvalue->docid = $doc->id;
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.DocSearch.php,v 1.2 2002/03/18 13:57:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocSearch.php,v $
+// Revision 1.2  2002/03/18 13:57:43  eric
+// modif des recherches et ajout recherche incident en cours
+//
 // Revision 1.1  2002/02/13 14:31:58  eric
 // ajout usercard application
 //
@@ -40,7 +43,7 @@
 // Revision 1.2  2001/11/09 18:54:21  eric
 // et un de plus
 // ---------------------------------------------------------------
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.2 2002/03/18 13:57:43 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -88,6 +91,19 @@ Class DocSearch extends Doc
     $oqd->query = $query;
     $oqd-> Add();
     
+  }
+
+  function GetQuery() {
+    $query = new QueryDb($this->dbaccess, "QueryDir");
+    $query->AddQuery("dirid=".$this->id);
+    $tq=$query->Query(0,0,"TABLE");
+
+
+    if ($query->nb > 0)
+	{
+	  return $tq[0]["query"];
+	}
+    return "";
   }
 }
 
