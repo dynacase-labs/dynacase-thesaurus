@@ -180,7 +180,7 @@ end;
 
 
 create or replace function deletevalues() 
-returns opaque as '
+returns trigger as '
 declare 
 begin
 --delete from docvalue where docid=OLD.id;
@@ -191,7 +191,7 @@ end;
 
 
 create or replace function resetvalues() 
-returns opaque as '
+returns trigger as '
 declare 
 begin
 NEW.values:='''';
@@ -201,7 +201,7 @@ end;
 ' language 'plpgsql';
 
 create or replace function initacl() 
-returns opaque as '
+returns trigger as '
 declare 
 begin
 if (TG_OP = ''UPDATE'') then
