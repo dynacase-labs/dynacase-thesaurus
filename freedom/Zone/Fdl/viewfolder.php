@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.19 2002/08/22 12:22:07 eric Exp $
+// $Id: viewfolder.php,v 1.20 2002/08/22 13:35:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,7 +128,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     $nbdoc=0;
   $prevFromId = -2;
 
-  if ($column) usort($ldoc,"orderbyfromid");
+  if ($column) {
+    usort($ldoc,"orderbyfromid");
+    $tfamdoc=array();
+  }
 
   while((list($k,$doc) = each($ldoc)) )
       {
