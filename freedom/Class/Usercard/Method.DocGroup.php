@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocGroup.php,v 1.5 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.DocGroup.php,v 1.6 2003/09/16 07:39:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -15,13 +15,13 @@
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version \$Id: Method.DocGroup.php,v 1.5 2003/08/18 15:47:04 eric Exp $
+ * @version \$Id: Method.DocGroup.php,v 1.6 2003/09/16 07:39:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
  */
 // ---------------------------------------------------------------
-// $Id: Method.DocGroup.php,v 1.5 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.DocGroup.php,v 1.6 2003/09/16 07:39:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,7 +63,7 @@ function PostModify() {
 /**
  * recompute only parent group 
  *
- * @author Anakeen 2003
+ * 
  * @return string error message, if no error empty string
  */
 function RefreshGroup() {
@@ -83,7 +83,7 @@ function RefreshGroup() {
  * compute the mail of the group 
  * concatenation of each user mail and group member mail
  *
- * @author Anakeen 2003
+ * 
  * @return string error message, if no error empty string
  */
 function SetGroupMail() {

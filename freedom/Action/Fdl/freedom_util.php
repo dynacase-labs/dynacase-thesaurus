@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.40 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_util.php,v 1.41 2003/09/16 07:37:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.40 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_util.php,v 1.41 2003/09/16 07:37:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,10 +80,24 @@ function GetSqlCond($Table, $column, $integer=false)
 
 
 
+/** 
+ * optimize for speed : memorize object for future use
+ * @global array $_GLOBALS["gdocs"] 
+ * @name $gdocs
+ */
 
 
-
-// return document object in type concordance
+/**
+ * return document object in type concordance
+ * @param Doc &$doc empty object document
+ * @param string $dbaccess database specification
+ * @param int $id identificator of the object
+ * @param array $res array of result issue to QueryDb {@link QueryDb::Query()}
+ * @param resource $dbid the database connection resource
+ * @global array optimize for speed 
+ * 
+ * @return bool false if error occured
+ */
 function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
 
   global $gdocs;// optimize for speed
@@ -150,7 +164,15 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
 } 
 
 
-// create a new document object in type concordance
+/**
+ * create a new document object in type concordance
+ *
+ * the document is set with default values and default profil of the family 
+ * @param string $dbaccess database specification
+ * @param string $fromid identificator of the family document (the number or internal name)
+ * @param bool $control if false don't control the user hability to create this kind of document
+ * @return Doc may be return false if no hability to create the document
+ */
 function createDoc($dbaccess,$fromid,$control=true) {
 
   if (! is_numeric($fromid)) $fromid=getFamIdFromName($dbaccess,$fromid);
