@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.25 2003/05/27 12:30:37 eric Exp $
+// $Id: Class.WDoc.php,v 1.26 2003/06/03 14:52:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.25 2003/05/27 12:30:37 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.26 2003/06/03 14:52:35 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -256,7 +256,7 @@ Class WDoc extends Doc {
     if ($err != "") return $err;
       
     $revcomment = sprintf(_("change state : %s to %s"), _($oldstate), _($newstate));
-    if ($addcomment != "") $revcomment.= "\n".$addcomment;
+    if ($addcomment != "") $this->doc->AddComment($addcomment);
       
     $err=$this->doc->AddRevision($revcomment);
     if ($err != "") return $err;
