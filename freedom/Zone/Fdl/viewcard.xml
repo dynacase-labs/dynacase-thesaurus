@@ -20,6 +20,7 @@ if ("[LGTEXTERROR]" != "0") {
 if ("[refreshfld]" == "Y") {
  
    if (parent.flist) parent.flist.location.reload();
+if (window.opener && window.opener.document.needreload) window.opener.location.reload();
 }
 function popdoc(evt,url) {
   evt = (evt) ? evt : ((event) ? event :null);
