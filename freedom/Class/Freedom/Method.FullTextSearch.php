@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Method.FullTextSearch.php,v 1.1 2004/10/14 14:15:35 marc Exp $
+ * @version $Id: Method.FullTextSearch.php,v 1.2 2004/10/18 08:46:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -16,6 +16,13 @@
  *
  */
 var $defaultedit= "FREEDOM:EDITFTSEARCH";
+
+function PreCreated() {
+  global $action;
+  $msg = "";
+  if ($action->GetParam("FULLTEXT_SEARCH") != "yes") $msg = "Install full text search correctly";
+  return $msg;
+}
 
 function fileNameToId($name) {
   $ifile = basename($name);
@@ -54,6 +61,9 @@ function GetFullTextResultDocs ($dbaccess,
 				$start="0", $slice="ALL", $sqlfilters=array(), 
 				$userid=1, 
 				$qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
+
+  include_once("FDL/Class.DocVaultIndex.php");
+
   global $action;
   $tdocs = array();
   $fulltextsearch = new Doc($dbaccess, $dirid);
@@ -91,15 +101,20 @@ function GetFullTextResultDocs ($dbaccess,
     if ($s->found && $s->rcount>0) {
       $idoc = 0;
       while (list($k, $v) = each($resultfiles)) {
-	$ndoc = new Doc($dbaccess, $this->fileNameToId($v["name"]));
-	if ($ndoc->famid == $famid || $famid == 0) {
-	  $tdocs[$idoc] = $ndoc;
-	  $idoc++;
-	}
+        $s->dbg("[$k] Filename = ".$v["file"]." Id = ".$iddoc); 
+        $dvi = new DocVaultIndex($dbaccess);
+        $r = $dvi->GetDocId($this->fileNameToId($v["file"]));
+        if (is_array($r) && count($r)>0) {
+          while (list($k, $v) = each($r)) {
+            $ndoc = new Doc($dbaccess, $v->docid);
+	    if ($ndoc->fromid == $famid || $famid == 0) {
+	      $tdocs[$idoc] = $ndoc;
+	      $idoc++;
+	    }
+          }
+        }
       }
     }
-    $tdocs[$idoc] = new Doc($dbaccess, 1012);
-    $idoc++;
     $s->Close();
   }
   return $tdocs;

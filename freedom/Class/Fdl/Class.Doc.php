@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.219 2004/10/11 12:07:08 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.220 2004/10/18 08:46:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -17,6 +17,7 @@ include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
 include_once("FDL/freedom_util.php");
 include_once("FDL/Class.DocValue.php");
+include_once("FDL/Class.DocVaultIndex.php");
 include_once("FDL/Class.DocAttr.php");
 include_once('FDL/Class.ADoc.php');
 include_once("FDL/Lib.Util.php");
@@ -430,6 +431,7 @@ create unique index i_docir on doc(initid, revision);";
     unset($gdocs[$this->id]); // clear cache
     if ($this->hasChanged) {
       $this->computeDProfil();
+      $this->UpdateVaultIndex();
     }
     $this->hasChanged=false;
   }
@@ -3567,6 +3569,33 @@ create unique index i_docir on doc(initid, revision);";
     $mydoc=new Doc($this->dbaccess,$this->getUserId());
 
     return $mydoc->getValue($idattr);
+  }
+
+
+
+  function UpdateVaultIndex() {
+
+    $dvi = new DocVaultIndex($this->dbaccess);
+    $err = $dvi->DeleteDoc($this->id);
+    $fa=$this->GetFileAttributes();
+    foreach ($fa as $aid=>$oattr) {
+      if ($oattr->inArray()) {
+	$ta=$this->getTValue($aid);
+      } else {
+	$ta=array($this->getValue($aid));	  
+      }
+      foreach ($ta as $k=>$v) {
+	$vid="";
+	if (ereg ("(.*)\|(.*)", $v, $reg)) {
+	  $vid=$reg[2];
+	  $dvi->docid = $this->id;
+	  $dvi->vaultid = $vid;
+	  $dvi->Add();
+	}
+      }
+	
+
+    }
   }
 
 }

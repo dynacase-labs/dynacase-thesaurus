@@ -1,12 +1,12 @@
 # ============================================
-# $Id: Makefile,v 1.5 2004/03/01 08:48:41 eric Exp $
+# $Id: Makefile,v 1.6 2004/10/18 08:46:13 marc Exp $
 # ============================================
 
 
 export targetdir
 export utildir
 
-SUBDIR= Fdl Freedom Usercard
+SUBDIR= Fdl Freedom Usercard FullTextSearch
 
 
 include $(utildir)/PubRule
