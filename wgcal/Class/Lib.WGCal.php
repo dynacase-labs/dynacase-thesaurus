@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.21 2005/03/16 16:44:11 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.22 2005/03/18 18:58:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -133,9 +133,14 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   $tout=array(); 
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
-  $rvf = getIdFromName($db, "CALEVENT");
-  $fref = $action->getParam("WGCAL_G_VFAM", $rvf);
-  setHttpVar("idfamref", $fref);
+  $fref = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
+  $ft = explode("|", $fref);
+  $fti = array();
+  foreach ($ft as $k => $v) {
+    $fti[] = getIdFromName($dbaccess, $v);
+  }
+  $idfamref = implode("|", $fti);
+  setHttpVar("idfamref", $idfamref);
   $dre=new Doc($dbaccess,$reid);
   $edre = array();
   $edre=$dre->getEvents($d1,$d2);
@@ -161,7 +166,6 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
  		   "TSEND" => $end, 
 		   "END" => FrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
-
     $ref = false;
     if ($showrefused!=1) {
       $attr = $dre->_val2array($v["evfc_rejectattid"]);
@@ -171,22 +175,16 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     }
    
     if (!$ref) { 
-      $n = new Doc($dbaccess, $v["evt_idinitiator"]);  
-      $varclass = get_class_vars("_CALEVENT");
-      if (isset($varclass["ZoneEvtAbstract"]) && isset($varclass["ZoneEvtCard"])) {
-        $abstract =  $varclass["ZoneEvtAbstract"];
-        $view = $varclass["ZoneEvtCard"];
-        $viewltext = $varclass["ZoneEvtCardLongText"];
-      } else {
-        $abstract =  "WGCAL:DEFAULTABS";
-        $view = "WGCAL:DEFAULTVIEW";
-        $viewltext = "WGCAL:VLONGTEXT";
-      }
-      $item["RESUME"] = $abstract;
-      $item["VIEW"] = $view;
-      $item["VIEWLTEXT"] = $viewltext;
+      $n = new Doc($dbaccess, $v["id"]);  
+      $item["RESUME"] = $n->calVResume;
+      $item["VIEW"] = $n->calVCard;
+      $item["VIEWLTEXT"] = $n->calVLongText;
+      $item["VIEWSTEXT"] = $n->calVShortText;
       $item["RG"] = count($tout);
 
+      // Determine color according ressource identification
+      $item["__color"] = WGCalEvSetColor($action, $v);
+      
       if ($action->user->fid == $v["evt_idcreator"]) {
 	PopupActive('calpopup',$item["RG"], 'editrv');
 	PopupActive('calpopup',$item["RG"], 'deleterv');
@@ -247,7 +245,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   }
   popupGen(count($tout));
   $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
-//   print_r2($tout);
+//      print_r2($tout);
   return $tout;
 }
        	
@@ -376,6 +374,36 @@ function GroupExplode(&$action, $gid) {
   $ulist = $ugrp->GetUsersGroupList($g->getValue("US_WHATID"));
   foreach ($ulist as $ku=>$vu)	$gr[] = $vu["fid"];
   return $gr;
+}
+ 
+function WGCalEvSetColor(&$action, &$event) {
+
+  $dress = WGCalGetRessDisplayed($action);
+
+  // the current user is event owner ?
+  $idcolor = ($action->user->fid == $event["evt_idcreator"] ? $event["evt_idcreator"] : -1);
+  // the current user is an event ressource ?
+  if ($idcolor == -1) {
+    $tress = explode("|",$event["evt_idres"]);
+    foreach ($tress as $kr => $vr) {
+      if ($vr==$action->user->fid) $idcolor = $vr;
+    }
+  }
+  // search for the first user in ressource
+  if ($idcolor == -1) {
+    while ((list($kdr, $vdr) = each($dress)) && $dcolor==-1) {
+      while ((list($kr, $vr) = each($tress)) && $dcolor==-1) {
+	if ($vr==$vdr->id) $idcolor = $vr;
+      }
+    }
+  }
+
+  if ($idcolor!=-1)  {
+    foreach ($dress as $kr => $vr) {
+      if ($idcolor == $vdr->id) return $vdr->color;
+    }
+  }
+  return "lightgrey";  
 }
 
 ?>

@@ -207,13 +207,13 @@ function refreshAttendees() {
       vdelall.style.display = '';
     }
     document.getElementById('vnatt').style.display = '';
-    document.getElementById('spall').style.visibility = 'visible';
+//     document.getElementById('spall').style.visibility = 'visible';
   }  else {
     vress.style.display = 'none';
     vdispo.style.display = 'none';
     vdelall.style.display = 'none';
     document.getElementById('vnatt').style.display = 'none';
-    document.getElementById('spall').style.visibility = 'hidden';
+//     document.getElementById('spall').style.visibility = 'hidden';
   }
   return; 
 }
@@ -265,13 +265,19 @@ function  deleteAttendee(aid) {
     vdispo.style.display = '';
     vdelall.style.display = '';
     document.getElementById('vnatt').style.display = '';
-    document.getElementById('spall').style.visibility = 'visible';
+//     document.getElementById('spall').style.visibility = 'visible';
   } else {
+    document.getElementById('bpress').checked = false;
+    document.getElementById('press').style.background = '';
+    document.getElementById('press').style.display = '';
+    document.getElementById('bdress').checked = false;
+    document.getElementById('dress').style.background = '';
+    document.getElementById('dress').style.display = '';
     vress.style.display = 'none';
     vdispo.style.display = 'none';
     vdelall.style.display = 'none';
     document.getElementById('withMe').checked = true;
-    document.getElementById('spall').style.visibility = 'hidden';
+//     document.getElementById('spall').style.visibility = 'hidden';
     document.getElementById('vnatt').style.display = 'none';
   }
 }
@@ -438,7 +444,7 @@ function clickB(idb) {
 function ShowHideStatus() {
   if (ROMode) return;
   evch = document.getElementById('withMe');
-  evs = document.getElementById('spall');
+//   evs = document.getElementById('spall');
   evch.checked = (evch.checked ? "" : "checked" );
   if (evch.checked) evs.style.visibility = 'visible';
   else evs.style.visibility = 'hidden';
@@ -447,7 +453,7 @@ function ShowHideStatus() {
 function setStatus(st, cst) {
   evst = document.getElementById('evstatus');
   evst.value = status;
-  document.getElementById('spall').style.border = '1px solid '+cst;
+//   document.getElementById('spall').style.border = '1px solid '+cst;
 }
 
 function ViewGroup(ev,st) {
@@ -464,4 +470,20 @@ function ViewGroup(ev,st) {
     ge.style.top = (wh/2)+'px';
   }
   return;
+}
+
+
+function ImportRessources(elt, tress) {
+  var i;
+  var ch = document.getElementById(elt);
+  var bch = document.getElementById('b'+elt);
+  if (bch.checked) {
+    bch.checked = false;
+  } else {
+    ch.style.display = 'none';
+    bch.checked = true;
+    for (i=0; i<tress.length; i++) {
+       addRessource(tress[i][0], tress[i][1], tress[i][2], '0', 'nouveau', 'red');
+    }
+  }
 }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.21 2005/03/14 06:40:56 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.22 2005/03/18 18:58:36 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,7 +54,6 @@ array(
 "WGCAL_U_RESSTMPLIST" => array("kind"=>"static", "val" => "", "descr"=>N_("WGCAL_U_TMPLIST"), "user"=>"Y"),
 
 "WGCAL_U_USEPREFRESSOURCES" => array( "kind" => "static", "val"=>"1", "descr"=>N_("use prefered ressource for event setting"), "user"=>"Y"),
-"WGCAL_U_USERESSINEVENT" => array( "kind" => "static", "val"=>"0", "descr"=>N_("use displayed ressource for event setting"), "user"=>"Y"),
 "WGCAL_U_PREFRESSOURCES" => array("kind"=>"static", "val"=>"", "descr"=>N_("my prefered contacts"), "user"=>"Y"),
 
 "WGCAL_U_RVMAILCC" => array("kind"=>"static", "val"=>"", "descr"=>N_("send me event mail copy"), "user"=>"Y"),
@@ -73,6 +72,7 @@ array(
 
 // Globals
 "WGCAL_G_SENDMAILS" => array("val"=>"0", "descr"=>N_("mails send")),
+"WGCAL_G_VFAM" => array("val"=>"CALEVENT", "descr"=>N_("viewed events (from producters)")),
 
 "VERSION" => "@VERSION@-@RELEASE@",
 "INIT" => "yes"

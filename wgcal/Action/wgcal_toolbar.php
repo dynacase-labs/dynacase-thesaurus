@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.20 2005/03/10 18:06:49 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.21 2005/03/18 18:58:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -172,11 +172,6 @@ function _listress(&$action)
     }
   }
   $action->lay->SetBlockData("L_RESS", $t);
-
-  $urc = ($action->GetParam("WGCAL_U_USERESSINEVENT", 1) ? "WGCRessSelected" : "WGCRessDefault");
-  $action->lay->set("urclass", $urc);
-  $ur = ($action->GetParam("WGCAL_U_USERESSINEVENT", 1) ? "checked" : "");
-  $action->lay->set("urchecked", $ur);
 
 }
 ?>

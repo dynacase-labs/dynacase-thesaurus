@@ -6,10 +6,6 @@ var $eventAttDesc      = "CALEV_TITLE";
 var $eventAttCode      = "RV";
 var $eventFamily       = "EVENT_FROM_CAL";
 
-var $ZoneEvtAbstract =  "WGCAL:CALEV_ABSTRACT";
-var $ZoneEvtCard =  "WGCAL:CALEV_CARD";
-var $ZoneEvtCardLongText =  "WGCAL:CALEV_VIEWLTEXT";
-
 function postModify() {
   $err = $this->setEvent(); 
   if ($err!="") print_r2($err);
@@ -22,6 +18,7 @@ function getEventRessources() {
 
 function  setEventSpec(&$e) {
   include_once('WGCAL/WGCAL_external.php');
+  $e->setValue("EVT_TITLE", $this->getValue("CALEV_EVTITLE"));
   $e->setValue("EVFC_VISIBILITY", $this->getValue("CALEV_VISIBILITY"));
   $e->setValue("EVFC_REALENDDATE", $this->getValue("CALEV_END"));
   $e->setValue("EVFC_REPEATMODE", $this->getValue("CALEV_REPEATMODE"));

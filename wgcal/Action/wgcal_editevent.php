@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.36 2005/03/16 16:44:11 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.37 2005/03/18 18:58:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -131,42 +131,6 @@ function wgcal_editevent(&$action) {
     $attendees = array( );
     $attendeesState = array( );
     $attendeesGroup = array( );
-    $userd = $action->GetParam("WGCAL_U_USERESSINEVENT", 0);
-    if ($userd == 1) {
-      $curress = $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
-      $lress = explode("|", $curress);
-      if (count($lress)>0) {
-	foreach ($lress as $k => $v) {
-	  $tt = explode("%", $v);
-	  if ($tt[1] == 1) {
-	    $dd = new Doc($db, $tt[0]);
-	    if ($dd->fromid != getIdFromName($db,"SCALENDAR")) {
-	      $attendees[$iatt] = $tt[0];
-	      $attendeesState[$iatt] = EVST_NEW;
-	      $attendeesGroup[$iatt] = -1;
-	      $iatt++;
-	    }
-	  }
-	}
-      }
-    }
-    $userd = $action->GetParam("WGCAL_U_USEPREFRESSOURCES", 0);
-    if ($userd == 1) {
-      $curress = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
-      $lress = explode("|", $curress);
-      if (count($lress)>0) {
-	foreach ($lress as $k => $v) {
-	  if ($v=="") continue;
-	  $dd = new Doc($db, $v);
-	  if ($dd->fromid != getIdFromName($db,"SCALENDAR")) {
-	    $attendees[$iatt] = $v;
-	    $attendeesState[$iatt] = EVST_NEW;
-	    $attendeesGroup[$iatt] = -1;
-	    $iatt++;
-	  }
-	}
-      }
-    }
     $ownerid = $action->user->fid;
     $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
     $ownertitle = $attru["title"];
@@ -491,6 +455,38 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
   }
   $action->lay->setBlockData("ADD_RESS", $att);
   $action->lay->set("attendeesro", ($ro?"none":""));
+
+  $dress = $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+  $tdress = explode("|", $dress);
+  $to = array(); $ito = 0;
+  foreach ($tdress as $k => $v) {
+    if ($v=="") continue;
+    $tx = explode("%", $v);
+    if ($tx[0]=="" || $tx[0]==$action->user->fid) continue;
+    $res = new Doc($dbaccess, $tx[0]);
+    $to[$ito]["idress"] = $ito;
+    $to[$ito]["resstitle"] = $res->title;
+    $to[$ito]["ressid"] = $tx[0];
+    $to[$ito]["ressico"] = $res->getIcon();
+    $ito++;
+  }
+  $action->lay->setBlockData("DRESS", $to);
+
+    
+    
+  $dress = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
+  $tdress = explode("|", $dress);
+  $to = array(); $ito = 0;
+  foreach ($tdress as $k => $v) {
+    if ($v=="" || $v==$action->user->fid) continue;
+    $res = new Doc($dbaccess, $v);
+    $to[$ito]["idress"] = $ito;
+    $to[$ito]["resstitle"] = $res->title;
+    $to[$ito]["ressid"] = $v;
+    $to[$ito]["ressico"] = $res->getIcon();
+    $ito++;
+  }
+  $action->lay->setBlockData("PRESS", $to);
 }
 
 

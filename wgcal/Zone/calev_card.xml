@@ -6,7 +6,7 @@
 
 <tr>
   <td width="15" style="border: 1px inset; background-color:[bgstate]" valign="top" rowspan="5">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]"><br>[ENDBLOCK icons]</td>
-   <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white" -->
+   <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white">
    <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
     <td align="left"><span style="font-size:120%; font-weight:bold">[TITLE]</span></td>
     <td align="right"><img src="[iconevent]" height="20"></td>

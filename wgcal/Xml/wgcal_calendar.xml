@@ -37,9 +37,7 @@
   onmouseout="WGCalEvOnMouseOut(event, '[RG]');" 
   onContextMenu="SetCurrentEvent([ID]); openMenu(event,'calpopup',[RG]);return false" 
   onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([ID]);openMenu(event,'calpopup',[RG])}"
-  style="cursor:pointer; border:0px; display:none;overflow:hidden;">
-[ZONE [RESUME]?ev=[ID]]
-</div>
+  style="cursor:pointer; border:0px; display:none;overflow:hidden;">[ZONE [RESUME]?ev=[ID]]</div>
 <div id="evtc[RG]" style="display:none; border:1px outset; background-color:white');">
 [ZONE [VIEW]?ev=[ID]]
 </div>

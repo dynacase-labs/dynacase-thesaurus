@@ -118,7 +118,7 @@
 
 <tfoot>
 <tr><td colspan="5" height="5"></td></tr>
-<tr><td colspan="3" align="left"><span id="spuseressources" title="[TEXT:use ressource for event creation]" onclick="useressources('','');" class="[urclass]" style="font-size:80%"><input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources('','');" [urchecked]>[TEXT:use in event...]</span></td>
+<tr><td colspan="3" align="left"></td>
 <td colspan="2" align="right">
 <!-- img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]"-->&nbsp;<img id="resssav" style="cursor:pointer;" onclick="saveRessources(); alert('[TEXT: ressource list saved]');" height="15" src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
 </td>

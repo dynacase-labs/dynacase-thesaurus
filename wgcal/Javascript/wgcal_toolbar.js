@@ -185,18 +185,6 @@ function WGCalSaveToolsVisibility() {
  
 
    
-function useressources(updatetarget, updateaction) {
-  rf = document.getElementById('useressources');
-  rft = document.getElementById('spuseressources');
-  if (rf.checked) rf.checked = false;
-  else rf.checked = true;
-  use_r = (rf.checked?1:0);
-  if (use_r==1) rft.className = 'WGCRessSelected';
-  else rft.className = 'WGCRessOver';
-  //alert('update target = '+updatetarget+' action='+updateaction);
-  usetparam("WGCAL_U_USERESSINEVENT", use_r, updatetarget, updateaction);
-}
- 
 
 function setwrvalert() {
   rf = document.getElementById('alertwrv');

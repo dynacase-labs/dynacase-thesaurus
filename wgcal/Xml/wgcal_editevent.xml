@@ -25,16 +25,22 @@
 </legend>
 
 <!-- Event default view -->
-<br>
+<div  name="_addatt" id="_addatt" style="position:absolute;left:2%;top:2%;width:40%;height:80%;border:2px outset lightgrey;display:none">
+<iframe name="wgcal_addatt" id="wgcal_addatt" style="position:absolute;left:0%;top:0%;width:100%;height:100%" marginwidth="0" marginheight="0">
+</iframe>
+</div>
+
 <div id="evmainzone" style="display:">
 
-<table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
+<table width="100%" style="margin-top: 0em;" cellspacing="0" border="1">
+<tr><td>
+
+<table width="300px" style="margin-top: 0em;" cellspacing="0" border="0">
 
 <tr>
 
 <td colspan="3" style="padding-top:4px; padding-bottom:2em;"><input onfocus="document.getElementById('errTitle').style.display='none'; this.style.background='';" class="Mandatory" id="rvtitle" name="rvtitle" size="40" type="text" title="[TEXT:rv title]" value="[TITLE]" [TITLERO]><div id="errTitle" name="errTitle" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:give a title]</div></td>
-<td width="8%"  rowspan="4"></td>
-<td rowspan="4">[TEXT:rv note]<br><textarea cols="40" rows="3" id="rvnote" name="rvnote" [DESCRRO]>[DESCR]</textarea></td>
+
 
 </tr>
 
@@ -120,26 +126,58 @@
 </td>
 </tr>
 
-</table>
-
-<br>
-
-<table width="100%" cellspacing="0" border="0">
+<tr>
+<td colspan="3">[TEXT:rv note]<br><textarea cols="40" rows="3" id="rvnote" name="rvnote" [DESCRRO]>[DESCR]</textarea></td>
+</tr>
 
 <tr>
+<td  align="right">[TEXT:confidentiality]&nbsp;:&nbsp;</td>
+<td colspan="2"><select id="rvconfid" onchange="SetSelectedItem('rvconfid', 'evconfidentiality')" [rvvisro]>[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]</select>
+</td>
+</tr>
 
-<td width="50%" rowspan="5">
+<tr>
+<td align="right">[TEXT:calendar]&nbsp;:&nbsp;</td>
+<td colspan="2" ><select id="rvcalendar" name="rvcalendar" onchange="SetSelectedItem('rvcalendar', 'evcalendar');" [rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
+</td>
+</tr>
+
+<tr>
+<td align="right"><span style="cursor:pointer" onclick="ChangeAlarm()" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
+<td colspan="2" >
+<span id="AlarmVis" style="visibility:[ALRMVIS]">
+<select id="alarmhour" name="alarmhour" [ALARMRO]>[BLOCK ALARM_HR]
+<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_HR]
+</select>h&nbsp; <select id="alarmmin" name="alarmmin" [ALARMRO]>[BLOCK ALARM_MIN]
+<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_MIN]
+</select>mn&nbsp;[TEXT:before]
+</span>
+</td>
+</tr>
+
+</table>
+
+</td><td>
+
+<table width="100%" cellspacing="0" border="1">
+
+<tr><td>
 
 <div id="evattendeeszone" style="display:">
 
 <fieldset id='vical'>
   <legend class="WGCToolTitle">[TEXT:attendees]&nbsp;
 
-  <img id="addattendee" style="display:[attendeesro]; cursor:pointer;" 
+  <!--
+<img id="addattendee" style="display:[attendeesro]; cursor:pointer;" 
      onclick="attpicker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');" 
      height="20"
-     src="WGCAL/Images/wm-attendees.png" title="[TEXT:add attendees]">
+     src="WGCAL/Images/wm-attendees.png" title="[TEXT:add attendees]"> -->
 
+  <img id="addattendee" style="display:[attendeesro]; cursor:pointer;" 
+     onclick="parent.wgcal_addatt.location.href='[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN'; document.getElementById('_addatt').style.display=''" 
+     height="20"
+     src="WGCAL/Images/wm-attendees.png" title="[TEXT:add attendees]">
    <img id="viewplan" style="display:[voneatt]; cursor:pointer;" height="20"
           onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T?idfamref=[idfamref]&byres=Y&id=[planid]');";
           src="WGCAL/Images/wm-planner.png" title="[TEXT:vew disponibility]">
@@ -152,7 +190,12 @@
 
 <div id="errAtt" name="errAtt" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:one ressource or you in event]</div>
 
-<div id="attlist">
+<table id="vnatt" style="display:[vnatt]" cellspacing="0" cellpadding="0" width="100%"><tr><td align="right">
+<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus();" title="[TEXT:I participe to this meeting]">[TEXT:I participe to this meeting]<input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus();" [WITHME] [WITHMERO]></span>
+</td></td></table>
+
+
+<div style="border: 1px inset lightgrey;" id="attlist">
  
 <table cellspacing="0" cellpadding="0">
 <tbody id="tabress">
@@ -180,57 +223,38 @@
 </tbody>
 </table>
 
+</div>
+
+
+<script type="text/javascript">
+var DisplayedRess = new Array();[BLOCK DRESS]
+DisplayedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBLOCK DRESS]
+var PreferedRess = new Array( );[BLOCK PRESS]
+PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBLOCK PRESS]
+</script>
+
 <table width="100%" cellspacing="0" cellpadding="0">
-<tr id="vnatt" style="display:[vnatt]"><td align="right">
-<span style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus();" title="[TEXT:I participe to this meeting]">[TEXT:I participe to this meeting]<input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus();" [WITHME] [WITHMERO]></span></td></tr>
+<tr><td align="right">
+
+<span id="press" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:use my prefered ressources]">[TEXT:use my prefered ressource]<input id="bpress" name="bpress" type="checkbox" style="cursor:pointer;" onclick="ImportRessources('press', PreferedRess);" [idpressst]></span>
+</td></tr>
+<tr><td align="right">
+
+<span id="dress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:use displayed ressources]">[TEXT:use displayed ressources]<input id="bdress" name="bdress" type="checkbox" style="cursor:pointer;" onclick="ImportRessources('dress', DisplayedRess);" [iddressst]></span>
+
+</td></tr>
 </table>
 
-</div>
+
 
 </fieldset>
 </div>
 
 </td>
-
-<td width="8%"></td>
-
-<td>
-
-<table cellspacing="0" cellpadding="0">
-
-</td></tr>
-<tr>
-<td colspan="2" align="right">[TEXT:confidentiality]&nbsp;:&nbsp;</td>
-<td><select id="rvconfid" onchange="SetSelectedItem('rvconfid', 'evconfidentiality')" [rvvisro]>[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]</select>
-</td>
-</tr>
-
-<tr>
-<td colspan="2" align="right">[TEXT:calendar]&nbsp;:&nbsp;</td>
-<td><select id="rvcalendar" name="rvcalendar" onchange="SetSelectedItem('rvcalendar', 'evcalendar');" [rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
-</td>
-</tr>
-
-<tr>
-<td colspan="2" align="right"><span style="cursor:pointer" onclick="ChangeAlarm()" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
-<td>
-<span id="AlarmVis" style="visibility:[ALRMVIS]">
-<select id="alarmhour" name="alarmhour" [ALARMRO]>[BLOCK ALARM_HR]
-<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_HR]
-</select>h&nbsp; <select id="alarmmin" name="alarmmin" [ALARMRO]>[BLOCK ALARM_MIN]
-<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_MIN]
-</select>mn&nbsp;[TEXT:before]
-</span>
-</td>
-</tr>
-
-</table>
-
-</td>
 </tr>
 </table>
 
-
+</td></tr></table>
 
 
 

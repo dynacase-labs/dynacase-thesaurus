@@ -1,4 +1,29 @@
 
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000
+ * @version $Id: Method.CalEvent.php,v 1.14 2005/03/18 18:58:36 marc Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage
+ */
+
+var $calVResume     = "WGCAL:CALEV_ABSTRACT";
+var $calVCard       = "WGCAL:CALEV_CARD";
+var $calVLongText   = "WGCAL:CALEV_VIEWLTEXT";
+var $calVShortText  = "WGCAL:CALEV_VIEWSTEXT";
+
+var $calPopupMenu = array( 
+       "acceptrv" => array( "label" => "accept this", "app"=>"WGCAL", "action"=>"WGCAL_SETEVENTSTATE", "params" => array("st"=>2)),
+       "rejectrv" => array( "label" => "reject this", "app"=>"WGCAL", "action"=>"WGCAL_SETEVENTSTATE", "params" => array("st"=>3)),
+       "tbcrv" => array( "label" => "to be confirm this", "app"=>"WGCAL", "action"=>"WGCAL_SETEVENTSTATE", "params" => array("st"=>4)),
+       "editrv" => array( "label" => "edit this", "app"=>"WGCAL", "action"=>"WGCAL_EDITEVENT"),
+       "viewrv" => array( "label" => "view this", "app"=>"WGCAL", "action"=>"WGCAL_VIEWEVENT"),
+       "deleterv" => array( "label" => "delete this", "app"=>"WGCAL", "action"=>"WGCAL_DELETEEVENT"),
+       "historyrv" => array( "label"=> "delete this", "app"=>"WGCAL", "action"=>"WGCAL_HISTO")  
+       );		    
+
 function explodeEvt($d1, $d2) {
   include_once("FDL/Lib.Util.php");  
   $eve = array();
