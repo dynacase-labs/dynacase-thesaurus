@@ -1,0 +1,48 @@
+<?php
+// ---------------------------------------------------------------
+// $Id: WGCAL_init.php.in,v 1.1 2004/11/26 18:05:35 marc Exp $
+// $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
+// ---------------------------------------------------------------
+//  O   Anakeen - 2001
+// O*O  Anakeen development team
+//  O   dev@anakeen.com
+// ---------------------------------------------------------------
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or (at
+//  your option) any later version.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+// for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+// ---------------------------------------------------------------
+
+global $app_const;
+
+$app_const= array(
+
+  "WGCAL_U_LEFTWIDTH" => array(  "val"=>"150", "descr"=>N_("left toolbar width"), "user"=>"Y"),
+  "WGCAL_U_HLINETITLE" => array(  "val"=>"10", "descr"=>N_("title line height"), "user"=>"Y"),
+  "WGCAL_U_HLINEHOURS" => array(  "val"=>"40", "descr"=>N_("title line height"), "user"=>"Y"),
+  "WGCAL_U_HCOLW" => array(  "val"=>"25", "descr"=>N_("hour in day column width"), "user"=>"Y"),
+
+  "WGCAL_U_VIEWWEEKEND" => array(  "val"=>"yes", "descr"=>N_("display week end"), "user"=>"Y"),
+  "WGCAL_U_DAYSVIEWED" => array(  "val"=>"7", "descr"=>N_("view count days"), "user"=>"Y"),
+  "WGCAL_U_STARTHOUR" => array(  "val"=>"8", "descr"=>N_("day start hour"), "user"=>"Y"),
+  "WGCAL_U_STOPHOUR" => array(  "val"=>"18", "descr"=>N_("day end hour"), "user"=>"Y"),
+  "WGCAL_U_HOURDIV" => array(  "val"=>"1", "descr"=>N_("day end hour"), "user"=>"Y"),
+
+  "WGCAL_U_TOOLSSTATE" => array( "val"=>"", "descr"=>N_("tool display state"), "user"=>"Y"),
+
+
+  "VERSION" => "@VERSION@-@RELEASE@",
+  "INIT" => "yes"
+ 
+);
+
+?>

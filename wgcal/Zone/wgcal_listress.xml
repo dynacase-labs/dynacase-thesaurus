@@ -1,0 +1,55 @@
+<form id="f_selress" target="wgcal_calendar" name="calsel" method="POST" 
+      action="[CORE_STANDURL]&app=WGCAL&action=">
+  <input type="hidden" value="nop" name="calact">
+  <input type="hidden" value="-1" name="calid">
+  <input type="hidden" value="-1" name="color">
+</form>
+
+<form id="f_calcolor" target="toolbar" name="f_calcolor" method="POST" 
+      action="[CORE_STANDURL]&app=RENDEZVOUS&action=RV_SETCALCOLOR">
+  <input type="hidden" value="green" name="calcolor">
+  <input type="hidden" value="-1" name="calid">
+</form>
+
+<form id="dispCals" target="fcalhidden" name="dispNav" method="POST"  
+      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input name="tool" type="hidden" value="1"></form>
+
+<fieldset id='vical' class="WGCListRess">
+  <legend class="WGCToolTitle" style="cursor:pointer"
+    onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
+             WGCalShowHideElt(event, 'vvical'); document.getElementById('dispCals').submit(); ">
+    <img id='idimgical' src="WGCAL/Images/wgcal-arrow[VISICO].gif" title="[TEXT:calendar selector]">
+     [TEXT:my calendars]</legend>
+
+<script type="text/javascript">
+var cp = new ColorPicker();
+
+function pickColor(color) {
+  fcol = document.getElementById('f_calcolor');
+  fcol.calcolor.value = color;
+  fcol.submit();
+}
+   
+function showColorPicker(event, id, idcal) {
+  fcol = document.getElementById('f_calcolor');
+  fcol.calid.value = idcal;
+  cp.show(id);
+}
+
+</script>
+
+<div id="vvical" style="display:[VISTOOL]" > 
+[BLOCK L_RESS]  
+<span id="cp[RID]" style="border: 1px outset;background:[RCOLOR];cursor:pointer;" onClick="showColorPicker(event, 'cp[RID]', '[RID]');">&nbsp;&nbsp;</span>&nbsp;&nbsp;
+<span id="[RID]"  width="90%" onclick="RvUpdateDisplay(event, '[RID]', 'f_calsel', '[RCOLOR]');"  
+    onmouseover="ChangeClass(event, '[RID]', 'cal_over');" onmouseout="ChangeClass(event, '[RID]', 'cal_unselected');"  
+    class="[RSTYLE]"><img height="15" src="[RICON]">[RDESCR]</span>
+</span><br>
+[ENDBLOCK L_RESS]
+
+<div class="cal_unselected"
+     onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER');">
+<hr><center><img height="15" src="WGCAL/Images/cal-modify.gif">[TEXT:modify the list]
+</div>
+</div>
+</fieldset>

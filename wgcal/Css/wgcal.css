@@ -1,0 +1,42 @@
+/* This is the default CSS for WGCal application */
+body, table, td {
+  padding : 0px;
+  margin : 1px;
+  font-size: 11px;
+}
+.WGCAL_Period {
+  background-color : [CORE_BGCOLORALTERN];
+  border : 1px outset [CORE_BGCOLORHIGH];
+  font-weight: bold;
+}
+
+.WGCAL_DayLineCur {
+  font-weight: bold;
+  background-color : [CORE_BGCOLORHIGH];
+  border : 1px outset [CORE_BGCOLORHIGH];
+}
+.WGCAL_DayHours {
+  font-weight: bold;
+  background-color : [CORE_BGCOLORALTERN];
+  border : 1px outset [CORE_BGCOLORHIGH];
+}
+.WGCAL_DayLineWe {
+  background-color : #FFFFEF;
+  border-bottom : 1px inset [CORE_BGCOLORALTERN];
+  border-right : 1px solid [CORE_BGCOLORALTERN];
+}
+.WGCAL_DayLineOver {
+  background-color : [CORE_BGCOLORALTERN];
+  border : 1px outset [CORE_BGCOLORHIGH];
+}
+.WGCAL_Day1 {
+	border-bottom : 1px inset [CORE_BGCOLORALTERN];
+	border-right : 1px solid [CORE_BGCOLORALTERN];
+}
+.WGCAL_Day2 {
+	border-bottom : 1px inset [CORE_BGCOLORALTERN];
+	border-right : 1px solid [CORE_BGCOLORALTERN];
+}
+.WGCAL_DayCur {
+  background-color : [CORE_BGCOLORHIGH];
+}

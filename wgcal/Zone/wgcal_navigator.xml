@@ -1,0 +1,33 @@
+<form id="dispNav" target="wgcal_hidden" name="dispNav" method="POST"  
+      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input name="tool" type="hidden" value="0">
+</form>
+
+<!--
+<div id="vlical"  class="calButton" style="display:block"
+  onClick="CalImgAltern(event, 'imgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
+           CalShowHideElt(event, 'ical'); document.getElementById('dispNav').submit();">
+<img id="imgical" src="WGCAL/Images/cal-arrow[VISICO].gif" title="[TEXT:date navigator]">
+[TEXT:date navigator]</div>
+-->
+
+<div id="ical">
+<script type="text/javascript">
+    Calendar.setup({
+        ifFormat       :    '%s',       // format of the input field
+        showsTime      :    false,            // will display a time selector
+        singleClick    :    false,           // double-click mode
+        firstDay       :    1,
+        date           :    new Date([CmTIME]),
+        weekNumbers    :    true,
+        flat           :    'ical',
+        range          :    [ [YSTART] , [YSTOP] ],
+        flatCallback   :    WGCalSetDate,
+        step           :    1              
+    });
+</script>
+</div>
+
+<form id="fdatesel" target="wgcal_calendar" name="datesel" method="POST"  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR">
+  <input type="hidden" id="iodate" value="[CTIME]" name="olddate">
+  <input type="hidden" id="indate" value="-2" name="newdate">
+</form>

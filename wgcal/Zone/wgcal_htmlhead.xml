@@ -1,0 +1,27 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <LINK REL="icon" HREF="CORE/Images/logo16.ico" >
+  <LINK REL="SHORTCUT ICON" HREF="CORE/Images/logo32.ico" >
+  <title>[TEXT:freeevent app name]</title>
+
+  <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
+  <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS" >
+  [CSS:REF]
+
+   <style type="text/css">
+[CSS:CODE]
+   </style>
+
+[JS:REF]
+
+   <script language="JavaScript">
+  <!--
+    [JS:CODE]
+  //-->
+   </script>
+ </head>
+
+<body>
+
+<!-- END HEAD HTML -->
