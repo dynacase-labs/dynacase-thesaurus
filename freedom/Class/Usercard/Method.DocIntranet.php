@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.5 2004/08/09 08:07:06 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.6 2004/08/11 16:17:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -17,7 +17,7 @@
  * @param string $login login to test
  * @return array 2 items $err & $sug for view result of the constraint
  */
-function ConstraintLogin($login) {
+function ConstraintLogin($login,$iddomain) {
   $sug=array();
   $id=$this->GetValue("US_WHATID");
   $user=new User("",$id);
@@ -26,8 +26,8 @@ function ConstraintLogin($login) {
   else {
     if (!ereg("^[a-z][a-z0-9\.]+[a-z0-9]+$", $login)) {$err= _("the login syntax is like : john.doe");}
 
-    if ($user->isAffected()) $iddomain=$user->iddomain;
-    else $iddomain=1;
+ //    if ($user->isAffected()) $iddomain=$user->iddomain;
+//     else $iddomain=1;
   
 
     $q=new QueryDb("","User");
