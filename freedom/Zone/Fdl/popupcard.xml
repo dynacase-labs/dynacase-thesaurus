@@ -43,6 +43,8 @@
 <a href="#" id="editcprof"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&create=1&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Change creation profile]</a>
 
+<a href="#" id="editdfld"
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITDFLD&create=1&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Change default folder]</a>
 
 <a href="#" id="access"     
     onclick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ACCESS&id=[id]','access');closeMenu('popupcard');">

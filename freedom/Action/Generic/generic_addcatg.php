@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_addcatg.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: generic_addcatg.php,v 1.3 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_addcatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,6 +27,7 @@ include_once("FDL/modcard.php");
 
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.DocUser.php");
+include_once("GENERIC/generic_util.php"); 
 
 
 // -----------------------------------
@@ -34,7 +35,7 @@ function generic_addcatg(&$action) {
   // -----------------------------------
 
   // Get all the params      
-   $dirid=GetHttpVars("dirid",$action->GetParam("DEFAULT_FLD"));
+   $dirid=GetHttpVars("dirid", getDefFld($action));
 //   $newcatg=GetHttpVars("newcatg"); 
 
 //   if ($newcatg == "") $action->exitError(_("the title of the new category cannot be empty"));

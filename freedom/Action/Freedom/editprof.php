@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.3 2002/07/11 13:19:15 eric Exp $
+// $Id: editprof.php,v 1.4 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,36 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: editprof.php,v $
-// Revision 1.3  2002/07/11 13:19:15  eric
-// optimisation calcul profil access
-//
-// Revision 1.2  2002/06/19 12:32:28  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.5  2001/12/08 17:16:30  eric
-// evolution des attributs
-//
-// Revision 1.4  2001/11/30 15:13:39  eric
-// modif pour Css
-//
-// Revision 1.3  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/14 15:31:03  eric
-// optimisation & divers...
-//
-// Revision 1.1  2001/11/09 09:41:13  eric
-// gestion documentaire
-//
 
-// ---------------------------------------------------------------
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
@@ -71,7 +42,7 @@ function editprof(&$action)
 
   $doc= new Doc($dbaccess,$docid);
   // build values type array
-  $odocattr= new DocAttr($dbaccess);
+ 
 
   $action->lay->Set("doctitle",_("new profile document"));
 
@@ -90,12 +61,6 @@ function editprof(&$action)
   }
 
 
-  $selectframe= array();
-  $selectoption= array();
-  while (list($k,$type)= each ($odocattr->deftype)) {
-    $selectoption[$k]["typevalue"]=$type;
-    $selectoption[$k]["selected"]="";
-  }
 
   $nbattr=0; // if new document 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.44 2002/08/22 12:21:43 eric Exp $
+// $Id: Class.Doc.php,v 1.45 2002/08/28 09:39:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.44 2002/08/22 12:21:43 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.45 2002/08/28 09:39:33 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -50,7 +50,7 @@ define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 Class Doc extends DbObjCtrl
 {
-  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment","cprofid","classname","state","dviewzone", "deditzone");
+  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment","cprofid","classname","state","dviewzone", "deditzone","dfldid");
 
   var $id_fields = array ("id");
 
@@ -80,7 +80,8 @@ create table doc ( id int not null,
                    classname varchar(64),
                    state varchar(64),
                    dviewzone varchar(64),
-                   deditzone varchar(64)
+                   deditzone varchar(64),
+                   dfldid int DEFAULT 0
                    );
 create sequence seq_id_doc start 1000";
 

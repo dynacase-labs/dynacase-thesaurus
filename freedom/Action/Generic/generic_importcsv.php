@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_importcsv.php,v 1.3 2002/08/19 12:19:08 eric Exp $
+// $Id: generic_importcsv.php,v 1.4 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_importcsv.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -28,6 +28,7 @@
 include_once("FDL/Class.DocUser.php");
 include_once("FDL/Class.Dir.php");
 include_once("FDL/import_file.php");
+include_once("GENERIC/generic_util.php"); 
 
 
 // -----------------------------------
@@ -58,7 +59,7 @@ function generic_importcsv(&$action) {
 
   $fdoc = fopen($vcardfile,"r");
   if (! $fdoc) $action->exitError(_("no csv import file specified"));
-  $dir = new Dir($dbaccess, $action->GetParam("DEFAULT_FLD"));
+  $dir = new Dir($dbaccess, getDefFld($action));
 
   $tvalue=array();
 

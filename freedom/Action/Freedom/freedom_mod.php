@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.4 2002/07/31 10:01:53 eric Exp $
+// $Id: freedom_mod.php,v 1.5 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,6 +43,12 @@ function freedom_mod(&$action) {
       
   
   $doc= new Doc($dbaccess, $ndocid);
+
+
+  if ($dirid == 0) $dirid =10;
+  if (($dirid == 10)  && ($doc->dfldid > 0)) {
+      $dirid=$doc->dfldid;
+  }
 
   if (($dirid > 0) && ($docid == 0)) {
     $fld = new Dir($dbaccess, $dirid);

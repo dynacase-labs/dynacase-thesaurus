@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.4 2002/06/18 14:17:21 eric Exp $
+// $Id: popupcard.php,v 1.5 2002/08/28 09:39:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','chgtitle','defval','unlockdoc','editattr','histo','editprof','editcprof','properties','access','delete','cancel'));
+  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','chgtitle','defval','unlockdoc','editattr','histo','editprof','editcprof','editdfld','properties','access','delete','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -95,6 +95,7 @@ function popupcard(&$action) {
     popupActive('popupcard',$kdiv,'chgtitle'); 
     popupActive('popupcard',$kdiv,'defval'); 
     popupActive('popupcard',$kdiv,'editdoc');
+    popupActive('popupcard',$kdiv,'editdfld');
   } else {
     if ($doc->locked < 0){ // fixed document
       popupInvisible('popupcard',$kdiv,'editdoc');
@@ -107,8 +108,10 @@ function popupcard(&$action) {
       popupInvisible('popupcard',$kdiv,'lockdoc');
       popupInvisible('popupcard',$kdiv,'unlockdoc');
       popupInvisible('popupcard',$kdiv,'chicon');
+      popupInvisible('popupcard',$kdiv,'editdfld');
     } else {
       popupInactive('popupcard',$kdiv,'editattr'); 
+      popupInactive('popupcard',$kdiv,'editdfld');
       popupInactive('popupcard',$kdiv,'chgtitle'); 
       popupInactive('popupcard',$kdiv,'defval'); 
       popupInactive('popupcard',$kdiv,'editprof');
@@ -128,6 +131,7 @@ function popupcard(&$action) {
     popupInvisible('popupcard',$kdiv,'chgtitle'); 
     popupInvisible('popupcard',$kdiv,'defval'); 
     popupInvisible('popupcard',$kdiv,'editattr'); 
+    popupInvisible('popupcard',$kdiv,'editdfld');
   } else {
     popupInvisible('popupcard',$kdiv,'editdoc');
   }

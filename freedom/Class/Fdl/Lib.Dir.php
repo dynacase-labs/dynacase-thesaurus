@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.25 2002/08/20 14:05:41 eric Exp $
+// $Id: Lib.Dir.php,v 1.26 2002/08/28 09:39:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -169,7 +169,7 @@ function getChildDoc($dbaccess,
     }
   }
   
-  //    print "<HR>".$qsql;
+  // print "<HR>".$qsql;
   $query = new QueryDb($dbaccess,"Doc");
   
   

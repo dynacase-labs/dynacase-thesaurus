@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editchangecatg.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: generic_editchangecatg.php,v 1.3 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editchangecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,6 +25,7 @@
 
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.DocUser.php");
+include_once("GENERIC/generic_util.php");
 
 // -----------------------------------
 function generic_editchangecatg(&$action) {
@@ -36,7 +37,7 @@ function generic_editchangecatg(&$action) {
 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess, $action->GetParam("DEFAULT_FLD"));
+  $homefld = new Dir( $dbaccess,getDefFld($action) );
 
   $doc = new Doc($dbaccess,$docid);
   $action->lay->Set("username",$doc->title);
@@ -48,39 +49,10 @@ function generic_editchangecatg(&$action) {
   reset($stree);
   
   $action->lay->SetBlockData("CATG",$stree);
-  $action->lay->Set("topdir",$action->GetParam("DEFAULT_FLD"));
+  $action->lay->Set("topdir",getDefFld($action));
   $action->lay->Set("docid",$docid);
   
 
 }
 
-
-// -----------------------------------
-function getChildCatg($doc, $level) {
-  // -----------------------------------
-  global $dbaccess;
-  global $action;
-  global $docid;
-  
-
-  $ltree=array();
-
-    $ldir = getChildDir($dbaccess,$action->user->id, $doc->id, true);
-  
-
-    if (count($ldir) > 0 ) {
-     
-      while (list($k,$v) = each($ldir)) {
-	if (isInDir($dbaccess, $v->id, $docid)) $checked="checked";
-	else  $checked="";
-	$ltree[] = array("level"=>$level*20,
-			 "id"=>$v->id,
-			 "title"=>$v->title,
-			 "checked"=>$checked);
-	$ltree = array_merge($ltree, getChildCatg($v, $level+1));
-      }
-    } 
-  
-  return $ltree;
-}
 ?>

@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editimport.php,v 1.4 2002/08/28 09:39:32 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editimport.php,v $
+// $Id: onefam_togen.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_togen.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -22,44 +22,25 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
+include_once("FDL/Class.Doc.php");
+include_once("FDL/Lib.Dir.php");
 
-include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
-include_once("GENERIC/generic_util.php");  
 
-// -----------------------------------
-function generic_editimport(&$action) {
-  // -----------------------------------
-
-  global $dbaccess;
+function onefam_togen(&$action) 
+{
+ 
+  $famid = GetHttpVars("famid",0); 
   
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  if ($famid == 0) $action->exitError(_("Family is not instanciate"));
+
+				     
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess, getDefFld($action));
+  $doc = new Doc ($dbaccess, $famid);
+  if (! $doc->isAffected()) $action->exitError(sprintf(_("Family (#%d) is not referenced"),$famid));
+  $action->Register("DEFAULT_FAMILY", $famid);
+  $action->Register("DEFAULT_FLD", $doc->dfldid);
 
-  
-
-
-  $stree=getChildCatg($homefld, 1);
-
-  reset($stree);
-  
-  $action->lay->SetBlockData("CATG",$stree);
-  $action->lay->Set("topdir", getDefFld($action));
-  
-  $famid = getDefFam($action);
-
-  // spec for csv file
-  $doc=new DocUser($dbaccess, $famid);
-  $lattr = $doc->GetAttributes();
-  $format = "DOC;".$doc->id.";0;". getDefFld($action)."; ";
-
-  while (list($k, $attr) = each ($lattr)) {
-    $format .= $attr->labeltext." ;";
-  }
-  $action->lay->Set("format",$format);
-
+  redirect($action,"GENERIC", "");
 }
-
 
 ?>

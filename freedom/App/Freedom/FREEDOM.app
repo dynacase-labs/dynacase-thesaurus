@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.8 2002/08/22 07:00:27 eric Exp $
+// $Id: FREEDOM.app,v 1.9 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -171,6 +171,16 @@ $action_desc = array (
   array( 
    "name"		=>"MODPROF",
    "short_name"		=>N_("change profile access"),
+   "acl"		=>"FREEDOM"
+  ) ,
+  array( 
+   "name"		=>"EDITDFLD",
+   "short_name"		=>N_("edit default folder"),
+   "acl"		=>"FREEDOM"
+  ) ,
+  array( 
+   "name"		=>"MODDFLD",
+   "short_name"		=>N_("change default folder"),
    "acl"		=>"FREEDOM"
   ) ,
   array( 

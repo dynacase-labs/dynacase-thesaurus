@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_barmenu.php,v 1.3 2002/06/19 12:32:29 eric Exp $
+// $Id: generic_barmenu.php,v 1.4 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,16 +22,24 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
+include_once("GENERIC/generic_util.php");  
 
 // -----------------------------------
 function generic_barmenu(&$action) {
   // -----------------------------------
   global $dbaccess; // use in getChildCatg function
 
-  $dirid=GetHttpVars("dirid", $action->GetParam("DEFAULT_FLD")); // folder where search
+
+
+  $dirid=GetHttpVars("dirid", getDefFld($action) ); // folder where search
   $catg=GetHttpVars("catg", 1); // catg where search
 
-  $action->lay->Set("idfamuser", $action->GetParam("DEFAULT_FAMILY", 1));
+
+
+  $famid = getDefFam($action);
+
+
+  $action->lay->Set("idfamuser", $famid);
 
   include_once("FDL/popup_util.php");
   popupInit("newmenu",    array('newdoc','newcatg','imvcard'));
@@ -55,7 +63,7 @@ function generic_barmenu(&$action) {
 
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess, $action->GetParam("DEFAULT_FLD"));
+  $homefld = new Dir( $dbaccess, getDefFld($action));
 
 
   $stree=getChildCatg( $homefld, 1);
@@ -73,7 +81,7 @@ function generic_barmenu(&$action) {
   }
   
   $action->lay->SetBlockData("CATG",$stree);
-  $action->lay->Set("topid",$action->GetParam("DEFAULT_FLD"));
+  $action->lay->Set("topid",getDefFld($action));
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("catg",$catg);
 
@@ -82,28 +90,5 @@ function generic_barmenu(&$action) {
 }
 
 
-// -----------------------------------
-function getChildCatg($doc, $level) {
-  // -----------------------------------
-  global $dbaccess;
-  global $action;
 
-  $ltree=array();
-
-
-    $ldir = getChildDir($dbaccess,$action->user->id, $doc->id, true);
-  
-
-    if (count($ldir) > 0 ) {
-     
-      while (list($k,$v) = each($ldir)) {
-	$ltree[] = array("level"=>$level*10,
-			 "id"=>$v->id,
-			 "title"=>$v->title);
-	$ltree = array_merge($ltree, getChildCatg($v, $level+1));
-      }
-    } 
-  
-  return $ltree;
-}
 ?>

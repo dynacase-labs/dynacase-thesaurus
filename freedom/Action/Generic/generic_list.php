@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.3 2002/06/19 12:32:29 eric Exp $
+// $Id: generic_list.php,v 1.4 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -24,6 +24,7 @@
 
 
 include_once("FDL/viewfolder.php");
+include_once("GENERIC/generic_util.php");
 
 
 
@@ -32,7 +33,6 @@ include_once("FDL/viewfolder.php");
 function generic_list(&$action) {
 // -----------------------------------
   // Set the globals elements
-
   // Get all the params      
   $dirid=GetHttpVars("dirid"); // directory to see
   $catgid=GetHttpVars("catg", $dirid); // category
@@ -54,9 +54,12 @@ function generic_list(&$action) {
   $action->lay->Set("nexticon",""); 
   $action->lay->Set("previcon",""); 
 
-  $doc = new Doc($dbaccess,$action->GetParam("DEFAULT_FAMILY"));
+  $famid = getDefFam($action);
+
+
+  $doc = new Doc($dbaccess,$famid);
   // add filters like view control see DocUser::Control
-    $sqlfilters=array("fromid = ".$action->GetParam("DEFAULT_FAMILY"));
+  $sqlfilters=array("fromid = $famid");
 
 
   if (viewfolder($action, true, false,$slice, $sqlfilters) == $slice) {

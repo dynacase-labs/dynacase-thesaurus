@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editimport.php,v 1.4 2002/08/28 09:39:32 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editimport.php,v $
+// $Id: editdfld.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editdfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,43 +23,50 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
-include_once("GENERIC/generic_util.php");  
+include_once("FDL/Class.Doc.php");
+include_once("FDL/Class.DocAttr.php");
 
-// -----------------------------------
-function generic_editimport(&$action) {
-  // -----------------------------------
-
-  global $dbaccess;
-  
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+function editdfld(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess, getDefFld($action));
-
+  $docid = GetHttpVars("id",0);
   
 
 
-  $stree=getChildCatg($homefld, 1);
+  $action->lay->Set("docid",$docid);
 
-  reset($stree);
-  
-  $action->lay->SetBlockData("CATG",$stree);
-  $action->lay->Set("topdir", getDefFld($action));
-  
-  $famid = getDefFam($action);
+   $action->lay->Set("TITLE",_("change default folder"));
+ 
 
-  // spec for csv file
-  $doc=new DocUser($dbaccess, $famid);
-  $lattr = $doc->GetAttributes();
-  $format = "DOC;".$doc->id.";0;". getDefFld($action)."; ";
 
-  while (list($k, $attr) = each ($lattr)) {
-    $format .= $attr->labeltext." ;";
+  $doc= new Doc($dbaccess,$docid);
+
+  $action->lay->Set("doctitle",$doc->title);
+
+
+  $selectclass=array();
+  $sqlfilters[]="doctype='D'";
+  $tclassdoc = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE");
+  if (is_array($tclassdoc)) {
+    while (list($k,$pdoc)= each ($tclassdoc)) {
+     
+	$selectclass[$k]["idpdoc"]=$pdoc["id"];
+	$selectclass[$k]["profname"]=$pdoc["title"];
+	
+	$selectclass[$k]["selected"]=($pdoc["id"]==$doc->dfldid)?"selected":"";
+      
+    }
   }
-  $action->lay->Set("format",$format);
 
-}
+
+
+  
+    $action->lay->SetBlockData("SELECTFLD", $selectclass);
+	  
+      
+    
+  }
+
+
 
 
 ?>

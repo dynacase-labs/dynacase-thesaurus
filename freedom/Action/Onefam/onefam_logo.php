@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editnewcatg.php,v 1.4 2002/08/28 09:39:32 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editnewcatg.php,v $
+// $Id: onefam_logo.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_logo.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,31 +23,16 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
-include_once("GENERIC/generic_util.php"); 
 
-// -----------------------------------
-function generic_editnewcatg(&$action) {
-  // -----------------------------------
+function onefam_logo(&$action) 
+{
+  $action->lay->Set("appicon", "<img width=\"100\" height=\"100\" border=0 src=\"".
+		    $action->GetImageUrl($action->parent->icon).
+		    "\" alt=\"".
+		    $action->parent->description.
+		    "\">");
 
-  global $dbaccess;
-  
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess, getDefFld($action));
-
-  
-
-
-  $stree=getChildCatg($homefld, 1);
-
-  reset($stree);
-  
-  $action->lay->SetBlockData("CATG",$stree);
-  $action->lay->Set("topdir",  getDefFld($action));
-  
 
 }
-
 
 ?>

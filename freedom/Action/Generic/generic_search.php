@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: generic_search.php,v 1.3 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,6 +26,7 @@
 include_once("FDL/Class.DocSearch.php");
 include_once("FDL/Class.DocUser.php");
 include_once("FDL/freedom_util.php");  
+include_once("GENERIC/generic_util.php");  
 
 
 
@@ -34,11 +35,11 @@ include_once("FDL/freedom_util.php");
 // -----------------------------------
 function generic_search(&$action) {
   // -----------------------------------
+   
 
-  
   // Get all the params      
   $keyword=GetHttpVars("keyword"); // keyword to search
-  $dirid=GetHttpVars("catg", $action->getParam("DEFAULT_FLD")); // folder where search
+  $dirid=GetHttpVars("catg", getDefFld($action)); // folder where search
 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -48,7 +49,7 @@ function generic_search(&$action) {
   $sdoc = new DocSearch($dbaccess);
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
   $sdoc->title = sprintf(_("search %s"),$keyword);
-  if ($doc->id == $action->getParam("DEFAULT_FLD")) $sdoc->title = sprintf(_("search  contains %s in all state"),$keyword );
+  if ($doc->id == getDefFld($action)) $sdoc->title = sprintf(_("search  contains %s in all state"),$keyword );
   else $sdoc->title = sprintf(_("search contains %s in %s"),$keyword,$doc->title );
 
   $sdoc->Add();
@@ -63,12 +64,14 @@ function generic_search(&$action) {
     $searchquery="select childid from fld where dirid=$dirid";
   }
 
+  $famid = getDefFam($action);
+
   $query = "select doc.* from docvalue, doc where (value ~* '.*$keyword.*') ".
      "and doc.id in ($searchquery) ".
      "and (doc.id = docvalue.docid) ".
      "and (doc.locked != -1)".
      "and (not useforprof)".
-     "and (doc.fromid = ".$action->GetParam("DEFAULT_FAMILY").")";
+     "and (doc.fromid = $famid)";
   $sdoc-> AddQuery($query);
 
   redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&catg=$dirid");

@@ -1,0 +1,17 @@
+
+<html>
+<head>
+
+<title>[WHAT] [TEXT:One Familly Management]</title>
+
+</head>
+
+
+<frameset frameborder="1" framespacing="3" border="3" cols="70,*" >
+
+
+  <frame name="famlist" src="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_LIST" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="faminfo" src="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+
+</frameset>
+</html>

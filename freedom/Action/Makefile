@@ -1,12 +1,12 @@
 # ============================================
-# $Id: Makefile,v 1.5 2002/05/15 13:32:27 eric Exp $
+# $Id: Makefile,v 1.6 2002/08/28 09:39:32 eric Exp $
 # ============================================
 
 
 export targetdir
 export utildir
 
-SUBDIR= Freedom Fdl Usercard Incident Generic Product
+SUBDIR= Freedom Fdl Onefam Usercard Incident Generic Product
 
 
 include $(utildir)/PubRule

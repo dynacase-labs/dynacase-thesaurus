@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: generic_tab.php,v 1.3 2002/08/28 09:39:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,6 +26,7 @@
 include_once("FDL/Class.DocSearch.php");
 include_once("FDL/Class.Dir.php");
 include_once("FDL/freedom_util.php");  
+include_once("GENERIC/generic_util.php");
 
 
 
@@ -39,8 +40,10 @@ function generic_tab(&$action) {
 
   // Get all the params      
   $keyword=GetHttpVars("keyword"); // keyword to search
-  $dirid=GetHttpVars("catg", $action->GetParam("DEFAULT_FLD")); // folder where search
+  $dirid=GetHttpVars("catg", getDefFld($action)); // folder where search
   $tab=GetHttpVars("tab", 1); // tab index
+
+  
 
   // hightlight the selected part (ABC, DEF, ...)
   $tabletter=array("", "ABC","DEF", "GHI","JKL","MNO","PQRS","TUV","WXYZ");
@@ -56,7 +59,7 @@ function generic_tab(&$action) {
 
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
 
-  if ($dir->id == $action->GetParam("DEFAULT_FLD"))   $sdoc->title = sprintf(_("%s all categories "),$tabletter[$tab] );
+  if ($dir->id == getDefFld($action))   $sdoc->title = sprintf(_("%s all categories "),$tabletter[$tab] );
   else  $sdoc->title = sprintf(_("%s %s category "),$tabletter[$tab],$dir->title );
 
 
@@ -67,7 +70,9 @@ function generic_tab(&$action) {
   $sdoc->Add();
   $qtitle = ($tabletter[$tab]=="")?"":"and (title ~* '^[".$tabletter[$tab]."].*') ";
 
-  $query = "select * from doc where (fromid = ".$action->GetParam("DEFAULT_FAMILY").") ".
+  $famid = getDefFam($action);
+
+  $query = "select * from doc where (fromid = $famid) ".
     $qtitle.
      "and doc.initid in (select childid from fld where dirid=$dirid) ".
      "and (locked != -1) ".

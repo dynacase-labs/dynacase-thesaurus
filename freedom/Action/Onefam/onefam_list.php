@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editimport.php,v 1.4 2002/08/28 09:39:32 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editimport.php,v $
+// $Id: onefam_list.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -22,44 +22,25 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
+include_once("FDL/Class.Doc.php");
+include_once("FDL/Lib.Dir.php");
 
-include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
-include_once("GENERIC/generic_util.php");  
 
-// -----------------------------------
-function generic_editimport(&$action) {
-  // -----------------------------------
-
-  global $dbaccess;
-  
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+function onefam_list(&$action) 
+{
+ 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess, getDefFld($action));
 
-  
-
-
-  $stree=getChildCatg($homefld, 1);
-
-  reset($stree);
-  
-  $action->lay->SetBlockData("CATG",$stree);
-  $action->lay->Set("topdir", getDefFld($action));
-  
-  $famid = getDefFam($action);
-
-  // spec for csv file
-  $doc=new DocUser($dbaccess, $famid);
-  $lattr = $doc->GetAttributes();
-  $format = "DOC;".$doc->id.";0;". getDefFld($action)."; ";
-
-  while (list($k, $attr) = each ($lattr)) {
-    $format .= $attr->labeltext." ;";
+  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id);
+  while (list($k,$cdoc)= each ($tclassdoc)) {
+    if ($cdoc->dfldid > 0) {
+    $selectclass[$k]["idcdoc"]=$cdoc->initid;
+    $selectclass[$k]["classname"]=$cdoc->title;
+    $selectclass[$k]["iconsrc"]=$cdoc->getIcon();
+    }
   }
-  $action->lay->Set("format",$format);
+  $action->lay->SetBlockData("SELECTCLASS", $selectclass);
 
 }
-
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_changecatg.php,v 1.3 2002/08/28 09:39:32 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_changecatg.php,v $
+// $Id: moddfld.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/moddfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,49 +23,49 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/modcard.php");
-
+include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
-include_once("GENERIC/generic_util.php");
+include_once("FDL/Class.DocAttr.php");
+include_once("FDL/freedom_util.php");  
+
 
 
 // -----------------------------------
-function generic_changecatg(&$action) {
+function moddfld(&$action) {
   // -----------------------------------
-
-  // special for onefam application
-  // Get all the params      
-   $dirids=GetHttpVars("dirid", getDefFld($action));
-   $ndirids=GetHttpVars("ndirid"); // catg to deleted
-   $docid=GetHttpVars("docid"); // the user to change catg
-
-
-
-
-   $dbaccess = $action->GetParam("FREEDOM_DB");
-
-   if (is_array($dirids)) {
-     while (list($k,$dirid) = each($dirids)) {	
-       $fld = new Dir($dbaccess, $dirid);
-       $fld->AddFile($docid);
-     }
-   }
-   if (is_array($ndirids)) {
-     while (list($k,$dirid) = each($ndirids)) {	
-       $fld = new Dir($dbaccess, $dirid);
-       $err = $fld->DelFile($docid);
-
-     }
-   }
-      
+    
+    
+    
+    // Get all the params      
+      $docid=GetHttpVars("docid");
+  $createp = GetHttpVars("create",0); // 1 if use for create profile (only for familly)
+    
+    
+  if ( $docid == 0 ) $action->exitError(_("the document is not referenced: cannot apply profile access modification"));
+    
+  $dbaccess = $action->GetParam("FREEDOM_DB");
   
-
   
-
-   redirect($action,GetHttpVars("app"),"GENERIC_CARD&id=$docid");
   
+  // initialise object
+    $ofreedom = new Doc($dbaccess,$docid);
+      $ofreedom->dfldid = GetHttpVars("dfldid"); // new profile access
+  
+  
+  // test object permission before modify values (no access control on values yet)
+    $err=$ofreedom-> CanUpdateDoc();
+  if ($err != "") $action-> ExitError($err);
+  
+  $ofreedom-> Modify();
+  
+  
+  
+  
+  
+  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$docid");
 }
+
+
 
 
 ?>
