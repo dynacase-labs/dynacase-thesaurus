@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIGroup.php,v 1.1 2003/06/06 09:39:16 eric Exp $
+// $Id: Method.DocIGroup.php,v 1.2 2003/07/16 08:09:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -91,6 +91,13 @@ function SpecRefresh() {
       $this->SetValue("GRP_IDPGROUP", implode("\n",$tgid));
     }
   
+  } else {
+    // it is not a real intranet group
+    // compute mail group
+    $gmail=$this->GetGroupMail();
+    print "gmail=$gmail";
+    $this->SetValue("GRP_MAIL", $gmail);
+    
   }
   
 }

@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocGroup.php,v 1.1 2003/07/11 16:11:06 eric Exp $
+// $Id: Method.DocGroup.php,v 1.2 2003/07/16 08:09:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,8 +35,12 @@
 // Author          Eric Brison	(Anakeen)
 // --------------------------------------------------------------------------
 
- 
 function SpecRefresh() {
+  $gmail=$this->GetGroupMail();
+  $this->SetValue("GRP_MAIL", $gmail);
+}
+ 
+function GetGroupMail() {
   
   
   $gmail=" ";
@@ -56,6 +60,7 @@ function SpecRefresh() {
     $gmail=implode(", ",$tmail);
   }
   
+  return $gmail;
   // add mail groups
   $tiduser = $this->getTValue("GRP_IDGROUP");
   if (count($tiduser) > 0) {
@@ -72,7 +77,6 @@ function SpecRefresh() {
     $gmail=implode(", ",$tmail);
   }
   
-  $this->SetValue("GRP_MAIL", $gmail);
-  
+  return $gmail;
 }
   
