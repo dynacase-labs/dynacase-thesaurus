@@ -1052,7 +1052,7 @@ function viewoption(aid,index,fid,said) {
   if (nfid && naid) {
     docid=naid.value;
     if (parseInt(docid) > 0) {
-      val=nval.value;
+      val=escape(nval.value);
       nfid.src='[CORE_STANDURL]&app=FDL&action=EDITOPTION&id='+docid+'&aid='+said+'&opt='+val;
       nfid.style.display='';
       pdivopt.style.display='none';
@@ -1072,12 +1072,6 @@ function canceloption(said) {
   }
 }
 
-// Utility function to add an event listener
-function addEvent(o,e,f){
-	if (o.addEventListener){ o.addEventListener(e,f,true); return true; }
-	else if (o.attachEvent){ return o.attachEvent("on"+e,f); }
-	else { return false; }
-}
 
 // to adjust height of body in edit card in fixed positionning
 function fixedPosition() {

@@ -30,3 +30,10 @@ function moz_unfade(dvid) {
     } 
   }
 }
+
+// Utility function to add an event listener
+function addEvent(o,e,f){
+	if (o.addEventListener){ o.addEventListener(e,f,true); return true; }
+	else if (o.attachEvent){ return o.attachEvent("on"+e,f); }
+	else { return false; }
+}
