@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editprof.php,v 1.13 2004/02/09 16:46:15 eric Exp $
+ * @version $Id: editprof.php,v 1.14 2004/03/01 08:50:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.13 2004/02/09 16:46:15 eric Exp $
+// $Id: editprof.php,v 1.14 2004/03/01 08:50:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -122,12 +122,12 @@ function editprof(&$action)
     
   }
 
-  setControlView($action,$doc);
+  setControlView($action,$doc,$createp);
 
 }
 
 
-function setControlView(&$action,&$doc) {
+function setControlView(&$action,&$doc,$createp=false) {
 
   $filter=array();
   $chdoc=$doc->GetFromDoc();
@@ -141,8 +141,10 @@ function setControlView(&$action,&$doc) {
   foreach ($tcv as $k=>$v) {
     
     $tcv[$k]["selcv"]="";
+    if ($createp) if ($v["id"]==$doc->ccvid) $tcv[$k]["selcv"]="selected";
+    else if ($v["id"]==$doc->cvid) $tcv[$k]["selcv"]="selected";
 
-    if ($v["id"]==$doc->cvid) $tcv[$k]["selcv"]="selected";
+
   }
   $action->lay->SetBlockData("SELECTCV", $tcv);
 
