@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.194 2004/03/25 11:08:43 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.195 2004/03/29 08:07:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2142,7 +2142,7 @@ create unique index i_docir on doc(initid, revision);";
 
 	  $emptyarray=true;
 	  while (list($k, $v) = each($ta)) {
-	    if (($v->visibility=="H")||($v->visibility=="O")) continue;
+	    if (($v->mvisibility=="H")||($v->mvisibility=="O")) continue;
 	    $talabel[] = array("alabel"=>$v->labelText);	
 	    $tval[$k]=$this->getTValue($k);
 	    if ($emptyarray && ($this->getValue($k)!="")) $emptyarray=false;
@@ -2159,7 +2159,7 @@ create unique index i_docir on doc(initid, revision);";
 	      reset($ta);
 	      $tivalue=array();
 	      while (list($ka, $va) = each($ta)) {	  
-		if ($va->visibility=="H") continue;
+		if ($va->mvisibility=="H") continue;
 		$hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
 		if ($va->type=="image") $hval="<img width=\"128\" src=\"".$hval."\">";
 		$tivalue[]=array("evalue"=>$hval);
