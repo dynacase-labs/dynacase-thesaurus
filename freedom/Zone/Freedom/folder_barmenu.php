@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: folder_barmenu.php,v 1.3 2004/06/23 14:08:24 eric Exp $
+ * @version $Id: folder_barmenu.php,v 1.4 2005/03/23 17:05:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: folder_barmenu.php,v 1.3 2004/06/23 14:08:24 eric Exp $
+// $Id: folder_barmenu.php,v 1.4 2005/03/23 17:05:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Freedom/folder_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,7 +63,7 @@ function folder_barmenu(&$action) {
   $action->lay->set("dirid",$dirid);
 
   popupInit("viewmenu",	array('vlist','vicon','vcol'));
-  popupInit("toolmenu", array('tobasket','clear','props'));
+  popupInit("toolmenu", array('tobasket','insertbasket','clear','props'));
 
 
 
@@ -74,9 +74,11 @@ function folder_barmenu(&$action) {
   // clear only for basket :: too dangerous
   if ($dir->fromid == getFamIdFromName($dbaccess,"BASKET")) {
     popupInvisible("toolmenu",1,'tobasket');
+    popupInvisible("toolmenu",1,'insertbasket');
     popupActive("toolmenu",1,'clear');
   } else {
     popupActive("toolmenu",1,'tobasket');
+    popupActive("toolmenu",1,'insertbasket');
     popupInvisible("toolmenu",1,'clear');
   }
   popupActive("toolmenu",1,'props');
