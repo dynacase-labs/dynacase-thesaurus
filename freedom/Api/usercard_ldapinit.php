@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.5 2004/02/17 10:51:57 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.6 2004/03/16 14:14:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,20 +33,23 @@ if ($dbaccess == "") {
 
 
 $famid=getFamIdFromName($dbaccess,"USER");
-$ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"LIST",$famid);
+$ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"TABLE",$famid);
 
-
+$udoc= createDoc($dbaccess,"USER");
   
-  while(list($k,$doc) = each($ldoc)) {
-    $priv=$doc->GetValue("US_PRIVCARD");
+  while(list($k,$tdoc) = each($ldoc)) {
+    $udoc->ResetMoreValues();
+    $udoc->Affect($tdoc);
+    $udoc->GetMoreValues();
+    $priv=$udoc->GetValue("US_PRIVCARD");
     $err="";
 
     // update LDAP only no private card
     if (($priv != "P")) {
-      $doc->SetLdapParam();
-      $err=$doc->UpdateLdapCard();
-      if ($err == "") print $doc->title.": updated\n";
-      else print $doc->title.": skipped : $err\n";
+      $udoc->SetLdapParam();
+      $err=$udoc->UpdateLdapCard();
+      if ($err == "") print $udoc->title.": updated\n";
+      else print $udoc->title.": skipped : $err\n";
     }
   }
 	
