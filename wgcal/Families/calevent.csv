@@ -7,6 +7,7 @@ ICON;rv.png;;;;;;;;;;;;
 TAG;P;;;;;;;;;;;;
 METHOD;*Method.PEvents.php;;;;;;;;;;;;
 METHOD;+Method.CalPEvents.php;;;;;;;;;;;;
+METHOD;+Method.CalEvent.php;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 ATTR;CALEV_EVENT;;Description;N;N;frame;10;;;;;;
