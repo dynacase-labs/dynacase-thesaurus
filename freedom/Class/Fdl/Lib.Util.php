@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.9 2005/02/09 14:22:56 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.10 2005/03/07 15:19:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -216,6 +216,9 @@ function jd2cal( $jd,$dformat='' ) {
     break;
   case 'French':
     $retiso8601=sprintf("%02d/%02d/%04s",$d,$m,$y);
+    break;
+  case 'FrenchLong':
+    $retiso8601=sprintf("%02d/%02d/%04s %02d:%02d %s",$d,$m,$y,$hr,$mn,$ce);
     break;
   default:
     $retiso8601=sprintf("%04d-%02d-%02s %02d:%02d%s",
