@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.85 2005/02/18 17:06:30 eric Exp $
+ * @version $Id: import_file.php,v 1.86 2005/03/24 16:44:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -750,7 +750,7 @@ function AddImportLog( $msg) {
 }
 
 function getOrder($orderdata) {
-  return array_map("chop", array_slice ($orderdata, 4));
+  return array_map("trim", array_slice ($orderdata, 4));
 }
 
 function AddVaultFile($dbaccess,$path,$analyze,&$vid) {
