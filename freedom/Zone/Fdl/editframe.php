@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.6 2003/01/17 10:31:08 eric Exp $
+// $Id: editframe.php,v 1.7 2003/01/27 13:26:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -68,7 +68,9 @@ function editframe(&$action) {
     //------------------------------
     // Set the table value elements
     $value = chop($doc->GetValue($v->id));
-	
+    if ($docid == 0) {
+      $value=$doc->GetValueMethod($value); // execute method for default values
+    }
     if ( ($v->visibility == "H") || 
 	 ($v->visibility == "R") && (substr_count($v->type,"text") > 0)) {
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.7 2002/11/19 17:14:26 eric Exp $
+// $Id: defattr.php,v 1.8 2003/01/27 13:26:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,7 +80,7 @@ function defattr(&$action)
   if ($docid > 0) {
 
     // control if user can update 
-    $err = $doc->CanUpdateDoc();
+    $err = $doc->CanLockFile();
     if ($err != "")   $action->ExitError($err);
     $action->lay->Set("TITLE",$doc->title);
   }

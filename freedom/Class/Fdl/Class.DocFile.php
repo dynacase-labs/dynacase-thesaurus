@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.4 2003/01/17 11:44:05 eric Exp $
+// $Id: Class.DocFile.php,v 1.5 2003/01/27 13:26:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.4 2003/01/17 11:44:05 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.5 2003/01/27 13:26:32 eric Exp $';
 
 
 include_once("FDL/Class.PDoc.php");
@@ -48,7 +48,34 @@ Class DocFile extends PDoc
       $this->deleteValue($nameId);
     }
   }
-	
+
+
+  // return the personn doc id conform to firstname & lastname of the user
+  function userDocId() {
+    
+    $famid=getFamIdFromName($this->dbaccess,"USER");
+    $filter[]="title = '".$this->userName()."'";
+    
+    $tpers = getChildDoc($this->dbaccess, 0,0,1, $filter,$action->user->id,"TABLE",$famid);
+    if (count($tpers) > 0)    return($tpers[0]["id"]);
+    
+    return "";
+    
+  }
+  // return the personn doc id conform to firstname & lastname of the user
+  function userName() {
+    global $action;
+
+    return $action->user->lastname." ".$action->user->firstname;
+  }
+
+  function getTitle($id) {
+    $doc = new Doc($this->dbaccess,$id);
+    if ($doc->isAlive()) {
+      return $doc->title;
+    }
+    return " "; // delete title
+  }
 }
 
 ?>

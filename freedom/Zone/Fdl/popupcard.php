@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.18 2003/01/24 14:10:46 eric Exp $
+// $Id: popupcard.php,v 1.19 2003/01/27 13:26:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,7 +38,7 @@ function popupcard(&$action) {
 
   $action->lay->Set("id", $docid);
   $action->lay->Set("profid", $doc->profid);
-
+  $action->lay->Set("ddocid", $doc->ddocid); // default doc id for pre-inserted values
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
@@ -72,7 +72,7 @@ function popupcard(&$action) {
 
   Popupactive('popupcard',$kdiv,'cancel');
   if (($doc->doctype=="C") && ($cud)) {
-    $action->lay->Set("ddocid", $doc->ddocid); // default doc id for pre-inserted values
+    
     popupActive('popupcard',$kdiv,'chicon'); 
   } else {
     popupInvisible('popupcard',$kdiv,'chicon');

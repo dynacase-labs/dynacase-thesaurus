@@ -43,9 +43,9 @@ function lmail( $dbaccess, $name) {
     $filter[]="title ~* '.*$name.*'";
   }
 
+  $famid=getFamIdFromName($dbaccess,"USER");
 
-
-  $tinter = getChildDoc($dbaccess, 0,0,100, $filter,$action->user->id,"LIST",120);
+  $tinter = getChildDoc($dbaccess, 0,0,100, $filter,$action->user->id,"LIST",$famid);
   
   $tr = array();
 
@@ -85,6 +85,23 @@ function lfamilly($dbaccess, $famid, $name, $catgid=0, $filter=array()) {
   
 }
 
+
+// liste 
+function lenum($val, $enum) {
+  // $enum like 'a|b|c'
+ 
+
+  $tenum=explode("|",$enum);
+
+  while(list($k,$v) = each($tenum)) {
+            
+    if (($val == "") || (ereg("$val", $v , $reg)))
+      $tr[] = array($v , $v);
+    
+  }
+  return $tr;
+  
+}
 
 // liste des profils
 function lprofil($dbaccess, $name) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.31 2003/01/24 14:10:46 eric Exp $
+// $Id: viewcard.php,v 1.32 2003/01/27 13:26:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,6 +74,7 @@ function viewcard(&$action) {
       $zonebodycard ="FDL:VIEWBODYCARD";
     }
   
+  if ($doc->usefor=="D") $zonebodycard="FDL:VIEWBODYCARD"; // always default view for default document
 
   
   if ($doc->doctype == 'Z') {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.88 2003/01/24 14:10:46 eric Exp $
+// $Id: Class.Doc.php,v 1.89 2003/01/27 13:26:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.88 2003/01/24 14:10:46 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.89 2003/01/27 13:26:31 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -892,6 +892,32 @@ create unique index i_docir on doc(initid, revision);";
     }      
   }
 
+  function GetValueMethod($value, $attrid='') {
+    
+
+	if (ereg("::([^\(]+)\(([^\)]*)\)",$value, $reg)) {
+	  if (method_exists ( $this, $reg[1])) {
+	    if ($reg[2] == "") {
+	      // without argument
+	      $value=call_user_method($reg[1],$this);
+	    } else {
+	      // with argument
+	      $args = explode(",",$reg[2]);
+	      
+	      if ($attrid != "") {
+		$this->AddParamRefresh($reg[2],$attrid);
+	      }
+	      while(list($k,$v) = each($args)) {
+		$args[$k]=$this->GetValue($v);
+		$args[$k]=$this->GetValueMethod($args[$k]);
+	      }
+	      $value=call_user_method_array($reg[1],$this,$args);
+	    }
+	  }
+	}
+	return $value;
+  }
+  
   // return the first attribute of type 'file'
   function GetFirstFileAttributes()
     {
@@ -1039,6 +1065,16 @@ create unique index i_docir on doc(initid, revision);";
     
     $err=$this->SpecRefresh();
 	
+    $lattr = $this->GetNormalAttributes();
+    
+    while (list($i,$attr) = each($lattr)) {
+      if ((($attr->visibility == "H") || ($attr->visibility == "R")) &&
+	  ($attr->phpfunc != "")) {
+	$this->setValue($attr->id, $this->GetValueMethod($attr->phpfunc));
+      }
+	  
+    }
+
     if ($this->hasChanged)    $this->modify(); // refresh title
     return $err;
 	
@@ -1289,6 +1325,8 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
   // --------------------------------------------------------------------
   function viewDoc($layout="FDL:VIEWBODYCARD",$target="_self",$ulink=true,$abstract=false) {
     global $action;
+
+
     if (! ereg("([A-Z]*):(.*)", $layout, $reg)) 
       $action->exitError(sprintf(_("error in pzone format %s"),$layout));
      
@@ -1673,7 +1711,9 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
       // Compute value elements
 	    
       if ($docid > 0) $value = $this->GetValue($listattr[$i]->id);
-      else $value = $cdoc->GetValue($listattr[$i]->id);
+      else {
+	$value = $this->GetValueMethod($value);
+      }
 	    	    
 
       if ( $currentFrameId != $listattr[$i]->fieldSet->id) {

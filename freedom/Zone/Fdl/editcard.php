@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.22 2002/11/22 18:08:22 eric Exp $
+// $Id: editcard.php,v 1.23 2003/01/27 13:26:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,13 +47,12 @@ function editcard(&$action) {
   
 
  
-
+ 
   // Set Css
   $cssfile=$action->GetLayoutFile("freedom.css");
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
 
-   
     
   if ($docid == 0) { // new document
     if ($classid > 0) {
@@ -69,6 +68,7 @@ function editcard(&$action) {
   
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
 
+  if ($doc->usefor=="D") $zonebodycard="FDL:EDITBODYCARD"; // always default view for default document
 
   $action->lay->Set("classid", $classid);
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
