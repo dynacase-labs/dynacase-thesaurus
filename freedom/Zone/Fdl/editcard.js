@@ -112,6 +112,7 @@ function resizeInputFields() {
 	   w=getObjectWidth(elements[i].parentNode);
 	   if (w > 45) {
 	     newsize = (w - 45) / 9;
+	     if (newsize < 10) newsize=10; //min size is 10 characters
 	     if (elements[i].type == 'text')
 	       elements[i].size=newsize;
 	     if (elements[i].type == 'textarea')
