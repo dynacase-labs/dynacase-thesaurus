@@ -25,10 +25,10 @@
 [TEXT:View all properties]</a>
 
 <a href="#" id="sview"       
-    onmouseover="openSubMenu(event,this,'popupview');">[TEXT:Special view]&gt;</a>
+    onmouseover="openSubMenu(event,this,'popupview');">[TEXT:Special view]&raquo;</a>
 
 <a href="#" id="sedit"       
-    onmouseover="openSubMenu(event,this,'popupedit');">[TEXT:Special edit]&gt;</a>
+    onmouseover="openSubMenu(event,this,'popupedit');">[TEXT:Special edit]&raquo;</a>
 
 <a href="#" id="unlockdoc"
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&id=[id]','');closeMenu('popupcard')" >[TEXT:Unlock]</a>
