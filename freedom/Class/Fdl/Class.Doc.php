@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.82 2003/01/08 09:07:04 eric Exp $
+// $Id: Class.Doc.php,v 1.83 2003/01/13 19:00:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.82 2003/01/08 09:07:04 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.83 2003/01/13 19:00:39 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -248,6 +248,10 @@ create unique index i_docir on doc(initid, revision);";
     if (! $cdoc) return false;
     
     $cdoc->id = $this->id;
+    $cdoc->initid=$this->initid;
+    $cdoc->revision=$this->revision;
+    $cdoc->locked=$this->locked;
+    $cdoc->comment=$this->comment;
     $values = $this->getValues();
     $this->delete(true); // delete before add to avoid double id (it is not authorized)
 
@@ -552,6 +556,13 @@ create unique index i_docir on doc(initid, revision);";
     return $query->Query(0,0,$type);
   }
 
+  // get LatestId
+  function latestId() {
+    $rev = $this->GetRevisions("TABLE");
+    
+    return $rev[0]["id"];
+  }
+
   // return the string label text for a id
   function GetLabel($idAttr)
     {
@@ -588,7 +599,6 @@ create unique index i_docir on doc(initid, revision);";
   function GetNormalAttributes()
     {      
       $tsa=array();
-     
       if (isset($this->attributes->attr)) {
 	reset($this->attributes->attr);
 	while (list($k,$v) = each($this->attributes->attr)) {
