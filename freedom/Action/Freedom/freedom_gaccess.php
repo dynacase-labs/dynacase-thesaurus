@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.4 2004/02/09 16:46:15 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.5 2004/02/24 08:35:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_gaccess.php,v 1.4 2004/02/09 16:46:15 eric Exp $
+// $Id: freedom_gaccess.php,v 1.5 2004/02/24 08:35:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_gaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -88,12 +88,14 @@ function freedom_gaccess(&$action) {
     $hg= array();
     $userids= array();
     $sgroup=array(); // all group which are in a group i.e. not the root group
-    while(list($k,$v) = each($tiduser)) {
+
+    foreach($tiduser as $k=>$v) {
       $g = new Group($dbaccess,$v["id"]);
 
 
       $title[$v["id"]]=$v["firstname"]." ".$v["lastname"];
       while(list($kg,$gid) = each($g->groups)) {
+
 	$hg[$gid][$v["id"]]=$v["id"];
 	$sgroup[$v["id"]]=$v["id"];// to define root group
       }
@@ -132,9 +134,14 @@ function freedom_gaccess(&$action) {
 		"displaygroup"=>"inline");
     $title[$gid]=$ouser->firstname." ".$ouser->lastname;
     if ($tusers) {
-      reset($tusers);
     
-      while(list($k,$v) = each($tusers)) {
+    
+      foreach($tusers as $k=>$v) {
+
+	if ($k > 100) {
+	  $action->AddWarningMsg(sprintf(_("Not all users can be vieved.\nlimit %d has been reached"),$k));
+	  break;
+	}
 	$title[$v["id"]]=$v["firstname"]." ".$v["lastname"];
 	$tg[]=array("level"=>10,
 		    "gid"=>$v["id"],
@@ -216,8 +223,10 @@ function getTacl($dbaccess,$dacls, $acls, $docid,$gid) {
   
   $perm = new DocPerm($dbaccess, array($docid,$gid));
   
-  reset($acls);
-  while(list($k,$v) = each($acls) ) {
+
+  foreach($acls as $k=>$v ) {
+
+
     $tableacl[$k]["aclname"]=$v;
       $pos=$dacls[$v]["pos"];
 
