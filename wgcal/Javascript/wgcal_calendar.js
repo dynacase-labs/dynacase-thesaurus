@@ -72,9 +72,6 @@ function WGCalEvOnMouseOver(ev, id) {
   evtc.style.left = x+'px';
   evtc.style.top = y+'px';
   evtc.style.position = 'absolute';
-  evtc.style.width = "70px";
-  evtc.style.height = "30px";
-  evtc.style.fixed = 'fixed';
   evtc.style.zIndex = 1001;
   evtc.style.display = '';
 }
@@ -289,9 +286,10 @@ function WGCalAddEvent(evtid, dstart, dend, shift) {
 // --------------------------------------------------------
 function WGCalDisplayEvent(iev, newEvent) {
 
+  var dd = new Date();
   id     = Event[iev][0];
-  dstart = Event[iev][1];
-  dend   = Event[iev][2];
+  dstart = Event[iev][1] + (dd.getTimezoneOffset() * 60);
+  dend   = Event[iev][2] + (dd.getTimezoneOffset() * 60);
   shift  = Event[iev][3];
   if (dend<dstart) {
     t = dend;

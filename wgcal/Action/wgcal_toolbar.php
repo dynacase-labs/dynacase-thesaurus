@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.9 2005/01/31 10:55:26 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.10 2005/02/01 14:47:00 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -120,8 +120,8 @@ function _waitrv(&$action) {
   $action->lay->SetBlockData("aftWAITRV", null);
   if (count($trv)>0) {
     $action->lay->SetBlockData("WAITRV", $trv);
-    $action->lay->SetBlockData("befWAITRV", array( array( "nop" => "")));
-    $action->lay->SetBlockData("aftWAITRV", array( array( "nop" => "")));
+    //$action->lay->SetBlockData("befWAITRV", array( array( "nop" => "")));
+    //$action->lay->SetBlockData("aftWAITRV", array( array( "nop" => "")));
     AddWarningMsg(_("You have waiting events")); 
   }
   
