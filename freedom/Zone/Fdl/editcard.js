@@ -336,3 +336,6 @@ function downtr(trnode) {
   resetTrInputs(trnode);
   return;  
 }
+
+
+//-----------------------------------------

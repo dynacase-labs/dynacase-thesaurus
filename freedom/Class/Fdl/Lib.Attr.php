@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.15 2003/04/14 12:07:30 eric Exp $
+// $Id: Lib.Attr.php,v 1.16 2003/05/21 16:21:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,14 +92,32 @@ function AttrToPhp($dbaccess, $tdoc) {
 	break;
 	
       default: // normal
+	
+    
+	if (ereg("([a-z]+)\(\"(.*)\"\)",$v->type, $reg)) {
+	  $atype=$reg[1];
+	  $aformat=$reg[2];
+	} else {
+	  $atype=$v->type;
+	  $aformat="";
+	}
+	if (ereg("([a-z]+)list",$atype, $reg)) {
+	  $atype=$reg[1];
+	  $repeat="true";
+	  
+	} else {
+	  $repeat="false";
+	}
 	$tnormal[] = array("attrid"=>strtolower($v->id),
 			   "label"=>str_replace("\"","\\\"",$v->labeltext),
-			   "type"=>str_replace("\"","\\\"",$v->type),
+			   "type"=>$atype,
+			   "format"=>str_replace("\"","\\\"",$aformat),
 			   "order"=>intval($v->ordered),
 			   "link"=>str_replace("\"","\\\"",$v->link),
 			   "visibility"=>$v->visibility,
 			   "needed"=>($v->needed=="Y")?"true":"false",
 			   "title"=>($v->title=="Y")?"true":"false",
+			   "repeat"=>$repeat,
 			   "abstract"=>($v->abstract=="Y")?"true":"false",
 			   "frame"=>($v->frameid=="")?"FIELD_HIDDENS":strtolower($v->frameid),
 			   "elink"=>$v->elink,
@@ -107,7 +125,20 @@ function AttrToPhp($dbaccess, $tdoc) {
 			   "phpfunc"=>$v->phpfunc);
 
 	$tattr[] = array("attrid"=>strtolower($v->id));	 
-	$attrids[] = strtolower($v->id)." text";    
+	switch($atype) {
+	case double:
+	case money:
+	  $attrids[] = strtolower($v->id)." float8";  
+	  break;
+	case integer:
+	  $attrids[] = strtolower($v->id)." int4";  
+	  break;
+	case date:
+	  $attrids[] = strtolower($v->id)." date";  
+	  break;
+	default: 
+	  $attrids[] = strtolower($v->id)." text";    
+	}
 	break;
       }
     }	 
@@ -191,7 +222,21 @@ function PgUpdateFamilly($dbaccess, $docid) {
 
 	if (! in_array($attr->id, $pgatt)) {
 	  $msg .= "add field {$attr->id} in table doc".$docid."\n";
-	  $sqlquery="ALTER TABLE doc".$docid." ADD COLUMN {$attr->id} text;";
+	  switch($attr->type) {
+	  case double:
+	  case money:
+	    $sqltype = strtolower($v->id)." float8";  
+	    break;
+	  case integer:
+	    $sqltype = strtolower($v->id)." int4";  
+	    break;
+	  case date:
+	    $sqltype = strtolower($v->id)." date";  
+	    break;
+	  default: 
+	    $sqltype = strtolower($v->id)." text";    
+	  }
+	  $sqlquery="ALTER TABLE doc".$docid." ADD COLUMN {$attr->id} $sqltype;";
 	  $doc->exec_query($sqlquery,1); // add new field
 	  
 	}

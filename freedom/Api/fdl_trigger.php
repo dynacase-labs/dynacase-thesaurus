@@ -23,6 +23,7 @@ if ($dbaccess == "") {
 
 $docid = GetHttpVars("docid",0); // special docid
 $trig = (GetHttpVars("trigger","-")!="-"); 
+$drop = (GetHttpVars("trigger","-")=="N"); 
 
 	
 $query = new QueryDb($dbaccess,"Doc");
@@ -41,7 +42,7 @@ if ($query->nb > 0)	{
   while(list($k,$v) = each($table1))   {	     
     $doc = createDoc($dbaccess,$v["id"]);
     
-    if ($trig)    print $doc->sqltrigger()."\n";
+    if ($trig)    print $doc->sqltrigger($drop)."\n";
     else {
       if (is_array($doc->sqlcreate)) {
 	print implode(";\n",$doc->sqlcreate);

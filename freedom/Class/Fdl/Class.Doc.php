@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.124 2003/05/19 10:44:11 eric Exp $
+// $Id: Class.Doc.php,v 1.125 2003/05/21 16:21:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.124 2003/05/19 10:44:11 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.125 2003/05/21 16:21:10 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/05/19 10:44:11 $
-// Version         $Revision: 1.124 $
+// Last Update     $Date: 2003/05/21 16:21:10 $
+// Version         $Revision: 1.125 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1015,7 +1015,32 @@ create unique index i_docir on doc(initid, revision);";
 	//   print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
 	
       }
-      $this->$attrid=($value); 
+      $oattr=$this->GetAttribute($attrid);
+
+      if ($oattr->repeat) {
+	$tvalues = explode("\n",$value);
+      } else {
+	$tvalues[]=$value;
+      }
+    
+    
+      while (list($kvalue, $avalue) = each($tvalues)) {
+	if ($oattr) {
+	  switch($oattr->type) {
+	  case double:
+	  case money:
+	    $tvalues[$kvalue]=str_replace(",",".",$avalue);
+	    $tvalues[$kvalue]=str_replace(" ","",$tvalues[$kvalue]);
+	    $tvalues[$kvalue]=doubleval($tvalues[$kvalue]);
+	    break;
+	  case integer:
+	    $tvalues[$kvalue]=intval($avalue);
+	    break;
+	  }
+	}
+      }
+      //      print $oattr->type;print_r2($tvalues);
+      $this->$attrid=implode("\n",$tvalues); 
 
 	
     }      
@@ -1387,170 +1412,148 @@ create unique index i_docir on doc(initid, revision);";
   function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true, $index=-1) {
     global $action;
     
-    
-    if (ereg("([a-z]+)\(\"(.*)\"\)",$oattr->type, $reg)) {
-      $atype=$reg[1];
-      $aformat=$reg[2];
+    $aformat=$oattr->format;
+    $atype=$oattr->type;
+    if ($oattr->repeat) {
+      $tvalues = explode("\n",$value);
     } else {
-      $atype=$oattr->type;
-      $aformat="";
+      $tvalues[$index]=$value;
     }
     
-    switch ($atype)
-      {
+    
+    while (list($kvalue, $avalue) = each($tvalues)) {
+      $htmlval="";
+      switch ($atype)
+	{
 	
-      case "image": 
-	if ($target=="mail") $htmlval="cid:".$oattr->id;
-	else {
-	$vid="";
-	if (ereg ("(.*)\|(.*)", $value, $reg)) $vid=$reg[2];
+	case "image": 
+	  if ($target=="mail") $htmlval="cid:".$oattr->id;
+	  else {
+	    $vid="";
+	    if (ereg ("(.*)\|(.*)", $avalue, $reg)) $vid=$reg[2];
 	
-	$htmlval=$action->GetParam("CORE_BASEURL").
-	    "app=FDL"."&action=EXPORTFILE&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$index"; // upload name
-	}
+	    $htmlval=$action->GetParam("CORE_BASEURL").
+	      "app=FDL"."&action=EXPORTFILE&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$index"; // upload name
+	  }
 	      
-	break;
-      case "file": 
-	$vid="";
-	if (ereg ("(.*)\|(.*)", $value, $reg)) {
-	  // reg[1] is mime type
-	  $vid=$reg[2];
-	  $vf = new VaultFile($this->dbaccess, "FREEDOM");
-	  if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
-	  else $fname=_("vault file error");
-	} else $fname=_("no filename");
+	  break;
+	case "file": 
+	  $vid="";
+	  if (ereg ("(.*)\|(.*)", $avalue, $reg)) {
+	    // reg[1] is mime type
+	    $vid=$reg[2];
+	    $vf = new VaultFile($this->dbaccess, "FREEDOM");
+	    if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+	    else $fname=_("vault file error");
+	  } else $fname=_("no filename");
 	
 	
-	if ($target=="mail") {
-	  $htmlval="<A target=\"_blank\" href=\"";
-	  $htmlval.="cid:".$oattr->id
-	    ."\">".$fname.
-	    "</A>";;
-	} else 
-	  $htmlval="<A onclick=\"document.noselect=true;\" target=\"_blank\" href=\"".
-	    $action->GetParam("CORE_BASEURL").
-	    "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
-	    ."\">".$fname.
-	    "</A>";
+	  if ($target=="mail") {
+	    $htmlval="<A target=\"_blank\" href=\"";
+	    $htmlval.="cid:".$oattr->id
+	      ."\">".$fname.
+	      "</A>";;
+	  } else 
+	    $htmlval="<A onclick=\"document.noselect=true;\" target=\"_blank\" href=\"".
+	      $action->GetParam("CORE_BASEURL").
+	      "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
+	      ."\">".$fname.
+	      "</A>";
 	
-	break;
-      case "textlist": 
-	$ta = explode("\n",$value);
-	if ($aformat != "") {
-	  reset($ta);
-	  while (list($k, $a) = each($ta)) {
-	    $ta[$k]=stripslashes(sprintf($aformat,$a));
+	  break;
+	case "longtext": 
+	  $htmlval=nl2br(htmlentities(stripslashes($avalue)));
+	  break;
+	case "password": 
+	  $htmlval=ereg_replace(".", "*", htmlentities(stripslashes($avalue)));
+	
+	  break;
+	case "enum": 
+	  if (isset($oattr->enumlabel[$avalue]))  $htmlval=$oattr->enumlabel[$avalue];
+	  else $htmlval=$avalue;
+	
+	  break;    
+	case "array": 
+
+	  $lay = new Layout("FDL/Layout/viewarray.xml", $action);
+	  $ta = $this->attributes->getArrayElements($oattr->id);
+	  $talabel=array();
+	  $tvattr = array();
+	  $lay->set("caption",$oattr->labelText);
+
+
+	  while (list($k, $v) = each($ta)) {
+	    if ($v->visibility=="H") continue;
+	    $talabel[] = array("alabel"=>$v->labelText);	
+	    $tval[$k]=explode("\n",$this->getValue($k));
 	  }
-	  $htmlval=implode("<BR>",$ta);
-	  
-	} 
-	if ($oattr->link != "") {
-	  // set a link for each  element of the list
-	  reset($ta);
-	  while (list($k, $a) = each($ta)) {
-	    $abegin="<A target=\"$target\" onclick=\"document.noselect=true;\" href=\"";
-	    $abegin.= $this->urlWhatEncode($oattr->link,$k);
-	    $abegin.="\">";
-	    $aend="</A>";
-	    $ta[$k]=$abegin.$a.$aend;
+	  $lay->setBlockData("TATTR",$talabel);
+
+	  reset($tval);
+	  $nbitem= count(current($tval));
+	  $tvattr = array();
+	  for ($k=0;$k<$nbitem;$k++) {
+	    $tvattr[]=array("bevalue" => "bevalue_$k");
+	    reset($ta);
+	    $tivalue=array();
+	    while (list($ka, $va) = each($ta)) {	  
+	      if ($va->visibility=="H") continue;
+	      $hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
+	      if ($va->type=="image") $hval="<img width=\"128\" src=\"".$hval."\">";
+	      $tivalue[]=array("evalue"=>$hval);
+	    }
+	    $lay->setBlockData("bevalue_$k",$tivalue);
 	  }
-	  $htmlval=implode("<BR>",$ta);
-	  
-	} 
-	 $oattr->link="";
-
-	
-	$htmlval=implode("<BR>",$ta);//$htmlval=nl2br(htmlentities(stripslashes($value)));
-	break;
-      case "enumlist": 
-	if (strstr($value,"\n")) $oattr->link="";
-	$ta = explode("\n",$value);
-	while (list($k, $a) = each($ta)) {
-	  $ta[$k]=$oattr->enumlabel[$a];
-	}
-	$htmlval=implode("<BR>",$ta);
-	  
-	
-	break;
-      case "longtext": 
-	$htmlval=nl2br(htmlentities(stripslashes($value)));
-	break;
-      case "password": 
-	$htmlval=ereg_replace(".", "*", htmlentities(stripslashes($value)));
-	
-	break;
-      case "enum": 
-	if (isset($oattr->enumlabel[$value]))  $htmlval=$oattr->enumlabel[$value];
-	else $htmlval=$value;
-	
-	break;    
-      case "array": 
-
-      $lay = new Layout("FDL/Layout/viewarray.xml", $action);
-      $ta = $this->attributes->getArrayElements($oattr->id);
-      $talabel=array();
-      $tvattr = array();
-      $lay->set("caption",$oattr->labelText);
-
-
-      while (list($k, $v) = each($ta)) {
-	if ($v->visibility=="H") continue;
-	$talabel[] = array("alabel"=>$v->labelText);	
-	$tval[$k]=explode("\n",$this->getValue($k));
-      }
-      $lay->setBlockData("TATTR",$talabel);
-
-      reset($tval);
-      $nbitem= count(current($tval));
-      $tvattr = array();
-      for ($k=0;$k<$nbitem;$k++) {
-	$tvattr[]=array("bevalue" => "bevalue_$k");
-	reset($ta);
-	$tivalue=array();
-	while (list($ka, $va) = each($ta)) {	  
-	  if ($va->visibility=="H") continue;
-	  $hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
-	  if ($va->type=="image") $hval="<img width=\"128\" src=\"".$hval."\">";
-	  $tivalue[]=array("evalue"=>$hval);
-	}
-	$lay->setBlockData("bevalue_$k",$tivalue);
-      }
-      $lay->setBlockData("EATTR",$tvattr);
+	  $lay->setBlockData("EATTR",$tvattr);
       
-      $htmlval =$lay->gen(); 
-      break;
-      default : 
-	if ($aformat != "") {
-	  $htmlval=(stripslashes(sprintf($aformat,$value)));
-	} else {
-	  $htmlval=htmlentities(stripslashes($value));
-	}
-	break;
-	
-      }
-    
-    
-    // add link if needed
-    if ($htmllink && ($oattr->link != "") && 
-	($ulink = $this->urlWhatEncode( $oattr->link, $index))) {
+	  $htmlval =$lay->gen(); 
+	  break;
 
-      if ($target == "mail") {
-	$abegin="<A target=\"$target\"  href=\"";
-	$abegin.= $action->GetParam("CORE_PUBURL")."/".$ulink;
-	$abegin.="\">";
+	case money:    
+
+
+	  $htmlval=money_format('%!.2n', doubleval($avalue));
+	  break;
+	
+	case htmltext:  
+	  $htmlval=$avalue;
+	
+	  break;
+
+	default : 
+
+	  $htmlval=htmlentities(stripslashes($avalue));
+	
+	  break;
+	
+	}
+    
+      if ($aformat != "") {
+	$htmlval=sprintf($aformat,$htmlval);
+      } 
+      // add link if needed
+      if ($htmllink && ($oattr->link != "") && 
+	  ($ulink = $this->urlWhatEncode( $oattr->link, $kvalue))) {
+
+	if ($target == "mail") {
+	  $abegin="<A target=\"$target\"  href=\"";
+	  $abegin.= $action->GetParam("CORE_PUBURL")."/".$ulink;
+	  $abegin.="\">";
+	} else {
+	  $abegin="<A target=\"$target\" onclick=\"document.noselect=true;\" href=\"";
+	  $abegin.= $ulink;
+	  $abegin.="\">";
+	}
+	$aend="</A>";
       } else {
-	$abegin="<A target=\"$target\" onclick=\"document.noselect=true;\" href=\"";
-	$abegin.= $ulink;
-	$abegin.="\">";
+	$abegin="";
+	$aend="";
       }
-      $aend="</A>";
-    } else {
-      $abegin="";
-      $aend="";
+    
+      $thtmlval[$kvalue]=$abegin.$htmlval.$aend;
     }
     
-    
-    return $abegin.$htmlval.$aend;
+    return implode("<BR>",$thtmlval);
   }
   
   function GetHtmlAttrValue($attrid, $target="_self",$htmllink=true) {
@@ -1582,7 +1585,7 @@ create unique index i_docir on doc(initid, revision);";
   // --------------------------------------------------------------------
   // use triggers to update docvalue table
   // --------------------------------------------------------------------
-  function SqlTrigger() {
+  function SqlTrigger($drop=false) {
     if ($this->doctype == 'C') return;
     if (intval($this->fromid) == 0) return;
 
@@ -1594,6 +1597,7 @@ create unique index i_docir on doc(initid, revision);";
     // delete all relative triggers
     $sql .= "select droptrigger('doc".$cid."');";
      
+    if ($drop) return $sql; // only drop
     while(list($k,$v) = each($this->attributes->fromids)) {
 
       $sql .="create trigger UV{$cid}_$v BEFORE INSERT OR UPDATE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE upval$v();";
@@ -1758,6 +1762,7 @@ create unique index i_docir on doc(initid, revision);";
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
 	    
 	      break;
+
 
 	    default : 
 	      $tableframe[$v]["wvalue"]=($attr->type == "array")?"1%":"30%"; // width

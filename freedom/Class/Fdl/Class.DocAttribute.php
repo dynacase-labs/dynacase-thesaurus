@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.8 2003/04/25 14:51:32 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.9 2003/05/21 16:21:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.8 2003/04/25 14:51:32 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.9 2003/05/21 16:21:10 eric Exp $';
 
 
 
@@ -54,6 +54,8 @@ Class NormalAttribute extends BasicAttribute {
   var $visibility; // W, R, H, O, M
   var $needed; // Y / N
   var $type; // text, longtext, date, file, ...
+  var $format; // C format
+  var $repeat; // true if is a repeatable attribute
   var $isInTitle;
   var $isInAbstract;
   var $fieldSet; // field set object
@@ -62,13 +64,15 @@ Class NormalAttribute extends BasicAttribute {
   var $phpfunc;
   var $elink; // extra link
   var $ordered;
-  function NormalAttribute($id, $docid, $label, $type, $order, $link,
+  function NormalAttribute($id, $docid, $label, $type, $format, $repeat, $order, $link,
 			   $visibility,$needed,$isInTitle,$isInAbstract,
 			   &$fieldSet,$phpfile,$phpfunc,$elink) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
     $this->type=$type;
+    $this->format=$format;
+    $this->repeat=$repeat;
     $this->ordered=$order;
     $this->link=$link;
     $this->visibility=$visibility;

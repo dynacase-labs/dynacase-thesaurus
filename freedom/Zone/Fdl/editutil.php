@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.31 2003/05/19 15:29:26 eric Exp $
+// $Id: editutil.php,v 1.32 2003/05/21 16:21:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -148,6 +148,24 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	htmlentities(stripslashes($value)).
 	"</textarea>".
 	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attrid').rows=2;this.style.display='none'\" value=\"&Delta;\">";
+
+      
+    
+      break;
+      //같같같같같같같같같같같같같같같같같같같같
+    case "htmltext": 
+      $expid="exp".$attrid;
+      $input="<textarea $oc  style=\"width:100%\" rows=\"20\"   name=\"".
+	$attrin."\" ";
+      $input .= " id=\"".$attridk."\" "; 
+      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+      $input .= " >".
+	htmlentities(stripslashes($value)).
+	"</textarea>";
+
+
+      //      $input .= "<input type=\"button\" onclick=\"var editor$attridk = new HTMLArea('$attridk');editor$attridk.generate();\" value=\"Y\"></input>";
+      $input .= "<script >var editor$attridk = new HTMLArea('$attridk');setTimeout(\"editor$attridk.generate()\",500)</script>";
     
       break;
       //같같같같같같같같같같같같같같같같같같같같

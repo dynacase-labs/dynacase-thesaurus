@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.4 2003/04/02 07:34:52 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.5 2003/05/21 16:21:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,11 @@ var $defaultview= "FREEDOM:VIEWDSEARCH";
 var $tfunc=array("~*" => "include",         #N_("include")
 		 "=" => "equal",            #N_("equal")
 		 "!=" => "not equal",       #N_("not equal")
-		 "!~*" => "not include");   #N_("not include")
+		 "!~*" => "not include",       #N_("not equal")
+		 ">" => "&gt;",       #N_("not equal")
+		 "<" => "&lt;",       #N_("not equal")
+		 ">=" => "&gt; or equal",       #N_("&gt; or equal")
+		 "<=" => "&lt; or equal");   #N_("&lt; or equal")
 var $tol=array("and" => "and",              #N_("and")
 	       "or" => "or");               #N_("or")
 
