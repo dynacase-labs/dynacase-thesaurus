@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.7 2002/09/19 13:45:10 eric Exp $
+// $Id: popupcard.php,v 1.8 2002/10/08 10:26:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -136,12 +136,13 @@ function popupcard(&$action) {
   else popupInvisible('popupcard',$kdiv,'properties'); 
 
 
-  if ($doc->doctype != "C") {
+  if (($doc->doctype != "C") || (! $action->HasPermission("FAMILY")) ) {
     popupInvisible('popupcard',$kdiv,'editcprof'); 
     popupInvisible('popupcard',$kdiv,'chgtitle'); 
     popupInvisible('popupcard',$kdiv,'defval'); 
     popupInvisible('popupcard',$kdiv,'editattr'); 
     popupInvisible('popupcard',$kdiv,'editdfld');
+    popupInvisible('popupcard',$kdiv,'chicon');
   } else {
     popupInvisible('popupcard',$kdiv,'editdoc');
   }
