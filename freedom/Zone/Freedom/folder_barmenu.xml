@@ -6,8 +6,8 @@
 <thead>
 <tr>
 
-<td class="MenuInactive" onClick="closeAllMenu();" ><span class="FREEDOMTextTitle"><I>[title]</I></span></td>
-<td class="MenuInactive" onClick="closeAllMenu();"><span class="FREEDOMText">[nbdoc]</span></td>
+<td class="CORETblHead" onClick="closeAllMenu();" ><B>&nbsp;[title]</B></td>
+<td class="CORETblHead" onClick="closeAllMenu();">[nbdoc]</td>
 <td  class="MenuInactive"  
      onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
