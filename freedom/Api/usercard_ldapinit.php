@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.4 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.5 2004/02/17 10:51:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,7 +42,7 @@ $ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"LIST",$fami
     $err="";
 
     // update LDAP only no private card
-    if (($priv == 'R') || ($priv == 'W')) {
+    if (($priv != "P")) {
       $doc->SetLdapParam();
       $err=$doc->UpdateLdapCard();
       if ($err == "") print $doc->title.": updated\n";
