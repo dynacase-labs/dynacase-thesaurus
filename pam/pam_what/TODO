@@ -1,0 +1,20 @@
+TODO
+====
+
+general
+-------
+  + add new backend modules
+  + look into ODBC
+
+
+0.8.x
+-----
+  - authenticate and acct_mgmt share a lot of code
+  + move to a file-based configuration
+  + add password encryption
+
+
+0.9.x
+-----
+  + add option to dynamically load backend modules
+	

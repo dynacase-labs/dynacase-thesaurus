@@ -1,0 +1,82 @@
+pam_sql
+=======
+
+Author
+-----
+Mike Glover <mpg4@duluoz.net>
+
+License
+-------
+GPL, of course.  See the file COPYING for more details
+
+
+Introduction
+------------
+
+pam_sql aims to provide a backend neutral means of authenticating
+users against an SQL database.  The author uses PostgreSQL, but
+there's also some mysql code leftover from the pam_mysql project
+(whence this project evolved) that I'm quite sure doesn't work.
+
+
+Installation
+------------
+
+0) unpack the tarball
+
+1) edit the makefiles
+   At the very least, make sure that "prefix" is set correctly in
+   config.mk
+
+2) run "make"
+   
+3) su -c "make install"
+
+I'd like to think that pam_sql will compile out of the box on
+anybody's machine, but that's probably not true.  You may have to do
+some tweaking in Makefile (or even [gasp!] the source) to get pam_sql
+to compile on your machine.  If you do have to change something, I'd
+love a patch.
+
+
+Configuration
+-------------
+
+Once you've got pam_sql compiled and installed, you can use it.  There
+are a number of options you need to give in your pam.conf file, though
+in order for pam_sql to be useful to you:
+
+host, port
+  the hostname and port where the database server is running. if you
+  don't set this option, pam_sql will connect using UNIX domain
+  sockets.
+
+dbname
+  the name of the database to connect to.
+
+dbuser, dbpass
+  the username and password to use for authentication to the database
+
+table
+  the table where authentication info is stored
+
+usercol, passcol, expcoll
+  the table columns where usernames, passwords, and expiration times
+  are stored.
+
+
+An example entry:
+
+auth    required        /lib/security/pam_sql.so dbname=users dbuser=root dbpa\
+ss=password table=auth usercol=user passcol=pass expcol=expires
+auth    required        /lib/security/pam_nologin.so
+account required        /lib/security/pam_sql.so dbname=users dbuser=root dbpa\
+ss=password table=auth usercol=user passcol=pass expcol=expires
+
+
+Bugs
+----
+
+There is currently no way to encrypt the given password before checking
+against the database.  This means you need to store cleartext passwords
+in the database.  Sorry.

@@ -1,0 +1,113 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(src/options.c)
+AC_CONFIG_AUX_DIR(tools)
+
+
+
+dnl Set program, version info
+
+PROGNAME=pam_what_access
+MAJOR_VERSION=0     
+MINOR_VERSION=1      
+PATCHLEVEL=0
+COPYRIGHT_NOTICE="Copyright (c) 2001 Mike Glover"
+
+AC_SUBST(PROGNAME)
+AC_SUBST(MAJOR_VERSION)
+AC_SUBST(MINOR_VERSION)
+AC_SUBST(PATCHLEVEL)
+
+AC_DEFINE_UNQUOTED(PROGNAME, "$PROGNAME")
+AC_DEFINE_UNQUOTED(MAJOR_VERSION, $MAJOR_VERSION)
+AC_DEFINE_UNQUOTED(MINOR_VERSION, $MINOR_VERSION)
+AC_DEFINE_UNQUOTED(PATCHLEVEL, "$PATCHLEVEL")
+AC_DEFINE_UNQUOTED(COPYRIGHT_NOTICE, "$COPYRIGHT_NOTICE")
+
+
+
+dnl get the system type (for the makefile)
+
+AC_CANONICAL_HOST
+case [$host] in
+  *linux*) PLATFORM=linux ;;
+  *solaris*) PLATFORM=solaris ;;
+  *) PLATFORM=undefined ;;
+esac
+AC_SUBST(PLATFORM)
+AC_DEFINE_UNQUOTED(PLATFORM, $PLATFORM)
+
+
+
+dnl Check the commandline
+
+AC_ARG_WITH(postgres,  \
+           [--with-postgres         use PostgreSQL],\
+            test "x$withval" != "xno" && BACKEND=postgres)
+
+
+case [$BACKEND] in
+  postgres) AC_DEFINE(USE_POSTGRES,1) ;;
+  *) AC_MSG_ERROR([You must define an DBMS to use!]) ;;
+esac
+
+dnl Check for programs.
+
+AC_PROG_CC
+AC_PROG_INSTALL
+
+
+
+dnl Check for required libraries
+AC_CHECK_LIB(dl, dlopen,,STATIC_PAM=1)
+AC_CHECK_LIB(pam,pam_start,,AC_MSG_ERROR([Can't find PAM library]))
+
+
+
+dnl Check pick-one libraries
+
+if test [$USE_POSTGRES] ; then
+  AC_CHECK_LIB(pq, PQconnectdb, ,AC_MSG_ERROR([Can't find postgres library]))
+fi
+
+
+
+dnl Check for absolutely required header files.
+
+AC_HEADER_STDC
+AC_CHECK_HEADERS(unistd.h syslog.h security/pam_modules.h,,\
+                 AC_MSG_ERROR([Missing required headers]))
+
+
+
+dnl Check for pick-one header files (required)
+
+if test [$USE_POSTGRES]; then
+  AC_CHECK_HEADER(pgsql/libpq-fe.h,,
+                  AC_MSG_ERROR([Can't find postgres header files]))
+fi
+
+
+
+dnl Check for pick-one header files (optional)
+
+
+
+dnl Check for typedefs, structures, and compiler characteristics.
+
+AC_C_CONST
+AC_C_INLINE
+
+
+
+dnl Check for library functions.
+
+
+
+
+dnl Create output files
+
+AC_CONFIG_HEADER(src/config.h)
+AC_OUTPUT(local.mk)
+
+
