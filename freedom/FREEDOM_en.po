@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-04-17 14:46+0200\n"
+	"POT-Creation-Date: 2002-04-23 09:44+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -55,6 +55,10 @@ msgstr	"Title"
 #, fuzzy, c-format
 msgid	"%s : %s category "
 msgstr	"Title"
+
+#, fuzzy
+msgid	"new user card"
+msgstr	"Start search"
 
 msgid	"no vcard file specified"
 msgstr	""
@@ -630,6 +634,9 @@ msgstr	"Organisation"
 msgid	"import vcard"
 msgstr	"Import"
 
+msgid	"unreferenced"
+msgstr	""
+
 msgid	"Incident"
 msgstr	""
 
@@ -768,6 +775,12 @@ msgstr	""
 msgid	"help"
 msgstr	""
 
+msgid	" folder containt"
+msgstr	""
+
+msgid	"(private)"
+msgstr	""
+
 msgid	"New"
 msgstr	""
 
@@ -879,12 +892,6 @@ msgid	"personn added"
 msgstr	""
 
 msgid	"personn deleted"
-msgstr	""
-
-msgid	" folder containt"
-msgstr	""
-
-msgid	"(private)"
 msgstr	""
 
 msgid	" history"
@@ -1273,6 +1280,9 @@ msgid	"Vcard"
 msgstr	""
 
 msgid	"View properties"
+msgstr	""
+
+msgid	"View headers"
 msgstr	""
 
 #, fuzzy

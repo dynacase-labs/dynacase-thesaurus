@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Id: popupcard.php,v 1.2 2002/04/23 07:47:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,6 +30,7 @@ function popupcard(&$action) {
   // define accessibility
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");
+  $headers = (GetHttpVars("head",'no') == "yes");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
@@ -40,7 +41,7 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('editdoc','unlockdoc','chgcatg','properties','delete','cancel'));
+  popupInit('popupcard',  array('editdoc','unlockdoc','chgcatg','properties','headers','delete','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -76,8 +77,8 @@ function popupcard(&$action) {
   
   if ($abstract) popupActive('popupcard',$kdiv,'properties'); 
   else popupInvisible('popupcard',$kdiv,'properties'); 
-
-
+  if ($headers)  popupInvisible('popupcard',$kdiv,'headers');
+  else Popupactive('popupcard',$kdiv,'headers');
 
   popupGen($kdiv);
 }

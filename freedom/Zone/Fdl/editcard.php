@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.7 2002/04/22 14:03:35 eric Exp $
+// $Id: editcard.php,v 1.8 2002/04/23 07:47:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,7 +27,6 @@
 // ---------------------------------------------------------------
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
-include_once("FDL/Class.DocValue.php");
 
 include_once("Class.TableLayout.php");
 include_once("Class.QueryDb.php");
@@ -38,7 +37,7 @@ include_once("VAULT/Class.VaultFile.php");
 // -----------------------------------
 function editcard(&$action) {
   // -----------------------------------
-    //print "<HR>EDITCARD<HR>";
+  //print "<HR>EDITCARD<HR>";
   // Get All Parameters
   $docid = GetHttpVars("id",0);        // document to edit
   $classid = GetHttpVars("classid",0); // use when new doc or change class
@@ -60,118 +59,115 @@ function editcard(&$action) {
   $action->parent->AddJsCode($jslay->gen());
 
 
-  // Set Css
+  // Set Css  
   $cssfile=$action->GetLayoutFile("freedom.css");
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
 
 
 
-  $doc= new Doc($dbaccess,$docid);
-
-  // when modification 
-  if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
 
   
-    
-
-  // build list of class document
-  $query = new QueryDb($dbaccess,"Doc");
-  $query->AddQuery("doctype='C'");
-
-  $selectclass=array();
-  $tclassdoc = $doc->GetClassesDoc($classid);
-  while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
-    $selectclass[$k]["selected"]="";
-  }
-
-  // add no inherit for class document
-  if ($doc->doctype=="C") {
-    $selectclass[$k+1]["idcdoc"]="0";
-    $selectclass[$k+1]["classname"]=_("no document type");
-  }
-
+  // ------------------------------------------------------
+  //  new or modify ?
   if ($docid == 0)
     {
+
+      // new document
       switch ($classid) {
       case 2:
 	$action->lay->Set("TITLE", _("new directory"));
-      break;
+	break;
       case 3:	  
       case 4:	  
 	$action->lay->Set("TITLE", _("new profile"));
-      break;
+	break;
       default:
 	$action->lay->Set("TITLE", _("new document"));
       }
       $action->lay->Set("editaction", $action->text("create"));
       if ($classid > 0) {
-	$doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
+	$doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class
+	$doc->id=$classid;
       }
-      // selected the current class document
+     
+    }
+  else
+    {      
+      
+
+      // when modification 
+      $doc= new Doc($dbaccess,$docid);
+      if ($classid == 0)    $classid=$doc->fromid;
+      $err = $doc->CanLockFile()  ;
+      if ($err != "")	$err=$doc->CanUpdateDoc();
+      if ($err != "")   $action->ExitError($err);
+      if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
+      
+      
+      $action->lay->Set("TITLE", $doc->title);
+      $action->lay->Set("editaction", $action->text("modify"));
+      
+    }
+  
+      // ------------------------------------------------------
+      // build list of class document
+      $query = new QueryDb($dbaccess,"Doc");
+      $query->AddQuery("doctype='C'");
+      
+      $selectclass=array();
+
+      $tclassdoc = $doc->GetClassesDoc($classid);
+      while (list($k,$cdoc)= each ($tclassdoc)) {
+	$selectclass[$k]["idcdoc"]=$cdoc->initid;
+	$selectclass[$k]["classname"]=$cdoc->title;
+	$selectclass[$k]["selected"]="";
+      }
+      
+      // add no inherit for class document
+      if ($doc->doctype=="C") {
+	$selectclass[$k+1]["idcdoc"]="0";
+	$selectclass[$k+1]["classname"]=_("no document type");
+      }
+      $action->lay->SetBlockData("SELECTCLASS", $selectclass);
+  
+   // selected the current class document
       while (list($k,$cdoc)= each ($selectclass)) {	
 	if ($classid == $selectclass[$k]["idcdoc"]) {	  
 	  $selectclass[$k]["selected"]="selected";
 	}
       }
-    }
-  else
-    {      
-
-      $err = $doc->CanLockFile()  ;
-      if ($err != "")	$err=$doc->CanUpdateDoc();
-      if ($err != "")   $action->ExitError($err);
-      if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
   
-
-      $action->lay->Set("TITLE", $doc->title);
-      $action->lay->Set("editaction", $action->text("modify"));
-      
-      // selected the current class document
-      while (list($k,$cdoc)= each ($selectclass)) {	
-	if ($doc->fromid == $selectclass[$k]["idcdoc"]) {	  
-	  $selectclass[$k]["selected"]="selected";
-	}
-      }
-    }
-    
-
- 
-
   
-
   $action->lay->Set("id", $docid);
   $action->lay->Set("dirid", $dirid);
   $action->lay->Set("classid", $classid);
-  $action->lay->SetBlockData("SELECTCLASS", $selectclass);
-
-
-
+  
+  
+  
   // ------------------------------------------------------
   // Perform SQL search for doc attributes
   // ------------------------------------------------------
-  
-
-
-
-
+	
+	
+	
+	
+	
   $bdattr = new DocAttr($dbaccess);
-
-
- 
-
-
+  
+  
+  
+  
+  
   //$frames= $query->Query(0,0,"TABLE","select distinct frametext from DocAttr" );
   $frames=array();
   $listattr = $doc->GetAttributes();
-
   
-
+  
+  
   $nattr = count($listattr); // number of attributes
-
-
+    
+    
   $k=0; // number of frametext
   $v=0;// number of value in one frametext
   $currentFrameId="";
@@ -184,25 +180,25 @@ function editcard(&$action) {
       // Compute value elements
       if ($i < $nattr)
 	{
-      
-
-	  $value = $doc->GetValue($listattr[$i]->id);
-	 
-	  
+	    
+	  if ($docid > 0) $value = $doc->GetValue($listattr[$i]->id);
+	  else $value="";
+	    
+	    
 	  if ( $currentFrameId != $listattr[$i]->frameid) {
-		if ($currentFrameId != "") $changeframe=true;
-	      }
+	    if ($currentFrameId != "") $changeframe=true;
+	  }
 	    
 	}
-
-
+      
+      
       if (($i == $nattr) ||  // to generate final frametext
 	  $changeframe)
 	{
 	  $changeframe=false;
 	  if ($v > 0 ) // one value detected
 	    {
-				      
+	      
 	      $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
 	      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
 	      $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
@@ -213,13 +209,13 @@ function editcard(&$action) {
 	    }
 	  $v=1;
 	}
-
-
+      
+      
       //------------------------------
       // Set the table value elements
-	if (($i < $nattr) && ($listattr[$i]->type != "frame"))
+      if (($i < $nattr) && ($listattr[$i]->type != "frame"))
 	{
-      	  
+	      
 	  $currentFrameId = $listattr[$i]->frameid;
 	  if ($listattr[$i]->visibility == "H") {
 	    // special case for hidden values
@@ -233,137 +229,137 @@ function editcard(&$action) {
 	    $tableframe[$v]["attrid"]=$listattr[$i]->id;
 	    $tableframe[$v]["name"]=chop("[TEXT:".$label."]");
 	    //$tableframe[$v]["name"]=$action->text($label);
-
+		
 	    // output change with type
 	    switch ($listattr[$i]->type)
 	      {
-	      
+		      
 		//같같같같같같같같같같같같같같같같같같같같
 	      case "image": 
 		$tableframe[$v]["inputtype"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
-	      if ($value != "")				  {
-		 
-		$efile = $action->GetParam("CORE_BASEURL").
-		   "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id;
-		$tableframe[$v]["inputtype"] .=$efile;
-	      }
-	      else	  // if no image force default image
-		$tableframe[$v]["inputtype"] .= 
-		  $action-> GetParam("FREEDOM_DEFAULT_IMAGE");		
-	      $tableframe[$v]["inputtype"] .= "\">";
-
-	      // input 
-	      $tableframe[$v]["inputtype"] .="<input accept=\"image\" size=15 type=\"file\" name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
-	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
-	      $tableframe[$v]["inputtype"] .= " > "; 
-	      break;
-
-	      //같같같같같같같같같같같같같같같같같같같같
+		if ($value != "")				  {
+			
+		  $efile = $action->GetParam("CORE_BASEURL").
+		    "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id;
+		  $tableframe[$v]["inputtype"] .=$efile;
+		}
+		else	  // if no image force default image
+		  $tableframe[$v]["inputtype"] .= 
+		    $action-> GetParam("FREEDOM_DEFAULT_IMAGE");		
+		$tableframe[$v]["inputtype"] .= "\">";
+		      
+		// input 
+		$tableframe[$v]["inputtype"] .="<input accept=\"image\" size=15 type=\"file\" name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+		$tableframe[$v]["inputtype"] .= " > "; 
+		break;
+		      
+		//같같같같같같같같같같같같같같같같같같같같
 	      case "file": 
 		if (ereg ("(.*)\|(.*)", $value, $reg)) {
-
+			  
 		  $vf = new VaultFile($dbaccess, "FREEDOM");
 		  if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
 		  else $fname=_("error in filename");
 		}
 		else $fname=_("no filename");
-			
+		      
 		$tableframe[$v]["inputtype"] = "<span class=\"FREEDOMText\">".$fname."</span><BR>";
-
+		      
 		// input 
 		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
 		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 		$tableframe[$v]["inputtype"] .= " > "; 
 		break;
-
+		      
 		//같같같같같같같같같같같같같같같같같같같같
 	      case "longtext": 
 		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"_".
-		   $listattr[$i]->id."\" ";
-	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
-	      $tableframe[$v]["inputtype"] .= " >".
-		 chop(htmlentities(stripslashes($value))).
-		 "</textarea>";
-	      break;
-	      //같같같같같같같같같같같같같같같같같같같같
+		  $listattr[$i]->id."\" ";
+		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+		$tableframe[$v]["inputtype"] .= " >".
+		  chop(htmlentities(stripslashes($value))).
+		  "</textarea>";
+		break;
+		//같같같같같같같같같같같같같같같같같같같같
 	      case "textlist": 
 		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"_".
-		   $listattr[$i]->id."\" ";
-	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
-	      $tableframe[$v]["inputtype"] .= " >".
-		 chop(htmlentities(stripslashes($value))).
-		 "</textarea>";
-	      break;
-
-	      
-	      //같같같같같같같같같같같같같같같같같같같같
-
+		  $listattr[$i]->id."\" ";
+		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+		$tableframe[$v]["inputtype"] .= " >".
+		  chop(htmlentities(stripslashes($value))).
+		  "</textarea>";
+		break;
+		      
+		      
+		//같같같같같같같같같같같같같같같같같같같같
+			
 	      case "enum": 
 		$tableframe[$v]["inputtype"]="<input type=\"text\"  name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
-	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
-	      $tableframe[$v]["inputtype"] .= " > "; 
-	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
-		 _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
-		 ",'".$listattr[$i]->id."','single')\">";
-	      break;      
-		
-	      //같같같같같같같같같같같같같같같같같같같같
-
+		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+		$tableframe[$v]["inputtype"] .= " > "; 
+		$tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
+		  _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
+		  ",'".$listattr[$i]->id."','single')\">";
+		break;      
+		      
+		//같같같같같같같같같같같같같같같같같같같같
+			
 	      case "enumlist": 
 		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"_".
-		   $listattr[$i]->id."\" ";
-	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
-	      $tableframe[$v]["inputtype"] .= " >".
-		 chop(htmlentities(stripslashes($value))).
-		 "</textarea>";
-	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
-		 _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
-		 ",'".$listattr[$i]->id."','multiple')\">";
-	      break;
-
-	      //같같같같같같같같같같같같같같같같같같같같
-
+		  $listattr[$i]->id."\" ";
+		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+		$tableframe[$v]["inputtype"] .= " >".
+		  chop(htmlentities(stripslashes($value))).
+		  "</textarea>";
+		$tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
+		  _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
+		  ",'".$listattr[$i]->id."','multiple')\">";
+		break;
+		      
+		//같같같같같같같같같같같같같같같같같같같같
+			
 	      case "date": 
 		$tableframe[$v]["inputtype"]="<input type=\"text\"  name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
-	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
-	      $tableframe[$v]["inputtype"] .= " > "; 
-	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
-		 _("...")."\" ".
-		   "onClick=\"show_calendar(event,'".$listattr[$i]->id."')\"".
-		     ">";
-	      break;      
-
-	      //같같같같같같같같같같같같같같같같같같같같
+		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+		$tableframe[$v]["inputtype"] .= " > "; 
+		$tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
+		  _("...")."\" ".
+		  "onClick=\"show_calendar(event,'".$listattr[$i]->id."')\"".
+		  ">";
+		break;      
+		      
+		//같같같같같같같같같같같같같같같같같같같같
 	      default : 
 		$tableframe[$v]["inputtype"]="<input  type=\"text\" name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
-	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
-	      
-	      $tableframe[$v]["inputtype"] .= " > "; 
-	      break;
-		
+		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+		      
+		$tableframe[$v]["inputtype"] .= " > "; 
+		break;
+		      
 	      }
 		
-	
+		
 	    $v++;
-
+		
 	  }
 	}
     }
-
-  // Out
   
+  // Out
+    
   $action->lay->SetBlockData("HIDDENS",$thidden);
   $action->lay->SetBlockData("TABLEBODY",$frames);
   
-
+  
   if (count( $doc->transitions) > 0) {
     // compute the changed state
     $fstate = $doc->GetFollowingStates();
@@ -377,10 +373,10 @@ function editcard(&$action) {
     $action->lay->SetBlockData("NEWSTATE", $tstate);
     $action->lay->SetBlockData("TRSTATE", array(0=>array("boo")));
   }
-
-
- 
-    
-
+  
+  
+  
+  
+  
 }
 ?>

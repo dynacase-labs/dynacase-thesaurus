@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Id: generic_edit.php,v 1.2 2002/04/23 07:47:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FDL/Class.DocUser.php");
+include_once("FDL/Class.Doc.php");
 
 include_once("Class.QueryDb.php");
 
@@ -33,7 +33,7 @@ function generic_edit(&$action) {
 
   // Get All Parameters
   $docid = GetHttpVars("id",0);        // document to edit
-  $classid = GetHttpVars("classid",0); // use when new doc or change class
+  $classid = GetHttpVars("classid",$action->GetParam("DEFAULT_FAMILY", 1)); // use when new doc or change class
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
 
 
@@ -50,7 +50,6 @@ function generic_edit(&$action) {
   $action->lay->Set("classid", $classid);
   $action->lay->Set("dirid", $dirid);
   $action->lay->Set("id", $docid);
-  $action->lay->Set("privacity", QA_PRIVACITY);
 
 
   
@@ -62,14 +61,14 @@ function generic_edit(&$action) {
 
   if ($docid == 0)
     {
-	  $action->lay->Set("TITLE", _("new usercard"));
+      $action->lay->Set("TITLE", _("new usercard"));
       $action->lay->Set("editaction", $action->text("create"));
-	  $doc= new DocUser ($dbaccess);
+      $doc= createDoc($dbaccess,$classid);
     }
   else
     {    
 
-      $doc= new DocUser ($dbaccess,$docid);
+      $doc= new Doc ($dbaccess,$docid);
       $err = $doc->CanLockFile();
       if ($err != "")   $action->ExitError($err);
 
@@ -78,19 +77,6 @@ function generic_edit(&$action) {
 
       $action->lay->Set("TITLE", $doc->title);
       $action->lay->Set("editaction", $action->text("modify"));
-      
-      $priv=$doc->GetValue(QA_PRIVACITY);
-      switch ($priv) {
-      case "P":	
-	$action->lay->Set("selectp", "selected");
-      break;
-      case "W":	
-	$action->lay->Set("selectw", "selected");
-      break;
-      case "R":	
-	$action->lay->Set("selectr", "selected");
-      break;
-      }
     }
     
 

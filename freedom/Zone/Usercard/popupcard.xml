@@ -22,6 +22,9 @@
 <a href="#" id="properties"     
     onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&id=[id]','info');closeMenu('popupcard');">[TEXT:View properties]</a>
 
+<a href="#" id="headers"     
+    onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&head=yes&id=[id]','info');closeMenu('popupcard');">[TEXT:View headers]</a>
+
 <a href="#" id="delete"     
     onclick="ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_DEL&id=[id]','info');closeMenu('popupcard'); if (ok) parent.list.location.reload();">[TEXT:Delete]</a>
 

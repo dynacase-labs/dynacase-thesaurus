@@ -83,7 +83,7 @@ HR {
 .onglet {
    font-size: 50%;
   /*background-color:[CORE_BGCOLORALTERN];*/
-  background-image:url('USERCARD/Images/tab.png');
+  background-image:url('GENERIC/Images/tab.png');
   color:[CORE_TEXTFGCOLOR];
   cursor: pointer;
   border-style: none;
@@ -93,7 +93,7 @@ HR {
 .ongleth {
    font-size: 50%;
   /*background-color:[CORE_BGCOLORHIGH];*/
-  background-image:url('USERCARD/Images/tabh.png');
+  background-image:url('GENERIC/Images/tabh.png');
   color:[CORE_TEXTFGCOLOR];
   cursor: pointer;
   border-style: none;
@@ -103,7 +103,7 @@ HR {
    font-size: 50%;
   cursor: pointer;
 /*  background-color:[CORE_FGCOLOR];*/
-  background-image:url('USERCARD/Images/tabh.png');
+  background-image:url('GENERIC/Images/tabh.png');
   color:[CORE_TEXTBGCOLOR];
   border-style: none;
 }
