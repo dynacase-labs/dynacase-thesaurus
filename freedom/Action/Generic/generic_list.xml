@@ -88,7 +88,7 @@ var catgid=[catg];
 
 <!-- TABLEBODY -->
 <div  id="d[divid]"
-     class="unselect" >   
+     class="unselect" >   <img align="right" width="30" src="[iconsrc]">
      <A class="title" onclick="vselect(this.parentNode);" 
         target="finfo"
         onmouseover="if (this.parentNode.className != 'select') this.parentNode.className='unselecth'"
