@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.128 2003/05/27 12:30:37 eric Exp $
+// $Id: Class.Doc.php,v 1.129 2003/05/28 14:34:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.128 2003/05/27 12:30:37 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.129 2003/05/28 14:34:11 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/05/27 12:30:37 $
-// Version         $Revision: 1.128 $
+// Last Update     $Date: 2003/05/28 14:34:11 $
+// Version         $Revision: 1.129 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -711,7 +711,6 @@ create unique index i_docir on doc(initid, revision);";
 
   function ApplyMask() {
     
-    
     // copy default visibilities
     if (isset($this->attributes->attr)) {
 	reset($this->attributes->attr);
@@ -1146,8 +1145,10 @@ create unique index i_docir on doc(initid, revision);";
     }
 
   function AddComment($comment='') {
-    if ($this->comment != '') $this->comment .= "\n".$comment;
-    else $this->comment = $comment;
+    $commentdate = sprintf("%s %s",date("d/m/Y G:i"),$comment);
+
+    if ($this->comment != '') $this->comment = $commentdate."\n".$this->comment;
+    else $this->comment = $commentdate;
     $this->modify();
   }
   function AddRevision($comment='') {
@@ -1159,7 +1160,7 @@ create unique index i_docir on doc(initid, revision);";
     $this->owner = $this->userid; // rev user 
     $date = gettimeofday();
     $this->revdate = $date['sec']; // change rev date
-    if ($comment != '') $this->comment .= "\n".$comment;
+    if ($comment != '') $this->Addcomment($comment);
 
     $this->modify();
     //$listvalue = $this->GetValues(); // save copy of values
@@ -1519,6 +1520,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
 	  $htmlval=money_format('%!.2n', doubleval($avalue));
+	  $htmlval=str_replace(" ","&nbsp;",$htmlval); // need to replace space by non breaking spaces
 	  break;
 	
 	case htmltext:  
@@ -1633,8 +1635,11 @@ create unique index i_docir on doc(initid, revision);";
 
       
       while (list($k,$v) = each($tdefval)) {
-	$aid = $v->id;
-	list($aid,$dval) = explode("|",$v);
+
+	$aid=substr($v, 0, strpos($v,'|'));
+	$dval=substr(strstr($v,'|'),1);
+
+
 	$this->setValue($aid, $this->GetValueMethod($dval));
 
       }              
