@@ -45,9 +45,11 @@
        class="fborder" 
        name="modifydoc" 
        method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=N&dochead=[dochead]&props=N&id=[mid]&zone=[mzone]" >
+       action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=N&props=N&id=[mid]" >
 
-
+<input type="hidden" name="zone" value="[mzone]">
+<input type="hidden" name="szone" value="[szone]">
+<input type="hidden" name="dochead" value="[dochead]">
 
 <table class="tableborder"  cellspacing="0" width="100%">
 <thead>
@@ -68,6 +70,12 @@
 <tr class="FREEDOMBack1">
   <td colspan="2" >
  <input type="submit" value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();"> 
+
+<select name="_MAIL_FORMAT">
+    <option value="html">HTML</option>
+    <option value="pdf">PDF</option>
+    <option value="htmlpdf">HTML & PDF</option>
+</select>
   </td>
   <td align="right" >
  <input type="button" value="[TEXT:cancel]" onclick="history.back()"> 

@@ -22,9 +22,8 @@
 <body class="freedom"  >
 
 [BLOCK COMMENT]
-<fieldset><legend>[TEXT:comment]</legend>
-[comment]
-</fieldset>
+<P>[comment]</P>
+<HR>
 [ENDBLOCK COMMENT]
 
 [ZONE FDL:VIEWCARD]

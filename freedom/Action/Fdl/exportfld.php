@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.4 2002/06/21 14:19:01 eric Exp $
+// $Id: exportfld.php,v 1.5 2002/08/09 08:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,7 +70,7 @@ function exportfld(&$action, $aflid="0")
       $lattr=$doc->GetAttributes();
       fputs($fout,"//DOC;".$doc->fromid.";<specid>;<fldid>;");
       while (list($ka,$attr)= each ($lattr)) {
-	fputs($fout,$attr->labeltext.";");
+	fputs($fout,str_replace(";"," - ",$attr->labeltext).";");
       }
       fputs($fout,"\n");
       $prevfromid = $doc->fromid;
@@ -81,7 +81,7 @@ function exportfld(&$action, $aflid="0")
     // write values
     while (list($ka,$attr)= each ($lattr)) {
       
-      if (isset($value[$doc->id][$attr->id])) fputs($fout,str_replace("\n","\\n",$value[$doc->id][$attr->id]) .";");
+      if (isset($value[$doc->id][$attr->id])) fputs($fout,str_replace("\n","\\n",str_replace(";"," - ",$value[$doc->id][$attr->id])) .";");
       else fputs($fout,";");
     }
     fputs($fout,"\n");

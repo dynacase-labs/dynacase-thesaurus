@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewattr.php,v 1.2 2002/07/11 13:24:46 eric Exp $
+// $Id: viewattr.php,v 1.3 2002/08/09 08:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,6 @@ include_once("FDL/freedom_util.php");
 // -----------------------------------
 function viewattr(&$action, $htmlval=true, $htmllink=true) {
   // -----------------------------------
-
   // GetAllParameters
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes

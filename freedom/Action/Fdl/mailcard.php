@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.5 2002/08/06 16:52:34 eric Exp $
+// $Id: mailcard.php,v 1.6 2002/08/09 08:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,10 +30,15 @@ include_once("Class.MailAccount.php");
 function mailcard(&$action) {
   // -----------------------------------
   global $ifiles;
+  global $vf; 
+  global $doc;
+
   $ifiles=array();
-    // set title
+  // set title
   $docid = GetHttpVars("id");  
   $zonebodycard = GetHttpVars("zone"); // define view action
+  $format = GetHttpVars("_MAIL_FORMAT","html"); // define view action
+  $szone = (GetHttpVars("szone","N")=="Y"); // the zonebodycard is a standalone zone ?
 
   $from = GetHttpVars("_MAIL_FROM","");
   $to = GetHttpVars("_MAIL_TO",'eric.brison@i-cesam.com');
@@ -44,6 +49,10 @@ function mailcard(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
+
+  $title = str_replace(array(" ","/"), "_",$doc->title);
+  $vf = new VaultFile($dbaccess, "FREEDOM");
+  $pubdir = $action->getParam("CORE_PUBDIR");
 
   if ($from == "") {
     $ma = new MailAccount("",$action->user->id);
@@ -56,88 +65,161 @@ function mailcard(&$action) {
     }
   }
 
+  $layout="maildoc.xml"; // the default
+  if ($szone) {
+    $layout="onezone.xml";
+  }
+
+
+  if (ereg("html",$format, $reg)) {
+    // ---------------------------
+    // contruct HTML mail
+    $docmail = new Layout($action->GetLayoutFile($layout),$action);
+
+    $docmail->Set("TITLE", $title);
+    $docmail->Set("zone", $zonebodycard);
+    if ($comment != "") {
+      $docmail->setBlockData("COMMENT", array(array("boo")));
+      $docmail->set("comment", nl2br($comment));
+    }
+
+    $sgen = $docmail->gen();
+
+    $sgen = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
+			 "srcfile('\\1')",
+			 $sgen);
+
+    $pfout = "/tmp/$title";
+    $fout = fopen($pfout,"w");
+    fwrite($fout,$sgen);
+    fclose($fout);
+  }
+
+  if (ereg("pdf",$format, $reg)) {
+    // ---------------------------
+    // contruct PDF mail
+    $docmail2 = new Layout($action->GetLayoutFile($layout),$action);
+
+
+    $docmail2->Set("zone", $zonebodycard);
+    $docmail2->Set("TITLE", $title);
   
+    $sgen = $docmail2->gen();
 
-  $docmail = new Layout($action->GetLayoutFile("maildoc.xml"),$action);
+    $sgen = preg_replace("/cid:([^\"]+)\"/e",
+			 "realfile('\\1')",
+			 $sgen);
 
-  if ($comment != "") {
-    $docmail->setBlockData("COMMENT", array(array("boo")));
-    $docmail->set("comment", nl2br($comment));
+    $phtml = "/tmp/$title".".html";
+    $fout = fopen($phtml,"w");
+    fwrite($fout,$sgen);
+    fclose($fout);
   }
 
-  $sgen = $docmail->gen();
+  // ---------------------------
+  // contruct metasend command
+  if ($subject == "") $subject = $title;
+  $cmd = "metasend  -b -S 4000000 -c '$cc' -F '$from' -t '$to$bcc' -s '$subject'  ";
 
-   $sgen = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
- 		      "srcfile('\\1')",
- 		      $sgen);
+
+  if (ereg("html",$format, $reg)) {
+    $cmd .= " -/ related ";
+    $cmd .= " -m 'text/html' -e 'quoted-printable' -i mailcard -f '$pfout' ";
+  } else if ($format == "pdf") {
+    $cmd .= " -/ mixed ";
+    $ftxt = "/tmp/".str_replace(array(" ","/"), "_",$title.".txt");
+    system("echo '$comment' > $ftxt");
+    $cmd .= " -m 'text/plain' -e 'quoted-printable' -i comment -f '$ftxt' ";
+  }
 
 
-  $pfout = "/tmp/".str_replace(array(" ","/"), "_",$doc->title);
-  $fout = fopen($pfout,"w");
-  fwrite($fout,$sgen);
-  fclose($fout);
 
-  if ($subject == "") $subject = $doc->title;
-  $cmd = ("metasend  -b -S 4000000 -c '$cc' -F '$from' -t '$to$bcc'   -m 'text/html' ".
-	 "-s '$subject' -e 'quoted-printable' -i mailcard -f '$pfout' ");
-  $cmd .= " -/ related ";
+    // ---------------------------
+    // insert attached files
 
-  $afiles = $doc->GetSpecialAttributes("type='image' or type='file'");
+    $afiles = $doc->GetSpecialAttributes("type='image' or type='file'");
 
-  $vf = new VaultFile($dbaccess, "FREEDOM");
-  if (count($afiles) > 0) {
+    if (count($afiles) > 0) {
     
-    while(list($k,$v) = each($afiles)) {
-      $va=$doc->getValue($v->id);
-      if ($va != "") {
-      list($mime,$vid)=explode("|",$va);
-      //      ereg ("(.*)\|(.*)", $va, list($mime,$vid)$reg);
+      while(list($k,$v) = each($afiles)) {
+	$va=$doc->getValue($v->id);
+	if ($va != "") {
+	  list($mime,$vid)=explode("|",$va);
+	  //      ereg ("(.*)\|(.*)", $va, list($mime,$vid)$reg);
 
-      if ($vid != "") {
-	if ($vf -> Retrieve ($vid, $info) == "") {  
-	  $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
-	    "-i '<".$v->id.">'  -f '".$info->path."'";
-	}
-      }
-    }
-    }
-  }
-  // add icon image
-      $va=$doc->icon;
-      if ($va != "") {
-	list($mime,$vid)=explode("|",$va);
-
-	if ($vid != "") {
-	  if ($vf -> Retrieve ($vid, $info) == "") {  
-	    $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
-	      "-i '<icon>'  -f '".$info->path."'";
+	  if ($vid != "") {
+	    if ($vf -> Retrieve ($vid, $info) == "") {  
+	      $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
+		 "-i '<".$v->id.">'  -f '".$info->path."'";
+	  
+	    }
 	  }
 	}
       }
-    
+    }
+    if (ereg("html",$format, $reg)) {
+      if (! $szone) {
+	// add icon image
+	$va=$doc->icon;
+	if ($va != "") {
+	  list($mime,$vid)=explode("|",$va);
+
+	  if ($vid != "") {
+	    if ($vf -> Retrieve ($vid, $info) == "") {  
+	      $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
+		 "-i '<icon>'  -f '".$info->path."'";
+	   
+	    }
+	  }
+	}
+      }
+    }
   
 
-  $pubdir = $action->getParam("CORE_PUBDIR");
-  while(list($k,$v) = each($ifiles)) {
+    while(list($k,$v) = each($ifiles)) {
 
-	  if (file_exists($pubdir."/$v"))
-	  $cmd .= " -n -e 'base64' -m 'image/".fileextension($v)."' ".
-	    "-i '<".$v.">'  -f '".$pubdir."/$v"."'";
+      if (file_exists($pubdir."/$v"))
+	$cmd .= " -n -e 'base64' -m 'image/".fileextension($v)."' ".
+	  "-i '<".$v.">'  -f '".$pubdir."/$v"."'";
     
-  }
+    }
+  
+
+  if (ereg("pdf",$format, $reg)) {
+    // try PDF 
+    $fps= "/tmp/$title.ps";
+    $fpdf= "/tmp/$title.pdf";
+    $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $phtml > $fps && ps2pdf $fps $fpdf";
+
+    system ($cmdpdf, $status);
+
+    if ($status == 0)  {
+      $cmd .= " -n -e 'base64' -m 'application/pdf;\\n\\tname=\"".$title.".pdf\"' ".
+	 "-i '<pdf>'  -f '$fpdf'";
+    
+    } else {
+      $action->addlogmsg(sprintf(_("PDF conversion failed for %s"),$doc->title));
+    }
+  }  
 
   //print ($cmd);
   system ($cmd, $status);
 
   if ($status == 0)  {
-    $doc->addcomment(sprintf(_("sending to %s"), $to));
-    $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $to));
+    $doc->addcomment(sprintf(_("sended to %s"), $to));
+    $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to));
   }
-  else $action->addlogmsg(sprintf(_("%s cannot be sent"),$doc->title));
-  
-  unlink($pfout);
+  else $action->addlogmsg(sprintf(_("%s cannot be sent"),$title));
 
-  //
+  
+  // suppress temporaries files
+  if (isset($ftxt))  unlink($ftxt);
+  if (isset($fpdf))  unlink($fpdf);
+  if (isset($fps))   unlink($fps);
+  if (isset($pfout)) unlink($pfout);
+ 
+
+  
 
 }
 
@@ -147,13 +229,39 @@ function srcfile($src) {
   $vext= array("gif","png","jpg","jpeg","bmp");
 
 
-  if ((substr($src,0,3) == "cid") || 
-      (substr($src,0,4) == "http") ) return "src=\"$src\"";
+  if (substr($src,0,3) == "cid")   return "src=\"$src\"";
+  if   (substr($src,0,4) == "http")  return "src=\"$src\"";
 
   if ( ! in_array(fileextension($src),$vext)) return "";
 
   $ifiles[] = $src;
   return "src=\"cid:$src\"";
+}
+
+function realfile($src) {
+  global $vf; 
+  global $doc; 
+
+  if ($src == "icon") {
+    $va=$doc->icon;
+  } else {
+    $va=$doc->getValue($src);
+  }
+    if ($va != "") {
+      list($mime,$vid)=explode("|",$va);
+
+
+      if ($vid != "") {
+	if ($vf -> Retrieve ($vid, $info) == "") {  
+	  return $info->path."\"";
+	}
+
+    }
+  }
+  
+  return "\"";
 
 }
+
+
 ?>
