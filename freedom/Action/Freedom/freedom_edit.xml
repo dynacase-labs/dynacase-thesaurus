@@ -45,7 +45,6 @@ function refreshfld(dirid) {
 
 <form id="fviewidoc"
       name="fviewidoc"
-      onsubmit="selectall()"
       method="POST" ENCTYPE="multipart/form-data"
       action="[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD"
       >
@@ -111,12 +110,12 @@ function refreshfld(dirid) {
   <td  colspan="3"  align="right" id="editbutton">
  [BLOCK INPUTCONSTRAINT]
  <input type="button" title="[TEXT:view constraints]" style="display:[bconsdisplay]" 
-        value="[TEXT:Constraints]" onclick="selectall();document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> 
+        value="[TEXT:Constraints]" onclick="document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> 
  <input type="submit" title="[TEXT:override constraints]" style="display:[boverdisplay]" value="[editaction]!" onclick="enableall();document.modifydoc.noconstraint.value='Y';return true">
  [ENDBLOCK INPUTCONSTRAINT]
 
- <input id="iSubmit" type="submit" value="[editaction]"
-        onmousedown="multiple_for_select();"><input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]'">
+ <input id="iSubmit" type="submit" value="[editaction]" >
+<input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]'">
 <input type="hidden" name="noconstraint" value="N">
   </td>
 </tr>

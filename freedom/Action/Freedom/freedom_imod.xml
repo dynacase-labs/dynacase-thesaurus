@@ -1,24 +1,10 @@
 <html>
 <script language="JavaScript">
 
-function txml(type_attribut,attrid){
+function txml(attrid){
   var parametre = document.getElementById('parametre');
 
-  //alert("type_attribut"+type_attribut);
-
-  if ([mod]=='special'){
-    //alert("special");
-    if(window.parent.frames[0].name=="un"){
-      var frame_edit=(window.parent.frames[0]);
-    }
-    else{
-      var frame_edit=(window.parent.frames[1]);
-    }
-
-  }
-  else{
-    var frame_edit=(window.top.opener);
-  }
+  var frame_edit=(window.top.opener);
 
 
   var form_frame_edit = frame_edit.document.getElementById(attrid);
@@ -26,45 +12,19 @@ function txml(type_attribut,attrid){
 
 
 
-  if (type_attribut=='idoc'){
-    //var iframe_frame_edit = frame_edit.document.getElementById("iframe"+attrid);
-    //iframe_frame_edit.src="[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD&famid=[famid]&xml='[xml2]'";
-    //parametre.target="iframe"+attrid;
     frame_edit.popdoc(null, '');
     parametre.target="POPDOC_ifrm";
 
     parametre.submit();
     var itxt=frame_edit.document.getElementById("iti"+attrid);
-    if (itxt)  itxt.innerHTML="[title2]";
-
-
-  }
-
-
-  if(type_attribut=='idoclist'){
-    var option_selected=frame_edit.document.getElementById(attrid);
-    option_selected.text='[title]';
-
-    var nom= attrid.substring(0,attrid.length-1);
+    if (itxt)  itxt.innerHTML="[title]";
 
 
 
-    //var iframe_frame_edit = frame_edit.document.getElementById("iframe"+nom);
 
-    parametre.target="iframe"+"[att]";
-    parametre.submit();
-    //iframe_frame_edit.src="[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD&famid=[famid]&xml='[xml2]'";
 
-  }
-
-  if ([mod]!='special'){
-    window.top.close();
-  }
-
-  if ([mod]=='special'){
-    window.open("[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO","deux");
-  }
-
+    //  window.top.close();
+  
 }
 
 
@@ -72,7 +32,7 @@ function txml(type_attribut,attrid){
 </script>
 
 
-<body onLoad="txml([type_attr],'[attrid]')">
+<body onLoad="txml('[attrid]')">
 <form id="parametre"
       name="parametre"
       method="POST" ENCTYPE="multipart/form-data"
@@ -82,6 +42,7 @@ function txml(type_attribut,attrid){
 <input type="hidden" name="famid" value="[famid]">
 
 </form>
+
 </body>
    
 </html>

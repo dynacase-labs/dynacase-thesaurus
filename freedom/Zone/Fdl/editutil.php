@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.89 2005/03/04 17:18:47 eric Exp $
+ * @version $Id: editutil.php,v 1.90 2005/03/07 16:41:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -30,7 +30,6 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
   if ($docid== 0) intval($docid=$doc->fromid);
   $attrtype=$oattr->type;
 
- $idocfamid=$oattr->format;
 
  $alone=$oattr->isAlone; // set by method caller in special case to display alone
 
@@ -194,85 +193,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       break;
       //같같같같같같같같같같같같같같같같같같같같
     case "idoc":
-      //  printf("ici");
-      if (($oattr->repeat) && (!$oattr->inArray())){ // old idoclist type
-   
-	//print_r($oattr);
-	print "MUST NOT USE IDOCLIST";
-	/* old idoclist type
-	$layout = new Layout("FREEDOM/Layout/idoclist.xml",$action);
-	$layout->Set("name","_$attrid"."[]");
-	$layout->Set("name_attr","_$attrid");
-	$layout->Set("famid",$idocfamid);
-	$layout->Set("listidoc","listidoc_$attrid");
 
-
-
-	$value=explode("\n",$value);
-	//printf(sizeof($value));
-
-	$tabxml=array();
-	while (list($i,$xmlencode) = each($value)) {
-
-	  if ($xmlencode!=""){
-	    $tabxml[$i]["xml"]=$xmlencode;
-	
-	    $temp=base64_decode($xmlencode);
-	    $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
-	    $xml=$entete;
-	    $xml.=$temp;
-	  
-	    $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
-	    $id_arg=recup_argument_from_xml($xml,"id_doc");
-	    //strlen($oattr->LabelText);
-	    //$tabxml[$i]["id"]="_$attrid".$i;
-	 
-	    $tabxml[$i]["id"]= $id_arg;
-	    //printf(settype($id_arg,"int"));
-	    $number=str_replace("_$attrid","",$id_arg);//recupere le numero de l'argument
-	    $tabxml[$i]["titre"]=$number." : ".$title;
-	  }
-	}
-	$layout->Set("idframe","iframe_$attrid");
-	$layout->SetBlockData("OPTION",$tabxml);
-	$input=$layout->gen();  */  
-      }
-
-
-      else{//idoc normal
-	//	printf("la");
-	if($value!=""){
-	  $temp=base64_decode($value);
-	  $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
-	  $xml=$entete;
-	  $xml.=$temp; 
-	  $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
-	}
-	if ($title=="") $title=_("create new");
-	$input.="<INPUT id=\"_" .$attridk."\" TYPE=\"hidden\"  name=$attrin value=\"".$value." \"><a id='iti_$attridk' ".
-	  " oncontextmenu=\"viewidoc_in_popdoc(event,'$attridk','_$attridk','$idocfamid')\"".
-	  " onclick=\"editidoc('_$attridk','_$attridk','$idocfamid','idoc');\">$title</a> ";
-// 	$input.="<input type=\"button\" value=\"o\"".
-// 	  " title=\""._("view in frame")."\"".
-// 	  " onclick=\"viewidoc_in_popdoc(event,'$attridk','_$attridk','$idocfamid')\"".
-// 	  " onclick=\"viewidoc_in_popdoc(event,'$attridk','_$attridk','$idocfamid')\">";
-	
-// 	$input.="<input id='ivc_$attridk' type=\"button\" value=\"close frame\"".
-// 	  " title=\""._("close beside window")."\"".
-// 	  " style=\"display:none\"".
-// 	  " onclick=\"close_frame('$attridk')\">";
-// 	$input.="<iframe name='iframe_$attridk' id='iframe_$attridk' style='display:none' height=200 width='100%' marginwidth=0 marginheight=0></iframe>";
-	
-	/*  $input.="<input type=\"button\" value=\"+->\"".
-      " title=\""._("add inputs")."\"".
-      " onclick=\"special_edit('_$attridk','$idocfamid','idoc','_$attridk');\">";*/
-	
-	
-	/* $input.="<input type=\"button\" value=\"view\"".
-      " title=\"voir\"".
-      " onclick=\"subwindowm(400,400,'_$attridk','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attridk','$idocfamid')\">";
-	*/
-      }
+      $input.=getLayIdoc($oattr,$attridk,$attrin,$value);
       
       break;
       
@@ -963,6 +885,28 @@ function getLayTextOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   return true;
 }
 /**
+ * generate HTML for idoc attribute
+ *
+ * @param DocAttribute $oattr current attribute for input
+ * @param string $value value of the attribute to display (generaly the value comes from current document)
+ * @return String the formated output
+ */
+function getLayIdoc( &$oattr,$attridk,$attrin,$value,$zone="") {
+
+  if($value!=""){
+    $temp=base64_decode($value);
+    $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
+    $xml=$entete;
+    $xml.=$temp; 
+    $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
+  }
+  $idocfamid=$oattr->format;
+  $input="<INPUT id=\"_" .$attridk."\" TYPE=\"hidden\"  name=$attrin value=\"".$value." \"><a id='iti_$attridk' ".
+    " oncontextmenu=\"viewidoc_in_popdoc(event,'$attridk','_$attridk','$idocfamid')\"".
+    " onclick=\"editidoc('_$attridk','_$attridk','$idocfamid','$zone');\">$title</a> ";
+  return $input;
+}
+/**
  * add different js files needed in edition mode
  */
 function editmode(&$action) {
@@ -976,7 +920,7 @@ function editmode(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
+  //  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
   //  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");

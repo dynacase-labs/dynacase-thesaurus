@@ -757,7 +757,7 @@ function  nodereplacestr(n,s1,s2) {
   var regs1;
   var rs1;
   var tmp;
-  var attnames = new Array('onclick','href','onmousedown','onmouseover','id','name','onchange');
+  var attnames = new Array('onclick','href','onmousedown','onmouseover','id','name','onchange','oncontextmenu');
   // for regexp
   rs1 = s1.replace('[','\\[');
   rs1 = rs1.replace(']','\\]');

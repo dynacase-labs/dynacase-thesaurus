@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_imod.php,v 1.3 2005/03/04 17:15:51 eric Exp $
+ * @version $Id: freedom_imod.php,v 1.4 2005/03/07 16:41:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_imod.php,v 1.3 2005/03/04 17:15:51 eric Exp $
+// $Id: freedom_imod.php,v 1.4 2005/03/07 16:41:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_imod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,7 +44,6 @@ include_once("FDL/Class.Doc.php");
 
 // -----------------------------------
 function freedom_imod(&$action) {
-  // -----------------------------------
 
   $famid=GetHttpVars("famid");
   $xml = GetHttpVars("xml_initial");
@@ -67,65 +66,34 @@ function freedom_imod(&$action) {
   $xml=$entete;
   $xml.=$temp;
   //printf($xml);
-$dbaccess = $action->GetParam("FREEDOM_DB");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-$idoc= createDoc($dbaccess,$famid);
-$idoc=fromxml($xml,$idoc);
-$idoc->doctype='T';
-$idoc->Add();
+  $idoc= createDoc($dbaccess,$famid);
+  $idoc=fromxml($xml,$idoc);
+  $idoc->doctype='T';
+  $idoc->Add();
 
 
-SetHttpVar("id",$idoc->id);
+  SetHttpVar("id",$idoc->id);
 
-$err = modcard($action, $ndocid); // ndocid change if new doc
+  $err = modcard($action, $ndocid); // ndocid change if new doc
   if ($err != "")  $action-> ExitError($err);
 
 
-   $idoc= new Doc($dbaccess,$idoc->id);
+  $idoc= new Doc($dbaccess,$idoc->id);
 
    
-    $idoc->RefreshTitle();
+  $idoc->RefreshTitle();
 
+  $action->lay->Set("title",htmlentities(addslashes($idoc->title)));
 
-    $numero=$attrid;
-    // printf($numero);
-    $taille=strlen($numero);
-    $num="";
-    $ok=true;
-    while($ok) {
-      $car=$numero[$taille-1];
-      if ($car=="0" or $car=="1"or $car=="2"or $car=="3"or $car=="4"or $car=="5"or $car=="6" or $car=="7" or $car=="8" or $car=="9"){
-	$num="$car$num";
-	$taille--;
-      }else{$ok=false;}
-    }
-    $att=substr($attrid,0,strlen($attrid)-strlen($num));
-    //printf($att);
-    $action->lay->Set("att",$att);
+  $xml2=$idoc->toxml(false,$attrid);
 
-    //printf($num);
-
-
-
-    $action->lay->Set("title",$num." : ".htmlentities(addslashes($idoc->title)));
-    $action->lay->Set("title2",htmlentities(addslashes($idoc->title)));
-
-    $xml2=$idoc->toxml(false,$attrid);
-    //$title=recup_argument_from_xml($xml2,"title");//ds freedom_util
-    //$action->lay->Set("title",$title);
-
-    $xml_send=base64_encode($xml2);
-    $action->lay->Set("xml2",$xml_send);
-    //printf($mod);
-    $action->lay->gen();
-    /*
-    if ($mod=="'special'"){
- redirect($action,"FREEDOM",
-	       "FREEDOM_LOGO",
-	       $action->GetParam("CORE_STANDURL"));
-      
-    }*/
+  $xml_send=base64_encode($xml2);
+  $action->lay->Set("xml2",$xml_send);
+  $action->lay->gen();
+    
    
   
 }

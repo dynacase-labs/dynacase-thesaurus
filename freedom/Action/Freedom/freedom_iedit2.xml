@@ -67,7 +67,6 @@
 <form  id="fedit" 
        class="fborder" 
        name="modifydoc" 
-      onsubmit="selectall()"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IMOD&famid=[famid]&type_attr='[type_attr]'&attrid='[attrid]'&mod='[mod]'" >
 <input type="hidden" id="idattr" value="[attrid]">
@@ -95,7 +94,6 @@
   <td  align="right">
 
  <input id="iSubmit" type="submit" value="[TEXT:Ok]"
-        onmousedown="multiple_for_select();"
         onclick="if (!canmodify()) return false;enableall();document.isSubmitted=true;return true">  
  <input type="button" value="[TEXT:Close]" onclick="document.isCancelled=true;window.close();"> 
   </td>

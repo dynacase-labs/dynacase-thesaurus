@@ -1,4 +1,14 @@
 
+function viewidoc(xmlid,idocfam) {
+
+var xml_element = document.getElementById(xmlid);
+var fxml = document.getElementById('fviewidoc');
+fxml.xml.value=xml_element.value;
+fxml.famid.value=idocfam;
+fxml.target=xmlid;
+fxml.submit();
+}
+
 function viewidoc_in_frame(idframe,xmlid,idocfam){
 //cette meme fonction se trouve ds viewicard.js et editcard.js
 

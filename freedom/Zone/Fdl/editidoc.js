@@ -4,7 +4,7 @@
 
 
 
-function editidoc(idattr,xmlid,idocfam,attr_type) {
+function editidoc(idattr,xmlid,idocfam,zone) {
 
   var xml_element = document.getElementById(xmlid);
   var fxml = document.getElementById('fidoc');
@@ -21,11 +21,12 @@ function editidoc(idattr,xmlid,idocfam,attr_type) {
   */
   fxml.famid.value=idocfam;
   fxml.attrid.value=idattr;
-  fxml.type_attr.value=attr_type;
+  fxml.type_attr.value='idoc';
 
 
   fxml.xml.value=xml_element.value;
   fxml.action ="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT2";
+  if (zone)  fxml.action =  fxml.action + '&zone='+zone;
   fxml.target=idattr;
 
   fxml.submit();

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.232 2005/03/04 17:18:48 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.233 2005/03/07 16:41:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2110,7 +2110,7 @@ create unique index i_docir on doc(initid, revision);";
 	     }
 	     $attrid=$attrid.$index;
 	     $htmlval="<FORM style=\"display:inline\"><INPUT id=\"_" .$attrid."\" TYPE=\"hidden\"  name=\"_".$attrid."\" value=\"".$value." \">";
-	     $htmlval.="<a onclick=\"subwindow(400,400,'_$attrid','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attrid','$idocfamid')\" ";
+	     $htmlval.="<a onclick=\"subwindow(400,400,'_$attrid','');viewidoc('_$attrid','$idocfamid')\" ";
 	     $htmlval.="oncontextmenu=\"viewidoc_in_popdoc(event,'$attrid','_$attrid','$idocfamid');return false\">$title</a>";
 // 	     $htmlval.="<input id='ivc_$attrid' type=\"button\" value=\"x\"".
 // 	       " title=\""._("close beside window")."\"".
@@ -3088,7 +3088,7 @@ create unique index i_docir on doc(initid, revision);";
 
  // =====================================================================================
   // ================= methods use for XML ======================
-  function toxml($withdtd,$id_doc="")  {
+  function toxml($withdtd=false,$id_doc="")  {
 
     global $action;
     $doctype=$this->doctype; 
