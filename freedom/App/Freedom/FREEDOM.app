@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.26 2004/03/16 14:13:18 eric Exp $
+// $Id: FREEDOM.app,v 1.27 2004/03/16 15:37:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -111,6 +111,11 @@ $action_desc = array (
   array( 
    "name"		=>"FREEDOM_VIEW_TAR",
    "short_name"		=>N_("view imported tar"),
+   "acl"		=>"FREEDOM_MASTER"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_DEL_TAR",
+   "short_name"		=>N_("delete imported tar"),
    "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 

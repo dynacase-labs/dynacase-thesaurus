@@ -32,18 +32,7 @@
    <script language="JavaScript">
   <!--
     [JS:CODE]
-    if (window.opener) {
-       var b=window.opener.document.getElementById('bgimport');
-       if (b) {
-	 b.disabled=true;
-	 if ([nbdoc]>0) b.disabled=false;
-       }
-       b=window.opener.document.getElementById('fgimport');
-       if (b) {
-	 b.disabled=true;
-	 if (([nbdoc]<[FDL_MAX_FGEXPORTDOC]) && ([nbdoc]>0)) b.disabled=false;
-       }
-   }
+  
   //-->
    </script>   
 
@@ -73,6 +62,8 @@
            <option VALUE="[filename]" [selected]>[filename]</option>   
          [ENDBLOCK SELECTFILE]
     </select>
+    
+    <img src="[IMG:delete.gif]" title="[TEXT:delete archive]" style="cursor:pointer" onclick="document.viewextract.action='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_DEL_TAR';document.viewextract.submit();">
 <div style="overflow:scroll;height:200px;" >
 <DIR>
 [BLOCK DIR]

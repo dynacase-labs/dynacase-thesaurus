@@ -87,16 +87,18 @@
 
 <fieldset>
 <legend>[TEXT:Analysis Results]</legend> 
-<div style="overflow:auto;height:240px;">
-<table class="[huge]" >
+<table width="100%" >
 
-<thead><tr><th>[TEXT:foldername]</th><th>[TEXT:filename]</th><th>[TEXT:familyname]</th><th>[TEXT:action]</th><th>[TEXT:err]</th></tr></thead>
+<thead><tr><th>[TEXT:foldername]</th>
+<th>[TEXT:filename]</th>
+<th>[TEXT:familyname]</th>
+<th>[TEXT:action]</th>
+<th>[TEXT:err]</th></tr></thead>
 <tbody  >
 [BLOCK ADDEDDOC]
 <tr><td>[foldername]</td><td>[filename]</td><td>[familyname]</td><td>[action]</td><td>[err]</td></tr>
 [ENDBLOCK ADDEDDOC]
 </tbody></table>
-</div>
 </fieldset>
 
 

@@ -3,7 +3,7 @@
  * View imported tar
  *
  * @author Anakeen 2004
- * @version $Id: freedom_view_tar.php,v 1.1 2004/03/16 14:12:46 eric Exp $
+ * @version $Id: freedom_view_tar.php,v 1.2 2004/03/16 15:37:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -46,7 +46,7 @@ function freedom_view_tar(&$action) {
     $selfile=$ttar[0]["filename"];
     
   }
-
+ if ($selfile!="") {
   foreach ($ttar as $k=>$v) {
     // need suppress slashes
     $ttar[$k]["filename"]=stripslashes($v["filename"]);
@@ -70,7 +70,7 @@ function freedom_view_tar(&$action) {
 
 
   $nbdoc=see_directory($action,$untardir,$tfile);
-   
+ }
   if ($nbdoc > 0) $action->lay->SetBlockData("ANALYZE",array(array("zou")));
   
   $action->lay->Set("selfile",stripslashes($selfile));

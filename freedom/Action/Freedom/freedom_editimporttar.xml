@@ -48,6 +48,10 @@
 <fieldset>
 <legend>[TEXT:Archive import]</legend> 
  
+ <P>[TEXT:Supported format]:<ul>
+ <li><A target="archinfo" href="http://www.gnu.org/software/tar/manual/html_chapter/tar_toc.html">[TEXT:compressed tar]</A> (.tgz .tar.gz .tar.bz2)
+ <li><A target="archinfo" href="http://www.info-zip.org/pub/infozip/">[TEXT:Zip File]</A> (.zip)
+</ul></P>
  <label for="file">[TEXT:import file:] (<I>[maxsize]</I>)</label>
  <input type="file"  name="tar" > 
  <input type="submit" value="[TEXT:Upload archive]" > 

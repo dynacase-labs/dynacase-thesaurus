@@ -2,16 +2,15 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-msgid ""
-msgstr ""
-"Project-Id-Version: FREEDOM\n"
-"POT-Creation-Date: 2004-03-16 10:41+0100\n"
-"PO-Revision-Date: 2004-03-16 11:17+0100\n"
-"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
-"Language-Team: French <distrib@anakeen.com>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8bit\n"
+msgid	""
+msgstr	"Project-Id-Version: FREEDOM\n"
+	"POT-Creation-Date: 2004-03-16 16:30+0100\n"
+	"PO-Revision-Date: 2004-03-16 11:17+0100\n"
+	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+	"Language-Team: French <distrib@anakeen.com>\n"
+	"MIME-Version: 1.0\n"
+	"Content-Type: text/plain; charset=ISO-8859-1\n"
+	"Content-Transfer-Encoding: 8bit\n"
 
 msgid	"no vcard file specified"
 msgstr	"pas de fichier vcard spécifié"
@@ -165,6 +164,31 @@ msgid	"new profile document"
 msgstr	"nouveau profil de document"
 
 #, c-format
+msgid	"File %s is valid, and was successfully uploaded."
+msgstr	"Le fichier %s est valide et a été sauvegardé correctement."
+
+#, c-format
+msgid	"The file %s has been correctly extracted"
+msgstr	"L'archive %s a été correctement extraite"
+
+#, c-format
+msgid	"The file %s cannot be extracted"
+msgstr	"L'archive %s n'a pas pue être extraite"
+
+msgid	"Possible file upload attack!  Here's some debugging info:\n"
+msgstr	"Possibilité d'attaque 'upload' : voir infos suivantes\n"
+
+#, c-format
+msgid	"cannot extract archive file %s.\n"
+	"Type %s not recognized as archive file"
+msgstr	"L'archive %s n'a pue être extraite\n"
+	"Son type %s n'est pas reconnu en tant que fichier d'archive"
+
+#, c-format
+msgid	"cannot extract archive file %s"
+msgstr	"L'archive %s n'a pas pue être extraite"
+
+#, c-format
 msgid	"%s has been deleted"
 msgstr	"%s a été supprimé"
 
@@ -210,23 +234,8 @@ msgid	"new title for %s"
 msgstr	"nouveau titre pour %s"
 
 #, c-format
-msgid	"File %s is valid, and was successfully uploaded."
-msgstr "Le fichier %s est valide et a été sauvegardé correctement."
-
-#, c-format
-msgid	"The file %s has been correctly extracted"
-msgstr "L'archive %s a été correctement extraite"
-
-#, c-format
-msgid	"The file %s cannot be extracted"
-msgstr "L'archive %s n'a pas pue être extraite"
-
-msgid	"Possible file upload attack!  Here's some debugging info:\n"
-msgstr "Possibilité d'attaque 'upload' : voir infos suivantes\n"
-
-#, c-format
 msgid	"result of archive import  %s"
-msgstr "Résultat de l'import d'archive %s"
+msgstr	"Résultat de l'import d'archive %s"
 
 #, c-format
 msgid	"Import %s is in progress. When update will be finished an email to "
@@ -256,19 +265,24 @@ msgid	"the document %s is not a container"
 msgstr	"le document %s n'est pas un conteneur"
 
 #, c-format
-msgid	"cannot extract archive file %s.\n"
-	"Type %s not recognized as archive file"
-msgstr ""
-"L'archive %s n'a pue être extraite\n"
-"Son type %s n'est pas reconnu en tant que fichier d'archive"
+msgid	"archive %s not found and cannot be removed"
+msgstr	"L'archive %s n'a pas été trouvée et n'a pas pue être supprimée"
 
 #, c-format
-msgid	"cannot extract archive file %s"
-msgstr "L'archive %s n'a pas pue être extraite"
+msgid	"cannot suppress extract directory for archive file %s"
+msgstr	"Le répertoire d'extraction de l'archive %s n'a pas pu être détruit"
+
+#, c-format
+msgid	"cannot suppress archive file %s"
+msgstr	"L'archive %s n'a pas pue être supprimée"
+
+#, c-format
+msgid	"archive file %s has been deleted"
+msgstr	"L'archive %s a été supprimée"
 
 #, c-format
 msgid	"proceed background import of %d documents"
-msgstr "Effectuer l'import en tache de fond de %d documents"
+msgstr	"Effectuer l'import en tache de fond de %d documents"
 
 msgid	"description"
 msgstr	"description"
@@ -401,45 +415,6 @@ msgstr	"envoi de %s à %s"
 msgid	"%s cannot be sent"
 msgstr	"%s n'a pas pu être envoyé"
 
-msgid	"no import file specified"
-msgstr	"pas de fichier d'import spécifié"
-
-#, c-format
-msgid	"create %s family"
-msgstr	"création de la famille %s"
-
-#, c-format
-msgid	"modify %s family"
-msgstr	"modification de la famille %s"
-
-#, c-format
-msgid	"update %s attribute"
-msgstr	"mise à jour attribut %s"
-
-#, c-format
-msgid	"add id [%d] "
-msgstr	"ajout id [%d] "
-
-#, c-format
-msgid	"add [%s] "
-msgstr	"ajout [%s] "
-
-#, c-format
-msgid	"update id [%d] "
-msgstr	"mise à jour id [%d] "
-
-#, c-format
-msgid	"double title %s <B>ignored</B> "
-msgstr	"titre en double %s <B>ignoré</B> "
-
-#, c-format
-msgid	"and add in %s folder "
-msgstr	"et ajout dans dossier %s"
-
-#, c-format
-msgid	"and add  in %s folder "
-msgstr	"et ajout dans dossier %s"
-
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
 
@@ -460,6 +435,15 @@ msgstr	"msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 #, c-format
 msgid	"workflow_init :: workflow id %s not found"
 msgstr	"workflow_init :: cycle id %s pas trouvé"
+
+msgid	"to be add"
+msgstr	"à ajouter"
+
+msgid	"not added"
+msgstr	"pas ajouté"
+
+msgid	"added"
+msgstr	"ajouté"
 
 msgid	"no zone specified"
 msgstr	"pas de zone spécifiée"
@@ -499,6 +483,41 @@ msgstr	"%s a été déverrouillé"
 #, c-format
 msgid	"geometry saved : %s"
 msgstr	"disposition sauvée : %s"
+
+msgid	"no import file specified"
+msgstr	"pas de fichier d'import spécifié"
+
+#, c-format
+msgid	"create %s family"
+msgstr	"création de la famille %s"
+
+#, c-format
+msgid	"modify %s family"
+msgstr	"modification de la famille %s"
+
+#, c-format
+msgid	"update %s attribute"
+msgstr	"mise à jour attribut %s"
+
+#, c-format
+msgid	"add id [%d] "
+msgstr	"ajout id [%d] "
+
+#, c-format
+msgid	"add [%s] "
+msgstr	"ajout [%s] "
+
+#, c-format
+msgid	"update id [%d] "
+msgstr	"mise à jour id [%d] "
+
+#, c-format
+msgid	"double title %s <B>ignored</B> "
+msgstr	"titre en double %s <B>ignoré</B> "
+
+#, c-format
+msgid	"and add in %s folder "
+msgstr	"et ajout dans dossier %s"
 
 msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
@@ -546,91 +565,8 @@ msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
 msgid	"Delete %d in %s folder"
 msgstr	"Suppression n°%d du dossier %s"
 
-#, c-format
-msgid	"untitle %s %d"
-msgstr	"%s sans titre %d"
-
-msgid	"creation"
-msgstr	"création"
-
-msgid	"cannot update no initialized document"
-msgstr	"mise à jour impossible : document non initialisé"
-
-msgid	"untitle document"
-msgstr	"document sans titre"
-
-#, c-format
-msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-#, c-format
-msgid	"the file %s (rev %d) must be locked before"
-msgstr	"le fichier %s (rév %d) doit être verrouillé au préalable"
-
-#, c-format
-msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr	"le fichier %s (rév. %d) est verrouillé par %s."
-
-#, c-format
-msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
-msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-#, c-format
-msgid	"cannot lock file %s (rev %d): already locked by %s."
-msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
-
-msgid	"already deleted"
-msgstr	"déjà supprimé"
-
-#, c-format
-msgid	"delete by %s by action %s on %s from %s"
-msgstr	"supprimé par %s avec l'action %s sur %s par %s"
-
-msgid	"unknow attribute"
-msgstr	"attribut inconnu"
-
-#, c-format
-msgid	"%s needed\n"
-msgstr	"%s doit être rempli\n"
-
-#, c-format
-msgid	"no permission to modify this attribute %s"
-msgstr	"vous n'avez pas le permission de modifier cet attribut : %s"
-
-#, c-format
-msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
-	"automatically"
-msgstr	"la date '%s' pour l'attribut %s est incorrect. Il a été corrigé "
-	"automatiquement."
-
-msgid	"document already revised"
-msgstr	"document déjà révisé"
-
-#, c-format
-msgid	"the document of %s family cannot be revised"
-msgstr	"lee documents de la famille %s ne peuvent être révisés"
-
-#, c-format
-msgid	"copy from document #%d -%s-"
-msgstr	"copie à partir du document n°%d -%s-"
-
-msgid	"vault file error"
-msgstr	"erreur fichier Vault"
-
 msgid	"no filename"
 msgstr	"pas de fichier"
-
-#, c-format
-msgid	"cannot control : object not initialized : %s"
-msgstr	"contrôle impossible : objet non initialisé : %s"
-
-#, c-format
-msgid	"error in pzone format %s"
-msgstr	"erreur dans la format pzone %s"
-
-#, c-format
-msgid	"new %s"
-msgstr	"nouvelle %s"
 
 #, c-format
 msgid	"parameters for %s state"
@@ -777,6 +713,89 @@ msgstr	"la date doit être de la forme JJ/MM/AAAA"
 msgid	"the date %s is in the past: today is %s"
 msgstr	"La date %s est dans le passé. La date d'aujourd'hui est %s"
 
+#, c-format
+msgid	"untitle %s %d"
+msgstr	"%s sans titre %d"
+
+msgid	"creation"
+msgstr	"création"
+
+msgid	"cannot update no initialized document"
+msgstr	"mise à jour impossible : document non initialisé"
+
+msgid	"untitle document"
+msgstr	"document sans titre"
+
+#, c-format
+msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+#, c-format
+msgid	"the file %s (rev %d) must be locked before"
+msgstr	"le fichier %s (rév %d) doit être verrouillé au préalable"
+
+#, c-format
+msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr	"le fichier %s (rév. %d) est verrouillé par %s."
+
+#, c-format
+msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
+msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+#, c-format
+msgid	"cannot lock file %s (rev %d): already locked by %s."
+msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
+
+msgid	"already deleted"
+msgstr	"déjà supprimé"
+
+#, c-format
+msgid	"delete by %s by action %s on %s from %s"
+msgstr	"supprimé par %s avec l'action %s sur %s par %s"
+
+msgid	"unknow attribute"
+msgstr	"attribut inconnu"
+
+#, c-format
+msgid	"%s needed\n"
+msgstr	"%s doit être rempli\n"
+
+#, c-format
+msgid	"no permission to modify this attribute %s"
+msgstr	"vous n'avez pas le permission de modifier cet attribut : %s"
+
+#, c-format
+msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
+	"automatically"
+msgstr	"la date '%s' pour l'attribut %s est incorrect. Il a été corrigé "
+	"automatiquement."
+
+msgid	"document already revised"
+msgstr	"document déjà révisé"
+
+#, c-format
+msgid	"the document of %s family cannot be revised"
+msgstr	"lee documents de la famille %s ne peuvent être révisés"
+
+#, c-format
+msgid	"copy from document #%d -%s-"
+msgstr	"copie à partir du document n°%d -%s-"
+
+msgid	"vault file error"
+msgstr	"erreur fichier Vault"
+
+#, c-format
+msgid	"cannot control : object not initialized : %s"
+msgstr	"contrôle impossible : objet non initialisé : %s"
+
+#, c-format
+msgid	"error in pzone format %s"
+msgstr	"erreur dans la format pzone %s"
+
+#, c-format
+msgid	"new %s"
+msgstr	"nouvelle %s"
+
 msgid	"errldapadd"
 msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
 	"attributs n'est pas conforme"
@@ -813,7 +832,7 @@ msgid	"group #%d does not exist"
 msgstr	"le groupe n°%d n'existe pas"
 
 msgid	"group has not identificator"
-msgstr "Le groupe n'a pas d'identificateur"
+msgstr	"Le groupe n'a pas d'identificateur"
 
 #, c-format
 msgid	"group %d does not exist"
@@ -964,15 +983,6 @@ msgstr	"vers stocké"
 msgid	"Tout"
 msgstr	"vers sorti"
 
-msgid	"doctitle"
-msgstr	"titre"
-
-msgid	"revdate"
-msgstr	"date de modification"
-
-msgid	"revision"
-msgstr	"révision"
-
 msgid	"read only"
 msgstr	"lecture seule"
 
@@ -996,6 +1006,15 @@ msgstr	"O"
 
 msgid	"N"
 msgstr	"N"
+
+msgid	"doctitle"
+msgstr	"titre"
+
+msgid	"revdate"
+msgstr	"date de modification"
+
+msgid	"revision"
+msgstr	"révision"
 
 msgid	"include"
 msgstr	"contient"
@@ -1063,9 +1082,8 @@ msgstr	"révision automatique"
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
 	"The Size Limit is %s bytes."
-msgstr ""
-"Le fichier '%s' n'a pu être transmis.\n"
-"La taille limite est de %s octets."
+msgstr	"Le fichier '%s' n'a pu être transmis.\n"
+	"La taille limite est de %s octets."
 
 #, c-format
 msgid	"Possible file upload attack: filename '%s'."
@@ -1094,12 +1112,6 @@ msgstr	"dossier inconnu, ne peut être consulté"
 
 msgid	"read-only"
 msgstr	"lecture seule"
-
-#, c-format
-msgid	"Filename '%s' cannot be transmitted.\n"
-	"The Size Limit is %d bytes."
-msgstr	"Le fichier '%s' n'a pu être transmis.\n"
-	"La taille limite est de %d octets."
 
 msgid	"error in filename"
 msgstr	"erreur dans le nom de fichier"
@@ -1159,7 +1171,7 @@ msgid	"Access To Read Only"
 msgstr	"Accès en lecture seule"
 
 msgid	"Access To Main Interface"
-msgstr "Accès en l'interface principale"
+msgstr	"Accès en l'interface principale"
 
 msgid	"Freedoms frame"
 msgstr	"fenêtres freedom"
@@ -1177,7 +1189,7 @@ msgid	"query document import"
 msgstr	"demande d'import de document"
 
 msgid	"query tar document import"
-msgstr "demande d'import d'archive"
+msgstr	"demande d'import d'archive"
 
 msgid	"background document import"
 msgstr	"import en tache de fond"
@@ -1186,16 +1198,19 @@ msgid	"add document import"
 msgstr	"ajouter un document importé"
 
 msgid	"import archive file"
-msgstr "Importer un fichier archive"
+msgstr	"Importer un fichier archive"
 
 msgid	"analyze archive file"
-msgstr "analyse de fichier archive"
+msgstr	"analyse de fichier archive"
 
 msgid	"add document from directories file import"
-msgstr "ajouter de documents à partir d'un répertoire"
+msgstr	"ajouter de documents à partir d'un répertoire"
 
 msgid	"view imported tar"
-msgstr "voir les archives importées"
+msgstr	"voir les archives importées"
+
+msgid	"delete imported tar"
+msgstr	"supression des archives"
 
 msgid	"Freedoms view folder"
 msgstr	"visualisation de contenu de dossier"
@@ -2058,7 +2073,61 @@ msgid	"Import documents"
 msgstr	"Importer des documents"
 
 msgid	"Import Tar"
-msgstr "Importation Archive"
+msgstr	"Importation Archive"
+
+msgid	"Import Result"
+msgstr	"Résultat de l'importation"
+
+msgid	"Analyze Archive"
+msgstr	"Analyse de l'archive"
+
+msgid	"Options import"
+msgstr	"Options d'importation"
+
+msgid	"for"
+msgstr	"pour"
+
+msgid	"Only CSV"
+msgstr	"Seul fichier CSV"
+
+msgid	"Add top folder"
+msgstr	"Ajouter un dossier racine"
+
+msgid	"Analyze"
+msgstr	"Analyse"
+
+msgid	"Lauch Import"
+msgstr	"Lancer l'import"
+
+msgid	"report to (mail address)"
+msgstr	"rapport à (email)"
+
+msgid	"Analysis Results"
+msgstr	"Résultat de l'analyse"
+
+msgid	"err"
+msgstr	"err"
+
+msgid	"Import Archive"
+msgstr	"Importer une archive"
+
+msgid	"Archive import"
+msgstr	"Import d'archives"
+
+msgid	"import file:"
+msgstr	"Importer un fichier"
+
+msgid	"Upload archive"
+msgstr	"Télécharger l'archive"
+
+msgid	"View Archives"
+msgstr	"Voir les archives"
+
+msgid	"Go to Archives"
+msgstr	"Aller aux archives"
+
+msgid	"Choose Archive"
+msgstr	"Choisir l'archive"
 
 msgid	"Attributes definition"
 msgstr	"définition des attributs"
@@ -2183,9 +2252,6 @@ msgstr	"Mise à jour des titres"
 msgid	"updateldap"
 msgstr	"Mise à jour du serveur LDAP"
 
-msgid	"Import Result"
-msgstr	"Résultat de l'importation"
-
 msgid	"Result Import Documents"
 msgstr	" Résultat de l'importation de documents"
 
@@ -2228,15 +2294,6 @@ msgstr	" Importer des documents"
 msgid	"Description of the import format"
 msgstr	"Description du format d'import"
 
-msgid	"for"
-msgstr	"pour"
-
-msgid	"import file:"
-msgstr	"Importer un fichier"
-
-msgid	"Analyze"
-msgstr	"Analyse"
-
 msgid	"With Double"
 msgstr	"Avec double"
 
@@ -2248,9 +2305,6 @@ msgstr	"Importer la description d'un document"
 
 msgid	"Background Import"
 msgstr	"Import en tache de fond"
-
-msgid	"report to (mail address)"
-msgstr	"rapport à (email)"
 
 msgid	"proceed background import"
 msgstr	"Effectuer l'import en tache de fond"
@@ -2268,37 +2322,25 @@ msgid	"no workflow"
 msgstr	"pas de cycle de vie"
 
 msgid	"Result Import TAR Documents"
-msgstr "Résultat de l'importation d'archives"
+msgstr	"Résultat de l'importation d'archives"
 
 msgid	"View Archive"
-msgstr "Voir une archive"
+msgstr "Voir l'archive"
 
-msgid	"Import Archive"
-msgstr "Importer une archive"
+msgid	"delete archive"
+msgstr "supprimer l'archive"
 
-msgid	"Choose Archive"
-msgstr "Choisir l'archive"
+msgid	"foldername"
+msgstr	"dossier"
 
-msgid	"Analyze Archive"
-msgstr "Analyse de l'archive"
+msgid	"filename"
+msgstr	"fichier"
 
-msgid	"Options import"
-msgstr "Options d'importation"
+msgid	"familyname"
+msgstr	"famille"
 
-msgid	"Only CSV"
-msgstr "Seul fichier CSV"
-
-msgid	"Add top folder"
-msgstr "Ajouter un dossier racine"
-
-msgid	"Lauch Import"
-msgstr "Lancer l'import"
-
-msgid	"Analysis Results"
-msgstr "Résultat de l'analyse"
-
-msgid	"err"
-msgstr "err"
+msgid	"action"
+msgstr	"action"
 
 msgid	"Detail Permissions"
 msgstr	"Détail des droits"
@@ -2369,20 +2411,17 @@ msgstr	"Fermer"
 msgid	"Change State"
 msgstr	"Changer d'état"
 
-msgid	"Archive import"
-msgstr "Import d'archives"
+msgid	"Supported format"
+msgstr	"Formats supportés"
 
-msgid	"Upload archive"
-msgstr "Télécharger l'archive"
+msgid	"compressed tar"
+msgstr	"Tar compressé"
 
-msgid	"View Archives"
-msgstr "Voir les archives"
-
-msgid	"Go to Archives"
-msgstr "Aller aux archives"
+msgid	"Zip File"
+msgstr	"Fichier Zip"
 
 msgid	"Archive import in progress"
-msgstr "Import de l'archive en cours"
+msgstr	"Import de l'archive en cours"
 
 msgid	"families"
 msgstr	"familles"
@@ -2660,6 +2699,14 @@ msgstr	"Changer de catégorie"
 msgid	"View properties"
 msgstr	"Voir les propriétés"
 
+#~ msgid	"and add  in %s folder "
+#~ msgstr	"et ajout dans dossier %s"
+
+#~ msgid	"Filename '%s' cannot be transmitted.\n"
+#~ 	"The Size Limit is %d bytes."
+#~ msgstr	"Le fichier '%s' n'a pu être transmis.\n"
+#~ 	"La taille limite est de %d octets."
+
 #~ msgid	"already exist : not added"
 #~ msgstr	"déjà existant : pas ajouté"
 
@@ -2899,9 +2946,6 @@ msgstr	"Voir les propriétés"
 
 #~ msgid	"view incident"
 #~ msgstr	"voir un incident"
-
-#~ msgid	"delete incident"
-#~ msgstr	"supprimer un incident"
 
 #~ msgid	"..."
 #~ msgstr	"..."

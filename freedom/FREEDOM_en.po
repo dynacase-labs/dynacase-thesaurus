@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2004-03-16 10:41+0100\n"
+	"POT-Creation-Date: 2004-03-16 16:30+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -173,6 +173,30 @@ msgid	"new profile document"
 msgstr	""
 
 #, c-format
+msgid	"File %s is valid, and was successfully uploaded."
+msgstr	""
+
+#, c-format
+msgid	"The file %s has been correctly extracted"
+msgstr	""
+
+#, c-format
+msgid	"The file %s cannot be extracted"
+msgstr	""
+
+msgid	"Possible file upload attack!  Here's some debugging info:\n"
+msgstr	""
+
+#, c-format
+msgid	"cannot extract archive file %s.\n"
+	"Type %s not recognized as archive file"
+msgstr	""
+
+#, c-format
+msgid	"cannot extract archive file %s"
+msgstr	""
+
+#, c-format
 msgid	"%s has been deleted"
 msgstr	""
 
@@ -218,21 +242,6 @@ msgid	"new title for %s"
 msgstr	""
 
 #, c-format
-msgid	"File %s is valid, and was successfully uploaded."
-msgstr	""
-
-#, c-format
-msgid	"The file %s has been correctly extracted"
-msgstr	""
-
-#, c-format
-msgid	"The file %s cannot be extracted"
-msgstr	""
-
-msgid	"Possible file upload attack!  Here's some debugging info:\n"
-msgstr	""
-
-#, c-format
 msgid	"result of archive import  %s"
 msgstr	""
 
@@ -262,12 +271,19 @@ msgid	"the document %s is not a container"
 msgstr	""
 
 #, c-format
-msgid	"cannot extract archive file %s.\n"
-	"Type %s not recognized as archive file"
+msgid	"archive %s not found and cannot be removed"
 msgstr	""
 
 #, c-format
-msgid	"cannot extract archive file %s"
+msgid	"cannot suppress extract directory for archive file %s"
+msgstr	""
+
+#, c-format
+msgid	"cannot suppress archive file %s"
+msgstr	""
+
+#, c-format
+msgid	"archive file %s has been deleted"
 msgstr	""
 
 #, c-format
@@ -414,45 +430,6 @@ msgstr	""
 msgid	"%s cannot be sent"
 msgstr	""
 
-msgid	"no import file specified"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"create %s family"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"modify %s family"
-msgstr	"Modify"
-
-#, fuzzy, c-format
-msgid	"update %s attribute"
-msgstr	"Update Title Cards"
-
-#, c-format
-msgid	"add id [%d] "
-msgstr	""
-
-#, c-format
-msgid	"add [%s] "
-msgstr	""
-
-#, c-format
-msgid	"update id [%d] "
-msgstr	""
-
-#, c-format
-msgid	"double title %s <B>ignored</B> "
-msgstr	""
-
-#, c-format
-msgid	"and add in %s folder "
-msgstr	""
-
-#, c-format
-msgid	"and add  in %s folder "
-msgstr	""
-
 msgid	"no file referenced"
 msgstr	""
 
@@ -473,6 +450,16 @@ msgstr	""
 #, c-format
 msgid	"workflow_init :: workflow id %s not found"
 msgstr	""
+
+msgid	"to be add"
+msgstr	""
+
+msgid	"not added"
+msgstr	""
+
+#, fuzzy
+msgid	"added"
+msgstr	"Add new contact card"
 
 msgid	"no zone specified"
 msgstr	""
@@ -511,6 +498,41 @@ msgstr	""
 
 #, c-format
 msgid	"geometry saved : %s"
+msgstr	""
+
+msgid	"no import file specified"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"create %s family"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"modify %s family"
+msgstr	"Modify"
+
+#, fuzzy, c-format
+msgid	"update %s attribute"
+msgstr	"Update Title Cards"
+
+#, c-format
+msgid	"add id [%d] "
+msgstr	""
+
+#, c-format
+msgid	"add [%s] "
+msgstr	""
+
+#, c-format
+msgid	"update id [%d] "
+msgstr	""
+
+#, c-format
+msgid	"double title %s <B>ignored</B> "
+msgstr	""
+
+#, c-format
+msgid	"and add in %s folder "
 msgstr	""
 
 msgid	"locked files of "
@@ -554,93 +576,9 @@ msgstr	""
 msgid	"Delete %d in %s folder"
 msgstr	""
 
-#, fuzzy, c-format
-msgid	"untitle %s %d"
-msgstr	"Update Title Cards"
-
-#, fuzzy
-msgid	"creation"
-msgstr	"Edit"
-
-msgid	"cannot update no initialized document"
-msgstr	""
-
-msgid	"untitle document"
-msgstr	""
-
-#, c-format
-msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr	""
-
-#, c-format
-msgid	"the file %s (rev %d) must be locked before"
-msgstr	""
-
-#, c-format
-msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr	""
-
-#, c-format
-msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
-msgstr	""
-
-#, c-format
-msgid	"cannot lock file %s (rev %d): already locked by %s."
-msgstr	""
-
-#, fuzzy
-msgid	"already deleted"
-msgstr	"Delete"
-
-#, c-format
-msgid	"delete by %s by action %s on %s from %s"
-msgstr	""
-
-msgid	"unknow attribute"
-msgstr	""
-
-#, c-format
-msgid	"%s needed\n"
-msgstr	""
-
-#, c-format
-msgid	"no permission to modify this attribute %s"
-msgstr	""
-
-#, c-format
-msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
-	"automatically"
-msgstr	""
-
-msgid	"document already revised"
-msgstr	""
-
-#, c-format
-msgid	"the document of %s family cannot be revised"
-msgstr	""
-
-#, c-format
-msgid	"copy from document #%d -%s-"
-msgstr	""
-
-msgid	"vault file error"
-msgstr	""
-
 #, fuzzy
 msgid	"no filename"
 msgstr	"Firstname"
-
-#, c-format
-msgid	"cannot control : object not initialized : %s"
-msgstr	""
-
-#, c-format
-msgid	"error in pzone format %s"
-msgstr	""
-
-#, c-format
-msgid	"new %s"
-msgstr	""
 
 #, c-format
 msgid	"parameters for %s state"
@@ -794,6 +732,90 @@ msgstr	""
 
 #, c-format
 msgid	"the date %s is in the past: today is %s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"untitle %s %d"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"creation"
+msgstr	"Edit"
+
+msgid	"cannot update no initialized document"
+msgstr	""
+
+msgid	"untitle document"
+msgstr	""
+
+#, c-format
+msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr	""
+
+#, c-format
+msgid	"the file %s (rev %d) must be locked before"
+msgstr	""
+
+#, c-format
+msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr	""
+
+#, c-format
+msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
+msgstr	""
+
+#, c-format
+msgid	"cannot lock file %s (rev %d): already locked by %s."
+msgstr	""
+
+#, fuzzy
+msgid	"already deleted"
+msgstr	"Delete"
+
+#, c-format
+msgid	"delete by %s by action %s on %s from %s"
+msgstr	""
+
+msgid	"unknow attribute"
+msgstr	""
+
+#, c-format
+msgid	"%s needed\n"
+msgstr	""
+
+#, c-format
+msgid	"no permission to modify this attribute %s"
+msgstr	""
+
+#, c-format
+msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
+	"automatically"
+msgstr	""
+
+msgid	"document already revised"
+msgstr	""
+
+#, c-format
+msgid	"the document of %s family cannot be revised"
+msgstr	""
+
+#, c-format
+msgid	"copy from document #%d -%s-"
+msgstr	""
+
+msgid	"vault file error"
+msgstr	""
+
+#, c-format
+msgid	"cannot control : object not initialized : %s"
+msgstr	""
+
+#, c-format
+msgid	"error in pzone format %s"
+msgstr	""
+
+#, c-format
+msgid	"new %s"
 msgstr	""
 
 msgid	"errldapadd"
@@ -1002,18 +1024,6 @@ msgstr	""
 msgid	"Tout"
 msgstr	""
 
-#, fuzzy
-msgid	"doctitle"
-msgstr	"Update Title Cards"
-
-#, fuzzy
-msgid	"revdate"
-msgstr	"Create"
-
-#, fuzzy
-msgid	"revision"
-msgstr	"Organisation"
-
 msgid	"read only"
 msgstr	""
 
@@ -1040,6 +1050,18 @@ msgstr	""
 
 msgid	"N"
 msgstr	""
+
+#, fuzzy
+msgid	"doctitle"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"revdate"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"revision"
+msgstr	"Organisation"
 
 msgid	"include"
 msgstr	""
@@ -1143,11 +1165,6 @@ msgstr	""
 msgid	"read-only"
 msgstr	""
 
-#, c-format
-msgid	"Filename '%s' cannot be transmitted.\n"
-	"The Size Limit is %d bytes."
-msgstr	""
-
 #, fuzzy
 msgid	"error in filename"
 msgstr	"Firstname"
@@ -1249,6 +1266,10 @@ msgstr	""
 
 #, fuzzy
 msgid	"view imported tar"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"delete imported tar"
 msgstr	"Import"
 
 msgid	"Freedoms view folder"
@@ -2201,6 +2222,66 @@ msgstr	"Import"
 msgid	"Import Tar"
 msgstr	"Import"
 
+#, fuzzy
+msgid	"Import Result"
+msgstr	"Import"
+
+msgid	"Analyze Archive"
+msgstr	""
+
+msgid	"Options import"
+msgstr	""
+
+msgid	"for"
+msgstr	""
+
+msgid	"Only CSV"
+msgstr	""
+
+#, fuzzy
+msgid	"Add top folder"
+msgstr	"Modify"
+
+msgid	"Analyze"
+msgstr	""
+
+#, fuzzy
+msgid	"Lauch Import"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"report to (mail address)"
+msgstr	"Address"
+
+msgid	"Analysis Results"
+msgstr	""
+
+msgid	"err"
+msgstr	""
+
+#, fuzzy
+msgid	"Import Archive"
+msgstr	"Import"
+
+msgid	"Archive import"
+msgstr	""
+
+#, fuzzy
+msgid	"import file:"
+msgstr	"Import"
+
+msgid	"Upload archive"
+msgstr	""
+
+msgid	"View Archives"
+msgstr	""
+
+msgid	"Go to Archives"
+msgstr	""
+
+msgid	"Choose Archive"
+msgstr	""
+
 msgid	"Attributes definition"
 msgstr	""
 
@@ -2339,10 +2420,6 @@ msgstr	"Update Title Cards"
 msgid	"updateldap"
 msgstr	"Update LDAP server"
 
-#, fuzzy
-msgid	"Import Result"
-msgstr	"Import"
-
 msgid	"Result Import Documents"
 msgstr	""
 
@@ -2390,16 +2467,6 @@ msgstr	"Import"
 msgid	"Description of the import format"
 msgstr	""
 
-msgid	"for"
-msgstr	""
-
-#, fuzzy
-msgid	"import file:"
-msgstr	"Import"
-
-msgid	"Analyze"
-msgstr	""
-
 msgid	"With Double"
 msgstr	""
 
@@ -2412,10 +2479,6 @@ msgstr	""
 
 msgid	"Background Import"
 msgstr	""
-
-#, fuzzy
-msgid	"report to (mail address)"
-msgstr	"Address"
 
 msgid	"proceed background import"
 msgstr	""
@@ -2442,34 +2505,24 @@ msgid	"View Archive"
 msgstr	""
 
 #, fuzzy
-msgid	"Import Archive"
-msgstr	"Import"
-
-msgid	"Choose Archive"
-msgstr	""
-
-msgid	"Analyze Archive"
-msgstr	""
-
-msgid	"Options import"
-msgstr	""
-
-msgid	"Only CSV"
-msgstr	""
+msgid	"delete archive"
+msgstr	"Start search"
 
 #, fuzzy
-msgid	"Add top folder"
-msgstr	"Modify"
+msgid	"foldername"
+msgstr	"Delete"
 
 #, fuzzy
-msgid	"Lauch Import"
-msgstr	"Import"
+msgid	"filename"
+msgstr	"Firstname"
 
-msgid	"Analysis Results"
-msgstr	""
+#, fuzzy
+msgid	"familyname"
+msgstr	"Start search"
 
-msgid	"err"
-msgstr	""
+#, fuzzy
+msgid	"action"
+msgstr	"Edit"
 
 #, fuzzy
 msgid	"Detail Permissions"
@@ -2555,16 +2608,13 @@ msgstr	""
 msgid	"Change State"
 msgstr	"Category"
 
-msgid	"Archive import"
+msgid	"Supported format"
 msgstr	""
 
-msgid	"Upload archive"
+msgid	"compressed tar"
 msgstr	""
 
-msgid	"View Archives"
-msgstr	""
-
-msgid	"Go to Archives"
+msgid	"Zip File"
 msgstr	""
 
 msgid	"Archive import in progress"

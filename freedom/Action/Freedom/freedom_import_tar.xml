@@ -43,7 +43,7 @@
 <input type="hidden" name="filename" value="[filename]">
 <input type="hidden" name="analyze" value="E">
 
- <input type="submit" value="[TEXT:View Archive] -[filename]-"   > 
+ <input type="submit" value="[TEXT:View Archive] - [filename]-"   > 
 </fieldset>
 
 </form>
