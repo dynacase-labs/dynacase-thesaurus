@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.36 2004/02/09 16:46:14 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.37 2004/03/01 14:09:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.36 2004/02/09 16:46:14 eric Exp $
+// $Id: Class.WDoc.php,v 1.37 2004/03/01 14:09:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.36 2004/02/09 16:46:14 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.37 2004/03/01 14:09:13 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -88,7 +88,7 @@ Class WDoc extends Doc {
   function Set(&$doc) {
     if (! isset($this->doc) ) {
       $this->doc= &$doc;
-      if ($doc->state == "") {
+      if (($doc->doctype!='C')&&($doc->state == "")) {	
 	$doc->state=$this->firstState;
 	$this->changeProfil($doc->state);
       }
