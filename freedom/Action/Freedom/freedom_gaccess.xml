@@ -1,0 +1,62 @@
+[ZONE CORE:HTMLHEAD]
+<script>
+function enablefrom(th) {
+  var checkboxes = th.getElementsByTagName("input");
+
+  for (var i=1; i < checkboxes.length; i++)  {
+    checkboxes[i].disabled=false;
+    checkboxes[i].style.display='inline';
+  }
+
+  // undisplay button images
+  var imgs = th.getElementsByTagName("img");
+
+  for (var i=2; i < imgs.length; i++)  {
+    imgs[i].style.display='none';
+  }
+}
+</script>
+<form  name="edit" method="POST" action="[CORE_STANDURL]app=FREEDOM&action=FREEDOM_MODACCESS">
+<input type="hidden" name="docid" value="[docid]">
+
+<table style="margin-bottom:2px" cellspacing="0" cellpadding="0" 
+       width="100%" border="1" frame="box" rules="rows" >
+<thead>
+
+<TR >
+<TD colspan="2"class="CORETblHeadCell"><span class="CORETblHead"><B>[title]</B></span></TD>
+ [BLOCK DACLS]<TD class="CORETblHeadCell" align="center" valign="top" title="[acldesc]" style="cursor:help"><span class="CORETblHead">[aclname]</span></TD>
+ [ENDBLOCK DACLS]
+</TR>
+</thead>
+<tbody>
+   [BLOCK GROUPS]
+<TR >
+    <TD style="border:none;border-top-style:ridge;border-top-width:1px;"  align="left" >
+    <span style="margin:0px 0px 0px [level]px">
+      <img style="display:[displaygroup];cursor:pointer" src="[IMG:bblue.gif]" width="10" height="10" onclick="subwindow(300,600,'gaccess','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[docid]&gid=[gid]')" >
+      <img style="display:[displayuser]" src="[IMG:bgreen.gif]" width="10" height="10"  >
+      <A  href="#" onclick="subwindow(300,500,'uaccess','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ACCESS&id=[docid]&userid=[gid]')"
+           >[gname]</A></span>
+    <input type="hidden" disabled name="acls[[gid]][0]" value="nc"></TD>
+
+   <TD align="right" style="border:none;border-top-style:ridge;border-top-width:1px;" >
+     <button onclick="enablefrom(this.parentNode.parentNode);"  type="button" ></button></TD>
+    [BLOCK [ACLS]]
+    <TD style="border:none;border-top-style:ridge;border-top-width:1px;background-color:[CORE_BGCOLORALTERN]" align="center">
+      <img  src="[IMG:[bimg]]" width="10" height="10"  >
+      <input align="top" style="display:none" disabled type="checkbox" name="acls[[gid]][[iacl]]" value="[aclid]" [selected] >
+  </TD>
+    [ENDBLOCK [ACLS]]
+    
+  
+</TR>
+  [ENDBLOCK GROUPS]
+</tbody>
+</TABLE>
+<input class="CORETblHead" type="submit" 
+         name="Modify" value="[TEXT:Validate]"  >
+<input class="CORETblHead" type="reset"  >
+</form>
+
+[ZONE CORE:HTMLFOOT]
