@@ -3,7 +3,7 @@
  * Import directory with document descriptions
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_import_dir.php,v 1.2 2004/08/05 09:47:21 eric Exp $
+ * @version $Id: freedom_import_dir.php,v 1.3 2004/08/12 06:59:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -72,24 +72,6 @@ function freedom_import_dir(&$action) {
 }
 
 
-/**
- * exec list of unix command in background
- * @param array $tcmd unix command strings
- */
-function bgexec($tcmd,&$result,&$err) {
-  $foutname = uniqid("/tmp/bgexec");
-  $fout = fopen($foutname,"w+");
-  fwrite($fout,"#!/bin/bash\n");
-  foreach ($tcmd as $v) {
-    fwrite($fout,"$v\n");
-  }
-  fclose($fout);
-  chmod($foutname,0700);
 
-
-  //  if (session_id()) session_write_close(); // necessary to close if not background cmd 
-  exec("exec nohup $foutname > /dev/null 2>&1 &",$result,$err); 
-  //if (session_id()) @session_start();
-}
 
 ?>
