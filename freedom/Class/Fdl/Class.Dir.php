@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.14 2003/02/07 17:31:49 eric Exp $
+// $Id: Class.Dir.php,v 1.15 2003/03/04 10:50:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.14 2003/02/07 17:31:49 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.15 2003/03/04 10:50:08 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -78,30 +78,62 @@ Class Dir extends PDir
     if ($err!= "") return $err;
 
 
-  $qf = new QueryDir($this->dbaccess);
+    $qf = new QueryDir($this->dbaccess);
 
-  switch ($mode) {
-  case "static":
+    switch ($mode) {
+    case "static":
 
-    $qf->qtype='F'; // fixed document
-    $qf->childid=$docid; // initial doc
-  break;
-  case "latest":
-  default:
-    $doc= new Doc($this->dbaccess, $docid);
-    if (! $doc->isAffected()) return sprintf(_("Cannot add in %s folder, doc id (%d) unknown"), $this->title, $docid);
-    $qf->qtype='S'; // single user query
-    $qf->childid=$doc->initid; // initial doc
+      $qf->qtype='F'; // fixed document
+      $qf->childid=$docid; // initial doc
+      break;
+    case "latest":
+    default:
+      $doc= new Doc($this->dbaccess, $docid);
+      if (! $doc->isAffected()) return sprintf(_("Cannot add in %s folder, doc id (%d) unknown"), $this->title, $docid);
+      $qf->qtype='S'; // single user query
+      $qf->childid=$doc->initid; // initial doc
     
-  break;
-  }  
+      break;
+    }  
 
 
-  $qf->dirid=$this->initid; // the reference folder is the initial id
-  $qf->query="";
-  $err = $qf->Add();
-  if ($err == "") AddLogMsg(sprintf(_("Add %s in %s folder"), $doc->title, $this->title));
-  return $err;
+    $qf->dirid=$this->initid; // the reference folder is the initial id
+    $qf->query="";
+    $err = $qf->Add();
+    if ($err == "") {
+      AddLogMsg(sprintf(_("Add %s in %s folder"), $doc->title, $this->title));
+
+      // add default folder privilege to the doc
+      if ($doc->profid == 0) { // only if no privilège yet
+	switch ($doc->defProfFamId) {
+	case FAM_ACCESSDOC:
+	  $profid=$this->getValue("FLD_PDOCID",0);
+	  if ($profid > 0) {
+	    $doc->setProfil($profid);
+	    $doc->modify();
+	  }
+	  break;
+	case FAM_ACCESSDIR:
+	  $profid=$this->getValue("FLD_PDIRID",0);
+	  if ($profid > 0) {
+	    $doc->setProfil($profid);
+	    // copy default privilège if not set
+	    if ($doc->getValue("FLD_PDIRID") == "") {
+	      $doc->setValue("FLD_PDIRID", $this->getValue("FLD_PDIRID"));
+	      $doc->setValue("FLD_PDIR", $this->getValue("FLD_PDIR"));
+	    }
+	    if ($doc->getValue("FLD_PDOCID") == "") {
+	      $doc->setValue("FLD_PDOCID", $this->getValue("FLD_PDOCID"));
+	      $doc->setValue("FLD_PDOC", $this->getValue("FLD_PDOC"));
+	    }
+	    $doc->modify();
+	  }
+	  break;
+
+	}
+      }
+    }
+    return $err;
   }
 
 

@@ -58,8 +58,28 @@ function lmail( $dbaccess, $name) {
   return $tr;  
 }
 
+// liste des familles
+function lfamilies($dbaccess) {
+  //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
+  global $action;
+  
 
-// liste des sociétés
+  $tinter = GetClassesDoc($dbaccess, $action->user->id);
+  
+  $tr = array();
+
+
+  while(list($k,$v) = each($tinter)) {
+            
+    $tr[] = array($v->title ,
+		  $v->id,$v->title);
+    
+  }
+  return $tr;  
+}
+
+
+// liste des documents par familles
 function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
@@ -93,7 +113,8 @@ function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
 }
 
 
-// liste des sociétés
+
+// liste des documents par catégories
 function lkfamily($dbaccess, $famname, $aid, 
 		  $kid, $name, $filter=array()) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
