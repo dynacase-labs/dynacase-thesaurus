@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.15 2004/02/17 10:50:02 eric Exp $
+ * @version $Id: generic_tab.php,v 1.16 2004/06/11 16:16:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.15 2004/02/17 10:50:02 eric Exp $
+// $Id: generic_tab.php,v 1.16 2004/06/11 16:16:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -114,7 +114,7 @@ function generic_tab(&$action) {
   $query = getSqlSearchDoc($dbaccess,$sdirid,$famid,$sqlfilter);
 
 
-  $sdoc-> AddQuery($query);
+  $sdoc->AddQuery($query);
   
 
   setHttpVar("tab", $tab);
