@@ -111,6 +111,7 @@ function closeMenu(menuid) {
          divpop = document.getElementById(menuid);
 	 divpop.style.visibility = 'hidden';
    }    
+  return false;
 }
 
 function activate(th, url, wname) {

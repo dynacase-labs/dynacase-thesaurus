@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.4 2001/11/27 13:09:08 eric Exp $
+// $Id: popup_util.php,v 1.5 2001/11/28 13:40:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: popup_util.php,v $
+// Revision 1.5  2001/11/28 13:40:10  eric
+// home directory
+//
 // Revision 1.4  2001/11/27 13:09:08  eric
 // barmenu & modif popup
 //
@@ -123,6 +126,7 @@ function popupGen($kdiv) {
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
 
+  if (isset($tmenuaccess)) {
   reset($tmenuaccess);
   $kv=0; // index for item
 
@@ -151,6 +155,7 @@ function popupGen($kdiv) {
   $lpopup->SetBlockData("MENUACCESS", $tma);
   $lpopup->SetBlockData("MENUS", $tmenus);
   $lpopup->SetBlockData("CMENUS", $tmenus);
+  }
   $action->parent->AddJsCode( $lpopup->gen());
   $tmenus = array(); // re-init (for next time)
   $tmenusaccess = array(); 

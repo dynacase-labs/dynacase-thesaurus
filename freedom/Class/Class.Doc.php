@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.12 2001/11/26 18:01:02 eric Exp $
+// $Id: Class.Doc.php,v 1.13 2001/11/28 13:40:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.13  2001/11/28 13:40:10  eric
+// home directory
+//
 // Revision 1.12  2001/11/26 18:01:02  eric
 // new popup & no lock for no revisable document
 //
@@ -62,7 +65,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.12 2001/11/26 18:01:02 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.13 2001/11/28 13:40:10 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -76,6 +79,11 @@ include_once("FREEDOM/Class.FileDisk.php");
 define ("QA_TITLE", 1);
 define ("QA_KEY", 2);
 define ("QA_LAST", 3);
+define ("QA_CASE", 4);
+define ("QA_FROM", 5);
+
+define ("FAM_DIR", 2);
+define ("FAM_SEARCH", 5);
 
 Class Doc extends DbObjCtrl
 {
@@ -144,7 +152,7 @@ create sequence seq_id_doc start 10";
     $oattr ->Add();
 
     // 같같같같같같같같같같같같같같같같같같같같
-    $this->id=2;
+    $this->id=FAM_DIR;
     $this->initid=$this->id;
     $this->owner=1; //admin
     $this->title=N_("directory familly");
@@ -194,7 +202,7 @@ create sequence seq_id_doc start 10";
     $oattr ->Add();
 
     // 같같같같같같같같같같같같같같같같같같같같
-    $this->id=5;
+    $this->id=FAM_SEARCH;
     $this->initid=$this->id;    
     $this->fromid=0; // from nothing
     $this->owner=1; //admin
@@ -231,16 +239,32 @@ create sequence seq_id_doc start 10";
     $oattr=new DocAttr($this->dbaccess);
     $oattr->id = QA_KEY;
     $oattr->labeltext=_("keyword");
-    $oattr->title = "Y";
-    $oattr->abstract = "N";
+    $oattr->title = "N";
+    $oattr->abstract = "Y";
     $oattr->docid = $this->initid;
     $oattr ->Add();
 
     $oattr=new DocAttr($this->dbaccess);
     $oattr->id = QA_LAST;
     $oattr->labeltext=_("only latest revision");
-    $oattr->title = "Y";
-    $oattr->abstract = "N";
+    $oattr->title = "N";
+    $oattr->abstract = "Y";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->id = QA_CASE;
+    $oattr->labeltext=_("case sensitive");
+    $oattr->title = "N";
+    $oattr->abstract = "Y";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->id = QA_FROM;
+    $oattr->labeltext=_("from folder");
+    $oattr->title = "N";
+    $oattr->abstract = "Y";
     $oattr->docid = $this->initid;
     $oattr ->Add();
 
@@ -304,6 +328,8 @@ create sequence seq_id_doc start 10";
 	}
       }
       if (chop($this->title) == "") $this->title =_("untitle document");
+      if ($this->doctype == "") $this->doctype = $this->defDoctype;
+      $this->revision = "0";
       return $err;
     } 
 

@@ -4,7 +4,8 @@
   <head>
 
    <title>[TEXT:Properties:] [TITLE]</title>
-
+   <LINK REL="icon" HREF="[CORE_PUBURL]/CORE/Images/logo-1-mini.ico" >
+   <LINK REL="SHORTCUT ICON" HREF="[CORE_PUBURL]/[imgsrc]" >
    <style>
 [ZONE CORE:GENCSS]
    </style>
@@ -98,7 +99,7 @@
 <a href="#" onclick="self.print()">
       <img   alt="[TEXT:print]" title="[TEXT:print]" border="0" src="[IMG:print.gif]">
       </a>
-<a   href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_DEL&id=[id]" onClick="ok=confirm('[TEXT:delconfirm] [deltitle]'); if (ok) setTimeout('parent.list.document.location.reload()',1); return (ok);" >[imgdel]</a>
+<a   href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_DEL&id=[id]" onClick="ok=confirm('[TEXT:delconfirm] [deltitle]'); if (ok) setTimeout('parent.info.document.location.reload()',1); return (ok);" >[imgdel]</a>
    
   </td>
 </tr>
@@ -112,11 +113,11 @@
   <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[username]</span></td>
   </td>
 </tr>
+[BLOCK LOCK]
 <tr>
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:revision]</span></td>
   <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[revision]</span></td>
 </tr>
-[BLOCK LOCK]
 <tr>
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:locked by]</span></td>
   <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[locked]</span></td>

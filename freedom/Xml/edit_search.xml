@@ -64,10 +64,15 @@ else displaytable='table-row'
   <td class="tlist"  >
       <input type="checkbox" name="latest" value="true" checked> </td>
 </tr>
+<tr class="tlist">
+  <td class="tlist" align="right">
+      <label for="fromdir"> [TEXT: from current folder]&nbsp;:</label></td>
+  <td class="tlist"  >
+      <input type="checkbox" name="fromdir" value="true" > </td>
+</tr>
 
 <tr class="tlist">
   <td class="tlist" align="right">
-
       <label for="sensitive"> [TEXT: case sensitive]&nbsp;:</label></td>
   <td class="tlist">
       <input type="checkbox" name="sensitive" value="true" > </td>
@@ -91,7 +96,7 @@ else displaytable='table-row'
 <tr class="tlist">
   <td class="tlist" align="right" >
  <input type="hidden" name="dirid" value="[dirid]" > 
- <input type="submit" value="[TEXT: send search]" > </td>
+ <input type="submit" value="[TEXT: send search]" onClick="document.search.dirid.value=parent.list.document.dirid"> </td>
   <td class="tlist" align="right">
 <input type="reset" value="[TEXT: cancel]" onClick="history.back()"></td>
 </tr>

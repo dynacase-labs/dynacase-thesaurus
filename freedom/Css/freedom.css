@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.3 2001/11/27 13:09:08 eric Exp $
+ * $Id: freedom.css,v 1.4 2001/11/28 13:40:10 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -16,7 +16,6 @@
 }
 
 .FREEDOMTextTitle{
-  color: [CORE_BGCELLCOLOR];	
   font-size: 80%;
   font-weight: bold;
 }
@@ -44,9 +43,27 @@
 
 
 
-.FREEDOMTblFrame{
-	background-color: [CORE_FGCOLOR];	
+.MenuInactive{
+	background-color: [CORE_FGCOLOR];
+	color : [CORE_BGCELLCOLOR];
+	border-width : 2px;
+	border-style : solid;
+	border-color : [CORE_FGCOLOR];
 }
+.MenuActive{
+	background-color: [CORE_FGCOLOR];
+	color : [CORE_BGCELLCOLOR];
+	border-width : 2px;
+	border-style : outset;
+	border-color : [CORE_FGCOLOR];
+}
+
+.FREEDOMTblFrame{
+	background-color: [CORE_FGCOLOR];
+	color : [CORE_BGCELLCOLOR];
+}
+
+
 .FREEDOMTextName{
   font-size: 80%;
   font-style: italic;

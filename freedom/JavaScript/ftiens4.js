@@ -69,21 +69,13 @@ function initializeFolder(level, lastNode, leftSide)
    
   this.createIndex() 
  
-  var auxEv = "" 
- 
-  if (browserVersion > 0) 
-    if (nc > 0)
-      auxEv = "<a href='#' onMouseDown='javascript:clickOnNode("+this.id+");return true'>" 
-      else 
-	auxEv = "<a>" 
-  else 
-    auxEv = "<a>" 
+  
  
   if (level>0) 
     if (lastNode) //the last child in the children array 
     { 
     if (nc > 0)
-      this.renderOb(leftSide + auxEv + "<img name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mlastnode.gif' width=16 height=22 border=0></a>") 
+      this.renderOb(leftSide  + "<img onMouseDown='javascript:clickOnNode("+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mlastnode.gif' width=16 height=22 border=0>") 
     else this.renderOb(leftSide +   "<img name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2lastnode.gif' width=16 height=22 border=0>") 
       leftSide = leftSide + "<img src='FREEDOM/Images/ftv2blank.gif' width=16 height=22>"  
       this.isLastNode = 1 
@@ -91,7 +83,7 @@ function initializeFolder(level, lastNode, leftSide)
     else 
     { 
     if (nc > 0)
-      this.renderOb(leftSide + auxEv + "<img name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mnode.gif' width=16 height=22 border=0></a>") 
+      this.renderOb(leftSide  + "<img onMouseDown='javascript:clickOnNode("+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mnode.gif' width=16 height=22 border=0>") 
 	else 
       this.renderOb(leftSide  + "<img name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2node.gif' width=16 height=22 border=0>") 
       leftSide = leftSide + "<img src='FREEDOM/Images/ftv2vertline.gif' width=16 height=22>" 
@@ -149,8 +141,8 @@ function propagateChangesInState(folder)
         folder.nodeImg.src = "FREEDOM/Images/ftv2mlastnode.gif" 
       else 
 	    folder.nodeImg.src = "FREEDOM/Images/ftv2mnode.gif" 
-    if (folder.ftype == 2)    folder.iconImg.src = "FREEDOM/Images/ftv2folderopen2.gif" 
-    else  folder.iconImg.src = "FREEDOM/Images/ftv2folderopen.gif"
+    folder.iconImg.src = "FREEDOM/Images/ftv2folderopen"+folder.ftype+".gif" 
+
     for (i=0; i<folder.nChildren; i++) 
       folder.children[i].mostra() 
   } 
@@ -166,8 +158,8 @@ function propagateChangesInState(folder)
 	    folder.nodeImg.src = "FREEDOM/Images/ftv2pnode.gif" 
         else 
 	    folder.nodeImg.src = "FREEDOM/Images/ftv2node.gif" 
-      if (folder.ftype == 2)    folder.iconImg.src = "FREEDOM/Images/ftv2folderclosed2.gif" 
-      else folder.iconImg.src = "FREEDOM/Images/ftv2folderclosed.gif"
+
+    folder.iconImg.src = "FREEDOM/Images/ftv2folderclosed"+folder.ftype+".gif" 
     for (i=0; i<folder.nChildren; i++) 
       folder.children[i].esconde() 
   }  
@@ -193,23 +185,25 @@ function drawFolder(leftSide)
 
   doc.write("<tr><td class=\"fld\">") 
   doc.write(leftSide) 
-  this.outputLink() 
+    //  this.outputLink() 
   doc.write("<img id='folderIcon" + this.id + "' name='folderIcon" + this.id + "' src='" + this.iconSrc+"' border=0 style=\"cursor:pointer\"");
+
+
+
+  if (this.hreference == "#") {
 
       doc.write("onMouseDown='if (drag == 0) {selectFolder("+this.id+","+this.refid+");parent.info.location.href=\""+actionviewfile+"&dirid="+this.refid+"\"}'") 
       doc.write("onMouseOver='if (drag == 1) clickOnFolder("+this.id+")'") 
       doc.write("onContextMenu='openMenu(event,\"popfld\","+this.id+");return false'") 
 
       doc.write("onMouseUp='if (drag == 1) {dirid="+this.refid+";selid="+this.id+";openMenu(event,\"poppaste\","+this.id+")};return false;'") 
+	} else {
+	  doc.write("onMouseDown='parent.info.location.href=\""+this.hreference+"\"' "); 
+	}
   doc.write(">") 
   doc.write("</td><td class=\"fld\" valign=middle nowrap>") 
-  if (USETEXTLINKS) 
-  { 
-    this.outputLink() 
-    doc.write(this.desc + "</a>") 
-  } 
-  else 
-    doc.write(this.desc) 
+  
+  doc.write(this.desc) 
   doc.write("</td>")  
 
   this.blockEnd()
@@ -248,12 +242,12 @@ function selectFolder(id, refid) {
 }
 function outputFolderLink() 
 { 
-  return;
+
   if (this.hreference) 
   { 
     doc.write("<a href='" + this.hreference + "' TARGET=\"basefrm\" ") 
     if (browserVersion > 0) 
-      doc.write("onClick='javascript:clickOnFolder("+this.id+")'") 
+      doc.write("onClick='javascript:clickOnFolder("+this.id+"): return false'") 
     doc.write(">") 
   } 
   else 
@@ -544,7 +538,7 @@ function initializeDocument()
 
       browserVersion = 3 //NS6
   //foldersTree (with the site's data) is created in an external .js 
-  aux0.initialize(0, 1, "") 
+  fldtop.initialize(0, 1, "") 
   
   if (browserVersion == 2) 
     doc.write("<layer top="+indexOfEntries[nEntries-1].navObj.top+">&nbsp;</layer>") 

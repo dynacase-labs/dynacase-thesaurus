@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.8 2001/11/22 17:49:12 eric Exp $
+// $Id: FREEDOM.app,v 1.9 2001/11/28 13:40:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.9  2001/11/28 13:40:10  eric
+// home directory
+//
 // Revision 1.8  2001/11/22 17:49:12  eric
 // search doc
 //
@@ -114,8 +117,13 @@ $action_desc = array (
   ) ,
   array( 
    "name"		=>"FREEDOM_LIST",
-   "toc"		=>"Y",
    "short_name"		=>N_("Freedoms list"),
+   "acl"		=>"FREEDOM_READ",
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_VIEW",
+   "short_name"		=>N_("Freedoms view folder"),
+   "layout"		=>"freedom_list.xml",
    "acl"		=>"FREEDOM_READ",
   ) ,
   array( 

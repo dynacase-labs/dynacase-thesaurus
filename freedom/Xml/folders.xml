@@ -160,12 +160,15 @@ USETEXTLINKS = 0  //replace 0 with 1 for hyperlinks
 STARTALLOPEN = 0 //replace 0 with 1 to show the whole tree
 
 actionaddfile = "[CORE_STANDURL]&app=[FREEDOM_APP]&action=ADDDIRFILE";
-actionviewfile = "[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LIST";
+actionviewfile = "[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_VIEW";
 
-aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]",1)
+
+
+fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4)
 
 
 [subtree]
+[hometree]
 
   //-->
 </script>
@@ -191,12 +194,12 @@ aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]",1)
 <div  id="popfld" class="popup">
 
 <a href="#" id="vprop"
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld')">[TEXT: properties] </a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld');return false">[TEXT: properties] </a>
 <a href="#" id="mkdir"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'doc_properties');closeMenu('popfld')">
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'doc_properties');closeMenu('popfld');return false">
 [TEXT: create subfolder]</a>
 <a href="#" id="cancel"  
-    onClick="closeMenu('popfld')"  >cancel</a>
+    onClick="closeMenu('popfld');return false"  >cancel</a>
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 
@@ -204,13 +207,13 @@ aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]",1)
 <div  id="poppaste" class="popup">
 
 <a href="#" id="staticpaste"
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=ADDDIRFILE&mode=static&dirid='+dirid+'&docid='+cdocid,'doc_properties');closeMenu('poppaste')">
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=ADDDIRFILE&mode=static&dirid='+dirid+'&docid='+cdocid,'doc_properties');closeMenu('poppaste');return false">
    [TEXT: paste this revision] </a>
 <a href="#" id="pastelatest"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'doc_properties');closeMenu('poppaste')">
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'doc_properties');closeMenu('poppaste');return false">
    [TEXT: paste latest revision]</a>
 <a href="#" id="cancel2"  
-    onClick="closeMenu('poppaste')">cancel</a>
+    onClick="closeMenu('poppaste');return false">cancel</a>
 </div>
 
 <!-- ------------------ end POPUP DIVISION ------------------ -->

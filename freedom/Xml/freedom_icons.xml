@@ -4,7 +4,7 @@
 <html>
   <head>
 
-   <title>[WHAT] [APP_TITLE]</title>
+   <title>[TEXT: folder containt]</title>
 
    <style>
 [ZONE CORE:GENCSS]
@@ -24,14 +24,6 @@
   height:40;
   
 }
-/*
-.iconimg:hover {
-  background-color: [FREEDOM_FRAMEBGCOLOR];
-  border-style:dashed;
-  border-width: 3;
-  
-}
-*/
 .icon{
 
   font-weight: normal;
@@ -51,20 +43,6 @@
 }
 
 
-.abstract {
-  background-color: [CORE_BGCOLORALTERN];
-/*  background-image: url('FREEDOM/Images/button9.png'); */
-/*  background-repeat:no-repeat; */
-  font-size: 60%;
-  text-align: left;
-  position:absolute;
-  border-style:groove;
-  border-color:[CORE_FGCOLOR];
-  border-width: 4;
-  visibility:hidden;
-  z-index:3;
-
-}
 </style>
 
 [JS:REF]
@@ -77,8 +55,10 @@
 </script>   
  </head>
 
-<body class="freedom" onLoad="initmicon();placeicons();" onResize="placeicons()"
-      onClick="closeAllMenu();" >
+<body class="freedom" 
+      onLoad="initmicon();placeicons();" 
+      onResize="placeicons()"
+      onClick="closeMenu('popuplist');" >
 
 
 

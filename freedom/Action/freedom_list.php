@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_list.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: freedom_list.php,v 1.2 2001/11/28 13:40:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,13 +22,16 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_list.php,v $
+// Revision 1.2  2001/11/28 13:40:10  eric
+// home directory
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
 //
 // ---------------------------------------------------------------
 
-include_once("FREEDOM/freedom_icons.php");
+include_once("FREEDOM/freedom_view.php");
 
 
 
@@ -38,7 +41,8 @@ function freedom_list(&$action) {
 // -----------------------------------
   // Set the globals elements
 
-  freedom_icons($action, false);
+  $action->Register("freedom_view","list");
+  view_folder($action, false);
   
 
 

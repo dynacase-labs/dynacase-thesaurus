@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.8 2001/11/26 18:01:02 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.9 2001/11/28 13:40:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.9  2001/11/28 13:40:10  eric
+// home directory
+//
 // Revision 1.8  2001/11/26 18:01:02  eric
 // new popup & no lock for no revisable document
 //
@@ -50,7 +53,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.8 2001/11/26 18:01:02 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.9 2001/11/28 13:40:10 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -75,11 +78,6 @@ create table dirv ( dirid      int not null,
                    );";
 
 
-  function preInsert() {
-    $this->log->Debug("oqdv pre add ".$this->childid);
-    $this->log->Debug("oqdv pre add OK".$this->childid);
-    return "";
-  }
 
   // test if the childid will be inserted in dirid is also an ancestor of dirid
   // it is clear ?
@@ -87,9 +85,7 @@ create table dirv ( dirid      int not null,
   function ItSelfAncestor() {
     $doc = new Doc($this->dbaccess, $this->childid);
     if ($doc->doctype == 'D') {
-    $this->log->Debug("oqdv pre  ItSelfAncestor".$this->childid);
       $tfid = $this->getFathersDir($this->dirid);
-    $this->log->Debug("oqdv post ItSelfAncestor ".$this->childid);
       
       if (in_array($this->childid, $tfid)) {
 	
@@ -219,14 +215,38 @@ create table dirv ( dirid      int not null,
     return($tableid);
   }
 
+  function getChildDirId($dirid) {
+    // query to find child ID directories (no recursive - only in the specified folder)
+
+    
+    $qsql= "select distinct t0.id from doc t0,dirv t1,dirq t2  where  (t0.doctype='D')  and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and  (t2.dirid=$dirid) and (not useforprof);";
+
+
+    $tableid = array();
+    $query = new QueryDb($this->dbaccess,"Doc");
+    $query -> AddQuery("dirid=".$dirid);
+
+    $tableq=$query->Query(0,0,"TABLE",$qsql);
+    if ($query->nb > 0)
+      {
+	while(list($k,$v) = each($tableq)) 
+	  {
+	      $tableid[] = $v["id"];
+	  }
+	unset ($tableq);
+      }
+
+
+    return($tableid);
+  }
   var $level=0;
-  function getRChildDir($dirid) {
+  function getRChildDirId($dirid) {
     // query to find child directories (RECURSIVE)
 
 
     if ($this->level > 20) exit;
     $this->level++;
-    $childs = $this->getChildDir($dirid, true);
+    $childs = $this->getChildDirId($dirid, true);
     $rchilds = $childs;
 
     if (count($childs) > 0) {
@@ -234,7 +254,7 @@ create table dirv ( dirid      int not null,
     while(list($k,$v) = each($childs)) 
 	  {
 
-	    $rchilds = array_merge($rchilds, $this->getRChildDir($v->id));
+	    $rchilds = array_merge($rchilds, $this->getRChildDirId($v));
 	  }
     }
 
@@ -245,7 +265,7 @@ create table dirv ( dirid      int not null,
   function getChildDoc($dirid) {
     global $lprof;
     // query to find child directories
-    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid)  and (t2.dirid=$dirid) order by id desc;";
+    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  (t0.doctype != 'T') and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid)  and (t2.dirid=$dirid) order by id desc;";
 
 
     $query = new QueryDb($this->dbaccess,"Doc");

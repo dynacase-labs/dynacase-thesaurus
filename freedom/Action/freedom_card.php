@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.11 2001/11/26 18:01:01 eric Exp $
+// $Id: freedom_card.php,v 1.12 2001/11/28 13:40:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.12  2001/11/28 13:40:10  eric
+// home directory
+//
 // Revision 1.11  2001/11/26 18:01:01  eric
 // new popup & no lock for no revisable document
 //
@@ -212,7 +215,7 @@ function freedom_card(&$action) {
   // see locker for lockable document
   if ($doc->doctype == "F")  {
     $action->lay->SetBlockData("LOCK",array(array("boo"=>1)));  
-  } else  $nprop--;
+  } else  $nprop-=2; // revision & locker
   $action->lay->Set("nprop",$nprop);  
 
 
@@ -428,6 +431,8 @@ function freedom_card(&$action) {
   }
   else if ($cud) popupActive('popupcard',$kdiv,'editcprof');
   else popupInactive('popupcard',$kdiv,'editcprof');
+
+  if ($doc->doctype == "S") popupInvisible('popupcard',$kdiv,'editdoc'); 
   // unused menu items
   //$tmenuaccess[$kdiv]["vmenuitem9"]=0;
 

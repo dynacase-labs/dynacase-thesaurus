@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.9 2001/11/27 13:09:08 eric Exp $
+// $Id: folders.php,v 1.10 2001/11/28 13:40:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: folders.php,v $
+// Revision 1.10  2001/11/28 13:40:10  eric
+// home directory
+//
 // Revision 1.9  2001/11/27 13:09:08  eric
 // barmenu & modif popup
 //
@@ -51,7 +54,8 @@
 //
 // ---------------------------------------------------------------
 
-include_once("FREEDOM/Class.Doc.php");
+
+include_once("FREEDOM/Class.Dir.php");
 include_once("FREEDOM/Class.QueryDirV.php");
 include_once("FREEDOM/freedom_util.php");  
 
@@ -80,6 +84,11 @@ function folders(&$action) {
   include_once("FREEDOM/popup_util.php");
   barmenu($action); // describe bar menu
 
+  $homefld = new Dir( $dbaccess);
+  $homefld = $homefld->GetHome();
+
+  $action->lay->Set("homename", $homefld->title);
+  $action->lay->Set("homeid", $homefld->id);
   
 
   $tmenuaccess = array(); // to define action an each icon
@@ -99,7 +108,7 @@ function folders(&$action) {
   popupInit("popfld", array('vprop','mkdir','cancel'));
   popupInit("poppaste", array('staticpaste','pastelatest','cancel2'));
 
-  // for the first (main) folder
+  // for the first (top) folder
   popupActive("popfld",$nbfolders,'cancel');
   popupActive("popfld",$nbfolders,'vprop');
   popupActive("popfld",$nbfolders,'mkdir');  
@@ -108,17 +117,17 @@ function folders(&$action) {
   popupActive("poppaste",$nbfolders,'cancel2');
 
 
-  $nbfolders++;
-  // define sub tree
-  $stree="";
-  $ldir =   $oqdv->getChildDir($dirid);
-  while (list($k,$v) = each($ldir)) {
-    $stree .= addfolder($v, 1);
-  }
-    
-  //  print($stree);
+  $nbfolders++; // one for the top
+
+
+  // define sub trees
+
   
+  $stree=addfolder($doc, -1, "fldtop", false);
   $action->lay->Set("subtree", $stree);
+
+  $htree=addfolder($homefld, 0, "fldtop");
+  $action->lay->Set("hometree", $htree);
   
 
   //-------------- pop-up menu ----------------
@@ -135,16 +144,20 @@ function folders(&$action) {
 
 
 // -----------------------------------
-function addfolder($doc, $level) {
+function addfolder($doc, $level, $treename, $thisfld=true) {
   // -----------------------------------
   global $oqdv;
   global $tmenuaccess;
   global $nbfolders;
   
-  $levelp = $level-1;
-  if ($doc->doctype == 'D') $ftype=1;
-  if ($doc->doctype == 'S') $ftype=2;
-  $ltree = "aux$level = insFld(aux".$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->id.",$ftype))\n";
+
+  if ($thisfld) {
+  if ($level == 0) $levelp="";
+  else $levelp = $level-1;
+  if ($doc->owner < 0) $ftype=3;
+  else if ($doc->doctype == 'D') $ftype=1;
+  else if ($doc->doctype == 'S') $ftype=2;
+  $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->id.",$ftype))\n";
 
 
   popupActive("popfld",$nbfolders,'cancel');
@@ -155,7 +168,7 @@ function addfolder($doc, $level) {
   popupActive("poppaste",$nbfolders,'pastelatest');
   popupActive("poppaste",$nbfolders,'cancel2');
   $nbfolders++;
-
+  } else $ltree = "";
   if ($doc->doctype == 'D') {
 
     $ldir = $oqdv->getChildDir($doc->id);
@@ -164,7 +177,7 @@ function addfolder($doc, $level) {
     if (count($ldir) > 0 ) {
      
       while (list($k,$v) = each($ldir)) {
-	$ltree .= addfolder($v, $level+1);
+	$ltree .= addfolder($v, $level+1, $treename);
       }
     } 
   }
@@ -174,13 +187,13 @@ function addfolder($doc, $level) {
 // -----------------------------------
 function barmenu(&$action) {
   // -----------------------------------
-  popupInit("newmenu", array('newdoc','newfld','newprof','newfam'));
-  popupInit("searchmenu",	array(   'newsearch'));
+  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam'));
+  popupInit("searchmenu", array( 'newsearch'));
 
 
 
-  popupInit("viewmenu",	array(  'vlist','vicon','refresh'));
-  popupInit("helpmenu", array(  'help'));
+  popupInit("viewmenu",	array('vlist','vicon','refresh'));
+  popupInit("helpmenu", array('help'));
 
 
     popupActive("newmenu",1,'newdoc'); 

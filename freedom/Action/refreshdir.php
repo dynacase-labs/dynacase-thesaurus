@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: refreshdir.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: refreshdir.php,v 1.2 2001/11/28 13:40:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/refreshdir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: refreshdir.php,v $
+// Revision 1.2  2001/11/28 13:40:10  eric
+// home directory
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -54,6 +57,6 @@ function refreshdir(&$action) {
 
   $oqd = new QueryDir($dbaccess);
   $oqd->RefreshDir($dirid);
-  redirect($action,GetHttpVars("app"),"FREEDOM_LIST&dirid=$dirid");
+  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");
 }
 ?>

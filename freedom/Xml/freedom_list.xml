@@ -4,7 +4,7 @@
 <html>
   <head>
 
-   <title>[WHAT] [APP_TITLE]</title>
+   <title>[TEXT: folder containt]</title>
 
    <style>
 [ZONE CORE:GENCSS]
@@ -33,14 +33,6 @@
   /*background-color: palegoldenrod;*/
   
 }
-/*
-.iconimg:hover {
-  background-color: [FREEDOM_FRAMEBGCOLOR];
-  border-style:dashed;
-  border-width: 1;
-  
-}
-*/
 
 TD.tlist {
    border-width : 1px;
@@ -86,7 +78,7 @@ TR.tlist {
 <table class="tablesimple" cellspacing="0" width="100%" >
 
 <!-- TABLEBODY -->
-[BLOCK TABLEBODY]
+                    [BLOCK TABLEBODY]
 <tr  id="d[divid]"  
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
@@ -107,8 +99,7 @@ TR.tlist {
     
 </tr>
 
-
-[ENDBLOCK TABLEBODY]
+                    [ENDBLOCK TABLEBODY]
 </table>
 <!-- /TABLEBODY -->
 

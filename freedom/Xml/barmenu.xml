@@ -5,21 +5,29 @@
 <table class="tablesimple" style="position:absolute; top:0; left:0;cursor:default; cols="4"  cellspacing="0"   >
 <thead>
 <tr>
-<td  class="FREEDOMTblFrame"  
+<td  class="MenuInactive"  
      style="padding: 0px 0pt 0px 10px;" 
-     onClick="closeAllMenu();openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);window.status=this.offsetTop+'.'+this.offsetHeight+'.'+this.style.top;return false" >
+     onClick="closeAllMenu();openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);window.status=this.offsetTop+'.'+this.offsetHeight+'.'+this.style.top;return false" 
+     onMouseOver="this.className='MenuActive'"
+     onMouseOut="this.className='MenuInactive'">
 <span class="FREEDOMTextTitle">[TEXT:New]</span>
 </td>
-<td  class="FREEDOMTblFrame"  
-     onClick="closeAllMenu();openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
+<td  class="MenuInactive"  
+     onClick="closeAllMenu();openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" 
+     onMouseOver="this.className='MenuActive'"
+     onMouseOut="this.className='MenuInactive'">
 <span class="FREEDOMTextTitle">[TEXT:Search]</span>
 </td>
-<td  class="FREEDOMTblFrame"  
-     onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
+<td  class="MenuInactive"  
+     onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" 
+     onMouseOver="this.className='MenuActive'"
+     onMouseOut="this.className='MenuInactive'">
 <span class="FREEDOMTextTitle">[TEXT:View]</span>
 </td>
-<td  class="FREEDOMTblFrame"  
-     onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
+<td  class="MenuInactive"  
+     onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" 
+     onMouseOver="this.className='MenuActive'"
+     onMouseOut="this.className='MenuInactive'">
 <span class="FREEDOMTextTitle">[TEXT:Help]</span>
 </td>
 </tr>

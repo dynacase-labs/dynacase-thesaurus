@@ -2,23 +2,21 @@
 <div  id="popuplist" class="popup">
 
 <a href="#" id="vprop"
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+docid,'doc_properties');closeMenu('popuplist');">[TEXT:view properties] </a>
-
-
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+docid,'doc_properties');closeMenu('popuplist'); return false;">[TEXT:view properties] </a>
 
 
 
 <a href="#" id="editdoc"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id='+docid,'doc_properties');closeMenu('popuplist')"  >[TEXT:edit document]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id='+docid,'doc_properties');closeMenu('popuplist'); return false;"  >[TEXT:edit document]</a>
 
 
 <a href="#" id="copy" 
-    onClick="activedrag(event);closeMenu('popuplist')" >[TEXT:link document]</a>
+    onClick="activedrag(event);closeMenu('popuplist'); return false;" >[TEXT:link document]</a>
 
 <a href="#" id="delete"
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=DELDIRFILE&docid='+docid+'&dirid='+parent.info.document.dirid,'info');closeMenu('popuplist')" >[TEXT:delete link]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=DELDIRFILE&docid='+docid+'&dirid='+parent.info.document.dirid,'info');closeMenu('popuplist'); return false;" >[TEXT:delete link]</a>
 
 <a href="#" id="cancel"  
-    onClick="closeMenu('popuplist')"  >[TEXT:cancel]</a>
+    onClick="closeMenu('popuplist'); return false;"  >[TEXT:cancel]</a>
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
