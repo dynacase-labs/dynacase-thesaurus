@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.6 2001/12/18 09:18:10 eric Exp $
+// $Id: freedom_import.php,v 1.7 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_import.php,v $
+// Revision 1.7  2001/12/19 17:57:32  eric
+// on continue
+//
 // Revision 1.6  2001/12/18 09:18:10  eric
 // first API with ZONE
 //
@@ -52,6 +55,8 @@
 //
 // ---------------------------------------------------------------
 include_once("FREEDOM/Class.Doc.php");
+include_once("FREEDOM/Class.DocSearch.php");
+include_once("FREEDOM/Class.Dir.php");
 include_once("FREEDOM/Class.QueryDir.php");
 
 
@@ -95,12 +100,12 @@ function freedom_import(&$action) {
 
 
   $lattr = $doc->GetAttributes();
-  $format = "BEGIN;".$doc->id.";[".chop($doc->title)."]\n";
+  $format = "DOC;".$doc->id.";<special id>;<special dirid>; ";
 
   while (list($k, $attr) = each ($lattr)) {
-    $format .= $attr->id.";[".$attr->labeltext."];<"._("value").">\n";
+    $format .= $attr->labeltext." ;";
   }
-  $format .= "END;$doc->id\n";
+
 
 
   $action->lay->Set("dirid",$dirid);
@@ -128,7 +133,7 @@ function add_import_file(&$action, $fimport="") {
   while ($data = fgetcsv ($fdoc, 1000, ";")) {
     $nline++;
     $num = count ($data);
-    if ($num < 2) continue;
+    if ($num < 1) continue;
 
     switch ($data[0]) {
       // -----------------------------------
@@ -141,9 +146,7 @@ function add_import_file(&$action, $fimport="") {
 
     $err = $doc->Add();
 
-    if (($err != "") && ($doc->id > 0)) {
-      //print $doc->id."<BR>";
-      //print '-'.$doc -> Select($doc->id).'-';
+    if (($err != "") && ($doc->id > 0)) { // case only modify
       if ($doc -> Select($doc->id)) $err = "";
     }
     if ($err != "") $action->exitError($err);
@@ -153,36 +156,101 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "END":
-      if ($num > 3) $doc->doctype = "S";
-      $doc->title =  GetTitle($dbaccess,$doc->id);
+      if (($num > 3) && ($data[3] != "")) $doc->doctype = "S";
+      $doc->title =  GetTitleF($dbaccess,$doc->id);
 
       $doc->modify();
-      $qf = new QueryDir($dbaccess);
-      if (($num < 3) || ($data[2] == 0)) $qf->dirid=$dirid; // current folder
-      else $qf->dirid=$data[2]; // specific folder
 
-      if ($qf->dirid >=0) {
-      $qf->query="select id from doc where id=".$doc->id;
-      $qf->qtype='S'; // single user query
-      $err = $qf->Add();
-      if ($err != "") $err = $qf->Modify();
-      if ($err != "") $action->exitError($err);
+      if ($data[2] > 0) { // dirid
+	$dir = new Dir($dbaccess, $data[3]);
+	$dir->AddFile($doc->id);
+      } else if ($data[2] ==  0) {
+	$dir = new Dir($dbaccess, $dirid);
+	$dir->AddFile($doc->id);
+      }
 
       
-      if ($num > 3) { // specific search 
-	$qf->qid="";
+      
+      
+    
+    break;
+    // -----------------------------------
+    case "DOC":
+    $doc = createDoc($dbaccess, $data[1]);
+    $doc->fromid = $data[1];
+    if  ($data[2] > 0) $doc->id= $data[2]; // static id
+    $err = $doc->Add();
+    if (($err != "") && ($doc->id > 0)) { // case only modify
+      if ($doc -> Select($doc->id)) $err = "";
+    }
+    if ($err != "") $action->exitError($err);
+    $lattr = $doc->GetAttributes();
+
+
+    $bdvalue = new DocValue($dbaccess);
+    $bdvalue->docid = $doc->id;
+    $iattr = 4; // begin in 5th column
+    reset($lattr);
+    while (list($k, $attr) = each ($lattr)) {
+
+      if ($data[$iattr] != "") {
+	$bdvalue->attrid = $attr->id;
+	$bdvalue->value = $data[$iattr];
+
+      }
+      $iattr++;
+    }
+    // update title in finish
+    $doc->title =  GetTitleF($dbaccess,$doc->id);
+    $doc->modify();
+
+    if ($data[3] > 0) { // dirid
+      $dir = new Dir($dbaccess, $data[3]);
+      $dir->AddFile($doc->id);
+    } else if ($data[3] ==  0) {
+      $dir = new Dir($dbaccess, $dirid);
+      $dir->AddFile($doc->id);
+    }
+    break;    
+    // -----------------------------------
+    case "SEARCH":
+    $doc = new DocSearch($dbaccess);
+
+    if  ($data[1] > 0) $doc->id= $data[1]; // static id
+    $err = $doc->Add();
+    if (($err != "") && ($doc->id > 0)) { // case only modify
+      if ($doc -> Select($doc->id)) $err = "";
+    }
+    if ($err != "") $action->exitError($err);
+    
+    // update title in finish
+    $doc->title =  $data[3];
+    $doc->modify();
+
+    if (($data[4] != "")) { // specific search 
+      $qf = new QueryDir($dbaccess);
 	$qf->dirid=$doc->id;
 	$qf->qtype='M'; // complex query
-	$qf->query=$data[3];
+	$qf->query=$data[4];
 	$err = $qf->Add();
 	if ($err != "") $action->exitError($err);
       }
-      }
-    
+
+    if ($data[2] > 0) { // dirid
+      $dir = new Dir($dbaccess, $data[2]);
+      $dir->AddFile($doc->id);
+    } else if ($data[2] ==  0) {
+      $dir = new Dir($dbaccess, $dirid);
+      $dir->AddFile($doc->id);
+    }
     break;
     // -----------------------------------
     case "TYPE":
       $doc->doctype =  $data[1];
+    break;
+    // -----------------------------------
+    case "USEFORPROF":     
+      $doc->useforprof =  "t";
     break;
     // -----------------------------------
     case "ATTR":
@@ -208,9 +276,11 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case ($data[0] > 0):
-      $bdvalue->attrid = $data[0];
-    $bdvalue->value = $data[2];
-    $bdvalue ->Modify();
+      if ($data[0] > 0) {
+	$bdvalue->attrid = $data[0];
+	$bdvalue->value = $data[2];
+	$bdvalue ->Modify();
+      }
     break;
 	  
     }

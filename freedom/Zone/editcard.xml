@@ -26,5 +26,18 @@
 
 [ENDBLOCK TABLEBODY]
 
+[BLOCK TRSTATE]
+<tr class="FREEDOMBack2">
+  <td colspan="3" >
+ <label class="FREEDOMText" for="newstate">[TEXT: state:] <i>[TEXT:[initstatevalue]]</i> [TEXT:to]</label>
+ <select name="newstate"> 
+ <option VALUE="[initstatevalue]" >[TEXT:unchanged]</option> 
+[BLOCK NEWSTATE]
+ <option VALUE="[statevalue]" >[statename]</option>  
+[ENDBLOCK NEWSTATE]
+  </select>
+  </td>
+</tr>
+[ENDBLOCK TRSTATE]
 </tbody>
 

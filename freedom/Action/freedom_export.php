@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_export.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: freedom_export.php,v 1.2 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_export.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_export.php,v $
+// Revision 1.2  2001/12/19 17:57:32  eric
+// on continue
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -82,7 +85,7 @@ function freedom_export(&$action) {
       $value = new DocValue($dbaccess);
       $textTable = $value->GetIdFreedom($fulltext);
       
-      $sql_cond_text = sql_cond($textTable, "id");
+      $sql_cond_text = GetSqlCond($textTable, "id");
       $query->AddQuery($sql_cond_text);
       
     }

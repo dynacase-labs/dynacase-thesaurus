@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.1 2001/12/18 09:18:10 eric Exp $
+// $Id: editcard.php,v 1.2 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -344,7 +344,18 @@ function editcard(&$action) {
   $action->lay->SetBlockData("TABLEBODY",$frames);
   
 
-
+  if (count( $doc->transitions) > 0) {
+    // compute the changed state
+    $fstate = $doc->GetFollowingStates();
+    $action->lay->Set("initstatevalue",$doc->state );
+    $tstate= array();
+    while (list($k, $v) = each($fstate)) {
+      $tstate[$k]["statevalue"] = $v;
+      $tstate[$k]["statename"] = _($v);
+    }
+    $action->lay->SetBlockData("NEWSTATE", $tstate);
+    $action->lay->SetBlockData("TRSTATE", array(0=>array("boo")));
+  }
 
 
  

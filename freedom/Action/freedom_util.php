@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.6 2001/12/18 09:18:10 eric Exp $
+// $Id: freedom_util.php,v 1.7 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_util.php,v $
+// Revision 1.7  2001/12/19 17:57:32  eric
+// on continue
+//
 // Revision 1.6  2001/12/18 09:18:10  eric
 // first API with ZONE
 //
@@ -62,7 +65,7 @@ include_once("FREEDOM/Class.DocValue.php");
 // ------------------------------------------------------
 // construction of a sql disjonction
 // ------------------------------------------------------
-function sql_cond($Table, $column) 
+function GetSqlCond($Table, $column) 
 // ------------------------------------------------------
 {
   $sql_cond="";
@@ -81,7 +84,7 @@ function sql_cond($Table, $column)
 
 
 // ------------------------------------------------------
-function GetTitle($dbaccess,$docid)
+function GetTitleF($dbaccess,$docid)
 // ------------------------------------------------------
 {
   
@@ -94,7 +97,7 @@ function GetTitle($dbaccess,$docid)
   
       $bdattr = new DocAttr($dbaccess);
       $titleTable = $bdattr->GetTitleIds();
-      $sql_cond_title = $sql_cond_abs = sql_cond($titleTable,"attrid");
+      $sql_cond_title = $sql_cond_abs = GetSqlCond($titleTable,"attrid");
   
 
 
@@ -117,53 +120,7 @@ function GetTitle($dbaccess,$docid)
  return $title;
 }
 
-// ------------------------------------------------------
-function GetImagesFiles($dbaccess,$docid)
-// ------------------------------------------------------
-{
 
-  // ------------------------------------------------------
-  // search image files
-  // ------------------------------------------------------
-  // construction of SQL condition to find title attributes
-
-  static $first=1;
-  static $sql_cond_title;
-  // ------------------------------------------------------
-  // 
-  // ------------------------------------------------------
-  // construction of SQL condition to find image attributes
-
-  
-  if (  $first ) // optimisation to avoid same multiple query
-    {
-      $bdattr = new DocAttr($dbaccess);
-      $titleTable = $bdattr-> GetTypedIds("image");
-      $sql_cond_title = $sql_cond_abs = sql_cond($titleTable,"attrid");
-      $first=0;
-    }
-
-
-  $query_val = new QueryDb($dbaccess,"DocValue");
-  
-
-
-
-  // search title for freedom item
-  $query_val->basic_elem->sup_where=array ("(docid=$docid)",
-					   $sql_cond_title);
-
-  $tablevalue = $query_val->Query();
-  $timage = array();
-  for ($i=0; $i < $query_val->nb; $i++)
-    {
-      if (ereg ("(.*)\|(.*)\|(.*)", $tablevalue[$i]->value, $reg))
-	$timage[$i] = $reg[2]; // upload file name
-    }
-
-  return $timage;
- 
-}
 
 
 
@@ -185,7 +142,7 @@ function freedom_get_attr_card($dbaccess, $docid,&$title, &$tattr) {
     $bdattr = new DocAttr($dbaccess);
     $first = 0;
   }
-  $title=GetTitle($dbaccess,$docid);
+  $title=GetTitleF($dbaccess,$docid);
 
 
 	  

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.1 2001/12/18 09:18:10 eric Exp $
+// $Id: viewfolder.php,v 1.2 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,10 +23,11 @@
 // ---------------------------------------------------------------
 
 
-include_once("FREEDOM/Class.Doc.php");
+include_once("FREEDOM/Class.Dir.php");
 include_once("FREEDOM/Class.DocAttr.php");
 include_once("FREEDOM/Class.DocValue.php");
 include_once("FREEDOM/freedom_util.php");
+include_once('FREEDOM/Class.QueryDir.php');
 include_once('FREEDOM/Class.QueryDirV.php');
 
 // -----------------------------------
@@ -37,6 +38,7 @@ function viewfolder(&$action, $with_abstract=false) {
 
   // Get all the params      
   $dirid=GetHttpVars("dirid"); // directory to see
+  $refresh=GetHttpVars("refresh","no"); // force folder refresh
 
 
   $action->log->start("freedom_icons");
@@ -50,7 +52,7 @@ function viewfolder(&$action, $with_abstract=false) {
   // Get all the params      
   $dirid=GetHttpVars("dirid"); // directory to see
   
-  $dir = new Doc($dbaccess,$dirid);
+  $dir = new Dir($dbaccess,$dirid);
   $dirid=$dir->initid;  // use initial id for directories
 
   $action->lay->Set("dirid",$dirid);
@@ -89,6 +91,12 @@ function viewfolder(&$action, $with_abstract=false) {
 
 
   $action->log->tic("before query gen");  
+
+  if ($refresh == "yes") { // force refresh    
+    $oqd=new QueryDir($dbaccess );
+    $oqd->RefreshDir($dirid);
+  }
+
   $oqdv=new QueryDirV($dbaccess,$dirid );
   if ($dirid == "")   $ldoc = $oqdv->getAllDoc($dirid);
   else $ldoc = $oqdv->getChildDoc($dirid);
@@ -105,14 +113,13 @@ function viewfolder(&$action, $with_abstract=false) {
   
 
 
-  $destdir="./".GetHttpVars("app")."/Download/"; // for downloading file
 
   
   if ($with_abstract) {
     // ------------------------------------------------------
     // construction of SQL condition to find abstract attributes
     $abstractTable = $bdattr->GetAbstractIds();
-    $sql_cond_abs = sql_cond($abstractTable,"attrid");
+    $sql_cond_abs = GetSqlCond($abstractTable,"attrid");
     $query_val = new QueryDb($dbaccess,"DocValue");
   }
 
@@ -187,7 +194,7 @@ function viewfolder(&$action, $with_abstract=false) {
       $kdiv++;
       if ($doc->doctype == 'F') $tdoc[$k]["revision"]= $doc->revision;
       else $tdoc[$k]["revision"]="";
-
+      $tdoc[$k]["state"]= $doc->state;
       
 
 	      

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.8 2001/12/08 17:16:30 eric Exp $
+// $Id: defattr.php,v 1.9 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: defattr.php,v $
+// Revision 1.9  2001/12/19 17:57:32  eric
+// on continue
+//
 // Revision 1.8  2001/12/08 17:16:30  eric
 // evolution des attributs
 //
@@ -120,7 +123,7 @@ function defattr(&$action)
       }
     }
     $query = new QueryDb($dbaccess,"Docattr");
-    $sql_cond_doc = sql_cond(array_merge($doc->fathers,$doc->id), "docid");
+    $sql_cond_doc = GetSqlCond(array_merge($doc->fathers,$doc->id), "docid");
     $query->AddQuery($sql_cond_doc);
     $query->order_by="ordered";
     $tattr = $query->Query();

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.3 2001/12/13 17:45:01 eric Exp $
+// $Id: enum_choice.php,v 1.4 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,6 +63,7 @@ function enum_choice(&$action) {
   while (list($k, $v) = each($argids)) {
     if ($v == "A") $arg[$k]= &$action;
     else if ($v == "D") $arg[$k]= $dbaccess;
+    else if ($v == "T") $arg[$k]= &$this;
     else $arg[$k]= GetHttpVars($v,"");
   }
 

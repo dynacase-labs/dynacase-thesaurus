@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.17 2001/12/18 09:18:10 eric Exp $
+// $Id: Class.Doc.php,v 1.18 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.17 2001/12/18 09:18:10 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.18 2001/12/19 17:57:32 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -83,9 +83,14 @@ create sequence seq_id_doc start 1000";
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
   
-  var $obj_acl = array ();
+  var $obj_acl = array (); // set by childs classes
 
   // --------------------------------------------------------------------
+
+
+  // --------------------------------------------------------------------
+  //----------------------  TRANSITION DEFINITION --------------------
+  var $transitions = array();// set by childs classes
 
 
   var $defDoctype='F';
@@ -315,7 +320,7 @@ create sequence seq_id_doc start 1000";
 	{
 	  while(list($k,$v) = each($table1)) 
 	    {	     
-	      $v->title=GetTitle($this->dbaccess,$table1[$k]->id);
+	      $v->title=GetTitleF($this->dbaccess,$table1[$k]->id);
 	      //$v->Modify();
 	    }	  
 	}      
@@ -346,11 +351,8 @@ create sequence seq_id_doc start 1000";
       // delete POSGRES image files
   
       
+      
 
-      $images = GetImagesFiles($this->dbaccess,$this->id);
-
-      while(list($k,$v) = each($images) )
-	unlink($v);
 
       // ------------------------------
       // delete POSGRES values
@@ -381,11 +383,15 @@ create sequence seq_id_doc start 1000";
       
       $query->AddQuery("doctype='C'");
 
+      $cdoc = new Doc($this->dbaccess, $classid);
+      if ($cdoc->useforprof == "t") $query->AddQuery("(useforprof)");
+      else {
+	$query->AddQuery("(not useforprof)");
       switch ($classid) {
       case FAM_ACCESSDOC:
       case FAM_ACCESSDIR:
       case FAM_ACCESSSEARCH:
-	$query->AddQuery("(id = ".FAM_ACCESSDOC.") OR (id = ".FAM_ACCESSDIR.") OR (id = ".FAM_ACCESSSEARCH.")");
+	$query->AddQuery("(useforprof)");
       break;
       case FAM_SEARCH:
 	$query->AddQuery("(id = ".FAM_SEARCH.")");
@@ -397,7 +403,7 @@ create sequence seq_id_doc start 1000";
 	$query->AddQuery("(id = 1) OR (id > 9)");
       }
       //      $query->AddQuery("initid=id");
-    
+      }
       
       return $query->Query();
     }
@@ -454,7 +460,7 @@ create sequence seq_id_doc start 1000";
 
       $query = new QueryDb($this->dbaccess,"DocAttr");
 
-      $sql_cond_doc = sql_cond(array_merge($this->fathers,$this->initid), "docid");
+      $sql_cond_doc = GetSqlCond(array_merge($this->fathers,$this->initid), "docid");
       $query->AddQuery($sql_cond_doc);
       $query->AddQuery ("id=$idAttr");
     
@@ -482,7 +488,7 @@ create sequence seq_id_doc start 1000";
 
       $query = new QueryDb($this->dbaccess,"DocAttr");
 
-      $sql_cond_doc = sql_cond(array_merge($this->fathers,$this->initid), "docid");
+      $sql_cond_doc = GetSqlCond(array_merge($this->fathers,$this->initid), "docid");
       $query->AddQuery($sql_cond_doc);
       $query->AddQuery ("id=$idAttr");
     
@@ -506,7 +512,7 @@ create sequence seq_id_doc start 1000";
       $query = new QueryDb($this->dbaccess,"DocAttr");
       // initialise query with all fathers doc
       // 
-      $sql_cond_doc = sql_cond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
+      $sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
       $query->AddQuery($sql_cond_doc);
     
       $query->AddQuery("type != 'frame'");
@@ -521,7 +527,7 @@ create sequence seq_id_doc start 1000";
       $query = new QueryDb($this->dbaccess,"DocAttr");
       // initialise query with all fathers doc
       // 
-      $sql_cond_doc = sql_cond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
+      $sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
       $query->AddQuery($sql_cond_doc);
     
       $query->AddQuery("type != 'frame'");
@@ -538,7 +544,7 @@ create sequence seq_id_doc start 1000";
       $query = new QueryDb($this->dbaccess,"DocAttr");
       // initialise query with all fathers doc
       // 
-      $sql_cond_doc = sql_cond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
+      $sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
       $query->AddQuery($sql_cond_doc);
     
       $query->AddQuery("type = 'file'");
@@ -678,6 +684,7 @@ create sequence seq_id_doc start 1000";
 	while (list($k, $v) = each($argids)) {
 	  if ($v == "A") $arg[$k]= &$this->action;
 	  else if ($v == "D") $arg[$k]= $this->dbaccess;
+	  else if ($v == "T") $arg[$k]= &$this;
 	  else {
 	    $ovalue = new DocValue($this->dbaccess, array($this->id, $v));
 	    $arg[$k]= $ovalue->value;
@@ -709,6 +716,75 @@ create sequence seq_id_doc start 1000";
       else return "";
 
     return "object not initialized ; $aclname";
+  }
+  
+  
+  // --------------------------------------------------------------------
+  function ChangeState ($newstate) {
+
+    if ($this->state == $newstate) return ""; // no change => no action
+    // search if possible change in concordance with transition array
+    $foundFrom = false;
+    $foundTo = false;
+    while (list($k, $trans) = each($this->transitions)) {
+      if ($this->state == $trans["e1"]) {
+	// from state OK
+	$foundFrom = true;
+	if ($newstate == $trans["e2"]) {
+	  $foundTo = true;
+	  $tr = $trans;
+	}
+	  
+      }
+    }
+
+    if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), $this->state));
+    if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), $newstate));
+
+    if ($tr["m1"] != "") {
+      // apply first method (condition for the change)
+      
+      if (! method_exists($this, $tr["m1"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m1"], get_class($this)));
+      
+      $err = call_user_method ($tr["m1"], $this, $newstate);
+
+      if ($err != "") return (sprintf(_("ChangeState :: the method '%s' return the following error %s"), $tr["m1"], $err));
+
+
+    }
+
+    // change the state
+    $this->state = $newstate;
+    $err = $this->modify();
+    if ($err != "") return $err;
+
+    $this->AddRevision(sprintf(_("change state to %s"), $newstate));
+
+    // post action
+    if ($tr["m2"] != "") {
+      if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
+      $err = call_user_method ($tr["m2"], $this);
+      if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' return the following error %s"), $tr["m2"], $err));
+      
+    }
+
+    return ""; // its OK 
+  }
+    
+  
+  // --------------------------------------------------------------------
+  function GetFollowingStates () {
+    // search if following states in concordance with transition array
+
+    $fstate = array();
+    reset($this->transitions);
+    while (list($k, $tr) = each($this->transitions)) {
+      if ($this->state == $tr["e1"]) {
+	// from state OK
+	$fstate[] = $tr["e2"];
+      }
+    }
+    return $fstate;
   }
   
 }

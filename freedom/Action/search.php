@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.3 2001/11/28 13:40:10 eric Exp $
+// $Id: search.php,v 1.4 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: search.php,v $
+// Revision 1.4  2001/12/19 17:57:32  eric
+// on continue
+//
 // Revision 1.3  2001/11/28 13:40:10  eric
 // home directory
 //
@@ -122,7 +125,7 @@ function search(&$action) {
     $cdirid = $oqdv->getRChildDirId($dir);
     $cdirid[] = $dir;
     
-    $sql_fromdir = "and ".sql_cond($cdirid,"dirv.dirid");
+    $sql_fromdir = "and ".GetSqlCond($cdirid,"dirv.dirid");
 
   } else $sql_fromdir = "";
 

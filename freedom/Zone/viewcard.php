@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.1 2001/12/18 09:18:10 eric Exp $
+// $Id: viewcard.php,v 1.2 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -113,6 +113,7 @@ function viewcard(&$action) {
   else   $action->lay->Set("cid", $doc->id);
   
 
+  $action->lay->Set("state", $action->text($doc->state));
 
 
   //------------------------------
@@ -165,11 +166,11 @@ function viewcard(&$action) {
   if ($abstract){
     // only 3 properties for abstract mode
     $listattr = $doc->GetAbstractAttributes();    
-    $nprop=3;
+    $nprop=4;
   } else {
     $listattr = $doc->GetAttributes();
     $action->lay->SetBlockData("ALLPROP",array(array("boo"=>1)));
-    $nprop=6;
+    $nprop=7;
     
   }
   // see locker for lockable document

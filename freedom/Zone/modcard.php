@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.1 2001/12/18 09:18:10 eric Exp $
+// $Id: modcard.php,v 1.2 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,13 +47,14 @@ function modcard(&$action, &$ndocid) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  // search the good class of document
-  $ofreedom = createDoc($dbaccess, $classid);
 
 
   if ( $docid == 0 )
     {
       // add new document
+      // search the good class of document
+      $ofreedom = createDoc($dbaccess, $classid);
+
       $ofreedom->revision = "0";
       $ofreedom->owner = $action->user->id;
       $ofreedom->locked = $action->user->id; // lock for next modification
@@ -66,6 +67,7 @@ function modcard(&$action, &$ndocid) {
       if ($ofreedom->fromid > 0) {
 	$cdoc = new Doc($dbaccess, $ofreedom->fromid);
 	$ofreedom->profid = $cdoc->cprofid; // inherit from its familly	
+	$ofreedom->useforprof = $cdoc->useforprof; // inherit from its familly	
       } else
 	$ofreedom->profid = "0"; // NO PROFILE ACCESS
 
@@ -139,7 +141,7 @@ function modcard(&$action, &$ndocid) {
 
   
   // update title     
-  $ofreedom->title =  GetTitle($dbaccess,$docid);
+  $ofreedom->title =  GetTitleF($dbaccess,$docid);
   // change class document
   $ofreedom->fromid = $classid; // inherit from
   if ($ofreedom->fromid == 2) {
@@ -151,7 +153,7 @@ function modcard(&$action, &$ndocid) {
       ($ofreedom->fromid == 6)) { // profile doc
     if ($ofreedom->fromid == 4) $ofreedom->doctype='D'; // directory profile
     if ($ofreedom->fromid == 6) $ofreedom->doctype='S'; // search profile
-    $ofreedom->useforprof = true;
+
     //$ofreedom->profid = -1;
     $err=$ofreedom-> Modify();
     if ($err != "") $action-> ExitError($err);
@@ -162,6 +164,11 @@ function modcard(&$action, &$ndocid) {
   $err=$ofreedom-> Modify();
 
 
+
+
+  // change state if needed
+  $newstate=GetHttpVars("newstate","");
+  if ($newstate != "") $err = $ofreedom->ChangeState($newstate);
   $ndocid = $ofreedom->id;
   return $err;
 }

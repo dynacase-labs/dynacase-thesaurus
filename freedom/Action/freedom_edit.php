@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.14 2001/12/18 09:18:10 eric Exp $
+// $Id: freedom_edit.php,v 1.15 2001/12/19 17:57:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -129,6 +129,15 @@ function freedom_edit(&$action) {
     
 
  
+  // compute the changed state
+  $fstate = $doc->GetFollowingStates();
+  $tstate= array();
+      $action->lay->Set("initstatevalue",$doc->state );
+  while (list($k, $v) = each($fstate)) {
+    $tstate[$k]["statevalue"] = $v;
+    $tstate[$k]["statename"] = _($v);
+  }
+  $action->lay->SetBlockData("NEWSTATE", $tstate);
 
   
 
