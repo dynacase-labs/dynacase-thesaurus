@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.23 2005/02/08 11:34:37 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.24 2005/03/02 15:41:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -97,7 +97,7 @@ Class DocSearch extends PDocSearch {
       $filters[] = "locked = -1";
       $filters[] = "lmodify = 'L'";       
     }
-    $filters[] = "usefor = 'N'";
+    // $filters[] = "usefor = 'N'";
     $keyword= pg_escape_string($keyword);
     $keyword= str_replace("^","£",$keyword);
     $keyword= str_replace("$","\0",$keyword);
