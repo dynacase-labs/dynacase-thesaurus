@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.6 2002/03/06 17:22:56 eric Exp $
+// $Id: Class.Doc.php,v 1.7 2002/03/08 14:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.6 2002/03/06 17:22:56 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.7 2002/03/08 14:47:28 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -100,6 +100,11 @@ create sequence seq_id_doc start 1000";
   function Doc($dbaccess='', $id='',$res='',$dbid=0) {
 
          $this= newDoc($dbaccess, $id, $res, $dbid);
+
+	 
+	 // change the database for object permission 
+	 global $action;
+	 $action->Register("dboperm", $this->dbaccess); 
   
   }
 
@@ -584,6 +589,8 @@ create sequence seq_id_doc start 1000";
   // the attribute can be defined in fathers
   function GetTitleAttributes()
     {
+      if (isset($this->titleattr)) return $this->titleattr;
+
       $query = new QueryDb($this->dbaccess,"DocAttr");
       // initialise query with all fathers doc
       // 
@@ -593,7 +600,9 @@ create sequence seq_id_doc start 1000";
       $query->AddQuery("type != 'frame'");
       $query->AddQuery("title = 'Y'");
       $query->order_by="ordered";
-      return $query->Query();      
+
+      $this->titleattr = $query->Query();      
+      return $this->titleattr;
     }
 
 

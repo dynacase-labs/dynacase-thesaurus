@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_access.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: freedom_access.php,v 1.2 2002/03/08 14:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_access.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_access.php,v $
+// Revision 1.2  2002/03/08 14:47:28  eric
+// modif pour relocalisation permission objet dans FREEDOM_DB
+//
 // Revision 1.1  2002/02/05 16:34:07  eric
 // decoupage pour FREEDOM-LIB
 //
@@ -63,7 +66,6 @@ function freedom_access(&$action) {
 
 
   $ofreedom = new Doc($dbaccess, $docid);
-
 
 
   
