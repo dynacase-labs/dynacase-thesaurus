@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.19 2005/02/02 21:29:38 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.20 2005/02/03 07:59:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -203,19 +203,20 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
   
   $events = array();
-  for ($d=0; $d<$ndays; $d++) {
+   for ($d=0; $d<$ndays; $d++) {
       $tevents = getAgendaEvent( $action, $ress, 
 				 d2s($tabdays[$d]["days"], "%Y-%m-%d %H:%M:%S"),
 				 d2s($tabdays[$d]["days"]+SEC_PER_DAY-1, "%Y-%m-%d %H:%M:%S") );
     if (count($tevents)>0) {
-      ComputeShift($tevents);
+      usort($tevents, "EvOrder");
       $events = array_merge($events, $tevents);
     }
   }
   
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
-  $action->lay->set("comment",strftime("%x %X", time())."<hr><pre>".print_r($events, true)."<pre>");
+  $action->lay->set("comment",strftime('<div style="font-size:80%; font-style:italic">The Freedom Calendar By Anakeen / Cesam, %x %X</div>', time()));
+  //$action->lay->set("comment",strftime("%x %X", time())."<hr><pre>".print_r($events, true)."<pre>");
 }
 
 
@@ -233,9 +234,9 @@ function getAgendaEvent(&$action,$tress,$d1="",$d2="") {
 		   "ABSTRACT" => $v["evt_title"],
 		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
 		   "END" => FrenchDateToUnixTs($v["evt_enddate"]),
-		   "COLOR" => $vr->color,
-		   "RG"=>1,
-		   "SIZE"=>1);
+		   "COLOR" => $vr->color );
+// 		   "RG"=>1,
+// 		   "SIZE"=>1);
      $tout[] = $item;
     }
   }
@@ -248,7 +249,6 @@ function EvOrder($a, $b) {
 }
 
 function ComputeShift(&$tev) {
-  usort($tev, "EvOrder");
   foreach ($tev as $k => $v) {
     if ($k>0) {
       if (   (($v["START"]>=$tev[$k-1]["START"])&&($v["START"]<=$tev[$k-1]["END"]))

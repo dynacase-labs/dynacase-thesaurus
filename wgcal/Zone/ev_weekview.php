@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.4 2005/02/02 21:29:38 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.5 2005/02/03 07:59:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -43,6 +43,19 @@ function ev_weekview_resume(&$action, &$ev)
   $action->lay->set("START", substr($ev->getValue("CALEV_START"),0,16));
   $action->lay->set("END", substr($ev->getValue("CALEV_END"),0,16));
 
+  $present = false;
+  $tress  = $ev->getTValue("CALEV_ATTID");
+  $tresse = $ev->getTValue("CALEV_ATTSTATE");
+  $cstate = -1;
+  foreach ($tress as $k => $v) {
+    if ($v == $action->user->fid) {
+      $present = true;
+      $cstate = $tresse[$k];
+    }
+    $bgnew = WGCalGetColorState($cstate);
+  }
+  $action->lay->set("bgstate", $bgnew);
+
   if ($private) $action->lay->set("TITLE", N_("confidential event"));
   else $action->lay->set("TITLE", $ev->getValue("CALEV_EVTITLE"));
 
@@ -55,7 +68,7 @@ function ev_weekview_resume(&$action, &$ev)
   foreach ($tress as $k => $v) {
     if ($v == $action->user->fid && $tresse[$k]<2) {
       $valert  = "";
-      $vtext = $states[$tresse[$k]];
+      $vtext = WGCalGetLabelState($tresse[$k]);
     }
   }
   $action->lay->set("valert", $valert);
@@ -77,18 +90,13 @@ function ev_weekview_full(&$action, &$ev) {
   $present = false;
   $tress  = $ev->getTValue("CALEV_ATTID");
   $tresse = $ev->getTValue("CALEV_ATTSTATE");
-  $bgnew = "lightgrey";
+  $cstate = -1;
   foreach ($tress as $k => $v) {
     if ($v == $action->user->fid) {
       $present = true;
-      switch ($tresse[$k]) {
-      case 0: $bgnew = "red"; break;
-      case 1: $bgnew = "orange"; break;
-      case 2: $bgnew = "lightgreen"; break;
-      case 3: $bgnew = "black"; break;
-      default: $bgnew = "yellow"; break;
-      }
+      $cstate = $tresse[$k];
     }
+    $bgnew = WGCalGetColorState($cstate);
   }
   $action->lay->set("bgstate", $bgnew);
 

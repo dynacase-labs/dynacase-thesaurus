@@ -29,6 +29,9 @@ var Ye = 0;
 var Event = new Array();
 var EventCount = -1;
 
+var EvTObject = new Array();
+var EvTObjectCount = -1;
+
 // -----------------------------------------------------"private"---
 function GetPxForMin() {
   return (Hzone / (Ydivision*60));  
@@ -60,12 +63,22 @@ function WGCalRefreshAll() {
   }
 }
   
+// --------------------------------------------------------
+function WGCalCleanAllFullView() {
+  for (i=0; i<=EventCount; i++) {
+    evtc = document.getElementById('evtc'+id);
+    evtc.style.display = 'none';
+    evtc.style.zIndex = 1001;
+  }
+}
+  
+
 
 // --------------------------------------------------------
 function WGCalEvOnMouseOver(ev, id) {
   evt  = document.getElementById('evt'+id);
   evt.style.zIndex = 1000;
-
+  WGCalCleanAllFullView();
   evtc = document.getElementById('evtc'+id);
   x = getX(ev);
   y = getY(ev);
@@ -140,11 +153,12 @@ function AddEvent(urlroot,time) {
 
 // --------------------------------------------------------
 function ClickCalendarCell(urlroot, nh,times,timee) {
-  alert(urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh='+nh+'&ts='+times+'&te='+timee);
+//   alert(urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh='+nh+'&ts='+times+'&te='+timee);
   subwindow(300, 500, 'EditEvent', urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh='+nh+'&ts='+times+'&te='+timee);
 }
 // --------------------------------------------------------
 function OverCalendarCell(ev, elt, lref, cref) {
+  WGCalCleanAllFullView();
   elt.className = 'WGCAL_PeriodSelected'; //WGCAL_DayLineOver';
   document.getElementById(lref).className = 'WGCAL_PeriodSelected';
   document.getElementById(cref).className = 'WGCAL_PeriodSelected';
@@ -279,7 +293,7 @@ function AddNewEvent(ev, c) {
 }
 
 // --------------------------------------------------------
-function WGCalAddEvent(evtid, dstart, dend, rg, sz) {
+function WGCalAddEvent(evtid, dstart, dend) {
   EventCount++;
   Event[EventCount] = new Array();
   for (i=0; i<arguments.length; i++) {
@@ -291,12 +305,11 @@ function WGCalAddEvent(evtid, dstart, dend, rg, sz) {
 // --------------------------------------------------------
 function WGCalDisplayEvent(iev, newEvent) {
 
+  var evo = new Object();
   var dd = new Date();
   id     = Event[iev][0];
   dstart = Event[iev][1] + (dd.getTimezoneOffset() * 60);
   dend   = Event[iev][2] + (dd.getTimezoneOffset() * 60);
-  rg     = Event[iev][3];
-  sz     = Event[iev][4];
   if (dend<dstart) {
     t = dend;
     dend = dstart;
@@ -312,31 +325,38 @@ function WGCalDisplayEvent(iev, newEvent) {
   pstart = GetCoordFromDate(dstart);
   pend   = GetCoordFromDate(dend);
 
-//   x = Math.round(pstart.x) + 2;
-//   y = Math.round(pstart.y) + Ys;
-//   h = Math.round(pend.y - pstart.y);
-//   w = Math.round(Wevt);
-  rw = Math.round(Wevt);
-  //x = Math.round(pstart.x) + (rw);
-  x = Math.round(pstart.x);
-  y = Math.round(pstart.y) + Ys;
-  h = Math.round(pend.y - pstart.y);
-  w = Math.round(rw);
-  //alert(' YS='+Ys+' x='+x+' y='+y+' h='+h+' w='+w)
+  rw = Math.round(Wday/8);
+  wi = Wday - 4;
+  evo.x = Math.round(pstart.x);
+  evo.y = Math.round(pstart.y) + Ys;
+  evo.h = Math.round(pend.y - pstart.y);
+  evo.w = Math.round(wi);
+  evo.s = 0;
+
+
+  shift = WGCalComputeShift(evo);
+  evo.x = evo.x + (shift*rw);
+  evo.y = evo.y;
+  evo.h = evo.h;
+  evo.w = evo.w - (shift*rw);
+  evo.s = shift;
+
+  EvTObjectCount++;
+  EvTObject[EvTObjectCount] = evo;
 
   foot = 1;
   head = 5;
-  content = h - foot - head;
+  content = evo.h - foot - head;
 	
   evtHeadElt.style.height = head+"px";
   evtFootElt.style.height = foot+"px";
   evtAbstractElt.style.height = content+"px";
 
 
-  evtElt.style.top = y+"px";
-  evtElt.style.left = x+"px";
-  evtElt.style.width = w+"px";
-  evtElt.style.height = h+"px";
+  evtElt.style.top = evo.y+"px";
+  evtElt.style.left = evo.x+"px";
+  evtElt.style.width = evo.w+"px";
+  evtElt.style.height = evo.h+"px";
   evtElt.style.position = 'absolute';
   evtElt.style.display = '';
 
@@ -344,3 +364,35 @@ function WGCalDisplayEvent(iev, newEvent) {
   root.appendChild(evtcElt);
 }
 
+function PtInRect(rx1, ry1, rx2, ry2, px, py) {
+  s = "OUT";
+  st = false;
+  if (px>=rx1 && px<=rx2 && py>=ry1 && py<=ry2) {
+    s = 'IN';
+    st = true;
+  }
+  //alert('Rect[ ('+rx1+','+ry1+') ('+rx2+','+ry2+') ] Pt ('+px+','+py+') => '+s);
+  return st;
+}
+
+function WGCalComputeShift(evo) {
+  var dsh = 0;
+  for (i=0; i<=EvTObjectCount; i++) {
+    var xs = EvTObject[i].x;
+    var ys = EvTObject[i].y;
+    var xe = EvTObject[i].x + EvTObject[i].w;
+    var ye = EvTObject[i].y + EvTObject[i].h;
+     if (PtInRect(xs,ys,xe,ye,evo.x,evo.y) || PtInRect(xs,ys,xe,ye,(evo.x+evo.w),(evo.y+evo.h))) {
+	dsh++;
+    }
+  }
+  return dsh;
+}
+
+function WGCalPrintObjects() {
+  s = 'Event graphic object : \n';
+  for (i=0; i<=EvTObjectCount; i++) {
+    s += 'o['+i+'] x='+EvTObject[i].x+' y='+EvTObject[i].y+' h='+EvTObject[i].h+' w='+EvTObject[i].w+' s='+EvTObject[i].s+'\n';
+  }
+  //alert(s);
+}

@@ -27,13 +27,33 @@ function WGCalGetRessourceFamilies($dbaccess) {
 /*
  ** Return event states in attribute value format
  */
+global $EventStateDescr;
+$EventStateDescr = array( array( N_('new'), "red" ),
+				 array( N_('read'), "orange" ),
+				 array( N_('accept'), "#0dff00" ),
+				 array( N_('reject'), "black" ),
+				 array( N_('to be confirmed'), "yellow" ) );
+
 function CAL_getEventStates($dbaccess, $fmt="A") {
-  $evstate = array ( N_('new'),
-		     N_('read'), 
-		     N_('accept'), 
-		     N_('reject'), 
-		     N_('to be confirmed') );
+  return WGCalGetState($dbaccess, $fmt);
+}
+
+function WGCalGetState($dbaccess, $fmt="A") {
+  global $EventStateDescr;
+  foreach ($EventStateDescr as $k => $v ) $evstate[] = $v[0];
   return array2attrval($evstate, $fmt);
+}
+
+function WGCalGetLabelState($state) {
+  global $EventStateDescr;
+  if ($state>=count($EventStateDescr)) return N_('unknown');
+  else return $EventStateDescr[$state][0];
+}
+
+function WGCalGetColorState($state) {
+  global $EventStateDescr;
+  if ($state>=count($EventStateDescr)) return "lightgrey";
+  else return $EventStateDescr[$state][1];
 }
 
 /*

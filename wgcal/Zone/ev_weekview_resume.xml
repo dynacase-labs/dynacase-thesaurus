@@ -1,8 +1,9 @@
-<div style="filter:alpha(opacity=80); height:100%">
+<div style="overflow:hidden; cursor:pointer; border-left:3px solid [bgstate];border-right:1px solid grey; filter:alpha(opacity=80); height:100%">
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr><td align="left">
+<tr>
+<td align="left">
     <img style="display:[valert]; border:0px; padding:0px;" src="WGCAL/Images/wm-new.png" width="15" title="[TEXT:event] [vtext]">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]
 </td></tr>
-<tr><td colspan="2">[TITLE]</td></tr>
+<tr><td>[TITLE]</td></tr>
 </table>
 </div>

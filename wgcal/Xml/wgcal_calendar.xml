@@ -53,14 +53,15 @@ WGCalViewInit('[IDSTART]', '[IDSTOP]', '[DAYCOUNT]', '[HCOUNT]', '[HSTART]');
      onmouseout="WGCalEvOnMouseOut(event, '[REF]');" 
     style="cursor:pointer; border:0px; display:none">
 <div id="evth[REF]" style="border:0px inset; background-color:grey;"></div>
-<div id="evta[REF]" style="overflow:hidden; cursor:pointer; background-color:[COLOR]; border-left:1px solid grey;border-right:1px solid grey ">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=R]</div>
+<div id="evta[REF]" style="background-color:[COLOR]; overflow:hidden; cursor:pointer; border:0px">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=R]</div>
 <div id="evtf[REF]" style="border:0px outset; background-color:grey;"></div>
 </div>
 <div id="evtc[REF]" style="display:none; border:1px outset; background-color:[COLOR]">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=F]</div>
 [ENDBLOCK EVENTS]
 <script type="text/javascript">
-[BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END], [RG], [SIZE]);
+[BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END]);
 [ENDBLOCK EVENTSSC]
+WGCalPrintObjects();
 </script>
 
 
