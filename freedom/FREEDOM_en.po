@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-06-11 16:04+0200\n"
+	"POT-Creation-Date: 2003-06-19 11:41+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -753,6 +753,18 @@ msgstr	"Add new contact card"
 msgid	"or"
 msgstr	""
 
+#, fuzzy
+msgid	"doctitle"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"revdate"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"revision"
+msgstr	"Organisation"
+
 msgid	"read only"
 msgstr	""
 
@@ -843,6 +855,9 @@ msgstr	"Firstname"
 msgid	"clear inputs"
 msgstr	""
 
+msgid	"color picker"
+msgstr	""
+
 msgid	"date picker"
 msgstr	""
 
@@ -866,14 +881,6 @@ msgstr	"Edit"
 #, c-format
 msgid	"new duplicate document is named : %s"
 msgstr	""
-
-#, fuzzy
-msgid	"doctitle"
-msgstr	"Update Title Cards"
-
-#, fuzzy
-msgid	"revdate"
-msgstr	"Create"
 
 msgid	"Freedoms"
 msgstr	""
@@ -1152,6 +1159,10 @@ msgstr	""
 #, fuzzy
 msgid	"view standalone card"
 msgstr	"Start search"
+
+#, fuzzy
+msgid	"printed view card"
+msgstr	"Category"
 
 #, fuzzy
 msgid	"view card"
@@ -2149,6 +2160,37 @@ msgstr	""
 msgid	"workflow has been recomposed"
 msgstr	""
 
+#, fuzzy
+msgid	"fieldset"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"attrname"
+msgstr	"Lastname"
+
+#, fuzzy
+msgid	"new visibility"
+msgstr	"Visibility"
+
+msgid	"new needed"
+msgstr	""
+
+#, fuzzy
+msgid	"default visibility"
+msgstr	"Visibility"
+
+#, fuzzy
+msgid	"Search criteria"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"new guide-card"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"new search guide-card"
+msgstr	"Start search"
+
 msgid	"yes"
 msgstr	""
 
@@ -2172,33 +2214,6 @@ msgstr	"Add new contact card"
 #, fuzzy
 msgid	"addstate"
 msgstr	"Identity"
-
-#, fuzzy
-msgid	"fieldset"
-msgstr	"Update Title Cards"
-
-#, fuzzy
-msgid	"attrname"
-msgstr	"Lastname"
-
-#, fuzzy
-msgid	"new visibility"
-msgstr	"Visibility"
-
-msgid	"new needed"
-msgstr	""
-
-#, fuzzy
-msgid	"default visibility"
-msgstr	"Visibility"
-
-#, fuzzy
-msgid	"new guide-card"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	"new search guide-card"
-msgstr	"Start search"
 
 msgid	"some needed attributes are empty"
 msgstr	""
@@ -2300,10 +2315,6 @@ msgstr	""
 
 msgid	"locked by"
 msgstr	""
-
-#, fuzzy
-msgid	"revision"
-msgstr	"Organisation"
 
 #, fuzzy
 msgid	"revision date"

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.137 2003/06/18 14:57:54 eric Exp $
+// $Id: Class.Doc.php,v 1.138 2003/06/19 09:53:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.137 2003/06/18 14:57:54 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.138 2003/06/19 09:53:09 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/18 14:57:54 $
-// Version         $Revision: 1.137 $
+// Last Update     $Date: 2003/06/19 09:53:09 $
+// Version         $Revision: 1.138 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1717,8 +1717,8 @@ create unique index i_docir on doc(initid, revision);";
 
     if (! $ulink) {
       // suppress href attributes
-      return preg_replace(array("/href=\"[^\"]*\"/i", "/onclick=\"[^\"]*\"/i"), 
-			  array("","") ,$this->lay->gen() );
+      return preg_replace(array("/href=\"[^\"]*\"/i", "/onclick=\"[^\"]*\"/i","/ondblclick=\"[^\"]*\"/i"), 
+			  array("","","") ,$this->lay->gen() );
     }
     if ($target=="mail") {
       // suppress session id

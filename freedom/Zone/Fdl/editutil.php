@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.38 2003/06/18 14:56:51 eric Exp $
+// $Id: editutil.php,v 1.39 2003/06/19 09:53:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -278,7 +278,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       //같같같같같같같같같같같같같같같같같같같같
 			
     case "color": 
-      $input="<input size=10 onchange=\"alert(this.value)\" style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+      $input="<input size=7 onchange=\"alert(this.value)\" style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attridk."\" "; 
 
       if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
@@ -287,7 +287,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       $input .= " >&nbsp;"; 
       if (!(($visibility == "R")||($visibility == "S"))) {
 	$input.="<input id=\"col$attridk\" type=\"button\" value=\"&#133;\"".
-	  " title=\""._("color picker")."\" onclick=\"colorPick.select(document.getElementById('$attridk'),'col$attridk')\"".
+	  " title=\""._("color picker")."\" onclick=\"colorPick.select(document.getElementById('$attridk'),'$attridk')\"".
 	  ">";
       }
       break;      

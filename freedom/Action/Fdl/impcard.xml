@@ -1,0 +1,27 @@
+<!-- HEAD HTML -->
+
+<html>
+  <head>
+
+   <title>[TEXT:Properties:] [TITLE]</title>
+
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=CORE&action=CORE_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=FDL&action=FDL_CSS" >
+
+
+[CSS:REF]
+
+
+   <style type="text/css">
+[CSS:CODE]
+   </style>
+
+ </head>
+
+<body class="freedom"   >
+
+<div width="100%" class="tablesimple">
+[ZONE FDL:VIEWCARD]
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.30 2003/06/18 14:57:54 eric Exp $
+ * $Id: freedom.css,v 1.31 2003/06/19 09:53:10 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -231,7 +231,6 @@ LI.translucide {
   list-style:url('USERCARD/Images/bblue10.gif');
 }
 
-
 IMG.unselect {
   border-style: hidden;
   border-width: 3;
@@ -327,6 +326,7 @@ TABLE.reportHBlue {
 .reportHBlue TR.treven{
 	background-color: lavender;
 }
+
 .reportHBlue TH{
 	color : black;
 	background-color: cornflowerblue;

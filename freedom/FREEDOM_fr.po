@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-06-11 16:04+0200\n"
+	"POT-Creation-Date: 2003-06-19 11:41+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -722,6 +722,15 @@ msgstr	"et"
 msgid	"or"
 msgstr	"ou"
 
+msgid	"doctitle"
+msgstr	"titre"
+
+msgid	"revdate"
+msgstr	"date de modification"
+
+msgid	"revision"
+msgstr	"révision"
+
 msgid	"read only"
 msgstr	"lecture seule"
 
@@ -764,10 +773,10 @@ msgid	"%s iuser created\n"
 msgstr	"%s intranet personne a été créé\n"
 
 msgid	"creation"
-msgstr "création"
+msgstr	"création"
 
 msgid	"change"
-msgstr "modification"
+msgstr	"modification"
 
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
@@ -806,6 +815,9 @@ msgstr	"pas d'image"
 msgid	"clear inputs"
 msgstr	"effacer entrée(s)"
 
+msgid	"color picker"
+msgstr "choix de couleur"
+
 msgid	"date picker"
 msgstr	"choix de date"
 
@@ -828,12 +840,6 @@ msgstr	"duplication de"
 #, c-format
 msgid	"new duplicate document is named : %s"
 msgstr	"la duplication est nommée : %s"
-
-msgid	"doctitle"
-msgstr "titre"
-
-msgid	"revdate"
-msgstr "date de modification"
 
 msgid	"Freedoms"
 msgstr	"Freedoms"
@@ -1097,6 +1103,9 @@ msgstr	"confirmation envoi email avant changement d'état"
 msgid	"view standalone card"
 msgstr	"voir une carte autonome"
 
+msgid	"printed view card"
+msgstr "voir une carte imprimable"
+
 msgid	"view card"
 msgstr	"voir une carte"
 
@@ -1276,7 +1285,7 @@ msgid	"change category"
 msgstr	"changer de catégorie"
 
 msgid	"define sort attribute"
-msgstr "Définir les attributs de tri"
+msgstr	"Définir les attributs de tri"
 
 msgid	"view a generic"
 msgstr	"voir une carte"
@@ -1436,7 +1445,7 @@ msgid	"Search"
 msgstr	"Recherche"
 
 msgid	"Sort"
-msgstr "Tri"
+msgstr	"Tri"
 
 msgid	"Bilan"
 msgstr	"Bilan"
@@ -1454,7 +1463,7 @@ msgid	"Edit kind"
 msgstr	" éditer une catégorie"
 
 msgid	"invert order"
-msgstr "ordre inverse"
+msgstr	"ordre inverse"
 
 msgid	"client bilan"
 msgstr	"bilan client"
@@ -1993,6 +2002,30 @@ msgstr	"Envoi manuel"
 msgid	"workflow has been recomposed"
 msgstr	"le cycle de vie a été regénéré"
 
+msgid	"fieldset"
+msgstr	"cadre"
+
+msgid	"attrname"
+msgstr	"Nom"
+
+msgid	"new visibility"
+msgstr	"nouvelle visibilité"
+
+msgid	"new needed"
+msgstr	"Nouvelle obligation"
+
+msgid	"default visibility"
+msgstr	"visibilité par défaut"
+
+msgid	"Search criteria"
+msgstr "Critères de recherche"
+
+msgid	"new guide-card"
+msgstr	"Nouvel intercalaire"
+
+msgid	"new search guide-card"
+msgstr	"Nouveau filtre"
+
 msgid	"yes"
 msgstr	"oui"
 
@@ -2013,27 +2046,6 @@ msgstr	"attributs"
 
 msgid	"addstate"
 msgstr	"état"
-
-msgid	"fieldset"
-msgstr	"cadre"
-
-msgid	"attrname"
-msgstr	"Nom"
-
-msgid	"new visibility"
-msgstr	"nouvelle visibilité"
-
-msgid	"new needed"
-msgstr	"Nouvelle obligation"
-
-msgid	"default visibility"
-msgstr	"visibilité par défaut"
-
-msgid	"new guide-card"
-msgstr	"Nouvel intercalaire"
-
-msgid	"new search guide-card"
-msgstr	"Nouveau filtre"
 
 msgid	"some needed attributes are empty"
 msgstr	"certains attributs obligatoires sont vides"
@@ -2124,9 +2136,6 @@ msgstr	"auteur"
 
 msgid	"locked by"
 msgstr	"verrouillé par"
-
-msgid	"revision"
-msgstr	"révision"
 
 msgid	"revision date"
 msgstr	"date de révision"

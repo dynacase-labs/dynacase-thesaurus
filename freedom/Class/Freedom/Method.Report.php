@@ -3,8 +3,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2003/06/18 14:57:54 $
-// Version         $Revision: 1.2 $
+// Last Update     $Date: 2003/06/19 09:53:10 $
+// Version         $Revision: 1.3 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -109,6 +109,7 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
   while (list($k,$v) = each($tdoc)) {
     $rdoc->Affect($v);
     $trow[$k]=array("CELLS"=>"row$k",
+		    "docid" => $rdoc->id,
 		    "troddoreven"=>$trodd?"trodd":"treven");
     $trodd=!$trodd;
     $tdodd=false;
