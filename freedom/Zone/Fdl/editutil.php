@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.32 2003/05/21 16:21:10 eric Exp $
+// $Id: editutil.php,v 1.33 2003/05/22 16:24:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -239,46 +239,46 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 		      
       //같같같같같같같같같같같같같같같같같같같같
 			
-    case "enumlist": 
-      $input="<select size=3 multiple name=\"".$attrin."[]\""; 
-      
-      $input .= " id=\"".$attridk."\" "; 
-      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-      $input.= ">";
-
-      reset($oattr->enumlabel);
-      $tvalues = explode("\n",$value);
-
-      while (list($k, $v) = each($oattr->enumlabel)) {
-	if (in_array($k, $tvalues)) $selected = "selected";
-	else $selected="";
-	$input.="<option $selected value=\"$k\">$v</option>"; 
-
-      }
-      $input.="<option  style=\"display:none\"  value=\" \"></option>"; 
-     
-      $input .= "</select> "; 
-      $input.="<input type=\"button\" value=\"&times;\"".
-	" title=\""._("clear inputs")."\"".
-	" onclick=\"unselectInput('$attrid')\">";
-    
-      break;      
+ 
      
     case "enum": 
-      $input="<select $multiple name=\"".$attrin."\""; 
-      $input .= " id=\"".$attridk."\" "; 
-      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
-      $input.= ">";
+      if ($oattr->repeat) { // enumlist
+	$input="<select size=3 multiple name=\"".$attrin."[]\""; 
+      
+	$input .= " id=\"".$attridk."\" "; 
+	if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+	$input.= ">";
 
-      reset($oattr->enum);
+	$enuml = $oattr->getenumlabel();
+	$tvalues = explode("\n",$value);
 
-      while (list($k, $v) = each($oattr->enumlabel)) {
+	while (list($k, $v) = each($enuml)) {
+	  if (in_array($k, $tvalues)) $selected = "selected";
+	  else $selected="";
+	  $input.="<option $selected value=\"$k\">$v</option>"; 
 
-	if ($k == $value) $selected = "selected";
-	else $selected="";
-	$input.="<option $selected value=\"$k\">$v</option>"; 
-      }
+	}
+	$input.="<option  style=\"display:none\"  value=\" \"></option>"; 
      
+	$input .= "</select> "; 
+	$input.="<input type=\"button\" value=\"&times;\"".
+	  " title=\""._("clear inputs")."\"".
+	  " onclick=\"unselectInput('$attrid')\">";
+      } else {
+	$input="<select $multiple name=\"".$attrin."\""; 
+	$input .= " id=\"".$attridk."\" "; 
+	if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
+	$input.= ">";
+
+	$enuml = $oattr->getenumlabel();
+
+	while (list($k, $v) = each($enuml)) {
+
+	  if ($k == $value) $selected = "selected";
+	  else $selected="";
+	  $input.="<option $selected value=\"$k\">$v</option>"; 
+	}
+      }
     
       break;      
 		      

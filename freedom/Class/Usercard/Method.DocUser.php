@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.11 2003/05/12 12:15:27 eric Exp $
+// $Id: Method.DocUser.php,v 1.12 2003/05/22 16:24:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -106,6 +106,7 @@ function SpecRefresh() {
       $this->setValue("US_WORKCEDEX",$doc->getValue("SI_CEDEX"," "));
       $this->setValue("US_COUNTRY",$doc->getValue("SI_COUNTRY"," "));
     }
+    $this->setValue("US_SCATG",$doc->getValue("SI_CATG"));
   }
   
 }

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.13 2003/04/25 14:51:31 eric Exp $
+// $Id: enum_choice.php,v 1.14 2003/05/22 16:24:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -141,4 +141,5 @@ function getAttr($aid) {
       return GetParam($aid,
 		      getFamIdFromName(GetParam("FREEDOM_DB"),$aid));
 }
+
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.125 2003/05/21 16:21:10 eric Exp $
+// $Id: Class.Doc.php,v 1.126 2003/05/22 16:24:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.125 2003/05/21 16:21:10 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.126 2003/05/22 16:24:57 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/05/21 16:21:10 $
-// Version         $Revision: 1.125 $
+// Last Update     $Date: 2003/05/22 16:24:57 $
+// Version         $Revision: 1.126 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1469,7 +1469,8 @@ create unique index i_docir on doc(initid, revision);";
 	
 	  break;
 	case "enum": 
-	  if (isset($oattr->enumlabel[$avalue]))  $htmlval=$oattr->enumlabel[$avalue];
+	  $enumlabel = $oattr->getEnumlabel();
+	  if (isset($enumlabel[$avalue]))  $htmlval=$enumlabel[$avalue];
 	  else $htmlval=$avalue;
 	
 	  break;    

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editcatg.php,v 1.1 2003/03/28 17:53:56 eric Exp $
+// $Id: generic_editcatg.php,v 1.2 2003/05/22 16:24:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editcatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,17 +38,20 @@ function generic_editcatg(&$action) {
   $famid = GetHttpVars("fid"); // family id
 
   $action->lay->set("aid",$aid);
-  $action->lay->set("fid",$famid);
   $doc = new Doc($dbaccess, $famid);
 
   $a = $doc->getAttribute($aid);
+  $action->lay->set("fid",$a->docid);
+
 
   $action->lay->set("TITLE",sprintf(_("definition of enumerate attribute %s of %s family"),
 				   $a->labelText, $doc->title));
   $tref=array();
   $tlabel=array();
   $tlevel=array();
-  while (list($k, $v) = each($a->enum)) {
+
+  $enum = $a->getEnum();
+  while (list($k, $v) = each($enum)) {
     $tk= explode(".",$k);
     $tv= explode("/",$v);
     $sp ="";

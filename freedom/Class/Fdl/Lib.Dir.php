@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.68 2003/05/19 10:43:12 eric Exp $
+// $Id: Lib.Dir.php,v 1.69 2003/05/22 16:24:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -253,18 +253,21 @@ function getKindDoc($dbaccess,
   // searches for all fathers kind
   $a = $fdoc->getAttribute($aid);
   $tkids=array();;
-  reset($a->enum);
-  while (list($k, $v) = each($a->enum)) {
+  $enum = $a->getEnum();
+  while (list($k, $v) = each($enum)) {
     if (in_array($kid,explode(".",$k))) {
       $tkids[] = substr($k,strrpos(".".$k,'.'));
     }
   }
-  if ($a->type == "enumlist") {
-     $sqlfilter[] = "in_textlist($aid,'".
-       implode("') or in_textlist($aid,'",$tkids)."')";
-  } else  if ($a->type == "enum") {
-     $sqlfilter[] = "$aid='".
-       implode("' or $aid='",$tkids)."'";    
+ 
+  if ($a->type == "enum") {
+    if ($a->repeat) {
+      $sqlfilter[] = "in_textlist($aid,'".
+	implode("') or in_textlist($aid,'",$tkids)."')";
+    } else {
+      $sqlfilter[] = "$aid='".
+	implode("' or $aid='",$tkids)."'";    
+    }
   }
 
 

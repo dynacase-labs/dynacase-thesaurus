@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.9 2003/05/21 16:21:10 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.10 2003/05/22 16:24:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.9 2003/05/21 16:21:10 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.10 2003/05/22 16:24:57 eric Exp $';
 
 
 
@@ -84,10 +84,28 @@ Class NormalAttribute extends BasicAttribute {
     $this->phpfunc=$phpfunc;
     $this->elink=$elink;
 
+
+  }
+
+  function getEnum() {   
+    global $__tenum; // for speed optimization
+    global $__tlenum;
+
+    if (isset($__tenum[$this->id])) return $__tenum[$this->id]; // not twice
+ 
     if (($this->type == "enum") || ($this->type == "enumlist")) {
       // set the enum array
       $this->enum=array();
       $this->enumlabel=array();
+
+      if (($this->phpfile != "") && ($this->phpfile != "-")) {
+	// for dynamic  specification of kind attributes
+	if (! include_once("EXTERNALS/$this->phpfile")) {
+	  global $action;
+	  $action->exitError(sprintf(_("the external pluggin file %s cannot be read"), $this->phpfile));
+	}
+	$this->phpfunc = call_user_func($this->phpfunc);
+      }
 
       $sphpfunc = str_replace("\\.", "-dot-",$this->phpfunc); // to replace dot & comma separators
       $sphpfunc  = str_replace("\\,", "-comma-",$sphpfunc);
@@ -112,8 +130,22 @@ Class NormalAttribute extends BasicAttribute {
 	else $this->enumlabel[$n]=$this->enum[$n];
       }
     }
+    $__tenum[$this->id]=$this->enum;
+    $__tlenum[$this->id]=$this->enumlabel;
+    return $this->enum;
+  }
+
+  function getEnumLabel() {  
+    global $__tlenum;
+
+    $this->getEnum();
+    if (isset($__tlenum[$this->id])) return $__tlenum[$this->id]; // not twice
+    
+  
   }
 }
+
+
 Class FieldSetAttribute extends BasicAttribute {
 
   var $visibility; // W, R, H, O, M

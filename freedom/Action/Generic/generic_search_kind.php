@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.5 2003/04/18 09:14:17 eric Exp $
+// $Id: generic_search_kind.php,v 1.6 2003/05/22 16:24:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,9 @@ function generic_search_kind(&$action) {
   $fdoc = new Doc($dbaccess, $famid);
 
   $attr = $fdoc->getAttribute($aid);
-  $kindname=$attr->enum[$kid];
+  $enum=$attr->getEnum();
+  $kindname=$enum[$kid];
+
   $dir = new Doc($dbaccess, $dirid);
 
   $sdoc = createDoc($dbaccess,5); //new DocSearch($dbaccess);
@@ -86,19 +88,21 @@ function generic_search_kind(&$action) {
 
   // searches for all fathers kind
   $a = $fdoc->getAttribute($aid);
-
+  $enum = $a->getEnum();
   $tkids=array();;
-  while (list($k, $v) = each($a->enum)) {
+  while (list($k, $v) = each($enum)) {
     if (in_array($kid,explode(".",$k))) {
       $tkids[] = substr($k,strrpos(".".$k,'.'));
     }
   }
-  if ($a->type == "enumlist") {
-     $sqlfilter[] = "in_textlist($aid,'".
-       implode("') or in_textlist($aid,'",$tkids)."')";
-  } else  if ($a->type == "enum") {
-     $sqlfilter[] = "$aid='".
-       implode("' or $aid='",$tkids)."'";    
+  if ($a->type == "enum") {
+    if ($a->repeat) {
+      $sqlfilter[] = "in_textlist($aid,'".
+	implode("') or in_textlist($aid,'",$tkids)."')";
+    } else {
+      $sqlfilter[] = "$aid='".
+	implode("' or $aid='",$tkids)."'";    
+    }
   }
 
   $query=getSqlSearchDoc($dbaccess, 

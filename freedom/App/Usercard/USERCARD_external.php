@@ -77,4 +77,17 @@ function gsociety($dbaccess, $idc) {
   }
 
 
+// get enum list from society document
+function enumscatg() {
+  $dbaccess=getParam("FREEDOM_DB");
+  $soc = new Doc($dbaccess, 124);
+
+  if ($soc->isAffected()) {
+    $a = $soc->getAttribute("si_catg");
+    return $a->phpfunc;
+  }
+  return "";
+}
+
+
 ?>

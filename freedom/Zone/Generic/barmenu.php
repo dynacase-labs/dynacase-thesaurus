@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.10 2003/05/19 15:29:26 eric Exp $
+// $Id: barmenu.php,v 1.11 2003/05/22 16:24:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,7 +65,7 @@ function barmenu(&$action) {
   $tkind=array();
   while (list($k,$a) = each($lattr)) {
     if ((($a->type == "enum") || ($a->type == "enumlist")) &&
-	($a->phpfile == "")) {
+	($a->phpfile != "-")) {
       
       $tkind[]=array("kindname"=>$a->labelText,
 		     "kindid"=>$a->id,
@@ -73,7 +73,8 @@ function barmenu(&$action) {
       $tvkind=array();
       $tmkind=array($a->id."00");
       $tmkind[]=$a->id."kedit";
-      while (list($kk,$ki) = each($a->enum)) {
+      $enum=$a->getenum();
+      while (list($kk,$ki) = each($enum)) {
 	$tvkind[]=array("ktitle" => strstr($ki, '/')?strstr($ki, '/'):$ki,
 			"level" =>  substr_count($kk, '.')*20,
 			"kid" => $kk);
@@ -87,7 +88,7 @@ function barmenu(&$action) {
 	popupActive($a->id."menu",1,$vid); 
       }
 
-      if (! $action->HasPermission("GENERIC_MASTER")) popupInvisible($a->id."menu",1,$a->id."kedit");
+      if (($a->phpfile != "") || (! $action->HasPermission("GENERIC_MASTER"))) popupInvisible($a->id."menu",1,$a->id."kedit");
     }
 
   }
