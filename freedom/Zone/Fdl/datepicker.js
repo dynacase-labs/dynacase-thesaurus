@@ -198,23 +198,23 @@ Calendar.prototype.show = function() {
 		"javascript:window.opener.Build(" + 
 		"'" + this.gReturnItem + "', '" + this.gMonth + "', '" + (parseInt(this.gYear)-1) + "', '" + this.gFormat + "'" +
 		");" +
-		"\"><<<\/A></TD><TD ALIGN=center>");
+		"\">&lt;&lt;<\/A></TD><TD ALIGN=center>");
 	this.wwrite("<A CLASS=\"callink\" HREF=\"" +
 		"javascript:window.opener.Build(" + 
 		"'" + this.gReturnItem + "', '" + prevMM + "', '" + prevYYYY + "', '" + this.gFormat + "'" +
 		");" +
-		"\"><<\/A></TD><TD><B>"+this.gMonthName + " " + this.gYear+"</B></TD><TD ALIGN=center>");
+		"\">&lt;<\/A></TD><TD><B>"+this.gMonthName + " " + this.gYear+"</B></TD><TD ALIGN=center>");
 
 	this.wwrite("<A CLASS=\"callink\" HREF=\"" +
 		"javascript:window.opener.Build(" + 
 		"'" + this.gReturnItem + "', '" + nextMM + "', '" + nextYYYY + "', '" + this.gFormat + "'" +
 		");" +
-		"\">><\/A></TD><TD ALIGN=center>");
+		"\">&gt;<\/A></TD><TD ALIGN=center>");
 	this.wwrite("<A CLASS=\"callink\" HREF=\"" +
 		"javascript:window.opener.Build(" + 
 		"'" + this.gReturnItem + "', '" + this.gMonth + "', '" + (parseInt(this.gYear)+1) + "', '" + this.gFormat + "'" +
 		");" +
-		"\">>><\/A></TD></TR></TABLE>");
+		"\">&gt;&gt;<\/A></TD></TR></TABLE>");
 
 	// Get the complete calendar code for the month..
 	vCode = this.getMonthlyCalendarCode();
@@ -266,12 +266,12 @@ Calendar.prototype.showY = function() {
 		"javascript:window.opener.Build(" + 
 		"'" + this.gReturnItem + "', null, '" + prevYYYY + "', '" + this.gFormat + "'" +
 		");" +
-		"\" alt='Prev Year'><<<\/A></TD><TD>"+this.gYear+"</TD><TD ALIGN=center>");
+		"\" alt='Prev Year'>&lt;&lt;<\/A></TD><TD>"+this.gYear+"</TD><TD ALIGN=center>");
 	this.wwrite("<A CLASS=\"callink\" HREF=\"" +
 		"javascript:window.opener.Build(" + 
 		"'" + this.gReturnItem + "', null, '" + nextYYYY + "', '" + this.gFormat + "'" +
 		");" +
-		"\">>><\/A></TD></TR></TABLE><BR>");
+		"\">&gt;&gt;<\/A></TD></TR></TABLE><BR>");
 
 	// Get the complete calendar code for each month..
 	var j;
@@ -334,18 +334,19 @@ Calendar.prototype.cal_data = function() {
 	Place as many blank cells before the 1st day of the month as necessary. 
 	*/
 
-	vCode = vCode + "<TR>";
+	vCode = vCode + "\n<TR>";
 	for (i=0; i<vFirstDay; i++) {
 		vCode = vCode + "<TD WIDTH='14%'" + this.write_weekend_string(i) + ">&nbsp;</TD>";
 	}
 
 	// Write rest of the 1st week
 	for (j=vFirstDay; j<7; j++) {
-		vCode = vCode + "<TD CLASS=\"day\" WIDTH='14%'" + this.write_weekend_string(j) + ">"+
-			"<A HREF='#' " + 
-				"onClick=\"self.opener.document.getElementById('" + this.gReturnItem + "').value='" + 
+		vCode = vCode + "\n<TD CLASS=\"day\" WIDTH='14%'" + this.write_weekend_string(j) + ">"+
+		        "<A HREF=\"javascript:" + 
+					"window.opener.document.getElementById('" + this.gReturnItem + "').value='" + 
+			
 				this.format_data(vDay) + 
-				"';window.close();\">" + 
+				"';window.close()\">" + 
 				this.format_day(vDay) + 
 			"</A>" + 
 			"</TD>";
@@ -355,14 +356,14 @@ Calendar.prototype.cal_data = function() {
 
 	// Write the rest of the weeks
 	for (k=2; k<7; k++) {
-		vCode = vCode + "<TR>";
+		vCode = vCode + "\n<TR>";
 
 		for (j=0; j<7; j++) {
-			vCode = vCode + "<TD CLASS=\"day\" WIDTH='14%'" + this.write_weekend_string(j) + ">" + 
-				"<A HREF='#' " + 
-					"onClick=\"self.opener.document.getElementById('" + this.gReturnItem + "').value='" + 
+			vCode = vCode + "\n<TD CLASS=\"day\" WIDTH='14%'" + this.write_weekend_string(j) + ">" + 
+				"<A HREF=\"javascript:" + 
+					"window.opener.document.getElementById('" + this.gReturnItem + "').value='" + 
 					this.format_data(vDay) + 
-					"';window.close();\">" + 
+					"';window.close()\">" + 
 				this.format_day(vDay) + 
 				"</A>" + 
 				"</TD>";
