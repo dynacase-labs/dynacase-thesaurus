@@ -21,7 +21,7 @@
 
           <frameset  frameborder="no" border=0 framespacing="0" rows="7pt,*"   >
              <frame  name="fsel0"  src="[CORE_STANDURL]&app=FREEDOM&action=FOLIOSEL&selid=0&selected=Y"  scrolling="no"  bordercolor="[CORE_FGCOLOR]" frameborder="no" marginheight="0">
-             <frame  name="folio0" src="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO"          
+             <frame  name="folio0" src="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[dirid]"          
                   scrolling="needed" bordercolor="[CORE_FGCOLOR]" frameborder="no">
           </frameset>
 
