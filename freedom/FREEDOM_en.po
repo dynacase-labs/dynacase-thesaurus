@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-08-22 14:13+0200\n"
+	"POT-Creation-Date: 2002-09-16 16:38+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -131,10 +131,6 @@ msgstr	"Title"
 msgid	"all constructors"
 msgstr	""
 
-#, c-format
-msgid	"add %s in %s folder"
-msgstr	""
-
 msgid	"no file specified : update aborted"
 msgstr	""
 
@@ -242,6 +238,10 @@ msgid	"changed"
 msgstr	""
 
 #, fuzzy
+msgid	"change default folder"
+msgstr	"Delete"
+
+#, fuzzy
 msgid	"all"
 msgstr	"readall"
 
@@ -267,6 +267,20 @@ msgstr	"Identity"
 #, fuzzy
 msgid	"ending"
 msgstr	"Edit"
+
+msgid	"the document is not referenced: cannot apply state modification"
+msgstr	""
+
+#, c-format
+msgid	"the document %s is not related to a workflow"
+msgstr	""
+
+msgid	"Family is not instanciate"
+msgstr	""
+
+#, c-format
+msgid	"Family (#%d) is not referenced"
+msgstr	""
 
 #, c-format
 msgid	"PDF conversion failed for %s"
@@ -330,6 +344,10 @@ msgid	"locked files of "
 msgstr	""
 
 #, c-format
+msgid	"Add %s in %s folder"
+msgstr	""
+
+#, c-format
 msgid	"cannot delete link : link not found for doc %d in folder %d"
 msgstr	""
 
@@ -368,9 +386,37 @@ msgstr	""
 msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
 msgstr	""
 
+msgid	"vault file error"
+msgstr	""
+
 #, fuzzy
 msgid	"no filename"
 msgstr	"Firstname"
+
+msgid	"already exist : not added"
+msgstr	""
+
+msgid	"view workflow"
+msgstr	""
+
+msgid	"edit workflow"
+msgstr	""
+
+#, fuzzy
+msgid	"delete workflow"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"state profile"
+msgstr	"Category"
+
+#, c-format
+msgid	"id %s profile"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"%s profile"
+msgstr	"Category"
 
 #, c-format
 msgid	"ChangeState :: the initial state '%s' is not known"
@@ -393,15 +439,12 @@ msgid	"change state to %s"
 msgstr	""
 
 #, c-format
-msgid	"ChangeState :: the state has been realized but the post method '%s' "
-	"has the following error %s"
-msgstr	""
-
-#, c-format
 msgid	"%s new state %s"
 msgstr	""
 
-msgid	"already exist : not added"
+#, c-format
+msgid	"ChangeState :: the state has been realized but the post method '%s' "
+	"has the following error %s"
 msgstr	""
 
 msgid	"view usercard"
@@ -442,15 +485,13 @@ msgstr	""
 msgid	"suspended"
 msgstr	""
 
-msgid	"view incident"
-msgstr	""
-
-msgid	"edit incident"
-msgstr	""
+#, fuzzy
+msgid	"Tsimple"
+msgstr	"Update Title Cards"
 
 #, fuzzy
-msgid	"delete incident"
-msgstr	"Delete"
+msgid	"Tfinal"
+msgstr	"Update Title Cards"
 
 #, c-format
 msgid	"[%s] incident registration"
@@ -496,7 +537,16 @@ msgstr	""
 msgid	"error in filename"
 msgstr	"Firstname"
 
-msgid	"..."
+msgid	"date picker"
+msgstr	""
+
+msgid	"choose inputs"
+msgstr	""
+
+msgid	"clear inputs"
+msgstr	""
+
+msgid	"add inputs"
 msgstr	""
 
 msgid	"this kind of document cannot be duplicate"
@@ -594,11 +644,22 @@ msgstr	""
 msgid	"lock file to edit"
 msgstr	""
 
+#, fuzzy
+msgid	"edit state "
+msgstr	"Create"
+
 msgid	"edit profile access"
 msgstr	""
 
 msgid	"change profile access"
 msgstr	""
+
+msgid	"change state transition"
+msgstr	""
+
+#, fuzzy
+msgid	"edit default folder"
+msgstr	"Delete"
 
 msgid	"set the document controlled"
 msgstr	""
@@ -815,9 +876,6 @@ msgstr	""
 msgid	"global balance result"
 msgstr	""
 
-msgid	"unreferenced"
-msgstr	""
-
 msgid	"category id to find client"
 msgstr	""
 
@@ -914,6 +972,35 @@ msgid	"Contracts"
 msgstr	""
 
 msgid	"Contract Management"
+msgstr	""
+
+#, fuzzy
+msgid	"Onefam"
+msgstr	"Lastname"
+
+msgid	"One Familly Management"
+msgstr	""
+
+#, fuzzy
+msgid	"one familly root"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"familly list"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"redirect to generic"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"familly result"
+msgstr	"Start search"
+
+msgid	"Access Onefam Master Management"
+msgstr	""
+
+msgid	"Access To Onefam Management"
 msgstr	""
 
 #, fuzzy
@@ -1146,9 +1233,8 @@ msgstr	""
 msgid	"Catg"
 msgstr	""
 
-#, fuzzy
-msgid	"New card"
-msgstr	"Category"
+msgid	"Newfam"
+msgstr	""
 
 #, fuzzy
 msgid	"New category"
@@ -1190,6 +1276,10 @@ msgstr	""
 
 msgid	"personn deleted"
 msgstr	""
+
+#, fuzzy
+msgid	"New card"
+msgstr	"Category"
 
 msgid	"bilan"
 msgstr	""
@@ -1302,24 +1392,37 @@ msgstr	"Control access"
 msgid	"no profile"
 msgstr	""
 
-msgid	" keyword"
-msgstr	""
-
-msgid	" only latest revision"
-msgstr	""
-
-msgid	" case sensitive"
+msgid	"keyword"
 msgstr	""
 
 #, fuzzy
-msgid	" familly"
+msgid	"only latest revision"
+msgstr	"Organisation"
+
+#, fuzzy
+msgid	"from current folder"
+msgstr	"Modify"
+
+msgid	"case sensitive"
+msgstr	""
+
+#, fuzzy
+msgid	"familly"
 msgstr	"Start search"
 
-msgid	" save query in current folder"
+#, fuzzy
+msgid	"any familly"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"folders"
+msgstr	"Delete"
+
+msgid	"save query in current folder"
 msgstr	""
 
 #, fuzzy
-msgid	" search title"
+msgid	"search title"
 msgstr	"Start search"
 
 #, fuzzy
@@ -1417,6 +1520,14 @@ msgstr	"Start search"
 msgid	"Change title"
 msgstr	"Category"
 
+#, fuzzy
+msgid	"default folder"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"no folder"
+msgstr	"Modify"
+
 msgid	"access path folder list:"
 msgstr	""
 
@@ -1437,6 +1548,13 @@ msgstr	""
 
 #, fuzzy
 msgid	" search for"
+msgstr	"Start search"
+
+msgid	" only latest revision"
+msgstr	""
+
+#, fuzzy
+msgid	" familly"
 msgstr	"Start search"
 
 msgid	" view files"
@@ -1460,6 +1578,10 @@ msgstr	"Organisation"
 #, fuzzy
 msgid	"modification date"
 msgstr	"Organisation"
+
+#, fuzzy
+msgid	"Change State"
+msgstr	"Category"
 
 msgid	" choose value"
 msgstr	""
@@ -1507,12 +1629,20 @@ msgid	"History"
 msgstr	""
 
 #, fuzzy
+msgid	"Change state"
+msgstr	"Category"
+
+#, fuzzy
 msgid	"Change profile"
 msgstr	"Category"
 
 #, fuzzy
 msgid	"Change creation profile"
 msgstr	"Category"
+
+#, fuzzy
+msgid	"Change default folder"
+msgstr	"Delete"
 
 msgid	"goaccess"
 msgstr	"Control access"
@@ -1591,6 +1721,10 @@ msgstr	"Edit"
 
 msgid	"View headers"
 msgstr	""
+
+#, fuzzy
+#~ msgid	"delete incident"
+#~ msgstr	"Delete"
 
 #, fuzzy
 #~ msgid	"%s : all categories "

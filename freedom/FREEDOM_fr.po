@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-08-22 14:13+0200\n"
+	"POT-Creation-Date: 2002-09-16 16:38+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -125,10 +125,6 @@ msgstr	"%s catégorie %s"
 msgid	"all constructors"
 msgstr	"tous les constructeurs"
 
-#, c-format
-msgid	"add %s in %s folder"
-msgstr	"ajout %s dans dossier %s"
-
 msgid	"no file specified : update aborted"
 msgstr	"pas de fichier fournit, attaque possible : mise à jour abandonnée"
 
@@ -232,6 +228,9 @@ msgstr	"figé"
 msgid	"changed"
 msgstr	"modifié"
 
+msgid	"change default folder"
+msgstr "changer le dossier par défaut"
+
 msgid	"all"
 msgstr	"tous les mots"
 
@@ -255,6 +254,21 @@ msgstr	"commençant par..."
 
 msgid	"ending"
 msgstr	"se terminant par..."
+
+msgid	"the document is not referenced: cannot apply state modification"
+msgstr	"le document n'est pas référencé : la modification du profil d'accès\n"
+	"ne peut pas être appliquée"
+
+#, c-format
+msgid	"the document %s is not related to a workflow"
+msgstr "le document %s n'est pas relié à un workflow"
+
+msgid	"Family is not instanciate"
+msgstr "La famille n'est pas instanciée"
+
+#, c-format
+msgid	"Family (#%d) is not referenced"
+msgstr "la famille (%d) n'est pas référencée"
 
 #, c-format
 msgid	"PDF conversion failed for %s"
@@ -316,6 +330,10 @@ msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
 
 #, c-format
+msgid	"Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
 msgid	"cannot delete link : link not found for doc %d in folder %d"
 msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
 
@@ -358,8 +376,34 @@ msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
 msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
 msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
 
+msgid	"vault file error"
+msgstr "erreur fichier Vault"
+
 msgid	"no filename"
 msgstr	"pas de fichier"
+
+msgid	"already exist : not added"
+msgstr	"déjà existant : pas ajouté"
+
+msgid	"view workflow"
+msgstr "voir le workflow"
+
+msgid	"edit workflow"
+msgstr "éditer le workflow"
+
+msgid	"delete workflow"
+msgstr "supprimer un workflow"
+
+msgid	"state profile"
+msgstr "Profil d'état"
+
+#, c-format
+msgid	"id %s profile"
+msgstr "profil id %s "
+
+#, c-format
+msgid	"%s profile"
+msgstr "Profil %s"
 
 #, c-format
 msgid	"ChangeState :: the initial state '%s' is not known"
@@ -383,17 +427,14 @@ msgid	"change state to %s"
 msgstr	"changement d'état vers %s"
 
 #, c-format
+msgid	"%s new state %s"
+msgstr	"%s changement d'état vers %s"
+
+#, c-format
 msgid	"ChangeState :: the state has been realized but the post method '%s' "
 	"has the following error %s"
 msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
 	"méthode '%s' a retourné l'erreur suivante : %s "
-
-#, c-format
-msgid	"%s new state %s"
-msgstr	"%s changement d'état vers %s"
-
-msgid	"already exist : not added"
-msgstr	"déjà existant : pas ajouté"
 
 msgid	"view usercard"
 msgstr	"voir une carte"
@@ -432,14 +473,11 @@ msgstr	"clôt"
 msgid	"suspended"
 msgstr	"suspendu"
 
-msgid	"view incident"
-msgstr	"voir un incident"
+msgid	"Tsimple"
+msgstr "Autres transitions"
 
-msgid	"edit incident"
-msgstr	" éditer un incident"
-
-msgid	"delete incident"
-msgstr	"supprimer un incident"
+msgid	"Tfinal"
+msgstr "Transition close"
 
 #, c-format
 msgid	"[%s] incident registration"
@@ -483,8 +521,17 @@ msgstr	"dossier inconnu, ne peut être consulté"
 msgid	"error in filename"
 msgstr	"erreur dans le nom de fichier"
 
-msgid	"..."
-msgstr	"..."
+msgid	"date picker"
+msgstr "choix de date"
+
+msgid	"choose inputs"
+msgstr "choisir une valeur"
+
+msgid	"clear inputs"
+msgstr "effacer entrée(s)"
+
+msgid	"add inputs"
+msgstr "ajouter entrée"
 
 msgid	"this kind of document cannot be duplicate"
 msgstr	"ce type de document ne peut être dupliqué"
@@ -518,7 +565,7 @@ msgid	"Freedoms list"
 msgstr	"liste freedom"
 
 msgid	"Freedoms list by column"
-msgstr "liste freedom par colonne"
+msgstr	"liste freedom par colonne"
 
 msgid	"to choose value from set"
 msgstr	"pour choisir une valeur à partir d'un ensemble"
@@ -577,11 +624,20 @@ msgstr	"Modification d'attributs"
 msgid	"lock file to edit"
 msgstr	"verrouillez le document pour l'éditer"
 
+msgid	"edit state "
+msgstr "Édition état"
+
 msgid	"edit profile access"
 msgstr	"édition des profiles d'accès"
 
 msgid	"change profile access"
 msgstr	"changement des profiles d'accès"
+
+msgid	"change state transition"
+msgstr "changement d'état"
+
+msgid	"edit default folder"
+msgstr "éditer dossier par défaut"
 
 msgid	"set the document controlled"
 msgstr	"Mettre le document sous contrôle"
@@ -789,9 +845,6 @@ msgstr	"Requête de bilan général"
 msgid	"global balance result"
 msgstr	"résultat du bilan général"
 
-msgid	"unreferenced"
-msgstr	"non référencé"
-
 msgid	"category id to find client"
 msgstr	"identificateur catégorie pour la recherche de client"
 
@@ -817,7 +870,7 @@ msgid	"generic home page"
 msgstr	"page d'accueil générique"
 
 msgid	"duplication"
-msgstr "duplication"
+msgstr	"duplication"
 
 msgid	"delete"
 msgstr	"supprimer"
@@ -881,6 +934,30 @@ msgstr	"Contrats"
 
 msgid	"Contract Management"
 msgstr	"Gestion des contrats"
+
+msgid	"Onefam"
+msgstr "Une famille"
+
+msgid	"One Familly Management"
+msgstr "Gestion par famille"
+
+msgid	"one familly root"
+msgstr "racine gestion par famille"
+
+msgid	"familly list"
+msgstr "liste des familles"
+
+msgid	"redirect to generic"
+msgstr "rediriger vers generic"
+
+msgid	"familly result"
+msgstr "résultat des familles"
+
+msgid	"Access Onefam Master Management"
+msgstr "Accès à l'administration par famille"
+
+msgid	"Access To Onefam Management"
+msgstr "Accès à la gestion par famille"
 
 msgid	"edition: "
 msgstr	"éditer"
@@ -1096,8 +1173,8 @@ msgstr	"Problème"
 msgid	"Catg"
 msgstr	"Catg"
 
-msgid	"New card"
-msgstr	"Nouvelle carte"
+msgid	"Newfam"
+msgstr "Nouvelle"
 
 msgid	"New category"
 msgstr	"Nouvelle catégorie"
@@ -1121,7 +1198,7 @@ msgid	"add new category"
 msgstr	"ajout nouvelle catégorie"
 
 msgid	"Generic Management"
-msgstr "Gestion générique"
+msgstr	"Gestion générique"
 
 msgid	"Choose new categories"
 msgstr	"Choisissez de nouvelles catégories"
@@ -1134,6 +1211,9 @@ msgstr	"Personnes ajoutées"
 
 msgid	"personn deleted"
 msgstr	"Personnes supprimées"
+
+msgid	"New card"
+msgstr	"Nouvelle carte"
 
 msgid	"bilan"
 msgstr	"bilan"
@@ -1193,7 +1273,7 @@ msgid	"icon"
 msgstr	"Icone"
 
 msgid	"column"
-msgstr "colonne"
+msgstr	"colonne"
 
 msgid	"inherit from"
 msgstr	"hérite de"
@@ -1240,22 +1320,31 @@ msgstr	"Profil d'accès"
 msgid	"no profile"
 msgstr	"Pas de profil"
 
-msgid	" keyword"
-msgstr	" mot-clef"
+msgid	"keyword"
+msgstr "mot-clef"
 
-msgid	" only latest revision"
-msgstr	" seulement la dernière révision"
+msgid	"only latest revision"
+msgstr "seulement la dernière révision"
 
-msgid	" case sensitive"
-msgstr	" casse sensible"
+msgid	"from current folder"
+msgstr	"à partir du dossier courant"
 
-msgid	" familly"
-msgstr	" famille"
+msgid	"case sensitive"
+msgstr	" tenir compte de la casse"
 
-msgid	" save query in current folder"
-msgstr	" sauver la requête dans le dossier courant"
+msgid	"familly"
+msgstr "famille"
 
-msgid	" search title"
+msgid	"any familly"
+msgstr	"toute famille"
+
+msgid	"folders"
+msgstr	"Dossier"
+
+msgid	"save query in current folder"
+msgstr "sauver la requête dans le dossier courant"
+
+msgid	"search title"
 msgstr	"titre de la recherche"
 
 msgid	" send search"
@@ -1345,6 +1434,12 @@ msgstr	" Changer de titre"
 msgid	"Change title"
 msgstr	"Changer de titre"
 
+msgid	"default folder"
+msgstr "dossier par défaut"
+
+msgid	"no folder"
+msgstr "pas de dossier"
+
 msgid	"access path folder list:"
 msgstr	"liste des chemins d'accès"
 
@@ -1363,6 +1458,12 @@ msgstr	"chercher"
 msgid	" search for"
 msgstr	"trouver les mots"
 
+msgid	" only latest revision"
+msgstr	" seulement la dernière révision"
+
+msgid	" familly"
+msgstr	" famille"
+
 msgid	" view files"
 msgstr	"afficher les fichiers attachés"
 
@@ -1380,6 +1481,9 @@ msgstr	"informations"
 
 msgid	"modification date"
 msgstr	"date de modification"
+
+msgid	"Change State"
+msgstr "Changer d'état"
 
 msgid	" choose value"
 msgstr	" choisir une valeur"
@@ -1423,11 +1527,17 @@ msgstr	"Déverrouiller"
 msgid	"History"
 msgstr	"Historique"
 
+msgid	"Change state"
+msgstr "Changer d'état"
+
 msgid	"Change profile"
 msgstr	"Changer de profil"
 
 msgid	"Change creation profile"
 msgstr	"Changer de profil par défaut"
+
+msgid	"Change default folder"
+msgstr "Changer dossier par défaut"
 
 msgid	"goaccess"
 msgstr	"accessibilités..."
@@ -1493,10 +1603,28 @@ msgid	"View properties"
 msgstr	"Voir les propriétés"
 
 msgid	"Duplicate"
-msgstr "Dupliquer"
+msgstr	"Dupliquer"
 
 msgid	"View headers"
 msgstr	"Voir entête"
+
+#~ msgid	"view incident"
+#~ msgstr	"voir un incident"
+
+#~ msgid	"edit incident"
+#~ msgstr	" éditer un incident"
+
+#~ msgid	"delete incident"
+#~ msgstr	"supprimer un incident"
+
+#~ msgid	"..."
+#~ msgstr	"..."
+
+#~ msgid	"unreferenced"
+#~ msgstr	"non référencé"
+
+#~ msgid	" case sensitive"
+#~ msgstr	" casse sensible"
 
 #~ msgid	"search usercard contains %s in all categories"
 #~ msgstr	"recherche des cartes contenant %s toutes catégories"
@@ -1621,9 +1749,6 @@ msgstr	"Voir entête"
 
 #~ msgid	"profile search familly"
 #~ msgstr	"famille des profils d'accès recherche"
-
-#~ msgid	"case sensitive"
-#~ msgstr	" tenir compte de la casse"
 
 #~ msgid	"root"
 #~ msgstr	"racine"
