@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.39 2004/01/16 13:36:59 eric Exp $
+ * @version $Id: mailcard.php,v 1.40 2004/06/01 16:14:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.39 2004/01/16 13:36:59 eric Exp $
+// $Id: mailcard.php,v 1.40 2004/06/01 16:14:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -324,7 +324,8 @@ function sendCard(&$action,
     
     // ---------------------------
     // add inserted image
-    while(list($k,$v) = each($ifiles)) {
+
+    foreach($ifiles as $v) {
 
       if (file_exists($pubdir."/$v"))
 	$cmd .= " -n -e 'base64' -m 'image/".fileextension($v)."' ".
@@ -389,7 +390,7 @@ function srcfile($src) {
 
   if ( ! in_array(fileextension($src),$vext)) return "";
 
-  $ifiles[] = $src;
+  $ifiles[$src] = $src;
   return "src=\"cid:$src\"";
 }
 
