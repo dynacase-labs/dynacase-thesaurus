@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.9 2003/06/11 16:51:05 eric Exp $
+// $Id: generic_list.php,v 1.10 2003/07/03 10:40:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -39,6 +39,7 @@ function generic_list(&$action) {
   $startpage=GetHttpVars("page","0"); // page to see
   $tab=GetHttpVars("tab","0"); // tab to see 1 for ABC, 2 for DEF, ...
   $wonglet=GetHttpVars("onglet","Y")=="Y"; // if you want onglet
+  $famid=GetHttpVars("famid"); // family restriction
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -56,7 +57,7 @@ function generic_list(&$action) {
   $action->lay->Set("previcon",""); 
 
 
-  $famid = getDefFam($action);
+  if (!($famid > 0)) $famid = getDefFam($action);
 
   $aorder = getDefUSort($action);
   if ($aorder != "title") { // test if attribute order exist
