@@ -70,3 +70,7 @@ ATTR;EVFC_LISTATTID;EVFC_LISTATT;Ressource Id;N;N;docid;240;W;;;;;
 ATTR;EVFC_LISTATTST;EVFC_LISTATT;Ressource status;N;N;docid;250;W;;;;;
 END;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
+//FAM;recherche événement(DCALENDAR);<specid>;<fldid>;titre;couleur intercalaire;mot-clef;dernière révision;différence majuscule/minuscule;fid amille;dossier racine;profondeur de recherche;requête sql;id dossier père courant;dossier père courant;Conditions;opérateurs logiques;attributs;fonctions;mot-clefs;texte;texte opérateur;id producteur;producteur;famille;famille ressource;ressources;id famille ressources;id ressouce;ressource;couleurs;luminance;trié par;sens du tri;puis par;sens du tri
+ORDER;DCALENDAR;;;ba_title;gui_color;se_key;se_latest;se_case;se_famid;se_idfld;se_sublevel;se_sqlselect;se_idcfld;se_cfld;se_t_detail;se_ols;se_attrids;se_funcs;se_keys;dcal_text;dcal_textop;dcal_idproducer;dcal_producer;se_fam;dcal_fres;dcal_t_res;dcal_idfres;dcal_idres;dcal_res;dcal_coloridx;dcal_luminance;dcal_orderidx1;dcal_orderdesc1;dcal_orderidx2;dcal_orderdesc2
+DOC;DCALENDAR;WG_AGENDA;;Mon agenda;;;yes;;EVENT_FROM_CAL;;;;;;;and;evt_idres;~y;?idres;;~*;;Tous les familles;Evènements calendrier;;;;;;ir;0.6;absx;ASC;;ASC
+DOC;DCALENDAR;WG_DISPO;;Disponibilités;;;;;;?idres;;yes;;;;;select doc1098.* from  doc1098  where   (doctype != 'Z') and (doctype != 'T') and (locked != -1) and (usefor = 'N') and ( evt_idres ~ '\\y()\\y'  ) and ( evt_frominitiatorid = '1038' );;;;and;evt_idres;~y;?idres;;~*;CALEVENT;Rendez-vous;Evènements calendrier;ir;0.6;absx;ASC;;ASC

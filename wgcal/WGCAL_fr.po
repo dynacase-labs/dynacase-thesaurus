@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-13 11:42+0100\n"
+"POT-Creation-Date: 2005-03-15 07:31+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -192,15 +192,6 @@ msgstr "Vue mensuelle texte"
 
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
-
-msgid "there are conflicts with events (see after)"
-msgstr "Cet évènement est en conflit avec ceux ci-dessous"
-
-msgid "modify event"
-msgstr "Modifier le rendez-vous"
-
-msgid "ignore conflict"
-msgstr "Ignorer les conflits"
 
 msgid "calendar creation"
 msgstr "Sélection des calendriers"
@@ -406,6 +397,15 @@ msgstr "Etat"
 msgid "all state"
 msgstr "tout état"
 
+msgid "there are conflicts with events (see after)"
+msgstr "Cet évènement est en conflit avec ceux ci-dessous"
+
+msgid "modify event"
+msgstr "Modifier le rendez-vous"
+
+msgid "ignore conflict"
+msgstr "Ignorer les conflits"
+
 msgid "click here to refresh toolbar"
 msgstr "cliquer pour raffraichir la barre d'outil"
 
@@ -529,6 +529,9 @@ msgstr "Mes calendriers"
 msgid "freeevent app name"
 msgstr ""
 
+msgid "note"
+msgstr "Note"
+
 msgid "repeat"
 msgstr "répétition"
 
@@ -540,9 +543,6 @@ msgstr "Calendrier"
 
 msgid "modified"
 msgstr "modifié le"
-
-msgid "note"
-msgstr "Note"
 
 msgid "others"
 msgstr "Autres préférences"
