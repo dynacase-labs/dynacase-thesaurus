@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.97 2004/12/01 08:08:09 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.98 2004/12/28 17:02:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -67,8 +67,9 @@ function getSqlSearchDoc($dbaccess,
  
 
   $table="doc";$only="";
-  if ($fromid != 0) $table="doc$fromid";
-  if ($fromid < 0) $only="only" ;
+  if ($fromid == -1) $table="docfam";
+  elseif ($fromid < 0) {$only="only" ;$fromid=-$fromid;}
+  elseif ($fromid != 0) $table="doc$fromid";
 
   if ($distinct) {
     $selectfields =  "distinct on (initid) $table.*";
@@ -316,9 +317,18 @@ function getChildDoc($dbaccess,
 	else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
       }
    
-      if ($fromid > 0) {
-	$GEN=getGen($dbaccess);
-	include_once "FDL$GEN/Class.Doc$fromid.php";
+
+      if ($fromid != "") {
+	if ($fromid == -1) {
+	  include_once "FDL$GEN/Class.DocFam.php";
+	  $fromid="Fam";
+	} else {
+	  $fromid=abs($fromid);
+	  if ($fromid > 0) {
+	    $GEN=getGen($dbaccess);
+	    include_once "FDL$GEN/Class.Doc$fromid.php";
+	  }
+	}
       }
 
    
@@ -333,7 +343,7 @@ function getChildDoc($dbaccess,
 	{
 	  $tretdocs=array_merge($tretdocs,$tableq);
 	}
-      //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+      // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
     } else {
       // error in query          
