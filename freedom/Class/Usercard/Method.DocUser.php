@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.10 2003/04/10 13:54:15 eric Exp $
+// $Id: Method.DocUser.php,v 1.11 2003/05/12 12:15:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -93,8 +93,8 @@ function SpecRefresh() {
   $this->refreshDocTitle("US_IDSOCIETY","US_SOCIETY");
 
 
-  // gaddrsociety(D,US_IDSOCIETY,US_SOCADDR):US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB
-  $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX");
+  
+  $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX,US_COUNTRY");
 
   $doc=new Doc($this->dbaccess, $this->getValue("US_IDSOCIETY"));
   if ($doc->isAlive()) {
@@ -104,6 +104,7 @@ function SpecRefresh() {
       $this->setValue("US_WORKPOSTALCODE",$doc->getValue("SI_POSTCODE"," "));
       $this->setValue("US_WORKWEB",$doc->getValue("SI_WEB"," "));
       $this->setValue("US_WORKCEDEX",$doc->getValue("SI_CEDEX"," "));
+      $this->setValue("US_COUNTRY",$doc->getValue("SI_COUNTRY"," "));
     }
   }
   

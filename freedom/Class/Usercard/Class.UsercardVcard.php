@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.13 2003/01/08 09:06:27 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.14 2003/05/12 12:15:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,12 +56,12 @@ Class UsercardVcard
 		      "EMAIL;PREF;INTERNET" => "US_MAIL",
 		      "EMAIL;INTERNET;HOME" => "",
 			
-		      "ADR;WORK" => "0;0;US_WORKADDR;US_WORKTOWN;0;US_WORKPOSTALCODE",
+		      "ADR;WORK" => "0;0;US_WORKADDR;US_WORKTOWN;0;US_WORKPOSTALCODE;US_COUNTRY",
 		      "ADR;WORK;STREET" => "US_WORKADDR",
 		      "ADR;WORK;LOCALITY" => "US_WORKTOWN", 
 		      "ADR;WORK;REGION" => "", 
 		      "ADR;WORK;POSTALCODE" => "US_WORKPOSTALCODE",
-		      "ADR;WORK;COUNTRYNAME" => "",
+		      "ADR;WORK;COUNTRYNAME" => "US_COUNTRY",
 		      "EXT" => "",
 		      "LABEL" => "",
 

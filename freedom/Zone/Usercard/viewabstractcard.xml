@@ -6,5 +6,5 @@
 </td><td style="background-color:transparent" align="right" >
 [V_US_SOCIETY]<BR>
 [V_US_WORKADDR]<BR>
-[V_US_WORKPOSTALCODE] [V_US_WORKTOWN] [V_US_WORKCEDEX]
+[V_US_WORKPOSTALCODE] [V_US_WORKTOWN] [V_US_WORKCEDEX] [V_US_COUNTRY]
 </td><td width="30px" style="background-color:transparent"></td></tr></table>

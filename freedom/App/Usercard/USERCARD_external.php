@@ -37,7 +37,7 @@ function lsite($dbaccess, $name) {
 
 // liste des société
 function laddrsoc($dbaccess, $idc) {
-  //'laddrsoc(D,US_IDSOCIETY):US_SOCADDR,US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_CEDEX
+  //'laddrsoc(D,US_IDSOCIETY):US_SOCADDR,US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_CEDEX,US_COUNTRY
 
 
   $doc = new Doc($dbaccess, $idc);
@@ -49,11 +49,13 @@ function laddrsoc($dbaccess, $idc) {
 		  $doc->getValue("SI_TOWN"),
 		  $doc->getValue("SI_POSTCODE"),
 		  $doc->getValue("SI_WEB"),
-		  $doc->getValue("SI_CEDEX"));
+		  $doc->getValue("SI_CEDEX"),
+		  $doc->getValue("SI_COUNTRY"));
   }
   
-    $tr[] = array("adresse propre",
+  $tr[] = array("adresse propre",
 		  " ",
+		  "?",
 		  "?",
 		  "?",
 		  "?",
@@ -74,17 +76,5 @@ function gsociety($dbaccess, $idc) {
   return ($cl);
   }
 
-// identification société
-function gaddrsociety($dbaccess, $idc, $sameaddr) {     
-  //gaddrsociety(D,US_IDSOCIETY,US_SOCADDR):US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB
 
-  $doc = new Doc($dbaccess, $idc);
-  $cl = array(
-	      $doc->getValue("SI_ADDR"," "),
-	      $doc->getValue("SI_TOWN"," "),
-	      $doc->getValue("SI_POSTCODE"," "),
-	      $doc->getValue("SI_WEB"," "));
-
-  return ($cl);
-  }
 ?>
