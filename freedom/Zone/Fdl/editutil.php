@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.51 2003/10/28 16:30:05 eric Exp $
+ * @version $Id: editutil.php,v 1.52 2003/11/03 09:01:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.51 2003/10/28 16:30:05 eric Exp $
+// $Id: editutil.php,v 1.52 2003/11/03 09:01:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -604,6 +604,9 @@ function elinkEncode(&$doc, $link,$index,&$ititle,&$isymbol) {
 	  break;
 	case "I" :
 	  $urllink.=$doc->id;
+	  break;
+	case "F" :
+	  $urllink.=$doc->fromid;
 	  break;
 	}
 	$i++; // skip end '%'
