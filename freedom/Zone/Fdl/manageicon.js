@@ -134,6 +134,10 @@ function sendFirstFile(docid) {
   subwindow(300,400,'',url);
 }
 
+function openFld(docid) {
+  url='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW&dirid='+docid;
+  subwindow(300,400,'info',url);
+}
 //--------------------- DRAG & DROP  --------------------------
 document.drag=0;
 
