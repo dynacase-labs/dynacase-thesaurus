@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.16 2002/12/16 17:47:37 eric Exp $
+// $Id: mailcard.php,v 1.17 2003/01/02 14:55:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,6 +70,13 @@ function sendmailcard(&$action) {
   $vf = new VaultFile($dbaccess, "FREEDOM");
   $pubdir = $action->getParam("CORE_PUBDIR");
 
+  if ($action->getParam("FDL_BCC") == "yes") {
+    
+    $umail=getMailAddr($action->user->id);
+    if ($umail != "") {
+       $bcc .= "\\nBcc:$umail";
+    }
+  }
   if ($from == "") {
     $from=getMailAddr($action->user->id);
     if ($from == "")  $from = $action->user->login;
@@ -236,6 +243,7 @@ function sendmailcard(&$action) {
   if ($status == 0)  {
     $doc->addcomment(sprintf(_("sended to %s"), $to));
     $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to));
+    print ($cmd);
   } else {
     print ($cmd);
     $action->addlogmsg(sprintf(_("%s cannot be sent"),$title));
