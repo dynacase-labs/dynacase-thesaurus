@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.72 2005/04/04 18:31:21 caroline Exp $
+ * @version $Id: modcard.php,v 1.73 2005/04/04 18:35:52 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -150,8 +150,6 @@ function modcard(&$action, &$ndocid) {
 	// change state if needed
       
 	$newstate=GetHttpVars("newstate","");
-
-	print "newstate=".$newstate;
 
 	$comment=GetHttpVars("comment","");
     
