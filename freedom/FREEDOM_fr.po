@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2004-01-28 11:24+0100\n"
+	"POT-Creation-Date: 2004-03-01 14:07+0100\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -18,60 +18,6 @@ msgstr	"pas de fichier vcard spécifié"
 #, c-format
 msgid	"no privilege to create this kind (%d) of document"
 msgstr	"vous n'avez pas la permission de créer ce type (%d) de document "
-
-msgid	"new incident"
-msgstr	"Nouvel incident"
-
-msgid	"create"
-msgstr	"Créer"
-
-msgid	"document not referenced"
-msgstr	"document non référencé"
-
-msgid	"modify"
-msgstr	"Modifier"
-
-msgid	"next"
-msgstr	"suivant"
-
-msgid	"prev"
-msgstr	"suivant"
-
-#, c-format
-msgid	"period from %s to %s"
-msgstr	"période du %s au %s"
-
-#, c-format
-msgid	"the end date (%s) is before the begin date (%s)"
-msgstr	"La date de fin (%s) est antérieure à la date de début (%s)"
-
-msgid	"state"
-msgstr	"état"
-
-msgid	"unreferenced site"
-msgstr	"sites non référencés"
-
-#, c-format
-msgid	"bilan cannot be perform : %s society not found"
-msgstr	"Le bilan ne peut être produit : la société %s n'a pas été trouvée"
-
-msgid	"dayfirstletter"
-msgstr	"j"
-
-msgid	"hourfirstletter"
-msgstr	"h"
-
-msgid	"minfirstletter"
-msgstr	"min"
-
-msgid	"undated"
-msgstr	"non daté"
-
-msgid	"untitle"
-msgstr	"sans titre"
-
-msgid	"undefined gravity"
-msgstr	"indéfinie"
 
 #, c-format
 msgid	"search %s"
@@ -100,7 +46,13 @@ msgid	"default values"
 msgstr	"Valeurs par défaut"
 
 msgid	"parameters values"
-msgstr "valeurs des paramètres"
+msgstr	"valeurs des paramètres"
+
+msgid	"create"
+msgstr	"Créer"
+
+msgid	"document not referenced"
+msgstr	"document non référencé"
 
 msgid	"Validate"
 msgstr	"Valider"
@@ -110,6 +62,12 @@ msgstr	"pas de famille"
 
 msgid	"no csv import file specified"
 msgstr	"pas de fichier d'import CSV spécifié"
+
+msgid	"next"
+msgstr	"suivant"
+
+msgid	"prev"
+msgstr	"suivant"
 
 #, c-format
 msgid	"%s has been modified"
@@ -141,9 +99,6 @@ msgstr	"recherche relative de %s"
 #, c-format
 msgid	"definition of enumerate attribute %s of %s family"
 msgstr	"définition de l'attribut énuméré %s de la famille %s"
-
-msgid	"all constructors"
-msgstr	"tous les constructeurs"
 
 msgid	"no file specified : update aborted"
 msgstr	"pas de fichier fournit, attaque possible : mise à jour abandonnée"
@@ -237,6 +192,13 @@ msgstr	"le document %s n'est pas un conteneur"
 
 msgid	"description"
 msgstr	"description"
+
+#, c-format
+msgid	"Not all users can be vieved.\n"
+	"limit %d has been reached"
+msgstr ""
+"Tous les utilisateurs ne peuvent être affichés.\n"
+"La limite %d a été atteinte"
 
 msgid	"mnogosearch php extension not loaded"
 msgstr	"extension php mnogosearch non chargée"
@@ -481,6 +443,10 @@ msgid	"Add %s in %s folder"
 msgstr	"Ajout %s dans dossier %s"
 
 #, c-format
+msgid	"Add %d in %s folder"
+msgstr "Ajout %d dans dossier %s"
+
+#, c-format
 msgid	"cannot delete link : link not found for doc %d in folder %d"
 msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
 
@@ -500,12 +466,6 @@ msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
 #, c-format
 msgid	"Delete %d in %s folder"
 msgstr	"Suppression n°%d du dossier %s"
-
-msgid	"already exist : not added"
-msgstr	"déjà existant : pas ajouté"
-
-msgid	"no filename"
-msgstr	"pas de fichier"
 
 #, c-format
 msgid	"parameters for %s state"
@@ -571,6 +531,15 @@ msgid	"automaticaly by change state of %s\n"
 msgstr	"changement d'état automatique issu du document %s\n"
 	"%s"
 
+msgid	"no filename"
+msgstr	"pas de fichier"
+
+msgid	"not perm for admin"
+msgstr "pas de permission pour admin"
+
+msgid	"not pertinent"
+msgstr "Pas pertinent"
+
 msgid	"view document"
 msgstr	"voir le document"
 
@@ -609,6 +578,9 @@ msgstr	"execute"
 
 msgid	"modify folder"
 msgstr	"modifier le dossier"
+
+msgid	"modify"
+msgstr	"Modifier"
 
 msgid	"view acl"
 msgstr	"voir les droits"
@@ -740,144 +712,41 @@ msgstr	"Le server LDAP n'a pas pu être contacté"
 msgid	"user #%d does not exist"
 msgstr	"l'utilisateur n°%d n'existe pas"
 
+msgid	"user has not identificator"
+msgstr "L'utilisateur n'a pas d'identificateur"
+
 msgid	"user is desactivated"
 msgstr	"l'utilisateur est désactivé"
 
 #, c-format
+msgid	"user %d does not exist"
+msgstr	"l'utilisateur n°%d n'existe pas"
+
+msgid	"passwords must not be empty"
+msgstr "Le mot de passe ne doît pas être vide"
+
+msgid	"the 2 passwords are not the same"
+msgstr "Les deux mots de passes ne sont pas identiques"
+
+msgid	"Expiration delay must not be 0 to keep expiration date"
+msgstr "Le délai d'expiration doit être supérieur à zéro pour avoir une date d'expiration"
+
+#, c-format
+msgid	"group %d does not exist"
+msgstr "le groupe n°%d n'existe pas"
+
+#, c-format
 msgid	"Group %s not exist"
-msgstr "le groupe n°%s n'existe pas"
+msgstr	"le groupe n°%s n'existe pas"
 
-msgid	"virtual"
-msgstr	"virtuel"
+msgid	"the login must not be empty"
+msgstr "Le login ne doit pas être vide"
 
-msgid	"consumed"
-msgstr	"consommé"
+msgid	"the login syntax is like : john.doe"
+msgstr "La syntaxe d'un login est de la forme : jean.martin"
 
-msgid	"plocked"
-msgstr	"immobilisé"
-
-msgid	"asav"
-msgstr	"affecté SAV"
-
-msgid	"aclient"
-msgstr	"affecté client"
-
-msgid	"returned"
-msgstr	"retourné"
-
-msgid	"stocked"
-msgstr	"stocké"
-
-msgid	"out"
-msgstr	"sorti"
-
-msgid	"Tvirtual"
-msgstr	"vers virtuel"
-
-msgid	"Tconsumed"
-msgstr	"vers consommé"
-
-msgid	"Tlocked"
-msgstr	"vers immobilisé"
-
-msgid	"Tasav"
-msgstr	"vers affecté SAV"
-
-msgid	"Taclient"
-msgstr	"vers affecté client"
-
-msgid	"Treturned"
-msgstr	"vers retourné"
-
-msgid	"Tstocked"
-msgstr	"vers stocké"
-
-msgid	"Tout"
-msgstr	"vers sorti"
-
-msgid	"created"
-msgstr	"Créé"
-
-msgid	"progressing"
-msgstr	"en cours"
-
-msgid	"clotured"
-msgstr	"cloturé"
-
-msgid	"Tprogressing"
-msgstr	"vers en cours"
-
-msgid	"Tclotured"
-msgstr	"vers cloturé"
-
-msgid	"recorded"
-msgstr	"enregistré"
-
-msgid	"qualified"
-msgstr	"qualifié"
-
-msgid	"analyzed"
-msgstr	"analysé"
-
-msgid	"traited"
-msgstr	"traité"
-
-msgid	"rejected"
-msgstr	"rejeté"
-
-msgid	"closed"
-msgstr	"clôt"
-
-msgid	"suspended"
-msgstr	"suspendu"
-
-msgid	"draft"
-msgstr	"brouillon"
-
-msgid	"Trecorded"
-msgstr	"vers enregistré"
-
-msgid	"Tqualified"
-msgstr	"vers qualifié"
-
-msgid	"Tanalyzed"
-msgstr	"vers analysé"
-
-msgid	"Ttraited"
-msgstr	"vers traité"
-
-msgid	"Trejected"
-msgstr	"vers rejeté"
-
-msgid	"Tclosed"
-msgstr	"vers clôt"
-
-msgid	"Tsuspended"
-msgstr	"vers suspendu"
-
-#, c-format
-msgid	"[%s] incident registration"
-msgstr	"[%s] enregistrement de l'incident"
-
-#, c-format
-msgid	"Incident : ask for level 2 %s"
-msgstr	"Incident : Demande d'analyse niveau 2 %s"
-
-#, c-format
-msgid	"Incident : ask for perform %s"
-msgstr	"Incident : Demande de traitement %s"
-
-#, c-format
-msgid	"[%s] incident traited"
-msgstr	"[%s] incident traité"
-
-#, c-format
-msgid	"the %s attribute must be set."
-msgstr	"L'attribut %s doit être renseigné."
-
-#, c-format
-msgid	"send official mail to %s (cc: %s - bcc:%s)"
-msgstr	"mail officiel envoyé à %s (cc: %s - bcc:%s)"
+msgid	"login yet use"
+msgstr "login déjà utilisé"
 
 msgid	"read only"
 msgstr	"lecture seule"
@@ -911,6 +780,9 @@ msgstr	"date de modification"
 
 msgid	"revision"
 msgstr	"révision"
+
+msgid	"state"
+msgstr	"état"
 
 msgid	"include"
 msgstr	"contient"
@@ -997,6 +869,9 @@ msgstr	"pas de contrôle d'accès"
 msgid	"specific control"
 msgstr	"Contrôle dédié"
 
+msgid	"dynamic control"
+msgstr "contrôle dynamique"
+
 msgid	"no view control"
 msgstr	"pas de contrôle de vues"
 
@@ -1047,6 +922,14 @@ msgstr	"duplication de"
 #, c-format
 msgid	"new duplicate document is named : %s"
 msgstr	"la duplication est nommée : %s"
+
+#, c-format
+msgid	"period from %s to %s"
+msgstr	"période du %s au %s"
+
+#, c-format
+msgid	"the end date (%s) is before the begin date (%s)"
+msgstr	"La date de fin (%s) est antérieure à la date de début (%s)"
 
 msgid	"Freedoms"
 msgstr	"Freedoms"
@@ -1434,81 +1317,6 @@ msgstr	"initialisation"
 msgid	"import vcard"
 msgstr	"Importation Vcard"
 
-msgid	"Incident"
-msgstr	"Incident"
-
-msgid	"Incident Management"
-msgstr	"Gestion des incidents"
-
-msgid	"Access Incident Master Management"
-msgstr	"Accès à l'administration des incidents"
-
-msgid	"Access To Incident Management"
-msgstr	"Accès à la gestion des incidents"
-
-msgid	"Access To Read Incident"
-msgstr	"Accès en lecture seule aux incidents"
-
-msgid	"incident home page"
-msgstr	"Page d'accueil d'incident"
-
-msgid	"incident list application"
-msgstr	"liste des applications incident"
-
-msgid	"edition"
-msgstr	"édition"
-
-msgid	"document history"
-msgstr	"historique du document"
-
-msgid	"modification or creation"
-msgstr	"modification ou création"
-
-msgid	"display logo"
-msgstr	"afficher le logo"
-
-msgid	"unlock incident file"
-msgstr	"Déverrouiller un document incident"
-
-msgid	"view list"
-msgstr	"voir la liste"
-
-msgid	"view an incident"
-msgstr	"voir un incident"
-
-msgid	"search an incident"
-msgstr	"rechercher un incident"
-
-msgid	"balance"
-msgstr	"bilan"
-
-msgid	"balance query"
-msgstr	"Requête de bilan"
-
-msgid	"balance result"
-msgstr	"résultat du bilan"
-
-msgid	"global balance"
-msgstr	"bilan général"
-
-msgid	"global balance query"
-msgstr	"Requête de bilan général"
-
-msgid	"global balance result"
-msgstr	"résultat du bilan général"
-
-msgid	"relance"
-msgstr	"relance"
-
-msgid	"bcc mail to control each opened incident"
-msgstr	"mail caché pour controler chaque nouvel incident"
-
-msgid	"address for replying for the client"
-msgstr	"adresse de réponse pour le client"
-
-msgid	"send mail for qualifier and analyzer"
-msgstr	"activer l'envoi de mail vers les qualifieurs et analyseurs"
-
 msgid	"Generic"
 msgstr	"Générique"
 
@@ -1529,6 +1337,9 @@ msgstr	"page d'accueil générique"
 
 msgid	"generic vertical home page"
 msgstr	"page d'accueil découpage vertical"
+
+msgid	"edition"
+msgstr	"édition"
 
 msgid	"inverted search"
 msgstr	"Recherche inversée"
@@ -1553,6 +1364,15 @@ msgstr	"édition pour changer de catégorie"
 
 msgid	"change category"
 msgstr	"changer de catégorie"
+
+msgid	"modification or creation"
+msgstr	"modification ou création"
+
+msgid	"display logo"
+msgstr	"afficher le logo"
+
+msgid	"view list"
+msgstr	"voir la liste"
 
 msgid	"define sort attribute"
 msgstr	"Définir les attributs de tri"
@@ -1600,27 +1420,6 @@ msgstr	"mode de vues par familles"
 
 msgid	"split view mode by family"
 msgstr	"mode de découpage par famille"
-
-msgid	"Products"
-msgstr	"Produits"
-
-msgid	"Product Management"
-msgstr	"Gestion des produits"
-
-msgid	"product balance"
-msgstr	"bilan des produits"
-
-msgid	"Sites"
-msgstr	"Sites"
-
-msgid	"Site Management"
-msgstr	"Gestion des sites"
-
-msgid	"Contracts"
-msgstr	"Contrats"
-
-msgid	"Contract Management"
-msgstr	"Gestion des contrats"
 
 msgid	"visible families"
 msgstr	"familles visibles"
@@ -1722,17 +1521,8 @@ msgid	"If an attribut is a multiline string, use the \\ n characters to "
 msgstr	"Si un attribut est multi-ligne, utilisez les caractères \\n pour "
 	"indiquer le saut de ligne"
 
-msgid	" history"
-msgstr	" historique"
-
-msgid	"edition: "
-msgstr	"éditer"
-
-msgid	" folder containt"
-msgstr	" contenu du dossier"
-
-msgid	"New"
-msgstr	"Nouveau"
+msgid	"Creation"
+msgstr	"Création"
 
 msgid	"Search"
 msgstr	"Recherche"
@@ -1740,29 +1530,17 @@ msgstr	"Recherche"
 msgid	"Sort"
 msgstr	"Tri"
 
-msgid	"Bilan"
-msgstr	"Bilan"
+msgid	"Tools"
+msgstr	"Outils"
 
-msgid	"Tool"
-msgstr	"Outil"
-
-msgid	"All catg"
-msgstr	"Toutes catg."
+msgid	"All document"
+msgstr	"tous les documents"
 
 msgid	"Edit kind"
 msgstr	" éditer une catégorie"
 
 msgid	"invert order"
 msgstr	"ordre inverse"
-
-msgid	"client bilan"
-msgstr	"bilan client"
-
-msgid	"global bilan"
-msgstr	"bilan général"
-
-msgid	"state bilan"
-msgstr	"Bilan par état"
 
 msgid	"Import file"
 msgstr	"Importer un fichier"
@@ -1778,108 +1556,6 @@ msgstr	"Inverser le découpage"
 
 msgid	"Freedom"
 msgstr	"Freedom"
-
-msgid	"Incident Report"
-msgstr	"Rapport d'incident"
-
-msgid	"Bilan Query"
-msgstr	"Requête de bilan"
-
-msgid	"the from date is in the future"
-msgstr	"la date de début est dans le futur"
-
-msgid	"the end date is in the future"
-msgstr	"la date de fin est dans le futur"
-
-msgid	"the from date is before the end date"
-msgstr	"La date de fin (%s) est antérieure à la date de début (%s)"
-
-msgid	"fromdate"
-msgstr	"date de début"
-
-msgid	"todate"
-msgstr	"date de fin"
-
-msgid	"today"
-msgstr	"aujourd'hui"
-
-msgid	"new bilan"
-msgstr	"nouveau bilan"
-
-msgid	"Global Balance"
-msgstr	"Bilan général"
-
-msgid	"SUPPORT Service"
-msgstr	"Service SUPPORT"
-
-msgid	"incident historical"
-msgstr	"Suivi des incidents"
-
-msgid	"edited the"
-msgstr	"Édition du"
-
-msgid	"print"
-msgstr	"imprimer"
-
-msgid	"Reference"
-msgstr	"Référence"
-
-msgid	"Description"
-msgstr	"Description"
-
-msgid	"First Revision"
-msgstr	"Première révision"
-
-msgid	"Latest Revision"
-msgstr	"Dernière révision"
-
-msgid	"Gravity"
-msgstr	"Gravité"
-
-msgid	"State"
-msgstr	"État"
-
-msgid	"Bilan:"
-msgstr	"Bilan"
-
-msgid	"General Synthesis"
-msgstr	"Synthèse générale"
-
-msgid	"gravity"
-msgstr	"gravité"
-
-msgid	"Total"
-msgstr	"Total"
-
-msgid	"Detail"
-msgstr	"Détail"
-
-msgid	"Recorded Date"
-msgstr	"Date d'enregistrement"
-
-msgid	"End Date"
-msgstr	"Date de fin"
-
-msgid	"Delay"
-msgstr	"Délai"
-
-msgid	"incident state"
-msgstr	"état incident"
-
-msgid	"Title"
-msgstr	"Titre"
-
-msgid	"Problem"
-msgstr	"Problème"
-
-msgid	"Creation"
-msgstr	"Création"
-
-msgid	"Tools"
-msgstr	"Outils"
-
-msgid	"All document"
-msgstr	"tous les documents"
 
 msgid	"Properties:"
 msgstr	"Propriétés:"
@@ -1899,6 +1575,9 @@ msgstr	"ajout nouvelle catégorie"
 msgid	"help"
 msgstr	"Aide"
 
+msgid	"edition: "
+msgstr	"éditer"
+
 msgid	"view constraints"
 msgstr	"voir les contraintes"
 
@@ -1910,6 +1589,9 @@ msgstr	"outrepasser les contraintes"
 
 msgid	"Cancel"
 msgstr	"Annuler"
+
+msgid	" folder containt"
+msgstr	" contenu du dossier"
 
 msgid	"Generic Management"
 msgstr	"Gestion générique"
@@ -1943,36 +1625,6 @@ msgstr	"Personnes ajoutées"
 
 msgid	"personn deleted"
 msgstr	"Personnes supprimées"
-
-msgid	"bilan"
-msgstr	"bilan"
-
-msgid	"Product Report"
-msgstr	"Rapport produits"
-
-msgid	"Balance Result"
-msgstr	"Résultat du bilan"
-
-msgid	"product historical"
-msgstr	"Suivi des produits"
-
-msgid	"Sales Out"
-msgstr	"Ventes"
-
-msgid	"site"
-msgstr	"site"
-
-msgid	"designation"
-msgstr	"désignation"
-
-msgid	"reference"
-msgstr	"référence"
-
-msgid	"serial number"
-msgstr	"n°série"
-
-msgid	"date"
-msgstr	"date"
 
 msgid	"PortFolio"
 msgstr	"Chemise"
@@ -2135,6 +1787,9 @@ msgstr	"Résultat de l'importation"
 
 msgid	"Result Import Documents"
 msgstr	" Résultat de l'importation de documents"
+
+msgid	" history"
+msgstr	" historique"
 
 msgid	"view properties"
 msgstr	"voir les propriétés"
@@ -2434,7 +2089,7 @@ msgid	"Set default values"
 msgstr	"Valeurs par défaut"
 
 msgid	"Parameters values"
-msgstr "Valeurs des paramètres"
+msgstr	"Valeurs des paramètres"
 
 msgid	"Rename"
 msgstr	"Renommer"
@@ -2487,6 +2142,9 @@ msgstr	"envoyer"
 msgid	"wordedit"
 msgstr	"édition par traitement de texte"
 
+msgid	"print"
+msgstr	"imprimer"
+
 msgid	"author"
 msgstr	"auteur"
 
@@ -2501,6 +2159,9 @@ msgstr	" profil d'accès"
 
 msgid	"control view"
 msgstr	"contrôle de vues"
+
+msgid	"reference"
+msgstr	"référence"
 
 msgid	"rev"
 msgstr	"rev"
@@ -2522,6 +2183,15 @@ msgstr	"déselectionner"
 
 msgid	"delete selected"
 msgstr	"supprimer la sélection"
+
+msgid	"fromdate"
+msgstr	"date de début"
+
+msgid	"todate"
+msgstr	"date de fin"
+
+msgid	"today"
+msgstr	"aujourd'hui"
 
 msgid	"Familly Document"
 msgstr	"Famille de document"
@@ -2558,6 +2228,379 @@ msgstr	"Changer de catégorie"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+#~ msgid	"new incident"
+#~ msgstr	"Nouvel incident"
+
+#~ msgid	"unreferenced site"
+#~ msgstr	"sites non référencés"
+
+#~ msgid	"bilan cannot be perform : %s society not found"
+#~ msgstr	"Le bilan ne peut être produit : la société %s n'a pas été "
+#~ 	"trouvée"
+
+#~ msgid	"dayfirstletter"
+#~ msgstr	"j"
+
+#~ msgid	"hourfirstletter"
+#~ msgstr	"h"
+
+#~ msgid	"minfirstletter"
+#~ msgstr	"min"
+
+#~ msgid	"undated"
+#~ msgstr	"non daté"
+
+#~ msgid	"untitle"
+#~ msgstr	"sans titre"
+
+#~ msgid	"undefined gravity"
+#~ msgstr	"indéfinie"
+
+#~ msgid	"all constructors"
+#~ msgstr	"tous les constructeurs"
+
+#~ msgid	"already exist : not added"
+#~ msgstr	"déjà existant : pas ajouté"
+
+#~ msgid	"virtual"
+#~ msgstr	"virtuel"
+
+#~ msgid	"consumed"
+#~ msgstr	"consommé"
+
+#~ msgid	"plocked"
+#~ msgstr	"immobilisé"
+
+#~ msgid	"asav"
+#~ msgstr	"affecté SAV"
+
+#~ msgid	"aclient"
+#~ msgstr	"affecté client"
+
+#~ msgid	"returned"
+#~ msgstr	"retourné"
+
+#~ msgid	"stocked"
+#~ msgstr	"stocké"
+
+#~ msgid	"out"
+#~ msgstr	"sorti"
+
+#~ msgid	"Tvirtual"
+#~ msgstr	"vers virtuel"
+
+#~ msgid	"Tconsumed"
+#~ msgstr	"vers consommé"
+
+#~ msgid	"Tlocked"
+#~ msgstr	"vers immobilisé"
+
+#~ msgid	"Tasav"
+#~ msgstr	"vers affecté SAV"
+
+#~ msgid	"Taclient"
+#~ msgstr	"vers affecté client"
+
+#~ msgid	"Treturned"
+#~ msgstr	"vers retourné"
+
+#~ msgid	"Tstocked"
+#~ msgstr	"vers stocké"
+
+#~ msgid	"Tout"
+#~ msgstr	"vers sorti"
+
+#~ msgid	"created"
+#~ msgstr	"Créé"
+
+#~ msgid	"progressing"
+#~ msgstr	"en cours"
+
+#~ msgid	"clotured"
+#~ msgstr	"cloturé"
+
+#~ msgid	"Tprogressing"
+#~ msgstr	"vers en cours"
+
+#~ msgid	"Tclotured"
+#~ msgstr	"vers cloturé"
+
+#~ msgid	"recorded"
+#~ msgstr	"enregistré"
+
+#~ msgid	"qualified"
+#~ msgstr	"qualifié"
+
+#~ msgid	"analyzed"
+#~ msgstr	"analysé"
+
+#~ msgid	"traited"
+#~ msgstr	"traité"
+
+#~ msgid	"rejected"
+#~ msgstr	"rejeté"
+
+#~ msgid	"closed"
+#~ msgstr	"clôt"
+
+#~ msgid	"suspended"
+#~ msgstr	"suspendu"
+
+#~ msgid	"draft"
+#~ msgstr	"brouillon"
+
+#~ msgid	"Trecorded"
+#~ msgstr	"vers enregistré"
+
+#~ msgid	"Tqualified"
+#~ msgstr	"vers qualifié"
+
+#~ msgid	"Tanalyzed"
+#~ msgstr	"vers analysé"
+
+#~ msgid	"Ttraited"
+#~ msgstr	"vers traité"
+
+#~ msgid	"Trejected"
+#~ msgstr	"vers rejeté"
+
+#~ msgid	"Tclosed"
+#~ msgstr	"vers clôt"
+
+#~ msgid	"Tsuspended"
+#~ msgstr	"vers suspendu"
+
+#~ msgid	"[%s] incident registration"
+#~ msgstr	"[%s] enregistrement de l'incident"
+
+#~ msgid	"Incident : ask for level 2 %s"
+#~ msgstr	"Incident : Demande d'analyse niveau 2 %s"
+
+#~ msgid	"Incident : ask for perform %s"
+#~ msgstr	"Incident : Demande de traitement %s"
+
+#~ msgid	"[%s] incident traited"
+#~ msgstr	"[%s] incident traité"
+
+#~ msgid	"the %s attribute must be set."
+#~ msgstr	"L'attribut %s doit être renseigné."
+
+#~ msgid	"send official mail to %s (cc: %s - bcc:%s)"
+#~ msgstr	"mail officiel envoyé à %s (cc: %s - bcc:%s)"
+
+#~ msgid	"Incident"
+#~ msgstr	"Incident"
+
+#~ msgid	"Incident Management"
+#~ msgstr	"Gestion des incidents"
+
+#~ msgid	"Access Incident Master Management"
+#~ msgstr	"Accès à l'administration des incidents"
+
+#~ msgid	"Access To Incident Management"
+#~ msgstr	"Accès à la gestion des incidents"
+
+#~ msgid	"Access To Read Incident"
+#~ msgstr	"Accès en lecture seule aux incidents"
+
+#~ msgid	"incident home page"
+#~ msgstr	"Page d'accueil d'incident"
+
+#~ msgid	"incident list application"
+#~ msgstr	"liste des applications incident"
+
+#~ msgid	"document history"
+#~ msgstr	"historique du document"
+
+#~ msgid	"unlock incident file"
+#~ msgstr	"Déverrouiller un document incident"
+
+#~ msgid	"view an incident"
+#~ msgstr	"voir un incident"
+
+#~ msgid	"search an incident"
+#~ msgstr	"rechercher un incident"
+
+#~ msgid	"balance"
+#~ msgstr	"bilan"
+
+#~ msgid	"balance query"
+#~ msgstr	"Requête de bilan"
+
+#~ msgid	"balance result"
+#~ msgstr	"résultat du bilan"
+
+#~ msgid	"global balance"
+#~ msgstr	"bilan général"
+
+#~ msgid	"global balance query"
+#~ msgstr	"Requête de bilan général"
+
+#~ msgid	"global balance result"
+#~ msgstr	"résultat du bilan général"
+
+#~ msgid	"relance"
+#~ msgstr	"relance"
+
+#~ msgid	"bcc mail to control each opened incident"
+#~ msgstr	"mail caché pour controler chaque nouvel incident"
+
+#~ msgid	"address for replying for the client"
+#~ msgstr	"adresse de réponse pour le client"
+
+#~ msgid	"send mail for qualifier and analyzer"
+#~ msgstr	"activer l'envoi de mail vers les qualifieurs et analyseurs"
+
+#~ msgid	"Products"
+#~ msgstr	"Produits"
+
+#~ msgid	"Product Management"
+#~ msgstr	"Gestion des produits"
+
+#~ msgid	"product balance"
+#~ msgstr	"bilan des produits"
+
+#~ msgid	"Sites"
+#~ msgstr	"Sites"
+
+#~ msgid	"Site Management"
+#~ msgstr	"Gestion des sites"
+
+#~ msgid	"Contracts"
+#~ msgstr	"Contrats"
+
+#~ msgid	"Contract Management"
+#~ msgstr	"Gestion des contrats"
+
+#~ msgid	"New"
+#~ msgstr	"Nouveau"
+
+#~ msgid	"Bilan"
+#~ msgstr	"Bilan"
+
+#~ msgid	"Tool"
+#~ msgstr	"Outil"
+
+#~ msgid	"All catg"
+#~ msgstr	"Toutes catg."
+
+#~ msgid	"client bilan"
+#~ msgstr	"bilan client"
+
+#~ msgid	"global bilan"
+#~ msgstr	"bilan général"
+
+#~ msgid	"state bilan"
+#~ msgstr	"Bilan par état"
+
+#~ msgid	"Incident Report"
+#~ msgstr	"Rapport d'incident"
+
+#~ msgid	"Bilan Query"
+#~ msgstr	"Requête de bilan"
+
+#~ msgid	"the from date is in the future"
+#~ msgstr	"la date de début est dans le futur"
+
+#~ msgid	"the end date is in the future"
+#~ msgstr	"la date de fin est dans le futur"
+
+#~ msgid	"the from date is before the end date"
+#~ msgstr	"La date de fin (%s) est antérieure à la date de début (%s)"
+
+#~ msgid	"new bilan"
+#~ msgstr	"nouveau bilan"
+
+#~ msgid	"Global Balance"
+#~ msgstr	"Bilan général"
+
+#~ msgid	"SUPPORT Service"
+#~ msgstr	"Service SUPPORT"
+
+#~ msgid	"incident historical"
+#~ msgstr	"Suivi des incidents"
+
+#~ msgid	"edited the"
+#~ msgstr	"Édition du"
+
+#~ msgid	"Reference"
+#~ msgstr	"Référence"
+
+#~ msgid	"Description"
+#~ msgstr	"Description"
+
+#~ msgid	"First Revision"
+#~ msgstr	"Première révision"
+
+#~ msgid	"Latest Revision"
+#~ msgstr	"Dernière révision"
+
+#~ msgid	"Gravity"
+#~ msgstr	"Gravité"
+
+#~ msgid	"State"
+#~ msgstr	"État"
+
+#~ msgid	"Bilan:"
+#~ msgstr	"Bilan"
+
+#~ msgid	"General Synthesis"
+#~ msgstr	"Synthèse générale"
+
+#~ msgid	"gravity"
+#~ msgstr	"gravité"
+
+#~ msgid	"Total"
+#~ msgstr	"Total"
+
+#~ msgid	"Detail"
+#~ msgstr	"Détail"
+
+#~ msgid	"Recorded Date"
+#~ msgstr	"Date d'enregistrement"
+
+#~ msgid	"End Date"
+#~ msgstr	"Date de fin"
+
+#~ msgid	"Delay"
+#~ msgstr	"Délai"
+
+#~ msgid	"incident state"
+#~ msgstr	"état incident"
+
+#~ msgid	"Title"
+#~ msgstr	"Titre"
+
+#~ msgid	"Problem"
+#~ msgstr	"Problème"
+
+#~ msgid	"bilan"
+#~ msgstr	"bilan"
+
+#~ msgid	"Product Report"
+#~ msgstr	"Rapport produits"
+
+#~ msgid	"Balance Result"
+#~ msgstr	"Résultat du bilan"
+
+#~ msgid	"product historical"
+#~ msgstr	"Suivi des produits"
+
+#~ msgid	"Sales Out"
+#~ msgstr	"Ventes"
+
+#~ msgid	"site"
+#~ msgstr	"site"
+
+#~ msgid	"designation"
+#~ msgstr	"désignation"
+
+#~ msgid	"serial number"
+#~ msgstr	"n°série"
+
+#~ msgid	"date"
+#~ msgstr	"date"
 
 #~ msgid	" rev"
 #~ msgstr	" rév."

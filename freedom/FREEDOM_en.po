@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2004-01-28 11:24+0100\n"
+	"POT-Creation-Date: 2004-03-01 14:07+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -18,64 +18,6 @@ msgstr	""
 
 #, c-format
 msgid	"no privilege to create this kind (%d) of document"
-msgstr	""
-
-msgid	"new incident"
-msgstr	""
-
-msgid	"create"
-msgstr	"Create"
-
-msgid	"document not referenced"
-msgstr	""
-
-msgid	"modify"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"next"
-msgstr	"Export this card"
-
-msgid	"prev"
-msgstr	""
-
-#, c-format
-msgid	"period from %s to %s"
-msgstr	""
-
-#, c-format
-msgid	"the end date (%s) is before the begin date (%s)"
-msgstr	""
-
-#, fuzzy
-msgid	"state"
-msgstr	"Identity"
-
-msgid	"unreferenced site"
-msgstr	""
-
-#, c-format
-msgid	"bilan cannot be perform : %s society not found"
-msgstr	""
-
-msgid	"dayfirstletter"
-msgstr	""
-
-msgid	"hourfirstletter"
-msgstr	""
-
-msgid	"minfirstletter"
-msgstr	""
-
-#, fuzzy
-msgid	"undated"
-msgstr	"Update LDAP server"
-
-#, fuzzy
-msgid	"untitle"
-msgstr	"Update Title Cards"
-
-msgid	"undefined gravity"
 msgstr	""
 
 #, fuzzy, c-format
@@ -109,6 +51,12 @@ msgstr	"Delete"
 msgid	"parameters values"
 msgstr	""
 
+msgid	"create"
+msgstr	"Create"
+
+msgid	"document not referenced"
+msgstr	""
+
 #, fuzzy
 msgid	"Validate"
 msgstr	"Edit"
@@ -117,6 +65,13 @@ msgid	"no family"
 msgstr	""
 
 msgid	"no csv import file specified"
+msgstr	""
+
+#, fuzzy
+msgid	"next"
+msgstr	"Export this card"
+
+msgid	"prev"
 msgstr	""
 
 #, c-format
@@ -148,9 +103,6 @@ msgstr	"Start search"
 
 #, c-format
 msgid	"definition of enumerate attribute %s of %s family"
-msgstr	""
-
-msgid	"all constructors"
 msgstr	""
 
 msgid	"no file specified : update aborted"
@@ -244,6 +196,11 @@ msgstr	""
 #, fuzzy
 msgid	"description"
 msgstr	"Edit"
+
+#, c-format
+msgid	"Not all users can be vieved.\n"
+	"limit %d has been reached"
+msgstr	""
 
 msgid	"mnogosearch php extension not loaded"
 msgstr	""
@@ -496,6 +453,10 @@ msgid	"Add %s in %s folder"
 msgstr	""
 
 #, c-format
+msgid	"Add %d in %s folder"
+msgstr	""
+
+#, c-format
 msgid	"cannot delete link : link not found for doc %d in folder %d"
 msgstr	""
 
@@ -511,13 +472,6 @@ msgstr	""
 #, c-format
 msgid	"Delete %d in %s folder"
 msgstr	""
-
-msgid	"already exist : not added"
-msgstr	""
-
-#, fuzzy
-msgid	"no filename"
-msgstr	"Firstname"
 
 #, c-format
 msgid	"parameters for %s state"
@@ -580,6 +534,16 @@ msgid	"automaticaly by change state of %s\n"
 msgstr	"Category"
 
 #, fuzzy
+msgid	"no filename"
+msgstr	"Firstname"
+
+msgid	"not perm for admin"
+msgstr	""
+
+msgid	"not pertinent"
+msgstr	""
+
+#, fuzzy
 msgid	"view document"
 msgstr	"Organisation"
 
@@ -625,6 +589,9 @@ msgstr	"Delete"
 
 #, fuzzy
 msgid	"modify folder"
+msgstr	"Modify"
+
+msgid	"modify"
 msgstr	"Modify"
 
 #, fuzzy
@@ -762,152 +729,40 @@ msgstr	"LDAP server cannot be contacted"
 msgid	"user #%d does not exist"
 msgstr	""
 
+msgid	"user has not identificator"
+msgstr	""
+
 msgid	"user is desactivated"
+msgstr	""
+
+#, c-format
+msgid	"user %d does not exist"
+msgstr	""
+
+msgid	"passwords must not be empty"
+msgstr	""
+
+msgid	"the 2 passwords are not the same"
+msgstr	""
+
+msgid	"Expiration delay must not be 0 to keep expiration date"
+msgstr	""
+
+#, c-format
+msgid	"group %d does not exist"
 msgstr	""
 
 #, c-format
 msgid	"Group %s not exist"
 msgstr	""
 
-msgid	"virtual"
+msgid	"the login must not be empty"
 msgstr	""
 
-msgid	"consumed"
+msgid	"the login syntax is like : john.doe"
 msgstr	""
 
-msgid	"plocked"
-msgstr	""
-
-msgid	"asav"
-msgstr	""
-
-msgid	"aclient"
-msgstr	""
-
-msgid	"returned"
-msgstr	""
-
-msgid	"stocked"
-msgstr	""
-
-msgid	"out"
-msgstr	""
-
-#, fuzzy
-msgid	"Tvirtual"
-msgstr	"Update Title Cards"
-
-msgid	"Tconsumed"
-msgstr	""
-
-msgid	"Tlocked"
-msgstr	""
-
-msgid	"Tasav"
-msgstr	""
-
-msgid	"Taclient"
-msgstr	""
-
-#, fuzzy
-msgid	"Treturned"
-msgstr	"Create"
-
-msgid	"Tstocked"
-msgstr	""
-
-msgid	"Tout"
-msgstr	""
-
-#, fuzzy
-msgid	"created"
-msgstr	"Create"
-
-msgid	"progressing"
-msgstr	""
-
-msgid	"clotured"
-msgstr	""
-
-msgid	"Tprogressing"
-msgstr	""
-
-#, fuzzy
-msgid	"Tclotured"
-msgstr	"Create"
-
-msgid	"recorded"
-msgstr	""
-
-msgid	"qualified"
-msgstr	""
-
-msgid	"analyzed"
-msgstr	""
-
-#, fuzzy
-msgid	"traited"
-msgstr	"Identity"
-
-msgid	"rejected"
-msgstr	""
-
-msgid	"closed"
-msgstr	""
-
-msgid	"suspended"
-msgstr	""
-
-#, fuzzy
-msgid	"draft"
-msgstr	"Edit"
-
-#, fuzzy
-msgid	"Trecorded"
-msgstr	"Create"
-
-msgid	"Tqualified"
-msgstr	""
-
-msgid	"Tanalyzed"
-msgstr	""
-
-#, fuzzy
-msgid	"Ttraited"
-msgstr	"Identity"
-
-msgid	"Trejected"
-msgstr	""
-
-msgid	"Tclosed"
-msgstr	""
-
-#, fuzzy
-msgid	"Tsuspended"
-msgstr	"Delete"
-
-#, c-format
-msgid	"[%s] incident registration"
-msgstr	""
-
-#, c-format
-msgid	"Incident : ask for level 2 %s"
-msgstr	""
-
-#, c-format
-msgid	"Incident : ask for perform %s"
-msgstr	""
-
-#, c-format
-msgid	"[%s] incident traited"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"the %s attribute must be set."
-msgstr	"Update Title Cards"
-
-#, c-format
-msgid	"send official mail to %s (cc: %s - bcc:%s)"
+msgid	"login yet use"
 msgstr	""
 
 msgid	"read only"
@@ -948,6 +803,10 @@ msgstr	"Create"
 #, fuzzy
 msgid	"revision"
 msgstr	"Organisation"
+
+#, fuzzy
+msgid	"state"
+msgstr	"Identity"
 
 msgid	"include"
 msgstr	""
@@ -1038,6 +897,10 @@ msgid	"specific control"
 msgstr	""
 
 #, fuzzy
+msgid	"dynamic control"
+msgstr	"Start search"
+
+#, fuzzy
 msgid	"no view control"
 msgstr	"Start search"
 
@@ -1091,6 +954,14 @@ msgstr	"Edit"
 
 #, c-format
 msgid	"new duplicate document is named : %s"
+msgstr	""
+
+#, c-format
+msgid	"period from %s to %s"
+msgstr	""
+
+#, c-format
+msgid	"the end date (%s) is before the begin date (%s)"
 msgstr	""
 
 msgid	"Freedoms"
@@ -1505,84 +1376,6 @@ msgstr	"Organisation"
 msgid	"import vcard"
 msgstr	"Import"
 
-msgid	"Incident"
-msgstr	""
-
-msgid	"Incident Management"
-msgstr	""
-
-msgid	"Access Incident Master Management"
-msgstr	""
-
-msgid	"Access To Incident Management"
-msgstr	""
-
-msgid	"Access To Read Incident"
-msgstr	""
-
-msgid	"incident home page"
-msgstr	""
-
-#, fuzzy
-msgid	"incident list application"
-msgstr	"Organisation"
-
-#, fuzzy
-msgid	"edition"
-msgstr	"Edit"
-
-msgid	"document history"
-msgstr	""
-
-msgid	"modification or creation"
-msgstr	""
-
-msgid	"display logo"
-msgstr	""
-
-msgid	"unlock incident file"
-msgstr	""
-
-msgid	"view list"
-msgstr	""
-
-msgid	"view an incident"
-msgstr	""
-
-msgid	"search an incident"
-msgstr	""
-
-msgid	"balance"
-msgstr	""
-
-msgid	"balance query"
-msgstr	""
-
-msgid	"balance result"
-msgstr	""
-
-msgid	"global balance"
-msgstr	""
-
-msgid	"global balance query"
-msgstr	""
-
-msgid	"global balance result"
-msgstr	""
-
-#, fuzzy
-msgid	"relance"
-msgstr	"Create"
-
-msgid	"bcc mail to control each opened incident"
-msgstr	""
-
-msgid	"address for replying for the client"
-msgstr	""
-
-msgid	"send mail for qualifier and analyzer"
-msgstr	""
-
 msgid	"Generic"
 msgstr	""
 
@@ -1603,6 +1396,10 @@ msgstr	""
 
 msgid	"generic vertical home page"
 msgstr	""
+
+#, fuzzy
+msgid	"edition"
+msgstr	"Edit"
 
 #, fuzzy
 msgid	"inverted search"
@@ -1631,6 +1428,15 @@ msgstr	""
 #, fuzzy
 msgid	"change category"
 msgstr	"Category"
+
+msgid	"modification or creation"
+msgstr	""
+
+msgid	"display logo"
+msgstr	""
+
+msgid	"view list"
+msgstr	""
 
 msgid	"define sort attribute"
 msgstr	""
@@ -1678,28 +1484,6 @@ msgid	"differents view mode by family"
 msgstr	""
 
 msgid	"split view mode by family"
-msgstr	""
-
-msgid	"Products"
-msgstr	""
-
-msgid	"Product Management"
-msgstr	""
-
-msgid	"product balance"
-msgstr	""
-
-#, fuzzy
-msgid	"Sites"
-msgstr	"Identity"
-
-msgid	"Site Management"
-msgstr	""
-
-msgid	"Contracts"
-msgstr	""
-
-msgid	"Contract Management"
 msgstr	""
 
 #, fuzzy
@@ -1810,18 +1594,9 @@ msgid	"If an attribut is a multiline string, use the \\ n characters to "
 	"specify the new line"
 msgstr	""
 
-msgid	" history"
-msgstr	""
-
 #, fuzzy
-msgid	"edition: "
+msgid	"Creation"
 msgstr	"Edit"
-
-msgid	" folder containt"
-msgstr	""
-
-msgid	"New"
-msgstr	""
 
 #, fuzzy
 msgid	"Search"
@@ -1831,15 +1606,12 @@ msgstr	"Start search"
 msgid	"Sort"
 msgstr	"Export selected cards"
 
-msgid	"Bilan"
-msgstr	""
-
-msgid	"Tool"
+msgid	"Tools"
 msgstr	""
 
 #, fuzzy
-msgid	"All catg"
-msgstr	"All"
+msgid	"All document"
+msgstr	"Delete"
 
 #, fuzzy
 msgid	"Edit kind"
@@ -1848,16 +1620,6 @@ msgstr	"Edit"
 #, fuzzy
 msgid	"invert order"
 msgstr	"Delete"
-
-msgid	"client bilan"
-msgstr	""
-
-msgid	"global bilan"
-msgstr	""
-
-#, fuzzy
-msgid	"state bilan"
-msgstr	"Identity"
 
 #, fuzzy
 msgid	"Import file"
@@ -1874,121 +1636,6 @@ msgstr	""
 
 msgid	"Freedom"
 msgstr	""
-
-msgid	"Incident Report"
-msgstr	""
-
-msgid	"Bilan Query"
-msgstr	""
-
-msgid	"the from date is in the future"
-msgstr	""
-
-msgid	"the end date is in the future"
-msgstr	""
-
-msgid	"the from date is before the end date"
-msgstr	""
-
-#, fuzzy
-msgid	"fromdate"
-msgstr	"Edit"
-
-#, fuzzy
-msgid	"todate"
-msgstr	"Identity"
-
-msgid	"today"
-msgstr	""
-
-msgid	"new bilan"
-msgstr	""
-
-msgid	"Global Balance"
-msgstr	""
-
-msgid	"SUPPORT Service"
-msgstr	""
-
-msgid	"incident historical"
-msgstr	""
-
-#, fuzzy
-msgid	"edited the"
-msgstr	"Create"
-
-msgid	"print"
-msgstr	"Print this page"
-
-msgid	"Reference"
-msgstr	""
-
-#, fuzzy
-msgid	"Description"
-msgstr	"Edit"
-
-#, fuzzy
-msgid	"First Revision"
-msgstr	"Organisation"
-
-#, fuzzy
-msgid	"Latest Revision"
-msgstr	"Organisation"
-
-msgid	"Gravity"
-msgstr	""
-
-#, fuzzy
-msgid	"State"
-msgstr	"Identity"
-
-msgid	"Bilan:"
-msgstr	""
-
-msgid	"General Synthesis"
-msgstr	""
-
-msgid	"gravity"
-msgstr	""
-
-msgid	"Total"
-msgstr	""
-
-#, fuzzy
-msgid	"Detail"
-msgstr	"Email"
-
-#, fuzzy
-msgid	"Recorded Date"
-msgstr	"Create"
-
-#, fuzzy
-msgid	"End Date"
-msgstr	"Edit"
-
-msgid	"Delay"
-msgstr	""
-
-msgid	"incident state"
-msgstr	""
-
-#, fuzzy
-msgid	"Title"
-msgstr	"Update Title Cards"
-
-msgid	"Problem"
-msgstr	""
-
-#, fuzzy
-msgid	"Creation"
-msgstr	"Edit"
-
-msgid	"Tools"
-msgstr	""
-
-#, fuzzy
-msgid	"All document"
-msgstr	"Delete"
 
 msgid	"Properties:"
 msgstr	""
@@ -2011,6 +1658,10 @@ msgid	"help"
 msgstr	""
 
 #, fuzzy
+msgid	"edition: "
+msgstr	"Edit"
+
+#, fuzzy
 msgid	"view constraints"
 msgstr	"Edit"
 
@@ -2022,6 +1673,9 @@ msgid	"override constraints"
 msgstr	""
 
 msgid	"Cancel"
+msgstr	""
+
+msgid	" folder containt"
 msgstr	""
 
 msgid	"Generic Management"
@@ -2057,39 +1711,6 @@ msgstr	""
 
 msgid	"personn deleted"
 msgstr	""
-
-msgid	"bilan"
-msgstr	""
-
-msgid	"Product Report"
-msgstr	""
-
-msgid	"Balance Result"
-msgstr	""
-
-msgid	"product historical"
-msgstr	""
-
-msgid	"Sales Out"
-msgstr	""
-
-#, fuzzy
-msgid	"site"
-msgstr	"Identity"
-
-#, fuzzy
-msgid	"designation"
-msgstr	"Edit"
-
-msgid	"reference"
-msgstr	""
-
-msgid	"serial number"
-msgstr	""
-
-#, fuzzy
-msgid	"date"
-msgstr	"Edit"
 
 msgid	"PortFolio"
 msgstr	""
@@ -2274,6 +1895,9 @@ msgid	"Import Result"
 msgstr	"Import"
 
 msgid	"Result Import Documents"
+msgstr	""
+
+msgid	" history"
 msgstr	""
 
 msgid	"view properties"
@@ -2678,6 +2302,9 @@ msgstr	""
 msgid	"wordedit"
 msgstr	"Modify not possible"
 
+msgid	"print"
+msgstr	"Print this page"
+
 msgid	"author"
 msgstr	""
 
@@ -2693,6 +2320,9 @@ msgid	" profile access"
 msgstr	"Control access"
 
 msgid	"control view"
+msgstr	""
+
+msgid	"reference"
 msgstr	""
 
 msgid	"rev"
@@ -2719,6 +2349,17 @@ msgstr	""
 #, fuzzy
 msgid	"delete selected"
 msgstr	"Delete"
+
+#, fuzzy
+msgid	"fromdate"
+msgstr	"Edit"
+
+#, fuzzy
+msgid	"todate"
+msgstr	"Identity"
+
+msgid	"today"
+msgstr	""
 
 msgid	"Familly Document"
 msgstr	""
@@ -2761,6 +2402,122 @@ msgstr	"Category"
 
 msgid	"View properties"
 msgstr	""
+
+#, fuzzy
+#~ msgid	"undated"
+#~ msgstr	"Update LDAP server"
+
+#, fuzzy
+#~ msgid	"untitle"
+#~ msgstr	"Update Title Cards"
+
+#, fuzzy
+#~ msgid	"Tvirtual"
+#~ msgstr	"Update Title Cards"
+
+#, fuzzy
+#~ msgid	"Treturned"
+#~ msgstr	"Create"
+
+#, fuzzy
+#~ msgid	"created"
+#~ msgstr	"Create"
+
+#, fuzzy
+#~ msgid	"Tclotured"
+#~ msgstr	"Create"
+
+#, fuzzy
+#~ msgid	"traited"
+#~ msgstr	"Identity"
+
+#, fuzzy
+#~ msgid	"draft"
+#~ msgstr	"Edit"
+
+#, fuzzy
+#~ msgid	"Trecorded"
+#~ msgstr	"Create"
+
+#, fuzzy
+#~ msgid	"Ttraited"
+#~ msgstr	"Identity"
+
+#, fuzzy
+#~ msgid	"Tsuspended"
+#~ msgstr	"Delete"
+
+#, fuzzy
+#~ msgid	"the %s attribute must be set."
+#~ msgstr	"Update Title Cards"
+
+#, fuzzy
+#~ msgid	"incident list application"
+#~ msgstr	"Organisation"
+
+#, fuzzy
+#~ msgid	"relance"
+#~ msgstr	"Create"
+
+#, fuzzy
+#~ msgid	"Sites"
+#~ msgstr	"Identity"
+
+#, fuzzy
+#~ msgid	"All catg"
+#~ msgstr	"All"
+
+#, fuzzy
+#~ msgid	"state bilan"
+#~ msgstr	"Identity"
+
+#, fuzzy
+#~ msgid	"edited the"
+#~ msgstr	"Create"
+
+#, fuzzy
+#~ msgid	"Description"
+#~ msgstr	"Edit"
+
+#, fuzzy
+#~ msgid	"First Revision"
+#~ msgstr	"Organisation"
+
+#, fuzzy
+#~ msgid	"Latest Revision"
+#~ msgstr	"Organisation"
+
+#, fuzzy
+#~ msgid	"State"
+#~ msgstr	"Identity"
+
+#, fuzzy
+#~ msgid	"Detail"
+#~ msgstr	"Email"
+
+#, fuzzy
+#~ msgid	"Recorded Date"
+#~ msgstr	"Create"
+
+#, fuzzy
+#~ msgid	"End Date"
+#~ msgstr	"Edit"
+
+#, fuzzy
+#~ msgid	"Title"
+#~ msgstr	"Update Title Cards"
+
+#, fuzzy
+#~ msgid	"site"
+#~ msgstr	"Identity"
+
+#, fuzzy
+#~ msgid	"designation"
+#~ msgstr	"Edit"
+
+#, fuzzy
+#~ msgid	"date"
+#~ msgstr	"Edit"
 
 #, fuzzy
 #~ msgid	"Reference document"

@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.8 2002/08/28 09:39:32 eric Exp $)
+AC_REVISION($Id: configure.in,v 1.9 2004/03/01 15:23:02 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -60,9 +60,5 @@ AC_OUTPUT(Makefile \
 	App/Fdl/FDL_init.php \
 	App/Generic/GENERIC_init.php \
 	App/Usercard/USERCARD_init.php \
-        App/Incident/INCIDENT_init.php \
-        App/Product/PRODUCT_init.php \
-        App/Site/SITE_init.php \
-        App/Contract/CONTRACT_init.php \
         App/Onefam/ONEFAM_init.php \
         FREEDOM.spec)
