@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.PDoc.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Class.PDoc.php,v 1.7 2004/04/27 09:21:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.PDoc.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.PDoc.php,v 1.7 2004/04/27 09:21:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.6 2003/08/18 15:47:04 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.7 2004/04/27 09:21:16 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -46,7 +46,7 @@ Class PDoc extends Doc
 {
     // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
-  var $acls = array("view","edit","delete","send");
+  var $acls = array("view","edit","delete","send","unlock");
   // --------------------------------------------------------------------
   
  

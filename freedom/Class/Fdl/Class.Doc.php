@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.197 2004/04/23 15:25:29 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.198 2004/04/27 09:21:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -610,9 +610,11 @@ create unique index i_docir on doc(initid, revision);";
     if ($this->userid == 1) return "";// admin can do anything
     $err="";
     if ($this->locked != 0) // if is already unlocked
-      $err=$this->CanUpdateDoc();
+      $err = $this->Control("unlock"); // first control unlock privilege
+      if ($err != "") $err=$this->CanUpdateDoc();
     else {      
-      $err = $this-> Control( "edit");
+      $err = $this->Control("edit");
+      if ($err != "") $err = $this->Control("unlock");
     }
     return($err);
   
@@ -1481,7 +1483,7 @@ create unique index i_docir on doc(initid, revision);";
 	    }
 	  }
 	}
-	//      print $oattr->type;print_r2($tvalues);
+	//      print $oattr->id."-".$oattr->type;print_r2($tvalues);
 	$this->$attrid=implode("\n",$tvalues); 
 
 	
@@ -1780,17 +1782,17 @@ create unique index i_docir on doc(initid, revision);";
    * unlock document
    * 
    * the automatic unlock is done only if the lock has been set automatically also
-   * the explicit unlock, unlock in all case (if CanLockFile)
+   * the explicit unlock, unlock in all case (if CanUnLockFile)
    * @param bool $auto if true it is a automatic unlock 
    * 
    * @return string error message, if no error empty string, if message
-   * @see Doc::CanLockFile()
+   * @see Doc::CanUnLockFile()
    * @see Doc::lock()
    */
   function unlock($auto=false) {
     
 
-    $err=$this->CanLockFile();
+    $err=$this->CanUnLockFile();
     if ($err != "") return $err;
       
     if ($auto) {

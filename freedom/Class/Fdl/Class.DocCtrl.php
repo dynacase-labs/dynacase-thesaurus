@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.16 2004/03/01 09:09:19 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.17 2004/04/27 09:21:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -29,8 +29,9 @@ define ("POS_EXEC", 5); // idem OPEN : alias
 define ("POS_CONT", 6);
 define ("POS_VACL", 7);
 define ("POS_MACL", 8);
+define ("POS_ULCK", 9);
 define ("POS_CREATE", 5);
-// 9 up 11 undefined for the moment
+// 10 up 11 undefined for the moment
 
 define ("POS_WF", 12); // begin of workflow privilege definition 
 // end of privilege is 31 : (coded on 32bits)
@@ -72,7 +73,9 @@ Class DocCtrl extends DbObj
 			"modifyacl" =>array("pos"               =>POS_MACL, # N_("modify acl")
 					 "description"        =>"modify acl"), #  N_("modifyacl")
 			"create" =>array("pos"               =>POS_CREATE, # N_("modify acl")
-					 "description"        =>"create doc") #  N_("create doc")
+					 "description"        =>"create doc"), #  N_("create doc")
+			"unlock" =>array("pos"               =>POS_ULCK, # N_("unlock")
+					 "description"        =>"unlock unowner locked doc") #  N_("unlock unowner locked doc")
 			
 			);
 

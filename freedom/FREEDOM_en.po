@@ -4,7 +4,8 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2004-03-29 15:47+0200\n"
+	"Report-Msgid-Bugs-To: \n"
+	"POT-Creation-Date: 2004-04-27 11:06+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -585,76 +586,6 @@ msgid	"Delete %d in %s folder"
 msgstr	""
 
 #, fuzzy
-msgid	"no filename"
-msgstr	"Firstname"
-
-#, c-format
-msgid	"parameters for %s state"
-msgstr	""
-
-#, c-format
-msgid	"id %s profile"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"%s profile"
-msgstr	"Category"
-
-#, c-format
-msgid	"id %s mask"
-msgstr	""
-
-#, c-format
-msgid	"%s mask"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	""
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"The change state to %s has been aborded.\n"
-	"%s"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"change state : %s to %s"
-msgstr	"Category"
-
-#, c-format
-msgid	"%s new state %s"
-msgstr	""
-
-#, c-format
-msgid	"The change state to %s has been realized. But the following warning "
-	"is appeared.\n"
-	"%s"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"cannot change state of document #%d to %s"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"automaticaly by change state of %s\n"
-	"%s"
-msgstr	"Category"
-
-msgid	"not perm for admin"
-msgstr	""
-
-msgid	"not pertinent"
-msgstr	""
-
-#, fuzzy
 msgid	"view document"
 msgstr	"Organisation"
 
@@ -814,6 +745,10 @@ msgstr	""
 msgid	"vault file error"
 msgstr	""
 
+#, fuzzy
+msgid	"no filename"
+msgstr	"Firstname"
+
 #, c-format
 msgid	"cannot control : object not initialized : %s"
 msgstr	""
@@ -824,6 +759,79 @@ msgstr	""
 
 #, c-format
 msgid	"new %s"
+msgstr	""
+
+#, c-format
+msgid	"parameters for %s state"
+msgstr	""
+
+#, c-format
+msgid	"id %s profile"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"%s profile"
+msgstr	"Category"
+
+#, c-format
+msgid	"id %s mask"
+msgstr	""
+
+#, c-format
+msgid	"%s mask"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	""
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"The change state to %s has been aborded.\n"
+	"%s"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"change state : %s to %s"
+msgstr	"Category"
+
+#, c-format
+msgid	"%s new state %s"
+msgstr	""
+
+#, c-format
+msgid	"The change state to %s has been realized. But the following warning "
+	"is appeared.\n"
+	"%s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"cannot change state of document #%d to %s"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"automaticaly by change state of %s\n"
+	"%s"
+msgstr	"Category"
+
+msgid	"not perm for admin"
+msgstr	""
+
+msgid	"not pertinent"
+msgstr	""
+
+#, fuzzy
+msgid	"unlock"
+msgstr	"Create"
+
+msgid	"unlock unowner locked doc"
 msgstr	""
 
 msgid	"errldapadd"

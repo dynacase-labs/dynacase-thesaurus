@@ -4,7 +4,8 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2004-03-29 15:47+0200\n"
+	"Report-Msgid-Bugs-To: \n"
+	"POT-Creation-Date: 2004-04-27 11:06+0200\n"
 	"PO-Revision-Date: 2004-03-16 11:17+0100\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -573,79 +574,6 @@ msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
 msgid	"Delete %d in %s folder"
 msgstr	"Suppression n°%d du dossier %s"
 
-msgid	"no filename"
-msgstr	"pas de fichier"
-
-#, c-format
-msgid	"parameters for %s state"
-msgstr	"paramètres pour l'état %s"
-
-#, c-format
-msgid	"id %s profile"
-msgstr	"profil id %s "
-
-#, c-format
-msgid	"%s profile"
-msgstr	"Profil %s"
-
-#, c-format
-msgid	"id %s mask"
-msgstr	"identificateur du masque %s"
-
-#, c-format
-msgid	"%s mask"
-msgstr	"masque %s"
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
-	"autorisé"
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	"Changement d'état: l'état initial '%s' est inconnu"
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
-
-#, c-format
-msgid	"The change state to %s has been aborded.\n"
-	"%s"
-msgstr	"Le changement d'état vers %s a échoué.\n"
-	"%s"
-
-#, c-format
-msgid	"change state : %s to %s"
-msgstr	"changement d'état de %s vers %s"
-
-#, c-format
-msgid	"%s new state %s"
-msgstr	"%s changement d'état vers %s"
-
-#, c-format
-msgid	"The change state to %s has been realized. But the following warning "
-	"is appeared.\n"
-	"%s"
-msgstr	"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
-	"%s "
-
-#, c-format
-msgid	"cannot change state of document #%d to %s"
-msgstr	"ne peux pas changer l'état du document n°%d vers %s"
-
-#, c-format
-msgid	"automaticaly by change state of %s\n"
-	"%s"
-msgstr	"changement d'état automatique issu du document %s\n"
-	"%s"
-
-msgid	"not perm for admin"
-msgstr	"pas de permission pour admin"
-
-msgid	"not pertinent"
-msgstr	"Pas pertinent"
-
 msgid	"view document"
 msgstr	"voir le document"
 
@@ -792,6 +720,9 @@ msgstr	"copie à partir du document n°%d -%s-"
 msgid	"vault file error"
 msgstr	"erreur fichier Vault"
 
+msgid	"no filename"
+msgstr	"pas de fichier"
+
 #, c-format
 msgid	"cannot control : object not initialized : %s"
 msgstr	"contrôle impossible : objet non initialisé : %s"
@@ -803,6 +734,82 @@ msgstr	"erreur dans la format pzone %s"
 #, c-format
 msgid	"new %s"
 msgstr	"nouvelle %s"
+
+#, c-format
+msgid	"parameters for %s state"
+msgstr	"paramètres pour l'état %s"
+
+#, c-format
+msgid	"id %s profile"
+msgstr	"profil id %s "
+
+#, c-format
+msgid	"%s profile"
+msgstr	"Profil %s"
+
+#, c-format
+msgid	"id %s mask"
+msgstr	"identificateur du masque %s"
+
+#, c-format
+msgid	"%s mask"
+msgstr	"masque %s"
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
+	"autorisé"
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	"Changement d'état: l'état initial '%s' est inconnu"
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
+
+#, c-format
+msgid	"The change state to %s has been aborded.\n"
+	"%s"
+msgstr	"Le changement d'état vers %s a échoué.\n"
+	"%s"
+
+#, c-format
+msgid	"change state : %s to %s"
+msgstr	"changement d'état de %s vers %s"
+
+#, c-format
+msgid	"%s new state %s"
+msgstr	"%s changement d'état vers %s"
+
+#, c-format
+msgid	"The change state to %s has been realized. But the following warning "
+	"is appeared.\n"
+	"%s"
+msgstr	"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
+	"%s "
+
+#, c-format
+msgid	"cannot change state of document #%d to %s"
+msgstr	"ne peux pas changer l'état du document n°%d vers %s"
+
+#, c-format
+msgid	"automaticaly by change state of %s\n"
+	"%s"
+msgstr	"changement d'état automatique issu du document %s\n"
+	"%s"
+
+msgid	"not perm for admin"
+msgstr	"pas de permission pour admin"
+
+msgid	"not pertinent"
+msgstr	"Pas pertinent"
+
+msgid	"unlock"
+msgstr "déverrouiller"
+
+msgid	"unlock unowner locked doc"
+msgstr "déverrouiller autres verrous"
 
 msgid	"errldapadd"
 msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
@@ -1541,22 +1548,22 @@ msgid	"default confidential"
 msgstr	"confidentialité par défaut"
 
 msgid	"LDAP server name"
-msgstr "nom du serveur LDAP"
+msgstr	"nom du serveur LDAP"
 
 msgid	"LDAP server port"
-msgstr "n° de port du serveur LDAP"
+msgstr	"n° de port du serveur LDAP"
 
 msgid	"LDAP server root"
-msgstr "racine du serveur LDAP"
+msgstr	"racine du serveur LDAP"
 
 msgid	"LDAP admin identificatot"
-msgstr "identification de l'administrateur LDAP"
+msgstr	"identification de l'administrateur LDAP"
 
 msgid	"LDAP admin passord"
-msgstr "mot de passe administrateur LDAP"
+msgstr	"mot de passe administrateur LDAP"
 
 msgid	"LDAP activated"
-msgstr "Activation LDAP"
+msgstr	"Activation LDAP"
 
 msgid	"User Card"
 msgstr	"Carnet d'adresses"
@@ -2300,7 +2307,7 @@ msgid	"View Archive"
 msgstr	"Voir l'archive"
 
 msgid	"Archives"
-msgstr "Archives"
+msgstr	"Archives"
 
 msgid	"Import Archive"
 msgstr	"Importer une archive"
@@ -2327,7 +2334,7 @@ msgid	"Add top folder"
 msgstr	"Ajouter un dossier racine"
 
 msgid	"Import Direct"
-msgstr "Importer direct"
+msgstr	"Importer direct"
 
 msgid	"Lauch Import"
 msgstr	"Lancer l'import"
@@ -2937,9 +2944,6 @@ msgstr	"Voir les propriétés"
 
 #~ msgid	"Newfam"
 #~ msgstr	"Nouvelle"
-
-#~ msgid	" unlock"
-#~ msgstr	" deverrouiller"
 
 #~ msgid	" view properties"
 #~ msgstr	" Voir les propriétés"
