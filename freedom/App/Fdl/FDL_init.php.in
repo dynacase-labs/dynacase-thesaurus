@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.2 2002/05/27 14:54:14 eric Exp $
+// $Id: FDL_init.php.in,v 1.3 2002/06/04 16:10:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,7 +26,7 @@ global $app_const;
 
 $app_const= array(
   "INIT" => "yes",
-  "VERSION" => "@VERSION@",
+  "VERSION" => "@VERSION@-@RELEASE@",
   "FREEDOM_DB" => array("val"=>"host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
 			"descr"=>N_("freedom database")),
   "UPLOAD_MAX_FILE_SIZE" => "200000"

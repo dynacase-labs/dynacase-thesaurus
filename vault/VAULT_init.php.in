@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: VAULT_init.php.in,v 1.1 2001/11/16 09:57:01 marc Exp $
+// $Id: VAULT_init.php.in,v 1.2 2002/06/04 16:10:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/VAULT_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: VAULT_init.php.in,v $
+// Revision 1.2  2002/06/04 16:10:36  eric
+// mise en conformité pour nouvelle installation & migration
+//
 // Revision 1.1  2001/11/16 09:57:01  marc
 // V0_0_1 Initial release, see CHANGELOG
 //
@@ -31,7 +34,7 @@ global $app_const;
 
 $app_const= array(
   "INIT" => "yes",
-  "VERSION" => "@VERSION@"
+  "VERSION" => "@VERSION@-@RELEASE@"
 );
 
 ?>

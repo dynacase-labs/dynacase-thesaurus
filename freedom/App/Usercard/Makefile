@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.1 2002/02/13 14:31:58 eric Exp $
+# $Id: Makefile,v 1.2 2002/06/04 16:10:36 eric Exp $
 # ============================================
 
 # get the new appname (basename in uppercase)
@@ -11,10 +11,12 @@ export appname
 include $(utildir)/PubRule
 
 
-DISTFILES = Makefile  $(appname).app $(appname)_init.php.in init.freedom 
+DISTFILES += Makefile  $(appname).app $(appname)_init.php.in init.freedom 
 
 
 $(pubdir)/$(appname)/init.freedom : init.freedom 
 	cp init.freedom $(pubdir)/$(appname)
 
 publish: $(pubdir)/$(appname)/init.freedom
+
+

@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.6 2002/04/17 09:03:12 eric Exp $)
+AC_REVISION($Id: configure.in,v 1.7 2002/06/04 16:10:36 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -55,4 +55,13 @@ AC_ARG_WITH(dbport,
 [  --with-dbport=port number  the database port (default 5432)], DBPORT=$withval)
 
 
-AC_OUTPUT(Makefile:Makefile.in App/Freedom/FREEDOM_init.php:App/Freedom/FREEDOM_init.php.in   App/Fdl/FDL_init.php:App/Fdl/FDL_init.php.in App/Generic/GENERIC_init.php:App/Generic/GENERIC_init.php.in App/Usercard/USERCARD_init.php:App/Usercard/USERCARD_init.php.in App/Incident/INCIDENT_init.php:App/Incident/INCIDENT_init.php.in FREEDOM.spec:FREEDOM.spec.in)
+AC_OUTPUT(Makefile:Makefile.in \
+	App/Freedom/FREEDOM_init.php:App/Freedom/FREEDOM_init.php.in  \
+	App/Fdl/FDL_init.php:App/Fdl/FDL_init.php.in \
+	App/Generic/GENERIC_init.php:App/Generic/GENERIC_init.php.in \
+	App/Usercard/USERCARD_init.php:App/Usercard/USERCARD_init.php.in \
+        App/Incident/INCIDENT_init.php:App/Incident/INCIDENT_init.php.in \
+        App/Product/PRODUCT_init.php:App/Product/PRODUCT_init.php.in \
+        App/Site/SITE_init.php:App/Site/SITE_init.php.in \
+        App/Contract/CONTRACT_init.php:App/Contract/CONTRACT_init.php.in \
+        FREEDOM.spec:FREEDOM.spec.in)

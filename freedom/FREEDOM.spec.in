@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.20 2002/05/27 14:54:14 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.21 2002/06/04 16:10:36 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -26,7 +26,7 @@ BuildRoot: /tmp/anakeen-root
 Requires: php >= 4.0.5
 Requires: postgresql >= 7.2
 Requires: php-pgsql >= 4.0.2
-PreReq: WHAT >= 0.0.9
+PreReq: WHAT >= 0.1.0
 PreReq: @PACKAGE@-LIB = %{version}
 Prereq: VAULT
 Prereq: php-shell >= 4.0.2
@@ -82,14 +82,8 @@ make pubdir=$RPM_BUILD_ROOT%{destdir}
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %post 
-if [ "$1" = 1 ] ; then
-  echo "Initiate Database elements"  
-  %{destdir}/wsh.php --api=appadmin  --appname=@PACKAGE@ 
-else
-  echo "Update Database elements"
-  %{destdir}/wsh.php --api=appadmin --method=update --appname=@PACKAGE@
-fi
-/bin/ln -sf %{destdir}/FDL/include.php %{destdir}/FREEDOM/include.php
+ln -sf %{destdir}/FDL/include.php %{destdir}/FREEDOM/include.php
+%{destdir}/wstop
 
 %preun
 if [ "$1" = 0 ] ; then
@@ -98,87 +92,29 @@ if [ "$1" = 0 ] ; then
 fi
 
 %post USERCARD
-if [ "$1" = 1 ] ; then
-  echo "Initiate Database elements"  
-  %{destdir}/wsh.php --api=appadmin  --appname=USERCARD
-  %{destdir}/wsh.php --app=USERCARD --action=USERCARD_INIT 
-else
-  echo "Update Database elements"
-  %{destdir}/wsh.php --api=appadmin --method=update --appname=USERCARD
-fi
 ln -sf %{destdir}/FDL/include.php %{destdir}/USERCARD/include.php
+%{destdir}/wstop
 
 %preun USERCARD
-if [ "$1" = 0 ] ; then
-  echo "Remove Database elements"
-  %{destdir}/wsh.php --api=appadmin --method=delete --appname=USERCARD
-fi
+
 
 %post INCIDENT
-if [ "$1" = 1 ] ; then
-  echo "Initiate Database elements"  
-  %{destdir}/wsh.php --api=appadmin  --appname=INCIDENT
-  %{destdir}/wsh.php --app=INCIDENT --action=INCIDENT_INIT 
-  %{destdir}/wsh.php --api=appadmin  --appname=SITE
-  %{destdir}/wsh.php --api=appadmin  --appname=PRODUCT
-  %{destdir}/wsh.php --api=appadmin  --appname=CONTRACT
-else
-  echo "Update Database elements"
-  %{destdir}/wsh.php --api=appadmin --method=update --appname=INCIDENT
-  %{destdir}/wsh.php --api=appadmin --method=update --appname=SITE
-  %{destdir}/wsh.php --api=appadmin --method=update --appname=PRODUCT
-  %{destdir}/wsh.php --api=appadmin --method=update --appname=CONTRACT
-fi
 ln -sf %{destdir}/FDL/include.php %{destdir}/INCIDENT/include.php
 ln -sf %{destdir}/FDL/include.php %{destdir}/SITE/include.php
 ln -sf %{destdir}/FDL/include.php %{destdir}/PRODUCT/include.php
 ln -sf %{destdir}/FDL/include.php %{destdir}/CONTRACT/include.php
+%{destdir}/wstop
 
 %preun INCIDENT
-if [ "$1" = 0 ] ; then
-  echo "Remove Database elements"
-  %{destdir}/wsh.php --api=appadmin --method=delete --appname=INCIDENT
-  %{destdir}/wsh.php --api=appadmin --method=delete --appname=SITE
-  %{destdir}/wsh.php --api=appadmin --method=delete --appname=PRODUCT
-  %{destdir}/wsh.php --api=appadmin --method=delete --appname=CONTRACT
-fi
+
 
 %post LIB
-if [ "$1" = 1 ] ; then
-  echo "Create @DBNAME@ database"
-  su - postgres -c "createdb @DBNAME@" 2>&1 >>/dev/null
-  echo "Create @DBUSER@ database  user"
-  su - postgres -c "createuser -d -a @DBUSER@" 2>&1 >>/dev/null
-  echo "Add plpgsql language"
-  su - postgres -c "createlang --dbname=freedom --pglib=/usr/lib/pgsql plpgsql" 2>&1 >>/dev/null
-  echo "Initiate Database elements"  
-  %{destdir}/wsh.php --api=appadmin  --appname=FDL
-  %{destdir}/wsh.php --app=FDL --action=FREEDOM_INIT  
-  %{destdir}/wsh.php --api=appadmin  --appname=GENERIC
-else
-  echo "Update Database elements"
-  %{destdir}/wsh.php --api=appadmin --method=update --appname=@PACKAGELIB@
-  %{destdir}/wsh.php --api=appadmin --method=update --appname=GENERIC
-fi
 ln -sf %{destdir}/FDL/include.php %{destdir}/GENERIC/include.php
-#share postgres group table
-%{destdir}/FDL/FDL_init.sh
-# merge @PACKAGE@ translation for i18n
-for lang in en fr ; do
-    pushd /home/httpd/what/locale/$lang/LC_MESSAGES >/dev/null
-    msgunfmt --force-po @PACKAGE@.mo -o @PACKAGE@.po
-    msgunfmt --force-po what.mo -o what.po
-    msgfmt what.po @PACKAGE@.po -o what.mo
-    rm -f *.po
-    popd >/dev/null
-done
+%{destdir}/wstop
+
 
 %preun LIB
-if [ "$1" = 0 ] ; then
-  echo "Remove Database elements"
-  %{destdir}/wsh.php --api=appadmin --method=delete --appname=@PACKAGELIB@
-  %{destdir}/wsh.php --api=appadmin --method=delete --appname=GENERIC
-fi
+
 
 %files
 %defattr(-,root,root)

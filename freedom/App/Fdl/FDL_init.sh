@@ -27,7 +27,3 @@ else
    echo "the shared group table failed";
 fi
 
-
-su - postgres -c "psql freedom anakeen -f /home/httpd/what/WHAT/getprivilege.sql"
-
-su - postgres -c "psql freedom anakeen -f /home/httpd/what/FDL/fdl.sql"

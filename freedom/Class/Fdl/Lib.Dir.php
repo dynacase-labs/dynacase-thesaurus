@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.11 2002/04/24 09:39:45 eric Exp $
+// $Id: Lib.Dir.php,v 1.12 2002/06/04 16:10:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 include_once('FDL/Class.Dir.php');
+include_once('FDL/Class.DocSearch.php');
 
 function getFirstDir($dbaccess) {
     // query to find first directories
