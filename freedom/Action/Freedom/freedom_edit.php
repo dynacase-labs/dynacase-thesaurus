@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.4 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_edit.php,v 1.5 2002/07/23 13:34:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,8 +48,7 @@ function freedom_edit(&$action) {
    
 
 
-
-  $doc= new Doc($dbaccess,$docid);
+  if ($docid > 0) $doc= new Doc($dbaccess,$docid);
 
   // when modification 
   if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
@@ -62,7 +61,7 @@ function freedom_edit(&$action) {
   $query->AddQuery("doctype='C'");
 
   $selectclass=array();
-  $tclassdoc = $doc->GetClassesDoc($classid);
+  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid);
   while (list($k,$cdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$cdoc->initid;
     $selectclass[$k]["classname"]=$cdoc->title;
@@ -101,11 +100,7 @@ function freedom_edit(&$action) {
       }
     }
   else
-    {      
-
-
-
-
+    {     
       $err = $doc->CanUpdateDoc();
       if ($err != "")   $action->ExitError($err);
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
@@ -138,6 +133,7 @@ function freedom_edit(&$action) {
 
   $action->lay->Set("id", $docid);
   $action->lay->Set("dirid", $dirid);
+  if ($docid > 0) $action->lay->Set("doctype", $doc->doctype);
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);
 
 
