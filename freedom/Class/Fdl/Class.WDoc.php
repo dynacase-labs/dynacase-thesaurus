@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.43 2004/10/27 15:35:12 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.44 2005/03/01 17:17:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -197,8 +197,18 @@ Class WDoc extends Doc {
    
     
   }
-  // --------------------------------------------------------------------
-  function ChangeState ($newstate, $addcomment="", $force=false) {
+  /**
+   * change state of a document
+   * the method {@link set()} must be call before
+   * @param string $newstate the next state
+   * @param string $comment comment to be set in history (describe why change state)
+   * @param bool $force is true when it is the second passage (without interactivity)
+   * @param bool $withcontrol set to false if you want to not verify control permission ot transition
+   * @param bool $wm1 set to false if you want to not apply m1 methods
+   * @param bool $wm2 set to false if you want to not apply m2 methods
+   * @return string error message, if no error empty string
+   */
+  function ChangeState ($newstate, $addcomment="", $force=false,$withcontrol=true,$wm1=true,$wm2=true) {
       
     // if ($this->doc->state == $newstate) return ""; // no change => no action
     // search if possible change in concordance with transition array
@@ -229,10 +239,10 @@ Class WDoc extends Doc {
 
     // verify if privilege granted
 
-    $err=$this->control($tname);
+    if ($withcontrol) $err=$this->control($tname);
     if ($err != "") return $err;
 
-    if ($tr["m1"] != "")  {
+    if ($wm1 && ($tr["m1"] != ""))  {
       // apply first method (condition for the change)
 	  
       if (! method_exists($this, $tr["m1"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m1"], get_class($this)));
@@ -281,7 +291,7 @@ Class WDoc extends Doc {
       
     $this->doc->enableEditControl();
     // post action
-    if ($tr["m2"] != "") {
+    if ($wm2 && ($tr["m2"] != "")) {
       if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
       $err = call_user_method ($tr["m2"], $this, $newstate,$oldstate,$addcomment);
 
