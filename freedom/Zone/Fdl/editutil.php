@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.28 2003/05/15 09:09:08 eric Exp $
+// $Id: editutil.php,v 1.29 2003/05/15 13:48:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -170,10 +170,14 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       $tilabel=array();
       $tvattr = array();
 
+      // get default values
+      $ddoc = createDoc($doc->dbaccess, $doc->fromid);
+      $tad = $ddoc->attributes->getArrayElements($attrid);
+
 
       while (list($k, $v) = each($ta)) {
 	$talabel[] = array("alabel"=>($v->visibility=="H")?"":$v->labelText);
-	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,"",-1));
+	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1));
 	$tvattr[]=array("bvalue" => "bvalue_$k",
 			"attrid" => $v->id);
 	

@@ -59,10 +59,10 @@
    </td>
 </tr>
 <tr class="FREEDOMBack1">
-  <td colspan="2" class = "tdstyle">
+  <td  class = "tdstyle">
  <input type="submit" value="[TEXT:Validate]"> 
   </td>
-  <td colspan="2" class = "tdstyle">
+  <td  class = "tdstyle">
  <input type="submit" [autodisabled] onclick="document.getElementById('autofolder').value='Y'" 
         value="[TEXT:Create New]"> 
   </td>

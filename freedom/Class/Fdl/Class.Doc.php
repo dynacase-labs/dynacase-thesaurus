@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.122 2003/05/15 09:11:10 eric Exp $
+// $Id: Class.Doc.php,v 1.123 2003/05/15 13:48:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.122 2003/05/15 09:11:10 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.123 2003/05/15 13:48:08 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/05/15 09:11:10 $
-// Version         $Revision: 1.122 $
+// Last Update     $Date: 2003/05/15 13:48:08 $
+// Version         $Revision: 1.123 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1743,7 +1743,6 @@ create unique index i_docir on doc(initid, revision);";
 		
 	  if ($attr->fieldSet->visibility=="F") $currentFrameId = $attr->fieldSet->id;
 	 
-	  $tableframe[$v]["wvalue"]="30%"; // width
 	  // print values
 	  switch ($attr->type)
 	    {
@@ -1759,10 +1758,9 @@ create unique index i_docir on doc(initid, revision);";
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
 	    
 	      break;
-	    case "array": 
-	      $tableframe[$v]["wvalue"]="1%"; // width
-		
+
 	    default : 
+	      $tableframe[$v]["wvalue"]=($attr->type == "array")?"1%":"30%"; // width
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
 	      break;
 		
