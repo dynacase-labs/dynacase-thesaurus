@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.19 2003/12/16 15:05:38 eric Exp $
+ * @version $Id: enum_choice.php,v 1.20 2004/01/09 09:36:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.19 2003/12/16 15:05:38 eric Exp $
+// $Id: enum_choice.php,v 1.20 2004/01/09 09:36:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -66,9 +66,19 @@ function enum_choice(&$action) {
   }
 
 
-
-  if (! ereg("(.*)\((.*)\)\:(.*)", $oattr->phpfunc, $reg))
-    $action->exitError(sprintf(_("the pluggins function description '%s' is not conform"), $oattr->phpfunc));
+  $phpfunc=$oattr->phpfunc;
+  // capture title
+  $ititle="";
+  
+  if ($phpfunc[0] == "[") {
+    if (ereg('\[(.*)\](.*)', $phpfunc, $reg)) {   
+      $phpfunc=$reg[2];
+      $ititle=addslashes($reg[1]);
+    }
+  }
+  $action->lay->set("ititle",$ititle);
+  if (! ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg))
+    $action->exitError(sprintf(_("the pluggins function description '%s' is not conform"), $phpfunc));
 
 
   $rargids = split(",",$reg[3]); // return args

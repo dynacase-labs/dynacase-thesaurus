@@ -246,12 +246,14 @@ begin
 
 
 if (TG_OP = ''INSERT'') then
-     update doc set lmodify=''N'' where initid=NEW.initid;
-     update doc set lmodify=''L'' where id=(select distinct on (initid) id from doc where initid = NEW.initid and locked = -1 order by initid, revision desc);
      if (NEW.doctype = ''C'') then 
        cfromid=-1; -- for families
      else
        cfromid=NEW.fromid;
+       if (NEW.revision > 0) then
+         EXECUTE ''update doc'' || cfromid || '' set lmodify=\\''N\\'' where initid= '' || NEW.initid;
+         EXECUTE ''update doc'' || cfromid || '' set lmodify=\\''L\\'' where  id=(select distinct on (initid) id from doc where initid = '' || NEW.initid || '' and locked = -1 order by initid, revision desc)'';
+       end if;
      end if;
      select into lid id from docfrom where id= NEW.id;
      if (lid = NEW.id) then 
