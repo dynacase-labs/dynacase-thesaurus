@@ -62,7 +62,6 @@ function closeSubMenu(menuid) {
   }
 }
 function openMenu(event, menuid, itemid) {
-
   var el, x, y;
 
   if (window.event) {
@@ -82,6 +81,7 @@ function openMenu(event, menuid, itemid) {
   el.style.left = x + "px";
   el.style.top  = y + "px";
   el.style.visibility = "visible";
+  el.style.display = "";
   closeSubMenu(menuid);
   activeMenuItem(event,menuid, itemid);
  // event.stopPropagation();
@@ -102,7 +102,6 @@ function openMenuXY(event, menuid, x, y) {
 
   var x1,x2,w1,w2,dw;
   var bm=document.getElementById('barmenu');
-
   el = document.getElementById(menuid);
   if (el) {
     if (isNetscape && (el.style.position=='fixed')) {
@@ -114,7 +113,6 @@ function openMenuXY(event, menuid, x, y) {
     el.style.left = "0px";
     el.style.visibility = "hidden";
     el.style.display = "";
-
     if (bm) {
       w2=getObjectWidth(document.getElementById('barmenu'));
       // display right or left to maximize width
