@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.23 2004/08/05 09:47:21 eric Exp $
+ * @version $Id: generic_edit.php,v 1.24 2004/10/11 09:19:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.23 2004/08/05 09:47:21 eric Exp $
+// $Id: generic_edit.php,v 1.24 2004/10/11 09:19:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,7 +128,17 @@ function generic_edit(&$action) {
     }
     */
   }
-
+  $action->lay->set("tablefoot","tableborder");
+  $action->lay->set("ddivfoot","none");
+  if ($action->Read("navigator","")=="NETSCAPE") {
+    if (ereg("rv:([0-9.]+).*",$_SERVER['HTTP_USER_AGENT'],$reg)) {
+      if (floatval($reg[1] >= 1.6)) {
+	$action->lay->set("ddivfoot","");
+	$action->lay->set("tablefoot","tablefoot");	
+      }
+    }
+    
+  } 
  
   // information propagation
   $action->lay->Set("classid", $classid);

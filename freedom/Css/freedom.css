@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.53 2004/10/08 07:49:01 eric Exp $
+ * $Id: freedom.css,v 1.54 2004/10/11 09:19:17 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -246,6 +246,13 @@ TABLE.transparent TBODY TR TD {
   background-color:transparent;
 }
 
+TABLE.tablefoot {
+	position:fixed;
+	top:auto;
+	right:0;
+	bottom:0;
+	left:0;
+}
 .onglet {
    font-size: 50%;
   background-image:url('[IMG:tab.png]');

@@ -518,10 +518,12 @@ function pleaseSave(event) {
 
 var OattrNid=null; //original attrNid
 var OattrNtitle=null; //original attrNtitle
+var askState=null; // memo displayed state
 
-
-function askForTransition(th) {
+function askForTransition() {
+  var th=document.getElementById('seltrans');
   var state=th.options[th.selectedIndex].value;
+  
   var wf=document.getElementById('hwfask');
   var nf=document.getElementById('wfask');
   var i;
@@ -530,7 +532,9 @@ function askForTransition(th) {
   var k=-1; // index for searches
   var xy;
   var h;
-
+  
+  if (askState == state) return;
+  askState=state;
   if (OattrNid == null) {
     OattrNid=new Array();
     OattrNtitle=new Array();
@@ -545,7 +549,7 @@ function askForTransition(th) {
   for (i=0;i<OattrNtitle.length;i++) attrNtitle.push(OattrNtitle[i]);
   
 
-  if (state) {
+  if (askState) {
 
     for (i=0;i<nf.childNodes.length;i++) {
       if (nf.childNodes[i].id && (nf.childNodes[i].id.substring(0,3)=="TWF")) tnf.push(nf.childNodes[i]);
@@ -554,7 +558,7 @@ function askForTransition(th) {
       wf.appendChild(tnf[i]);
     }
     for (i=0;i<states.length;i++) {
-      if (states[i]==state) {
+      if (states[i]==askState) {
 	ask=askes[i];
       }
     }
@@ -1048,10 +1052,6 @@ function fixedPosition() {
   }
    fspan=document.getElementById('fixspanfoot');
    ftable=document.getElementById('fixtablefoot');
-   ftable.style.position='fixed';
-   ftable.style.top='auto';
-   ftable.style.right='0px';
-   ftable.style.left='0px';
 
   if (fspan && ftable) {
     fspan.style.height=parseInt(getObjectHeight(ftable))+'px';;
