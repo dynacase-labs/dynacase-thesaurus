@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.86 2005/03/24 16:44:30 eric Exp $
+ * @version $Id: import_file.php,v 1.87 2005/04/05 09:46:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -624,6 +624,9 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	$doc=$lsdoc[0];
 	$tcr["id"]=$doc->id;
 	if (! $analyze) {
+	  if (($data[2]!="") && (! is_numeric(trim($data[2]))) && ($doc->name=="")) {
+	    $doc->name=$data[2];
+	  }
 	  $tcr["msg"]=sprintf(_("update %s [%d] "),$doc->title,$doc->id);
 	} else {
 	  $tcr["msg"]=sprintf(_("to be update %s [%d] "),$doc->title,$doc->id);
