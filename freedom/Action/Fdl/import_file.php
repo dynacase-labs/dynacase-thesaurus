@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.29 2002/11/22 18:08:22 eric Exp $
+// $Id: import_file.php,v 1.30 2002/11/25 16:23:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,7 +62,8 @@ function add_import_file(&$action, $fimport="") {
 
       if ($analyze) continue;
       if (! $doc->isAffected())  {
-	$doc = createDoc($dbaccess, $data[1]);
+	//$doc = createDoc($dbaccess, $data[1]);
+	$doc  =new DocFam($dbaccess);
 	if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
 
 	$doc->fromid = $data[1];
@@ -100,6 +101,8 @@ function add_import_file(&$action, $fimport="") {
 
       
       if (  $doc->doctype=="C") {
+	print "createDocFile ".$doc->id;
+	createDocFile($dbaccess, get_object_vars($doc)); 
 	$msg=PgUpdateFamilly($dbaccess, $doc->id);
       }
       

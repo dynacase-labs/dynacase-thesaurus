@@ -44,13 +44,7 @@ if ($query->nb > 0)	{
   while(list($k,$v) = each($table1))   {	     
     //    print AttrtoPhp($dbaccess,$v->id);
     print "$pubdir/FDLGEN/Class.Doc".$v["id"].".php\n";
-    $dfile = "$pubdir/FDLGEN/Class.Doc".$v["id"].".php";
-    $fphp=fopen($dfile,"w");
-    if ($fphp) {
-      fwrite($fphp,AttrtoPhp($dbaccess,$v));
-      fclose($fphp);
-      @chmod ($dfile, 0666);  // write for nobody
-    }
+    createDocFile($dbaccess,$v);
     
     $msg=PgUpdateFamilly($dbaccess, $v["id"]);
     print $msg;

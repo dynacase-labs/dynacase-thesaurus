@@ -91,7 +91,7 @@ TD.tlist {
 [BLOCK [blockvalue]]
 <tr  id="d[divid]"
      class="unselect" 
-     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
+     onMouseDown="if (! document.noselect) select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false">   
  <td class="tlist">[title]</td>

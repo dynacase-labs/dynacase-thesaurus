@@ -12,6 +12,12 @@ if [ "$1" = "I" ] ; then
   echo "Add plpgsql language"
   su - postgres -c "createlang --dbname=freedom --pglib=/usr/lib/pgsql plpgsql" 2>&1 >>/dev/null
   
+  su - postgres -c "psql freedom anakeen -f /home/httpd/what/WHAT/getprivilege.sql"
+  su - postgres -c "psql freedom anakeen -f /home/httpd/what/FDL/fdl.sql"
+  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=Doc
+  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocPerm
+  #copy postgres group table
+  $pubdir/wsh.php --api=freedom_groups
 fi
 #------------------------------
 #post update

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfile.php,v 1.5 2002/11/22 18:08:22 eric Exp $
+// $Id: exportfile.php,v 1.6 2002/11/25 16:23:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -84,14 +84,15 @@ function exportfirstfile(&$action)
 
   $isControled=true;
   $attr = $doc->GetFirstFileAttributes();
-    $ovalue = $doc->getValue($attrid);
+
+  $ovalue = $doc->getValue($attr->id);
 
     
-    if ($ovalue == "") $action->exiterror(_("no file referenced"));
+  if ($ovalue == "") $action->exiterror(_("no file referenced"));
     
-    ereg ("(.*)\|(.*)", $ovalue, $reg);
-    $vaultid= $reg[2];
-    $mimetype=$reg[1];
+  ereg ("(.*)\|(.*)", $ovalue, $reg);
+  $vaultid= $reg[2];
+  $mimetype=$reg[1];
 
   
   DownloadVault($action, $vaultid, $isControled, $mimetype);

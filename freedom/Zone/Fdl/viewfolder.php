@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.27 2002/11/25 11:03:26 eric Exp $
+// $Id: viewfolder.php,v 1.28 2002/11/25 16:23:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -263,7 +263,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  reset($lattr);
 	  $tvalues=array();
 	  while (list($ka,$attr) = each($lattr))  {	
-	      $tvalues[]=$doc->getValue($attr->id,"-");
+	    //$tvalues[]=$doc->getValue($attr->id,"-");
+	      $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"));
 	  }
 	  $tdoc[$k]["values"]=implode('</td><td class="tlist">',$tvalues);
 	}
