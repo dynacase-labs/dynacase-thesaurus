@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.57 2004/02/02 10:42:55 caroline Exp $
+ * @version $Id: import_file.php,v 1.58 2004/02/03 10:12:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.57 2004/02/02 10:42:55 caroline Exp $
+// $Id: import_file.php,v 1.58 2004/02/03 10:12:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -140,7 +140,8 @@ function add_import_file(&$action, $fimport="") {
       }
       
       $nbdoc++;
-    
+
+      if (isset($famdoc)) $famdoc->modify(); // has default values
     break;
     // -----------------------------------
     case "DOC":
@@ -237,6 +238,12 @@ function add_import_file(&$action, $fimport="") {
     // -----------------------------------
     case "PROFID":     
       $doc->setProfil($data[1]);// change profile
+    break;
+    case "DEFAULT":     
+      //   $famdoc=$doc->getFamDoc();
+      $doc->setDefValue($data[1],$data[2]);
+      $msg=sprintf("add default value %s %s",$data[1],$data[2]);
+      AddImportLog($action,$msg);
     break;
     // -----------------------------------
     case "ATTR":
