@@ -1,0 +1,131 @@
+TABLE.rowright24  TR TD {  
+  border-width:0px 1px 0px 0px;	 
+  border-color:[CORE_BGCOLORALTERN];
+  border-style:solid;
+  background-color:transparent;
+  text-align:right;
+  font-size:7pt;
+  width:4.166%;
+}
+DIV.monthOdd {
+	background-color:yellow;
+	overflow:hidden;
+	text-align:center;
+	text-align:center;
+	-moz-opacity:.8;
+	filter:alpha(opacity=80);
+	position:absolute;
+	left=0px;
+	top=0px;
+	border:solid black 1pt;
+}
+DIV.monthEven {
+	background-color:orange;
+	overflow:hidden;
+	text-align:center;
+	-moz-opacity:.8;
+	filter:alpha(opacity=80);
+	position:absolute;
+	left=0px;
+	top=0px;
+	border:solid black 1pt;
+}
+
+DIV.weekOdd {
+	background-color:lightblue;
+	overflow:hidden;
+	text-align:center;
+	-moz-opacity:.8;
+	filter:alpha(opacity=80);
+	position:absolute;
+	left=0px;
+	top=0px;
+	border:solid black 1pt;
+}
+DIV.weekEven {
+	background-color:salmon;
+	overflow:hidden;
+	text-align:center;
+	-moz-opacity:.8;
+	filter:alpha(opacity=80);
+	position:absolute;
+	left=0px;
+	top=0px;
+	border:solid black 1pt;
+}
+DIV.dayOdd {
+	background-color:lightgreen;
+	overflow:hidden;
+	text-align:center;
+	-moz-opacity:.8;
+	filter:alpha(opacity=80);
+	position:absolute;
+	left=0px;
+	top=0px;
+	border: green 1pt;
+}
+DIV.dayEven {
+	background-color:pink;
+	overflow:hidden;
+	text-align:center;
+	-moz-opacity:.8;
+	filter:alpha(opacity=80);
+	position:absolute;
+	left=0px;
+	top=0px;
+	border: red 1pt;
+}
+DIV.year {
+	background-color:cyan;
+	overflow:hidden;
+	text-align:center;
+	-moz-opacity:.8;
+	filter:alpha(opacity=80);
+	position:absolute;
+	left=0px;
+	top=0px;
+	border:solid black 1pt;
+}
+
+DIV.event {
+	-moz-border-radius:9px;
+	overflow:hidden;
+	border:solid  1px;
+	cursor:pointer;
+	position:absolute;
+/*	-moz-opacity:.9;*/
+/*	filter:alpha(opacity=90);*/
+}
+
+DIV.xgrid {
+	overflow:hidden;
+	background:none;
+	border-color:  transparent transparent #AAAAAA transparent ;
+	border-style:none  none dotted none ;
+	border-width: 0px 0px 1px 0px ;	
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+DIV.ygrid {
+	overflow:hidden;
+	background:none;
+	border-color: transparent  #AAAAAA transparent transparent;
+	border-style: none dotted none  none ;
+	border-width:0px 1px 0px 0px ;	
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+DIV.xgrid:hover {
+	background-color:yellow;
+}
+DIV.ygrid:hover {
+	background-color:yellow;
+}
+
+DIV.fond {
+/*	background-image:url('[IMG:millimetre.png]');
+	background-image:url('../../Images/millimetre.png');*/
+	background-color:transparent;;
+}

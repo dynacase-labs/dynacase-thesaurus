@@ -1,12 +1,22 @@
 <?php
 
+var $eviews=array("FREEEVENT:EDITCALENDAR");
 var $cviews=array("FREEEVENT:PLANNER");
+
+function postCreated() {
+  $this->setValue("SE_FAMID",getFamIdFromName($this->dbaccess,"EVENT"));
+}
+
 function getEvents($d1="",$d2="") {
 
   return $this->getContent();
 }
 
 
+function editcalendar($target="_self",$ulink=true,$abstract=false) {
+    $this->editattr();
+    $this->viewprop($target,$ulink,$abstract);
+}
 function planner($target="finfo",$ulink=true,$abstract="Y") {
   include_once("FREEEVENT/Lib.DCalendar.php");
   include_once("FDL/Lib.Color.php");
@@ -145,5 +155,36 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   // print "<hr>";
 
 }
+function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
+    
+  if ($dirid > 0) {
 
+      if ($subfolder)  $cdirid = getRChildDirId($this->dbaccess, $dirid);
+      else $cdirid=$dirid;      
+       
+  } else $cdirid=0;;
+
+
+
+  $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive);
+
+  $cond=$this->getSqlDetailFilter();
+
+  if ($cond != "") $filters[]=$cond;
+
+  $text=$this->getValue("DCAL_TEXT");
+  if ($text != "") {
+    $cond=$this->getSqlCond("values", $this->getValue("DCAL_TEXTOP","~*"),$text);
+    $filters[]=$cond;
+  }
+  $idp=$this->getValue("DCAL_IDPRODUCER");
+  if ($idp != "") {
+    $cond=$this->getSqlCond("evt_frominitiator","=",$idp);
+    $filters[]=$cond;
+  }
+  
+  $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,$distinct,$latest=="yes");
+
+  return $query;
+}
 ?>
