@@ -577,36 +577,69 @@ function clearTime(nid) {
   }
 }
 
-function checkinput(cid,check) {    
+function checkinput(cid,check,iin) {    
   var i=document.getElementById(cid);
   if (i) {
     if (!i.disabled) {
       if (check) i.checked=check;
       else i.checked=(!i.checked);
-      changeCheckClasses(i);
+      changeCheckClasses(i,iin);
     }
   }
 }
 // change style classes for check input
-function changeCheckClasses(th) {
+function changeCheckClasses(th,iin) {
   if (th) {
     var icheck=document.getElementsByName(th.name);
+    /*var icheck=new Array();
+    p=th.parentNode.childNodes[0];// firstSibling;
+    for (var i=0;i<th.parentNode.childNodes.length;i++) {
+      alert(th.parentNode.childNodes[i].name);
+      if (th.parentNode.childNodes[i].name && (th.parentNode.childNodes[i].name == th.name)) {
+	icheck.push(th.parentNode.childNodes[i]);
+      }
+      }*/
+    //alert (icheck.length);
     var  needuncheck=false;
     for (var i=0;i<icheck.length;i++) {
       if (icheck[i].checked) icheck[i].parentNode.parentNode.className='checked';
       else icheck[i].parentNode.parentNode.className='';
     }
+    //alert(icheck[0].type);
+   
     for (var i=0;i<icheck.length-1;i++) {
       if (icheck[i].checked) needuncheck=true;
     }
+    
     icheck[icheck.length-1].checked=(!needuncheck);
+    for (var i=0;i<icheck.length;i++) {
+      if (icheck[i].checked) {
+	var oi=document.getElementById(iin);
+	oi.value=icheck[i].value;
+      }
+    }
   }
-}// change style classes for check bool input
+}
+
+// change style classes for check bool input
 function changeCheckBoolClasses(th,name) {
   if (th) {
-    var icheck=document.getElementsByName(name);
-    icheck[0].checked=(!th.checked);
-    icheck[1].checked=th.checked;
+    var icheck=new Array(2);
+    var i=0;
+    var p=th.previousSibling;
+    while (p && (i<2)) {
+      if (p.name == name) {	
+	icheck[i]=p;
+	i++;
+      }
+      p=p.previousSibling;
+    }
+    if (i==2) {
+      icheck[1].checked=(!th.checked);
+      icheck[0].checked=th.checked;
+    } else {
+      alert('[TEXT:changeCheckBoolClasses Error]');
+    }
 
   }
 }

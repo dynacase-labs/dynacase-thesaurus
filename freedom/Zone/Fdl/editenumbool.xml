@@ -1,3 +1,3 @@
 [BLOCK OPTIONS]
-<input style="display:none" [disabled] id="[optid]" onclick="changeCheckClasses(this)" type="radio" name="[name]" value="[kvalue]" [checked]>[ENDBLOCK OPTIONS]
+<input style="display:none" [disabled] id="[optid]" type="checkbox" name="[name]" value="[kvalue]" [checked]>[ENDBLOCK OPTIONS]
 <input type="checkbox" [disabled] onclick="changeCheckBoolClasses(this,'[name]')" [checkedyesno] title="[tyesno]"> </input>
