@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editattr.php,v 1.4 2002/11/04 09:13:17 eric Exp $
+// $Id: editattr.php,v 1.5 2002/12/04 17:13:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,7 +61,7 @@ function editattr(&$action) {
 
 	//------------------------------
 	  // Set the table value elements
-	    $value = chop($doc->GetValue($v->id));
+      $value = chop($doc->GetValue($v->id));
 	
 	
 	

@@ -104,7 +104,7 @@ function refreshfld(dirid) {
 
 <tr class="tlist">
      <td class="tlist" align="right">
-      <label for="latest"> [TEXT:save query in current folder]&nbsp;:</label></td>
+      <label for="isave"> [TEXT:save query in current folder]&nbsp;:</label></td>
      <td class="tlist">
       <input id="isave" type="checkbox" name="save" value="true"  
              onClick="if (this.checked) document.getElementById('ititle').style.display=displaytable; else document.getElementById('ititle').style.display='none';"> </td>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.6 2002/11/07 16:00:00 eric Exp $
+// $Id: generic_tab.php,v 1.7 2002/12/04 17:13:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -78,7 +78,9 @@ function generic_tab(&$action) {
   $sdoc->Add();
 
 
+  $sqlfilter[]= "locked != -1";
   $sqlfilter[]= "doctype='F'";
+  $sqlfilter[] = "usefor = 'N'";
 
   if ($tabletter[$tab]!="") $sqlfilter[]="title ~* '^[".$tabletter[$tab]."].*'";
 

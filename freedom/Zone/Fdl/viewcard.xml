@@ -1,5 +1,18 @@
 
 
+<div id="error" class="COREError" 
+     style="display:none;position:absolute;top:0px; left:0px;">
+[TEXTERROR]
+</div>
+<script language="JavaScript">
+function centerError() {
+  CenterDiv('error');
+}
+if ("[TEXTERROR]" != "") {
+  centerError();
+  window.onscroll=centerError;
+}
+</script>
 
 [BLOCK HEAD]
 <table class="noprint"  cellspacing="0" width="100%"   >
@@ -69,7 +82,6 @@
 </table>
 
 [ENDBLOCK HEAD]
-
 
 <!-- TABLEBODY -->
 [ZONEBODYCARD]

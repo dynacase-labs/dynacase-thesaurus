@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.14 2002/11/28 18:19:21 eric Exp $
+// $Id: search.php,v 1.15 2002/12/04 17:13:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,7 @@ function search(&$action) {
   $latest=GetHttpVars("latest", false); // only latest revision
   $save=GetHttpVars("save", false); // the query need to be saved
   $sensitive=GetHttpVars("sensitive", false); // the keyword is case sensitive
-  $fromdir=GetHttpVars("fromdir", false); // the keyword is case sensitive
+  $fromdir=GetHttpVars("fromdir", false); // restriction to this familly
   $famid=GetHttpVars("famid"); // famid restrictive familly
 
   if ($title == "") $title=_("new search ").$keyword;
@@ -74,67 +74,21 @@ function search(&$action) {
     $dir->AddFile($sdoc->id);
 
     // save attributes
-    $oval = new DocValue($dbaccess);
-    $oval ->docid = $sdoc->id;
-    $oval ->attrid = QA_TITLE;
-    $oval ->value = $title;
-    $oval -> Add();
+    $sdoc->setValue("CO_TITLE", $title);
+    $sdoc->setValue("SE_KEY",$keyword );
+    $sdoc->setValue("SE_LATEST",($latest)?"yes":"no" );
+    $sdoc->setValue("SE_CASE", ($sensitive)?"yes":"no");
+    $sdoc->setValue("SE_FAMID", $famid);
+    if ($fromdir) $sdoc->setValue("SE_FLDID", $dirid);
 
 
-    $oval ->docid = $sdoc->id;
-    $oval ->attrid = QA_KEY;
-    $oval ->value = $keyword;
-    $oval -> Add();
 
-    $oval ->docid = $sdoc->id;
-    $oval ->attrid = QA_LAST;
-    if ($latest)    $oval ->value =_("yes");
-    else    $oval ->value =_("no");
-    $oval -> Add();
-
-    $oval ->docid = $sdoc->id;
-    $oval ->attrid = QA_CASE;
-    if ($sensitive)    $oval ->value =_("yes");
-    else    $oval ->value =_("no");
-    $oval -> Add();
-    $oval ->docid = $sdoc->id;
-    $oval ->attrid = QA_FROM;
-    if ($fromdir) {
-      $oval ->value = $dir->title;
-    }    else    $oval ->value =_("root folder");
-    $oval -> Add();
-
-
-    $oval ->docid = $sdoc->id;
-    $oval ->attrid = "SE_FAMID";
-    $oval ->value = $famid;
-    $oval -> Add();
+    $sdoc->modify();
   }
 
      
-  
+  $query = $sdoc->ComputeQuery($keyword,$famid,$latest,$sensitive,$fromdir?$dirid:0);
 
-  if ($fromdir) {
-
-    $cdirid = getRChildDirId($dbaccess, $dirid);
-    $cdirid[] = $dirid;
-    
-   
-
-  } else $cdirid=0;;
-
-  $filters=array();
-  if ($latest)       $filters[] = "locked != -1";
-
-
-  if ($keyword != "") {
-    if ($sensitive) $filters[] = "values ~ '$keyword' ";
-    else $filters[] = "values ~* '$keyword' ";
-  }
- 
-  
-
-  $query = getSqlSearchDoc($dbaccess, $cdirid, $famid, $filters);
 
   $sdoc-> AddQuery($query);
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.41 2002/11/28 18:19:21 eric Exp $
+// $Id: Lib.Dir.php,v 1.42 2002/12/04 17:13:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,7 +70,8 @@ function getSqlSearchDoc($dbaccess,
 			 $dirid,  // in a specific folder (0 => in all DB)
 			 $fromid, // for a specific familly (0 => all familly) (<0 strict familly)
 			 $sqlfilters=array(),
-			 $distinct=false) {// if want distinct without locked
+			 $distinct=false,// if want distinct without locked
+			 $dfilter=true) {// no added filter (added default filter by default)
 
  
 
@@ -83,7 +84,6 @@ function getSqlSearchDoc($dbaccess,
     $selectfields =  "distinct on (initid) $table.*";
   } else {
     $selectfields =  "$table.*"; 
-    $sqlfilters[-1] = "locked != -1";
     $sqlfilters[-2] = "doctype != 'T'";
     ksort($sqlfilters);
 
@@ -98,6 +98,9 @@ function getSqlSearchDoc($dbaccess,
     //-------------------------------------------
     // search in all Db
     //-------------------------------------------
+
+    
+
     $qsql= "select $selectfields ".
       "from $only $table  ".
       "where  ".
@@ -108,8 +111,8 @@ function getSqlSearchDoc($dbaccess,
     // in a specific folder
     //-------------------------------------------
 
-    if (! is_array($dirid))
-    $fld = new Doc($dbaccess, $dirid);
+    
+    if (! is_array($dirid))    $fld = new Doc($dbaccess, $dirid);
 
     if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
       
@@ -138,7 +141,7 @@ function getSqlSearchDoc($dbaccess,
 
       $qsql= "select $selectfields ".
 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
-	"where $sqlcond ";
+	"where locked != -1 and $sqlcond ";
 
 //       $qsql= "select $selectfields ".
 // 	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
@@ -207,7 +210,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-    print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
   
 
 
@@ -313,10 +316,15 @@ function hasChildFld($dbaccess, $dirid) {
   // return true id dirid has one or more child dir
     
     
-    $query = new QueryDb($dbaccess,"QueryDir");
-  
+  $query = new QueryDb($dbaccess,"QueryDir");  
   $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc2 where fld.dirid=$dirid and childid=doc2.id");
-  return (($query->nb > 0) && ($count[0]["count"] > 0));
+  if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+
+
+  $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc5 where fld.dirid=$dirid and childid=doc5.id");
+  if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+
+  return false;
 }
 
 // --------------------------------------------------------------------
@@ -347,7 +355,7 @@ function getQids($dbaccess, $dirid, $docid) {
 
 // just to test array if set before
 function setv($v,$k,$d="") {
-  if (isset($v[$k])) return $v[$k];
+  if (isset($v[$k]) && ($v[$k] != "")) return $v[$k];
   return $d;
 }
 

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.24 2002/11/28 18:19:21 eric Exp $
+// $Id: freedom_util.php,v 1.25 2002/12/04 17:13:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -190,12 +190,24 @@ function getFamIdFromName($dbaccess, $name) {
     $ql=$q->Query(0,0,"TABLE");
     
     while(list($k,$v) = each($ql)) {
-      $tFamIdName[$v["name"]]=$v["id"];
+      if ($v["name"] != "") $tFamIdName[$v["name"]]=$v["id"];
     }
   }
 
   if (isset($tFamIdName[$name])) return $tFamIdName[$name];
   return 0; 
   
+}
+
+function setFamidInLayout(&$action) {
+  
+  global $tFamIdName;
+
+  if (! isset($tFamIdName))  getFamIdFromName($action->GetParam("FREEDOM_DB"),"-");
+  
+  reset($tFamIdName);
+  while(list($k,$v) = each($tFamIdName)) {
+    $action->lay->set("IDFAM_$k", $v);
+  }
 }
 ?>

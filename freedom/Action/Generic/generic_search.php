@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.11 2002/11/28 18:19:21 eric Exp $
+// $Id: generic_search.php,v 1.12 2002/12/04 17:13:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,6 @@
 
 
 include_once("FDL/Class.DocSearch.php");
-include_once("FDL/Class.DocUser.php");
 include_once("FDL/freedom_util.php");  
 include_once("GENERIC/generic_util.php");  
 
@@ -67,7 +66,9 @@ function generic_search(&$action) {
   $famid = getDefFam($action);
 
 
+  $sqlfilter[]= "locked != -1";
   $sqlfilter[]= "doctype='F'";
+  $sqlfilter[] = "usefor = 'N'";
   $sqlfilter[]= "values ~* '$keyword' ";
 
   $query=getSqlSearchDoc($dbaccess, 

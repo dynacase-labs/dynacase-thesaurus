@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.29 2002/11/28 18:19:21 eric Exp $
+// $Id: viewfolder.php,v 1.30 2002/12/04 17:13:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -189,7 +189,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  // ------------------------------
 	  // define popup accessibility
 
-	  popupActive("popuplist",$kdiv,'vprop');
+	  popupInvisible("popuplist",$kdiv,'vprop'); // don't use : idem like simple clic
 	  popupActive("popuplist",$kdiv,'cancel');
 	  popupActive("popuplist",$kdiv,'copy');
 	  popupActive("popuplist",$kdiv,'ifld');
@@ -265,7 +265,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  $tvalues=array();
 	  while (list($ka,$attr) = each($lattr))  {	
 	    //$tvalues[]=$doc->getValue($attr->id,"-");
-	      $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"));
+	      $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),"fdoc");
 	  }
 	  $tdoc[$k]["values"]=implode('</td><td class="tlist">',$tvalues);
 	}

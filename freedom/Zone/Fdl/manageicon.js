@@ -123,7 +123,7 @@ function openMenuOrProperties(event,menuid,itemid) {
     if (shiftKey ) {
       openMenu(event,menuid, itemid);
      } else {
-       subwindow(300,400,'fdoc','[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&abstract=Y&id='+docid);
+       subwindow(300,400,'fdoc','[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&abstract=N&id='+docid);
     }
   }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.24 2002/11/28 18:19:21 eric Exp $
+// $Id: viewcard.php,v 1.25 2002/12/04 17:13:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,6 +74,7 @@ function viewcard(&$action) {
     }
   }
   $err=$doc->refresh();
+  $action->lay->set("TEXTERROR", $err);
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard,$target,$ulink,$abstract));
   
  
@@ -85,7 +86,6 @@ function viewcard(&$action) {
 
 
 
-  if ($err != "") $action->exitError($err);
   //------------------------------
   // display document attributes
   $action->lay->Set("reference", $doc->initid);

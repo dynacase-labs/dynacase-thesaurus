@@ -151,6 +151,7 @@ function pleaseSave(event) {
 
       if (can) {
 	var fedit= document.getElementById('fedit');
+	if (fedit.onsubmit) fedit.onsubmit();
 	fedit.submit();
       
       } else {

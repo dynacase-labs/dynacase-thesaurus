@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.10 2002/11/18 16:41:57 eric Exp $
+// $Id: freedom_edit.php,v 1.11 2002/12/04 17:13:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -89,7 +89,7 @@ function freedom_edit(&$action) {
       }
       $action->lay->Set("editaction", $action->text("create"));
       if ($classid > 0) {
-	$doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
+	$doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class
       }
       // selected the current class document
       while (list($k,$cdoc)= each ($selectclass)) {	

@@ -45,10 +45,10 @@ $table1 = $query->Query();
 if ($query->nb > 0)	{
 	  while(list($k,$v) = each($table1)) 
 	    {	     
-	      print $v->title . "-";
+	      print $v->title . "\n";
 	      $v->refresh();
 	      $v->Modify();
-	      print "\n" ;
+
 	    }	  
 }      
     
