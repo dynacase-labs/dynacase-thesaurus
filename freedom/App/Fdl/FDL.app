@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.17 2003/08/13 13:10:10 eric Exp $
+// $Id: FDL.app,v 1.18 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -66,6 +66,10 @@ $action_desc = array (
   array(
    "name"               =>"FDL_CSS",
    "layout"		=>"freedom.css"
+  ),
+  array(
+   "name"               =>"EDITJS",
+   "layout"		=>"editcommon.js"
   ),
   array(
    "name"		=>"FREEDOM_INIT",
@@ -156,6 +160,11 @@ $action_desc = array (
   array( 
    "name"		=>"MVIEW_SAVEGEO",
    "short_name"		=>N_("save geometry of mini view"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"VCONSTRAINT",
+   "short_name"		=>N_("verify constraint attribute"),
    "acl"		=>"NORMAL"
   ) 
                       );	

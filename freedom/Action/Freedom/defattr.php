@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: defattr.php,v 1.16 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: defattr.php,v 1.17 2003/12/16 15:05:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.16 2003/08/18 15:47:03 eric Exp $
+// $Id: defattr.php,v 1.17 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -136,6 +136,7 @@ function defattr(&$action)
       $newelem[$k]["link"]="";
       $newelem[$k]["phpfile"]="";
       $newelem[$k]["phpfunc"]="";
+      $newelem[$k]["phpconstraint"]="";
       $newelem[$k]["elink"]="";
       $newelem[$k]["abscheck"]="";
       $newelem[$k]["neededcheck"]="";
@@ -169,6 +170,7 @@ function defattr(&$action)
 	// unused be necessary for layout
       $newelem[$k]["phpfile"]="";
       $newelem[$k]["phpfunc"]="";
+      $newelem[$k]["phpconstraint"]="";
       $newelem[$k]["elink"]="";
       $newelem[$k]["abscheck"]="";
       $newelem[$k]["titcheck"]="";
@@ -195,6 +197,7 @@ function defattr(&$action)
       $newelem[$k]["link"]=$attr->link;
       $newelem[$k]["phpfile"]=$attr->phpfile;
       $newelem[$k]["phpfunc"]=$attr->phpfunc;
+      $newelem[$k]["phpconstraint"]=$attr->phpconstraint;
       $newelem[$k]["elink"]=$attr->elink;
       $newelem[$k]["disabledid"]="disabled";
       $newelem[$k]["neweltid"]=$k;
@@ -268,6 +271,7 @@ function defattr(&$action)
     $newelem[$k]["elink"]="";
     $newelem[$k]["phpfile"]="";
     $newelem[$k]["phpfunc"]="";
+    $newelem[$k]["phpconstraint"]="";
     $newelem[$k]["order"]="";
     $newelem[$k]["attrid"]="";
     $newelem[$k]["SELECTOPTION"]="SELECTOPTION_$k";

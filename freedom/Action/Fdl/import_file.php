@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.53 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: import_file.php,v 1.54 2003/12/16 15:05:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.53 2003/12/12 15:45:25 eric Exp $
+// $Id: import_file.php,v 1.54 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -85,9 +85,7 @@ function add_import_file(&$action, $fimport="") {
 	else $doc->fromid = getFamIdFromName($dbaccess,$data[1]);
 	$err = $doc->Add();
 	$msg=sprintf(_("create %s family"),$data[2]);
-	$tmsg = $action->lay->GetBlockData("MSG");
-	$tmsg[] = array("msg"=>$msg);
-	$action->lay->SetBlockData("MSG",$tmsg);
+	AddImportLog($action,$msg);
       }
       
       if (is_numeric($data[1]))   $doc->fromid = $data[1];
@@ -110,9 +108,7 @@ function add_import_file(&$action, $fimport="") {
 
       // add messages
       $msg=sprintf(_("modify %s family"),$doc->title);
-      $tmsg = $action->lay->GetBlockData("MSG");
-      $tmsg[] = array("msg"=>$msg);
-      $action->lay->SetBlockData("MSG",$tmsg);
+      AddImportLog($action,$msg);
       
       if ($analyze) {
 	$nbdoc++;
@@ -258,11 +254,14 @@ function add_import_file(&$action, $fimport="") {
       $oattr->link = $data[10];
       $oattr->phpfile = $data[11];
       if (isset($data[13])) $oattr->elink = $data[13];
+      if (isset($data[14])) $oattr->phpconstraint = $data[14];
 	  
       if ($oattr->isAffected()) $err =$oattr ->Modify();
       else    $err = $oattr ->Add();
       //    if ($err != "") $err = $oattr ->Modify();
     if ($err != "") $gerr="\nATTR line $nline:".$err;
+    $msg=sprintf(_("update %s attribute"),$data[1]);
+    AddImportLog($action,$msg);
     break;
 	  
     }
@@ -371,9 +370,8 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
     }
   }
   if (isset($action->lay)) {
-    $tmsg = $action->lay->GetBlockData("MSG");
-    $tmsg[] = array("msg"=>$msg);
-    $tmsg = $action->lay->SetBlockData("MSG",$tmsg);
+    AddImportLog($action,$msg);
+
   } else {
     print $msg."\n";
   }
@@ -382,4 +380,9 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
   return $doc;
 }
 
+function AddImportLog(&$action, $msg) {
+	$tmsg = $action->lay->GetBlockData("MSG");
+	$tmsg[] = array("msg"=>$msg);
+	$action->lay->SetBlockData("MSG",$tmsg);
+}
 ?>

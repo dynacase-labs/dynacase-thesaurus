@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.17 2003/10/28 16:36:50 eric Exp $
+ * @version $Id: modattr.php,v 1.18 2003/12/16 15:05:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.17 2003/10/28 16:36:50 eric Exp $
+// $Id: modattr.php,v 1.18 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,6 +69,7 @@ function modattr(&$action) {
   $phpfiles= GetHttpVars("phpfile");
   $phpfuncs= GetHttpVars("phpfunc");
   $elinks= GetHttpVars("elink");
+  $phpconstraint= GetHttpVars("phpconstraint");
   $nattrids= GetHttpVars("nattrid"); // for new attributes
 
   
@@ -142,6 +143,7 @@ function modattr(&$action) {
 	    $oattr->phpfile=$phpfiles[$k];
 	    $oattr->phpfunc=$phpfuncs[$k];
 	    $oattr->elink=stripslashes($elinks[$k]);
+	    $oattr->phpconstraint=$phpconstraint[$k];
 
 	    if ($attrids[$k]=="") {
 	      //print $oattr->id;

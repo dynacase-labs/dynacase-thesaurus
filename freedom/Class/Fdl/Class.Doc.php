@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.172 2003/12/15 08:38:52 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.173 2003/12/16 15:05:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.172 2003/12/15 08:38:52 eric Exp $
+// $Id: Class.Doc.php,v 1.173 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -1329,8 +1329,11 @@ create unique index i_docir on doc(initid, revision);";
    * @param string $def default value returned if attribute not found or if is empty
    * @return array the list of attribute values 
    */
-  function GetTValue($idAttr, $def="")  { 
-    return $this->_val2array($this->getValue("$idAttr"));
+  function GetTValue($idAttr, $def="",$index=-1)  { 
+    $t = $this->_val2array($this->getValue("$idAttr",$def));
+    if ($index == -1) return $t;
+    if (isset($t[$index])) return $t[$index];
+    else return $def;
   }
   //-------------------------------------------------------------------
 
@@ -1480,34 +1483,65 @@ create unique index i_docir on doc(initid, revision);";
   function GetValueMethod($value, $attrid='') {
     
     if ($this->usefor != 'D') {
-	if (ereg("::([^\(]+)\(([^\)]*)\)",$value, $reg)) {
-	  if (method_exists ( $this, $reg[1])) {
-	    if ($reg[2] == "") {
-	      // without argument
-	      
-	      $value=call_user_method($reg[1],$this);
-	    } else {
-	      // with argument
-	      $args = explode(",",$reg[2]);
-	      
-	      if ($attrid != "") {
-		$this->AddParamRefresh($reg[2],$attrid);
-	      }
-	      
-	      while(list($k,$v) = each($args)) { 
-		if ($this->getAttribute($v)) $args[$k]=$this->GetValue($v); 
-		else $args[$k]=$v; // not an attribute just text
-		$args[$k]=$this->GetValueMethod($args[$k]);
-	      }
+      $value=$this->ApplyMethod($value,$value);
+    }
+    return $value;
+  } 
 
-	      $value=call_user_method_array($reg[1],$this,$args);
-	    }
+  function ApplyMethod($method,$def="",$index=0) {
+    $value=$def;
+    if (ereg("::([^\(]+)\(([^\)]*)\)",$method, $reg)) {
+      if (method_exists ( $this, $reg[1])) {
+	if ($reg[2] == "") {
+	  // without argument
+	      
+	  $value=call_user_method($reg[1],$this);
+	} else {
+	  // with argument
+	  $args = explode(",",$reg[2]);
+	      
+	  if ($attrid != "") {
+	    $this->AddParamRefresh($reg[2],$attrid);
 	  }
+	      
+	  while(list($k,$v) = each($args)) { 
+	    if ($attr=$this->getAttribute($v)) {
+	      if ($attr->inArray())   $args[$k]=$this->GetTValue($v,"",$index);
+	      else $args[$k]=$this->GetValue($v);
+	    }
+	    else $args[$k]=$v; // not an attribute just text
+	    //   $args[$k]=$this->GetTValue($args[$k],$def,$index);
+	  }
+	  $value=call_user_method_array($reg[1],$this,$args);
 	}
+      } 
+	
     }
     return $value;
   }
-  
+ 
+  /**
+   * verify attribute constraint
+   *
+   * @param string $attrid attribute identificator
+   * @return array array of 2 items ("err" + "sug"). 
+   * The err is the string error message (empty means no error)
+   * The sug is an array of possibles corrections
+   */
+  function verifyConstraint($attrid, $index=0) {
+    $ok=array("err"=>"",
+	      "sug"=>array());
+    $oattr = $this->getAttribute($attrid);
+    if ($oattr->phpconstraint != "") {
+
+       $res = $this->applyMethod($oattr->phpconstraint,'KO',$index);
+       if ($res !== true) return $res;
+    }
+
+    return $ok;
+     
+  }
+
   // return the first attribute of type 'file'
   function GetFirstFileAttributes()
     {
@@ -2357,11 +2391,12 @@ create unique index i_docir on doc(initid, revision);";
 	  }
 
 	if (($attr->fieldSet->visibility!="H")&&($htmlvalue!=="")) $currentFrameId = $attr->fieldSet->id;
-	$tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
+
 
 	
 	// print name except image (printed otherthere)
-	if ($attr->type != "image") {
+	if ($attr->type != "image") {	
+	  $tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
 	  $tableframe[$v]["name"]=$this->GetLabel($attr->id);
 	  if (( $attr->type != "array")&&( $attr->type != "htmltext"))  $tableframe[$v]["ndisplay"]="";
 	  else $tableframe[$v]["ndisplay"]="none";

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.18 2003/12/02 10:53:19 eric Exp $
+ * @version $Id: enum_choice.php,v 1.19 2003/12/16 15:05:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.18 2003/12/02 10:53:19 eric Exp $
+// $Id: enum_choice.php,v 1.19 2003/12/16 15:05:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -130,7 +130,6 @@ function enum_choice(&$action) {
     
   }
 
-  $action->lay->Set("wname", $wname);
   if ($sorm == "single") {
 
     $action->lay->SetBlockData("SELECTSINGLE", array(array("zou")));

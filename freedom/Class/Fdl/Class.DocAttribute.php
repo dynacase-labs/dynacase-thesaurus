@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.13 2003/11/17 11:06:37 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.14 2003/12/16 15:05:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.13 2003/11/17 11:06:37 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.14 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.13 2003/11/17 11:06:37 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.14 2003/12/16 15:05:39 eric Exp $';
 
 
 
@@ -76,9 +76,10 @@ Class NormalAttribute extends BasicAttribute {
   var $phpfunc;
   var $elink; // extra link
   var $ordered;
+  var $phpconstraint; // special constraint set
   function NormalAttribute($id, $docid, $label, $type, $format, $repeat, $order, $link,
 			   $visibility,$needed,$isInTitle,$isInAbstract,
-			   &$fieldSet,$phpfile,$phpfunc,$elink) {
+			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
@@ -94,6 +95,7 @@ Class NormalAttribute extends BasicAttribute {
     $this->phpfile=$phpfile;
     $this->phpfunc=$phpfunc;
     $this->elink=$elink;
+    $this->phpconstraint=$phpconstraint;
     $this->repeat=$repeat || $this->inArray();
 
 

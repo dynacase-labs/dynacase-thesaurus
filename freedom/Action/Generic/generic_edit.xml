@@ -21,6 +21,7 @@
 <script type="text/javascript" src="htmlarea/htmlarea-lang-en.js"></script>
 <script type="text/javascript" src="htmlarea/dialog.js"></script>
 [JS:REF]
+<script type="text/javascript" src="[CORE_STANDURL]app=FDL&action=EDITJS"></script>
 
    <script language="JavaScript">
   <!--
@@ -70,7 +71,10 @@
        name="modifydoc" 
        onsubmit="document.isSubmitted=true;selectall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid"
        method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD&id=[id]&dirid=[dirid]&classid=[classid]" >
+       action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD" >
+<INPUT TYPE="hidden" name="classid" value="[classid]"></input>
+<INPUT TYPE="hidden" name="id" value="[id]"></input>
+<INPUT TYPE="hidden" name="dirid" value="[dirid]"></input>
 <table class="tableborder"  cellspacing="0" width="100%">
 <thead>
 <tr class="FREEDOMBack1">

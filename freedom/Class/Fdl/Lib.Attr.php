@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.27 2003/11/17 11:06:38 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.28 2003/12/16 15:05:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.27 2003/11/17 11:06:38 eric Exp $
+// $Id: Lib.Attr.php,v 1.28 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -159,7 +159,8 @@ function AttrToPhp($dbaccess, $tdoc) {
 				 "frame"=>($v->frameid=="")?"FIELD_HIDDENS":strtolower($v->frameid),
 				 "elink"=>$v->elink,
 				 "phpfile"=>$v->phpfile,
-				 "phpfunc"=>str_replace(", ",",",$v->phpfunc));
+				 "phpfunc"=>str_replace(", ",",",$v->phpfunc),
+				 "phpconstraint"=>$v->phpconstraint);
 	 
 	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>strtolower($v->id));	 
 	if (($repeat=="true") || ($tnormal[$v->frameid]["type"]=="array")) {

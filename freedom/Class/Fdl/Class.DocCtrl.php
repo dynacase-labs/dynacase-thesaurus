@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocCtrl.php,v 1.9 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.10 2003/12/16 15:05:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -11,7 +11,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.9 2003/12/12 15:45:25 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.10 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.9 2003/12/12 15:45:25 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.10 2003/12/16 15:05:39 eric Exp $';
 
 
 
@@ -201,6 +201,60 @@ Class DocCtrl extends DbObj
 //     }
 //   }
 
+
+  function parseMail($Email) {
+
+
+    $sug=array(); // suggestions
+    if (ereg("^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,6}$", $Email)) {      
+      return true;
+    }
+    $err= _("the email syntax  is like : john.doe@anywhere.org");
+    
+    if (eregi("^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,6}$", $Email)) {      
+      $sug[]=strtolower($Email);
+      $err="";
+    }
+    if (! ereg("@", $Email)) {      
+      $err= _("the email must containt the @ character");
+      
+    }
+
+    return array("err"=>$err,
+		 "sug"=>$sug);
+
+  }
+  /** 
+   * return true if the date is in the future
+   * @param string date date JJ/MM/AAAA
+   */
+  function isFutureDate($date) {
+
+    $err="";
+    $sug=array(); // suggestions
+    if (! ereg("^[0-9]{2}/[0-9]{2}/[0-9]{4}$", $date)) {       
+      $err= _("the date syntax must be like : DD/MM/AAAA");
+
+    } else {
+
+      list($dd,$mm,$yy) = explode("/",$date);
+      $yy = intval($yy);
+      $mm = intval($mm); 
+      $dd = intval($dd); 
+      $ti = mktime(0,0,0,$mm,$dd+1,$yy);
+      if ($ti < time()) {  
+	$err= sprintf(_("the date %s is in the past: today is %s"),
+		      date ("d/m/Y",$ti),
+		      date ("d/m/Y",time()));
+		      
+	
+      } 
+    }
+
+    return array("err"=>$err,
+		 "sug"=>$sug);
+
+  }
 
 }
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.47 2003/11/17 11:22:05 eric Exp $
+ * @version $Id: modcard.php,v 1.48 2003/12/16 15:05:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.47 2003/11/17 11:22:05 eric Exp $
+// $Id: modcard.php,v 1.48 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,8 +47,6 @@ include_once("VAULT/Class.VaultFile.php");
 function modcard(&$action, &$ndocid) {
   // modify a card values from editcard
   // -----------------------------------
-  global $HTTP_POST_VARS;
-  global $HTTP_POST_FILES;
 
   // Get all the params      
   $docid=GetHttpVars("id",0); 
@@ -104,52 +102,9 @@ function modcard(&$action, &$ndocid) {
 
   
   // ------------------------------
-  // update POSGRES text values
 
-  while(list($k,$v) = each($HTTP_POST_VARS) )
-    {
-      //print $k.":".$v."<BR>";
-      
-      if ($k[0] == "_") // freedom attributes  begin with  _
-	{
+  setPostVars($doc);
 
-	  
-	  $attrid = substr($k,1);
-	  if (is_array($v)) {
-	    if (isset($v["-1"])) {
-	      unset($v["-1"]);	     
-	    }
-	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
-	  }
-	  else $value = stripslashes($v);
-
-	  $doc->SetValue($attrid, $value);	      
-	      
-	      
-	}      
-    }
-  
-  
-  // ------------------------------
-  // update POSGRES files values
-  while(list($k,$v) = each($HTTP_POST_FILES) )    {
-      if ($k[0] == "_") // freedom attributes  begin with  _
-	{	  
-	  $k=substr($k,1);
-
-	      
-	  $filename=insert_file($dbaccess,$doc->id,$k);
-	
-	      
-	  if ($filename != "")
-	    {
-	      if (substr($k,0,4) == "UPL_") $k=substr($k,4);
-
-	      $doc->SetValue($k, $filename);
-	    	  
-	    }
-	}
-    }
   
   
   
@@ -204,6 +159,54 @@ function modcard(&$action, &$ndocid) {
   return $err;
 }
 
+function setPostVars(&$doc) {
+    // update POSGRES text values
+  global $HTTP_POST_VARS;
+  global $HTTP_POST_FILES;
+
+  while(list($k,$v) = each($HTTP_POST_VARS) )
+    {
+      //print $k.":".$v."<BR>";
+      
+      if ($k[0] == "_") // freedom attributes  begin with  _
+	{
+
+	  
+	  $attrid = substr($k,1);
+	  if (is_array($v)) {
+	    if (isset($v["-1"])) {
+	      unset($v["-1"]);	     
+	    }
+	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
+	  }
+	  else $value = stripslashes($v);
+
+	  $doc->SetValue($attrid, $value);	      
+	      
+	      
+	}      
+    }
+    // ------------------------------
+  // update POSGRES files values
+  while(list($k,$v) = each($HTTP_POST_FILES) )    {
+      if ($k[0] == "_") // freedom attributes  begin with  _
+	{	  
+	  $k=substr($k,1);
+
+	      
+	  $filename=insert_file($dbaccess,$doc->id,$k);
+	
+	      
+	  if ($filename != "")
+	    {
+	      if (substr($k,0,4) == "UPL_") $k=substr($k,4);
+
+	      $doc->SetValue($k, $filename);
+	    	  
+	    }
+	}
+    }
+}
 
 
 //------------------------------------------------------------

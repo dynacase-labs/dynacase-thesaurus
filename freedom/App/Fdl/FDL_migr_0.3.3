@@ -6,3 +6,8 @@ pubdir="/home/httpd/what";
 echo "alter table doc add column cvid int;" | psql freedom anakeen
 echo "alter table doc add column name text;" | psql freedom anakeen
 echo "alter table docfam add column ccvid int;" | psql freedom anakeen
+
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocAttr
+
+$pubdir/wsh.php --api=fdl_adoc 
+$pubdir/wsh.php --api=fdl_adoc 

@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.56 2003/12/02 10:53:19 eric Exp $
+ * @version $Id: editutil.php,v 1.57 2003/12/16 15:05:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.56 2003/12/02 10:53:19 eric Exp $
+// $Id: editutil.php,v 1.57 2003/12/16 15:05:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -431,10 +431,10 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       $input .= " id=\"".$attridk."\" "; 
 
       if (($visibility == "R")||($visibility == "S")) {
-	$input .= $idisabled; 
-	$input .= " onblur=\"control_date(event,this)\" ";	
+	$input .= $idisabled; 	
       } else  if ($doc->usefor != 'D') $input .=" disabled "; // always but default
 
+      if ($doc->usefor != 'D') $input .= " onblur=\"control_date(event,this)\" ";
       $input .= " >&nbsp;"; 
       if (!(($visibility == "R")||($visibility == "S"))) {
 	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
@@ -546,38 +546,38 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 
 	$target= $attrid;
 	/* --- for idoc ---
-      if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
-      // special case wit javascript inputs
+	if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
+	  // special case wit javascript inputs
 
-	$oattr->elink=$reg[2];
-	$tabFunction=explode(":",$reg[1]);
+	  $oattr->elink=$reg[2];
+	  $tabFunction=explode(":",$reg[1]);
 
-	if ( $tabFunction[0]!=""){
-	  $target = $tabFunction[0];
+	  if ( $tabFunction[0]!=""){
+	    $target = $tabFunction[0];
+	  }
+	  else{
+	    $target=$attrid;
+	  }
+	  $function=false;
+	  $i=1;
+	  while ( $tabFunction[$i]!=""){
+	    $function=true;
+	    ereg('(.*)\((.*)\)', $tabFunction[$i], $arg);
+	    //print_r($arg);
+	    $args[$i]=addslashes($arg[2]);
+	    $tabFunction[$i]=$arg[1];
+	    $string_function.="doing($tabFunction[$i],'$args[$i]');";
+	    $i++;
+	  }
 	}
-	else{
-	  $target=$attrid;
-	}
-	$function=false;
-	$i=1;
-	while ( $tabFunction[$i]!=""){
-	  $function=true;
-	  ereg('(.*)\((.*)\)', $tabFunction[$i], $arg);
-	  //print_r($arg);
-	  $args[$i]=addslashes($arg[2]);
-	  $tabFunction[$i]=$arg[1];
-	  $string_function.="doing($tabFunction[$i],'$args[$i]');";
-	  $i++;
-	}
-      }
       
     
 
 
-      else {
-	$target= $attrid;
-      }
-      --- end for idoc */
+	else {
+	  $target= $attrid;
+	}
+	--- end for idoc */
    
      
 	$input.="<input type=\"button\" value=\"$isymbol\"".
@@ -591,6 +591,10 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	}
 
 
+      }
+      if ($oattr->phpconstraint != "") {
+ 	$input.="<input type=\"button\" id=\"co_$attridk\" value=\"C\"".
+ 	  " onclick=\"vconstraint(this,".$doc->fromid.",'$attrid');\">";
       }
     } else {
       $input.="</td><td>";
