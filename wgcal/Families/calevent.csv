@@ -11,27 +11,27 @@ METHOD;+Method.CalPEvents.php;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 ATTR;CALEV_EVENT;;Description;N;N;frame;10;;;;;;
-ATTR;CALEV_OWNERID;CALEV_EVENT;Propriétaire Id;N;N;docid;20;H;;;;;
-ATTR;CALEV_OWNER;CALEV_EVENT;Propriétaire;Y;Y;text;20;W;;%S%app=FDL&action=FDL_CARD&id=%CALEV_OWNERID%;WGCAL_external.php;CAL_getRessourcesOwner(D,CALEV_OWNER):CALEV_OWNERID,CALEV_OWNER;
+ATTR;CALEV_OWNERID;CALEV_EVENT;PropriÃ©taire Id;N;N;docid;20;H;;;;;
+ATTR;CALEV_OWNER;CALEV_EVENT;PropriÃ©taire;Y;Y;text;20;W;;%S%app=FDL&action=FDL_CARD&id=%CALEV_OWNERID%;WGCAL_external.php;CAL_getRessourcesOwner(D,CALEV_OWNER):CALEV_OWNERID,CALEV_OWNER;
 ATTR;CALEV_EVTITLE;CALEV_EVENT;Titre;Y;Y;text;30;W;;;;;
 ATTR;CALEV_EVNOTE;CALEV_EVENT;Description;N;N;longtext;40;W;;;;;
 ATTR;CALEV_EVCALENDARID;CALEV_EVENT;Calendar Id;N;N;docid;50;H;;;;;
 ATTR;CALEV_EVCALENDAR;CALEV_EVENT;Agenda;N;N;text;60;W;;%S%app=FDL&action=FDL_CARD&id=%CALEV_CELENDARID%;;;
-ATTR;CALEV_VISIBILITY;CALEV_EVENT;Visibilité;N;N;enum;70;W;;;WGCAL_external.php;[hcheck]CAL_getEventVisibilities(D);
+ATTR;CALEV_VISIBILITY;CALEV_EVENT;VisibilitÃ©;N;N;enum;70;W;;;WGCAL_external.php;[hcheck]CAL_getEventVisibilities(D);
 ATTR;CALEV_EVSTATUS;CALEV_EVENT;Status;N;N;enum;80;W;;;WGCAL_external.php;[hcheck]CAL_getEventStates(D);
 ATTR;CALEV_EVALARM;CALEV_EVENT;Alarme;N;N;boolean;90;W;;;;;
-ATTR;CALEV_EVALARMTIME;CALEV_EVENT;Délai de l'alarme;N;N;timestamp;100;W;;;;;
-ATTR;CALEV_START;CALEV_EVENT;Date de début;Y;Y;timestamp;110;W;;;;;
+ATTR;CALEV_EVALARMTIME;CALEV_EVENT;DÃ©lai de l'alarme;N;N;timestamp;100;W;;;;;
+ATTR;CALEV_START;CALEV_EVENT;Date de dÃ©but;Y;Y;timestamp;110;W;;;;;
 ATTR;CALEV_END;CALEV_EVENT;Date de fin;Y;Y;timestamp;120;W;;;;;
 ATTR;CALEV_TIMETYPE;CALEV_EVENT;Mode;N;N;enum;130;W;;;-;[hcheck]0|times,1|no time,2|all day;
-ATTR;CALEV_FREQUENCY;CALEV_EVENT;Fréquence;N;N;int;140;W;;;;;
+ATTR;CALEV_FREQUENCY;CALEV_EVENT;FrÃ©quence;N;N;int;140;W;;;;;
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
-ATTR;CALEV_REPEAT;;Répétition;N;N;frame;300;;;;;;
+ATTR;CALEV_REPEAT;;RÃ©pÃ©tition;N;N;frame;300;;;;;;
 ATTR;CALEV_REPEATMODE;CALEV_REPEAT;Mode;N;N;enum;310;W;;;-;[hcheck]0|none,1|daily,2|weekly,3|monthly,4|yearly;
 ATTR;CALEV_REPEATWEEKDAY;CALEV_REPEAT;Jour de la semaine;N;N;enumlist;320;W;;;-;[hcheck]0|Monday,1|Tuesday,2|wenesday,3|thurday,4|Friday,5|Saturday,6|Sunday;
 ATTR;CALEV_REPEATMONTH;CALEV_REPEAT;Jour ou Date;N;N;enum;330;W;;;-;[hcheck]0|by date,1|by day;
-ATTR;CALEV_REPEATUNTIL;CALEV_REPEAT;Répéter jusqu'à;N;N;enum;340;W;;;-;[hcheck]0|infinite,1|date;
+ATTR;CALEV_REPEATUNTIL;CALEV_REPEAT;RÃ©pÃ©ter jusqu'Ã ;N;N;enum;340;W;;;-;[hcheck]0|infinite,1|date;
 ATTR;CALEV_REPEATUNTILDATE;CALEV_REPEAT;Date;N;N;timestamp;350;W;;;;;
 ATTR;CALEV_T_EXCLUDEDATE;CALEV_REPEAT;Dates exclues;N;N;array;360;W;;;;;
 ATTR;CALEV_EXCLUDEDATE;CALEV_T_EXCLUDEDATE;Dates exclues;N;N;timestamp;370;W;;;;;
@@ -39,7 +39,7 @@ ATTR;CALEV_EXCLUDEDATE;CALEV_T_EXCLUDEDATE;Dates exclues;N;N;timestamp;370;W;;;;
 ATTR;CALEV_ATTENDEES;;Invites;N;N;frame;500;;;;;;
 ATTR;CALEV_T_ATTENDEES;CALEV_ATTENDEES;;N;N;array;510;W;;;;;
 ATTR;CALEV_ATTID;CALEV_T_ATTENDEES;Attendee ressource id;N;N;docid;520;H;;;;;
-ATTR;CALEV_ATTTITLE;CALEV_T_ATTENDEES;Invités;N;N;text;530;W;;%S%app=FDL&action=FDL_CARD&id=%CALEV_ATTID%;WGCAL_external.php;CAL_getRessources(D,CALEV_ATTTITLE):CALEV_ATTID,CALEV_ATTTITLE;
+ATTR;CALEV_ATTTITLE;CALEV_T_ATTENDEES;InvitÃ©s;N;N;text;530;W;;%S%app=FDL&action=FDL_CARD&id=%CALEV_ATTID%;WGCAL_external.php;CAL_getRessources(D,CALEV_ATTTITLE):CALEV_ATTID,CALEV_ATTTITLE;
 ATTR;CALEV_ATTSTATE;CALEV_T_ATTENDEES;Acceptation;N;N;enum;540;W;;;WGCAL_external.php;[hcheck]CAL_getEventStates(D);
 ATTR;CALEV_ATTGROUP;CALEV_T_ATTENDEES;Groupe d'appartenance;N;N;int;550;W;;;;;
 ;;;;;;;;;;;;;
@@ -49,28 +49,28 @@ END;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 // ;fromid;titre;id;class;name;;;;;;;;
-BEGIN;EVENT;Evènements calendrier;;;EVENT_FROM_CAL;;;;;;;;
+BEGIN;EVENT;EvÃ¨nements calendrier;;;EVENT_FROM_CAL;;;;;;;;
 METHOD;Method.CalEvent.php;;;;;;;;;;;;
 ;;;;;;;;;;;;;
-ATTR;EVFC_VISIBILITY;;Visibilité;N;N;boolean;100;W;;;;;
-ATTR;EVFC_REPEAT;;Répétition;N;N;frame;110;W;;;;;
-ATTR;EVFC_REALENDDATE;EVFC_REPEAT;Date de fin réelle;N;N;timestamp;120;W;;;;;
+ATTR;EVFC_VISIBILITY;;VisibilitÃ©;N;N;boolean;100;W;;;;;
+ATTR;EVFC_REPEAT;;RÃ©pÃ©tition;N;N;frame;110;W;;;;;
+ATTR;EVFC_REALENDDATE;EVFC_REPEAT;Date de fin rÃ©elle;N;N;timestamp;120;W;;;;;
 ATTR;EVFC_REPEATMODE;EVFC_REPEAT;Mode;N;N;enum;130;W;;;-;[hcheck]0|none,1|daily,2|weekly,3|monthly,4|yearly;
 ATTR;EVFC_REPEATWEEKDAY;EVFC_REPEAT;Jour de la semaine;N;N;enumlist;140;W;;;-;[hcheck]0|Monday,1|Tuesday,2|wenesday,3|thurday,4|Friday,5|Saturday,6|Sunday;
 ATTR;EVFC_REPEATMONTH;EVFC_REPEAT;Jour ou Date;N;N;enum;150;W;;;-;[hcheck]0|by date,1|by day;
-ATTR;EVFC_REPEATUNTIL;EVFC_REPEAT;Répéter jusqu'à;N;N;enum;160;W;;;-;[hcheck]0|infinite,1|date;
+ATTR;EVFC_REPEATUNTIL;EVFC_REPEAT;RÃ©pÃ©ter jusqu'Ã ;N;N;enum;160;W;;;-;[hcheck]0|infinite,1|date;
 ATTR;EVFC_REPEATUNTILDATE;EVFC_REPEAT;Date;N;N;timestamp;170;W;;;;;
 ATTR;EVFC_T_EXCLUDEDATE;EVFC_REPEAT;Dates exclues;N;N;array;180;W;;;;;
 ATTR;EVFC_EXCLUDEDATE;EVFC_T_EXCLUDEDATE;Date;N;N;timestamp;190;W;;;;;
-ATTR;EVFC_REPEATFREQ;EVFC_REPEAT;Fréquence;N;N;int;200;W;;;;;
-ATTR;EVFC_REJECATT;;Conviés ayant rejeté le rv;N;N;array;210;W;;;;;
+ATTR;EVFC_REPEATFREQ;EVFC_REPEAT;FrÃ©quence;N;N;int;200;W;;;;;
+ATTR;EVFC_REJECATT;;ConviÃ©s ayant rejetÃ© le rv;N;N;array;210;W;;;;;
 ATTR;EVFC_REJECTATTID;EVFC_REJECATT;Ressource Id;N;N;docid;220;W;;;;;
-ATTR;EVFC_LISTATT;;Conviés;N;N;array;230;W;;;;;
+ATTR;EVFC_LISTATT;;ConviÃ©s;N;N;array;230;W;;;;;
 ATTR;EVFC_LISTATTID;EVFC_LISTATT;Ressource Id;N;N;docid;240;W;;;;;
 ATTR;EVFC_LISTATTST;EVFC_LISTATT;Ressource status;N;N;docid;250;W;;;;;
 END;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
-//FAM;recherche événement(DCALENDAR);<specid>;<fldid>;titre;couleur intercalaire;mot-clef;dernière révision;différence majuscule/minuscule;fid amille;dossier racine;profondeur de recherche;requête sql;id dossier père courant;dossier père courant;Conditions;opérateurs logiques;attributs;fonctions;mot-clefs;texte;texte opérateur;id producteur;producteur;famille;famille ressource;ressources;id famille ressources;id ressouce;ressource;couleurs;luminance;trié par;sens du tri;puis par;sens du tri
+//FAM;recherche Ã©vÃ©nement(DCALENDAR);<specid>;<fldid>;titre;couleur intercalaire;mot-clef;derniÃ¨re rÃ©vision;diffÃ©rence majuscule/minuscule;fid amille;dossier racine;profondeur de recherche;requÃªte sql;id dossier pÃ¨re courant;dossier pÃ¨re courant;Conditions;opÃ©rateurs logiques;attributs;fonctions;mot-clefs;texte;texte opÃ©rateur;id producteur;producteur;famille;famille ressource;ressources;id famille ressources;id ressouce;ressource;couleurs;luminance;triÃ© par;sens du tri;puis par;sens du tri
 ORDER;DCALENDAR;;;ba_title;gui_color;se_key;se_latest;se_case;se_famid;se_idfld;se_sublevel;se_sqlselect;se_idcfld;se_cfld;se_t_detail;se_ols;se_attrids;se_funcs;se_keys;dcal_text;dcal_textop;dcal_idproducer;dcal_producer;se_fam;dcal_fres;dcal_t_res;dcal_idfres;dcal_idres;dcal_res;dcal_coloridx;dcal_luminance;dcal_orderidx1;dcal_orderdesc1;dcal_orderidx2;dcal_orderdesc2
-DOC;DCALENDAR;WG_AGENDA;;Mon agenda;;;yes;;EVENT_FROM_CAL;;;;;;;and;evt_idres;~y;?idres;;~*;;Tous les familles;Evènements calendrier;;;;;;ir;0.6;absx;ASC;;ASC
-DOC;DCALENDAR;WG_DISPO;;Disponibilités;;;;;;?idres;;yes;;;;;select doc1098.* from  doc1098  where   (doctype != 'Z') and (doctype != 'T') and (locked != -1) and (usefor = 'N') and ( evt_idres ~ '\\y()\\y'  ) and ( evt_frominitiatorid = '1038' );;;;and;evt_idres;~y;?idres;;~*;CALEVENT;Rendez-vous;Evènements calendrier;ir;0.6;absx;ASC;;ASC
+DOC;DCALENDAR;WG_AGENDA;;Mon agenda;;;yes;;EVENT_FROM_CAL;;;;;;;and;evt_idres;~y;?idres;;~*;;Tous les familles;EvÃ¨nements calendrier;;;;;;ir;0.6;absx;ASC;;ASC
+DOC;DCALENDAR;WG_DISPO;;DisponibilitÃ©s;;;;;;?idres;;yes;;;;;select doc1098.* from  doc1098  where   (doctype != 'Z') and (doctype != 'T') and (locked != -1) and (usefor = 'N') and ( evt_idres ~ '\\y()\\y'  ) and ( evt_frominitiatorid = '1038' );;;;and;evt_idres;~y;?idres;;~*;CALEVENT;Rendez-vous;EvÃ¨nements calendrier;ir;0.6;absx;ASC;;ASC
