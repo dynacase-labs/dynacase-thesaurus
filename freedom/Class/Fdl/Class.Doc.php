@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.149 2003/07/24 13:03:57 eric Exp $
+// $Id: Class.Doc.php,v 1.150 2003/07/25 12:42:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.149 2003/07/24 13:03:57 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.150 2003/07/25 12:42:48 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/07/24 13:03:57 $
-// Version         $Revision: 1.149 $
+// Last Update     $Date: 2003/07/25 12:42:48 $
+// Version         $Revision: 1.150 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -137,7 +137,8 @@ create unique index i_docir on doc(initid, revision);";
   var $isCacheble= false;
 
   var $paramRefresh=array();
-
+  var $_maskApplied=false; // optimize: compute mask in needed only
+ 
   // --------------------------------------------------------------------------
   // Contructor
 
@@ -733,6 +734,7 @@ create unique index i_docir on doc(initid, revision);";
   // the attribute can be defined in fathers
   function GetAttribute($idAttr)
     {      
+      if (!$this->_maskApplied) $this->ApplyMask();
       $idAttr = strtolower($idAttr);
       if (isset($this->attributes->attr[$idAttr])) return $this->attributes->attr[$idAttr];
      
@@ -746,6 +748,7 @@ create unique index i_docir on doc(initid, revision);";
 
   function GetAttributes() 
     {     
+      if (!$this->_maskApplied) $this->ApplyMask();
       reset($this->attributes->attr);
       return $this->attributes->attr;
     }
@@ -754,47 +757,50 @@ create unique index i_docir on doc(initid, revision);";
     
     // copy default visibilities
     if (isset($this->attributes->attr)) {
-	reset($this->attributes->attr);
-	while (list($k,$v) = each($this->attributes->attr)) {
-	  if (isset($v->visibility)) $this->attributes->attr[$k]->mvisibility=$v->visibility;
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
+	if (isset($v->visibility)) $this->attributes->attr[$k]->mvisibility=$v->visibility;
 
-	  // extand visibility from fieldSet
-	  if ((isset($v->fieldSet))&&($v->fieldSet->visibility == "H")) $this->attributes->attr[$k]->mvisibility="H";
-	  else if (($v->fieldSet->visibility == "R") && ($v->visibility != "H")) $this->attributes->attr[$k]->mvisibility="R";
-	}
+	// extand visibility from fieldSet
+	if ((isset($v->fieldSet))&&($v->fieldSet->visibility == "H")) $this->attributes->attr[$k]->mvisibility="H";
+	else if (($v->fieldSet->visibility == "R") && ($v->visibility != "H")) $this->attributes->attr[$k]->mvisibility="R";
+      }
     }
 
+    $this->_maskApplied=true;
     // modify visibilities if needed
 
 
     if (($this->wid > 0) && ($this->wid != $this->id)) {
-      
-      $wdoc=new Doc($this->dbaccess,$this->wid );
+     
+      $wdoc=new Doc($this->dbaccess,$this->wid);
       if ($wdoc->isAlive()) {
 	if ($this->id == 0) {	  
 	  $wdoc->set($this);
 	}
 	$mid = $wdoc->getValue($wdoc->attrPrefix."_MSKID".$this->state);
-
-	$mdoc = new Doc($this->dbaccess,$mid );
-	if ($mdoc->isAlive()) {
-	  $tvis = $mdoc->getVisibilities();
+	if ($mid > 0) { 
+	  $mdoc = new Doc($this->dbaccess,$mid );
+	  if ($mdoc->isAlive()) {
+	    $tvis = $mdoc->getVisibilities();
 	  
-	  while (list($k,$v)= each ($tvis)) {
-	    if (isset($this->attributes->attr[$k])) {
-	      if ($v != "-") $this->attributes->attr[$k]->mvisibility=$v;	      
+	    while (list($k,$v)= each ($tvis)) {
+	      if (isset($this->attributes->attr[$k])) {
+		if ($v != "-") $this->attributes->attr[$k]->mvisibility=$v;	      
+	      }
 	    }
-	  }
-	  // modify needed attribute also
-	  $tneed = $mdoc->getNeedeeds();
-	  while (list($k,$v)= each ($tneed)) {
-	    if (isset($this->attributes->attr[$k])) {
-	      if ($v == "Y") $this->attributes->attr[$k]->needed=true;
-	      else if ($v == "N") $this->attributes->attr[$k]->needed=false;
+	    // modify needed attribute also
+	    $tneed = $mdoc->getNeedeeds();
+	    while (list($k,$v)= each ($tneed)) {
+	      if (isset($this->attributes->attr[$k])) {
+		if ($v == "Y") $this->attributes->attr[$k]->needed=true;
+		else if ($v == "N") $this->attributes->attr[$k]->needed=false;
+	      }
 	    }
 	  }
 	}
       }
+      
     }
   }
 
@@ -802,7 +808,7 @@ create unique index i_docir on doc(initid, revision);";
   // the attribute can be defined in fathers
   function GetNormalAttributes()
     {      
-      
+      if (!$this->_maskApplied) $this->ApplyMask();
       if ((isset($this->attributes)) && (method_exists($this->attributes,"GetNormalAttributes")))
 	return $this->attributes->GetNormalAttributes();      
       else return array();
@@ -810,6 +816,7 @@ create unique index i_docir on doc(initid, revision);";
 
   function GetFieldAttributes()
     {      
+      if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
      
       
@@ -823,6 +830,7 @@ create unique index i_docir on doc(initid, revision);";
   // the attribute can be defined in fathers
   function GetAbstractAttributes()
     {      
+      if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
 
       if (isset($this->attributes->attr)) {
@@ -840,6 +848,7 @@ create unique index i_docir on doc(initid, revision);";
   // the attribute can be defined in fathers
   function GetTitleAttributes()
     { 
+      if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
@@ -852,6 +861,7 @@ create unique index i_docir on doc(initid, revision);";
   // the attribute can be defined in fathers
   function GetFileAttributes()
     {      
+      if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
       
       reset($this->attributes->attr);
@@ -865,6 +875,7 @@ create unique index i_docir on doc(initid, revision);";
   // the attribute can be defined in fathers
   function GetMenuAttributes()
     {      
+      if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
       
       reset($this->attributes->attr);
@@ -877,7 +888,8 @@ create unique index i_docir on doc(initid, revision);";
   // return all the necessary attributes 
   // the attribute can be defined in fathers
   function GetNeededAttributes()
-    {            
+    {         
+      if (!$this->_maskApplied) $this->ApplyMask();   
       $tsa=array();
       
       if ($this->usefor != 'D') { // not applicable for default document
@@ -902,6 +914,7 @@ create unique index i_docir on doc(initid, revision);";
   // like normal attribut without files
   function GetExportAttributes()
     {      
+      if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
      
       if (isset($this->attributes->attr)) {
@@ -1392,12 +1405,12 @@ create unique index i_docir on doc(initid, revision);";
   }
   // recompute all calculated attribut
   function Refresh() {	
-
+    
     if ($this->locked == -1) return; // no refresh revised document
     if (($this->doctype == 'C') || ($this->doctype == 'Z') ) return; // no refresh for family  and zombie document
     if ($this->usefor == 'D') return; // no refresh for default document
-	  
    
+
     $err=$this->SpecRefresh();
     // if ($this->id == 0) return; // no refresh for no created document
 	
@@ -2834,10 +2847,11 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   function getTitle($id) {
-    if (! is_numeric($id)) return "";
-    $doc = new Doc($this->dbaccess,$id);
-    if ($doc->isAlive()) {
-      return $doc->title;
+    if (! is_numeric($id)) return ""; // direct SQL to optimize
+    $this->exec_query("select title from doc where id=$id and doctype!='Z'");
+    if (pg_numrows ($this->res) > 0) {
+      $arr = pg_fetch_array ($this->res, 0);
+      return $arr[0];
     }
     return " "; // delete title
   }

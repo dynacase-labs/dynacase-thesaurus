@@ -61,7 +61,6 @@ end;
     [pinit]::[pinit]($dbaccess, intval($id), $res, $dbid);
 
     uasort($this->attributes->attr,"tordered"); 
-    $this->ApplyMask();
        
    }
 
