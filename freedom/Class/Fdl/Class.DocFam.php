@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.21 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.22 2004/08/10 07:11:05 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -151,6 +151,23 @@ create unique index idx_idfam on docfam(id);";
   function getParams() {
     return $this->getXValues("param");
   }
+
+
+  /**
+   * return the value of an list parameter document
+   *
+   * the parameter must be in an array or of a type '*list' like enumlist or textlist
+   * @param string $idAttr identificator of list parameter
+   * @param string $def default value returned if parameter not found or if is empty
+   * @return array the list of parameter values
+   */
+  function GetParamTValue($idAttr, $def="",$index=-1)  {
+    $t = $this->_val2array($this->getParamValue("$idAttr",$def));
+    if ($index == -1) return $t;
+    if (isset($t[$index])) return $t[$index];
+    else return $def;
+  }
+
 
  /**
    * set family parameter value
