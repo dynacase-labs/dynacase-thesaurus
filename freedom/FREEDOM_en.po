@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-04-23 09:44+0200\n"
+	"POT-Creation-Date: 2002-04-29 13:42+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -1113,6 +1113,10 @@ msgstr	"Export selected cards"
 msgid	"Create subfolder"
 msgstr	"Delete"
 
+#, fuzzy
+msgid	"Refresh folder"
+msgstr	"Delete"
+
 msgid	"cancel"
 msgstr	""
 
@@ -1186,7 +1190,7 @@ msgstr	""
 msgid	" choose value"
 msgstr	""
 
-msgid	"close"
+msgid	"Close"
 msgstr	""
 
 msgid	"to"
@@ -1196,28 +1200,33 @@ msgid	"unchanged"
 msgstr	""
 
 #, fuzzy
-msgid	" edit"
+msgid	"Edit"
 msgstr	"Edit"
 
-msgid	" edit attributes"
+msgid	"Edit attributes"
 msgstr	""
 
-msgid	" lock"
+msgid	"Lock"
 msgstr	""
 
-msgid	" revise"
+msgid	"Revise"
 msgstr	""
 
-msgid	" unlock"
+msgid	"Unlock"
 msgstr	""
 
-msgid	" change profile"
+msgid	"History"
 msgstr	""
 
-msgid	" change creation profile"
-msgstr	""
+#, fuzzy
+msgid	"Change profile"
+msgstr	"Category"
 
-msgid	" view properties"
+#, fuzzy
+msgid	"Change creation profile"
+msgstr	"Category"
+
+msgid	"View all properties"
 msgstr	""
 
 msgid	"goaccess"
@@ -1227,7 +1236,7 @@ msgid	"delconfirm"
 msgstr	"Really Delete"
 
 #, fuzzy
-msgid	" delete"
+msgid	"Delete"
 msgstr	"Delete"
 
 msgid	"author"
@@ -1266,28 +1275,31 @@ msgid	" date"
 msgstr	"Edit"
 
 #, fuzzy
-msgid	"Edit"
-msgstr	"Edit"
-
-msgid	"Unlock"
-msgstr	""
-
-#, fuzzy
 msgid	"Change category"
 msgstr	"Category"
 
 msgid	"Vcard"
 msgstr	""
 
-msgid	"View properties"
-msgstr	""
-
 msgid	"View headers"
 msgstr	""
 
 #, fuzzy
-msgid	"Delete"
-msgstr	"Delete"
+msgid	" edit"
+msgstr	"Edit"
+
+msgid	" unlock"
+msgstr	""
+
+msgid	" view properties"
+msgstr	""
+
+msgid	"View properties"
+msgstr	""
+
+#, fuzzy
+#~ msgid	" delete"
+#~ msgstr	"Delete"
 
 #~ msgid	"admin"
 #~ msgstr	"Admnistration functions"

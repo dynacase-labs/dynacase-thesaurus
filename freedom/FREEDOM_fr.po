@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-04-23 09:44+0200\n"
+	"POT-Creation-Date: 2002-04-29 13:42+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -55,7 +55,7 @@ msgid	"%s : %s category "
 msgstr	"%s : catégorie %s"
 
 msgid	"new user card"
-msgstr "Nouvelle personne"
+msgstr	"Nouvelle personne"
 
 msgid	"no vcard file specified"
 msgstr	"pas de fichier vcard spécifié"
@@ -621,7 +621,7 @@ msgid	"import vcard"
 msgstr	"Importation Vcard"
 
 msgid	"unreferenced"
-msgstr "non référencé"
+msgstr	"non référencé"
 
 msgid	"Incident"
 msgstr	"Incident"
@@ -1065,6 +1065,9 @@ msgstr	"Exporter"
 msgid	"Create subfolder"
 msgstr	"Créer un dossier"
 
+msgid	"Refresh folder"
+msgstr	"Actualiser"
+
 msgid	"cancel"
 msgstr	"Annuler"
 
@@ -1134,8 +1137,8 @@ msgstr	"Annuler"
 msgid	" choose value"
 msgstr	" choisir une valeur"
 
-msgid	"close"
-msgstr	"fermer"
+msgid	"Close"
+msgstr "Fermer"
 
 msgid	"to"
 msgstr	"vers"
@@ -1143,29 +1146,32 @@ msgstr	"vers"
 msgid	"unchanged"
 msgstr	"inchangé"
 
-msgid	" edit"
-msgstr	" Éditer"
+msgid	"Edit"
+msgstr	"Éditer"
 
-msgid	" edit attributes"
-msgstr	" éditer les attributs"
+msgid	"Edit attributes"
+msgstr	"Éditer les attributs"
 
-msgid	" lock"
-msgstr	" verrouiller"
+msgid	"Lock"
+msgstr	"Verrouiller"
 
-msgid	" revise"
-msgstr	" réviser"
+msgid	"Revise"
+msgstr	"Réviser"
 
-msgid	" unlock"
-msgstr	" deverrouiller"
+msgid	"Unlock"
+msgstr	"Déverrouiller"
 
-msgid	" change profile"
-msgstr	" Changer de profil"
+msgid	"History"
+msgstr	"Historique"
 
-msgid	" change creation profile"
-msgstr	" changer de profil par défaut"
+msgid	"Change profile"
+msgstr	"Changer de profil"
 
-msgid	" view properties"
-msgstr	" Voir les propriétés"
+msgid	"Change creation profile"
+msgstr	"Changer de profil par défaut"
+
+msgid	"View all properties"
+msgstr	"Voir toutes les propriétés"
 
 msgid	"goaccess"
 msgstr	"accessibilités..."
@@ -1173,8 +1179,8 @@ msgstr	"accessibilités..."
 msgid	"delconfirm"
 msgstr	"Voulez-vous supprimer"
 
-msgid	" delete"
-msgstr	" supprimer"
+msgid	"Delete"
+msgstr	"Supprimer"
 
 msgid	"author"
 msgstr	"auteur"
@@ -1206,26 +1212,35 @@ msgstr	" révisé par"
 msgid	" date"
 msgstr	" date"
 
-msgid	"Edit"
-msgstr	"Éditer"
-
-msgid	"Unlock"
-msgstr	"Déverrouiller"
-
 msgid	"Change category"
 msgstr	"Changer de catégorie"
 
 msgid	"Vcard"
 msgstr	"Vcard"
 
+msgid	"View headers"
+msgstr	"Voir entête"
+
+msgid	" edit"
+msgstr	" Éditer"
+
+msgid	" unlock"
+msgstr	" deverrouiller"
+
+msgid	" view properties"
+msgstr	" Voir les propriétés"
+
 msgid	"View properties"
 msgstr	"Voir les propriétés"
 
-msgid	"View headers"
-msgstr "Voir entête"
+#~ msgid	" change profile"
+#~ msgstr	" Changer de profil"
 
-msgid	"Delete"
-msgstr	"Supprimer"
+#~ msgid	" change creation profile"
+#~ msgstr	" changer de profil par défaut"
+
+#~ msgid	" delete"
+#~ msgstr	" supprimer"
 
 #~ msgid	"receipt call %s"
 #~ msgstr	"appel reçu %s"
