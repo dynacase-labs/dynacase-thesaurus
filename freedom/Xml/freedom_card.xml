@@ -74,7 +74,7 @@
 [TEXT: view properties]</a>
 
 <a href="#" id="cancel"  
-    onClick="closeMenu('popupcard')"  >cancel</a>
+    onClick="closeMenu('popupcard')"  >[TEXT:cancel]</a>
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 

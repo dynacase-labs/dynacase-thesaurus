@@ -2,9 +2,24 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2001-11-19 17:28+0100\n"
+	"POT-Creation-Date: 2001-11-30 17:46+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -12,6 +27,44 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"Content-Type: text/plain; charset=ISO-8859-1\n"
 	"Content-Transfer-Encoding: 8-bit\n"
 	"\n"
+
+msgid	"New"
+msgstr	""
+
+#, fuzzy
+msgid	"Search"
+msgstr	"Lancer la recherche"
+
+msgid	"View"
+msgstr	""
+
+#, fuzzy
+msgid	"Help"
+msgstr	"aide"
+
+msgid	"new doc"
+msgstr	""
+
+msgid	"new folder"
+msgstr	""
+
+msgid	"new profile"
+msgstr	""
+
+msgid	"new family"
+msgstr	""
+
+msgid	"simple"
+msgstr	""
+
+msgid	"list"
+msgstr	""
+
+msgid	"icon"
+msgstr	""
+
+msgid	"refresh"
+msgstr	""
 
 msgid	"help"
 msgstr	"aide"
@@ -25,9 +78,6 @@ msgstr	""
 msgid	"modify"
 msgstr	"Modifier"
 
-msgid	" change profile"
-msgstr	""
-
 #, fuzzy
 msgid	"profile access"
 msgstr	"Accessibilité"
@@ -36,6 +86,40 @@ msgid	"no profile"
 msgstr	""
 
 msgid	"specific control"
+msgstr	""
+
+#, fuzzy
+msgid	"edition: "
+msgstr	"Éditer"
+
+#, fuzzy
+msgid	"search document"
+msgstr	"supprimer mes propres cartes"
+
+msgid	" keyword"
+msgstr	""
+
+msgid	" only latest revision"
+msgstr	""
+
+msgid	" from current folder"
+msgstr	""
+
+msgid	" case sensitive"
+msgstr	""
+
+msgid	" save query in current folder"
+msgstr	""
+
+#, fuzzy
+msgid	" search title"
+msgstr	"Lancer la recherche"
+
+#, fuzzy
+msgid	" send search"
+msgstr	"Lancer la recherche"
+
+msgid	" cancel"
 msgstr	""
 
 msgid	" properties"
@@ -78,7 +162,16 @@ msgstr	""
 msgid	" unlock"
 msgstr	""
 
-msgid	" set control"
+msgid	" history"
+msgstr	""
+
+msgid	" change profile"
+msgstr	""
+
+msgid	" change creation profile"
+msgstr	""
+
+msgid	" view properties"
 msgstr	""
 
 msgid	"print"
@@ -87,10 +180,7 @@ msgstr	"Impression de la page"
 msgid	"delconfirm"
 msgstr	"Voulez-vous supprimer"
 
-msgid	"document attributes"
-msgstr	""
-
-msgid	"reference"
+msgid	"author"
 msgstr	""
 
 #, fuzzy
@@ -101,15 +191,18 @@ msgid	"locked by"
 msgstr	""
 
 #, fuzzy
+msgid	"revision date"
+msgstr	"Société"
+
+#, fuzzy
 msgid	" profile access"
 msgstr	"Accessibilité"
 
-msgid	"createdby"
-msgstr	"Créé par"
+msgid	"reference"
+msgstr	""
 
-#, fuzzy
-msgid	"edition: "
-msgstr	"Éditer"
+msgid	" folder containt"
+msgstr	""
 
 msgid	"category"
 msgstr	"Catégorie"
@@ -126,25 +219,47 @@ msgstr	"publique"
 msgid	"readwriteowner"
 msgstr	"privée"
 
-msgid	" view properties"
+msgid	" rev"
 msgstr	""
 
-msgid	" change state"
-msgstr	""
-
-msgid	" edit document"
-msgstr	""
-
-msgid	" link document"
+msgid	" comment"
 msgstr	""
 
 #, fuzzy
-msgid	" delete link"
+msgid	" revised by"
+msgstr	"Créé par"
+
+#, fuzzy
+msgid	" date"
+msgstr	"Éditer"
+
+msgid	"view properties"
+msgstr	""
+
+msgid	"edit document"
+msgstr	""
+
+#, fuzzy
+msgid	"link document"
+msgstr	"supprimer mes propres cartes"
+
+#, fuzzy
+msgid	"delete link"
 msgstr	"Supprimer"
+
+msgid	"cancel"
+msgstr	""
 
 #, fuzzy
 msgid	" lauch importation"
 msgstr	"Importation de cartes"
+
+msgid	" comment for revision"
+msgstr	""
+
+#, fuzzy
+msgid	" revise document"
+msgstr	"supprimer mes propres cartes"
 
 msgid	"no file specified : update aborted"
 msgstr	""
@@ -168,6 +283,12 @@ msgstr	""
 msgid	"cannot delete link for doc %d in directory %d : the document comes "
 	"from a user query. Delete initial query if you want delete this "
 	"document"
+msgstr	""
+
+msgid	"change creation profile"
+msgstr	""
+
+msgid	"change profile"
 msgstr	""
 
 msgid	"new profile document"
@@ -204,13 +325,14 @@ msgstr	"Supprimer"
 msgid	"goaccess"
 msgstr	"Accessibilité"
 
+#, fuzzy
+msgid	"no filename"
+msgstr	"Prénom"
+
 msgid	"no document type"
 msgstr	""
 
 msgid	"new directory"
-msgstr	""
-
-msgid	"new profile"
 msgstr	""
 
 msgid	"new document"
@@ -227,6 +349,10 @@ msgstr	"Aucune application"
 
 msgid	"noembed"
 msgstr	"Aucun document inclu"
+
+#, c-format
+msgid	"Possible file upload attack: filename '%s'."
+msgstr	""
 
 msgid	"admin"
 msgstr	"Fonctions d'administration"
@@ -247,12 +373,24 @@ msgstr	""
 msgid	"changed"
 msgstr	""
 
-#, c-format
-msgid	"Possible file upload attack: filename '%s'."
+msgid	"no comment"
 msgstr	""
 
 msgid	"the document is not referenced: cannot apply profile access "
 	"modification"
+msgstr	""
+
+#, fuzzy
+msgid	"new search "
+msgstr	"Lancer la recherche"
+
+msgid	"yes"
+msgstr	""
+
+msgid	"no"
+msgstr	""
+
+msgid	"root folder"
 msgstr	""
 
 msgid	"view directory"
@@ -270,9 +408,6 @@ msgstr	""
 msgid	"view document"
 msgstr	""
 
-msgid	"edit document"
-msgstr	""
-
 #, fuzzy
 msgid	"delete document"
 msgstr	"supprimer mes propres cartes"
@@ -284,13 +419,36 @@ msgstr	""
 msgid	"title"
 msgstr	"Mise à jour des titres"
 
-msgid	"directory class"
+msgid	"directory familly"
 msgstr	""
 
-msgid	"profile documentation access class"
+msgid	"profile documentation access familly"
 msgstr	""
 
-msgid	"profile directory access class"
+#, fuzzy
+msgid	"profile directory access familly"
+msgstr	"Accessibilité"
+
+#, fuzzy
+msgid	"search familly"
+msgstr	"Lancer la recherche"
+
+msgid	"profile search familly"
+msgstr	""
+
+msgid	"keyword"
+msgstr	""
+
+msgid	"only latest revision"
+msgstr	""
+
+msgid	"case sensitive"
+msgstr	""
+
+msgid	"from folder"
+msgstr	""
+
+msgid	"root"
 msgstr	""
 
 #, fuzzy
@@ -312,6 +470,9 @@ msgstr	""
 msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
 msgstr	""
 
+msgid	"this document cannot be locked : it is not a revisable document"
+msgstr	""
+
 #, c-format
 msgid	"cannot lock file %s (rev %d): already locked by %s."
 msgstr	""
@@ -320,12 +481,20 @@ msgstr	""
 msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
 msgstr	""
 
+#, fuzzy
+msgid	"current revision"
+msgstr	"Société"
+
 msgid	"errldapadd"
 msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
 	"attributs n'est pas conforme"
 
 msgid	"errldapconnect"
 msgstr	"Le server LDAP n'a pas pu être contacté"
+
+#, c-format
+msgid	"cannot add folder : '%s'. It will be ancestor of itself"
+msgstr	""
 
 msgid	"Freedoms"
 msgstr	""
@@ -351,6 +520,10 @@ msgstr	""
 
 msgid	"Freedoms list"
 msgstr	""
+
+#, fuzzy
+msgid	"Freedoms view folder"
+msgstr	"Suppression de cartes"
 
 msgid	"popup menu"
 msgstr	""
@@ -386,6 +559,9 @@ msgstr	"Modification de cartes"
 msgid	"export file to consulting"
 msgstr	""
 
+msgid	"export first file to consulting"
+msgstr	""
+
 msgid	"lock file to edit"
 msgstr	""
 
@@ -401,13 +577,25 @@ msgstr	""
 msgid	"abord edition"
 msgstr	""
 
-msgid	"change icon file"
+msgid	"change icon document"
+msgstr	""
+
+msgid	"search document criteria"
 msgstr	""
 
 msgid	"ask for a new file revision"
 msgstr	""
 
+msgid	"edit document properties"
+msgstr	""
+
+msgid	"add comment before revise document"
+msgstr	""
+
 msgid	"make a new document revision"
+msgstr	""
+
+msgid	"view history revision"
 msgstr	""
 
 #, fuzzy
@@ -484,9 +672,6 @@ msgstr	""
 #~ msgid	"mobile"
 #~ msgstr	"Mobile"
 
-#~ msgid	"firstname"
-#~ msgstr	"Prénom"
-
 #~ msgid	"lastname"
 #~ msgstr	"Nom"
 
@@ -504,9 +689,6 @@ msgstr	""
 
 #~ msgid	"onlyowner"
 #~ msgstr	"perso"
-
-#~ msgid	"search"
-#~ msgstr	"Lancer la recherche"
 
 #~ msgid	"noedit"
 #~ msgstr	"Modification refusée"

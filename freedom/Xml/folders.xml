@@ -210,7 +210,7 @@ function floatMenu () {
     onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'doc_properties');closeMenu('popfld');return false">
 [TEXT: create subfolder]</a>
 <a href="#" id="cancel"  
-    onClick="closeMenu('popfld');return false"  >cancel</a>
+    onClick="closeMenu('popfld');return false"  >[TEXT:cancel]</a>
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 
@@ -224,7 +224,7 @@ function floatMenu () {
     onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'doc_properties');closeMenu('poppaste');return false">
    [TEXT: paste latest revision]</a>
 <a href="#" id="cancel2"  
-    onClick="closeMenu('poppaste');return false">cancel</a>
+    onClick="closeMenu('poppaste');return false">[TEXT:cancel]</a>
 </div>
 
 <!-- ------------------ end POPUP DIVISION ------------------ -->

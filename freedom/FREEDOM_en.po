@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2001-11-19 17:28+0100\n"
+	"POT-Creation-Date: 2001-11-30 17:46+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -12,6 +12,43 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"Content-Type: text/plain; charset=ISO-8859-1\n"
 	"Content-Transfer-Encoding: 8-bit\n"
 	"\n"
+
+msgid	"New"
+msgstr	""
+
+#, fuzzy
+msgid	"Search"
+msgstr	"Start search"
+
+msgid	"View"
+msgstr	""
+
+msgid	"Help"
+msgstr	""
+
+msgid	"new doc"
+msgstr	""
+
+msgid	"new folder"
+msgstr	""
+
+msgid	"new profile"
+msgstr	""
+
+msgid	"new family"
+msgstr	""
+
+msgid	"simple"
+msgstr	""
+
+msgid	"list"
+msgstr	""
+
+msgid	"icon"
+msgstr	""
+
+msgid	"refresh"
+msgstr	""
 
 msgid	"help"
 msgstr	""
@@ -25,9 +62,6 @@ msgstr	""
 msgid	"modify"
 msgstr	"Modify"
 
-msgid	" change profile"
-msgstr	""
-
 #, fuzzy
 msgid	"profile access"
 msgstr	"Control access"
@@ -36,6 +70,39 @@ msgid	"no profile"
 msgstr	""
 
 msgid	"specific control"
+msgstr	""
+
+#, fuzzy
+msgid	"edition: "
+msgstr	"Edit"
+
+msgid	"search document"
+msgstr	""
+
+msgid	" keyword"
+msgstr	""
+
+msgid	" only latest revision"
+msgstr	""
+
+msgid	" from current folder"
+msgstr	""
+
+msgid	" case sensitive"
+msgstr	""
+
+msgid	" save query in current folder"
+msgstr	""
+
+#, fuzzy
+msgid	" search title"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	" send search"
+msgstr	"Start search"
+
+msgid	" cancel"
 msgstr	""
 
 msgid	" properties"
@@ -78,7 +145,16 @@ msgstr	""
 msgid	" unlock"
 msgstr	""
 
-msgid	" set control"
+msgid	" history"
+msgstr	""
+
+msgid	" change profile"
+msgstr	""
+
+msgid	" change creation profile"
+msgstr	""
+
+msgid	" view properties"
 msgstr	""
 
 msgid	"print"
@@ -87,10 +163,7 @@ msgstr	"Print this page"
 msgid	"delconfirm"
 msgstr	"Really Delete"
 
-msgid	"document attributes"
-msgstr	""
-
-msgid	"reference"
+msgid	"author"
 msgstr	""
 
 #, fuzzy
@@ -101,15 +174,18 @@ msgid	"locked by"
 msgstr	""
 
 #, fuzzy
+msgid	"revision date"
+msgstr	"Organisation"
+
+#, fuzzy
 msgid	" profile access"
 msgstr	"Control access"
 
-msgid	"createdby"
-msgstr	"Created by"
+msgid	"reference"
+msgstr	""
 
-#, fuzzy
-msgid	"edition: "
-msgstr	"Edit"
+msgid	" folder containt"
+msgstr	""
 
 msgid	"category"
 msgstr	"Category"
@@ -126,23 +202,43 @@ msgstr	"readall"
 msgid	"readwriteowner"
 msgstr	"Private"
 
-msgid	" view properties"
+msgid	" rev"
 msgstr	""
 
-msgid	" change state"
-msgstr	""
-
-msgid	" edit document"
-msgstr	""
-
-msgid	" link document"
+msgid	" comment"
 msgstr	""
 
 #, fuzzy
-msgid	" delete link"
+msgid	" revised by"
+msgstr	"Created by"
+
+#, fuzzy
+msgid	" date"
+msgstr	"Edit"
+
+msgid	"view properties"
+msgstr	""
+
+msgid	"edit document"
+msgstr	""
+
+msgid	"link document"
+msgstr	""
+
+#, fuzzy
+msgid	"delete link"
 msgstr	"Delete"
 
+msgid	"cancel"
+msgstr	""
+
 msgid	" lauch importation"
+msgstr	""
+
+msgid	" comment for revision"
+msgstr	""
+
+msgid	" revise document"
 msgstr	""
 
 msgid	"no file specified : update aborted"
@@ -167,6 +263,12 @@ msgstr	""
 msgid	"cannot delete link for doc %d in directory %d : the document comes "
 	"from a user query. Delete initial query if you want delete this "
 	"document"
+msgstr	""
+
+msgid	"change creation profile"
+msgstr	""
+
+msgid	"change profile"
 msgstr	""
 
 msgid	"new profile document"
@@ -203,13 +305,14 @@ msgstr	"Delete"
 msgid	"goaccess"
 msgstr	"Control access"
 
+#, fuzzy
+msgid	"no filename"
+msgstr	"Firstname"
+
 msgid	"no document type"
 msgstr	""
 
 msgid	"new directory"
-msgstr	""
-
-msgid	"new profile"
 msgstr	""
 
 msgid	"new document"
@@ -226,6 +329,10 @@ msgstr	"No application"
 
 msgid	"noembed"
 msgstr	"No embed file"
+
+#, c-format
+msgid	"Possible file upload attack: filename '%s'."
+msgstr	""
 
 msgid	"admin"
 msgstr	"Admnistration functions"
@@ -245,12 +352,24 @@ msgstr	""
 msgid	"changed"
 msgstr	""
 
-#, c-format
-msgid	"Possible file upload attack: filename '%s'."
+msgid	"no comment"
 msgstr	""
 
 msgid	"the document is not referenced: cannot apply profile access "
 	"modification"
+msgstr	""
+
+#, fuzzy
+msgid	"new search "
+msgstr	"Start search"
+
+msgid	"yes"
+msgstr	""
+
+msgid	"no"
+msgstr	""
+
+msgid	"root folder"
 msgstr	""
 
 msgid	"view directory"
@@ -268,9 +387,6 @@ msgstr	""
 msgid	"view document"
 msgstr	""
 
-msgid	"edit document"
-msgstr	""
-
 msgid	"delete document"
 msgstr	""
 
@@ -281,13 +397,36 @@ msgstr	""
 msgid	"title"
 msgstr	"Update Title Cards"
 
-msgid	"directory class"
+msgid	"directory familly"
 msgstr	""
 
-msgid	"profile documentation access class"
+msgid	"profile documentation access familly"
 msgstr	""
 
-msgid	"profile directory access class"
+#, fuzzy
+msgid	"profile directory access familly"
+msgstr	"Control access"
+
+#, fuzzy
+msgid	"search familly"
+msgstr	"Start search"
+
+msgid	"profile search familly"
+msgstr	""
+
+msgid	"keyword"
+msgstr	""
+
+msgid	"only latest revision"
+msgstr	""
+
+msgid	"case sensitive"
+msgstr	""
+
+msgid	"from folder"
+msgstr	""
+
+msgid	"root"
 msgstr	""
 
 msgid	"Cannot Add : need FREEDOM privilege"
@@ -308,6 +447,9 @@ msgstr	""
 msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
 msgstr	""
 
+msgid	"this document cannot be locked : it is not a revisable document"
+msgstr	""
+
 #, c-format
 msgid	"cannot lock file %s (rev %d): already locked by %s."
 msgstr	""
@@ -316,12 +458,20 @@ msgstr	""
 msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
 msgstr	""
 
+#, fuzzy
+msgid	"current revision"
+msgstr	"Organisation"
+
 msgid	"errldapadd"
 msgstr	"Card is not modify in LDAP server : one of this attribute is not "
 	"appropriate"
 
 msgid	"errldapconnect"
 msgstr	"LDAP server cannot be contacted"
+
+#, c-format
+msgid	"cannot add folder : '%s'. It will be ancestor of itself"
+msgstr	""
 
 msgid	"Freedoms"
 msgstr	""
@@ -345,6 +495,9 @@ msgid	"Freedoms frame"
 msgstr	""
 
 msgid	"Freedoms list"
+msgstr	""
+
+msgid	"Freedoms view folder"
 msgstr	""
 
 msgid	"popup menu"
@@ -380,6 +533,9 @@ msgstr	""
 msgid	"export file to consulting"
 msgstr	""
 
+msgid	"export first file to consulting"
+msgstr	""
+
 msgid	"lock file to edit"
 msgstr	""
 
@@ -395,13 +551,25 @@ msgstr	""
 msgid	"abord edition"
 msgstr	""
 
-msgid	"change icon file"
+msgid	"change icon document"
+msgstr	""
+
+msgid	"search document criteria"
 msgstr	""
 
 msgid	"ask for a new file revision"
 msgstr	""
 
+msgid	"edit document properties"
+msgstr	""
+
+msgid	"add comment before revise document"
+msgstr	""
+
 msgid	"make a new document revision"
+msgstr	""
+
+msgid	"view history revision"
 msgstr	""
 
 msgid	"Freedom modification"
@@ -474,9 +642,6 @@ msgstr	""
 #~ msgid	"mobile"
 #~ msgstr	"Cellular"
 
-#~ msgid	"firstname"
-#~ msgstr	"Firstname"
-
 #~ msgid	"lastname"
 #~ msgstr	"Lastname"
 
@@ -494,9 +659,6 @@ msgstr	""
 
 #~ msgid	"onlyowner"
 #~ msgstr	"my"
-
-#~ msgid	"search"
-#~ msgstr	"Start search"
 
 #~ msgid	"noedit"
 #~ msgstr	"Modify not possible"
