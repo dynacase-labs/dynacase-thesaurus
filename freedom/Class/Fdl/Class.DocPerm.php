@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocPerm.php,v 1.9 2004/02/24 08:44:31 eric Exp $
+ * @version $Id: Class.DocPerm.php,v 1.10 2004/07/05 13:03:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -12,7 +12,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocPerm.php,v 1.9 2004/02/24 08:44:31 eric Exp $
+// $Id: Class.DocPerm.php,v 1.10 2004/07/05 13:03:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocPerm.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.9 2004/02/24 08:44:31 eric Exp $';
+$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.10 2004/07/05 13:03:40 eric Exp $';
 include_once("Class.DbObj.php");
 
 /**
@@ -81,6 +81,8 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
   function preInsert() {
     if ($this->userid==1) return _("not perm for admin");   
     if (($this->upacl==0) && ($this->unacl==0)) return _("not pertinent");   
+    if ($this->unacl==="") $this->unacl="0";
+    if ($this->cacl==="") $this->cacl="0";
   }
 
   function getUperm($docid, $userid) {
