@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocContrat.php,v 1.6 2004/01/14 17:29:52 eric Exp $
+ * @version $Id: Method.DocContrat.php,v 1.7 2004/01/15 10:10:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocContrat.php,v 1.6 2004/01/14 17:29:52 eric Exp $
+// $Id: Method.DocContrat.php,v 1.7 2004/01/15 10:10:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocContrat.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,7 +71,7 @@ function postModify() {
 function setProductSite() {
   $tproduct = $this->getTvalue("CO_IDPRODUCT");
   while (list($k,$v) = each($tproduct)) {
-    $prodoc = getTDoc($this->dbaccess, $v);
+    $prodoc = getLatestTDoc($this->dbaccess, $v);
     if ($prodoc) {
        $tidsite[]=getv($prodoc,"pr_idsite"," ");
       $tsite[]=getv($prodoc,"pr_site"," ");
