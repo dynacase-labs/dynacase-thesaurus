@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.10 2003/03/28 17:52:37 eric Exp $
+// $Id: exportfld.php,v 1.11 2003/04/11 11:48:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,7 +27,7 @@ include_once("FDL/Class.DocAttr.php");
 include_once("VAULT/Class.VaultFile.php");
 
 // --------------------------------------------------------------------
-function exportfld(&$action, $aflid="0") 
+function exportfld(&$action, $aflid="0", $famid="") 
 // --------------------------------------------------------------------
 {
   
@@ -35,7 +35,7 @@ function exportfld(&$action, $aflid="0")
   $fldid = GetHttpVars("id",$aflid);
   $fld = new Doc($dbaccess, $fldid);
 
-  $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE");
+  $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE",$famid);
 
     usort($tdoc,"orderbyfromid");
 
