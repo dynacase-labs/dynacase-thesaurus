@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.21 2004/12/28 17:03:27 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.22 2005/01/14 17:53:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -174,7 +174,7 @@ Class DocSearch extends PDocSearch {
 
 
   /**
-   * return document includes in folder
+   * return document includes in search folder
    * @param bool $controlview if false all document are returned else only visible for current user  document are return
    * @param array $filter to add list sql filter for selected document
    * @return array array of document array
