@@ -3,14 +3,14 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.8 2005/01/27 10:21:36 marc Exp $
+ * @version $Id: Lib.Util.php,v 1.9 2005/02/09 14:22:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
  */
  /**
  */
-include_once("Date.php");
+
 function newFreeVaultFile($dbaccess) {
   include_once("VAULT/Class.VaultFile.php");
   return new VaultFile($dbaccess, strtoupper(getDbName($dbaccess)));
