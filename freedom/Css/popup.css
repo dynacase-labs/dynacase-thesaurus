@@ -38,8 +38,6 @@ a.menuItemCtrl, a:visited.menuItemCtrl {
   padding: 2px 12px 2px 8px;
   text-decoration: none;
   text-transform:capitalize;
-  filter:alpha(opacity=80);
-  -moz-opacity:.8;
 }
 
 .separator {
