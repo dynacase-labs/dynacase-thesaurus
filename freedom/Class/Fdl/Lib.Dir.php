@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.81 2004/02/24 08:38:11 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.82 2004/03/01 09:08:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.81 2004/02/24 08:38:11 eric Exp $
+// $Id: Lib.Dir.php,v 1.82 2004/03/01 09:08:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -232,7 +232,7 @@ function getChildDoc($dbaccess,
   if ($userid > 1) { // control view privilege
      $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
     // and get permission
-    if ($qtype == "LIST") $qsql = str_replace("* from ","* ,getuperm($userid,profid) as uperm from ",$qsql);
+    $qsql = str_replace("* from ","* ,getuperm($userid,profid) as uperm from ",$qsql);
   }
 
 
