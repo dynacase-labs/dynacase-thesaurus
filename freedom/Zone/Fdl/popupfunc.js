@@ -112,7 +112,27 @@ function openMenuXY(event, menuid, x, y) {
   activeMenuItem(event,menuid, 1); // first item (no context : only one item)
   return false; // no navigator context menu
 }
-
+var menusel=null;
+function selectMenu(th) {
+  unSelectMenu();
+  th.className='MenuSelected';
+  menusel=th;  
+}
+function unSelectMenu() {
+  var bm=document.getElementById('barmenu');
+  if (bm) {
+    var ttd=bm.getElementsByTagName("td");
+    for (var i=0;i<ttd.length;i++) {
+      if (ttd[i].className=='MenuSelected')  ttd[i].className='MenuInactive';
+    }
+  }
+}
+function ActiveMenu(th) {
+  if (th.className!='MenuSelected') th.className='MenuActive';
+}
+function DeactiveMenu(th) {
+  if (th.className!='MenuSelected')  th.className='MenuInactive';  
+}
 function activeMenuItem(event,menuid, itemid) {
   window.status="menu:"+menuid+itemid;
   // active css for animation for 'selid' object
@@ -149,6 +169,7 @@ function closeMenu(menuid) {
   if (document.getElementById) { // DOM3 = IE5, NS6
          divpop = document.getElementById(menuid);
 	 if (divpop) divpop.style.visibility = 'hidden';
+	 if (this.className == 'MenuSelected') this.className='MenuInactive';
    }    
   return false;
 }

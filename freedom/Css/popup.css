@@ -5,6 +5,7 @@
 
 .popup {
   background-color: [CORE_FGCOLOR];  
+  background-image: [CORE_FGIMGMENU];
   border-color: [CORE_FGCOLOR];
   border-style: outset;
   border-width: 2px; 
@@ -48,6 +49,7 @@ a.menuItemCtrl, a:visited.menuItemCtrl {
 a.separator {
   color: [CORE_BGCOLORALTERN];
   background-color: [CORE_FGCOLOR];
+  background-image: [CORE_FGIMGMENU];
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
@@ -61,7 +63,8 @@ a.separator {
 a.separator:hover {
   text-decoration: none;
   color: [CORE_BGCOLORALTERN];
-  background-color: [CORE_FGCOLOR];  	
+  background-color: [CORE_FGCOLOR];  
+  background-image: [CORE_FGIMGMENU];	
 }
 
 a.menuItem:hover,a.menuItemCtrl:hover  {

@@ -17,28 +17,28 @@ function SendSearchId(e,id) {
 
 <!-- ------------------ BAR MENU ------------------ -->
 <div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;" >
-<table  class="tablesimple"  cols="4"  cellspacing="0"  >
+<table  class="barmenu"  cols="4"  cellspacing="0"  >
 <thead>
 <tr>
 <td  class="MenuInactive"  
      style="padding: 0px 0pt 0px 10px;" 
-     onClick="closeAllMenu();openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Creation]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:Creation]
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Search]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:Search]
 </td>
 
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Tools]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:Tools]
 </td>
 </tr>
 </thead>

@@ -42,48 +42,49 @@ function testSplit(event) {
 }
 
 testSplit();
+
   -->
    </script>
 
 <!-- ------------------ BAR MENU ------------------ -->
 <div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;" >
-<table  class="tablesimple"  cols="[nbcol]"  cellspacing="0"  >
+<table  class="barmenu"  cols="[nbcol]"  cellspacing="0"  >
 <thead>
 <tr>
 <td  class="MenuInactive"  
      style="padding: 0px 0pt 0px 10px;" 
-     onClick="closeAllMenu();openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Creation]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:Creation]</span>
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());document.getElementById('keyword').focus();" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Search]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());document.getElementById('keyword').focus();" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:Search]
 </td>
 
 
 [BLOCK KIND]
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'[kindid]menu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[kindname]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'[kindid]menu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[kindname]
 </td>
 [ENDBLOCK KIND]
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'sortmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Sort]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'sortmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:Sort]
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Tools]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:Tools]
 </td>
 </tr>
 </thead>

@@ -8,6 +8,7 @@ function closeAllMenu() {
   }
 
   document.menuclosed=true;
+  unSelectMenu();
 }
 [BLOCK MENUS]
 nbmitem['[name]'] =[nbmitem]; 

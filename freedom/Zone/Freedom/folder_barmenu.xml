@@ -1,22 +1,22 @@
 <!-- ------------------ BAR MENU ------------------ -->
 <div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;z-index:6;" >
-<table  class="tablesimple"  cols="4"  cellspacing="0"  >
+<table  class="barmenu"  cols="4"  cellspacing="0"  >
 <thead>
 <tr>
 
 <td class="CORETblHead" onClick="closeAllMenu();" ><B>&nbsp;[title]</B></td>
 <td class="CORETblHead" onClick="closeAllMenu();">[nbdoc]</td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:View]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:View]
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'toolmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Tools]</span>
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'toolmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:Tools]
 </td>
 </tr>
 </thead>

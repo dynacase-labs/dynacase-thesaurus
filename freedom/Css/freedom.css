@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.48 2004/08/10 08:27:19 eric Exp $
+ * $Id: freedom.css,v 1.49 2004/08/23 13:45:54 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -71,16 +71,41 @@ FIELDSET {
    background-color: [CORE_BGCELLCOLOR];
 }
 
-.MenuInactive{
+TABLE.barmenu {
+/*	background-color: [CORE_BGCOLORALTERN];*/
+	background-color: orange;
+        background-image: [CORE_FGIMG];
+	width : 100%;
+	border-width: 0px;
+	border-spacing: 0px;
+	empty-cells: show;
+}
+TD.MenuInactive{
 	background-color: [CORE_BGCOLORALTERN];
-	color : [CORE_TEXTBGCOLOR];
+        background-image: [CORE_FGIMG];	
+	color : [CORE_TEXTFGCOLOR];
+        font-weight:bold;
+        text-transform:capitalize;	
 	border-width : 2px;
+	border-style : outset;
+	border-color : [CORE_BGCOLORALTERN];
+}
+TD.MenuActive {
+	background-color: [CORE_BGCOLORALTERN];
+        background-image: [CORE_FGIMG];	
+	color : [CORE_TEXTFGCOLOR];
+        text-transform:capitalize;
+	border-width : 2px;
+        font-weight:bold;
 	border-style : solid;
 	border-color : [CORE_BGCOLORALTERN];
 }
-.MenuActive{
-	background-color: [CORE_BGCOLORALTERN];
+TD.MenuSelected {
+	background-color: [CORE_FGCOLOR];
 	color : [CORE_TEXTBGCOLOR];
+        font-weight:bold;
+	color : [CORE_TEXTBGCOLOR];   
+        text-transform:capitalize;
 	border-width : 2px;
 	border-style : outset;
 	border-color : [CORE_BGCOLORALTERN];
@@ -194,6 +219,7 @@ A.title:hover {
   background-color:[CORE_BGCELLCOLOR];
    
 }
+
 TABLE.rows TBODY TR TD {  
   border-width:1px 0px 0px 0px;	 
   border-color:[CORE_BGCOLORALTERN];
@@ -331,6 +357,12 @@ TR.select {
 .freedom A:hover {
         background-color: [CORE_BGCOLORHIGH]; 
         text-decoration: overline underline;
+}
+IMG.click:hover {
+  	cursor: pointer;
+}
+IMG.click:hover {
+        background-color: [CORE_BGCOLORHIGH]; 
 }
 
 DIV.icon{
