@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.50 2003/01/13 19:01:11 eric Exp $
+// $Id: Lib.Dir.php,v 1.51 2003/01/15 11:40:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -100,6 +100,7 @@ function getSqlSearchDoc($dbaccess,
     // search in all Db
     //-------------------------------------------
     
+    $sqlfilters[-3] = "doctype != 'Z'";
     if ($latest) $sqlfilters[-1] = "locked != -1";
     ksort($sqlfilters);
     if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
@@ -119,6 +120,7 @@ function getSqlSearchDoc($dbaccess,
     if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
 
 
+    $sqlfilters[-3] = "doctype != 'Z'";
     
     if ($latest) $sqlfilters[-1] = "locked != -1";
     ksort($sqlfilters);
@@ -164,7 +166,11 @@ function getSqlSearchDoc($dbaccess,
 	    
 	  $sqlM=$ldocsearch[0]["query"];
 
-	 
+	  if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
+	    $sqlfilters[-3] = "doctype != 'Z'";	   
+	    ksort($sqlfilters);
+	    if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
+	  }
 	  if ($fromid > 0) $sqlM=str_replace("from doc ","from $only $table ",$sqlM);
 	    
 	  $qsql= $sqlM ." and " . $sqlcond;
@@ -210,7 +216,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  //    print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  //     print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
   
 
 
