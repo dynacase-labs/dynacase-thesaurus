@@ -24,6 +24,7 @@
     [JS:CODE]
 function fselect(o) {
   var i=o.previousSibling; // input
+  while (i && (i.nodeType != 1)) i = i.previousSibling;
   if (i.checked) {
     document.getElementById('preffirstfam').value=i.value;
     viewfirst();
@@ -31,6 +32,7 @@ function fselect(o) {
 }
 function hiselect(o) {
   var i=o.previousSibling; // input
+  while (i && (i.nodeType != 1)) i = i.previousSibling;
   if (i.checked) {
     o.style.backgroundColor='[CORE_BGCOLORHIGH]';
     o.title='[TEXT:set as first family view]';
@@ -76,20 +78,20 @@ addEvent(window,"load",viewfirst);
                          
 <!-- Title Table -->
 <form  class="fborder" target="famlist" name="modpref" method="POST"  action="[CORE_STANDURL]&app=[APPNAME]&action=[modaction]" >
-
-<p>[TEXT:Choose visibles families]</p>
+<table><tr><th width="40%">[TEXT:Choose visibles families]</th><td>
+<fieldset style="width:90%;"><legend>[TEXT:open first family]</legend>
+<div  style="display:inline" id="openfirst"></div>
+<input type="image" title="[TEXT:No family first]" onclick="clearfirst();return false;" src="[IMG:clear.gif]">
+</fieldset></td></tr></table>
    
          [BLOCK SELECTPREF] 
 <div id="d[cid]"  style="float:left;overflow:hidden;width:150px">
-<img src="[iconsrc]" width="20"><input type="checkbox" [selected] name="idsfam[]"  value="[cid]"></input><span onmouseover="hiselect(this)" onmouseout="loselect(this)" onclick="fselect(this)">[ctitle]</span></div>
+<img src="[iconsrc]" width="20"><input type="checkbox" [selected] name="idsfam[]"  value="[cid]"><span onmouseover="hiselect(this)" onmouseout="loselect(this)" onclick="fselect(this)">[ctitle]</span></div>
          [ENDBLOCK SELECTPREF]
-<input type="hidden" value="[openfirst]" id="preffirstfam" name="preffirstfam"></input>
+<input type="hidden" value="[openfirst]" id="preffirstfam" name="preffirstfam">
 <br>
-<fieldset style="width:50%;float:left;"><legend>[TEXT:open first family]</legend>
-<div style="float:left;" id="openfirst"></div>
-<input type="image" title="[TEXT:No family first]" onclick="clearfirst();return false;" src="[IMG:clear.gif]"></input>
-</fieldset>
- <table style="width:40%;float:left;"><tr>
+
+ <table style="width:90%;float:left;"><tr>
   <td align="right"><input type="submit" value="[TEXT:Validate]" onclick="setTimeout('self.close()',1000)"> <input  type="button" value="[TEXT:Close]" onclick="self.close()"></td></tr></table> 
 </form>
 <!--  FOOT HTML -->
