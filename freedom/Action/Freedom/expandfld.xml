@@ -63,8 +63,8 @@ document.wstyle='[iconFolderPath]';
      <div style="position:absolute; top:30px; left:0; "><table border=0><tr><td><font size=-2><a style="font-size:6pt;text-decoration:none;color:gray" href="http://www.mmartins.com" target="_top"></a></font></td></table></div>
      
      <script language="JavaScript">
-        addbranch(fldtop, BeginnEntries, '[FREEDOM_VIEWFRAME]' );
         copypopup( tdiv, BeginnEntries);
+        addbranch(fldtop, BeginnEntries, '[navmode]' );
      </script>
      
      

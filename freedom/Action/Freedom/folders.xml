@@ -134,13 +134,13 @@ USETEXTLINKS = 0  //replace 0 with 1 for hyperlinks
 // Decide if the tree is to start all open or just showing the root folders
 STARTALLOPEN = 0 //replace 0 with 1 to show the whole tree
 
-actionaddfile = "[CORE_STANDURL]&app=[APPNAME]&action=ADDDIRFILE";
-actionviewfile = "[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_VIEW";
+var actionaddfile = "[CORE_STANDURL]&app=[APPNAME]&action=ADDDIRFILE";
+var actionviewfile = "[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_VIEW";
 
-actionexpfld = "[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid=";
+var actionexpfld = "[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid=";
+var navmode='[FREEDOM_VIEWFRAME]';
 
-
-fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],"[icon]",true)
+var fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],"[icon]",true)
 
 
 [subtree]
@@ -191,8 +191,8 @@ function viewhome(event) {
 <a href="#" id="mkdir"     
     onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'fdoc');closeMenu('popfld');return false">
 [TEXT:Create subfolder]</a>
-<a href="fhidden" id="refresh"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid,'fhidden');closeMenu('popfld');return false">
+<a href="#" id="refresh"     
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid,'fexpand');closeMenu('popfld');return false">
 [TEXT:Refresh folder]</a>
 <a href="#" id="cancel"  
     onClick="closeMenu('popfld');return false"  >[TEXT:cancel]</a>

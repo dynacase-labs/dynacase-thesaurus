@@ -43,6 +43,7 @@ function Folder(folderDescription, hreference, refid, icon, hasChild) //construc
   this.children = new Array;
   this.nChildren = 0;
   this.father = 0;
+  this.isInitialize = false;
  
   //methods 
   this.initialize = initializeFolder 
@@ -71,22 +72,22 @@ function initializeFolder(level, lastNode, leftSide)
       
   nc = this.nChildren ;
     
-  this.createIndex();
+  if (this.id < 0) this.createIndex();
  
  
   if (level>0) 
     if (lastNode) { 
       //the last child in the children array 
     
-	if (! this.isLoaded)  this.renderOb(leftSide  + "<img onMouseDown='clickOnNode("+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2loadlastnode.gif' width=16 height=22 border=0>");
-	else if (nc > 0)      this.renderOb(leftSide  + "<img onMouseDown='clickOnNode("+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mlastnode.gif' width=16 height=22 border=0>");
+	if (! this.isLoaded)  this.renderOb(leftSide  + "<img onMouseDown='clickOnNode(event,"+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2loadlastnode.gif' width=16 height=22 border=0>");
+	else if (nc > 0)      this.renderOb(leftSide  + "<img onMouseDown='clickOnNode(event,"+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mlastnode.gif' width=16 height=22 border=0>");
 	else this.renderOb(leftSide +   "<img name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2lastnode.gif' width=16 height=22 border=0>");
 
       leftSide = leftSide + "<img src='FREEDOM/Images/ftv2blank.gif' width=16 height=22>"  
       this.isLastNode = 1 ;
     }     else     { 
-      if (! this.isLoaded) this.renderOb(leftSide  + "<img onMouseDown='clickOnNode("+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2loadnode.gif' width=16 height=22 border=0>") ;
-      else if (nc > 0)      this.renderOb(leftSide  + "<img onMouseDown='clickOnNode("+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mnode.gif' width=16 height=22 border=0>") ;
+      if (! this.isLoaded) this.renderOb(leftSide  + "<img onMouseDown='clickOnNode(event,"+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2loadnode.gif' width=16 height=22 border=0>") ;
+      else if (nc > 0)      this.renderOb(leftSide  + "<img onMouseDown='clickOnNode(event,"+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mnode.gif' width=16 height=22 border=0>") ;
       else       this.renderOb(leftSide  + "<img name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2node.gif' width=16 height=22 border=0>") ;
 
       leftSide = leftSide + "<img src='FREEDOM/Images/ftv2vertline.gif' width=16 height=22>" ;
@@ -106,6 +107,7 @@ function initializeFolder(level, lastNode, leftSide)
         this.children[i].initialize(level, 0, leftSide) 
       } 
   } 
+  this.isInitialize=true;
 } 
  
 function setStateFolder(isOpen) 
@@ -126,14 +128,21 @@ function setStateFolder(isOpen)
  
 function propagateChangesInState(folder) 
 {   
-  var i=0 
+  var i=0;
  
+  if (!folder.nodeImg) {
+      folder.nodeImg=doc.getElementById("nodeIcon"+this.id);
+  }
+  if (!folder.iconImg) {
+      folder.nodeImg=doc.getElementById("folderIcon"+this.id);
+  }
+
   if (folder.isOpen) 
   { 
     if (folder.nodeImg)  if (folder.isLastNode)  folder.nodeImg.src = "FREEDOM/Images/ftv2mlastnode.gif" 
                          else  folder.nodeImg.src = "FREEDOM/Images/ftv2mnode.gif" 
     // folder.iconImg.src = document.wstyle+"/Images/ftv2folderopen"+folder.ftype+".gif" 
-    folder.iconImg.src = folder.iconSrc
+    if (folder.iconImg) folder.iconImg.src = folder.iconSrc
     for (i=0; i<folder.nChildren; i++) 
       folder.children[i].mostra() 
   } 
@@ -150,7 +159,7 @@ function propagateChangesInState(folder)
         else     folder.nodeImg.src = "FREEDOM/Images/ftv2node.gif" 
 
     // folder.iconImg.src = document.wstyle+"/Images/ftv2folderclosed"+folder.ftype+".gif" 
-    folder.iconImg.src = folder.iconSrc
+     if (folder.iconImg) folder.iconImg.src = folder.iconSrc
 
       // alert('esconde:'+folder.id+':'+folder.nChildren);
     for (i=0; i<folder.nChildren; i++) 
@@ -189,7 +198,7 @@ function drawFolder(leftSide)
   if (this.hreference == "#") {
 
       doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"") 
-      doc.write("onMouseOver=\"if (drag == 1) clickOnFolder("+this.id+")\"") 
+      doc.write("onMouseOver=\"if (drag == 1) clickOnFolder(event,"+this.id+")\"") 
       doc.write("onContextMenu=\"openMenu(event,'popfld',"+this.id+");return false\"") 
 
       doc.write("onMouseUp=\"if (drag == 1) {dirid="+this.refid+";selid="+this.id+";openMenu(event,'poppaste',"+this.id+")};return false;\"") 
@@ -204,15 +213,17 @@ function drawFolder(leftSide)
       doc.write("onMouseOut=\"if (drag == 0) this.className='urltext'\"") 
   doc.write(">")  
   doc.write(this.desc) 
+  doc.write('['+this.id+']') 
   doc.write("</span>")  
   doc.write("</td>")  
 
-  this.blockEnd()
+    this.blockEnd();
  
- 
-    this.navObj = doc.getElementById("folder"+this.id)
-    this.iconImg = doc.getElementById("folderIcon"+this.id) 
-    this.nodeImg = doc.getElementById("nodeIcon"+this.id)
+
+  this.navObj = doc.getElementById("folder"+this.id);
+  this.iconImg = doc.getElementById("folderIcon"+this.id) ;
+  this.nodeImg = doc.getElementById("nodeIcon"+this.id);
+
   
 } 
  
@@ -223,7 +234,7 @@ function drawFather() {
 
 //     //  this.outputLink() 
     doc.write("<img width='20' id='folderIconH" + this.id + "' name='folderIconH" + this.id + "' src='" + this.iconSrc+"' border=0 ");
-    doc.write("onClick=\"if (drag == 0) {initializeFolderH("+this.id+","+this.refid+");listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"");
+    doc.write("onClick=\"initializeFolderH("+this.id+");return;listUrl('"+actionviewfile+"&dirid="+this.refid+"')\"");
    doc.write(">")  
 
 
@@ -245,14 +256,13 @@ var dirid=0;
 
 function selectFolder(id, refid) {
   closeMenu('popfld');
-  if (selObj)  {
-    selObj.className='';
+  if (selObj)  {    
+    selObj.className='folder';
   }
   selObj = doc.getElementById("folder"+id);
-    selObj.className='select';
+  selObj.className='select';
 
     selid=id; // selected folder
-    window.status="select:"+selid;
   dirid=refid;
   fldidtoexpand=id;
 }
@@ -262,27 +272,87 @@ function selectFolderH(id, refid) {
    
 
     selid=id; // selected folder
-    window.status="select:"+selid;
-  dirid=refid;
-  fldidtoexpand=id;
+  dirid=refid;  fldidtoexpand=id;
 }
-function initializeFolderH(id, refid) {
+function initializeFolderH(id) {
   var fnode;
+  var f2;
   closeMenu('popfld');
 
-  alert('use addbrach in fexpand');
-  return;
   // use addbrach in fexpand
   fnode=indexOfEntries[id];
 
    
-    deleteallfolder();
-    fnode.initialize(0, 1, "");
+  deleteallfolder();
+  doc=window.fexpand.document;
+  doc.open();
+  f2=fnode.father;
+  while (f2 != 0) {
+    f2.drawFather();
+    f2=f2.father;
+  }
+  fnode.initialize(0, 1, "");
+  doc.close();
+  //    clickOnNode(BeginnEntries);
+  transfertHtmlfolder(window.fexpand,self);
+    
 
-    selid=id; // selected folder
-  dirid=refid;
+  selid=id; // selected folder
+  dirid=fnode.refid;
   fldidtoexpand=id;
+  doc=document;
+  restoreImg();
+  // close the whole tree 
+  resetOnNode(id);
 }
+
+function transfertHtmlfolder(ffrom,fto) {  
+  var divs = ffrom.document.getElementsByTagName("div");
+  var ifld=1;
+  var ndiv=divs.length;
+  var ne;
+  var h;
+  if (ndiv > 1) {
+
+
+    var divtoinsert = null;
+    var flddiv = fto.document.getElementById('folder'+fto.fldidtoexpand);
+    
+    if (flddiv)
+      divtoinsert=flddiv.nextSibling;
+
+
+    //   alert('nch1:'+fto.indexOfEntries[fto.fldidtoexpand].nChildren);
+    for (var i=0; i < ndiv; i++)  {
+      
+      //   alert(fto.fldidtoexpand);
+      
+      h=  fto.document.createElement("div");
+      h.innerHTML= divs[i].innerHTML;
+      h.id= divs[i].id;
+      h.className= divs[i].className;
+      divs[i].style.backgroundColor='yellow';
+      fto.document.getElementById('bodyid').insertBefore(h,divtoinsert);
+
+    }           
+  
+  }  
+}
+
+function restoreImg() { 
+  var i;
+  for (i=0;i<nEntries;i++) {
+      ne=indexOfEntries[i].id;               
+
+      indexOfEntries[ne].navObj=doc.getElementById('folder'+ne);  
+      indexOfEntries[ne].iconImg=doc.getElementById('folderIcon'+ne);  
+      indexOfEntries[ne].nodeImg=doc.getElementById('nodeIcon'+ne);  
+      indexOfEntries[ne].isOpen=true;      
+	    //            fto.indexOfEntries[ne].isLoaded=true;      
+    }
+  
+}
+
 function outputFolderLink() 
 { 
 
@@ -290,7 +360,7 @@ function outputFolderLink()
   { 
     doc.write("<a href='" + this.hreference + "' TARGET=\"basefrm\" ") 
     if (browserVersion > 0) 
-      doc.write("onClick='javascript:clickOnFolder("+this.id+"): return false'") 
+      doc.write("onClick='javascript:clickOnFolder(event,"+this.id+"): return false'") 
     doc.write(">") 
   } 
   else 
@@ -470,13 +540,13 @@ function totalHeight() //used with browserVersion == 2
 // Events 
 // ********************************************************* 
  
-function clickOnFolder(folderId) 
+function clickOnFolder(event,folderId) 
 { 
   var clicked = indexOfEntries[folderId] 
  
     if (clicked.nChildren == 0) return;
   if (!clicked.isOpen) 
-    clickOnNode(folderId) 
+    clickOnNode(event,folderId) 
  
   return  
  
@@ -484,26 +554,39 @@ function clickOnFolder(folderId)
     return 
 } 
  
-function clickOnNode(folderId) 
-{ 
-  var clickedFolder = 0 
-  var state = 0 
+function clickOnNode(event,folderId,woh) { 
+  var clickedFolder = 0;
+  var state = 0; 
+  var ctrlKey = false;
+  var invnavmode='normal';
 
-  clickedFolder = indexOfEntries[folderId] 
-  state = clickedFolder.isOpen 
+  if (! event) event=window.event;
+  if (event) ctrlKey=event.ctrlKey;
+
+  clickedFolder = indexOfEntries[folderId];
+  state = clickedFolder.isOpen;
+  
+  if (clickedFolder.isLoaded) clickedFolder.setState(!state); //open<->close  
  
-    clickedFolder.setState(!state) //open<->close  
-
-    if (allinitialized && (! clickedFolder.isLoaded) ) {
+  if (allinitialized) {
+    if (! clickedFolder.isLoaded)  {
       fldidtoexpand=folderId;
-      self.fexpand.document.location.href=actionexpfld+clickedFolder.refid;
-           
-      
+      if (ctrlKey) invnavmode='inverse';
+      self.fexpand.document.location.href=actionexpfld+clickedFolder.refid+'&inavmode='+invnavmode;      
       clickedFolder.isLoaded=true;
+    } else {
+      if ((! woh) && (navmode=='folder') && (!ctrlKey) && (!state) ) initializeFolderH(folderId);
     }
-
+  }
 } 
  
+function resetOnNode(folderId) { 
+		// close the whole tree 
+  clickOnNode(null,folderId,true);
+		// open the root folder 
+   clickOnNode(null,folderId,true);
+  
+}
 
 // Auxiliary Functions for Folder-Tree backward compatibility 
 // *********************************************************** 
@@ -567,12 +650,6 @@ var selectedFolder=0
 var allinitialized=false;
 var BeginnEntries = 0 
 var nEntries = BeginnEntries
-var doc = document 
-var browserVersion = 0 
-var selectedFolder=0
-var allinitialized=false;
-var BeginnEntries = 0 
-var nEntries = BeginnEntries
 var fldidtoexpand=0;
 // Main function
 // ************* 
@@ -609,9 +686,10 @@ function initializeDocument()
   if (!STARTALLOPEN)
 	  if (browserVersion > 0) {
 		// close the whole tree 
-		clickOnNode(BeginnEntries) 
-		// open the root folder 
-		clickOnNode(BeginnEntries) 
+	    resetOnNode(0);
+	    fldtop.isLoaded=true;
+
+
 	  } 
 
  
