@@ -1,27 +1,15 @@
 <?php
 /**
- * Generated Header (not documented yet)
- *
- * @author Anakeen 2000 
- * @version $Id: Method.DocGroup.php,v 1.6 2003/09/16 07:39:14 eric Exp $
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @package FREEDOM
- * @subpackage USERCARD
- */
- /**
- */
-<?php
-/**
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version \$Id: Method.DocGroup.php,v 1.6 2003/09/16 07:39:14 eric Exp $
+ * @version \$Id: Method.DocGroup.php,v 1.7 2004/01/26 14:55:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
  */
 // ---------------------------------------------------------------
-// $Id: Method.DocGroup.php,v 1.6 2003/09/16 07:39:14 eric Exp $
+// $Id: Method.DocGroup.php,v 1.7 2004/01/26 14:55:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
