@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_modaccess.php,v 1.9 2004/11/12 10:16:49 eric Exp $
+ * @version $Id: freedom_modaccess.php,v 1.10 2005/03/01 17:16:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_modaccess.php,v 1.9 2004/11/12 10:16:49 eric Exp $
+// $Id: freedom_modaccess.php,v 1.10 2005/03/01 17:16:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -41,7 +41,7 @@ include_once("FDL/Lib.Dir.php");
 function freedom_modaccess(&$action) {
   // -----------------------------------
 
-  
+  global $_SERVER; 
   // get all parameters
 
   $acls=GetHttpVars("acls", array()); 
@@ -59,7 +59,7 @@ function freedom_modaccess(&$action) {
   $err = $doc->Control("modifyacl");
   if ($err != "") $action->exitError($err);
 
-
+  
   while (list($userid,$aclon) = each ($acls)) {     
   
     // modif permission for a particular user
@@ -82,10 +82,11 @@ function freedom_modaccess(&$action) {
 			$pfamid	);
     if (count($tdoc)>0) {
       $kdoc = createDoc($dbaccess,$pfamid,true);
+      $kc=count($kdoc);
       foreach( $tdoc as $k=>$v) {
 	$kdoc->Affect($v);
-	$kdoc->computeDProfil();
-
+	$kdoc->computeDProfil(); 
+	if ($_SERVER['HTTP_HOST'] == "")  print ($kc-$k).")".$kdoc->title."\n";
       }
     }
   }
