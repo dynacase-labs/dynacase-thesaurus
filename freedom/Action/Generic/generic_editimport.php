@@ -3,7 +3,7 @@
  * Import document from CSV file
  *
  * @author Anakeen 2004
- * @version $Id: generic_editimport.php,v 1.12 2004/08/09 16:23:27 eric Exp $
+ * @version $Id: generic_editimport.php,v 1.13 2004/09/14 14:01:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -83,7 +83,8 @@ function generic_editimport(&$action) {
     $tkey[]=array("idattr"=>$attr->id,
 		  "lattr"=>$attr->labelText);
   }
-  $lattr = $doc->GetImportAttributes();
+  if ($allcol) $lattr = $doc->GetNormalAttributes();
+  else $lattr = $doc->GetImportAttributes();
   foreach ($lattr as $k=>$attr) {
     $tcol[]=array("idattr"=>$attr->id,
 		  "lattr"=>$attr->labelText);
