@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.83 2005/02/10 10:14:26 eric Exp $
+ * @version $Id: import_file.php,v 1.84 2005/02/10 11:34:33 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -709,7 +709,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   if ($err=="") {
     $msg .= $doc->title;
     if (is_numeric($data[3])) $ndirid=$data[3];
-    else =  $ndirid=getIdFromName($dbaccess,$data[3],2);
+    else $ndirid=getIdFromName($dbaccess,$data[3],2);
     if ($ndirid > 0) { // dirid
       $dir = new Doc($dbaccess, $ndirid);
       if ($dir->isAffected()) {
