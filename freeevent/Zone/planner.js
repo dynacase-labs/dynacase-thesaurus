@@ -388,11 +388,12 @@ function viewdesc(event,idx) {
   var dd=document.getElementById('desc');
   if (dd) {
     if (dd.style.display=='none') {
+      dd.style.top=0;
+      dd.style.left=400;
+      dd.style.width='auto';
       dd.style.display='';
       GetXY(event);
-      //      dd.innerHTML=Xpos+'+'+Ypos;
-      dd.style.top=0;
-      dd.style.left=0;
+      //      dd.innerHTML=Xpos+'+'+Ypos;           
       dbar=document.getElementById('bar'+tevents[idx][0]);
       if (dbar) {
 	dd.style.backgroundColor=dbar.style.backgroundColor;
@@ -412,6 +413,7 @@ function viewdesc(event,idx) {
       }
       dd.style.top=Ypos+10;
       dd.style.left=Xpos+10;
+      if (getObjectWidth(dd) < 20) dd.style.width='200px'; // bug in mozilla when vscroll bar
     }
   }  
 }
