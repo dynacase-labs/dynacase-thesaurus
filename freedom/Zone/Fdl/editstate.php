@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.11 2004/09/29 09:07:20 eric Exp $
+ * @version $Id: editstate.php,v 1.12 2004/10/08 13:26:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -68,10 +68,12 @@ function editstate(&$action) {
       $action->lay->Set("initstatename", $action->text($doc->state) );
       $tstate= array();
       $taskes=array();
+      if (isset($wdoc->autonext[$doc->state])) $dstate=$wdoc->autonext[$doc->state];
       foreach ($fstate as $k=>$v) {
 	$tr=$wdoc->getTransition($doc->state,$v);
 	$tk=$tr["id"];
 	$tstate[$k]["statevalue"] = $v;
+	$tstate[$k]["checked"] = ($v==$dstate)?"selected":"";
 	$tstate[$k]["statename"] = _($v);
 	$tstate[$k]["transid"] = $tk;
 	if (is_array($tr["ask"]))  $tjsaskes[] = "['".implode("','",$tr["ask"])."']";

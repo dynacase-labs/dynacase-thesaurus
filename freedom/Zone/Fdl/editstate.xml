@@ -15,7 +15,7 @@ var WattrNtitle=new Array([Wattrntitle]);
  <select id="seltrans" name="newstate" onchange="askForTransition(this);if (this.selectedIndex > 0) {document.getElementById('comment').style.visibility='';} else document.getElementById('comment').style.visibility='hidden';"> 
  <option VALUE="-" >[TEXT:unchanged]</option> 
 [BLOCK NEWSTATE]
- <option VALUE="[statevalue]" >[statename]</option>  
+ <option VALUE="[statevalue]" [checked]>[statename]</option>  
 [ENDBLOCK NEWSTATE]
   </select>
   </td><td colspan="2">

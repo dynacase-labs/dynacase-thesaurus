@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.40 2004/09/22 16:16:39 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.41 2004/10/08 13:26:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -41,6 +41,7 @@ Class WDoc extends Doc {
   //----------------------  TRANSITION DEFINITION --------------------
   var $transitions = array();// set by childs classes
   var $cycle = array();// set by childs classes
+  var $autonext = array();// set by childs classes
   var $firstState=""; // first state in workflow
 
   function WDoc($dbaccess='', $id='',$res='',$dbid=0) {
