@@ -70,3 +70,17 @@ function closechoose() {
 
     if (wichoose) wichoose.close();
 }
+
+function canmodify() {
+    var attrNid=[attrnid];
+    
+
+    for (var i=0; i< attrNid.length; i++) {	
+
+	if (document.getElementById(attrNid[i]).value == '') {
+	    alert('[TEXT:some needed attributes are empty]');
+	    return false;
+	}
+    }
+    return true;
+}

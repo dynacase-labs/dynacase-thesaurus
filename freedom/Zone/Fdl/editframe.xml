@@ -6,7 +6,7 @@
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1">
   <td width="10%">&nbsp;</td>
-  <td width="30%" valign="top" class="FREEDOMlabel">[alabel]</td>
+  <td width="30%" valign="top" class="[labelclass]">[alabel]</td>
   <td width="60%" >[avalue]</td>
 </tr>
 [ENDBLOCK FVALUES]

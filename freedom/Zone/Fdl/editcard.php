@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.12 2002/07/15 07:03:21 eric Exp $
+// $Id: editcard.php,v 1.13 2002/07/17 13:35:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,9 +43,6 @@ function editcard(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   
-  $jsfile=$action->GetLayoutFile("editcard.js");
-  $jslay = new Layout($jsfile,$action);
-  $action->parent->AddJsCode($jslay->gen());
 
  
 
@@ -76,5 +73,22 @@ function editcard(&$action) {
 
   $action->lay->Set("classid", $classid);
   $action->lay->Set("ZONEBODYCARD", $zonebodycard);
+
+
+  // compute modify condition js
+    $attrn = $doc->GetNeededAttributes();
+  
+  if (count($attrn) == 0) $sattrNid = "[]";
+  else {
+    while(list($k,$v) = each($attrn)) {
+      $attrNid[]=$v->id;
+    }
+  $sattrNid = "['".implode("','",$attrNid)."']";
+  }
+
+  $jsfile=$action->GetLayoutFile("editcard.js");
+  $jslay = new Layout($jsfile,$action);
+  $jslay->Set("attrnid",$sattrNid);
+  $action->parent->AddJsCode($jslay->gen());
 }
 ?>

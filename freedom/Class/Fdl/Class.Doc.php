@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.33 2002/07/16 16:32:36 eric Exp $
+// $Id: Class.Doc.php,v 1.34 2002/07/17 13:35:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.33 2002/07/16 16:32:36 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.34 2002/07/17 13:35:54 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -566,47 +566,35 @@ create sequence seq_id_doc start 1000";
   // return all the attributes object for abstract
   // the attribute can be defined in fathers
   function GetAbstractAttributes()
-    {
-      $query = new QueryDb($this->dbaccess,"DocAttr");
-      // initialise query with all fathers doc
-      // 
-      $sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
-      $query->AddQuery($sql_cond_doc);
-    
-      $query->AddQuery("type != 'frame'");
-      $query->AddQuery("abstract = 'Y'");
-      $query->AddQuery("visibility != 'H'");
-      $query->AddQuery("visibility != 'M'");
-      $query->order_by="ordered";
-      return $query->Query();      
+    {      
+      return $this->GetSpecialAttributes("(abstract = 'Y') and (visibility != 'H') and (visibility != 'M')");
     }
 
   // return all the attributes object for title
   // the attribute can be defined in fathers
   function GetTitleAttributes()
-    {
-      if (isset($this->titleattr)) return $this->titleattr;
-
-      $query = new QueryDb($this->dbaccess,"DocAttr");
-      // initialise query with all fathers doc
-      // 
-      $sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
-      $query->AddQuery($sql_cond_doc);
-    
-      $query->AddQuery("type != 'frame'");
-      $query->AddQuery("title = 'Y'");
-      $query->order_by="ordered";
-
-      $this->titleattr = $query->Query();      
-      return $this->titleattr;
+    {      
+      return $this->GetSpecialAttributes("title = 'Y'");
     }
 
   // return all the attributes object for popup menu
   // the attribute can be defined in fathers
   function GetMenuAttributes()
-    {
-      if (isset($this->titleattr)) return $this->titleattr;
+    {      
+      return $this->GetSpecialAttributes("visibility = 'M'");
+    }
 
+  // return all the necessary attributes 
+  // the attribute can be defined in fathers
+  function GetNeededAttributes()
+    {      
+      return $this->GetSpecialAttributes("visibility = 'N'");
+    }
+
+  // return all the attributes conform $condition
+  // the attribute can be defined in fathers
+  function GetSpecialAttributes($condition)
+    {
       $query = new QueryDb($this->dbaccess,"DocAttr");
       // initialise query with all fathers doc
       // 
@@ -614,12 +602,12 @@ create sequence seq_id_doc start 1000";
       $query->AddQuery($sql_cond_doc);
     
       $query->AddQuery("type != 'frame'");
-      $query->AddQuery("visibility = 'M'");
+      $query->AddQuery($condition);
       $query->order_by="ordered";
-
-      return $query->Query();      
+      $gsa= $query->Query();  
+      if ($query->nb == 0) return array();
+      return $gsa; 
     }
-
   // recompute the title from attribute values
   function RefreshTitle() {
 
@@ -829,7 +817,7 @@ create sequence seq_id_doc start 1000";
     $lattr = $this->GetAttributes();
 
     while(list($k,$v) = each($lattr)) {
-      if (($v->visibility != "W") && ($v->visibility != "T") &&
+      if (($v->visibility != "W") && ($v->visibility != "N") &&
 	  (chop($v->phpfile) != "") && 
 	  (chop($v->phpfunc) != "") ) {
 	// it's a calculated attribute

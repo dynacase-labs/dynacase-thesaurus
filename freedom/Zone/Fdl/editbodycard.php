@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.2 2002/06/18 14:20:58 eric Exp $
+// $Id: editbodycard.php,v 1.3 2002/07/17 13:35:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -214,6 +214,10 @@ function editbodycard(&$action) {
 		$label = $doc->GetLabel($listattr[$i]->id);
 		$tableframe[$v]["attrid"]=$listattr[$i]->id;
 		$tableframe[$v]["name"]=chop("[TEXT:".$label."]");
+
+		if ($listattr[$i]->visibility == "N") $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
+		else $tableframe[$v]["labelclass"]="FREEDOMLabel";
+
 		//$tableframe[$v]["name"]=$action->text($label);
 		$tableframe[$v]["inputtype"]=getHtmlInput($action, 
 							  $doc->id,

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.1 2002/07/15 07:03:56 eric Exp $
+// $Id: editframe.php,v 1.2 2002/07/17 13:35:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -81,6 +81,8 @@ function editframe(&$action) {
 		// special case for hidden values
 	      } else {	
 	      $tval[$k]["alabel"]=  $v->labeltext;
+	      if ($v->visibility == "N") $tval[$k]["labelclass"]="FREEDOMLabelNeeded";
+	      else $tval[$k]["labelclass"]="FREEDOMLabel";
 	      $tval[$k]["avalue"]=  getHtmlInput($action, 
 				       $doc->id,
 				       $v->id, 
