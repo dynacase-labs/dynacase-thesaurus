@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.77 2004/09/14 14:03:05 eric Exp $
+ * @version $Id: editutil.php,v 1.78 2004/09/21 14:34:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,28 +12,7 @@
  */
 
 
-// ---------------------------------------------------------------
-// $Id: editutil.php,v 1.77 2004/09/14 14:03:05 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 //
 // ---------------------------------------------------------------
@@ -861,6 +840,7 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   }
 
   $lay->setBlockData("OPTIONS",$topt);
+  $lay->set("value",$value);
 
 }
 /**
