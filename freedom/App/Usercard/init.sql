@@ -65,6 +65,8 @@ INSERT INTO docperm (docid, userid, upacl, unacl, cacl) VALUES (509, 1000000, 6,
 INSERT INTO vgroup (id, num) VALUES ('us_meid', 1000000);
 INSERT INTO vgroup (id, num) VALUES ('us_idsociety', 1000001);
 INSERT INTO vgroup (id, num) VALUES ('us_idservice', 1000002);
+INSERT INTO vgroup (id, num) VALUES ('us_idservice', 1000002);
+select setval('seq_id_docvgroup',1000004);
 
 
 --

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.82 2004/03/01 09:08:39 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.83 2004/03/04 13:48:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.82 2004/03/01 09:08:39 eric Exp $
+// $Id: Lib.Dir.php,v 1.83 2004/03/04 13:48:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -224,8 +224,7 @@ function getChildDoc($dbaccess,
 		     $userid=1, 
 		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
   
-  // query to find child documents            
-  
+  // query to find child documents          
   if (($fromid!="") && (! is_numeric($fromid))) $fromid=getFamIdFromName($dbaccess,$fromid);
   $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest);
 
@@ -253,7 +252,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
 

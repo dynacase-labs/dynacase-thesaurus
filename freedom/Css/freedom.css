@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.40 2004/02/24 08:38:48 eric Exp $
+ * $Id: freedom.css,v 1.41 2004/03/04 13:48:19 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -388,8 +388,7 @@ TABLE.reportHBlue {
         -moz-border-radius:25px
 }
 .reportHBlue TR.trodd{
-	background-color: #99CCFF;	
-	border-color : cornflowerblue;
+	background-color: #99CCFF;
 }
 .reportHBlue TR.treven{
 	background-color: lavender;
@@ -399,19 +398,19 @@ TABLE.reportHBlue {
 	color : black;
 	background-color: cornflowerblue;
 }
+
 .reportHBlue TD.tdodd{
 	color : black;
 	empty-cells: show;
+	border-color : lavender cornflowerblue cornflowerblue lavender ;
+	border-style : inset none outset none;
 	border-width : 1px;
-	border-style : none solid  none none;
-	border-color : cornflowerblue;
-
 }
 .reportHBlue TD.tdeven{
 	color : black;
 	empty-cells: show;
-	border-color : cornflowerblue;
-	border-style : none solid  none none;
+	border-color : lavender cornflowerblue cornflowerblue lavender ;
+	border-style : inset none outset none;
 	border-width : 1px;
 }
 
