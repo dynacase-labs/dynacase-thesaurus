@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.7 2002/04/09 14:48:44 eric Exp $
+// $Id: Class.QueryDir.php,v 1.8 2002/06/21 14:25:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.7 2002/04/09 14:48:44 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.8 2002/06/21 14:25:44 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -32,7 +32,7 @@ include_once("Class.Log.php");
   
 Class QueryDir extends DbObj
 {
-  var $fields = array ( "id","dirid","query","childid","qtype","zou");
+  var $fields = array ( "id","dirid","query","childid","qtype");
 
   var $id_fields = array ("id");
 
@@ -47,9 +47,10 @@ create table fld ( id      int PRIMARY KEY,
                     dirid   int not null,
                     query   text,
                     childid   int,
-                    qtype   varchar(1),
-                    zou   varchar(1)
+                    qtype   varchar(1)
                    );
+create index fld_iqd on fld(qtype,dirid);
+create index fld_u on fld(qtype,dirid,childid);
 create sequence seq_id_fld start 100";
 
   var $relatedCacheClass= array("doc"); // class must ne cleaned also in case of modify
