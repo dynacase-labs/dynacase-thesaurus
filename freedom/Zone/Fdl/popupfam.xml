@@ -1,7 +1,7 @@
 <!-- ------------ ADD POPUP DIVISION --------------------- -->
 
 [BLOCK SEP]
-<a class="separator">_____</a>
+<a class="separator"></a>
 [ENDBLOCK SEP]
 
 [BLOCK ADDLINK]

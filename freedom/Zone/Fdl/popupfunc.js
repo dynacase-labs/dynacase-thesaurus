@@ -1,7 +1,5 @@
 var isNetscape = navigator.appName=="Netscape";
 
-var Xpos = 0;
-var Ypos = 0;
 
 
 
@@ -61,19 +59,23 @@ function closeSubMenu(menuid) {
     if (sm[i].getAttribute('name') == menuid)    closeMenu(sm[i].id);
   }
 }
+var Xold; // for short cut key
+var Yold;
 function openMenu(event, menuid, itemid) {
   var el, x, y;
 
-  if (window.event) {
-    x = window.event.clientX + document.documentElement.scrollLeft
-                             + document.body.scrollLeft;
-    y = window.event.clientY + document.documentElement.scrollTop +
-                             + document.body.scrollTop;
+  GetXY(event);
+  if ((Xpos>0) && (Ypos>0)) {
+   Xold=Xpos;
+   Yold=Ypos;
   }
-  else {
-    x = event.clientX + window.scrollX;
-    y = event.clientY + window.scrollY;
+  x=Xpos;y=Ypos;
+  if ((x==0) && (y==0)) {
+    x=Xold;
+    y=Yold;
+    if ((x==0) && (y==0)) {x=100;y=100;}
   }
+
   x -= 2; y -= 2;
 
 
