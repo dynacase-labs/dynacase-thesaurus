@@ -63,9 +63,7 @@ function lmail( $dbaccess, $name) {
 function lfamilly($dbaccess, $famid, $name, $catgid=0, $filter=array()) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
-  $catgid= 0;
   
-
 
   if ($name != "") {
     $filter[]="title ~* '.*$name.*'";

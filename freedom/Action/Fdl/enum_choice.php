@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.10 2002/12/16 11:46:57 eric Exp $
+// $Id: enum_choice.php,v 1.11 2003/01/03 17:45:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -64,16 +64,23 @@ function enum_choice(&$action) {
   $sattrid.= strtolower("'".implode("','", $rargids)."'");
   $sattrid.="]";
 
-  $argids = split(",",$reg[2]);  // input args
+  // change parameters familly
+  $iarg =  preg_replace(
+			"/\{([^\}]+)\}/e", 
+			"getAttr('\\1')",
+			$reg[2]);
+
+
+  $argids = split(",",$iarg);  // input args
   while (list($k, $v) = each($argids)) {
     if ($v == "A") $arg[$k]= &$action;
     else if ($v == "D") $arg[$k]= $dbaccess;
     else if ($v == "T") $arg[$k]= &$this;
-    else $arg[$k]= trim(GetHttpVars("_".strtolower($v),""));
+    else $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
   }
 
+  print_r2($arg);
   $res = call_user_func_array($reg[1], $arg);
-
 
   // addslahes for JS array
   reset($res);
@@ -116,5 +123,8 @@ function enum_choice(&$action) {
   $action->lay->SetBlockData("ATTRVAL", $tval);
 }
 
-
+function getAttr($aid) {
+      return GetParam($aid,
+		      getFamIdFromName(GetParam("FREEDOM_DB"),$aid));
+}
 ?>
