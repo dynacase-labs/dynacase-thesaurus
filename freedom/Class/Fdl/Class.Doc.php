@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.156 2003/09/16 07:38:19 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.157 2003/09/22 13:07:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.156 2003/09/16 07:38:19 eric Exp $
+// $Id: Class.Doc.php,v 1.157 2003/09/22 13:07:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.156 2003/09/16 07:38:19 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.157 2003/09/22 13:07:57 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1034,6 +1034,19 @@ create unique index i_docir on doc(initid, revision);";
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute") && ($v->isInTitle)) $tsa[$v->id]=$v;      
+      }
+      return $tsa;
+    }
+  // return all the attributes object for to e use in edition
+  // the attribute can be defined in fathers
+  function GetInputAttributes()
+    { 
+      if (!$this->_maskApplied) $this->ApplyMask();
+      $tsa=array();
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
+	if ((get_class($v) == "normalattribute") && (!$v->inArray()) && 
+	    ($v->mvisibility != "I" )) $tsa[$v->id]=$v;      // I means not editable
       }
       return $tsa;
     }
@@ -2125,18 +2138,28 @@ create unique index i_docir on doc(initid, revision);";
     }
     return $this->lay->gen();
   }
+  // --------------------------------------------------------------------
 
-  // --------------------------------------------------------------------
-  // construct layout for view card containt
-  // --------------------------------------------------------------------
+  /**
+   * default construct layout for view card containt
+   *
+   * @param string $target window target name for hyperlink destination
+   * @param bool $ulink if false hyperlink are not generated
+   * @param bool $abstract if true only abstract attribute are generated
+   */
   function viewdefaultcard($target="_self",$ulink=true,$abstract=false) {
     $this->viewattr($target,$ulink,$abstract);
     $this->viewprop($target,$ulink,$abstract);
   }
+  // --------------------------------------------------------------------
 
-  // --------------------------------------------------------------------
-  // construct layout for view card containt
-  // --------------------------------------------------------------------
+  /**
+   * construct layout for view card containt
+   *
+   * @param string $target window target name for hyperlink destination
+   * @param bool $ulink if false hyperlink are not generated
+   * @param bool $abstract if true only abstract attribute are generated
+   */
   function viewbodycard($target="_self",$ulink=true,$abstract=false) {
 
     $this->lay->Set("cursor",$ulink?"crosshair":"inherit");
@@ -2149,8 +2172,7 @@ create unique index i_docir on doc(initid, revision);";
       // only 3 properties for abstract mode
       $listattr = $this->GetAbstractAttributes();
     } else {
-      $listattr = $this->GetNormalAttributes();
-    
+      $listattr = $this->GetNormalAttributes();    
     }
     
 
@@ -2299,7 +2321,7 @@ create unique index i_docir on doc(initid, revision);";
   }
   
   // -----------------------------------
-  function viewabstractcard($target="finfo",$ulink=true,$abstract="Y") {
+  function viewabstractcard($target="finfo",$ulink=true,$abstract=true) {
     // -----------------------------------
     
 
@@ -2485,7 +2507,7 @@ create unique index i_docir on doc(initid, revision);";
   
  
     $frames=array();
-    $listattr = $this->GetAttributes();
+    $listattr = $this->GetInputAttributes();
   
 
   
@@ -2503,9 +2525,7 @@ create unique index i_docir on doc(initid, revision);";
     $iattr=0;
     reset($listattr);
     while (list($i,$attr) = each($listattr)) {
-      if ((get_class($attr) != "normalattribute")) continue;
-      if ($attr->inArray()) continue;
-      if ($attr->mvisibility == "I" ) continue; // not editable
+      
       $iattr++;
     
       // Compute value elements
