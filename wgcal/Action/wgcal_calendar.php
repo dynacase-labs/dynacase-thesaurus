@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.1 2004/11/26 18:52:30 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.2 2004/11/26 19:01:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -36,9 +36,9 @@ function wgcal_calendar(&$action) {
   else $ndays = $dayperweek;
 
   $sdate = GetHttpVars("newdate", time());
+  $sdatef = strftime("%d/%m/%Y", $sdate);
   
 
-  //$sdate = $action->Read("WGCAL_SU_CURDATE", time());
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);
   $week  = strftime("%V",$sdate);
@@ -52,6 +52,7 @@ function wgcal_calendar(&$action) {
   $today = strftime("%d/%m/%Y", time());
   $firstWeekDay = GetFirstDayOfWeek($sdate);
   $fday  = strftime("%u",$firstWeekDay);
+
   $action->lay->set("DIVSTART", "calareastart");
   $action->lay->set("DIVEND", "calareaend");
   
@@ -60,6 +61,7 @@ function wgcal_calendar(&$action) {
 
   $classalt = array ( 0 => "WGCAL_Day1", 1 => "WGCAL_Day2" );
   $curday = -1;
+  echo "curdate = $ld selected = $sdatef<br/>";
   for ($i=0; $i<$ndays; $i++) 
     { 
       $ld = strftime("%d/%m/%Y", $firstWeekDay+($i*SEC_PER_DAY));
@@ -67,6 +69,9 @@ function wgcal_calendar(&$action) {
 	$classh[$i] = "WGCAL_DayLineCur";
 	$class[$i] = "";
         $curday = $i; 
+      } else if (!strcmp($ld,$sdatef)) {
+	$classh[$i] = "WGCAL_DaySelected";
+	$class[$i] = "WGCAL_DaySelected";
       } else {
 	$classh[$i] = "WGCAL_Period"; 
 	if ($alt==1) $alt = 0;
