@@ -1,66 +1,65 @@
 
-var $ZoneEvtAbstract =  "WGCAL:CALEV_ABSTRACT";
-var $ZoneEvtCard =  "WGCAL:CALEV_CARD";
-
-
 // function explodeEvt($d1, $d2) {
+//   echo "explodeEvt($d1, $d2)<br>";
+//   print_r2($this);
+//   return $this;
 // }
 
 
 function TexplodeEvt($d1, $d2) {
   include_once("FDL/Lib.Util.php");  
   $eve = array();
-  $eve[] = $this;
 
-  $jd1 = Iso8601ToJD($d1);
-  $jd2 = Iso8601ToJD($d2);
+  $jd1 = ($d1==""?0:Iso8601ToJD($d1));
+  $jd2 = ($d2==""?5000000:Iso8601ToJD($d2));
   
   // check start and end date
-  $evs = StringDateToJD($this->getValue("evt_begdate"));
-  $eve = StringDateToJD($this->getValue("evt_endbegdate"));
-  
-  $r->mode      = $this->getValue("evfc_repeatmode");
-  $r->freq      = $this->getValue("evfc_repeatfreq");
-  $r->weekday   = $this->getValue("evfc_repeatweekday");
-  $r->month     = $this->getValue("evfc_repeatmonth");
-  $r->untildate = ($this->getValue("evfc_repeatuntil")==0 ? -1 :  StringDateToJD($this->getValue("evfc_repeatuntildate")));
-  $r->exclude = array();
+  $e->ds = StringDateToJD($this->getValue("evt_begdate"));
+  $e->de = StringDateToJD($this->getValue("evt_endbegdate"));
+  $e->dur = $e->de - $e->ds;
+
+  // really produce event ?
+  $e->mode      = $this->getValue("evfc_repeatmode");
+  $e->freq      = $this->getValue("evfc_repeatfreq");
+  $e->weekday   = $this->getValue("evfc_repeatweekday");
+  $e->month     = $this->getValue("evfc_repeatmonth");
+  $e->untildate = ($this->getValue("evfc_repeatuntil")==0 ? -1 :  StringDateToJD($this->getValue("evfc_repeatuntildate")));
+  $e->exclude = array();
   $te = $this->getValue("evfc_excludedate");
   foreach ($te as $k => $v) {
-    if ($v!="") $r->exclude[] = StringDateToJD($v);
+    if ($v!="") $e->exclude[] = StringDateToJD($v);
   }
   
-  if ($r->mode == 0) return $eve;
-  if ($evs>$jd2 || ($r->untildate!=-1 && $r->untildate<$jd1)) return $eve;
+  // return event if there are not repeatable to produce 
+  if (($r->de<$jd1 && $r->d1>$jd2) || ($r->de<$jd1) || ($r->mode==0)) return $eve;
 
-  switch ($rmode) 
-    {
-    case 1 : $eve = r_daily($jd1, $jd2, $evs, $eve, $r); break;
-    case 2 : $eve = r_weekly($jd1, $jd2, $evs, $eve, $r); break;
-    case 2 : $eve = r_monthly($jd1, $jd2, $evs, $eve, $r); break;
-    case 2 : $eve = r_yearly($jd1, $jd2, $evs, $eve, $r); break;
-    }
-  return $eve;
+
+  switch ($e->mode) {
     
-}
-  
+  case 1: // daily repeat
+    $ref = get_object_vars($this);
+    $ix = 0;
+    for ($iday=$jd1; $iday<=$jd2; $iday++) {
+      $eve[$ix] = $ref;
+      $eve[$ix]["evt_begdate"] = jd2cal($iday);
+      $eve[$ix]["evt_endbegdate"] = jd2cal($iday) + $e->dur;
+      $eve[$ix]["evfc_repeatmode"] = 0;
+      $ix++;
+    }
+    break;
 
-function r_daily($jd1, $jd2, $evs, $eve, $r)
-{
-  include_once("FDL/Lib.Util.php");  
 
-  $rev = array();
-  $rev[] = $this;
+  case 2: // weekly repeat
+    break;
 
-  $ate = get_object_vars($this);
-  $db = ($jd1-$evs)%$r->freq;
-  $ie = 0;
-  for ($j = $db; $j<=$jd2; $j+$r->freq) {
-    // New !!
-    $rev[$ie] = $ate;
-    $rev[$ie]["evt_begdate"] = jd2cal($j);
-    $rev[$ie]["evt_enddate"] = jd2cal($eve-$evs);
-    $rev[$ie]["evt_desc"] = $j;
+  case 3: // monthly repeat
+    break;
+
+  case 4: // yearly repeat
+    break;
+    
   }
-  return $rev;
+
+
+  return $eve;
 }

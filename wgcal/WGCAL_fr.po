@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-17 08:08+0100\n"
+"POT-Creation-Date: 2005-02-18 16:12+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -18,9 +18,6 @@ msgstr "couleur des jours de week-end"
 
 msgid "selected day color"
 msgstr "couleur du jour sélectionné"
-
-msgid "left toolbar width"
-msgstr "Largeur de la barre d'outils"
 
 msgid "title line height"
 msgstr "Hauteur de la ligne de titre"
@@ -90,6 +87,15 @@ msgstr "Position des popup fixe"
 
 msgid "general theme"
 msgstr "Thème"
+
+msgid "start hour used for event setting"
+msgstr "Heure de début utilsée pour la saisie de RV"
+
+msgid "end hour used for event setting"
+msgstr "Heure de fin utilsée pour la saisie de RV"
+
+msgid "minutes increment used for event setting"
+msgstr "Incrément pour les minutes en saisie de RV"
 
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
@@ -427,9 +433,6 @@ msgstr "Mes tâches"
 msgid "found ressources"
 msgstr "Ressources trouvées"
 
-msgid " ressource list changed, save it ?"
-msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
-
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
 
@@ -453,6 +456,9 @@ msgstr "imprimer"
 
 msgid "change preferences"
 msgstr "Modifier les préférences"
+
+msgid " ressource list changed, save it ?"
+msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 
 msgid "my calendars"
 msgstr "Mes calendriers"
@@ -490,6 +496,9 @@ msgstr "Options générales"
 msgid "theme caracteristics"
 msgstr "Thème utilisé"
 
+msgid "waiting rv window size"
+msgstr "Taille de la zone d'affichage de évènement en attente"
+
 msgid "information popup management"
 msgstr "Gestion de l'affichage des détails des rendez-vous (pop-up)"
 
@@ -499,14 +508,20 @@ msgstr "Position d'affichage"
 msgid "timeout before displaying popup"
 msgstr "Temporisation avec l'affichage"
 
-msgid "days hours"
-msgstr "Gestion de la journée affichée"
+msgid "start hour"
+msgstr "heure de début"
 
-msgid "start day hour"
-msgstr "Heure de début"
+msgid "end hour"
+msgstr "heure de fin"
 
-msgid "end day hour"
-msgstr "Heure de fin"
+msgid "meetings edition"
+msgstr "Edition des rendez-vous"
+
+msgid "meeting hours interval"
+msgstr "Intervalle de choix des heures"
+
+msgid "meeting minute increase"
+msgstr "Tranches de minutes selectionnables"
 
 msgid "look preferences"
 msgstr "Aspect et comportement de l'interface"
@@ -572,14 +587,17 @@ msgstr "jusqu'au"
 msgid "there is excluded days"
 msgstr "il y a des jours exclus"
 
+msgid "small"
+msgstr "Petite"
+
+msgid "medium"
+msgstr "Moyenne"
+
+msgid "large"
+msgstr "Grande"
+
 msgid "the default theme"
 msgstr "défaut"
-
-msgid "orange"
-msgstr "Orange"
-
-msgid "for the girls"
-msgstr "Pour les filles"
 
 msgid "view icon in event"
 msgstr "Afficher les icones et les heures sur l'agenda"
@@ -628,6 +646,24 @@ msgstr "à confirmer"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"
+
+#~ msgid "days hours"
+#~ msgstr "Gestion de la journée affichée"
+
+#~ msgid "left toolbar width"
+#~ msgstr "Largeur de la barre d'outils"
+
+#~ msgid "start day hour"
+#~ msgstr "Heure de début"
+
+#~ msgid "end day hour"
+#~ msgstr "Heure de fin"
+
+#~ msgid "orange"
+#~ msgstr "Orange"
+
+#~ msgid "for the girls"
+#~ msgstr "Pour les filles"
 
 #~ msgid "alt display timer"
 #~ msgstr "Délai avant affichage du popup"

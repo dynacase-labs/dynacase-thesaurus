@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-17 08:08+0100\n"
+"POT-Creation-Date: 2005-02-18 16:12+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -17,9 +17,6 @@ msgid "week end days color"
 msgstr ""
 
 msgid "selected day color"
-msgstr ""
-
-msgid "left toolbar width"
 msgstr ""
 
 msgid "title line height"
@@ -89,6 +86,15 @@ msgid "alt postion is fixed"
 msgstr ""
 
 msgid "general theme"
+msgstr ""
+
+msgid "start hour used for event setting"
+msgstr ""
+
+msgid "end hour used for event setting"
+msgstr ""
+
+msgid "minutes increment used for event setting"
 msgstr ""
 
 msgid "workgroup calendar"
@@ -427,9 +433,6 @@ msgstr ""
 msgid "found ressources"
 msgstr ""
 
-msgid " ressource list changed, save it ?"
-msgstr ""
-
 msgid " invalid ressource id"
 msgstr ""
 
@@ -452,6 +455,9 @@ msgid "print view"
 msgstr ""
 
 msgid "change preferences"
+msgstr ""
+
+msgid " ressource list changed, save it ?"
 msgstr ""
 
 msgid "my calendars"
@@ -490,6 +496,9 @@ msgstr ""
 msgid "theme caracteristics"
 msgstr ""
 
+msgid "waiting rv window size"
+msgstr ""
+
 msgid "information popup management"
 msgstr ""
 
@@ -499,13 +508,19 @@ msgstr ""
 msgid "timeout before displaying popup"
 msgstr ""
 
-msgid "days hours"
+msgid "start hour"
 msgstr ""
 
-msgid "start day hour"
+msgid "end hour"
 msgstr ""
 
-msgid "end day hour"
+msgid "meetings edition"
+msgstr ""
+
+msgid "meeting hours interval"
+msgstr ""
+
+msgid "meeting minute increase"
 msgstr ""
 
 msgid "look preferences"
@@ -572,13 +587,16 @@ msgstr ""
 msgid "there is excluded days"
 msgstr ""
 
+msgid "small"
+msgstr ""
+
+msgid "medium"
+msgstr ""
+
+msgid "large"
+msgstr ""
+
 msgid "the default theme"
-msgstr ""
-
-msgid "orange"
-msgstr ""
-
-msgid "for the girls"
 msgstr ""
 
 msgid "view icon in event"

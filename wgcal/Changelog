@@ -1,6 +1,7 @@
 --------------------------------------------------------------------------
 0.0.7 (Bond)
 --------------------------------------------------------------------------
+- edition de rv : aide à la saisie des heures
 - Gestion des contacts préférés
 - Ajout des préférences via une fenête dédiée
 - Initialisation de la gestion des themes

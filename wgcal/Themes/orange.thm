@@ -2,20 +2,23 @@
 include_once("WGCAL/Themes/default.thm");
 
 $theme->Name   = _("orange");
-$theme->Descr  = _("it's not for publicity");
+$theme->Descr  = _("the anakeen one");
 
-$theme->WTH_BGIMG                 =  "url('WGCAL/Images/bg-default.gif')";
+$theme->WTH_BGIMG                 =  "url('WGCAL/Images/anakeen.gif')";
 
-$theme->WTH_TEXTCOLOR_1           =  "#881469";
-$theme->WTH_TEXTCOLOR_2           =  "snow";
-$theme->WTH_COLOR_1               =  "#FEF3FF";
-$theme->WTH_COLOR_2               =  "#EFE2FF";
-$theme->WTH_COLOR_3               =  "#93A3C5";
-$theme->WTH_ALERT                 =  "red";
+$theme->WTH_TEXTCOLOR_1           =  "green";
+$theme->WTH_TEXTCOLOR_2           =  "#EDFFEF";
+$theme->WTH_COLOR_1               =  "orange";
+$theme->WTH_COLOR_2               =  "green";
+$theme->WTH_COLOR_3               =  "pink";
+$theme->WTH_ALERT                 =  "orange";
 
-$theme->WTH_FONTLIST              =  "Arial, sans-serif";
-$theme->WTH_FONTSIZE_NORMAL       =  "11";
-$theme->WTH_FONTSIZE_BIG          =  "14";
+$theme->WTH_CALWEEKEND            =  "#FFF8EB";
+$theme->WTH_CALTODAY              =  "#FFF2CF";
+
+$theme->WTH_FONTLIST              =  "Tahoma, Arial, sans-serif";
+$theme->WTH_FONTSIZE_NORMAL       =  "10";
+$theme->WTH_FONTSIZE_BIG          =  "12";
 $theme->WTH_FONTSIZE_SMALL        =  "7";
 
 $theme->WTH_TOOLBARW              =  "200";

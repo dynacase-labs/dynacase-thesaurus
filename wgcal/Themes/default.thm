@@ -13,6 +13,10 @@ $theme->WTH_COLOR_2               =  "lightsteelblue";
 $theme->WTH_COLOR_3               =  "#93A3C5";
 $theme->WTH_ALERT                 =  "red";
 
+// Calendar specific colors
+$theme->WTH_CALWEEKEND            =  "#9FA5CD";
+$theme->WTH_CALTODAY              =  "#E2EBFF";
+
 // Fonts 
 $theme->WTH_FONTLIST              =  "Tahoma, Helvetica, Arial, sans-serif";
 $theme->WTH_FONTSIZE_NORMAL       =  "10";

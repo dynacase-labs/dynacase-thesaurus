@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.27 2005/02/16 23:01:50 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.28 2005/02/18 15:38:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -217,6 +217,20 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   $action->lay->set("mSTART", $lstart*1000);
   $action->lay->set("STARTREAD", strftime("%a %d %b %Y", $lstart));
   $action->lay->set("H_START", strftime("%H", $dstart));
+  $th = array();
+  for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
+    $th[$h]["optvalue"] = $h;
+    $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h)."h";
+    $th[$h]["optselect"] = ($h==strftime("%H", $dstart)?"selected":"");
+  }
+  $action->lay->setBlockData("SHSEL", $th);
+  $th = array();
+  for ($h=0; $h<60; $h+=$action->getParam("WGCAL_U_MINCUSED",15)) {
+    $th[$h]["optvalue"] = $h;
+    $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
+    $th[$h]["optselect"] = ($h>=strftime("%M", $dend-60) && $h<=strftime("%M", $dend+240)?"selected":"");
+  }
+  $action->lay->setBlockData("SHMSEL", $th);
   $action->lay->set("M_START", strftime("%M", $dstart));
   $action->lay->set("FSTART", $dstart);
   
@@ -230,6 +244,20 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   $action->lay->set("H_END", strftime("%H", $dend));
   $action->lay->set("M_END", strftime("%M", $dend));
   $action->lay->set("FEND", $dend);
+  $th = array();
+  for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
+    $th[$h]["optvalue"] = $h;
+    $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h)."h";
+    $th[$h]["optselect"] = ($h==strftime("%H", $dend)?"selected":"");
+  }
+  $action->lay->setBlockData("EHSEL", $th);
+  $th = array();
+  for ($h=0; $h<60; $h+=$action->getParam("WGCAL_U_MINCUSED",15)) {
+    $th[$h]["optvalue"] = $h;
+    $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
+    $th[$h]["optselect"] = ($h>=strftime("%M", $dend-60) && $h<=strftime("%M", $dend+240)?"selected":"");
+  }
+  $action->lay->setBlockData("EHMSEL", $th);
  
   if ($ro) {
     $action->lay->set("DATEBUTVIS", "none");

@@ -6,10 +6,14 @@ var $eventAttDesc      = "CALEV_TITLE";
 var $eventAttCode      = "RV";
 var $eventFamily       = "EVENT_FROM_CAL";
 
+var $ZoneEvtAbstract =  "WGCAL:CALEV_ABSTRACT";
+var $ZoneEvtCard =  "WGCAL:CALEV_CARD";
+
+
 var $eventRVStatus     = "";
 
 function postModify() {
-  $err = $this->setEvent(); //modification de l'événement à chaque modification du producteur
+  $err = $this->setEvent(); 
   //print_r2($this);
   if ($err!="") print_r2($err);
 }

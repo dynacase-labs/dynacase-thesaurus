@@ -6,8 +6,10 @@
 
 
 <tr class="wTextActive"><td colspan="3">[TEXT:general options]</td></tr>
-<tr><td width="10%"></td><td align="right">[TEXT:theme caracteristics] : </td><td><select style="cursor:pointer" id="theme" onchange="mytoto('WGCAL_U_THEME', this.options[this.selectedIndex].value, 'wgcal_toolbar', 'WGCAL_TOOLBAR'); document.location.reload(true);">[BLOCK THEME]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK THEME]</select></td></tr>
-<tr><td width="10%"></td><td align="center" colspan="2"><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" title="[textoption]">[textoption] : <input id="[idoption]" name="[idoption]" type="checkbox" style="cursor:pointer;" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" [stateoption]></span></td></tr>[ENDBLOCK OPTCHK]
+<tr><td width="10%"></td><td align="right">[TEXT:theme caracteristics] : </td><td><select style="cursor:pointer" id="theme" onchange="mytoto('WGCAL_U_THEME', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR');idf=subwindow('','','wgcal_toolbar'); idf.top.location.reload(true); document.location.reload(true);">[BLOCK THEME]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK THEME]</select></td></tr>
+
+<tr><td width="10%"></td><td align="right">[TEXT:waiting rv window size] : </td><td><select style="cursor:pointer" id="theme" onchange="mytoto('WGCAL_U_ZWRVALERTSIZE', this.options[this.selectedIndex].value, 'wgcal_toolbar', 'WGCAL_TOOLBAR');">[BLOCK ZRVWS]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK ZRVWS]</select></td></tr>
+
 
 <tr class="wTextActive"><td colspan="3">[TEXT:information popup management]</td></tr>
 
@@ -16,12 +18,18 @@
 <tr><td width="10%"></td><td align="right">[TEXT:timeout before displaying popup] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="mytoto('WGCAL_U_ALTTIMER', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK ALTTIMER]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK ALTTIMER]</select></td>
 </tr>
 
-<tr class="wTextActive"><td colspan="3">[TEXT:days hours]</td></tr>
+<tr class="wTextActive"><td colspan="3">[TEXT:calendar view]</td></tr>
 
-<tr><td width="10%"></td><td align="right">[TEXT:start day hour] : </td><td><select style="cursor:pointer" id="altposition" onchange="mytoto('WGCAL_U_STARTHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK SH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SH]</select></td></tr>
-
-<tr><td width="10%"></td><td align="right">[TEXT:end day hour] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="mytoto('WGCAL_U_STOPHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK EH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EH]</select></td>
+<tr><td width="10%"></td><td colspan="2" align="center">[TEXT:start hour] : <select style="cursor:pointer" id="altposition" onchange="mytoto('WGCAL_U_STARTHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK SH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SH]</select>, [TEXT:end hour] : <select style="cursor:pointer" id="alttimeout" onchange="mytoto('WGCAL_U_STOPHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK EH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EH]</select></td>
 </tr>
+
+<tr><td width="10%"></td><td align="center" colspan="2"><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" title="[textoption]">[textoption] : <input id="[idoption]" name="[idoption]" type="checkbox" style="cursor:pointer;" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" [stateoption]></span></td></tr>[ENDBLOCK OPTCHK]
+
+<tr class="wTextActive"><td colspan="3">[TEXT:meetings edition]</td></tr>
+
+<tr><td width="10%"></td><td align="right">[TEXT:meeting hours interval] : </td><td>[TEXT:start hour] <select style="cursor:pointer" onchange="mytoto('WGCAL_U_HSUSED', this.options[this.selectedIndex].value, '', '')">[BLOCK HSUSED]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HSUSED]</select> - [TEXT:end hour] : <select style="cursor:pointer" id="alttimeout" onchange="mytoto('WGCAL_U_HEUSED', this.options[this.selectedIndex].value, '', '')">[BLOCK HEUSED]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HEUSED]</select></td></tr>
+<tr><td width="10%"></td><td align="right">[TEXT:meeting minute increase] : </td><td><select style="cursor:pointer" onchange="mytoto('WGCAL_U_MINCUSED', this.options[this.selectedIndex].value, '', '')">[BLOCK MINCUSED]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK MINCUSED]</select></td></tr>
+
 
 </table>
 

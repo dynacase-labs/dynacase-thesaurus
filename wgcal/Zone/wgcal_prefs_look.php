@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.2 2005/02/17 17:25:29 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.3 2005/02/18 15:38:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,7 +15,16 @@ include_once("WGCAL/WGCAL_external.php");
 
 
 function wgcal_prefs_look(&$action) {
-
+  
+  $zwrvs = array( 50 => _("small"), 100 => _("medium"), 150 => _("large"));
+  $opt = array(); $i = 0;
+  foreach ($zwrvs as $k => $v) {
+    $opt[$i]["optvalue"] = $k;
+    $opt[$i]["optdescr"] = $v;
+    $opt[$i]["optselect"] = ($k==$action->GetParam("WGCAL_U_ZWRVALERTSIZE") ? "selected" : "");
+    $i++;
+  }
+  $action->lay->SetBlockData("ZRVWS", $opt);
 
   $themes = array();
   $themedir = "WGCAL/Themes";
@@ -96,13 +105,38 @@ function wgcal_prefs_look(&$action) {
   }
   $action->lay->SetBlockData("SH", $opt);
 
-   $opt = array(); $i = 0;
+  $opt = array(); $i = 0;
   for ($i=13; $i<24; $i++) {
     $opt[$i]["optvalue"] = $i;
     $opt[$i]["optdescr"] = $i."H00";
     $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_ENDHOUR") ? "selected" : "");
   }
   $action->lay->SetBlockData("EH", $opt);
+ 
+    
+  $opt = array(); $i = 0;
+  for ($i=0; $i<=23; $i++) {
+    $opt[$i]["optvalue"] = $i;
+    $opt[$i]["optdescr"] = $i."H";
+    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_HSUSED",7) ? "selected" : "");
+  }
+  $action->lay->SetBlockData("HSUSED", $opt);
+  $opt = array(); $i = 0;
+  for ($i=0; $i<=23; $i++) {
+    $opt[$i]["optvalue"] = $i;
+    $opt[$i]["optdescr"] = $i."H";
+    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_HEUSED",23) ? "selected" : "");
+  }
+  $action->lay->SetBlockData("HEUSED", $opt);
+  $opt = array(); $i = 0;
+  $minc = array( "2","5","10","15","20","25","30","40","45"); 
+  foreach ($minc as $k => $v) {
+    $opt[$i]["optvalue"] = $v;
+    $opt[$i]["optdescr"] = $v." min.";
+    $opt[$i]["optselect"] = ($v==$action->GetParam("WGCAL_U_MINCUSED",15) ? "selected" : "");
+    $i++;
+  }
+  $action->lay->SetBlockData("MINCUSED", $opt);
  
     
  

@@ -86,8 +86,7 @@
 </td>
 
 <td id="start_hour" align="left" style="visibility:[HVISIBLE]">
-<input type="text" size="2" value="[H_START]" [DATERO] id="Hstart" name="Hstart" onchange="ComputeTime('start');">
-:<input size="2" type="text" value="[M_START]" [DATERO] id="Mstart" name="Mstart" onchange="ComputeTime('start');">
+<select [DATERO] id="Hstart" name="Hstart" onchange="ComputeTime('start');">[BLOCK SHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHSEL]</select>: <select [DATERO] id="Mstart" name="Mstart" onchange="ComputeTime('start');">[BLOCK SHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHMSEL]</select>
 </td>
 
 </tr>
@@ -119,8 +118,7 @@
 </td>
 
 <td align="left" id="end_hour3" style="visibility:[HVISIBLE]">
-<input type="text" size="2" value="[H_END]" [DATERO] name="Hend" id="Hend" onchange="ComputeTime('end');">
-:<input size="2" type="text" value="[M_END]" [DATERO] name="Mend" id="Mend" onchange="ComputeTime('end');">
+<select [DATERO] id="Hend" name="Hend" onchange="ComputeTime('end');">[BLOCK EHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHSEL]</select>: <select [DATERO] id="Mend" name="Mend" onchange="ComputeTime('end');">[BLOCK EHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHMSEL]</select>
 </td>
 </tr>
 

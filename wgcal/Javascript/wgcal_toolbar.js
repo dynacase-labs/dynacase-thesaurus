@@ -27,17 +27,12 @@ var picker = null;
 window.onunload = killwins;
 function killwins() {
   if (picker != null) picker.close();
-  if (ressourcesChange == 1) {
-    ok = confirm('[TEXT: ressource list changed, save it ?]');
-    if (ok) saveRessources();
-  }
 }
 
 
 
 // ----------------------------------------------
 var ressourceList = new Array();
-var ressourcesChange = 0;
 
 function getRessourcePos(rid) {
   var idx = -1;
@@ -150,7 +145,6 @@ function saveTmpRessources() {
       rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
   }
   usetparam("WGCAL_U_RESSTMPLIST", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
-  ressourcesChange = 1;
   return;
 }
 
@@ -161,7 +155,6 @@ function saveRessources() {
       rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
   }
   usetparam("WGCAL_U_RESSDISPLAYED", rlist, '', '');
-  ressourcesChange = 0;
   return;
 }
 

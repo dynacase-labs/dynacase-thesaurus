@@ -28,10 +28,12 @@ function ComputeTime(id) {
   var textTime = document.getElementById('T'+id);
   var daysTime = document.getElementById('D'+id);
   var hourTime = document.getElementById('H'+id);
+  htval = hourTime.options[hourTime.selectedIndex].value;
   var minuTime = document.getElementById('M'+id);
+  mtval = minuTime.options[minuTime.selectedIndex].value;
   var fullTime = document.getElementById('F'+id);
 
-  ftime = parseInt(daysTime.value) + (parseInt(hourTime.value) * 3600) + (parseInt(minuTime.value) * 60);
+  ftime = parseInt(daysTime.value) + (parseInt(htval) * 3600) + (parseInt(mtval) * 60);
   fullTime.value = ftime;
  
   CheckIfUpdate(id, true);

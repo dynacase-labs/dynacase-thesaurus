@@ -10,8 +10,9 @@ body {
 }
 
 table {
-	font-size: [WTH_FONTSIZE_NORMAL]px;
-	font-family: [WTH_FONTLIST];
+  font-size: [WTH_FONTSIZE_NORMAL]px;
+  font-family: [WTH_FONTLIST];
+  color: [WTH_TEXTCOLOR_1];
 }
 
 INPUT, SELECT, TEXTAREA {
@@ -104,25 +105,24 @@ TD {
 .WGCAL_Day {
 	border-left: 0px;
 	border-bottom: 1px solid [WTH_COLOR_2];
- 	border-right: 1px solid WTH_COLOR_3;
+ 	border-right: 1px solid [WTH_COLOR_3];
 }
 .WGCAL_DayWE {
 	border-left: 0px;
 	border-bottom: 1px solid [WTH_COLOR_2];
- 	border-right: 1px solid WTH_COLOR_3;
-        background-color : [WGCAL_U_WEDAY];
+ 	border-right: 1px solid [WTH_COLOR_3];
+        background-color : [WTH_CALWEEKEND];
 }
 .WGCAL_DayCur {
 	border-left: 0px;
 	border-bottom: 1px solid [WTH_COLOR_2];
-  	border-right: 1px solid WTH_COLOR_3;
-        background-color : [WGCAL_U_CURDAY];
+  	border-right: 1px solid [WTH_COLOR_3];
+        background-color : [WTH_CALTODAY];
 }
 .WGCAL_DaySelected {
 	border-left: 0px;
 	border-bottom: 1px solid [WTH_COLOR_2];
-	border-right: 1px solid WTH_COLOR_3;
-        background-color : [WGCAL_U_SELDAY];
+	border-right: 1px solid [WTH_COLOR_3];
 }
 
 
@@ -230,6 +230,12 @@ TD {
 }
 
 
+/* event Css */
+.wEvBack {
+  background : url('CORE/Images/bg.gif'); 
+  border : 4px solid white; 
+  height:100%;
+}
 
 
 
@@ -238,12 +244,10 @@ TD {
 .calendar {
   position: relative;
   display: none;
-  font-size: 10px;
   cursor: default;
 }
 
 .calendar table {
-  font-size: 9px;
   border-top: 1px solid #000;
   border-right: 1px solid [WTH_COLOR_1];
   border-bottom: 1px solid [WTH_COLOR_1];
@@ -267,7 +271,7 @@ TD {
   padding: 1px;
   border: 1px solid #000;
   color: [WTH_TEXTCOLOR_1];
-  background: [WTH_COLOR_3];
+  background: [WTH_COLOR_2];
   text-align: center;
 }
 
@@ -346,10 +350,11 @@ TD {
 }
 
 .calendar tbody td.selected { /* Cell showing selected date */
-  font-weight: bold;
   padding: 2px 2px 0px 2px;
   border: 1px solid;
   border-color: #000 #fff #fff #000;
+  background-color: [WTH_COLOR_3];
+  color: [WTH_TEXTCOLOR_2];
 }
 
 .calendar tbody td.weekend { /* Cells showing weekend days */
@@ -383,8 +388,9 @@ TD {
   border-bottom: 2px outset [WTH_COLOR_2];
   border-left: 2px outset [WTH_COLOR_2];
   border-right: 2px outset [WTH_COLOR_2];
-  background: [WTH_COLOR_3];
+  background: [WTH_COLOR_1];
   text-align: center;
+  display:none;
 }
 
 .calendar tfoot .hilite { /* Hover style for buttons in footer */
@@ -413,7 +419,7 @@ TD {
   top: 0px;
   left: 0px;
   cursor: default;
-  background: [WTH_COLOR_3];
+  background: [WTH_COLOR_2];
   border-top: 1px solid [WTH_COLOR_3];
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
