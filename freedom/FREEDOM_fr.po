@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-05-19 17:16+0200\n"
+	"POT-Creation-Date: 2003-06-02 11:29+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -93,6 +93,9 @@ msgstr	"création %s"
 msgid	"new card"
 msgstr	"Nouvelle carte"
 
+msgid	"default values"
+msgstr	"Valeurs par défaut"
+
 msgid	"Validate"
 msgstr	"Valider"
 
@@ -120,7 +123,7 @@ msgstr	"recherche contenant %s dans %s"
 
 #, c-format
 msgid	"%s all "
-msgstr "%s tout"
+msgstr	"%s tout"
 
 #, c-format
 msgid	"definition of enumerate attribute %s of %s family"
@@ -697,14 +700,20 @@ msgstr	"égal"
 msgid	"not equal"
 msgstr	"pas égal"
 
-msgid	"not include"
-msgstr	"ne contient pas"
+msgid	"&gt; or equal"
+msgstr	"&gt; ou égal"
+
+msgid	"&lt; or equal"
+msgstr	"&lt; ou égal"
 
 msgid	"and"
 msgstr	"et"
 
 msgid	"or"
 msgstr	"ou"
+
+msgid	"not include"
+msgstr	"ne contient pas"
 
 msgid	"read only"
 msgstr	"lecture seule"
@@ -726,6 +735,14 @@ msgstr	"O"
 
 msgid	"N"
 msgstr	"N"
+
+#, c-format
+msgid	"created by %s"
+msgstr "créé par %s"
+
+#, c-format
+msgid	"change by %s"
+msgstr	"modifié par %s"
 
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
@@ -974,10 +991,10 @@ msgid	"portfolio tab"
 msgstr	"onglets chemise"
 
 msgid	"choose preferred families"
-msgstr "Choix des familles préférées"
+msgstr	"Choix des familles préférées"
 
 msgid	"modify preferred families"
-msgstr "modifier les familles préférées"
+msgstr	"modifier les familles préférées"
 
 msgid	"root folder id"
 msgstr	"Identificateur du dossier racine"
@@ -1514,7 +1531,7 @@ msgid	"Tools"
 msgstr	"Outils"
 
 msgid	"All document"
-msgstr "tous les documents"
+msgstr	"tous les documents"
 
 msgid	"Properties:"
 msgstr	"Propriétés:"
@@ -1895,10 +1912,10 @@ msgid	"modification date"
 msgstr	"date de modification"
 
 msgid	"more families"
-msgstr "toutes les familles"
+msgstr	"toutes les familles"
 
 msgid	"restrict to preferred families"
-msgstr "restriction aux familles préférées"
+msgstr	"restriction aux familles préférées"
 
 msgid	"Choose visibles families"
 msgstr	"Choix des familles visibles"
@@ -2089,6 +2106,15 @@ msgstr	" révisé par"
 msgid	" date"
 msgstr	" date"
 
+msgid	"insert up"
+msgstr	"ajout dessus"
+
+msgid	"unselect"
+msgstr	"déselectionner"
+
+msgid	"delete selected"
+msgstr	"supprimer la sélection"
+
 msgid	"Familly Document"
 msgstr	"Famille de document"
 
@@ -2252,9 +2278,6 @@ msgstr	"Voir les propriétés"
 #~ msgid	"edit usercard"
 #~ msgstr	"éditer une carte"
 
-#~ msgid	"delete usercard"
-#~ msgstr	"supprimer une carte"
-
 #~ msgid	"view incident"
 #~ msgstr	"voir un incident"
 
@@ -2394,9 +2417,6 @@ msgstr	"Voir les propriétés"
 
 #~ msgid	" set control"
 #~ msgstr	" poser un contrôle spécifique"
-
-#~ msgid	"createdby"
-#~ msgstr	"créé par"
 
 #~ msgid	"photo"
 #~ msgstr	"Photographie"
