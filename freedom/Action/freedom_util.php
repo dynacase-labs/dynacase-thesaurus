@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.7 2001/12/19 17:57:32 eric Exp $
+// $Id: freedom_util.php,v 1.8 2001/12/21 13:58:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_util.php,v $
+// Revision 1.8  2001/12/21 13:58:35  eric
+// modif pour incident
+//
 // Revision 1.7  2001/12/19 17:57:32  eric
 // on continue
 //
@@ -230,29 +233,23 @@ function newDoc($dbaccess, $id='',$res='',$dbid=0) {
 function createDoc($dbaccess,$fromid) {
 
   if ($fromid > 0) {
-    $doc = new Doc($dbaccess, $fromid);
-    $classname = $doc->classname;
+    $cdoc = new Doc($dbaccess, $fromid);
+    $classname = $cdoc->classname;
     include_once("FREEDOM/Class.$classname.php");
-      return (new $classname($dbaccess));
+    $doc = new $classname($dbaccess);
+    
+    $doc->revision = "0";
+    $doc->fileref = "0";
+    //$doc->doctype = 'F';// it is a new  document (not a familly)
+    $doc->cprofid = "0"; // NO CREATION PROFILE ACCESS
+    $doc->useforprof = 'f';
+    $doc->fromid = $fromid;
+    $doc->profid = $cdoc->cprofid; // inherit from its familly	
+    $doc->useforprof = $cdoc->useforprof; // inherit from its familly	
+       return ($doc);
     
   }
-    return new Doc($dbaccess);
-  // search the good class of document
-  switch ($fromid) {
-  case 2: // directory
-  case 4: // profile access directory
-    include_once("FREEDOM/Class.Dir.php");
-    return  new Dir($dbaccess);
-  break;
-  case 5: // search
-  case 6: // profile access serach
-    include_once("FREEDOM/Class.DocSearch.php");
-    return  new DocSearch($dbaccess);
-  break;
-  default:
-    include_once("FREEDOM/Class.DocFile.php");
-    return new DocFile($dbaccess);
-  }
+  return new Doc($dbaccess);
 
 }
 

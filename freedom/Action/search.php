@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.4 2001/12/19 17:57:32 eric Exp $
+// $Id: search.php,v 1.5 2001/12/21 13:58:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: search.php,v $
+// Revision 1.5  2001/12/21 13:58:35  eric
+// modif pour incident
+//
 // Revision 1.4  2001/12/19 17:57:32  eric
 // on continue
 //
@@ -38,6 +41,7 @@
 // ---------------------------------------------------------------
 
 include_once("FREEDOM/Class.DocSearch.php");
+include_once("FREEDOM/Class.Dir.php");
 include_once("FREEDOM/Class.QueryDir.php");
 include_once("FREEDOM/Class.QueryDirV.php");
 include_once("FREEDOM/freedom_util.php");  
@@ -54,7 +58,7 @@ function search(&$action) {
 
   // Get all the params      
   $keyword=GetHttpVars("keyword"); // keyword to search
-  $dir=GetHttpVars("dirid"); // insert search in this folder
+  $dirid=GetHttpVars("dirid"); // insert search in this folder
   $title=GetHttpVars("title", _("new search ").$keyword); // title of the search
   $latest=GetHttpVars("latest", false); // only latest revision
   $save=GetHttpVars("save", false); // the query need to be saved
@@ -79,7 +83,12 @@ function search(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
 
-  if ($save) { // save attributes
+  if ($save) { 
+    // insert search folder in current folder
+    $dir = new Dir($dbaccess, $dirid);
+    $dir->AddFile($sdoc->id);
+
+    // save attributes
     $oval = new DocValue($dbaccess);
     $oval ->docid = $sdoc->id;
     $oval ->attrid = QA_TITLE;
@@ -106,35 +115,26 @@ function search(&$action) {
     $oval ->docid = $sdoc->id;
     $oval ->attrid = QA_FROM;
     if ($fromdir) {
-      $odir = new Doc($dbaccess, $dir);
-      $oval ->value = $odir->title;
+      $oval ->value = $dir->title;
     }    else    $oval ->value =_("root folder");
     $oval -> Add();
 
 
   }
-  // insert search folder in current folder
-  $oqd = new QueryDir($dbaccess);
-  $oqd->dirid = $dir;
-  $oqd->qtype="Q"; // query search
-  $oqd->query = "select id from doc where id=".$sdoc->id;
-  $oqd-> Add();
+
+     
+  
 
   if ($fromdir) {
     $oqdv = new QueryDirV($dbaccess);
-    $cdirid = $oqdv->getRChildDirId($dir);
-    $cdirid[] = $dir;
+    $cdirid = $oqdv->getRChildDirId($dirid);
+    $cdirid[] = $dirid;
     
     $sql_fromdir = "and ".GetSqlCond($cdirid,"dirv.dirid");
 
   } else $sql_fromdir = "";
 
-  // insert query in search folder 
-  $oqd = new QueryDir($dbaccess);
-  $oqd->id = "";
-  //  $oqd->DeleteDir($sdoc->id);
-  $oqd->dirid = $sdoc->id;
-  $oqd->qtype="M"; // multiple
+
 
 
   if ($sensitive) $testval = "like '%$keyword%'";
@@ -142,19 +142,19 @@ function search(&$action) {
 		    
   if ($fromdir) {
     if ($latest) {
-      $oqd->query = "select distinct on (initid) * from doc, docvalue, dirv where (value $testval)  $sql_fromdir and (doc.id = docvalue.docid) and (doc.id = dirv.childid) order by initid, revision desc"; 
+      $query = "select distinct on (initid) * from doc, docvalue, dirv where (value $testval)  $sql_fromdir and (doc.id = docvalue.docid) and (doc.id = dirv.childid) order by initid, revision desc"; 
     } else {
-      $oqd->query = "select distinct on (docid) docid as id from docvalue, dirv where (value $testval) $sql_fromdir and (docvalue.docid = dirv.childid)";
+      $query = "select distinct on (docid) docid as id from docvalue, dirv where (value $testval) $sql_fromdir and (docvalue.docid = dirv.childid)";
 
     }
   } else if ($latest) {
-    $oqd->query = "select distinct on (initid) * from doc, docvalue where (value $testval) and (doc.id = docvalue.docid)  order by initid, revision desc"; 
+    $query = "select distinct on (initid) * from doc, docvalue where (value $testval) and (doc.id = docvalue.docid)  order by initid, revision desc"; 
   } else {
-  $oqd->query = "select distinct docid as id from docvalue where (value $testval) ";
+  $query = "select distinct docid as id from docvalue where (value $testval) ";
 
   }
 
-  $oqd-> Add();
+  $sdoc-> AddQuery($query);
 
 
   redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=".$sdoc->id);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.2 2001/12/19 17:57:32 eric Exp $
+// $Id: modcard.php,v 1.3 2001/12/21 13:58:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,24 +55,14 @@ function modcard(&$action, &$ndocid) {
       // search the good class of document
       $ofreedom = createDoc($dbaccess, $classid);
 
-      $ofreedom->revision = "0";
-      $ofreedom->owner = $action->user->id;
-      $ofreedom->locked = $action->user->id; // lock for next modification
-      $ofreedom->fileref = "0";
-      $ofreedom->doctype = 'F';// it is a new  document (not a familly)
-      $ofreedom->cprofid = "0"; // NO CREATION PROFILE ACCESS
-      $ofreedom->useforprof = 'f';
-      $ofreedom->fromid = $classid;
 
-      if ($ofreedom->fromid > 0) {
-	$cdoc = new Doc($dbaccess, $ofreedom->fromid);
-	$ofreedom->profid = $cdoc->cprofid; // inherit from its familly	
-	$ofreedom->useforprof = $cdoc->useforprof; // inherit from its familly	
-      } else
+      $doc->owner = $action->user->id;
+      $doc->locked = $action->user->id; // lock for next modification
+      if ($ofreedom->fromid <= 0) {
 	$ofreedom->profid = "0"; // NO PROFILE ACCESS
-
+      }
       $err = $ofreedom-> Add();
-      if ($err != "")  {$action->ExitError($err);}
+      if ($err != "")  $action->ExitError($err);
 
       $docid = $ofreedom-> id;
       $ofreedom->initid = $docid;// it is initial doc
@@ -103,13 +93,15 @@ function modcard(&$action, &$ndocid) {
 
       if (is_int($k)) // freedom attributes are identified by a number
 	{
-	  $oattr=new DocAttr($dbaccess, array($docid,$k));
+	    $oattr=new DocAttr($dbaccess, array($docid,$k));
 	  
+	    if (($v != "") || // only affected value
+		($bdvalue->value != "")) { // or reset value
 
-	  $bdvalue->attrid = $k;
-	  $bdvalue->value = $v;
-	  $bdvalue ->Modify();
-
+	    $bdvalue->attrid = $k;
+	    $bdvalue->value = $v;
+	    $bdvalue ->Modify();
+	  }
 	}      
     }
 

@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2001-11-30 17:46+0100\n"
+	"POT-Creation-Date: 2001-12-21 14:40+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -38,6 +38,9 @@ msgstr	""
 msgid	"new family"
 msgstr	""
 
+msgid	"import document"
+msgstr	""
+
 msgid	"simple"
 msgstr	""
 
@@ -57,6 +60,41 @@ msgid	"inherit from"
 msgstr	""
 
 msgid	"no document family"
+msgstr	""
+
+msgid	"ID"
+msgstr	""
+
+msgid	"order"
+msgstr	""
+
+#, fuzzy
+msgid	"name"
+msgstr	"Lastname"
+
+msgid	"type"
+msgstr	""
+
+msgid	"frame"
+msgstr	""
+
+msgid	"A?"
+msgstr	""
+
+msgid	"T?"
+msgstr	""
+
+msgid	"Vi"
+msgstr	""
+
+msgid	"Link"
+msgstr	""
+
+#, fuzzy
+msgid	"file"
+msgstr	"Update Title Cards"
+
+msgid	"func"
 msgstr	""
 
 msgid	"modify"
@@ -105,10 +143,19 @@ msgstr	"Start search"
 msgid	" cancel"
 msgstr	""
 
+msgid	" choose value"
+msgstr	""
+
+msgid	"close"
+msgstr	""
+
 msgid	" properties"
 msgstr	""
 
 msgid	" create subfolder"
+msgstr	""
+
+msgid	"cancel"
 msgstr	""
 
 msgid	" paste this revision"
@@ -126,81 +173,30 @@ msgstr	"Update LDAP server"
 msgid	"Properties:"
 msgstr	""
 
-msgid	" change icon"
+msgid	" folder containt"
+msgstr	""
+
+msgid	"Import Document"
+msgstr	""
+
+msgid	"for"
+msgstr	""
+
+msgid	"Description of the import format:"
+msgstr	""
+
+msgid	"The text between brackets are only indication for user readable"
 msgstr	""
 
 #, fuzzy
-msgid	" edit"
-msgstr	"Edit"
+msgid	"import file:"
+msgstr	"Import"
 
-msgid	" edit attributes"
-msgstr	""
-
-msgid	" lock"
-msgstr	""
-
-msgid	" revise"
-msgstr	""
-
-msgid	" unlock"
+msgid	"Import document description"
 msgstr	""
 
 msgid	" history"
 msgstr	""
-
-msgid	" change profile"
-msgstr	""
-
-msgid	" change creation profile"
-msgstr	""
-
-msgid	" view properties"
-msgstr	""
-
-msgid	"print"
-msgstr	"Print this page"
-
-msgid	"delconfirm"
-msgstr	"Really Delete"
-
-msgid	"author"
-msgstr	""
-
-#, fuzzy
-msgid	"revision"
-msgstr	"Organisation"
-
-msgid	"locked by"
-msgstr	""
-
-#, fuzzy
-msgid	"revision date"
-msgstr	"Organisation"
-
-#, fuzzy
-msgid	" profile access"
-msgstr	"Control access"
-
-msgid	"reference"
-msgstr	""
-
-msgid	" folder containt"
-msgstr	""
-
-msgid	"category"
-msgstr	"Category"
-
-msgid	"visibility"
-msgstr	"Visibility"
-
-msgid	"readwriteall"
-msgstr	"readwriteall"
-
-msgid	"readall"
-msgstr	"readall"
-
-msgid	"readwriteowner"
-msgstr	"Private"
 
 msgid	" rev"
 msgstr	""
@@ -229,7 +225,7 @@ msgstr	""
 msgid	"delete link"
 msgstr	"Delete"
 
-msgid	"cancel"
+msgid	" change icon"
 msgstr	""
 
 msgid	" lauch importation"
@@ -239,6 +235,68 @@ msgid	" comment for revision"
 msgstr	""
 
 msgid	" revise document"
+msgstr	""
+
+msgid	"to"
+msgstr	""
+
+msgid	"unchanged"
+msgstr	""
+
+#, fuzzy
+msgid	" edit"
+msgstr	"Edit"
+
+msgid	" edit attributes"
+msgstr	""
+
+msgid	" lock"
+msgstr	""
+
+msgid	" revise"
+msgstr	""
+
+msgid	" unlock"
+msgstr	""
+
+msgid	" change profile"
+msgstr	""
+
+msgid	" change creation profile"
+msgstr	""
+
+msgid	" view properties"
+msgstr	""
+
+msgid	"print"
+msgstr	"Print this page"
+
+msgid	"delconfirm"
+msgstr	"Really Delete"
+
+msgid	"author"
+msgstr	""
+
+#, fuzzy
+msgid	"state"
+msgstr	"Identity"
+
+#, fuzzy
+msgid	"revision"
+msgstr	"Organisation"
+
+msgid	"locked by"
+msgstr	""
+
+#, fuzzy
+msgid	"revision date"
+msgstr	"Organisation"
+
+#, fuzzy
+msgid	" profile access"
+msgstr	"Control access"
+
+msgid	"reference"
 msgstr	""
 
 msgid	"no file specified : update aborted"
@@ -274,6 +332,14 @@ msgstr	""
 msgid	"new profile document"
 msgstr	""
 
+#, c-format
+msgid	"the external pluggin file %s cannot be read"
+msgstr	""
+
+#, c-format
+msgid	"the pluggins function description '%s' is not conform"
+msgstr	""
+
 msgid	"no file referenced"
 msgstr	""
 
@@ -282,32 +348,6 @@ msgstr	"Update LDAP server"
 
 msgid	"updateldapko"
 msgstr	"Fail Update LDAP server"
-
-msgid	"fixed"
-msgstr	""
-
-#, fuzzy
-msgid	"nobody"
-msgstr	"No embed file"
-
-msgid	"no family"
-msgstr	""
-
-msgid	"no access control"
-msgstr	""
-
-msgid	"edit"
-msgstr	"Edit"
-
-msgid	"delete"
-msgstr	"Delete"
-
-msgid	"goaccess"
-msgstr	"Control access"
-
-#, fuzzy
-msgid	"no filename"
-msgstr	"Firstname"
 
 msgid	"no document type"
 msgstr	""
@@ -324,32 +364,7 @@ msgstr	"Create"
 msgid	"document not referenced"
 msgstr	""
 
-msgid	"noappli"
-msgstr	"No application"
-
-msgid	"noembed"
-msgstr	"No embed file"
-
-#, c-format
-msgid	"Possible file upload attack: filename '%s'."
-msgstr	""
-
-msgid	"admin"
-msgstr	"Admnistration functions"
-
-msgid	"import"
-msgstr	"Import"
-
-msgid	"add"
-msgstr	"Add new contact card"
-
-msgid	"export"
-msgstr	"Export selected cards"
-
-msgid	"locked"
-msgstr	""
-
-msgid	"changed"
+msgid	"no import file specified"
 msgstr	""
 
 msgid	"no comment"
@@ -390,48 +405,6 @@ msgstr	""
 msgid	"delete document"
 msgstr	""
 
-msgid	"basic documentation family"
-msgstr	""
-
-#, fuzzy
-msgid	"title"
-msgstr	"Update Title Cards"
-
-msgid	"directory familly"
-msgstr	""
-
-msgid	"profile documentation access familly"
-msgstr	""
-
-#, fuzzy
-msgid	"profile directory access familly"
-msgstr	"Control access"
-
-#, fuzzy
-msgid	"search familly"
-msgstr	"Start search"
-
-msgid	"profile search familly"
-msgstr	""
-
-msgid	"keyword"
-msgstr	""
-
-msgid	"only latest revision"
-msgstr	""
-
-msgid	"case sensitive"
-msgstr	""
-
-msgid	"from folder"
-msgstr	""
-
-msgid	"root"
-msgstr	""
-
-msgid	"Cannot Add : need FREEDOM privilege"
-msgstr	""
-
 msgid	"untitle document"
 msgstr	""
 
@@ -462,6 +435,31 @@ msgstr	""
 msgid	"current revision"
 msgstr	"Organisation"
 
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	""
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the method '%s' return the following error %s"
+msgstr	""
+
+#, c-format
+msgid	"change state to %s"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the state has been realized but the post method '%s' "
+	"return the following error %s"
+msgstr	""
+
 msgid	"errldapadd"
 msgstr	"Card is not modify in LDAP server : one of this attribute is not "
 	"appropriate"
@@ -471,6 +469,61 @@ msgstr	"LDAP server cannot be contacted"
 
 #, c-format
 msgid	"cannot add folder : '%s'. It will be ancestor of itself"
+msgstr	""
+
+#, fuzzy
+msgid	"error in filename"
+msgstr	"Firstname"
+
+#, fuzzy
+msgid	"no filename"
+msgstr	"Firstname"
+
+msgid	"..."
+msgstr	""
+
+#, c-format
+msgid	"Possible file upload attack: filename '%s'."
+msgstr	""
+
+msgid	"fixed"
+msgstr	""
+
+#, fuzzy
+msgid	"nobody"
+msgstr	"No embed file"
+
+msgid	"no family"
+msgstr	""
+
+msgid	"no access control"
+msgstr	""
+
+msgid	"edit"
+msgstr	"Edit"
+
+msgid	"delete"
+msgstr	"Delete"
+
+msgid	"goaccess"
+msgstr	"Control access"
+
+msgid	"admin"
+msgstr	"Admnistration functions"
+
+msgid	"import"
+msgstr	"Import"
+
+msgid	"add"
+msgstr	"Add new contact card"
+
+msgid	"export"
+msgstr	"Export selected cards"
+
+msgid	"locked"
+msgstr	""
+
+msgid	"changed"
 msgstr	""
 
 msgid	"Freedoms"
@@ -495,6 +548,15 @@ msgid	"Freedoms frame"
 msgstr	""
 
 msgid	"Freedoms list"
+msgstr	""
+
+msgid	"to choose value from set"
+msgstr	""
+
+msgid	"query document import"
+msgstr	""
+
+msgid	"add document import"
 msgstr	""
 
 msgid	"Freedoms view folder"
@@ -569,22 +631,25 @@ msgstr	""
 msgid	"make a new document revision"
 msgstr	""
 
+msgid	"widget edit card"
+msgstr	""
+
+msgid	"widget view card"
+msgstr	""
+
 msgid	"view history revision"
+msgstr	""
+
+msgid	"style sheet"
+msgstr	""
+
+msgid	"widget display popup for a description card"
 msgstr	""
 
 msgid	"Freedom modification"
 msgstr	""
 
 msgid	"Freedom deletion"
-msgstr	""
-
-msgid	"Freedom importation"
-msgstr	""
-
-msgid	"Freedoms exportation"
-msgstr	""
-
-msgid	"Freedom exportation"
 msgstr	""
 
 #, fuzzy
@@ -594,14 +659,37 @@ msgstr	"Organisation"
 msgid	"Freedom update title fields"
 msgstr	""
 
-msgid	"Freedom update LDAP server"
-msgstr	""
-
 msgid	"Freedom accessibilities"
 msgstr	""
 
-#~ msgid	"civilstate"
-#~ msgstr	"Identity"
+#~ msgid	"category"
+#~ msgstr	"Category"
+
+#~ msgid	"visibility"
+#~ msgstr	"Visibility"
+
+#~ msgid	"readwriteall"
+#~ msgstr	"readwriteall"
+
+#~ msgid	"readall"
+#~ msgstr	"readall"
+
+#~ msgid	"readwriteowner"
+#~ msgstr	"Private"
+
+#~ msgid	"noappli"
+#~ msgstr	"No application"
+
+#~ msgid	"noembed"
+#~ msgstr	"No embed file"
+
+#, fuzzy
+#~ msgid	"profile directory access familly"
+#~ msgstr	"Control access"
+
+#, fuzzy
+#~ msgid	"search familly"
+#~ msgstr	"Start search"
 
 #~ msgid	"photo"
 #~ msgstr	"Photography"
@@ -641,9 +729,6 @@ msgstr	""
 
 #~ msgid	"mobile"
 #~ msgstr	"Cellular"
-
-#~ msgid	"lastname"
-#~ msgstr	"Lastname"
 
 #~ msgid	"business"
 #~ msgstr	"Bussiness"

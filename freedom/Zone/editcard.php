@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.2 2001/12/19 17:57:32 eric Exp $
+// $Id: editcard.php,v 1.3 2001/12/21 13:58:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -88,20 +88,20 @@ function editcard(&$action) {
 
   // add no inherit for class document
   if ($doc->doctype=="C") {
-      $selectclass[$k+1]["idcdoc"]="0";
-      $selectclass[$k+1]["classname"]=_("no document type");
+    $selectclass[$k+1]["idcdoc"]="0";
+    $selectclass[$k+1]["classname"]=_("no document type");
   }
 
   if ($docid == 0)
     {
       switch ($classid) {
-	case 2:
-	  $action->lay->Set("TITLE", _("new directory"));
-	break;
-	case 3:	  
-	case 4:	  
-	  $action->lay->Set("TITLE", _("new profile"));
-	break;
+      case 2:
+	$action->lay->Set("TITLE", _("new directory"));
+      break;
+      case 3:	  
+      case 4:	  
+	$action->lay->Set("TITLE", _("new profile"));
+      break;
       default:
 	$action->lay->Set("TITLE", _("new document"));
       }
@@ -176,31 +176,34 @@ function editcard(&$action) {
   $v=0;// number of value in one frametext
   $currentFrameId="";
   $changeframe=false;
+  $ih = 0; // index for hidden values
+  $thidden =array();
   $tableframe=array();
   for ($i=0; $i < $nattr + 1; $i++)
     {
 
+
       // Compute value elements
-     if ($i < $nattr)
-       {
+      if ($i < $nattr)
+	{
       
-	 $bdvalue->value=""; // to avoid remanence
-	 $bdvalue->Select(array($docid,$listattr[$i]->id));
-	 $value = $bdvalue->value;
+	  $bdvalue->value=""; // to avoid remanence
+	  $bdvalue->Select(array($docid,$listattr[$i]->id));
+	  $value = $bdvalue->value;
 	 
-	 if (true) // to define when change frame
-	   {
-	     if ( $currentFrameId != $listattr[$i]->frameid) {
-	       if ($currentFrameId != "") $changeframe=true;
-	     }
-	   }
-       }
+	  if (true) // to define when change frame
+	    {
+	      if ( $currentFrameId != $listattr[$i]->frameid) {
+		if ($currentFrameId != "") $changeframe=true;
+	      }
+	    }
+	}
 
 
       if (($i == $nattr) ||  // to generate final frametext
 	  $changeframe)
 	{
-	 $changeframe=false;
+	  $changeframe=false;
 	  if ($v > 0 ) // one value detected
 	    {
 				      
@@ -221,37 +224,43 @@ function editcard(&$action) {
       if ($i < $nattr)
 	{
       	  
+	  if ($listattr[$i]->visibility == "H") {
+	    // special case for hidden values
+	    $thidden[$ih]["hname"]= $listattr[$i]->id;
+	    $thidden[$ih]["hvalue"]=chop(htmlentities($value));
+	    $ih++;
+	  } else {
 	    $currentFrameId = $listattr[$i]->frameid;
-	  $tableframe[$v]["value"]=chop(htmlentities($value));
-	  $label = $doc->GetLabel($listattr[$i]->id);
-	  $tableframe[$v]["attrid"]=$listattr[$i]->id;
-	  $tableframe[$v]["name"]=chop("[TEXT:".$label."]");
-	  //$tableframe[$v]["name"]=$action->text($label);
+	    $tableframe[$v]["value"]=chop(htmlentities($value));
+	    $label = $doc->GetLabel($listattr[$i]->id);
+	    $tableframe[$v]["attrid"]=$listattr[$i]->id;
+	    $tableframe[$v]["name"]=chop("[TEXT:".$label."]");
+	    //$tableframe[$v]["name"]=$action->text($label);
 
-	  // output change with type
-	  switch ($listattr[$i]->type)
-	    {
+	    // output change with type
+	    switch ($listattr[$i]->type)
+	      {
 	      
-	      //같같같같같같같같같같같같같같같같같같같같
+		//같같같같같같같같같같같같같같같같같같같같
 	      case "image": 
 		$tableframe[$v]["inputtype"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
-		if ($value != "")				  {
+	      if ($value != "")				  {
 		 
-		    $efile = $action->GetParam("CORE_BASEURL").
-		    "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id;
-		    $tableframe[$v]["inputtype"] .=$efile;
-		  }
-		else	  // if no image force default image
-		  $tableframe[$v]["inputtype"] .= 
-		    $action-> GetParam("FREEDOM_DEFAULT_IMAGE");		
-		$tableframe[$v]["inputtype"] .= "\">";
+		$efile = $action->GetParam("CORE_BASEURL").
+		   "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id;
+		$tableframe[$v]["inputtype"] .=$efile;
+	      }
+	      else	  // if no image force default image
+		$tableframe[$v]["inputtype"] .= 
+		  $action-> GetParam("FREEDOM_DEFAULT_IMAGE");		
+	      $tableframe[$v]["inputtype"] .= "\">";
 
-		// input 
-		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+	      // input 
+	      $tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " > "; 
-		break;
+	      break;
 
 	      //같같같같같같같같같같같같같같같같같같같같
 	      case "file": 
@@ -267,21 +276,21 @@ function editcard(&$action) {
 
 		// input 
 		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
-	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
-	      $tableframe[$v]["inputtype"] .= " > "; 
+		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+		$tableframe[$v]["inputtype"] .= " > "; 
 		break;
 
-	      //같같같같같같같같같같같같같같같같같같같같
+		//같같같같같같같같같같같같같같같같같같같같
 	      case "longtext": 
 		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
 		   $listattr[$i]->id."\" ";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " >".
-		  chop(htmlentities(stripslashes($value))).
-		  "</textarea>";
-		break;
+		 chop(htmlentities(stripslashes($value))).
+		 "</textarea>";
+	      break;
 	      //같같같같같같같같같같같같같같같같같같같같
 	      case "textlist": 
 		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
@@ -289,9 +298,9 @@ function editcard(&$action) {
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " >".
-		  chop(htmlentities(stripslashes($value))).
-		  "</textarea>";
-		break;
+		 chop(htmlentities(stripslashes($value))).
+		 "</textarea>";
+	      break;
 
 	      
 	      //같같같같같같같같같같같같같같같같같같같같
@@ -304,9 +313,9 @@ function editcard(&$action) {
 	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
 		 _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
 		 ",".$listattr[$i]->id.",'single')\">";
-		break;      
+	      break;      
 		
-		//같같같같같같같같같같같같같같같같같같같같
+	      //같같같같같같같같같같같같같같같같같같같같
 
 	      case "enumlist": 
 		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
@@ -314,12 +323,12 @@ function editcard(&$action) {
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " >".
-		  chop(htmlentities(stripslashes($value))).
-		  "</textarea>";
+		 chop(htmlentities(stripslashes($value))).
+		 "</textarea>";
 	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
 		 _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
 		 ",".$listattr[$i]->id.",'multiple')\">";
-		break;
+	      break;
 
 
 	      //같같같같같같같같같같같같같같같같같같같같
@@ -327,27 +336,29 @@ function editcard(&$action) {
 		$tableframe[$v]["inputtype"]="<input  type=\"text\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+	      
 	      $tableframe[$v]["inputtype"] .= " > "; 
-		break;
+	      break;
 		
-	    }
+	      }
 		
 	
-	  $v++;
+	    $v++;
 
+	  }
 	}
-  
     }
 
   // Out
   
+  $action->lay->SetBlockData("HIDDENS",$thidden);
   $action->lay->SetBlockData("TABLEBODY",$frames);
   
 
   if (count( $doc->transitions) > 0) {
     // compute the changed state
     $fstate = $doc->GetFollowingStates();
-    $action->lay->Set("initstatevalue",$doc->state );
+    $action->lay->Set("initstatevalue",$action->text($doc->state) );
     $tstate= array();
     while (list($k, $v) = each($fstate)) {
       $tstate[$k]["statevalue"] = $v;

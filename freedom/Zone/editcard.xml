@@ -29,7 +29,7 @@
 [BLOCK TRSTATE]
 <tr class="FREEDOMBack2">
   <td colspan="3" >
- <label class="FREEDOMText" for="newstate">[TEXT: state:] <i>[TEXT:[initstatevalue]]</i> [TEXT:to]</label>
+ <label class="FREEDOMText" for="newstate">[TEXT:state] <i>[TEXT:[initstatevalue]]</i> [TEXT:to]</label>
  <select name="newstate"> 
  <option VALUE="[initstatevalue]" >[TEXT:unchanged]</option> 
 [BLOCK NEWSTATE]
@@ -39,5 +39,14 @@
   </td>
 </tr>
 [ENDBLOCK TRSTATE]
+
+
+<tr style="visibility:hidden">
+<td style="visibility:hidden">
+[BLOCK HIDDENS]
+<input type="hidden" id="[hname]" name="[hname]" value="[hvalue]">
+[ENDBLOCK HIDDENS]
+</td>
+</tr>
 </tbody>
 

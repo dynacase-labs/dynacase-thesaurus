@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.2 2001/12/19 17:57:32 eric Exp $
+// $Id: viewfolder.php,v 1.3 2001/12/21 13:58:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,7 +32,7 @@ include_once('FREEDOM/Class.QueryDirV.php');
 
 // -----------------------------------
 // -----------------------------------
-function viewfolder(&$action, $with_abstract=false) {
+function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
 // -----------------------------------
 
 
@@ -61,10 +61,6 @@ function viewfolder(&$action, $with_abstract=false) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
 
-  // Set Popup
-  include_once("FREEDOM/popup_util.php");
-
-  
   // Admin need FREEDOM_MASTER privilege
   if ($action->HasPermission("FREEDOM_MASTER"))    
     $action->lay->Set("imgadmin",$action->GetIcon("admin.gif",N_("admin")));   
@@ -126,9 +122,14 @@ function viewfolder(&$action, $with_abstract=false) {
 
 
 
-  // ------------------------------------------------------
-  // definition of popup menu
-  popupInit("popuplist",array('vprop','editdoc','cancel','copy','delete'));
+  if ($with_popup) {
+    // Set Popup
+    include_once("FREEDOM/popup_util.php");
+    // ------------------------------------------------------
+    // definition of popup menu
+    popupInit("popuplist",array('vprop','editdoc','cancel','copy','delete'));
+
+  }
 
 
   $kdiv=1;
@@ -139,7 +140,7 @@ function viewfolder(&$action, $with_abstract=false) {
   while(list($k,$doc) = each($ldoc)) 
     {
       // view control
-      //      print "$doc->title :".$doc-> Control("view")."<BR>";
+
       if ($doc-> Control("view") != "") continue;
 
 
@@ -170,27 +171,29 @@ function viewfolder(&$action, $with_abstract=false) {
 
       $tdoc[$k]["iconsrc"]= $doc->geticon();
 
-      // ------------------------------
-      // define accessibility
+      if ($with_popup) {
+	// ------------------------------
+	// define popup accessibility
 
-      popupActive("popuplist",$kdiv,'vprop');
-      popupActive("popuplist",$kdiv,'cancel');
-      popupActive("popuplist",$kdiv,'copy');
+	popupActive("popuplist",$kdiv,'vprop');
+	popupActive("popuplist",$kdiv,'cancel');
+	popupActive("popuplist",$kdiv,'copy');
 
-      if ($dirid > 0) popupActive("popuplist",$kdiv,'delete');
-      else popupInactive("popuplist",$kdiv,'delete');
+	if ($dirid > 0) popupActive("popuplist",$kdiv,'delete');
+	else popupInactive("popuplist",$kdiv,'delete');
 
-      $clf = ($doc->CanLockFile() == "");
-      $cuf = ($doc->CanUnLockFile() == "");
-      $cud = ($doc->CanUpdateDoc() == "");
-      if ($cud) {
-	popupActive("popuplist",$kdiv,'editdoc');
-      } else {
-	popupInactive("popuplist",$kdiv,'editdoc');
+	
+	$cud = ($doc->CanUpdateDoc() == "");
+	if ($cud) {
+	  popupActive("popuplist",$kdiv,'editdoc');
+	} else {
+	  popupInactive("popuplist",$kdiv,'editdoc');
+	}
+	
+	if ($doc->doctype == "S") popupInvisible('popuplist',$kdiv,'editdoc'); 
       }
-      
-      if ($doc->doctype == "S") popupInvisible('popuplist',$kdiv,'editdoc'); 
-      
+
+
       $kdiv++;
       if ($doc->doctype == 'F') $tdoc[$k]["revision"]= $doc->revision;
       else $tdoc[$k]["revision"]="";
@@ -281,13 +284,15 @@ function viewfolder(&$action, $with_abstract=false) {
   $action->lay->Set("nbdiv",$kdiv-1);
   $action->lay->SetBlockData("TABLEBODY", $tdoc);
 
-  // display popup js
-  popupGen($kdiv-1);
+  if ($with_popup) {
+    // display popup js
+    popupGen($kdiv-1);
   
-  // js : manage icons
-  $licon = new Layout($action->Getparam("CORE_PUBDIR")."/FREEDOM/Layout/manageicon.js", $action);
-  $licon->Set("nbdiv",$kdiv-1);
-  $action->parent->AddJsCode($licon->gen());
+    // js : manage icons
+    $licon = new Layout($action->Getparam("CORE_PUBDIR")."/FREEDOM/Layout/manageicon.js", $action);
+    $licon->Set("nbdiv",$kdiv-1);
+    $action->parent->AddJsCode($licon->gen());
+  }
 
   $action->log->end("freedom_icons");
 }

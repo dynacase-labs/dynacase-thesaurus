@@ -77,7 +77,7 @@ TR.select {
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
 <tr class="unselect" id="d[id]"
-     onMouseDown="select(this,[id],[divid]);parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id=[id]'" >
+     onMouseDown="select(this,[id],[divid]);subwindow(300,400,'doc_properties','[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id=[id]')" >
 <td class="tlist"  >[revision]</td>
 <td class="tlist" >  
      [comment]

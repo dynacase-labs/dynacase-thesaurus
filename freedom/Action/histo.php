@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: histo.php,v 1.2 2001/11/21 13:12:55 eric Exp $
+// $Id: histo.php,v 1.3 2001/12/21 13:58:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/histo.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: histo.php,v $
+// Revision 1.3  2001/12/21 13:58:35  eric
+// modif pour incident
+//
 // Revision 1.2  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -49,6 +52,8 @@ function histo(&$action)
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
   $comment = GetHttpVars("comment",_("no comment"));
+
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
   $doc= new Doc($dbaccess,$docid);
   $action->lay->Set("title",$doc->title);

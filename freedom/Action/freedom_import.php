@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.7 2001/12/19 17:57:32 eric Exp $
+// $Id: freedom_import.php,v 1.8 2001/12/21 13:58:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_import.php,v $
+// Revision 1.8  2001/12/21 13:58:35  eric
+// modif pour incident
+//
 // Revision 1.7  2001/12/19 17:57:32  eric
 // on continue
 //
@@ -196,7 +199,7 @@ function add_import_file(&$action, $fimport="") {
       if ($data[$iattr] != "") {
 	$bdvalue->attrid = $attr->id;
 	$bdvalue->value = $data[$iattr];
-
+	$bdvalue->Modify();
       }
       $iattr++;
     }
@@ -254,7 +257,7 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "ATTR":
-      if     ($num != 13) print "Error in line $nline: $num cols not 13<BR>";
+      if     ($num < 13) print "Error in line $nline: $num cols < 13<BR>";
       $oattr=new DocAttr($dbaccess);
     $oattr->docid = $doc->id;
     $oattr->id = $data[1];

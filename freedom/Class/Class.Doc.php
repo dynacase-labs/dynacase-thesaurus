@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.18 2001/12/19 17:57:32 eric Exp $
+// $Id: Class.Doc.php,v 1.19 2001/12/21 13:58:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.18 2001/12/19 17:57:32 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.19 2001/12/21 13:58:35 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -139,10 +139,12 @@ create sequence seq_id_doc start 1000";
 
 	if (! isset($lprof[$this->profid])) {
 	  $pdoc = new Doc($this->dbaccess, $this->profid);
-	  $lprof[$this->profid] = $pdoc ->operm;
+	  if (isset($pdoc ->operm))
+	    $lprof[$this->profid] = $pdoc ->operm;
 	  //	print "SET $this->id : controlled by $this->profid <BR>";
 	} 
-	$this ->operm= $lprof[$this->profid];
+	if (isset($lprof[$this->profid]))
+	  $this ->operm= $lprof[$this->profid];
 	//	print "$this->id : controlled by $this->profid <BR>";
       }
 
@@ -763,7 +765,7 @@ create sequence seq_id_doc start 1000";
     // post action
     if ($tr["m2"] != "") {
       if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
-      $err = call_user_method ($tr["m2"], $this);
+      $err = call_user_method ($tr["m2"], $this, $newstate);
       if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' return the following error %s"), $tr["m2"], $err));
       
     }
