@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocPerm.php,v 1.1 2002/11/07 16:00:00 eric Exp $
+// $Id: Class.DocPerm.php,v 1.2 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocPerm.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.1 2002/11/07 16:00:00 eric Exp $';
+$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.2 2002/11/13 15:49:36 eric Exp $';
 include_once("Class.DbObj.php");
 
 Class Docperm extends DbObj
@@ -42,6 +42,7 @@ Class Docperm extends DbObj
 
   var $order_by="docid";
 
+  var $isCacheble= false;
   var $sqlcreate = "
 create table docperm ( 
                      docid int,
@@ -50,8 +51,17 @@ create table docperm (
                      unacl int  not null,
                      cacl int not null
                    );
-create unique index idx_perm on docperm(docid, userid);";
+create unique index idx_perm on docperm(docid, userid);
+create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE PROCEDURE initacl();";
   
+
+  function preSelect($tid) {
+    if (count($tid) == 2) {
+      $this->docid=$tid[0];
+      $this->userid=$tid[1];
+    }
+  }
+
   function getUperm($docid, $userid) {
     $q = new QueryDb($this->dbaccess, "docperm");
     $t = $q -> Query(0,1,"TABLE","select getuperm($userid,$docid) as uperm");
@@ -59,5 +69,81 @@ create unique index idx_perm on docperm(docid, userid);";
     return $t[0]["uperm"];
   }
     
+  
+  
+  // --------------------------------------------------------------------
+  function ControlU ($pos) {
+    // --------------------------------------------------------------------     
+        
+    if ( ! isset($this->uacl)) {                  
+      $this->uacl = $this->getUperm($this->docid,$this->userid);
+
+    }
+    return ($this->ControlMask($this->uacl,$pos));
+  }
+
+  // --------------------------------------------------------------------
+  function ControlG ($pos) {
+    // --------------------------------------------------------------------     
+        
+    if ( ! isset($this->gacl)) {       
+      $q = new QueryDb($this->dbaccess, "docperm");
+      $t = $q -> Query(0,1,"TABLE","select computegperm({$this->userid},{$this->docid}) as uperm");
+
+      $this->gacl=$t[0]["uperm"];
+    }
+    
+    return ($this->ControlMask($this->gacl,$pos));
+  }
+
+  
+  // --------------------------------------------------------------------
+  function ControlUp ($pos) {
+    // --------------------------------------------------------------------     
+        
+    if ($this->isAffected()) {            
+      return ($this->ControlMask($this->upacl,$pos));
+    } 
+    return false;
+  }
+  
+  // --------------------------------------------------------------------
+  function ControlUn ($pos) {
+    // --------------------------------------------------------------------     
+        
+    if ($this->isAffected()) {            
+      return ($this->ControlMask($this->unacl,$pos));
+    } 
+    return false;
+  }
+
+  // --------------------------------------------------------------------
+  function ControlMask ($acl, $pos) {
+    // --------------------------------------------------------------------     
+        
+    return (($acl & (1 << ($pos ))) != 0);
+  }
+
+
+  // --------------------------------------------------------------------
+  function UnSetControl() {
+  // --------------------------------------------------------------------
+    $this->upacl=0;
+    $this->unacl=0;
+    $this->cacl=0;
+  }
+
+  // --------------------------------------------------------------------
+  function SetControlP($pos) {
+  // --------------------------------------------------------------------
+    $this->upacl = $this->upacl | (1 << ($pos ));
+  }
+
+  // --------------------------------------------------------------------
+  function SetControlN($pos) {
+  // --------------------------------------------------------------------
+    $this->unacl = $this->unacl | (1 << ($pos ));
+    
+  }
 }
 ?>

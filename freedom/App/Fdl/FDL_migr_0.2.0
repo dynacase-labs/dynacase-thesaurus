@@ -5,13 +5,22 @@
 pubdir="/home/httpd/what";
 
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocAttr
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocFam
+
+echo "insert into docfam ($fields)  select * from only doc where  doctype='C';delete from only doc where  doctype='C';" | psql freedom anakeen
+    
+# creation des class PHP
+$pubdir/wsh.php --api=fdl_adoc 
+
 psql freedom anakeen -f $pubdir/FDL/FDL_migr_0.2.0.sql
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=Doc
 
 
 
+psql freedom anakeen -f $pubdir/FDL/fdl.sql
 
-$pubdir/wsh.php --api=migr_sql2.0 | psql freedom anakeen
+
+$pubdir/wsh.php --api=migr_sql2.0 --table=yes | psql freedom anakeen
 echo "update  docfam set cprofid =  docfamtemp.cprofid from docfamtemp where docfamtemp.id=docfam.id;"| psql freedom anakeen
 echo "update  docfam set dfldid =  docfamtemp.dfldid from docfamtemp where docfamtemp.id=docfam.id;"| psql freedom anakeen
 
@@ -20,16 +29,28 @@ echo "CREATE UNIQUE INDEX idx_idfam ON docfam(id);" | psql freedom anakeen
 
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocValue
 
-echo "update doc set classname='' where doctype != 'C'; update docfam set classname='Doc'||fromid where id > 6 and fromid > 0;" | psql freedom anakeen
+echo "update doc set classname='' where doctype != 'C'; update docfam set classname='Doc'||fromid where id > 6 and fromid > 0 and classname like 'Doc%';" | psql freedom anakeen
 
 
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocFam
 echo "VACUUM FULL ANALYZE;" | psql freedom anakeen
 
-$pubdir/wsh.php --api=fdl_adoc 
-$pubdir/wsh.php --api=fdl_trigger  | psql freedom anakeen
-$pubdir/wsh.php --api=fdl_trigger --trigger=yes | psql freedom anakeen
-
-echo "update docvalue set attrid=lower(attrid);" | psql freedom anakeen
+#echo "update docvalue set attrid=lower(attrid);" | psql freedom anakeen
 echo "update docattr set id=lower(id);" | psql freedom anakeen
 echo "update docattr set frameid=lower(frameid);" | psql freedom anakeen
+
+# creation des class PHP (2ème passe)
+$pubdir/wsh.php --api=fdl_adoc 
+# creation des fonctions de trigger
+$pubdir/wsh.php --api=fdl_trigger  | psql freedom anakeen
+# activation des triggers
+$pubdir/wsh.php --api=fdl_trigger --trigger=yes | psql freedom anakeen
+
+#migration des permissions
+echo "update doc set profid=0  where id=profid and profid not in (select id_obj from operm);" | psql freedom anakeen
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocPerm
+$pubdir/wsh.php --api=migr_sql2.0 --perm=yes 
+echo "update doc set profid=-profid where profid > 0 and profid not in (select docid from docperm);" | psql freedom anakeen
+
+
+echo "VACUUM FULL ANALYZE;" | psql freedom anakeen

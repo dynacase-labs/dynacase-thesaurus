@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.6 2002/10/08 10:28:17 eric Exp $
+// $Id: FDL.app,v 1.7 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -89,6 +89,11 @@ $action_desc = array (
   array( 
    "name"		=>"EDITMAIL",
    "short_name"		=>N_("edit mail"),
+   "acl"		=>"NORMAL"
+  )  ,
+  array( 
+   "name"		=>"MODACL",
+   "short_name"		=>N_("modify acl"),
    "acl"		=>"NORMAL"
   ) 
                       );	

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_access.php,v 1.3 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_access.php,v 1.4 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_access.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,35 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: freedom_access.php,v $
-// Revision 1.3  2002/06/19 12:32:28  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.2  2002/03/08 14:47:28  eric
-// modif pour relocalisation permission objet dans FREEDOM_DB
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.4  2001/12/13 17:45:01  eric
-// ajout attribut classname sur les doc
-//
-// Revision 1.3  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-// Revision 1.1  2001/10/10 16:01:31  eric
-// modif pour les droits d'accès
-//
 
-//
-//
-// ---------------------------------------------------------------
 include_once("FDL/Class.Doc.php");
 
 
@@ -65,14 +37,32 @@ function freedom_access(&$action) {
   // Get all the params   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid= GetHttpVars("id");
+  $userId= GetHttpVars("userid",$action->user->id);
 
 
 
-  $ofreedom = new Doc($dbaccess, $docid);
+  $doc = new Doc($dbaccess, $docid);
+
+  $action->lay->Set("title", $doc->title);
+    // contruct user id list
 
 
+    $ouser = new User();
+    $tiduser = $ouser->GetUserAndGroupList();
+    $userids= array();
+    while(list($k,$v) = each($tiduser)) {
+      if ($v->id == 1) continue; // except admin : don't need privilege
+      if ($v->id == $userId) $userids[$k]["selecteduser"] = "selected";
+      else $userids[$k]["selecteduser"]="";
+      $userids[$k]["suserid"]= $v->id;
+      $userids[$k]["descuser"]=$v->firstname." ".$v->lastname;
+    }
+
+    $action->lay->Set("docid", $doc->id);
+    $action->lay->Set("userid", ($userId==1)?$tiduser[0]->id:$userId);
+
+    $action->lay->SetBlockData("USER",$userids); 
   
-  redirect($action,"ACCESS","EDIT_OBJECT&sole=Y&mod=app&isclass=yes&userid={$action->parent->user->id}&appid={$ofreedom->classid}&oid={$ofreedom->id}");
 }
 
 

@@ -1,9 +1,9 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.PDir.php,v 1.4 2002/11/13 15:49:36 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDir.php,v $
+// $Id: modacl.php,v 1.1 2002/11/13 15:49:36 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/modacl.php,v $
 // ---------------------------------------------------------------
-//  O   Anakeen - 2001
+//  O   Anakeen - 2000
 // O*O  Anakeen development team
 //  O   dev@anakeen.com
 // ---------------------------------------------------------------
@@ -20,32 +20,49 @@
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.PDir.php,v 1.4 2002/11/13 15:49:36 eric Exp $';
-
 
 include_once("FDL/Class.Doc.php");
 
 
-Class PDir extends Doc
-{
-  // --------------------------------------------------------------------
-  //---------------------- OBJECT CONTROL PERMISSION --------------------
-  var $acls = array("view","edit","delete","open","modify");
-  // --------------------------------------------------------------------
-  
-  
-  var $defDoctype='P';
-  var $defProfFamId=FAM_ACCESSDIR;
 
-  function PDir($dbaccess='', $id='',$res='',$dbid=0) {
-    // don't use Doc constructor because it could call this constructor => infinitive loop
-     DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);
+
+
+// -----------------------------------
+function modacl(&$action) {
+  // -----------------------------------
+
+  // get all parameters
+  $userid=GetHttpVars("userid");
+
+  $aclp=GetHttpVars("aclup"); // ACL + (more access)
+  $acln=GetHttpVars("aclun"); // ACL - (less access)
+  $docid=GetHttpVars("docid"); // oid for controlled object
+
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  
+  $perm = new DocPerm($dbaccess, array($docid,$userid));
+
+  $perm->UnSetControl();
+
+  if (is_array($aclp)) {
+    while (list($k,$v) = each($aclp)) {
+      $perm->SetControlP($v);
+    }
+  }
+  if (is_array($acln)) {
+    while (list($k,$v) = each($acln)) {
+      $perm->SetControlN($v);
+    }
   }
 
+  if ($perm -> isAffected()) $perm ->modify();
+  else $perm->Add();
 
+
+  global $HTTP_SERVER_VARS;
+  Header("Location: ".$HTTP_SERVER_VARS["HTTP_REFERER"]); // return to sender
 
 }
-
 ?>

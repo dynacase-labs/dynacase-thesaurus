@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.7 2002/10/08 10:27:12 eric Exp $
+// $Id: editprof.php,v 1.8 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,7 +42,7 @@ function editprof(&$action)
 
   $doc= new Doc($dbaccess,$docid);
   // build values type array
- 
+
 
   $action->lay->Set("doctitle",_("new profile document"));
 
@@ -73,8 +73,8 @@ function editprof(&$action)
     $doc->GetFathersDoc();
     $action->lay->Set("doctitle",$doc->title);
 
-    if ($createp) $sprofid = $doc->cprofid;
-    else $sprofid = $doc->profid;
+    if ($createp) $sprofid = abs($doc->cprofid);
+    else $sprofid = abs($doc->profid);
 
     if ($sprofid == $doc->id) 
       $action->lay->Set("selected_spec","selected");

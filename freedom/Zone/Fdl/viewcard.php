@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.21 2002/11/04 17:56:17 eric Exp $
+// $Id: viewcard.php,v 1.22 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -118,8 +118,8 @@ function viewcard(&$action) {
   } else {
     $action->lay->Set("classtitle", _("no family"));
   }
-  if (($doc->profid > 0) && ($doc->profid != $doc->id)) {
-    $pdoc = new Doc($dbaccess, $doc->profid);
+  if ((abs($doc->profid) > 0) && ($doc->profid != $doc->id)) {
+    $pdoc = new Doc($dbaccess, abs($doc->profid));
     $action->lay->Set("profile", $pdoc->title);
     $action->lay->Set("displaylprof", "inherit");
     $action->lay->Set("displayprof", "none");
@@ -132,7 +132,7 @@ function viewcard(&$action) {
       $action->lay->Set("profile", _("specific control"));
       
   }
-  $action->lay->Set("profid", $doc->profid);
+  $action->lay->Set("profid", abs($doc->profid));
   $action->lay->Set("iconalt","icon");
   
   if (($target=="mail") && ($doc->icon != "")) $action->lay->Set("iconsrc", "cid:icon");

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.5 2002/09/19 13:45:10 eric Exp $
+// $Id: modprof.php,v 1.6 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,7 +39,7 @@ function modprof(&$action) {
   // Get all the params      
   $docid=GetHttpVars("docid");
   $createp = GetHttpVars("create",0); // 1 if use for create profile (only for familly)
-    
+  $profid = GetHttpVars("profid");  
     
   if ( $docid == 0 ) $action->exitError(_("the document is not referenced: cannot apply profile access modification"));
     
@@ -57,31 +57,37 @@ function modprof(&$action) {
   $err=$doc-> CanUpdateDoc();
   if ($err != "")    $action-> ExitError($err);
   
+
+
+  if (($doc->profid == $doc->id) && ($profid == 0)) {
+    // unset control
+    $doc->UnsetControl();
+  }
+  
+  if (($profid > 0) && ($profid != $doc->id)) {
+    // make sure that the profil is activated
+    $pdoc=new Doc($dbaccess, $profid);
+    if ($pdoc->profil == 0) $profid = -$profid; // inhibition
+  }
+
   if ($createp) {
     // change creation profile
-    $doc->cprofid = GetHttpVars("profid"); // new creation profile access
+    $doc->cprofid = $profid; // new creation profile access
   } else {
     // change profile
-    $doc->profid = GetHttpVars("profid"); // new profile access
+    $doc->profid = $profid; // new profile access
   }
-  $doc-> Modify();
   
   
   
   
   // specific control
-  if (($doc->profid == $doc->id) && 
-      (! $doc->isControlled()) )
-    $doc->SetControl();
-  else {
-    // remove control 
-    if (($doc->profid >= 0) && 
-	($doc->isControlled()) )
-      $doc->UnsetControl();
+  if ($doc->profid == $doc->id)    $doc->SetControl();
   
-  }
+  $doc->disableEditControl(); // need because new profil is not enable yet
+  $err= $doc-> Modify();
   
-  
+  if ( $err != "" ) $action->exitError($err);
   
   
   

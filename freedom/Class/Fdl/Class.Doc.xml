@@ -51,11 +51,11 @@ end;
    function Doc[docid] ($dbaccess='', $id='',$res='',$dbid=0) {
     $this->attributes = new ADoc[docid]();
     
+
     if (isset($this->attributes->fields))  $this->fields += $this->attributes->fields;
+      [pinit]::[pinit]($dbaccess, $id, $res, $dbid);
 
-      DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);
 
-    
 
       uasort($this->attributes->attr,"tordered"); 
        

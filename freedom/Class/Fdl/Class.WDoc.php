@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.6 2002/11/07 16:00:01 eric Exp $
+// $Id: Class.WDoc.php,v 1.7 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.6 2002/11/07 16:00:01 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.7 2002/11/13 15:49:36 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -32,7 +32,7 @@ Class WDoc extends Doc {
 
   
 
-  var $acls = array(POS_VIEW,POS_EDIT,POS_DEL);
+  var $acls = array("view","edit","delete");
 
 	
 
@@ -50,11 +50,14 @@ Class WDoc extends Doc {
 
       $ka = POS_WF;
       while (list($k, $trans) = each($this->transitions)) {
-	$this->obj_acl[$ka]=array("name"=>$k,
-				  "description" =>_($k));
+	$this->dacls[$k]=array("pos"=>$ka,
+			       "description" =>_($k));
+	$this->acls[]=$k;
 	$ka++;
       }
-      $this->defProfClassname=$this->defClassname; // it's a profil itself
+      if (isset($this->fromid)) $this->defProfFamId=$this->fromid; // it's a profil itself
+
+
 
       // don't use Doc constructor because it could call this constructor => infinitive loop
      DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.9 2002/09/26 08:30:51 eric Exp $
+// $Id: search.php,v 1.10 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,9 +23,9 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.DocSearch.php");
-include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.QueryDir.php");
+
+include_once("FDL/Lib.Dir.php");
+
 include_once("FDL/freedom_util.php");  
 
 
@@ -46,7 +46,7 @@ function search(&$action) {
   $save=GetHttpVars("save", false); // the query need to be saved
   $sensitive=GetHttpVars("sensitive", false); // the keyword is case sensitive
   $fromdir=GetHttpVars("fromdir", false); // the keyword is case sensitive
-  $famid=GetHttpVars("famid",0); // famid restrictive familly
+  $famid=GetHttpVars("famid"); // famid restrictive familly
 
   if ($title == "") $title=_("new search ").$keyword;
   
@@ -119,28 +119,22 @@ function search(&$action) {
     $cdirid = getRChildDirId($dbaccess, $dirid);
     $cdirid[] = $dirid;
     
-    $sql_fromdir = GetSqlCond($cdirid,"dirid");
+   
 
-  } else $sql_fromdir = "";
+  } else $cdirid=0;;
+
+  $filters=array();
+  if ($latest)       $filters[] = "locked != -1";
 
 
-    if ($latest)       $sqllatest = "and (doc.locked != -1)";
-    else   $sqllatest = "";
 
+  if ($sensitive) $filters[] = "getdocvalues(doc$famid.id) ~ '.*$keyword.*' ";
+  else $filters[] = "getdocvalues(doc$famid.id) ~* '.*$keyword.*' ";
 
-  if ($sensitive) $testval = "like '%$keyword%'";
-  else $testval = "~* '.*$keyword.*'";
+ 
+  
 
-  if ($famid) $sqlfam = "(doc.fromid = $famid) and";
-  else $sqlfam = "";
-		    
-  if ($fromdir) {
-    
-    $query = "select doc.*  from doc, docvalue where  $sqlfam (value $testval)  and (doc.id in (select childid from fld where $sql_fromdir)) and (doc.id = docvalue.docid) $sqllatest "; 
-    
-  } else  {
-    $query = "select doc.* from doc, docvalue where $sqlfam (value $testval) and (doc.id = docvalue.docid) $sqllatest"; 
-  } 
+  $query = getSqlSearchDoc($dbaccess, $cdirid, $famid, $filters);
 
   $sdoc-> AddQuery($query);
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD_init.php.in,v 1.7 2002/09/30 11:46:44 eric Exp $
+// $Id: USERCARD_init.php.in,v 1.8 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,8 +48,4 @@ $app_const= array(
 );
 
 
-include_once("FDL/Class.DocUser.php");
-
-$doc = new DocUser($app_const["FREEDOM_DB"]);
-$doc->InitObjectAcl();
 ?>

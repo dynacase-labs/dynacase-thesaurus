@@ -26,6 +26,7 @@ $docid = GetHttpVars("docid",0); // special docid
 
 	
 $query = new QueryDb($dbaccess,"DocFam");
+$query ->AddQuery("doctype='C'");
 
   
 if ($docid > 0) $query->AddQuery("id=$docid");

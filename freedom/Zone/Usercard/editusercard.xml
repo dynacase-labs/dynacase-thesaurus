@@ -1,0 +1,19 @@
+
+<tbody>
+<tr><td colspan="3" ><table width="100%">
+[ZONE FDL:EDITBODYCARD]
+</table></td></tr>
+
+<tr class="FREEDOMBack1">
+  <td colspan="2" >
+  <select name="_US_PRIVCARD" id="[US_PRIVCARD]">
+    <option value="R" [selectr]>[TEXT:public card - read access]</option>
+    <option value="W" [selectw]>[TEXT:public card - write access]</option>
+    <option value="P" [selectp] style="display:[displaypriv]">[TEXT:private card]</option>
+  </select>
+  </td>
+  <td align="right"><input type="button" value=[TEXT:help] onClick="subwindow(300,400,'helpwhat','[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=USERCARD&sectid=usercard.func.creation');"> </td>
+</tr>
+
+
+</tbody>

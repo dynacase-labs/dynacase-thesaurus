@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.1 2002/11/04 09:13:17 eric Exp $
+// $Id: Lib.Attr.php,v 1.2 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,13 +38,18 @@ function AttrToPhp($dbaccess, $tdoc) {
     $phpAdoc->Set("DocParent", $tdoc["classname"]);
     $phpAdoc->Set("AParent", "ADoc");
     $phpAdoc->Set("fromid", "");
+    $phpAdoc->Set("pinit", "DocCtrl");
 
   }  else  {
     $phpAdoc->Set("fromid", $tdoc["fromid"]);
     if ($tdoc["classname"] != "Doc".$tdoc["fromid"] ) {
       $phpAdoc->Set("DocParent", $tdoc["classname"]);
+      $phpAdoc->Set("pinit", $tdoc["classname"]);
       $phpAdoc->Set("include","include_once(\"FDL/Class.Doc".$tdoc["fromid"].".php\");");
-    } else $phpAdoc->Set("DocParent", "Doc".$tdoc["fromid"]);
+    } else {
+      $phpAdoc->Set("DocParent", "Doc".$tdoc["fromid"]);
+      $phpAdoc->Set("pinit", "DocCtrl");
+    }
     $phpAdoc->Set("AParent", "ADoc".$tdoc["fromid"]);
   }
 
@@ -113,7 +118,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 
   //----------------------------------
   // Add specials methods
-  if ($tdoc["methods"] != "") {
+  if (isset($tdoc["methods"]) && ($tdoc["methods"] != "")) {
 
     $filename=GetParam("CORE_PUBDIR")."/FDL/".$tdoc["methods"];
     $fd = fopen ($filename, "rb");

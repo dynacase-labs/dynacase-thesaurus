@@ -40,7 +40,7 @@ declare
   gperm int;
   
 begin
-   if (a_userid = 1) or (profid = 0) then 
+   if (a_userid = 1) or (profid <= 0) then 
      return -1; -- it is admin user or no controlled object
    end if;
   
@@ -55,7 +55,7 @@ begin
 
    return uperm;
 end;
-' language 'plpgsql';
+' language 'plpgsql' with (iscachable);
 
 
 create or replace function getuperm(int, int) 
@@ -68,7 +68,7 @@ declare
   upperm int;
   unperm int;
 begin
-   if (a_userid = 1) or (profid = 0) then 
+   if (a_userid = 1) or (profid <= 0) then 
      return -1; -- it is admin user or no controlled object
    end if;
   
@@ -76,22 +76,28 @@ begin
 
    if (uperm is null) then
      uperm := computegperm(a_userid,profid);
-     if (uperm = 0) then -- not group set
-      return -1;
-     end if;
+     insert into docperm (docid, userid, upacl, unacl, cacl) values (profid,a_userid,0,0,uperm); 
+     return uperm;
    end if;
 
    if (uperm = 0) then
      gperm := computegperm(a_userid,profid);
     
      uperm := ((gperm | upperm) & (~ unperm)) | 1;
-    
+
      update docperm set cacl=uperm where docid=profid and userid=a_userid;
    end if;
 
+--   select into unperm cacl from docperm where docid=profid and userid=0;
+--	 if (unperm is null) then
+--    unperm:=0;
+--    insert into docperm (docid, userid, upacl, unacl, cacl) values (profid,0,0,0,0); 
+--   end if;
+--   unperm := unperm+1;
+--   update docperm set cacl=unperm where docid=profid and userid=0;
    return uperm;
 end;
-' language 'plpgsql';
+' language 'plpgsql' with (iscachable);
 
 create or replace function hasviewprivilege(int, int) 
 returns bool as '
@@ -100,13 +106,13 @@ declare
   profid alias for $2;
   uperm int;
 begin
- 
+   
    uperm := getuperm(a_userid, profid);
 
 
    return ((uperm & 2) != 0);
 end;
-' language 'plpgsql';
+' language 'plpgsql' with (iscachable);
 
 
 create or replace function getdocvalues(int) 
@@ -125,20 +131,6 @@ end;
 ' language 'plpgsql';
 
 
-create or replace function getdocavalues(int) 
-returns varchar as '
-declare 
-  arg_doc alias for $1;
-  rvalue docvalue%ROWTYPE;
-  values text;
-begin
-values := '''';
-for rvalue in select  docvalue.* from docvalue, docattr where  (docvalue.docid=arg_doc) and docvalue.attrid=docattr.id and docattr.abstract=''Y'' loop
-	values := values || ''['' || rvalue.attrid || '';;'' || rvalue.value || '']'';
-end loop;
-return values;
-end;
-' language 'plpgsql';
 
 
 
@@ -147,6 +139,27 @@ returns opaque as '
 declare 
 begin
 delete from docvalue where docid=OLD.id;
+delete from docperm where docid=OLD.id;
 return OLD;
+end;
+' language 'plpgsql';
+
+
+create or replace function initacl() 
+returns opaque as '
+declare 
+begin
+if (TG_OP = ''UPDATE'') then
+   if (NEW.cacl != 0)  and ((NEW.upacl != OLD.upacl) OR (NEW.unacl != OLD.unacl)) then
+     update docperm set cacl=0 where docid=NEW.docid;
+   end if;
+end if;
+
+if (TG_OP = ''INSERT'') then
+   if (NEW.cacl != 0) then 
+     update docperm set cacl=0 where docid=NEW.docid;
+   end if;
+end if;
+return NEW;
 end;
 ' language 'plpgsql';

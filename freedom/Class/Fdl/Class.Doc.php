@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.65 2002/11/07 16:04:01 eric Exp $
+// $Id: Class.Doc.php,v 1.66 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.65 2002/11/07 16:04:01 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.66 2002/11/13 15:49:36 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -423,20 +423,7 @@ create unique index i_docir on doc(initid, revision);";
       
     }
 
-  // --------------------------------------------------------------------
-  function PostDelete()    
-  // --------------------------------------------------------------------
-    {
 
-
-  
-      // ------------------------------
-      // delete control object
-      DbObjCtrl::PostDelete();
-
-
-      
-    }
 
   // --------------------------------------------------------------------
   // Adaptation of affect Method from DbObj because of inheritance table
@@ -469,9 +456,8 @@ create unique index i_docir on doc(initid, revision);";
   function GetProfileDoc()
     // --------------------------------------------------------------------
     {
-      include_once("FDL/Class.Doc${this->defProfFamId}.php");
+      include_once("FDL/Class.Doc{$this->defProfFamId}.php");
       $query = new QueryDb($this->dbaccess, "Doc".$this->defProfFamId);
-
       
 
       $query->Query();
@@ -1121,7 +1107,7 @@ create unique index i_docir on doc(initid, revision);";
   function Control ($aclname) {
     // -------------------------------------------------------------------- 
     if (($this->IsAffected()) ) {	
-      if ($this->profid == 0) return ""; // no profil
+      if ($this->profid <= 0) return ""; // no profil
       
       return $this->controlId($this->profid,$aclname);
     }

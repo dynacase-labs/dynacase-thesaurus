@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.33 2002/11/07 16:00:01 eric Exp $
+// $Id: Lib.Dir.php,v 1.34 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -120,10 +120,9 @@ function getSqlSearchDoc($dbaccess,
       }
       
       $qsql= "select $selectfields ".
-	"from $only $table, fld  ".
+	"from $only $table RIGHT OUTER JOIN fld on (initid=fld.childid)  ".
 	"where $sqlcond ".
-	"and $sqlfld ".
-	"and (fld.qtype='S' and fld.childid=initid )  ";
+	"and $sqlfld ";
       
       
     } else {
@@ -168,7 +167,7 @@ function getChildDoc($dbaccess,
   $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct);
 
   if ($userid > 1) { // control view privilege
-    $qsql .= " and hasviewprivilege($userid, profid)";
+     $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
     // and get permission
     if ($qtype == "LIST") $qsql = str_replace(" from "," ,getuperm($userid,profid) as uperm from ",$qsql);
   }

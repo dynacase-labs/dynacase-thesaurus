@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.PDocSearch.php,v 1.3 2002/11/07 16:00:01 eric Exp $
+// $Id: Class.PDocSearch.php,v 1.4 2002/11/13 15:49:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.PDocSearch.php,v 1.3 2002/11/07 16:00:01 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.PDocSearch.php,v 1.4 2002/11/13 15:49:36 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -35,7 +35,7 @@ Class PDocSearch extends Doc
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
   
-  var $acls = array(POS_VIEW,POS_EDIT,POS_DEL,POS_EXEC);
+  var $acls = array("view","edit","delete","execute");
   // --------------------------------------------------------------------
 
   var $defDoctype='P';
