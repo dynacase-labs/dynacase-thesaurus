@@ -1,8 +1,8 @@
 #!/bin/sh
 # ---------------------------------------------------------
-# $Id: FREEDOM.cron,v 1.4 2003/07/29 13:08:59 eric Exp $
+# $Id: FREEDOM.cron,v 1.5 2004/01/15 16:27:53 eric Exp $
 # 
 # Distribued under GPL 2 licence terms
 # ---------------------------------------------------------
-find /var/run/php/ -name 'sess_*' -exec /bin/rm {} \;
+
 psql freedom anakeen -f /home/httpd/what/API/freedom_clean.sql > /dev/null
