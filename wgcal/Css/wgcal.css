@@ -220,3 +220,11 @@ TD {
   background-color : #EFEFEF;
   color : black;
 }
+.wTextActive {
+  background-color: [CORE_BGCOLORHIGH];
+  cursor:pointer;
+}
+.wTextNormal {
+  background-color: ;
+  cursor:default;
+}

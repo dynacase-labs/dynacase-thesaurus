@@ -23,5 +23,11 @@
  </head>
 
 <body>
+<form id="usetparam" target="wgcal_hidden" name="usetparam" method="POST"
+      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_USETPARAM">
+     <input id="pname" name="pname" type="hidden" value="">
+     <input id="pvalue" name="pvalue" type="hidden" value="">
+     <input id="taction" name="taction" type="hidden" value="">
+</form>
 
 <!-- END HEAD HTML -->

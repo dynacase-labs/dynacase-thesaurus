@@ -56,6 +56,7 @@ $action_desc = array (
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_CALENDAR", "short_name" =>N_("calendar view"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_TEXTMONTH", "short_name" =>N_("month text"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_PREFS", "short_name" =>N_("user preferences"), "toc" => "N", "root" =>"N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_HIDDEN", "toc" => "N")
 );

@@ -142,6 +142,7 @@ function setRessourceState(rid, setStyle, unsetStyle, memo) {
   return;
 }
    
+
 function saveTmpRessources() {
   var rlist= "";
   for (i=0; i<ressourceList.length;i++) {

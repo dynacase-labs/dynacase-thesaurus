@@ -9,8 +9,8 @@
 <img height="16" style="cursor:pointer" title="[TEXT:month text view]" onclick="setTextView(-1);" src="WGCAL/Images/wm-viewtext.png">
 </td>
 <td align="right" width="50" class="WGCAL_Period">
-<img height="16" title="[TEXT:print view]"  onclick="parent.wgcal_calendar.print()" src="WGCAL/Images/wm-print.png">
-<img id="menu_prefs" title="[TEXT:change preferences]" onclick="subwindow(300, 500, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS');" src="WGCAL/Images/wgcal-prefs.png" height="16" >
+<img height="16" title="[TEXT:print view]"  style="cursor:pointer" onclick="parent.wgcal_calendar.print()" src="WGCAL/Images/wm-print.png">
+<img id="menu_prefs" title="[TEXT:change preferences]" style="cursor:pointer" onclick="subwindow(300, 500, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS');" src="WGCAL/Images/wgcal-prefs.png" height="16" >
 </td>
 </tr>
 </table>

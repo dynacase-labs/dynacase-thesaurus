@@ -86,9 +86,9 @@ function wgcal_textmonth(&$action)
 	    $ev = new Doc($dbaccess, $ievent);
 	    $d[$ie]["hours"] = "";
             if ($tdays[$cday]->events[$ie]["START"]>0) $s = strftime("%H:%M",$tdays[$cday]->events[$ie]["START"]);
-            else $s = $hstart."H00";
+            else $s = $hstart.":00";
             if ($tdays[$cday]->events[$ie]["END"]>0) $e = strftime("%H:%M",$tdays[$cday]->events[$ie]["END"]);
-            else $e = $hstop."H00";
+            else $e = $hstop.":00";
 	    $d[$ie]["hours"] = "[".$s."-".$e."]";
 	    $d[$ie]["title"] = $st.$tdays[$cday]->events[$ie]["TITLE"];
 	    $d[$ie]["id"] = $tdays[$cday]->events[$ie]["ID"];

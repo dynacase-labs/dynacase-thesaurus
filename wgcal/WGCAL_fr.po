@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-16 09:15+0100\n"
+"POT-Creation-Date: 2005-02-16 18:02+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -73,8 +73,14 @@ msgstr "Ressource affichées"
 msgid "WGCAL_U_TMPLIST"
 msgstr ""
 
+msgid "use prefered ressource for event setting"
+msgstr "Utiliser mes contacts préférés pour les rendez-vous"
+
 msgid "use displayed ressource for event setting"
 msgstr "Utiliser les ressources pour les rendez-vous"
+
+msgid "my prefered contacts"
+msgstr "Mes contacts préférés"
 
 msgid "show icons in resume"
 msgstr "Afficher les icones et les heures sur l'agenda"
@@ -156,6 +162,9 @@ msgstr "Réinitialiser la liste des ressources"
 
 msgid "month text"
 msgstr "Vue mensuelle texte"
+
+msgid "user preferences"
+msgstr "Préférence de l'utilisateur"
 
 msgid "calendar creation"
 msgstr "Sélection du calendrier"
@@ -424,6 +433,12 @@ msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
 
+msgid "add prefered contact"
+msgstr "Ajout d'un contact préféré"
+
+msgid "use for event creation"
+msgstr "Utiliser les ressources pour les rendez-vous"
+
 msgid "week view"
 msgstr "Une semaine"
 
@@ -465,6 +480,33 @@ msgstr "entrer les mots recherchés"
 
 msgid "advanced search"
 msgstr "Recherche avancée"
+
+msgid " interface look"
+msgstr "Aspect et comportement de l'interface"
+
+msgid "information popup management"
+msgstr "Gestion de l'affichage des détails des rendez-vous (pop-up)"
+
+msgid "display popup position"
+msgstr "Position d'affichage"
+
+msgid "timeout before displaying popup"
+msgstr "Temporisation avec l'affichage"
+
+msgid "days hours"
+msgstr "Gestion de la journée affichée"
+
+msgid "start day hour"
+msgstr "Heure de début"
+
+msgid "end day hour"
+msgstr "Heure de fin"
+
+msgid "look preferences"
+msgstr "Aspect et comportement de l'interface"
+
+msgid "mail management"
+msgstr "Gestion des mail"
 
 msgid "monday"
 msgstr "Lundi"
@@ -523,6 +565,36 @@ msgstr "jusqu'au"
 
 msgid "there is excluded days"
 msgstr "il y a des jours exclus"
+
+msgid "view icon in event"
+msgstr "Afficher les icones et les heures sur l'agenda"
+
+msgid "floating, follows the pointer"
+msgstr "Flottant, suivant le pointeur de la souris"
+
+msgid "on the left top"
+msgstr "A gauche, en haut"
+
+msgid "on the left bottom"
+msgstr "A gauche, en bas"
+
+msgid "on the right top"
+msgstr "A droite, en haut"
+
+msgid "on the right bottom"
+msgstr "A droite, en bas"
+
+msgid "200 milli second"
+msgstr "200 millisecondes"
+
+msgid "1/2 second"
+msgstr "1/2 seconde"
+
+msgid "1 second"
+msgstr "1 seconde"
+
+msgid "1,5 second"
+msgstr "1,5 seconde"
 
 msgid "new"
 msgstr "nouveau"

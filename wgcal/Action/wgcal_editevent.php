@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.26 2005/02/10 17:14:39 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.27 2005/02/16 23:01:50 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -134,6 +134,22 @@ function wgcal_editevent(&$action) {
 	      $attendeesState[$iatt] = EVST_NEW;
 	      $iatt++;
 	    }
+	  }
+	}
+      }
+    }
+    $userd = $action->GetParam("WGCAL_U_USEPREFRESSOURCES", 0);
+    if ($userd == 1) {
+      $curress = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
+      $lress = explode("|", $curress);
+      if (count($lress)>0) {
+	foreach ($lress as $k => $v) {
+	  if ($v=="") continue;
+	  $dd = new Doc($db, $v);
+	  if ($dd->fromid != getIdFromName($db,"SCALENDAR")) {
+	    $attendees[$iatt] = $v;
+	    $attendeesState[$iatt] = EVST_NEW;
+	    $iatt++;
 	  }
 	}
       }

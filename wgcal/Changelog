@@ -1,0 +1,60 @@
+--------------------------------------------------------------------------
+0.0.7 (Bond)
+--------------------------------------------------------------------------
+- Gestion des contacts préférés
+- Ajout des préférences via une fenête dédiée
+
+--------------------------------------------------------------------------
+0.0.6 (Caroline)
+--------------------------------------------------------------------------
+
+Général:
+
+- refonte du look (voir les différents détails ci-dessous)
+- ajout d'une vue mensuelle imprimable (cf icone en haut à droite avant icone d'impression)  (demandée à l'unanimité par Caroline...)
+- ajout de la barre de menu (je pense qu'Eric a raison : on a toujours besoin d'un petit menu près de chez soi, et ça ne prend pas de place)
+
+
+Popup informatifs sur les RV
+
+- il s'affiche soit en flottant (comme avant), soit Haut/Gauche, Bas/Gauche, Haut/Droit, Bas/Droit (*) sauf si on passe sur un RV dans la zone d'affichage : dans ce cas affichage flottant.
+- en flottant, leur position d'affichage est optimisée (pour éviter qu'ils ne fassent les bordures)
+- s'affiche après un délai de positionnement fixe sur un RV (*) 
+- modification des couleurs : le fond est identique à celui général,  seule la barre de titre rapelle la couleur du propriétaire.
+- les personnes conviées ayant refusé le RV sont rayées
+
+Edition d'un rendez vous
+
+- modification du bouton d'annulation et de la demande de confirmation
+- modification de la position des boutons de sauvegarde et d'annulation
+
+Vue semaine
+
+- les RV sont placés côte à côte (et non plus superposé) **algo à affiner**
+- la barre colorée supérieure du rv n'est affichée en rouge que si c'est une réunion et que toute les personnes ne l'ont pas acceptée.
+- il est possible d'affiché ou non dans les RVs sur l'agenda les icônes et l'heure (*)
+- supression du flag indiquant les nouveaux RVs (doublon avec l'état indiqué par la barre colorée de gauche)
+
+Boite à outils
+
+- elle a pas mal changée... le principe reste le même, les états ouvert/replié sont mémorisés
+- ajout de la recherche (directe et avancée)
+- ajout de 'Mes tâches', on ne peut pas encore les créer mais bientôt....
+- zone des RV en attente de taille fixe : en cas de grand nombre de RV une scrollbar pour cette zone apparait (*)
+- sélecteur de date : ajout d'une case à cocher pour faire apparaitre un second mois
+
+
+
+
+(*) Paramétrable par l'utilisateur, ces paramètres sont pour l'instant accessible via Freedom.
+A terme, les modifications des paramètres utilisateurs se fera par une fenêtre dédiée filtrant
+les possibilités.
+
+--------------------------------------------------------------------------
+0.0.5
+--------------------------------------------------------------------------
+- rv sur plusieurs jours
+
+--------------------------------------------------------------------------
+0.0.4c
+--------------------------------------------------------------------------

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.8 2005/02/08 11:32:24 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.9 2005/02/16 23:01:50 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -17,6 +17,23 @@ function wgcal_resspicker(&$action) {
 
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $contacts = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
+  $tcontacts = explode("|", $contacts);
+  if (count($tcontacts)>0) {
+    foreach ($tcontacts as $kc => $vc) {
+      if ($vc=="") continue;
+      $rd = new Doc($dbaccess, $vc);
+      $tc[$kc]["ID"] = $rd->id;
+      $tc[$kc]["ICON"] = $rd->GetIcon();
+      $tc[$kc]["TITLE"] = $rd->title;
+      $tc[$kc]["STATE"] = EVST_NEW;
+      $tc[$kc]["TSTATE"] = WGCalGetLabelState(EVST_NEW);
+      $tc[$kc]["CSTATE"] = WGCalGetColorState(EVST_NEW);
+    }
+  }
+  $action->lay->SetBlockData("PREFCONTACT", $tc);
+
   // Get classses used for ressource
   $rclass = WGCalGetRessourceFamilies($dbaccess);
   $i = 0;
