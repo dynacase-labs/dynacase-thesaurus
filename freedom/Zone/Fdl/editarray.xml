@@ -1,12 +1,12 @@
 <fieldset ><legend>[caption]</legend>
-<table width="100%" class="tarray">
+<table width="100%" border=1 class="tarray">
    <thead><tr><td></td>
-    [BLOCK TATTR]<th>[alabel]</th> [ENDBLOCK TATTR]
+    [BLOCK TATTR]<th colspan="2" style="visibility:[ahvis]" width="[ahw]">[alabel]</th> [ENDBLOCK TATTR]
    </tr></thead>
  <tbody id="tbody[attrid]" >
   
      [BLOCK EATTR]<tr ><td><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onclick="selecttr(this.parentNode.parentNode);return false;"><img style="visibility:hidden" name="insertup" src="[IMG:up22.gif]"  title="[TEXT:insert up]" onclick="movetr(this.parentNode.parentNode);return false;"></td>
-    [BLOCK [bevalue]]<td>[eivalue]</td>[ENDBLOCK [bevalue]]
+    [BLOCK [bevalue]]<td width="[vhw]">[eivalue]</td>[ENDBLOCK [bevalue]]
  </tr>[ENDBLOCK EATTR]
 <tr id="lasttr[attrid]">
 <td class="und" align="left" colspan="[footspan]">
@@ -17,7 +17,7 @@
 </td><td>&nbsp;</td></tr>
   </tbody>
    <tfoot><tr style="display:none" id="tnew[attrid]"><td><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onclick="selecttr(this.parentNode.parentNode);return false;"><img  src="[IMG:up22.gif]" name="insertup" style="visibility:hidden" title="[TEXT:insert up]" onclick="movetr(this.parentNode.parentNode);return false;"></td>
-    [BLOCK IATTR]<td>[ilabel]</td> [ENDBLOCK IATTR]
+    [BLOCK IATTR]<td  style="visibility:[ihvis]" width="[ihw]">[ilabel]</td> [ENDBLOCK IATTR]
    </tr>
   </tfoot>
 </table>

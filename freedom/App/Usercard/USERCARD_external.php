@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.9 2003/11/17 10:53:05 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.10 2003/12/02 10:53:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -69,7 +69,7 @@ function laddrsoc($dbaccess, $idc) {
 
 
   $doc = new Doc($dbaccess, $idc);
-
+  $tr=array();
   if ($doc->isAffected()) {
     $tr[] = array("adresse société",
 		  "yes",
@@ -103,6 +103,17 @@ function getSphone($dbaccess, $idc) {
   $tr=array();
   if ($doc->isAlive()) {
     $tr[]=array($doc->getValue("SI_PHONE"), $doc->getValue("SI_PHONE"));
+    
+  }
+  return $tr;
+  
+}
+function getSFax($dbaccess, $idc) {
+  $doc = new Doc($dbaccess, $idc);
+
+  $tr=array();
+  if ($doc->isAlive()) {
+    $tr[]=array($doc->getValue("SI_FAX"), $doc->getValue("SI_FAX"));
     
   }
   return $tr;

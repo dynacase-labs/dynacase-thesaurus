@@ -6,8 +6,13 @@
 <table width="100%">
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1">
-  <td width="[winput]" valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</td>
+            [BLOCK [NORMALROW]]
+  <td width="30%" valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</td>
   <td  >[avalue]</td>
+            [ENDBLOCK [NORMALROW]]
+            [BLOCK [ARRAYROW]]  
+  <td colspan="3">[avalue]</td>
+            [ENDBLOCK [ARRAYROW]]
 </tr>
 [ENDBLOCK FVALUES]
 </table>

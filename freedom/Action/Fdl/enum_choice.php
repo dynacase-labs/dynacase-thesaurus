@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.17 2003/11/03 09:09:02 eric Exp $
+ * @version $Id: enum_choice.php,v 1.18 2003/12/02 10:53:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.17 2003/11/03 09:09:02 eric Exp $
+// $Id: enum_choice.php,v 1.18 2003/12/02 10:53:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -111,7 +111,11 @@ function enum_choice(&$action) {
    }
 
 
-  reset($res);
+   if (count($res) == 0) {
+     $action->exitError(sprintf(_("no match for %s"),$oattr->labelText));
+   }
+
+   reset($res);
   $tselect = array();
   $tval = array();
   while (list($k, $v) = each($res)) {

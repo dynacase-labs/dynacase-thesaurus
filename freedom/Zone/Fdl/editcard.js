@@ -37,12 +37,13 @@ function sendEnumChoice(event,docid,  choiceButton , sorm) {
   var domindex=''; // needed to set values in arrays
   // search the input button in previous element
   var fini=false;
+  var inid;
 
 
-  while ((inp != null) && 
-	 (!((inp.nodeType == 1)&&(inp.getAttribute('name')!="") && (inp.name.substr(0,1) == '_')))) {      
-     inp = inp.previousSibling;    
-  }
+  inid= choiceButton.id.substr(3);
+  inp=document.getElementById(inid);
+
+
   if ((! inp)||(inp==null)) {
     alert('[TEXT:enumerate input not found]');
   }
@@ -396,13 +397,14 @@ function  nodereplacestr(n,s1,s2) {
   var kids=n.childNodes;
   var ka;
   var avalue;
-  var regs1 = new RegExp(s1,'g');
+  var regs1;
   var rs1;
   var tmp;
   var attnames = new Array('onclick','href','onmousedown','id','name');
   // for regexp
-    rs1 = s1.replace('[','\\[');
+  rs1 = s1.replace('[','\\[');
   rs1 = rs1.replace(']','\\]');
+  regs1 = new RegExp(rs1,'g');
   
   for (var i=0; i< kids.length; i++) {     
     if (kids[i].nodeType==3) { 
@@ -410,6 +412,7 @@ function  nodereplacestr(n,s1,s2) {
       
 	if (kids[i].data.search(rs1) != -1) {
 	  tmp=kids[i].data; // need to copy to avoid recursive replace
+	  
 	  kids[i].data = tmp.replace(s1,s2);
 	}
     } else if (kids[i].nodeType==1) { 
@@ -422,9 +425,9 @@ function  nodereplacestr(n,s1,s2) {
 	    if ((attr != null) && (attr.value != null) && (attr.value != 'null'))  {
 	      
 	      
-	      if (attr.value.search(rs1) != -1) {
-		
+	      if (attr.value.search(rs1) != -1) {				
 		avalue=attr.value.replace(regs1,s2);
+
 		if (isNetscape) attr.value=avalue;
 		else if ((attr.name == 'onclick') || (attr.name == 'onmousedown')) kids[i][attr.name]=new Function(avalue); // special for IE5.5+
 		else attr.value=avalue;

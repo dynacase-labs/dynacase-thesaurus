@@ -16,8 +16,14 @@
             [BLOCK [TABLEVALUE]]
 
 <tr >
-  <td class="[labelclass]"  width="[winput]"><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
+            [BLOCK [NORMALROW]]
+  <td class="[labelclass]"  width="30%"><span >[name]&nbsp;:&nbsp;</span></td>
   <td >[inputtype]</td>
+            [ENDBLOCK [NORMALROW]]
+            [BLOCK [ARRAYROW]]
+  
+  <td colspan="3">[inputtype]</td>
+            [ENDBLOCK [ARRAYROW]]
 </tr>
            [ENDBLOCK [TABLEVALUE]]
 </table>

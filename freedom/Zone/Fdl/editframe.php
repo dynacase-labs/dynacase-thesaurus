@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editframe.php,v 1.15 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: editframe.php,v 1.16 2003/12/02 10:53:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.15 2003/08/18 15:47:04 eric Exp $
+// $Id: editframe.php,v 1.16 2003/12/02 10:53:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -101,6 +101,10 @@ function editframe(&$action) {
 					 $value);
 
       $tval[$k]["winput"]=($v->type=="array")?"1%":"30%";  // width
+      $tval[$k]["NORMALROW"]="NORMALROW$k";		
+      $tval[$k]["ARRAYROW"]="ARRAYROW$k";
+      if ($v->type=="array") $action->lay->SetBlockData("ARRAYROW$k",array(array("zou")));
+      else $action->lay->SetBlockData("NORMALROW$k",array(array("zou")));
       
     }
 	

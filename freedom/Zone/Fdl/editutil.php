@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.55 2003/12/01 13:30:47 eric Exp $
+ * @version $Id: editutil.php,v 1.56 2003/12/02 10:53:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.55 2003/12/01 13:30:47 eric Exp $
+// $Id: editutil.php,v 1.56 2003/12/02 10:53:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,7 +76,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
   if ($visibility == "H") {
     $input="<input  type=\"hidden\" name=\"".$attrin."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";    
     $input .= " id=\"".$attridk."\" "; 		      
-    $input .= " > "; 
+    $input .= " > "; 	      
+    $input .= "</td><td>"; 
     return $input;
   }
 
@@ -121,7 +122,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 		      
       // input 
       $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\">";
-      $input .="<input $oc class=\"autoresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_UPL".$attrin."\"";
+      $input .="<input $oc class=\"fullresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_UPL".$attrin."\"";
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " > "; 
@@ -149,7 +150,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 		      
       // input 
       $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\">";
-      $input .="<input $oc class=\"autoresize\" size=15 type=\"file\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+      $input .="<input $oc class=\"fullresize\" size=15 type=\"file\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " > "; 
@@ -158,7 +159,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       //같같같같같같같같같같같같같같같같같같같같
     case "longtext": 
       $expid="exp".$attridk;
-      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=9;document.getElementById('$expid').style.display='';\"  class=\"autoresize\" rows=2 name=\"".
+      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=9;document.getElementById('$expid').style.display='';\"  class=\"fullresize\" rows=2 name=\"".
 	$attrin."\" ";
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
@@ -284,16 +285,23 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       $tad = $ddoc->attributes->getArrayElements($attrid);
 
 
+      $nbcolattr=0; // number of column
       while (list($k, $v) = each($ta)) {
 	if ($v->mvisibility=="R") {
 	  $v->mvisibility="H"; // don't see read attribute
 	  $ta[$k]->mvisibility="H";
 	}
-	$talabel[] = array("alabel"=>($v->mvisibility=="H")?"":$v->labelText);
-	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1));
+	$visible = ($v->mvisibility!="H");
+	$talabel[] = array("alabel"=>(!$visible)?"":$v->labelText,
+			   "ahw"=>(!$visible)?"0px":"auto",
+			   "ahvis"=>(!$visible)?"hidden":"visible");
+	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1),
+			   "ihw"=>($visible)?"0px":"auto",
+			   "ihvis"=>(!$visible)?"hidden":"visible");
 	$tvattr[]=array("bvalue" => "bvalue_$k",
 			"attrid" => $v->id);
 	
+	if ($visible) $nbcolattr++;
 	$tval[$k]=$doc->getTValue($k);
 	$nbitem=count($tval[$k]);
 	$tivalue=array();
@@ -302,25 +310,44 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	}
 	$lay->setBlockData("bvalue_$k",$tivalue);
       }
+      
+      if ($action->read("navigator") == "EXPLORER") {
+	// compute col width explicitly
+	if ($nbcolattr> 0) {
+	  $aw=sprintf("%d%%",100/$nbcolattr);
+
+	  foreach ($talabel as $ka => $va) {
+	    if ($va["ahw"]=="auto") {
+	      $talabel[$ka]["ahw"]=$aw;
+	      $tilabel[$ka]["ihw"]=$aw;
+	    }
+	  }
+	}
+      }
+
       $lay->setBlockData("TATTR",$talabel);
       $lay->setBlockData("IATTR",$tilabel);
       $lay->setBlockData("VATTR",$tvattr);
       $lay->set("attrid",$attrid);
       $lay->set("caption",$oattr->labelText);
      
-      $lay->set("footspan",count($ta));
+      $lay->set("footspan",count($ta)*2);
 
       reset($tval);
       $nbitem= count(current($tval));
       $tvattr = array();
+      
       for ($k=0;$k<$nbitem;$k++) {
 	$tvattr[]=array("bevalue" => "bevalue_$k");
 	reset($ta);
 	$tivalue=array();
+	$ika=0;
 	while (list($ka, $va) = each($ta)) {
 	  
-
-	  $tivalue[]=array("eivalue"=>getHtmlInput($doc,$va,$tval[$ka][$k],$k));
+	  
+	  $tivalue[]=array("eivalue"=>getHtmlInput($doc,$va,$tval[$ka][$k],$k),
+			   "vhw"=>($va->mvisibility=="H")?"0pt":$talabel[$ika]["ahw"]);
+	  $ika++;
 	}
 	$lay->setBlockData("bevalue_$k",$tivalue);
       }
@@ -437,7 +464,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       //같같같같같같같같같같같같같같같같같같같같
     case "password" : 
       // don't see the value
-      $input="<input $oc class=\"autoresize\" type=\"password\" name=\"".$attrin."\" value=\""."\"";
+      $input="<input $oc class=\"fullresize\" type=\"password\" name=\"".$attrin."\" value=\""."\"";
       $input .= " id=\"".$attridk."\" "; 
 
 
@@ -449,7 +476,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
     default : 
     
       if (($oattr->repeat)&&(!$oattr->inArray())) { // textlist
-	 $input="<textarea $oc class=\"autoresize\" rows=2 name=\"".
+	 $input="<textarea $oc class=\"fullresize\" rows=2 name=\"".
 	   $attrin."\" ";
 	 $input .= " id=\"".$attridk."\" "; 
 	 if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
@@ -457,7 +484,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	   htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
 	   "</textarea>";
       } else {
-      $input="<input $oc class=\"autoresize\" type=\"text\" name=\"".$attrin."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
+      $input="<input $oc class=\"fullresize\" type=\"text\" name=\"".$attrin."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
     
       $input .= " id=\"".$attridk."\" "; 
 
@@ -469,52 +496,58 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       break;
 		      
     }
-  if  ($visibility != "S") {
-    if (($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
-      if (ereg("list",$attrtype, $reg)) $ctype="multiple";
-      else $ctype="single";
-      $input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
-	" title=\""._("choose inputs")."\"".
-	" onclick=\"sendEnumChoice(event,".$docid.
-	",this,'$ctype')\">";
+  if ($oattr->type != "array") {
+    if  ($visibility != "S") {
+      if (($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
+	$input.="</td><td width=\"100px\">";
+	if (ereg("list",$attrtype, $reg)) $ctype="multiple";
+	else $ctype="single";
+	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
+	  " title=\""._("choose inputs")."\"".
+	  " onclick=\"sendEnumChoice(event,".$docid.
+	  ",this,'$ctype')\">";
 
-      // clear button
-      if (ereg("(.*)\((.*)\)\:(.*)", $oattr->phpfunc, $reg)) {
+	// clear button
+	if (ereg("(.*)\((.*)\)\:(.*)", $oattr->phpfunc, $reg)) {
       
-	$argids = split(",",$reg[3]);  // output args
-	$arg = array();
-	while (list($k, $v) = each($argids)) {
-	  if (strlen($v) > 1) $arg[$k]= strtolower(chop($v));
-	}
-	if (count($arg) > 0) {
-	  $jarg="'".implode("','",$arg)."'";
-	  $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
-	    " title=\""._("clear inputs")."\"".
-	    " onclick=\"clearInputs([$jarg],'$index')\">";
-	}
-      } 
-    } 	else if ($oattr->type == "date") {
-      $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
-	" title=\""._("clear inputs")."\"".
-	" onclick=\"clearInputs(['$attrid'],'$index')\">";
-      
-    }else if ($oattr->type == "color") {
-      $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
-	" title=\""._("clear inputs")."\"".
-	" onclick=\"clearInputs(['$attrid'],'$index')\">";      
-    }else if ($oattr->type == "time") {
-      $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
-	" title=\""._("clear inputs")."\"".
-	" onclick=\"clearTime('$attridk')\">";      
-    }
+	  $argids = split(",",$reg[3]);  // output args
+	  $arg = array();
+	  while (list($k, $v) = each($argids)) {
+	    if (strlen($v) > 1) $arg[$k]= strtolower(chop($v));
+	  }
+	  if (count($arg) > 0) {
+	    $jarg="'".implode("','",$arg)."'";
+	    $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
+	      " title=\""._("clear inputs")."\"".
+	      " onclick=\"clearInputs([$jarg],'$index')\">";
+	  }
+	} 
+      } 	else if ($oattr->type == "date") {
+	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
+	  " title=\""._("clear inputs")."\"".
+	  " onclick=\"clearInputs(['$attrid'],'$index')\">";
+	$input.="</td><td>";
+      }else if ($oattr->type == "color") {
+	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
+	  " title=\""._("clear inputs")."\"".
+	  " onclick=\"clearInputs(['$attrid'],'$index')\">";  
+	$input.="</td><td>";    
+      }else if ($oattr->type == "time") {
+	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
+	  " title=\""._("clear inputs")."\"".
+	  " onclick=\"clearTime('$attridk')\">";   
+	$input.="</td><td>";   
+      } else {
+	$input.="</td><td>";   
+      }
 		
-    if ($oattr->elink != "") {
-      $url= elinkEncode($doc,$oattr->elink,$index,$ititle,$isymbol);
+      if ($oattr->elink != "") {
+	$url= elinkEncode($doc,$oattr->elink,$index,$ititle,$isymbol);
 
-      $target= $attrid;
-      /* --- for idoc ---
+	$target= $attrid;
+	/* --- for idoc ---
       if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
-	// special case wit javascript inputs
+      // special case wit javascript inputs
 
 	$oattr->elink=$reg[2];
 	$tabFunction=explode(":",$reg[1]);
@@ -547,17 +580,20 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       --- end for idoc */
    
      
-      $input.="<input type=\"button\" value=\"$isymbol\"".
-	" title=\"".$ititle."\"".
-	" onclick=\"subwindowm(300,500,'$target','$url');";
-      if ($function) {
-	$input.="$string_function\">";
-      }
-      else{
-	$input.="\">";
-      }
+	$input.="<input type=\"button\" value=\"$isymbol\"".
+	  " title=\"".$ititle."\"".
+	  " onclick=\"subwindowm(300,500,'$target','$url');";
+	if ($function) {
+	  $input.="$string_function\">";
+	}
+	else{
+	  $input.="\">";
+	}
 
 
+      }
+    } else {
+      $input.="</td><td>";
     }
   }
 

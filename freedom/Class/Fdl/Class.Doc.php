@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.168 2003/12/01 13:32:48 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.169 2003/12/02 10:53:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.168 2003/12/01 13:32:48 eric Exp $
+// $Id: Class.Doc.php,v 1.169 2003/12/02 10:53:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.168 2003/12/01 13:32:48 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.169 2003/12/02 10:53:19 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -421,7 +421,7 @@ create unique index i_docir on doc(initid, revision);";
    */
   function PostUpdate() {
     global $gdocs;// optimize for speed :: reference is not a pointer !!
-    $gdocs[$this->id]=$this;    
+    $gdocs[$this->id]=&$this;    
   }
   // --------------------------------------------------------------------
 
@@ -475,7 +475,11 @@ create unique index i_docir on doc(initid, revision);";
     return false;
   }
  
-  // copy values from anothers document (must be same family or descendant)
+  /**
+   * copy values from anothers document (must be same family or descendant)
+   *
+   * @param Doc &$from document source for the transfert
+   */
   function transfertValuesFrom(&$from) {
     
     $values = $from->getValues();
@@ -2248,10 +2252,10 @@ create unique index i_docir on doc(initid, revision);";
 	$htmlvalue=$this->GetHtmlValue($attr,$value,$target,$ulink);
       } else $htmlvalue="";
     
-      if ($htmlvalue != "") // to define when change frame
+      if ($htmlvalue !== "") // to define when change frame
 	{
 	  if ( $currentFrameId != $attr->fieldSet->id) {	    
-	    if (($currentFrameId != "") && ($attr->fieldSet->visibility == "F")) $changeframe=true;
+	    if (($currentFrameId != "") && ($attr->fieldSet->visibility != "H")) $changeframe=true;
 	  }
 	}
 	
@@ -2303,7 +2307,7 @@ create unique index i_docir on doc(initid, revision);";
 		
 	  }
 
-	if (($attr->fieldSet->visibility=="F")&&($htmlvalue)) $currentFrameId = $attr->fieldSet->id;
+	if (($attr->fieldSet->visibility!="H")&&($htmlvalue!=="")) $currentFrameId = $attr->fieldSet->id;
 	$tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
 
 	
@@ -2614,8 +2618,7 @@ create unique index i_docir on doc(initid, revision);";
 	$label = $listattr[$i]->labelText;
 	$tableframe[$v]["attrid"]=$listattr[$i]->id;
 	$tableframe[$v]["name"]=chop("[TEXT:".$label."]");
-	$tableframe[$v]["winput"]=($listattr[$i]->type=="array")?"1%":"30%";  // width
-	$tableframe[$v]["ndisplay"]=($listattr[$i]->type=="array")?"none":"";  // display label
+
 	if ($listattr[$i]->needed ) $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
 	else $tableframe[$v]["labelclass"]="FREEDOMLabel";
 
@@ -2625,8 +2628,11 @@ create unique index i_docir on doc(initid, revision);";
 						  $value);
 		
 		
-		
-		
+	$tableframe[$v]["NORMALROW"]="NORMALROW$i";		
+	$tableframe[$v]["ARRAYROW"]="ARRAYROW$i";
+
+	if ($listattr[$i]->type=="array") $this->lay->SetBlockData("ARRAYROW$i",array(array("zou")));
+	else	$this->lay->SetBlockData("NORMALROW$i",array(array("zou")));
 	$v++;
 		
       }
