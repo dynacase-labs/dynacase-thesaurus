@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.91 2005/03/08 17:53:56 eric Exp $
+ * @version $Id: editutil.php,v 1.92 2005/03/23 17:04:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -835,9 +835,9 @@ function getLayDocOption(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $idx=$oattr->id.$index;
   $lay->set("id",$idx);
   $lay->set("didx",$index);
-  $lay->set("di",trim(strtolower($oattr->phpfunc)));
-  if ($index !== "") $lay->set("said",$doc->getTValue($oattr->phpfunc,"",$index));
-  else $lay->set("said",$doc->getValue($oattr->phpfunc));
+  $lay->set("di",trim(strtolower($oattr->format)));
+  if ($index !== "") $lay->set("said",$doc->getTValue($oattr->format,"",$index));
+  else $lay->set("said",$doc->getValue($oattr->format));
   
 
   $lay->set("value",$value);
