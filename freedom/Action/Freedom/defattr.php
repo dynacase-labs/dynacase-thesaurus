@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.4 2002/07/23 13:25:11 eric Exp $
+// $Id: defattr.php,v 1.5 2002/08/09 09:41:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -141,16 +141,11 @@ function defattr(&$action)
 	    } else {
 	      $newelem[$k]["disabled"]="disabled";
 	    }
+	    print "[".addslashes($attr->type)."]";
+	    $newelem[$k]["typevalue"]=$attr->type;
 
 
-	    while(list($kopt,$opt) = each($selectoption))  {
-	      if ($opt["typevalue"] == $attr->type){
-		$selectoption[$kopt]["selected"]="selected"; 
-	      }else{
-		$selectoption[$kopt]["selected"]=""; 
-	      }
-		  
-	    }
+
 
 	    while(list($kopt,$opt) = each($selectframe))  {
 	      if ($opt["frameid"] == $attr->frameid){

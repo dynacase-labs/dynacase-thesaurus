@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.6 2002/06/19 12:32:29 eric Exp $
+// $Id: modattr.php,v 1.7 2002/08/09 09:41:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -117,7 +117,7 @@ function modattr(&$action) {
 	    $oattr->labeltext=stripslashes($names[$k]);
 	    $oattr->title=isset($titles[$k])?$titles[$k]:"N";
 	    $oattr->abstract=isset($abstracts[$k])?$abstracts[$k]:"N";
-	    $oattr->type=$types[$k];
+	    $oattr->type=stripslashes($types[$k]);
 	    $oattr->id=$attrids[$k];
 	    $oattr->frameid=isset($frameids[$k])?$frameids[$k]:"0";
 	    $oattr->ordered=isset($orders[$k])?$orders[$k]:"999";

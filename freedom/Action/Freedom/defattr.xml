@@ -96,11 +96,7 @@
       <input type="text" name="name[[neweltid]]" value="[attrname]" [disabled]>
    </td>
    <td  >
-      <select name="type[[neweltid]]"  [disabled]>        
-         [BLOCK [SELECTOPTION]]
-           <option VALUE="[typevalue]" [selected]>[typevalue]</option>   
-         [ENDBLOCK [SELECTOPTION]]
-    </select>
+      <input type="text" name="type[[neweltid]]" value='[typevalue]' [disabled]>      
    </td>
    <td  >
       <select name="frameid[[neweltid]]"  [disabled]>        
