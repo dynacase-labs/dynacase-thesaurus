@@ -1,6 +1,6 @@
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.7 2002/01/09 09:41:03 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.8 2002/01/09 15:51:04 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -54,28 +54,15 @@ if [ "$1" = 1 ] ; then
   su - postgres -c "createdb @DBNAME@" 2>&1 >>/dev/null
   echo "Create @DBUSER@ database  user"
   su - postgres -c "createuser -d -a @DBUSER@" 2>&1 >>/dev/null
-  echo "Initiate Database elements"
-  cd /home/httpd/what
-  echo '<?
-  include_once("Class.Application.php");
-  $Null = "";
-  $app=new Application();
-  $app->Set("@PACKAGE@",$Null);  
-  ?>' | /usr/bin/php -q 2>&1 >>/dev/null
-  %{destdir}/CORE/wsh.php @PACKAGE@ @PACKAGE@_INIT  2>&1 >>/dev/null
-  pushd %{destdir}
+  echo "Initiate Database elements"  
+  %{destdir}/wsh.php --api=appadmin  --appname=@PACKAGE@ 
+  %{destdir}/wsh.php --app=@PACKAGE@ --action=@PACKAGE@_INIT  
+  pushd %{destdir} >/dev/null
   ln -sf ../@PACKAGE@/@PACKAGE@.vault VAULT
   popd >/dev/null
 else
   echo "Update Database elements"
-  cd /home/httpd/what
-  echo '<?
-  include_once("Class.Application.php");
-  $app=new Application();
-  $Null = "";
-  $app->Set("@PACKAGE@",$Null);
-  $app->Update();
-  ?>' | /usr/bin/php -q 2>&1 >>/dev/null
+  %{destdir}/wsh.php --api=appadmin --method=update --appname=@PACKAGE@
 fi
 # merge @PACKAGE@ translation for i18n
 for lang in en fr ; do
@@ -90,14 +77,7 @@ done
 %preun
 if [ "$1" = 0 ] ; then
   echo "Remove Database elements"
-  cd /home/httpd/what
-  echo '<?
-  include_once("Class.Application.php");
-  $app=new Application();
-  $Null = "";
-  $app->Set("@PACKAGE@",$Null);
-  $app->DeleteApp();
-  ?>' | /usr/bin/php 2>&1 >>/dev/nul
+  %{destdir}/wsh.php --api=appadmin --method=delete --appname=@PACKAGE@
 fi
 
 %files

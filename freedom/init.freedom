@@ -1,4 +1,4 @@
-// famille de base;;;;;;;;;;;;
+// famille de base;;;id;class;;;;;;;;
 BEGIN;0;[famille];1;DocFile;;;;;;;;
 TYPE;C;;;;;;;;;;;
 ;;;;;;;;;;;;
@@ -7,7 +7,7 @@ ATTR;2;;basique;N;N;frame;;0;W;;;
 ATTR;1;2;titre;Y;N;text;;1;W;;;
 1;[titre];famille de base;;;;;;;;;;
 END;0;-1;;;;;;;;;;
-// famille dossier;;;;;;;;;;;;
+// famille dossier;;;id;class;;;;;;;;
 BEGIN;1;[famille];2;Dir;;;;;;;;
 TYPE;C;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ldapname;ord;vis;link;phpfile;phpfunc
@@ -19,24 +19,25 @@ END;1;-1;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;
 DOC;2;9;;racine;;;;;;;;
 DOC;2;10;9;non classé;;;;;;;;
-// famille recherche;;;;;;;;;
-;;;;;;;;;
-BEGIN;1;[famille];5;DocSearch;;;;;
-TYPE;C;;;;;;;;
-ATTR;29;;critère;N;N;frame;;;W
-ATTR;20;29;mot-clef;N;Y;text;;;W
-ATTR;21;29;dernière révision;N;Y;text;;;W
-ATTR;22;29;différence majuscule/minuscule;N;Y;text;;;W
-ATTR;23;29;dans le dossier;N;Y;text;;;W
-1;[titre];famille recherche;;;;;;;
-END;1;9;;;;;;;
-;;;;;;;;;
-//SEARCH;<special id>;<special dir id>;titre;requête;;;;;
-;;;;;;;;;
-SEARCH;;9;les familles;select id from doc where doctype='C';;;;;
-SEARCH;;9;les profils;select id from doc where useforprof;;;;;
-SEARCH;;9;les maisons;select id from doc where owner < 0;;;;;
-// famille profile doc;;;;
+// famille recherche;;;id;class;;;;;;;;
+;;;;;;;;;;;;
+BEGIN;1;[famille];5;DocSearch;;;;;;;;
+TYPE;C;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ldapname;ord;vis;link;phpfile;phpfunc
+ATTR;29;;critère;N;N;frame;;;W;;;
+ATTR;20;29;mot-clef;N;Y;text;;;W;;;
+ATTR;21;29;dernière révision;N;Y;text;;;W;;;
+ATTR;22;29;différence majuscule/minuscule;N;Y;text;;;W;;;
+ATTR;23;29;dans le dossier;N;Y;text;;;W;;;
+1;[titre];famille recherche;;;;;;;;;;
+END;1;9;;;;;;;;;;
+;;;;;;;;;;;;
+//SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;;
+;;;;;;;;;;;;
+SEARCH;11;9;les familles;select id from doc where doctype='C';;;;;;;;
+SEARCH;12;9;les profils;select id from doc where useforprof;;;;;;;;
+SEARCH;13;9;les maisons;select id from doc where owner < 0;;;;;;;;
+// famille profile doc;;;id;class
 BEGIN;1;[famille];3;DocFile
 USEFORPROF;;;;
 TYPE;C;;;
