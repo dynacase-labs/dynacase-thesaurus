@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.29 2004/12/28 17:03:27 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.30 2004/12/29 10:02:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -23,7 +23,7 @@ var $defaultview= "FREEDOM:VIEWDSEARCH";
 #N_("not include")
 #N_("not equal")
 #N_("&gt; or equal") N_("&lt; or equal")
-#N_("is empty") N_("is not empty")
+#N_("is empty") N_("is not empty") N_("one value equal")
 
 var $top=array("~*"=>array("label"=>"include"),
 	       "=" => array("label"=>"equal"),            
@@ -35,7 +35,8 @@ var $top=array("~*"=>array("label"=>"include"),
 	       ">=" => array("label"=>"&gt; or equal"),       
 	       "<=" => array("label"=>"&lt; or equal"),   
 	       "is null" => array("label"=>"is empty"),   
-	       "is not null" => array("label"=>"is not empty"));    
+	       "is not null" => array("label"=>"is not empty"),   
+	       "~y" => array("label"=>"one value equal"));    
    
 var $tol=array("and" => "and",              #N_("and")
 	       "or" => "or");               #N_("or")
@@ -58,6 +59,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive);
 
   $cond=$this->getSqlDetailFilter();
+  if ($cond === false) return array(false);
 
   if ($cond != "") $filters[]=$cond;
 
@@ -67,6 +69,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   return $query;
 }
 function getSqlCond($col,$op,$val="") {
+  
   switch($op) {
       case "is null":
 	$cond = sprintf(" (%s is null or %s = '') ",$col,$col);
@@ -75,9 +78,10 @@ function getSqlCond($col,$op,$val="") {
 	$cond = " ".$col." ".trim($op)." ";
 	break;
       case "~*":
-	if ($val != "") $cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
+	if (trim($val) != "") $cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
 	break;
       case "~y":
+	if (! is_array($val)) $val=$this->_val2array($val);
 	if (count($val) > 0) $cond .= " ".$col." ~ '\\\\\\\\y(".pg_escape_string(implode('|',$val)).")\\\\\\\\y' ";
 	
 	break;
@@ -110,7 +114,7 @@ function getSqlDetailFilter() {
       if (substr($v,0,1)=="?") {
 	// it's a parameter
 	$rv = getHttpVars(substr($v,1),"-");
-	if ($rv == "-") return array(false);
+	if ($rv == "-") return (false);
 	$tkey[$k]=$rv;
       }
       if ($taid[$k] == "revdate") {
@@ -120,8 +124,9 @@ function getSqlDetailFilter() {
     }
     
     foreach ($tol as $k=>$v) {
+      $cond1=$this->getSqlCond($taid[$k],trim($tf[$k]),$tkey[$k]);
       if ($cond == "") $tol[$k]="";;
-      $cond.=$tol[$k].$this->getSqlCond($taid[$k],trim($tf[$k]),$tkey[$k])." ";
+      if ($cond1!="") $cond.=$tol[$k].$cond1." ";
 
     }
   }
@@ -197,7 +202,7 @@ function getSpecTitle() {
 
 function viewdsearch($target="_self",$ulink=true,$abstract=false) {
   // Compute value to be inserted in a  layout
-  $this->viewattr($target,$ulink, $abstract);
+   $this->editattr();
   //-----------------------------------------------
   // display already condition written
   $tol = $this->getTValue("SE_OLS");
