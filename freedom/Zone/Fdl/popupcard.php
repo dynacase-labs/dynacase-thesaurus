@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.36 2003/12/09 10:51:14 eric Exp $
+ * @version $Id: popupcard.php,v 1.37 2003/12/10 16:50:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.36 2003/12/09 10:51:14 eric Exp $
+// $Id: popupcard.php,v 1.37 2003/12/10 16:50:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,6 +57,8 @@ function popupcard(&$action) {
   popupInit('popupcard',  array(
 				'headers',
 				'latest',
+				'sview',
+				'sedit',
 				'editdoc',
 				'lockdoc',
 				'unlockdoc',
@@ -230,13 +232,43 @@ function popupcard(&$action) {
 
   // ------------
   // add special views
-//   $tviews = $doc->views;
+  popupInvisible('popupcard',$kdiv,'sview');
+  popupInvisible('popupcard',$kdiv,'sedit');
+  $tviews = $doc->views;
 
-//   popupInit('popupview',  array(
-// 				'test1',
-// 				'test2'));
-//   Popupactive('subpopup',$kdiv,'test1');
-//   PopupCtrlactive('subpopup',$kdiv,'test2');
+  $tv=array(); // consult array views
+  $te=array(); // edit array views
+  if (count($tviews) > 0)  {
+    foreach ($tviews as $k=>$v) {
+      if ($v["kind"] == "VEDIT") {
+	$te[$k] = array("idview" => $k,
+		      "zoneview" => $v["zone"],
+		      "txtview" => $v["text"]);
+      } else {      
+	$tv[$k] = array("idview" => $k,
+		      "zoneview" => $v["zone"],
+		      "txtview" => $v["text"]);
+      }
+    }
+    $action->lay->SetBlockData("SVIEW",$tv);
+    $action->lay->SetBlockData("SEDIT",$te);
+  } 
+  
+
+  if (count($tv) > 0)  {
+    popupInit('popupview',  array_keys($tv));
+    foreach ($tv as $k=>$v)  popupActive('popupview',$kdiv,$k); 
+    popupActive('popupcard',$kdiv,'sview');
+  } else {
+    popupInit('popupview',  array('z'));
+  }
+  if (count($te) > 0)  {
+    popupInit('popupedit',  array_keys($te));
+    foreach ($te as $k=>$v)  popupActive('popupedit',$kdiv,$k);  
+    popupActive('popupcard',$kdiv,'sedit');
+  } else {
+    popupInit('popupedit',  array('z'));
+  }
   
 
 

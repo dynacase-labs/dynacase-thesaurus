@@ -24,7 +24,11 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]','');closeMenu('popupcard');">
 [TEXT:View all properties]</a>
 
+<a href="#" id="sview"       
+    onmouseover="openSubMenu(event,this,'popupview');">[TEXT:Special view]&gt;</a>
 
+<a href="#" id="sedit"       
+    onmouseover="openSubMenu(event,this,'popupedit');">[TEXT:Special edit]&gt;</a>
 
 <a href="#" id="unlockdoc"
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&id=[id]','');closeMenu('popupcard')" >[TEXT:Unlock]</a>
@@ -93,6 +97,19 @@
 
 [ZONE FDL:POPUPFAM]
 </div>
+<div  id="popupview" name="popupcard" class="popup">
+[BLOCK SVIEW]
+<a href="#" id="[idview]"     
+    onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&zone=[zoneview]&id=[id]','');closeMenu('popupcard');">[txtview]</a>
+[ENDBLOCK SVIEW]
+</div>
+<div  id="popupedit" name="popupcard" class="popup">
+[BLOCK SEDIT]
+<a href="#" id="[idview]"     
+    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&zone=[zoneview]&id=[id]','');closeMenu('popupcard');">[txtview]</a>
+[ENDBLOCK SEDIT]
+</div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
+
 
 

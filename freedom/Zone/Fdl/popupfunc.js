@@ -47,10 +47,24 @@ function openSubMenu(event, th, menuid) {
   //alert(th.parentNode.currentStyle.width);
   //  alert(window.getComputedStyle(th.parentNode, null).width);
   var dx=th.parentNode.offsetWidth;
+
+  // close sub menu before
+  closeSubMenu(th.parentNode.id);
+
+  
+
   openMenuXY(event,menuid,xy.x+dx,+xy.y);
 }
 
-
+function closeSubMenu(menuid) {  
+ 
+  var sm = document.body.getElementsByTagName('div');
+ 
+  for (var i=0; i<sm.length; i++) {
+    //alert(sm[i].id+':'+sm[i].getAttribute('name'));
+    if (sm[i].getAttribute('name') == menuid)    closeMenu(sm[i].id);
+  }
+}
 function openMenu(event, menuid, itemid) {
 
   var el, x, y;
@@ -72,7 +86,7 @@ function openMenu(event, menuid, itemid) {
   el.style.left = x + "px";
   el.style.top  = y + "px";
   el.style.visibility = "visible";
-
+  closeSubMenu(menuid);
   activeMenuItem(event,menuid, itemid);
  // event.stopPropagation();
   return false; // no navigator context menu
@@ -125,7 +139,8 @@ function activeMenuItem(event,menuid, itemid) {
 
 
 function closeMenu(menuid) {
-
+  //  alert('closeMenu:'+menuid);
+  closeSubMenu(menuid);
   if (document.getElementById) { // DOM3 = IE5, NS6
          divpop = document.getElementById(menuid);
 	 if (divpop) divpop.style.visibility = 'hidden';
