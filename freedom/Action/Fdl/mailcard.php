@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.36 2003/10/09 12:08:42 eric Exp $
+ * @version $Id: mailcard.php,v 1.37 2003/10/10 10:21:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.36 2003/10/09 12:08:42 eric Exp $
+// $Id: mailcard.php,v 1.37 2003/10/10 10:21:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -126,7 +126,7 @@ function sendCard(&$action,
  
   setHttpVar("target","mail");
   setHttpVar("id",$docid); // for view zone
- 
+  if (GetHttpVars("_mail_format") == "") setHttpVar("_mail_format",$format);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
@@ -162,6 +162,7 @@ function sendCard(&$action,
  
   if ($zonebodycard == "") $zonebodycard=$doc->defaultmview;
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
+
 
 
   if (ereg("[A-Z]+:[^:]+:S", $zonebodycard, $reg))  $szone=true;// the zonebodycard is a standalone zone ?

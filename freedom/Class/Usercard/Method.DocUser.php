@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.17 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.18 2003/10/10 10:21:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.17 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.DocUser.php,v 1.18 2003/10/10 10:21:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -82,6 +82,10 @@
      if (($action->user->id == $this->owner) || ($this->id == 0)) 
        $this->lay->SetBlockData("PRIVATE",array(array("zou")));
    }
+
+
+ 
+
   // no in postUpdate method :: call this only if real change (values)
   function PostModify() {
     $priv=$this->GetValue("US_PRIVCARD");
@@ -106,7 +110,7 @@ function SpecRefresh() {
 
 
   
-  $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX,US_COUNTRY");
+  $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX,US_COUNTRY,US_SPHONE,US_SFAX");
   $this->AddParamRefresh("US_IDSOCIETY","US_SCATG,US_JOB");
 
   $doc=new Doc($this->dbaccess, $this->getValue("US_IDSOCIETY"));
@@ -121,6 +125,11 @@ function SpecRefresh() {
     }
     $this->setValue("US_SCATG",$doc->getValue("SI_CATG"));
     $this->setValue("US_JOB",$doc->getValue("SI_JOB"));
+
+
+    $this->setValue("US_PHONE",$this->getValue("US_PPHONE",$doc->getValue("SI_PHONE")));
+    $this->setValue("US_FAX",$this->getValue("US_PFAX",$doc->getValue("SI_FAX")));
+
   }
   
 }

@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.7 2003/09/16 07:37:10 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.8 2003/10/10 10:21:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -78,7 +78,9 @@ function laddrsoc($dbaccess, $idc) {
 		  $doc->getValue("SI_POSTCODE"),
 		  $doc->getValue("SI_WEB"),
 		  $doc->getValue("SI_CEDEX"),
-		  $doc->getValue("SI_COUNTRY"));
+		  $doc->getValue("SI_COUNTRY"),
+		  $doc->getValue("SI_PHONE"),
+		  $doc->getValue("SI_FAX"));
   }
   
   $tr[] = array("adresse propre",
@@ -88,8 +90,21 @@ function laddrsoc($dbaccess, $idc) {
 		  "?",
 		  "?",
 		  "?",
+		  "?",
+		  "?",
 		  "?");
   
+  return $tr;
+  
+}
+function getSphone($dbaccess, $idc) {
+  $doc = new Doc($dbaccess, $idc);
+
+  $tr=array();
+  if ($doc->isAlive()) {
+    $tr[]=array($doc->getValue("SI_PHONE"), $doc->getValue("SI_PHONE"));
+    
+  }
   return $tr;
   
 }

@@ -9,12 +9,7 @@
 <tbody>
 <tr >
  
-  <td  align="right">
-    <input type="hidden" name="latest" value="true" >
-    <input type="hidden" name="fromdir" value="false" >
-    <input type="hidden" name="sensitive" value="false" >
-    <input type="text" name="keyword"></input></td>
-  <td id="tdp"   >
+  <td id="tdp" align="right"  >
      <select id="pfamid"  name="famid" >  
          [BLOCK SELECTPREFCLASS]
            <option VALUE="[idcdoc]" >[classname]</option>   
@@ -38,6 +33,11 @@
        title="[TEXT:choose preferred families]" 
        onclick="subwindow(100,300,'onepref','[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDITPREFFAM')"> 
    </td>
+  <td  align="left">
+    <input type="hidden" name="latest" value="true" >
+    <input type="hidden" name="fromdir" value="false" >
+    <input type="hidden" name="sensitive" value="false" >
+    <input type="text" name="keyword"></input></td>
 </tr> 
 </tbody>
 </table>
