@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.24 2002/01/29 15:44:05 eric Exp $
+// $Id: Class.Doc.php,v 1.25 2002/02/05 16:34:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,13 +23,13 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.24 2002/01/29 15:44:05 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.25 2002/02/05 16:34:07 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
 include_once('Class.DbObjCtrl.php');
-include_once("FREEDOM/freedom_util.php");
-include_once("FREEDOM/Class.DocAttr.php");
+include_once("FDL/freedom_util.php");
+include_once("FDL/Class.DocAttr.php");
 
 
 // define constant for search attributes in concordance with the file "init.freedom"
@@ -106,9 +106,9 @@ create sequence seq_id_doc start 1000";
 
   function PostInit() {
 
-    include_once("FREEDOM/Class.QueryDir.php");
+    include_once("FDL/Class.QueryDir.php");
     $oqdv = new QueryDir($this->dbaccess,"2"); // just to create table if needed
-    include_once("FREEDOM/Class.QueryDirV.php");
+    include_once("FDL/Class.QueryDirV.php");
     $oqdv = new QueryDirV($this->dbaccess,"2");// just to create table if needed
 
     
@@ -444,7 +444,7 @@ create sequence seq_id_doc start 1000";
       $query = new QueryDb($this->dbaccess, get_class($this));
 
       
-      $query->AddQuery("revision <= ".$this->revision);
+      //$query->AddQuery("revision <= ".$this->revision);
       $query->AddQuery("initid = ".$this->initid);
       $query->order_by="revision DESC";
       
@@ -626,7 +626,7 @@ create sequence seq_id_doc start 1000";
     
 
       $efile=$action->GetParam("CORE_BASEURL").
-	 "app=FREEDOM".
+	 "app=FDL".
 	 "&action=EXPORTFILE".
 	 "&vaultid=".$reg[2]; // upload name
       return $efile;

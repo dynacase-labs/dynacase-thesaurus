@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.4 2002/01/25 09:44:28 eric Exp $
+// $Id: viewcard.php,v 1.5 2002/02/05 16:34:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,14 +22,14 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FREEDOM/Class.Doc.php");
-include_once("FREEDOM/Class.DocAttr.php");
-include_once("FREEDOM/Class.DocValue.php");
+include_once("FDL/Class.Doc.php");
+include_once("FDL/Class.DocAttr.php");
+include_once("FDL/Class.DocValue.php");
 
 include_once("Class.TableLayout.php");
 include_once("Class.QueryDb.php");
 include_once("Class.QueryGen.php");
-include_once("FREEDOM/freedom_util.php");
+include_once("FDL/freedom_util.php");
 include_once("VAULT/Class.VaultFile.php");
 
 // -----------------------------------
@@ -77,7 +77,7 @@ function viewcard(&$action) {
   }
 
   $action->lay->Set("comment", $doc->comment);
-  $destdir="./".GetHttpVars("app")."/Download/"; // for downloading file
+
 
   if ($doc->locked > 0) {
     $user = new User("", $doc->locked);

@@ -9,7 +9,7 @@ function sendmodifydoc(event,docid, attrid, sorm) {
   // modify to initial action
   oldact = f.action;
   oldtar = f.target;
-  f.action = '[CORE_STANDURL]&app=[FREEDOM_APP]&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&wname='+window.name;
+  f.action = '[CORE_STANDURL]&app=FDL&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&wname='+window.name;
 
   var xw, yw;
   if (window.event) {

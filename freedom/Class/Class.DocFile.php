@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.3 2001/12/18 09:18:10 eric Exp $
+// $Id: Class.DocFile.php,v 1.4 2002/02/05 16:34:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,10 +22,10 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.3 2001/12/18 09:18:10 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.4 2002/02/05 16:34:07 eric Exp $';
 
 
-include_once("FREEDOM/Class.Doc.php");
+include_once("FDL/Class.Doc.php");
 
 
 

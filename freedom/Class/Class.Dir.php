@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.6 2002/01/25 09:38:56 eric Exp $
+// $Id: Class.Dir.php,v 1.7 2002/02/05 16:34:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,12 +22,12 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.6 2002/01/25 09:38:56 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.7 2002/02/05 16:34:07 eric Exp $';
 
 
-include_once("FREEDOM/Class.Doc.php");
+include_once("FDL/Class.Doc.php");
 
-include_once("FREEDOM/Class.QueryDir.php");
+include_once("FDL/Class.QueryDir.php");
 
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.2 2002/01/04 15:45:54 eric Exp $
+// $Id: Class.DocSearch.php,v 1.3 2002/02/05 16:34:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocSearch.php,v $
+// Revision 1.3  2002/02/05 16:34:07  eric
+// decoupage pour FREEDOM-LIB
+//
 // Revision 1.2  2002/01/04 15:45:54  eric
 // correction pour init DocSerach
 //
@@ -34,10 +37,10 @@
 // Revision 1.2  2001/11/09 18:54:21  eric
 // et un de plus
 // ---------------------------------------------------------------
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.2 2002/01/04 15:45:54 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.3 2002/02/05 16:34:07 eric Exp $';
 
 
-include_once("FREEDOM/Class.Doc.php");
+include_once("FDL/Class.Doc.php");
 
 
 

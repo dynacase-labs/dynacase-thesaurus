@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.1 2001/12/18 09:18:10 eric Exp $
+// $Id: popupcard.php,v 1.2 2002/02/05 16:34:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FREEDOM/Class.Doc.php");
+include_once("FDL/Class.Doc.php");
 // -----------------------------------
 function popupcard(&$action) {
   // -----------------------------------
@@ -37,7 +37,7 @@ function popupcard(&$action) {
 
   $action->lay->Set("id", $docid);
 
-  include_once("FREEDOM/popup_util.php");
+  include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
   popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','properties','cancel'));

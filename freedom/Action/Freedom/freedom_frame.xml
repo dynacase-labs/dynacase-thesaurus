@@ -1,0 +1,24 @@
+<html>
+<head>
+
+<LINK REL="icon" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
+<LINK REL="SHORTCUT ICON" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
+<title>[WHAT] [APP_TITLE]</title>
+
+</head>
+
+
+<frameset frameborder="1" framespacing="5" border="5" cols="40%,*" >
+
+
+<frameset frameborder="1" framespacing="5" border="5" rows="40%,*" >
+  <frame name="list" src="[CORE_STANDURL]&app=FREEDOM&action=FOLDERS" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="doc_properties" src="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+</frameset>
+
+
+  <frame name="info" src="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+
+
+</frameset>
+</html>

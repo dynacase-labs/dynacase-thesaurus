@@ -1,0 +1,258 @@
+<!--
+     (Please keep all copyright notices.)
+     This frameset document includes the FolderTree script.
+     Script found in: http://www.geocities.com/marcelino_martins/foldertree.html
+     Author: Marcelino Alves Martins (http://www.mmartins.com) 
+
+     Instructions:
+     - Do not make any changes to this file outside the style tag.
+	 - Through the style tag you can change the colors and types
+	   of fonts to the particular needs of your site. 
+	 - A predefined block has been made for stylish people with
+	   black backgrounds.
+-->
+
+
+<html>
+
+<head>
+[JS:REF]
+   <script language="JavaScript">
+  <!--
+var isNetscape = navigator.appName=="Netscape";
+
+var Xpos = 0;
+var Ypos = 0;
+
+// just save mouse position for animate() to use
+function MoveHandler(e)
+{
+    Xpos = e.pageX;
+    Ypos = e.pageY;	
+    return true;
+}
+
+// just save mouse position for animate() to use
+function MoveHandlerIE() {
+    Xpos = window.event.x + document.body.scrollLeft;
+    Ypos = window.event.y + document.body.scrollTop;	  
+}
+
+
+var drag=0;
+if (isNetscape) {
+    document.captureEvents(Event.MOUSEMOVE);
+}    
+
+    document.onmousemove = moveicon;
+
+function moveicon(e) {
+    
+   window.status=Xpos+"x"+Ypos;
+  if (drag ) {
+   if (isNetscape) {
+     MoveHandler(e);
+   } else {
+     MoveHandlerIE();
+   }
+    micon.style.visibility = 'visible';
+    micon.style.top = Ypos+2; 
+    micon.style.left = Xpos+2; 
+    //    micon.style.zIndex = 4; 
+  }
+}
+var micon;
+var cdocid=0;
+function initDrag() {
+
+  if (parent.info.document.drag == 1) {
+    drag=1;
+    cdocid = parent.info.document.docid;
+    parent.info.document.drag=0;
+    imicon = parent.info.document.getElementById('micon');
+    micon.src=imicon.src;
+    //    alert(micon.src);
+    imicon.style.visibility="hidden";
+    parent.info.document.drag=0;
+  }
+}
+function endDrag() {
+
+  
+    drag=0;
+    micon.style.visibility="hidden";
+
+}
+function initmicon() {
+
+  micon = document.getElementById('micon');
+
+}
+    [JS:CODE]
+  //-->
+   </script>   
+[CSS:REF]
+<!-- if you want black backgound, remove this style block -->
+<style type="text/css">
+
+[ZONE CORE:GENCSS]
+[ZONE FDL:GENCSS]
+   TD.fld {font-size: 10pt; 
+       font-family: verdana,helvetica; 
+	   text-decoration: none;
+	   white-space:nowrap;
+       background:transparent;} 
+   A  {text-decoration: none;
+       color: [CORE_ACOLOR]}
+   DIV.folder  {width:100%;
+                border-style: none;      
+                display:block;
+                cursor: default;
+                position:block;}
+   DIV.select  {
+       width:100%;
+       /*border-style: inset;*/
+       background-color:[CORE_BGCOLORALTERN];
+       display:block;
+       cursor: default;
+       position:block;}
+
+   .urltext {
+      cursor:pointer;
+      color: [CORE_TEXTFGCOLOR];
+      text-decoration:none;
+   }
+   .urltextsel {
+      cursor:pointer;
+      text-decoration:underline overline;
+      color: [CORE_TEXTFGCOLOR];
+       background-color:[CORE_BGCOLORHIGH];
+      
+   }
+
+[CSS:CODE]
+   
+</style>
+
+
+<!-- if you want black backgound, remove this line and the one marked XXXX and keep the style block below 
+
+<style>
+   BODY {background-color: black}
+   TD {font-size: 10pt; 
+       font-family: verdana,helvetica 
+	   text-decoration: none;
+	   white-space:nowrap;}
+   A  {text-decoration: none;
+       color: white}
+</style>
+
+XXXX -->
+
+
+<!-- NO CHANGES PAST THIS LINE -->
+
+
+<!-- Code for browser detection -->
+<script src="FREEDOM/Layout/ua.js"></script>
+
+<!-- Infrastructure code for the tree -->
+<script src="FREEDOM/Layout/ftiens4.js"></script>
+
+<!-- Execution of the code that actually builds the specific tree.
+     The variable foldersTree creates its structure with calls to
+	 gFld, insFld, and insDoc -->
+
+
+<script language="JavaScript">
+  <!--
+
+// Decide if the names are links or just the icons
+USETEXTLINKS = 0  //replace 0 with 1 for hyperlinks
+
+// Decide if the tree is to start all open or just showing the root folders
+STARTALLOPEN = 0 //replace 0 with 1 to show the whole tree
+
+actionaddfile = "[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE";
+actionviewfile = "[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW";
+
+
+
+fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4)
+
+
+[subtree]
+[hometree]
+
+if (document.all)
+     window.onscroll = floatMenu;
+     else
+     setInterval ('floatMenu()', 100);
+function floatMenu () {
+
+    document.getElementById('barmenu').style.top = getScrollYOffset();
+    return true;
+}
+
+
+  //-->
+</script>
+</head>
+
+<body topmargin=16 marginheight=16
+      onLoad="initmicon()" 
+      onMouseOver="initDrag()" 
+      onMouseUp="if (buttonNumber(event)==1) {if (drag==0) closeAllMenu(); else closeMenu('popfld')};endDrag(); " >
+
+<!-- By making any changes to this code you are violating your user agreement;
+     this can be specially troublesome for corporate users. Check the online 
+	 instructions to obtain a version without the link -->
+<!-- Removing this link will make the script stop from working -->
+
+<div style="position:absolute; top:30px; left:0; "><table border=0><tr><td><font size=-2><a style="font-size:6pt;text-decoration:none;color:gray" href="http://www.mmartins.com" target="_top"></a></font></td></table></div>
+
+<!-- ------------------ BAR MENU ------------------ -->
+[ZONE FDL:BARMENU]
+<br>
+
+<!-- ------------ POPUP DIVISION --------------------- -->
+<div  id="popfld" class="popup">
+
+<a href="#" id="vprop"
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld');return false">[TEXT: properties] </a>
+<a href="#" id="mkdir"     
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'doc_properties');closeMenu('popfld');return false">
+[TEXT: create subfolder]</a>
+<a href="#" id="cancel"  
+    onClick="closeMenu('popfld');return false"  >[TEXT:cancel]</a>
+</div>
+<!-- ------------------ end POPUP DIVISION ------------------ -->
+
+<!-- ------------ SECOND POPUP DIVISION (paste)--------------------- -->
+<div  id="poppaste" class="popup">
+
+<a href="#" id="staticpaste"
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&mode=static&dirid='+dirid+'&docid='+cdocid,'doc_properties');closeMenu('poppaste');return false">
+   [TEXT: paste this revision] </a>
+<a href="#" id="pastelatest"     
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'doc_properties');closeMenu('poppaste');return false">
+   [TEXT: paste latest revision]</a>
+<a href="#" id="cancel2"  
+    onClick="closeMenu('poppaste');return false">[TEXT:cancel]</a>
+</div>
+
+<!-- ------------------ end POPUP DIVISION ------------------ -->
+
+
+
+
+
+
+
+
+<!-- Build the browser's objects and display default view of the 
+     tree. -->
+<script>initializeDocument()</script>
+<img id="micon" width="20" height="20"  style="position:absolute;visibility:hidden">
+
+</html>

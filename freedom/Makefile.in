@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.5 2002/01/07 10:11:47 eric Exp $
+# $Id: Makefile.in,v 1.6 2002/02/05 16:34:06 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -7,28 +7,30 @@ utildir=@PUBRULE@
 appname = @PACKAGE@
 pubdir = @prefix@
 srcdir = @srcdir@
+applib = FDL
 
-export pubdir utildir appname
+export pubdir utildir appname applib
 
 TAR = gtar
 GZIP_ENV = --best
 
 export targetdir PACKAGE
 
-SUBDIR= Xml Images Css Action JavaScript Class Zone
+SUBDIR= Class  Images Action JavaScript Css JavaScript  Zone App
 
 include $(utildir)/PubRule
 
-DISTFILES = $(SUBDIR) configure.in $(PACKAGE).app init.freedom\
-            $(PACKAGE)_init.php.in Makefile.in $(PACKAGE).spec.in \
+DISTFILES = init.freedom $(SUBDIR) \
+            $(wildcard *.in) \
             VERSION RELEASE $(PACKAGE).vault \
 	    $(PACKAGE)_en.po $(PACKAGE)_fr.po 
 
 
+$(pubdir)/$(applib) :
+	mkdir -p $@
 
-$(pubdir)/$(appname)/init.freedom : init.freedom
-	cp $< $(pubdir)/$(appname)
-$(pubdir)/$(appname)/$(PACKAGE).vault : $(PACKAGE).vault
-	cp $< $(pubdir)/$(appname)
-publish: $(pubdir)/$(appname)/init.freedom $(pubdir)/$(appname)/$(PACKAGE).vault
-
+$(pubdir)/$(applib)/init.freedom : $(pubdir)/$(applib) init.freedom
+	cp  init.freedom $(pubdir)/$(applib)/init.freedom
+$(pubdir)/$(applib)/FREEDOM.vault : FREEDOM.vault
+	cp $< $(pubdir)/$(applib)/$<
+publish: $(pubdir)/$(applib) $(pubdir)/$(applib)/init.freedom $(pubdir)/$(applib)/FREEDOM.vault

@@ -1,6 +1,6 @@
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.9 2002/01/25 13:53:43 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.10 2002/02/05 16:34:06 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -27,13 +27,24 @@ Requires: apache >= 1.3.12
 Requires: postgresql >= 7.0.0
 Requires: php-pgsql >= 4.0.2
 PreReq: WHAT > 0.0.1
+PreReq: @PACKAGE@-LIB = %{version}
 Prereq: VAULT
 Prereq: php-shell >= 4.0.2
 Prereq: gettext
 
 %description
-The Contact module is use to save various information in cards
+The FREEDOM (Free Document Object Model) module is use to manage document in intranet
 
+
+%package LIB
+Summary: libraries of FREEDOM module
+Group: Applications/Web
+Version: @VERSION@
+Release: @RELEASE@
+PreReq: WHAT
+
+%description LIB
+The FREEDOM LIBS is necessary to use functionnality of the FREEDOM module
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -48,21 +59,36 @@ make pubdir=$RPM_BUILD_ROOT%{destdir}
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-%post
+%post 
+if [ "$1" = 1 ] ; then
+  echo "Initiate Database elements"  
+  %{destdir}/wsh.php --api=appadmin  --appname=@PACKAGE@ 
+else
+  echo "Update Database elements"
+  %{destdir}/wsh.php --api=appadmin --method=update --appname=@PACKAGE@
+fi
+
+%preun
+if [ "$1" = 0 ] ; then
+  echo "Remove Database elements"
+  %{destdir}/wsh.php --api=appadmin --method=delete --appname=@PACKAGE@
+fi
+
+%post LIB
 if [ "$1" = 1 ] ; then
   echo "Create @DBNAME@ database"
   su - postgres -c "createdb @DBNAME@" 2>&1 >>/dev/null
   echo "Create @DBUSER@ database  user"
   su - postgres -c "createuser -d -a @DBUSER@" 2>&1 >>/dev/null
   echo "Initiate Database elements"  
-  %{destdir}/wsh.php --api=appadmin  --appname=@PACKAGE@ 
-  %{destdir}/wsh.php --app=@PACKAGE@ --action=@PACKAGE@_INIT  
+  %{destdir}/wsh.php --api=appadmin  --appname=@PACKAGELIB@ 
+  %{destdir}/wsh.php --app=@PACKAGELIB@ --action=@PACKAGE@_INIT  
   pushd %{destdir} >/dev/null
-  ln -sf ../@PACKAGE@/@PACKAGE@.vault VAULT
+  ln -sf ../@PACKAGELIB@/@PACKAGE@.vault VAULT
   popd >/dev/null
 else
   echo "Update Database elements"
-  %{destdir}/wsh.php --api=appadmin --method=update --appname=@PACKAGE@
+  %{destdir}/wsh.php --api=appadmin --method=update --appname=@PACKAGELIB@
 fi
 # merge @PACKAGE@ translation for i18n
 for lang in en fr ; do
@@ -74,18 +100,21 @@ for lang in en fr ; do
     popd >/dev/null
 done
 
-%preun
+%preun LIB
 if [ "$1" = 0 ] ; then
   echo "Remove Database elements"
-  %{destdir}/wsh.php --api=appadmin --method=delete --appname=@PACKAGE@
+  %{destdir}/wsh.php --api=appadmin --method=delete --appname=@PACKAGELIB@
 fi
 
 %files
 %defattr(-,root,root)
 %dir %{destdir}/%{name}
 %{destdir}/%{name}/*
-%{destdir}/locale/*
 
+%files LIB
+%dir %{destdir}/FDL
+%{destdir}/FDL/*
+%{destdir}/locale/*
 
 
 %changelog

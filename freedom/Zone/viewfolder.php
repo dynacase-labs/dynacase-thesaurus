@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.5 2002/01/25 09:43:26 eric Exp $
+// $Id: viewfolder.php,v 1.6 2002/02/05 16:34:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,12 +23,12 @@
 // ---------------------------------------------------------------
 
 
-include_once("FREEDOM/Class.Dir.php");
-include_once("FREEDOM/Class.DocAttr.php");
-include_once("FREEDOM/Class.DocValue.php");
-include_once("FREEDOM/freedom_util.php");
-include_once('FREEDOM/Class.QueryDir.php');
-include_once('FREEDOM/Class.QueryDirV.php');
+include_once("FDL/Class.Dir.php");
+include_once("FDL/Class.DocAttr.php");
+include_once("FDL/Class.DocValue.php");
+include_once("FDL/freedom_util.php");
+include_once("FDL/Class.QueryDir.php");
+include_once("FDL/Class.QueryDirV.php");
 
 // -----------------------------------
 // -----------------------------------
@@ -124,7 +124,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
 
   if ($with_popup) {
     // Set Popup
-    include_once("FREEDOM/popup_util.php");
+    include_once("FDL/popup_util.php");
     // ------------------------------------------------------
     // definition of popup menu
     popupInit("popuplist",array('vprop','editdoc','cancel','copy','delete'));
@@ -290,7 +290,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
     popupGen($kdiv-1);
   
     // js : manage icons
-    $licon = new Layout($action->Getparam("CORE_PUBDIR")."/FREEDOM/Layout/manageicon.js", $action);
+    $licon = new Layout($action->Getparam("CORE_PUBDIR")."/FDL/Layout/manageicon.js", $action);
     $licon->Set("nbdiv",$kdiv-1);
     $action->parent->AddJsCode($licon->gen());
   }

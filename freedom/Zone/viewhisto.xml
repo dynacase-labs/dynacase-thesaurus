@@ -1,0 +1,39 @@
+
+
+
+
+
+<table class="tablesimple" cellspacing="0"  width="100%" >
+<thead>
+<tr><td class="CORETblHeadBold" align="center" colspan="4">[title]</td><tr>
+<tr><td class="CORETblHeadBold">[TEXT: rev]</td>
+    <td class="CORETblHeadBold">[TEXT: comment]</td>
+    <td class="CORETblHeadBold">[TEXT: revised by]</td>
+    <td class="CORETblHeadBold" style="text-align:left;">[TEXT: date]</td>
+</tr>
+</thead>
+<tbody>
+
+
+<!-- TABLEBODY -->
+[BLOCK TABLEBODY]
+<tr class="unselect" id="d[id]"
+     onMouseDown="select(this,[id],[divid]);subwindow(300,400,'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
+<td class="tlist"  >[revision]</td>
+<td class="tlist" >  
+     [comment]
+</td>
+     <td class="tlist"  >[owner]</td>
+     <td class="tlist"  >[date]</td>
+
+    
+</tr>
+
+</tbody>
+[ENDBLOCK TABLEBODY]
+</table>
+<!-- /TABLEBODY -->
+
+
+
+

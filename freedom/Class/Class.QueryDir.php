@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.6 2001/11/26 18:01:02 eric Exp $
+// $Id: Class.QueryDir.php,v 1.7 2002/02/05 16:34:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDir.php,v $
+// Revision 1.7  2002/02/05 16:34:07  eric
+// decoupage pour FREEDOM-LIB
+//
 // Revision 1.6  2001/11/26 18:01:02  eric
 // new popup & no lock for no revisable document
 //
@@ -44,11 +47,11 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.6 2001/11/26 18:01:02 eric Exp $';
-include_once('Class.DbObj.php');
-include_once('Class.QueryDb.php');
-include_once('Class.Log.php');
-include_once('FREEDOM/Class.QueryDirV.php');
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.7 2002/02/05 16:34:07 eric Exp $';
+include_once("Class.DbObj.php");
+include_once("Class.QueryDb.php");
+include_once("Class.Log.php");
+include_once("FDL/Class.QueryDirV.php");
 
   
 Class QueryDir extends DbObj
