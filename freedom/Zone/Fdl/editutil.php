@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.44 2003/07/16 08:10:15 eric Exp $
+// $Id: editutil.php,v 1.45 2003/07/22 12:03:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -448,13 +448,13 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 		      
     }
   if  ($visibility != "S") {
-    if (($oattr->phpfunc != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
+    if (($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
       if (ereg("list",$attrtype, $reg)) $ctype="multiple";
       else $ctype="single";
       $input.="<input type=\"button\" value=\"&#133;\"".
 	" title=\""._("choose inputs")."\"".
-	" onclick=\"sendmodifydoc(event,".$docid.
-	",'".$attrid."','$ctype','$index')\">";
+	" onclick=\"sendEnumChoice(event,".$docid.
+	",this,'$ctype')\">";
 
       // clear button
       if (ereg("(.*)\((.*)\)\:(.*)", $oattr->phpfunc, $reg)) {

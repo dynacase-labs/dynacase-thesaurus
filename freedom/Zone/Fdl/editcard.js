@@ -6,20 +6,66 @@ var wichoose= false;
 var colorPick = new ColorPicker();
 initDHTMLAPI();
 
-function sendmodifydoc(event,docid, attrid, sorm, index) {
+// search the row number of an element present in array
+function getRowNumber(el) {
+  var tr=el;
 
-  if (! index) index='';
+
+  // find the row
+  while ((tr != null) && (tr.tagName != 'TR')) {
+    
+    tr=tr.parentNode;
+  }
+
+  // up to table
+  var nrow=0;
+  tr=tr.previousSibling;
+  while ((tr != null) && ((tr.nodeType != 1) || (tr.tagName == 'TR'))) {
+    if (tr.nodeType == 1) nrow++;
+    tr=tr.previousSibling;
+  }
+  return nrow;
+}
+
+function sendEnumChoice(event,docid, choiceButton , sorm) {
+
+
+  var inp  = choiceButton.previousSibling;
+  var index='';
+  var attrid;
+  var domindex=''; // needed to set values in arrays
+
+  // search the input button in previous element
+  while ((inp != null) && (inp.nodeType != 1)) inp = inp.previousSibling;
+  if (! inp) {
+    alert('[TEXT:enumerate input not found]');
+  }
+
+
+
+
+  if (inp.name.substr(inp.name.length-2,2) == '[]') {
+    // it is an attribute in array
+    attrid=inp.name.substr(1,inp.name.length-3);
+    index=getRowNumber(choiceButton);
+    domindex = inp.id.substring(attrid.length);    
+  } else {
+    attrid=inp.name.substr(1,inp.name.length-1);;
+  }
+
+
+  
 
   f =document.modifydoc;
   // modify to initial action
   oldact = f.action;
   oldtar = f.target;
-  f.action = '[CORE_STANDURL]&app=FDL&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&index='+index+'&wname='+window.name;
+  f.action = '[CORE_STANDURL]&app=FDL&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&index='+index+'&domindex='+domindex+'&wname='+window.name;
 
   
   if (index) attrid+=index;
 
-  var xy= getAnchorWindowPosition(attrid);
+  var xy= getAnchorWindowPosition(inp.id);
 
   if (isNaN(window.screenX)){
     xy.y+=15; // add supposed decoration height
@@ -36,8 +82,9 @@ function sendmodifydoc(event,docid, attrid, sorm, index) {
   f.target='wchoose';
 
 
-  
+  enableall();
   f.submit();
+  disableReadAttribute();
   // reset to initial action
   f.action=oldact;
   f.target=oldtar;
@@ -111,6 +158,20 @@ tain[[jska]]=[jstain];
 taout[[jska]]=[jstaout];
 [ENDBLOCK RATTR]
 
+function getInputValue(id,index) {
+  if (!index) index=0;
+  if (document.getElementById(id)) {
+    return document.getElementById(id).value;
+  } else {
+    
+    le = document.getElementsByName('_'+id+'[]');
+    if ((le.length - 1) >= index) {
+      return le[index].value;
+    }    
+  }
+  return '';
+}
+
 function disableReadAttribute() {
     
   var ndis = true;
@@ -120,10 +181,10 @@ function disableReadAttribute() {
   for (var c=0; c< tain.length; c++) {
     ndis = true;
     for (var i=0; i< tain[c].length; i++) {
-      if (document.getElementById(tain[c][i])) {
-	vin=document.getElementById(tain[c][i]).value;
-	if ((vin == '') || (vin == ' ')) ndis = false;
-      }
+      vin = getInputValue(tain[c][i]);
+
+      if ((vin == '') || (vin == ' ')) ndis = false;
+      
     }
     for (var i=0; i< taout[c].length; i++) {
       if (document.getElementById(taout[c][i])) {
@@ -134,7 +195,14 @@ function disableReadAttribute() {
       } else {
 	// search in arrays
 	lin = document.getElementsByName('_'+taout[c][i]+'[]');
+
 	for (var j=0; j< lin.length; j++) {
+	  ndis=true;
+	  for (var k=0; k< tain[c].length; k++) {
+	    vin = getInputValue(tain[c][k],j);
+	    if ((vin == '') || (vin == ' ')) ndis = false;
+	    
+	  }
 	  if (lin[j].type != 'hidden') {
 	    lin[j].disabled=ndis;
 	    lin[j].style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
@@ -316,6 +384,7 @@ function addtr(trid, tbodyid) {
   ntable = document.getElementById(tbodyid);
   ntable.appendChild(ntr);
 
+  nodereplacestr(ntr,'-1]',']'); // replace name [-1] by []
   nodereplacestr(ntr,'-1',ntable.childNodes.length);
   resizeInputFields(); // need to revaluate input width
  

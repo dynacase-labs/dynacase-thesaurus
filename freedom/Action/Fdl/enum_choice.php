@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.14 2003/05/22 16:24:56 eric Exp $
+// $Id: enum_choice.php,v 1.15 2003/07/22 12:04:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,6 +36,7 @@ function enum_choice(&$action) {
   $sorm = GetHttpVars("sorm","single"); // single or multiple
   $wname = GetHttpVars("wname",""); // single or multiple
   $index = GetHttpVars("index",""); // index of the attributes for arrays
+  $domindex = GetHttpVars("domindex",""); // index in dom of the attributes for arrays
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
@@ -76,10 +77,10 @@ function enum_choice(&$action) {
     else if ($index === "") $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
     else {
       $a = $doc->GetAttribute($v);
-    
+      
       if ($a && $a->inArray()) { // search with index
 	$ta = GetHttpVars("_".strtolower($v),$v);
-     
+
 	$arg[$k]=trim($ta[$index]);
       } else $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
     }
@@ -127,7 +128,7 @@ function enum_choice(&$action) {
   
   // add  index for return args
   while (list($k, $v) = each($rargids)) {
-    $rargids[$k].=$index;
+    $rargids[$k].=$domindex;
   }
   $sattrid="[";
   $sattrid.= strtolower("'".implode("','", $rargids)."'");
