@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.1 2001/11/16 09:57:01 marc Exp $
+# $Id: Makefile.in,v 1.2 2001/11/16 10:11:46 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -21,10 +21,7 @@ SUBDIR= Class
 include $(utildir)/PubRule
 
 DISTFILES = $(SUBDIR) configure.in $(PACKAGE).app \
-            $(PACKAGE)_init.php.in Makefile.in $(PACKAGE).spec.in $(PACKAGE).attributes.php\
+            $(PACKAGE)_init.php.in Makefile.in $(PACKAGE).spec.in \
             VERSION RELEASE PACKAGE\
 	    $(PACKAGE)_en.po $(PACKAGE)_fr.po 
-
-
-
 
