@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.42 2004/10/19 16:09:00 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.43 2004/10/27 15:35:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -381,7 +381,7 @@ Class WDoc extends Doc {
     if ($this->getValue("DPDOC_FAMID") > 0) {
       // special control for dynamic users
       if (! isset($this->pdoc)) {
-	$pdoc = createDoc($this->dbaccess,$this->fromid);
+	$pdoc = createDoc($this->dbaccess,$this->fromid,false);
 	$pdoc->doctype="T"; // temporary
 	//	$pdoc->setValue("DPDOC_FAMID",$this->getValue("DPDOC_FAMID"));
 	$err=$pdoc->Add();
