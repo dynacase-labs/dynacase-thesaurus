@@ -184,12 +184,11 @@ fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4)
 [subtree]
 [hometree]
 
-if (document.all)
-     window.onscroll = floatMenu;
-     else
-     setInterval ('floatMenu()', 100);
+if (document.all) {
+  window.onscroll = floatMenu; /* position fixed not IE supported yet */
+}
 function floatMenu () {
-
+  document.getElementById('barmenu').style.position = 'absolute';
     document.getElementById('barmenu').style.top = getScrollYOffset();
     return true;
 }
