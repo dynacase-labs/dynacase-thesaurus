@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-18 16:12+0100\n"
+"POT-Creation-Date: 2005-03-06 20:47+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -141,6 +141,9 @@ msgstr "recherche d'évènement"
 
 msgid "advanced search event"
 msgstr "Recherche avancée"
+
+msgid "view event"
+msgstr "Aficher"
 
 msgid "edit event"
 msgstr "Edition d'un rendez-vous"
@@ -380,7 +383,7 @@ msgid "waiting rv"
 msgstr "Rendez-vous en attente"
 
 msgid "accept event"
-msgstr "accepter l'évènement"
+msgstr "accepter cet évènement"
 
 msgid "refuse event"
 msgstr "refuser cet évènement :"
@@ -436,11 +439,36 @@ msgstr "Ressources trouvées"
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
 
+msgid "accept"
+msgstr "accepté"
+
+msgid "reject"
+msgstr "refusé"
+
+msgid "to be confirm"
+msgstr "Confirmer"
+
+msgid "edit"
+msgstr "Editer"
+
+#, fuzzy
+msgid "delconfirm"
+msgstr "à confirmer"
+
+msgid "history"
+msgstr "historique"
+
+msgid "Cancel"
+msgstr "Annuler"
+
 msgid "add prefered contact"
 msgstr "Ajout d'un contact préféré"
 
 msgid "use for event creation"
 msgstr "Utiliser les ressources pour les rendez-vous"
+
+msgid "add a calendar"
+msgstr "Ajout d'un calendrier"
 
 msgid "week view"
 msgstr "Une semaine"
@@ -471,6 +499,9 @@ msgstr "répétition"
 
 msgid "owner"
 msgstr "Propriétaire"
+
+msgid "incalendar"
+msgstr "Calendrier"
 
 msgid "modified"
 msgstr "modifié le"
@@ -557,6 +588,9 @@ msgstr ""
 msgid "event search "
 msgstr "Recherche d'évènement"
 
+msgid "main calendar"
+msgstr "Calendrier public"
+
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
 
@@ -635,12 +669,6 @@ msgstr "nouveau"
 msgid "read"
 msgstr "lu"
 
-msgid "accept"
-msgstr "accepté"
-
-msgid "reject"
-msgstr "refusé"
-
 msgid "to be confirmed"
 msgstr "à confirmer"
 
@@ -692,9 +720,6 @@ msgstr "mon calendrier public"
 
 #~ msgid "print this view"
 #~ msgstr "Imprimer l'agenda"
-
-#~ msgid "add a calendar"
-#~ msgstr "Ajout d'un calendrier"
 
 #~ msgid "month view"
 #~ msgstr "vue mensuelle"

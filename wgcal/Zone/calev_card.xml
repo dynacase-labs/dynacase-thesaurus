@@ -33,7 +33,7 @@
 </fieldset></td>
 </tr>
 <tr style="display:[displaynote]">
- <td colspan="2" valign="top"><div style="width:100%">
+ <td colspan="2" valign="top"><div>
 <fieldset ><legend>[TEXT:note]</legend>[NOTE]</fieldset></div></td>
 </tr>
 </tbody>

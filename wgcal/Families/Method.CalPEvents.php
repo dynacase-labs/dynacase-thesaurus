@@ -14,7 +14,6 @@ var $eventRVStatus     = "";
 
 function postModify() {
   $err = $this->setEvent(); 
-  //print_r2($this);
   if ($err!="") print_r2($err);
 }
 

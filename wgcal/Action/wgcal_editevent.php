@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.29 2005/03/03 20:10:22 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.30 2005/03/06 21:29:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -415,21 +415,52 @@ function EventSetOwner(&$action, $ownerid, $ownertitle) {
 
 function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesState = array(), $attendeesGroup = array(), $withme=true, $ro=false, $onlyme) {
 //echo "ownerid = $ownerid cuser = ".$action->user->fid." withme = ".($withme?"T":"F")."<br>";
+  $udbaccess = $action->GetParam("COREUSER_DB");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $ugrp = new User($udbaccess);
+  $groupfid = getIdFromName($dbaccess, "GROUP");
+  $igroupfid = getIdFromName($dbaccess, "IGROUP");
   $att = array();
   $a = 0;
-  $doc = new Doc($action->GetParam("FREEDOM_DB"));
+  $tallgrp = array(); $grp = 0;
   foreach ($attendees as $k => $v) {
     if ($v == "" || $v==0 || ($ownerid==$action->user->fid&&$action->user->fid==$v) ) continue;
     if ($attendeesGroup[$k] != -1) continue;
+    $res = new Doc($dbaccess, $v);
     $att[$a]["attId"]    = $v;
     $att[$a]["attState"] = $attendeesState[$k];
-    $att[$a]["attLabel"] = WGCalGetLabelState($attendeesState[$k]);
-    $att[$a]["attColor"] = WGCalGetColorState($attendeesState[$k]);
-    $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
-    $att[$a]["attTitle"] = $attru["title"];
-    $att[$a]["attIcon"]  = $doc->GetIcon($attru["icon"]);
+    $att[$a]["attTitle"] = $res->title;
+    $att[$a]["attIcon"]  = $res->GetIcon();
+    if ($res->fromid==$groupfid || $res->fromid==$igroupfid) {
+      $ulist = $ugrp->GetUsersGroupList($res->getValue("US_WHATID"));
+      $tugrp = array(); $rgrp = 0;
+      foreach ($ulist as $ku=>$vu) {
+	$rg = new Doc($dbaccess, $vu["fid"]);
+        if ($rg->fromid==$groupfid || $rg->fromid==$igroupfid) continue;
+	$tugrp[$rgrp]["atticon"] = $rg->GetIcon();;
+	$tugrp[$rgrp]["atttitle"] = $rg->title;
+	$cstate = "?";
+	foreach ($attendees as $katt => $vatt) {
+	  if ($vatt==$rg->id) $cstate = WGCalGetLabelState($attendeesState[$katt]);
+	}
+	$tugrp[$rgrp]["attstate"] = $cstate;
+	$rgrp++;
+      }
+      $tallgrp[$grp]["GROUPCONTENT"] = "GROUPCONTENT$v";
+      $action->lay->SetBlockData($tallgrp[$grp]["GROUPCONTENT"], $tugrp);
+      $tallgrp[$grp]["RID"] = $v;
+      $tallgrp[$grp]["groupicon"] = $res->getIcon();
+      $tallgrp[$grp]["grouptitle"] = $res->title;
+      $grp++;
+      $att[$a]["attLabel"] = "";
+      $att[$a]["attColor"] = "transparent";
+    } else {
+      $att[$a]["attLabel"] = WGCalGetLabelState($attendeesState[$k]);
+      $att[$a]["attColor"] = WGCalGetColorState($attendeesState[$k]);
+    }
     $a++;
   }
+  $action->lay->setBlockData("GROUPS", $tallgrp);
   if ($a==0) {
     $action->lay->set("voneatt", "none");
     $action->lay->set("vnatt", "none");

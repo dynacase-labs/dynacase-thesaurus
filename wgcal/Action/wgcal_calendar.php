@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.32 2005/03/03 20:10:22 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.33 2005/03/06 21:29:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -99,7 +99,6 @@ function wgcal_calendar(&$action) {
     $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstart-1));
     $tabdays[$i]["vstartc"] =  strftime("%x %X", $tabdays[$i]["vstart"]);
     $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstop) -1;
-    $tabdays[$i]["vendc"] =  strftime("%x %X", $tabdays[$i]["vend"]);
     if ($cdate==$tabdays[$i]["days"]) {
       $class[$i] = "WGCAL_DayCur";
       $classh[$i] = "WGCAL_DayLineCur";
@@ -156,7 +155,8 @@ function wgcal_calendar(&$action) {
 	$tcell[$itc]["rtime"] .= d2s($tcell[$itc]["timee"],"%H:%M");
 	$tcell[$itc]["lref"] = "L".$nl;
 	$tcell[$itc]["cref"] = "D".$id;
-	$tcell[$itc]["cclass"] = $class[$id];
+        if ($h<$hstart || $h>$hstop) $tcell[$itc]["cclass"] = "WGCAL_DayNoHours";
+	else $tcell[$itc]["cclass"] = $class[$id];
 	$tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
 	$tcell[$itc]["hourclass"] = $classh[$id];
 	$tcell[$itc]["cellcontent"] = "";

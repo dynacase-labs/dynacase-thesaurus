@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-18 16:12+0100\n"
+"POT-Creation-Date: 2005-03-06 20:47+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -140,6 +140,9 @@ msgid "search event"
 msgstr ""
 
 msgid "advanced search event"
+msgstr ""
+
+msgid "view event"
 msgstr ""
 
 msgid "edit event"
@@ -436,10 +439,34 @@ msgstr ""
 msgid " invalid ressource id"
 msgstr ""
 
+msgid "accept"
+msgstr ""
+
+msgid "reject"
+msgstr ""
+
+msgid "to be confirm"
+msgstr ""
+
+msgid "edit"
+msgstr ""
+
+msgid "delconfirm"
+msgstr ""
+
+msgid "history"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
 msgid "add prefered contact"
 msgstr ""
 
 msgid "use for event creation"
+msgstr ""
+
+msgid "add a calendar"
 msgstr ""
 
 msgid "week view"
@@ -470,6 +497,9 @@ msgid "repeat"
 msgstr ""
 
 msgid "owner"
+msgstr ""
+
+msgid "incalendar"
 msgstr ""
 
 msgid "modified"
@@ -557,6 +587,9 @@ msgstr ""
 msgid "event search "
 msgstr ""
 
+msgid "main calendar"
+msgstr ""
+
 msgid "You have waiting events"
 msgstr ""
 
@@ -633,12 +666,6 @@ msgid "new"
 msgstr ""
 
 msgid "read"
-msgstr ""
-
-msgid "accept"
-msgstr ""
-
-msgid "reject"
 msgstr ""
 
 msgid "to be confirmed"

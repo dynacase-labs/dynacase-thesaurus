@@ -1,3 +1,21 @@
+// --------------------------------------------------------
+function getX(e) { 
+  var posx = 0; 
+  if (!e) var e = window.event;
+  if (e.pageX) posx = e.pageX;
+  else if (e.clientX) posx = e.clientX + document.body.scrollLeft;
+  return posx;
+}
+
+// --------------------------------------------------------
+function getY(e) { 
+  var posy = 0; 
+  if (!e) var e = window.event;
+  if (e.pageY)  posy = e.pageY;
+  else if (e.clientY)  posy = e.clientY + document.body.scrollTop;
+  return posy;
+}
+
 
 function setDaysViewed(ndays) {
   usetparam("WGCAL_U_VIEW", "week", '', '');

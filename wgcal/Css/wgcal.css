@@ -59,13 +59,14 @@ TD {
 
 /* Zone d'affichage des infos mois, semaine et jours */
 .WGCAL_Period {
-  background-color : [WTH_COLOR_1];
+  background-color : [WTH_COLOR_2];
   border : 1px outset [WTH_COLOR_2];
   font-weight: bold;
 }
 /* Periode selectionne : mise en évidence jour / heure */
 .WGCAL_PeriodSelected {
-  background-color : [WTH_COLOR_2];
+  background-color : [WTH_COLOR_3];
+  color : [WTH_COLOR_1];
   border : 1px inset [WTH_COLOR_1];
   font-weight: bold;
 }
@@ -78,23 +79,28 @@ TD {
 }
 
 .WGCAL_DayNoHours {
+  border-top: 0px inset;
+  border-left: 0px inset;
+  border-bottom: 1px dotted [WTH_COLOR_3];
+  border-right: 1px  dotted [WTH_COLOR_3];
   background-color : [WTH_COLOR_1];
 }
 
 .WGCAL_DayHours {
-  background-color : [WTH_COLOR_1];
+  background-color : [WTH_COLOR_2];
   font-weight: bold;
-  border-top : 2px outset [WTH_COLOR_2];
-  border-left : 1px outset [WTH_COLOR_2];
-  border-right : 1px outset [WTH_COLOR_2];
+  border-top : 0px outset [WTH_COLOR_2];
+  border-bottom : 1px outset [WTH_COLOR_3];
+  border-left : 1px outset [WTH_COLOR_3];
+  border-right : 1px outset [WTH_COLOR_3];
 }
 .WGCAL_DayMin {
   font-size: [WTH_FONTSIZE_SMALL]px;
-  background-color : [WTH_COLOR_1];
-  border-top : 1px solid [WTH_COLOR_2];
-  border-bottom : 1px outset [WTH_COLOR_2];
-  border-left : 1px outset [WTH_COLOR_2];
-  border-right : 1px outset [WTH_COLOR_2];
+  background-color : [WTH_COLOR_2];
+  border-top : 0px outset [WTH_COLOR_2];
+  border-bottom : 1px outset [WTH_COLOR_3];
+  border-left : 1px outset [WTH_COLOR_3];
+  border-right : 1px outset [WTH_COLOR_3];
 }
 
 .WGCAL_DayLineOver {
@@ -105,14 +111,14 @@ TD {
 .WGCAL_Day {
 	border-top: 0px;
 	border-left: 0px;
-	border-bottom: 1px solid [WTH_COLOR_3];
- 	border-right: 1px solid [WTH_COLOR_3];
+	border-bottom: 1px dotted [WTH_COLOR_3];
+ 	border-right: 1px dotted [WTH_COLOR_3];
 }
 .WGCAL_DayWE {
 	border-top: 0px;
 	border-left: 0px;
-	border-bottom: 1px solid [WTH_COLOR_3];
- 	border-right: 1px solid [WTH_COLOR_3];
+	border-bottom: 1px dotted [WTH_COLOR_3];
+ 	border-right: 1px dotted [WTH_COLOR_3];
         background-color : [WTH_CALWEEKEND];
 }
 .WGCAL_DayCur {
@@ -169,14 +175,15 @@ TD {
  * Really use in final product !
  */
 .wToolButton {
-  background-color : [WTH_COLOR_1];
+  background-color : [WTH_COLOR_2];
   font-weight : bold;
-  border : 2px outset [WTH_COLOR_1];
+  border : 2px outset [WTH_COLOR_2];
   cursor:pointer;
   height : 22px;
 }
 .wToolButtonOver {
-  background-color : [WTH_COLOR_2];
+  background-color : [WTH_COLOR_3];
+  color : [WTH_COLOR_1];
   font-weight : bold;
   border : 2px inset [WTH_COLOR_1];
   cursor:pointer;

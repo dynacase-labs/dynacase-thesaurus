@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.17 2005/02/16 09:11:38 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.18 2005/03/06 21:29:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -78,7 +78,7 @@ function _seewaitrv(&$action, &$wrv) {
     $attst = $doc->getTValue("CALEV_ATTSTATE");
     $state = -1;
     foreach ($attid as $ka => $va) {
-      if ($va==$action->user->fid && ($attst[$ka]==EVST_NEW||$attst[$ka]==EVST_READ)) $state = $attst[$ka]; 
+      if ($va==$action->user->fid && ($attst[$ka]==EVST_NEW||$attst[$ka]==EVST_READ||$attst[$ka]==EVST_TBC)) $state = $attst[$ka]; 
     }
     if ($state != -1) {
       $label = WGCalGetLabelState($state); 

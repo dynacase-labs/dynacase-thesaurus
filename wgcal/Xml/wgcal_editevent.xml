@@ -188,7 +188,8 @@
 </td>
 <td>&nbsp;&nbsp;</td>
 <td nowrap>
-  <span style="cursor:crosshair; border-bottom:1px solid white" id="%RID%" width="90%" title="[TEXT:event state ]%RSTATE%">
+  <span style="cursor:crosshair; border-bottom:1px solid white" id="%RID%" width="90%" title="[TEXT:event state ]%RSTATE%"i
+    onmouseover="ViewGroup(this,true);"  onmouseout="ViewGroup(this,false);">
     <img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
   </span>
 </td>
@@ -381,6 +382,10 @@ document.getElementById('rvtitle').focus();
 
 </form>
 
+[BLOCK GROUPS]
+<div id="grp[RID]" style="display:none;" class="wEvBack"><div class="wMonthTextTitle"><img width="20px" height="20px" align="absbottom" src="[groupicon]"> [grouptitle]</div>[BLOCK [GROUPCONTENT]]
+<div><img height="15" src="[atticon]"><span style="text-decoration:[attnamestyle]">[atttitle]</span>&nbsp;<span style="font-style:italic">([attstate])</span></div>[ENDBLOCK [GROUPCONTENT]]
+</div>[ENDBLOCK GROUPS]
 
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

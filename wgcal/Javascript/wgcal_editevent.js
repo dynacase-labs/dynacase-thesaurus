@@ -446,3 +446,19 @@ function setStatus(st, cst) {
   evst.value = status;
   document.getElementById('spall').style.border = '1px solid '+cst;
 }
+
+function ViewGroup(ev,st) {
+  var ge = document.getElementById('grp'+ev.id);
+  if (!ge) return;
+  ge.style.display = (st?"":"none"); 
+  if (st) {
+    ww = getFrameWidth();
+    wh = getFrameHeight();
+    ge.style.position = 'absolute';
+    ge.style.width = 'auto';
+    ge.style.height = 'auto';
+    ge.style.left = (ww/2)+'px';
+    ge.style.top = (wh/2)+'px';
+  }
+  return;
+}

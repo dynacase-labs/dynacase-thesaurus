@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.10 2005/03/02 16:33:05 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.11 2005/03/06 21:29:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -151,7 +151,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     $item["VIEW"] = $view;
     $tout[] = $item;
   }
-//         print_r2($tout);
+//          print_r2($tout);
   return $tout;
 }
        	

@@ -112,7 +112,7 @@ function wgcal_storeevent(&$action) {
 	$nattl[$iatt]["fid"] = $att->id;
 	$nattl[$iatt]["fgid"] = -1;
 	$iatt++;
-	$ulist = $ugrp->GetRUsersList($att->getValue("US_WHATID"));
+	$ulist = $ugrp->GetUsersGroupList($att->getValue("US_WHATID"));
 	foreach ($ulist as $ku=>$vu) {
 	  $nattl[$iatt]["fid"] = $vu["fid"];
 	  $nattl[$iatt]["fgid"] = $att->id;

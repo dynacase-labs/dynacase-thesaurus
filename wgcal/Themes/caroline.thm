@@ -18,9 +18,9 @@ $theme->WTH_CALWEEKEND            =  "#F0E8FF";
 $theme->WTH_CALTODAY              =  "#FFCFFA";
 
 
-$theme->WTH_FONTLIST              =  "Arial, sans-serif";
+$theme->WTH_FONTLIST              =  "Tahoma, Helvetica, Arial, sans-serif";
 $theme->WTH_FONTSIZE_NORMAL       =  "10";
-$theme->WTH_FONTSIZE_BIG          =  "12";
+$theme->WTH_FONTSIZE_BIG          =  "10";
 $theme->WTH_FONTSIZE_SMALL        =  "7";
 
 $theme->WTH_TOOLBARW              =  "200";

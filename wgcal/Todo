@@ -17,9 +17,12 @@ Administration
 
 Preferences utilisateur
 -----------------------
-- choix des formats de dates
-- choix des débuts de semaine
-- gestion des groupes : ne voir que les siens et les ressources appartenant à ces groupes (filtrage)
+- Internationalisation
+    * choix des formats de dates 
+    * choix des débuts de semaine
+    * traduction
+
+Gestion des groupes : ne voir que les siens et les ressources appartenant à ces groupes (filtrage)
 
 General
 ------
@@ -27,11 +30,15 @@ General
 - vue n semaines
 [0.0.7] Algo de placement de rv
 [0.0.7] Affichage des rv (resumé) simplification, plus de barre latérale
-        barre supérieure si rv avec invité : orange -> 1 personne au moins n'a pas accepté ou refusée ( rouge si c'est l'utilisateur connecté)
+        barre supérieure si rv avec invité :
+           orange -> 1 personne au moins n'a pas accepté ou refusée
+           rouge si c'est l'utilisateur connecté)
 [0.0.7] Gestion de groupes : l'utilisateur ne manipule que des groupes, 
- * Affichage (vue agenda) : on applique la mm stratégie que pour les ressources unitaires.
-   et afficher le groupe dans le consultation de rv (popup)  => memoriser si la ressource provient 
- * Edition : seul le groupe est visible ==> NON : modification de la recherche des evt d'une ressource : evt de la ress et des groupes d'appart. de cette ress.
+     * Affichage (vue agenda) : on applique la mm stratégie que pour les
+       ressources unitaires.  et afficher le groupe dans le consultation
+       de rv (popup)  => memoriser si la ressource provient 
+     * Edition : seul le groupe est visible
+         Possibilité de déplier le groupe
 - popup Rv : limiter la liste des participants présentés
 
 Récupération depuis webcalendar (existant)

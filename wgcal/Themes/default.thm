@@ -20,7 +20,7 @@ $theme->WTH_CALTODAY              =  "#E2EBFF";
 // Fonts 
 $theme->WTH_FONTLIST              =  "Tahoma, Helvetica, Arial, sans-serif";
 $theme->WTH_FONTSIZE_NORMAL       =  "10";
-$theme->WTH_FONTSIZE_BIG          =  "14";
+$theme->WTH_FONTSIZE_BIG          =  "12";
 $theme->WTH_FONTSIZE_SMALL        =  "7";
 
 $theme->WTH_TOOLBARW               =  "200";

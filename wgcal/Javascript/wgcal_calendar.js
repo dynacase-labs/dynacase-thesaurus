@@ -94,21 +94,15 @@ var evd = new Date();
 }
 
 // --------------------------------------------------------
-function GetCoordFromDate(ts) {
-   
-  var evt = new Object();
+function GetXForDay(d) {
+  return (Wday * d) + Xs;
+}
+
+// --------------------------------------------------------
+function GetYForTime(ts) {
   var tinf = GetTimeInfoFromTs(ts);
-
-  // X coordinate (day position)
-  day = tinf.day;
-  if (day==0) day = 7;
-  evt.x = (Wday * (day - 1)) + Xs;
-
-  // Y coordinate (hour positionning)
   yp = (( 1 + ((tinf.hours-(Ystart)) * YDivCount)) * YDivMinute ) + tinf.minutes;
-  evt.y = (yp * PixelByMinute) + Ys;
-
-  return evt;
+  return (yp * PixelByMinute) + Ys;
 }
 
 
@@ -184,23 +178,7 @@ function WGCalSetDate(calendar)
 }
 
 
-// --------------------------------------------------------
-function getX(e) { 
-  var posx = 0; 
-  if (!e) var e = window.event;
-  if (e.pageX) posx = e.pageX;
-  else if (e.clientX) posx = e.clientX + document.body.scrollLeft;
-  return posx;
-}
 
-// --------------------------------------------------------
-function getY(e) { 
-  var posy = 0; 
-  if (!e) var e = window.event;
-  if (e.pageY)  posy = e.pageY;
-  else if (e.clientY)  posy = e.clientY + document.body.scrollTop;
-  return posy;
-}
 
 // --------------------------------------------------------
 function ClickCalendarCell(urlroot, nh,times,timee) {
@@ -280,7 +258,7 @@ function WGCalComputeCoord() {
  
   PixelByMinute = (hr - gamma) / YDivMinute;
 //   DrawRect(os.x,os.y,w,(hr-gamma),'yellow');
-//     DrawRect(Xs,Ys,Wzone,Hzone,'yellow');
+//     DrawRect(Xs,Ys,Wzone,Hzone,'yellow','(x,y,w,h)=('+Xs+','+Ys+','+Wzone+','+Hzone+')');
 }
 
 // --------------------------------------------------------
@@ -311,13 +289,24 @@ function WGCalIntersect(asy,aey,bsy,bey) {
 }
 
 
-// --------------------------------------------------------
-function WGCalAddEvent(evtid, ts_start, ts_end) 
-{
+function TextDate(ts) {
+  var dt = "";
   var dd = new Date();
+  dd.setTime((ts*1000));
+  return dd.toString();
+}
+
+function TraceOnDoc(s) {
+  document.write(s+'<br>');
+}
+
+// --------------------------------------------------------
+function WGCalAddEvent(evtid, tstart, tend) 
+{
   var evt = new Object;
   var id;
   var cEv;
+  var dd = new Date();
   var Tz =  dd.getTimezoneOffset() * 60;
   var evtid;
   var tstart;
@@ -330,58 +319,40 @@ function WGCalAddEvent(evtid, ts_start, ts_end)
   var weight;
   var mdays;
 
-  if (ts_end<ts_start) {
-    t = ts_end;
-    ts_end = ts_start;
-    ts_start = t;
+  if (tend<tstart) {
+    t = tend;
+    tend = tstart;
+    tstart = t;
   }
-  tstart = ts_start + Tz;
-  tend   = ts_end + Tz;
 
-  if (tstart!=tend) {
-    if (tstart<Days[0].start) tstart = Days[0].vstart;
-    e = (Days[XDays-1].vstart + (24*3600));
-    if (tend>e) ts_end = e;
-  }
-  istart = GetTimeInfoFromTs(tstart);
-  istart.day--;
-  istart.day = (istart.day<0 ? 0 : istart.day);
-  istart.day = (istart.day>=XDays ? (XDays-1) : istart.day);
-  dstart = istart.day;
+  dstart = Math.floor((tstart - Days[0].start)/ (24*3600));
+  dstart= (dstart<0 ? 0 : (dstart>=XDays ? (XDays-1) : dstart) );
+  dstart = (dstart>=XDays ? (XDays-1) : dstart);
+  dend = Math.floor((tend - Days[0].start) / (24*3600));
+  dend = (dend<dstart ? dstart : (dend>=XDays ? (XDays-1) : dend) );
 
-//   dstart = Math.round((tstart - Days[0].start) / (24*3600));
-//   dstart= (dstart<0 ? 0 : dstart);
-//   dstart = (dstart>=XDays ? (XDays-1) : dstart);
-
-//   deltad = Math.round((tend - tstart) / (24*3600));
-//   dend =  dstart+ deltad;
-//   dend = (dend>=XDays ? (XDays-1) : dend);
-  
-  iend   = GetTimeInfoFromTs(tend);
-  iend.day--;
-  iend.day = (iend.day<0 ? 6 : iend.day);
-  iend.day = (iend.day>=XDays ? (XDays-1) : iend.day);
-  dend   = iend.day;
-
-//    alert('jour deb ='+dstart+' fin='+dend);
+//   TraceOnDoc('Evt['+evtid+'] Start:'+TextDate(tstart)+' End:'+TextDate(tend)+' firstD='+dstart+' lastD='+dend);
 
   mdays = (dstart!=dend ? true : false);
 
- for (id=dstart ; id<=dend; id++) {
+  for (id=dstart ; id<=dend; id++) {
     vstart = tstart;
     vend   = tend;
-    if (tend==tstart) {
-      vstart = Days[0].vstart - (YDivMinute * 60);
-      vend   = Days[0].vstart;
+    if (tend==tstart && tstart<Days[id].vstart) {
+      vstart = Days[id].vstart - (YDivMinute * 60);
+      vend   = Days[id].vstart;
     } else {
       if (tstart<Days[id].vstart || ((id==dend) && mdays) ) {
-	vstart = Days[id].vstart - (YDivMinute * 60);
+	vstart = Days[id].vstart;
       }
+      if (tstart>Days[id].vend) vstart = Days[id].vend;  
       if (tend>Days[id].vend || ((id>dstart && id<dend) && mdays)) {
 	vend = Days[id].vend;  
       }
     }
-    cEv = Days[id].ev.length;
+    if (vstart<Days[id].vend && vstart>Days[id].vstart) vstart += Tz;
+    if (vend<Days[id].vend && vend>Days[id].vstart) vend += Tz;
+    cEv = Days[id].ev.length; 
     Days[id].ev[cEv] = new Object();
     Days[id].ev[cEv].id = evtid;
     Days[id].ev[cEv].tstart = tstart;
@@ -395,9 +366,8 @@ function WGCalAddEvent(evtid, ts_start, ts_end)
     Days[id].ev[cEv].mdays = mdays;
     Days[id].ev[cEv].base = -1;
     Days[id].ev[cEv].col = 0;
-    //alert(PrintEvent(Days[id].ev[cEv]));
+    Days[id].ev[cEv].ncol = 0;
   }
-//   WGCalPrintAllEvents();
 }
 
 function WGCalPrintAllEvents() {
@@ -407,7 +377,7 @@ function WGCalPrintAllEvents() {
   for (iday=0; iday<XDays; iday++) {
     for (ite=0; ite<Days[iday].ev.length; ite++) str += '[day '+iday+' evcount='+Days[iday].ev.length+'] '+PrintEvent(Days[iday].ev[ite])+'\n';
   }
-  alert('WGCalPrintAllEvents::\n'+str);
+ TraceOnDoc('WGCalPrintAllEvents::\n'+str);
 }
 
 function PrintEvent(e) {
@@ -438,7 +408,7 @@ function WGCalDisplayDailyEvents(dEv) {
   //     s = '';
   for (ie=0; ie<evts.length; ie++) {
     if (ie==0) {
-      col = 1;
+      col = 1; maxcol = 1;
       base = evts[ie].vstart;
     } else {
       iprev = -1;
@@ -448,6 +418,7 @@ function WGCalDisplayDailyEvents(dEv) {
 	}
       }
       if (iprev!=-1) {
+	if (WGCalEmptyColBase(evts, base, ie)) maxcol++;
 	col = evts[iprev].col + 1;
 	base = evts[iprev].base;
       } else {
@@ -457,8 +428,8 @@ function WGCalDisplayDailyEvents(dEv) {
     }
     evts[ie].base = base;
     evts[ie].col = col;
+    evts[ie].ncol = maxcol;
     evts[ie].rwidth = 1;
-    maxcol = Math.max(maxcol, col);
   }
   
   
@@ -467,15 +438,21 @@ function WGCalDisplayDailyEvents(dEv) {
   for (it=0; it<evts.length; it++) {
     ncol = WGCalGetColForBase(evts, evts[it].base);
     haveR = WGCalGetRightEvForBase(it, evts, evts[it].base);
-    if (haveR) {
-      evts[it].rwidth = 1 / ncol;
-    } else {
-      evts[it].rwidth = (ncol - (evts[it].col - 1) ) / ncol;
-    }
-    s += '[day '+evts[it].curday+'] '+PrintEvent(evts[it])+'\n';
+     if (haveR) {
+       evts[it].rwidth = 1 / ncol;
+     } else {
+       evts[it].rwidth = (ncol - (evts[it].col - 1) ) / ncol;
+     }
     WGCalDisplayEvent(evts[it], ncol);
   }
-//   alert(s);
+}
+
+function WGCalEmptyColBase(evts, base, ic) {
+  var ix;
+  for (ix=0; ix<evts.length; ix++) {
+    if (evts[ix].base==base && WGCalIntersect(evts[ic].vstart, evts[ic].vend, evts[ix].vstart, evts[ix].vend)) return false;
+  }
+  return true;
 }
 
 function WGCalCountColsForBase(icur, iprev, evts,  b) {
@@ -491,7 +468,7 @@ function WGCalGetColForBase(evts, b) {
   var ncol = 0;
   var ix;
   for (ix=0; ix<evts.length; ix++) {
-    if (evts[ix].base==b) ncol++;
+    if (evts[ix].base==b && evts[ix].ncol>ncol) ncol = evts[ix].ncol;
   }
   return ncol;
 }
@@ -516,11 +493,11 @@ function WGCalDisplayEvent(cEv, ncol) {
   head = 3;
   cWidth = Wday - (2*head);
   
-  pstart   = GetCoordFromDate(cEv.vstart);
-  pend     = GetCoordFromDate(cEv.vend);
-  dstartt  = GetCoordFromDate(Days[cEv.curday].vstart);
-  dendt    = GetCoordFromDate(Days[cEv.curday].vend);
-  h = pend.y - pstart.y;
+  startX = GetXForDay(cEv.curday);
+  startY = GetYForTime(cEv.vstart);
+  endY = GetYForTime(cEv.vend);
+
+  h = endY - startY;
   if (!cEv.mdays) {
     eE = document.getElementById('evt'+cEv.id); // Event container
     eA = document.getElementById('evta'+cEv.id); // Abstract
@@ -532,12 +509,12 @@ function WGCalDisplayEvent(cEv, ncol) {
     etmp = document.getElementById('evt'+cEv.id); 
     eE = etmp.cloneNode(true);
   }
-  eE.style.top = pstart.y+"px";
+  eE.style.top = startY+"px";
   // Compute width
   xw = cWidth * cEv.rwidth;
   // Compute X coord
   delta = cWidth / ncol;
-  eE.style.left = dstartt.x + head + ((cEv.col-1) * delta) + "px";
+  eE.style.left = startX + head + ((cEv.col-1) * delta) + "px";
   eE.style.width = xw+"px";
   eE.style.height = (h-1)+"px";
   eE.style.position = 'absolute';

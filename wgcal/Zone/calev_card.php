@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.3 2005/03/03 20:10:22 marc Exp $
+ * @version $Id: calev_card.php,v 1.4 2005/03/06 21:29:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -57,8 +57,8 @@ function calev_card(&$action) {
   $tpriv[0]["REF"] = $evref;
   $action->lay->set("ID",    $ev->id);
   $tpriv[0]["ID"] = $ev->id;
-//    $pretitle = $evref.":".$ev->id."::";
-
+  
+//   $pretitle = $evref.":".$ev->id."::";
 
   $ldstart = $ldend = $lstart = $lend = $lrhs = $lrhe = ""; 
   $cardheight = "100%";
@@ -198,7 +198,7 @@ function calev_card(&$action) {
 
   ev_showattendees($action, $ev, $present, "lightgrey");
 
-  $nota = $ev->getValue("CALEV_EVNOTE");
+  $nota = str_replace("\n", "<br>", $ev->getValue("CALEV_EVNOTE"));
   if ($nota!="" && !$private) {
     $action->lay->set("displaynote", "");
     $action->lay->set("NOTE", $nota);
