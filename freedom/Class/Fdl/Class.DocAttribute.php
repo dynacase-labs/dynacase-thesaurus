@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.12 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.13 2003/11/17 11:06:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.12 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.13 2003/11/17 11:06:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.12 2003/08/18 15:47:04 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.13 2003/11/17 11:06:37 eric Exp $';
 
 
 
@@ -45,6 +45,7 @@ Class BasicAttribute {
   var $id;
   var $docid;
   var $labelText;
+  var $visibility; // W, R, H, O, M
 
   function BasicAttribute($id, $docid, $label ) {
     $this->id=$id;
@@ -63,7 +64,6 @@ Class BasicAttribute {
 }
 
 Class NormalAttribute extends BasicAttribute {
-  var $visibility; // W, R, H, O, M
   var $needed; // Y / N
   var $type; // text, longtext, date, file, ...
   var $format; // C format
@@ -160,7 +160,6 @@ Class NormalAttribute extends BasicAttribute {
 
 Class FieldSetAttribute extends BasicAttribute {
 
-  var $visibility; // W, R, H, O, M
   function FieldSetAttribute($id, $docid, $label, $visibility="" ) {
     $this->id=$id;
     $this->docid=$docid;
@@ -174,12 +173,14 @@ Class MenuAttribute extends BasicAttribute {
   var $ordered;
   var $precond; // pre-condition to activate menu
 
-  function MenuAttribute($id, $docid, $label, $order, $link) {
+  function MenuAttribute($id, $docid, $label, $order, $link, $visibility="", $precond="" ) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
     $this->ordered=$order;
     $this->link=$link;
+    $this->visibility=$visibility;
+
   }
 
 }

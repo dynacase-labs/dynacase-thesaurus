@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.26 2003/10/28 16:31:23 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.27 2003/11/17 11:06:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.26 2003/10/28 16:31:23 eric Exp $
+// $Id: Lib.Attr.php,v 1.27 2003/11/17 11:06:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -95,11 +95,12 @@ function AttrToPhp($dbaccess, $tdoc) {
       if ($v->visibility == "M") $v->type="menu"; // old notation compliant
       switch ($v->type) {
       case "menu": // menu
-	if ($v->visibility != "H")
+	
 	  $tmenu[] = array("attrid"=>strtolower($v->id),
 			   "label"=>str_replace("\"","\\\"",$v->labeltext),
 			   "order"=>intval($v->ordered),
 			   "link"=>str_replace("\"","\\\"",$v->link),
+			   "visibility"=>$v->visibility,
 			   "precond"=>$v->phpfunc);
 	break;
       case "frame": // frame
