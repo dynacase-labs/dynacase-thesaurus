@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.12 2004/02/02 10:38:09 caroline Exp $
+ * @version $Id: USERCARD_external.php,v 1.13 2004/02/03 09:41:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -185,11 +185,13 @@ function enumscatg() {
 
 function members($dbaccess, $groupid, $name="") {
   $tr = array();
+
+
   $doc  = new Doc($dbaccess, $groupid);
 
   if ($doc->isAlive()) {
-    $tmembers= $doc->getTvalue("GRP_USER");
-    $tmembersid= $doc->getTvalue("GRP_IDUSER");
+    $tmembers= $doc->getTvalue("GRP_RUSER");
+    $tmembersid= $doc->getTvalue("GRP_IDRUSER");
 
     while(list($k,$v)=each($tmembersid)) {
       if (($name == "") || (eregi($name,$tmembers[$k])))
