@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.63 2002/11/06 15:59:27 eric Exp $
+// $Id: Class.Doc.php,v 1.64 2002/11/07 16:00:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,11 +23,10 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.63 2002/11/06 15:59:27 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.64 2002/11/07 16:00:00 eric Exp $';
 
-include_once('Class.QueryDb.php');
-include_once('Class.Log.php');
-include_once('Class.DbObjCtrl.php');
+include_once("Class.QueryDb.php");
+include_once("FDL/Class.DocCtrl.php");
 include_once("FDL/freedom_util.php");
 include_once("FDL/Class.DocValue.php");
 include_once("FDL/Class.DocAttr.php");
@@ -50,7 +49,7 @@ define ("FAM_ACCESSDIR", 4);
 define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 
-Class Doc extends DbObjCtrl {
+Class Doc extends DocCtrl {
 
   var $fields = array ( "id",
 		       "owner",
@@ -132,11 +131,6 @@ create unique index i_docir on doc(initid, revision);";
 
 
 	 
-    // change the database for object permission 
-    global $action;
-    if (isset($action)) {
-      $action->Register("dboperm", $this->dbaccess); 
-    }
   
   }
 
@@ -156,43 +150,10 @@ create unique index i_docir on doc(initid, revision);";
 
   }
 
-  function getClassId() {
-    // for DbObjCtrl
-//     global $action; // necessary to see information about user privilege
-//     if (isset($action)) {
-//       return $action->parent->GetIdFromName(strtolower($this->defProfClassname)); 
-    //   }
-    return 0;
-  }
 
-  function Complete()  {
-    $this->SetOPerm();
-  }
+ 
 
-  function SetOPerm()  {
-    // --------------------------------
-    // set the object control permission
-    // --------------------------------
-    global $lprof;
-
-    if ($this->profid > 0) { // self control or profil control
-
-	if (! isset($lprof[$this->profid])) {
-
-	  $octrl = new ControlObject($this->dbaccess,array($this->profid,$this->classid));
-	  if ($octrl->isAffected()) {
-	    $lprof[$this->profid] =  new ObjectPermission($this->dbaccess, 
-							  array($this->userid,
-								$this->profid, 
-								$this->classid));
-	    $this->operm= $lprof[$this->profid];
-	  } else {
-	    $lprof[$this->profid] = false;
-	  }
-      } 
-
-    }
-  }
+ 
 
 
   // --------------------------------------------------------------------
@@ -1153,27 +1114,19 @@ create unique index i_docir on doc(initid, revision);";
 			       $this->getValue($attrid),$target,$htmllink);
   }
 
+  
 
   // --------------------------------------------------------------------
   function Control ($aclname) {
     // -------------------------------------------------------------------- 
     if (($this->IsAffected()) ) {	
       if ($this->profid == 0) return ""; // no profil
-      global $lprof;
-      if (! isset($lprof[$this->profid]) ) $this->SetOPerm();
-
-      if (isset($lprof[$this->profid]) ) {
-	
-	if ($lprof[$this->profid]) return $lprof[$this->profid]->Control( $aclname);
-	else return "";
-      } else {
-	return "";
-      }
+      
+      return $this->controlId($this->profid,$aclname);
     }
 
-    return "object not initialized : $aclname";
+    return sprintf(_("cannot control : object not initialized : %s"),$aclname);
   }
-  
   
  
 
