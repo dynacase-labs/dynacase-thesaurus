@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.8 2003/03/05 16:49:28 eric Exp $
+// $Id: editframe.php,v 1.9 2003/03/06 09:27:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,7 +47,7 @@ function editframe(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  if ($docid == 0) $doc = new Doc($dbaccess, $classid);
+  if ($docid == 0) $doc = createDoc($dbaccess, $classid);
   else $doc = new Doc($dbaccess, $docid);
 
   

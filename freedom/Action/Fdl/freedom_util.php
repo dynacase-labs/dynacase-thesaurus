@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.33 2003/02/28 19:39:17 eric Exp $
+// $Id: freedom_util.php,v 1.34 2003/03/06 09:27:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -172,7 +172,8 @@ function createDoc($dbaccess,$fromid,$control=true) {
 	//$doc->setValue($aid, $cdoc->getValue($aid));
 	$doc->$aid = $doc->GetValueMethod($cdoc->getValue($aid));
 
-    }              
+    } 
+    $doc->ApplyMask();
     return ($doc);
     
   }

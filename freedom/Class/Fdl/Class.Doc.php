@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.96 2003/03/05 16:49:28 eric Exp $
+// $Id: Class.Doc.php,v 1.97 2003/03/06 09:27:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.96 2003/03/05 16:49:28 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.97 2003/03/06 09:27:30 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -639,10 +639,15 @@ create unique index i_docir on doc(initid, revision);";
     }
 
     // modify visibilities if needed
+
+
     if (($this->wid > 0) && ($this->wid != $this->id)) {
       
       $wdoc=new Doc($this->dbaccess,$this->wid );
       if ($wdoc->isAlive()) {
+	if ($this->id == 0) {	  
+	  $this->state=$wdoc->firstState;
+	}
 	$mid = $wdoc->getValue($wdoc->attrPrefix."_MSKID".$this->state);
 
 	$mdoc = new Doc($this->dbaccess,$mid );
