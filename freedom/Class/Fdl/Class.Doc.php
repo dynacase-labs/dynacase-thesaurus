@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.94 2003/02/25 09:55:24 eric Exp $
+// $Id: Class.Doc.php,v 1.95 2003/02/28 19:39:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.94 2003/02/25 09:55:24 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.95 2003/02/28 19:39:17 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -160,6 +160,10 @@ create unique index i_docir on doc(initid, revision);";
       // controlled will be set explicitly
       //$this->SetControl();
 
+      if ($this->revision == 0) {
+	// increment family sequence
+	$res = pg_exec($this->init_dbid(), "select nextval ('seq_doc".$this->fromid."')");
+      }
       $this->Select($this->id);
       $this->PostCreated(); 
     }
@@ -175,6 +179,7 @@ create unique index i_docir on doc(initid, revision);";
 	else $res = pg_exec($this->init_dbid(), "select nextval ('seq_id_doc')");
 	$arr = pg_fetch_array ($res, 0);
 	$this->id = $arr[0];
+
       }
       
 
@@ -236,6 +241,19 @@ create unique index i_docir on doc(initid, revision);";
     
   }
 
+
+  // get current sequence number :: numbre of doc for this family
+  function getCurSequence() {
+    // cannot use currval if nextval is not use before
+    $res = pg_exec($this->init_dbid(), "select nextval ('seq_doc".$this->fromid."')");
+    $arr = pg_fetch_array ($res, 0);
+    $cur = intval($arr[0]) - 1;
+    $res = pg_exec($this->init_dbid(), "select setval ('seq_doc".$this->fromid."',$cur)");
+
+    
+    return $cur;
+  }
+
   // modify without edit control
   function disableEditControl() {
     $this->withoutControl=true;
@@ -285,13 +303,13 @@ create unique index i_docir on doc(initid, revision);";
   // ie must be locked by the current user
   function CanUpdateDoc() {
     // --------------------------------------------------------------------
-    if ($this->userid == 1) return "";// admin can do anything
-    $err="";
 
     if ($this->locked == -1) {
       $err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);      
     }
 
+    if ($this->userid == 1) return "";// admin can do anything but not modify fixed doc
+    $err="";
   
     if ($this->locked == 0) {     
 	$err = sprintf(_("the file %s (rev %d) must be locked before"), $this->title,$this->revision);      
@@ -311,15 +329,16 @@ create unique index i_docir on doc(initid, revision);";
   // ie not locked before, and latest revision (the old revision are locked
   function CanLockFile() {
     // --------------------------------------------------------------------
-    if ($this->userid == 1) return ""; // admin can do anything
-    $err="";
+   
 
+    $err="";
     
     if ($this->locked == -1) {
       
       $err = sprintf(_("cannot lock file %s (rev %d) : fixed. Get the latest version"), 
 		     $this->title,$this->revision);
     }  else {
+      if ($this->userid == 1) return ""; // admin can do anything
       if ($this->locked == 0) $err = $this-> Control( "edit");
       // test if is not already locked
       else {
@@ -914,7 +933,7 @@ create unique index i_docir on doc(initid, revision);";
 		$this->AddParamRefresh($reg[2],$attrid);
 	      }
 	      while(list($k,$v) = each($args)) {
-		$args[$k]=$this->GetValue($v);
+		$args[$k]=$this->GetValue($v,$v);
 		$args[$k]=$this->GetValueMethod($args[$k]);
 	      }
 	      $value=call_user_method_array($reg[1],$this,$args);
@@ -939,6 +958,7 @@ create unique index i_docir on doc(initid, revision);";
   }
   function AddRevision($comment='') {
 
+    if ($this->locked == -1) return _("document already revised");
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
@@ -958,7 +978,7 @@ create unique index i_docir on doc(initid, revision);";
     $this->Add();
     $this->modify(); // need to applicate SQL triggers
        
-    return $this->id;
+    return "";
     
   }
 
@@ -1090,7 +1110,7 @@ create unique index i_docir on doc(initid, revision);";
   function Refresh() {	
 
     if ($this->locked == -1) return; // no refresh revised document
-    if (($this->doctype != 'F')  && ($this->doctype != 'S') && ($this->doctype != 'T')) return; // no refresh for family  document
+    if (($this->doctype == 'C') || ($this->doctype == 'Z') ) return; // no refresh for family  and zombie document
     if ($this->usefor == 'D') return; // no refresh for default document
 	  
    
@@ -1934,6 +1954,72 @@ $value = $this->GetValue($listattr[$i]->id);
 
     return $fname;
   }
+
+
+
+  // =====================================================================================
+  // ================= methods use for calculated attributes ======================
+
+
+  // return the personn doc id conform to firstname & lastname of the user
+  function userDocId() {
+    
+    include_once("FDL/Lib.Dir.php");
+    $famid=getFamIdFromName($this->dbaccess,"USER");
+    $filter[]="title = '".$this->userName()."'";
+    
+    $tpers = getChildDoc($this->dbaccess, 0,0,1, $filter,$action->user->id,"TABLE",$famid);
+    if (count($tpers) > 0)    return($tpers[0]["id"]);
+    
+    return "";
+    
+  }
+  // return the personn doc id conform to firstname & lastname of the user
+  function userName() {
+    global $action;
+
+    return $action->user->lastname." ".$action->user->firstname;
+  }
+
+  function getTitle($id) {
+    $doc = new Doc($this->dbaccess,$id);
+    if ($doc->isAlive()) {
+      return $doc->title;
+    }
+    return " "; // delete title
+  }
+
+  function getDate() {
+    return date("d/m/Y");
+  }
+  function getDocValue($docid, $attrid) {
+
+    if (intval($docid) > 0) {
+      $doc = new Doc($this->dbaccess, $docid);
+      if ($doc->isAlive()) {
+	return $doc->getValue($attrid);
+      }
+    }
+    return "";
+  }
+
+  function refreshDocTitle($nameId,$nameTitle) {
+  
+    // gettitle(D,SI_IDSOC):SI_SOCIETY,SI_IDSOC
+
+    $this->AddParamRefresh("$nameId","$nameTitle,$nameId");
+    $doc=new Doc($this->dbaccess, $this->getValue($nameId));
+    if ($doc->isAlive())  $this->setValue($nameTitle,$doc->title);
+    else {
+      // suppress
+      $this->deleteValue($nameId);
+    }
+  }
+
+
+
+
+
 }
 
 ?>

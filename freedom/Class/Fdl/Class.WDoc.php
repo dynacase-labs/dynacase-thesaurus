@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.17 2003/02/25 09:54:30 eric Exp $
+// $Id: Class.WDoc.php,v 1.18 2003/02/28 19:39:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.17 2003/02/25 09:54:30 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.18 2003/02/28 19:39:17 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -36,6 +36,7 @@ Class WDoc extends Doc {
 
 	
 
+  var $usefor='W';
   var $defDoctype='W';
   var $defClassname='WDoc';
   var $attrPrefix="WF"; // prefix attribute
@@ -72,9 +73,6 @@ Class WDoc extends Doc {
     }
   
 
-    function postModify() {
-      $this->CreateProfileAttribute();
-    }
 
   function changeProfil($newstate) {
 
@@ -97,8 +95,10 @@ Class WDoc extends Doc {
     $oattr->docid=$cid;
 
     // create frame attribute
-
-      $oattr->id=strtolower($this->attrPrefix."_FR_PROFIL");
+    $aid=strtolower($this->attrPrefix."_FR_PROFIL");
+    
+    
+      $oattr->id=$aid;
       $oattr->type="frame";
       $oattr->visibility="F";
       $oattr->ordered=100;
@@ -132,7 +132,9 @@ Class WDoc extends Doc {
       $oattr->id=strtolower($aprofilid);
       $oattr->phpfunc="lprofil(D,{$oattr->id}):$aidprofilid,{$oattr->id}";
       $oattr->labeltext=sprintf(_("%s profile"),_($state));
-       if (! $this->getAttribute($oattr->id)) $oattr->Add();
+       if (! $this->getAttribute($oattr->id)) {
+	 $oattr->Add();
+       }
 
       $oattr->ordered++;
 
@@ -161,8 +163,8 @@ Class WDoc extends Doc {
 	}
       }
       
-      if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), $this->doc->state));
-      if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), $newstate));
+      if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), _($newstate)));
+      if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), _($this->doc->state)));
       
 
       // verify if privilege granted
@@ -200,7 +202,8 @@ Class WDoc extends Doc {
       $revcomment = sprintf(_("change state : %s to %s"), _($oldstate), _($newstate));
       if ($addcomment != "") $revcomment.= "\n".$addcomment;
       
-      $this->doc->AddRevision($revcomment);
+      $err=$this->doc->AddRevision($revcomment);
+      if ($err != "") return $err;
       AddLogMsg(sprintf(_("%s new state %s"),$this->doc->title, _($newstate)));
       
       $this->doc->enableEditControl();
@@ -221,7 +224,8 @@ Class WDoc extends Doc {
   // --------------------------------------------------------------------
     function GetFollowingStates () {
       // search if following states in concordance with transition array
-	
+      if ($this->doc->locked == -1) return array(); // no next state for revised document
+      
 	$fstate = array();
       if ($this->doc->state == "") $this->doc->state=$this->firstState;
       

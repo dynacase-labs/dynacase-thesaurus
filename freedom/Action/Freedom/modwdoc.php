@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modwdoc.php,v 1.1 2003/02/25 09:53:09 eric Exp $
+// $Id: modwdoc.php,v 1.2 2003/02/28 19:39:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modwdoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,8 +60,15 @@ function modwdoc(&$action) {
   $doc-> Modify();
   
   
-  $doc->unlock(true); // disabled autolock
   
+  $doc->unlock(true); // disabled autolock
+
+  // update document already created to be conform to new workflow
+  $doc->exec_query("update doc".$doc->id." set wid=$wid");
+
+  $wdoc= new Doc($dbaccess,$wid);
+  $firststate=$wdoc->firstState;
+  $doc->exec_query("update doc".$doc->id." set state='$firststate' where state is null or state=''");
   
   
   redirect($action,"FDL","FDL_CARD&id=$docid",$action->GetParam("CORE_STANDURL"));

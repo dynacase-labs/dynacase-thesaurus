@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.32 2003/02/20 11:34:03 eric Exp $
+// $Id: freedom_util.php,v 1.33 2003/02/28 19:39:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -142,7 +142,8 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
 function createDoc($dbaccess,$fromid,$control=true) {
 
   if ($fromid > 0) {
-    $cdoc = new Doc($dbaccess, $fromid);
+    include_once("FDL/Class.DocFam.php");
+    $cdoc = new DocFam($dbaccess, $fromid);
 
     if ($control) {
       $err = $cdoc->control('view');

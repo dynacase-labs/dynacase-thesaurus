@@ -59,8 +59,6 @@ var move=true; // if true move reference doc in guidecard else copy reference
 
 
 function initDrag() {
-
-
   var wref;
   
   if (! drag) {

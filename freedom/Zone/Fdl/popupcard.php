@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.22 2003/02/25 09:55:25 eric Exp $
+// $Id: popupcard.php,v 1.23 2003/02/28 19:39:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -118,6 +118,8 @@ function popupcard(&$action) {
 
   popupInvisible('popupcard',$kdiv,'editstate'); 
 
+
+
   if (($clf)||($cud)) {
     popupActive('popupcard',$kdiv,'editattr'); 
     popupActive('popupcard',$kdiv,'chgtitle'); 
@@ -126,33 +128,33 @@ function popupcard(&$action) {
     popupActive('popupcard',$kdiv,'editdfld');
     popupActive('popupcard',$kdiv,'editwdoc');
     popupActive('popupcard',$kdiv,'editcfld');
-  } else {
-    if ($doc->locked == -1){ // fixed document
-      popupInvisible('popupcard',$kdiv,'editdoc');
-      popupInvisible('popupcard',$kdiv,'delete');
-      popupInvisible('popupcard',$kdiv,'editattr'); 
-      popupInvisible('popupcard',$kdiv,'chgtitle'); 
-      popupInvisible('popupcard',$kdiv,'defval'); 
-      popupInvisible('popupcard',$kdiv,'editprof');
-      popupInvisible('popupcard',$kdiv,'revise');
-      popupInvisible('popupcard',$kdiv,'lockdoc');
-      popupInvisible('popupcard',$kdiv,'chicon');
-      popupInvisible('popupcard',$kdiv,'editwdoc');
-      popupInvisible('popupcard',$kdiv,'editdfld');
-      popupInvisible('popupcard',$kdiv,'editcfld');
-    } else {
-      popupInactive('popupcard',$kdiv,'editattr'); 
-      popupInactive('popupcard',$kdiv,'editdfld');
-      popupInactive('popupcard',$kdiv,'editwdoc');
-      popupInactive('popupcard',$kdiv,'editcfld');
-      popupInactive('popupcard',$kdiv,'chgtitle'); 
-      popupInactive('popupcard',$kdiv,'defval'); 
-      popupCtrlInactive('popupcard',$kdiv,'editprof');
-      popupInactive('popupcard',$kdiv,'editdoc');
+    
+  }  else {
+    popupInactive('popupcard',$kdiv,'editattr'); 
+    popupInactive('popupcard',$kdiv,'editdfld');
+    popupInactive('popupcard',$kdiv,'editwdoc');
+    popupInactive('popupcard',$kdiv,'editcfld');
+    popupInactive('popupcard',$kdiv,'chgtitle'); 
+    popupInactive('popupcard',$kdiv,'defval'); 
+    popupCtrlInactive('popupcard',$kdiv,'editprof');
+    popupInactive('popupcard',$kdiv,'editdoc');
       
 
-    }
   }
+  if ($doc->locked == -1) { // fixed document
+    popupInvisible('popupcard',$kdiv,'editdoc');
+    popupInvisible('popupcard',$kdiv,'delete');
+    popupInvisible('popupcard',$kdiv,'editattr'); 
+    popupInvisible('popupcard',$kdiv,'chgtitle'); 
+    popupInvisible('popupcard',$kdiv,'defval'); 
+    popupInvisible('popupcard',$kdiv,'editprof');
+    popupInvisible('popupcard',$kdiv,'revise');
+    popupInvisible('popupcard',$kdiv,'lockdoc');
+    popupInvisible('popupcard',$kdiv,'chicon');
+    popupInvisible('popupcard',$kdiv,'editwdoc');
+    popupInvisible('popupcard',$kdiv,'editdfld');
+    popupInvisible('popupcard',$kdiv,'editcfld');
+  } 
 
   popupCtrlActive('popupcard',$kdiv,'duplicate'); 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.21 2003/02/25 09:55:24 eric Exp $
+// $Id: mailcard.php,v 1.22 2003/02/28 19:39:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,17 +43,17 @@ function mailcard(&$action) {
 }
 // -----------------------------------
 function sendmailcard(&$action) {
-  sendCard($action,
-	   GetHttpVars("id"),
-	   GetHttpVars("_mail_to",''),
-	   GetHttpVars("_mail_cc",""),
-	   GetHttpVars("_mail_subject"),
-	   GetHttpVars("zone"),
-	   GetHttpVars("szone","N")=="Y",
-	   GetHttpVars("_mail_cm",""),
-	   GetHttpVars("_mail_from",""), 
-	   GetHttpVars("_mail_format","html")
-	   );
+  return sendCard($action,
+		  GetHttpVars("id"),
+		  GetHttpVars("_mail_to",''),
+		  GetHttpVars("_mail_cc",""),
+		  GetHttpVars("_mail_subject"),
+		  GetHttpVars("zone"),
+		  GetHttpVars("szone","N")=="Y",
+		  GetHttpVars("_mail_cm",""),
+		  GetHttpVars("_mail_from",""), 
+		  GetHttpVars("_mail_format","html")
+		  );
 }
 // -----------------------------------
 function sendCard(&$action,
@@ -108,6 +108,7 @@ function sendCard(&$action,
   }
   $layout="maildoc.xml"; // the default
  
+  if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
   if ($zonebodycard == "") $zonebodycard="FDL:VIEWCARD";
   if (ereg("html",$format, $reg)) {
     // ---------------------------
@@ -272,11 +273,13 @@ function sendCard(&$action,
   
   system ($cmd, $status);
 
+  $err="";
   if ($status == 0)  {
     $doc->addcomment(sprintf(_("sended to %s"), $to));
     $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to));   
   } else {
     print ($cmd);
+    $err=sprintf(_("%s cannot be sent"),$title;
     $action->addlogmsg(sprintf(_("%s cannot be sent"),$title));
   }
 
@@ -288,7 +291,7 @@ function sendCard(&$action,
   if (isset($pfout)) unlink($pfout);
  
 
-  
+  return $err;
 
 }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: workflow_init.php,v 1.1 2003/01/15 11:43:09 eric Exp $
+// $Id: workflow_init.php,v 1.2 2003/02/28 19:39:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/workflow_init.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 include_once("FDL/Class.Doc.php");
+include_once("FDL/Lib.Attr.php");
+include_once("FDL/Class.DocFam.php");
+
 // -----------------------------------
 function workflow_init(&$action) {
   // -----------------------------------
@@ -37,12 +40,27 @@ function workflow_init(&$action) {
   
     
   $wdoc = new Doc($dbaccess,$docid);
-  if ($wdoc->isAffected() && $wdoc->defDoctype=="W") {
+  $wdoc->CreateProfileAttribute();
+  if ($wdoc->doctype=='C') $cid = $wdoc->id;
+  else $cid= $wdoc->fromid;
+ 
+  $query = new QueryDb($dbaccess,"DocFam");
+  $query ->AddQuery("id=$cid");
+  $table1 = $query->Query(0,0,"TABLE");
+  if ($query->nb > 0)	{
+    $tdoc = $table1[0];
 
-    $wdoc->CreateProfileAttribute();
-  } else {
-    $action->exitError(sprintf(_("workflow_init :: id %s is not a workflow"),$docid));
+    if ($wdoc->isAffected() && $wdoc->usefor=="W") {
+
+      createDocFile($dbaccess,$tdoc);
+      PgUpdateFamilly($dbaccess, $cid);
+
+    } else {
+      $action->exitError(sprintf(_("workflow_init :: id %s is not a workflow"),$docid));
     
+    }
+  } else {
+      $action->exitError(sprintf(_("workflow_init :: workflow id %s not found"),$cid));
   }
 }
 ?>

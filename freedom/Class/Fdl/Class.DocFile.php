@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.7 2003/02/20 11:34:04 eric Exp $
+// $Id: Class.DocFile.php,v 1.8 2003/02/28 19:39:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.7 2003/02/20 11:34:04 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.8 2003/02/28 19:39:17 eric Exp $';
 
 
 include_once("FDL/Class.PDoc.php");
@@ -36,51 +36,9 @@ Class DocFile extends PDoc
   var $defDoctype='F';
   var $defClassname='DocFile';
 
-  function refreshDocTitle($nameId,$nameTitle) {
-  
-    // gettitle(D,SI_IDSOC):SI_SOCIETY,SI_IDSOC
-
-    $this->AddParamRefresh("$nameId","$nameTitle,$nameId");
-    $doc=new Doc($this->dbaccess, $this->getValue($nameId));
-    if ($doc->isAlive())  $this->setValue($nameTitle,$doc->title);
-    else {
-      // suppress
-      $this->deleteValue($nameId);
-    }
-  }
 
 
-  // return the personn doc id conform to firstname & lastname of the user
-  function userDocId() {
-    
-    include_once("FDL/Lib.Dir.php");
-    $famid=getFamIdFromName($this->dbaccess,"USER");
-    $filter[]="title = '".$this->userName()."'";
-    
-    $tpers = getChildDoc($this->dbaccess, 0,0,1, $filter,$action->user->id,"TABLE",$famid);
-    if (count($tpers) > 0)    return($tpers[0]["id"]);
-    
-    return "";
-    
-  }
-  // return the personn doc id conform to firstname & lastname of the user
-  function userName() {
-    global $action;
 
-    return $action->user->lastname." ".$action->user->firstname;
-  }
-
-  function getTitle($id) {
-    $doc = new Doc($this->dbaccess,$id);
-    if ($doc->isAlive()) {
-      return $doc->title;
-    }
-    return " "; // delete title
-  }
-
-  function getDate() {
-    return date("d/m/Y");
-  }
 }
 
 ?>

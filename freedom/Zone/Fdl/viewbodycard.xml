@@ -20,7 +20,7 @@
 
 <tr class="FREEDOMBack1">
   <td valign="top" width="40%" class="FREEDOMlabel" >[name]&nbsp;:&nbsp;</td>
-  <td valign="top" width="50%" class="FREEDOMText" >[value]</td>
+  <td valign="bottom" width="50%" class="FREEDOMText" >[value]</td>
 </tr>
 
 [ENDBLOCK [TABLEVALUE]]

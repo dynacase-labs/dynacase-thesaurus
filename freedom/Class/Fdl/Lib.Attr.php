@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.7 2003/01/30 09:38:36 eric Exp $
+// $Id: Lib.Attr.php,v 1.8 2003/02/28 19:39:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -75,7 +75,6 @@ function AttrToPhp($dbaccess, $tdoc) {
     $tnormal=array();
     $tattr=array();
     $attrids=array();
-    
     while(list($k,$v) = each($table1))   {
       switch ($v->visibility) {
       case "M": // menu
@@ -202,7 +201,6 @@ function createDocFile($dbaccess, $tdoc) {
 
   $pubdir = GetParam("CORE_PUBDIR");
   $dfile = "$pubdir/FDLGEN/Class.Doc".$tdoc["id"].".php";
-
 
   $fphp=fopen($dfile,"w");
   if ($fphp) {
