@@ -65,13 +65,12 @@ TH {
 [BLOCK [blockvalue]]
 <tr  id="d[divid]"
      class="unselect" 
-     onMouseUp="if (! document.noselect) {select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);};document.noselect=false;" 
-     
+     onMouseUp="if (! document.noselect) {select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);};document.noselect=false;"      
      onContextMenu="select(this,[id],[divid]);openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
      title="[highlight]">   
  <td class="tlist">
-<IMG style="display:none" id="i[divid]"      src="[iconsrc]">[title]</td>
+<IMG style="display:none" id="i[divid]"  src="[iconsrc]">[title] <i>[state]</i></td>
        
 <td class="tlist">[values]</td>
         

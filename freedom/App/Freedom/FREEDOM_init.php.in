@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.13 2004/10/14 14:15:35 marc Exp $
+// $Id: FREEDOM_init.php.in,v 1.14 2005/03/24 15:06:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,6 +56,13 @@ $app_const=
 					"global"=>"Y",
 					"user"=>"N"
 					),
+	     "FREEDOM_VIEWFRAME" => array(		
+					"val"=>"navigator",
+					"descr"=> N_("mode to navigate in folders"),
+					"global"=>"Y",
+					"user"=>"Y",
+					"kind"=>"enum(navigator|folder)"
+					)
 	     
 	     );
 	     
