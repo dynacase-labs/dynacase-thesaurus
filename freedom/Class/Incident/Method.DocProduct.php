@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocProduct.php,v 1.2 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.DocProduct.php,v 1.3 2003/11/03 09:03:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocProduct.php,v 1.2 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.DocProduct.php,v 1.3 2003/11/03 09:03:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocProduct.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,7 +39,7 @@
  * Special methods for PRODUCT family
  *
  * @author Anakeen 2001
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @package FREEDOM
  * @subpackage INCIDENT
  */
@@ -52,6 +52,9 @@ function SpecRefresh() {
   $this->refreshDocTitle("PR_IDMARK","PR_MARK");
 
 
+  $this->AddParamRefresh("PR_IDCMDFUR","PR_CMDFUR,PR_IDFUR,PR_FUR");
+  $this->AddParamRefresh("PR_IDMODEL","PR_MODEL,PR_IDMARK,PR_MARK,PR_DESG,PR_IDTARIF,PR_TARIF,PR_IDFUR,PR_FUR");
+  $this->AddParamRefresh("PR_IDTARIF","PR_TARIF");
 
   //date2epoch(PR_INDATE):PR_INDATE_EPOCH
   $this->AddParamRefresh("PR_INDATE","PR_INDATE_EPOCH");
@@ -67,8 +70,42 @@ function SpecRefresh() {
   $idcontract=$this->getValue("PR_IDCONTRACT");
   if ($idcontract > 0) {
     $doc = new Doc($this->dbaccess,$idcontract);
-    $this->setValue("PR_PLATDATE", $doc->getValue("CO_DATEEND"));
+    $tidprod = $doc->getTvalue("CO_IDPRODUCT");
+    if (! in_array($this->initid, $tidprod)) {
+      // delete reference to contract
+      $this->setValue("PR_PLATDATE", " ");
+      $this->setValue("PR_IDCONTRACT", " ");
+      $this->setValue("PR_CONTRACT", " ");
+    }
+    
   }
  
+}
+
+function postModify() {
+  $this->setConstructor();
+  $this->setAffair();
+  
+}
+
+function setConstructor() {
+  $idart = $this->getValue("PR_IDMODEL");
+  $doc = new Doc($this->dbaccess, $idart);
+  if ($doc->isAlive()) {
+    $this->setValue("PR_IDMARK",$doc->getValue("AR_IDCONST"," "));
+    $this->setValue("PR_MARK",$doc->getValue("AR_CONST"," "));
+  }
+}
+function setAffair() {
+  $idart = $this->getValue("PR_IDCMDFUR");
+  $doc = new Doc($this->dbaccess, $idart);
+  if ($doc->isAlive()) {
+    $cmdint = new Doc($this->dbaccess, $doc->getValue("CMF_IDCMC"));
+    if ($cmdint->isAlive()) {
+      $this->setValue("PR_IDAFFAIR",$cmdint->getValue("CMC_IDAFFAIR"," "));
+      $this->setValue("PR_AFFAIR",$cmdint->getValue("CMC_PROPO"));
+    }
+    
+  }
 }
 ?>

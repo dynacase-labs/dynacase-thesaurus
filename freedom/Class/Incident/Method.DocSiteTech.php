@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocSiteTech.php,v 1.4 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.DocSiteTech.php,v 1.5 2003/11/03 09:03:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocSiteTech.php,v 1.4 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.DocSiteTech.php,v 1.5 2003/11/03 09:03:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocSiteTech.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,31 +40,12 @@ function SpecRefresh() {
   global $action;
 
   include_once("FDL/Lib.Dir.php");
-  parent::SpecRefresh(); // user site refresh
-
-  // gclient(D,SI_IDTECH1):SI_TECHNAME1,SI_TECHPHONE1,SI_TECHMAIL1
 
 
-  // First Technical & Second technical
-
-  for ($idt=1; $idt < 3; $idt++) {
-    $this->AddParamRefresh("SI_IDTECH$idt","SI_TECHNAME$idt,SI_TECHPHONE$idt,SI_TECHMAIL$idt");
-
-    if ($this->getValue("SI_IDTECH$idt") > 0) {
-      $doc = new doc($this->dbaccess,$this->getValue("SI_IDTECH$idt"));
-      if ($doc->isAlive()) {
-	$this->setValue("SI_TECHNAME$idt",$doc->title);
-	$this->setValue("SI_TECHPHONE$idt",$doc->getValue("US_PHONE"));
-	$this->setValue("SI_TECHMAIL$idt",$doc->getValue("US_MAIL"));
-      }
-    }
- 
-  }
 
   // contracts():SI_IDCONTRATS,SI_CONTRATS
-  $famid=getFamIdFromName($this->dbaccess,"CONTRACT");
-  $filter[]="in_textlist(co_idsites, $this->id)";
-  $contract = getChildDoc($this->dbaccess, 0,0,"ALL", $filter,$action->user->id,"TABLE",$famid);
+  $filter[]="in_textlist(co_idsites, $this->initid)";
+  $contract = getChildDoc($this->dbaccess, 0,0,"ALL", $filter,1,"TABLE","CONTRACT");
   $idc=array();
   $tc=array();
   while(list($k,$v) = each($contract)) {
@@ -74,8 +55,8 @@ function SpecRefresh() {
   }
 
 
-  $this->setValue("SI_IDCONTRACTS",implode("\n", $idc));
-  $this->setValue("SI_CONTRACTS",implode("\n", $tc));
+  $this->setValue("SI_IDCONTRACTS",$idc);
+  $this->setValue("SI_CONTRACTS",$tc);
   
 }
 	

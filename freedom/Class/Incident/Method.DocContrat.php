@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocContrat.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.DocContrat.php,v 1.4 2003/11/03 09:03:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocContrat.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.DocContrat.php,v 1.4 2003/11/03 09:03:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocContrat.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,7 +57,151 @@ function SpecRefresh() {
     }
  
   }
- 
+  $this->setProductSite();
+  $this->setCallerPhone();
+}
+
+function postModify() {
+  $this->setProductContract();  
+  $this->modify();
+  $this->refreshProduct();
+  $this->recupProduct();
 }
 	
+function setProductSite() {
+  $tproduct = $this->getTvalue("CO_IDPRODUCT");
+  while (list($k,$v) = each($tproduct)) {
+    $prodoc = getTDoc($this->dbaccess, $v);
+    if ($prodoc) {
+       $tidsite[]=getv($prodoc,"pr_idsite"," ");
+      $tsite[]=getv($prodoc,"pr_site"," ");
+    }
+  }
+  $this->setValue("CO_IDPSITE",$tidsite);
+  $this->setValue("CO_PSITE",$tsite);
+}	
+function setCallerPhone() {
+  $tproduct = $this->getTvalue("CO_IDCALLER");
+  $tcidsite = $this->getTvalue("CO_IDCSITES");
+  $tcsite = $this->getTvalue("CO_CSITES");
+  $tcphone = $this->getTvalue("CO_CPHONE");
+  $tcmail = $this->getTvalue("CO_CMAIL");
+  while (list($k,$v) = each($tproduct)) {
+    $prodoc = getTDoc($this->dbaccess, $v);
+    if ($prodoc) {
+       $tcidsite[$k]=getv($prodoc,"us_idsociety");
+       $tcsite[$k]=getv($prodoc,"us_society");
+       $tcphone[$k]=getv($prodoc,"us_phone");
+       $tcmail[$k]=getv($prodoc,"us_mail");
+    } 
+  }
+  $this->setValue("CO_CPHONE",$tcphone);
+  $this->setValue("CO_CSITES",$tcsite);
+  $this->setValue("CO_CMAIL",$tcmail);
+  $this->setValue("CO_IDCSITES",$tcidsite);
+}
+	
+function setProductContract() {
+  $tproduct = $this->getTvalue("CO_IDPRODUCT");
+  while (list($k,$v) = each($tproduct)) {
+    $prodoc = new doc($this->dbaccess, $v);
+    if ($prodoc->isAlive()) {
+
+      $idcontract = $prodoc->getValue("PR_IDCONTRACT");
+      $enddate = $prodoc->getValue("PR_PLATDATE");
+
+      if (($idcontract != $this->id) || ($enddate != $this->getValue("CO_DATEEND")))  {
+	$prodoc->setValue("PR_IDCONTRACT",$this->id);
+	$prodoc->setValue("PR_CONTRACT",$this->title);
+	$prodoc->setValue("PR_PLATDATE",$this->getValue("CO_DATEEND"));
+	$prodoc->modify();
+      }
+    }
+  } 
+}
+
+function refreshProduct() {
+  include_once("FDL/Lib.Dir.php");
+
+  $filter[]="pr_idcontract =".$this->id;
+
+  $tdoc = getChildDoc($this->dbaccess, 
+			   0,0,100, 
+			   $filter,1,"TABLE",
+			   "PRODUCT");
+
+  $doc = createDoc($this->dbaccess,"PRODUCT");
+  while (list($k,$prodoc) = each($tdoc)) {
+    $doc->Affect($prodoc);
+    $doc->refresh();
+    $doc->modify();
+    
+  }
+}
+function recupProduct() {
+  include_once("FDL/Lib.Dir.php");
+
+  $filter[]="pr_idcontract =".$this->id;
+
+  $tdoc = getChildDoc($this->dbaccess, 
+			   0,0,100, 
+			   $filter,1,"TABLE",
+			   "PRODUCT");
+
+
+  while (list($k,$prodoc) = each($tdoc)) {
+
+       $tidprod[]=$prodoc["initid"];
+       $tprod[]=$prodoc["title"];
+       $tidsite[]=getv($prodoc,"pr_idsite"," ");
+       $tsite[]=getv($prodoc,"pr_site"," ");
+
+    
+  }
+  $this->setValue("CO_IDPSITE",$tidsite);
+  $this->setValue("CO_PSITE",$tsite);
+  $this->setValue("CO_IDPRODUCT",$tidprod);
+  $this->setValue("CO_PRODUCT",$tprod);
+}
+
+function recupCallers() {
+  $tsite = $this->getTvalue("CO_IDSITES");
+  $tidcall=array();
+  $tcall=array();
+  $tcidsite=array();
+  $tcsite=array();
+  $tcphone=array();
+  $tcmail=array();
+  while (list($k,$v) = each($tsite)) {
+    $sidoc = getTDoc($this->dbaccess, $v);
+   
+    if ($sidoc) {
+      $tech1 = getv($sidoc,"si_techname1");
+      if ($tech1 != "") {
+	$tidcall[$tech1]=getv($sidoc,"si_idtech1"," ");
+	$tcphone[$tech1]=getv($sidoc,"si_techphone1"," ");
+	$tcmail[$tech1]=getv($sidoc,"si_techmail1"," ");
+	$tcidsite[$tech1]=$sidoc["id"];
+	$tcsite[$tech1]=$sidoc["title"];
+	$tcall[$tech1]=$tech1;
+      }
+      $tech2 = getv($sidoc,"si_techname2");
+      if ($tech2 != "") {
+	$tidcall[$tech2]=getv($sidoc,"si_idtech2"," ");
+	$tcphone[$tech2]=getv($sidoc,"si_techphone2"," ");
+	$tcmail[$tech2]=getv($sidoc,"si_techmail2"," ");
+	$tcidsite[$tech2]=$sidoc["id"];
+	$tcsite[$tech2]=$sidoc["title"];
+	$tcall[$tech2]=$tech2;
+      }
+    }
+  }
+  $this->setValue("CO_IDCALLER",$tidcall);
+  $this->setValue("CO_CALLER",$tcall);
+  $this->setValue("CO_CPHONE",$tcphone);
+  $this->setValue("CO_CSITES",$tcsite);
+  $this->setValue("CO_IDCSITES",$tcidsite);
+  $this->setValue("CO_CMAIL",$tcmail);
+
+}
 ?>
