@@ -2,15 +2,16 @@
 
 [BLOCK TRSTATE]
 <tr class="FREEDOMBack2">
-  <td colspan="3" >
+  <td style="width:50%">
  <label class="FREEDOMTextTitle" for="newstate">[TEXT:state] <i>[initstatename]</i> [TEXT:to]</label>
- <select name="newstate" onchange="if (this.selectedIndex > 0) document.getElementById('comment').style.display='inline'; else document.getElementById('comment').style.display='none';"> 
+ <select name="newstate" onchange="if (this.selectedIndex > 0) document.getElementById('comment').style.visibility=''; else document.getElementById('comment').style.visibility='hidden';"> 
  <option VALUE="-" >[TEXT:unchanged]</option> 
 [BLOCK NEWSTATE]
  <option VALUE="[statevalue]" >[statename]</option>  
 [ENDBLOCK NEWSTATE]
   </select>
-  <textarea title="[TEXT:revision comment]" rows="2" style="width:100%" name="comment" id="comment" style="display:none"></textarea>
+  </td><td colspan="2">
+  <textarea title="[TEXT:revision comment]" rows="2" name="comment" id="comment" style="width:100%;visibility:hidden"></textarea>
   </td>
 </tr>
 [ENDBLOCK TRSTATE]
