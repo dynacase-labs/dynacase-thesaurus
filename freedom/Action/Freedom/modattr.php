@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.18 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: modattr.php,v 1.19 2004/01/21 08:12:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.18 2003/12/16 15:05:39 eric Exp $
+// $Id: modattr.php,v 1.19 2004/01/21 08:12:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -141,7 +141,7 @@ function modattr(&$action) {
 	    $oattr->visibility=$visibilities[$k];
 	    $oattr->link=stripslashes($links[$k]);
 	    $oattr->phpfile=$phpfiles[$k];
-	    $oattr->phpfunc=$phpfuncs[$k];
+	    $oattr->phpfunc=stripslashes($phpfuncs[$k]);
 	    $oattr->elink=stripslashes($elinks[$k]);
 	    $oattr->phpconstraint=$phpconstraint[$k];
 
