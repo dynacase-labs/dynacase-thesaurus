@@ -940,7 +940,7 @@ function duptr() {
     tnewid='tnew'+tbodyselid.substr(5);
     if (document.getElementById(tnewid)) {
       ntr=addtr(tnewid,tbodyselid);
-      afterclonenode(seltr,ntr);
+      afterCloneBug(seltr,ntr);
     
     } else {
       // direct clone tr
@@ -1000,7 +1000,8 @@ function selecttr(o,tr) {
   }   
   o=o.previousSibling;
   while (o && (o.nodeType != 1)) o = o.previousSibling; // case TEXT attribute in mozilla between TR 
-  o.style.visibility='visible';
+  if (!o) alert('[TEXT:no trash image]');
+  else o.style.visibility='visible';
 
   seltr=tr;
 

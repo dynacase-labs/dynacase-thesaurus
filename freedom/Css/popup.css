@@ -60,7 +60,6 @@ a.separator {
   border-color : [CORE_TEXTBGCOLOR];
   border-style : solid none none none;
   border-width : 1px 0px 0px 0px;
-  height:1px;
   text-decoration: none;
 }
 
