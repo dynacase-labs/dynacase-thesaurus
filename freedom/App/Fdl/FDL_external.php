@@ -56,4 +56,34 @@ function lmail( $dbaccess, $name) {
   }
   return $tr;  
 }
+
+
+// liste des sociétés
+function lfamilly($dbaccess, $famid, $name, $catgid=0) {
+  //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
+  global $action;
+  $catgid= 0;
+  
+  $filter=array();
+  $filter[]="doc.fromid=$famid";
+  if ($name != "") {
+    $filter[]="doc.title ~* '.*$name.*'";
+  }
+  $filter[]="doc.doctype='F'";
+
+  $tinter = getChildDoc($dbaccess, $catgid,0,"ALL", $filter,$action->user->id,"TABLE");
+  
+  $tr = array();
+
+  $tr[] = array(_("unreferenced")," "," " );
+  while(list($k,$v) = each($tinter)) {
+            
+    $tr[] = array($v["title"] ,
+		  $v["id"],$v["title"]);
+    
+  }
+  return $tr;
+  
+}
+
 ?>
