@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.81 2003/01/03 17:45:57 eric Exp $
+// $Id: Class.Doc.php,v 1.82 2003/01/08 09:07:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.81 2003/01/03 17:45:57 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.82 2003/01/08 09:07:04 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -386,7 +386,7 @@ create unique index i_docir on doc(initid, revision);";
   // --------------------------------------------------------------------
   function GetDocWithSameTitle() {
     // --------------------------------------------------------------------
-    $query = new QueryDb($this->dbaccess,"Doc");
+    $query = new QueryDb($this->dbaccess,"Doc".$this->fromid);
     $query->AddQuery("title='".addslashes($this->title)."'");
     $query->AddQuery("locked != -1");  // latest revision
     $query->AddQuery("fromid='".$this->fromid."'"); // same familly
@@ -589,10 +589,11 @@ create unique index i_docir on doc(initid, revision);";
     {      
       $tsa=array();
      
-      
-      reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
-	if (get_class($v) == "normalattribute")  $tsa[$v->id]=$v;
+      if (isset($this->attributes->attr)) {
+	reset($this->attributes->attr);
+	while (list($k,$v) = each($this->attributes->attr)) {
+	  if (get_class($v) == "normalattribute")  $tsa[$v->id]=$v;
+	}
       }
       return $tsa;      
     } 
@@ -678,6 +679,23 @@ create unique index i_docir on doc(initid, revision);";
       return $tsa;
     }
 
+
+  // like normal attribut without files
+  function GetExportAttributes()
+    {      
+      $tsa=array();
+     
+      if (isset($this->attributes->attr)) {
+	reset($this->attributes->attr);
+	while (list($k,$v) = each($this->attributes->attr)) {
+	  
+	  if (get_class($v) == "normalattribute")  {
+	    if (($v->type != "image") &&($v->type != "file"))  $tsa[$v->id]=$v;
+	  }
+	}
+      }
+      return $tsa;      
+    } 
 
   // return all the attributes object for import
   // the attribute can be defined in fathers
@@ -991,13 +1009,12 @@ create unique index i_docir on doc(initid, revision);";
   // recompute all calculated attribut
   function Refresh() {	
 
-
-
     if ($this->locked == -1) return; // no refresh revised document
     if (($this->doctype != 'F')  && ($this->doctype != 'S')) return; // no refresh for family  document
     if ($this->usefor == 'D') return; // no refresh for default document
 	  
 
+    
     $err=$this->SpecRefresh();
 	
     if ($this->hasChanged)    $this->modify(); // refresh title
