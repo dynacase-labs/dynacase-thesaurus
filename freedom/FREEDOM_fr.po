@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-05-13 09:33+0200\n"
+	"POT-Creation-Date: 2003-05-19 17:16+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -119,12 +119,8 @@ msgid	"search contains %s in %s"
 msgstr	"recherche contenant %s dans %s"
 
 #, c-format
-msgid	"%s all categories "
-msgstr	"%s toutes catégories"
-
-#, c-format
-msgid	"%s %s category "
-msgstr	"%s catégorie %s"
+msgid	"%s all "
+msgstr "%s tout"
 
 #, c-format
 msgid	"definition of enumerate attribute %s of %s family"
@@ -779,7 +775,7 @@ msgstr	"ajouter entrée"
 
 #, c-format
 msgid	"Sure %s ?"
-msgstr "Confirmation : %s ?"
+msgstr	"Confirmation : %s ?"
 
 msgid	"this kind of document cannot be duplicate"
 msgstr	"ce type de document ne peut être dupliqué"
@@ -976,6 +972,12 @@ msgstr	"Ouvrir la chemise"
 
 msgid	"portfolio tab"
 msgstr	"onglets chemise"
+
+msgid	"choose preferred families"
+msgstr "Choix des familles préférées"
+
+msgid	"modify preferred families"
+msgstr "modifier les familles préférées"
 
 msgid	"root folder id"
 msgstr	"Identificateur du dossier racine"
@@ -1511,6 +1513,9 @@ msgstr	"Création"
 msgid	"Tools"
 msgstr	"Outils"
 
+msgid	"All document"
+msgstr "tous les documents"
+
 msgid	"Properties:"
 msgstr	"Propriétés:"
 
@@ -1889,6 +1894,18 @@ msgstr	"informations"
 msgid	"modification date"
 msgstr	"date de modification"
 
+msgid	"more families"
+msgstr "toutes les familles"
+
+msgid	"restrict to preferred families"
+msgstr "restriction aux familles préférées"
+
+msgid	"Choose visibles families"
+msgstr	"Choix des familles visibles"
+
+msgid	"Close"
+msgstr	"Fermer"
+
 msgid	"Change State"
 msgstr	"Changer d'état"
 
@@ -1897,12 +1914,6 @@ msgstr	"familles"
 
 msgid	"manage visible families"
 msgstr	"gestion des familles visibles"
-
-msgid	"Choose visibles families"
-msgstr	"Choix des familles visibles"
-
-msgid	"Close"
-msgstr	"Fermer"
 
 msgid	" choose value"
 msgstr	" choisir une valeur"
@@ -2104,6 +2115,12 @@ msgstr	"Changer de catégorie"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+#~ msgid	"%s all categories "
+#~ msgstr	"%s toutes catégories"
+
+#~ msgid	"%s %s category "
+#~ msgstr	"%s catégorie %s"
 
 #~ msgid	"kind of search is not defined"
 #~ msgstr	"type de recherche non défini"

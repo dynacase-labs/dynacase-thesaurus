@@ -59,6 +59,22 @@ begin
 end;
 ' language 'plpgsql';
 
+-- change type of column
+create or replace function alter_table_column(text, text, text) 
+returns bool as '
+declare 
+  t alias for $1;
+  col alias for $2;
+  ctype alias for $3;
+begin
+   EXECUTE ''ALTER TABLE '' || quote_ident(t) || '' RENAME COLUMN   '' || col || '' TO zou'' || col;
+   EXECUTE ''ALTER TABLE '' || quote_ident(t) || '' ADD COLUMN   '' || col || '' '' || ctype;	
+   EXECUTE ''UPDATE '' || quote_ident(t) || '' set '' || col || ''='' || ''zou'' || col|| ''::'' || ctype;	
+ 
+   return true;
+end;
+' language 'plpgsql';
+
 create or replace function computegperm(int, int) 
 returns int as '
 declare 

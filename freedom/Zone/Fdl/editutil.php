@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.30 2003/05/19 10:42:04 eric Exp $
+// $Id: editutil.php,v 1.31 2003/05/19 15:29:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -211,7 +211,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	}
 	$lay->setBlockData("bevalue_$k",$tivalue);
       }
-      $lay->setBlockData("EATTR",$tvattr);
+      if (count($tvattr) > 0) $lay->setBlockData("EATTR",$tvattr);
       
 
     

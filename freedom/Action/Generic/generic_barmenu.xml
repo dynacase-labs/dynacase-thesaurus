@@ -70,7 +70,7 @@ function SendSearch(e) {
 </script>   
 <!-- ------------ MENU SEARCH  --------------------- -->
 <div  id="searchmenu" class="popup">
-<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All catg]</a>[BLOCK SEARCH]
+<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All document]</a>[BLOCK SEARCH]
 <a  id="search[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
 [ENDBLOCK SEARCH]
 <a id="text"></a>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.10 2003/04/11 13:56:42 eric Exp $
+// $Id: generic_tab.php,v 1.11 2003/05/19 15:29:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -77,10 +77,10 @@ function generic_tab(&$action) {
 
 
   if ($dir->id == $fdoc->dfldid)   {
-    $sdoc->title = sprintf(_("%s all categories "),$tabletter[$tab] );
+    $sdoc->title = sprintf(_("%s all "),$tabletter[$tab] );
     $sdirid=0; // search in all DB
   }  else {
-    $sdoc->title = sprintf(_("%s %s category "),$tabletter[$tab],$dir->title );
+    $sdoc->title = sprintf("%s %s ",$tabletter[$tab],$dir->title );
     $sdirid=$dir->id;
   }
 

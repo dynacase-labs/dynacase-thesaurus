@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.9 2003/04/02 07:36:12 eric Exp $
+// $Id: barmenu.php,v 1.10 2003/05/19 15:29:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -123,7 +123,15 @@ function barmenu(&$action) {
 
 
   popupActive("helpmenu",1,'help');
-  popupActive("helpmenu",1,'folders');
+
+  
+  popupInvisible("helpmenu",1,'folders');
+  if ($idappfree=$action->parent->Exists("FREEDOM")) {
+    $permission = new Permission($action->dbaccess, array($action->user->id,$idappfree));
+    if ($permission->isAffected() && (count($permission->privileges) > 0)) {
+      popupActive("helpmenu",1,'folders');
+    }
+  }
 
 
   $homefld = new Doc( $dbaccess, getDefFld($action));
