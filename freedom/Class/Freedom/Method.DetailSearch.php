@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.8 2003/06/16 12:00:35 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.9 2003/06/19 17:58:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,6 +65,15 @@ function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$diri
   $cond="";
   $tol[0]="";
   if ((count($tkey) > 1) || ($tkey[0] != "")) {
+    // special loop for revdate
+    while(list($k,$v) = each($tkey)) {
+      if ($taid[$k] == "revdate") {
+	list($dd,$mm,$yyyy) = explode("/",$v);
+	$tkey[$k]=mktime (0,0,0,$mm,$dd,$yyyy);
+      }
+    }
+    
+    reset($tkey);
     while(list($k,$v) = each($tkey)) {
       $cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".trim($tkey[$k])."' ";
     }
@@ -152,6 +161,13 @@ function editdsearch() {
 
   // display attributes
   $tattr=array();
+  $internals=array("title" => _("doctitle"),
+	       "revdate" => _("revdate"));
+  
+  while (list($k,$v) = each($internals)) {
+    $tattr[]=array("attrid"=> $k,
+		   "attrname" => $v);
+  }
 
   $fdoc=new Doc($this->dbaccess, $famid);
   $zpi=$fdoc->GetNormalAttributes();
@@ -238,6 +254,12 @@ function editdsearch() {
 		       "attr_name" => _("state"));
       } else {
 	$this->lay->SetBlockData("keycond$k", array(array("boo")));
+	reset($internals);
+	while (list($ki,$vi) = each($internals)) {
+	  $tattr[]=array("attr_id"=> $ki,
+			 "attr_selected" => ($taid[$k]==$ki)?"selected":"",
+			 "attr_name" => $vi);
+	}
 	reset($zpi);
 
 	while (list($ki,$vi) = each($zpi)) {
