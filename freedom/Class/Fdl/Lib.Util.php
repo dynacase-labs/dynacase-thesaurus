@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.5 2005/01/14 17:53:28 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.6 2005/01/18 08:44:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -41,7 +41,11 @@ function toIso8601($fdate,$wtz=false) {
   return $isoDate;
 }
 
-
+function StringDateToJD($sdate) {
+  $jd=FrenchDateToJD($sdate);
+  if ($jd === false)  $jd=Iso8601ToJD($sdate);
+  return $jd;
+}
 
 function FrenchDateToJD($fdate) {
  if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$reg)) {   
@@ -111,6 +115,19 @@ function cal2jd( $era, $y, $m, $d, $h, $mn, $s ) {
     
   }
   return "Date Error";
+}
+
+/**
+ * return the day of the week (1 id Monday, 7 is Sunday)
+ * @param float julian date
+ * @return int
+ */
+function jdWeekDay($jd) {
+    //weekday
+    
+  $t  = doubleval($jd) + 0.5;
+  $wd = floor( ($t/7 - floor($t/7))*7 + 0.000000000317 );   //add 0.01 sec for truncation error correction
+  return $wd+1;
 }
 
 function jd2cal( $jd,$dformat='' ) {

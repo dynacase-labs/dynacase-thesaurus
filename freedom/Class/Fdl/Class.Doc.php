@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.227 2005/01/14 17:54:23 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.228 2005/01/18 08:44:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -840,12 +840,11 @@ create unique index i_docir on doc(initid, revision);";
    * this function is call from QueryDb and all fields can not be instanciate
    * @return void
    */
-  function Affect($array) {  
-    reset($array);
+  function Affect($array) { 
     $this->ofields = $this->fields;
     $this->fields=array();
     unset($this->uperm); // force recompute privileges
-    while(list($k,$v) = each($array)) {
+    foreach($array as $k=>$v) {
       if (!is_integer($k)) {
 	if ($k != "uperm") $this->fields[]=$k; // special for uperm : it is a function
 	$this->$k = $v;
@@ -2060,7 +2059,6 @@ create unique index i_docir on doc(initid, revision);";
   function urlWhatEncodeSpec($l) {return $l;}
 
   function _val2array($v) {
-    
     return explode("\n", str_replace("\r","",$v));
   }
   
