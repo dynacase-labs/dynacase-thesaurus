@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: unlockfile.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: unlockfile.php,v 1.4 2003/11/17 11:20:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: unlockfile.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+// $Id: unlockfile.php,v 1.4 2003/11/17 11:20:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/unlockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,7 +59,7 @@ function unlockfile(&$action)
     
   
     
-  redirect($action,"FDL","FDL_CARD&props=Y&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
+  redirect($action,"FDL","FDL_CARD&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
 }
 
 
