@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.63 2004/03/17 17:33:07 eric Exp $
+ * @version $Id: import_file.php,v 1.64 2004/03/25 11:09:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -306,11 +306,14 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='') {
 	     "action"=>"");
   // like : DOC;120;...
   $err="";
-  $doc = createDoc($dbaccess, $data[1]);
+
+  if (is_numeric($data[1]))   $fromid = $data[1];
+  else $fromid = getFamIdFromName($dbaccess,$data[1]);
+  $doc = createDoc($dbaccess, $fromid);
   if (! $doc) return;
 
   $msg =""; // information message
-  $doc->fromid = $data[1];
+  $doc->fromid = $fromid;
   $tcr["familyid"]=$doc->fromid;
   if  ($data[2] > 0) $doc->id= $data[2]; // static id
   if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) {
