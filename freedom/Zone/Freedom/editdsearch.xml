@@ -62,7 +62,17 @@
     [ENDBLOCK FUNC]
   </select></td>
 <td class="und"  >
-   <input  type="text"  size=10 name="_se_keys[]" ></td>
+   <input  type="text"  size="20"  name="_se_keys[]" >
+   <input title="[TEXT:function examples]" type="button" value="&Sigma;" onclick="getNextElement(this).style.display='';this.style.display='none'">
+   <select  style="display:none" onchange="setKey(event,this)">
+           <option disabled style="font-weight: bold;" value="">[TEXT:function examples]</option>
+           <option value=""></option>
+           <option value="::getUserId()">[TEXT:my id]</option>
+           <option value="::getUserName()">[TEXT:my last name]</option>
+           <option value="::getDate()">[TEXT:today]</option>
+           <option value="::getDate(-1)">[TEXT:yesterday]</option>
+           <option value="::getDate(1)">[TEXT:tomorrow]</option>
+    </select></td>
 </tr>
 
 
@@ -134,7 +144,17 @@
   </select></td>
 <td class="und"  >
   [BLOCK [KEYCOND]]
-   <input  type="text"  size=10 name="_se_keys[]" value="[key]">
+   <input  type="text"  size="20" name="_se_keys[]" value="[key]">
+   <input title="[TEXT:function examples]" type="button" value="&Sigma;" onclick="getNextElement(this).style.display='';this.style.display='none'">
+   <select  style="display:none" onchange="setKey(event,this)">
+           <option disabled style="font-weight: bold;" value="">[TEXT:function examples]</option>
+           <option value=""></option>
+           <option value="::getUserId()">[TEXT:my id]</option>
+           <option value="::getUserName()">[TEXT:my last name]</option>
+           <option value="::getDate()">[TEXT:today]</option>
+           <option value="::getDate(-1)">[TEXT:yesterday]</option>
+           <option value="::getDate(1)">[TEXT:tomorrow]</option>
+    </select>
   [ENDBLOCK [KEYCOND]]
   [BLOCK [STATECOND]]
 

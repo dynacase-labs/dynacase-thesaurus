@@ -41,3 +41,21 @@ function sendsearch(faction) {
     
   }
 }
+
+function setKey(event,th) {
+
+
+  pnode=th.previousSibling;
+  while (pnode && ((pnode.nodeType != 1) || (pnode.name != '_se_keys[]'))) pnode = pnode.previousSibling;
+
+  pnode.value = th.options[th.selectedIndex].value;
+
+  
+}
+
+function getNextElement(th) {
+  pnode=th.nextSibling;
+  while (pnode && (pnode.nodeType != 1)) pnode = pnode.nextSibling;
+  return pnode;
+  
+}
