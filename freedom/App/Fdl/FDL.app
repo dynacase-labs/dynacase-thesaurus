@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.23 2005/03/03 17:14:39 eric Exp $
+// $Id: FDL.app,v 1.24 2005/03/04 17:19:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -68,15 +68,25 @@ $action_desc = array (
    "layout"		=>"freedom.css"
   ),
   array(
+   "name"               =>"VIEWDOCJS",
+   "layout"		=>"viewdoc.js"
+  ),
+  array(
    "name"               =>"EDITJS",
+   "script"		=>"cacheone.php",
+   "function"		=>"cacheone",
    "layout"		=>"editcommon.js"
   ),
   array(
    "name"               =>"EDITIJS",
+   "script"		=>"cacheone.php",
+   "function"		=>"cacheone",
    "layout"		=>"editidoc.js"
   ),
   array(
    "name"               =>"ENUMCHOICEJS",
+   "script"		=>"cacheone.php",
+   "function"		=>"cacheone",
    "layout"		=>"enum_choice.js"
   ),
   array(
