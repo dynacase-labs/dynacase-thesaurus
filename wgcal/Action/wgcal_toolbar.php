@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.15 2005/02/10 17:14:39 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.16 2005/02/11 19:51:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -39,23 +39,28 @@ function wgcal_toolbar(&$action) {
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
 
-   _waitrv($action);
-   _navigator($action);
-   _listress($action);
+  _waitrv($action);
+  _navigator($action);
+  _listress($action);
 
-   // Set initial visibility
-   $all =  explode("|", $action->GetParam("WGCAL_U_TOOLSSTATE", ""));
-   $vis = array ( "up", "down");
-   $visstyle = array ( "none", "");
-   if (count($all)>0) {
-     while (list($k, $v) = each($all)) {
-       $t = explode("%",$v);
-       $action->lay->set($t[0], $t[1]);
-       $action->lay->set($t[0]."ico", $vis[$t[1]]);
-       $action->lay->set($t[0]."init", $visstyle[$t[1]]);
-     }
-   }
-
+  // Set initial visibility
+  $nbTools = 4;
+  $all =  explode("|", $action->GetParam("WGCAL_U_TOOLSSTATE", ""));
+  $state = array();
+  $td = array();
+  foreach ($all as $k => $v) {
+    $t = explode("%",$v);
+    $state[$t[0]] = $t[1];
+  }
+  for ($i=0; $i<$nbTools; $i++) {
+    if (isset($state[$i])) $s = $state[$i];
+    else $s = 1;
+    $action->lay->set("vTool".$i, ($s==1?"":"none"));
+    $td[$i]["iTool"] = $i;
+    $td[$i]["sTool"] = $s;
+  }
+  $action->lay->SetBlockData("InitTools", $td);
+  $action->lay->set("countTools", $nbTools);
 }
 
 
@@ -118,6 +123,7 @@ function _navigator(&$action) {
   $cmtime = $ctime * 1000;
   $action->lay->set("CTIME", $ctime);
   $action->lay->set("CmTIME", $cmtime);
+  $action->lay->set("Cm2TIME", $cmtime + (30*24*3600 * 1000) );
 
   $cy = strftime("%Y",$ctime);
   $cys = $cy - 5;

@@ -4,6 +4,7 @@
      <input id="evid" name="evid" type="hidden" value="-1">
      <input id="evstate" name="evstate" type="hidden" value="-1">
 </form>
+<form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 
 <form id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE">
 <input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
@@ -14,29 +15,48 @@
     style="cursor:pointer; background-color:white; padding:3px; font-weight:bold; text-align:center; border: 1px solid grey" class="WGCToolTitle">[owner]<br>[today]</div>
 <br>
 
+<!-- search zone -->
+<table class="wToolButton" width="100%" cellspacing="0" cellpadding="0">
+<tr><td>
+<form id="fsearch" target="wgcal_" name="fsearch" method="POST" 
+       onsubmit="subwindow(300, 500, 'Search Result', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH'); document.getElementById('searchphrase').style.color='orange';document.getElementById('searchphrase').value='[TEXT:enter words here]';return false;">
+ <input type="text" title="[TEXT:search events containing phrase...]" size="20" id="searchphrase" name="searchphrase" type="hidden" value="([TEXT:enter words here])" style="background:white;color:orange" onfocus="this.value = ''; this.style.color='black';">
+ <input type="hidden" id="searchdstart" name="searchdstart" value="-1">
+ <input type="hidden" id="searchdend" name="searchdend" value="-1">
+ <input type="hidden" id="searchressource" name="searchressource" value="">
+</form>
+</td>
+<td align="right">
+<img id="advsearch" title="[TEXT:advanced search]" onclick="subwindow(300, 500, '[TEXT:advanced search]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ASEARCH');" src="WGCAL/Images/wgcal-search+.png" height="15">
+</td></tr>
+</table>
+
 <!-- Rendez-vous en attente -->
-<fieldset id='waitrv' class="WGCWaitingRv">
-<legend class="WGCToolTitle">[TEXT:waiting rv]<input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></legend>
+<table class="wToolButton" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td onclick="WGCalChangeVisibility(0, 'waitrv');" align="left">[TEXT:waiting rv]&nbsp;([RVCOUNT])</td>
+<td align="right"><input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></td>
+</tr>
+</table>
+
+<div id='waitrv' class="wToolArea" style="height:80px; overflow:auto; display:[vTool0]">
 [BLOCK WAITRV]
 <div id="evt[wrvid]"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="iacceptrv" title="[TEXT:accept event] [wrvtitle]" src="WGCAL/Images/wm-evaccept.png" height="10" onclick="ok=confirm('[TEXT:accept event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 1);"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="irefuserv" title="[TEXT:refuse event] [wrvtitle]" src="WGCAL/Images/wm-evrefuse.png" height="10" onclick="ok=confirm('[TEXT:refuse event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 0);"><span id="wrv[wrvid]" style="[wrvfontstyle] color:[wrvcolor]; background-color:white" title="[wrvfulldescr]"
      onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'"
      class="WGCwrvdefault"
      onclick="subwindow(400, 650, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[wrvid]');"  ><img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</span></div>[ENDBLOCK WAITRV]
-</fieldset>
-
-<br>
+<div height="10px"></div>
+</div>
  
 <!-- [ ZONE WGCAL:WGCAL_NAVIGATOR ]  -->
-<fieldset id='vinav' class="WGCListRess">
-<legend class="WGCToolTitle" style="cursor:pointer"
-  onClick="WGCalImgAltern(event, 'idimgnav', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
-             datePickerVisible = WGCalChangeVisibility(datePickerVisible, 'inav'); ">
-    <img id="idimgnav" src="WGCAL/Images/wgcal-arrow[DATENAVico].gif" title="[TEXT:calendar selector]">
-     [TEXT:date selector]</legend>
-
-<div id="inav" style="display:[DATENAVinit]">
-<script type="text/javascript">
-    Calendar.setup({
+<table class="wToolButton" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td onclick="WGCalChangeVisibility(1, 'inav');" align="left">[TEXT:date selector]</td>
+<td align="right"><input type="checkbox" onchange="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v" title="[TEXT:display two months]"></td>
+</tr>
+</table>
+<div align="center" width="100%" id="inav" style="overflow:auto; display:[vTool1]">
+<script type="text/javascript">Calendar.setup({
         ifFormat       :    '%s',       // format of the input field
         showsTime      :    false,            // will display a time selector
         singleClick    :    false,           // double-click mode
@@ -47,41 +67,37 @@
         range          :    [ [YSTART] , [YSTOP] ],
         flatCallback   :    WGCalSetDate,
         step           :    1              
-    });
-</script>
+    });</script><div align="center" width=100%" id="cal2" style="display:none"><script type="text/javascript">Calendar.setup({
+        ifFormat       :    '%s',       // format of the input field
+        showsTime      :    false,            // will display a time selector
+        singleClick    :    false,           // double-click mode
+        firstDay       :    1,
+        date           :    new Date([Cm2TIME]),
+        weekNumbers    :    true,
+        flat           :    'cal2',
+        range          :    [ [YSTART] , [YSTOP] ],
+        flatCallback   :    WGCalSetDate,
+        step           :    1              
+    });</script></div>
 </div>
-</fieldset>
-
-
 
 <!-- [ ZONE WGCAL:WGCAL_LISTRESS ] -->
-<form id="f_selress" target="wgcal_calendar" name="selress" method="POST" 
-      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SELECTRESS">
-      <input type="hidden" value="-1" name="rid">
-      <input type="hidden" value="-1" name="sid">
-</form>
+
+<table class="wToolButton" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td onclick="WGCalChangeVisibility(2, 'vvical');" align="left">[TEXT:calendar selector]</td>
+<td align="right">
+<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15" src="WGCAL/Images/wm-attendees.png" title="[TEXT:modify the list]">
+<img id="resssel" style="cursor:pointer;" onclick="document.getElementById('updatecal').submit();" height="15" src="WGCAL/Images/wm-refreshcal.gif" title="[TEXT:update calendar]">
+</td>
+</tr>
+</table>
 
 
-<form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
-
-<fieldset id='vical' class="WGCListRess">
-  <legend class="WGCToolTitle" style="cursor:pointer">
-    <img id='idimgical' src="WGCAL/Images/wgcal-arrow[RESSLISTico].gif" title="[TEXT:calendar selector]"
-         onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
-                  resslistVisible = WGCalChangeVisibility(resslistVisible,'vvical');">
-    <span onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif'); resslistVisible = WGCalChangeVisibility(resslistVisible,'vvical');">[TEXT:my calendars]</span>
-<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15"
-     src="WGCAL/Images/wm-attendees.png" title="[TEXT:modify the list]">
-<img id="resssel" style="cursor:pointer;" onclick="document.getElementById('updatecal').submit();" height="15"
-     src="WGCAL/Images/wm-refreshcal.gif" title="[TEXT:update calendar]">
-
-</legend>
-
-<div id="vvical" style="display:[RESSLISTinit]">
- 
-<table cellspacing="0" cellpadding="0">
+<div id="vvical" style="display:[vTool2]" width="100%" class="wToolArea" >
+<table width="100%" cellspacing="0" cellpadding="0">
+<thead></thead>
 <tbody id="tabress">
-
 <tr style="" id="trressme">
 <td></td>
 <td>&nbsp;&nbsp;</td>
@@ -113,32 +129,32 @@
 <td><span id="cp%RID%" name="cp%RID%" style="cursor:pointer;border:1px outset grey;" onClick="showColorPicker(event, 'cp%RID%', '%RID%');" title="[TEXT:change color for ressource] %RDESCR%">&nbsp;&nbsp;</span></td>
 </tr>
 </tbody>
-</table>
 
-<table cellspacing="0" cellpadding="0" width="100%">
-<tr><td height="10px"></td></tr>
-<tr>
-<td align="left"><span id="spuseressources" title="[TEXT:use ressource for event creation]" onclick="useressources('','');" class="[urclass]" style="font-size:80%"><input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources('','');" [urchecked]>[TEXT:use in event...]</span></td>
-<td align="right"><img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" 
-     src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]">&nbsp;<img id="resssav" style="cursor:pointer;" onclick="saveRessources(); alert('[TEXT: ressource list saved]');" height="15" 
-     src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
+<tfoot>
+<tr><td colspan="5" height="5"></td></tr>
+<tr><td colspan="3" align="left"><span id="spuseressources" title="[TEXT:use ressource for event creation]" onclick="useressources('','');" class="[urclass]" style="font-size:80%"><input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources('','');" [urchecked]>[TEXT:use in event...]</span></td>
+<td colspan="2" align="right">
+<!-- img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]"-->&nbsp;<img id="resssav" style="cursor:pointer;" onclick="saveRessources(); alert('[TEXT: ressource list saved]');" height="15" src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
 </td>
-</tr></table>
-
+</tfoot>
+</table>
 </div>
-</fieldset>
+
+<table class="wToolButton" width="100%" cellspacing="0" cellpadding="0">
+<tr><td onclick="WGCalChangeVisibility(3, 'mytodo');" align="left">[TEXT:my todo]</td></tr>
+</table>
+<div id="mytodo" style="display:[vTool3]" class="wToolArea">pas de tâche....</div> 
 
 <script type="text/javascript">
+
+var toolIsVisible = new Array();
+countTools = [countTools]; [BLOCK InitTools]
+toolIsVisible[[iTool]] = [sTool];[ENDBLOCK InitTools]
 storeRessource('[myrid]', '[myrcolor]', '1', '[myricon]', '[myrdesc]', 'WGCRessSelected');
 [BLOCK L_RESS]
 InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]');[ENDBLOCK L_RESS]
-datePickerVisible = [DATENAV];
-resslistVisible = [RESSLIST];
 </script>
 
 
-
-
-<!-- [ZONE WGCAL:WGCAL_TODAY] -->
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

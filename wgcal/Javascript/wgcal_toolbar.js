@@ -27,9 +27,6 @@ var picker = null;
 window.onunload = killwins;
 function killwins() {
   if (picker != null) picker.close();
-  if (toolsVisibilityChange==1) {
-    WGCalSaveToolsVisibility();
-  }
   if (ressourcesChange == 1) {
     ok = confirm('[TEXT: ressource list changed, save it ?]');
     if (ok) saveRessources();
@@ -169,27 +166,26 @@ function saveRessources() {
 
 // --------------------------------------------------------
  
-var toolsVisibilityChange = 0;
-var datePickerVisible = 1;
-var resslistVisible = 1;
-                      
-function WGCalSetVisibility(state, eid) {
-  eld = document.getElementById(eid); 
-  if (!eld) return;
-  if (state==0) eld.style.display = 'none';
-  else eld.style.display = '';
+function WGCalChangeVisibility(tool, eid) {
+  el = document.getElementById(eid);
+  if (el.style.display=='') {
+    el.style.display = 'none';
+    toolIsVisible[tool] = 0;
+  } else {
+    el.style.display = '';
+    toolIsVisible[tool] = 1;
+  }
+  WGCalSaveToolsVisibility();
+  return;
 }
-function WGCalChangeVisibility(state, eid) {
-  toolsVisibilityChange = 1;
-  if (state==0) state=1;
-  else state=0;
-  WGCalSetVisibility(state,eid);
-  return state;
-}
+
 function WGCalSaveToolsVisibility() {
-  toolsVisibilityChange = 0;
-  document.getElementById('toolsvis').value = "DATENAV%"+datePickerVisible+"|RESSLIST%"+resslistVisible;
-  document.getElementById('ftoolsvis').submit();
+  var s='';
+  for (i=0; i<countTools; i++) {
+    s += (s==''?'':'|');
+    s +=  i+'%'+toolIsVisible[i];
+  }
+  usetparam('WGCAL_U_TOOLSSTATE', s, 'wgcal_hidden', 'WGCAL_HIDDEN');
 }
                                                                                                                    
  

@@ -2,10 +2,10 @@
 
 body {
   padding : 0px;
-  margin : 1px;
+  margin : 0px;
   font-size: 10px; 
   font-family: [CORE_FONTLIST1];
- background: url('CORE/Images/bg.gif');
+  background: url('CORE/Images/bg.gif');
   color: [CORE_TEXTFGCOLOR];
 }
 
@@ -160,4 +160,19 @@ TD {
   background-color : [CORE_BGCOLORHIGH];
   border : 1px inset [CORE_BGCOLORALTERN];
   cursor:pointer;
+}
+
+/*
+ * Really use in final product !
+ */
+.wToolButton {
+  background-color : [CORE_BGCOLORALTERN];
+  font-weight : bold;
+  border : 2px outset [CORE_BGCOLORALTERN];
+  cursor:pointer;
+  height : 22px;
+}
+.wToolArea {
+  border : 1px outset [CORE_BGCOLORALTERN];
+  padding : 2px;
 }

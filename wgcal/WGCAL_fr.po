@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-10 15:24+0100\n"
+"POT-Creation-Date: 2005-02-11 20:49+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -146,6 +146,10 @@ msgstr "Réinitialiser la liste des ressources"
 msgid "calendar view"
 msgstr "Vue agenda"
 
+#, fuzzy
+msgid "month text"
+msgstr "vue mensuelle"
+
 msgid "calendar creation"
 msgstr "Sélection du calendrier"
 
@@ -194,6 +198,9 @@ msgstr "Ajout d'un calendrier"
 msgid "change preferences"
 msgstr "Modifier les préférences"
 
+msgid "print view"
+msgstr "imprimer"
+
 msgid "prev period"
 msgstr "Période précédente"
 
@@ -206,7 +213,15 @@ msgstr "Période suivante"
 msgid "week"
 msgstr "Semaine"
 
-#, fuzzy
+msgid "week view"
+msgstr "vue semaine"
+
+msgid "month view"
+msgstr "vue mensuelle"
+
+msgid "month text view"
+msgstr "vue mensuelle text"
+
 msgid "change hours division"
 msgstr "Division de l'heure"
 
@@ -333,27 +348,6 @@ msgstr "Fréquence"
 msgid "day repetition"
 msgstr "Jour de répétition"
 
-msgid "monday"
-msgstr "Lundi"
-
-msgid "tuesday"
-msgstr "Mardi"
-
-msgid "wenesday"
-msgstr "Mercredi"
-
-msgid "thurday"
-msgstr "Jeudi"
-
-msgid "friday"
-msgstr "Vendredi"
-
-msgid "saturday"
-msgstr "Samedi"
-
-msgid "sunday"
-msgstr "Dimanche"
-
 msgid "month repetition"
 msgstr "Répétition mensuelle"
 
@@ -408,14 +402,14 @@ msgstr "accepter l'évènement"
 msgid "refuse event"
 msgstr "refuser cet évènement :"
 
-msgid "calendar selector"
-msgstr "Sélection du calendrier"
-
 msgid "date selector"
 msgstr "Selecteur de date"
 
-msgid "my calendars"
-msgstr "Mes calendriers"
+msgid "display two months"
+msgstr "afficher 2 mois"
+
+msgid "calendar selector"
+msgstr "Sélection du calendrier"
 
 msgid "modify the list"
 msgstr "Modifier la liste des calendriers"
@@ -450,6 +444,9 @@ msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 msgid "save the list"
 msgstr "Sauvegarder la liste des calendriers"
 
+msgid "my todo"
+msgstr "Mes tâches"
+
 msgid "found ressources"
 msgstr "Ressources trouvées"
 
@@ -480,8 +477,32 @@ msgstr "modifié le"
 msgid "note"
 msgstr "Note"
 
+msgid "my calendars"
+msgstr "Mes calendriers"
+
 msgid "freeevent app name"
 msgstr ""
+
+msgid "monday"
+msgstr "Lundi"
+
+msgid "tuesday"
+msgstr "Mardi"
+
+msgid "wenesday"
+msgstr "Mercredi"
+
+msgid "thursday"
+msgstr "Jeudi"
+
+msgid "friday"
+msgstr "Vendredi"
+
+msgid "saturday"
+msgstr "Samedi"
+
+msgid "sunday"
+msgstr "Dimanche"
 
 #, c-format
 msgid "no privilege to create this kind (%d) of document"
@@ -495,9 +516,6 @@ msgstr "Vous avez des rendez-vous en attente"
 
 msgid "confidential event"
 msgstr "Evènement confidentiel"
-
-msgid "thursday"
-msgstr "Jeudi"
 
 msgid "dayly"
 msgstr "journalière"
@@ -540,6 +558,9 @@ msgstr "à confirmer"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"
+
+#~ msgid "thurday"
+#~ msgstr "Jeudi"
 
 #~ msgid "accept event "
 #~ msgstr "accepter"

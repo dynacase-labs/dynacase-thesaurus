@@ -3,13 +3,12 @@
 .calendar {
   position: relative;
   display: none;
-  font-size: 8px;
+  font-size: 10px;
   cursor: default;
-  background: white;
 }
 
 .calendar table {
-  font-size: 8px;
+  font-size: 9px;
   border-top: 1px solid #000;
   border-right: 1px solid [CORE_BGCOLORHIGH];
   border-bottom: 1px solid [CORE_BGCOLORHIGH];
@@ -72,7 +71,7 @@
 /* The body part -- contains all the days in month. */
 
 .calendar tbody .day { /* Cells <TD> containing month days dates */
-  width: 2em;
+  width: 0em;
   text-align: right;
   padding: 2px 4px 2px 2px;
 }

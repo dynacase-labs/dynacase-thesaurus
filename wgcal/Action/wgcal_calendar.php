@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.26 2005/02/10 11:55:49 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.27 2005/02/11 19:51:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -19,18 +19,6 @@ define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
 define("SEC_PER_MIN", 60);
 
-function GetFirstDayOfWeek($ts) {
-	if ($ts<=0) return false;
-	$iday  = strftime("%u",$ts);
-	$dt = 1-$iday;
-        $tsfwd = $ts - (($iday-1) * SEC_PER_DAY);
-	$dd = strftime("%d", $tsfwd);
- 	$mm = strftime("%m", $tsfwd);
- 	$yy = strftime("%Y", $tsfwd);
-	$fwdt = mktime ( 0, 0, 0, $mm, $dd, $yy);
-	return $fwdt;
-}
-       	
 function printhdiv($h, $hdiv, $hd) {
   $sd = $h."H";
   $sh = "00";
@@ -66,7 +54,7 @@ function wgcal_calendar(&$action) {
   }
   $sdate = WGCalGetDayFromTs($action->GetParam("WGCAL_U_CALCURDATE", time()));
   $cdate = WGCalGetDayFromTs(time());
-  $firstWeekDay = GetFirstDayOfWeek($sdate);
+  $firstWeekDay = WGCalGetFirstDayOfWeek($sdate);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $pafter = $sdate + ($ndays * SEC_PER_DAY);
   $pbefore = $sdate - ($ndays * SEC_PER_DAY);
@@ -195,37 +183,18 @@ function wgcal_calendar(&$action) {
   
   $ress = WGCalGetRessDisplayed($action);
   $events = array();
-  $events = getAgendaEvent( $action, $ress, 
-		 d2s($firstWeekDay, "%Y-%m-%d %H:%M:%S"),
-		 d2s($edate, "%Y-%m-%d %H:%M:%S"), $firstWeekDay );
+  $tr=array(); 
+  foreach ($ress as $kr=>$vr) if ($vr->id>0) $tr[] = $vr->id;
+  $events = WGCalGetAgendaEvents( $action,
+				  $tr, 
+				  d2s($firstWeekDay, "%Y-%m-%d %H:%M:%S"),
+				  d2s($edate, "%Y-%m-%d %H:%M:%S") );
   
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
 
-  //$action->lay->set("comment",strftime("%x %X", time())."<hr><pre>".print_r($events, true)."<pre>");
 }
 
 
-function getAgendaEvent(&$action,$tress,$d1="",$d2="", $fday) {
-
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $reid=getIdFromName($dbaccess,"WG_AGENDA");
-  $tout=array(); 
-  $tr=array(); 
-  foreach ($tress as $kr=>$vr) if ($vr->id>0) $tr[] = $vr->id;
-  $idres = implode("|", $tr);
-  setHttpVar("idres",$idres);
-  $dre=new Doc($dbaccess,$reid);
-  $edre=$dre->getEvents($d1,$d2);
-  foreach ($edre as $k=>$v) {
-    $item = array( "REF" => $v["id"], "ID" => $v["evt_idinitiator"],
-		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
-		   "END" => FrenchDateToUnixTs($v["evt_enddate"]), 
-		   "IDC" =>  $v["evt_idcreator"] );
-    $tout[] = $item;
-  }
-  //   print_r2($tout);
-  return $tout;
-}
 
 ?>
