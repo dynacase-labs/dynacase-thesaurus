@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.9 2002/10/22 13:34:01 eric Exp $
+// $Id: popupcard.php,v 1.10 2002/11/15 16:17:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,6 +36,7 @@ function popupcard(&$action) {
   $kdiv=1; // only one division
 
   $action->lay->Set("id", $docid);
+  $action->lay->Set("profid", $doc->profid);
 
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------

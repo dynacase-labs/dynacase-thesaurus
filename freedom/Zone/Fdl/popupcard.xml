@@ -51,7 +51,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITDFLD&create=1&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Change default folder]</a>
 
 <a href="#" id="access"     
-    onclick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ACCESS&id=[id]','access');closeMenu('popupcard');">
+    onclick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[profid]','access');closeMenu('popupcard');">
 [TEXT:goaccess]...</a>
 
 <a href="#" id="delete"     

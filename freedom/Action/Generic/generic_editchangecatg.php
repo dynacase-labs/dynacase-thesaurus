@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editchangecatg.php,v 1.4 2002/09/02 16:38:49 eric Exp $
+// $Id: generic_editchangecatg.php,v 1.5 2002/11/15 16:17:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editchangecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,7 +44,7 @@ function generic_editchangecatg(&$action) {
 
 
 
-  $stree=getChildCatg($homefld, 1);
+  $stree=getChildCatg($homefld->id, 1);
 
   reset($stree);
   

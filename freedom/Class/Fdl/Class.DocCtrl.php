@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.3 2002/11/14 10:43:22 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.4 2002/11/15 16:17:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.3 2002/11/14 10:43:22 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.4 2002/11/15 16:17:37 eric Exp $';
 
 
 
@@ -57,26 +57,26 @@ Class DocCtrl extends DbObj
 					"description"	=>"control initialized"), 
 			      
 			"view" =>array("pos"		=>POS_VIEW,  // N_("view document")
-					 "description"	=>"view document"), 			      
-			"send" =>array("pos"               =>POS_SEND, // N_("send document")
-					 "description"        =>"send document"),
+				       "description"	=>"view document"), 	//  N_("view")      
+			"send" =>array("pos"               =>POS_SEND, // N_("send document") 
+				       "description"        =>"send document"), // N_("send")
 			"edit" =>array("pos"               =>POS_EDIT, // N_("edit document")
-					 "description"        =>"edit document"),
+					 "description"        =>"edit document"), //  N_("edit")  
 			"delete"  =>array("pos"               =>POS_DEL, // N_("delete document")
-					 "description"        =>"delete document"),
+					 "description"        =>"delete document"),//  N_("delete")  
 			"open" =>array("pos"               => POS_OPEN, // N_("open folder")
-					 "description"        =>"open folder"),
+					 "description"        =>"open folder"),//  N_("open")
 			"execute" =>array("pos"               =>POS_EXEC, // N_("execute search")
-					 "description"        =>"execute search"),
+					 "description"        =>"execute search"),//  N_("execute")
 
 			"modify" =>array("pos"               =>POS_CONT, // N_("modify folder")
-					 "description"        =>"modify folder"),
+					 "description"        =>"modify folder"),//  N_("modify")
 
 			"viewacl" =>array("pos"               =>POS_VACL, // N_("view acl")
-					 "description"        =>"view acl"),
+					 "description"        =>"view acl"),//  N_("viewacl")
 
 			"modifyacl" =>array("pos"               =>POS_MACL, // N_("modify acl")
-					 "description"        =>"modify acl")
+					 "description"        =>"modify acl") //  N_("modifyacl")
 			
 			);
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.15 2002/10/08 10:28:17 eric Exp $
+// $Id: FREEDOM.app,v 1.16 2002/11/15 16:17:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -316,6 +316,16 @@ $action_desc = array (
   array(
    "name"		=>"FREEDOM_ACCESS",
    "short_name"		=>N_("Freedom accessibilities"),
+   "acl"		=>"FREEDOM"	
+  ),
+  array(
+   "name"		=>"FREEDOM_GACCESS",
+   "short_name"		=>N_("Freedom group accessibilities"),
+   "acl"		=>"FREEDOM"	
+  ),
+  array(
+   "name"		=>"FREEDOM_MODACCESS",
+   "short_name"		=>N_("Freedom modify accessibilities"),
    "acl"		=>"FREEDOM"	
   ),
   array(

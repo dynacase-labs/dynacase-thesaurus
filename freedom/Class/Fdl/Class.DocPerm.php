@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocPerm.php,v 1.2 2002/11/13 15:49:36 eric Exp $
+// $Id: Class.DocPerm.php,v 1.3 2002/11/15 16:17:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocPerm.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.2 2002/11/13 15:49:36 eric Exp $';
+$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.3 2002/11/15 16:17:37 eric Exp $';
 include_once("Class.DbObj.php");
 
 Class Docperm extends DbObj
@@ -130,7 +130,7 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
   // --------------------------------------------------------------------
     $this->upacl=0;
     $this->unacl=0;
-    $this->cacl=0;
+    $this->cacl=1;
   }
 
   // --------------------------------------------------------------------

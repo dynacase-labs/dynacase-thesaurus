@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.67 2002/11/14 10:43:22 eric Exp $
+// $Id: Class.Doc.php,v 1.68 2002/11/15 16:17:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.67 2002/11/14 10:43:22 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.68 2002/11/15 16:17:37 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1041,7 +1041,7 @@ create unique index i_docir on doc(initid, revision);";
 	    ."\">".$fname.
 	      "</A>";;
 	} else 
-	  $htmlval="<A target=\"_blank\" href=\"".
+	  $htmlval="<A onclick=\"document.noselect=true;\" target=\"_blank\" href=\"".
 	    $action->GetParam("CORE_BASEURL").
 	      "app=FDL"."&action=EXPORTFILE&docid=".$this->id."&attrid=".$oattr->id
 		."\">".$fname.

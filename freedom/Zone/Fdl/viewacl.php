@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewacl.php,v 1.1 2002/11/13 15:49:36 eric Exp $
+// $Id: viewacl.php,v 1.2 2002/11/15 16:17:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewacl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -55,7 +55,7 @@ function viewacl(&$action) {
 
   reset($acls);
   while(list($k,$v) = each($acls) ) {
-      $tableacl[$k]["aclname"]=$v;
+      $tableacl[$k]["aclname"]=_($v);
       $tableacl[$k]["acldesc"]=" ("._($doc->dacls[$v]["description"]).")";
 
       $pos=$doc->dacls[$v]["pos"];

@@ -19,8 +19,9 @@ fi
 if [ "$1" = "U" ] ; then
 
 
-  #share postgres group table
-  $pubdir/FDL/FDL_init.sh
+  #copy postgres group table
+  $pubdir/wsh.php --api=freedom_groups
+
   $pubdir/wsh.php --app=FDL --action=FREEDOM_INIT  
 
   su - postgres -c "psql freedom anakeen -f /home/httpd/what/WHAT/getprivilege.sql"
