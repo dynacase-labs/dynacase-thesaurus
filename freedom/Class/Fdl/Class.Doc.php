@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.112 2003/04/11 13:56:55 eric Exp $
+// $Id: Class.Doc.php,v 1.113 2003/04/14 17:02:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.112 2003/04/11 13:56:55 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.113 2003/04/14 17:02:04 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -2069,8 +2069,389 @@ $value = $this->GetValue($listattr[$i]->id);
   }
 
 
-  
 
+  // =====================================================================================
+  // ================= methods use for XML ======================
+  function toxml($withdtd)  {
+
+    global $action;
+    $doctype=$this->doctype; 
+    $docid=intval($this->id);
+    $title=$this->title;
+    $fromid=$this->fromid;
+    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $fam_doc=new Doc($this->dbaccess,$this->fromid);
+    $name=str_replace(" ","_",$fam_doc->title);
+
+
+    if ($withdtd==true) {
+      $dtd="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
+      $dtd.="<!DOCTYPE $name [";
+      $dtd.=$this->todtd();
+      $dtd.="]>";
+    }
+    else{ $dtd="";}
+
+    $this->lay = new Layout("FDL/Layout/viewxml.xml", $action);
+    $this->lay->Set("DTD",$dtd);
+    $this->lay->Set("NOM_FAM",$name);
+    $this->lay->Set("id_doc",$docid);
+    $this->lay->Set("TITRE",$title);
+    $this->lay->Set("ID_FAM",$fam_doc->name);  
+
+
+    //$this->lay->Set("IDOBJECT",$docid);
+    //$this->lay->Set("IDFAM",$fromid);
+    //$idfam=$fam_doc->classname;
+    //$this->lay->Set("TYPEOBJECT",$doctype);
+
+
+
+    ////debut
+    $listattr= $this->GetNormalAttributes();
+
+    $frames= array();
+
+
+    $nattr = count($listattr); // attributes list count
+
+
+    $k=0; // number of frametext
+    $v=0;// number of value in one frametext
+    $currentFrameId="";
+
+    $changeframe=false; // is true when need change frame
+    $tableframe=array();
+     
+
+    $iattr=0;
+
+    while (list($i,$attr) = each($listattr)) {
+      $iattr++;
+
+      if ((chop($listattr[$i]->id)!="") && ($listattr[$i]->id!="FIELD_HIDDENS")){
+
+	//------------------------------
+	// Compute value elements
+	  
+       
+	if ( $currentFrameId != $listattr[$i]->fieldSet->id) {
+	  if ($currentFrameId != "") $changeframe=true;
+	}
+	  
+
+
+	//------------------------------
+	// change frame if needed
+
+	if (  // to generate  fiedlset
+	    $changeframe)
+	  {
+	    $changeframe=false;
+	    if ($v > 0) // one value detected
+	      {
+				      
+		$frames[$k]["FIELD"]=$currentFrameId;
+		$frames[$k]["ARGUMENT"]="ARGUMENT_$k";
+
+		$this->lay->SetBlockData($frames[$k]["ARGUMENT"],
+					 $tableframe);
+		$frames[$k]["nom_fieldset"]=$this->GetLabel($currentFrameId);
+		unset($tableframe);
+		$tableframe=array();
+		$k++;
+	      }
+	    $v=0;
+      
+	  }
+
+
+
+	// Set the table value elements
+	if (($iattr <= $nattr) && ($this->Getvalue($i)!="") )	{
+	  $attrtype_idoc=false;
+	  $attrtype_list=false;
+
+	  if (strstr($listattr[$i]->type,"textlist")!=false){
+	    $attrtype_list=true;
+	  }
+	  if ((strstr($listattr[$i]->type,"idoclist"))!=false){
+	    $attrtype_list=true;
+	    $attrtype_idoc=true;
+	  }
+	  if ((strstr($listattr[$i]->type,"idoc"))!=false){
+	    $attrtype_idoc=true;
+	  }
+      
+	  if ($attrtype_list){
+	    // $value=htmlspecialchars($this->GetValue($i));
+	    $value=$this->GetValue($i);
+	    $textlist=explode("\n",$value);
+	      
+	    while ($text = each($textlist)){
+	      $currentFrameId = $listattr[$i]->fieldSet->id;
+	      $tableframe[$v]["id"]=$listattr[$i]->id;
+	      if  ($attrtype_idoc){
+		$tableframe[$v]["value"]=base64_decode($text[1]);
+		$tableframe[$v]["type"]="idoc";
+	      }
+	      else{
+		$tableframe[$v]["value"]=$text[1];
+		$tableframe[$v]["type"]=base64_encode($listattr[$i]->type);
+	      }
+	      $tableframe[$v]["labelText"]=(str_replace(array("%","\""),
+							array("","\\\""), $listattr[$i]->labelText));
+	      //$tableframe[$v]["type"]=$listattr[$i]->type;
+	      //$tableframe[$v]["visibility"]=$listattr[$i]->visibility;
+	      //$tableframe[$v]["needed"]=$listattr[$i]->needed;
+	      $v++;
+	    }
+
+	  }
+		
+	  else{
+	  
+	    if ($attrtype_idoc){
+	      $value=base64_decode($this->GetValue($i));
+	      $tableframe[$v]["type"]="idoc";
+	      //printf($value);
+	   
+	    }
+	    else{
+	      $value=htmlspecialchars($this->GetValue($i));
+	      $tableframe[$v]["type"]=base64_encode($listattr[$i]->type);
+	    }
+
+	    $currentFrameId = $listattr[$i]->fieldSet->id;
+	    $tableframe[$v]["id"]=$listattr[$i]->id;
+	    $tableframe[$v]["value"]=$value;
+	    $tableframe[$v]["labelText"]=addslashes($listattr[$i]->labelText);
+	    //$tableframe[$v]["type"]=$listattr[$i]->type;
+	    //$tableframe[$v]["visibility"]=$listattr[$i]->visibility;
+	    //$tableframe[$v]["needed"]=$listattr[$i]->needed;
+	    $v++;
+
+	  }
+	
+	}
+
+
+      }
+    }
+ 
+
+
+    if ($v > 0) // last fieldset
+      {
+				      
+	$frames[$k]["FIELD"]=$currentFrameId;
+	$frames[$k]["ARGUMENT"]="ARGUMENT_$k";
+
+	$this->lay->SetBlockData($frames[$k]["ARGUMENT"],
+				 $tableframe);
+	$frames[$k]["nom_fieldset"]=$this->GetLabel($currentFrameId);
+	unset($tableframe);
+	$tableframe=array();
+	$tableimage=array();
+	$k++;
+      }
+ 
+
+
+
+ 
+
+
+
+
+    $this->lay->SetBlockData("FIELDSET",$frames);
+    return $this->lay->gen();
+  }
+  
+  function todtd() {
+
+
+    global $action;
+    $this->lay = new Layout("FDL/Layout/viewdtd.xml", $action);
+
+    $fam_doc=new Doc($this->dbaccess,$this->fromid);
+    $name=str_replace(" ","_",$fam_doc->title);
+    $this->lay->Set("doctype",$this->doctype);
+    $this->lay->Set("revision",$this->revision);
+    $this->lay->Set("revdate",$this->revdate);
+    $this->lay->Set("idfam",$this->fromid);
+    $this->lay->Set("nom_fam",$name);
+    $this->lay->Set("id_fam",$name);
+
+    $listattr= $this->GetNormalAttributes();
+
+    $frames= array();
+
+    $nattr = count($listattr); // attributes list count
+
+    $k=0; // number of frametext
+    $v=0;// number of value in one frametext
+    $currentFrameId="";
+
+    $changeframe=false; // is true when need change frame
+    $needed=false;
+    $tableattrs=array();
+    $tablesetting=array();
+    $iattr=0;
+
+    while (list($i,$attr) = each($listattr)) {
+      $iattr++;
+      //------------------------------
+      // Compute value elements
+	  
+      if ( $currentFrameId != $listattr[$i]->fieldSet->id) {
+	if ($currentFrameId != "") $changeframe=true;
+      }
+
+      //------------------------------
+      // change frame if needed
+
+      if (  // to generate  fiedlset
+	  $changeframe)
+	{
+	  $changeframe=false;
+	  
+
+
+	  if ($v > 0) // one value detected
+	    {
+	      	     
+	      $frames[$k]["name"]=$currentFrameId;
+	      $elements[$k]["name"]=$currentFrameId;
+	      if ($needed){
+		$elements[$k]["name"].=", ";
+	      }
+	      else{
+		$elements[$k]["name"].="?, ";
+	      }
+	      $needed=false;
+
+	      $frames[$k]["ATTRIBUT_NAME"]="ATTRIBUT_NAME_$k";
+	      $frames[$k]["ATTRIBUT_SETTING"]="ATTRIBUT_SETTING_$k";
+
+	      $this->lay->SetBlockData($frames[$k]["ATTRIBUT_NAME"],
+				       $tableattrs);
+              
+	      $this->lay->SetBlockData($frames[$k]["ATTRIBUT_SETTING"],
+				       $tablesetting);
+	      unset($tableattrs);
+	      unset($tablesetting);
+	      $tableattrs=array();
+	      $tablesetting=array();
+
+	      $k++;
+	    }
+	  $v=0;
+
+
+	}
+
+
+
+
+
+      // Set the table value elements
+      if ($iattr <= $nattr)	{
+   		  
+	$currentFrameId = $listattr[$i]->fieldSet->id;
+	$tablesetting[$v]["name_attribut"]=$listattr[$i]->id;
+	$tablesetting[$v]["labelText"]=addslashes(str_replace("%","",$listattr[$i]->labelText));
+	$tablesetting[$v]["type"]=base64_encode($listattr[$i]->type);
+	$tablesetting[$v]["visibility"]=$listattr[$i]->visibility;
+	if ($listattr[$i]->needed){
+	  $needed=true;
+	}
+	 
+
+	if ($v==0){
+	  $insert=$listattr[$i]->id;
+	  if ($listattr[$i]->type=="textlist"){
+	    if ($listattr[$i]->needed){
+	      $insert.="+";$tableattrs[$v]["name_attribut"]=$insert;
+	    }
+	    else{
+	      $insert.="*";$tableattrs[$v]["name_attribut"]=$insert;
+	    }
+	    
+	  }
+	  else{
+	    if ($listattr[$i]->needed){
+	      $tableattrs[$v]["name_attribut"]=$insert;
+	    }
+	    else{
+	      $tableattrs[$v]["name_attribut"]=($insert ."?");
+	    }
+	  }
+
+	}
+	else{
+	  $insert=(", " .$listattr[$i]->id);          
+	  if ($listattr[$i]->type=="textlist"){
+	    if ($listattr[$i]->needed){
+	      $insert.="+";
+	    }
+	    else{
+	      $insert.="*";
+	    }
+	    $tableattrs[$v]["name_attribut"]=$insert;
+	  }
+	  else{
+	    if ($listattr[$i]->needed){
+	      $tableattrs[$v]["name_attribut"]=$insert;
+	    }
+	    else{
+	      $tableattrs[$v]["name_attribut"]=($insert ."?");
+	    }
+	  }
+
+        }
+	$v++;
+    
+      }
+
+    }
+ 
+ 
+
+
+    if ($v > 0) // last fieldset
+      {
+	$frames[$k]["name"]=$currentFrameId;
+	if ($needed){
+	  $elements[$k]["name"]=$currentFrameId;
+	}
+	else{
+	  $elements[$k]["name"]=($currentFrameId ."?");
+	}
+	$needed=false;
+	$frames[$k]["ATTRIBUT_NAME"]="ATTRIBUT_NAME_$k";
+	$frames[$k]["ATTRIBUT_SETTING"]="ATTRIBUT_SETTING_$k";
+	$this->lay->SetBlockData($frames[$k]["ATTRIBUT_NAME"],
+				 $tableattrs);
+
+	$this->lay->SetBlockData($frames[$k]["ATTRIBUT_SETTING"],
+				 $tablesetting);
+	unset($tableattrs);
+	unset($tablesetting);
+	$tableattrs=array();
+	$tablesetting=array();
+
+	$k++;
+
+	     	     
+      }
+
+
+
+    $this->lay->SetBlockData("FIELDSET",$frames);
+    $this->lay->SetBlockData("ELEMENT",$elements);
+    return $this->lay->gen();
+  }
   // =====================================================================================
   // ================= methods use for calculated attributes ======================
 

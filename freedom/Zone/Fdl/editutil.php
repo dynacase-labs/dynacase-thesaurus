@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.24 2003/04/07 16:51:12 eric Exp $
+// $Id: editutil.php,v 1.25 2003/04/14 17:02:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -142,13 +142,28 @@ function getHtmlInput(&$doc, &$oattr, $value) {
       //같같같같같같같같같같같같같같같같같같같같
     case "textlist": 
 
-      $input="<textarea $oc class=\"autoresize\" rows=2 name=\"_".
-	$attrid."\" ";
-      $input .= " id=\"".$attrid."\" "; 
+      $input="<select multiple $oc class=\"autoresize\" name=\"_".
+	$attrid."[]\" ";
+      $input .= " id=\"s".$attrid."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-      $input .= " >\n".
-	htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
-	"</textarea>";
+      $input .= " >\n";
+	$topt = explode("\n", $value);
+      
+      while (list($k,$v) = each($topt)) {
+	$input .= "<option value=\"".str_replace("\"","\\\"",$v)."\">$v</option>\n";
+      }
+
+
+      $input .=	"</select>";
+      $input .= "<input type=\"button\" onclick=\"addinlist(document.getElementById('s$attrid'),document.getElementById('$attrid').value)\" value=\"+\">";
+      $input .="<input $oc class=\"autoresize\" type=\"text\"  value=\""."\"";
+    
+      $input .= " id=\"".$attrid."\" "; 
+
+
+      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
+		      
+      $input .= " > "; 
       break;
 		      
       //같같같같같같같같같같같같같같같같같같같같

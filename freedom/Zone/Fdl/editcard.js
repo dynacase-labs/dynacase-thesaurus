@@ -1,4 +1,5 @@
 
+var isNetscape = navigator.appName=="Netscape";
 // auxilarry window to select choice
 var wichoose= false;
 
@@ -173,4 +174,12 @@ function pleaseSave(event) {
   
   return true;
   
+}
+
+
+function addinlist(sel,value) {
+
+  if (isNetscape) pos=null;
+  else pos=sel.options.length+1;
+  sel.add(new Option(value, value, false, true),pos);
 }

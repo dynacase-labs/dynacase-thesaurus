@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.11 2003/02/25 09:55:24 eric Exp $
+// $Id: FDL.app,v 1.12 2003/04/14 17:02:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -121,6 +121,13 @@ $action_desc = array (
    "short_name"		=>N_("lock file to edit"),
    "acl"		=>"EDIT"
   ) ,
+
+  array( 
+   "name"		=>"VIEWXML",
+   "short_name"		=>N_("view xml"),
+   "acl"		=>"NORMAL"
+  ) ,
+
   array( 
    "name"		=>"UNLOCKFILE",
    "short_name"		=>N_("unlock file to discard edit"),

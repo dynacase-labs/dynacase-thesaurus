@@ -1,0 +1,29 @@
+[DTD]
+
+
+
+<[ID_FAM] nom_fam="[NOM_FAM]" title="[TITRE]" id_doc="[id_doc]">
+
+
+[BLOCK FIELDSET]
+
+<[FIELD] titre="[nom_fieldset]">
+
+[BLOCK [ARGUMENT]]
+
+<[id] labelText="[labelText]" >
+[value]
+</[id]>
+
+[ENDBLOCK [ARGUMENT]]
+
+</[FIELD]>
+
+[ENDBLOCK FIELDSET]
+
+</[ID_FAM]>
+
+
+
+
+

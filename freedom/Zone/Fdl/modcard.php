@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.29 2003/04/08 12:44:10 eric Exp $
+// $Id: modcard.php,v 1.30 2003/04/14 17:02:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -98,7 +98,7 @@ function modcard(&$action, &$ndocid) {
 	  
 	  $attrid = substr($k,1);
 	  if (is_array($v)) {
-	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
+	    $value = stripslashes(implode("\n",str_replace("\n","<BR/>",$v)));	    
 	  }
 	  else $value = stripslashes($v);
 

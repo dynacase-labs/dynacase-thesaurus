@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.26 2003/04/07 16:51:12 eric Exp $
+// $Id: popupcard.php,v 1.27 2003/04/14 17:02:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,6 +54,7 @@ function popupcard(&$action) {
 				'editprof',
 				'access',
 				'delete',
+				'toxml',
 
 				'chicon',
 				'chgtitle',
@@ -72,6 +73,7 @@ function popupcard(&$action) {
   $cuf = ($doc->CanUnLockFile() == "");
   $cud = ($doc->CanUpdateDoc() == "");
 
+  popupCtrlActive('popupcard',$kdiv,'toxml'); 
 
   Popupactive('popupcard',$kdiv,'cancel');
   if (($doc->doctype=="C") && ($cud)) {
