@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.2 2002/02/14 18:11:42 eric Exp $
+// $Id: Class.DocUser.php,v 1.3 2002/02/18 10:53:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.2 2002/02/14 18:11:42 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.3 2002/02/18 10:53:59 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -83,8 +83,8 @@ Class DocUser extends Doc
   }
   
   
-  
-  function PostUpdate() {
+  // no in postUpdate method :: call this only if real change (values)
+  function PostModify() {
     $priv=$this->GetValue(QA_PRIVACITY);
     $err="";
 
@@ -303,21 +303,21 @@ Class DocUser extends Doc
 	$this->modify();
       }
 
-    $this->lock();
+      $this->lock();
     break;
     case "R":	
       if ($this->profid != "0") {
 	$this->profid = "0";
 	$this->modify();
       }
-    $this->lock();
+      $this->lock();
     break;
     case "W":	
       if ($this->profid != "0") {
 	$this->profid = "0";
 	$this->modify();
       }
-    $this->unlock();
+      $this->unlock();
     break;
 
     }

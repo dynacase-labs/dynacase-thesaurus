@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.Dir.php,v 1.2 2002/02/18 10:53:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.2 2002/02/18 10:53:59 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -113,12 +113,13 @@ Class Dir extends Doc
   function DelFile($docid ) {
     
     $err="";
-    $qfv = new QueryDirV($this->dbaccess, $this->initid);
+    $qfv = new QueryDirV($this->dbaccess);
 
-    if (!($qfv->isAffected())) $err = sprintf(_("cannot delete link : link not found for doc %d in directory %d"),$docid, $this->initid);
+   
+    $qids = $qfv->getQids($this->initid, $docid);
 
+    if (count($qids) == 0) $err = sprintf(_("cannot delete link : link not found for doc %d in directory %d"),$docid, $this->initid);
     if ($err != "") return $err;
-    $qids = $qfv->getQids($docid);
 
     // search original query
     $qf = new QueryDir($this->dbaccess, $qids[0]);
@@ -129,7 +130,7 @@ Class Dir extends Doc
     if ($qf->qtype != "S") $err = sprintf(_("cannot delete link for doc %d in directory %d : the document comes from a user query. Delete initial query if you want delete this document"),$docid, $this->initid);
   
     if ($err != "") return $err;
-    $qf->Delete();
+        $qf->Delete();
 
   
     $qf->RefreshDir($this->initid);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.3 2002/02/15 13:56:16 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.4 2002/02/18 10:53:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.4  2002/02/18 10:53:59  eric
+// correction chg id_fieds de QueryDirV pour cause cache
+//
 // Revision 1.3  2002/02/15 13:56:16  eric
 // optimisation vitesse pour usercard si beaucoup de personnes
 //
@@ -71,7 +74,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.3 2002/02/15 13:56:16 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.4 2002/02/18 10:53:59 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -81,7 +84,7 @@ Class QueryDirV extends DbObj
 {
   var $fields = array ( "dirid","childid","qid");
 
-  var $id_fields = array ("dirid");
+  var $id_fields = array ("dirid","childid");
 
   var $dbtable = "dirv";
 
@@ -98,6 +101,7 @@ create table dirv ( dirid      int not null,
 
   var $relatedCacheClass= array("Doc"); // class must ne cleaned also in case of modify
 
+  var $isCacheble= true;
   // test if the childid will be inserted in dirid is also an ancestor of dirid
   // it is clear ?
   // to avoid loop in folder tree
@@ -118,13 +122,13 @@ create table dirv ( dirid      int not null,
   }
 
   // --------------------------------------------------------------------
-  function getChildId() {
+  function getChildId($dirid) {
     // return array of document id includes in a directory
   // --------------------------------------------------------------------
 
     $tableid = array();
     $query = new QueryDb($this->dbaccess,"QueryDirV");
-    $query -> AddQuery("dirid=".$this->dirid);
+    $query -> AddQuery("dirid=".$dirid);
     $tableq=$query->Query();
     if ($query->nb > 0)
       {
@@ -140,15 +144,16 @@ create table dirv ( dirid      int not null,
   }
 
   // --------------------------------------------------------------------
-  function getQids($docid) {
+  function getQids($dirid, $docid) {
     // return array of document id includes in a directory
   // --------------------------------------------------------------------
 
     $tableid = array();
     $query = new QueryDb($this->dbaccess,"QueryDirV");
-    $query -> AddQuery("dirid=".$this->dirid);
+    $query -> AddQuery("dirid=".$dirid);
     $query -> AddQuery("childid=".$docid);
     $tableq=$query->Query();
+
     if ($query->nb > 0)
       {
 	while(list($k,$v) = each($tableq)) 
@@ -312,6 +317,19 @@ create table dirv ( dirid      int not null,
 
 
     return(array());
+  }
+
+  function deleteDirV($dirid) {
+    $query = new QueryDb($this->dbaccess,"QueryDirV");
+    $query -> AddQuery("dirid=".$dirid);
+    $loqdv= $query->Query();
+    
+    
+      if ($query->nb > 0) {
+	while(list($k,$oqdv) = each($loqdv)) {
+	  $oqdv->delete();
+	}      
+      }
   }
 }
 ?>

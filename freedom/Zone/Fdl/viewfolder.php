@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.2 2002/02/15 13:56:16 eric Exp $
+// $Id: viewfolder.php,v 1.3 2002/02/18 10:53:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -97,7 +97,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     $oqd->RefreshDir($dirid);
   }
 
-  $oqdv=new QueryDirV($dbaccess,$dirid );
+  $oqdv=new QueryDirV($dbaccess );
   if ($dirid == "")  {
     $action->exitError(_("cannot see unknow folder"));
     //     $ldoc = $oqdv->getAllDoc($dirid);

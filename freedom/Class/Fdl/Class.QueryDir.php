@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.2 2002/02/14 18:11:42 eric Exp $
+// $Id: Class.QueryDir.php,v 1.3 2002/02/18 10:53:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDir.php,v $
+// Revision 1.3  2002/02/18 10:53:59  eric
+// correction chg id_fieds de QueryDirV pour cause cache
+//
 // Revision 1.2  2002/02/14 18:11:42  eric
 // ajout onglet et autres...
 //
@@ -53,7 +56,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.2 2002/02/14 18:11:42 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.3 2002/02/18 10:53:59 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -122,7 +125,7 @@ create sequence seq_id_qdoc start 10";
 	    $oqdv->childid = $v["id"];
 	    $oqdv->qid = $this->id;
 	    $err = "";
-	    if ($dir->doctype == 'D') $err = $oqdv->ItSelfAncestor();
+	    if ($dir->doctype == 'D') $err = $oqdv->ItSelfAncestor($dir->initid);
 	    $this->log->Debug("oqdv try add ".$v["id"].$dir->doctype.$err);
 	    if ($err == "") $err = $oqdv->Add();
 	    if ($err != "") return $err;
@@ -138,8 +141,8 @@ create sequence seq_id_qdoc start 10";
     {
       // refresh values of QueryDirV table
       $dir = new Doc($this->dbaccess,$dirid);// use initial id for directories
-      $oqdv = new QueryDirV($this->dbaccess,$dir->initid);
-      $oqdv-> Delete();
+      $oqdv = new QueryDirV($this->dbaccess);
+      $oqdv-> DeleteDirV($dir->initid);
 
 
       $this->ClearCache(true); // clear cache to not have the same result
@@ -184,8 +187,8 @@ create sequence seq_id_qdoc start 10";
     {
       // refresh values of QueryDirV table
       $dir = new Doc($this->dbaccess,$dirid);// use initial id for directories
-      $oqdv = new QueryDirV($this->dbaccess,$dir->initid);
-      $oqdv-> Delete();
+      $oqdv = new QueryDirV($this->dbaccess);
+      $oqdv-> DeleteDirV($dir->initid);
 
       $querydir = new QueryDb($this->dbaccess,"QueryDir");
       $querydir->AddQuery("dirid=$dirid");
