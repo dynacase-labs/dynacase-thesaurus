@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Incident.php,v 1.4 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.Incident.php,v 1.5 2004/01/14 17:28:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Incident.php,v 1.4 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.Incident.php,v 1.5 2004/01/14 17:28:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.Incident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,8 +36,12 @@
 
 
 
+var $cviews=array("INCIDENT:VIEWABSTRACTCARD",
+		  "INCIDENT:INCIDENT_MAILRECORD:S",
+		  "INCIDENT:INCIDENT_MAILTRAITED:S");
+var $eviews=array("USERCARD:EDITUSERCARD");
   
-  var $defaultabstract= "INCIDENT:VIEWABSTRACTCARD";
+var $defaultabstract= "INCIDENT:VIEWABSTRACTCARD";
   
 // -----------------------------------
 function viewabstractcard($target="finfo",$ulink=true,$abstract="Y") {
@@ -96,6 +100,26 @@ function SpecRefresh() {
     $this->setValue("IN_LOCKER",$user->firstname." ".$user->lastname);
   } else $this->setValue("IN_LOCKER", " ");
 
+
+
+  // refresh contrat latest
+  if (( $idc=$this->getValue("IN_IDCONTRACT")) > 0) {
+    $doc = new Doc($this->dbaccess, $idc);
+    
+    if ($doc->locked == -1) { // get latest contract
+      $doc= new Doc($this->dbaccess, $doc->latestId());
+      $this->setValue("IN_IDCONTRACT", $doc->id);
+    }
+
+    // search technical responsable
+    $respid=$doc->getValue("CO_IDCLT1");
+    if ($respid > 0) {
+      $resp=new Doc($this->dbaccess, $respid);
+      $this->setValue("IN_IDRTECH", $resp->id);
+      $this->setValue("IN_RTECHMAIL", "responsable technique <".$resp->getValue("US_MAIL").">");
+      $this->setValue("IN_RTECHNAME", $resp->title);
+    }
+  }
 }
 
 
@@ -120,7 +144,7 @@ function incident_mailrecord($target="_self",$ulink=true,$abstract=false) {
   }
   $this->lay->set("title", stripslashes($this->GetValue( "IN_TITLE")));
   $this->lay->set("ref", $this->initid);
-  $this->lay->set("date", $sdate);
+  $this->lay->set("date", $this->GetValue( "IN_CREATEDATE"));
   $this->lay->set("contactname",$this->GetValue( "IN_CALLNAME"));
   $this->lay->set("contract",$this->GetValue("IN_CONTRACT"));
   $this->lay->set("site",$this->GetValue("IN_SITE"));
