@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.2 2002/02/14 18:11:42 eric Exp $
+// $Id: enum_choice.php,v 1.3 2002/03/14 14:56:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,7 +58,7 @@ function enum_choice(&$action) {
   $rargids = split(",",$reg[3]); // return args
   
   $sattrid="[";
-  $sattrid.= implode(",", $rargids);
+  $sattrid.= "'".implode("','", $rargids)."'";
   $sattrid.="]";
 
   $argids = split(",",$reg[2]);  // input args
@@ -66,9 +66,8 @@ function enum_choice(&$action) {
     if ($v == "A") $arg[$k]= &$action;
     else if ($v == "D") $arg[$k]= $dbaccess;
     else if ($v == "T") $arg[$k]= &$this;
-    else $arg[$k]= GetHttpVars($v,"");
+    else $arg[$k]= GetHttpVars("_".$v,"");
   }
-
   $res = call_user_func_array($reg[1], $arg);
 
 
@@ -77,7 +76,7 @@ function enum_choice(&$action) {
    while (list($k, $v) = each($res)) {
      while (list($k2, $v2) = each($v)) {
        // not for the title
-       if ($k2>0) $res[$k][$k2]=addslashes($v2); // because JS array 
+       if ($k2>0) $res[$k][$k2]=addslashes(str_replace("\n"," ",$v2)); // because JS array 
      }
    }
 

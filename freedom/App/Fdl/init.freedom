@@ -3,18 +3,17 @@ BEGIN;0;[famille];1;DocFile;;;;;;;
 TYPE;C;;;;;;;;;;
 ;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
-ATTR;2;;basique;N;N;frame;0;W;;;
-ATTR;1;2;titre;Y;N;text;1;W;;;
-1;[titre];famille de base;;;;;;;;;
+ATTR;FR_BASIC;;basique;N;N;frame;0;W;;;
+ATTR;CO_TITLE;FR_BASIC;titre;Y;N;text;1;W;;;
+CO_TITLE;[titre];famille de base;;;;;;;;;
 END;0;-1;;;;;;;;;
 // famille dossier;;;id;class;;;;;;;
 BEGIN;1;[famille];2;Dir;;;;;;;
 TYPE;C;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
-ATTR;10;2;description;N;Y;text;;W;;;
-1;[titre];famille dossier;;;;;;;;;
+ATTR;CO_DESC;FR_BASIC;description;N;Y;text;;W;;;
+CO_TITLE;[titre];famille dossier;;;;;;;;;
 END;1;-1;;;;;;;;;
-;;;;;;;;;;;
 ;;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre;;;;;;;
 DOC;2;9;;racine;;;;;;;
@@ -24,12 +23,12 @@ DOC;2;10;9;non classé;;;;;;;
 BEGIN;1;[famille];5;DocSearch;;;;;;;
 TYPE;C;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
-ATTR;29;;critère;N;N;frame;;W;;;
-ATTR;20;29;mot-clef;N;Y;text;;W;;;
-ATTR;21;29;dernière révision;N;Y;text;;W;;;
-ATTR;22;29;différence majuscule/minuscule;N;Y;text;;W;;;
-ATTR;23;29;dans le dossier;N;Y;text;;W;;;
-1;[titre];famille recherche;;;;;;;;;
+ATTR;SE_CRIT;;critère;N;N;frame;;W;;;
+ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;;W;;;
+ATTR;SE_LATEST;SE_CRIT;dernière révision;N;Y;text;;W;;;
+ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;Y;text;;W;;;
+ATTR;SE_CFLD;SE_CRIT;dans le dossier;N;Y;text;;W;;;
+CO_TITLE;[titre];famille recherche;;;;;;;;;
 END;1;9;;;;;;;;;
 ;;;;;;;;;;;
 //SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;
@@ -41,19 +40,19 @@ SEARCH;13;9;les maisons;select id from doc where owner < 0;;;;;;;
 BEGIN;1;[famille];3;DocFile
 USEFORPROF;;;;
 TYPE;C;;;
-1;[titre];famille profile de document;;
+CO_TITLE;[titre];famille profile de document;;
 END;1;9;;
 ;;;;
 // famille profile dossier;;;;
 BEGIN;2;[famille];4;Dir
 USEFORPROF;;;;
 TYPE;C;;;
-1;[titre];famille profile de dossier;;
+CO_TITLE;[titre];famille profile de dossier;;
 END;1;9;;
 ;;;;
 // famille profile recherche;;;;
 BEGIN;5;[famille];6;DocSearch
 USEFORPROF;;;;
 TYPE;C;;;
-1;[titre];famille profile de recherche;;
+CO_TITLE;[titre];famille profile de recherche;;
 END;1;9;;

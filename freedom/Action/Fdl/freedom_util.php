@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.4 2002/03/06 17:25:10 eric Exp $
+// $Id: freedom_util.php,v 1.5 2002/03/14 14:56:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,10 +37,10 @@ function GetSqlCond($Table, $column)
   $sql_cond="";
   if (count($Table) > 0)
     {
-      $sql_cond = "(($column = $Table[0]) ";
+      $sql_cond = "(($column = '$Table[0]') ";
       for ($i=1; $i< count($Table); $i++)
 	{
-	  $sql_cond = $sql_cond."OR ($column = $Table[$i]) ";
+	  $sql_cond = $sql_cond."OR ($column = '$Table[$i]') ";
 	}
       $sql_cond = $sql_cond.")";
     }

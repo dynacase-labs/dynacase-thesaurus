@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.2 2002/02/19 11:11:02 eric Exp $
+// $Id: viewcard.php,v 1.3 2002/03/14 14:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -292,55 +292,4 @@ function viewcard(&$action) {
 }
 
 
-// -----------------------------------
-  function urlWhatEncode(&$action, $link, $docid) {
-// -----------------------------------
-
-    
-    $dbaccess = $action->GetParam("FREEDOM_DB");
-    $urllink="";
-    for ($i=0; $i < strlen($link); $i++) {
-      if ($link[$i] != "%") $urllink.=$link[$i];
-      else {
-	$i++;
-	switch ($link[$i]) {
-	case 1:
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-	case 6:
-	case 7:
-	case 8:
-	case 9:
-
-	  $sattrid="";
-	  while (($link[$i] >= '0') && ($link[$i] <= '9')) {
-	    $sattrid.=$link[$i];
-	    $i++;
-	  }
-	  //	  print "attr=$sattrid";
-
-	  $ovalue = new DocValue($dbaccess,array($docid,$sattrid));
-	  $urllink.=$ovalue->value;
-	  $i--;
-	  break;
-	case "B": // baseurl	  
-	  $urllink.=$action->GetParam("CORE_BASEURL");
-
-	  break;
-	case "S": // standurl	  
-	  $urllink.=$action->GetParam("CORE_STANDURL");
-
-	  break;
-	 default:
-	  print "NOT $link[$i]<BR>";
-	  break;
-	}
-      }
-    }
-
-    return ($urllink);
-
-  }
 ?>

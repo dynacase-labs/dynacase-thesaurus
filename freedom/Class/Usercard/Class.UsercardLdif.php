@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardLdif.php,v 1.3 2002/03/12 09:55:12 eric Exp $
+// $Id: Class.UsercardLdif.php,v 1.4 2002/03/14 14:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardLdif.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -19,9 +19,12 @@
 //
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+// 59 Temple Place, Suite 330, Boston, MA 0US_SOCIETY1-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.UsercardLdif.php,v $
+// Revision 1.4  2002/03/14 14:56:55  eric
+// evolution de incident
+//
 // Revision 1.3  2002/03/12 09:55:12  eric
 // correction pour vcard & ldap
 //
@@ -43,10 +46,10 @@ Class UsercardLdif
 {
   var $import = array(
 		      // Person Class
-		      "sn"                              => "201",
+		      "sn"                              => "US_LNAME",
 		      "cn"                              => "",
 		      "userPassword"                    => "",
-		      "telephonenumber"                 => "206",
+		      "telephonenumber"                 => "US_PHONE",
 		      
 		      // organizationalPerson
 		      "title"           		=> "", 
@@ -57,37 +60,37 @@ Class UsercardLdif
 		      "telexNumber"                     => "", 
 		      "telexTerminalIdentifier"         => "", 
 		      "internationaliSDNNumner"         => "", 
-		      "facsimiletelephonenumber"        => "210",
+		      "facsimiletelephonenumber"        => "US_FAX",
 		      "street"                          => "",
 		      "postOfficeBox"                   => "",
-		      "postalcode"                      => "213",
-		      "postalAddress"                   => "212",
+		      "postalcode"                      => "US_WORKPOSTALCODE",
+		      "postalAddress"                   => "US_WORKADDR",
 		      "physicalDeliveryOfficeName"      => "",
 		      "ou"                              => "",
 		      "st"                              => "",
-		      "l"                               => "214",
+		      "l"                               => "US_WORKTOWN",
 		      
 		      // InetOrgPerson
 		      "audio"                           => "",
 		      "businessCategory"                => "",
 		      "carLicense"                      => "",
-		      "departmentNumber"                => "228",
+		      "departmentNumber"                => "US_SERV",
 		      "displayName"                     => "",
-		      "employeeNumber"                  => "220",
+		      "employeeNumber"                  => "US_MATRICULE",
 		      "employeeType"                    => "",
-		      "givenName"                       => "202",
-		      "homePhone"                       => "225",
+		      "givenName"                       => "US_FNAME",
+		      "homePhone"                       => "US_HOMEPHONE",
 		      "homePostalAddress"               => "",
 		      "Initials"                        => "",
-		      "jpegPhoto"                       => "203",
-		      "labeledURI"                      => "215",
-		      "mail"                            => "205",
+		      "jpegPhoto"                       => "US_PHOTO",
+		      "labeledURI"                      => "US_WORKWEB",
+		      "mail"                            => "US_MAIL",
 		      "manager"                         => "",
-		      "mobile"                          => "207",
-		      "o"                               => "211",
+		      "mobile"                          => "US_MOBILE",
+		      "o"                               => "US_SOCIETY",
 		      "pager"                           => "",
 		      "photo"                           => "",
-		      "roomNumber"                      => "223",
+		      "roomNumber"                      => "US_LOCALISATION",
 		      "secretary"                       => "",
 		      "uid"                             => "",
 		      "userCertificate"                 => "",

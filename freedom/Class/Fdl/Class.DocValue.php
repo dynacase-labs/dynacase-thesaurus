@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocValue.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.DocValue.php,v 1.2 2002/03/14 14:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocValue.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocValue.php,v $
+// Revision 1.2  2002/03/14 14:56:55  eric
+// evolution de incident
+//
 // Revision 1.1  2002/02/13 14:31:58  eric
 // ajout usercard application
 //
@@ -39,7 +42,7 @@
 //
 //
 // ---------------------------------------------------------------
-$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.2 2002/03/14 14:56:55 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -50,7 +53,7 @@ include_once('Class.Log.php');
 
 Class Docvalue extends DbObj
 {
-  var $fields = array ( "docid","attrid","value");
+  var $fields = array ( "docid","attrid","value","zou");
 
   var $id_fields = array ("docid", "attrid");
 
@@ -61,9 +64,10 @@ Class Docvalue extends DbObj
   var $fulltextfields = array ( "docid","attrid","value");
 
   var $sqlcreate = "
-create table docvalue ( docid      int not null,
-                        attrid int not null,
-                        value  varchar(256)
+create table docvalue ( docid  int not null,
+                        attrid varchar(20) not null,
+                        value  varchar(256),
+                        zou varchar(1)
                    ); ";
 
   // --------------------------------------------------------------------
@@ -73,7 +77,7 @@ create table docvalue ( docid      int not null,
     $query = new QueryDb($this->dbaccess, "Docvalue");
 
 
-        $query->basic_elem->sup_where=array ("attrid = ".$this->attrid,
+        $query->basic_elem->sup_where=array ("attrid = '".$this->attrid."'",
     				 "docid = ".$this->docid);
     
     $query->Query();

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.4 2002/02/22 15:34:54 eric Exp $
+// $Id: Class.DocUser.php,v 1.5 2002/03/14 14:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.4 2002/02/22 15:34:54 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.5 2002/03/14 14:56:55 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -30,11 +30,11 @@ include_once("FDL/Class.UsercardLdif.php");
 
 
 define('TOP_USERDIR', 121); // user top folder
-define('QA_PRIVACITY', 216); // privacity attribute
-define('QA_URI', 215); // URI attribute
-define('QA_MAIL', 205); // MAIL attribute
-define('QA_FNAME', 202); // First name attribute
-define('QA_LNAME', 201); // Last name attribute
+define('QA_PRIVACITY', "US_PRIVCARD"); // privacity attribute
+define('QA_URI', "US_WORKWEB"); // URI attribute
+define('QA_MAIL', "US_MAIL"); // MAIL attribute
+define('QA_FNAME', "US_FNAME"); // First name attribute
+define('QA_LNAME', "US_LNAME"); // Last name attribute
 define('FAM_DOCUSER', 120); // URI attribute
 
 Class DocUser extends Doc

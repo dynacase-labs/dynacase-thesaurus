@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocIncident.php,v 1.2 2002/03/01 09:36:42 eric Exp $
+// $Id: Class.DocIncident.php,v 1.3 2002/03/14 14:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.DocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.2 2002/03/01 09:36:42 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.3 2002/03/14 14:56:55 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -55,6 +55,7 @@ define ("analyzed", "analyzed");   # N_("analyzed")
 define ("traited", "traited");     # N_("traited")
 define ("rejected", "rejected");   # N_("rejected")
 define ("closed", "closed");       # N_("closed")
+define ("suspended", "suspended");       # N_("suspended")
 
 Class DocIncident extends Doc
 {
@@ -97,10 +98,35 @@ Class DocIncident extends Doc
 			  array("e1"=>recorded,
 				"e2"=>qualified,
 				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),			  
+
+			  array("e1"=>recorded,
+				"e2"=>rejected,
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
+			  array("e1"=>recorded,
+				"e2"=>suspended,
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
+			  array("e1"=>recorded,
+				"e2"=>traited,
+				"m1"=>"controlTrans",
 				"m2"=>"changeTransProfil"),
 
 			  array("e1"=>qualified,
 				"e2"=>analyzed,
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
+			  array("e1"=>qualified,
+				"e2"=>suspended,
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
+			  array("e1"=>qualified,
+				"e2"=>traited,
 				"m1"=>"controlTrans",
 				"m2"=>"changeTransProfil"),
 
@@ -109,8 +135,8 @@ Class DocIncident extends Doc
 				"m1"=>"controlTrans",
 				"m2"=>"changeTransProfil"),
 
-			  array("e1"=>traited,
-				"e2"=>closed, 
+			  array("e1"=>analyzed,
+				"e2"=>suspended,
 				"m1"=>"controlTrans",
 				"m2"=>"changeTransProfil"),
 
@@ -119,13 +145,43 @@ Class DocIncident extends Doc
 				"m1"=>"controlTrans",
 				"m2"=>"changeTransProfil"),
 
+			  array("e1"=>qualified,
+				"e2"=>suspended,
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
+			  array("e1"=>qualified,
+				"e2"=>traited,
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
 			  array("e1"=>traited,
 				"e2"=>analyzed,
 				"m1"=>"controlTrans",
 				"m2"=>"changeTransProfil"),
 
+			  array("e1"=>traited,
+				"e2"=>closed, 
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
 			  array("e1"=>analyzed,
 				"e2"=>qualified,
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
+			  array("e1"=>suspended,
+				"e2"=>traited, 
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
+			  array("e1"=>suspended,
+				"e2"=>analyzed, 
+				"m1"=>"controlTrans",
+				"m2"=>"changeTransProfil"),
+
+			  array("e1"=>suspended,
+				"e2"=>qualified, 
 				"m1"=>"controlTrans",
 				"m2"=>"changeTransProfil"));
 				    
@@ -156,7 +212,7 @@ Class DocIncident extends Doc
       $this->profid=111;
     $oval = new DocValue($this->dbaccess, array($this->id, 165));
     $mail =  $oval->value; // send mail to client
-    $this->refresh();
+
     $oval = new DocValue($this->dbaccess, array($this->id, 187));
     $ref =  $oval->value; 
 

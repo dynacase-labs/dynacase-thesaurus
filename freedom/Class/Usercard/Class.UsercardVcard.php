@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.4 2002/03/06 17:20:36 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.5 2002/03/14 14:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -19,7 +19,7 @@
 //
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+// 59 Temple Place, Suite 330, Boston, MA 0US_SOCIETY1-1307 USA
 // ---------------------------------------------------------------
 
 
@@ -29,9 +29,9 @@ Class UsercardVcard
   var $import = array(
 		      "FN" => "",
 
-		      "N" => "201;202",
-		      "N;GIVEN" => "202",
-		      "N;FAMILY"=> "201",		
+		      "N" => "US_LNAME;US_FNAME",
+		      "N;GIVEN" => "US_FNAME",
+		      "N;FAMILY"=> "US_LNAME",		
 		      "N;MIDDLE" => "",
 		      "N;PREFIX" => "",
 		      "N;SUFFIX" => "",
@@ -40,26 +40,26 @@ Class UsercardVcard
 		      "NOTE" => "",
 		      "TZ" => "",
 		      "GEO" => "",
-		      "URL" => "215",
-		      "URL;WORK" => "215",
+		      "URL" => "US_WORKWEB",
+		      "URL;WORK" => "US_WORKWEB",
 		      "PUBKEY" => "",
-		      "ORG" => "211",
-		      "ORG;NAME" => "211",
+		      "ORG" => "US_SOCIETY",
+		      "ORG;NAME" => "US_SOCIETY",
 		      "ORG;UNIT" => "",
 		      "TITLE" => "",
 			
 		      "ADR;TYPE;WORK" => "",
 		      "ADR;TYPE;HOME" => "",
 		      "TEL;PREFER" => "",
-		      "EMAIL;INTERNET" => "205",
-		      "EMAIL;INTERNET;WORK" => "205",
+		      "EMAIL;INTERNET" => "US_MAIL",
+		      "EMAIL;INTERNET;WORK" => "US_MAIL",
 		      "EMAIL;INTERNET;HOME" => "",
 			
-		      "ADR;WORK" => "0;0;212;214;0;213",
-		      "ADR;WORK;STREET" => "212",
-		      "ADR;WORK;LOCALITY" => "214", 
+		      "ADR;WORK" => "0;0;US_WORKADDR;US_WORKTOWN;0;US_WORKPOSTALCODE",
+		      "ADR;WORK;STREET" => "US_WORKADDR",
+		      "ADR;WORK;LOCALITY" => "US_WORKTOWN", 
 		      "ADR;WORK;REGION" => "", 
-		      "ADR;WORK;POSTALCODE" => "213",
+		      "ADR;WORK;POSTALCODE" => "US_WORKPOSTALCODE",
 		      "ADR;WORK;COUNTRYNAME" => "",
 		      "EXT" => "",
 		      "LABEL" => "",
@@ -71,12 +71,12 @@ Class UsercardVcard
 		      "ADR;HOME;POSTALCODE" => "322",
 		      "ADR;HOME;COUNTRYNAME" => "",
 			
-		      "TEL;WORK" => "206",
+		      "TEL;WORK" => "US_PHONE",
 		      "TEL;HOME" => "",
 		      "TEL;VOICE" => "",
-		      "TEL;FAX" => "210",
+		      "TEL;FAX" => "US_FAX",
 		      "TEL;MSG" => "",
-		      "TEL;CELL" => "207",
+		      "TEL;CELL" => "US_MOBILE",
 		      "TEL;PAGER" => "",
 		      "TEL;BBS" => "",
 		      "TEL;MODEM" => "",

@@ -114,7 +114,7 @@ function completechoices() {
     for (c=0; c< senum.length; c++) {
       if (senum.options[c].selected) {
 	index= senum.options[c].value;
-	for (i=0; i< tattrid.length; i++) {	 
+	for (i=0; i< tattrid.length; i++) {
 	  with (winfo.document.getElementById(tattrid[i])) {
 	    if (tattrv[index][i] != "") {
 	      cvalues[i] += tattrv[index][i];

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.4 2002/03/08 14:44:49 eric Exp $
+// $Id: editcard.php,v 1.5 2002/03/14 14:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -225,7 +225,8 @@ function editcard(&$action) {
       	  
 	  if ($listattr[$i]->visibility == "H") {
 	    // special case for hidden values
-	    $thidden[$ih]["hname"]= $listattr[$i]->id;
+	    $thidden[$ih]["hname"]= "_".$listattr[$i]->id;
+	    $thidden[$ih]["hid"]= $listattr[$i]->id;
 	    $thidden[$ih]["hvalue"]=chop(htmlentities($value));
 	    $ih++;
 	  } else {
@@ -255,7 +256,7 @@ function editcard(&$action) {
 	      $tableframe[$v]["inputtype"] .= "\">";
 
 	      // input 
-	      $tableframe[$v]["inputtype"] .="<input accept=\"image\" size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+	      $tableframe[$v]["inputtype"] .="<input accept=\"image\" size=15 type=\"file\" name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " > "; 
@@ -274,7 +275,7 @@ function editcard(&$action) {
 		$tableframe[$v]["inputtype"] = "<span class=\"FREEDOMText\">".$fname."</span><BR>";
 
 		// input 
-		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
 		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 		$tableframe[$v]["inputtype"] .= " > "; 
@@ -282,7 +283,7 @@ function editcard(&$action) {
 
 		//같같같같같같같같같같같같같같같같같같같같
 	      case "longtext": 
-		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
+		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"_".
 		   $listattr[$i]->id."\" ";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
@@ -292,7 +293,7 @@ function editcard(&$action) {
 	      break;
 	      //같같같같같같같같같같같같같같같같같같같같
 	      case "textlist": 
-		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
+		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"_".
 		   $listattr[$i]->id."\" ";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
@@ -305,19 +306,19 @@ function editcard(&$action) {
 	      //같같같같같같같같같같같같같같같같같같같같
 
 	      case "enum": 
-		$tableframe[$v]["inputtype"]="<input type=\"text\"  name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+		$tableframe[$v]["inputtype"]="<input type=\"text\"  name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " > "; 
 	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
 		 _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
-		 ",".$listattr[$i]->id.",'single')\">";
+		 ",'".$listattr[$i]->id."','single')\">";
 	      break;      
 		
 	      //같같같같같같같같같같같같같같같같같같같같
 
 	      case "enumlist": 
-		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
+		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"_".
 		   $listattr[$i]->id."\" ";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
@@ -326,13 +327,13 @@ function editcard(&$action) {
 		 "</textarea>";
 	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
 		 _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
-		 ",".$listattr[$i]->id.",'multiple')\">";
+		 ",'".$listattr[$i]->id."','multiple')\">";
 	      break;
 
 
 	      //같같같같같같같같같같같같같같같같같같같같
 	      default : 
-		$tableframe[$v]["inputtype"]="<input  type=\"text\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
+		$tableframe[$v]["inputtype"]="<input  type=\"text\" name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      

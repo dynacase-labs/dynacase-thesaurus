@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.7 2002/03/08 14:47:28 eric Exp $
+// $Id: Class.Doc.php,v 1.8 2002/03/14 14:56:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.7 2002/03/08 14:47:28 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.8 2002/03/14 14:56:54 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -34,11 +34,11 @@ include_once("FDL/Class.DocValue.php");
 
 
 // define constant for search attributes in concordance with the file "init.freedom"
-define ("QA_TITLE", 1);
-define ("QA_KEY",  20);
-define ("QA_LAST", 21);
-define ("QA_CASE", 22);
-define ("QA_FROM", 23);
+define ("QA_TITLE", "CO_TITLE");
+define ("QA_KEY",  "SE_KEY");
+define ("QA_LAST", "SE_LATEST");
+define ("QA_CASE", "SE_CASE");
+define ("QA_FROM", "SE_CFLD");
 
 
 define ("FAM_BASE", 1);
@@ -501,7 +501,7 @@ create sequence seq_id_doc start 1000";
 
       $sql_cond_doc = GetSqlCond(array_merge($this->fathers,$this->initid), "docid");
       $query->AddQuery($sql_cond_doc);
-      $query->AddQuery ("id=$idAttr");
+      $query->AddQuery ("id='$idAttr'");
     
       $table1 = $query->Query();
 
@@ -530,25 +530,8 @@ create sequence seq_id_doc start 1000";
 	if ($v->id==$idAttr) return $v;
       }
 
-	  return "unknow attribute";
+      return "unknow attribute";
 
-      $query = new QueryDb($this->dbaccess,"DocAttr");
-
-      $sql_cond_doc = GetSqlCond(array_merge($this->fathers,$this->initid), "docid");
-      $query->AddQuery($sql_cond_doc);
-      $query->AddQuery ("id=$idAttr");
-    
-      $table1 = $query->Query();
-
-     
-      if ($query->nb > 0)
-	{
-	  return $table1[0];
-	}
-      else
-	{
-	  return "unknow attribute";
-	}
     }
 
   // return all the attributes object 
@@ -608,6 +591,7 @@ create sequence seq_id_doc start 1000";
 
   // recompute the title from attribute values
   function RefreshTitle() {
+
     $ltitle = $this->GetTitleAttributes();
 
     $title1 = "";
@@ -856,39 +840,35 @@ create sequence seq_id_doc start 1000";
       if ($link[$i] != "%") $urllink.=$link[$i];
       else {
 	$i++;
-	switch ($link[$i]) {
-	case 1:
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-	case 6:
-	case 7:
-	case 8:
-	case 9:
+	if ($link[$i+1] == "%") { 
+	  // special link
+	    
+	    switch ($link[$i]) {
+	    case "B": // baseurl	  
+	      $urllink.=$action->GetParam("CORE_BASEURL");
+	      
+	      break;
+	    case "S": // standurl	  
+	      $urllink.=$action->GetParam("CORE_STANDURL");
+
+	      break;
+	    default:
+	      print "NOT $link<BR>";
+	      break;
+	    }
+	  $i++; // skip end '%'
+	} else {
 
 	  $sattrid="";
-	  while (($link[$i] >= '0') && ($link[$i] <= '9')) {
-	    $sattrid.=$link[$i];
+	  while ($link[$i] != "%" ) {
+	    $sattrid.= $link[$i];
 	    $i++;
 	  }
 	  //	  print "attr=$sattrid";
 
 	  $ovalue = new DocValue($dbaccess,array($this->id,$sattrid));
 	  $urllink.=$ovalue->value;
-	  $i--;
-	  break;
-	case "B": // baseurl	  
-	  $urllink.=$action->GetParam("CORE_BASEURL");
-
-	  break;
-	case "S": // standurl	  
-	  $urllink.=$action->GetParam("CORE_STANDURL");
-
-	  break;
-	 default:
-	  print "NOT $link[$i]<BR>";
-	  break;
+	  
 	}
       }
     }
@@ -972,7 +952,7 @@ create sequence seq_id_doc start 1000";
   
   
   // --------------------------------------------------------------------
-  function ChangeState ($newstate) {
+  function ChangeState ($newstate, $addcomment="") {
 
     if ($this->state == $newstate) return ""; // no change => no action
     // search if possible change in concordance with transition array
@@ -1009,8 +989,11 @@ create sequence seq_id_doc start 1000";
     $this->state = $newstate;
     $err = $this->modify();
     if ($err != "") return $err;
+    
+    $revcomment = sprintf(_("change state to %s"), _($newstate));
+    if ($addcomment != "") $revcomment.= "\n".$addcomment;
 
-    $this->AddRevision(sprintf(_("change state to %s"), $newstate));
+    $this->AddRevision($revcomment);
 
     // post action
     if ($tr["m2"] != "") {

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.DocAttr.php,v 1.2 2002/03/14 14:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocAttr.php,v $
+// Revision 1.2  2002/03/14 14:56:55  eric
+// evolution de incident
+//
 // Revision 1.1  2002/02/13 14:31:58  eric
 // ajout usercard application
 //
@@ -55,7 +58,7 @@
 //
 // ---------------------------------------------------------------
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.2 2002/03/14 14:56:55 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -73,10 +76,10 @@ Class Docattr extends DbObj
   var $fulltextfields = array ("labeltext");
 
   var $sqlcreate = "
-create table docattr ( id      int not null,
+create table docattr ( id      varchar(20) not null,
                      primary key (id),
                      docid int not null,
-                     FrameId  varchar(60),
+                     FrameId  varchar(20),
                      LabelText varchar(60),
                      Title  varchar(1),
                      Abstract  varchar(1),
@@ -84,9 +87,9 @@ create table docattr ( id      int not null,
                      ordered int,
                      visibility varchar(1),
                      link varchar(256),
-                     phpfile varchar(128),
-                     phpfunc varchar(64),
-                     todefine int
+                     phpfile varchar(64),
+                     phpfunc varchar(128),
+                     todefine varchar(20)
                    );
 create sequence seq_id_docattr start 1000";
 

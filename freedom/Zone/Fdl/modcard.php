@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.2 2002/02/14 18:11:42 eric Exp $
+// $Id: modcard.php,v 1.3 2002/03/14 14:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,11 +92,11 @@ function modcard(&$action, &$ndocid) {
     {
       //print $k.":".$v."<BR>";
 
-      if (is_int($k)) // freedom attributes are identified by a number
+      if ($k[0] == "_") // freedom attributes  begin with  _
 	{
 	    $oattr=new DocAttr($dbaccess, array($docid,$k));
 	  
-	    $bdvalue->attrid = $k;
+	    $bdvalue->attrid = substr($k,1);
 	    $bdvalue->value = $v;
 	    if ($v != "") $bdvalue ->Modify(); // only affected value
 	    if ($v == " ") $bdvalue ->Delete();	//($bdvalue->value != "")) { // or reset value
@@ -111,8 +111,9 @@ function modcard(&$action, &$ndocid) {
   // update POSGRES files values
   while(list($k,$v) = each($HTTP_POST_FILES) )
     {
-      if (is_int($k)) // freedom attributes are identified by a number
+      if ($k[0] == "_") // freedom attributes  begin with  _
 	{	  
+	  $k=substr($k,1);
 	  $oattr=new DocAttr($dbaccess, array($docid,$k));
 	  
 	  $filename=insert_file($dbaccess,$docid,$k);
@@ -121,8 +122,8 @@ function modcard(&$action, &$ndocid) {
 	  
 	  if ($filename != "")
 	    {
-	      $bdvalue->value=$filename;
 	      $bdvalue->attrid = $k;
+	      $bdvalue->value=$filename;
 	      $bdvalue ->Modify();
 	    
 	      
@@ -154,6 +155,7 @@ function modcard(&$action, &$ndocid) {
     //$ofreedom->SetControl();
   }
   $ofreedom->lmodify='Y'; // locally modified
+    $ofreedom->refresh();
   $err=$ofreedom-> Modify();
   
 
@@ -161,7 +163,8 @@ function modcard(&$action, &$ndocid) {
 
     // change state if needed
     $newstate=GetHttpVars("newstate","");
-    if ($newstate != "") $err = $ofreedom->ChangeState($newstate);
+    $comment=GetHttpVars("comment","");
+    if ($newstate != "") $err = $ofreedom->ChangeState($newstate,$comment );
     $ndocid = $ofreedom->id;
   }
   return $err;
@@ -175,7 +178,7 @@ function insert_file($dbaccess,$docid, $attrid)
 
   $destimgdir="./".GetHttpVars("app")."/Upload/";
 
-  $userfile = $HTTP_POST_FILES[$attrid];
+  $userfile = $HTTP_POST_FILES["_".$attrid];
 
       
   

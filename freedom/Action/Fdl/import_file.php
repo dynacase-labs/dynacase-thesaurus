@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.4 2002/03/11 10:26:48 eric Exp $
+// $Id: import_file.php,v 1.5 2002/03/14 14:56:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -181,7 +181,7 @@ function add_import_file(&$action, $fimport="") {
   
 }
 
-function csvAddDoc($dbaccess, $data) {
+function csvAddDoc($dbaccess, $data, $dirid=10) {
   // like : DOC;120;...
   $doc = createDoc($dbaccess, $data[1]);
     $doc->fromid = $data[1];
