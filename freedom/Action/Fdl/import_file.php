@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.38 2003/01/24 14:10:45 eric Exp $
+// $Id: import_file.php,v 1.39 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -123,10 +123,18 @@ function add_import_file(&$action, $fimport="") {
     break;    
     // -----------------------------------
     case "SEARCH":
-    $doc = createDoc($dbaccess,5);
 
-    if  ($data[1] > 0) $doc->id= $data[1]; // static id
-    $err = $doc->Add();
+    if  ($data[1] > 0) {
+      $doc = new Doc($dbaccess, $data[1]);
+      if (! $doc -> isAffected()) {
+	$doc = createDoc($dbaccess,5);
+	$doc->id= $data[1]; // static id
+	$err = $doc->Add();
+      }
+    } else {
+      $doc = createDoc($dbaccess,5);
+      $err = $doc->Add();
+    }
     if (($err != "") && ($doc->id > 0)) { // case only modify
       if ($doc -> Select($doc->id)) $err = "";
     }
@@ -196,6 +204,9 @@ function add_import_file(&$action, $fimport="") {
 	$oattr->title = ($data[4] == "Y")?"Y":"N";
 	$oattr->abstract = ($data[5] == "Y")?"Y":"N";
       }
+      if (($data[6] != "enum") || 
+	  ($data[6] != "enumlist") || 
+	  ($oattr->phpfunc == "")) $oattr->phpfunc = $data[12]; // don(t modify  enum possibilities
       $oattr->type = $data[6];
 
       $oattr->ordered = $data[7];
@@ -203,7 +214,6 @@ function add_import_file(&$action, $fimport="") {
       $oattr->needed =  ($data[9]=="Y")?"Y":"N";
       $oattr->link = $data[10];
       $oattr->phpfile = $data[11];
-      $oattr->phpfunc = $data[12];
       if (isset($data[13])) $oattr->elink = $data[13];
 	  
       if ($oattr->isAffected()) $err =$oattr ->Modify();
@@ -287,10 +297,12 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
 	$doc=false; 
       } else {
 	// no double title found
+	$doc->PostModify(); // compute read attribute
 	$doc->modify();
       }
     } else {
       // with double title
+      $doc->PostModify(); // compute read attribute
       $doc->modify();
     }
   }

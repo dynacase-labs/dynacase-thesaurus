@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.3 2003/01/17 16:54:24 eric Exp $
+// $Id: duplicate.php,v 1.4 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,7 @@ include_once("FDL/Class.Dir.php");
 
 
 // -----------------------------------
-function duplicate(&$action, $dirid, $docid) {
+function duplicate(&$action, $dirid, $docid,$temporary=false) {
   // -----------------------------------
 
   
@@ -58,6 +58,7 @@ function duplicate(&$action, $dirid, $docid) {
   $copy->revision = "0";
   $copy->locked = "0";
   $copy->state = "";
+  if ($temporary) $copy->doctype = "T";
   $copy->profid = $cdoc->cprofid;;
   $copy->title = _("duplication of")." ".$copy->title;
   $err = $copy->Add();

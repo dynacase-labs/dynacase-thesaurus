@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.15 2002/12/16 11:55:20 eric Exp $
+// $Id: editutil.php,v 1.16 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -149,26 +149,50 @@ function getHtmlInput(&$doc, &$oattr, $value) {
 		      
     //같같같같같같같같같같같같같같같같같같같같
 			
+    case "enumlist": 
+     $input="<select size=3 multiple name=\"_".$attrid."[]\""; 
+      
+      $input .= " id=\"".$attrid."\" "; 
+      if ($visibility == "R") $input .=" disabled ";
+      $input.= ">";
+
+      reset($oattr->enum);
+      $tvalues = explode("\n",$value);
+
+      while (list($k, $v) = each($oattr->enum)) {
+	if (in_array($k, $tvalues)) $selected = "selected";
+	else $selected="";
+	$input.="<option $selected value=\"$k\">$v</option>"; 
+
+      }
+	$input.="<option  style=\"display:none\"  value=\" \"></option>"; 
+     
+    $input .= "</select> "; 
+    $input.="<input type=\"button\" value=\"&times;\"".
+	  " title=\""._("clear inputs")."\"".
+	   " onclick=\"i,unselectInput('$attrid')\">";
+    
+    break;      
+     
     case "enum": 
-      $input="<input $oc class=\"autoresize\" type=\"text\"  name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
-    $input .= " id=\"".$attrid."\" "; 
-    if ($visibility == "R") $input .=" disabled ";
-    $input .= " > "; 
+       $input="<select $multiple name=\"_".$attrid."\""; 
+      $input .= " id=\"".$attrid."\" "; 
+      if ($visibility == "R") $input .=" disabled ";
+      $input.= ">";
+
+      reset($oattr->enum);
+
+      while (list($k, $v) = each($oattr->enum)) {
+
+	if ($k == $value) $selected = "selected";
+	else $selected="";
+	$input.="<option $selected value=\"$k\">$v</option>"; 
+      }
+     
     
     break;      
 		      
-    //같같같같같같같같같같같같같같같같같같같같
-			
-    case "enumlist": 
-      $input="<textarea class=\"autoresize\" rows=2 name=\"_".
-	 $attrid."\" ";
-    $input .= " id=\"".$attrid."\" "; 
-    if ($visibility == "R") $input .=" disabled ";
-    $input .= " >".
-       chop(htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
-       "</textarea> ";
-    
-    break;
+
 		      
     //같같같같같같같같같같같같같같같같같같같같
 			
@@ -208,7 +232,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
 		      
     }
 	
-  if ($oattr->phpfunc != "") {
+  if (($oattr->phpfunc != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist")){
     if (ereg("list",$attrtype, $reg)) $ctype="multiple";
     else $ctype="single";
     $input.="<input type=\"button\" value=\"&#133;\"".

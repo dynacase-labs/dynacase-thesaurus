@@ -60,17 +60,18 @@ function lmail( $dbaccess, $name) {
 
 
 // liste des sociétés
-function lfamilly($dbaccess, $famid, $name, $catgid=0, $filter=array()) {
+function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
   
 
+  if (!is_int($famid)) $famid=getFamIdFromName($dbaccess,$famid);
   if ($name != "") {
     $filter[]="title ~* '.*$name.*'";
   }
 
 
-  $tinter = getChildDoc($dbaccess, $catgid,0,200, $filter,$action->user->id,"TABLE",$famid);
+  $tinter = getChildDoc($dbaccess, $dirid,0,200, $filter,$action->user->id,"TABLE",$famid);
   
   $tr = array();
 
@@ -86,6 +87,33 @@ function lfamilly($dbaccess, $famid, $name, $catgid=0, $filter=array()) {
 }
 
 
+// liste des sociétés
+function lkfamily($dbaccess, $famname, $aid, 
+		  $kid, $name, $filter=array()) {
+  //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
+  global $action;
+  
+
+ 
+  if ($name != "") {
+    $filter[]="title ~* '.*$name.*'";
+  }
+
+
+  $tinter = getKindDoc($dbaccess, $famname, $aid,$kid,$name,$filter);    
+  
+  $tr = array();
+
+
+  while(list($k,$v) = each($tinter)) {
+            
+    $tr[] = array($v["title"] ,
+		  $v["id"],$v["title"]);
+    
+  }
+  return $tr;
+  
+}
 // liste 
 function lenum($val, $enum) {
   // $enum like 'a|b|c'
@@ -107,10 +135,10 @@ function lenum($val, $enum) {
 function lprofil($dbaccess, $name) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
-  $catgid= 0;
+  $dirid= 0;
   
   
-  return lfamilly($dbaccess, 3, $name, $catgid);
+  return lfamilly($dbaccess, 3, $name, $dirid);
   
 }
 

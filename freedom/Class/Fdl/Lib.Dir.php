@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.56 2003/01/27 14:17:28 eric Exp $
+// $Id: Lib.Dir.php,v 1.57 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -216,8 +216,8 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
-  
+  //   print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+
 
 
   if ($query->nb == 0)
@@ -233,6 +233,31 @@ function getChildDoc($dbaccess,
 }
 
 
+function getKindDoc($dbaccess, 
+		    $famname,
+		    $aid, 
+		    $kid, 
+		    $name="", // filter on title
+		    $sqlfilters=array(), 
+		    $limit=100,
+		    $qtype="TABLE",
+		    $userid=0) {
+
+  global $action;
+
+  if ($userid==0) $userid=$action->user->id;
+  if (strstr($kid,".") != "") {
+    $sqlfilters[] = "$aid ~ '".str_replace(".","\\\\\.",$kid)."'";
+  } else {
+    $sqlfilters[] = "in_textlist($aid,'$kid') or $aid ~ '$kid\.'";
+  }
+  if ($name != "")  $sqlfilters[]="title ~* '$name'";
+
+  $famid= getFamIdFromName($dbaccess,$famname);
+  return getChildDoc($dbaccess, 
+		     0,0,$limit,$sqlfilters ,$userid,"TABLE",
+		     getFamIdFromName($dbaccess,$famname));
+}
 function sqlval2array($sqlvalue) {
   // return values in comprehensive structure
     

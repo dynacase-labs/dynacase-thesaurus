@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_preview.php,v 1.5 2003/01/20 15:34:06 eric Exp $
+// $Id: freedom_preview.php,v 1.6 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_preview.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,7 +41,7 @@ function freedom_preview(&$action) {
     $doc = new Doc($dbaccess, $docid);
 
     $action->lay->Set("TITLE",$doc->title);
-    $ndoc= duplicate($action, 0, $docid);
+    $ndoc= duplicate($action, 0, $docid, true); // temporary document
     
     $ndoc->modify();
   } else {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.11 2003/01/27 13:26:31 eric Exp $
+// $Id: modattr.php,v 1.12 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,6 +47,7 @@ function modattr(&$action) {
   $names= GetHttpVars("name");
   $types= GetHttpVars("type");
   $abstracts= GetHttpVars("abstractyn");
+  $needed= GetHttpVars("neededyn");
   $titles= GetHttpVars("titleyn");
   $attrids= GetHttpVars("attrid");
   $frameids= GetHttpVars("frameid");
@@ -116,6 +117,7 @@ function modattr(&$action) {
 	    $oattr->labeltext=stripslashes($names[$k]);
 	    $oattr->title=isset($titles[$k])?$titles[$k]:"N";
 	    $oattr->abstract=isset($abstracts[$k])?$abstracts[$k]:"N";
+	    $oattr->needed=isset($needed[$k])?$needed[$k]:"N";
 	    $oattr->type=stripslashes($types[$k]);
 	    $oattr->id=$attrids[$k];
 	    $oattr->frameid=isset($frameids[$k])?$frameids[$k]:"0";

@@ -2,7 +2,7 @@
 
 <!-- ------------------ BAR MENU ------------------ -->
 <div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;">
-<table  class="tablesimple"  cols="4"  cellspacing="0"   >
+<table  class="tablesimple"  cols="[nbcol]"  cellspacing="0"   >
 <thead>
 <tr>
 <td  class="MenuInactive"  
@@ -19,13 +19,15 @@
 <span class="FREEDOMTextTitle">[TEXT:Search]</span>
 </td>
 
+
+[BLOCK KIND]
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'catgmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onClick="closeAllMenu();openMenuXY(event,'[kindid]menu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
      onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Category]</span>
+<span class="FREEDOMTextTitle">[kindname]</span>
 </td>
-
+[ENDBLOCK KIND]
 <td  class="MenuInactive"  
      onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
@@ -43,9 +45,9 @@
 <div  id="newmenu" class="popup">
 
 
-[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]&id=&dirid=[DEFAULT_FLD]';closeAllMenu()">[stitle]</a>
+[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]&id=&dirid=[dirid]';closeAllMenu()">[stitle]</a>
 [ENDBLOCK NEWFAM]
-<a  id="newcatg" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITNEWCATG';closeAllMenu()">[TEXT:Category]</a>
+
 
 
 
@@ -67,7 +69,8 @@ function SendSearch(e) {
 
 </script>   
 <!-- ------------ MENU SEARCH  --------------------- -->
-<div  id="searchmenu" class="popup">[BLOCK SEARCH]
+<div  id="searchmenu" class="popup">
+<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All catg]</a>[BLOCK SEARCH]
 <a  id="search[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
 [ENDBLOCK SEARCH]
 <a id="text"></a>
@@ -75,19 +78,21 @@ function SendSearch(e) {
 </div>
 
 
-<!-- ------------ MENU CATG  --------------------- -->
-<div  id="catgmenu" class="popup">
-<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All catg]</a>
-[BLOCK CATG]
-<a  id="catg[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[title]</span></a>
-[ENDBLOCK CATG]
+<!-- ------------ MENU KIND  --------------------- -->
+[BLOCK MKIND]
+<div  id="[kindid]menu" class="popup">
+<a  id="[kindid]00" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[catg]&tab=0';closeAllMenu()">[TEXT:All kind]</a>
+[BLOCK [vkind]]
+<a  id="[kindid][kid]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH_KIND&kid=[kid]&aid=[kindid]&catg=[catg]';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[ktitle]</span></a>
+[ENDBLOCK [vkind]]
 </div>
-
+[ENDBLOCK MKIND]
 
 <!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup">
   <a id="help" target="helpwhat" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
 <a  id="imvcard" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
+<a  id="folders" href="#" onClick="subwindowm(300,400,'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]');closeAllMenu()">[TEXT:Freedom]</a>
 </div>
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.3 2003/01/17 16:54:24 eric Exp $
+// $Id: barmenu.php,v 1.4 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,6 +32,7 @@ function barmenu(&$action) {
 
 
   $dirid=GetHttpVars("dirid", getDefFld($action) ); // folder where search
+  
   $catg=GetHttpVars("catg", 1); // catg where search
 
 
@@ -59,9 +60,45 @@ function barmenu(&$action) {
 
 
   include_once("FDL/popup_util.php");
-  popupInit("newmenu",  array_merge($tnewmenu ,array('newcatg'))  );
+  //--------------------- kind menu -----------------------
+  $lattr = $fdoc->getNormalAttributes();
+  
+  $tkind=array();
+  while (list($k,$a) = each($lattr)) {
+    if (($a->type == "enum") || ($a->type == "enumlist")) {
+      
+      $tkind[]=array("kindname"=>$a->labelText,
+		     "kindid"=>$a->id,
+		     "vkind"=>"kind".$a->id);
+      $tvkind=array();
+      $tmkind=array($a->id."00");
+      while (list($kk,$ki) = each($a->enum)) {
+	$tvkind[]=array("ktitle" => strstr($ki, '/')?strstr($ki, '/'):$ki,
+			"level" =>  strstr($ki, '/')?20:0,
+			"kid" => $kk);
+	$tmkind[]=$a->id.$kk;
+      }
+      $action->lay->SetBlockData("kind".$a->id, $tvkind);
 
-  popupInit("helpmenu", array('help','imvcard'));
+      
+      popupInit($a->id."menu", $tmkind);
+      while (list($km,$vid) = each($tmkind)) {
+	popupActive($a->id."menu",1,$vid); 
+      }
+    }
+
+  }
+
+  
+  $action->lay->SetBlockData("KIND", $tkind);
+  $action->lay->SetBlockData("MKIND", $tkind);
+
+  $action->lay->Set("nbcol", 3+count($tkind));
+  //--------------------- construction of  menu -----------------------
+
+  popupInit("newmenu",  $tnewmenu   );
+
+  popupInit("helpmenu", array('help','imvcard','folders'));
 
 
   if ($action->HasPermission("GENERIC"))  {
@@ -76,15 +113,14 @@ function barmenu(&$action) {
     }
   }
   if ($action->HasPermission("GENERIC_MASTER"))  {
-    popupActive("newmenu",1,'newcatg');
     popupActive("helpmenu",1,'imvcard');
   }   else {
-    popupInvisible("newmenu",1,'newcatg'); 
     popupInvisible("helpmenu",1,'imvcard'); 
   }
 
 
   popupActive("helpmenu",1,'help');
+  popupActive("helpmenu",1,'folders');
 
 
   $homefld = new Dir( $dbaccess, getDefFld($action));
@@ -92,39 +128,28 @@ function barmenu(&$action) {
 
 
   // compute categories and searches
-  $stree=getChildCatg( $homefld->id, 1);
+  $stree=getChildCatg( $homefld->id, 1,false,1);
 
   reset($stree);
   
-  $lidcatg = array("catg0");
-  $lidsearch = array();
+  $lidsearch = array("catg0");
 
-  $streeCatg = array();
   $streeSearch = array();
 
   while (list($k,$v) = each($stree)) {
     if ($v["doctype"] == "S" ) {
       $lidsearch[] = "search".$v["id"];
       $streeSearch[] = $v;
-    } else {
-      $lidcatg[] = "catg".$v["id"];
-      $streeCatg[] = $v;
-    }
+    } 
   }
   $lidsearch[]="text";
 
-  popupInit("catgmenu",$lidcatg);
   popupInit("searchmenu",$lidsearch);
-  reset ($lidcatg);
-  while (list($k,$v) = each($lidcatg)) {
-    popupActive("catgmenu",1,$v);
-  }
   reset ($lidsearch);
   while (list($k,$v) = each($lidsearch)) {
     popupActive("searchmenu",1,$v);
   }
   
-  $action->lay->SetBlockData("CATG",$streeCatg);
   $action->lay->SetBlockData("SEARCH",$streeSearch);
   $action->lay->Set("topid",getDefFld($action));
   $action->lay->Set("dirid",$dirid);

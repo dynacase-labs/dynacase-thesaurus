@@ -133,6 +133,16 @@ function clearInputs(tinput) {
 
 }
 
+
+function unselectInput(id) {
+  var sel=document.getElementById(id);
+  if (sel) {
+    for (var i=0; i< sel.options.length; i++) {
+      sel.options[i].selected=false;
+    }
+  }
+  sel.options[sel.options.length-1].selected=true;
+}
 function autoUnlock(docid) {
   if (parseInt(docid) > 0) {
     if (! document.isSubmitted) {

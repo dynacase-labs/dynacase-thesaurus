@@ -4,7 +4,7 @@
 <html>
   <head>
 
-   <title>[WHAT] [APP_TITLE]</title>
+   <title>[WHAT] [TEXT:Attributes definition]</title>
 
    <style>
 [ZONE CORE:GENCSS]
@@ -73,6 +73,7 @@
   <td class="CORETblHeadBold">[TEXT:frame]</td>
   <td class="CORETblHeadBold">[TEXT:A?]</td>
   <td class="CORETblHeadBold">[TEXT:T?]</td>
+  <td class="CORETblHeadBold">[TEXT:N?]</td>
   <td class="CORETblHeadBold">[TEXT:Vi]</td>
   <td class="CORETblHeadBold">[TEXT:Link]</td>
   <td class="CORETblHeadBold">[TEXT:file]</td>
@@ -110,6 +111,9 @@
    </td>
    <td  >
       <input type="checkbox" value="Y" name="titleyn[[neweltid]]" [titcheck] [disabled]></input>
+   </td>
+   <td  >
+      <input type="checkbox" value="Y" name="neededyn[[neweltid]]" [neededcheck] [disabled]></input>
    </td>
    <td  >
       <input type="text" size="1"  name="visibility[[neweltid]]" value="[visibility]" [disabled]></input>

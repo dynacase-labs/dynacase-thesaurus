@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.19 2003/01/27 13:26:32 eric Exp $
+// $Id: popupcard.php,v 1.20 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,6 +48,7 @@ function popupcard(&$action) {
 				'lockdoc',
 				'unlockdoc',
 				'revise',
+				'duplicate',
 				'histo',
 				'editprof',
 				'access',
@@ -148,6 +149,8 @@ function popupcard(&$action) {
 
     }
   }
+
+  popupCtrlActive('popupcard',$kdiv,'duplicate'); 
 
   if ($doc->locked != -1) {
       if ($doc->wid > 0) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.8 2003/01/27 13:26:31 eric Exp $
+// $Id: defattr.php,v 1.9 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -129,6 +129,7 @@ function defattr(&$action)
       $newelem[$k]["phpfile"]="";
       $newelem[$k]["phpfunc"]="";
       $newelem[$k]["abscheck"]="";
+      $newelem[$k]["neededcheck"]="";
       $newelem[$k]["titcheck"]="";
       }	  
       $ka++;
@@ -191,6 +192,8 @@ function defattr(&$action)
       } else {
 	$newelem[$k]["titcheck"]="";
       }
+
+      $newelem[$k]["neededcheck"]=($attr->needed)?"checked":"";
 
       if ($attr->docid == $docid) {
 	$newelem[$k]["disabled"]="";

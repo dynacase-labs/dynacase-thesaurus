@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocImg.php,v 1.1 2002/11/14 10:43:22 eric Exp $
+// $Id: Method.DocImg.php,v 1.2 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Method.DocImg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -93,5 +93,4 @@ function viewimgcard($target="_self",$ulink=true,$abstract=false) {
 
 function PostModify() {
   $this->SetValue("IMG_TITLE",$this->vault_filename("IMG_FILE"));
-  $this->modify();
 }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.22 2003/01/24 14:10:46 eric Exp $
+// $Id: modcard.php,v 1.23 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -85,6 +85,7 @@ function modcard(&$action, &$ndocid) {
       
     }
   
+
   
   // ------------------------------
   // update POSGRES text values
@@ -98,7 +99,9 @@ function modcard(&$action, &$ndocid) {
 
 	  
 	  $attrid = substr($k,1);
-	  if (is_array($v)) $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));
+	  if (is_array($v)) {
+	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
+	  }
 	  else $value = stripslashes($v);
 	  $doc->SetValue($attrid, $value);	      
 	      
@@ -115,15 +118,15 @@ function modcard(&$action, &$ndocid) {
 	  $k=substr($k,1);
 
 	      
-	  $filename=insert_file($dbaccess,$docid,$k);
-	      
+	    $filename=insert_file($dbaccess,$docid,$k);
+	
 	      
 	      
 	  if ($filename != "")
 	    {
 	      $doc->SetValue($k, $filename);
 		  
-		  
+	      $action->register("reload$docid","Y"); // to reload cached client file
 	    	  
 	    }
 	}
@@ -134,10 +137,11 @@ function modcard(&$action, &$ndocid) {
   
   
   
-  
   $doc->lmodify='Y'; // locally modified
   $doc->refresh();
-  $err=$doc-> Modify(); 
+
+  $err=$doc-> PostModify(); 
+  $err.=$doc-> Modify(); 
   $doc->unlock(true); // disabled autolock
   
 
@@ -198,8 +202,7 @@ function insert_file($dbaccess,$docid, $attrid)
 
   ereg ("(.*)\.(.*)$", $userfile['name'], $reg);
   
-  //  print_r($userfile);
-  
+  // print_r($userfile);
   $ext=$reg[2];
   
   
@@ -212,6 +215,7 @@ function insert_file($dbaccess,$docid, $attrid)
     //$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
     
     $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
+
     move_uploaded_file($userfile['tmp_name'], $destfile);
     if (isset($vf)) unset($vf);
     $vf = new VaultFile($dbaccess, "FREEDOM");

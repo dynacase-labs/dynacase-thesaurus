@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.32 2003/01/27 13:26:32 eric Exp $
+// $Id: viewcard.php,v 1.33 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,10 +54,12 @@ function viewcard(&$action) {
   $standurl=$action->GetParam("CORE_STANDURL");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-//   if ($reload) {
-//     $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/reload.js");
-//     $action->unregister("reload$docid");
-//   }
+   if ($reload) {
+     $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/reload.js");
+     $action->unregister("reload$docid");
+   } else {
+     $action->lay->set("refreshfld",  GetHttpVars("refreshfld"));
+   }
 
   $doc = new Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
@@ -87,7 +89,6 @@ function viewcard(&$action) {
   $action->lay->set("TEXTERROR", nl2br($err));
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard,$target,$ulink,$abstract));
   
-  $action->lay->set("refreshfld",  GetHttpVars("refreshfld"));
  
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");

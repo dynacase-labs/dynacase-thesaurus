@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.5 2003/01/13 18:56:50 eric Exp $
+// $Id: popupfam.php,v 1.6 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,6 +51,13 @@ function popupfam(&$action) {
   $tmenu = array();
   $km=0;
   while(list($k,$v) = each($lmenu)) {
+    
+    if (ereg('\[(.*)\](.*)', $v->link, $reg)) {      
+      $v->link=$reg[2];
+      $tlink[$k]["target"] = $reg[1];
+    } else {
+      $tlink[$k]["target"] = $v->id;
+    }
     $tlink[$k]["idlink"] = $v->id;
     $tlink[$k]["descr"] = $v->labelText;
     $tlink[$k]["url"] = $doc->urlWhatEncode($v->link);

@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocFile.php,v 1.1 2002/11/14 10:43:22 eric Exp $
+// $Id: Method.DocFile.php,v 1.2 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Method.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -95,5 +95,4 @@ function viewfilecard($target="_self",$ulink=true,$abstract=false) {
 
 function PostModify() {
   $this->SetValue("FI_TITLE",$this->vault_filename("FI_FILE"));
-  $this->modify();
 }

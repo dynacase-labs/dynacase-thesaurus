@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.9 2003/01/20 19:09:28 eric Exp $
+// $Id: GENERIC.app,v 1.10 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -134,6 +134,11 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_SEARCH",
    "short_name"		=>N_("search a generict"),
+   "acl"		=>"GENERIC_READ"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_SEARCH_KIND",
+   "short_name"		=>N_("search with kind criteria"),
    "acl"		=>"GENERIC_READ"
   ) ,
   array( 

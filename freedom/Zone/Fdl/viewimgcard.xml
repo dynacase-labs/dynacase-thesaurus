@@ -40,5 +40,6 @@ function resizeImg(th) {
 [ENDBLOCK TABLEIMG]
 
 
+[ZONE FDL:VIEWFRAME?frameid=IMG_FR_CHAR]
 </tbody>
 </table>

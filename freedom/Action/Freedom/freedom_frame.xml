@@ -3,15 +3,16 @@
 
 <LINK REL="icon" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
 <LINK REL="SHORTCUT ICON" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
-<title>[WHAT] [APP_TITLE]</title>
+<title>[WHAT] [TEXT:Freedom]</title>
 
 </head>
 
 
+<frameset name="ffreedom" frameborder="0" framespacing="0" border="0" rows="*,0pt" >
 
   <frameset  frameborder="yes" border=3  framespacing="3" cols="40%,*" 
             scrolling="no" frameborder="no" >
-     <frame name="ffolder"  src="[CORE_STANDURL]&app=[APPNAME]&action=FOLDERS" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
+     <frame name="ffolder"  src="[CORE_STANDURL]&app=[APPNAME]&action=FOLDERS&dirid=[dirid]" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
 
      <frameset frameborder="yes"   rows="40%,*" >
   
@@ -20,5 +21,8 @@
        <frame name="fdoc" src="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO"          
              scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
     </frameset>
+    
+  </frameset>
+    <frame name="fexpand" src="about:blank" noresize  style="border-style:none">
   </frameset>
 </html>

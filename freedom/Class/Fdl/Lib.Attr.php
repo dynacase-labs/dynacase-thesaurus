@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.6 2002/12/16 11:46:57 eric Exp $
+// $Id: Lib.Attr.php,v 1.7 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -172,8 +172,10 @@ function PgUpdateFamilly($dbaccess, $docid) {
     }
 
       
+    $classname="Doc".$docid;
+    include_once("FDLGEN/Class.$classname.php");
+    $cdoc = new $classname($dbaccess);
       
-    $cdoc = createDoc($dbaccess, $docid);
     $oattr = $cdoc->GetNormalAttributes();
     reset($oattr);
 

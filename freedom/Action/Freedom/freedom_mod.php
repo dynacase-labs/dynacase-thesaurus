@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.15 2003/01/24 14:10:46 eric Exp $
+// $Id: freedom_mod.php,v 1.16 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function freedom_mod(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   $err = modcard($action, $ndocid); // ndocid change if new doc
-    if ($err != "")  $action-> ExitError($err);
+  if ($err != "")  $action-> ExitError($err);
   
   
   $doc= new Doc($dbaccess, $ndocid);

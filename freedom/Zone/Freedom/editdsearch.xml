@@ -126,7 +126,9 @@
 <td class="und" >
   <select  name="_se_attrids[]" >
   [BLOCK [ATTRCOND]]
+
      <option [attr_selected] value="[attr_id]">[attr_name]</option>
+
   [ENDBLOCK [ATTRCOND]]
   </select></td>
 <td class="und">
@@ -166,7 +168,7 @@
 </tr>
 
 <tr class="FREEDOMBack1">
-  <td  align="right" >
+  <td  align="right" colspan="2" >
  
  <input type="button" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH')"> </td>
   <td  align="right"></td>

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.2 2002/11/19 17:14:26 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.3 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.2 2002/11/19 17:14:26 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.3 2003/01/30 09:38:36 eric Exp $';
 
 
 
@@ -70,6 +70,23 @@ Class NormalAttribute extends BasicAttribute {
     $this->phpfile=$phpfile;
     $this->phpfunc=$phpfunc;
     $this->elink=$elink;
+
+    if (($this->type == "enum") || ($this->type == "enumlist")) {
+      // set the enum array
+      $this->enum=array();
+
+    
+      $tenum = explode(",",$this->phpfunc);
+
+      
+      while (list($k, $v) = each($tenum)) {
+	list($n,$text) = explode("|",$v);
+	list($n1,$n2) = explode(".",$n);
+
+	if ($n2 != "") $this->enum[$n]=$this->enum[$n1]."/".$text;
+	else $this->enum[$n]=$text;
+      }
+    }
   }
 }
 Class FieldSetAttribute extends BasicAttribute {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.89 2003/01/27 13:26:31 eric Exp $
+// $Id: Class.Doc.php,v 1.90 2003/01/30 09:38:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.89 2003/01/27 13:26:31 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.90 2003/01/30 09:38:36 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -223,10 +223,18 @@ create unique index i_docir on doc(initid, revision);";
 	// set modification date
 	$date = gettimeofday();
 	$this->revdate = $date['sec'];
+	//	$this->postModify(); // in modcard function
       }
-
+      $this->hasChanged=false;
+      
     }
 
+  // optimize for speed 
+  function PostUpdate() {
+    global $gdocs;// optimize for speed :: reference is not a pointer !!
+    $gdocs[$this->id]=&$this;
+    
+  }
 
   // modify without edit control
   function disableEditControl() {
@@ -761,6 +769,7 @@ create unique index i_docir on doc(initid, revision);";
 	$title1.= $this->GetValue($v->id)." ";
       }
     }
+
     if (chop($title1) != "")  $this->title = chop($title1);
 
   }
@@ -771,17 +780,6 @@ create unique index i_docir on doc(initid, revision);";
     return "";
   }
 
-  // optimize for speed 
-  function PostUpdate() {
-    global $gdocs;// optimize for speed :: reference is not a pointer !!
-    $gdocs[$this->id]=&$this;
-    
-
-     if ($this->hasChanged) {
-       $this->postModify();
-       $this->hasChanged=false;
-     }
-  }
 
   // recompute the title from attribute values
   function SetTitle($title) {
@@ -951,10 +949,7 @@ create unique index i_docir on doc(initid, revision);";
 
     $this->Add();
     $this->modify(); // need to applicate SQL triggers
-
-    
-    
-
+       
     return $this->id;
     
   }
@@ -1215,7 +1210,6 @@ create unique index i_docir on doc(initid, revision);";
 	
 	break;
       case "textlist": 
-      case "enumlist":
 	if (strstr($value,"\n")) $oattr->link="";
 	if ($aformat != "") {
 	  $ta = explode("\n",$value);
@@ -1228,11 +1222,27 @@ create unique index i_docir on doc(initid, revision);";
 	  $htmlval=nl2br(htmlentities(stripslashes($value)));
 	}
 	break;
+      case "enumlist": 
+	if (strstr($value,"\n")) $oattr->link="";
+	
+	$ta = explode("\n",$value);
+	while (list($k, $a) = each($ta)) {
+	  $ta[$k]=$oattr->enum[$a];
+	}
+	$htmlval=implode("<BR>",$ta);
+	  
+	
+	break;
       case "longtext": 
 	$htmlval=nl2br(htmlentities(stripslashes($value)));
 	break;
       case "password": 
 	$htmlval=ereg_replace(".", "*", htmlentities(stripslashes($value)));
+	
+	break;
+      case "enum": 
+	if (isset($oattr->enum[$value]))  $htmlval=$oattr->enum[$value];
+	else $htmlval=$value;
 	
 	break;
       default : 

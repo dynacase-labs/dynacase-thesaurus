@@ -33,6 +33,9 @@
 <a href="#" id="histo"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:History]</a>
 
+<a href="#" id="duplicate"     
+    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_DUPLICATE&id=[id]','finfo');closeMenu('popupcard');">[TEXT:Duplicate]</a>
+
 <a href="#" id="access"     
     onclick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[profid]','access');closeMenu('popupcard');">
 [TEXT:goaccess]...</a>
