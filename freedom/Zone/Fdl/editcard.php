@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.8 2002/04/23 07:47:11 eric Exp $
+// $Id: editcard.php,v 1.9 2002/05/29 08:19:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -337,10 +337,21 @@ function editcard(&$action) {
 		break;      
 		      
 		//같같같같같같같같같같같같같같같같같같같같
+	      case "password" : 
+		// don't see the value
+		$tableframe[$v]["inputtype"]="<input  type=\"password\" name=\"_".$listattr[$i]->id."\" value=\""."\"";
+		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+
+
+		      
+		$tableframe[$v]["inputtype"] .= " > "; 
+		break;
+		//같같같같같같같같같같같같같같같같같같같같
 	      default : 
 		$tableframe[$v]["inputtype"]="<input  type=\"text\" name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
 		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+
+
 		      
 		$tableframe[$v]["inputtype"] .= " > "; 
 		break;

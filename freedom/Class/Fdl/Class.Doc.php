@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.23 2002/04/29 15:41:38 eric Exp $
+// $Id: Class.Doc.php,v 1.24 2002/05/29 08:19:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.23 2002/04/29 15:41:38 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.24 2002/05/29 08:19:26 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -941,6 +941,10 @@ create sequence seq_id_doc start 1000";
 	  if (strstr($value,"\n")) $oattr->link="";
 	case "longtext": 
 	  $htmlval=nl2br(htmlentities(stripslashes($value)));
+	break;
+	case "password": 
+	  $htmlval=ereg_replace(".", "*", htmlentities(stripslashes($value)));
+
 	break;
 	default : 
 	  $htmlval=htmlentities(stripslashes($value));

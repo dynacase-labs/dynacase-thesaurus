@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.3 2002/04/22 14:03:35 eric Exp $
+// $Id: Class.DocAttr.php,v 1.4 2002/05/29 08:19:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocAttr.php,v $
+// Revision 1.4  2002/05/29 08:19:26  eric
+// ajout type password
+//
 // Revision 1.3  2002/04/22 14:03:35  eric
 // ajout type date dans attribut
 //
@@ -61,7 +64,7 @@
 //
 // ---------------------------------------------------------------
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.3 2002/04/22 14:03:35 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.4 2002/05/29 08:19:26 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -106,7 +109,8 @@ create sequence seq_id_docattr start 1000";
 		       "enum",
 		       "date",
 		       "textlist",
-		       "enumlist");
+		       "enumlist",
+		       "password");
 		    
  
   

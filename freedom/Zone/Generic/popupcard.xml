@@ -26,7 +26,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&head=yes&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View headers]</a>
 
 <a href="#" id="delete"     
-    onclick="ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_DEL&id=[id]','finfo');closeMenu('popupcard'); if (ok) parent.ffolder.location.reload();">[TEXT:Delete]</a>
+    onclick="ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_DEL&id=[id]','finfo');closeMenu('popupcard'); if (ok) parent.flist.location.reload();">[TEXT:Delete]</a>
 
 <a href="#" id="cancel"  
     onclick="closeMenu('popupcard')"  >[TEXT:Cancel]</a>
