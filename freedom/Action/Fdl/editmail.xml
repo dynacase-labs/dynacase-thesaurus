@@ -69,11 +69,6 @@
   <td colspan="2" >
  <input type="submit" value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();"> 
 
-<select name="_mail_format">
-    <option value="html">HTML</option>
-    <option value="pdf">PDF</option>
-    <option value="htmlpdf">HTML & PDF</option>
-</select>
   </td>
   <td align="right" >
  <input type="button" value="[TEXT:cancel]" onclick="history.back()"> 

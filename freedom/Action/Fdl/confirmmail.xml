@@ -74,12 +74,8 @@ function sendState(w) {
   <td  >
  <input type="submit" title="[TEXT:Send the email and change document state to] [tstate]" 
         value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();sendState(self);"> 
+ 
 
-<select name="_mail_format">
-    <option value="html">HTML</option>
-    <option value="pdf">PDF</option>
-    <option value="htmlpdf">HTML & PDF</option>
-</select>
   </td>
   <td align="right" >
  <input type="button" title="[TEXT:Change the document state to] [tstate]" 

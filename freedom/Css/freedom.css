@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.26 2003/04/07 16:51:12 eric Exp $
+ * $Id: freedom.css,v 1.27 2003/04/14 09:57:59 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -277,11 +277,14 @@ TH {
   .noprint {
     display:none;
   }
+  *, A, A:link, A:visited, p {
+    color:black;
+    font-family:arial, helvetica;
+  }
   .tableborder {
     border:none;
   }
-  A, TD, TH, A:link, A:visited {
-    color:[CORE_TEXTFGCOLOR];
+  TD, TH {
     font-family:arial, helvetica;
   }
   .onlyprint { 
