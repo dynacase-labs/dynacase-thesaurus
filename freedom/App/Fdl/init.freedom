@@ -12,7 +12,7 @@ BEGIN;1;dossier;2;Dir;DIR;;;;;;;
 TYPE;C;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;BA_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;
-;;;;;;;;;;;;
+ATTR;FLD_ROOT;;nouvelle racine;N;N;text;;M;;%S%&app=FREEDOM&action=FOLDERS&dirid=%I%;;
 END;1;-1;;;;;;;;;;
 ;;;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;
@@ -103,8 +103,10 @@ TYPE;C;;;;;;;;;;;
 ;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ;;;;;;;;;;;;
-ATTR;IMG_FRFILE;;image;N;N;frame;;F;;;;
-ATTR;IMG_TITLE;IMG_FRFILE;titre;Y;N;text;;R;;;;
-ATTR;IMG_CATG;IMG_FRFILE;catégorie;N;N;enum;;W;;;;1|photo,2|dessin,1.1|paysage,1.2|portrait
-ATTR;IMG_FILE;IMG_FRFILE;image;N;Y;image;;W;Y;;;
+ATTR;IMG_FRFILE;;image;N;N;frame;0;F;;;;
+ATTR;IMG_TITLE;IMG_FRFILE;titre;Y;N;text;10;R;;;;
+;;;;;;;;;;;;
+ATTR;IMG_FILE;IMG_FRFILE;image;N;Y;image;20;W;Y;;;
+ATTR;IMG_FR_CHAR;;caractéristiques;N;N;frame;;F;;;;
+ATTR;IMG_CATG;IMG_FR_CHAR;catégorie;N;N;enum;30;W;;;;1|photo,2|dessin,1.1|paysage,1.2|portrait
 END;-;9;;;;;;;;;;
