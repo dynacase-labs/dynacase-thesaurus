@@ -20,7 +20,7 @@
 #include <mysql/mysql.h>
 typedef MYSQL db_conn;
 #elif USE_POSTGRES
-#include <pgsql/libpq-fe.h>
+#include <libpq-fe.h>
 typedef PGconn db_conn;
 typedef PGresult db_result;
 #endif

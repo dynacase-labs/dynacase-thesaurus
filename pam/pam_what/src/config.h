@@ -11,5 +11,5 @@
 #define PROGNAME "pam_what"
 #define MAJOR_VERSION 0
 #define MINOR_VERSION 1
-#define PATCHLEVEL "2"
+#define PATCHLEVEL "3"
 #define COPYRIGHT_NOTICE "Copyright (c) 2001 Mike Glover"
