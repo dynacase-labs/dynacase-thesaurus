@@ -323,6 +323,18 @@ ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;O;Y;;;
 ATTR;TXT_TEXT;FR_BASIC;texte;N;N;htmltext;20;W;;;;
 ;;;;;;;;;;;;
 END;-;;;;;;;;;;;
+// recherche detaille;fromid;;id;class;name;;;;;;;
+;;;;;;;;;;;;
+BEGIN;SEARCH;Recherche Plein Texte;32;;FTEXTSEARCH;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;ftextsearch.gif;;;;;;;;;;;
+METHOD;Method.FullTextSearch.php;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+ATTR;SE_KEY;idattr;mot-clef;N;Y;text;100;N;;;;
+ATTR;FTS_SEARCH;;Recherche plein texte;N;N;frame;1000;F;;;;
+ATTR;FTS_WHERE;FTS_SEARCH;Chercher les mots;N;Y;enum;1010;W;;;;WHITIN|contenant,ENTIRE|entiers,BEGIN|commençant par,ENDING|finissant par
+ATTR;FTS_LOGICAL;FTS_SEARCH;Chercher...;N;Y;enum;1020;W;;;;ONE|Un des mots,ALL|Tous,PHRASE|La phrase entière
+END;0;;;;;;;;;;;
 // famille dossier;;;id;class;name;;;;;;;;
 BEGIN;0;post it;27;;POSTIT;;;;;;;;
 TYPE;C;;;;;;;;;;;;
