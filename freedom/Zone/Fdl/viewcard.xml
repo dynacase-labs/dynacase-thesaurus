@@ -53,15 +53,15 @@ if ("[LGTEXTERROR]" != "0") {
   <td   ><span style="display:[viewstate]" class="FREEDOMText"><A href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[wid]">[state]</a></span></td>
   </td>
 </tr>
+<tr class="FREEDOMBack1">
+  <td   class="FREEDOMText">[TEXT:locked by]</td>
+  <td  ><span class="FREEDOMText">[locked]</span></td>
+</tr>
 [ENDBLOCK PROP]
 [BLOCK LOCK]
 <tr class="FREEDOMBack1">
   <td class="FREEDOMText">[TEXT:revision]</td>
   <td  ><span class="FREEDOMText">[revision]</span></td>
-</tr>
-<tr class="FREEDOMBack1">
-  <td   class="FREEDOMText">[TEXT:locked by]</td>
-  <td  ><span class="FREEDOMText">[locked]</span></td>
 </tr>
 [ENDBLOCK LOCK]
 [BLOCK ALLPROP]

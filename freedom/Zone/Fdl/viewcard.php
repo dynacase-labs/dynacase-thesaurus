@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.28 2002/12/16 17:47:37 eric Exp $
+// $Id: viewcard.php,v 1.29 2003/01/13 18:52:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,6 +59,8 @@ function viewcard(&$action) {
   }
 
   $doc = new Doc($dbaccess, $docid);
+  if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
+
   $err = $doc->control("view");
   if ($err != "") $action->exitError($err);
   
@@ -194,7 +196,7 @@ function viewcard(&$action) {
   // see locker for lockable document
   if ($doc->isRevisable())  {
     if ($props) $action->lay->SetBlockData("LOCK",array(array("boo"=>1)));  
-  } else  $nprop-=2; // revision & locker
+  } else  $nprop-=1; // not revision 
   $action->lay->Set("nprop",$nprop);  
 
     
