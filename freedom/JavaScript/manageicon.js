@@ -14,7 +14,7 @@ function highlight(th) {
 }
 function unhighlight(th) {
   //th.className="icon";
-  th.style.backgroundColor='';
+  th.style.backgroundColor='[CORE_BGCELLCOLOR]';
   th.style.borderStyle='none';
   //th.style.backgroundColor=oldBgcolor;
     //  th.style.borderStyle=oldBdstyle;
@@ -123,7 +123,7 @@ function openMenuOrAbstract(event) {
 }
 
 
-function openMenuOrProperties(event) {
+function openMenuOrProperties(event,menuid,itemid) {
   if (window.event) {
 	shiftKey = window.event.shiftKey
 	button=window.event.button;
@@ -135,7 +135,7 @@ function openMenuOrProperties(event) {
 
   if (button == 1) {
     if (shiftKey ) {
-      openMenu(event,'popup');
+      openMenu(event,menuid, itemid);
      } else {
        parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&abstract=Y&id='+docid;
     }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.11 2001/11/22 17:49:13 eric Exp $
+// $Id: Class.Doc.php,v 1.12 2001/11/26 18:01:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.12  2001/11/26 18:01:02  eric
+// new popup & no lock for no revisable document
+//
 // Revision 1.11  2001/11/22 17:49:13  eric
 // search doc
 //
@@ -59,7 +62,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.11 2001/11/22 17:49:13 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.12 2001/11/26 18:01:02 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -69,7 +72,10 @@ include_once("FREEDOM/Class.DocAttr.php");
 include_once("FREEDOM/Class.FileDisk.php");
 
 
-
+// define constant for search attributes
+define ("QA_TITLE", 1);
+define ("QA_KEY", 2);
+define ("QA_LAST", 3);
 
 Class Doc extends DbObjCtrl
 {
@@ -215,11 +221,30 @@ create sequence seq_id_doc start 10";
     $this->Add();
 
     $oattr=new DocAttr($this->dbaccess);
+    $oattr->id = QA_TITLE;
     $oattr->labeltext=_("title");
     $oattr->title = "Y";
     $oattr->abstract = "N";
     $oattr->docid = $this->initid;
     $oattr ->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->id = QA_KEY;
+    $oattr->labeltext=_("keyword");
+    $oattr->title = "Y";
+    $oattr->abstract = "N";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->id = QA_LAST;
+    $oattr->labeltext=_("only latest revision");
+    $oattr->title = "Y";
+    $oattr->abstract = "N";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+
 
   }
 
@@ -309,20 +334,24 @@ create sequence seq_id_doc start 10";
   // --------------------------------------------------------------------
     if ($this->action->parent->user->id == 1) return "";// admin can do anything
     $err="";
-    if ($this->locked == 0) {     
-      $err = sprintf(_("the file %s (rev %d) must be locked before"), $this->title,$this->revision);      
-    } else
-    if ($this->locked != $this->action->user->id) {
-      if ($this->locked > 0) {
-	$user = new User("", $this->locked);
-	$err = sprintf(_("you are not allowed to update the file %s (rev %d) is locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname); 
-      } else {
-	$err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);
+
+    if ($this->doctype != 'F') $err = $this-> Control( "edit"); // only document 'F' can be locked
+    else {
+      if ($this->locked == 0) {     
+	$err = sprintf(_("the file %s (rev %d) must be locked before"), $this->title,$this->revision);      
+      } else
+	if ($this->locked != $this->action->user->id) {
+	  if ($this->locked > 0) {
+	    $user = new User("", $this->locked);
+	    $err = sprintf(_("you are not allowed to update the file %s (rev %d) is locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname); 
+	  } else {
+	    $err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);
       
 
 
-      } 
-    } else $err = $this-> Control( "edit");
+	  } 
+	} else $err = $this-> Control( "edit");
+    }
     return($err);
   }
   // --------------------------------------------------------------------
@@ -332,17 +361,20 @@ create sequence seq_id_doc start 10";
   // --------------------------------------------------------------------
     if ($this->action->parent->user->id == 1) return ""; // admin can do anything
     $err="";
-    if ($this->locked > 0) {
-      // test if is not already locked
-      if ($this->locked != $this->action->user->id) {
-	$user = new User("", $this->locked);
-	$err = sprintf(_("cannot lock file %s (rev %d): already locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname);
-      } 
-    } else if ($this->locked != 0) {
+    if ($this->doctype != 'F') $err = _("this document cannot be locked : it is not a revisable document");  // only document 'F' can be locked
+    else {
+      if ($this->locked > 0) {
+	// test if is not already locked
+	if ($this->locked != $this->action->user->id) {
+	  $user = new User("", $this->locked);
+	  $err = sprintf(_("cannot lock file %s (rev %d): already locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname);
+	} 
+      } else if ($this->locked != 0) {
       
-      $err = sprintf(_("cannot lock file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);
-    } else {      
+	$err = sprintf(_("cannot lock file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);
+      } else {      
 	$err = $this-> Control( "edit");
+      }
     }
     return($err);  
   } 

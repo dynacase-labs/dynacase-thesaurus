@@ -194,7 +194,14 @@ function drawFolder(leftSide)
   doc.write("<tr><td>") 
   doc.write(leftSide) 
   this.outputLink() 
-  doc.write("<img id='folderIcon" + this.id + "' name='folderIcon" + this.id + "' src='" + this.iconSrc+"' border=0></a>") 
+  doc.write("<img id='folderIcon" + this.id + "' name='folderIcon" + this.id + "' src='" + this.iconSrc+"' border=0 style=\"cursor:pointer\"");
+
+      doc.write("onMouseDown='if (drag == 0) {selectFolder("+this.id+","+this.refid+");parent.info.location.href=\""+actionviewfile+"&dirid="+this.refid+"\"}'") 
+      doc.write("onMouseOver='if (drag == 1) clickOnFolder("+this.id+")'") 
+      doc.write("onContextMenu='openMenu(event,\"popfld\","+this.id+");return false'") 
+
+      doc.write("onMouseUp='if (drag == 1) {endDrag();dirid="+this.refid+";selid="+this.id+";openMenu(event,\"poppaste\")};'") 
+  doc.write(">") 
   doc.write("</td><td valign=middle nowrap>") 
   if (USETEXTLINKS) 
   { 
@@ -241,21 +248,16 @@ function selectFolder(id, refid) {
 }
 function outputFolderLink() 
 { 
-//  if (this.hreference) 
-//  { 
-////    doc.write("<a href='" + this.hreference + "' TARGET=\"info\" ") 
-//    doc.write("<a  TARGET=\"info\" ") 
-//    if (browserVersion > 0)
-//	
-//	doc.write("onMouseDown='if (drag == 0) {selecFotlder("+this.id+");parent.info.location.href=\""+actionviewfile+"&dirid="+this.refid+"\"}'") 
-//	doc.write("onMouseOver='if (drag == 1) clickOnFolder("+this.id+")'") 
-//	  //doc.write("onMouseUp='if (drag == 1) window.status=\"insert \"+docid+\":\"+drag+\" in "+this.refid+"\"'") 
-//	doc.write("onMouseUp='if (drag == 1) parent.info.location.href=\""+actionaddfile+"&dirid="+this.refid+"&docid=\"+docid'") 
-//    doc.write(">") 
-//  } 
-//  else 
-//    doc.write("<a>") 
-//  doc.write("<a href='javascript:clickOnFolder("+this.id+")'>")   
+  return;
+  if (this.hreference) 
+  { 
+    doc.write("<a href='" + this.hreference + "' TARGET=\"basefrm\" ") 
+    if (browserVersion > 0) 
+      doc.write("onClick='javascript:clickOnFolder("+this.id+")'") 
+    doc.write(">") 
+  } 
+  else 
+    doc.write("<a>")  
 } 
  
 function addChild(childNode) 
@@ -324,19 +326,15 @@ function initializeItem(level, lastNode, leftSide)
   else 
     this.renderOb("")   
 } 
- 
+
 function drawItem(leftSide) 
 { 
   this.blockStart("item")
 
   doc.write("<tr><td>") 
   doc.write(leftSide) 
-  doc.write("<a TARGET=\"info\" " )
-   
-  
-    doc.write(">") 
+  doc.write("<a href=" + this.link + ">") 
   doc.write("<img id='itemIcon"+this.id+"' ") 
-  
   doc.write("src='"+this.iconSrc+"' border=0>") 
   doc.write("</a>") 
   doc.write("</td><td valign=middle nowrap>") 
@@ -359,7 +357,6 @@ function drawItem(leftSide)
     this.iconImg = doc.getElementById("itemIcon"+this.id)
   } 
 } 
- 
  
 // Methods common to both objects (pseudo-inheritance) 
 // ******************************************************** 
@@ -398,13 +395,7 @@ function blockStart(idprefix) {
     doc.write("<layer "+ idParam + " top=" + doc.yPos + " visibility=show>") 
      
   if (browserVersion == 3) {//N6 has bug on display property with tables
-    doc.write("<div class='folder' " + idParam +" ")
-      doc.write("onMouseDown='if (drag == 0) {selectFolder("+this.id+","+this.refid+");parent.info.location.href=\""+actionviewfile+"&dirid="+this.refid+"\"}'") 
-      doc.write("onMouseOver='if (drag == 1) clickOnFolder("+this.id+")'") 
-      doc.write("onContextMenu='openMenu(event,\"popfld\");return false'") 
-	//doc.write("onMouseUp='if (drag == 1) window.status=\"insert \"+docid+\":\"+drag+\" in "+this.refid+"\"'") 
-      doc.write("onMouseUp='if (drag == 1) {dirid="+this.refid+";selid="+this.id+";openMenu(event,\"poppaste\")};'") 
-    doc.write(">") 
+    doc.write("<div class='folder' " + idParam +">")
   }
      
   doc.write("<table border=0 cellspacing=0 cellpadding=0 ") 
@@ -452,6 +443,7 @@ function clickOnFolder(folderId)
 { 
   var clicked = indexOfEntries[folderId] 
  
+    if (clicked.nChildren == 0) return;
   if (!clicked.isOpen) 
     clickOnNode(folderId) 
  

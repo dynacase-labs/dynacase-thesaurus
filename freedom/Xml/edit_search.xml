@@ -16,6 +16,10 @@
 
    <style type="text/css">
 [CSS:CODE]
+TD.tlist {
+  font-family: [CORE_FONTLIST1];
+  font-size: 80%;
+}
    </style>
 
 [JS:REF]
@@ -23,6 +27,11 @@
    <script language="JavaScript">
   <!--
     [JS:CODE]
+
+// IE doesn't understand CSS2 really
+var isNetscape = navigator.appName=="Netscape";
+if (! isNetscape) displaytable='inline'
+else displaytable='table-row'
   //-->
    </script>   
 
@@ -38,12 +47,57 @@
 <!-- Title Table -->
 <form  target="info" class="fborder" name="search" method="POST" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=SEARCH" >
 
-      <input type="text" name="keyword"></input>
+<table class="tablesimple" cellspacing="0"  width="100%" >
+<tr><td class="CORETblHeadBold" align="center" colspan="4">[TEXT:search document]</td><tr>
+</thead>
+<tbody>
+<tr class="tlist">
+  <td class="tlist" align="right">
+      <label for="keyword"> [TEXT: keyword]&nbsp;:</label></td>
+  <td class="tlist"  >
+      <input type="text" name="keyword"></input></td>
+</tr>
+<tr class="tlist">
+  <td class="tlist" align="right">
+      <label for="latest"> [TEXT: only latest revision]&nbsp;:</label></td>
+  <td class="tlist"  >
+      <input type="checkbox" name="latest" value="true" checked> </td>
+</tr>
 
+<tr class="tlist">
+  <td class="tlist" align="right">
+
+      <label for="sensitive"> [TEXT: case sensitive]&nbsp;:</label></td>
+  <td class="tlist">
+      <input type="checkbox" name="sensitive" value="true" > </td>
+</tr>
+
+<tr class="tlist">
+     <td class="tlist" align="right">
+      <label for="latest"> [TEXT: save query in current folder]&nbsp;:</label></td>
+     <td class="tlist">
+      <input type="checkbox" name="save" value="true"  
+             onClick="if (this.checked) document.getElementById('ititle').style.display=displaytable; else document.getElementById('ititle').style.display='none';"> </td>
+</tr>
+
+<tr class="tlist" id="ititle" style="display:none">
+  <td class="tlist"  align="right">
+      <label for="title">[TEXT: search title]&nbsp;:</label></td>
+  <td class="tlist">
+      <input  type="text" name="title"></input></td>
+</tr>
+
+<tr class="tlist">
+  <td class="tlist" align="right" >
  <input type="hidden" name="dirid" value="[dirid]" > 
+ <input type="submit" value="[TEXT: send search]" > </td>
+  <td class="tlist" align="right">
+<input type="reset" value="[TEXT: cancel]" onClick="history.back()"></td>
+</tr>
 
- <input type="submit" value="[TEXT: send search]" > 
  
+</tbody>
+</table>
 </form>
 <!--  FOOT HTML -->
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.7 2001/11/22 17:49:13 eric Exp $
+// $Id: folders.php,v 1.8 2001/11/26 18:01:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: folders.php,v $
+// Revision 1.8  2001/11/26 18:01:01  eric
+// new popup & no lock for no revisable document
+//
 // Revision 1.7  2001/11/22 17:49:13  eric
 // search doc
 //
@@ -52,14 +55,13 @@ include_once("FREEDOM/freedom_util.php");
 
 
 
-
 // -----------------------------------
 function folders(&$action) {
   // -----------------------------------
 
   
   global $oqdv, $nbfolders;
-  $nbfolders=1;
+  $nbfolders=0;
 
 
   // Set Css
@@ -91,8 +93,19 @@ function folders(&$action) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit(array('vprop','mkdir','cancel','staticpaste','pastelatest','cancel2'));
+  popupInit("popfld", array('vprop','mkdir','cancel'));
+  popupInit("poppaste", array('staticpaste','pastelatest','cancel2'));
 
+  // for the first (main) folder
+  popupActive("popfld",$nbfolders,'cancel');
+  popupActive("popfld",$nbfolders,'vprop');
+  popupActive("popfld",$nbfolders,'mkdir');  
+  popupActive("poppaste",$nbfolders,'staticpaste');
+  popupActive("poppaste",$nbfolders,'pastelatest');
+  popupActive("poppaste",$nbfolders,'cancel2');
+
+
+  $nbfolders++;
   // define sub tree
   $stree="";
   $ldir =   $oqdv->getChildDir($dirid);
@@ -112,15 +125,6 @@ function folders(&$action) {
 
 
 
-  for ($i=0; $i<$nbfolders; $i++) {
-    popupActive($i,'cancel');
-    popupActive($i,'vprop');
-    popupActive($i,'mkdir');
-    popupActive($i,'staticpaste');
-    popupActive($i,'pastelatest');
-    popupActive($i,'cancel2');
-
-  }
   // display popup js
   popupGen($nbfolders);
   
@@ -135,9 +139,18 @@ function addfolder($doc, $level) {
   global $nbfolders;
   
   $levelp = $level-1;
-     $ltree = "aux$level = insFld(aux".$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->id."))\n";
+  if ($doc->doctype == 'D') $ftype=1;
+  if ($doc->doctype == 'S') $ftype=2;
+     $ltree = "aux$level = insFld(aux".$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->id.",$ftype))\n";
 
 
+    popupActive("popfld",$nbfolders,'cancel');
+    popupActive("popfld",$nbfolders,'vprop');
+    if ($doc->doctype == 'D') popupActive("popfld",$nbfolders,'mkdir');
+    else popupInvisible("popfld",$nbfolders,'mkdir');
+    popupActive("poppaste",$nbfolders,'staticpaste');
+    popupActive("poppaste",$nbfolders,'pastelatest');
+    popupActive("poppaste",$nbfolders,'cancel2');
   $nbfolders++;
 
   if ($doc->doctype == 'D') {

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: Class.DocAttr.php,v 1.2 2001/11/26 18:01:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocAttr.php,v $
+// Revision 1.2  2001/11/26 18:01:02  eric
+// new popup & no lock for no revisable document
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -37,7 +40,7 @@
 //
 // ---------------------------------------------------------------
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.1 2001/11/09 09:41:14 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.2 2001/11/26 18:01:02 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -76,7 +79,6 @@ create sequence seq_id_docattr start 10";
 		    "url",
 		    "image",
 		    "embed",
-		    "flowstate",
 		    "file",
 		    "frame");
 		    

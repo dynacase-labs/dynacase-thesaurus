@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.5 2001/11/22 17:49:13 eric Exp $
+// $Id: Class.QueryDir.php,v 1.6 2001/11/26 18:01:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDir.php,v $
+// Revision 1.6  2001/11/26 18:01:02  eric
+// new popup & no lock for no revisable document
+//
 // Revision 1.5  2001/11/22 17:49:13  eric
 // search doc
 //
@@ -41,7 +44,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.5 2001/11/22 17:49:13 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.6 2001/11/26 18:01:02 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -82,8 +85,7 @@ create sequence seq_id_qdoc start 10";
 	  
 	}
     }
-      
-
+ 
   // --------------------------------------------------------------------
   function PostInsert()
     // --------------------------------------------------------------------    
@@ -98,11 +100,17 @@ create sequence seq_id_qdoc start 10";
 	$oqdv = new QueryDirV($this->dbaccess);
 	$dir = new Doc($this->dbaccess,$this->dirid);
 	$oqdv->dirid = $dir->initid;
+	
+
+
 	while(list($k,$v) = each($tableq)) 
 	  {
 	    $oqdv->childid = $v["id"];
 	    $oqdv->qid = $this->id;
-	    $err = $oqdv->Add();
+	    $err = "";
+	    if ($dir->doctype == 'D') $err = $oqdv->ItSelfAncestor();
+	    $this->log->Debug("oqdv try add ".$v["id"].$dir->doctype.$err);
+	    if ($err == "") $err = $oqdv->Add();
 	    if ($err != "") return $err;
 	  }
       }

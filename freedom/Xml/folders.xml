@@ -75,6 +75,13 @@ function initDrag() {
     parent.info.document.drag=0;
   }
 }
+function endDrag() {
+
+  
+    drag=0;
+    micon.style.visibility="hidden";
+
+}
 function initmicon() {
 
   micon = document.getElementById('micon');
@@ -154,7 +161,7 @@ STARTALLOPEN = 0 //replace 0 with 1 to show the whole tree
 actionaddfile = "[CORE_STANDURL]&app=[FREEDOM_APP]&action=ADDDIRFILE";
 actionviewfile = "[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LIST";
 
-aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]")
+aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]",1)
 
 
 [subtree]
@@ -200,6 +207,7 @@ aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]")
 <a href="#" id="cancel2"  
     onClick="closeMenu('poppaste')">cancel</a>
 </div>
+
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 
 <!-- Build the browser's objects and display default view of the 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.2 2001/11/22 17:49:13 eric Exp $
+// $Id: popup_util.php,v 1.3 2001/11/26 18:01:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: popup_util.php,v $
+// Revision 1.3  2001/11/26 18:01:02  eric
+// new popup & no lock for no revisable document
+//
 // Revision 1.2  2001/11/22 17:49:13  eric
 // search doc
 //
@@ -32,11 +35,13 @@
 // layout javascript for popup
 
 
-function popupInit($items) {
+function popupInit($name, $items) {
   global $lpopup;
   global $menuitems;
   global $action;
   global $tmenuaccess;
+  global $tmenus;
+  static  $km=0;
 
   $tmenuaccess=array();
   
@@ -60,51 +65,49 @@ function popupInit($items) {
   }
   // replace last comma by ']'
   $jsarray[strlen($jsarray)-1]="]";
-  $lpopup->Set("menuitems",$jsarray);
 
-  $lpopup->Set("nbmitem", count($menuitems));
+  $tmenus[$km]["menuitems"] = $jsarray;
+  $tmenus[$km]["name"] = $name;
+  $tmenus[$km]["nbmitem"] = count($menuitems);
+  $km++;
 }
 
-function popupInitItem($k) {
+function popupInitItem($name, $k) {
   global $tmenuaccess;
   global $menuitems;
-  if (! isset($tmenuaccess[$k]["divid"])) {
+  if (! isset($tmenuaccess[$name][$k]["divid"])) {
     
     while (list($ki, $v) = each($menuitems)) {
-      $tmenuaccess[$k]['v'.$ki] = 2; // invisible
+      $tmenuaccess[$name][$k]['v'.$ki] = 2; // invisible
 
     }
-    $tmenuaccess[$k]["divid"] = $k;
+    $tmenuaccess[$name][$k]["divid"] = $k;
+
   }
 }
 
-function popupActive($k, $nameid) {
+function popupActive($name,$k, $nameid) {
   global $tmenuaccess;
   global $$nameid;
-  popupInitItem($k);
-  $tmenuaccess[$k][$$nameid]=1;
+  popupInitItem($name,$k);
+  $tmenuaccess[$name][$k][$$nameid]=1;
 }
 
 
-function popupInactive($k, $nameid) {
+function popupInactive($name,$k, $nameid) {
   global $tmenuaccess;
   global $$nameid;
 
-  popupInitItem($k);
-  $tmenuaccess[$k][$$nameid]=0;
+  popupInitItem($name,$k);
+  $tmenuaccess[$name][$k][$$nameid]=0;
 }
-function popupInvisible($k, $nameid) {
+function popupInvisible($name,$k, $nameid) {
   global $tmenuaccess;
   global $$nameid;
 
-  popupInitItem($k);
-  $tmenuaccess[$k][$$nameid]=2;
+  popupInitItem($name,$k);
+  $tmenuaccess[$name][$k][$$nameid]=2;
 }
-
-function popupGen($kdiv) {  
-  global $tmenuaccess;
-  global $lpopup;
-  global $action;
 
   function vcompare($a, $b) {
     $na = intval(substr($a,1));
@@ -113,22 +116,40 @@ function popupGen($kdiv) {
     if ($na == $nb) return 0;
     return ($na < $nb) ? -1 : 1;
   }
+function popupGen($kdiv) {  
+  global $tmenuaccess;
+  global $tmenus;
+  global $lpopup;
+  global $action;
+
 
   $lpopup->Set("nbdiv",$kdiv-1);
   reset($tmenuaccess);
-  while (list($k, $v) = each($tmenuaccess)) {
-    uksort($v, 'vcompare');
+  $kv=0; // index for item
 
-    $tmenuaccess[$k]["vmenuitems"]="[";
-    while (list($ki, $vi) = each($v)) {
+  while (list($name, $v2) = each($tmenuaccess)) {
+    while (list($k, $v) = each($v2)) {
+      
+      uksort($v, 'vcompare');
+      
+      $tma[$kv]["vmenuitems"]="[";
+      while (list($ki, $vi) = each($v)) {
       if ($ki[0] == 'v') // its a value
-	$tmenuaccess[$k]["vmenuitems"] .= "".$vi.",";
+	$tma[$kv]["vmenuitems"] .= "".$vi.",";
+      }
+      // replace last comma by ']'
+      $tma[$kv]["vmenuitems"][strlen($tma[$kv]["vmenuitems"])-1]="]";
+      
+      $tma[$kv]["name"]=$name;
+      $tma[$kv]["divid"]=$v["divid"];
+      $kv++;
     }
-  // replace last comma by ']'
-    $tmenuaccess[$k]["vmenuitems"][strlen($tmenuaccess[$k]["vmenuitems"])-1]="]";
   }
 
-  $lpopup->SetBlockData("MENUACCESS", $tmenuaccess);
+  $lpopup->SetBlockData("MENUACCESS", $tma);
+  $lpopup->SetBlockData("MENUS", $tmenus);
   $action->parent->AddJsCode( $lpopup->gen());
+  $tmenus = array(); // re-init (for next time)
+  $tmenusaccess = array(); 
 }
 ?>

@@ -70,7 +70,7 @@ TR.tlist {
 
 <body class="freedom" 
       onLoad="initmicon();" 
-      onClick="closeMenu('popup');" 
+      onClick="closeMenu('popuplist');" 
       onResize="">
 
 
@@ -87,8 +87,8 @@ TR.tlist {
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
 <tr  id="d[divid]"  
-     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event);" 
-     onContextMenu="openMenu(event,'popup');return false" 
+     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
+     onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="sendFirstFile([id]);return false"
      >
 <td class="tlist" width="40" >

@@ -37,11 +37,16 @@ function buttonNumber(event) {
   else return button= event.button +1;
 }
 
-function openMenu(event, menuid) {
+
+
+
+
+
+
+function openMenu(event, menuid, itemid) {
 
   var el, x, y;
 
-  el = document.getElementById(menuid);
   if (window.event) {
     x = window.event.clientX + document.documentElement.scrollLeft
                              + document.body.scrollLeft;
@@ -53,28 +58,51 @@ function openMenu(event, menuid) {
     y = event.clientY + window.scrollY;
   }
   x -= 2; y -= 2;
+
+
+  el = document.getElementById(menuid);
   el.style.left = x + "px";
   el.style.top  = y + "px";
   el.style.visibility = "visible";
 
-  // active css for animation
-    for (i=0; i<nbmitem; i++) {
+  activeMenuItem(menuid, itemid);
+  return false; // no navigator context menu
+}
 
-      mitem = document.getElementById(tdivid[i]);
-      if (tdiv[selid][i] == 1) {
+
+function openMenuXY(event, menuid, x, y) {
+
+  var el;
+
+
+
+  el = document.getElementById(menuid);
+  el.style.left = x + "px";
+  el.style.top  = y + "px";
+  el.style.visibility = "visible";
+
+  activeMenuItem(menuid, 1); // first item (no context : only one item)
+  return false; // no navigator context menu
+}
+
+function activeMenuItem(menuid, itemid) {
+  window.status="menu:"+menuid+itemid;
+  // active css for animation for 'selid' object
+    for (i=0; i<nbmitem[menuid]; i++) {
+
+      mitem = document.getElementById(tdivid[menuid][i]);
+      if (tdiv[menuid][itemid][i] == 1) {
 	mitem.className='menuItem';
 	
-      } else      if (tdiv[selid][i] == 2) {
+      } else      if (tdiv[menuid][itemid][i] == 2) {
 	mitem.className='menuItemInvisible';
 	
       }else {
 	mitem.className = 'menuItemDisabled';
       } 
     }
-  return false; // no navigator context menu
+  
 }
-
-
 
 
 function closeMenu(menuid) {
@@ -101,11 +129,16 @@ function sendandreload(th, url) {
 	//  document.location.reload(true);
   }
 }
+var tdiv= new Array();
+var tdivid= new Array();
+var nbmitem= new Array();
+[BLOCK MENUS]
+nbmitem['[name]'] =[nbmitem]; 
+tdiv['[name]']= new Array([nbdiv]+1);
+tdivid['[name]']=[menuitems];
+[ENDBLOCK MENUS]
 
-var nbmitem =[nbmitem]; 
-var tdiv= new Array([nbdiv]+1);
-tdivid=[menuitems];
 [BLOCK MENUACCESS]
-tdiv[[divid]]=[vmenuitems];
+tdiv['[name]'][[divid]]=[vmenuitems];
 [ENDBLOCK MENUACCESS]
 

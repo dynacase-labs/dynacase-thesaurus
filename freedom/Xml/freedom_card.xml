@@ -24,7 +24,6 @@
     [JS:CODE]
   //-->
   var docid=[id];
-  var selid=1;
    </script>
  </head>
 
@@ -85,8 +84,8 @@
 
 
 <table class="tableborder"  cellspacing="0" width="100%"
-     onContextMenu="openMenu(event,'popupcard');return false" 
-     onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard')"      >
+     onContextMenu="openMenu(event,'popupcard',1);return false" 
+     onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard',1)"      >
 <tr>
   
  <td class="FREEDOMTblTitle" colspan="2">
@@ -117,10 +116,12 @@
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:revision]</span></td>
   <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[revision]</span></td>
 </tr>
+[BLOCK LOCK]
 <tr>
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:locked by]</span></td>
   <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[locked]</span></td>
 </tr>
+[ENDBLOCK LOCK]
 [BLOCK ALLPROP]
 <tr>
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:revision date]</span></td>

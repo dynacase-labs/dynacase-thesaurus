@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.10 2001/11/22 17:49:13 eric Exp $
+// $Id: freedom_card.php,v 1.11 2001/11/26 18:01:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.11  2001/11/26 18:01:01  eric
+// new popup & no lock for no revisable document
+//
 // Revision 1.10  2001/11/22 17:49:13  eric
 // search doc
 //
@@ -52,26 +55,6 @@
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
-// Revision 1.7  2001/10/17 14:35:55  eric
-// mise en place de i18n via gettext
-//
-// Revision 1.6  2001/10/12 10:24:35  eric
-// pas d'affichage d'ACL pour objet non controllé
-//
-// Revision 1.5  2001/09/10 16:51:45  eric
-// ajout accessibilté objet
-//
-// Revision 1.4  2001/07/05 11:41:31  eric
-// ajout export format vcard
-//
-// Revision 1.3  2001/06/22 09:46:12  eric
-// support attribut multimédia
-//
-// Revision 1.2  2001/06/15 10:32:48  eric
-// typage des attributs avec ajout image
-//
-// Revision 1.1  2001/06/13 14:39:53  eric
-// Freedom address book
 //
 // ---------------------------------------------------------------
 include_once("FREEDOM/Class.Doc.php");
@@ -217,15 +200,25 @@ function freedom_card(&$action) {
 
   
   if ($abstract){
+    // only 3 properties for abstract mode
     $listattr = $doc->GetAbstractAttributes();    
-    $action->lay->Set("nprop",3);
+    $nprop=3;
   } else {
     $listattr = $doc->GetAttributes();
     $action->lay->SetBlockData("ALLPROP",array(array("boo"=>1)));
-    $action->lay->Set("nprop",6);
+    $nprop=6;
     
   }
-  $nattr = count($listattr);
+  // see locker for lockable document
+  if ($doc->doctype == "F")  {
+    $action->lay->SetBlockData("LOCK",array(array("boo"=>1)));  
+  } else  $nprop--;
+  $action->lay->Set("nprop",$nprop);  
+
+
+
+
+  $nattr = count($listattr); // attributes list count
 
 
   $k=0; // number of frametext
@@ -380,56 +373,61 @@ function freedom_card(&$action) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit( array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','properties','cancel'));
+  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','properties','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
   $cuf = ($doc->CanUnLockFile() == "");
   $cud = ($doc->CanUpdateDoc() == "");
 
-  Popupactive($kdiv,'cancel');
-  if (($doc->doctype=="C") && ($cud)) popupActive($kdiv,'chicon'); 
-  else popupInvisible($kdiv,'chicon');
+  Popupactive('popupcard',$kdiv,'cancel');
+  if (($doc->doctype=="C") && ($cud)) popupActive('popupcard',$kdiv,'chicon'); 
+  else popupInvisible('popupcard',$kdiv,'chicon');
 
-  if (($doc->locked != $action->user->id) && 
-      $clf) popupActive($kdiv,'lockdoc');
-  else popupInactive($kdiv,'lockdoc');
+  if ($doc->doctype != 'F') popupInvisible('popupcard',$kdiv,'lockdoc');
+  else if (($doc->locked != $action->user->id) && 
+      $clf) popupActive('popupcard',$kdiv,'lockdoc');
+  else popupInactive('popupcard',$kdiv,'lockdoc');
 
-  if (($doc->locked != 0) && $cuf) popupActive($kdiv,'unlockdoc'); 
-  else popupInactive($kdiv,'unlockdoc');
+  if ($doc->doctype != 'F') popupInvisible('popupcard',$kdiv,'unlockdoc');
+  elseif (($doc->locked != 0) && $cuf) popupActive('popupcard',$kdiv,'unlockdoc'); 
+  else popupInactive('popupcard',$kdiv,'unlockdoc');
 
-  if ($doc->doctype != "F") popupInvisible($kdiv,'revise');
+  if ($doc->doctype != "F") popupInvisible('popupcard',$kdiv,'revise');
   else if (($doc->lmodify == 'Y') && 
-	   ($cud)) popupActive($kdiv,'revise'); 
-  else popupInactive($kdiv,'revise');
+	   ($cud)) popupActive('popupcard',$kdiv,'revise'); 
+  else popupInactive('popupcard',$kdiv,'revise');
 
   if ($cud) {
-    popupActive($kdiv,'editdoc'); 
-    popupActive($kdiv,'editattr'); 
-    popupActive($kdiv,'editprof');
+    popupActive('popupcard',$kdiv,'editdoc'); 
+    popupActive('popupcard',$kdiv,'editattr'); 
+    popupActive('popupcard',$kdiv,'editprof');
   } else if ($doc->locked < 0){ // fixed document
-    popupInvisible($kdiv,'editdoc');
-    popupInvisible($kdiv,'editattr'); 
-    popupInvisible($kdiv,'editprof');
-    popupInvisible($kdiv,'revise');
-    popupInvisible($kdiv,'lockdoc');
-    popupInvisible($kdiv,'unlockdoc');
-    popupInvisible($kdiv,'chicon');
+    popupInvisible('popupcard',$kdiv,'editdoc');
+    popupInvisible('popupcard',$kdiv,'editattr'); 
+    popupInvisible('popupcard',$kdiv,'editprof');
+    popupInvisible('popupcard',$kdiv,'revise');
+    popupInvisible('popupcard',$kdiv,'lockdoc');
+    popupInvisible('popupcard',$kdiv,'unlockdoc');
+    popupInvisible('popupcard',$kdiv,'chicon');
   } else {
-    popupInactive($kdiv,'editdoc');
-    popupInactive($kdiv,'editattr'); 
-    popupInactive($kdiv,'editprof');
+    popupInactive('popupcard',$kdiv,'editdoc');
+    popupInactive('popupcard',$kdiv,'editattr'); 
+    popupInactive('popupcard',$kdiv,'editprof');
   }
-  if ($doc->doctype=="F") popupActive($kdiv,'histo'); 
-  else popupInvisible($kdiv,'histo');
+  if ($doc->doctype=="F") popupActive('popupcard',$kdiv,'histo'); 
+  else popupInvisible('popupcard',$kdiv,'histo');
 
-  if ($abstract) popupActive($kdiv,'properties'); 
-  else popupInvisible($kdiv,'properties'); 
+  if ($abstract) popupActive('popupcard',$kdiv,'properties'); 
+  else popupInvisible('popupcard',$kdiv,'properties'); 
 
 
-  if ($doc->doctype!="C") popupInvisible($kdiv,'editcprof'); 
-  else if ($cud) popupActive($kdiv,'editcprof');
-  else popupInactive($kdiv,'editcprof');
+  if ($doc->doctype !="C") {
+    popupInvisible('popupcard',$kdiv,'editcprof'); 
+    popupInvisible('popupcard',$kdiv,'editattr'); 
+  }
+  else if ($cud) popupActive('popupcard',$kdiv,'editcprof');
+  else popupInactive('popupcard',$kdiv,'editcprof');
   // unused menu items
   //$tmenuaccess[$kdiv]["vmenuitem9"]=0;
 
