@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.62 2003/03/05 16:49:28 eric Exp $
+// $Id: Lib.Dir.php,v 1.63 2003/03/11 17:08:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -367,7 +367,7 @@ function setv($v,$k,$d="") {
 
 
 // --------------------------------------------------------------------
-function GetClassesDoc($dbaccess,$userid,$classid=1,$qtype="LIST")
+function GetClassesDoc($dbaccess,$userid,$classid=0,$qtype="LIST")
      // --------------------------------------------------------------------
 {
   $query = new QueryDb($dbaccess,"DocFam");
@@ -375,8 +375,10 @@ function GetClassesDoc($dbaccess,$userid,$classid=1,$qtype="LIST")
   
   $query->AddQuery("doctype='C'");
   
-  $cdoc = new DocFam($dbaccess, $classid);
-  $query->AddQuery("usefor = '".$cdoc->usefor."'");
+  if ($classid >0 ) {
+    $cdoc = new DocFam($dbaccess, $classid);
+    $query->AddQuery("usefor = '".$cdoc->usefor."'");
+  }
   
   
   $query->AddQuery("hasviewprivilege(".$userid.",docfam.profid)");
