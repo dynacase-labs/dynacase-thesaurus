@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.111 2003/04/08 12:44:10 eric Exp $
+// $Id: Class.Doc.php,v 1.112 2003/04/11 13:56:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.111 2003/04/08 12:44:10 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.112 2003/04/11 13:56:55 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1479,22 +1479,24 @@ create unique index i_docir on doc(initid, revision);";
   // use triggers to update docvalue table
   // --------------------------------------------------------------------
   function SqlTrigger() {
-    if ($this->doctype != 'C') return;
-    if (intval($this->id) == 0) return;
+    if ($this->doctype == 'C') return;
+    if (intval($this->fromid) == 0) return;
+
+    $cid = $this->fromid;
     reset($this->attributes->fromids);
       
     $sql = "";
 
     // delete all relative triggers
-    $sql .= "select droptrigger('doc".$this->id."');";
+    $sql .= "select droptrigger('doc".$cid."');";
      
     while(list($k,$v) = each($this->attributes->fromids)) {
 
-      $sql .="create trigger UV{$this->id}_$v BEFORE INSERT OR UPDATE ON doc$this->id FOR EACH ROW EXECUTE PROCEDURE upval$v();";
+      $sql .="create trigger UV{$cid}_$v BEFORE INSERT OR UPDATE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE upval$v();";
      
     }
     // the reset trigger must begin with 'A' letter to be proceed first (pgsql 7.3.2)
-      $sql .="create trigger AUVR{$this->id} BEFORE  UPDATE  ON doc$this->id FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
+      $sql .="create trigger AUVR{$cid} BEFORE  UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
     return $sql;
   }
 
