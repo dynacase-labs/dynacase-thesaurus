@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.131 2003/06/06 09:39:16 eric Exp $
+// $Id: Class.Doc.php,v 1.132 2003/06/06 11:47:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.131 2003/06/06 09:39:16 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.132 2003/06/06 11:47:09 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/06 09:39:16 $
-// Version         $Revision: 1.131 $
+// Last Update     $Date: 2003/06/06 11:47:09 $
+// Version         $Revision: 1.132 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1805,7 +1805,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
 	    default : 
-	      $tableframe[$v]["wvalue"]=($attr->type == "array")?"1%":"30%"; // width
+	      $tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
 	      break;
 		
@@ -1816,7 +1816,7 @@ create unique index i_docir on doc(initid, revision);";
 	  // print name except image (printed otherthere)
 	  if ($attr->type != "image") {
 	    $tableframe[$v]["name"]=$this->GetLabel($attr->id);
-	    if ( $attr->type != "array") $tableframe[$v]["ndisplay"]="";
+	    if (( $attr->type != "array")&&( $attr->type != "htmltext"))  $tableframe[$v]["ndisplay"]="";
 	    else $tableframe[$v]["ndisplay"]="none";
 	    $v++;
 	  } else	{

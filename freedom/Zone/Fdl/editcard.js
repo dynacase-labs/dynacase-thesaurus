@@ -112,26 +112,38 @@ taout[[jska]]=[jstaout];
 
 function disableReadAttribute() {
     
-    var ndis = true;
-    var i;
-    var vin;
-    for (var c=0; c< tain.length; c++) {
-      ndis = true;
-      for (var i=0; i< tain[c].length; i++) {
-	    if (document.getElementById(tain[c][i])) {
-		vin=document.getElementById(tain[c][i]).value;
-		if ((vin == '') || (vin == ' ')) ndis = false;
-	    }
-	}
-      for (var i=0; i< taout[c].length; i++) {
-	    if (document.getElementById(taout[c][i])) {
-	      if (document.getElementById(taout[c][i]).type != 'hidden') {
-		document.getElementById(taout[c][i]).disabled=ndis;
-		document.getElementById(taout[c][i]).style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
-	      }
-	    }
+  var ndis = true;
+  var i;
+  var vin;
+  var lin;
+  for (var c=0; c< tain.length; c++) {
+    ndis = true;
+    for (var i=0; i< tain[c].length; i++) {
+      if (document.getElementById(tain[c][i])) {
+	vin=document.getElementById(tain[c][i]).value;
+	if ((vin == '') || (vin == ' ')) ndis = false;
       }
     }
+    for (var i=0; i< taout[c].length; i++) {
+      if (document.getElementById(taout[c][i])) {
+	if (document.getElementById(taout[c][i]).type != 'hidden') {
+	  document.getElementById(taout[c][i]).disabled=ndis;
+	  document.getElementById(taout[c][i]).style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
+	}
+      } else {
+	// search in arrays
+	lin = document.getElementsByName('_'+taout[c][i]+'[]');
+	for (var j=0; j< lin.length; j++) {
+	  if (lin[j].type != 'hidden') {
+	    lin[j].disabled=ndis;
+	    lin[j].style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
+	  }
+		
+	}
+	      
+      }
+    }
+  }
 }
 
 function editOnLoad() {
