@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.4 2002/10/31 08:09:22 eric Exp $
+// $Id: freedom_card.php,v 1.5 2003/01/13 18:53:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -31,8 +31,15 @@ function freedom_card(&$action) {
   // -----------------------------------
   
   $docid = GetHttpVars("id");
+  $latest = GetHttpVars("latest");
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
+  if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
+
+  if (($latest == "Y") && ($doc->locked == -1)) {
+    // get latest revision
+    SetHttpVar("id",$doc->latestId());
+  }
 
 
   $action->lay->Set("TITLE",$doc->title);

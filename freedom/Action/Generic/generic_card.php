@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_card.php,v 1.4 2002/11/04 17:56:17 eric Exp $
+// $Id: generic_card.php,v 1.5 2003/01/13 18:53:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,6 +34,7 @@ function generic_card(&$action) {
   $docid = GetHttpVars("id");
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
+  if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
 
   $action->lay->Set("TITLE",$doc->title);
 

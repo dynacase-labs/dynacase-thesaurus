@@ -1,8 +1,13 @@
 
+document.menuclosed=true; // use to avoid autoclose when inputs in menu
 
 function closeAllMenu() {
+  if (document.menuclosed) {
 [BLOCK CMENUS]  closeMenu('[name]');
 [ENDBLOCK CMENUS]
+  }
+
+  document.menuclosed=true;
 }
 [BLOCK MENUS]
 nbmitem['[name]'] =[nbmitem]; 
