@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.16 2004/06/23 14:08:24 eric Exp $
+ * @version $Id: generic_list.php,v 1.17 2004/07/28 10:13:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.16 2004/06/23 14:08:24 eric Exp $
+// $Id: generic_list.php,v 1.17 2004/07/28 10:13:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -85,11 +85,11 @@ function generic_list(&$action) {
   }
   if (viewfolder($action, true, false,$column,$slice,array(),$famid) == $slice) {
     // can see next
-    $action->lay->Set("nexticon",$action->GetIcon("next.png",N_("next"))); 
+    $action->lay->Set("nexticon",$action->GetIcon("next.png",N_("next"),16)); 
   }
   if ($startpage > 0) {
     // can see prev
-    $action->lay->Set("previcon",$action->GetIcon("prev.png",N_("prev"))); 
+    $action->lay->Set("previcon",$action->GetIcon("prev.png",N_("prev"),16)); 
   }
   
   if ($wonglet) {
