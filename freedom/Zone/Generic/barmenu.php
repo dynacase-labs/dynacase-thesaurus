@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.17 2003/10/16 09:38:02 eric Exp $
+ * @version $Id: barmenu.php,v 1.18 2004/01/26 14:53:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.17 2003/10/16 09:38:02 eric Exp $
+// $Id: barmenu.php,v 1.18 2004/01/26 14:53:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,7 +48,16 @@ function barmenu(&$action) {
   $catg=GetHttpVars("catg", 1); // catg where search
 
 
+  if ($action->Read("navigator","")=="EXPLORER") {
+    // special for position style
+    $action->lay->set("positionstyle","");
+  } else {
+    $action->lay->set("positionstyle","fixed");
+  }
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
+
+
 
   $famid = getDefFam($action);
   
