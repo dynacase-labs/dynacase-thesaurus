@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.25 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.26 2003/10/28 16:31:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.25 2003/08/18 15:47:04 eric Exp $
+// $Id: Lib.Attr.php,v 1.26 2003/10/28 16:31:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,6 +76,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 
   $query = new QueryDb($dbaccess,"DocAttr");
   $query->AddQuery("docid=".$tdoc["id"]);
+  $query->order_by="ordered";
 
   $table1 = $query->Query();
 
@@ -90,8 +91,10 @@ function AttrToPhp($dbaccess, $tdoc) {
     $attrids=array();
     $tcattr=array();
     while(list($k,$v) = each($table1))   {
-      switch ($v->visibility) {
-      case "M": // menu
+      if ($v->visibility == "F") $v->type="frame"; // old notation compliant
+      if ($v->visibility == "M") $v->type="menu"; // old notation compliant
+      switch ($v->type) {
+      case "menu": // menu
 	if ($v->visibility != "H")
 	  $tmenu[] = array("attrid"=>strtolower($v->id),
 			   "label"=>str_replace("\"","\\\"",$v->labeltext),
@@ -99,7 +102,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 			   "link"=>str_replace("\"","\\\"",$v->link),
 			   "precond"=>$v->phpfunc);
 	break;
-      case "F": // frame
+      case "frame": // frame
 	$tfield[] = array("attrid"=>strtolower($v->id),
 			  "visibility"=>$v->visibility,
 			  "label"=>str_replace("\"","\\\"",$v->labeltext));
