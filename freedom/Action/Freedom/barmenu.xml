@@ -70,6 +70,6 @@
 
 <!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup">
-  <a id="help" target="helpwhat" href="[CORE_STANDURL]app=HELP&action=VIEW&id=freedom.gen" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:help]</a>
+  <a id="help" target="helpwhat" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:help]</a>
 </div>
 

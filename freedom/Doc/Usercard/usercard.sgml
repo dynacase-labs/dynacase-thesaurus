@@ -4,7 +4,7 @@
 ]
 >
 
-<article id="usercard" lang="fr" revision="$Id: usercard.sgml,v 1.4 2002/03/27 17:42:21 eric Exp $">
+<article id="usercard" lang="fr" revision="$Id: usercard.sgml,v 1.5 2002/08/19 12:15:34 eric Exp $">
   <title>
   <inlinemediaobject>
     <imageobject>
@@ -245,7 +245,7 @@
       <para> On peut aussi déclencher l'importation de Vcard ou de CSV par les commandes shell suivantes. Dans ce cas le remplacement (policy=update), si nécessaire, est toujours effectué. Les possibilités de l'argument policy sont : <emphasis>add</emphasis> (ajout), <emphasis>update</emphasis> (remplacer) et <emphasis>keep</emphasis> (laisser)</para>
       <screen width=80>[root@yoda]# /home/httpd/what/wsh.php --app=USERCARD --action=USERCARD_IMPORTVCARD 
            --file=/home/eric/everybody.vcf --policy=update</screen>
-      <screen width=80>[root@yoda]# /home/httpd/what/wsh.php --app=USERCARD --action=USERCARD_IMPORTCSV
+      <screen width=80>[root@yoda]# /home/httpd/what/wsh.php --app=USERCARD --action=GENERIC_IMPORTCSV
            --file=/home/eric/everybody.csv --policy=update</screen>
 	</sect3>
     </sect2>
