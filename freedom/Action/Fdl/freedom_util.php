@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.57 2004/10/04 08:18:45 eric Exp $
+ * @version $Id: freedom_util.php,v 1.58 2004/10/08 07:42:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -95,7 +95,7 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
   }
   $fromid="";
   $gen=""; // path GEN or not
-  
+  $id=intval($id);
   if ($id > 0) {
 
     if (isset($gdocs[$id])) {
