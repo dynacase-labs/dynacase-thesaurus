@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.214 2004/09/06 10:30:32 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.215 2004/09/07 10:04:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1934,17 +1934,21 @@ create unique index i_docir on doc(initid, revision);";
 	    
 	  switch ($link[$i]) {
 	  case "B": // baseurl	  
-	    $urllink.=$action->GetParam("CORE_BASEURL");
-	      
+	    $urllink.=$action->GetParam("CORE_BASEURL");	      
 	    break;
+
 	  case "S": // standurl	  
-	    $urllink.=$action->GetParam("CORE_STANDURL");
-	      
+	    $urllink.=$action->GetParam("CORE_STANDURL");	      
 	    break;
+
 	  case "I": // id	  
-	    $urllink.=$this->id;
-	      
+	    $urllink.=$this->id;	      
 	    break;
+
+	  case "T": // title  
+	    $urllink.=$this->title;	      
+	    break;	    	    
+
 	  default:
 	      
 	    break;

@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.73 2004/09/06 15:10:25 eric Exp $
+ * @version $Id: editutil.php,v 1.74 2004/09/07 10:04:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.73 2004/09/06 15:10:25 eric Exp $
+// $Id: editutil.php,v 1.74 2004/09/07 10:04:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -367,6 +367,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 
 
       $input =$lay->gen(); 
+      if (!(($visibility == "R")||($visibility == "S"))) {
+	$input.="<input type=\"button\" value=\"&diams;\"".
+	  " title=\""._("manual date")."\" onclick=\"focus_date(event,'$attridk')\"".
+	  ">";
+      }
       break;     
       //같같같같같같같같같같같같같같같같같같같같
 			
@@ -802,9 +807,9 @@ function editmode(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
   //  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
-  $action->parent->AddJsRef("jscalendar/calendar.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
-  $action->parent->AddJsRef("jscalendar/calendar-setup.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
   $action->parent->AddCssRef("jscalendar/Layout/calendar-win2k-2.css");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITJS");

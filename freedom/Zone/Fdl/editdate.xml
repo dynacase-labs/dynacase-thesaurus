@@ -1,4 +1,4 @@
-<input [disabled] size="8" type="text" name="[name]" value="[value]" id="[id]" />
+<input [disabled] size="8"  onblur="control_date(event,this)" type="text" name="[name]" value="[value]" id="[id]" />
 <input  type="button" id="[id]T" value="&#133;" />
 
 <script type="text/javascript">

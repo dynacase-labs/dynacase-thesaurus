@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.1 2004/08/27 14:12:02 eric Exp $
+// $Id: calendar.js,v 1.2 2004/09/07 10:04:23 eric Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -1713,3 +1713,44 @@ Date.prototype.setFullYear = function(y) {
 
 // global object that remembers the calendar
 window.calendar = null;
+function padout2(number) { return (number < 10) ? '0' + number : number; }
+function padout4(number) { return (number < 30) ? '20' + padout2(number) : (number < 100) ? '19' + padout2(number) : number; }
+
+
+function control_date(event, th) {
+  var dpat = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
+  var nd=new Date();
+  var r = th.value.match(dpat);
+
+  if ((th.value!="") && (th.value!=" ")) {
+
+
+    if (r != null) {
+    
+      nd.setFullYear(r[3]);
+      nd.setMonth(r[2]-1);
+      nd.setDate(r[1]);
+      th.disabled=true; // to say OK
+      th.value= padout2(nd.getDate())+'/'+padout2(nd.getMonth()+1)+'/'+padout4(nd.getFullYear());
+		     
+    } else {
+      var oldvalue=th.value;
+      th.value= padout2(d.getDate())+'/'+padout2(nd.getMonth()+1)+'/'+padout4(nd.getFullYear());
+      alert('date incorrecte : '+oldvalue);
+      th.select();
+      th.focus();
+   
+    }
+    
+  }
+}
+
+function focus_date(event,id) {
+  var oid=document.getElementById(id);
+  if (oid) {
+    oid.disabled=false;
+    oid.select();
+    oid.focus();
+  }
+}
+ 
