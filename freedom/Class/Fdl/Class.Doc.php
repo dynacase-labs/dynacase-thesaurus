@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.207 2004/06/25 12:48:18 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.208 2004/07/05 13:02:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1321,7 +1321,8 @@ create unique index i_docir on doc(initid, revision);";
     $title1 = "";
     while(list($k,$v) = each($ltitle)) {
       if ($this->GetValue($v->id) != "") {
-	$title1.= $this->GetValue($v->id)." ";
+	if ($v->type=="enum") $title1.= $this->GetHtmlValue($v,$this->GetValue($v->id))." ";
+	else $title1.= $this->GetValue($v->id)." ";
       }
     }
 
@@ -1464,6 +1465,11 @@ create unique index i_docir on doc(initid, revision);";
 	    if ($avalue != "") {
 	    if ($oattr) {
 	      switch($oattr->type) {
+	      case docid:
+		if  (!is_numeric($avalue)) {		  
+		  $tvalues[$kvalue]=getIdFromName($this->dbaccess,$avalue);
+		}
+		break;
 	      case double:
 	      case money:
 		$tvalues[$kvalue]=str_replace(",",".",$avalue);
@@ -1494,7 +1500,7 @@ create unique index i_docir on doc(initid, revision);";
 	    }
 	  }
 	}
-	//      print $oattr->id."-".$oattr->type;print_r2($tvalues);
+	//   print $oattr->id."-".$oattr->type;print_r2($tvalues);
 	$this->$attrid=implode("\n",$tvalues); 
 
 	
