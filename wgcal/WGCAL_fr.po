@@ -1,92 +1,149 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:54+0100\n"
+"POT-Creation-Date: 2004-12-07 17:59+0100\n"
 "PO-Revision-Date: 2004-10-18 18:13+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 msgid "workgroup calendar"
-msgstr ""
+msgstr "Agenda de groupe"
 
 msgid "admin access"
-msgstr ""
+msgstr "Acces administrateur"
 
 msgid "user access"
-msgstr ""
+msgstr "Access utilisateur"
 
 msgid "no access"
-msgstr ""
+msgstr "Pas d'accès"
 
 msgid "css manager"
-msgstr ""
+msgstr "Gestion des CSS"
 
 msgid "main view"
-msgstr ""
+msgstr "Vue principale"
 
 msgid "toolbar"
-msgstr ""
+msgstr "Barre d'outils"
+
+msgid "set display/undisplay tool state in toolbar"
+msgstr "Afficher/Ne pas afficher dans la barre d'outil"
 
 msgid "menubar"
-msgstr ""
+msgstr "Barre de menu"
+
+msgid "ressource picker main"
+msgstr "Selecteur de ressources"
 
 msgid "ressource picker"
-msgstr ""
+msgstr "Selecteur de ressources"
+
+msgid "ressource picker : list"
+msgstr "Liste des ressources"
 
 msgid "select ressource for display"
-msgstr ""
+msgstr "Sélectionner la ressource pour l'affichage"
+
+msgid "save ressource selection"
+msgstr "Sauvegarder la liste des ressources"
+
+msgid "init ressource selection"
+msgstr "Réinitialiser la liste des ressources"
+
+msgid "set color for calendar"
+msgstr "Sélection de la couleur de visualisation"
+
+msgid "change display/not displayed ress status"
+msgstr "Etat d'affichage de la ressource"
 
 msgid "calendar view"
-msgstr ""
+msgstr "Vue agenda"
 
 msgid "freeevent app name"
 msgstr ""
 
+msgid " ressource list changed, save it ?"
+msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
+
+msgid " invalid ressource id"
+msgstr "Identifiant de ressource invalide"
+
 msgid "calendar selector"
-msgstr ""
+msgstr "Sélection du calendrier"
 
 msgid "my calendars"
-msgstr ""
+msgstr "Mes agendas"
+
+msgid "update calendar"
+msgstr "Mise à jour des calendriers"
 
 msgid "modify the list"
-msgstr ""
+msgstr "Modifier la liste des agendas"
 
-msgid "date navigator"
-msgstr ""
+msgid "reinit the list"
+msgstr "Réinitialiser la liste"
+
+msgid "save the list"
+msgstr "Sauvegarder la liste"
+
+msgid "supress ressource"
+msgstr "Supprimer la ressource"
+
+msgid "suppress ressource"
+msgstr "Enlever la ressource"
+
+msgid "change color for ressource"
+msgstr "Modifier la couleur de la ressource"
+
+msgid "date selector"
+msgstr "Selecteur de date"
 
 msgid "freedom groupware calendar"
-msgstr ""
+msgstr "Agenda de groupe Freedom"
+
+msgid "found ressources"
+msgstr "Ressources trouvées"
+
+msgid "searched families"
+msgstr "Rechercher dans les familles..."
+
+msgid "search"
+msgstr "Rechercher"
 
 msgid "left toolbar width"
-msgstr ""
+msgstr "Largeur de la barre d'outils"
 
 msgid "title line height"
-msgstr ""
+msgstr "Hauteur de la ligne de titre"
 
 msgid "hour in day column width"
-msgstr ""
+msgstr "Largeur de la colonne des heures"
 
 msgid "display week end"
-msgstr ""
+msgstr "Affichage des week-end"
 
 msgid "view count days"
-msgstr ""
+msgstr "Nombre de jours affichés"
 
 msgid "day start hour"
-msgstr ""
+msgstr "Heure de début de la journée"
 
 msgid "day end hour"
-msgstr ""
+msgstr "Heure de fin de la journée"
 
 msgid "hour division"
-msgstr ""
+msgstr "Division de l'heure"
 
 msgid "tool display state"
-msgstr ""
+msgstr "Etat d'affiche de l'outil"
+
+msgid "displayed ressources"
+msgstr "Ressources affichées"
 
 msgid "week"
-msgstr ""
+msgstr "Semaine"

@@ -1,17 +1,217 @@
+<script type="text/javascript">
+var cp = new ColorPicker();
+
+
+
+var curRessource = -1;
+
+function pickColor(color) {
+  if (curRessource==-1) return;
+  idx = getRessourcePos(curRessource);
+  tt = printRessource(idx);
+  InsertRessource( ressourceList[idx][4], curRessource, ressourceList[idx][3], color, ressourceList[idx][5] );
+  alert('maj ok? \n'+tt);
+}
+   
+function showColorPicker(event, id, idress) {
+  curRessource = idress;
+  cp.show(id);
+}
+
+var picker = null;
+
+window.onunload = killwins;
+function killwins() {
+  if (picker != null) picker.close();
+  if (ressourcesChange == 1) {
+    ok = confirm('[TEXT: ressource list changed, save it ?]');
+    if (ok) saveRessources();
+  }
+}
+
+
+function  mynodereplacestr(n,s1,s2) {
+  
+  var kids=n.childNodes;
+  var ka;
+  var avalue;
+  var regs1;
+  var rs1;
+  var tmp;
+  var attnames = new Array('style', 'title', 'src' , 'onclick', 'href','onmousedown','onmouseout', 'onmouseover','id','name','onchange');
+  // for regexp
+  rs1 = s1.replace('[','\\[');
+  rs1 = rs1.replace(']','\\]');
+  regs1 = new RegExp(rs1,'g');
+  
+  for (var i=0; i< kids.length; i++) {     
+    if (kids[i].nodeType==3) { 
+      // Node.TEXT_NODE
+      
+	if (kids[i].data.search(rs1) != -1) {
+	  tmp=kids[i].data; // need to copy to avoid recursive replace
+	  
+	  kids[i].data = tmp.replace(s1,s2);
+	}
+    } else if (kids[i].nodeType==1) { 
+      // Node.ELEMENT_NODE
+	
+	// replace  attributes defined in attnames array
+	  for (iatt in attnames) {
+	    
+	    attr = kids[i].getAttributeNode(attnames[iatt]);
+	    if ((attr != null) && (attr.value != null) && (attr.value != 'null'))  {
+	      
+	      if (attr.value.search(rs1) != -1) {				
+		avalue=attr.value.replace(regs1,s2);
+
+		if (isNetscape) attr.value=avalue;
+		else if ((attr.name == 'onclick') || (attr.name == 'onmousedown') || (attr.name == 'onmouseover')) kids[i][attr.name]=new Function(avalue); // special for IE5.5+
+		else attr.value=avalue;
+	      }
+	    }
+	  }
+      mynodereplacestr(kids[i],s1,s2);
+    } 
+  }
+}
+
+var isNetscape = navigator.appName=="Netscape";
+
+
+// ----------------------------------------------
+var ressourceList = new Array();
+var ressourcesChange = 0;
+
+function getRessourcePos(rid) {
+  var idx = -1;
+  for (i=0; i<ressourceList.length && idx==-1; i++) {
+    if (ressourceList[i][0] == rid) idx = i;
+  }
+  return idx;
+}
+ 
+function addRessource(rid, rtitle, ricon) {
+  idx = getRessourcePos(rid);
+  if (idx!=-1) return;
+  InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault' );
+  ressourcesChange = 1;
+}
+
+function storeRessource(id, color, display, icon, descr, style) {
+  idx = getRessourcePos(id);
+  if (idx==-1)  {
+    idx = ressourceList.length;
+    ressourceList[idx] = new Array();
+  }
+  ressourceList[idx][0] = id;
+  ressourceList[idx][1] = color;
+  ressourceList[idx][2] = display;
+  ressourceList[idx][3] = icon;
+  ressourceList[idx][4] = descr;
+  ressourceList[idx][5] = style;
+}
+
+function deleteRessource(rid) {
+  var eltRess;
+  idx = getRessourcePos(rid);
+  if (idx!=-1) ressourceList[idx][0] = -1;
+  eltRess = document.getElementById('tr'+rid);
+  if (!eltRess) return;
+  eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
+}
+
+function showAllRessource() {
+  var tt = '';
+  for (i=0; i<ressourceList.length;i++) {
+    tt += printRessource(i);
+  }
+  alert(tt);
+}
+  
+function printRessource(i) {
+  var m = "";
+  if (ressourceList[i][0] != -1 ) {
+    m = 'Ressource #'+i+' == ';
+    m += ressourceList[i][0]+":"+ressourceList[i][1]+":"+ressourceList[i][2]+":"+ressourceList[i][3]+":"+ressourceList[i][4]+":"+ressourceList[i][5]+"\n";
+  }
+  return m;
+}
+   
+function InsertRessource( rdescr, rid, ricon, rcolor, rstyle ) {
+  var nTr;
+  var tab;
+
+  idx = getRessourcePos(rid);
+  if (idx!=-1) {
+    deleteRessource(rid);
+  }
+  tab = document.getElementById('tabress');
+  if (!tab) {
+    alert('tabress not defined');
+    return;
+  }
+  with (document.getElementById('trsample')) {
+    style.display = '';
+    nTr = cloneNode(true);
+    style.display = 'none';
+  }
+  nTr.id = 'tr'+rid;
+  nTr.style.display = '';
+  mynodereplacestr(nTr, '%RID%', rid);
+  mynodereplacestr(nTr, '%RICON%', ricon);
+  mynodereplacestr(nTr, '%RDESCR%', rdescr);
+  mynodereplacestr(nTr, '%RESCOLOR%', rcolor);
+  mynodereplacestr(nTr, '%RSTYLE%', rstyle);
+  tab.appendChild(nTr);
+  storeRessource(rid, rcolor, 0, ricon, rdescr, rstyle);
+  document.getElementById('cp'+rid).style.bgcolor = rcolor;
+}
+
+function setRessourceState(rid) {
+  if (rid==-1) {
+    alert('[TEXT: invalid ressource id]');
+    return;
+  }
+  ressourcesChange = 1;
+  idx = getRessourcePos(rid);
+  if (ressourceList[idx][2] == 1) ressourceList[idx][2] = 0;
+  else ressourceList[idx][2] = 1;
+  return;
+}
+   
+
+function saveRessources() {
+  var rlist= "";
+  for (i=0; i<ressourceList.length;i++) {
+    if (ressourceList[i][0] != -1 ) rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
+  }
+  document.getElementById('savelist').value = rlist;
+  document.getElementById('f_saveress').submit();
+  ressourcesChange = 0;
+  return;
+}
+function updateCalendar() {
+  if (ressourcesChange == 1) {
+    ok = confirm('[TEXT: ressource list changed, save it ?]');
+    if (ok) saveRessources();
+  }
+  document.getElementById('updatecal').submit();
+}
+   
+</script>
+
 <form id="f_selress" target="wgcal_calendar" name="selress" method="POST" 
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SELECTRESS">
       <input type="hidden" value="-1" name="rid">
       <input type="hidden" value="-1" name="sid">
 </form>
 
-<form id="f_saveress" target="wgcal_hidden" name="saveress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SAVERESSOURCES"></form>
-<form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
+<form id="updatecal" target="wgcal_calendar" name="updatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
 
-<form id="f_calcolor" target="wgcal_toolbar" name="wgcal_toolbar" method="POST" 
-      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETCALCOLOR">
-  <input type="hidden" value="green" name="calcolor">
-  <input type="hidden" value="-1" name="calid">
-</form>
+<form id="f_saveress" target="wgcal_hidden" name="saveress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SAVERESSOURCES"><input id="savelist" name="savelist" type="hidden" value=""></form>
+
+<form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 
 <form id="dispCals" target="wgcal_hidden" name="dispNav" method="POST"  
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input name="tool" type="hidden" value="1">
@@ -23,90 +223,46 @@
          onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
                   WGCalShowHideElt(event, 'vvical'); document.getElementById('dispCals').submit(); ">
     [TEXT:my calendars]
-<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER&updt=memoress');" height="15"
+<img id="resssel" style="cursor:pointer;" onclick="updateCalendar();" height="15"
+     src="WGCAL/Images/calendar.gif" title="[TEXT:update calendar]">
+<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15"
      src="WGCAL/Images/ress-modify.gif" title="[TEXT:modify the list]">
 <img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" 
      src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]">
-<img id="resssav" style="cursor:pointer;" onclick="getElementById('f_saveress').submit();" height="15" 
+<img id="resssav" style="cursor:pointer;" onclick="saveRessources();" height="15" 
      src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
 
-<img id="test" style="cursor:pointer;" onclick="showRessource();" height="15" 
-     src="WGCAL/Images/ress-test.gif" title="[TEXT:test]">
-
 </legend>
-
-<script type="text/javascript">
-var cp = new ColorPicker();
-
-function pickColor(color) {
-  fcol = document.getElementById('f_calcolor');
-  fcol.calcolor.value = color;
-  fcol.submit();
-}
-   
-function showColorPicker(event, id, idcal) {
-  fcol = document.getElementById('f_calcolor');
-  fcol.calid.value = idcal;
-  cp.show(id);
-}
-
-var picker = null;
-
-window.onunload = killwins;
-
-function killwins() {
-  if (picker != null) picker.close();
-}
-
-var ressources = new Array();
-ressources[0] = "ressource 1";
-function showRessource() {
-    var l = ressources.length;
-    m = "Liste des ressources :\n";
-    for (i=0; i<l; i++) {
-      m += ressources[i]+'\n';
-    }
-    alert(m);
-}
-
-
-</script>
 
 <div id="vvical" style="display:[VISTOOL]">
  
 <table cellspacing="0" cellpadding="0">
-
-[BLOCK L_RESS] 
-<tr>
-<td>
-<img style="cursor:pointer;border:1px outset grey" onclick="supress = confirm('[TEXT:supress ressource] [RDESCR]'); if (suppress) getElementById('f_delress').submit();" 
-     height="10"  src="WGCAL/Images/wgcal-suppress.gif" title="[TEXT:suppress ressourc] [RDESCR]">
+<tbody id="tabress">
+<tr style="display:none" id="trsample">
+<td> <img style="cursor:pointer;border:1px outset grey" height="10"  src="WGCAL/Images/wgcal-suppress.gif" 
+          onclick="suppress = confirm('[TEXT:supress ressource] %RDESCR%'); if (suppress) deleteRessource('%RID%');" 
+          title="[TEXT:suppress ressource] %RDESCR%">
 </td>
 <td>&nbsp;&nbsp;</td>
-<td>
-<span id="[RID]" class="[RSTYLE]" width="90%" 
-    onclick="WGCUpdateDisplay(event, '[RID]', 'f_selress', '[RCOLOR]', 'WGCRessSelect','WGCRessOver', 'WGCRessDefault');"  
-    onmouseover="WGCalChangeClass(event, '[RID]', 'WGCRessSelected', 'WGCRessOver');" 
-    onmouseout="WGCalChangeClass(event, '[RID]', 'WGCRessSelected', 'WGCRessDefault');">
-    <img onmouseover="Fade('im[RID]',15);" onmouseout="UnFade('im[RID]',15);" id="im[RID]" width="20px" height="20px" align="absbottom" src="[RICON]">&nbsp;[RDESCR]</span>
+<td nowrap>
+<span id="%RID%" width="90%" style="%RSTYLE%"
+    onclick="setRessourceState('%RID%'); document.getElementById('%RID%').className = 'WGCRessSelected';"  
+    onmouseover="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessOver');" 
+    onmouseout="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessDefault');">
+    <img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%</span>
 </td>
 <td>&nbsp;</td>
-<td>
-<span id="cp[RID]" style="border: 1px outset;background:[RCOLOR];cursor:pointer;" onClick="showColorPicker(event, 'cp[RID]', '[RID]');"
-      title="[TEXT:change color for ressource] [RDESCR]">&nbsp;&nbsp;</span>&nbsp;
-</td>
+<td><span id="cp%RID%" style="border:1px solid %RESCOLOR%;" onClick="showColorPicker(event, 'cp%RID%', '%RID%');" title="[TEXT:change color for ressource] %RDESCR%">&nbsp;%RESCOLOR%&nbsp;</span></td>
 </tr>
-[ENDBLOCK L_RESS]
+</tbody>
 </table>
 
 </div>
 
-<form id="show" target="_self" name="show" method="POST" onsubmit="showRessource()">
-<input id="gettext" type="text"></input>
-<input type="button">Go</input>
-</form>
-
-
 </fieldset>
 
+<script type="text/javascript">
+[BLOCK L_RESS]
+InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]');[ENDBLOCK L_RESS]
+</script>
 

@@ -27,7 +27,10 @@ $action_desc = array (
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_MENUBAR", "short_name" =>N_("menubar"), "toc" => "N", "root" =>"N"),
 
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_RESSPICKER_MAIN", "short_name" =>N_("ressource picker main"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_RESSPICKER", "short_name" =>N_("ressource picker"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_RESSPICKERLIST", "short_name" =>N_("ressource picker : list"), "toc" => "N", "root" =>"N"),
+
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SELECTRESS", "short_name" =>N_("select ressource for display"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SAVERESSOURCES", "short_name" =>N_("save ressource selection"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_INITRESSOURCES", "short_name" =>N_("init ressource selection"), "toc" => "N", "root" =>"N"),

@@ -22,13 +22,8 @@ function wgcal_listress(&$action)
   $j = 0;
 
   $found = false;
-  $curress = $action->Read("WGCAL_RESSOURCES");
-  // echo "ressource enregistre : ".$curress."<br>";
-  // echo "ressource sauve : ".$action->GetParam("WGCAL_U_RESSDISPLAYED", "")."<br>";
-  if ($curress=="") {
-    $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
-    $action->Register("WGCAL_RESSOURCES", $curress);
-  }
+  $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
+
   $lress = explode("|", $curress);
   if (count($lress)>0) {
     foreach ($lress as $k => $v) {
@@ -49,13 +44,6 @@ function wgcal_listress(&$action)
       }
     }
   }
-//     $rd = new Doc($dbaccess, 1003);
-//     $t[$i]["RID"] = $rd->id;
-//     $t[$i]["RDESCR"] = $rd->title;
-//     $t[$i]["RICON"] = $rd->getIcon();
-//     $t[$i]["RCOLOR"] = "white";
-//     $t[$i]["RSTYLE"] = "WGCRessSelected";
-//     $i++;
   if (!$found) {
     $rd = new Doc($dbaccess, $action->user->fid);
     $t[$i]["RID"] = $rd->id;

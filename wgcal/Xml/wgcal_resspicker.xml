@@ -2,24 +2,14 @@
 
 <script type="text/javascript">
 
-
-function updateOpener(from) {
-  inp =  document.getElementById(from);
-  target = window.opener.ressources
-  var l = target.length;
-  var s = inp.value;
-  alert('target['+l+'] = "'+s+'"');
-  target[l] = s;
-}
-
 var families = new Array();
-
+var nfam = 0;
 function SetFamily(fid, classSet, classUnset) {
   elt = document.getElementById(fid);
   var idx = -1;
   families.sort();
-  for (i=0; i<families.length && fid<=families[i] && idx!=-1; i++) {
-    if (families[i] = fid) idx = i;
+  for (i=0; i<families.length && idx==-1; i++) {
+    if (families[i] == fid) idx = i;
   }
   if (idx!=-1) {
     families[idx] = -1;    
@@ -29,17 +19,25 @@ function SetFamily(fid, classSet, classUnset) {
     families[i] = fid;
     css = classSet;
   }
-  alert(css);
+  document.getElementById('sfam').value = '';
+  nfam = 0;
+  for (i=0; i<families.length; i++) {
+    if (families[i]!=-1) {
+      document.getElementById('sfam').value += families[i]+'|';
+      nfam++;
+    }
+  }
+  if (nfam>0) {
+    document.getElementById('szone').style.display = '';
+  } else {
+    document.getElementById('szone').style.display = 'none';
+  }
   elt.className = css;
 }
-
-
 </script>
 
-<form id="fgettext" target="_self" name="fgettext" method="POST" onsubmit="updateOpener('gettext', '[updt]')">
-<input id="gettext" type="text"></input>
-<input type="button">Go</input>
-
+<form id="fgettext" target="wgcal_mresspicker_list" name="fgettext" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKERLIST&updt=[updt]">
+<fieldset><legend>[TEXT:searched families]</legend>
 [BLOCK FAMRESS]
 <div id="[FAMID]"  class="WGCRessDefault"
      onmouseover="WGCalChangeClass(event, '[FAMID]', 'WGCFamSelected', 'WGCRessOver');" 
@@ -47,6 +45,14 @@ function SetFamily(fid, classSet, classUnset) {
      onclick="SetFamily('[FAMID]', 'WGCFamSelected', 'WGCRessDefault');" >
   <img height="15"  src="[FAMICON]" title="[FAMTITLE]"/>[FAMTITLE]
 </div>[ENDBLOCK FAMRESS]
+<input id="sfam" name="sfam" type="hidden" value="">
+<div id="szone" style="display:none">
+<hr>
+<input id="stext" name="stext" type="text" size="15">
+<img id="sbutton" style="cursor:pointer;" onclick="document.getElementById('fgettext').submit();" height="15"
+     src="WGCAL/Images/ress-save.gif" title="[TEXT:search]">
+</div>
+</fieldset>
 </form>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.5 2004/12/03 16:25:12 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.6 2004/12/07 18:07:07 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -33,7 +33,7 @@ function printhdiv($hdiv, $hd) {
 function wgcal_getRessDisplayed(&$action) {
   $r = array();
   $ir = 0;
-  $cals = explode("|", $action->Read("WGCAL_RESSOURCES"));
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", ""));
   while (list($k,$v) = each($cals)) {
     $tc = explode("%", $v);
     if ($tc[0] != "" && $tc[1] == 1) {
@@ -75,7 +75,7 @@ function wgcal_calendar(&$action) {
   $sdatef = strftime("%d/%m/%Y", $sdate);
   
   $ress = wgcal_getRessDisplayed($action);
-  echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." => .".$v->color." |";
+  echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." (".$v->color.") |";
 
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);
