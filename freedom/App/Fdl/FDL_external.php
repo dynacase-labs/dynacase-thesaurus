@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.28 2003/12/30 10:12:57 eric Exp $
+ * @version $Id: FDL_external.php,v 1.29 2004/02/17 10:52:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -270,6 +270,16 @@ function lzone($dbaccess, $tview, $famid ="") {
   
 }
 
+function lview($tidview, $tlview) {
+
+  foreach ($tidview as $k=>$v) {
+    $tr[]=array($tlview[$k],$v,$tlview[$k]);
+  }
+  
+
+  return $tr;
+  
+}
 
 // liste des attributs d'une famille
 function getDocAttr($dbaccess, $famid, $name="") {
