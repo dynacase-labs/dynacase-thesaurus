@@ -1,9 +1,9 @@
-# $Revision: 1.5 $, $Date: 2002/02/27 11:10:10 $
+# $Revision: 1.6 $, $Date: 2002/08/06 11:38:11 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
 Version:	0.1.3
-Release:	1
+Release:	2
 License:	GPL or BSD
 Group:		Base
 Source0:	ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -12,7 +12,6 @@ URL:		http://www.anakeen.com
 #BuildRequires:	pam-devel
 #Requires:	make
 Requires:	pam >= 0.72
-Requires:       WHAT
 Requires:	postgresql-libs >= 7.2
 Provides:	pam_what.so
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root-%(id -u -n)
@@ -63,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.6  2002/08/06 11:38:11  eric
+suppression require WHAT
+
 Revision 1.5  2002/02/27 11:10:10  yannick
 Prise en compte Postgresql 7.2
 
