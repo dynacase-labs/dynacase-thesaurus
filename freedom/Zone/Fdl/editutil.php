@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.60 2004/01/09 09:35:15 eric Exp $
+ * @version $Id: editutil.php,v 1.61 2004/01/13 09:36:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.60 2004/01/09 09:35:15 eric Exp $
+// $Id: editutil.php,v 1.61 2004/01/13 09:36:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -556,7 +556,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	if (substr($oattr->elink,0,3)=="JS:") {
 	  // javascript action
 	  $url= elinkEncode($doc,substr($oattr->elink,3),$index,$ititle,$isymbol);
-	  print $url;
+
 	  $jsfunc=$url;
 	  
 	} else {
