@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.26 2004/10/13 09:45:02 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.27 2004/11/12 11:20:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -122,7 +122,7 @@ function freedom_edit(&$action) {
 	$action->lay->Set("TITLE", _("new document"));
       }
       if ($usefor=="D") $action->lay->Set("TITLE", _("default values"));
-      $action->lay->Set("editaction", $action->text("create"));
+      $action->lay->Set("editaction", $action->text("Create"));
       if ($classid > 0) {
 	$doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class
 	if ($doc === false) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
@@ -143,7 +143,7 @@ function freedom_edit(&$action) {
   
 
       $action->lay->Set("TITLE", $doc->title);
-      $action->lay->Set("editaction", $action->text("Validate"));
+      $action->lay->Set("editaction", _("Save"));
       
       // selected the current class document
       while (list($k,$cdoc)= each ($selectclass)) {	

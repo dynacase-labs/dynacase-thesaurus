@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.25 2004/10/19 16:10:01 eric Exp $
+ * @version $Id: generic_edit.php,v 1.26 2004/11/12 11:20:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.25 2004/10/19 16:10:01 eric Exp $
+// $Id: generic_edit.php,v 1.26 2004/11/12 11:20:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,7 +70,7 @@ function generic_edit(&$action) {
     if ($usefor=="D") $action->lay->Set("TITLE", _("default values"));
     if ($usefor=="Q") $action->lay->Set("TITLE", _("parameters values"));
     
-      $action->lay->Set("editaction", $action->text("create"));
+      $action->lay->Set("editaction", $action->text("Create"));
       $doc= createDoc($dbaccess,$classid);
       if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
       if ($usefor!="") $doc->doctype='T';
@@ -88,7 +88,7 @@ function generic_edit(&$action) {
   
 
       $action->lay->Set("TITLE", $doc->title);
-      $action->lay->Set("editaction", $action->text("Validate"));
+      $action->lay->Set("editaction", _("Save"));
     }
     
 
