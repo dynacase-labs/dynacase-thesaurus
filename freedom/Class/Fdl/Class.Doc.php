@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.162 2003/10/21 12:31:41 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.163 2003/10/28 16:32:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.162 2003/10/21 12:31:41 eric Exp $
+// $Id: Class.Doc.php,v 1.163 2003/10/28 16:32:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.162 2003/10/21 12:31:41 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.163 2003/10/28 16:32:27 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -496,7 +496,7 @@ create unique index i_docir on doc(initid, revision);";
     $cdoc->comment=$this->comment;
     $values = $this->getValues();
 
-    $err=$this->delete(true); // delete before add to avoid double id (it is not authorized)
+    $err=$this->delete(true,false); // delete before add to avoid double id (it is not authorized)
     if ($err != "") return $err;
 
     reset($prevalues);
@@ -723,12 +723,13 @@ create unique index i_docir on doc(initid, revision);";
    * @param bool $really if true call {@link ReallyDelete} really delete from database
    * @return void
    */
-  function Delete($really=false) {
+  function Delete($really=false,$control=true) {
 
+    if ($control) {
     // Control if the doc can be deleted
-    $msg = $this->Control("delete");
-    if ($msg!='') return $msg;
-
+      $msg = $this->Control("delete");
+      if ($msg!='') return $msg;
+    }
 
     if ($really) {
       if ($this->id != "") {
@@ -3150,7 +3151,7 @@ create unique index i_docir on doc(initid, revision);";
   
     // gettitle(D,SI_IDSOC):SI_SOCIETY,SI_IDSOC
 
-    $this->AddParamRefresh("$nameId","$nameTitle,$nameId");
+    $this->AddParamRefresh("$nameId","$nameTitle");
     $doc=new Doc($this->dbaccess, $this->getValue($nameId));
     if ($doc->isAlive())  $this->setValue($nameTitle,$doc->title);
     else {
