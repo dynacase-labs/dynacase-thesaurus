@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.3 2002/08/20 14:05:09 eric Exp $
+// $Id: popupcard.php,v 1.4 2002/10/08 10:25:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,7 +41,7 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('editdoc','unlockdoc','chgcatg','properties','duplicate','headers','delete','cancel'));
+  popupInit('popupcard',  array('editdoc','editstate','unlockdoc','chgcatg','properties','duplicate','headers','delete','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -58,23 +58,32 @@ function popupcard(&$action) {
 
  
 
-  if ($cud || $clf)   {
-    popupActive('popupcard',$kdiv,'editdoc');
-    $action->lay->Set("deltitle", $doc->title);
-    popupActive('popupcard',$kdiv,'delete');
-    popupActive('popupcard',$kdiv,'chgcatg'); 
-  }  else   {
-    popupInactive('popupcard',$kdiv,'editdoc');
-    popupInactive('popupcard',$kdiv,'delete');
-    popupInactive('popupcard',$kdiv,'chgcatg'); 
-  }
-
-  if ($doc->locked < 0){ // fixed document
+  if ($doc->locked == -1){ // fixed document
       popupInvisible('popupcard',$kdiv,'editdoc');
       popupInvisible('popupcard',$kdiv,'delete');
       popupInvisible('popupcard',$kdiv,'unlockdoc');
       popupInvisible('popupcard',$kdiv,'chgcatg'); 
-  } 
+      popupInvisible('popupcard',$kdiv,'editstate'); 
+  } else {
+    if ($cud || $clf)   {
+      popupActive('popupcard',$kdiv,'editdoc');
+      $action->lay->Set("deltitle", $doc->title);
+      popupInvisible('popupcard',$kdiv,'editstate'); 
+      popupActive('popupcard',$kdiv,'delete');
+      popupActive('popupcard',$kdiv,'chgcatg'); 
+    }  else   {
+      popupInactive('popupcard',$kdiv,'editdoc');
+      popupInactive('popupcard',$kdiv,'delete');
+      popupInactive('popupcard',$kdiv,'chgcatg'); 
+      
+      if ($doc->wid > 0) {
+	$wdoc=new Doc($doc->dbaccess, $doc->wid);
+	$wdoc->Set($doc);
+	if (count($wdoc->GetFollowingStates()) > 0)
+	  popupActive('popupcard',$kdiv,'editstate');
+      } else popupInvisible('popupcard',$kdiv,'editstate'); 
+    }
+  }
   
   if ($abstract) popupActive('popupcard',$kdiv,'properties'); 
   else popupInvisible('popupcard',$kdiv,'properties'); 
