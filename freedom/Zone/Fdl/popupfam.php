@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.6 2003/01/30 09:38:36 eric Exp $
+// $Id: popupfam.php,v 1.7 2003/03/27 09:43:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,7 +60,7 @@ function popupfam(&$action) {
     }
     $tlink[$k]["idlink"] = $v->id;
     $tlink[$k]["descr"] = $v->labelText;
-    $tlink[$k]["url"] = $doc->urlWhatEncode($v->link);
+    $tlink[$k]["url"] = addslashes($doc->urlWhatEncode($v->link));
     $tmenu[$km++] = $v->id;
   }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewscard.php,v 1.2 2003/03/11 17:09:45 eric Exp $
+// $Id: viewscard.php,v 1.3 2003/03/27 09:43:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/viewscard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,6 +36,7 @@ function viewscard(&$action) {
   $zonebodycard = GetHttpVars("zone"); // define view action
   $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
   $target = GetHttpVars("target"); // may be mail
+  $wedit = (GetHttpVars("wedit")=="Y"); // send to be view by word editor
 
   // Set the globals elements
 
@@ -58,9 +59,18 @@ function viewscard(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
 
-
-
-
+  if ($wedit) {
+    $export_file = uniqid("/tmp/export").".doc";
+  
+    $of = fopen($export_file,"w+");
+    fwrite($of, $action->lay->gen());
+    fclose($of);
+  
+    http_DownloadFile($export_file, chop($doc->title).".html", "application/msword");
+  
+    unlink($export_file);
+    exit;
+  }
 }
 
 
