@@ -255,18 +255,51 @@ function getInputLocked() {
  
   return (tlock);
 }
+
 function getInputsByName(n) {
-  var ti= document.getElementsByTagName("input");
+  var ti= document.getElementsByTagName("input");    
   var t = new Array();
 	
-
   for (var i=0; i< ti.length; i++) { 
     if ((ti[i].name.substr(0,n.length) == n) && (ti[i].name.substr(ti[i].name.length-4,4) != '[-1]')) {	
      
       t.push(ti[i]);
     }
   }
+
+  if (t.length == 0) { 
+    // try with select
+    ti= document.getElementsByTagName("select");
+    
+    for (var i=0; i< ti.length; i++) { 
+      if ((ti[i].name.substr(0,n.length) == n) && (ti[i].name.substr(ti[i].name.length-4,4) != '[-1]')) {	
+	
+	t.push(ti[i]);
+      }
+    }      
+  }
   return t;
+}
+
+function getIValue(i) {
+  if (i) {
+    if (i.tagName == "INPUT") return i.value;
+    if (i.tagName == "SELECT") {
+      return i.options[i.selectedIndex].value;
+    } 
+  }
+  return 0;
+}
+function setIValue(i,v) {
+  if (i) {
+   
+    if (i.tagName == "INPUT")  i.value=v;
+    else  if (i.tagName == "SELECT") {
+      for (var k=0;k<i.options.length;k++) {
+	if (i.options[k].value == v) i.selectedIndex=k;
+      }
+    }
+  }
 }
 
 function isInputLocked(id) {
