@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.4 2002/09/19 13:45:10 eric Exp $
+// $Id: generic_edit.php,v 1.5 2002/09/25 08:36:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,6 +60,7 @@ function generic_edit(&$action) {
       $action->lay->Set("TITLE", _("new user card"));
       $action->lay->Set("editaction", $action->text("create"));
       $doc= createDoc($dbaccess,$famid);
+      if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$famid));
     }
   else
     {    

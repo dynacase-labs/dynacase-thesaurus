@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.54 2002/09/24 15:30:09 eric Exp $
+// $Id: Class.Doc.php,v 1.55 2002/09/25 08:36:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.54 2002/09/24 15:30:09 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.55 2002/09/25 08:36:06 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -482,8 +482,8 @@ create unique index i_docir on doc(initid, revision);";
       else $classname =$this->defClassname;
       $classname=strtolower($classname);
       $query->AddQuery("lower(classname)='$classname'");
-    $query->Query();
-      print $query->LastQuery;
+      $query->Query();
+
       
       return $query->Query();
     }

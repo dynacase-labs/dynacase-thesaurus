@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_importvcard.php,v 1.6 2002/06/19 12:32:34 eric Exp $
+// $Id: usercard_importvcard.php,v 1.7 2002/09/25 08:36:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_importvcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -70,9 +70,10 @@ function usercard_importvcard(&$action) {
       if (count($tvalue) > 0)
 	{
 	  // Add new contact card
-	  $doc = createDoc($dbaccess, 
-			   $action->GetParam("DEFAULT_FAMILY"));
+	  $classid=$action->GetParam("DEFAULT_FAMILY");
+	  $doc = createDoc($dbaccess, $classid );
 
+	  if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
 	      
 
 

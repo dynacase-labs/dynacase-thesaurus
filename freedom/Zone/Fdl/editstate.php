@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editstate.php,v 1.2 2002/09/13 15:06:07 eric Exp $
+// $Id: editstate.php,v 1.3 2002/09/25 08:36:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editstate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,18 +45,19 @@ function editstate(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   // ------------------------------------------------------
-    //  new or modify ?
+  //  new or modify ?
       if ($docid == 0)    {		
 	if ($classid > 0) {
 	  $doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class
-	    $doc->id=$classid;
+	  if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+	  $doc->id=$classid;
 	}
 	
       }  else    {      
 	
 	
 	// when modification 
-	  $doc= new Doc($dbaccess,$docid);
+	$doc= new Doc($dbaccess,$docid);
 	
       }
   

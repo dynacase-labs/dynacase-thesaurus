@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.16 2002/09/19 13:45:10 eric Exp $
+// $Id: modcard.php,v 1.17 2002/09/25 08:36:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,6 +53,7 @@ function modcard(&$action, &$ndocid) {
       // add new document
       // search the good class of document
       $doc = createDoc($dbaccess, $classid);
+      if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
       
       
       $doc->owner = $action->user->id;

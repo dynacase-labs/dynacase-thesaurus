@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.5 2002/09/17 16:59:57 eric Exp $
+// $Id: editprof.php,v 1.6 2002/09/25 08:36:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,7 @@ function editprof(&$action)
 
 
   $selectclass=array();
-  if (!$doc->useforprof) { // cannot redirect profil document (only normal document)
+  if ($doc->useforprof != "t") { // cannot redirect profil document (only normal document)
     $tclassdoc = $doc->GetProfileDoc();
     if (is_array($tclassdoc)) {
       while (list($k,$pdoc)= each ($tclassdoc)) {

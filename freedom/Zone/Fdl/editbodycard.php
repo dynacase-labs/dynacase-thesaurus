@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.9 2002/09/24 15:30:09 eric Exp $
+// $Id: editbodycard.php,v 1.10 2002/09/25 08:36:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -72,6 +72,8 @@ function editbodycard(&$action) {
     if ($classid > 0) {
       $cdoc= new Doc($dbaccess,$classid);
       $doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class
+      if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+      
       $doc->id=$classid;
     }
 	

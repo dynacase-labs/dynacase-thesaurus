@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.21 2002/09/16 14:42:09 eric Exp $
+// $Id: import_file.php,v 1.22 2002/09/25 08:36:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,6 +56,8 @@ function add_import_file(&$action, $fimport="") {
       $doc=new Doc($dbaccess, $data[3]);
       if (! $doc->isAffected())  {
 	$doc = createDoc($dbaccess, $data[1]);
+	if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+
 	$doc->fromid = $data[1];
 
 	$doc->title =  $data[2];  
