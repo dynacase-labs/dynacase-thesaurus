@@ -1,0 +1,39 @@
+# ============================================
+# $Id: Makefile.in,v 1.1 2004/11/22 17:10:46 eric Exp $
+# ============================================
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+utildir=@PUBRULE@
+appname = @PACKAGE@
+pubdir = @prefix@
+srcdir = @srcdir@
+
+export pubdir utildir appname
+
+TAR = gtar
+GZIP_ENV = --best
+
+export targetdir PACKAGE
+
+SUBDIR=  Class Images Zone   
+
+include $(utildir)/PubRule
+
+DISTFILES += $(SUBDIR) \
+            RELEASE VERSION \
+	freeevent.csv	    
+
+$(pubdir)/API:
+	mkdir -p $@
+
+
+$(pubdir)/EXTERNALS :
+	mkdir -p $@
+
+$(pubdir)/EXTERNALS/event.php: $(pubdir)/EXTERNALS 
+	cp $(appname)_external.php $(pubdir)/EXTERNALS/event.php
+
+$(pubdir)/$(appname)/freeevent.csv : freeevent.csv 
+	cp freeevent.csv $(pubdir)/$(appname)
+
+publish: $(pubdir)/$(appname)/freeevent.csv $(pubdir)/EXTERNALS/event.php

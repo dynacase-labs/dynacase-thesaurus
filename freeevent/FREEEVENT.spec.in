@@ -1,0 +1,80 @@
+#! /bin/rpm
+#
+#  File: 
+#  $Id: FREEEVENT.spec.in,v 1.1 2004/11/22 17:10:46 eric Exp $
+#
+#  This is the SPEC file for the What Users Module
+#  Anakeen What Application
+#
+
+%define apachedir /etc/httpd
+%define destdir /home/httpd/what
+
+Summary: The Gate service for Freedom
+Name: @PACKAGE@
+Version: @VERSION@
+Release: @RELEASE@
+Copyright: GPL
+Group: Applications/Web
+Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
+Vendor: Anakeen           
+URL: http://www.anakeen.com/
+Packager: Yannick Le Briquer <yannick.lebriquer@anakeen.com>
+BuildArchitectures: noarch
+BuildRoot: /tmp/anakeen-root
+Requires: php >= 4.0.5
+Requires: apache >= 1.3.12
+Requires: postgresql >= 7.0.0
+Requires: php-pgsql >= 4.0.2
+Requires: FREEDOM-USERCARD >= 1.0.7
+Prereq: WHAT >= 1.0.5
+Prereq: php-cgi 
+Prereq: gettext
+
+
+%description
+The Gate services management is use to add services for web gate of FREDOM
+
+
+%prep
+%setup -q -n %{name}-%{version}
+
+%build
+
+%install
+autoconf
+./configure --with-pubrule=`pwd`
+make  pubdir=$RPM_BUILD_ROOT%{destdir} 
+
+
+%clean
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+
+%post
+cd %{destdir}/FDL 
+ln -sf ../@PACKAGE@/Class*php .
+ln -sf ../@PACKAGE@/Method*php .
+cd -
+%{destdir}/wstop
+
+
+
+
+%preun
+%postun
+%{destdir}/wstop
+
+
+
+%files
+%defattr(-,root,root)
+%dir %{destdir}/%{name}
+%{destdir}/%{name}/*
+%{destdir}/locale/*
+
+
+
+%changelog
+* Fri Apr 30 2004 Yannick Le Briquer <yannick.lebriquer@anakeen.com>
+- Build first RPM
+
