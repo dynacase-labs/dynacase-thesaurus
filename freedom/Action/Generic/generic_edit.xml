@@ -1,6 +1,3 @@
-
-<!-- HEAD HTML -->
-
 <html>
   <head>
 
@@ -100,13 +97,18 @@ addEvent(window,"load",focusFirst);
 <tfoot >
 [ZONE FDL:EDITSTATE]
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
+[IF FOOT]
 <tr class="FREEDOMBack1">
   <td colspan="3"  align="right" id="editbutton">
  [BLOCK INPUTCONSTRAINT]
  <input type="button" title="[TEXT:view constraints]" style="display:[bconsdisplay]" 
-        value="[TEXT:Constraints]" onclick="document.isSubmitted=true;selectall();document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> 
+        value="[TEXT:Constraints]" onclick="document.isSubmitted=true;enableall();document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> 
  <input type="submit" title="[TEXT:override constraints]" style="display:[boverdisplay]" value="[editaction]!" onclick="document.modifydoc.noconstraint.value='Y';return true"> 
  [ENDBLOCK INPUTCONSTRAINT]
+ [BLOCK WACTION]
+<input type="submit" title="[wadesc]" 
+        value="[walabel]" onclick="document.modifydoc.action='[CORE_STANDURL]&app=[wapplication]&action=[waction]'"> 
+ [ENDBLOCK WACTION]
 <input id="iQuicksave" type="button" style="display:none" onmouseout="viewquick(event,false)" value="[TEXT:Quick Save]" onclick="quicksave();return false">
 <input id="iSubmit" type="submit" value="[editaction]" onmouseover="viewquick(event,true)"  ><input id="iCancel" type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[id]'"> 
 <input type="hidden" name="catgid" >
@@ -114,6 +116,7 @@ addEvent(window,"load",focusFirst);
   </td>
   
 </tr>
+[ENDIF FOOT]
 </tfoot>
 </table>
 </form>

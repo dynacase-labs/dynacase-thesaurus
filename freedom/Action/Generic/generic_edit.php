@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.30 2005/03/04 17:19:12 eric Exp $
+ * @version $Id: generic_edit.php,v 1.31 2005/04/01 17:21:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -73,7 +73,8 @@ function generic_edit(&$action) {
     
   $action->lay->Set("STITLE",addslashes($action->lay->get("TITLE")));
   if ($zonebodycard == "") $zonebodycard = $doc->defaultedit;
-  $action->lay->Set("HEAD", (! ereg("[A-Z]+:[^:]+:T", $zonebodycard, $reg)));
+  $action->lay->Set("HEAD", (! ereg("[A-Z]+:[^:]+:[T|S]", $zonebodycard, $reg)));
+  $action->lay->Set("FOOT", (! ereg("[A-Z]+:[^:]+:S", $zonebodycard, $reg)));
 
   $action->lay->Set("iconsrc", $doc->geticon());
   
@@ -125,7 +126,20 @@ function generic_edit(&$action) {
     }
     
   } 
- 
+  $taction=array();
+  
+  $listattr = $doc->GetActionAttributes();
+  foreach ($listattr as $k => $v) {
+    if ($v["visibility"] != "H") {
+      $taction[$k]=array("wadesc"=>$v->labelText,
+			 "walabel"=>ucfirst($v->labelText),
+			 "waction"=>$v->waction,
+			 "wapplication"=>$v->wapplication);
+    }
+  }
+
+  $action->lay->setBlockData("WACTION",$taction);
+
   // information propagation
   $action->lay->Set("classid", $classid);
   $action->lay->Set("dirid", $dirid);
