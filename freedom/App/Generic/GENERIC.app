@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.3 2002/05/22 13:28:41 eric Exp $
+// $Id: GENERIC.app,v 1.4 2002/07/25 16:41:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -117,6 +117,11 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_CARD",
    "short_name"		=>N_("view a generic"),
+   "acl"		=>"GENERIC_READ"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_MAILCARD",
+   "short_name"		=>N_("send a card"),
    "acl"		=>"GENERIC_READ"
   ) ,
   array( 

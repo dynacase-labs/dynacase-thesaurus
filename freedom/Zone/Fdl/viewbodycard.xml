@@ -1,5 +1,5 @@
 
-
+<table  width="100%" cellspacing="0" >
 <tbody>
 
 <!-- TABLEBODY -->
@@ -7,13 +7,13 @@
 
 
 <tr >
-  <td  colspan="3"><fieldset style="cursor:crosshair;"><legend>[frametext]</legend>
+  <td  colspan="3"><fieldset style="cursor:[cursor];"><legend>[frametext]</legend>
 <table width="100%"  >
 
 <tr class="FREEDOMBack1">
 
-  <td  width="10%" rowspan="[rowspan]" align="center"><img src="[IMG:1x1.png]" border="0">[BLOCK [IMAGES]]<A href="[imgsrc]" target="_blank"><IMG border="0" title="[imgalt]" alt="[imgalt]" align="absbottom" width="50" SRC="[imgsrc]"></A><br>[ENDBLOCK [IMAGES]]</td>
-  <td   colspan="2"><img src="[IMG:1x1.png]" border="0"></td>
+  <td  width="10%" rowspan="[rowspan]" align="center">[BLOCK [IMAGES]]<A href="[imgsrc]" target="_blank"><IMG border="0" title="[imgalt]" alt="[imgalt]" align="absbottom" width="50" SRC="[imgsrc]"></A><br>[ENDBLOCK [IMAGES]]</td>
+  <td   colspan="2" height="1px"></td>
 
 </tr>
 [BLOCK [TABLEVALUE]]
@@ -31,3 +31,4 @@
 
 
 </tbody>
+</table>

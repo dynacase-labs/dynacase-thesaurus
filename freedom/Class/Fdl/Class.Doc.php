@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.36 2002/07/23 13:25:11 eric Exp $
+// $Id: Class.Doc.php,v 1.37 2002/07/25 16:41:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.36 2002/07/23 13:25:11 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.37 2002/07/25 16:41:38 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -782,7 +782,7 @@ create sequence seq_id_doc start 1000";
     $lattr = $this->GetAttributes();
 
     while(list($k,$v) = each($lattr)) {
-      if (($v->visibility != "W") && ($v->visibility != "N") &&
+      if ((($v->visibility == "R") || ($v->visibility == "H")) &&
 	  (chop($v->phpfile) != "") && 
 	  (chop($v->phpfunc) != "") ) {
 	// it's a calculated attribute
@@ -909,7 +909,8 @@ create sequence seq_id_doc start 1000";
 	{
 	      
 	case "image": 
-	  
+	  if ($target=="mail") $htmlval="cid:".$oattr->id;
+	    else
 	$htmlval=$action->GetParam("CORE_BASEURL").
 	     "app=FDL"."&action=EXPORTFILE&docid=".$this->id."&attrid=".$oattr->id; // upload name
 
@@ -931,6 +932,14 @@ create sequence seq_id_doc start 1000";
 	  $vf = new VaultFile($this->dbaccess, "FREEDOM");
 	  if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
 	  else $fname=_("no filename");
+
+	  
+	  if ($target=="mail") {
+	    $htmlval="<A target=\"_blank\" href=\"";
+	    $htmlval.="cid:".$oattr->id
+	     ."\">".$fname.
+	     "</A>";;
+	  } else 
 	  $htmlval="<A target=\"_blank\" href=\"".
 	     $action->GetParam("CORE_BASEURL").
 	     "app=FDL"."&action=EXPORTFILE&docid=".$this->id."&attrid=".$oattr->id

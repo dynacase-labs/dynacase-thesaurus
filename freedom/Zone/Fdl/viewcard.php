@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.9 2002/07/11 13:25:45 eric Exp $
+// $Id: viewcard.php,v 1.10 2002/07/25 16:41:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,6 +42,7 @@ function viewcard(&$action) {
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
   $props = (GetHttpVars("props",'Y') == "Y"); // view doc properties
   $zonebodycard = GetHttpVars("zone"); // define view action
+  $dochead = (GetHttpVars("dochead",'Y') == "Y"); // with doc head
 
   // Set the globals elements
 
@@ -65,8 +66,7 @@ function viewcard(&$action) {
   }
   $action->lay->Set("ZONEBODYCARD", $zonebodycard);
   
-
-
+ 
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
@@ -177,7 +177,8 @@ function viewcard(&$action) {
   $action->lay->Set("nprop",$nprop);  
 
     
-  
+  // see or don't see head
+  if ($dochead)  $action->lay->SetBlockData("HEAD",array(array("boo"=>1))); 
 
   $owner = new User("", abs($doc->owner));
   $action->lay->Set("username", $owner->firstname." ".$owner->lastname);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: edit_search.php,v 1.4 2002/07/23 13:25:11 eric Exp $
+// $Id: edit_search.php,v 1.5 2002/07/25 16:41:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/edit_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,28 +21,11 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: edit_search.php,v $
-// Revision 1.4  2002/07/23 13:25:11  eric
-// getclassesdoc is now a function (no method)
-//
-// Revision 1.3  2002/07/16 08:25:08  eric
-// ajout critère famille pour recherche
-//
-// Revision 1.2  2002/06/19 12:32:28  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.1  2001/11/22 17:49:13  eric
-// search doc
-//
-//
-// ---------------------------------------------------------------
 
 
 
-include_once("FDL/Lib.Dir.php.php");
+
+include_once("FDL/Lib.Dir.php");
 
 
 

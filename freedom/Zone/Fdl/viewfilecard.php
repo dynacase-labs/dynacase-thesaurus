@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfilecard.php,v 1.1 2002/06/10 16:38:59 eric Exp $
+// $Id: viewfilecard.php,v 1.2 2002/07/25 16:41:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewfilecard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,6 +41,8 @@ function viewfilecard(&$action) {
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
   $props = (GetHttpVars("props",'Y') == "Y"); // view doc properties
+  $target = GetHttpVars("target","_self");
+  $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
 
 
   // Set the globals elements
@@ -105,7 +107,7 @@ function viewfilecard(&$action) {
 	      
       case "file": 
 		  
-	$tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($listattr[$i],$value);
+	$tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
       if (ereg ("(.*)\|(.*)", $value, $reg)) {		 
 	// reg[1] is mime type
 	$tableimage[$nbimg]["type"]=$reg[1];

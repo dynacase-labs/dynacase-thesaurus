@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.2 2002/07/23 07:29:18 eric Exp $
+// $Id: viewframe.php,v 1.3 2002/07/25 16:41:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,6 +39,8 @@ function viewframe(&$action) {
       $docid = GetHttpVars("id");
   $frameid = GetHttpVars("frameid");
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
+  $target = GetHttpVars("target","_self");
+  $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
     
     
     // Set the globals elements
@@ -46,6 +48,8 @@ function viewframe(&$action) {
       
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
+  $action->lay->Set("cursor",$ulink?"crosshair":"inherit");
+
   $doc = new Doc($dbaccess, $docid);
   
   
@@ -70,7 +74,7 @@ function viewframe(&$action) {
 	  // don't see  non abstract if not
 	    if (( !$abstract) || ($v->abstract == "Y")) {
 	      $tval[$k]["alabel"]=  $v->labeltext;;
-	      $tval[$k]["avalue"]=  $doc->GetHtmlValue($v,$value);
+	      $tval[$k]["avalue"]=  $doc->GetHtmlValue($v,$value,$target,$ulink);
 	    }
 	  
 	}

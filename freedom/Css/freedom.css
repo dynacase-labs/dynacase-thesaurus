@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.13 2002/07/23 07:30:51 eric Exp $
+ * $Id: freedom.css,v 1.14 2002/07/25 16:41:38 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -16,7 +16,6 @@
 }
 
 .FREEDOMTextTitle{
-  font-size: 100%;
   font-weight: bold;
   color: [CORE_TEXTFGCOLOR];
 }
@@ -40,16 +39,13 @@ TR.FREEDOMBack2{
 }
 
 .FREEDOMText{
-  font-size: 100%;
   color: [CORE_TEXTFGCOLOR];
 }
 .FREEDOMLabel{
-  font-size: 100%;
   color: [CORE_TEXTFGCOLOR];
   text-align:right;
 }
 .FREEDOMLabelNeeded{
-  font-size: 100%;
   color: [CORE_TEXTFGCOLOR];
   text-align:right;
   font-weight: bold;
@@ -109,7 +105,6 @@ TD.tlist {
    border-width : 1px;
    border-style : dashed none none none;
    border-color : [CORE_BGCOLOR];
-   font-size: 100%;
 }
 
 DIV.unselect {
@@ -118,7 +113,6 @@ DIV.unselect {
   color:[CORE_TEXTFGCOLOR];
    border-color : [CORE_BGCOLOR];
    border-width : 1px;
-   font-size: 100%;
   margin: 2px 0px 0px 0px;
 
 }
@@ -129,7 +123,6 @@ DIV.unselecth {
   color:[CORE_TEXTFGCOLOR];
    border-color : [CORE_BGCOLOR];
    border-width : 1px;
-   font-size: 100%;
   margin: 2px 0px 0px 0px;
 
 }
@@ -139,7 +132,6 @@ DIV.select {
   color:[CORE_TEXTFGCOLOR];
   border-style : outset;
    border-width : 1px;
-   font-size: 100%;
   margin: 2px 0px 0px 0px;
 } 
 
@@ -149,7 +141,6 @@ HR {
 
 A.title {
   font-weight:bold;
-  font-size: 100%;
   color:[CORE_TEXTFGCOLOR];  
 }
 

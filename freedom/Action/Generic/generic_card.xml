@@ -35,7 +35,13 @@
 
 
 [ZONE [APPNAME]:POPUPCARD]
+
+<div width="100%" class="tableborder" 
+     style="cursor:crosshair;"
+     onContextMenu="openMenu(event,'popupcard',1);return false" 
+     onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard',1)"      >
 [ZONE FDL:VIEWCARD?props=[PROPS]]
+</div>
 
 
 

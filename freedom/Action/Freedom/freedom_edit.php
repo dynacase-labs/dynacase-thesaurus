@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.5 2002/07/23 13:34:38 eric Exp $
+// $Id: freedom_edit.php,v 1.6 2002/07/25 16:41:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,7 +69,7 @@ function freedom_edit(&$action) {
   }
 
   // add no inherit for class document
-  if ($doc->doctype=="C") {
+  if (($docid > 0) && ($doc->doctype=="C")) {
       $selectclass[$k+1]["idcdoc"]="0";
       $selectclass[$k+1]["classname"]=_("no document type");
   }

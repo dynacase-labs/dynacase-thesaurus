@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewbodycard.php,v 1.1 2002/06/10 16:38:59 eric Exp $
+// $Id: viewbodycard.php,v 1.2 2002/07/25 16:41:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,16 +41,17 @@ function viewbodycard(&$action) {
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
   $props = (GetHttpVars("props",'Y') == "Y"); // view doc properties
+  $target = GetHttpVars("target","_self");
+  $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
 
 
   // Set the globals elements
 
-  $baseurl=$action->GetParam("CORE_BASEURL");
-  $standurl=$action->GetParam("CORE_STANDURL");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
 
+  $action->lay->Set("cursor",$ulink?"crosshair":"inherit");
   
 
   $doc = new Doc($dbaccess, $docid);
@@ -153,20 +154,20 @@ function viewbodycard(&$action) {
 	      
 		case "image": 
 		  
-		  $tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($listattr[$i],$value);
+		  $tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
 		break;
 		
 		
 		case "file": 
 		  
-		  $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value);
+		  $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
 		$tfile[$kf]["file"]=$listattr[$i]->labeltext;
 		$tfile[$kf]["attrid"]=$listattr[$i]->id;
 		$kf++;
 		break;
 		
 		default : 
-		  $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value);
+		  $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
 		break;
 		
 		}

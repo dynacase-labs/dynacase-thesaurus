@@ -3,7 +3,7 @@
 [BLOCK FIELDSET]
 <tr >
   <td  colspan="2" >
- <fieldset style="cursor:crosshair;"><legend>[flabel]</legend>
+ <fieldset style="cursor:[cursor];"><legend>[flabel]</legend>
 <table width="100%" >
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1">
