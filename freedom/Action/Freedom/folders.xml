@@ -1,21 +1,7 @@
-<!--
-     (Please keep all copyright notices.)
-     This frameset document includes the FolderTree script.
-     Script found in: http://www.geocities.com/marcelino_martins/foldertree.html
-     Author: Marcelino Alves Martins (http://www.mmartins.com) 
-
-     Instructions:
-     - Do not make any changes to this file outside the style tag.
-	 - Through the style tag you can change the colors and types
-	   of fonts to the particular needs of your site. 
-	 - A predefined block has been made for stylish people with
-	   black backgrounds.
--->
-
-
 <html>
 
 <head>
+<link rel="shortcut icon" href="FDL/Images/logo16.ico">
 [JS:REF]
    <script language="JavaScript">
   <!--
