@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.3 2002/03/06 17:26:04 eric Exp $
+// $Id: adddirfile.php,v 1.4 2002/04/03 07:33:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/adddirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@ function adddirfile(&$action) {
   // -----------------------------------
 
 
-  //print_r($HTTP_POST_VARS);
+    //    PrintAllHttpVars();
 
   // Get all the params      
   $dirid=GetHttpVars("dirid");

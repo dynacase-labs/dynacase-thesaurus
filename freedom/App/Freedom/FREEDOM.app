@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.2 2002/03/06 17:21:29 eric Exp $
+// $Id: FREEDOM.app,v 1.3 2002/04/03 07:33:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -110,6 +110,11 @@ $action_desc = array (
   array( 
    "name"		=>"FOLDERS",
    "short_name"		=>N_("folder tree"),
+   "acl"		=>"FREEDOM_READ",
+  ) ,
+  array( 
+   "name"		=>"EXPANDFLD",
+   "short_name"		=>N_("expand folder tree"),
    "acl"		=>"FREEDOM_READ",
   ) ,
   array( 

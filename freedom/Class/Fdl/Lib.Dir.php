@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.5 2002/03/27 17:42:21 eric Exp $
+// $Id: Lib.Dir.php,v 1.6 2002/04/03 07:33:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,23 +43,39 @@ function getFirstDir($dbaccess) {
   }
 
 
-  function getChildDir($dbaccess, $dirid, $notfldsearch=false) {
+  function getChildDir($dbaccess, $dirid, $notfldsearch=false, $restype="LIST") {
     // query to find child directories (no recursive - only in the specified folder)
 
 
       if (!($dirid > 0)) return array();   
+
+    // search classid and appid to test privilege
+    global $action; // necessary to see information about user privilege
+    $classid = $action->parent->GetIdFromName('dir'); 
+
+      $acl=new Acl();
+      if ( ! $acl->Set('view', $classid)) {
+	    $this->log->warning("Acl $method not available for App $idclassapp ");    
+	    $err = "Acl $method not available for App $idclassapp ";
+	    $this->coid[$method]=$err; // memo for optimization (no new computing)
+	    return $err;
+      }
+
+
     if ($notfldsearch) $odoctype='D';
     else $odoctype='S';
-    $qsql= "select distinct on (doc.id) * from doc  ".
-      "where  ((doc.doctype='D') OR (doc.doctype='$odoctype')) ".
-	"and doc.initid in (select childid from fld where ((qtype='S') or (qtype='F')) and (dirid=$dirid)) ";
 
+
+    $qsql =  "select doc.* from fld, doc where fld.dirid=$dirid ".
+      "and doc.id=fld.childid and ((doc.doctype='D') OR (doc.doctype='$odoctype')) ".
+	"and hasprivilege(".$action->user->id.",doc.profid,$classid,".$acl->id.") ".
+	"and hasprivilege(".$action->user->id.",doc.id,$classid,".$acl->id.") ".
+	  "order by doc.title";
 
 
     $query = new QueryDb($dbaccess,"Doc");
-    $query -> AddQuery("dirid=".$dirid);
+    $tableq=$query->Query(0,0,$restype,$qsql);
 
-    $tableq=$query->Query(0,0,"LIST",$qsql);
     if ($query->nb == 0) return array();            
 
     return($tableq);
@@ -207,6 +223,16 @@ function getFirstDir($dbaccess) {
 
     $query->Query(0,0,"TABLE");
     return ($query->nb > 0);
+  }
+
+  function hasChildFld($dbaccess, $dirid) {
+    // return true id dirid has one or more child dir
+
+    
+    $query = new QueryDb($dbaccess,"QueryDir");
+
+    $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc where fld.dirid=$dirid and doc.id=fld.childid and doc.classname='Dir'");
+    return (($query->nb > 0) && ($count[0]["count"] > 0));
   }
 
   // --------------------------------------------------------------------

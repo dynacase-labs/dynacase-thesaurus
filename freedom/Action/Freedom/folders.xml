@@ -176,9 +176,10 @@ STARTALLOPEN = 0 //replace 0 with 1 to show the whole tree
 actionaddfile = "[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE";
 actionviewfile = "[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW";
 
+actionexpfld = "[CORE_STANDURL]&app=FREEDOM&action=EXPANDFLD&dirid=";
 
 
-fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4)
+fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4,true)
 
 
 [subtree]
@@ -198,7 +199,7 @@ function floatMenu () {
 </script>
 </head>
 
-<body topmargin=16 marginheight=16
+<body topmargin=16 marginheight=16 id="bodyid"
       onLoad="initmicon()" 
       onMouseOver="initDrag()" 
       onMouseUp="if (buttonNumber(event)==1) {if (drag==0) closeAllMenu(); else closeMenu('popfld')};endDrag(); " >
@@ -231,7 +232,7 @@ function floatMenu () {
 <!-- ------------ SECOND POPUP DIVISION (paste)--------------------- -->
 <div  id="poppaste" class="popup">
 
-<a href="#" id="pastelatest"     
+<a href="#" id="pastelatest"        
     onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
    [TEXT:Copy reference]</a>
 <a href="#" id="staticpaste"
@@ -245,14 +246,9 @@ function floatMenu () {
 
 
 
-
-
-
-
-
 <!-- Build the browser's objects and display default view of the 
      tree. -->
 <script>initializeDocument()</script>
 <img id="micon" width="20" height="20"  style="position:absolute;visibility:hidden">
-
+</body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.4 2002/03/27 17:42:21 eric Exp $
+// $Id: folders.php,v 1.5 2002/04/03 07:33:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -124,7 +124,14 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
     else if ($doc->doctype == 'D') $ftype=1;
     else if ($doc->doctype == 'S') $ftype=2;
 
-    $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->id.",$ftype))\n";
+    $hasChild='false';
+    if ($doc->doctype != 'S') {
+      // no child for a search
+	if (hasChildFld($dbaccess,$doc->id))  $hasChild='true';
+    }
+
+
+    $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->id.",$ftype, $hasChild))\n";
 
 
     popupActive("popfld",$nbfolders,'cancel');
@@ -139,6 +146,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
   } else $ltree = "";
   if ($doc->doctype == 'D') {
 
+    if ($level < 0) {
     $ldir = getChildDir($dbaccess, $doc->id);
   
 
@@ -148,6 +156,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
 	$ltree .= addfolder($v, $level+1, $treename);
       }
     } 
+  }
   }
   return $ltree;
 }

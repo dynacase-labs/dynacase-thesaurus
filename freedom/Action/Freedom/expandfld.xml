@@ -1,0 +1,224 @@
+
+<html>
+
+<head>
+[JS:REF]
+   <script language="JavaScript">
+
+
+
+    [JS:CODE]
+  //-->
+   </script>   
+[CSS:REF]
+<!-- if you want black backgound, remove this style block -->
+<style type="text/css">
+
+[ZONE CORE:GENCSS]
+[ZONE FDL:GENCSS]
+   TD.fld {font-size: 10pt; 
+       font-family: verdana,helvetica; 
+	   text-decoration: none;
+	   white-space:nowrap;
+       background:transparent;} 
+   A  {text-decoration: none;
+       color: [CORE_ACOLOR]}
+   DIV.folder  {width:100%;
+                border-style: none;      
+                display:block;
+                cursor: default;
+                position:block;}
+   DIV.select  {
+       width:100%;
+       /*border-style: inset;*/
+       background-color:[CORE_BGCOLORALTERN];
+       display:block;
+       cursor: default;
+       position:block;}
+
+   .urltext {
+      cursor:pointer;
+      color: [CORE_TEXTFGCOLOR];
+      text-decoration:none;
+   }
+   .urltextsel {
+      cursor:pointer;
+      text-decoration:underline overline;
+      color: [CORE_TEXTFGCOLOR];
+       background-color:[CORE_BGCOLORHIGH];
+      
+   }
+
+[CSS:CODE]
+   
+</style>
+
+
+<!-- if you want black backgound, remove this line and the one marked XXXX and keep the style block below 
+
+<style>
+   BODY {background-color: black}
+   TD {font-size: 10pt; 
+       font-family: verdana,helvetica 
+	   text-decoration: none;
+	   white-space:nowrap;}
+   A  {text-decoration: none;
+       color: white}
+</style>
+
+XXXX -->
+
+
+
+
+
+
+<!-- Execution of the code that actually builds the specific tree.
+     The variable foldersTree creates its structure with calls to
+	 gFld, insFld, and insDoc -->
+
+
+<script language="JavaScript">
+  <!--
+
+// Decide if the names are links or just the icons
+USETEXTLINKS = 0  //replace 0 with 1 for hyperlinks
+
+// Decide if the tree is to start all open or just showing the root folders
+STARTALLOPEN = 0 //replace 0 with 1 to show the whole tree
+
+actionaddfile = "[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE";
+actionviewfile = "[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW";
+actionexpfld = "[CORE_STANDURL]&app=FREEDOM&action=EXPANDFLD&dirid=";
+
+var drag=0;
+var isNetscape = navigator.appName=="Netscape";
+
+var BeginnEntries=parent.list.indexOfEntries.length;
+
+function cloneric() {
+
+	
+  var divs = document.getElementsByTagName("div");
+ 
+  var ndiv=divs.length;
+
+  if (ndiv > 1) {
+
+
+    var divtoinsert = null;
+    var flddiv = parent.list.document.getElementById('folder'+parent.list.fldidtoexpand);
+
+    if (flddiv)
+      divtoinsert=flddiv.nextSibling;
+
+
+    //   alert('nch1:'+parent.list.indexOfEntries[parent.list.fldidtoexpand].nChildren);
+    for (var i=1; i < ndiv; i++)  {
+      
+      //   alert(parent.list.fldidtoexpand);
+      
+      h=  parent.list.document.createElement("div");
+      h.innerHTML= divs[i].innerHTML;
+      h.id= divs[i].id;
+      h.className= divs[i].className;
+
+      var ne = BeginnEntries+i-1;
+
+      
+      parent.list.document.getElementById('bodyid').insertBefore(h,divtoinsert);
+      
+      divs[i].style.backgroundColor='yellow';
+      
+      parent.list.indexOfEntries[ne].navObj=h;  
+      parent.list.indexOfEntries[ne].iconImg=parent.list.document.getElementById('folderIcon'+ne);  
+      parent.list.indexOfEntries[ne].nodeImg=parent.list.document.getElementById('nodeIcon'+ne);  
+      
+      
+    }
+    
+    //   alert('nch2:'+parent.list.indexOfEntries[parent.list.fldidtoexpand].nChildren);
+    for (var i=1; i< tdiv['popfld'].length; i++) {
+      parent.list.tdiv['popfld'][i-1+BeginnEntries]=tdiv['popfld'][i];
+      parent.list.tdiv['poppaste'][i-1+BeginnEntries]=tdiv['poppaste'][i];
+    }
+    
+
+
+  }
+}
+
+function closeMenu() {;}
+     
+     //fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4)
+     fldtop =parent.list.indexOfEntries[parent.list.fldidtoexpand];
+     
+     
+     
+     [subtree]
+     
+     
+     
+     //-->
+     </script>
+     </head>
+     
+     <body topmargin=16 marginheight=16   onload="parent.list.doc=parent.list.document;cloneric()"  >
+     
+     <!-- By making any changes to this code you are violating your user agreement;
+     this can be specially troublesome for corporate users. Check the online 
+     instructions to obtain a version without the link -->
+     <!-- Removing this link will make the script stop from working -->
+     
+     <div style="position:absolute; top:30px; left:0; "><table border=0><tr><td><font size=-2><a style="font-size:6pt;text-decoration:none;color:gray" href="http://www.mmartins.com" target="_top"></a></font></td></table></div>
+     
+     
+     
+     
+     
+     
+     <A href="#" onclick="cloneric()">clondiv</a>
+     <!-- Build the browser's objects and display default view of the 
+     tree. -->
+<script>
+//  parent.list.STARTALLOPEN=true;
+  parent.list.doc=document;
+
+  parent.list.nEntries = BeginnEntries;
+//  fldtop.initialize(0, 1, "") ;
+
+
+  
+   // find the leftside
+
+   var images = fldtop.navObj.getElementsByTagName('img');
+
+
+   
+    var leftSide="";
+   for (i=0 ; i < images.length-2; i++)    { 
+      leftSide  += '<img src="'+images[i].src+'" width=16 height=22>';
+   }
+   if (fldtop.isLastNode) {
+  //   leftSide  += '<img src="FREEDOM/Images/ftv2lastnode.gif" width=16 height=22>';
+     leftSide  += '<img src="FREEDOM/Images/ftv2blank.gif" width=16 height=22>';
+   } else {
+//     leftSide  += '<img src="FREEDOM/Images/ftv2node.gif" width=16 height=22>';
+     leftSide  += '<img src="FREEDOM/Images/ftv2vertline.gif" width=16 height=22>';
+   }
+   
+
+    var level=1;
+    for (i=0 ; i < fldtop.nChildren; i++)    { 
+      if (i == fldtop.nChildren-1) 
+        fldtop.children[i].initialize(level, 1, leftSide) 
+      else 
+        fldtop.children[i].initialize(level, 0, leftSide) 
+    } 
+  fldtop.setState(false);
+  fldtop.setState(true);
+
+</script>
+
+</body>
+</html>
