@@ -3,14 +3,14 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2003/06/19 17:58:20 $
-// Version         $Revision: 1.4 $
+// Last Update     $Date: 2003/06/24 10:38:15 $
+// Version         $Revision: 1.5 $
 // ==========================================================================
 
 //var $defDoctype='F';
 
 var $defaultedit= "FREEDOM:EDITREPORT";
-var $defaultview= "FREEDOM:VIEWREPORT:S";
+var $defaultview= "FREEDOM:VIEWREPORT";
 function _getInternals() {
   return array("title" => _("doctitle"),
 		      "revdate" => _("revdate"),
