@@ -6,5 +6,7 @@ delete from fld where dirid not in (select id from doc);
 delete from fld where childid not in (select id from doc) and qtype='S'; 
 update doc set locked=0 where locked < -1;
 update doc set postitid=0 where postitid > 0 and postitid not in (select id from doc27 where doctype != 'Z');
-delete from docfrom where id not in (select id from doc);
+delete from docfrom;
+insert INTO docfrom (id, fromid) select id, fromid from doc;
+update docfrom set fromid=-1 where id in (select id from docfam);
 vacuum full analyze;
