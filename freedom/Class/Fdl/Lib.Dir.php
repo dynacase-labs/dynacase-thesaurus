@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.27 2002/09/10 13:30:28 eric Exp $
+// $Id: Lib.Dir.php,v 1.28 2002/10/22 13:35:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -123,15 +123,15 @@ function getChildDoc($dbaccess,
 	 $sqlcondpriv.
 	 " order by doc.title LIMIT $slice OFFSET $start;";
       
-      //     $qsql2= "select  doc.* ".
-      //       "from doc, fld  ".
-      // 	"where (doc.doctype != 'T')  ".
-      // 	  "and fld.dirid=$dirid ".
-      // 	    "and ((fld.qtype='S' and fld.childid=doc.initid and doc.locked != -1) ) ".
-      // 	      // or (fld.qtype='F' and fld.childid=doc.id)) ".
+      $qsql= "select  doc.* $sqlwvalue".
+             "from doc, fld  ".
+	     "where   (doc.doctype != 'T') $sqlcond ".
+	     "and fld.dirid=$dirid ".
+	     "and ((fld.qtype='S' and fld.childid=doc.initid and doc.locked != -1) ) ".
+	     //	     " or (fld.qtype='F' and fld.childid=doc.id)) ".
 		  
-      // 		$sqlcond.
-      // 		  " order by doc.title LIMIT $slice OFFSET $start;";
+	     $sqlcondpriv.
+	     " order by doc.title LIMIT $slice OFFSET $start;";
       
       
     } else {
