@@ -75,6 +75,7 @@
 <INPUT TYPE="hidden" name="id" value="[id]"></input>
 <INPUT TYPE="hidden" name="dirid" value="[dirid]"></input>
 <input type="hidden" name="vid" value="[vid]">
+[IF HEAD]
 <table id="fixtablehead" class="[tablehead]"   cellspacing="0" width="100%">
 <thead >
 <tr class="FREEDOMBack1">
@@ -89,6 +90,7 @@
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 </thead>
 </table>
+[ENDIF HEAD]
 <div id="fixspanhead" style="visibility:hidden;padding:0px;margin:0px;"></div>
 [ZONE FDL:EDITCARD]
 <div id="fixspanfoot" style="display:[ddivfoot];visibility:hidden;padding:0px;margin:0px;"></div>

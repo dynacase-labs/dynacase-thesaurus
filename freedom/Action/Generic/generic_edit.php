@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.27 2004/11/26 14:28:34 eric Exp $
+ * @version $Id: generic_edit.php,v 1.28 2005/01/20 16:46:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.27 2004/11/26 14:28:34 eric Exp $
+// $Id: generic_edit.php,v 1.28 2005/01/20 16:46:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,6 +50,7 @@ function generic_edit(&$action) {
 
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
   $usefor = GetHttpVars("usefor"); // default values for a document
+  $zonebodycard = GetHttpVars("zone"); // define view action
 
   $vid = GetHttpVars("vid"); // special controlled view
 
@@ -92,7 +93,8 @@ function generic_edit(&$action) {
     }
     
 
- 
+  if ($zonebodycard == "") $zonebodycard = $doc->defaultedit;
+  $action->lay->Set("HEAD", (! ereg("[A-Z]+:[^:]+:T", $zonebodycard, $reg)));
 
   $action->lay->Set("iconsrc", $doc->geticon());
   
