@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.11 2002/10/11 13:00:54 eric Exp $
+// $Id: mailcard.php,v 1.12 2002/10/11 13:01:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -218,7 +218,7 @@ function sendmailcard(&$action) {
     $fps= uniqid("/tmp/$title")."ps";
     $fpdf= uniqid("/tmp/$title")."pdf";
     $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $phtml > $fps && ps2pdf $fps $fpdf";
-print ($cmdpdf);
+
     system ($cmdpdf, $status);
 
     if ($status == 0)  {
