@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.18 2003/12/16 15:05:39 eric Exp $
+// $Id: FDL.app,v 1.19 2004/07/28 10:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -70,6 +70,10 @@ $action_desc = array (
   array(
    "name"               =>"EDITJS",
    "layout"		=>"editcommon.js"
+  ),
+  array(
+   "name"               =>"EDITIJS",
+   "layout"		=>"editidoc.js"
   ),
   array(
    "name"		=>"FREEDOM_INIT",

@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.44 2004/06/23 14:21:19 eric Exp $
+ * $Id: freedom.css,v 1.45 2004/07/28 10:17:15 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -387,6 +387,73 @@ TABLE.huge TBODY {
    overflow:auto;
    height:200px;	
 }
+
+SPAN.selected {
+  cursor: pointer;
+  background-color:lightgreen;
+  background-image:url('[IMG:buttongreen.png]');
+  color:black;
+  border-style: none;
+  height:20px;
+  padding:1px;
+  -moz-border-radius:25px;
+}
+
+SPAN.unselected {
+  cursor: pointer;
+  background-image:url('[IMG:buttongrey.png]');
+  color:black;
+  border-style: none;
+  padding:1px;
+  height:20px;
+  -moz-border-radius:25px;
+}
+SPAN.hselected {
+  cursor: pointer;
+  background-color:lightblue;
+  background-image:url('[IMG:buttonblue.png]');
+  color:black;
+  border-style: none;
+  padding:1px;
+  height:20px;
+  -moz-border-radius:25px;
+}
+SPAN.wselected {
+  cursor: pointer;
+  background-color:lightblue;
+  background-image:url('[IMG:buttonred.png]');
+  color:black;
+  border-style: none;
+  padding:1px;
+  height:20px;
+  -moz-border-radius:25px;
+}
+SPAN.selected:hover, SPAN.unselected:hover, SPAN.hselected:hover{
+  color:darkgreen;
+  -moz-border-radius:25px;	
+}
+/* Put this inside a @media qualifier so Netscape 4 ignores it */
+@media screen { 
+	/* Turn off list bullets */
+	ul.mktree  li { list-style: none; } 
+	/* Control how "spaced out" the tree is */
+	ul.mktree, ul.mktree ul , ul.mktree li { margin-left:10px; }
+	/* Provide space for our own "bullet" inside the LI */
+	ul.mktree  li           .bullet { padding-left: 15px; }
+	/* Show "bullets" in the links, depending on the class of the LI that the link's in */
+	ul.mktree  li.liOpen    .bullet { cursor: pointer; background: url([IMG:minus.gif])  center left no-repeat; }
+	ul.mktree  li.liClosed  .bullet { cursor: pointer; background: url([IMG:plus.gif])   center left no-repeat; }
+	ul.mktree  li.liBullet  .bullet { cursor: default; background: url([IMG:bullet.gif]) center left no-repeat; }
+	/* Sublists are visible or not based on class of parent LI */
+	ul.mktree  li.liOpen    ul { display: block; }
+	ul.mktree  li.liClosed  ul { display: none; }
+	/* Format menu items differently depending on what level of the tree they are in */
+	/*ul.mktree  li { font-size: 12pt; }
+	ul.mktree  li ul li { font-size: 10pt; }
+	ul.mktree  li ul li ul li { font-size: 8pt; }
+	ul.mktree  ul li ul li ul li li { font-size: 6pt; }*/
+}
+
 /*--------------------------*/
 /* report CSS */
 TABLE.reportHBlue {

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.9 2004/07/19 08:26:36 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.10 2004/07/28 10:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,6 +40,8 @@ $query = new QueryDb("","User");
 
 if ($whatid>0) {
   $query->AddQuery("id=$whatid");
+} else {
+  $query->order_by="isgroup,id";
 }
 
       

@@ -3,14 +3,14 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.13 2004/07/06 08:38:44 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.14 2004/07/28 10:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
  */
  /**
  */
-
+var $eviews=array("USERCARD:CHOOSEGROUP");
 
 function SpecRefresh() {
   //  $err=_USER::SpecRefresh();
@@ -23,7 +23,7 @@ function SpecRefresh() {
     $this->SetValue("US_MEID",$this->id);
     $iduser = $this->getValue("US_WHATID");
     if ($iduser > 0) {
-      $user = new User("",$iduser);
+      $user = $this->getWUser();
       if (! $user->isAffected()) return sprintf(_("user #%d does not exist"), $iduser);
     } else {
       return _("user has not identificator");
@@ -39,61 +39,7 @@ function canUpdateLdapCard() {
 
 }
 
-// --------------------------------------------------------------------------
-// Set WHAT user & mail parameters
-// I               
-// O               
-// I/O             
-// Return          
-// Date            jun, 04 2003 - 09:39:09
-// Author          Eric Brison	(Anakeen)
-// --------------------------------------------------------------------------
-function SpecRefresh2() {
-  //  $err=_USER::SpecRefresh();
-  //  $this->AddParamRefresh("US_WHATID","US_FNAME,US_LNAME,US_MAIL,US_PASSWD,US_LOGIN,US_GROUP");
 
-  //Domain >1 can't be updated
-  if ($this->GetValue("US_IDDOMAIN")>1) {$this->AddParamRefresh("US_WHATID","US_DOMAIN");}
-
-  $tgid=array();
-  $tglogin=array();
-  $iduser = $this->getValue("US_WHATID");
-  if ($iduser > 0) {
-    $user = new User("",$iduser);
-    if (! $user->isAffected()) return sprintf(_("user #%d does not exist"), $iduser);
-    
-    //    $this->SetValue("US_FNAME", $user->firstname);
-    //    $this->SetValue("US_LNAME", $user->lastname);
-    //    $this->SetValue("US_PASSWD", $user->password);
-    //    $this->SetValue("US_LOGIN", $user->login);
-    $this->SetValue("US_MAIL",getMailAddr($iduser) );
-    if ($user->status=='D') $err .= ($err==""?"":"\n")._("user is desactivated");
-    // get parent members group
-    $tu  = $user->GetGroupsId();
-
-    $tgid=array();
-    $tglogin=array();
-    if (is_array($tu)) {
-      while (list($k,$v) = each($tu)) {
-	$udoc = getDocFromUserId($this->dbaccess,$v);
-	if ($udoc) {	 
-	  $tgid[$udoc->id]=$udoc->id;
-	  $tglogin[$udoc->id]=$udoc->title;	  
-	}
-      }
-    }
-  }
- 
-  $tog=$this->GetOtherGroups(); 
-  while (list($k,$v) = each($tog)) {
-    $tgid[$v["id"]]=$v["id"];
-    $tglogin[$v["id"]]=$v["title"];
-  }
-  $this->SetValue("US_GROUP", implode("\n",$tglogin));
-  $this->SetValue("US_IDGROUP", implode("\n",$tgid));
-
-  return $err;
-}
   
 function GetOtherGroups() {
   if ($this->id == 0) return array();
@@ -120,7 +66,8 @@ function RefreshDocUser() {
   $err="";
   $wid=$this->getValue("us_whatid");
   if ($wid > 0) { 
-    $wuser=new User("",$wid);
+    $wuser=$this->getWuser(true);
+
     if ($wuser->isAffected()) {
       $this->SetValue("US_WHATID",$wuser->id);
       $this->SetValue("US_LNAME",$wuser->lastname);
@@ -192,7 +139,7 @@ function RefreshDocUser() {
  * Modify IUSER via Freedom    
  */
 function PostModify() {
-                  
+                
                                                                     
   $uid=$this->GetValue("US_WHATID");
   $lname=$this->GetValue("US_LNAME");
@@ -225,22 +172,25 @@ function PostModify() {
   $domain=$this->GetValue("US_DOMAIN");
 
   $fid=$this->id;        
-  $user=new User("",$uid); 
-  
-  $err=$user->SetUsers($fid,$lname,$fname,$expires,$passdelay,
+  $user=$this->getWUser();
+  if ($user)  $err=$this->setGroups();
+  else $user=new User(""); // create new user
+  $err.=$user->SetUsers($fid,$lname,$fname,$expires,$passdelay,
 		       $login,$status,$pwd1,$pwd2,
 		       $iddomain);   
  
   if ($err=="") {
     $this->setValue("US_WHATID",$user->id);
+    $this->RefreshDocUser();
     $this->modify(true,array("us_whatid"));
   } 
+
   $this->SetLdapParam();
-  if ($status=="D") $err=$this->DeleteLdapCard();
-  else $err=$this->UpdateLdapCard();
+  if ($status=="D") $err.=$this->DeleteLdapCard();
+  else $err.=$this->UpdateLdapCard();
   
 
-  if ($err=="") $err="-";
+
   return $err;
 
 }
@@ -248,13 +198,9 @@ function PostModify() {
 
 function PostDelete() {
   _USER::PostDelete();
-  $uid=$this->GetValue("US_WHATID");
-                                                                                     
-  if ($uid<>"")
-    {
-      $user=new User("",$uid);
-      $user->Delete();
-    }
+
+  $user=$this->getWUser();
+  if ($user) $user->Delete();
                                                                                      
 }                                                                                    
                                                                                     
@@ -283,4 +229,10 @@ function ConstraintExpires($expiresd,$expirest,$daydelay) {
   return array("err"=>$err,
 	       "sug"=>$sug);
 }
+
+
+
+
+
+
 ?>

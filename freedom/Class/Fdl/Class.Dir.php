@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.31 2004/07/08 09:14:29 caroline Exp $
+ * @version $Id: Class.Dir.php,v 1.32 2004/07/28 10:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -299,7 +299,7 @@ Class Dir extends PDir
 	  
 	    $tAddeddocids[]=$docid;;
 	    // use post virtual method
-	    if (!$noprepost) $err=$this->postInsertDoc($tdoc["initid"],true);
+	    //	    if (!$noprepost) $err=$this->postInsertDoc($tdoc["initid"],true);
 	  }
 	}
       }
@@ -314,49 +314,26 @@ Class Dir extends PDir
 
   /**
    * insert multiple static document reference in this folder
+   * be carreful : not verify restriction folders
+   * to be use when many include (verification constraint must ne set before by caller)
    *
-   * if mode is latest the user always see latest revision 
-   * if mode is static the user see the revision which has been inserted
-   * @param array doc identificator document  for the insertion
-   * @param bool $noprepost if true if the virtuals methods {@link preInsertDoc()} and {@link postInsertDoc()} are not called
+   * @param array doc identificator document  for the insertion  
    * @return string error message, if no error empty string
    */
-  function InsertMSDocId($tdocids,$noprepost=false) {
+  function QuickInsertMSDocId($tdocids) {
     
     // need this privilege
     $err = $this->Control("modify");
     if ($err!= "") return $err;
-    $tAddeddocids=array();
     $qf = new QueryDir($this->dbaccess);
+    $qf->qtype='S'; // single user query
+    $qf->dirid=$this->initid; // the reference folder is the initial id
+    $qf->query="";
     foreach ($tdocids as $k=>$docid) {
-
-
-
-      // if (! isset($ta[$doc->fromid])) return sprintf(_("Cannot add %s in %s folder, restriction set to add this kind of document"),  $doc->title ,$this->title);
-
-      $err="";
-     
-      $qf->id="";
-      $qf->qtype='S'; // single user query
-      $qf->childid=$docid; // initial doc
-      $qf->dirid=$this->initid; // the reference folder is the initial id
-      $qf->query="";
-      
-      // use post virtual method
-      if (!$noprepost) $err=$this->postInsertDoc($docid,true);
-      if ($err=="") {
-	$err = $qf->Add();
-	if ($err == "") {
-	  AddLogMsg(sprintf(_("Add %d in %s folder"),$docid , $this->title));
-	  $tAddeddocids[]=$docid;
-	  // use post virtual method
-	  if (!$noprepost) $err=$this->postInsertDoc($docid,true);
-	}
-      }
+      $tcopy[]["childid"]=$docid;     
     }
 
-    // use post virtual method
-    if (!$noprepost) $err=$this->postMInsertDoc($tAddeddocids);
+    $err=$qf->Adds($tcopy,true);
     
     return $err;
   }
@@ -391,9 +368,10 @@ Class Dir extends PDir
    * delete a document reference in this folder
    *
    * @param int $docid document ident for the deletion
+   * @param bool $noprepost if true then the virtuals methods {@link preUnlinkDoc()} and {@link postUnlinkDoc()} are not called
    * @return string error message, if no error empty string
    */
-  function DelFile($docid ) {
+  function DelFile($docid,$noprepost=false ) {
     
 
 
@@ -402,16 +380,17 @@ Class Dir extends PDir
     if ($err!= "") return $err;
 
     // use pre virtual method
-    $err=$this->preUnlinkDoc($docid);
+    if (!$noprepost)    $err=$this->preUnlinkDoc($docid);
     if ($err!= "") return $err;
    
-    $qids = $this->getQids($docid);
-
-    if (count($qids) == 0) $err = sprintf(_("cannot delete link : link not found for doc %d in folder %d"),$docid, $this->initid);
+    $doc = new Doc($this->dbaccess,$docid);
+    $docid=$doc->initid;
+    
+    //if (count($qids) == 0) $err = sprintf(_("cannot delete link : link not found for doc %d in folder %d"),$docid, $this->initid);
     if ($err != "") return $err;
 
     // search original query
-    $qf = new QueryDir($this->dbaccess, $qids[0]);
+    $qf = new QueryDir($this->dbaccess, array($this->initid,$docid));
     if (!($qf->isAffected())) $err = sprintf(_("cannot delete link : initial query not found for doc %d in folder %d"),$docid, $this->initid);
   
     if ($err != "") return $err;
@@ -425,7 +404,7 @@ Class Dir extends PDir
     AddLogMsg(sprintf(_("Delete %d in %s folder"), $docid, $this->title));
 
     // use post virtual method
-    $err=$this->postUnlinkDoc($docid);
+    if (!$noprepost) $err=$this->postUnlinkDoc($docid);
   
     return $err;
   }

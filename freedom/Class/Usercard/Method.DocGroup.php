@@ -3,7 +3,7 @@
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocGroup.php,v 1.10 2004/06/10 08:06:11 eric Exp $
+ * @version $Id: Method.DocGroup.php,v 1.11 2004/07/28 10:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -79,34 +79,34 @@ function SetGroupMail($nomail=false) {
   $gmail=" ";
   $tmail=array();
 
-
   //------------------------------------------------------
   // first compute mail from users members
   $tiduser = $this->getTValue("GRP_IDUSER");
   $tuser = $this->getTValue("GRP_USER");
-
   if (count($tiduser) > 0) {
-   
-    while (list($k,$v) = each($tiduser)) {
+    if (!$nomail)  {
 
-      $udoc = new doc($this->dbaccess,$v);
-      if ($udoc && $udoc->isAlive()) {
-	if (!$nomail) {
-	  $mail = $udoc->getValue("US_MAIL");
+      foreach($tiduser as $k=>$v) {
+
+	$udoc = getTDoc($this->dbaccess,$v);
+	if ($udoc ) {
 	  
-	  if ($mail != "") $tmail[]=$mail;
+	    $mail = getv($udoc,"us_mail");
+	  
+	    if ($mail!="") $tmail[]=$mail;
+	  
+	} else {
+	  if ($tuser[$k]!="") $err .= sprintf("%s does not exist",$tuser[$k]);
 	}
-      } else {
-	if ($tuser[$k]!="") $err .= sprintf("%s does not exist",$tuser[$k]);
       }
-    }
 
-    $gmail=implode(", ",array_unique($tmail));
+      $gmail=implode(", ",array_unique($tmail));
+    }
   }
 
   // add mail groups
   //------------------------------------------------------
-  // second compute mail from users members
+  // second compute mail from groups members
   $tgmemberid=$tiduser; // affiliated members ids
   $tgmember=$tuser; // affiliated members
   $tiduser = $this->getTValue("GRP_IDGROUP");
@@ -123,14 +123,13 @@ function SetGroupMail($nomail=false) {
 	    $tmail=array_merge($tmail,$tmail1);
 	  }
 	}
-	$tgmemberid=array_merge($tgmemberid,$udoc->getTValue("GRP_IDUSER"));
-	$tgmember=array_merge($tgmember,$udoc->getTValue("GRP_USER"));
+	$tgmemberid=array_merge($tgmemberid,$udoc->getTValue("GRP_IDRUSER"));
+	$tgmember=array_merge($tgmember,$udoc->getTValue("GRP_RUSER"));
       }
     }
 
     $gmail=implode(", ",array_unique($tmail));
   }
-
   $tgmembers=array();
   reset($tgmemberid);
   while (list($k,$v) = each($tgmemberid)) {
@@ -138,9 +137,11 @@ function SetGroupMail($nomail=false) {
   }
  
 
-  $this->SetValue("GRP_IDRUSER", implode("\n",array_keys($tgmembers)));
-  $this->SetValue("GRP_RUSER", implode("\n",$tgmembers));
+  $this->SetValue("GRP_IDRUSER", array_keys($tgmembers));
+  $this->SetValue("GRP_RUSER",$tgmembers);
+
   if (!$nomail) $this->SetValue("GRP_MAIL", $gmail);
+
   return $err;
 }
   

@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.66 2004/06/23 14:27:33 eric Exp $
+ * @version $Id: editutil.php,v 1.67 2004/07/28 10:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.66 2004/06/23 14:27:33 eric Exp $
+// $Id: editutil.php,v 1.67 2004/07/28 10:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -784,5 +784,6 @@ function editmode(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITJS");
+  $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITIJS");
 }
 ?>

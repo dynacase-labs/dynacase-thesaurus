@@ -303,3 +303,37 @@ begin
    return true;
 end;
 ' language 'plpgsql' ;
+
+
+
+
+create or replace function disabledtrigger(name) 
+returns bool as '
+declare 
+  tname alias for $1;
+begin
+   EXECUTE ''UPDATE pg_catalog.pg_class SET reltriggers = 0 WHERE oid = \\'''' || quote_ident(tname) || ''\\''::pg_catalog.regclass'';
+
+
+
+   return true;
+end;
+' language 'plpgsql' ;
+
+
+
+
+create or replace function enabledtrigger(name) 
+returns bool as '
+declare 
+  tname alias for $1;
+begin
+   EXECUTE ''UPDATE pg_catalog.pg_class SET reltriggers = (SELECT pg_catalog.count(*) FROM pg_catalog.pg_trigger where pg_class.oid = tgrelid) WHERE oid =  \\'''' || quote_ident(tname) || ''\\''::pg_catalog.regclass;'';
+
+
+
+   return true;
+end;
+' language 'plpgsql' ;
+
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+pubdir="/home/httpd/what";
+echo "update users set firstname='' where  isgroup = 'Y';update users set isgroup = 'N' where isgroup is null;" | psql anakeen anakeen
+
+echo "ALTER TABLE fld DROP COLUMN id;" | psql freedom anakeen

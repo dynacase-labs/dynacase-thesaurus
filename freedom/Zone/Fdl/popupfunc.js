@@ -161,7 +161,7 @@ function activate(th, url, wname) {
 //     else urlref= url+'&http_referer='+escape(window.location.href);
 
     if ((wname == "")||(wname == "_self")) {
-      setTimeout('viewwait()',1000);
+      setTimeout('viewwait()',1000);      
       window.location.href=url;
     } else subwindowm(fdl_vd2size,fdl_hd2size,wname,url);
    

@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.12 2004/03/04 09:10:42 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.13 2004/07/28 10:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -11,6 +11,8 @@
  /**
  */
 
+
+var $eviews=array("USERCARD:CHOOSEGROUP");
 
 function specRefresh() {
   //  $err=$this->ComputeGroup();
@@ -22,11 +24,12 @@ function specRefresh() {
   $this->SetValue("US_MEID",$this->id);
   $iduser = $this->getValue("US_WHATID");
   if ($iduser > 0) {
-    $user = new User("",$iduser);
-    if (! $user->isAffected()) return sprintf(_("group #%d does not exist"), $iduser);
+    $user = $this->getWUser();
+    if (! $user) return sprintf(_("group #%d does not exist"), $iduser);
   } else {
     return _("group has not identificator");
   }
+  $err = "NB:".count($this->getTValue("GRP_IDRUSER"));
   return $err;
 }
 
@@ -44,7 +47,6 @@ function RefreshGroup() {
    $err.=$this->insertGroups();
    $err.=$this->SetGroupMail(($this->GetValue("US_IDDOMAIN")>1));
    $err.=$this->Modify();
-   
    //  AddWarningMsg(sprintf("RefreshGroup %d %s",$this->id, $this->title));
   return $err;
 }
@@ -56,8 +58,9 @@ function PostModify() {
   $iddomain=$this->GetValue("US_IDDOMAIN");
 
   $fid=$this->id;        
-  $user=new User("",$uid); 
-  $err=$user->SetGroups($fid,$gname,
+  $user=$this->getWUser();
+  $err=$this->setGroups();
+  $err.=$user->SetGroups($fid,$gname,
 		       $login,
 		       $iddomain);   
  
@@ -152,37 +155,47 @@ function postUnlinkDoc($docid) {
  * @return string error message, if no error empty string
  */
 function insertGroups() { 
-  $uid=$this->GetValue("US_WHATID");
-  $user=new User("",$uid); 
+  $user=$this->getWUser();
   $err="";
 
     
-    // get members 
-    $tu  = $user->GetUsersGroupList($user->id);
+  // get members 
+  $tu  = $user->GetUsersGroupList($user->id);
     
-    if (is_array($tu)) {
-      $this->Clear();
-      $tfid=array();
-      foreach($tu as $k=>$v) {
-	//	if ($v["fid"]>0)  $err.=$this->AddFile($v["fid"]);
-	if ($v["fid"]>0) $tfid[]=$v["fid"];	
-      }
-      $err=$this->InsertMSDocId($tfid,true);// without postInsert
+  if (is_array($tu)) {
+    $this->Clear();
+    $tfid=array();
+    foreach($tu as $k=>$v) {
+      //	if ($v["fid"]>0)  $err.=$this->AddFile($v["fid"]);
+      if ($v["fid"]>0) $tfid[]=$v["fid"];	
+    }
+    $err=$this->QuickInsertMSDocId($tfid);// without postInsert
     
-    } 
 
-
-
+  } 
   return $err;
 }
 /**
- * (re)insert members of the group in folder from USER databasee
+ * (re)insert members of the group in folder from USER database
+ * it does not modify anakeen database (use only when anakeen database if updated)
  * 
  * @param int $docid user doc parameter
  * @return string error message, if no error empty string
  */
 function insertMember($docid) { 
   $err = $this->AddFile($docid,"latest",true); // without postInsert
+
+  return $err;
+}
+/**
+ * suppress members of the group in folder from USER database
+ * it does not modify anakeen database (use only when anakeen database if updated)
+ * 
+ * @param int $docid user doc parameter
+ * @return string error message, if no error empty string
+ */
+function deleteMember($docid) { 
+  $err = $this->DelFile($docid,true); // without postInsert
 
   return $err;
 }
@@ -194,7 +207,7 @@ function RefreshDocUser() {
   $err="";
   $wid=$this->getValue("us_whatid");
   if ($wid > 0) { 
-    $wuser=new User("",$wid);
+    $wuser=$this->getWUser();
     if ($wuser->isAffected()) {
       $this->SetValue("US_WHATID",$wuser->id);
       $this->SetValue("GRP_NAME",$wuser->lastname);
@@ -240,7 +253,7 @@ function refreshMembers() {
 
   $wid=$this->getValue("us_whatid");
   if ($wid > 0) { 
-    $u = new User("",$wid);
+    $u = $this->getWUser(true);
 
     $tu=$u->GetUsersGroupList($wid);
     if (count($tu) > 0) {
@@ -248,19 +261,26 @@ function refreshMembers() {
       foreach ($tu as $uid=>$tvu) {
 	if ($tvu["isgroup"]=="Y") {
 	  $tgid[$uid]=$tvu["fid"];
-	  $tglogin[$uid]=$this->getTitle($tvu["fid"]);
+	  //	  $tglogin[$uid]=$this->getTitle($tvu["fid"]);
+	  $tglogin[$uid]=$tvu["lastname"];
 	} else {
 	  $tuid[$uid]=$tvu["fid"];
-	  $tulogin[$uid]=$this->getTitle($tvu["fid"]);
+	  //	  $tulogin[$uid]=$this->getTitle($tvu["fid"]);
+	  $tulogin[$uid]=trim($tvu["firstname"]." ".$tvu["lastname"]);
 	}
       }
+    }
+    if (is_array($tulogin)) {
       $this->SetValue("GRP_USER", $tulogin);
       $this->SetValue("GRP_IDUSER", $tuid);
-      $this->SetValue("GRP_GROUP", $tglogin);
-      $this->SetValue("GRP_IDGROUP", $tgid);
     } else {
       $this->DeleteValue("GRP_USER");
       $this->DeleteValue("GRP_IDUSER");
+    }
+    if (is_array($tglogin)) {
+      $this->SetValue("GRP_GROUP", $tglogin);
+      $this->SetValue("GRP_IDGROUP", $tgid);
+    } else {
       $this->DeleteValue("GRP_GROUP");
       $this->DeleteValue("GRP_IDGROUP");
     }
@@ -276,8 +296,8 @@ function ComputeGroup() {
   
   $iduser = $this->getValue("US_WHATID");
   if ($iduser > 0) {
-    $user = new User("",$iduser);
-    if (! $user->isAffected()) {
+    $user = $this->getWUser();
+    if (! $user) {
       return sprintf(_("Group %s not exist"),$iduser);
     }
    

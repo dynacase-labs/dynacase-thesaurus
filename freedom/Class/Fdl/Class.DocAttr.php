@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttr.php,v 1.20 2004/01/28 08:22:11 eric Exp $
+ * @version $Id: Class.DocAttr.php,v 1.21 2004/07/28 10:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -12,7 +12,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.20 2004/01/28 08:22:11 eric Exp $
+// $Id: Class.DocAttr.php,v 1.21 2004/07/28 10:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.20 2004/01/28 08:22:11 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.21 2004/07/28 10:17:15 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -122,7 +122,7 @@ create unique index idx_iddocid on docattr(id, docid)";
 	$arr = pg_fetch_array ($res, 0);
 	$this->id = "auto_".$arr[0];  // not a number must be alphanumeric begin with letter
       }
-
+      $this->id=strtolower($this->id);
       if ($this->type=="") $this->type="text";
       if ($this->abstract=="") $this->abstract='N';
       if ($this->title=="") $this->title='N';

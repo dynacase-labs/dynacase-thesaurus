@@ -3,7 +3,7 @@
  * Folder managing
  *
  * @author Anakeen 2001
- * @version $Id: Class.QueryDir.php,v 1.14 2004/02/24 08:37:24 eric Exp $
+ * @version $Id: Class.QueryDir.php,v 1.15 2004/07/28 10:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -11,7 +11,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.14 2004/02/24 08:37:24 eric Exp $
+// $Id: Class.QueryDir.php,v 1.15 2004/07/28 10:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.14 2004/02/24 08:37:24 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.15 2004/07/28 10:17:15 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -48,9 +48,9 @@ include_once("Class.Log.php");
  */
 Class QueryDir extends DbObj
 {
-  var $fields = array ( "id","dirid","query","childid","qtype");
+  var $fields = array ( "dirid","query","childid","qtype");
 
-  var $id_fields = array ("id");
+  var $id_fields = array ("dirid","childid");
 
   var $dbtable = "fld";
 
@@ -59,8 +59,8 @@ Class QueryDir extends DbObj
   var $fulltextfields = array ("");
 
   var $sqlcreate = "
-create table fld ( id      int PRIMARY KEY,
-                    dirid   int not null ,
+create table fld ( 
+                    dirid   int not null 
                     query   text,
                     childid   int,
                     qtype   char
@@ -82,14 +82,15 @@ create sequence seq_id_fld start 100";
 // 	$query->AddQuery("childid='".$this->childid."'");
 // 	$query->Query(0,0,"TABLE");
 // 	if ($query->nb != 0) return _("already exist : not added");
+	$this->delete(false);
       }
       // compute new id
-      if ($this->id == "") {
-	$res = pg_exec($this->dbid, "select nextval ('seq_id_fld')");
-	$arr = pg_fetch_array ($res, 0);
-	$this->id = $arr[0];
+   //    if ($this->id == "") {
+// 	$res = pg_exec($this->dbid, "select nextval ('seq_id_fld')");
+// 	$arr = pg_fetch_array ($res, 0);
+// 	$this->id = $arr[0];
 	  
-      }
+//       }
     }
  
 }
