@@ -3,7 +3,7 @@
  * XML Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_xml.php,v 1.1 2005/03/08 17:53:56 eric Exp $
+ * @version $Id: fdl_xml.php,v 1.2 2005/03/21 09:50:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -25,7 +25,7 @@
 function fromxml($dbaccess,$xml,$famid,$encoded=false){
   if ($encoded) $xml=base64_decode(trim($xml));
   $xml2="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";  
-  $xml2.=$xml;
+  $xml2.=str_replace("<BR>","<BR/>",$xml);
   $idoc= createDoc($dbaccess,$famid,false);///new doc
   $idoc->doctype='T';
 
