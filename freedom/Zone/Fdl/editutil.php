@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.37 2003/06/16 12:00:35 eric Exp $
+// $Id: editutil.php,v 1.38 2003/06/18 14:56:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -277,8 +277,25 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 		      
       //같같같같같같같같같같같같같같같같같같같같
 			
+    case "color": 
+      $input="<input size=10 onchange=\"alert(this.value)\" style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+      $input .= " id=\"".$attridk."\" "; 
+
+      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
+      else  if ($doc->usefor != 'D') $input .=" disabled "; // always but default
+
+      $input .= " >&nbsp;"; 
+      if (!(($visibility == "R")||($visibility == "S"))) {
+	$input.="<input id=\"col$attridk\" type=\"button\" value=\"&#133;\"".
+	  " title=\""._("color picker")."\" onclick=\"colorPick.select(document.getElementById('$attridk'),'col$attridk')\"".
+	  ">";
+      }
+      break;      
+		      
+      //같같같같같같같같같같같같같같같같같같같같
+			
     case "date": 
-      $input="<input size=10 type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+      $input="<input size=10  type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attridk."\" "; 
 
       if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
@@ -352,6 +369,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	}
       } 
     } 	else if ($oattr->type == "date") {
+      $input.="<input type=\"button\" value=\"&times;\"".
+	" title=\""._("clear inputs")."\"".
+	" onclick=\"clearInputs(['$attrid'],'$index')\">";
+      
+    }else if ($oattr->type == "color") {
       $input.="<input type=\"button\" value=\"&times;\"".
 	" title=\""._("clear inputs")."\"".
 	" onclick=\"clearInputs(['$attrid'],'$index')\">";
