@@ -1,0 +1,13 @@
+<div width="100%" height="100%" style="background-image:url('[IMG:millimetre.png]')">
+
+
+<table width="100%" border="1" style="background-color:transparent">
+<thead>
+<tr><td width="100px" align="right">[begdate]</td><td align="right">[enddate]</td></tr>
+</thead>
+[BLOCK RES]
+<tr style="background-color:transparent"><td width="100px">[res]</td><td>[BLOCK [BAR]]
+<img style="cursor:pointer;position:relative;left:[x]%" title="[bartitle]" height="20px" width="[w]%" src="[barimg]" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'helpwhat','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')">[ENDBLOCK [BAR]]</td></tr>
+[ENDBLOCK RES]
+</table>
+</div>
