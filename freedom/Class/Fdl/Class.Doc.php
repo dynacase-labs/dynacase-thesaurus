@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.145 2003/07/15 09:35:30 eric Exp $
+// $Id: Class.Doc.php,v 1.146 2003/07/16 08:09:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.145 2003/07/15 09:35:30 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.146 2003/07/16 08:09:43 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/07/15 09:35:30 $
-// Version         $Revision: 1.145 $
+// Last Update     $Date: 2003/07/16 08:09:43 $
+// Version         $Revision: 1.146 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -2785,6 +2785,7 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   function getTitle($id) {
+    if (! is_numeric($id)) return "";
     $doc = new Doc($this->dbaccess,$id);
     if ($doc->isAlive()) {
       return $doc->title;
