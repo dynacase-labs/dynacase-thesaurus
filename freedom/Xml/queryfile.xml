@@ -35,7 +35,7 @@
 <!-- Title Table -->
 <div class="TITLE">
 
-<form  name="edit" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]app=[FREEDOM_APP]&action=UPLOADFILE&id=[docid]">
+<form  name="edit" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]app=[FREEDOM_APP]&action=CHANGEICON&id=[docid]">
       <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
   <input type="file" name="ifile" value="[ifilevalue]">
   <input type="submit" value="[TEXT: lauch importation]" onclick="parent.list.location.reload(true);">

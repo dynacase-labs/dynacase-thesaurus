@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: freedom_edit.php,v 1.2 2001/11/09 18:54:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.2  2001/11/09 18:54:21  eric
+// et un de plus
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -88,16 +91,9 @@ function freedom_edit(&$action) {
   $doc= new Doc($dbaccess,$docid);
 
   
-  if ($doc->locked==0) { // lock if not yet
-    $err = $doc->Lock();
-    if ($err != "")   $action->ExitError($err);
-    
-  }
 
   
     
-  $err = $doc->CanUpdateDoc();
-  if ($err != "")   $action->ExitError($err);
 
   // build list of class document
   $query = new QueryDb($dbaccess,"Doc");
@@ -128,6 +124,12 @@ function freedom_edit(&$action) {
     }
   else
     {      
+      if ($doc->locked==0) { // lock if not yet
+	$err = $doc->Lock();
+	if ($err != "")   $action->ExitError($err);	
+      }
+      $err = $doc->CanUpdateDoc();
+      if ($err != "")   $action->ExitError($err);
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
   
       $err = $doc->lock();

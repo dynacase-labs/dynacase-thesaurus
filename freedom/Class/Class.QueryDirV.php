@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.2 2001/11/09 18:54:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.2  2001/11/09 18:54:21  eric
+// et un de plus
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -29,7 +32,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.1 2001/11/09 09:41:14 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.2 2001/11/09 18:54:21 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -100,19 +103,24 @@ create table dirv ( dirid      int not null,
   }
   
 
-  // to be optimized
+
   function getChildRep($dirid) {
+    // query to find child directories
+    $qsql= "select t0.* from doc t0,dirv t1,dirq t2  where  (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and (t0.doctype='D') and (t2.dirid=$dirid);";
+
+
     $tableid = array();
-    $query = new QueryDb($this->dbaccess,"QueryDirV");
+    $query = new QueryDb($this->dbaccess,"Doc");
     $query -> AddQuery("dirid=".$dirid);
-    $tableq=$query->Query();
+
+    $tableq=$query->Query(0,0,"LIST",$qsql);
     if ($query->nb > 0)
       {
 	while(list($k,$v) = each($tableq)) 
 	  {
-	    $doc = new Doc($this->dbaccess, $v->childid); // very slow
-	    if ($doc->doctype == 'D')
-	      $tableid[] = $doc;
+	    //	    $doc = new Doc($this->dbaccess, $v->childid); // very slow
+	    //if ($v->doctype == 'D')
+	      $tableid[] = $v;
 	  }
 	unset ($tableq);
       }
@@ -121,6 +129,30 @@ create table dirv ( dirid      int not null,
     return($tableid);
   }
 
+  function getChildDoc($dirid) {
+    // query to find child directories
+    $qsql= "select t0.* from doc t0,dirv t1,dirq t2  where  (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and (t0.doctype='F') and (t2.dirid=$dirid);";
+
+
+    $tableid = array();
+    $query = new QueryDb($this->dbaccess,"Doc");
+    $query -> AddQuery("dirid=".$dirid);
+
+    $tableq=$query->Query(0,0,"LIST",$qsql);
+    if ($query->nb > 0)
+      {
+	while(list($k,$v) = each($tableq)) 
+	  {
+	    //	    $doc = new Doc($this->dbaccess, $v->childid); // very slow
+	    //if ($v->doctype == 'D')
+	      $tableid[] = $v;
+	  }
+	unset ($tableq);
+      }
+
+
+    return($tableid);
+  }
 
 }
 ?>

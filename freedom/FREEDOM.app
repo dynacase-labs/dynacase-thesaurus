@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.1 2001/11/09 09:35:47 eric Exp $
+// $Id: FREEDOM.app,v 1.2 2001/11/09 18:54:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.2  2001/11/09 18:54:21  eric
+// et un de plus
+//
 // Revision 1.1  2001/11/09 09:35:47  eric
 // gestion documentaire
 //
@@ -164,8 +167,8 @@ $action_desc = array (
    "acl"		=>"FREEDOM",
   ) ,
   array( 
-   "name"		=>"UPLOADFILE",
-   "short_name"		=>N_("insertion of file"),
+   "name"		=>"CHANGEICON",
+   "short_name"		=>N_("change icon file"),
    "acl"		=>"FREEDOM",
   ) ,
   array( 

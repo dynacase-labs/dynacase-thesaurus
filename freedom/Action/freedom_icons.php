@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: freedom_icons.php,v 1.2 2001/11/09 18:54:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.2  2001/11/09 18:54:21  eric
+// et un de plus
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -98,63 +101,15 @@ function freedom_icons(&$action, $with_abstract=true) {
   $action->lay->Set("imgexport",$action->GetIcon("export.gif",N_("export")));
 
 
-  // fulltext of QueryGen is not appropriate
-  $fulltext = $action->ActRead("fulltext","");
-
-
-  // analyse freedata 2 values : "catg|onlyown"
-  // value of selected category
-  $freedata = $action->ActRead("freedata","");
-  
-  ereg ("(.*)\|(.*)", $freedata, $reg);
-
- 
-  if ($reg[2] == "true") 
-    $onlyowner=true;
-  else
-    $onlyowner=false;
-    
-
-  
-  if ($onlyowner )
-    $action->lay->Set("checkedonlyowner", "checked");
-  else
-    $action->lay->Set("checkedonlyowner", "");
-    
-  // ------------------------------------------------------
-  // Perform SQL search freedom
-  $query = new QueryDb($dbaccess,"Doc");
-
-
-  // $query->table->fields= array("id","category","owner","title","revision","deltitle","blockabstract","canedit","divid","iconsrc");
-  
-  // ------------------------------------------------------
-  // Add constraint for text search
-
-  if ($fulltext != "")
-    {
-      //$action->ActUnregister("fulltext");
-      $query->fulltext = "";
-      $value = new DocValue($dbaccess);
-      $textTable = $value->GetDocIds($fulltext);
-      
-      $sql_cond_text = sql_cond($textTable, "id");
-      $query->AddQuery($sql_cond_text);
-      
-    }
-  
-
-
-  if ($dirid != "") {
-    $oqdv=new QueryDirV($dbaccess,$dirid );
-    $sql_cond_ids = sql_cond($oqdv->getChildId(),"id");
-    $query->AddQuery($sql_cond_ids); 
-  }
 
 
 
   $action->log->tic("before query gen");  
-  $ldoc = $query->Query();
+  $oqdv=new QueryDirV($dbaccess,$dirid );
+  $ldoc = $oqdv->getChildDoc($dirid);
+
+  
+  //  $ldoc = $query->Query();
   $action->log->tic("after query gen");
 
 
@@ -169,12 +124,12 @@ function freedom_icons(&$action, $with_abstract=true) {
   $tmenuaccess = array(); // to define action an each icon
   
   if ($with_abstract) {
-  // ------------------------------------------------------
-  // construction of SQL condition to find abstract attributes
-  $abstractTable = $bdattr->GetAbstractIds();
-  $sql_cond_abs = sql_cond($abstractTable,"attrid");
-  $query_val = new QueryDb($dbaccess,"DocValue");
-      }
+    // ------------------------------------------------------
+    // construction of SQL condition to find abstract attributes
+    $abstractTable = $bdattr->GetAbstractIds();
+    $sql_cond_abs = sql_cond($abstractTable,"attrid");
+    $query_val = new QueryDb($dbaccess,"DocValue");
+  }
 
 
 
@@ -196,6 +151,10 @@ function freedom_icons(&$action, $with_abstract=true) {
   $action->log->tic("begin loop");
   while(list($k,$doc) = each($ldoc)) 
     {
+      // view control
+      if ($doc-> Control("view") != "") continue;
+
+
       $docid=$doc->id;
 
       $tdoc[$k]["id"] = $docid;
@@ -208,7 +167,7 @@ function freedom_icons(&$action, $with_abstract=true) {
       
  
 
-       $tdoc[$k]["iconsrc"]= $doc->geticon();
+      $tdoc[$k]["iconsrc"]= $doc->geticon();
   
       $tdoc[$k]["divid"] = $kdiv;
 

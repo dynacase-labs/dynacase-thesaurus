@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: Class.Doc.php,v 1.2 2001/11/09 18:54:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.2  2001/11/09 18:54:21  eric
+// et un de plus
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -29,7 +32,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.1 2001/11/09 09:41:14 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.2 2001/11/09 18:54:21 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -72,23 +75,16 @@ create sequence seq_id_doc start 10";
   
   var $obj_acl = array (
 			array(
-			      "name"		=>"delete",
-			      "description"	=>"delete own card", // N_("delete own card")
+			      "name"		=>"view",
+			      "description"	=>"view document", // N_("view document")
 			      "group_default"       =>"Y"),
 			array(
-			      "name"               =>"fdelete",
-			      "description"        =>"delete any card"),// N_("delete any card")
+			      "name"               =>"edit",
+			      "description"        =>"edit document"),// N_("edit document")
 			array(
-			      "name"               =>"modify",
-			      "description"        =>"modify own card",// N_("modify own card")
-			      "group_default"       =>"Y"),
-			array(
-			      "name"               =>"fmodify",
-			      "description"        =>"modify any card"),// N_("modify any card")
-			array(
-			      "name"               =>"pmodify",
-			      "description"        =>"modify public card",// N_("modify public card")
-			      "group_default"       =>"Y")
+			      "name"               =>"delete",
+			      "description"        =>"delete document",// N_("delete document")
+			      "group_default"       =>"N")
 			);
 
   // --------------------------------------------------------------------
@@ -144,7 +140,9 @@ create sequence seq_id_doc start 10";
 	$err = _("Cannot Modify : need FREEDOM privilege");
       } if ($this->action->HasPermission("ADMIN")) {
 	$err = ""; // ADMIN privilege can modify all cards
-      } 
+      } else {
+	$err = $this-> Control( "edit");
+      }
       return $err;
     }
 
@@ -199,7 +197,9 @@ create sequence seq_id_doc start 10";
     } else if ($this->locked != 0) {
       
       $err = sprintf(_("cannot lock file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);
-    } 
+    } else {      
+	$err = $this-> Control( "edit");
+    }
     return($err);
   
   } 
@@ -212,7 +212,9 @@ create sequence seq_id_doc start 10";
     $err="";
     if ($this->locked != 0) // if is already unlocked
       $err=$this->CanUpdateDoc();
-    
+    else {      
+	$err = $this-> Control( "edit");
+    }
     return($err);
   
   }
@@ -270,20 +272,9 @@ create sequence seq_id_doc start 10";
       if ($this->action->HasPermission("ADMIN")) {
 	$err = ""; // ADMIN privilege can delete all cards
       } else  {
-
-	if (($err = $this-> Control( "fdelete")) != "") { 
-	  // second control : must be owner if not super privilege
-	  if (($err = $this-> Control( "delete")) != "")
-	    return $err;
-	  if ($this->owner != $this->operm->id_user) {	  	  
-	    return _("Cannot Delete : Not Owner");
-	  } else {
-	    $err="";
-	  }
-	}
+	$err = $this-> Control( "delete");
       }
-      
-      
+                  
 
       return $err;
       
@@ -452,7 +443,7 @@ create sequence seq_id_doc start 10";
   }
 
   // return icon file
-  function geticon() {
+  function getIcon() {
 
   if ($this->icon != "") {
     
@@ -461,7 +452,7 @@ create sequence seq_id_doc start 10";
 
     $efile=$this->action->GetParam("CORE_BASEURL").
        "app=".$this->action->parent->name.
-       "&action=EXPORTFILE&docid=".$this->id.
+       "&action=EXPORTFILE".
        "&vaultid=".$reg[2]; // upload name
     return $efile;
 
@@ -474,5 +465,24 @@ create sequence seq_id_doc start 10";
   }
 
   }
+
+
+  // change icon for a class or a simple doc
+  function changeIcon($icon) {
+    print "changeIcon";
+    if ($this->doctype == "C") { //  a class
+      $query = new QueryDb($this->dbaccess,"Doc");
+      $tableq=$query->Query(0,0,"LIST",
+			    "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != 'C') AND ((icon is null) OR (icon = '".$this->icon."'))");
+    
+      print "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != \"C\") AND ((icon is null) OR (icon = '".$this->icon."'))";
+
+    } 
+    $this->icon = $icon;
+    $this->Modify();
+  }
+
+  
+  
 }
 ?>
