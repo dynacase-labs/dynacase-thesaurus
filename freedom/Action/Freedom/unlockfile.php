@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: unlockfile.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: unlockfile.php,v 1.2 2002/04/08 15:12:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/Attic/unlockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: unlockfile.php,v $
+// Revision 1.2  2002/04/08 15:12:18  eric
+// ajout message de log
+//
 // Revision 1.1  2002/02/05 16:34:07  eric
 // decoupage pour FREEDOM-LIB
 //
@@ -57,6 +60,7 @@ function unlockfile(&$action)
 
   
     
+  $action->AddLogMsg(sprintf(_("%s has been unlocked"),$doc->title));
 
     
   

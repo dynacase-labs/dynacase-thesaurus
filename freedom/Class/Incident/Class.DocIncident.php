@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocIncident.php,v 1.7 2002/03/26 16:14:01 eric Exp $
+// $Id: Class.DocIncident.php,v 1.8 2002/04/08 15:12:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.DocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.7 2002/03/26 16:14:01 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.8 2002/04/08 15:12:18 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -247,6 +247,7 @@ Class DocIncident extends Doc
 		"Bcc: ".$action->GetParam("BCC_MAIL_INCIDENT")."\r\n".
 		"X-Mailer: PHP/" . phpversion());
       if (! $mailok) $action->exitError("mail cannot be sent");
+      AddLogMsg(sprintf(_("send internal mail to %s (bcc:%s)"),$addr,$action->GetParam("BCC_MAIL_INCIDENT")));
     }
   }
   function sendHtmlmail(  $object, $layout) {
@@ -307,7 +308,10 @@ Class DocIncident extends Doc
 		   "Content-Type: multipart/alternative; boundary=\"=_alternative 003C044E00256A9A_=\"\r\n".
 		   "X-Mailer: PHP/" . phpversion());
       if (! $mailok) $action->exitError("mail cannot be sent");      
-    
+      AddLogMsg(sprintf(_("send official mail to %s (cc: %s - bcc:%s)"),
+			$mailaddr,
+			$ccmail,
+			$action->GetParam("BCC_MAIL_INCIDENT")));
   }
 
  

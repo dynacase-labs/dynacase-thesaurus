@@ -42,7 +42,7 @@
        action="[CORE_STANDURL]app=FREEDOM&action=REVISION&id=[docid]">
   <textarea cols="40" rows="4" name="comment" ></textarea><br>
   <input type="submit" value="[TEXT: revise document]" 
-        onClick="setTimeout('parent.info.document.location.href=\'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_VIEW&dirid=\'+parent.list.document.dirid',2)"></input>
+        onClick="setTimeout('parent.info.document.location.href=\'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_VIEW&dirid=\'+parent.list.dirid',2)"></input>
 </form>
 </div>
 

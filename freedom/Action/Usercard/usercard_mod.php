@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_mod.php,v 1.3 2002/03/12 09:55:12 eric Exp $
+// $Id: usercard_mod.php,v 1.4 2002/04/08 15:12:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -64,6 +64,7 @@ function usercard_mod(&$action) {
   }
 
 
+  AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
   $err = $doc->PostModify(); // compute new lock & LDAP
   if ($err != "")  $action-> ExitError($err);
   

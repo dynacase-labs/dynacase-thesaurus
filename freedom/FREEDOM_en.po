@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-04-03 16:45+0200\n"
+	"POT-Creation-Date: 2002-04-08 16:55+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -12,6 +12,10 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"Content-Type: text/plain; charset=ISO-8859-1\n"
 	"Content-Transfer-Encoding: 8-bit\n"
 	"\n"
+
+#, c-format
+msgid	"%s has been modified"
+msgstr	""
 
 #, fuzzy
 msgid	"new usercard"
@@ -59,6 +63,10 @@ msgid	"new incident"
 msgstr	""
 
 #, c-format
+msgid	"%s has been locked"
+msgstr	""
+
+#, c-format
 msgid	"search incident %s"
 msgstr	""
 
@@ -68,6 +76,10 @@ msgstr	""
 
 #, c-format
 msgid	"search  incident contains %s in %s"
+msgstr	""
+
+#, c-format
+msgid	"%s has been unlocked"
 msgstr	""
 
 #, c-format
@@ -98,6 +110,10 @@ msgstr	""
 msgid	"undated"
 msgstr	"Update LDAP server"
 
+#, c-format
+msgid	"add %s in %s folder"
+msgstr	""
+
 msgid	"no file specified : update aborted"
 msgstr	""
 
@@ -114,6 +130,10 @@ msgid	"change profile"
 msgstr	""
 
 msgid	"new profile document"
+msgstr	""
+
+#, c-format
+msgid	"%s has been deleted"
 msgstr	""
 
 msgid	"no document type"
@@ -138,6 +158,10 @@ msgstr	""
 msgid	"no comment"
 msgstr	""
 
+#, fuzzy, c-format
+msgid	"%s new revision %d"
+msgstr	"Organisation"
+
 #, fuzzy
 msgid	"new search "
 msgstr	"Start search"
@@ -157,6 +181,18 @@ msgstr	""
 #, fuzzy
 msgid	"duplication of"
 msgstr	"Edit"
+
+#, c-format
+msgid	"new duplicate document is named : %s"
+msgstr	""
+
+#, c-format
+msgid	"%s has been added in %s folder"
+msgstr	""
+
+#, c-format
+msgid	"%s has been removed in %s folder"
+msgstr	""
 
 #, c-format
 msgid	"the external pluggin file %s cannot be read"
@@ -264,6 +300,10 @@ msgid	"ChangeState :: the state has been realized but the post method '%s' "
 	"has the following error %s"
 msgstr	""
 
+#, c-format
+msgid	"%s new state %s"
+msgstr	""
+
 msgid	"already exist : not added"
 msgstr	""
 
@@ -331,6 +371,14 @@ msgstr	""
 msgid	"[%s] incident traited"
 msgstr	""
 
+#, c-format
+msgid	"send internal mail to %s (bcc:%s)"
+msgstr	""
+
+#, c-format
+msgid	"send official mail to %s (cc: %s - bcc:%s)"
+msgstr	""
+
 #, fuzzy
 msgid	"error in filename"
 msgstr	"Firstname"
@@ -357,18 +405,6 @@ msgstr	""
 
 msgid	"specific control"
 msgstr	""
-
-msgid	"admin"
-msgstr	"Admnistration functions"
-
-msgid	"import"
-msgstr	"Import"
-
-msgid	"add"
-msgstr	"Add new contact card"
-
-msgid	"export"
-msgstr	"Export selected cards"
 
 msgid	"cannot see unknow folder"
 msgstr	""
@@ -1176,6 +1212,18 @@ msgstr	"Delete"
 
 msgid	"Cancel"
 msgstr	""
+
+#~ msgid	"admin"
+#~ msgstr	"Admnistration functions"
+
+#~ msgid	"import"
+#~ msgstr	"Import"
+
+#~ msgid	"add"
+#~ msgstr	"Add new contact card"
+
+#~ msgid	"export"
+#~ msgstr	"Export selected cards"
 
 #, fuzzy
 #~ msgid	" change category"

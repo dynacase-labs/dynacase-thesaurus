@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.1 2002/03/11 10:26:48 eric Exp $
+// $Id: freedom_duplicate.php,v 1.2 2002/04/08 15:12:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -86,6 +86,9 @@ function freedom_duplicate(&$action) {
     }
     
   } 
+
+
+  $action->AddLogMsg(sprintf(_("new duplicate document is named : %s"),$copy->title));
 
 
   redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");

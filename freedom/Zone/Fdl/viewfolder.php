@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.8 2002/04/08 07:30:37 eric Exp $
+// $Id: viewfolder.php,v 1.9 2002/04/08 15:12:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,26 +69,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
 
-  // Admin need FREEDOM_MASTER privilege
-  if ($action->HasPermission("FREEDOM_MASTER"))    
-    $action->lay->Set("imgadmin",$action->GetIcon("admin.gif",N_("admin")));   
-  else
-    $action->lay->Set("imgadmin","");
 
-  // Add need FREEDOM privilege
-  if ($action->HasPermission("FREEDOM"))    
-    {
-      $action->lay->Set("imgimport",$action->GetIcon("import.gif",N_("import"))); 
-      $action->lay->Set("imgadd",$action->GetIcon("edit.gif",N_("add")));   
-    }
-  else
-    {
-      $action->lay->Set("imgimport","");
-      $action->lay->Set("imgadd","");
-    }
 
-  // export do not need any privilege
-  $action->lay->Set("imgexport",$action->GetIcon("export.gif",N_("export")));
 
 
 

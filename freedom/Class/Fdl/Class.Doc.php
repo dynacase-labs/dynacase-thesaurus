@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.13 2002/04/08 07:30:37 eric Exp $
+// $Id: Class.Doc.php,v 1.14 2002/04/08 15:12:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.13 2002/04/08 07:30:37 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.14 2002/04/08 15:12:18 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -161,6 +161,7 @@ create sequence seq_id_doc start 1000";
 
     }
 
+
   // --------------------------------------------------------------------
   function PostInsert()
     // --------------------------------------------------------------------    
@@ -178,7 +179,7 @@ create sequence seq_id_doc start 1000";
       $err="";
 	// compute new id
        if ($this->id == "") {
- 	  $res = pg_exec($this->dbid, "select nextval ('seq_id_doc')");
+ 	  $res = pg_exec($this->init_dbid(), "select nextval ('seq_id_doc')");
  	  $arr = pg_fetch_array ($res, 0);
  	  $this->id = $arr[0];
  	}
@@ -362,7 +363,7 @@ create sequence seq_id_doc start 1000";
   function DeleteTemporary() {
   // --------------------------------------------------------------------
 
-    $result = pg_exec($this->dbid,"delete from doc where doctype='T'");
+    $result = pg_exec($this->init_dbid(),"delete from doc where doctype='T'");
 
     
   }
@@ -1008,6 +1009,7 @@ create sequence seq_id_doc start 1000";
       
     }
 
+      AddLogMsg(sprintf(_("%s new state %s"),$this->title, _($newstate)));
     return ""; // its OK 
   }
     

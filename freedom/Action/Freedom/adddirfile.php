@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.4 2002/04/03 07:33:57 eric Exp $
+// $Id: adddirfile.php,v 1.5 2002/04/08 15:12:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/adddirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,6 +44,7 @@ function adddirfile(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+  $doc= new Doc($dbaccess, $docid);
   $dir= new Dir($dbaccess, $dirid);
 
   $err = $dir->AddFile($docid, $mode);
@@ -52,6 +53,7 @@ function adddirfile(&$action) {
   if ($err != "") $action->exitError($err);
   
   
+  $action->AddLogMsg(sprintf(_("add %s in %s folder"),$doc->title,$dir->title ));
   
 
   redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");

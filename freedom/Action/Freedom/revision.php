@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: revision.php,v 1.2 2002/04/08 15:12:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: revision.php,v $
+// Revision 1.2  2002/04/08 15:12:18  eric
+// ajout message de log
+//
 // Revision 1.1  2002/02/05 16:34:07  eric
 // decoupage pour FREEDOM-LIB
 //
@@ -62,6 +65,7 @@ function revision(&$action)
 
   $doc->Addrevision($comment);
     
+  $action->AddLogMsg(sprintf(_("%s new revision %d"),$doc->title, $doc->revision));
   
   redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=".$doc->id);
 

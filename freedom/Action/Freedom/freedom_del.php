@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_del.php,v 1.2 2002/02/13 14:31:58 eric Exp $
+// $Id: freedom_del.php,v 1.3 2002/04/08 15:12:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,41 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: freedom_del.php,v $
-// Revision 1.2  2002/02/13 14:31:58  eric
-// ajout usercard application
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.4  2002/01/25 09:37:06  eric
-// suppression appel LDAP
-//
-// Revision 1.3  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-// Revision 1.5  2001/09/10 16:51:45  eric
-// ajout accessibilté objet
-//
-// Revision 1.4  2001/08/31 13:30:51  eric
-// modif pour accessibilité
-//
-// Revision 1.3  2001/06/22 09:46:12  eric
-// support attribut multimédia
-//
-// Revision 1.2  2001/06/19 16:08:17  eric
-// correction pour type image
-//
-// Revision 1.1  2001/06/13 14:39:53  eric
-// Freedom address book
-//
-// ---------------------------------------------------------------
+
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
 include_once("FDL/Class.DocValue.php");
@@ -79,9 +45,11 @@ function freedom_del(&$action) {
   // ------------------------------
   // delete POSGRES card
 
-  $ofreedom-> Delete();
+  $err=$ofreedom-> Delete();
+  if ($err != "")  $action-> ExitError($err);
       
     
+  $action->AddLogMsg(sprintf(_("%s has been deleted"),$ofreedom->title));
 
   
   redirect($action,GetHttpVars("app"),"FREEDOM_LOGO");
