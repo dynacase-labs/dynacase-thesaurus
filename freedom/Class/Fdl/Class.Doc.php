@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.217 2004/10/04 11:38:15 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.218 2004/10/08 07:44:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -3489,6 +3489,23 @@ create unique index i_docir on doc(initid, revision);";
     }
     return date("d/m/Y");
   }
+
+
+  /**
+   * return the today date and time with european format DD/MM/YYYY HH:MM
+   * @param int $hourdelta to have the current date more or less hour  (-1 means one hour before, 1 one hour after)
+   * @return string DD/MM/YYYY HH:MM
+   */
+  function getTimeDate($hourdelta=0) {
+    $delta = abs(intval($hourdelta));
+    if ($hourdelta > 0) {
+      return date("d/m/Y %G:H",strtotime ("+$delta hour"));
+    } else if ($hourdelta < 0) {
+      return date("d/m/Y %G:H",strtotime ("-$delta hour"));
+    }
+    return date("d/m/Y %G:H");
+  }
+
   function getDocValue($docid, $attrid) {
     if (intval($docid) > 0) {
       $doc = new Doc($this->dbaccess, $docid);
