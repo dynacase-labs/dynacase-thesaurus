@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.7 2002/12/04 17:13:37 eric Exp $
+// $Id: Class.DocSearch.php,v 1.8 2002/12/11 08:24:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.7 2002/12/04 17:13:37 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.8 2002/12/11 08:24:45 eric Exp $';
 
 
 include_once("FDL/Class.PDocSearch.php");
@@ -74,12 +74,12 @@ Class DocSearch extends PDocSearch {
     if ($dirid > 0) {
 
       $cdirid = getRChildDirId($this->dbaccess, $dirid);
-      $cdirid[] = $dirid;
+      
        
     } else $cdirid=0;;
 
     $filters=array();
-    if ($latest)       $filters[] = "locked != -1";
+    //if ($latest)       $filters[] = "locked != -1";
     $filters[] = "usefor = 'N'";
     $keyword= str_replace("^","£",$keyword);
     $keyword= str_replace("$","£",$keyword);
@@ -90,7 +90,7 @@ Class DocSearch extends PDocSearch {
  
   
 
-    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters);
+    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest);
     return $query;
   }
 

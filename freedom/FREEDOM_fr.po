@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-11-26 15:03+0100\n"
+	"POT-Creation-Date: 2002-12-11 09:04+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -168,16 +168,7 @@ msgid	"%s new revision %d"
 msgstr	"%s nouvelle révision %d"
 
 msgid	"new search "
-msgstr "Recherche "
-
-msgid	"yes"
-msgstr	"oui"
-
-msgid	"no"
-msgstr	"non"
-
-msgid	"root folder"
-msgstr	"Freedom"
+msgstr	"Recherche "
 
 #, c-format
 msgid	"%s has been unlocked"
@@ -342,6 +333,10 @@ msgstr	"%s a été envoyé"
 msgid	"file must be controlled : read permission needed"
 msgstr	"la fichier doit être controllé : permission de lire refusé"
 
+#, fuzzy
+msgid	"no zone specified"
+msgstr	"pas de fichier d'import spécifié"
+
 #, c-format
 msgid	"unknown attribute %s"
 msgstr	"attribut inconnu : %s"
@@ -377,6 +372,9 @@ msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
 	"détruit : \n"
 	"le document provient d'une recherche utilisateur. Supprimer la "
 	"requête initiale si vous voulez delier le document"
+
+msgid	"yes"
+msgstr	"oui"
 
 msgid	"already exist : not added"
 msgstr	"déjà existant : pas ajouté"
@@ -464,13 +462,13 @@ msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
 	"méthode '%s' a retourné l'erreur suivante : %s "
 
 msgid	"view document"
-msgstr "voir le document"
+msgstr	"voir le document"
 
 msgid	"view"
-msgstr "voir"
+msgstr	"voir"
 
 msgid	"send document"
-msgstr "envoyer le document"
+msgstr	"envoyer le document"
 
 msgid	"send"
 msgstr	"envoyer"
@@ -479,10 +477,10 @@ msgid	"edit document"
 msgstr	" éditer le document"
 
 msgid	"edit"
-msgstr "éditer"
+msgstr	"éditer"
 
 msgid	"delete document"
-msgstr "supprimer le document"
+msgstr	"supprimer le document"
 
 msgid	"delete"
 msgstr	"supprimer"
@@ -491,28 +489,28 @@ msgid	"open folder"
 msgstr	"Ouvrir le dossier"
 
 msgid	"open"
-msgstr "ouvrir"
+msgstr	"ouvrir"
 
 msgid	"execute search"
-msgstr "executer une recheche"
+msgstr	"executer une recheche"
 
 msgid	"execute"
-msgstr "execute"
+msgstr	"execute"
 
 msgid	"modify folder"
 msgstr	"modifier le dossier"
 
 msgid	"view acl"
-msgstr "voir les droits"
+msgstr	"voir les droits"
 
 msgid	"viewacl"
-msgstr "voir les droits"
+msgstr	"voir les droits"
 
 msgid	"modify acl"
 msgstr	"Modifier les droits"
 
 msgid	"modifyacl"
-msgstr "modifier les droits"
+msgstr	"modifier les droits"
 
 #, c-format
 msgid	"no privilege %s"
@@ -876,6 +874,10 @@ msgstr	"envoyer un document"
 msgid	"edit mail"
 msgstr	"éditer un mail"
 
+#, fuzzy
+msgid	"view standalone card"
+msgstr	"voir une carte"
+
 msgid	"freedom database"
 msgstr	"base de donnée Freedom"
 
@@ -885,12 +887,6 @@ msgstr	"copie envoi de mail"
 #, c-format
 msgid	"file %d"
 msgstr	"fichier %d"
-
-msgid	"society familly id"
-msgstr	"id famille société"
-
-msgid	"site familly id"
-msgstr	"id famille site"
 
 msgid	"User Card"
 msgstr	"Carnet d'adresses"
@@ -978,18 +974,6 @@ msgstr	"identificateur catégorie pour la recherche de techniciens"
 
 msgid	"SOCIETY category id to find constructors"
 msgstr	"identificateur catégorie pour la recherche de sociétés clientes"
-
-msgid	"incident site familly id"
-msgstr	"id famille site incident"
-
-msgid	"product familly id"
-msgstr	"id famille produit"
-
-msgid	"contract familly id"
-msgstr	"id famille contrat"
-
-msgid	"incident familly id"
-msgstr	"id famille incident"
 
 msgid	"Generic"
 msgstr	"Générique"
@@ -1754,6 +1738,30 @@ msgstr	"Dupliquer"
 msgid	"View headers"
 msgstr	"Voir entête"
 
+#~ msgid	"no"
+#~ msgstr	"non"
+
+#~ msgid	"root folder"
+#~ msgstr	"Freedom"
+
+#~ msgid	"society familly id"
+#~ msgstr	"id famille société"
+
+#~ msgid	"site familly id"
+#~ msgstr	"id famille site"
+
+#~ msgid	"incident site familly id"
+#~ msgstr	"id famille site incident"
+
+#~ msgid	"product familly id"
+#~ msgstr	"id famille produit"
+
+#~ msgid	"contract familly id"
+#~ msgstr	"id famille contrat"
+
+#~ msgid	"incident familly id"
+#~ msgstr	"id famille incident"
+
 #~ msgid	"new user card"
 #~ msgstr	"Nouvelle personne"
 
@@ -1833,9 +1841,6 @@ msgstr	"Voir entête"
 #~ 	"document"
 #~ msgstr	"ce document n'est pas verrouillable, il ne peut pas être "
 #~ 	"révisé"
-
-#~ msgid	"view usercard"
-#~ msgstr	"voir une carte"
 
 #~ msgid	"edit usercard"
 #~ msgstr	"éditer une carte"

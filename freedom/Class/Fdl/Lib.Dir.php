@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.45 2002/12/10 16:15:18 eric Exp $
+// $Id: Lib.Dir.php,v 1.46 2002/12/11 08:24:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,7 +74,7 @@ function getSqlSearchDoc($dbaccess,
 			 $dfilter=true) {// no added filter (added default filter by default)
 
  
-
+  
 
   $table="doc";$only="";
   if ($fromid != 0) $table="doc$fromid";
@@ -98,7 +98,9 @@ function getSqlSearchDoc($dbaccess,
     //-------------------------------------------
     // search in all Db
     //-------------------------------------------
-
+    
+    if ($dfilter) $sqlfilters[-1] = "locked != -1";
+    if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
     
 
     $qsql= "select $selectfields ".
@@ -115,6 +117,11 @@ function getSqlSearchDoc($dbaccess,
     if (! is_array($dirid))    $fld = new Doc($dbaccess, $dirid);
 
     if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
+
+
+    
+    if ($dfilter) $sqlfilters[-1] = "locked != -1";
+    if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
       
       if (is_array($dirid)) {
 	$sqlfld=GetSqlCond($dirid,"dirid",true);
@@ -122,34 +129,19 @@ function getSqlSearchDoc($dbaccess,
 	$sqlfld = "fld.dirid=$dirid and qtype='S'";
       }
       
-//       $qsql= "select $selectfields ".
-// 	"from $only $table RIGHT OUTER JOIN fld on ($sqlfld and initid=fld.childid)  ".
-// 	"where $sqlcond ";
 
-      
-//        $qsql2= "select $selectfields ".
-// 	 "from $only $table RIGHT OUTER JOIN fld on (initid=fld.childid)  ".
-// 	 "where $sqlcond and $sqlfld";
 
-      
-
-//        $qsql0= "select $selectfields ".
-//  	"from $only $table, fld  ".
-//  	"where  $sqlcond ".
-//  	"and $sqlfld ".
-//  	"and (fld.qtype='S' and fld.childid=initid )  ";
-
-       $qsql_Litle= "select $selectfields ".
- 	"from  $table  ".
- 	"where initid in (select childid from fld where $sqlfld) and locked != -1 and $sqlcond ";
+//        $qsql_Litle= "select $selectfields ".
+//  	"from  $table  ".
+//  	"where initid in (select childid from fld where $sqlfld)   $sqlcond ";
 
       $qsql= "select $selectfields ".
 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
-	"where locked != -1 and $sqlcond ";
+	"where  $sqlcond ";
 
-       $qsql_Medium= "select $selectfields ".
- 	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
- 	"where locked != -1 and $sqlcond ";
+//        $qsql_Medium= "select $selectfields ".
+//  	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
+//  	"where  $sqlcond ";
 
 
     } else {
@@ -170,9 +162,12 @@ function getSqlSearchDoc($dbaccess,
 	case "M": // complex query
 	    
 	  $sqlM=$ldocsearch[0]["query"];
+
+	 
 	  if ($fromid > 0) $sqlM=str_replace("from doc ","from $only $table ",$sqlM);
 	    
 	  $qsql= $sqlM ." and " . $sqlcond;
+	
 	  break;
 	}
       } else {

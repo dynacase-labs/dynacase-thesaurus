@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-11-26 15:03+0100\n"
+	"POT-Creation-Date: 2002-12-11 09:04+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -176,15 +176,6 @@ msgstr	"Organisation"
 msgid	"new search "
 msgstr	"Start search"
 
-msgid	"yes"
-msgstr	""
-
-msgid	"no"
-msgstr	""
-
-msgid	"root folder"
-msgstr	""
-
 #, c-format
 msgid	"%s has been unlocked"
 msgstr	""
@@ -353,6 +344,9 @@ msgstr	""
 msgid	"file must be controlled : read permission needed"
 msgstr	""
 
+msgid	"no zone specified"
+msgstr	""
+
 #, c-format
 msgid	"unknown attribute %s"
 msgstr	""
@@ -383,6 +377,9 @@ msgstr	""
 #, c-format
 msgid	"cannot delete link for doc %d in folder %d : the document comes from "
 	"a user query. Delete initial query if you want delete this document"
+msgstr	""
+
+msgid	"yes"
 msgstr	""
 
 msgid	"already exist : not added"
@@ -916,6 +913,10 @@ msgid	"edit mail"
 msgstr	"Email"
 
 #, fuzzy
+msgid	"view standalone card"
+msgstr	"Start search"
+
+#, fuzzy
 msgid	"freedom database"
 msgstr	"Edit"
 
@@ -926,14 +927,6 @@ msgstr	"Email"
 #, fuzzy, c-format
 msgid	"file %d"
 msgstr	"Update Title Cards"
-
-#, fuzzy
-msgid	"society familly id"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	"site familly id"
-msgstr	"Start search"
 
 msgid	"User Card"
 msgstr	""
@@ -1025,22 +1018,6 @@ msgstr	""
 
 msgid	"SOCIETY category id to find constructors"
 msgstr	""
-
-#, fuzzy
-msgid	"incident site familly id"
-msgstr	"Organisation"
-
-#, fuzzy
-msgid	"product familly id"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	"contract familly id"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	"incident familly id"
-msgstr	"Start search"
 
 msgid	"Generic"
 msgstr	""
@@ -1894,7 +1871,27 @@ msgid	"View headers"
 msgstr	""
 
 #, fuzzy
-#~ msgid	"new user card"
+#~ msgid	"society familly id"
+#~ msgstr	"Start search"
+
+#, fuzzy
+#~ msgid	"site familly id"
+#~ msgstr	"Start search"
+
+#, fuzzy
+#~ msgid	"incident site familly id"
+#~ msgstr	"Organisation"
+
+#, fuzzy
+#~ msgid	"product familly id"
+#~ msgstr	"Start search"
+
+#, fuzzy
+#~ msgid	"contract familly id"
+#~ msgstr	"Start search"
+
+#, fuzzy
+#~ msgid	"incident familly id"
 #~ msgstr	"Start search"
 
 #, fuzzy
