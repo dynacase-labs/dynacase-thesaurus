@@ -3,7 +3,7 @@
  * Import Set of documents and files with directories
  *
  * @author Anakeen 2000 
- * @version $Id: import_tar.php,v 1.1 2004/03/16 14:12:46 eric Exp $
+ * @version $Id: import_tar.php,v 1.2 2004/03/17 17:32:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,10 +22,14 @@ define("TARTARS","/tars/");
 
 
 function getTarUploadDir(&$action) {
-  return TARUPLOAD.$action->user->login.TARTARS;
+  $dtar = $action->getParam("FREEDOM_UPLOADDIR");
+  if ($dtar=="") $dtar=TARUPLOAD;
+  return $dtar."/".$action->user->login.TARTARS;
 }
 function getTarExtractDir(&$action,$tar) {
-  return TARUPLOAD.$action->user->login.TAREXTRACT.$tar."_D";
+  $dtar = $action->getParam("FREEDOM_UPLOADDIR");
+  if ($dtar=="") $dtar=TARUPLOAD;
+  return $dtar."/".$action->user->login.TAREXTRACT.$tar."_D";
 }
 
 
@@ -36,7 +40,7 @@ function getTarExtractDir(&$action,$tar) {
  */
 function import_tar(&$action,$ftar,$dirid=0,$famid=7) {
 
-  import_directory($action,"/tmp/z/",$dirid,$famid,false);
+
 }
 
 /**
@@ -173,7 +177,6 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,
 }
 
 function analyze_csv($fdlcsv,$dbaccess,$dirid,&$famid,$analyze) {
- 
   $tr=array();
   $fcsv=fopen($fdlcsv,"r");
   if ($fcsv) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.11 2003/07/18 16:33:11 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.12 2004/03/17 17:32:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,6 +43,12 @@ $app_const=
 					"descr"=> N_("id of the basket folder"),
 					"global"=>"Y",
 					"user"=>"Y"
+					),
+	     "FREEDOM_UPLOADDIR" => array(		
+					"val"=>"/tmp/upload",
+					"descr"=> N_("directory to upload archive"),
+					"global"=>"Y",
+					"user"=>"N"
 					),
 	     // mnoGoSearch configuration
 	     "MNOGOSEARCH_DB" => array(
