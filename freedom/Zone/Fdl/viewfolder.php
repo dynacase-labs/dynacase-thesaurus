@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.57 2004/12/01 08:05:56 eric Exp $
+ * @version $Id: viewfolder.php,v 1.58 2004/12/28 17:06:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,6 +35,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $startpage=GetHttpVars("page","0"); // page number
   $target=GetHttpVars("target","fdoc"); // target for hyperlinks
   $sqlorder=GetHttpVars("sqlorder","title"); // order sort attribute
+  $viewone=(GetHttpVars("viewone","N")=="Y"); // direct view if only one
 
 
   // $column = ($with_popup && ($action->getParam("FREEDOM_VIEW")=="column"));
@@ -94,7 +95,12 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
   
 
-
+  if ($viewone && (count($ldoc)== 1)) {
+    
+    if ($ldoc[0]["doctype"]=="D")  redirect($action,"FREEDOM","OPENFOLIO&id=".$ldoc[0]["id"]);
+    else redirect($action,"FDL","FDL_CARD&latest=Y&id=".$ldoc[0]["id"]);
+    exit;
+  }
 
   if ($with_popup) {
     // Set Popup
