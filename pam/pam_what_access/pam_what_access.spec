@@ -1,4 +1,4 @@
-# $Revision: 1.6 $, $Date: 2002/02/26 09:43:28 $
+# $Revision: 1.7 $, $Date: 2002/02/27 11:46:44 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what_access
@@ -13,6 +13,7 @@ URL:		http://www.anakeen.com
 #Requires:	make
 Requires:	pam >= 0.72
 Requires:       WHAT
+Requires:	postgresql-libs >= 7.2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root-%(id -u -n)
 
 
@@ -60,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what_access.spec,v $
+Revision 1.7  2002/02/27 11:46:44  yannick
+Prise en compte Postgresql 7.2
+
 Revision 1.6  2002/02/26 09:43:28  yannick
 Passage en Postgresql 7.2
 
