@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-09-30 13:44+0200\n"
+	"POT-Creation-Date: 2002-10-02 11:05+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -98,7 +98,7 @@ msgstr	""
 
 #, c-format
 msgid	"new %s"
-msgstr "nouvelle %s"
+msgstr	"nouvelle %s"
 
 msgid	"new card"
 msgstr	"Nouvelle carte"
@@ -505,25 +505,25 @@ msgid	"suspended"
 msgstr	"suspendu"
 
 msgid	"Trecorded"
-msgstr "vers enregistré"
+msgstr	"vers enregistré"
 
 msgid	"Tqualified"
-msgstr "vers qualifié"
+msgstr	"vers qualifié"
 
 msgid	"Tanalyzed"
-msgstr "vers analysé"
+msgstr	"vers analysé"
 
 msgid	"Ttraited"
-msgstr "vers traité"
+msgstr	"vers traité"
 
 msgid	"Trejected"
-msgstr "vers rejeté"
+msgstr	"vers rejeté"
 
 msgid	"Tclosed"
-msgstr "vers clôt"
+msgstr	"vers clôt"
 
 msgid	"Tsuspended"
-msgstr "vers suspendu"
+msgstr	"vers suspendu"
 
 #, c-format
 msgid	"[%s] incident registration"
@@ -829,10 +829,10 @@ msgid	"file %d"
 msgstr	"fichier %d"
 
 msgid	"society familly id"
-msgstr "id famille société"
+msgstr	"id famille société"
 
 msgid	"site familly id"
-msgstr "id famille site"
+msgstr	"id famille site"
 
 msgid	"User Card"
 msgstr	"Carnet d'adresses"
@@ -913,25 +913,25 @@ msgid	"global balance result"
 msgstr	"résultat du bilan général"
 
 msgid	"usercard category to find clients"
-msgstr "identificateur catégorie pour la recherche de personne cliente"
+msgstr	"identificateur catégorie pour la recherche de personne cliente"
 
 msgid	"usercard category id to find technical"
 msgstr	"identificateur catégorie pour la recherche de techniciens"
 
 msgid	"SOCIETY category id to find constructors"
-msgstr "identificateur catégorie pour la recherche de sociétés clientes"
+msgstr	"identificateur catégorie pour la recherche de sociétés clientes"
 
 msgid	"incident site familly id"
-msgstr "id famille site incident"
+msgstr	"id famille site incident"
 
 msgid	"product familly id"
-msgstr "id famille produit"
+msgstr	"id famille produit"
 
 msgid	"contract familly id"
-msgstr "id famille contrat"
+msgstr	"id famille contrat"
 
 msgid	"incident familly id"
-msgstr "id famille incident"
+msgstr	"id famille incident"
 
 msgid	"Generic"
 msgstr	"Générique"
@@ -1017,6 +1017,9 @@ msgstr	"Contrats"
 msgid	"Contract Management"
 msgstr	"Gestion des contrats"
 
+msgid	"visible families"
+msgstr	"familles visibles"
+
 msgid	"Onefam"
 msgstr	"Une famille"
 
@@ -1035,8 +1038,11 @@ msgstr	"rediriger vers generic"
 msgid	"familly result"
 msgstr	"résultat des familles"
 
-msgid	"Access Onefam Master Management"
-msgstr	"Accès à l'administration par famille"
+msgid	"edit preferences"
+msgstr	"editer les préférences"
+
+msgid	"modify preferences"
+msgstr	"modifier les préférences"
 
 msgid	"Access To Onefam Management"
 msgstr	"Accès à la gestion par famille"
@@ -1340,7 +1346,7 @@ msgid	"new family"
 msgstr	"Famille"
 
 msgid	"Import documents"
-msgstr "Importer des documents"
+msgstr	"Importer des documents"
 
 msgid	"simple"
 msgstr	"Simple"
@@ -1585,11 +1591,20 @@ msgstr	"date de modification"
 msgid	"Change State"
 msgstr	"Changer d'état"
 
-msgid	" choose value"
-msgstr	" choisir une valeur"
+msgid	"families"
+msgstr "familles"
+
+msgid	"manage visible families"
+msgstr	"gestion des familles visibles"
+
+msgid	"Choose visibles families"
+msgstr	"Choix des familles visibles"
 
 msgid	"Close"
 msgstr	"Fermer"
+
+msgid	" choose value"
+msgstr	" choisir une valeur"
 
 msgid	"mail edition"
 msgstr	"édition de mail"
@@ -1707,6 +1722,9 @@ msgstr	"Dupliquer"
 
 msgid	"View headers"
 msgstr	"Voir entête"
+
+#~ msgid	"Access Onefam Master Management"
+#~ msgstr	"Accès à l'administration par famille"
 
 #~ msgid	"new usercard"
 #~ msgstr	"Nouvelle carte"

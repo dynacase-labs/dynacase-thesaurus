@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_modpref.php,v 1.1 2002/10/01 14:47:53 eric Exp $
+// $Id: onefam_modpref.php,v 1.2 2002/10/02 09:12:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_modpref.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,7 +38,7 @@ function onefam_modpref(&$action)
   $action->parent->param->Set("ONEFAM_IDS",$idsfam,PARAM_USER.$action->user->id,$action->parent->id);
 	  
       
-  redirect($action,GetHttpVars("app"),"ONEFAM_LOGO");
+  redirect($action,GetHttpVars("app"),"ONEFAM_LIST");
   
 
 

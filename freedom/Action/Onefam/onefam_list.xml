@@ -37,7 +37,8 @@ function imgborder() {
 </a></p>
 [ENDBLOCK SELECTCLASS]
 
-<input type="button" value="[TEXT:pref...]" title="[TEXT:manage visible families]" 
+<input type="button" value="[TEXT:families]" 
+       title="[TEXT:manage visible families]" 
        onclick="subwindow(100,300,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITPREF')">
 
 </body>

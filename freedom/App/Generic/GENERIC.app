@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.6 2002/08/20 14:05:09 eric Exp $
+// $Id: GENERIC.app,v 1.7 2002/10/02 09:12:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -72,12 +72,12 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_ADDCATG",
    "short_name"		=>N_("add category"),
-   "acl"		=>"GENERIC_MASTER"
+   "acl"		=>"GENERIC"
   ) ,
   array( 
    "name"		=>"GENERIC_EDITNEWCATG",
    "short_name"		=>N_("edit to add category"),
-   "acl"		=>"GENERIC_MASTER"
+   "acl"		=>"GENERIC"
   ) ,
   array( 
    "name"		=>"GENERIC_EDITCHANGECATG",
