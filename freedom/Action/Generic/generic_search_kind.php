@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.1 2003/01/30 12:47:45 eric Exp $
+// $Id: generic_search_kind.php,v 1.2 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,41 +51,51 @@ function generic_search_kind(&$action) {
 
   $attr = $fdoc->getAttribute($aid);
   $kindname=$attr->enum[$kid];
-  $doc = new Doc($dbaccess, $dirid);
+  $dir = new Doc($dbaccess, $dirid);
 
   $sdoc = createDoc($dbaccess,5); //new DocSearch($dbaccess);
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
   $sdoc->title = sprintf(_("search %s"),$keyword);
-  if (($dirid == 0) || ($doc->id == getDefFld($action))) $sdoc->title = sprintf(_("search %s is %s"),
+  if (($dirid == 0) || ($dir->id == getDefFld($action))) $sdoc->title = sprintf(_("search %s is %s"),
 							     $attr->labelText,$kindname );
   else $sdoc->title = sprintf(_("search %s is %s in %s"),
-			      $attr->labelText,$kindname,$doc->title );
+			      $attr->labelText,$kindname,$dir->title );
 
   $sdoc->Add();
   
   $searchquery="";
   $sdirid = 0;
-  if ($doc->defDoctype == 'S') { // case of search in search doc
-    $sdirid = $doc->id;
+  if ($dir->defDoctype == 'S') { // case of search in search doc
+    $sdirid = $dir->id;
   } else { // case of search in folder
-    if ($doc->id != getDefFld($action))
+    if ($dir->id != getDefFld($action))
       $sdirid = $dirid;
 
   }
 
+  if (strrpos($kid,'.') !== false)   $kid = substr($kid,strrpos($kid,'.')+1); // last reference
 
+
+  $a = $fdoc->getAttribute($aid);
+
+  $tkids[]=$kid;
+  while (list($k, $v) = each($a->enum)) {
+    if (strpos($k, $kid.".") !== false) {
+      $tkids[] = substr($k,strrpos($k,'.')+1);
+    }
+  }
 
 
   $sqlfilter[]= "locked != -1";
   $sqlfilter[]= "doctype='F'";
-  $sqlfilter[] = "usefor = 'N'";
+  $sqlfilter[]= "usefor = 'N'";
+  $sqlfilter[]="$aid ~ '".implode("|",$tkids)."'";
 
-
-  if (strstr($kid,".") != "") {
-    $sqlfilter[] = "$aid ~ '".str_replace(".","\\\\\.",$kid)."'";
-  } else {
-    $sqlfilter[] = "in_textlist($aid,'$kid') or $aid ~ '$kid\.'";
-  }
+//   if (strstr($kid,".") != "") {
+//     $sqlfilter[] = "$aid ~ '".str_replace(".","\\\\\.",$kid)."'";
+//   } else {
+//     $sqlfilter[] = "in_textlist($aid,'$kid') or $aid ~ '$kid\.'";
+//  }
 
   $query=getSqlSearchDoc($dbaccess, 
 			 $sdirid,  

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.7 2003/03/11 17:10:10 eric Exp $
+// $Id: duplicate.php,v 1.8 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,7 +67,7 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
   // add to the same folder
   
   if (($dirid > 0) && ($copy->id > 0)) {
-    $fld = new Dir($dbaccess, $dirid);
+    $fld = new Doc($dbaccess, $dirid);
 
     
     $err = $fld->AddFile($copy->id);

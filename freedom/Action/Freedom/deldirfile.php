@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: deldirfile.php,v 1.7 2003/02/07 17:31:49 eric Exp $
+// $Id: deldirfile.php,v 1.8 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/deldirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -45,7 +45,7 @@ function deldirfile(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-  $dir = new Dir($dbaccess,$dirid);// use initial id for directories
+  $dir = new Doc($dbaccess,$dirid);// use initial id for directories
   $err = $dir->DelFile($docid);
   if ($err != "") $action->exitError($err);
 

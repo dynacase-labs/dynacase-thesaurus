@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editchangecatg.php,v 1.7 2003/01/17 10:31:52 eric Exp $
+// $Id: generic_editchangecatg.php,v 1.8 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editchangecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,7 @@ function generic_editchangecatg(&$action) {
 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess,getDefFld($action) );
+  $homefld = new Doc( $dbaccess,getDefFld($action) );
 
   $doc = new Doc($dbaccess,$docid);
   $action->lay->Set("username",$doc->title);

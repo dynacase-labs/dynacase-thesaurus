@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_importvcard.php,v 1.11 2003/02/25 09:55:24 eric Exp $
+// $Id: usercard_importvcard.php,v 1.12 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_importvcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -58,7 +58,7 @@ function usercard_importvcard(&$action) {
       $vcardfile = GetHttpVars("file"); 
     }
   if (! $vcard_import-> Open($vcardfile)) $action->exitError(_("no vcard file specified"));
-  $dir = new Dir($dbaccess, getDefFld($action));
+  $dir = new Doc($dbaccess, getDefFld($action));
 
   $tvalue=array();
 
@@ -99,7 +99,7 @@ function usercard_importvcard(&$action) {
 		
 		while(list($k,$v) = each($category)) {
 		  
-		  $catg = new Dir($dbaccess, $v);
+		  $catg = new Doc($dbaccess, $v);
 		  $catg->AddFile($doc->id);
 		}
 	      }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.106 2003/03/27 09:42:31 eric Exp $
+// $Id: Class.Doc.php,v 1.107 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.106 2003/03/27 09:42:31 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.107 2003/03/28 17:52:38 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1391,10 +1391,9 @@ create unique index i_docir on doc(initid, revision);";
 	break;
       case "enumlist": 
 	if (strstr($value,"\n")) $oattr->link="";
-	
 	$ta = explode("\n",$value);
 	while (list($k, $a) = each($ta)) {
-	  $ta[$k]=$oattr->enum[$a];
+	  $ta[$k]=$oattr->enumlabel[$a];
 	}
 	$htmlval=implode("<BR>",$ta);
 	  
@@ -1408,7 +1407,7 @@ create unique index i_docir on doc(initid, revision);";
 	
 	break;
       case "enum": 
-	if (isset($oattr->enum[$value]))  $htmlval=$oattr->enum[$value];
+	if (isset($oattr->enumlabel[$value]))  $htmlval=$oattr->enumlabel[$value];
 	else $htmlval=$value;
 	
 	break;

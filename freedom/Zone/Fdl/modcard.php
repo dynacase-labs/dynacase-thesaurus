@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.27 2003/03/17 12:02:59 eric Exp $
+// $Id: modcard.php,v 1.28 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -217,6 +217,8 @@ function insert_file($dbaccess,$docid, $attrid)
     //$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
     
     $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
+    $destfile=str_replace("'","",$destfile);
+    $destfile=str_replace("\"","",$destfile);
 
     move_uploaded_file($userfile['tmp_name'], $destfile);
     if (isset($vf)) unset($vf);

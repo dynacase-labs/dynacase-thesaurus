@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editnewcatg.php,v 1.7 2003/03/28 17:52:38 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editnewcatg.php,v $
+// $Id: generic_editcatg.php,v 1.1 2003/03/28 17:53:56 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editcatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -27,24 +27,46 @@ include_once("FDL/Class.Dir.php");
 include_once("GENERIC/generic_util.php"); 
 
 // -----------------------------------
-function generic_editnewcatg(&$action) {
+function generic_editcatg(&$action) {
   // -----------------------------------
 
   global $dbaccess;
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Doc( $dbaccess, getDefFld($action));
 
-  
+  $aid = GetHttpVars("aid"); // attribute id
+  $famid = GetHttpVars("fid"); // family id
 
+  $action->lay->set("aid",$aid);
+  $action->lay->set("fid",$famid);
+  $doc = new Doc($dbaccess, $famid);
 
-  $stree=getChildCatg($homefld->id, 1);
+  $a = $doc->getAttribute($aid);
 
-  reset($stree);
-  
-  $action->lay->SetBlockData("CATG",$stree);
-  $action->lay->Set("topdir",  getDefFld($action));
-  
+  $action->lay->set("TITLE",sprintf(_("definition of enumerate attribute %s of %s family"),
+				   $a->labelText, $doc->title));
+  $tref=array();
+  $tlabel=array();
+  $tlevel=array();
+  while (list($k, $v) = each($a->enum)) {
+    $tk= explode(".",$k);
+    $tv= explode("/",$v);
+    $sp ="";
+    $loff ="";
+    for ($i=1;$i<count($tk);$i++) $loff .= ".....";
+    
+    $tlevel[]= array("alevel"=>count($tk));
+    $tref[]= array("eref"=>array_pop($tk));
+    $vlabel = array_pop($tv);
+    $tlabel[]= array("elabel"=>$vlabel,
+		     "velabel"=>$loff.$vlabel);
+  }
+
+  $action->lay->setBlockData("ALEVEL",$tlevel);
+  $action->lay->setBlockData("AREF",$tref);
+  $action->lay->setBlockData("ALABEL",$tlabel);
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/GENERIC/Layout/generic_editcatg.js");
+
 
 }
 

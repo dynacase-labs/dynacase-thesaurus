@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_addcatg.php,v 1.5 2003/01/20 19:09:28 eric Exp $
+// $Id: generic_addcatg.php,v 1.6 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_addcatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,7 @@ function generic_addcatg(&$action) {
   
 
   if ($dirid > 0)  {
-    $fld = new Dir($dbaccess, $dirid);
+    $fld = new Doc($dbaccess, $dirid);
 
     $doc= new Doc($dbaccess, $ndocid);
     

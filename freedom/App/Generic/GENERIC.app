@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.11 2003/03/20 10:23:09 eric Exp $
+// $Id: GENERIC.app,v 1.12 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -75,6 +75,11 @@ $action_desc = array (
    "acl"		=>"GENERIC"
   ) ,
   array( 
+   "name"		=>"GENERIC_MODKIND",
+   "short_name"		=>N_("change king in enum attribute"),
+   "acl"		=>"GENERIC_MASTER"
+  ) ,
+  array( 
    "name"		=>"GENERIC_EDITNEWCATG",
    "short_name"		=>N_("edit to add category"),
    "acl"		=>"GENERIC"
@@ -82,7 +87,7 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_EDITCATG",
    "short_name"		=>N_("edit to add or modify category"),
-   "acl"		=>"GENERIC"
+   "acl"		=>"GENERIC_MASTER"
   ) ,
   array( 
    "name"		=>"GENERIC_EDITCHANGECATG",

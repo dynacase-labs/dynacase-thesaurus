@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_changecatg.php,v 1.5 2003/01/20 19:09:28 eric Exp $
+// $Id: generic_changecatg.php,v 1.6 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_changecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,13 +46,13 @@ function generic_changecatg(&$action) {
 
    if (is_array($dirids)) {
      while (list($k,$dirid) = each($dirids)) {	
-       $fld = new Dir($dbaccess, $dirid);
+       $fld = new Doc($dbaccess, $dirid);
        $fld->AddFile($docid);
      }
    }
    if (is_array($ndirids)) {
      while (list($k,$dirid) = each($ndirids)) {	
-       $fld = new Dir($dbaccess, $dirid);
+       $fld = new Doc($dbaccess, $dirid);
        $err = $fld->DelFile($docid);
 
      }

@@ -8,7 +8,16 @@ pubdir="/home/httpd/what";
 echo "update docattr set type='text' where type='enum' and (phpfile is not null or phpfile != '');" | psql freedom anakeen
 echo "update docfam set usefor='W' where classname like 'W%';" | psql freedom anakeen
 echo "update doc set usefor='W' where doctype='W';" | psql freedom anakeen
+echo "update docattr set phpfunc='constructor|Constructeur,client|Client,furnisher|Fournisseur' where id='si_catg';
+update doc124 set si_catg=str_replace(si_catg,'1','constructor');
+update doc124 set si_catg=str_replace(si_catg,'2','client');
+update doc124 set si_catg=str_replace(si_catg,'3','furnisher');" | psql freedom anakeen
 
+echo "update docattr set phpfunc='client|Client,furnisher|Fournisseur' where id='us_catg';
+update doc120 set si_catg=str_replace(si_catg,'1','client');
+update doc120 set si_catg=str_replace(si_catg,'2','furnisher');" | psql freedom anakeen
+
+update client societe 1|Constructeur,2|Client,3|Fournisseur
 # add sequences
 $pubdir/wsh.php --api=fdl_adoc
 $pubdir/wsh.php --api=fdl_trigger | psql freedom anakeen

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.21 2003/03/26 17:19:20 eric Exp $
+// $Id: editutil.php,v 1.22 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -148,7 +148,6 @@ function getHtmlInput(&$doc, &$oattr, $value) {
        "</textarea>";
     break;
 		      
-		      
     //같같같같같같같같같같같같같같같같같같같같
 			
     case "enumlist": 
@@ -158,10 +157,10 @@ function getHtmlInput(&$doc, &$oattr, $value) {
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input.= ">";
 
-      reset($oattr->enum);
+      reset($oattr->enumlabel);
       $tvalues = explode("\n",$value);
 
-      while (list($k, $v) = each($oattr->enum)) {
+      while (list($k, $v) = each($oattr->enumlabel)) {
 	if (in_array($k, $tvalues)) $selected = "selected";
 	else $selected="";
 	$input.="<option $selected value=\"$k\">$v</option>"; 
@@ -184,7 +183,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
 
       reset($oattr->enum);
 
-      while (list($k, $v) = each($oattr->enum)) {
+      while (list($k, $v) = each($oattr->enumlabel)) {
 
 	if ($k == $value) $selected = "selected";
 	else $selected="";

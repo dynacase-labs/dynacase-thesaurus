@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_ifld.php,v 1.4 2002/12/04 17:13:36 eric Exp $
+// $Id: freedom_ifld.php,v 1.5 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_ifld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,7 +74,7 @@ function fatherFld($dbaccess,$docid,$level=0,$lfldid=array(),$lcdoc=array()) {
       if (! in_array($v["dirid"], $lfldid)) { 
 	// avoid infinite recursion
 	  
-	  $fld = new Dir($dbaccess, $v["dirid"]);
+	  $fld = new Doc($dbaccess, $v["dirid"]);
 	if ($fld->Control("view") == "") { 
 	  // permission view folder
 	    

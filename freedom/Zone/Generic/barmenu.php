@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.7 2003/03/21 17:57:59 eric Exp $
+// $Id: barmenu.php,v 1.8 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -127,7 +127,7 @@ function barmenu(&$action) {
   popupActive("helpmenu",1,'folders');
 
 
-  $homefld = new Dir( $dbaccess, getDefFld($action));
+  $homefld = new Doc( $dbaccess, getDefFld($action));
 
 
 

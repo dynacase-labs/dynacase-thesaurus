@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_duplicate.php,v 1.3 2003/01/30 09:38:36 eric Exp $
+// $Id: generic_duplicate.php,v 1.4 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,7 @@ function generic_duplicate(&$action) {
   if (getDefFld($action) !=  $dirid) {
 
     $dbaccess = $action->GetParam("FREEDOM_DB");
-    $fld = new Dir( $dbaccess, getDefFld($action) );
+    $fld = new Doc( $dbaccess, getDefFld($action) );
       
     $err = $fld->AddFile($copy->id);
     if ($err != "") {

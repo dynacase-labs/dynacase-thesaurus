@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.6 2003/03/24 16:17:48 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.7 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.6 2003/03/24 16:17:48 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.7 2003/03/28 17:52:38 eric Exp $';
 
 
 
@@ -74,6 +74,7 @@ Class NormalAttribute extends BasicAttribute {
     if (($this->type == "enum") || ($this->type == "enumlist")) {
       // set the enum array
       $this->enum=array();
+      $this->enumlabel=array();
 
       $sphpfunc = str_replace("\\.", "-dot-",$this->phpfunc); // to replace dot & comma separators
       $sphpfunc  = str_replace("\\,", "-comma-",$sphpfunc);
@@ -91,8 +92,11 @@ Class NormalAttribute extends BasicAttribute {
 	$n1=str_replace( "-dot-",".",$n1);
 	$n1=str_replace( "-comma-",",",$n1);
 
+
 	if ($n2 != "") $this->enum[$n]=$this->enum[$n1]."/".$text;
 	else $this->enum[$n]=$text;
+	if ($n2 != "") $this->enumlabel[substr($n,strrpos($n,'.')+1)]=$this->enum[$n];
+	else $this->enumlabel[$n]=$this->enum[$n];
       }
     }
   }

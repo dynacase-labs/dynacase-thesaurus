@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editimport.php,v 1.8 2002/12/13 11:19:40 eric Exp $
+// $Id: generic_editimport.php,v 1.9 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@ function generic_editimport(&$action) {
   
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess, getDefFld($action));
+  $homefld = new Doc( $dbaccess, getDefFld($action));
 
   
 

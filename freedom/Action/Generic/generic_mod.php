@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.16 2003/03/05 16:49:28 eric Exp $
+// $Id: generic_mod.php,v 1.17 2003/03/28 17:52:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,7 +63,6 @@ function generic_mod(&$action) {
     if ($dirid > 0) {
        $fld = new Doc($dbaccess, $dirid);
        
-    
        $err=$fld->AddFile($doc->id);
        if ($err != "") $action->AddLogMsg($err);
     }

@@ -45,7 +45,7 @@
 <div  id="newmenu" class="popup">
 
 
-[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]&id=&dirid=[dirid]';closeAllMenu()">[stitle]</a>
+[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]';closeAllMenu()">[stitle]</a>
 [ENDBLOCK NEWFAM]
 
 
@@ -85,7 +85,7 @@ function SendSearch(e) {
 [BLOCK [vkind]]
 <a  id="[kindid][kid]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH_KIND&kid=[kid]&aid=[kindid]&catg=[catg]';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[ktitle]</span></a>
 [ENDBLOCK [vkind]]
-<a  id="[kindid]kedit" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITCATG&fid=[famid]&aid=[kindid]';closeAllMenu()">[TEXT:Edit kind]</a>
+<a  id="[kindid]kedit" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITCATG&fid=[famid]&aid=[kindid]';closeAllMenu()"><I>[TEXT:Edit kind]</I></a>
 </div>
 [ENDBLOCK MKIND]
 

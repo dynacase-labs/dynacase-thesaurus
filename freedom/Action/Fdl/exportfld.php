@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.9 2003/01/08 09:03:06 eric Exp $
+// $Id: exportfld.php,v 1.10 2003/03/28 17:52:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,7 @@ function exportfld(&$action, $aflid="0")
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $fldid = GetHttpVars("id",$aflid);
-  $fld = new Dir($dbaccess, $fldid);
+  $fld = new Doc($dbaccess, $fldid);
 
   $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE");
 
