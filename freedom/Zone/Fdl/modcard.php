@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.55 2004/01/28 10:23:39 eric Exp $
+ * @version $Id: modcard.php,v 1.56 2004/02/02 12:45:14 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.55 2004/01/28 10:23:39 eric Exp $
+// $Id: modcard.php,v 1.56 2004/02/02 12:45:14 caroline Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -155,9 +155,11 @@ function modcard(&$action, &$ndocid) {
     } else {
       $doc->Addcomment(_("change"));
     }
-    $err.=$doc-> Modify(); 
+
+    if ($err=="") {$err.=$doc-> Modify();  }
+
     // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
-    $doc->unlock(true); // disabled autolock
+     $doc->unlock(true); // disabled autolock
   
     if ($err == "") {
     
