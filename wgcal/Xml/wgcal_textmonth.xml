@@ -3,6 +3,7 @@
 <table  style="border:thin outset grey;" align="center" width="95%" cellspacing="0" cellpadding="2px">
 <tr><td class="wMonthTextTitle" align="center" colspan="[dayperline]">[month]</td></tr><tr><td  colspan="[dayperline]"></td></tr>
 [BLOCK DLINE]<tr valign="top">[line]</tr>[ENDBLOCK DLINE]
+<tr><td colspan="[dayperline]">[ZONE WGCAL:WGCAL_INFOS]</td></tr>
 </table>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

@@ -20,7 +20,6 @@ var RCall = 0;
 <td class="WGCAL_Period"></td>
 <td align="center" class="WGCAL_Period" width="80">
 <img height="16" style="cursor:pointer" title="[TEXT:week view]"  onclick="setDaysViewed(7);" src="WGCAL/Images/oneweek.png">
-<img height="16" style="cursor:pointer" title="[TEXT:month view]" onclick="setMonthView();" src="WGCAL/Images/twoweek.png">
 <img height="16" style="cursor:pointer" title="[TEXT:month text view]" onclick="setTextView();" src="WGCAL/Images/wm-viewtext.png">
 </td>
 <td align="right" width="50" class="WGCAL_Period">

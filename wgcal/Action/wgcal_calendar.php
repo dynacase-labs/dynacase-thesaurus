@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.28 2005/02/13 22:24:03 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.29 2005/02/13 22:33:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -40,8 +40,6 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("WHAT/Layout/geometry.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
-
-  $action->lay->set("comment",strftime('<div style="font-size:80%; font-style:italic">The Freedom Calendar By Anakeen / Cesam (c) 2005, %x %X</div>', time()));
 
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
   $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
