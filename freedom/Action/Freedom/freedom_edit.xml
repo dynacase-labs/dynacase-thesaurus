@@ -39,7 +39,7 @@ function refreshfld(dirid) {
 
 <body class="freedom" 
       onUnLoad="closechoose();autoUnlock('[id]')"
-      onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[TITLE]:[TEXT:Changes will be loosed if you continue]'";
+      onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[STITLE]:[TEXT:Changes will be loosed if you continue]'";
       onResize="resizeInputFields()">
 <!-- for idoc -->
 

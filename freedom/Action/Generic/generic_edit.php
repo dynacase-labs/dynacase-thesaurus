@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.28 2005/01/20 16:46:53 eric Exp $
+ * @version $Id: generic_edit.php,v 1.29 2005/02/01 13:37:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.28 2005/01/20 16:46:53 eric Exp $
+// $Id: generic_edit.php,v 1.29 2005/02/01 13:37:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,7 +92,7 @@ function generic_edit(&$action) {
       $action->lay->Set("editaction", _("Save"));
     }
     
-
+  $action->lay->Set("STITLE",addslashes($action->lay->get("TITLE")));
   if ($zonebodycard == "") $zonebodycard = $doc->defaultedit;
   $action->lay->Set("HEAD", (! ereg("[A-Z]+:[^:]+:T", $zonebodycard, $reg)));
 

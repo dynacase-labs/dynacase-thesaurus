@@ -130,6 +130,8 @@ function copy_clip(meintext)
 function trackMenuKey(event)
 {
   var intKeyCode;
+
+  if (!event) event=window.event;
   if (isNetscape) {
     intKeyCode = event.keyCode;
     altKey = event.altKey
@@ -139,7 +141,7 @@ function trackMenuKey(event)
     altKey = window.event.altKey;
     ctrlKey = window.event.ctrlKey
    }
-  //  window.status=intKeyCode + ':'+ event.which +':'+altKey+ ':'+ctrlKey;
+    window.status=intKeyCode + ':'+ event.which +':'+altKey+ ':'+ctrlKey;
 
   if (((intKeyCode ==  93))) {
     // Ctrl-Menu

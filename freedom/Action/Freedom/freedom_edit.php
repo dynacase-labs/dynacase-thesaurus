@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.28 2004/11/26 14:28:34 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.29 2005/02/01 13:37:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -152,7 +152,8 @@ function freedom_edit(&$action) {
 	}
       }
     }
-    
+
+  $action->lay->Set("STITLE",addslashes($action->lay->get("TITLE")));
   $action->lay->Set("iconsrc", $doc->geticon());
  
   // compute the changed state

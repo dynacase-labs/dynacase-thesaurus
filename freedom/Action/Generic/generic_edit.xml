@@ -38,7 +38,7 @@ addEvent(window,"load",focusFirst);
  </head>
 
 <body class="freedom" 
-      onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[TITLE]:[TEXT:Changes will be loosed if you continue]'";
+      onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[STITLE]:[TEXT:Changes will be loosed if you continue]'";
       onUnLoad="closechoose();if (! document.isCancelled) autoUnlock('[id]')"
      >
 
