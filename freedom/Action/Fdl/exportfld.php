@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: exportfld.php,v 1.15 2004/06/10 10:34:53 eric Exp $
+ * @version $Id: exportfld.php,v 1.16 2004/07/28 10:13:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.15 2004/06/10 10:34:53 eric Exp $
+// $Id: exportfld.php,v 1.16 2004/07/28 10:13:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,7 +47,6 @@ function exportfld(&$action, $aflid="0", $famid="")
   $fld = new Doc($dbaccess, $fldid);
   if ($famid=="") $famid=GetHttpVars("famid");
   $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE",$famid);
-
     usort($tdoc,"orderbyfromid");
 
   $foutname = uniqid("/tmp/exportfld").".csv";
@@ -72,6 +71,7 @@ function exportfld(&$action, $aflid="0", $famid="")
     // compose the csv file
     $prevfromid = -1;
     reset($tdoc);
+
     while (list($k,$zdoc)= each ($tdoc)) {
       $doc->ResetMoreValues();
       $doc->Affect($zdoc);
@@ -79,13 +79,15 @@ function exportfld(&$action, $aflid="0", $famid="")
 
       if ($prevfromid != $doc->fromid) {
 	$adoc = $doc->getFamDoc();
+	if ($adoc->name != "") $fromname=$adoc->name;
+	else $fromname=$adoc->id;;
 	$lattr=$adoc->GetExportAttributes();
-	fputs($fout,"//FAM;".$adoc->title."(".$doc->fromid.");<specid>;<fldid>;");
+	fputs($fout,"//FAM;".$adoc->title."(".$fromname.");<specid>;<fldid>;");
 	foreach($lattr as $ka=>$attr) {
 	  fputs($fout,str_replace(";"," - ",$attr->labelText).";");
 	}
 	fputs($fout,"\n");
-	fputs($fout,"ORDER;".$doc->fromid.";;;");
+	fputs($fout,"ORDER;".$fromname.";;;");
 	foreach($lattr as $ka=>$attr) {
 	  fputs($fout,$attr->id.";");
 	}
@@ -94,7 +96,7 @@ function exportfld(&$action, $aflid="0", $famid="")
       }
       reset($lattr);
 
-      fputs($fout,"DOC;".$doc->fromid.";".$doc->id.";".$fldid.";");
+      fputs($fout,"DOC;".$fromname.";".$doc->id.";".$fldid.";");
       // write values
       while (list($ka,$attr)= each ($lattr)) {
       
