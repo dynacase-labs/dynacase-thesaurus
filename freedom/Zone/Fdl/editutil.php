@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.62 2004/01/16 09:11:47 eric Exp $
+ * @version $Id: editutil.php,v 1.63 2004/01/21 13:26:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.62 2004/01/16 09:11:47 eric Exp $
+// $Id: editutil.php,v 1.63 2004/01/21 13:26:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -335,7 +335,6 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       reset($tval);
       $nbitem= count(current($tval));
       $tvattr = array();
-      
       for ($k=0;$k<$nbitem;$k++) {
 	$tvattr[]=array("bevalue" => "bevalue_$k");
 	reset($ta);
