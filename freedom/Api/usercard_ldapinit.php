@@ -3,7 +3,7 @@
  * Initiate LDAP database
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.8 2004/08/12 07:00:06 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.9 2004/10/13 09:00:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,7 +54,7 @@ $uidoc= createDoc($dbaccess,"IUSER");
 $total=count($ldoc);
 $reste=$total;
 foreach($ldoc as $k=>$tdoc) {
-  if ($tdoc["fromid"]==$famid) $doc=$udoc;
+  if ($tdoc["us_whatid"]=="") $doc=$udoc;
   else $doc=$uidoc;
 
     $doc->ResetMoreValues();
