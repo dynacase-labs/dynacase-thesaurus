@@ -22,9 +22,11 @@
      onMouseDown="select(this,[id],[divid]);subwindow(300,400,'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
 <td class="tlist"  >[revision]</td>
 <td class="tlist" >  
-     [comment]
+     [BLOCK [COMMENT]]
+       <B>[cdate]</B> <I>[cauthor]</I><P style="margin-left:20pt;color:[CORE_FGCOLOR]"> [ccomment]</P>
+       [ENDBLOCK [COMMENT]]
 </td>
-     <td class="tlist"  >[owner]</td>
+     <td class="tlist"  ><I>[owner]</I></td>
      <td class="tlist"  >[date]</td>
 
     

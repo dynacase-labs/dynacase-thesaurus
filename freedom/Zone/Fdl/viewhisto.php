@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: viewhisto.php,v 1.8 2004/01/14 15:53:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewhisto.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+// $Id: viewhisto.php,v 1.8 2004/01/14 15:53:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewhisto.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,6 +61,28 @@ function viewhisto(&$action)
     $owner = new User("", $rdoc->owner);
     $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
     $trdoc[$k]["revision"]= $rdoc->revision;
+    $trdoc[$k]["COMMENT"]="COMMENT$k";
+    $tc = explode("\n",$rdoc->comment);
+    $tlc = array();
+    $kc=0; // index comment
+    foreach ($tc as $vc) {
+      if (ereg("(.*)\[(.*)\](.*)",$vc,$reg)) {
+
+	$kc++;
+	$tlc[$kc]=array("cdate"=>$reg[1],
+			"cauthor"=>$reg[2],
+			"ccomment"=>$reg[3]);
+      } else {
+	$tlc[$kc]["ccomment"].="<BR>".$vc;
+	if (! isset($tlc[$kc]["cdate"])) {
+	  $tlc[$kc]["cdate"]="";
+	  $tlc[$kc]["cauthor"]="";
+	}
+      }
+      
+    }
+    $action->lay->SetBlockData("COMMENT$k",$tlc);
+
     $trdoc[$k]["comment"]= nl2br(htmlentities($rdoc->comment));
     $trdoc[$k]["id"]= $rdoc->id;
     $trdoc[$k]["divid"]= $k;
