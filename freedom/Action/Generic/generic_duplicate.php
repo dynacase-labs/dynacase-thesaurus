@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_duplicate.php,v 1.4 2003/03/28 17:52:38 eric Exp $
+// $Id: generic_duplicate.php,v 1.5 2003/06/24 10:39:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,24 +34,17 @@ function generic_duplicate(&$action) {
   // -----------------------------------
 
     // Get all the params      
-  $dirid=GetHttpVars("dirid", getDefFld($action)); // where to duplicate
+  $dirid=GetHttpVars("dirid"); // where to duplicate
   $docid=GetHttpVars("id",0);       // doc to duplicate
 
-
-  
+  if ($dirid == "") {
+    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $fdoc = new Doc($dbaccess,$docid);
+    $dirid=$fdoc->dfldid;
+  }
   $copy=duplicate($action, $dirid, $docid);
 
-  // add to default catg (also)
-  if (getDefFld($action) !=  $dirid) {
-
-    $dbaccess = $action->GetParam("FREEDOM_DB");
-    $fld = new Doc( $dbaccess, getDefFld($action) );
-      
-    $err = $fld->AddFile($copy->id);
-    if ($err != "") {
-      $action->exitError($err);
-    }
-  }
+ 
   redirect($action,"FDL","FDL_CARD&id=".$copy->id, $action->GetParam("CORE_STANDURL"));
   
 }
