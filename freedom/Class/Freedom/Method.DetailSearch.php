@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.16 2003/11/17 10:52:30 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.17 2004/02/17 10:49:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.16 2003/11/17 10:52:30 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.17 2004/02/17 10:49:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,7 +92,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
     
     reset($tkey);
     while(list($k,$v) = each($tkey)) {
-      $cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".trim($tkey[$k])."' ";
+      $cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".addslashes(trim($tkey[$k]))."' ";
     }
   }
 

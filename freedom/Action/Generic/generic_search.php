@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.17 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_search.php,v 1.18 2004/02/17 10:49:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.17 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_search.php,v 1.18 2004/02/17 10:49:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,7 +63,7 @@ function generic_search(&$action) {
 
   $doc = new Doc($dbaccess, $dirid);
 
-  $sdoc = createDoc($dbaccess,5); //new DocSearch($dbaccess);
+  $sdoc = createDoc($dbaccess,5,false); //new DocSearch($dbaccess);
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
   $sdoc->title = sprintf(_("search %s"),$keyword);
   if ($doc->id == getDefFld($action)) $sdoc->title = sprintf(_("search  contains %s in all state"),$keyword );
@@ -86,6 +86,7 @@ function generic_search(&$action) {
 
   $keyword= str_replace("^","£",$keyword);
   $keyword= str_replace("$","£",$keyword);
+  $keyword= addslashes($keyword);
 
   $sqlfilter[]= "locked != -1";
   //  $sqlfilter[]= "doctype ='F'";
