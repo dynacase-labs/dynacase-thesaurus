@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.67 2003/04/18 10:29:10 eric Exp $
+// $Id: Lib.Dir.php,v 1.68 2003/05/19 10:43:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -138,13 +138,13 @@ function getSqlSearchDoc($dbaccess,
 //   	"from  $table  ".
 //   	"where initid in (select childid from fld where $sqlfld) and   $sqlcond ";
 
-      $qsql= "select $selectfields ".
-	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
-	"where  $sqlcond ";
+//       $qsql= "select $selectfields ".
+// 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
+// 	"where  $sqlcond ";
 
-//         $qsql= "select $selectfields ".
-//   	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
-//   	"where  $sqlcond ";
+         $qsql= "select $selectfields ".
+   	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
+   	"where  $sqlcond ";
 
 
     } else {
