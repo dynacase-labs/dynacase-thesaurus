@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.14 2003/04/02 07:36:12 eric Exp $
+// $Id: Lib.Attr.php,v 1.15 2003/04/14 12:07:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -78,11 +78,12 @@ function AttrToPhp($dbaccess, $tdoc) {
     while(list($k,$v) = each($table1))   {
       switch ($v->visibility) {
       case "M": // menu
-	$tmenu[] = array("attrid"=>strtolower($v->id),
-			 "label"=>str_replace("\"","\\\"",$v->labeltext),
-			 "order"=>intval($v->ordered),
-			 "link"=>str_replace("\"","\\\"",$v->link),
-			 "precond"=>$v->phpfunc);
+	if ($v->visibility != "H")
+	  $tmenu[] = array("attrid"=>strtolower($v->id),
+			   "label"=>str_replace("\"","\\\"",$v->labeltext),
+			   "order"=>intval($v->ordered),
+			   "link"=>str_replace("\"","\\\"",$v->link),
+			   "precond"=>$v->phpfunc);
 	break;
       case "F": // frame
 	$tfield[] = array("attrid"=>strtolower($v->id),
