@@ -1,0 +1,8 @@
+#!/bin/bash
+
+pubdir="/home/httpd/what";
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocValue
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=Doc
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocAttr
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=QueryDir
+

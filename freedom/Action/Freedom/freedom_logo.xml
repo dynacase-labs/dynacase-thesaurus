@@ -28,7 +28,7 @@
 
  
   function getFrameWidth() {
-      winW = window.innerWidth;
+      var winW = window.innerWidth;
       if (! winW)	   
             winW = document.body.offsetWidth;
 
@@ -36,7 +36,7 @@
   }
 
   function getFrameHeight() {
-      winH= window.innerHeight;
+      var winH= window.innerHeight;
       if (! winH)	
            winH = document.body.offsetHeight;
       return (winH);
@@ -45,12 +45,12 @@
 
 
   function CenterLogo() { 
-      winH=getFrameHeight();
-      winW=getFrameWidth();
+      var winH=getFrameHeight();
+      var winW=getFrameWidth();
 
 
       if (document.getElementById) { // DOM3 = IE5, NS6
-         divlogo = document.getElementById('logo');
+         var divlogo = document.getElementById('logo');
 
      
          if ((winH>0) && (winW>0)) {

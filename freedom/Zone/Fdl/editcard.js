@@ -55,11 +55,13 @@ function resizeInputFields() {
 
   with (document.getElementById('fedit')) {
        for (i=0; i< length; i++) { 
-	 if (elements[i].type == 'text')
-           elements[i].size=newsize;
-	 if (elements[i].type == 'textarea')
-           elements[i].cols=newsize;
-       }
+         if (elements[i].className == 'autoresize') {
+	   if (elements[i].type == 'text')
+             elements[i].size=newsize;
+	   if (elements[i].type == 'textarea')
+             elements[i].cols=newsize;
+         }
+     }
   }
 }
 

@@ -27,3 +27,12 @@ else
    echo "the shared group table failed";
 fi
 
+
+#copy application and acl table from anakeen to freedom
+echo "drop table application" | psql freedom anakeen
+su - postgres -c "pg_dump -t application anakeen | psql freedom anakeen"
+echo "drop table acl" | psql freedom anakeen
+su - postgres -c "pg_dump -t acl anakeen | psql freedom anakeen"
+#delete unused rows
+echo "delete from application where objectclass != 'Y' or objectclass isnull" | psql freedom anakeen
+echo "delete from acl  where id_application not in (select id from application)" | psql freedom anakeen

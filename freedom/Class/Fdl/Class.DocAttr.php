@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.5 2002/06/10 09:09:40 eric Exp $
+// $Id: Class.DocAttr.php,v 1.6 2002/06/14 08:58:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,14 +24,14 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.5 2002/06/10 09:09:40 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.6 2002/06/14 08:58:34 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
 
 Class Docattr extends DbObj
 {
-  var $fields = array ("id","docid","frameid","labeltext", "title", "abstract","type","ordered","visibility","link","phpfile", "phpfunc","todefine");
+  var $fields = array ("id","docid","frameid","labeltext", "title", "abstract","type","ordered","visibility","link","phpfile", "phpfunc");
 
   var $id_fields = array ("docid","id");
 
@@ -54,8 +54,7 @@ create table docattr ( id      varchar(20) not null,
                      visibility varchar(1),
                      link varchar(256),
                      phpfile varchar(64),
-                     phpfunc varchar(128),
-                     todefine varchar(20)
+                     phpfunc varchar(256)
                    );
 create sequence seq_id_docattr start 1000";
 

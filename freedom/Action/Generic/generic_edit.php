@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.2 2002/04/23 07:47:11 eric Exp $
+// $Id: generic_edit.php,v 1.3 2002/06/14 08:58:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,12 +44,8 @@ function generic_edit(&$action) {
    
 
 
-  $action->lay->Set("idfamuser", $action->GetParam("DEFAULT_FAMILY", 1));
+ 
 
-  // information propagation
-  $action->lay->Set("classid", $classid);
-  $action->lay->Set("dirid", $dirid);
-  $action->lay->Set("id", $docid);
 
 
   
@@ -72,6 +68,7 @@ function generic_edit(&$action) {
       $err = $doc->CanLockFile();
       if ($err != "")   $action->ExitError($err);
 
+      $classid = $doc->fromid;
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
   
 
@@ -89,6 +86,10 @@ function generic_edit(&$action) {
 
 
  
+  // information propagation
+  $action->lay->Set("classid", $classid);
+  $action->lay->Set("dirid", $dirid);
+  $action->lay->Set("id", $docid);
     
 
 }

@@ -1,0 +1,54 @@
+
+
+<tbody>
+<!-- TABLEBODY -->
+[BLOCK TABLEBODY]
+
+
+<tr class="FREEDOMBack2" >
+  <td  colspan="3" ><span class="FREEDOMTextTitle"> [frametext]</span>
+<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]"></input>
+<INPUT TYPE="hidden" name="classid" value="[classid]"></input>
+<input type="hidden" name="title" value="[TITLE]"></input></td>
+</tr>
+
+
+
+            [BLOCK [TABLEVALUE]]
+
+<tr class="FREEDOMBack1">
+
+  <td  width="10%">&nbsp;</td>
+  <td  width="30%"><span class="FREEDOMText">[name]&nbsp;:&nbsp;</span></td>
+  <td  width="60%">[inputtype]</td>
+</tr>
+
+           [ENDBLOCK [TABLEVALUE]]
+
+[ENDBLOCK TABLEBODY]
+
+[BLOCK TRSTATE]
+<tr class="FREEDOMBack2">
+  <td colspan="3" >
+ <label class="FREEDOMTextTitle" for="newstate">[TEXT:state] <i>[initstatename]</i> [TEXT:to]</label>
+ <select name="newstate" onchange="if (this.selectedIndex > 0) document.getElementById('comment').style.display='inline'; else document.getElementById('comment').style.display='none';"> 
+ <option VALUE="[initstatevalue]" >[TEXT:unchanged]</option> 
+[BLOCK NEWSTATE]
+ <option VALUE="[statevalue]" >[statename]</option>  
+[ENDBLOCK NEWSTATE]
+  </select>
+  <textarea rows="2" name="comment" id="comment" style="display:none"></textarea>
+  </td>
+</tr>
+[ENDBLOCK TRSTATE]
+
+
+<tr style="visibility:hidden">
+<td style="visibility:hidden">
+[BLOCK HIDDENS]
+<input type="hidden" id="[hid]" name="[hname]" value="[hvalue]">
+[ENDBLOCK HIDDENS]
+</td>
+</tr>
+</tbody>
+

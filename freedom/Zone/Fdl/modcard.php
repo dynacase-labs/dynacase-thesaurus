@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.5 2002/05/16 09:40:52 eric Exp $
+// $Id: modcard.php,v 1.6 2002/06/14 08:58:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,167 +43,164 @@ function modcard(&$action, &$ndocid) {
   // Get all the params      
   $docid=GetHttpVars("id",0); 
   $dirid=GetHttpVars("dirid",10);
-  $classid=GetHttpVars("classid",0);
+  $sclassid=GetHttpVars("sclassid",0);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
 
 
 
   if ( $docid == 0 )
     {
       // add new document
-      // search the good class of document
-      $ofreedom = createDoc($dbaccess, $classid);
-
-
+	// search the good class of document
+	  $ofreedom = createDoc($dbaccess, $sclassid);
+      
+      
       $doc->owner = $action->user->id;
       $doc->locked = $action->user->id; // lock for next modification
-      if ($ofreedom->fromid <= 0) {
-	$ofreedom->profid = "0"; // NO PROFILE ACCESS
-      }
+	if ($ofreedom->fromid <= 0) {
+	  $ofreedom->profid = "0"; // NO PROFILE ACCESS
+	}
       $err = $ofreedom-> Add();
       if ($err != "")  $action->ExitError($err);
-
+      
       $docid = $ofreedom-> id;
       $ofreedom->initid = $docid;// it is initial doc
-
-
-
+	    
+	    
+	    
     } 
   else 
     {
-
+      
       // initialise object
-      $ofreedom = new Doc($dbaccess, $docid);
+	$ofreedom = new Doc($dbaccess, $docid);
       
       // test object permission before modify values (no access control on values yet)
-      $err=$ofreedom-> CanUpdateDoc();
+	$err=$ofreedom-> CanUpdateDoc();
       if ($err != "")  $action-> ExitError($err);
       
     }
-
-
+  
+  
   // ------------------------------
-  // update POSGRES text values
-  $bdvalue = new DocValue($dbaccess);
+    // update POSGRES text values
+      $bdvalue = new DocValue($dbaccess);
   $bdvalue->docid = $docid;
   while(list($k,$v) = each($HTTP_POST_VARS) )
     {
       //print $k.":".$v."<BR>";
-
+      
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{
-	    $oattr=new DocAttr($dbaccess, array($docid,$k));
-	  
-	    $bdvalue->attrid = substr($k,1);
-	    $bdvalue->value = stripslashes($v);
-	    if ($v != "") $bdvalue ->Modify(); // only affected value
-	    if ($v == " ") $bdvalue ->Delete();	//($bdvalue->value != "")) { // or reset value
-
-	    
-	  
-	}      
-    }
-
-
-  // ------------------------------
-  // update POSGRES files values
-  while(list($k,$v) = each($HTTP_POST_FILES) )
-    {
-      if ($k[0] == "_") // freedom attributes  begin with  _
-	{	  
-	  $k=substr($k,1);
 	  $oattr=new DocAttr($dbaccess, array($docid,$k));
 	  
-	  $filename=insert_file($dbaccess,$docid,$k);
-
-
-	  
-	  if ($filename != "")
-	    {
-	      $bdvalue->attrid = $k;
-	      $bdvalue->value=$filename;
-	      $bdvalue ->Modify();
-	    
+	  $bdvalue->attrid = substr($k,1);
+	  $bdvalue->value = stripslashes($v);
+	  if ($v != "") $bdvalue ->Modify(); // only affected value
+	    if ($v == " ") $bdvalue ->Delete();	//($bdvalue->value != "")) { // or reset value
 	      
+	      
+	      
+	}      
+    }
+  
+  
+  // ------------------------------
+    // update POSGRES files values
+      while(list($k,$v) = each($HTTP_POST_FILES) )
+	{
+	  if ($k[0] == "_") // freedom attributes  begin with  _
+	    {	  
+	      $k=substr($k,1);
+	      $oattr=new DocAttr($dbaccess, array($docid,$k));
+	      
+	      $filename=insert_file($dbaccess,$docid,$k);
+	      
+	      
+	      
+	      if ($filename != "")
+		{
+		  $bdvalue->attrid = $k;
+		  $bdvalue->value=$filename;
+		  $bdvalue ->Modify();
+		  
+		  
 	    	  
+		}
 	    }
 	}
-    }
-
-
   
-
-
-  // change class document
-  $ofreedom->fromid = $classid; // inherit from
+  
+  
+  
+  
   if ($ofreedom->fromid == 2) {
     $ofreedom->doctype='D'; // directory
-
+      
   }
   if (($ofreedom->fromid == 3) || 
       ($ofreedom->fromid == 4) || 
       ($ofreedom->fromid == 6)) { // profile doc
-    if ($ofreedom->fromid == 4) $ofreedom->doctype='D'; // directory profile
-    if ($ofreedom->fromid == 6) $ofreedom->doctype='S'; // search profile
-
-    //$ofreedom->profid = -1;
-    $err=$ofreedom-> Modify();
-    if ($err != "") $action-> ExitError($err);
-    $ofreedom = new Doc($dbaccess, $docid); // change class object (perhaps)
-    //$ofreedom->SetControl();
-  }
+				    if ($ofreedom->fromid == 4) $ofreedom->doctype='D'; // directory profile
+				      if ($ofreedom->fromid == 6) $ofreedom->doctype='S'; // search profile
+					
+					//$ofreedom->profid = -1;
+				  $err=$ofreedom-> Modify();
+				  if ($err != "") $action-> ExitError($err);
+				  $ofreedom = new Doc($dbaccess, $docid); // change class object (perhaps)
+				    //$ofreedom->SetControl();
+				}
   $ofreedom->lmodify='Y'; // locally modified
-  $err=$ofreedom-> Modify();
+    $err=$ofreedom-> Modify();
   $ofreedom->refresh();
   
-
+  
   if ($err == "") {
-
+    
     // change state if needed
-    $newstate=GetHttpVars("newstate","");
+      $newstate=GetHttpVars("newstate","");
     $comment=GetHttpVars("comment","");
-
-
+    
+    
     if (($newstate != "") && ($ofreedom->state != $newstate)) $err = $ofreedom->ChangeState($newstate,$comment );
     else   $err=$ofreedom-> Modify(); // new modify in case of the title reference a calculated value
-    $ndocid = $ofreedom->id;
+      $ndocid = $ofreedom->id;
   }
   return $err;
 }
 //------------------------------------------------------------
 function insert_file($dbaccess,$docid, $attrid)
-//------------------------------------------------------------
+     //------------------------------------------------------------
 {
-
+  
   global $HTTP_POST_FILES;
-
+  
   $destimgdir="./".GetHttpVars("app")."/Upload/";
-
+  
   $userfile = $HTTP_POST_FILES["_".$attrid];
-
-      
+  
+  
   
   if ($userfile['tmp_name'] == "none")
     {
       // if no file specified, keep current file
-
-      return "";
+	
+	return "";
     }
-
+  
   ereg ("(.*)\.(.*)$", $userfile['name'], $reg);
-
+  
   //  print_r($userfile);
-
+  
   $ext=$reg[2];
   
-
-
-
+  
+  
+  
   if (is_uploaded_file($userfile['tmp_name'])) {
     // move to add extension
-    $doc= new Doc($dbaccess,$docid);
+      $doc= new Doc($dbaccess,$docid);
     $attr= $doc->GetAttribute( $attrid);
     //$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
     
@@ -213,16 +210,16 @@ function insert_file($dbaccess,$docid, $attrid)
     if (isset($vf)) unset($vf);
     $vf = new VaultFile($dbaccess, "FREEDOM");
     $vf -> Store($destfile, false , $vid);
-
+    
     unlink($destfile);
   } else {
     $err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
     $action->ExitError($err);
   }
   
-      
+  
   // return file type and upload file name
-  return $userfile['type']."|".$vid;
-    
+    return $userfile['type']."|".$vid;
+  
 }
 ?>

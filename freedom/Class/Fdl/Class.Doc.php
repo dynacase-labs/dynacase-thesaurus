@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.26 2002/06/10 16:38:58 eric Exp $
+// $Id: Class.Doc.php,v 1.27 2002/06/14 08:58:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.26 2002/06/10 16:38:58 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.27 2002/06/14 08:58:34 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -645,7 +645,7 @@ create sequence seq_id_doc start 1000";
   function SetTitle($title) {
     $ltitle = $this->GetTitleAttributes();
 
-    $otitle = $this->GetValue($ltitle[0]->id);
+    $otitle = new DocValue($this->dbaccess, array($this->id,$ltitle[0]->id));
 
     //    print "title:".$title->value;
     if ($otitle->isAffected()) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.11 2002/06/10 16:38:58 eric Exp $
+// $Id: import_file.php,v 1.12 2002/06/14 08:58:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -95,7 +95,11 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "DOC":
-      csvAddDoc($dbaccess, $data);
+      $ndoc=csvAddDoc($dbaccess, $data);
+      if (! isset($HTTP_POST_FILES["tsvfile"])) {
+	// log of batch mode
+	print $ndoc->title."\n";
+      }
     break;    
     // -----------------------------------
     case "SEARCH":
@@ -170,14 +174,6 @@ function add_import_file(&$action, $fimport="") {
     $err = $oattr ->Add();
       //    if ($err != "") $err = $oattr ->Modify();
     if ($err != "") $gerr="\nline $nline:".$err;
-    break;
-    // -----------------------------------
-    case ($data[0] > 0):
-      if ($data[0] > 0) {
-	$bdvalue->attrid = $data[0];
-	$bdvalue->value = $data[2];
-	$bdvalue ->Modify();
-      }
     break;
 	  
     }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.7 2002/06/10 16:38:59 eric Exp $
+// $Id: viewcard.php,v 1.8 2002/06/14 08:58:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,13 +52,16 @@ function viewcard(&$action) {
 
   $doc = new Doc($dbaccess, $docid);
 
-  
-  // set view zone
-  if ($zonebodycard == "") {
-    $zonebodycard = $doc->dviewzone;
-  }
-  if ($zonebodycard == "") {
-    $zonebodycard ="FDL:VIEWBODYCARD";
+  if ($doc->doctype == 'C') {
+    $zonebodycard ="FDL:VIEWFAMCARD";
+  } else {
+    // set view zone
+    if ($zonebodycard == "") {
+      $zonebodycard = $doc->dviewzone;
+    }
+    if ($zonebodycard == "") {
+      $zonebodycard ="FDL:VIEWBODYCARD";
+    }
   }
   $action->lay->Set("ZONEBODYCARD", $zonebodycard);
   

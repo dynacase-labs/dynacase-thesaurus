@@ -19,7 +19,7 @@ function resizeImg(th) {
   if ((th.width+53) > winW) th.width=winW - 53;
 }
 </script>
-
+<tbody>
 
 <!-- TABLEBODY -->
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
@@ -38,3 +38,5 @@ function resizeImg(th) {
 
 [ENDBLOCK TABLEIMG]
 
+
+</tbody>

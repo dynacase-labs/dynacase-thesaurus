@@ -1,5 +1,6 @@
 
 
+<tbody>
 
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
@@ -19,11 +20,13 @@
 [BLOCK [TABLEVALUE]]
 
 <tr class="FREEDOMBack1">
-  <td valign="top"  width="30%"><span class="FREEDOMText">[name]&nbsp;:&nbsp;</span></td>
-  <td  width="60%"><span class="FREEDOMText">[value]</span></td>
+  <td valign="top" ><span class="FREEDOMText">[name]&nbsp;:&nbsp;</span></td>
+  <td ><span class="FREEDOMText">[value]</span></td>
 </tr>
 
 [ENDBLOCK [TABLEVALUE]]
 
 [ENDBLOCK TABLEBODY]
 
+
+</tbody>

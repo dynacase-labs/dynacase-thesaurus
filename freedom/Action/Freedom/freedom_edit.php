@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.2 2002/04/26 15:20:23 eric Exp $
+// $Id: freedom_edit.php,v 1.3 2002/06/14 08:58:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,12 +46,6 @@ function freedom_edit(&$action) {
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
    
-
-
-  // Set Css
-  $cssfile=$action->GetLayoutFile("freedom.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
 
 
 
