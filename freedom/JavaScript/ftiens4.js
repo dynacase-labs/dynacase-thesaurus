@@ -21,7 +21,8 @@
  
 // Definition of class Folder 
 // ***************************************************************** 
- 
+if (! document.wstyle)  document.wstyle="FREEDOM";
+
 function Folder(folderDescription, hreference, refid, ftype, hasChild) //constructor 
 { 
   //constant data 
@@ -129,7 +130,7 @@ function propagateChangesInState(folder)
   { 
     if (folder.nodeImg)  if (folder.isLastNode)  folder.nodeImg.src = "FREEDOM/Images/ftv2mlastnode.gif" 
                          else  folder.nodeImg.src = "FREEDOM/Images/ftv2mnode.gif" 
-    folder.iconImg.src = "FREEDOM/Images/ftv2folderopen"+folder.ftype+".gif" 
+    folder.iconImg.src = document.wstyle+"/Images/ftv2folderopen"+folder.ftype+".gif" 
     for (i=0; i<folder.nChildren; i++) 
       folder.children[i].mostra() 
   } 
@@ -145,7 +146,7 @@ function propagateChangesInState(folder)
 	else if (folder.nChildren > 0)  folder.nodeImg.src = "FREEDOM/Images/ftv2pnode.gif" 
         else     folder.nodeImg.src = "FREEDOM/Images/ftv2node.gif" 
 
-    folder.iconImg.src = "FREEDOM/Images/ftv2folderclosed"+folder.ftype+".gif" 
+    folder.iconImg.src = document.wstyle+"/Images/ftv2folderclosed"+folder.ftype+".gif" 
 
       // alert('esconde:'+folder.id+':'+folder.nChildren);
     for (i=0; i<folder.nChildren; i++) 

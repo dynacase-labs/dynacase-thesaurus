@@ -1,5 +1,5 @@
-// famille de base;;titre;id;class;name;;;;;;;
-BEGIN;0;famille de base;1;DocFile;BASE;;;;;;;
+"// famille de base";;titre;id;class;name;;;;;;;
+BEGIN;0;"famille de base";1;DocFile;BASE;;;;;;;
 TYPE;C;;;;;;;;;;;
 ;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
@@ -7,72 +7,72 @@ ATTR;FR_BASIC;;basique;N;N;frame;0;F;;;;
 ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;W;Y;;;
 ;;;;;;;;;;;;
 END;0;-1;;;;;;;;;;
-// famille dossier;;;id;class;name;;;;;;;
-BEGIN;1;famille dossier;2;Dir;DIR;;;;;;;
+"// famille dossier";;;id;class;name;;;;;;;
+BEGIN;1;"famille dossier";2;Dir;DIR;;;;;;;
 TYPE;C;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-ATTR;BA_DESC;FR_BASIC;description;N;Y;text;20;W;;;;
+ATTR;BA_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;
 ;;;;;;;;;;;;
 END;1;-1;;;;;;;;;;
 ;;;;;;;;;;;;
-//DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;
+//DOC;Famille;"<special id>";"<special dirid>";titre;;;;;;;;
 DOC;2;9;;racine;;;;;;;;
-DOC;2;10;9;non classé;;;;;;;;
-// famille dossier;inherit;;id;class;name;;;;;;;
-BEGIN;0;famille mail;15;;MAIL;;;;;;;
+DOC;2;10;9;"non classé";;;;;;;;
+"// famille dossier";inherit;;id;class;name;;;;;;;
+BEGIN;0;"famille mail";15;;MAIL;;;;;;;
 TYPE;C;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;MAIL_FR;;Adresses;N;Y;frame;10;F;;;;
 ATTR;MAIL_FROM;MAIL_FR;de;N;Y;text;20;W;;;;
 ATTR;MAIL_TO;MAIL_FR;à;N;Y;enum;30;W;Y;;fdl.php;lmail(D,MAIL_TO):MAIL_TO
-ATTR;MAIL_CC;MAIL_FR;copie à;N;Y;enum;40;W;;;fdl.php;lmail(D,MAIL_CC):MAIL_CC
+ATTR;MAIL_CC;MAIL_FR;"copie à";N;Y;enum;40;W;;;fdl.php;lmail(D,MAIL_CC):MAIL_CC
 ATTR;MAIL_SUBJECT;MAIL_FR;sujet;N;Y;text;50;W;;;;
 ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;60;R;;;;
 ATTR;MAIL_CM;MAIL_FR_CM;Commentaire;N;Y;longtext;70;W;;;;
 END;0;;;;;;;;;;;
-// famille recherche;;;id;class;name;;;;;;;
+"// famille recherche";;;id;class;name;;;;;;;
 ;;;;;;;;;;;;
-BEGIN;1;famille recherche;5;DocSearch;SEARCH;;;;;;;
+BEGIN;1;"famille recherche";5;DocSearch;SEARCH;;;;;;;
 TYPE;C;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;SE_CRIT;;critère;N;N;frame;;F;;;;
 ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;;W;;;;
-ATTR;SE_LATEST;SE_CRIT;dernière révision;N;Y;text;;W;;;;
-ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;Y;text;;W;;;;
+ATTR;SE_LATEST;SE_CRIT;"dernière révision";N;Y;text;;W;;;;
+ATTR;SE_CASE;SE_CRIT;"différence majuscule/minuscule";N;Y;text;;W;;;;
 ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;;R;;;;
-ATTR;SE_FAMID;SE_CRIT;fid amille;N;Y;text;;H;;;;
-ATTR;SE_CFLD;SE_CRIT;à partir du dossier;N;Y;text;;R;;;;
-ATTR;SE_IDFLD;SE_KEY;dossier racine;N;Y;text;;H;;%S%&app=GENERIC&action=GENERIC_CARD&id=%SI_IDFLD%;;
+ATTR;SE_FAMID;SE_CRIT;"fid amille";N;Y;text;;H;;;;
+ATTR;SE_CFLD;SE_CRIT;"à partir du dossier";N;Y;text;;R;;;;
+ATTR;SE_IDFLD;SE_KEY;"dossier racine";N;Y;text;;H;;%S%&app=GENERIC&action=GENERIC_CARD&id=%SI_IDFLD%;;
 END;0;;;;;;;;;;;
 ;;;;;;;;;;;;
-//SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;;
+//SEARCH;"<special id>";"<special dir id>";titre;requête;;;;;;;;
 ;;;;;;;;;;;;
-SEARCH;11;9;les familles;select * from docfam where doctype='C';;;;;;;;
-SEARCH;12;9;les profils;select * from doc where doctype ='P';;;;;;;;
-SEARCH;13;9;les maisons;select * from doc where (owner < 0) and (locked != -1);;;;;;;;
-SEARCH;14;9;la poubelle;select * from doc where doctype ='Z';;;;;;;;
-// famille profile doc;;;id;class;name
-BEGIN;1;famille profile de document;3;PDoc;PDOC
+SEARCH;11;9;"les familles";"select * from docfam where doctype='C'";;;;;;;;
+SEARCH;12;9;"les profils";"select * from doc where doctype ='P'";;;;;;;;
+SEARCH;13;9;"les maisons";"select * from doc where (owner < 0) and (locked != -1)";;;;;;;;
+SEARCH;14;9;"la poubelle";"select * from doc where doctype ='Z'";;;;;;;;
+"// famille profile doc";;;id;class;name
+BEGIN;1;"famille profile de document";3;PDoc;PDOC
 USEFORPROF;;;;;
 TYPE;C;;;;
 ;;;;;
 END;1;9;;;
 ;;;;;
-// famille profile dossier;;;;;name
-BEGIN;3;famille profile de dossier;4;PDir;PDIR
+"// famille profile dossier";;;;;name
+BEGIN;3;"famille profile de dossier";4;PDir;PDIR
 USEFORPROF;;;;;
 TYPE;C;;;;
 ;;;;;
 END;1;9;;;
 ;;;;;
-// famille profile recherche;;;;;name
-BEGIN;3;famille profile de recherche;6;PDocSearch;PSEARCH
+"// famille profile recherche";;;;;name
+BEGIN;3;"famille profile de recherche";6;PDocSearch;PSEARCH
 USEFORPROF;;;;;
 TYPE;C;;;;
 ;;;;;
 END;1;9;;;
-// famille fichier;;;id;class;name;;;;;;;
-BEGIN;0;famille fichier;7;;FILE;;;;;;;
+"// famille fichier";;;id;class;name;;;;;;;
+BEGIN;0;"famille fichier";7;;FILE;;;;;;;
 METHOD;Method.DocFile.php;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;
 ;;;;;;;;;;;;
@@ -83,8 +83,8 @@ ATTR;FI_TITLE;FI_FRFILE;titre;Y;N;text;;R;;;;
 ATTR;FI_FILE;FI_FRFILE;fichier;N;Y;file;;W;Y;;;
 END;-;9;;;;;;;;;;
 ;;;;;;;;;;;;
-// famille image;;;id;class;name;;;;;;;
-BEGIN;0;famille image;8;;IMAGE;;;;;;;
+"// famille image";;;id;class;name;;;;;;;
+BEGIN;0;"famille image";8;;IMAGE;;;;;;;
 METHOD;Method.DocImg.php;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;
 ;;;;;;;;;;;;

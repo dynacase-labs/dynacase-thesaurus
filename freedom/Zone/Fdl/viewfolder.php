@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.31 2002/12/07 16:00:12 eric Exp $
+// $Id: viewfolder.php,v 1.32 2002/12/18 15:02:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,7 +71,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
 
 
-  $action->lay->Set("dirtitle",$dir->title);
+  $action->lay->Set("dirtitle",stripslashes($dir->title));
   $action->lay->Set("dirid",$dirid);
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");

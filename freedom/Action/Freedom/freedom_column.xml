@@ -94,7 +94,8 @@ TD.tlist {
      onMouseDown="if (! document.noselect) {select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);}document.noselect=false;" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false">   
- <td class="tlist">[title]</td>
+ <td class="tlist">
+<IMG style="display:none" id="i[divid]"      src="[iconsrc]">[title]</td>
        
 <td class="tlist">[values]</td>
         

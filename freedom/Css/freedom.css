@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.18 2002/11/04 17:56:17 eric Exp $
+ * $Id: freedom.css,v 1.19 2002/12/18 15:02:02 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -58,7 +58,7 @@ TD.FREEDOMLabelNeeded:first-letter {
 }
 
 LEGEND {
-  color: [CORE_FGCOLOR];
+  color: [CORE_ACOLOR];
 }
 
 LEGEND:first-letter {

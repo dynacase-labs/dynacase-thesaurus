@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.11 2002/11/14 10:43:22 eric Exp $
+// $Id: generic_mod.php,v 1.12 2002/12/18 15:02:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,6 +25,7 @@
 
 include_once("FDL/modcard.php");
 
+include_once("FDL/Class.DocFam.php");
 include_once("FDL/Class.Dir.php");
 
 
@@ -51,7 +52,12 @@ function generic_mod(&$action) {
   AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
   if ($docid == 0) { // new file => add in a folder
-    if (($dirid == 0) && ($doc->dfldid>0) ) $dirid=$doc->dfldid;
+   
+    if ($dirid == 0) {      
+      $cdoc = new DocFam($dbaccess, $doc->fromid);
+      if ($cdoc->dfldid>0)  $dirid=$cdoc->dfldid;
+    }
+
     if ($dirid > 0) {
        $fld = new Dir($dbaccess, $dirid);
        
