@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.31 2003/06/19 09:53:10 eric Exp $
+ * $Id: freedom.css,v 1.32 2003/07/30 14:52:34 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -294,9 +294,13 @@ TH {
     font-size:9pt;
     font-family:arial;
   }
+
 @media print {
   .noprint {
     display:none;
+  }
+  #error  {
+    display:none ! important;
   }
   *, A, A:link, A:visited, p {
     color:black;
