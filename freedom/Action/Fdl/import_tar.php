@@ -3,7 +3,7 @@
  * Import Set of documents and files with directories
  *
  * @author Anakeen 2000 
- * @version $Id: import_tar.php,v 1.2 2004/03/17 17:32:29 eric Exp $
+ * @version $Id: import_tar.php,v 1.3 2004/09/29 08:16:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -48,7 +48,7 @@ function import_tar(&$action,$ftar,$dirid=0,$famid=7) {
  * @param action $action current action
  * @param string $ldir local directory path
  */
-function import_directory(&$action, $ldir,$dirid=0,$famid=7,
+function import_directory(&$action, $ldir,$dirid=0,$famid=7,$dfldid=2,
 			  $onlycsv=false,$analyze=false) {
   // first see if fdl.csv file
   global $importedFiles;
@@ -63,21 +63,24 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,
 	$absfile=str_replace("//","/","$ldir/$file");
      
 	if (is_file($absfile) && ($file=="fdl.csv")) {
-	  $tr = analyze_csv($absfile,$dbaccess,$dirid,$lfamid,$analyze);
+	  $tr = analyze_csv($absfile,$dbaccess,$dirid,$lfamid,$lfldid,$analyze);
 	
 	}
       }
       if ($lfamid > 0) $famid=$lfamid; // set local default family identificator
+      if ($lfldid > 0) $dfldid=$lfldid; // set local default family folder identificator
 
       rewinddir($handle);
    
       /* This is the correct way to loop over the directory. */
       $defaultdoc= createDoc($dbaccess,$famid);
+      if (! $defaultdoc) $action->AddWarningMsg(sprintf(_("you cannot create this kind [%s] of document"),$famid));
       if (($lfamid == 0) && ($famid==7)) {
 	$defaultimg= createDoc($dbaccess,"IMAGE");
 	$fimgattr=$defaultimg->GetFirstFileAttributes();
       }
-      $newdir= createDoc($dbaccess,"DIR");
+      $newdir= createDoc($dbaccess,$dfldid);
+      if (! $newdir) $action->AddWarningMsg(sprintf(_("you cannot create this kind [%s] of folder"),$dfldid));
       $ffileattr=$defaultdoc->GetFirstFileAttributes();
   
       if ($dirid > 0) {
@@ -94,12 +97,13 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,
 	  if (!$onlycsv) { // add also unmarked files
 	  
 	    if (!isset($importedFiles[$absfile])) {
-	      $tr[$index]=array("err"=>"",
+	      $tr[$index]=array("err"=>($defaultdoc)?"":sprintf(_("you cannot create this kind [%s] of document"),$famid),
 				"folderid"=>0,
 				"foldername"=>$ldir,
 				"filename"=>$file,
 				"title"=>"",
 				"id"=>0,
+				"anaclass"=>"fileclass",
 				"familyid"=>$ddoc->fromid,
 				"familyname"=>"",
 				"action"=>"");
@@ -137,18 +141,19 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,
 	    }
 	  }
 	} else if (is_dir($absfile) && ($file[0]!='.')) {
-	  $tr[$index]=array("err"=>"",
+	  $tr[$index]=array("err"=>($newdir)?"":sprintf(_("you cannot create this kind [%s] of folder"),$dfldid),
 			    "folderid"=>0,
 			    "foldername"=>$ldir,
 			    "filename"=>$file,
 			    "title"=>"",
 			    "id"=>0,
+			    "anaclass"=>"fldclass",
 			    "familyid"=>$newdir->fromid,
 			    "familyname"=>"",
 			    "action"=>_("to be add"));
 	  if (! $analyze) {
 	    $newdir->Init();
-	    $newdir->setValue("ba_title",$file);
+	    $newdir->setTitle($file);
 	    $err=$newdir->Add();
 	    if ($err!="") {
 	      $tr[$index]["action"]=_("not added");
@@ -159,7 +164,7 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,
 	      }
 	    }
 	  }
-	  $itr=import_directory($action, $absfile,$newdir->id,$famid,$onlycsv,$analyze);
+	  $itr=import_directory($action, $absfile,$newdir->id,$famid,$dfldid,$onlycsv,$analyze);
 	  $tr=array_merge($tr,$itr);
 	}
       }
@@ -176,7 +181,7 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,
   }
 }
 
-function analyze_csv($fdlcsv,$dbaccess,$dirid,&$famid,$analyze) {
+function analyze_csv($fdlcsv,$dbaccess,$dirid,&$famid,&$dfldid,$analyze) {
   $tr=array();
   $fcsv=fopen($fdlcsv,"r");
   if ($fcsv) {
@@ -189,12 +194,17 @@ function analyze_csv($fdlcsv,$dbaccess,$dirid,&$famid,$analyze) {
 	// -----------------------------------
       case "DFAMID":
 	$famid =  $data[1];
-	print "\n\n change famid to $famid\n";
+	//print "\n\n change famid to $famid\n";
+	break; 
+	// -----------------------------------
+      case "DFLDID":
+	$dfldid =  $data[1];
+	//print "\n\n change dfldid to $dfldid\n";
 	break; 
       case "DOC":
 	$tr[$index]=csvAddDoc($dbaccess, $data, $dirid,$analyze,$ldir);
 	if ($tr[$index]["err"]=="") $nbdoc++;
-
+	if ($tr[$index]["action"]!="") $tr[$index]["action"]=_($tr[$index]["action"]);
 	 
 	break;    
       }

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-22 09:25+0000\n"
-"PO-Revision-Date: 2004-09-22 11:26+0200\n"
+"POT-Creation-Date: 2004-09-29 08:17+0000\n"
+"PO-Revision-Date: 2004-09-29 10:18+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -166,35 +166,6 @@ msgstr "changer de profil"
 msgid "new profile document"
 msgstr "nouveau profil de document"
 
-msgid "new familly document"
-msgstr "nouvelle famille de document"
-
-msgid "the document is not referenced: cannot apply state modification"
-msgstr ""
-"le document n'est pas référencé : la modification du profil d'accès\n"
-"ne peut pas être appliquée"
-
-#, c-format
-msgid "the document %s is not related to a workflow"
-msgstr "le document %s n'est pas relié à un workflow"
-
-#, c-format
-msgid "result of import  %s"
-msgstr "Résultat de l'import %s"
-
-#, c-format
-msgid ""
-"Import %s is in progress. When update will be finished an email to &lt;%"
-"s&gt; will be sended with result rapport"
-msgstr ""
-"L'import %s est en cours. Lorsque la mise à jour sera finie, un email sera "
-"envoyé à \n"
-"&lt;%s&gt; avec le rapport d'importation"
-
-#, c-format
-msgid "update of %s catalogue has failed,"
-msgstr "La mise à jour du catalogue %s a échoué."
-
 #, c-format
 msgid "%s has been deleted"
 msgstr "%s a été supprimé"
@@ -214,6 +185,9 @@ msgstr "Profil"
 
 msgid "new document"
 msgstr "Nouveau document"
+
+msgid "new familly document"
+msgstr "nouvelle famille de document"
 
 msgid ""
 "the document is not referenced: cannot apply profile access modification"
@@ -256,6 +230,23 @@ msgstr "Possibilité d'attaque 'upload' : voir infos suivantes\n"
 #, c-format
 msgid "result of archive import  %s"
 msgstr "Résultat de l'import d'archive %s"
+
+#, c-format
+msgid ""
+"Import %s is in progress. When update will be finished an email to &lt;%"
+"s&gt; will be sended with result rapport"
+msgstr ""
+"L'import %s est en cours. Lorsque la mise à jour sera finie, un email sera "
+"envoyé à \n"
+"&lt;%s&gt; avec le rapport d'importation"
+
+#, c-format
+msgid "update of %s catalogue has failed,"
+msgstr "La mise à jour du catalogue %s a échoué."
+
+#, c-format
+msgid "result of import  %s"
+msgstr "Résultat de l'import %s"
 
 #, c-format
 msgid "%s has been added in %s folder"
@@ -398,6 +389,15 @@ msgstr "commençant par..."
 msgid "ending"
 msgstr "se terminant par..."
 
+msgid "the document is not referenced: cannot apply state modification"
+msgstr ""
+"le document n'est pas référencé : la modification du profil d'accès\n"
+"ne peut pas être appliquée"
+
+#, c-format
+msgid "the document %s is not related to a workflow"
+msgstr "le document %s n'est pas relié à un workflow"
+
 #, c-format
 msgid "default values for %s"
 msgstr "Valeurs par défaut pour %s"
@@ -459,6 +459,14 @@ msgstr "workflow_init :: cycle id %s pas trouvé"
 #, c-format
 msgid "file for %s not found."
 msgstr "fichier pour %s non trouvé"
+
+#, c-format
+msgid "you cannot create this kind [%s] of document"
+msgstr "vous n'avez pas la permission de créer ce type [%s] de document"
+
+#, c-format
+msgid "you cannot create this kind [%s] of folder"
+msgstr "vous n'avez pas la permission de créer ce type [%s] de dossier"
 
 msgid "to be add"
 msgstr "à ajouter"
@@ -774,6 +782,10 @@ msgid "new %s"
 msgstr "nouvelle %s"
 
 #, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
+
+#, c-format
 msgid "parameters for %s state"
 msgstr "paramètres pour l'état %s"
 
@@ -842,10 +854,6 @@ msgid ""
 msgstr ""
 "changement d'état automatique issu du document %s\n"
 "%s"
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
 
 msgid "not perm for admin"
 msgstr "pas de permission pour admin"
@@ -2354,8 +2362,11 @@ msgstr "Analyse de l'archive"
 msgid "Options import"
 msgstr "Options d'importation"
 
-msgid "default family"
-msgstr "famille par défaut"
+msgid "default file family"
+msgstr "famille fichier par défaut"
+
+msgid "default folder family"
+msgstr "famille répertoire par défaut"
 
 msgid "Only CSV"
 msgstr "Seul fichier CSV"
@@ -2760,18 +2771,6 @@ msgstr "révisé par"
 msgid " date"
 msgstr " date"
 
-msgid "to"
-msgstr "vers"
-
-msgid "unchanged"
-msgstr "inchangé"
-
-msgid "revision comment"
-msgstr "commentaire de révision"
-
-msgid "revision comment for autorevision"
-msgstr " commentaire de révision pour révision automatique"
-
 msgid "view abstract card"
 msgstr "Carte résumé"
 
@@ -2804,6 +2803,18 @@ msgstr "contrôle de vue de création"
 
 msgid "current folder"
 msgstr "dossier courant"
+
+msgid "to"
+msgstr "vers"
+
+msgid "unchanged"
+msgstr "inchangé"
+
+msgid "revision comment"
+msgstr "commentaire de révision"
+
+msgid "revision comment for autorevision"
+msgstr " commentaire de révision pour révision automatique"
 
 msgid "Transition parameters"
 msgstr "Paramètres pour le changement d'état"

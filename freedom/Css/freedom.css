@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.51 2004/09/09 12:56:59 eric Exp $
+ * $Id: freedom.css,v 1.52 2004/09/29 08:16:53 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -382,6 +382,13 @@ IMG.aicon {
 	margin:0pt;
 	padding:0pt;
 	-moz-border-radius:0px 0px 0px 25px;
+}
+
+TR.fileclass TD {	
+}
+TR.fldclass TD {
+  font-weight: bold;
+  color: red;	
 }
 
 .onlyprint {

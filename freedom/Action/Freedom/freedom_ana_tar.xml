@@ -68,11 +68,17 @@
 <tr><td>
 <fieldset >
 <legend>[TEXT:Options import]</legend> 
-   [TEXT:default family]
+   [TEXT:default file family]
    <select name="famid" [fdisabled] onchange="enabledImport(false)">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]
+    </select><BR>
+   [TEXT:default folder family]
+   <select name="dfldid"  onchange="enabledImport(false)">  
+         [BLOCK SELECTDFLD]
+           <option VALUE="[idcdoc]" [selected]>[classname]</option>   
+         [ENDBLOCK SELECTDFLD]
     </select><BR>
 
 <input type="checkbox" value="1" [oselected] onclick="document.anatar.famid.disabled=(this.checked);enabledImport(false)" name="onlycsv">[TEXT:Only CSV]</input><br/>
@@ -105,7 +111,7 @@
 <th>[TEXT:err]</th></tr></thead>
 <tbody  >
 [BLOCK ADDEDDOC]
-<tr><td>[foldername]</td><td>[filename]</td><td>[familyname]</td><td>[action]</td><td>[err]</td></tr>
+<tr class="[anaclass]"><td>[foldername]</td><td>[filename]</td><td>[familyname]</td><td>[action]</td><td>[err]</td></tr>
 [ENDBLOCK ADDEDDOC]
 </tbody></table>
 </fieldset>

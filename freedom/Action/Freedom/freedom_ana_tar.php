@@ -3,7 +3,7 @@
  * View imported tar
  *
  * @author Anakeen 2004
- * @version $Id: freedom_ana_tar.php,v 1.2 2004/03/17 17:33:07 eric Exp $
+ * @version $Id: freedom_ana_tar.php,v 1.3 2004/09/29 08:16:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -65,6 +65,7 @@ function freedom_ana_tar(&$action) {
 function analyze_tar(&$action,$selfile) {
   $dirid = GetHttpVars("dirid"); // directory to place imported doc 
   $famid = GetHttpVars("famid",7); // default import family
+  $dfldid = GetHttpVars("dfldid",2); // default import folder family
   $onlycsv = (GetHttpVars("onlycsv") != ""); // only files described in fdl.csv files
   $topfld = (GetHttpVars("topfld") != ""); // add a root folder
   $analyze = (GetHttpVars("analyze","Y")=="Y"); // just analyze
@@ -82,9 +83,17 @@ function analyze_tar(&$action,$selfile) {
     if ($cdoc->initid == $famid) $selectclass[$k]["selected"]="selected";
     else $selectclass[$k]["selected"]="";
   }
-
-
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);
+  foreach ($tclassdoc as $k=>$cdoc) {
+    if (in_array(2,$cdoc->attributes->fromids)) {
+      $selectfld[$k]["idcdoc"]=$cdoc->initid;
+      $selectfld[$k]["classname"]=$cdoc->title;
+      if ($cdoc->initid == $dfldid) $selectfld[$k]["selected"]="selected";
+      else $selectfld[$k]["selected"]="";
+    }
+  }
+
+  $action->lay->SetBlockData("SELECTDFLD", $selectfld);
 
 
   $untardir= getTarExtractDir($action,$selfile);
@@ -116,7 +125,7 @@ function analyze_tar(&$action,$selfile) {
     }
   }
 
-  $tr=import_directory($action,$untardir,$dirid,$famid,$onlycsv,$analyze);
+  $tr=import_directory($action,$untardir,$dirid,$famid,$dfldid,$onlycsv,$analyze);
   if ($tr) {
   foreach ($tr as $k=>$v) {
     if ($v["familyid"]>0) {

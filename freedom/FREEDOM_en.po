@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-22 09:25+0000\n"
+"POT-Creation-Date: 2004-09-29 08:17+0000\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -176,30 +176,6 @@ msgstr ""
 msgid "new profile document"
 msgstr ""
 
-msgid "new familly document"
-msgstr ""
-
-msgid "the document is not referenced: cannot apply state modification"
-msgstr ""
-
-#, c-format
-msgid "the document %s is not related to a workflow"
-msgstr ""
-
-#, c-format
-msgid "result of import  %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"Import %s is in progress. When update will be finished an email to &lt;%"
-"s&gt; will be sended with result rapport"
-msgstr ""
-
-#, c-format
-msgid "update of %s catalogue has failed,"
-msgstr ""
-
 #, c-format
 msgid "%s has been deleted"
 msgstr ""
@@ -218,6 +194,9 @@ msgid "new profile"
 msgstr ""
 
 msgid "new document"
+msgstr ""
+
+msgid "new familly document"
 msgstr ""
 
 msgid ""
@@ -259,6 +238,20 @@ msgstr ""
 
 #, c-format
 msgid "result of archive import  %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Import %s is in progress. When update will be finished an email to &lt;%"
+"s&gt; will be sended with result rapport"
+msgstr ""
+
+#, c-format
+msgid "update of %s catalogue has failed,"
+msgstr ""
+
+#, c-format
+msgid "result of import  %s"
 msgstr ""
 
 #, c-format
@@ -408,6 +401,13 @@ msgstr "Identity"
 msgid "ending"
 msgstr "Edit"
 
+msgid "the document is not referenced: cannot apply state modification"
+msgstr ""
+
+#, c-format
+msgid "the document %s is not related to a workflow"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "default values for %s"
 msgstr "Delete"
@@ -468,6 +468,14 @@ msgstr ""
 
 #, c-format
 msgid "file for %s not found."
+msgstr ""
+
+#, c-format
+msgid "you cannot create this kind [%s] of document"
+msgstr ""
+
+#, c-format
+msgid "you cannot create this kind [%s] of folder"
 msgstr ""
 
 msgid "to be add"
@@ -783,6 +791,10 @@ msgid "new %s"
 msgstr ""
 
 #, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+#, c-format
 msgid "parameters for %s state"
 msgstr ""
 
@@ -844,10 +856,6 @@ msgid ""
 "automaticaly by change state of %s\n"
 "%s"
 msgstr "Category"
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
 
 msgid "not perm for admin"
 msgstr ""
@@ -2530,7 +2538,11 @@ msgid "Options import"
 msgstr ""
 
 #, fuzzy
-msgid "default family"
+msgid "default file family"
+msgstr "Delete"
+
+#, fuzzy
+msgid "default folder family"
 msgstr "Delete"
 
 msgid "Only CSV"
@@ -3026,21 +3038,6 @@ msgstr "Created by"
 msgid " date"
 msgstr "Edit"
 
-msgid "to"
-msgstr ""
-
-#, fuzzy
-msgid "unchanged"
-msgstr "Start search"
-
-#, fuzzy
-msgid "revision comment"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "revision comment for autorevision"
-msgstr "Organisation"
-
 #, fuzzy
 msgid "view abstract card"
 msgstr "Start search"
@@ -3082,6 +3079,21 @@ msgstr "Category"
 #, fuzzy
 msgid "current folder"
 msgstr "Modify"
+
+msgid "to"
+msgstr ""
+
+#, fuzzy
+msgid "unchanged"
+msgstr "Start search"
+
+#, fuzzy
+msgid "revision comment"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "revision comment for autorevision"
+msgstr "Organisation"
 
 msgid "Transition parameters"
 msgstr ""
