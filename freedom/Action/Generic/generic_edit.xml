@@ -75,8 +75,8 @@
 <INPUT TYPE="hidden" name="id" value="[id]"></input>
 <INPUT TYPE="hidden" name="dirid" value="[dirid]"></input>
 <input type="hidden" name="vid" value="[vid]">
-<table class="tableborder"  cellspacing="0" width="100%">
-<thead>
+<table id="fixtablehead" class="tableborder" style="position:fixed;right:0;bottom:auto;left:0;top:0;width:100%;"  cellspacing="0" width="100%">
+<thead >
 <tr class="FREEDOMBack1">
  <td  colspan="2"><IMG   border="0"   alt="icon" align="absbottom" height="25px" SRC="[iconsrc]">
    <span class="FREEDOMTextBigTitle">[TITLE]</span>
@@ -89,12 +89,11 @@
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 </thead>
 </table>
-   
+<div id="fixspanhead" style="visibility:hidden;padding:0px;margin:0px;"></div>
 [ZONE FDL:EDITCARD]
-
-
-<table class="tableborder"  cellspacing="0" width="100%">
-<tfoot>
+<div id="fixspanfoot" style="visibility:hidden;padding:0px;margin:0px;"></div>
+<table id="fixtablefoot" class="tableborder" style="position:fixed;top:auto;right:0;bottom:0;left:0;width:100%"  cellspacing="0" width="100%">
+<tfoot >
 [ZONE FDL:EDITSTATE]
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
