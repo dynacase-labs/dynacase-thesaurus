@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.29 2002/06/19 12:32:34 eric Exp $
+// $Id: Class.Doc.php,v 1.30 2002/06/20 11:58:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.29 2002/06/19 12:32:34 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.30 2002/06/20 11:58:42 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -1082,22 +1082,7 @@ create sequence seq_id_doc start 1000";
   }
 
 
-//   function GetSqlViewCond() {
-    
-//     global $action; // necessary to see information about user privilege
-    
 
-//       $aclsearch=new Acl();
-//       if ( ! $aclsearch->Set('view', $this->classid)) {
-// 	    $action->log->warning("Acl $method not available for App $idclassapp ");    
-// 	    $err = "Acl $method not available for App ".$this->classid;
-
-// 	    return $err;
-//       }
-//        return ("(doc.doctype='".$this->defDoctype."') and ".
-//       "hasprivilege(".$action->user->id.",doc.profid,".$this->classid.",".$aclsearch->id.") and ".
-// 	"hasprivilege(".$action->user->id.",doc.id,".$this->classid.",".$aclsearch->id.") ");
-//   }
   
 }
 
