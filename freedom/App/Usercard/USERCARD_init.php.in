@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD_init.php.in,v 1.12 2003/01/21 15:43:35 eric Exp $
+// $Id: USERCARD_init.php.in,v 1.13 2004/03/29 13:51:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,22 +36,22 @@ $app_const= array(
 			       "kind" => "enum(P|W|R)",
 			       "global"=>"Y"),
   "LDAP_SERVEUR" => array("val"=>"localhost",
-			  "descr"=>N_("nom du serveur LDAP"),
+			  "descr"=>N_("LDAP server name"),
 			  "global"=>"Y"),
   "LDAP_PORT" => array("val"=>"389",
-		       "descr"=>N_("n° de port du serveur LDAP"),
+		       "descr"=>N_("LDAP server port"),
 		       "global"=>"Y"),
   "LDAP_ROOT" => array("val"=>"o=Anakeen,c=fr",
-		       "descr"=>N_("racine du serveur LDAP"),
+		       "descr"=>N_("LDAP server root"),
 		       "global"=>"Y"),
   "LDAP_ROOTDN" => array("val"=>"cn=Manager,o=Anakeen,c=fr",
-		       "descr"=>N_("identifiant LDAP de l'administrateur"),
+		       "descr"=>N_("LDAP admin identificatot"),
 		       "global"=>"Y"),
   "LDAP_ROOTPW" => array("val"=>"secret",
-		       "descr"=>N_("mot de passe LDAP"),
+		       "descr"=>N_("LDAP admin passord"),
 		       "global"=>"Y"),
   "LDAP_ENABLED" => array("val"=>"no",
-			  "descr"=>N_("activation LDAP"),
+			  "descr"=>N_("LDAP activated"),
 			  "kind" => "enum(yes|no)",
 			  "global"=>"Y"),
 );

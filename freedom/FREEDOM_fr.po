@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2004-03-17 17:02+0100\n"
+	"POT-Creation-Date: 2004-03-29 15:47+0200\n"
 	"PO-Revision-Date: 2004-03-16 11:17+0100\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -164,10 +164,6 @@ msgid	"new profile document"
 msgstr	"nouveau profil de document"
 
 #, c-format
-msgid	"proceed background import of %d documents"
-msgstr	"Effectuer l'import en tache de fond de %d documents"
-
-#, c-format
 msgid	"%s has been deleted"
 msgstr	"%s a été supprimé"
 
@@ -283,6 +279,10 @@ msgstr	"L'archive %s n'a pue être extraite\n"
 #, c-format
 msgid	"cannot extract archive file %s"
 msgstr	"L'archive %s n'a pas pue être extraite"
+
+#, c-format
+msgid	"proceed background import of %d documents"
+msgstr	"Effectuer l'import en tache de fond de %d documents"
 
 #, c-format
 msgid	"The document <%s> is not a folder"
@@ -423,50 +423,6 @@ msgstr	"envoi de %s à %s"
 msgid	"%s cannot be sent"
 msgstr	"%s n'a pas pu être envoyé"
 
-msgid	"to be add"
-msgstr	"à ajouter"
-
-msgid	"not added"
-msgstr	"pas ajouté"
-
-msgid	"added"
-msgstr	"ajouté"
-
-msgid	"no import file specified"
-msgstr	"pas de fichier d'import spécifié"
-
-#, c-format
-msgid	"create %s family"
-msgstr	"création de la famille %s"
-
-#, c-format
-msgid	"modify %s family"
-msgstr	"modification de la famille %s"
-
-#, c-format
-msgid	"update %s attribute"
-msgstr	"mise à jour attribut %s"
-
-#, c-format
-msgid	"add id [%d] "
-msgstr	"ajout id [%d] "
-
-#, c-format
-msgid	"add [%s] "
-msgstr	"ajout [%s] "
-
-#, c-format
-msgid	"update id [%d] "
-msgstr	"mise à jour id [%d] "
-
-#, c-format
-msgid	"double title %s <B>ignored</B> "
-msgstr	"titre en double %s <B>ignoré</B> "
-
-#, c-format
-msgid	"and add in %s folder "
-msgstr	"et ajout dans dossier %s"
-
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
 
@@ -487,6 +443,15 @@ msgstr	"msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 #, c-format
 msgid	"workflow_init :: workflow id %s not found"
 msgstr	"workflow_init :: cycle id %s pas trouvé"
+
+msgid	"to be add"
+msgstr	"à ajouter"
+
+msgid	"not added"
+msgstr	"pas ajouté"
+
+msgid	"added"
+msgstr	"ajouté"
 
 msgid	"no zone specified"
 msgstr	"pas de zone spécifiée"
@@ -526,6 +491,41 @@ msgstr	"%s a été déverrouillé"
 #, c-format
 msgid	"geometry saved : %s"
 msgstr	"disposition sauvée : %s"
+
+msgid	"no import file specified"
+msgstr	"pas de fichier d'import spécifié"
+
+#, c-format
+msgid	"create %s family"
+msgstr	"création de la famille %s"
+
+#, c-format
+msgid	"modify %s family"
+msgstr	"modification de la famille %s"
+
+#, c-format
+msgid	"update %s attribute"
+msgstr	"mise à jour attribut %s"
+
+#, c-format
+msgid	"add id [%d] "
+msgstr	"ajout id [%d] "
+
+#, c-format
+msgid	"add [%s] "
+msgstr	"ajout [%s] "
+
+#, c-format
+msgid	"update id [%d] "
+msgstr	"mise à jour id [%d] "
+
+#, c-format
+msgid	"double title %s <B>ignored</B> "
+msgstr	"titre en double %s <B>ignoré</B> "
+
+#, c-format
+msgid	"and add in %s folder "
+msgstr	"et ajout dans dossier %s"
 
 msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
@@ -1540,23 +1540,23 @@ msgstr	"fichier %d"
 msgid	"default confidential"
 msgstr	"confidentialité par défaut"
 
-msgid	"nom du serveur LDAP"
-msgstr	""
+msgid	"LDAP server name"
+msgstr "nom du serveur LDAP"
 
-msgid	"n de port du serveur LDAP"
-msgstr	""
+msgid	"LDAP server port"
+msgstr "n° de port du serveur LDAP"
 
-msgid	"racine du serveur LDAP"
-msgstr	""
+msgid	"LDAP server root"
+msgstr "racine du serveur LDAP"
 
-msgid	"identifiant LDAP de l'administrateur"
-msgstr	""
+msgid	"LDAP admin identificatot"
+msgstr "identification de l'administrateur LDAP"
 
-msgid	"mot de passe LDAP"
-msgstr	""
+msgid	"LDAP admin passord"
+msgstr "mot de passe administrateur LDAP"
 
-msgid	"activation LDAP"
-msgstr	""
+msgid	"LDAP activated"
+msgstr "Activation LDAP"
 
 msgid	"User Card"
 msgstr	"Carnet d'adresses"
@@ -2086,51 +2086,6 @@ msgstr	"Importer des documents"
 msgid	"Import Tar"
 msgstr	"Importation Archive"
 
-msgid	"Import Result"
-msgstr	"Résultat de l'importation"
-
-msgid	"Analyze Archive"
-msgstr	"Analyse de l'archive"
-
-msgid	"Options import"
-msgstr	"Options d'importation"
-
-msgid	"for"
-msgstr	"pour"
-
-msgid	"Only CSV"
-msgstr	"Seul fichier CSV"
-
-msgid	"Add top folder"
-msgstr	"Ajouter un dossier racine"
-
-msgid	"Analyze"
-msgstr	"Analyse"
-
-msgid	"Lauch Import"
-msgstr	"Lancer l'import"
-
-msgid	"report to (mail address)"
-msgstr	"rapport à (email)"
-
-msgid	"Analysis Results"
-msgstr	"Résultat de l'analyse"
-
-msgid	"foldername"
-msgstr	"dossier"
-
-msgid	"filename"
-msgstr	"fichier"
-
-msgid	"familyname"
-msgstr	"famille"
-
-msgid	"action"
-msgstr	"action"
-
-msgid	"err"
-msgstr	"err"
-
 msgid	"Attributes definition"
 msgstr	"définition des attributs"
 
@@ -2254,6 +2209,9 @@ msgstr	"Mise à jour des titres"
 msgid	"updateldap"
 msgstr	"Mise à jour du serveur LDAP"
 
+msgid	"Import Result"
+msgstr	"Résultat de l'importation"
+
 msgid	"Result Import Documents"
 msgstr	" Résultat de l'importation de documents"
 
@@ -2296,8 +2254,14 @@ msgstr	" Importer des documents"
 msgid	"Description of the import format"
 msgstr	"Description du format d'import"
 
+msgid	"for"
+msgstr	"pour"
+
 msgid	"import file:"
 msgstr	"Importer un fichier"
+
+msgid	"Analyze"
+msgstr	"Analyse"
 
 msgid	"With Double"
 msgstr	"Avec double"
@@ -2310,6 +2274,9 @@ msgstr	"Importer la description d'un document"
 
 msgid	"Background Import"
 msgstr	"Import en tache de fond"
+
+msgid	"report to (mail address)"
+msgstr	"rapport à (email)"
 
 msgid	"proceed background import"
 msgstr	"Effectuer l'import en tache de fond"
@@ -2332,6 +2299,9 @@ msgstr	"Résultat de l'importation d'archives"
 msgid	"View Archive"
 msgstr	"Voir l'archive"
 
+msgid	"Archives"
+msgstr "Archives"
+
 msgid	"Import Archive"
 msgstr	"Importer une archive"
 
@@ -2341,8 +2311,44 @@ msgstr	"Choisir l'archive"
 msgid	"delete archive"
 msgstr	"supprimer l'archive"
 
+msgid	"Analyze Archive"
+msgstr	"Analyse de l'archive"
+
+msgid	"Options import"
+msgstr	"Options d'importation"
+
 msgid	"default family"
-msgstr "famille par défaut"
+msgstr	"famille par défaut"
+
+msgid	"Only CSV"
+msgstr	"Seul fichier CSV"
+
+msgid	"Add top folder"
+msgstr	"Ajouter un dossier racine"
+
+msgid	"Import Direct"
+msgstr "Importer direct"
+
+msgid	"Lauch Import"
+msgstr	"Lancer l'import"
+
+msgid	"Analysis Results"
+msgstr	"Résultat de l'analyse"
+
+msgid	"foldername"
+msgstr	"dossier"
+
+msgid	"filename"
+msgstr	"fichier"
+
+msgid	"familyname"
+msgstr	"famille"
+
+msgid	"action"
+msgstr	"action"
+
+msgid	"err"
+msgstr	"err"
 
 msgid	"Detail Permissions"
 msgstr	"Détail des droits"
