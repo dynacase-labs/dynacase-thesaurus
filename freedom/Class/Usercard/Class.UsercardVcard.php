@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.12 2002/10/31 08:09:23 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.13 2003/01/08 09:06:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,7 +43,7 @@ Class UsercardVcard
 		      "URL" => "US_WORKWEB",
 		      "URL;WORK" => "US_WORKWEB",
 		      "PUBKEY" => "",
-		      "ORG" => "US_SOCIETY",
+		      "ORG" => "US_SOCIETY;US_UNIT",
 		      "ORG;NAME" => "US_SOCIETY",
 		      "ORG;UNIT" => "",
 		      "TITLE" => "US_TYPE",
@@ -166,7 +166,7 @@ Class UsercardVcard
 		if (ereg("^[0-9A-Z_]*$",$this->import[$k]))
 		  {
 		    // suppress http
-		    if ($this->import[$k] == QA_URI) $tattr[$this->import[$k]]=str_replace("http://","",$v);
+		    if ($this->import[$k] == "US_WORKWEB") $tattr[$this->import[$k]]=str_replace("http://","",$v);
 		    else $tattr[$this->import[$k]]=$v;
 
 		  }
@@ -182,7 +182,7 @@ Class UsercardVcard
 			if (ereg($complxreg, $v , $regv))
 			  {
 			    for ($ir=1;$ir<7;$ir++) {
-			      if ($reg[$ir] == QA_URI) $tattr[$reg[$ir]]=str_replace("http://","",$regv[$ir]);
+			      if ($reg[$ir] == "US_WORKWEB") $tattr[$reg[$ir]]=str_replace("http://","",$regv[$ir]);
 			      else $tattr[$reg[$ir]]= $regv[$ir];
 			    }
 			  }
