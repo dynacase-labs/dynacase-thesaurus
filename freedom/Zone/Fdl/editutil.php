@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.14 2002/12/16 11:46:57 eric Exp $
+// $Id: editutil.php,v 1.15 2002/12/16 11:55:20 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -237,7 +237,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     $url= elinkEncode($oattr->elink);
     $input.="<input type=\"button\" value=\"+\"".
 	  " title=\""._("add inputs")."\"".
-       " onclick=\"subwindowm(300,500,'edit','$url')\">";
+       " onclick=\"subwindowm(300,500,'$attrid','$url')\">";
   }
 
 
