@@ -37,11 +37,12 @@ function Folder(folderDescription, hreference, refid, icon, hasChild) //construc
   this.ftype =  1;; // external reference
  
   //dynamic data 
-  this.isOpen = true 
-    this.isLoaded = (! hasChild)
-  this.iconSrc = icon   
-  this.children = new Array 
-    this.nChildren = 0;   
+  this.isOpen = true;
+  this.isLoaded = (! hasChild);
+  this.iconSrc = icon ;
+  this.children = new Array;
+  this.nChildren = 0;
+  this.father = 0;
  
   //methods 
   this.initialize = initializeFolder 
@@ -57,6 +58,7 @@ function Folder(folderDescription, hreference, refid, icon, hasChild) //construc
   this.outputLink = outputFolderLink 
   this.blockStart = blockStart
   this.blockEnd = blockEnd
+  this.drawFather = drawFather
 } 
  
 function initializeFolder(level, lastNode, leftSide) 
@@ -163,6 +165,13 @@ function escondeFolder()
   this.setState(0) 
 } 
  
+function listUrl(url) {
+  if (parent.flist) {
+    parent.flist.location.href=url;
+  } else {
+    subwindow(300,300,'list',url);
+  }
+}
 function drawFolder(leftSide) 
 { 
   var idParam = "id='folder" + this.id + "'"
@@ -179,18 +188,18 @@ function drawFolder(leftSide)
 
   if (this.hreference == "#") {
 
-      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) parent.flist.location.href='"+actionviewfile+"&dirid="+this.refid+"'}\"") 
+      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"") 
       doc.write("onMouseOver=\"if (drag == 1) clickOnFolder("+this.id+")\"") 
       doc.write("onContextMenu=\"openMenu(event,'popfld',"+this.id+");return false\"") 
 
       doc.write("onMouseUp=\"if (drag == 1) {dirid="+this.refid+";selid="+this.id+";openMenu(event,'poppaste',"+this.id+")};return false;\"") 
 	} else {
-	  doc.write("onMouseDown=\"parent.flist.location.href='"+this.hreference+"'\" "); 
+	  doc.write("onMouseDown=\"listUrl'"+this.hreference+"')\" "); 
 	}
   doc.write(">") 
   doc.write("</td><td class=\"fld\" valign=middle nowrap>") 
     doc.write("<span class=\"urltext\" id='text"+this.id+"'")
-      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");parent.flist.location.href='"+actionviewfile+"&dirid="+this.refid+"'}\"") 
+      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"") 
       doc.write("onMouseOver=\"if (drag == 0) this.className='urltextsel'\"") 
       doc.write("onMouseOut=\"if (drag == 0) this.className='urltext'\"") 
   doc.write(">")  
@@ -207,6 +216,30 @@ function drawFolder(leftSide)
   
 } 
  
+function drawFather() { 
+
+
+           doc.write("<div class=\"fldh\" id='folderH" + this.id+"'>") 
+
+//     //  this.outputLink() 
+    doc.write("<img width='20' id='folderIconH" + this.id + "' name='folderIconH" + this.id + "' src='" + this.iconSrc+"' border=0 ");
+    doc.write("onClick=\"if (drag == 0) {initializeFolderH("+this.id+","+this.refid+");listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"");
+   doc.write(">")  
+
+
+
+
+   doc.write("<span class=\"urltext\" id='textH"+this.id+"'");
+    doc.write("onMouseDown=\"if (drag == 0) {selectFolderH("+this.id+","+this.refid+");listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"");
+    doc.write("onMouseOver=\"if (drag == 0) this.className='urltextsel'\"");
+    doc.write("onMouseOut=\"if (drag == 0) this.className='urltext'\"");
+   doc.write(">")  
+   doc.write(this.desc) 
+   doc.write("</span>")  
+   doc.write("</div>")  
+
+  
+} 
 var selObj=0;
 var dirid=0; 
 
@@ -222,7 +255,33 @@ function selectFolder(id, refid) {
     window.status="select:"+selid;
   dirid=refid;
   fldidtoexpand=id;
+}
+function selectFolderH(id, refid) {
+  closeMenu('popfld');
+  selObj = doc.getElementById("folderH"+id);
+   
 
+    selid=id; // selected folder
+    window.status="select:"+selid;
+  dirid=refid;
+  fldidtoexpand=id;
+}
+function initializeFolderH(id, refid) {
+  var fnode;
+  closeMenu('popfld');
+
+  alert('use addbrach in fexpand');
+  return;
+  // use addbrach in fexpand
+  fnode=indexOfEntries[id];
+
+   
+    deleteallfolder();
+    fnode.initialize(0, 1, "");
+
+    selid=id; // selected folder
+  dirid=refid;
+  fldidtoexpand=id;
 }
 function outputFolderLink() 
 { 
@@ -240,9 +299,10 @@ function outputFolderLink()
  
 function addChild(childNode) 
 { 
-  this.children[this.nChildren] = childNode 
-  this.nChildren++ 
-  return childNode 
+  this.children[this.nChildren] = childNode ;
+  this.nChildren++ ;
+  childNode.father = this;
+  return childNode; 
 } 
  
 function folderSubEntries() 
@@ -362,9 +422,9 @@ function escondeBlock()
       return 
     this.navObj.style.display = "none" 
   } else { 
-    if (this.navObj.visibility == "hiden") 
+    if (this.navObj.visibility == "hidden") 
       return 
-    this.navObj.visibility = "hiden" 
+    this.navObj.visibility = "hidden" 
   }     
 } 
  
@@ -436,8 +496,7 @@ function clickOnNode(folderId)
 
     if (allinitialized && (! clickedFolder.isLoaded) ) {
       fldidtoexpand=folderId;
-
-      parent.fexpand.document.location.href=actionexpfld+clickedFolder.refid;
+      self.fexpand.document.location.href=actionexpfld+clickedFolder.refid;
            
       
       clickedFolder.isLoaded=true;
@@ -485,7 +544,16 @@ function insDoc(parentFolder, document)
   parentFolder.addChild(document) 
 } 
  
-
+function deleteallfolder() {
+  var tfld=doc.getElementsByTagName("DIV");
+  for (var i=0;i< tfld.length;i+=0) {
+    if ((tfld[i].className == 'folder') ||(tfld[i].className == 'select')||(tfld[i].className == 'fldh')) {
+      tfld[i].style.backgroundColor='red';
+      tfld[i].parentNode.removeChild(tfld[i]);
+    } else i++;
+  }  
+  //  alert(tfld.length);
+}
 // Global variables 
 // **************** 
  
@@ -493,6 +561,12 @@ function insDoc(parentFolder, document)
 USETEXTLINKS = 0 
 STARTALLOPEN = 0
 var indexOfEntries = new Array 
+var doc = document 
+var browserVersion = 0 
+var selectedFolder=0
+var allinitialized=false;
+var BeginnEntries = 0 
+var nEntries = BeginnEntries
 var doc = document 
 var browserVersion = 0 
 var selectedFolder=0
@@ -529,7 +603,7 @@ function initializeDocument()
   //foldersTree (with the site's data) is created in an external .js 
   fldtop.initialize(0, 1, "") 
   
- 
+
 
   //The tree starts in full display 
   if (!STARTALLOPEN)

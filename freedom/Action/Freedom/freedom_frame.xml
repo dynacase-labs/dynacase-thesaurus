@@ -5,7 +5,6 @@
 </head>
 
 
-<frameset name="ffreedom" frameborder="0" framespacing="0" border="0" rows="*,0pt" >
 
   <frameset  frameborder="yes" border=3  framespacing="3" cols="40%,*" 
             scrolling="no" frameborder="no" >
@@ -19,7 +18,5 @@
              scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
     </frameset>
     
-  </frameset>
-    <frame name="fexpand" src="about:blank" noresize  style="border-style:none">
   </frameset>
 </html>

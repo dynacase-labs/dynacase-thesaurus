@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Definition of bar menu for folder navigation
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.10 2004/03/16 14:12:46 eric Exp $
+ * @version $Id: barmenu.php,v 1.11 2005/03/25 17:09:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,28 +11,6 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.10 2004/03/16 14:12:46 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/barmenu.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 
 
@@ -40,18 +18,44 @@ include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.QueryDir.php");
 include_once("FDL/freedom_util.php");  
 
-  include_once("FDL/popup_util.php");
+include_once("FDL/popup_util.php");
 
 
 
 // -----------------------------------
 function barmenu(&$action) {
   // -----------------------------------
+  $dbaccess = $action->GetParam("FREEDOM_DB");
   popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','newwf'));
   popupInit("searchmenu", array( 'newsearch','newdsearch','newsearchfulltext'));
  
   popupInit("helpmenu", array('help','import','importtar'));
 
+  $tmark=array();
+  $tid=array();
+  $tbook=array('managebook','addtobook','broot');
+  $ubook=$action->GetParam("FREEDOM_UBOOK");
+  if (strlen($ubook) > 2) {
+    
+    $tubook = explode('][',substr($ubook,1,-1));
+    
+    foreach ($tubook as $k=>$v) {
+      list($id,$label)=explode("|",$v);
+      $tid[$id]=$label;
+      $tbook[]="bookmark$id";
+      $tmark[]=array("idmark"=>"bookmark$id",
+		     "markid"=>$id,
+		     "labelmark"=>$label);
+    }
+    popupInit("bookmarks",$tbook );
+    foreach ($tid as $k=>$v) {
+       popupActive("bookmarks",1,"bookmark$k");
+    }
+    
+  } else {
+    popupInit("bookmarks",$tbook );
+  }
+  
 
   popupActive("newmenu",1,'newdoc'); 
   popupActive("newmenu",1,'newfld'); 
@@ -73,8 +77,17 @@ function barmenu(&$action) {
   else popupInvisible("searchmenu",1,'newsearchfulltext');
  
   popupActive("helpmenu",1,'help');
+  popupActive("bookmarks",1,'managebook');
+  popupActive("bookmarks",1,'addtobook');
+  $rootlabel=getTDoc($dbaccess,9);
+  if ($rootlabel) {
+    $action->lay->set("rootlabel",$rootlabel["title"]);
+    popupActive("bookmarks",1,'broot');
+  } else {
+    popupInvisible("bookmarks",1,'broot');
+  }
 
-
+  $action->lay->setBlockData("MARKS",$tmark);
   popupGen(1);
 
 }

@@ -1,6 +1,6 @@
 
   // --------------------------------------------------
-function addbranch(fldtopnode, BeginnEntries) {
+function addbranch(fldtopnode, BeginnEntries,mode) {
   // --------------------------------------------------
 
 
@@ -12,8 +12,12 @@ function addbranch(fldtopnode, BeginnEntries) {
 
       var images = fldtopnode.navObj.getElementsByTagName('img');   
   var leftSide="";
-   var ffolder = window.open('','ffolder','');
+  var ffolder = window.parent;//window.open('','ffolder','');
 
+
+  ffolder.doc=document;
+  ffolder.nEntries = BeginnEntries;
+  if (mode=='navigator') {
    for (i=0 ; i < images.length-2; i++)    { 
       leftSide  += '<img src="'+images[i].src+'" width=16 height=22>';
    }
@@ -22,11 +26,7 @@ function addbranch(fldtopnode, BeginnEntries) {
    } else {
      leftSide  += '<img src="FREEDOM/Images/ftv2vertline.gif" width=16 height=22>';
    }
-   
-
   // init the logical tree in ffolder :: add a branch in fldtopnode node
-  ffolder.doc=document;
-  ffolder.nEntries = BeginnEntries;
 
     var level=1;
     for (i=0 ; i < fldtopnode.nChildren; i++)    { 
@@ -35,6 +35,23 @@ function addbranch(fldtopnode, BeginnEntries) {
       else 
         fldtopnode.children[i].initialize(level, 0, leftSide) 
     } 
+  } else {
+    ffolder.doc=ffolder.document;
+    ffolder.deleteallfolder();
+    ffolder.doc=document;
+     leftSide  += '<img src="FREEDOM/Images/ftv2blank.gif" width=16 height=22>';
+
+     f2=fldtopnode.father;
+     while (f2 != 0) {
+        f2.drawFather();
+       f2=f2.father;
+     }
+
+     fldtopnode.initialize(0, 1, "");
+
+    
+  }   
+
   
   fldtopnode.setState(false);
   fldtopnode.setState(true);
@@ -50,9 +67,9 @@ function addbranch(fldtopnode, BeginnEntries) {
  
 	
   var divs = document.getElementsByTagName("div");
- 
+  var ifld=1;
   var ndiv=divs.length;
-
+  var ne;
   if (ndiv > 1) {
 
 
@@ -72,17 +89,18 @@ function addbranch(fldtopnode, BeginnEntries) {
       h.innerHTML= divs[i].innerHTML;
       h.id= divs[i].id;
       h.className= divs[i].className;
-
-      var ne = BeginnEntries+i-1;
-
-      
-      ffolder.document.getElementById('bodyid').insertBefore(h,divtoinsert);
-      
       divs[i].style.backgroundColor='yellow';
+      ffolder.document.getElementById('bodyid').insertBefore(h,divtoinsert);
+      if (divs[i].className=='folder') {
       
-      ffolder.indexOfEntries[ne].navObj=h;  
-      ffolder.indexOfEntries[ne].iconImg=ffolder.document.getElementById('folderIcon'+ne);  
-      ffolder.indexOfEntries[ne].nodeImg=ffolder.document.getElementById('nodeIcon'+ne);  
+	ne = BeginnEntries+ifld-1;      
+      
+      
+	ffolder.indexOfEntries[ne].navObj=h;  
+	ffolder.indexOfEntries[ne].iconImg=ffolder.document.getElementById('folderIcon'+ne);  
+	ffolder.indexOfEntries[ne].nodeImg=ffolder.document.getElementById('nodeIcon'+ne);  
+	ifld++;
+      }
       
       
     }
@@ -101,7 +119,7 @@ function addbranch(fldtopnode, BeginnEntries) {
 function copypopup( tdivpopup, BeginnEntries ) {
 // --------------------------------------------------
 
-    var ffolder = window.open('','ffolder','');
+  var ffolder = window.parent;
     for (var i=1; i< tdivpopup['popfld'].length; i++) {
       ffolder.tdiv['popfld'][i-1+BeginnEntries]=tdivpopup['popfld'][i];
       ffolder.tdiv['poppaste'][i-1+BeginnEntries]=tdivpopup['poppaste'][i];

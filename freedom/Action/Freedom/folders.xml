@@ -81,20 +81,8 @@ function initmicon() {
 <!-- if you want black backgound, remove this style block -->
 <style type="text/css">
 
-   TD.fld {
-     font-family: [CORE_FONTLIST1];
-     font-size: [CORE_FONTBASESIZE];
-     text-decoration: none;
-     white-space:nowrap;
-      background:transparent;} 
-   A  {text-decoration: none;
-       color: [CORE_ACOLOR]}
-   DIV.folder  {width:100%;
-                border-style: none;      
-                display:block;
-                cursor: default;
-                position:block;}
-   DIV.select  {
+
+   DIV.select2  {
        width:100%;
        /*border-style: inset;*/
        background-color:[CORE_BGCOLORALTERN];
@@ -102,20 +90,6 @@ function initmicon() {
        cursor: default;
        position:block;}
 
-   .urltext {
-      cursor:pointer;
-      color: [CORE_TEXTFGCOLOR];
-      text-decoration:none;
-      font-size: 80%;
-   }
-   .urltextsel {
-      cursor:pointer;
-      text-decoration:underline overline;
-      color: [CORE_TEXTFGCOLOR];
-       background-color:[CORE_BGCOLORHIGH];
-       font-size: 80%;
-      
-   }
 
 [CSS:CODE]
    
@@ -246,5 +220,6 @@ function viewhome(event) {
      tree. -->
 <script>initializeDocument()</script>
 <img id="micon" width="20" height="20"  style="position:absolute;visibility:hidden">
+    <iframe id="fexpand" name="fexpand" style="display:none"   src="about:blank"  ></iframe>
 </body>
 </html>

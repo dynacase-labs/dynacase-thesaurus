@@ -28,6 +28,12 @@ function SendSearchId(e,id) {
 [TEXT:Creation]
 </td>
 <td  class="MenuInactive"  
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'bookmarks',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="ActiveMenu(this)"
+     onMouseOut="DeactiveMenu(this)">
+[TEXT:Bookmarks]
+</td>
+<td  class="MenuInactive"  
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
@@ -59,12 +65,19 @@ function SendSearchId(e,id) {
      <a  id="newfam" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=DEFATTR&classid=1&id=0&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Family]</a>
 
 <a  id="newwf" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=20&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Workflow]</a>
-
-
-
 </div>
-<!-- ------------------ end POPUP DIVISION ------------------ -->
 
+<div  id="bookmarks" class="popup">
+     <a  id="addtobook" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ADDBOOKMARK&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:add to bookmarks]</a>
+     <a  id="broot" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FOLDERS&dirid=9';closeAllMenu();">[rootlabel]</a>
+<a class="separator"></a>
+[BLOCK MARKS]
+     <a  id="[idmark]" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FOLDERS&dirid=[markid]';closeAllMenu();">[labelmark]</a>
+
+[ENDBLOCK MARKS]
+<a class="separator"></a>
+     <a  id="managebook" href="#" onClick="alert('not yet implemented')">[TEXT:manage bookmarks]</a>
+</div>
 
 <!-- ------------ MENU SEARCH  --------------------- -->
 <div  id="searchmenu" class="popup">

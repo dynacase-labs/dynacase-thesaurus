@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.19 2005/01/31 17:49:36 eric Exp $
+ * @version $Id: generic_util.php,v 1.20 2005/03/25 17:09:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.19 2005/01/31 17:49:36 eric Exp $
+// $Id: generic_util.php,v 1.20 2005/03/25 17:09:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -91,7 +91,12 @@ function getDefUKey(&$action) {
   return "";
 }
 
-// return parameters key search
+/**
+ * return parameters key search
+ * @param action $action current action
+ * @param string $key parameter name
+ * return string the value of the parameter according to default family
+*/
 function getDefU(&$action,$key) {
   $famid=getDefFam($action);
   $pu = $action->GetParam($key);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.28 2004/10/14 14:15:35 marc Exp $
+// $Id: FREEDOM.app,v 1.29 2005/03/25 17:09:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -431,6 +431,11 @@ array(
   array( 
    "name"		=>"FREEDOM_MODPREFFAM",
    "short_name"		=>N_("modify preferred families"),
+   "acl"		=>"FREEDOM"
+  )  ,
+  array( 
+   "name"		=>"FREEDOM_ADDBOOKMARK",
+   "short_name"		=>N_("add folder in bookmark"),
    "acl"		=>"FREEDOM"
   ) 
                       );

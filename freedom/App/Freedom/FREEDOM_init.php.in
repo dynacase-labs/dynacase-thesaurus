@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.14 2005/03/24 15:06:17 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.15 2005/03/25 17:09:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,6 +62,12 @@ $app_const=
 					"global"=>"Y",
 					"user"=>"Y",
 					"kind"=>"enum(navigator|folder)"
+					),
+	     "FREEDOM_UBOOK" => array(		
+					"val"=>"",
+					"descr"=> N_("bookmark folders"),
+					"global"=>"Y",
+					"user"=>"Y"
 					)
 	     
 	     );

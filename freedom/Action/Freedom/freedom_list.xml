@@ -93,14 +93,10 @@ TR.select {
 <IMG class="iconimg" id="i[divid]" 
      align="absmiddle"  src="[iconsrc]">
 </td>
-<td class="tlist" >  
-  
-     [title]
-
-</td>
-     <td class="tlist" width="40"><I style="font-size:80%">[revdate]</I></td>
-     <td class="tlist" width="20">[locked]</td>
-     <td class="tlist" width="20"><span style="font-size:80%">[revision]&nbsp;</span></td></tr>
+<td class="tlist" >[title] <i>[state]</i></td>
+<td class="tlist" width="40"><I style="font-size:80%">[revdate]</I></td>
+<td class="tlist" width="20">[locked]</td>
+<td class="tlist" width="20"><span style="font-size:80%">[revision]&nbsp;</span></td></tr>
                     [ENDBLOCK TABLEBODY]
 </table>
 <!-- /TABLEBODY -->

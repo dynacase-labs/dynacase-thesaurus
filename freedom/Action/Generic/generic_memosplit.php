@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_memosplit.php,v 1.2 2005/01/28 17:07:40 eric Exp $
+ * @version $Id: generic_memosplit.php,v 1.3 2005/03/25 17:09:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -24,7 +24,6 @@ function generic_memosearch(&$action) {
 function generic_memo(&$action,$attrid,$value) {
   // -----------------------------------
 
-  print "generic_memo(&$action,$attrid,$value)";
   $famid  = GetHttpVars("famid");    // family id
 
   $tmode= explode(",",$action->getParam($attrid));
