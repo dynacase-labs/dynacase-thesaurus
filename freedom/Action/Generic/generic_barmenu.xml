@@ -24,8 +24,8 @@ function invertSplit(ev,sendmod) {
   w.cols=cols;
   w.rows=rows;
   if (isNetscape) {// for mozilla send handler to recalculate geometry
-      window.resizeBy(0,-1);
-      window.resizeBy(0,1);
+      top.resizeBy(0,-1);
+      top.resizeBy(0,1);
   }
   if (sendmod) {
     hw=window.open('','fhidden','');
