@@ -86,10 +86,10 @@ function autoClose() {
 function cok() {
   
   // if ok
-  if ('[error]'=='') {
+  if ('[iserror]'=='') {
 
     if (tattrv.length == 0) {
-      winfo.document.getElementById('co_'+tattrid[0]).style.backgroundColor='green';
+      winfo.document.getElementById('co_'+tattrid[0]).style.backgroundColor='mediumaquamarine';
       self.close();
     } else {
       winfo.document.getElementById('co_'+tattrid[0]).style.backgroundColor='orange';
@@ -99,7 +99,7 @@ function cok() {
     
     
   } else {
-    winfo.document.getElementById('co_'+tattrid[0]).style.backgroundColor='red';
+    winfo.document.getElementById('co_'+tattrid[0]).style.backgroundColor='tomato';
   }
 
 

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.173 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.174 2003/12/17 17:25:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.173 2003/12/16 15:05:39 eric Exp $
+// $Id: Class.Doc.php,v 1.174 2003/12/17 17:25:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -1379,6 +1379,7 @@ create unique index i_docir on doc(initid, revision);";
     
 	if ($this->usefor != 'D') { // not for default values
 	  while (list($kvalue, $avalue) = each($tvalues)) {
+	    if ($avalue != "") {
 	    if ($oattr) {
 	      switch($oattr->type) {
 	      case double:
@@ -1407,6 +1408,7 @@ create unique index i_docir on doc(initid, revision);";
 					  ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy));
 		break;
 	      }
+	    }
 	    }
 	  }
 	}
@@ -1532,7 +1534,7 @@ create unique index i_docir on doc(initid, revision);";
     $ok=array("err"=>"",
 	      "sug"=>array());
     $oattr = $this->getAttribute($attrid);
-    if ($oattr->phpconstraint != "") {
+    if (($oattr->phpconstraint != "") && ($this->getValue($attrid)!="")){
 
        $res = $this->applyMethod($oattr->phpconstraint,'KO',$index);
        if ($res !== true) return $res;
@@ -1542,6 +1544,26 @@ create unique index i_docir on doc(initid, revision);";
      
   }
 
+  function verifyAllConstraints() {
+    
+    $listattr = $this->GetNormalAttributes();
+    foreach ($listattr as $k => $v) {
+      if ($v->phpconstraint != "") {
+	if ($v->inArray()) {
+	  $tv = $this->getTValue($v->id);
+	  for ($i=0;$i<count($tv);$i++) {
+	    $res= $this->verifyConstraint($v->id,$i);
+	    if ($res["err"]!="") return false;
+	  }
+	} else {
+	  $res= $this->verifyConstraint($v->id);
+	  //	  print print_r2($res);
+	  if ($res["err"]!="") return false;
+	}
+      }
+    }
+    return true;
+  }
   // return the first attribute of type 'file'
   function GetFirstFileAttributes()
     {
@@ -1650,7 +1672,6 @@ create unique index i_docir on doc(initid, revision);";
    * @see Doc::unlock()
    */
   function lock($auto=false) {
-    
     $err=$this->CanLockFile();
     if ($err != "") return $err;
       

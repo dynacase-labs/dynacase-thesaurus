@@ -3,7 +3,7 @@
  * Verify constraint on special attribute
  *
  * @author Anakeen 2003
- * @version $Id: vconstraint.php,v 1.1 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: vconstraint.php,v 1.2 2003/12/17 17:25:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -49,6 +49,7 @@ function vconstraint(&$action) {
   if (is_array($res)) { // error with suggestion
     
     $action->lay->Set("error", $res["err"]);
+    $action->lay->Set("iserror",($res["err"]=="")?"":"ko");
     $rargids=array($attrid);
     while (list($k, $v) = each($rargids)) {
       $rargids[$k].=$domindex;

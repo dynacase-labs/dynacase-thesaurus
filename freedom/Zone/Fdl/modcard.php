@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.48 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: modcard.php,v 1.49 2003/12/17 17:25:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.48 2003/12/16 15:05:39 eric Exp $
+// $Id: modcard.php,v 1.49 2003/12/17 17:25:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -110,49 +110,74 @@ function modcard(&$action, &$ndocid) {
   
   
   
-  $doc->lmodify='Y'; // locally modified
-  $doc->refresh();
 
-  $err=$doc-> PostModify(); 
-  // add trace to know when and who modify the document
-  if ( $docid == 0 ) {
-    //$doc->Addcomment(_("creation"));
+
+  // verify attribute constraint
+
+  
+  if (((GetHttpVars("noconstraint")!="Y") || ($action->user->id!=1)) &&
+      (! $doc->verifyAllConstraints())) {
+    // redirect to edit action
+    global $appl;
+
+
+    if ($appl->name != "GENERIC") {
+      global $core;
+      $appl->Set("GENERIC",$core);
+    }
+    $action->Set("GENERIC_EDIT",
+		 $appl);
+    setHttpVar("viewconstraint","Y");
+    $action->addWarningMsg(_("Some constraint attribute are not respected.\nYou must correct these values before save document."));
+    echo ( $action->execute());
+    exit;
+    
+    
   } else {
-    $doc->Addcomment(_("change"));
-  }
-  $err.=$doc-> Modify(); 
-  // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
-  $doc->unlock(true); // disabled autolock
+
+    $doc->lmodify='Y'; // locally modified
+    $doc->refresh();
+    $err=$doc-> PostModify(); 
+    // add trace to know when and who modify the document
+    if ( $docid == 0 ) {
+      //$doc->Addcomment(_("creation"));
+    } else {
+      $doc->Addcomment(_("change"));
+    }
+    $err.=$doc-> Modify(); 
+    // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
+    $doc->unlock(true); // disabled autolock
   
   
-  if ($err == "") {
+    if ($err == "") {
     
-    // change state if needed
+      // change state if needed
       
-    $newstate=GetHttpVars("newstate","");
-    $comment=GetHttpVars("comment","");
+      $newstate=GetHttpVars("newstate","");
+      $comment=GetHttpVars("comment","");
     
-    $err="";
+      $err="";
 
-    if (($newstate != "") ) {
+      if (($newstate != "") ) {
 
-      if ($doc->wid > 0) {
-	if ($newstate != "-") {
-	  $wdoc = new Doc($dbaccess,$doc->wid);
+	if ($doc->wid > 0) {
+	  if ($newstate != "-") {
+	    $wdoc = new Doc($dbaccess,$doc->wid);
 	
-	  $wdoc->Set($doc);
-	  $err=$wdoc->ChangeState($newstate,$comment);
+	    $wdoc->Set($doc);
+	    $err=$wdoc->ChangeState($newstate,$comment);
+	  }
+	}
+
+      } else {
+	// test if auto revision
+	$fdoc = $doc->getFamDoc();
+	if ($fdoc->schar == "R") {
+	  $doc->AddRevision(_("auto revision"));
 	}
       }
-
-    } else {
-      // test if auto revision
-      $fdoc = $doc->getFamDoc();
-      if ($fdoc->schar == "R") {
-	$doc->AddRevision(_("auto revision"));
-      }
+      $ndocid = $doc->id;
     }
-    $ndocid = $doc->id;
   }
 
 
@@ -164,9 +189,7 @@ function setPostVars(&$doc) {
   global $HTTP_POST_VARS;
   global $HTTP_POST_FILES;
 
-  while(list($k,$v) = each($HTTP_POST_VARS) )
-    {
-      //print $k.":".$v."<BR>";
+  foreach ($HTTP_POST_VARS as $k=>$v)    {
       
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{
@@ -188,7 +211,8 @@ function setPostVars(&$doc) {
     }
     // ------------------------------
   // update POSGRES files values
-  while(list($k,$v) = each($HTTP_POST_FILES) )    {
+  
+  foreach ($HTTP_POST_FILES as $k=>$v)    {
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{	  
 	  $k=substr($k,1);
@@ -206,6 +230,7 @@ function setPostVars(&$doc) {
 	    }
 	}
     }
+  
 }
 
 

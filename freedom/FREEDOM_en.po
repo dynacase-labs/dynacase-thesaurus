@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-12-12 16:33+0100\n"
+	"POT-Creation-Date: 2003-12-17 18:19+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -441,6 +441,10 @@ msgstr	"Category"
 msgid	"modify %s family"
 msgstr	"Modify"
 
+#, fuzzy, c-format
+msgid	"update %s attribute"
+msgstr	"Update Title Cards"
+
 #, c-format
 msgid	"add id [%d] "
 msgstr	""
@@ -640,6 +644,19 @@ msgstr	""
 
 #, c-format
 msgid	"unknow privilege %s"
+msgstr	""
+
+msgid	"the email syntax  is like : john.doe@anywhere.org"
+msgstr	""
+
+msgid	"the email must containt the @ character"
+msgstr	""
+
+msgid	"the date syntax must be like : DD/MM/AAAA"
+msgstr	""
+
+#, c-format
+msgid	"the date %s is in the past: today is %s"
 msgstr	""
 
 #, fuzzy, c-format
@@ -886,6 +903,10 @@ msgstr	""
 msgid	"read disabled"
 msgstr	"Delete"
 
+#, fuzzy
+msgid	"invisible"
+msgstr	"Visibility"
+
 msgid	"Y"
 msgstr	""
 
@@ -957,6 +978,10 @@ msgstr	"Import"
 #, fuzzy, c-format
 msgid	"%d document found"
 msgstr	"Import"
+
+msgid	"Some constraint attribute are not respected.\n"
+	"You must correct these values before save document."
+msgstr	""
 
 #, fuzzy
 msgid	"change"
@@ -1376,6 +1401,9 @@ msgid	"init workflow profile attributes"
 msgstr	""
 
 msgid	"save geometry of mini view"
+msgstr	""
+
+msgid	"verify constraint attribute"
 msgstr	""
 
 #, fuzzy
@@ -1954,6 +1982,17 @@ msgstr	"Category"
 msgid	"help"
 msgstr	""
 
+#, fuzzy
+msgid	"view constraints"
+msgstr	"Edit"
+
+#, fuzzy
+msgid	"Constraints"
+msgstr	"Edit"
+
+msgid	"override constraints"
+msgstr	""
+
 msgid	"Cancel"
 msgstr	""
 
@@ -2114,6 +2153,9 @@ msgstr	""
 #, fuzzy
 msgid	"elink"
 msgstr	"Delete"
+
+msgid	"constraint"
+msgstr	""
 
 #, fuzzy
 msgid	"profile access"
@@ -2411,6 +2453,12 @@ msgstr	""
 msgid	"workflow has been recomposed"
 msgstr	""
 
+msgid	"Constraint test"
+msgstr	""
+
+msgid	"suggestions"
+msgstr	""
+
 #, fuzzy
 msgid	"fieldset"
 msgstr	"Update Title Cards"
@@ -2478,21 +2526,6 @@ msgstr	""
 #, fuzzy
 msgid	"Clear Folder"
 msgstr	"Delete"
-
-msgid	"enumerate input not found"
-msgstr	""
-
-msgid	"some needed attributes are empty"
-msgstr	""
-
-msgid	"NOT Clear"
-msgstr	""
-
-msgid	"Save changes ?"
-msgstr	""
-
-msgid	"Data cannot be saved"
-msgstr	""
 
 msgid	"View headers"
 msgstr	""
@@ -2582,6 +2615,24 @@ msgstr	"Really Delete"
 #, fuzzy
 msgid	"Delete"
 msgstr	"Delete"
+
+msgid	"enumerate input not found"
+msgstr	""
+
+msgid	"some needed attributes are empty"
+msgstr	""
+
+msgid	"NOT Clear"
+msgstr	""
+
+msgid	"Save changes ?"
+msgstr	""
+
+msgid	"Data cannot be saved"
+msgstr	""
+
+msgid	"vconstraint input not found id="
+msgstr	""
 
 msgid	"mini view"
 msgstr	""

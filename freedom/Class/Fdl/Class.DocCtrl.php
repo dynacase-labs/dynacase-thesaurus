@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocCtrl.php,v 1.10 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.11 2003/12/17 17:25:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -11,7 +11,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.10 2003/12/16 15:05:39 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.11 2003/12/17 17:25:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.10 2003/12/16 15:05:39 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.11 2003/12/17 17:25:27 eric Exp $';
 
 
 
@@ -244,8 +244,9 @@ Class DocCtrl extends DbObj
       $ti = mktime(0,0,0,$mm,$dd+1,$yy);
       if ($ti < time()) {  
 	$err= sprintf(_("the date %s is in the past: today is %s"),
-		      date ("d/m/Y",$ti),
+		      date ("d/m/Y", mktime(0,0,0,$mm,$dd,$yy)),
 		      date ("d/m/Y",time()));
+	$sug[]=date ("d/m/Y",time());
 		      
 	
       } 

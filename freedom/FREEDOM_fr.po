@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2003-12-12 16:33+0100\n"
+	"POT-Creation-Date: 2003-12-17 18:19+0100\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -419,11 +419,15 @@ msgstr	"pas de fichier d'import spécifié"
 
 #, c-format
 msgid	"create %s family"
-msgstr "création de la famille %s"
+msgstr	"création de la famille %s"
 
 #, c-format
 msgid	"modify %s family"
-msgstr "modification de la famille %s"
+msgstr	"modification de la famille %s"
+
+#, c-format
+msgid	"update %s attribute"
+msgstr	"mise à jour attribut %s"
 
 #, c-format
 msgid	"add id [%d] "
@@ -619,6 +623,19 @@ msgstr	"Pas de profil %s"
 #, c-format
 msgid	"unknow privilege %s"
 msgstr	"privilège inconnu : %s"
+
+msgid	"the email syntax  is like : john.doe@anywhere.org"
+msgstr	"La syntaxe d'un email est de la forme : jean.martin@quelquepart.org"
+
+msgid	"the email must containt the @ character"
+msgstr	"L'email doit contenir le caractère @"
+
+msgid	"the date syntax must be like : DD/MM/AAAA"
+msgstr	"la date doit être de la forme JJ/MM/AAAA"
+
+#, c-format
+msgid	"the date %s is in the past: today is %s"
+msgstr	"La date %s est dans le passé. La date d'aujourd'hui est %s"
 
 #, c-format
 msgid	"untitle %s %d"
@@ -853,6 +870,9 @@ msgstr	"caché"
 msgid	"read disabled"
 msgstr	"statique"
 
+msgid	"invisible"
+msgstr	"invisible"
+
 msgid	"Y"
 msgstr	"O"
 
@@ -920,6 +940,11 @@ msgstr	"%d documents trouvés"
 msgid	"%d document found"
 msgstr	"%d document trouvé"
 
+msgid	"Some constraint attribute are not respected.\n"
+	"You must correct these values before save document."
+msgstr	"Certaines contraintes d'attributs ne sont pas respectées\n"
+	"Vous devez corriger ces valeurs avant de sauver le document"
+
 msgid	"change"
 msgstr	"modification"
 
@@ -949,7 +974,7 @@ msgid	"specific control"
 msgstr	"Contrôle dédié"
 
 msgid	"no view control"
-msgstr "pas de contrôle de vues"
+msgstr	"pas de contrôle de vues"
 
 msgid	"cannot see unknow folder"
 msgstr	"dossier inconnu, ne peut être consulté"
@@ -1311,6 +1336,9 @@ msgstr	"initialisation des attributs profil"
 
 msgid	"save geometry of mini view"
 msgstr	"sauve la disposition de la mini vue"
+
+msgid	"verify constraint attribute"
+msgstr	"vérifie les contraintes d'attributs"
 
 msgid	"freedom database"
 msgstr	"base de donnée Freedom"
@@ -1844,6 +1872,15 @@ msgstr	"ajout nouvelle catégorie"
 msgid	"help"
 msgstr	"Aide"
 
+msgid	"view constraints"
+msgstr "voir les contraintes"
+
+msgid	"Constraints"
+msgstr	"Contraintes"
+
+msgid	"override constraints"
+msgstr	"outrepasser les contraintes"
+
 msgid	"Cancel"
 msgstr	"Annuler"
 
@@ -1991,6 +2028,9 @@ msgstr	"ft"
 msgid	"elink"
 msgstr	"extra Lien"
 
+msgid	"constraint"
+msgstr	"contrainte"
+
 msgid	"profile access"
 msgstr	"Profil d'accès"
 
@@ -1998,10 +2038,10 @@ msgid	"no profile"
 msgstr	"Pas de profil"
 
 msgid	"view control"
-msgstr "contrôle de vue"
+msgstr	"contrôle de vue"
 
 msgid	"no control"
-msgstr "pas de contrôle"
+msgstr	"pas de contrôle"
 
 msgid	"keyword"
 msgstr	"mot-clef"
@@ -2246,6 +2286,12 @@ msgstr	"Envoi manuel"
 msgid	"workflow has been recomposed"
 msgstr	"le cycle de vie a été regénéré"
 
+msgid	"Constraint test"
+msgstr	"test des contraintes"
+
+msgid	"suggestions"
+msgstr	"suggestions"
+
 msgid	"fieldset"
 msgstr	"cadre"
 
@@ -2303,21 +2349,6 @@ msgstr	"Tout insérer dans le porte-documents"
 msgid	"Clear Folder"
 msgstr	"Vider le dossier"
 
-msgid	"enumerate input not found"
-msgstr	"entrée énumérée non trouvé"
-
-msgid	"some needed attributes are empty"
-msgstr	"certains attributs obligatoires sont vides"
-
-msgid	"NOT Clear"
-msgstr	"Non effacé"
-
-msgid	"Save changes ?"
-msgstr	"Sauver les changements ?"
-
-msgid	"Data cannot be saved"
-msgstr	"Les données ne peuvent être sauvées"
-
 msgid	"View headers"
 msgstr	"Voir entête"
 
@@ -2337,10 +2368,10 @@ msgid	"View all properties"
 msgstr	"Voir toutes les propriétés"
 
 msgid	"Special view"
-msgstr "Vues spéciales"
+msgstr	"Vues spéciales"
 
 msgid	"Special edit"
-msgstr "Éditions spéciales"
+msgstr	"Éditions spéciales"
 
 msgid	"Unlock"
 msgstr	"Déverrouiller"
@@ -2396,6 +2427,24 @@ msgstr	"Voulez-vous supprimer"
 msgid	"Delete"
 msgstr	"Supprimer"
 
+msgid	"enumerate input not found"
+msgstr	"entrée énumérée non trouvé"
+
+msgid	"some needed attributes are empty"
+msgstr	"certains attributs obligatoires sont vides"
+
+msgid	"NOT Clear"
+msgstr	"Non effacé"
+
+msgid	"Save changes ?"
+msgstr	"Sauver les changements ?"
+
+msgid	"Data cannot be saved"
+msgstr	"Les données ne peuvent être sauvées"
+
+msgid	"vconstraint input not found id="
+msgstr	"entrée vconstraint non trouvé id="
+
 msgid	"mini view"
 msgstr	"mini vue"
 
@@ -2421,7 +2470,7 @@ msgid	" profile access"
 msgstr	" profil d'accès"
 
 msgid	"control view"
-msgstr "contrôle de vues"
+msgstr	"contrôle de vues"
 
 msgid	" rev"
 msgstr	" rév."
@@ -2451,7 +2500,7 @@ msgid	"created profile"
 msgstr	"Profil crée"
 
 msgid	"created control view"
-msgstr "contrôle de vue de création"
+msgstr	"contrôle de vue de création"
 
 msgid	"current folder"
 msgstr	"dossier courant"

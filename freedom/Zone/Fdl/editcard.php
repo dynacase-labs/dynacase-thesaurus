@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.33 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: editcard.php,v 1.34 2003/12/17 17:25:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.33 2003/12/12 15:45:25 eric Exp $
+// $Id: editcard.php,v 1.34 2003/12/17 17:25:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -95,6 +95,15 @@ function editcard(&$action) {
     if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
   }
 
+
+  if (GetHttpVars("viewconstraint")=="Y") { // from modcard function if constraint error
+    
+    include_once("FDL/modcard.php");  
+    setPostVars($doc); // HTTP VARS comes from previous edition
+
+    
+  }
+
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
   $action->lay->Set("classid", $classid);
   $action->lay->Set("usefordef", $usefordef);
@@ -115,7 +124,11 @@ function editcard(&$action) {
   //compute constraint for enable/disable input
   $tjsa=array();
   if ($usefordef != "Y") {
-    $doc->Refresh();
+    if (GetHttpVars("viewconstraint")!="Y") $doc->Refresh();
+    else {
+      $err=$doc->SpecRefresh();
+      $err.=$doc->SpecRefreshGen();      
+    }
     
     $ka=0;
 

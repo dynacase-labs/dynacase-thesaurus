@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.17 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_edit.php,v 1.18 2003/12/17 17:25:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.17 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_edit.php,v 1.18 2003/12/17 17:25:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,7 +74,7 @@ function generic_edit(&$action) {
     {    
 
       $doc= new Doc ($dbaccess,$docid);
-
+     
       $err = $doc->lock(true); // autolock
       if ($err != "")   $action->ExitError($err);
 
@@ -102,6 +102,25 @@ function generic_edit(&$action) {
   $action->lay->Set("id", $docid);
   $action->lay->Set("dirid", $dirid);
 
+  // control view of special constraint button
+  $action->lay->Set("boverdisplay", "none");
+  
+  if (GetHttpVars("viewconstraint")=="Y") {
+    $action->lay->Set("bconsdisplay", "none");
+    if ($action->user->id==1) $action->lay->Set("boverdisplay", ""); // only admin can do this
+    
+  } else {
+    // verify if at least on attribute constraint
+    
+    $action->lay->Set("bconsdisplay", "none");
+    $listattr = $doc->GetNormalAttributes();
+    foreach ($listattr as $k => $v) {
+      if ($v->phpconstraint != "")  {
+	$action->lay->Set("bconsdisplay", "");
+	break;
+      }
+  }
+  }
 
  
   // information propagation

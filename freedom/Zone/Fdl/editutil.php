@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.57 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: editutil.php,v 1.58 2003/12/17 17:25:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.57 2003/12/16 15:05:39 eric Exp $
+// $Id: editutil.php,v 1.58 2003/12/17 17:25:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -522,7 +522,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	      " onclick=\"clearInputs([$jarg],'$index')\">";
 	  }
 	} 
-      } 	else if ($oattr->type == "date") {
+      }  else if ($oattr->type == "date") {
 	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	  " title=\""._("clear inputs")."\"".
 	  " onclick=\"clearInputs(['$attrid'],'$index')\">";
@@ -547,7 +547,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	$target= $attrid;
 	/* --- for idoc ---
 	if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
-	  // special case wit javascript inputs
+	// special case wit javascript inputs
 
 	  $oattr->elink=$reg[2];
 	  $tabFunction=explode(":",$reg[1]);
@@ -592,9 +592,16 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 
 
       }
-      if ($oattr->phpconstraint != "") {
- 	$input.="<input type=\"button\" id=\"co_$attridk\" value=\"C\"".
- 	  " onclick=\"vconstraint(this,".$doc->fromid.",'$attrid');\">";
+      if (GetHttpVars("viewconstraint")=="Y") { // set in modcard
+	if ($oattr->phpconstraint != "") {
+	  $res=$doc->verifyConstraint($oattr->id,$index);
+	  if (($res["err"]=="") && (count($res["sug"])==0)) $color='mediumaquamarine';
+	  if (($res["err"]=="") && (count($res["sug"])>0)) $color='orange';
+	  if (($res["err"]!="")) $color='tomato';
+
+	  $input.="<input style=\"background-color:$color;\"type=\"button\" id=\"co_$attridk\" value=\"C\"".
+	    " onclick=\"vconstraint(this,".$doc->fromid.",'$attrid');\">";
+	}
       }
     } else {
       $input.="</td><td>";

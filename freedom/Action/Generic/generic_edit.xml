@@ -15,6 +15,8 @@
 
    <style type="text/css">
    @import url(htmlarea/htmlarea.css);
+
+ 
 [CSS:CODE]
    </style>
 <script type="text/javascript" src="htmlarea/htmlarea.js"></script>
@@ -100,7 +102,11 @@
 <tr class="FREEDOMBack1">
   <td colspan="2" >
 <input type="hidden" name="catgid" >
+<input type="hidden" name="noconstraint" value="N">
  <input id="iSubmit" type="submit" value="[editaction]" onmousedown="multiple_for_select();" onclick="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"> 
+ <input type="button" title="[TEXT:view constraints]" style="display:[bconsdisplay]" 
+        value="[TEXT:Constraints]" onclick="document.isSubmitted=true;selectall();document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> 
+ <input type="submit" title="[TEXT:override constraints]" style="display:[boverdisplay]" value="[editaction]!" onclick="document.isSubmitted=true;enableall();document.modifydoc.noconstraint.value='Y';return true"> 
   </td>
   <td  align="right">
  <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]'"> 
