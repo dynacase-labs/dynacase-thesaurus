@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.12 2001/12/18 09:18:10 eric Exp $
+// $Id: freedom_mod.php,v 1.13 2002/01/04 15:08:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,7 @@ function freedom_mod(&$action) {
   // -----------------------------------
 
   // Get all the params      
-  $dirid=GetHttpVars("dirid",0);
+  $dirid=GetHttpVars("dirid",10);
   $docid=GetHttpVars("id",0); 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");

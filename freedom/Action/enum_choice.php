@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.5 2001/12/31 15:23:11 eric Exp $
+// $Id: enum_choice.php,v 1.6 2002/01/04 15:08:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,6 +37,7 @@ function enum_choice(&$action) {
   $sorm = GetHttpVars("sorm","single"); // single or multiple
   $wname = GetHttpVars("wname",""); // single or multiple
 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
   //global $HTTP_POST_VARS;print_r($HTTP_POST_VARS);
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -45,7 +46,7 @@ function enum_choice(&$action) {
   $oattr= $doc->GetAttribute($attrid);
 
 
-  if (! include_once("PLUGGINGS/$oattr->phpfile")) {
+  if (! include_once("EXTERNALS/$oattr->phpfile")) {
     $action->exitError(sprintf(_("the external pluggin file %s cannot be read"), $oattr->phpfile));
   }
 
@@ -68,8 +69,6 @@ function enum_choice(&$action) {
     else $arg[$k]= GetHttpVars($v,"");
   }
 
-  
-  
   $res = call_user_func_array($reg[1], $arg);
   
 
@@ -83,6 +82,7 @@ function enum_choice(&$action) {
     array_shift($v);
 
     $tval[$k]["attrv"]="['".implode("','", $v)."']";
+    
 
     
   }

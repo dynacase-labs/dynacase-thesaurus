@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.8 2001/12/21 13:58:35 eric Exp $
+// $Id: freedom_import.php,v 1.9 2002/01/04 15:08:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_import.php,v $
+// Revision 1.9  2002/01/04 15:08:04  eric
+// modif pour init
+//
 // Revision 1.8  2001/12/21 13:58:35  eric
 // modif pour incident
 //
@@ -72,7 +75,7 @@ function freedom_import(&$action) {
 
   // Get all the params   
   $classid = GetHttpVars("classid",0); // doc familly
-  $dirid = GetHttpVars("dirid",0); // directory to place imported doc 
+  $dirid = GetHttpVars("dirid",10); // directory to place imported doc (default unclassed folder)
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -120,12 +123,13 @@ function add_import_file(&$action, $fimport="") {
   // -----------------------------------
   global $HTTP_POST_FILES;
 
-  $dirid = GetHttpVars("dirid",0); // directory to place imported doc 
+  $dirid = GetHttpVars("dirid",10); // directory to place imported doc 
+
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+  print("\nadd_import_file $fimport $dbaccess\n");
 
-  $action->lay->Set("CR","");
   if (isset($HTTP_POST_FILES["tsvfile"]))    
     {
       $fdoc = fopen($HTTP_POST_FILES["tsvfile"]['tmp_name'],"r");
@@ -159,17 +163,22 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "END":
+
+      
+      $action->log->debug("add ");
       if (($num > 3) && ($data[3] != "")) $doc->doctype = "S";
       $doc->title =  GetTitleF($dbaccess,$doc->id);
-
+    
       $doc->modify();
 
-      if ($data[2] > 0) { // dirid
-	$dir = new Dir($dbaccess, $data[3]);
-	$dir->AddFile($doc->id);
-      } else if ($data[2] ==  0) {
-	$dir = new Dir($dbaccess, $dirid);
-	$dir->AddFile($doc->id);
+      if (isset($data[2])) {
+	if  ($data[2] > 0) { // dirid
+	  $dir = new Dir($dbaccess, $data[2]);
+	  $dir->AddFile($doc->id);
+	} else if ($data[2] ==  0) {
+	  $dir = new Dir($dbaccess, $dirid);
+	  $dir->AddFile($doc->id);
+	}
       }
 
       

@@ -25,7 +25,62 @@
   <!--
     [JS:CODE]
 
+    //--------------------- MOVE  --------------------------
+var    winfo = window.open('','[wname]','');
+var isNetscape = navigator.appName=="Netscape";
+if (isNetscape) {
+    winfo.document.captureEvents(Event.MOUSEMOVE);
+}    
+
+
+function GetXYi(event) {
+  if (winfo.event) {
+    Xpos = winfo.event.clientX + document.documentElement.scrollLeft
+                             + document.body.scrollLeft;
+    Ypos = winfo.event.clientY + document.documentElement.scrollTop +
+                             + document.body.scrollTop;
+  }
+  else {
+    Xpos = event.clientX + window.scrollX;
+    Ypos = event.clientY + window.scrollY;
+  }    
+}
+function movewin(event) {
     
+//    window.status="drag="+document.drag;
+
+    GetXYi(event);
+
+    window.status= Xpos+"+"+Ypos;
+
+    winfo.document.getElementById('choose').style.top = Ypos-2; 
+    winfo.document.getElementById('choose').style.left = Xpos-2; 
+    //    window.moveTo(Xpos, Ypos);
+
+  
+}
+function stopmove(event) {
+    
+//    window.status="drag="+document.drag;
+
+  winfo.document.onmousemove= "";
+  window.status='stop move';
+  
+}
+
+var moveon=false;
+function activemove(event)
+{
+
+  if (moveon)  winfo.document.onmousemove= "";
+  else   winfo.document.onmousemove= movewin;
+
+  moveon = (! moveon);
+
+
+  return false;
+}
+    //--------------------- ATTR  --------------------------
 var tattrid= new Array();
     tattrid= [attrid];
 
@@ -37,7 +92,7 @@ tattrv[[index]] =[attrv];
 
 function completechoice(index) {
 
-    winfo = window.open('','[wname]','');
+
 
     for (i=0; i< tattrid.length; i++) {
        winfo.document.getElementById(tattrid[i]).value = tattrv[index][i];
@@ -49,7 +104,7 @@ function completechoice(index) {
 
 function completechoices() {
 
-    winfo = window.open('','[wname]','');
+
 
     var cvalues = new Array();
     for (i=0; i< tattrid.length; i++) {	
@@ -63,7 +118,7 @@ function completechoices() {
 	  with (winfo.document.getElementById(tattrid[i])) {
 	    if (tattrv[index][i] != "") {
 	      cvalues[i] += tattrv[index][i];
-	      cvalues[i] += "\n";
+	       cvalues[i] += "\n";
 	      style.backgroundColor='[CORE_BGCOLORHIGH]';
 	    }
 	    //       style.fontWeight='bold';
@@ -73,7 +128,8 @@ function completechoices() {
     }
     for (i=0; i< tattrid.length; i++) {	
       if (cvalues[i][0] != '?')
-	winfo.document.getElementById(tattrid[i]).value = cvalues[i];
+	// delete last CR
+	winfo.document.getElementById(tattrid[i]).value = cvalues[i].substring(0,cvalues[i].length-1);
     }
 
 }
@@ -104,6 +160,11 @@ winfo.document.getElementById('choose').style.height= document.getElementById('d
      onClick="closeframe('choose');"
      title="[TEXT:close]"
      alt="[TEXT:close]">
+<img src="[IMG:byellow.gif]" 
+     style="cursor:move" 
+     onClick="activemove();return false"
+     title="[TEXT:move]"
+     alt="[TEXT:move]">
 <br>
 <select id="schoose" [multiple]
         style="align:center" 

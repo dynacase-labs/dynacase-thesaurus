@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.20 2001/12/31 15:23:11 eric Exp $
+// $Id: Class.Doc.php,v 1.21 2002/01/04 15:08:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.20 2001/12/31 15:23:11 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.21 2002/01/04 15:08:04 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -111,9 +111,8 @@ create sequence seq_id_doc start 1000";
     include_once("FREEDOM/Class.QueryDirV.php");
     $oqdv = new QueryDirV($this->dbaccess,"2");// just to create table if needed
 
-    include_once("FREEDOM/freedom_import.php");
-    add_import_file($this->action, 
-    $this->action->GetParam("CORE_PUBDIR")."/FREEDOM/init.freedom");
+    
+    
 
     return "";
     
@@ -670,7 +669,7 @@ create sequence seq_id_doc start 1000";
 	
 
 
-	if (! @include("PLUGGINGS/$v->phpfile")) {
+	if (! @include("EXTERNALS/$v->phpfile")) {
 	  return(sprintf(_("the external pluggin file %s cannot be read"), $v->phpfile));
 	}
 	

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.3 2001/12/21 13:58:35 eric Exp $
+// $Id: modcard.php,v 1.4 2002/01/04 15:08:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,7 +42,7 @@ function modcard(&$action, &$ndocid) {
 
   // Get all the params      
   $docid=GetHttpVars("id",0); 
-  $dirid=GetHttpVars("dirid",0);
+  $dirid=GetHttpVars("dirid",10);
   $classid=GetHttpVars("classid",0);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");

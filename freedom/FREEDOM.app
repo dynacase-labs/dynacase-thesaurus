@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.11 2001/12/18 09:18:10 eric Exp $
+// $Id: FREEDOM.app,v 1.12 2002/01/04 15:08:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.12  2002/01/04 15:08:04  eric
+// modif pour init
+//
 // Revision 1.11  2001/12/18 09:18:10  eric
 // first API with ZONE
 //
@@ -334,6 +337,11 @@ $action_desc = array (
   array(
    "name"		=>"FREEDOM_ACCESS",
    "short_name"		=>N_("Freedom accessibilities"),
+   "acl"		=>"FREEDOM"	
+  ),
+  array(
+   "name"		=>"FREEDOM_INIT",
+   "short_name"		=>N_("Freedom initialisation"),
    "acl"		=>"FREEDOM"	
   )
                       );

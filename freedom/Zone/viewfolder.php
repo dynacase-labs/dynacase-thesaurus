@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.3 2001/12/21 13:58:35 eric Exp $
+// $Id: viewfolder.php,v 1.4 2002/01/04 15:08:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -86,7 +86,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
 
 
 
-  $action->log->tic("before query gen");  
+  //  $action->log->tic("before query gen");  
 
   if ($refresh == "yes") { // force refresh    
     $oqd=new QueryDir($dbaccess );
@@ -99,7 +99,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
 
   
   //  $ldoc = $query->Query();
-  $action->log->tic("after query gen");
+  // $action->log->tic("after query gen");
 
 
 
@@ -136,7 +136,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
   $tdoc=array();
 
   if (is_array($ldoc)) {
-  $action->log->tic("begin loop");
+    //  $action->log->tic("begin loop");
   while(list($k,$doc) = each($ldoc)) 
     {
       // view control
@@ -274,7 +274,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
       }
     }
   }
-  $action->log->tic("end loop");
+  //  $action->log->tic("end loop");
   // Out
   //------------------------------
   // display popup action

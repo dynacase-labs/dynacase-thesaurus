@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.5 2001/11/30 15:13:39 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.6 2002/01/04 15:08:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM_init.php.in,v $
+// Revision 1.6  2002/01/04 15:08:04  eric
+// modif pour init
+//
 // Revision 1.5  2001/11/30 15:13:39  eric
 // modif pour Css
 //
@@ -76,11 +79,14 @@ include_once("FREEDOM/Class.DocFile.php");
 include_once("FREEDOM/Class.Dir.php");
 include_once("FREEDOM/Class.DocSearch.php");
 
-$ofreedom = new DocFile($app_const["FREEDOM_DB"]);
-$ofreedom->InitObjectAcl();
-$ofreedom = new Dir($app_const["FREEDOM_DB"]);
-$ofreedom->InitObjectAcl();
-$ofreedom = new DocSearch($app_const["FREEDOM_DB"]);
-$ofreedom->InitObjectAcl();
+
+
+$doc = new DocFile($app_const["FREEDOM_DB"]);
+$doc->InitObjectAcl();
+$doc = new Dir($app_const["FREEDOM_DB"]);
+$doc->InitObjectAcl();
+$doc = new DocSearch($app_const["FREEDOM_DB"]);
+$doc->InitObjectAcl();
+
 
 ?>
