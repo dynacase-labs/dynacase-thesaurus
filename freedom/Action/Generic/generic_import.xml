@@ -1,21 +1,37 @@
 [ZONE CORE:HTMLHEAD]
-<H2>[TEXT:Import Results]</H2>
+<style>
+TR.updated TD{
+   background-color:#efef53;
+}
+TR.ignored TD{
+   background-color:#ef5653;
+}
+TR.added TD{
+   background-color:#adf4b2;
+}
+
+</style>
+<H2>[importresult]</H2>
 
 
-<P>[TEXT:personn added]
-<OL>
-[BLOCK ADDED]
-    <LI>[title] [id]</LI>
-[ENDBLOCK ADDED]
-</OL>
+<H3>[nbdoc] [TEXT:documents to examine].</H3>
 
-<P>[TEXT:personn deleted]
-<OL>
-[BLOCK DELETED]
-    <LI>[title] [id]</LI>
-[ENDBLOCK DELETED]
-</OL>
+<table width="100%" >
 
+<thead><tr><th>[TEXT:line]</th>
+<th>[TEXT:doctitle]</th>
+<th>[TEXT:foldername]</th>
+<th>[TEXT:id]</th>
+<th>[TEXT:familyname]</th>
+<th>[TEXT:action]</th>
+<th>[TEXT:message]</th>
+<th>[TEXT:changes]</th>
+<th>[TEXT:error]</th></tr></thead>
+<tbody  >
+[BLOCK ADDEDDOC]
+<tr class="[action]"><td>[order]</td><td>[title]</td><td>[foldername]</td><td><a href="#" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'fimport','[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&props=N&id=[id]');">[id]</a></td><td>[familyname]</td><td>[taction]</td><td>[msg]</td><td>[svalues]</td><td>[err]</td></tr>
+[ENDBLOCK ADDEDDOC]
+</tbody></table>
 
 [ZONE CORE:HTMLFOOT]
 

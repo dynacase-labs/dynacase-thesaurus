@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editframe.php,v 1.17 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: editframe.php,v 1.18 2004/05/13 16:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.17 2003/12/12 15:45:25 eric Exp $
+// $Id: editframe.php,v 1.18 2004/05/13 16:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -84,6 +84,7 @@ function editframe(&$action) {
     if ($v->mvisibility == "I" ) continue;// not editable
 
     $action->lay->set("flabel",$v->fieldSet->labelText);
+    $action->lay->set("frameid",$v->fieldSet->id);
 
     //------------------------------
     // Set the table value elements

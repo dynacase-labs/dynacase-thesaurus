@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.22 2004/04/29 08:41:24 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.23 2004/05/13 16:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.22 2004/04/29 08:41:24 eric Exp $
+// $Id: Method.DocUser.php,v 1.23 2004/05/13 16:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,7 +52,6 @@
   
    
   var $cviews=array("USERCARD:VIEWABSTRACTCARD");
-  var $eviews=array("USERCARD:EDITUSERCARD");
 // -----------------------------------
    function viewabstractcard($target="finfo",$ulink=true,$abstract="Y") {
      // -----------------------------------
@@ -62,29 +61,7 @@
    }
 
 
-   function editusercard($target="finfo",$ulink=true,$abstract="Y") {
-     global $action;
-     // -----------------------------------
-     
-     $this->lay->Set("selectp", "");
-     $this->lay->Set("selectw", "");
-     $this->lay->Set("selectr", "");
-     $priv=$this->GetValue("US_PRIVCARD",getParam("USER_CONFIDENTIAL"));
-     switch ($priv) {
-      case "P":	
-	$this->lay->Set("selectp", "selected");
-      break;
-      case "W":	
-	$this->lay->Set("selectw", "selected");
-      break;
-      case "R":	
-	$this->lay->Set("selectr", "selected");
-      break;
-     }
-     if (($action->user->id == $this->owner) || ($this->id == 0)) 
-       $this->lay->SetBlockData("PRIVATE",array(array("zou")));
-   }
-
+   
 
  
 

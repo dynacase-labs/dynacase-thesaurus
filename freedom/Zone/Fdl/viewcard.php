@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.50 2004/05/06 09:33:22 eric Exp $
+ * @version $Id: viewcard.php,v 1.51 2004/05/13 16:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.50 2004/05/06 09:33:22 eric Exp $
+// $Id: viewcard.php,v 1.51 2004/05/13 16:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -83,6 +83,7 @@ function viewcard(&$action) {
 
  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/WHAT/Layout/AnchorPosition.js");
  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
+ $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
  //pour les idocs
  $jsfile=$action->GetLayoutFile("viewicard.js");
  $jslay = new Layout($jsfile,$action);

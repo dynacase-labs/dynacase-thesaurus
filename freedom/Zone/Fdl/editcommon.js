@@ -695,6 +695,9 @@ function vconstraint(cButton,famid,attrid) {
   }
   wf.moveTo(xy.x, xy.y+10);
 }
+
+
+//          ---------------------------------------------------------------------------------
 // for idoc type documents 
 
 function viewidoc_in_frame(idframe,xmlid,idocfam){

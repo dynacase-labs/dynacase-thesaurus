@@ -2,8 +2,8 @@
 [BLOCK FRAME]
 
 <tr >
-  <td  colspan="2" ><fieldset><legend>[flabel]</legend>
-<table width="100%">
+  <td  colspan="2" ><fieldset><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[flabel]</legend>
+<table width="100%" id="T[frameid]">
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1">
             [BLOCK [NORMALROW]]

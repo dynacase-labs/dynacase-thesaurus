@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.200 2004/05/06 08:04:40 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.201 2004/05/13 16:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -522,9 +522,8 @@ create unique index i_docir on doc(initid, revision);";
     $err=$this->delete(true,false,true); // delete before add to avoid double id (it is not authorized)
     if ($err != "") return $err;
 
-    reset($prevalues);
-    while(list($k,$v) = each($prevalues)) {
-      print $cdoc->setValue($k,$v);
+    foreach($prevalues as $k=>$v) {
+       $cdoc->setValue($k,$v);
     }
     $err=$cdoc->Add();
     if ($err != "") return $err;
@@ -679,22 +678,25 @@ create unique index i_docir on doc(initid, revision);";
   
 
 
-  // --------------------------------------------------------------------
-  function GetDocWithSameTitle() {
+  /**
+   * return similar documents
+   * 
+   * @param string $key1 first attribute id to perform search 
+   * @param string $key2 second attribute id to perform search 
+   * @return string parameter value
+   */
+  function GetDocWithSameTitle($key1="title",$key2="") {
+    include_once("FDL/Lib.Dir.php");
     // --------------------------------------------------------------------
-    $query = new QueryDb($this->dbaccess,"Doc".$this->fromid);
-    $query->AddQuery("title='".addslashes($this->title)."'");
-    $query->AddQuery("locked != -1");  // latest revision
-    $query->AddQuery("fromid='".$this->fromid."'"); // same familly
-    $query->AddQuery("id !='".$this->id."'");
-
-    $table1 = $query->Query();
 
 
-    if ($query->nb > 0) {
-      return $table1;
-    }
-    return array();;
+
+    if ($this->initid>0)$filter[]="initid !='".$this->initid."'";  // not itself
+    $filter[]="$key1='".addslashes($this->getValue($key1))."'";
+    if ($key2 != "") $filter[]="$key2='".addslashes($this->getValue($key2))."'";
+    $tpers = getChildDoc($this->dbaccess, 0,0,"ALL", $filter,1,"LIST",$this->fromid);
+  
+    return $tpers;
 
     
   }
@@ -1350,13 +1352,13 @@ create unique index i_docir on doc(initid, revision);";
    */
   function GetValues()  {
     $this->lvalues=array();
-    if (isset($this->id) && ($this->id>0)) {
+    //    if (isset($this->id) && ($this->id>0)) {
 
       $nattr = $this->GetNormalAttributes();
       foreach($nattr as $k=>$v) {
 	$this->lvalues[$v->id] = $this->GetValue($v->id);
       }
-    }
+      // }
     $this->lvalues=array_merge($this->lvalues,$this->mvalues); // add more values possibilities
     reset($this->lvalues);
     return $this->lvalues;
@@ -2477,6 +2479,7 @@ create unique index i_docir on doc(initid, revision);";
 	    {
 				      
 	      $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
+	      $frames[$k]["frameid"]=$currentFrameId;
 	      $frames[$k]["rowspan"]=$v+1; // for images cell
 	      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
 
@@ -2789,6 +2792,7 @@ create unique index i_docir on doc(initid, revision);";
 	if ($v > 0 ) {// one value detected	  
 	      
 	  $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
+	  $frames[$k]["frameid"]=$currentFrameId;
 	  $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
 	  $this->lay->SetBlockData($frames[$k]["TABLEVALUE"],
 				   $tableframe);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.16 2003/12/12 15:45:26 eric Exp $
+ * @version $Id: viewframe.php,v 1.17 2004/05/13 16:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.16 2003/12/12 15:45:26 eric Exp $
+// $Id: viewframe.php,v 1.17 2004/05/13 16:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -86,6 +86,8 @@ function viewframe(&$action) {
 
 
     $action->lay->set("flabel",$v->fieldSet->labelText);
+    $action->lay->set("frameid",$v->fieldSet->id);
+
 
     $value = chop($doc->GetValue($v->id));
     

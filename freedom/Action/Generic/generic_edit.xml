@@ -41,7 +41,7 @@
       onLoad="editOnLoad();autoHresize()"
       onsubmit="selectall()"
       onUnLoad="closechoose();pleaseSave(event) ;autoUnlock('[id]')"
-      onResize="resizeInputFields()">
+     >
 
 <!-- for idoc -->
 <form id="fviewidoc"

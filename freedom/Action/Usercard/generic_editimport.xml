@@ -19,6 +19,8 @@ function changeFormat(fmt) {
           document.getElementById('dvcard').style.display='block';
        break;
       case 'csv':
+	document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDITIMPORT&famid=120';
+	return;
           document.getElementById('fsend').action='[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_IMPORTCSV';
           document.getElementById('bsubmit').value='[TEXT:Import CSV]';
           document.getElementById('dvcard').style.display='none';

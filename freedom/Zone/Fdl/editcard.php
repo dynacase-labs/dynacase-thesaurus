@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.43 2004/05/06 08:07:37 eric Exp $
+ * @version $Id: editcard.php,v 1.44 2004/05/13 16:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.43 2004/05/06 08:07:37 eric Exp $
+// $Id: editcard.php,v 1.44 2004/05/13 16:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,17 +50,8 @@ function editcard(&$action) {
   $usefor = GetHttpVars("usefor"); // default values for a document
   $vid = GetHttpVars("vid"); // special controlled view
 
-
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
+  addJSedit($action);
   if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
   
 
@@ -172,5 +163,19 @@ function editcard(&$action) {
 
 function moreone($v) {
   return (strlen($v) > 1);
+}
+
+function addJSedit(&$action) {
+
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
+  
 }
 ?>

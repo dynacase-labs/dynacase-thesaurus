@@ -10,9 +10,9 @@
   <td    >
 <input type="hidden" name="title" value="[TITLE]"></input>
 
-<fieldset><legend>[frametext]</legend>
+<fieldset><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
 
-<table width="100%">
+<table id="T[frameid]" width="100%">
             [BLOCK [TABLEVALUE]]
 
 <tr >

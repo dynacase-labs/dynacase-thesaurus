@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Import document from CSV file
  *
- * @author Anakeen 2000 
- * @version $Id: generic_editimport.php,v 1.10 2003/08/18 15:47:03 eric Exp $
+ * @author Anakeen 2004
+ * @version $Id: generic_editimport.php,v 1.11 2004/05/13 16:17:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: generic_editimport.php,v 1.10 2003/08/18 15:47:03 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editimport.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 
 include_once("FDL/Class.Dir.php");
@@ -45,13 +24,14 @@ function generic_editimport(&$action) {
   global $dbaccess;
   
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/selectbox.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $homefld = new Doc( $dbaccess, getDefFld($action));
 
   
 
 
-  $stree=getChildCatg($homefld->id, 1);
+  $stree=getChildCatg($homefld->id, 1,true);
 
   reset($stree);
   
@@ -60,15 +40,34 @@ function generic_editimport(&$action) {
   
   $famid = getDefFam($action);
 
+
   // spec for csv file
   $doc=new Doc($dbaccess, $famid);
+
+  $action->lay->Set("dtitle",sprintf(_("import <I>%s</I> documents from"),$doc->title));
   $lattr = $doc->GetImportAttributes();
   $format = "DOC;".$doc->id.";0;". getDefFld($action)."; ";
 
-  while (list($k, $attr) = each ($lattr)) {
+  foreach ($lattr as $k=>$attr) {
     $format .= $attr->labelText." ;";
   }
+  $lattr = $doc->GetNormalAttributes();
+  foreach ($lattr as $k=>$attr) {
+    if ($attr->visibility =="O") continue; // only valuated attribut
+    $tkey[]=array("idattr"=>$attr->id,
+		  "lattr"=>$attr->labelText);
+  }
+  $lattr = $doc->GetImportAttributes();
+  foreach ($lattr as $k=>$attr) {
+    $tcol[]=array("idattr"=>$attr->id,
+		  "lattr"=>$attr->labelText);
+  }
+
+  $action->lay->SetBlockData("AKEYS1",$tkey);
+  $action->lay->SetBlockData("AKEYS2",$tkey);
+  $action->lay->SetBlockData("COLUMNS",$tcol);
   $action->lay->Set("format",$format);
+  $action->lay->Set("classid",$famid);
 
 }
 

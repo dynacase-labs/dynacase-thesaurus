@@ -19,11 +19,13 @@
  </head>
 
 
-<body onLoad="setTimeout('CenterDiv(\'logo\')',1)" onResize="CenterDiv('logo')">
+<body onLoad="setTimeout('CenterDiv(\'logo\');CenterDiv(\'logo2\')',1)" onResize="CenterDiv('logo');CenterDiv('logo2')">
 
-<div id="logo" style="display:none;position:absolute; top:0px; left:0px">
+<div id="logo2" style="display:none;position:absolute;top:0px;left:0px;filter:alpha(opacity=50);-moz-opacity:.5;">
+      <img  src="[IMG:logofreedom.gif]" title="[apptitle]" alt="[apptitle]">
+</div>
+<div id="logo" style="display:none;position:absolute;top:0px;left:0px">
       <img src="[appicon]" title="[apptitle]" alt="[apptitle]">
-      <img src="[IMG:logofreedom.gif]" title="[apptitle]" alt="[apptitle]">
 </div>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Import CSV
  *
- * @author Anakeen 2000 
- * @version $Id: generic_importcsv.php,v 1.10 2004/03/25 11:10:09 eric Exp $
+ * @author Anakeen 2004
+ * @version $Id: generic_importcsv.php,v 1.11 2004/05/13 16:17:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,54 +11,52 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: generic_importcsv.php,v 1.10 2004/03/25 11:10:09 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_importcsv.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2002
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 
 
 
 include_once("FDL/Class.Dir.php");
 include_once("FDL/import_file.php");
+include_once("FDL/modcard.php");
 include_once("GENERIC/generic_util.php"); 
 
 
-// -----------------------------------
+/**
+ * View a document
+ * @param Action &$action current action
+ * @global policy Http var : add|update|keep police case of similar document
+ * @global category Http var : 
+ * @global analyze Http var : "Y" if just analyze
+ * @global key1 Http var : primary key for double
+ * @global key2 Http var : secondary key for double
+ * @global classid Http var : document family to import
+ * @global colorder Http var : array to describe CSV column attributes
+ * @global file Http var : path to import file (only with wsh)
+ * @global  Http var : 
+ */
 function generic_importcsv(&$action) {
   // -----------------------------------
   global $_FILES;
-
-  // Get all the params      
-  $id=GetHttpVars("id");
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $policy = GetHttpVars("policy","add"); 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+ 
+  // Get all the params     
+  $policy = GetHttpVars("policy","update"); 
   $category = GetHttpVars("category"); 
+  $analyze = (GetHttpVars("analyze","N")=="Y"); // just analyze
+  $key1 = GetHttpVars("key1","title"); // primary key for double
+  $key2 = GetHttpVars("key2",""); // secondary key for double
+  $classid = GetHttpVars("classid",getDefFam($action)); // document family to import
+  $tcolorder = GetHttpVars("colorder"); // column order
+  
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  if (ini_get("max_execution_time") < 180) ini_set("max_execution_time",180); // 3 minutes
 
 
+  $ddoc=createDoc($dbaccess,$classid);
+  setPostVars($ddoc); // memorize default import values
 
-
-
-
-
+  
+  
   if (isset($_FILES["vcardfile"]))    
     {
       // importation 
@@ -72,86 +70,91 @@ function generic_importcsv(&$action) {
   if (! $fdoc) $action->exitError(_("no csv import file specified"));
   $dir = new Doc($dbaccess, getDefFld($action));
 
+  if ($analyze) $action->lay->set("importresult",_("import analysis result"));
+  else $action->lay->set("importresult",_("import results"));
+
   $tvalue=array();
 
-  $tabadd = array(); // memo each added person
-  $tabdel = array(); // memo each deleted person
 
 
+  $line=0;
   while ($data = fgetcsv ($fdoc, 1000, ";")) {
-    {
-	 
-      $num = count ($data);
-      if ($num < 1) continue;
-      switch ($data[0]) {
+    
+    $line++;
+    $num = count ($data);
+    if ($num < 1) continue;
+    switch ($data[0]) {
 	
-      case "DOC":
-	$doc =csvAddDoc($dbaccess, $data);
-	continue;
-
+    case "DOC":
+      $cr[$line] =csvAddDoc($dbaccess, $data,getDefFld($action),
+			    $analyze,'',$policy, array($key1,$key2),
+			    $ddoc->getValues(),$tcolorder);
+      if ($cr[$line]["err"]!="") {
+      } else {
 	
-	// NEED TO BE REDO
-	      
+	if ($cr[$line]["id"] > 0) {
+	  print_r2($category);
+	  // add in each selected folder
+	  if (is_array($category)) {
 
-	// add in each selected category
-	if (is_array($category)) {
-	  reset($category);
 		
-	  while(list($k,$v) = each($category)) {
+	    foreach($category as $k=>$v) {
 		  
-	    $catg = new Doc($dbaccess, $v);
-	    $catg->AddFile($doc->id);
+	      $catg = new Doc($dbaccess, $v);
+	      $err=$catg->AddFile($cr[$line]["id"]);
+	      $cr[$line]["err"].=$err;
+	      if ($err == "") $cr[$line]["msg"].=sprintf(_("Add it in %s folder"),$catg->title);
+	    }
 	  }
 	}
-	// duplicate policy
-	  
-	switch ($policy)
-	  {
-	  case "add":
-	    $doc->PostModify();
-	    $tabadd[] = array("id"=>$doc->id,
-			      "title"=>$doc->title);
-	    break;
-	  case "update":
-
-
-	    $doc->PostModify();
-	    $tabadd[] = array("id"=>$doc->id,
-			      "title"=>$doc->title);
-	    $ldoc = $doc->GetDocWithSameTitle();
-	    while(list($k,$v) = each($ldoc)) {
-	      $err = $v->delete(); // delete all double (if has permission)
-	      $tabdel[] = array("id"=>$v->id,
-				"title"=>$v->title);
-	    }	
-	    break;
-	  case "keep":
-	    $ldoc = $doc->GetDocWithSameTitle();
-	    if (count($ldoc) ==  0) {
-	      $doc->PostModify();
-	      $tabadd[] = array("id"=>$doc->id,
-				"title"=>$doc->title);
-	    } else {
-	      // delete the new added doc
-	      $doc->delete();
-	    }
-	    break;
-	  }
-
 
 	    
 
-	break;  
       }
+      break;  
+    case "ORDER":
+      $cr[$line]=array("err"=>"",
+	     "msg"=>"",
+	     "folderid"=>0,
+	     "foldername"=>"",
+	     "filename"=>"",
+	     "title"=>"",
+	     "id"=>"",
+	     "values"=>array(),
+	     "familyid"=>0,
+	     "familyname"=>"",
+	     "action"=>" ");
+      if (is_numeric($data[1]))   $fromid = $data[1];
+      else $fromid = getFamIdFromName($dbaccess,$data[1]);
+      if ($fromid == $classid)   {
+	$tcolorder=getOrder($data);
+	$cr[$line]["msg"]=sprintf(_("new column order %s"),implode(";",$tcolorder));
+      }
+ 
+      
+      break;
     }
   }
        
 
   fclose ($fdoc);
+  foreach ($cr as $k=>$v) {
+    $cr[$k]["taction"]=_($v["action"]); // translate action
+    $cr[$k]["order"]=$k; // translate action
+    $cr[$k]["svalues"]="";
 
-  $action->lay->SetBlockData("ADDED",$tabadd);
-  $action->lay->SetBlockData("DELETED",$tabdel);
+    foreach ($v["values"] as $ka=>$va) {
+      $cr[$k]["svalues"].= "<LI>[$ka:$va]</LI>"; // 
+    }
+  }
+
+  $action->lay->SetBlockData("ADDEDDOC",$cr);
+  $nbdoc=count(array_filter($cr,"isdoc2"));
+  $action->lay->Set("nbdoc","$nbdoc");
     
+}
+function isdoc2($var) {
+  return (($var["action"]=="added") ||  ($var["action"]=="updated"));
 }
 
 

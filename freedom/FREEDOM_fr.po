@@ -5,7 +5,7 @@
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
 	"Report-Msgid-Bugs-To: \n"
-	"POT-Creation-Date: 2004-04-27 17:32+0200\n"
+	"POT-Creation-Date: 2004-05-13 10:00+0200\n"
 	"PO-Revision-Date: 2004-03-16 11:17+0100\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -91,6 +91,10 @@ msgid	"cannot see unknow reference %s"
 msgstr	"impossible de voir : la référence %s est inconnue"
 
 #, c-format
+msgid	"import <I>%s</I> documents from"
+msgstr	" Importation de documents <I>%s</I> à partir de"
+
+#, c-format
 msgid	"creation %s"
 msgstr	"création %s"
 
@@ -111,6 +115,23 @@ msgstr	"pas de famille"
 
 msgid	"no csv import file specified"
 msgstr	"pas de fichier d'import CSV spécifié"
+
+msgid	"import analysis result"
+msgstr	"Résultat de l'analyse de l'import"
+
+msgid	"import results"
+msgstr	"Résultats de l'importation"
+
+#, c-format
+msgid	"Add it in %s folder"
+msgstr	"Ajout dans dossier %s"
+
+#, c-format
+msgid	"new column order %s"
+msgstr	"nouvel ordre des colonnes %s"
+
+msgid	"action"
+msgstr	"action"
 
 #, c-format
 msgid	"%s has been modified"
@@ -424,6 +445,47 @@ msgstr	"envoi de %s à %s"
 msgid	"%s cannot be sent"
 msgstr	"%s n'a pas pu être envoyé"
 
+msgid	"no import file specified"
+msgstr	"pas de fichier d'import spécifié"
+
+#, c-format
+msgid	"create %s family"
+msgstr	"création de la famille %s"
+
+#, c-format
+msgid	"modify %s family"
+msgstr	"modification de la famille %s"
+
+#, c-format
+msgid	"update %s attribute"
+msgstr	"mise à jour attribut %s"
+
+msgid	"to be add"
+msgstr	"à ajouter"
+
+msgid	"added"
+msgstr	"ajouté"
+
+#, c-format
+msgid	"add id [%d] "
+msgstr	"ajout id [%d] "
+
+#, c-format
+msgid	"add [%s] "
+msgstr	"ajout [%s] "
+
+#, c-format
+msgid	"update id [%d] "
+msgstr	"mise à jour id [%d] "
+
+#, c-format
+msgid	"double title %s <B>ignored</B> "
+msgstr	"titre en double %s <B>ignoré</B> "
+
+#, c-format
+msgid	"and add in %s folder "
+msgstr	"et ajout dans dossier %s"
+
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
 
@@ -445,14 +507,8 @@ msgstr	"msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 msgid	"workflow_init :: workflow id %s not found"
 msgstr	"workflow_init :: cycle id %s pas trouvé"
 
-msgid	"to be add"
-msgstr	"à ajouter"
-
 msgid	"not added"
 msgstr	"pas ajouté"
-
-msgid	"added"
-msgstr	"ajouté"
 
 msgid	"no zone specified"
 msgstr	"pas de zone spécifiée"
@@ -493,40 +549,96 @@ msgstr	"%s a été déverrouillé"
 msgid	"geometry saved : %s"
 msgstr	"disposition sauvée : %s"
 
-msgid	"no import file specified"
-msgstr	"pas de fichier d'import spécifié"
+#, c-format
+msgid	"update %s family"
+msgstr	"mise à jour de la famille %s"
 
 #, c-format
-msgid	"create %s family"
-msgstr	"création de la famille %s"
+msgid	"update %s search"
+msgstr	"mise à jour recherche %s"
 
 #, c-format
-msgid	"modify %s family"
-msgstr	"modification de la famille %s"
+msgid	"add %s search"
+msgstr	"Ajouter la recherche %s"
 
 #, c-format
-msgid	"update %s attribute"
-msgstr	"mise à jour attribut %s"
+msgid	"set doctype to '%s'"
+msgstr	"affecter le doctype à '%s'"
 
 #, c-format
-msgid	"add id [%d] "
-msgstr	"ajout id [%d] "
+msgid	"set icon to '%s'"
+msgstr	"affecte l'icone à '%s'"
+
+msgid	"icon already set. No update allowed"
+msgstr	"icone déjà affectée. Pas de mise à jour possible."
 
 #, c-format
-msgid	"add [%s] "
-msgstr	"ajout [%s] "
+msgid	"set default folder to '%s'"
+msgstr	"affecte le dossier par défaut à '%s'"
 
 #, c-format
-msgid	"update id [%d] "
-msgstr	"mise à jour id [%d] "
+msgid	"set default workflow to '%s'"
+msgstr	"affecte le cycle de vie par défaut à '%s'"
 
 #, c-format
-msgid	"double title %s <B>ignored</B> "
-msgstr	"titre en double %s <B>ignoré</B> "
+msgid	"set special characteristics to '%s'"
+msgstr	"affecte la caractéristique spéciale à '%s'"
 
 #, c-format
-msgid	"and add in %s folder "
-msgstr	"et ajout dans dossier %s"
+msgid	"change methods to '%s'"
+msgstr	"affecte les méthodes à '%s'"
+
+#, c-format
+msgid	"change special use to '%s'"
+msgstr	"affecte l'utilisation spéciale à '%s'"
+
+#, c-format
+msgid	"change default creation profile id  to '%s'"
+msgstr	"changer de profil de création par défaut à '%s'"
+
+#, c-format
+msgid	"change profile id  to '%s'"
+msgstr	"changer de profil à '%s'"
+
+#, c-format
+msgid	"add default value %s %s"
+msgstr	"ajout valeurs par défaut pour %s à %s"
+
+msgid	"update"
+msgstr	"mis à jour"
+
+#, c-format
+msgid	"add %s id [%d]  "
+msgstr	"ajout %s id [%d] "
+
+#, c-format
+msgid	"%s to be add"
+msgstr	"%s à ajouter"
+
+msgid	"updated"
+msgstr	"mis à jour"
+
+#, c-format
+msgid	"update %s [%d] "
+msgstr	"mise à jour %s [%d] "
+
+#, c-format
+msgid	"to be update %s [%d] "
+msgstr	"à mettre à jour %s [%d] "
+
+msgid	"ignored"
+msgstr	"ignoré"
+
+#, c-format
+msgid	"too many similar document %s <B>ignored</B> "
+msgstr	"trop de documents similaires trouvés %s <B>ignoré</B> "
+
+#, c-format
+msgid	"similar document %s found. keep similar"
+msgstr	"document similaire à %s a été trouve. L'original est conservé"
+
+msgid	"updated by import"
+msgstr	"mise à jour par import"
 
 msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
@@ -573,73 +685,6 @@ msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
 #, c-format
 msgid	"Delete %d in %s folder"
 msgstr	"Suppression n°%d du dossier %s"
-
-msgid	"no filename"
-msgstr	"pas de fichier"
-
-#, c-format
-msgid	"parameters for %s state"
-msgstr	"paramètres pour l'état %s"
-
-#, c-format
-msgid	"id %s profile"
-msgstr	"profil id %s "
-
-#, c-format
-msgid	"%s profile"
-msgstr	"Profil %s"
-
-#, c-format
-msgid	"id %s mask"
-msgstr	"identificateur du masque %s"
-
-#, c-format
-msgid	"%s mask"
-msgstr	"masque %s"
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
-	"autorisé"
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	"Changement d'état: l'état initial '%s' est inconnu"
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
-
-#, c-format
-msgid	"The change state to %s has been aborded.\n"
-	"%s"
-msgstr	"Le changement d'état vers %s a échoué.\n"
-	"%s"
-
-#, c-format
-msgid	"change state : %s to %s"
-msgstr	"changement d'état de %s vers %s"
-
-#, c-format
-msgid	"%s new state %s"
-msgstr	"%s changement d'état vers %s"
-
-#, c-format
-msgid	"The change state to %s has been realized. But the following warning "
-	"is appeared.\n"
-	"%s"
-msgstr	"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
-	"%s "
-
-#, c-format
-msgid	"cannot change state of document #%d to %s"
-msgstr	"ne peux pas changer l'état du document n°%d vers %s"
-
-#, c-format
-msgid	"automaticaly by change state of %s\n"
-	"%s"
-msgstr	"changement d'état automatique issu du document %s\n"
-	"%s"
 
 #, c-format
 msgid	"untitle %s %d"
@@ -712,6 +757,9 @@ msgstr	"copie à partir du document n°%d -%s-"
 msgid	"vault file error"
 msgstr	"erreur fichier Vault"
 
+msgid	"no filename"
+msgstr	"pas de fichier"
+
 #, c-format
 msgid	"cannot control : object not initialized : %s"
 msgstr	"contrôle impossible : objet non initialisé : %s"
@@ -723,6 +771,70 @@ msgstr	"erreur dans la format pzone %s"
 #, c-format
 msgid	"new %s"
 msgstr	"nouvelle %s"
+
+#, c-format
+msgid	"parameters for %s state"
+msgstr	"paramètres pour l'état %s"
+
+#, c-format
+msgid	"id %s profile"
+msgstr	"profil id %s "
+
+#, c-format
+msgid	"%s profile"
+msgstr	"Profil %s"
+
+#, c-format
+msgid	"id %s mask"
+msgstr	"identificateur du masque %s"
+
+#, c-format
+msgid	"%s mask"
+msgstr	"masque %s"
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
+	"autorisé"
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	"Changement d'état: l'état initial '%s' est inconnu"
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
+
+#, c-format
+msgid	"The change state to %s has been aborded.\n"
+	"%s"
+msgstr	"Le changement d'état vers %s a échoué.\n"
+	"%s"
+
+#, c-format
+msgid	"change state : %s to %s"
+msgstr	"changement d'état de %s vers %s"
+
+#, c-format
+msgid	"%s new state %s"
+msgstr	"%s changement d'état vers %s"
+
+#, c-format
+msgid	"The change state to %s has been realized. But the following warning "
+	"is appeared.\n"
+	"%s"
+msgstr	"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
+	"%s "
+
+#, c-format
+msgid	"cannot change state of document #%d to %s"
+msgstr	"ne peux pas changer l'état du document n°%d vers %s"
+
+#, c-format
+msgid	"automaticaly by change state of %s\n"
+	"%s"
+msgstr	"changement d'état automatique issu du document %s\n"
+	"%s"
 
 msgid	"not perm for admin"
 msgstr	"pas de permission pour admin"
@@ -1526,10 +1638,10 @@ msgid	"send mail copy"
 msgstr	"copie envoi de mail"
 
 msgid	"horizontal size for secondary windows"
-msgstr "taille horizontale lors de l'ouverture de fenêtre secondaire"
+msgstr	"taille horizontale lors de l'ouverture de fenêtre secondaire"
 
 msgid	"vertical size for secondary windows"
-msgstr "taille verticale lors de l'ouverture de fenêtre secondaire"
+msgstr	"taille verticale lors de l'ouverture de fenêtre secondaire"
 
 msgid	"maximum document can be imported directly"
 msgstr	"nombre maximum de documents pouvant être importé en direct"
@@ -1845,7 +1957,7 @@ msgid	"state bilan"
 msgstr	"Bilan par état"
 
 msgid	"Import file"
-msgstr	"Importer un fichier"
+msgstr "Fichier à importer"
 
 msgid	"Abstract card"
 msgstr	"Carte résumé"
@@ -1979,6 +2091,62 @@ msgstr	"tous les documents"
 msgid	"Properties:"
 msgstr	"Propriétés:"
 
+msgid	"Only one line by document is authorized"
+msgstr	"Une seule ligne par document est autorisée"
+
+msgid	"Import description file"
+msgstr	"Fichier de description de l'import"
+
+msgid	"if you want to change order of column"
+msgstr	"pour changer l'ordre des colonnes"
+
+msgid	"column order"
+msgstr	"ordre des colonnes"
+
+msgid	"suppress column"
+msgstr	"suppression de colonnes"
+
+msgid	"add column"
+msgstr	"ajout de colonnes"
+
+msgid	"to insert document in sub folder"
+msgstr	"pour insérer les documents dans des sous dossiers"
+
+msgid	"folders"
+msgstr	"dossiers"
+
+msgid	"policy"
+msgstr	"politique"
+
+msgid	"policy if same keys"
+msgstr	"politique si même clef"
+
+msgid	"Update document if has permission else ignored"
+msgstr	"Mets à jour le document si permission accordée sinon modification "
+	"ignorée"
+
+msgid	"Add new document (similar document)"
+msgstr	"Ajout nouveau document (document similaire)"
+
+msgid	"Keep original document"
+msgstr	"Garde le document original"
+
+msgid	"import keys"
+msgstr	"clefs d'import"
+
+msgid	"no key2"
+msgstr	"pas de clef"
+
+msgid	"values use for new document (not for update)"
+msgstr	"valeurs utilisées pour les nouveaux documents (pas pour la mise à "
+	"jour)"
+
+msgid	"default import values"
+msgstr	"Valeurs par défaut pour l'import"
+
+msgid	"Analyze only"
+msgstr	"Analyse seulement"
+
 msgid	"Choose a father category"
 msgstr	"Choisissez une catégorie père"
 
@@ -2030,14 +2198,29 @@ msgstr	"ajout"
 msgid	"Choose new categories"
 msgstr	"Choisissez de nouvelles catégories"
 
-msgid	"Import Results"
-msgstr	"Résultat de l'importation"
+msgid	"documents to examine"
+msgstr	"documents à prendre en compte"
 
-msgid	"personn added"
-msgstr	"Personnes ajoutées"
+msgid	"line"
+msgstr	"ligne"
 
-msgid	"personn deleted"
-msgstr	"Personnes supprimées"
+msgid	"foldername"
+msgstr	"dossier"
+
+msgid	"id"
+msgstr	"id"
+
+msgid	"familyname"
+msgstr	"famille"
+
+msgid	"message"
+msgstr	"message"
+
+msgid	"changes"
+msgstr	"modifications"
+
+msgid	"error"
+msgstr	"erreur"
 
 msgid	"bilan"
 msgstr	"bilan"
@@ -2186,9 +2369,6 @@ msgstr	"famille"
 msgid	"any familly"
 msgstr	"toute famille"
 
-msgid	"folders"
-msgstr	"Dossier"
-
 msgid	"save query in current folder"
 msgstr	"sauver la requête dans le dossier courant"
 
@@ -2277,13 +2457,10 @@ msgid	"for"
 msgstr	"pour"
 
 msgid	"import file:"
-msgstr	"Importer un fichier"
+msgstr "Fichier à importer :"
 
 msgid	"Analyze"
 msgstr	"Analyse"
-
-msgid	"With Double"
-msgstr	"Avec double"
 
 msgid	"Direct Import"
 msgstr	"Import direct"
@@ -2354,17 +2531,8 @@ msgstr	"Lancer l'import"
 msgid	"Analysis Results"
 msgstr	"Résultat de l'analyse"
 
-msgid	"foldername"
-msgstr	"dossier"
-
 msgid	"filename"
 msgstr	"fichier"
-
-msgid	"familyname"
-msgstr	"famille"
-
-msgid	"action"
-msgstr	"action"
 
 msgid	"err"
 msgstr	"err"
@@ -2738,6 +2906,15 @@ msgstr	"Changer de catégorie"
 msgid	"View properties"
 msgstr	"Voir les propriétés"
 
+#~ msgid	"With Double"
+#~ msgstr	"Avec double"
+
+#~ msgid	"personn added"
+#~ msgstr	"Personnes ajoutées"
+
+#~ msgid	"personn deleted"
+#~ msgstr	"Personnes supprimées"
+
 #~ msgid	"and add  in %s folder "
 #~ msgstr	"et ajout dans dossier %s"
 
@@ -2936,9 +3113,6 @@ msgstr	"Voir les propriétés"
 #~ msgid	"search  incident contains %s in %s"
 #~ msgstr	"recherche des incidents contenant %s dans %s"
 
-#~ msgid	"delete workflow"
-#~ msgstr	"supprimer un workflow"
-
 #~ msgid	"view folder"
 #~ msgstr	"voir dossier"
 
@@ -2971,9 +3145,6 @@ msgstr	"Voir les propriétés"
 
 #~ msgid	"Tfinal"
 #~ msgstr	"Transition close"
-
-#~ msgid	"import document"
-#~ msgstr	" importer le document"
 
 #~ msgid	"this document cannot be locked : it is not a revisable "
 #~ 	"document"
@@ -3063,9 +3234,6 @@ msgstr	"Voir les propriétés"
 
 #~ msgid	"cannot add folder : '%s'. It will be ancestor of itself"
 #~ msgstr	"ajout du dossier %s impossible, il est son propre ancêtre"
-
-#~ msgid	"updateldapok"
-#~ msgstr	"mise à jour du serveur LDAP"
 
 #~ msgid	"updateldapko"
 #~ msgstr	"échec de mise à jour du serveur LDAP"

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.21 2004/03/16 14:08:59 eric Exp $
+ * @version $Id: barmenu.php,v 1.22 2004/05/13 16:17:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.21 2004/03/16 14:08:59 eric Exp $
+// $Id: barmenu.php,v 1.22 2004/05/13 16:17:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -142,8 +142,8 @@ function barmenu(&$action) {
     }
   }
   if ($action->HasPermission("GENERIC_MASTER"))  {
-    //popupActive("helpmenu",1,'imvcard');
-    popupInactive("helpmenu",1,'imvcard');
+    popupActive("helpmenu",1,'imvcard');
+  
   }   else {
     popupInvisible("helpmenu",1,'imvcard'); 
   }

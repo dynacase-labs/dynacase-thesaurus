@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.50 2004/03/25 11:08:02 eric Exp $
+ * @version $Id: freedom_util.php,v 1.51 2004/05/13 16:17:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.50 2004/03/25 11:08:02 eric Exp $
+// $Id: freedom_util.php,v 1.51 2004/05/13 16:17:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -292,7 +292,11 @@ function getv(&$t,$k,$d="") {
   return $d;
 }
 
-// use to usort attributes
+/** 
+ * use to usort attributes
+ * @param BasicAttribute $a
+ * @param BasicAttribute $b
+ */
 function tordered($a, $b) {
   
   if (isset($a->ordered) && isset($b->ordered)) {
@@ -307,7 +311,14 @@ function tordered($a, $b) {
 }
 
 
+/**
+ * return the identificator of a family from internal name
+ *
+ * @param string $dbaccess database specification
+ * @param string $name internal family name
 
+ * @return int 0 if not found
+ */
 function getFamIdFromName($dbaccess, $name) {
   include_once("FDL/Class.DocFam.php");
   global $tFamIdName;

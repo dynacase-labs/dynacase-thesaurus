@@ -6,8 +6,8 @@
 
 
 <tr >
-  <td ><fieldset style="cursor:[cursor];"><legend>[frametext]</legend>
-<table width="100%"  >
+  <td ><fieldset style="cursor:[cursor];"><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
+<table width="100%" id="T[frameid]" >
 
 <tr class="FREEDOMBack1">
 
