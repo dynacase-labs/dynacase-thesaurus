@@ -3,7 +3,7 @@ BEGIN;0;de base;1;DocFile;BASE;;;;;;;
 TYPE;C;;;;;;;;;;;
 ;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-ATTR;FR_BASIC;;basique;N;N;frame;0;F;;;;
+ATTR;FR_BASIC;;basique;N;N;frame;0;W;;;;
 ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;O;Y;;;
 ;;;;;;;;;;;;
 END;0;-1;;;;;;;;;;
@@ -138,11 +138,11 @@ TYPE;C;;;;;;;;;;;
 ICON;search.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;GUI_COLOR;FR_BASIC;couleur intercalaire;N;N;color;30;O;;;;
-ATTR;SE_CRIT;;critère;N;N;frame;0;F;;;;
+ATTR;SE_CRIT;;critère;N;N;frame;0;W;;;;
 ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;100;W;;;;
 ATTR;SE_LATEST;SE_CRIT;dernière révision;N;N;enum;110;W;;;-;yes|oui,no|non,fixed|figé
-ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;N;text;120;W;;;;
-ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;130;R;;;;
+ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;N;enum;120;W;;;-;[bool]no|non,yes|oui
+ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;130;W;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFAM%;fdl.php;lfamilies(D,SE_FAM):SE_FAMID,SE_FAM
 ATTR;SE_FAMID;SE_CRIT;fid amille;N;N;docid;140;H;;;;
 ATTR;SE_CFLD;SE_CRIT;à partir du dossier;N;N;text;150;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFLD%;;
 ATTR;SE_IDFLD;SE_CRIT;dossier racine;N;N;docid;160;H;;;;
@@ -188,10 +188,11 @@ ICON;searchd.gif;;;;;;;;;;;
 METHOD;Method.DetailSearch.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;SE_FR_DETAIL;;Conditions;N;N;frame;0;F;;;;
-ATTR;SE_KEYS;SE_FR_DETAIL;mot-clefs;N;N;textlist;100;W;;;;
-ATTR;SE_ATTRIDS;SE_FR_DETAIL;attributs;N;N;textlist;110;W;;;;
-ATTR;SE_FUNCS;SE_FR_DETAIL;fonctions;N;N;textlist;120;W;;;;
-ATTR;SE_OLS;SE_FR_DETAIL;opérateurs logiques;N;N;textlist;130;W;;;;
+ATTR;SE_T_DETAIL;SE_FR_DETAIL;Conditions;N;N;array;300;W;;;;
+ATTR;SE_OLS;SE_T_DETAIL;opérateurs logiques;N;N;text;310;W;;;;
+ATTR;SE_ATTRIDS;SE_T_DETAIL;attributs;N;N;text;320;W;;;;
+ATTR;SE_FUNCS;SE_T_DETAIL;fonctions;N;N;text;330;W;;;;
+ATTR;SE_KEYS;SE_T_DETAIL;mot-clefs;N;N;text;340;W;;;;
 ;;;;;;;;;;;;
 END;0;;;;;;;;;;;
 // recherche détaillée;fromid;;id;class;name;;;;;;;
