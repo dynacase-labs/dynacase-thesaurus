@@ -52,6 +52,7 @@ function sendState(w) {
 <input type="hidden" name="zone" value="[mzone]">
 <input type="hidden" name="szone" value="[szone]">
 <input type="hidden" name="dochead" value="[dochead]">
+<input type="hidden" name="state" value="[state]">
 
 <table class="tableborder"  cellspacing="0" width="100%">
 <thead>
@@ -72,7 +73,7 @@ function sendState(w) {
 <tr class="FREEDOMBack1">
   <td  >
  <input type="submit" title="[TEXT:Send the email and change document state to] [tstate]" 
-        value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();sendState(self);"> 
+        value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall()"> 
  
 
   </td>

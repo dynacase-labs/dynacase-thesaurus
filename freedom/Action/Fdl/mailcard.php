@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.27 2003/05/15 09:11:36 eric Exp $
+// $Id: mailcard.php,v 1.28 2003/06/03 14:52:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,10 +40,12 @@ function mailcard(&$action) {
   if ($err != "") $action->exitError($err);
 
   sendmailcard($action);  
+
+
 }
 // -----------------------------------
 function sendmailcard(&$action) {
-  return sendCard($action,
+  $err = sendCard($action,
 		  GetHttpVars("id"),
 		  GetHttpVars("_mail_to",''),
 		  GetHttpVars("_mail_cc",""),
@@ -55,6 +57,30 @@ function sendmailcard(&$action) {
 		  GetHttpVars("_mail_bcc",""), 
 		  GetHttpVars("_mail_format","html")
 		  );
+
+  if ($err != "") return $err;
+
+  // also change state sometime with confirmmail action
+  
+  $state = GetHttpVars("state"); 
+ 
+  if ($state != "") {
+    
+    $docid = GetHttpVars("id"); 
+  
+    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $doc = new Doc($dbaccess, $docid);
+    if ($doc->wid > 0) {
+      if ($state != "-") {
+	$wdoc = new Doc($dbaccess,$doc->wid);
+	$wdoc->Set($doc);
+	$err=$wdoc->ChangeState($state,_("email sended"),true);
+	if ($err != "")  $action-> ExitError($err);
+      }
+    } else {
+      $action->AddLogMsg(sprintf(_("the document %s is not related to a workflow"),$doc->title));
+    }
+  }
 }
 // -----------------------------------
 function sendCard(&$action,
