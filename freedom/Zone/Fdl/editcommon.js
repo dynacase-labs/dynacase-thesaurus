@@ -306,11 +306,11 @@ function getInputsByName(n) {
     // try with select
     ti= document.getElementsByTagName("select");
     
-    for (var i=0; i< ti.length; i++) { 
-    if (pos==-1) ni=ti[i].name;
-    else ni=ti[i].name.substr(0,pos);
-    if ((ni == n) && (ti[i].name.substr(ti[i].name.length-4,4) != '[-1]')) {	
-	
+    for (var i=0; i< ti.length; i++) {       
+      pos=ti[i].name.indexOf('[');
+      if (pos==-1) ni=ti[i].name;
+      else ni=ti[i].name.substr(0,pos);
+      if ((ni == n) && (ti[i].name.substr(ti[i].name.length-4,4) != '[-1]')) {		
 	t.push(ti[i]);
       }
     }      
