@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.4 2002/02/22 15:34:54 eric Exp $
+// $Id: viewfolder.php,v 1.5 2002/03/06 17:19:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,6 +58,11 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $dir = new Dir($dbaccess,$dirid);
   $dirid=$dir->initid;  // use initial id for directories
 
+
+  // control open
+  if (($err=$dir->Control("open")) != "")  $action->exitError($err);
+
+  $action->lay->Set("dirtitle",$dir->title);
   $action->lay->Set("dirid",$dirid);
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -135,7 +140,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     include_once("FDL/popup_util.php");
     // ------------------------------------------------------
     // definition of popup menu
-    popupInit("popuplist",array('vprop','editdoc','cancel','copy','delete'));
+    popupInit("popuplist",array('vprop','editdoc','cancel','copy','duplicate','delete'));
 
   }
 
@@ -206,6 +211,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  popupActive("popuplist",$kdiv,'vprop');
 	  popupActive("popuplist",$kdiv,'cancel');
 	  popupActive("popuplist",$kdiv,'copy');
+	  popupActive("popuplist",$kdiv,'duplicate');
 
 	  if ($dirid > 0) popupActive("popuplist",$kdiv,'delete');
 	  else popupInactive("popuplist",$kdiv,'delete');
@@ -227,8 +233,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	else $tdoc[$k]["revision"]="";
 	$tdoc[$k]["state"]= $doc->state;
       
-
+	
 	      
+	if ($doc->classname == 'Dir') $tdoc[$k]["isfld"]= "true";
+	else $tdoc[$k]["isfld"]= "false";
 	
 	if ($with_abstract) {
 	  // search abstract for freedom item
