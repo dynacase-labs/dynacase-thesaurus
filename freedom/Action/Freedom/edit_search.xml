@@ -32,6 +32,13 @@ TD.tlist {
 var isNetscape = navigator.appName=="Netscape";
 if (! isNetscape) displaytable='inline'
 else displaytable='table-row'
+
+
+
+function refreshfld(dirid) {
+   if (dirid > 0 )
+   parent.fldexp.document.location.href='[CORE_STANDURL]&app=FREEDOM&action=EXPANDFLD&dirid='+dirid;
+}
   //-->
    </script>   
 
@@ -45,7 +52,9 @@ else displaytable='table-row'
 
 
 <!-- Title Table -->
-<form  target="info" class="fborder" name="search" method="POST" action="[CORE_STANDURL]&app=FREEDOM&action=SEARCH" >
+<form  target="info" class="fborder" name="search" method="POST" 
+       onsubmit="if (document.getElementById('isave').checked) setTimeout('refreshfld(parent.ffolder.dirid)',2000)"
+       action="[CORE_STANDURL]&app=FREEDOM&action=SEARCH" >
 
 <table class="tablesimple" cellspacing="0"  width="100%" >
 <thead>
@@ -82,7 +91,7 @@ else displaytable='table-row'
      <td class="tlist" align="right">
       <label for="latest"> [TEXT: save query in current folder]&nbsp;:</label></td>
      <td class="tlist">
-      <input type="checkbox" name="save" value="true"  
+      <input id="isave" type="checkbox" name="save" value="true"  
              onClick="if (this.checked) document.getElementById('ititle').style.display=displaytable; else document.getElementById('ititle').style.display='none';"> </td>
 </tr>
 
