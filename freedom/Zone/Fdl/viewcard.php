@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.36 2003/05/12 16:27:14 eric Exp $
+// $Id: viewcard.php,v 1.37 2003/05/19 15:48:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -106,7 +106,7 @@ function viewcard(&$action) {
   
   if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
     setlocale (LC_TIME, "fr_FR");
-    $action->lay->Set("revdate", strftime ("%a %d %b %H:%M",$doc->revdate));
+    $action->lay->Set("revdate", strftime ("%a %d %b %Y %H:%M",$doc->revdate));
   } else {
     $action->lay->Set("revdate", strftime ("%x %T",$doc->revdate));
   }

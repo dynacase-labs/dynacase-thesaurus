@@ -19,7 +19,7 @@ ATTR;US_PHONE;US_FR_COORD;téléphone;N;Y;text;90;W;;;;;
 ATTR;US_FAX;US_FR_COORD;fax;N;N;text;110;W;;;;;
 ATTR;US_MOBILE;US_FR_COORD;mobile;N;N;text;120;W;;;;;
 ATTR;US_FR_SOC;;Société;N;N;frame;130;W;;;;;
-ATTR;US_IDSOCIETY;US_FR_SOC;id société;N;N;text;140;H;;;;;
+ATTR;US_IDSOCIETY;US_FR_SOC;id société;N;N;docid;140;H;;;;;
 ATTR;US_SOCADDR;US_FR_SOC;même adresse ?;N;N;text;150;H;;;;;
 ATTR;US_SOCIETY;US_FR_SOC;site société;N;Y;text;160;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%
 ATTR;US_TYPE;US_FR_SOC;fonction;N;N;text;170;W;;;;;

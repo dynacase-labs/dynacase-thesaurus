@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.Incident.php,v 1.2 2003/02/25 09:54:48 eric Exp $
+// $Id: Method.Incident.php,v 1.3 2003/05/19 15:48:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.Incident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,7 +71,7 @@ function SpecRefresh() {
   if (GetParam("CORE_LANG") == "fr_FR") { 
     // date format depend of locale
       setlocale (LC_TIME, "fr_FR");
-    $revdate = strftime ("%a %d %b %H:%M",$doc->revdate);
+    $revdate = strftime ("%a %d %b %Y %H:%M",$doc->revdate);
   } else {
      $revdate =  strftime ("%x %T",$doc->revdate);
   }
