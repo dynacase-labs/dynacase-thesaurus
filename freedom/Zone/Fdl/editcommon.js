@@ -949,11 +949,13 @@ function duptr() {
     tbodyselid=tbodysel.id;
     tnewid='tnew'+tbodyselid.substr(5);
     if (document.getElementById(tnewid)) {
+      alert('indirect');
       ntr=addtr(tnewid,tbodyselid);
       afterCloneBug(seltr,ntr);
     
     } else {
       // direct clone tr
+      alert('direct');
       csel=seltr.cloneNode(true);
       csel.style.backgroundColor='';
       seltr.parentNode.insertBefore(csel,seltr);

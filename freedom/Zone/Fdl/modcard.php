@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.69 2005/02/17 07:51:02 eric Exp $
+ * @version $Id: modcard.php,v 1.70 2005/02/18 07:46:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -128,19 +128,19 @@ function modcard(&$action, &$ndocid) {
       $ndocid = $doc->id;
     }
     $doc->lmodify='Y'; // locally modified
-    $doc->refresh();
-    $err=$doc-> PostModify(); 
-    // add trace to know when and who modify the document
-    if ( $docid == 0 ) {
-      //$doc->Addcomment(_("creation"));
-    } else {
-      $doc->Addcomment(_("change"));
-    }
-    if ($err=="") {$err.=$doc-> Modify();  }
-
     $ndocid = $doc->id;
-    // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
-    if (!$noredirect) {
+    if (!$noredirect) { // else quick save
+      $doc->refresh();
+      $err=$doc-> PostModify(); 
+      // add trace to know when and who modify the document
+      if ( $docid == 0 ) {
+	//$doc->Addcomment(_("creation"));
+      } else {
+	$doc->Addcomment(_("change"));
+      }
+      if ($err=="") {$err.=$doc-> Modify();  }
+
+      // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
       $doc->unlock(true); // disabled autolock
   
       if ($err == "") {
