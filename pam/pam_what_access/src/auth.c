@@ -35,6 +35,123 @@
  * get the username and password from the application
  * and check against the database
  */
+
+db_conn *conn;
+
+int GetGroup(int iduser,
+	     int *groups,
+	     int *nb)
+{
+
+  char query[BUFLEN];
+  db_result *result=NULL;
+  int i;
+  /* set up the query string */
+  *nb=0;
+  snprintf (query, BUFLEN-1, "select idgroup from groups where iduser= %d",
+	    iduser);
+
+  result = db_exec (conn, query);
+  if ( ! result ) {
+    syslog (LOG_DEBUG, "Query failed [%s]", query);
+
+    return 0;
+  }
+ /* */
+  *nb=PQntuples(result);
+  for (i = 0; i < PQntuples(result); i++)
+    {        
+      groups[i] = atoi(PQgetvalue(result, i, 0));
+      
+    }
+
+    db_free_result(result);
+    return (*nb);
+
+  
+}
+
+
+
+int HasPrivilege(int iduser,
+		 int idacl) 
+{
+    
+  char query[BUFLEN];
+  db_result *result=NULL;
+  /* set up the query string */
+  int groups[100];
+  int i,nbgroup;
+
+
+
+  /*---------- search privilege in user  ----------*/
+  snprintf (query, BUFLEN-1, 
+	    "select id_acl from permission where (id_user=%d) and (id_acl=%d)",
+	    iduser,
+	    idacl);
+
+  result = db_exec (conn, query);
+  if ( ! result ) {
+    syslog (LOG_DEBUG, "Query failed [%s]", query);
+
+    return 0;
+  }
+
+  if ( db_numrows(result) == 1 ) {
+    syslog (LOG_DEBUG, "Access grented for user %d [%s]", iduser,query);
+    db_free_result(result);
+
+    return 1;
+  }
+  db_free_result(result);
+
+
+
+  /*---------- search UNprivilege in user  ----------*/
+  snprintf (query, BUFLEN-1, 
+	    "select id_acl from permission where (id_user=%d) and (id_acl=%d)",
+	    iduser,
+	    -idacl);
+
+  result = db_exec (conn, query);
+  if ( ! result ) {
+    syslog (LOG_DEBUG, "Query failed [%s]", query);
+
+    return 0;
+  }
+
+  if ( db_numrows(result) > 0 ) { // The user has explicitly a unprivilege
+    syslog (LOG_DEBUG, "Access failed for user %d [%s]", iduser,query);
+    db_free_result(result);
+
+    return 0;
+  }
+  db_free_result(result);
+  
+
+  /*---------- search privilege in user group ----------*/
+  GetGroup(iduser, groups, &nbgroup);
+  
+  for (i = 0; i < nbgroup; i++) {
+
+    if (HasPrivilege (groups[i], idacl)) return 1;
+    
+  }
+
+  /*---------- end group searches ----------*/
+
+
+
+
+  return 0;
+  
+
+ 
+}
+
+
+
 PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 				    int argc, const char **argv)
 {
@@ -42,13 +159,12 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   const char  *userdomain, *passwd;
   char user[LUSER],optdomain[50+LDOMAIN],*stok,domain[LDOMAIN], userdomaintmp[LUSER+LDOMAIN+1];
   char query[BUFLEN];
-  db_conn *conn;
   db_result *result=NULL;
   opt_t *opts=NULL;
+  int userid=0;
+  int aclid=0;
 
-  char passwdk[50];
-  char salt[3]; // to crypt passwd
-  passwd = NULL; /* ?? */
+
 
 #ifdef HAVE_PAM_FAIL_DELAY
   pam_fail_delay (pamh, 2500);
@@ -65,8 +181,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
       return PAM_AUTHINFO_UNAVAIL;
     }
     pam_set_data (pamh, _PAM_SQL_OPT_HANDLE, (void *) opts, pam_sql_opt_free);
-
-    /*  }*/
+ /*   } */
 
 
   /* get the username */
@@ -77,24 +192,24 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   } 
 
 
-
   // test limits
   if (strlen(userdomain) > (LDOMAIN+LUSER)) {
     syslog (LOG_NOTICE, "user login name and domain too long");
     return PAM_AUTH_ERR;
   }
 
+
   /* connect to the database */
   /* db_connect logs it's own errors */
-  conn = db_connect (opts);  if ( ! conn ) {
+  conn = db_connect (opts);
+  if ( ! conn ) {
     return PAM_AUTHINFO_UNAVAIL;
   }
-
 
   /* user can be composed : user@zou.com or user_zou.com */
   strcpy(userdomaintmp, userdomain);
 
-  stok=strtok(userdomaintmp,"@_");
+  stok=strtok(userdomaintmp,"@_");  
 
   if (stok) {
     if (strlen(stok) >= (LUSER)) {
@@ -105,10 +220,8 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
     strcpy(user,stok);
   }
 
-
   stok=strtok(NULL,"@_");
   if (stok) {
-    
     if (strlen(stok) >= (LDOMAIN)) {
       syslog (LOG_NOTICE, "user domain name too long");
       db_close(conn);
@@ -116,8 +229,27 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
     }
     strcpy(domain,stok);
 
-    sprintf(optdomain, "AND (t4.\"name\" = '%s')",domain );
+    /* set up the query string */
+    snprintf (query, BUFLEN-1, 
+	      "select iddomain from domain where name='%s' ", 
+	      domain);
+
+    result = db_exec (conn, query);
+    if ( ! result ) {
+      syslog (LOG_ERR, "Query failed %s",query);
+      db_close(conn);
+      return PAM_AUTH_ERR;
+    }
+  
+    if ( db_numrows(result) != 1 ) {
+      syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
+      db_free_result(result);
+      db_close(conn);
+      return PAM_AUTH_ERR;
+    }
     
+    sprintf(optdomain, "AND iddomain = '%s'", db_getvalue(result));
+    db_free_result(result);
   } else {
     strcpy(optdomain,"");
   }
@@ -126,46 +258,78 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   /* FIXME: error check? */
   conversation(pamh);
   
-
-  /* get the password */
-  retval = pam_get_item (pamh, PAM_AUTHTOK, (const void **) &passwd);
-  if ( retval != PAM_SUCCESS ) {
-    syslog (LOG_NOTICE, "No authtoken provided: %s", 
-	    pam_strerror(pamh, retval));
-    db_close(conn);
-    return retval;
-  }
   
+  
+
+  /*------------------------------ SEARCH USER ID ------------------------------ */
   
   /* set up the query string */
   snprintf (query, BUFLEN-1, 
-	    "select t0.\"description\" from \"acl\" t0,\"permission\" t1,\"users\" t2,\"application\" t3,\"domain\" t4  where  (t2.\"login\" = '%s') and (t3.\"name\" = '%s') and  (t0.\"name\"='%s') and (t2.\"id\"=t1.\"id_user\") and  (t3.\"id\"=t1.\"id_application\") and  (t0.\"id\"=t1.\"id_acl\") and  (t2.\"iddomain\"=t4.\"iddomain\") %s",
-	    
-	    user, opts->application, opts->access, optdomain);
-
-    
-  
+	    "select id from users where login='%s' %s", 
+	       user, optdomain);
 
     
   
 
   result = db_exec (conn, query);
   if ( ! result ) {
-    syslog (LOG_ERR, "Query failed [%s]", query);
+    syslog (LOG_DEBUG, "Query failed [%s]", query);
     db_close(conn);
     return PAM_AUTH_ERR;
   }
 
   
   if ( db_numrows(result) != 1 ) {
-    syslog (LOG_WARNING, "Access failed for user %s [%s]", user,query);
+    syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
     db_free_result(result);
     db_close(conn);
     return PAM_AUTH_ERR;
   }
  
-  syslog (LOG_DEBUG, "Access granted for user %s", user);
+
+  /* compare cryted passwords */
+  userid = atoi( db_getvalue(result));
   db_free_result(result);
+
+  /*------------------------------ SEARCH ACL ID ------------------------------ */
+  /* set up the query string */
+  snprintf (query, BUFLEN-1, 
+	    "select t0.\"id\", t1.\"name\" from \"acl\" t0,\"application\" t1  where  (t1.\"id\"=t0.\"id_application\") and (t1.\"name\" = '%s') and (t0.\"name\" = '%s')",
+	    opts->application,
+	    opts->access );
+
+    
+  
+
+  result = db_exec (conn, query);
+  if ( ! result ) {
+    syslog (LOG_DEBUG, "Query failed [%s]", query);
+    db_close(conn);
+    return PAM_AUTH_ERR;
+  }
+
+  
+  if ( db_numrows(result) != 1 ) {
+    syslog (LOG_DEBUG, "Unknow ACL [%s]", query);
+    db_free_result(result);
+    db_close(conn);
+    return PAM_AUTH_ERR;
+  }
+ 
+
+  /*  */
+  aclid = atoi( db_getvalue(result));
+  db_free_result(result);
+
+  /*---------------------------- COMPUTE PRIVILEGE ---------------------------- */
+  /* set up the query string */
+  if ((!userid) ||  
+      (! HasPrivilege(userid, aclid))) {
+    db_close(conn);
+    return PAM_AUTH_ERR;
+    
+  }
+
   db_close(conn);
   return PAM_SUCCESS;  
 }

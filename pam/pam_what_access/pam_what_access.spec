@@ -1,8 +1,8 @@
-# $Revision: 1.3 $, $Date: 2001/08/21 13:24:57 $
+# $Revision: 1.4 $, $Date: 2001/09/12 09:18:40 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what_access
-Version:	0.1.2
+Version:	0.2.0
 Release:	1
 License:	GPL or BSD
 Group:		Base
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what_access.spec,v $
+Revision 1.4  2001/09/12 09:18:40  eric
+modif algo pour privilege groupes : compatible libwhat 0.4.8
+
 Revision 1.3  2001/08/21 13:24:57  eric
 modification pour nouvelle gestion des ACL
 

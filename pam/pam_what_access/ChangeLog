@@ -1,4 +1,6 @@
 =========pam what ====
+0.2.0 : changement complet de l'algorithme pour tenir compte des groupes et des privlèges positif et négatif
+        compatibilité libwhat 0.4.8
 0.1.2 : correction fuite memoire
 	mise à jour pour nouvelles gestion des ACL
 
