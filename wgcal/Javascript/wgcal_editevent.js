@@ -17,6 +17,8 @@ function ChangeAlarm(state) {
   else alrm.style.display = 'none';
 }
 
+
+
 var NoHourState = 0;
 function ChangeNoHour(state) {
   chk = document.getElementById('nohour');
@@ -109,8 +111,11 @@ function refreshAttendees() {
       case 2: /* refused */
 	capp.style.background = 'red';
 	break;
-      default:
+      case 3:
 	capp.style.background = 'orange';
+	break;
+      default:
+	capp.style.background = 'yellow';
       }
     }
   }
@@ -119,8 +124,8 @@ function refreshAttendees() {
 
 function getAttendeeIdx(aid) {
   var idx = -1;
-  for (i=0; i<attendeesList.length && idx==-1; i++) {
-    if (attendeesList[i][0] == aid) idx = i;
+  for (i=0; i<attendeesList.length; i++) {
+    if (attendeesList[i][0] == aid) idx = ix;
   }
   return idx;
 }
@@ -138,12 +143,14 @@ function addRessource(rid, rtitle, ricon) {
 }
 
 function  deleteAttendee(aid) {
-  idx = getAttendeeIdx(aid);
-  if (idx == -1) return;
-  eltA = document.getElementById('tr'+aid);
-  if (!eltA) return;
-  eltA.parentNode.deleteRow(eltA.sectionRowIndex);
-  attendeesList[idx] = -1;
+  for (i=(attendeesList.length-1); i>=0; i--) {
+    if (aid == attendeesList[i][0]) {
+      eltA = document.getElementById('tr'+aid);
+      if (!eltA) return;
+      eltA.parentNode.deleteRow(eltA.sectionRowIndex);
+      attendeesList[i] = -1;
+    }
+  }
 }
 
 
@@ -153,7 +160,10 @@ function attkillwins() {
 }
 
 function saveEvent() {
-  document.getElementById('editevent').submit();
+   var fs = document.getElementById('editevent');
+   EventSelectAll(fs);
+   fs.submit();
+   fs.reset();
   //displayEvent(document.getElementById('eventid').value;	
   //self.close();
 }
@@ -164,3 +174,82 @@ function cancelEvent() {
   self.close();
 }
 
+var ExcludeDate = 0;
+
+function addExclDate() {
+
+  var list = document.getElementById('listexcldate');
+  var nOpt = new Option();
+  var ndate = document.getElementById('nexcldate').value;
+
+  var jdate = new Date(ndate*1000);
+  var y = jdate.getFullYear();
+  var m = jdate.getMonth();     // integer, 0..11
+  var d = jdate.getDate();
+  var ts = calendar.date.print("%s");
+
+  nOpt.id = 'exdate'+ExcludeDate;
+  nOpt.value = ndate;
+  nOpt.text  = calendar.date.print("%A %d %B %Y");
+  i = list.options.length;
+  list.options[i] = nOpt;
+  ExcludeDate++;
+}
+
+function delExclDate() {
+  var list = document.getElementById('listexcldate');
+  for (i=(list.options.length-1); i>=0; i--) {
+    if (list.options[i].selected) list.options[i] = null;
+  }
+}
+
+
+
+function ViewElement(eCheck, eDisplay) {
+  chk = document.getElementById(eCheck);
+  zon = document.getElementById(eDisplay);
+  if (chk.checked == true) {
+    zon.style.display = '';
+  } else {
+    zon.style.display = 'none';
+  }
+}
+
+function everyInfo() {
+  var checkone = -1;
+  evr = document.getElementsByName('repeattype');
+  for (i=0; i<evr.length; i++) {
+    if (evr[i].checked) checkone = i;
+  }
+
+  document.getElementById('d_rweekday').style.display = 'none';
+  document.getElementById('d_rmonth').style.display = 'none';
+
+  if (checkone==1) document.getElementById('d_rweekday').style.display = '';
+  if (checkone==2) document.getElementById('d_rmonth').style.display = '';
+
+}
+
+
+function EventSelectAll(f) {
+
+  var list = document.getElementById('listexcldate');
+  for (i=(list.options.length-1); i>=0; i--) {
+    list.options[i].selected = true;
+  }
+
+  alist = document.getElementById('attendees');
+  for (att=0; att<attendeesList.length; att++) {
+    if (attendeesList[att][0]==-1) continue;
+    var nOpt   = new Option();
+    nOpt.id    = 'natt'+attendeesList[att][0];
+    nOpt.value = attendeesList[att][0];
+    nOpt.text  = attendeesList[att][0]+'::'+attendeesList[att][1];
+    i = alist.options.length;
+    alist.options[i] = nOpt;
+  }
+  for (i=(alist.options.length-1); i>=0; i--) {
+    alist.options[i].selected = true;
+  }
+
+}

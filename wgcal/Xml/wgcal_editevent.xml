@@ -1,6 +1,7 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
-<form id="editevent" name="editevent" target="xxxx" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
+<form id="editevent" name="editevent" target="xxxx" method="POST" 
+      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 
 <table width="100%" style="margin-top: 1em;">
@@ -25,77 +26,82 @@
 </legend>
 
 <!-- Event default view -->
-
+<br>
 <div id="evmainzone" style="display:">
 
-[TEXT:rv title] : <input id="rvtitle" name="rvtitle" size="50" type="text" value="[TITLE]">
+[TEXT:rv title] : <input id="rvtitle" name="rvtitle" size="50" type="text" value="[TITLE]" [TITLERO]>
 
-<hr>
 
-<table>
-
-<tr valign="center">
-<td width="50%" id="tnohour">
-[TEXT:no hour] : <input id="nohour" name="nohour" type="checkbox" onclick="ChangeNoHour(swstate(NoHourState));">
-</td>
-<td width="50%" id="tallday">
-[TEXT:all the day] : <input id="allday" name="allday" type="checkbox" onclick="ChangeAllDay(swstate(AllDayState));">
-</td>
-</tr>
-</table>
-
-<table>
+<table id="datevis" width="100%" style="display:[DATEVIS]">
 <tr id="start_hour" style="display:none">
-<td>[TEXT:start date] : </td>
+<td align="right">[TEXT:start date] : </td>
 <td>
-<input type="text" size="10" value="[STARTREAD]" id="rvstart" >
-<input type="hidden" value="[START]" id="rvtsstart" name="rvtsstart">
-<img style="cursor:pointer" id="lrvstart"  alt="[TEXT:start date]" title="[TEXT:start date]" src="RENDEZVOUS/Images/cal-other.gif">
-<input type="text" size="2" value="[H_START]" id="hrvstart" >:<input size="2" type="text" value="[M_START]" id="mrvstart" >
+<img style="display:[DATEBUTVIS]; cursor:pointer" id="Brvstart"  alt="[TEXT:start date]" title="[TEXT:start date]" src="WGCAL/Images/cal-other.gif" height="15" >
+<span id="Trvstart">[STARTREAD]</span>
+<input type="hidden" value="[START]" id="rvstart" name="rvstart">
 
 <script type="text/javascript">
   Calendar.setup(
     {
       inputField   : "rvstart",        
-      ifFormat     : "%d/%m/%Y",   
+      displayArea  : "Trvstart",        
+      ifFormat     : "%s",   
+      daFormat     : "[DFMT]",
       showsTime    : false,
-      singleClick  : true,
-      button       : "lrvstart",
+      button       : "Brvstart",
       date         : new Date([mSTART]),
+      weekNumbers  : false,
       firstDay     : 1
     }
   );
-</script></td>
+</script>
+<input type="text" size="2" value="[H_START]" [DATERO] id="hrvstart" name="hrvstart" >
+:<input size="2" type="text" value="[M_START]" [DATERO] id="mrvstart" name="mrvstart">
+</td>
 </tr>
 
 <tr id="end_hour" style="display:none">
-<td>[TEXT:end date] : </td>
+<td align="right">[TEXT:end date] : </td>
 <td>
-<input type="text" size="10" value="[ENDREAD]" id="rvend" >
-<input type="hidden" value="[END]" id="rvtsend" name="rvtsend">
-<img style="cursor:pointer" id="lrvend"  alt="[TEXT:end date]" title="[TEXT:end date]" src="RENDEZVOUS/Images/cal-other.gif">
-<input type="text" size="2" value="[H_END]" id="hrvend" >:<input size="2" type="text" value="[M_END]" id="mrvend" >
+<img style="display:[DATEBUTVIS]; cursor:pointer" id="Brvend"  alt="[TEXT:end date]" title="[TEXT:end date]" src="WGCAL/Images/cal-other.gif" height="15" >
+<span id="Trvend">[ENDREAD]</span>
+<input type="hidden" value="[END]" id="rvend" name="rvend">
 <script type="text/javascript">
   Calendar.setup(
     {
       inputField   : "rvend",        
-      ifFormat     : "%d/%m/%Y",   
+      displayArea  : "Trvend",        
+      ifFormat     : "%s",   
+      daFormat     : "[DFMT]",
       showsTime    : false,
-      singleClick  : true,
-      button       : "lrvend",
+      button       : "Brvend",
       date         : new Date([mEND]),
+      weekNumbers  : false,
       firstDay     : 1
     }
   );
-</script></td>
-<tr>
+</script>
+<input type="text" size="2" value="[H_END]" [DATERO] name="hrvend" id="hrvend" >
+:<input size="2" type="text" value="[M_END]" [DATERO] name="mrvend" id="mrvend" >
+</td>
+</tr></table>
 
+<hr>
+<table>
+<tr valign="center">
+<td width="50%" id="tnohour">
+[TEXT:no hour] : <input [NOHOURRO] id="nohour" name="nohour" type="checkbox" onclick="ChangeNoHour(swstate(NoHourState));">
+</td>
+<td width="50%" id="tallday">
+[TEXT:all the day] : <input [ALLDAYRO] id="allday" name="allday" type="checkbox" onclick="ChangeAllDay(swstate(AllDayState));">
+</td>
+</tr>
 </table>
 
 
 <hr>
 
-[TEXT:rv note] : <textarea cols="40" rows="3" id="rvnote" name="rvnote">[DESCR]</textarea>
+[TEXT:rv note] : <textarea cols="40" rows="3" id="rvnote" name="rvnote" [DESCRRO]>[DESCR]</textarea>
 
 <hr>
 
@@ -114,15 +120,15 @@
 <hr>
 
 [TEXT:alarm] : <input id="AlarmCheck" name="AlarmCheck" type="checkbox"
-                      onClick="ChangeAlarm(-1)" >
+                      onClick="ChangeAlarm(-1)" [ALARMRO]>
 
-<span id="AlarmVis"">
+<span id="AlarmVis" style="display:[ALRMVIS]">
 &nbsp;
-<select id="alarmhour" name="alarmhour">[BLOCK ALARM_HR]
+<select id="alarmhour" name="alarmhour" [ALARMRO]>[BLOCK ALARM_HR]
 <option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_HR]
 </select>&nbsp;[TEXT:hour]&nbsp;&nbsp;
 
-<select id="alarmmin" name="alarmmin">[BLOCK ALARM_MIN]
+<select id="alarmmin" name="alarmmin" [ALARMRO]>[BLOCK ALARM_MIN]
 <option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_MIN]
 </select>&nbsp;[TEXT:minutes]&nbsp;[TEXT:before]
 
@@ -132,63 +138,6 @@
 
 
 <!-- Repeat zone -->
-<script type="text/javascript">
-
-function ViewElement(eCheck, eDisplay) {
-  chk = document.getElementById(eCheck);
-  zon = document.getElementById(eDisplay);
-  if (chk.checked == true) {
-    zon.style.display = '';
-  } else {
-    zon.style.display = 'none';
-  }
-}
-
-function everyInfo() {
-  var checkone = -1;
-  evr = document.getElementsByName('repeattype');
-  for (i=0; i<evr.length; i++) {
-    if (evr[i].checked) checkone = i;
-  }
-
-  document.getElementById('d_rweekday').style.display = 'none';
-  document.getElementById('d_rmonth').style.display = 'none';
-
-  if (checkone==1) document.getElementById('d_rweekday').style.display = '';
-  if (checkone==2) document.getElementById('d_rmonth').style.display = '';
-
-
-}
-
-var ExcludeDate = 0;
-
-function addExclDate() {
-
-  var list = document.getElementById('listexcldate');
-  var nOpt = new Option();
-  var ndate = document.getElementById('nexcldate').value;
-
-  var jdate = new Date(ndate*1000);
-  var y = jdate.getFullYear();
-  var m = jdate.getMonth();     // integer, 0..11
-  var d = jdate.getDate();
-  var ts = calendar.date.print("%s");
-
-  nOpt.id = 'exdate'+ExcludeDate;
-  nOpt.value = ndate;
-  nOpt.text  = calendar.date.print("%A %d %B %Y");
-  i = list.options.length;
-  list.options[i] = nOpt;
-  ExcludeDate++;
-}
-
-function delExclDate() {
-  var list = document.getElementById('listexcldate');
-  for (i=(list.options.length-1); i>=0; i--) {
-    if (list.options[i].selected) list.options[i] = null;
-  }
-}
-</script>
 
 <div id="evrepeatzone" style="display:none">
 
@@ -197,31 +146,31 @@ function delExclDate() {
 
   <div style="width:100%; left:20px;">
    [TEXT:every] : 
-    <input onclick="everyInfo()" type="radio" id="repeattype0" name="repeattype" value="0" [REPEATTYPE_0]>[TEXT:day]
-    <input onclick="everyInfo()" type="radio" id="repeattype1" name="repeattype" value="1" [REPEATTYPE_1]>[TEXT:week]
-    <input onclick="everyInfo()" type="radio" id="repeattype2" name="repeattype" value="2" [REPEATTYPE_2]>[TEXT:month]
-    <input onclick="everyInfo()" type="radio" id="repeattype3" name="repeattype" value="3" [REPEATTYPE_3]>[TEXT:year]
-   ([TEXT:frequency] <input id="rfrequency" name="rfrequency" size="1" type="text" value="[FREQVALUE]">)
+    <input onclick="everyInfo()" type="radio" id="repeattype0" name="repeattype" value="0" [repeatdis] [REPEATTYPE_0]>[TEXT:day]
+    <input onclick="everyInfo()" type="radio" id="repeattype1" name="repeattype" value="1" [repeatdis] [REPEATTYPE_1]>[TEXT:week]
+    <input onclick="everyInfo()" type="radio" id="repeattype2" name="repeattype" value="2" [repeatdis] [REPEATTYPE_2]>[TEXT:month]
+    <input onclick="everyInfo()" type="radio" id="repeattype3" name="repeattype" value="3" [repeatdis] [REPEATTYPE_3]>[TEXT:year]
+   ([TEXT:frequency] <input id="rfrequency" name="rfrequency" size="1" type="text" value="[FREQVALUE]" [repeatdis]>)
   </div>
 
 <br>
 
   <div id="d_rweekday" style="left:10%; width:100%; align:center; display:[D_RWEEKDISPLAY]">
    [TEXT:day repetition] : <br>
-    <input type="radio" id="rweekday" name="rweekday" value="1" [D_RWEEKDISPLAY_1]>[TEXT:monday]
-    <input type="radio" id="rweekday" name="rweekday" value="2" [D_RWEEKDISPLAY_2]>[TEXT:tuesday]
-    <input type="radio" id="rweekday" name="rweekday" value="3" [D_RWEEKDISPLAY_3]>[TEXT:wenesday]
-    <input type="radio" id="rweekday" name="rweekday" value="4" [D_RWEEKDISPLAY_4]>[TEXT:thurday]
-    <input type="radio" id="rweekday" name="rweekday" value="5" [D_RWEEKDISPLAY_5]>[TEXT:friday]
-    <input type="radio" id="rweekday" name="rweekday" value="6" [D_RWEEKDISPLAY_6]>[TEXT:saturday]
-    <input type="radio" id="rweekday" name="rweekday" value="7" [D_RWEEKDISPLAY_7]>[TEXT:sunday]
+    <input type="radio" id="rweekday" name="rweekday" value="1" [repeatdis] [D_RWEEKDISPLAY_1]>[TEXT:monday]
+    <input type="radio" id="rweekday" name="rweekday" value="2" [repeatdis] [D_RWEEKDISPLAY_2]>[TEXT:tuesday]
+    <input type="radio" id="rweekday" name="rweekday" value="3" [repeatdis] [D_RWEEKDISPLAY_3]>[TEXT:wenesday]
+    <input type="radio" id="rweekday" name="rweekday" value="4" [repeatdis] [D_RWEEKDISPLAY_4]>[TEXT:thurday]
+    <input type="radio" id="rweekday" name="rweekday" value="5" [repeatdis] [D_RWEEKDISPLAY_5]>[TEXT:friday]
+    <input type="radio" id="rweekday" name="rweekday" value="6" [repeatdis] [D_RWEEKDISPLAY_6]>[TEXT:saturday]
+    <input type="radio" id="rweekday" name="rweekday" value="7" [repeatdis] [D_RWEEKDISPLAY_7]>[TEXT:sunday]
     <br>
   </div>
 
   <div id="d_rmonth" style="left:10%; display:[D_RMONTH]">
    [TEXT:month repetition] : <br>
-    <input type="radio" id="rmonth" name="rmonth" value="0" [D_RMONTH_DATE_CHECKED]>[TEXT:per date]
-    <input type="radio" id="rmonth" name="rmonth" value="1" [D_RMONTH_DAY_CHECKED]>[TEXT:per day]
+    <input type="radio" id="rmonth" name="rmonth" value="0" [repeatdis] [D_RMONTH_DATE_CHECKED]>[TEXT:per date]
+    <input type="radio" id="rmonth" name="rmonth" value="1" [repeatdis] [D_RMONTH_DAY_CHECKED]>[TEXT:per day]
     <br>
   </div>
 
@@ -231,23 +180,29 @@ function delExclDate() {
 <div width="100%">
 
   <br>[TEXT:repeat until] : 
-  <input type="radio" id="runtil0" name="runtil" onClick="ViewElement('runtil1', 'vrununtil');" value="0" [D_RUNTIL_0]>[TEXT:forever]
-  <input type="radio" id="runtil1" name="runtil" onClick="ViewElement('runtil1', 'vrununtil');" value="1" [D_RUNTIL_1]>[TEXT:this date]&nbsp;:&nbsp;
-  <span id="vrununtil" style="display:[RUNUNTIL_DATE_DISPLAY]">
-  <input style="border: 1px outset [CORE_BGCOLORHIGH]" 
-         type="text" value="[uDate]" id="runtildate" 
-         name="runtildate" title="[TEXT:click to change the date]" 
-         readonly>
- <img style="cursor:pointer" id="runtildatebutton"  name="runtildatebutton" title="[TEXT:click to select a date]"  src="RENDEZVOUS/Images/cal-other.gif">
+  <input type="radio" id="runtil" name="runtil" onClick="ViewElement('runtild', 'vrununtil');" 
+         value="0" [D_RUNTIL_INFI] [repeatdis]>[TEXT:forever]
+  <input type="radio" id="runtild" name="runtil" onClick="ViewElement('runtild', 'vrununtil');" 
+         value="1" [D_RUNTIL_DATE] [repeatdis]>[TEXT:this date]&nbsp;:&nbsp;
+
+ <span id="vrununtil" style="display:[RUNUNTIL_DATE_DISPLAY]">
+
+ <img style="display:[repeatvie]; cursor:pointer" id="runtildatebutton"  name="runtildatebutton" 
+      title="[TEXT:click to select a date]"  height="15" src="WGCAL/Images/cal-other.gif">
+
+ <input type="hidden" id="Vruntildate" name="Vruntildate" value="">
+ <span id="runtildate">[uDate]</span>
  <script type="text/javascript">
     Calendar.setup(
       {
-        inputField   : "runtildate",        
-        ifFormat     : "%d %B %Y",   
+        inputField   : "Vruntildate",        
+        displayArea  : "runtildate",        
+        ifFormat     : "%s",   
+        daFormat     : "[DFMT]",
         showsTime    : false,
-        singleClick  : true,
         button       : "runtildatebutton",
         date         : new Date([umDate]),
+        weekNumbers  : false,
         firstDay     : 1
       }
     );
@@ -257,28 +212,31 @@ function delExclDate() {
 
 <fieldset><legend>[TEXT:exclude days]</legend>
 
+<span style="display:[repeatvie]">
 <img id="nexcldatebut" name="nexcldatebut"
      title="[TEXT:add a new day to exclude]" style="cursor:pointer" 
-     height="15" src="WGCAL/Images/wgcal-plus.gif">
+     height="12" src="WGCAL/Images/wgcal-plus.gif">
+<br>
+<img title="[TEXT:del selected dates]" onClick="delExclDate()" 
+     height="12" src="WGCAL/Images/wgcal-minus.gif">
+</span>
 
-
+<span>
 <select id="listexcldate" name="listexcldate[]" width="20" size="5" multiple>
 [BLOCK EXCLDATE]<option id="exdate[iDate]" value="[mDate]">[rDate]</option>[ENDBLOCK EXCLDATE]
 </select>
-<img title="[TEXT:del selected dates]" onClick="delExclDate()" 
-     height="15" src="WGCAL/Images/wgcal-minus.gif">
+</span>
 
-
-<input onChange="addExclDate();" type="hidden" id="nexcldate" name="nexcldate">
+<input onChange="addExclDate();" type="hidden" id="nexcldate" >
 <script type="text/javascript">
 Calendar.setup(
     {
         inputField   : "nexcldate",        
         ifFormat     : "%s",   
         showsTime    : false,
-        singleClick  : true,
         button       : "nexcldatebut",
         date         : new Date(),
+        weekNumbers  : false,
         firstDay     : 1
       }
     );
@@ -289,13 +247,14 @@ Calendar.setup(
 
 </div> <!-- end of repeat zone -->
 
+<span style="display:none"><select  id="attendees" name="attendees[]" multiple></select></span>
 
 <div id="evattendeeszone" style="display:none">
 
 <fieldset id='vical' class="WGCListRess">
   <legend class="WGCToolTitle">[TEXT:attendees]&nbsp;
 
-  <img id="addattendee" style="cursor:pointer;" 
+  <img id="addattendee" style="display:[attendeesro]; cursor:pointer;" 
      onclick="attpicker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');" 
      height="15"
      src="WGCAL/Images/ress-modify.gif" title="[TEXT:add attendees]">
@@ -311,7 +270,7 @@ Calendar.setup(
 <tbody id="tabress">
 
 <tr style="display:none" id="trsample">
-<td> <img style="cursor:pointer;border:1px outset grey" height="8"  
+<td> <img style="display:[attendeesro];cursor:pointer;border:1px outset grey" height="8"  
           src="WGCAL/Images/wgcal-suppress.gif" 
           onclick="deleteAttendee('%RID%');" 
           title="[TEXT:delete attendee] %RDESCR%">
@@ -341,6 +300,9 @@ Calendar.setup(
  ChangeNoHour([NOHOUR]);
  ChangeAllDay([ALLDAY]);
  ChangeAlarm([ALARM]);
+
+ [BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]');
+ [ENDBLOCK ADD_RESS] 
  //window.onunload = cancelEvent;
 </script>
 

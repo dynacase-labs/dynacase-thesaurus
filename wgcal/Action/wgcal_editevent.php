@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.6 2004/12/24 17:44:55 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.7 2004/12/26 19:30:51 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -13,6 +13,9 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/WGCAL_calevent.php");
+
+global $fdate;
+$fdate = "%A %d %b %Y";
 
 function wgcal_editevent(&$action) {
 
@@ -36,110 +39,189 @@ function wgcal_editevent(&$action) {
   
 
   $time = GetHttpVars("time", time());
-  InitNewRv($action, $time);
+  $evid = GetHttpVars("evt", -1);
+  if ($evid==-1) InitNewRv($action, $time);
 
 }
 
 
-function InitNewRv(&$action, $time) {
+function InitNewRv(&$action, $time) 
+{
+  global $fdate;
 
   $action->lay->set("EVENTID", -1);
-  $action->lay->set("TITLE", "");
-  $action->lay->set("DESCR", "");
 
-  $action->lay->set("ALLDAY", 0);
-  $action->lay->set("NOHOUR", 0);
+  EventSetTitle($action, "", false);
+  EventSetDescr($action, "", false);
+  
+  $action->lay->set("DFMT", $fdate);
 
+  $now = $time;
+  EventSetDate($action, $now, $now+3600, $allday, $nohour, false);
+
+  EventSetVisibility($action, 0, false);
+  EventSetCalendar($action, 0, false);
+  EventSetStatus($action, 0, true);
+
+  EventSetAlarm($action, false, -1, -1, false);
+
+  EventSetRepeat($action, 0, 1, 0, 0, time(), 0, array(), false );
+
+  // $attendees = array(
+// 		     array("id" => 1018, "title" => "Eric Brison", "icon" => "http://127.0.0.1/what/Images/personne.gif"),
+// 		     array("id" => 1019, "title" => "Marc Claverie", "icon" => "http://127.0.0.1/what/Images/personne.gif") );
+  $attendees = array();
+  EventAddAttendees($action, $attendees, false);
+  
+  return;  
+}    
+
+
+function EventSetTitle(&$action, $title, $ro) {
+  $action->lay->set("TITLE", $title);
+  $action->lay->set("TITLERO", ($ro?"readonly":""));
+}
+function EventSetDescr(&$action, $text, $ro) {
+  $action->lay->set("DESCR", $text);
+  $action->lay->set("DESCRRO", ($ro?"readonly":""));
+}
+
+function EventSetDate(&$action,  $dstart, $dend, $allday, $nohour, $ro) 
+{
+  global $fdate;
+
+  $action->lay->set("ALLDAY", ($allday?1:0));
+  $action->lay->set("ALLDAYRO", ($ro?"disabled":""));
+  $action->lay->set("NOHOUR", ($nohour?1:0));
+  $action->lay->set("NOHOURRO", ($ro?"disabled":""));
+  
+  $action->lay->set("START", $dstart);
+  $action->lay->set("mSTART", $dstart*1000);
+  $action->lay->set("STARTREAD", strftime($fdate, $dstart));
+  $action->lay->set("H_START", strftime("%H", $dstart));
+  $action->lay->set("M_START", strftime("%M", $dstart));
+  
+  $action->lay->set("END", $dend);
+  $action->lay->set("mEND", $dend*1000);
+  $action->lay->set("ENDREAD", strftime($fdate, $dend));
+  $action->lay->set("H_END", strftime("%H", $dend));
+  $action->lay->set("M_END", strftime("%M", $dend));
+ 
+  if ($ro) {
+    $action->lay->set("DATEBUTVIS", "none");
+    $action->lay->set("DATERO", "disabled");
+  } else {
+    $action->lay->set("DATEBUTVIS", "");
+    $action->lay->set("DATERO", "");
+  }
+  $action->lay->set("DATEVIS", (($allday || $nohour)?"none":""));
+}
+
+function EventSetVisibility(&$action, $vis, $ro) {
   $avis = CAL_getEventVisibilities($action->GetParam("FREEDOM_DB"), "");
   $ic = 0;
   foreach ($avis as $k => $v) {
     $tconf[$ic]["value"] = $k;
     $tconf[$ic]["descr"] = $v;
-    $tconf[$ic++]["selected"] = "";
+    $tconf[$ic]["selected"] = ($vis==$k?"selected":"");
+    $ic++;
   }
   $action->lay->SetBlockData("RVCONFID", $tconf);
-
+  $action->lay->set("rvvisro", ($ro?"disabled":""));
+}
+  
+function EventSetCalendar(&$action, $cal, $ro) {
   $acal = CAL_getCalendars($action->GetParam("FREEDOM_DB"), $action->user->id);
   $ic = 0;
   foreach ($acal as $k => $v) {
     $tconf[$ic]["value"] = $k;
     $tconf[$ic]["descr"] = $v;
-    $tconf[$ic++]["selected"] = "";
+    $tconf[$ic]["selected"] = ($cal==$k?"selected":"");
+    $ic++;
   }
   $action->lay->SetBlockData("CALS", $tconf);
+  $action->lay->set("rvcalro", ($ro?"disabled":""));
+}
 
-  // Set status for this event
+function EventSetStatus(&$action, $status, $ro) {
   $acal = CAL_getEventStates($action->GetParam("FREEDOM_DB"), "");
   $ic = 0;
   foreach ($acal as $k => $v) {
     $tconf[$ic]["value"] = $k;
     $tconf[$ic]["descr"] = $v;
-    $tconf[$ic++]["selected"] = "";
+    $tconf[$ic]["selected"] = ($status==$k?"selected":"");
+    $ic++;
   }
   $action->lay->SetBlockData("RVSTATUS", $tconf);
-  $action->lay->set("rvstaro", "disabled");
+  $action->lay->set("rvstaro", ($ro?"disabled":""));
+}
+  
+function EventSetAlarm(&$action, $alarm, $ahour=-1, $amin=-1, $ro) {
 
-  $action->lay->set("ALARM", 0);
+  $action->lay->set("ALARM", ($alarm?1:0));
+  $action->lay->set("ALARMRO", ($ro?"disabled":""));
+  $action->lay->set("ALRMVIS", ($alarm?"none":""));
 
-  $inc = 5;
+  $inc = 15;
+  $vmin = ($amin==-1?$inc:$amin);
+  $vhour = ($ahour==-1?0:$ahour);
   for ($min=0; $min<60; $min+=$inc) {
     $r = ($min==0?0:($min/$inc));
     $m[$r]["ALRMPERIOD_V"] = $min;
-    if ($min==0)  $m[$r]["ALRMPERIOD_S"] = "selected";
-    else  $m[$r]["ALRMPERIOD_S"] = "";
+    $m[$r]["ALRMPERIOD_S"] = ($vmin==$min?"selected":"");
   } 
   $action->lay->SetBlockData("ALARM_MIN", $m);
+
   for ($hour=0; $hour<24; $hour++) {
     $h[$hour]["ALRMPERIOD_V"] = $hour;
-    if ($hour==1)  $h[$hour]["ALRMPERIOD_S"] = "selected";
-    else  $h[$hour]["ALRMPERIOD_S"] = "";
+    $h[$hour]["ALRMPERIOD_S"] = ($vhour==$hour?"selected":"");
   } 
   $action->lay->SetBlockData("ALARM_HR", $h);
-  
-  $fdate = "%d/%m/%Y";
-  $now = $time;
-  $action->lay->set("START", $now);
-  $action->lay->set("mSTART", $now*1000);
-  $action->lay->set("STARTREAD", strftime($fdate, $now));
-  $action->lay->set("H_START", strftime("%H", $now));
-  $action->lay->set("M_START", "00");
+}
 
-  $end = $now + 3600;
-  $action->lay->set("END", $end);
-  $action->lay->set("mEND", $end*1000);
-  $action->lay->set("ENDREAD", strftime($fdate, $end));
-  $action->lay->set("H_END", strftime("%H", $end));
-  $action->lay->set("M_END", "00");
+function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
+			$runtildate, $freq, $recxlude = array(), $ro = false )
+{
+  global $fdate;
 
-
-
-  // Repeat zone
   $action->lay->set("REPEAT_SELECTED", "");
-
-  for ($i=0; $i<=3; $i++)  $action->lay->set("REPEATTYPE_".$i, "");
-  $action->lay->set("REPEATTYPE_0", "checked");
-
-  $action->lay->set("D_RWEEKDISPLAY", "none");
-  for ($i=1; $i<=7; $i++)  $action->lay->set("D_RWEEKDISPLAY_".$i, "");
-  $action->lay->set("D_RWEEKDISPLAY_1", "checked");
-  $action->lay->set("D_RMONTH", "none");
-  $action->lay->set("D_RMONTH_DATE_CHECKED", "checked");
-  $action->lay->set("D_RMONTH_DAY_CHECKED", "");
-
-  $action->lay->set("D_RUNTIL_0", "checked");
-  $action->lay->set("D_RUNTIL_1", "");
-  $action->lay->set("RUNUNTIL_DATE_DISPLAY", "none");
+  $action->lay->set("FREQVALUE", $freq);
   
-  $action->lay->set("uDate", strftime("%d/%m/%y", time()));
-  $action->lay->set("umDate", time()*1000);
-  
-  $action->lay->set("FREQVALUE", 1);
+  for ($i=0; $i<=3; $i++) $action->lay->set("REPEATTYPE_".$i, ($rmode==$i?"checked":""));
 
+  $action->lay->set("D_RWEEKDISPLAY", ($rmode==1?"":"none"));
+  for ($i=1; $i<=7; $i++)  $action->lay->set("D_RWEEKDISPLAY_".$i, ($rday==$i?"checked":""));
+
+  $action->lay->set("D_RMONTH", ($rmode==2?"":"none"));
+  $action->lay->set("D_RMONTH_DATE_CHECKED", ($rmonthdate==0?"checked":""));
+  $action->lay->set("D_RMONTH_DAY_CHECKED", ($rmonthdate==1?"checked":""));
+  
+  $action->lay->set("D_RUNTIL_INFI", ($runtil==0?"checked":""));
+  $action->lay->set("D_RUNTIL_DATE", ($runtil==1?"checked":""));
+  $action->lay->set("RUNUNTIL_DATE_DISPLAY", ($runtil==1?"":"none"));
+  
+  $action->lay->set("uDate", strftime($fdate, $runtildate));
+  $action->lay->set("umDate", $runtildate*1000);
+  
 
   // Excluded dates
   $action->lay->setBlockData("EXCLDATE", null);
+
+  $action->lay->set("repeatvie", ($ro?"none":""));
+  $action->lay->set("repeatdis", ($ro?"disabled":""));
   
+}
 
-}    
-
+function EventAddAttendees(&$action, $attendees = array(), $ro = false) {
+  $att = array();
+  $a = 0;
+  foreach ($attendees as $k => $v) {
+    $att[$a]["attId"] = $v["id"];
+    $att[$a]["attTitle"] = $v["title"];
+    $att[$a]["attIcon"] = $v["icon"];
+    $a++;
+  }
+  $action->lay->setBlockData("ADD_RESS", $att);
+  $action->lay->set("attendeesro", ($ro?"none":""));
+}
 ?>

@@ -1,10 +1,11 @@
 <?php
 
+include_once("FDL/Class.Doc.php");
+
 function wgcal_storeevent(&$action) {
 
   global $_POST;
   print_r2($_POST);
-
 
   $ev->id  = GetHttpVars("eventid", -1);
   $ev->title = GetHttpVars("rvtitle", "");
@@ -13,9 +14,9 @@ function wgcal_storeevent(&$action) {
   $ev->start = GetHttpVars("rvstart", -1);
   $ev->end = GetHttpVars("rvend", -1);
   $ev->note = GetHttpVars("rvnote", "");
-  $ev->visib = wgcal_getArrayVal("rvconfig", $def);
-  $ev->calendar = wgcal_getArrayVal("rvcalendar", $def);
-  $ev->state = wgcal_getArrayVal("rvstatus", $def);
+  $ev->visib = wgcal_getArrayVal("rvconfid", 0);
+  $ev->calendar = wgcal_getArrayVal("rvcalendar", 0);
+  $ev->state = wgcal_getArrayVal("rvstatus", 0);
   $ev->alarm = (GetHttpVars("AlarmCheck", "") == "on" ? true : false );
   $ev->alarm_h = GetHttpVars("alarmhour", 0);
   $ev->alarm_m = GetHttpVars("alarmmin", 0);
@@ -26,8 +27,20 @@ function wgcal_storeevent(&$action) {
   $ev->runtil = GetHttpVars("runtil", -1);
   $ev->runtildate = GetHttpVars("runtildate", -1);
   
-
-  print_r2($ev);
+  $db = $action->getParam("FREEDOM_DB");
+  if ($ev->id==-1) {
+    $event = new Doc($db);
+    $event = createDoc($db, "CALEVENT");
+    $err = $event->Add();
+  } else {
+    $event = new Doc($db, $ev->id);
+  }
+  $event->setValue("CALEV_EVTITLE", $ev->title);
+  $event->setValue("CALEV_EVNOTE", $ev->note);
+  $err = $event->Modify();
+  print_r2($event);
+  
+    
 
 }
 
