@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.236 2005/03/23 17:03:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.237 2005/03/31 18:01:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2031,8 +2031,8 @@ create unique index i_docir on doc(initid, revision);";
 	    $ovalue = $this->GetValue($sattrid);
 	  }
 	  if ($ovalue == "") return false;
-	  //$urllink.=urlencode($ovalue);
-	  $urllink.=($ovalue); // not encode cause url will became invalid
+	  //$urllink.=urlencode($ovalue); // encode because url values must be encoded
+	  $urllink.=urlencode($ovalue); // not encode cause url will became invalid
 	  
 	  
 	}
@@ -2281,15 +2281,15 @@ create unique index i_docir on doc(initid, revision);";
 	  }
 	  break;
 	case "option": 
-
 	  $lay = new Layout("FDL/Layout/viewdocoption.xml", $action);
 	  $htmlval = "";
 	 
-	  if ($kvalue>-1) $di=$this->getTValue($oattr->phpfunc,"",$kvalue);
-	  else $di=$this->getValue($oattr->phpfunc);
+	  if ($kvalue>-1) $di=$this->getTValue($oattr->format,"",$kvalue);
+	  else $di=$this->getValue($oattr->format);
 	  if ($di > 0) {	    
 	    $lay->set("said",$di);
 	    $lay->set("uuvalue",urlencode($avalue));
+
 	    $htmlval =$lay->gen(); 
 	  }
 	  break;
@@ -2321,7 +2321,7 @@ create unique index i_docir on doc(initid, revision);";
 	
 	}
     
-      if (($aformat != "") && ($atype != "doc") && ($atype != "array") ){
+      if (($aformat != "") && ($atype != "doc") && ($atype != "array")&& ($atype != "option") ){
 	//printf($htmlval);
 	$htmlval=sprintf($aformat,$htmlval);
       } 
