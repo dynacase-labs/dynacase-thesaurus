@@ -28,6 +28,7 @@ function CAL_getRessourceFamilies($dbaccess) {
  */
 function CAL_getEventStates($dbaccess, $fmt="A") {
   $evstate = array ( N_('new'),
+		     N_('read'), 
 		     N_('accept'), 
 		     N_('reject'), 
 		     N_('to be confirmed') );

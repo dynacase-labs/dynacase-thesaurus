@@ -6,14 +6,21 @@ function wgcal_storeevent(&$action) {
 
   $db = $action->getParam("FREEDOM_DB");
   
+//   global $_POST;
+//   print_r2($_POST);
+//   exit;
+
   $id  = GetHttpVars("eventid", -1);
   if ($id==-1) {
     $event = createDoc($db, "CALEVENT");
     $event->Add();
   } else {
-    $event = new Doc($db, $ev->id);
+    $event = new Doc($db, $id);
   }
   
+  $event->setValue("CALEV_OWNERID", GetHttpVars("ownerid", -1));
+  $event->setValue("CALEV_OWNER", GetHttpVars("ownertitle", ""));
+
   $event->setValue("CALEV_EVTITLE", GetHttpVars("rvtitle", ""));
   $event->setValue("CALEV_EVNOTE", GetHttpVars("rvnote", ""));
   
@@ -56,11 +63,14 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_REPEATWEEKDAY", GetHttpVars("rweekday", -1));
   $event->setValue("CALEV_REPEATMONTH", GetHttpVars("rmonth", 0));
   $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
-  if (GetHttpVars("runtil",0) != 0) {
-    $date = GetHttpVars("runtildate");
-    if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", date2db($date));
+  $date = GetHttpVars("Vruntildate");
+  if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", date2db($date));
+  $excl = array();
+  foreach (GetHttpVars("listexcldate", array()) as $k => $v) {
+    $excl[] = date2db($v);
   }
-    
+  $event->setValue("CALEV_T_EXCLUDEDATE", $excl);
+  
 
   // Attendees
   $attendees = GetHttpVars("attendees", array());
@@ -71,14 +81,13 @@ function wgcal_storeevent(&$action) {
     $attendeesname[] = $att->title;
     $attendeesstate[] = 0;
   }
-
   $event->setValue("CALEV_ATTID", $attendees); 
   $event->setValue("CALEV_ATTTITLE", $attendeesname); 
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
     
   // Compute global status according attendees one	   
   // $ev->state = wgcal_getArrayVal("rvstatus", 0);
-		   
+  //  print_r2($event->getValues());		   
   $err = $event->Modify();
  
   if ($err!="") AddWarningMsg("$err");
@@ -91,7 +100,6 @@ function wgcal_getArrayVal($key, $def=null) {
   if (count($a)>0) $v = $a[0];
   return $v;
 }
-
 function date2db($d, $hm = true) {
   $fmt = ($hm ? "%d/%m/%Y %H:%M" : "%d/%m/%Y" );
   $s = strftime($fmt, $d);

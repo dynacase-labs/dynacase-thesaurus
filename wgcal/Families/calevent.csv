@@ -21,6 +21,7 @@ ATTR;CALEV_START;CALEV_EVENT;Date de début;Y;Y;timestamp;110;W;;;;;
 ATTR;CALEV_END;CALEV_EVENT;Date de fin;Y;Y;timestamp;120;W;;;;;
 ATTR;CALEV_TIMETYPE;CALEV_EVENT;Mode;N;N;enum;130;W;;;-;[hcheck]0|times,1|no time,2|all day;
 ATTR;CALEV_FREQUENCY;CALEV_EVENT;Fréquence;N;N;int;140;W;;;;;
+ATTR;CALEV_M_EDIT;;Editer encore;N;N;menu;140;M;;%S%app=WGCAL&action=WGCAL_EDITEVENT&evt=%I%;;;
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 ATTR;CALEV_REPEAT;;Répétition;N;N;frame;300;;;;;;

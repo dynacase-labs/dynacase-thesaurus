@@ -148,14 +148,14 @@ function getAttendeeIdx(aid) {
   return idx;
 }
       
-function addRessource(rid, rtitle, ricon) {
+function addRessource(rid, rtitle, ricon, rstate) {
   if (getAttendeeIdx(rid)!=-1) return;
   idx = attendeesList.length;
   attendeesList[idx] = new Array();
   attendeesList[idx][0] = rid;
   attendeesList[idx][1] = rtitle;
   attendeesList[idx][2] = ricon;
-  attendeesList[idx][3] = 0; /* confirmation status */
+  attendeesList[idx][3] = rstate; /* confirmation status */
   attendeesList[idx][4] = 0; /* displayed status */
   refreshAttendees();
 }
