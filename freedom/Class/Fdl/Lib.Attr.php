@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.29 2003/12/30 10:12:57 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.30 2004/01/14 16:03:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.29 2003/12/30 10:12:57 eric Exp $
+// $Id: Lib.Attr.php,v 1.30 2004/01/14 16:03:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -214,11 +214,15 @@ function AttrToPhp($dbaccess, $tdoc) {
   //----------------------------------
   // Add specials methods
   if (isset($tdoc["methods"]) && ($tdoc["methods"] != "")) {
+    $tfmethods=explode("\n",$tdoc["methods"]);
+    $contents="";
+    foreach ($tfmethods as $fmethods) {
 
-    $filename=GetParam("CORE_PUBDIR")."/FDL/".$tdoc["methods"];
-    $fd = fopen ($filename, "rb");
-    $contents = fread ($fd, filesize ($filename));
-    fclose ($fd);
+      $filename=GetParam("CORE_PUBDIR")."/FDL/".$fmethods;
+      $fd = fopen ($filename, "rb");
+      $contents .= fread ($fd, filesize ($filename));
+      fclose ($fd);
+    }
     $phpAdoc->Set("METHODS",str_replace(array( "<?php\n","\n?>"),"",$contents)  );
   } else $phpAdoc->Set("METHODS","");
   
