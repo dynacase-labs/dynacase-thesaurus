@@ -146,7 +146,7 @@ function vselect(th) {
 <body class="freedom"  >
 
 
-[ZONE [APPNAME]:GENERIC_BARMENU]
+[ZONE [APPNAME]:GENERIC_BARMENU?catg=[catg]]
 <br>
 <div onmouseup="closeAllMenu();">
 

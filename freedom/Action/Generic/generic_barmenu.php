@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_barmenu.php,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Id: generic_barmenu.php,v 1.2 2002/04/17 14:45:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,6 +29,7 @@ function generic_barmenu(&$action) {
   global $dbaccess; // use in getChildCatg function
 
   $dirid=GetHttpVars("dirid", $action->GetParam("DEFAULT_FLD")); // folder where search
+  $catg=GetHttpVars("catg", 1); // catg where search
 
   $action->lay->Set("idfamuser", $action->GetParam("DEFAULT_FAMILY", 1));
 
@@ -74,6 +75,7 @@ function generic_barmenu(&$action) {
   $action->lay->SetBlockData("CATG",$stree);
   $action->lay->Set("topid",$action->GetParam("DEFAULT_FLD"));
   $action->lay->Set("dirid",$dirid);
+  $action->lay->Set("catg",$catg);
 
   popupGen(1);
 
