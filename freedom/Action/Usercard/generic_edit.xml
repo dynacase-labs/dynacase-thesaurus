@@ -78,7 +78,7 @@
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td colspan="2" >
- <input type="submit" value=[editaction] onclick="if (!canmodify()) return false;enableall();setTimeout('parent.flist.document.location.reload()',200)"> 
+ <input type="submit" value=[editaction] onclick="if (!canmodify()) return false;enableall();"> 
   </td>
   <td  align="right">
 <input type="hidden" name="catgid" >

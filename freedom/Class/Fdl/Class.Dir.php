@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.5 2002/04/03 15:47:31 eric Exp $
+// $Id: Class.Dir.php,v 1.6 2002/09/10 13:30:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.5 2002/04/03 15:47:31 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.6 2002/09/10 13:30:28 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -30,7 +30,7 @@ include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.QueryDir.php");
 include_once("FDL/Lib.Dir.php");
 
-
+define ("UNCLASS_FLD",10); // folder for unclassable document
 
 Class Dir extends Doc
 {
@@ -124,6 +124,7 @@ Class Dir extends Doc
   $qf->dirid=$this->initid; // the reference folder is the initial id
   $qf->query="";
   $err = $qf->Add();
+  if ($err == "") AddLogMsg(sprintf(_("Add %s in %s folder"), $doc->title, $this->title));
   return $err;
   }
 

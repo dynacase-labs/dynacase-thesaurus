@@ -26,7 +26,8 @@
     [JS:CODE]
 
     //--------------------- MOVE  --------------------------
-var    winfo = window.open('','[wname]','');
+//var    winfo = window.open('','[wname]','');
+var    winfo = self.opener;
 var isNetscape = navigator.appName=="Netscape";
 if (isNetscape) {
     winfo.document.captureEvents(Event.MOUSEMOVE);

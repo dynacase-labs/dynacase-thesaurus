@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.6 2002/09/02 16:32:25 eric Exp $
+// $Id: editutil.php,v 1.7 2002/09/10 13:30:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -104,11 +104,7 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
     $input .= " >".
        chop(htmlentities(stripslashes($value))).
        "</textarea>";
-    if ($oattr->phpfile != "") {
-      $input.="<input type=\"button\" value=\"".
-	 _("...")."\" onClick=\"sendmodifydoc(event,".$docid.
-	 ",'".$attrid."','single')\">";
-    } 
+    
     break;
     //같같같같같같같같같같같같같같같같같같같같
     case "textlist": 
@@ -129,9 +125,7 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
     $input .= " > "; 
-    $input.="<input type=\"button\" value=\"".
-       _("...")."\" onClick=\"sendmodifydoc(event,".$docid.
-       ",'".$attrid."','single')\">";
+    
     break;      
 		      
     //같같같같같같같같같같같같같같같같같같같같
@@ -144,9 +138,7 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
     $input .= " >".
        chop(htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
        "</textarea> ";
-    $input.="<input type=\"button\" value=\"".
-       _("...")."\" onClick=\"sendmodifydoc(event,".$docid.
-       ",'".$attrid."','multiple')\">";
+    
     break;
 		      
     //같같같같같같같같같같같같같같같같같같같같
@@ -156,9 +148,8 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
     $input .= " >&nbsp;"; 
-    $input.="<input type=\"button\" value=\"".
-       _("...")."\" ".
-       "onClick=\"show_calendar(event,'".$attrid."')\"".
+    $input.="<input type=\"button\" value=\"&#133;\"".
+       " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attrid."')\"".
        ">";
     break;      
 		      
@@ -184,20 +175,100 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
     if ($visibility == "R") $input .=" disabled ";
 		      
     $input .= " > "; 
-    if ($oattr->phpfile != "") {
-      $input.="<input type=\"button\" value=\"".
-	 _("...")."\" onClick=\"sendmodifydoc(event,".$docid.
-	 ",'".$attrid."','single')\">";
-    } 
     break;
 		      
     }
+	
+  if ($oattr->phpfunc != "") {
+    if (ereg("list",$attrtype, $reg)) $ctype="multiple";
+    else $ctype="single";
+    $input.="<input type=\"button\" value=\"&#133;\"".
+	  " title=\""._("choose inputs")."\"".
+       " onclick=\"sendmodifydoc(event,".$docid.
+       ",'".$attrid."','$ctype')\">";
+
+    // clear button
+    if (ereg("(.*)\((.*)\)\:(.*)", $oattr->phpfunc, $reg)) {
+      
+      $argids = split(",",$reg[3]);  // output args
+      $arg = array();
+      while (list($k, $v) = each($argids)) {
+	if (strlen($v) > 1) $arg[$k]= chop($v);
+      }
+      if (count($arg) > 0) {
+	$jarg="'".implode("','",$arg)."'";
+	$input.="<input type=\"button\" value=\"&times;\"".
+	  " title=\""._("clear inputs")."\"".
+	   " onclick=\"clearInputs([$jarg])\">";
+      }
+    }
+  } 	
 		
-		
+  if ($oattr->elink != "") {
+    $url= elinkEncode($oattr->elink);
+    $input.="<input type=\"button\" value=\"+\"".
+	  " title=\""._("add inputs")."\"".
+       " onclick=\"subwindowm(300,400,'edit','$url')\">";
+  }
+
+
   return $input;
   
   
   
   
 }
+
+  function elinkEncode( $link) {
+    // -----------------------------------
+      global $action;
+   
+    
+    $urllink="";
+    for ($i=0; $i < strlen($link); $i++) {
+      if ($link[$i] != "%") $urllink.=$link[$i];
+      else {
+	$i++;
+	if ($link[$i+1] == "%") { 
+	  // special link
+	    
+	  switch ($link[$i]) {
+	    case "B": // baseurl	  
+	      $urllink.=$action->GetParam("CORE_BASEURL");
+	      
+	      break;
+	    case "S": // standurl	  
+	      $urllink.=$action->GetParam("CORE_STANDURL");
+	      
+	      break;
+	    case "I": // id	  
+	      $urllink.=$this->id;
+	      
+	      break;
+	    default:
+	      
+	      break;
+	    }
+	  $i++; // skip end '%'
+	} else {
+	  
+	  $sattrid="";
+	  while ($link[$i] != "%" ) {
+	    $sattrid.= $link[$i];
+	    $i++;
+	  }
+	  //	  print "attr=$sattrid";
+	  
+
+
+	  $urllink.= "'+document.getElementById('$sattrid').value+'";
+	  
+	  
+	}
+      }
+    }
+    
+    return ($urllink);
+    
+  }
 ?>

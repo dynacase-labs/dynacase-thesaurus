@@ -76,11 +76,12 @@ function canmodify() {
     
 
     for (var i=0; i< attrNid.length; i++) {	
-
-	if (document.getElementById(attrNid[i]).value == '') {
+	if (document.getElementById(attrNid[i])) {
+	  if (document.getElementById(attrNid[i]).value == '') {
 	    alert('[TEXT:some needed attributes are empty]');
 	    return false;
-	}
+	  }
+        }
     }
     return true;
 }
@@ -118,4 +119,16 @@ function disableReadAttribute() {
 function editOnLoad() {
     resizeInputFields();
     disableReadAttribute();
+}
+
+
+function clearInputs(tinput) {
+  for (var i=0; i< tinput.length; i++) {
+    if (document.getElementById(tinput[i])) {
+      document.getElementById(tinput[i]).value=' ';
+      document.getElementById(tinput[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
+    }    
+  }
+  disableReadAttribute();
+
 }

@@ -69,13 +69,13 @@ function lfamilly($dbaccess, $famid, $name, $catgid=0) {
   if ($name != "") {
     $filter[]="doc.title ~* '.*$name.*'";
   }
-  $filter[]="doc.doctype='F'";
+  $filter[]="doc.doctype != 'C'";
 
   $tinter = getChildDoc($dbaccess, $catgid,0,"ALL", $filter,$action->user->id,"TABLE");
   
   $tr = array();
 
-  $tr[] = array(_("unreferenced")," "," " );
+
   while(list($k,$v) = each($tinter)) {
             
     $tr[] = array($v["title"] ,

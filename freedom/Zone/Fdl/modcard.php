@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.10 2002/08/09 16:51:46 eric Exp $
+// $Id: modcard.php,v 1.11 2002/09/10 13:30:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,7 +21,6 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
@@ -92,7 +91,7 @@ function modcard(&$action, &$ndocid) {
       
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{
-	  $oattr=new DocAttr($dbaccess, array($docid,$k));
+
 	  
 	  $attrid = substr($k,1);
 	  if (is_array($v)) $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));
@@ -106,12 +105,11 @@ function modcard(&$action, &$ndocid) {
   
   // ------------------------------
   // update POSGRES files values
-  while(list($k,$v) = each($HTTP_POST_FILES) )
-    {
+  while(list($k,$v) = each($HTTP_POST_FILES) )    {
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{	  
 	  $k=substr($k,1);
-	  $oattr=new DocAttr($dbaccess, array($docid,$k));
+
 	      
 	  $filename=insert_file($dbaccess,$docid,$k);
 	      
@@ -148,8 +146,8 @@ function modcard(&$action, &$ndocid) {
     //$doc->SetControl();
   }
   $doc->lmodify='Y'; // locally modified
-  $err=$doc-> Modify();
   $doc->refresh();
+  $err=$doc-> Modify();
   
   
   if ($err == "") {
@@ -172,10 +170,9 @@ function insert_file($dbaccess,$docid, $attrid)
   
   global $HTTP_POST_FILES;
   
-  $destimgdir="./".GetHttpVars("app")."/Upload/";
+
   
   $userfile = $HTTP_POST_FILES["_".$attrid];
-  
   
   
   if ($userfile['tmp_name'] == "none")
@@ -185,6 +182,7 @@ function insert_file($dbaccess,$docid, $attrid)
 	return "";
     }
   
+
   ereg ("(.*)\.(.*)$", $userfile['name'], $reg);
   
   //  print_r($userfile);

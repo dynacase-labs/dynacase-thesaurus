@@ -47,7 +47,6 @@ function refreshfld(dirid) {
 
 <!-- Title Table -->
 <form  id="fedit" 
-       target="fdoc" 
        class="fborder" 
        name="modifydoc" 
        
@@ -80,7 +79,7 @@ function refreshfld(dirid) {
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td  >
- <input type="button" value=[editaction] onclick="if (('[doctype]' != 'C') && (!canmodify())) return false;;enableall();document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO';if (document.modifydoc.onsubmit) document.modifydoc.onsubmit();document.modifydoc.submit();setTimeout('refreshfld([dirid])',20)"> 
+ <input type="button" value=[editaction] onclick="if (('[doctype]' != 'C') && (!canmodify())) return false;;enableall();if (document.modifydoc.onsubmit) document.modifydoc.onsubmit();document.modifydoc.submit();setTimeout('refreshfld([dirid])',20)"> 
   </td>
   <td>&nbsp;</td>
   <td  align="right">

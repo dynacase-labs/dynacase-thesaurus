@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.18 2002/09/02 16:38:49 eric Exp $
+// $Id: import_file.php,v 1.19 2002/09/10 13:30:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,6 +32,7 @@ function add_import_file(&$action, $fimport="") {
   global $HTTP_POST_FILES;
   $gerr=""; // general errors
 
+  ini_set("max_execution_time", 300);
   $dirid = GetHttpVars("dirid",10); // directory to place imported doc 
 
 
@@ -167,6 +168,7 @@ function add_import_file(&$action, $fimport="") {
     $oattr->link = $data[9];
     $oattr->phpfile = $data[10];
     $oattr->phpfunc = $data[11];
+    if (isset($data[12])) $oattr->elink = $data[12];
 	  
     $err = $oattr ->Add();
       //    if ($err != "") $err = $oattr ->Modify();
@@ -216,8 +218,8 @@ function csvAddDoc($dbaccess, $data, $dirid=10) {
     $iattr++;
   }
   // update title in finish
-  $doc->modify();
   $doc->refresh(); // compute read attribute
+  $doc->modify();
   $doc->postModify(); // case special classes
   if ($data[3] > 0) { // dirid
     $dir = new Dir($dbaccess, $data[3]);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.46 2002/09/02 16:35:24 eric Exp $
+// $Id: Class.Doc.php,v 1.47 2002/09/10 13:30:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.46 2002/09/02 16:35:24 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.47 2002/09/10 13:30:28 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -99,6 +99,8 @@ create sequence seq_id_doc start 1000";
   var $firstState=""; // first state in workflow
 
   var $defDoctype='F';
+
+  var $hasChanged=false; // to indicate values modification
 
 
   function Doc($dbaccess='', $id='',$res='',$dbid=0) {
@@ -220,12 +222,14 @@ create sequence seq_id_doc start 1000";
       $err = $this-> Control("edit");//$this->CanUpdateDoc() ;
       if ($err != "") return ($err); 
       
-      $this->RefreshTitle();
-      if (chop($this->title) == "") $this->title =_("untitle document");
       if ($this->locked < 0) $this->lmodify='N';
-      // set modification date
-      $date = gettimeofday();
-      $this->revdate = $date['sec'];
+      if ($this->hasChanged) {
+	$this->RefreshTitle();
+	if (chop($this->title) == "") $this->title =_("untitle document");
+	// set modification date
+	$date = gettimeofday();
+	$this->revdate = $date['sec'];
+      }
 
     }
 
@@ -609,6 +613,7 @@ create sequence seq_id_doc start 1000";
       $tsa=array();
       if (!isset($this->attributes)) $this->GetAttributes();
       
+      reset($this->attributes);
       while (list($k,$v) = each($this->attributes)) {
 	if ($v->title == "Y") $tsa[$v->id]=$v;
       }
@@ -667,13 +672,14 @@ create sequence seq_id_doc start 1000";
     if ($this->doctype == 'C') return; // no refresh for family  document
 
     $ltitle = $this->GetTitleAttributes();
-    
+
     $title1 = "";
     while(list($k,$v) = each($ltitle)) {
       if ($this->GetValue($v->id) != "") {
 	$title1.= $this->GetValue($v->id)." ";
       }
     }
+
     if (chop($title1) != "")  $this->title = chop($title1);
 
   }
@@ -743,20 +749,29 @@ create sequence seq_id_doc start 1000";
 	$this->ovalue->docid=$this->id;	
       }
       $oldv=$this->getValue($attrid);
+
       if (($oldv != "$value") && ($value != ""))  {
 	// change only if different
 	$this->ovalue->attrid=$attrid;
-	$this->ovalue->value=$value;
+	$this->ovalue->value=trim($value); // suppress white spaces end & begin
+	//	print "change $attrid $oldv to $value<BR>";
+	$this->hasChanged=true;
+	if ($value == " ") { 
+	   if ($oldv != "")$this->ovalue->delete();
+	} else {
+	  if ($this->ovalue->value != "") {
+	    if ($oldv == "") $this->ovalue->add();
+	    else $this->ovalue->modify(); // modify in DB 
+	    $this->values[$attrid]=$this->ovalue->value; // modify in object
+	  }
 
-	if ($value == " ") $this->ovalue->delete();
-	else if ($oldv == "") $this->ovalue->add();
-	else $this->ovalue->modify(); // modify in DB 
-	$this->values[$attrid]=$value; // modify in object
+	}
       }      
     }
 
   function ResetValues() {
     unset($this->values);
+    $this->hasChanged=false;
   }
   // return the first attribute of type 'file'
   function GetFirstFileAttributes()
@@ -888,64 +903,66 @@ create sequence seq_id_doc start 1000";
   }
 
   // recompute all calculated attribut
-    function Refresh() {	
+  function Refresh() {	
 
-      if ($this->locked == -1) return; // no refresh revised document
-	if ($this->doctype == 'C') return; // no refresh for family  document
+    if ($this->locked == -1) return; // no refresh revised document
+    if ($this->doctype == 'C') return; // no refresh for family  document
 	  
-	  $lattr = $this->GetAttributes();
+    $lattr = $this->GetAttributes();
       
-      while(list($k,$v) = each($lattr)) {
-	if ((($v->visibility == "R") || ($v->visibility == "H")) &&
-	    (chop($v->phpfile) != "") && 
-	    (chop($v->phpfunc) != "") ) {
-	  // it's a calculated attribute
+    while(list($k,$v) = each($lattr)) {
+      if ((($v->visibility == "R") || ($v->visibility == "H")) &&
+	  (chop($v->phpfile) != "") && 
+	  (chop($v->phpfunc) != "") ) {
+	// it's a calculated attribute
 	    
 	    
 	    
 	    
-	    include_once("EXTERNALS/$v->phpfile");
+	include_once("EXTERNALS/$v->phpfile");
+
 	  
 	  
+	if (! ereg("(.*)\((.*)\)\:(.*)", $v->phpfunc, $reg))
+	  return(sprintf(_("the pluggins function description '%s' is not conform"), $v->phpfunc));
 	  
-	  if (! ereg("(.*)\((.*)\)\:(.*)", $v->phpfunc, $reg))
-	    return(sprintf(_("the pluggins function description '%s' is not conform"), $v->phpfunc));
 	  
-	  
-	  $argids = split(",",$reg[2]);  // input args
-	    $rargids = split(",",$reg[3]); // return args
+	$argids = split(",",$reg[2]);  // input args
+	$rargids = split(",",$reg[3]); // return args
 	      
-	      
-	      while (list($k, $v) = each($argids)) {
-		if ($v == "A")     {global $action;$arg[$k]= &$action;}
-		else if ($v == "D") $arg[$k]= $this->dbaccess;
-		else if ($v == "T") $arg[$k]= &$this;
-		else if ($v == "I") $arg[$k]= $this->id;
-		else {
-		  $arg[$k]= $this->GetValue($v);
-		  //if ($arg[$k] == "") AddLogMsg("missing $v");
-		  if ($arg[$k] == "") continue;
-		}
-	      }
-	  // activate plug	
-	    $res = call_user_func_array($reg[1], $arg);
+	$skip=false;
+	while (list($k, $v) = each($argids)) {
+	  if ($v == "A")     {global $action;$arg[$k]= &$action;}
+	  else if ($v == "D") $arg[$k]= $this->dbaccess;
+	  else if ($v == "T") $arg[$k]= &$this;
+	  else if ($v == "I") $arg[$k]= $this->id;
+	  else {
+	    $arg[$k]= $this->GetValue($v);
+	    //if ($arg[$k] == "") AddLogMsg("missing $v");
+	    if ($arg[$k] == "") $skip=true;;
+	  }
+	}
+	if ($skip) continue;
+	// activate plug	
+	$res = call_user_func_array($reg[1], $arg);
 	  
 	  
-	  if (is_array($res)) {
-	    reset($res);
-	    while (list($k, $v) = each($res)) {
-	      if ($v != "?") {
-		$this->SetValue($rargids[$k],$v);
-	      }
+	if (is_array($res)) {
+	  reset($res);
+	  while (list($k, $v) = each($res)) {
+	    if ($v != "?") {
+	      $this->SetValue($rargids[$k],$v);
 	    }
 	  }
-	  
 	}
+	  
       }
-	
-	
-	
     }
+	
+
+    $this->modify(); // refresh title
+	
+  }
   
   
   function urlWhatEncode( $link) {
@@ -1038,11 +1055,12 @@ create sequence seq_id_doc start 1000";
 	    "</A>";
 	break;
       case "file": 
-	ereg ("(.*)\|(.*)", $value, $reg);		 
-	// reg[1] is mime type
-	  $vf = new VaultFile($this->dbaccess, "FREEDOM");
-	if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
-	else $fname=_("no filename");
+	if (ereg ("(.*)\|(.*)", $value, $reg)) {
+	  // reg[1] is mime type
+	    $vf = new VaultFile($this->dbaccess, "FREEDOM");
+	  if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+	  else $fname=_("vault file error");
+	} else $fname=_("no filename");
 	
 	
 	if ($target=="mail") {

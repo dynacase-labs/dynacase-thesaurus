@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.4 2002/09/02 16:32:25 eric Exp $
+// $Id: viewframe.php,v 1.5 2002/09/10 13:30:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,7 +62,7 @@ function viewframe(&$action) {
   $tval = array();
   while (list($k,$v) = each($listattr)) {
     
-    
+    if (($v->visibility == "O") || ($v->visibility == "M")) continue;
     if ($v->id == $frameid) $action->lay->set("flabel",$v->labeltext);
     if ($v->frameid != $frameid) continue;
     $value = chop($doc->GetValue($v->id));

@@ -44,7 +44,7 @@
 <form  id="fedit"  
        class="fborder" 
        name="modifydoc" 
-      onsubmit="if (parent.flist) this.catgid.value=parent.flist.catgid"
+      onsubmit="if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD&id=[id]&dirid=[dirid]&classid=[classid]" >
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.8 2002/09/02 16:38:49 eric Exp $
+// $Id: generic_mod.php,v 1.9 2002/09/10 13:30:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,14 +53,18 @@ function generic_mod(&$action) {
   if ($err != "")  $action-> ExitError($err);
       
   
+  $doc= new Doc($dbaccess, $ndocid);
+  AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
-  if (($dirid > 0) && ($docid == 0)) {
-    $fld = new Dir($dbaccess, $dirid);
-
-    $doc= new Doc($dbaccess, $ndocid);
+  if ($docid == 0) { // new file => add in a folder
+    if (($dirid == 0) && ($doc->dfldid>0) ) $dirid=$doc->dfldid;
+    if ($dirid > 0) {
+       $fld = new Dir($dbaccess, $dirid);
+       
+       $doc= new Doc($dbaccess, $ndocid);
     
-    $fld->AddFile($doc->id);
-
+       $fld->AddFile($doc->id);
+     }
     
     if ($catgid > 0) {
       //add to new default catg 
@@ -69,12 +73,9 @@ function generic_mod(&$action) {
 	
     }
     
-  } else {
-    $doc= new Doc($dbaccess, $docid);
-  }
+  } 
 
 
-  AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
   $err = $doc->unlock();
   if ($err != "")  $action-> ExitError($err);

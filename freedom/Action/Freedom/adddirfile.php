@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.6 2002/06/19 12:32:28 eric Exp $
+// $Id: adddirfile.php,v 1.7 2002/09/10 13:30:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/adddirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,7 @@ function adddirfile(&$action) {
   if ($err != "") $action->exitError($err);
   
   
-  $action->AddLogMsg(sprintf(_("add %s in %s folder"),$doc->title,$dir->title ));
+
   
 
   redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.6 2002/09/02 16:38:49 eric Exp $
+// $Id: freedom_mod.php,v 1.7 2002/09/10 13:30:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -31,42 +31,48 @@ include_once("FDL/Class.Dir.php");
 // -----------------------------------
 function freedom_mod(&$action) {
   // -----------------------------------
-
-  // Get all the params      
-  $dirid=GetHttpVars("dirid",10);
+    
+    // Get all the params      
+      $dirid=GetHttpVars("dirid",0);
   $docid=GetHttpVars("id",0); 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
+  
   $err = modcard($action, $ndocid); // ndocid change if new doc
-  if ($err != "")  $action-> ExitError($err);
-      
+    if ($err != "")  $action-> ExitError($err);
+  
   
   $doc= new Doc($dbaccess, $ndocid);
-
-
-  if ($dirid == 0) $dirid =10;
-  if (($dirid == 10)  && ($doc->dfldid > 0)) {
-      $dirid=$doc->dfldid;
+  $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
+  
+  
+  if ($dirid > 0) {
+    $fld = new Dir($dbaccess, $dirid);    
+    if ($fld->doctype != 'D') $dirid=0;
   }
-
-  if (($dirid > 0) && ($docid == 0)) {
-    $fld = new Dir($dbaccess, $dirid);
-    
-    $fld->AddFile($doc->id);
-    
+  if ($dirid == 0) {
+    if ($doc->dfldid>0)  $fld = new Dir($dbaccess,$doc->dfldid);
+    else {
+      $home = $fld->getHome();
+      
+      if ($home->id > 0) $fld = $home;
+      else $fld = new Dir($dbaccess,UNCLASS_FLD);
+    }
+  }
+  
+  if  ($docid == 0) {
+    $fld->AddFile($doc->id);    
   } 
-
-  $doc->Modify();
+  
+  
   $err = $doc->PostModify(); 
   if ($err != "")  $action-> ExitError($err);
-
-  $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
-
+  
+  
   
   $action->register("reload$ndocid","Y"); // to reload cached client file
-  redirect($action,GetHttpVars("redirect_app",GetHttpVars("app")),
-	   GetHttpVars("redirect_act","FREEDOM_CARD&id=$ndocid"));
+    redirect($action,GetHttpVars("redirect_app",GetHttpVars("app")),
+	     GetHttpVars("redirect_act","FREEDOM_CARD&id=$ndocid"));
   
 }
 
