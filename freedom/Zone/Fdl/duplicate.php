@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.6 2003/02/20 11:34:04 eric Exp $
+// $Id: duplicate.php,v 1.7 2003/03/11 17:10:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,6 +62,7 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
 
   $copy->SetTitle($copy->title);
 
+  $copy->refresh();
   $copy->modify();
   // add to the same folder
   
