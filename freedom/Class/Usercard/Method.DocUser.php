@@ -3,7 +3,7 @@
  * Persons & LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.29 2004/09/14 14:03:05 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.30 2004/09/22 16:16:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -80,9 +80,9 @@ function SpecRefresh() {
     $this->setValue("US_JOB",$doc->getValue("SI_JOB"));
 
 
-    if ($this->getValue("US_PPHONE")!="") $this->setValue("US_PHONE",$this->getValue("US_PPHONE")." ("._("direct").")");
+    if (($this->getValue("US_PPHONE")!="") && ($this->getValue("US_PPHONE") != $doc->getValue("SI_PHONE"))) $this->setValue("US_PHONE",$this->getValue("US_PPHONE")." ("._("direct").")");
     else $this->setValue("US_PHONE",$doc->getValue("SI_PHONE"));
-    if ($this->getValue("US_PFAX")!="") $this->setValue("US_FAX",$this->getValue("US_PFAX")." ("._("direct").")");
+    if (($this->getValue("US_PFAX")!="")&& ($this->getValue("US_PFAX") != $doc->getValue("SI_FAX"))) $this->setValue("US_FAX",$this->getValue("US_PFAX")." ("._("direct").")");
     else $this->setValue("US_FAX",$doc->getValue("SI_FAX"));
 
   } else {
