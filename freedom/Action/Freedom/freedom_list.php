@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_list.php,v 1.3 2002/09/19 13:45:10 eric Exp $
+// $Id: freedom_list.php,v 1.4 2002/11/25 11:03:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,9 @@ function freedom_list(&$action) {
 // -----------------------------------
   // Set the globals elements
 
-  $action->Register("freedom_view","list");
+
+  $action->parent->param->Set("FREEDOM_VIEW","list",PARAM_USER.$action->user->id,$action->parent->id);
+
   viewfolder($action, false);
   
 

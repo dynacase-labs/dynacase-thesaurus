@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_column.php,v 1.1 2002/08/22 07:00:27 eric Exp $
+// $Id: freedom_column.php,v 1.2 2002/11/25 11:03:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_column.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,8 +33,9 @@ function freedom_column(&$action) {
 // -----------------------------------
   // Set the globals elements
 
-  $action->Register("freedom_view","column");
-  viewfolder($action, true);
+
+  $action->parent->param->Set("FREEDOM_VIEW","column",PARAM_USER.$action->user->id,$action->parent->id);
+  viewfolder($action, false);
   
 
 

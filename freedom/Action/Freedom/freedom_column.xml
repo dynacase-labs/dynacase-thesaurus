@@ -67,8 +67,7 @@ TD.tlist {
 
 
 <body class="freedom" 
-      onLoad="initmicon();placeicons();" 
-      onResize="placeicons()"
+      onLoad="initmicon();" 
       onClick="closeMenu('popuplist');" >
 
 
@@ -85,21 +84,20 @@ TD.tlist {
                     [BLOCK TABLEBODY]
 <table class="tableborder" cellspacing="0" style="margin-top:5pt" width="100%" >
 
-<tr><th><IMG class="iconimg"   align="absmiddle"  src="[iconsrc]"></th>
+<tr><th><IMG class="iconimg"   align="absmiddle"  src="[iconsrc]"><B>[ftitle]</B></th>
 [BLOCK [blockattr]]
 <th>[aname]</th>
 [ENDBLOCK [blockattr]]</tr>
 [BLOCK [blockvalue]]
-<!-- TABLEBODY -->
 <tr  id="d[divid]"
      class="unselect" 
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false">   
- <td class="tlist"><IMG style="display:none"  id="i[divid]"   src="[iconsrc]">[title]</td>
-        [BLOCK [blockabstract]]
-<td class="tlist">[value]</td>
-        [ENDBLOCK [blockabstract]]
+ <td class="tlist">[title]</td>
+       
+<td class="tlist">[values]</td>
+        
 
 </tr>
 [ENDBLOCK [blockvalue]]

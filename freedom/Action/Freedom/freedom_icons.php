@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.2 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_icons.php,v 1.3 2002/11/25 11:03:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,8 @@ function freedom_icons(&$action) {
 // -----------------------------------
   // Set the globals elements
 
-  $action->Register("freedom_view","icon");
+   $action->parent->param->Set("FREEDOM_VIEW","icon",PARAM_USER.$action->user->id,$action->parent->id);
+
   viewfolder($action, false);
   
 

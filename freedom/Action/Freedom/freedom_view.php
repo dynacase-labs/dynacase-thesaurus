@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_view.php,v 1.4 2002/08/22 12:22:07 eric Exp $
+// $Id: freedom_view.php,v 1.5 2002/11/25 11:03:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_view.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,7 @@ function freedom_view(&$action) {
   // -----------------------------------
   // redirect layout icon if needed
       
-  $prefview = $action->Read("freedom_view","list");
+  $prefview = $action->getParam("FREEDOM_VIEW","list");
 
   switch ($prefview) {
   case "list":
@@ -49,7 +49,7 @@ function freedom_view(&$action) {
   case "column":
     $action->layout = $action->GetLayoutFile("freedom_column.xml");
     $action->lay = new Layout($action->layout,$action);
-  viewfolder($action, true);
+  viewfolder($action, false);
   break;
     
   }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.70 2002/11/22 18:08:22 eric Exp $
+// $Id: Class.Doc.php,v 1.71 2002/11/25 11:03:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.70 2002/11/22 18:08:22 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.71 2002/11/25 11:03:26 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -592,10 +592,11 @@ create unique index i_docir on doc(initid, revision);";
     {      
       $tsa=array();
 
-      
-      reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
-	if ((get_class($v) == "normalattribute")&&($v->isInAbstract)) $tsa[$v->id]=$v;
+      if (isset($this->attributes->attr)) {
+	reset($this->attributes->attr);
+	while (list($k,$v) = each($this->attributes->attr)) {
+	  if ((get_class($v) == "normalattribute")&&($v->isInAbstract)) $tsa[$v->id]=$v;
+	}
       }
       return $tsa;      
     }
@@ -734,21 +735,21 @@ create unique index i_docir on doc(initid, revision);";
  
   // return all the values
   function GetValues()  {
-      $this->values=array();
+      $this->lvalues=array();
       if (isset($this->id) && ($this->id>0)) {
 
-	  $nattr = $this->GetNormalAttributes();
-	  reset($nattr);
+	$nattr = $this->GetNormalAttributes();
+	reset($nattr);
 
-	    while (list($k,$v) = each($nattr)) {
+	while (list($k,$v) = each($nattr)) {
 
-	      $this->values[$v->id] = $this->GetValue($v->id);
-	    }
+	  $this->lvalues[$v->id] = $this->GetValue($v->id);
 	}
-	  
+      }
       
-      reset($this->values);
-      return $this->values;
+      
+      reset($this->lvalues);
+      return $this->lvalues;
     }
 
   // return the value of an attribute object 
@@ -789,10 +790,36 @@ create unique index i_docir on doc(initid, revision);";
     return $this->SetValue($attrid," ");
   }
 
-  function ResetValues() {
-    unset($this->values);
-    $this->hasChanged=false;
+
+  // add values present in values field
+  function GetMoreValues()  {      
+    if (isset($this->values)) {
+      $tvalues = explode("^",$this->values);
+      $tattrids = explode("^",$this->attrids);
+      
+      while(list($k,$v) = each($tvalues)) {
+	$attrid = $tattrids[$k];
+	if (! isset($tattrids[$k])) {
+	  print_r2($tattrids);
+	  print_r2($tvalues);
+	}
+	if ($attrid != "") 	$this->$attrid=$v;
+      }
+    }      
   }
+
+  // reset values present in values field
+  function ResetMoreValues()  {      
+    if (isset($this->values)) {
+      $tattrids = explode("^",$this->attrids);
+      
+      while(list($k,$v) = each($tattrids)) {
+	$attrid = $tattrids[$k];
+	$this->$attrid="";
+      }
+    }      
+  }
+
   // return the first attribute of type 'file'
   function GetFirstFileAttributes()
     {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.26 2002/11/14 10:43:22 eric Exp $
+// $Id: viewfolder.php,v 1.27 2002/11/25 11:03:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,7 +46,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $refresh=GetHttpVars("refresh","no"); // force folder refresh
   $startpage=GetHttpVars("page","0"); // page number
 
-  $column = ($with_popup && ($action->Read("freedom_view","list")=="column"));
+  $column = ($with_popup && ($action->getParam("FREEDOM_VIEW")=="column"));
 
   // Set the globals elements
 
@@ -142,7 +142,9 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $doc = createDoc($dbaccess,$famid);
   while((list($k,$zdoc) = each($ldoc)) )
       {
+	if ($column) $doc->ResetMoreValues();
 	$doc->Affect($zdoc);
+	if ($column) $doc->GetMoreValues();
 	$nbseedoc++;
 
 	// view control
@@ -214,7 +216,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       
 	
 	      
-	if ($doc->defDoctype == 'D') $tdoc[$k]["isfld"]= "true";
+	if ($doc->doctype == 'D') $tdoc[$k]["isfld"]= "true";
 	else $tdoc[$k]["isfld"]= "false";
 	
 	
@@ -223,8 +225,49 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  // ----------------------------------------------------------
 	if ($with_abstract ) {
 	  // search abstract attribute for freedom item
-	  $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");
+	   $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");
 	}
+	
+	  // ----------------------------------------------------------
+	  //                 COLUMN MODE
+	  // ----------------------------------------------------------
+	if ($column) {
+	  if ($doc->fromid != $prevFromId) {
+	    $adoc = new DocFam($dbaccess,$doc->fromid);
+	    if (count($tdoc) > 1) {
+	      $doct = $tdoc[$k];
+	      array_pop($tdoc);
+	      $action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
+	      $tdoc=array();
+
+	      $tdoc[$k]=$doct;
+	    }
+
+	    $tfamdoc[] = array("iconsrc"=>$tdoc[$k]["iconsrc"],
+			       "ftitle"=>$adoc->title,
+			       "blockattr" => "BATT".$doc->fromid,
+			       "blockvalue" => "BVAL".$doc->fromid);
+	      
+	    // create the TR head 
+	    $lattr=$adoc->GetAbstractAttributes();
+	    $taname=array();
+	    $emptytableabstract=array();
+	    while (list($ka,$attr) = each($lattr))  {	
+	      $emptytableabstract[$attr->id]["value"]="-";
+	      $taname[$attr->id]["aname"]=_($attr->labelText);
+	    }
+	    $action->lay->SetBlockData("BATT".$doc->fromid,$taname);
+	      
+	  }
+	  
+	  reset($lattr);
+	  $tvalues=array();
+	  while (list($ka,$attr) = each($lattr))  {	
+	      $tvalues[]=$doc->getValue($attr->id,"-");
+	  }
+	  $tdoc[$k]["values"]=implode('</td><td class="tlist">',$tvalues);
+	}
+	$prevFromId=$doc->fromid;
       }
   }
 
@@ -266,8 +309,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 function orderbyfromid($a, $b) {
   
-    if ($a->fromid == $b->fromid) return 0;
-    if ($a->fromid > $b->fromid) return 1;
+    if ($a["fromid"] == $b["fromid"]) return 0;
+    if ($a["fromid"] > $b["fromid"]) return 1;
   
   return -1;
 }
