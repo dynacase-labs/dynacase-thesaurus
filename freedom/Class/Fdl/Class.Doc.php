@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.8 2002/03/14 14:56:54 eric Exp $
+// $Id: Class.Doc.php,v 1.9 2002/03/14 18:13:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.8 2002/03/14 14:56:54 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.9 2002/03/14 18:13:22 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -31,6 +31,7 @@ include_once('Class.DbObjCtrl.php');
 include_once("FDL/freedom_util.php");
 include_once("FDL/Class.DocAttr.php");
 include_once("FDL/Class.DocValue.php");
+include_once("VAULT/Class.VaultFile.php");
 
 
 // define constant for search attributes in concordance with the file "init.freedom"
@@ -806,8 +807,7 @@ create sequence seq_id_doc start 1000";
 	  else if ($v == "D") $arg[$k]= $this->dbaccess;
 	  else if ($v == "T") $arg[$k]= &$this;
 	  else {
-	    $ovalue = new DocValue($this->dbaccess, array($this->id, $v));
-	    $arg[$k]= $ovalue->value;
+	    $arg[$k]= $this->GetValue($v);
 	  }
 	}
 
@@ -826,7 +826,8 @@ create sequence seq_id_doc start 1000";
 	}
       }
     }
-    
+    unset($this->values); // in case of modified values
+
   }
 
 

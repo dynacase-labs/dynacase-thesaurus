@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.3 2002/03/14 14:56:54 eric Exp $
+// $Id: enum_choice.php,v 1.4 2002/03/14 18:13:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -97,10 +97,12 @@ function enum_choice(&$action) {
 
   $action->lay->Set("wname", $wname);
   if ($sorm == "single") {
-    $action->lay->Set("multiple", "");
-    $action->lay->Set("nselect", 1);
+
+    $action->lay->SetBlockData("SELECTSINGLE", array(array("zou")));
+
   } else {
-    $action->lay->Set("multiple", "multiple");
+
+    $action->lay->SetBlockData("SELECTMULTIPLE", array(array("zou")));
     $action->lay->Set("nselect", (count($tselect)>7)?7:count($tselect));
   }
   $action->lay->Set("attrid", $sattrid);

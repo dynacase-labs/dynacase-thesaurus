@@ -174,16 +174,28 @@ function resizeIFrame() {
      title="[TEXT:close]"
      alt="[TEXT:close]">
 <br>
-<select id="schoose" [multiple]
+
+[BLOCK SELECTSINGLE]
+<select id="schoose" 
+        style="align:center" 
+	onchange="completechoice(this.options[this.selectedIndex].value)" > 
+                    [BLOCK SELECT]
+<option value="[cindex]" >[choice]</option>        
+                    [ENDBLOCK SELECT]
+<option value="-1" selected disabled style="display:none"></option> 
+</select>
+[ENDBLOCK SELECTSINGLE]
+
+[BLOCK SELECTMULTIPLE]
+<select id="schoose" multiple
         style="align:center" 
 	size="[nselect]" 
-	onchange="completechoices()" >
-<option value="0" disabled ></option>  
+	onchange="completechoices()" > 
                     [BLOCK SELECT]
 <option value="[cindex]" >[choice]</option>        
                     [ENDBLOCK SELECT]
 </select>
-
+[ENDBLOCK SELECTMULTIPLE]
 
 </div>
 </body>

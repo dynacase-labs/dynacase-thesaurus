@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.3 2002/03/14 14:56:55 eric Exp $
+// $Id: modcard.php,v 1.4 2002/03/14 18:13:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -155,8 +155,8 @@ function modcard(&$action, &$ndocid) {
     //$ofreedom->SetControl();
   }
   $ofreedom->lmodify='Y'; // locally modified
-    $ofreedom->refresh();
   $err=$ofreedom-> Modify();
+  $ofreedom->refresh();
   
 
   if ($err == "") {
@@ -164,7 +164,10 @@ function modcard(&$action, &$ndocid) {
     // change state if needed
     $newstate=GetHttpVars("newstate","");
     $comment=GetHttpVars("comment","");
-    if ($newstate != "") $err = $ofreedom->ChangeState($newstate,$comment );
+
+
+    if (($newstate != "") && ($ofreedom->state != $newstate)) $err = $ofreedom->ChangeState($newstate,$comment );
+    else   $err=$ofreedom-> Modify(); // new modify in case of the title reference a calculated value
     $ndocid = $ofreedom->id;
   }
   return $err;
