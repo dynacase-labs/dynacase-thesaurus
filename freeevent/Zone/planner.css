@@ -138,12 +138,13 @@ DIV.ygrid {
 	left:0px;
 	top:0px;
 }
-DIV.xgrid:hover {
+DIV.xgrid:hover,DIV.ygrid:hover {
 	background-color:yellow;
 }
-DIV.ygrid:hover {
-	background-color:yellow;
+DIV.dayEven:hover ,DIV.dayOdd:hover,DIV.weekEven:hover,DIV.weekOdd:hover,DIV.monthEven:hover,DIV.monthOdd:hover,DIV.year:hover  {
+	background-image:none;
 }
+
 
 DIV.fond {
 /*	background-image:url('[IMG:millimetre.png]');*/
