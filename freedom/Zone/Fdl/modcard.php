@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.60 2004/02/24 08:40:25 eric Exp $
+ * @version $Id: modcard.php,v 1.61 2004/03/01 08:46:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.60 2004/02/24 08:40:25 eric Exp $
+// $Id: modcard.php,v 1.61 2004/03/01 08:46:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -77,11 +77,6 @@ function modcard(&$action, &$ndocid) {
 	$doc->profid = "0"; // NO PROFILE ACCESS
       }
 
-      $err = $doc-> Add();
-      if ($err != "")  $action->ExitError($err);
-      
-      $doc->initid = $doc->id;// it is initial doc	    
-      $ndocid = $doc->id;
     } 
   else 
     {
@@ -144,7 +139,14 @@ function modcard(&$action, &$ndocid) {
     
     
   } else {
-
+    if ($docid==0) {
+      // now can create new doc
+      $err = $doc-> Add();
+      if ($err != "")  $action->ExitError($err);
+      
+      $doc->initid = $doc->id;// it is initial doc	    
+      $ndocid = $doc->id;
+    }
     $doc->lmodify='Y'; // locally modified
     $doc->refresh();
     $err=$doc-> PostModify(); 
