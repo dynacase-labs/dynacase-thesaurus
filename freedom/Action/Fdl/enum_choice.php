@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.16 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: enum_choice.php,v 1.17 2003/11/03 09:09:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.16 2003/08/18 15:47:03 eric Exp $
+// $Id: enum_choice.php,v 1.17 2003/11/03 09:09:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,7 +43,8 @@ function enum_choice(&$action) {
 
   // list of choice to be insert in attribute values
 
-  $docid = GetHttpVars("docid",0);        // document being edition
+  $docid = GetHttpVars("docid");        // document being edition
+  if ($docid=="") $docid = GetHttpVars("fromid",0);        // in case of docid is null
   $attrid = GetHttpVars("attrid",0); // attribute need to enum
   $sorm = GetHttpVars("sorm","single"); // single or multiple
   $wname = GetHttpVars("wname",""); // single or multiple
@@ -51,13 +52,11 @@ function enum_choice(&$action) {
   $domindex = GetHttpVars("domindex",""); // index in dom of the attributes for arrays
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-
   //global $HTTP_POST_VARS;print_r($HTTP_POST_VARS);
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $doc= new Doc($dbaccess,$docid);
   $oattr= $doc->GetAttribute($attrid);
-
   if (! $oattr) 
     $action->exitError(sprintf(_("unknown attribute %s"), $attrid));
 
