@@ -10,7 +10,7 @@ dnl Set program, version info
 PROGNAME=pam_what_access
 MAJOR_VERSION=0     
 MINOR_VERSION=1      
-PATCHLEVEL=0
+PATCHLEVEL=2
 COPYRIGHT_NOTICE="Copyright (c) 2001 Mike Glover"
 
 AC_SUBST(PROGNAME)

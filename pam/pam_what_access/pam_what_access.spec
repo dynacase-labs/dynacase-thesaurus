@@ -1,4 +1,4 @@
-# $Revision: 1.1 $, $Date: 2001/07/31 08:26:56 $
+# $Revision: 1.2 $, $Date: 2001/08/21 13:21:30 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what_access
@@ -12,6 +12,7 @@ URL:		http://www.anakeen.com
 #BuildRequires:	pam-devel
 #Requires:	make
 Requires:	pam >= 0.72
+Requires:       libwhat >= 0.4.7
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root-%(id -u -n)
 
 
@@ -59,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what_access.spec,v $
+Revision 1.2  2001/08/21 13:21:30  eric
+modification pour nouvelle gestion des ACL
+
 Revision 1.1  2001/07/31 08:26:56  eric
 first
 
