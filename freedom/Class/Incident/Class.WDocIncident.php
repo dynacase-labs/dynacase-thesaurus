@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.4 2003/01/08 09:08:21 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.5 2003/01/13 18:59:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.4 2003/01/08 09:08:21 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.5 2003/01/13 18:59:03 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -59,19 +59,19 @@ Class WDocIncident extends WDoc
   var $attrPrefix="IWF"; // prefix attribute
 
 
-    var $transitions = array(Trecorded =>array("m1"=>"",
+    var $transitions = array("Trecorded" =>array("m1"=>"",
 					       "m2"=>"SendMailByState"),
-			     Tqualified =>array("m1"=>"",
+			     "Tqualified" =>array("m1"=>"",
 					       "m2"=>"SendMailByState"),
-			     Tanalyzed =>array("m1"=>"",
+			     "Tanalyzed" =>array("m1"=>"",
 					       "m2"=>"SendMailByState"),
-			     Ttraited =>array("m1"=>"",
+			     "Ttraited" =>array("m1"=>"",
 					       "m2"=>"SendMailByState"),
-			     Trejected =>array("m1"=>"",
+			     "Trejected" =>array("m1"=>"",
 					       "m2"=>""),
-			     Tsuspended =>array("m1"=>"",
+			     "Tsuspended" =>array("m1"=>"",
 					       "m2"=>""),
-			     Tclosed =>array("m1"=>"",
+			     "Tclosed" =>array("m1"=>"",
 					     "m2"=>""));
     var $cycle = array(
 			  array("e1"=>"",
@@ -168,14 +168,14 @@ Class WDocIncident extends WDoc
     $mail =  $this->doc->getValue("IN_ANALMAIL"); // send mail to analyzer
     $this->sendmail($mail , 
 		    sprintf(_("Freedom : incident %s : transition to %s"),$this->doc->title,_($newstate)),
-		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=INCIDENT&action=INCIDENT_CARD&id=".$this->id);
+		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=INCIDENT&action=GENERIC_CARD&id=".$this->doc->id);
     break;
 
     case analyzed:
     $mail =  $this->doc->getValue("IN_TRTMAIL");// send mail to realyser
     $this->sendmail($mail , 
 		    sprintf(_("Freedom : incident %s : transition to %s"),$this->doc->title,_($newstate)),
-		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=INCIDENT&action=INCIDENT_CARD&id=".$this->id);
+		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=INCIDENT&action=GENERIC_CARD&id=".$this->doc->id);
     break;
 
     case traited:
@@ -238,7 +238,7 @@ Class WDocIncident extends WDoc
      
       $incidentmail = new Layout($action->GetLayoutFile($layout),$action);
       $incidentmail->set("title", $title);
-      $incidentmail->set("ref", $this->initid);
+      $incidentmail->set("ref", $this->doc->initid);
       $incidentmail->set("date", $sdate);
       $incidentmail->set("contactname",$this->doc->GetValue( "IN_CALLNAME"));
       $incidentmail->set("contract",$this->doc->GetValue("IN_CONTRACT"));

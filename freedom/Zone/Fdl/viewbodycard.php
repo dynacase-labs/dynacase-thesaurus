@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewbodycard.php,v 1.7 2002/12/10 16:15:19 eric Exp $
+// $Id: viewbodycard.php,v 1.8 2003/01/13 18:56:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,7 @@ include_once("VAULT/Class.VaultFile.php");
 // -----------------------------------
 function viewbodycard(&$action) {
   // -----------------------------------
-
+  print "viewbodycard DONT NOT USE"; return;
   // GetAllParameters
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes

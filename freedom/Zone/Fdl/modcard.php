@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.20 2003/01/08 08:59:56 eric Exp $
+// $Id: modcard.php,v 1.21 2003/01/13 18:56:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -155,6 +155,7 @@ function modcard(&$action, &$ndocid) {
 
       if ($doc->wid > 0) {
 	$wdoc = new Doc($dbaccess,$doc->wid);
+	
 	$wdoc->Set($doc);
 	$err=$wdoc->ChangeState($newstate,$comment);
 
@@ -183,7 +184,7 @@ function insert_file($dbaccess,$docid, $attrid)
   $userfile = $HTTP_POST_FILES["_".$attrid];
   
 
-  if ($userfile['tmp_name'] == "none")
+  if (($userfile['tmp_name'] == "none") || ($userfile['tmp_name'] == ""))
     {
       // if no file specified, keep current file
 	

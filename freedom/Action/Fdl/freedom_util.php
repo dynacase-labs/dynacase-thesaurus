@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.27 2003/01/08 09:08:21 eric Exp $
+// $Id: freedom_util.php,v 1.28 2003/01/13 18:58:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -154,7 +154,7 @@ function createDoc($dbaccess,$fromid) {
     
     $doc->revision = "0";
     $doc->fileref = "0";
-    $doc->doctype = $cdoc->defDoctype;// it is a new  document (not a familly)
+    $doc->doctype = $doc->defDoctype;// it is a new  document (not a familly)
     $doc->cprofid = "0"; // NO CREATION PROFILE ACCESS
 
     $doc->fromid = $fromid;
@@ -172,11 +172,15 @@ function createDoc($dbaccess,$fromid) {
 
 // use to usort attributes
 function tordered($a, $b) {
+  
   if (isset($a->ordered) && isset($b->ordered)) {
-	if ($a->ordered == $b->ordered) return 0;
-	if ($a->ordered > $b->ordered) return 1;
+	if (intval($a->ordered) == intval($b->ordered)) return 0;
+	if (intval($a->ordered) > intval($b->ordered)) return 1;
+	return -1;
   }
-  return -1;
+  if (isset($a->ordered) ) return -1;
+  if (isset($b->ordered) ) return 1;
+  return 0;
 	
 }
 

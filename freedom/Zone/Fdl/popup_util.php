@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.4 2002/09/02 16:32:25 eric Exp $
+// $Id: popup_util.php,v 1.5 2003/01/13 18:56:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,6 @@
 function popupInit($name, $items) {
   global $menuitems;
   global $tmenus;
-
   
   // ------------------------------------------------------
   // definition of popup menu
@@ -176,7 +175,6 @@ function popupAddGen($kdiv) {
     while (list($name, $v2) = each($tmenuaccess)) {
       $nbdiv=0;
       while (list($k, $v) = each($v2)) {
-      
 	uksort($v, 'vcompare');
       
 	$tma[$kv]["vmenuitems"]="[";

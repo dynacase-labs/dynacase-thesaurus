@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.4 2002/11/22 18:08:22 eric Exp $
+// $Id: popupfam.php,v 1.5 2003/01/13 18:56:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,11 +49,12 @@ function popupfam(&$action) {
   if (! $lmenu) return;
 
   $tmenu = array();
+  $km=0;
   while(list($k,$v) = each($lmenu)) {
     $tlink[$k]["idlink"] = $v->id;
     $tlink[$k]["descr"] = $v->labelText;
     $tlink[$k]["url"] = $doc->urlWhatEncode($v->link);
-    $tmenu[$k] = $v->id;
+    $tmenu[$km++] = $v->id;
   }
 
   if (count($tmenu) ==  0) return;
@@ -63,7 +64,7 @@ function popupfam(&$action) {
   
 
   while(list($k,$v) = each($tmenu)) {
-    if ($tlink[$k]["url"]) Popupactive('popupcard',$kdiv,$v);
+    if ($tlink[$v]["url"] != "") Popupactive('popupcard',$kdiv,$v);
     else PopupInactive('popupcard',$kdiv,$v);
   }
 
