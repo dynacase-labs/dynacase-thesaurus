@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_bgimport.php,v 1.2 2002/10/08 10:28:17 eric Exp $
+// $Id: freedom_bgimport.php,v 1.3 2002/10/08 12:11:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_bgimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -39,6 +39,7 @@ function freedom_bgimport(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $policy = GetHttpVars("policy","keep"); 
   $analyze = (GetHttpVars("analyze","N")=="Y"); 
+  $double = GetHttpVars("double"); // with double title document
   $to = GetHttpVars("to"); 
 
 
@@ -59,7 +60,7 @@ function freedom_bgimport(&$action) {
 
   
 
-  $cmd[] = "$wsh --userid={$action->user->id} --api=freedom_import --htmlmode=Y --dirid=$dirid --file=$file.1 >$file.2 ";
+  $cmd[] = "$wsh --userid={$action->user->id} --api=freedom_import --htmlmode=Y --dirid=$dirid --double=$double --file=$file.1 >$file.2 ";
 
   
   $subject=sprintf(_("result of import  %s"), $filename);
