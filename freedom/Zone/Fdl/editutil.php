@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.43 2003/07/11 13:03:55 eric Exp $
+// $Id: editutil.php,v 1.44 2003/07/16 08:10:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,7 +54,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
   else $visibility=$oattr->visibility;
   if ($visibility == "I") return ""; // not editable attribute
  
-  $idisabled = " disabled readonly title=\""._("read only")."\" ";
+  $idisabled = " style=\"background-color:".getParam("CORE_BGCOLORALTERN")."\" disabled readonly title=\""._("read only")."\" ";
   $input="";
 		
   if ($value == "") {
