@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.31 2004/09/14 14:03:05 eric Exp $
+ * @version $Id: enum_choice.php,v 1.32 2004/09/15 09:46:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,7 +50,8 @@ function enum_choice(&$action) {
   
   if ($phpfunc[0] == "[") {
     if (ereg('\[(.*)\](.*)', $phpfunc, $reg)) {   
-      $phpfunc=$reg[2];
+      $oattr->phpfunc=$reg[2];
+      
       $ititle=addslashes($reg[1]);
     }
   }
