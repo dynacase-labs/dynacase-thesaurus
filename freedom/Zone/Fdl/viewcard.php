@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.48 2004/02/17 10:59:55 eric Exp $
+ * @version $Id: viewcard.php,v 1.49 2004/03/18 08:30:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.48 2004/02/17 10:59:55 eric Exp $
+// $Id: viewcard.php,v 1.49 2004/03/18 08:30:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -145,7 +145,6 @@ function viewcard(&$action) {
   
   if ($doc->doctype == 'Z') {
     $err =_("This document has been deleted");
-     $err .= "\n\n".$doc->comment;
   } else {    
     // disabled control just to refresh
     $doc->disableEditControl();
