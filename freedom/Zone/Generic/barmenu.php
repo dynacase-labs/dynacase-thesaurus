@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.30 2005/01/31 17:48:05 eric Exp $
+ * @version $Id: barmenu.php,v 1.31 2005/03/18 13:44:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -178,6 +178,7 @@ function barmenu(&$action) {
   }
   $filter[]="owner=".$action->user->id;
   $filter[]="se_famid='$famid'";
+  $filter[]="usefor!='G'";
   $action->lay->set("MSEARCH",false);
   $stree=getChildDoc($dbaccess,"0","0","10",$filter,$action->user->id,"TABLE",5);
   foreach ($stree as $k=>$v) {
