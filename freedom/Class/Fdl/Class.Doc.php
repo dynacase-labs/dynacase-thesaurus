@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.211 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.212 2004/08/09 07:59:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -427,7 +427,7 @@ create unique index i_docir on doc(initid, revision);";
    */
   function PostUpdate() {
     global $gdocs;// optimize for speed :: reference is not a pointer !!
-    if (count($gdocs) < MAXGDOCS)    $gdocs[$this->id]=&$this;    
+    unset($gdocs[$this->id]); // clear cache
     if ($this->hasChanged) {
       $this->computeDProfil();
     }
@@ -2149,13 +2149,14 @@ create unique index i_docir on doc(initid, revision);";
 	    if ($index >= 0) $htmlval.="+$index";
 	    $htmlval.=  "\">".$fname."</A>";
 	  } else {
-	    $htmlval="<A onmousedown=\"document.noselect=true;\" target=\"_blank\" href=\"".
+	    $umime = trim(`file -ib $info->path`);
+	    $htmlval="<A onmousedown=\"document.noselect=true;\" target=\"_blank\" type=\"$mime\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
 	      "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
 	      ."\">".$fname.
 	      "</A>";
+	    /*
 	    
-	    $umime = trim(`file -ib $info->path`);
 	    $htmlval.=" <A onmousedown=\"document.noselect=true;\" target=\"_blank\" type=\"$mime\" href=\"".
 	      "http://".$_SERVER["HTTP_HOST"].
 	      "/davfreedom/doc".$this->id."/$fname".
@@ -2168,6 +2169,7 @@ create unique index i_docir on doc(initid, revision);";
 	      "/davfreedom/doc".$this->id."/$fname".
 	      "\">"."[DAV:$vid]($umime)".
 	      "</A>";
+	    */
 	     }
 	
 	  break;
