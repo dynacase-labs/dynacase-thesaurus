@@ -33,12 +33,7 @@ function SendSearchId(e,id) {
      onMouseOut="this.className='MenuInactive'">
 <span class="FREEDOMTextTitle">[TEXT:Search]</span>
 </td>
-<td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
-     onMouseOver="this.className='MenuActive'"
-     onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:View]</span>
-</td>
+
 <td  class="MenuInactive"  
      onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
@@ -80,13 +75,7 @@ function SendSearchId(e,id) {
   <input   onmouseup="return false" onmousedown="document.menuclosed=false;this.focus();" onKeyPress="SendSearchId(event,this.value)" type="text" size=6 id="searchid"></a>
 </div>
 
-<!-- ------------ MENU VIEW  --------------------- -->
-<div  id="viewmenu" class="popup">
-  
-<a  id="vlist" href="#" onClick="parent.flist.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_LIST&dirid='+parent.flist.document.dirid;closeAllMenu()">[TEXT:list]</a>
-<a  id="vicon" href="#" onClick="parent.flist.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ICONS&dirid='+parent.flist.document.dirid;closeAllMenu()">[TEXT:icon]</a>
-<a  id="vcol" href="#" onClick="parent.flist.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_COLUMN&dirid='+parent.flist.document.dirid;closeAllMenu()">[TEXT:column]</a>
-</div>
+
 
 <!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup">

@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.8 2003/07/18 16:33:10 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/barmenu.php,v $
+// $Id: folder_barmenu.php,v 1.1 2003/07/18 16:33:11 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Freedom/folder_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -33,32 +33,40 @@ include_once("FDL/freedom_util.php");
 
 
 // -----------------------------------
-function barmenu(&$action) {
+function folder_barmenu(&$action) {
   // -----------------------------------
-  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','newwf'));
-  popupInit("searchmenu", array( 'newsearch','newdsearch','newsearchfulltext'));
- 
-  popupInit("helpmenu", array('help','import'));
+  // Get all the params 
+  $nbdoc=GetHttpVars("nbdoc");
+  $dirid=GetHttpVars("dirid");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $dir = new Doc($dbaccess, $dirid);
 
 
-  popupActive("newmenu",1,'newdoc'); 
-  popupActive("newmenu",1,'newfld'); 
-  popupActive("newmenu",1,'newprof');
-  if ($action->HasPermission("FREEDOM_MASTER")) {
-    popupActive("helpmenu",1,'import'); 
-    popupActive("newmenu",1,'newfam');
-    popupActive("newmenu",1,'newwf'); 
+  $action->lay->set("title",$dir->title);
+  if ($nbdoc > 1)  $action->lay->set("nbdoc",sprintf(_("%d documents found"),$nbdoc));
+  else $action->lay->set("nbdoc",sprintf(_("%d document found"),$nbdoc));
+
+  $action->lay->set("dirid",$dirid);
+
+  popupInit("viewmenu",	array('vlist','vicon','vcol'));
+  popupInit("toolmenu", array('tobasket','clear','props'));
+
+
+
+  popupActive("viewmenu",1,'vlist');
+  popupActive("viewmenu",1,'vicon');
+  popupActive("viewmenu",1,'vcol');
+
+  // clear only for basket :: too dangerous
+  if ($dir->fromid == getFamIdFromName($dbaccess,"BASKET")) {
+    popupInvisible("toolmenu",1,'tobasket');
+    popupActive("toolmenu",1,'clear');
   } else {
-    popupInvisible("helpmenu",1,'import');
-    popupInvisible("newmenu",1,'newfam');
-    popupInvisible("newmenu",1,'newwf'); 
+    popupActive("toolmenu",1,'tobasket');
+    popupInvisible("toolmenu",1,'clear');
   }
-  popupActive("searchmenu",1,'newsearch');
-  popupActive("searchmenu",1,'newdsearch');
-  if ($action->GetParam("FULLTEXT_SEARCH") == "yes") popupActive("searchmenu",1,'newsearchfulltext');
-  else popupInvisible("searchmenu",1,'newsearchfulltext');
- 
-  popupActive("helpmenu",1,'help');
+  popupActive("toolmenu",1,'props');
 
 
   popupGen(1);

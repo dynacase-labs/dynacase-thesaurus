@@ -2,16 +2,15 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-msgid ""
-msgstr ""
-"Project-Id-Version: FREEDOM\n"
-"PO-Revision-Date: 2003-06-23 11:01+0200\n"
-"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
-"Language-Team: French <distrib@anakeen.com>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8bit\n"
-
+msgid	""
+msgstr	"Project-Id-Version: FREEDOM\n"
+	"POT-Creation-Date: 2003-07-16 09:57+0200\n"
+	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
+	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+	"Language-Team: French <distrib@anakeen.com>\n"
+	"MIME-Version: 1.0\n"
+	"Content-Type: text/plain; charset=ISO-8859-1\n"
+	"Content-Transfer-Encoding: 8bit\n"
 
 msgid	"no vcard file specified"
 msgstr	"pas de fichier vcard spécifié"
@@ -128,6 +127,13 @@ msgstr	"recherche contenant %s dans %s"
 #, c-format
 msgid	"%s all "
 msgstr	"%s tout"
+
+msgid	"related search aborted : no parameter found"
+msgstr "recherche relative abondonnée ; pas de paramètres"
+
+#, c-format
+msgid	"related search of %s"
+msgstr "recherche relative de %s"
 
 #, c-format
 msgid	"definition of enumerate attribute %s of %s family"
@@ -320,6 +326,10 @@ msgstr	"La famille n'est pas instanciée"
 #, c-format
 msgid	"Family (#%d) is not referenced"
 msgstr	"la famille (%d) n'est pas référencée"
+
+#, c-format
+msgid	"the document %s has been sended"
+msgstr "Le document %s a été envoyé"
 
 msgid	"email sended"
 msgstr	"email envoyé"
@@ -782,6 +792,9 @@ msgstr	"création"
 msgid	"change"
 msgstr	"modification"
 
+msgid	"auto revision"
+msgstr "révision automatique"
+
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
 	"The Size Limit is %d bytes."
@@ -816,20 +829,20 @@ msgstr	"erreur dans le nom de fichier"
 msgid	"no image"
 msgstr	"pas d'image"
 
+msgid	"add inputs"
+msgstr	"ajouter entrée"
+
 msgid	"clear inputs"
 msgstr	"effacer entrée(s)"
 
 msgid	"color picker"
-msgstr "choix de couleur"
+msgstr	"choix de couleur"
 
 msgid	"date picker"
 msgstr	"choix de date"
 
 msgid	"choose inputs"
 msgstr	"choisir une valeur"
-
-msgid	"add inputs"
-msgstr	"ajouter entrée"
 
 #, c-format
 msgid	"Sure %s ?"
@@ -938,6 +951,18 @@ msgstr	"Modification d'attributs"
 msgid	"edit state "
 msgstr	"Édition état"
 
+msgid	"edit icard "
+msgstr "éditer une carte virtuelle"
+
+msgid	"edit icard 2 "
+msgstr "éditer une carte virtuelle 2"
+
+msgid	"edit workflow transitions "
+msgstr "édition des transitions des cycles"
+
+msgid	"edit args of actions in workflow edition "
+msgstr "édition des arguments des actions dans l'édition des cycles"
+
 msgid	"edit profile access"
 msgstr	"édition des profiles d'accès"
 
@@ -1006,6 +1031,12 @@ msgstr	"widget popup pour affichage d'une carte"
 
 msgid	"Freedom modification"
 msgstr	"Modification de documents"
+
+msgid	"Freedom imodification"
+msgstr "Modification de documents virtuels"
+
+msgid	"view idoc attribute card"
+msgstr "Visualisation des attributs d'un document virtuel"
 
 msgid	"Freedom deletion"
 msgstr	"Suppression de documents"
@@ -1108,7 +1139,7 @@ msgid	"view standalone card"
 msgstr	"voir une carte autonome"
 
 msgid	"printed view card"
-msgstr "voir une carte imprimable"
+msgstr	"voir une carte imprimable"
 
 msgid	"view card"
 msgstr	"voir une carte"
@@ -1136,6 +1167,21 @@ msgstr	"copie envoi de mail"
 
 msgid	"maximum document can be imported directly"
 msgstr	"nombre maximum de documents pouvant être importé en direct"
+
+msgid	"name and address of our society"
+msgstr "nom et adresse de votre société"
+
+msgid	"logo of our society"
+msgstr "logo de votre société"
+
+msgid	"town of our society"
+msgstr "ville de votre société"
+
+msgid	"name of our society"
+msgstr "nom de votre société"
+
+msgid	"phone of our society"
+msgstr "téléphone de votre société"
 
 #, c-format
 msgid	"file %d"
@@ -1266,6 +1312,9 @@ msgstr	"Accès à la lecture"
 
 msgid	"generic home page"
 msgstr	"page d'accueil générique"
+
+msgid	"inverted search"
+msgstr "Recherche inversée"
 
 msgid	"duplication"
 msgstr	"duplication"
@@ -2022,19 +2071,13 @@ msgid	"default visibility"
 msgstr	"visibilité par défaut"
 
 msgid	"Search criteria"
-msgstr "Critères de recherche"
+msgstr	"Critères de recherche"
 
 msgid	"new guide-card"
 msgstr	"Nouvel intercalaire"
 
 msgid	"new search guide-card"
 msgstr	"Nouveau filtre"
-
-msgid	"yes"
-msgstr	"oui"
-
-msgid	"no"
-msgstr	"non"
 
 msgid	"Conditions"
 msgstr	"Conditions"
@@ -2195,6 +2238,12 @@ msgstr	"Changer de catégorie"
 msgid	"View properties"
 msgstr	"Voir les propriétés"
 
+#~ msgid	"yes"
+#~ msgstr	"oui"
+
+#~ msgid	"no"
+#~ msgstr	"non"
+
 #~ msgid	"see contents"
 #~ msgstr	"voir le contenu"
 
@@ -2339,9 +2388,6 @@ msgstr	"Voir les propriétés"
 #~ 	"document"
 #~ msgstr	"ce document n'est pas verrouillable, il ne peut pas être "
 #~ 	"révisé"
-
-#~ msgid	"edit usercard"
-#~ msgstr	"éditer une carte"
 
 #~ msgid	"view incident"
 #~ msgstr	"voir un incident"

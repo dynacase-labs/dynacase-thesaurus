@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.21 2003/06/10 13:56:58 eric Exp $
+// $Id: Class.Dir.php,v 1.22 2003/07/18 16:33:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.21 2003/06/10 13:56:58 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.22 2003/07/18 16:33:11 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -43,7 +43,7 @@ Class Dir extends PDir
   }
 
 
-  // get the home folder
+  // get the home and basket folder
   function GetHome() {
     
     $query = new QueryDb($this->dbaccess, get_class($this));
@@ -52,23 +52,57 @@ Class Dir extends PDir
     $rq = $query->Query();
     if ($query->nb > 0)      $home = $rq[0];
     else {
-      $home = createDoc($this->dbaccess,2);
+      $home = createDoc($this->dbaccess,"DIR");
       $home ->owner = -$this->userid;
       include_once("Class.User.php");
       $user = new User("", $this->userid);
       $home ->title = $user->firstname." ".$user->lastname;
+      $home ->icon = 'fldhome.gif';
       $home -> Add(); 
 
-      $privlocked = createDoc($this->dbaccess,5);
+      $privlocked = createDoc($this->dbaccess,"SEARCH");
       $privlocked->title=(_("locked files of ").$home ->title);
       $privlocked->Add();
       $privlocked->AddQuery("select * from doc where (doctype='F') ".
 			    "and (locked=".$this->userid.") ");
       $home -> AddFile($privlocked->id); 
+
     }
+
+      // add basket in home
+      
+    if (getParam("FREEDOM_IDBASKET") == "") {
+
+      $bas = createDoc($this->dbaccess,"BASKET");
+      $query = new QueryDb($this->dbaccess, "_BASKET");
+      $query->AddQuery("owner = ". $this->userid);
+      $rq = $query->Query();
+      if ($query->nb == 0) {
+	$bas->title=sprintf(_("basket of %s"),$home ->title);
+	$bas->Add();
+	$home -> AddFile($bas->id); 
+	$basid=$bas->id;
+      } else {
+	$basid=$rq[0]->id;
+      }
+      global $action;
+      $action->parent->param->Set("FREEDOM_IDBASKET",$basid,PARAM_USER.$this->userid,
+				  $action->parent->GetIdFromName("FREEDOM"));
+    }
+      
     return $home;
   }
     
+
+  function Clear() {
+    // need this privilege
+    $err = $this->Control("modify");
+    if ($err!= "") return $err;
+    
+    $q = new QueryDb($this->dbaccess,"QueryDir");
+    
+    $q->Query(0,0,"TABLE","delete from fld where dirid=".$this->id);
+  }
 
   // add a file in this folder
   function AddFile($docid, $mode="latest") {
@@ -145,7 +179,7 @@ Class Dir extends PDir
 
   // --------------------------------------------------------------------
   function getQids($docid) {
-    // return array of document id includes in a directory
+    // return array of queries id includes in a directory
     // --------------------------------------------------------------------
       
     $tableid = array();
@@ -205,6 +239,7 @@ Class Dir extends PDir
   // $classid : restrict for same usefor families
   function getAuthorizedFamilies($classid=0) {
     
+    if (! isset($this->authfam)) {
       $tfamid = $this->getTValue("FLD_FAMIDS");
       $tfam   = $this->getTValue("FLD_FAM");
     
@@ -235,8 +270,9 @@ Class Dir extends PDir
 	}
       
       }
-
-      return $tclassdoc;
+      $this->authfam=$tclassdoc;
+    }
+    return $this->authfam;
   }
 
 }

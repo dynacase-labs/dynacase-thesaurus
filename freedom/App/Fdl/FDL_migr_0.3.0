@@ -9,3 +9,5 @@ pubdir="/home/httpd/what";
 
 
 
+echo "update paramv set appid=(select id from application where name ='FDL') where name in ('SOCIETY_COORD','SOCIETY_LOGO','SOCIETY_NAME','SOCIETY_TOWN','SOCIETY_PHONE')" | psql anakeen anakeen
+echo "update paramdef set appid=(select id from application where name ='FDL') where name in ('SOCIETY_COORD','SOCIETY_LOGO','SOCIETY_NAME','SOCIETY_TOWN','SOCIETY_PHONE')" | psql anakeen anakeen

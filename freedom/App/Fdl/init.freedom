@@ -29,18 +29,18 @@ END;1;-1;;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;;
 DOC;2;9;;racine;;;;;;;;;
 DOC;2;10;9;import;Documents importés lors d'installation;;;;;;;;
-// famille chemise;;;id;class;name;;;;;;;
-BEGIN;2;chemise;17;;PORTFOLIO;;;;;;;
-TYPE;C;;;;;;;;;;;
-ICON;chemise.gif;;;;;;;;;;;
-METHOD;Method.PortFolio.php;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-;;;;;;;;;;;;
-ATTR;PFL_OPEN;;ouvrir;N;N;text;10;M;;%S%&app=FREEDOM&action=OPENFOLIO&id=%I%;;
-ATTR;PFL_IDDEF;FLD_FR_PROF;id chemise defaut ;N;N;docid;1000;H;N;;;
-ATTR;PFL_DEF;FLD_FR_PROF;chemise defaut;N;Y;text;1010;H;N;%S%&app=FDL&action=FDL_CARD&id=%PFL_IDDEF%;fdl.php;lfamilly(D,{PORTFOLIO},PFL_DEF):PFL_IDDEF,PFL_DEF
-;;;;;;;;;;;;
-END;1;-1;;;;;;;;;;
+// famille chemise;;;id;class;name;;;;;;;;
+BEGIN;2;chemise;17;;PORTFOLIO;;;;;;;;
+TYPE;C;;;;;;;;;;;;
+ICON;chemise.gif;;;;;;;;;;;;
+METHOD;Method.PortFolio.php;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
+;;;;;;;;;;;;;
+ATTR;PFL_OPEN;;ouvrir;N;N;text;10;M;;%S%&app=FREEDOM&action=OPENFOLIO&id=%I%;;;
+ATTR;PFL_IDDEF;FLD_FR_PROF;id chemise defaut ;N;N;docid;1000;H;N;;;;
+ATTR;PFL_DEF;FLD_FR_PROF;chemise defaut;N;Y;text;1010;H;N;%S%&app=FDL&action=FDL_CARD&id=%PFL_IDDEF%;fdl.php;lfamilly(D,{PORTFOLIO},PFL_DEF):PFL_IDDEF,PFL_DEF;%S%&app=FREEDOM&action=OPENFOLIO&id=%PFL_IDDEF%
+;;;;;;;;;;;;;
+END;1;-1;;;;;;;;;;;
 // famille cycle;;;id;class;name;;;;;;;
 BEGIN;1;cycle de vie;20;WDoc;WDOC;;;;;;;
 TYPE;C;;;;;;;;;;;

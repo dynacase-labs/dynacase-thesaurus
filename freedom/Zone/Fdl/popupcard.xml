@@ -43,6 +43,9 @@
     onclick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[profid]','access');closeMenu('popupcard');">
 [TEXT:goaccess]...</a>
 
+<a href="#" id="tobasket"     
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&dirid=[FREEDOM_IDBASKET]&docid=[id]','basket');closeMenu('popupcard');">[TEXT:Add to basket]</a>
+
 <a href="#" id="toxml"     
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=VIEWXML&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View XML]</a>
 

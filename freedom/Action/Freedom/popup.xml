@@ -19,7 +19,7 @@ var docTarget='fdoc';
     onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_DUPLICATE&id='+docid+'&dirid='+document.dirid,'_self');closeAllMenu(); return false;"  >[TEXT:duplicate document]</a>
 
 <a href="#" id="copy" 
-    onClick="activedrag(event);closeAllMenu(); return false;" >[TEXT:link document]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&dirid=[FREEDOM_IDBASKET]&docid='+docid,'basket');closeAllMenu(); return false;" >[TEXT:Add to basket]</a>
 
 <a href="#" id="ifld"
     onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IFLD&id='+docid,docTarget);closeAllMenu(); return false;" >[TEXT:access path list]</a>

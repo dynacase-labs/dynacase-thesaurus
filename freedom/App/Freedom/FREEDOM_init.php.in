@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.10 2003/01/15 11:41:31 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.11 2003/07/18 16:33:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,6 +37,12 @@ $app_const=
 					"descr"=> N_("enabled/disabled full text search"),
 					"global"=>"Y",
 					"kind"=>"enum(yes|no)"
+					),
+	     "FREEDOM_IDBASKET" => array(		
+					"val"=>"",
+					"descr"=> N_("id of the basket folder"),
+					"global"=>"Y",
+					"user"=>"Y"
 					),
 	     // mnoGoSearch configuration
 	     "MNOGOSEARCH_DB" => array(

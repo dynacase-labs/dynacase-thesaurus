@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.29 2003/05/23 15:30:03 eric Exp $
+// $Id: popupcard.php,v 1.30 2003/07/18 16:33:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,6 +55,7 @@ function popupcard(&$action) {
 				'access',
 				'delete',
 				'toxml',
+				'tobasket',
 
 				'chicon',
 				'chgtitle',
@@ -74,6 +75,9 @@ function popupcard(&$action) {
   $cud = ($doc->CanUpdateDoc() == "");
 
   popupCtrlActive('popupcard',$kdiv,'toxml'); 
+
+  if (getParam("FREEDOM_IDBASKET") > 0)   popupCtrlActive('popupcard',$kdiv,'tobasket'); 
+  else popupInvisible('popupcard',$kdiv,'tobasket');
 
   Popupactive('popupcard',$kdiv,'cancel');
   if (($doc->doctype=="C") && ($cud)) {
@@ -193,6 +197,7 @@ function popupcard(&$action) {
   }
 
   if ($doc->doctype == "C") {
+    popupInvisible('popupcard',$kdiv,'toxml');
     popupInvisible('popupcard',$kdiv,'editdoc');
     popupInvisible('popupcard',$kdiv,'editstate'); 
     popupInvisible('popupcard',$kdiv,'delete');

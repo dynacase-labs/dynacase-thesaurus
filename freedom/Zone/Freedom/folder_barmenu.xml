@@ -1,0 +1,48 @@
+
+
+<!-- ------------------ BAR MENU ------------------ -->
+<div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;z-index:6;" >
+<table  class="tablesimple"  cols="4"  cellspacing="0"  >
+<thead>
+<tr>
+
+<td class="MenuInactive" onClick="closeAllMenu();" ><span class="FREEDOMTextTitle"><I>[title]</I></span></td>
+<td class="MenuInactive" onClick="closeAllMenu();"><span class="FREEDOMText">[nbdoc]</span></td>
+<td  class="MenuInactive"  
+     onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="this.className='MenuActive'"
+     onMouseOut="this.className='MenuInactive'">
+<span class="FREEDOMTextTitle">[TEXT:View]</span>
+</td>
+<td  class="MenuInactive"  
+     onClick="closeAllMenu();openMenuXY(event,'toolmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="this.className='MenuActive'"
+     onMouseOut="this.className='MenuInactive'">
+<span class="FREEDOMTextTitle">[TEXT:Tools]</span>
+</td>
+</tr>
+</thead>
+
+</table >
+</div>
+
+<br>
+<!-- ------------------ end POPUP DIVISION ------------------ -->
+
+
+
+<!-- ------------ MENU VIEW  --------------------- -->
+<div  id="viewmenu" class="popup">
+  
+<a  id="vlist" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_LIST&dirid=[dirid]';closeAllMenu()">[TEXT:list]</a>
+<a  id="vicon" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ICONS&dirid=[dirid]';closeAllMenu()">[TEXT:icon]</a>
+<a  id="vcol" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_COLUMN&dirid=[dirid]';closeAllMenu()">[TEXT:column]</a>
+</div>
+
+<!-- ------------ MENU TOOL --------------------- -->
+<div  id="toolmenu" class="popup">
+     <a  id="props" href="#" onClick="activate(this,'[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[dirid]','fdoc');closeAllMenu();">[TEXT:Properties]</a>
+  <a id="tobasket" target="basket" href="[CORE_STANDURL]app=FREEDOM&action=FREEDOM_INSERTFLD&dirid=[dirid]&id=[FREEDOM_IDBASKET]" onClick="closeAllMenu()">[TEXT:All To basket]</a>
+     <a  id="clear" href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_CLEARFLD&id=[dirid]','basket');closeAllMenu();">[TEXT:Clear Folder]</a>
+</div>
+

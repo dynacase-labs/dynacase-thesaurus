@@ -64,7 +64,7 @@ TD.tlist {
  </head>
 
 
-<body class="freedom" 
+<body class="freedom" topmargin=1 leftmargin=1
       onLoad="initmicon();" 
       onClick="closeMenu('popuplist');" >
 
@@ -72,8 +72,8 @@ TD.tlist {
 
 <img id="micon" width="20" height="20"   style="position:absolute;visibility:hidden;z-index:10" border="0" src="FREEDOM/Images/doc.gif">
 
-<p class="anakeen" align="center">[dirtitle] : [nbdoc] [TEXT:document(s) found]</p>
 
+[ZONE FREEDOM:FOLDER_BARMENU?title=[dirtitle]&nbdoc=[nbdoc]&dirid=[dirid]]
 [ZONE FREEDOM:POPUP]
 
 

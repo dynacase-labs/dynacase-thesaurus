@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.38 2003/06/27 07:40:45 mathieu Exp $
+// $Id: freedom_util.php,v 1.39 2003/07/18 16:33:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -141,6 +141,7 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
 // create a new document object in type concordance
 function createDoc($dbaccess,$fromid,$control=true) {
 
+  if (! is_numeric($fromid)) $fromid=getFamIdFromName($dbaccess,$fromid);
   if ($fromid > 0) {
     include_once("FDL/Class.DocFam.php");
     $cdoc = new DocFam($dbaccess, $fromid);

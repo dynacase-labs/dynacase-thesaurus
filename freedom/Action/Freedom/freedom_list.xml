@@ -66,8 +66,8 @@ TR.select {
 </script>   
  </head>
 
-<body class="freedom" 
-      onLoad="initmicon();" 
+<body 
+      onLoad="initmicon();" topmargin=1 leftmargin=1
       onClick="closeMenu('popuplist');" 
       onResize="">
 
@@ -78,10 +78,10 @@ TR.select {
 <img id="micon" width="20" height="20"   style="position:absolute;visibility:hidden;z-index:10" border="0" src="FREEDOM/Images/doc.gif">
 
 
+[ZONE FREEDOM:FOLDER_BARMENU?nbdoc=[nbdoc]&dirid=[dirid]]
 [ZONE FREEDOM:POPUP]
-
+<br>
 <table class="tablesimple" cellspacing="0" width="100%" >
-<tr><td class="tlist" colspan="5" align="center">[dirtitle] : [nbdoc] [TEXT:document(s) found]</td></tr>
 <!-- TABLEBODY -->
                     [BLOCK TABLEBODY]
 <tr  id="d[divid]"

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.24 2003/06/27 07:40:45 mathieu Exp $
+// $Id: FREEDOM.app,v 1.25 2003/07/18 16:33:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -103,6 +103,16 @@ $action_desc = array (
   array( 
    "name"		=>"ADDDIRFILE",
    "short_name"		=>N_("add file query into directory"),
+   "acl"		=>"FREEDOM",
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_INSERTFLD",
+   "short_name"		=>N_("insert containt of a folder into another"),
+   "acl"		=>"FREEDOM",
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_CLEARFLD",
+   "short_name"		=>N_("clear containt of a folder"),
    "acl"		=>"FREEDOM",
   ) ,
   array( 
