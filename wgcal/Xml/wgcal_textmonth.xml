@@ -13,4 +13,7 @@ onclick="setTextView([prevmontht]);">[prevmonth]</td>
 <tr><td colspan="[dayperline]">[ZONE WGCAL:WGCAL_INFOS]</td></tr>
 </table>
 
+[BLOCK CARDS]
+<div id="evtc[ID]" style="display:none; border:1px outset; background-color:white');">[ZONE [VIEW]?ev=[ID]]</div>[ENDBLOCK CARDS]
+
 [ZONE WGCAL:WGCAL_HTMLFOOT]

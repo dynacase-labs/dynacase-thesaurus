@@ -25,7 +25,7 @@
      </td>
  </tr>    
  <tr height="[WGCAL_U_HLINETITLE]px">
-    <td width="[hcolsize]%" class="WGCAL_Period"></td>[BLOCK DAYS_LINE]<td id="D[IDD]" width="[colsize]%" align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]</tr>
+    <td width="[hcolsize]%" class="WGCAL_Period"></td>[BLOCK DAYS_LINE]<td id="D[IDD]" width="[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times],[timee]);">[LABEL]</td>[ENDBLOCK DAYS_LINE]</tr>
 [BLOCK HOURS]<tr height="[HLINEHOURS]px"><td id="L[LID]" width="[hcolsize]%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>[ENDBLOCK HOURS]
 </table>[ZONE WGCAL:WGCAL_INFOS]</div>
 

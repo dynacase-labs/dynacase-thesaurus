@@ -1,5 +1,5 @@
 <!-- POPUP DIVISION -->
-<div  style="display:none" id="calpopup" class="popup">
+<div  style="display:none" id="calpopup" class="wgcalpopup">
 
 <a href="#" id="acceptrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=2','');closeMenu('calpopup')" >[TEXT:accept this]</a>
 <a href="#" id="rejectrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=3','');closeMenu('calpopup')" >[TEXT:reject this]</a>

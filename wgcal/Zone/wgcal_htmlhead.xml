@@ -1,25 +1,21 @@
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <LINK REL="icon" HREF="CORE/Images/logo16.ico" >
-  <LINK REL="SHORTCUT ICON" HREF="CORE/Images/logo32.ico" >
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  
+  [BLOCK autorefresh]<meta htt-equiv="refresh" content="[refreshdur];[refreshurl]" target="_self">[ENDBLOCK autorefresh]
+  <link rel="icon" HREF="WGCAL/Images/wgcal.ico" >
+  <link rel="SHORTCUT" HREF="WGCAL/Images/wgcal.ico" >
   <title>[TEXT:freeevent app name]</title>
 
   <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS&theme=[theme]" >
   [CSS:REF]
+  <style type="text/css">[CSS:CODE]</style>
 
-   <style type="text/css">
-[CSS:CODE]
-   </style>
+   [JS:REF]
 
-[JS:REF]
-
-   <script language="JavaScript">
-  <!--
+   <script language="JavaScript"><!--
     [JS:CODE]
-  //-->
-   </script>
- </head>
+   //--></script>
+</head>
 
 <body>
 <div style="display:none">

@@ -6,6 +6,11 @@
 - Gestion des états d'acceptation par menu
 - Visualiation pour les autres que le propriétaire
 - Ajout de l'historique (changement d'état/modification/supression...)
+- Reprise de la vue mensuelle texte
+- Prise de rv :
+  * click sur zone sans heure : edite un rv avec "sans heure" coché
+  * click sur la journée      :   "      "        "toute la journée" coché
+
 
 
 --------------------------------------------------------------------------

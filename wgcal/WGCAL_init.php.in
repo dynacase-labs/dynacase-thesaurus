@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.19 2005/03/09 22:27:44 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.20 2005/03/10 10:30:59 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,6 +67,8 @@ array(
 "WGCAL_U_HSUSED" => array("kind"=>"static", "val"=>"0", "descr"=>N_("start hour used for event setting"),"user"=>"Y"),
 "WGCAL_U_HEUSED" => array("kind"=>"static", "val"=>"23", "descr"=>N_("end hour used for event setting"),"user"=>"Y"),
 "WGCAL_U_MINCUSED" => array("kind"=>"static", "val"=>"15", "descr"=>N_("minutes increment used for event setting"),"user"=>"Y"),
+
+"WGCAL_U_REFRESH_T" => array("kind"=>"static", "val"=>"0", "descr"=>N_("refresh toolbar"),"user"=>"Y"),
 
 // Globals
 "WGCAL_G_SENDMAILS" => array("val"=>"0", "descr"=>N_("mails send")),

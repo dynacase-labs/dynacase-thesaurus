@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-09 17:44+0100\n"
+"POT-Creation-Date: 2005-03-10 11:25+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -163,6 +163,9 @@ msgstr "Stockage d'un rendez-vous"
 msgid "delete event"
 msgstr "Supression d'un rendez-vous"
 
+msgid "event history"
+msgstr "Historique"
+
 msgid "ressource picker main"
 msgstr "Selecteur de ressources"
 
@@ -185,7 +188,7 @@ msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
 
 msgid "calendar creation"
-msgstr "Sélection du calendrier"
+msgstr "Sélection des calendriers"
 
 msgid "Enter new calendar name"
 msgstr "Nom du calendrier"
@@ -222,18 +225,6 @@ msgstr "Rechercher dans les familles..."
 
 msgid "search"
 msgstr "Rechercher"
-
-msgid "mail to contacts"
-msgstr "Envoyer un mail aux personnes conviées"
-
-msgid "print"
-msgstr "Imprimer"
-
-msgid "delete"
-msgstr "Supprimer"
-
-msgid " delete this event"
-msgstr "Supprimer le rendez-vous"
 
 msgid "set event"
 msgstr ""
@@ -364,6 +355,18 @@ msgstr "Ajouter un jour à exclure"
 msgid "del selected dates"
 msgstr "Supprimer les jours sélectionnés"
 
+msgid "mail to contacts"
+msgstr "Envoyer un mail aux personnes conviées"
+
+msgid "print"
+msgstr "Imprimer"
+
+msgid "delete"
+msgstr "Supprimer"
+
+msgid " delete this event"
+msgstr "Supprimer le rendez-vous"
+
 msgid "save"
 msgstr "Sauver"
 
@@ -387,6 +390,9 @@ msgstr "Etat"
 
 msgid "all state"
 msgstr "tout état"
+
+msgid "click here to refresh toolbar"
+msgstr "cliquer pour raffraichir la barre d'outil"
 
 msgid "waiting rv"
 msgstr "Rendez-vous en attente"
@@ -583,6 +589,9 @@ msgstr "Aspect et comportement de l'interface"
 msgid "mail management"
 msgstr "Gestion des mail"
 
+msgid "state set to "
+msgstr "Rendez-vous "
+
 msgid "monday"
 msgstr "Lundi"
 
@@ -614,11 +623,17 @@ msgstr "Recherche d'évènement"
 msgid "main calendar"
 msgstr "Calendrier public"
 
+msgid "change content "
+msgstr "Modification du contenu"
+
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
 
 msgid "display refused meetings"
 msgstr "Afficher les évènements refusés"
+
+msgid "refresh toolbar"
+msgstr "Raffraichir la barre d'outil"
 
 msgid "confidential event"
 msgstr "Evènement confidentiel"

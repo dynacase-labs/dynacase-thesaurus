@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.14 2005/03/09 22:27:44 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.15 2005/03/10 10:30:59 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -151,9 +151,10 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   foreach ($edre as $k=>$v) {
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
     $item = array( "ID" => $v["id"], 
- 		   "TSSTART" => $v["evt_begdate"],
+		   "IDP" => $v["evt_idinitiator"], 
  		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
-		   "TSEND" => $end, 
+//  		   "TSSTART" => $v["evt_begdate"],
+// 		   "TSEND" => $end, 
 		   "END" => FrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
 
@@ -161,14 +162,14 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
 
     $ref = false;
     if ($showrefused!=1) {
-      $attr = $dre->_val2array($v["evfc_attid"]);
+      $attr = $dre->_val2array($v["evfc_rejectattid"]);
       foreach ($attr as $kat => $vat) {
         if ($action->user->fid == $vat) $ref = true;
       } 
     }
    
     if (!$ref) { 
-      $n = new Doc($dbaccess, $v["evt_idinitiator"]);
+      $n = new Doc($dbaccess, $v["evt_idinitiator"]);  
       $varclass = get_class_vars("_CALEVENT");
       if (isset($varclass["ZoneEvtAbstract"]) && isset($varclass["ZoneEvtCard"])) {
         $abstract =  $varclass["ZoneEvtAbstract"];

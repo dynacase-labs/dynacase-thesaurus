@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.33 2005/03/09 22:27:44 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.34 2005/03/10 10:30:59 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -111,7 +111,7 @@ function wgcal_editevent(&$action) {
     $evnote   = "";
     $evstart  = $times;
     $evend    = $timee;
-    $evtype   = ($nh==1?2:0);
+    $evtype   = $nh;
     $evfreq   = 1;
     $evcal    = -1;
     $evvis    = 0;

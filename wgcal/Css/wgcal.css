@@ -58,10 +58,17 @@ TD {
 }
 
 /* Zone d'affichage des infos mois, semaine et jours */
+.wMainMenu {
+  cursor:pointer;
+  background-color : [WTH_COLOR_2];
+  border : 1px outset [WTH_COLOR_2];
+  font-size: [WTH_FONTSIZE_SMALL]pt;
+}
 .WGCAL_Period {
   background-color : [WTH_COLOR_2];
   border : 1px outset [WTH_COLOR_2];
   font-weight: bold;
+  font-size: [WTH_FONTSIZE_BIG]pt;
 }
 /* Periode selectionne : mise en évidence jour / heure */
 .WGCAL_PeriodSelected {
@@ -72,7 +79,14 @@ TD {
 }
       
 /* Journée courante */
+.WGCAL_DayLine {
+  cursor:pointer;
+  background-color : [WTH_COLOR_2];
+  border : 1px outset [WTH_COLOR_2];
+  font-weight: bold;
+}
 .WGCAL_DayLineCur {
+  cursor:pointer;
   border : 1px outset [WTH_COLOR_1];
   font-weight: bold;
   background-color : [WTH_COLOR_2];
@@ -174,6 +188,17 @@ TD {
 /*
  * Really use in final product !
  */
+
+.wWhoAmI {
+ cursor: pointer; 
+ background-color: white; 
+ padding: 3px; 
+ font-weight: bold; 
+ text-align: center; 
+ border: 1px outset [WTH_COLOR_3];
+ font-size: [WTH_FONTSIZE_SMALL]pt;
+}
+
 .wToolButton {
   background-color : [WTH_COLOR_2];
   font-weight : bold;
@@ -238,6 +263,11 @@ TD {
   background-color: ;
   cursor:default;
 }
+.wTextEvent {
+  cursor:pointer;
+  font-size: [WTH_FONTSIZE_SMALL]px;
+  color : [WTH_TEXTCOLOR_1];
+}
 
 
 /* event Css */
@@ -255,6 +285,7 @@ TD {
   position: relative;
   display: none;
   cursor: default;
+  font-size: [WTH_FONTSIZE_SMALL]px;
 }
 
 .calendar table {
@@ -325,7 +356,7 @@ TD {
   padding: 2px 4px 2px 2px;
 }
 .calendar tbody .day.othermonth {
-  font-size: 90%;
+  font-size: [WTH_FONTSIZE_SMALL]px;
   color: [WTH_TEXTCOLOR_1];
 }
 .calendar tbody .day.othermonth.oweekend {
@@ -496,4 +527,69 @@ TD {
   border-color: [WTH_TEXTCOLOR_1];
   background-color: [WTH_TEXTCOLOR_1];
   color: [WTH_COLOR_3];
+}
+
+
+
+.wgcalpopup {
+  background: [WTH_BGIMG]; 
+  background-color: [WTH_COLOR_1];  
+  color: [WTH_TEXTCOLOR_1];
+  border-color: [WTH_COLOR_3];
+  border-style: outset;
+  border-width: 1px; 
+  margin: 0px;
+  position: absolute;
+  visibility: hidden;
+  text-decoration: none;
+  z-index:10;
+}
+@media print {
+  .wgcalpopup {
+    display:none;
+  }
+}
+.wgcalpopup a.menuItem, 
+.wgcalpopup a:visited.menuItem, 
+.wgcalpopup a.menuItemCtrl, 
+.wgcalpopup a:visited.menuItemCtrl {
+  color: [WTH_TEXTCOLOR_1];
+  cursor: pointer;
+  display: block;
+  font-size: [WTH_FONTSIZE_SMALL]px;
+  padding: 2px 12px 2px 8px;
+  text-decoration: none;
+  text-transform:capitalize;
+}
+
+.wgcalpopup a.menuItemInvisible { 
+  display: none;
+  cursor: default;
+}
+
+.wgcalpopup a.menuItemDisabled, 
+.wgcalpopup a.menuItemCtrlDisabled { 
+  color: [WTH_COLOR_3];
+  cursor: default;
+  display: block;
+  font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
+  font-size: [WTH_FONTSIZE_SMALL]px;
+  font-style: italic;
+  padding: 2px 12px 2px 8px;
+  text-decoration: none;
+}
+.wgcalpopup a.menuItem:hover,
+.wgcalpopup a.menuItemCtrl:hover,
+.wgcalpopup a.menuItemDisabled:hover,
+.wgcalpopup a.menuItemCtrlDisabled:hover {
+  color: [WTH_TEXTCOLOR_2];
+  background-color:[WTH_COLOR_3];
+  text-decoration: none;
+}
+
+.wgcalpopup a.separator,
+.wgcalpopup a.separator:hover {
+  color: [WTH_COLOR_3];
+  border-bottom : 1px dotted [WTH_COLOR_3];
+  display: block;
 }

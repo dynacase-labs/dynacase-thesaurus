@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.7 2005/03/09 22:27:44 marc Exp $
+ * @version $Id: calev_card.php,v 1.8 2005/03/10 10:30:59 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -25,8 +25,11 @@ function calev_card(&$action) {
     $evtmp = new Doc($dbaccess, $ev);
     $evid = $evtmp->getValue("evt_idinitiator");
   }
-  if ($evid==-1) return;
-
+  if ($evid==-1) {
+    echo "No event #$ev";
+    $action->lay->set("OUT", "No event #$ev");
+    return;
+  }
   $action->lay->set("mode", ($mode=="v"?"":"none"));
 
 //   $pretitle = "";

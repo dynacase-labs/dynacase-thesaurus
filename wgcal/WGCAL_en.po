@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-09 17:44+0100\n"
+"POT-Creation-Date: 2005-03-10 11:25+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -163,6 +163,9 @@ msgstr ""
 msgid "delete event"
 msgstr ""
 
+msgid "event history"
+msgstr ""
+
 msgid "ressource picker main"
 msgstr ""
 
@@ -221,18 +224,6 @@ msgid "searched families"
 msgstr ""
 
 msgid "search"
-msgstr ""
-
-msgid "mail to contacts"
-msgstr ""
-
-msgid "print"
-msgstr ""
-
-msgid "delete"
-msgstr ""
-
-msgid " delete this event"
 msgstr ""
 
 msgid "set event"
@@ -364,6 +355,18 @@ msgstr ""
 msgid "del selected dates"
 msgstr ""
 
+msgid "mail to contacts"
+msgstr ""
+
+msgid "print"
+msgstr ""
+
+msgid "delete"
+msgstr ""
+
+msgid " delete this event"
+msgstr ""
+
 msgid "save"
 msgstr ""
 
@@ -386,6 +389,9 @@ msgid "status"
 msgstr ""
 
 msgid "all state"
+msgstr ""
+
+msgid "click here to refresh toolbar"
 msgstr ""
 
 msgid "waiting rv"
@@ -583,6 +589,9 @@ msgstr ""
 msgid "mail management"
 msgstr ""
 
+msgid "state set to "
+msgstr ""
+
 msgid "monday"
 msgstr ""
 
@@ -614,10 +623,16 @@ msgstr ""
 msgid "main calendar"
 msgstr ""
 
+msgid "change content "
+msgstr ""
+
 msgid "You have waiting events"
 msgstr ""
 
 msgid "display refused meetings"
+msgstr ""
+
+msgid "refresh toolbar"
 msgstr ""
 
 msgid "confidential event"

@@ -8,6 +8,7 @@ function wgcal_textmonth(&$action)
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
 
   $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
   $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
@@ -33,34 +34,32 @@ function wgcal_textmonth(&$action)
   $d2 = "".$year."-".$month."-".$lastday." 23:59:59";
   $tevents = WGCalGetAgendaEvents($action, $tress, $d1, $d2);
 
+  $action->lay->setBlockData("CARDS", $tevents);
 
   $tdays = array();
   foreach ($tevents as $ke => $ve) {
-    $ev = new Doc($dbaccess, $ve["ID"]);
-    $start = dbdate2ts($ev->getValue("CALEV_START"));
-    $dstart = strftime("%d", $start);
-    $end = dbdate2ts($ev->getValue("CALEV_END"));
-    $dend = strftime("%d", $end);
-    $title = $ev->getValue("CALEV_EVTITLE");
+    $ev = new Doc($dbaccess, $ve["IDP"]);
+    $dstart = strftime("%d", $ve["START"]);
+    $dend = strftime("%d", $ve["END"]);
+    $htype = $ev->getValue("CALEV_TIMETYPE",0);
     for ($id=intval($dstart); $id<=intval($dend); $id++) {
       if (!is_array($tdays[$id]->events)) {
-        $tdays[$id]->ecount = -1;
+        $tdays[$id]->ecount = 0;
         $tdays[$id]->events = array();
       }
-      $s = $start;  
-      $e = $end;
-      if ($s==$e) $s = $e = 0;
+      $s = $ve["START"];  
+      $e = $ve["END"];
       if ($id>$dstart) $s = 0;
       if ($id<$dend) $e = 0;
-      $tdays[$id]->ecount++;
       $tdays[$id]->events[$tdays[$id]->ecount]["ID"] = $ve["ID"];
       $tdays[$id]->events[$tdays[$id]->ecount]["START"] = $s;
-      $tdays[$id]->events[$tdays[$id]->ecount]["RSTART"] = $ev->getValue("CALEV_START");
       $tdays[$id]->events[$tdays[$id]->ecount]["END"] = $e;
-      $tdays[$id]->events[$tdays[$id]->ecount]["REND"] = $ev->getValue("CALEV_END");
-      $tdays[$id]->events[$tdays[$id]->ecount]["TITLE"] = $title;
+      $tdays[$id]->events[$tdays[$id]->ecount]["H"] = $htype;
+      $tdays[$id]->events[$tdays[$id]->ecount]["TITLE"] = $ev->getValue("CALEV_EVTITLE");
+      $tdays[$id]->ecount++;
     }
   }
+
 
   $startdisplay = false;
   $cday = 1;
@@ -81,15 +80,18 @@ function wgcal_textmonth(&$action)
 	$h->set("daytitle",strftime("%A %d",($firstMonthDay+(($cday-1)*24*3600))));
 	if ($tdays[$cday]->ecount > 0) {
           usort($tdays[$cday]->events, cmpEvents);
-	  for ($ie=0; $ie<=$tdays[$cday]->ecount; $ie++) {
+	  for ($ie=0; $ie<count($tdays[$cday]->events); $ie++) {
 	    $ievent = $tdays[$cday]->events[$ie]["ID"];
-	    $ev = new Doc($dbaccess, $ievent);
 	    $d[$ie]["hours"] = "";
             if ($tdays[$cday]->events[$ie]["START"]>0) $s = strftime("%H:%M",$tdays[$cday]->events[$ie]["START"]);
             else $s = $hstart.":00";
             if ($tdays[$cday]->events[$ie]["END"]>0) $e = strftime("%H:%M",$tdays[$cday]->events[$ie]["END"]);
             else $e = $hstop.":00";
 	    $d[$ie]["hours"] = "[".$s."-".$e."]";
+
+	    if ($tdays[$cday]->events[$ie]["H"]==1) $d[$ie]["hours"] = "["._("no hour")."]";
+ 	    if ($tdays[$cday]->events[$ie]["H"]==2) $d[$ie]["hours"] = "["._("all the day")."]";
+
 	    $d[$ie]["title"] = $st.$tdays[$cday]->events[$ie]["TITLE"];
 	    $d[$ie]["id"] = $tdays[$cday]->events[$ie]["ID"];
           }
