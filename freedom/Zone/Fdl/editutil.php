@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.82 2004/12/01 15:52:39 eric Exp $
+ * @version $Id: editutil.php,v 1.83 2005/01/14 17:51:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -928,16 +928,18 @@ function getLayTextOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   if ($res===false) return false; // one or more attribute are not set
 
   $sattrid="[";
-  $sattrid.= strtolower("'".implode("','", $rargids)."'");
+  if (is_array($rargids)) $sattrid.= strtolower("'".implode("','", $rargids)."'");
   $sattrid.="]";
   $lay->Set("attrid", $sattrid);
 
-  foreach ($tselect as $k=>$v) {
-    if ($v["choice"]==$value) $tselect[$k]["selected"]="selected";
-    else $tselect[$k]["selected"]="";
+  if (is_array($tselect)) {
+    foreach ($tselect as $k=>$v) {
+      if ($v["choice"]==$value) $tselect[$k]["selected"]="selected";
+      else $tselect[$k]["selected"]="";
+    }
+    $lay->SetBlockData("SELECTENUM", $tselect);
   }
 
-  $lay->SetBlockData("SELECTENUM", $tselect);
   $lay->SetBlockData("ATTRVAL", $tval);
 
   $lay->set("value",$value);
