@@ -931,14 +931,24 @@ function downtr(trnode) {
 }
 
 // use to delete an article
+var specDeltr=false;
 function delseltr() {
   if (seltr) {
     seltr.parentNode.removeChild(seltr);  
+    if (specDeltr) {
+      eval(specDeltr);
+      try {
+      }
+      catch(exception) {
+	alert(exception);
+      }
+    }
   }
   unseltr();
   return;
   
 }
+var specDuptr=false;
 function duptr() {
   var dsel;
   var tbodysel;
@@ -961,7 +971,14 @@ function duptr() {
       afterCloneBug(seltr,csel);
     }
     disableReadAttribute();
-    
+    if (specDuptr) {
+      eval(specDuptr);
+      try {
+      }
+      catch(exception) {
+	alert(exception);
+      }
+    }
   }  
 }
 
@@ -1069,6 +1086,14 @@ function movetr(tr) {
     }
     
     resetTrInputs(trnode);
+    if (specMovetr) {
+      eval(specMovetr);
+      try {
+      }
+      catch(exception) {
+	alert(exception);
+      }
+    }
   }
   return;  
 }
@@ -1388,10 +1413,10 @@ function trackKeys(event,onlystop)
       stop=true;
     }
   }
-  if (onlystop) {
+  if (onlystop ) {
     if (altKey || ctrlKey) {
-      if ((intKeyCode == 100) || 
-	  (intKeyCode == 118) || 
+      if ((seltr && ((intKeyCode == 100) || 
+		     (intKeyCode == 118))) ||
 	  (intKeyCode == 115)) {
 	stop=true;
       }

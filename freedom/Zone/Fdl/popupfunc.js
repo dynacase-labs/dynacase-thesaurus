@@ -213,7 +213,7 @@ function activate(th, url, wname) {
     if ((wname == "")||(wname == "_self")) {
       setTimeout('viewwait()',1000);      
       window.location.href=url;
-    } else subwindowm(fdl_vd2size,fdl_hd2size,wname,url);
+    } else subwindow(fdl_vd2size,fdl_hd2size,wname,url);
    
   }
 }
