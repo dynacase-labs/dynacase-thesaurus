@@ -1,10 +1,23 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
 <script type="text/javascript">
+
+function setDaysViewed(ndays) {
+   usetparam("WGCAL_U_DAYSVIEWED", ndays);
+   document.getElementById('fdatesel').submit();
+}
+function gotoToday() {
+   ccd = new Date();
+   usetparam("WGCAL_U_CALCURDATE", (ccd.getTime()/1000));
+   document.getElementById('fdatesel').submit();
+}
 var REvent = 0;
 var RCall = 0;
 </script>
-<table width="100%" style="border:2px outset grey" border="1" cellborder="1" cellspacing="0" cellpadding="0" align="right"><tr>
+
+<form id="fdatesel" target="wgcal_calendar" name="datesel" method="POST"  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
+
+<table width="100%" style="border:1px solid grey" cellborder="0" cellspacing="0" cellpadding="0" align="right"><tr>
 
 <td align="center" height="40" width="40" >
 <img id="menu_edit" class="WGCalButton" title="[TEXT:add new event]"
@@ -31,22 +44,28 @@ var RCall = 0;
 </td>
 
 <td align="center" height="40" width="40" >
-<img id="menu_oneday" class="WGCalButton" title="[TEXT:one day]"
+<img id="menu_oneday" class="WGCalButton" title="[TEXT:today]"
      onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
+     onclick="gotoToday();"
      src="WGCAL/Images/wgcal-oneday.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
 
 <td align="center" height="40" width="40" >
-<img id="menu_multiday" class="WGCalButton" title="[TEXT:multi day]"
-      onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
-    src="WGCAL/Images/wgcal-multiday.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
 
 <td align="center" height="40" width="40" >
-<img id="menu_quarterlist" class="WGCalButton" title="[TEXT:quarter list]"
+<img id="menu_multiday" class="WGCalButton" title="[TEXT:one week view]"
       onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
-    src="WGCAL/Images/wgcal-quarterlist.png" height="[WGCAL_U_MENUICONS_H]" >
+     onclick="setDaysViewed(7);"
+    src="WGCAL/Images/oneweek.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
+<td align="center" height="40" width="40" >
+<img id="menu_multiday" class="WGCalButton" title="[TEXT:two week view]"
+      onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
+     onclick="setDaysViewed(14);"
+    src="WGCAL/Images/twoweek.png" height="[WGCAL_U_MENUICONS_H]" >
+</td>
+
 
 <td align="center" height="40" width="40" >
 </td>

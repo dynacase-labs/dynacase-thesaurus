@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.15 2005/01/27 12:06:20 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.16 2005/01/31 10:55:26 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -41,14 +41,10 @@ function d2s($t, $f="%x %X") {
   return strftime($f, $t);
 }
 
-function wgcal_getRessDisplayed(&$action, $rlist) {
+function wgcal_getRessDisplayed(&$action) {
   $r = array();
   $ir = 0;
-  if ($rlist=="") {
-    $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", ""));
-  } else {
-    $cals = explode("|", $rlist);
-  }
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id)));
   while (list($k,$v) = each($cals)) {
     $tc = explode("%", $v);
     if ($tc[0] != "" && $tc[1] == 1) {
@@ -61,15 +57,6 @@ function wgcal_getRessDisplayed(&$action, $rlist) {
   return $r;
 }
   
-function GetRegisterDate(&$action) {
-  return $action->Read("WGCAL_CUR_TIME", time());
-}
-
-function SetRegisterDate(&$action, $d) {
-   $action->Register("WGCAL_CUR_TIME", $d);
- 
-}
-
 function wgcal_calendar(&$action) {
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -83,20 +70,14 @@ function wgcal_calendar(&$action) {
   $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   if ($swe!="yes") $ndays = $dayperweek - 2;
   else $ndays = $dayperweek;
-  $sdate = GetHttpVars("newdate", time());
+  $sdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $firstWeekDay = GetFirstDayOfWeek($sdate);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $today = d2s("%d/%m/%Y", time());
   $curdate = d2s("%d/%m/%Y", $sdate);
   $fday  = strftime("%u",$firstWeekDay);
   // echo "start date : ".d2s($sdate)." end : ".d2s($edate)." first : ".d2s($firstWeekDay)."<br>";
-  if ($sdate == 0) {
-    $sdate = GetRegisterDate($action);
-  }
-  SetRegisterDate($action, $sdate);
-  
-  $rlist = GetHttpVars("rlist", "");
-  $ress = wgcal_getRessDisplayed($action, $rlist);
+  $ress = wgcal_getRessDisplayed($action);
 
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);
@@ -223,7 +204,7 @@ function getAgendaEvent(&$action,$tress,$d1="",$d2="") {
   $tout=array(); 
   $it=0;
   foreach ($tress as $kr=>$vr) {
-    echo "ressource : ".$vr->id."(".$vr->color.") <br>";
+    //echo "ressource : ".$vr->id."(".$vr->color.") <br>";
     setHttpVar("idres",$vr->id);
     $dre=new Doc($dbaccess,$reid);
     $edre=$dre->getEvents($d1,$d2);

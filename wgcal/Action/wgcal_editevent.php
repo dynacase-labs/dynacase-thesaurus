@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.13 2005/01/28 19:18:24 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.14 2005/01/31 10:55:26 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -112,7 +112,7 @@ function wgcal_editevent(&$action) {
     
     $userd = $action->GetParam("WGCAL_U_USERESSINEVENT", 0);
     if ($userd == 1) {
-      $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
+      $curress = $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
       $lress = explode("|", $curress);
       if (count($lress)>0) {
 	foreach ($lress as $k => $v) {

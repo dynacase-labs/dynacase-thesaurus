@@ -9,8 +9,11 @@ function wgcal_deleteevent(&$action) {
   $id  = GetHttpVars("eventid", -1);
   if ($id!=-1) {
     $event = new Doc($db, $id);
-    $err = "xxx";
-    if ($event->isAlive()) $err = $event->Delete();
+    if ($event->isAlive()) {
+      $err = $event->Delete();
+      $err = $event->postDelete();
+    }
   }
+  redirect($action, $action->parent->name, "WGCAL_CALENDAR");
 }
 ?>

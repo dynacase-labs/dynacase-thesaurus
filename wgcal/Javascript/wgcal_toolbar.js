@@ -7,8 +7,8 @@ function pickColor(color) {
     idx = getRessourcePos(curRessource);
     ressourceList[idx][1] = color;
     document.getElementById('cp'+curRessource).style.background = color;
-    ressourcesChange = 1;
     document.getElementById('cp'+curRessource).style.background = color;
+    saveTmpRessources();
   } else {
     document.getElementById('cpmycolor').style.background = color;
     usetparam("WGCAL_U_MYCOLOR", color);
@@ -54,7 +54,7 @@ function addRessource(rid, rtitle, ricon, rstate) {
   idx = getRessourcePos(rid);
   if (idx!=-1) return;
   InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', 0 );
-  ressourcesChange = 1;
+  saveTmpRessources();
 }
 
 function storeRessource(id, color, display, icon, descr, style) {
@@ -78,6 +78,7 @@ function deleteRessource(rid) {
   eltRess = document.getElementById('tr'+rid);
   if (!eltRess) return;
   eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
+  saveTmpRessources();
 }
 
 function showAllRessource() {
@@ -131,7 +132,6 @@ function setRessourceState(rid, setStyle, unsetStyle, memo) {
     alert('[TEXT: invalid ressource id]');
     return;
   }
-  if (memo==1) ressourcesChange = 1;
   idx = getRessourcePos(rid);
   if (ressourceList[idx][2] == 1) {
     ressourceList[idx][2] = 0;
@@ -141,9 +141,20 @@ function setRessourceState(rid, setStyle, unsetStyle, memo) {
     rstyle = setStyle;
   }
   document.getElementById(rid).className = rstyle;
+  if (memo==1) saveTmpRessources();
   return;
 }
    
+function saveTmpRessources() {
+  var rlist= "";
+  for (i=0; i<ressourceList.length;i++) {
+    if (ressourceList[i][0] != -1 ) 
+      rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
+  }
+  usetparam("WGCAL_U_RESSTMPLIST", rlist);
+  ressourcesChange = 1;
+  return;
+}
 
 function saveRessources() {
   var rlist= "";
@@ -193,27 +204,16 @@ function WGCalSaveToolsVisibility() {
  
 
    
-function usetparam(name, value, session) {
-  fset = document.getElementById('usetparam');
-  fpname    = document.getElementById('pname');
-  fpvalue   = document.getElementById('pvalue');
-  fpsession = document.getElementById('psession');
-  fpname.value = name;
-  fpvalue.value = value;
-  fpsession.value = session;
-  fset.submit();
-}
-
 function useressources(frominput) {
- rf = document.getElementById('useressources');
- rft = document.getElementById('spuseressources');
- if (!frominput)  {
-   if (rf.checked) rf.checked = false;
-   else rf.checked = true;
- }
- use_r = (rf.checked?1:0);
- if (use_r==1) rft.className = 'WGCRessSelected';
- else rft.className = 'WGCRessOver';
- usetparam("WGCAL_U_USERESSINEVENT", use_r);
+  rf = document.getElementById('useressources');
+  rft = document.getElementById('spuseressources');
+  if (!frominput)  {
+    if (rf.checked) rf.checked = false;
+    else rf.checked = true;
+  }
+  use_r = (rf.checked?1:0);
+  if (use_r==1) rft.className = 'WGCRessSelected';
+  else rft.className = 'WGCRessOver';
+  usetparam("WGCAL_U_USERESSINEVENT", use_r);
 }
  

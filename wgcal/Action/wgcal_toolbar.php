@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.8 2005/01/28 19:18:24 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.9 2005/01/31 10:55:26 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -62,34 +62,42 @@ function _seewaitrv(&$action, $state, &$wrv) {
   $irv = count($wrv);
   SetHttpVar("accstate","$state");
   $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), $rd , 0, "ALL", array(), 
-		      1, "TABLE", 0);
-  $doc = new Doc($action->GetParam("FREEDOM_DB"));
+		      $action->user->fid, "TABLE", 0);
   foreach ($rdoc as $k => $v)  {
-    switch ($state) {
-    case 0 : 
-      $wrv[$irv]["wrvcolor"] = "black"; 
-      $wrv[$irv]["wrvbgcolor"] = "red"; 
+    $doc = new Doc($action->GetParam("FREEDOM_DB"), $v["id"]);
+    $attid = $doc->getTValue("CALEV_ATTID");
+    $attst = $doc->getTValue("CALEV_ATTSTATE");
+    $show = false;
+    foreach ($attid as $ka => $va) {
+      if ($va==$action->user->fid && $attst[$ka]<2) $show = true;
+    }
+    if ($show) {
+      switch ($state) {
+      case 0 : 
+	$wrv[$irv]["wrvcolor"] = "black"; 
+	$wrv[$irv]["wrvbgcolor"] = "red"; 
       $state = _("new"); 
       break; 
-    case 1 : 
-      $wrv[$irv]["wrvcolor"] = "red"; 
-      $wrv[$irv]["wrvbgcolor"] = "white"; 
-      $state = _("read"); 
-      break; 
-    default : 
-      $wrv[$irv]["wrvcolor"] = "orange";
-      $wrv[$irv]["wrvbgcolor"] = "white"; 
-      $state = _("to be confirmed"); 
+      case 1 : 
+	$wrv[$irv]["wrvcolor"] = "red"; 
+	$wrv[$irv]["wrvbgcolor"] = "white"; 
+	$state = _("read"); 
+	break; 
+      default : 
+	$wrv[$irv]["wrvcolor"] = "orange";
+	$wrv[$irv]["wrvbgcolor"] = "white"; 
+	$state = _("to be confirmed"); 
+      }
+      $wrv[$irv]["wrvid"] = $v["id"];
+      if (strlen($v["calev_evtitle"])>$rvtextl) 
+	$wrv[$irv]["wrvtitle"] = substr($v["calev_evtitle"],0,$rvtextl)."...";
+      else
+	$wrv[$irv]["wrvtitle"] = $v["calev_evtitle"];
+      $wrv[$irv]["wrvfulldescr"] = "[".$state."] " 
+	. substr($v["calev_start"],0,16)." : ".$v["calev_evtitle"]." (".$v["calev_owner"].")";
+      $wrv[$irv]["wrvicon"] = $doc->GetIcon($v["icon"]);
+      $irv++;
     }
-    $wrv[$irv]["wrvid"] = $v["id"];
-    if (strlen($v["calev_evtitle"])>$rvtextl) 
-      $wrv[$irv]["wrvtitle"] = substr($v["calev_evtitle"],0,$rvtextl)."...";
-    else
-      $wrv[$irv]["wrvtitle"] = $v["calev_evtitle"];
-    $wrv[$irv]["wrvfulldescr"] = "[".$state."] " 
-      . substr($v["calev_start"],0,16)." : ".$v["calev_evtitle"]." (".$v["calev_owner"].")";
-    $wrv[$irv]["wrvicon"] = $doc->GetIcon($v["icon"]);
-    $irv++;
   }
 }
 
@@ -101,10 +109,10 @@ function _waitrv(&$action) {
   _seewaitrv($action, 0, $trv);
 
 //   // search READ rv
-  _seewaitrv($action, 1, $trv);
+//   _seewaitrv($action, 1, $trv);
 
 //   // search TO BE CONFIRMED rv
-   _seewaitrv($action, 4, $trv);
+//    _seewaitrv($action, 4, $trv);
 
 
   $action->lay->SetBlockData("WAITRV", null);
@@ -121,7 +129,7 @@ function _waitrv(&$action) {
 
 function _navigator(&$action) {
 
-  $ctime = $action->Read("WGCAL_SU_CURDATE", time());
+  $ctime = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $cmtime = $ctime * 1000;
   $action->lay->set("CTIME", $ctime);
   $action->lay->set("CmTIME", $cmtime);

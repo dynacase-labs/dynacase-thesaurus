@@ -14,12 +14,13 @@ function array2attrval($a, $fmt) {
 /*
  ** List families used as ressources for calendars
  */
-function CAL_getRessourceFamilies($dbaccess) {
+function WGCalGetRessourceFamilies($dbaccess) {
   global $action;
-  $rFamilies = array(  "IUSER", "IGROUP", "USER", "GROUP");
-  $fami = array(); 
-  foreach ($rFamilies as $kf => $vf) $fami[] = getFamIdFromName($dbaccess, $vf);
-  return $fami;
+  $filter = array ( "doctype='C'", "atags='R'");
+  $rdocs = array();
+  $rdocs = getChildDoc($dbaccess, 0, 0, 100, $filter, 
+			$action->user->id, "TABLE");
+  return $rdocs;
 }
 
 
@@ -88,7 +89,7 @@ function CAL_getContacts($dbaccess, $filter) {
 function CAL_getRessources($dbaccess, $filterTitle) {
   global $action;
   $r = array();
-  $fam = CAL_getRessourceFamilies($dbaccess);
+  $fam = WGCalGetRessourceFamilies($dbaccess);
   $doc = new Doc($dbaccess);
   $filter = array( );
   if ($filterTitle!="") $filter[] = "title ~* '".$filterTitle."'";

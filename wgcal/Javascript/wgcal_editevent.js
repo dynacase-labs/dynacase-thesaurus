@@ -175,9 +175,6 @@ function attkillwins() {
 function saveEvent() {
   var fs = document.getElementById('editevent');
   EventSelectAll(fs);
-  EventSetElement('rvstatus','evstatus');
-  EventSetElement('rvcalendar','evcalendar');
-  EventSetElement('rvconfid', 'evconfidentiality');
   fs.submit();
   fs.reset();
   self.close();
@@ -251,15 +248,6 @@ function everyInfo() {
   if (checkone==2) document.getElementById('d_rweekday').style.display = '';
   if (checkone==3) document.getElementById('d_rmonth').style.display = '';
 
-}
-
-function EventSetElement(arrElt, uElt) {
-  evst = document.getElementById(uElt);
-  evst.value = -1;
-  aevst = document.getElementById(arrElt);
-  for (ist=0; ist<aevst.length; ist++) {
-    if (aevst[ist].selected)  evst.value = ist;
-  }
 }
 
 

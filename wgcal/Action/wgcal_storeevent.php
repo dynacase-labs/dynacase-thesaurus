@@ -76,17 +76,19 @@ function wgcal_storeevent(&$action) {
   $attendees = GetHttpVars("attendees", array());
   $attendeesname = array();
   $attendeesstate = array();
+  $cstatus = GetHttpVars("rvstatus");
   foreach ($attendees as $ka => $va) {
     if ($va<=0||$va=="") continue;
     $att = new Doc($db, $va);
     $attendeesname[$ka] = $att->title;
     if ($action->user->fid == $va) {
-      $attendeesstate[$ka] = GetHttpVars("evstatus");
+      $attendeesstate[$ka] = $cstatus;
     }  else {
       $k = array_search($va, $oldatt_id);
       if ($k) $attendeesstate[$ka] = $oldatt_state[$k];
       else $attendeesstate[$ka] = 0;
     }
+    //echo "ressource #".$attendees[$ka]." [".$attendeesname[$ka]."] status =  ".$attendeesstate[$ka]."<br>";
   }
   $event->setValue("CALEV_ATTID", $attendees); 
   $event->setValue("CALEV_ATTTITLE", $attendeesname); 

@@ -1,12 +1,12 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-<form id="deleteevent" name="deleteevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="eventid" name="eventid" value="[EVENTID]"> </form>
+<form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="eventid" name="eventid" value="[EVENTID]"> </form>
 <form id="viewdispo" name="viewdispo" method="POST" target="wgcal_dispo" action="[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id=1116">
 <input id="idres" name="idres" type="hidden" value="">
 <input id="jdstart" name="jdstart" type="hidden" value="">
 <input id="jdend" name="jdend" type="hidden" value="">
 </form>
 
-<form id="editevent" name="editevent" method="POST" target="wgcal_hiddenX" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
+<form id="editevent" name="editevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 <input type="hidden" id="ownerid" name="ownerid" value="[ownerid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
@@ -130,9 +130,9 @@
 
 [TEXT:confidentiality] : <select id="rvconfid" onchange="EventSetElement('rvconfid', 'evconfidentiality')" [rvvisro]>[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]</select>
 
-[TEXT:calendar] : <select id="rvcalendar" [rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
+[TEXT:calendar] : <select id="rvcalendar" name="rvcalendar" [[rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
 
-[TEXT:status] : <select id="rvstatus" [rvstaro]>[BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]</select>
+[TEXT:status] : <select id="rvstatus" name="rvstatus" [rvstaro]>[BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]</select>
 
 <hr>
 
@@ -275,11 +275,11 @@ Calendar.setup(
   <img id="addattendee" style="display:[attendeesro]; cursor:pointer;" 
      onclick="attpicker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');" 
      height="20"
-     src="WGCAL/Images/ress-modify.gif" title="[TEXT:add attendees]">
+     src="WGCAL/Images/wm-attendees.png" title="[TEXT:add attendees]">
 
    <img id="viewplan" style="cursor:pointer;" height="20"
           onclick="viewattdispo();";
-          src="WGCAL/Images/dispo.gif" title="[TEXT:vew disponibility]">
+          src="WGCAL/Images/wm-planner.png" title="[TEXT:vew disponibility]">
 
   </legend>
 

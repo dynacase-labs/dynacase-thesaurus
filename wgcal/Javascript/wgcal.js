@@ -1,4 +1,16 @@
 // --------------------------------------------------------
+function usetparam(name, value, session) {
+  fset = document.getElementById('usetparam');
+  fpname    = document.getElementById('pname');
+  fpvalue   = document.getElementById('pvalue');
+  fpsession = document.getElementById('psession');
+  fpname.value = name;
+  fpvalue.value = value;
+  fpsession.value = session;
+  fset.submit();
+}
+
+// --------------------------------------------------------
 function Fade(elt, size, css) {
   elt.width += size;  
   elt.height += size;
@@ -11,6 +23,7 @@ function UnFade(elt, size, css) {
 }
 
 
+// --------------------------------------------------------
 function  mynodereplacestr(n,s1,s2) {
   
   var kids=n.childNodes;

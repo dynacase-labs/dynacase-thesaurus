@@ -91,20 +91,18 @@ function WGCalEvOnMouseOut(ev, id) {
 // --------------------------------------------------------
 function WGCalSetDate(calendar)
 {  
-      var ff = document.getElementById('fdatesel');
-      var eltD = document.getElementById('indate');
+  var ff = document.getElementById('fdatesel');
   
-      var y = calendar.date.getFullYear();
-      var m = calendar.date.getMonth();     // integer, 0..11
-      var d = calendar.date.getDate();
-      var w = calendar.date.getWeekNumber();
-      var ts = calendar.date.print("%s");
+  var y = calendar.date.getFullYear();
+  var m = calendar.date.getMonth();     // integer, 0..11
+  var d = calendar.date.getDate();
+  var w = calendar.date.getWeekNumber();
+  var ts = calendar.date.print("%s");
   
-      if (calendar.dateClicked) {
-       /*        alert("["+ts+"] Year : "+y+" Month : "+m+" Day : "+d+" Week : "+w); */
-       eltD.value = ts;
-       ff.submit();
-      }
+  if (calendar.dateClicked) {
+    usetparam("WGCAL_U_CALCURDATE", ts);
+    ff.submit();
+  }
 }
 
 

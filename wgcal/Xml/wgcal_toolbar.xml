@@ -2,13 +2,6 @@
 
 
 
-<form id="usetparam" target="wgcal_hidden" name="usetparam" method="POST"
-      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_USETPARAM">
-     <input id="pname" name="pname" type="hidden" value="">
-     <input id="pvalue" name="pvalue" type="hidden" value="">
-     <input id="psession" name="psession" type="hidden" value="0">
-</form>
- 
 <form id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST"
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE">
      <input id="toolsvis" name="toolsvis" type="hidden" value="">
@@ -54,10 +47,7 @@
 </div>
 </fieldset>
 
-<form id="fdatesel" target="wgcal_calendar" name="datesel" method="POST"  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR">
-  <input type="hidden" id="iodate" value="[CTIME]" name="olddate">
-  <input type="hidden" id="indate" value="-2" name="newdate">
-</form>
+<form id="fdatesel" target="wgcal_calendar" name="datesel" method="POST"  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
 
 
 <!-- [ ZONE WGCAL:WGCAL_LISTRESS ] -->
@@ -80,10 +70,10 @@
          onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
                   resslistVisible = WGCalChangeVisibility(resslistVisible,'vvical');">
     <span onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif'); resslistVisible = WGCalChangeVisibility(resslistVisible,'vvical');">[TEXT:my calendars]</span>
+<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15"
+     src="WGCAL/Images/wm-attendees.png" title="[TEXT:modify the list]">
 <img id="resssel" style="cursor:pointer;" onclick="updateCalendar();" height="15"
      src="WGCAL/Images/calendar.gif" title="[TEXT:update calendar]">
-<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15"
-     src="WGCAL/Images/ress-modify.gif" title="[TEXT:modify the list]">
 <img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" 
      src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]">
 <img id="resssav" style="cursor:pointer;" onclick="saveRessources(); alert('[TEXT: ressource list saved]');" height="15" 
