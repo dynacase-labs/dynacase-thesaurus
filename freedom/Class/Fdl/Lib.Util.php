@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.6 2005/01/18 08:44:30 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.7 2005/01/27 09:11:18 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -52,6 +52,10 @@ function FrenchDateToJD($fdate) {
    return cal2jd("CE",  $reg[3], $reg[2], $reg[1], $reg[4],$reg[5] , 0 );
   }
  return false;
+}
+
+function FrenchDateToUnixTs($fdate) {
+  return strftime("%s", mktime($fdate));
 }
 
 function Iso8601ToJD($isodate) {
