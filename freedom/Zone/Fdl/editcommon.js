@@ -205,15 +205,16 @@ function canmodify() {
 	    if (ta.length == 0)	err += ' - '+attrNtitle[i]+'\n';
 	    for (var j=0; j< ta.length; j++) {
 	      v=getIValue(ta[j]);
-	      if ((v == '')||(v == ' ')) err +=  ' - '+attrNtitle[i]+'/'+(j+1)+'\n';
+	      if ((v === '')||(v === ' ')) err +=  ' 1- '+attrNtitle[i]+'/'+(j+1)+'\n';
 	    }
 	  } else {
-	    if ((v == '')||(v == ' ')) err +=  ' - '+attrNtitle[i]+'\n';
+	    if ((v === '')||(v === ' ')) err +=  ' 2- '+attrNtitle[i]+'\n';
 	  }
         } else {
 	  // search in multiple values
 	  v=getInputValues(attrNid[i]);
-	  if ((v == '')||(v == ' ')) err +=  ' - '+attrNtitle[i]+'\n';
+	  
+	  if ((v!==false) && ((v === '')||(v === ' '))) err +=  ' 3- '+attrNtitle[i]+'\n';
 	}
     }
     if (err != '') {
@@ -250,7 +251,7 @@ function getInputValues(n) {
  var v='';
  var ta = document.getElementsByName('_'+n+'[]');
  if (ta.length==0) ta = document.getElementsByName('_'+n);
-
+ if (ta.length==0) return false;
   for (var j=0; j< ta.length; j++) {
     switch (ta[j].type) {
     case 'radio':
