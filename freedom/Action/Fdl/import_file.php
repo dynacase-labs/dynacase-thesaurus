@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.74 2004/08/09 07:58:12 eric Exp $
+ * @version $Id: import_file.php,v 1.75 2004/08/24 08:13:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,7 +42,7 @@ function add_import_file(&$action, $fimport="") {
 
   if (! $fdoc) $action->exitError(_("no import file specified"));
   $nline=0;
-  while ($data = fgetcsv ($fdoc, 2000, ";")) {
+  while ($data = fgetcsv ($fdoc, 50000, ";")) {
     $nline++;
   // return structure
     $num = count ($data);
