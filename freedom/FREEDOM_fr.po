@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: 2001-12-03 10:41+01:00\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2001-11-30 17:46+0100\n"
+	"POT-Creation-Date: 2001-11-30 17:59+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -29,81 +29,69 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"\n"
 
 msgid	"New"
-msgstr	""
+msgstr	"Nouveau"
 
-#, fuzzy
 msgid	"Search"
-msgstr	"Lancer la recherche"
+msgstr	"Recherche"
 
 msgid	"View"
-msgstr	""
+msgstr	"Affichage"
 
-#, fuzzy
 msgid	"Help"
-msgstr	"aide"
+msgstr	"Aide"
 
 msgid	"new doc"
-msgstr	""
+msgstr	"Document"
 
 msgid	"new folder"
-msgstr	""
+msgstr	"Dossier"
 
 msgid	"new profile"
-msgstr	""
+msgstr	"Profil"
 
 msgid	"new family"
-msgstr	""
+msgstr	"Famille"
 
 msgid	"simple"
-msgstr	""
+msgstr	"Simple"
 
 msgid	"list"
-msgstr	""
+msgstr	"Liste"
 
 msgid	"icon"
-msgstr	""
+msgstr	"Icone"
 
 msgid	"refresh"
-msgstr	""
+msgstr	"Raffraichir"
 
 msgid	"help"
-msgstr	"aide"
+msgstr	"Aide"
 
 msgid	"inherit from"
-msgstr	""
+msgstr	"hérite de"
 
 msgid	"no document family"
-msgstr	""
+msgstr	"Ce n'est pas une famille de document!"
 
 msgid	"modify"
 msgstr	"Modifier"
 
-#, fuzzy
-msgid	"profile access"
-msgstr	"Accessibilité"
-
-msgid	"no profile"
-msgstr	""
-
-msgid	"specific control"
-msgstr	""
-
-#, fuzzy
 msgid	"edition: "
-msgstr	"Éditer"
+msgstr	"éditer"
 
-#, fuzzy
 msgid	"search document"
-msgstr	"supprimer mes propres cartes"
+msgstr	"Nouveau document"
 
 msgid	" keyword"
 msgstr	""
 
+#, fuzzy
 msgid	" only latest revision"
-msgstr	""
+msgstr	" référencer la dernière révision"
 
+#, fuzzy
 msgid	" from current folder"
-msgstr	""
+msgstr	" Créer un dossier"
 
 msgid	" case sensitive"
 msgstr	""
@@ -122,17 +110,26 @@ msgstr	"Lancer la recherche"
 msgid	" cancel"
 msgstr	""
 
+msgid	"profile access"
+msgstr	"Profil d'accès"
+
+msgid	"no profile"
+msgstr	"Pas de profil"
+
+msgid	"specific control"
+msgstr	"Contrôle dédié"
+
 msgid	" properties"
-msgstr	""
+msgstr	" Propriétés"
 
 msgid	" create subfolder"
-msgstr	""
+msgstr	" Créer un dossier"
 
 msgid	" paste this revision"
-msgstr	""
+msgstr	" référencer cette révision"
 
 msgid	" paste latest revision"
-msgstr	""
+msgstr	" référencer la dernière révision"
 
 msgid	"updatetitle"
 msgstr	"Mise à jour des titres"
@@ -141,74 +138,71 @@ msgid	"updateldap"
 msgstr	"Mise à jour du serveur LDAP"
 
 msgid	"Properties:"
-msgstr	""
+msgstr	"Propriétés:"
 
 msgid	" change icon"
-msgstr	""
+msgstr	" changer d'icone"
 
-#, fuzzy
 msgid	" edit"
-msgstr	"Éditer"
+msgstr	" Éditer"
 
 msgid	" edit attributes"
-msgstr	""
+msgstr	" éditer les attributs"
 
 msgid	" lock"
-msgstr	""
+msgstr	" verrouiller"
 
 msgid	" revise"
-msgstr	""
+msgstr	" réviser"
 
 msgid	" unlock"
-msgstr	""
+msgstr	" deverrouiller"
 
 msgid	" history"
-msgstr	""
+msgstr " historique"
 
+#, fuzzy
 msgid	" change profile"
-msgstr	""
+msgstr " Changer de profil"
 
 msgid	" change creation profile"
-msgstr	""
+msgstr " changer de profil par défaut"
 
 msgid	" view properties"
-msgstr	""
+msgstr " Voir les propriétés"
 
 msgid	"print"
-msgstr	"Impression de la page"
+msgstr "imprimer"
 
 msgid	"delconfirm"
 msgstr	"Voulez-vous supprimer"
 
 msgid	"author"
-msgstr	""
+msgstr "auteur"
 
-#, fuzzy
 msgid	"revision"
-msgstr	"Société"
+msgstr	"révision"
 
 msgid	"locked by"
-msgstr	""
+msgstr	"verrouillé par"
 
-#, fuzzy
 msgid	"revision date"
-msgstr	"Société"
+msgstr "date de révision"
 
-#, fuzzy
 msgid	" profile access"
-msgstr	"Accessibilité"
+msgstr	" profil d'accès"
 
 msgid	"reference"
-msgstr	""
+msgstr	"référence"
 
 msgid	" folder containt"
-msgstr	""
+msgstr " contenu du dossier"
 
 msgid	"category"
-msgstr	"Catégorie"
+msgstr	"catégorie"
 
 msgid	"visibility"
-msgstr	"Visibilité"
+msgstr	"visibilité"
 
 msgid	"readwriteall"
 msgstr	"publique modifiable"
@@ -220,64 +214,59 @@ msgid	"readwriteowner"
 msgstr	"privée"
 
 msgid	" rev"
-msgstr	""
+msgstr " rév."
 
 msgid	" comment"
-msgstr	""
+msgstr " commentaire"
 
-#, fuzzy
 msgid	" revised by"
-msgstr	"Créé par"
+msgstr " révisé par"
 
-#, fuzzy
 msgid	" date"
-msgstr	"Éditer"
+msgstr " date"
 
 msgid	"view properties"
-msgstr	""
+msgstr	"voir les propriétés"
 
 msgid	"edit document"
-msgstr	""
+msgstr " éditer le document"
 
-#, fuzzy
 msgid	"link document"
-msgstr	"supprimer mes propres cartes"
+msgstr "référencer le document"
 
-#, fuzzy
 msgid	"delete link"
-msgstr	"Supprimer"
+msgstr "supprimer la référence"
 
 msgid	"cancel"
-msgstr	""
+msgstr "Annuler"
 
-#, fuzzy
 msgid	" lauch importation"
-msgstr	"Importation de cartes"
+msgstr	" importer"
 
 msgid	" comment for revision"
-msgstr	""
+msgstr " commentaire de révision"
 
-#, fuzzy
 msgid	" revise document"
-msgstr	"supprimer mes propres cartes"
+msgstr "réviser le document"
 
 msgid	"no file specified : update aborted"
-msgstr	""
+msgstr	"pas de fichier fournit, attaque possible : mise à jour abandonnée"
 
 msgid	"file not expected : possible attack : update aborted"
-msgstr	""
+msgstr	"fichier inattendu, attaque possible : mise à jour abandonnée"
 
 msgid	"new document family"
-msgstr	""
+msgstr	"nelle famille de document"
 
 #, c-format
 msgid	"cannot delete link : link not found for doc %d in directory %d"
-msgstr	""
+msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
 
 #, c-format
 msgid	"cannot delete link : initial query not found for doc %d in directory "
 	"%d"
-msgstr	""
+msgstr	"le document %d n'existe plus dans le dossier %d.\n"
+	"mettre à jour la vue."
 
 #, c-format
 msgid	"cannot delete link for doc %d in directory %d : the document comes "
@@ -286,16 +275,16 @@ msgid	"cannot delete link for doc %d in directory %d : the document comes "
 msgstr	""
 
 msgid	"change creation profile"
-msgstr	""
+msgstr "changer de profil par défaut"
 
 msgid	"change profile"
-msgstr	""
+msgstr "changer de profil"
 
 msgid	"new profile document"
-msgstr	""
+msgstr	"nouveau profil de document"
 
 msgid	"no file referenced"
-msgstr	""
+msgstr	"pas de fichier référencé"
 
 msgid	"updateldapok"
 msgstr	"mise à jour du serveur LDAP"
@@ -304,58 +293,57 @@ msgid	"updateldapko"
 msgstr	"échec de mise à jour du serveur LDAP"
 
 msgid	"fixed"
-msgstr	""
+msgstr	"figé"
 
 #, fuzzy
 msgid	"nobody"
-msgstr	"Aucun document inclu"
+msgstr	"--"
 
 msgid	"no family"
-msgstr	""
+msgstr	"pas de famille"
 
 msgid	"no access control"
-msgstr	""
+msgstr	"pas de contrôle d'accès"
 
 msgid	"edit"
-msgstr	"Éditer"
+msgstr	"éditer"
 
 msgid	"delete"
-msgstr	"Supprimer"
+msgstr	"supprimer"
 
 msgid	"goaccess"
-msgstr	"Accessibilité"
+msgstr	"accessibilités..."
 
-#, fuzzy
 msgid	"no filename"
-msgstr	"Prénom"
+msgstr "pas de fichier"
 
 msgid	"no document type"
-msgstr	""
+msgstr	"pas de famille de document"
 
 msgid	"new directory"
-msgstr	""
+msgstr	"Nouveau dossier"
 
 msgid	"new document"
-msgstr	""
+msgstr	"Nouveau document"
 
 msgid	"create"
 msgstr	"Créer"
 
 msgid	"document not referenced"
-msgstr	""
+msgstr	"document non référencé"
 
 msgid	"noappli"
 msgstr	"Aucune application"
 
 msgid	"noembed"
-msgstr	"Aucun document inclu"
+msgstr	"Aucun document attaché"
 
 #, c-format
 msgid	"Possible file upload attack: filename '%s'."
-msgstr	""
+msgstr	"Possibilité d'atttaque 'upload' : fichier %s"
 
 msgid	"admin"
-msgstr	"Fonctions d'administration"
+msgstr	"administration"
 
 msgid	"import"
 msgstr	"Importer"
@@ -368,140 +356,127 @@ msgstr	"Exporter les cartes \n"
 	"selon les critères courants"
 
 msgid	"locked"
-msgstr	""
+msgstr	"verrouillé"
 
 msgid	"changed"
-msgstr	""
+msgstr	"modifié"
 
+#, fuzzy
 msgid	"no comment"
-msgstr	""
+msgstr	"Nouveau document"
 
 msgid	"the document is not referenced: cannot apply profile access "
 	"modification"
-msgstr	""
+msgstr	"le document n'est pas référencé : la modification du profil d'accès\n"
+	"ne peut pas être appliquée"
 
-#, fuzzy
 msgid	"new search "
-msgstr	"Lancer la recherche"
+msgstr "Recherche"
 
 msgid	"yes"
-msgstr	""
+msgstr "oui"
 
 msgid	"no"
-msgstr	""
+msgstr "non"
 
 msgid	"root folder"
-msgstr	""
+msgstr "Freedom"
 
 msgid	"view directory"
-msgstr	""
+msgstr "voir le dossier"
 
 msgid	"edit directory"
-msgstr	""
+msgstr "éditer le dossier"
 
 msgid	"delete directory"
-msgstr	""
+msgstr "supprimer le dossier"
 
 msgid	"open directory"
-msgstr	""
-
-msgid	"view document"
-msgstr	""
-
-#, fuzzy
-msgid	"delete document"
-msgstr	"supprimer mes propres cartes"
+msgstr "ouvrir le dossier"
 
 msgid	"basic documentation family"
-msgstr	""
+msgstr "Famille de base"
 
-#, fuzzy
 msgid	"title"
-msgstr	"Mise à jour des titres"
+msgstr "titre"
 
 msgid	"directory familly"
-msgstr	""
+msgstr "famille de dossier"
 
 msgid	"profile documentation access familly"
-msgstr	""
+msgstr "famille des profils d'accès documents"
 
-#, fuzzy
 msgid	"profile directory access familly"
-msgstr	"Accessibilité"
+msgstr "famille des profils d'accès dossiers"
 
-#, fuzzy
 msgid	"search familly"
-msgstr	"Lancer la recherche"
+msgstr "famille des recherches"
 
 msgid	"profile search familly"
-msgstr	""
+msgstr "famille des profils d'accès recherche"
 
 msgid	"keyword"
-msgstr	""
+msgstr "mot clé"
 
 msgid	"only latest revision"
-msgstr	""
+msgstr " dernière révision"
 
 msgid	"case sensitive"
-msgstr	""
+msgstr " tenir compte de la casse"
 
 msgid	"from folder"
-msgstr	""
+msgstr "à partir du dossier"
 
 msgid	"root"
-msgstr	""
+msgstr "racine"
 
-#, fuzzy
 msgid	"Cannot Add : need FREEDOM privilege"
-msgstr	"L'ajout de carte nécessite le privilège CONTACT"
+msgstr "L'ajout nécessite le privilège FREEDOM"
 
 msgid	"untitle document"
-msgstr	""
+msgstr "document sans titre"
 
 #, c-format
 msgid	"the file %s (rev %d) must be locked before"
-msgstr	""
+msgstr "le fichier %s (rév %d) doit être verrouillé au préalable"
 
 #, c-format
 msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr	""
+msgstr "le fichier %s (rév. %d) est verrouillé par %s."
 
 #, c-format
 msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr	""
+msgstr "le fichier %s (rév. %d) est figé. Utilisez la dernière version"
 
 msgid	"this document cannot be locked : it is not a revisable document"
-msgstr	""
+msgstr "ce document n'est pas verrouillable, il ne peut pas être révisé"
 
 #, c-format
 msgid	"cannot lock file %s (rev %d): already locked by %s."
-msgstr	""
+msgstr "le fichier %s (rév. %d) est déjà verrouillé par %s."
 
 #, c-format
 msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
-msgstr	""
+msgstr "le fichier %s (rév. %d) est figé. Utilisez la dernière version"
 
-#, fuzzy
 msgid	"current revision"
-msgstr	"Société"
+msgstr "dernière révision"
 
-msgid	"errldapadd"
-msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
-	"attributs n'est pas conforme"
+msgid	"view document"
+msgstr "voir le document"
 
-msgid	"errldapconnect"
-msgstr	"Le server LDAP n'a pas pu être contacté"
+msgid	"delete document"
+msgstr "supprimer le document"
 
 #, c-format
 msgid	"cannot add folder : '%s'. It will be ancestor of itself"
-msgstr	""
+msgstr "ajout du dossier %s impossible, il est son propre ancêtre"
 
 msgid	"Freedoms"
-msgstr	""
+msgstr	"Freedoms"
 
-#, fuzzy
 msgid	"Freedoms Management"
-msgstr	"Gestion de cartes"
+msgstr "Administration Freedom"
 
 msgid	"Access To All Users"
 msgstr	"Accès à tous les utilisateurs"
@@ -510,7 +485,7 @@ msgid	"Access Management Database"
 msgstr	"Accès administration de la base"
 
 msgid	"Access To My Own account"
-msgstr	"Accès à ses propres cartes"
+msgstr "Accès à mon compte"
 
 msgid	"Access To Read Only"
 msgstr	"Accès en lecture seule"
@@ -577,17 +552,20 @@ msgstr	""
 msgid	"abord edition"
 msgstr	""
 
+#, fuzzy
 msgid	"change icon document"
-msgstr	""
+msgstr	" référencer le document"
 
+#, fuzzy
 msgid	"search document criteria"
-msgstr	""
+msgstr	"attributs du document"
 
 msgid	"ask for a new file revision"
 msgstr	""
 
+#, fuzzy
 msgid	"edit document properties"
-msgstr	""
+msgstr	" éditer le document"
 
 msgid	"add comment before revise document"
 msgstr	""
@@ -595,8 +573,9 @@ msgstr	""
 msgid	"make a new document revision"
 msgstr	""
 
+#, fuzzy
 msgid	"view history revision"
-msgstr	""
+msgstr	" référencer cette révision"
 
 #, fuzzy
 msgid	"Freedom modification"
@@ -629,6 +608,22 @@ msgstr	""
 
 msgid	"Freedom accessibilities"
 msgstr	""
+
+#~ msgid	" set control"
+#~ msgstr	" poser un contrôle spécifique"
+
+#~ msgid	"createdby"
+#~ msgstr	"créé par"
+
+#~ msgid	" change state"
+#~ msgstr	" changer d'état"
+
+#~ msgid	"errldapadd"
+#~ msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
+#~ 	"attributs n'est pas conforme"
+
+#~ msgid	"errldapconnect"
+#~ msgstr	"Le server LDAP n'a pas pu être contacté"
 
 #~ msgid	"civilstate"
 #~ msgstr	"État civil"
@@ -671,6 +666,9 @@ msgstr	""
 
 #~ msgid	"mobile"
 #~ msgstr	"Mobile"
+
+#~ msgid	"firstname"
+#~ msgstr	"Prénom"
 
 #~ msgid	"lastname"
 #~ msgstr	"Nom"
