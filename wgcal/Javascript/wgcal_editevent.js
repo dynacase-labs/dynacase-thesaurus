@@ -292,10 +292,8 @@ function viewattdispo() {
   rl.value = rll;
   
   var td = new Date(rvs*1000);
-  js.value = cal_to_jd( "CE", td.getFullYear(), td.getMonth(), td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
-  var te = new Date(rve*1000);
-  je.value = cal_to_jd( "CE", te.getFullYear(), te.getMonth(), te.getDate(), te.getHours(), te.getMinutes(), te.getSeconds() );
-  alert(' sdate=['+js.value+']');
-  alert(' edate=['+je.value+']');
+  js.value = cal_to_jd( "CE", td.getFullYear(), td.getMonth()+1, td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
+  je.value = parseFloat(js.value) + 14.0;
+  alert(' rvs = '+rvs+'  sdate=['+js.value+']  edate=['+je.value+']');
   f.submit();
 }
