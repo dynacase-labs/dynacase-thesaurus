@@ -5,7 +5,7 @@ var tevents=new Array();
 var zoomx=1;
 var zoomy=1;
 var maxw;
-var maxh=300;;
+var maxh=300;
 var dh=17;//width events
 var mdh=6; //margin height between events
 var bx;
@@ -36,13 +36,13 @@ function placeEvt(idx,line,subline,x,w) {
     if (w < 0)  oimg.style.width=100; 
     else  oimg.style.width=(w)*dw/mdelta;
     oimg.style.height=dh*zoomy;
-    oimg.style.display='';;
+    oimg.style.display='';
     
     ores.style.top=h;
     ores.style.left=bx;
     ores.style.width=rw;
     ores.style.height=dh*zoomy;
-    ores.style.display='';;
+    ores.style.display='';
 
     onxgrid=oxgrid.cloneNode(true);
     
@@ -51,7 +51,7 @@ function placeEvt(idx,line,subline,x,w) {
     onxgrid.id='gridx'+idx;
     onxgrid.style.width=maxw*zoomx+rw;
     onxgrid.style.height=1;
-    onxgrid.style.display='';;
+    onxgrid.style.display='';
     ocdday.appendChild(onxgrid);
   }
 }
@@ -108,6 +108,7 @@ function placeDays() {
   var ndiv=0;
   var nWeek=0;
   var dw=(maxw/mdelta);
+  var h=0;
 
   odday.style.display='';
   odhour.style.display='';
@@ -146,12 +147,15 @@ function placeDays() {
 	
 	onygrid=oygrid.cloneNode(true);
     
-	onygrid.style.top=parseInt(onweek.style.top)+20;;
+	onygrid.style.top=parseInt(onweek.style.top)+20;
 	onygrid.style.left=onweek.style.left;
 	onygrid.id='gridy'+ndiv;
 	onygrid.style.width=1;
-	onygrid.style.height=maxh-xyby.y+(dh*zoomy)-60;;
-	onygrid.style.display='';;
+	h=maxh-xyby.y+(dh*zoomy)-60;	
+	if (h< 0) h=10;
+	onygrid.style.height=h;
+
+	onygrid.style.display='';
 	ocdday.appendChild(onygrid);
       }
       }
@@ -183,12 +187,14 @@ function placeDays() {
 	
 	  onygrid=oygrid.cloneNode(true);
     
-	  onygrid.style.top=parseInt(onmonth.style.top)+20;;
+	  onygrid.style.top=parseInt(onmonth.style.top)+20;
 	  onygrid.style.left=onmonth.style.left;
 	  onygrid.id='gridy'+ndiv;
 	  onygrid.style.width=1;
-	  onygrid.style.height=maxh-xyby.y+(dh*zoomy)-40;
-	  onygrid.style.display='';;
+	  h=maxh-xyby.y+(dh*zoomy)-40;
+	  if (h < 0) h=10;
+	  onygrid.style.height=h;
+	  onygrid.style.display='';
 	  ocdday.appendChild(onygrid);
 	}
       }
@@ -237,8 +243,10 @@ function placeDays() {
 	onygrid.style.left=onday.style.left;
 	onygrid.id='gridy'+ndiv;
 	onygrid.style.width=1;
-	onygrid.style.height=maxh-xyby.y+(dh*zoomy)-80;;
-	onygrid.style.display='';;
+	h=maxh-xyby.y+(dh*zoomy)-80;
+	if (h<0) h=10;
+	onygrid.style.height=h;
+	onygrid.style.display='';
 	ocdday.appendChild(onygrid);
       }
       if ((dw*zoomx) > 300) {
@@ -279,12 +287,14 @@ function placeDays() {
 	
       onygrid=oygrid.cloneNode(true);
     
-      onygrid.style.top=parseInt(onweek.style.top)+20;;
+      onygrid.style.top=parseInt(onweek.style.top)+20;
       onygrid.style.left=onweek.style.left;
       onygrid.id='gridy'+ndiv;
       onygrid.style.width=1;
-      onygrid.style.height=maxh-xyby.y+(dh*zoomy)-60;;
-      onygrid.style.display='';;
+      h=maxh-xyby.y+(dh*zoomy)-60;
+      if (h<0) h=10;
+      onygrid.style.height=h
+      onygrid.style.display='';
       ocdday.appendChild(onygrid);
     }	
   }
@@ -310,12 +320,14 @@ function placeDays() {
 	
 	  onygrid=oygrid.cloneNode(true);
     
-	  onygrid.style.top=parseInt(onmonth.style.top)+20;;
+	  onygrid.style.top=parseInt(onmonth.style.top)+20;
 	  onygrid.style.left=onmonth.style.left;
 	  onygrid.id='gridy'+ndiv;
 	  onygrid.style.width=1;
-	  onygrid.style.height=maxh-xyby.y+(dh*zoomy)-40;
-	  onygrid.style.display='';;
+	  h=maxh-xyby.y+(dh*zoomy)-40;
+	  if (h<0) h=10;
+	  onygrid.style.height=h;
+	  onygrid.style.display='';
 	  ocdday.appendChild(onygrid);
 	}
   }
