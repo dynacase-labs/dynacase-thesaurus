@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.26 2004/02/05 15:43:22 eric Exp $
+ * @version $Id: enum_choice.php,v 1.27 2004/02/17 10:37:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.26 2004/02/05 15:43:22 eric Exp $
+// $Id: enum_choice.php,v 1.27 2004/02/17 10:37:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -89,7 +89,6 @@ function enum_choice(&$action) {
 			"/\{([^\}]+)\}/e", 
 			"getAttr('\\1')",
 			$reg[2]);
-
   $argids = split(",",$iarg);  // input args
   while (list($k, $v) = each($argids)) {
     if ($v == "A") $arg[$k]= &$action;
@@ -100,7 +99,12 @@ function enum_choice(&$action) {
       // can be values or family parameter
       $a = $doc->GetAttribute($v);
       if ($index === "") {
-	$arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
+
+	$ta=GetHttpVars("_".strtolower($v),$v);
+	if (is_array($ta)) {
+	  unset($ta["-1"]); // suppress hidden row because not set yet
+	  $arg[$k]=$ta;
+	} else $arg[$k]= trim($ta);
 	
       } else {
 	if ($a && ($a->usefor=="Q")) {
@@ -111,7 +115,7 @@ function enum_choice(&$action) {
 	  
 	    $arg[$k]=trim($ta[$index]);
 	  } else {
-	    $ta = GetHttpVars("_".strtolower($v),$v);
+	    $ta = GetHttpVars("_".strtolower($v),$v);	   
 	    unset($ta["-1"]); // suppress hidden row because not set yet
 
 	    $arg[$k]= $ta;
@@ -123,7 +127,6 @@ function enum_choice(&$action) {
       } 
     }
   }
-
 
   $res = call_user_func_array($reg[1], $arg);
 
