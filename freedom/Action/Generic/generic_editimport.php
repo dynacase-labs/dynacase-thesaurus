@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editimport.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: generic_editimport.php,v 1.3 2002/06/20 11:56:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -64,6 +64,7 @@ function generic_editimport(&$action) {
 function getChildCatg($doc, $level) {
   // -----------------------------------
   global $dbaccess;
+  global $action;
 
   $ltree=array();
 
