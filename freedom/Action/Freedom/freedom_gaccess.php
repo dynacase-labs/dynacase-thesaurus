@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.6 2004/03/01 08:51:20 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.7 2005/03/01 17:15:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_gaccess.php,v 1.6 2004/03/01 08:51:20 eric Exp $
+// $Id: freedom_gaccess.php,v 1.7 2005/03/01 17:15:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_gaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -93,7 +93,6 @@ function freedom_gaccess(&$action) {
       $g = new Group("",$v["id"]);
 
       $title[$v["id"]]=$v["firstname"]." ".$v["lastname"];
-
       foreach($g->groups as $kg=>$gid) {
 
 	$hg[$gid][$v["id"]]=$v["id"];
@@ -102,11 +101,11 @@ function freedom_gaccess(&$action) {
 
     }
 
-
-    foreach($hg as $k=>$v) {
-      if (! in_array( $k, $sgroup)) {
+    //    foreach($hg as $k=>$v) {
+    foreach($tiduser as $k=>$v) {
+      if (! in_array( $v["id"], $sgroup)) {
 	// it's a root group
-	$tg = array_merge($tg,getTableG($hg, $k));
+	$tg = array_merge($tg,getTableG($hg, $v["id"]));
       }
     }
     if ($action->user->id > 1) {
