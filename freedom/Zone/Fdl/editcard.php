@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.6 2002/04/19 15:24:46 eric Exp $
+// $Id: editcard.php,v 1.7 2002/04/22 14:03:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,6 +52,7 @@ function editcard(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
 
    
   $jsfile=$action->GetLayoutFile("editcard.js");
@@ -326,6 +327,18 @@ function editcard(&$action) {
 		 ",'".$listattr[$i]->id."','multiple')\">";
 	      break;
 
+	      //같같같같같같같같같같같같같같같같같같같같
+
+	      case "date": 
+		$tableframe[$v]["inputtype"]="<input type=\"text\"  name=\"_".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+	      $tableframe[$v]["inputtype"] .= " > "; 
+	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
+		 _("...")."\" ".
+		   "onClick=\"show_calendar(event,'".$listattr[$i]->id."')\"".
+		     ">";
+	      break;      
 
 	      //같같같같같같같같같같같같같같같같같같같같
 	      default : 
