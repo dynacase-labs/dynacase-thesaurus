@@ -26,7 +26,7 @@ function gettitle($dbaccess, $docid) {
 
   $doc=new Doc($dbaccess, $docid);
   if ($doc->isAffected())  return array($doc->title);
-  return array(" "," "); // suppress
+  return array("?"," "); // suppress
 }
 
 // liste de personnes

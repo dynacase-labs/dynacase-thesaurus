@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.47 2002/12/13 11:19:40 eric Exp $
+// $Id: Lib.Dir.php,v 1.48 2002/12/16 17:47:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,7 +71,7 @@ function getSqlSearchDoc($dbaccess,
 			 $fromid, // for a specific familly (0 => all familly) (<0 strict familly)
 			 $sqlfilters=array(),
 			 $distinct=false,// if want distinct without locked
-			 $dfilter=true) {// no added filter (added default filter by default)
+			 $latest=true) {// only latest document
 
  
   
@@ -99,7 +99,7 @@ function getSqlSearchDoc($dbaccess,
     // search in all Db
     //-------------------------------------------
     
-    if ($dfilter) $sqlfilters[-1] = "locked != -1";
+    if ($latest) $sqlfilters[-1] = "locked != -1";
     if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
     
 
@@ -120,7 +120,7 @@ function getSqlSearchDoc($dbaccess,
 
 
     
-    if ($dfilter) $sqlfilters[-1] = "locked != -1";
+    if ($latest) $sqlfilters[-1] = "locked != -1";
     if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
       
       if (is_array($dirid)) {

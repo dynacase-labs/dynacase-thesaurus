@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.11 2002/11/22 18:08:22 eric Exp $
+// $Id: popupcard.php,v 1.12 2002/12/16 17:47:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -91,6 +91,7 @@ function popupcard(&$action) {
   } else {
     popupInactive('popupcard',$kdiv,'delete');
   }
+
 
   if (($clf)||($cud)) {
     popupActive('popupcard',$kdiv,'editattr'); 

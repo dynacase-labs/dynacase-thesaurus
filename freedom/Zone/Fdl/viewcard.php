@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.27 2002/12/16 11:46:57 eric Exp $
+// $Id: viewcard.php,v 1.28 2002/12/16 17:47:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -73,8 +73,16 @@ function viewcard(&$action) {
       $zonebodycard ="FDL:VIEWBODYCARD";
     }
   }
-  $err=$doc->refresh();
-  $action->lay->set("TEXTERROR", $err);
+
+  
+  if ($doc->doctype == 'Z') {
+    $err =_("This document has been deleted");
+     $err .= "\n\n".$doc->comment;
+  } else {
+    $err=$doc->refresh();
+  }
+  $action->lay->set("LGTEXTERROR", strlen($err));
+  $action->lay->set("TEXTERROR", nl2br($err));
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard,$target,$ulink,$abstract));
   
  

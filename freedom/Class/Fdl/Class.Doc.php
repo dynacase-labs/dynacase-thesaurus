@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.76 2002/12/16 11:46:57 eric Exp $
+// $Id: Class.Doc.php,v 1.77 2002/12/16 17:47:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.76 2002/12/16 11:46:57 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.77 2002/12/16 17:47:37 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -225,6 +225,7 @@ create unique index i_docir on doc(initid, revision);";
 
     }
 
+
   // modify without edit control
   function disableEditControl() {
     $this->withoutControl=true;
@@ -248,7 +249,7 @@ create unique index i_docir on doc(initid, revision);";
     
     $cdoc->id = $this->id;
     $values = $this->getValues();
-    $this->delete(); // delete before add to avoid double id (it is not authorized)
+    $this->delete(true); // delete before add to avoid double id (it is not authorized)
 
     $err=$cdoc->Add();
     reset($values);
@@ -270,24 +271,22 @@ create unique index i_docir on doc(initid, revision);";
     if ($this->userid == 1) return "";// admin can do anything
     $err="";
 
-    if (! $this->isRevisable()) $err = $this-> Control("edit"); // only revisable can be locked
-    else {
-      if ($this->locked == 0) {     
+    if ($this->locked == -1) {
+      $err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);      
+    }
+
+  
+    if ($this->locked == 0) {     
 	$err = sprintf(_("the file %s (rev %d) must be locked before"), $this->title,$this->revision);      
-      } else {
+    } else {
 	if (abs($this->locked) != $this->userid) {
-	  if ($this->locked != -1) {
+	  
 	    $user = new User("", $this->locked);
 	    $err = sprintf(_("you are not allowed to update the file %s (rev %d) is locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname); 
-	  } else {
-	    $err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);
-      
-
-
-	  } 
+	  
 	} else $err = $this-> Control( "edit");
-      }
     }
+    
     return($err);
   }
   // --------------------------------------------------------------------
@@ -417,7 +416,7 @@ create unique index i_docir on doc(initid, revision);";
     // --------------------------------------------------------------------
     {
       
-
+      if ($this->doctype == 'Z') return _("already deleted");
       $err = $this-> Control( "delete");
       
                   
@@ -427,6 +426,31 @@ create unique index i_docir on doc(initid, revision);";
     }
 
 
+  function Delete($really=false) {
+
+    if ($really) {
+      DbObj::delete();
+    } else {
+    $msg=$this->PreDelete();
+    if ($msg!='') return $msg;
+
+    $this->doctype='Z'; // Zombie Doc
+    $this->locked= -1; 
+    $date = gettimeofday();
+    $this->revdate = $date['sec']; // Delete date
+
+    global $action;
+    global $HTTP_SERVER_VARS;
+    $this->AddComment(sprintf(_("delete by %s by action %s on %s from %s"),
+			      $action->user->firstname." ".$action->user->lastname,
+			      $HTTP_SERVER_VARS["REQUEST_URI"],
+			      $HTTP_SERVER_VARS["HTTP_HOST"],
+			      $HTTP_SERVER_VARS["REMOTE_ADDR"]));
+
+
+    $msg=$this->PostDelete();
+    }
+  }
 
   // --------------------------------------------------------------------
   // Adaptation of affect Method from DbObj because of inheritance table
@@ -967,7 +991,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
     if ($this->locked == -1) return; // no refresh revised document
-    if ($this->doctype == 'C') return; // no refresh for family  document
+    if ($this->doctype != 'F') return; // no refresh for family  document
     if ($this->usefor == 'D') return; // no refresh for default document
 	  
 

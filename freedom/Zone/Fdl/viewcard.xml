@@ -9,7 +9,7 @@
 function centerError() {
   CenterDiv('error');
 }
-if ("[TEXTERROR]" != "") {
+if ("[LGTEXTERROR]" != "0") {
   centerError();
   window.onscroll=centerError;
 }

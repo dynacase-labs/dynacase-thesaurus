@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.15 2002/12/07 16:00:11 eric Exp $
+// $Id: mailcard.php,v 1.16 2002/12/16 17:47:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -229,7 +229,8 @@ function sendmailcard(&$action) {
       $action->addlogmsg(sprintf(_("PDF conversion failed for %s"),$doc->title));
     }
   }  
-  print $cmd;
+  $cmd = "export LANG=C;".$cmd;
+  
   system ($cmd, $status);
 
   if ($status == 0)  {

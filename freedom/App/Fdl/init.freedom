@@ -50,6 +50,7 @@ END;0;;;;;;;;;;;
 SEARCH;11;9;les familles;select * from docfam where doctype='C';;;;;;;;
 SEARCH;12;9;les profils;select * from doc where doctype ='P';;;;;;;;
 SEARCH;13;9;les maisons;select * from doc where (owner < 0) and (locked != -1);;;;;;;;
+SEARCH;14;9;la poubelle;select * from doc where doctype ='Z';;;;;;;;
 // famille profile doc;;;id;class;name
 BEGIN;1;famille profile de document;3;PDoc;PDOC
 USEFORPROF;;;;;
