@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.4 2004/12/09 17:30:17 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.5 2004/12/24 17:44:55 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,7 +26,7 @@ global $app_const;
 
 $app_const= array(
 
-  "WGCAL_U_LEFTWIDTH" => array(  "val"=>"150", "descr"=>N_("left toolbar width"), "user"=>"Y"),
+  "WGCAL_U_LEFTWIDTH" => array(  "val"=>"180", "descr"=>N_("left toolbar width"), "user"=>"Y"),
   "WGCAL_U_HLINETITLE" => array(  "val"=>"10", "descr"=>N_("title line height"), "user"=>"Y"),
   "WGCAL_U_HLINEHOURS" => array(  "val"=>"40", "descr"=>N_("hour lines height"), "user"=>"Y"),
   "WGCAL_U_HCOLW" => array(  "val"=>"25", "descr"=>N_("hour in day column width"), "user"=>"Y"),

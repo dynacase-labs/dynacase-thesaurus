@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.5 2004/12/24 12:37:20 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.6 2004/12/24 17:44:55 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -77,6 +77,7 @@ function InitNewRv(&$action, $time) {
     $tconf[$ic++]["selected"] = "";
   }
   $action->lay->SetBlockData("RVSTATUS", $tconf);
+  $action->lay->set("rvstaro", "disabled");
 
   $action->lay->set("ALARM", 0);
 
@@ -90,7 +91,7 @@ function InitNewRv(&$action, $time) {
   $action->lay->SetBlockData("ALARM_MIN", $m);
   for ($hour=0; $hour<24; $hour++) {
     $h[$hour]["ALRMPERIOD_V"] = $hour;
-    if ($hour==0)  $h[$hour]["ALRMPERIOD_S"] = "selected";
+    if ($hour==1)  $h[$hour]["ALRMPERIOD_S"] = "selected";
     else  $h[$hour]["ALRMPERIOD_S"] = "";
   } 
   $action->lay->SetBlockData("ALARM_HR", $h);

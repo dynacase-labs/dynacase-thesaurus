@@ -3,12 +3,13 @@
 <form id="editevent" name="editevent" target="xxxx" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 
-<div width="100%" style="margin-top: 1em;">
+<table width="100%" style="margin-top: 1em;">
+<tr><td align="right">
 <input class="WGCalButton" type="button" id=closeevent" name="closeevent" title="[TEXT:save]" value="[TEXT:save]"
        onclick="saveEvent()" >
-<input class="WGCalButton" type="button" id=closeevent" name="closeevent" title="[TEXT:]" value="[TEXT:cancel]"
+<input class="WGCalButton" type="button" id=closeevent" name="closeevent" title="[TEXT:close]" value="[TEXT:close]"
        onclick="cancelEvent();">
-</div>
+</td></tr></table>
 
 <hr>
  
@@ -98,15 +99,15 @@
 
 <hr>
 
-[TEXT:confidentiality] : <select id="rvconfid" name="rvconfid[]">
+[TEXT:confidentiality] : <select id="rvconfid" name="rvconfid[]" [rvvisro]>
 [BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]
 </select>
 
-[TEXT:calendar] : <select id="rvcalendar" name="rvcalendar[]">
+[TEXT:calendar] : <select id="rvcalendar" name="rvcalendar[]" [rvcalro]>
 [BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]
 </select>
 
-[TEXT:status] : <select id="rvstatus"  name="rvstatus[]">
+[TEXT:status] : <select id="rvstatus"  name="rvstatus[]" [rvstaro]>
 [BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]
 </select>
 

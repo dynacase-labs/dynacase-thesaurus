@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.8 2004/12/24 12:37:20 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.9 2004/12/24 17:44:55 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -160,7 +160,8 @@ function wgcal_calendar(&$action) {
               $tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
               $tcell[$itc]["urlroot"] = $action->GetParam("CORE_STANDURL");
               $tcell[$itc]["time"] = strftime("%s",($firstWeekDay+($id*SEC_PER_DAY))+($h*SEC_PER_HOUR));
-              $tcell[$itc]["rtime"] = strftime("%a %d",$firstWeekDay+($id*SEC_PER_DAY)).', '.$h.'H'.printhdiv($hdiv,$hd).'"';
+              $tcell[$itc]["rtime"] = strftime("%a %d",$firstWeekDay+($id*SEC_PER_DAY));
+              if ($hd!=0) $tcell[$itc]["rtime"] .= ', '.$h.'H'.printhdiv($hdiv,$hd).'"';
 	      $tcell[$itc]["lref"] = "L".$nl;
 	      $tcell[$itc]["cref"] = "D".$id;
 	      $tcell[$itc]["cclass"] = $class[$id];

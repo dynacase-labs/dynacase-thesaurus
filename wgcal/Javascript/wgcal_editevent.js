@@ -159,7 +159,8 @@ function saveEvent() {
 }
 
 function cancelEvent() {
-  ok = confirm('[TEXT: close whithout saving]'); 
-  if (ok) self.close();
+  ok = confirm('[TEXT: save before closins]'); 
+  if (ok) saveEvent();
+  self.close();
 }
 
