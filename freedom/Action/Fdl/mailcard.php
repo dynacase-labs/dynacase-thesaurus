@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.14 2002/12/06 17:15:15 eric Exp $
+// $Id: mailcard.php,v 1.15 2002/12/07 16:00:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -78,13 +78,14 @@ function sendmailcard(&$action) {
   }
 
   $layout="maildoc.xml"; // the default
-  if ($szone) {
-    $layout="onezone.xml";
-  }
+ 
 
 
   if (ereg("html",$format, $reg)) {
     // ---------------------------
+    if ($szone) {
+      $sgen = $doc->viewDoc($zonebodycard,"_self",false);
+    } else {
     // contruct HTML mail
     if ($action->parent->name == "FDL")
       $docmail = new Layout($action->GetLayoutFile($layout),$action);
@@ -102,7 +103,7 @@ function sendmailcard(&$action) {
     }
 
     $sgen = $docmail->gen();
-
+    }
     $sgen = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
 			 "srcfile('\\1')",
 			 $sgen);
@@ -116,6 +117,9 @@ function sendmailcard(&$action) {
   if (ereg("pdf",$format, $reg)) {
     // ---------------------------
     // contruct PDF mail
+    if ($szone) {
+      $sgen = $doc->viewDoc($zonebodycard,"_self",false);
+    } else {
     if ($action->parent->name == "FDL")
       $docmail2 = new Layout($action->GetLayoutFile($layout),$action);
     else {
@@ -129,7 +133,7 @@ function sendmailcard(&$action) {
     $docmail2->Set("TITLE", $title);
   
     $sgen = $docmail2->gen();
-
+    }
     $sgen = preg_replace("/cid:([^\"]+)\"/e",
 			 "realfile('\\1')",
 			 $sgen);

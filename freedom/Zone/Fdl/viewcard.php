@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.25 2002/12/04 17:13:37 eric Exp $
+// $Id: viewcard.php,v 1.26 2002/12/07 16:00:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -148,6 +148,7 @@ function viewcard(&$action) {
     $action->lay->Set("wid", $doc->wid);
   } else {
     $action->lay->Set("viewstate", "none");
+    $action->lay->Set("state", "");
   }
     
 
