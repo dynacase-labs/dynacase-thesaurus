@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.28 2005/01/28 17:08:43 eric Exp $
+ * @version $Id: barmenu.php,v 1.29 2005/01/31 10:54:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.28 2005/01/28 17:08:43 eric Exp $
+// $Id: barmenu.php,v 1.29 2005/01/31 10:54:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -195,7 +195,7 @@ function barmenu(&$action) {
   $streeSearch = array();
   while (list($k,$v) = each($stree)) {
     if (($v["doctype"] == "S" )&&($v["fromid"] != $fdoc->id) ) {
-      $lidsearch[] = "search".$v["id"];
+      $lidsearch[$v["id"]] = "search".$v["id"];
       $streeSearch[] = $v;
     } 
   }
@@ -203,10 +203,11 @@ function barmenu(&$action) {
   $filter[]="se_famid='$famid'";
   $action->lay->set("MSEARCH",false);
   $stree=getChildDoc($dbaccess,"0","0","10",$filter,$action->user->id,"TABLE",5);
-  if (count($stree) > 0) $action->lay->set("MSEARCH",true);
   foreach ($stree as $k=>$v) {
-     $lidsearch[] = "search".$v["id"];
+    if (!isset($lidsearch[$v["id"]]))     $lidsearch[] = "search".$v["id"];
+    else unset($stree[$k]);
   }
+  if (count($stree) > 0) $action->lay->set("MSEARCH",true);
   $lidsearch[]="text";
 
   popupInit("searchmenu",$lidsearch);
