@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.11 2003/04/11 11:48:30 eric Exp $
+// $Id: exportfld.php,v 1.12 2003/07/24 13:09:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,7 +67,7 @@ function exportfld(&$action, $aflid="0", $famid="")
       $doc->GetMoreValues();
 
       if ($prevfromid != $doc->fromid) {
-	$adoc = new DocFam($dbaccess,$doc->fromid);
+	$adoc = $doc->getFamDoc();
 	$lattr=$adoc->GetExportAttributes();
 	fputs($fout,"//FAM;".$adoc->title."(".$doc->fromid.");<specid>;<fldid>;");
 	while (list($ka,$attr)= each ($lattr)) {

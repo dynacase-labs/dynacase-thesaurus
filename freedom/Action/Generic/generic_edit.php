@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.15 2003/05/27 12:30:36 eric Exp $
+// $Id: generic_edit.php,v 1.16 2003/07/24 13:04:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,7 +80,7 @@ function generic_edit(&$action) {
   $action->lay->Set("iconsrc", $doc->geticon());
   
   if ($doc->fromid > 0) {
-    $fdoc= new Doc($dbaccess, $doc->fromid);
+    $fdoc= $doc->getFamDoc();
     $action->lay->Set("FTITLE", $fdoc->title);
   } else {
     $action->lay->Set("FTITLE", _("no family"));

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.18 2003/03/05 16:49:28 eric Exp $
+// $Id: freedom_mod.php,v 1.19 2003/07/24 13:06:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,7 +67,7 @@ function freedom_mod(&$action) {
 
     // second try in default folder for family
     if ($dirid == 0) {
-      $cdoc = new DocFam($dbaccess, $doc->fromid);
+      $cdoc = $doc->getFamDoc();
       if ($cdoc->dfldid>0)  {
 	$dirid=$cdoc->dfldid;
 	$fld = new Doc($dbaccess,$dirid); 

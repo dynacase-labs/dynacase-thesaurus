@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.10 2003/06/24 10:37:24 eric Exp $
+// $Id: duplicate.php,v 1.11 2003/07/24 12:59:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,12 +40,11 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
 
   // test if doc with values
   $doc= new Doc($dbaccess, $docid);
-  $cdoc= new Doc($dbaccess, $doc->fromid);
+  $cdoc= $doc->getFamDoc();
   
   $err = $cdoc->control('create');
   if ($err != "") $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$doc->fromid));
 
- 
 
   $values = $doc->getValues();
   if (! is_array($values)) $action->exitError(_("this kind of document cannot be duplicate"));
@@ -54,6 +53,8 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
   // initiate a copy of the doc
 
   $copy= $doc->copy($temporary);
+  if (! is_object($copy)) $action->exitError($copy);
+  
   $copy->title = _("duplication of")." ".$copy->title;
 
   

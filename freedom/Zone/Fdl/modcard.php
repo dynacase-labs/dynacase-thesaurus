@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.41 2003/07/15 07:28:11 eric Exp $
+// $Id: modcard.php,v 1.42 2003/07/24 13:02:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -182,7 +182,7 @@ function modcard(&$action, &$ndocid) {
 
     } else {
       // test if auto revision
-      $fdoc = new Doc($dbaccess, $doc->fromid);
+      $fdoc = $doc->getFamDoc();
       if ($fdoc->schar == "R") {
 	$doc->AddRevision(_("auto revision"));
       }

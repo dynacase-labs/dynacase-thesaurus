@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.19 2003/05/27 12:30:36 eric Exp $
+// $Id: freedom_edit.php,v 1.20 2003/07/24 13:08:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,7 @@ function freedom_edit(&$action) {
   if ($docid > 0) {
     $doc= new Doc($dbaccess,$docid);
     if (! $doc->isAlive()) $action->exitError(sprintf(_("document id %d not found"),$docid));
-    $cdoc = new Doc($dbaccess,$doc->fromid);
+    $cdoc =  $doc->getFamDoc();
     $tclassdoc[$doc->fromid] = array("id"=> $cdoc->id,
 				     "title"=>$cdoc->title);
   } else {

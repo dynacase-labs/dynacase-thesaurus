@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.17 2003/03/28 17:52:38 eric Exp $
+// $Id: generic_mod.php,v 1.18 2003/07/24 13:04:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,7 +56,7 @@ function generic_mod(&$action) {
    
     AddLogMsg(sprintf(_("%s has been created"),$doc->title));
    
-    $cdoc = new DocFam($dbaccess, $doc->fromid);
+    $cdoc = $doc->getFamDoc();
     if ($cdoc->dfldid>0)  $dirid=$cdoc->dfldid;
     
 
