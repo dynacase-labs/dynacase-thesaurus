@@ -4,7 +4,7 @@
 ]
 >
 
-<article id="usercard" lang="fr" revision="$Id: usercard.sgml,v 1.2 2002/03/08 14:45:22 eric Exp $">
+<article id="usercard" lang="fr" revision="$Id: usercard.sgml,v 1.3 2002/03/12 09:55:12 eric Exp $">
   <title>
   <inlinemediaobject>
     <imageobject>
@@ -18,6 +18,12 @@
         <date>25 Février 2002</date>
         <authorinitials>EB</authorinitials>
 	<revremark>Version initiale</revremark>
+      </revision>
+      <revision>
+        <revnumber>0.2</revnumber>
+        <date>11 Mars 2002</date>
+        <authorinitials>EB</authorinitials>
+	<revremark>CSV import</revremark>
       </revision>
     </revhistory>
     <mediaobject><imageobject>
@@ -140,7 +146,7 @@
 
     <sect2 id="usercard.ldap.config">
     <title>LDAP</title>
-    <para>Les cartes publiques sont aussi consultables via un serveur LDAP. Si l'administrateur a autorisé cette synchronisation WHAT -> LDAP, vous pouvez consulter (la modification n'est pas autorisée) les cartes publiques enregistrées dans <emphasis>Usercard</emphasis>. </para>
+    <para>Les cartes publiques sont aussi consultables via un serveur LDAP. Si l'administrateur a autorisé cette synchronisation WHAT -> LDAP, vous pouvez consulter (la modification n'est pas autorisée) les cartes publiques enregistrées dans <emphasis>Usercard</emphasis>. La schéma utilisé pour le LDAP est <ulink url="http://docs.iplanet.com/docs/manuals/directory/schema/oc_dir30.htm"><citetitle>inetOrgPerson</citetitle></ulink>. Il décrit les caractéristiques d'une personne au sein d'une entreprise munie d'un réseau informatique.</para>
       
       <para>Par défaut, le serveur LDAP fonctionne sur la même machine que WHAT. Dans votre client LDAP (Netscape, Outlook express), il vous faut renseigner au moins les 3 champs servant à la connection avec le serveur.
          <itemizedlist> 
@@ -181,9 +187,22 @@
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   -->
 <!--			IMPORT					   -->
     <sect2 id="usercard.adm.import">
-      <title>import Vcard</title>
+      <title>import par fichier</title>		
       <para>L'importation d'une base existante peut être faite à l'aide d'un fichier comportant des Vcard. On déclenche l'importation de Vcard  par le menu 'Nouveau' </para>
-      <para>Seul l'administrateur (privilège USERCARD_MASTER) à le droit d'importer des fichiers Vcard</para>
+      <para>Seul l'administrateur (privilège USERCARD_MASTER) à le droit d'importer des fichiers. Seul deux formats d'import sont supportés <ulink url="http://www.imc.org/pdi/vcardoverview.html"><citetitle>Vcard</citetitle></ulink> et CSV.(fichier texte multi-colonne avec séparateur point-virgule)</para>
+      <sect3 id="usercard.adm.import.vcard">
+	<title>import Vcard</title>
+	<para>Le format Vcard ne permet pas de remplir tous les attributs d'une personne. Seul les attributs principaux sont pris en compte ce sont :</para>  
+	<itemizedlist> 
+	  <listitem><para><emphasis>N;GIVEN</emphasis> : prénom</para></listitem>
+	  <listitem><para><emphasis>N;FAMILY</emphasis> : nom</para></listitem>
+	  <listitem><para><emphasis>URL;WORK</emphasis> : site web</para></listitem>
+	  <listitem><para><emphasis>ORG;NAME</emphasis> : société</para></listitem>
+	  <listitem><para><emphasis>EMAIL;INTERNET;WORK</emphasis> : adresse email</para></listitem>
+	  <listitem><para><emphasis>ADR;WORK;STREET</emphasis> : adresse postale</para></listitem>
+	  <listitem><para><emphasis>ADR;WORK;LOCALITY</emphasis> : ville</para></listitem>
+	  <listitem><para><emphasis>ADR;WORK;POSTALCODE</emphasis> : code postal</para></listitem>
+	</itemizedlist> 
       <screenshot>
 	<mediaobject>
 	  <imageobject>
@@ -194,6 +213,14 @@
 	  </textobject>
 	</mediaobject>
       </screenshot>
+      </sect3>
+      <sect3 id="usercard.adm.import.ssv">
+	<title>import CSV</title>
+	<para>Le format CSV permet de remplir tous les attributs définis dans la fiche. L'ordre et le contenu des colonnes est donné dans la fenêtre d'import. L'ordre des attributs est calculé en fonction de la définition des attributs de la fiche. Il faut impérativement que l'ordre des colonne soit respecté. Dans le cas contraire les informations seront décalées et incohérentes. La première colonne doit toujours contenir le mot clef 'DOC', ce qui permet d'identifier une ligne a prendre en compte. Si ce n'est pas le cas la ligne sera considérée comme un commentaire.</para>
+      <caution><para>Il est impératif de ne pas avoir de saut de ligne dans la définition d'une personne. Dans la cas contraire, les attributs définis dans les lignes suivantes ne seront pas pris en compte. On indiquera le saut de ligne pas les caractères "\n".</para></caution>
+      </sect3>
+      <sect3 id="usercard.adm.import.catg">
+	<title>Options d'import</title>
       <para>Vous pouvez indiquer les catégories dans lesquelles vous voulez insérer les nouvelles cartes. Il est conseillé d'avoir un fichier différent par catégories.</para>
       <para>Trois politiques sont proposées si dans le fichier d'importation sont présent des personnes avec le même nom et prénom
       <itemizedlist> 
@@ -209,9 +236,12 @@
 	</itemizedlist> 
       </para>
 
-      <para> On peut aussi déclencher l'importation de Vcard par la commande shell suivante. Dans ce cas le remplacement (policy=update), si nécessaire, est toujours effectué. Les possibilités de l'argument policy sont : <emphasis>add</emphasis> (ajout), <emphasis>update</emphasis> (remplacer) et <emphasis>keep</emphasis> (laisser)</para>
+      <para> On peut aussi déclencher l'importation de Vcard ou de CSV par les commandes shell suivantes. Dans ce cas le remplacement (policy=update), si nécessaire, est toujours effectué. Les possibilités de l'argument policy sont : <emphasis>add</emphasis> (ajout), <emphasis>update</emphasis> (remplacer) et <emphasis>keep</emphasis> (laisser)</para>
       <screen width=80>[root@yoda]# /home/httpd/what/wsh.php --app=USERCARD --action=USERCARD_IMPORTVCARD 
            --file=/home/eric/everybody.vcf --policy=update</screen>
+      <screen width=80>[root@yoda]# /home/httpd/what/wsh.php --app=USERCARD --action=USERCARD_IMPORTCSV
+           --file=/home/eric/everybody.csv --policy=update</screen>
+	</sect3>
     </sect2>
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   -->
 <!--			ACCESS					   -->
@@ -259,13 +289,14 @@
 <row><entry>LDAP_ROOTDN</entry><entry>cn=Manager,o=Anakeen,c=fr</entry><entry>administrateur de la base LDAP</entry></row>
 <row><entry>LDAP_ROOTPW</entry><entry>******</entry><entry>mot de passe de l'administrateur LDAP</entry></row>
 <row><entry>CARD_SLICE_LIST</entry><entry>8</entry><entry>Nombre de carte maximum présentée dans la partie droite.</entry></row>
+<row><entry>IDFAMUSER</entry><entry>120</entry><entry>Identifiant de la famille personne à utiliser.</entry></row>
 <row><entry>FREEDOM_DB</entry><entry>host=localhost user=anakeen port=5432 dbname=freedom</entry><entry>Coordonnées de la base de données où sont mémorisées les personnes.</entry></row>
 
 </tbody>
 </tgroup>
 </informaltable>
 
-
+      
     </sect2>
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_mod.php,v 1.2 2002/03/01 09:36:42 eric Exp $
+// $Id: usercard_mod.php,v 1.3 2002/03/12 09:55:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -64,7 +64,9 @@ function usercard_mod(&$action) {
   }
 
 
-  $doc->PostModify(); // compute new lock & LDAP
+  $err = $doc->PostModify(); // compute new lock & LDAP
+  if ($err != "")  $action-> ExitError($err);
+  
   
   redirect($action,GetHttpVars("app"),"USERCARD_CARD&id=$ndocid");
   
