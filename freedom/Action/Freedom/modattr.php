@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.4 2002/04/09 14:42:18 eric Exp $
+// $Id: modattr.php,v 1.5 2002/05/15 13:32:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,7 +56,7 @@ function modattr(&$action) {
   $nattrids= GetHttpVars("nattrid"); // for new attributes
 
   
-
+  
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $bdfreedomattr = new DocAttr($dbaccess);
@@ -114,7 +114,7 @@ function modattr(&$action) {
 	  
 	  if ($names[$k] != "") {
 
-	    $oattr->labeltext=$names[$k];
+	    $oattr->labeltext=stripslashes($names[$k]);
 	    $oattr->title=isset($titles[$k])?$titles[$k]:"N";
 	    $oattr->abstract=isset($abstracts[$k])?$abstracts[$k]:"N";
 	    $oattr->type=$types[$k];

@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-04-29 13:42+0200\n"
+	"POT-Creation-Date: 2002-05-15 15:02+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -680,7 +680,13 @@ msgstr	""
 msgid	"search an incident"
 msgstr	""
 
-msgid	"bilan"
+msgid	"balance"
+msgstr	""
+
+msgid	"balance query"
+msgstr	""
+
+msgid	"balance result"
 msgstr	""
 
 msgid	"Generic"
@@ -744,6 +750,9 @@ msgid	"Products"
 msgstr	""
 
 msgid	"Product Management"
+msgstr	""
+
+msgid	"product balance"
 msgstr	""
 
 #, fuzzy
@@ -913,6 +922,9 @@ msgstr	"Delete"
 msgid	"all incident"
 msgstr	""
 
+msgid	"bilan"
+msgstr	""
+
 #, fuzzy
 msgid	"state"
 msgstr	"Identity"
@@ -1003,6 +1015,36 @@ msgstr	"Identity"
 #, fuzzy
 msgid	"New card"
 msgstr	"Category"
+
+msgid	"Product Report"
+msgstr	""
+
+msgid	"Balance Result"
+msgstr	""
+
+msgid	"product historical"
+msgstr	""
+
+msgid	"Sales Out"
+msgstr	""
+
+#, fuzzy
+msgid	"site"
+msgstr	"Identity"
+
+#, fuzzy
+msgid	"designation"
+msgstr	"Edit"
+
+msgid	"reference"
+msgstr	""
+
+msgid	"serial number"
+msgstr	""
+
+#, fuzzy
+msgid	"date"
+msgstr	"Edit"
 
 msgid	"View"
 msgstr	""
@@ -1256,9 +1298,6 @@ msgstr	"Organisation"
 #, fuzzy
 msgid	" profile access"
 msgstr	"Control access"
-
-msgid	"reference"
-msgstr	""
 
 msgid	" rev"
 msgstr	""
