@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.16 2004/03/08 11:18:56 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.17 2004/06/07 15:55:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.16 2004/03/08 11:18:56 eric Exp $
+// $Id: Class.DocSearch.php,v 1.17 2004/06/07 15:55:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.16 2004/03/08 11:18:56 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.17 2004/06/07 15:55:52 eric Exp $';
 
 
 include_once("FDL/Class.PDocSearch.php");
@@ -55,7 +55,7 @@ Class DocSearch extends PDocSearch {
   }
 
   function AddQuery($query) {
-    
+    //print "AddQuery($query)";
     // insert query in search document
     $oqd = new QueryDir($this->dbaccess);
     $oqd->dirid = $this->id;
@@ -63,12 +63,16 @@ Class DocSearch extends PDocSearch {
     $oqd->query = $query;
 
     $this->exec_query("delete from fld where dirid=".$this->id." and qtype='M'");
-
-    return $oqd-> Add();
+    $err= $oqd-> Add();
+    if ($err == "") {
+      $this->setValue("SE_SQLSELECT",$query);
+      $err=$this->modify();
+    }
+    return $err;
     
   }
 
-  function GetQuery() {
+  function GetQueryOld() {
     $query = new QueryDb($this->dbaccess, "QueryDir");
     $query->AddQuery("dirid=".$this->id);
     $query->AddQuery("qtype != 'S'");
@@ -80,6 +84,24 @@ Class DocSearch extends PDocSearch {
 	return $tq[0]["query"];
       }
     return "";
+  }
+
+  function getQuery() {
+    if (! $this->isStaticSql()) {
+    $query= $this->ComputeQuery($this->getValue("se_key"),
+				 $this->getValue("se_famid"),
+				 $this->getValue("se_latest"),
+				 $this->getValue("se_case")=="yes",
+				 $this->getValue("se_idfld"),
+				 $this->getValue("se_sublevel") === "") ;
+    // print "<HR>getQuery1:[$query]";
+    } else {
+      $query=$this->getValue("SE_SQLSELECT");
+      // print "<BR><HR>".$this->getValue("se_latest")."/".$this->getValue("se_case")."/".$this->getValue("se_key");
+      //  print "getQuery2:[$query]";
+    }
+
+    return $query;
   }
 
   function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
@@ -113,16 +135,17 @@ Class DocSearch extends PDocSearch {
   }
 
 
-
+  /**
+   * return true if the sqlselect is writted by hand
+   * @return bool
+   */
+  function isStaticSql() {
+    return (($this->getValue("se_latest") == "") && ($this->getValue("se_case")=="")&& ($this->getValue("se_key")==""));
+  }
 
   function SpecRefresh() {
-    if ($this->getValue("se_latest") != "") {
-      $query=$this->ComputeQuery($this->getValue("se_key"),
-				 $this->getValue("se_famid"),
-				 $this->getValue("se_latest"),
-				 $this->getValue("se_case")=="yes",
-				 $this->getValue("se_idfld"),
-				 $this->getValue("se_sublevel") === "") ;
+    if (! $this->isStaticSql()) {
+      $query=$this->getQuery();
 
       $this->AddQuery($query);
     }

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.19 2004/04/27 13:25:18 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.20 2004/06/07 15:55:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.19 2004/04/27 13:25:18 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.20 2004/06/07 15:55:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,6 +90,11 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
 	list($dd,$mm,$yyyy) = explode("/",$v);
 	$tkey[$k]=mktime (0,0,0,$mm,$dd,$yyyy);
       }
+      if (substr($v,0,2)=="::") {
+	// it's method call
+	$rv = $this->ApplyMethod($v);
+	$tkey[$k]=$rv;
+      }
     }
     
     foreach ($tol as $k=>$v) {
@@ -121,12 +126,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
 
 function SpecRefresh() {
   if ($this->getValue("se_latest") != "") {
-    $query=$this->ComputeQuery($this->getValue("se_key"),
-			       $this->getValue("se_famid"),
-			       $this->getValue("se_latest"),
-			       $this->getValue("se_case")=="yes",
-			       $this->getValue("se_idfld"),
-			       $this->getValue("se_sublevel") === "");
+    $query=$this->getQuery();
 
     $this->AddQuery($query);
   }

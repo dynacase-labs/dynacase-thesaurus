@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.88 2004/05/06 08:04:59 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.89 2004/06/07 15:55:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.88 2004/05/06 08:04:59 eric Exp $
+// $Id: Lib.Dir.php,v 1.89 2004/06/07 15:55:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -188,6 +188,10 @@ function getSqlSearchDoc($dbaccess,
 	    
 	  $sqlM=$ldocsearch[0]["query"];
 
+	  $sdoc=new Doc($dbaccess,$dirid);
+	  $sqlM=$sdoc->getQuery();
+
+
 	  if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
 	    $sqlfilters[-3] = "doctype != 'Z'";	   
 	    ksort($sqlfilters);
@@ -269,7 +273,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  //   print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
 
