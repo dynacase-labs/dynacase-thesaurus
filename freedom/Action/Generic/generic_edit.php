@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.31 2005/04/01 17:21:05 eric Exp $
+ * @version $Id: generic_edit.php,v 1.32 2005/04/04 15:46:22 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -71,8 +71,23 @@ function generic_edit(&$action) {
       $action->lay->Set("editaction", _("Save"));
     }
     
-  $action->lay->Set("STITLE",addslashes($action->lay->get("TITLE")));
+  $action->lay->Set("STITLE",addslashes($action->lay->get("TITLE"))); 
+  if ($zonebodycard == "") {
+    if (($vid != "") && ($doc->cvid > 0)) {
+      // special controlled view
+      $cvdoc= new Doc($dbaccess, $doc->cvid);
+      $cvdoc->set($doc);
+      $err = $cvdoc->control($vid); // control special view
+      if ($err != "") $action->exitError($err);
+      $tview = $cvdoc->getView($vid);
+      $doc->setMask($tview["CV_MSKID"]);
+      if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
+    }
+  }
+
+
   if ($zonebodycard == "") $zonebodycard = $doc->defaultedit;
+  print "zonebodycard:$zonebodycard";
   $action->lay->Set("HEAD", (! ereg("[A-Z]+:[^:]+:[T|S]", $zonebodycard, $reg)));
   $action->lay->Set("FOOT", (! ereg("[A-Z]+:[^:]+:S", $zonebodycard, $reg)));
 
