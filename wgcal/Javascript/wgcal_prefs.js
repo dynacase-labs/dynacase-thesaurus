@@ -13,10 +13,10 @@ function getContactPos(rid) {
 function addRessource(rid, rtitle, ricon, rstate) {
   idx = getContactPos(rid);
   if (idx!=-1) return;
-  InsertPrefContact( rtitle, rid, ricon);
+  InsertPrefContact( rtitle, rid, ricon, true);
 }
 
-function InsertPrefContact(rdescr, rid, ricon) {
+function InsertPrefContact(rdescr, rid, ricon, saveIt) {
   var nTr;
   var tab;
 
@@ -43,7 +43,7 @@ function InsertPrefContact(rdescr, rid, ricon) {
   PrefContactsList[idx][0] = rid;
   PrefContactsList[idx][1] = ricon;
   PrefContactsList[idx][2] = rdescr;
-  saveContacts();
+  if (saveIt) saveContacts();
 }
 
 function deleteContact(rid) {
@@ -62,6 +62,7 @@ function saveContacts() {
     if (PrefContactsList[i][0] != -1 ) 
       rlist += PrefContactsList[i][0]+"|";
   }
+  alert('contacts = ['+rlist+']');
   usetparam("WGCAL_U_PREFRESSOURCES", rlist, 'wgcal_hidden', 'WGCAL_HIDDEN');
   return;
 }

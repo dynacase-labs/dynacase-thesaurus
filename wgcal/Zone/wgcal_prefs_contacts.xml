@@ -20,6 +20,6 @@
 </tr><tfoot></tfoot></table>
 
 <script type="text/javascript">
-[BLOCK L_RESS]InsertPrefContact('[RDESCR]', '[RID]', '[RICON]');
+[BLOCK L_RESS]InsertPrefContact('[RDESCR]', '[RID]', '[RICON]', false);
 [ENDBLOCK L_RESS]
 </script>
