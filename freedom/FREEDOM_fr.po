@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-10-02 11:05+0200\n"
+	"POT-Creation-Date: 2002-10-08 11:42+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -323,6 +323,10 @@ msgstr	"ajout [%s] "
 #, c-format
 msgid	"update id [%d] "
 msgstr	"mise à jour id [%d] "
+
+#, c-format
+msgid	"double title %s <B>ignored</B> "
+msgstr "titre en double %s <B>ignoré</B> "
 
 #, c-format
 msgid	"and add in %s folder "
@@ -709,8 +713,8 @@ msgstr	"changer l'icone du document"
 msgid	"change title family"
 msgstr	"changement du titre de famille"
 
-msgid	"query title family"
-msgstr	"demande de changement de titre"
+msgid	"query icon"
+msgstr "requête icone"
 
 msgid	"search document"
 msgstr	"Nouveau document"
@@ -799,6 +803,9 @@ msgstr	"Bibliothèque pour les droits"
 
 msgid	"For export functions"
 msgstr	"Pour les fonctions d'export"
+
+msgid	"Manage families"
+msgstr	"gestion des familles"
 
 msgid	"nothing action"
 msgstr	"action nulle"
@@ -1525,6 +1532,9 @@ msgstr	"Importer un fichier"
 msgid	"Analyze"
 msgstr	"Analyse"
 
+msgid	"With Double"
+msgstr "Avec double"
+
 msgid	"Direct Import"
 msgstr	"Import direct"
 
@@ -1592,7 +1602,7 @@ msgid	"Change State"
 msgstr	"Changer d'état"
 
 msgid	"families"
-msgstr "familles"
+msgstr	"familles"
 
 msgid	"manage visible families"
 msgstr	"gestion des familles visibles"
@@ -1618,6 +1628,9 @@ msgstr	"certains attributs obligatoires sont vides"
 msgid	"Edit"
 msgstr	"Éditer"
 
+msgid	"Change state"
+msgstr	"Changer d'état"
+
 msgid	"View all properties"
 msgstr	"Voir toutes les propriétés"
 
@@ -1641,9 +1654,6 @@ msgstr	"Déverrouiller"
 
 msgid	"History"
 msgstr	"Historique"
-
-msgid	"Change state"
-msgstr	"Changer d'état"
 
 msgid	"Change profile"
 msgstr	"Changer de profil"
@@ -1722,6 +1732,9 @@ msgstr	"Dupliquer"
 
 msgid	"View headers"
 msgstr	"Voir entête"
+
+#~ msgid	"query title family"
+#~ msgstr	"demande de changement de titre"
 
 #~ msgid	"Access Onefam Master Management"
 #~ msgstr	"Accès à l'administration par famille"

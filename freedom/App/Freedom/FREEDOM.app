@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.14 2002/10/01 16:30:07 eric Exp $
+// $Id: FREEDOM.app,v 1.15 2002/10/08 10:28:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -222,8 +222,8 @@ $action_desc = array (
   ) ,
   array( 
    "name"		=>"QUERYTITLE",
-   "short_name"		=>N_("query title family"),
-   "acl"		=>"FREEDOM"
+   "short_name"		=>N_("query icon"),
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"SEARCH",

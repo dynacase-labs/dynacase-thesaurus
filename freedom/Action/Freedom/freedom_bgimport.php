@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_bgimport.php,v 1.1 2002/09/26 15:45:15 eric Exp $
+// $Id: freedom_bgimport.php,v 1.2 2002/10/08 10:28:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_bgimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -63,7 +63,7 @@ function freedom_bgimport(&$action) {
 
   
   $subject=sprintf(_("result of import  %s"), $filename);
-  $cmd[] = "metasend  -b -S 4000000  -F 'freedom' -t '$to' -s '$subject'  -m 'text/html' -e 'quoted-printable' -f  $file.2";
+  $cmd[] = "metasend  -b -S 4000000  -F 'freedom' -t '$to' -s \"$subject\"  -m 'text/html' -e 'quoted-printable' -f  $file.2";
   $cmd[]="/bin/rm -f $file.?";
 
   $scmd="(";

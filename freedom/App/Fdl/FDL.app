@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.5 2002/07/29 12:42:23 eric Exp $
+// $Id: FDL.app,v 1.6 2002/10/08 10:28:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -39,6 +39,10 @@ $app_acl = array (
   array(
    "name"		=>"EXPORT",
    "description"	=>N_("For export functions"),
+   "group_default"       =>"N"),
+  array(
+   "name"		=>"FAMILY",
+   "description"	=>N_("Manage families"),
    "group_default"       =>"N")
 );
 

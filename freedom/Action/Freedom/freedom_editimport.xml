@@ -70,6 +70,7 @@
  <input type="file" name="file"  > 
  <input type="submit" value="[TEXT:Analyze]" 
         onclick="document.modifydoc.target='anaimport';document.modifydoc.analyze.value='Y'"> 
+ <input type="checkbox" name="double" value="Y" >[TEXT:With Double]</input> 
 </fieldset>
 <fieldset>
 <legend>[TEXT:Direct Import]</legend> 

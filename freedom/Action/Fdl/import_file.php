@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.23 2002/09/26 15:45:15 eric Exp $
+// $Id: import_file.php,v 1.24 2002/10/08 10:28:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -215,6 +215,7 @@ function add_import_file(&$action, $fimport="") {
 
 function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
   $analyze = (GetHttpVars("analyze","N")=="Y"); // just analyze
+  $wdouble = (GetHttpVars("double","N")=="Y"); // with double title document
 
   // like : DOC;120;...
   $err="";
@@ -228,10 +229,12 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
     if (! $analyze) {
       $err = $doc->Add();
       $msg .= $err . sprintf(_("add id [%d] "),$doc->id); 
-    } else $msg .=  sprintf(_("add [%s] "),implode('-',$data)); 
+    } else {
+      $msg .=  sprintf(_("add [%s] "),implode('-',$data)); 
+    }
   } else {
-    
     $msg .= $err . sprintf(_("update id [%d] "),$doc->id);
+    
   }
   
     
@@ -249,29 +252,49 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
   while (list($k, $attr) = each ($lattr)) {
 
     if (isset($data[$iattr]) &&  ($data[$iattr] != "")) {
-      $doc->setValue($attr->id, $data[$iattr]);
+      $doc->setValue($attr->id, "${data[$iattr]}");
     }
     $iattr++;
   }
   if (! $analyze) {
     // update title in finish
     $doc->refresh(); // compute read attribute
-    $doc->modify();
-    $doc->postModify(); // case special classes
-  }
-  $msg .= $doc->title;
-  if ($data[3] > 0) { // dirid
-    $dir = new Dir($dbaccess, $data[3]);
-    if (! $analyze) $dir->AddFile($doc->id);
-    $msg .= $err.sprintf(_("and add in %s folder "),$dir->title); 
-  } else if ($data[3] ==  0) {
-    if ($dirid > 0) {
-      $dir = new Dir($dbaccess, $dirid);
-      if (! $analyze) $dir->AddFile($doc->id);
-      $msg .= $err.sprintf(_("and add  in %s folder "),$dir->title); 
+    if (! $wdouble) {
+      // test if same doc in database
+      $doc->RefreshTitle();
+      $lsdoc = $doc->GetDocWithSameTitle();
+
+      if (count($lsdoc) > 0) {
+	$msg .= $err.sprintf(_("double title %s <B>ignored</B> "),$doc->title); 
+	$doc->delete(true); // no post delete it's not a really doc yet
+	$doc=false; 
+      } else {
+	// no double title found
+	$doc->modify();
+	$doc->postModify(); // case special classes
+      }
+    } else {
+      // with double title
+      $doc->modify();
+      $doc->postModify(); // case special classes
     }
   }
 
+  if ($doc) {
+
+    $msg .= $doc->title;
+    if ($data[3] > 0) { // dirid
+      $dir = new Dir($dbaccess, $data[3]);
+      if (! $analyze) $dir->AddFile($doc->id);
+      $msg .= $err.sprintf(_("and add in %s folder "),$dir->title); 
+    } else if ($data[3] ==  0) {
+      if ($dirid > 0) {
+	$dir = new Dir($dbaccess, $dirid);
+	if (! $analyze) $dir->AddFile($doc->id);
+	$msg .= $err.sprintf(_("and add  in %s folder "),$dir->title); 
+      }
+    }
+  }
   if (isset($action->lay)) {
     $tmsg = $action->lay->GetBlockData("MSG");
     $tmsg[] = array("msg"=>$msg);
