@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.16 2003/01/30 09:38:36 eric Exp $
+// $Id: freedom_mod.php,v 1.17 2003/03/04 15:05:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,8 +33,8 @@ include_once("FDL/Class.DocFam.php");
 function freedom_mod(&$action) {
   // -----------------------------------
     
-    // Get all the params      
-      $dirid=GetHttpVars("dirid",0);
+  // Get all the params      
+  $dirid=GetHttpVars("dirid",0);
   $docid=GetHttpVars("id",0); 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -44,26 +44,52 @@ function freedom_mod(&$action) {
   
   
   $doc= new Doc($dbaccess, $ndocid);
-  $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
+  if ($docid > 0) $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
   
   if  ($docid == 0) {
+    AddLogMsg(sprintf(_("%s has been created"),$doc->title));
     if ($dirid > 0) {
       $fld = new Doc($dbaccess, $dirid);    
       if ($fld->doctype != 'D') $dirid=0;
     }
-    if ($dirid == 0) {
-      $cdoc = new DocFam($dbaccess, $doc->fromid);
-      if ($cdoc->dfldid>0)  $fld = new Doc($dbaccess,$cdoc->dfldid);
-      else {
-	$fld = new Doc($dbaccess,UNCLASS_FLD);
-	$home = $fld->getHome();
-      
-	if ($home->id > 0) $fld = $home;
+
+    // first try in current folder
+    if ($dirid > 0) {
+      $err=$fld->AddFile($doc->id);
+      if ($err != "") {
+	$action->AddLogMsg($err);
+	$dirid=0;
       }
     }
+
+    // second try in default folder for family
+    if ($dirid == 0) {
+      $cdoc = new DocFam($dbaccess, $doc->fromid);
+      if ($cdoc->dfldid>0)  {
+	$dirid=$cdoc->dfldid;
+	$fld = new Doc($dbaccess,$dirid); 
+	$err=$fld->AddFile($doc->id);
+	if ($err != "") {
+	  $action->AddLogMsg($err);
+	  $dirid=0;
+	}
+      }
+    }
+	
+     
+    // third try in home folder
+
+    if ($dirid == 0) {
+      $fld = new Doc($dbaccess,UNCLASS_FLD);
+      $home = $fld->getHome();
+      
+      if ($home->id > 0) $fld = $home; 
+      $err=$fld->AddFile($doc->id);
+      if ($err != "") $action->AddLogMsg($err);
+    }
+    
   
-    $fld->AddFile($doc->id);   
   } 
   
   

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.15 2003/03/04 10:50:08 eric Exp $
+// $Id: Class.Dir.php,v 1.16 2003/03/04 15:05:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.15 2003/03/04 10:50:08 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.16 2003/03/04 15:05:29 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -78,6 +78,12 @@ Class Dir extends PDir
     if ($err!= "") return $err;
 
 
+    // verify if doc family is autorized
+    $doc= new Doc($this->dbaccess, $docid);
+    $ta=$this->getAuthorizedFamilies();
+
+    if (! isset($ta[$doc->fromid])) return sprintf(_("Cannot add %s in %s folder, restriction set to add this kind of document"),  $doc->title ,$this->title);
+
     $qf = new QueryDir($this->dbaccess);
 
     switch ($mode) {
@@ -88,7 +94,6 @@ Class Dir extends PDir
       break;
     case "latest":
     default:
-      $doc= new Doc($this->dbaccess, $docid);
       if (! $doc->isAffected()) return sprintf(_("Cannot add in %s folder, doc id (%d) unknown"), $this->title, $docid);
       $qf->qtype='S'; // single user query
       $qf->childid=$doc->initid; // initial doc
@@ -193,6 +198,38 @@ Class Dir extends PDir
 
   
     return $err;
+  }
+
+
+  function getAuthorizedFamilies() {
+    
+      $tfamid = explode("\n", $this->getValue("FLD_FAMIDS"));
+      $tfam   = explode("\n", $this->getValue("FLD_FAM"));
+    
+      $allbut=$this->getValue("FLD_ALLBUT");
+      $tclassdoc=array();
+      if ($allbut != "1") {
+	include_once("FDL/Lib.Dir.php");
+	$tallfam = GetClassesDoc($this->dbaccess, $this->userid,1,"TABLE");
+	while (list($k,$cdoc)= each ($tallfam)) {
+	  $tclassdoc[$cdoc["id"]]=$cdoc;
+	}
+	// suppress undesirable families
+      
+	reset($tfamid);
+	while (list($k,$famid)= each ($tfamid)) {
+	  unset($tclassdoc[intval($famid)]);
+	}
+      } else {
+	//add families
+	while (list($k,$famid)= each ($tfamid)) {
+	  $tclassdoc[intval($famid)]=array("id"=> intval($famid),
+					   "title"=>$tfam[$k]);
+	}
+      
+      }
+
+      return $tclassdoc;
   }
 
 }

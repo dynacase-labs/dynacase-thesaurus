@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.14 2003/01/24 14:10:46 eric Exp $
+// $Id: generic_mod.php,v 1.15 2003/03/04 15:05:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,32 +49,28 @@ function generic_mod(&$action) {
       
   
   $doc= new Doc($dbaccess, $ndocid);
-  AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
+  if ($docid > 0) AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
   if ($docid == 0) { // new file => add in a folder
    
-    if ($dirid == 0) {      
-      $cdoc = new DocFam($dbaccess, $doc->fromid);
-      if ($cdoc->dfldid>0)  $dirid=$cdoc->dfldid;
-    }
+    AddLogMsg(sprintf(_("%s has been created"),$doc->title));
+   
+    $cdoc = new DocFam($dbaccess, $doc->fromid);
+    if ($cdoc->dfldid>0)  $dirid=$cdoc->dfldid;
+    
 
     if ($dirid > 0) {
-       $fld = new Dir($dbaccess, $dirid);
+       $fld = new Doc($dbaccess, $dirid);
        
-       $doc= new Doc($dbaccess, $ndocid);
     
-       $fld->AddFile($doc->id);
-     }
-    
-    if ($catgid > 0) {
-      //add to new default catg 
-	$fld = new Dir($dbaccess, $catgid);
-      $fld->AddFile($doc->id);
-	
+       $err=$fld->AddFile($doc->id);
+       if ($err != "") $action->AddLogMsg($err);
     }
     
+   
+    
   } 
-
+  
   
   //  $action->register("reload$ndocid","Y");// to reload cached client file
   redirect($action,GetHttpVars("redirect_app","FDL"),

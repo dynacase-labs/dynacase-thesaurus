@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.25 2003/02/20 11:34:04 eric Exp $
+// $Id: modcard.php,v 1.26 2003/03/04 15:05:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -102,6 +102,7 @@ function modcard(&$action, &$ndocid) {
 	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
 	  }
 	  else $value = stripslashes($v);
+
 	  $doc->SetValue($attrid, $value);	      
 	      
 	      

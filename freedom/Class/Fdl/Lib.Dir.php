@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.60 2003/02/07 17:31:49 eric Exp $
+// $Id: Lib.Dir.php,v 1.61 2003/03/04 15:05:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -367,7 +367,7 @@ function setv($v,$k,$d="") {
 
 
 // --------------------------------------------------------------------
-function GetClassesDoc($dbaccess,$userid,$classid=1)
+function GetClassesDoc($dbaccess,$userid,$classid=1,$qtype="LIST")
      // --------------------------------------------------------------------
 {
   $query = new QueryDb($dbaccess,"DocFam");
@@ -400,7 +400,7 @@ function GetClassesDoc($dbaccess,$userid,$classid=1)
   
   $query->AddQuery("hasviewprivilege(".$userid.",docfam.profid)");
   $query->order_by="title";
-  return $query->Query();
+  return $query->Query(0,0,$qtype);
 }
 
 

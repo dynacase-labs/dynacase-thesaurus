@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.13 2003/01/17 11:44:05 eric Exp $
+// $Id: freedom_edit.php,v 1.14 2003/03/04 15:05:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,9 +45,30 @@ function freedom_edit(&$action) {
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
    
+  if ($docid > 0) {
+    $doc= new Doc($dbaccess,$docid);
+    if (! $doc->isAlive()) $action->exitError(sprintf(_("document id %d not found"),$docid));
+    $cdoc = new Doc($dbaccess,$doc->fromid);
+    $tclassdoc[$doc->fromid] = array("id"=> $cdoc->id,
+				     "title"=>$cdoc->title);
+  } else {
+    // new document select special classes
+    if ($dirid > 0) {
+      $dir = new Doc($dbaccess, $dirid);
+      $tclassdoc=$dir->getAuthorizedFamilies();
 
+      // verify if classid is possible
+      if (! isset($tclassdoc[$classid])) {
+	$first = current($tclassdoc);
+	$classid = $first["id"];
+	setHttpVar("classid",$classid); // propagate to subzones
+      }
 
-  if ($docid > 0) $doc= new Doc($dbaccess,$docid);
+    } else {
+      $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
+    }
+
+  }
 
   // when modification 
   if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
@@ -60,10 +81,11 @@ function freedom_edit(&$action) {
   $query->AddQuery("doctype='C'");
 
   $selectclass=array();
-  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid);
+  
+ 
   while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
+    $selectclass[$k]["idcdoc"]=$cdoc["id"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
     $selectclass[$k]["selected"]="";
   }
 
