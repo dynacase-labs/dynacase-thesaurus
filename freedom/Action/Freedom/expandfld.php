@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.1 2002/04/03 07:33:57 eric Exp $
+// $Id: expandfld.php,v 1.2 2002/04/03 09:40:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,7 @@ include_once("FREEDOM/folders.php");
 function expandfld(&$action) {
   // -----------------------------------
     
-    global  $nbfolders, $dbaccess;
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $dirid=GetHttpVars("dirid",9); // root directory
     $doc = new Doc($dbaccess, $dirid);
@@ -41,7 +41,10 @@ function expandfld(&$action) {
   
   $action->lay->Set("dirid", $dirid);
   $action->lay->Set("reptitle", $doc->title);
-  
+
+
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/expandfld.js");
+
   
   
   // ------------------------------------------------------

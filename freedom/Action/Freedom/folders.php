@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.5 2002/04/03 07:33:57 eric Exp $
+// $Id: folders.php,v 1.6 2002/04/03 09:40:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -117,7 +117,6 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
   
 
   if ($thisfld) {
-    if ($doc->Control("view") != "") return "";
     if ($level == 0) $levelp="";
     else $levelp = $level-1;
     if ($doc->owner < 0) $ftype=3;
