@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.18 2003/01/08 09:08:21 eric Exp $
+// $Id: mailcard.php,v 1.19 2003/01/13 18:59:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,7 +54,7 @@ function sendmailcard(&$action) {
   $zonebodycard = GetHttpVars("zone"); // define view action
   $format = GetHttpVars("_mail_format","html"); // define view action
   $szone = (GetHttpVars("szone","N")=="Y"); // the zonebodycard is a standalone zone ?
-
+ 
   $from = GetHttpVars("_mail_from","");
   $to = GetHttpVars("_mail_to",'eric.brison@i-cesam.com');
   $cc = GetHttpVars("_mail_cc","");
@@ -86,30 +86,39 @@ function sendmailcard(&$action) {
 
   $layout="maildoc.xml"; // the default
  
-
-
+  if ($zonebodycard == "") $zonebodycard="FDL:VIEWCARD";
   if (ereg("html",$format, $reg)) {
     // ---------------------------
     if ($szone) {
-      $sgen = $doc->viewDoc($zonebodycard,"_self",false);
+
+     
+      $sgen = $doc->viewDoc($zonebodycard,"mail",false);
+
+      if ($comment != "") {
+	$comment= nl2br($comment);
+	$sgen = preg_replace("'<body([^>]+)>'",
+			     "<body \\1><P>$comment<P><HR>",
+			     $sgen);
+      }
+       
     } else {
-    // contruct HTML mail
-    if ($action->parent->name == "FDL")
-      $docmail = new Layout($action->GetLayoutFile($layout),$action);
-    else {
-      $appl = new Application();
-      $appl->Set("FDL",	     $action->parent);
-      $docmail = new Layout($appl->GetLayoutFile($layout),$action);
-    }
+      // contruct HTML mail
+      if ($action->parent->name == "FDL")
+	$docmail = new Layout($action->GetLayoutFile($layout),$action);
+      else {
+	$appl = new Application();
+	$appl->Set("FDL",	     $action->parent);
+	$docmail = new Layout($appl->GetLayoutFile($layout),$action);
+      }
 
-    $docmail->Set("TITLE", $title);
-    $docmail->Set("zone", $zonebodycard);
-    if ($comment != "") {
-      $docmail->setBlockData("COMMENT", array(array("boo")));
-      $docmail->set("comment", nl2br($comment));
-    }
+      $docmail->Set("TITLE", $title);
+      $docmail->Set("zone", $zonebodycard);
+      if ($comment != "") {
+	$docmail->setBlockData("COMMENT", array(array("boo")));
+	$docmail->set("comment", nl2br($comment));
+      }
 
-    $sgen = $docmail->gen();
+      $sgen = $docmail->gen();
     }
     $sgen = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
 			 "srcfile('\\1')",
@@ -162,7 +171,7 @@ function sendmailcard(&$action) {
     $cmd .= " -m 'text/html' -e 'quoted-printable' -i mailcard -f '$pfout' ";
   } else if ($format == "pdf") {
     $cmd .= " -/ mixed ";
-    $ftxt = "/tmp/".str_replace(array(" ","/"), "_",uniqid($title).".txt");
+    $ftxt = "/tmp/".str_replace(array(" ","/","(",")"), "_",uniqid($title).".txt");
     system("echo '$comment' > $ftxt");
     $cmd .= " -m 'text/plain' -e 'quoted-printable' -i comment -f '$ftxt' ";
   }
