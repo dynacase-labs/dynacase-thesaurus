@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.105 2003/03/26 17:20:26 eric Exp $
+// $Id: Class.Doc.php,v 1.106 2003/03/27 09:42:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.105 2003/03/26 17:20:26 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.106 2003/03/27 09:42:31 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -792,6 +792,15 @@ create unique index i_docir on doc(initid, revision);";
       }
       return $tsa;
     }
+
+  function isCompleteNeeded() {
+    $tsa=$this->GetNeededAttributes();
+    $err="";
+    while (list($k,$v) = each($tsa)) {
+      if ($this->getValue($v->id) == "") $err .= sprintf(_("%s needed\n"),$v->labelText);
+    }
+    return $err;
+  }
 
 
   // like normal attribut without files

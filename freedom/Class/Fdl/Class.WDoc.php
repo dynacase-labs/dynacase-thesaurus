@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.20 2003/03/17 12:02:52 eric Exp $
+// $Id: Class.WDoc.php,v 1.21 2003/03/27 09:42:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.20 2003/03/17 12:02:52 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.21 2003/03/27 09:42:03 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -208,9 +208,14 @@ Class WDoc extends Doc {
 	}
       }
       
+      
+
       if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), _($newstate)));
       if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), _($this->doc->state)));
       
+      // verify if completed doc
+      $err = $this->doc->isCompleteNeeded();
+      if ($err != "") return $err;
 
       // verify if privilege granted
 
