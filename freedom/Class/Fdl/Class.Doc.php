@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.153 2003/08/05 07:10:36 eric Exp $
+// $Id: Class.Doc.php,v 1.154 2003/08/12 16:31:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.153 2003/08/05 07:10:36 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.154 2003/08/12 16:31:21 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/08/05 07:10:36 $
-// Version         $Revision: 1.153 $
+// Last Update     $Date: 2003/08/12 16:31:21 $
+// Version         $Revision: 1.154 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -233,6 +233,7 @@ create unique index i_docir on doc(initid, revision);";
       // set creation date
       $date = gettimeofday();
       $this->revdate = $date['sec'];
+      if ($this->revision==0) $this->Addcomment(_("creation"));
 
       if ($this->wid > 0) {
 	$wdoc = new Doc($this->dbaccess,$this->wid);

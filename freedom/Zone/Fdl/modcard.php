@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.42 2003/07/24 13:02:23 eric Exp $
+// $Id: modcard.php,v 1.43 2003/08/12 16:31:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -150,7 +150,7 @@ function modcard(&$action, &$ndocid) {
   $err=$doc-> PostModify(); 
   // add trace to know when and who modify the document
   if ( $docid == 0 ) {
-    $doc->Addcomment(_("creation"));
+    //$doc->Addcomment(_("creation"));
   } else {
     $doc->Addcomment(_("change"));
   }
