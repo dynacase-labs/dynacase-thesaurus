@@ -2,43 +2,17 @@
 
 <table width="100%" cellspacing="0">
 <tbody>
+<tr><td>
+<table  cellspacing="0">
+<tbody>
+
 <tr >
-  <td>&nbsp</td>
   <td class="FREEDOMLabel" align="right">
        [L_SE_KEY]&nbsp;: </td>
   <td   >
       [V_SE_KEY]</td>
 </tr>
 <tr class="FREEDOMBack1">
-  <td>&nbsp</td>
-  <td class="FREEDOMLabel" align="right">
-      [TEXT:only latest revision]&nbsp;: </td>
-  <td   >[V_SE_LATEST]</td>
-</tr>
-<tr class="FREEDOMBack1">
-  <td>&nbsp</td>
-  <td class="FREEDOMLabel" align="right">
-       [TEXT:from current folder]&nbsp;: </td>
-  <td   >
-      <input type="checkbox" name="fromdir" value="true" 
-             onclick="document.getElementById('se_idfld').value=(this.checked)?parent.ffolder.dirid:'0';document.getElementById('se_cfld').value=(this.checked)?'dossier':' ';" > 
-      <input type="hidden" id="se_idfld" name="_se_idfld" value="0" >
-      <input type="hidden" id="se_cfld" name="_se_cfld" value=" " ></td>
-</tr>
-
-<tr class="FREEDOMBack1">
-  <td>&nbsp</td>
-  <td class="FREEDOMLabel" align="right">
-       [TEXT:case sensitive]&nbsp;: </td>
-  <td >
-      <input type="checkbox" 
-             onclick="document.getElementById('se_case').value=(this.checked)?'yes':'no';" 
-	     name="sensitive" value="true" > 
-      <input type="hidden" id="se_case" name="_se_case" value="no" ></td>
-</tr>
-
-<tr class="FREEDOMBack1">
-  <td>&nbsp</td>
   <td class="FREEDOMLabel" align="right">
      [TEXT:familly]&nbsp;: </td>
   <td >
@@ -50,19 +24,53 @@
     </select> 
 
     <input type="hidden" id="se_fam" name="_se_fam" value="[selfam]"> </td>
+  <td>&nbsp</td>
 </tr>
+<tr class="FREEDOMBack1">
+  <td  align="center" colspan="2">
+ 
+ <input type="button" style="font-weight: bold;" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH')"> </td>
+ 
+  <td>&nbsp</td>
+</tr>
+</tbody>
+</table>
+
+</td><td>
+<table  cellspacing="0">
+<tbody>
 
 
 <tr class="FREEDOMBack1">
-  <td  align="right" colspan="2">
- 
- <input type="button" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH')"> </td>
-  <td  align="right"></td>
+  <td class="FREEDOMLabel" align="right">
+      [TEXT:only latest revision]&nbsp;: </td>
+  <td   >[V_SE_LATEST]</td>
+</tr>
+<tr class="FREEDOMBack1">
+  <td class="FREEDOMLabel" align="right">
+       [TEXT:from current folder]&nbsp;: </td>
+  <td   >
+      <input type="checkbox" name="fromdir" value="true" 
+             onclick="document.getElementById('se_idfld').value=(this.checked)?parent.ffolder.dirid:'0';document.getElementById('se_cfld').value=(this.checked)?'dossier':' ';" > 
+      <input type="hidden" id="se_idfld" name="_se_idfld" value="0" >
+      <input type="hidden" id="se_cfld" name="_se_cfld" value=" " ></td>
+  <td>&nbsp</td>
 </tr>
 
-
+<tr class="FREEDOMBack1">
+  <td class="FREEDOMLabel" align="right">
+       [TEXT:case sensitive]&nbsp;: </td>
+  <td >
+      <input type="checkbox" 
+             onclick="document.getElementById('se_case').value=(this.checked)?'yes':'no';" 
+	     name="sensitive" value="true" > 
+      <input type="hidden" id="se_case" name="_se_case" value="no" ></td>
+  <td>&nbsp</td>
+</tr>
  
 </tbody>
+</table>
+</td></tr></tbody>
 </table>
 
 <table width="100%" cellspacing="0">
