@@ -52,7 +52,7 @@
 <input type="hidden" name="ulink" value="[ulink]">
 
 <table class="tableborder"  cellspacing="0" width="100%">
-<thead>
+
 <tr class="FREEDOMBack1">
  <td  colspan="3">
    <span class="FREEDOMTextBigTitle">[TEXT:mail edition]-[title]</span>
@@ -60,12 +60,12 @@
 </tr>
 
 <tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
-</thead>
+</table>
    
 [ZONE FDL:EDITCARD?classid=15&mail_from=[from]]
 
 
-<tfoot>
+<table cellspacing="0" width="100%">
 <tr class="FREEDOMBack2"><td  colspan="3"  height="1px"></td></tr>
 <tr class="FREEDOMBack1">
   <td colspan="2" >
@@ -77,7 +77,6 @@
   </td>
   
 </tr>
-</tfoot>
 </table>
 </form>
 <!--  FOOT HTML -->
