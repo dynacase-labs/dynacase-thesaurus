@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.16 2003/03/17 12:04:32 eric Exp $
+// $Id: freedom_edit.php,v 1.17 2003/04/18 09:14:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -81,8 +81,6 @@ function freedom_edit(&$action) {
     
 
   // build list of class document
-  $query = new QueryDb($dbaccess,"Doc");
-  $query->AddQuery("doctype='C'");
 
   $selectclass=array();
   
@@ -116,6 +114,7 @@ function freedom_edit(&$action) {
       $action->lay->Set("editaction", $action->text("create"));
       if ($classid > 0) {
 	$doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class
+	if ($doc === false) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
       }
       // selected the current class document
       while (list($k,$cdoc)= each ($selectclass)) {	

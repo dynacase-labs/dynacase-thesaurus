@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.65 2003/04/03 12:00:14 eric Exp $
+// $Id: Lib.Dir.php,v 1.66 2003/04/18 09:14:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -259,6 +259,8 @@ function getKindDoc($dbaccess,
       $tkids[] = substr($k,strrpos(".".$k,'.'));
     }
   }
+  print_r2($a->enum);
+  print_r2($tkids);
   if ($a->type == "enumlist") {
      $sqlfilter[] = "in_textlist($aid,'".
        implode("') or in_textlist($aid,'",$tkids)."')";

@@ -14,7 +14,7 @@
   z-index:10;
 }
 
-a.menuItem {
+a.menuItem, a:visited.menuItem {
   color: [CORE_TEXTBGCOLOR];
   cursor: default;
   display: block;
@@ -26,7 +26,7 @@ a.menuItem {
   text-transform:capitalize;
 }
 
-a.menuItemCtrl {
+a.menuItemCtrl, a:visited.menuItemCtrl {
   color: [CORE_TEXTBGCOLOR];
   border-style:none solid none solid;
   border-color:[CORE_BGCOLORALTERN];

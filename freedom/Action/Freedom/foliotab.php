@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: foliotab.php,v 1.2 2003/02/07 17:31:49 eric Exp $
+// $Id: foliotab.php,v 1.3 2003/04/18 09:14:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliotab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,13 +39,14 @@ function foliotab(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $action->lay->set("dirid",$docid);
   include_once("FDL/popup_util.php");
   $nbfolders=1;
   
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
  
   $doc = new Doc($dbaccess,$docid);
+  $action->lay->set("docid",$docid);
+  $action->lay->set("dirid",$doc->initid);
   $action->lay->set("title",$doc->title);
 
 //   popupInit("poppaste", array('staticpaste','pastelatest','cancel'));
@@ -53,7 +54,7 @@ function foliotab(&$action) {
 //   popupActive("poppaste",$nbfolders,'staticpaste');
 //   popupActive("poppaste",$nbfolders,'pastelatest');
 //   popupActive("poppaste",$nbfolders,'cancel');
-  $child = getChildDir($dbaccess,$action->user->id,$docid, false,"TABLE");
+  $child = getChildDir($dbaccess,$action->user->id,$doc->initid, false,"TABLE");
   
 
   $ttag=array();

@@ -197,6 +197,14 @@ function viewguide(docid) {
    wtarget.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id='+docid;
 }
 
+function shiftKeyPushed(event) {
+ if (window.event) {   
+   return window.event.shiftKey;
+ } else  {
+   return event.shiftKey;
+ }
+}
+
     [JS:CODE]
   -->
    </script>
@@ -236,14 +244,14 @@ function viewguide(docid) {
 <table width="100%" cols="[nbcol]" align="left" border="0" cellspacing="0" cellpadding="0">
 <tr height="30px">
   <td  class="ongletvs" style="cursor:pointer" 
-       onmousedown="if (drag == 1) {copyOrMove([dirid]);} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[dirid]&folioid=[dirid]';endDrag();} return false"
-       ondblclick="viewguide('[dirid]');return false;"
-     onclick="selecttab(this);">[title]</td>
+       onmousedown="if (!shiftKeyPushed(event)) if (drag == 1) {copyOrMove([dirid]);} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[dirid]&folioid=[dirid]';endDrag();} return false"
+      
+     onclick="if (shiftKeyPushed(event)) viewguide('[docid]'); else selecttab(this);">[title]</td>
   <td class="ongletvs" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"></td>
 [BLOCK TAG]
   <td  class="[tag_cellbgclass]" style="cursor:pointer" valign="middle" 
-     onmousedown="if (('[doctype]'=='D') && (drag == 1)) {copyOrMove([tabid]);} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[tabid]&folioid=[dirid]';endDrag();} return false" ondblclick="viewguide('[tabid]');return false;"
-     onclick="selecttab(this);">
+     onmousedown="if (!shiftKeyPushed(event)) if (('[doctype]'=='D') && (drag == 1)) {copyOrMove([tabid]);} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[tabid]&folioid=[dirid]';endDrag();} return false" 
+     onclick="if (shiftKeyPushed(event)) viewguide('[tabid]'); else selecttab(this);">
           <span class="[TAG_LABELCLASS]">[tabtitle]</span>
        </a></td>
   <td  class="[tag_cellbgclass]" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"></td>

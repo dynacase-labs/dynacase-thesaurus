@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.25 2003/04/14 17:02:04 eric Exp $
+// $Id: editutil.php,v 1.26 2003/04/18 09:14:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -141,6 +141,17 @@ function getHtmlInput(&$doc, &$oattr, $value) {
       break;
       //같같같같같같같같같같같같같같같같같같같같
     case "textlist": 
+
+      $input="<textarea $oc class=\"autoresize\" rows=2 name=\"_".
+	$attrid."\" ";
+      $input .= " id=\"".$attrid."\" "; 
+      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+      $input .= " >\n".
+	htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
+	"</textarea>";
+      break;
+      //같같같같같같같같같같같같같같같같같같같같
+    case "textlist2": 
 
       $input="<select multiple $oc class=\"autoresize\" name=\"_".
 	$attrid."[]\" ";

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: openfolio.php,v 1.2 2003/04/03 11:59:40 eric Exp $
+// $Id: openfolio.php,v 1.3 2003/04/18 09:14:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/openfolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,6 +38,7 @@ function openfolio(&$action) {
 
   $folio = new Doc($dbaccess,$docid);
   $action->lay->Set("dirid", $folio->initid);
+  $action->lay->Set("docid", $docid);
   
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.10 2003/04/16 12:15:58 eric Exp $
+// $Id: modprof.php,v 1.11 2003/04/18 09:14:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -87,7 +87,8 @@ function modprof(&$action) {
   
   
   
-  redirect($action,"FDL","FDL_CARD&id=$docid");
+  redirect($action,"FDL","FDL_CARD&props=Y&id=$docid",
+	   $action->GetParam("CORE_STANDURL"));
 }
 
 

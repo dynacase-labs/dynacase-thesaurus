@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.4 2003/04/03 08:00:14 eric Exp $
+// $Id: generic_search_kind.php,v 1.5 2003/04/18 09:14:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,7 +80,7 @@ function generic_search_kind(&$action) {
 
 
   $sqlfilter[]= "locked != -1";
-  $sqlfilter[]= "doctype='F'";
+  //  $sqlfilter[]= "doctype='F'";
   $sqlfilter[]= "usefor = 'N'";
 
 

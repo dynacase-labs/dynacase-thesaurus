@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.27 2003/04/14 17:02:04 eric Exp $
+// $Id: popupcard.php,v 1.28 2003/04/18 09:14:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -173,7 +173,7 @@ function popupcard(&$action) {
 	}
       }
   }
-  if ($doc->doctype=="F") popupCtrlActive('popupcard',$kdiv,'histo'); 
+  if (($doc->doctype=="F") || ($doc->revision > 0)) popupCtrlActive('popupcard',$kdiv,'histo'); 
   else popupInvisible('popupcard',$kdiv,'histo');
 
   if ($abstract) popupActive('popupcard',$kdiv,'properties'); 

@@ -22,7 +22,7 @@ ATTR;FLD_PDOC;FLD_FR_PROF;profil par défaut de document;N;N;text;1030;W;;%S%app=
 ATTR;FLD_PDOCID;FLD_FR_PROF;id profil par défaut de document;N;N;text;1040;H;;;;;
 ATTR;FLD_PDIR;FLD_FR_PROF;profil par défaut de dossier;N;N;text;1050;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDIRID%;fdl.php;lfamilly(D,PDIR,FLD_PDIR):FLD_PDIRID,FLD_PDIR;
 ATTR;FLD_PDIRID;FLD_FR_PROF;id profil par défaut de dossier;N;N;text;1060;H;;;;;
-ATTR;FLD_ROOT;FLD_FR_PROF;nouvelle racine;N;N;text;10;M;;%S%app=FREEDOM&action=FOLDERS&dirid=%I%;;;
+ATTR;FLD_ROOT;FLD_FR_PROF;nouvelle racine;N;N;text;10;M;;[ffolder]%S%app=FREEDOM&action=FOLDERS&dirid=%I%;;;
 END;1;-1;;;;;;;;;;;
 ;;;;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;;
@@ -136,24 +136,31 @@ USEFOR;G;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 END;0;;;;;;;;;;;;
 // famille profile doc;;;id;class;name
-BEGIN;1;profile de document;3;PDoc;PDOC
+BEGIN;1;profil de document;3;PDoc;PDOC
 USEFORPROF;;;;;
 TYPE;C;;;;
 ICON;profil.gif;;;;
 END;1;9;;;
 ;;;;;
 // famille profile dossier;;;;;name
-BEGIN;3;profile de dossier;4;PDir;PDIR
+BEGIN;3;profil de dossier;4;PDir;PDIR
 USEFORPROF;;;;;
 TYPE;C;;;;
 ICON;profil_dossier.gif;;;;
 END;1;9;;;
 ;;;;;
 // famille profile recherche;;;;;name
-BEGIN;3;profile de recherche;6;PDocSearch;PSEARCH
+BEGIN;3;profil de recherche;6;PDocSearch;PSEARCH
 USEFORPROF;;;;;
 TYPE;C;;;;
 ICON;profil_recherche.gif;;;;
+END;1;9;;;
+;;;;;
+// famille profile famille;;;;;name
+BEGIN;3;profil de famille;23;PFam;PFAM
+USEFORPROF;;;;;
+TYPE;C;;;;
+ICON;profil_family.gif;;;;
 END;1;9;;;
 // famille fichier;;;id;class;name;;;;;;;
 BEGIN;0;fichier;7;;FILE;;;;;;;

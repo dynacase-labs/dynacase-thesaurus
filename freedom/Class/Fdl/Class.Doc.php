@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.114 2003/04/16 12:15:58 eric Exp $
+// $Id: Class.Doc.php,v 1.115 2003/04/18 09:14:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.114 2003/04/16 12:15:58 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.115 2003/04/18 09:14:17 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -471,7 +471,7 @@ create unique index i_docir on doc(initid, revision);";
   }
   
   // --------------------------------------------------------------------
-  function PreDelete()    
+  function PreDocDelete()    
     // --------------------------------------------------------------------
     {
       
@@ -490,7 +490,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($really) {
       return(DbObj::delete());
     } else {
-    $msg=$this->PreDelete();
+    $msg=$this->PreDocDelete();
     if ($msg!='') return $msg;
 
     $this->doctype='Z'; // Zombie Doc
@@ -676,7 +676,7 @@ create unique index i_docir on doc(initid, revision);";
       $wdoc=new Doc($this->dbaccess,$this->wid );
       if ($wdoc->isAlive()) {
 	if ($this->id == 0) {	  
-	  $this->state=$wdoc->firstState;
+	  $wdoc->set($this);
 	}
 	$mid = $wdoc->getValue($wdoc->attrPrefix."_MSKID".$this->state);
 

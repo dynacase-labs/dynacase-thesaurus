@@ -126,7 +126,6 @@ function lkfamily($dbaccess, $famname, $aid,
     $filter[]="title ~* '.*$name.*'";
   }
 
-
   $tinter = getKindDoc($dbaccess, $famname, $aid,$kid,$name,$filter);    
   
   $tr = array();
