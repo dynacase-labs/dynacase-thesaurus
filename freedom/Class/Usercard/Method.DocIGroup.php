@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.14 2004/08/09 08:07:06 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.15 2004/08/11 16:16:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -160,6 +160,12 @@ function postUnlinkDoc($docid) {
   }    
   return $err;
 }
+function PostDelete() {
+
+  $user=$this->getWUser();
+  if ($user) $user->Delete();
+                                                                                     
+}          
 /**
  * (re)insert members of the group in folder from USER databasee
  * 
@@ -251,7 +257,7 @@ function RefreshDocUser() {
       $err=$this->modify();
   
     } else     {
-      $err= sprintf(_("group %d does not exist",$wid));
+      $err= sprintf(_("group %d does not exist"),$wid);
     }
   }
   return $err;
