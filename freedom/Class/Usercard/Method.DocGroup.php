@@ -3,36 +3,11 @@
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version \$Id: Method.DocGroup.php,v 1.7 2004/01/26 14:55:21 eric Exp $
+ * @version $Id: Method.DocGroup.php,v 1.8 2004/02/25 15:50:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
  */
-// ---------------------------------------------------------------
-// $Id: Method.DocGroup.php,v 1.7 2004/01/26 14:55:21 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocGroup.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
-
-
-
 
 
 /**
@@ -79,15 +54,21 @@ function SetGroupMail() {
   $err="";
   $gmail=" ";
   $tmail=array();
+
+
+  //------------------------------------------------------
+  // first compute mail from users members
   $tiduser = $this->getTValue("GRP_IDUSER");
   $tuser = $this->getTValue("GRP_USER");
+
   if (count($tiduser) > 0) {
-    $user = new User("",$iduser);
+   
     while (list($k,$v) = each($tiduser)) {
 
       $udoc = new doc($this->dbaccess,$v);
       if ($udoc && $udoc->isAlive()) {
 	$mail = $udoc->getValue("US_MAIL");
+
 	if ($mail != "") $tmail[]=$mail;
       } else {
 	if ($tuser[$k]!="") $err .= sprintf("%s does not exist",$tuser[$k]);
@@ -98,11 +79,13 @@ function SetGroupMail() {
   }
 
   // add mail groups
-  $tgmemberid=$tiduser; // affiliated members
+  //------------------------------------------------------
+  // second compute mail from users members
+  $tgmemberid=$tiduser; // affiliated members ids
   $tgmember=$tuser; // affiliated members
   $tiduser = $this->getTValue("GRP_IDGROUP");
   if (count($tiduser) > 0) {
-    $user = new User("",$iduser);
+   
     while (list($k,$v) = each($tiduser)) {
 
       $udoc = new doc($this->dbaccess,$v);
@@ -125,6 +108,7 @@ function SetGroupMail() {
   while (list($k,$v) = each($tgmemberid)) {
     $tgmembers[$v]=$tgmember[$k];
   }
+ 
 
   $this->SetValue("GRP_IDRUSER", implode("\n",array_keys($tgmembers)));
   $this->SetValue("GRP_RUSER", implode("\n",$tgmembers));
