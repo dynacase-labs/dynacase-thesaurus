@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocIncident.php,v 1.10 2002/07/31 10:00:09 eric Exp $
+// $Id: Class.DocIncident.php,v 1.11 2002/08/19 12:18:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.DocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.10 2002/07/31 10:00:09 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.11 2002/08/19 12:18:23 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -191,8 +191,7 @@ Class DocIncident extends Doc
 
     case qualified:
       $this->profid=112;
-    $oval = new DocValue($this->dbaccess, array($this->id, "IN_ANALMAIL"));
-    $mail =  $oval->value; // send mail to analyzer
+    $mail =  $this->getValue("IN_ANALMAIL"); // send mail to analyzer
     $this->sendmail($mail , 
 		    sprintf(_("Freedom : incident %s : transition to %s"),$this->title,_($newstate)),
 		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=INCIDENT&action=INCIDENT_CARD&id=".$this->id);
@@ -202,8 +201,7 @@ Class DocIncident extends Doc
     break;
     case analyzed:
       $this->profid=114;
-    $oval = new DocValue($this->dbaccess, array($this->id, "IN_TRTMAIL"));
-    $mail =  $oval->value;// send mail to realyser
+    $mail =  $this->getValue("IN_TRTMAIL");// send mail to realyser
     $this->sendmail($mail , 
 		    sprintf(_("Freedom : incident %s : transition to %s"),$this->title,_($newstate)),
 		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=INCIDENT&action=INCIDENT_CARD&id=".$this->id);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.16 2002/08/09 08:44:41 eric Exp $
+// $Id: import_file.php,v 1.17 2002/08/19 12:18:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -64,8 +64,7 @@ function add_import_file(&$action, $fimport="") {
       if ($doc -> Select($doc->id)) $err = "";
     }
     if ($err != "") $gerr="\nline $nline:".$err;
-    $bdvalue = new DocValue($dbaccess);
-    $bdvalue->docid = $doc->id;
+
 	  
     break;
     // -----------------------------------
@@ -206,22 +205,20 @@ function csvAddDoc($dbaccess, $data, $dirid=10) {
   $lattr = $doc->GetAttributes();
 
 
-  $bdvalue = new DocValue($dbaccess);
-  $bdvalue->docid = $doc->id;
+
   $iattr = 4; // begin in 5th column
   reset($lattr);
   while (list($k, $attr) = each ($lattr)) {
 
     if (isset($data[$iattr]) &&  ($data[$iattr] != "")) {
-      $bdvalue->attrid = $attr->id;
-      $bdvalue->value = $data[$iattr];
-      $bdvalue->Modify();
+      $doc->setValue($attr->id, $data[$iattr]);
     }
     $iattr++;
   }
   // update title in finish
   $doc->modify();
   $doc->refresh(); // compute read attribute
+  $doc->postModify(); // case special classes
   if ($data[3] > 0) { // dirid
     $dir = new Dir($dbaccess, $data[3]);
     $dir->AddFile($doc->id);
