@@ -1,3 +1,3 @@
 
-function explodeEvt($d1, $d2) {
-}
+// function explodeEvt($d1, $d2) {
+// }

@@ -93,14 +93,14 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
     
   $err = $event->Modify();
-//   if ($err!="") AddWarningMsg("$err");
-//   else {
-//     $err = $event->PostModify();
-//     if ($err!="") AddWarningMsg("$err");
-//   }
+   if ($err!="") AddWarningMsg("$err");
+   else {
+     $err = $event->PostModify();
+     if ($err!="") AddWarningMsg("$err");
+   }
   
   $changed = true;
-  if ($changed) mail_rv($action, $event);
+  // if ($changed) mail_rv($action, $event);
 
   redirect($action, "WGCAL","WGCAL_EDITEVENT&evt=".$event->id);
 }

@@ -8,7 +8,7 @@ var $eventFamily       = "EVENT_FROM_CAL";
 
 function postModify() {
   $err = $this->setEvent(); //modification de l'événement à chaque modification du producteur
-  print_r2($this);
+  //print_r2($this);
   if ($err!="") print_r2($err);
 }
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.13 2005/01/26 08:42:49 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.14 2005/01/26 11:16:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,6 +12,7 @@
  */
 
 
+include_once("FDL/Class.Doc.php");
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
 
@@ -206,28 +207,57 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
 
-
-  $events = array(
-		  array( "IDSTART" => "DOHO", 
-			 "ID" => 8001, 
-			 "ABSTRACT" => strftime("%d/%m %H:%M",1105974000)."<br>".strftime("%d/%m %H:%M",1105981200),
-			 "START" => 1105974000,  
-			 "END" => 1105981200,
-			 "SHIFT" => 0),
-		  array( "IDSTART" => "DOHO", 
-			 "ID" => 8003, 
-			 "ABSTRACT" => strftime("%d/%m %H:%M",1105974000)."<br>".strftime("%d/%m %H:%M",1105984800),
-			 "START" => 1105974000,  
-			 "END" => 1105984800,
-			 "SHIFT" => 1),
-		  array( "IDSTART" => "DOHO", 
-			 "ID" => 8002, 
-			 "START" => 1106218800,  
-			 "END" => 1106222400,
-			 "SHIFT" => 0)
-		  );
+  $events=getAgendaEvent($action, $ress );
+//   $events = array(
+// 		  array( "IDSTART" => "DOHO", 
+// 			 "ID" => 8001, 
+// 			 "ABSTRACT" => strftime("%d/%m %H:%M",1105974000)."<br>".strftime("%d/%m %H:%M",1105981200),
+// 			 "START" => 1105974000,  
+// 			 "END" => 1105981200,
+// 			 "SHIFT" => 0),
+// 		  array( "IDSTART" => "DOHO", 
+// 			 "ID" => 8003, 
+// 			 "ABSTRACT" => strftime("%d/%m %H:%M",1105974000)."<br>".strftime("%d/%m %H:%M",1105984800),
+// 			 "START" => 1105974000,  
+// 			 "END" => 1105984800,
+// 			 "SHIFT" => 1),
+// 		  array( "IDSTART" => "DOHO", 
+// 			 "ID" => 8002, 
+// 			 "START" => 1106218800,  
+// 			 "END" => 1106222400,
+// 			 "SHIFT" => 0)
+//		  );
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
+}
+
+
+function getAgendaEvent(&$action,$tress,$d1="",$d2="") {
+  //  print_r2($tress);
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $reid=getIdFromName($dbaccess,"WG_AGENDA");
+  $rid=array();
+  foreach ($tress as $k=>$v) {
+    if ($v->id>0) $rid[]=$v->id;
+  }
+  //  print_r2($rid);
+  if (count($rid) == 0) return _("no ressource detected");
+  setHttpVar("idres",implode('|',$rid));
+  $dre=new Doc($dbaccess,$reid);
+  $edre=$dre->getEvents($d1,$d2);
+  $tout=array();
+  foreach ($edre as $k=>$v) {
+    $tout[]=array("IDSTART" => "DOHO", 
+		  "ID" => $v["evt_frominitiatorid"],
+		  "ABSTRACT" => $v["evt_desc"],
+		  "START" => jdtounix(StringDateToJD($v["evt_begdate"])),
+		  "END" => jdtounix(StringDateToJD($v["evt_enddate"]))+3600,
+		  "SHIFT"=>0);
+		  
+  }
+  //print count($edre);
+  //print_r2($tout);
+  return $tout;
 }
 
 ?>

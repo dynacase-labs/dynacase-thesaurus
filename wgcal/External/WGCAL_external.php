@@ -16,7 +16,7 @@ function array2attrval($a, $fmt) {
  */
 function CAL_getRessourceFamilies($dbaccess) {
   global $action;
-  $rFamilies = array( "ROOMS", "IUSER", "IGROUP", "USER", "GROUP");
+  $rFamilies = array(  "IUSER", "IGROUP", "USER", "GROUP");
   $fami = array(); 
   foreach ($rFamilies as $kf => $vf) $fami[] = getFamIdFromName($dbaccess, $vf);
   return $fami;
@@ -67,7 +67,7 @@ function CAL_getContacts($dbaccess, $filter) {
   if ($filter!="") $afilter[] = "title ~* '".$filter."'";
   foreach ($f as $kf => $vf) { 
     if ($vf == "" ) continue;
-    $rdoc = getChildDoc($dbaccess, 0, 0, "ALL", $filter, 
+    $rdoc = getChildDoc($dbaccess, 0, 0, 100, $filter, 
 			$action->user->id, "TABLE", $vf);
     foreach ($rdoc as $k => $v) {
       $contact = $v["title"];
@@ -94,8 +94,9 @@ function CAL_getRessources($dbaccess, $filterTitle) {
   if ($filterTitle!="") $filter[] = "title ~* '".$filterTitle."'";
   foreach ($fam as $kf => $vf) { 
     if ($vf == "" ) continue;
-    $rdoc = getChildDoc($dbaccess, 0, 0, "ALL", $filter, 
+    $rdoc = getChildDoc($dbaccess, 0, 0, 100, $filter, 
 			$action->user->id, "TABLE", $vf);
+
     foreach ($rdoc as $k => $v) {
       $r[] = array( $v["title"], $v["id"], $v["title"]);
     }
@@ -115,7 +116,7 @@ function CAL_getRessourcesOwner($dbaccess, $filterTitle) {
   if ($filterTitle!="") $filter[] = "title ~* '".$filterTitle."'";
   foreach ($fam as $kf => $vf) { 
     if ($vf == "" ) continue;
-    $rdoc = getChildDoc($dbaccess, 0, 0, "ALL", $filter, 
+    $rdoc = getChildDoc($dbaccess, 0, 0, 100, $filter, 
 			$action->user->id, "TABLE", $vf);
     foreach ($rdoc as $k => $v) {
       $r[] = array( $v["title"], $v["id"], $v["title"]);
