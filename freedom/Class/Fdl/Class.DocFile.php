@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.5 2003/01/27 13:26:32 eric Exp $
+// $Id: Class.DocFile.php,v 1.6 2003/01/31 14:31:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.5 2003/01/27 13:26:32 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.6 2003/01/31 14:31:30 eric Exp $';
 
 
 include_once("FDL/Class.PDoc.php");
@@ -53,6 +53,7 @@ Class DocFile extends PDoc
   // return the personn doc id conform to firstname & lastname of the user
   function userDocId() {
     
+    include_once("FDL/Lib.Dir.php");
     $famid=getFamIdFromName($this->dbaccess,"USER");
     $filter[]="title = '".$this->userName()."'";
     
