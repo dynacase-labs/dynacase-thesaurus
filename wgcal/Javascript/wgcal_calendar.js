@@ -226,6 +226,7 @@ function EvTs2String(ts) {
    return d.getDay()+'.'+ms[d.getMonth()]+'.'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
 }
 
+// --------------------------------------------------------
 function GetCurCell(ev) {
   x = getX(ev);
   y = getY(ev);

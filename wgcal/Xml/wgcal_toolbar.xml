@@ -16,15 +16,14 @@
 
 <!-- Rendez-vous en attente -->
 [BLOCK befWAITRV]<fieldset id='waitrv' class="WGCWaitingRv">
-<legend class="WGCToolTitle" style="cursor:pointer">
-    <img id="iwaitrv" src="WGCAL/Images/waitrv.png" title="[TEXT:waiting rv]" height="20">[TEXT:waiting rv]</legend>[ENDBLOCK befWAITRV]
+<legend class="WGCToolTitle"><img id="iwaitrv" src="WGCAL/Images/waitrv.png" title="[TEXT:waiting rv]" height="20"></legend>[ENDBLOCK befWAITRV]
 [BLOCK WAITRV]
-<div id="wrv[wrvid]" style="cursor:pointer;" title="[wrvfulldescr]"
+<div id="wrv[wrvid]" style="background-color:[wrvbgcolor]; color:[wrvcolor]" title="[wrvfulldescr]"
      onmouseover="this.className = 'WGCwrvover'"
      onmouseout="this.className = 'WGCwrvdefault'"
      class="WGCwrvdefault"
      onclick="subwindow(300, 500, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[wrvid]');"  >
- <img id="iwaitrv" src="WGCAL/Images/waitrv.png" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
+ <img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
 [BLOCK aftWAITRV][nop]</fieldset>[ENDBLOCK aftWAITRV]
 
 <br>

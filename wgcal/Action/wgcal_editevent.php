@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.12 2005/01/19 13:08:31 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.13 2005/01/28 19:18:24 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -27,6 +27,8 @@ function wgcal_editevent(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
+
+  $action->parent->AddJsRef("FDL/Layout/jdate.js");
 
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");

@@ -27,8 +27,16 @@ TD {
 
 
 .WGCalButton {
+  filter:alpha(opacity=60);
+  -moz-opacity:.45;	
+  cursor : crosshair;
+  border : 0px;
+}
+.WGCalButtonOver {
+  filter:alpha(opacity=99);
+  -moz-opacity:.99;	
   cursor : pointer;
-  border : 2px outset [CORE_BGCOLORHIGH];
+  border : 2px;
 }
 
 .WGCalZoneSelected {
@@ -122,12 +130,12 @@ TD {
   border : 2px outset red;
 }
 .WGCwrvover {
-  border : 1px outset red;
-  color : red;
+  cursor:pointer; 
+  border : 1px inset red;
 }
 .WGCwrvdefault {
-  border : 1px inset transparent;
-  color : red;
+  cursor:pointer; 
+  border : 1px outset [CORE_BGCOLORALTERN];
 }
 
 .WGCListRess {

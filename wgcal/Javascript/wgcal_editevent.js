@@ -14,9 +14,10 @@ function UpdateEndTime() {
   var etime = document.getElementById('rvend');
   var letime = document.getElementById('Trvend');
   if (etime.value<stime.value) {
-    etime.value = stime.value + 3600;
-    d = new Date(etime.value * 1000);
-    letime.innerHTML = "invalid date";
+    et = stime.value*1; 
+    etime.value = et + 3600;
+    d = new Date((etime.value * 1000));//Samedi 29 Jan 2005
+    letime.innerHTML = Calendar._DN[d.getDay()]+' '+d.getDate()+' '+Calendar._SMN[d.getMonth()]+' '+d.getFullYear();
   }
 }
 
@@ -283,4 +284,30 @@ function EventSelectAll(f) {
     alist.options[i].selected = true;
   }
 
+}
+
+
+function viewattdispo() {
+
+  var f = document.getElementById('viewdispo');
+  var rl = document.getElementById('idres');
+  var rvs = document.getElementById('rvstart').value;
+  var js = document.getElementById('jdstart');
+  var rve = document.getElementById('rvend').value;
+  var je = document.getElementById('jdend');
+
+  rll = "";
+  for (att=0; att<attendeesList.length; att++) {
+    if (attendeesList[att][0]==-1) continue;
+    rll += attendeesList[att][0] + '|';
+  }
+  rl.value = rll;
+  
+  var td = new Date(rvs*1000);
+  js.value = cal_to_jd( "CE", td.getFullYear(), td.getMonth(), td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
+  var te = new Date(rve*1000);
+  je.value = cal_to_jd( "CE", te.getFullYear(), te.getMonth(), te.getDate(), te.getHours(), te.getMinutes(), te.getSeconds() );
+  alert(' sdate=['+js.value+']');
+  alert(' edate=['+je.value+']');
+  f.submit();
 }

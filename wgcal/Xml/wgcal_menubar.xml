@@ -4,48 +4,54 @@
 var REvent = 0;
 var RCall = 0;
 </script>
-<table cellspacing="0" cellpadding="0" align="right"><tr>
+<table width="100%" style="border:2px outset grey" border="1" cellborder="1" cellspacing="0" cellpadding="0" align="right"><tr>
 
-<td align="left" height="30" width="30" >
-<img id="menu_edit" style="WGCalButton" title="[TEXT:add new event]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
+<td align="center" height="40" width="40" >
+<img id="menu_edit" class="WGCalButton" title="[TEXT:add new event]"
+     onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
      onclick="REvent++; subwindow(300, 500, 'EditEvent'+REvent, '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1');" 
-     src="WGCAL/Images/rv.png" height="20" >
+     src="WGCAL/Images/rv.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
 
-<td align="left" height="30" width="30" >
-<img id="menu_addcall" style="WGCalButton" title="[TEXT:add new call]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
+<td align="center" height="40" width="40" >
+<img id="menu_addcall" class="WGCalButton" title="[TEXT:add new call]"
+     onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
      onclick="subwindow(300, 500, 'EditCall'+RCall, '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITCALL&call=-1');" 
      src="WGCAL/Images/wgcal-editcall.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
-<td align="left" height="30" width="30" >
-<img id="menu_addcall" style="WGCalButton" title="[TEXT:add todo]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
+
+<td align="center" height="40" width="40" >
+<img id="menu_addcall" class="WGCalButton" title="[TEXT:add todo]"
+     onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
      onclick="subwindow(300, 500, 'Edit Todo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITTODO&call=-1');" 
      src="WGCAL/Images/wgcal-addtodo.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
 
-<td align="left" height="30" width="30" >
+<td align="center" height="40" width="40" >
 </td>
 
-<td align="left" height="30" width="30" >
-<img id="menu_oneday" style="WGCalButton" title="[TEXT:one day]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
+<td align="center" height="40" width="40" >
+<img id="menu_oneday" class="WGCalButton" title="[TEXT:one day]"
+     onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
      src="WGCAL/Images/wgcal-oneday.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
-<td align="left" height="30" width="30" >
-<img id="menu_multiday" style="WGCalButton" title="[TEXT:multi day]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
-     src="WGCAL/Images/wgcal-multiday.png" height="[WGCAL_U_MENUICONS_H]" >
-</td>
-<td align="left" height="30" width="30" >
-<img id="menu_quarterlist" style="WGCalButton" title="[TEXT:quarter list]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
-     src="WGCAL/Images/wgcal-quarterlist.png" height="[WGCAL_U_MENUICONS_H]" >
+
+<td align="center" height="40" width="40" >
+<img id="menu_multiday" class="WGCalButton" title="[TEXT:multi day]"
+      onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
+    src="WGCAL/Images/wgcal-multiday.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
 
-<td align="left" height="30">
+<td align="center" height="40" width="40" >
+<img id="menu_quarterlist" class="WGCalButton" title="[TEXT:quarter list]"
+      onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
+    src="WGCAL/Images/wgcal-quarterlist.png" height="[WGCAL_U_MENUICONS_H]" >
+</td>
+
+<td align="center" height="40" width="40" >
+</td>
+
+<td align="center" height="40">
 <form id="fsearch" target="wgcal_" name="fsearch" method="POST" 
        onsubmit="subwindow(300, 500, 'Search Result', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHRESULT'); return false;">
  <input type="text" size="20" id="searchphrase" name="searchphrase" type="hidden" value="">
@@ -53,31 +59,30 @@ var RCall = 0;
  <input type="hidden" id="searchdend" name="searchdend" value="-1">
  <input type="hidden" id="searchressource" name="searchressource" value="">
 </td>
-<td align="left" height="30" width="30" >
-</td>
-<td align="left" height="30" width="30" >
-<img id="advsearch" style="WGCalButton" title="[TEXT:advanced search]"
+<td align="center" height="40" width="40" >
+  <img id="advsearch" class="WGCalButton" title="[TEXT:advanced search]"
+     onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
      onclick="subwindow(300, 500, 'Advanced Search', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ASEARCH');"
      src="WGCAL/Images/wgcal-search+.png" height="15" >
 </form>
 </td>
-<td align="left" height="30" width="30" >
+<td align="center" height="40" width="40" >
 </td>
-<td align="left" height="30" width="30" >
-<img id="menu_printview" style="WGCalButton" title="[TEXT:print this view]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
+<td align="center" height="40" width="40" >
+<img id="menu_printview" class="WGCalButton" title="[TEXT:print this view]"
+     onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
      onclick="subwindow(300, 500, 'Print this view, '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PRINT');" 
      src="WGCAL/Images/wm-print.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
-<td align="left" height="30" width="30" >
-<img id="menu_addcalendar" style="WGCalButton" title="[TEXT:add a calendar]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
+<td align="center" height="40" width="40" >
+<img id="menu_addcalendar" class="WGCalButton" title="[TEXT:add a calendar]"
+     onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
      onclick="subwindow(300, 500, 'Add a Calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ADDCALENDAR');" 
      src="WGCAL/Images/wgcal-addcalendar.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
-<td align="left" height="30" width="30" >
-<img id="menu_prefs" style="WGCalButton" title="[TEXT:change preferences]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
+<td align="center" height="40" width="40" >
+<img id="menu_prefs" class="WGCalButton" title="[TEXT:change preferences]"
+     onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
      onclick="subwindow(300, 500, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS');" 
      src="WGCAL/Images/wgcal-prefs.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>

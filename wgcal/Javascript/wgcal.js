@@ -1,11 +1,13 @@
 // --------------------------------------------------------
-function Fade(elt, size) {
+function Fade(elt, size, css) {
   elt.width += size;  
   elt.height += size;
+  elt.className = css;
 }
-function UnFade(elt, size) {
-   elt.width -= size;  
-   elt.height -= size;
+function UnFade(elt, size, css) {
+  elt.width -= size;  
+  elt.height -= size;
+  elt.className = css;
 }
 
 

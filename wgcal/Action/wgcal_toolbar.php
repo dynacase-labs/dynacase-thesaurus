@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.7 2005/01/26 08:42:49 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.8 2005/01/28 19:18:24 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,6 +12,7 @@
  */
 
 include_once("FDL/Class.Doc.php");
+include_once('FDL/Lib.Dir.php');
 
 function wgcal_toolbar(&$action) {
 
@@ -51,28 +52,71 @@ function wgcal_toolbar(&$action) {
 
 }
 
+
+function _seewaitrv(&$action, $state, &$wrv) {
+
+  $rvtextl =  20;
+
+  $rd=getIdFromName($dbaccess,"WG_WAITRV");
+  $rd = ($rd==0?1107:$rd);
+  $irv = count($wrv);
+  SetHttpVar("accstate","$state");
+  $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), $rd , 0, "ALL", array(), 
+		      1, "TABLE", 0);
+  $doc = new Doc($action->GetParam("FREEDOM_DB"));
+  foreach ($rdoc as $k => $v)  {
+    switch ($state) {
+    case 0 : 
+      $wrv[$irv]["wrvcolor"] = "black"; 
+      $wrv[$irv]["wrvbgcolor"] = "red"; 
+      $state = _("new"); 
+      break; 
+    case 1 : 
+      $wrv[$irv]["wrvcolor"] = "red"; 
+      $wrv[$irv]["wrvbgcolor"] = "white"; 
+      $state = _("read"); 
+      break; 
+    default : 
+      $wrv[$irv]["wrvcolor"] = "orange";
+      $wrv[$irv]["wrvbgcolor"] = "white"; 
+      $state = _("to be confirmed"); 
+    }
+    $wrv[$irv]["wrvid"] = $v["id"];
+    if (strlen($v["calev_evtitle"])>$rvtextl) 
+      $wrv[$irv]["wrvtitle"] = substr($v["calev_evtitle"],0,$rvtextl)."...";
+    else
+      $wrv[$irv]["wrvtitle"] = $v["calev_evtitle"];
+    $wrv[$irv]["wrvfulldescr"] = "[".$state."] " 
+      . substr($v["calev_start"],0,16)." : ".$v["calev_evtitle"]." (".$v["calev_owner"].")";
+    $wrv[$irv]["wrvicon"] = $doc->GetIcon($v["icon"]);
+    $irv++;
+  }
+}
+
 function _waitrv(&$action) {
 
-  // recherche magique
+  $trv = array();
 
-  $wrv = array( array("id"=>1, "date"=> "lun 12 janvier, 15h00", "title"=>"Revue de spec mairie de cugnaux", "owner"=>"Jean Demars"),
-		array("id"=>2, "date"=> "lun 3 fevrier, 9h00", "title"=>"Avancement d&eacute;veloppement", "owner"=>"Eric Brison") );
+  // search NEW rv
+  _seewaitrv($action, 0, $trv);
+
+//   // search READ rv
+  _seewaitrv($action, 1, $trv);
+
+//   // search TO BE CONFIRMED rv
+   _seewaitrv($action, 4, $trv);
+
+
   $action->lay->SetBlockData("WAITRV", null);
   $action->lay->SetBlockData("befWAITRV", null);
   $action->lay->SetBlockData("aftWAITRV", null);
-  if (count($wrv)>0) {
-    $t = array();
-    $it=0;
-    foreach ($wrv as $k => $v) {
-      $t[$it]["wrvid"] = $v["id"];
-      $t[$it]["wrvtitle"] = $v["title"];
-      $t[$it]["wrvfulldescr"] = $v["date"]." : ".$v["title"]." (".$v["owner"].")";
-      $it++;
-    }
-    $action->lay->SetBlockData("WAITRV", $t);
-    //   $action->lay->SetBlockData("befWAITRV", array( array( "nop" => "")));
-    //    $action->lay->SetBlockData("aftWAITRV", array( array( "nop" => "")));
+  if (count($trv)>0) {
+    $action->lay->SetBlockData("WAITRV", $trv);
+    $action->lay->SetBlockData("befWAITRV", array( array( "nop" => "")));
+    $action->lay->SetBlockData("aftWAITRV", array( array( "nop" => "")));
+    AddWarningMsg(_("You have waiting events")); 
   }
+  
 }
 
 function _navigator(&$action) {
