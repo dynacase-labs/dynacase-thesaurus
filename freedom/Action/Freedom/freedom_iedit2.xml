@@ -68,9 +68,11 @@
        class="fborder" 
        name="modifydoc" 
        method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IMOD&famid=[famid]&type_attr='[type_attr]'&attrid='[attrid]'&mod='[mod]'" >
+       action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IMOD&famid=[famid]&attrid=[attrid]" >
 <input type="hidden" id="idattr" value="[attrid]">
-<!-- ca sert pour les workflows, la fonction search_args() vient chercher cette valeur. c laid mais j'ai trouvé que ca-->
+<INPUT TYPE="hidden" name="id" value="[id]"></input>
+<input type="hidden" name="noredirect" value="0">
+
 
 <table class="tableborder"  cellspacing="0" width="100%">
 <thead>
@@ -91,17 +93,17 @@
 <tfoot>
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
-  <td  align="right">
-
+  <td  align="right" id="editbutton">
+<input id="iQuicksave" type="button"  value="[TEXT:Quick Save]" onclick="if (hasOpener()) quicksave();return false">
  <input id="iSubmit" type="submit" value="[TEXT:Ok]"
-        onclick="if (!canmodify()) return false;enableall();document.isSubmitted=true;return true">  
+        onclick="if ((!hasOpener()) || (!canmodify())) return false;enableall();document.isSubmitted=true;return true">  
  <input type="button" value="[TEXT:Close]" onclick="document.isCancelled=true;window.close();"> 
   </td>
 </tr>
 </tfoot>
 </table>
 </form>
-<!--  FOOT HTML -->
+<iframe name="fhsave" style="visibility:hidden;display:"></iframe>
 
 </body>
 </html>

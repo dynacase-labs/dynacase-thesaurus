@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_imod.php,v 1.4 2005/03/07 16:41:09 eric Exp $
+ * @version $Id: freedom_imod.php,v 1.5 2005/03/08 17:53:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_imod.php,v 1.4 2005/03/07 16:41:09 eric Exp $
+// $Id: freedom_imod.php,v 1.5 2005/03/08 17:53:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_imod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,8 +48,8 @@ function freedom_imod(&$action) {
   $famid=GetHttpVars("famid");
   $xml = GetHttpVars("xml_initial");
   $attrid = GetHttpVars("attrid");
-  $attrid=substr($attrid,1,strlen($attrid)-2);//on enlève les ' pour la suite
-  //printf($attrid);
+  $noredirect = GetHttpVars("noredirect"); // if true its a quick save
+  
   $action->lay->Set("attrid",$attrid);
   $action->lay->Set("famid",$famid);
 
@@ -58,21 +58,12 @@ function freedom_imod(&$action) {
 
   $mod=GetHttpVars("mod");
   $action->lay->Set("mod",$mod);
-
-  //$xml=stripslashes($xml);
-  // $xml=ltrim($xml);
-  $temp=base64_decode(trim($xml));
-  $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
-  $xml=$entete;
-  $xml.=$temp;
-  //printf($xml);
+  if ($noredirect)  $action->lay->Set("close","no");
+  
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-  $idoc= createDoc($dbaccess,$famid);
-  $idoc=fromxml($xml,$idoc);
-  $idoc->doctype='T';
-  $idoc->Add();
+  $idoc=fromxml($dbaccess,$xml,$famid,true);
 
 
   SetHttpVar("id",$idoc->id);

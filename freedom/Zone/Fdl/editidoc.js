@@ -34,6 +34,13 @@ function editidoc(idattr,xmlid,idocfam,zone) {
 }
 
 
+function hasOpener() {
+  if (window.opener) {
+    if (!window.opener.closed) return true;
+  }
+  if (confirm('[TEXT:Master document has been closed.\nClose window ?]')) window.close();
+  return false;
+}
 
 
 

@@ -16,14 +16,18 @@ function txml(attrid){
     parametre.target="POPDOC_ifrm";
 
     parametre.submit();
+
+
     var itxt=frame_edit.document.getElementById("iti"+attrid);
     if (itxt)  itxt.innerHTML="[title]";
 
 
 
-
-
-    //  window.top.close();
+    if ('[close]' != 'no') {
+      window.top.close();
+    } else {
+      window.top.viewwait(false);
+    }
   
 }
 

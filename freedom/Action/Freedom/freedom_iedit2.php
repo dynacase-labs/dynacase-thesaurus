@@ -3,7 +3,7 @@
  * Edition of virtual document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_iedit2.php,v 1.5 2005/03/07 16:41:09 eric Exp $
+ * @version $Id: freedom_iedit2.php,v 1.6 2005/03/08 17:53:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -42,10 +42,6 @@ function freedom_iedit2(&$action) {
 
   $action->lay->Set("xml_initial",$xml);
 
-  $temp=base64_decode(trim($xml));
-  $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
-  $xml=$entete;
-  $xml.=$temp;
 	
 
 
@@ -53,14 +49,11 @@ function freedom_iedit2(&$action) {
   $famid = GetHttpVars("famid");
  
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $idoc= createDoc($dbaccess,$famid,false);///new doc
  
 
 
 
-  $idoc=fromxml($xml,$idoc);
-  $idoc->doctype='T';
-  $idoc->Add();
+  $idoc=fromxml($dbaccess,$xml,$famid,true);
   SetHttpVar("id",$idoc->id);
   $idoc->SetTitle($idoc->title);
 
@@ -69,6 +62,7 @@ function freedom_iedit2(&$action) {
   $action->lay->Set("STITLE",addslashes($idoc->title));
   $action->lay->Set("iconsrc", $idoc->geticon()); 
   $action->lay->Set("famid", $famid);
+  $action->lay->Set("id", $idoc->id);
 
   // $xml_initial=addslashes(htmlentities($xml));
 

@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.90 2005/03/07 16:41:09 eric Exp $
+ * @version $Id: editutil.php,v 1.91 2005/03/08 17:53:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -194,7 +194,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       //같같같같같같같같같같같같같같같같같같같같
     case "idoc":
 
-      $input.=getLayIdoc($oattr,$attridk,$attrin,$value);
+      $input.=getLayIdoc($doc,$oattr,$attridk,$attrin,$value);
       
       break;
       
@@ -891,16 +891,19 @@ function getLayTextOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
  * @param string $value value of the attribute to display (generaly the value comes from current document)
  * @return String the formated output
  */
-function getLayIdoc( &$oattr,$attridk,$attrin,$value,$zone="") {
+function getLayIdoc(&$doc, &$oattr,$attridk,$attrin,$value,$zone="") {
 
+  $idocfamid=$oattr->format;
   if($value!=""){
     $temp=base64_decode($value);
     $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
     $xml=$entete;
     $xml.=$temp; 
     $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
+  } else {
+    $famname=$doc->getTitle($idocfamid);
+    $title=sprintf(_("create new %s"),$famname);
   }
-  $idocfamid=$oattr->format;
   $input="<INPUT id=\"_" .$attridk."\" TYPE=\"hidden\"  name=$attrin value=\"".$value." \"><a id='iti_$attridk' ".
     " oncontextmenu=\"viewidoc_in_popdoc(event,'$attridk','_$attridk','$idocfamid')\"".
     " onclick=\"editidoc('_$attridk','_$attridk','$idocfamid','$zone');\">$title</a> ";

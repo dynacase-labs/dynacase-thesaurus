@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.233 2005/03/07 16:41:09 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.234 2005/03/08 17:53:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -3149,9 +3149,8 @@ create unique index i_docir on doc(initid, revision);";
 
     $iattr=0;
 
-    while (list($i,$attr) = each($listattr)) {
+    foreach($listattr as $i=>$attr) {
       $iattr++;
-      // printf($listattr[$i]->id);
 
       if ((chop($listattr[$i]->id)!="") && ($listattr[$i]->id!="FIELD_HIDDENS")){
 
@@ -3207,7 +3206,7 @@ create unique index i_docir on doc(initid, revision);";
 	    $attrtype_idoc=true;
 	  }
 	  if($listattr[$i]->inArray()){
-  	  $attrtype_list=true;
+	    $attrtype_list=true;
 	  }
 
 	  if ($attrtype_list){
