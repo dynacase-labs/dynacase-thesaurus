@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.234 2005/03/08 17:53:56 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.235 2005/03/15 17:23:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -350,7 +350,12 @@ create unique index i_docir on doc(initid, revision);";
 	$this->nextSequence();
       }
       $this->Select($this->id);
-      if ($this->doctype != "T") $this->PostCreated(); 
+      if ($this->doctype != "T") {
+	$this->PostCreated(); 
+	if ($this->dprofid >0) {
+	  $this->setProfil($this->dprofid);// recompute profil if needed
+	}
+      }
     }  
 
   /**
@@ -3494,7 +3499,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($doc->isAlive())  $this->setValue($nameTitle,$doc->title);
     else {
       // suppress
-      $this->deleteValue($nameId);
+      if (! $doc->isAffected()) $this->deleteValue($nameId);
     }
   }
 
