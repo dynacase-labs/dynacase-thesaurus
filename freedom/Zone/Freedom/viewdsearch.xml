@@ -58,7 +58,7 @@
    <tr ><td width="30%" class="FREEDOMlabel">[label] : </td><td>[inputs]</td></tr>[ENDBLOCK PARAM]
   </tbody>
 </table>
-<input class="noprint" type="submit" value="[TEXT:send search]">
+<input class="noprint" type="submit" value="[stext]">
 </fieldset>
 </form>
 [ENDBLOCK VPARAM3]
