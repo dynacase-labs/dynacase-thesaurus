@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.181 2004/01/28 09:40:55 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.182 2004/02/02 12:49:20 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.181 2004/01/28 09:40:55 eric Exp $
+// $Id: Class.Doc.php,v 1.182 2004/02/02 12:49:20 caroline Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -1596,7 +1596,7 @@ create unique index i_docir on doc(initid, revision);";
 
     if ($this->comment != '') $this->comment = $commentdate."\n".$this->comment;
     else $this->comment = $commentdate;
-    $this->modify();
+    $this->modify(false,array("comment"));
   }
   function AddRevision($comment='') {
 
