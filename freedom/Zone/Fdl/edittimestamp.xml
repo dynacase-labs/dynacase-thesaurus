@@ -1,13 +1,3 @@
 <input [disabled] size="14" type="text" name="[name]" value="[value]" id="[id]" />
-<input  type="button" id="[id]T" value="&#133;" />
+<input  type="button" onmousedown="Calendar_Init('[id]','[id]T',true)" id="[id]T" value="&#133;" />
 
-<script type="text/javascript">
-    Calendar.setup({
-        inputField     :    "[id]",      // id of the input field
-        ifFormat       :    "%d/%m/%Y %H:%M",       // format of the input field
-        showsTime      :    true,            // will display a time selector
-        button         :    "[id]T",   // trigger for the calendar (button ID)
-        singleClick    :    true,           // double-click mode
-        step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-    });
-</script>

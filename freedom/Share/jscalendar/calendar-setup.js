@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.1 2004/08/27 14:12:02 eric Exp $
+// $Id: calendar-setup.js,v 1.2 2004/09/23 11:34:12 eric Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -179,3 +179,22 @@ Calendar.setup = function (params) {
 		return false;
 	};
 };
+
+
+// Initialise calendar more simply
+function Calendar_Init(inf,ibu,sht) {
+  if (! document.getElementById(ibu).onclick) {
+    if (sht) format="%d/%m/%Y %H:%M";
+    else format="%d/%m/%Y";
+  Calendar.setup({
+    inputField     :    inf,      // id of the input field
+      ifFormat       :    format,       // format of the input field
+      showsTime      :    sht,            // will display a time selector
+      button         :    ibu,   // trigger for the calendar (button ID)
+      singleClick    :    true,           // double-click mode
+      step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+	  
+      });
+  }
+}
+  
