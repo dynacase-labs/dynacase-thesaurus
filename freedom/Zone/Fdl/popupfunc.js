@@ -203,7 +203,7 @@ function closeMenu(menuid) {
   return false;
 }
 
-function activate(th, url, wname) {
+function activate(th, url, wname,bar) {
   if ((th.className == 'menuItem') || (th.className == 'menuItemCtrl')) {
     // add referer url for client doesn't not support it
     //  var urlref;
@@ -213,7 +213,10 @@ function activate(th, url, wname) {
     if ((wname == "")||(wname == "_self")) {
       setTimeout('viewwait()',1000);      
       window.location.href=url;
-    } else subwindow(fdl_vd2size,fdl_hd2size,wname,url);
+    } else {
+      if (bar) subwindowm(fdl_vd2size,fdl_hd2size,wname,url);
+      else subwindow(fdl_vd2size,fdl_hd2size,wname,url);
+    }
    
   }
 }
