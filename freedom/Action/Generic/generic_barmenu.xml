@@ -68,7 +68,9 @@ function SendSearch(e) {
 
 </script>   
 <!-- ------------ MENU SEARCH  --------------------- -->
-<div  id="searchmenu" class="popup">
+<div  id="searchmenu" class="popup">[BLOCK SEARCH]
+<a  id="search[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
+[ENDBLOCK SEARCH]
 <a id="text"></a>
   <input  onMouseUp="return true" onKeyPress="SendSearch(event)" type="text" id="keyword">
 </div>

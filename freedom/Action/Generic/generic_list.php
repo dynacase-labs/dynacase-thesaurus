@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.6 2002/10/31 08:09:22 eric Exp $
+// $Id: generic_list.php,v 1.7 2002/11/04 17:56:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -38,6 +38,7 @@ function generic_list(&$action) {
   $catgid=GetHttpVars("catg", $dirid); // category
   $startpage=GetHttpVars("page","0"); // page to see
   $tab=GetHttpVars("tab","0"); // tab to see 1 for ABC, 2 for DEF, ...
+  $wonglet=GetHttpVars("onglet","Y")=="Y"; // if you want onglet
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -55,12 +56,12 @@ function generic_list(&$action) {
   $action->lay->Set("previcon",""); 
 
 
+  $famid = getDefFam($action);
 
 
 
 
-
-  if (viewfolder($action, true, false,$slice) == $slice) {
+  if (viewfolder($action, true, false,$slice,array(),$famid) == $slice) {
     // can see next
     $action->lay->Set("nexticon",$action->GetIcon("next.png",N_("next"))); 
   }
@@ -69,26 +70,26 @@ function generic_list(&$action) {
     $action->lay->Set("previcon",$action->GetIcon("prev.png",N_("prev"))); 
   }
   
-
-  // hightlight the selected part (ABC, DEF, ...)
-  $onglet=array(array("onglabel"=> "A B C",
-		      "ongdir" => "1"),
-		array("onglabel"=> "D E F",
-		      "ongdir" => "2"),
-		array("onglabel"=> "G H I",
-		      "ongdir" => "3"),
-		array("onglabel"=> "J K L",
-		      "ongdir" => "4"),
-		array("onglabel"=> "M N O",
-		      "ongdir" => "5"),
-		array("onglabel"=> "P Q R S",
-		      "ongdir" => "6"),
-		array("onglabel"=> "T U V",
-		      "ongdir" => "7"),
-		array("onglabel"=> "W X Y Z",
-		      "ongdir" => "8"),
-		array("onglabel"=> "A - Z",
-		      "ongdir" => "0"));
+  if ($wonglet) {
+    // hightlight the selected part (ABC, DEF, ...)
+    $onglet=array(array("onglabel"=> "A B C",
+			"ongdir" => "1"),
+		  array("onglabel"=> "D E F",
+			"ongdir" => "2"),
+		  array("onglabel"=> "G H I",
+			"ongdir" => "3"),
+		  array("onglabel"=> "J K L",
+			"ongdir" => "4"),
+		  array("onglabel"=> "M N O",
+			"ongdir" => "5"),
+		  array("onglabel"=> "P Q R S",
+			"ongdir" => "6"),
+		  array("onglabel"=> "T U V",
+			"ongdir" => "7"),
+		  array("onglabel"=> "W X Y Z",
+			"ongdir" => "8"),
+		  array("onglabel"=> "A - Z",
+			"ongdir" => "0"));
 
   
     while (list($k, $v) = each ($onglet)) {
@@ -98,5 +99,8 @@ function generic_list(&$action) {
     }
 
     $action->lay->SetBlockData("ONGLET", $onglet);
+  }
+  
+  $action->lay->Set("onglet", $wonglet?"Y":"N");
 }
 ?>

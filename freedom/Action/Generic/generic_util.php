@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.3 2002/11/04 09:13:16 eric Exp $
+// $Id: generic_util.php,v 1.4 2002/11/04 17:56:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,7 +58,7 @@ function getChildCatg($doc, $level) {
 
 
   if ($level < 4) {
-    $ldir = getChildDir($dbaccess,$action->user->id,$doc->id, true,"TABLE");
+    $ldir = getChildDir($dbaccess,$action->user->id,$doc->id, false,"TABLE");
   
 
     if (count($ldir) > 0 ) {
@@ -66,6 +66,7 @@ function getChildCatg($doc, $level) {
       while (list($k,$v) = each($ldir)) {
 	$ltree[$v["id"]] = array("level"=>$level*20,
 				 "id"=>$v["id"],
+				 "doctype"=>$v["doctype"],
 				 "title"=>$v["title"]);
 
 	$ltree = $ltree +  getChildCatg($v, $level+1);

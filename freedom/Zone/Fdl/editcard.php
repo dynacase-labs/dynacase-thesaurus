@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.20 2002/11/04 09:13:17 eric Exp $
+// $Id: editcard.php,v 1.21 2002/11/04 17:56:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,15 +58,15 @@ function editcard(&$action) {
   if ($docid == 0) { // new document
     if ($classid > 0) {
       $doc= createDoc($dbaccess,$classid);
-      if ($zonebodycard == "") $zonebodycard=$doc->deditzone;
+      if ($zonebodycard == "") $zonebodycard=$doc->defaultedit;
     }
   } else { // modify document
     if ($classid == 0) {
       $doc= new Doc($dbaccess,$docid);
-      if ($zonebodycard == "") $zonebodycard=$doc->deditzone;
+      if ($zonebodycard == "") $zonebodycard=$doc->defaultedit;
     } else {
       $doc= createDoc($dbaccess,$classid);
-      if ($zonebodycard == "") $zonebodycard=$doc->deditzone;
+      if ($zonebodycard == "") $zonebodycard=$doc->defaultedit;
     }
   }
   
@@ -74,7 +74,7 @@ function editcard(&$action) {
 
 
   $action->lay->Set("classid", $classid);
-  $action->lay->Set("ZONEBODYCARD", $zonebodycard);
+  $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
 
   // compute modify condition js
   $attrn = $doc->GetNeededAttributes();

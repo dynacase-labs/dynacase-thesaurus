@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_barmenu.php,v 1.6 2002/11/04 09:13:16 eric Exp $
+// $Id: generic_barmenu.php,v 1.7 2002/11/04 17:56:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,7 +60,7 @@ function generic_barmenu(&$action) {
 
   include_once("FDL/popup_util.php");
   popupInit("newmenu",  array_merge($tnewmenu ,array('newcatg','imvcard'))  );
-  popupInit("searchmenu", array('text' ));
+
   popupInit("helpmenu", array('help'));
 
 
@@ -83,7 +83,6 @@ function generic_barmenu(&$action) {
     popupInvisible("newmenu",1,'imvcard'); 
   }
 
-  popupActive("searchmenu",1,'text');
 
   popupActive("helpmenu",1,'help');
 
@@ -91,21 +90,38 @@ function generic_barmenu(&$action) {
   $homefld = new Dir( $dbaccess, getDefFld($action));
 
 
+
+  // compute categories and searches
   $stree=getChildCatg( $homefld, 1);
 
   reset($stree);
   
   $lidcatg = array("catg0");
+  $lidsearch = array();
   while (list($k,$v) = each($stree)) {
-    $lidcatg[] = "catg".$v["id"];
+    if ($v["doctype"] == "S" ) {
+      $lidsearch[] = "search".$v["id"];
+      $streeSearch[] = $v;
+    } else {
+      $lidcatg[] = "catg".$v["id"];
+      $streeCatg[] = $v;
+    }
   }
+  $lidsearch[]="text";
+
   popupInit("catgmenu",$lidcatg);
+  popupInit("searchmenu",$lidsearch);
   reset ($lidcatg);
   while (list($k,$v) = each($lidcatg)) {
     popupActive("catgmenu",1,$v);
   }
+  reset ($lidsearch);
+  while (list($k,$v) = each($lidsearch)) {
+    popupActive("searchmenu",1,$v);
+  }
   
-  $action->lay->SetBlockData("CATG",$stree);
+  $action->lay->SetBlockData("CATG",$streeCatg);
+  $action->lay->SetBlockData("SEARCH",$streeSearch);
   $action->lay->Set("topid",getDefFld($action));
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("catg",$catg);

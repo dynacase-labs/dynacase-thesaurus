@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.1 2002/11/04 09:13:17 eric Exp $
+// $Id: Method.DocUser.php,v 1.2 2002/11/04 17:56:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,8 +36,14 @@
   var $orginit = false;
   var $action;
   
+  var $defaultabstract= "USERCARD:VIEWABSTRACTCARD";
   
-  
+// -----------------------------------
+   function viewabstractcard($target="finfo",$ulink=true,$abstract="Y") {
+     // -----------------------------------
+     doc::viewabstractcard($target,$ulink,$abstract);
+     $this->viewprop($target,$ulink,$abstract);
+   }
   // no in postUpdate method :: call this only if real change (values)
   function PostModify() {
     $priv=$this->GetValue("US_PRIVCARD");

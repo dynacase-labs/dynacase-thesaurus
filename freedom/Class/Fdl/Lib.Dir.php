@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.30 2002/11/04 09:13:17 eric Exp $
+// $Id: Lib.Dir.php,v 1.31 2002/11/04 17:56:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -75,7 +75,7 @@ function getChildDir($dbaccess, $userid, $dirid, $notfldsearch=false, $restype="
       "order by doc.title";
   
   $query = new QueryDb($dbaccess,"Doc");
-  print "<HR>$restype,$qsql";
+  //  print "<HR>$restype,$qsql";
   $tableq=$query->Query(0,0,$restype,$qsql);
   
   if ($query->nb == 0) return array();            
@@ -142,9 +142,10 @@ function getSqlSearchDoc($dbaccess,
 	 
 	case "M": // complex query
 	    
+	  $sqlM=$ldocsearch[0]["query"];
+	  if ($fromid > 0) $sqlM=str_replace("from doc ","from $table ",$sqlM);
 	    
-	  $qsql= $ldocsearch[0]["query"] .
-	    $sqlcond;
+	  $qsql= $sqlM . $sqlcond;
 	  break;
 	}
       } else {
@@ -173,6 +174,8 @@ function getChildDoc($dbaccess,
   
   
   $tableq=$query->Query(0,0,$qtype,$qsql);
+  
+  print "<HR>".$query->LastQuery;
   
   if ($query->nb == 0)
     {

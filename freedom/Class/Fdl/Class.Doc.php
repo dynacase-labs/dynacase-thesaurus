@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.61 2002/11/04 09:13:17 eric Exp $
+// $Id: Class.Doc.php,v 1.62 2002/11/04 17:56:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.61 2002/11/04 09:13:17 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.62 2002/11/04 17:56:17 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -110,10 +110,13 @@ create unique index i_docir on doc(initid, revision);";
 
   // --------------------------------------------------------------------
 
-  var $dviewzone="";
-  var $deditzone="";
+  var $defaultview= "FDL:VIEWBODYCARD";
+  var $defaultedit = "FDL:EDITBODYCARD";
+  var $defaultabstract = "FDL:VIEWABSTRACTCARD";
+ 
+
   // --------------------------------------------------------------------
-  //----------------------  TRANSITION DEFINITION --------------------
+
  
 
   var $defDoctype='F';
@@ -621,7 +624,7 @@ create unique index i_docir on doc(initid, revision);";
       
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
-	if (get_class($v) == "FieldSetAttribute")  $tsa[$v->id]=$v;
+	if (get_class($v) == "fieldsetattribute")  $tsa[$v->id]=$v;
       }
       return $tsa;      
     }
@@ -1177,6 +1180,9 @@ create unique index i_docir on doc(initid, revision);";
   
  
 
+  // --------------------------------------------------------------------
+  // use triggers to update docvalue table
+  // --------------------------------------------------------------------
    function SqlTrigger() {
      reset($this->attributes->fromids);
       
@@ -1194,8 +1200,502 @@ create trigger UV{$this->fromid}_$v AFTER INSERT OR UPDATE ON doc$this->fromid F
      return $sql;
    }
 
+
+  // --------------------------------------------------------------------
+  // generate HTML code for view doc
+  // --------------------------------------------------------------------
+   function viewDoc($layout="FDL:VIEWBODYCARD",$target="_self",$ulink=true,$abstract=false) {
+     global $action;
+     if (! ereg("([A-Z]*):(.*)", $layout, $reg)) 
+       $action->exitError(sprintf(_("error in pzone format %s"),$layout));
+     
+  
+     $this->lay = new Layout($reg[1]."/Layout/".strtolower($reg[2]).".xml", $action);
+
+     $method = strtolower($reg[2]);
+     if (method_exists ( $this, $method)) {
+       $this->$method($target,$ulink,$abstract);
+     }
+
+     return $this->lay->gen();
+   }
+
+  // --------------------------------------------------------------------
+  // construct layout for view card containt
+  // --------------------------------------------------------------------
+   function viewbodycard($target="_self",$ulink=true,$abstract=false) {
+
+     $this->lay->Set("cursor",$ulink?"crosshair":"inherit");
+  
+     $frames= array();
+  
+
+     
+     if ($abstract){
+       // only 3 properties for abstract mode
+       $listattr = $this->GetAbstractAttributes();
+     } else {
+       $listattr = $this->GetNormalAttributes();
+    
+     }
+    
+
+     $nattr = count($listattr); // attributes list count
+
+
+     $k=0; // number of frametext
+     $v=0;// number of value in one frametext
+     $nbimg=0;// number of image in one frametext
+     $currentFrameId="";
+
+     $changeframe=false; // is true when need change frame
+     $tableframe=array();
+     $tableimage=array();
+     
+
+     $iattr=0;
+     while (list($i,$attr) = each($listattr)) {
+       $iattr++;
+
+       //------------------------------
+       // Compute value elements
+	  
+       $value = chop($this->GetValue($i));
+
+    
+       if ($value != "") // to define when change frame
+	 {
+	   if ( $currentFrameId != $listattr[$i]->fieldSet->id) {
+	     if ($currentFrameId != "") $changeframe=true;
+	   }
+	 }
+	
+
+
+       //------------------------------
+       // change frame if needed
+
+       if (  // to generate  fiedlset
+	   $changeframe)
+	 {
+	   $changeframe=false;
+	   if (($v+$nbimg) > 0) // one value detected
+	     {
+				      
+	       $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
+	       $frames[$k]["rowspan"]=$v+1; // for images cell
+	       $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+
+	       $this->lay->SetBlockData($frames[$k]["TABLEVALUE"],
+					$tableframe);
+	       $frames[$k]["IMAGES"]="IMAGES_$k";
+	       $this->lay->SetBlockData($frames[$k]["IMAGES"],
+					$tableimage);
+	       unset($tableframe);
+	       unset($tableimage);
+	       $tableframe=array();
+	       $tableimage=array();
+	       $k++;
+	     }
+	   $v=0;
+	   $nbimg=0;
+	 }
+
+
+       //------------------------------
+       // Set the table value elements
+       if ($iattr <= $nattr)	{
+      
+	 if (($value != "") && ($listattr[$i]->visibility != "H"))   {
+		
+	   $currentFrameId = $listattr[$i]->fieldSet->id;
+
+	   // print values
+	   switch ($listattr[$i]->type)
+	     {
+	      
+	     case "image": 
+		  
+	       $tableimage[$nbimg]["imgsrc"]=$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	       break;
+		
+		
+	     case "file": 
+		  
+	       $tableframe[$v]["value"]=$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	    
+	       break;
+		
+	     default : 
+	       $tableframe[$v]["value"]=$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	       break;
+		
+	     }
+
+
+	
+	   // print name except image (printed otherthere)
+	   if ($listattr[$i]->type != "image") {
+	     $tableframe[$v]["name"]=$this->GetLabel($listattr[$i]->id);
+	     $v++;
+	   } else	{
+	     $tableimage[$nbimg]["imgalt"]=$this->GetLabel($listattr[$i]->id);
+	     $nbimg++;
+	   }
+
+	      
+	 }
+       }
+     }
+
+     if (($v+$nbimg) > 0) // // last fieldset
+       {
+				      
+	 $frames[$k]["frametext"]=$this->GetLabel($currentFrameId);
+	 $frames[$k]["rowspan"]=$v+1; // for images cell
+	 $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+
+	 $this->lay->SetBlockData($frames[$k]["TABLEVALUE"],
+				  $tableframe);
+	 $frames[$k]["IMAGES"]="IMAGES_$k";
+	 $this->lay->SetBlockData($frames[$k]["IMAGES"],
+				  $tableimage);
+       }
+     // Out
+
+
+
+     $this->lay->SetBlockData("TABLEBODY",$frames);
+  
+
+
+
+
+   }
+  
+// -----------------------------------
+   function viewabstractcard($target="finfo",$ulink=true,$abstract="Y") {
+     // -----------------------------------
+    
+
+
+
+     $listattr = $this->GetAbstractAttributes();
+ 
+     $tableframe=array();
+ 
+     while (list($i,$attr) = each($listattr)) {
+  
+
+       //------------------------------
+       // Compute value elements
+	  
+       $value = chop($this->GetValue($i));
+
+    
+
+
+      
+       if (($value != "") && ($listattr[$i]->visibility != "H"))   {
+		
+	 // print values
+	 $tableframe[]=array("name"=>$attr->labelText,
+			     "aid"=>$attr->id,
+			     "value"=>$this->GetHtmlValue($listattr[$i],$value,$target,$ulink));
+	
+
+	      
+      
+       }
+     }
+
+
+
+
+     $this->lay->SetBlockData("TABLEVALUE",$tableframe);
+  
+
+
+
+
+   }
+
+
+
+// -----------------------------------
+   function viewattr($target="_self",$ulink=true,$abstract=false) {
+
+ 
+
+  
+     $listattr = $this->GetNormalAttributes();
+    
+    
+
+     // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
+
+     while (list($k,$v) = each($listattr)) {
+
+   
+       $value = chop($this->GetValue($v->id));
+
+       //------------------------------
+       // Set the table value elements
+      
+       if ($v->visibility != "H")	{	
+	 // don't see  non abstract if not
+	 if (($abstract) && (! $v->isInAbstract )) {
+	   $this->lay->Set("V_".$v->id,"");
+	   $this->lay->Set("L_".$v->id,"");
+	 } else {
+	   $this->lay->Set("V_".strtoupper($v->id),$this->GetHtmlValue($v,$value,$target,$ulink));
+	   $this->lay->Set("L_".strtoupper($v->id),$v->labelText);
+	 }
+  
+       }
+
+
+     }
+
   
   
+     $listattr = $this->GetFieldAttributes();
+    
+    
+
+     // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
+
+     while (list($k,$v) = each($listattr)) {
+       
+       $this->lay->Set("L_".strtoupper($v->id),$v->labelText);
+      
+  
+     }
+
+   }
+
+
+   // view doc properties
+   function viewprop($target="_self",$ulink=true,$abstract=false) {
+     while (list($k,$v) = each($this->fields)) {
+
+       $this->lay->Set(strtoupper($v),$this->$v);
+
+     }  
+
+   }
+
+  // ---------------------------------------------------------------
+   function editbodycard($dirid=0) {
+
+     include_once("FDL/editutil.php");
+     // --------------------------------
+     // $classid   use when new doc or change class
+     // $dirid =  directory to place doc if new doc
+     // ---
+
+ 
+     $docid = $this->id;        // document to edit
+	  
+	  
+     // Set the globals elements
+	    
+  
+  
+      
+  
+     // ------------------------------------------------------
+     //  new or modify ?
+     if ($docid == 0)    {
+	
+       // new document
+
+
+       if ($this->fromid > 0) {
+	 $cdoc= new Doc($this->dbaccess,$this->fromid);
+	 $this->lay->Set("TITLE", sprintf(_("new %s"),$cdoc->title));
+     
+       }
+	
+     }  else    {      
+	
+	
+       // when modification 
+
+       if (! $this->isAffected()) $action->ExitError(_("document not referenced"));
+	
+	
+       $this->lay->Set("TITLE", $this->title);
+	
+     }
+  
+     // ------------------------------------------------------
+ 
+  
+  
+  
+     $this->lay->Set("id", $docid);
+     $this->lay->Set("dirid", $dirid);
+     $this->lay->Set("classid", $this->fromid);
+  
+  
+  
+     // ------------------------------------------------------
+     // Perform SQL search for doc attributes
+     // ------------------------------------------------------	        
+  
+  
+  
+ 
+     $frames=array();
+     $listattr = $this->GetAttributes();
+  
+  
+  
+     $nattr = count($listattr); // number of attributes
+    
+    
+     $k=0; // number of frametext
+     $v=0;// number of value in one frametext
+     $currentFrameId="";
+     $changeframe=false;
+     $ih = 0; // index for hidden values
+     $thidden =array();
+     $tableframe=array();
+
+     $iattr=0;
+     while (list($i,$attr) = each($listattr)) {
+       if ((get_class($attr) != "normalattribute")) continue;
+       $iattr++;
+    
+       // Compute value elements
+	    
+       if ($docid > 0) $value = $this->GetValue($listattr[$i]->id);
+       else $value = $cdoc->GetValue($listattr[$i]->id);
+	    	    
+
+       if ( $currentFrameId != $listattr[$i]->fieldSet->id) {
+	 if ($currentFrameId != "") $changeframe=true;
+       }
+	    
+      
+      
+      
+       if ( $changeframe){  // to generate final frametext
+	      
+	 $changeframe=false;
+	 if ($v > 0 ) {// one value detected	  
+	      
+	   $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
+	   $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+	   $this->lay->SetBlockData($frames[$k]["TABLEVALUE"],
+				    $tableframe);
+	   unset($tableframe);
+	   $tableframe=array();
+	   $k++;
+	 }
+	 $v=1;
+       }
+      
+      
+       //------------------------------
+       // Set the table value elements
+    
+	      
+       $currentFrameId = $listattr[$i]->fieldSet->id;
+       if ( ($listattr[$i]->visibility == "H") || 
+	    ($listattr[$i]->visibility == "R") && (substr_count($listattr[$i]->type,"text") > 0)) {
+	 // special case for hidden values
+	 $thidden[$ih]["hname"]= "_".$listattr[$i]->id;
+	 $thidden[$ih]["hid"]= $listattr[$i]->id;
+	 if ($value == "") $thidden[$ih]["hvalue"] = GetHttpVars($listattr[$i]->id);
+	 else $thidden[$ih]["hvalue"]=chop(htmlentities($value));
+	  
+	  
+	 $thidden[$ih]["inputtype"]=getHtmlInput($this,
+						 $listattr[$i],
+						 $value);
+	 $ih++;
+
+       } else {
+	 $tableframe[$v]["value"]=chop(htmlentities($value));
+	 $label = $listattr[$i]->labelText;
+	 $tableframe[$v]["attrid"]=$listattr[$i]->id;
+	 $tableframe[$v]["name"]=chop("[TEXT:".$label."]");
+
+	 if ($listattr[$i]->needed ) $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
+	 else $tableframe[$v]["labelclass"]="FREEDOMLabel";
+
+	 //$tableframe[$v]["name"]=$action->text($label);
+	 $tableframe[$v]["inputtype"]=getHtmlInput($this,
+						   $listattr[$i],
+						   $value);
+		
+		
+		
+		
+	 $v++;
+		
+       }
+      
+     }
+  
+     // Out
+     if ($v > 0 ) {// latest fieldset
+	  
+	      
+       $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
+       $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+       $this->lay->SetBlockData($frames[$k]["TABLEVALUE"],
+				$tableframe);
+	    
+     }
+    
+     $this->lay->SetBlockData("HIDDENS",$thidden);
+     $this->lay->SetBlockData("TABLEBODY",$frames);
+  
+  
+
+      
+  
+  
+   }
+
+   // -----------------------------------
+   function editattr() {
+     // -----------------------------------
+  
+
+     include_once("FDL/editutil.php");
+     $listattr = $this->GetNormalAttributes();
+    
+    
+
+     // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
+
+     while (list($k,$v) = each($listattr)) {
+       //------------------------------
+       // Set the table value elements
+       $value = chop($this->GetValue($v->id));
+			
+       $this->lay->Set("V_".strtoupper($v->id),
+		       getHtmlInput($this,
+				    $v, 
+				    $value));
+      
+       $this->lay->Set("L_".strtoupper($v->id),$v->labelText);
+      
+     }
+  
+     $listattr = $this->GetFieldAttributes();
+
+     // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
+
+     while (list($k,$v) = each($listattr)) {
+       $this->lay->Set("L_".strtoupper($v->id),$v->labelText);  
+     }
+  
+   }
 }
 
 ?>

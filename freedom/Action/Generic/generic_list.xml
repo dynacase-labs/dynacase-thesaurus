@@ -87,20 +87,16 @@ var catgid=[catg];
 
 
 <!-- TABLEBODY -->
-<div  id="d[divid]"
+<div  id="d[id]"
         onmouseover="if (this.className != 'select') this.className='unselecth'"
         onmouseout="if (this.className != 'select') this.className='unselect'" 
         onclick="if (document.noselect) document.noselect=false; else {vselect(this);subwindow(300,400,'finfo','[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&abstract=N&id=[id]');}" 
      class="unselect" >   
      <img align="right" width="30" src="[iconsrc]">
-     <A class="title">[title]</A>
+     <A class="title" id="t[id]">[title]</A>
    
+[ABSTRACTVALUES]
 
-    <ul >
-        [BLOCK [blockabstract]]
-<li>[name]:[value]</li>
-        [ENDBLOCK [blockabstract]]
-</ul>
 </div>
                     [ENDBLOCK TABLEBODY]
 
@@ -110,8 +106,8 @@ var catgid=[catg];
 </table>
 
 <table class="tablesimple" cellspacing="0" width="100%"><tr>
-<td align="left"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]">[previcon]</a></td>
-<td align="right"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]">[nexticon]</a></td>
+<td align="left"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&onglet=[onglet]">[previcon]</a></td>
+<td align="right"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]&onglet=[onglet]">[nexticon]</a></td>
 </tr></table>
 </div>
 <!--  FOOT HTML -->

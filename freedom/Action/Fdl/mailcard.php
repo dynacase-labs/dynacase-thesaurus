@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.12 2002/10/11 13:01:33 eric Exp $
+// $Id: mailcard.php,v 1.13 2002/11/04 17:56:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,6 +79,7 @@ function sendmailcard(&$action) {
     } else {
       $from = $action->user->login;
     }
+    $bcc .="\\nReturn-Path:$from";
   }
 
   $layout="maildoc.xml"; // the default

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.4 2002/11/04 09:13:17 eric Exp $
+// $Id: editframe.php,v 1.5 2002/11/04 17:56:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,7 +39,7 @@ function editframe(&$action) {
   // GetAllParameters
   $docid = GetHttpVars("id",0);
   $classid = GetHttpVars("classid");
-  $frameid = GetHttpVars("frameid");
+  $frameid = strtolower(GetHttpVars("frameid"));
   
 
   // Set the globals elements
@@ -51,44 +51,44 @@ function editframe(&$action) {
   else $doc = new Doc($dbaccess, $docid);
 
   
-  $listattr = $doc->GetAttributes(true);
+  $listattr = $doc->GetNormalAttributes(true);
     
     
 
     
   $thval = array();
   $tval = array();
-    while (list($k,$v) = each($listattr)) {
+  while (list($k,$v) = each($listattr)) {
 
-    if ($v->id == $frameid) $action->lay->set("flabel",$v->labeltext);
 
-    if (($v->frameid != $frameid) || ($v->type == "frame") || ($v->visibility == "M")) continue;
+    if (($v->fieldSet->id != $frameid) ) continue;
 
-	//------------------------------
-	  // Set the table value elements
-	    $value = chop($doc->GetValue($v->id));
+    $action->lay->set("flabel",$v->fieldSet->labelText);
+
+    //------------------------------
+    // Set the table value elements
+    $value = chop($doc->GetValue($v->id));
 	
-	      if ( ($v->visibility == "H") || 
-		  ($v->visibility == "R") && (substr_count($v->type,"text") > 0)) {
+    if ( ($v->visibility == "H") || 
+	 ($v->visibility == "R") && (substr_count($v->type,"text") > 0)) {
 
-	      $thval[$k]["avalue"]=  getHtmlInput($doc,
-						  $v, 
-						  $value);
+      $thval[$k]["avalue"]=  getHtmlInput($doc,
+					  $v, 
+					  $value);
 
-		// special case for hidden values
-	      } else {	
-	      $tval[$k]["alabel"]=  $v->labeltext;
-	      if ($v->visibility == "N") $tval[$k]["labelclass"]="FREEDOMLabelNeeded";
-	      else $tval[$k]["labelclass"]="FREEDOMLabel";
-	      $tval[$k]["avalue"]=  getHtmlInput($action, 
-						 $doc->id,
-						 $v, 
-						 $value);
-	    }
-	
-      
-      
+      // special case for hidden values
+    } else {	
+      $tval[$k]["alabel"]=  $v->labelText;
+      if ($v->needed ) $tval[$k]["labelclass"]="FREEDOMLabelNeeded";
+      else $tval[$k]["labelclass"]="FREEDOMLabel";
+      $tval[$k]["avalue"]=  getHtmlInput($doc,
+					 $v, 
+					 $value);
     }
+	
+      
+      
+  }
 
   $action->lay->setBlockData("FVALUES",$tval);
   $action->lay->setBlockData("FHIDDENS",$thval);
