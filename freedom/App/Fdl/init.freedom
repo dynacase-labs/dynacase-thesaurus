@@ -17,7 +17,7 @@ END;1;-1;;;;;;;;;;
 ;;;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;
 DOC;2;9;;racine;;;;;;;;
-DOC;2;10;9;non classé;;;;;;;;
+DOC;2;10;9;import;;;;;;;;
 // famille dossier;inherit;;id;class;name;;;;;;;
 BEGIN;0;mail;15;;MAIL;;;;;;;
 TYPE;C;;;;;;;;;;;

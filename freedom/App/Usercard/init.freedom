@@ -60,7 +60,7 @@ METHOD;Method.DocSite.php;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 ATTR;SI_IDSOC;0;id société;N;N;text;11;H;N;;fdl.php;gettitle(D,SI_IDSOC):SI_SOCIETY,SI_IDSOC;
 ATTR;SI_SOCIETY;SI_FR_IDENT;société;Y;N;text;31;W;Y;%S%&app=USERCARD&action=GENERIC_CARD&id=%SI_IDSOC%;usercard.php;lsociety(D,SI_SOCIETY):SI_IDSOC,SI_SOCIETY;%S%app=USERCARD&action=GENERIC_EDIT&id=%SI_IDSOC%&classid={SOCIETY}&si_society=%SI_SOCIETY%
-ATTR;SI_LOCAL;SI_FR_COORD;lieu dit;Y;N;text;128;W;N;;;;
+ATTR;SI_LOCAL;SI_FR_IDENT;nom;Y;N;text;32;W;N;;;;
 ATTR;SI_TOWN;SI_FR_COORD;ville;Y;N;text;130;W;Y;;;;
 END;0;;;;;;;;;;;;
 // ;fromid;titre;id;class;name;;;;;;;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.1 2002/12/04 17:13:37 eric Exp $
+// $Id: barmenu.php,v 1.2 2003/01/17 10:31:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,9 +59,9 @@ function barmenu(&$action) {
 
 
   include_once("FDL/popup_util.php");
-  popupInit("newmenu",  array_merge($tnewmenu ,array('newcatg','imvcard'))  );
+  popupInit("newmenu",  array_merge($tnewmenu ,array('newcatg'))  );
 
-  popupInit("helpmenu", array('help'));
+  popupInit("helpmenu", array('help','imvcard'));
 
 
   if ($action->HasPermission("GENERIC"))  {
@@ -77,7 +77,7 @@ function barmenu(&$action) {
   }
   if ($action->HasPermission("GENERIC_MASTER"))  {
     popupActive("newmenu",1,'newcatg');
-    popupActive("newmenu",1,'imvcard');
+    popupActive("helpmenu",1,'imvcard');
   }   else {
     popupInvisible("newmenu",1,'newcatg'); 
     popupInvisible("newmenu",1,'imvcard'); 

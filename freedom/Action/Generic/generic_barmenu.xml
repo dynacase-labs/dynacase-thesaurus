@@ -10,7 +10,7 @@
      onClick="closeAllMenu();openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
      onMouseOver="this.className='MenuActive'"
      onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:New]</span>
+<span class="FREEDOMTextTitle">[TEXT:Creation]</span>
 </td>
 <td  class="MenuInactive"  
      onClick="closeAllMenu();openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
@@ -23,14 +23,14 @@
      onClick="closeAllMenu();openMenuXY(event,'catgmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
      onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Catg]</span>
+<span class="FREEDOMTextTitle">[TEXT:Category]</span>
 </td>
 
 <td  class="MenuInactive"  
      onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
      onMouseOut="this.className='MenuInactive'">
-<span class="FREEDOMTextTitle">[TEXT:Help]</span>
+<span class="FREEDOMTextTitle">[TEXT:Tools]</span>
 </td>
 </tr>
 </thead>
@@ -45,8 +45,7 @@
 
 [BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]&id=&dirid=[DEFAULT_FLD]';closeAllMenu()">[stitle]</a>
 [ENDBLOCK NEWFAM]
-<a  id="newcatg" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITNEWCATG';closeAllMenu()">[TEXT:New category]</a>
-<a  id="imvcard" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
+<a  id="newcatg" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITNEWCATG';closeAllMenu()">[TEXT:Category]</a>
 
 
 
@@ -88,6 +87,7 @@ function SendSearch(e) {
 <!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup">
   <a id="help" target="helpwhat" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
+<a  id="imvcard" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
 </div>
 
 

@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-01-08 09:11+0100\n"
+	"POT-Creation-Date: 2003-01-16 15:12+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -69,6 +69,10 @@ msgstr	"sans titre"
 
 msgid	"undefined gravity"
 msgstr	"indéfinie"
+
+#, c-format
+msgid	"cannot see unknow reference %s"
+msgstr "impossible de voir : la référence %s est inconnue"
 
 #, c-format
 msgid	"new %s"
@@ -328,6 +332,13 @@ msgstr	"%s a été envoyé"
 
 msgid	"file must be controlled : read permission needed"
 msgstr	"la fichier doit être controllé : permission de lire refusé"
+
+msgid	"workflow_init :: id is empty"
+msgstr "workflow_init :: id est vide"
+
+#, c-format
+msgid	"workflow_init :: id %s is not a workflow"
+msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 
 msgid	"no zone specified"
 msgstr	"pas de zone spécifiée"
@@ -888,6 +899,9 @@ msgstr	"éditer un mail"
 msgid	"view standalone card"
 msgstr	"voir une carte autonome"
 
+msgid	"init workflow profile attributes"
+msgstr "initialisation des attributs profil"
+
 msgid	"freedom database"
 msgstr	"base de donnée Freedom"
 
@@ -903,6 +917,24 @@ msgstr	"nombre maximum de documents pouvant être importé en direct"
 #, c-format
 msgid	"file %d"
 msgstr	"fichier %d"
+
+msgid	"nom du serveur LDAP"
+msgstr	""
+
+msgid	"n de port du serveur LDAP"
+msgstr	""
+
+msgid	"racine du serveur LDAP"
+msgstr	""
+
+msgid	"identifiant LDAP de l'administrateur"
+msgstr	""
+
+msgid	"mot de passe LDAP"
+msgstr	""
+
+msgid	"activation LDAP"
+msgstr	""
 
 msgid	"User Card"
 msgstr	"Carnet d'adresses"
@@ -983,13 +1015,13 @@ msgid	"global balance result"
 msgstr	"résultat du bilan général"
 
 msgid	"bcc mail to control each opened incident"
-msgstr "mail caché pour controler chaque nouvel incident"
+msgstr	"mail caché pour controler chaque nouvel incident"
 
 msgid	"address for replying for the client"
-msgstr "adresse de réponse pour le client"
+msgstr	"adresse de réponse pour le client"
 
 msgid	"send mail for qualifier and analyzer"
-msgstr "activer l'envoi de mail vers les qualifieurs et analyseurs"
+msgstr	"activer l'envoi de mail vers les qualifieurs et analyseurs"
 
 msgid	"usercard category to find clients"
 msgstr	"identificateur catégorie pour la recherche de personne cliente"
@@ -1304,8 +1336,14 @@ msgstr	"Titre"
 msgid	"Problem"
 msgstr	"Problème"
 
-msgid	"Catg"
-msgstr	"Catg"
+msgid	"Creation"
+msgstr "Création"
+
+msgid	"Category"
+msgstr "Catégorie"
+
+msgid	"Tools"
+msgstr "Outils"
 
 msgid	"All catg"
 msgstr	"Toutes catg."
@@ -1346,6 +1384,9 @@ msgstr	"Personnes ajoutées"
 msgid	"personn deleted"
 msgstr	"Personnes supprimées"
 
+msgid	"Catg"
+msgstr	"Catg"
+
 msgid	"bilan"
 msgstr	"bilan"
 
@@ -1379,23 +1420,26 @@ msgstr	"date"
 msgid	"View"
 msgstr	"Affichage"
 
-msgid	"new doc"
-msgstr	"Document"
+msgid	"Document"
+msgstr "Document"
 
-msgid	"new folder"
+msgid	"Folder"
 msgstr	"Dossier"
 
-msgid	"new family"
-msgstr	"Famille"
+msgid	"Profile"
+msgstr "Profil"
 
-msgid	"Import documents"
-msgstr	"Importer des documents"
+msgid	"Family"
+msgstr "Famille"
 
 msgid	"simple"
 msgstr	"Simple"
 
 msgid	"fulltext"
 msgstr	"plein texte"
+
+msgid	"Ref"
+msgstr "Réf"
 
 msgid	"list"
 msgstr	"Liste"
@@ -1405,6 +1449,9 @@ msgstr	"Icone"
 
 msgid	"column"
 msgstr	"colonne"
+
+msgid	"Import documents"
+msgstr	"Importer des documents"
 
 msgid	"inherit from"
 msgstr	"hérite de"
@@ -1724,11 +1771,11 @@ msgstr	"envoyer"
 msgid	"author"
 msgstr	"auteur"
 
-msgid	"revision"
-msgstr	"révision"
-
 msgid	"locked by"
 msgstr	"verrouillé par"
+
+msgid	"revision"
+msgstr	"révision"
 
 msgid	"revision date"
 msgstr	"date de révision"
@@ -1761,7 +1808,7 @@ msgid	"(private)"
 msgstr	"(privé)"
 
 msgid	"confidentiality"
-msgstr "confidentialité"
+msgstr	"confidentialité"
 
 msgid	"Change category"
 msgstr	"Changer de catégorie"
@@ -1774,6 +1821,15 @@ msgstr	"Dupliquer"
 
 msgid	"View headers"
 msgstr	"Voir entête"
+
+#~ msgid	"new doc"
+#~ msgstr	"Document"
+
+#~ msgid	"new folder"
+#~ msgstr	"Dossier"
+
+#~ msgid	"new family"
+#~ msgstr	"Famille"
 
 #~ msgid	"Administration"
 #~ msgstr	"Administration"

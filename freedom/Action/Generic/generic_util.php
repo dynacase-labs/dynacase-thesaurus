@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.6 2002/11/26 13:53:46 eric Exp $
+// $Id: generic_util.php,v 1.7 2003/01/17 10:31:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,7 @@ function getDefFam(&$action) {
 }
 
 // -----------------------------------
-function getChildCatg($docid, $level) {
+function getChildCatg($docid, $level,$notfldsearch=false) {
   // -----------------------------------
   global $dbaccess;
   global $action;
@@ -58,7 +58,7 @@ function getChildCatg($docid, $level) {
 
 
   if ($level < 3) {
-    $ldir = getChildDir($dbaccess,$action->user->id,$docid, false,"TABLE");
+    $ldir = getChildDir($dbaccess,$action->user->id,$docid, $notfldsearch,"TABLE");
   
 
     if (count($ldir) > 0 ) {
@@ -69,7 +69,7 @@ function getChildCatg($docid, $level) {
 				 "doctype"=>$v["doctype"],
 				 "title"=>$v["title"]);
 
-	if ($v["doctype"] == "D") $ltree = $ltree +  getChildCatg($v["id"], $level+1);
+	if ($v["doctype"] == "D") $ltree = $ltree +  getChildCatg($v["id"], $level+1, $notfldsearch);
       }
     } 
   }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.4 2002/09/30 11:46:44 eric Exp $
+// $Id: barmenu.php,v 1.5 2003/01/17 10:31:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,21 +35,21 @@ include_once("FDL/freedom_util.php");
 // -----------------------------------
 function barmenu(&$action) {
   // -----------------------------------
-  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','import'));
+  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam'));
   popupInit("searchmenu", array( 'newsearch','newsearchfulltext'));
 
 
 
   popupInit("viewmenu",	array('vlist','vicon','vcol'));
-  popupInit("helpmenu", array('help'));
+  popupInit("helpmenu", array('help','import'));
 
 
     popupActive("newmenu",1,'newdoc'); 
     popupActive("newmenu",1,'newfld'); 
     popupActive("newmenu",1,'newprof');
     popupActive("newmenu",1,'newfam');
-    if ($action->HasPermission("FREEDOM_MASTER"))    popupActive("newmenu",1,'import'); 
-    else popupInvisible("newmenu",1,'import');
+    if ($action->HasPermission("FREEDOM_MASTER"))    popupActive("helpmenu",1,'import'); 
+    else popupInvisible("helpmenu",1,'import');
     popupActive("searchmenu",1,'newsearch');
     if ($action->GetParam("FULLTEXT_SEARCH") == "yes") popupActive("searchmenu",1,'newsearchfulltext');
     else popupInvisible("searchmenu",1,'newsearchfulltext');

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.36 2003/01/15 11:42:19 eric Exp $
+// $Id: import_file.php,v 1.37 2003/01/17 10:31:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -87,7 +87,10 @@ function add_import_file(&$action, $fimport="") {
     case "END":
 
       
-      if ($analyze) continue;
+      if ($analyze) {
+	$nbdoc++;
+	continue;
+      }
       $action->log->debug("add ");
       if (($num > 3) && ($data[3] != "")) $doc->doctype = "S";
 
