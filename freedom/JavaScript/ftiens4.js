@@ -23,7 +23,7 @@
 // ***************************************************************** 
 if (! document.wstyle)  document.wstyle="FREEDOM";
 
-function Folder(folderDescription, hreference, refid, ftype, hasChild) //constructor 
+function Folder(folderDescription, hreference, refid, icon, hasChild) //constructor 
 { 
   //constant data 
   this.desc = folderDescription 
@@ -34,12 +34,12 @@ function Folder(folderDescription, hreference, refid, ftype, hasChild) //constru
   this.nodeImg = 0  
   this.isLastNode = 0 
   this.refid =  refid; // external reference
-  this.ftype =  ftype; // external reference
+  this.ftype =  1;; // external reference
  
   //dynamic data 
   this.isOpen = true 
     this.isLoaded = (! hasChild)
-  this.iconSrc = "FREEDOM/Images/ftv2folderopen.gif"   
+  this.iconSrc = icon   
   this.children = new Array 
     this.nChildren = 0;   
  
@@ -130,7 +130,8 @@ function propagateChangesInState(folder)
   { 
     if (folder.nodeImg)  if (folder.isLastNode)  folder.nodeImg.src = "FREEDOM/Images/ftv2mlastnode.gif" 
                          else  folder.nodeImg.src = "FREEDOM/Images/ftv2mnode.gif" 
-    folder.iconImg.src = document.wstyle+"/Images/ftv2folderopen"+folder.ftype+".gif" 
+    // folder.iconImg.src = document.wstyle+"/Images/ftv2folderopen"+folder.ftype+".gif" 
+    folder.iconImg.src = folder.iconSrc
     for (i=0; i<folder.nChildren; i++) 
       folder.children[i].mostra() 
   } 
@@ -146,7 +147,8 @@ function propagateChangesInState(folder)
 	else if (folder.nChildren > 0)  folder.nodeImg.src = "FREEDOM/Images/ftv2pnode.gif" 
         else     folder.nodeImg.src = "FREEDOM/Images/ftv2node.gif" 
 
-    folder.iconImg.src = document.wstyle+"/Images/ftv2folderclosed"+folder.ftype+".gif" 
+    // folder.iconImg.src = document.wstyle+"/Images/ftv2folderclosed"+folder.ftype+".gif" 
+    folder.iconImg.src = folder.iconSrc
 
       // alert('esconde:'+folder.id+':'+folder.nChildren);
     for (i=0; i<folder.nChildren; i++) 
@@ -171,7 +173,7 @@ function drawFolder(leftSide)
   doc.write("<tr><td class=\"fld\">") 
   doc.write(leftSide) 
     //  this.outputLink() 
-  doc.write("<img id='folderIcon" + this.id + "' name='folderIcon" + this.id + "' src='" + this.iconSrc+"' border=0 style=\"cursor:crosshair\"");
+  doc.write("<img width='20' id='folderIcon" + this.id + "' name='folderIcon" + this.id + "' src='" + this.iconSrc+"' border=0 style=\"cursor:crosshair\"");
 
 
 
@@ -310,7 +312,7 @@ function drawItem(leftSide)
   doc.write("<tr><td class=\"fld\">") 
   doc.write(leftSide) 
   doc.write("<a href=" + this.link + ">") 
-  doc.write("<img id='itemIcon"+this.id+"' ") 
+  doc.write("<img  id='itemIcon"+this.id+"' ") 
   doc.write("src='"+this.iconSrc+"' border=0>") 
   doc.write("</a>") 
   doc.write("</td><td class=\"fld\" valign=middle nowrap>") 
