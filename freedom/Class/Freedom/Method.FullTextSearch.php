@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Method.FullTextSearch.php,v 1.4 2004/10/19 05:24:14 marc Exp $
+ * @version $Id: Method.FullTextSearch.php,v 1.5 2004/10/19 15:28:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -106,21 +106,25 @@ function GetFullTextResultDocs ($dbaccess,
         $debugs = "[$k] Filename = [".$v["file"]."] VaultId = [".$vid."] DocId = [ ";
         $r = $dvi->GetDocId($vid);
         if (is_array($r) && count($r)>0) {
-          while (list($k, $v) = each($r)) {
-            $ndoc = new Doc($dbaccess, $v->docid);
-            if (  ($latest=="fixed" && $ndoc->locked==-1 && $ndoc->lmodify=="L")
-               || ($latest=="yes" && $ndoc->locked!=-1)
-               || ($latest=="no") ) {
-	      if ($ndoc->fromid == $famid || $famid == 0) {
-		$debugs .= $ndoc->id." ";
-		$tdocs[$idoc] = $ndoc;
-		$idoc++;
+	  if ($ndoc->id>0) {
+	    while (list($k, $v) = each($r)) {
+	      $ndoc = new Doc($dbaccess, $v->docid);
+	      if (  ($latest=="fixed" && $ndoc->locked==-1 && $ndoc->lmodify=="L")
+		    || ($latest=="yes" && $ndoc->locked!=-1)
+		    || ($latest=="no") ) {
+		if ($ndoc->fromid == $famid || $famid == 0) {
+		  $debugs .= $ndoc->id." ";
+		  $tdocs[$idoc] = $ndoc;
+		  $idoc++;
+		} else {
+		  $debugs .= " (not in searched families) ";
+		}
 	      } else {
-		$debugs .= " (not in searched families) ";
+		$debugs .= " (not searched revision) ";
 	      }
-	    } else {
-              $debugs .= " (not searched revision) ";
 	    }
+	  } else {
+	    $debugs .= " (invalid doc id) ";
 	  }
         } else {
 	  $debugs .= " (none) ";
