@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.11 2004/03/01 09:32:43 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.12 2004/03/04 09:10:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -17,6 +17,16 @@ function specRefresh() {
   $this->AddParamRefresh("US_WHATID","GRP_MAIL,US_LOGIN");
   if ($this->getValue("US_IDDOMAIN",1) > 1) $this->AddParamRefresh("US_WHATID","US_DOMAIN");
   $this->AddParamRefresh("US_IDDOMAIN","US_DOMAIN");
+
+  // refresh MEID itself
+  $this->SetValue("US_MEID",$this->id);
+  $iduser = $this->getValue("US_WHATID");
+  if ($iduser > 0) {
+    $user = new User("",$iduser);
+    if (! $user->isAffected()) return sprintf(_("group #%d does not exist"), $iduser);
+  } else {
+    return _("group has not identificator");
+  }
   return $err;
 }
 
