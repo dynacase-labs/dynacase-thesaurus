@@ -1,5 +1,6 @@
 
 
+[BLOCK MVIEW]
 <div id="error" class="COREError" onmouseup="this.style.visibility='hidden'"  onmouseover="this.className='COREErrorBg'"  onmouseout="this.className='COREError'" 
      style="display:none;position:absolute;top:0px; left:0px;">
 <div  class="CoreTextError">[TEXTERROR]</div>
@@ -62,6 +63,7 @@ function postit(url,x,y,w,h) {
 if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&action=FDL_CARD&dochead=N&id=[postitid]')",1000);
 -->
 </script>
+[ENDBLOCK MVIEW]
 [BLOCK HEAD]
 <table class="noprint"  cellspacing="0" width="100%"   >
 <thead>

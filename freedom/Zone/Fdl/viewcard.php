@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.42 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: viewcard.php,v 1.43 2003/10/10 10:20:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.42 2003/08/18 15:47:04 eric Exp $
+// $Id: viewcard.php,v 1.43 2003/10/10 10:20:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,6 +59,7 @@ function viewcard(&$action) {
   $target = GetHttpVars("target"); // may be mail
   $reload = ($action->read("reload$docid","N")=="Y"); // need reload
 
+  if ($target != "mail") $action->lay->setBlockData("MVIEW",array(array("zou")));
 
   // set default geo for mini view
   $mgeo = $action->GetParam("MVIEW_GEO");
