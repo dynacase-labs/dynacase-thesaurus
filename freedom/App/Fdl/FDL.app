@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.16 2003/08/01 14:53:57 eric Exp $
+// $Id: FDL.app,v 1.17 2003/08/13 13:10:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -151,6 +151,11 @@ $action_desc = array (
   array( 
    "name"		=>"WORKFLOW_INIT",
    "short_name"		=>N_("init workflow profile attributes"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"MVIEW_SAVEGEO",
+   "short_name"		=>N_("save geometry of mini view"),
    "acl"		=>"NORMAL"
   ) 
                       );	

@@ -83,11 +83,21 @@ btns[3]=new Image(); btns[3].src="Images/resize.gif";
 }
 preloadBttns();
 
-function savegeo(){
-  alert('savegeo not yet implemanted');
-  //  var w= window.open('','fhidden','');
   
+function savegeo(){
+  var g;
+  var w,h,xy;
+
+  xy=getAnchorPosition(this.cid+"_b");
+  w=parseInt(d.getElementById(this.cid+"_b").style.width);
+  h=parseInt(d.getElementById(this.cid+"_b").style.height);
+
+  g=(xy.x)+"+"+(xy.y)+"+"+w+"x"+h;
+  
+  d.getElementById('geometry').value=g;
+  d.getElementById('savegeo').submit();  
 }
+
 function minimize(){
   if(w3c){
     if (d.getElementById(this.cid+"_c").style.display=='none') {
@@ -242,7 +252,9 @@ function popUp(x,y,w,h,cid,text,bgcolor,textcolor,fontstyleset,title,titlecolor,
       var titlebar=new subBox(2,2,tw,20,titlecolor,cid+'_t');
       titlebar.style.overflow="hidden";
       titlebar.style.cursor="move";
-      var tmp=(isresize)?'<img style="cursor:default" src="Images/bgreen.gif"  id="'+cid+'_min"><img style="cursor:default" src="Images/byellow.gif"   id="'+cid+'_max">':'';
+
+      var bsavegeo=(noDecoration)?'<img style="display:none" src="Images/byellow.gif" id="'+cid+'_max">':'<img style="cursor:default" src="Images/byellow.gif" id="'+cid+'_max">';
+      var tmp=(isresize)?'<img style="cursor:default" src="Images/bgreen.gif"  id="'+cid+'_min">'+bsavegeo:'';
       titlebar.innerHTML='<span style="position:absolute; left:3px; top:1px; font:bold 10pt sans-serif; color:'+titletextcolor+'; height:18px; overflow:hidden; clip-height:16px;">'+title+'</span><div id="'+cid+'_btt" style="position:absolute; width:48px; height:16px; left:'+(tw-48)+'px; top:2px; text-align:right">'+tmp+'<img style="cursor:default" src="Images/bred.gif"  id="'+cid+'_cls"></div>';
       tw=(ie5)?w-7:w-13;
       var content=new subBox(2,24,tw,h-36,bgcolor,cid+'_c');

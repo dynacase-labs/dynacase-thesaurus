@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.40 2003/07/24 12:53:00 eric Exp $
+// $Id: viewcard.php,v 1.41 2003/08/13 13:10:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,11 +48,26 @@ function viewcard(&$action) {
   $reload = ($action->read("reload$docid","N")=="Y"); // need reload
 
 
+  // set default geo for mini view
+  $mgeo = $action->GetParam("MVIEW_GEO");
+  if (ereg("([0-9]+)\+([0-9]+)\+([0-9]+)x([0-9]+)",$mgeo,$reg)) {   
+    $action->lay->set("mgeox",intval($reg[1]));
+    $action->lay->set("mgeoy",intval($reg[2]));
+    $action->lay->set("mgeow",intval($reg[3]));
+    $action->lay->set("mgeoh",intval($reg[4]));
+  } else {
+    $action->lay->set("mgeox","250");
+    $action->lay->set("mgeoy","210");
+    $action->lay->set("mgeow","300");
+    $action->lay->set("mgeoh","200");
+  }
+
   if ($ulink == "N") $ulink = false;
   else  if ($ulink == "Y") $ulink = 1;
 
   // Set the globals elements
 
+ $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/WHAT/Layout/AnchorPosition.js");
  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
  //pour les idocs
  $jsfile=$action->GetLayoutFile("viewicard.js");
