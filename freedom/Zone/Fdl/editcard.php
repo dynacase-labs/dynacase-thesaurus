@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.44 2004/05/13 16:17:15 eric Exp $
+ * @version $Id: editcard.php,v 1.45 2004/06/23 14:25:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.44 2004/05/13 16:17:15 eric Exp $
+// $Id: editcard.php,v 1.45 2004/06/23 14:25:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,6 +39,7 @@
 // ---------------------------------------------------------------
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
+include_once("FDL/editutil.php");
 
 // -----------------------------------
 function editcard(&$action) {
@@ -51,7 +52,7 @@ function editcard(&$action) {
   $vid = GetHttpVars("vid"); // special controlled view
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  addJSedit($action);
+  editmode($action);
   if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
   
 
@@ -165,17 +166,5 @@ function moreone($v) {
   return (strlen($v) > 1);
 }
 
-function addJSedit(&$action) {
 
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
-  
-}
 ?>
