@@ -363,6 +363,12 @@ function resetTrInputs(tr) {
   for (var i=0; i< tin.length; i++) { 
     if (tin[i].name) resetInputsByName(tin[i].name);
   }
+  // add select input also
+  tin = tr.getElementsByTagName('textarea');
+  
+  for (var i=0; i< tin.length; i++) { 
+    if (tin[i].name) resetInputsByName(tin[i].name);
+  }
 
 }
 // up tr order 
