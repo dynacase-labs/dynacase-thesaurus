@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.4 2002/01/04 15:08:04 eric Exp $
+# $Id: Makefile.in,v 1.5 2002/01/07 10:11:47 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -21,12 +21,14 @@ include $(utildir)/PubRule
 
 DISTFILES = $(SUBDIR) configure.in $(PACKAGE).app init.freedom\
             $(PACKAGE)_init.php.in Makefile.in $(PACKAGE).spec.in \
-            VERSION RELEASE \
+            VERSION RELEASE $(PACKAGE).vault \
 	    $(PACKAGE)_en.po $(PACKAGE)_fr.po 
 
 
 
 $(pubdir)/$(appname)/init.freedom : init.freedom
-	cp init.freedom $(pubdir)/$(appname)
-publish: $(pubdir)/$(appname)/init.freedom
+	cp $< $(pubdir)/$(appname)
+$(pubdir)/$(appname)/$(PACKAGE).vault : $(PACKAGE).vault
+	cp $< $(pubdir)/$(appname)
+publish: $(pubdir)/$(appname)/init.freedom $(pubdir)/$(appname)/$(PACKAGE).vault
 

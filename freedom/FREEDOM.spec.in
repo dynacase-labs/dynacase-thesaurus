@@ -1,6 +1,6 @@
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.5 2002/01/04 15:46:41 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.6 2002/01/07 10:11:47 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -29,6 +29,7 @@ Requires: php-pgsql >= 4.0.2
 Requires: libwhat >= 0.4.9
 Requires: libjs >= 0.2.4
 Prereq: CORE >= 0.4.7
+Prereq: VAULT
 Prereq: php-shell >= 4.0.2
 Prereq: gettext
 
@@ -64,6 +65,9 @@ if [ "$1" = 1 ] ; then
   $app->Set("@PACKAGE@",$Null);  
   ?>' | /usr/bin/php -q 2>&1 >>/dev/null
   %{destdir}/CORE/wsh.php @PACKAGE@ @PACKAGE@_INIT  2>&1 >>/dev/null
+  pushd %{destdir}
+  ln -sf ../@PACKAGE@/@PACKAGE@.vault VAULT
+  popd >/dev/null
 else
   echo "Update Database elements"
   cd /home/httpd/what
@@ -103,6 +107,7 @@ fi
 %dir %{destdir}/%{name}
 %{destdir}/%{name}/*
 %{destdir}/locale/*
+
 
 
 %changelog
