@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.14 2002/09/16 14:42:10 eric Exp $
+// $Id: modcard.php,v 1.15 2002/09/17 16:58:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -129,22 +129,8 @@ function modcard(&$action, &$ndocid) {
   
   
   
-  if ($doc->fromid == 2) {
-    $doc->doctype='D'; // directory
-      
-  }
-  if (($doc->fromid == 3) || 
-      ($doc->fromid == 4) || 
-      ($doc->fromid == 6)) { // profile doc
-    if ($doc->fromid == 4) $doc->doctype='D'; // directory profile
-    if ($doc->fromid == 6) $doc->doctype='S'; // search profile
-					
-    //$doc->profid = -1;
-    $err=$doc-> Modify();
-    if ($err != "") $action-> ExitError($err);
-    $doc = new Doc($dbaccess, $docid); // change class object (perhaps)
-    //$doc->SetControl();
-  }
+  
+  
   $doc->lmodify='Y'; // locally modified
   $doc->refresh();
   $err=$doc-> Modify();

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.50 2002/09/16 14:42:09 eric Exp $
+// $Id: Class.Doc.php,v 1.51 2002/09/17 16:57:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.50 2002/09/16 14:42:09 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.51 2002/09/17 16:57:58 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -464,13 +464,17 @@ create unique index i_docir on doc(initid, revision);";
   function GetProfileDoc()
     // --------------------------------------------------------------------
     {
-      $query = new QueryDb($this->dbaccess, get_class($this));
+      $query = new QueryDb($this->dbaccess, "Doc");
 
       
-      $query->AddQuery("useforprof");
-      $query->AddQuery("doctype != 'C'");
-      $query->AddQuery("lower(classname)='".get_class($this)."'");
-    
+
+      $query->AddQuery("doctype = 'P'");
+      if (isset($this->defProfClassname)) $classname = $this->defProfClassname;
+      else $classname =$this->defClassname;
+      $classname=strtolower($classname);
+      $query->AddQuery("lower(classname)='$classname'");
+    $query->Query();
+      print $query->LastQuery;
       
       return $query->Query();
     }

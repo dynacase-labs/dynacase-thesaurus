@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.6 2002/09/02 16:38:49 eric Exp $
+// $Id: search.php,v 1.7 2002/09/17 16:59:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,7 +52,7 @@ function search(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $sdoc = new DocSearch($dbaccess);
+  $sdoc = createDoc($dbaccess,5);
   $sdoc->revision = "0";
   $sdoc->owner = $action->user->id;
   $sdoc->locked = $action->user->id; // lock for next modification

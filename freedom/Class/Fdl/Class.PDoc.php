@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.5 2002/09/17 16:57:58 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
+// $Id: Class.PDoc.php,v 1.1 2002/09/17 16:57:58 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -22,52 +22,41 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.5 2002/09/17 16:57:58 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.1 2002/09/17 16:57:58 eric Exp $';
 
 
-include_once("FDL/Class.PDocSearch.php");
+include_once("FDL/Class.Doc.php");
 
 
 
 
-Class DocSearch extends PDocSearch
+Class PDoc extends Doc
 {
     // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
   
+  var $obj_acl = array (
+			array(
+			      "name"		=>"view",
+			      "description"	=>"view document", // N_("view document")
+			      "group_default"       =>"Y"),
+			array(
+			      "name"               =>"edit",
+			      "description"        =>"edit document"),// N_("edit document")
+			array(
+			      "name"               =>"delete",
+			      "description"        =>"delete document",// N_("delete document")
+			      "group_default"       =>"N")
+			);
 
-  var $defDoctype='S';
-  var $defClassname='DocSearch';
+  // ------------
+  var $defDoctype='P';
+  var $defClassname='PDoc';
+  var $defProfClassname='PDoc';
 
-  function DocSearch($dbaccess='', $id='',$res='',$dbid=0) {
-
-     PDocSearch::PDocSearch($dbaccess, $id, $res, $dbid);
-     if (((! isset($this->fromid))) || ($this->fromid == "")) $this->fromid = FAM_SEARCH;
-  }
-
-  function AddQuery($query) {
-    
-    // insert query in search document
-    $oqd = new QueryDir($this->dbaccess);
-    $oqd->dirid = $this->id;
-    $oqd->qtype="M"; // multiple
-    $oqd->query = $query;
-    return $oqd-> Add();
-    
-  }
-
-  function GetQuery() {
-    $query = new QueryDb($this->dbaccess, "QueryDir");
-    $query->AddQuery("dirid=".$this->id);
-    $query->AddQuery("qtype != 'S'");
-    $tq=$query->Query(0,0,"TABLE");
-
-
-    if ($query->nb > 0)
-	{
-	  return $tq[0]["query"];
-	}
-    return "";
+  function PDoc($dbaccess='', $id='',$res='',$dbid=0) {
+    // don't use Doc constructor because it could call this constructor => infinitive loop
+     DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
   }
 }
 

@@ -6,8 +6,11 @@
 
 include_once("FDL/Class.Doc.php");
 
-$className = GetHttpVars("class","-"); // output file
-if ($className == "-") {
+
+$className = GetHttpVars("class","-"); // classname filter
+$famId = GetHttpVars("famid",0); // familly filter
+
+if (($className == "-") && ($famId == 0)) {
   print "arg class needed :usage --class=<class name> --famid=<familly id>";
   return;
 }
@@ -31,7 +34,8 @@ if ($dbaccess == "") {
   
 $query = new QueryDb($dbaccess,"Doc");
 $query->AddQuery("locked != -1");
-$query->AddQuery("classname ~* '$className'");
+
+if ($className != "-")$query->AddQuery("classname ~* '$className'");
 if ($famId > 0) $query->AddQuery("fromid = $famId");
       
     

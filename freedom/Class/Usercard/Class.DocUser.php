@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.14 2002/07/11 13:20:33 eric Exp $
+// $Id: Class.DocUser.php,v 1.15 2002/09/17 16:58:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.14 2002/07/11 13:20:33 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.15 2002/09/17 16:58:56 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -38,30 +38,12 @@ define('QA_LNAME', "US_LNAME"); // Last name attribute
 define('TOP_FAMDIR', 121); // idem  DEFAULT_FLD
 
 
-Class DocUser extends Doc
+Class DocUser extends PDoc
 {
   // --------------------------------------------------------------------
     //---------------------- OBJECT CONTROL PERMISSION --------------------
       
-      var $obj_acl = array (
-			    array(
-				  "name"		   =>"view",
-				  "description"	   =>"view usercard", # N_("view usercard")
-				  "group_default"      =>"Y"),
-			    array(
-				  "name"               =>"edit",
-				  "description"        =>"edit usercard"),# N_("edit usercard")
-			    array(
-				  "name"               =>"delete",
-				  "description"        =>"delete usercard",# N_("delete usercard")
-				  "group_default"      =>"N"),
-			    array(
-				  "name"               =>"edit",
-				  "description"        =>"edit usercard") # N_("edit usercard")
-			    
-			    
-			    
-			    );
+
   
   // ------------
     var $defDoctype='F';

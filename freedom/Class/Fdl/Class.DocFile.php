@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.DocFile.php,v 1.2 2002/09/17 16:57:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,41 +22,20 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.2 2002/09/17 16:57:58 eric Exp $';
 
 
-include_once("FDL/Class.Doc.php");
+include_once("FDL/Class.PDoc.php");
 
 
 
 
-Class DocFile extends Doc
+Class DocFile extends PDoc
 {
-    // --------------------------------------------------------------------
-  //---------------------- OBJECT CONTROL PERMISSION --------------------
-  
-  var $obj_acl = array (
-			array(
-			      "name"		=>"view",
-			      "description"	=>"view document", // N_("view document")
-			      "group_default"       =>"Y"),
-			array(
-			      "name"               =>"edit",
-			      "description"        =>"edit document"),// N_("edit document")
-			array(
-			      "name"               =>"delete",
-			      "description"        =>"delete document",// N_("delete document")
-			      "group_default"       =>"N")
-			);
-
-  // ------------
+    
   var $defDoctype='F';
   var $defClassname='DocFile';
 
-  function DocFile($dbaccess='', $id='',$res='',$dbid=0) {
-    // don't use Doc constructor because it could call this constructor => infinitive loop
-     DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
-  }
 }
 
 ?>

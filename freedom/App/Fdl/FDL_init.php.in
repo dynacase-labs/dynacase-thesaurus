@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.4 2002/07/30 12:35:54 eric Exp $
+// $Id: FDL_init.php.in,v 1.5 2002/09/17 16:58:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,14 +41,20 @@ include_once("FDL/Class.DocFile.php");
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.DocSearch.php");
 
+$dbaccess=$app_const["FREEDOM_DB"]["val"];
 
+$doc = new DocFile($dbaccess);
+$doc->InitObjectAcl();
+$doc = new Dir($dbaccess);
+$doc->InitObjectAcl();
+$doc = new DocSearch($dbaccess);
+$doc->InitObjectAcl();
 
-$doc = new DocFile($app_const["FREEDOM_DB"]["val"]);
+$doc = new PDoc($dbaccess);
 $doc->InitObjectAcl();
-$doc = new Dir($app_const["FREEDOM_DB"]["val"]);
+$doc = new PDir($dbaccess);
 $doc->InitObjectAcl();
-$doc = new DocSearch($app_const["FREEDOM_DB"]["val"]);
+$doc = new PDocSearch($dbaccess);
 $doc->InitObjectAcl();
-
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.6 2002/09/10 13:30:28 eric Exp $
+// $Id: Class.Dir.php,v 1.7 2002/09/17 16:57:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,47 +22,25 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.6 2002/09/10 13:30:28 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.7 2002/09/17 16:57:58 eric Exp $';
 
 
-include_once("FDL/Class.Doc.php");
+include_once("FDL/Class.PDir.php");
 
 include_once("FDL/Class.QueryDir.php");
 include_once("FDL/Lib.Dir.php");
 
 define ("UNCLASS_FLD",10); // folder for unclassable document
 
-Class Dir extends Doc
+Class Dir extends PDir
 {
-    // --------------------------------------------------------------------
-  //---------------------- OBJECT CONTROL PERMISSION --------------------
   
-  var $obj_acl = array (
-			array(
-			      "name"		=>"view",
-			      "description"	=>"view folder information", # N_("view folder")
-			      "group_default"       =>"Y"),
-			array(
-			      "name"               =>"edit",
-			      "description"        =>"edit folder information"),# N_("edit folder")
-			array(
-			      "name"               =>"delete",
-			      "description"        =>"delete folder",# N_("delete folder")
-			      "group_default"       =>"N"),
-			array(
-			      "name"               =>"open",
-			      "description"        =>"open folder",# N_("open folder")
-			      "group_default"       =>"N"),
-			array(
-			      "name"               =>"modify",
-			      "description"        =>"modify folder",# N_("modify folder")
-			      "group_default"       =>"N")
-			);
+
   var $defDoctype='D';
   var $defClassname='Dir';
 
   function Dir($dbaccess='', $id='',$res='',$dbid=0) {
-    DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
+    PDir::PDir($dbaccess, $id, $res, $dbid);
     if ($this->fromid == "") $this->fromid= FAM_DIR;
   }
 
