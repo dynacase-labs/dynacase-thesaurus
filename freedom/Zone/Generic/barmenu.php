@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.18 2004/01/26 14:53:27 eric Exp $
+ * @version $Id: barmenu.php,v 1.19 2004/02/17 10:59:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.18 2004/01/26 14:53:27 eric Exp $
+// $Id: barmenu.php,v 1.19 2004/02/17 10:59:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,9 +62,12 @@ function barmenu(&$action) {
   $famid = getDefFam($action);
   
   $fdoc= new Doc( $dbaccess, $famid);
-  $child[$famid] = array("title"=> $fdoc->title,
-			 "id" => $famid);
-  $child += $fdoc->GetChildFam();
+  if ($fdoc->control("create") == "") {
+    $child[$famid] = array("title"=> $fdoc->title,
+			   "id" => $famid);
+  } else $child=array();
+  $child += $fdoc->GetChildFam($fdoc->id,true);
+  
 
   $tchild = array();
   $tnewmenu= array();

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.186 2004/02/12 10:32:09 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.187 2004/02/17 10:59:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.186 2004/02/12 10:32:09 eric Exp $
+// $Id: Class.Doc.php,v 1.187 2004/02/17 10:59:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -913,7 +913,7 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   // --------------------------------------------------------------------
-  function GetChildFam($id=-1) {
+  function GetChildFam($id=-1, $controlcreate=false) {
     // -------------------------------------------------------------------- 
     // Return array of child doc id : class document 
     
@@ -924,13 +924,14 @@ create unique index i_docir on doc(initid, revision);";
       if (! isset($this->childs)) $this->childs=array();
       $query = new QueryDb($this->dbaccess, "DocFam");
       $query->AddQuery("fromid = ".$id);
+      if ($controlcreate) $query->AddQuery("hasdocprivilege(".$this->userid.",profid,".(1<<intval(POS_CREATE)).")");
       $table1 = $query->Query(0,0,"TABLE");
       
       if ($table1) {
 	while (list($k,$v) = each($table1)) {
 	  $this->childs[$v["id"]]=$v;
 
-	  $this->GetChildFam($v["id"]);
+	  $this->GetChildFam($v["id"],$controlcreate);
 	  
 	}
       }
@@ -1864,7 +1865,9 @@ create unique index i_docir on doc(initid, revision);";
 
     $err.=$this->SpecRefreshGen();
 
-    if ($this->hasChanged)    $this->modify(); // refresh title
+    if ($this->hasChanged)  {
+      $this->modify(); // refresh title
+    }
     return $err;
 	
   }
@@ -3368,8 +3371,12 @@ create unique index i_docir on doc(initid, revision);";
     }
   }
 
-
-
+  /**
+   * use only for paramRefresh in attribute definition of a family
+   */
+  function nothing($a="",$b="",$c="") {
+    return "";
+  }
 
 
 }
