@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.19 2003/03/05 16:49:28 eric Exp $
+// $Id: Class.WDoc.php,v 1.20 2003/03/17 12:02:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.19 2003/03/05 16:49:28 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.20 2003/03/17 12:02:52 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -183,15 +183,16 @@ Class WDoc extends Doc {
       else $oattr->Add();
 
     }
-    
+    refreshPhpPgDoc($this->dbaccess, $cid);
+   
     
   }
   // --------------------------------------------------------------------
     function ChangeState ($newstate, $addcomment="", $force=false) {
       
-      if ($this->doc->state == $newstate) return ""; // no change => no action
-	// search if possible change in concordance with transition array
-	  $foundFrom = false;
+      // if ($this->doc->state == $newstate) return ""; // no change => no action
+      // search if possible change in concordance with transition array
+      $foundFrom = false;
       $foundTo = false;
       reset($this->cycle);
       while (list($k, $trans) = each($this->cycle)) {
