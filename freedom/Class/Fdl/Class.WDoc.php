@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.44 2005/03/01 17:17:46 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.45 2005/03/03 17:15:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -230,7 +230,7 @@ Class WDoc extends Doc {
       
     if  ($this->userid!=1) {// admin can go to any states 
 
-      if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), _($newstate)));
+      if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed from %s"), _($newstate),_($this->doc->state)));
       if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), _($this->doc->state)));
     }
     // verify if completed doc
