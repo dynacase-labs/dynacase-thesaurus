@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <syslog.h>
-#include <pgsql/libpq-fe.h>
+#include <libpq-fe.h>
 
 #include "db.h"
 #include "pam_sql.h"

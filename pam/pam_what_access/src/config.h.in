@@ -1,0 +1,14 @@
+
+/* #undef inline */
+/* #undef const */
+
+
+#define USE_POSTGRES 0
+
+
+
+#define PROGNAME      "" 
+#define MAJOR_VERSION 0
+#define MINOR_VERSION 0
+#define PATCHLEVEL    ""
+#define COPYRIGHT_NOTICE ""
