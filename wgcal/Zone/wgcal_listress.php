@@ -4,25 +4,40 @@ include_once("FDL/Class.Doc.php");
 
 function wgcal_listress(&$action)
 {
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
   WGCalToolInitState($action, CAL_T_CALSELECTOR);
   $i = 0;
   $j = 0;
 
+  // First add user
+  $rd = new Doc($dbaccess, $action->user->fid);
+  
+  $t[$i]["RID"] = $rd->id;
+  $t[$i]["RDESCR"] = $rd->title;
+  $t[$i]["RICON"] = $rd->getIcon();
+  $t[$i]["RCOLOR"] = "white";
+  $t[$i]["RSTYLE"] = "cal_selected";
+  $i++;
+
   $lress = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", ""));
-  while (list($k, $v) = each($lress)) {
-    $t = explode("^", $v);
-    $rid = $t[0];
-    $sid = ($t[1]!="" ? $t[1] : 0);
-    $cid = ($t[2]!="" ? $t[2] : "blue");
-    $rd = new Doc($dbaccess, $rid);
-    if ($rd->IsAffected()) {
-      $t[$i]["RID"] = $rd->id;
-      $t[$i]["RDESCR"] = $rd->title;
-      $t[$i]["RICON"] = $rd->getIcon();
-      $t[$i]["RCOLOR"] = $cid;
-      if ($sid==0) $t[$i]["RSTYLE"] = "cal_unselected";
-      else $t[$i]["RSTYLE"] = "cal_selected";
-      $i++;
+  if (count($lress)>0) {
+    foreach ($lress as $k => $v) {
+      $tt = explode("^", $v);
+      $rid = $tt[0];
+      $sid = ($tt[1]!="" ? $tt[1] : 0);
+      $cid = ($tt[2]!="" ? $tt[2] : "blue");
+      $rd = new Doc($dbaccess, $rid);
+      if ($rd->IsAffected()) {
+	$t[$i]["RID"] = $rd->id;
+	$t[$i]["RDESCR"] = $rd->title;
+	$t[$i]["RICON"] = $rd->getIcon();
+	$t[$i]["RCOLOR"] = $cid;
+	if ($sid==0) $t[$i]["RSTYLE"] = "cal_unselected";
+	else $t[$i]["RSTYLE"] = "cal_selected";
+	$i++;
+      }
     }
   }
   $action->lay->SetBlockData("L_RESS", $t);

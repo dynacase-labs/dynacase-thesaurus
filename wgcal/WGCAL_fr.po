@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
-"POT-Creation-Date: 2004-11-23 17:28+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-11-29 16:54+0100\n"
 "PO-Revision-Date: 2004-10-18 18:13+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 msgid "workgroup calendar"
 msgstr ""
@@ -43,6 +43,24 @@ msgstr ""
 msgid "calendar view"
 msgstr ""
 
+msgid "freeevent app name"
+msgstr ""
+
+msgid "calendar selector"
+msgstr ""
+
+msgid "my calendars"
+msgstr ""
+
+msgid "modify the list"
+msgstr ""
+
+msgid "date navigator"
+msgstr ""
+
+msgid "freedom groupware calendar"
+msgstr ""
+
 msgid "left toolbar width"
 msgstr ""
 
@@ -64,25 +82,10 @@ msgstr ""
 msgid "day end hour"
 msgstr ""
 
+msgid "hour division"
+msgstr ""
+
 msgid "tool display state"
-msgstr ""
-
-msgid "freeevent app name"
-msgstr ""
-
-msgid "calendar selector"
-msgstr ""
-
-msgid "my calendars"
-msgstr ""
-
-msgid "modify the list"
-msgstr ""
-
-msgid "date navigator"
-msgstr ""
-
-msgid "freedom groupware calendar"
 msgstr ""
 
 msgid "week"

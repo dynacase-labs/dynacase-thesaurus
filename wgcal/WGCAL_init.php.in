@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.1 2004/11/26 18:05:35 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.2 2004/11/29 16:36:23 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,10 +35,11 @@ $app_const= array(
   "WGCAL_U_DAYSVIEWED" => array(  "val"=>"7", "descr"=>N_("view count days"), "user"=>"Y"),
   "WGCAL_U_STARTHOUR" => array(  "val"=>"8", "descr"=>N_("day start hour"), "user"=>"Y"),
   "WGCAL_U_STOPHOUR" => array(  "val"=>"18", "descr"=>N_("day end hour"), "user"=>"Y"),
-  "WGCAL_U_HOURDIV" => array(  "val"=>"1", "descr"=>N_("day end hour"), "user"=>"Y"),
+  "WGCAL_U_HOURDIV" => array(  "kind" => "enum(1|2|3|4)", "val"=>"1", "descr"=>N_("hour division"), "user"=>"Y"),
 
   "WGCAL_U_TOOLSSTATE" => array( "val"=>"", "descr"=>N_("tool display state"), "user"=>"Y"),
 
+  "WGCAL_U_RESSDISPLAYED" => array( "val" => "", "descr"=>N_("displayed ressources"), "user"=>"Y"),
 
   "VERSION" => "@VERSION@-@RELEASE@",
   "INIT" => "yes"
