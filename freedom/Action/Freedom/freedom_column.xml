@@ -6,11 +6,9 @@
 
    <title>[TEXT: folder containt]</title>
 
-   <style>
-[ZONE CORE:GENCSS]
-[ZONE FDL:GENCSS]
-   </style>
 
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=CORE&action=CORE_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=FDL&action=FDL_CSS" >
 
 [CSS:REF]
 

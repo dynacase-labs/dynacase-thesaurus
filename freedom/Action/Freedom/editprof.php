@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.9 2002/11/22 18:08:22 eric Exp $
+// $Id: editprof.php,v 1.10 2003/04/23 10:00:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,11 @@ function editprof(&$action)
 
   $selectclass=array();
   if ($doc->usefor != "P") { // cannot redirect profil document (only normal document)
-    $tclassdoc = $doc->GetProfileDoc();
+    if ($createp) {
+      // search from profil of the document family (not the family)
+      $tdoc= createDoc($dbaccess, $doc->id);
+      $tclassdoc = $doc->GetProfileDoc($tdoc->defProfFamId);
+    } else $tclassdoc = $doc->GetProfileDoc();
     if (is_array($tclassdoc)) {
       while (list($k,$pdoc)= each ($tclassdoc)) {
 	if ($pdoc->id != $doc->id) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: lockfile.php,v 1.1 2003/01/24 14:10:45 eric Exp $
+// $Id: lockfile.php,v 1.2 2003/04/23 10:00:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/lockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,7 +46,7 @@ function lockfile(&$action)
     
   
     
-  redirect($action,"FDL","FDL_CARD&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
+  redirect($action,"FDL","FDL_CARD&props=Y&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
 
 }
 

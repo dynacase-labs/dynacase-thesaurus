@@ -92,12 +92,12 @@ function initmicon() {
     [JS:CODE]
   //-->
    </script>   
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=CORE&action=CORE_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=FDL&action=FDL_CSS" >
 [CSS:REF]
 <!-- if you want black backgound, remove this style block -->
 <style type="text/css">
 
-[ZONE CORE:GENCSS]
-[ZONE FDL:GENCSS]
    TD.fld {
      font-family: [CORE_FONTLIST1];
      font-size: [CORE_FONTBASESIZE];

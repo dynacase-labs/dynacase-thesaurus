@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-04-16 14:13+0200\n"
+	"POT-Creation-Date: 2003-04-18 17:45+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -259,17 +259,22 @@ msgid	"change current folder"
 msgstr	"changer le dossier courant"
 
 msgid	"the document is not referenced: cannot apply defaut folder"
-msgstr "le document n'est pas référencé : la modification dossier par défaut abandonné"
+msgstr	"le document n'est pas référencé : la modification dossier par défaut "
+	"abandonné"
 
 #, c-format
 msgid	"root for %s"
-msgstr "racine pour %s"
+msgstr	"racine pour %s"
 
 msgid	"default folder"
 msgstr	"dossier par défaut"
 
 msgid	"folder"
-msgstr "dossier"
+msgstr	"dossier"
+
+#, fuzzy
+msgid	"search"
+msgstr	"Recherche"
 
 msgid	"all"
 msgstr	"tous les mots"
@@ -603,7 +608,7 @@ msgid	"modifyacl"
 msgstr	"modifier les droits"
 
 msgid	"create doc"
-msgstr "Créer des documents de la famille"
+msgstr	"Créer des documents de la famille"
 
 #, c-format
 msgid	"no privilege %s"
@@ -1040,7 +1045,7 @@ msgid	"lock file to edit"
 msgstr	"verrouillez le document pour l'éditer"
 
 msgid	"view xml"
-msgstr "voir XML"
+msgstr	"voir XML"
 
 msgid	"unlock file to discard edit"
 msgstr	"déverrouillez le document pour l'éditer"
@@ -1831,7 +1836,7 @@ msgid	"no folder"
 msgstr	"pas de dossier"
 
 msgid	"Create New"
-msgstr "Créer un nouveau"
+msgstr	"Créer un nouveau"
 
 msgid	"access path folder list:"
 msgstr	"liste des chemins d'accès"
@@ -2002,7 +2007,7 @@ msgid	"goaccess"
 msgstr	"accessibilités..."
 
 msgid	"View XML"
-msgstr "Voir XML"
+msgstr	"Voir XML"
 
 msgid	"Edit attributes"
 msgstr	"Éditer les attributs"

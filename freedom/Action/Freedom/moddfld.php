@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: moddfld.php,v 1.4 2003/04/02 07:35:29 eric Exp $
+// $Id: moddfld.php,v 1.5 2003/04/23 10:00:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/moddfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,8 +58,9 @@ function moddfld(&$action) {
     $dir->setValue("BA_TITLE",sprintf(_("root for %s"),$doc->title));
     $dir->setValue("BA_DESC",_("default folder"));
     $dir->setValue("FLD_ALLBUT","1");
-    $dir->setValue("FLD_FAM",$doc->title."\n"._("folder"));
-    $dir->setValue("FLD_FAMIDS",$doc->id."\n".getFamIdFromName($dbaccess,"DIR"));
+    $dir->setValue("FLD_FAM",$doc->title."\n"._("folder")."\n"._("search"));
+    $dir->setValue("FLD_FAMIDS",$doc->id."\n".getFamIdFromName($dbaccess,"DIR").
+		   "\n".getFamIdFromName($dbaccess,"SEARCH"));
     $dir->Modify();
     $fldid=$dir->id;
   }

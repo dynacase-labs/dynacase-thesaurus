@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.24 2003/01/31 13:04:43 eric Exp $
+// $Id: editcard.php,v 1.25 2003/04/23 10:00:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,11 +48,6 @@ function editcard(&$action) {
 
  
  
-  // Set Css
-  $cssfile=$action->GetLayoutFile("freedom.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
-
     
   if ($docid == 0) { // new document
     if ($classid > 0) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.12 2003/04/14 17:02:04 eric Exp $
+// $Id: FDL.app,v 1.13 2003/04/23 10:00:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -63,6 +63,10 @@ $action_desc = array (
    "short_name"		=>N_("to choose value from set"),
    "acl"		=>"NORMAL",
   ) ,
+  array(
+   "name"               =>"FDL_CSS",
+   "layout"		=>"freedom.css"
+  ),
   array(
    "name"		=>"FREEDOM_INIT",
    "short_name"		=>N_("Freedom initialisation"),

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.115 2003/04/18 09:14:17 eric Exp $
+// $Id: Class.Doc.php,v 1.116 2003/04/23 10:00:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.115 2003/04/18 09:14:17 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.116 2003/04/23 10:00:48 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -248,6 +248,7 @@ create unique index i_docir on doc(initid, revision);";
   // get current sequence number :: numbre of doc for this family
   function getCurSequence() {
     if ($this->doctype=='C') return 0;
+    if ($this->fromid == "") return 0;
     // cannot use currval if nextval is not use before
     $res = pg_exec($this->init_dbid(), "select nextval ('seq_doc".$this->fromid."')");
     $arr = pg_fetch_array ($res, 0);
@@ -540,12 +541,14 @@ create unique index i_docir on doc(initid, revision);";
 
 
   // --------------------------------------------------------------------
-  function GetProfileDoc()
+  function GetProfileDoc($defprof="")
     // --------------------------------------------------------------------
     {
-      include_once("FDLGEN/Class.Doc{$this->defProfFamId}.php");
-      $query = new QueryDb($this->dbaccess, "Doc".$this->defProfFamId);
+      if ($defprof=="") $defprof=$this->defProfFamId;
+      include_once("FDLGEN/Class.Doc{$defprof}.php");
+      $query = new QueryDb($this->dbaccess, "Doc".$defprof);
       
+      $query->Addquery("fromid=$defprof");
 
       $query->Query();
 

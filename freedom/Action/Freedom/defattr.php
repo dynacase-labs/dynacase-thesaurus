@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.12 2003/03/26 10:46:16 eric Exp $
+// $Id: defattr.php,v 1.13 2003/04/23 10:00:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,10 +36,6 @@ function defattr(&$action)
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
-  // Set Css
-  $cssfile=$action->GetLayoutFile("freedom.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
 
   $action->lay->Set("docid",$docid);
   $action->lay->Set("dirid",$dirid);
