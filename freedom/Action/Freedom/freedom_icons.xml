@@ -76,9 +76,9 @@ DIV.icon{
 
 <img id="micon" width="20" height="20"   style="position:absolute;visibility:hidden;z-index:10" border="0" src="FREEDOM/Images/doc.gif">
 
-<p class="anakeen" align="center">[nbdoc] [TEXT:document(s) found]</p>
+<p class="anakeen" align="center">[dirtitle] : [nbdoc] [TEXT:document(s) found]</p>
 
-[ZONE FDL:POPUP]
+[ZONE FREEDOM:POPUP]
 
 <!-- TABLEBODY -->
                              [BLOCK TABLEBODY]
@@ -86,7 +86,7 @@ DIV.icon{
 <IMG class="unselect" id="i[divid]" 
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
-     onDblClick="sendFirstFile([id]);return false"
+     onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
      align="absbottom"  src="[iconsrc]"><br>
 
   
