@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.195 2004/03/29 08:07:01 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.196 2004/03/30 13:35:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -998,6 +998,12 @@ create unique index i_docir on doc(initid, revision);";
    */
   function setMask($mid) {
     $this->mid=$mid;
+    if (isset($this->attributes->attr)) {
+      // reinit mask before apply
+      foreach($this->attributes->attr as $k=>$v) {
+	$this->attributes->attr[$k]->mvisibility=$v->visibility;
+      }
+    }
     $this->ApplyMask($mid);
   }
   /**
