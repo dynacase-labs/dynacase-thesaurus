@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.38 2004/01/14 14:21:58 eric Exp $
+ * @version $Id: mailcard.php,v 1.39 2004/01/16 13:36:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.38 2004/01/14 14:21:58 eric Exp $
+// $Id: mailcard.php,v 1.39 2004/01/16 13:36:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -133,9 +133,10 @@ function sendCard(&$action,
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
 
-  $title = str_replace(array(" ","/"), "_",$doc->title);
-  $title = str_replace("'", "",$title);
-  $title = str_replace("&", "",$title);
+  $ftitle = str_replace(array(" ","/"), "_",$doc->title);
+  $ftitle = str_replace("'", "",$ftitle);
+  $ftitle = str_replace("&", "",$ftitle);
+
   $vf = new VaultFile($dbaccess, "FREEDOM");
   $pubdir = $action->getParam("CORE_PUBDIR");
   $szone=false;
@@ -190,7 +191,7 @@ function sendCard(&$action,
       
       $docmail = new Layout(getLayoutFile("FDL",$layout),$action);
 
-      $docmail->Set("TITLE", $title);
+      $docmail->Set("TITLE", $doc->title);
       $docmail->Set("zone", $zonebodycard);
       if ($comment != "") {
 	$docmail->setBlockData("COMMENT", array(array("boo")));
@@ -204,7 +205,7 @@ function sendCard(&$action,
 			 "srcfile('\\1')",
 			 $sgen);
 
-    $pfout = uniqid("/tmp/$title");
+    $pfout = uniqid("/tmp/".$doc->id);
     $fout = fopen($pfout,"w");
     fwrite($fout,$sgen);
     fclose($fout);
@@ -222,7 +223,7 @@ function sendCard(&$action,
 
 
 	$docmail2->Set("zone", $zonebodycard);
-	$docmail2->Set("TITLE", $title);
+	$docmail2->Set("TITLE", $doc->title);
   
 	$sgen = $docmail2->gen();
       }
@@ -230,7 +231,7 @@ function sendCard(&$action,
 			   "realfile('\\1')",
 			   $sgen);
 
-      $phtml = uniqid("/tmp/$title").".html";
+      $phtml = uniqid("/tmp/".$doc->id).".html";
       $fout = fopen($phtml,"w");
       fwrite($fout,$sgen2);
       fclose($fout);
@@ -239,7 +240,7 @@ function sendCard(&$action,
 
   // ---------------------------
   // contruct metasend command
-  if ($subject == "") $subject = $title;
+  if ($subject == "") $subject = $ftitle;
   $subject = str_replace("\"","'",$subject);
   $cmd = "metasend  -b -S 4000000 -c '$cc' -F '$from' -t '$to$bcc' -s \"$subject\"  ";
 
@@ -249,7 +250,7 @@ function sendCard(&$action,
     $cmd .= " -m 'text/html' -e 'quoted-printable' -i mailcard -f '$pfout' ";
   } else if ($format == "pdf") {
     $cmd .= " -/ mixed ";
-    $ftxt = "/tmp/".str_replace(array(" ","/","(",")"), "_",uniqid($title).".txt");
+    $ftxt = "/tmp/".str_replace(array(" ","/","(",")"), "_",uniqid($doc->id).".txt");
     $comment = str_replace("'","'\"'\"'",$comment);
     
     system("echo '$comment' > $ftxt");
@@ -334,14 +335,14 @@ function sendCard(&$action,
 
   if (ereg("pdf",$format, $reg)) {
     // try PDF 
-    $fps= uniqid("/tmp/$title")."ps";
-    $fpdf= uniqid("/tmp/$title")."pdf";
+    $fps= uniqid("/tmp/".$doc->id)."ps";
+    $fpdf= uniqid("/tmp/".$doc->id)."pdf";
     $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $phtml > $fps && ps2pdf $fps $fpdf";
 
     system ($cmdpdf, $status);
 
     if ($status == 0)  {
-      $cmd .= " -n -e 'base64' -m 'application/pdf;\\n\\tname=\"".$title.".pdf\"' ".
+      $cmd .= " -n -e 'base64' -m 'application/pdf;\\n\\tname=\"".$ftitle.".pdf\"' ".
 	 "-i '<pdf>'  -f '$fpdf'";
     
     } else {
@@ -355,13 +356,14 @@ function sendCard(&$action,
   $err="";
   if ($status == 0)  {
     $doc->addcomment(sprintf(_("sended to %s"), $to));
-    $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to)); 
-    $action->addwarningmsg(sprintf(_("sending %s to %s"),$title, $to));   
+    $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $to)); 
+    $action->addwarningmsg(sprintf(_("sending %s to %s"),$doc->title, $to));   
   } else {
     print ($cmd);
-    $err=sprintf(_("%s cannot be sent"),$title);
-    $action->addlogmsg(sprintf(_("%s cannot be sent"),$title));
-    $action->addwarningmsg(sprintf(_("%s cannot be sent"),$title));
+    $err=sprintf(_("%s cannot be sent"),$doc->title);
+    $action->addlogmsg(sprintf(_("%s cannot be sent"),$doc->title));
+    $action->addwarningmsg(sprintf(_("%s cannot be sent"),$doc->title));
+   
   }
 
   
