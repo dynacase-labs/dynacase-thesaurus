@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.34 2004/10/04 07:36:53 eric Exp $
+ * @version $Id: enum_choice.php,v 1.35 2004/10/08 07:43:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -198,14 +198,15 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
     $tselect = array();
     $tval = array();
     reset($res);
+    $ki=0;
     while (list($k, $v) = each($res)) {
       $tselect[$k]["choice"]= $v[0];
-      $tselect[$k]["cindex"]= $k;
-      $tval[$k]["index"]=$k;
+      $tselect[$k]["cindex"]= $ki; // numeric index needed
+      $tval[$k]["index"]=$ki;
       array_shift($v);
 
       $tval[$k]["attrv"]="['".implode("','", $v)."']";
-    
+      $ki++;
 
     }
   }
