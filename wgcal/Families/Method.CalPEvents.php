@@ -20,6 +20,8 @@ function getEventRessources() {
 }
 
 function  setEventSpec(&$e) {
+  include_once('WGCAL/WGCAL_external.php');
+  $e->setValue("EVFC_VISIBILITY", $this->getValue("CALEV_VISIBILITY"));
   $e->setValue("EVFC_REALENDDATE", $this->getValue("CALEV_END"));
   $e->setValue("EVFC_REPEATMODE", $this->getValue("CALEV_REPEATMODE"));
   if ($this->getValue("CALEV_REPEATMODE") > 0) {
@@ -41,14 +43,20 @@ function  setEventSpec(&$e) {
   $tattid = $this->getTValue("CALEV_ATTID");
   $tattst = $this->getTValue("CALEV_ATTSTATE");
   $tattgp = $this->getTValue("CALEV_ATTGROUP");
-  $nattid = array();
-  $nattst = array();
+  $nattid = array(); $nattst = array(); $iatt = 0;
+  $rejattid = array();  $iratt = 0;
   foreach ($tattid as $ka => $va) {
-    $nattid[$va] = $va;
-    $nattst[$va] =  $tattst[$ka];
+    $nattid[$iatt] = $va;
+    $nattst[$iatt] =  $tattst[$ka];
+    $iatt++;
+    if ($tattst[$ka] == EVST_REJECT) {
+      $rejattid[$iratt] = $va;
+      $iratt++;
+    }
   }
-  $e->setValue("EVFC_ATTID", $nattid);
-  $e->setValue("EVFC_ATTST", $nattst);  
+  $e->setValue("EVFC_LISTATTID", $nattid);
+  $e->setValue("EVFC_LISTATTST", $nattst);  
+  $e->setValue("EVFC_REJECTATTID", $rejattid);  
 }
 
 
@@ -63,3 +71,4 @@ function mailrv() {
   $this->lay->set("dend", $this->getValue("CALEV_END"));
 
 }
+

@@ -6,6 +6,7 @@ function explodeEvt($d1, $d2) {
   $jd1 = ($d1==""?0:Iso8601ToJD($d1));
   $jd2 = ($d2==""?5000000:Iso8601ToJD($d2));
 
+
   // check start and end date
   $e->ds = $this->getValue("evt_begdate");
   $e->de = ($this->getValue("evfc_realenddate")==""?$this->getValue("evt_enddate"):$this->getValue("evfc_realenddate"));
@@ -30,9 +31,11 @@ function explodeEvt($d1, $d2) {
   }
 
   // return event if there are not repeatable to produce 
+  $ref = get_object_vars($this);
   
   if ($e->mode==0) {
-    return $this;
+    $eve[] = $ref;
+    return $eve;
   }
   if ($e->untildate<$jd1 || $e->jdds>$jd2 ) {
     return array();
@@ -44,7 +47,6 @@ function explodeEvt($d1, $d2) {
   $stop = $this->JDRoundDay($e->untildate)+0.4999;
 //   echo "filtering from ".jd2cal($start, 'FrenchLong')." to ".jd2cal($stop, 'FrenchLong')."<br>";
 
-  $ref = get_object_vars($this);
   $hstart = substr($e->ds,11,5);
   $hend   = substr($e->de,11,5);
 

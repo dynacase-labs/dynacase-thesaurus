@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.6 2005/03/08 22:40:03 marc Exp $
+ * @version $Id: calev_card.php,v 1.7 2005/03/09 22:27:44 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -12,40 +12,25 @@
  */
 include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/WGCAL_external.php");
-include_once("FDL/popup_util.php");
 
 function calev_card(&$action) {
 
-//   global $_POST, $_GET;
-//   echo "avant"; print_r2($_POST); print_r2($_GET); echo "apres";
+  $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $ref = GetHttpVars("ref", -1);
-  $evid = GetHttpVars("ev", -1);
-  $mode  = GetHttpVars("mode", "");
+  $ev = GetHttpVars("ev", -1);
+  $rg = GetHttpVars("rg", -1);
+  $mode  = GetHttpVars("m", "");
+  if ($ev==-1) $evid = -1;
+  else {
+    $evtmp = new Doc($dbaccess, $ev);
+    $evid = $evtmp->getValue("evt_idinitiator");
+  }
   if ($evid==-1) return;
 
   $action->lay->set("mode", ($mode=="v"?"":"none"));
 
-  popupInit('calevcard'.$evid,  array('editrv', 
-				'deleterv', 
-				'acceptrv', 
-				'rejectrv', 
-				'tbcrv', 
-				'historyrv', 
-				'cancelrv'));
-
-  PopupInactive('calevcard'.$evid,$evid,'editrv');
-  PopupInactive('calevcard'.$evid,$evid,'deleterv');
-  PopupInactive('calevcard'.$evid,$evid,'acceptrv');
-  PopupInactive('calevcard'.$evid,$evid,'rejectrv');
-  PopupInactive('calevcard'.$evid,$evid,'tbcrv');
-  PopupInactive('calevcard'.$evid,$evid,'historyrv');
-  PopupActive('calevcard'.$evid,$evid,'cancelrv');
-  $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
-
 //   $pretitle = "";
 
-  $dbaccess = $action->GetParam("FREEDOM_DB");
   $ev = new Doc($dbaccess, $evid);
 
   $ownerid = $ev->getValue("CALEV_OWNERID");
@@ -53,8 +38,6 @@ function calev_card(&$action) {
   $private = ((($ownerid != $action->user->fid) && ($conf!=0)) ? true : false );
   $tpriv = array();
 
-  $action->lay->set("REF",   $ref);
-  $tpriv[0]["REF"] = $ref;
   $action->lay->set("ID",    $ev->id);
   $tpriv[0]["ID"] = $ev->id;
   
@@ -148,12 +131,6 @@ function calev_card(&$action) {
   $action->lay->set("bgcolor", $bgcolor);
   $action->lay->set("bgresumecolor", $bgresumecolor);
 
-  if ($present) {
-    Popupactive('calevcard'.$evid,1,'acceptrv');
-    Popupactive('calevcard'.$evid,1,'rejectrv');
-    Popupactive('calevcard'.$evid,1,'tbcrv');
-  }
-
   if ($private && !$present) $action->lay->SetBlockData("ISCONF", null);
   else $action->lay->SetBlockData("ISCONF", $tpriv);
 
@@ -206,7 +183,6 @@ function calev_card(&$action) {
   } else {
     $action->lay->set("displaynote", "none");
   }    
-   popupGen($evid);
 }
 
 function showIcons(&$action, &$ev, $private, $present) {

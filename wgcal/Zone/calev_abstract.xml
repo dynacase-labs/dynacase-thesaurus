@@ -1,15 +1,6 @@
-<!-- Start abstract [REF]::[ID] -->
-[ZONE WGCAL:CALEV_POPUP] 
-<!-- onContextMenu="openMenu(event,'calevcard[ID]',1);return false" 
-  onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'calevcard[ID]',1)" 
- -->
-<div id="evt[REF]"     
-  [BLOCK ISCONF]onclick="subwindow(400, 650, 'ViewEvent[REF]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[ID]&ref=[REF]');"[ENDBLOCK ISCONF]
-     onmouseover="WGCalEvOnMouseOver(event, '[REF]');" 
-     onmouseout="WGCalEvOnMouseOut(event, '[REF]');" 
-    style="cursor:pointer; border:0px; display:none;overflow:hidden;">
-<div id="evth[REF]" style="height:[headsize]px; border:0px; background-color:[evglobalstate];"></div>
-<div id="evta[REF]" style="background-color:[bgresumecolor]; overflow:hidden; cursor:pointer;  height:[cardheight]; border:0px">
+<!-- Start abstract [ID] -->
+<div id="evth[ID]" style="height:[headsize]px; border:0px; background-color:[evglobalstate];"></div>
+<div id="evta[ID]" style="background-color:[bgresumecolor]; overflow:hidden; cursor:pointer;  height:[cardheight]; border:0px">
 <div style="overflow:hidden; cursor:pointer; border-left:0px solid [bgstate];border:1px outset [bgresumecolor]; filter:alpha(opacity=80); height:100%">
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 [BLOCK showicons][zou]
@@ -18,7 +9,4 @@
 <tr>
 </table>
 </div>
-</div>
-
-<div id="evtf[REF]" style="border:0px outset; background-color:grey;"></div><!-- End abstract [REF]::[ID] --></div>
-
+<div id="evtf[ID]" style="border:0px outset; background-color:grey;"></div>

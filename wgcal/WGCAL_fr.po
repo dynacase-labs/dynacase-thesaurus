@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 23:24+0100\n"
+"POT-Creation-Date: 2005-03-09 17:44+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -82,6 +82,9 @@ msgstr "Mes contacts préférés"
 msgid "send me event mail copy"
 msgstr "Me mettre en copie des mails émis"
 
+msgid "displayed refused events"
+msgstr "Afficher les évènements refusé :"
+
 msgid "show icons in resume"
 msgstr "Afficher les icones et les heures sur l'agenda"
 
@@ -99,6 +102,9 @@ msgstr "Heure de fin utilsée pour la saisie de RV"
 
 msgid "minutes increment used for event setting"
 msgstr "Incrément pour les minutes en saisie de RV"
+
+msgid "mails send"
+msgstr "Envoi des mails"
 
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
@@ -442,32 +448,38 @@ msgstr "Ressources trouvées"
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
 
-msgid "accept"
-msgstr "accepté"
-
-msgid "reject"
-msgstr "refusé"
-
-msgid "to be confirm"
-msgstr "Confirmer"
-
-msgid "edit"
-msgstr "Editer"
-
-msgid "delconfirm"
-msgstr "à confirmer"
-
-msgid "history"
-msgstr "historique"
-
-msgid "Cancel"
-msgstr "Annuler"
-
 msgid "add prefered contact"
 msgstr "Ajout d'un contact préféré"
 
 msgid "use for event creation"
 msgstr "Utiliser les ressources pour les rendez-vous"
+
+msgid "accept this"
+msgstr "Accepter"
+
+msgid "reject this"
+msgstr "Refuser"
+
+msgid "to be confirm this"
+msgstr "A Confirmer"
+
+msgid "edit this"
+msgstr "Editer"
+
+msgid "view this"
+msgstr "Afficher"
+
+msgid "confirm delete for this event"
+msgstr "Confirmez-vous la suppression de cet évènement"
+
+msgid "delete this"
+msgstr "Supprimer"
+
+msgid "history"
+msgstr "Historique"
+
+msgid "Cancel"
+msgstr "Annuler"
 
 msgid "add a calendar"
 msgstr "Ajout d'un calendrier"
@@ -562,6 +574,9 @@ msgstr "Intervalle de choix des heures"
 msgid "meeting minute increase"
 msgstr "Tranches de minutes selectionnables"
 
+msgid "event proposal"
+msgstr "Proposition de rendez-vous"
+
 msgid "look preferences"
 msgstr "Aspect et comportement de l'interface"
 
@@ -599,11 +614,11 @@ msgstr "Recherche d'évènement"
 msgid "main calendar"
 msgstr "Calendrier public"
 
-msgid "event proposal"
-msgstr "Proposition de rendez-vous"
-
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
+
+msgid "display refused meetings"
+msgstr "Afficher les évènements refusés"
 
 msgid "confidential event"
 msgstr "Evènement confidentiel"
@@ -680,11 +695,23 @@ msgstr "nouveau"
 msgid "read"
 msgstr "lu"
 
+msgid "accept"
+msgstr "accepté"
+
+msgid "reject"
+msgstr "refusé"
+
 msgid "to be confirmed"
 msgstr "à confirmer"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"
+
+#~ msgid "edit"
+#~ msgstr "Editer"
+
+#~ msgid "delconfirm"
+#~ msgstr "à confirmer"
 
 #~ msgid "days hours"
 #~ msgstr "Gestion de la journée affichée"

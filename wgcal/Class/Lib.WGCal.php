@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.13 2005/03/08 10:32:21 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.14 2005/03/09 22:27:44 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -121,41 +121,127 @@ function WGCalGetFirstDayOfMonth($ts) {
       	
 function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="") 
 {
+
+  include_once('FDL/popup_util.php');
+
+  // echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres]<br>";
+
+  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $tout=array(); 
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
-  //echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres]<br>";
   $dre=new Doc($dbaccess,$reid);
+  $edre = array();
   $edre=$dre->getEvents($d1,$d2);
   $first = false;
+
+  popupInit('calpopup',  array('editrv',  
+			       'viewrv',
+                               'deleterv',
+                               'acceptrv',
+                               'rejectrv',
+                               'tbcrv',
+                               'historyrv',
+                               'cancelrv'));
+
+
   foreach ($edre as $k=>$v) {
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
-    $item = array( "REF" => $v["id"], 
-		   "ID" => $v["evt_idinitiator"],
+    $item = array( "ID" => $v["id"], 
  		   "TSSTART" => $v["evt_begdate"],
  		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
 		   "TSEND" => $end, 
 		   "END" => FrenchDateToUnixTs($end), 
-// 		   "TSEND" => $v["evt_enddate"], 
-// 		   "END" => FrenchDateToUnixTs($v["evt_enddate"]), 
 		   "IDC" =>  $v["evt_idcreator"] );
-    $n = new Doc($dbaccess, $v["evt_idinitiator"]);
-    $varclass = get_class_vars("_CALEVENT");
-    if (isset($varclass["ZoneEvtAbstract"]) && isset($varclass["ZoneEvtCard"])) {
-      $abstract =  $varclass["ZoneEvtAbstract"];
-      $view = $varclass["ZoneEvtCard"];
-    } else {
-      $abstract =  "WGCAL:DEFAULTABS";
-      $view = "WGCAL:DEFAULTVIEW";
+
+//     print_r2($v);
+
+    $ref = false;
+    if ($showrefused!=1) {
+      $attr = $dre->_val2array($v["evfc_attid"]);
+      foreach ($attr as $kat => $vat) {
+        if ($action->user->fid == $vat) $ref = true;
+      } 
     }
-    $item["RESUME"] = $abstract;
-    $item["VIEW"] = $view;
-    $item["RG"] = count($tout);
-    $tout[] = $item;
+   
+    if (!$ref) { 
+      $n = new Doc($dbaccess, $v["evt_idinitiator"]);
+      $varclass = get_class_vars("_CALEVENT");
+      if (isset($varclass["ZoneEvtAbstract"]) && isset($varclass["ZoneEvtCard"])) {
+        $abstract =  $varclass["ZoneEvtAbstract"];
+        $view = $varclass["ZoneEvtCard"];
+      } else {
+        $abstract =  "WGCAL:DEFAULTABS";
+        $view = "WGCAL:DEFAULTVIEW";
+      }
+      $item["RESUME"] = $abstract;
+      $item["VIEW"] = $view;
+      $item["RG"] = count($tout);
+
+      if ($action->user->fid == $v["evt_idcreator"]) {
+	PopupActive('calpopup',$item["RG"], 'editrv');
+	PopupActive('calpopup',$item["RG"], 'deleterv');
+	$item["action"] = "EDITEVENT";
+      }	else {
+	PopupInvisible('calpopup',$item["RG"], 'editrv');
+	PopupInvisible('calpopup',$item["RG"], 'deleterv');
+ 	$item["action"] = "VIEWEVENT";
+     }
+
+      $withme = false;
+      $attr = $dre->_val2array($v["evfc_listattid"]);
+      $attrst = $dre->_val2array($v["evfc_listattst"]);
+      if (count($attr)>1) {
+	foreach ($attr as $ka => $va) {
+	  if ($va==$action->user->fid) {
+	    $withme = true;
+	    $mystate = $attrst[$ka];
+	  }
+	}
+      }
+
+      $conf = $v["evfc_visibility"];
+      $private = ((($v["evt_idcreator"] != $action->user->fid) && ($conf!=0)) ? true : false );
+      if (!$private) 
+	PopupActive('calpopup',$item["RG"], 'historyrv');
+      else
+	PopupInactive('calpopup',$item["RG"], 'historyrv');
+	
+      
+      if ($withme) {
+	PopupActive('calpopup',$item["RG"], 'viewrv');
+      } else {
+	PopupInvisible('calpopup',$item["RG"], 'viewrv');
+      }
+      
+      if ($withme && $mystate!=2) 
+ 	PopupActive('calpopup',$item["RG"], 'acceptrv');
+      else
+	PopupInactive('calpopup',$item["RG"], 'acceptrv');
+
+      if ($withme && $mystate!=3) 
+ 	PopupActive('calpopup',$item["RG"], 'rejectrv');
+      else
+	PopupInactive('calpopup',$item["RG"], 'rejectrv');
+
+      if ($withme && $mystate!=4) 
+	PopupActive('calpopup',$item["RG"], 'tbcrv');
+      else
+	PopupInactive('calpopup',$item["RG"], 'tbcrv');
+	
+
+      PopupActive('calpopup',$item["RG"], 'cancelrv');
+
+      $tout[] = $item;
   }
-//   print_r2($tout);
+
+  }
+  popupGen(count($tout));
+  $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
+  //print_r2($tout);
   return $tout;
 }
        	
@@ -177,11 +263,6 @@ function dbdate2ts($dbtime) {
   $yea = substr($dbtime,6,4);
   return mktime($hou, $min, $sec, $mon, $day, $yea);
 }
-
-function sendEventMail(&$action, $evid) {
-  return;
-}
-
 
 
 function WGCalGetRGroups(&$action, $uid) {
@@ -214,5 +295,45 @@ function WGCalGetRGroups(&$action, $uid) {
 //    * @return array id
 //    */
 //   function getParentsGroupId($pgid="", $level=0) {
+
+
+
+function sendRv(&$action, &$event) {
+ 
+ if ($action->getParam("WGCAL_G_SENDMAILS", 0)==0) return;
+
+ $to = $from = $cc = $bcc = "";
+
+ // Compute From:
+ $fid = $event->getValue("CALEV_OWNERID");
+ $uid = new Doc($action->GetParam("FREEDOM_DB"), $fid);
+ $from = $uid->getValue("TITLE")." <".getMailAddr($uid->getValue("US_WHATID")).">";
+
+
+ // Compute To: field
+ $to = "";
+ $attid = $event->getTValue("CALEV_ATTID", array()); 
+ foreach ($attid as $k => $v) {
+   if ($v != $action->user->fid ) {
+     $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
+     $fullname = $u->getValue("TITLE");
+     $mail = getMailAddr($u->getValue("US_WHATID"));
+     $to .= ($to==""?"":", ").$fullname." <".$mail.">";
+   }
+ }
+
+ // Compute Cc: field
+ if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) {
+     $u = new Doc($action->GetParam("FREEDOM_DB"), $action->user->fid);
+     $cc =  $u->getValue("TITLE")." <".getMailAddr($u->getValue("US_WHATID")).">";
+ }
+     
+ if ($to!="") {
+   sendCard($action, $event->id, $to, $cc,
+          "["._("event proposal")."] ".$event->title,
+          "WGCAL:MAILRV?ev=$event->id:S",
+          true, "", $from, $bcc, $format="html" );
+  }
+}
 
 ?>

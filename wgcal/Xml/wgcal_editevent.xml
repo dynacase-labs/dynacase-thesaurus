@@ -17,23 +17,6 @@
 <input type="hidden" id="excludedate" name="excludedate" value="">
 
 
-<table width="100%" style="margin-top: 0em;">
-<tr>
-<td></td>
-<td align="right"><span id="spall" style="visibility:[vStatus]; border:1px solid [cState]">[BLOCK STATUSZ]
-<span style="cursor:pointer" margin:0px; padding:0px" id="sp[iState]" onclick="clickB2('cbstate[iState]'); setStatus([vState], '[cState]');" style="cursor:pointer" onmouseover="this.style.background='[cState]'" onmouseout="this.style.background=''">[tState] <input onclick="clickB2('cbstate[iState]'); setStatus([vState], '[cState]')" type="radio" id="cbstate[iState]" name="evstatus" value="[vState]" [sState] [rState]></span>
-[ENDBLOCK STATUSZ]</span></td>
-<td align="right">
-[BLOCK EMPTY][nop]&nbsp;&nbsp;
-<a href="mailto:[mailadd]"><img src="WGCAL/Images/wm-mail.png" 
-  height="20" title="[TEXT:mail to contacts]" class="WGCalAction" style="border:0px"></a>
-<img src="WGCAL/Images/wm-print.png" 
-  height="20" title="[TEXT:print]" class="WGCalAction" onclick="window.print();">
-<img src="WGCAL/Images/wm-delete.png" 
-  height="20" title="[TEXT:delete]" class="WGCalAction" onclick="deleteEvent('[TEXT: delete this event]');">
-[ENDBLOCK EMPTY]
-</td></tr></table>
-
 
 <fieldset>
 <legend>
@@ -362,9 +345,19 @@ Calendar.setup(
 
 </fieldset>
 
-
 <table width="100%" style="margin-top: 0em;">
-<tr><td align="right">
+<tr>
+<td align="left">
+[BLOCK EMPTY][nop]&nbsp;&nbsp;
+<a href="mailto:[mailadd]"><img src="WGCAL/Images/wm-mail.png" 
+  height="20" title="[TEXT:mail to contacts]" class="WGCalAction" style="border:0px"></a>
+<img src="WGCAL/Images/wm-print.png" 
+  height="20" title="[TEXT:print]" class="WGCalAction" onclick="window.print();">
+<img src="WGCAL/Images/wm-delete.png" 
+  height="20" title="[TEXT:delete]" class="WGCalAction" onclick="deleteEvent('[TEXT: delete this event]');">
+[ENDBLOCK EMPTY]
+</td>
+<td align="right">
 <img src="WGCAL/Images/wm-save.png" 
   height="20" title="[TEXT:save]" class="WGCalAction" onclick="saveEvent();">
 <img src="WGCAL/Images/wm-close.png" 

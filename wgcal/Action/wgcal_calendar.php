@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.33 2005/03/06 21:29:54 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.34 2005/03/09 22:27:44 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -207,20 +207,7 @@ function wgcal_calendar(&$action) {
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
 
-  // Popup on events
-//   include_once("FDL/popup_util.php");
-//   PopupInactive('calevcard',$kdiv,'editrv');
-//   PopupInactive('calevcard',$kdiv,'deleterv');
-//   PopupInactive('calevcard',$kdiv,'acceptrv');
-//   PopupInactive('calevcard',$kdiv,'rejectrv');
-//   PopupInactive('calevcard',$kdiv,'tbcrv');
-//   PopupInactive('calevcard',$kdiv,'historyrv');
-//   PopupActive('calevcard',$kdiv,'cancelrv');
-
-//   popupGen($kdiv, "WGCAL:WGCAL_CSS");
-//   $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
 }
-
 
 
 ?>

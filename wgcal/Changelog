@@ -1,6 +1,12 @@
 --------------------------------------------------------------------------
 0.0.8 (Ylb)
 --------------------------------------------------------------------------
+- affichage ou pas des ev refusés
+- Ajout des menus popup
+- Gestion des états d'acceptation par menu
+- Visualiation pour les autres que le propriétaire
+- Ajout de l'historique (changement d'état/modification/supression...)
+
 
 --------------------------------------------------------------------------
 0.0.7 (Bond)

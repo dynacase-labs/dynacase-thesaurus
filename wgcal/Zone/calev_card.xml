@@ -1,5 +1,4 @@
-<!-- Start resume [REF]::[ID] -->
-<div id="evtc[REF]" style="display:[mode]; border:1px outset; background-color:white');">
+<!-- Start resume [ID] -->
 <div class="wEvBack">
 <table cellpadding="2px" cellspacing="0" border="0">
 <thead><tr><th></th><th></th></tr></thead>
@@ -39,4 +38,4 @@
 </tbody>
 </table>
 </div>
-<!-- End full [REF]::[ID] --></div>
+<!-- End full [ID] -->

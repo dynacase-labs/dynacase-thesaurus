@@ -177,7 +177,14 @@ function WGCalSetDate(calendar)
   }
 }
 
+// ----------------------------------------------------------
 
+var  EvSelected = -1;
+
+function SetCurrentEvent(id) {
+    EvSelected = id;
+}
+  
 
 
 // --------------------------------------------------------

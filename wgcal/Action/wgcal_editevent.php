@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.32 2005/03/08 10:32:21 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.33 2005/03/09 22:27:44 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -47,8 +47,14 @@ function wgcal_editevent(&$action) {
   $nh = GetHttpVars("nh", 0);
   $times = GetHttpVars("ts", time());
   $timee = GetHttpVars("te", time()+3600);
-  $evid = GetHttpVars("evt", -1);
+  // This is the event id NOT THE RV id
+  $ev = GetHttpVars("ev", -1);
   
+  if ($ev==-1) $evid = -1;
+  else {
+    $evtmp = new Doc($db, $ev);
+    $evid = $evtmp->getValue("evt_idinitiator");
+  }
   if ($evid > 0) {
     $event = new Doc($db, $evid);
     $ownerid = $event->getValue("CALEV_OWNERID", "");

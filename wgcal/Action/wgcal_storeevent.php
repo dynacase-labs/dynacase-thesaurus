@@ -3,6 +3,7 @@
 include_once("WHAT/Lib.Common.php");
 include_once("FDL/Class.Doc.php");
 include_once("FDL/mailcard.php");
+include_once("WGCAL/Lib.WGCal.php");
 
 function wgcal_storeevent(&$action) {
 
@@ -174,6 +175,7 @@ function wgcal_storeevent(&$action) {
   $event->PostModify();
   if ($err!="") AddWarningMsg("$err");
   
+  $event->AddComment(_("change content "));
   $changed = true;
   //if ($changed) sendRv($action, $event);
   sendRv($action, $event);
@@ -194,41 +196,5 @@ function date2db($d, $hm = true) {
 }
 
 
-
-function sendRv(&$action, $event) {
- 
- $to = $from = $cc = $bcc = "";
-
- // Compute From:
- $fid = $event->getValue("CALEV_OWNERID");
- $uid = new Doc($action->GetParam("FREEDOM_DB"), $fid);
- $from = $uid->getValue("TITLE")." <".getMailAddr($uid->getValue("US_WHATID")).">";
-
-
- // Compute To: field
- $to = "";
- $attid = $event->getTValue("CALEV_ATTID", array()); 
- foreach ($attid as $k => $v) {
-   if ($v != $action->user->fid ) {
-     $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
-     $fullname = $u->getValue("TITLE");
-     $mail = getMailAddr($u->getValue("US_WHATID"));
-     $to .= ($to==""?"":", ").$fullname." <".$mail.">";
-   }
- }
-
- // Compute Cc: field
- if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) {
-     $u = new Doc($action->GetParam("FREEDOM_DB"), $action->user->fid);
-     $cc =  $u->getValue("TITLE")." <".getMailAddr($u->getValue("US_WHATID")).">";
- }
-     
- if ($to!="") {
-   sendCard($action, $event->id, $to, $cc,
-          "["._("event proposal")."] ".$event->title,
-          "WGCAL:MAILRV?ev=$event->id:S",
-          true, "", $from, $bcc, $format="html" );
-  }
-}
 
 ?>
