@@ -546,3 +546,108 @@ function WGCalDisplayAllEvents() {
   }
   return;
 }
+
+
+
+// From YLB algo --------------------------------------------
+
+var  P_DURATION = 10;
+var  P_DEB = 0.1;
+
+function WGCalAddEvent(evtid, ts_start, ts_end) 
+{
+  var evt = new Object;
+  var cEv = Days[day].ev.length;
+
+  var Tz =  dd.getTimezoneOffset() * 60;
+
+  if (ts_end<ts_start) {
+    t = ts_end;
+    ts_end = ts_start;
+    ts_start = t;
+  }
+  if (ts_start<Days[0].start) ts_start = Days[0].start;
+  e = (Days[0].start + (24*3600)) - 1;
+  if (dend>e) ts_end = e;
+  //alert('XDays = '+XDays+' dend>e='+(dend>e?"T":"F"));
+
+  tstart = ts_start + Tz;
+  tend   = ts_end + Tz;
+
+  istart = GetTimeInfoFromTs(tstart);
+  istart.day--;
+  istart.day = (istart.day<0 ? 0 : istart.day);
+  istart.day = (istart.day>=XDays ? (XDays-1) : istart.day);
+
+  iend   = GetTimeInfoFromTs(tend);
+  iend.day--;
+  iend.day = (iend.day<0 ? 6 : iend.day);
+  iend.day = (iend.day>=XDays ? (XDays-1) : iend.day);
+
+  dstart = istart.day;
+  dend   = iend.day;
+
+  mdays = (evt.dstart!=evt.dend ? true : false);
+
+  // Compute event weight
+  weight  =  ((evt.tend - evt.tstart) * P_DURATION) - (evt.tstart  * P_DEB);
+
+  for (id=dstart ; id<=dend; id++) {
+    vstart = evt.tstart;
+    vend   = evt.tend;
+    if (tend==tstart) {
+      vstart = Days[day].vstart - (YDivMinute * 60);
+      vend   = Days[day].vstart - 60;
+    } else {
+      if (tstart<Days[day].vstart || ((day==dend) && mdays) ) {
+	vstart = Days[day].vstart;
+      }
+      if (tend>Days[day].vend || ((day>dstart && day<dend) && mdays)) {
+	vend = Days[day].vend;  
+      }
+    }
+    var cEv = Days[id].ev.length;
+    Days[id].ev[cEv] = new Object(evt);
+    Days[id].ev[cEv].tstart = tstart;
+    Days[id].ev[cEv].tend = tend;
+    Days[id].ev[cEv].dstart = dstart;
+    Days[id].ev[cEv].dend = dend;
+    Days[id].ev[cEv].vstart = vstart;
+    Days[id].ev[cEv].vend = vend;
+    Days[id].ev[cEv].weight = weight;
+    Days[id].ev[cEv].mdays = mdays;
+  }
+
+  return;
+}
+
+function WGCalDisplayAllEvents() {
+
+  for (id=0; id<XDays; id++) {
+
+    // Order day events according the weight
+    var evts = Days[day].ev.sort(WGCalSortByWeight);
+
+    coln = 1;
+    for (iev=0; iev<evts.length; iev++) {
+      isplaced = false;
+      for (icol=1; icol<=coln; icol++) {
+	if (IsFree(evts[iev], icol)) {
+	  AddEvt(evts[iev], icol);
+	  isplaced = false;
+	}
+      }
+
+      if (!isplaced) {
+	coln++;
+	AddEvt(evts[iev], coln);
+      }
+    }
+  }
+
+}
+
+function WGCalSortByWeight(e1, e2) {
+  return e1.weight - e2.weight;
+}
+
