@@ -37,3 +37,5 @@ var fdl_vd2size=parseInt('[FDL_VD2SIZE]');
 
 if (fdl_hd2size == 0) fdl_hd2size=400;
 if (fdl_vd2size == 0) fdl_vd2size=300;
+
+addEvent(document,"keypress",trackMenuKey);

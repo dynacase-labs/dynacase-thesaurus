@@ -56,7 +56,11 @@ a.separator {
   font-size: 70%;
   font-weight: bold;
   text-align: center;
-  padding: 2px 12px 2px 8px;
+  padding: 0px;
+  border-color : [CORE_TEXTBGCOLOR];
+  border-style : solid none none none;
+  border-width : 1px 0px 0px 0px;
+  height:1px;
   text-decoration: none;
 }
 

@@ -125,3 +125,31 @@ function copy_clip(meintext)
    alert("Following info was copied to your clipboard:\n\n" + meintext);
    return false;
 }
+
+
+function trackMenuKey(event)
+{
+  var intKeyCode;
+  if (isNetscape) {
+    intKeyCode = event.keyCode;
+    altKey = event.altKey
+    ctrlKey = event.ctrlKey
+   }  else {
+    intKeyCode = window.event.keyCode;
+    altKey = window.event.altKey;
+    ctrlKey = window.event.ctrlKey
+   }
+  window.status=intKeyCode + ':'+altKey+ ':'+ctrlKey;
+
+  if (((intKeyCode ==  93))) {
+    // Ctrl-V
+    openMenu(event,'popupcard',1);
+    
+    if (event.stopPropagation) event.stopPropagation();
+    else event.cancelBubble=true;
+    if (event.preventDefault) event.preventDefault();
+    else event.returnValue=true;
+    return false;
+  }
+  return true;
+}

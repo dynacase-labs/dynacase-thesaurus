@@ -5,16 +5,16 @@
    </tr></thead>
  <tbody id="tbody[attrid]" >
   
-     [BLOCK EATTR]<tr onmouseup="sdrag(event,this);" ><td align="left"><img  name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>
-    [BLOCK [bevalue]]<td width="[vhw]">[eivalue]</td>[ENDBLOCK [bevalue]]
+     [BLOCK EATTR]<tr onmouseup="sdrag(event);" ><td align="left"><img  name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>
+    [BLOCK [bevalue]]<td style="visibility2:[ehvis]" width="[vhw]">[eivalue]</td>[ENDBLOCK [bevalue]]
  </tr>[ENDBLOCK EATTR]
 <tr id="lasttr[attrid]">
 <td class="und" align="right" >
-  <img  name="unselect" style="visibility:hidden" title="[TEXT:unselect]" align="bottom" onclick="unseltr()" src="[IMG:point22.gif]">      
+  <img  name="unselect" style="visibility:hidden" title="[TEXT:unselect]" align="bottom" onclick="unseltr()" src="[IMG:point22.gif]"><img name="unselect" style="visibility:hidden" src="[IMG:dup22.gif]" title="[TEXT:duplicate]" onclick="duptr();return false;">   
 </td><td colspan="[footspan]"><img src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;"></td></tr>
   </tbody>
-   <tfoot><tr style="display:none" onmouseup="sdrag(event,this);" id="tnew[attrid]"><td align="le"f><img   name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>
-    [BLOCK IATTR]<td  style="visibility:[ihvis]" width="[ihw]">[ilabel]</td> [ENDBLOCK IATTR]
+   <tfoot><tr style="display:none" onmouseup="sdrag(event);" id="tnew[attrid]"><td align="left"><img   name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>
+    [BLOCK IATTR]<td  style="visibility2:[ihvis]" width="[ihw]">[ilabel]</td> [ENDBLOCK IATTR]
    </tr>
   </tfoot>
 </table>

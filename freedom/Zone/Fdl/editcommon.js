@@ -938,29 +938,41 @@ function duptr() {
     tbodysel=seltr.parentNode;
     tbodyselid=tbodysel.id;
     tnewid='tnew'+tbodyselid.substr(5);
-    ntr=addtr(tnewid,tbodyselid);
+    if (document.getElementById(tnewid)) {
+      ntr=addtr(tnewid,tbodyselid);
+      afterclonenode(seltr,ntr);
     
-    ti1= seltr.getElementsByTagName("input");
-    ti2= ntr.getElementsByTagName("input");
-    for ( i=0; i< ti1.length; i++) {
-      setIValue(ti2[i],getIValue(ti1[i]));
+    } else {
+      // direct clone tr
+      csel=seltr.cloneNode(true);
+      csel.style.backgroundColor='';
+      seltr.parentNode.insertBefore(csel,seltr);
+      visibilityinsert('trash','hidden');
+      // after clone (correct bug)
+      afterCloneBug(seltr,csel);
     }
-    ti1= seltr.getElementsByTagName("textarea");
-    ti2= ntr.getElementsByTagName("textarea");
-    for ( i=0; i< ti1.length; i++) {
-      setIValue(ti2[i],getIValue(ti1[i]));
-    }
-    ti1= seltr.getElementsByTagName("select");
-    ti2= ntr.getElementsByTagName("select");
-    for ( i=0; i< ti1.length; i++) {
-      setIValue(ti2[i],getIValue(ti1[i]));
-    }
-    
-    
     disableReadAttribute();
     
-  }
+  }  
+}
+
+function afterCloneBug(o1,o2) {
   
+      ti1= o1.getElementsByTagName("input");
+      ti2= o2.getElementsByTagName("input");
+      for ( i=0; i< ti1.length; i++) {
+	setIValue(ti2[i],getIValue(ti1[i]));
+      }
+      ti1= o1.getElementsByTagName("textarea");
+      ti2= o2.getElementsByTagName("textarea");
+      for ( i=0; i< ti1.length; i++) {
+	setIValue(ti2[i],getIValue(ti1[i]));
+      }
+      ti1= o1.getElementsByTagName("select");
+      ti2= o2.getElementsByTagName("select");
+      for ( i=0; i< ti1.length; i++) {
+	setIValue(ti2[i],getIValue(ti1[i]));
+      }
 }
 function visibilityinsert(n,d) {
   var ti = document.getElementsByName(n);
@@ -977,11 +989,18 @@ function selecttr(o,tr) {
   for (var i=0; i< ti.length; i++) { 
     if (ti[i].name=='unselect') ti[i].style.visibility='visible';
   }
+  var ti = tr.parentNode.getElementsByTagName('textarea');
+  for (var i=0; i< ti.length; i++) { 
+    ti[i].rows=1;
+    if (ti[i].id && document.getElementById('exp'+ti[i].id)) document.getElementById('exp'+ti[i].id).style.display='none';
+  }
   if (seltr) {
     seltr.style.backgroundColor='';
     
-  } 
-  o.previousSibling.style.visibility='visible';
+  }   
+  o=o.previousSibling;
+  while (o && (o.nodeType != 1)) o = o.previousSibling; // case TEXT attribute in mozilla between TR 
+  o.style.visibility='visible';
 
   seltr=tr;
 
@@ -1239,6 +1258,7 @@ addEvent(document,"keypress",trackKeys);
 function trackKeys(event)
 {
   var intKeyCode;
+  var stop=false;
   if (isNetscape) {
     intKeyCode = event.which;
     altKey = event.altKey
@@ -1248,18 +1268,28 @@ function trackKeys(event)
     altKey = window.event.altKey;
     ctrlKey = window.event.ctrlKey
    }
-  
   window.status=intKeyCode + ':'+altKey+ ':'+ctrlKey;
 
   if (((intKeyCode == 118)||(intKeyCode == 22)) && (altKey || ctrlKey)) {
     // Ctrl-V
     duptr();
-  if (event.stopPropagation) event.stopPropagation();
-  else event.cancelBubble=true;
-  if (event.preventDefault) event.preventDefault();
-  else event.returnValue=true;
+    stop=true;
+  }
+  if (((intKeyCode == 100)||(intKeyCode == 4)) && (altKey || ctrlKey)) {
+    // Ctrl-D
+    delseltr();
+    stop=true;
+  }
+
+  if (stop) {
+    if (event.stopPropagation) event.stopPropagation();
+    else event.cancelBubble=true;
+    if (event.preventDefault) event.preventDefault();
+    else event.returnValue=true;
+
     return false;
   }
+  
   return true;
 }
 var dro=null; // clone use to move
@@ -1291,6 +1321,7 @@ function adraggo(event) {
 
 
 function adrag(event,o) {
+  sdrag(event); // in case of already in drag
   GetXY(event);
   dro=o.parentNode.parentNode.cloneNode(true);
   dro.style.position='absolute';
@@ -1310,7 +1341,7 @@ function adrag(event,o) {
   setTimeout('adraggo()',300); 
   //adraggo(event);
 }
-function sdrag(event,o) {
+function sdrag(event) {
   var dytr; //delta
   if (dro && draggo) {
     if (dro.parentNode) dro.parentNode.removeChild(dro);

@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.84 2005/01/27 13:07:48 eric Exp $
+ * @version $Id: editutil.php,v 1.85 2005/01/28 17:09:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -162,15 +162,17 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 		      
       //같같같같같같같같같같같같같같같같같같같같
     case "longtext": 
+      $rows=2;
+      if ($action->Read("navigator","")=="NETSCAPE") $rows--;
       $expid="exp".$attridk;
-      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=9;document.getElementById('$expid').style.display='';\"  class=\"fullresize\" rows=2 name=\"".
+      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=9;document.getElementById('$expid').style.display='';\"  class=\"fullresize\" rows=$rows name=\"".
 	$attrin."\" ";
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " >".
 	str_replace(array("[","$"),array("&#091;","&#036;"),htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
 	"</textarea>".
-	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attridk').rows=2;this.style.display='none'\" value=\"&Delta;\">";
+	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attridk').rows=$rows;this.style.display='none'\" value=\"&Delta;\">";
     
     
       break;
@@ -741,7 +743,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 			   "ahw"=>(!$visible)?"0px":"auto",
 			   "ahvis"=>(!$visible)?"hidden":"visible");
 	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1),
-			   "ihw"=>($visible)?"0px":"auto",
+			   "ihw"=>(!$visible)?"0px":"auto",
 			   "ihvis"=>(!$visible)?"hidden":"visible");
 	$tvattr[]=array("bvalue" => "bvalue_$k",
 			"attrid" => $v->id);
@@ -789,9 +791,11 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	$ika=0;
 	while (list($ka, $va) = each($ta)) {
 	  
+	  $visible = ($va->mvisibility!="H");
 	  
 	  $tivalue[]=array("eivalue"=>getHtmlInput($doc,$va,$tval[$ka][$k],$k),
-			   "vhw"=>($va->mvisibility=="H")?"0pt":$talabel[$ika]["ahw"]);
+			   "ehvis"=>(!$visible)?"hidden":"visible",
+			   "vhw"=>(!$visible)?"0pt":$talabel[$ika]["ahw"]);
 	  $ika++;
 	}
 	$lay->setBlockData("bevalue_$k",$tivalue);
