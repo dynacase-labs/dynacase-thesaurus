@@ -5,8 +5,8 @@
 [ENDBLOCK SEP]
 
 [BLOCK ADDLINK]
-<a href="#" id="[idlink]"     
-    onclick="activate(this,'[url]','');closeMenu('popupcard');">
+<a href="#" id="[idlink]"  
+    onclick="activate(this,'[url]','[idlink]');closeMenu('popupcard');">
 [descr]</a>
 
 [ENDBLOCK ADDLINK]
