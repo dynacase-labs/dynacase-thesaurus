@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.34 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.35 2004/01/15 16:30:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.34 2003/12/12 15:45:25 eric Exp $
+// $Id: Class.WDoc.php,v 1.35 2004/01/15 16:30:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.34 2003/12/12 15:45:25 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.35 2004/01/15 16:30:33 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -269,7 +269,8 @@ Class WDoc extends Doc {
 	  return ""; //it is not a real error, but don't change state (reported)
 	}
       }
-      if ($err != "") return (sprintf(_("ChangeState :: the method '%s' has the following error %s"), $tr["m1"], $err));
+      if ($err != "") return (sprintf(_("The change state to %s has been aborded.\n%s"), 
+				      _($newstate), $err));
 	
 	
     }
@@ -297,7 +298,7 @@ Class WDoc extends Doc {
 
 	  
       if ($err == "->") $err=""; //it is not a real error
-      if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' has the following error %s"), $tr["m2"], $err));
+      if ($err != "") return (sprintf(_("The change state to %s has been realized. But the following warning is appeared.\n%s"),  _($newstate), $err));
 	  
     }
     return ""; // its OK 
