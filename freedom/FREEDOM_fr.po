@@ -218,7 +218,7 @@ msgid	"Import Results"
 msgstr	"Résultat de l'importation"
 
 msgid	"personn added"
-msgstr	"Personnes ajoutés"
+msgstr "Personnes ajoutées"
 
 msgid	"personn deleted"
 msgstr	"Personnes supprimées"

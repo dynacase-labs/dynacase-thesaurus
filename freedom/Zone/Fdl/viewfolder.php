@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: viewfolder.php,v 1.2 2002/02/15 13:56:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@ include_once("FDL/Class.QueryDirV.php");
 // -----------------------------------
 function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 		    $slice="1000",  // view all document (not slice by slice)
-		    $viewfld=true)    // view also inserted sub-folder
+		    $sqlfilters=array())    // more filters to see specials doc
 {
 // -----------------------------------
 
@@ -101,8 +101,16 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   if ($dirid == "")  {
     $action->exitError(_("cannot see unknow folder"));
     //     $ldoc = $oqdv->getAllDoc($dirid);
-}
-  else $ldoc = $oqdv->getChildDoc($dirid);
+  }
+  
+    if ($startpage>0) {
+      $pagefolder = $action->Read("pagefolder");
+      $start = $pagefolder[$startpage];
+    } else $start=0;
+
+
+  $ldoc = $oqdv->getChildDoc($dirid,$start,$slice,$sqlfilters);
+
 
   
   
@@ -152,22 +160,21 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
     // get begin page 
     
-    if ($startpage>0) {
-      $pagefolder = $action->Read("pagefolder");
-      $start = $pagefolder[$startpage];
-    } else $start=0;
+//     if ($startpage>0) {
+//       $pagefolder = $action->Read("pagefolder");
+//       $start = $pagefolder[$startpage];
+//     } else $start=0;
 
-    while (($nbseedoc < $start) && (list($k,$doc) = each($ldoc))  ) $nbseedoc++;
+//     while (($nbseedoc < $start) && (list($k,$doc) = each($ldoc))  ) $nbseedoc++;
       
     $nbdoc=0;
-    while((list($k,$doc) = each($ldoc)) && ($nbdoc < $slice))
+    while((list($k,$doc) = each($ldoc)) )
       {
 	$nbseedoc++;
 
 	// view control
 	if ($doc-> Control("view") != "") continue;
 
-	if ((! $viewfld ) && ($doc->classname=="Dir")) continue;
 
 	$nbdoc++; // one more visible doc
 
@@ -298,7 +305,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   }
 
   // when slicing
-  $pagefolder[$startpage+1] = $nbseedoc;
+  $pagefolder[$startpage+1] = $nbseedoc+$start;
   $action->Register("pagefolder",$pagefolder);
   $action->lay->Set("next",$startpage+1);
   $action->lay->Set("prev",$startpage-1);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.2 2002/02/14 18:11:42 eric Exp $
+// $Id: Class.Doc.php,v 1.3 2002/02/15 13:56:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.2 2002/02/14 18:11:42 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.3 2002/02/15 13:56:16 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -706,8 +706,10 @@ create sequence seq_id_doc start 1000";
       $err=$this->CanLockFile();
       if ($err != "") return $err;
       
+    if ($this->locked != 0) {
       $this->locked = "0";      
       $this->modify();
+    }
     
     return "";
   }

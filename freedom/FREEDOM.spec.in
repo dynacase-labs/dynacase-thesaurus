@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.11 2002/02/13 14:31:58 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.12 2002/02/15 13:56:16 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -136,11 +136,8 @@ if [ "$1" = 1 ] ; then
   echo "Create @DBUSER@ database  user"
   su - postgres -c "createuser -d -a @DBUSER@" 2>&1 >>/dev/null
   echo "Initiate Database elements"  
-  %{destdir}/wsh.php --api=appadmin  --appname=@PACKAGELIB@ 
-  %{destdir}/wsh.php --app=@PACKAGELIB@ --action=@PACKAGE@_INIT  
-  pushd %{destdir} >/dev/null
-  ln -sf ../@PACKAGELIB@/@PACKAGE@.vault VAULT
-  popd >/dev/null
+  %{destdir}/wsh.php --api=appadmin  --appname=FDL
+  %{destdir}/wsh.php --app=FDL --action=FREEDOM_INIT  
 else
   echo "Update Database elements"
   %{destdir}/wsh.php --api=appadmin --method=update --appname=@PACKAGELIB@
@@ -184,6 +181,7 @@ fi
 %dir %{destdir}/FDL
 %{destdir}/FDL/*
 %{destdir}/locale/*
+%{destdir}/API/*
 
 
 %changelog

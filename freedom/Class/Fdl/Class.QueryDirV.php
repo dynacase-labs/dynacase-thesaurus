@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.2 2002/02/14 18:11:42 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.3 2002/02/15 13:56:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.3  2002/02/15 13:56:16  eric
+// optimisation vitesse pour usercard si beaucoup de personnes
+//
 // Revision 1.2  2002/02/14 18:11:42  eric
 // ajout onglet et autres...
 //
@@ -68,7 +71,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.2 2002/02/14 18:11:42 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.3 2002/02/15 13:56:16 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -261,11 +264,21 @@ create table dirv ( dirid      int not null,
     return($rchilds);
   }
 
-  function getChildDoc($dirid, $start="0", $slice="ALL") {
+  function getChildDoc($dirid, $start="0", $slice="ALL", $sqlfilters=array()) {
     global $lprof;
     // query to find child directories
     //$qsql= "select  t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  (t0.doctype != 'T') and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid)  and (t2.dirid=$dirid) order by title LIMIT $slice OFFSET $start;";
-    $qsql= "select  t0.*, t0.oid from doc t0,dirv t1  where  (t0.doctype != 'T')  and  (t0.id=t1.childid)  and (t1.dirid=$dirid) order by title LIMIT $slice OFFSET $start;";
+
+    
+
+    //    if ($nofld) 
+    //  $qsql= "select  t0.*, t0.oid from doc t0,dirv t1  where  (t0.doctype != 'T') and (t0.classname != 'Dir')  and  (t0.id=t1.childid)  and (t1.dirid=$dirid) order by title LIMIT $slice OFFSET $start;";
+
+    if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
+    else $sqlcond = "";
+
+    
+    $qsql= "select  t0.*, t0.oid from doc t0,dirv t1  where  (t0.doctype != 'T')  and  (t0.id=t1.childid)  and (t1.dirid=$dirid) $sqlcond order by title LIMIT $slice OFFSET $start;";
 
 
     $query = new QueryDb($this->dbaccess,"Doc");
