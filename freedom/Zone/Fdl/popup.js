@@ -30,3 +30,9 @@ tdiv['[name]'][[divid]]=tdiv['[name]'][[divid]].concat([vmenuitems]);
 alert(tdivid['[name]'].toString());
 [ENDBLOCK ADDMENUACCESS]
 
+var fdl_hd2size=parseInt('[FDL_HD2SIZE]');
+var fdl_vd2size=parseInt('[FDL_VD2SIZE]');
+
+
+if (fdl_hd2size == 0) fdl_hd2size=400;
+if (fdl_vd2size == 0) fdl_vd2size=300;

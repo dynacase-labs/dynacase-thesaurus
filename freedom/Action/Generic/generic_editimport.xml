@@ -77,7 +77,7 @@ function changeFormat(fmt) {
             <OPTION VALUE="keep">[TEXT:Keep address book card]</OPTION>
   </SELECT><BR>
 <input type="submit" id="bsubmit" value="[TEXT:Import CSV]">
- <input type="button" value=[TEXT:Help] onClick="subwindow(300,400,'helpwhat','[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=USERCARD&sectid=usercard.adm.import');"> 
+ <input type="button" value=[TEXT:Help] onClick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'helpwhat','[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=USERCARD&sectid=usercard.adm.import');"> 
 </FORM>
 
 [ZONE CORE:HTMLFOOT]

@@ -163,14 +163,14 @@ function activate(th, url, wname) {
     if ((wname == "")||(wname == "_self")) {
       setTimeout('viewwait()',1000);
       window.location.href=url;
-    } else subwindowm(300,400,wname,url);
+    } else subwindowm(fdl_vd2size,fdl_hd2size,wname,url);
    
   }
 }
 
 function sendandreload(th, url) {
   if (th.className == 'menuItem') {
-        subwindow(300,400,'doc_properties',url);
+        subwindow(fdl_vd2size,fdl_hd2size,'doc_properties',url);
 	//	closeMenu();
 	//if (window.name != 'doc_properties')
 	//  document.location.reload(true);

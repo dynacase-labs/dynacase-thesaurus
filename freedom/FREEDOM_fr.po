@@ -5,7 +5,7 @@
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
 	"Report-Msgid-Bugs-To: \n"
-	"POT-Creation-Date: 2004-04-27 15:09+0200\n"
+	"POT-Creation-Date: 2004-04-27 17:32+0200\n"
 	"PO-Revision-Date: 2004-03-16 11:17+0100\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -998,36 +998,6 @@ msgstr	"vers stocké"
 msgid	"Tout"
 msgstr	"vers sorti"
 
-msgid	"include"
-msgstr	"contient"
-
-msgid	"equal"
-msgstr	"égal"
-
-msgid	"not equal"
-msgstr	"pas égal"
-
-msgid	"not include"
-msgstr	"ne contient pas"
-
-msgid	"&gt; or equal"
-msgstr	"&gt; ou égal"
-
-msgid	"&lt; or equal"
-msgstr	"&lt; ou égal"
-
-msgid	"and"
-msgstr	"et"
-
-msgid	"or"
-msgstr	"ou"
-
-msgid	"doctitle"
-msgstr	"titre"
-
-msgid	"revdate"
-msgstr	"date de modification"
-
 msgid	"read only"
 msgstr	"lecture seule"
 
@@ -1052,14 +1022,44 @@ msgstr	"O"
 msgid	"N"
 msgstr	"N"
 
+msgid	"doctitle"
+msgstr	"titre"
+
+msgid	"revdate"
+msgstr	"date de modification"
+
 msgid	"revision"
 msgstr	"révision"
 
+msgid	"include"
+msgstr	"contient"
+
+msgid	"equal"
+msgstr	"égal"
+
+msgid	"not equal"
+msgstr	"pas égal"
+
+msgid	"not include"
+msgstr	"ne contient pas"
+
+msgid	"&gt; or equal"
+msgstr	"&gt; ou égal"
+
+msgid	"&lt; or equal"
+msgstr	"&lt; ou égal"
+
 msgid	"is empty"
-msgstr "est vide"
+msgstr	"est vide"
 
 msgid	"is not empty"
-msgstr "n'est pas vide"
+msgstr	"n'est pas vide"
+
+msgid	"and"
+msgstr	"et"
+
+msgid	"or"
+msgstr	"ou"
 
 #, c-format
 msgid	"%s updated\n"
@@ -1524,6 +1524,12 @@ msgstr	"taille maximum de chaines de caractère pour les choix"
 
 msgid	"send mail copy"
 msgstr	"copie envoi de mail"
+
+msgid	"horizontal size for secondary windows"
+msgstr "taille horizontale lors de l'ouverture de fenêtre secondaire"
+
+msgid	"vertical size for secondary windows"
+msgstr "taille verticale lors de l'ouverture de fenêtre secondaire"
 
 msgid	"maximum document can be imported directly"
 msgstr	"nombre maximum de documents pouvant être importé en direct"

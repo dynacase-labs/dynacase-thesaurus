@@ -92,7 +92,7 @@ var catgid=[catg];
      class="unselect" 
      onmouseover="if (this.className != 'select') this.className='unselecth'"
      onmouseout="if (this.className != 'select') this.className='unselect'" 
-     onclick="if (document.noselect) document.noselect=false; else {select(this,[id],[divid]);;subwindow(300,400,'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&props=N&id=[id]');}" 
+     onclick="if (document.noselect) document.noselect=false; else {select(this,[id],[divid]);;subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&props=N&id=[id]');}" 
      >   
  <td class="tlist">
 <IMG style="display:none" id="i[divid]"      src="[iconsrc]">[title]</td>

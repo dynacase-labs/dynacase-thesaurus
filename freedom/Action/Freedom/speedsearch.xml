@@ -1,7 +1,7 @@
 
 
 <form  target="fspeedlist" class="fborder" name="search" method="POST" 
-       onsubmit="subwindowm(300,600,'fspeedlist','')"
+       onsubmit="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'fspeedlist','')"
        action="[CORE_STANDURL]&app=[APPNAME]&action=SEARCH" 
        style="display:inline">
 

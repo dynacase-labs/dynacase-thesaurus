@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.14 2003/08/13 13:10:10 eric Exp $
+// $Id: FDL_init.php.in,v 1.15 2004/04/27 16:15:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,6 +39,14 @@ $app_const= array(
 		       "user"=>"Y",
 		       "global"=>"Y",
 		       "kind"=>"enum(yes|no)"),
+  "FDL_HD2SIZE"    =>array("val"=>"300",
+		       "descr"=>N_("horizontal size for secondary windows"),
+		       "user"=>"Y",
+		       "global"=>"Y"),
+  "FDL_VD2SIZE"    =>array("val"=>"400",
+		       "descr"=>N_("vertical size for secondary windows"),
+		       "user"=>"Y",
+		       "global"=>"Y"),
   "FDL_MAX_FGEXPORTDOC"    =>array("val"=>"20",
 				  "descr"=>N_("maximum document can be imported directly"),
 				  "user"=>"N",

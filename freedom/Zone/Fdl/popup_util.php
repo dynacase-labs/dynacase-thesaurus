@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popup_util.php,v 1.8 2004/02/17 11:00:29 eric Exp $
+ * @version $Id: popup_util.php,v 1.9 2004/04/27 16:15:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.8 2004/02/17 11:00:29 eric Exp $
+// $Id: popup_util.php,v 1.9 2004/04/27 16:15:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -146,7 +146,7 @@ function popupGen($kdiv) {
     $action->parent->AddCssCode($csslay->gen());
         $first=0;
   }
-  $lpopup = new Layout($action->Getparam("CORE_PUBDIR")."/FDL/Layout/popup.js");
+  $lpopup = new Layout($action->Getparam("CORE_PUBDIR")."/FDL/Layout/popup.js",$action);
   if (isset($tmenuaccess)) {
     reset($tmenuaccess);
     $kv=0; // index for item
