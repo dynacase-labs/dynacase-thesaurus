@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.5 2002/02/22 15:34:54 eric Exp $
+// $Id: Class.Doc.php,v 1.6 2002/03/06 17:22:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.5 2002/02/22 15:34:54 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.6 2002/03/06 17:22:56 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -64,18 +64,18 @@ create table doc ( id int not null,
                    primary key (id),
                    owner int,
                    title varchar(256),
-                   revision float4,
+                   revision float4 DEFAULT 0,
                    initid int,
                    fromid int,
-                   doctype varchar(1),
-                   locked int,
+                   doctype varchar(1) DEFAULT 'F',
+                   locked int DEFAULT 0,
                    icon varchar(256),
-                   lmodify varchar(1),
-                   profid int,
-                   useforprof bool,
+                   lmodify varchar(1) DEFAULT 'N',
+                   profid int DEFAULT 0,
+                   useforprof bool DEFAULT 'f',
                    revdate int,  
                    comment varchar(1024),
-                   cprofid int,
+                   cprofid int DEFAULT 0,
                    classname varchar(64),
                    state varchar(64)
                    );
@@ -121,6 +121,9 @@ create sequence seq_id_doc start 1000";
 
   function Complete()
     {
+      // --------------------------------
+      // set the object control permission
+      // --------------------------------
     global $lprof;
     //print "select $this->id <BR>";
     if ($this->profid < 0) { // self control
@@ -128,7 +131,8 @@ create sequence seq_id_doc start 1000";
 	if (! isset($lprof[$this->id])) {
 	$lprof[$this->id] =  new ObjectPermission("", 
                                        array($this->userid,
-				             $this->id ));
+				             $this->id, 
+					     $this->classid));
 	//	print "SET $this->id : controlled  <BR>";
 	}
 	$this->operm= $lprof[$this->id];
@@ -446,7 +450,7 @@ create sequence seq_id_doc start 1000";
 
       
       $query->AddQuery("useforprof");
-      $query->AddQuery("doctype='F'");
+      $query->AddQuery("doctype != 'C'");
       $query->AddQuery("lower(classname)='".get_class($this)."'");
     
       
@@ -606,6 +610,24 @@ create sequence seq_id_doc start 1000";
     if (chop($title1) != "")  $this->title = chop($title1);
 
   }
+
+
+
+  // recompute the title from attribute values
+  function SetTitle($title) {
+    $ltitle = $this->GetTitleAttributes();
+
+    $otitle = new DocValue($this->dbaccess, array($this->id, $ltitle[0]->id));
+
+    //    print "title:".$title->value;
+    if ($otitle->isAffected()) {
+      $otitle->value = $title;
+      $otitle->Modify();
+    }
+    
+
+  }
+
   // return all the values
   function GetValues()
     {
@@ -667,17 +689,16 @@ create sequence seq_id_doc start 1000";
     $this->Add();
 
     // duplicate values
-    $query = new QueryDb($this->dbaccess,"DocValue");
-    $query->AddQuery("docid = ".$olddocid);
+    
     
     $value = new DocValue($this->dbaccess);
     $value->docid = $this->id;
-    $listvalue = $query->Query();
+    $listvalue = $this->GetValues();
     
     
     while(list($k,$v) = each($listvalue)) {
-      $value->attrid = $v->attrid;
-      $value->value = $v->value;
+      $value->attrid = $v["attrid"];
+      $value->value = $v["value"];
       $value->Add();
       
     }
