@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.23 2004/06/23 14:21:39 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.24 2004/06/25 12:51:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -65,7 +65,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   if ((count($taid) > 1) || ($taid[0] != "")) {
     // special loop for revdate
     foreach($tkey as $k=>$v) {
-      if (substr($v,0,2)=="::") {
+      if (strtolower(substr($v,0,5))=="::get") { // only get method allowed
 	// it's method call
 	$rv = $this->ApplyMethod($v);
 	$tkey[$k]=$rv;
@@ -223,6 +223,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
        $tinputs[$k]["inputs"]=getHtmlInput($doc,$zpi[$v],getHttpVars($k));
      } else {
        $aotxt=new BasicAttribute($v,$doc->id,"eou");
+       if ($v=="revdate") $aotxt->type="date";
        $tinputs[$k]["inputs"]=getHtmlInput($doc,$aotxt,getHttpVars($k));
      }
    }
@@ -274,7 +275,7 @@ function editdsearch() {
   $tattr=array();
   $internals=array("title" => _("doctitle"),
 		   "revdate" => _("revdate"),
-		   "values"=> ("any values"));
+		   "values"=> _("any values"));
   
   while (list($k,$v) = each($internals)) {
     $tattr[]=array("attrid"=> $k,
