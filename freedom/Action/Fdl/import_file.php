@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.45 2003/04/02 13:22:09 eric Exp $
+// $Id: import_file.php,v 1.46 2003/04/03 08:00:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -164,7 +164,7 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "ICON":
-      //      if ($doc->icon == "")
+      if ($doc->icon == "")
 	if (! $analyze) $doc->changeIcon($data[1]);
     break;
     // -----------------------------------

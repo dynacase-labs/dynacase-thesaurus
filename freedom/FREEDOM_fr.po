@@ -464,7 +464,7 @@ msgstr	"attribut inconnu"
 
 #, c-format
 msgid	"%s needed\n"
-msgstr "%s a été envoyé\n"
+msgstr "%s est doit être rempli\n"
 
 msgid	"document already revised"
 msgstr	"document déjà révisé"

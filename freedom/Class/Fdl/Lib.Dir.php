@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.63 2003/03/11 17:08:34 eric Exp $
+// $Id: Lib.Dir.php,v 1.64 2003/04/03 08:00:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -238,7 +238,7 @@ function getKindDoc($dbaccess,
 		    $aid, 
 		    $kid, 
 		    $name="", // filter on title
-		    $sqlfilters=array(), 
+		    $sqlfilter=array(), 
 		    $limit=100,
 		    $qtype="TABLE",
 		    $userid=0) {
@@ -246,16 +246,31 @@ function getKindDoc($dbaccess,
   global $action;
 
   if ($userid==0) $userid=$action->user->id;
-  if (strstr($kid,".") != "") {
-    $sqlfilters[] = "$aid ~ '".str_replace(".","\\\\\.",$kid)."'";
-  } else {
-    $sqlfilters[] = "in_textlist($aid,'$kid') or $aid ~ '$kid\.'";
-  }
-  if ($name != "")  $sqlfilters[]="title ~* '$name'";
-
+  
   $famid= getFamIdFromName($dbaccess,$famname);
+  $fdoc = new Doc($dbaccess, $famid);
+  // searches for all fathers kind
+  $a = $fdoc->getAttribute($aid);
+
+  $tkids=array();;
+  while (list($k, $v) = each($a->enum)) {
+    if (in_array($kid,explode(".",$k))) {
+      $tkids[] = substr($k,strrpos(".".$k,'.'));
+    }
+  }
+  if ($a->type == "enumlist") {
+     $sqlfilter[] = "in_textlist($aid,'".
+       implode("') or in_textlist($aid,'",$tkids)."')";
+  } else  if ($a->type == "enum") {
+     $sqlfilter[] = "$aid='".
+       implode("' or $aid='",$tkids)."'";    
+  }
+
+
+  if ($name != "")  $sqlfilter[]="title ~* '$name'";
+
   return getChildDoc($dbaccess, 
-		     0,0,$limit,$sqlfilters ,$userid,"TABLE",
+		     0,0,$limit,$sqlfilter ,$userid,"TABLE",
 		     getFamIdFromName($dbaccess,$famname));
 }
 function sqlval2array($sqlvalue) {

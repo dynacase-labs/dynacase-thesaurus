@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.3 2003/03/31 08:55:56 eric Exp $
+// $Id: generic_search_kind.php,v 1.4 2003/04/03 08:00:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,29 +76,23 @@ function generic_search_kind(&$action) {
   if (strrpos($kid,'.') !== false)   $kid = substr($kid,strrpos($kid,'.')+1); // last reference
 
 
-  $a = $fdoc->getAttribute($aid);
-
-  $tkids=array();;
-  while (list($k, $v) = each($a->enum)) {
-
-    if (in_array($kid,explode(".",$k))) {
-      $tkids[] = substr($k,strrpos(".".$k,'.'));
-    }
-  }
 
 
 
   $sqlfilter[]= "locked != -1";
   $sqlfilter[]= "doctype='F'";
   $sqlfilter[]= "usefor = 'N'";
-  // $sqlfilter[]="$aid ~ '".implode("|",$tkids)."'";
-  //  print "[$kid]";
-//    if (strstr($kid,".") == "") {
-//          $sqlfilter[] = "in_textlist($aid,$kid)";
-//    } else {
-  //  $tkids=explode(".",$kid);
-  //   print_r2($tkids);
 
+
+  // searches for all fathers kind
+  $a = $fdoc->getAttribute($aid);
+
+  $tkids=array();;
+  while (list($k, $v) = each($a->enum)) {
+    if (in_array($kid,explode(".",$k))) {
+      $tkids[] = substr($k,strrpos(".".$k,'.'));
+    }
+  }
   if ($a->type == "enumlist") {
      $sqlfilter[] = "in_textlist($aid,'".
        implode("') or in_textlist($aid,'",$tkids)."')";
