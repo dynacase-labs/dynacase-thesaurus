@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.14 2005/01/31 17:46:34 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.15 2005/02/01 17:06:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -203,11 +203,11 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 		      "res"=>$tresname[$ki],
 		      "subtype"=>getv($v,"evt_code"),
 		      "divtitle"=>((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"],
-		      "desc"=>addslashes(sprintf("<b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",$v["title"],
+		      "desc"=>str_replace("\n","<br/>",(addslashes(sprintf("<b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",$v["title"],
 						 getv($v,"evt_frominitiator"),
 						 substr(getv($v,"evt_begdate"),0,10),
 						 substr(getv($v,"evt_enddate"),0,10),
-						 getv($v,"evt_desc"))));
+						 getv($v,"evt_desc")))));
       
     
       if (! isset($colorredid[$RN[$sub][$idxc]])) $colorredid[$RN[$sub][$idxc]]=$idc++;
