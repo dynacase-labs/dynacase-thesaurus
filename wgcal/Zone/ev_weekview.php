@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.2 2005/01/27 12:06:20 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.3 2005/01/31 18:25:01 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -43,4 +43,9 @@ function ev_weekview_full(&$action, $ev) {
   ev_weekview_resume($action, $ev);
 }
 
+
+function showIcons(&$action, $ev) {
+  $action->layout = $action->GetLayoutFile($layf);
+
+}
 ?>
