@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocIGroup.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.7 2003/09/16 07:39:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIGroup.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.DocIGroup.php,v 1.7 2003/09/16 07:39:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,7 +52,18 @@ function specRefresh() {
   return $err;
 }
 
- 
+/**
+ * recompute only parent group 
+ * call {@see ComputeGroup()}
+ * 
+ * @return string error message, if no error empty string
+ */
+function RefreshGroup() {
+  
+  $err=_GROUP::RefreshGroup(); 
+  $err.=$this->ComputeGroup();
+  return $err;
+}
 
 function PostModify() {
 
