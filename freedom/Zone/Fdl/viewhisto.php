@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewhisto.php,v 1.5 2003/01/20 19:09:28 eric Exp $
+// $Id: viewhisto.php,v 1.6 2003/07/30 14:52:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewhisto.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,7 @@ function viewhisto(&$action)
     $owner = new User("", $rdoc->owner);
     $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
     $trdoc[$k]["revision"]= $rdoc->revision;
-    $trdoc[$k]["comment"]= nl2br($rdoc->comment);
+    $trdoc[$k]["comment"]= nl2br(htmlentities($rdoc->comment));
     $trdoc[$k]["id"]= $rdoc->id;
     $trdoc[$k]["divid"]= $k;
 
