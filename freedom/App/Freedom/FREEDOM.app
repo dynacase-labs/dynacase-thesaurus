@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.13 2002/09/26 15:45:15 eric Exp $
+// $Id: FREEDOM.app,v 1.14 2002/10/01 16:30:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -153,7 +153,7 @@ $action_desc = array (
   array( 
    "name"		=>"DEFATTR",
    "short_name"		=>N_("attributes definitions"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM_MASTER",
   ) ,
   array( 
    "name"		=>"REFRESHDIR",
@@ -163,7 +163,7 @@ $action_desc = array (
   array( 
    "name"		=>"MODATTR",
    "short_name"		=>N_("attributes modification"),
-   "acl"		=>"FREEDOM"
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"LOCKFILE",
@@ -193,7 +193,7 @@ $action_desc = array (
   array( 
    "name"		=>"EDITDFLD",
    "short_name"		=>N_("edit default folder"),
-   "acl"		=>"FREEDOM"
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"MODDFLD",
@@ -213,12 +213,12 @@ $action_desc = array (
   array( 
    "name"		=>"CHANGEICON",
    "short_name"		=>N_("change icon document"),
-   "acl"		=>"FREEDOM"
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"CHANGETITLE",
    "short_name"		=>N_("change title family"),
-   "acl"		=>"FREEDOM"
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"QUERYTITLE",
