@@ -66,7 +66,7 @@ TH {
 [BLOCK [blockvalue]]
 <tr  id="d[divid]"
      class="unselect" 
-     onMouseDown="if (! document.noselect) {select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);}document.noselect=false;" 
+     onMouseUp="if (! document.noselect) {select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);};document.noselect=false;" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false">   
  <td class="tlist">

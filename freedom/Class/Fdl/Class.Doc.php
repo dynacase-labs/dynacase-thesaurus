@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.161 2003/10/17 16:39:33 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.162 2003/10/21 12:31:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.161 2003/10/17 16:39:33 eric Exp $
+// $Id: Class.Doc.php,v 1.162 2003/10/21 12:31:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.161 2003/10/17 16:39:33 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.162 2003/10/21 12:31:41 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1027,16 +1027,17 @@ create unique index i_docir on doc(initid, revision);";
 
   // return all the attributes object for title
   // the attribute can be defined in fathers
-  function GetTitleAttributes()
-    { 
-      if (!$this->_maskApplied) $this->ApplyMask();
-      $tsa=array();
+  function GetTitleAttributes() { 
+    if (!$this->_maskApplied) $this->ApplyMask();
+    $tsa=array();
+    if (isset($this->attributes->attr)) {
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute") && ($v->isInTitle)) $tsa[$v->id]=$v;      
       }
-      return $tsa;
     }
+    return $tsa;
+  }
   // return all the attributes object for to e use in edition
   // the attribute can be defined in fathers
   function GetInputAttributes()
@@ -1898,7 +1899,7 @@ create unique index i_docir on doc(initid, revision);";
 	    if ($index >= 0) $htmlval.="+$index";
 	    $htmlval.=  "\">".$fname."</A>";
 	  } else 
-	    $htmlval="<A onclick=\"document.noselect=true;\" target=\"_blank\" href=\"".
+	    $htmlval="<A onmousedown=\"document.noselect=true;\" target=\"_blank\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
 	      "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
 	      ."\">".$fname.
@@ -1998,7 +1999,7 @@ create unique index i_docir on doc(initid, revision);";
 	  $abegin.= $action->GetParam("CORE_PUBURL")."/".$ulink;
 	  $abegin.="\">";
 	} else {
-	  $abegin="<A target=\"$target\" onclick=\"document.noselect=true;\" href=\"";
+	  $abegin="<A target=\"$target\" onmousedown=\"document.noselect=true;\" href=\"";
 	  $abegin.= $ulink."\" ";;
 	  if ($htmllink > 1){
 	    $turl=parse_url($ulink);
