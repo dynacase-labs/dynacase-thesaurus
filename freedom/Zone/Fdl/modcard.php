@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.63 2004/03/25 11:10:09 eric Exp $
+ * @version $Id: modcard.php,v 1.64 2004/06/23 14:28:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.63 2004/03/25 11:10:09 eric Exp $
+// $Id: modcard.php,v 1.64 2004/06/23 14:28:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -291,7 +291,19 @@ function insert_file($dbaccess,$docid, $attrid)
 	// if no file specified, keep current file
 	
 	if ($userfile['name'] != "") {
-	  $err = sprintf(_("Filename '%s' cannot be transmitted.\nThe Size Limit is %s bytes."), $userfile['name'],ini_get('upload_max_filesize'));
+	  switch ($userfile['error']) {
+	  case UPLOAD_ERR_INI_SIZE:
+	    $err = sprintf(_("Filename '%s' cannot be transmitted.\nThe Size Limit is %s bytes."), $userfile['name'],ini_get('upload_max_filesize'));
+	    break;	    
+	  case UPLOAD_ERR_FORM_SIZE:
+	    $err = sprintf(_("Filename '%s' cannot be transmitted.\nThe Size Limit was specified in the HTML form."), $userfile['name']);
+	    break;
+	  case UPLOAD_ERR_PARTIAL:
+	    $err = sprintf(_("Filename '%s' cannot be transmitted completly.\nMay be saturation of server disk."), $userfile['name']);
+	    break;
+	  default:
+	    $err = sprintf(_("Filename '%s' cannot be transmitted."), $userfile['name']);
+	  }
 	  $action->ExitError($err);
 	}
 	// reuse old value
