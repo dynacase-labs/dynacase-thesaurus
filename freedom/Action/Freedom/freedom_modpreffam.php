@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_modpreffam.php,v 1.1 2003/05/19 10:45:02 eric Exp $
+// $Id: freedom_modpreffam.php,v 1.2 2003/05/20 07:02:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modpreffam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,8 +30,8 @@ function freedom_modpreffam(&$action)
 
 
   
-  $idsfam = $action->GetParam("FREEDOM_PREFFAMIDS");
-  $idsfam = implode(",",$tidsfam);
+  $idsfam = "";
+  if (is_array($tidsfam)) $idsfam = implode(",",$tidsfam);
 
   $action->parent->param->Set("FREEDOM_PREFFAMIDS",$idsfam,PARAM_USER.$action->user->id,$action->parent->id);
 	  
