@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.5 2003/11/03 09:08:11 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.6 2004/02/09 16:43:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -57,7 +57,7 @@ if ($query->nb > 0)	{
     $mail = getMailAddr($v["id"]);
     // first in IUSER
     if ($v["isgroup"] == "Y") {
-      $filter = array("grp_whatid = ".$v["id"]);
+      $filter = array("us_whatid = ".$v["id"]);
       $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
 			  getFamIdFromName($dbaccess,"IGROUP"));
     } else {
@@ -101,7 +101,7 @@ if ($query->nb > 0)	{
 	// create new card
 	if ($v["isgroup"]=="Y") {
 	  $iuser = createDoc($dbaccess,getFamIdFromName($dbaccess,"IGROUP"));
-	  $iuser->setValue("GRP_WHATID",$v["id"]);
+	  $iuser->setValue("US_WHATID",$v["id"]);
 	  $iuser->Add();
 	  $iuser->refresh();
 	  $iuser->postmodify();

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocIGroup.php,v 1.8 2004/01/26 14:55:04 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.9 2004/02/09 16:43:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIGroup.php,v 1.8 2004/01/26 14:55:04 eric Exp $
+// $Id: Method.DocIGroup.php,v 1.9 2004/02/09 16:43:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,18 +74,18 @@ function PostModify() {
  
 function ComputeGroup() {
   $err="";
-  $this->AddParamRefresh("GRP_WHATID",
-			 "GRP_NAME,GRP_MAIL,GRP_LOGIN,GRP_USER,GRP_GROUP,GRP_IDUSER,GRP_IDGROUP");
+  $this->AddParamRefresh("US_WHATID",
+			 "GRP_NAME,GRP_MAIL,US_LOGIN,GRP_USER,GRP_GROUP,GRP_IDUSER,GRP_IDGROUP");
 
   
-  $iduser = $this->getValue("GRP_WHATID");
+  $iduser = $this->getValue("US_WHATID");
   if ($iduser > 0) {
     $user = new User("",$iduser);
     if (! $user->isAffected()) {
       return sprintf(_("Group %s not exist"),$iduser);
     }
     $this->SetValue("GRP_NAME", chop($user->firstname." ".$user->lastname));
-    $this->SetValue("GRP_LOGIN", $user->login);
+    $this->SetValue("US_LOGIN", $user->login);
     $this->SetValue("GRP_MAIL",getMailAddr($iduser) );
 
     // get members 
