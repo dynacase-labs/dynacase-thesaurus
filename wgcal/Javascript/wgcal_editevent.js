@@ -397,26 +397,22 @@ function EventSelectAll(f) {
 }
 
 
-function viewattdispo() {
+function viewattdispo(url) {
 
-  var f = document.getElementById('viewdispo');
-  var rl = document.getElementById('idres');
-  var rvs = document.getElementById('rvstart').value;
-  var js = document.getElementById('jdstart');
-  var rve = document.getElementById('rvend').value;
-  var je = document.getElementById('jdend');
+  var rvs = document.getElementById('Fstart').value;
+  var js;
+  var je;
 
   rll = "";
   for (att=0; att<attendeesList.length; att++) {
     if (attendeesList[att]==-1) continue;
     rll += attendeesList[att][0] + '|';
   }
-  rl.value = rll;
   
   var td = new Date(rvs*1000);
-  js.value = cal_to_jd( "CE", td.getFullYear(), td.getMonth()+1, td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
-  je.value = parseFloat(js.value) + 14.0;
-  f.submit();
+  js = cal_to_jd( "CE", td.getFullYear(), td.getMonth()+1, td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
+  je = parseFloat(js) + 14.0;
+  subwindow(300, 700, 'ViewDispo', url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
 }
 
 function clickB2(idb) {

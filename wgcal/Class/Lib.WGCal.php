@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.18 2005/03/14 06:40:56 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.19 2005/03/15 06:30:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -223,17 +223,17 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
       if ($withme && $mystate!=2) 
  	PopupActive('calpopup',$item["RG"], 'acceptrv');
       else
-	PopupInactive('calpopup',$item["RG"], 'acceptrv');
+	PopupInvisible('calpopup',$item["RG"], 'acceptrv');
 
       if ($withme && $mystate!=3) 
  	PopupActive('calpopup',$item["RG"], 'rejectrv');
       else
-	PopupInactive('calpopup',$item["RG"], 'rejectrv');
+	PopupInvisible('calpopup',$item["RG"], 'rejectrv');
 
       if ($withme && $mystate!=4) 
 	PopupActive('calpopup',$item["RG"], 'tbcrv');
       else
-	PopupInactive('calpopup',$item["RG"], 'tbcrv');
+	PopupInvisible('calpopup',$item["RG"], 'tbcrv');
 	
 
       PopupActive('calpopup',$item["RG"], 'cancelrv');

@@ -1,10 +1,5 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="eventid" name="eventid" value="[EVENTID]"> </form>
-<form id="viewdispo" name="viewdispo" method="POST" target="wgcal_dispo" action="[CORE_STANDURL]&app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T&byres=Y&id=[planid]">
-<input id="idres" name="idres" type="hidden" value="">
-<input id="jdstart" name="jdstart" type="hidden" value="">
-<input id="jdend" name="jdend" type="hidden" value="">
-</form>
 
 <form id="editevent" name="editevent" method="POST" target="wgcal_conflict" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHECKCONFLICT">
 <input type="hidden" id="cfchecked" name="cfchecked" value="0">
@@ -146,7 +141,7 @@
      src="WGCAL/Images/wm-attendees.png" title="[TEXT:add attendees]">
 
    <img id="viewplan" style="display:[voneatt]; cursor:pointer;" height="20"
-          onclick="viewattdispo();";
+          onclick="viewattdispo('[CORE_STANDURL]&app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T&byres=Y&id=[planid]');";
           src="WGCAL/Images/wm-planner.png" title="[TEXT:vew disponibility]">
 
    <img id="delall" style="display:[voneatt]; cursor:pointer;" height="20"

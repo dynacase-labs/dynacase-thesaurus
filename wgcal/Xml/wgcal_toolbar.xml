@@ -41,7 +41,7 @@
 <td align="right"><input type="checkbox" onchange="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v" title="[TEXT:display two months]"></td>
 </tr>
 </table>
-<div align="center" width="100%" id="inav" style="overflow:auto; display:[vTool1]">
+<div align="center" class="wToolArea" width="100%" id="inav" style="overflow:auto; display:[vTool1]">
 <script type="text/javascript">Calendar.setup({
         ifFormat       :    '%s',       // format of the input field
         showsTime      :    false,            // will display a time selector

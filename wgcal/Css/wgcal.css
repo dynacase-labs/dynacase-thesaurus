@@ -215,7 +215,7 @@ TD {
   height : 22px;
 }
 .wToolArea {
-  border : 1px outset [WTH_COLOR_1];
+  border : 1px inset [WTH_COLOR_1];
   padding : 2px;
 }
 .wMonthTextTitle {

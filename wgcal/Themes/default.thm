@@ -1,28 +1,28 @@
 <?php
+include_once("WGCAL/Themes/default.thm");
 
-$theme->Name   = _("default");
-$theme->Descr  = _("the default theme");
+$theme->Name   = _("blue");
+$theme->Descr  = _("blue theme");
 
-$theme->WTH_BGIMG = "url('WGCAL/Images/bg-default.gif')";
+$theme->WTH_BGIMG                 =  "url('WGCAL/Images/bg-blue.gif')";
 
-// Colors
-$theme->WTH_TEXTCOLOR_1           =  "midnightblue";
-$theme->WTH_TEXTCOLOR_2           =  "snow";
-$theme->WTH_COLOR_1               =  "#DEDEEF";
-$theme->WTH_COLOR_2               =  "lightsteelblue";
-$theme->WTH_COLOR_3               =  "#93A3C5";
+$theme->WTH_TEXTCOLOR_1           =  "#03005D";  // Foncé
+$theme->WTH_TEXTCOLOR_2           =  "#B6DCF4";    // Clair
+
+$theme->WTH_COLOR_1               =  "#D3E5FF";  // Clair
+$theme->WTH_COLOR_2               =  "#B8D8FF";  // Moyen
+$theme->WTH_COLOR_3               =  "#A7C7D8";  // Foncé
 $theme->WTH_ALERT                 =  "red";
 
 // Calendar specific colors
-$theme->WTH_CALWEEKEND            =  "#9FA5CD";
-$theme->WTH_CALTODAY              =  "#E2EBFF";
+$theme->WTH_CALWEEKEND            =  "#F0E8FF";
+$theme->WTH_CALTODAY              =  "#eef4f9";
 
-// Fonts 
-$theme->WTH_FONTLIST              =  "Tahoma, Helvetica, Arial, sans-serif";
+
+$theme->WTH_FONTLIST              =  "Arial, Tahoma, Helvetica, sans-serif";
 $theme->WTH_FONTSIZE_NORMAL       =  "10";
-$theme->WTH_FONTSIZE_BIG          =  "12";
+$theme->WTH_FONTSIZE_BIG          =  "10";
 $theme->WTH_FONTSIZE_SMALL        =  "7";
 
-$theme->WTH_TOOLBARW               =  "200";
-
+$theme->WTH_TOOLBARW              =  "200";
 ?>
