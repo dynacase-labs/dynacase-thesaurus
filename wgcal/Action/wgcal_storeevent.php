@@ -4,45 +4,85 @@ include_once("FDL/Class.Doc.php");
 
 function wgcal_storeevent(&$action) {
 
-  global $_POST;
-  print_r2($_POST);
-
-  $ev->id  = GetHttpVars("eventid", -1);
-  $ev->title = GetHttpVars("rvtitle", "");
-  $ev->allday = (GetHttpVars("allday", "") == "on" ? true : false );
-  $ev->nohour = (GetHttpVars("nohour", "") == "on" ? true : false );
-  $ev->start = GetHttpVars("rvstart", -1);
-  $ev->end = GetHttpVars("rvend", -1);
-  $ev->note = GetHttpVars("rvnote", "");
-  $ev->visib = wgcal_getArrayVal("rvconfid", 0);
-  $ev->calendar = wgcal_getArrayVal("rvcalendar", 0);
-  $ev->state = wgcal_getArrayVal("rvstatus", 0);
-  $ev->alarm = (GetHttpVars("AlarmCheck", "") == "on" ? true : false );
-  $ev->alarm_h = GetHttpVars("alarmhour", 0);
-  $ev->alarm_m = GetHttpVars("alarmmin", 0);
-
-  $ev->repeatmode = GetHttpVars("repeattype", -1);
-  $ev->rweekday = GetHttpVars("rweekday", -1);
-  $ev->rmonth = GetHttpVars("rmonth", -1);
-  $ev->runtil = GetHttpVars("runtil", -1);
-  $ev->runtildate = GetHttpVars("runtildate", -1);
-  
   $db = $action->getParam("FREEDOM_DB");
-  if ($ev->id==-1) {
-    $event = new Doc($db);
+  
+  $id  = GetHttpVars("eventid", -1);
+  if ($id==-1) {
     $event = createDoc($db, "CALEVENT");
-    $err = $event->Add();
+    $event->Add();
   } else {
     $event = new Doc($db, $ev->id);
   }
-  $event->setValue("CALEV_EVTITLE", $ev->title);
-  $event->setValue("CALEV_EVNOTE", $ev->note);
-  $err = $event->Modify();
-  echo "<h2> Erreur : $err </h2>";
-  print_r2($event);
   
+  $event->setValue("CALEV_EVTITLE", GetHttpVars("rvtitle", ""));
+  $event->setValue("CALEV_EVNOTE", GetHttpVars("rvnote", ""));
+  
+  $ds = GetHttpVars("rvstart", 0);
+  $de = GetHttpVars("rvend", 0);
+  
+  $event->setValue("CALEV_TIMETYPE", 0);
+  $event->setValue("CALEV_START", date2db($ds));
+  $event->setValue("CALEV_END", date2db($de));
+  if (GetHttpVars("allday", "") == "on") {
+    $event->setValue("CALEV_TIMETYPE", 2);
+    $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
+    $event->setValue("CALEV_END", date2db($ds, false)." 23:59");
+  }
+  if (GetHttpVars("nohour", "") == "on") {
+    $event->setValue("CALEV_TIMETYPE", 1);
+    $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
+    $event->setValue("CALEV_END", date2db($ds, false)." 00:00");
+  }
+  
+  $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
+  
+  $event->setValue("CALEV_EVCALENDAR", wgcal_getArrayVal("rvcalendar", 0));
+  
+  $event->setValue("CALEV_VISIBILITY", wgcal_getArrayVal("rvconfid", 0));
+  
+  $event->setValue("CALEV_EVALARM", (GetHttpVars("AlarmCheck", "")=="on"?1:0));
+  if (GetHttpVars("AlarmCheck", "")=="on") {
+    $event->setValue("CALEV_EVALARM", 1);
+    $alarm = GetHttpVars("alarmhour", 0)*60 + GetHttpVars("alarmmin", 0);
+    $event->setValue("CALEV_EVALARMTIME", ($alarm>0?$alarm:30));
+  } else {
+    $event->setValue("CALEV_EVALARM", 0);
+    $event->setValue("CALEV_EVALARMTIME", 0);
+  }
+  
+  // repeat 
+  $rmode = GetHttpVars("repeattype", 0);
+  $event->setValue("CALEV_REPEATMODE", GetHttpVars("repeattype", 0));
+  $event->setValue("CALEV_REPEATWEEKDAY", GetHttpVars("rweekday", -1));
+  $event->setValue("CALEV_REPEATMONTH", GetHttpVars("rmonth", 0));
+  $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
+  if (GetHttpVars("runtil",0) != 0) {
+    $date = GetHttpVars("runtildate");
+    if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", date2db($date));
+  }
     
 
+  // Attendees
+  $attendees = GetHttpVars("attendees", array());
+  $attendeesname = array();
+  $attendeesstate = array();
+  foreach ($attendees as $ka => $va) {
+    $att = new Doc($db, $va);
+    $attendeesname[] = $att->title;
+    $attendeesstate[] = 0;
+  }
+
+  $event->setValue("CALEV_ATTID", $attendees); 
+  $event->setValue("CALEV_ATTTITLE", $attendeesname); 
+  $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
+    
+  // Compute global status according attendees one	   
+  // $ev->state = wgcal_getArrayVal("rvstatus", 0);
+		   
+  $err = $event->Modify();
+ 
+  if ($err!="") AddWarningMsg("$err");
+  else redirect($action, "WGCAL","WGCAL_EDITEVENT&evt=".$event->id);
 }
 
 function wgcal_getArrayVal($key, $def=null) {
@@ -50,6 +90,12 @@ function wgcal_getArrayVal($key, $def=null) {
   $a = GetHttpVars($key, array());
   if (count($a)>0) $v = $a[0];
   return $v;
+}
+
+function date2db($d, $hm = true) {
+  $fmt = ($hm ? "%d/%m/%Y %H:%M" : "%d/%m/%Y" );
+  $s = strftime($fmt, $d);
+  return $s;
 }
 
 ?>

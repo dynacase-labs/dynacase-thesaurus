@@ -1,28 +1,35 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
-<form id="editevent" name="editevent" target="xxxx" method="POST" 
+<form id="editevent" name="editevent" method="POST" 
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 
 <table width="100%" style="margin-top: 1em;">
 <tr><td align="right">
-<input class="WGCalButton" type="button" id=closeevent" name="closeevent" title="[TEXT:save]" value="[TEXT:save]"
-       onclick="saveEvent()" >
-<input class="WGCalButton" type="button" id=closeevent" name="closeevent" title="[TEXT:close]" value="[TEXT:close]"
-       onclick="cancelEvent();">
+<image src="WGCAL/Images/wm-save.png" 
+  height="20" title="[TEXT:save]" class="WGCalButton" style="border:0px" onclick="saveEvent();">
+<image src="WGCAL/Images/wm-mail.png" 
+  height="20" title="[TEXT:mail to contacts]" class="WGCalButton" style="border:0px" onclick="mailatt();">
+<image src="WGCAL/Images/wm-print.png" 
+  height="20" title="[TEXT:print]" class="WGCalButton" style="border:0px" onclick="window.print();">
+<image src="WGCAL/Images/wm-close.png" 
+  height="20" title="[TEXT:close]" class="WGCalButton" style="border:0px" onclick="cancelEvent();">
+<image src="WGCAL/Images/wm-delete.png" 
+  height="20" title="[TEXT:delete]" class="WGCalButton" style="border:0px" onclick="deleteEvent();">
 </td></tr></table>
 
-<hr>
- 
 <fieldset>
 
 <legend>
-<span id="butevmainzone" title="[TEXT:appointment]" class="WGCalZoneSelected"
-      onClick="SwitchZone('evmainzone'); autoHresize(); autoVresize();" >&nbsp;[TEXT:appointment]&nbsp;</span>
-<span id="butevrepeatzone" title="[TEXT:repeat]" class="WGCalZoneDefault"
-      onClick="SwitchZone('evrepeatzone'); autoHresize(); autoVresize();" >&nbsp;[TEXT:repeat]&nbsp;</span>
-<span id="butevattendeeszone" title="[TEXT:attendees]" class="WGCalZoneDefault"
-      onClick="SwitchZone('evattendeeszone'); autoHresize(); autoVresize();" >&nbsp;[TEXT:attendees]&nbsp;</span>
+<image id="butevmainzone" src="WGCAL/Images/wm-rvset.png" class="WGCalZoneSelected"
+    height="28" title="[TEXT:set event]" style="border:0px" 
+    onClick="SwitchZone('evmainzone'); autoHresize(); autoVresize();" >
+<image id="butevrepeatzone" src="WGCAL/Images/wm-repeat.png" class="WGCalZoneDefault"
+    height="28"  title="[TEXT:manage repeat]" style="border:0px" 
+    onClick="SwitchZone('evrepeatzone'); autoHresize(); autoVresize();" >
+<image id="butevattendeeszone" src="WGCAL/Images/wm-attendees.png" class="WGCalZoneDefault"
+    height="28" title="[TEXT:add attendees]" style="border:0px" 
+    onClick="SwitchZone('evattendeeszone'); autoHresize(); autoVresize();" >
 </legend>
 
 <!-- Event default view -->
@@ -31,14 +38,13 @@
 
 [TEXT:rv title] : <input id="rvtitle" name="rvtitle" size="50" type="text" value="[TITLE]" [TITLERO]>
 
-
-<table id="datevis" width="100%" style="display:[DATEVIS]">
-<tr id="start_hour" style="display:none">
-<td align="right">[TEXT:start date] : </td>
+<table>
+<tr>
+<td align="right">[TEXT:start date]</td>
 <td>
 <img style="display:[DATEBUTVIS]; cursor:pointer" id="Brvstart"  alt="[TEXT:start date]" title="[TEXT:start date]" src="WGCAL/Images/cal-other.gif" height="15" >
 <span id="Trvstart">[STARTREAD]</span>
-<input type="hidden" value="[START]" id="rvstart" name="rvstart">
+<input type="hidden" value="[START]" id="rvstart" name="rvstart" onChange="UpdateEndTime();">
 
 <script type="text/javascript">
   Calendar.setup(
@@ -55,12 +61,24 @@
     }
   );
 </script>
+</td>
+<td id="start_hour" style="visibility:visible">
 <input type="text" size="2" value="[H_START]" [DATERO] id="hrvstart" name="hrvstart" >
 :<input size="2" type="text" value="[M_START]" [DATERO] id="mrvstart" name="mrvstart">
 </td>
+<td >
+<span id="tnohour">
+<input [NOHOURRO] id="nohour" style="cursor:pointer;" name="nohour" type="checkbox" onclick="ChangeNoHour(false,0);">
+[TEXT:no hour]
+</span>
+<span id="tallday">
+<input [ALLDAYRO] id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="ChangeAllDay(false,0);"></input>
+[TEXT:all the day]
+</span>
+</td>
 </tr>
 
-<tr id="end_hour" style="display:none">
+<tr id="end_hour" style="visibility:visible">
 <td align="right">[TEXT:end date] : </td>
 <td>
 <img style="display:[DATEBUTVIS]; cursor:pointer" id="Brvend"  alt="[TEXT:end date]" title="[TEXT:end date]" src="WGCAL/Images/cal-other.gif" height="15" >
@@ -81,20 +99,12 @@
     }
   );
 </script>
+</td>
+<td>
 <input type="text" size="2" value="[H_END]" [DATERO] name="hrvend" id="hrvend" >
 :<input size="2" type="text" value="[M_END]" [DATERO] name="mrvend" id="mrvend" >
 </td>
-</tr></table>
-
-<hr>
-<table>
-<tr valign="center">
-<td width="50%" id="tnohour">
-[TEXT:no hour] : <input [NOHOURRO] id="nohour" name="nohour" type="checkbox" onclick="ChangeNoHour(swstate(NoHourState));">
-</td>
-<td width="50%" id="tallday">
-[TEXT:all the day] : <input [ALLDAYRO] id="allday" name="allday" type="checkbox" onclick="ChangeAllDay(swstate(AllDayState));">
-</td>
+<td></td>
 </tr>
 </table>
 
@@ -146,10 +156,11 @@
 
   <div style="width:100%; left:20px;">
    [TEXT:every] : 
-    <input onclick="everyInfo()" type="radio" id="repeattype0" name="repeattype" value="0" [repeatdis] [REPEATTYPE_0]>[TEXT:day]
-    <input onclick="everyInfo()" type="radio" id="repeattype1" name="repeattype" value="1" [repeatdis] [REPEATTYPE_1]>[TEXT:week]
-    <input onclick="everyInfo()" type="radio" id="repeattype2" name="repeattype" value="2" [repeatdis] [REPEATTYPE_2]>[TEXT:month]
-    <input onclick="everyInfo()" type="radio" id="repeattype3" name="repeattype" value="3" [repeatdis] [REPEATTYPE_3]>[TEXT:year]
+    <input onclick="everyInfo()" type="radio" id="repeattype0" name="repeattype" value="0" [repeatdis] [REPEATTYPE_0]>[TEXT:none]
+    <input onclick="everyInfo()" type="radio" id="repeattype1" name="repeattype" value="1" [repeatdis] [REPEATTYPE_1]>[TEXT:day]
+    <input onclick="everyInfo()" type="radio" id="repeattype2" name="repeattype" value="2" [repeatdis] [REPEATTYPE_2]>[TEXT:week]
+    <input onclick="everyInfo()" type="radio" id="repeattype3" name="repeattype" value="3" [repeatdis] [REPEATTYPE_3]>[TEXT:month]
+    <input onclick="everyInfo()" type="radio" id="repeattype4" name="repeattype" value="4" [repeatdis] [REPEATTYPE_4]>[TEXT:year]
    ([TEXT:frequency] <input id="rfrequency" name="rfrequency" size="1" type="text" value="[FREQVALUE]" [repeatdis]>)
   </div>
 
@@ -297,8 +308,8 @@ Calendar.setup(
 
 
 <script type="text/javascript">
- ChangeNoHour([NOHOUR]);
- ChangeAllDay([ALLDAY]);
+ ChangeNoHour(true, [NOHOUR]);
+ ChangeAllDay(true, [ALLDAY]);
  ChangeAlarm([ALARM]);
 
  [BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]');

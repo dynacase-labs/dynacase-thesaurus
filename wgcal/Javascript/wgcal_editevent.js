@@ -9,6 +9,17 @@ function swstate(s) {
   else return 1;
 }
 
+function UpdateEndTime() {
+  var stime = document.getElementById('rvstart');
+  var etime = document.getElementById('rvend');
+  var letime = document.getElementById('Trvend');
+  if (etime.value<stime.value) {
+    etime.value = stime.value + 3600;
+    d = new Date(etime.value * 1000);
+    letime.innerHTML = "invalid date";
+  }
+}
+
 function ChangeAlarm(state) {
   chk = document.getElementById('AlarmCheck');
   alrm = document.getElementById('AlarmVis');
@@ -19,47 +30,54 @@ function ChangeAlarm(state) {
 
 
 
-var NoHourState = 0;
-function ChangeNoHour(state) {
-  chk = document.getElementById('nohour');
-  chko = document.getElementById('allday');
+function ChangeNoHour(init, cstate) {
+
+  nohour = document.getElementById('nohour');
+  allday = document.getElementById('allday');
+  tallday = document.getElementById('tallday');
   hstart = document.getElementById('start_hour');
   hend = document.getElementById('end_hour');
-  if (state==1) {
-    chk.checked = true;
-    chko.checked = false;
-    hend.style.display = 'none';
-    hstart.style.display = 'none';
-    NoHourState = 1;
+
+  if (!init) cstate =  (nohour.checked ? 1 : 0 );
+  if (cstate == 1) {
+    nohour.checked = true; 
+    allday.checked = false;
+    tallday.style.visibility = 'hidden';
+    hend.style.visibility = 'hidden';
+    hstart.style.visibility = 'hidden';
   } else {
-    chk.checked = false;
-    hend.style.display = '';
-    hstart.style.display = '';
-    NoHourState = 0;
+    nohour.checked = false;
+    tallday.style.visibility = 'visible';
+    hend.style.visibility = 'visible';
+    hstart.style.visibility = 'visible';
   }
   return;
 }
      
-var  AllDayState= 0;
-function ChangeAllDay(state) {
-  chk = document.getElementById('allday');
-  chko = document.getElementById('nohour');
+function ChangeAllDay(init, cstate) {
+
+  nohour = document.getElementById('nohour');
+  tnohour = document.getElementById('tnohour');
+  allday = document.getElementById('allday');
   hstart = document.getElementById('start_hour');
   hend = document.getElementById('end_hour');
-  if (state==1) {
-    chk.checked = true;
-    chko.checked = false;
-    hend.style.display = 'none';
-    hstart.style.display = 'none';
-    AllDayState = 1;
+
+  if (!init) cstate =  (allday.checked ? 1 : 0 );
+  if (cstate == 1) {
+    allday.checked = true; 
+    nohour.checked = false;
+    tnohour.style.visibility = 'hidden';
+    hend.style.visibility = 'hidden';
+    hstart.style.visibility = 'hidden';
   } else {
-    chk.checked = false;
-    hend.style.display = '';
-    hstart.style.display = '';
-    AllDayState = 0;
+    allday.checked = false;
+    tnohour.style.visibility = 'visible';
+    hend.style.visibility = 'visible';
+    hstart.style.visibility = 'visible';
   }
   return;
 }
+     
 
 function SwitchZone(view) {
 
@@ -225,8 +243,8 @@ function everyInfo() {
   document.getElementById('d_rweekday').style.display = 'none';
   document.getElementById('d_rmonth').style.display = 'none';
 
-  if (checkone==1) document.getElementById('d_rweekday').style.display = '';
-  if (checkone==2) document.getElementById('d_rmonth').style.display = '';
+  if (checkone==2) document.getElementById('d_rweekday').style.display = '';
+  if (checkone==3) document.getElementById('d_rmonth').style.display = '';
 
 }
 

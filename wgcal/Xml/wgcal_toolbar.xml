@@ -91,7 +91,7 @@
 </tr>
 </tbody>
 </table>
-
+<input type="checkbox" id="useressources" title"[TEXT:use ressource for event creation]">[TEXT:use ressource]
 </div>
 
 </fieldset>

@@ -102,6 +102,28 @@ function CAL_getRessources($dbaccess, $filterTitle) {
   return $r;
 }
 
+/*
+ ** Return ressources list
+ */
+function CAL_getRessourcesOwner($dbaccess, $filterTitle) {
+  global $action;
+  $r = array();
+  $fam = CAL_getRessourceFamilies($dbaccess);
+  $doc = new Doc($dbaccess);
+  $filter = array( );
+  if ($filterTitle!="") $filter[] = "title ~* '".$filterTitle."'";
+  foreach ($fam as $kf => $vf) { 
+    if ($vf == "" ) continue;
+    $rdoc = getChildDoc($dbaccess, 0, 0, "ALL", $filter, 
+			$action->user->id, "TABLE", $vf);
+    foreach ($rdoc as $k => $v) {
+      $r[] = array( $v["title"], $v["id"], $v["title"]);
+    }
+  }
+  return $r;
+}
+
+
 
 ?>
 
