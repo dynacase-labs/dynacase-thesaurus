@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.33 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: FDL_external.php,v 1.34 2004/09/28 13:24:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -177,8 +177,6 @@ function lkfamily($dbaccess, $famname, $aid,
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
   
-
- 
   if ($name != "") {
     $filter[]="title ~* '.*$name.*'";
   }
