@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.221 2004/11/12 11:17:52 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.222 2004/11/16 17:10:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2231,7 +2231,8 @@ create unique index i_docir on doc(initid, revision);";
 	    
 	    reset($tval);
 	    $nbitem= count(current($tval));
-	    $lay->set("caption",$oattr->labelText." ($nbitem)");
+	    if ($nbitem > 10) $lay->set("caption",$oattr->labelText." ($nbitem)");
+	    else $lay->set("caption",$oattr->labelText);
 	    $tvattr = array();
 	    for ($k=0;$k<$nbitem;$k++) {
 	      $tvattr[]=array("bevalue" => "bevalue_$k");
