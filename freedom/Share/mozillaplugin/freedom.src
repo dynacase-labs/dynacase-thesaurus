@@ -1,0 +1,28 @@
+# Mozilla/Google plug-in by amitp+mozilla@google.com
+
+<search 
+   name="Freedom"
+   description="Freedom Search"
+   method="GET"
+   action="http://www.tlse.i-cesam.com/what/freedomsearch.php"
+   update="http://www.tlse.i-cesam.com/freedom.src"
+   updateCheckDays=1   
+   queryEncoding="utf-8"
+   queryCharset="utf-8"
+>
+
+<input name="famid" value="0">
+<input type="hidden" name="latest" value="true" >
+<input type="hidden" name="fromdir" value="false" >
+<input type="hidden" name="sensitive" value="false" >
+<input type="text" name="keyword" user>
+
+<interpret 
+    browserResultType="result" 
+    charset = "UTF-8"
+    resultListStart="<!--a-->" 
+    resultListEnd="<!--z-->" 
+    resultItemStart="<!--m-->" 
+    resultItemEnd="<!--n-->"
+>
+</search>
