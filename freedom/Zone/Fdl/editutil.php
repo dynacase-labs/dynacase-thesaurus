@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.61 2004/01/13 09:36:02 eric Exp $
+ * @version $Id: editutil.php,v 1.62 2004/01/16 09:11:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.61 2004/01/13 09:36:02 eric Exp $
+// $Id: editutil.php,v 1.62 2004/01/16 09:11:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -529,7 +529,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	    $jarg="'".implode("','",$arg)."'";
 	    $input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	      " title=\""._("clear inputs")."\"".
-	      " onclick=\"clearInputs([$jarg],'$index')\">";
+	      " onclick=\"clearInputs([$jarg],'$index','$attridk')\">";
 	  }
 	} 
       }  else if ($oattr->type == "date") {

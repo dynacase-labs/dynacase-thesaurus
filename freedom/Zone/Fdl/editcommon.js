@@ -281,14 +281,15 @@ function editOnLoad() {
 }
 
 
-function clearInputs(tinput, idx) {
+function clearInputs(tinput, idx,attrid) {
   var iinput;
   var err='';
+ 
   for (var i=0; i< tinput.length; i++) {
     iinput=tinput[i]+idx;
    
     if (document.getElementById(iinput)) {
-      if (! isInputLocked(iinput)) {
+      if (! isInputLocked(iinput)) {	
 	document.getElementById(iinput).value=' ';
 	document.getElementById(iinput).style.backgroundColor='[CORE_BGCOLORHIGH]';
 	
@@ -302,6 +303,8 @@ function clearInputs(tinput, idx) {
   disableReadAttribute();
 
   if (err != '')  alert('[TEXT:NOT Clear]'+err);
+  if (attrid && document.getElementById(attrid)) document.getElementById(attrid).focus();
+
 }
 
 
