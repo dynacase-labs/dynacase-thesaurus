@@ -1,3 +1,8 @@
+0.0.3
+   release 0
+    - migration : changement de la strategie de nomage des fichiers 
+      dans le vault pour indexation mnoGoSearch.
+
 0.0.2
   - add Destroy feature
 

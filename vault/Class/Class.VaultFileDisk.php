@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultFileDisk.php,v 1.3 2002/02/06 17:19:58 eric Exp $
+// $Id: Class.VaultFileDisk.php,v 1.4 2002/08/01 17:42:39 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Attic/Class.VaultFileDisk.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultFileDisk.php,v $
+// Revision 1.4  2002/08/01 17:42:39  marc
+// Version 0.0.3 release 1 see changelog
+//
 // Revision 1.3  2002/02/06 17:19:58  eric
 // correction de tous les query : resultat par table
 //
@@ -36,7 +39,7 @@
 include_once("VAULT/Class.VaultDiskFsStorage.php");
 include_once("VAULT/Class.VaultDiskFsCache.php");
 include_once("VAULT/Class.VaultDiskDirStorage.php");
-include_once("VAULT/Class.VaultDiskDirCache.php");
+include_once("VAULT/Lib.VaultCommon.php");
 
 Class VaultFileDisk extends DbObj {
 
@@ -117,10 +120,10 @@ Class VaultFileDisk extends DbObj {
     $this->name = basename($infile);
 
     $msg = $this->Add();
-
     if ($msg != '') return($msg);
+    
     $idf = $this->id_file;
-    $f = $f_path."F-".$this->id_file;
+    $f = vaultfilename($f_path, $infile, $this->id_file);
     if (!copy($infile, $f)) {
       // Free entry
       return(_("Failed to copy $infile to $f"));
@@ -132,7 +135,7 @@ Class VaultFileDisk extends DbObj {
       $this->vault->logger->warning("Can't change owner for $f");
     }
     $this->fs->AddEntry($this->size);
-    $this->vault->logger->info("File $infile stored in $f");
+    $this->vault->logger->debug("File $infile stored in $f");
     return "";
   }
 
@@ -146,7 +149,7 @@ Class VaultFileDisk extends DbObj {
       $f_infos->name = $this->name;
       $f_infos->size = $this->size;
       $f_infos->public_access = $this->public_access;
-      $f_infos->path = $f_path."F-".$id_file;
+      $f_infos->path = vaultfilename($f_path, $this->name, $id_file);
       return '';
     } else {
       return(_("file does not exist in vault"));
