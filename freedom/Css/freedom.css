@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.9 2002/06/19 12:32:35 eric Exp $
+ * $Id: freedom.css,v 1.10 2002/07/11 13:23:08 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -21,9 +21,17 @@
   color: [CORE_TEXTFGCOLOR];
 }
 
+TD.FREEDOMTextTitle:first-letter {
+  text-transform:capitalize;
+}
+
 TR.FREEDOMBack1 {
 	background-color: [CORE_BGCELLCOLOR];
 	color : [CORE_TEXTFGCOLOR];	
+}
+
+TR.FREEDOMBack2:first-letter {
+  text-transform:capitalize;
 }
 
 TR.FREEDOMBack2{
@@ -38,6 +46,7 @@ TR.FREEDOMBack2{
 .FREEDOMLabel{
   font-size: 100%;
   color: [CORE_TEXTFGCOLOR];
+  align:right;
 }
 TD.FREEDOMLabel:first-letter {
   text-transform:capitalize;
