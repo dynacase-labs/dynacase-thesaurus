@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.25 2004/07/19 07:45:37 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.26 2004/09/24 11:16:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -85,10 +85,10 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
       if ($cond == "") $tol[$k]="";;
       switch($tf[$k]) {
       case "is null":
-	$cond .= $tol[$k].sprintf("(%s is null or %s = '')",$taid[$k],$taid[$k]);
+	$cond .= $tol[$k].sprintf(" (%s is null or %s = '') ",$taid[$k],$taid[$k]);
 	break;
       case "is not null":
-	$cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k]);
+	$cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." ";
 	break;
       case "~*":
 	if ($tkey[$k] != "") $cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".pg_escape_string(trim($tkey[$k]))."' ";
