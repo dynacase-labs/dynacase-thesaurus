@@ -41,17 +41,17 @@ if ($query->nb > 0)	{
   $doc = createDoc($dbaccess,$famId,false);
   while(list($k,$v) = each($table1)) 	    {	     
     // search already created card
-      $title = strtolower($v["lastname"]. " ". $v["firstname"]);
+    $title = strtolower($v["lastname"]. " ". $v["firstname"]);
     // first in IUSER
-      if ($v["isgroup"] == "Y") {
-	$filter = array("grp_whatid = ".$v["id"]);
-	$tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
-			    getFamIdFromName($dbaccess,"IGROUP"));
-      } else {
-	$filter = array("us_whatid = ".$v["id"]);
-	$tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
-			    getFamIdFromName($dbaccess,"IUSER"));
-      }
+    if ($v["isgroup"] == "Y") {
+      $filter = array("grp_whatid = ".$v["id"]);
+      $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
+			  getFamIdFromName($dbaccess,"IGROUP"));
+    } else {
+      $filter = array("us_whatid = ".$v["id"]);
+      $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
+			  getFamIdFromName($dbaccess,"IUSER"));
+    }
     if (count($tdoc) > 0) {
       
       $tdoc[0]->refresh();
@@ -68,11 +68,19 @@ if ($query->nb > 0)	{
 	if (count($tdoc) > 1) {
 	  printf( _("find %s more than one, created aborded\n"),$title);
 	} else {
-	  $tdoc[0]->convert(getFamIdFromName($dbaccess,"IUSER"),
-			    array("US_WHATID"=>$v["id"]));
-	  printf( _("%s migrated\n"),$title);
-	  
+	  if ($tdoc[0]->fromid == getFamIdFromName($dbaccess,"USER")) {
+	    $tdoc[0]->convert(getFamIdFromName($dbaccess,"IUSER"),
+			      array("US_WHATID"=>$v["id"]));
+	    printf( _("%s migrated\n"),$title);
+	  }	else {
+	    $udoc= new Doc($dbaccess,$tdoc[0]->id);
+	    $udoc->setValue("US_WHATID",$v["id"]);
+	    $udoc->refresh();
+	    $udoc->modify();
+	    printf( _("%s updated\n"),$title);
+	  }
 	}
+	
       } else {
 	// create new card
 	if ($v["isgroup"]=="Y") {
