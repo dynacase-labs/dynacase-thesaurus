@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.6 2003/01/13 18:55:36 eric Exp $
+// $Id: Method.DocUser.php,v 1.7 2003/01/20 14:00:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,7 +54,7 @@
      $this->lay->Set("selectp", "");
      $this->lay->Set("selectw", "");
      $this->lay->Set("selectr", "");
-     $priv=$this->GetValue("US_PRIVCARD");
+     $priv=$this->GetValue("US_PRIVCARD",getParam("USER_CONFIDENTIAL"));
      switch ($priv) {
       case "P":	
 	$this->lay->Set("selectp", "selected");

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD_init.php.in,v 1.10 2003/01/13 19:01:11 eric Exp $
+// $Id: USERCARD_init.php.in,v 1.11 2003/01/20 14:00:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,6 +32,10 @@ $app_const= array(
   "DEFAULT_FAMILY" => "120",
   "DEFAULT_FLD" => "121",
 
+  "USER_CONFIDENTIAL" => array("val"=>"R",
+			       "descr"=>N_("default confidential"),
+			       "kind" => "enum(P|W|R)",
+			       "global"=>"Y"),
   "LDAP_SERVEUR" => array("val"=>"localhost",
 			  "descr"=>N_("nom du serveur LDAP"),
 			  "global"=>"Y"),

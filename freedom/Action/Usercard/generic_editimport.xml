@@ -62,7 +62,7 @@ function changeFormat(fmt) {
 <label for="visibility"> [TEXT:visibility]&nbsp;:</label>
  <select name="privacity" >
     <option value="P" >[TEXT:private card]</option>
-    <option value="R" select>[TEXT:public card - read access]</option>
+    <option value="R" selected>[TEXT:public card - read access]</option>
     <option value="W" >[TEXT:public card - write access]</option>
   </select>
 

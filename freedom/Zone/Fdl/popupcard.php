@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.14 2003/01/03 09:10:27 eric Exp $
+// $Id: popupcard.php,v 1.15 2003/01/20 14:00:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -72,7 +72,7 @@ function popupcard(&$action) {
   else popupInactive('popupcard',$kdiv,'revise');
 
 
-  if ($doc->IsControlled() && ($doc->Control("viewacl") == "")) {
+  if ($doc->IsControlled() && ($doc->profid > 0) && ($doc->Control("viewacl") == "")) {
     popupActive('popupcard',$kdiv,'access');
   } else {
     popupInvisible('popupcard',$kdiv,'access');
