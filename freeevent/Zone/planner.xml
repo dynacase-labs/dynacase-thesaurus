@@ -11,7 +11,7 @@ addEvent(window,"load",placeEvents);
 
 <div id="binter" style="position:absolute;display:none">
 <input onclick="allcal()" title="[TEXT:Allperiod]"  type="image" src="[IMG:forback.gif]"></input>
-<input onclick="isFixed=true;placeEvents();style.visibility='hidden'" type="image" src="[IMG:pins.gif]" title="[TEXT:Fixbar]" ></input>
+<input onclick="isFixed=true;placeEvents();style.visibility='hidden'" type="image" src="[IMG:pins.gif]" title="[TEXT:Fixbar]" ></input><br>
 <input id="nperiod" value="[dday100]" title="[TEXT:Period in day]" type="text" size="2" ></input>
 <input onclick="resizecal()" title="[TEXT:Change day period]" type="image" src="[IMG:forward.gif]"></input>
 </div>
@@ -39,7 +39,7 @@ addEvent(window,"load",placeEvents);
 <div id="bgmilli"   class="fond">
 [BLOCK BAR]
 <b id="res[idx]" class="ressource" style="display:none;background-color:[color];">[res]</b>
-<div id="bar[idx]" class="event" style="display:none;background-color:[color];"     onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'detailevt','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')" onmouseout="unviewdesc(event)" onmouseover="viewdesc(event,[idx])"><img  align="right" src="[evticon]" height="100%"><span style="font-size:7pt">[divtitle]</span></div>
+<div id="bar[idx]" class="event" style="display:none;background-color:[color];"     onclick="subwinevt([FDL_VD2SIZE],[FDL_HD2SIZE],'detailevt','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')" onmouseout="unviewdesc(event)" onmouseover="viewdesc(event,[idx])"><img  align="right" src="[evticon]" height="100%"><span style="font-size:7pt">[divtitle]</span></div>
 <script>
 tevents[[idx]]=['[idx]',[line],[subline],[absx],[absw],'[desc]'];
 </script>

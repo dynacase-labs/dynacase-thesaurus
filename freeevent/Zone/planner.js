@@ -427,3 +427,10 @@ function unviewdesc(event) {
 }
 
 
+function subwinevt(w,h,name,url) {  
+  var ename=name;
+  if (window.name == 'folio1') ename='folio0';
+  else if (window.name == 'folio0') ename='folio1';
+
+  subwindow(w,h,ename,url);
+}

@@ -3,7 +3,7 @@
 var $eviews=array("FREEEVENT:EDITCALENDAR");
 var $cviews=array("FREEEVENT:PLANNER","FREEEVENT:VIEWCALENDAR");
 var $defaultedit="FREEEVENT:EDITCALENDAR";
-var $defaultview="FREEEVENT:VIEWCALENDAR";
+var $defaultview="FREEEVENT:PLANNER";
 function postCreated() {
   $this->setValue("SE_FAMID",getFamIdFromName($this->dbaccess,"EVENT"));
 }
@@ -68,12 +68,14 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   // window time interval
   $hwstart=getHttpVars("wstart");
   if ($hwstart) {
-    $wstart=FrenchDateToJD($hwstart);
+    $wstart=Iso8601ToJD($hwstart);
+    if (!$wstart) $wstart=FrenchDateToJD($hwstart);
   } else $wstart=getHttpVars("jdstart"); 
   
   $hwend=getHttpVars("wend");
   if ($hwend) {
-    $wend=FrenchDateToJD($hwend);
+    $wend=Iso8601ToJD($hwend);
+    if (!$wend) $wend=FrenchDateToJD($hwend);
   } else $wend=getHttpVars("jdend");
 
   if (!$wstart) {
@@ -196,7 +198,8 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
     else {$r11=-1;$r12=1;}
     if ($kdesc2=="DESC") {$r21=1;$r22=-1;}
     else {$r21=-1;$r22=1;}
-    $sortfunc = create_function('$a,$b', 'return _DCALENDAR::cmpevt($a,$b,"'.$k1.'","'.$k2.'","'.$r11.'","'.$r12.'","'.$r21.'","'.$r22.'");');
+    $cname=get_class($this);
+    $sortfunc = create_function('$a,$b', 'return '.$cname.'::cmpevt($a,$b,"'.$k1.'","'.$k2.'","'.$r11.'","'.$r12.'","'.$r21.'","'.$r22.'");');
     uasort($RN,"$sortfunc");
     
     $y=0;

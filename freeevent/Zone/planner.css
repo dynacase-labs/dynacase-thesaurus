@@ -34,7 +34,7 @@ DIV.monthEven {
 }
 
 DIV.weekOdd {
-	background-color:lightblue;
+	background-color:lightyellow;
 	overflow:hidden;
 	text-align:center;
 /*	-moz-opacity:.8;*/
@@ -46,7 +46,7 @@ DIV.weekOdd {
   	/*background-image:url('[IMG:tabvg.png]');*/
 }
 DIV.weekEven {
-	background-color:salmon;
+	background-color:wheat;
 	overflow:hidden;
 	text-align:center;
 /*	-moz-opacity:.8;*/
@@ -58,7 +58,7 @@ DIV.weekEven {
   	/*background-image:url('[IMG:tabvg.png]');*/
 }
 DIV.dayOdd {
-	background-color:lightgreen;
+	background-color:lightblue;
 	overflow:hidden;
 	text-align:center;
 /*	-moz-opacity:.8;*/
@@ -70,7 +70,7 @@ DIV.dayOdd {
   	/*background-image:url('[IMG:tabvg.png]');*/
 }
 DIV.dayEven {
-	background-color:pink;
+	background-color:cornflowerblue;
 	overflow:hidden;
 	text-align:center;
 /*	-moz-opacity:.8;*/
@@ -82,7 +82,7 @@ DIV.dayEven {
   	/*background-image:url('[IMG:tabvg.png]');*/
 }
 DIV.year {
-	background-color:cyan;
+	background-color:gold;
 	overflow:hidden;
 	text-align:center;
 	/*-moz-opacity:.8;*/
