@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.6 2004/06/30 07:32:06 eric Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.7 2004/10/25 08:54:00 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -56,14 +56,8 @@ Class VaultFileDisk extends DbObj {
   function ListFiles(&$list) {
   // --------------------------------------------------------------------
     $query = new QueryDb($this->vault, $this->dbtable);
-    $t = $query->Query(0,0,"TABLE");
+    $list = $query->Query(0,0,"TABLE");
     $fc = $query->nb;
-    while ($fc>0 && (list($k,$v) = each($t))) {
-      $list[$k]["name"] = $v["name"];
-      $list[$k]["size"] = $v["size"];
-      $list[$k]["access"] = ($v["public_access"]?"PUBLIC":"RESTRICTED");
-    }
-    unset($t);
     return $fc;
   }
 
@@ -135,7 +129,7 @@ Class VaultFileDisk extends DbObj {
   // --------------------------------------------------------------------     
     $msg = $this->Show($id, $inf);
     if ($msg == '' ) {
-      unlink($inf->path);
+      @unlink($inf->path);
       $msg = $this->fs->DelEntry($this->id_fs, $this->id_dir, $inf->size);
       $this->Delete();
     }
