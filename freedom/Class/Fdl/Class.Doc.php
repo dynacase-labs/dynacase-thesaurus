@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.150 2003/07/25 12:42:48 eric Exp $
+// $Id: Class.Doc.php,v 1.151 2003/07/28 17:56:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.150 2003/07/25 12:42:48 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.151 2003/07/28 17:56:29 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/07/25 12:42:48 $
-// Version         $Revision: 1.150 $
+// Last Update     $Date: 2003/07/28 17:56:29 $
+// Version         $Revision: 1.151 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -442,7 +442,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
   function getFamDoc() {
-    if (! isset($this->famdoc)) $this->famdoc= new Doc($this->dbaccess, $this->fromid);
+    if (! isset($this->famdoc)||($this->famdoc->id != $this->fromid)) $this->famdoc= new Doc($this->dbaccess, $this->fromid);
     return $this->famdoc;
   }
 
