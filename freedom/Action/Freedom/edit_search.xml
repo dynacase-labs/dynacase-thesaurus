@@ -52,7 +52,7 @@ function refreshfld(dirid) {
 
 
 <!-- Title Table -->
-<form  target="info" class="fborder" name="search" method="POST" 
+<form  target="finfo" class="fborder" name="search" method="POST" 
        onsubmit="if (document.getElementById('isave').checked) setTimeout('refreshfld(parent.ffolder.dirid)',2000)"
        action="[CORE_STANDURL]&app=[APPNAME]&action=SEARCH" >
 

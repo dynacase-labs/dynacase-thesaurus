@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.10 2002/04/09 14:45:55 eric Exp $
+# $Id: Makefile.in,v 1.11 2002/08/20 15:24:15 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -16,7 +16,7 @@ GZIP_ENV = --best
 
 export targetdir PACKAGE
 
-SUBDIR= Doc Class  Images Action JavaScript Css JavaScript Zone App Api
+SUBDIR=  Class Zone Action JavaScript Css JavaScript  App Api Images Doc 
 
 include $(utildir)/PubRule
 

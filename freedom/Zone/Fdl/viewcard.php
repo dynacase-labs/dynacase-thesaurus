@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.13 2002/08/06 16:52:34 eric Exp $
+// $Id: viewcard.php,v 1.14 2002/08/20 15:24:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,7 +90,6 @@ function viewcard(&$action) {
     $action->lay->Set("revdate", strftime ("%a %d %b %H:%M",$doc->revdate));
   } else {
     $action->lay->Set("revdate", strftime ("%x %T",$doc->revdate));
-
   }
 
   $action->lay->Set("comment", $doc->comment);

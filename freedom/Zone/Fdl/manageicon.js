@@ -123,7 +123,7 @@ function openMenuOrProperties(event,menuid,itemid) {
     if (shiftKey ) {
       openMenu(event,menuid, itemid);
      } else {
-       subwindow(300,400,'doc_properties','[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&abstract=Y&id='+docid);
+       subwindow(300,400,'fdoc','[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&abstract=Y&id='+docid);
     }
   }
 
@@ -138,7 +138,7 @@ function sendFirstFile(docid) {
 
 function openFld(docid) {
   url='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW&dirid='+docid;
-  subwindow(300,400,'info',url);
+  subwindow(300,400,'finfo',url);
 }
 //--------------------- DRAG & DROP  --------------------------
 document.drag=0;

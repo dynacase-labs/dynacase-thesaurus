@@ -176,18 +176,18 @@ function drawFolder(leftSide)
 
   if (this.hreference == "#") {
 
-      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) parent.info.location.href='"+actionviewfile+"&dirid="+this.refid+"'}\"") 
+      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) parent.finfo.location.href='"+actionviewfile+"&dirid="+this.refid+"'}\"") 
       doc.write("onMouseOver=\"if (drag == 1) clickOnFolder("+this.id+")\"") 
       doc.write("onContextMenu=\"openMenu(event,'popfld',"+this.id+");return false\"") 
 
       doc.write("onMouseUp=\"if (drag == 1) {dirid="+this.refid+";selid="+this.id+";openMenu(event,'poppaste',"+this.id+")};return false;\"") 
 	} else {
-	  doc.write("onMouseDown=\"parent.info.location.href='"+this.hreference+"'\" "); 
+	  doc.write("onMouseDown=\"parent.finfo.location.href='"+this.hreference+"'\" "); 
 	}
   doc.write(">") 
   doc.write("</td><td class=\"fld\" valign=middle nowrap>") 
     doc.write("<span class=\"urltext\" ")
-      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");parent.info.location.href='"+actionviewfile+"&dirid="+this.refid+"'}\"") 
+      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");parent.finfo.location.href='"+actionviewfile+"&dirid="+this.refid+"'}\"") 
       doc.write("onMouseOver=\"if (drag == 0) this.className='urltextsel'\"") 
       doc.write("onMouseOut=\"if (drag == 0) this.className='urltext'\"") 
   doc.write(">")  

@@ -21,8 +21,8 @@
   border-style: hidden;
   border-width: 1;
   border-color: [CORE_FGCOLOR];
-  width:30;
-  height:30;
+  width:20;
+  height:20;
   
 }
 .iconline {
@@ -39,7 +39,6 @@ TD.tlist {
    border-width : 1px;
    border-style : dashed none none none;
    border-color : [CORE_BGCOLOR];
-   font-size: 100%;
 }
 
 TR.unselect {
@@ -83,7 +82,7 @@ TR.select {
 [ZONE FREEDOM:POPUP]
 
 <table class="tablesimple" cellspacing="0" width="100%" >
-<tr><td class="tlist" colspan="4" align="center">[dirtitle] : [nbdoc] [TEXT:document(s) found]</td></tr>
+<tr><td class="tlist" colspan="5" align="center">[dirtitle] : [nbdoc] [TEXT:document(s) found]</td></tr>
 <!-- TABLEBODY -->
                     [BLOCK TABLEBODY]
 <tr  id="d[divid]"
@@ -92,7 +91,7 @@ TR.select {
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
      >
-<td class="tlist" width="40" >
+<td class="tlist" width="30" >
 <IMG class="iconimg" id="i[divid]" 
      align="absmiddle"  src="[iconsrc]">
 </td>
@@ -101,8 +100,9 @@ TR.select {
      [title]
 
 </td>
-     <td class="tlist"  width="20"><sup style="font-size:50%">[revision]</sup></td>
+     <td class="tlist"  width="40" style="font-size:80%"><I>[revdate]</I></td>
      <td class="tlist"  width="20">[locked]</td>
+     <td class="tlist"  width="20"><sup style="font-size:50%">[revision]</sup></td>
 
     
 </tr>

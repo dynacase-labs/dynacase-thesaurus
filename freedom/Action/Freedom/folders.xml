@@ -65,17 +65,17 @@ var micon;
 var cdocid=0;
 function initDrag() {
 
-  if (! parent.info) return;
-  if (! parent.info.document.drag) return;
-  if (parent.info.document.drag == 1) {
+  if (! parent.finfo) return;
+  if (! parent.finfo.document.drag) return;
+  if (parent.finfo.document.drag == 1) {
     drag=1;
-    cdocid = parent.info.document.docid;
-    parent.info.document.drag=0;
-    imicon = parent.info.document.getElementById('micon');
+    cdocid = parent.finfo.document.docid;
+    parent.finfo.document.drag=0;
+    imicon = parent.finfo.document.getElementById('micon');
     micon.src=imicon.src;
     //    alert(micon.src);
     imicon.style.visibility="hidden";
-    parent.info.document.drag=0;
+    parent.finfo.document.drag=0;
   }
 }
 function endDrag() {
@@ -222,10 +222,10 @@ function floatMenu () {
 <div  id="popfld" class="popup">
 
 <a href="#" id="vprop"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld');return false">[TEXT:Properties] </a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_CARD&id='+dirid,'fdoc');closeMenu('popfld');return false">[TEXT:Properties] </a>
 <a id="export" href="#" onclick="this.href='[CORE_STANDURL]&app=FDL&action=EXPORTFLD&id='+dirid">[TEXT:Export] </a>
 <a href="#" id="mkdir"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'info');closeMenu('popfld');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'fdoc');closeMenu('popfld');return false">
 [TEXT:Create subfolder]</a>
 <a href="fldexp" id="refresh"     
     onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid,'fldexp');closeMenu('popfld');return false">
@@ -239,10 +239,10 @@ function floatMenu () {
 <div  id="poppaste" class="popup">
 
 <a href="#" id="pastelatest"        
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'finfo');closeMenu('poppaste');return false">
    [TEXT:Copy reference]</a>
 <a href="#" id="staticpaste"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=MOVEDIRFILE&todirid='+dirid+'&fromdirid='+parent.info.document.dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=MOVEDIRFILE&todirid='+dirid+'&fromdirid='+parent.finfo.document.dirid+'&docid='+cdocid,'finfo');closeMenu('poppaste');return false">
    [TEXT:Move reference] </a>
 <a href="#" id="cancel2"  
     onClick="closeMenu('poppaste');return false">[TEXT:cancel]</a>

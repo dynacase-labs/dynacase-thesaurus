@@ -13,7 +13,7 @@
   </td>
   <td align="right"  >
 [BLOCK ACTIONS]
-<a href="#" style="display:[amail]" onclick="subwindow(400,400,'info','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]')">
+<a href="#" style="display:[amail]" onclick="subwindow(400,400,'fdoc','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]')">
       <img  align="absmiddle"  alt="[TEXT:print]" title="[TEXT:senddoc]" height="22" width="30" border="0" src="[IMG:mail.gif]">
       </a>   
 <a href="#" onclick="self.print()">

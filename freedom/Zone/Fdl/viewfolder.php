@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.16 2002/08/09 16:51:46 eric Exp $
+// $Id: viewfolder.php,v 1.17 2002/08/20 15:24:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -137,6 +137,13 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   if (is_array($ldoc)) {
     
 
+    // get date format 
+  if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
+    setlocale (LC_TIME, "fr_FR");
+    $fdate= "%d/%m/%y";
+  } else {
+    $fdate="%x";
+  }
       
     $nbdoc=0;
     while((list($k,$doc) = each($ldoc)) )
@@ -161,6 +168,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	if (strlen($doc->title) > 20)	$tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)."... ".substr($doc->title,-5);
 	else $tdoc[$k]["abrvtitle"] = $doc->title;
 	$tdoc[$k]["profid"] = $doc->profid;
+	$tdoc[$k]["revdate"] = strftime ($fdate, $doc->revdate);
 
       
  

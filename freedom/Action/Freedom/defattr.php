@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.5 2002/08/09 09:41:00 eric Exp $
+// $Id: defattr.php,v 1.6 2002/08/20 15:24:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -141,7 +141,7 @@ function defattr(&$action)
 	    } else {
 	      $newelem[$k]["disabled"]="disabled";
 	    }
-	    print "[".addslashes($attr->type)."]";
+
 	    $newelem[$k]["typevalue"]=$attr->type;
 
 

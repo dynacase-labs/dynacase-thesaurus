@@ -40,7 +40,7 @@ IMG.select {
 
 DIV.icon{
   font-weight: normal;
-  font-size: 60%;
+  font-size: 70%;
   text-align: center;
   /*font-variant: small-caps;*/
   width:60;

@@ -2,25 +2,25 @@
 <div  id="popuplist" class="popup">
 
 <a href="#" id="vprop"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_CARD&id='+docid,'doc_properties');closeMenu('popuplist'); return false;">[TEXT:view properties] </a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_CARD&id='+docid,'fdoc');closeMenu('popuplist'); return false;">[TEXT:view properties] </a>
 
 
 
 <a href="#" id="editdoc"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id='+docid,'info');closeMenu('popuplist'); return false;"  >[TEXT:edit document]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id='+docid,'fdoc');closeMenu('popuplist'); return false;"  >[TEXT:edit document]</a>
 
 
 <a href="#" id="duplicate" 
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_DUPLICATE&id='+docid+'&dirid='+parent.info.document.dirid,'info');closeMenu('popuplist'); return false;"  >[TEXT:duplicate document]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_DUPLICATE&id='+docid+'&dirid='+parent.finfo.document.dirid,'finfo');closeMenu('popuplist'); return false;"  >[TEXT:duplicate document]</a>
 
 <a href="#" id="copy" 
     onClick="activedrag(event);closeMenu('popuplist'); return false;" >[TEXT:link document]</a>
 
 <a href="#" id="ifld"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IFLD&id='+docid+'&dirid='+parent.info.document.dirid,'doc_properties');closeMenu('popuplist'); return false;" >[TEXT:access path list]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IFLD&id='+docid+'&dirid='+parent.finfo.document.dirid,'fdoc');closeMenu('popuplist'); return false;" >[TEXT:access path list]</a>
 
 <a href="#" id="delete"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=DELDIRFILE&docid='+docid+'&dirid='+parent.info.document.dirid,'info');closeMenu('popuplist'); return false;" >[TEXT:delete link]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=DELDIRFILE&docid='+docid+'&dirid='+parent.finfo.document.dirid,'fdoc');closeMenu('popuplist'); return false;" >[TEXT:delete link]</a>
 
 <a href="#" id="cancel"  
     onClick="closeMenu('popuplist'); return false;"  >[TEXT:cancel]</a>

@@ -47,7 +47,7 @@ function refreshfld(dirid) {
 
 <!-- Title Table -->
 <form  id="fedit" 
-       target="doc_properties" 
+       target="fdoc" 
        class="fborder" 
        name="modifydoc" 
        
