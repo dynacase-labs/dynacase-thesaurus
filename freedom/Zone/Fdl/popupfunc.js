@@ -116,20 +116,20 @@ function openMenuXY(event, menuid, x, y) {
     el.style.display = "";
 
     if (bm) {
-    w2=getObjectWidth(document.getElementById('barmenu'));
-    // display right or left to maximize width
-   w1=getObjectWidth(el);
+      w2=getObjectWidth(document.getElementById('barmenu'));
+      // display right or left to maximize width
+      w1=getObjectWidth(el);
 
 
-    if (x+w1 > w2) {
-      if (w1<w2) {
-	x2=w2-w1;
+      if (x+w1 > w2) {
+	if (w1<w2) {
+	  x2=w2-w1;
+	} else {
+	  x2=0;
+	}
       } else {
-	x2=0;
+	x2=x;
       }
-    } else {
-      x2=x;
-    }
 
     } else {
       x2=x;
