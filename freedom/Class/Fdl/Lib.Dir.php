@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.90 2004/06/11 16:10:44 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.91 2004/06/23 14:23:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.90 2004/06/11 16:10:44 eric Exp $
+// $Id: Lib.Dir.php,v 1.91 2004/06/23 14:23:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -86,7 +86,6 @@ function getSqlSearchDoc($dbaccess,
 			 $latest=true) {// only latest document
 
  
-  
 
   $table="doc";$only="";
   if ($fromid != 0) $table="doc$fromid";
@@ -186,20 +185,21 @@ function getSqlSearchDoc($dbaccess,
 	 
 	case "M": // complex query
 	    
-	  $sqlM=$ldocsearch[0]["query"];
+	  // $sqlM=$ldocsearch[0]["query"];
 
-	  $sdoc=new Doc($dbaccess,$dirid);
-	  $tsqlM=$sdoc->getQuery();
+	  $fld=new Doc($dbaccess,$dirid);
+	  $tsqlM=$fld->getQuery();
 	  foreach ($tsqlM as $sqlM) {
-
-	    if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
-	      $sqlfilters[-3] = "doctype != 'Z'";	   
-	      ksort($sqlfilters);
-	      if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
-	    }
-	    if ($fromid > 0) $sqlM=str_replace("from doc ","from $only $table ",$sqlM);
+	    if ($sqlM != false) {
+	      if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
+		$sqlfilters[-3] = "doctype != 'Z'";	   
+		ksort($sqlfilters);
+		if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
+	      }
+	      if ($fromid > 0) $sqlM=str_replace("from doc ","from $only $table ",$sqlM);
 	    
-	    $qsql[]= $sqlM ." and " . $sqlcond;
+	      $qsql[]= $sqlM ." and " . $sqlcond;
+	    }
 	  }
 	  break;
 	}
@@ -211,6 +211,69 @@ function getSqlSearchDoc($dbaccess,
   }
   if (is_array($qsql)) return $qsql;
   return array($qsql);
+}
+/**
+ * get possibles errors before request of getChildDoc
+ * @param string $dbaccess database specification
+ * @param array  $dirid the array of id or single id of folder where search document 
+ * @return array error codes
+ */
+function getChildDocError($dbaccess, 
+			 $dirid) { // in a specific folder (0 => in all DB)
+
+  $terr=array();
+
+
+  if ($dirid == 0) {
+    //-------------------------------------------
+    // search in all Db
+    //-------------------------------------------
+   
+  } else {
+
+    //-------------------------------------------
+    // in a specific folder
+    //-------------------------------------------
+
+    if (! is_array($dirid))    $fld = new Doc($dbaccess, $dirid);
+    if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
+
+
+    } else {
+      //-------------------------------------------
+      // search familly
+      //-------------------------------------------
+      $docsearch = new QueryDb($dbaccess,"QueryDir");
+      $docsearch ->AddQuery("dirid=$dirid");
+      $docsearch ->AddQuery("qtype != 'S'");
+      $ldocsearch = $docsearch ->Query(0,0,"TABLE");
+      
+      
+      
+      // for the moment only one query search
+      if (($docsearch ->nb) > 0) {
+	switch ($ldocsearch[0]["qtype"]) {
+	 
+	case "M": // complex query
+	    
+
+	  $fld=new Doc($dbaccess,$dirid);
+	  $tsqlM=$fld->getQuery();
+	  foreach ($tsqlM as $sqlM) {
+
+	    if ($sqlM == false) $terr[$dirid]=_("uncomplete request"); // uncomplete
+	    
+	  }
+	  break;
+	}
+      } else {
+	$terr[$dirid]=_("request not found"); // not found
+      }
+    }
+
+  }
+
+  return $terr;
 }
 /**
  * return array of documents
@@ -251,38 +314,41 @@ function getChildDoc($dbaccess,
 
   $tretdocs=array();
   foreach ($tqsql as $qsql) {
+    if ($qsql != false) {
+      if ($userid > 1) { // control view privilege
+	$qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
+	// and get permission
+	$qsql = str_replace("* from ","* ,getuperm($userid,profid) as uperm from ",$qsql);
+      }
 
-  if ($userid > 1) { // control view privilege
-     $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
-    // and get permission
-    $qsql = str_replace("* from ","* ,getuperm($userid,profid) as uperm from ",$qsql);
-  }
 
-
-  if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
-  else  {
-    if ($fromid == "") $orderby="title";
-    elseif (substr($qsql,0,12)  == "select doc.*") $orderby="title";
-    if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
-    else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
-  }
+      if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
+      else  {
+	if ($fromid == "") $orderby="title";
+	elseif (substr($qsql,0,12)  == "select doc.*") $orderby="title";
+	if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
+	else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
+      }
    
-   if ($fromid > 0) include_once "FDLGEN/Class.Doc$fromid.php";
+      if ($fromid > 0) include_once "FDLGEN/Class.Doc$fromid.php";
 
    
-  $query = new QueryDb($dbaccess,"Doc$fromid");
+      $query = new QueryDb($dbaccess,"Doc$fromid");
   
-  $mb=microtime();
+      $mb=microtime();
 
-  $tableq=$query->Query(0,0,$qtype,$qsql);
+      $tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-  if ($query->nb > 0)
-    {
-      $tretdocs=array_merge($tretdocs,$tableq);
+      if ($query->nb > 0)
+	{
+	  $tretdocs=array_merge($tretdocs,$tableq);
+	}
+      //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+
+    } else {
+      // error in query          
     }
-  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
-
   }
 
   
@@ -335,6 +401,7 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
 
 /** 
  * optimization for getChildDoc in case of grouped searches
+ * not used
  */
 function getMSearchDoc($dbaccess,$dirid,
 		       $start="0", $slice="ALL",$sqlfilters=array(), 
