@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.12 2005/01/18 08:45:48 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.13 2005/01/18 18:14:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -76,6 +76,17 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   include_once("FDL/Lib.Color.php");
   global $action;
 
+  if ($this->needParameters()) {
+    // redirect to zone viewdsearch
+    $this->lay = new Layout(getLayoutFile("FREEDOM","viewdsearch.xml"), $action);
+    $this->viewdsearch($target,$ulink,$abstract);
+    $this->lay->set("saction",getHttpVars("saction","FDL_CARD"));
+    $this->lay->set("sapp",getHttpVars("sapp","FDL"));
+    $this->lay->set("sid",getHttpVars("sid","id"));
+    $this->lay->set("starget",getHttpVars("starget","_self"));
+    $this->lay->set("stext",_("view planner"));
+    return;
+  }
   $action->parent->AddJsRef("FDL:JDATE.JS",true);
   $action->parent->AddJsRef("FREEEVENT:PLANNER.JS",true);
   $action->parent->AddCssRef("FREEEVENT:PLANNER.CSS",true);
@@ -265,15 +276,16 @@ function cmpevt($a, $b, $k1="absx",$k2="absw",$r11=-1,$r12=1,$r21=-1,$r22=1) {
    }
    return (($a[$k1]) < ($b[$k1])) ? $r11 : $r12;
 }
+  function isStaticSql() {
+    return false;
+  }
 function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
-    
   if ($dirid > 0) {
 
       if ($subfolder)  $cdirid = getRChildDirId($this->dbaccess, $dirid);
       else $cdirid=$dirid;      
        
   } else $cdirid=0;;
-
 
 
   $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive);
