@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.3 2002/02/14 18:11:42 eric Exp $
+// $Id: freedom_util.php,v 1.4 2002/03/06 17:25:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,53 +22,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: freedom_util.php,v $
-// Revision 1.3  2002/02/14 18:11:42  eric
-// ajout onglet et autres...
-//
-// Revision 1.2  2002/02/13 14:31:58  eric
-// ajout usercard application
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.8  2001/12/21 13:58:35  eric
-// modif pour incident
-//
-// Revision 1.7  2001/12/19 17:57:32  eric
-// on continue
-//
-// Revision 1.6  2001/12/18 09:18:10  eric
-// first API with ZONE
-//
-// Revision 1.5  2001/12/13 17:45:01  eric
-// ajout attribut classname sur les doc
-//
-// Revision 1.4  2001/11/22 17:49:13  eric
-// search doc
-//
-// Revision 1.3  2001/11/21 08:38:58  eric
-// ajout historique + modif sur control object
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-// Revision 1.4  2001/10/03 15:56:03  eric
-// ajout type date pour roaming
-//
-// Revision 1.3  2001/06/22 09:46:12  eric
-// support attribut multimédia
-//
-// Revision 1.2  2001/06/19 16:08:17  eric
-// correction pour type image
-//
-// Revision 1.1  2001/06/13 14:39:53  eric
-// Freedom address book
-//
-// ---------------------------------------------------------------
+
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
