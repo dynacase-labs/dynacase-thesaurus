@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.41 2004/02/12 10:28:29 eric Exp $
+ * @version $Id: popupcard.php,v 1.42 2004/03/08 11:18:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.41 2004/02/12 10:28:29 eric Exp $
+// $Id: popupcard.php,v 1.42 2004/03/08 11:18:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -236,7 +236,8 @@ function popupcard(&$action) {
   if ($doc->postitid > 0) popupInvisible('popupcard',$kdiv,'addpostit');
   else PopupCtrlactive('popupcard',$kdiv,'addpostit');
 
-  if (getParam("FREEDOM_IDBASKET",-1) == -1) {
+  if (! $action->parent->exists("FREEDOM")) {
+
     // FREEDOM not installed
    
     // actions not available
@@ -244,6 +245,7 @@ function popupcard(&$action) {
     popupInvisible('popupcard',$kdiv,'editstate');
     popupInvisible('popupcard',$kdiv,'revise');
     popupInvisible('popupcard',$kdiv,'editprof');
+    popupInvisible('popupcard',$kdiv,'access');
   }
 
   // ------------
