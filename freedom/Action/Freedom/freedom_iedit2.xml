@@ -26,6 +26,11 @@
     [JS:CODE]
 
 
+var ourl=window.opener.location.href;
+function autoclose() {
+  if (window.opener.location.href != ourl) self.close();
+}
+window.setInterval('autoclose()',2000);
   //-->
    </script>   
 
