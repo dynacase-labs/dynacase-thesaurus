@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.2 2003/01/24 16:40:27 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.3 2003/02/07 17:31:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,6 +71,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$diri
 
 
   $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest);
+
   return $query;
 }
 
@@ -122,6 +123,7 @@ function editdsearch() {
   // -----------------------------------
 
   $famid = GetHttpVars("sfamid",$this->getValue("SE_FAMID",1));
+  $dirid = GetHttpVars("dirid");
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/edittable.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
@@ -136,7 +138,8 @@ function editdsearch() {
       $this->lay->set("selfam",$cdoc->title);
     } else $selectclass[$k]["selected"]="";
   }
-  
+  $this->lay->Set("dirid",$dirid);
+  $this->lay->Set("classid",$this->fromid);
   $this->lay->SetBlockData("SELECTCLASS", $selectclass);
   $this->setFamidInLayout();
 

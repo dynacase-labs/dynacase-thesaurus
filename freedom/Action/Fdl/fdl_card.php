@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: fdl_card.php,v 1.1 2003/01/21 15:43:35 eric Exp $
+// $Id: fdl_card.php,v 1.2 2003/02/07 17:31:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/fdl_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,6 +33,8 @@ function fdl_card(&$action) {
   $docid = GetHttpVars("id");
   $latest = GetHttpVars("latest");
   $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  if (intval($docid) == 0) $action->exitError(sprintf(_("reference must be a number not '%s'"),$docid));
   $doc = new Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.23 2003/01/30 09:38:36 eric Exp $
+// $Id: modcard.php,v 1.24 2003/02/07 17:31:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -64,8 +64,7 @@ function modcard(&$action, &$ndocid) {
       $err = $doc-> Add();
       if ($err != "")  $action->ExitError($err);
       
-      $docid = $doc-> id;
-      $doc->initid = $docid;// it is initial doc
+      $doc->initid = $doc->id;// it is initial doc
 	    
 	    
 	    
@@ -118,7 +117,7 @@ function modcard(&$action, &$ndocid) {
 	  $k=substr($k,1);
 
 	      
-	    $filename=insert_file($dbaccess,$docid,$k);
+	    $filename=insert_file($dbaccess,$doc->id,$k);
 	
 	      
 	      
@@ -142,6 +141,7 @@ function modcard(&$action, &$ndocid) {
 
   $err=$doc-> PostModify(); 
   $err.=$doc-> Modify(); 
+  if ( $docid == 0 ) $err=$doc-> PostCreated(); 
   $doc->unlock(true); // disabled autolock
   
 

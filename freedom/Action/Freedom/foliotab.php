@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: foliotab.php,v 1.1 2003/02/05 17:04:21 eric Exp $
+// $Id: foliotab.php,v 1.2 2003/02/07 17:31:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliotab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,12 +58,16 @@ function foliotab(&$action) {
 
   $ttag=array();
   while(list($k,$v) = each($child)) {
-    $ttag[] = array(
-		    "tabid"=>$v["id"],
-		    "doctype"=>$v["doctype"],
-		    "tag_cellbgclass"=>($v["id"] ==$docid)?"TABBackgroundSelected":"TABBackground",
-		    "tabtitle"=>$v["title"]);
-    $nbfolders++;
+
+    if ($v["usefor"] == "G") {
+      $ttag[] = array(
+		      "tabid"=>$v["id"],
+		      "doctype"=>$v["doctype"],
+		      "TAG_LABELCLASS" => $v["doctype"]=="S"?"searchtab":"",
+		      "tag_cellbgclass"=>($v["id"] ==$docid)?"ongletvs":"ongletv",
+		      "tabtitle"=>$v["title"]);
+      $nbfolders++;
+    }
 //     popupActive("poppaste",$nbfolders,'staticpaste');
 //     popupActive("poppaste",$nbfolders,'pastelatest');
 //     popupActive("poppaste",$nbfolders,'cancel');
@@ -73,6 +77,7 @@ function foliotab(&$action) {
 //   popupGen($nbfolders);
 
   $action->lay->setBlockData("TAG",$ttag);
+  $action->lay->setBlockData("nbcol",count($ttag)+1);
 }
 
 ?>

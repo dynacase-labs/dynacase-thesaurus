@@ -11,7 +11,13 @@ var docTarget='fdoc';
 
 
 <a href="#" id="newdoc"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&classid=1&id=&dirid=[dirid]',docTarget);closeAllMenu(); return false;"  >[TEXT:new document]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&classid=1&dirid=[dirid]',docTarget);closeAllMenu(); return false;"  >[TEXT:new document]</a>
+
+
+<a href="#" id="newgc"     
+    onClick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=[IDFAM_GUIDECARD]&dirid=[dirid]',docTarget);closeAllMenu(); return false;"  >[TEXT:new guide-card]</a>
+<a href="#" id="newsgc"     
+    onClick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=[IDFAM_SGUIDECARD]&dirid=[dirid]',docTarget);closeAllMenu(); return false;"  >[TEXT:new search guide-card]</a>
 
 
 <a href="#" id="cancelf"  

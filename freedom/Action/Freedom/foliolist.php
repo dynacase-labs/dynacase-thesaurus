@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: foliolist.php,v 1.1 2003/02/05 17:04:21 eric Exp $
+// $Id: foliolist.php,v 1.2 2003/02/07 17:31:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliolist.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -31,12 +31,30 @@ include_once('FREEDOM/freedom_view.php');
 // -----------------------------------
 function foliolist(&$action) {
 // -----------------------------------
-  // Set the globals elements
+  // Get all the params      
+  $dirid=GetHttpVars("dirid"); // directory to see
+  $folioid=GetHttpVars("folioid"); // portfolio id
+  $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  // $action->parent->param->Set("FREEDOM_VIEW","icon",PARAM_USER.$action->user->id,$action->parent->id);
+  $filter=array();
+  $filter[]="doctype = 'F'";
+  $dir = new Doc($dbaccess,$dirid);
+  if ($dir->doctype == 'S') {
+    // recompute search to restriction to local folder
+    $dir->id="";
+    $dir->initid="";
+    $dir->doctype='T';
+    $dir->setValue("SE_IDFLD",$folioid);
+    $dir->Add();
+    $dir->SpecRefresh();
+
+    SetHttpVar("dirid",$dir->id); // redirect dirid to new temporary search
+    
+  }
+  
 
   viewfolder($action, false,true,
-	     100,array("doctype = 'F'"));
+	     100,$filter);
   
 
 

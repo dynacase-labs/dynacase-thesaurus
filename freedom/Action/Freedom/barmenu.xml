@@ -73,8 +73,8 @@ function SendSearchId(e,id) {
   <a  id="newsearch" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&classid=5&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:simple]</a>
   <a  id="newdsearch" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&classid=16&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:detailled]</a>
   <a  id="newsearchfulltext" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=EDIT_SEARCH_FULLTEXT&keyword=zz&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:fulltext]</a>
-  [TEXT:Ref]
-  <input   onmouseup="return false" onmousedown="document.menuclosed=false;this.focus();" onKeyPress="SendSearchId(event,this.value)" type="text" size=6 id="searchid">
+  <a class="menuItem"> [TEXT:Ref]
+  <input   onmouseup="return false" onmousedown="document.menuclosed=false;this.focus();" onKeyPress="SendSearchId(event,this.value)" type="text" size=6 id="searchid"></a>
 </div>
 
 <!-- ------------ MENU VIEW  --------------------- -->

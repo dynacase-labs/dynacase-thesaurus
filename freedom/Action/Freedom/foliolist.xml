@@ -27,8 +27,9 @@
 <body class="freedom" 
       onLoad="initmicon();placeicons(50);" 
       onResize="placeicons(50)"
+      onclick="closeAllMenu();"
       onContextMenu="openMenu(event,'popupfolio',1);return false" 
-      onClick="closeAllMenu();" >
+       >
 
 
 
@@ -44,7 +45,7 @@
 <div class="icon" id="d[divid]" >
 <IMG class="unselect" id="i[divid]" title="[title]"
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
-     onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
+     onContextMenu="closeAllMenu();openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
      align="absbottom"  src="[iconsrc]"><br>
 

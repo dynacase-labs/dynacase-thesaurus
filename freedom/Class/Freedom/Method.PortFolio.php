@@ -1,9 +1,8 @@
-<?php
 // ---------------------------------------------------------------
-// $Id: deldirfile.php,v 1.7 2003/02/07 17:31:49 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/deldirfile.php,v $
+// $Id: Method.PortFolio.php,v 1.1 2003/02/07 17:31:50 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.PortFolio.php,v $
 // ---------------------------------------------------------------
-//  O   Anakeen - 2002
+//  O   Anakeen - 2001
 // O*O  Anakeen development team
 //  O   dev@anakeen.com
 // ---------------------------------------------------------------
@@ -23,39 +22,24 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Dir.php");
-include_once("FDL/freedom_util.php");  
+function PostCreated() {
+  // copy all guide-card from default values
+  include_once("FDL/Lib.Dir.php");  
+
+  $fdoc= new Doc($this->dbaccess,$this->fromid);
+
+  if ($fdoc->ddocid > 0) {
+    $child = getChildDir($this->dbaccess,$this->userid,$fdoc->ddocid, false,"LIST");
+    
+    while (list($k,$doc) = each($child)) {
+      if ($doc->usefor == "G") {
+	$copy=$doc->Copy();
 
 
+	$err=$this->AddFile($copy->id);
 
-// -----------------------------------
-function deldirfile(&$action) {
-  // -----------------------------------
-
-
-  //print_r($HTTP_POST_VARS);
-
-  // Get all the params      
-  $dirid=GetHttpVars("dirid");
-  $docid=GetHttpVars("docid");
-
-  //  print "deldirfile :: dirid:$dirid , docid:$docid";
-
-
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-
-
-  $dir = new Dir($dbaccess,$dirid);// use initial id for directories
-  $err = $dir->DelFile($docid);
-  if ($err != "") $action->exitError($err);
-
-  
-  RedirectSender($action);// return to sender
-  
-
+	print $err;
+      }
+    }
+  }
 }
-
-
-
-
-?>

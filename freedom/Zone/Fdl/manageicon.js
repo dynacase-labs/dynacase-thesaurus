@@ -127,7 +127,7 @@ function openMenuOrProperties(event,menuid,itemid,target) {
     if (shiftKey ) {
       openMenu(event,menuid, itemid);
     } else {
-      subwindow(300,400,docTarget,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&abstract=N&id='+docid);
+      subwindow(300,400,docTarget,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id='+docid);
     }
   }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.20 2003/01/30 09:38:36 eric Exp $
+// $Id: popupcard.php,v 1.21 2003/02/07 17:31:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,7 +30,7 @@ function popupcard(&$action) {
   // define accessibility
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");
-  $headers = (GetHttpVars("props",'Y') == "Y"); // view doc properties
+  $headers = (GetHttpVars("props",'N') == "Y"); // view doc properties
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);

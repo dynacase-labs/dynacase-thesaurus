@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.13 2003/01/21 15:43:35 eric Exp $
+// $Id: Class.Dir.php,v 1.14 2003/02/07 17:31:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.13 2003/01/21 15:43:35 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.14 2003/02/07 17:31:49 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -89,6 +89,7 @@ Class Dir extends PDir
   case "latest":
   default:
     $doc= new Doc($this->dbaccess, $docid);
+    if (! $doc->isAffected()) return sprintf(_("Cannot add in %s folder, doc id (%d) unknown"), $this->title, $docid);
     $qf->qtype='S'; // single user query
     $qf->childid=$doc->initid; // initial doc
     

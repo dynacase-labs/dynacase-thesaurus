@@ -11,7 +11,7 @@
   <td class="FREEDOMLabel" align="right">
       <label for="sensitive"> [TEXT:familly]&nbsp;:</label></td>
   <td >
-     <select name="_se_famid" onchange="document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=[IDFAM_DSEARCH]&dirid='+parent.ffolder.dirid+'&sfamid='+this.options[this.selectedIndex].value">  
+     <select name="_se_famid" onchange="document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=[classid]&dirid=[dirid]&sfamid='+this.options[this.selectedIndex].value">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]

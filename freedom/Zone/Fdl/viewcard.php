@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.33 2003/01/30 09:38:36 eric Exp $
+// $Id: viewcard.php,v 1.34 2003/02/07 17:31:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,10 +37,11 @@ include_once("VAULT/Class.VaultFile.php");
 function viewcard(&$action) {
   // -----------------------------------
 
+
   // GetAllParameters
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
-  $props = (GetHttpVars("props",'Y') == "Y"); // view doc properties
+  $props = (GetHttpVars("props",'N') == "Y"); // view doc properties
   $zonebodycard = GetHttpVars("zone"); // define view action
   $dochead = (GetHttpVars("dochead",'Y') == "Y"); // with doc head
   $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.30 2003/01/31 13:04:43 eric Exp $
+// $Id: freedom_util.php,v 1.31 2003/02/07 17:31:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -164,15 +164,14 @@ function createDoc($dbaccess,$fromid,$control=true) {
     $doc->icon = $cdoc->icon; // inherit from its familly	
     $doc->usefor = $cdoc->usefor; // inherit from its familly
     $doc->wid=$cdoc->wid;
-      $nattr = $cdoc->GetNormalAttributes();
-      while (list($k,$v) = each($nattr)) {
+    $nattr = $cdoc->GetNormalAttributes();
+    while (list($k,$v) = each($nattr)) {
 	$aid = $v->id;
 	//	print $aid.$cdoc->getValue($aid);
 	//$doc->setValue($aid, $cdoc->getValue($aid));
 	$doc->$aid = $doc->GetValueMethod($cdoc->getValue($aid));
 
-      }              
-
+    }              
     return ($doc);
     
   }

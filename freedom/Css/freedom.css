@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.22 2003/02/05 17:04:21 eric Exp $
+ * $Id: freedom.css,v 1.23 2003/02/07 17:31:50 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -179,6 +179,21 @@ A.title:hover {
    font-size: 50%;
   cursor: pointer;
   background-image:url('[IMG:tabh.png]');
+  color:[CORE_TEXTBGCOLOR];
+  border-style: none;
+}
+.ongletv {
+   font-size: 90%;
+  background-image:url('[IMG:tabv.png]');
+  color:[CORE_TEXTFGCOLOR];
+  cursor: pointer;
+  border-style: none;
+  align: center;
+}
+.ongletvs {
+   font-size: 90%;
+  cursor: pointer;
+  background-image:url('[IMG:tabvs.png]');
   color:[CORE_TEXTBGCOLOR];
   border-style: none;
 }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupfolio.php,v 1.1 2003/02/05 17:04:21 eric Exp $
+// $Id: popupfolio.php,v 1.2 2003/02/07 17:31:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Freedom/popupfolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,22 +29,38 @@ function popupfolio(&$action) {
   // ------------------------------
   // get all parameters
   $dirid=GetHttpVars("dirid"); // 
+  $folioid=GetHttpVars("folioid"); // portfolio id
 
   $kdiv=1; // only one division
 
+  $dir = new Doc($dbaccess,$dirid);
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupfolio',  array('newdoc',
+  popupInit('popupfolio',  array('newdoc','newgc','newsgc',
 				 'cancelf'));
 
 
+  if ($dir->doctype == "D") {
 
-
-  Popupactive('popupfolio',$kdiv,'newdoc');
-  Popupactive('popupfolio',$kdiv,'cancelf');
-
+    Popupactive('popupfolio',$kdiv,'newdoc');
+    Popupactive('popupfolio',$kdiv,'newgc');
+    Popupactive('popupfolio',$kdiv,'newsgc');
+    Popupactive('popupfolio',$kdiv,'cancelf');
+  } else {
+    Popupinvisible('popupfolio',$kdiv,'newdoc');
+    Popupinvisible('popupfolio',$kdiv,'newgc');
+    Popupinvisible('popupfolio',$kdiv,'newsgc');
+    Popupactive('popupfolio',$kdiv,'cancelf');
+  }
   popupGen($kdiv);
 
-  $action->lay->set("dirid",$dirid);
+
+  // set dirid to folio if is in search
+  if ($dir->doctype=='S') $action->lay->set("dirid",$folioid);
+  else $action->lay->set("dirid",$dirid);
+  
+
+
+  setFamidInLayout($action);
 }

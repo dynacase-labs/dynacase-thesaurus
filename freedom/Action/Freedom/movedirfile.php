@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: movedirfile.php,v 1.3 2002/12/06 17:15:15 eric Exp $
+// $Id: movedirfile.php,v 1.4 2003/02/07 17:31:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/movedirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,6 +39,7 @@ function movedirfile(&$action) {
   $todirid=GetHttpVars("todirid");
   $fromdirid=GetHttpVars("fromdirid");
   $docid=GetHttpVars("docid");
+  $return=GetHttpVars("return"); // return action may be folio
 ;
 
 
@@ -65,8 +66,9 @@ function movedirfile(&$action) {
 
   
   
+  if ($return == "folio")  redirect($action,GetHttpVars("app"),"FOLIOLIST&dirid=$todirid");
+  else redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$todirid");
   
-  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$todirid");
 }
 
 

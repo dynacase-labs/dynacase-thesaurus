@@ -53,6 +53,8 @@ function moveicon(e) {
 }
 var micon;
 var cdocid=0;
+var fromdirid=0;
+var move=true; // if true move reference doc in guidecard else copy reference
 
 
 
@@ -65,8 +67,11 @@ function initDrag() {
     wref=windowExist('ffoliolist');//window.open('','ffoliolist','');
     if (wref && (wref.drag == 1)) {
       cdocid = wref.document.docid;
+      fromdirid = wref.document.dirid;
+      move=true;
       drag=1;
     } else { 
+      move=false;
       wref=windowExist('flist');//window.open('','flist','');
 
     
@@ -167,12 +172,31 @@ function selecttab(th) {
   var i;
   
   ltd = document.getElementsByTagName('td');
-  for (i=0; i < ltd.length; i++) {
-     ltd[i].className='TABBackground';
+  for (i=0; i < ltd.length-1; i++) {
+     ltd[i].className='ongletv';
   }
-  th.className='TABBackgroundSelected';
-  if (th.nextSibling.nodeName=='TD') th.nextSibling.className='TABBackgroundSelected';
-  else  if (th.nextSibling.nextSibling.nodeName=='TD') th.nextSibling.nextSibling.className='TABBackgroundSelected';
+  th.className='ongletvs';
+  if (th.nextSibling.nodeName=='TD') th.nextSibling.className='ongletvs';
+  else  if (th.nextSibling.nextSibling.nodeName=='TD') th.nextSibling.nextSibling.className='ongletvs';
+}
+
+function copyOrMove(tabid) {
+  if (move) {
+    
+    parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=MOVEDIRFILE&return=folio&mode=latest&todirid='+tabid+'&fromdirid='+fromdirid+'&docid='+cdocid;
+
+  } else {
+    parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&return=folio&mode=latest&dirid='+tabid+'&docid='+cdocid;
+  }
+  endDrag();
+}
+
+function viewguide(docid) {
+  
+   var w=wref=windowExist('ffoliolist');
+   var wtarget=windowExist(w.docTarget);
+
+   wtarget.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id='+docid;
 }
 
     [JS:CODE]
@@ -186,7 +210,12 @@ function selecttab(th) {
 [ZONE FDL:GENCSS]
 
 [CSS:CODE]
-   
+
+.searchtab {
+  font-style:italic;
+}   
+.foldertab {
+}   
 </style>
 
 
@@ -206,14 +235,16 @@ function selecttab(th) {
 
 
 
-<table width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
-<tr>
-  <td  class="TABBackgroundSelected" style="cursor:pointer" onmousedown="if (drag == 1) {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&return=folio&mode=latest&dirid=[dirid]&docid='+cdocid;endDrag();} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[dirid]';endDrag();} return false"
+<table width="100%" cols="[nbcol]" align="left" border="0" cellspacing="0" cellpadding="0">
+<tr height="30px">
+  <td  class="ongletvs" style="cursor:pointer" 
+       onmousedown="if (drag == 1) {copyOrMove([dirid]);} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[dirid]&folioid=[dirid]';endDrag();} return false"
+       ondblclick="viewguide('[dirid]');return false;"
      onclick="selecttab(this);">[title]</td>
-  <td class="TABBackgroundSelected" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"></td>
+  <td class="ongletvs" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"></td>
 [BLOCK TAG]
   <td  class="[tag_cellbgclass]" style="cursor:pointer" valign="middle" 
-     onmousedown="if (drag == 1) {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&return=folio&mode=latest&dirid=[tabid]&docid='+cdocid;endDrag();} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[tabid]';endDrag();} return false"
+     onmousedown="if (('[doctype]'=='D') && (drag == 1)) {copyOrMove([tabid]);} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[tabid]&folioid=[dirid]';endDrag();} return false" ondblclick="viewguide('[tabid]');return false;"
      onclick="selecttab(this);">
           <span class="[TAG_LABELCLASS]">[tabtitle]</span>
        </a></td>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.91 2003/01/31 13:04:43 eric Exp $
+// $Id: Class.Doc.php,v 1.92 2003/02/07 17:31:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.91 2003/01/31 13:04:43 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.92 2003/02/07 17:31:49 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -780,6 +780,12 @@ create unique index i_docir on doc(initid, revision);";
     return "";
   }
 
+  // no in postInsert method :: call this only in modcard function
+  function PostCreated() {
+    // to be defined in child class
+    return "";
+  }
+
 
   // recompute the title from attribute values
   function SetTitle($title) {
@@ -952,6 +958,25 @@ create unique index i_docir on doc(initid, revision);";
        
     return $this->id;
     
+  }
+
+  // return the  copy of this
+  function Copy($temporary=false) {
+    $copy= new Doc($this->dbaccess, $this->id);
+
+    
+    $copy->id = "";
+    $copy->initid = "";
+    $copy->revision = "0";
+    $copy->locked = "0";
+    $copy->state = "";
+    if ($temporary) $copy->doctype = "T";
+    $cdoc= new Doc($this->dbaccess, $this->fromid);
+    $copy->profid = $cdoc->cprofid;;
+
+    $err = $copy->Add();
+
+    return $copy;
   }
 
   function lock($auto=false) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.4 2003/01/30 09:38:36 eric Exp $
+// $Id: duplicate.php,v 1.5 2003/02/07 17:31:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,17 +67,6 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
   if ($err != "") $action->exitError($err);
   
 
-  //duplicate values 
-    $value = new DocValue($dbaccess);
-    $value->docid = $copy->id;
-    
-    
-    while(list($k,$v) = each($values)) {
-      $value->attrid = $k;
-      $value->value = $v;
-      $value->Add();
-      
-    }
 
 
   $copy->SetTitle($copy->title);
