@@ -15,7 +15,12 @@
    <style type="text/css">
 [CSS:CODE]
    </style>
-
+[JS:REF]  
+<script language="JavaScript">
+  <!--
+    [JS:CODE]
+  //-->
+   </script>
  </head>
 
 <body class="freedom"   >
