@@ -70,10 +70,10 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 <tr class="FREEDOMBack1">
   
  <td  colspan="2">
-<IMG  style="display:[dicon]" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="50px" SRC="[iconsrc]">
-   <span class="FREEDOMTextBigTitle">[TITLE]
-    </span>
-  </td>
+  <IMG  style="display:[dicon]" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="50px" SRC="[iconsrc]">
+  <IMG  style="display:[dicon];position:absolute" border="0"   width="20px" SRC="[emblem]">
+  <span class="FREEDOMTextBigTitle">[TITLE]</span>
+ </td>
   <td align="right" valign="bottom" >
 [BLOCK ACTIONS]
 <a href="#" style="display:[amail]" onclick="subwindow(400,400,'fdoc','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]')">

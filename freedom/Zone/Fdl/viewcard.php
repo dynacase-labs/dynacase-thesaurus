@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.43 2003/10/10 10:20:48 eric Exp $
+ * @version $Id: viewcard.php,v 1.44 2003/11/03 09:01:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.43 2003/10/10 10:20:48 eric Exp $
+// $Id: viewcard.php,v 1.44 2003/11/03 09:01:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -106,7 +106,12 @@ function viewcard(&$action) {
   $err = $doc->control("view");
   if ($err != "") $action->exitError($err);
   
- 
+  // set emblem
+  if ($doc->locked == -1) $action->lay->set("emblem", $action->getImageUrl("revised.gif"));
+  else if ((abs($doc->locked) == $action->parent->user->id)) $action->lay->set("emblem",$action->getImageUrl("clef1.gif"));
+  else if ($doc->locked != 0) $action->lay->set("emblem",$action->getImageUrl("clef2.gif"));
+  else if ($doc->control("edit") != "") $action->lay->set("emblem",$action->getImageUrl("nowrite.gif"));
+  else $action->lay->set("emblem",$action->getImageUrl("1x1.gif"));
     // set view zone
     if ($zonebodycard == "") {
       $zonebodycard = $doc->defaultview;
