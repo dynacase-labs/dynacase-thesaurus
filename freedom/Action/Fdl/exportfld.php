@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.7 2002/09/26 15:45:15 eric Exp $
+// $Id: exportfld.php,v 1.8 2002/12/13 11:19:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FDL/Class.Dir.php");
+include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.DocAttr.php");
 include_once("VAULT/Class.VaultFile.php");
 
@@ -35,7 +35,7 @@ function exportfld(&$action, $aflid="0")
   $fldid = GetHttpVars("id",$aflid);
   $fld = new Dir($dbaccess, $fldid);
 
-  $ldoc = getChildDoc($dbaccess, $fldid,"0","ALL",array("doctype='F'"),$action->user->id);
+  $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE");
 
 
   $foutname = uniqid("/tmp/exportfld").".csv";
@@ -43,51 +43,48 @@ function exportfld(&$action, $aflid="0")
 
 
 
-  while (list($k,$doc)= each ($ldoc)) {        
-      $docids[]=$doc->id;
+  while (list($k,$doc)= each ($tdoc)) {        
+    $docids[]=$doc->id;
   }
 
   if (isset($docids)) {
 
-  // get all values
-  $query = new QueryDb($dbaccess,"DocValue");
-  $query -> AddQuery(GetSqlCond($docids, "docid"));
-  $qvalues = $query -> Query(0,0,"TABLE");
 
-  // recompose the array to access by docid and attrid
-  while (list($k,$v)= each ($qvalues)) {
-      $value[$v["docid"]][$v["attrid"]]=$v["value"];
-    }
-
-
-
-  // compose the csv file
-  $prevfromid = 0;
-  reset($ldoc);
-  while (list($k,$doc)= each ($ldoc)) {
     
-    if ($prevfromid != $doc->fromid) {
-      $lattr=$doc->GetNormalAttributes();
-      fputs($fout,"//DOC;".$doc->fromid.";<specid>;<fldid>;");
-      while (list($ka,$attr)= each ($lattr)) {
-	fputs($fout,str_replace(";"," - ",$attr->labeltext).";");
+    $doc = createDoc($dbaccess,0);
+
+    // compose the csv file
+    $prevfromid = 0;
+    reset($tdoc);
+    while (list($k,$zdoc)= each ($tdoc)) {
+      $doc->ResetMoreValues();
+      $doc->Affect($zdoc);
+      $doc->GetMoreValues();
+
+      if ($prevfromid != $doc->fromid) {
+	$adoc = new DocFam($dbaccess,$doc->fromid);
+	$lattr=$adoc->GetNormalAttributes();
+	fputs($fout,"//DOC;".$doc->fromid.";<specid>;<fldid>;");
+	while (list($ka,$attr)= each ($lattr)) {
+	  fputs($fout,str_replace(";"," - ",$attr->labelText).";");
+	}
+	fputs($fout,"\n");
+	$prevfromid = $doc->fromid;
       }
-      fputs($fout,"\n");
-      $prevfromid = $doc->fromid;
-    }
-    reset($lattr);
+      reset($lattr);
 
       fputs($fout,"DOC;".$doc->fromid.";".$doc->id.";".$fldid.";");
-    // write values
-    while (list($ka,$attr)= each ($lattr)) {
+      // write values
+      while (list($ka,$attr)= each ($lattr)) {
       
-      if (isset($value[$doc->id][$attr->id])) fputs($fout,str_replace(array("\n",";","\r"),
-								      array("\\n"," - ",""),
-								      $value[$doc->id][$attr->id]) .";");
-      else fputs($fout,";");
+	$value= $doc->getValue($attr->id);
+	fputs($fout,str_replace(array("\n",";","\r"),
+				array("\\n"," - ",""),
+				$value) .";");
+     
+      }
+      fputs($fout,"\n");
     }
-    fputs($fout,"\n");
-  }
   }
   fclose($fout);
   Http_DownloadFile($foutname, $fld->title.".csv", "text/csv");

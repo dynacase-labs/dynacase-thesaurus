@@ -7,7 +7,6 @@
 
 <tr  >
   <td  colspan="3" >
-<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]"></input>
 <input type="hidden" name="title" value="[TITLE]"></input>
 
 <fieldset><legend>[frametext]</legend>

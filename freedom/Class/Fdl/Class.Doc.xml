@@ -56,7 +56,7 @@ end;
     
 
     if (isset($this->attributes->fields))  $this->fields += $this->attributes->fields;
-      [pinit]::[pinit]($dbaccess, $id, $res, $dbid);
+      [pinit]::[pinit]($dbaccess, intval($id), $res, $dbid);
 
 
 

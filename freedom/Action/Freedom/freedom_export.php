@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_export.php,v 1.2 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_export.php,v 1.3 2002/12/13 11:19:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/Attic/freedom_export.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,42 +21,12 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: freedom_export.php,v $
-// Revision 1.2  2002/06/19 12:32:28  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.2  2001/12/19 17:57:32  eric
-// on continue
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-// Revision 1.2  2001/10/03 15:56:03  eric
-// ajout type date pour roaming
-//
-// Revision 1.1  2001/07/27 08:05:11  eric
-// correction erreur de frappe format mime
-//
-// Revision 1.2  2001/06/22 09:46:12  eric
-// support attribut multimédia
-//
-// Revision 1.1  2001/06/19 16:13:20  eric
-// importation de fichier
-//
-//
-// ---------------------------------------------------------------
-include_once("FDL/Class.Doc.php");
-include_once("FDL/Class.DocAttr.php");
-include_once("FDL/Class.DocValue.php");
+
+
+
+
+include_once("FLD/Lib.Dir.php"); 
 include_once("FDL/freedom_util.php");
-include_once("Class.QueryDb.php");
-include_once("Class.QueryGen.php");
-
-
-
   
 
 
@@ -64,7 +34,7 @@ include_once("Class.QueryGen.php");
 function freedom_export(&$action) {
   // -----------------------------------
   // export all selected card in a tempory file
-  // this file is sent by dowload  
+  // this file is sent by download  
   // -----------------------------------
 
   // Get all the params   

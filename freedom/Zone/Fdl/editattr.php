@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editattr.php,v 1.5 2002/12/04 17:13:37 eric Exp $
+// $Id: editattr.php,v 1.6 2002/12/13 11:19:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,15 @@ function editattr(&$action) {
   if ($docid == 0) $doc = new Doc($dbaccess, $classid);
   else $doc = new Doc($dbaccess, $docid);
 
+  $doc->lay=$action->lay;
+  $doc->editattr();
+
+
+  $action->lay=$doc->lay;
   
+
+  return;
+
   $listattr = $doc->GetAttributes();
     
     

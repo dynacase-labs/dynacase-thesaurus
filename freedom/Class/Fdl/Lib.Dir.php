@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.46 2002/12/11 08:24:45 eric Exp $
+// $Id: Lib.Dir.php,v 1.47 2002/12/13 11:19:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -209,7 +209,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-    print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
   
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_del.php,v 1.4 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_del.php,v 1.5 2002/12/13 11:19:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,17 +39,19 @@ function freedom_del(&$action) {
   if ( $docid == "" )
     return;
 
-
-  $ofreedom = new Doc($dbaccess, $docid);
+  $doc= new Doc($dbaccess, $docid);
   
+  // must unlocked before
+  $err=$doc->CanLockFile();
+  if ($err != "")  $action-> ExitError($err);
   // ------------------------------
   // delete POSGRES card
 
-  $err=$ofreedom-> Delete();
+  $err=$doc-> Delete();
   if ($err != "")  $action-> ExitError($err);
       
     
-  $action->AddLogMsg(sprintf(_("%s has been deleted"),$ofreedom->title));
+  $action->AddLogMsg(sprintf(_("%s has been deleted"),$doc->title));
 
   
   redirect($action,GetHttpVars("app"),"FREEDOM_LOGO");

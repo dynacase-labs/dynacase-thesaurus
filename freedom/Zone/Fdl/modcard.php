@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.18 2002/11/14 10:43:22 eric Exp $
+// $Id: modcard.php,v 1.19 2002/12/13 11:19:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -175,18 +175,23 @@ function insert_file($dbaccess,$docid, $attrid)
      //------------------------------------------------------------
 {
   
+  global $action;
   global $HTTP_POST_FILES;
   
-
+  global $upload_max_filesize;
   
   $userfile = $HTTP_POST_FILES["_".$attrid];
   
-  
+
   if ($userfile['tmp_name'] == "none")
     {
       // if no file specified, keep current file
 	
-	return "";
+      if ($userfile['name'] != "") {
+	$err = sprintf(_("Filename '%s' cannot be transmitted.\nThe Size Limit is %d bytes."), $userfile['name'],ini_get('upload_max_filesize'));
+	$action->ExitError($err);
+      }
+      return "";
     }
   
 
@@ -207,7 +212,6 @@ function insert_file($dbaccess,$docid, $attrid)
     
     $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
     move_uploaded_file($userfile['tmp_name'], $destfile);
-    global $action;
     if (isset($vf)) unset($vf);
     $vf = new VaultFile($dbaccess, "FREEDOM");
     $vf -> Store($destfile, false , $vid);

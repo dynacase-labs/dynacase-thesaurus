@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_del.php,v 1.3 2002/11/06 15:59:27 eric Exp $
+// $Id: generic_del.php,v 1.4 2002/12/13 11:19:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,9 +42,14 @@ function generic_del(&$action) {
 
     $doc = new Doc($dbaccess, $docid);
   
+    // must unlocked before
+    $err=$doc->CanLockFile();
+    if ($err != "")  $action-> ExitError($err);
+
     // ------------------------------
     // delete document
-    $doc-> Delete();
+     $err=$doc-> Delete();
+  if ($err != "")  $action-> ExitError($err);
       
   }
 
