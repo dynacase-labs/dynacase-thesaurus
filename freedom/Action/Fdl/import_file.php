@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.64 2004/03/25 11:09:10 eric Exp $
+ * @version $Id: import_file.php,v 1.65 2004/05/06 08:03:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -221,6 +221,7 @@ function add_import_file(&$action, $fimport="") {
     case "DEFAULT":     
       //   $famdoc=$doc->getFamDoc();
       $doc->setDefValue($data[1],str_replace('\n',"\n",$data[2]));
+      $doc->setParam($data[1],str_replace('\n',"\n",$data[2]));
       $msg=sprintf("add default value %s %s",$data[1],$data[2]);
       AddImportLog($msg);
     break;
