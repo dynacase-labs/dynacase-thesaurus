@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.22 2004/01/27 13:21:02 eric Exp $
+ * @version $Id: enum_choice.php,v 1.23 2004/01/28 09:40:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.22 2004/01/27 13:21:02 eric Exp $
+// $Id: enum_choice.php,v 1.23 2004/01/28 09:40:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,6 +55,7 @@ function enum_choice(&$action) {
   //global $HTTP_POST_VARS;print_r($HTTP_POST_VARS);
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+ 
   $doc= new Doc($dbaccess,$docid);
   $oattr= $doc->GetAttribute($attrid);
   if (! $oattr) 
@@ -89,18 +90,24 @@ function enum_choice(&$action) {
 			"getAttr('\\1')",
 			$reg[2]);
 
-
   $argids = split(",",$iarg);  // input args
   while (list($k, $v) = each($argids)) {
     if ($v == "A") $arg[$k]= &$action;
     else if ($v == "D") $arg[$k]= $dbaccess;
     else if ($v == "I") $arg[$k]= $doc->id;
     else if ($v == "T") $arg[$k]= &$doc;
-    else if ($index === "") $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
-    else {
+    else if ($index === "") {
       $a = $doc->GetAttribute($v);
-      
-      if ($a && $a->inArray()) {
+      if ($a && ($a->usefor=="P")) {
+	$arg[$k]=$doc->getParamValue($v);
+      } else {
+	$arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
+      }
+    } else {
+      $a = $doc->GetAttribute($v);
+      if ($a && ($a->usefor=="P")) {
+	$arg[$k]=$doc->getParamValue($v);
+      } else if ($a && $a->inArray()) {
 	if (($a->fieldSet->id == $oattr->fieldSet->id)) { // search with index
 	  $ta = GetHttpVars("_".strtolower($v),$v);
 	  
@@ -171,8 +178,15 @@ function enum_choice(&$action) {
 }
 
 function getAttr($aid) {
-      return GetParam($aid,
-		      getFamIdFromName(GetParam("FREEDOM_DB"),$aid));
+  
+
+  
+  
+  $r=GetParam($aid);
+  if ($r == "") $r=getFamIdFromName(GetParam("FREEDOM_DB"),$aid);
+  
+  return $r;
+      
 }
 
 ?>
