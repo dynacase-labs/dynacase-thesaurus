@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.10 2005/02/06 20:47:29 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.11 2005/02/09 17:52:45 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,6 +57,8 @@ array(
   "WGCAL_U_RESSTMPLIST" => array( "val" => "", "descr"=>N_("WGCAL_U_TMPLIST"), "user"=>"Y"),
 
   "WGCAL_U_USERESSINEVENT" => array( "kind" => "enum(0|1)", "val"=>"1", "descr"=>N_("use displayed ressource for event setting"), "user"=>"Y"),
+
+  "WGCAL_U_EVHEADCOLOR" => array("kind"=>"color", "descr"=>N_("ev head color"),"user"=>"Y"),
 
   "VERSION" => "@VERSION@-@RELEASE@",
   "INIT" => "yes"

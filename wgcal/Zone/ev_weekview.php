@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.10 2005/02/08 11:32:24 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.11 2005/02/09 17:52:45 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -35,17 +35,22 @@ function ev_weekview(&$action) {
   $tpriv[0]["ID"] = $ev->id;
 
 
-  $lstart = $lend = $lrhs = $lrhe = ""; 
+  $ldstart = $ldend = $lstart = $lend = $lrhs = $lrhe = ""; 
   switch($ev->getValue("CALEV_TIMETYPE",0)) {
   case 1: $lstart = $lrhs = _("no hour"); break;
   case 2: $lstart = $lrhs = _("all the day"); break;
   default:
-    $lstart = substr($ev->getValue("CALEV_START"),0,16);
-    $lend = substr($ev->getValue("CALEV_END"),0,16);
+    $ldstart = substr($ev->getValue("CALEV_START"),0,10);
+    $lstart = substr($ev->getValue("CALEV_START"),11,5);
+    $ldend = substr($ev->getValue("CALEV_END"),0,10);
+    $lend = substr($ev->getValue("CALEV_END"),11,5);
     $lrhs = substr($ev->getValue("CALEV_START"),11,5);
     $lrhe = substr($ev->getValue("CALEV_END"),11,5);
   }
+  $action->lay->set("DSTART", $ldstart);
   $action->lay->set("START", $lstart);
+  if ($ldstart == $ldend ) $ldend = "";
+  $action->lay->set("DEND",   $ldend);
   $action->lay->set("END",   $lend);
   $action->lay->set("RHOURS", $lrhs);
   $action->lay->set("RHOURE", $lrhe);
@@ -56,7 +61,6 @@ function ev_weekview(&$action) {
   $action->lay->set("modifdate", strftime("%x %X",$ev->revdate));
 
   $ress = WGCalGetRessDisplayed($action);
-  //   $pretitle = "[$evref::".$ev->id."] ";
   if ($private) $action->lay->set("TITLE", $pretitle." "._("confidential event"));
   else $action->lay->set("TITLE", $pretitle." ".$ev->getValue("CALEV_EVTITLE"));
 
@@ -65,26 +69,27 @@ function ev_weekview(&$action) {
 
   // Compute color according the owner, participant, etc,...
   $o_or_p = 0;
-  if ($action->user->fid == $ownerid) $o_or_p = $ownerid;
-  else {
-    foreach ($tress as $k => $v)  {
-      if ($action->user->fid == $v) $o_or_p = $v;
+  $v_proprio = false;
+  foreach ($ress as $k => $v) {
+    if ($action->user->fid == $v) $v_proprio = true;
+  }
+  
+  if ($v_proprio) {
+    if ($action->user->fid == $ownerid) $o_or_p = $ownerid;
+    else {
+       foreach ($tress as $k => $v) if ($action->user->fid == $v) $o_or_p = $action->user->fid;
     }
-    if ($o_or_p == 0) {
-      foreach ($tress as $k => $v)  {
-	if ($ownerid == $v) $o_or_p = $v;
-      }
-      if ($o_or_p == 0) {
-	// see for one displayed ressource is attendee
-	foreach ($ress as $k => $v) {
-	  foreach ($tress as $kr => $vr) {
-	    if ($v->id==$vr) $o_or_p = $vr;
-	  }
-	}
+  } else {
+    foreach ($ress as $k => $v) if ($v->id == $ownerid) $o_or_p = $ownerid;
+    if ($o_or_p==0) {
+      foreach ($ress as $k => $v) {
+        foreach ($tress as $kr => $vr) {
+          if ($v->id==$vr) $o_or_p = $vr;
+        }
       }
     }
   }
-  $bgheadcolor = "grey"; //"#755757";
+  $bgheadcolor = $action->GetParam("WGCAL_U_EVHEADCOLOR","black");
   $bgresumecolor = $bgcolor = "white";
   foreach ($ress as $k => $v) if ($v->id==$o_or_p) $bgresumecolor=$bgcolor=$v->color;
 

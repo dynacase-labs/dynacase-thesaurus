@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.13 2005/02/06 20:47:29 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.14 2005/02/09 17:52:45 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -77,10 +77,10 @@ function _seewaitrv(&$action, &$wrv) {
     }
     if ($state != -1) {
       $label = WGCalGetLabelState($state); 
-      $wrv[$irv]["wrvfontstyle"] = "font-style:italic;"; 
+      $wrv[$irv]["wrvfontstyle"] = ""; 
       $wrv[$irv]["wrvcolor"] = WGCalGetColorState($state); 
       $wrv[$irv]["wrvid"] = $v["id"];
-      if (strlen($v["calev_evtitle"])>$rvtextl) $wrv[$irv]["wrvtitle"] = substr($v["calev_evtitle"],0,$rvtextl)."...";
+      if (strlen($v["calev_evtitle"])>$rvtextl) $wrv[$irv]["wrvtitle"] = addslashes(substr($v["calev_evtitle"],0,$rvtextl)."...");
       else $wrv[$irv]["wrvtitle"] = $v["calev_evtitle"];
       $wrv[$irv]["wrvfulldescr"] = "[".$label."] " 
 	. substr($v["calev_start"],0,16)." : ".$v["calev_evtitle"]." (".$v["calev_owner"].")";
@@ -140,7 +140,7 @@ function _listress(&$action)
   $action->lay->set("myrid", $rd->id);
   $action->lay->set("myricon", $rd->getIcon());
   $action->lay->set("myrdesc", $rd->title);
-  $action->lay->set("myrcolor", $action->GetParam("WGCAL_U_MYCOLOR", "black"));
+  $action->lay->set("myrcolor", $action->GetParam("WGCAL_U_MYCOLOR", "white"));
 
   $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
 

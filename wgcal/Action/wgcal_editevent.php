@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.24 2005/02/08 18:04:23 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.25 2005/02/09 17:52:45 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -51,6 +51,8 @@ function wgcal_editevent(&$action) {
   
   if ($evid > 0) {
     $event = new Doc($db, $evid);
+    $ownerid = $event->getValue("CALEV_OWNERID", "");
+    $ownertitle = $event->getValue("CALEV_OWNER", "");
     $evtitle  = $event->getValue("CALEV_EVTITLE", "");
     $evnote   = $event->getValue("CALEV_EVNOTE", "");
     $evstart  = db2date($event->getValue("CALEV_START", ""));
@@ -69,22 +71,32 @@ function wgcal_editevent(&$action) {
     $evrexcld  = $event->getTValue("CALEV_EXCLUDEDATE", array());
     $attendees = $event->getTValue("CALEV_ATTID", array());
     $attendeesState = $event->getTValue("CALEV_ATTSTATE", array());
-    $evstatus = 0;
+    $evstatus = EVST_READ;
     $mailadd = "";
     $withme = false;
+    $onlyme = true;
     foreach ($attendees as $k => $v) {
       if ($v == $action->user->fid) {
-	$evstatus = ($evstatus == EVST_NEW ? EVST_READ : $evstatus);
+	$evstatus = ($evstatus == EVST_NEW ? EVST_READ : $attendeesState[$k]);
 	$withme = true;
       } else {
+        $onlyme = false;
 	$u = new Doc($action->GetParam("FREEDOM_DB"), $v);
 	$m = $u->getValue("US_MAIL");
 	if ($m) $mailadd .= ($mailadd==""?"":", ").$u->getValue("US_FNAME")." ".$u->getValue("US_LNAME")." <".$m.">";
       }
     }
-    $ownerid = $event->getValue("CALEV_OWNERID", "");
-    $ownertitle = $event->getValue("CALEV_OWNER", "");
     $rwstatus = false;
+    // Compute ro mode & rostatus mode
+    if ($action->user->fid == $ownerid) {
+      $ro = false;
+      $rostatus = false;
+    } else {
+      $rostatus = true;
+      foreach ($attendees as $k => $v) {
+        if ($action->user->fid == $v) $rostatus = false;
+      }
+    }
   } else {
     $mailadd = "";
     $evtitle  = "";
@@ -129,18 +141,10 @@ function wgcal_editevent(&$action) {
     $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
     $ownertitle = $attru["title"];
     $rostatus = true;
+    $ro = false;
   }
 
-  // Compute ro mode & rostatus mode
-  $ro = true;
-  if ($action->user->fid == $ownerid) $ro = false;
   $action->lay->set("ROMode", ($ro?"true":"false"));
-  $rostatus = true;
-  if ($evid!=-1) {
-    foreach ($attendees as $k => $v) {
-      if ($action->user->fid == $v) $rostatus = false;
-    }
-  }
   
   $action->lay->set("EVENTID", $evid);
   if ($evid==-1 || $ro) {
@@ -156,10 +160,10 @@ function wgcal_editevent(&$action) {
   EventSetDate($action, $evstart, $evend, $evtype, $ro);
   EventSetVisibility($action, $evvis, $ro);
   EventSetCalendar($action, $evcal, $ro);
-  EventSetStatus($action, $evstatus, $rostatus);
+  EventSetStatus($action, $evstatus, $withme, $onlyme, $rostatus);
   EventSetAlarm($action, $evalarm, $evalarmt, $ro);
   EventSetRepeat($action, $evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld, $ro);
-  EventAddAttendees($action, $attendees, $attendeesState, $withme, $ro);
+  EventAddAttendees($action, $ownerid, $attendees, $attendeesState, $withme, $ro, $onlyme);
   EventSetOwner($action, $ownerid, $ownertitle);
 
   return;  
@@ -248,9 +252,10 @@ function EventSetCalendar(&$action, $cal, $ro) {
   $action->lay->set("rvcalro", ($ro?"disabled":""));
 }
 
-function EventSetStatus(&$action, $status, $ro) {
+function EventSetStatus(&$action, $status, $withme, $onlyme, $ro) {
   $acal = WGCalGetState($action->GetParam("FREEDOM_DB"), "");
   $action->lay->set("evstatus", $status);
+  ////echo "Mode ".($ro?"ro":"rw")." OnlyMe=".($onlyme?"T":"F")." Withme=".($withme?"T":"F")." Status=".WGCalGetLabelState($status)."<br>";
   $ic = 0;
   if ($ro) {
     $tconf[$ic]["iState"] = $ic;
@@ -271,7 +276,9 @@ function EventSetStatus(&$action, $status, $ro) {
       $ic++;
     }
   }
+  $action->lay->set("vStatus", ($withme&&!$onlyme ? "visible" : "hidden")); 
   $action->lay->SetBlockData("STATUSZ", $tconf);
+  $action->lay->set("cState", WGCalGetColorState($status));
 }
   
 function EventSetAlarm(&$action, $alarm, $alarmt, $ro) {
@@ -350,14 +357,17 @@ function EventSetOwner(&$action, $ownerid, $ownertitle) {
   $action->lay->set("ownertitle", $ownertitle);
 }
 
-function EventAddAttendees(&$action, $attendees = array(), $attendeesState = array(), $withme=true, $ro=false) {
+function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesState = array(), $withme=true, $ro=false, $onlyme) {
+//echo "ownerid = $ownerid cuser = ".$action->user->fid." withme = ".($withme?"T":"F")."<br>";
   $att = array();
   $a = 0;
   $doc = new Doc($action->GetParam("FREEDOM_DB"));
   foreach ($attendees as $k => $v) {
-    if ($v == "" || $v==0 || $v == $action->user->fid) continue;
+    if ($v == "" || $v==0 || ($ownerid==$action->user->fid&&$action->user->fid==$v) ) continue;
     $att[$a]["attId"]    = $v;
     $att[$a]["attState"] = $attendeesState[$k];
+    $att[$a]["attLabel"] = WGCalGetLabelState($attendeesState[$k]);
+    $att[$a]["attColor"] = WGCalGetColorState($attendeesState[$k]);
     $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
     $att[$a]["attTitle"] = $attru["title"];
     $att[$a]["attIcon"]  = $doc->GetIcon($attru["icon"]);
@@ -371,10 +381,16 @@ function EventAddAttendees(&$action, $attendees = array(), $attendeesState = arr
     $action->lay->set("vnatt", "");
   }
   if ($ro) $action->lay->set("voneatt", "none");
+
+  $action->lay->set("vnatt", "none");
+  $action->lay->set("WITHME", "");
+  $action->lay->set("WITHMERO", ($ro?"disabled":""));
+  if ($ownerid==$action->user->fid) {
+    if (!$onlyme) $action->lay->set("vnatt", "");
+    $action->lay->set("WITHME", ($withme?"checked":""));
+  }
   $action->lay->setBlockData("ADD_RESS", $att);
   $action->lay->set("attendeesro", ($ro?"none":""));
-  $action->lay->set("WITHME", ($withme?"checked":""));
-  $action->lay->set("WITHMERO", ($ro?"disabled":""));
 }
 
 

@@ -29,6 +29,7 @@ function SetFamily(fid, classSet, classUnset) {
   }
   if (nfam>0) {
     document.getElementById('szone').style.display = '';
+    document.getElementById('stext').focus();
   } else {
     document.getElementById('szone').style.display = 'none';
   }

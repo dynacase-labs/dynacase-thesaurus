@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 12:28+0100\n"
+"POT-Creation-Date: 2005-02-09 11:55+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -292,9 +292,6 @@ msgstr "Etat du rendez-vous"
 msgid "I participe to this meeting"
 msgstr "je participe à la réunion"
 
-msgid "status"
-msgstr "Etat"
-
 msgid "confidentiality"
 msgstr "Confidentialité"
 
@@ -387,6 +384,9 @@ msgstr "entre"
 
 msgid "and"
 msgstr "et"
+
+msgid "status"
+msgstr "Etat"
 
 msgid "all state"
 msgstr "tout état"
@@ -521,6 +521,21 @@ msgstr "jusqu'au"
 msgid "there is excluded days"
 msgstr "il y a des jours exclus"
 
+msgid "new"
+msgstr "nouveau"
+
+msgid "read"
+msgstr "lu"
+
+msgid "accept"
+msgstr "accepté"
+
+msgid "reject"
+msgstr "refusé"
+
+msgid "to be confirmed"
+msgstr "à confirmer"
+
 msgid "My public calendar"
 msgstr "mon calendrier public"
 
@@ -540,15 +555,6 @@ msgstr "mon calendrier public"
 
 #~ msgid "minutes"
 #~ msgstr "minutes"
-
-#~ msgid "new"
-#~ msgstr "nouveau"
-
-#~ msgid "read"
-#~ msgstr "lu"
-
-#~ msgid "to be confirmed"
-#~ msgstr "à confirmer"
 
 #~ msgid "save ressource selection"
 #~ msgstr "Sauvegarder la liste des ressources"

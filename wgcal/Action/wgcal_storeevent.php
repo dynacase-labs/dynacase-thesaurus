@@ -15,65 +15,66 @@ function wgcal_storeevent(&$action) {
   $id  = GetHttpVars("eventid", -1);
   if ($id==-1) {
     $event = createDoc($db, "CALEVENT");
-    $err .= $event->Add();
+    $event->Add();
   } else {
     $event = new Doc($db, $id);
   }
   
   $owner = GetHttpVars("ownerid", -1);
   $ownertitle = GetHttpVars("ownertitle", "");
-  $err .= $event->setValue("CALEV_OWNERID", $owner);
-  $err .= $event->setValue("CALEV_OWNER", $ownertitle);
+  $event->setValue("CALEV_OWNERID", $owner);
+  $event->setValue("CALEV_OWNER", $ownertitle);
 
   $ds = GetHttpVars("Fstart", 0);
   $de = GetHttpVars("Fend", 0);
   $evstatus = GetHttpVars("evstatus", EVST_NEW);
 
-  $event->setValue("CALEV_EVTITLE", GetHttpVars("rvtitle", "(".GetHttpVars("ownertitle").") ".date2db($ds)."-".date2db($de)));
-  $err .= $event->setValue("CALEV_EVNOTE", GetHttpVars("rvnote", ""));
+  $event->setValue("CALEV_EVTITLE", GetHttpVars("rvtitle"));
+  $event->setValue("CALEV_EVNOTE", GetHttpVars("rvnote", ""));
   
-  $err .= $event->setValue("CALEV_TIMETYPE", 0);
-  $err .= $event->setValue("CALEV_START", date2db($ds));
-  $err .= $event->setValue("CALEV_END", date2db($de));
-  }
+  $event->setValue("CALEV_TIMETYPE", 0);
+  $event->setValue("CALEV_START", date2db($ds));
+  $event->setValue("CALEV_END", date2db($de));
+  
   if (GetHttpVars("nohour", "") == "on") {
-    $err .= $event->setValue("CALEV_TIMETYPE", 1);
-    $err .= $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
-    $err .= $event->setValue("CALEV_END", date2db($ds, false)." 00:00");
+    $event->setValue("CALEV_TIMETYPE", 1);
+    $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
+    $event->setValue("CALEV_END", date2db($ds, false)." 00:00");
   }
   if (GetHttpVars("allday", "") == "on") {
-    $err .= $event->setValue("CALEV_TIMETYPE", 2);
-    $err .= $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
-    $err .= $event->setValue("CALEV_END", date2db($ds, false)." 23:59");
+    $event->setValue("CALEV_TIMETYPE", 2);
+    $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
+    $event->setValue("CALEV_END", date2db($ds, false)." 23:59");
+  }
   
-  $err .= $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
+  $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
   
-  $err .= $event->setValue("CALEV_EVCALENDARID", GetHttpVars("evcalendar", -1));
-  $err .= $event->setValue("CALEV_VISIBILITY", GetHttpVars("evconfidentiality", 0));
+  $event->setValue("CALEV_EVCALENDARID", GetHttpVars("evcalendar", -1));
+  $event->setValue("CALEV_VISIBILITY", GetHttpVars("evconfidentiality", 0));
   
-  $err .= $event->setValue("CALEV_EVALARM", (GetHttpVars("AlarmCheck", "")=="on"?1:0));
+  $event->setValue("CALEV_EVALARM", (GetHttpVars("AlarmCheck", "")=="on"?1:0));
   if (GetHttpVars("AlarmCheck", "")=="on") {
-    $err .= $event->setValue("CALEV_EVALARM", 1);
+    $event->setValue("CALEV_EVALARM", 1);
     $alarm = GetHttpVars("alarmhour", 0)*60 + GetHttpVars("alarmmin", 0);
-    $err .= $event->setValue("CALEV_EVALARMTIME", ($alarm>0?$alarm:60));
+    $event->setValue("CALEV_EVALARMTIME", ($alarm>0?$alarm:60));
   } else {
-    $err .= $event->setValue("CALEV_EVALARM", 0);
-    $err .= $event->setValue("CALEV_EVALARMTIME", 0);
+    $event->setValue("CALEV_EVALARM", 0);
+    $event->setValue("CALEV_EVALARMTIME", 0);
   }
   
   // repeat 
   $rmode = GetHttpVars("repeattype", 0);
-  $err .= $event->setValue("CALEV_REPEATMODE", GetHttpVars("repeattype", 0));
-  $err .= $event->setValue("CALEV_REPEATWEEKDAY", GetHttpVars("rweekday", -1));
-  $err .= $event->setValue("CALEV_REPEATMONTH", GetHttpVars("rmonth", 0));
-  $err .= $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
+  $event->setValue("CALEV_REPEATMODE", GetHttpVars("repeattype", 0));
+  $event->setValue("CALEV_REPEATWEEKDAY", GetHttpVars("rweekday", -1));
+  $event->setValue("CALEV_REPEATMONTH", GetHttpVars("rmonth", 0));
+  $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
   $date = GetHttpVars("Vruntildate");
-  if ($date>0) $sdate = $err .= $event->setValue("CALEV_REPEATUNTILDATE", date2db($date));
+  if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", date2db($date));
   $excl = GetHttpVars("excludedate", "");
   if ($excl != "") {
     $excludedate = explode("|",$excl);
     foreach ($excludedate as $kd => $vd) $tex[] = date2db($vd);
-    $err .= $event->setValue("CALEV_EXCLUDEDATE", $excludedate);
+    $event->setValue("CALEV_EXCLUDEDATE", $excludedate);
   }
   
 
@@ -91,31 +92,31 @@ function wgcal_storeevent(&$action) {
       $att = new Doc($db, $va);
       $attendeesname[$ka] = $att->title;
       $attendeesstate[$ka] = 0;
-      foreach ($oldatt_id as $ko => $vo) {
-	if ($vo == $va) $attendeesstate[$ka] = $oldatt_state[$ko];
+      if ($va == $action->user->fid) $attendeesstate[$ka] = $evstatus;
+      else {
+        foreach ($oldatt_id as $ko => $vo) {
+	   if ($vo == $va) $attendeesstate[$ka] = $oldatt_state[$ko];
+        }
       }
     }
   }
-  if ($withme=="on") {
-    $ix = count($attendees);
-    $attendees[$ix] = $owner;
-    $attendeesname[$ix] = $ownertitle;
-    $attendeesstate[$ix] = $evstatus;
+  if ($withme == "on" && $owner==$action->user->fid) {
+    $i = count($attendees);
+    $attendeesname[$i] = $action->user->lastname." ".$action->user->firstname;
+    $attendees[$i] = $action->user->fid;
+    $attendeesstate[$i] = $evstatus;
   }
     
-  $err .= $event->setValue("CALEV_ATTID", $attendees); 
-  $err .= $event->setValue("CALEV_ATTTITLE", $attendeesname); 
-  $err .= $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
+  $event->setValue("CALEV_ATTID", $attendees); 
+  $event->setValue("CALEV_ATTTITLE", $attendeesname); 
+  $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
     
-  $err .= $event->Modify();
-  $err .= $event->PostModify();
+  $event->Modify();
+  $event->PostModify();
   if ($err!="") AddWarningMsg("$err");
-//   echo "erreur : ".$err."<br>";
-//   print_r2(get_object_vars($event));
   
   $changed = true;
   //if ($changed) mail_rv($action, $event);
-
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 

@@ -35,15 +35,17 @@
 </tr>
 <tr>
   <td valign="top">
-<span style="font-weight:bold">[START]</span><br>
-<span style="font-weight:bold">[END]</span>
+<table cellpadding="0px" cellspacing="0" border="0">
+<tr><td style="font-weight:bold">[DSTART]&nbsp;</td><td style="font-weight:bold">[START]</td></tr>
+<tr><td style="font-weight:bold">[DEND]</td>&nbsp;<td style="font-weight:bold">[END]</td></tr>
+</table>
 <br><br>
 <span style="display:[repeatdisplay]">[TEXT:repeat] [repeatinfos]</span><br>
 <span style="font-style:italic; display:[repeatdisplay]">[repeatuntil]</span><br><br>
 [TEXT:owner] : <span style="font-style:italic">[owner]</span><br>
 [TEXT:modified] : <span style="font-style:italic">[modifdate]</span><br>
 </td>
-  <td>
+  <td valign="top">
 <fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend>
 [BLOCK attlist]<div><img height="15" src="[atticon]">[atttitle]&nbsp;<span style="font-style:italic">([attstate])</span></div>
 [ENDBLOCK attlist]

@@ -190,15 +190,11 @@ function refreshAttendees() {
         mynodereplacestr(nTr, '%RID%', attendeesList[idx][0]);
         mynodereplacestr(nTr, '%RICON%', attendeesList[idx][2]);
         mynodereplacestr(nTr, '%RDESCR%', attendeesList[idx][1]);
-        mynodereplacestr(nTr, '%RSTATE%', attendeesList[idx][3]);
-        if (attendeesList[idx][3] == 1) scolor = 'green';
-        else if (attendeesList[idx][3] == 2) scolor = 'red';
-        else if (attendeesList[idx][3] == 3) scolor = 'orange';
-        else scolor = 'yellow';
+        mynodereplacestr(nTr, '%RSTATE%', attendeesList[idx][5]);
 	nTr.style.display = '';
         tab.appendChild(nTr);
         capp = document.getElementById('cp'+attendeesList[idx][0]);
-        capp.style.backgroundColor = scolor;
+        capp.style.backgroundColor = attendeesList[idx][6];
       }
     }
   }
@@ -208,10 +204,14 @@ function refreshAttendees() {
       vdispo.style.display = '';
       vdelall.style.display = '';
     }
+    document.getElementById('vnatt').style.display = '';
+    document.getElementById('spall').style.visibility = 'visible';
   }  else {
     vress.style.display = 'none';
     vdispo.style.display = 'none';
     vdelall.style.display = 'none';
+    document.getElementById('vnatt').style.display = 'none';
+    document.getElementById('spall').style.visibility = 'hidden';
   }
   return; 
 }
@@ -226,7 +226,7 @@ function getAttendeeIdx(aid) {
       
 function SetModeRo(b) { ROMode = b; }
 
-function addRessource(rid, rtitle, ricon, rstate) {
+function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor) {
   if (getAttendeeIdx(rid)!=-1) {
     return;
   }
@@ -237,6 +237,8 @@ function addRessource(rid, rtitle, ricon, rstate) {
   attendeesList[idx][2] = ricon;
   attendeesList[idx][3] = rstate; /* confirmation status */
   attendeesList[idx][4] = 0; /* displayed status */
+  attendeesList[idx][5] = rsLabel;
+  attendeesList[idx][6] = rsColor;
   refreshAttendees();
 }
 
@@ -260,13 +262,15 @@ function  deleteAttendee(aid) {
     vress.style.display = '';
     vdispo.style.display = '';
     vdelall.style.display = '';
-    document.getElementById('withMe').style.display = 'none';
+    document.getElementById('vnatt').style.display = '';
+    document.getElementById('spall').style.visibility = 'visible';
   } else {
     vress.style.display = 'none';
     vdispo.style.display = 'none';
     vdelall.style.display = 'none';
     document.getElementById('withMe').checked = true;
-    document.getElementById('withMe').style.display = '';
+    document.getElementById('spall').style.visibility = 'hidden';
+    document.getElementById('vnatt').style.display = 'none';
   }
 }
 
@@ -286,7 +290,6 @@ function saveEvent() {
   }
   if (EventSelectAll(fs)) { 
     fs.submit();
-    fs.reset();
     self.close();
   }
   return false;
@@ -428,6 +431,14 @@ function clickB(idb) {
   return false;
 }
 
+function ShowHideStatus() {
+  if (ROMode) return;
+  evch = document.getElementById('withMe');
+  evs = document.getElementById('spall');
+  evch.checked = (evch.checked ? "" : "checked" );
+  if (evch.checked) evs.style.visibility = 'visible';
+  else evs.style.visibility = 'hidden';
+}
   
 function setStatus(st, cst) {
   evst = document.getElementById('evstatus');

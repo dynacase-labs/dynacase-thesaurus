@@ -35,14 +35,12 @@ TD {
   border : 0px;
 }
 .WGCalButton {
-  filter:alpha(opacity=60);
-  -moz-opacity:.45;	
+  filter:alpha(opacity=65);
+  -moz-opacity:.55;	
   cursor : pointer;
   border : 0px;
 }
 .WGCalButtonOver {
-  filter:alpha(opacity=99);
-  -moz-opacity:.99;	
   cursor : pointer;
   border : 2px;
 }

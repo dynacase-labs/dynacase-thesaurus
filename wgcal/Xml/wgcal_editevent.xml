@@ -20,7 +20,7 @@
 <table width="100%" style="margin-top: 0em;">
 <tr>
 <td></td>
-<td align="right"><span id="spall" style="border:1px solid lightgrey">[BLOCK STATUSZ]
+<td align="right"><span id="spall" style="visibility:[vStatus]; border:1px solid [cState]">[BLOCK STATUSZ]
 <span style="cursor:pointer" margin:0px; padding:0px" id="sp[iState]" onclick="clickB2('cbstate[iState]'); setStatus([vState], '[cState]');" style="cursor:pointer" onmouseover="this.style.background='[cState]'" onmouseout="this.style.background=''">[tState] <input onclick="clickB2('cbstate[iState]'); setStatus([vState], '[cState]')" type="radio" id="cbstate[iState]" name="evstatus" value="[vState]" [sState] [rState]></span>
 [ENDBLOCK STATUSZ]</span></td>
 <td align="right">
@@ -195,7 +195,7 @@
 </td>
 <td>&nbsp;&nbsp;</td>
 <td nowrap>
-  <span id="%RID%" width="90%">
+  <span style="cursor:crosshair; border-bottom:1px solid white" id="%RID%" width="90%" title="[TEXT:event state ]%RSTATE%">
     <img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
   </span>
 </td>
@@ -203,10 +203,14 @@
 <td><span id="cp%RID%" name="cp%RID%" style="cursor:crosshair; border:1px inset grey;" 
           title="[TEXT:event state ] %RSTATE%">&nbsp;&nbsp;</span></td>
 </tr>
+
 </tbody>
 </table>
-<div style="display:[vnatt]" width="100%" align="right">
-<span style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="clickB('withMe');" title="[TEXT:I participe to this meeting]">[TEXT:I participe to this meeting]<input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="clickB('withMe');" [WITHME] [WITHMERO]></span></div>
+
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr id="vnatt" style="display:[vnatt]"><td align="right">
+<span style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus();" title="[TEXT:I participe to this meeting]">[TEXT:I participe to this meeting]<input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus();" [WITHME] [WITHMERO]></span></td></tr>
+</table>
 
 </div>
 
@@ -373,7 +377,7 @@ Calendar.setup(
 
 <script type="text/javascript">
 SetModeRo([ROMode]);
-[BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]');
+[BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attLabel]', '[attColor]');
 [ENDBLOCK ADD_RESS] 
 //window.onunload = cancelEvent;
 document.getElementById('rvtitle').focus();
