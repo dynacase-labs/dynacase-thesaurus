@@ -28,6 +28,10 @@
 #include "pam_sql.h"
 
 
+#define LDOMAIN 512
+#define LUSER 256
+
+
 /* 
  * pam_sm_authenticate
  * get the username and password from the application
@@ -38,11 +42,11 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 {
   int retval, i;
   const char  *userdomain, *passwd;
-  char user[256],optdomain[50],*stok,domain[512], userdomaintmp[256+512+1];
+  char user[LUSER],optdomain[50+LDOMAIN],*stok,domain[LDOMAIN], userdomaintmp[LUSER+LDOMAIN+1];
   char query[BUFLEN];
-  db_conn *conn;
-  db_result *result=NULL;
   opt_t *opts;
+  db_conn *conn=NULL;
+  db_result *result=NULL;
 
   char passwdk[50];
   char salt[3]; // to crypt passwd
@@ -74,6 +78,11 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   } 
 
 
+  // test limits
+  if (strlen(userdomain) > (LDOMAIN+LUSER)) {
+    syslog (LOG_NOTICE, "user login name and domain too long");
+    return PAM_AUTH_ERR;
+  }
 
 
   /* connect to the database */
@@ -86,12 +95,24 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   /* user can be composed : user@zou.com or user_zou.com */
   strcpy(userdomaintmp, userdomain);
 
-  stok=strtok(userdomaintmp,"@_");
-  if (stok) strcpy(user,stok);
+  stok=strtok(userdomaintmp,"@_");  
 
+  if (stok) {
+    if (strlen(stok) >= (LUSER)) {
+      syslog (LOG_NOTICE, "user login name too long");
+      db_close(conn);
+      return PAM_AUTH_ERR;
+    }
+    strcpy(user,stok);
+  }
 
   stok=strtok(NULL,"@_");
   if (stok) {
+    if (strlen(stok) >= (LDOMAIN)) {
+      syslog (LOG_NOTICE, "user domain name too long");
+      db_close(conn);
+      return PAM_AUTH_ERR;
+    }
     strcpy(domain,stok);
 
     /* set up the query string */
@@ -102,17 +123,20 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
     result = db_exec (conn, query);
     if ( ! result ) {
       syslog (LOG_ERR, "Query failed %s",query);
+      db_free_result(result);
       db_close(conn);
       return PAM_AUTH_ERR;
     }
   
     if ( db_numrows(result) != 1 ) {
       syslog (LOG_WARNING, "Authentication failed for user %s [%s]", user,query);
+      db_free_result(result);
       db_close(conn);
       return PAM_AUTH_ERR;
     }
     
     sprintf(optdomain, "AND iddomain = '%s'", db_getvalue(result));
+    db_free_result(result);
   } else {
     strcpy(optdomain,"");
   }
@@ -150,6 +174,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   
   if ( db_numrows(result) != 1 ) {
     syslog (LOG_WARNING, "Authentication failed for user %s [%s]", user,query);
+    db_free_result(result);
     db_close(conn);
     return PAM_AUTH_ERR;
   }
@@ -163,10 +188,12 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 
   if (strcmp(crypt(passwd, salt) , passwdk)) {
     syslog (LOG_WARNING, "Authentication failed for user %s", user);
+    db_free_result(result);
     db_close(conn);
     return PAM_AUTH_ERR;
   }
   syslog (LOG_DEBUG, "Success authentication for user %s", user);
+  db_free_result(result);
   db_close(conn);
   return PAM_SUCCESS;  
 }

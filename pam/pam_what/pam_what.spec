@@ -1,8 +1,8 @@
-# $Revision: 1.1 $, $Date: 2001/07/31 08:26:21 $
+# $Revision: 1.2 $, $Date: 2001/08/21 12:58:55 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
-Version:	0.1.1
+Version:	0.1.2
 Release:	1
 License:	GPL or BSD
 Group:		Base
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.2  2001/08/21 12:58:55  eric
+correction fuite memoire
+
 Revision 1.1  2001/07/31 08:26:21  eric
 first
 

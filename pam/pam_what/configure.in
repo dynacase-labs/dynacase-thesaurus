@@ -10,7 +10,7 @@ dnl Set program, version info
 PROGNAME=pam_what
 MAJOR_VERSION=0     
 MINOR_VERSION=1   
-PATCHLEVEL=1
+PATCHLEVEL=2
 COPYRIGHT_NOTICE="Copyright (c) 2001 Mike Glover"
 
 AC_SUBST(PROGNAME)
@@ -26,7 +26,7 @@ AC_DEFINE_UNQUOTED(COPYRIGHT_NOTICE, "$COPYRIGHT_NOTICE")
 
 
 
-dnl get the system type (for the makefile)
+ dnl get the system type (for the makefile)
 
 AC_CANONICAL_HOST
 case [$host] in

@@ -1,3 +1,11 @@
+======pam _what ===
+0.1.1 -> 0.1.2
+	correction fuite mémoire
+
+0.1.1
+	adaptation à la base what
+
+======= pam _sql ======
 0.7.0 -- 12 Jan 2001
 	+ Initial Release
 
