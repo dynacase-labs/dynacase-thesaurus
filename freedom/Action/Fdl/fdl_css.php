@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: fdl_css.php,v 1.1 2003/05/19 10:45:02 eric Exp $
+// $Id: fdl_css.php,v 1.2 2003/08/12 16:33:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/fdl_css.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,4 +32,5 @@ function fdl_css(&$action) {
 
    header("Expires: ".gmdate ("D, d M Y H:i:s T\n",time()+3600));  // for mozilla
    header("Pragma: "); // HTTP 1.0
+   header("Content-type: text/css");
 }
