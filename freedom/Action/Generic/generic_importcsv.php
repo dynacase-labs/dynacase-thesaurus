@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_importcsv.php,v 1.8 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_importcsv.php,v 1.9 2004/03/16 14:15:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_importcsv.php,v 1.8 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_importcsv.php,v 1.9 2004/03/16 14:15:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_importcsv.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -86,11 +86,11 @@ function generic_importcsv(&$action) {
       switch ($data[0]) {
 	
       case "DOC":
-	$doc =csvAddDoc($action,$dbaccess, $data);
-	if (!$doc) continue;
+	$doc =csvAddDoc($dbaccess, $data);
+	continue;
 
 	
-	      
+	// NEED TO BE REDO
 	      
 
 	// add in each selected category
