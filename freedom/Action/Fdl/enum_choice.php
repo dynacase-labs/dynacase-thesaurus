@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.36 2004/10/19 16:05:23 eric Exp $
+ * @version $Id: enum_choice.php,v 1.37 2004/11/03 17:45:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -105,6 +105,7 @@ function getFuncVar($n,$def="",$whttpvars,&$doc,&$oa) {
     else {
       $h=GetHttpVars(strtolower($n));
       if ($h) return $h;
+      if (!$oa) return($n);
       if ($oa->repeat) $r= $doc->getTValue($n);
       else $r=$doc->getValue($n);
       if ($r==="") return false;

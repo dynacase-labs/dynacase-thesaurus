@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.79 2004/09/28 13:22:40 eric Exp $
+ * @version $Id: editutil.php,v 1.80 2004/11/03 17:46:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -433,10 +433,14 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	if ($oattr->eformat != "") {
 	  // input help with selector 
 	  $lay = new Layout("FDL/Layout/edittextlist.xml", $action);
-	  if (getLayTextOptions($lay,$doc,$oattr,$hvalue,$attrin,$index)) {
+	  if (getLayTextOptions($lay,$doc,$oattr,$value,$attrin,$index)) {
 	    if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
 	    else $lay->set("disabled","");
 	    $lay->set("adisabled",$idisabled);
+	    $lay->set("oc",$jsevent);
+
+	    if ($oattr->eformat=="hlist") $lay->set("atype","hidden");
+	    else $lay->set("atype","text");
 	    $input =$lay->gen(); 
 	    $oattr->phpfunc=false; // disabled default input help
 	  }  else {
@@ -888,6 +892,7 @@ function getLayTextOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $sattrid.= strtolower("'".implode("','", $rargids)."'");
   $sattrid.="]";
   $lay->Set("attrid", $sattrid);
+
   foreach ($tselect as $k=>$v) {
     if ($v["choice"]==$value) $tselect[$k]["selected"]="selected";
     else $tselect[$k]["selected"]="";
