@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------
-// $Id: Method.PortFolio.php,v 1.4 2003/07/24 13:02:58 eric Exp $
+// $Id: Method.PortFolio.php,v 1.5 2003/08/12 16:32:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.PortFolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,7 @@ function PostCreated() {
   // copy all guide-card from default values
   include_once("FDL/Lib.Dir.php");  
 
- 
+  $err="";
 
   $ddocid = $this->getValue("PFL_IDDEF");
 
@@ -38,6 +38,8 @@ function PostCreated() {
     $ddoc = new Doc($this->dbaccess,$ddocid);
     $child = getChildDir($this->dbaccess,$this->userid,$ddoc->initid, false,"LIST");
 
+
+    reset($child);
     while (list($k,$doc) = each($child)) {
 
       if ($doc->usefor == "G") {
@@ -45,10 +47,10 @@ function PostCreated() {
 	if (! is_object($copy)) return $copy;
 
 
-	$err=$this->AddFile($copy->id);
+	$err.=$this->AddFile($copy->id);
 
-	return $err;
       }
     }
   }
+  return $err;
 }
