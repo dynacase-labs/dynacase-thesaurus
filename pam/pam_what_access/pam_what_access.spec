@@ -1,9 +1,9 @@
-# $Revision: 1.4 $, $Date: 2001/09/12 09:18:40 $
+# $Revision: 1.5 $, $Date: 2002/01/09 08:56:24 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what_access
 Version:	0.2.0
-Release:	1
+Release:	2
 License:	GPL or BSD
 Group:		Base
 Source0:	ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -12,7 +12,7 @@ URL:		http://www.anakeen.com
 #BuildRequires:	pam-devel
 #Requires:	make
 Requires:	pam >= 0.72
-Requires:       libwhat >= 0.4.7
+Requires:       WHAT
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root-%(id -u -n)
 
 
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what_access.spec,v $
+Revision 1.5  2002/01/09 08:56:24  eric
+change to new package WHAT
+
 Revision 1.4  2001/09/12 09:18:40  eric
 modif algo pour privilege groupes : compatible libwhat 0.4.8
 
