@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.15 2003/12/30 10:12:57 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.16 2004/01/28 08:22:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.15 2003/12/30 10:12:57 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.16 2004/01/28 08:22:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,9 +80,10 @@ Class NormalAttribute extends BasicAttribute {
   var $elink; // extra link
   var $ordered;
   var $phpconstraint; // special constraint set
+  var $usefor; // = P if parameters
   function NormalAttribute($id, $docid, $label, $type, $format, $repeat, $order, $link,
 			   $visibility, $needed,$isInTitle,$isInAbstract,
-			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint) {
+			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint="",$usefor="") {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
@@ -99,6 +100,7 @@ Class NormalAttribute extends BasicAttribute {
     $this->phpfunc=$phpfunc;
     $this->elink=$elink;
     $this->phpconstraint=$phpconstraint;
+    $this->usefor=$usefor;
     $this->repeat=$repeat || $this->inArray();
 
 

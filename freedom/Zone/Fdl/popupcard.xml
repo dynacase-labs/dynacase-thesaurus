@@ -70,7 +70,10 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=DEFATTR&id=[id]','defattr');closeMenu('popupcard')"  >[TEXT:Edit attributes]</a>
 
 <a href="#" id="defval" 
-    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&usefordef=Y&classid=[id]','');closeMenu('popupcard')" >[TEXT:Set default values]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&usefor=D&classid=[id]','');closeMenu('popupcard')" >[TEXT:Set default values]</a>
+
+<a href="#" id="param" 
+    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&usefor=P&classid=[id]','');closeMenu('popupcard')" >[TEXT:Parameters values]</a>
 
 <a href="#" id="chgtitle" 
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=QUERYTITLE&id=[id]','');closeMenu('popupcard')" >[TEXT:Rename]</a>

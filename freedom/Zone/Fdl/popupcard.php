@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.39 2004/01/13 09:34:00 eric Exp $
+ * @version $Id: popupcard.php,v 1.40 2004/01/28 08:22:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.39 2004/01/13 09:34:00 eric Exp $
+// $Id: popupcard.php,v 1.40 2004/01/28 08:22:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -75,6 +75,7 @@ function popupcard(&$action) {
 
 				'chicon',
 				'chgtitle',
+				'param',
 				'defval',
 				'editattr',
 				'editcprof',
@@ -149,6 +150,7 @@ function popupcard(&$action) {
     popupActive('popupcard',$kdiv,'editattr'); 
     popupActive('popupcard',$kdiv,'chgtitle'); 
     popupActive('popupcard',$kdiv,'defval'); 
+    popupActive('popupcard',$kdiv,'param'); 
     popupActive('popupcard',$kdiv,'editdoc');
     popupActive('popupcard',$kdiv,'editdfld');
     popupActive('popupcard',$kdiv,'editwdoc');
@@ -161,6 +163,7 @@ function popupcard(&$action) {
     popupInactive('popupcard',$kdiv,'editcfld');
     popupInactive('popupcard',$kdiv,'chgtitle'); 
     popupInactive('popupcard',$kdiv,'defval'); 
+    popupInactive('popupcard',$kdiv,'param'); 
     popupCtrlInactive('popupcard',$kdiv,'editprof');
     popupInactive('popupcard',$kdiv,'editdoc');
       
@@ -173,6 +176,7 @@ function popupcard(&$action) {
     popupInvisible('popupcard',$kdiv,'editattr'); 
     popupInvisible('popupcard',$kdiv,'chgtitle'); 
     popupInvisible('popupcard',$kdiv,'defval'); 
+    popupInvisible('popupcard',$kdiv,'param'); 
     popupInvisible('popupcard',$kdiv,'editprof');
     popupInvisible('popupcard',$kdiv,'revise');
     popupInvisible('popupcard',$kdiv,'lockdoc');
@@ -207,6 +211,7 @@ function popupcard(&$action) {
     popupInvisible('popupcard',$kdiv,'editcprof'); 
     popupInvisible('popupcard',$kdiv,'chgtitle'); 
     popupInvisible('popupcard',$kdiv,'defval'); 
+    popupInvisible('popupcard',$kdiv,'param'); 
     popupInvisible('popupcard',$kdiv,'editattr'); 
     popupInvisible('popupcard',$kdiv,'editdfld');
     popupInvisible('popupcard',$kdiv,'editwdoc');

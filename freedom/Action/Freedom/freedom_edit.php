@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.22 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.23 2004/01/28 08:22:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.22 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_edit.php,v 1.23 2004/01/28 08:22:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function freedom_edit(&$action) {
   $docid = GetHttpVars("id",0);        // document to edit
   $classid = GetHttpVars("classid",0); // use when new doc or change class
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
-  $usefordef = GetHttpVars("usefordef"); // default values for a document
+  $usefor = GetHttpVars("usefor"); // default values for a document
 
 
 
@@ -125,7 +125,7 @@ function freedom_edit(&$action) {
       default:
 	$action->lay->Set("TITLE", _("new document"));
       }
-      if ($usefordef=="Y") $action->lay->Set("TITLE", _("default values"));
+      if ($usefor=="D") $action->lay->Set("TITLE", _("default values"));
       $action->lay->Set("editaction", $action->text("create"));
       if ($classid > 0) {
 	$doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class

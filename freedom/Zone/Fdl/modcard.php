@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.53 2004/01/27 13:19:55 eric Exp $
+ * @version $Id: modcard.php,v 1.54 2004/01/28 08:22:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.53 2004/01/27 13:19:55 eric Exp $
+// $Id: modcard.php,v 1.54 2004/01/28 08:22:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,15 +52,15 @@ function modcard(&$action, &$ndocid) {
   $docid=GetHttpVars("id",0); 
   $dirid=GetHttpVars("dirid",10);
   $classid=GetHttpVars("classid",0);
-  $usefordef = GetHttpVars("usefordef"); // use for default values for a document
+  $usefor = GetHttpVars("usefor"); // use for default values for a document
   $vid = GetHttpVars("vid"); // special controlled view
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $ndocid=$docid;
 
-  if ($usefordef== "Y") {
+  if ($usefor!= "") {
     //  set values to family document
-    moddefcard($action);
+    specialmodcard($action,$usefor);
     return "";
   }
   if ( $docid == 0 )
@@ -347,7 +347,7 @@ function insert_file($dbaccess,$docid, $attrid)
   
 }
 // -----------------------------------
-function moddefcard(&$action) {
+function specialmodcard(&$action,$usefor) {
   
   global $HTTP_POST_VARS;
   global $HTTP_POST_FILES;
@@ -373,7 +373,10 @@ function moddefcard(&$action) {
 	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
 	  }
 	  else $value = stripslashes($v);
-	  if ($value != "") $cdoc->setDefValue($attrid,$value);
+	  if ($value != "") {
+	   if ($usefor=="D") $cdoc->setDefValue($attrid,$value);
+	   else if ($usefor=="P") $cdoc->setParam($attrid,$value);
+	  }
 	      
 	      
 	}      

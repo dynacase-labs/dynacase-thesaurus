@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.30 2004/01/14 16:03:35 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.31 2004/01/28 08:22:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.30 2004/01/14 16:03:35 eric Exp $
+// $Id: Lib.Attr.php,v 1.31 2004/01/28 08:22:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -161,8 +161,10 @@ function AttrToPhp($dbaccess, $tdoc) {
 				 "elink"=>$v->elink,
 				 "phpfile"=>$v->phpfile,
 				 "phpfunc"=>str_replace(", ",",",$v->phpfunc),
-				 "phpconstraint"=>$v->phpconstraint);
+				 "phpconstraint"=>$v->phpconstraint,
+					     "usefor"=>$v->usefor);
 	 
+	if (($v->type != "array") && ($v->usefor!="P")) {
 	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>strtolower($v->id));	 
 	if (($repeat=="true") || ($tnormal[$v->frameid]["type"]=="array")) {
 	  $attrids[$v->id] = strtolower($v->id)." text";  // for the moment all repeat are text
@@ -186,7 +188,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  }
 	}
 
-	
+	}
       }
     }	 
 
@@ -275,6 +277,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
     reset($oattr);
 
     while (list($ka,$attr) = each($oattr)) {
+
       if ($attr->type=="array") continue; // don't use column for container
       if ($attr->docid == $docid) { // modify my field not inherited fields
 

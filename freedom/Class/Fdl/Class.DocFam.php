@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.18 2004/01/27 13:19:55 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.19 2004/01/28 08:22:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -44,6 +44,7 @@ create unique index idx_idfam on docfam(id);";
     $this->fields["ddocid"] ="ddocid";
     $this->fields["methods"]="methods";
     $this->fields["defval"]="defval";
+    $this->fields["param"]="param";
     $this->fields["schar"]="schar"; // specials characteristics R : revised on each modification
     PFam::PFam($dbaccess, $id, $res, $dbid);
      
@@ -137,7 +138,8 @@ create unique index idx_idfam on docfam(id);";
    * @return string parameter value
    */
   function getParam($idp, $def="") {
-    return $def;
+    return $this->getXValue("param",$idp,$def);
+    
   }
 
  /**
@@ -146,7 +148,7 @@ create unique index idx_idfam on docfam(id);";
    * @return array string parameter value
    */
   function getParams() {
-    return $def;
+    return $this->getXValues("param");
   }
 
  /**
@@ -156,6 +158,7 @@ create unique index idx_idfam on docfam(id);";
    * @param string $val value of the parameter
    */
   function setParam($idp, $val) {
+    return $this->setXValue("param",$idp, $val);
     
   }
 
@@ -169,7 +172,7 @@ create unique index idx_idfam on docfam(id);";
    * @return string default value
    */
   function getDefValue($idp, $def="") {
-    return $def;
+    return $this->getXValue("defval",$idp,$def);
   }
 
  /**
@@ -178,17 +181,7 @@ create unique index idx_idfam on docfam(id);";
    * @return array string default value
    */
   function getDefValues() {
-    $defval=$this->defval;
-    $tdefattr = explode("][",substr($defval,1,strlen($defval)-2));
-    $this->tdefval=array();
-    foreach ($tdefattr as $k=>$v) {
-
-	$aid=substr($v, 0, strpos($v,'|'));
-	$dval=substr(strstr($v,'|'),1);
-
-	$this->tdefval[$aid]=$dval;
-      }    
-    return $this->tdefval;
+    return $this->getXValues("defval");
   }
 
  /**
@@ -198,13 +191,73 @@ create unique index idx_idfam on docfam(id);";
    * @param string $val value of the default
    */
   function setDefValue($idp, $val) {
-    if (! isset($this->tdefval)) $this->getDefValues();
-    $this->tdefval[strtolower($idp)]=$val;
-    foreach ($this->tdefval as $k=>$v) {
+    return $this->setXValue("defval",$idp, $val);
+
+  }  
+
+  //~~~~~~~~~~~~~~~~~~~~~~~~~ X VALUES  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+ /**
+   * return family default value
+   * 
+   * @param string $idp parameter identificator
+   * @param string $def default value if parameter not found or if it is null
+   * @return string default value
+   */
+  function getXValue($X,$idp, $def="") {
+    $tval="t$X";
+    if (! isset($this->$tval)) $this->getXValues($X);
+   
+    $tval2=$this->$tval;
+    $v = $tval2[strtolower($idp)];
+    if ($v != "") return $v;
+    return $def;
+  }
+
+ /**
+   * return all family default values
+   * 
+   * @return array string default value
+   */
+  function getXValues($X) {
+    $tval="t$X";
+    $defval=$this->$X;
+
+    $tdefattr = explode("][",substr($defval,1,strlen($defval)-2));
+    $this->$tval=array();
+
+    $txval=array();
+    foreach ($tdefattr as $k=>$v) {
+
+	$aid=substr($v, 0, strpos($v,'|'));
+	$dval=substr(strstr($v,'|'),1);
+
+	$txval[$aid]=$dval;
+      }    
+    $this->$tval=$txval;
+
+    return $this->$tval;
+  }
+
+ /**
+   * set family default value
+   * 
+   * @param string $idp parameter identificator
+   * @param string $val value of the default
+   */
+  function setXValue($X, $idp, $val) {
+    $tval="t$X";
+    if (! isset($this->$tval)) $this->getXValues($X);
+    $txval=$this->$tval;
+    $txval[strtolower($idp)]=$val;
+    $this->$tval=$txval;
+    
+    $tdefattr=array();
+    foreach ($txval as $k=>$v) {
       $tdefattr[]="$k|$v";
     }
 
-    $this->defval = "[".implode("][",$tdefattr)."]";
+    $this->$X = "[".implode("][",$tdefattr)."]";
   }
 
 }

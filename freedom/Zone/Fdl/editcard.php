@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.37 2004/01/27 13:34:33 eric Exp $
+ * @version $Id: editcard.php,v 1.38 2004/01/28 08:22:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.37 2004/01/27 13:34:33 eric Exp $
+// $Id: editcard.php,v 1.38 2004/01/28 08:22:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,7 +47,7 @@ function editcard(&$action) {
   $docid = GetHttpVars("id",0);        // document to edit
   $classid = GetHttpVars("classid",0); // use when new doc or change class
   $zonebodycard = GetHttpVars("zone"); // define view action
-  $usefordef = GetHttpVars("usefordef"); // default values for a document
+  $usefor = GetHttpVars("usefor"); // default values for a document
   $vid = GetHttpVars("vid"); // special controlled view
 
 
@@ -63,7 +63,7 @@ function editcard(&$action) {
 
   
 
-  if (($usefordef=="Y") && ($zonebodycard == "")) $zonebodycard="FDL:EDITBODYCARD";// always default view for default document
+  if (($usefor=="D") && ($zonebodycard == "")) $zonebodycard="FDL:EDITBODYCARD";// always default view for default document
  
     
   if ($docid == 0) { // new document
@@ -76,13 +76,21 @@ function editcard(&$action) {
     
   }
 
-  if ($usefordef=="Y") {
-    
+  if ($usefor != "") {
     $fdoc = new DocFam($dbaccess, $classid);
-    $doc->usefor='D';
-    $doc->setDefaultValues($fdoc->getDefValues());    
+    $zonebodycard="FDL:EDITBODYCARD";
+    switch ($usefor) {
+    case "D":
+      $doc->usefor='D';
+      $doc->setDefaultValues($fdoc->getDefValues()); 
+      break;
+    case "P":
+      $doc->usefor='P';
+      $doc->setDefaultValues($fdoc->getParams()); 
+      break;
+    }
+  
   }
-
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
     $cvdoc= new Doc($dbaccess, $doc->cvid);
@@ -105,7 +113,7 @@ function editcard(&$action) {
 
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
   $action->lay->Set("classid", $classid);
-  $action->lay->Set("usefordef", $usefordef);
+  $action->lay->Set("usefor", $usefor);
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
 
   // compute modify condition js
@@ -122,7 +130,7 @@ function editcard(&$action) {
 
   //compute constraint for enable/disable input
   $tjsa=array();
-  if ($usefordef != "Y") {
+  if ($usefor == "") {
     if (GetHttpVars("viewconstraint")!="Y") $doc->Refresh();
     else {
       $err=$doc->SpecRefresh();

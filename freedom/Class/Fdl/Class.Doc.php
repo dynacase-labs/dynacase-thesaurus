@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.179 2004/01/27 13:19:56 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.180 2004/01/28 08:22:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.179 2004/01/27 13:19:56 eric Exp $
+// $Id: Class.Doc.php,v 1.180 2004/01/28 08:22:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -679,7 +679,19 @@ create unique index i_docir on doc(initid, revision);";
   }
 
 
+ /**
+   * return family parameter
+   * 
+   * @param string $idp parameter identificator
+   * @param string $def default value if parameter not found or if it is null
+   * @return string parameter value
+   */
+  function getFamParam($idp, $def="") {
+    $fdoc=$this->getFamDoc();
 
+    return $fdoc->getParam($idp,$def);
+    
+  }
   
 
 
@@ -1102,7 +1114,11 @@ create unique index i_docir on doc(initid, revision);";
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute") && (!$v->inArray()) && 
-	    ($v->mvisibility != "I" )) $tsa[$v->id]=$v;      // I means not editable
+	    ($v->mvisibility != "I" )) {  // I means not editable
+	  if ((($this->usefor=="P") && ($v->usefor=="P")) ||
+	      (($this->usefor!="P") && ($v->usefor!="P")))
+	    $tsa[$v->id]=$v;    //special parameters
+	}
       }
       return $tsa;
     }
@@ -1678,12 +1694,12 @@ create unique index i_docir on doc(initid, revision);";
     if ($auto) {
       if (($this->userid != 1) && ($this->locked == 0)) {
 	$this->locked = -$this->userid; // in case of auto lock the locked id is negative
-	$err=$this->modify();
+	$err=$this->modify(false,array("locked"));
       }
     } else { 
       if ($this->locked != $this->userid) {
 	$this->locked = $this->userid;     
-	$err=$this->modify();
+	$err=$this->modify(false,array("locked"));
       }
     }
     
@@ -1710,12 +1726,12 @@ create unique index i_docir on doc(initid, revision);";
     if ($auto) {
       if ($this->locked < -1) {
 	$this->locked = "0";      
-	$this->modify();
+	$this->modify(false,array("locked"));
       }
     } else {
       if ($this->locked != 0) {
 	$this->locked = "0";      
-	$this->modify();
+	$this->modify(false,array("locked"));
       }
     }
     

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.55 2004/01/14 14:21:24 eric Exp $
+ * @version $Id: import_file.php,v 1.56 2004/01/28 08:22:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.55 2004/01/14 14:21:24 eric Exp $
+// $Id: import_file.php,v 1.56 2004/01/28 08:22:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -240,11 +240,13 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "ATTR":
+    case "PARAM":
       if     ($num < 13) print "Error in line $nline: $num cols < 14<BR>";
 
       if ($analyze) continue;
       $oattr=new DocAttr($dbaccess, array($doc->id,strtolower($data[1])));
      
+      if ($data[0]=="PARAM") $oattr->usefor='P'; // parameters
       
       $oattr->docid = $doc->id;
       $oattr->id = strtolower($data[1]);

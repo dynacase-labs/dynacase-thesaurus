@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttr.php,v 1.19 2003/12/30 10:12:57 eric Exp $
+ * @version $Id: Class.DocAttr.php,v 1.20 2004/01/28 08:22:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -12,7 +12,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.19 2003/12/30 10:12:57 eric Exp $
+// $Id: Class.DocAttr.php,v 1.20 2004/01/28 08:22:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.19 2003/12/30 10:12:57 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.20 2004/01/28 08:22:11 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -61,7 +61,8 @@ Class DocAttr extends DbObj
 		       "phpfile", 
 		       "phpfunc", 
 		       "elink", 
-		       "phpconstraint");
+		       "phpconstraint",
+		       "usefor");
 
   var $id_fields = array ("docid","id");
 
@@ -86,7 +87,8 @@ create table docattr ( id  name,
                      phpfile text,
                      phpfunc text,
                      elink text,
-                     phpconstraint text
+                     phpconstraint text,
+                     usefor char
                    );
 create sequence seq_id_docattr start 1000;
 create unique index idx_iddocid on docattr(id, docid)";

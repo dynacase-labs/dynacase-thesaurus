@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.19 2003/12/30 10:12:57 eric Exp $
+ * @version $Id: generic_edit.php,v 1.20 2004/01/28 08:22:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.19 2003/12/30 10:12:57 eric Exp $
+// $Id: generic_edit.php,v 1.20 2004/01/28 08:22:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,7 @@ function generic_edit(&$action) {
   $classid = GetHttpVars("classid",getDefFam($action)); // use when new doc or change class
 
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
-  $usefordef = GetHttpVars("usefordef"); // default values for a document
+  $usefor = GetHttpVars("usefor"); // default values for a document
 
   $vid = GetHttpVars("vid"); // special controlled view
 
@@ -67,10 +67,13 @@ function generic_edit(&$action) {
     } else {
       $action->lay->Set("TITLE",_("new card"));
     }
-      if ($usefordef=="Y") $action->lay->Set("TITLE", _("default values"));
+    if ($usefor=="D") $action->lay->Set("TITLE", _("default values"));
+    if ($usefor=="P") $action->lay->Set("TITLE", _("parameters values"));
+    
       $action->lay->Set("editaction", $action->text("create"));
       $doc= createDoc($dbaccess,$classid);
       if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+      if ($usefor!="") $doc->doctype='T';
     }
   else
     {    
