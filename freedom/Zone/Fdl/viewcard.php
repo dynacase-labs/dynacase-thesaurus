@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.39 2003/06/27 07:40:45 mathieu Exp $
+// $Id: viewcard.php,v 1.40 2003/07/24 12:53:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,10 +42,11 @@ function viewcard(&$action) {
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
   $props = (GetHttpVars("props",'N') == "Y"); // view doc properties
   $zonebodycard = GetHttpVars("zone"); // define view action
-  $dochead = (GetHttpVars("dochead",'Y') == "Y"); // with doc head
+  
   $ulink = (GetHttpVars("ulink",'2')); // add url link
   $target = GetHttpVars("target"); // may be mail
   $reload = ($action->read("reload$docid","N")=="Y"); // need reload
+
 
   if ($ulink == "N") $ulink = false;
   else  if ($ulink == "Y") $ulink = 1;
@@ -87,6 +88,10 @@ function viewcard(&$action) {
     }
   
   if ($doc->usefor=="D") $zonebodycard="FDL:VIEWBODYCARD"; // always default view for default document
+
+  // with doc head ?
+  if (GetHttpVars("dochead")=="")   $dochead=  (! ereg("[A-Z]+:[^:]+:T", $zonebodycard, $reg))||$props;
+  else $dochead = (GetHttpVars("dochead",'Y') == "Y");
 
   
   if ($doc->doctype == 'Z') {
@@ -135,7 +140,7 @@ function viewcard(&$action) {
     }
   }
   if ($doc->fromid > 0) {
-    $cdoc = new Doc($dbaccess, $doc->fromid);
+    $cdoc = $doc->getFamDoc();
     $action->lay->Set("classtitle", $cdoc->title);
   } else {
     $action->lay->Set("classtitle", _("no family"));
@@ -155,6 +160,7 @@ function viewcard(&$action) {
       
   }
   $action->lay->Set("profid", abs($doc->profid));
+  $action->lay->Set("postitid", $doc->postitid);
   
   if (($target=="mail") && ($doc->icon != "")) $action->lay->Set("iconsrc", "cid:icon");
   else $action->lay->Set("iconsrc", $doc->geticon());

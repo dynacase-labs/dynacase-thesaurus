@@ -206,113 +206,114 @@ returnvalue=unescape(d.cookie.substring(offset,end));
 return returnvalue;
 }
 
-function popUp(x,y,w,h,cid,text,bgcolor,textcolor,fontstyleset,title,titlecolor,titletextcolor,bordercolor,scrollcolor,shadowcolor,showonstart,isdrag,isresize,oldOK,isExt,popOnce){
-var okPopUp=false;
-if (popOnce){
-if (get_cookie(cid)==""){
-okPopUp=true;
-d.cookie=cid+"=yes"
-}}
-else okPopUp=true;
-if(okPopUp){
-if(w3c){
-w=Math.max(w,100);
-h=Math.max(h,80);
-var rdiv=new subBox(w-((ie5)?12:8),h-((ie5)?12:8),7,7,'',cid+'_rs');
-if(isresize){
-rdiv.innerHTML='<img src="Images/resize.gif" width="7" height="7">';
-rdiv.style.cursor='se-resize';
-}
-rdiv.rsEnable=isresize;
-var tw=(ie5)?w:w+4;
- y+=document.body.scrollTop;
-var th=(ie5)?h:h+6;
-var shadow=new subBox(x+8,y+8,tw,th,shadowcolor,cid+'_s');
-if(ie5)shadow.style.filter="alpha(opacity=50)";
-else shadow.style.MozOpacity=.5;
-shadow.style.zIndex=++zdx;
-var outerdiv=new subBox(x,y,w,h,bordercolor,cid+'_b');
-outerdiv.style.borderStyle="outset";
-outerdiv.style.borderWidth="2px";
-outerdiv.style.borderColor=bordercolor;
-outerdiv.style.zIndex=++zdx;
-tw=(ie5)?w-8:w-5;
-th=(ie5)?h+4:h-4;
-var titlebar=new subBox(2,2,tw,20,titlecolor,cid+'_t');
-titlebar.style.overflow="hidden";
-titlebar.style.cursor="default";
-var tmp=(isresize)?'<img src="Images/bgreen.gif"  id="'+cid+'_min"><img src="Images/byellow.gif"   id="'+cid+'_max">':'';
-titlebar.innerHTML='<span style="position:absolute; left:3px; top:1px; font:bold 10pt sans-serif; color:'+titletextcolor+'; height:18px; overflow:hidden; clip-height:16px;">'+title+'</span><div id="'+cid+'_btt" style="position:absolute; width:48px; height:16px; left:'+(tw-48)+'px; top:2px; text-align:right">'+tmp+'<img src="Images/bred.gif"  id="'+cid+'_cls"></div>';
-tw=(ie5)?w-7:w-13;
-var content=new subBox(2,24,tw,h-36,bgcolor,cid+'_c');
-content.style.borderColor=bordercolor;
-content.style.borderWidth="2px";
-if(isExt){
-content.innerHTML='<iframe id="'+cid+'_ifrm" src="'+text+'" width="100%" height="100%"></iframe>';
-content.style.overflow="hidden";
-}else{
-if(ie5)content.style.scrollbarBaseColor=scrollcolor;
-content.style.borderStyle="inset";
-content.style.overflow="auto";
-content.style.padding="0px 2px 0px 4px";
-content.innerHTML=text;
-content.style.font=fontstyleset;
-content.style.color=textcolor;
-}
-var extWA=new subBox(2,24,0,0,'',cid+'_extWA');
-extWA.style.display="none";
-extWA.style.width='100%';
-extWA.style.height='100%';
-outerdiv.appendChild(titlebar);
-outerdiv.appendChild(content);
-outerdiv.appendChild(extWA);
-outerdiv.appendChild(rdiv);
-d.body.appendChild(shadow);
-d.body.appendChild(outerdiv);
-d.gEl=d.getElementById;
-if(!showonstart)hidebox(cid);
-var wB=d.gEl(cid+'_b');
-wB.cid=cid;
-wB.isExt=(isExt)?true:false;
-var wT=d.gEl(cid+'_t');
-wT.cid=cid;
-if(isresize){
-var wRS=d.gEl(cid+'_rs');
-wRS.cid=cid;
-var wMIN=d.gEl(cid+'_min');
-wMIN.cid=cid;
-var wMAX=d.gEl(cid+'_max');
-wMIN.h=h;
-wMAX.cid=cid;
-wMIN.onclick=minimize;
-wMAX.onclick=savegeo;
-wRS.onmousedown=startRS;
-wRS.onmouseup=stopRS;
-}
-var wCLS=d.gEl(cid+'_cls'); //8
-var wEXTWA=d.gEl(cid+'_extWA'); //11
-wB.activecolor=titlecolor;
-wB.inactivecolor=scrollcolor;
-if(oldac!=null)d.gEl(oldac.cid+"_t").style.backgroundColor=oldac.inactivecolor;
-oldac=wB;
-wCLS.onclick=new Function("hidebox('"+cid+"');");
-wB.onmousedown=function(){ changez(this) }
-if(isdrag){
-wT.onmousedown=grab_id;
-wT.onmouseup=stopdrag;
-}
-}else{
-if(oldOK){
-var ctr=new Date();
-ctr=ctr.getTime();
-var t=(isExt)?text:'';
-var posn=(ns4)? 'screenX='+x+',screenY='+y: 'left='+x+',top='+y;
-var win=window.open(t , "abc"+ctr , "status=no,menubar=no,width="+w+",height="+h+",resizable="+((isresize)?"yes":"no")+",scrollbars=yes,"+posn);
-if(!isExt){
-t='<html><head><title>'+title+'</title></head><body bgcolor="'+bgcolor+'"><font style="font:'+fontstyleset+'; color:'+textcolor+'">'+text+'</font></body></html>';
-win.document.write(t);
-win.document.close();
-}}}}}
+function popUp(x,y,w,h,cid,text,bgcolor,textcolor,fontstyleset,title,titlecolor,titletextcolor,bordercolor,scrollcolor,shadowcolor,showonstart,isdrag,isresize,oldOK,isExt,popOnce,noDecoration){
+  var okPopUp=false;
+  if (popOnce){
+    if (get_cookie(cid)==""){
+      okPopUp=true;
+      d.cookie=cid+"=yes";
+    }}
+  else okPopUp=true;
+  if(okPopUp){
+    if(w3c){
+      w=Math.max(w,100);
+      h=Math.max(h,80);
+      var rdiv=new subBox(w-((ie5)?12:8),h-((ie5)?12:8),7,7,'',cid+'_rs');
+      if(isresize){
+	rdiv.innerHTML='<img src="Images/resize.gif" width="7" height="7">';
+	rdiv.style.cursor='se-resize';
+      }
+      rdiv.rsEnable=isresize;
+      var tw=(ie5)?w:w+4;
+      y+=document.body.scrollTop;
+      var th=(ie5)?h:h+6;
+      var shadow=new subBox(x+8,y+8,tw,th,shadowcolor,cid+'_s');
+      if(ie5)shadow.style.filter="alpha(opacity=50)";
+      else shadow.style.MozOpacity=.5;
+      if (noDecoration) shadow.style.display='none';
+      shadow.style.zIndex=++zdx;
+      var outerdiv=new subBox(x,y,w,h,bordercolor,cid+'_b');
+      outerdiv.style.borderStyle="outset";
+      outerdiv.style.borderWidth="2px";
+      outerdiv.style.borderColor=bordercolor;
+      outerdiv.style.zIndex=++zdx;
+      tw=(ie5)?w-8:w-5;
+      th=(ie5)?h+4:h-4;
+      var titlebar=new subBox(2,2,tw,20,titlecolor,cid+'_t');
+      titlebar.style.overflow="hidden";
+      titlebar.style.cursor="move";
+      var tmp=(isresize)?'<img style="cursor:default" src="Images/bgreen.gif"  id="'+cid+'_min"><img style="cursor:default" src="Images/byellow.gif"   id="'+cid+'_max">':'';
+      titlebar.innerHTML='<span style="position:absolute; left:3px; top:1px; font:bold 10pt sans-serif; color:'+titletextcolor+'; height:18px; overflow:hidden; clip-height:16px;">'+title+'</span><div id="'+cid+'_btt" style="position:absolute; width:48px; height:16px; left:'+(tw-48)+'px; top:2px; text-align:right">'+tmp+'<img style="cursor:default" src="Images/bred.gif"  id="'+cid+'_cls"></div>';
+      tw=(ie5)?w-7:w-13;
+      var content=new subBox(2,24,tw,h-36,bgcolor,cid+'_c');
+      content.style.borderColor=bordercolor;
+      content.style.borderWidth="2px";
+      if(isExt){
+	content.innerHTML='<iframe id="'+cid+'_ifrm" src="'+text+'" width="100%" height="100%"></iframe>';
+	content.style.overflow="hidden";
+      }else{
+	if(ie5)content.style.scrollbarBaseColor=scrollcolor;
+	content.style.borderStyle="inset";
+	content.style.overflow="auto";
+	content.style.padding="0px 2px 0px 4px";
+	content.innerHTML=text;
+	content.style.font=fontstyleset;
+	content.style.color=textcolor;
+      }
+      var extWA=new subBox(2,24,0,0,'',cid+'_extWA');
+      extWA.style.display="none";
+      extWA.style.width='100%';
+      extWA.style.height='100%';
+      outerdiv.appendChild(titlebar);
+      outerdiv.appendChild(content);
+      outerdiv.appendChild(extWA);
+      outerdiv.appendChild(rdiv);
+      d.body.appendChild(shadow);
+      d.body.appendChild(outerdiv);
+      d.gEl=d.getElementById;
+      if(!showonstart)hidebox(cid);
+      var wB=d.gEl(cid+'_b');
+      wB.cid=cid;
+      wB.isExt=(isExt)?true:false;
+      var wT=d.gEl(cid+'_t');
+      wT.cid=cid;
+      if(isresize){
+	var wRS=d.gEl(cid+'_rs');
+	wRS.cid=cid;
+	var wMIN=d.gEl(cid+'_min');
+	wMIN.cid=cid;
+	var wMAX=d.gEl(cid+'_max');
+	wMIN.h=h;
+	wMAX.cid=cid;
+	wMIN.onclick=minimize;
+	wMAX.onclick=savegeo;
+	wRS.onmousedown=startRS;
+	wRS.onmouseup=stopRS;
+      }
+      var wCLS=d.gEl(cid+'_cls'); //8
+      var wEXTWA=d.gEl(cid+'_extWA'); //11
+      wB.activecolor=titlecolor;
+      wB.inactivecolor=scrollcolor;
+      if(oldac!=null)d.gEl(oldac.cid+"_t").style.backgroundColor=oldac.inactivecolor;
+      oldac=wB;
+      wCLS.onclick=new Function("hidebox('"+cid+"');");
+      wB.onmousedown=function(){ changez(this) }
+      if(isdrag){
+	wT.onmousedown=grab_id;
+	wT.onmouseup=stopdrag;
+      }
+    }else{
+      if(oldOK){
+	var ctr=new Date();
+	ctr=ctr.getTime();
+	var t=(isExt)?text:'';
+	var posn=(ns4)? 'screenX='+x+',screenY='+y: 'left='+x+',top='+y;
+	var win=window.open(t , "abc"+ctr , "status=no,menubar=no,width="+w+",height="+h+",resizable="+((isresize)?"yes":"no")+",scrollbars=yes,"+posn);
+	if(!isExt){
+	  t='<html><head><title>'+title+'</title></head><body bgcolor="'+bgcolor+'"><font style="font:'+fontstyleset+'; color:'+textcolor+'">'+text+'</font></body></html>';
+	  win.document.write(t);
+	  win.document.close();
+	}}}}}
 
 if(ns6)setInterval('movepopup()',40);
 

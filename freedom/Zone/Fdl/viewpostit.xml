@@ -1,0 +1,28 @@
+
+<style>
+TD, fieldset {
+background-color:#faff77;
+  background-image: none;
+}
+fieldset div{
+  font-size: 120%;
+  font-weight: bold;
+  cursor:crosshair;
+}
+.tableborder {
+  background-color:#faff77;
+  border:none;
+}
+BODY {
+  margin:0pt;
+  background-color:#faff77;
+  background-image:none;
+}
+</style>
+[BLOCK TEXT]
+<fieldset style="margin:2pt"><legend>[user] [date]</legend>
+<div style="background-color:[color];margin:2pt;border: 1pt inset [color]">[comments]</div>
+</fieldset>
+
+[ENDBLOCK TEXT]
+

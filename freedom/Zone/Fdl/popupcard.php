@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.30 2003/07/18 16:33:11 eric Exp $
+// $Id: popupcard.php,v 1.31 2003/07/24 12:53:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,6 +56,7 @@ function popupcard(&$action) {
 				'delete',
 				'toxml',
 				'tobasket',
+				'addpostit',
 
 				'chicon',
 				'chgtitle',
@@ -150,7 +151,7 @@ function popupcard(&$action) {
 
   }
   if ($doc->locked == -1) { // fixed document
-    popupActive('popupcard',$kdiv,'latest');
+    if ($doc->doctype != 'Z') popupActive('popupcard',$kdiv,'latest');
     popupInvisible('popupcard',$kdiv,'editdoc');
     popupInvisible('popupcard',$kdiv,'delete');
     popupInvisible('popupcard',$kdiv,'editattr'); 
@@ -208,5 +209,10 @@ function popupcard(&$action) {
 
   if ($headers)  popupInvisible('popupcard',$kdiv,'headers');
   else PopupCtrlactive('popupcard',$kdiv,'headers');
+
+
+  if ($doc->postitid > 0) popupInvisible('popupcard',$kdiv,'addpostit');
+  else PopupCtrlactive('popupcard',$kdiv,'addpostit');
+
   popupGen($kdiv);
 }
