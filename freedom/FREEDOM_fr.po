@@ -434,7 +434,7 @@ msgstr	"fichiers verrouillés par "
 
 #, c-format
 msgid	"basket of %s"
-msgstr	"panier de %s"
+msgstr "porte-documents de %s"
 
 #, c-format
 msgid	"Cannot add %s in %s folder, restriction set to add this kind of "
@@ -1105,7 +1105,7 @@ msgid	"enabled/disabled full text search"
 msgstr	"autoriser la recherche plein texte"
 
 msgid	"id of the basket folder"
-msgstr	"identifiant du panier"
+msgstr "identifiant du porte-documents"
 
 msgid	"mnoGoSearch: indexer database access specification"
 msgstr	"mnoGoSearch: spécification d'accès à la base de l'indexation plein "
@@ -1912,7 +1912,7 @@ msgid	"link document"
 msgstr	"référencer le document"
 
 msgid	"Add to basket"
-msgstr	"Ajouter au panier"
+msgstr	"Ajouter au porte-documents"
 
 msgid	"access path list"
 msgstr	"liste des chemin d'accès"
@@ -2131,7 +2131,7 @@ msgid	"column"
 msgstr	"colonne"
 
 msgid	"All To basket"
-msgstr "Tout insérer dans le panier"
+msgstr "Tout insérer dans le porte-documents"
 
 msgid	"Clear Folder"
 msgstr	"Vider le dossier"
