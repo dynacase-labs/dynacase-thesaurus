@@ -156,7 +156,14 @@ function enableall() {
   }
 }
 
-
+// tranfert value from s to d
+function transfertValue(s,d) {
+  var sob=document.getElementById(s);
+  var dob=document.getElementById(d);
+  if (sob && dob) {
+    dob.value=sob.value;
+  }
+}
 function resizeInputFields() {
 
 
@@ -246,6 +253,19 @@ function getInputLocked() {
   }
  
   return (tlock);
+}
+function getInputsByName(n) {
+  var ti= document.getElementsByTagName("input");
+  var t = new Array();
+	
+
+  for (var i=0; i< ti.length; i++) { 
+    if ((ti[i].name.substr(0,n.length) == n) && (ti[i].name.substr(ti[i].name.length-4,4) != '[-1]')) {	
+     
+      t.push(ti[i]);
+    }
+  }
+  return t;
 }
 
 function isInputLocked(id) {
@@ -494,11 +514,10 @@ function  nodereplacestr(n,s1,s2) {
 
 
 
- 
-
 //-------------------------------------------------------------
 // select tr (row table) 
 var seltr=false; 
+
 function addtr(trid, tbodyid) {
   
   var ntr;
