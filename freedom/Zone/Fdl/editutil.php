@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.45 2003/07/22 12:03:46 eric Exp $
+// $Id: editutil.php,v 1.46 2003/07/24 12:58:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -273,7 +273,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 
 
       while (list($k, $v) = each($ta)) {
-	$talabel[] = array("alabel"=>($v->visibility=="H")?"":$v->labelText);
+	if ($v->mvisibility=="R") {
+	  $v->mvisibility="H"; // don't see read attribute
+	  $ta[$k]->mvisibility="H";
+	}
+	$talabel[] = array("alabel"=>($v->mvisibility=="H")?"":$v->labelText);
 	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1));
 	$tvattr[]=array("bvalue" => "bvalue_$k",
 			"attrid" => $v->id);
