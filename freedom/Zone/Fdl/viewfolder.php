@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.56 2004/10/20 17:10:30 marc Exp $
+ * @version $Id: viewfolder.php,v 1.57 2004/12/01 08:05:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -127,9 +127,12 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   if ($column) {
     usort($ldoc,"orderbyfromid");
     $tfamdoc=array();
+  } else {
+    uasort($ldoc,"orderbytitle");
   }
 
   $doc = createDoc($dbaccess,$famid,false);
+
 
   foreach($ldoc as $k=>$zdoc )  {
 
@@ -330,4 +333,7 @@ function orderbyfromid($a, $b) {
 }
 
 
+function orderbytitle($a, $b) {  
+   return strcasecmp($a["title"],$b["title"]);
+}
 ?>
