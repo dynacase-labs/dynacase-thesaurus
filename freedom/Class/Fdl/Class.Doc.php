@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.216 2004/09/14 14:03:05 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.217 2004/10/04 11:38:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1047,6 +1047,13 @@ create unique index i_docir on doc(initid, revision);";
 	    if ($v != "-") $this->attributes->attr[$k]->mvisibility=$v;	      
 	  }
 	}
+	$tdiff=array_diff(array_keys($this->attributes->attr),array_keys($tvis));
+	// recompute loosed attributes
+	foreach	($tdiff	as $k)	{
+	  $v=$this->attributes->attr[$k];
+	  $this->attributes->attr[$k]->mvisibility=ComputeVisibility($v->visibility,$v->fieldSet->mvisibility);
+        }
+
 	// modify needed attribute also
 	$tneed = $mdoc->getNeedeeds();
 	while (list($k,$v)= each ($tneed)) {
