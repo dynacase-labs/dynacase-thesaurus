@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.65 2005/01/28 17:09:49 eric Exp $
+ * $Id: freedom.css,v 1.66 2005/02/01 13:40:14 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -74,6 +74,11 @@ TD.FREEDOMLabelNeeded:first-letter {
   text-transform:capitalize;
 }
 
+.move, TR.move,TR.move TD {
+  cursor:move;
+  -moz-opacity:.5;	
+	
+}
 LEGEND:first-letter {
   text-transform:uppercase;
 }

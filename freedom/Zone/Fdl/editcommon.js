@@ -1037,7 +1037,7 @@ function movetr(tr) {
       trnode.parentNode.insertBefore(trnode,pnode);
     
     }  else {
-      trnode.parentNode.appendChild(trnode); // latest (cyclic)
+      //trnode.parentNode.appendChild(trnode); // latest (cyclic)
     }
     
     resetTrInputs(trnode);
@@ -1253,15 +1253,22 @@ function preview(faction) {
 
 
 
-addEvent(document,"keypress",trackKeys);
+addEvent(document,"keypress",trackKeysStop); // only stop propagation
+addEvent(document,"keydown",trackKeys);
+//addEvent(document,"keypress",trackKeys);
 
 // ~~~~~~~~~~~~~~~~~ for ARRAY inputs ~~~~~~~~~~~~~
-function trackKeys(event)
+function trackKeysStop(event) {
+  return(trackKeys(event,true));
+}
+function trackKeys(event,onlystop)
 {
   var intKeyCode;
   var stop=false;
+  var tm;
   if (isNetscape) {
     intKeyCode = event.which;
+    if (!intKeyCode) intKeyCode= event.keyCode;
     altKey = event.altKey
     ctrlKey = event.ctrlKey
    }  else {
@@ -1270,27 +1277,54 @@ function trackKeys(event)
     ctrlKey = window.event.ctrlKey
    }
   window.status=intKeyCode + ':'+altKey+ ':'+ctrlKey;
-
-  if (((intKeyCode == 118)||(intKeyCode == 22)) && (altKey || ctrlKey)) {
-    // Ctrl-V
-    duptr();
-    stop=true;
+  if ((!onlystop) && seltr ) {
+    if (((intKeyCode == 86)||(intKeyCode == 22)) && (altKey || ctrlKey)) {
+      // Ctrl-V
+      duptr();
+      stop=true;
+    }
+    if (((intKeyCode == 68)||(intKeyCode == 100)) && (altKey || ctrlKey)) {
+      // Ctrl-D
+       delseltr();
+      stop=true;
+    }
+    if ( (intKeyCode == 38) && (altKey || ctrlKey)) {
+      // Ctrl-Up
+      tm=seltr.previousSibling; 
+      while (tm && (tm.nodeType != 1)) tm = tm.previousSibling;
+      if (tm) movetr(tm);
+      stop=true;
+    }
+    if ((intKeyCode == 40) && (altKey || ctrlKey)) {
+      // Ctrl-Down
+      tm=seltr.nextSibling;
+      while (tm && (tm.nodeType != 1)) tm = tm.nextSibling;
+      tm=tm.nextSibling;
+      while (tm && (tm.nodeType != 1)) tm = tm.nextSibling;
+      if (tm) movetr(tm);
+      stop=true;
+    }
   }
-  if (((intKeyCode == 100)||(intKeyCode == 4)) && (altKey || ctrlKey)) {
-    // Ctrl-D
-    delseltr();
-    stop=true;
+  if (onlystop) {
+    if (altKey || ctrlKey) {
+      if ((intKeyCode == 100) || 
+	  (intKeyCode == 118)) {
+	stop=true;
+      }
+    }
   }
 
-  if (stop) {
+
+
+  if ( stop) {
     if (event.stopPropagation) event.stopPropagation();
     else event.cancelBubble=true;
     if (event.preventDefault) event.preventDefault();
     else event.returnValue=true;
-
+    
     return false;
-  }
-  
+  } 
+    
   return true;
 }
 var dro=null; // clone use to move
@@ -1302,7 +1336,6 @@ var draggo=false;
 
 function adraggo(event) {
   if (dro) {
-    dro.style.cursor='move';
     if (idro) {
       idro.style.visibility='hidden'; 
       var ti=dro.getElementsByTagName('input');    
@@ -1326,8 +1359,7 @@ function adrag(event,o) {
   GetXY(event);
   dro=o.parentNode.parentNode.cloneNode(true);
   dro.style.position='absolute';
-  if (isNetscape)  dro.style.MozOpacity=0.5;
-  //  else dro.style.filter="alpha(opacity=50)";
+  dro.className='move';
   dro.style.width=getObjectWidth(o.parentNode.parentNode);
   idro=o.parentNode.parentNode;
   hidro=getObjectHeight(idro);
