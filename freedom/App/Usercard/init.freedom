@@ -8,7 +8,7 @@ METHOD;Method.DocUser.php;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
 ATTR;US_FR_IDENT;;Etat civil;N;N;frame;10;W;;;;;
-ATTR;US_CIVILITY;US_FR_IDENT;civilité;N;N;enum;10;W;;;-;Monsieur|Monsieur,Madame|Madame,Mademoiselle|Mademoiselle,Docteur|Docteur,Professeur|Professeur;
+ATTR;US_CIVILITY;US_FR_IDENT;civilité;N;N;enum;10;W;;;-; | ,Monsieur|Monsieur,Madame|Madame,Mademoiselle|Mademoiselle,Docteur|Docteur,Professeur|Professeur;
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;W;Y;;;;
 ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;W;Y;;;;
 ATTR;US_PHOTO;US_FR_IDENT;photographie;N;N;image;40;W;;;;;
@@ -16,7 +16,7 @@ ATTR;US_INITIALS;US_FR_IDENT;initiales;N;N;text;50;W;;;;;
 ATTR;US_FR_COORD;;Coordonnées;N;N;frame;60;W;;;;;
 ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;W;;mailto:%US_MAIL%;;;
 ATTR;US_PHONE;US_FR_COORD;téléphone;N;Y;text;80;R;;;;;
-ATTR;US_PPHONE;US_FR_COORD;téléphone;N;N;text;90;O;;;usercard.php;getSphone(D,US_IDSOCIETY):US_PPHONE;
+ATTR;US_PPHONE;US_FR_COORD;téléphone direct;N;N;text;90;O;;;usercard.php;getSphone(D,US_IDSOCIETY):US_PPHONE;
 ATTR;US_INTPHONE;US_FR_COORD;n°poste;N;N;text;100;W;;;;;
 ATTR;US_PFAX;US_FR_COORD;fax;N;N;text;110;O;;;usercard.php;getSFax(D,US_IDSOCIETY):US_PFAX;
 ATTR;US_FAX;US_FR_COORD;fax;N;N;text;120;R;;;;;
