@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.35 2003/01/08 09:08:21 eric Exp $
+// $Id: import_file.php,v 1.36 2003/01/15 11:42:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,7 +79,7 @@ function add_import_file(&$action, $fimport="") {
 
 
 
-    if ($err != "") $gerr="\nline $nline:".$err;
+    if ($err != "") $gerr="\nBEGIN line $nline:".$err;
 
 	  
     break;
@@ -127,7 +127,7 @@ function add_import_file(&$action, $fimport="") {
     if (($err != "") && ($doc->id > 0)) { // case only modify
       if ($doc -> Select($doc->id)) $err = "";
     }
-    if ($err != "") $gerr="\nline $nline:".$err;
+    if ($err != "") $gerr="\nSEARCH: line $nline:".$err;
     
     // update title in finish
     $doc->title =  $data[3];
@@ -135,7 +135,7 @@ function add_import_file(&$action, $fimport="") {
 
     if (($data[4] != "")) { // specific search 
 	$err = $doc->AddQuery($data[4]);
-	if ($err != "") $gerr="\nline $nline:".$err;
+	if ($err != "") $gerr="\nSEARCH: line $nline:".$err;
       }
 
     if ($data[2] > 0) { // dirid
@@ -178,6 +178,8 @@ function add_import_file(&$action, $fimport="") {
     // -----------------------------------
     case "ATTR":
       if     ($num < 13) print "Error in line $nline: $num cols < 14<BR>";
+
+      if ($analyze) continue;
       $oattr=new DocAttr($dbaccess, array($doc->id,strtolower($data[1])));
      
       
@@ -204,7 +206,7 @@ function add_import_file(&$action, $fimport="") {
       if ($oattr->isAffected()) $err =$oattr ->Modify();
       else    $err = $oattr ->Add();
       //    if ($err != "") $err = $oattr ->Modify();
-    if ($err != "") $gerr="\nline $nline:".$err;
+    if ($err != "") $gerr="\nATTR line $nline:".$err;
     break;
 	  
     }
