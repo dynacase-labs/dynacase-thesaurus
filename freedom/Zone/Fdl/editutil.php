@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.69 2004/08/27 14:12:03 eric Exp $
+ * @version $Id: editutil.php,v 1.70 2004/08/27 15:16:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.69 2004/08/27 14:12:03 eric Exp $
+// $Id: editutil.php,v 1.70 2004/08/27 15:16:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -360,28 +360,14 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       $lay = new Layout("FDL/Layout/editdate.xml", $action);
       getLayDate($lay,$doc,$oattr,$value,$attrin,$index);
 		      
-      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
-      else $lay->set("disabled","");
+      $lay->set("disabled","");
+      if (($visibility == "R")||($visibility == "S")) {
+	$lay->set("disabled",$idisabled);	
+      } else  if ($doc->usefor != 'D') 	$lay->set("disabled","disabled");
+
+
       $input =$lay->gen(); 
       break;
-      $input="<input size=10  type=\"text\"   name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
-      $input .= " id=\"".$attridk."\" "; 
-
-      if (($visibility == "R")||($visibility == "S")) {
-	$input .= $idisabled; 	
-      } else  if ($doc->usefor != 'D') $input .=" disabled "; // always but default
-
-      if ($doc->usefor != 'D') $input .= " onblur=\"control_date(event,this)\" ";
-      $input .= " >&nbsp;"; 
-      if (!(($visibility == "R")||($visibility == "S"))) {
-	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
-	  " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attridk."')\"".
-	  ">";
-	$input.="<input type=\"button\" value=\"&diams;\"".
-	  " title=\""._("manual date")."\" onclick=\"focus_date(event,'$attridk')\"".
-	  ">";
-      }
-      break;      
 		      
       //같같같같같같같같같같같같같같같같같같같같
 			
