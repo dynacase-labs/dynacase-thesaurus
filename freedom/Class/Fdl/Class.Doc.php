@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.78 2002/12/23 09:16:13 eric Exp $
+// $Id: Class.Doc.php,v 1.79 2003/01/03 09:09:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.78 2002/12/23 09:16:13 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.79 2003/01/03 09:09:57 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -804,13 +804,15 @@ create unique index i_docir on doc(initid, revision);";
       $attrid = strtolower($attrid);
       $value=trim($value);// suppress white spaces end & begin
 
-
+      if ($value == " ") $value=""; // erase value
 
       if (empty($this->$attrid) || ($this->$attrid != $value)) 	  {
-	$this->hasChanged=true;
+	if (($value == "") && ($this->$attrid != "")) {
+	  $this->hasChanged=true;
+	  //      		print "change $attrid  to <PRE>[$value]</PRE><BR>";
+	}
       }
       $this->$attrid=($value); 
-      //		print "change $attrid  to $value<BR>";
 	
     }      
   }
