@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewscard.php,v 1.1 2002/12/07 16:00:11 eric Exp $
+// $Id: viewscard.php,v 1.2 2003/03/11 17:09:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/viewscard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,7 @@ function viewscard(&$action) {
   $doc = new Doc($dbaccess, $docid);
   $err = $doc->control("view");
   if ($err != "") $action->exitError($err);
-  
+  if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
   if ($zonebodycard == "") $action->exitError(_("no zone specified"));
 
 
