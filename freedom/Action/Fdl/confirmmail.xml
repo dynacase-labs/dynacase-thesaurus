@@ -49,7 +49,6 @@ function viewCard(w) {
 <form  id="fedit"  
        class="fborder" 
        name="modifydoc" 
-       target="fhidden"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=N&props=N&cr=Y&id=[mid]" >
 
@@ -77,7 +76,7 @@ function viewCard(w) {
 <tr class="FREEDOMBack1">
   <td  >
  <input type="submit" title="[TEXT:Send the email and change document state to] [tstate]" 
-        value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();setTimeout('viewCard(self)',100)"> 
+        value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();"> 
  
 
   </td>
