@@ -22,6 +22,16 @@ if [ "$1" = "I" ] ; then
   /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocPerm
   #copy postgres group table
   $pubdir/wsh.php --api=freedom_groups
+
+  #prepare VAULT directories
+  mkdir -p /var/freedom
+  chown http: /var/freedom
+  if [ ! -f $pubdir/VAULT/FREEDOM.vault ]; then
+    cp $pubdir/FDL/FREEDOM.vault $pubdir/VAULT/FREEDOM.vault
+  fi
+  $pubdir/wsh.php --api=vault_init
+
+  
 fi
 #------------------------------
 #post update

@@ -26,9 +26,9 @@ $cache_def = array (
 $vault_type = "fs"; // Only 'fs' is allowed, in future release use of "url", "nfs".....
 $fs = array ( 
          "FS1" =>  array (
-                "max_size" => "200000000",
-                "subdir_cnt_bydir" => 2,
-                "subdir_deep" => 1,
+                "max_size" => "500000000",
+                "subdir_cnt_bydir" => 10,
+                "subdir_deep" => 2,
                 "max_entries_by_dir" => 100,
                 "r_path" => "/var/freedom/fs1"
              )
