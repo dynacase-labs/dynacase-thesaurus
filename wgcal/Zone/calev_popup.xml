@@ -1,0 +1,29 @@
+<!-- POPUP DIVISION --><div  style="display:none" id="calevcard[id]" class="wgcalpopup">
+
+<a href="#" id="acceptrv"
+    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_ACCEPT','');closeMenu('calevcard')" >[TEXT:accept]</a>
+<a href="#" id="rejectrv"
+    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_REJECT','');closeMenu('calevcard')" >[TEXT:reject]</a>
+<a href="#" id="tbcrv"
+    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_TBC','');closeMenu('calevcard')" >[TEXT:to be confirm]</a>
+<a class="separator"><hr></a>
+
+<a href="#" id="editrv"
+    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[id]','wgcal_edit');closeMenu('calevcard')" >[TEXT:edit]</a>
+<a href="#" id="deleterv"
+    onclick="ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT&evt=[id]','');closeMenu('calevcard')" >[TEXT:delete]</a>
+
+
+<a class="separator"><hr></a>
+
+<a href="#" id="historyrv"
+    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_HISTORY&evt=[id]','wgcal_history');closeMenu('calevcard')" >[TEXT:history]</a>
+
+<a class="separator"><hr></a>
+
+<a href="#" id="cancelrv" onclick="closeMenu('calevcard')"  >[TEXT:Cancel]</a>
+
+</div> <!-- end POPUP DIVISION -->
+
+
+

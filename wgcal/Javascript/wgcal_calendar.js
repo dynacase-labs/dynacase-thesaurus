@@ -284,6 +284,7 @@ function WGCalSortEventInDay( e1, e2) {
 function WGCalIntersect(asy,aey,bsy,bey) {
   if ((bsy>asy && bsy<aey)) return true;
   if ((bey>asy && bey<aey)) return true;
+  //if (bsy==asy && bey==aey) return true;
 //   if ( (asy>=bsy && asy<=bey) || (aey>=bsy && aey<=bey)) return true;
   return false;
 }
