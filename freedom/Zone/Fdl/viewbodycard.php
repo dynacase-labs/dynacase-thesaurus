@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewbodycard.php,v 1.2 2002/07/25 16:41:38 eric Exp $
+// $Id: viewbodycard.php,v 1.3 2002/08/22 06:58:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -88,16 +88,16 @@ function viewbodycard(&$action) {
   $tableframe=array();
   $tableimage=array();
   $vf = new VaultFile($dbaccess, "FREEDOM");
-  for ($i=0; $i < $nattr + 1; $i++)
-    {
+
+    $iattr=0;
+    while (list($i,$attr) = each($listattr)) {
+      $iattr++;
+    
 
       //------------------------------
       // Compute value elements
-      if ($i < $nattr)
-	{
 	  
-	  $value = chop($doc->GetValue($listattr[$i]->id));
-	 
+	  $value = chop($doc->GetValue($i));
 
 	  if ($value != "") // to define when change frame
 	    {
@@ -105,13 +105,13 @@ function viewbodycard(&$action) {
 		if ($currentFrameId != "") $changeframe=true;
 	      }
 	    }
-	}
+	
 
 
       //------------------------------
       // change frame if needed
 
-      if (($i == $nattr) ||  // to generate final frametext
+      if (  // to generate  fiedlset
 	  $changeframe)
 	{
 	  $changeframe=false;
@@ -140,11 +140,9 @@ function viewbodycard(&$action) {
 
       //------------------------------
       // Set the table value elements
-      if ($i < $nattr)
-	{
+      if ($iattr <= $nattr)	{
       
-	  if (($value != "") && ($listattr[$i]->visibility != "H"))
-	    {
+	  if (($value != "") && ($listattr[$i]->visibility != "H"))   {
 		
 	      $currentFrameId = $listattr[$i]->frameid;
 
@@ -175,13 +173,10 @@ function viewbodycard(&$action) {
 
 	
 	      // print name except image (printed otherthere)
-	      if ($listattr[$i]->type != "image")
-		{
+	      if ($listattr[$i]->type != "image") {
 		  $tableframe[$v]["name"]=$action->text($doc->GetLabel($listattr[$i]->id));
 		  $v++;
-		}
-	      else
-		{
+		} else	{
 		  $tableimage[$nbimg]["imgalt"]=$action->text($doc->GetLabel($listattr[$i]->id));
 		  $nbimg++;
 		}
@@ -189,9 +184,21 @@ function viewbodycard(&$action) {
 	      
 	    }
 	}
-  
     }
 
+	  if (($v+$nbimg) > 0) // // last fieldset
+	    {
+				      
+	      $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
+	      $frames[$k]["rowspan"]=$v+1; // for images cell
+	      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+
+	      $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
+					 $tableframe);
+	      $frames[$k]["IMAGES"]="IMAGES_$k";
+	      $action->lay->SetBlockData($frames[$k]["IMAGES"],
+					 $tableimage);
+	    }
   // Out
 
 

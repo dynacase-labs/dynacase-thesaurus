@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewimgcard.php,v 1.2 2002/07/25 16:41:38 eric Exp $
+// $Id: viewimgcard.php,v 1.3 2002/08/22 06:58:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewimgcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -88,23 +88,24 @@ function viewimgcard(&$action) {
   $vf = new VaultFile($dbaccess, "FREEDOM");
 
   // view all (and only) images
-  for ($i=0; $i < $nattr ; $i++) {
+
+    while (list($i,$attr) = each($listattr)) {
 
    
-    $value = chop($doc->GetValue($listattr[$i]->id));
+    $value = chop($doc->GetValue($i));
 
     //------------------------------
     // Set the table value elements
       
-    if (($value != "") && ($listattr[$i]->visibility != "H"))	{
+    if (($value != "") && ($attr->visibility != "H"))	{
 		
 
       // print values
-      switch ($listattr[$i]->type)   {
+      switch ($attr->type)   {
 	      
       case "image": 
 		  
-	$tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	$tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($attr,$value,$target,$ulink);
       if (ereg ("(.*)\|(.*)", $value, $reg)) {		 
 	// reg[1] is mime type
 	$tableimage[$nbimg]["type"]=$reg[1];

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.42 2002/08/09 16:51:46 eric Exp $
+// $Id: Class.Doc.php,v 1.43 2002/08/22 06:58:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.42 2002/08/09 16:51:46 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.43 2002/08/22 06:58:23 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -439,6 +439,7 @@ create sequence seq_id_doc start 1000";
     // -------------------------------------------------------------------- 
     // Return array of father doc id : class document 
     if (! isset($this->fathers)) {
+
       $this->fathers=array();
       if ($this->fromid > 0) {
 	$fdoc= new Doc($this->dbaccess,$this->fromid);
@@ -494,14 +495,12 @@ create sequence seq_id_doc start 1000";
   // the attribute can be defined in fathers
   function GetAttribute($idAttr)
     {      
+
       if (! isset($this->fathers)) $this->GetFathersDoc();
 
       if (!isset($this->attributes)) $this->GetAttributes(true);
+      if (isset($this->attributes[$idAttr])) return $this->attributes[$idAttr];
      
-      reset($this->attributes);
-      while(list($k,$v) = each($this->attributes)) {
-	if ($v->id==$idAttr) return $v;
-      }
 
       return false;
 
@@ -519,12 +518,16 @@ create sequence seq_id_doc start 1000";
 	// 
 	$sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
 	$query->AddQuery($sql_cond_doc);
-    
+
 	if (!$wframe) $query->AddQuery("type != 'frame'");
 	$query->AddQuery("visibility != 'M'"); // not menu attributes (not editable)
-	  if (! $wonly)	$query->AddQuery("visibility != 'O'"); // not readable directly
+	if (! $wonly)	$query->AddQuery("visibility != 'O'"); // not readable directly
 	$query->order_by="ordered";
-	$this->attributes=$query->Query();    
+	$lattributes=$query->Query();
+	while (list($k,$v) = each($lattributes)) {
+	  $this->attributes[$v->id]=$v;
+	}
+	
       }
       return $this->attributes;
     }
@@ -570,8 +573,12 @@ create sequence seq_id_doc start 1000";
       $query->AddQuery("type != 'frame'");
       $query->AddQuery($condition);
       $query->order_by="ordered";
-      $gsa= $query->Query();  
+      $lgsa= $query->Query();  
       if ($query->nb == 0) return array();
+      
+      while (list($k,$v) = each($lgsa)) {
+	$gsa[$v->id]=$v;
+      }
       return $gsa; 
     }
   // recompute the title from attribute values
@@ -600,8 +607,10 @@ create sequence seq_id_doc start 1000";
   // recompute the title from attribute values
   function SetTitle($title) {
     $ltitle = $this->GetTitleAttributes();
+    reset($ltitle);
+    $otitle = current($ltitle);
 
-    $otitle = new DocValue($this->dbaccess, array($this->id,$ltitle[0]->id));
+    $otitle = new DocValue($this->dbaccess, array($this->id,$otitle->id));
 
     //    print "title:".$title->value;
     if ($otitle->isAffected()) {
@@ -619,7 +628,7 @@ create sequence seq_id_doc start 1000";
 	if (isset($this->id) && ($this->id>0)) {
 	  $query = new QueryDb($this->dbaccess,"DocValue");
 	  $query->AddQuery("docid=".$this->id);
-    
+
 	  $values=$query->Query(0,0,"TABLE");
 	  if ($values) {
 	    while (list($k,$v) = each($values)) {
