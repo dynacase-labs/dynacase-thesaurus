@@ -7,6 +7,7 @@
 <option value="#8ce5f7" onmouseover="colorsel(this)" style="background-color:#8ce5f7">Bleu</option>
 <option value="#f7d78c" onmouseover="colorsel(this)" style="background-color:#f7d78c">Orange</option>
 <option value="#b98cf7" onmouseover="colorsel(this)" style="background-color:#b98cf7">Violet</option>
+<option value="#eaa6a4" onmouseover="colorsel(this)" style="background-color:#eaa6a4">Rouge</option>
 </select>
 
 <textarea id="pit_ncom" style="width:100%;font-size: 120%;font-weight: bold;background-color:#f7f58c" name="_pit_ncom"></textarea>
@@ -23,6 +24,9 @@ function colorsel2(o) {
   document.getElementById('pit_ncolor').style.backgroundColor=c;
   document.getElementById('pit_ncom').style.backgroundColor=c;
 }
-document.getElementById('pit_ncom').focus();
+function focusncom() {
+  document.getElementById('pit_ncom').focus();
+}
 
+addEvent(window,"load",focusncom);
 </script>

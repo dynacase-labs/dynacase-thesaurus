@@ -1,27 +1,22 @@
 
 <style>
-TD, fieldset {
-background-color:#faff77;
-  background-image: none;
+TD {
+background:[CORE_BGCOLOR];
 }
 fieldset div{
   font-size: 120%;
   font-weight: bold;
   cursor:crosshair;
 }
-.tableborder {
-  background-color:#faff77;
+DIV.tableborder {
+  background-color:transparent;
   border:none;
 }
-BODY {
-  margin:0pt;
-  background-color:#faff77;
-  background-image:none;
-}
+
 </style>
 [BLOCK TEXT]
-<fieldset style="margin:2pt"><legend>[user] [date]</legend>
-<div style="background-color:[color];margin:2pt;border: 1pt inset [color]">[comments]</div>
+<fieldset style="margin:2pt;background-color:[color];"><legend style="border-style:groove groove none groove;border-width 2px;border-color:[color];background-color:[color];color:[CORE_TEXTFGCOLOR];-moz-border-radius:25px;">[user] [date]</legend>
+<div style="background:[CORE_INPUTBGCOLOR];background-color:[color];margin:2pt;border: 1pt inset [color]">[comments]</div>
 </fieldset>
 
 [ENDBLOCK TEXT]
