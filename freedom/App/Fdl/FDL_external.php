@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.29 2004/02/17 10:52:38 eric Exp $
+ * @version $Id: FDL_external.php,v 1.30 2004/03/29 13:41:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -111,7 +111,7 @@ function lfamilies($dbaccess, $name='') {
  * @param array $filter additionnals SQL filters
  * @return array/string*3 array of (title, identifier, title)
  */
-function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
+function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array(),$idid="id") {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
   
@@ -134,7 +134,7 @@ function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
   while(list($k,$v) = each($tinter)) {
             
     $tr[] = array($v["title"] ,
-		  $v["id"],$v["title"]);
+		  $v[$idid],$v["title"]);
     
   }
   return $tr;
@@ -142,8 +142,8 @@ function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
 }
 
 // alias name
-function lfamily($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
-  return lfamilly($dbaccess, $famid, $name, $dirid, $filter);
+function lfamily($dbaccess, $famid, $name, $dirid=0, $filter=array(),$idid="id") {
+  return lfamilly($dbaccess, $famid, $name, $dirid, $filter,$idid);
 }
 
 
