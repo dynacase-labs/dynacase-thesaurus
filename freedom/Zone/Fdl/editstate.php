@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.10 2004/09/22 16:16:39 eric Exp $
+ * @version $Id: editstate.php,v 1.11 2004/09/29 09:07:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -61,6 +61,9 @@ function editstate(&$action) {
       $wdoc->Set($doc);
 
       $fstate = $wdoc->GetFollowingStates();
+      $tjsstate=array();
+      $tjstransid=array();
+      $tjsaskes=array();
       $action->lay->Set("initstatevalue",$doc->state );
       $action->lay->Set("initstatename", $action->text($doc->state) );
       $tstate= array();
