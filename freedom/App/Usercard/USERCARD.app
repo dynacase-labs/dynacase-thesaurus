@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.7 2002/04/17 12:50:15 eric Exp $
+// $Id: USERCARD.app,v 1.8 2002/05/22 13:28:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,8 +47,9 @@ $action_desc = array (
    "acl"		=>"GENERIC_READ"
   )  ,
   array( 
-   "name"		=>"GENERIC_IMPORTVCARD",
+   "name"		=>"USERCARD_IMPORTVCARD",
    "short_name"		=>N_("import vcard"),
+   "layout"		=>"generic_import.xml",
    "acl"		=>"GENERIC_MASTER"
   )
                       );

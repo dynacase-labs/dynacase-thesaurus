@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.5 2002/03/14 14:56:55 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.6 2002/05/22 13:28:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -155,8 +155,8 @@ Class UsercardVcard
 	    if (isset($this->import[$k]) && ($this->import[$k] != ""))
 	      {		
 	
-		// if is int (no regexp)
-		if (ereg("^[0-9]*$",$this->import[$k]))
+		// if is single value (no regexp)
+		if (ereg("^[0-9A-Z_]*$",$this->import[$k]))
 		  {
 		    
 		    $tattr[$this->import[$k]]=$v;
@@ -165,18 +165,20 @@ Class UsercardVcard
 		else
 		  {
 		    // regexp case
-		    // example 100;101
-		    if (ereg("([0-9]*)([^0-9]*)([0-9]*)[^0-9]*([0-9]*)[^0-9]*([0-9]*)[^0-9]*([0-9]*)[^0-9]*([0-9]*)",
+		    // example A;B;C;D;E;F
+		    $complxreg="([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)";
+
+		    if (ereg($complxreg,
 			     $this->import[$k], $reg))
 		    {
-		      if (ereg("([^".$reg[2]."]*)".$reg[2]."{0,1}([^".$reg[2]."]*)".$reg[2]."{0,1}([^".$reg[2]."]*)".$reg[2]."{0,1}([^".$reg[2]."]*)".$reg[2]."{0,1}([^".$reg[2]."]*)".$reg[2]."{0,1}([^".$reg[2]."]*)", $v , $regv))
+		      if (ereg($complxreg, $v , $regv))
 			{
 			  $tattr[$reg[1]]= $regv[1];
-			  $tattr[$reg[3]]= $regv[2];
-			  $tattr[$reg[4]]= $regv[3];
-			  $tattr[$reg[5]]= $regv[4];
-			  $tattr[$reg[6]]= $regv[5];
-			  $tattr[$reg[7]]= $regv[6];
+			  $tattr[$reg[2]]= $regv[2];
+			  $tattr[$reg[3]]= $regv[3];
+			  $tattr[$reg[4]]= $regv[4];
+			  $tattr[$reg[5]]= $regv[5];
+			  $tattr[$reg[6]]= $regv[6];
 			}
 		    }
 		  }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.2 2002/04/17 12:50:15 eric Exp $
+// $Id: GENERIC.app,v 1.3 2002/05/22 13:28:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -132,7 +132,7 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_IMPORTCSV",
    "short_name"		=>N_("import csv"),
-   "layout"		=>"generic_importvcard.xml",
+   "layout"		=>"generic_import.xml",
    "acl"		=>"GENERIC_MASTER"
   ) ,
   array( 

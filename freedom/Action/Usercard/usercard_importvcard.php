@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_importvcard.php,v 1.4 2002/04/17 12:50:15 eric Exp $
+// $Id: usercard_importvcard.php,v 1.5 2002/05/22 13:28:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_importvcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -48,6 +48,7 @@ function usercard_importvcard(&$action) {
 
   $action->lay->Set("CR","");
   $vcard_import = new UsercardVcard();
+
   if (isset($HTTP_POST_FILES["vcardfile"]))    
     {
       // importation 
@@ -57,7 +58,7 @@ function usercard_importvcard(&$action) {
       $vcardfile = GetHttpVars("file"); 
     }
   if (! $vcard_import-> Open($vcardfile)) $action->exitError(_("no vcard file specified"));
-  $dir = new Dir($dbaccess, TOP_USERDIR);
+  $dir = new Dir($dbaccess, $action->GetParam("DEFAULT_FLD"));
 
   $tvalue=array();
 
@@ -70,7 +71,7 @@ function usercard_importvcard(&$action) {
 	{
 	  // Add new contact card
 	  $doc = createDoc($dbaccess, 
-			   $action->GetParam("IDFAMUSER", FAM_DOCUSER));
+			   $action->GetParam("DEFAULT_FAMILY"));
 
 	      
 
