@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.38 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: popupcard.php,v 1.39 2004/01/13 09:34:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.38 2003/12/12 15:45:25 eric Exp $
+// $Id: popupcard.php,v 1.39 2004/01/13 09:34:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -135,7 +135,7 @@ function popupcard(&$action) {
   }
   if ($doc->PreDelete() == "") {
     $action->lay->Set("deltitle", AddSlashes($doc->title));
-    popupActive('popupcard',$kdiv,'delete');    
+    popupCtrlActive('popupcard',$kdiv,'delete');    
   } else {
     popupInactive('popupcard',$kdiv,'delete');
   }
@@ -194,7 +194,8 @@ function popupcard(&$action) {
 	}
       }
   }
-  popupCtrlActive('popupcard',$kdiv,'histo'); 
+
+  popupActive('popupcard',$kdiv,'histo'); 
   
 
   if ($abstract) popupActive('popupcard',$kdiv,'properties'); 
@@ -229,6 +230,16 @@ function popupcard(&$action) {
 
   if ($doc->postitid > 0) popupInvisible('popupcard',$kdiv,'addpostit');
   else PopupCtrlactive('popupcard',$kdiv,'addpostit');
+
+  if (getParam("FREEDOM_IDBASKET",-1) == -1) {
+    // FREEDOM not installed
+   
+    // actions not available
+    popupInvisible('popupcard',$kdiv,'histo');
+    popupInvisible('popupcard',$kdiv,'editstate');
+    popupInvisible('popupcard',$kdiv,'revise');
+    popupInvisible('popupcard',$kdiv,'editprof');
+  }
 
   // ------------
   // add special views

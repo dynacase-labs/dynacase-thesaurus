@@ -40,7 +40,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&id=[id]','');closeMenu('popupcard')" >[TEXT:Change profile]</a>
 
 <a href="#" id="histo"
-    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]','');closeMenu('popupcard')" >[TEXT:History]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]','histo');closeMenu('popupcard')" >[TEXT:History]</a>
 
 <a href="#" id="duplicate"     
     onclick="if (confirm('[TEXT:Confirm] [TEXT:Duplicate] ?')) activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_DUPLICATE&id=[id]','finfo');closeMenu('popupcard');">[TEXT:Duplicate]</a>
