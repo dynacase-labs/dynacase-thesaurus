@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocValue.php,v 1.3 2002/04/08 07:30:37 eric Exp $
+// $Id: Class.DocValue.php,v 1.4 2002/04/09 14:48:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocValue.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.3 2002/04/08 07:30:37 eric Exp $';
+$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.4 2002/04/09 14:48:44 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -33,7 +33,7 @@ include_once('Class.Log.php');
 
 Class Docvalue extends DbObj
 {
-  var $fields = array ( "docid","attrid","value","zou");
+  var $fields = array ( "docid","attrid","value","zouq");
 
   var $id_fields = array ("docid", "attrid");
 
@@ -46,8 +46,8 @@ Class Docvalue extends DbObj
   var $sqlcreate = "
 create table docvalue ( docid  int not null,
                         attrid varchar(20) not null,
-                        value  varchar(256),
-                        zou varchar(1)
+                        value  text,
+                        zouq varchar(1)
                    ); 
 create unique index idx_docvalue on docvalue (docid, attrid);";
 
