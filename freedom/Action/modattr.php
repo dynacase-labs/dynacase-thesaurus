@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: modattr.php,v 1.2 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: modattr.php,v $
+// Revision 1.2  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -57,14 +60,16 @@ function modattr(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $bdfreedomattr = new DocAttr($dbaccess);
-  if ( $docid == "" )
+  if ( $docid == 0 )
     {
       $ofreedom = new Doc($dbaccess);
       // add new freedom
       $ofreedom->title = _("new document");
       $ofreedom->owner = $action->user->id;
-      $ofreedom->doctype = 'F'; // it is a new class document
+      $ofreedom->locked = $action->user->id; // lock for next modification
+      $ofreedom->doctype = 'C'; // it is a new class document
       $ofreedom->fromid = GetHttpVars("classid"); // inherit from
+      $ofreedom->profid = "0"; // NO PROFILE ACCESS
       $ofreedom-> Add();
       $docid = $ofreedom-> id;
       
@@ -78,7 +83,7 @@ function modattr(&$action) {
       $ofreedom = new Doc($dbaccess,$docid);
       
       // test object permission before modify values (no access control on values yet)
-      $err=$ofreedom-> CanUpdate();
+      $err=$ofreedom-> CanUpdateDoc();
       if ($err != "")
 	  $action-> ExitError($err);
 

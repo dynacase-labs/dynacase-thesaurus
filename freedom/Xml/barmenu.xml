@@ -44,19 +44,25 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0" valign="top" >
 
 <tr>
-<td class="FREEDOMTblTitle" colspan="4">
+<td class="FREEDOMTblTitle" >
 <a target="_parent" href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_ADMIN&id=">[imgadmin]</a>
 <a target="_parent" href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_IMPORT">[imgimport]</a>
 
-<a   type="text/x-vcard" href="#" onclick="javascript:parent.info.location.replace('[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EXPORT&conv_type=Vcard&fulltext='+self.document.fulltext.text.value+'&catg='+self.document.fcatg.category.options[self.document.fcatg.category.selectedIndex].value+'&onlyowner='+self.document.fowner.onlyowner.checked)">[imgexport]</a>
-     <a  href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id=&dirid='+parent.info.document.dirid">[new doc]</a>
-     <a  href="#" onClick="parent.info.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LIST&dirid='+parent.info.document.dirid">[list]</a>
-     <a  href="#" onClick="parent.info.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_ICONS&dirid='+parent.info.document.dirid">[icon]</a>
-     <a  target="info" href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LIST&dirid=">[all]</a>
-<a  href="#" onClick="parent.info.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=REFRESHDIR&dirid='+parent.info.document.dirid">[refresh]</a>
+<a   type="text/x-vcard" href="#" onclick="javascript:parent.info.location.replace('[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_EXPORT&conv_type=Vcard&fulltext='+self.document.fulltext.text.value+'&catg='+self.document.fcatg.category.options[self.document.fcatg.category.selectedIndex].value+'&onlyowner='+self.document.fowner.onlyowner.checked)">[imgexport]</a>
+
+<a  href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_EDIT&classid=1&id=&dirid='+parent.info.document.dirid">[new doc]</a>
+
+<a  href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_EDIT&classid=2&id=&dirid='+parent.info.document.dirid">[new rep]</a>
+
+<a  href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_EDIT&classid=3&id=&dirid='+parent.info.document.dirid">[new prof]</a>
+
+<a  href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_LIST&dirid='+parent.info.document.dirid">[list]</a>
+     <a  href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_ICONS&dirid='+parent.info.document.dirid">[icon]</a>
+     <a  target="info" href="[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_LIST&dirid=">[all]</a>
+<a  href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=REFRESHDIR&dirid='+parent.info.document.dirid">[refresh]</a>
      
-     <a target="helpwhat" href="[CORE_STANDURL]&app=HELP&action=VIEW&id=freedom.gen"><img alt="[TEXT:help]" title="[TEXT:help]"border="0" src="[IMG:help.gif]"></a>
-     <a target="doc_properties" href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=DEFATTR&id=">[new class]</a>
+     <a target="helpwhat" href="[CORE_STANDURL]app=HELP&action=VIEW&id=freedom.gen"><img alt="[TEXT:help]" title="[TEXT:help]" border="0" src="[IMG:help.gif]"></a>
+     <a target="doc_properties" href="[CORE_STANDURL]app=[FREEDOM_APP]&action=DEFATTR&id=0">[new class]</a>
 </td>
 </tr>
 

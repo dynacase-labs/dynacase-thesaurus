@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: freedom_mod.php,v 1.2 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_mod.php,v $
+// Revision 1.2  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -50,19 +53,22 @@ function freedom_mod(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $ofreedom = new Doc($dbaccess);
-  $bdfreedomattr = new DocAttr($dbaccess);
+
+
   if ( $docid == "" )
     {
       // add new freedom
       $ofreedom->revision = "0";
       $ofreedom->owner = $action->user->id;
-      $ofreedom->locked = "0";
+      $ofreedom->locked = $action->user->id; // lock for next modification
       $ofreedom->fileref = "0";
       $ofreedom->doctype = 'F';// it is a new  document (not a class)
+      $ofreedom->profid = "0"; // NO PROFILE ACCESS
       $ofreedom-> Add();
       $docid = $ofreedom-> id;
       $ofreedom->initid = $docid;// it is initial doc
-      
+
+
 
     } 
   else 
@@ -72,11 +78,12 @@ function freedom_mod(&$action) {
       $ofreedom -> Select($docid);
       
       // test object permission before modify values (no access control on values yet)
-      $err=$ofreedom-> CanUpdate();
+      $err=$ofreedom-> CanUpdateDoc();
       if ($err != "")
 	  $action-> ExitError($err);
       
     }
+
 
   // ------------------------------
   // update POSGRES text values
@@ -90,8 +97,9 @@ function freedom_mod(&$action) {
 	{
 	  $oattr=new DocAttr($dbaccess, array($docid,$k));
 	  
+
 	  $bdvalue->attrid = $k;
-	  $bdvalue->value = $v;
+	  $bdvalue->value = addslashes($v);
 	  $bdvalue ->Modify();
 
 	}      
@@ -129,6 +137,11 @@ function freedom_mod(&$action) {
   // change class document
   $ofreedom->fromid = GetHttpVars("classid"); // inherit from
   if ($ofreedom->fromid == 2) $ofreedom->doctype='D'; // directory
+  if ($ofreedom->fromid == 3) {
+    $ofreedom->doctype='P'; // profile
+    $ofreedom->profid = -1;
+    $ofreedom->SetControl();
+  }
   $ofreedom->lmodify='Y'; // locally modified
   $err=$ofreedom-> Modify();
   if ($err != "")
@@ -153,7 +166,7 @@ function freedom_mod(&$action) {
       
 
   if ($dirid > 0) {
-    redirect($action,GetHttpVars("app"),"ADDDIRFILE&dirid=$dirid&docid=$docid");
+    redirect($action,GetHttpVars("app"),"ADDDIRFILE&dirid=$dirid&mode=latest&docid=$docid");
     
   } else {    
     redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$docid");
@@ -199,7 +212,7 @@ function insert_file($dbaccess,$docid, $attrid)
     $attr= $doc->GetAttribute( $attrid);
     //$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
     
-    $destfile=str_replace(" ","_","/tmp/".$fileinfo['name']);
+    $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
     move_uploaded_file($userfile['tmp_name'], $destfile);
     $fd = new FileDisk($dbaccess);
     $fd->addfile($destfile);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: folders.php,v 1.2 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: folders.php,v $
+// Revision 1.2  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -50,21 +53,25 @@ function folders(&$action) {
   $action->parent->AddCssCode($csslay->gen());
 
   // Get all the params      
-  $dirid=GetHttpVars("dirid"); // root directory
+  $dirid=GetHttpVars("dirid",0); // root directory
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $action->lay->Set("dirid", 104);
 
-  $doc = new Doc($dbaccess, 104);
 
-  $action->lay->Set("reptitle", $doc->title);
   
-  $oqdv = new QueryDirV($dbaccess);
 
   $tmenuaccess = array(); // to define action an each icon
 
+  $oqdv = new QueryDirV($dbaccess);
+
+  if ($dirid == 0) $dirid=$oqdv->getFirstRep();
+
   
+  $doc = new Doc($dbaccess, $dirid);
+  $action->lay->Set("dirid", $dirid);
+  $action->lay->Set("reptitle", $doc->title);
+
   $lpopup = new Layout($action->GetLayoutFile("popup.js"),$action);
 
   // ------------------------------------------------------
@@ -78,7 +85,7 @@ function folders(&$action) {
 
   // define sub tree
   $stree="";
-  $ldir =   $oqdv->getChildRep(104);
+  $ldir =   $oqdv->getChildRep($dirid);
   while (list($k,$v) = each($ldir)) {
     $stree .= addfolder($v, 1);
   }

@@ -69,7 +69,7 @@
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
 <P  id="d[divid]" class="iconline"  
-     onMouseDown="select(this,[id],[divid]);openMenuOrAbstract(event);" 
+     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event);" 
      onContextMenu="openMenu(event,'popup');return false" >
 <IMG class="iconimg" id="i[divid]" 
      align="absmiddle"  src="[iconsrc]">

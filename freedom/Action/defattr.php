@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.1 2001/11/09 09:41:13 eric Exp $
+// $Id: defattr.php,v 1.2 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: defattr.php,v $
+// Revision 1.2  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.1  2001/11/09 09:41:13  eric
 // gestion documentaire
 //
@@ -44,18 +47,16 @@ function defattr(&$action)
   $action->lay->Set("docid",$docid);
 
 
+  $doc= new Doc($dbaccess,$docid);
   // build values type array
   $odocattr= new DocAttr($dbaccess);
 
   $action->lay->Set("TITLE",_("new class document"));
 
 
-  // build list of class document
-  $query = new QueryDb($dbaccess,"Doc");
-  $query->AddQuery("doctype='C'");
 
   $selectclass=array();
-  $tclassdoc = $query->Query();
+  $tclassdoc = $doc->GetClassesDoc();
   while (list($k,$cdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$cdoc->id;
     $selectclass[$k]["classname"]=$cdoc->title;
@@ -75,7 +76,11 @@ function defattr(&$action)
   // display current values
   $newelem=array();
   if ($docid > 0) {
-    $doc= new Doc($dbaccess,$docid);
+
+    if ($doc->locked==0) { // lock if not yet
+	$err = $doc->Lock();
+	if ($err != "")   $action->ExitError($err);	
+    }
     $doc->GetFathersDoc();
     $action->lay->Set("TITLE",$doc->title);
 

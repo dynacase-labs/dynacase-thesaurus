@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.2 2001/11/09 18:54:21 eric Exp $
+// $Id: Class.Doc.php,v 1.3 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.3  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.2  2001/11/09 18:54:21  eric
 // et un de plus
 //
@@ -32,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.2 2001/11/09 18:54:21 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.3 2001/11/14 15:31:03 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -44,7 +47,7 @@ include_once("FREEDOM/Class.FileDisk.php");
   
 Class Doc extends DbObjCtrl
 {
-  var $fields = array ( "id","owner","title","state","revision","initid","fromid","doctype","locked","icon","lmodify");
+  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid");
 
   var $id_fields = array ("id");
 
@@ -59,14 +62,14 @@ create table doc ( id      int not null,
                      primary key (id),
                      owner int,
                      title varchar(256),
-                     state int,
                      revision float4,
                      initid int,
                      fromid int,
                      doctype varchar(1),
                      locked int,
                      icon varchar(256),
-                     lmodify varchar(1)
+                     lmodify varchar(1),
+                     profid int
                    );
 create sequence seq_id_doc start 10";
 
@@ -91,24 +94,45 @@ create sequence seq_id_doc start 10";
 
   function PostInit() {
     $this->id=1;
+    $this->initid=$this->id;
     $this->owner=1; //admin
-
     $this->title=N_("basic documentation class");
-    $this->state=0;
-    $this->revision=0;
-    $this->doctype='C'; // class type
-    
-    
+    $this->revision="0";
+    $this->doctype='C'; // class type        
     $this->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->labeltext=_("title");
+    $oattr->title = "Y";
+    $oattr->abstract = "N";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+    $this->id=2;
+    $this->initid=$this->id;
+    $this->owner=1; //admin
+    $this->title=N_("directory class");
+    $this->revision="0";
+    $this->doctype='C'; // directory class type        
+    $this->Add();
+
+    $this->id=3;
+    $this->initid=$this->id;
+    $this->owner=1; //admin
+    $this->title=N_("profile access class");
+    $this->revision="0";
+    $this->doctype='C'; // access class type        
+    $this->Add();
+
   }
 
   // --------------------------------------------------------------------
   function PostInsert()
     // --------------------------------------------------------------------    
     {
-
+      // controlled will be set explicitly
       $this->Select($this->id);
-      $this->SetControl();
+      //$this->SetControl();
     }
   
   // --------------------------------------------------------------------
@@ -132,25 +156,13 @@ create sequence seq_id_doc start 10";
     } 
 
   
-  // --------------------------------------------------------------------
-  function CanUpdate()
-    // --------------------------------------------------------------------
-    {
-      if (! $this->action->HasPermission("FREEDOM")) {
-	$err = _("Cannot Modify : need FREEDOM privilege");
-      } if ($this->action->HasPermission("ADMIN")) {
-	$err = ""; // ADMIN privilege can modify all cards
-      } else {
-	$err = $this-> Control( "edit");
-      }
-      return $err;
-    }
+
 
   // --------------------------------------------------------------------
   function PreUpdate()
     // --------------------------------------------------------------------
     {
-      $err = $this->CanUpdate() ;
+      $err = $this-> Control("edit");//$this->CanUpdateDoc() ;
       if ($err != "") return ($err); 
       
       if (chop($this->title) == "") $this->title =_("untitle document");
@@ -178,8 +190,8 @@ create sequence seq_id_doc start 10";
       
 
 
-      }
-    }
+      } 
+    } else $err = $this-> Control( "edit");
     return($err);
   }
   // --------------------------------------------------------------------
@@ -200,8 +212,7 @@ create sequence seq_id_doc start 10";
     } else {      
 	$err = $this-> Control( "edit");
     }
-    return($err);
-  
+    return($err);  
   } 
 
   // --------------------------------------------------------------------
@@ -256,10 +267,8 @@ create sequence seq_id_doc start 10";
 	    {	     
 	      $v->title=GetTitle($this->dbaccess,$table1[$k]->id);
 	      //$v->Modify();
-	    }
-	  
-	}
-      
+	    }	  
+	}      
     }
 
 
@@ -309,15 +318,41 @@ create sequence seq_id_doc start 10";
   // --------------------------------------------------------------------
   function Description() {
     // -------------------------------------------------------------------- 
-    // This function should be replaced by the Child Class 
-    return $this->title;
+    
+    return $this->title." - ".$this->revision;
   }
 
+ // --------------------------------------------------------------------
+  function GetClassesDoc()
+    // --------------------------------------------------------------------
+    {
+      $query = new QueryDb($this->dbaccess,"Doc");
 
+      
+      $query->AddQuery("doctype='C'");
+      //      $query->AddQuery("initid=id");
+    
+      
+      return $query->Query();
+    }
+
+
+ // --------------------------------------------------------------------
+  function GetProfileDoc()
+    // --------------------------------------------------------------------
+    {
+      $query = new QueryDb($this->dbaccess,"Doc");
+
+      
+      $query->AddQuery("doctype='P'");
+    
+      
+      return $query->Query();
+    }
   // --------------------------------------------------------------------
   function GetFathersDoc() {
     // -------------------------------------------------------------------- 
-    // Return array of father doc id
+    // Return array of father doc id : class document 
     if (! isset($this->fathers)) {
       $this->fathers=array();
       if ($this->fromid > 0) {
@@ -469,13 +504,13 @@ create sequence seq_id_doc start 10";
 
   // change icon for a class or a simple doc
   function changeIcon($icon) {
-    print "changeIcon";
+
     if ($this->doctype == "C") { //  a class
       $query = new QueryDb($this->dbaccess,"Doc");
       $tableq=$query->Query(0,0,"LIST",
 			    "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != 'C') AND ((icon is null) OR (icon = '".$this->icon."'))");
     
-      print "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != \"C\") AND ((icon is null) OR (icon = '".$this->icon."'))";
+
 
     } 
     $this->icon = $icon;
@@ -483,6 +518,16 @@ create sequence seq_id_doc start 10";
   }
 
   
+  // --------------------------------------------------------------------
+  function Control ($aclname) {
+    // -------------------------------------------------------------------- 
+    if ($this->IsAffected())
+      if ($this->profid != 0) 
+	return $this->operm->Control($this, $aclname);
+      else return "";
+
+    return "object not initialized ; $aclname";
+  }
   
 }
 ?>

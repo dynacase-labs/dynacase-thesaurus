@@ -123,6 +123,25 @@ function openMenuOrAbstract(event) {
 }
 
 
+function openMenuOrProperties(event) {
+  if (window.event) {
+	shiftKey = window.event.shiftKey
+	button=window.event.button;
+   } else  {
+	shiftKey = event.shiftKey
+	button= event.button +1;
+}
+  window.status=shiftKey+"/"+button;
+
+  if (button == 1) {
+    if (shiftKey ) {
+      openMenu(event,'popup');
+     } else {
+       parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+docid;
+    }
+  }
+
+}
 
 //--------------------- DRAG & DROP  --------------------------
 document.drag=0;

@@ -47,9 +47,9 @@
 <table width="100%"  cellspacing="0" cellpadding="0" >
 <tr>
  <td class="FREEDOMTblTitle">
-   <span class="FREEDOMTextBigTitle">[TITLE]</span>
+   <span class="FREEDOMTextTitle">[TITLE]</span>
   </td> 
-  <td align="right">[TEXT:inherit from]
+  <td class="FREEDOMTblTitle" align="right"><span class="FREEDOMTextName">[TEXT:inherit from]</span>
    <select name="classid" >   
            <option VALUE="0">[TEXT:no class document]</option>      
          [BLOCK SELECTCLASS]
@@ -66,12 +66,12 @@
 <table border="0" width="100%" border="0" cellspacing="0" cellpadding="0" >
 <thead>
 <tr>
-  <td>order</td>
-  <td>name</td>
-  <td>type</td>
-  <td>frame</td>
-  <td>A?</td>
-  <td>T?</td>
+  <td><span class="FREEDOMTextName">order</span></td>
+  <td><span class="FREEDOMTextName">name</span></td>
+  <td><span class="FREEDOMTextName">type</span></td>
+  <td><span class="FREEDOMTextName">frame</span></td>
+  <td><span class="FREEDOMTextName">A?</span></td>
+  <td><span class="FREEDOMTextName">T?</span></td>
 </tr>
 </thead>
 <tbody>
@@ -111,7 +111,7 @@
 [ENDBLOCK NEWELEM]
 <tr>
   <td colspan="3" class = "tdstyle">
- <input type="submit" value=[editaction] onclick="javascript:parent.list.location.reload(true);"> 
+ <input type="submit" value="[TEXT:modify]"> 
   </td>
 </tr>
 

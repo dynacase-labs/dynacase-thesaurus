@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocValue.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: Class.DocValue.php,v 1.2 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocValue.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,12 +22,15 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocValue.php,v $
+// Revision 1.2  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
 //
 // ---------------------------------------------------------------
-$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.1 2001/11/09 09:41:14 eric Exp $';
+$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.2 2001/11/14 15:31:03 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -53,11 +56,11 @@ create table docvalue ( docid      int not null,
   function PreUpdate() {
   
     // modify need to add before if not exist
-    $query = new QueryDb($this->dbaccess,"$this->dbtable");
+    $query = new QueryDb($this->dbaccess, "Docvalue");
 
-      
-    $query->basic_elem->sup_where=array ("attrid = ".$this->attrid,
-					 "docid = ".$this->docid);
+
+        $query->basic_elem->sup_where=array ("attrid = ".$this->attrid,
+    				 "docid = ".$this->docid);
     
     $query->Query();
     if ($query->nb == 0)
@@ -90,32 +93,8 @@ create table docvalue ( docid      int not null,
 	}
       return $title;
 
-
     }
 
-  // return freedoms value for specified attribut and freedom
-  function GetValue($docid, $attrid)
-    {
-  
-      $query = new QueryDb($this->dbaccess,"$this->dbtable");
-
-      $query->basic_elem->sup_where=array ("attrid = $attrid",
-					   "docid = $docid");
-    
-      $table1 = $query->Query();
-      
-
-
-
-      if ($query->nb > 0)
-	{
-
-	  return $table1[0]->value;
-
-	}
-  
-      return "";
-    }
 
   // delete all values for a document
   function DeleteValues($docid)

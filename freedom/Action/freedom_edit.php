@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.2 2001/11/09 18:54:21 eric Exp $
+// $Id: freedom_edit.php,v 1.3 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.3  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.2  2001/11/09 18:54:21  eric
 // et un de plus
 //
@@ -204,7 +207,9 @@ function freedom_edit(&$action) {
      if ($i < $query->nb)
        {
       
-	 $value = $bdvalue->GetValue($docid,$listattr[$i]->id);
+	 $bdvalue->value=""; // to avoid remanence
+	 $bdvalue->Select(array($docid,$listattr[$i]->id));
+	 $value = $bdvalue->value;
 	 
 	 if ($value != "") // to define when change frame
 	   {
@@ -322,7 +327,7 @@ function freedom_edit(&$action) {
 	      case "longtext": 
 		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
 		  $listattr[$i]->id."\">".
-		  chop(htmlentities($value)).
+		  chop(htmlentities(stripslashes($value))).
 		  "</textarea>";
 		break;
 
@@ -330,7 +335,7 @@ function freedom_edit(&$action) {
 		$tableframe[$v]["inputtype"]="<input type=\"text\" maxlength=\"10\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\">";
 		break;
 	      default : 
-		$tableframe[$v]["inputtype"]="<input type=\"text\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\">";
+		$tableframe[$v]["inputtype"]="<input type=\"text\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities(stripslashes($value)))."\">";
 		break;
 		
 	    }

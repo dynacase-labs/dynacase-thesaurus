@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.2 2001/11/09 18:54:21 eric Exp $
+// $Id: freedom_icons.php,v 1.3 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.3  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.2  2001/11/09 18:54:21  eric
 // et un de plus
 //
@@ -106,7 +109,8 @@ function freedom_icons(&$action, $with_abstract=true) {
 
   $action->log->tic("before query gen");  
   $oqdv=new QueryDirV($dbaccess,$dirid );
-  $ldoc = $oqdv->getChildDoc($dirid);
+  if ($dirid == "")   $ldoc = $oqdv->getAllDoc($dirid);
+  else $ldoc = $oqdv->getChildDoc($dirid);
 
   
   //  $ldoc = $query->Query();
@@ -177,34 +181,35 @@ function freedom_icons(&$action, $with_abstract=true) {
       $tmenuaccess[$kdiv][$vprop]=1;
       $tmenuaccess[$kdiv][$cancel]=1;
       $tmenuaccess[$kdiv][$copy]=1;
+      $tmenuaccess[$kdiv][$chstate]=0;
       if ($dirid > 0) $tmenuaccess[$kdiv][$delete]=1;
       else $tmenuaccess[$kdiv][$delete]=0;
 
-      if (($doc->CanLockFile() == "") || 
-	  ($doc->CanUnLockFile() == "")) $tmenuaccess[$kdiv][$chicon]=1; 
-      else $tmenuaccess[$kdiv][$chicon]=0;
-      $tmenuaccess[$kdiv][$chstate]=0;
+      $clf = ($doc->CanLockFile() == "");
+      $cuf = ($doc->CanUnLockFile() == "");
+      $cud = ($doc->CanUpdateDoc() == "");
+      if ($clf || $cuf) {
+	$tmenuaccess[$kdiv][$chicon]=1; 
+	$tmenuaccess[$kdiv][$editdoc]=1;
+      } else {
+	$tmenuaccess[$kdiv][$chicon]=0; 
+	$tmenuaccess[$kdiv][$editdoc]=0;
+      }
       if (($doc->locked != $action->user->id) && 
-	  ($doc->CanLockFile() == "")) $tmenuaccess[$kdiv][$lockdoc]=1;
+	  $clf) $tmenuaccess[$kdiv][$lockdoc]=1;
       else $tmenuaccess[$kdiv][$lockdoc]=0;
-      if (($doc->locked != 0) && ($doc->CanUnLockFile() == "")) $tmenuaccess[$kdiv][$unlockdoc]=1; 
+      if (($doc->locked != 0) && $clf) $tmenuaccess[$kdiv][$unlockdoc]=1; 
       else $tmenuaccess[$kdiv][$unlockdoc]=0;
-      if (($doc->lmodify == 'Y') && ($doc->CanUpdateDoc() == "")) $tmenuaccess[$kdiv][$revise]=1; 
+
+      if (($doc->lmodify == 'Y') && $cud) $tmenuaccess[$kdiv][$revise]=1; 
       else $tmenuaccess[$kdiv][$revise]=0;
-      if (($doc->CanLockFile() == "") || 
-	  ($doc->CanUnLockFile() == "")) $tmenuaccess[$kdiv][$editdoc]=1; 
-      else $tmenuaccess[$kdiv][$editdoc]=0;
+      
       
       
       $kdiv++;
       $tdoc[$k]["revision"]= $doc->revision;
 
       
-      if ($doc->CanUpdate() == "") {// test object permission	    
-	$tdoc[$k]["canedit"] = "1";
-      } else {
-	$tdoc[$k]["canedit"] ="0";
-      }
 
 	      
 	
@@ -257,7 +262,7 @@ function freedom_icons(&$action, $with_abstract=true) {
 		       "</A>";
 		  break;
 		  case "longtext": 
-		    $tableabstract[$nbabs]["value"]=nl2br(htmlentities($lvalue));
+		    $tableabstract[$nbabs]["value"]=nl2br(htmlentities(stripslashes($lvalue)));
 		  break;
 		  case "file": 
 		    $tableabstract[$nbabs]["value"]="<A target=\"_blank\" href=\"".
@@ -267,7 +272,7 @@ function freedom_icons(&$action, $with_abstract=true) {
 		       "</A>";
 	          break;
 		  default : 
-		    $tableabstract[$nbabs]["value"]=htmlentities($lvalue);
+		    $tableabstract[$nbabs]["value"]=htmlentities(stripslashes($lvalue));
 		  break;
 		
 		  }

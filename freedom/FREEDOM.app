@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.2 2001/11/09 18:54:21 eric Exp $
+// $Id: FREEDOM.app,v 1.3 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.3  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.2  2001/11/09 18:54:21  eric
 // et un de plus
 //
@@ -159,6 +162,21 @@ $action_desc = array (
   array( 
    "name"		=>"LOCKFILE",
    "short_name"		=>N_("lock file to edit"),
+   "acl"		=>"FREEDOM",
+  ) ,
+  array( 
+   "name"		=>"EDITPROF",
+   "short_name"		=>N_("edit profile access"),
+   "acl"		=>"FREEDOM",
+  ) ,
+  array( 
+   "name"		=>"MODPROF",
+   "short_name"		=>N_("change profile access"),
+   "acl"		=>"FREEDOM",
+  ) ,
+  array( 
+   "name"		=>"CTRLDOC",
+   "short_name"		=>N_("set the document controlled"),
    "acl"		=>"FREEDOM",
   ) ,
   array( 

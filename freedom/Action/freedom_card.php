@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: freedom_card.php,v 1.2 2001/11/14 15:31:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.2  2001/11/14 15:31:03  eric
+// optimisation & divers...
+//
 // Revision 1.1  2001/11/09 09:41:14  eric
 // gestion documentaire
 //
@@ -96,7 +99,7 @@ function freedom_card(&$action) {
   //------------------------------
   // display document attributes
   $action->lay->Set("reference", $doc->initid);
-  $action->lay->Set("state", $doc->state);
+
   $action->lay->Set("revision", $doc->revision);
 
   $destdir="./".GetHttpVars("app")."/Download/"; // for downloading file
@@ -117,9 +120,22 @@ function freedom_card(&$action) {
   } else {
     $action->lay->Set("classtitle", _("no class"));
   }
+  if ($doc->profid > 0) {
+    $pdoc = new Doc($dbaccess, $doc->profid);
+    $action->lay->Set("profile", $pdoc->title);
+  } else {
+    if ($doc->profid == 0)
+      $action->lay->Set("profile", _("no access control"));
+    else
+      $action->lay->Set("profile", _("specific control"));
+      
+  }
   $action->lay->Set("iconalt","---");
   
   $action->lay->Set("iconsrc", $doc->geticon());
+
+  if ($doc->fromid > 0)    $action->lay->Set("cid", $doc->fromid);
+  else   $action->lay->Set("cid", $doc->id);
   
 
 
@@ -129,7 +145,7 @@ function freedom_card(&$action) {
   
   if ($action->HasPermission("FREEDOM"))
     {
-      if ($doc->CanUpdate() == "")	{
+      if ($doc->CanUpdateDoc() == "")	{
 	$action->lay->Set("imgedit", $action->GetIcon("edit.gif",N_("edit")));
       } else {
 	$action->lay->Set("imgedit", "");
@@ -176,12 +192,12 @@ function freedom_card(&$action) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  $menuitems= array('vprop','chicon','chstate','editdoc','lockdoc','revise','unlockdoc','cancel','copy','delete');
+  $menuitems= array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','ctrldoc','editprof','cancel');
   while (list($ki, $imenu) = each($menuitems)) {
     $lpopup->Set("menuitem$ki",$imenu);
     ${$imenu} = "vmenuitem$ki";
   }
-  $lpopup->Set("nbmitem", 10);
+  $lpopup->Set("nbmitem", count($menuitems));
 
   $frames= array();
   
@@ -209,9 +225,11 @@ function freedom_card(&$action) {
      // Compute value elements
      if ($i < $query->nb)
        {
-      
-	 $value = $bdvalue->GetValue($docid,$listattr[$i]->id);
+	 $bdvalue->value=""; // to avoid remanence
+	 $bdvalue->Select(array($docid,$listattr[$i]->id));
+	 $value = $bdvalue->value;
 	 
+
 	 if ($value != "") // to define when change frame
 	   {
 	     if ( $currentFrameId != $listattr[$i]->frameid) {
@@ -315,10 +333,10 @@ function freedom_card(&$action) {
 		   $kf++;
 		 break;
 	       case "longtext": 
-		 $tableframe[$v]["value"]=nl2br(htmlentities($value));
+		 $tableframe[$v]["value"]=nl2br(htmlentities(stripslashes($value)));
 		 break;
 	       default : 
-		 $tableframe[$v]["value"]=htmlentities($value);
+		 $tableframe[$v]["value"]=htmlentities(stripslashes($value));
 		 break;
 		
 	       }
@@ -346,25 +364,37 @@ function freedom_card(&$action) {
   // define accessibility
  $kdiv=1; // only one division
       $tmenuaccess[$kdiv]["divid"] = $kdiv;
-      $tmenuaccess[$kdiv][$vprop]=0;
-      $tmenuaccess[$kdiv][$copy]=1;
-      $tmenuaccess[$kdiv][$delete]=0;
+
+
+
 
       $tmenuaccess[$kdiv][$cancel]=1;
       if (($doc->CanLockFile() == "") || 
 	  ($doc->CanUnLockFile() == "")) $tmenuaccess[$kdiv][$chicon]=1; 
       else $tmenuaccess[$kdiv][$chicon]=0;
-      $tmenuaccess[$kdiv][$chstate]=0;
+
       if (($doc->locked != $action->user->id) && 
 	  ($doc->CanLockFile() == "")) $tmenuaccess[$kdiv][$lockdoc]=1;
       else $tmenuaccess[$kdiv][$lockdoc]=0;
       if (($doc->locked != 0) && ($doc->CanUnLockFile() == "")) $tmenuaccess[$kdiv][$unlockdoc]=1; 
       else $tmenuaccess[$kdiv][$unlockdoc]=0;
-      if (($doc->lmodify == 'Y') && ($doc->CanUpdateDoc() == "")) $tmenuaccess[$kdiv][$revise]=1; 
+      if (($doc->doctype=="F") && 
+	  ($doc->lmodify == 'Y') && 
+	  ($doc->CanUpdateDoc() == "")) $tmenuaccess[$kdiv][$revise]=1; 
       else $tmenuaccess[$kdiv][$revise]=0;
       if (($doc->CanLockFile() == "") || 
-	  ($doc->CanUnLockFile() == "")) $tmenuaccess[$kdiv][$editdoc]=1; 
-      else $tmenuaccess[$kdiv][$editdoc]=0;
+	  ($doc->CanUnLockFile() == "")) {
+	$tmenuaccess[$kdiv][$editdoc]=1; 
+	$tmenuaccess[$kdiv][$editattr]=1; 
+	$tmenuaccess[$kdiv][$ctrldoc]=1; 
+      } else {
+	$tmenuaccess[$kdiv][$editdoc]=0;
+	$tmenuaccess[$kdiv][$editattr]=0; 
+	$tmenuaccess[$kdiv][$ctrldoc]=0; 
+      }
+    $tmenuaccess[$kdiv][$editprof]=1;
+      // unused menu items
+    $tmenuaccess[$kdiv]["vmenuitem9"]=0;
 
   $action->lay->SetBlockData("TABLEBODY",$frames);
   
