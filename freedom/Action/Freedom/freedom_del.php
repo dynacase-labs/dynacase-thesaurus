@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_del.php,v 1.7 2003/01/20 19:09:28 eric Exp $
+// $Id: freedom_del.php,v 1.8 2003/04/08 12:44:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,6 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
-include_once("FDL/Class.DocValue.php");
 include_once("FDL/freedom_util.php");
 
 // -----------------------------------

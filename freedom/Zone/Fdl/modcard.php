@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.28 2003/03/28 17:52:38 eric Exp $
+// $Id: modcard.php,v 1.29 2003/04/08 12:44:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,6 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
-include_once("FDL/Class.DocValue.php");
 include_once("FDL/freedom_util.php");  
 include_once("VAULT/Class.VaultFile.php");
 

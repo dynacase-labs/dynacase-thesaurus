@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editattr.php,v 1.6 2002/12/13 11:19:40 eric Exp $
+// $Id: editattr.php,v 1.7 2003/04/08 12:44:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,6 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
-include_once("FDL/Class.DocValue.php");
 
 include_once("FDL/freedom_util.php");
 include_once("FDL/editutil.php");

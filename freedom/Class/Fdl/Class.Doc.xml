@@ -39,7 +39,7 @@ Class Doc[docid] extends [DocParent] {
      "create sequence seq_doc[docid] start 1;",
      "select setval('seq_doc[docid]', count(distinct initid)+1, false )  from only doc[docid];");
    var $sqltcreate =
-     "CREATE OR REPLACE FUNCTION upval[docid]() RETURNS opaque AS '
+     "CREATE OR REPLACE FUNCTION upval[docid]() RETURNS trigger AS '
 declare	
 begin
 [BLOCK ATTRFIELD2]

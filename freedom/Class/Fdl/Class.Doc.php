@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.110 2003/04/03 12:00:14 eric Exp $
+// $Id: Class.Doc.php,v 1.111 2003/04/08 12:44:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.110 2003/04/03 12:00:14 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.111 2003/04/08 12:44:10 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1219,7 +1219,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($this->usefor == 'D') return; // no refresh for default document
 	  
    
-    
+    if ($this->id == 0) return; // no refresh for no created document
     $err=$this->SpecRefresh();
 	
 

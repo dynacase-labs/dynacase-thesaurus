@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.35 2003/04/07 16:51:12 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.36 2003/04/08 12:44:10 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -23,21 +23,7 @@ URL: http://www.anakeen.com/
 Packager: Yannick Le Briquer <yannick.lebriquer@anakeen.com>
 BuildArchitectures: noarch
 BuildRoot: /tmp/anakeen-root
-Requires: php >= 4.1
-Requires: postgresql >= 7.2
-Requires: php-pgsql >= 4.0.2
-Requires: html2ps
-Requires: ghostscript
-Requires: ghostscript-fonts-std
-Requires: libjpeg-devel
-Requires: netpbm
-PreReq: vixie-cron
-PreReq: WHAT >= 0.2.0
 PreReq: @PACKAGE@-LIB = %{version}
-Prereq: VAULT
-Prereq: php-cgi >= 4.0.2
-Prereq: gettext
-Conflicts: ROAMING < 0.0.5
 %description
 The FREEDOM (Free Document Object Model) module is use to manage document in intranet
 
@@ -47,7 +33,19 @@ Summary: libraries of FREEDOM module
 Group: Applications/Web
 Version: @VERSION@
 Release: @RELEASE@
-PreReq: WHAT
+Requires: php >= 4.1
+Requires: postgresql >= 7.3
+Requires: html2ps
+Requires: ghostscript
+Requires: ghostscript-fonts-std
+Requires: libjpeg-devel
+Requires: netpbm
+PreReq: vixie-cron
+PreReq: WHAT >= 0.2.0
+Prereq: VAULT
+Prereq: gettext
+Prereq: php-cgi >= 4.0.2
+Conflicts: ROAMING < 0.0.5
 
 %description LIB
 The FREEDOM LIBS is necessary to use functionnality of the FREEDOM module

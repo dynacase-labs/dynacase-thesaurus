@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: ctrldoc.php,v 1.3 2003/01/20 19:09:28 eric Exp $
+// $Id: ctrldoc.php,v 1.4 2003/04/08 12:44:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/ctrldoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,24 +21,9 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: ctrldoc.php,v $
-// Revision 1.3  2003/01/20 19:09:28  eric
-// homogénisation visu des documents
-//
-// Revision 1.2  2002/06/19 12:32:28  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-//
-// ---------------------------------------------------------------
+
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
-include_once("FDL/Class.DocValue.php");
 
 include_once("Class.TableLayout.php");
 include_once("Class.QueryDb.php");
