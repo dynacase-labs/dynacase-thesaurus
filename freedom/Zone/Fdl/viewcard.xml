@@ -12,13 +12,9 @@
     </span>
   </td>
   <td align="right"  >
-<a href="#" onClick="subwindow(300,500,'FREEDOM_ACCESS','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ACCESS&id=[id]')">[imgaccess]</a>
-
 <a href="#" onclick="self.print()">
       <img   alt="[TEXT:print]" title="[TEXT:print]" border="0" src="[IMG:print.gif]">
-      </a>
-<a   href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_DEL&id=[id]" onClick="ok=confirm('[TEXT:delconfirm] [deltitle]'); if (ok) setTimeout('parent.info.document.location.reload()',1); return (ok);" >[imgdel]</a>
-   
+      </a>   
   </td>
 </tr>
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: popupcard.php,v 1.2 2002/02/19 11:11:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','properties','cancel'));
+  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','properties','access','delete','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -67,6 +67,11 @@ function popupcard(&$action) {
   else popupInactive('popupcard',$kdiv,'revise');
 
 
+  if ($doc->IsControlled() && ($doc->Control("viewacl") == "")) {
+    popupActive('popupcard',$kdiv,'access');
+  } else {
+    popupInvisible('popupcard',$kdiv,'access');
+  }
 
   if ($doc->Control("modifyacl") == "") {
     popupActive('popupcard',$kdiv,'editprof'); 
@@ -75,12 +80,20 @@ function popupcard(&$action) {
     popupInactive('popupcard',$kdiv,'editprof');
     popupInactive('popupcard',$kdiv,'editcprof');
   }
+  if ($doc->PreDelete() == "") {
+    $action->lay->Set("deltitle", AddSlashes($doc->title));
+    popupActive('popupcard',$kdiv,'delete');    
+  } else {
+    popupInactive('popupcard',$kdiv,'delete');
+  }
+
   if ($cud) {
     popupActive('popupcard',$kdiv,'editattr'); 
     popupActive('popupcard',$kdiv,'editdoc');
   } else {
     if ($doc->locked < 0){ // fixed document
       popupInvisible('popupcard',$kdiv,'editdoc');
+      popupInvisible('popupcard',$kdiv,'delete');
       popupInvisible('popupcard',$kdiv,'editattr'); 
       popupInvisible('popupcard',$kdiv,'editprof');
       popupInvisible('popupcard',$kdiv,'revise');
@@ -91,6 +104,7 @@ function popupcard(&$action) {
       popupInactive('popupcard',$kdiv,'editattr'); 
       popupInactive('popupcard',$kdiv,'editprof');
       popupInactive('popupcard',$kdiv,'editdoc');
+
     }
   }
   if ($doc->doctype=="F") popupActive('popupcard',$kdiv,'histo'); 

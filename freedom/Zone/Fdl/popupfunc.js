@@ -58,6 +58,7 @@ function openMenu(event, menuid, itemid) {
   el.style.visibility = "visible";
 
   activeMenuItem(menuid, itemid);
+ // event.stopPropagation();
   return false; // no navigator context menu
 }
 
@@ -91,6 +92,7 @@ function activeMenuItem(menuid, itemid) {
 	
       }else {
 	mitem.className = 'menuItemDisabled';
+	mitem.onclick= function () {closeMenu(menuid);}
       } 
     }
   

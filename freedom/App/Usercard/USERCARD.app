@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.2 2002/02/14 18:11:42 eric Exp $
+// $Id: USERCARD.app,v 1.3 2002/02/19 11:11:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,6 +57,11 @@ $action_desc = array (
   array( 
    "name"		=>"USERCARD_EDIT",
    "short_name"		=>N_("edition"),
+   "acl"		=>"USERCARD"
+  ) ,
+  array( 
+   "name"		=>"USERCARD_DEL",
+   "short_name"		=>N_("delete"),
    "acl"		=>"USERCARD"
   ) ,
   array( 

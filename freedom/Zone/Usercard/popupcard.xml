@@ -5,26 +5,28 @@
 
 
 <a href="#" id="editdoc"     
-    onClick="activate(this,'[CORE_STANDURL]&app=USERCARD&action=USERCARD_EDIT&id=[id]','info');closeMenu('popupcard')"  >[TEXT: edit]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=USERCARD&action=USERCARD_EDIT&id=[id]','info');closeMenu('popupcard')"  >[TEXT: edit]</a>
 
 
 
 
 
 <a href="#" id="unlockdoc"
-    onClick="activate(this,'[CORE_STANDURL]&app=USERCARD&action=UNLOCKFILE&id=[id]','info');closeMenu('popupcard')" >[TEXT: unlock]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=USERCARD&action=UNLOCKFILE&id=[id]','info');closeMenu('popupcard')" >[TEXT: unlock]</a>
 
 
 <a id="vcard" href="[CORE_STANDURL]&app=USERCARD&action=USERCARD_VCARD&id=[id]" >[TEXT: vcard]</a>
 <a href="#" id="chgcatg"
-    onClick="activate(this,'[CORE_STANDURL]&app=USERCARD&action=USERCARD_EDITCHANGECATG&id=[id]','info');closeMenu('popupcard')" >[TEXT: change category]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=USERCARD&action=USERCARD_EDITCHANGECATG&id=[id]','info');closeMenu('popupcard')" >[TEXT: change category]</a>
 
 <a href="#" id="properties"     
-    onClick="activate(this,'[CORE_STANDURL]&app=USERCARD&action=USERCARD_CARD&id=[id]','info');closeMenu('popupcard');">
-[TEXT: view properties]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=USERCARD&action=USERCARD_CARD&id=[id]','info');closeMenu('popupcard');">[TEXT: view properties]</a>
+
+<a href="#" id="delete"     
+    onclick="ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=USERCARD&action=USERCARD_DEL&id=[id]','info');closeMenu('popupcard'); if (ok) parent.list.location.reload();">[TEXT: delete]</a>
 
 <a href="#" id="cancel"  
-    onClick="closeMenu('popupcard')"  >[TEXT:cancel]</a>
+    onclick="closeMenu('popupcard')"  >[TEXT:cancel]</a>
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 

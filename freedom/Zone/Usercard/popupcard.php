@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: popupcard.php,v 1.2 2002/02/19 11:11:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Usercard/Attic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('editdoc','unlockdoc','vcard','chgcatg','properties','cancel'));
+  popupInit('popupcard',  array('editdoc','unlockdoc','vcard','chgcatg','properties','delete','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -59,14 +59,18 @@ function popupcard(&$action) {
 
   if ($cud || $clf)   {
     popupActive('popupcard',$kdiv,'editdoc');
+    $action->lay->Set("deltitle", $doc->title);
+    popupActive('popupcard',$kdiv,'delete');
     popupActive('popupcard',$kdiv,'chgcatg'); 
   }  else   {
     popupInactive('popupcard',$kdiv,'editdoc');
+    popupInactive('popupcard',$kdiv,'delete');
     popupInactive('popupcard',$kdiv,'chgcatg'); 
   }
 
   if ($doc->locked < 0){ // fixed document
       popupInvisible('popupcard',$kdiv,'editdoc');
+      popupInvisible('popupcard',$kdiv,'delete');
       popupInvisible('popupcard',$kdiv,'unlockdoc');
       popupInvisible('popupcard',$kdiv,'chgcatg'); 
   } 

@@ -5,40 +5,48 @@
 
 
 <a href="#" id="chicon"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=QUERYFILE&id=[id]','doc_properties');closeMenu('popupcard');">
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=QUERYFILE&id=[id]','doc_properties');closeMenu('popupcard');">
 [TEXT: change icon]</a>
 
 <a href="#" id="editdoc"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=[id]','info');closeMenu('popupcard')"  >[TEXT: edit]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=[id]','info');closeMenu('popupcard')"  >[TEXT: edit]</a>
 
 <a href="#" id="editattr"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=DEFATTR&id=[id]','info');closeMenu('popupcard')"  >[TEXT: edit attributes]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=DEFATTR&id=[id]','info');closeMenu('popupcard')"  >[TEXT: edit attributes]</a>
 
 <a href="#" id="lockdoc" 
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=LOCKFILE&id=[id]','doc_properties');closeMenu('popupcard')"  >[TEXT: lock]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=LOCKFILE&id=[id]','doc_properties');closeMenu('popupcard')"  >[TEXT: lock]</a>
 
 <a href="#" id="revise" 
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=REVCOMMENT&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: revise]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=REVCOMMENT&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: revise]</a>
 
 <a href="#" id="unlockdoc"
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=UNLOCKFILE&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: unlock]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=UNLOCKFILE&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: unlock]</a>
 
 
 <a href="#" id="histo"
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]','info');closeMenu('popupcard')" >[TEXT: history]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]','info');closeMenu('popupcard')" >[TEXT: history]</a>
 
 <a href="#" id="editprof"
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: change profile]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: change profile]</a>
 
 <a href="#" id="editcprof"
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&create=1&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: change creation profile]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&create=1&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: change creation profile]</a>
 
 <a href="#" id="properties"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[id]','doc_properties');closeMenu('popupcard');">
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[id]','doc_properties');closeMenu('popupcard');">
 [TEXT: view properties]</a>
 
+<a href="#" id="access"     
+    onclick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ACCESS&id=[id]','access');closeMenu('popupcard');">
+[TEXT:goaccess]...</a>
+
+<a href="#" id="delete"     
+    onclick="ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_DEL&id=[id]','doc_properties');closeMenu('popupcard');">
+[TEXT: delete]</a>
+
 <a href="#" id="cancel"  
-    onClick="closeMenu('popupcard')"  >[TEXT:cancel]</a>
+    onclick="closeMenu('popupcard')"  >[TEXT:cancel]</a>
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: viewcard.php,v 1.2 2002/02/19 11:11:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -117,28 +117,9 @@ function viewcard(&$action) {
   $action->lay->Set("state", $action->text($doc->state));
 
 
-  //------------------------------
-  // display icon action
-  
-  $action->lay->Set("imgdel", "");
-  $action->lay->Set("imgaccess", "");
 
-  if ($doc->CanUpdateDoc() == "")	{
-    $action->lay->Set("imgedit", $action->GetIcon("edit.gif",N_("edit")));
-  } else {
-    $action->lay->Set("imgedit", "");
-  }
 
-  //print ("errdel:".$doc->PreDelete());
-  if ($doc->PreDelete() == "")	{
-    $action->lay->Set("imgdel", $action->GetIcon("delete.gif",N_("delete")));
-    $action->lay->Set("deltitle", AddSlashes($doc->title));
-  } 
       
-  if (($doc->IsControlled() )
-      &&($doc->Control("viewacl") == ""))	{
-    $action->lay->Set("imgaccess", $action->GetIcon("access.gif",N_("goaccess"),20));
-  } 
 
       
       
