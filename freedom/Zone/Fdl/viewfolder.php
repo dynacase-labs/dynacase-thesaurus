@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.60 2005/01/20 16:47:54 eric Exp $
+ * @version $Id: viewfolder.php,v 1.61 2005/03/18 15:31:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -97,8 +97,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
   if ($viewone && (count($ldoc)== 1)) {
     
-    if ($ldoc[0]["doctype"]=="D")  redirect($action,"FREEDOM","OPENFOLIO&id=".$ldoc[0]["id"]);
-    else redirect($action,"FDL","FDL_CARD&latest=Y&id=".$ldoc[0]["id"]);
+    if ($ldoc[0]["doctype"]=="D")  redirect($action,"FREEDOM","OPENFOLIO&id=".$ldoc[0]["id"],
+					    $action->GetParam("CORE_STANDURL"));
+    else redirect($action,"FDL","FDL_CARD&latest=Y&id=".$ldoc[0]["id"],
+		  $action->GetParam("CORE_STANDURL"));
     exit;
   }
 

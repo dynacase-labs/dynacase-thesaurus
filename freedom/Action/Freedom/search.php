@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: search.php,v 1.20 2004/12/28 17:13:02 eric Exp $
+ * @version $Id: search.php,v 1.21 2005/03/18 15:31:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.20 2004/12/28 17:13:02 eric Exp $
+// $Id: search.php,v 1.21 2005/03/18 15:31:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -87,7 +87,8 @@ function search(&$action) {
 
 
 
-  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&viewone=$viewone&dirid=".$ndoc->id);
+  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&viewone=$viewone&dirid=".$ndoc->id,
+	   $action->GetParam("CORE_STANDURL"));
   
   
 }
