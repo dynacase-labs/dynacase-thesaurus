@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.19 2001/12/21 13:58:35 eric Exp $
+// $Id: Class.Doc.php,v 1.20 2001/12/31 15:23:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.19 2001/12/21 13:58:35 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.20 2001/12/31 15:23:11 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -682,7 +682,7 @@ create sequence seq_id_doc start 1000";
 	$argids = split(",",$reg[2]);  // input args
 	$rargids = split(",",$reg[3]); // return args
 
-
+	
 	while (list($k, $v) = each($argids)) {
 	  if ($v == "A") $arg[$k]= &$this->action;
 	  else if ($v == "D") $arg[$k]= $this->dbaccess;
@@ -692,8 +692,10 @@ create sequence seq_id_doc start 1000";
 	    $arg[$k]= $ovalue->value;
 	  }
 	}
+
 	// activate plug	
 	$res = call_user_func_array($reg[1], $arg);
+
 	if (is_array($res)) {
 	  reset($res);
 	  while (list($k, $v) = each($res)) {

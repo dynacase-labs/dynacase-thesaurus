@@ -10,7 +10,9 @@ function sendmodifydoc(event,docid, attrid, sorm) {
   oldtar = f.target;
   f.action = '[CORE_STANDURL]&app=[FREEDOM_APP]&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&wname='+window.name;
 
+
   f.target='ichoose';
+
 
   GetXY(event);
   with (document.getElementById('choose')) {

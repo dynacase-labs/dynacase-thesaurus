@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.2 2001/12/19 17:57:32 eric Exp $
+// $Id: viewcard.php,v 1.3 2001/12/31 15:23:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -197,7 +197,6 @@ function viewcard(&$action) {
   for ($i=0; $i < $nattr + 1; $i++)
     {
 
-     
 
       //------------------------------
       // Compute value elements

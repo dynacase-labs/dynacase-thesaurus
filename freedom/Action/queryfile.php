@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: queryfile.php,v 1.1 2001/11/09 09:41:14 eric Exp $
+// $Id: queryfile.php,v 1.2 2001/12/31 15:23:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/queryfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,12 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: queryfile.php,v $
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
 
-// ---------------------------------------------------------------
 
 include_once("FREEDOM/Class.Doc.php");
 include_once("FREEDOM/Class.DocAttr.php");
@@ -36,8 +31,10 @@ function queryfile(&$action)
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
 
+  $doc= new Doc($dbaccess,$docid);
   $action->lay->Set("docid",$docid);
-  
+  $action->lay->Set("title",$doc->title);
+  $action->lay->Set("iconsrc",$doc->geticon());
   
 
 

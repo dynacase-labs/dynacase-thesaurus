@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.4 2001/12/19 17:57:32 eric Exp $
+// $Id: enum_choice.php,v 1.5 2001/12/31 15:23:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,6 +29,7 @@ include_once("FREEDOM/Class.DocAttr.php");
 
 function enum_choice(&$action) {
   
+
   // list of choice to be insert in attribute values
 
   $docid = GetHttpVars("docid",0);        // document being edition
