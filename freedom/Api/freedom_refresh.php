@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_refresh.php,v 1.11 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: freedom_refresh.php,v 1.12 2004/12/01 08:11:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -62,7 +62,8 @@ if ($query->nb > 0)	{
 
   printf("\n%d documents to refresh\n", count($table1));
   $card=count($table1);
-  $doc = createDoc($dbaccess,$famId,false);
+  $fdoc[$famId] = createDoc($dbaccess,$famId,false);
+  $doc=&$fdoc[$famId];
   if ($method && (method_exists ($doc,$method))){
     $usemethod=true;
     print "using $method method\n";
@@ -71,7 +72,13 @@ if ($query->nb > 0)	{
   }
   else  $usemethod=false;
   while(list($k,$v) = each($table1)) 
-	    {	     
+	    { 
+	      if ($v["fromid"] != $doc->fromid) {
+		if (! isset($fdoc[$v["fromid"]])) $fdoc[$v["fromid"]] = createDoc($dbaccess,$v["fromid"],false);
+		$doc=&$fdoc[$v["fromid"]];$usemethod=false;
+		if ($method && (method_exists ($doc,$method))) $usemethod=true;
+		
+	      }
 	      $doc->Affect($v);
 	      print $card-$k.")".$doc->title . "\n";
 	      if ($usemethod) call_user_method_array ($method, $doc, $targ);
