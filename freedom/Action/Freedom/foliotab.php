@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.9 2003/02/05 17:04:21 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/adddirfile.php,v $
+// $Id: foliotab.php,v 1.1 2003/02/05 17:04:21 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliotab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,43 +23,56 @@
 // ---------------------------------------------------------------
 
 
+
 include_once("FDL/Lib.Dir.php");
 include_once("FDL/freedom_util.php");  
 
 
 
+
 // -----------------------------------
-function adddirfile(&$action) {
+function foliotab(&$action) {
   // -----------------------------------
 
-
-    //    PrintAllHttpVars();
-
   // Get all the params      
-  $dirid=GetHttpVars("dirid");
-  $docid=GetHttpVars("docid");
-  $mode=GetHttpVars("mode");
-  $return=GetHttpVars("return"); // return action may be folio
-
+  $docid=GetHttpVars("id",0); // portfolio id
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc= new Doc($dbaccess, $docid);
-  $dir= new Dir($dbaccess, $dirid);
+  $action->lay->set("dirid",$docid);
+  include_once("FDL/popup_util.php");
+  $nbfolders=1;
+  
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+ 
+  $doc = new Doc($dbaccess,$docid);
+  $action->lay->set("title",$doc->title);
 
-  $err = $dir->AddFile($docid, $mode);
+//   popupInit("poppaste", array('staticpaste','pastelatest','cancel'));
+
+//   popupActive("poppaste",$nbfolders,'staticpaste');
+//   popupActive("poppaste",$nbfolders,'pastelatest');
+//   popupActive("poppaste",$nbfolders,'cancel');
+  $child = getChildDir($dbaccess,$action->user->id,$docid, false,"TABLE");
   
 
-  if ($err != "") $action->exitError($err);
-  
-  
+  $ttag=array();
+  while(list($k,$v) = each($child)) {
+    $ttag[] = array(
+		    "tabid"=>$v["id"],
+		    "doctype"=>$v["doctype"],
+		    "tag_cellbgclass"=>($v["id"] ==$docid)?"TABBackgroundSelected":"TABBackground",
+		    "tabtitle"=>$v["title"]);
+    $nbfolders++;
+//     popupActive("poppaste",$nbfolders,'staticpaste');
+//     popupActive("poppaste",$nbfolders,'pastelatest');
+//     popupActive("poppaste",$nbfolders,'cancel');
+  }
 
-  
-  if ($return == "folio")  redirect($action,GetHttpVars("app"),"FOLIOLIST&dirid=$dirid");
-  else redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");
+  // display popup js
+//   popupGen($nbfolders);
+
+  $action->lay->setBlockData("TAG",$ttag);
 }
-
-
-
 
 ?>

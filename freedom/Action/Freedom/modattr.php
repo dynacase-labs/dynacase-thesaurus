@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.12 2003/01/30 09:38:36 eric Exp $
+// $Id: modattr.php,v 1.13 2003/02/05 17:04:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,6 +55,7 @@ function modattr(&$action) {
   $links= GetHttpVars("link");
   $phpfiles= GetHttpVars("phpfile");
   $phpfuncs= GetHttpVars("phpfunc");
+  $elinks= GetHttpVars("elink");
   $nattrids= GetHttpVars("nattrid"); // for new attributes
 
   
@@ -126,6 +127,7 @@ function modattr(&$action) {
 	    $oattr->link=$links[$k];
 	    $oattr->phpfile=$phpfiles[$k];
 	    $oattr->phpfunc=$phpfuncs[$k];
+	    $oattr->elink=$elinks[$k];
 
 	    if ($attrids[$k]=="") {
 	      //print $oattr->id;

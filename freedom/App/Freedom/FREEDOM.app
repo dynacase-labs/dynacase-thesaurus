@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.19 2003/01/20 19:09:28 eric Exp $
+// $Id: FREEDOM.app,v 1.20 2003/02/05 17:04:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,6 +128,16 @@ $action_desc = array (
   array( 
    "name"		=>"FREEDOM_ICONS",
    "short_name"		=>N_("Freedoms icon list"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"FOLIOLIST",
+   "short_name"		=>N_("folio icon list"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"FOLIOSEL",
+   "short_name"		=>N_("folio select doc"),
    "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
@@ -321,7 +331,17 @@ $action_desc = array (
    "name"		=>"FREEDOM_INIT",
    "short_name"		=>N_("Freedom initialisation"),
    "acl"		=>"FREEDOM"	
-  )
+  ),
+  array( 
+   "name"		=>"OPENFOLIO",
+   "short_name"		=>N_("open portfolio"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"FOLIOTAB",
+   "short_name"		=>N_("portfolio tab"),
+   "acl"		=>"FREEDOM_READ"
+  ) 
                       );
    
 ?>

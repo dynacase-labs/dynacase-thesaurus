@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modacl.php,v 1.1 2002/11/13 15:49:36 eric Exp $
+// $Id: modacl.php,v 1.2 2003/02/05 17:04:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/modacl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -61,8 +61,7 @@ function modacl(&$action) {
   else $perm->Add();
 
 
-  global $HTTP_SERVER_VARS;
-  Header("Location: ".$HTTP_SERVER_VARS["HTTP_REFERER"]); // return to sender
+  RedirectSender($action);
 
 }
 ?>

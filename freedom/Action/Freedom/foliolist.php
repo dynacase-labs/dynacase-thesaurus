@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.8 2003/02/05 17:04:21 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
+// $Id: foliolist.php,v 1.1 2003/02/05 17:04:21 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliolist.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,24 +23,22 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/duplicate.php");
+include_once('FREEDOM/freedom_view.php');
 
-include_once("FDL/Class.Dir.php");
 
 
 // -----------------------------------
-function freedom_duplicate(&$action) {
-  // -----------------------------------
+// -----------------------------------
+function foliolist(&$action) {
+// -----------------------------------
+  // Set the globals elements
 
-    // Get all the params      
-  $dirid=GetHttpVars("dirid",10); // where to duplicate
-  $docid=GetHttpVars("id",0);       // doc to duplicate
+  // $action->parent->param->Set("FREEDOM_VIEW","icon",PARAM_USER.$action->user->id,$action->parent->id);
+
+  viewfolder($action, false,true,
+	     100,array("doctype = 'F'"));
   
-  duplicate($action, $dirid, $docid);
 
-  RedirectSender($action);
 
 }
-
-
 ?>

@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.8 2003/02/05 17:04:21 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
+// $Id: popupfolio.php,v 1.1 2003/02/05 17:04:21 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Freedom/popupfolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -22,25 +22,29 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-
-include_once("FDL/duplicate.php");
-
-include_once("FDL/Class.Dir.php");
-
-
+include_once("FDL/Class.Doc.php");
 // -----------------------------------
-function freedom_duplicate(&$action) {
+function popupfolio(&$action) {
   // -----------------------------------
+  // ------------------------------
+  // get all parameters
+  $dirid=GetHttpVars("dirid"); // 
 
-    // Get all the params      
-  $dirid=GetHttpVars("dirid",10); // where to duplicate
-  $docid=GetHttpVars("id",0);       // doc to duplicate
-  
-  duplicate($action, $dirid, $docid);
+  $kdiv=1; // only one division
 
-  RedirectSender($action);
+  include_once("FDL/popup_util.php");
+  // ------------------------------------------------------
+  // definition of popup menu
+  popupInit('popupfolio',  array('newdoc',
+				 'cancelf'));
 
+
+
+
+  Popupactive('popupfolio',$kdiv,'newdoc');
+  Popupactive('popupfolio',$kdiv,'cancelf');
+
+  popupGen($kdiv);
+
+  $action->lay->set("dirid",$dirid);
 }
-
-
-?>

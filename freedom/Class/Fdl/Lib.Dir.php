@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.58 2003/01/30 16:02:48 eric Exp $
+// $Id: Lib.Dir.php,v 1.59 2003/02/05 17:04:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -216,7 +216,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
 
@@ -290,12 +290,12 @@ function getChildDirId($dbaccess, $dirid, $notfldsearch=false) {
   $query -> AddQuery("dirid=".$dirid);
   
   
-  $tableq=$query->Query(0,0,"LIST",$qsql);
+  $tableq=$query->Query(0,0,"TABLE",$qsql);
   if ($query->nb == 0) return array();  
   
   reset($tableq);
   while(list($k,$v) = each($tableq)) {
-    $tableid[] = $v->id;
+    $tableid[] = $v["id"];
   }
   
   

@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.8 2003/02/05 17:04:21 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
+// $Id: openfolio.php,v 1.1 2003/02/05 17:04:21 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/openfolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,24 +23,22 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/duplicate.php");
+include_once("FDL/Class.Doc.php");
 
-include_once("FDL/Class.Dir.php");
 
 
 // -----------------------------------
-function freedom_duplicate(&$action) {
-  // -----------------------------------
+// -----------------------------------
+function openfolio(&$action) {
+// -----------------------------------
+  // Set the globals elements
 
-    // Get all the params      
-  $dirid=GetHttpVars("dirid",10); // where to duplicate
-  $docid=GetHttpVars("id",0);       // doc to duplicate
+  $docid = GetHttpVars("id",0);        // document to edit
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $action->lay->Set("dirid", $docid);
   
-  duplicate($action, $dirid, $docid);
 
-  RedirectSender($action);
 
 }
-
-
 ?>

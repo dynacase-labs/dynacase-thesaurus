@@ -78,6 +78,7 @@
   <td class="CORETblHeadBold">[TEXT:Link]</td>
   <td class="CORETblHeadBold">[TEXT:file]</td>
   <td class="CORETblHeadBold">[TEXT:func]</td>
+  <td class="CORETblHeadBold">[TEXT:elink]</td>
 </tr>
 </thead>
 <tbody>
@@ -126,6 +127,9 @@
    </td>
    <td  >
       <input type="text"   name="phpfunc[[neweltid]]" value="[phpfunc]" [disabled]></input>
+   </td>
+   <td  >
+      <input type="text"   name="elink[[neweltid]]" value="[elink]" [disabled]></input>
    </td>
   
 </tr>

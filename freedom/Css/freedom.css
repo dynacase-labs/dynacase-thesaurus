@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.21 2003/01/30 09:38:36 eric Exp $
+ * $Id: freedom.css,v 1.22 2003/02/05 17:04:21 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -191,6 +191,42 @@ LI.translucide {
 }
 
 
+IMG.unselect {
+  border-style: hidden;
+  border-width: 3;
+  border-style : none
+  width:40;
+  height:40;  
+  cursor: crosshair;
+}
+IMG.select {
+  border-style: hidden;
+  border-width: 1px;
+  border-color: [CORE_FGCOLOR];
+  width:40;
+  height:40;  
+  background-color:[CORE_BGCOLORALTERN];
+  border-style : solid;
+  cursor: crosshair;
+  -moz-border-radius:25px;
+}
+
+
+DIV.icon{
+  font-weight: normal;
+  font-size: 70%;
+  text-align: center;
+  /*font-variant: small-caps;*/
+  width:60;
+  height:100;
+  position:absolute;
+  left:0;
+  top:0;
+  border-style:none;
+  border-color:[CORE_FGCOLOR];
+  visibility : hidden;
+  overflow : hidden;
+}
 
 @media print {
   .noprint {

@@ -1,0 +1,232 @@
+<html>
+<head>
+
+<LINK REL="icon" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
+<LINK REL="SHORTCUT ICON" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
+<title>[WHAT] [TEXT:PortFolio] [title]</title>
+
+    [JS:REF]
+<script language="JavaScript">
+  <!--
+var isNetscape = navigator.appName=="Netscape";
+
+var Xpos = 0;
+var Ypos = 0;
+
+// just save mouse position for animate() to use
+function MoveHandler(e)
+{
+    Xpos = e.pageX;
+    Ypos = e.pageY;	
+    return true;
+}
+
+// just save mouse position for animate() to use
+function MoveHandlerIE() {
+    Xpos = window.event.x + document.body.scrollLeft;
+    Ypos = window.event.y + document.body.scrollTop;	  
+}
+
+
+var drag=0;
+
+if (isNetscape) {
+    document.captureEvents(Event.MOUSEMOVE);
+}    
+
+document.onmousemove = moveicon;
+
+function moveicon(e) {
+  
+  window.status=Xpos+"x"+Ypos;
+  if (drag ) {
+   if (isNetscape) {
+     MoveHandler(e);
+   } else {
+     MoveHandlerIE();
+   }
+    micon.style.visibility = 'visible';
+    micon.style.top = Ypos+2; 
+    micon.style.left = Xpos+2; 
+    //    micon.style.zIndex = 4; 
+  }
+}
+var micon;
+var cdocid=0;
+
+
+
+function initDrag() {
+
+
+  var wref;
+  
+  if (! drag) {
+    wref=windowExist('ffoliolist');//window.open('','ffoliolist','');
+    if (wref && (wref.drag == 1)) {
+      cdocid = wref.document.docid;
+      drag=1;
+    } else { 
+      wref=windowExist('flist');//window.open('','flist','');
+
+    
+      if (wref) cdocid = wref.document.docid;
+      if (wref && (wref.drag == 1)) {
+	drag=1;
+      
+      } else {
+	wref=windowExist('ffolder');
+	if (wref && (wref.drag == 1)) {
+	  drag=1;
+	} 
+	
+      
+      }
+    }
+    if (drag == 1) {
+      
+      wref.drag=0;
+      imicon = wref.document.getElementById('micon');
+      micon.src=imicon.src;
+
+      imicon.style.visibility="hidden";
+    
+    }  
+  }
+}
+
+function endDrag() {  
+    drag=0;
+    micon.style.visibility="hidden";
+}
+function initmicon() {
+
+  micon = document.getElementById('micon');
+
+}
+
+function focusone() {
+  
+  var w=wref=windowExist('ffoliolist');
+
+  w.docTarget='folio0';
+}
+function focustwo() {
+  
+  var w=wref=windowExist('ffoliolist');
+
+  w.docTarget='folio1';
+}
+
+function setone() {
+  var w=wref=windowExist('ffoliolist');
+  var target= w.docTarget;
+
+  w=top.document.getElementById('ffolios'); 
+
+  if (target == 'folio1') {
+    w.rows='';
+    w.cols='0pt,*';
+    if (isNetscape) {
+      w.rows='';// for mozilla need to set twice
+      w.cols='0pt,*';
+    }
+  } else {
+    w.rows='';
+    w.cols='*,0pt';
+    if (isNetscape) {
+      w.rows='';// for mozilla need to set twice
+      w.cols='*,0pt';
+    }
+  }
+  
+}
+function settwo() {
+  var w=top.document.getElementById('ffolios'); 
+
+  w.rows='';
+  w.cols='50%,50%';
+  if (isNetscape) {
+    w.rows=''; // for mozilla need to set twice
+    w.cols='50%,50%';
+  }
+}
+function setthree() {
+  var w=top.document.getElementById('ffolios'); 
+
+  w.cols=''; 
+  w.rows='50%,50%';
+  if (isNetscape) {
+    w.cols='';     // for mozilla need to set twice
+    w.rows='50%,50%';
+  }
+}
+
+function selecttab(th) {
+  var ltd;
+  var i;
+  
+  ltd = document.getElementsByTagName('td');
+  for (i=0; i < ltd.length; i++) {
+     ltd[i].className='TABBackground';
+  }
+  th.className='TABBackgroundSelected';
+  if (th.nextSibling.nodeName=='TD') th.nextSibling.className='TABBackgroundSelected';
+  else  if (th.nextSibling.nextSibling.nodeName=='TD') th.nextSibling.nextSibling.className='TABBackgroundSelected';
+}
+
+    [JS:CODE]
+  -->
+   </script>
+[CSS:REF]
+<!-- if you want black backgound, remove this style block -->
+<style type="text/css">
+
+[ZONE CORE:GENCSS]
+[ZONE FDL:GENCSS]
+
+[CSS:CODE]
+   
+</style>
+
+
+
+
+
+
+</head>
+
+<body onload="initmicon();" 
+      onmouseover="initDrag();"
+      onmouseup="endDrag(); " > 
+
+<table >
+<tr name="tdtab" ></tr>
+</table>
+
+
+
+<table width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
+<tr>
+  <td  class="TABBackgroundSelected" style="cursor:pointer" onmousedown="if (drag == 1) {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&return=folio&mode=latest&dirid=[dirid]&docid='+cdocid;endDrag();} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[dirid]';endDrag();} return false"
+     onclick="selecttab(this);">[title]</td>
+  <td class="TABBackgroundSelected" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"></td>
+[BLOCK TAG]
+  <td  class="[tag_cellbgclass]" style="cursor:pointer" valign="middle" 
+     onmousedown="if (drag == 1) {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&return=folio&mode=latest&dirid=[tabid]&docid='+cdocid;endDrag();} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[tabid]';endDrag();} return false"
+     onclick="selecttab(this);">
+          <span class="[TAG_LABELCLASS]">[tabtitle]</span>
+       </a></td>
+  <td  class="[tag_cellbgclass]" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"></td>
+[ENDBLOCK TAG]
+<td align="right" style="background-color:transparent">
+<img id="micon" width="20" height="20"  style="position:absolute;visibility:hidden">
+<button onclick="setone()">o</button>
+<button onclick="settwo()">|</button>
+<button onclick="setthree()">-</button>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

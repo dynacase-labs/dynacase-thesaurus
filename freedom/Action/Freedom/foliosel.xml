@@ -1,0 +1,67 @@
+<html>
+<head>
+
+<LINK REL="icon" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
+<LINK REL="SHORTCUT ICON" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
+<title>[WHAT] [TEXT:PortFolio] </title>
+
+    [JS:REF]
+<script language="JavaScript">
+  <!--
+
+var isSelected=false;
+function selectDoc(id) {
+  var w=windowExist('ffoliolist');
+
+  if (w)  w.docTarget='folio'+id;
+
+  var otherid=(parseInt(id)+1)%2;
+  w=windowExist('fsel'+otherid);
+  isSelected=true;
+ 
+   
+  document.body.style.backgroundColor='[CORE_BGCOLORHIGH]';
+
+  
+  if (w) {
+    if (w.document.body) {
+    w.document.body.style.backgroundColor='[CORE_BGCOLORALTERN]';
+    w.isSelected=false;
+    }
+  }
+
+}
+   
+
+function updateSelect(id) {
+
+   var w=wref=windowExist('ffoliolist');
+  if (isSelected) {
+    if (w)  w.docTarget='folio'+id;
+    
+  } else {
+    var otherid=(parseInt(id)+1)%2;
+    if (w)  w.docTarget='folio'+otherid;
+  }
+}
+  -->
+   </script>
+<style>
+body, div {
+ margin:0pt;
+ padding:0pt;
+ border-width:0pt;
+ background-color:[CORE_BGCOLORALTERN];
+ cursor:pointer;
+}
+</style>
+
+
+</head>
+
+<body 
+      onmousedown="selectDoc('[selid]');return false; " 
+      onload="if ([selected]) {selectDoc('[selid]');setInterval('updateSelect(\'[selid]\')',500);} ">
+&nbsp;
+</body>
+</html>

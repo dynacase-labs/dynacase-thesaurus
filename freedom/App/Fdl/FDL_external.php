@@ -65,7 +65,13 @@ function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
   global $action;
   
 
-  if (!is_int($famid)) $famid=getFamIdFromName($dbaccess,$famid);
+
+
+  if (intval($famid) == 0) {
+    $famid=getFamIdFromName($dbaccess,$famid);
+  }
+
+
   if ($name != "") {
     $filter[]="title ~* '.*$name.*'";
   }

@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.8 2003/02/05 17:04:21 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
+// $Id: foliosel.php,v 1.1 2003/02/05 17:04:21 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliosel.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,24 +23,25 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/duplicate.php");
 
-include_once("FDL/Class.Dir.php");
+include_once("FDL/Lib.Dir.php");
+include_once("FDL/freedom_util.php");  
+
+
 
 
 // -----------------------------------
-function freedom_duplicate(&$action) {
+function foliosel(&$action) {
   // -----------------------------------
 
-    // Get all the params      
-  $dirid=GetHttpVars("dirid",10); // where to duplicate
-  $docid=GetHttpVars("id",0);       // doc to duplicate
-  
-  duplicate($action, $dirid, $docid);
+  // Get all the params      
+  $selid=GetHttpVars("selid",0); // 
+  $selected=(GetHttpVars("selected","N")=="Y"); // is selected
 
-  RedirectSender($action);
 
+  //  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->lay->set("selid",$selid);
+  $action->lay->set("selected",$selected?"true":"false");
 }
-
 
 ?>

@@ -1,0 +1,38 @@
+<html>
+<head>
+
+<LINK REL="icon" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
+<LINK REL="SHORTCUT ICON" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
+<title>[WHAT] [TEXT:PortFolio]</title>
+
+</head>
+
+
+<frameset name="ffolio" frameborder="0" framespacing="0" border="0" rows="40pt,*" >
+
+  <frame name="ffoliotab" src="[CORE_STANDURL]&app=FREEDOM&action=FOLIOTAB&id=[dirid]" marginheight="1" marginwidth="2" style="border-style:none">
+  <frameset  name="ffoliocontent" frameborder="yes" border=3  framespacing="3" cols="150pt,*" 
+            scrolling="no" frameborder="no" >
+     <frame id="ffoliolist" name="ffoliolist"  src="[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[dirid]" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
+
+
+       <frameset id="ffolios" name="ffolios" frameborder="yes" border=1 framespacing="3" rows="*,0pt"   >
+
+
+          <frameset  frameborder="no" border=0 framespacing="0" rows="7pt,*"   >
+             <frame  name="fsel0"  src="[CORE_STANDURL]&app=FREEDOM&action=FOLIOSEL&selid=0&selected=Y"  scrolling="no"  bordercolor="[CORE_FGCOLOR]" frameborder="no" marginheight="0">
+             <frame  name="folio0" src="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO"          
+                  scrolling="needed" bordercolor="[CORE_FGCOLOR]" frameborder="no">
+          </frameset>
+
+          <frameset  frameborder="no" border=0 framespacing="0" rows="7pt,*"   >
+             <frame name="fsel1"  src="[CORE_STANDURL]&app=FREEDOM&action=FOLIOSEL&selid=1&selected=N"  scrolling="no"  bordercolor="[CORE_FGCOLOR]" frameborder="no" marginheight="0">
+             <frame  name="folio1" src="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO"          
+                  scrolling="needed" bordercolor="[CORE_FGCOLOR]"frameborder="no" >
+          </frameset>
+
+       </frameset>
+    
+  </frameset>
+
+</html>

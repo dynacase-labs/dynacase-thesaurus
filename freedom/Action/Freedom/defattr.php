@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.9 2003/01/30 09:38:36 eric Exp $
+// $Id: defattr.php,v 1.10 2003/02/05 17:04:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,6 +128,7 @@ function defattr(&$action)
       $newelem[$k]["link"]="";
       $newelem[$k]["phpfile"]="";
       $newelem[$k]["phpfunc"]="";
+      $newelem[$k]["elink"]="";
       $newelem[$k]["abscheck"]="";
       $newelem[$k]["neededcheck"]="";
       $newelem[$k]["titcheck"]="";
@@ -160,6 +161,7 @@ function defattr(&$action)
 	// unused be necessary for layout
       $newelem[$k]["phpfile"]="";
       $newelem[$k]["phpfunc"]="";
+      $newelem[$k]["elink"]="";
       $newelem[$k]["abscheck"]="";
       $newelem[$k]["titcheck"]="";
       }	  
@@ -180,6 +182,7 @@ function defattr(&$action)
       $newelem[$k]["link"]=$attr->link;
       $newelem[$k]["phpfile"]=$attr->phpfile;
       $newelem[$k]["phpfunc"]=$attr->phpfunc;
+      $newelem[$k]["elink"]=$attr->elink;
       $newelem[$k]["disabledid"]="disabled";
       $newelem[$k]["neweltid"]=$k;
       if ($attr->isInAbstract) {

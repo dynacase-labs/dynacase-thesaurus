@@ -66,16 +66,15 @@ var cdocid=0;
 function initDrag() {
 
   if (! parent.flist) return;
-  if (! parent.flist.document.drag) return;
-  if (parent.flist.document.drag == 1) {
+  if (! parent.flist.drag) return;
+  if (parent.flist.drag == 1) {
     drag=1;
     cdocid = parent.flist.document.docid;
-    parent.flist.document.drag=0;
+    parent.flist.drag=0;
     imicon = parent.flist.document.getElementById('micon');
     micon.src=imicon.src;
     //    alert(micon.src);
     imicon.style.visibility="hidden";
-    parent.flist.document.drag=0;
   }
 }
 function endDrag() {

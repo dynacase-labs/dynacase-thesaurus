@@ -29,17 +29,19 @@ var docid = 1;
 
 
 // align automatically icon with screen width 
-function placeicons() {
+function placeicons(dy) {
 
+  if (! dy) dy=30;
       winW=getFrameWidth();
 	nbicons=[nbdiv];
 	nbcol = Math.floor(winW/60);
+	if (nbcol < 1) nbcol=1;
 
  	for (i=1; i <= nbicons; i++) {
          div = document.getElementById('d'+i);
 
 	 div.style.left = ((i-1)%nbcol) * (div.offsetWidth);
-	 div.style.top = Math.floor((i-1)/nbcol)*(div.offsetHeight) + 30;
+	 div.style.top = Math.floor((i-1)/nbcol)*(div.offsetHeight) + dy;
 	 div.style.visibility = 'visible';
 	}
   }
@@ -109,21 +111,23 @@ function openMenuOrAbstract(event) {
 }
 
 
-function openMenuOrProperties(event,menuid,itemid) {
+function openMenuOrProperties(event,menuid,itemid,target) {
   if (window.event) {
-	shiftKey = window.event.shiftKey
-	button=window.event.button;
-   } else  {
-	shiftKey = event.shiftKey
-	button= event.button +1;
-}
+    shiftKey = window.event.shiftKey
+      button=window.event.button;
+  } else  {
+    shiftKey = event.shiftKey
+      button= event.button +1;
+  }
   window.status=shiftKey+"/"+button;
 
+
+  if (! docTarget) docTarget='fdoc';
   if (button == 1) {
     if (shiftKey ) {
       openMenu(event,menuid, itemid);
-     } else {
-       subwindow(300,400,'fdoc','[CORE_STANDURL]&app=FDL&action=FDL_CARD&abstract=N&id='+docid);
+    } else {
+      subwindow(300,400,docTarget,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&abstract=N&id='+docid);
     }
   }
 
@@ -141,7 +145,7 @@ function openFld(docid) {
   subwindow(300,400,'flist',url);
 }
 //--------------------- DRAG & DROP  --------------------------
-document.drag=0;
+drag=0;
 
 if (isNetscape) {
     document.captureEvents(Event.MOUSEMOVE);
@@ -178,7 +182,7 @@ function trackKey(event)
 function moveicon(event) {
     
 //    window.status="drag="+document.drag;
-  if (document.drag) {
+  if (drag) {
     GetXY(event);
     micon.style.top = Ypos+2; 
     micon.style.left = Xpos+2; 
@@ -203,7 +207,7 @@ function activedrag(event)
 
 
 
-  document.drag=1;
+  drag=1;
     micon.src=document.getElementById(imgid).src;
 
 
@@ -219,7 +223,7 @@ function activedrag(event)
 function deactivedrag(th)
 {
   document.onmousemove= "";
-  document.drag=0;
+  drag=0;
     document.body.style.cursor='auto';
   return true;
 }

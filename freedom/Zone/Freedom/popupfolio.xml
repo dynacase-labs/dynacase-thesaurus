@@ -1,0 +1,20 @@
+<script language="JavaScript">
+  <!--
+var docTarget='fdoc';
+  -->
+</script>
+<!-- ------------ POPUP DIVISION --------------------- -->
+<div  id="popupfolio" class="popup">
+
+
+
+
+
+<a href="#" id="newdoc"     
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&classid=1&id=&dirid=[dirid]',docTarget);closeAllMenu(); return false;"  >[TEXT:new document]</a>
+
+
+<a href="#" id="cancelf"  
+    onClick="closeAllMenu(); return false;"  >[TEXT:cancel]</a>
+</div>
+<!-- ------------------ end POPUP DIVISION ------------------ -->

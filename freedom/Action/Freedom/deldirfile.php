@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: deldirfile.php,v 1.5 2002/08/22 13:36:14 eric Exp $
+// $Id: deldirfile.php,v 1.6 2003/02/05 17:04:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/deldirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -50,8 +50,10 @@ function deldirfile(&$action) {
   if ($err != "") $action->exitError($err);
 
   
+  phpinfo();exit;
+  RedirectSender($action);// return to sender
   
-  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");
+
 }
 
 
