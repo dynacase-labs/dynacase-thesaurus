@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.15 2002/06/20 11:58:11 eric Exp $
+// $Id: Lib.Dir.php,v 1.16 2002/06/21 14:18:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -83,183 +83,221 @@ function getFirstDir($dbaccess) {
 
 
 
-  function getChildDoc($dbaccess, $dirid, $start="0", $slice="ALL", $sqlfilters=array(), $userid=1) {
-
+  function getChildDoc($dbaccess, 
+		       $dirid, 
+		       $start="0", $slice="ALL", $sqlfilters=array(), 
+		       $userid=1, 
+		       $qtype="LIST", $wvalue=false) {
+    
     // query to find child documents
-
-
-    if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
-    else $sqlcond = "";
+      
+      
+      if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
+      else $sqlcond = "";
     if ($userid > 1) $sqlcond .= " and hasviewprivilege($userid,doc.id) ";
-
+    
+    if ($wvalue) $sqlwvalue="";
+    $sqlwvalue=", getdocvalues(doc.id) as sqlvalues ";
+    
     $fld = new Dir($dbaccess, $dirid);
-
+    
     if ( $fld->classname != 'DocSearch') {
 
-      $qsql= "select distinct * ".
-      "from doc  ".
-	"where (doc.doctype != 'T')  ".
-	  "and ((doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) and doc.locked != -1)".
-	  "   or (doc.id in (select childid from fld where (qtype='F') and (dirid=$dirid))))".
-	    $sqlcond.
-	      " order by doc.title LIMIT $slice OFFSET $start;";
+      $qsql= "select distinct doc.* $sqlwvalue".
+	"from doc   ".
+	  "where (doc.doctype != 'T')  ".
+		$sqlcond.
+	    "and ((doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) and doc.locked != -1)".
+	      "   or (doc.id in (select childid from fld where (qtype='F') and (dirid=$dirid))))".
+		  " order by doc.title LIMIT $slice OFFSET $start;";
 
-    
+      $qsql2= "select  doc.* ".
+	"from doc, fld  ".
+	  "where (doc.doctype != 'T')  ".
+	    "and fld.dirid=$dirid ".
+	      "and ((fld.qtype='S' and fld.childid=doc.initid and doc.locked != -1) ) ".
+		// or (fld.qtype='F' and fld.childid=doc.id)) ".
+		  
+		  $sqlcond.
+		    " order by doc.title LIMIT $slice OFFSET $start;";
+      
+      
     } else {
       // search familly
-      $docsearch = new QueryDb($dbaccess,"QueryDir");
+	$docsearch = new QueryDb($dbaccess,"QueryDir");
       $docsearch ->AddQuery("dirid=$dirid");
       $docsearch ->AddQuery("qtype!='S'");
       $ldocsearch = $docsearch ->Query();
       
-
-
+      
+      
       // for the moment only one query search
 	if (($docsearch ->nb) > 0) {
 	  switch ($ldocsearch[0]->qtype) {
-// 	  case "C":  // just condition
-// 	  $qsql= "select * ".
-// 	    "from doc  ".
-// 	      "where (doc.doctype != 'T')  ".
-// 		"and ({$ldocsearch[0]->query}) ".
-// 		    $sqlcond.
-// 		      " order by title LIMIT $slice OFFSET $start;";
-//	  break;
+	    // 	  case "C":  // just condition
+	      // 	  $qsql= "select * ".
+		// 	    "from doc  ".
+		  // 	      "where (doc.doctype != 'T')  ".
+		    // 		"and ({$ldocsearch[0]->query}) ".
+		      // 		    $sqlcond.
+			// 		      " order by title LIMIT $slice OFFSET $start;";
+	    //	  break;
 	  case "M": // complex query
-
 	    
-	  $qsql= "{$ldocsearch[0]->query} ".
-		    $sqlcond.
-		      " order by doc.title LIMIT $slice OFFSET $start;";
-	  $qsql= str_replace("select ", "select distinct  ", $qsql);
-	  break;
+	    
+	    $qsql= "{$ldocsearch[0]->query} ".
+	      $sqlcond.
+		" order by doc.title LIMIT $slice OFFSET $start;";
+	    $qsql= str_replace("select ", "select distinct  ", $qsql);
+	    break;
 	  }
 	} else {
 	  return array(); // no query avalaible
 	}
     }
     
-
-    //   	print "<HR>".$qsql;
+    
+    print "<HR>".$qsql;
     $query = new QueryDb($dbaccess,"Doc");
-
-
-    $tableq=$query->Query(0,0,"LIST",$qsql);
-
+    
+    
+    $tableq=$query->Query(0,0,$qtype,$qsql);
+    
     if ($query->nb == 0)
       {
 	return array();
       }
 
+    // add values in comprehensive structure
+    if ($wvalue) {
+      while(list($k,$v) = each($tableq)) {
+	if ($v["sqlvalues"] != "") {
+	  $vals = split("\]\[",substr($v["sqlvalues"],1,-1));
+	  while(list($k1,$v1) = each($vals)) {
+	    list($aname,$aval)=split(";;",$v1);
+	    $tableq[$k][$aname]=$aval;
+	  }
+	}
+      }
+    }
     reset($tableq);
-
-
- 
-
-
-
+    
     return($tableq);
   }
+     
+     
+     //same getChildDoc with value : return array , not doc object
+     function getChildDocValue($dbaccess, $dirid, $start="0", $slice="ALL", $sqlfilters=array(), $userid=1) {
+       
 
-
-
-  function getChildDirId($dbaccess, $dirid, $notfldsearch=false) {
-    // query to find child directories (no recursive - only in the specified folder)
-
-    if ($notfldsearch) $odoctype='D';
-    else $odoctype='S';
-    $qsql= "select distinct on (doc.id) * from doc  ".
-      "where  ((doc.doctype='D') OR (doc.doctype='$odoctype')) ".
-	"and doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) ";
-
-
-    $tableid = array();
-    $query = new QueryDb($dbaccess,"Doc");
-    $query -> AddQuery("dirid=".$dirid);
-
-
-    $tableq=$query->Query(0,0,"LIST",$qsql);
-    if ($query->nb == 0) return array();  
-    
-    reset($tableq);
-    while(list($k,$v) = each($tableq)) {
-      $tableid[] = $v->id;
-    }
-          
-
-    return($tableid);
-  }
-
-
-  // --------------------------------------------------------------------
-  function getRChildDirId($dbaccess,$dirid, $level=0) {
-  // --------------------------------------------------------------------
-    // query to find child directories (RECURSIVE)
-
-
-  if ($level > 20) exit; // limit recursivity
-
-    $childs = getChildDirId($dbaccess, $dirid, true);
-    $rchilds = $childs;
-
-    if (count($childs) > 0) {
-
-    while(list($k,$v) = each($childs)) 
-	  {
-
-	    $rchilds = array_merge($rchilds, getRChildDirId($dbaccess,$v,$level+1));
-	  }
-    }
-
-
-    return($rchilds);
-  }
-
-  function isInDir($dbaccess, $dirid, $docid) {
-    // return true id docid is in dirid
-
-    
-    $query = new QueryDb($dbaccess,"QueryDir");
-    $query -> AddQuery("dirid=".$dirid);
-    $query -> AddQuery("childid=".$docid);
-
-    $query->Query(0,0,"TABLE");
-    return ($query->nb > 0);
-  }
-
-  function hasChildFld($dbaccess, $dirid) {
-    // return true id dirid has one or more child dir
-
-    
-    $query = new QueryDb($dbaccess,"QueryDir");
-
-    $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc where fld.dirid=$dirid and doc.id=fld.childid and (doc.classname='Dir' or doc.classname='DocSearch') and not doc.useforprof");
-    return (($query->nb > 0) && ($count[0]["count"] > 0));
-  }
-
-  // --------------------------------------------------------------------
-  function getQids($dbaccess, $dirid, $docid) {
-    // return array of document id includes in a directory
-  // --------------------------------------------------------------------
-
-    $tableid = array();
-
-    $doc = new Doc($dbaccess, $docid);
-    $query = new QueryDb($dbaccess,"QueryDir");
-    $query -> AddQuery("dirid=".$dirid);
-    $query -> AddQuery("((childid=$docid) and (qtype='F')) OR ((childid={$doc->initid}) and (qtype='S'))");
-    $tableq=$query->Query();
-
-    if ($query->nb > 0)
-      {
-	while(list($k,$v) = each($tableq)) 
-	  {
-	    $tableid[$k] = $v->id;
-	  }
-	unset ($tableq);
-      }
-
-
-    return($tableid);
-  }
-?>
+       return getChildDoc($dbaccess, $dirid, $start, $slice, $sqlfilters, $userid, "TABLE", true);
+       
+     }
+     
+     
+     function getChildDirId($dbaccess, $dirid, $notfldsearch=false) {
+       // query to find child directories (no recursive - only in the specified folder)
+	 
+	 if ($notfldsearch) $odoctype='D';
+	 else $odoctype='S';
+       $qsql= "select distinct on (doc.id) * from doc  ".
+	 "where  ((doc.doctype='D') OR (doc.doctype='$odoctype')) ".
+	   "and doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) ";
+       
+       
+       $tableid = array();
+       $query = new QueryDb($dbaccess,"Doc");
+       $query -> AddQuery("dirid=".$dirid);
+       
+       
+       $tableq=$query->Query(0,0,"LIST",$qsql);
+       if ($query->nb == 0) return array();  
+       
+       reset($tableq);
+       while(list($k,$v) = each($tableq)) {
+	 $tableid[] = $v->id;
+       }
+       
+       
+       return($tableid);
+     }
+     
+     
+     // --------------------------------------------------------------------
+     function getRChildDirId($dbaccess,$dirid, $level=0) {
+       // --------------------------------------------------------------------
+	 // query to find child directories (RECURSIVE)
+	   
+	   
+	   if ($level > 20) exit; // limit recursivity
+	     
+	     $childs = getChildDirId($dbaccess, $dirid, true);
+       $rchilds = $childs;
+       
+       if (count($childs) > 0) {
+	 
+	 while(list($k,$v) = each($childs)) 
+	   {
+	     
+	     $rchilds = array_merge($rchilds, getRChildDirId($dbaccess,$v,$level+1));
+	   }
+       }
+       
+       
+       return($rchilds);
+     }
+     
+     function isInDir($dbaccess, $dirid, $docid) {
+       // return true id docid is in dirid
+	 
+	 
+	 $query = new QueryDb($dbaccess,"QueryDir");
+       $query -> AddQuery("dirid=".$dirid);
+       $query -> AddQuery("childid=".$docid);
+       
+       $query->Query(0,0,"TABLE");
+       return ($query->nb > 0);
+     }
+     
+     function hasChildFld($dbaccess, $dirid) {
+       // return true id dirid has one or more child dir
+	 
+	 
+	 $query = new QueryDb($dbaccess,"QueryDir");
+       
+       $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc where fld.dirid=$dirid and doc.id=fld.childid and (doc.classname='Dir' or doc.classname='DocSearch') and not doc.useforprof");
+       return (($query->nb > 0) && ($count[0]["count"] > 0));
+     }
+     
+     // --------------------------------------------------------------------
+     function getQids($dbaccess, $dirid, $docid) {
+       // return array of document id includes in a directory
+	 // --------------------------------------------------------------------
+	   
+	   $tableid = array();
+       
+       $doc = new Doc($dbaccess, $docid);
+       $query = new QueryDb($dbaccess,"QueryDir");
+       $query -> AddQuery("dirid=".$dirid);
+       $query -> AddQuery("((childid=$docid) and (qtype='F')) OR ((childid={$doc->initid}) and (qtype='S'))");
+       $tableq=$query->Query();
+       
+       if ($query->nb > 0)
+	 {
+	   while(list($k,$v) = each($tableq)) 
+	     {
+	       $tableid[$k] = $v->id;
+	     }
+	   unset ($tableq);
+	 }
+       
+       
+       return($tableid);
+     }
+     
+     // just to test array if set before
+     function setv($v,$k,$d="") {
+       if (isset($v[$k])) return $v[$k];
+       return $d;
+     }
+     ?>

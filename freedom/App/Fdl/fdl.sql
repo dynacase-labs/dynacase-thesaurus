@@ -53,3 +53,19 @@ begin
    return hasprivilege(arg_user, profid, classid ,aclid );
 end;
 ' language 'plpgsql';
+
+
+create or replace function getdocvalues(int) 
+returns varchar as '
+declare 
+  arg_doc alias for $1;
+  rvalue docvalue%ROWTYPE;
+  values text;
+begin
+values := '''';
+for rvalue in select  * from docvalue where  (docid=arg_doc)  loop
+	values := values || ''['' || rvalue.attrid || '';;'' || rvalue.value || '']'';
+end loop;
+return values;
+end;
+' language 'plpgsql';
