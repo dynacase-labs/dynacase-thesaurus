@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.40 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: editcard.php,v 1.41 2004/02/12 10:28:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.40 2004/02/05 15:42:58 eric Exp $
+// $Id: editcard.php,v 1.41 2004/02/12 10:28:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -94,6 +94,7 @@ function editcard(&$action) {
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
     $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $cvdoc->set($doc);
     $err = $cvdoc->control($vid); // control special view
     if ($err != "") $action->exitError($err);
     $tview = $cvdoc->getView($vid);

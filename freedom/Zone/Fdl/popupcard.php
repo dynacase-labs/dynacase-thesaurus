@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.40 2004/01/28 08:22:12 eric Exp $
+ * @version $Id: popupcard.php,v 1.41 2004/02/12 10:28:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.40 2004/01/28 08:22:12 eric Exp $
+// $Id: popupcard.php,v 1.41 2004/02/12 10:28:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -254,6 +254,7 @@ function popupcard(&$action) {
   if ($doc->cvid > 0 ) {
 
     $cvdoc = new Doc($doc->dbaccess, $doc->cvid);
+    $cvdoc->set($doc);
     $ti = $cvdoc->getTValue("CV_IDVIEW");
     $tl = $cvdoc->getTValue("CV_LVIEW");
     $tz = $cvdoc->getTValue("CV_ZVIEW");
@@ -270,7 +271,7 @@ function popupcard(&$action) {
 	if ($ti[$k]=="") $cvk="CV$k";
 	else $cvk=$ti[$k];
 	if ($v == "VEDIT") {
-	  if (($clf)||($cud)) {
+	  if (($clf)||($cud)) {	    
 	    if ($cvdoc->control($cvk) == "") {
 	      $te[$cvk] = array("idview"   => $cvk,
 				"zoneview" => $tz[$k],

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.46 2004/01/09 09:34:00 eric Exp $
+ * @version $Id: viewcard.php,v 1.47 2004/02/12 10:28:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.46 2004/01/09 09:34:00 eric Exp $
+// $Id: viewcard.php,v 1.47 2004/02/12 10:28:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -110,6 +110,7 @@ function viewcard(&$action) {
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
     $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $cvdoc->set($doc);
     
     $err = $cvdoc->control($vid); // control special view
     if ($err != "") $action->exitError($err);

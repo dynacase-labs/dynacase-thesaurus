@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.57 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: modcard.php,v 1.58 2004/02/12 10:28:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.57 2004/02/05 15:42:58 eric Exp $
+// $Id: modcard.php,v 1.58 2004/02/12 10:28:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -106,6 +106,7 @@ function modcard(&$action, &$ndocid) {
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
     $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $cvdoc->Set($doc);
     $err = $cvdoc->control($vid); // control special view
     if ($err != "") $action->exitError($err);
     $tview = $cvdoc->getView($vid);
