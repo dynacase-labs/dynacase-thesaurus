@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskDir.php,v 1.1 2001/11/16 09:57:01 marc Exp $
+// $Id: Class.VaultDiskDir.php,v 1.2 2001/11/16 15:05:23 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskDir.php,v $
+// Revision 1.2  2001/11/16 15:05:23  marc
+// Release 0.0.2, see CHANGELOG
+//
 // Revision 1.1  2001/11/16 09:57:01  marc
 // V0_0_1 Initial release, see CHANGELOG
 //
@@ -93,6 +96,13 @@ Class VaultDiskDir extends DbObj {
     $query->basic_elem->sup_where=array("l_path='".$path."'", "id_fs=".$id_fs);
     $t = $query->Query();
     return ($query->nb > 0);
+  }
+
+  // --------------------------------------------------------------------
+  function DelEntry() {
+  // --------------------------------------------------------------------
+    $this->free_entries += 1;
+    $this->Modify();
   }
 
   // --------------------------------------------------------------------

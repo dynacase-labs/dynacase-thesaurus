@@ -1,0 +1,21 @@
+#!/bin/php
+<?php
+include_once("VAULT/Class.VaultFile.php");
+
+$CORE_LOGLEVEL = "DWEFI";
+global $CORE_LOGLEVEL;
+
+
+function _($txt) {
+  return $txt;
+}
+
+$dbaccess = "host=localhost user=anakeen port=5432 dbname=vault";
+
+$v = new VaultFile($dbaccess, "Sample");
+$msg = $v->Destroy($argv[1]);
+echo "Suppression id=".$argv[1]." msg=[$msg]\n";
+
+?>
+
+

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultFile.php,v 1.2 2001/11/16 11:14:26 marc Exp $
+// $Id: Class.VaultFile.php,v 1.3 2001/11/16 15:05:23 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultFile.php,v $
+// Revision 1.3  2001/11/16 15:05:23  marc
+// Release 0.0.2, see CHANGELOG
+//
 // Revision 1.2  2001/11/16 11:14:26  marc
 // V0_0_1 Initial release, see CHANGELOG
 //
@@ -157,10 +160,14 @@ Class VaultFile {
   }
 
   // ---------------------------------------------------------
-  function Delete($id) {
+  function Destroy($id) {
   // ---------------------------------------------------------
-    $this->cache->Delete($id);
-    $this->storage->Delete($id);
+    if ($this->chrono) $this->logger->start("Destroy");
+    if ($this->use_cache) $this->cache->Delete($id);
+    $msg = $this->storage->Destroy($id);
+    if ($msg!='') $this->logger->error($msg);
+    if ($this->chrono) $this->logger->end("Destroy");
+    return $msg;
   }
 
 }

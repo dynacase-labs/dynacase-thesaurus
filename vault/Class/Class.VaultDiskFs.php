@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.1 2001/11/16 09:57:01 marc Exp $
+// $Id: Class.VaultDiskFs.php,v 1.2 2001/11/16 15:05:23 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskFs.php,v $
+// Revision 1.2  2001/11/16 15:05:23  marc
+// Release 0.0.2, see CHANGELOG
+//
 // Revision 1.1  2001/11/16 09:57:01  marc
 // V0_0_1 Initial release, see CHANGELOG
 //
@@ -186,17 +189,28 @@ Class VaultDiskFs extends DbObj {
   }
 
   // --------------------------------------------------------------------
-  function AddEntry($f) {
+  function AddEntry($fs) {
   // --------------------------------------------------------------------
-    $this->free_size = $this->max_size - filesize($f);
+    $this->free_size = $this->max_size - $fs;
     $this->Modify();
   }
  
   // --------------------------------------------------------------------
-  function DelEntry($f) {
+  function DelEntry($id_fs, $id_dir, $fs) {
   // --------------------------------------------------------------------
-    $this->free_size = $this->max_size + filesize($f);
-    $this->Modify();
+    DbObj::Select($id_fs);
+    if ($this->IsAffected()) {
+      $this->free_size = $this->max_size + $fs;
+      $this->Modify();
+      $sd = new VaultDiskDir($this->vault, $this->specific, $id_dir);
+      if ($sd->IsAffected()) {
+	$sd->DelEntry();
+      } else {
+	return(_("no vault directory found"));
+      }
+    } else {
+      return(_("no vault file system found"));
+    }
     return '';
   }
   

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultFileDisk.php,v 1.1 2001/11/16 09:57:01 marc Exp $
+// $Id: Class.VaultFileDisk.php,v 1.2 2001/11/16 15:05:23 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Attic/Class.VaultFileDisk.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultFileDisk.php,v $
+// Revision 1.2  2001/11/16 15:05:23  marc
+// Release 0.0.2, see CHANGELOG
+//
 // Revision 1.1  2001/11/16 09:57:01  marc
 // V0_0_1 Initial release, see CHANGELOG
 //
@@ -122,7 +125,7 @@ Class VaultFileDisk extends DbObj {
     if (!chown($f, $this->vault->u_owner) || !chgrp($f, $this->vault->g_owner)) {
       $this->vault->logger->warning("Can't change owner for $f");
     }
-    $this->fs->AddEntry($f);
+    $this->fs->AddEntry($this->size);
     $this->vault->logger->info("File $infile stored in $f");
     return "";
   }
@@ -145,11 +148,16 @@ Class VaultFileDisk extends DbObj {
   }
 
   // --------------------------------------------------------------------     
-  function Delete() { 
+  function Destroy($id) { 
   // --------------------------------------------------------------------     
-    unlink($this->f_path);
-    $this->fs->DelEntry();
-    $this->dir->DelEntry();
+    $msg = $this->Show($id, $inf);
+    if ($msg == '' ) {
+      unlink($inf->path);
+      $msg = $this->fs->DelEntry($this->id_fs, $this->id_dir, $inf->size);
+      $this->Delete();
+    }
+
+    return $msg;
   }
 
 
