@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_vcard.php,v 1.2 2002/03/15 16:02:53 eric Exp $
+// $Id: usercard_vcard.php,v 1.3 2002/04/23 07:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_vcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -48,14 +48,9 @@ function usercard_vcard(&$action) {
   $vcard= new UsercardVcard();
   $export_file = uniqid("/tmp/export");
 
-  $tval=array();
-  reset($doc->values);
-  while (list($k,$v) = each($doc->values)) {
-    $tval[$v["attrid"]] = $v["value"];
-  }
 	
   $vcard->Open($export_file,"w");
-  $vcard->WriteCard($doc->title, $tval);
+  $vcard->WriteCard($doc->title, $doc->values);
   $vcard->close();
 
   

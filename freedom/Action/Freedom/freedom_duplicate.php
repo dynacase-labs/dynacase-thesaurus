@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.2 2002/04/08 15:12:18 eric Exp $
+// $Id: freedom_duplicate.php,v 1.3 2002/04/23 07:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,8 +65,8 @@ function freedom_duplicate(&$action) {
     
     
     while(list($k,$v) = each($values)) {
-      $value->attrid = $v["attrid"];
-      $value->value = $v["value"];
+      $value->attrid = $k;
+      $value->value = $v;
       $value->Add();
       
     }

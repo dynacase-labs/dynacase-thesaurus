@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.8 2002/04/17 15:25:03 eric Exp $
+// $Id: Class.DocUser.php,v 1.9 2002/04/23 07:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.8 2002/04/17 15:25:03 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.9 2002/04/23 07:45:15 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -242,15 +242,15 @@ Class DocUser extends Doc
       while(list($k,$v) = each($this->values)) {
 
 
-	$lvalue=$v["value"];
+	$lvalue=$v;
 	  //print $i.":".$lvalue."<BR>";
 	  if ($lvalue != "")
 	    {
 
 	      // create attributes to LDAP update
-	      $oattr=$this-> GetAttribute($v["attrid"]);
+	      $oattr=$this-> GetAttribute($k);
 	    
-	      $ldapattr = array_search($v["attrid"],$oldif->import);
+	      $ldapattr = array_search($k,$oldif->import);
 
 	      // particularity for URI need http://
 	      if ($oattr->id == QA_URI) $lvalue="http://".$lvalue;
@@ -301,7 +301,7 @@ Class DocUser extends Doc
     case "P":	
       if ($this->profid != "1") {
 	$this->profid = "1";
-	$this->modify();
+	$err=$this->modify();
       }
 
       $this->lock();
@@ -309,19 +309,20 @@ Class DocUser extends Doc
     case "R":	
       if ($this->profid != "0") {
 	$this->profid = "0";
-	$this->modify();
+	$err=$this->modify();
       }
       $this->lock();
     break;
     case "W":	
       if ($this->profid != "0") {
 	$this->profid = "0";
-	$this->modify();
+	$err=$this->modify();
       }
       $this->unlock();
     break;
 
     }
+    if ($err != "") AddLogMsg($this->title.":".$err);
   }
 
 

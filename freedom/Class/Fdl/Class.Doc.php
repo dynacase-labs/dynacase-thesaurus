@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.19 2002/04/19 15:24:46 eric Exp $
+// $Id: Class.Doc.php,v 1.20 2002/04/23 07:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.19 2002/04/19 15:24:46 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.20 2002/04/23 07:45:15 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -634,28 +634,30 @@ create sequence seq_id_doc start 1000";
   function GetValues()
     {
       if (!isset($this->values)) {
-	$query = new QueryDb($this->dbaccess,"DocValue");
-	$query->AddQuery("docid=".$this->id);
+	if (isset($this->id) && ($this->id>0)) {
+	  $query = new QueryDb($this->dbaccess,"DocValue");
+	  $query->AddQuery("docid=".$this->id);
     
-	$this->values=$query->Query(0,0,"TABLE");    
+	  $values=$query->Query(0,0,"TABLE");    
+	  while (list($k,$v) = each($values)) {
+	    $this->values[$v["attrid"]] = $v["value"];
+	  }
+	} else {
+	  $this->values=array();
+	}
       }
       return $this->values;
     }
 
   // return the value of an attribute object 
-  function GetValue($idAttr)
+  function GetValue($idAttr, $def="")
     {      
 
       if (!isset($this->values)) $this->GetValues();
 
-      if (is_array($this->values)) {
-	reset($this->values);
+      if (isset($this->values[$idAttr])) return $this->values[$idAttr];
 
-	while(list($k,$v) = each($this->values)) {
-	  if ($v["attrid"]==$idAttr) return $v["value"];
-	}
-      }
-      return "";
+      return $def;
 
     }
   // return the first attribute of type 'file'
