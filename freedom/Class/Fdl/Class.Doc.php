@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.22 2002/04/24 09:39:45 eric Exp $
+// $Id: Class.Doc.php,v 1.23 2002/04/29 15:41:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.22 2002/04/24 09:39:45 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.23 2002/04/29 15:41:38 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -135,10 +135,10 @@ create sequence seq_id_doc start 1000";
     if ($this->profid < 0) { // self control
 
 	if (! isset($lprof[$this->id])) {
-	$lprof[$this->id] =  new ObjectPermission("", 
-                                       array($this->userid,
-				             $this->id, 
-					     $this->classid));
+	$lprof[$this->id] =  new ObjectPermission($this->dbaccess, 
+						  array($this->userid,
+							$this->id, 
+							$this->classid));
 	//	print "SET $this->id : controlled  <BR>";
 	}
 	$this->operm= $lprof[$this->id];
