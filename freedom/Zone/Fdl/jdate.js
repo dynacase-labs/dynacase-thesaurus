@@ -64,7 +64,7 @@ function cal_to_jd( era, y, m, d, h, mn, s )
     if( jd0 - jd > 0.5 ) ++jd;
     return jd/100000;
 }
-function jdToWeekNUmber(JD) {
+function jdToWeekNumber(JD) {
   var J=JD+0;
     var D4=(J+31741-(J %7))% 146097 % 36524 % 1461;
     var L=Math.floor(D4/1460);
@@ -167,7 +167,7 @@ function jd_to_cal( jd, dformat )
 }
 function weekDay(jd) {
     //weekday
-    var	weekday = new Array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday");
+    var	weekday = new Array("[TEXT:Monday]","[TEXT:Tuesday]","[TEXT:Wednesday]","[TEXT:Thursday]","[TEXT:Friday]","[TEXT:Saturday]","[TEXT:Sunday]");
     var t  = parseFloat(jd) + 0.5;
     var wd = Math.floor( (t/7 - Math.floor(t/7))*7 + 0.000000000317 );   //add 0.01 sec for truncation error correction
     return weekday[wd];
@@ -222,14 +222,14 @@ function JDcalc( form ) {
         jd_to_cal(form.JDedit.value,form);
     }
     //weekday
-    var	weekday = new Array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday");
+    var	weekday = new Array("[TEXT:Monday]","[TEXT:Tuesday]","[TEXT:Wednesday]","[TEXT:Thursday]","[TEXT:Friday]","[TEXT:Saturday]","[TEXT:Sunday]");
     var t  = parseFloat(form.JDedit.value) + 0.5;
     var wd = Math.floor( (t/7 - Math.floor(t/7))*7 + 0.000000000317 );   //add 0.01 sec for truncation error correction
     form.wkday.value = weekday[wd];
 }
 
-var month = new Array("January","February","March","April","May","June","July",
-					  "August","September","October","November","December");
+var month = new Array("[TEXT:January]","[TEXT:February]","[TEXT:March]","[TEXT:April]","[TEXT:May]","[TEXT:June]","[TEXT:July]",
+					  "[TEXT:August]","[TEXT:September]","[TEXT:October]","[TEXT:November]","[TEXT:December]");
 var numdays = new Array(31,28,31,30,31,30,31,31,30,31,30,31);
 
 function ModifiedDate() {

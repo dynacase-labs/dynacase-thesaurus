@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.30 2004/12/29 10:02:16 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.31 2005/01/14 17:52:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -17,13 +17,13 @@
 var $defaultedit= "FREEDOM:EDITDSEARCH";
 var $defaultview= "FREEDOM:VIEWDSEARCH";
 
-#N_("include")
-#N_("equal")
-#N_("not equal")
-#N_("not include")
-#N_("not equal")
-#N_("&gt; or equal") N_("&lt; or equal")
-#N_("is empty") N_("is not empty") N_("one value equal")
+;#N_("include")
+;#N_("equal")
+;#N_("not equal")
+;#N_("not include")
+;#N_("not equal")
+;#N_("&gt; or equal") N_("&lt; or equal")
+;#N_("is empty") N_("is not empty") N_("one value equal")
 
 var $top=array("~*"=>array("label"=>"include"),
 	       "=" => array("label"=>"equal"),            
