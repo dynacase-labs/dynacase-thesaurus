@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Id: generic_mod.php,v 1.2 2002/04/17 12:50:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,7 +65,7 @@ function generic_mod(&$action) {
 
 
   AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
-  //  $err = $doc->PostModify(); // compute new lock & LDAP
+  $err = $doc->PostModify(); 
   if ($err != "")  $action-> ExitError($err);
   
   

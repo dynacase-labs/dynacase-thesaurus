@@ -42,7 +42,7 @@
 <!-- ------------ MENU NEW --------------------- -->
 <div  id="newmenu" class="popup">
 
-<a  id="newdoc" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[DEFAULT_FAMILY]&id=&dirid=[DEFAULT_FLD]';closeAllMenu()">[TEXT:New personn]</a>
+<a  id="newdoc" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[DEFAULT_FAMILY]&id=&dirid=[DEFAULT_FLD]';closeAllMenu()">[TEXT:New card]</a>
 <a  id="newcatg" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITNEWCATG';closeAllMenu()">[TEXT:New category]</a>
 <a  id="imvcard" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
 

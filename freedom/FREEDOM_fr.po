@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-04-15 10:47+0200\n"
+	"POT-Creation-Date: 2002-04-17 14:46+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -12,10 +12,6 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"Content-Type: text/plain; charset=ISO-8859-1\n"
 	"Content-Transfer-Encoding: 8-bit\n"
 	"\n"
-
-#, c-format
-msgid	"%s has been modified"
-msgstr	"%s a été modifié"
 
 msgid	"new usercard"
 msgstr	"Nouvelle carte"
@@ -29,6 +25,19 @@ msgstr	"document non référencé"
 msgid	"modify"
 msgstr	"Modifier"
 
+msgid	"no cvs import file specified"
+msgstr	"pas de fichier d'import CSV spécifié"
+
+msgid	"next"
+msgstr	"suivant"
+
+msgid	"prev"
+msgstr	"suivant"
+
+#, c-format
+msgid	"%s has been modified"
+msgstr	"%s a été modifié"
+
 #, c-format
 msgid	"search usercard contains %s in all categories"
 msgstr	"recherche des cartes contenant %s toutes catégories"
@@ -36,12 +45,6 @@ msgstr	"recherche des cartes contenant %s toutes catégories"
 #, c-format
 msgid	"search usercard contains %s in %s category"
 msgstr	"recherche des cartes contenant %s dans la catégorie %s"
-
-msgid	"next"
-msgstr	"suivant"
-
-msgid	"prev"
-msgstr	"suivant"
 
 #, c-format
 msgid	"%s : all categories "
@@ -54,11 +57,8 @@ msgstr	"%s : catégorie %s"
 msgid	"no vcard file specified"
 msgstr	"pas de fichier vcard spécifié"
 
-msgid	"no cvs import file specified"
-msgstr	"pas de fichier d'import CSV spécifié"
-
 msgid	"new incident"
-msgstr "Nouvel incident"
+msgstr	"Nouvel incident"
 
 #, c-format
 msgid	"%s has been locked"
@@ -105,6 +105,26 @@ msgstr	"indéfinie"
 
 msgid	"undated"
 msgstr	"non daté"
+
+#, c-format
+msgid	"search %s"
+msgstr	"recherche %s"
+
+#, c-format
+msgid	"search  contains %s in all state"
+msgstr	"recherche contenant %s (tout état)"
+
+#, c-format
+msgid	"search contains %s in %s"
+msgstr	"recherche contenant %s dans %s"
+
+#, c-format
+msgid	"%s all categories "
+msgstr	"%s toutes catégories"
+
+#, c-format
+msgid	"%s %s category "
+msgstr	"%s catégorie %s"
 
 #, c-format
 msgid	"add %s in %s folder"
@@ -209,7 +229,7 @@ msgstr	"pas de fichier référencé"
 
 #, c-format
 msgid	"%s has be sended"
-msgstr "%s a été envoyé"
+msgstr	"%s a été envoyé"
 
 msgid	"view folder"
 msgstr	"voir dossier"
@@ -588,74 +608,14 @@ msgstr	"Carnet d'adresses"
 msgid	"User Card Management"
 msgstr	"Carnet d'adresses"
 
-msgid	"Access Usercard Master Management"
-msgstr	"Accès à l'administration du carnet d'adresses"
-
-msgid	"Access To Usercard Management"
-msgstr	"Accès à l'utilisation du carnet d'adresses"
-
-msgid	"Access To Read User Card"
-msgstr	"Accès à la lecture du carnet d'adresses"
-
-msgid	"usercard home page"
-msgstr	"page d'accueil du carnet d'adresses"
-
-msgid	"edition"
-msgstr	"édition"
-
-msgid	"delete"
-msgstr	"supprimer"
-
-msgid	"add category"
-msgstr	"ajout de catégorie"
-
-msgid	"edit to add category"
-msgstr	"éditer pour l'ajout de catégorie"
-
-msgid	"edit to change category"
-msgstr	"édition pour changer de catégorie"
-
-msgid	"change category"
-msgstr	"changer de catégorie"
-
-msgid	"document history"
-msgstr	"historique du document"
-
-msgid	"modification or creation"
-msgstr	"modification ou création"
-
 msgid	"view as vcard"
 msgstr	"voir au format Vcard"
 
-msgid	"display logo"
-msgstr	"afficher le logo"
-
-msgid	"unlock usercard"
-msgstr	"déverrouiller la carte"
-
-msgid	"view list"
-msgstr	"voir la liste"
-
-msgid	"view a usercard"
-msgstr	"voir une carte"
-
-msgid	"edit import vcard"
-msgstr	"importation format Vcard"
-
-msgid	"view a part of list"
-msgstr	"voir une partie d'une liste"
+msgid	"initialisation"
+msgstr	"initialisation"
 
 msgid	"import vcard"
 msgstr	"Importation Vcard"
-
-msgid	"import csv"
-msgstr	"Import csv"
-
-msgid	"search a usercardt"
-msgstr	"rechercher une personne"
-
-msgid	"initialisation"
-msgstr	"initialisation"
 
 msgid	"Incident"
 msgstr	"Incident"
@@ -675,8 +635,23 @@ msgstr	"Accès en lecture seule aux incidents"
 msgid	"incident home page"
 msgstr	"Page d'accueil d'incident"
 
+msgid	"edition"
+msgstr	"édition"
+
+msgid	"document history"
+msgstr	"historique du document"
+
+msgid	"modification or creation"
+msgstr	"modification ou création"
+
+msgid	"display logo"
+msgstr	"afficher le logo"
+
 msgid	"unlock incident file"
 msgstr	"Déverrouiller un document incident"
+
+msgid	"view list"
+msgstr	"voir la liste"
 
 msgid	"view an incident"
 msgstr	"voir un incident"
@@ -687,15 +662,89 @@ msgstr	"rechercher un incident"
 msgid	"bilan"
 msgstr	"bilan"
 
-#, c-format
-msgid	"receipt call %s"
-msgstr	"appel reçu %s"
+msgid	"Generic"
+msgstr	"Générique"
 
-#, c-format
-msgid	"The incident call '%s' has been recorded on %s.\n"
-	"Its reference is %s"
-msgstr	"L'incident intitulé %s a bien été enregistré le %s.\n"
-	"Sa référence est %s"
+msgid	"generic Management"
+msgstr	"Gestion générique"
+
+msgid	"Access Generic Master Management"
+msgstr	"Accès à l'administration générique"
+
+msgid	"Access To Generic Management"
+msgstr	"Accès à la gestion générique"
+
+msgid	"Access To Read Card"
+msgstr	"Accès à la lecture"
+
+msgid	"generic home page"
+msgstr	"page d'accueil générique"
+
+msgid	"delete"
+msgstr	"supprimer"
+
+msgid	"add category"
+msgstr	"ajout de catégorie"
+
+msgid	"edit to add category"
+msgstr	"éditer pour l'ajout de catégorie"
+
+msgid	"edit to change category"
+msgstr	"édition pour changer de catégorie"
+
+msgid	"change category"
+msgstr	"changer de catégorie"
+
+msgid	"unlock generic"
+msgstr	"déverrouiller générique"
+
+msgid	"view a generic"
+msgstr	"voir une carte"
+
+msgid	"edit import vcard"
+msgstr	"importation format Vcard"
+
+msgid	"view a part of list"
+msgstr	"voir une partie d'une liste"
+
+msgid	"import csv"
+msgstr	"Import csv"
+
+msgid	"search a generict"
+msgstr	"rechercher une carte"
+
+msgid	"Products"
+msgstr	"Produits"
+
+msgid	"Product Management"
+msgstr	"Gestion des produits"
+
+msgid	"Sites"
+msgstr	"Sites"
+
+msgid	"Site Management"
+msgstr	"Gestion des sites"
+
+msgid	"Contracts"
+msgstr	"Contrats"
+
+msgid	"Contract Management"
+msgstr	"Gestion des contrats"
+
+msgid	"edition: "
+msgstr	"éditer"
+
+msgid	"public card - read access"
+msgstr	"carte publique - accès lecture"
+
+msgid	"public card - write access"
+msgstr	"carte publique - accès écriture"
+
+msgid	"private card"
+msgstr	"carte privée"
+
+msgid	"help"
+msgstr	"Aide"
 
 msgid	"New"
 msgstr	"Nouveau"
@@ -723,39 +772,6 @@ msgstr	"Toutes catg."
 
 msgid	"Properties:"
 msgstr	"Propriétés:"
-
-msgid	"edition: "
-msgstr	"éditer"
-
-msgid	"public card - read access"
-msgstr	"carte publique - accès lecture"
-
-msgid	"public card - write access"
-msgstr	"carte publique - accès écriture"
-
-msgid	"private card"
-msgstr	"carte privée"
-
-msgid	"help"
-msgstr	"Aide"
-
-msgid	" folder containt"
-msgstr	" contenu du dossier"
-
-msgid	"(private)"
-msgstr	"(privé)"
-
-msgid	"Choose a father category"
-msgstr	"Choisissez une catégorie père"
-
-msgid	"no father category (its a top category)"
-msgstr	"pas de catégorie père (catégorie primaire)"
-
-msgid	"new category"
-msgstr	"Nouvelle catégorie"
-
-msgid	"add new category"
-msgstr	"ajout nouvelle catégorie"
 
 msgid	"Choose new categories"
 msgstr	"Choisissez de nouvelles catégories"
@@ -815,6 +831,18 @@ msgstr	"Remplace la carte si permission accordée sinon duplication"
 msgid	"Keep address book card"
 msgstr	"Garde la carte originale"
 
+msgid	"Choose a father category"
+msgstr	"Choisissez une catégorie père"
+
+msgid	"no father category (its a top category)"
+msgstr	"pas de catégorie père (catégorie primaire)"
+
+msgid	"new category"
+msgstr	"Nouvelle catégorie"
+
+msgid	"add new category"
+msgstr	"ajout nouvelle catégorie"
+
 msgid	"Import Results"
 msgstr	"Résultat de l'importation"
 
@@ -823,6 +851,12 @@ msgstr	"Personnes ajoutées"
 
 msgid	"personn deleted"
 msgstr	"Personnes supprimées"
+
+msgid	" folder containt"
+msgstr	" contenu du dossier"
+
+msgid	"(private)"
+msgstr	"(privé)"
 
 msgid	" history"
 msgstr	" historique"
@@ -919,6 +953,9 @@ msgstr	"Gravité"
 
 msgid	"State"
 msgstr	"État"
+
+msgid	"New card"
+msgstr "Nouvelle carte"
 
 msgid	"View"
 msgstr	"Affichage"
@@ -1169,17 +1206,25 @@ msgstr	"Éditer"
 msgid	"Unlock"
 msgstr	"Déverrouiller"
 
-msgid	"Vcard"
-msgstr	"Vcard"
-
 msgid	"Change category"
 msgstr	"Changer de catégorie"
+
+msgid	"Vcard"
+msgstr	"Vcard"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
 
 msgid	"Delete"
 msgstr	"Supprimer"
+
+#~ msgid	"receipt call %s"
+#~ msgstr	"appel reçu %s"
+
+#~ msgid	"The incident call '%s' has been recorded on %s.\n"
+#~ 	"Its reference is %s"
+#~ msgstr	"L'incident intitulé %s a bien été enregistré le %s.\n"
+#~ 	"Sa référence est %s"
 
 #~ msgid	"admin"
 #~ msgstr	"administration"
@@ -1353,9 +1398,6 @@ msgstr	"Supprimer"
 
 #~ msgid	"Cannot Delete : Not Owner"
 #~ msgstr	"La suppression n'est autorisé que par son propriétaire"
-
-#~ msgid	"Contacts"
-#~ msgstr	"Contacts"
 
 #, fuzzy
 #~ msgid	"Contacts frame"

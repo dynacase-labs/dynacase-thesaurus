@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.15 2002/04/09 14:47:47 eric Exp $
+// $Id: Class.Doc.php,v 1.16 2002/04/17 12:50:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.15 2002/04/09 14:47:47 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.16 2002/04/17 12:50:15 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -608,7 +608,11 @@ create sequence seq_id_doc start 1000";
     if (chop($title1) != "")  $this->title = chop($title1);
 
   }
-
+ 
+  // no in postUpdate method :: call this only if real change (values)
+  function PostModify() {
+    // to be defined in child class
+  }
 
 
   // recompute the title from attribute values

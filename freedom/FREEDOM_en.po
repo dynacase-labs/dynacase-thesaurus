@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-04-15 10:47+0200\n"
+	"POT-Creation-Date: 2002-04-17 14:46+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -12,10 +12,6 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"Content-Type: text/plain; charset=ISO-8859-1\n"
 	"Content-Transfer-Encoding: 8-bit\n"
 	"\n"
-
-#, c-format
-msgid	"%s has been modified"
-msgstr	""
 
 #, fuzzy
 msgid	"new usercard"
@@ -30,12 +26,7 @@ msgstr	""
 msgid	"modify"
 msgstr	"Modify"
 
-#, c-format
-msgid	"search usercard contains %s in all categories"
-msgstr	""
-
-#, c-format
-msgid	"search usercard contains %s in %s category"
+msgid	"no cvs import file specified"
 msgstr	""
 
 #, fuzzy
@@ -43,6 +34,18 @@ msgid	"next"
 msgstr	"Export this card"
 
 msgid	"prev"
+msgstr	""
+
+#, c-format
+msgid	"%s has been modified"
+msgstr	""
+
+#, c-format
+msgid	"search usercard contains %s in all categories"
+msgstr	""
+
+#, c-format
+msgid	"search usercard contains %s in %s category"
 msgstr	""
 
 #, fuzzy, c-format
@@ -54,9 +57,6 @@ msgid	"%s : %s category "
 msgstr	"Title"
 
 msgid	"no vcard file specified"
-msgstr	""
-
-msgid	"no cvs import file specified"
 msgstr	""
 
 msgid	"new incident"
@@ -109,6 +109,26 @@ msgstr	""
 #, fuzzy
 msgid	"undated"
 msgstr	"Update LDAP server"
+
+#, fuzzy, c-format
+msgid	"search %s"
+msgstr	"Start search"
+
+#, c-format
+msgid	"search  contains %s in all state"
+msgstr	""
+
+#, c-format
+msgid	"search contains %s in %s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"%s all categories "
+msgstr	"Title"
+
+#, fuzzy, c-format
+msgid	"%s %s category "
+msgstr	"Title"
 
 #, c-format
 msgid	"add %s in %s folder"
@@ -599,83 +619,16 @@ msgstr	""
 msgid	"User Card Management"
 msgstr	""
 
-msgid	"Access Usercard Master Management"
-msgstr	""
-
-msgid	"Access To Usercard Management"
-msgstr	""
-
-msgid	"Access To Read User Card"
-msgstr	""
-
-msgid	"usercard home page"
-msgstr	""
-
-#, fuzzy
-msgid	"edition"
-msgstr	"Edit"
-
-msgid	"delete"
-msgstr	"Delete"
-
-#, fuzzy
-msgid	"add category"
-msgstr	"Category"
-
-msgid	"edit to add category"
-msgstr	""
-
-msgid	"edit to change category"
-msgstr	""
-
-#, fuzzy
-msgid	"change category"
-msgstr	"Category"
-
-msgid	"document history"
-msgstr	""
-
-msgid	"modification or creation"
-msgstr	""
-
 msgid	"view as vcard"
 msgstr	""
-
-msgid	"display logo"
-msgstr	""
-
-#, fuzzy
-msgid	"unlock usercard"
-msgstr	"Start search"
-
-msgid	"view list"
-msgstr	""
-
-#, fuzzy
-msgid	"view a usercard"
-msgstr	"Start search"
-
-msgid	"edit import vcard"
-msgstr	""
-
-msgid	"view a part of list"
-msgstr	""
-
-#, fuzzy
-msgid	"import vcard"
-msgstr	"Import"
-
-#, fuzzy
-msgid	"import csv"
-msgstr	"Import"
-
-#, fuzzy
-msgid	"search a usercardt"
-msgstr	"Start search"
 
 #, fuzzy
 msgid	"initialisation"
 msgstr	"Organisation"
+
+#, fuzzy
+msgid	"import vcard"
+msgstr	"Import"
 
 msgid	"Incident"
 msgstr	""
@@ -695,7 +648,23 @@ msgstr	""
 msgid	"incident home page"
 msgstr	""
 
+#, fuzzy
+msgid	"edition"
+msgstr	"Edit"
+
+msgid	"document history"
+msgstr	""
+
+msgid	"modification or creation"
+msgstr	""
+
+msgid	"display logo"
+msgstr	""
+
 msgid	"unlock incident file"
+msgstr	""
+
+msgid	"view list"
 msgstr	""
 
 msgid	"view an incident"
@@ -707,13 +676,96 @@ msgstr	""
 msgid	"bilan"
 msgstr	""
 
-#, c-format
-msgid	"receipt call %s"
+msgid	"Generic"
 msgstr	""
 
-#, c-format
-msgid	"The incident call '%s' has been recorded on %s.\n"
-	"Its reference is %s"
+msgid	"generic Management"
+msgstr	""
+
+msgid	"Access Generic Master Management"
+msgstr	""
+
+msgid	"Access To Generic Management"
+msgstr	""
+
+msgid	"Access To Read Card"
+msgstr	""
+
+msgid	"generic home page"
+msgstr	""
+
+msgid	"delete"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"add category"
+msgstr	"Category"
+
+msgid	"edit to add category"
+msgstr	""
+
+msgid	"edit to change category"
+msgstr	""
+
+#, fuzzy
+msgid	"change category"
+msgstr	"Category"
+
+#, fuzzy
+msgid	"unlock generic"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"view a generic"
+msgstr	"Start search"
+
+msgid	"edit import vcard"
+msgstr	""
+
+msgid	"view a part of list"
+msgstr	""
+
+#, fuzzy
+msgid	"import csv"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"search a generict"
+msgstr	"Start search"
+
+msgid	"Products"
+msgstr	""
+
+msgid	"Product Management"
+msgstr	""
+
+#, fuzzy
+msgid	"Sites"
+msgstr	"Identity"
+
+msgid	"Site Management"
+msgstr	""
+
+msgid	"Contracts"
+msgstr	""
+
+msgid	"Contract Management"
+msgstr	""
+
+#, fuzzy
+msgid	"edition: "
+msgstr	"Edit"
+
+msgid	"public card - read access"
+msgstr	""
+
+msgid	"public card - write access"
+msgstr	""
+
+msgid	"private card"
+msgstr	""
+
+msgid	"help"
 msgstr	""
 
 msgid	"New"
@@ -746,42 +798,6 @@ msgstr	"All"
 
 msgid	"Properties:"
 msgstr	""
-
-#, fuzzy
-msgid	"edition: "
-msgstr	"Edit"
-
-msgid	"public card - read access"
-msgstr	""
-
-msgid	"public card - write access"
-msgstr	""
-
-msgid	"private card"
-msgstr	""
-
-msgid	"help"
-msgstr	""
-
-msgid	" folder containt"
-msgstr	""
-
-msgid	"(private)"
-msgstr	""
-
-msgid	"Choose a father category"
-msgstr	""
-
-msgid	"no father category (its a top category)"
-msgstr	""
-
-#, fuzzy
-msgid	"new category"
-msgstr	"Category"
-
-#, fuzzy
-msgid	"add new category"
-msgstr	"Category"
 
 msgid	"Choose new categories"
 msgstr	""
@@ -842,6 +858,20 @@ msgstr	""
 msgid	"Keep address book card"
 msgstr	""
 
+msgid	"Choose a father category"
+msgstr	""
+
+msgid	"no father category (its a top category)"
+msgstr	""
+
+#, fuzzy
+msgid	"new category"
+msgstr	"Category"
+
+#, fuzzy
+msgid	"add new category"
+msgstr	"Category"
+
 msgid	"Import Results"
 msgstr	""
 
@@ -849,6 +879,12 @@ msgid	"personn added"
 msgstr	""
 
 msgid	"personn deleted"
+msgstr	""
+
+msgid	" folder containt"
+msgstr	""
+
+msgid	"(private)"
 msgstr	""
 
 msgid	" history"
@@ -956,6 +992,10 @@ msgstr	""
 #, fuzzy
 msgid	"State"
 msgstr	"Identity"
+
+#, fuzzy
+msgid	"New card"
+msgstr	"Category"
 
 msgid	"View"
 msgstr	""
@@ -1225,12 +1265,12 @@ msgstr	"Edit"
 msgid	"Unlock"
 msgstr	""
 
-msgid	"Vcard"
-msgstr	""
-
 #, fuzzy
 msgid	"Change category"
 msgstr	"Category"
+
+msgid	"Vcard"
+msgstr	""
 
 msgid	"View properties"
 msgstr	""

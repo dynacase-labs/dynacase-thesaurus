@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.6 2002/04/17 09:03:12 eric Exp $
+// $Id: Class.DocUser.php,v 1.7 2002/04/17 12:50:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.6 2002/04/17 09:03:12 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.7 2002/04/17 12:50:15 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -34,7 +34,9 @@ define('QA_URI', "US_WORKWEB"); // URI attribute
 define('QA_MAIL', "US_MAIL"); // MAIL attribute
 define('QA_FNAME', "US_FNAME"); // First name attribute
 define('QA_LNAME', "US_LNAME"); // Last name attribute
-define('FAM_DOCUSER', 120); // URI attribute
+
+define('TOP_FAMDIR', 121); // idem  DEFAULT_FLD
+
 
 Class DocUser extends Doc
 {
@@ -94,7 +96,7 @@ Class DocUser extends Doc
     }
 
     $this->SetPrivacity(); // set doc properties in concordance with its privacity
-    $this->DeleteTemporary(); // delete temporary search
+
     return ($err);
   }
 
@@ -351,7 +353,9 @@ Class DocUser extends Doc
   function GetCatgId($title) { // return the id for catg named $title
   // --------------------------------------------------------------------
 
-    return $this->_GetCatgId(TOP_USERDIR, $title);
+    global $action;
+
+    return $this->_GetCatgId(TOP_FAMDIR, $title);
   }
 
   // --------------------------------------------------------------------

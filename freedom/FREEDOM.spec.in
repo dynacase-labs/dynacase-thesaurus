@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.18 2002/04/17 09:03:12 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.19 2002/04/17 12:50:15 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -138,6 +138,9 @@ ln -sf %{destdir}/FDL/include.php %{destdir}/CONTRACT/include.php
 if [ "$1" = 0 ] ; then
   echo "Remove Database elements"
   %{destdir}/wsh.php --api=appadmin --method=delete --appname=INCIDENT
+  %{destdir}/wsh.php --api=appadmin --method=delete --appname=SITE
+  %{destdir}/wsh.php --api=appadmin --method=delete --appname=PRODUCT
+  %{destdir}/wsh.php --api=appadmin --method=delete --appname=CONTRACT
 fi
 
 %post LIB
@@ -174,6 +177,7 @@ done
 if [ "$1" = 0 ] ; then
   echo "Remove Database elements"
   %{destdir}/wsh.php --api=appadmin --method=delete --appname=@PACKAGELIB@
+  %{destdir}/wsh.php --api=appadmin --method=delete --appname=GENERIC
 fi
 
 %files

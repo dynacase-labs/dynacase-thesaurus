@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Id: GENERIC.app,v 1.2 2002/04/17 12:50:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,11 +128,6 @@ $action_desc = array (
    "name"		=>"GENERIC_TAB",
    "short_name"		=>N_("view a part of list"),
    "acl"		=>"GENERIC_READ"
-  ) ,
-  array( 
-   "name"		=>"GENERIC_IMPORTVCARD",
-   "short_name"		=>N_("import vcard"),
-   "acl"		=>"GENERIC_MASTER"
   ) ,
   array( 
    "name"		=>"GENERIC_IMPORTCSV",
