@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.22 2003/02/28 19:39:17 eric Exp $
+// $Id: mailcard.php,v 1.23 2003/03/11 17:12:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FDL/viewbodycard.php");
+include_once("FDL/Class.Doc.php");
 include_once("Class.MailAccount.php");
 
 
@@ -52,6 +52,7 @@ function sendmailcard(&$action) {
 		  GetHttpVars("szone","N")=="Y",
 		  GetHttpVars("_mail_cm",""),
 		  GetHttpVars("_mail_from",""), 
+		  GetHttpVars("_mail_bcc",""), 
 		  GetHttpVars("_mail_format","html")
 		  );
 }
@@ -279,7 +280,7 @@ function sendCard(&$action,
     $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to));   
   } else {
     print ($cmd);
-    $err=sprintf(_("%s cannot be sent"),$title;
+    $err=sprintf(_("%s cannot be sent"),$title);
     $action->addlogmsg(sprintf(_("%s cannot be sent"),$title));
   }
 
