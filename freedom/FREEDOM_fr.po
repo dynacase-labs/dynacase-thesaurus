@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2003-07-21 13:45+0200\n"
+	"POT-Creation-Date: 2003-07-24 15:08+0200\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -230,7 +230,7 @@ msgstr	"%s a été supprimé dans le dossier %s"
 
 #, c-format
 msgid	"the document %s is not a container"
-msgstr "le document %s n'est pas un conteneur"
+msgstr	"le document %s n'est pas un conteneur"
 
 msgid	"description"
 msgstr	"description"
@@ -434,7 +434,7 @@ msgstr	"fichiers verrouillés par "
 
 #, c-format
 msgid	"basket of %s"
-msgstr "panier de %s"
+msgstr	"panier de %s"
 
 #, c-format
 msgid	"Cannot add %s in %s folder, restriction set to add this kind of "
@@ -470,11 +470,15 @@ msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
 msgid	"already exist : not added"
 msgstr	"déjà existant : pas ajouté"
 
-msgid	"untitle document"
-msgstr	"document sans titre"
+#, c-format
+msgid	"untitle %s %d"
+msgstr "%s sans titre %d"
 
 msgid	"cannot update no initialized document"
 msgstr	"mise à jour impossible : document non initialisé"
+
+msgid	"untitle document"
+msgstr	"document sans titre"
 
 #, c-format
 msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
@@ -512,6 +516,10 @@ msgstr	"%s doit être rempli\n"
 
 msgid	"document already revised"
 msgstr	"document déjà révisé"
+
+#, c-format
+msgid	"the document of %s family cannot be revised"
+msgstr "lee documents de la famille %s ne peuvent être révisés"
 
 msgid	"vault file error"
 msgstr	"erreur fichier Vault"
@@ -796,11 +804,11 @@ msgstr	"%s intranet personne a été créé\n"
 
 #, c-format
 msgid	"%d documents found"
-msgstr "%d documents trouvés"
+msgstr	"%d documents trouvés"
 
 #, c-format
 msgid	"%d document found"
-msgstr "%d document trouvé"
+msgstr	"%d document trouvé"
 
 msgid	"creation"
 msgstr	"création"
@@ -923,10 +931,10 @@ msgid	"add file query into directory"
 msgstr	"ajout d'un document dans un dossier"
 
 msgid	"insert containt of a folder into another"
-msgstr "insérer le contenu d'un dossier dans un autre"
+msgstr	"insérer le contenu d'un dossier dans un autre"
 
 msgid	"clear containt of a folder"
-msgstr "effacer le contenu d'un dossier"
+msgstr	"effacer le contenu d'un dossier"
 
 msgid	"move file query into directory"
 msgstr	"déplacement d'un document dans un dossier"
@@ -1097,7 +1105,7 @@ msgid	"enabled/disabled full text search"
 msgstr	"autoriser la recherche plein texte"
 
 msgid	"id of the basket folder"
-msgstr "identifiant du panier"
+msgstr	"identifiant du panier"
 
 msgid	"mnoGoSearch: indexer database access specification"
 msgstr	"mnoGoSearch: spécification d'accès à la base de l'indexation plein "
@@ -1900,8 +1908,11 @@ msgstr	" Résultat de l'importation de documents"
 msgid	"view properties"
 msgstr	"voir les propriétés"
 
+msgid	"link document"
+msgstr	"référencer le document"
+
 msgid	"Add to basket"
-msgstr "Ajouter au panier"
+msgstr	"Ajouter au panier"
 
 msgid	"access path list"
 msgstr	"liste des chemin d'accès"
@@ -2120,10 +2131,13 @@ msgid	"column"
 msgstr	"colonne"
 
 msgid	"All To basket"
-msgstr "Mettre tout au panier"
+msgstr "Tout insérer dans le panier"
 
 msgid	"Clear Folder"
-msgstr "Vider le dossier"
+msgstr	"Vider le dossier"
+
+msgid	"enumerate input not found"
+msgstr "entrée énumérée non trouvé"
 
 msgid	"some needed attributes are empty"
 msgstr	"certains attributs obligatoires sont vides"
@@ -2170,6 +2184,9 @@ msgstr	"Dupliquer"
 msgid	"goaccess"
 msgstr	"accessibilités..."
 
+msgid	"Add postit"
+msgstr "Ajouter un post-it"
+
 msgid	"View XML"
 msgstr	"Voir XML"
 
@@ -2202,6 +2219,9 @@ msgstr	"Supprimer"
 
 msgid	"mini view"
 msgstr	"mini vue"
+
+msgid	"post it"
+msgstr "post-it"
 
 msgid	"senddoc"
 msgstr	"envoyer"
@@ -2268,9 +2288,6 @@ msgstr	"Changer de catégorie"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
-
-#~ msgid	"link document"
-#~ msgstr	"référencer le document"
 
 #~ msgid	"yes"
 #~ msgstr	"oui"
