@@ -23,6 +23,7 @@ IMG.unselect {
   border-style : none
   width:40;
   height:40;  
+  cursor: crosshair;
 }
 IMG.select {
   border-style: hidden;
@@ -31,7 +32,8 @@ IMG.select {
   width:40;
   height:40;  
   background-color:[CORE_BGCOLORALTERN];
-  border-style : solid
+  border-style : solid;
+  cursor: crosshair;
 }
 
 

@@ -23,25 +23,9 @@ function unhighlight(th) {
 
 var isNetscape = navigator.appName=="Netscape";
 
-var Xpos = 0;
-var Ypos = 0;
 var docid = 1;
 
 
-function getFrameWidth() {
-      winW = window.innerWidth;
-      if (! winW)	   
-            winW = document.body.offsetWidth;
-
-      return (winW);
-  }
-
-function getFrameHeight() {
-      winH= window.innerHeight;
-      if (! winH)	
-           winH = document.body.offsetHeight;
-      return (winH);
-  }
 
 
 // align automatically icon with screen width 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_view.php,v 1.2 2001/11/30 15:13:39 eric Exp $
+// $Id: freedom_view.php,v 1.3 2001/12/10 10:05:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_view.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_view.php,v $
+// Revision 1.3  2001/12/10 10:05:52  eric
+// mise en place iFrame pour choix enum
+//
 // Revision 1.2  2001/11/30 15:13:39  eric
 // modif pour Css
 //
@@ -95,6 +98,7 @@ function view_folder(&$action, $with_abstract=false) {
   $action->lay->Set("dirid",$dirid);
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
 
   // Set Css

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.1 2001/12/08 17:16:30 eric Exp $
+// $Id: enum_choice.php,v 1.2 2001/12/10 10:05:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,7 +79,7 @@ function enum_choice(&$action) {
 
   $action->lay->Set("attrid", $sattrid);
   $action->lay->SetBlockData("SELECT", $tselect);
-  $action->lay->Set("nselect", (count($tselect)>10)?10:count($tselect));
+  $action->lay->Set("nselect", (count($tselect)>7)?7:count($tselect));
   $action->lay->SetBlockData("ATTRVAL", $tval);
 }
 

@@ -42,13 +42,15 @@ TD.tlist {
 }
 
 TR.unselect {
+  cursor: crosshair;
 
 }
 
 
 TR.select {
   background-color:[CORE_BGCOLORALTERN];
-  border-style : solid
+  border-style : solid;
+  cursor: crosshair;
 } 
 
 

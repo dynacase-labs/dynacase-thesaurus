@@ -4,18 +4,7 @@ var Xpos = 0;
 var Ypos = 0;
 
 
-function GetXY(event) {
-  if (window.event) {
-    Xpos = window.event.clientX + document.documentElement.scrollLeft
-                             + document.body.scrollLeft;
-    Ypos = window.event.clientY + document.documentElement.scrollTop +
-                             + document.body.scrollTop;
-  }
-  else {
-    Xpos = event.clientX + window.scrollX;
-    Ypos = event.clientY + window.scrollY;
-  }    
-}
+
 function changeClass(th, name)
 { th.className=name;return true}
 

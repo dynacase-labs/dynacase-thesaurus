@@ -186,7 +186,7 @@ function drawFolder(leftSide)
   doc.write("<tr><td class=\"fld\">") 
   doc.write(leftSide) 
     //  this.outputLink() 
-  doc.write("<img id='folderIcon" + this.id + "' name='folderIcon" + this.id + "' src='" + this.iconSrc+"' border=0 style=\"cursor:pointer\"");
+  doc.write("<img id='folderIcon" + this.id + "' name='folderIcon" + this.id + "' src='" + this.iconSrc+"' border=0 style=\"cursor:crosshair\"");
 
 
 

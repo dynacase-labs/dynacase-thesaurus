@@ -1,6 +1,6 @@
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.1 2001/11/09 09:35:47 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.2 2001/12/10 10:05:52 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -27,6 +27,7 @@ Requires: apache >= 1.3.12
 Requires: postgresql >= 7.0.0
 Requires: php-pgsql >= 4.0.2
 Requires: libwhat >= 0.4.9
+Requires: libjs >= 0.2.4
 Prereq: CORE >= 0.4.7
 Prereq: php-shell >= 4.0.2
 Prereq: gettext

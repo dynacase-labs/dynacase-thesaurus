@@ -24,7 +24,8 @@
   <!--
     [JS:CODE]
 
-function sendmodifydoc(docid, attrid) {
+
+function sendmodifydoc(event,docid, attrid) {
 
 
   f =document.modifydoc;
@@ -32,12 +33,15 @@ function sendmodifydoc(docid, attrid) {
   oldact = f.action;
   oldtar = f.target;
   f.action = '[CORE_STANDURL]&app=[FREEDOM_APP]&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid;
-  w= window.open('about:blank',
-              'choose',
-              'resizable=yes,scrollbars=yes,width=100,height=100,top=100,left=100');
-  w.focus();
-  f.target='choose';
 
+  f.target='ichoose';
+
+  GetXY(event);
+  with (document.getElementById('choose')) {
+     style.visibility='visible';
+     style.top = Ypos;
+     style.left = Xpos-20;
+  }
   f.submit();
   // reset to initial action
   f.action=oldact;
@@ -53,6 +57,10 @@ function sendmodifydoc(docid, attrid) {
 
 <body class="freedom">
 
+<iframe  style="visibility:hidden;position:absolute;top:0;left:0;padding:0pt;marging:0pt;" SRC="about:blank" NAME="ichoose" id="choose" width="100px" marginwidth="0" marginheight="0" frameborder="0"> 
+   You will not see this text if your browser supports IFRAME.
+If you CAN see this, you are in a bad way.
+   </iframe>
 <form method="POST" target="_blank" name="choose"></form>
 
 

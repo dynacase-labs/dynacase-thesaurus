@@ -46,24 +46,43 @@ function completechoice(index) {
     }
 
 }
+
+function closeframe(idf) {
+    winfo = window.open('','info','');
+winfo.document.getElementById(idf).style.visibility='hidden';
+}
+
+function resizeIFrame() {
+
+  document.getElementById('dchoose').style.width= document.getElementById('schoose').offsetWidth+2;
+    winfo = window.open('','info','');
+winfo.document.getElementById('choose').style.width= document.getElementById('schoose').offsetWidth+10;
+}
 -->
 </script>   
  </head>
 
-<body >
+<body style="padding:0pt;marging:0pt"
+      onLoad="resizeIFrame()">
 
-<div align="center" >
 
-<select style="align:center" size="[nselect]" onClick="completechoice(this.options[this.selectedIndex].value)">
+<div id="dchoose" style="border-width:4px;border-style:groove;border-color:[CORE_FGCOLOR]">
+<img src="[IMG:bred.gif]" 
+     style="cursor:pointer" 
+     onClick="closeframe('choose');"
+     title="[TEXT:close]"
+     alt="[TEXT:close]">
+<br>
+<select id="schoose" 
+        style="align:center" 
+	size="[nselect]" 
+	onClick="completechoice(this.options[this.selectedIndex].value)" >
                     [BLOCK SELECT]
 <option value="[cindex]"   >[choice]</option>        
                     [ENDBLOCK SELECT]
 </select>
-<br>
-<button TYPE="button" NAME="cancel" TABINDEX=1 onClick="self.close()">[TEXT:close]</button>
 
 
 </div>
-
 </body>
 </html>

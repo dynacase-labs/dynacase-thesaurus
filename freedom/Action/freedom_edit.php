@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.11 2001/12/08 17:16:30 eric Exp $
+// $Id: freedom_edit.php,v 1.12 2001/12/10 10:05:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.12  2001/12/10 10:05:52  eric
+// mise en place iFrame pour choix enum
+//
 // Revision 1.11  2001/12/08 17:16:30  eric
 // evolution des attributs
 //
@@ -84,6 +87,7 @@ function freedom_edit(&$action) {
   $standurl=$action->GetParam("CORE_STANDURL");
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
    
 
@@ -332,7 +336,7 @@ function freedom_edit(&$action) {
 	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " > "; 
 	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
-		 _("...")."\" onClick=\"sendmodifydoc(".$doc->id.
+		 _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
 		 ",".$listattr[$i]->id.")\">";
 		break;
 
