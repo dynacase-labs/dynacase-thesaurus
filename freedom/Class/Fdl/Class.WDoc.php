@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.11 2003/01/13 19:01:11 eric Exp $
+// $Id: Class.WDoc.php,v 1.12 2003/01/15 11:40:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.11 2003/01/13 19:01:11 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.12 2003/01/15 11:40:17 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -86,7 +86,7 @@ Class WDoc extends Doc {
 
   function CreateProfileAttribute() {
 
-    if ($this->doctype='C') $cid = $this->id;
+    if ($this->doctype=='C') $cid = $this->id;
     else $cid = $this->fromid;
 
     $oattr = new DocAttr($this->dbaccess);
@@ -96,6 +96,7 @@ Class WDoc extends Doc {
 
       $oattr->id=strtolower($this->attrPrefix."_FR_PROFIL");
       $oattr->type="frame";
+      $oattr->visibility="F";
       $oattr->ordered=100;
       $oattr->labeltext=_("state profile");
     $oattr->Add();
@@ -110,7 +111,7 @@ Class WDoc extends Doc {
       // id
       $oattr->visibility="H";
       $oattr->type="text";
-      $oattr->id=$aidprofilid;
+      $oattr->id=strtolower($aidprofilid);
       $oattr->labeltext=sprintf(_("id %s profile"),_($state));
       $oattr->link="";
       $oattr->phpfile="fdl.php";
