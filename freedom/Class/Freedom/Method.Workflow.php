@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------
-// $Id: Method.Workflow.php,v 1.1 2003/06/27 07:40:45 mathieu Exp $
+// $Id: Method.Workflow.php,v 1.2 2003/07/03 10:21:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Workflow.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // ---------------------------------------------------------------
 
 var $defaultedit="FREEDOM:EDIT_WORKFLOW";
-var $defaultview="FREEDOM:VIEW_WORKFLOW";
+var $defaultview="FREEDOM:VIEW_WORKFLOW:S";
 
 function edit_workflow($target="finfo",$ulink=true,$abstract="Y") {
   global $action;

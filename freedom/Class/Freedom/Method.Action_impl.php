@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------
-// $Id: Method.Action_impl.php,v 1.1 2003/06/27 07:40:45 mathieu Exp $
+// $Id: Method.Action_impl.php,v 1.2 2003/07/03 10:21:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Action_impl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,25 +33,9 @@ function edit_impl($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->Set("docid", $this->id);
   $this->lay->Set("TITLE", $this->title);
   
-  $title=$this->Getattribute("BA_TITLE");
-  $this->lay->Set("name1",$title->labelText);
-  $value = $this->GetValue($title->id);
-  $this->lay->Set("inputtype1",getHtmlInput($this,$title,$value));
 		  
-		  
-  $descrip=$this->Getattribute("AI_ACTION");
-  $this->lay->Set("name2",$descrip->labelText);
-  $value = $this->GetValue($descrip->id);
-  $this->lay->Set("inputtype2",getHtmlInput($this,$descrip,$value));
-		  
-  $etat=$this->Getattribute("AI_ARGS");
-  $this->lay->Set("name3",$etat->labelText);
-  $value = $this->GetValue($etat->id);
-  $this->lay->Set("inputtype3",getHtmlInput($this,$etat,$value));
 
-  $etat=$this->Getattribute("AI_IDACTION");
-  $value = $this->GetValue($etat->id);
-  $this->lay->Set("inputtype4",getHtmlInput($this,$etat,$value));
+  $this->editattr($target,$ulink,$abstract);
 
 
 		  

@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.10 2003/06/19 18:10:07 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.11 2003/07/03 10:21:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,6 +57,8 @@ function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$diri
     else $filters[] = "values ~* '$keyword' ";
   }
  
+  if ($this->getValue("SE_LATEST") == "fixed") $filters[] = "locked = -1";
+
   $tol = $this->getTValue("SE_OLS");
   $tkey = $this->getTValue("SE_KEYS");
   $taid = $this->getTValue("SE_ATTRIDS");

@@ -14,29 +14,29 @@
 <tr >
 
 
-  <td  width="20%"><span class="FREEDOMLabel">[name1]&nbsp;:&nbsp;</span></td>
-  <td  width="80%">[inputtype1]</td>
+  <td  width="20%"><span class="FREEDOMLabel">[L_BA_TITLE]&nbsp;:&nbsp;</span></td>
+  <td  width="80%">[V_BA_TITLE]</td>
 </tr>
            
 <tr >
 
 
-  <td  width="20%"><span class="FREEDOMLabel">[name2]&nbsp;:&nbsp;</span></td>
-  <td  width="80%">[inputtype2]</td>
+  <td  width="20%"><span class="FREEDOMLabel">[L_AI_ACTION]&nbsp;:&nbsp;</span></td>
+  <td  width="80%">[V_AI_ACTION]</td>
 </tr>
 
 <tr><td><input type="button" value="chercher arguments" onclick="document.isChanged=false;search_args([famid]);return false;"></input></td></tr>
 
 <tr >
 
-  <td  width="20%"><span class="FREEDOMLabel">[name3]&nbsp;:&nbsp;</span></td>
-  <td  width="80%">[inputtype3]</td>
+  <td  width="20%"><span class="FREEDOMLabel">[L_AI_ARGS]&nbsp;:&nbsp;</span></td>
+  <td  width="80%">[V_AI_ARGS]</td>
 </tr>
 
 <tr >
 
   
-  <td  width="80%">[inputtype4]</td>
+  <td  width="80%">[V_AI_IDACTION]</td>
 </tr>
 
 
