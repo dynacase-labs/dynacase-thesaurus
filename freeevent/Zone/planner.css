@@ -12,7 +12,7 @@ DIV.monthOdd {
 	overflow:hidden;
 	text-align:center;
 	text-align:center;
-	-moz-opacity:.8;
+/*	-moz-opacity:.8;*/
 	filter:alpha(opacity=80);
 	position:absolute;
 	left=0px;
@@ -23,7 +23,7 @@ DIV.monthEven {
 	background-color:orange;
 	overflow:hidden;
 	text-align:center;
-	-moz-opacity:.8;
+/*	-moz-opacity:.8;*/
 	filter:alpha(opacity=80);
 	position:absolute;
 	left=0px;
@@ -35,7 +35,7 @@ DIV.weekOdd {
 	background-color:lightblue;
 	overflow:hidden;
 	text-align:center;
-	-moz-opacity:.8;
+/*	-moz-opacity:.8;*/
 	filter:alpha(opacity=80);
 	position:absolute;
 	left=0px;
@@ -46,7 +46,7 @@ DIV.weekEven {
 	background-color:salmon;
 	overflow:hidden;
 	text-align:center;
-	-moz-opacity:.8;
+/*	-moz-opacity:.8;*/
 	filter:alpha(opacity=80);
 	position:absolute;
 	left=0px;
@@ -57,7 +57,7 @@ DIV.dayOdd {
 	background-color:lightgreen;
 	overflow:hidden;
 	text-align:center;
-	-moz-opacity:.8;
+/*	-moz-opacity:.8;*/
 	filter:alpha(opacity=80);
 	position:absolute;
 	left=0px;
@@ -68,7 +68,7 @@ DIV.dayEven {
 	background-color:pink;
 	overflow:hidden;
 	text-align:center;
-	-moz-opacity:.8;
+/*	-moz-opacity:.8;*/
 	filter:alpha(opacity=80);
 	position:absolute;
 	left=0px;
@@ -129,4 +129,10 @@ DIV.fond {
 /*	background-image:url('../../Images/millimetre.png');*/
 	background-color:transparent;
 
+}
+DIV.description {
+	position:absolute;
+	border: solid red 1px;
+	left:0px;
+	top:0px;
 }

@@ -20,6 +20,16 @@ var $eventAttBeginDate;
  */
 var $eventAttEndDate;
 /**
+ * identificator of the attribute which containt the description of the  event
+ * @var string
+ */
+var $eventAttDesc;
+/**
+ * identificator of the attribute which containt the code of the event
+ * @var string
+ */
+var $eventAttCode;
+/**
  * identificators of the attribute which containt the document id of the ressource
  * @var array
  */
@@ -60,6 +70,8 @@ function pEventDefault() {
   }
   $evt->setValue("evt_begdate",$this->getEventBeginDate());
   $evt->setValue("evt_enddate",$this->getEventEndDate());
+  $evt->setValue("evt_desc",$this->getEventDesc());
+  $evt->setValue("evt_code",$this->getEventCode());
 
   $evt->setValue("evt_idcreator",$this->getEventOwner());
   $evt->setValue("evt_transft", 'pEventDefault');
@@ -101,13 +113,27 @@ function getEventOwner() {
   return $u->fid;
 }
 /**
- * get the owner the event
- * @return int freedom id user
+ * get the title the event
+ * @return string 
  */
 function getEventTitle() {
   return $this->title;
 }
 
+/**
+ * get the description of the event
+ * @return string
+ */
+function getEventDesc() {
+  return $this->getValue($this->eventAttDesc);
+}
+/**
+ * get the description of the event
+ * @return string
+ */
+function getEventCode() {
+  return $this->getValue($this->eventAttCode);
+}
 /**
  * get the ressources
  * @return array of ressources

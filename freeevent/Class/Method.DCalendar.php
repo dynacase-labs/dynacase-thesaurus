@@ -82,8 +82,8 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
     }
   }
 
-    print "<br>wstart:$wstart:".jd2cal($wstart);
-   print "<br>wend:$wend:".jd2cal($wend);
+  //  print "<br>wstart:$wstart:".jd2cal($wstart);
+  // print "<br>wend:$wend:".jd2cal($wend);
   
 
   $mstart=5000000; // vers 9999
@@ -142,14 +142,16 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 		       "subline"=>$byres?$colorredid[$ir]:$sub,
 		       //"subline"=>$colorredid[$ir],
 		       "divid"=>"div$k$ki",
-		       "idx"=>$sub,
-		       "evticon"=>$this->getIcon($v["icon"]),
+		       "idx"=>$sub,		      
+		       "evticon"=>$this->getIcon($v["evt_frominitiatoricon"]),
 		       "rid"=>getv($v,"evt_idinitiator"),
 		       "eid"=>getv($v,"id"),
 		       "divtitle"=>((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"],
-		       "bartitle"=>sprintf("%s - %s",
-					   substr(getv($v,"evt_begdate"),0,10),
-					   substr(getv($v,"evt_enddate"),0,10)));
+		       "desc"=>addslashes(sprintf("<b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",$v["title"],
+						  getv($v,"evt_frominitiator"),
+						  substr(getv($v,"evt_begdate"),0,10),
+						  substr(getv($v,"evt_enddate"),0,10),
+						  getv($v,"evt_desc"))));
       $SX[$ir]+=$w;
       $sub++;
       $tres[$ir]=array("BAR"=>"bar$ir",
@@ -213,7 +215,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   }
   $idp=$this->getValue("DCAL_IDPRODUCER");
   if ($idp != "") {
-    $cond=$this->getSqlCond("evt_frominitiator","=",$idp);
+    $cond=$this->getSqlCond("evt_frominitiatorid","=",$idp);
     $filters[]=$cond;
   }
   $tidres=$this->getTValue("DCAL_IDRES");
