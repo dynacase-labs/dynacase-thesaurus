@@ -45,11 +45,18 @@ function pEventDefault() {
     
   }
   if ($evt->isAlive()) {
-    $evt->AddComment(sprintf(_("change period from [%s %s] to [%s %s]"),
-			     $evt->getValue("evt_begdate"),
-			     $evt->getValue("evt_enddate"),
-			     $this->getEventBeginDate(),
-			     $this->getEventEndDate()));
+    if (($evt->getValue("evt_begdate") != $this->getEventBeginDate()) ||
+	($evt->getValue("evt_enddate") != $this->getEventEndDate())) {
+      $evt->AddComment(sprintf(_("change period from [%s %s] to [%s %s]"),
+			       $evt->getValue("evt_begdate"),
+			       $evt->getValue("evt_enddate"),
+			       $this->getEventBeginDate(),
+			       $this->getEventEndDate()));
+    } else {
+      $evt->AddComment(sprintf(_("Changes from document \"%s\" [%d]"),
+			       $this->title,
+			       $this->id));
+    }
   }
   $evt->setValue("evt_begdate",$this->getEventBeginDate());
   $evt->setValue("evt_enddate",$this->getEventEndDate());

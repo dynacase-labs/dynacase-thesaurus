@@ -1,0 +1,24 @@
+// famille portail;;;id;class;name;;;;;;;
+BEGIN;0;événement;32;;EVENT;;;;;;;
+TYPE;C;;;;;;;;;;;
+;;;;;;;;;;;;
+ICON;event.gif;;;;;;;;;;;
+METHOD;Method.Event.php;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+ATTR;EVT_FR_IDENT;;identification;N;N;frame;10;W;;;;
+ATTR;EVT_TITLE;EVT_FR_IDENT;titre;Y;N;text;20;W;Y;;;
+;;;;;;;;;;;;
+ATTR;EVT_DESC;EVT_FR_IDENT;description;N;N;longtext;30;W;;;;
+ATTR;EVT_BEGDATE;EVT_FR_IDENT;date début;N;N;timestamp;40;W;;;;
+ATTR;EVT_ENDDATE;EVT_FR_IDENT;date fin;N;N;timestamp;50;W;;;;
+ATTR;EVT_IDCREATOR;EVT_FR_IDENT;id créateur;N;N;docid;60;H;;;;::getTitle(EVT_IDCREATOR):EVT_CREATOR
+ATTR;EVT_CREATOR;EVT_FR_IDENT;créateur;N;N;text;70;W;;%S%app=FDL&action=FDL_CARD&id=%EVT_IDCREATOR%;fdl.php;lfamily(D,IUSER,EVT_CREATOR):EVT_IDCREATOR,EVT_CREATOR
+ATTR;EVT_T_RES;EVT_FR_IDENT;ressources;N;N;array;80;W;;;;
+ATTR;EVT_IDRES;EVT_T_RES;id ressource;N;N;docid;90;H;;;;
+ATTR;EVT_RES;EVT_T_RES;ressource;N;N;text;100;R;;%S%app=FDL&action=FDL_CARD&id=%EVT_IDRES%;;::getTitle(EVT_IDRES)
+ATTR;EVT_IDINITIATOR;EVT_FR_IDENT;id document référent;N;N;docid;110;H;;;;::getTitle(EVT_IDCREATOR):EVT_CREATOR
+ATTR;EVT_INITIATOR;EVT_FR_IDENT;référent;N;N;text;120;W;;%S%app=FDL&action=FDL_CARD&id=%EVT_IDINITIATOR%;;
+ATTR;EVT_TRANSFT;EVT_FR_IDENT;fonction de transfert;N;N;text;130;R;;;;
+ATTR;EVT_ITRANSFT;EVT_FR_IDENT;fonction de transfert inverse;N;N;text;140;R;;;;
+;;;;;;;;;;;;
+END;0;;;;;;;;;;;
