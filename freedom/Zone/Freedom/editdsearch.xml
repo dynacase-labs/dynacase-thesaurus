@@ -178,12 +178,10 @@
  <input type="button" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH')"> </td>
   <td  align="right"></td>
 </tr>
-<tr >
-  <td>&nbsp</td>
-  <td class="FREEDOMLabel" align="right">
-     [L_BA_TITLE]&nbsp;: </td>
-  <td   >
-      [V_BA_TITLE]</td>
-</tr>
+
 </tbody>
+</table>
+
+<table width="100%" cellspacing="0">
+[ZONE FDL:EDITFRAME?frameid=FR_BASIC]
 </table>

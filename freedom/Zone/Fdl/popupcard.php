@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.32 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: popupcard.php,v 1.33 2003/10/09 12:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.32 2003/08/18 15:47:04 eric Exp $
+// $Id: popupcard.php,v 1.33 2003/10/09 12:08:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -190,8 +190,8 @@ function popupcard(&$action) {
 	}
       }
   }
-  if (($doc->doctype=="F") || ($doc->revision > 0)) popupCtrlActive('popupcard',$kdiv,'histo'); 
-  else popupInvisible('popupcard',$kdiv,'histo');
+  popupCtrlActive('popupcard',$kdiv,'histo'); 
+  
 
   if ($abstract) popupActive('popupcard',$kdiv,'properties'); 
   else popupInvisible('popupcard',$kdiv,'properties'); 

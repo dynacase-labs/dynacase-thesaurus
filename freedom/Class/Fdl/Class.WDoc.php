@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Workflow Class Document
  *
- * @author Anakeen 2000 
- * @version $Id: Class.WDoc.php,v 1.30 2003/08/18 15:47:04 eric Exp $
+ * @author Anakeen 2002
+ * @version $Id: Class.WDoc.php,v 1.31 2003/10/09 12:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.30 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.WDoc.php,v 1.31 2003/10/09 12:08:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,15 +35,22 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.30 2003/08/18 15:47:04 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.31 2003/10/09 12:08:43 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
-// Work Flow Classe
+/**
+ * WorkFlow Class
+ */
 Class WDoc extends Doc {
 
   
-
+  /**
+   * WDoc has its own special access depend on transition
+   * by default the three access are always set
+   *
+   * @var array
+   */
   var $acls = array("view","edit","delete");
 
 	
@@ -79,10 +86,12 @@ Class WDoc extends Doc {
   }
 
   function Set(&$doc) {
-    $this->doc= &$doc;
-    if ($doc->state == "") {
-      $doc->state=$this->firstState;
-      $this->changeProfil($doc->state);
+    if (! isset($this->doc) ) {
+      $this->doc= &$doc;
+      if ($doc->state == "") {
+	$doc->state=$this->firstState;
+	$this->changeProfil($doc->state);
+      }
     }
   }
   
@@ -229,7 +238,7 @@ Class WDoc extends Doc {
       }
     }
       
-    if  ($this->userid!=1) {// admin an go to any states 
+    if  ($this->userid!=1) {// admin can go to any states 
 
       if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), _($newstate)));
       if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), _($this->doc->state)));

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.157 2003/09/22 13:07:57 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.158 2003/10/09 12:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.157 2003/09/22 13:07:57 eric Exp $
+// $Id: Class.Doc.php,v 1.158 2003/10/09 12:08:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.157 2003/09/22 13:07:57 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.158 2003/10/09 12:08:43 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1589,16 +1589,16 @@ create unique index i_docir on doc(initid, revision);";
    * if no icon found return doc.gif
    * @return string icon url
    */
-  function getIcon() {
+  function getIcon($idicon="") {
 
     global $action;
-      
-    if ($this->icon != "") {
+    if ($idicon=="") $idicon=$this->icon;
+    if ($idicon != "") {
     
-      if (ereg ("(.*)\|(.*)", $this->icon, $reg)) {    
+      if (ereg ("(.*)\|(.*)", $idicon, $reg)) {    
 	$efile="FDL/geticon.php?vaultid=".$reg[2]."&mimetype=".$reg[1];
       } else {
-	$efile=$action->GetImageUrl($this->icon);
+	$efile=$action->GetImageUrl($idicon);
       }
       return $efile;
 

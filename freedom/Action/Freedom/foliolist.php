@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: foliolist.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: foliolist.php,v 1.6 2003/10/09 12:08:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: foliolist.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+// $Id: foliolist.php,v 1.6 2003/10/09 12:08:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliolist.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,15 +51,16 @@ function foliolist(&$action) {
   $filter=array();
   $filter[]="doctype = 'F'";
   $dir = new Doc($dbaccess,$dirid);
-  if ($dir->doctype == 'S') {
+  if (($dir->doctype == 'S')&& ($dir->usefor == 'G')){
     // recompute search to restriction to local folder
     $dir->id="";
     $dir->initid="";
     $dir->doctype='T';
     $dir->setValue("SE_IDFLD",$folioid);
+    $dir->setValue("SE_SUBLEVEL","1");
     $dir->Add();
     $dir->SpecRefresh();
-
+    $dir->Modify();
     SetHttpVar("dirid",$dir->initid); // redirect dirid to new temporary search
     
   }

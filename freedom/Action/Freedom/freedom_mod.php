@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_mod.php,v 1.20 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_mod.php,v 1.21 2003/10/09 12:08:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.20 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_mod.php,v 1.21 2003/10/09 12:08:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,59 +54,60 @@ function freedom_mod(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   $err = modcard($action, $ndocid); // ndocid change if new doc
-  if ($err != "")  $action-> ExitError($err);
+
+  if ($err != "")  $action->AddWarningMsg($err);
+  else {
   
-  
-  $doc= new Doc($dbaccess, $ndocid);
-  if ($docid > 0) $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
+    $doc= new Doc($dbaccess, $ndocid);
+    if ($docid > 0) $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
   
-  if  ($docid == 0) {
-    AddLogMsg(sprintf(_("%s has been created"),$doc->title));
-    if ($dirid > 0) {
-      $fld = new Doc($dbaccess, $dirid);    
-      if ($fld->doctype != 'D') $dirid=0;
-    }
-
-    // first try in current folder
-    if ($dirid > 0) {
-      $err=$fld->AddFile($doc->id);
-      if ($err != "") {
-	$action->AddLogMsg($err);
-	$dirid=0;
+    if  ($docid == 0) {
+      AddLogMsg(sprintf(_("%s has been created"),$doc->title));
+      if ($dirid > 0) {
+	$fld = new Doc($dbaccess, $dirid);    
+	if ($fld->doctype != 'D') $dirid=0;
       }
-    }
 
-    // second try in default folder for family
-    if ($dirid == 0) {
-      $cdoc = $doc->getFamDoc();
-      if ($cdoc->dfldid>0)  {
-	$dirid=$cdoc->dfldid;
-	$fld = new Doc($dbaccess,$dirid); 
+      // first try in current folder
+      if ($dirid > 0) {
 	$err=$fld->AddFile($doc->id);
 	if ($err != "") {
 	  $action->AddLogMsg($err);
 	  $dirid=0;
 	}
       }
-    }
+
+      // second try in default folder for family
+      if ($dirid == 0) {
+	$cdoc = $doc->getFamDoc();
+	if ($cdoc->dfldid>0)  {
+	  $dirid=$cdoc->dfldid;
+	  $fld = new Doc($dbaccess,$dirid); 
+	  $err=$fld->AddFile($doc->id);
+	  if ($err != "") {
+	    $action->AddLogMsg($err);
+	    $dirid=0;
+	  }
+	}
+      }
 	
      
-    // third try in home folder
+      // third try in home folder
 
-    if ($dirid == 0) {
-      $fld = new Doc($dbaccess,UNCLASS_FLD);
-      $home = $fld->getHome();
+      if ($dirid == 0) {
+	$fld = new Doc($dbaccess,UNCLASS_FLD);
+	$home = $fld->getHome();
       
-      if ($home->id > 0) $fld = $home; 
-      $err=$fld->AddFile($doc->id);
-      if ($err != "") $action->AddLogMsg($err);
-    }
+	if ($home->id > 0) $fld = $home; 
+	$err=$fld->AddFile($doc->id);
+	if ($err != "") $action->AddLogMsg($err);
+      }
     
   
-  } 
+    } 
   
-  
+  }
   
   if ($retedit) {
     redirect($action,GetHttpVars("redirect_app","FREEDOM"),

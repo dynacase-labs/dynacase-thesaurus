@@ -3,7 +3,7 @@
  * Incident Workflow
  *
  * @author Anakeen 2002
- * @version \$Id: Class.WDocIncident.php,v 1.12 2003/08/18 15:47:04 eric Exp $
+ * @version \$Id: Class.WDocIncident.php,v 1.13 2003/10/09 12:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.12 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.13 2003/10/09 12:08:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.12 2003/08/18 15:47:04 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.13 2003/10/09 12:08:43 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -63,8 +63,7 @@ define ("Tsuspended", "Tsuspended");  # N_("Tsuspended")
  * Incident Workflow
  *
  */
-Class WDocIncident extends WDoc
-{
+Class WDocIncident extends WDoc {
   
   
 
@@ -73,7 +72,7 @@ Class WDocIncident extends WDoc
   var $attrPrefix="IWF"; // prefix attribute
 
 
-    var $transitions = array("Trecorded" =>array("m1"=>"",
+  var $transitions = array("Trecorded" =>array("m1"=>"",
 					       "m2"=>"SendMailByState"),
 			     "Tqualified" =>array("m1"=>"",
 					       "m2"=>"SendMailByState"),

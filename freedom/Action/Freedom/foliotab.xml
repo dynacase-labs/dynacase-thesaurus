@@ -166,6 +166,12 @@ function setthree() {
     w.rows='50%,50%';
   }
 }
+var styleongletsel='ongletvs';
+var styleonglet='ongletvg';
+if (! isNetscape) {
+  styleongletsel='ongletvsie';
+  styleonglet='ongletvgie';
+}
 
 function selecttab(th) {
   var ltd;
@@ -173,11 +179,11 @@ function selecttab(th) {
   
   ltd = document.getElementsByTagName('td');
   for (i=0; i < ltd.length-1; i++) {
-     ltd[i].className='ongletv';
+     ltd[i].className=styleonglet;
   }
-  th.className='ongletvs';
-  if (th.nextSibling.nodeName=='TD') th.nextSibling.className='ongletvs';
-  else  if (th.nextSibling.nextSibling.nodeName=='TD') th.nextSibling.nextSibling.className='ongletvs';
+  th.className=styleongletsel;
+  if (th.nextSibling.nodeName=='TD') th.nextSibling.className=styleongletsel;
+  else  if (th.nextSibling.nextSibling.nodeName=='TD') th.nextSibling.nextSibling.className=styleongletsel;
 }
 
 function copyOrMove(tabid) {
@@ -227,8 +233,6 @@ function shiftKeyPushed(event) {
 
 
 
-
-
 </head>
 
 <body onload="initmicon();" 
@@ -243,18 +247,18 @@ function shiftKeyPushed(event) {
 
 <table width="100%" cols="[nbcol]" align="left" border="0" cellspacing="0" cellpadding="0">
 <tr height="30px">
-  <td  class="ongletvs" style="cursor:pointer" 
+  <td  class="[tabonglets]" style="cursor:pointer" 
        onmousedown="if (!shiftKeyPushed(event)) if (drag == 1) {copyOrMove([dirid]);} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[dirid]&folioid=[dirid]';endDrag();} return false"
       
      onclick="if (shiftKeyPushed(event)) viewguide('[docid]'); else selecttab(this);">[title]</td>
-  <td class="ongletvs" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"></td>
+  <td class="[tabonglets]" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"><img  height="20px" src=[icon]></td>
 [BLOCK TAG]
-  <td  class="[tag_cellbgclass]" style="cursor:pointer" valign="middle" 
+  <td  class="[tag_cellbgclass]" style="cursor:pointer;background-color:[icolor]" valign="middle" 
      onmousedown="if (!shiftKeyPushed(event)) if (('[doctype]'=='D') && (drag == 1)) {copyOrMove([tabid]);} else {parent.ffoliolist.location.href='[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[tabid]&folioid=[dirid]';endDrag();} return false" 
      onclick="if (shiftKeyPushed(event)) viewguide('[tabid]'); else selecttab(this);">
           <span class="[TAG_LABELCLASS]">[tabtitle]</span>
        </a></td>
-  <td  class="[tag_cellbgclass]" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"></td>
+  <td  class="[tag_cellbgclass]" style="background-color:[icolor]" valign="top" width="10pt"><img src="[IMG:corner.gif]"  border="0"><img height="20px" src=[icontab]></td>
 [ENDBLOCK TAG]
 <td align="right" style="background-color:transparent">
 <img id="micon" width="20" height="20"  style="position:absolute;visibility:hidden">

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.75 2003/09/22 13:07:19 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.76 2003/10/09 12:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.75 2003/09/22 13:07:19 eric Exp $
+// $Id: Lib.Dir.php,v 1.76 2003/10/09 12:08:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -373,7 +373,7 @@ function getRChildDirId($dbaccess, $dirid, $rchilds=array(), $level=0) {
 
   
   if ($level > 2) {
-    $action->addWarningMsg("getRChildDirId::Max dir deep [$level levels] reached");
+    // $action->addWarningMsg("getRChildDirId::Max dir deep [$level levels] reached");
     return ($rchilds);
   }
 
@@ -430,6 +430,18 @@ function hasChildFld($dbaccess, $dirid) {
  */
 function getv($t,$k,$d="") {
   if (isset($t[$k]) && ($t[$k] != "")) return $t[$k];
+  if (strpos($t["attrids"],"£$k") !== 0) {
+    
+    $tvalues = explode("£",$t["values"]);
+    $tattrids = explode("£",$t["attrids"]);
+      
+      while(list($ka,$va) = each($tattrids)) {
+	if ($va == $k) {
+	  if ($tvalues[$ka]!="") return $tvalues[$ka];
+	  break;
+	}
+      }
+  }
   return $d;
 }
 

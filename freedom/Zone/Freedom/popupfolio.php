@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupfolio.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: popupfolio.php,v 1.4 2003/10/09 12:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupfolio.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+// $Id: popupfolio.php,v 1.4 2003/10/09 12:08:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Freedom/popupfolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,19 +52,19 @@ function popupfolio(&$action) {
   popupInit('popupfolio',  array('newdoc','newgc','newsgc',
 				 'cancelf'));
 
+  Popupactive('popupfolio',$kdiv,'cancelf');
+  Popupinvisible('popupfolio',$kdiv,'newdoc');
+  Popupinvisible('popupfolio',$kdiv,'newgc');
+  Popupinvisible('popupfolio',$kdiv,'newsgc');
 
   if ($dir->doctype == "D") {
 
     Popupactive('popupfolio',$kdiv,'newdoc');
-    Popupactive('popupfolio',$kdiv,'newgc');
-    Popupactive('popupfolio',$kdiv,'newsgc');
-    Popupactive('popupfolio',$kdiv,'cancelf');
-  } else {
-    Popupinvisible('popupfolio',$kdiv,'newdoc');
-    Popupinvisible('popupfolio',$kdiv,'newgc');
-    Popupinvisible('popupfolio',$kdiv,'newsgc');
-    Popupactive('popupfolio',$kdiv,'cancelf');
-  }
+    if ($dir->usefor  != "G") {
+      Popupactive('popupfolio',$kdiv,'newgc');
+      Popupactive('popupfolio',$kdiv,'newsgc');
+    }
+  } 
   popupGen($kdiv);
 
 

@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.32 2003/07/30 14:52:34 eric Exp $
+ * $Id: freedom.css,v 1.33 2003/10/09 12:08:43 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -208,6 +208,7 @@ TABLE.transparent TBODY TR TD {
   color:[CORE_TEXTBGCOLOR];
   border-style: none;
 }
+
 .ongletv {
    font-size: 90%;
   background-image:url('[IMG:tabv.png]');
@@ -216,11 +217,40 @@ TABLE.transparent TBODY TR TD {
   border-style: none;
   align: center;
 }
-.ongletvs {
-   font-size: 90%;
+.ongletvg {
+  font-size: 90%;
+  background-image:url('[IMG:tabvg.png]');
+  background-color:[CORE_BGCOLORALTERN];;
+  color:[CORE_TEXTFGCOLOR];
   cursor: pointer;
-  background-image:url('[IMG:tabvs.png]');
+  border-style: none;
+  align: center;
+}
+.ongletvgie {
+  font-size: 90%;
+  background-color:[CORE_BGCOLORALTERN];;
+  color:[CORE_TEXTFGCOLOR];  
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');
+  cursor: pointer;
+  border-style: none;
+  align: center;
+}
+.ongletvs {
+  font-size: 90%;
+  cursor: pointer;
+  background-color:[CORE_BGCOLORALTERN];;
+  background-image:url('[IMG:tabvig.png]');
   color:[CORE_TEXTBGCOLOR];
+  font-weight: bold;
+  border-style: none;
+}
+.ongletvsie {
+  font-size: 90%;
+  cursor: pointer;
+  background-color:[CORE_BGCOLORALTERN];;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvig.png]',sizingMethod='scale');
+  color:[CORE_TEXTBGCOLOR];
+  font-weight: bold;
   border-style: none;
 }
 UL {

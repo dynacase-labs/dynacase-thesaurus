@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: foliotab.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: foliotab.php,v 1.5 2003/10/09 12:08:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: foliotab.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+// $Id: foliotab.php,v 1.5 2003/10/09 12:08:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliotab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,33 +61,37 @@ function foliotab(&$action) {
   $action->lay->set("dirid",$doc->initid);
   $action->lay->set("title",$doc->title);
 
-//   popupInit("poppaste", array('staticpaste','pastelatest','cancel'));
 
-//   popupActive("poppaste",$nbfolders,'staticpaste');
-//   popupActive("poppaste",$nbfolders,'pastelatest');
-//   popupActive("poppaste",$nbfolders,'cancel');
   $child = getChildDir($dbaccess,$action->user->id,$doc->initid, false,"TABLE");
   
+  if ($action->Read("navigator")=="EXPLORER") { // different tab class for PNG transparency
+    $tabonglet = "ongletvgie";
+    $tabongletsel = "ongletvsie";
+  } else {
+    $tabonglet = "ongletvg";
+    $tabongletsel = "ongletvs";
+  }
 
+  $action->lay->set("tabonglets",$tabongletsel);
+  $action->lay->set("icon",$doc->getIcon());
   $ttag=array();
   while(list($k,$v) = each($child)) {
-
-    if ($v["usefor"] == "G") {
-      $ttag[] = array(
+      $icolor="";
+      if ($v["usefor"] == "G") {
+	$icolor=getv($v,"gui_color");
+      }
+      if ($v["initid"] != $doc->initid) {
+      $ttag[$v["initid"]] = array(
 		      "tabid"=>$v["id"],
 		      "doctype"=>$v["doctype"],
 		      "TAG_LABELCLASS" => $v["doctype"]=="S"?"searchtab":"",
-		      "tag_cellbgclass"=>($v["id"] ==$docid)?"ongletvs":"ongletv",
+		      "tag_cellbgclass"=>($v["id"] ==$docid)?$tabongletsel:$tabonglet,
+		      "icolor"=>$icolor,
+		      "icontab"=>$doc->getIcon($v["icon"]),
 		      "tabtitle"=>$v["title"]);
-      $nbfolders++;
-    }
-//     popupActive("poppaste",$nbfolders,'staticpaste');
-//     popupActive("poppaste",$nbfolders,'pastelatest');
-//     popupActive("poppaste",$nbfolders,'cancel');
+      }
+   
   }
-
-  // display popup js
-//   popupGen($nbfolders);
 
   $action->lay->setBlockData("TAG",$ttag);
   $action->lay->setBlockData("nbcol",count($ttag)+1);

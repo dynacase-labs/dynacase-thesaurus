@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.13 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.14 2003/10/09 12:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.13 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.14 2003/10/09 12:08:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,12 +50,12 @@ var $tol=array("and" => "and",              #N_("and")
 	       "or" => "or");               #N_("or")
 
 
-function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1) {
+function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
     
   if ($dirid > 0) {
 
-    $cdirid = getRChildDirId($this->dbaccess, $dirid);
-      
+      if ($subfolder)  $cdirid = getRChildDirId($this->dbaccess, $dirid);
+      else $cdirid=$dirid;      
        
   } else $cdirid=0;;
 
@@ -111,7 +111,8 @@ function SpecRefresh() {
 			       $this->getValue("se_famid"),
 			       $this->getValue("se_latest"),
 			       $this->getValue("se_case")=="yes",
-			       $this->getValue("se_idfld"));
+			       $this->getValue("se_idfld"),
+			       $this->getValue("se_sublevel") === "");
 
     $this->AddQuery($query);
   }

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.48 2003/09/22 13:03:49 eric Exp $
+ * @version $Id: editutil.php,v 1.49 2003/10/09 12:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.48 2003/09/22 13:03:49 eric Exp $
+// $Id: editutil.php,v 1.49 2003/10/09 12:08:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -576,15 +576,16 @@ function elinkEncode(&$doc, $link,$index) {
 	    
 	switch ($link[$i]) {
 	case "B": // baseurl	  
-	  $urllink.=GetParam("CORE_BASEURL");
-	      
+	  $urllink.=GetParam("CORE_BASEURL");	      
 	  break;
 	case "S": // standurl	  
 	  $urllink.=GetParam("CORE_STANDURL");
 	  break;
-
 	case "K" :
 	  $urllink.=$index;  
+	  break;
+	case "I" :
+	  $urllink.=$doc->id;
 	  break;
 	}
 	$i++; // skip end '%'
