@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.20 2003/01/24 14:10:45 eric Exp $
+// $Id: mailcard.php,v 1.21 2003/02/25 09:55:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,6 +43,29 @@ function mailcard(&$action) {
 }
 // -----------------------------------
 function sendmailcard(&$action) {
+  sendCard($action,
+	   GetHttpVars("id"),
+	   GetHttpVars("_mail_to",''),
+	   GetHttpVars("_mail_cc",""),
+	   GetHttpVars("_mail_subject"),
+	   GetHttpVars("zone"),
+	   GetHttpVars("szone","N")=="Y",
+	   GetHttpVars("_mail_cm",""),
+	   GetHttpVars("_mail_from",""), 
+	   GetHttpVars("_mail_format","html")
+	   );
+}
+// -----------------------------------
+function sendCard(&$action,
+		  $docid,
+		  $to,$cc,$subject,
+		  $zonebodycard, // define mail layout
+		  $szone=false,// the zonebodycard is a standalone zone ?
+		  $comment="",
+		  $from="",
+		  $bcc="",
+		  $format="html"// define view action
+		  ) {
   // -----------------------------------
   global $ifiles;
   global $vf; 
@@ -50,17 +73,10 @@ function sendmailcard(&$action) {
 
   $ifiles=array();
   // set title
-  $docid = GetHttpVars("id");  
-  $zonebodycard = GetHttpVars("zone"); // define view action
-  $format = GetHttpVars("_mail_format","html"); // define view action
-  $szone = (GetHttpVars("szone","N")=="Y"); // the zonebodycard is a standalone zone ?
+  
  
-  $from = GetHttpVars("_mail_from","");
-  $to = GetHttpVars("_mail_to",'eric.brison@i-cesam.com');
-  $cc = GetHttpVars("_mail_cc","");
-  $comment = GetHttpVars("_mail_cm","");
-  $bcc ="";
-  $subject = GetHttpVars("_mail_subject");
+ 
+ 
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
@@ -70,11 +86,14 @@ function sendmailcard(&$action) {
   $vf = new VaultFile($dbaccess, "FREEDOM");
   $pubdir = $action->getParam("CORE_PUBDIR");
 
-  if ($action->getParam("FDL_BCC") == "yes") {
-    
+
+  if ($bcc != "") $bcc = "\\nBcc:$bcc";
+  
+  if ($action->getParam("FDL_BCC") == "yes") {    
     $umail=getMailAddr($action->user->id);
-    if ($umail != "") {
-       $bcc .= "\\nBcc:$umail";
+    if ($umail != "") {      
+      if ($bcc != "") $bcc = "$bcc,$umail";
+      else  $bcc = "\\nBcc:$umail";
     }
   }
   if ($from == "") {
@@ -166,7 +185,8 @@ function sendmailcard(&$action) {
   // ---------------------------
   // contruct metasend command
   if ($subject == "") $subject = $title;
-  $cmd = "metasend  -b -S 4000000 -c '$cc' -F '$from' -t '$to$bcc' -s '$subject'  ";
+  $subject = str_replace("\"","'",$subject);
+  $cmd = "metasend  -b -S 4000000 -c '$cc' -F '$from' -t '$to$bcc' -s \"$subject\"  ";
 
 
   if (ereg("html",$format, $reg)) {

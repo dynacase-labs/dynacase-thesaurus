@@ -24,6 +24,10 @@
   <!--
     [JS:CODE]
 
+function sendState(w) {
+ 
+    w.location.href='[CORE_STANDURL]&app=FREEDOM&action=MODSTATE&id=[mid]&newstate=[state]&fstate=yes&comment=[TEXT:email sended]';
+}
 
   //-->
    </script>   
@@ -42,6 +46,7 @@
 <form  id="fedit"  
        class="fborder" 
        name="modifydoc" 
+       target="fhidden"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=N&props=N&id=[mid]" >
 
@@ -60,14 +65,15 @@
 <tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
 </thead>
    
-[ZONE FDL:EDITCARD?classid=15&mail_from=[from]]
+[ZONE FDL:EDITCARD?classid=15]
 
 
 <tfoot>
 <tr class="FREEDOMBack2"><td  colspan="3"  height="1px"></td></tr>
 <tr class="FREEDOMBack1">
-  <td colspan="2" >
- <input type="submit" value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();"> 
+  <td  >
+ <input type="submit" title="[TEXT:Send the email and change document state to] [tstate]" 
+        value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();sendState(self);"> 
 
 <select name="_mail_format">
     <option value="html">HTML</option>
@@ -76,7 +82,10 @@
 </select>
   </td>
   <td align="right" >
- <input type="button" value="[TEXT:cancel]" onclick="history.back()"> 
+ <input type="button" title="[TEXT:Change the document state to] [tstate]" 
+        value="[TEXT:confirm manually send]" onclick="sendState(self);"> </td>
+  <td align="right" >
+ <input type="button" value="[TEXT:cancel]" onclick="location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[mid]'"> 
   </td>
   
 </tr>

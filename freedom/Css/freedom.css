@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.24 2003/02/20 11:34:04 eric Exp $
+ * $Id: freedom.css,v 1.25 2003/02/25 09:55:24 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -233,10 +233,10 @@ IMG.select {
 
 DIV.icon{
   font-weight: normal;
-  font-size: 70%;
+  font-size: 8pt;
   text-align: center;
   /*font-variant: small-caps;*/
-  width:60;
+  width:70;
   height:100;
   position:absolute;
   left:0;

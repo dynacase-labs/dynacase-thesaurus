@@ -24,6 +24,8 @@
    <td  width="50%" class="FREEDOMlabel">[TEXT:current folder] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cfldid]">[cfldtitle]</A></td></tr>
 <tr class="FREEDOMBack1" style="display:[dflddisplay]">
    <td  width="50%" class="FREEDOMlabel" >[TEXT:default folder] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[dfldid]">[dfldtitle]</A></td></tr>
+<tr class="FREEDOMBack1" style="display:[wdisplay]">
+   <td  width="50%" class="FREEDOMlabel" >[TEXT:workflow] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[wid]">[wtitle]</A></td></tr>
 
 </tbody>
 </table>

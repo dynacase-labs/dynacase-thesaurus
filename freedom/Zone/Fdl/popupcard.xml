@@ -63,6 +63,8 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITDFLD&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Change default folder]</a>
 <a href="#" id="editcfld"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITDFLD&current=Y&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Change current folder]</a>
+<a href="#" id="editwdoc"
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITWDOC&current=Y&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Choose workflow]</a>
 
 
 <!-- ------------ common latest --------------------- -->

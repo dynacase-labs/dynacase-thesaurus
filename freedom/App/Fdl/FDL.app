@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.10 2003/01/20 19:09:28 eric Exp $
+// $Id: FDL.app,v 1.11 2003/02/25 09:55:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -96,10 +96,15 @@ $action_desc = array (
    "acl"		=>"NORMAL"
   )  ,
   array( 
+   "name"		=>"CONFIRMMAIL",
+   "short_name"		=>N_("confirm mail sended before change state"),
+   "acl"		=>"NORMAL"
+  ),
+  array( 
    "name"		=>"MODACL",
    "short_name"		=>N_("modify acl"),
    "acl"		=>"NORMAL"
-  )  ,
+  ),
   array( 
    "name"		=>"VIEWSCARD",
    "short_name"		=>N_("view standalone card"),

@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modstate.php,v 1.3 2003/02/25 09:53:09 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modstate.php,v $
+// $Id: modwdoc.php,v 1.1 2003/02/25 09:53:09 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modwdoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -24,61 +24,47 @@
 
 
 include_once("FDL/Class.Doc.php");
-include_once("FDL/modcard.php");
+include_once("FDL/Class.Dir.php");
+include_once("FDL/Class.DocAttr.php");
+include_once("FDL/freedom_util.php");  
 
 
 
 // -----------------------------------
-function modstate(&$action) {
+function modwdoc(&$action) {
   // -----------------------------------
     
     
     
-    // Get all the params      
-      $docid=GetHttpVars("id");
-  $state = GetHttpVars("newstate"); // new state
-  $comment = GetHttpVars("comment"); // comment
-  $force = (GetHttpVars("fstate","no")=="yes"); // force change
-
+  // Get all the params      
+  $docid=GetHttpVars("docid");
+  $current = (GetHttpVars("current","N")=="Y");
+  $wid=  GetHttpVars("wid");
     
-  if ( $docid == 0 ) $action->exitError(_("the document is not referenced: cannot apply state modification"));
+  if ( $docid == 0 ) $action->exitError(_("the document is not referenced: cannot apply profile access modification"));
     
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   
   
   // initialise object
-    $doc = new Doc($dbaccess,$docid);
+  $doc = new Doc($dbaccess,$docid);
+  $doc->wid = $wid; // new default workflow
   
   
-
-
+  // test object permission before modify values (no access control on values yet)
+  $doc->lock(true); // enabled autolock
+  $err=$doc-> CanUpdateDoc();
+  if ($err != "") $action-> ExitError($err);
   
- 
-  if ($doc->wid > 0) {
-    $wdoc = new Doc($dbaccess,$doc->wid);
-    $wdoc->Set($doc);
-    $err=$wdoc->ChangeState($state,$comment,$force);
-    if ($err != "")  $action-> ExitError($err);
-  } else {
-    $action->AddLogMsg(sprintf(_("the document %s is not related to a workflow"),$doc->title));
-  }
+  $doc-> Modify();
   
+  
+  $doc->unlock(true); // disabled autolock
   
   
   
-  
-  
-  
-  
-  
-    redirect($action,GetHttpVars("redirect_app","FDL"),
-	     GetHttpVars("redirect_act","FDL_CARD&refreshfld=Y&id=".$doc->id),
-	     $action->GetParam("CORE_STANDURL"));
-  
-  
-  
-  
+  redirect($action,"FDL","FDL_CARD&id=$docid",$action->GetParam("CORE_STANDURL"));
 }
 
 

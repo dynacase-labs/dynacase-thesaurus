@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.21 2003/02/07 17:31:50 eric Exp $
+// $Id: popupcard.php,v 1.22 2003/02/25 09:55:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,6 +61,7 @@ function popupcard(&$action) {
 				'editcprof',
 				'editstate',
 				'editdfld',
+				'editwdoc',
 				'editcfld',
 				'properties',
 				'cancel'));
@@ -123,6 +124,7 @@ function popupcard(&$action) {
     popupActive('popupcard',$kdiv,'defval'); 
     popupActive('popupcard',$kdiv,'editdoc');
     popupActive('popupcard',$kdiv,'editdfld');
+    popupActive('popupcard',$kdiv,'editwdoc');
     popupActive('popupcard',$kdiv,'editcfld');
   } else {
     if ($doc->locked == -1){ // fixed document
@@ -135,11 +137,13 @@ function popupcard(&$action) {
       popupInvisible('popupcard',$kdiv,'revise');
       popupInvisible('popupcard',$kdiv,'lockdoc');
       popupInvisible('popupcard',$kdiv,'chicon');
+      popupInvisible('popupcard',$kdiv,'editwdoc');
       popupInvisible('popupcard',$kdiv,'editdfld');
       popupInvisible('popupcard',$kdiv,'editcfld');
     } else {
       popupInactive('popupcard',$kdiv,'editattr'); 
       popupInactive('popupcard',$kdiv,'editdfld');
+      popupInactive('popupcard',$kdiv,'editwdoc');
       popupInactive('popupcard',$kdiv,'editcfld');
       popupInactive('popupcard',$kdiv,'chgtitle'); 
       popupInactive('popupcard',$kdiv,'defval'); 
@@ -174,6 +178,7 @@ function popupcard(&$action) {
     popupInvisible('popupcard',$kdiv,'defval'); 
     popupInvisible('popupcard',$kdiv,'editattr'); 
     popupInvisible('popupcard',$kdiv,'editdfld');
+    popupInvisible('popupcard',$kdiv,'editwdoc');
     popupInvisible('popupcard',$kdiv,'editcfld');
     popupInvisible('popupcard',$kdiv,'chicon');
   }

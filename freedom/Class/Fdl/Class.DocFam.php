@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.6 2003/01/31 13:04:43 eric Exp $
+// $Id: Class.DocFam.php,v 1.7 2003/02/25 09:55:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.6 2003/01/31 13:04:43 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.7 2003/02/25 09:55:24 eric Exp $';
 include_once('FDL/Class.DocFile.php');
 
 Class DocFam extends DocFile {
@@ -67,6 +67,11 @@ create unique index idx_idfam on docfam(id);";
                
   }
 
+
+  function PostModify() {    
+    include_once("FDL/Lib.Attr.php");
+    return PgUpdateFamilly($this->dbaccess, $this->id);
+  }
 
   // use to view default attribute when new doc
   function PostSelect($id) { 
@@ -116,6 +121,15 @@ create unique index idx_idfam on docfam(id);";
 	  $this->lay->set("dflddisplay","");
 	} else {
 	  $this->lay->set("dflddisplay","none");
+	}
+	break;
+      case wid:
+	if ($this->$v > 0) {
+	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $this->lay->set("wtitle",$tdoc->title);
+	  $this->lay->set("wdisplay","");
+	} else {
+	  $this->lay->set("wdisplay","none");
 	}
 	break;
       }
