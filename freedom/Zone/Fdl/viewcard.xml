@@ -71,7 +71,7 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
   
  <td  colspan="2">
   <IMG  style="display:[dicon]" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="50px" SRC="[iconsrc]">
-  <IMG  style="display:[dicon];position:absolute" border="0"  SRC="[emblem]">
+  <IMG  style="display:[dicon];position:absolute" border="0" title="[locked]" SRC="[emblem]">
   <span class="FREEDOMTextBigTitle">[TITLE]</span>
  </td>
   <td align="right" valign="bottom" >
