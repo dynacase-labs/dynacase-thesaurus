@@ -4,14 +4,14 @@
  * for files attached to a Freedom document
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocVaultIndex.php,v 1.1 2004/10/18 08:46:13 marc Exp $
+ * @version $Id: Class.DocVaultIndex.php,v 1.2 2004/10/25 09:10:03 marc Exp $
  * @license http://license.i-cesam.com/license.php
  * @package FREEDOM
  */
  /**
  */
 
-$CLASS_DOCVAULTINDEX_PHP = '$Id: Class.DocVaultIndex.php,v 1.1 2004/10/18 08:46:13 marc Exp $';
+$CLASS_DOCVAULTINDEX_PHP = '$Id: Class.DocVaultIndex.php,v 1.2 2004/10/25 09:10:03 marc Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -47,5 +47,10 @@ create unique idx_docvaultindex on docvaultindex (docid, vaultid);";
       return $err;
   }
   
+  function DeleteVaultId($vid) {
+      $err=$this->exec_query("delete from ".$this->dbtable." where vaultid=".$vid  );
+      return $err;
+  }
+
 }
 ?>
