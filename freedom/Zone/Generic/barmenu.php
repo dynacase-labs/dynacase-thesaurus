@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.25 2004/10/08 13:26:47 eric Exp $
+ * @version $Id: barmenu.php,v 1.26 2004/12/28 17:08:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.25 2004/10/08 13:26:47 eric Exp $
+// $Id: barmenu.php,v 1.26 2004/12/28 17:08:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -189,9 +189,8 @@ function barmenu(&$action) {
   $lidsearch = array("catg0");
 
   $streeSearch = array();
-
   while (list($k,$v) = each($stree)) {
-    if ($v["doctype"] == "S" ) {
+    if (($v["doctype"] == "S" )&&($v["fromid"] != $fdoc->id) ) {
       $lidsearch[] = "search".$v["id"];
       $streeSearch[] = $v;
     } 
