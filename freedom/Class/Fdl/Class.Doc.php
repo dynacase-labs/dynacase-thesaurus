@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.228 2005/01/18 08:44:30 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.229 2005/01/24 16:14:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2020,7 +2020,8 @@ create unique index i_docir on doc(initid, revision);";
 	    $ovalue = $this->GetValue($sattrid);
 	  }
 	  if ($ovalue == "") return false;
-	  $urllink.=urlencode($ovalue);
+	  //$urllink.=urlencode($ovalue);
+	  $urllink.=($ovalue); // not encode cause url will became invalid
 	  
 	  
 	}
