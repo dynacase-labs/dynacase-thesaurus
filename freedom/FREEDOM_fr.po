@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-09-16 16:38+0200\n"
+	"POT-Creation-Date: 2002-09-26 17:40+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -18,6 +18,10 @@ msgstr	"Nouvelle personne"
 
 msgid	"create"
 msgstr	"Créer"
+
+#, c-format
+msgid	"no privilege to create this kind (%d) of document"
+msgstr "vous n'avez pas la permission de créer ce type (%d) de document "
 
 msgid	"document not referenced"
 msgstr	"document non référencé"
@@ -191,6 +195,21 @@ msgid	"new title for %s"
 msgstr	"nouveau titre pour %s"
 
 #, c-format
+msgid	"result of import  %s"
+msgstr "Résultat de l'import %s"
+
+#, c-format
+msgid	"Import %s is in progress. When update will be finished an email to "
+	"&lt;%s&gt; will be sended with result rapport"
+msgstr ""
+"L'import %s est en cours. Lorsque la mise à jour sera finie, un email sera envoyé à \n"
+"&lt;%s&gt; avec le rapport d'importation"
+
+#, c-format
+msgid	"update of %s catalogue has failed,"
+msgstr "La mise à jour du catalogue %s a échoué."
+
+#, c-format
 msgid	"%s has been added in %s folder"
 msgstr	"%s a été ajouté dans le dossier %s"
 
@@ -229,7 +248,7 @@ msgid	"changed"
 msgstr	"modifié"
 
 msgid	"change default folder"
-msgstr "changer le dossier par défaut"
+msgstr	"changer le dossier par défaut"
 
 msgid	"all"
 msgstr	"tous les mots"
@@ -261,14 +280,14 @@ msgstr	"le document n'est pas référencé : la modification du profil d'accès\n"
 
 #, c-format
 msgid	"the document %s is not related to a workflow"
-msgstr "le document %s n'est pas relié à un workflow"
+msgstr	"le document %s n'est pas relié à un workflow"
 
 msgid	"Family is not instanciate"
-msgstr "La famille n'est pas instanciée"
+msgstr	"La famille n'est pas instanciée"
 
 #, c-format
 msgid	"Family (#%d) is not referenced"
-msgstr "la famille (%d) n'est pas référencée"
+msgstr	"la famille (%d) n'est pas référencée"
 
 #, c-format
 msgid	"PDF conversion failed for %s"
@@ -288,6 +307,26 @@ msgstr	"%s n'a pas pu être envoyé"
 
 msgid	"no import file specified"
 msgstr	"pas de fichier d'import spécifié"
+
+#, c-format
+msgid	"add id [%d] "
+msgstr "ajout id [%d] "
+
+#, c-format
+msgid	"add [%s] "
+msgstr "ajout [%s] "
+
+#, c-format
+msgid	"update id [%d] "
+msgstr "mise à jour id [%d] "
+
+#, c-format
+msgid	"and add in %s folder "
+msgstr "et ajout dans dossier %s"
+
+#, c-format
+msgid	"and add  in %s folder "
+msgstr "et ajout dans dossier %s"
 
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
@@ -311,27 +350,12 @@ msgstr	"le fichier externe %s ne peut être lu"
 msgid	"the pluggins function description '%s' is not conform"
 msgstr	"La description de la fonction externe '%s' est incorrecte"
 
-msgid	"view folder"
-msgstr	"voir dossier"
-
-msgid	"edit folder"
-msgstr	"éditer un dossier"
-
-msgid	"delete folder"
-msgstr	"supprimer un dossier"
-
-msgid	"open folder"
-msgstr	"Ouvrir le dossier"
-
-msgid	"modify folder"
-msgstr	"modifier le dossier"
-
 msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
 
 #, c-format
 msgid	"Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
+msgstr	"Ajout %s dans dossier %s"
 
 #, c-format
 msgid	"cannot delete link : link not found for doc %d in folder %d"
@@ -365,19 +389,16 @@ msgstr	"le fichier %s (rév. %d) est verrouillé par %s."
 msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
 msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
 
-msgid	"this document cannot be locked : it is not a revisable document"
-msgstr	"ce document n'est pas verrouillable, il ne peut pas être révisé"
+#, c-format
+msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
+msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
 
 #, c-format
 msgid	"cannot lock file %s (rev %d): already locked by %s."
 msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
 
-#, c-format
-msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
-msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
 msgid	"vault file error"
-msgstr "erreur fichier Vault"
+msgstr	"erreur fichier Vault"
 
 msgid	"no filename"
 msgstr	"pas de fichier"
@@ -386,24 +407,24 @@ msgid	"already exist : not added"
 msgstr	"déjà existant : pas ajouté"
 
 msgid	"view workflow"
-msgstr "voir le workflow"
+msgstr	"voir le workflow"
 
 msgid	"edit workflow"
-msgstr "éditer le workflow"
+msgstr	"éditer le workflow"
 
 msgid	"delete workflow"
-msgstr "supprimer un workflow"
+msgstr	"supprimer un workflow"
 
 msgid	"state profile"
-msgstr "Profil d'état"
+msgstr	"Profil d'état"
 
 #, c-format
 msgid	"id %s profile"
-msgstr "profil id %s "
+msgstr	"profil id %s "
 
 #, c-format
 msgid	"%s profile"
-msgstr "Profil %s"
+msgstr	"Profil %s"
 
 #, c-format
 msgid	"ChangeState :: the initial state '%s' is not known"
@@ -436,14 +457,20 @@ msgid	"ChangeState :: the state has been realized but the post method '%s' "
 msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
 	"méthode '%s' a retourné l'erreur suivante : %s "
 
-msgid	"view usercard"
-msgstr	"voir une carte"
+msgid	"view folder"
+msgstr	"voir dossier"
 
-msgid	"edit usercard"
-msgstr	"éditer une carte"
+msgid	"edit folder"
+msgstr	"éditer un dossier"
 
-msgid	"delete usercard"
-msgstr	"supprimer une carte"
+msgid	"delete folder"
+msgstr	"supprimer un dossier"
+
+msgid	"open folder"
+msgstr	"Ouvrir le dossier"
+
+msgid	"modify folder"
+msgstr	"modifier le dossier"
 
 msgid	"errldapadd"
 msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
@@ -474,10 +501,10 @@ msgid	"suspended"
 msgstr	"suspendu"
 
 msgid	"Tsimple"
-msgstr "Autres transitions"
+msgstr	"Autres transitions"
 
 msgid	"Tfinal"
-msgstr "Transition close"
+msgstr	"Transition close"
 
 #, c-format
 msgid	"[%s] incident registration"
@@ -518,20 +545,26 @@ msgstr	"Contrôle dédié"
 msgid	"cannot see unknow folder"
 msgstr	"dossier inconnu, ne peut être consulté"
 
+msgid	"read-only"
+msgstr "lecture seule"
+
 msgid	"error in filename"
 msgstr	"erreur dans le nom de fichier"
 
+msgid	"no image"
+msgstr "pas d'image"
+
 msgid	"date picker"
-msgstr "choix de date"
+msgstr	"choix de date"
 
 msgid	"choose inputs"
-msgstr "choisir une valeur"
+msgstr	"choisir une valeur"
 
 msgid	"clear inputs"
-msgstr "effacer entrée(s)"
+msgstr	"effacer entrée(s)"
 
 msgid	"add inputs"
-msgstr "ajouter entrée"
+msgstr	"ajouter entrée"
 
 msgid	"this kind of document cannot be duplicate"
 msgstr	"ce type de document ne peut être dupliqué"
@@ -573,11 +606,17 @@ msgstr	"pour choisir une valeur à partir d'un ensemble"
 msgid	"query document import"
 msgstr	"demande d'import de document"
 
+msgid	"background document import"
+msgstr "import en tache de fond"
+
 msgid	"add document import"
 msgstr	"ajouter un document importé"
 
 msgid	"Freedoms view folder"
 msgstr	"visualisation de contenu de dossier"
+
+msgid	"Freedoms preview document"
+msgstr "prévisualisation de document"
 
 msgid	"popup menu"
 msgstr	"popup menu"
@@ -625,7 +664,7 @@ msgid	"lock file to edit"
 msgstr	"verrouillez le document pour l'éditer"
 
 msgid	"edit state "
-msgstr "Édition état"
+msgstr	"Édition état"
 
 msgid	"edit profile access"
 msgstr	"édition des profiles d'accès"
@@ -634,10 +673,10 @@ msgid	"change profile access"
 msgstr	"changement des profiles d'accès"
 
 msgid	"change state transition"
-msgstr "changement d'état"
+msgstr	"changement d'état"
 
 msgid	"edit default folder"
-msgstr "éditer dossier par défaut"
+msgstr	"éditer dossier par défaut"
 
 msgid	"set the document controlled"
 msgstr	"Mettre le document sous contrôle"
@@ -803,6 +842,9 @@ msgstr	"Accès en lecture seule aux incidents"
 msgid	"incident home page"
 msgstr	"Page d'accueil d'incident"
 
+msgid	"incident list application"
+msgstr "liste des applications incident"
+
 msgid	"edition"
 msgstr	"édition"
 
@@ -936,28 +978,28 @@ msgid	"Contract Management"
 msgstr	"Gestion des contrats"
 
 msgid	"Onefam"
-msgstr "Une famille"
+msgstr	"Une famille"
 
 msgid	"One Familly Management"
-msgstr "Gestion par famille"
+msgstr	"Gestion par famille"
 
 msgid	"one familly root"
-msgstr "racine gestion par famille"
+msgstr	"racine gestion par famille"
 
 msgid	"familly list"
-msgstr "liste des familles"
+msgstr	"liste des familles"
 
 msgid	"redirect to generic"
-msgstr "rediriger vers generic"
+msgstr	"rediriger vers generic"
 
 msgid	"familly result"
-msgstr "résultat des familles"
+msgstr	"résultat des familles"
 
 msgid	"Access Onefam Master Management"
-msgstr "Accès à l'administration par famille"
+msgstr	"Accès à l'administration par famille"
 
 msgid	"Access To Onefam Management"
-msgstr "Accès à la gestion par famille"
+msgstr	"Accès à la gestion par famille"
 
 msgid	"edition: "
 msgstr	"éditer"
@@ -1174,7 +1216,7 @@ msgid	"Catg"
 msgstr	"Catg"
 
 msgid	"Newfam"
-msgstr "Nouvelle"
+msgstr	"Nouvelle"
 
 msgid	"New category"
 msgstr	"Nouvelle catégorie"
@@ -1321,10 +1363,10 @@ msgid	"no profile"
 msgstr	"Pas de profil"
 
 msgid	"keyword"
-msgstr "mot-clef"
+msgstr	"mot-clef"
 
 msgid	"only latest revision"
-msgstr "seulement la dernière révision"
+msgstr	"seulement la dernière révision"
 
 msgid	"from current folder"
 msgstr	"à partir du dossier courant"
@@ -1333,7 +1375,7 @@ msgid	"case sensitive"
 msgstr	" tenir compte de la casse"
 
 msgid	"familly"
-msgstr "famille"
+msgstr	"famille"
 
 msgid	"any familly"
 msgstr	"toute famille"
@@ -1342,7 +1384,7 @@ msgid	"folders"
 msgstr	"Dossier"
 
 msgid	"save query in current folder"
-msgstr "sauver la requête dans le dossier courant"
+msgstr	"sauver la requête dans le dossier courant"
 
 msgid	"search title"
 msgstr	"titre de la recherche"
@@ -1386,20 +1428,11 @@ msgstr	"Annuler"
 msgid	"document(s) found"
 msgstr	"document(s) trouvé(s)"
 
-msgid	"Import Document"
-msgstr	" Importer le document"
+msgid	"Import Result"
+msgstr	"Résultat de l'importation"
 
-msgid	"for"
-msgstr	"pour"
-
-msgid	"Description of the import format:"
-msgstr	"Description du format d'import"
-
-msgid	"import file:"
-msgstr	"Importer un fichier"
-
-msgid	"Import document description"
-msgstr	"Importer la description d'un document"
+msgid	"Result Import Documents"
+msgstr " Résultat de l'importation de documents"
 
 msgid	"view properties"
 msgstr	"voir les propriétés"
@@ -1434,11 +1467,38 @@ msgstr	" Changer de titre"
 msgid	"Change title"
 msgstr	"Changer de titre"
 
+msgid	"Import Documents"
+msgstr " Importer des documents"
+
+msgid	"for"
+msgstr	"pour"
+
+msgid	"import file:"
+msgstr	"Importer un fichier"
+
+msgid	"Analyze"
+msgstr "Analyse"
+
+msgid	"Direct Import"
+msgstr "Import direct"
+
+msgid	"Import document description"
+msgstr	"Importer la description d'un document"
+
+msgid	"Background Import"
+msgstr "Import en tache de fond"
+
+msgid	"report to (mail address)"
+msgstr "rapport à (email)"
+
+msgid	"proceed background import"
+msgstr "Effectuer l'import en tache de fond"
+
 msgid	"default folder"
-msgstr "dossier par défaut"
+msgstr	"dossier par défaut"
 
 msgid	"no folder"
-msgstr "pas de dossier"
+msgstr	"pas de dossier"
 
 msgid	"access path folder list:"
 msgstr	"liste des chemins d'accès"
@@ -1483,7 +1543,7 @@ msgid	"modification date"
 msgstr	"date de modification"
 
 msgid	"Change State"
-msgstr "Changer d'état"
+msgstr	"Changer d'état"
 
 msgid	" choose value"
 msgstr	" choisir une valeur"
@@ -1528,7 +1588,7 @@ msgid	"History"
 msgstr	"Historique"
 
 msgid	"Change state"
-msgstr "Changer d'état"
+msgstr	"Changer d'état"
 
 msgid	"Change profile"
 msgstr	"Changer de profil"
@@ -1537,7 +1597,7 @@ msgid	"Change creation profile"
 msgstr	"Changer de profil par défaut"
 
 msgid	"Change default folder"
-msgstr "Changer dossier par défaut"
+msgstr	"Changer dossier par défaut"
 
 msgid	"goaccess"
 msgstr	"accessibilités..."
@@ -1608,6 +1668,23 @@ msgstr	"Dupliquer"
 msgid	"View headers"
 msgstr	"Voir entête"
 
+#~ msgid	"this document cannot be locked : it is not a revisable "
+#~ 	"document"
+#~ msgstr	"ce document n'est pas verrouillable, il ne peut pas être "
+#~ 	"révisé"
+
+#~ msgid	"view usercard"
+#~ msgstr	"voir une carte"
+
+#~ msgid	"edit usercard"
+#~ msgstr	"éditer une carte"
+
+#~ msgid	"delete usercard"
+#~ msgstr	"supprimer une carte"
+
+#~ msgid	"Description of the import format:"
+#~ msgstr	"Description du format d'import"
+
 #~ msgid	"view incident"
 #~ msgstr	"voir un incident"
 
@@ -1675,9 +1752,6 @@ msgstr	"Voir entête"
 
 #~ msgid	"admin"
 #~ msgstr	"administration"
-
-#~ msgid	"import"
-#~ msgstr	"Importer"
 
 #~ msgid	"add"
 #~ msgstr	"Ajouter un nouveau contact"
@@ -1780,9 +1854,6 @@ msgstr	"Voir entête"
 
 #~ msgid	"organisation"
 #~ msgstr	"Société"
-
-#~ msgid	"postaladdress"
-#~ msgstr	"Adresse"
 
 #~ msgid	"postalcode"
 #~ msgstr	"Code Postal"
