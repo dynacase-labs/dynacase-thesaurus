@@ -20,7 +20,7 @@
     onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IFLD&id='+docid+'&dirid='+parent.finfo.document.dirid,'fdoc');closeMenu('popuplist'); return false;" >[TEXT:access path list]</a>
 
 <a href="#" id="delete"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=DELDIRFILE&docid='+docid+'&dirid='+parent.finfo.document.dirid,'fdoc');closeMenu('popuplist'); return false;" >[TEXT:delete link]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=DELDIRFILE&docid='+docid+'&dirid='+parent.finfo.document.dirid,'finfo');closeMenu('popuplist'); return false;" >[TEXT:delete link]</a>
 
 <a href="#" id="cancel"  
     onClick="closeMenu('popuplist'); return false;"  >[TEXT:cancel]</a>
