@@ -21,10 +21,9 @@ if ($dbaccess == "") {
 
 
 $famid=getFamIdFromName($dbaccess,"USER");
-$ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"TABLE",$famid);
+$ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"LIST",$famid);
 
 
-if ($query->nb > 0) {
   
   while(list($k,$doc) = each($ldoc)) {
     $priv=$doc->GetValue("US_PRIVCARD");
@@ -40,7 +39,7 @@ if ($query->nb > 0) {
   }
 	
   
-}
+
     
 
 ?>
