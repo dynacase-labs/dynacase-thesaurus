@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewfolder.php,v 1.48 2003/11/03 09:01:41 eric Exp $
+ * @version $Id: viewfolder.php,v 1.49 2003/11/25 08:28:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.48 2003/11/03 09:01:41 eric Exp $
+// $Id: viewfolder.php,v 1.49 2003/11/25 08:28:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -189,13 +189,13 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	$tdoc[$k]["divid"] = $kdiv;
 
 	$tdoc[$k]["locked"] ="";
-	if ($doc->isRevisable()) {
+	
 	  if ($doc->locked == -1) $tdoc[$k]["locked"] = $action->GetIcon("revised.gif",N_("fixed"), 20,20);
 	  else if ((abs($doc->locked) == $action->parent->user->id)) $tdoc[$k]["locked"] = $action->GetIcon("clef1.gif",N_("locked"), 20,20);
 	  else if ($doc->locked != 0) $tdoc[$k]["locked"] = $action->GetIcon("clef2.gif",N_("locked"), 20,20);
 	  else if ($doc->control("edit") != "")  $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("read-only"), 20,20);
 	  else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
-	}
+	
       
 
 	$tdoc[$k]["iconsrc"]= $doc->geticon();
