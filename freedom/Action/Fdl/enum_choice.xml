@@ -91,7 +91,6 @@ tattrv[[index]] =[attrv];
 
 
 function completechoice(index) {
-
   var rvalue;
 
   for (i=0; i< tattrid.length; i++) {
@@ -116,7 +115,9 @@ function completechoice(index) {
       }
   }
   winfo.disableReadAttribute();
-  self.close();
+  setTimeout('self.close()',200); // must be set in next event loop cause Mozilla crash sometimes
+  return;
+
 
 }
 
