@@ -114,7 +114,7 @@ function SendSearch(e) {
      else keyCode = e.which;
 
      if (keyCode==13) {
-        document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&dirid=[dirid]&catg=[catg]&keyword='+document.getElementById('keyword').value;
+        document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&dirid=[dirid][pds]&catg=[catg]&keyword='+document.getElementById('keyword').value;
      }
 }
 
@@ -133,7 +133,7 @@ function SendSearch(e) {
 [BLOCK MKIND]
 <div  id="[kindid]menu" class="popup" style="position:[positionstyle];">
 [BLOCK [vkind]]
-<a  id="[kindid][kid]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH_KIND&famid=[famid]&kid=[kid]&aid=[kindid]&catg=[catg]';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[ktitle]</span></a>
+<a  id="[kindid][kid]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH_KIND&famid=[famid]&kid=[kid]&aid=[kindid]&catg=[catg][pds]';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[ktitle]</span></a>
 [ENDBLOCK [vkind]]
 <a  id="[kindid]kedit" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITCATG&fid=[famid]&aid=[kindid]';closeAllMenu()"><I>[TEXT:Edit kind]</I></a>
 </div>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.18 2004/02/17 10:49:27 eric Exp $
+ * @version $Id: generic_search.php,v 1.19 2004/06/23 14:08:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.18 2004/02/17 10:49:27 eric Exp $
+// $Id: generic_search.php,v 1.19 2004/06/23 14:08:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,7 +67,7 @@ function generic_search(&$action) {
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
   $sdoc->title = sprintf(_("search %s"),$keyword);
   if ($doc->id == getDefFld($action)) $sdoc->title = sprintf(_("search  contains %s in all state"),$keyword );
-  else $sdoc->title = sprintf(_("search contains %s in %s"),$keyword,$doc->title );
+  else $sdoc->title = sprintf(_("search contains %s in %s"),$keyword,$doc->getTitle() );
 
   $sdoc->Add();
   

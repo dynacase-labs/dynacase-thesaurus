@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: folder_barmenu.php,v 1.2 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: folder_barmenu.php,v 1.3 2004/06/23 14:08:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: folder_barmenu.php,v 1.2 2003/08/18 15:47:04 eric Exp $
+// $Id: folder_barmenu.php,v 1.3 2004/06/23 14:08:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Freedom/folder_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,7 +55,8 @@ function folder_barmenu(&$action) {
   $dir = new Doc($dbaccess, $dirid);
 
 
-  $action->lay->set("title",$dir->title);
+  $action->lay->set("title",$dir->getTitle());
+  $action->lay->set("pds",$dir->urlWhatEncodeSpec(""));  // parameters for searches
   if ($nbdoc > 1)  $action->lay->set("nbdoc",sprintf(_("%d documents found"),$nbdoc));
   else $action->lay->set("nbdoc",sprintf(_("%d document found"),$nbdoc));
 

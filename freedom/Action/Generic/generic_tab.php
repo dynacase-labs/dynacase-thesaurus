@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * List document of a category
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.16 2004/06/11 16:16:04 eric Exp $
+ * @version $Id: generic_tab.php,v 1.17 2004/06/23 14:08:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.16 2004/06/11 16:16:04 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 
 include_once("FDL/Class.DocSearch.php");
@@ -48,7 +27,6 @@ include_once("GENERIC/generic_list.php");
 
 // -----------------------------------
 function generic_tab(&$action) {
-  // -----------------------------------
 
   
 
@@ -81,47 +59,55 @@ function generic_tab(&$action) {
   else $aclctrl="open";
   if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
 
+  if (($dir->defDoctype=='S')&&($tab==0)) {
+    // parmeters for redirect in case of parametrizable search
+    setHttpVar("dirid",$dir->initid );
+    setHttpVar("sapp",$action->getParam("APPNAME","GENERIC"));
+    setHttpVar("saction",urlencode("GENERIC_LIST&famid=$famid&onglet=Y"));
+    setHttpVar("sid","dirid");
+    setHttpVar("id",$dir->initid);
+    
+  } else {
+    $sdoc = createDoc($dbaccess,5,false); // new DocSearch
 
-  $sdoc = createDoc($dbaccess,5,false); // new DocSearch
+
+    $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
 
 
-  $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
-
-
-  if ($dir->id == $fdoc->dfldid)   {
-    $sdoc->title = sprintf(_("%s all "),$tabletter[$tab] );
-    $sdirid=0; // search in all DB
-  }  else {
-    $sdoc->title = sprintf("%s %s ",$tabletter[$tab],$dir->title );
-    $sdirid=$dir->id;
-  }
+    if ($dir->id == $fdoc->dfldid)   {
+      $sdoc->title = sprintf(_("%s all "),$tabletter[$tab] );
+      $sdirid=0; // search in all DB
+    }  else {
+      $sdoc->title = sprintf("%s %s ",$tabletter[$tab],$dir->title );
+      $sdirid=$dir->id;
+    }
 
 
 
  
 
-  $sdoc->Add();
+    $sdoc->Add();
 
 
-  $sqlfilter[]= "locked != -1";
-  $sqlfilter[]= "doctype!='C'";
-  $sqlfilter[] = "usefor = 'N'";
+    $sqlfilter[]= "locked != -1";
+    $sqlfilter[]= "doctype!='C'";
+    $sqlfilter[] = "usefor = 'N'";
 
-  if ($tabletter[$tab]!="") $sqlfilter[]="title ~* '^[".$tabletter[$tab]."].*'";
-
-
-
-  $query = getSqlSearchDoc($dbaccess,$sdirid,$famid,$sqlfilter);
+    if ($tabletter[$tab]!="") $sqlfilter[]="title ~* '^[".$tabletter[$tab]."].*'";
 
 
-  $sdoc->AddQuery($query);
+
+    $query = getSqlSearchDoc($dbaccess,$sdirid,$famid,$sqlfilter);
+
+
+    $sdoc->AddQuery($query);
   
 
-  setHttpVar("tab", $tab);
-  setHttpVar("dirid",$sdoc->id );
-  setHttpVar("catg",$dirid );
+    setHttpVar("tab", $tab);
+    setHttpVar("dirid",$sdoc->id );
+    setHttpVar("catg",$dirid );
 
-
+  }
 
 
   generic_list($action);

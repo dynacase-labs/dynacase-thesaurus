@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.29 2004/03/25 11:08:43 eric Exp $
+ * @version $Id: enum_choice.php,v 1.30 2004/06/23 14:08:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,7 +27,13 @@ function enum_choice(&$action) {
   $wname = GetHttpVars("wname",""); // single or multiple
   $index = GetHttpVars("index",""); // index of the attributes for arrays
   $domindex = GetHttpVars("domindex",""); // index in dom of the attributes for arrays
+  $notalone="true";
 
+  if (ereg("([a-z]*)-alone",$sorm,$reg)) {
+    $sorm=$reg[1];
+    $notalone="false";
+  }
+  $action->lay->set("notalone",$notalone);
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -35,7 +41,6 @@ function enum_choice(&$action) {
   $oattr= $doc->GetAttribute($attrid);
   if (! $oattr) 
     $action->exitError(sprintf(_("unknown attribute %s"), $attrid));
-
 
   if (! include_once("EXTERNALS/$oattr->phpfile")) {
     $action->exitError(sprintf(_("the external pluggin file %s cannot be read"), $oattr->phpfile));
@@ -65,6 +70,7 @@ function enum_choice(&$action) {
 			"getAttr('\\1')",
 			$reg[2]);
   $argids = split(",",$iarg);  // input args
+
   while (list($k, $v) = each($argids)) {
     if ($v == "A") $arg[$k]= &$action;
     else if ($v == "D") $arg[$k]= $dbaccess;
@@ -83,7 +89,13 @@ function enum_choice(&$action) {
 	
       } else {
 	if ($a && ($a->usefor=="Q")) {
-	  $arg[$k]=$doc->getParamValue($v);
+	   if (($a->fieldSet->id == $oattr->fieldSet->id)) { // search with index
+	    $ta = GetHttpVars("_".strtolower($v),$v);
+	  
+	    $arg[$k]=trim($ta[$index]);
+	   } else {
+	     $arg[$k]=$doc->getParamValue($v);
+	   }
 	} else if ($a && $a->inArray()) {
 	  if (($a->fieldSet->id == $oattr->fieldSet->id)) { // search with index
 	    $ta = GetHttpVars("_".strtolower($v),$v);

@@ -63,8 +63,8 @@ var catgid=[catg];
 
 <p align="center">[fldtitle]</p>
 <table class="tablesimple" cellspacing="0" width="100%"><tr>
-<td align="left"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&famid=[famid]">[previcon]</a></td>
-<td align="right"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]&famid=[famid]">[nexticon]</a></td>
+<td align="left"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&famid=[famid][pds]">[previcon]</a></td>
+<td align="right"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]&famid=[famid][pds]">[nexticon]</a></td>
 </tr></table>
 
 <table class="tablesimple"  width="100%">
@@ -74,7 +74,7 @@ var catgid=[catg];
 [BLOCK ONGLET]
 <tr><td class="[ongclass]" align="center" onmouseover="if (className != 'onglets') className='ongleth';" 
                        onmouseout="if (className != 'onglets') className='onglet';" 
-                       onclick="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&catg=[catg]&tab=[ongdir]&famid=[famid]'">[onglabel]</td></tr>
+                       onclick="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&catg=[catg]&tab=[ongdir]&famid=[famid][pds]'">[onglabel]</td></tr>
 [ENDBLOCK ONGLET]
 </table>
 </td>
@@ -102,8 +102,8 @@ var catgid=[catg];
 </table>
 
 <table class="tablesimple" cellspacing="0" width="100%"><tr>
-<td align="left"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&onglet=[onglet]&famid=[famid]">[previcon]</a></td>
-<td align="right"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]&onglet=[onglet]&famid=[famid]">[nexticon]</a></td>
+<td align="left"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&onglet=[onglet]&famid=[famid][pds]">[previcon]</a></td>
+<td align="right"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]&onglet=[onglet]&famid=[famid][pds]">[nexticon]</a></td>
 </tr></table>
 </div>
 <!--  FOOT HTML -->

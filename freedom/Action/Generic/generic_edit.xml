@@ -19,11 +19,7 @@
  
 [CSS:CODE]
    </style>
-<script type="text/javascript" src="htmlarea/htmlarea.js"></script>
-<script type="text/javascript" src="htmlarea/htmlarea-lang-en.js"></script>
-<script type="text/javascript" src="htmlarea/dialog.js"></script>
 [JS:REF]
-<script type="text/javascript" src="[CORE_STANDURL]app=FDL&action=EDITJS"></script>
 
    <script language="JavaScript">
   <!--

@@ -1,11 +1,14 @@
-<H1 align="center">[V_BA_TITLE]</H1>
-
+<H1 align="center">[TITLE]</H1>
+[BLOCK PARAMS]
+[ZONE FDL:IMPCARD?zone=FREEDOM:VIEWDSEARCH:S&sapp=FDL&saction=FDL_CARD&sid=id&starget=_self]
+[ENDBLOCK PARAMS]
 
 <table class="[reportstyle]" width="100%" cellspacing=0>
 <caption>[V_REP_CAPTION]</caption>
 <thead><tr>
 [BLOCK COLS]<th align="[rightfornumber]" id="[colid]">[collabel]</th>[ENDBLOCK COLS]
 </tr></thead>
+
 <tbody >
 [BLOCK ROWS]<tr class="[troddoreven]"   ondblclick="subwindowm(200,600,'reportdetail','[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[docid]');"> [BLOCK [CELLS]]<td  valign="top" style="color:[bgcell]" align="[rightfornumber]" class="[tdoddoreven]">[cellval]</td>[ENDBLOCK [CELLS]]
 

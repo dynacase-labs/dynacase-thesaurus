@@ -32,15 +32,15 @@
 <!-- ------------ MENU VIEW  --------------------- -->
 <div  id="viewmenu" class="popup">
   
-<a  id="vlist" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_LIST&dirid=[dirid]';closeAllMenu()">[TEXT:list]</a>
-<a  id="vicon" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ICONS&dirid=[dirid]';closeAllMenu()">[TEXT:icon]</a>
-<a  id="vcol" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_COLUMN&dirid=[dirid]';closeAllMenu()">[TEXT:column]</a>
+<a  id="vlist" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_LIST&dirid=[dirid][pds]';closeAllMenu()">[TEXT:list]</a>
+<a  id="vicon" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ICONS&dirid=[dirid][pds]';closeAllMenu()">[TEXT:icon]</a>
+<a  id="vcol" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_COLUMN&dirid=[dirid][pds]';closeAllMenu()">[TEXT:column]</a>
 </div>
 
 <!-- ------------ MENU TOOL --------------------- -->
 <div  id="toolmenu" class="popup">
      <a  id="props" href="#" onClick="activate(this,'[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[dirid]','fdoc');closeAllMenu();">[TEXT:Properties]</a>
-  <a id="tobasket"  href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_INSERTFLD&dirid=[dirid]&id=[FREEDOM_IDBASKET]','basket');closeAllMenu()" >[TEXT:All To basket]</a>
+  <a id="tobasket"  href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_INSERTFLD&dirid=[dirid]&id=[FREEDOM_IDBASKET][pds]','basket');closeAllMenu()" >[TEXT:All To basket]</a>
      <a  id="clear" href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_CLEARFLD&id=[dirid]','basket');closeAllMenu();">[TEXT:Clear Folder]</a>
 </div>
 

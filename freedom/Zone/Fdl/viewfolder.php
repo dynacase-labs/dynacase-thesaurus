@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewfolder.php,v 1.52 2004/06/01 12:58:26 eric Exp $
+ * @version $Id: viewfolder.php,v 1.53 2004/06/23 14:08:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.52 2004/06/01 12:58:26 eric Exp $
+// $Id: viewfolder.php,v 1.53 2004/06/23 14:08:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -83,8 +83,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   } else $aclctrl="open";
   if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
 
-
-  $action->lay->Set("dirtitle",stripslashes($dir->title));
+  
+  $action->lay->Set("dirtitle",stripslashes($dir->getTitle()));
   $action->lay->Set("dirid",$dirid);
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -111,10 +111,15 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     } else $start=0;
 
 
+  $terr = getChildDocError($dbaccess, $dirid);
+  if (count($terr) > 0) {
+    redirect($action,"FDL",
+	     "FDL_CARD&id=$dirid",
+	     $action->GetParam("CORE_STANDURL"),true);
+  }
   $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid, 
 		      $distinct, $sqlorder);
 
-  
   
 
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.15 2004/06/03 14:47:28 eric Exp $
+ * @version $Id: generic_list.php,v 1.16 2004/06/23 14:08:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.15 2004/06/03 14:47:28 eric Exp $
+// $Id: generic_list.php,v 1.16 2004/06/23 14:08:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -61,11 +61,12 @@ function generic_list(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $dir = new Doc($dbaccess,$dirid);
-  $action->lay->Set("fldtitle",$dir->title);
+  $action->lay->Set("fldtitle",$dir->getTitle());
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("tab",$tab);
   $action->lay->Set("catg",$catgid);
   $action->lay->Set("famid",$famid);
+  $action->lay->Set("pds",$dir->urlWhatEncodeSpec(""));
 
   $slice = $action->GetParam("CARD_SLICE_LIST",5);
   //  $action->lay->Set("next",$start+$slice);
