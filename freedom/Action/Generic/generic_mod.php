@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.5 2002/06/19 12:32:29 eric Exp $
+// $Id: generic_mod.php,v 1.6 2002/07/23 07:35:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,6 +35,7 @@ function generic_mod(&$action) {
   // Get all the params      
   $dirid=GetHttpVars("dirid",0);
   $docid=GetHttpVars("id",0); 
+  $catgid=GetHttpVars("catgid",0); 
   
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -59,6 +60,14 @@ function generic_mod(&$action) {
     $doc= new Doc($dbaccess, $ndocid);
     
     $fld->AddFile($doc->id);
+
+    
+    if ($catgid > 0) {
+      //add to new default catg 
+	$fld = new Dir($dbaccess, $catgid);
+      $fld->AddFile($doc->id);
+	
+    }
     
   } else {
     $doc= new Doc($dbaccess, $docid);
