@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.66 2004/09/22 16:16:39 eric Exp $
+ * @version $Id: modcard.php,v 1.67 2004/09/29 09:29:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -321,6 +321,11 @@ function insert_file($dbaccess,$docid, $attrid)
       $vf = newFreeVaultFile($dbaccess);
       $err=$vf -> Store($destfile, false , $vid);
       
+
+      if ($userfile['type']=="none") {
+	// read system mime 
+	$userfile['type']=trim(`file -ib $destfile`);      
+      }
       if ($err != "") {
 	AddWarningMsg($err);
       }
@@ -329,7 +334,6 @@ function insert_file($dbaccess,$docid, $attrid)
       $err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
       $action->ExitError($err);
     }
-
 
     $rt[$k]=$userfile['type']."|".$vid; // return file type and upload file name
     
