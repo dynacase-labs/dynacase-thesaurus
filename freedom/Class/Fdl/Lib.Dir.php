@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.42 2002/12/04 17:13:37 eric Exp $
+// $Id: Lib.Dir.php,v 1.43 2002/12/06 17:15:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -139,13 +139,17 @@ function getSqlSearchDoc($dbaccess,
 //  	"and $sqlfld ".
 //  	"and (fld.qtype='S' and fld.childid=initid )  ";
 
+       $qsql_Litle= "select $selectfields ".
+ 	"from  $table  ".
+ 	"where initid in (select childid from fld where $sqlfld) and locked != -1 and $sqlcond ";
+
       $qsql= "select $selectfields ".
 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
 	"where locked != -1 and $sqlcond ";
 
-//       $qsql= "select $selectfields ".
-// 	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
-// 	"where $sqlcond ";
+       $qsql_Medium= "select $selectfields ".
+ 	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
+ 	"where locked != -1 and $sqlcond ";
 
 
     } else {
@@ -210,7 +214,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+    print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
   
 
 

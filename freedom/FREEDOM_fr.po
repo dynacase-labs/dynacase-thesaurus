@@ -168,7 +168,7 @@ msgid	"%s new revision %d"
 msgstr	"%s nouvelle révision %d"
 
 msgid	"new search "
-msgstr	"Recherche"
+msgstr "Recherche "
 
 msgid	"yes"
 msgstr	"oui"

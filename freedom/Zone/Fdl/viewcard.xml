@@ -5,6 +5,7 @@
 [TEXTERROR]
 </div>
 <script language="JavaScript">
+<!-- 
 function centerError() {
   CenterDiv('error');
 }
@@ -12,6 +13,7 @@ if ("[TEXTERROR]" != "") {
   centerError();
   window.onscroll=centerError;
 }
+-->
 </script>
 
 [BLOCK HEAD]

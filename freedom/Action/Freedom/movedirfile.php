@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: movedirfile.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: movedirfile.php,v 1.3 2002/12/06 17:15:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/movedirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,8 +23,7 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Doc.php");
-include_once("FDL/Class.QueryDir.php");
+include_once("FDL/Lib.Dir.php");
 include_once("FDL/freedom_util.php");  
 
 

@@ -62,7 +62,7 @@
 <tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
 </thead>
    
-[ZONE FDL:EDITCARD?classid=15]
+[ZONE FDL:EDITCARD?classid=15&mail_from=[from]]
 
 
 <tfoot>
@@ -71,7 +71,7 @@
   <td colspan="2" >
  <input type="submit" value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();"> 
 
-<select name="_MAIL_FORMAT">
+<select name="_mail_format">
     <option value="html">HTML</option>
     <option value="pdf">PDF</option>
     <option value="htmlpdf">HTML & PDF</option>

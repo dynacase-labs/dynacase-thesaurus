@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.13 2002/11/04 17:56:17 eric Exp $
+// $Id: mailcard.php,v 1.14 2002/12/06 17:15:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,15 +52,15 @@ function sendmailcard(&$action) {
   // set title
   $docid = GetHttpVars("id");  
   $zonebodycard = GetHttpVars("zone"); // define view action
-  $format = GetHttpVars("_MAIL_FORMAT","html"); // define view action
+  $format = GetHttpVars("_mail_format","html"); // define view action
   $szone = (GetHttpVars("szone","N")=="Y"); // the zonebodycard is a standalone zone ?
 
-  $from = GetHttpVars("_MAIL_FROM","");
-  $to = GetHttpVars("_MAIL_TO",'eric.brison@i-cesam.com');
-  $cc = GetHttpVars("_MAIL_CC","");
-  $comment = GetHttpVars("_MAIL_CM","");
+  $from = GetHttpVars("_mail_from","");
+  $to = GetHttpVars("_mail_to",'eric.brison@i-cesam.com');
+  $cc = GetHttpVars("_mail_cc","");
+  $comment = GetHttpVars("_mail_cm","");
   $bcc ="";
-  $subject = GetHttpVars("_MAIL_SUBJECT");
+  $subject = GetHttpVars("_mail_subject");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
@@ -71,14 +71,9 @@ function sendmailcard(&$action) {
   $pubdir = $action->getParam("CORE_PUBDIR");
 
   if ($from == "") {
-    $ma = new MailAccount("",$action->user->id);
-    if ($ma->isAffected()) {
-      $dom = new Domain("",$ma->iddomain);
-      $from = $ma->login."@".$dom->name;
-      if ($action->getParam("FDL_BCC") == "yes") $bcc="\\nbcc:$from";
-    } else {
-      $from = $action->user->login;
-    }
+    $from=getMailAddr($action->user->id);
+    if ($from == "")  $from = $action->user->login;
+    
     $bcc .="\\nReturn-Path:$from";
   }
 
@@ -230,7 +225,7 @@ function sendmailcard(&$action) {
       $action->addlogmsg(sprintf(_("PDF conversion failed for %s"),$doc->title));
     }
   }  
-
+  print $cmd;
   system ($cmd, $status);
 
   if ($status == 0)  {

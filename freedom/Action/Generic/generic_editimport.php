@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editimport.php,v 1.6 2002/11/15 16:17:37 eric Exp $
+// $Id: generic_editimport.php,v 1.7 2002/12/06 17:15:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,6 @@
 
 
 include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
 include_once("GENERIC/generic_util.php");  
 
 // -----------------------------------
@@ -50,12 +49,12 @@ function generic_editimport(&$action) {
   $famid = getDefFam($action);
 
   // spec for csv file
-  $doc=new DocUser($dbaccess, $famid);
+  $doc=new Doc($dbaccess, $famid);
   $lattr = $doc->GetNormalAttributes();
   $format = "DOC;".$doc->id.";0;". getDefFld($action)."; ";
 
   while (list($k, $attr) = each ($lattr)) {
-    $format .= $attr->labeltext." ;";
+    $format .= $attr->labelText." ;";
   }
   $action->lay->Set("format",$format);
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.32 2002/12/04 17:13:36 eric Exp $
+// $Id: import_file.php,v 1.33 2002/12/06 17:15:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -281,12 +281,12 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
       } else {
 	// no double title found
 	$doc->modify();
-	$doc->postModify(); // case special classes
+	$msg .= $doc->postModify(); // case special classes
       }
     } else {
       // with double title
       $doc->modify();
-      $doc->postModify(); // case special classes
+      $msg .= $doc->postModify(); // case special classes
     }
   }
 
