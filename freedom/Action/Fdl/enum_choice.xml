@@ -27,11 +27,11 @@
     //--------------------- MOVE  --------------------------
 //var    winfo = window.open('','[wname]','');
 var    winfo = self.opener;
+
 var isNetscape = navigator.appName=="Netscape";
 if (isNetscape) {
     winfo.document.captureEvents(Event.MOUSEMOVE);
 }    
-
 
 function GetXYi(event) {
   if (winfo.event) {
@@ -97,9 +97,13 @@ function completechoice(index) {
   for (i=0; i< tattrid.length; i++) {
       if  (tattrv[index][i].substring(0,1) != '?')  {
 	
-       winfo.document.getElementById(tattrid[i]).value = tattrv[index][i].replace(/\\n/g,'\n');
+	if (winfo.document.getElementById(tattrid[i])) {
+	  winfo.document.getElementById(tattrid[i]).value = tattrv[index][i].replace(/\\n/g,'\n');
 
-       winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
+	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
+	} else {
+	  alert('[TEXT:Attribute not found]'+'['+tattrid[i]+']'+winfo.name);
+	}
 
       } else {
 	if ((tattrv[index][i].length > 1) &&
