@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.21 2004/10/04 09:17:36 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.22 2004/10/08 07:45:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -162,7 +162,7 @@ function PostModify() {
   // compute expire for epoch
   
   $expiresd=$this->GetValue("US_EXPIRESD");
-  $expirest=$this->GetValue("US_EXPIREST");
+  $expirest=$this->GetValue("US_EXPIREST","00:00");
    //convert date 
   $expdate=$expiresd." ".$expirest.":00";
   $expires=0;
