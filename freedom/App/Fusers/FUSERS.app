@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FUSERS.app,v 1.1 2004/08/09 08:07:06 eric Exp $
+// $Id: FUSERS.app,v 1.2 2004/08/12 10:24:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fusers/FUSERS.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,6 +32,24 @@ $app_desc = array (
 "childof"	=>"ONEFAM"			//
 );
 
-
+$action_desc = array (
+		      array( 
+			    "name"		=>"FUSERS_ADMIN",
+			    "short_name"		=>N_("administrative tools"),
+			    "acl"		=>"ONEFAM_MASTER"
+			    ),
+		      array( 
+			    "name"		=>"FUSERS_IUSER",
+			    "short_name"		=>N_("refresh users intranet attributes"),
+			    "acl"		=>"ONEFAM_MASTER"
+			    ),
+		      array( 
+			    "name"		=>"FUSERS_LDAPINIT",
+			    "short_name"		=>N_("refresh ldap entries"),
+			    "script"           => "fusers_iuser.php",
+			    "function"           =>"fusers_ldapinit",
+			    "acl"		=>"ONEFAM_MASTER"
+			    )
+		      );
    
 ?>

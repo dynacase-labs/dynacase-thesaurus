@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: ONEFAM.app,v 1.3 2004/06/03 14:47:28 eric Exp $
+// $Id: ONEFAM.app,v 1.4 2004/08/12 10:26:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Onefam/ONEFAM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,6 +38,11 @@ $action_desc = array (
    "short_name"		=>N_("one familly root"),
    "acl"		=>"ONEFAM_READ",
    "root"		=>"Y"
+  )  ,
+  array( 
+   "name"		=>"ONEFAM_GENROOT",
+   "short_name"		=>N_("one family generic root"),
+   "acl"		=>"ONEFAM_READ"
   )  ,
   array( 
    "name"		=>"ONEFAM_LIST",
