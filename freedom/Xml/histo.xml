@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- HEAD HTML -->
+
+<html>
+  <head>
+
+   <title>[TEXT: history] [title]</title>
+
+   <style>
+[ZONE CORE:GENCSS]
+   </style>
+
+
+[CSS:REF]
+
+
+<style type="text/css">
+[CSS:CODE]
+
+
+TD.tlist {
+   border-width : 1px;
+   border-style : dashed solid none none;
+   border-color : [CORE_BGCOLOR];
+  font-family: [CORE_FONTLIST1];
+  font-size: 80%;
+}
+
+TR.tlist {
+  margin:0px;
+  padding:0px;
+}
+
+
+
+</style>
+
+[JS:REF]
+
+   <script language="JavaScript1.2">
+  <!--
+    [JS:CODE]
+
+-->
+</script>   
+ </head>
+
+<body class="freedom" >
+
+
+
+
+<table class="tablesimple" cellspacing="0"  width="100%" >
+<thead>
+<tr><td class="CORETblHeadBold" align="center" colspan="4">[title]</td><tr>
+<tr><td class="CORETblHeadBold">[TEXT: rev]</td>
+    <td class="CORETblHeadBold">[TEXT: comment]</td>
+    <td class="CORETblHeadBold">[TEXT: revised by]</td>
+    <td class="CORETblHeadBold" style="text-align:left;">[TEXT: date]</td>
+</tr>
+</thead>
+<tbody>
+
+
+<!-- TABLEBODY -->
+[BLOCK TABLEBODY]
+<tr class="tlist" id="d[id]"
+     onMouseDown="select(this,[id],[divid]);parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id=[id]'" >
+<td class="tlist"  >[revision]</td>
+<td class="tlist" >  
+     [comment]
+</td>
+     <td class="tlist"  >[owner]</td>
+     <td class="tlist"  >[date]</td>
+
+    
+</tr>
+
+</tbody>
+[ENDBLOCK TABLEBODY]
+</table>
+<!-- /TABLEBODY -->
+
+
+
+
+
+<!--  FOOT HTML -->
+
+</body>
+</html>
