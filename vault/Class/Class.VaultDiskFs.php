@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.4 2004/03/16 14:02:52 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.5 2004/04/22 15:26:32 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskFs.php,v $
+// Revision 1.5  2004/04/22 15:26:32  marc
+// int -> int8 pour tailles disques
+//
 // Revision 1.4  2004/03/16 14:02:52  eric
 // correction for extension file
 //
@@ -56,8 +59,8 @@ Class VaultDiskFs extends DbObj {
   var $sqlcreate_tmpl = "
            create table vaultdiskfs%s  ( id_fs     int not null,
                                  primary key (id_fs),
-                                 max_size   int,
-                                 free_size   int,
+                                 max_size   int8,
+                                 free_size   int8,
                                  subdir_cnt_bydir   int,
                                  subdir_deep   int,
                                  max_entries_by_dir   int,
