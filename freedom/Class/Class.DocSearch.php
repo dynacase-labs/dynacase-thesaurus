@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.1 2001/12/21 13:59:45 eric Exp $
+// $Id: Class.DocSearch.php,v 1.2 2002/01/04 15:45:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocSearch.php,v $
+// Revision 1.2  2002/01/04 15:45:54  eric
+// correction pour init DocSerach
+//
 // Revision 1.1  2001/12/21 13:59:45  eric
 // modif pour incident
 //
@@ -31,7 +34,7 @@
 // Revision 1.2  2001/11/09 18:54:21  eric
 // et un de plus
 // ---------------------------------------------------------------
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.1 2001/12/21 13:59:45 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.2 2002/01/04 15:45:54 eric Exp $';
 
 
 include_once("FREEDOM/Class.Doc.php");
@@ -65,8 +68,9 @@ Class DocSearch extends Doc
   var $defClassname='DocSearch';
 
   function DocSearch($dbaccess='', $id='',$res='',$dbid=0) {
-     if (((! isset($this->fromid))) || ($this->fromid == "")) $this->fromid = FAM_SEARCH;
+
      DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
+     if (((! isset($this->fromid))) || ($this->fromid == "")) $this->fromid = FAM_SEARCH;
   }
 
   function AddQuery($query) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.9 2002/01/04 15:08:04 eric Exp $
+// $Id: freedom_import.php,v 1.10 2002/01/04 15:45:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_import.php,v $
+// Revision 1.10  2002/01/04 15:45:54  eric
+// correction pour init DocSerach
+//
 // Revision 1.9  2002/01/04 15:08:04  eric
 // modif pour init
 //
@@ -127,8 +130,6 @@ function add_import_file(&$action, $fimport="") {
 
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  print("\nadd_import_file $fimport $dbaccess\n");
 
   if (isset($HTTP_POST_FILES["tsvfile"]))    
     {

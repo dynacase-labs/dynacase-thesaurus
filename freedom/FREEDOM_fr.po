@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2001-12-21 14:40+0100\n"
+	"POT-Creation-Date: 2002-01-04 16:01+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -39,7 +39,7 @@ msgstr	"Famille"
 
 #, fuzzy
 msgid	"import document"
-msgstr " importer le document"
+msgstr	" importer le document"
 
 msgid	"simple"
 msgstr	"Simple"
@@ -63,41 +63,40 @@ msgid	"no document family"
 msgstr	"Ce n'est pas une famille de document!"
 
 msgid	"ID"
-msgstr	""
+msgstr "ID"
 
 msgid	"order"
-msgstr	""
+msgstr "ordre"
 
 #, fuzzy
 msgid	"name"
 msgstr	"Nom"
 
 msgid	"type"
-msgstr	""
+msgstr "type"
 
 #, fuzzy
 msgid	"frame"
 msgstr	"Prénom"
 
 msgid	"A?"
-msgstr	""
+msgstr "R?"
 
 msgid	"T?"
-msgstr	""
+msgstr "T?"
 
-#, fuzzy
 msgid	"Vi"
-msgstr	"Affichage"
+msgstr "Vi"
 
 msgid	"Link"
-msgstr	""
+msgstr "Lien"
 
 #, fuzzy
 msgid	"file"
 msgstr	"figé"
 
 msgid	"func"
-msgstr	""
+msgstr "ft"
 
 msgid	"modify"
 msgstr	"Modifier"
@@ -118,7 +117,7 @@ msgid	"search document"
 msgstr	"Nouveau document"
 
 msgid	" keyword"
-msgstr	""
+msgstr " mot-clef"
 
 #, fuzzy
 msgid	" only latest revision"
@@ -129,10 +128,10 @@ msgid	" from current folder"
 msgstr	" Créer un dossier"
 
 msgid	" case sensitive"
-msgstr	""
+msgstr " casse sensible"
 
 msgid	" save query in current folder"
-msgstr	""
+msgstr " sauver la requête dans le dossier courant"
 
 #, fuzzy
 msgid	" search title"
@@ -143,13 +142,17 @@ msgid	" send search"
 msgstr	"Lancer la recherche"
 
 msgid	" cancel"
-msgstr " annuler"
+msgstr	" annuler"
 
 msgid	" choose value"
-msgstr	""
+msgstr " choisir une valeur"
 
 msgid	"close"
-msgstr	""
+msgstr "fermer"
+
+#, fuzzy
+msgid	"move"
+msgstr	"Mobile"
 
 msgid	" properties"
 msgstr	" Propriétés"
@@ -183,10 +186,10 @@ msgid	"Import Document"
 msgstr	" éditer le document"
 
 msgid	"for"
-msgstr "pour"
+msgstr	"pour"
 
 msgid	"Description of the import format:"
-msgstr "Description du format d'import"
+msgstr	"Description du format d'import"
 
 msgid	"The text between brackets are only indication for user readable"
 msgstr	""
@@ -239,11 +242,10 @@ msgid	" revise document"
 msgstr	"réviser le document"
 
 msgid	"to"
-msgstr "vers"
+msgstr	"vers"
 
-#, fuzzy
 msgid	"unchanged"
-msgstr	"modifié"
+msgstr "inchangé"
 
 msgid	" edit"
 msgstr	" Éditer"
@@ -280,7 +282,7 @@ msgid	"author"
 msgstr	"auteur"
 
 msgid	"state"
-msgstr "état"
+msgstr	"état"
 
 msgid	"revision"
 msgstr	"révision"
@@ -333,11 +335,11 @@ msgstr	"nouveau profil de document"
 
 #, c-format
 msgid	"the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
+msgstr	"le fichier externe %s ne peut être lu"
 
 #, c-format
 msgid	"the pluggins function description '%s' is not conform"
-msgstr "La description de la fonction externe '%s' est incorrecte"
+msgstr	"La description de la fonction externe '%s' est incorrecte"
 
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
@@ -364,7 +366,7 @@ msgid	"document not referenced"
 msgstr	"document non référencé"
 
 msgid	"no import file specified"
-msgstr "pas de fichier d'import spécifié"
+msgstr	"pas de fichier d'import spécifié"
 
 #, fuzzy
 msgid	"no comment"
@@ -386,24 +388,6 @@ msgstr	"non"
 
 msgid	"root folder"
 msgstr	"Freedom"
-
-msgid	"view directory"
-msgstr	"voir le dossier"
-
-msgid	"edit directory"
-msgstr	"éditer le dossier"
-
-msgid	"delete directory"
-msgstr	"supprimer le dossier"
-
-msgid	"open directory"
-msgstr	"ouvrir le dossier"
-
-msgid	"view document"
-msgstr	"voir le document"
-
-msgid	"delete document"
-msgstr	"supprimer le document"
 
 msgid	"untitle document"
 msgstr	"document sans titre"
@@ -436,19 +420,20 @@ msgstr	"dernière révision"
 
 #, c-format
 msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr "Changement d'état: l'état initial '%s' est inconnu"
+msgstr	"Changement d'état: l'état initial '%s' est inconnu"
 
 #, c-format
 msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr "Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé"
+msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
+	"autorisé"
 
 #, c-format
 msgid	"the method '%s' is not known for the object class %s"
-msgstr "La méthode '%s' n'est pas connu de la classe d'objet %s"
+msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
 
 #, c-format
 msgid	"ChangeState :: the method '%s' return the following error %s"
-msgstr "Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
+msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
 
 #, fuzzy, c-format
 msgid	"change state to %s"
@@ -457,7 +442,8 @@ msgstr	" changer d'état"
 #, c-format
 msgid	"ChangeState :: the state has been realized but the post method '%s' "
 	"return the following error %s"
-msgstr "Changement d'état : le changement d'état a été réalisé mais la post-méthode '%s' a retourné l'erreur suivante : %s "
+msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
+	"méthode '%s' a retourné l'erreur suivante : %s "
 
 msgid	"errldapadd"
 msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
@@ -478,7 +464,7 @@ msgid	"no filename"
 msgstr	"pas de fichier"
 
 msgid	"..."
-msgstr "..."
+msgstr	"..."
 
 #, c-format
 msgid	"Possible file upload attack: filename '%s'."
@@ -487,9 +473,8 @@ msgstr	"Possibilité d'atttaque 'upload' : fichier %s"
 msgid	"fixed"
 msgstr	"figé"
 
-#, fuzzy
 msgid	"nobody"
-msgstr	"--"
+msgstr "personne"
 
 msgid	"no family"
 msgstr	"pas de famille"
@@ -544,13 +529,13 @@ msgid	"Access To Read Only"
 msgstr	"Accès en lecture seule"
 
 msgid	"Freedoms frame"
-msgstr	""
+msgstr "fenêtres freedom"
 
 msgid	"Freedoms list"
-msgstr	""
+msgstr "liste freedom"
 
 msgid	"to choose value from set"
-msgstr "pour choisir une valeur à partir d'un ensemble"
+msgstr	"pour choisir une valeur à partir d'un ensemble"
 
 #, fuzzy
 msgid	"query document import"
@@ -648,7 +633,7 @@ msgid	"view history revision"
 msgstr	" référencer cette révision"
 
 msgid	"style sheet"
-msgstr	""
+msgstr "feuille de style"
 
 msgid	"widget display popup for a description card"
 msgstr	""
@@ -669,6 +654,28 @@ msgstr	""
 
 msgid	"Freedom accessibilities"
 msgstr	""
+
+#, fuzzy
+msgid	"Freedom initialisation"
+msgstr	"Importation de cartes"
+
+#~ msgid	"view directory"
+#~ msgstr	"voir le dossier"
+
+#~ msgid	"edit directory"
+#~ msgstr	"éditer le dossier"
+
+#~ msgid	"delete directory"
+#~ msgstr	"supprimer le dossier"
+
+#~ msgid	"open directory"
+#~ msgstr	"ouvrir le dossier"
+
+#~ msgid	"view document"
+#~ msgstr	"voir le document"
+
+#~ msgid	"delete document"
+#~ msgstr	"supprimer le document"
 
 #~ msgid	"category"
 #~ msgstr	"catégorie"
@@ -731,10 +738,6 @@ msgstr	""
 #~ msgstr	"L'ajout nécessite le privilège FREEDOM"
 
 #, fuzzy
-#~ msgid	"Freedom importation"
-#~ msgstr	"Importation de cartes"
-
-#, fuzzy
 #~ msgid	"Freedoms exportation"
 #~ msgstr	"Exportation de cartes"
 
@@ -783,9 +786,6 @@ msgstr	""
 
 #~ msgid	"home"
 #~ msgstr	"Domicile"
-
-#~ msgid	"mobile"
-#~ msgstr	"Mobile"
 
 #~ msgid	"business"
 #~ msgstr	"Professionnel"
