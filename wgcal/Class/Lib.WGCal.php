@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.2 2004/12/01 17:07:08 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.3 2005/02/04 08:03:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -61,4 +61,22 @@ function WGCalToolIsVisible( &$action,  $tool ) {
   return $state;
 }
 
+function WGCalGetRessDisplayed(&$action) {
+  $r = array();
+  $ir = 0;
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id)));
+  while (list($k,$v) = each($cals)) {
+    if ($v!="") {
+      $tc = explode("%", $v);
+      if ($tc[0] != "" && $tc[1] == 1) {
+	$r[$ir]->id = $tc[0];
+	if ($tc[0] == $action->user->fid) $r[$ir]->color = $action->GetParam("WGCAL_U_MYCOLOR", "black");
+	else $r[$ir]->color = $tc[2]; 
+	$ir++;
+      }
+    }
+  }
+  return $r;
+}
+  
 ?>

@@ -1,5 +1,6 @@
 <?php
 
+include_once("WHAT/Lib.Common.php");
 include_once("FDL/Class.Doc.php");
 
 function wgcal_storeevent(&$action) {
@@ -102,7 +103,7 @@ function wgcal_storeevent(&$action) {
    }
   
   $changed = true;
-  // if ($changed) mail_rv($action, $event);
+  if ($changed) mail_rv($action, $event);
 
   redirect($action, "WGCAL","WGCAL_CALENDAR");
 }
@@ -124,43 +125,52 @@ function date2db($d, $hm = true) {
 
 function mail_rv(&$action, $event) {
 
-  $from = $event->getValue("CALEV_OWNER");
-  $mailadd = "";
-  $att = $event->getTValue("CALEV_ATTID", array()); 
-  foreach ($att as $k => $v) {
-    $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
-    $ma = $u->getValue("US_MAIL");
-    if ($ma!="") {
-      print_r2($ma);
-      $mailadd .= ($mailadd==""?"":", ") . $u->getValue("US_FNAME"). " " .$u->getValue("US_LNAME"). " <".$ma.">";
+  $fid = $event->getValue("CALEV_OWNERID");
+  $uid = new Doc($action->GetParam("FREEDOM_DB"), $fid);
+  $from = $uid->getValue("TITLE")." &lt;".getMailAddr($uid->getValue("US_WHATID"))."&gt;";
+  $mailto = "";
+  $attid = $event->getTValue("CALEV_ATTID", array()); 
+  foreach ($attid as $k => $v) {
+    if ($v != $action->user->fid ) {
+      $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
+      $fullname = $u->getValue("TITLE");
+      $mail = getMailAddr($u->getValue("US_WHATID"));
+      $mailto .= ($mailto==""?"":", ").$fullname." &lt;".$mail."&gt;";
     }
   }
-  if ($to=!"") {
+  if ($mailto != "") {
 
-    $m = new Layout( "WGCAL/Layout/mail_rv_".$action->GetParam("CORE_LANG", "fr_FR").".xml", 
-		     $action );
+//     $m = new Layout( "WGCAL/Layout/mail_rv_".$action->GetParam("CORE_LANG", "fr_FR").".xml", $action );
+    $m = new Layout( "WGCAL/Layout/mail_rv.xml", $action );
     $m->set("rvowner", $event->getValue("CALEV_OWNER"));
-    $m->set("rvtitle", $event->getValue("CALEV_TITLE"));
+    $m->set("rvtitle", $event->getValue("CALEV_EVTITLE"));
     $m->set("dstart",  $event->getValue("CALEV_START"));
-    $m->set("dstart",  $event->getValue("CALEV_END"));
+    $m->set("dend",  $event->getValue("CALEV_END"));
+    $m->set("evid",  $event->id);
     $out = $m->gen();
     $tmpf = uniqid("/tmp/rv".$doc->id);
     $fout = fopen($tmpf,"w");
     fwrite($fout,$out);
+    print_r2($out);
     fclose($fout);
     
-    $icsf = makeIcsFile($action, $event);
+    //$icsf = makeIcsFile($action, $event);
 
-    $subject = "[proposition de rendez-vous | meeting proposal] ".$event->getValue("CALEV_TITLE");
-    $cmd = "metasend  -b -S 4000000 -c '$from' -F '$from' -t '$mailadd' -s \"$subject\"  ";
+    $subject = "[Proposition de rendez-vous - Meeting proposal] ".$event->getValue("CALEV_EVTITLE");
+    $cmd = "metasend  -b -S 4000000 -c '".$from."' -F '".$from."' -t '".$mailto."' -s \"".$subject."\"  ";
     $cmd .= " -m 'text/plain' -e 'quoted-printable' -i event -f '$tmpf' ";
-    $cmd .= " -m 'text/html' -e 'quoted-printable' -i ICS -f '$icsf' ";
+    //$cmd .= " -m 'text/html' -e 'quoted-printable' -i ICS -f '$icsf' ";
     
     $cmd = "export LANG=C;".$cmd;
-    echo "<div style=\"background:red\"> $cmd <div>";
-    system ($cmd, $status);
-    unlink($fout);
-    unlink($icsf);
+    echo "<pre>";
+    echo "From : $from\n";
+    echo "To : ".$mailto."\n";
+    echo "Subject : $subject\n";
+    echo "Command : $cmd\n";
+    echo "</pre>";
+    //system ($cmd, $status);
+    @unlink($tmpf);
+    //unlink($icsf);
   }
 }
 

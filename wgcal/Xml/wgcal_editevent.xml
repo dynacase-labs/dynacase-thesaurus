@@ -6,7 +6,7 @@
 <input id="jdend" name="jdend" type="hidden" value="">
 </form>
 
-<form id="editevent" name="editevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
+<form id="editevent" name="editevent" method="POST" target="wgcal_calendarX" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 <input type="hidden" id="ownerid" name="ownerid" value="[ownerid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
@@ -40,9 +40,9 @@
 <img id="butevrepeatzone" src="WGCAL/Images/wm-repeat.png" class="WGCalZoneDefault"
     height="28"  title="[TEXT:manage repeat]" style="border:0px" 
     onClick="SwitchZone('evrepeatzone'); autoHresize(); autoVresize();" >
-<img id="butevattendeeszone" src="WGCAL/Images/wm-attendees.png" class="WGCalZoneDefault"
+<!-- img id="butevattendeeszone" src="WGCAL/Images/wm-attendees.png" class="WGCalZoneDefault"
     height="28" title="[TEXT:add attendees]" style="border:0px" 
-    onClick="SwitchZone('evattendeeszone'); autoHresize(); autoVresize();" >
+    onClick="SwitchZone('evattendeeszone'); autoHresize(); autoVresize();" -->
 </legend>
 
 <!-- Event default view -->
@@ -267,7 +267,7 @@ Calendar.setup(
 
 <span style="display:none"><select  id="attendees" name="attendees[]" multiple></select></span>
 
-<div id="evattendeeszone" style="display:none">
+<div id="evattendeeszone" style="display:">
 
 <fieldset id='vical' class="WGCListRess">
   <legend class="WGCToolTitle">[TEXT:attendees]&nbsp;

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.10 2005/02/01 14:47:00 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.11 2005/02/04 08:03:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -28,6 +28,9 @@ function wgcal_toolbar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_toolbar.js");
+
+
+  $action->lay->set("owner", $action->user->lastname." ".$action->user->firstname);
 
   $cssfile = $action->GetLayoutFile("calendar-default.css");
   $csslay = new Layout($cssfile,$action);
@@ -57,7 +60,6 @@ function _seewaitrv(&$action, $state, &$wrv) {
 
   $rvtextl =  20;
 
-  $rd=getIdFromName($dbaccess,"WG_WAITRV");
   $rd = ($rd==0?1107:$rd);
   $irv = count($wrv);
   SetHttpVar("accstate","$state");
@@ -115,14 +117,16 @@ function _waitrv(&$action) {
 //    _seewaitrv($action, 4, $trv);
 
 
+  $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
+  $action->lay->set("alertwrv", "checked");
+  if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");
+
+  $rd=getIdFromName($dbaccess,"WG_WAITRV");
   $action->lay->SetBlockData("WAITRV", null);
-  $action->lay->SetBlockData("befWAITRV", null);
-  $action->lay->SetBlockData("aftWAITRV", null);
+  $action->lay->set("RVCOUNT", count($trv));
   if (count($trv)>0) {
     $action->lay->SetBlockData("WAITRV", $trv);
-    //$action->lay->SetBlockData("befWAITRV", array( array( "nop" => "")));
-    //$action->lay->SetBlockData("aftWAITRV", array( array( "nop" => "")));
-    AddWarningMsg(_("You have waiting events")); 
+    if ($alertfornewevent>0) AddWarningMsg(_("You have waiting events").". (".count($trv).")"); 
   }
   
 }

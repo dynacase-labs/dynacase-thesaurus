@@ -141,7 +141,7 @@ function setRessourceState(rid, setStyle, unsetStyle, memo) {
     rstyle = setStyle;
   }
   document.getElementById(rid).className = rstyle;
-  if (memo==1) saveTmpRessources();
+  saveTmpRessources();
   updateCalendar();	
   return;
 }
@@ -218,3 +218,12 @@ function useressources(frominput) {
   usetparam("WGCAL_U_USERESSINEVENT", use_r);
 }
  
+
+function setwrvalert() {
+  rf = document.getElementById('alertwrv');
+  if (rf.checked) val = 1;
+  else val = 0;
+  usetparam("WGCAL_U_WRVALERT", val);
+}
+ 
+

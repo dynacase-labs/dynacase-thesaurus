@@ -7,17 +7,21 @@
      <input id="toolsvis" name="toolsvis" type="hidden" value="">
 </form>
 
+<div onclick="document.location.reload(true)" 
+    style="cursor:pointer; background-color:white; padding:3px; font-weight:bold; text-align:center; border: 1px solid grey" class="WGCToolTitle">[owner]</div>
+<br>
+
 <!-- Rendez-vous en attente -->
-[BLOCK befWAITRV]<fieldset id='waitrv' class="WGCWaitingRv">
-<legend class="WGCToolTitle"><img id="iwaitrv" src="WGCAL/Images/waitrv.png" title="[TEXT:waiting rv]" height="20"></legend>[ENDBLOCK befWAITRV]
+<fieldset id='waitrv' class="WGCWaitingRv">
+<legend class="WGCToolTitle">[TEXT:waiting rv] ([RVCOUNT])&nbsp;
+<input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></legend>
 [BLOCK WAITRV]
-<div id="wrv[wrvid]" style="background-color:[wrvbgcolor]; color:[wrvcolor]" title="[wrvfulldescr]"
-     onmouseover="this.className = 'WGCwrvover'"
-     onmouseout="this.className = 'WGCwrvdefault'"
+<div id="wrv[wrvid]" style="font-style:italic; color:[wrvcolor]" title="[wrvfulldescr]"
+     onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'"
      class="WGCwrvdefault"
      onclick="subwindow(300, 500, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[wrvid]');"  >
  <img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
-[BLOCK aftWAITRV][nop]</fieldset>[ENDBLOCK aftWAITRV]
+</fieldset>
 
 <br>
  

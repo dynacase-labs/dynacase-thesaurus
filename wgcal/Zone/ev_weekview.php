@@ -3,66 +3,82 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.5 2005/02/03 07:59:06 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.6 2005/02/04 08:03:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
  */
  /**
  */
+include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/WGCAL_external.php");
 
 function ev_weekview(&$action) {
 
-  $ev = GetHttpVars("ev", -1);
-  if ($ev==-1) return;
+  $evid = GetHttpVars("ev", -1);
+  $evref = GetHttpVars("ref", -1);
+  if ($evid==-1) return;
 
-  $vi = GetHttpVars("vi", "");
-  switch ($vi) {
-  case "R": $layf = "ev_weekview_resume.xml"; break;
-  default: $layf = "ev_weekview_full.xml"; 
-  }
-
-  $action->layout = $action->GetLayoutFile($layf);
-  $action->lay = new Layout($action->layout, $action);
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $evg = new Doc($dbaccess, $ev);
-  switch ($vi) {
-  case "R":  $r = ev_weekview_resume($action, $evg); break;
-  default: $r = ev_weekview_full($action, $evg); 
-  }
-  return $r;
-}
-
-function ev_weekview_resume(&$action, &$ev) 
-{
+  $ev = new Doc($dbaccess, $evid);
 
   $ownerid = $ev->getValue("CALEV_OWNERID");
   $conf    = $ev->getValue("CALEV_VISIBILITY");
   $private = ((($ownerid != $action->user->fid) && ($conf!=0)) ? true : false );
-  $action->lay->set("START", substr($ev->getValue("CALEV_START"),0,16));
-  $action->lay->set("END", substr($ev->getValue("CALEV_END"),0,16));
+  $tpriv = array();
 
-  $present = false;
+  $action->lay->set("REF",   $evref);
+  $tpriv[0]["REF"] = $evref;
+  $action->lay->set("ID",    $ev->id);
+  $tpriv[0]["ID"] = $ev->id;
+  $action->lay->set("START", substr($ev->getValue("CALEV_START"),0,16));
+  $action->lay->set("END",   substr($ev->getValue("CALEV_END"),0,16));
+  $action->lay->set("iconevent", $ev->getIcon($ev->icon));
+
+  $action->lay->set("owner", $ev->getValue("CALEV_OWNER"));
+  $action->lay->set("modifdate", strftime("%x %X",$ev->revdate));
+
+  $add = "";
+//   $add = "[$evref::".$ev->id."] ";
+  if ($private) $action->lay->set("TITLE", $add.N_("confidential event"));
+  else $action->lay->set("TITLE", $add.$ev->getValue("CALEV_EVTITLE"));
+
   $tress  = $ev->getTValue("CALEV_ATTID");
   $tresse = $ev->getTValue("CALEV_ATTSTATE");
+
+  // Compute color according the owner, participant
+  $o_or_p = false;
+  if ($ownerid == $action->user->fid) $o_or_p = true;
+  else {
+    foreach ($tress as $k => $v) if ($v==$action->user->fid) $o_or_p = true;
+  }
+  $bgheadcolor = "#755757";
+  $bgresumecolor = $bgcolor = "white";
+  $ress = WGCalGetRessDisplayed($action);
+  if ($o_or_p) $cu = $action->user->fid;
+  else $cu = $ownerid;
+  foreach ($ress as $k => $v) if ($v->id==$cu) $bgresumecolor=$bgcolor=$v->color;
+
+  $present = false;
   $cstate = -1;
   foreach ($tress as $k => $v) {
     if ($v == $action->user->fid) {
       $present = true;
       $cstate = $tresse[$k];
     }
-    $bgnew = WGCalGetColorState($cstate);
   }
+  $bgnew = WGCalGetColorState($cstate);
   $action->lay->set("bgstate", $bgnew);
+  $action->lay->set("bgcolor", $bgcolor);
+  $action->lay->set("bgheadcolor", $bgheadcolor);
+  $action->lay->set("bgresumecolor", $bgresumecolor);
 
-  if ($private) $action->lay->set("TITLE", N_("confidential event"));
-  else $action->lay->set("TITLE", $ev->getValue("CALEV_EVTITLE"));
 
-  showIcons($action, $ev, $private);
+  if ($private && !$present) $action->lay->SetBlockData("ISCONF", null);
+  else $action->lay->SetBlockData("ISCONF", $tpriv);
 
-  $tress  = $ev->getTValue("CALEV_ATTID");
-  $tresse = $ev->getTValue("CALEV_ATTSTATE");
+  showIcons($action, $ev, $private, $present);
+
   $states = CAL_getEventStates($dbaccess,"");
   $valert = "none";
   foreach ($tress as $k => $v) {
@@ -73,32 +89,6 @@ function ev_weekview_resume(&$action, &$ev)
   }
   $action->lay->set("valert", $valert);
   $action->lay->set("vtext", $vtext);
-}
-
-function ev_weekview_full(&$action, &$ev) {
-
-  $ownerid = $ev->getValue("CALEV_OWNERID");
-  $conf    = $ev->getValue("CALEV_VISIBILITY");
-  $private = ($ownerid != $action->user->fid && $conf != 0 ? true : false );
-
-  ev_weekview_resume($action, $ev);
-
-  $action->lay->set("owner", $ev->getValue("CALEV_OWNER"));
-  
-  $action->lay->set("iconevent", $ev->getIcon($ev->icon));
-
-  $present = false;
-  $tress  = $ev->getTValue("CALEV_ATTID");
-  $tresse = $ev->getTValue("CALEV_ATTSTATE");
-  $cstate = -1;
-  foreach ($tress as $k => $v) {
-    if ($v == $action->user->fid) {
-      $present = true;
-      $cstate = $tresse[$k];
-    }
-    $bgnew = WGCalGetColorState($cstate);
-  }
-  $action->lay->set("bgstate", $bgnew);
 
   ev_showattendees($action, $ev, $present);
 
@@ -111,8 +101,7 @@ function ev_weekview_full(&$action, &$ev) {
   }    
 }
 
-
-function showIcons(&$action, &$ev, $private) {
+function showIcons(&$action, &$ev, $private, $present) {
   $icons = array();
   if ($private) {
     addIcons($icons, "CONFID");
@@ -121,6 +110,7 @@ function showIcons(&$action, &$ev, $private) {
     if ($ev->getValue("CALEV_VISIBILITY") == 2)  addIcons($icons, "VIS_GRP");
     if ($ev->getValue("CALEV_REPEATMODE") != 0)  addIcons($icons, "REPEAT");
     if (count($ev->getTValue("CALEV_ATTID"))>1)  addIcons($icons, "GROUP");
+    if ($present && ($ev->getValue("CALEV_OWNERID") != $action->user->fid)) addIcons($icons, "INVIT");
   }
   $action->lay->SetBlockData("icons", $icons);
 }
@@ -130,6 +120,7 @@ function addIcons(&$ia, $icol)
 
   $ricons = array(
      "CONFID" => array( "iconsrc" => "WGCAL/Images/wm-confidential.png", "icontitle" => "[TEXT:confidential event]" ),
+     "INVIT" => array( "iconsrc" => "WGCAL/Images/wm-invitation.png", "icontitle" => "[TEXT:invitation]" ),
      "VIS_PRIV" => array( "iconsrc" => "WGCAL/Images/wm-private.png", "icontitle" => "[TEXT:visibility private]" ),
      "VIS_GRP" => array( "iconsrc" => "WGCAL/Images/wm-attendees.png", "icontitle" => "[TEXT:visibility group]" ),
      "REPEAT" => array( "iconsrc" => "WGCAL/Images/wm-repeat.png", "icontitle" => "[TEXT:repeat event]" ),

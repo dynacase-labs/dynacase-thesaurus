@@ -34,25 +34,33 @@ var EvTObjectCount = -1;
 
 // -----------------------------------------------------"private"---
 function GetPxForMin() {
-  return (Hzone / (Ydivision*60));  
+  return (Hzone / ((Ydivision)*60));  
+}
+
+
+// --------------------------------------------------------
+function GetTimeInfoFromTs(ts) {
+   var evd = new Date();
+   var tinfo = new Object();
+   evd.setTime((ts*1000));
+   tinfo.day = evd.getDay();
+   tinfo.hours = evd.getHours();
+   tinfo.minutes = evd.getMinutes();
+   return tinfo;
 }
 
 // --------------------------------------------------------
 function GetCoordFromDate(ts) {
- 
-   var evt = new Object();
-   var evd = new Date();
-
-   evd.setTime((ts*1000));
    
-   day = evd.getDay();
-   evt.x = (Wday * (day - 1)) + Xs;
-   hmin = ((evd.getHours()-Ystart) * 60) + evd.getMinutes();
-   ypx = GetPxForMin();
-   evt.y = (ypx * hmin) + Ys;
-   //alert('evt(x,y)=('+evt.x+','+evt.y+')'+' day='+day+' Wday='+Wday+' Xs='+Xs);
-    
-   return evt;
+  var evt = new Object();
+  var tinf = GetTimeInfoFromTs(ts);
+  day = tinf.day;
+  evt.x = (Wday * (day - 1)) + Xs;
+  hmin = ((tinf.hours-Ystart) * 60) + tinf.minutes;
+  ypx = GetPxForMin();
+  evt.y = (ypx * hmin) + Ys;
+
+  return evt;
 }
 
 
@@ -66,9 +74,8 @@ function WGCalRefreshAll() {
 // --------------------------------------------------------
 function WGCalCleanAllFullView() {
   for (i=0; i<=EventCount; i++) {
-    evtc = document.getElementById('evtc'+id);
+    evtc = document.getElementById('evtc'+Event[i][0]);
     evtc.style.display = 'none';
-    evtc.style.zIndex = 1001;
   }
 }
   
@@ -92,9 +99,8 @@ function WGCalEvOnMouseOver(ev, id) {
 // --------------------------------------------------------
 function WGCalEvOnMouseOut(ev, id) {
   evt  = document.getElementById('evt'+id);
-  evtc = document.getElementById('evtc'+id);
   evt.style.zIndex = 0;
-  evtc.style.display = 'none';
+  WGCalCleanAllFullView();
 }
  
 
@@ -153,9 +159,9 @@ function AddEvent(urlroot,time) {
 
 // --------------------------------------------------------
 function ClickCalendarCell(urlroot, nh,times,timee) {
-//   alert(urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh='+nh+'&ts='+times+'&te='+timee);
   subwindow(300, 500, 'EditEvent', urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh='+nh+'&ts='+times+'&te='+timee);
 }
+
 // --------------------------------------------------------
 function OverCalendarCell(ev, elt, lref, cref) {
   WGCalCleanAllFullView();
@@ -163,12 +169,14 @@ function OverCalendarCell(ev, elt, lref, cref) {
   document.getElementById(lref).className = 'WGCAL_PeriodSelected';
   document.getElementById(cref).className = 'WGCAL_PeriodSelected';
 }
+
 // --------------------------------------------------------
 function OutCalendarCell(ev, elt, lref, cref, cclass, hourclass, dayclass) {
   elt.className = cclass;
   document.getElementById(lref).className = dayclass;
   document.getElementById(cref).className = hourclass;
 }
+
 // --------------------------------------------------------
 function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart) {
   IdStart   = idstart;
@@ -178,6 +186,7 @@ function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart) {
   Ystart    = ystart;
   WGCalComputeCoord();
 }
+
 // --------------------------------------------------------
 function WGCalComputeCoord() {
   // compute area coord left/top (Xs,Ys) right/bottom (Xe,Ye)
@@ -307,6 +316,7 @@ function WGCalDisplayEvent(iev, newEvent) {
 
   var evo = new Object();
   var dd = new Date();
+
   id     = Event[iev][0];
   dstart = Event[iev][1] + (dd.getTimezoneOffset() * 60);
   dend   = Event[iev][2] + (dd.getTimezoneOffset() * 60);
@@ -315,6 +325,7 @@ function WGCalDisplayEvent(iev, newEvent) {
     dend = dstart;
     dstart = t;
   }
+  var tinfo = GetTimeInfoFromTs(dstart);
   root = document.getElementById(Root);
   evtElt = document.getElementById('evt'+id);
   evtHeadElt = document.getElementById('evth'+id);
@@ -324,12 +335,22 @@ function WGCalDisplayEvent(iev, newEvent) {
 
   pstart = GetCoordFromDate(dstart);
   pend   = GetCoordFromDate(dend);
+  dstartt  = GetCoordFromDate(Days[tinfo.day-1].vstart);
+  dendt  = GetCoordFromDate(Days[tinfo.day-1].vend);
 
   rw = Math.round(Wday/8);
   wi = Wday - 4;
+
   evo.x = Math.round(pstart.x);
+
   evo.y = Math.round(pstart.y) + Ys;
   evo.h = Math.round(pend.y - pstart.y);
+  if (evo.y<dstartt.y) {
+    evo.y = dstartt.y;
+    evo.h = Math.round(pend.y - dstartt.y + (GetPxForMin()*60));
+  }
+  if ((evo.h+evo.y)>dendt.y) evo.h = dendt.y - pstart.y;
+
   evo.w = Math.round(wi);
   evo.s = 0;
 

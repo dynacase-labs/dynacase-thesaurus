@@ -1,4 +1,4 @@
-<div style="border : 4px solid white; height:100%;">
+<div style="background-color:[bgcolor]; border : 4px solid white; height:100%;">
 <table cellpadding="2px" cellspacing="0" border="0">
 <tr>
   <td width="15" style="border: 1px outset; background-color:[bgstate]" valign="top" rowspan="3">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]"><br>[ENDBLOCK icons]</td>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-02 16:57+0100\n"
+"POT-Creation-Date: 2005-02-04 08:36+0100\n"
 "PO-Revision-Date: 2005-02-02 17:01+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -336,7 +336,7 @@ msgid "all state"
 msgstr "Toute la journée"
 
 msgid "waiting rv"
-msgstr "Rendz-vous en attente"
+msgstr "Rendez-vous en attente"
 
 msgid "calendar selector"
 msgstr "Sélection du calendrier"
@@ -396,9 +396,6 @@ msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
 
-msgid "freeevent app name"
-msgstr ""
-
 msgid "event"
 msgstr "Evènement"
 
@@ -411,6 +408,9 @@ msgstr "modifié le"
 
 msgid "note"
 msgstr "Note"
+
+msgid "freeevent app name"
+msgstr ""
 
 #, c-format
 msgid "no privilege to create this kind (%d) of document"

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.20 2005/02/03 07:59:06 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.21 2005/02/04 08:03:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -13,6 +13,8 @@
 
 
 include_once("FDL/Class.Doc.php");
+include_once("WGCAL/Lib.WGCal.php");
+
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
 define("SEC_PER_MIN", 60);
@@ -41,24 +43,6 @@ function d2s($t, $f="%x %X") {
   return strftime($f, $t);
 }
 
-function wgcal_getRessDisplayed(&$action) {
-  $r = array();
-  $ir = 0;
-  $cals = explode("|", $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id)));
-  while (list($k,$v) = each($cals)) {
-    if ($v!="") {
-      $tc = explode("%", $v);
-      if ($tc[0] != "" && $tc[1] == 1) {
-	$r[$ir]->id = $tc[0];
-	if ($tc[0] == $action->user->fid) $r[$ir]->color = $action->GetParam("WGCAL_U_MYCOLOR", "black");
-	else $r[$ir]->color = $tc[2]; 
-	$ir++;
-      }
-    }
-  }
-  return $r;
-}
-  
 function wgcal_calendar(&$action) {
 
 
@@ -69,6 +53,7 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
 
+  $action->lay->set("comment",strftime('<div style="font-size:80%; font-style:italic">The Freedom Calendar By Anakeen / Cesam (c) 2005, %x %X</div>', time()));
 
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
   $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
@@ -83,7 +68,6 @@ function wgcal_calendar(&$action) {
   $curdate = d2s("%d/%m/%Y", $sdate);
   $fday  = strftime("%u",$firstWeekDay);
   // echo "start date : ".d2s($sdate)." end : ".d2s($edate)." first : ".d2s($firstWeekDay)."<br>";
-  $ress = wgcal_getRessDisplayed($action);
 
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);
@@ -115,8 +99,12 @@ function wgcal_calendar(&$action) {
   $curday = -1;
   $tabdays = array(); $itd=0;
   for ($i=0; $i<$ndays; $i++) { 
-    $tabdays[$itd]["iday"] =  $itd;
-    $tabdays[$itd++]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
+    $tabdays[$i]["iday"] =  $i;
+    $tabdays[$i]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
+    $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstart-1)) -1;
+    $tabdays[$i]["vstartc"] =  strftime("%x %X", $tabdays[$i]["vstart"]);
+    $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstop) -1;
+    $tabdays[$i]["vendc"] =  strftime("%x %X", $tabdays[$i]["vend"]);
     $ld = strftime("%d/%m/%Y", $firstWeekDay+($i*SEC_PER_DAY));
     if (!strcmp($ld,$today)) {
       $class[$i] = $classh[$i] = "WGCAL_DayLineCur";
@@ -202,20 +190,15 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
   
+  $ress = WGCalGetRessDisplayed($action);
   $events = array();
-   for ($d=0; $d<$ndays; $d++) {
-      $tevents = getAgendaEvent( $action, $ress, 
-				 d2s($tabdays[$d]["days"], "%Y-%m-%d %H:%M:%S"),
-				 d2s($tabdays[$d]["days"]+SEC_PER_DAY-1, "%Y-%m-%d %H:%M:%S") );
-    if (count($tevents)>0) {
-      usort($tevents, "EvOrder");
-      $events = array_merge($events, $tevents);
-    }
-  }
+  $events = getAgendaEvent( $action, $ress, 
+		 d2s($firstWeekDay, "%Y-%m-%d %H:%M:%S"),
+		 d2s($edate, "%Y-%m-%d %H:%M:%S") );
   
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
-  $action->lay->set("comment",strftime('<div style="font-size:80%; font-style:italic">The Freedom Calendar By Anakeen / Cesam, %x %X</div>', time()));
+
   //$action->lay->set("comment",strftime("%x %X", time())."<hr><pre>".print_r($events, true)."<pre>");
 }
 
@@ -224,42 +207,19 @@ function getAgendaEvent(&$action,$tress,$d1="",$d2="") {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $tout=array(); 
-  foreach ($tress as $kr=>$vr) {
-    setHttpVar("idres",$vr->id);
-    $dre=new Doc($dbaccess,$reid);
-    $edre=$dre->getEvents($d1,$d2);
-    foreach ($edre as $k=>$v) {
-     $item = array("REF" => $v["id"],
-		   "ID" => $v["evt_idinitiator"],
-		   "ABSTRACT" => $v["evt_title"],
-		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
-		   "END" => FrenchDateToUnixTs($v["evt_enddate"]),
-		   "COLOR" => $vr->color );
-// 		   "RG"=>1,
-// 		   "SIZE"=>1);
-     $tout[] = $item;
-    }
+  foreach ($tress as $kr=>$vr) $idres .= $vr->id."|";
+  setHttpVar("idres",$idres);
+    print_r2($idres);
+  $dre=new Doc($dbaccess,$reid);
+  $edre=$dre->getEvents($d1,$d2);
+  foreach ($edre as $k=>$v) {
+    $item = array("REF" => $v["id"], "ID" => $v["evt_idinitiator"],
+		  "START" => FrenchDateToUnixTs($v["evt_begdate"]),
+		  "END" => FrenchDateToUnixTs($v["evt_enddate"]), "IDC" =>  $v["evt_idcreator"]);
+    $tout[] = $item;
   }
+//   print_r2($tout);
   return $tout;
-}
-
-function EvOrder($a, $b) {
-  if ($a["START"] == $b["START"]) return 0;
-  return ( $a["START"] < $b["START"]) ? -1 : 1;  
-}
-
-function ComputeShift(&$tev) {
-  foreach ($tev as $k => $v) {
-    if ($k>0) {
-      if (   (($v["START"]>=$tev[$k-1]["START"])&&($v["START"]<=$tev[$k-1]["END"]))
-	     || (($v["END"]>=$tev[$k-1]["START"])&&($v["END"]<=$tev[$k-1]["END"])) 
-	     || (($v["START"]<=$tev[$k-1]["START"]) && ($v["END"]>=$tev[$k-1]["END"])) ) {
-	$tev[$k]["RG"]++;
-	$tev[$k-1]["SIZE"]++;
-	$tev[$k]["SIZE"] = $tev[$k-1]["SIZE"];
-      }
-    }
-  }
 }
 
 ?>

@@ -1,0 +1,58 @@
+<!-- Start resume [REF]::[ID] -->
+<div id="evt[REF]" 
+ [BLOCK ISCONF]onclick="subwindow(500, 500, 'EditEvent[REF]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[ID]');"[ENDBLOCK ISCONF]
+     onmouseover="WGCalEvOnMouseOver(event, '[REF]');" 
+     onmouseout="WGCalEvOnMouseOut(event, '[REF]');" 
+    style="cursor:pointer; border:0px; display:none">
+
+<div id="evth[REF]" style="border:0px inset; background-color:grey;"></div>
+
+<div id="evta[REF]" style="background-color:[bgresumecolor]; overflow:hidden; cursor:pointer; border:0px">
+<div style="overflow:hidden; cursor:pointer; border-left:3px solid [bgstate];border-right:1px solid grey; filter:alpha(opacity=80); height:100%">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td align="left">
+    <img style="display:[valert]; border:0px; padding:0px;" src="WGCAL/Images/wm-new.png" width="15" title="[TEXT:event] [vtext]">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]
+</td></tr>
+<tr><td>[TITLE]</td></tr>
+</table>
+</div>
+</div>
+
+<div id="evtf[REF]" style="border:0px outset; background-color:grey;"></div>
+<!-- End resume [REF]::[ID] --></div>
+
+<!-- Start resume [REF]::[ID] -->
+<div id="evtc[REF]" style="display:none; border:1px outset; background-color:[bgcolor]">
+<div style="background-color:[bgcolor]; border : 4px solid white; height:100%;">
+<table cellpadding="2px" cellspacing="0" border="0">
+<tr>
+  <td width="15" style="border: 1px outset; background-color:[bgstate]" valign="top" rowspan="3">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]"><br>[ENDBLOCK icons]</td>
+  <td valign="top" colspan="2" style="background-color:[bgheadcolor]; color:white">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td align="left" style="background-color:[bgheadcolor]; color:white"><span style="font-size:120%; font-weight:bold">[TITLE]</span></td>
+    <td align="right"><img src="[iconevent]" height="20"></td>
+    </tr></table>
+ </td>
+</tr>
+<tr>
+  <td valign="top">
+<span style="font-weight:bold">[START]</span><br>
+<span style="font-weight:bold">[END]</span><br><br>
+[TEXT:owner] : <span style="font-style:italic">[owner]</span><br>
+[TEXT:modified] : <span style="font-style:italic">[modifdate]</span><br>
+</td>
+  <td>
+<fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend>
+[BLOCK attlist]<div><img height="15" src="[atticon]">[atttitle]&nbsp;<span style="font-style:italic">([attstate])</span></div>
+[ENDBLOCK attlist]
+</fieldset></td>
+</tr>
+<tr style="display:[displaynote]">
+  <td colspan="2" valign="top">
+<fieldset><legend>[TEXT:note]</legend>
+[NOTE]</fieldset></td>
+</tr>
+</table>
+</div>
+<!-- End full [REF]::[ID] --></div>
