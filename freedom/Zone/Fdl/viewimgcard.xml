@@ -32,7 +32,7 @@ function resizeImg(th) {
 <tr class="FREEDOMBack1">
    <td colspan="3" style="background:[CORE_BGCOLOR]" align="center"><a href="[imgsrc]" target="_blank"> 
        <img onLoad="resizeImg(this)"
-            style="border:ridge 4px" src="[imgsrc]" title="[name]" type="[type]"></A>
+            style="border:ridge 4px" src="[imgsrc]"  title="[IMG_DESCRIPTION]" type="[type]"></A>
   </td>
 </tr>
 
