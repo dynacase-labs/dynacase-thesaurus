@@ -43,7 +43,7 @@
 </td>
 <td>
 <img src="WGCAL/Images/wgcal-search+.png" 
-  height="20" title="[TEXT:search]" class="WGCalButton" style="border:0px" onclick="document.getElementById('asearch').submit();">
+  height="20" title="[TEXT:search]" style="pointer:cursor; border:0px" onclick="document.getElementById('asearch').submit();">
 </td></tr>
 </table>
 </form>

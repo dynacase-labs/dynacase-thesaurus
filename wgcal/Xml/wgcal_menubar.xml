@@ -90,7 +90,7 @@ var RCall = 0;
 <td align="center" height="40" width="40" >
 <img id="menu_printview" class="WGCalButton" title="[TEXT:print this view]"
      onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
-     onclick="subwindow(300, 500, 'Print this view, '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PRINT');" 
+     onclick="parent.wgcal_calendar.print();" 
      src="WGCAL/Images/wm-print.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
 <td align="center" height="40" width="40" >

@@ -1,71 +1,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
-"POT-Creation-Date: 2005-02-01 08:06+0100\n"
-"PO-Revision-Date: 2004-10-18 18:13+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-02 16:57+0100\n"
+"PO-Revision-Date: 2005-02-02 17:01+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
-
-msgid "workgroup calendar"
-msgstr "Agenda de groupe"
-
-msgid "admin access"
-msgstr "Acces administrateur"
-
-msgid "user access"
-msgstr "Access utilisateur"
-
-msgid "no access"
-msgstr "Pas d'accès"
-
-msgid "css manager"
-msgstr "Gestion des CSS"
-
-msgid "main view"
-msgstr "Vue principale"
-
-msgid "toolbar"
-msgstr "Barre d'outils"
-
-msgid "set display/undisplay tool state in toolbar"
-msgstr "Afficher/Ne pas afficher dans la barre d'outil"
-
-msgid "menubar"
-msgstr "Barre de menu"
-
-msgid "set user param"
-msgstr "Valorisation de paramètre utilisateur"
-
-msgid "edit event"
-msgstr "Edition d'un rendez-vous"
-
-msgid "store event"
-msgstr "Stockage d'un rendez-vous"
-
-msgid "delete event"
-msgstr "Supression d'un rendez-vous"
-
-msgid "ressource picker main"
-msgstr "Selecteur de ressources"
-
-msgid "ressource picker"
-msgstr "Selecteur de ressources"
-
-msgid "ressource picker : list"
-msgstr "Liste des ressources"
-
-msgid "select ressource for display"
-msgstr "Sélectionner la ressource pour l'affichage"
-
-msgid "init ressource selection"
-msgstr "Réinitialiser la liste des ressources"
-
-msgid "calendar view"
-msgstr "Vue agenda"
 
 msgid "left toolbar width"
 msgstr "Largeur de la barre d'outils"
@@ -100,50 +43,85 @@ msgstr "Division de l'heure"
 msgid "tool display state"
 msgstr "Etat d'affiche de l'outil"
 
+msgid "my event color"
+msgstr "Modifier la couleur de mes évènements"
+
+msgid "Current displayed date"
+msgstr "Date courante affichée"
+
 msgid "WGCAL_U_RESSDISPLAYED"
 msgstr "Ressource affichées"
+
+msgid "WGCAL_U_TMPLIST"
+msgstr ""
 
 msgid "use displayed ressource for event setting"
 msgstr "Utiliser les ressources pour les rendez-vous"
 
-msgid "freeevent app name"
-msgstr ""
+msgid "workgroup calendar"
+msgstr "Agenda de groupe"
 
-msgid " ressource list changed, save it ?"
-msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
+msgid "admin access"
+msgstr "Acces administrateur"
 
-msgid " invalid ressource id"
-msgstr "Identifiant de ressource invalide"
+msgid "user access"
+msgstr "Access utilisateur"
 
-msgid "calendar selector"
-msgstr "Sélection du calendrier"
+msgid "no access"
+msgstr "Pas d'accès"
 
-msgid "my calendars"
-msgstr "Mes calendriers"
+msgid "css manager"
+msgstr "Gestion des CSS"
 
-msgid "update calendar"
-msgstr "Mise à jour de l'agenda"
+msgid "main view"
+msgstr "Vue principale"
 
-msgid "modify the list"
-msgstr "Modifier la liste des calendriers"
+msgid "toolbar"
+msgstr "Barre d'outils"
 
-msgid "reinit the list"
-msgstr "Réinitialiser la liste des calendriers"
+msgid "set display/undisplay tool state in toolbar"
+msgstr "Afficher/Ne pas afficher dans la barre d'outil"
 
-msgid "save the list"
-msgstr "Sauvegarder la liste des calendriers"
+msgid "menubar"
+msgstr "Barre de menu"
 
-msgid "supress ressource"
-msgstr "Supprimer le ressource"
+msgid "set user param"
+msgstr "Valorisation de paramètre utilisateur"
 
-msgid "suppress ressource"
-msgstr "Enlever la ressource"
+#, fuzzy
+msgid "search event"
+msgstr "Stockage d'un rendez-vous"
 
-msgid "change color for ressource"
-msgstr "Modifier la couleur du calendrier"
+#, fuzzy
+msgid "advanced search event"
+msgstr "Recherche avancée"
 
-msgid "date selector"
-msgstr "Selecteur de date"
+msgid "edit event"
+msgstr "Edition d'un rendez-vous"
+
+msgid "store event"
+msgstr "Stockage d'un rendez-vous"
+
+msgid "delete event"
+msgstr "Supression d'un rendez-vous"
+
+msgid "ressource picker main"
+msgstr "Selecteur de ressources"
+
+msgid "ressource picker"
+msgstr "Selecteur de ressources"
+
+msgid "ressource picker : list"
+msgstr "Liste des ressources"
+
+msgid "select ressource for display"
+msgstr "Sélectionner la ressource pour l'affichage"
+
+msgid "init ressource selection"
+msgstr "Réinitialiser la liste des ressources"
+
+msgid "calendar view"
+msgstr "Vue agenda"
 
 msgid "freedom groupware calendar"
 msgstr "Agenda de groupe Freedom"
@@ -178,20 +156,17 @@ msgstr "Ajout d'un calendrier"
 msgid "change preferences"
 msgstr "Modifier les préférences"
 
-msgid "waiting rv"
-msgstr "Rendz-vous en attente"
+msgid "prev period"
+msgstr "Période précédente"
 
-msgid " ressource list saved"
-msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
+msgid "current period"
+msgstr "Période courante"
 
-msgid "change my event color"
-msgstr ""
+msgid "next period"
+msgstr "Période suivante"
 
-msgid "use in event..."
-msgstr ""
-
-msgid "found ressources"
-msgstr "Ressources trouvées"
+msgid "week"
+msgstr "Semaine"
 
 msgid "searched families"
 msgstr "Rechercher dans les familles..."
@@ -257,6 +232,9 @@ msgstr "Alarme"
 msgid "hour"
 msgstr "heure"
 
+msgid "minutes"
+msgstr "minutes"
+
 msgid "before"
 msgstr "avant"
 
@@ -268,9 +246,6 @@ msgstr "jamais"
 
 msgid "day"
 msgstr "Jour"
-
-msgid "week"
-msgstr "Semaine"
 
 msgid "month"
 msgstr "Mois"
@@ -347,11 +322,102 @@ msgstr "Supprimer une personne conviée"
 msgid "event state "
 msgstr "Etat du rendez-vous"
 
+msgid "search phrase"
+msgstr "Texte recherché"
+
+msgid "between"
+msgstr "entre"
+
+msgid "and"
+msgstr "et"
+
+#, fuzzy
+msgid "all state"
+msgstr "Toute la journée"
+
+msgid "waiting rv"
+msgstr "Rendz-vous en attente"
+
+msgid "calendar selector"
+msgstr "Sélection du calendrier"
+
+msgid "date selector"
+msgstr "Selecteur de date"
+
+msgid "my calendars"
+msgstr "Mes calendriers"
+
+msgid "modify the list"
+msgstr "Modifier la liste des calendriers"
+
+msgid "update calendar"
+msgstr "Mise à jour de l'agenda"
+
+msgid "reinit the list"
+msgstr "Réinitialiser la liste des calendriers"
+
+msgid " ressource list saved"
+msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
+
+msgid "save the list"
+msgstr "Sauvegarder la liste des calendriers"
+
+msgid "change my event color"
+msgstr "Modifier la couleur de mes évènements"
+
+msgid "supress ressource"
+msgstr "Supprimer le ressource"
+
+msgid "suppress ressource"
+msgstr "Enlever la ressource"
+
+msgid "change color for ressource"
+msgstr "Modifier la couleur du calendrier"
+
+#, fuzzy
+msgid "use ressource for event creation"
+msgstr "Utiliser les ressources pour les rendez-vous"
+
+msgid "use in event..."
+msgstr "Utiliser pour les RV..."
+
+msgid "found ressources"
+msgstr "Ressources trouvées"
+
 msgid " save before closing"
 msgstr "Sauver"
 
 msgid " delete this event"
 msgstr "Supprimer le rendez-vous"
+
+msgid " ressource list changed, save it ?"
+msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
+
+msgid " invalid ressource id"
+msgstr "Identifiant de ressource invalide"
+
+msgid "freeevent app name"
+msgstr ""
+
+msgid "event"
+msgstr "Evènement"
+
+# Propriétaire
+msgid "owner"
+msgstr "Propriétaire"
+
+msgid "modified"
+msgstr "modifié le"
+
+msgid "note"
+msgstr "Note"
+
+#, c-format
+msgid "no privilege to create this kind (%d) of document"
+msgstr ""
+
+msgid "event search "
+msgstr "Recherche d'évènement"
 
 msgid "new"
 msgstr "nouveau"
@@ -364,6 +430,9 @@ msgstr "à confirmer"
 
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
+
+msgid "confidential event"
+msgstr "Evènement confidentiel"
 
 #~ msgid "save ressource selection"
 #~ msgstr "Sauvegarder la liste des ressources"

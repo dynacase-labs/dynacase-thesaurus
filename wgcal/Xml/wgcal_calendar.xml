@@ -1,19 +1,24 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
+<form id="me" target="wgcal_calendar" name="me" method="POST"  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
 
 <div id="root">
 <table width="100%" cellspacing="0" border="0" id="week">
   <tr height="[WGCAL_U_HLINETITLE]px">
     <td align="center" colspan="[colspan]">
       <table width="100%" cellspacing="0" border="0"><tr>
-      <td align="left" style="cursor:pointer;" 
+      <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:prev period]" 
-          onclick="mytoto('WGCAL_U_CALCURDATE', [pbefore], 0); window.location.reload();" 
+          onclick="mytoto('WGCAL_U_CALCURDATE', [pbefore], 0); document.getElementById('me').submit();" 
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="WGCAL/Images/wm-pperiod.png" height="15"></td>
-      <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
-       <td align="right" style="cursor:pointer;" 
+       <td align="center" width="30" style="cursor:pointer;" 
+          title="[TEXT:current period]" 
+          onclick="mytoto('WGCAL_U_CALCURDATE', [pcurrent], 0); document.getElementById('me').submit();"
+          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="WGCAL/Images/wm-cperiod.png" height="15"></td>
+       <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:next period]" 
-          onclick="mytoto('WGCAL_U_CALCURDATE', [pafter], 0); window.location.reload();" 
+          onclick="mytoto('WGCAL_U_CALCURDATE', [pafter], 0); document.getElementById('me').submit();"
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="WGCAL/Images/wm-nperiod.png" height="15"></td>
+      <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
       </tr></table>
     </td>
  </tr>    
@@ -48,13 +53,13 @@ WGCalViewInit('[IDSTART]', '[IDSTOP]', '[DAYCOUNT]', '[HCOUNT]', '[HSTART]');
      onmouseout="WGCalEvOnMouseOut(event, '[REF]');" 
     style="cursor:pointer; border:0px; display:none">
 <div id="evth[REF]" style="border:0px inset; background-color:grey;"></div>
-<div id="evta[REF]" style="overflow:hidden; cursor:pointer; background-color:[COLOR]; border:1px inset blue ">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=R]</div>
+<div id="evta[REF]" style="overflow:hidden; cursor:pointer; background-color:[COLOR]; border-left:1px solid grey;border-right:1px solid grey ">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=R]</div>
 <div id="evtf[REF]" style="border:0px outset; background-color:grey;"></div>
 </div>
 <div id="evtc[REF]" style="display:none; border:1px outset; background-color:[COLOR]">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=F]</div>
 [ENDBLOCK EVENTS]
 <script type="text/javascript">
-[BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END], [SHIFT]);
+[BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END], [RG], [SIZE]);
 [ENDBLOCK EVENTSSC]
 </script>
 

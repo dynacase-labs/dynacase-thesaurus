@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.18 2005/02/01 15:09:09 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.19 2005/02/02 21:29:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -46,12 +46,14 @@ function wgcal_getRessDisplayed(&$action) {
   $ir = 0;
   $cals = explode("|", $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id)));
   while (list($k,$v) = each($cals)) {
-    $tc = explode("%", $v);
-    if ($tc[0] != "" && $tc[1] == 1) {
-      $r[$ir]->id = $tc[0];
-      if ($tc[0] == $action->user->fid) $r[$ir]->color = $action->GetParam("WGCAL_U_MYCOLOR", "black");
-      else $r[$ir]->color = $tc[2]; 
-      $ir++;
+    if ($v!="") {
+      $tc = explode("%", $v);
+      if ($tc[0] != "" && $tc[1] == 1) {
+	$r[$ir]->id = $tc[0];
+	if ($tc[0] == $action->user->fid) $r[$ir]->color = $action->GetParam("WGCAL_U_MYCOLOR", "black");
+	else $r[$ir]->color = $tc[2]; 
+	$ir++;
+      }
     }
   }
   return $r;
@@ -106,9 +108,8 @@ function wgcal_calendar(&$action) {
   $action->lay->set("year", $year);
   $action->lay->set("pafter", $pafter);
   $action->lay->set("pbefore", $pbefore);
+  $action->lay->set("pcurrent", time());
 
-  $action->lay->set("F_LINE", '<td align="center" class="WGCAL_Period" colspan="'.($ndays+3).'">'
-		    . N_("week").' '.$week.' - '.$month.' '.$year.'</td>');
   $action->lay->set("WEEKNUMBER", $week);
   $classalt = array ( 0 => "WGCAL_Day1", 1 => "WGCAL_Day2" );
   $curday = -1;
@@ -201,12 +202,20 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
   
-  $events=getAgendaEvent($action, $ress, 
-			 d2s($firstWeekDay, "%Y-%m-%d %H:%M:%S"),
-			 d2s($edate, "%Y-%m-%d %H:%M:%S") );
+  $events = array();
+  for ($d=0; $d<$ndays; $d++) {
+      $tevents = getAgendaEvent( $action, $ress, 
+				 d2s($tabdays[$d]["days"], "%Y-%m-%d %H:%M:%S"),
+				 d2s($tabdays[$d]["days"]+SEC_PER_DAY-1, "%Y-%m-%d %H:%M:%S") );
+    if (count($tevents)>0) {
+      ComputeShift($tevents);
+      $events = array_merge($events, $tevents);
+    }
+  }
+  
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
-  $action->lay->set("comment",strftime("%x %X", time()));
+  $action->lay->set("comment",strftime("%x %X", time())."<hr><pre>".print_r($events, true)."<pre>");
 }
 
 
@@ -214,26 +223,43 @@ function getAgendaEvent(&$action,$tress,$d1="",$d2="") {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $tout=array(); 
-  $it=0;
   foreach ($tress as $kr=>$vr) {
-    //echo "ressource : ".$vr->id."(".$vr->color.") <br>";
     setHttpVar("idres",$vr->id);
     $dre=new Doc($dbaccess,$reid);
     $edre=$dre->getEvents($d1,$d2);
     foreach ($edre as $k=>$v) {
-      $tout[]=array("REF" => $k,
-		    "ID" => $v["evt_idinitiator"],
-		    "ABSTRACT" => $v["evt_title"],
-		    "START" => FrenchDateToUnixTs($v["evt_begdate"]),
-		    "END" => FrenchDateToUnixTs($v["evt_enddate"]),
-		    "COLOR" => $vr->color,
-		    "SHIFT"=>0);
-
-      $it++;
+     $item = array("REF" => $v["id"],
+		   "ID" => $v["evt_idinitiator"],
+		   "ABSTRACT" => $v["evt_title"],
+		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
+		   "END" => FrenchDateToUnixTs($v["evt_enddate"]),
+		   "COLOR" => $vr->color,
+		   "RG"=>1,
+		   "SIZE"=>1);
+     $tout[] = $item;
     }
   }
-  //print_r2( $tout );
   return $tout;
+}
+
+function EvOrder($a, $b) {
+  if ($a["START"] == $b["START"]) return 0;
+  return ( $a["START"] < $b["START"]) ? -1 : 1;  
+}
+
+function ComputeShift(&$tev) {
+  usort($tev, "EvOrder");
+  foreach ($tev as $k => $v) {
+    if ($k>0) {
+      if (   (($v["START"]>=$tev[$k-1]["START"])&&($v["START"]<=$tev[$k-1]["END"]))
+	     || (($v["END"]>=$tev[$k-1]["START"])&&($v["END"]<=$tev[$k-1]["END"])) 
+	     || (($v["START"]<=$tev[$k-1]["START"]) && ($v["END"]>=$tev[$k-1]["END"])) ) {
+	$tev[$k]["RG"]++;
+	$tev[$k-1]["SIZE"]++;
+	$tev[$k]["SIZE"] = $tev[$k-1]["SIZE"];
+      }
+    }
+  }
 }
 
 ?>

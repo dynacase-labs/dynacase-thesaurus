@@ -69,8 +69,8 @@ function WGCalEvOnMouseOver(ev, id) {
   evtc = document.getElementById('evtc'+id);
   x = getX(ev);
   y = getY(ev);
-  evtc.style.left = x+'px';
-  evtc.style.top = y+'px';
+  evtc.style.left = (x+15)+'px';
+  evtc.style.top = (y+5)+'px';
   evtc.style.position = 'absolute';
   evtc.style.zIndex = 1001;
   evtc.style.display = '';
@@ -139,6 +139,11 @@ function AddEvent(urlroot,time) {
 }
 
 // --------------------------------------------------------
+function ClickCalendarCell(urlroot, nh,times,timee) {
+  alert(urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh='+nh+'&ts='+times+'&te='+timee);
+  subwindow(300, 500, 'EditEvent', urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh='+nh+'&ts='+times+'&te='+timee);
+}
+// --------------------------------------------------------
 function OverCalendarCell(ev, elt, lref, cref) {
   elt.className = 'WGCAL_PeriodSelected'; //WGCAL_DayLineOver';
   document.getElementById(lref).className = 'WGCAL_PeriodSelected';
@@ -162,10 +167,10 @@ function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart) {
 // --------------------------------------------------------
 function WGCalComputeCoord() {
   // compute area coord left/top (Xs,Ys) right/bottom (Xe,Ye)
-  os = getAnchorPosition(IdStart);
-  oe = getAnchorPosition(IdEnd);
-  w = getObjectWidth(document.getElementById(IdEnd));
-  h = getObjectHeight(document.getElementById(IdEnd));
+  var os = getAnchorPosition(IdStart);
+  var oe = getAnchorPosition(IdEnd);
+  var w = getObjectWidth(document.getElementById(IdEnd));
+  var h = getObjectHeight(document.getElementById(IdEnd));
   Xs = os.x;
   Ys = os.y;
   Xe = oe.x + w;
@@ -175,8 +180,8 @@ function WGCalComputeCoord() {
   Hhdiv = Math.round(Hzone / Ydivision)
   Wzone = Xe-Xs;
   Wday = Math.round(Wzone / Xdivision);
-  Wevt = Math.round(Wday / 2);
-  Wshift = Math.round(Wday / 20);
+  Wevt = Wday - 4;
+  Wshift = Math.round(Wday / 5);
  
   text = ' W zone = '+Wzone+' W day = '+Wday+' W evt = '+Wevt+' Wshift = '+Wshift;  
   nText = document.createElement('div');
@@ -239,8 +244,8 @@ function GetCurCell(ev) {
 // --------------------------------------------------------
 function AddNewEvent(ev, c) {
 
-  cell = GetCurCell(ev);
-  geo = getElementGeo(c);
+  var cell = GetCurCell(ev);
+  var geo = getElementGeo(c);
 
   x = getX(ev);
   y = getY(ev);
@@ -274,7 +279,7 @@ function AddNewEvent(ev, c) {
 }
 
 // --------------------------------------------------------
-function WGCalAddEvent(evtid, dstart, dend, shift) {
+function WGCalAddEvent(evtid, dstart, dend, rg, sz) {
   EventCount++;
   Event[EventCount] = new Array();
   for (i=0; i<arguments.length; i++) {
@@ -290,7 +295,8 @@ function WGCalDisplayEvent(iev, newEvent) {
   id     = Event[iev][0];
   dstart = Event[iev][1] + (dd.getTimezoneOffset() * 60);
   dend   = Event[iev][2] + (dd.getTimezoneOffset() * 60);
-  shift  = Event[iev][3];
+  rg     = Event[iev][3];
+  sz     = Event[iev][4];
   if (dend<dstart) {
     t = dend;
     dend = dstart;
@@ -306,13 +312,20 @@ function WGCalDisplayEvent(iev, newEvent) {
   pstart = GetCoordFromDate(dstart);
   pend   = GetCoordFromDate(dend);
 
-  x = Math.round(pstart.x) + (shift*Wshift);
+//   x = Math.round(pstart.x) + 2;
+//   y = Math.round(pstart.y) + Ys;
+//   h = Math.round(pend.y - pstart.y);
+//   w = Math.round(Wevt);
+  rw = Math.round(Wevt);
+  //x = Math.round(pstart.x) + (rw);
+  x = Math.round(pstart.x);
   y = Math.round(pstart.y) + Ys;
   h = Math.round(pend.y - pstart.y);
-  w = Math.round(Wevt);
+  w = Math.round(rw);
   //alert(' YS='+Ys+' x='+x+' y='+y+' h='+h+' w='+w)
 
-  foot = head = 3;
+  foot = 1;
+  head = 5;
   content = h - foot - head;
 	
   evtHeadElt.style.height = head+"px";
