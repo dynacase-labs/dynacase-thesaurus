@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.13 2003/10/16 09:38:01 eric Exp $
+ * @version $Id: generic_util.php,v 1.14 2004/05/06 09:32:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.13 2003/10/16 09:38:01 eric Exp $
+// $Id: generic_util.php,v 1.14 2004/05/06 09:32:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,6 +40,9 @@ include_once("FDL/Lib.Dir.php");
 function getDefFam(&$action) {
   
   // special for onefam application
+  $famid=GetHttpVars("famid");
+  if ($famid > 0) return $famid;
+
   $famid = $action->GetParam("DEFAULT_FAMILY", 1); 
   if ($famid==1) {
     $famid=$action->Read("DEFAULT_FAMILY", 1);
