@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Export Document from Folder
  *
- * @author Anakeen 2000 
- * @version $Id: exportfld.php,v 1.16 2004/07/28 10:13:06 eric Exp $
+ * @author Anakeen 2003
+ * @version $Id: exportfld.php,v 1.17 2004/08/09 07:57:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.16 2004/07/28 10:13:06 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.DocAttr.php");
@@ -44,6 +23,7 @@ function exportfld(&$action, $aflid="0", $famid="")
 {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $fldid = GetHttpVars("id",$aflid);
+  $wprof = (GetHttpVars("wprof","N")=="Y"); // with profil
   $fld = new Doc($dbaccess, $fldid);
   if ($famid=="") $famid=GetHttpVars("famid");
   $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE",$famid);
@@ -95,8 +75,9 @@ function exportfld(&$action, $aflid="0", $famid="")
 	$prevfromid = $doc->fromid;
       }
       reset($lattr);
-
-      fputs($fout,"DOC;".$fromname.";".$doc->id.";".$fldid.";");
+      if ($doc->name != "") $name=$doc->name;
+      else $name=$doc->id;
+      fputs($fout,"DOC;".$fromname.";".$name.";".$fldid.";");
       // write values
       while (list($ka,$attr)= each ($lattr)) {
       
@@ -115,6 +96,42 @@ function exportfld(&$action, $aflid="0", $famid="")
      
       }
       fputs($fout,"\n");
+
+      if ($wprof && ($doc->profid == $doc->id)) {
+	// import its profile
+	$doc = new Doc($dbaccess,$doc->id); // needed to have special acls
+	$q= new QueryDb($dbaccess,"DocPerm");
+	$q->AddQuery("docid=".$doc->profid);
+	$acls=$q->Query(0,0,"TABLE");
+	
+	$tpu=array();
+	$tpa=array();
+	foreach ($acls as $va) {
+	  $up=$va["upacl"];
+	  $uid=$va["userid"];
+	  foreach ($doc->acls as $acl) {
+	    if ($doc->ControlUp($up,$acl) == "") {
+	      if ($uid >= STARTIDVGROUP) {
+		$vg=new Vgroup($dbaccess,$uid);
+		$qvg=new QueryDb($dbaccess,"VGroup");
+		$qvg->AddQuery("num=$uid");
+		$tvu=$qvg->Query(0,1,"TABLE");
+		$uid=$tvu[0]["id"];
+	      }
+
+	      $tpu[]=$uid;
+	      $tpa[]=$acl;
+	    }
+	  }
+	}
+	if (count($tpu) > 0) {
+	  fputs($fout,"PROFIL;".$name.";;");
+	  foreach ($tpu as $ku=>$uid) {
+	    fputs($fout,";".$tpa[$ku]."=".$uid);
+	  }
+	  fputs($fout,"\n");
+	}
+      }
     }
   }
   fclose($fout);
