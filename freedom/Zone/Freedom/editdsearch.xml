@@ -17,6 +17,7 @@
          [ENDBLOCK SELECTCLASS]
     </select>  
     <input type="hidden" name="_se_fam" value="[selfam]">
+    <input type="hidden" name="id" value="[id]">
     </td>
 </tr>
 <!-- TABLEBODY -->
@@ -35,13 +36,6 @@
 
 
 <tr class="FREEDOMBack1">
-  <td>&nbsp</td>
-  <td class="FREEDOMLabel" align="right">
-      <label for="sensitive"> [TEXT:case sensitive]&nbsp;:</label></td>
-  <td>
-      <input type="checkbox" name="_se_case" value="true" > </td>
-</tr>
-<tr class="FREEDOMBack1">
 <td colspan="3" align="center"> 
 
 <fieldset><legend>[TEXT:Conditions]</legend>
@@ -57,19 +51,19 @@
 <td class="und">
   <select  name="_se_ols[]" >
   [BLOCK OL]
-     <option selected value="[olid]">[olname]</option>
+     <option  value="[olid]">[olname]</option>
   [ENDBLOCK OL]
   </select></td>
 <td class="und" >
   <select  name="_se_attrids[]" >
   [BLOCK ATTR]
-     <option selected value="[attrid]">[attrname]</option>
+     <option  value="[attrid]">[attrname]</option>
   [ENDBLOCK ATTR]
   </select></td>
 <td class="und">
   <select  name="_se_funcs[]" >
     [BLOCK FUNC]
-     <option selected value="[funcid]">[funcname]</option>
+     <option  value="[funcid]">[funcname]</option>
     [ENDBLOCK FUNC]
   </select></td>
 <td class="und"  >
@@ -85,26 +79,26 @@
 </td>
 <td class="und">
   <select  name="_se_ols[]" >
-  [BLOCK OL]
-     <option selected value="[olid]">[olname]</option>
-  [ENDBLOCK OL]
+  [BLOCK OL2]
+     <option  value="[olid]">[olname]</option>
+  [ENDBLOCK OL2]
   </select></td>
 <td class="und" >
   <select  name="_se_attrids[]" >
-  [BLOCK ATTR]
-     <option selected value="state">[attrname]</option>
-  [ENDBLOCK ATTR]
+ 
+     <option selected value="state">[TEXT:state]</option>
+  
   </select></td>
 <td class="und">
   <select  name="_se_funcs[]" >
-    [BLOCK FUNC]
-     <option selected value="[funcid]">[funcname]</option>
-    [ENDBLOCK FUNC]
+    [BLOCK FUNC2]
+     <option  value="[funcid]">[funcname]</option>
+    [ENDBLOCK FUNC2]
   </select></td>
 <td class="und"  >
   <select  name="_se_keys[]" >
   [BLOCK STATE]
-     <option selected value="[stateid]">[statename]</option>
+     <option  value="[stateid]">[statename]</option>
   [ENDBLOCK STATE]
   </select></td>
 </tr>

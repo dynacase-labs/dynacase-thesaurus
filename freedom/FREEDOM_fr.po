@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-01-16 15:12+0100\n"
+	"POT-Creation-Date: 2003-01-24 15:05+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -72,17 +72,20 @@ msgstr	"indéfinie"
 
 #, c-format
 msgid	"cannot see unknow reference %s"
-msgstr "impossible de voir : la référence %s est inconnue"
+msgstr	"impossible de voir : la référence %s est inconnue"
 
 #, c-format
-msgid	"new %s"
-msgstr	"nouvelle %s"
+msgid	"creation %s"
+msgstr "création %s"
 
 msgid	"new card"
 msgstr	"Nouvelle carte"
 
 msgid	"Validate"
 msgstr	"Valider"
+
+msgid	"no family"
+msgstr	"pas de famille"
 
 msgid	"no csv import file specified"
 msgstr	"pas de fichier d'import CSV spécifié"
@@ -148,10 +151,6 @@ msgstr	"Profil"
 msgid	"new document"
 msgstr	"Nouveau document"
 
-#, c-format
-msgid	"%s has been locked"
-msgstr	"%s a été verrouillé"
-
 msgid	"new familly document"
 msgstr	"nouvelle famille de document"
 
@@ -170,9 +169,8 @@ msgstr	"%s nouvelle révision %d"
 msgid	"new search "
 msgstr	"Recherche "
 
-#, c-format
-msgid	"%s has been unlocked"
-msgstr	"%s a été déverrouillé"
+msgid	"detailled search result"
+msgstr "résultat de la recherche détaillée"
 
 #, c-format
 msgid	"new title for %s"
@@ -236,6 +234,9 @@ msgstr	"modifié"
 
 msgid	"change default folder"
 msgstr	"changer le dossier par défaut"
+
+msgid	"change current folder"
+msgstr "changer le dossier courant"
 
 msgid	"all"
 msgstr	"tous les mots"
@@ -334,11 +335,11 @@ msgid	"file must be controlled : read permission needed"
 msgstr	"la fichier doit être controllé : permission de lire refusé"
 
 msgid	"workflow_init :: id is empty"
-msgstr "workflow_init :: id est vide"
+msgstr	"workflow_init :: id est vide"
 
 #, c-format
 msgid	"workflow_init :: id %s is not a workflow"
-msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
+msgstr	"msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 
 msgid	"no zone specified"
 msgstr	"pas de zone spécifiée"
@@ -354,6 +355,14 @@ msgstr	"le fichier externe %s ne peut être lu"
 #, c-format
 msgid	"the pluggins function description '%s' is not conform"
 msgstr	"La description de la fonction externe '%s' est incorrecte"
+
+#, c-format
+msgid	"%s has been locked"
+msgstr	"%s a été verrouillé"
+
+#, c-format
+msgid	"%s has been unlocked"
+msgstr	"%s a été déverrouillé"
 
 msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
@@ -378,9 +387,6 @@ msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
 	"détruit : \n"
 	"le document provient d'une recherche utilisateur. Supprimer la "
 	"requête initiale si vous voulez delier le document"
-
-msgid	"yes"
-msgstr	"oui"
 
 msgid	"already exist : not added"
 msgstr	"déjà existant : pas ajouté"
@@ -431,6 +437,10 @@ msgstr	"contrôle impossible : objet non initialisé : %s"
 #, c-format
 msgid	"error in pzone format %s"
 msgstr	"erreur dans la format pzone %s"
+
+#, c-format
+msgid	"new %s"
+msgstr	"nouvelle %s"
 
 msgid	"state profile"
 msgstr	"Profil d'état"
@@ -602,6 +612,24 @@ msgstr	"mail interne envoyé à %s (bcc: %s)"
 msgid	"send official mail to %s (cc: %s - bcc:%s)"
 msgstr	"mail officiel envoyé à %s (cc: %s - bcc:%s)"
 
+msgid	"include"
+msgstr "contient"
+
+msgid	"equal"
+msgstr "égal"
+
+msgid	"not equal"
+msgstr "pas égal"
+
+msgid	"not include"
+msgstr "ne contient pas"
+
+msgid	"and"
+msgstr "et"
+
+msgid	"or"
+msgstr "ou"
+
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
 	"The Size Limit is %d bytes."
@@ -617,9 +645,6 @@ msgstr	"Ce document a été supprimé"
 
 msgid	"nobody"
 msgstr	"personne"
-
-msgid	"no family"
-msgstr	"pas de famille"
 
 msgid	"no access control"
 msgstr	"pas de contrôle d'accès"
@@ -745,9 +770,6 @@ msgstr	"rafraichir le dossier"
 msgid	"attributes modification"
 msgstr	"Modification d'attributs"
 
-msgid	"lock file to edit"
-msgstr	"verrouillez le document pour l'éditer"
-
 msgid	"edit state "
 msgstr	"Édition état"
 
@@ -765,9 +787,6 @@ msgstr	"éditer dossier par défaut"
 
 msgid	"set the document controlled"
 msgstr	"Mettre le document sous contrôle"
-
-msgid	"abord edition"
-msgstr	"abandon de l'édition"
 
 msgid	"change icon document"
 msgstr	"changer l'icone du document"
@@ -872,6 +891,9 @@ msgstr	"bibliothèque freedom"
 msgid	"Access Action Library"
 msgstr	"Bibliothèque pour les droits"
 
+msgid	"Access to edit action"
+msgstr "Accès aux actions d'édition"
+
 msgid	"For export functions"
 msgstr	"Pour les fonctions d'export"
 
@@ -899,8 +921,18 @@ msgstr	"éditer un mail"
 msgid	"view standalone card"
 msgstr	"voir une carte autonome"
 
+msgid	"view card"
+msgstr "voir une carte"
+
+msgid	"lock file to edit"
+msgstr	"verrouillez le document pour l'éditer"
+
+#, fuzzy
+msgid	"unlock file to discard edit"
+msgstr	"verrouillez le document pour l'éditer"
+
 msgid	"init workflow profile attributes"
-msgstr "initialisation des attributs profil"
+msgstr	"initialisation des attributs profil"
 
 msgid	"freedom database"
 msgstr	"base de donnée Freedom"
@@ -917,6 +949,9 @@ msgstr	"nombre maximum de documents pouvant être importé en direct"
 #, c-format
 msgid	"file %d"
 msgstr	"fichier %d"
+
+msgid	"default confidential"
+msgstr "confidentialité par défaut"
 
 msgid	"nom du serveur LDAP"
 msgstr	""
@@ -1065,9 +1100,6 @@ msgstr	"édition pour changer de catégorie"
 msgid	"change category"
 msgstr	"changer de catégorie"
 
-msgid	"unlock generic"
-msgstr	"déverrouiller générique"
-
 msgid	"view a generic"
 msgstr	"voir une carte"
 
@@ -1085,9 +1117,6 @@ msgstr	"rechercher une carte"
 
 msgid	"default document family"
 msgstr	"famille de document par défaut"
-
-msgid	"default folder to place document"
-msgstr	"n° dossier par défaut"
 
 msgid	"number of card by page"
 msgstr	"nombre de cartes par page"
@@ -1142,6 +1171,9 @@ msgstr	"modifier les préférences"
 
 msgid	"Access To Onefam Management"
 msgstr	"Accès à la gestion par famille"
+
+msgid	"yes"
+msgstr	"oui"
 
 msgid	"Import vcard"
 msgstr	"Importation Vcard"
@@ -1231,9 +1263,6 @@ msgstr	"Bilan"
 msgid	"New category"
 msgstr	"Nouvelle catégorie"
 
-msgid	"Import file"
-msgstr	"Importer un fichier"
-
 msgid	"client bilan"
 msgstr	"bilan client"
 
@@ -1242,6 +1271,9 @@ msgstr	"bilan général"
 
 msgid	"state bilan"
 msgstr	"Bilan par état"
+
+msgid	"Import file"
+msgstr	"Importer un fichier"
 
 msgid	"Incident Report"
 msgstr	"Rapport d'incident"
@@ -1337,13 +1369,13 @@ msgid	"Problem"
 msgstr	"Problème"
 
 msgid	"Creation"
-msgstr "Création"
+msgstr	"Création"
 
 msgid	"Category"
-msgstr "Catégorie"
+msgstr	"Catégorie"
 
 msgid	"Tools"
-msgstr "Outils"
+msgstr	"Outils"
 
 msgid	"All catg"
 msgstr	"Toutes catg."
@@ -1421,25 +1453,28 @@ msgid	"View"
 msgstr	"Affichage"
 
 msgid	"Document"
-msgstr "Document"
+msgstr	"Document"
 
 msgid	"Folder"
 msgstr	"Dossier"
 
 msgid	"Profile"
-msgstr "Profil"
+msgstr	"Profil"
 
 msgid	"Family"
-msgstr "Famille"
+msgstr	"Famille"
 
 msgid	"simple"
 msgstr	"Simple"
+
+msgid	"detailled"
+msgstr "détaillée"
 
 msgid	"fulltext"
 msgstr	"plein texte"
 
 msgid	"Ref"
-msgstr "Réf"
+msgstr	"Réf"
 
 msgid	"list"
 msgstr	"Liste"
@@ -1708,6 +1743,24 @@ msgstr	"édition de mail"
 msgid	"send mail"
 msgstr	"envoyer le mail"
 
+msgid	"no"
+msgstr	"non"
+
+msgid	"Conditions"
+msgstr "Conditions"
+
+msgid	"up"
+msgstr	""
+
+msgid	"down"
+msgstr	""
+
+msgid	"addcond"
+msgstr "attributs"
+
+msgid	"addstate"
+msgstr "état"
+
 msgid	"some needed attributes are empty"
 msgstr	"certains attributs obligatoires sont vides"
 
@@ -1717,8 +1770,14 @@ msgstr	"Sauver les changements ?"
 msgid	"Data cannot be saved"
 msgstr	"Les données ne peuvent être sauvées"
 
+msgid	"View headers"
+msgstr	"Voir entête"
+
 msgid	"Edit"
 msgstr	"Éditer"
+
+msgid	"Lock"
+msgstr	"Verrouiller"
 
 msgid	"Change state"
 msgstr	"Changer d'état"
@@ -1726,29 +1785,29 @@ msgstr	"Changer d'état"
 msgid	"View all properties"
 msgstr	"Voir toutes les propriétés"
 
-msgid	"Edit attributes"
-msgstr	"Éditer les attributs"
-
-msgid	"Lock"
-msgstr	"Verrouiller"
-
 msgid	"Unlock"
 msgstr	"Déverrouiller"
 
 msgid	"Revise"
 msgstr	"Réviser"
 
-msgid	"Rename"
-msgstr	"Renommer"
-
-msgid	"Set default values"
-msgstr	"Valeurs par défaut"
+msgid	"Change profile"
+msgstr	"Changer de profil"
 
 msgid	"History"
 msgstr	"Historique"
 
-msgid	"Change profile"
-msgstr	"Changer de profil"
+msgid	"goaccess"
+msgstr	"accessibilités..."
+
+msgid	"Edit attributes"
+msgstr	"Éditer les attributs"
+
+msgid	"Set default values"
+msgstr	"Valeurs par défaut"
+
+msgid	"Rename"
+msgstr	"Renommer"
 
 msgid	"Change creation profile"
 msgstr	"Changer de profil par défaut"
@@ -1756,8 +1815,8 @@ msgstr	"Changer de profil par défaut"
 msgid	"Change default folder"
 msgstr	"Changer dossier par défaut"
 
-msgid	"goaccess"
-msgstr	"accessibilités..."
+msgid	"Change current folder"
+msgstr "Changer dossier courant"
 
 msgid	"delconfirm"
 msgstr	"Voulez-vous supprimer"
@@ -1798,6 +1857,12 @@ msgstr	" date"
 msgid	"Familly Document"
 msgstr	"Famille de document"
 
+msgid	"created profile"
+msgstr "Profil crée"
+
+msgid	"current folder"
+msgstr "dossier courant"
+
 msgid	"to"
 msgstr	"vers"
 
@@ -1819,8 +1884,14 @@ msgstr	"Voir les propriétés"
 msgid	"Duplicate"
 msgstr	"Dupliquer"
 
-msgid	"View headers"
-msgstr	"Voir entête"
+#~ msgid	"abord edition"
+#~ msgstr	"abandon de l'édition"
+
+#~ msgid	"unlock generic"
+#~ msgstr	"déverrouiller générique"
+
+#~ msgid	"default folder to place document"
+#~ msgstr	"n° dossier par défaut"
 
 #~ msgid	"new doc"
 #~ msgstr	"Document"
@@ -1833,9 +1904,6 @@ msgstr	"Voir entête"
 
 #~ msgid	"Administration"
 #~ msgstr	"Administration"
-
-#~ msgid	"no"
-#~ msgstr	"non"
 
 #~ msgid	"society familly id"
 #~ msgstr	"id famille société"
@@ -1902,9 +1970,6 @@ msgstr	"Voir entête"
 
 #~ msgid	"Newfam"
 #~ msgstr	"Nouvelle"
-
-#~ msgid	"New card"
-#~ msgstr	"Nouvelle carte"
 
 #~ msgid	" unlock"
 #~ msgstr	" deverrouiller"
@@ -2005,9 +2070,6 @@ msgstr	"Voir entête"
 
 #~ msgid	"admin"
 #~ msgstr	"administration"
-
-#~ msgid	"add"
-#~ msgstr	"Ajouter un nouveau contact"
 
 #~ msgid	"export"
 #~ msgstr	"Exporter les cartes \n"

@@ -3,7 +3,9 @@
 function deletenew() {
   resetInputs('newcond');
   var na=document.getElementById('newcond');
-  na.parentNode.removeChild(na);
+  if (na) na.parentNode.removeChild(na); 
+  na=document.getElementById('newstate');
+  if (na) na.parentNode.removeChild(na);
   
   
 }

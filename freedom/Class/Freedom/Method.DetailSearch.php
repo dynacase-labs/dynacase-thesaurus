@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.1 2003/01/24 14:10:46 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.2 2003/01/24 16:40:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,14 +23,15 @@
 // ---------------------------------------------------------------
 
 
-var $defaultedit= "FDL:EDITDSEARCH";
+var $defaultedit= "FREEDOM:EDITDSEARCH";
+var $defaultview= "FREEDOM:VIEWDSEARCH";
 
-var $tfunc=array("~*" => "include",
-		 "=" => "equal",
-		 "!=" => "not equal",
-		 "!~*" => "not include");
-var $tol=array("and" => "and",
-	       "or" => "or");
+var $tfunc=array("~*" => "include",         #N_("include")
+		 "=" => "equal",            #N_("equal")
+		 "!=" => "not equal",       #N_("not equal")
+		 "!~*" => "not include");   #N_("not include")
+var $tol=array("and" => "and",              #N_("and")
+	       "or" => "or");               #N_("or")
 
 
 function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$dirid=-1) {
@@ -59,12 +60,16 @@ function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$diri
   
   $cond="";
   $tol[0]="";
-  while(list($k,$v) = each($tkey)) {
-    $cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".trim($tkey[$k])."' ";
+  if ((count($tkey) > 1) || ($tkey[0] != "")) {
+    while(list($k,$v) = each($tkey)) {
+      $cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".trim($tkey[$k])."' ";
+    }
   }
 
 
-  $filters[]=$cond;
+  if ($cond != "") $filters[]=$cond;
+
+
   $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest);
   return $query;
 }
@@ -84,11 +89,37 @@ function SpecRefresh() {
   }
 }
 
+function viewdsearch($target="_self",$ulink=true,$abstract=false) {
+  // Compute value to be inserted in a  layout
+   $this->viewattr($target,$ulink, $abstract);
+  //-----------------------------------------------
+  // display already condition written
+  $tol = explode("\n",$this->getValue("SE_OLS"));
+  $tkey = explode("\n",$this->getValue("SE_KEYS"));
+  $taid = explode("\n",$this->getValue("SE_ATTRIDS"));
+  $tf = explode("\n",$this->getValue("SE_FUNCS"));
+
+  if ((count($tkey) > 1) || ($tkey[0] != "")) {
+
+  $fdoc=new Doc($this->dbaccess, $this->getValue("SE_FAMID",1));
+  $zpi=$fdoc->GetNormalAttributes();
+  $tol[0]=" ";
+    while(list($k,$v) = each($tkey)) {
+      $tcond[]["condition"]=sprintf("%s %s %s %s",
+				    _($tol[$k]),
+				    $zpi[$taid[$k]]->labelText,
+				    _($this->tfunc[$tf[$k]]),
+				    $tkey[$k]);
+				    
+    }
+    $this->lay->SetBlockData("COND", $tcond);
+  }
+}
+  // -----------------------------------
 
 function editdsearch() {
-
   global $action;
- // -----------------------------------
+  // -----------------------------------
 
   $famid = GetHttpVars("sfamid",$this->getValue("SE_FAMID",1));
 
@@ -110,6 +141,7 @@ function editdsearch() {
   $this->setFamidInLayout();
 
 
+
   // display attributes
   $tattr=array();
 
@@ -124,21 +156,41 @@ function editdsearch() {
   
   while (list($k,$v) = each($this->tfunc)) {
     $tfunc[]=array("funcid"=> $k,
-		   "funcname" => $v);
+		   "funcname" => _($v));
   }
   $this->lay->SetBlockData("FUNC", $tfunc);
+  $this->lay->SetBlockData("FUNC2", $tfunc);
 
   while (list($k,$v) = each($this->tol)) {
     $tol[]=array("olid"=> $k,
-		 "olname" => $v);
+		 "olname" => _($v));
   }
   $this->lay->SetBlockData("OL", $tol);
+  $this->lay->SetBlockData("OL2", $tol);
 
 
   if ($this->getValue("SE_LATEST" == "no"))     $this->lay->Set("select_all","selected");
   else $this->lay->Set("select_all","");
 
 
+  //-----------------------------------------------
+  // display state
+  if ($fdoc->wid > 0) {
+    $wdoc=new Doc ($this->dbaccess, $fdoc->wid);
+    $states=$wdoc->getStates();
+
+    $tstates=array();
+    while(list($k,$v) = each($states)) {
+      $tstates[] = array("stateid"=>$v,
+			 "statename"=>_($v));
+    }
+    $this->lay->SetBlockData("STATE",$tstates );
+    $this->lay->Set("dstate","inline" );
+  } else {
+    $this->lay->Set("dstate","none" );
+  }
+
+  //-----------------------------------------------
   // display already condition written
   $tol = explode("\n",$this->getValue("SE_OLS"));
   $tkey = explode("\n",$this->getValue("SE_KEYS"));
@@ -150,45 +202,49 @@ function editdsearch() {
   $tcond=array();
   reset($tkey);
 
-  while(list($k,$v) = each($tkey)) {
-    $tcond[$k]= array("OLCOND"   => "olcond$k",
-		      "ATTRCOND" => "attrcond$k",
-		      "FUNCCOND" => "funccond$k",
-		      "key" => $v);
+
+  if ((count($tkey) > 1) || ($tkey[0] != "")) {
+
+    while(list($k,$v) = each($tkey)) {
+      $tcond[$k]= array("OLCOND"   => "olcond$k",
+			"ATTRCOND" => "attrcond$k",
+			"FUNCCOND" => "funccond$k",
+			"key" => $v);
     
-    reset($zpi);
-    $tattr=array();
-    while (list($ki,$vi) = each($zpi)) {
-      $tattr[]=array("attr_id"=> $vi->id,
-		     "attr_selected" => ($taid[$k]==$vi->id)?"selected":"",
-		     "attr_name" => $vi->labelText);
-    }
-    $this->lay->SetBlockData("attrcond$k", $tattr);
+      reset($zpi);
+      $tattr=array();
+      while (list($ki,$vi) = each($zpi)) {
+	$tattr[]=array("attr_id"=> $vi->id,
+		       "attr_selected" => ($taid[$k]==$vi->id)?"selected":"",
+		       "attr_name" => $vi->labelText);
+      }
+      $this->lay->SetBlockData("attrcond$k", $tattr);
 
-    $tfunc=array();
-    reset($this->tfunc);
-    while (list($ki,$vi) = each($this->tfunc)) {
-      $tfunc[]=array("func_id"=> $ki,
-		     "func_selected" => ($tf[$k]==$ki)?"selected":"",
-		     "func_name" => $vi);
-    }
-    $this->lay->SetBlockData("funccond$k", $tfunc);
+      $tfunc=array();
+      reset($this->tfunc);
+      while (list($ki,$vi) = each($this->tfunc)) {
+	$tfunc[]=array("func_id"=> $ki,
+		       "func_selected" => ($tf[$k]==$ki)?"selected":"",
+		       "func_name" => _($vi));
+      }
+      $this->lay->SetBlockData("funccond$k", $tfunc);
 
-    $tols=array();
-    reset($this->tol);
-    while (list($ki,$vi) = each($this->tol)) {
+      $tols=array();
+      reset($this->tol);
+      while (list($ki,$vi) = each($this->tol)) {
     
-      $tols[]=array("ol_id"=> $ki,
-		   "ol_selected" => ($tol[$k]==$ki)?"selected":"",
-		   "ol_name" => $vi);
-    }
-    $this->lay->SetBlockData("olcond$k", $tols);
+	$tols[]=array("ol_id"=> $ki,
+		      "ol_selected" => ($tol[$k]==$ki)?"selected":"",
+		      "ol_name" => _($vi));
+      }
+      $this->lay->SetBlockData("olcond$k", $tols);
 
+    }
   }
-
-  $this->lay->SetBlockData("CONDITIONS", $tcond);
+  if (count($tcond) > 0)  $this->lay->SetBlockData("CONDITIONS", $tcond);
   // Compute value to be inserted in a  layout
 
 
-   $this->editattr();
+  $this->lay->Set("id", $this->id);
+  $this->editattr();
 }

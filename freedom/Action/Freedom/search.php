@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.16 2003/01/24 14:10:46 eric Exp $
+// $Id: search.php,v 1.17 2003/01/24 16:40:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,24 +39,33 @@ function search(&$action) {
 
   $docid = GetHttpVars("id",0);
   $classid=GetHttpVars("classid",0);
+  $keyword=GetHttpVars("_se_key"); // keyword to search
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  if ($docid > 0) {
-    $ndoc = new Doc($dbaccess, $docid);
 
-  } else {
-    // new doc
-    $ndoc = createDoc($dbaccess, $classid);
-    if (! $ndoc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
-    
-    $ndoc->doctype='T';
-    $err = $ndoc-> Add();
-    if ($err != "")  $action->ExitError($err);
-
-    SetHttpVar("id", $ndoc->id);
-    $err = modcard($action, $ndocid); // ndocid change if new doc
-    
+  if ($classid == 0) {
+    if ($docid > 0) {
+      $doc = new Doc($dbaccess, $docid);
+      $classid=$doc->fromid;
+    }
+    else {
+      $action->exitError(_("kind of search is not defined"));
+    }
   }
+  // new doc
+  $ndoc = createDoc($dbaccess, $classid);
+  if (! $ndoc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+    
+  if ($keyword != "") $ndoc->title=_("new search ").$keyword;
+  else $ndoc->title=sprintf(_("detailled search result"));
+  $ndoc->doctype='T';
+  $err = $ndoc-> Add();
+  if ($err != "")  $action->ExitError($err);
+
+  SetHttpVar("id", $ndoc->id);
+  $err = modcard($action, $ndocid); // ndocid change if new doc
+    
+  
 
 
 
