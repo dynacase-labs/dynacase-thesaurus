@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.201 2004/05/13 16:17:15 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.202 2004/06/03 14:42:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -608,12 +608,18 @@ create unique index i_docir on doc(initid, revision);";
   function CanUnLockFile() {
     if ($this->userid == 1) return "";// admin can do anything
     $err="";
-    if ($this->locked != 0) // if is already unlocked
-      $err = $this->Control("unlock"); // first control unlock privilege
-      if ($err != "") $err=$this->CanUpdateDoc();
+    if ($this->locked != 0) { // if is already unlocked
+      if ($this->profid > 0) 	$err = $this->Control("unlock"); // first control unlock privilege
+      else $err=_("cannot unlock"); // not control unlock if the document is not controlled
+    }
+    if ($err != "") $err=$this->CanUpdateDoc();
     else {      
-      $err = $this->Control("edit");
-      if ($err != "") $err = $this->Control("unlock");
+	$err = $this->Control("edit");
+	if ($err != "") {
+	  if ($this->profid > 0) {
+	    $err = $this->Control("unlock");
+	  }  
+      }
     }
     return($err);
   
