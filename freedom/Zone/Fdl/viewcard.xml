@@ -126,6 +126,10 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
   <td  ><span style="display:[displaylprof]" class="FREEDOMText"><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[profid]">[profile]</a></span><span style="display:[displayprof]" class="FREEDOMText">[profile]</span></td>
 </tr>
 <tr class="FREEDOMBack1">
+  <td   class="FREEDOMText">[TEXT:control view]</td>
+  <td  ><span style="display:[displaylcv]" class="FREEDOMText"><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cvid]">[cview]</a></span><span style="display:[displaycv]" class="FREEDOMText">[cview]</span></td>
+</tr>
+<tr class="FREEDOMBack1">
   <td   class="FREEDOMText">[TEXT:reference]</td>
   <td  ><span class="FREEDOMText">[reference]</span></td>
 </tr>

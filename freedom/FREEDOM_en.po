@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-12-08 18:12+0100\n"
+	"POT-Creation-Date: 2003-12-12 16:33+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -432,6 +432,14 @@ msgstr	""
 
 msgid	"no import file specified"
 msgstr	""
+
+#, fuzzy, c-format
+msgid	"create %s family"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"modify %s family"
+msgstr	"Modify"
 
 #, c-format
 msgid	"add id [%d] "
@@ -979,6 +987,10 @@ msgstr	""
 
 msgid	"specific control"
 msgstr	""
+
+#, fuzzy
+msgid	"no view control"
+msgstr	"Start search"
 
 msgid	"cannot see unknow folder"
 msgstr	""
@@ -2110,6 +2122,13 @@ msgstr	"Control access"
 msgid	"no profile"
 msgstr	""
 
+#, fuzzy
+msgid	"view control"
+msgstr	"Start search"
+
+msgid	"no control"
+msgstr	""
+
 msgid	"keyword"
 msgstr	""
 
@@ -2478,12 +2497,6 @@ msgstr	""
 msgid	"View headers"
 msgstr	""
 
-msgid	"Special view"
-msgstr	""
-
-msgid	"Special edit"
-msgstr	""
-
 msgid	"View latest"
 msgstr	""
 
@@ -2499,6 +2512,12 @@ msgid	"Change state"
 msgstr	"Category"
 
 msgid	"View all properties"
+msgstr	""
+
+msgid	"Special view"
+msgstr	""
+
+msgid	"Special edit"
 msgstr	""
 
 msgid	"Unlock"
@@ -2564,12 +2583,6 @@ msgstr	"Really Delete"
 msgid	"Delete"
 msgstr	"Delete"
 
-msgid	"View headers1"
-msgstr	""
-
-msgid	"View headers2"
-msgstr	""
-
 msgid	"mini view"
 msgstr	""
 
@@ -2596,6 +2609,9 @@ msgstr	"Organisation"
 #, fuzzy
 msgid	" profile access"
 msgstr	"Control access"
+
+msgid	"control view"
+msgstr	""
 
 msgid	" rev"
 msgstr	""
@@ -2626,6 +2642,10 @@ msgstr	""
 
 #, fuzzy
 msgid	"created profile"
+msgstr	"Category"
+
+#, fuzzy
+msgid	"created control view"
 msgstr	"Category"
 
 #, fuzzy

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editwdoc.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: editwdoc.php,v 1.3 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editwdoc.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+// $Id: editwdoc.php,v 1.3 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editwdoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,8 +56,10 @@ function editwdoc(&$action) {
   $sqlfilters=array();
  
   $wid=$doc->wid;
-  $sqlfilters[]="doctype='W'";
-  $tclassdoc = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE",1);
+
+  $chdoc=$doc->GetFromDoc();
+  $sqlfilters[]="(".GetSqlCond($chdoc,"wf_famid"). ") OR (wf_famid isnull)";
+  $tclassdoc = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE","WDOC");
   
 
   $selectclass=array();

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.170 2003/12/09 10:50:23 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.171 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.170 2003/12/09 10:50:23 eric Exp $
+// $Id: Class.Doc.php,v 1.171 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -83,7 +83,9 @@ Class Doc extends DocCtrl {
 			"wid",
 			"values",
 			"attrids",
-			"postitid");
+			"postitid",
+			"cvid",
+			"name");
 
   /**
    * identificator of the document
@@ -182,6 +184,26 @@ Class Doc extends DocCtrl {
    * @var int
    */
   var $wid;
+  /**
+   * identificator of the control view document
+   * 
+   * if 0 then no special control view
+   * @var int
+   */
+  var $cvid;
+  /**
+   * string identificator of the document
+   * 
+   * @var string
+   */
+  var $name;
+  /**
+   * identificator of the mask document
+   * 
+   * if 0 then no mask
+   * @var int
+   */
+  var $mid=0;
 
   /**
    * identification of special views
@@ -226,13 +248,16 @@ create table doc ( id int not null,
                    wid int DEFAULT 0,  
                    values text,  
                    attrids text,  
-                   postitid int
+                   postitid int,
+                   cvid int,
+                   name text
                    );
 create table docfrom ( id int not null,
                    primary key (id),
                    fromid int);
 create sequence seq_id_doc start 1000;
 create sequence seq_id_tdoc start 1000000000;
+create unique index i_docname on doc(name);
 create unique index i_docir on doc(initid, revision);";
 
   // --------------------------------------------------------------------
@@ -948,7 +973,22 @@ create unique index i_docir on doc(initid, revision);";
       return $this->attributes->attr;
     }
 
-  function ApplyMask() {
+
+  /**
+   * set visibility mask
+   *
+   * @param int $mid mask ident
+   */
+  function setMask($mid) {
+    $this->mid=$mid;
+    $this->ApplyMask($mid);
+  }
+  /**
+   * apply visibility mask
+   *
+   * @param int $mid mask ident, if not set it is found from possible workflow
+   */
+  function ApplyMask($mid = 0) {
     
     // copy default visibilities
     if (isset($this->attributes->attr)) {
@@ -964,38 +1004,39 @@ create unique index i_docir on doc(initid, revision);";
 
     $this->_maskApplied=true;
     // modify visibilities if needed
-
-
-    if (($this->wid > 0) && ($this->wid != $this->id)) {
+    if ($mid == 0) $mid=$this->mid;
+    if ($mid == 0) {
+      if (($this->wid > 0) && ($this->wid != $this->id)) {
      
-      $wdoc=new Doc($this->dbaccess,$this->wid);
-      if ($wdoc->isAlive()) {
-	if ($this->id == 0) {	  
-	  $wdoc->set($this);
-	}
-	$mid = $wdoc->getValue($wdoc->attrPrefix."_MSKID".$this->state);
-	if ($mid > 0) { 
-	  $mdoc = new Doc($this->dbaccess,$mid );
-	  if ($mdoc->isAlive()) {
-	    $tvis = $mdoc->getVisibilities();
+	$wdoc=new Doc($this->dbaccess,$this->wid);
+	if ($wdoc->isAlive()) {
+	  if ($this->id == 0) {	  
+	    $wdoc->set($this);
+	  }
+	  $mid = $wdoc->getValue($wdoc->attrPrefix."_MSKID".$this->state);
+	}      
+      }	
+    }
+    if ($mid > 0) { 
+
+      $mdoc = new Doc($this->dbaccess,$mid );
+      if ($mdoc->isAlive()) {
+	$tvis = $mdoc->getVisibilities();
 	  
-	    while (list($k,$v)= each ($tvis)) {
-	      if (isset($this->attributes->attr[$k])) {
-		if ($v != "-") $this->attributes->attr[$k]->mvisibility=$v;	      
-	      }
-	    }
-	    // modify needed attribute also
-	    $tneed = $mdoc->getNeedeeds();
-	    while (list($k,$v)= each ($tneed)) {
-	      if (isset($this->attributes->attr[$k])) {
-		if ($v == "Y") $this->attributes->attr[$k]->needed=true;
-		else if ($v == "N") $this->attributes->attr[$k]->needed=false;
-	      }
-	    }
+	while (list($k,$v)= each ($tvis)) {
+	  if (isset($this->attributes->attr[$k])) {
+	    if ($v != "-") $this->attributes->attr[$k]->mvisibility=$v;	      
+	  }
+	}
+	// modify needed attribute also
+	$tneed = $mdoc->getNeedeeds();
+	while (list($k,$v)= each ($tneed)) {
+	  if (isset($this->attributes->attr[$k])) {
+	    if ($v == "Y") $this->attributes->attr[$k]->needed=true;
+	    else if ($v == "N") $this->attributes->attr[$k]->needed=false;
 	  }
 	}
       }
-      
     }
   }
 

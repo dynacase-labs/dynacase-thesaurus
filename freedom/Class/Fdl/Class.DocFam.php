@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.15 2003/11/25 08:27:14 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.16 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.15 2003/11/25 08:27:14 eric Exp $
+// $Id: Class.DocFam.php,v 1.16 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.15 2003/11/25 08:27:14 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.16 2003/12/12 15:45:25 eric Exp $';
 include_once('FDL/Class.PFam.php');
 
 Class DocFam extends PFam {
@@ -47,6 +47,7 @@ Class DocFam extends PFam {
 create table docfam (cprofid int , 
                      dfldid int, 
                      cfldid int, 
+                     ccvid int, 
                      ddocid int,
                      name text,
                      methods text,
@@ -65,6 +66,7 @@ create unique index idx_idfam on docfam(id);";
 
     $this->fields["dfldid"] ="dfldid";
     $this->fields["cfldid"] ="cfldid";
+    $this->fields["ccvid"] ="ccvid";
     $this->fields["cprofid"]="cprofid";
     $this->fields["ddocid"] ="ddocid";
     $this->fields["methods"]="methods";
@@ -136,6 +138,15 @@ create unique index idx_idfam on docfam(id);";
 	  $this->lay->set("wdisplay","");
 	} else {
 	  $this->lay->set("wdisplay","none");
+	}
+	break;
+      case ccvid:
+	if ($this->$v > 0) {
+	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $this->lay->set("cvtitle",$tdoc->title);
+	  $this->lay->set("cvdisplay","");
+	} else {
+	  $this->lay->set("cvdisplay","none");
 	}
 	break;
       }

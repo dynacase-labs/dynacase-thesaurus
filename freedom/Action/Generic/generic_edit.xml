@@ -99,7 +99,7 @@
  <input id="iSubmit" type="submit" value="[editaction]" onmousedown="multiple_for_select();" onclick="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"> 
   </td>
   <td  align="right">
- <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'"> 
+ <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]'"> 
   </td>
   
 </tr>

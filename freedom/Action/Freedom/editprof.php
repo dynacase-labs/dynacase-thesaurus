@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editprof.php,v 1.11 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: editprof.php,v 1.12 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.11 2003/08/18 15:47:03 eric Exp $
+// $Id: editprof.php,v 1.12 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,6 +37,7 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
+include_once("FDL/Lib.Dir.php");
 
 function editprof(&$action) 
 {
@@ -113,6 +114,29 @@ function editprof(&$action)
     
   }
 
+  setControlView($action,$doc);
+
+}
+
+
+function setControlView(&$action,&$doc) {
+
+  $filter=array();
+  $chdoc=$doc->GetFromDoc();
+
+  $filter[]=GetSqlCond($chdoc,"cv_famid");
+//   if ($doc->doctype=='C') $filter[]="cv_famid=".$doc->id;
+//   else $filter[]="cv_famid=".$doc->fromid;
+  $tcv = getChildDoc($doc->dbaccess,
+		      0,0,100,$filter,$action->user->id,"TABLE","CVDOC");
+  
+  foreach ($tcv as $k=>$v) {
+    
+    $tcv[$k]["selcv"]="";
+
+    if ($v["id"]==$doc->cvid) $tcv[$k]["selcv"]="selected";
+  }
+  $action->lay->SetBlockData("SELECTCV", $tcv);
 
 }
 

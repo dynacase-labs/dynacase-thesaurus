@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editframe.php,v 1.16 2003/12/02 10:53:19 eric Exp $
+ * @version $Id: editframe.php,v 1.17 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.16 2003/12/02 10:53:19 eric Exp $
+// $Id: editframe.php,v 1.17 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,6 +51,7 @@ function editframe(&$action) {
   $docid = GetHttpVars("id",0);
   $classid = GetHttpVars("classid");
   $frameid = strtolower(GetHttpVars("frameid"));
+  $vid = GetHttpVars("vid"); // special controlled view
   
 
   // Set the globals elements
@@ -61,6 +62,12 @@ function editframe(&$action) {
   if ($docid == 0) $doc = createDoc($dbaccess, $classid);
   else $doc = new Doc($dbaccess, $docid);
 
+  if (($vid != "") && ($doc->cvid > 0)) {
+    // special controlled view
+    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $tview = $cvdoc->getView($vid);
+      if ($tview)  $doc->setMask($tview["CV_MSKID"]);
+  }
   
   $listattr = $doc->GetNormalAttributes(true);
     

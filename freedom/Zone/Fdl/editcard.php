@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.32 2003/09/16 07:37:50 eric Exp $
+ * @version $Id: editcard.php,v 1.33 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.32 2003/09/16 07:37:50 eric Exp $
+// $Id: editcard.php,v 1.33 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,6 +48,7 @@ function editcard(&$action) {
   $classid = GetHttpVars("classid",0); // use when new doc or change class
   $zonebodycard = GetHttpVars("zone"); // define view action
   $usefordef = GetHttpVars("usefordef"); // default values for a document
+  $vid = GetHttpVars("vid"); // special controlled view
 
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -76,7 +77,6 @@ function editcard(&$action) {
       if ($zonebodycard == "") $zonebodycard=$doc->defaultedit;
     
   }
-  if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
 
   if ($usefordef=="Y") {
     
@@ -85,6 +85,17 @@ function editcard(&$action) {
     $doc->setDefaultValues($fdoc->defval);    
   }
 
+  if (($vid != "") && ($doc->cvid > 0)) {
+    // special controlled view
+    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $err = $cvdoc->control($vid); // control special view
+    if ($err != "") $action->exitError($err);
+    $tview = $cvdoc->getView($vid);
+    $doc->setMask($tview["CV_MSKID"]);
+    if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
+  }
+
+  if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
   $action->lay->Set("classid", $classid);
   $action->lay->Set("usefordef", $usefordef);
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));

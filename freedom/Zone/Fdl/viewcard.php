@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.44 2003/11/03 09:01:41 eric Exp $
+ * @version $Id: viewcard.php,v 1.45 2003/12/12 15:45:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.44 2003/11/03 09:01:41 eric Exp $
+// $Id: viewcard.php,v 1.45 2003/12/12 15:45:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,6 +54,7 @@ function viewcard(&$action) {
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
   $props = (GetHttpVars("props",'N') == "Y"); // view doc properties
   $zonebodycard = GetHttpVars("zone"); // define view action
+  $vid = GetHttpVars("vid"); // special controlled view
   
   $ulink = (GetHttpVars("ulink",'2')); // add url link
   $target = GetHttpVars("target"); // may be mail
@@ -106,6 +107,19 @@ function viewcard(&$action) {
   $err = $doc->control("view");
   if ($err != "") $action->exitError($err);
   
+  if (($vid != "") && ($doc->cvid > 0)) {
+    // special controlled view
+    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    
+    $err = $cvdoc->control($vid); // control special view
+    if ($err != "") $action->exitError($err);
+  
+
+    $tview = $cvdoc->getView($vid);
+    $doc->setMask($tview["CV_MSKID"]);
+    if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
+  }
+
   // set emblem
   if ($doc->locked == -1) $action->lay->set("emblem", $action->getImageUrl("revised.gif"));
   else if ((abs($doc->locked) == $action->parent->user->id)) $action->lay->set("emblem",$action->getImageUrl("clef1.gif"));
@@ -195,6 +209,17 @@ function viewcard(&$action) {
   $action->lay->Set("profid", abs($doc->profid));
   $action->lay->Set("postitid", $doc->postitid);
   
+  if ($doc->cvid == 0) {
+    $action->lay->Set("cview", _("no view control"));
+    $action->lay->Set("displaylcv", "none");
+    $action->lay->Set("displaycv", "");
+  } else {
+    $cvdoc = new Doc($dbaccess, abs($doc->cvid));
+    $action->lay->Set("cview", $cvdoc->title);
+    $action->lay->Set("cvid", $cvdoc->id);
+    $action->lay->Set("displaylcv", "");
+    $action->lay->Set("displaycv", "none");
+  }
   if (($target=="mail") && ($doc->icon != "")) $action->lay->Set("iconsrc", "cid:icon");
   else $action->lay->Set("iconsrc", $doc->geticon());
 
@@ -237,11 +262,11 @@ function viewcard(&$action) {
   if ($abstract){
     // only 3 properties for abstract mode
     $listattr = $doc->GetAbstractAttributes();
-    $nprop=4;
+    $nprop=5;
   } else {
     $listattr = $doc->GetNormalAttributes();
     if ($props) $action->lay->SetBlockData("ALLPROP",array(array("boo"=>1)));
-    $nprop=7;
+    $nprop=8;
     
   }
   // see locker for lockable document

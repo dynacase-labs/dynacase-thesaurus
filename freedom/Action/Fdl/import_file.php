@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.52 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: import_file.php,v 1.53 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.52 2003/08/18 15:47:03 eric Exp $
+// $Id: import_file.php,v 1.53 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -81,7 +81,13 @@ function add_import_file(&$action, $fimport="") {
 	$doc  =new DocFam($dbaccess);
 	if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
 	if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
+	if (is_numeric($data[1]))   $doc->fromid = $data[1];
+	else $doc->fromid = getFamIdFromName($dbaccess,$data[1]);
 	$err = $doc->Add();
+	$msg=sprintf(_("create %s family"),$data[2]);
+	$tmsg = $action->lay->GetBlockData("MSG");
+	$tmsg[] = array("msg"=>$msg);
+	$action->lay->SetBlockData("MSG",$tmsg);
       }
       
       if (is_numeric($data[1]))   $doc->fromid = $data[1];
@@ -102,6 +108,11 @@ function add_import_file(&$action, $fimport="") {
     // -----------------------------------
     case "END":
 
+      // add messages
+      $msg=sprintf(_("modify %s family"),$doc->title);
+      $tmsg = $action->lay->GetBlockData("MSG");
+      $tmsg[] = array("msg"=>$msg);
+      $action->lay->SetBlockData("MSG",$tmsg);
       
       if ($analyze) {
 	$nbdoc++;
@@ -109,6 +120,7 @@ function add_import_file(&$action, $fimport="") {
       }
       $action->log->debug("add ");
       if (($num > 3) && ($data[3] != "")) $doc->doctype = "S";
+
 
       $doc->modify();
 

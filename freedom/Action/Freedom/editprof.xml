@@ -47,13 +47,28 @@
  <td >
    <span class="FREEDOMTextTitle">[doctitle]</span>
   </td> 
-  <td  align="right"><span class="FREEDOMText">[TEXT:profile access]</span>
+  <td  align="right"><span class="FREEDOMText">[TEXT:profile access] : </span></td><td>
    <select name="profid" >   
            <option VALUE="0">[TEXT:no profile]</option>      
          [BLOCK SELECTPROF]
            <option VALUE="[idpdoc]" [selected]>[profname]</option>   
          [ENDBLOCK SELECTPROF]
            <option VALUE="[docid]" [selected_spec]>[TEXT:specific control]</option> 
+    </select>
+   </td>
+</tr>
+
+<tr class="FREEDOMBack1">
+ <td >
+   <span class="FREEDOMTextTitle">&nbsp;</span>
+  </td> 
+  <td  align="right"><span class="FREEDOMText">[TEXT:view control] : </span></td><td>
+   <select name="cvid" >   
+           <option VALUE="0">[TEXT:no control]</option>      
+         [BLOCK SELECTCV]
+           <option VALUE="[id]" [selcv]>[title]</option>   
+         [ENDBLOCK SELECTCV]
+          
     </select>
    </td>
 </tr>
@@ -64,8 +79,6 @@
 </tr>
 </table>
 </div>
-<!-- Frame Table -->
-
 
 
 

@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.33 2003/11/17 11:07:07 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.34 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.33 2003/11/17 11:07:07 eric Exp $
+// $Id: Class.WDoc.php,v 1.34 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.33 2003/11/17 11:07:07 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.34 2003/12/12 15:45:25 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -120,7 +120,7 @@ Class WDoc extends Doc {
 
   
       
-    $ordered=100;
+    $ordered=1000;
 
     $this->getStates();
     reset($this->states);
@@ -207,7 +207,7 @@ Class WDoc extends Doc {
       $oattr->id=$aid;
       $oattr->frameid=$aidframe;
       $oattr->ordered=$ordered++;
-      $oattr->phpfunc="lmask(D,{$oattr->id}):$aidmaskid,{$oattr->id}";
+      $oattr->phpfunc="lmask(D,{$oattr->id},WF_FAMID):$aidmaskid,{$oattr->id}";
       $oattr->labeltext=sprintf(_("%s mask"),_($state));
       if ($oattr->isAffected()) $oattr->Modify();
       else $oattr->Add();

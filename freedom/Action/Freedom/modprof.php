@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modprof.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: modprof.php,v 1.13 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+// $Id: modprof.php,v 1.13 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,6 +52,7 @@ function modprof(&$action) {
   $docid=GetHttpVars("docid");
   $createp = GetHttpVars("create",0); // 1 if use for create profile (only for familly)
   $profid = GetHttpVars("profid");  
+  $cvid = GetHttpVars("cvid");  
     
   if ( $docid == 0 ) $action->exitError(_("the document is not referenced: cannot apply profile access modification"));
     
@@ -73,6 +74,7 @@ function modprof(&$action) {
   if ($createp) {
     // change creation profile
     $doc->cprofid = $profid; // new creation profile access
+    $doc->ccvid = $cvid; //  default control view for creation
   } else {
 
     if (($doc->profid == $doc->id) && ($profid == 0)) {
@@ -81,6 +83,7 @@ function modprof(&$action) {
     }  
 
     $doc->setProfil($profid);// change profile
+    $doc->setCvid($cvid);// change view control
   
     // specific control
     if ($doc->profid == $doc->id)    $doc->SetControl();

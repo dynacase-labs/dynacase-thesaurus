@@ -42,10 +42,6 @@ function getScrollYOffset() {
 
 function openSubMenu(event, th, menuid) {
   var xy=getAnchorPosition(th.id);
-  //  alert(th.parentNode.id);
-  //  alert(th.parentNode.style.width);
-  //alert(th.parentNode.currentStyle.width);
-  //  alert(window.getComputedStyle(th.parentNode, null).width);
   var dx=th.parentNode.offsetWidth;
 
   // close sub menu before

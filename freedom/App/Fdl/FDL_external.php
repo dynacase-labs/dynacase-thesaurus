@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.25 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: FDL_external.php,v 1.26 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -77,7 +77,7 @@ function lmail( $dbaccess, $name) {
 }
 
 // liste des familles
-function lfamilies($dbaccess) {
+function lfamilies($dbaccess, $name='') {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
   
@@ -89,9 +89,12 @@ function lfamilies($dbaccess) {
 
   while(list($k,$v) = each($tinter)) {
             
-    $tr[] = array($v->title ,
-		  $v->id,$v->title);
+    if (($name == "") || (eregi("$name", $v->title , $reg))) {
+
+      $tr[] = array($v->title ,
+		    $v->id,$v->title);
     
+    }
   }
   return $tr;  
 }
@@ -136,6 +139,9 @@ function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
   }
   return $tr;
   
+}
+function lfamily($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
+  return lfamilly($dbaccess, $famid, $name, $dirid, $filter);
 }
 
 
@@ -215,7 +221,12 @@ function lprofil($dbaccess, $name) {
 function lmask($dbaccess, $name, $maskfamid="") {
 
   $filter=array();
-  //$filter[]="mskfamid='$maskfamid'"; // when workflow will have attribut to say the compatible families
+  if ($maskfamid > 0) {
+    $mdoc = new Doc($dbaccess,$maskfamid);
+    $chdoc=$mdoc->GetFromDoc();
+    $filter[]=GetSqlCond($chdoc,"msk_famid");
+    //    $filter[]="msk_famid='$maskfamid'"; // when workflow will have attribut to say the compatible families
+  }
   return lfamilly($dbaccess, "MASK", $name, 0, $filter);
   
 }

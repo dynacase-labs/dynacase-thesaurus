@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocCtrl.php,v 1.8 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.9 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -11,7 +11,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.8 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.9 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,7 +33,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.8 2003/08/18 15:47:04 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.9 2003/12/12 15:45:25 eric Exp $';
 
 
 
@@ -140,6 +140,11 @@ Class DocCtrl extends DbObj
       $this->exec_query("update doc set profid=-profid where profid=-".$this->id." and locked != -1;");
   }
 
+  /**
+   * set profil for document
+   *
+   * @param int profid identificator for profil document
+   */
   function setProfil($profid) {
 
     $this->profid = $profid;
@@ -148,6 +153,16 @@ Class DocCtrl extends DbObj
       $pdoc=new Doc($this->dbaccess, $profid);
       if ($pdoc->profid == 0) $this->profid = -$profid; // inhibition
     }
+  }
+
+  /**
+   * set control view for document
+   *
+   * @param int cvid identificator for control view document
+   */
+  function setCvid($cvid) {
+
+    $this->cvid = $cvid;
   }
   // --------------------------------------------------------------------
   function ControlId ($docid,$aclname) {

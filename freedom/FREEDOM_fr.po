@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2003-12-08 18:12+0100\n"
+	"POT-Creation-Date: 2003-12-12 16:33+0100\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -392,7 +392,7 @@ msgstr	"La description de la fonction externe '%s' est incorrecte"
 
 #, c-format
 msgid	"no match for %s"
-msgstr "pas de choix possible pour %s"
+msgstr	"pas de choix possible pour %s"
 
 #, c-format
 msgid	"reference must be a number not '%s'"
@@ -416,6 +416,14 @@ msgstr	"disposition sauvée : %s"
 
 msgid	"no import file specified"
 msgstr	"pas de fichier d'import spécifié"
+
+#, c-format
+msgid	"create %s family"
+msgstr "création de la famille %s"
+
+#, c-format
+msgid	"modify %s family"
+msgstr "modification de la famille %s"
 
 #, c-format
 msgid	"add id [%d] "
@@ -939,6 +947,9 @@ msgstr	"pas de contrôle d'accès"
 
 msgid	"specific control"
 msgstr	"Contrôle dédié"
+
+msgid	"no view control"
+msgstr "pas de contrôle de vues"
 
 msgid	"cannot see unknow folder"
 msgstr	"dossier inconnu, ne peut être consulté"
@@ -1986,6 +1997,12 @@ msgstr	"Profil d'accès"
 msgid	"no profile"
 msgstr	"Pas de profil"
 
+msgid	"view control"
+msgstr "contrôle de vue"
+
+msgid	"no control"
+msgstr "pas de contrôle"
+
 msgid	"keyword"
 msgstr	"mot-clef"
 
@@ -2304,12 +2321,6 @@ msgstr	"Les données ne peuvent être sauvées"
 msgid	"View headers"
 msgstr	"Voir entête"
 
-msgid	"Special view"
-msgstr	""
-
-msgid	"Special edit"
-msgstr	""
-
 msgid	"View latest"
 msgstr	"révision courante"
 
@@ -2324,6 +2335,12 @@ msgstr	"Changer d'état"
 
 msgid	"View all properties"
 msgstr	"Voir toutes les propriétés"
+
+msgid	"Special view"
+msgstr "Vues spéciales"
+
+msgid	"Special edit"
+msgstr "Éditions spéciales"
 
 msgid	"Unlock"
 msgstr	"Déverrouiller"
@@ -2379,14 +2396,6 @@ msgstr	"Voulez-vous supprimer"
 msgid	"Delete"
 msgstr	"Supprimer"
 
-#, fuzzy
-msgid	"View headers1"
-msgstr	"Voir entête"
-
-#, fuzzy
-msgid	"View headers2"
-msgstr	"Voir entête"
-
 msgid	"mini view"
 msgstr	"mini vue"
 
@@ -2410,6 +2419,9 @@ msgstr	"date de révision"
 
 msgid	" profile access"
 msgstr	" profil d'accès"
+
+msgid	"control view"
+msgstr "contrôle de vues"
 
 msgid	" rev"
 msgstr	" rév."
@@ -2438,6 +2450,9 @@ msgstr	"Famille de document"
 msgid	"created profile"
 msgstr	"Profil crée"
 
+msgid	"created control view"
+msgstr "contrôle de vue de création"
+
 msgid	"current folder"
 msgstr	"dossier courant"
 
@@ -2458,6 +2473,14 @@ msgstr	"Changer de catégorie"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+#, fuzzy
+#~ msgid	"View headers1"
+#~ msgstr	"Voir entête"
+
+#, fuzzy
+#~ msgid	"View headers2"
+#~ msgstr	"Voir entête"
 
 #~ msgid	"All kind"
 #~ msgstr	"tout type"
@@ -2740,9 +2763,6 @@ msgstr	"Voir les propriétés"
 #, fuzzy
 #~ msgid	"Freedoms exportation"
 #~ msgstr	"Exportation de cartes"
-
-#~ msgid	" set control"
-#~ msgstr	" poser un contrôle spécifique"
 
 #~ msgid	"photo"
 #~ msgstr	"Photographie"

@@ -112,7 +112,7 @@ function refreshfld(dirid) {
   </td>
   <td>&nbsp;</td>
   <td  align="right">
- <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO';"> 
+ <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]'"> 
   </td>
 </tr>
 </tfoot>

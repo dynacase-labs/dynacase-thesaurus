@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.15 2003/11/17 10:38:23 eric Exp $
+ * @version $Id: viewframe.php,v 1.16 2003/12/12 15:45:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.15 2003/11/17 10:38:23 eric Exp $
+// $Id: viewframe.php,v 1.16 2003/12/12 15:45:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,6 +52,7 @@ function viewframe(&$action) {
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
   $target = GetHttpVars("target","_self");
   $ulink = (GetHttpVars("ulink",'2') ); // add url link
+  $vid = GetHttpVars("vid"); // special controlled view
     
   if ($ulink == "N") $ulink = false;
     
@@ -63,7 +64,13 @@ function viewframe(&$action) {
   $action->lay->Set("cursor",$ulink?"crosshair":"inherit");
 
   $doc = new Doc($dbaccess, $docid);
-  
+  if (($vid != "") && ($doc->cvid > 0)) {
+    // special controlled view
+    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $tview = $cvdoc->getView($vid);
+   
+    $doc->setMask($tview["CV_MSKID"]);
+  }
   
   $listattr = $doc->GetNormalAttributes(); // get frame attribute also
     

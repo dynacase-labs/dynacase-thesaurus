@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.37 2003/12/10 16:50:30 eric Exp $
+ * @version $Id: popupcard.php,v 1.38 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.37 2003/12/10 16:50:30 eric Exp $
+// $Id: popupcard.php,v 1.38 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -234,27 +234,46 @@ function popupcard(&$action) {
   // add special views
   popupInvisible('popupcard',$kdiv,'sview');
   popupInvisible('popupcard',$kdiv,'sedit');
-  $tviews = $doc->views;
+
+  if ($doc->cvid > 0 ) {
+
+    $cvdoc = new Doc($doc->dbaccess, $doc->cvid);
+    $ti = $cvdoc->getTValue("CV_IDVIEW");
+    $tl = $cvdoc->getTValue("CV_LVIEW");
+    $tz = $cvdoc->getTValue("CV_ZVIEW");
+    $tk = $cvdoc->getTValue("CV_KVIEW");
+    $tm = $cvdoc->getTValue("CV_MSKID");
+
 
   $tv=array(); // consult array views
   $te=array(); // edit array views
-  if (count($tviews) > 0)  {
-    foreach ($tviews as $k=>$v) {
-      if ($v["kind"] == "VEDIT") {
-	$te[$k] = array("idview" => $k,
-		      "zoneview" => $v["zone"],
-		      "txtview" => $v["text"]);
-      } else {      
-	$tv[$k] = array("idview" => $k,
-		      "zoneview" => $v["zone"],
-		      "txtview" => $v["text"]);
+  if (count($tk) > 0)  {
+    foreach ($tk as $k=>$v) {
+      if ($tz[$k] != "") {
+      
+	if ($ti[$k]=="") $cvk="CV$k";
+	else $cvk=$ti[$k];
+	if ($v == "VEDIT") {
+	  if (($clf)||($cud)) {
+	    if ($cvdoc->control($cvk) == "") {
+	      $te[$cvk] = array("idview"   => $cvk,
+				"zoneview" => $tz[$k],
+				"txtview"  => $tl[$k]);
+	    }
+	  }
+	} else {      
+	  if ($cvdoc->control($cvk) == "") {
+	    $tv[$cvk] = array("idview"   => $cvk,
+			      "zoneview" => $tz[$k],
+			      "txtview"  => $tl[$k]);
+	  }
+	}
       }
     }
     $action->lay->SetBlockData("SVIEW",$tv);
     $action->lay->SetBlockData("SEDIT",$te);
   } 
   
-
   if (count($tv) > 0)  {
     popupInit('popupview',  array_keys($tv));
     foreach ($tv as $k=>$v)  popupActive('popupview',$kdiv,$k); 
@@ -269,7 +288,7 @@ function popupcard(&$action) {
   } else {
     popupInit('popupedit',  array('z'));
   }
-  
+  }  
 
 
 

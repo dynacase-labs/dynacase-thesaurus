@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.42 2003/11/03 09:09:40 eric Exp $
+ * @version $Id: freedom_util.php,v 1.43 2003/12/12 15:45:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.42 2003/11/03 09:09:40 eric Exp $
+// $Id: freedom_util.php,v 1.43 2003/12/12 15:45:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -192,7 +192,8 @@ function createDoc($dbaccess,$fromid,$control=true) {
     $doc->cprofid = "0"; // NO CREATION PROFILE ACCESS
 
     $doc->fromid = $fromid;
-    $doc->setProfil($cdoc->cprofid); // inherit from its familly	
+    $doc->setProfil($cdoc->cprofid); // inherit from its familly
+    $doc->setCvid($cdoc->ccvid); // inherit from its familly	
     $doc->icon = $cdoc->icon; // inherit from its familly	
     $doc->usefor = $cdoc->usefor; // inherit from its familly
     $doc->wid=$cdoc->wid;
