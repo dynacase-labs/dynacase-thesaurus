@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.11 2002/07/29 12:42:23 eric Exp $
+// $Id: viewcard.php,v 1.12 2002/07/30 12:36:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -185,7 +185,7 @@ function viewcard(&$action) {
   if ($dochead)  $action->lay->SetBlockData("HEAD",array(array("boo"=>1))); 
   if ($ulink)  $action->lay->SetBlockData("ACTIONS",array(array("boo"=>1))); 
 
-  $action->lay->Set("amail",($doc->doctype == "F")?"inline":"none");
+  $action->lay->Set("amail",(($doc->doctype == "F")&&($doc->useforprof == "f"))?"inline":"none");
 
   $owner = new User("", abs($doc->owner));
   $action->lay->Set("username", $owner->firstname." ".$owner->lastname);
