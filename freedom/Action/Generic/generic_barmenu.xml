@@ -35,6 +35,7 @@ function invertSplit(ev,sendmod) {
 
 function testSplit(event) {
   var w=parent.document.getElementById('fgtop');
+  if (!w) return;
   var splitmode='[splitmode]';
   if (((w.cols=='') && (splitmode=='V')) || 
       ((w.rows=='') && (splitmode=='H')) )  invertSplit(event,false);
