@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.191 2004/03/08 11:19:29 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.192 2004/03/16 14:11:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -832,6 +832,22 @@ create unique index i_docir on doc(initid, revision);";
    
     $this->isset = true;
   }
+  /** 
+   * Set to default values before add new doc
+   * @return void
+   */
+  function Init() {         
+    $this->isset = false;
+    $this->id="";
+    $this->initid="";
+    $this->comment="";
+    $nattr = $this->GetNormalAttributes();
+    foreach($nattr as $k=>$v) {
+      if (isset($this->$k) && ($this->$k != "")) $this->$k ="";
+    }	
+    unset($this->lvalues);
+    
+  }
 
   // --------------------------------------------------------------------
   function Description() {
@@ -1234,7 +1250,7 @@ create unique index i_docir on doc(initid, revision);";
 
 	if ((get_class($v) == "normalattribute") && 
 	    (($v->visibility == "W") || ($v->visibility == "O") || ($v->type == "docid")) &&
-	    (($v->type != "image") &&($v->type != "file")) ) {
+	    ($v->type != "array")  ) {
 	  
 	  if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {
 	  
@@ -1340,10 +1356,7 @@ create unique index i_docir on doc(initid, revision);";
     if (isset($this->id) && ($this->id>0)) {
 
       $nattr = $this->GetNormalAttributes();
-      reset($nattr);
-
-      while (list($k,$v) = each($nattr)) {
-
+      foreach($nattr as $k=>$v) {
 	$this->lvalues[$v->id] = $this->GetValue($v->id);
       }
     }            
