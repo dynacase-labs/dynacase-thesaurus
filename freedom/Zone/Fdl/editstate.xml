@@ -10,7 +10,7 @@
  <option VALUE="[statevalue]" >[statename]</option>  
 [ENDBLOCK NEWSTATE]
   </select>
-  <textarea rows="2" name="comment" id="comment" style="display:none"></textarea>
+  <textarea rows="2" cols="40" name="comment" id="comment" style="display:none"></textarea>
   </td>
 </tr>
 [ENDBLOCK TRSTATE]
