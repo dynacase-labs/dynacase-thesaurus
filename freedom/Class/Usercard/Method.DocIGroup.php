@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocIGroup.php,v 1.7 2003/09/16 07:39:03 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.8 2004/01/26 14:55:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIGroup.php,v 1.7 2003/09/16 07:39:03 eric Exp $
+// $Id: Method.DocIGroup.php,v 1.8 2004/01/26 14:55:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -81,7 +81,9 @@ function ComputeGroup() {
   $iduser = $this->getValue("GRP_WHATID");
   if ($iduser > 0) {
     $user = new User("",$iduser);
-
+    if (! $user->isAffected()) {
+      return sprintf(_("Group %s not exist"),$iduser);
+    }
     $this->SetValue("GRP_NAME", chop($user->firstname." ".$user->lastname));
     $this->SetValue("GRP_LOGIN", $user->login);
     $this->SetValue("GRP_MAIL",getMailAddr($iduser) );
