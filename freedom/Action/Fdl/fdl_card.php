@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: fdl_card.php,v 1.4 2004/05/06 08:08:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,34 +11,25 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: fdl_card.php,v 1.3 2003/08/18 15:47:03 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/fdl_card.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 include_once("FDL/Class.Dir.php");
 
 
-// -----------------------------------
-// -----------------------------------
+/**
+ * View a document
+ * @param Action &$action current action
+ * @global Http $docid document identificator to see
+ * @global latest Http var : (Y|N) if Y force view latest revision
+ * @global abstract Http var : (Y|N) if Y view only abstract attribute
+ * @global props Http var : (Y|N) if Y view properties also
+ * @global zonebodycard Http var : if set, view other specific representation
+ * @global vid Http var : if set, view represention describe in view control (can be use only if doc has controlled view)
+ * @global ulink Http var : (Y|N)if N hyperlink are disabled
+ * @global target Http var : is set target of hyperlink can change (default _self)
+ * @global reload Http var : (Y|N) if Y update freedom folders in client navigator
+ * @global dochead Http var :  (Y|N) if N don't see head of document (not title and icon)
+ */
 function fdl_card(&$action) {
   // -----------------------------------
   
