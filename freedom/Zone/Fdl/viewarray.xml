@@ -6,7 +6,7 @@
  <tbody  >
   
      [BLOCK EATTR]<tr >
-    [BLOCK [bevalue]]<td>[evalue]&nbsp;</td>[ENDBLOCK [bevalue]]
+    [BLOCK [bevalue]]<td>[evalue]</td>[ENDBLOCK [bevalue]]
  </tr>[ENDBLOCK EATTR]
 
   </tbody>
