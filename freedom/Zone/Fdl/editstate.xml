@@ -9,7 +9,7 @@ var WattrNtitle=new Array([Wattrntitle]);
 </script>
 
 [BLOCK LISTSTATE]
-<tr class="FREEDOMBack2" onmouseover="askForTransition(event);">
+<tr id="iTstate" class="FREEDOMBack2" onmouseover="askForTransition(event);">
   <td style="width:50%" align="right">
  <label class="FREEDOMTextTitle" for="newstate">[TEXT:state] <i>[initstatename]</i> [TEXT:to]</label>
  <select id="seltrans" name="newstate" onchange="askForTransition(event);"> 
@@ -26,7 +26,7 @@ var WattrNtitle=new Array([Wattrntitle]);
 </tr>
 [ENDBLOCK LISTSTATE]
 [BLOCK BUTTONSTATE]
-<tr class="FREEDOMBack2" onmouseover="askForTransition(event);">
+<tr id="iTstate2" class="FREEDOMBack2" onmouseover="askForTransition(event);">
   <td style="width:50%" align="right" id="editstatebutton">
  <label class="FREEDOMTextTitle" for="newstate">[TEXT:state] <i>[initstatename]</i> </label>
  <input id="seltrans" name="newstate" value="[dstate]" type="hidden"> 
@@ -34,7 +34,7 @@ var WattrNtitle=new Array([Wattrntitle]);
 [BLOCK NEWSTATE]
 <input type="submit" class="[dsubmit]" title="[TEXT:to] [statename]" value="[tostatename]" onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event);">
 [ENDBLOCK NEWSTATE]
-<input type="submit" value="[TEXT:Tounchanged]" style="margin-left:30px;margin-right:0px;display:[dvalidate]" title="[TEXT:no change state]" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);">
+<input type="submit" id="iSubmit2" value="[TEXT:Tounchanged]" style="margin-left:30px;margin-right:0px;display:[dvalidate]" title="[TEXT:no change state]" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);">
   </td><td colspan="2">
   <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:[dcomment]"></textarea>
   </td>
