@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.13 2005/01/18 18:14:52 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.14 2005/01/31 17:46:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -262,6 +262,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->set("mend",$mend);
   $this->lay->set("id",$this->id);
   $this->lay->set("vid",GetHttpVars("vid"));
+  $this->lay->set("zone",GetHttpVars("zone"));
 
   //  print "<HR>". print " - <B>".microtime_diff(microtime(),$mb)."</B>";
   // print "<hr>";

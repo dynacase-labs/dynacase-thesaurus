@@ -3,6 +3,7 @@ mstart=[mstart];
 mend=[mend];
 document.docid=[id];
 document.vid='[vid]';
+document.zone='[zone]';
 document.needreload=true;
 document.moreurl='[ppar]';
 addEvent(window,"load",placeEvents);
