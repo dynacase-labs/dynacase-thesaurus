@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.34 2004/04/23 15:25:54 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.35 2004/04/27 09:20:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.34 2004/04/23 15:25:54 eric Exp $
+// $Id: Lib.Attr.php,v 1.35 2004/04/27 09:20:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -279,6 +279,8 @@ function PgUpdateFamilly($dbaccess, $docid) {
     $qattr->AddQuery("type != 'menu'");
     $qattr->AddQuery("type != 'frame'");
     $qattr->AddQuery("type != 'array'");
+    $qattr->AddQuery("visibility != 'M'");
+    $qattr->AddQuery("visibility != 'F'");
 
     $oattr=$qattr->Query();
     if (count($oattr) > 0) {
