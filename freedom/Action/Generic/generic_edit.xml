@@ -93,13 +93,13 @@ addEvent(window,"load",focusFirst);
 </table>
 [ENDIF HEAD]
 <div id="fixspanhead" style="visibility:hidden;padding:0px;margin:0px;"></div>
-[IFNOT NOFORM]
 [ZONE FDL:EDITCARD]
-[ENDIF NOFORM]
 <div id="fixspanfoot" style="display:[ddivfoot];visibility:hidden;padding:0px;margin:0px;"></div>
 <table id="fixtablefoot" class="[tablefoot]"   cellspacing="0" width="100%">
 <tfoot >
+[IFNOT NOFORM]
 [ZONE FDL:EDITSTATE]
+[ENDIF NOFORM]
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 [IF FOOT]
 <tr class="FREEDOMBack1">
