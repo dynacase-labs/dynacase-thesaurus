@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.10 2003/07/03 10:40:41 eric Exp $
+// $Id: generic_list.php,v 1.11 2003/07/22 13:14:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -61,7 +61,7 @@ function generic_list(&$action) {
 
   $aorder = getDefUSort($action);
   if ($aorder != "title") { // test if attribute order exist
-    $ndoc = createDoc($dbaccess, $famid);
+    $ndoc = createDoc($dbaccess, $famid,false);
     if ($aorder[0]=="-") $aorder=substr($aorder,1);
     if (in_array($aorder,$ndoc->fields))    setHttpVar("sqlorder",getDefUSqlSort($action) );
   }
