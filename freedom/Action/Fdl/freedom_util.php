@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.52 2004/06/11 16:13:37 eric Exp $
+ * @version $Id: freedom_util.php,v 1.53 2004/07/05 13:01:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.52 2004/06/11 16:13:37 eric Exp $
+// $Id: freedom_util.php,v 1.53 2004/07/05 13:01:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -337,7 +337,30 @@ function getFamIdFromName($dbaccess, $name) {
   return 0; 
   
 }
+/**
+ * return the identificator of a document from its logical name
+ *
+ * @param string $dbaccess database specification
+ * @param string $name logical name
+ * @param string $famid must be set to increase speed search
 
+ * @return int 0 if not found, return negative first id found if multiple (name must be unique)
+ */
+function getIdFromName($dbaccess, $name, $famid="") {
+
+    if ($famid > 0) include_once "FDLGEN/Class.Doc$famid.php";      
+    
+    $q = new QueryDb($dbaccess, "Doc$famid");
+    $q->AddQuery("name='$name'");
+    $q->basic_elem->fields=array("id");
+    $ql=$q->Query(0,0,"TABLE");
+    if ($q->nb == 1) return $ql[0]["id"];
+    elseif ($q->nb > 1) return -($ql[0]["id"]);    
+  
+
+  return 0; 
+  
+}
 function setFamidInLayout(&$action) {
   
   global $tFamIdName;
