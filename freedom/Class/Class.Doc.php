@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.23 2002/01/28 16:51:35 eric Exp $
+// $Id: Class.Doc.php,v 1.24 2002/01/29 15:44:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.23 2002/01/28 16:51:35 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.24 2002/01/29 15:44:05 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -416,7 +416,8 @@ create sequence seq_id_doc start 1000";
 
       
       $query->AddQuery("useforprof");
-      $query->AddQuery("doctype='$this->defDoctype'");
+      $query->AddQuery("doctype='F'");
+      $query->AddQuery("lower(classname)='".get_class($this)."'");
     
       
       return $query->Query();
