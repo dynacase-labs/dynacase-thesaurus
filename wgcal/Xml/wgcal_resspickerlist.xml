@@ -3,7 +3,12 @@
 <script type="text/javascript">
 
 function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
-  top.opener.addRessource(fid, ftitle, ficon, 0, tst, cst)
+  var e;
+  try {
+    top.opener.addRessource(fid, ftitle, ficon, 0, tst, cst);
+  } catch(e) {
+    top.window.addRessource(fid, ftitle, ficon, 0, tst, cst, 1)
+  } ;
   elt = document.getElementById(fid);
   elt.style.display = 'none';
 }

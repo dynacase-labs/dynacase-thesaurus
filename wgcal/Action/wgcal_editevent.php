@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.37 2005/03/18 18:58:36 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.38 2005/03/22 13:29:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -144,7 +144,7 @@ function wgcal_editevent(&$action) {
   if ($evid==-1 || $ro) {
     $action->lay->setBlockData("EMPTY", null);
   } else {
-    $action->lay->setBlockData("EMPTY", array( array("nop" => "") ));
+    $action->lay->setBlockData("EMPTY", array( array("nop" => "", "eventid" => $evid) ));
     $action->lay->set("mailadd", $mailadd);
   }    
   $action->lay->set("DFMT", "%A %d %b %Y");
@@ -404,6 +404,7 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
     if ($attendeesGroup[$k] != -1) continue;
     $res = new Doc($dbaccess, $v);
     $att[$a]["attId"]    = $v;
+    $att[$a]["attSelect"]    = "true";
     $att[$a]["attState"] = $attendeesState[$k];
     $att[$a]["attTitle"] = $res->title;
     $att[$a]["attIcon"]  = $res->GetIcon();

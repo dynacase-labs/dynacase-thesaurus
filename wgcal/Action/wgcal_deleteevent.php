@@ -5,24 +5,23 @@ include_once("WGCAL/Lib.WGCal.php");
 
 function wgcal_deleteevent(&$action) {
 
-  $db = $action->getParam("FREEDOM_DB");
-  $ev     = GetHttpVars("ev", -1);
-  if ($ev==-1) $evid = -1;
-  else {
-    $evtmp = new Doc($db, $ev);
-    $evid = $evtmp->getValue("evt_idinitiator");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $evi = GetHttpVars("ev", -1);
+  $cev = GetHttpVars("cev", -1);
+  $event = GetCalEvent($dbaccess, $evi, $cev);
+  if (!$event) {
+    $action->AddMsgWarning("No event # $evi $cev ");
+    
+  } else {
+    if ($event->isAlive()) {
+      $err = $event->Delete();
+      if ($err!="") AddWarningMsg("$err");
+      $err = $event->postDelete();
+      if ($err!="") AddWarningMsg("$err");
+    }
+    sendRv($action, $event);
   }
-  if ($evid<1) return;
-  
-  $event = new Doc($db, $evid);
-  if ($event->isAlive()) {
-    $err = $event->Delete();
-    if ($err!="") AddWarningMsg("$err");
-    $err = $event->postDelete();
-    if ($err!="") AddWarningMsg("$err");
-  }
-  sendRv($action, $event);
-//   $event->AddComment(_("event delete "));
-  redirect($action, $action->parent->name, "WGCAL_CALENDAR");
+  redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 ?>

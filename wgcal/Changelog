@@ -1,7 +1,15 @@
 --------------------------------------------------------------------------
 0.0.9 (Rico)
 --------------------------------------------------------------------------
-- Conflits : controle
+- Gestion des conflits
+- Réorganisation de la fenêtre d'édition
+- Refonte de la partie recherche de contact dans la fenêtre d'édition de RV
+  . recherche rapide sur les utilisateurs
+  . importation des contacts préférés / affichés
+  . ouverture de la recherche détaillée des contacts
+- Vue par défaut pour les évènements (à valider)
+- ...
+
 
 --------------------------------------------------------------------------
 0.0.8 (Ylb)

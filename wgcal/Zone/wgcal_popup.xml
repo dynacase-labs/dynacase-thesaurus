@@ -9,17 +9,11 @@ closeMenu('calpopup')">[label]</a>[ENDBLOCK POPUPITEMS]
 <a href="#" id="rejectrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=3','');closeMenu('calpopup')" >[TEXT:reject this]</a>
 <a href="#" id="tbcrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=4','');closeMenu('calpopup')" >[TEXT:to be confirm this]</a>
 
-<a class="separator"></a>
-
 <a href="#" id="editrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&ev='+EvSelected,'wgcal_edit');closeMenu('calpopup')" >[TEXT:edit this]</a>
 <a href="#" id="viewrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&ev='+EvSelected,'wgcal_view');closeMenu('calpopup')" >[TEXT:view this]</a>
 <a href="#" id="deleterv" onclick="ok =confirm('[TEXT:confirm delete for this event] ?'); if (ok) activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT&ev='+EvSelected,'');closeMenu('calpopup')" >[TEXT:delete this]</a>
 
-<a class="separator"></a>
-
 <a href="#" id="historyrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_HISTO&ev='+EvSelected,'wgcal_history');closeMenu('calpopup')" >[TEXT:history]</a>
-
-<a class="separator"></a>
 
 <a href="#" id="cancelrv" onclick="closeMenu('calpopup')"  >[TEXT:Cancel]</a>
 

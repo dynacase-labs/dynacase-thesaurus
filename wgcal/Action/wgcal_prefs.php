@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs.php,v 1.1 2005/02/17 07:11:46 marc Exp $
+ * @version $Id: wgcal_prefs.php,v 1.2 2005/03/22 13:29:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -27,7 +27,7 @@ function wgcal_prefs(&$action) {
 
   $Zone = array( "look" => N_("look preferences"), 
 		 "contacts" => N_("my prefered contacts"), 
-		 "mails" => N_("mail management"));
+		 "others" => N_("other preferences"));
 
   $tz = array();
   $itz = 0;

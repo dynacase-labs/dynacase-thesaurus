@@ -58,7 +58,7 @@ function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
 <hr>
 <input id="stext" name="stext" type="text" size="15">
 <img id="sbutton" style="cursor:pointer;" onclick="document.getElementById('fgettext').submit();" height="15"
-     src="WGCAL/Images/ress-save.gif" title="[TEXT:search]">
+     src="WGCAL/Images/wm-searchiuser.png" title="[TEXT:search]">
 </div>
 </fieldset>
 <fieldset><legend>[TEXT:my prefered contacts]</legend>

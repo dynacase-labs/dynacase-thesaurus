@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_mails.php,v 1.4 2005/03/14 06:40:56 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.1 2005/03/22 13:29:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -14,7 +14,7 @@ include_once('FDL/Lib.Dir.php');
 include_once("WGCAL/WGCAL_external.php");
 
 
-function wgcal_prefs_mails(&$action) {
+function wgcal_prefs_others(&$action) {
   
   $optchk = array(
 		  "mailcc" => array(_("send me event mail copy"), "WGCAL_U_RVMAILCC", "wgcal_hidden", "WGCAL_HIDDEN"),

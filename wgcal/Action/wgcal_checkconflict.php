@@ -18,7 +18,8 @@ function wgcal_checkconflict(&$action) {
 
   $checkForConflict = ($action->getParam("WGCAL_U_CHECKCONFLICT", 1)==1?true:false);
   $alreadyChecked = (GetHttpVars("cfchecked",0)==1?true:false);
-
+  $event = (GetHttpVars("eventid",-1));
+  echo "event = $event <br>";
 
   if ($alreadyChecked || !$checkForConflict) {
     $action->lay->set("NOCF", true);
@@ -54,13 +55,14 @@ function wgcal_checkconflict(&$action) {
     $nrl = array_merge($nrl, $trl);
   }
   
-  $tev = WGCalGetAgendaEvents($action, $nrl, $start, $end);
+  $tevtmp = WGCalGetAgendaEvents($action, $nrl, $start, $end);
     
-  $action->lay->setBlockData("CARDS", $tev);
-    
-  foreach ($tev as $k=>$v) {
-    $line[]["line"] = "[".$v["RG"]." id=".$v["ID"]." debut=".$v["TSSTART"]." fin=".$v["TSEND"]." owner=".$v["IDP"];
+  $tev = array();
+  foreach ($tevtmp as $k=>$v) {
+    // $line[]["line"] = "[".$v["RG"]." id=".$v["ID"]." debut=".$v["TSSTART"]." fin=".$v["TSEND"]." owner=".$v["IDP"];
+    if ($v["IDP"]!=$event) $tev[] = $v;
   }
+  $action->lay->setBlockData("CARDS", $tev);
   $action->lay->set("CF", (count($tev)>0 ? true : false));
   $action->lay->set("NOCF", (count($tev)>0 ? false : true));
   $action->lay->SetBlockData("CONFLICTS", $tev);

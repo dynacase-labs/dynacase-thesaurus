@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-15 07:31+0100\n"
+"POT-Creation-Date: 2005-03-22 14:15+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -112,6 +112,9 @@ msgstr "Raffraichir la barre d'outil"
 msgid "mails send"
 msgstr "Envoi des mails"
 
+msgid "viewed events (from producters)"
+msgstr ""
+
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
 
@@ -157,6 +160,9 @@ msgstr "recherche d'évènement"
 msgid "advanced search event"
 msgstr "Recherche avancée"
 
+msgid "search iuser"
+msgstr "Rechercher un utilisateur"
+
 msgid "view event"
 msgstr "Aficher"
 
@@ -192,6 +198,15 @@ msgstr "Vue mensuelle texte"
 
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
+
+msgid "there are conflicts with events (see after)"
+msgstr "Cet évènement est en conflit avec ceux ci-dessous"
+
+msgid "ignore conflict"
+msgstr "Ignorer les conflits"
+
+msgid "modify event"
+msgstr "Modifier le rendez-vous"
 
 msgid "calendar creation"
 msgstr "Sélection des calendriers"
@@ -244,9 +259,6 @@ msgstr "Titre"
 msgid "give a title"
 msgstr "saississez un titre"
 
-msgid "rv note"
-msgstr "Note"
-
 msgid "start date"
 msgstr "Date de début"
 
@@ -271,6 +283,21 @@ msgstr "Pas d'heure"
 msgid "all the day"
 msgstr "Toute la journée"
 
+msgid "rv note"
+msgstr "Note"
+
+msgid "confidentiality"
+msgstr "Confidentialité"
+
+msgid "calendar"
+msgstr "Mes agendas"
+
+msgid "alarm"
+msgstr "Alarme"
+
+msgid "before"
+msgstr "avant"
+
 msgid "attendees"
 msgstr "Personnes conviées"
 
@@ -289,26 +316,20 @@ msgstr "Suppression de toutes les personnes conviées"
 msgid "one ressource or you in event"
 msgstr "Utiliser les ressources pour les rendez-vous"
 
-msgid "delete attendee"
-msgstr "Supprimer une personne conviée"
-
-msgid "event state "
-msgstr "Etat du rendez-vous"
-
 msgid "I participe to this meeting"
 msgstr "je participe à la réunion"
 
-msgid "confidentiality"
-msgstr "Confidentialité"
+msgid "delete attendee"
+msgstr "Supprimer une personne conviée"
 
-msgid "calendar"
-msgstr "Mes agendas"
+msgid "use my prefered ressources"
+msgstr "mes contacts préférés"
 
-msgid "alarm"
-msgstr "Alarme"
+msgid "use my prefered ressource"
+msgstr "mes contacts préférés"
 
-msgid "before"
-msgstr "avant"
+msgid "use displayed ressources"
+msgstr "ressources affichées"
 
 msgid "every"
 msgstr "tout les"
@@ -397,15 +418,6 @@ msgstr "Etat"
 msgid "all state"
 msgstr "tout état"
 
-msgid "there are conflicts with events (see after)"
-msgstr "Cet évènement est en conflit avec ceux ci-dessous"
-
-msgid "modify event"
-msgstr "Modifier le rendez-vous"
-
-msgid "ignore conflict"
-msgstr "Ignorer les conflits"
-
 msgid "click here to refresh toolbar"
 msgstr "cliquer pour raffraichir la barre d'outil"
 
@@ -445,12 +457,6 @@ msgstr "Enlever la ressource"
 msgid "change color for ressource"
 msgstr "Modifier la couleur du calendrier"
 
-msgid "use ressource for event creation"
-msgstr "Utiliser les ressources pour les rendez-vous"
-
-msgid "use in event..."
-msgstr "Utiliser pour les RV..."
-
 msgid "reinit the list"
 msgstr "Réinitialiser la liste des calendriers"
 
@@ -468,6 +474,27 @@ msgstr "Ressources trouvées"
 
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
+
+msgid "accept"
+msgstr "accepté"
+
+msgid "reject"
+msgstr "refusé"
+
+msgid "to be confirm"
+msgstr "à confirmer"
+
+msgid "edit"
+msgstr "Editer"
+
+msgid "delconfirm"
+msgstr "à confirmer"
+
+msgid "history"
+msgstr "Historique"
+
+msgid "Cancel"
+msgstr "Annuler"
 
 msgid "add prefered contact"
 msgstr "Ajout d'un contact préféré"
@@ -495,12 +522,6 @@ msgstr "Confirmez-vous la suppression de cet évènement"
 
 msgid "delete this"
 msgstr "Supprimer"
-
-msgid "history"
-msgstr "Historique"
-
-msgid "Cancel"
-msgstr "Annuler"
 
 msgid "add a calendar"
 msgstr "Ajout d'un calendrier"
@@ -547,7 +568,8 @@ msgstr "modifié le"
 msgid "others"
 msgstr "Autres préférences"
 
-msgid "mail options"
+#, fuzzy
+msgid "options"
 msgstr "Messages"
 
 msgid "search events containing phrase..."
@@ -604,8 +626,9 @@ msgstr "Proposition de rendez-vous"
 msgid "look preferences"
 msgstr "Aspect et comportement de l'interface"
 
-msgid "mail management"
-msgstr "Gestion des mail"
+#, fuzzy
+msgid "other preferences"
+msgstr "Préférence de l'utilisateur"
 
 msgid "state set to "
 msgstr "Rendez-vous "
@@ -725,23 +748,23 @@ msgstr "nouveau"
 msgid "read"
 msgstr "lu"
 
-msgid "accept"
-msgstr "accepté"
-
-msgid "reject"
-msgstr "refusé"
-
 msgid "to be confirmed"
 msgstr "à confirmer"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"
 
-#~ msgid "edit"
-#~ msgstr "Editer"
+#~ msgid "mail management"
+#~ msgstr "Gestion des mail"
 
-#~ msgid "delconfirm"
-#~ msgstr "à confirmer"
+#~ msgid "event state "
+#~ msgstr "Etat du rendez-vous"
+
+#~ msgid "use ressource for event creation"
+#~ msgstr "Utiliser les ressources pour les rendez-vous"
+
+#~ msgid "use in event..."
+#~ msgstr "Utiliser pour les RV..."
 
 #~ msgid "days hours"
 #~ msgstr "Gestion de la journée affichée"

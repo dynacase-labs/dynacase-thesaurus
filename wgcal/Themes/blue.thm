@@ -6,7 +6,7 @@ $theme->Descr  = _("blue theme");
 
 $theme->WTH_BGIMG                 =  "url('WGCAL/Images/bg-blue.gif')";
 
-$theme->WTH_TEXTCOLOR_1           =  "#03005D";  // Foncé
+$theme->WTH_TEXTCOLOR_1           =  "#000000";  // Foncé
 $theme->WTH_TEXTCOLOR_2           =  "#B6DCF4";    // Clair
 
 $theme->WTH_COLOR_1               =  "#D3E5FF";  // Clair

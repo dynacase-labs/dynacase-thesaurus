@@ -179,24 +179,26 @@ function refreshAttendees() {
 
   var showtab = false;
 
-  for (idx in attendeesList) {
-    if (attendeesList[idx]!=-1) {
+  for (idx=0; idx<attendeesList.length; idx++) {
+    if (attendeesList[idx].id!=-1) {
       showtab = true;
-      if (attendeesList[idx][4] == 0) {
-        attendeesList[idx][4] = 1;
+      if (attendeesList[idx].status == 0) {
+        attendeesList[idx].status = 1;
         with (document.getElementById('trsample')) {
 	  nTr = cloneNode(true);
 	  style.display = 'none';
         }
-        nTr.id = 'tr'+attendeesList[idx][0];
-        mynodereplacestr(nTr, '%RID%', attendeesList[idx][0]);
-        mynodereplacestr(nTr, '%RICON%', attendeesList[idx][2]);
-        mynodereplacestr(nTr, '%RDESCR%', attendeesList[idx][1]);
-        mynodereplacestr(nTr, '%RSTATE%', attendeesList[idx][5]);
+        nTr.id = 'tr'+attendeesList[idx].id;
+        mynodereplacestr(nTr, '%RID%', attendeesList[idx].id);
+        mynodereplacestr(nTr, '%RICON%', attendeesList[idx].icon);
+        mynodereplacestr(nTr, '%RDESCR%', attendeesList[idx].title);
+        mynodereplacestr(nTr, '%RSTATE%', attendeesList[idx].state);
 	nTr.style.display = '';
         tab.appendChild(nTr);
-        capp = document.getElementById('cp'+attendeesList[idx][0]);
-        capp.style.backgroundColor = attendeesList[idx][6];
+	if (attendeesList[idx].select) 	  document.getElementById(attendeesList[idx].id).className = classSelected;
+	else  document.getElementById(attendeesList[idx].id).className = classUnSelected;
+        capp = document.getElementById('cp'+attendeesList[idx].id);
+        capp.style.backgroundColor = attendeesList[idx].bgcolor;
       }
     }
   }
@@ -221,41 +223,40 @@ function refreshAttendees() {
 function getAttendeeIdx(aid) {
   var idx = -1;
   for (i=0; i<attendeesList.length; i++) {
-    if (attendeesList[i]!=-1 && attendeesList[i][0] == aid) idx = i;
+    if (attendeesList[i]!=null && attendeesList[i].id == aid) idx = i;
   } 
   return idx;
 }
       
 function SetModeRo(b) { ROMode = b; }
 
-function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor) {
-  if (getAttendeeIdx(rid)!=-1) {
-    return;
-  }
+function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor, rselect) {
+  if (getAttendeeIdx(rid)!=-1) return;
   idx = attendeesList.length;
-  attendeesList[idx] = new Array();
-  attendeesList[idx][0] = rid;
-  attendeesList[idx][1] = rtitle;
-  attendeesList[idx][2] = ricon;
-  attendeesList[idx][3] = rstate; /* confirmation status */
-  attendeesList[idx][4] = 0; /* displayed status */
-  attendeesList[idx][5] = rsLabel;
-  attendeesList[idx][6] = rsColor;
+  attendeesList[idx] = new Object();
+  attendeesList[idx].id = rid;
+  attendeesList[idx].title = rtitle;
+  attendeesList[idx].icon = ricon;
+  attendeesList[idx].state = rstate; /* confirmation status */
+  attendeesList[idx].status = 0; /* displayed status */
+  attendeesList[idx].label = rsLabel;
+  attendeesList[idx].bgcolor = rsColor;
+  attendeesList[idx].select = rselect;
   refreshAttendees();
 }
 
 function  deleteAttendee(aid) {
   for (i=(attendeesList.length-1); i>=0; i--) {
-    if (aid==-1 || aid == attendeesList[i][0]) {
-      eltA = document.getElementById('tr'+ attendeesList[i][0]);
+    if (aid==-1 || aid == attendeesList[i].id) {
+      eltA = document.getElementById('tr'+ attendeesList[i].id);
       if (!eltA) return;
       eltA.parentNode.deleteRow(eltA.sectionRowIndex);
-      attendeesList[i] = -1;
+      attendeesList[i].id = -1;
     }
   }
   showt = false;
   for (i=0; i<attendeesList.length; i++) {
-    if (attendeesList[i] != -1) showt = true;
+    if (attendeesList[i].id != -1) showt = true;
   }
   var vress = document.getElementById('attlist');
   var vdispo = document.getElementById('viewplan');
@@ -380,7 +381,7 @@ function EventSelectAll(f) {
   var excdate = document.getElementById('excludedate');
   var n = "";
   for (i=(list.options.length-1); i>=0; i--) {
-    list.options[i].selected = true;
+    list.options[i].select = true;
     sep = (n==''?'':'|');
     n += sep + list.options[i].value;
   }
@@ -390,9 +391,9 @@ function EventSelectAll(f) {
   nlist = '';
   me  = document.getElementById('withMe');
   for (att=0; att<attendeesList.length; att++) {
-    if (attendeesList[att]==-1) continue;
+    if (attendeesList[att].id==-1 || !attendeesList[att].select) continue;
     sep = (nlist==''?'':'|');
-    nlist = nlist+sep+attendeesList[att][0];
+    nlist = nlist+sep+attendeesList[att].id;
   }
   if (nlist=='' && !me.checked) {
     document.getElementById('errAtt').style.display = '';
@@ -413,9 +414,9 @@ function viewattdispo(url) {
 
   rll = "";
   for (att=0; att<attendeesList.length; att++) {
-    if (attendeesList[att]==-1) continue;
+    if (attendeesList[att].id==-1 || !attendeesList[att].select) continue;
     if (rll!='') rll += '|';
-    rll += attendeesList[att][0];
+    rll += attendeesList[att].id;
   }
   if (withme.checked) {
     if (rll!='') rll += '|';
@@ -425,6 +426,7 @@ function viewattdispo(url) {
   var td = new Date(rvs*1000);
   js = cal_to_jd( "CE", td.getFullYear(), td.getMonth()+1, td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
   je = parseFloat(js) + 14.0;
+  alert('ViewDispo '+url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
   subwindow(300, 700, 'ViewDispo', url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
 }
 
@@ -483,7 +485,49 @@ function ImportRessources(elt, tress) {
     ch.style.display = 'none';
     bch.checked = true;
     for (i=0; i<tress.length; i++) {
-       addRessource(tress[i][0], tress[i][1], tress[i][2], '0', 'nouveau', 'red');
+       addRessource(tress[i][0], tress[i][1], tress[i][2], '0', 'nouveau', 'red', true);
     }
   }
 }
+
+var classSelected = '';
+var classUnSelected = '';
+function SetRessDeco(cSel, cUSel) {
+  classSelected = cSel;
+  classUnSelected = cUSel;
+}
+
+function RessourceSelect(idr) {
+  var idx = -1;
+
+  idx = getAttendeeIdx(idr);
+  if (idx==-1) return;
+  attendeesList[idx].select = ( attendeesList[idx].select ? false : true );
+  relt = document.getElementById(idr);
+  if (attendeesList[idx].select) {
+    document.getElementById(attendeesList[idx].id).className = classSelected;
+  } else {
+    document.getElementById(attendeesList[idx].id).className = classUnSelected;
+  }
+}
+
+
+function ViewRessourceHelper(idh, url) {
+  var pst = document.getElementById(idh).style.display; 
+  if (pst=='') {
+    document.getElementById(idh).style.display = 'none';
+  } else { 
+    parent.wgcal_addatt.location.href=url; 
+    document.getElementById(idh).style.display  = ''; 
+  }
+}
+  
+
+function SearchIUser(iuser) {
+  if (iuser=='') return;
+  var fvl = document.getElementById('fgetiuser');
+  var vl = document.getElementById('iusertext');
+  vl.value = iuser;
+  fvl.submit();
+}
+  

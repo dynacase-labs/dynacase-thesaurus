@@ -1,5 +1,9 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-<form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="eventid" name="eventid" value="[EVENTID]"> </form>
+<form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="cev" name="cev" value="[EVENTID]"> </form>
+
+<form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER">
+<input id="iusertext" name="iusertext" type="hidden">
+</form>
 
 <form id="editevent" name="editevent" method="POST" target="wgcal_conflict" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHECKCONFLICT">
 <input type="hidden" id="cfchecked" name="cfchecked" value="0">
@@ -25,14 +29,14 @@
 </legend>
 
 <!-- Event default view -->
-<div  name="_addatt" id="_addatt" style="position:absolute;left:2%;top:2%;width:40%;height:80%;border:2px outset lightgrey;display:none">
+<div  name="_addatt" id="_addatt" style="position:absolute;left:0%;top:0%;width:50%;height:98%;border:2px outset lightgrey;display:none">
 <iframe name="wgcal_addatt" id="wgcal_addatt" style="position:absolute;left:0%;top:0%;width:100%;height:100%" marginwidth="0" marginheight="0">
 </iframe>
 </div>
 
 <div id="evmainzone" style="display:">
 
-<table width="100%" style="margin-top: 0em;" cellspacing="0" border="1">
+<table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
 <tr><td>
 
 <table width="300px" style="margin-top: 0em;" cellspacing="0" border="0">
@@ -157,27 +161,20 @@
 
 </table>
 
-</td><td>
-
-<table width="100%" cellspacing="0" border="1">
-
-<tr><td>
+</td>
+<td valign="top">
 
 <div id="evattendeeszone" style="display:">
 
 <fieldset id='vical'>
-  <legend class="WGCToolTitle">[TEXT:attendees]&nbsp;
-
-  <!--
-<img id="addattendee" style="display:[attendeesro]; cursor:pointer;" 
-     onclick="attpicker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');" 
-     height="20"
-     src="WGCAL/Images/wm-attendees.png" title="[TEXT:add attendees]"> -->
+  <legend class="WGCToolTitle">
+  [TEXT:attendees]&nbsp;
 
   <img id="addattendee" style="display:[attendeesro]; cursor:pointer;" 
-     onclick="parent.wgcal_addatt.location.href='[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN'; document.getElementById('_addatt').style.display=''" 
+     onclick="ViewRessourceHelper('_addatt', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN'); " 
      height="20"
      src="WGCAL/Images/wm-attendees.png" title="[TEXT:add attendees]">
+
    <img id="viewplan" style="display:[voneatt]; cursor:pointer;" height="20"
           onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T?idfamref=[idfamref]&byres=Y&id=[planid]');";
           src="WGCAL/Images/wm-planner.png" title="[TEXT:vew disponibility]">
@@ -190,34 +187,35 @@
 
 <div id="errAtt" name="errAtt" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:one ressource or you in event]</div>
 
-<table id="vnatt" style="display:[vnatt]" cellspacing="0" cellpadding="0" width="100%"><tr><td align="right">
-<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus();" title="[TEXT:I participe to this meeting]">[TEXT:I participe to this meeting]<input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus();" [WITHME] [WITHMERO]></span>
-</td></td></table>
+<table id="vnatt" cellspacing="0" cellpadding="0" width="100%"><tr>
+<td>
+<input id="stmptext" type="text" size="15"></input>
+<img id="stmpbutton" style="cursor:pointer;" onclick="SearchIUser(document.getElementById('stmptext').value)" height="10" src="WGCAL/Images/wm-searchiuser.png" title="[TEXT:search]">
+</td>
+<td align="right">
+<span style="display:[vnatt]; align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus();" title="[TEXT:I participe to this meeting]">[TEXT:I participe to this meeting]<input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus();" [WITHME] [WITHMERO]></span>
+</td>
+</td></table>
 
 
 <div style="border: 1px inset lightgrey;" id="attlist">
  
-<table cellspacing="0" cellpadding="0">
+<table cellspacing="0" cellpadding="0" align="center" width="80%">
 <tbody id="tabress">
 
 <tr style="display:none" id="trsample">
 <td> <img style="display:[attendeesro];cursor:pointer;border:1px outset grey" height="12"  
-          onmouseover="this.style.border='1px inset grey'"
-          onmouseout="this.style.border='1px outset grey'"
-          src="WGCAL/Images/wm-delete.png" 
-          onclick="deleteAttendee('%RID%');" 
-          title="[TEXT:delete attendee] %RDESCR%">
+          onmouseover="this.style.border='1px inset grey'" onmouseout="this.style.border='1px outset grey'"
+          src="WGCAL/Images/wm-delete.png" onclick="deleteAttendee('%RID%');" title="[TEXT:delete attendee] %RDESCR%">
 </td>
-<td>&nbsp;&nbsp;</td>
-<td nowrap>
-  <span style="cursor:crosshair; border-bottom:1px solid white" id="%RID%" width="90%" title="[TEXT:event state ]%RSTATE%"i
-    onmouseover="ViewGroup(this,true);"  onmouseout="ViewGroup(this,false);">
+<td>&nbsp;</td>
+<td><span id="cp%RID%" name="cp%RID%" style="cursor:crosshair; border:1px inset grey;" title="">&nbsp;&nbsp;</span>&nbsp;
+  <span style="cursor:pointer" id="%RID%" width="90%" title="%RDESCR%"
+    onmouseover="ViewGroup(this,true);"  onmouseout="ViewGroup(this,false);"
+    onclick="RessourceSelect(%RID%);">
     <img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
   </span>
 </td>
-<td>&nbsp;</td>
-<td><span id="cp%RID%" name="cp%RID%" style="cursor:crosshair; border:1px inset grey;" 
-          title="[TEXT:event state ] %RSTATE%">&nbsp;&nbsp;</span></td>
 </tr>
 
 </tbody>
@@ -249,10 +247,6 @@ PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBL
 
 </fieldset>
 </div>
-
-</td>
-</tr>
-</table>
 
 </td></tr></table>
 
@@ -387,7 +381,8 @@ Calendar.setup(
 
 <script type="text/javascript">
 SetModeRo([ROMode]);
-[BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attLabel]', '[attColor]');
+SetRessDeco('WGCRessSelected', 'WGCRessDefault');
+[BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attLabel]', '[attColor]', [attSelect]);
 [ENDBLOCK ADD_RESS] 
 //window.onunload = cancelEvent;
 document.getElementById('rvtitle').focus();
@@ -402,6 +397,8 @@ document.getElementById('rvtitle').focus();
 
 <iframe name="wgcal_conflict" id="wgcal_conflict" style="position:absolute;left:1%;top:1%;width:98%;height:98%;border:1px dotted red;display:none" marginwidth="0" marginheight="0">
 </iframe>
+
+<iframe name="wgcal_iuser" id="wgcal_iuser" style="display:none"></iframe>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]
  

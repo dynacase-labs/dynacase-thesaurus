@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-15 07:31+0100\n"
+"POT-Creation-Date: 2005-03-22 14:15+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -112,6 +112,9 @@ msgstr ""
 msgid "mails send"
 msgstr ""
 
+msgid "viewed events (from producters)"
+msgstr ""
+
 msgid "workgroup calendar"
 msgstr ""
 
@@ -157,6 +160,9 @@ msgstr ""
 msgid "advanced search event"
 msgstr ""
 
+msgid "search iuser"
+msgstr ""
+
 msgid "view event"
 msgstr ""
 
@@ -191,6 +197,15 @@ msgid "month text"
 msgstr ""
 
 msgid "user preferences"
+msgstr ""
+
+msgid "there are conflicts with events (see after)"
+msgstr ""
+
+msgid "ignore conflict"
+msgstr ""
+
+msgid "modify event"
 msgstr ""
 
 msgid "calendar creation"
@@ -244,9 +259,6 @@ msgstr ""
 msgid "give a title"
 msgstr ""
 
-msgid "rv note"
-msgstr ""
-
 msgid "start date"
 msgstr ""
 
@@ -271,6 +283,21 @@ msgstr ""
 msgid "all the day"
 msgstr ""
 
+msgid "rv note"
+msgstr ""
+
+msgid "confidentiality"
+msgstr ""
+
+msgid "calendar"
+msgstr ""
+
+msgid "alarm"
+msgstr ""
+
+msgid "before"
+msgstr ""
+
 msgid "attendees"
 msgstr ""
 
@@ -289,25 +316,19 @@ msgstr ""
 msgid "one ressource or you in event"
 msgstr ""
 
-msgid "delete attendee"
-msgstr ""
-
-msgid "event state "
-msgstr ""
-
 msgid "I participe to this meeting"
 msgstr ""
 
-msgid "confidentiality"
+msgid "delete attendee"
 msgstr ""
 
-msgid "calendar"
+msgid "use my prefered ressources"
 msgstr ""
 
-msgid "alarm"
+msgid "use my prefered ressource"
 msgstr ""
 
-msgid "before"
+msgid "use displayed ressources"
 msgstr ""
 
 msgid "every"
@@ -397,15 +418,6 @@ msgstr ""
 msgid "all state"
 msgstr ""
 
-msgid "there are conflicts with events (see after)"
-msgstr ""
-
-msgid "modify event"
-msgstr ""
-
-msgid "ignore conflict"
-msgstr ""
-
 msgid "click here to refresh toolbar"
 msgstr ""
 
@@ -445,12 +457,6 @@ msgstr ""
 msgid "change color for ressource"
 msgstr ""
 
-msgid "use ressource for event creation"
-msgstr ""
-
-msgid "use in event..."
-msgstr ""
-
 msgid "reinit the list"
 msgstr ""
 
@@ -467,6 +473,27 @@ msgid "found ressources"
 msgstr ""
 
 msgid " invalid ressource id"
+msgstr ""
+
+msgid "accept"
+msgstr ""
+
+msgid "reject"
+msgstr ""
+
+msgid "to be confirm"
+msgstr ""
+
+msgid "edit"
+msgstr ""
+
+msgid "delconfirm"
+msgstr ""
+
+msgid "history"
+msgstr ""
+
+msgid "Cancel"
 msgstr ""
 
 msgid "add prefered contact"
@@ -494,12 +521,6 @@ msgid "confirm delete for this event"
 msgstr ""
 
 msgid "delete this"
-msgstr ""
-
-msgid "history"
-msgstr ""
-
-msgid "Cancel"
 msgstr ""
 
 msgid "add a calendar"
@@ -547,7 +568,7 @@ msgstr ""
 msgid "others"
 msgstr ""
 
-msgid "mail options"
+msgid "options"
 msgstr ""
 
 msgid "search events containing phrase..."
@@ -604,7 +625,7 @@ msgstr ""
 msgid "look preferences"
 msgstr ""
 
-msgid "mail management"
+msgid "other preferences"
 msgstr ""
 
 msgid "state set to "
@@ -723,12 +744,6 @@ msgid "new"
 msgstr ""
 
 msgid "read"
-msgstr ""
-
-msgid "accept"
-msgstr ""
-
-msgid "reject"
 msgstr ""
 
 msgid "to be confirmed"
