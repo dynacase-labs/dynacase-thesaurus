@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.54 2004/08/05 09:47:21 eric Exp $
+ * @version $Id: freedom_util.php,v 1.55 2004/08/09 08:06:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -82,10 +82,9 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
   
   if ($dbaccess=="") {
     // don't test if file exist or must be searched in include_path 
-    include("dbaccess.php");
+    $dbaccess=getDbAccess();
            
   }
-
   //    print("doctype:".$res["doctype"]);
   $classname="";
   if (($id == '') && ($res == "")) {
@@ -106,7 +105,7 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
   
     $dbid=getDbid($dbaccess);
 
-        
+  //    print("doctype:".$res["doctype $dbaccess $dbid";
     $fromid= getFromId($dbaccess,$id);
     if ($fromid > 0) {
       $classname= "Doc$fromid";
@@ -125,7 +124,6 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
 	    
   if ($classname != "") {
     include_once("FDL$gen/Class.$classname.php");
-    //    print "new $classname($dbaccess, $id, $res, $dbid)<BR>";
     $doc=new $classname($dbaccess, $id, $res, $dbid);
     if (($id > 0) && (count($gdocs) < MAXGDOCS))    $gdocs[$id]=&$doc;
 
