@@ -11,6 +11,10 @@
 <a href="#" id="editdoc"     
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=[id]','info');closeMenu('popupcard')"  >[TEXT:Edit]</a>
 
+<a href="#" id="properties"     
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[id]','doc_properties');closeMenu('popupcard');">
+[TEXT:View all properties]</a>
+
 <a href="#" id="editattr"     
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=DEFATTR&id=[id]','info');closeMenu('popupcard')"  >[TEXT:Edit attributes]</a>
 
@@ -21,7 +25,10 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=REVCOMMENT&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT:Revise]</a>
 
 <a href="#" id="chgtitle" 
-    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=QUERYTITLE&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT:Change title]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=QUERYTITLE&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT:Rename]</a>
+
+<a href="#" id="defval" 
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=[id]','info');closeMenu('popupcard')" >[TEXT:Set default values]</a>
 
 <a href="#" id="unlockdoc"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=UNLOCKFILE&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT:Unlock]</a>
@@ -36,9 +43,6 @@
 <a href="#" id="editcprof"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&create=1&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT:Change creation profile]</a>
 
-<a href="#" id="properties"     
-    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[id]','doc_properties');closeMenu('popupcard');">
-[TEXT:View all properties]</a>
 
 <a href="#" id="access"     
     onclick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ACCESS&id=[id]','access');closeMenu('popupcard');">

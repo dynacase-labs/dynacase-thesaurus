@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.3 2002/04/09 14:42:18 eric Exp $
+// $Id: popupcard.php,v 1.4 2002/06/18 14:17:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','chgtitle','unlockdoc','editattr','histo','editprof','editcprof','properties','access','delete','cancel'));
+  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','chgtitle','defval','unlockdoc','editattr','histo','editprof','editcprof','properties','access','delete','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -93,6 +93,7 @@ function popupcard(&$action) {
   if ($cud) {
     popupActive('popupcard',$kdiv,'editattr'); 
     popupActive('popupcard',$kdiv,'chgtitle'); 
+    popupActive('popupcard',$kdiv,'defval'); 
     popupActive('popupcard',$kdiv,'editdoc');
   } else {
     if ($doc->locked < 0){ // fixed document
@@ -100,6 +101,7 @@ function popupcard(&$action) {
       popupInvisible('popupcard',$kdiv,'delete');
       popupInvisible('popupcard',$kdiv,'editattr'); 
       popupInvisible('popupcard',$kdiv,'chgtitle'); 
+      popupInvisible('popupcard',$kdiv,'defval'); 
       popupInvisible('popupcard',$kdiv,'editprof');
       popupInvisible('popupcard',$kdiv,'revise');
       popupInvisible('popupcard',$kdiv,'lockdoc');
@@ -108,6 +110,7 @@ function popupcard(&$action) {
     } else {
       popupInactive('popupcard',$kdiv,'editattr'); 
       popupInactive('popupcard',$kdiv,'chgtitle'); 
+      popupInactive('popupcard',$kdiv,'defval'); 
       popupInactive('popupcard',$kdiv,'editprof');
       popupInactive('popupcard',$kdiv,'editdoc');
 
@@ -123,6 +126,7 @@ function popupcard(&$action) {
   if ($doc->doctype != "C") {
     popupInvisible('popupcard',$kdiv,'editcprof'); 
     popupInvisible('popupcard',$kdiv,'chgtitle'); 
+    popupInvisible('popupcard',$kdiv,'defval'); 
     popupInvisible('popupcard',$kdiv,'editattr'); 
   } else {
     popupInvisible('popupcard',$kdiv,'editdoc');
