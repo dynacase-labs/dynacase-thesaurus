@@ -47,35 +47,6 @@ function changeFormat(fmt) {
 <FORM ENCTYPE="multipart/form-data" id="fsend" name="fsend" action="[CORE_STANDURL]&app=[APPNAME]&action=USERCARD_IMPORTVCARD" method="post" >
 
 
-<div  id="dvcard">
-<p>[TEXT:Vcard example]</p>
-<pre width="40">
-BEGIN:VCARD
-FN:Martin Jean
-N:Martin;Jean
-N;GIVEN:Jean
-N;FAMILY:Martin
-URL:www.i-cesam.com
-URL;WORK:www.i-cesam.com
-ORG:Césam
-ORG;NAME:Césam
-EMAIL;INTERNET:jean.martin@free.fr
-ADR;WORK:;;11 rue Clément Ader\nCedex 9;Colomiers;;31700
-TEL;WORK:0565653563
-TEL;FAX:0565650000
-TEL;CELL:0665653566
-END:VCARD
-</pre>
-</div>
-
-<div  style="display:none" id="dcsv">
-<p>[TEXT:CSV specification file]</p>
-<p>[TEXT:The separator field is the semicolon(;)]. 
-[TEXT:The first four fields must not be change, they identified the card structure]. 
-[TEXT:Only one line by personn is authorized]. 
-[TEXT:If an attribut is a multiline string, use the \ n characters to specify the new line]</p>
-<p style="font-family:courier">[format]</p>
-</div>
 
 
 <INPUT NAME="vcardfile" SIZE=48 TYPE="file" accept="text/x-vcard,text/*.csv" VALUE=""><HR>
@@ -105,7 +76,36 @@ END:VCARD
 <input type="submit" id="bsubmit" value="[TEXT:Import vcard]">
  <input type="button" value=[TEXT:Help] onClick="subwindow(300,400,'helpwhat','[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=USERCARD&sectid=usercard.adm.import');"> 
 </FORM>
+<hr width="50%">
+<div  id="dvcard">
+<p>[TEXT:Vcard example]</p>
+<pre width="40">
+BEGIN:VCARD
+FN:Martin Jean
+N:Martin;Jean
+N;GIVEN:Jean
+N;FAMILY:Martin
+URL:www.i-cesam.com
+URL;WORK:www.i-cesam.com
+ORG:Césam
+ORG;NAME:Césam
+EMAIL;INTERNET:jean.martin@free.fr
+ADR;WORK:;;11 rue Clément Ader\nCedex 9;Colomiers;;31700
+TEL;WORK:0565653563
+TEL;FAX:0565650000
+TEL;CELL:0665653566
+END:VCARD
+</pre>
+</div>
 
+<div  style="display:none" id="dcsv">
+<p>[TEXT:CSV specification file]</p>
+<p>[TEXT:The separator field is the semicolon(;)]. 
+[TEXT:The first four fields must not be change, they identified the card structure]. 
+[TEXT:Only one line by personn is authorized]. 
+[TEXT:If an attribut is a multiline string, use the \ n characters to specify the new line]</p>
+<p style="font-family:courier">[format]</p>
+</div>
 [ZONE CORE:HTMLFOOT]
 
 
