@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.127 2003/05/23 15:30:03 eric Exp $
+// $Id: Class.Doc.php,v 1.128 2003/05/27 12:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.127 2003/05/23 15:30:03 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.128 2003/05/27 12:30:37 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/05/23 15:30:03 $
-// Version         $Revision: 1.127 $
+// Last Update     $Date: 2003/05/27 12:30:37 $
+// Version         $Revision: 1.128 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -985,7 +985,7 @@ create unique index i_docir on doc(initid, revision);";
     if (isset($this->$lidAttr) && ($this->$lidAttr != "")) return $this->$lidAttr;
 
       
-    if ($this->getAttribute($idAttr)) return "";
+   
     return $def;
 
   }
@@ -1123,10 +1123,12 @@ create unique index i_docir on doc(initid, revision);";
 		$this->AddParamRefresh($reg[2],$attrid);
 	      }
 	      
-	      while(list($k,$v) = each($args)) {
-		$args[$k]=$this->GetValue($v,$v);
+	      while(list($k,$v) = each($args)) { 
+		if ($this->getAttribute($v)) $args[$k]=$this->GetValue($v); 
+		else $args[$k]=$v; // not an attribute just text
 		$args[$k]=$this->GetValueMethod($args[$k]);
 	      }
+
 	      $value=call_user_method_array($reg[1],$this,$args);
 	    }
 	  }

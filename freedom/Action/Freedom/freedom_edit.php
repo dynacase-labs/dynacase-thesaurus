@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.18 2003/05/19 10:45:02 eric Exp $
+// $Id: freedom_edit.php,v 1.19 2003/05/27 12:30:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,6 +38,7 @@ function freedom_edit(&$action) {
   $docid = GetHttpVars("id",0);        // document to edit
   $classid = GetHttpVars("classid",0); // use when new doc or change class
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
+  $usefordef = GetHttpVars("usefordef"); // default values for a document
 
 
 
@@ -112,6 +113,7 @@ function freedom_edit(&$action) {
       default:
 	$action->lay->Set("TITLE", _("new document"));
       }
+      if ($usefordef=="Y") $action->lay->Set("TITLE", _("default values"));
       $action->lay->Set("editaction", $action->text("create"));
       if ($classid > 0) {
 	$doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class

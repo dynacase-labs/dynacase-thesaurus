@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.10 2003/05/22 16:24:57 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.11 2003/05/27 12:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.10 2003/05/22 16:24:57 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.11 2003/05/27 12:30:37 eric Exp $';
 
 
 
@@ -72,7 +72,6 @@ Class NormalAttribute extends BasicAttribute {
     $this->labelText=$label;
     $this->type=$type;
     $this->format=$format;
-    $this->repeat=$repeat;
     $this->ordered=$order;
     $this->link=$link;
     $this->visibility=$visibility;
@@ -83,6 +82,7 @@ Class NormalAttribute extends BasicAttribute {
     $this->phpfile=$phpfile;
     $this->phpfunc=$phpfunc;
     $this->elink=$elink;
+    $this->repeat=$repeat || $this->inArray();
 
 
   }

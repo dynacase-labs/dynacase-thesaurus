@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.16 2003/05/21 16:21:10 eric Exp $
+// $Id: Lib.Attr.php,v 1.17 2003/05/27 12:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,7 +54,8 @@ function AttrToPhp($dbaccess, $tdoc) {
     } else {
       $phpAdoc->Set("GEN","GEN");
       $phpAdoc->Set("DocParent", "Doc".$tdoc["fromid"]);
-      $phpAdoc->Set("pinit", "DocCtrl");
+      if ($tdoc["usefor"] == "W") $phpAdoc->Set("pinit", "WDoc"); // special init for workflow
+      else $phpAdoc->Set("pinit", "DocCtrl");
     }
     $phpAdoc->Set("AParent", "ADoc".$tdoc["fromid"]);
   }
@@ -222,19 +223,23 @@ function PgUpdateFamilly($dbaccess, $docid) {
 
 	if (! in_array($attr->id, $pgatt)) {
 	  $msg .= "add field {$attr->id} in table doc".$docid."\n";
-	  switch($attr->type) {
-	  case double:
-	  case money:
-	    $sqltype = strtolower($v->id)." float8";  
-	    break;
-	  case integer:
-	    $sqltype = strtolower($v->id)." int4";  
-	    break;
-	  case date:
-	    $sqltype = strtolower($v->id)." date";  
-	    break;
-	  default: 
-	    $sqltype = strtolower($v->id)." text";    
+	  
+	  if ($attr->repeat)  $sqltype = strtolower($v->id)." text";  // for the moment all repeat are text
+	  else {
+	    switch($attr->type) {
+	    case double:
+	    case money:
+	      $sqltype = strtolower($v->id)." float8";  
+	      break;
+	    case integer:
+	      $sqltype = strtolower($v->id)." int4";  
+	      break;
+	    case date:
+	      $sqltype = strtolower($v->id)." date";  
+	      break;
+	    default: 
+	      $sqltype = strtolower($v->id)." text";    
+	    }
 	  }
 	  $sqlquery="ALTER TABLE doc".$docid." ADD COLUMN {$attr->id} $sqltype;";
 	  $doc->exec_query($sqlquery,1); // add new field

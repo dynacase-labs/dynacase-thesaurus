@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.14 2003/01/24 14:10:46 eric Exp $
+// $Id: generic_edit.php,v 1.15 2003/05/27 12:30:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,6 +37,7 @@ function generic_edit(&$action) {
   $classid = GetHttpVars("classid",getDefFam($action)); // use when new doc or change class
 
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
+  $usefordef = GetHttpVars("usefordef"); // default values for a document
 
 
   // Set the globals elements
@@ -52,6 +53,7 @@ function generic_edit(&$action) {
     } else {
       $action->lay->Set("TITLE",_("new card"));
     }
+      if ($usefordef=="Y") $action->lay->Set("TITLE", _("default values"));
       $action->lay->Set("editaction", $action->text("create"));
       $doc= createDoc($dbaccess,$classid);
       if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));

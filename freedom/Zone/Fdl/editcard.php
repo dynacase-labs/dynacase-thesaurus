@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.27 2003/05/23 15:30:03 eric Exp $
+// $Id: editcard.php,v 1.28 2003/05/27 12:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,7 +48,7 @@ function editcard(&$action) {
 
   
 
- 
+  if (($usefordef=="Y") && ($zonebodycard == "")) $zonebodycard="FDL:EDITBODYCARD";// always default view for default document
  
     
   if ($docid == 0) { // new document
@@ -65,7 +65,7 @@ function editcard(&$action) {
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
 
   if ($usefordef=="Y") {
-    $zonebodycard="FDL:EDITBODYCARD"; // always default view for default document
+    
     $fdoc = new DocFam($dbaccess, $classid);
     $doc->usefor='D';
     $doc->setDefaultValues($fdoc->defval);    
@@ -87,13 +87,12 @@ function editcard(&$action) {
   }
 
 
-
   //compute constraint for enable/disable input
-  $doc->Refresh();
-    
-
-  $ka=0;
   $tjsa=array();
+  if ($usefordef != "Y") {
+    $doc->Refresh();
+    
+    $ka=0;
 
     reset($doc->paramRefresh);
   
@@ -104,10 +103,9 @@ function editcard(&$action) {
 		    "jska"=> "$ka");
       $ka++;
 	
-      
-    
+          
     }
-  
+  }
 
   // contruct js functions
   $jsfile=$action->GetLayoutFile("editcard.js");

@@ -87,7 +87,7 @@ function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
 
 
 
-  if (intval($famid) == 0) {
+  if (! is_numeric($famid)) {
     $famid=getFamIdFromName($dbaccess,$famid);
   }
 

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.33 2003/05/22 16:24:57 eric Exp $
+// $Id: editutil.php,v 1.34 2003/05/27 12:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -169,17 +169,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
     
       break;
       //같같같같같같같같같같같같같같같같같같같같
-    case "textlist": 
-
-      $input="<textarea $oc class=\"autoresize\" rows=2 name=\"".
-	$attrin."\" ";
-      $input .= " id=\"".$attridk."\" "; 
-      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-      $input .= " >\n".
-	htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
-	"</textarea>";
-      break;
-      //같같같같같같같같같같같같같같같같같같같같
+   
     case "array": 
 
       $lay = new Layout("FDL/Layout/editarray.xml", $action);
@@ -242,7 +232,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
  
      
     case "enum": 
-      if ($oattr->repeat) { // enumlist
+      if (($oattr->repeat)&&(!$oattr->inArray())) { // enumlist
 	$input="<select size=3 multiple name=\"".$attrin."[]\""; 
       
 	$input .= " id=\"".$attridk."\" "; 
@@ -315,6 +305,15 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       //같같같같같같같같같같같같같같같같같같같같
     default : 
     
+      if (($oattr->repeat)&&(!$oattr->inArray())) { // textlist
+	 $input="<textarea $oc class=\"autoresize\" rows=2 name=\"".
+	   $attrin."\" ";
+	 $input .= " id=\"".$attridk."\" "; 
+	 if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+	 $input .= " >\n".
+	   htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
+	   "</textarea>";
+      } else {
       $input="<input $oc class=\"autoresize\" type=\"text\" name=\"".$attrin."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
     
       $input .= " id=\"".$attridk."\" "; 
@@ -323,6 +322,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
 		      
       $input .= " > "; 
+      }
       break;
 		      
     }

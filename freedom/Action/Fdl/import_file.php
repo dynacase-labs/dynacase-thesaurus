@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.46 2003/04/03 08:00:14 eric Exp $
+// $Id: import_file.php,v 1.47 2003/05/27 12:30:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,7 +58,9 @@ function add_import_file(&$action, $fimport="") {
       // -----------------------------------
     case "BEGIN":
       $err="";
-      $doc=new DocFam($dbaccess, $data[3]);
+      // search from name or from id
+      if ($data[3]=="") $doc=new DocFam($dbaccess,getFamIdFromName($dbaccess,$data[5]) );
+      else $doc=new DocFam($dbaccess, $data[3]);
 
       if ($analyze) continue;
       if (! $doc->isAffected())  {

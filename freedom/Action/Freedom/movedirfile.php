@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: movedirfile.php,v 1.5 2003/03/27 09:42:58 eric Exp $
+// $Id: movedirfile.php,v 1.6 2003/05/27 12:30:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/movedirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,6 @@ function movedirfile(&$action) {
   $fromdirid=GetHttpVars("fromdirid");
   $docid=GetHttpVars("docid");
   $return=GetHttpVars("return"); // return action may be folio
-;
 
 
   $dbaccess = $action->GetParam("FREEDOM_DB");

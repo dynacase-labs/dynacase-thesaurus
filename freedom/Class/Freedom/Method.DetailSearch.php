@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.5 2003/05/21 16:21:10 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.6 2003/05/27 12:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -108,6 +108,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
 
   $fdoc=new Doc($this->dbaccess, $this->getValue("SE_FAMID",1));
   $zpi=$fdoc->GetNormalAttributes();
+  
   $tol[0]=" ";
     while(list($k,$v) = each($tkey)) {
       $tcond[]["condition"]=sprintf("%s %s %s %s",
