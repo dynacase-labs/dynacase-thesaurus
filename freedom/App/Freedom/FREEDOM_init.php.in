@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.5 2002/08/05 18:53:38 marc Exp $
+// $Id: FREEDOM_init.php.in,v 1.6 2002/08/07 13:00:15 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,43 +40,43 @@ $app_const=
 					"kind"=>"enum(yes|no)"
 					),
 	     // mnoGoSearch configuration
-	     "MNONGOSEARCH_DB" => array(
+	     "MNOGOSEARCH_DB" => array(
 					"val"   => "pgsql://anakeen@localhost/mnoGoSearch/",
-					"descr" => _("imnoGoSearch: ndexer database access specification"),
+					"descr" => _("mnoGoSearch: ndexer database access specification"),
 					"user"=>"N",
 					"style"=>"N"
 					     ),
-	     "MNONGOSEARCH_DBMODE" => array(
+	     "MNOGOSEARCH_DBMODE" => array(
 					    "val"   => "crc",
 					    "descr" => _("mnoGoSearch: indexer database access mode"),
 					    "user"=>"N",
 					    "style"=>"N"
 					    ),
-	     "MNONGOSEARCH_SEARCHLIMIT" => array(
+	     "MNOGOSEARCH_SEARCHLIMIT" => array(
 						 "val"   => "%/freedom/fs/%",
 						 "descr" => _("mnoGoSearch: limit search on path that contain"),
 						 "user"=>"N",
 						 "style"=>"N"
 						 ),
-	     "MNONGOSEARCH_RESULTBYPAGE" => array(
+	     "MNOGOSEARCH_RESULTBYPAGE" => array(
 						  "val"   => 1000,
 						  "descr" => _("mnoGoSearch: max result count by page"),
 						  "user"=>"N",
 						  "style"=>"N"
 						  ),
-	     "MNONGOSEARCH_PHRASE" => array(
+	     "MNOGOSEARCH_PHRASE" => array(
 					    "val"   => UDM_PHRASE_ENABLED,
 					    "descr" => _("mnoGoSearch: index database using phrase"),
 					    "user"=>"N",
 					    "style"=>"N"
 					    ),
-	     "MNONGOSEARCH_CHARSET" => array(
+	     "MNOGOSEARCH_CHARSET" => array(
 					     "val"   => "8859-1",
 					     "descr" => _("mnoGoSearch: charset"),
 					     "user"=>"N",
 					     "style"=>"N"
 					     ),
-	     "MNONGOSEARCH_STOPTABLE" => array(
+	     "MNOGOSEARCH_STOPTABLE" => array(
 					       "val"   => "stopword",
 					       "descr" => _("mnoGoSearch: db table contains stop words"),
 					       "user"=>"N",

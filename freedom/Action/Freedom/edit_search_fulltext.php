@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: edit_search_fulltext.php,v 1.1 2002/08/05 16:11:12 marc Exp $
+// $Id: edit_search_fulltext.php,v 1.2 2002/08/07 13:00:15 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/edit_search_fulltext.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,6 +27,9 @@ include_once("FDL/Lib.Dir.php");
 // -----------------------------------
 function edit_search_fulltext(&$action) {
   // -----------------------------------
+  
+  if (!extension_loaded('mnogosearch')) 
+    search_error($action, _("mnogosearch php extension not loaded"));
   
   $tmatch   = array( UDM_MODE_ALL => _("all"),
 		     UDM_MODE_ANY => _("any"), 

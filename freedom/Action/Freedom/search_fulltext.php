@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search_fulltext.php,v 1.2 2002/08/05 18:57:36 marc Exp $
+// $Id: search_fulltext.php,v 1.3 2002/08/07 13:00:15 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search_fulltext.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,6 +47,9 @@ function search_fulltext(&$action) {
   // -----------------------------------
   global $tpt, $ipt;
 
+  if (!extension_loaded('mnogosearch')) 
+    search_error($action, _("mnogosearch php extension not loaded"));
+  
   $baseurl=$action->GetParam("CORE_BASEURL");
   $standurl=$action->GetParam("CORE_STANDURL");
   $dbaccess = $action->GetParam("FREEDOM_DB"); 
@@ -99,24 +102,20 @@ function search_fulltext(&$action) {
 	    array('vprop','editdoc','cancel','copy','duplicate','ifld','delete'));
   $slice="1000";
 
-  if (!extension_loaded('mnogosearch')) 
-    search_error($action, _("mnogosearch php extension not loaded"));
-  
+  $s_db     = $action->GetParam("MNOGOSEARCH_DB","pgsql://anakeen@localhost/mnoGoSearch/");
+  $s_dbmode = $action->GetParam("MNOGOSEARCH_DBMODE", "crc");
 
-  $s_db     = $action->GetParam("MNONGOSEARCH_DB","pgsql://anakeen@localhost/mnoGoSearch/");
-  $s_dbmode = $action->GetParam("MNONGOSEARCH_DBMODE", "crc");
-
-  $search_limit = $action->GetParam("MNONGOSEARCH_SEARCHLIMIT", "%/freedom/fs/%");
+  $search_limit = $action->GetParam("MNOGOSEARCH_SEARCHLIMIT", "%/freedom/fs/%");
 
   $udm_param = array();
   // Get first page only
   $udm_param[UDM_PARAM_PAGE_NUM] = 0;
   $udm_param[UDM_PARAM_TRACK_MODE] = UDM_TRACK_DISABLED;
-  $udm_param[UDM_PARAM_PAGE_SIZE] = $action->GetParam("MNONGOSEARCH_RESULTBYPAGE", 1000);
-  $udm_param[UDM_PARAM_CACHE_MODE] = $action->GetParam("MNONGOSEARCH_CACHE", UDM_CACHE_ENABLED);
-  $udm_param[UDM_PARAM_PHRASE_MODE] = $action->GetParam("MNONGOSEARCH_PHRASE", UDM_PHRASE_ENABLED);
-  $udm_param[UDM_PARAM_CHARSET] = $action->GetParam("MNONGOSEARCH_CHARSET", "8859-1");
-  $udm_param[UDM_PARAM_STOPTABLE] = $action->GetParam("MNONGOSEARCH_STOPTABLE", "stopword");
+  $udm_param[UDM_PARAM_PAGE_SIZE] = $action->GetParam("MNOGOSEARCH_RESULTBYPAGE", 1000);
+  $udm_param[UDM_PARAM_CACHE_MODE] = $action->GetParam("MNOGOSEARCH_CACHE", UDM_CACHE_ENABLED);
+  $udm_param[UDM_PARAM_PHRASE_MODE] = $action->GetParam("MNOGOSEARCH_PHRASE", UDM_PHRASE_ENABLED);
+  $udm_param[UDM_PARAM_CHARSET] = $action->GetParam("MNOGOSEARCH_CHARSET", "8859-1");
+  $udm_param[UDM_PARAM_STOPTABLE] = $action->GetParam("MNOGOSEARCH_STOPTABLE", "stopword");
 
   $udm_param[UDM_PARAM_SEARCH_MODE] = $s_match;
 
