@@ -18,7 +18,7 @@ DIV.monthOdd {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
-  	background-image:url('[IMG:tabvg.png]');
+  	/*background-image:url('[IMG:tabvg.png]');*/
 }
 DIV.monthEven {
 	background-color:orange;
@@ -30,7 +30,7 @@ DIV.monthEven {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
-  	background-image:url('[IMG:tabvg.png]');
+  	/*background-image:url('[IMG:tabvg.png]');*/
 }
 
 DIV.weekOdd {
@@ -43,7 +43,7 @@ DIV.weekOdd {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
-  	background-image:url('[IMG:tabvg.png]');
+  	/*background-image:url('[IMG:tabvg.png]');*/
 }
 DIV.weekEven {
 	background-color:salmon;
@@ -55,7 +55,7 @@ DIV.weekEven {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
-  	background-image:url('[IMG:tabvg.png]');
+  	/*background-image:url('[IMG:tabvg.png]');*/
 }
 DIV.dayOdd {
 	background-color:lightgreen;
@@ -67,7 +67,7 @@ DIV.dayOdd {
 	left=0px;
 	top=0px;
 	border: green 1pt;
-  	background-image:url('[IMG:tabvg.png]');
+  	/*background-image:url('[IMG:tabvg.png]');*/
 }
 DIV.dayEven {
 	background-color:pink;
@@ -79,7 +79,7 @@ DIV.dayEven {
 	left=0px;
 	top=0px;
 	border: red 1pt;
-  	background-image:url('[IMG:tabvg.png]');
+  	/*background-image:url('[IMG:tabvg.png]');*/
 }
 DIV.year {
 	background-color:cyan;
@@ -91,7 +91,7 @@ DIV.year {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
-  	background-image:url('[IMG:tabvg.png]');
+  	/*background-image:url('[IMG:tabvg.png]');*/
 }
 
 DIV.event {
@@ -103,7 +103,14 @@ DIV.event {
 /*	-moz-opacity:.9;*/
 /*	filter:alpha(opacity=90);*/
 }
-
+.ressource {	
+	overflow:hidden;
+	position:absolute;
+	left:0px;
+	top:0px;
+	font-size:7pt;
+	-moz-border-radius:9px 9px 0px 0px;
+}
 DIV.xgrid {
 	overflow:hidden;
 	background:none;
@@ -134,12 +141,12 @@ DIV.ygrid:hover {
 DIV.fond {
 /*	background-image:url('[IMG:millimetre.png]');*/
 /*	background-image:url('../../Images/millimetre.png');*/
-	background-color:transparent;
+	background-color:snow;
 
 }
 DIV.description {
 	position:absolute;
-	border: solid red 1px;
+	border: ridge red 2px;
 	left:0px;
 	top:0px;
 }

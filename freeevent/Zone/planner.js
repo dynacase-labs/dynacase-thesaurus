@@ -10,7 +10,7 @@ var dh=17;//width events
 var mdh=6; //margin height between events
 var bx;
 var by;
-var rw=50; // ressource column width
+var rw=70; // ressource column width
 var oy=80; // margin offset in y
 var eh=20; // offset event position
 var minw=20; // minimum pixel width to see division
@@ -18,11 +18,14 @@ var xyby;
 var oxgrid; // grid x reference
 var oygrid; // grid y reference
 var ocdday;
-function placeEvt(divid,line,subline,x,w) {
+var isFixed=false;
+
+function placeEvt(idx,line,subline,x,w) {
   var dw=maxw*zoomx;
   var dih=(dh+mdh)*zoomy;
-  var oimg= document.getElementById(divid);
-  var ores= document.getElementById('res'+divid);
+  var oimg= document.getElementById('bar'+idx);
+
+  var ores= document.getElementById('res'+idx);
   if (oimg) {
     oimg.style.left=rw+bx+(x-mstart)*dw/mdelta;
     h=eh+by+(subline*dih);
@@ -45,7 +48,7 @@ function placeEvt(divid,line,subline,x,w) {
     
     onxgrid.style.top=h-mdh/2;   
     onxgrid.style.left=bx;
-    onxgrid.id='gridx'+divid;
+    onxgrid.id='gridx'+idx;
     onxgrid.style.width=maxw*zoomx+rw;
     onxgrid.style.height=1;
     onxgrid.style.display='';;
@@ -82,6 +85,16 @@ function placeEvents() {
     dmilli.style.width=parseInt(maxw*zoomx)+rw;
   }
   placeDays();
+
+  bi=document.getElementById('binter');
+  if (bi) {
+    bi.style.top=by-80;
+    bi.style.left=bx;
+    bi.style.width=rw;
+    bi.style.zIndex=100;
+    if (isFixed) bi.style.position='fixed';
+    bi.style.display='';
+  }
   
 }
 function placeDays() {
@@ -120,6 +133,7 @@ function placeDays() {
 	onweek.style.height=20;
 	onweek.style.top=by-40;
 	onweek.style.left=pXWeek;
+	if (isFixed) onweek.style.position='fixed';
 	if ((nWeek % 2) == 0) onweek.className='weekOdd';
 	else onweek.className='weekEven';
 	ocdday.appendChild(onweek);
@@ -158,6 +172,7 @@ function placeDays() {
 	onmonth.style.height=20;
 	onmonth.style.top=by-60;
 	onmonth.style.left=pXMonth;
+	if (isFixed) onmonth.style.position='fixed';
 	if ((nMonth % 2) == 1) onmonth.className='monthOdd';
 	else onmonth.className='monthEven';
 	ocdday.appendChild(onmonth);	
@@ -189,6 +204,7 @@ function placeDays() {
 	onyear.style.top=by-80;
 	onyear.style.left=pXYear; 
 	onyear.className='year';
+	if (isFixed) onyear.style.position='fixed';
 	ocdday.appendChild(onyear);	
 	pXYear=parseInt(rw+bx+(dx*zoomx));
       }
@@ -204,6 +220,7 @@ function placeDays() {
       onday.style.top=by-20;
       
       onday.style.width=parseInt(dw*zoomx);
+      if (isFixed) onday.style.position='fixed';
       //      onday.style.height=(maxh)-xyby.y+(dh*zoomy)-60;
       onday.style.height=20;
       onday.style.left=parseInt(rw+bx+(dx*zoomx));
@@ -233,6 +250,7 @@ function placeDays() {
 	onhour.style.top=by;
 	
 	onhour.style.width=parseInt(dw*zoomx);
+	if (isFixed) onhour.style.position='fixed';
 	onhour.style.height=20
 	  onhour.style.left=parseInt(rw+bx+(dx*zoomx));
 	if ((i % 2) == 0) onhour.className='dayOdd';
@@ -253,6 +271,7 @@ function placeDays() {
     onweek.style.height=20;
     onweek.style.top=by-40;
     onweek.style.left=pXWeek;
+	if (isFixed) onweek.style.position='fixed';
     if ((nWeek % 2) == 0) onweek.className='weekOdd';
     else onweek.className='weekEven';
     ocdday.appendChild(onweek);
@@ -282,6 +301,7 @@ function placeDays() {
     onmonth.style.height=20;
     onmonth.style.top=by-60;
     onmonth.style.left=pXMonth;
+    if (isFixed) onmonth.style.position='fixed';
     if ((nMonth % 2) == 0) onmonth.className='monthOdd';
     else onmonth.className='monthEven';
     ocdday.appendChild(onmonth);	
@@ -305,6 +325,7 @@ function placeDays() {
 	tjdiso[ndiv]=jd_to_cal(mstart+i-1,'Y');
 	onyear.id='DIV'+(ndiv++);
 
+	if (isFixed) onyear.style.position='fixed';
 	onyear.innerHTML=jd_to_cal(mstart+i-0.3,'Y');
 	onyear.style.width=parseInt(rw+bx+((dw+dx)*zoomx))-pXYear;
 	onyear.style.height=20;
@@ -349,18 +370,17 @@ function movecal(pc) {
 }
 
 function resizecal() {
-  var op=document.getElementById("period");
   var onp=document.getElementById("nperiod");
   var m1=mstart;
   var m2=mend;
   if (onp && parseInt(onp.value)>0) {
-    m2=m1+parseInt(onp.value)*op.options[op.selectedIndex].value;
+    m2=m1+parseInt(onp.value);
     document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+"&id="+document.docid+"&jdstart="+m1+'&jdend='+m2;
   }
 }
 function allcal() {
 
-    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+"&id="+document.docid+"";
+    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&isoperiod=all&vid="+document.vid+"&id="+document.docid+"";
   
 }
 
@@ -373,15 +393,22 @@ function viewdesc(event,idx) {
       //      dd.innerHTML=Xpos+'+'+Ypos;
       dd.style.top=0;
       dd.style.left=0;
-      dbar=document.getElementById(tevents[idx][0]);
+      dbar=document.getElementById('bar'+tevents[idx][0]);
       if (dbar) {
 	dd.style.backgroundColor=dbar.style.backgroundColor;
+	dd.style.borderColor=dbar.style.backgroundColor;
 	dd.innerHTML=tevents[idx][5];
 	w=getObjectWidth(dd);
 	w2=getObjectWidth(document.body);
 
 	if ((Xpos+w+20)>w2) Xpos=Xpos-w-40;
 	if (Xpos<0) Xpos=0;
+	h=getObjectHeight(dd);
+	h2=getObjectHeight(document.body);
+	//	alert(h2+','+Ypos+','+getFrameHeight());
+	cy=(window.event)?window.event.clientY:event.clientY;
+	hw=getFrameHeight();
+	if ((cy+h+20)>hw) Ypos=Ypos-h-20;
       }
       dd.style.top=Ypos+10;
       dd.style.left=Xpos+10;

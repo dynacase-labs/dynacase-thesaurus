@@ -56,6 +56,13 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   $action->parent->AddCssRef("FREEEVENT:PLANNER.CSS",true);
   //  $action->parent->AddCssRef($action->GetParam("CORE_PUBURL")."/FREEEVENT/Layout/planner.css",true);
   $byres= (getHttpVars("byres","N")=="Y");
+
+  $idxc=$this->getValue("DCAL_COLORIDX","ir");// color index (by ressource by default)
+  $korder1=$this->getValue("DCAL_ORDERIDX1","absx"); ; // begin date by default
+  $korder2=$this->getValue("DCAL_ORDERIDX2");
+  $kdesc1=$this->getValue("DCAL_ORDERDESC1");
+  $kdesc2=$this->getValue("DCAL_ORDERDESC2");
+  $dlum=$this->getValue("DCAL_LUMINANCE","0.8");
   $mb=microtime();
  
   // window time interval
@@ -70,7 +77,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   } else $wend=getHttpVars("jdend");
 
   if (!$wstart) {
-    $isoperiode=getHttpVars("isoperiod"); 
+    $isoperiode=getHttpVars("isoperiod",strftime("%Y-%m",time())); 
     if ($isoperiode) {
       if (ereg("([0-9]+)-([0-9]+)",$isoperiode,$reg)) {
 	// month period
@@ -124,55 +131,83 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
     }
     
   }
-  uasort($tevt,"cmpevtm1");
+
   $ridx=0;
   $delta=$mend-$mstart;
+  $this->lay->set("dday100",round($delta));
+  $this->lay->set("dday50",round($delta*0.5));
+  $this->lay->set("dday10",round($delta*0.1));
   $sub=0;
   $idc=0;
+ 
 //   print "delta=$delta";
 //   print " - <B>".microtime_diff(microtime(),$mb)."</B> ";
   foreach ($tevt as $k=>$v) {
     $tr=$this->_val2array(getv($v,"evt_idres"));
+    $tresname=$this->_val2array(getv($v,"evt_res"));
     $x=floor(100*($v["m1"]-$mstart)/$delta);
     $w=floor(100*($v["m2"]-$v["m1"])/$delta);
+    
     foreach ($tr as $ki=>$ir) {
-      if (! isset($colorredid[$ir])) $colorredid[$ir]=$idc++;
-      $RN[$ir][]=array("w"=>sprintf("%d",($w<1)?1:$w),
-		       "absx"=>$v["m1"],
-		       "absw"=>$v["m2"]-$v["m1"],
-		       "line"=>$k,
-		       "subline"=>$byres?$colorredid[$ir]:$sub,
-		       //"subline"=>$colorredid[$ir],
-		       "divid"=>"div$k$ki",
-		       "idx"=>$sub,		      
-		       "evticon"=>$this->getIcon($v["evt_frominitiatoricon"]),
-		       "rid"=>getv($v,"evt_idinitiator"),
-		       "eid"=>getv($v,"id"),
-		       "divtitle"=>((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"],
-		       "desc"=>addslashes(sprintf("<b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",$v["title"],
-						  getv($v,"evt_frominitiator"),
-						  substr(getv($v,"evt_begdate"),0,10),
-						  substr(getv($v,"evt_enddate"),0,10),
-						  getv($v,"evt_desc"))));
-      $SX[$ir]+=$w;
+      if (! isset($residx[$ir])) $residx[$ir]=count($residx)+1;
+      $RN[$sub]=array("w"=>sprintf("%d",($w<1)?1:$w),
+		      "absx"=>$v["m1"],
+		      "absw"=>$v["m2"]-$v["m1"],
+		      "line"=>$k,
+		      "subline"=>$residx[$ir],
+		      //"subline"=>$colorredid[$ir],
+		      "ir"=>"$ir",
+		      "idx"=>$sub,		      
+		      "evticon"=>$this->getIcon($v["evt_frominitiatoricon"]),
+		      "rid"=>getv($v,"evt_idinitiator"),
+		      "fid"=>getv($v,"evt_frominitiatorid"),
+		      "eid"=>getv($v,"id"),
+		      "res"=>$tresname[$ki],
+		      "subtype"=>getv($v,"evt_code"),
+		      "divtitle"=>((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"],
+		      "desc"=>addslashes(sprintf("<b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",$v["title"],
+						 getv($v,"evt_frominitiator"),
+						 substr(getv($v,"evt_begdate"),0,10),
+						 substr(getv($v,"evt_enddate"),0,10),
+						 getv($v,"evt_desc"))));
+      
+      if (! isset($colorredid[$RN[$sub][$idxc]])) $colorredid[$RN[$sub][$idxc]]=$idc++;
       $sub++;
-      $tres[$ir]=array("BAR"=>"bar$ir",
-		       "res"=>getv($v,"evt_res"));
+      $tres[$ir]=array("divid"=>"div$ir",
+		       "res"=>$tresname[$ki]);
       
     }
     
   }
   if (count($tres) > 0) {
-  $dcol=360/count($tres);
-  foreach ($tres as $k=>$v) {    
-    
-    //  $rn=1;
-    $col=HSL2RGB($colorredid[$k]*$dcol,1,0.8);
-    foreach ($RN[$k] as $kn=>$vn) $RN[$k][$kn]["color"]=$col;
-    $tres[$k]["rescolor"]=$col;
-    $this->lay->setBlockData("bar$k",$RN[$k]);
+  $dcol=360/count($colorredid);
+  foreach ($colorredid as $k=>$v) {        
+    $col[$k]=HSL2RGB($colorredid[$k]*$dcol,1,$dlum);
   }
+
+  if ($byres) {
+    foreach ($RN as $k=>$v) {        
+      $RN[$k]["color"]= $col[$v[$idxc]];
+    }
+  } else {
+    $k1=$korder1;$k2=$korder2;
+    if ($kdesc1=="DESC") {$r11=1;$r12=-1;}
+    else {$r11=-1;$r12=1;}
+    if ($kdesc2=="DESC") {$r21=1;$r22=-1;}
+    else {$r21=-1;$r22=1;}
+    $sortfunc = create_function('$a,$b', 'return _DCALENDAR::cmpevt($a,$b,"'.$k1.'","'.$k2.'","'.$r11.'","'.$r12.'","'.$r21.'","'.$r22.'");');
+    uasort($RN,"$sortfunc");
+    
+    $y=0;
+    foreach ($RN as $k=>$v) {        
+      $RN[$k]["color"]= $col[$v[$idxc]];
+      $RN[$k]["subline"]= $y++;
+    }
+  }
+
+
   $this->lay->setBlockData("RES",$tres);
+  $this->lay->setBlockData("BAR",$RN);
 
   } 
 
@@ -181,8 +216,8 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
     $mend=floor($mend)+0.5; // end at 00:00
   }
 
-  $this->lay->set("begdate",jd2cal($mstart));
-  $this->lay->set("enddate",jd2cal($mend));
+  $this->lay->set("begdate",jd2cal($mstart,"French"));
+  $this->lay->set("enddate",jd2cal($mend,"French"));
   $this->lay->set("mstart",$mstart);
   $this->lay->set("mend",$mend);
   $this->lay->set("id",$this->id);
@@ -191,6 +226,15 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   //  print "<HR>". print " - <B>".microtime_diff(microtime(),$mb)."</B>";
   // print "<hr>";
 
+}
+
+function cmpevt($a, $b, $k1="absx",$k2="absw",$r11=-1,$r12=1,$r21=-1,$r22=1) {
+   if ($a[$k1] == $b[$k1]) {
+     if ($k2=="") return 0;
+     if ($a[$k2] == $b[$k2]) return 0;
+     return (($a[$k2]) < ($b[$k2])) ? $r21 : $r22;
+   }
+   return (($a[$k1]) < ($b[$k1])) ? $r11 : $r12;
 }
 function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
     

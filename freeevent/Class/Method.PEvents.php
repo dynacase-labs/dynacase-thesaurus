@@ -141,7 +141,8 @@ function getEventCode() {
 function getEventRessources() {
   $tr=array();
   foreach ($this->eventRessources as $rid) {
-    $tr[]=$this->getValue($rid);
+    $v=$this->getValue($rid);
+    if ($v != "") $tr[]=$v;
   }
   return $tr;
 }
