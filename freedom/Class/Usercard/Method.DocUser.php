@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.18 2003/10/10 10:21:18 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.19 2003/10/28 16:34:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.18 2003/10/10 10:21:18 eric Exp $
+// $Id: Method.DocUser.php,v 1.19 2003/10/28 16:34:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -130,6 +130,10 @@ function SpecRefresh() {
     $this->setValue("US_PHONE",$this->getValue("US_PPHONE",$doc->getValue("SI_PHONE")));
     $this->setValue("US_FAX",$this->getValue("US_PFAX",$doc->getValue("SI_FAX")));
 
+  } else {
+    $this->setValue("US_PHONE",$this->getValue("US_PPHONE"," "));
+    $this->setValue("US_FAX",$this->getValue("US_PFAX"," "));
+    
   }
   
 }
