@@ -54,7 +54,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 #endif
 
 
-  retval = what_getuser(pamh,flags,argc,argv,&wu);
+  retval = what_getuser(pamh,0,argc,argv,&wu);
   
   if ( retval != PAM_SUCCESS ) return retval;
   

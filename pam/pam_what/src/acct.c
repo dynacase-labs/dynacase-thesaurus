@@ -36,9 +36,12 @@ PAM_EXTERN int pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
   int retval=PAM_AUTH_ERR;
   whatuser_t wu;
 
-  retval = what_getuser(pamh,flags,argc,argv,&wu);
+  retval = what_getuser(pamh,1,argc,argv,&wu);
 
   if ( retval != PAM_SUCCESS ) return retval;
+
+
+  if (wu.status == 'D') return PAM_AUTH_ERR; /* it is a disabled user */
 
   /* see if password has expired */
   if ((wu.expires > 0) && (wu.expires < time(NULL))) return PAM_ACCT_EXPIRED;

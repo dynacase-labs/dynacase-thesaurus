@@ -9,7 +9,7 @@ dnl Set program, version info
 
 PROGNAME=pam_what
 MAJOR_VERSION=0     
-MINOR_VERSION=2   
+MINOR_VERSION=3
 PATCHLEVEL=0
 COPYRIGHT_NOTICE="Copyright (c) 2001 Mike Glover"
 

@@ -29,6 +29,7 @@ typedef struct whatuser_t {
   char domain[LDOMAIN];
   char password[LUSER];
   int expires;
+  char status;
 } whatuser_t;
 
 #endif /* INCLUDE_PAM_SQL_MISC */

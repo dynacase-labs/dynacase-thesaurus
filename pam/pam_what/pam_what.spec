@@ -1,8 +1,8 @@
-# $Revision: 1.7 $, $Date: 2003/08/12 13:42:00 $
+# $Revision: 1.8 $, $Date: 2003/10/21 09:39:28 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
-Version:	0.2.0
+Version:	0.3.0
 Release:	1
 License:	GPL or BSD
 Group:		Base
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.8  2003/10/21 09:39:28  eric
+compatible WHAT < 0.3.0 sans expire
+
 Revision 1.7  2003/08/12 13:42:00  eric
 prise en compte de l'expiration dans account
 
