@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.230 2005/02/01 13:38:03 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.231 2005/03/01 17:17:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -253,7 +253,8 @@ create table doc ( id int not null,
                    postitid int,
                    cvid int,
                    name text,
-                   dprofid int DEFAULT 0
+                   dprofid int DEFAULT 0,
+                   atags text
                    );
 create table docfrom ( id int not null,
                    primary key (id),
@@ -314,7 +315,7 @@ create unique index i_docir on doc(initid, revision);";
    * @var bool 
    * @access private
    */
-  var $_maskApplied=false; // optimize: compute mask in needed only
+  var $_maskApplied=false; // optimize: compute mask if needed only
  
   /** 
    * Document Constructor
