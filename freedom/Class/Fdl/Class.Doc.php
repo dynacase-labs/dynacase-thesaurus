@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.121 2003/04/30 13:46:44 eric Exp $
+// $Id: Class.Doc.php,v 1.122 2003/05/15 09:11:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.121 2003/04/30 13:46:44 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.122 2003/05/15 09:11:10 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -45,6 +45,14 @@ define ("FAM_ACCESSDIR", 4);
 define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 define ("FAM_ACCESSFAM", 23);
+// ==========================================================================
+// Document Class
+
+// Author          Eric Brison	(Anakeen)
+// Date            May, 14 2003 - 11:40:13
+// Last Update     $Date: 2003/05/15 09:11:10 $
+// Version         $Revision: 1.122 $
+// ==========================================================================
 
 Class Doc extends DocCtrl {
 
@@ -128,6 +136,19 @@ create unique index i_docir on doc(initid, revision);";
 
   var $paramRefresh=array();
 
+  // --------------------------------------------------------------------------
+  // Contructor
+
+  // I               dbaccess - coordinates of database  
+  // I               id - document numeric identificator
+  // I               res - array of result issue to QueryDb
+  // I               dbid - the connection database ressource
+
+  // Return          none
+
+  // Date            May, 14 2003 - 11:40:49
+  // Author          Eric Brison	(Anakeen)
+  // --------------------------------------------------------------------------
   function Doc($dbaccess='', $id='',$res='',$dbid=0) {
 
     newDoc($this,$dbaccess, $id, $res, $dbid);
@@ -1105,7 +1126,9 @@ create unique index i_docir on doc(initid, revision);";
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
-    $this->owner = $this->userid; // rev user
+    $this->owner = $this->userid; // rev user 
+    $date = gettimeofday();
+    $this->revdate = $date['sec']; // change rev date
     if ($comment != '') $this->comment .= "\n".$comment;
 
     $this->modify();
@@ -1605,7 +1628,7 @@ create unique index i_docir on doc(initid, revision);";
   
     $this->SetDefaultAttributes();
 
-    $this->lay = new Layout($reg[1]."/Layout/".strtolower($reg[2]).".xml", $action);
+    $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
 
     $method = strtolower($reg[2]);
 
