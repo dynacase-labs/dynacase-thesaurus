@@ -30,15 +30,29 @@
     t.className = 'WGCRessDefault';
   }
 
+  function ignoreConflict() {
+  }
+
+  function processConflict() {
+  }
+
 </script>
+
 <div style="padding:2em">
+
 [IF CF]<div class="wMonthTextTitle">[TEXT:there are conflicts with events (see after)].</div>[ENDIF CF]
 [BLOCK CONFLICTS]
 <li><span class="WGCRessDefault" style="width:100%" onmouseover="HideElt(this); ShowElt(this,[ID]);" onmouseout="HideElt(this);">
 rg=[RG] id=[ID] debut=[TSSTART] fin=[TSEND] owner=[IDP]
 </span><br>[ENDBLOCK CONFLICTS]
 [BLOCK CARDS]
-
 <div id="evtc[ID]" style="display:none; border:1px outset; background-color:white');">[ZONE [VIEW]?ev=[ID]]</div>[ENDBLOCK CARDS]
+
+[IF CF]
+<table  style="border:thin outset grey;" align="center" width="100%" cellspacing="0" cellpadding="2px"><tr>
+<td width="50%" class="wMonthTextTitle" style="cursor:pointer" align="left" onclick="ignoreConflict()">[TEXT:ignore conflict]</td>
+<td width="50%" class="wMonthTextTitle" style="cursor:pointer" align="right" onclick="processConflict()">[TEXT:modify event]</td>
+</tr></table>[ENDIF CF]
+
 </div>
 [ZONE WGCAL:WGCAL_HTMLFOOT]
