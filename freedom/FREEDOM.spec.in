@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.59 2004/08/12 10:25:54 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.60 2004/09/01 12:51:12 caroline Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -106,6 +106,8 @@ ln -sf %{destdir}/FDL/include.php %{destdir}/USERCARD/include.php
 ln -sf %{destdir}/FDL/include.php %{destdir}/GENERIC/include.php
 [ ! -d %{destdir}/htmlarea/htmlarea ] && mkdir %{destdir}/htmlarea/htmlarea
 cd %{destdir}/htmlarea/htmlarea
+[ ! -d %{destdir}/jscalendar/jscalendar ] && mkdir %{destdir}/jscalendar/jscalendar
+cd %{destdir}/jscalendar/jscalendar
 ln -sf ../images .
 ln -sf ../popups .
 cd -
