@@ -1,7 +1,0 @@
-<ul id="ul[ID]" >
-[BLOCK TABLEVALUE]
-<li id="[aid][ID]"><span class="FREEDOMText">[name]&nbsp;:&nbsp;[value]</span></li>
-[ENDBLOCK TABLEVALUE]
-</ul>
-<script>hilightGravity('[IN_GRAV]','[ID]');</script>
-<script>hilightPriority('[IN_PRIORITY]','[ID]');</script>
