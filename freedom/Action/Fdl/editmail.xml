@@ -83,7 +83,7 @@
 <!--  FOOT HTML -->
 
 
-<iframe style="height:100%"  width="100%" src="[CORE_STANDURL]&app=FDL&action=MAILCARD&viewonly=Y&ulink=[ulink]&dochead=[dochead]&zone=[mzone]&id=[mid]"></iframe>
+<iframe style="height:100%"  width="100%" src="[CORE_STANDURL]&app=FDL&action=FDL_CARD&viewonly=Y&ulink=[ulink]&dochead=[dochead]&zone=[mzone]&id=[mid]"></iframe>
 
 
 </body>
