@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.9 2003/06/19 17:58:03 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.10 2003/06/19 18:10:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -193,7 +193,7 @@ function editdsearch() {
   $this->lay->SetBlockData("OL2", $tol);
 
 
-  if ($this->getValue("SE_LATEST" == "no"))     $this->lay->Set("select_all","selected");
+  if ($this->getValue("SE_LATEST") == "no")     $this->lay->Set("select_all","selected");
   else $this->lay->Set("select_all","");
 
 
