@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.37 2002/11/19 17:14:26 eric Exp $
+// $Id: Lib.Dir.php,v 1.38 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -124,17 +124,17 @@ function getSqlSearchDoc($dbaccess,
 // 	"where $sqlcond ";
 
       
-//       $qsql= "select $selectfields ".
-// 	"from $only $table RIGHT OUTER JOIN fld on (initid=fld.childid)  ".
-// 	"where $sqlcond and $sqlfld";
+//        $qsql2= "select $selectfields ".
+// 	 "from $only $table RIGHT OUTER JOIN fld on (initid=fld.childid)  ".
+// 	 "where $sqlcond and $sqlfld";
 
       
 
-//       $qsql= "select $selectfields ".
-// 	"from $only $table, fld  ".
-// 	"where  $sqlcond ".
-// 	"and $sqlfld ".
-// 	"and (fld.qtype='S' and fld.childid=initid )  ";
+//        $qsql0= "select $selectfields ".
+//  	"from $only $table, fld  ".
+//  	"where  $sqlcond ".
+//  	"and $sqlfld ".
+//  	"and (fld.qtype='S' and fld.childid=initid )  ";
 
       $qsql= "select $selectfields ".
 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
@@ -207,7 +207,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+   print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
   
 
 
@@ -362,14 +362,15 @@ function GetClassesDoc($dbaccess,$userid,$classid=1)
   $query->AddQuery("doctype='C'");
   
   $cdoc = new DocFam($dbaccess, $classid);
-  if ($cdoc->useforprof == "t") $query->AddQuery("(useforprof)");
+  if ($cdoc->usefor == "P") $query->AddQuery("usefor = 'P'");
   else {
-    $query->AddQuery("(not useforprof)");
+
     switch ($classid) {
     case FAM_ACCESSDOC:
     case FAM_ACCESSDIR:
     case FAM_ACCESSSEARCH:
-      $query->AddQuery("(useforprof)");
+      
+      
       break;
     case FAM_SEARCH:
       $query->AddQuery("(id = ".FAM_SEARCH.")");

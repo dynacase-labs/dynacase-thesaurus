@@ -31,7 +31,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=QUERYTITLE&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Rename]</a>
 
 <a href="#" id="defval" 
-    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Set default values]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_DEDIT&id=[ddocid]&classid=[id]',self.name);closeMenu('popupcard')" >[TEXT:Set default values]</a>
 
 <a href="#" id="unlockdoc"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=UNLOCKFILE&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Unlock]</a>

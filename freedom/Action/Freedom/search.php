@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.12 2002/11/18 16:41:57 eric Exp $
+// $Id: search.php,v 1.13 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,7 +61,7 @@ function search(&$action) {
   if ($save)    $sdoc->doctype = 'S';// it is a search document
   else $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
   $sdoc->cprofid = "0"; // NO CREATION PROFILE ACCESS
-  $sdoc->useforprof = 'f';
+
   $sdoc->fromid = 5;
   $sdoc->title = $title;
   $sdoc->Add();

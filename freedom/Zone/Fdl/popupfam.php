@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.3 2002/10/31 08:09:23 eric Exp $
+// $Id: popupfam.php,v 1.4 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,6 +33,10 @@ function popupfam(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
+
+  if ($doc->doctype=="C") return; // not for familly
+
+
   $kdiv=1; // only one division
 
   $action->lay->Set("id", $docid);

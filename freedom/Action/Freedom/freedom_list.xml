@@ -102,8 +102,8 @@ TR.select {
 
 </td>
      <td class="tlist"  width="40" ><I style="font-size:80%">[revdate]</I></td>
-     <td class="tlist"  width="20">[locked]</td>
-     <td class="tlist"  width="20" ><sup style="font-size:80%">[revision]</sup></td>
+     <td class="tlist"  width="20">[locked]&nbsp;</td>
+     <td class="tlist"  width="20" ><sup style="font-size:80%">[revision]&nbsp;</sup></td>
 
     
 </tr>

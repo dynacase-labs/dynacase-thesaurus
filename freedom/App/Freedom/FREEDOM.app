@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.16 2002/11/15 16:17:37 eric Exp $
+// $Id: FREEDOM.app,v 1.17 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -257,6 +257,11 @@ $action_desc = array (
   array(
    "name"		=>"FREEDOM_EDIT",
    "short_name"		=>N_("edit document properties"),
+   "acl"		=>"FREEDOM"
+  ),
+  array(
+   "name"		=>"FREEDOM_DEDIT",
+   "short_name"		=>N_("edit default document properties"),
    "acl"		=>"FREEDOM"
   ),
   array( 

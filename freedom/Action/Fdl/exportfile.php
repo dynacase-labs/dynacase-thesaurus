@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfile.php,v 1.4 2002/07/29 12:42:23 eric Exp $
+// $Id: exportfile.php,v 1.5 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,12 +46,12 @@ function exportfile(&$action)
     $err = $doc->control("view");
     if ($err != "") $action->exiterror($err);
     $isControled=true;;
-    $ovalue = new DocValue($dbaccess,array($docid,$attrid));
+    $ovalue = $doc->getValue($attrid);
 
     
-    if (!($ovalue->IsAffected())) $action->exiterror(_("no file referenced"));
+    if ($ovalue == "") $action->exiterror(_("no file referenced"));
     
-    ereg ("(.*)\|(.*)", $ovalue->value, $reg);
+    ereg ("(.*)\|(.*)", $ovalue, $reg);
     $vaultid= $reg[2];
     $mimetype=$reg[1];
   } else {
@@ -84,12 +84,12 @@ function exportfirstfile(&$action)
 
   $isControled=true;
   $attr = $doc->GetFirstFileAttributes();
-    $ovalue = new DocValue($dbaccess,array($docid,$attr->id));
+    $ovalue = $doc->getValue($attrid);
 
     
-    if (!($ovalue->IsAffected())) $action->exiterror(_("no file referenced"));
+    if ($ovalue == "") $action->exiterror(_("no file referenced"));
     
-    ereg ("(.*)\|(.*)", $ovalue->value, $reg);
+    ereg ("(.*)\|(.*)", $ovalue, $reg);
     $vaultid= $reg[2];
     $mimetype=$reg[1];
 

@@ -57,6 +57,24 @@ begin
 end;
 ' language 'plpgsql' with (iscachable);
 
+create or replace function flog(int, int) 
+returns bool as '
+declare 
+  tlog int;
+begin
+
+   select into tlog t from log ;
+    if (tlog is null) then
+      tlog:=0;
+      insert into log (t) values (0); 
+   end if;
+   tlog := tlog+1;
+   update log set t=tlog;
+return true;
+
+
+end;
+' language 'plpgsql' with (iscachable);
 
 create or replace function getuperm(int, int) 
 returns int as '
@@ -67,12 +85,17 @@ declare
   gperm int;
   upperm int;
   unperm int;
+  tlog int;
 begin
    if (a_userid = 1) or (profid <= 0) then 
      return -1; -- it is admin user or no controlled object
    end if;
   
    select into uperm, upperm, unperm cacl, upacl, unacl from docperm where docid=profid and userid=a_userid;
+
+ 
+
+
 
    if (uperm is null) then
      uperm := computegperm(a_userid,profid);
@@ -88,13 +111,6 @@ begin
      update docperm set cacl=uperm where docid=profid and userid=a_userid;
    end if;
 
---   select into unperm cacl from docperm where docid=profid and userid=0;
---	 if (unperm is null) then
---    unperm:=0;
---    insert into docperm (docid, userid, upacl, unacl, cacl) values (profid,0,0,0,0); 
---   end if;
---   unperm := unperm+1;
---   update docperm set cacl=unperm where docid=profid and userid=0;
    return uperm;
 end;
 ' language 'plpgsql' with (iscachable);
@@ -138,8 +154,8 @@ create or replace function deletevalues()
 returns opaque as '
 declare 
 begin
-delete from docvalue where docid=OLD.id;
-delete from docperm where docid=OLD.id;
+--delete from docvalue where docid=OLD.id;
+--delete from docperm where docid=OLD.id;
 return OLD;
 end;
 ' language 'plpgsql';

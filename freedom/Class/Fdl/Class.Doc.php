@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.69 2002/11/18 16:41:57 eric Exp $
+// $Id: Class.Doc.php,v 1.70 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.69 2002/11/18 16:41:57 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.70 2002/11/22 18:08:22 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -62,7 +62,7 @@ Class Doc extends DocCtrl {
 		       "icon",
 		       "lmodify",
 		       "profid",
-		       "useforprof",
+		       "usefor",
 		       "revdate",
 		       "comment",
 		       "classname",
@@ -94,7 +94,7 @@ create table doc ( id int not null,
                    icon varchar(256),
                    lmodify varchar(1) DEFAULT 'N',
                    profid int DEFAULT 0,
-                   useforprof bool DEFAULT 'f',
+                   usefor varchar(1)  DEFAULT 'N',
                    revdate int,  
                    comment text,
                    classname varchar(64),
@@ -189,8 +189,9 @@ create unique index i_docir on doc(initid, revision);";
       if (chop($this->title) == "") $this->title =_("untitle document");
       if ($this->doctype == "")  $this->doctype = $this->defDoctype;
       if ($this->revision == "") $this->revision = "0";
-      if ($this->useforprof == "") $this->useforprof = "f";
+
       if ($this->profid == "") $this->profid = "0";
+      if ($this->usefor == "") $this->usefor = "N";
 
       if ($this->lmodify == "") $this->lmodify = "N";
       if ($this->locked == "") $this->locked = "0";
@@ -241,7 +242,7 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   function isRevisable() {
-    return (($this->doctype == 'F') && ($this->useforprof == 'f'));
+    return (($this->doctype == 'F') && ($this->usefor != 'P'));
   }
  
 
@@ -255,7 +256,7 @@ create unique index i_docir on doc(initid, revision);";
     $this->fromid = $fromid;
     $this->profid = $cdoc->cprofid; // inherit from its familly	
     $this->icon = $cdoc->icon; // inherit from its familly	
-    $this->useforprof = $cdoc->useforprof; // inherit from its familly
+    $this->usefor = $cdoc->usefor; // inherit from its familly
     $this->dviewzone = $cdoc->dviewzone; // inherit from its familly
     $this->deditzone = $cdoc->deditzone; // inherit from its familly
     $this->dfldid = $cdoc->dfldid; // inherit from its familly
@@ -644,11 +645,13 @@ create unique index i_docir on doc(initid, revision);";
   function GetNeededAttributes()
     {            
       $tsa=array();
-      reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
-	if ((get_class($v) == "normalattribute") && ($v->needed)) $tsa[$v->id]=$v;      
+      
+      if ($this->usefor != 'D') { // not applicable for default document
+	reset($this->attributes->attr);
+	while (list($k,$v) = each($this->attributes->attr)) {
+	  if ((get_class($v) == "normalattribute") && ($v->needed)) $tsa[$v->id]=$v;      
+	}
       }
-
       return $tsa;
     }
 
@@ -689,6 +692,7 @@ create unique index i_docir on doc(initid, revision);";
   function RefreshTitle() {
 
     if ($this->doctype == 'C') return; // no refresh for family  document
+    if ($this->usefor == 'D') return; // no refresh for default document
 
     $ltitle = $this->GetTitleAttributes();
 
@@ -931,6 +935,7 @@ create unique index i_docir on doc(initid, revision);";
 
     if ($this->locked == -1) return; // no refresh revised document
     if ($this->doctype == 'C') return; // no refresh for family  document
+    if ($this->usefor == 'D') return; // no refresh for default document
 	  
 
     $this->SpecRefresh();
@@ -1130,9 +1135,7 @@ create unique index i_docir on doc(initid, revision);";
       
      $sql = "";
 
-     
-          $sql .="drop trigger UVC{$this->fromid} ON doc$this->fromid;
-     create trigger UVC{$this->fromid} BEFORE  DELETE  ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE deletevalues();   ";
+       
      
      while(list($k,$v) = each($this->attributes->fromids)) {
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.8 2002/11/19 17:14:26 eric Exp $
+// $Id: modattr.php,v 1.9 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -73,7 +73,7 @@ function modattr(&$action) {
       $doc->doctype = 'C'; // it is a new class document
       $doc->fromid = GetHttpVars("classid"); // inherit from
       $doc->profid = "0"; // NO PROFILE ACCESS
-      $doc->useforprof = false;
+
       if (GetHttpVars("classid") >0) {
 	$cdoc = new Doc($dbaccess,GetHttpVars("classid") );
 	$doc->classname = $cdoc->classname;

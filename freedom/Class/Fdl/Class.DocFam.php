@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.2 2002/11/19 17:14:26 eric Exp $
+// $Id: Class.DocFam.php,v 1.3 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.2 2002/11/19 17:14:26 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.3 2002/11/22 18:08:22 eric Exp $';
 include_once('FDL/Class.DocFile.php');
 
 Class DocFam extends DocFile {
@@ -32,7 +32,10 @@ Class DocFam extends DocFile {
   var $dbtable="docfam";
 
   var $sqlcreate = "
-create table docfam (cprofid int , dfldid int, methods text) inherits (doc);
+create table docfam (cprofid int , 
+                     dfldid int, 
+                     ddocid int, 
+                     methods text) inherits (doc);
 create unique index idx_idfam on docfam(id);";
 
 
@@ -41,8 +44,9 @@ create unique index idx_idfam on docfam(id);";
 
    function DocFam ($dbaccess='', $id='',$res='',$dbid=0) {
 
-     $this->fields["dfldid"]="dfldid";
+     $this->fields["dfldid"] ="dfldid";
      $this->fields["cprofid"]="cprofid";
+     $this->fields["ddocid"] ="ddocid";
      $this->fields["methods"]="methods";
      DocFile::DocFile($dbaccess, $id, $res, $dbid);
      
@@ -55,6 +59,21 @@ create unique index idx_idfam on docfam(id);";
        uasort($this->attributes->attr,"tordered"); 
      }
                
+   }
+
+
+   // use to view default attribute when new doc
+   function PostSelect($id) { 
+     if ($this->ddocid > 0) {
+       $ddoc= new Doc($this->dbaccess, $this->ddocid);
+       $nattr = $ddoc->GetNormalAttributes();
+       while (list($k,$v) = each($nattr)) {
+	 $aid = $v->id;
+	 $this->$aid = $ddoc->getValue($aid);
+       }
+       
+       
+     }
    }
 }
 

@@ -61,15 +61,15 @@ function migrTables() {
       }
       $sattr= implode(",",$attr);
       if ($v->fromid == 0) {
-	print "create table doc{$v->id} ($sattr) inherits (doc);\n";
+	//print "create table doc{$v->id} ($sattr) inherits (doc);\n";
       } else {
-	print "create table doc{$v->id} ($sattr) inherits (doc{$v->fromid});\n";
+	//print "create table doc{$v->id} ($sattr) inherits (doc{$v->fromid});\n";
       }
-      print "create unique index doc_pkey{$v->id} on doc{$v->id}(id);\n";
+      //   print "create unique index doc_pkey{$v->id} on doc{$v->id}(id);\n";
     
    
-      print "insert into doc{$v->id} ($fields) select * from only doc where fromid = {$v->id} and doctype!='C';\n";
-      print "delete from only doc where fromid = {$v->id} and doctype!='C';\n";
+      print "insert into doc{$v->id} ($fields) select * from only doc where fromid = {$v->id} and doctype !='C';\n";
+      print "delete from only doc where fromid = {$v->id} and doctype !='C';\n";
       reset($lattr);
       $attr=array();
 

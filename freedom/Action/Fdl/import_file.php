@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.28 2002/11/19 17:14:26 eric Exp $
+// $Id: import_file.php,v 1.29 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -156,7 +156,7 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "USEFORPROF":     
-      $doc->useforprof =  "t";
+      $doc->usefor =  "P";
     break;
     // -----------------------------------
     case "CPROFID":     

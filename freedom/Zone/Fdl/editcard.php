@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.21 2002/11/04 17:56:17 eric Exp $
+// $Id: editcard.php,v 1.22 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,13 +61,10 @@ function editcard(&$action) {
       if ($zonebodycard == "") $zonebodycard=$doc->defaultedit;
     }
   } else { // modify document
-    if ($classid == 0) {
+    
       $doc= new Doc($dbaccess,$docid);
       if ($zonebodycard == "") $zonebodycard=$doc->defaultedit;
-    } else {
-      $doc= createDoc($dbaccess,$classid);
-      if ($zonebodycard == "") $zonebodycard=$doc->defaultedit;
-    }
+    
   }
   
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
@@ -92,22 +89,23 @@ function editcard(&$action) {
   //compute constraint for enable/disable input
   $doc->Refresh();
     
+
   $ka=0;
   $tjsa=array();
 
-  reset($doc->paramRefresh);
+    reset($doc->paramRefresh);
   
-  while(list($k,$v) = each($doc->paramRefresh)) {
+    while(list($k,$v) = each($doc->paramRefresh)) {
 
-	$tjsa[]=array("jstain" => "['".implode("','", $v["in"])."']",
-		      "jstaout" => "['".implode("','", $v["out"])."']",
-		      "jska"=> "$ka");
-	$ka++;
+      $tjsa[]=array("jstain" => "['".implode("','", $v["in"])."']",
+		    "jstaout" => "['".implode("','", $v["out"])."']",
+		    "jska"=> "$ka");
+      $ka++;
 	
       
     
-  }
-
+    }
+  
 
   // contruct js functions
   $jsfile=$action->GetLayoutFile("editcard.js");

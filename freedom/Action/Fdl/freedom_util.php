@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.22 2002/11/19 17:14:26 eric Exp $
+// $Id: freedom_util.php,v 1.23 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -156,11 +156,11 @@ function createDoc($dbaccess,$fromid) {
     $doc->fileref = "0";
     //$doc->doctype = 'F';// it is a new  document (not a familly)
     $doc->cprofid = "0"; // NO CREATION PROFILE ACCESS
-    $doc->useforprof = 'f';
+
     $doc->fromid = $fromid;
     $doc->profid = $cdoc->cprofid; // inherit from its familly	
     $doc->icon = $cdoc->icon; // inherit from its familly	
-    $doc->useforprof = $cdoc->useforprof; // inherit from its familly
+    $doc->usefor = $cdoc->usefor; // inherit from its familly
     $doc->wid=$cdoc->wid;
 
     return ($doc);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.10 2002/11/15 16:17:37 eric Exp $
+// $Id: popupcard.php,v 1.11 2002/11/22 18:08:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,6 +51,7 @@ function popupcard(&$action) {
 
   Popupactive('popupcard',$kdiv,'cancel');
   if (($doc->doctype=="C") && ($cud)) {
+    $action->lay->Set("ddocid", $doc->ddocid); // default doc id for pre-inserted values
     popupActive('popupcard',$kdiv,'chicon'); 
   } else {
     popupInvisible('popupcard',$kdiv,'chicon');
