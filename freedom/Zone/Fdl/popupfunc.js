@@ -87,8 +87,14 @@ function openMenu(event, menuid, itemid) {
  // event.stopPropagation();
   return false; // no navigator context menu
 }
-
-
+document.write('<img id="WIMG" src="Images/mr_alarm_clock.gif" style="display:none;position:absolute">');
+function viewwait() {
+  var wimgo = document.getElementById('WIMG');
+  if (wimgo) {
+    wimgo.style.display='inline';
+    CenterDiv(wimgo.id);
+  }
+}
 function openMenuXY(event, menuid, x, y) {
 
   var el;
@@ -153,8 +159,11 @@ function activate(th, url, wname) {
     //  var urlref;
   //   if (isNetscape) urlref=url;
 //     else urlref= url+'&http_referer='+escape(window.location.href);
-    if (wname == "") window.location.href=url;
-    else subwindowm(300,400,wname,url);
+
+    if ((wname == "")||(wname == "_self")) {
+      setTimeout('viewwait()',1000);
+      window.location.href=url;
+    } else subwindowm(300,400,wname,url);
    
   }
 }
