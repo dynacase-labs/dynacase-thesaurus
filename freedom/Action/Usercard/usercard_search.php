@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_search.php,v 1.2 2002/02/22 15:34:54 eric Exp $
+// $Id: usercard_search.php,v 1.3 2002/03/21 16:13:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,7 +51,7 @@ function usercard_search(&$action) {
   $sdoc->Add();
   
 
-  $query = "select distinct docid as id from docvalue, doc where (value ~* '.*$keyword.*') ".
+  $query = "select  doc.* from docvalue, doc where (value ~* '.*$keyword.*') ".
      "and doc.id in (select childid from fld where dirid=$dirid) ".
      "and (doc.id = docvalue.docid) ".
      "and (doc.locked != -1)".

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.1 2002/03/15 16:02:53 eric Exp $
+// $Id: Lib.Dir.php,v 1.2 2002/03/21 16:13:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -89,26 +89,35 @@ function getFirstDir($dbaccess) {
       // search familly
       $docsearch = new QueryDb($dbaccess,"QueryDir");
       $docsearch ->AddQuery("dirid=$dirid");
-      $docsearch ->AddQuery("qtype='M'");
+      $docsearch ->AddQuery("qtype!='S'");
       $ldocsearch = $docsearch ->Query();
       
 
+
       // for the moment only one query search
 	if (($docsearch ->nb) > 0) {
+	  switch ($ldocsearch[0]->qtype) {
+	  case "C":  // just condition
 	  $qsql= "select * ".
 	    "from doc  ".
 	      "where (doc.doctype != 'T')  ".
-		"and (doc.id in ({$ldocsearch[0]->query})) ".
+		"and ({$ldocsearch[0]->query}) ".
 		    $sqlcond.
 		      " order by title LIMIT $slice OFFSET $start;";
-
+	  break;
+	  case "M": // complex query
+	  $qsql= "{$ldocsearch[0]->query} ".
+		    $sqlcond.
+		      " order by title LIMIT $slice OFFSET $start;";
+	  break;
+	  }
 	} else {
 	  return array(); // no query avalaible
 	}
     }
     
 
-    // 	print "<HR>".$qsql;
+    //     	print "<HR>".$qsql;
     $query = new QueryDb($dbaccess,"Doc");
 
 
@@ -119,7 +128,15 @@ function getFirstDir($dbaccess) {
 	return array();
       }
 
+    // suppress duplicate doc
+    $previd="0";
+    reset($tableq);
+    while(list($k,$v) = each($tableq)) {
+      if ($v->id == $previd) unset($tableq[$k]);
+      else $previd=$v->id;
 
+    }
+    reset($tableq);
     return($tableq);
   }
 

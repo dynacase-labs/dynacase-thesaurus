@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.2 2002/02/22 15:34:54 eric Exp $
+// $Id: search.php,v 1.3 2002/03/21 16:13:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -126,10 +126,10 @@ function search(&$action) {
 		    
   if ($fromdir) {
     
-    $query = "select distinct id from doc, docvalue where (value $testval)  and (doc.id in (select childid from fld where $sql_fromdir)) and (doc.id = docvalue.docid) $sqllatest "; 
+    $query = "select doc.*  from doc, docvalue where (value $testval)  and (doc.id in (select childid from fld where $sql_fromdir)) and (doc.id = docvalue.docid) $sqllatest "; 
     
   } else  {
-    $query = "select distinct doc.id from doc, docvalue where (value $testval) and (doc.id = docvalue.docid) $sqllatest"; 
+    $query = "select doc.* from doc, docvalue where (value $testval) and (doc.id = docvalue.docid) $sqllatest"; 
   } 
 
   $sdoc-> AddQuery($query);

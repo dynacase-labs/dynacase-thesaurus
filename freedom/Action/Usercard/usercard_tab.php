@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_tab.php,v 1.2 2002/02/22 15:34:54 eric Exp $
+// $Id: usercard_tab.php,v 1.3 2002/03/21 16:13:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -68,7 +68,7 @@ function usercard_tab(&$action) {
 
   $sdoc->Add();
 
-  $query = "select id from doc where (className = 'DocUser') ".
+  $query = "select * from doc where (className = 'DocUser') ".
      "and (title ~* '^[".$tabletter[$tab]."].*') ".
      "and doc.id in (select childid from fld where dirid=$dirid) ".
      "and (locked != -1) ".
