@@ -5,10 +5,11 @@
 
 <table class="tablesimple" cellspacing="0"  width="100%" >
 <thead>
-<tr><td class="CORETblHeadBold" align="center" colspan="4">[title]</td><tr>
-<tr><td class="CORETblHeadBold">[TEXT: rev]</td>
-    <td class="CORETblHeadBold">[TEXT: comment]</td>
-    <td class="CORETblHeadBold">[TEXT: revised by]</td>
+<tr><td class="CORETblHeadBold" align="center" colspan="5">[title]</td><tr>
+<tr><td class="CORETblHeadBold">[TEXT:rev]</td>
+    <td class="CORETblHeadBold">[TEXT:state]</td>
+    <td class="CORETblHeadBold">[TEXT:comment]</td>
+    <td class="CORETblHeadBold">[TEXT:revised by]</td>
     <td class="CORETblHeadBold" style="text-align:left;">[TEXT: date]</td>
 </tr>
 </thead>
@@ -21,6 +22,7 @@
     style="cursor:pointer"
      onMouseDown="select(this,[id],[divid]);subwindow(300,400,'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
 <td class="tlist"  >[revision]</td>
+<td class="tlist" align="center" >[state]</td>
 <td class="tlist" >  
      [BLOCK [COMMENT]]
        <B>[cdate]</B> <I>[cauthor]</I><P style="margin-left:20pt;color:[CORE_FGCOLOR]"> [ccomment]</P>

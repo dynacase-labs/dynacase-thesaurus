@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.8 2004/01/14 15:53:16 eric Exp $
+ * @version $Id: viewhisto.php,v 1.9 2004/01/15 16:32:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewhisto.php,v 1.8 2004/01/14 15:53:16 eric Exp $
+// $Id: viewhisto.php,v 1.9 2004/01/15 16:32:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewhisto.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,6 +61,7 @@ function viewhisto(&$action)
     $owner = new User("", $rdoc->owner);
     $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
     $trdoc[$k]["revision"]= $rdoc->revision;
+    $trdoc[$k]["state"]= ($rdoc->state=="")?"":_($rdoc->state);
     $trdoc[$k]["COMMENT"]="COMMENT$k";
     $tc = explode("\n",$rdoc->comment);
     $tlc = array();
