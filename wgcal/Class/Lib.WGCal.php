@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.23 2005/03/30 10:04:40 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.24 2005/04/01 11:45:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -124,6 +124,8 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
 
   include_once('FDL/popup_util.php');
 
+//   $debug = true;
+  $debug = false;
 
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
 
@@ -134,7 +136,6 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
   $fref = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
-//   $fref = "EVENT_CALL";
   $ft = explode("|", $fref);
   $fti = array();
   foreach ($ft as $k => $v) {
@@ -142,7 +143,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   }
   $idfamref = implode("|", $fti);
   setHttpVar("idfamref", $idfamref);
-  echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
+  if ($debug) echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
   $dre=new Doc($dbaccess,$reid);
   $edre = array();
   $edre=$dre->getEvents($d1,$d2);
@@ -168,9 +169,10 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
  		   "TSEND" => $end, 
 		   "END" => FrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
-      print_r2($item);
+    if ($debug) print_r2($item);
     $ref = false;
     if ($showrefused!=1 && $v["evt_frominitiatorid"] == $rvfamid) {
+      $attr = array();
       $attr = $dre->_val2array($v["evfc_rejectattid"]);
       foreach ($attr as $kat => $vat) {
         if ($action->user->fid == $vat) $ref = true;
@@ -178,6 +180,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     }
    
     if (!$ref) { 
+//     if (1==1) { 
       $n = new Doc($dbaccess, $v["id"]);  
       $item["RESUME"] = $n->calVResume;
       $item["VIEW"] = $n->calVCard;
@@ -243,12 +246,11 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
       PopupActive('calpopup',$item["RG"], 'cancelrv');
 
       $tout[] = $item;
-  }
-
+    }
   }
   popupGen(count($tout));
   $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
-      print_r2($tout);
+  if ($debug) print_r2($tout);
   return $tout;
 }
        	

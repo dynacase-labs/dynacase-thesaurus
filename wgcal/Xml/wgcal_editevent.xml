@@ -18,13 +18,13 @@
 
 
 
-<!-- Event default view -->
 <div  name="_addatt" id="_addatt" style="position:absolute;left:1%;top:1%;width:60%;height:95%;border:1px outset;display:none">
 <iframe name="wgcal_addatt" id="wgcal_addatt" style="position:absolute;width:100%;height:100%;" marginwidth="0" marginheight="0">
 </iframe>
 </div>
 
-<div id="evmainzone" style="display:">
+<!-- Event default view onclick="CloseAttSelect('_addatt')" -->
+<div id="evmainzone" style="display:" >
 
 <table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
 <tr><td width="45%" valign="top">

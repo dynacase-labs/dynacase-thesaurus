@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: todo.php,v 1.1 2005/03/30 10:04:41 marc Exp $
+ * @version $Id: todo.php,v 1.2 2005/04/01 11:45:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -19,6 +19,7 @@ function todo(&$action) {
   $todoshort = 25;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $standalone = GetHttpVars("S", 0);
   $todoviewday = GetHttpVars("dtodo", -1);
   $todowarn = $action->getParam("WGCAL_U_TODOWARN", 2);
 
@@ -39,6 +40,7 @@ function todo(&$action) {
     $td[$itd]["rgTodo"] = $k;
     $td[$itd]["idTodo"] = $v["id"];
     $td[$itd]["sTextTodo"] = (strlen($v["todo_title"])>$todoshort ? substr($v["todo_title"],0,$todoshort)."..." : $v["todo_title"]);
+    $td[$itd]["jsTextTodo"] = str_replace("'", "\'", $td[$itd]["sTextTodo"]);
     $td[$itd]["lTextTodo"] = substr($v["todo_date"],0,11)." : ".$v["todo_title"];
     $td[$itd]["dateTodo"] = substr($v["todo_date"],0,5);
 
@@ -52,7 +54,9 @@ function todo(&$action) {
     $itd++;
   }
   $action->lay->setBlockData("TodoList", $td);
+  $action->lay->set("todocount", count($todos));
   $action->lay->set("Todos", count($todos)>0);
+  $action->lay->set("standalone", ($standalone==0?false:true));
 
   
 }

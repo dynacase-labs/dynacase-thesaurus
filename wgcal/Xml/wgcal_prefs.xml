@@ -1,4 +1,4 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD]
+[ZONE WGCAL:WGCAL_HTMLHEAD?W=600&H=500]
 
 <script type="text/javascript">
 var Zone = new Array();

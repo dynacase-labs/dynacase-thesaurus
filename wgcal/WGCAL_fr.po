@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-27 09:16+0200\n"
+"POT-Creation-Date: 2005-04-01 10:21+0200\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -106,8 +106,17 @@ msgstr "Incrément pour les minutes en saisie de RV"
 msgid "refresh toolbar"
 msgstr "Raffraichir la barre d'outil"
 
-msgid "todo days"
-msgstr "Tâches affichées pour ... jours"
+#, fuzzy
+msgid "view todos for ... days"
+msgstr "Afficher"
+
+#, fuzzy
+msgid "warn for todo having a date in the ... days"
+msgstr "M'avertir pour les tâches dans "
+
+#, fuzzy
+msgid "set todo date to today + ... days"
+msgstr "Position la date par défaut à aujourd'hui plus "
 
 msgid "mails send"
 msgstr "Envoi des mails"
@@ -181,11 +190,9 @@ msgstr "Historique"
 msgid "mark to done todos"
 msgstr "Marquer la tâche comme terminée"
 
-#, fuzzy
 msgid "edit todos"
 msgstr "Editer"
 
-#, fuzzy
 msgid "view todos"
 msgstr "Afficher"
 
@@ -516,20 +523,20 @@ msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 msgid "save the list"
 msgstr "Sauvegarder la liste des calendriers"
 
-msgid "my todo"
-msgstr "Mes tâches"
-
-msgid "view all todo"
-msgstr "Afficher toutes les tâches"
-
-msgid "add a todo"
-msgstr "Ajout d'une nouvelle tâche"
-
 msgid "found ressources"
 msgstr "Ressources trouvées"
 
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
+
+msgid "phone"
+msgstr "Téléphone"
+
+msgid "mobile"
+msgstr "Téléphone mobile"
+
+msgid "mail"
+msgstr "Adresse mail"
 
 msgid "accept"
 msgstr "accepté"
@@ -551,6 +558,12 @@ msgstr "Historique"
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "todos..."
+msgstr "Tâches..."
+
+msgid "todos options"
+msgstr "Options des tâches"
 
 msgid "add prefered contact"
 msgstr "Ajout d'un contact préféré"
@@ -633,11 +646,23 @@ msgstr "rechercher les évènements contenant"
 msgid "enter words here"
 msgstr "entrer les mots recherchés"
 
+msgid "my todo"
+msgstr "Mes tâches"
+
+msgid "view all todo"
+msgstr "Afficher toutes les tâches"
+
+msgid "add a todo"
+msgstr "Ajout d'une nouvelle tâche"
+
 msgid " no todo"
 msgstr "Pas de tâches"
 
 msgid "todo done"
 msgstr "Tâche terminée"
+
+msgid "todo"
+msgstr "Tâche"
 
 msgid "set to done"
 msgstr "Marquer la tâche comme terminée"
@@ -692,6 +717,9 @@ msgstr "Proposition de rendez-vous"
 
 msgid "look preferences"
 msgstr "Aspect et comportement de l'interface"
+
+msgid "todo preferences"
+msgstr "Préférences des tâches"
 
 msgid "other preferences"
 msgstr "Autres préférences"
@@ -808,6 +836,24 @@ msgstr "1,5 seconde"
 msgid "display refused meetings"
 msgstr "Afficher les évènements refusés"
 
+msgid "display todos for "
+msgstr "Afficher les tâches sur "
+
+msgid "days"
+msgstr "jours"
+
+msgid "weeks"
+msgstr "semaines"
+
+msgid "all todo"
+msgstr "Toutes les tâches"
+
+msgid "warn for todo in the next "
+msgstr "M'avertir pour les tâches dans "
+
+msgid "set todo default date to today more "
+msgstr "Position la date par défaut à aujourd'hui plus "
+
 msgid "new"
 msgstr "nouveau"
 
@@ -819,6 +865,12 @@ msgstr "à confirmer"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"
+
+#~ msgid "day(s)"
+#~ msgstr "Jour(s)"
+
+#~ msgid "todo days"
+#~ msgstr "Tâches affichées pour ... jours"
 
 #~ msgid "use displayed ressource for event setting"
 #~ msgstr "Utiliser les ressources pour les rendez-vous"

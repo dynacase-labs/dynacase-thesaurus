@@ -1,0 +1,12 @@
+<!-- Start content [id] -->
+<div id="evtc[id]" style="background-color:[bgcolor]; overflow:hidden; cursor:pointer; border:0px">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td align="left"><img style="pointer:crosshair; border:0px" src="[iconsrc]" width="20" title="[title]"></td><td align="right"><span style="font-size:80%">[hour]&nbsp;[duration]</span><br><span style="font-decoration:underline;font-weight:bold">[contact]</span></td>
+</tr>
+<tr> <td colpsan="2"><span style="font-weight:bold">[title]</span></td> </tr>
+<tr> <td>[TEXT:phone]</td><td><span style="font-weight:bold">[phone]</span></td> </tr>
+<tr> <td>[TEXT:mobile]</td><td><span style="font-weight:bold">[mobile]</span></td> </tr>
+<tr> <td>[TEXT:mail]</td><td><span style="font-weight:bold">[mail]</span></td> </tr>
+</table>
+</div>

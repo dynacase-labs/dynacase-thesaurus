@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: CALL_external.php,v 1.1 2005/03/30 10:04:40 marc Exp $
+ * @version $Id: CALL_external.php,v 1.2 2005/04/01 11:45:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,7 +32,3 @@ function lcall($dbaccess, $famid, $strcontact) {
 }
 
 ?>
-  
-  
-
-}

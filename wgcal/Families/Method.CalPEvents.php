@@ -52,9 +52,13 @@ function  setEventSpec(&$e) {
       $iratt++;
     }
   }
-  $e->setValue("EVFC_LISTATTID", $nattid);
-  $e->setValue("EVFC_LISTATTST", $nattst);  
-  $e->setValue("EVFC_REJECTATTID", $rejattid);  
+  if (count($nattid)==0) $e->deleteValue("EVFC_LISTATTID");
+  else {
+    $e->setValue("EVFC_LISTATTID", $nattid);
+    $e->setValue("EVFC_LISTATTST", $nattst);  
+  }
+ if (count($rejattid)==0)  $e->deleteValue("EVFC_REJECTATTID");  
+ else $e->setValue("EVFC_REJECTATTID", $rejattid);  
 
   // Propagate RV profil to events
   //$e->setProfil($this->dprofid );

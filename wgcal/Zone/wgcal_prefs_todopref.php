@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_todopref.php,v 1.1 2005/03/30 10:04:42 marc Exp $
+ * @version $Id: wgcal_prefs_todopref.php,v 1.2 2005/04/01 11:45:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -17,44 +17,50 @@ include_once("WGCAL/WGCAL_external.php");
 function wgcal_prefs_todopref(&$action) {
   
   $optchk = array(
-		  "seetodofor" => array(_("display todos for ... days"), 
+		  "seetodofor" => array(_("display todos for "), 
 					"WGCAL_U_TODODAYS", 
 					"wgcal_toolbar", 
 					"WGCAL_TOOLBAR", 
-					"val" => array( "2", "7", "10", "14") ),
-		  "warntodofor" => array(_("warn for todo in the next ... days"),
+					array( "3"  => "3 "._("days"),
+					       "7"  => "1 "._("week"),
+					       "14" => "2 "._("weeks") ,
+					       "-1" => _("all todo"))),
+		  "warntodofor" => array(_("warn for todo in the next "),
 					 "WGCAL_U_TODOWARN", 
 					 "wgcal_toolbar", 
 					 "WGCAL_TOOLBAR",
-					 "val" => array( "1", "2", "3", "7") ),
-		  "setdefdate" => array(_("set todo default date to today + ... days"),
+					 array( "2"  => "2 "._("days"),
+						"7"  => "1 "._("week") )),
+		  "setdefdate" => array(_("set todo default date to today more "),
 					"WGCAL_U_TODODEFLIMIT", 
 					"wgcal_toolbar", 
 					"WGCAL_TOOLBAR", 
-					"val" => array( "0", "1", "2", "7"))
+					array( "1"  => "1 "._("days"),
+					       "2"  => "2 "._("days"),
+					       "3"  => "3 "._("days"),
+					       "7"  => "1 "._("week") ))
 		  );
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $toptchk = array(); 
   $io = 0;
   foreach ($optchk as $ko => $vo) {
+    $cVal = $action->GetParam($vo[1]);
     $toptchk[$io]["iSel"] = $ko;
     $toptchk[$io]["iText"] = $vo[0];
     $toptchk[$io]["iVar"] = $vo[1];
+    $toptchk[$io]["iVal"] = $cVal;
     $toptchk[$io]["iFrame"] = $vo[2];
     $toptchk[$io]["iAction"] = $vo[3];
-
-    $opt = array(); 
-    $vsel =  $action->GetParam($vo[1]);
-    foreach ($vo["val"] as $kv => $vv) {
-      $opt[] = array( "iOptVal" => $vv, 
-		      "iOptSelected" =>  ($vv==$vsel?"selected":""),
-		      "iOptText" => $vv );
+    $opt = array();
+    foreach ($vo[4] as $k => $v) {
+      $opt[] = array( "iOptText" => $v,
+		      "iOptVal" => $k,
+		      "iOptSel" => ($cVal==$k ? "selected" : ""));
     }
-    $toptchk[$io]["OPT".$ko] = $opt;
+    $action->lay->SetBlockData("OPT".$ko, $opt);
     $io++;
   }
-  print_r2($toptchk);
   $action->lay->SetBlockData("SELECT", $toptchk);
 
   return;

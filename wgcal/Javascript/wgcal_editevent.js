@@ -485,13 +485,18 @@ function RessourceSelect(idr) {
 }
 
 
+var RessourceHelperOpened = false;
+function CloseAttSelect(idh) {
+  if (RessourceHelperOpened) document.getElementById(idh).style.display = 'none';
+} 
+
+
 function ViewRessourceHelper(idh, url) {
   var pst = document.getElementById(idh).style.display; 
-  if (pst=='') {
-    document.getElementById(idh).style.display = 'none';
-  } else { 
+  if (pst=='none') {
     parent.wgcal_addatt.location.href=url; 
     document.getElementById(idh).style.display  = ''; 
+    RessourceHelperOpened = 'true';
   }
 }
   
