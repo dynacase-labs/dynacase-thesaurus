@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.9 2002/06/20 07:29:03 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.10 2002/06/20 09:57:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -133,9 +133,10 @@ Class UsercardVcard
 	  $endCardFound = ereg ("END:VCARD(.*)", $line);
 	  if (! $endCardFound)
 	    {
+	      if (ereg ("([A-Z;]*);ENCODING=QUOTED-PRINTABLE:(.*)", $line, $reg)){
+		  $tattr[$reg[1]]=quoted_printable_decode(rtrim($reg[2]));
+	      } elseif (ereg ("([A-Z;]*):(.*)", $line, $reg)){
 	      //line like TEL;WORK:05.61.15.54.54
-	      if (ereg ("([A-Z;]*):(.*)", $line, $reg)){
-		//		if (isset($this->import[$reg[1]]))
 		  $tattr[$reg[1]]=str_replace("\\n","\n",rtrim($reg[2]));
 	      }
 	    }
@@ -171,11 +172,11 @@ Class UsercardVcard
 		  {
 		    // regexp case
 		      // example A;B;C;D;E;F
-			$complxreg="([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)";
-		    
+			$complxreg="([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}";
+		   
 		    if (ereg($complxreg,
 			     $this->import[$k], $reg))
-		      {
+		      { 
 			if (ereg($complxreg, $v , $regv))
 			  {
 			    for ($ir=1;$ir<7;$ir++) {
