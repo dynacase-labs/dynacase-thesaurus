@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewfolder.php,v 1.44 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: viewfolder.php,v 1.45 2003/09/22 13:03:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.44 2003/08/18 15:47:04 eric Exp $
+// $Id: viewfolder.php,v 1.45 2003/09/22 13:03:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -210,14 +210,16 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  if ($dirid > 0) popupActive("popuplist",$kdiv,'delete');
 	  else popupInactive("popuplist",$kdiv,'delete');
 
-	
-	  $cud = ($doc->CanLockFile() == "");
-	  if ($cud) {
-	    popupActive("popuplist",$kdiv,'editdoc');
+	  if ($doc->doctype=='C') {
+	    popupInvisible("popuplist",$kdiv,'editdoc');
 	  } else {
-	    popupInactive("popuplist",$kdiv,'editdoc');
+	    $cud = ($doc->CanLockFile() == "");
+	    if ($cud) {
+	      popupActive("popuplist",$kdiv,'editdoc');
+	    } else {
+	      popupInactive("popuplist",$kdiv,'editdoc');
+	    }
 	  }
-	
 	  if ($doc->doctype == "S") popupInvisible('popuplist',$kdiv,'editdoc'); 
 	  if ($dir->defDoctype != 'D') {
 	    // it's a search :: inhibit duplicate and suppress reference
