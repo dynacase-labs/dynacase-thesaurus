@@ -48,11 +48,11 @@ SCHAR;S;;;;;;;;;;;;
 ICON;group.gif;;;;;;;;;;;;
 METHOD;Method.DocGroup.php;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
-ATTR;GRP_FR_IDENT;;Identification;N;N;frame;10;W;;;;;
-ATTR;GRP_NAME;GRP_FR_IDENT;nom;Y;N;text;15;W;Y;;;;
-ATTR;GRP_ROLE;GRP_FR_IDENT;rôle;N;N;longtext;25;W;;;;;
-ATTR;GRP_MAIL;GRP_FR_IDENT;mail;N;Y;text;35;R;;mailto:%GRP_MAIL%;;;
-ATTR;GRP_TYPE;GRP_FR_IDENT;fonction;N;N;enum;45;W;;;;none| ,service|service,desk|bureau;
+ATTR;GRP_FR_IDENT;;Identification;N;N;frame;100;W;;;;;
+ATTR;GRP_NAME;GRP_FR_IDENT;nom;Y;N;text;105;W;Y;;;;
+ATTR;GRP_ROLE;GRP_FR_IDENT;rôle;N;N;longtext;115;W;;;;;
+ATTR;GRP_MAIL;GRP_FR_IDENT;mail;N;Y;text;125;R;;mailto:%GRP_MAIL%;;;
+ATTR;GRP_TYPE;GRP_FR_IDENT;fonction;N;N;enum;135;W;;;;none| ,service|service,desk|bureau;
 ATTR;GRP_FR;;Description;N;N;frame;500;W;;;;;
 ATTR;GRP_USERS;GRP_FR;personnes du groupe;N;N;array;510;W;;;;;
 ATTR;GRP_IDUSER;GRP_USERS;id membre;N;N;docid;520;H;;;;;
