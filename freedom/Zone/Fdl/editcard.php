@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.14 2002/08/01 12:46:50 eric Exp $
+// $Id: editcard.php,v 1.15 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -89,7 +89,7 @@ function editcard(&$action) {
 
 
   //compute constraint for enable/disable input
-    $rattr = $doc->GetSpecialAttributes("(visibility='R' or visibility='H') and (not phpfunc isnull)");
+    $rattr = $doc->GetComputedAttributes();
 
   $ka=0;
   $tjsa=array();

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editattr.php,v 1.2 2002/06/18 14:29:41 eric Exp $
+// $Id: editattr.php,v 1.3 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function editattr(&$action) {
   else $doc = new Doc($dbaccess, $docid);
 
   
-  $listattr = $doc->GetAttributes(true);
+  $listattr = $doc->GetAttributes();
     
     
 
@@ -68,9 +68,7 @@ function editattr(&$action) {
 	$action->lay->Set("V_".$v->id,
 			  getHtmlInput($action, 
 				       $doc->id,
-				       $v->id, 
-				       $v->type, 
-				       $v->visibility, 
+				       $v, 
 				       $value));
       
       $action->lay->Set("L_".$v->id,$v->labeltext);

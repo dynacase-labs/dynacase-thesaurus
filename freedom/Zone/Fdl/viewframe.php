@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.3 2002/07/25 16:41:38 eric Exp $
+// $Id: viewframe.php,v 1.4 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,7 @@ function viewframe(&$action) {
   $doc = new Doc($dbaccess, $docid);
   
   
-  $listattr = $doc->GetAttributes(false,true); // get frame attribute also
+  $listattr = $doc->GetAttributes(true); // get frame attribute also
     
     
     

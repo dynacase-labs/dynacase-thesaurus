@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.7 2002/08/22 06:58:23 eric Exp $
+// $Id: editbodycard.php,v 1.8 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -135,7 +135,7 @@ function editbodycard(&$action) {
   
   //$frames= $query->Query(0,0,"TABLE","select distinct frametext from DocAttr" );
   $frames=array();
-  $listattr = $doc->GetAttributes(true);
+  $listattr = $doc->GetAttributes();
   
   
   
@@ -152,6 +152,7 @@ function editbodycard(&$action) {
 
   $iattr=0;
   while (list($i,$attr) = each($listattr)) {
+    if ($attr->visibility == "M") continue;
     $iattr++;
     
     // Compute value elements
@@ -199,7 +200,7 @@ function editbodycard(&$action) {
 	  $ih++;
 	} else {
 	  $tableframe[$v]["value"]=chop(htmlentities($value));
-	  $label = $doc->GetLabel($listattr[$i]->id);
+	  $label = $listattr[$i]->labeltext;
 	  $tableframe[$v]["attrid"]=$listattr[$i]->id;
 	  $tableframe[$v]["name"]=chop("[TEXT:".$label."]");
 
@@ -209,9 +210,7 @@ function editbodycard(&$action) {
 	  //$tableframe[$v]["name"]=$action->text($label);
 	  $tableframe[$v]["inputtype"]=getHtmlInput($action, 
 						    $doc->id,
-						    $listattr[$i]->id, 
-						    $listattr[$i]->type, 
-						    $listattr[$i]->visibility, 
+						    $listattr[$i],
 						    $value);
 		
 		

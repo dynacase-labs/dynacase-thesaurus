@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewhisto.php,v 1.3 2002/03/26 16:14:01 eric Exp $
+// $Id: viewhisto.php,v 1.4 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewhisto.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.3 2002/06/10 09:09:40 eric Exp $
+// $Id: popup_util.php,v 1.4 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

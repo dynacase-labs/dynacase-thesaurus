@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.2 2002/07/17 13:35:54 eric Exp $
+// $Id: editframe.php,v 1.3 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,7 +51,7 @@ function editframe(&$action) {
   else $doc = new Doc($dbaccess, $docid);
 
   
-  $listattr = $doc->GetAttributes(true,true);
+  $listattr = $doc->GetAttributes(true);
     
     
 
@@ -62,7 +62,7 @@ function editframe(&$action) {
 
     if ($v->id == $frameid) $action->lay->set("flabel",$v->labeltext);
 
-    if (($v->frameid != $frameid) || ($v->type == "frame")) continue;
+    if (($v->frameid != $frameid) || ($v->type == "frame") || ($v->visibility == "M")) continue;
 
 	//------------------------------
 	  // Set the table value elements
@@ -72,11 +72,9 @@ function editframe(&$action) {
 		  ($v->visibility == "R") && (substr_count($v->type,"text") > 0)) {
 
 	      $thval[$k]["avalue"]=  getHtmlInput($action, 
-				       $doc->id,
-				       $v->id, 
-				       $v->type, 
-				       $v->visibility, 
-				       $value);
+						  $doc->id,
+						  $v, 
+						  $value);
 
 		// special case for hidden values
 	      } else {	
@@ -84,11 +82,9 @@ function editframe(&$action) {
 	      if ($v->visibility == "N") $tval[$k]["labelclass"]="FREEDOMLabelNeeded";
 	      else $tval[$k]["labelclass"]="FREEDOMLabel";
 	      $tval[$k]["avalue"]=  getHtmlInput($action, 
-				       $doc->id,
-				       $v->id, 
-				       $v->type, 
-				       $v->visibility, 
-				       $value);
+						 $doc->id,
+						 $v, 
+						 $value);
 	    }
 	
       

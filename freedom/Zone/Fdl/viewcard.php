@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.14 2002/08/20 15:24:15 eric Exp $
+// $Id: viewcard.php,v 1.15 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,6 +45,7 @@ function viewcard(&$action) {
   $dochead = (GetHttpVars("dochead",'Y') == "Y"); // with doc head
   $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
   $target = GetHttpVars("target"); // may be mail
+  $reload = ($action->read("reload$docid","N")=="Y"); // need reload
 
   // Set the globals elements
 
@@ -52,6 +53,10 @@ function viewcard(&$action) {
   $standurl=$action->GetParam("CORE_STANDURL");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+  if ($reload) {
+    $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/reload.js");
+    $action->unregister("reload$docid");
+  }
 
   $doc = new Doc($dbaccess, $docid);
   $err = $doc->control("view");
@@ -170,7 +175,7 @@ function viewcard(&$action) {
     $listattr = $doc->GetAbstractAttributes();
     $nprop=4;
   } else {
-    $listattr = $doc->GetAttributes();
+    $listattr = $doc->GetNormalAttributes();
     if ($props) $action->lay->SetBlockData("ALLPROP",array(array("boo"=>1)));
     $nprop=7;
     

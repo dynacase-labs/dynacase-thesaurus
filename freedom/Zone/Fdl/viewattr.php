@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewattr.php,v 1.3 2002/08/09 08:47:28 eric Exp $
+// $Id: viewattr.php,v 1.4 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,7 +47,7 @@ function viewattr(&$action, $htmlval=true, $htmllink=true) {
   $doc = new Doc($dbaccess, $docid);
 
   
-  $listattr = $doc->GetAttributes(false,true);
+  $listattr = $doc->GetAttributes(true);
     
     
 

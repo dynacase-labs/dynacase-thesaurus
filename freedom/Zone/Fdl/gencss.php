@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: gencss.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: gencss.php,v 1.2 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/gencss.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

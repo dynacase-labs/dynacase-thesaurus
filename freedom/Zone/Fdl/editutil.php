@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.5 2002/08/06 16:52:34 eric Exp $
+// $Id: editutil.php,v 1.6 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -31,8 +31,12 @@ include_once("VAULT/Class.VaultFile.php");
 
 
 // -----------------------------------
-function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value) {
+function getHtmlInput(&$action, $docid, &$oattr, $value) {
 	
+  $attrtype=$oattr->type;
+  $attrid=$oattr->id;
+  $visibility=$oattr->visibility;
+
   $input="";
 		
   if ($value == "") {
@@ -100,6 +104,11 @@ function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value)
     $input .= " >".
        chop(htmlentities(stripslashes($value))).
        "</textarea>";
+    if ($oattr->phpfile != "") {
+      $input.="<input type=\"button\" value=\"".
+	 _("...")."\" onClick=\"sendmodifydoc(event,".$docid.
+	 ",'".$attrid."','single')\">";
+    } 
     break;
     //같같같같같같같같같같같같같같같같같같같같
     case "textlist": 
@@ -175,6 +184,11 @@ function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value)
     if ($visibility == "R") $input .=" disabled ";
 		      
     $input .= " > "; 
+    if ($oattr->phpfile != "") {
+      $input.="<input type=\"button\" value=\"".
+	 _("...")."\" onClick=\"sendmodifydoc(event,".$docid.
+	 ",'".$attrid."','single')\">";
+    } 
     break;
 		      
     }

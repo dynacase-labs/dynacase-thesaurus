@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewimgcard.php,v 1.3 2002/08/22 06:58:23 eric Exp $
+// $Id: viewimgcard.php,v 1.4 2002/09/02 16:32:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewimgcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,7 +69,7 @@ function viewimgcard(&$action) {
     // only 3 properties for abstract mode
     $listattr = $doc->GetAbstractAttributes();
   } else {
-    $listattr = $doc->GetAttributes();
+    $listattr = $doc->GetNormalAttributes();
     
   }
     
