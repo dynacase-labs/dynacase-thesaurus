@@ -17,6 +17,14 @@
 [CSS:CODE]
    </style>
 
+   <script language="javascript">
+function imgborder() {
+  for (var i=0; i< document.images.length; i++) {
+    document.images[i].style.borderStyle='none';
+  }
+}
+   </script>
+
  </head>
 
 <body >
@@ -24,13 +32,13 @@
 
 <p style="margin:0pt;padding:0pt">
 <a  href="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_TOGEN&famid=[idcdoc]" target="faminfo">
-<img border=0 src="[iconsrc]"  width="50px" height="50px" 
+<img style="border-width:2px;border-style:none" src="[iconsrc]"  width="50px" height="50px" onclick="imgborder();this.style.borderStyle='outset'"
      title="[classname]">
 </a></p>
 [ENDBLOCK SELECTCLASS]
 
 <input type="button" value="[TEXT:pref...]" title="[TEXT:manage visible families]" 
-       onclick="subwindowm(100,300,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITPREF')">
+       onclick="subwindow(100,300,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITPREF')">
 
 </body>
 </html>
