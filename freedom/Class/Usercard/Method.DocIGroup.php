@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.20 2005/04/05 18:44:49 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.21 2005/04/05 18:55:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -16,7 +16,7 @@ var $eviews=array("USERCARD:CHOOSEGROUP");
 var $exportLdap = array(
 		      // posixGroup
 			"gidNumber" => "GRP_GIDNUMBER",                        
-			"mail" => "GRP_MAIL", // not in schema but used in mailing client application
+			//			"mail" => "GRP_MAIL", // not in schema but used in mailing client application
 			"description" => "GRP_DESC" );
 var $ldapobjectclass="posixGroup";
 function specRefresh() {
