@@ -22,6 +22,7 @@
 #define min(x,y) ((x) < (y)) ? (x) : (y)
 
 
+char DEBUG=0; /* to say if debug mode required */
 
 /*
  * options_parse
@@ -92,6 +93,10 @@ opt_t *options_parse (int argc, const char **argv)
     }
     else if ( ! strcmp("access", optname) ) {
       element = opts->access;
+    }
+    else if ( ! strcmp("debug", optname) ) {
+      element = opts->debug;
+      DEBUG=atoi(optval);
     }
     else {
       syslog (LOG_ERR, "Unknown option type '%s'", optname);

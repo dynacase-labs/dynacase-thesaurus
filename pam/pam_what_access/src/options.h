@@ -20,6 +20,7 @@ struct _opt_t {
   char user[OPT_STRLEN];
   char application[OPT_STRLEN];
   char access[OPT_STRLEN];
+  char debug[OPT_STRLEN];
 };
 typedef struct _opt_t opt_t;
 

@@ -1,9 +1,9 @@
-# $Revision: 1.8 $, $Date: 2002/08/06 11:38:18 $
+# $Revision: 1.9 $, $Date: 2003/08/12 13:39:06 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what_access
-Version:	0.3.0
-Release:	2
+Version:	0.3.1
+Release:	1
 License:	GPL or BSD
 Group:		Base
 Source0:	ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what_access.spec,v $
+Revision 1.9  2003/08/12 13:39:06  eric
+ajout option debug pour log debug
+
 Revision 1.8  2002/08/06 11:38:18  eric
 suppression require WHAT
 

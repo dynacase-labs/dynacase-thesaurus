@@ -36,6 +36,8 @@
  * and check against the database
  */
 
+extern char DEBUG; /* global to log debug */
+
 db_conn *conn;
 
 int GetGroup(int iduser,
@@ -53,7 +55,7 @@ int GetGroup(int iduser,
 
   result = db_exec (conn, query);
   if ( ! result ) {
-    syslog (LOG_DEBUG, "Query failed [%s]", query);
+    if (DEBUG) syslog (LOG_DEBUG, "Query failed [%s]", query);
 
     return 0;
   }
@@ -93,13 +95,13 @@ int HasPrivilege(int iduser,
 
   result = db_exec (conn, query);
   if ( ! result ) {
-    syslog (LOG_DEBUG, "Query failed [%s]", query);
+    if (DEBUG) syslog (LOG_DEBUG, "Query failed [%s]", query);
 
     return 0;
   }
 
   if ( db_numrows(result) == 1 ) {
-    syslog (LOG_DEBUG, "Access grented for user %d [%s]", iduser,query);
+    if (DEBUG) syslog (LOG_DEBUG, "Access granted for user %d [%s]", iduser,query);
     db_free_result(result);
 
     return 1;
@@ -116,13 +118,13 @@ int HasPrivilege(int iduser,
 
   result = db_exec (conn, query);
   if ( ! result ) {
-    syslog (LOG_DEBUG, "Query failed [%s]", query);
+    if (DEBUG) syslog (LOG_DEBUG, "Query failed [%s]", query);
 
     return 0;
   }
 
   if ( db_numrows(result) > 0 ) { // The user has explicitly a unprivilege
-    syslog (LOG_DEBUG, "Access failed for user %d [%s]", iduser,query);
+    if (DEBUG) syslog (LOG_DEBUG, "Access failed for user %d [%s]", iduser,query);
     db_free_result(result);
 
     return 0;
@@ -242,7 +244,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
     }
   
     if ( db_numrows(result) != 1 ) {
-      syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
+      if (DEBUG) syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
       db_free_result(result);
       db_close(conn);
       return PAM_AUTH_ERR;
@@ -273,14 +275,14 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 
   result = db_exec (conn, query);
   if ( ! result ) {
-    syslog (LOG_DEBUG, "Query failed [%s]", query);
+    if (DEBUG) syslog (LOG_DEBUG, "Query failed [%s]", query);
     db_close(conn);
     return PAM_AUTH_ERR;
   }
 
   
   if ( db_numrows(result) != 1 ) {
-    syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
+    if (DEBUG) syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
     db_free_result(result);
     db_close(conn);
     return PAM_AUTH_ERR;
@@ -303,14 +305,14 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 
   result = db_exec (conn, query);
   if ( ! result ) {
-    syslog (LOG_DEBUG, "Query failed [%s]", query);
+    if (DEBUG) syslog (LOG_DEBUG, "Query failed [%s]", query);
     db_close(conn);
     return PAM_AUTH_ERR;
   }
 
   
   if ( db_numrows(result) != 1 ) {
-    syslog (LOG_DEBUG, "Unknow ACL [%s]", query);
+    if (DEBUG) syslog (LOG_DEBUG, "Unknow ACL [%s]", query);
     db_free_result(result);
     db_close(conn);
     return PAM_AUTH_ERR;
