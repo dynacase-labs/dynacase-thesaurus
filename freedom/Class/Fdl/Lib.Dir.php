@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.84 2004/03/22 15:33:26 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.85 2004/03/25 11:08:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.84 2004/03/22 15:33:26 eric Exp $
+// $Id: Lib.Dir.php,v 1.85 2004/03/25 11:08:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -309,7 +309,7 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
   $t=array();
   foreach ($tfld as $k=>$v) {   
 
-      $t[$v["childid"]]=getTDoc($dbaccess,$v["childid"],$sqlfilters);
+      $t[$v["childid"]]=getLatestTDoc($dbaccess,$v["childid"],$sqlfilters);
       
       if ($t[$v["childid"]] == false) unset($t[$v["childid"]]);
       if (($t[$v["childid"]]["uperm"] & (1 << POS_VIEW)) == 0) { // control view
