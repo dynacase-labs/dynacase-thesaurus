@@ -70,7 +70,7 @@ function lfamilly($dbaccess, $famid, $name, $catgid=0, $filter=array()) {
   }
 
 
-  $tinter = getChildDoc($dbaccess, $catgid,0,100, $filter,$action->user->id,"TABLE",$famid);
+  $tinter = getChildDoc($dbaccess, $catgid,0,200, $filter,$action->user->id,"TABLE",$famid);
   
   $tr = array();
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.8 2003/01/20 19:09:28 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.9 2003/01/27 14:17:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.8 2003/01/20 19:09:28 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.9 2003/01/27 14:17:28 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -208,6 +208,7 @@ Class WDocIncident extends WDoc
 		   $body,
 		   "From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
 		   "Bcc: ".$action->GetParam("BCC_MAIL_INCIDENT")."\r\n".
+		   "Return-Path: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
 		   "X-Mailer: PHP/" . phpversion());
       if (! $mailok) $action->exitError("mail cannot be sent");
       AddLogMsg(sprintf(_("send internal mail to %s (bcc:%s)"),$addr,$action->GetParam("BCC_MAIL_INCIDENT")));
@@ -236,7 +237,7 @@ Class WDocIncident extends WDoc
 
       
      
-      $incidentmail = new Layout($action->GetLayoutFile($layout),$action);
+      $incidentmail = new Layout($action->Getparam("CORE_PUBDIR")."/INCIDENT/Layout/$layout",$action);
       $incidentmail->set("title", $title);
       $incidentmail->set("ref", $this->doc->initid);
       $incidentmail->set("date", $sdate);
@@ -285,6 +286,7 @@ Class WDocIncident extends WDoc
 		   $object, // object
 		   $body,
 		   "From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
+		   "Return-Path: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
 		   "Bcc: ".$bcc."\r\n".
 		   "Cc: ".$ccmail."\r\n".
 		   "Content-Type: multipart/alternative; boundary=\"=_alternative 003C044E00256A9A_=\"\r\n".
