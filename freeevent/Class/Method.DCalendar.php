@@ -137,6 +137,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->set("dday100",round($delta));
   $this->lay->set("dday50",round($delta*0.5));
   $this->lay->set("dday10",round($delta*0.1));
+  $this->lay->set("ppar",$this->urlWhatEncodeSpec(""));
   $sub=0;
   $idc=0;
  

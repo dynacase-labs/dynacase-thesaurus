@@ -4,16 +4,16 @@ mend=[mend];
 document.docid=[id];
 document.vid='[vid]';
 document.needreload=true;
+document.moreurl='[ppar]';
 addEvent(window,"load",placeEvents);
 </script>
 
 
 <div id="binter" style="position:absolute;display:none">
 <input onclick="allcal()" title="[TEXT:Allperiod]"  type="image" src="[IMG:forback.gif]"></input>
-<input onclick="isFixed=true;placeEvents();" type="image" src="[IMG:pins.gif]" title="[TEXT:Fixbar]" ></input>
+<input onclick="isFixed=true;placeEvents();style.visibility='hidden'" type="image" src="[IMG:pins.gif]" title="[TEXT:Fixbar]" ></input>
 <input id="nperiod" value="[dday100]" title="[TEXT:Period in day]" type="text" size="2" ></input>
 <input onclick="resizecal()" title="[TEXT:Change day period]" type="image" src="[IMG:forward.gif]"></input>
-
 </div>
 <div id="dday"  name="dday" style="display:none" onclick="viewcal(this.id)"  >XX</div>
 

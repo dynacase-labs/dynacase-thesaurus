@@ -350,10 +350,10 @@ function viewcal(oid) {
   var miso=tjdiso[idx];
 
   if (m1 && m2) {
-    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+"&id="+document.docid+"&jdstart="+m1+'&jdend='+m2;
+    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+document.moreurl+"&id="+document.docid+"&jdstart="+m1+'&jdend='+m2;
   }
   if (miso) {
-    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+"&id="+document.docid+"&isoperiod="+miso;
+    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+document.moreurl+"&id="+document.docid+"&isoperiod="+miso;
     
   }
 
@@ -365,7 +365,7 @@ function movecal(pc) {
 
 
   if (m1 && m2) {
-    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+"&id="+document.docid+"&jdstart="+m1+'&jdend='+m2;
+    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+document.moreurl+"&id="+document.docid+"&jdstart="+m1+'&jdend='+m2;
   }
 }
 
@@ -375,12 +375,12 @@ function resizecal() {
   var m2=mend;
   if (onp && parseInt(onp.value)>0) {
     m2=m1+parseInt(onp.value);
-    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+"&id="+document.docid+"&jdstart="+m1+'&jdend='+m2;
+    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid="+document.vid+document.moreurl+"&id="+document.docid+"&jdstart="+m1+'&jdend='+m2;
   }
 }
 function allcal() {
 
-    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&isoperiod=all&vid="+document.vid+"&id="+document.docid+"";
+    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&isoperiod=all&vid="+document.vid+document.moreurl+"&id="+document.docid+"";
   
 }
 
