@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.185 2004/02/09 16:46:14 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.186 2004/02/12 10:32:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.185 2004/02/09 16:46:14 eric Exp $
+// $Id: Class.Doc.php,v 1.186 2004/02/12 10:32:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -863,6 +863,7 @@ create unique index i_docir on doc(initid, revision);";
       }
     }
     $this->Complete();
+    unset($this->uperm); // force recompute privileges
     $this->isset = true;
   }
 
@@ -1131,7 +1132,7 @@ create unique index i_docir on doc(initid, revision);";
     if (isset($this->attributes->attr)) {
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
-	if ((get_class($v) == "normalattribute") && ($v->type=="docid")) $tsa[$v->id]=$v;      
+	if ((get_class($v) == "normalattribute") && ($v->type=="docid") && (!$v->inArray())) $tsa[$v->id]=$v;      
       }
     }
     return $tsa;

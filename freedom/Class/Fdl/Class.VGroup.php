@@ -3,7 +3,7 @@
  * Virtual groups
  *
  * @author Anakeen 2004
- * @version $Id: Class.VGroup.php,v 1.1 2004/02/09 16:46:14 eric Exp $
+ * @version $Id: Class.VGroup.php,v 1.2 2004/02/12 10:32:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */

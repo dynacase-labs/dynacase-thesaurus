@@ -3,7 +3,7 @@
  *  Control view Class Document
  *
  * @author Anakeen 2003
- * @version $Id: Class.CVDoc.php,v 1.1 2003/12/15 08:38:52 eric Exp $
+ * @version $Id: Class.CVDoc.php,v 1.2 2004/02/12 10:32:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.CVDoc.php,v 1.1 2003/12/15 08:38:52 eric Exp $
+// $Id: Class.CVDoc.php,v 1.2 2004/02/12 10:32:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.CVDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -127,7 +127,48 @@ Class CVDoc extends Doc {
     }
     $this->setValue("CV_IDVIEW",$ti);
   }
+
+  function DocControl($aclname) {
+    return Doc::Control($aclname);
+  }
+
+  /**
+   * Special control in case of dynamic controlled profil
+   */
+  function Control($aclname) {
+
+    $err= $this->DocControl($aclname);
+    if ($err == "") return $err; // normal case
+
+    if ($this->getValue("DPDOC_FAMID") > 0) {
+      // special control for dynamic users
+      if (! isset($this->pdoc)) {
+	$pdoc = createDoc($this->dbaccess,$this->fromid);
+	$pdoc->doctype="T"; // temporary
+	//	$pdoc->setValue("DPDOC_FAMID",$this->getValue("DPDOC_FAMID"));
+	$err=$pdoc->Add();
+	if ($err != "") return "CVDoc::Control:".$err; // can't create profil
+
+	$pdoc->setProfil($this->profid, $this->doc);
+	$pdoc->dacls=$this->dacls;
+
+	$this->pdoc = &$pdoc;
+      }
+
+
+      $err=$this->pdoc->DocControl($aclname);
+
+    }
+    return $err;
+  }
+
   
+  function Set(&$doc) {
+    if (! isset($this->doc) ) {
+      $this->doc= &$doc;
+     
+    }
+  }
 }
 
 ?>
