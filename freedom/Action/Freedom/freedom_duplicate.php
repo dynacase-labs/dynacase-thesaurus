@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.4 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_duplicate.php,v 1.5 2002/07/30 12:33:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,6 +44,7 @@ function freedom_duplicate(&$action) {
 
   // test if doc with values
   $doc= new Doc($dbaccess, $docid);
+  $cdoc= new Doc($dbaccess, $doc->fromid);
   $values = $doc->getValues();
   if (! is_array($values)) $action->exitError(_("this kind of document cannot be duplicate"));
 
@@ -52,6 +53,8 @@ function freedom_duplicate(&$action) {
   $copy->id = "";
   $copy->initid = "";
   $copy->revision = "0";
+  $copy->locked = "0";
+  $copy->profid = $cdoc->cprofid;;
   $copy->title = _("duplication of")." ".$copy->title;
   $err = $copy->Add();
 
