@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.4 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.5 2003/11/03 09:08:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,6 +54,7 @@ if ($query->nb > 0)	{
   while(list($k,$v) = each($table1)) 	    {	     
     // search already created card
     $title = strtolower($v["lastname"]. " ". $v["firstname"]);
+    $mail = getMailAddr($v["id"]);
     // first in IUSER
     if ($v["isgroup"] == "Y") {
       $filter = array("grp_whatid = ".$v["id"]);
@@ -74,7 +75,8 @@ if ($query->nb > 0)	{
       
     } else {
       // search in all usercard same title
-      $filter = array("lower(title) = '$title'");
+      if ($mail != "") $filter = array("us_mail = '$mail'");
+      else $filter = array("lower(title) = '$title'");
       $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
 			  getFamIdFromName($dbaccess,"USER"));
       if (count($tdoc) > 0) {
