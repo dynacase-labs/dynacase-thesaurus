@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-06-02 11:29+0200\n"
+	"POT-Creation-Date: 2003-06-06 11:19+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -336,6 +336,9 @@ msgstr	""
 msgid	"Family (#%d) is not referenced"
 msgstr	""
 
+msgid	"email sended"
+msgstr	""
+
 #, c-format
 msgid	"PDF conversion failed for %s"
 msgstr	""
@@ -462,6 +465,9 @@ msgstr	""
 msgid	"untitle document"
 msgstr	""
 
+msgid	"cannot update no initialized document"
+msgstr	""
+
 #, c-format
 msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
 msgstr	""
@@ -506,6 +512,9 @@ msgstr	""
 #, fuzzy
 msgid	"no filename"
 msgstr	"Firstname"
+
+msgid	"see contents"
+msgstr	""
 
 #, c-format
 msgid	"cannot control : object not initialized : %s"
@@ -655,6 +664,10 @@ msgstr	"Card is not modify in LDAP server : one of this attribute is not "
 msgid	"errldapconnect"
 msgstr	"LDAP server cannot be contacted"
 
+#, c-format
+msgid	"user #%d does not exist"
+msgstr	""
+
 msgid	"recorded"
 msgstr	""
 
@@ -743,10 +756,6 @@ msgstr	"Add new contact card"
 msgid	"or"
 msgstr	""
 
-#, fuzzy
-msgid	"not include"
-msgstr	"Modify"
-
 msgid	"read only"
 msgstr	""
 
@@ -768,6 +777,26 @@ msgid	"Y"
 msgstr	""
 
 msgid	"N"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"%s updated\n"
+msgstr	"Update LDAP server"
+
+#, c-format
+msgid	"find %s more than one, created aborded\n"
+msgstr	""
+
+#, c-format
+msgid	"%s migrated\n"
+msgstr	""
+
+#, c-format
+msgid	"%s igroup created\n"
+msgstr	""
+
+#, c-format
+msgid	"%s iuser created\n"
 msgstr	""
 
 #, fuzzy, c-format
@@ -2088,9 +2117,6 @@ msgstr	""
 msgid	"mail edition"
 msgstr	"Edit"
 
-msgid	"email sended"
-msgstr	""
-
 msgid	"Send the email and change document state to"
 msgstr	""
 
@@ -2243,6 +2269,9 @@ msgstr	"Really Delete"
 msgid	"Delete"
 msgstr	"Delete"
 
+msgid	"mini view"
+msgstr	""
+
 msgid	"senddoc"
 msgstr	""
 
@@ -2321,6 +2350,10 @@ msgstr	"Category"
 
 msgid	"View properties"
 msgstr	""
+
+#, fuzzy
+#~ msgid	"not include"
+#~ msgstr	"Modify"
 
 #, fuzzy
 #~ msgid	"%s all categories "

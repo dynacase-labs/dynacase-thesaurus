@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.130 2003/06/03 14:52:11 eric Exp $
+// $Id: Class.Doc.php,v 1.131 2003/06/06 09:39:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.130 2003/06/03 14:52:11 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.131 2003/06/06 09:39:16 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/03 14:52:11 $
-// Version         $Revision: 1.130 $
+// Last Update     $Date: 2003/06/06 09:39:16 $
+// Version         $Revision: 1.131 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -150,7 +150,6 @@ create unique index i_docir on doc(initid, revision);";
   // Author          Eric Brison	(Anakeen)
   // --------------------------------------------------------------------------
   function Doc($dbaccess='', $id='',$res='',$dbid=0) {
-
     newDoc($this,$dbaccess, $id, $res, $dbid);
 	   
     if (! isset($this->attributes->attr)) $this->attributes->attr=array();
@@ -243,11 +242,11 @@ create unique index i_docir on doc(initid, revision);";
   function PreUpdate()
     // --------------------------------------------------------------------
     {
+      if ($this->id == "") return _("cannot update no initialized document");
       if (! isset($this->withoutControl)) {
 	$err = $this-> Control("edit");
 	if ($err != "") return ($err); 
       }
-      
       if ($this->locked == -1) $this->lmodify='N';
       $this->RefreshTitle();
       if ($this->hasChanged) {
@@ -320,6 +319,7 @@ create unique index i_docir on doc(initid, revision);";
   // convert to another family
   function convert($fromid, $prevalues=array()) {
     
+    if ($this->fromid  == $fromid) return false; // no convert if not needed
     $cdoc = createDoc($this->dbaccess, $fromid);
     if (! $cdoc) return false;
     
@@ -1145,7 +1145,11 @@ create unique index i_docir on doc(initid, revision);";
     }
 
   function AddComment($comment='') {
-    $commentdate = sprintf("%s %s",date("d/m/Y G:i"),$comment);
+    global $action;
+    $commentdate = sprintf("%s [%s %s] %s",
+			   date("d/m/Y G:i"),
+			   $action->user->firstname,$action->user->lastname,
+			   $comment);
 
     if ($this->comment != '') $this->comment = $commentdate."\n".$this->comment;
     else $this->comment = $commentdate;
@@ -1314,7 +1318,7 @@ create unique index i_docir on doc(initid, revision);";
 	  
    
     $err=$this->SpecRefresh();
-    if ($this->id == 0) return; // no refresh for no created document
+    // if ($this->id == 0) return; // no refresh for no created document
 	
 
     $lattr = $this->GetNormalAttributes();
@@ -1408,7 +1412,7 @@ create unique index i_docir on doc(initid, revision);";
 	$urllink.=$link[$i];
       }
     }
-    return ($urllink);
+    return (chop($urllink));
     
   }
   
@@ -1420,7 +1424,7 @@ create unique index i_docir on doc(initid, revision);";
     
     $aformat=$oattr->format;
     $atype=$oattr->type;
-    if ($oattr->repeat) {
+    if (($oattr->repeat)&&(!$oattr->inArray())) {
       $tvalues = explode("\n",$value);
     } else {
       $tvalues[$index]=$value;
@@ -1543,6 +1547,7 @@ create unique index i_docir on doc(initid, revision);";
       if ($htmllink && ($oattr->link != "") && 
 	  ($ulink = $this->urlWhatEncode( $oattr->link, $kvalue))) {
 
+
 	if ($target == "mail") {
 	  $abegin="<A target=\"$target\"  href=\"";
 	  $abegin.= $action->GetParam("CORE_PUBURL")."/".$ulink;
@@ -1553,6 +1558,14 @@ create unique index i_docir on doc(initid, revision);";
 	  $abegin.="\">";
 	}
 	$aend="</A>";
+	if ($htmllink > 1){
+	  $turl=parse_url($ulink);
+	  if (($turl["scheme"] == "") || ($turl["scheme"] == "http")) {
+	    if ($turl["scheme"] == "") $ulink.="&ulink=1";
+	    $aend.=" <img align=\"absbottom\" style=\"cursor:pointer\" class=\"noprint\" title=\""._("see contents")."\" onclick=\"popdoc('$ulink')\" src=\"Images/contents.gif\">";
+	  }
+	}
+
       } else {
 	$abegin="";
 	$aend="";

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.36 2003/05/23 15:30:03 eric Exp $
+// $Id: freedom_util.php,v 1.37 2003/06/06 09:39:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -219,5 +219,34 @@ function setFamidInLayout(&$action) {
   while(list($k,$v) = each($tFamIdName)) {
     $action->lay->set("IDFAM_$k", $v);
   }
+}
+
+
+// --------------------------------------------------------------------------
+// return freedom document in concordance with what user id
+// I               
+// O               
+// I/O             
+// Return          
+// Date            jun, 05 2003 - 13:51:04
+// Author          Eric Brison	(Anakeen)
+// --------------------------------------------------------------------------
+function getDocFromUserId($dbaccess,$userid) {
+  if ($userid == "") return false;
+  include_once("FDL/Lib.Dir.php");
+  $tdoc=array();
+  $user = new User("",$userid);
+  if (! $user->isAffected()) return false;
+  if ($user->isgroup == "Y") {
+    $filter = array("grp_whatid = $userid");
+    $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
+			getFamIdFromName($dbaccess,"IGROUP"));
+  } else {
+    $filter = array("us_whatid = $userid");
+    $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
+			getFamIdFromName($dbaccess,"IUSER"));
+  }
+  if (count($tdoc) == 0) return false;
+  return $tdoc[0];
 }
 ?>

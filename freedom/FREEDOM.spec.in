@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.44 2003/05/22 09:00:43 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.45 2003/06/06 09:39:15 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -43,7 +43,7 @@ Requires: netpbm
 Requires: netpbm-progs
 Requires: php-xml
 PreReq: vixie-cron
-PreReq: WHAT >= 0.2.5
+PreReq: WHAT >= 0.2.6
 Prereq: VAULT
 Prereq: gettext
 Prereq: php-cgi >= 4.0.2

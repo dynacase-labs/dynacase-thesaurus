@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-06-02 11:29+0200\n"
+	"POT-Creation-Date: 2003-06-06 11:19+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -317,6 +317,9 @@ msgstr	"La famille n'est pas instanciée"
 msgid	"Family (#%d) is not referenced"
 msgstr	"la famille (%d) n'est pas référencée"
 
+msgid	"email sended"
+msgstr	"email envoyé"
+
 #, c-format
 msgid	"PDF conversion failed for %s"
 msgstr	"conversion PDF a échoué pour %s"
@@ -448,6 +451,9 @@ msgstr	"déjà existant : pas ajouté"
 msgid	"untitle document"
 msgstr	"document sans titre"
 
+msgid	"cannot update no initialized document"
+msgstr "mise à jour impossible : document non initialisé"
+
 #, c-format
 msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
 msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
@@ -490,6 +496,9 @@ msgstr	"erreur fichier Vault"
 
 msgid	"no filename"
 msgstr	"pas de fichier"
+
+msgid	"see contents"
+msgstr "voir le contenu"
 
 #, c-format
 msgid	"cannot control : object not initialized : %s"
@@ -629,6 +638,10 @@ msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
 msgid	"errldapconnect"
 msgstr	"Le server LDAP n'a pas pu être contacté"
 
+#, c-format
+msgid	"user #%d does not exist"
+msgstr "l'utilisateur n°%d n'existe pas"
+
 msgid	"recorded"
 msgstr	"enregistré"
 
@@ -712,9 +725,6 @@ msgstr	"et"
 msgid	"or"
 msgstr	"ou"
 
-msgid	"not include"
-msgstr	"ne contient pas"
-
 msgid	"read only"
 msgstr	"lecture seule"
 
@@ -737,8 +747,28 @@ msgid	"N"
 msgstr	"N"
 
 #, c-format
+msgid	"%s updated\n"
+msgstr "%s mis à jour\n"
+
+#, c-format
+msgid	"find %s more than one, created aborded\n"
+msgstr "%s trouvé plus d'une fois, création abandonnée\n"
+
+#, c-format
+msgid	"%s migrated\n"
+msgstr "%s migré\n"
+
+#, c-format
+msgid	"%s igroup created\n"
+msgstr "%s intranet group créé\n"
+
+#, c-format
+msgid	"%s iuser created\n"
+msgstr "%s intranet personne a été créé\n"
+
+#, c-format
 msgid	"created by %s"
-msgstr "créé par %s"
+msgstr	"créé par %s"
 
 #, c-format
 msgid	"change by %s"
@@ -1938,9 +1968,6 @@ msgstr	" choisir une valeur"
 msgid	"mail edition"
 msgstr	"édition de mail"
 
-msgid	"email sended"
-msgstr	"email envoyé"
-
 msgid	"Send the email and change document state to"
 msgstr	"Envoi du email et changement d'état vers"
 
@@ -2073,6 +2100,9 @@ msgstr	"Voulez-vous supprimer"
 msgid	"Delete"
 msgstr	"Supprimer"
 
+msgid	"mini view"
+msgstr "mini vue"
+
 msgid	"senddoc"
 msgstr	"envoyer"
 
@@ -2141,6 +2171,9 @@ msgstr	"Changer de catégorie"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+#~ msgid	"not include"
+#~ msgstr	"ne contient pas"
 
 #~ msgid	"%s all categories "
 #~ msgstr	"%s toutes catégories"

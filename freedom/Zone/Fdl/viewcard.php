@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.37 2003/05/19 15:48:48 eric Exp $
+// $Id: viewcard.php,v 1.38 2003/06/06 09:39:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,10 +43,12 @@ function viewcard(&$action) {
   $props = (GetHttpVars("props",'N') == "Y"); // view doc properties
   $zonebodycard = GetHttpVars("zone"); // define view action
   $dochead = (GetHttpVars("dochead",'Y') == "Y"); // with doc head
-  $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
+  $ulink = (GetHttpVars("ulink",'2')); // add url link
   $target = GetHttpVars("target"); // may be mail
   $reload = ($action->read("reload$docid","N")=="Y"); // need reload
 
+  if ($ulink == "N") $ulink = false;
+  else  if ($ulink == "Y") $ulink = 1;
 
   // Set the globals elements
 
@@ -54,6 +56,8 @@ function viewcard(&$action) {
   $standurl=$action->GetParam("CORE_STANDURL");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/iframe.js");
    if ($reload) {
      $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/reload.js");
      $action->unregister("reload$docid");

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.12 2003/04/29 16:29:39 eric Exp $
+// $Id: viewframe.php,v 1.13 2003/06/06 09:39:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,8 +39,9 @@ function viewframe(&$action) {
   $frameid = strtolower(GetHttpVars("frameid"));
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
   $target = GetHttpVars("target","_self");
-  $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
+  $ulink = (GetHttpVars("ulink",'2') ); // add url link
     
+  if ($ulink == "N") $ulink = false;
     
     // Set the globals elements
       

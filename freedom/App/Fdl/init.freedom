@@ -189,3 +189,15 @@ ATTR;IMG_FILE;IMG_FRFILE;image;N;Y;image;20;W;Y;;;
 ATTR;IMG_FR_CHAR;;caractéristiques;N;N;frame;;F;;;;
 ATTR;IMG_CATG;IMG_FR_CHAR;catégorie;N;N;enum;30;W;;;;1|photo,2|dessin,1.1|paysage,1.2|portrait
 END;-;9;;;;;;;;;;
+;;;;;;;;;;;;
+// famille texte;;;id;class;name;;;;;;;
+BEGIN;1;texte;24;;TEXT;;;;;;;
+METHOD;Method.DocText.php;;;;;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;text.gif;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+;;;;;;;;;;;;
+ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;O;Y;;;
+ATTR;TXT_TEXT;FR_BASIC;texte;N;N;htmltext;20;W;;;;
+;;;;;;;;;;;;
+END;-;;;;;;;;;;;

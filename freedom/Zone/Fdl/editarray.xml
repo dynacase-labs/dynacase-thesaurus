@@ -16,7 +16,7 @@
   <img src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;">
 </td><td>&nbsp;</td></tr>
   </tbody>
-   <tfoot><tr style="visibility:hidden" id="tnew[attrid]"><td><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onclick="selecttr(this.parentNode.parentNode);return false;"><img  src="[IMG:up22.gif]"  title="[TEXT:insert up]" onclick="movetr(this.parentNode.parentNode);return false;"></td>
+   <tfoot><tr style="display:none" id="tnew[attrid]"><td><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onclick="selecttr(this.parentNode.parentNode);return false;"><img  src="[IMG:up22.gif]" name="insertup" style="visibility:hidden" title="[TEXT:insert up]" onclick="movetr(this.parentNode.parentNode);return false;"></td>
     [BLOCK IATTR]<td>[ilabel]</td> [ENDBLOCK IATTR]
    </tr>
   </tfoot>
