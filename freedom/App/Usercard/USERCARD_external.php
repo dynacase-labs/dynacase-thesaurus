@@ -66,6 +66,46 @@ function laddrsoc($dbaccess, $idc) {
   
 }
 
+// liste des personnes d'une société
+function lpersonnesociety( $dbaccess, $idsociety, $name="" ) {  
+
+  // 'lpersonnesociety(D,CMF_IDSFUR,CMF_PFUR):CMF_IDPFUR,CMF_PFUR,CMF_AFUR,CMF_MFUR,CMF_TFUR,CMF_FFUR,CMF_SFUR,CMF_IDSFUR
+
+
+  $filter=array();
+
+  if ($idsociety > 0)  $filter[]="us_idsociety = '$idsociety'";
+  
+  if ($name != "")     $filter[]="title ~* '$name'";
+  
+
+
+  $tinter = getChildDoc($dbaccess, 0 ,0,100, $filter,$action->user->id, "TABLE",
+			getFamIdFromName($dbaccess,"USER"));
+
+
+  
+  $tr = array();
+
+
+  while(list($k,$v) = each($tinter)) {
+            
+    $sidfur= setv($v,"us_idsociety");
+    
+    $sfur= setv($v,"us_society");
+    $afur= setv($v,"us_workaddr")."\n".setv($v,"us_workpostalcode")." ".setv($v,"us_worktown")." ".setv($v,"us_workcedex");
+    if (setv($v,"us_country") != "") $afur.="\n".setv($v,"us_country");
+    $tfur= setv($v,"us_phone");
+    $ffur= setv($v,"us_fax");
+    $mfur= setv($v,"us_mail");
+
+    $tr[] = array($v["title"] ,$v["id"],$v["title"], $afur, $mfur, $tfur,$ffur, $sfur, $sidfur);
+    
+  }
+  return $tr;
+  
+}
+
 
 // identification société
 function gsociety($dbaccess, $idc) {     
@@ -96,9 +136,9 @@ function members($dbaccess, $groupid, $name="") {
 
   $tr = array();
   while(list($k,$v)=each($tmembersid)) {
-    
-    $tr[] = array($tmembers[$k] ,
-		  $v,$tmembers[$k]);
+    if (($name == "") || (eregi($name,$tmembers[$k])))
+      $tr[] = array($tmembers[$k] ,
+		    $v,$tmembers[$k]);
     
   }
   return $tr;  
