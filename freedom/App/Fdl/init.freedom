@@ -4,15 +4,15 @@ TYPE;C;;;;;;;;;;
 ;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
 ATTR;FR_BASIC;;basique;N;N;frame;0;W;;;
-ATTR;CO_TITLE;FR_BASIC;titre;Y;N;text;1;W;;;
-CO_TITLE;[titre];famille de base;;;;;;;;;
+ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;W;;;
+BA_TITLE;[titre];famille de base;;;;;;;;;
 END;0;-1;;;;;;;;;
 // famille dossier;;;id;class;;;;;;;
 BEGIN;1;[famille];2;Dir;;;;;;;
 TYPE;C;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
-ATTR;CO_DESC;FR_BASIC;description;N;Y;text;;W;;;
-CO_TITLE;[titre];famille dossier;;;;;;;;;
+ATTR;BA_DESC;FR_BASIC;description;N;Y;text;;W;;;
+BA_TITLE;[titre];famille dossier;;;;;;;;;
 END;1;-1;;;;;;;;;
 ;;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre;;;;;;;
@@ -28,7 +28,7 @@ ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;;W;;;
 ATTR;SE_LATEST;SE_CRIT;dernière révision;N;Y;text;;W;;;
 ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;Y;text;;W;;;
 ATTR;SE_CFLD;SE_CRIT;dans le dossier;N;Y;text;;W;;;
-CO_TITLE;[titre];famille recherche;;;;;;;;;
+BA_TITLE;[titre];famille recherche;;;;;;;;;
 END;1;9;;;;;;;;;
 ;;;;;;;;;;;
 //SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;
@@ -41,19 +41,19 @@ SEARCH;14;9;orphelinat;select * from doc where (doctype != 'T') and (locked != -
 BEGIN;1;[famille];3;DocFile
 USEFORPROF;;;;
 TYPE;C;;;
-CO_TITLE;[titre];famille profile de document;;
+BA_TITLE;[titre];famille profile de document;;
 END;1;9;;
 ;;;;
 // famille profile dossier;;;;
 BEGIN;2;[famille];4;Dir
 USEFORPROF;;;;
 TYPE;C;;;
-CO_TITLE;[titre];famille profile de dossier;;
+BA_TITLE;[titre];famille profile de dossier;;
 END;1;9;;
 ;;;;
 // famille profile recherche;;;;
 BEGIN;5;[famille];6;DocSearch
 USEFORPROF;;;;
 TYPE;C;;;
-CO_TITLE;[titre];famille profile de recherche;;
+BA_TITLE;[titre];famille profile de recherche;;
 END;1;9;;
