@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.11 2002/06/14 08:58:34 eric Exp $
+// $Id: editcard.php,v 1.12 2002/07/15 07:03:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,6 +74,7 @@ function editcard(&$action) {
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
 
 
+  $action->lay->Set("classid", $classid);
   $action->lay->Set("ZONEBODYCARD", $zonebodycard);
 }
 ?>

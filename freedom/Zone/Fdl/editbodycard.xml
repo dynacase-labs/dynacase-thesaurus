@@ -8,7 +8,6 @@
 <tr class="FREEDOMBack2" >
   <td  colspan="3" ><span class="FREEDOMTextTitle"> [frametext]</span>
 <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]"></input>
-<INPUT TYPE="hidden" name="classid" value="[classid]"></input>
 <input type="hidden" name="title" value="[TITLE]"></input></td>
 </tr>
 
