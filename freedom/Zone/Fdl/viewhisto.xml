@@ -25,7 +25,7 @@
 <td class="tlist" align="center" >[state]</td>
 <td class="tlist" >  
      [BLOCK [COMMENT]]
-       <B>[cdate]</B> <I>[cauthor]</I><P style="margin-left:20pt;color:[CORE_FGCOLOR]"> [ccomment]</P>
+       <B>[cdate]</B> <I>[cauthor]</I><P style="margin-left:20pt;color:black"> [ccomment]</P>
        [ENDBLOCK [COMMENT]]
 </td>
      <td class="tlist"  ><I>[owner]</I></td>
