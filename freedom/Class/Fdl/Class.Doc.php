@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.11 2002/03/26 16:14:00 eric Exp $
+// $Id: Class.Doc.php,v 1.12 2002/04/05 08:39:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.11 2002/03/26 16:14:00 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.12 2002/04/05 08:39:30 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -818,11 +818,13 @@ create sequence seq_id_doc start 1000";
 	if (is_array($res)) {
 	  reset($res);
 	  while (list($k, $v) = each($res)) {
-	    $ovalue = new DocValue($this->dbaccess, array($this->id, $rargids[$k]));
-	    $ovalue->docid=$this->id;
-	    $ovalue->attrid=$rargids[$k];
-	    $ovalue->value=$v;
-	    $ovalue->modify();
+	    if ($v != "?") {
+	      $ovalue = new DocValue($this->dbaccess, array($this->id, $rargids[$k]));
+	      $ovalue->docid=$this->id;
+	      $ovalue->attrid=$rargids[$k];
+	      $ovalue->value=$v;
+	      $ovalue->modify();
+	    }
 	  }
 	}
       }

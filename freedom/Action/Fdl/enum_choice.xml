@@ -95,9 +95,10 @@ function completechoice(index) {
 
 
     for (i=0; i< tattrid.length; i++) {
+      if (tattrv[index][i] != '?') {
        winfo.document.getElementById(tattrid[i]).value = tattrv[index][i];
        winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
-//       winfo.document.getElementById(tattrid[i]).style.fontWeight='bold';
+      }
     }
 
 }
