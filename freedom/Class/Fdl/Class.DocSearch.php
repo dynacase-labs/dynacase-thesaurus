@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.20 2004/11/26 14:27:48 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.21 2004/12/28 17:03:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,6 +35,8 @@ Class DocSearch extends PDocSearch {
     // insert query in search document
     if (is_array($tquery)) $query=implode(";\n",$tquery);
     else $query=$tquery;
+
+    if ($query == "") return "";
 
     if (substr($query,0,6) != "select") {
       AddWarningMsg(sprintf(_("query [%s] not valid for select document"), $query));
@@ -87,15 +89,8 @@ Class DocSearch extends PDocSearch {
     return $query;
   }
 
-  function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
-    
-    if ($dirid > 0) {
-      if ($subfolder)  $cdirid = getRChildDirId($this->dbaccess, $dirid);
-      else $cdirid=$dirid;
-      
-       
-    } else $cdirid=0;
 
+  function getSqlGeneralFilters($keyword,$latest,$sensitive) {
     $filters=array();
 
     if ($latest == "fixed") {
@@ -115,7 +110,19 @@ Class DocSearch extends PDocSearch {
       if ($sensitive) $filters[] = "values ~ '$keyword' ";
       else $filters[] = "values ~* '$keyword' ";
     }
- 
+    return $filters;
+  }
+
+  function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
+    if ($dirid > 0) {
+      if ($subfolder)  $cdirid = getRChildDirId($this->dbaccess, $dirid);
+      else $cdirid=$dirid;
+      
+       
+    } else $cdirid=0;
+
+    
+    $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive);
   
 
     $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes");
@@ -147,7 +154,7 @@ Class DocSearch extends PDocSearch {
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/edittable.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
-
+  $famid=$this->getValue("se_famid");
   $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id);
 
   $this->lay->set("selfam",_("no family"));

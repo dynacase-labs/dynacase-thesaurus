@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.28 2004/11/26 14:21:11 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.29 2004/12/28 17:03:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -17,20 +17,33 @@
 var $defaultedit= "FREEDOM:EDITDSEARCH";
 var $defaultview= "FREEDOM:VIEWDSEARCH";
 
-var $tfunc=array("~*" => "include",         #N_("include")
-		 "=" => "equal",            #N_("equal")
-		 "!=" => "not equal",       #N_("not equal")
-		 "!~*" => "not include",       #N_("not include")
-		 ">" => "&gt;",       #N_("not equal")
-		 "<" => "&lt;",       #N_("not equal")
-		 ">=" => "&gt; or equal",       #N_("&gt; or equal")
-		 "<=" => "&lt; or equal",   #N_("&lt; or equal")
-		 "is null" => "is empty",   #N_("is empty")
-		 "is not null" => "is not empty");       #N_("is not empty")
+#N_("include")
+#N_("equal")
+#N_("not equal")
+#N_("not include")
+#N_("not equal")
+#N_("&gt; or equal") N_("&lt; or equal")
+#N_("is empty") N_("is not empty")
+
+var $top=array("~*"=>array("label"=>"include"),
+	       "=" => array("label"=>"equal"),            
+	       "!=" => array("label"=>"not equal"),       
+	       "!~*" => array("label"=>"not include"),       
+	       ">" => array("label"=>"&gt;",
+			    "type"=>array("int","float","date","time","timestamp","money")),       
+	       "<" => array("label"=>"&lt;"),       
+	       ">=" => array("label"=>"&gt; or equal"),       
+	       "<=" => array("label"=>"&lt; or equal"),   
+	       "is null" => array("label"=>"is empty"),   
+	       "is not null" => array("label"=>"is not empty"));    
+   
 var $tol=array("and" => "and",              #N_("and")
 	       "or" => "or");               #N_("or")
 
 
+/**
+  * return sql query to search wanted document
+  */
 function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
     
   if ($dirid > 0) {
@@ -40,20 +53,45 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
        
   } else $cdirid=0;;
 
-  $filters=array();
-  // if ($latest)       $filters[] = "locked != -1";
-  $filters[] = "usefor = 'N'";
-  $keyword= str_replace("^","£",$keyword);
-  $keyword= str_replace("$","£",$keyword);
-  if ($keyword != "") {
-    if ($sensitive) $filters[] = "values ~ '$keyword' ";
-    else $filters[] = "values ~* '$keyword' ";
-  }
-  $distinct=false;
-  if ($latest == "fixed") {
-    $filters[] = "locked = -1";
-    $filters[] = "lmodify = 'L'";   
-  }
+
+
+  $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive);
+
+  $cond=$this->getSqlDetailFilter();
+
+  if ($cond != "") $filters[]=$cond;
+
+
+  $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,$distinct,$latest=="yes");
+
+  return $query;
+}
+function getSqlCond($col,$op,$val="") {
+  switch($op) {
+      case "is null":
+	$cond = sprintf(" (%s is null or %s = '') ",$col,$col);
+	break;
+      case "is not null":
+	$cond = " ".$col." ".trim($op)." ";
+	break;
+      case "~*":
+	if ($val != "") $cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
+	break;
+      case "~y":
+	if (count($val) > 0) $cond .= " ".$col." ~ '\\\\\\\\y(".pg_escape_string(implode('|',$val)).")\\\\\\\\y' ";
+	
+	break;
+      default:
+	$cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
+      
+      }
+  return $cond;
+}
+
+/**
+ * return array of sql filter needed to search wanted document
+ */
+function getSqlDetailFilter() {  
 
   $tol = $this->getTValue("SE_OLS");
   $tkey = $this->getTValue("SE_KEYS");
@@ -83,30 +121,11 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
     
     foreach ($tol as $k=>$v) {
       if ($cond == "") $tol[$k]="";;
-      switch($tf[$k]) {
-      case "is null":
-	$cond .= $tol[$k].sprintf(" (%s is null or %s = '') ",$taid[$k],$taid[$k]);
-	break;
-      case "is not null":
-	$cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." ";
-	break;
-      case "~*":
-	if ($tkey[$k] != "") $cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".pg_escape_string(trim($tkey[$k]))."' ";
-	break;
-      default:
-	$cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".pg_escape_string(trim($tkey[$k]))."' ";
-      
-      }
+      $cond.=$tol[$k].$this->getSqlCond($taid[$k],trim($tf[$k]),$tkey[$k])." ";
+
     }
   }
-
-
-  if ($cond != "") $filters[]=$cond;
-
-
-  $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,$distinct,$latest=="yes");
-
-  return $query;
+  return $cond;
 }
 
 /**
@@ -200,7 +219,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
       $tcond[]["condition"]=sprintf("%s %s %s %s",
 				    _($tol[$k]),
 				    $zpi[$taid[$k]]->labelText,
-				    _($this->tfunc[$tf[$k]]),
+				    _($this->top[$tf[$k]]["label"]),
  				    ($tkey[$k]!="")?_($tkey[$k]):$tkey[$k]);
        if ($v[0]=='?') {
  	$tparm[substr($v,1)]=$taid[$k];
@@ -298,9 +317,9 @@ function editdsearch() {
   }
   $this->lay->SetBlockData("ATTR", $tattr);
   
-  while (list($k,$v) = each($this->tfunc)) {
+  while (list($k,$v) = each($this->top)) {
     $tfunc[]=array("funcid"=> $k,
-		   "funcname" => _($v));
+		   "funcname" => _($v["label"]));
   }
   $this->lay->SetBlockData("FUNC", $tfunc);
   $this->lay->SetBlockData("FUNC2", $tfunc);
@@ -391,18 +410,15 @@ function editdsearch() {
       $this->lay->SetBlockData("attrcond$k", $tattr);
 
       $tfunc=array();
-      reset($this->tfunc);
-      while (list($ki,$vi) = each($this->tfunc)) {
+      foreach($this->top as $ki=>$vi) {
 	$tfunc[]=array("func_id"=> $ki,
 		       "func_selected" => ($tf[$k]==$ki)?"selected":"",
-		       "func_name" => _($vi));
+		       "func_name" => _($vi["label"]));
       }
       $this->lay->SetBlockData("funccond$k", $tfunc);
 
       $tols=array();
-      reset($this->tol);
-      while (list($ki,$vi) = each($this->tol)) {
-    
+      foreach($this->tol as $ki=>$vi) {    
 	$tols[]=array("ol_id"=> $ki,
 		      "ol_selected" => ($tol[$k]==$ki)?"selected":"",
 		      "ol_name" => _($vi));
