@@ -50,7 +50,7 @@ function SendSearchId(e,id) {
 <!-- ------------ MENU NEW --------------------- -->
 <div  id="newmenu" class="popup">
 
-<a  id="newdoc" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=1&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Document]</a>
+<a  id="newdoc" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=7&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Document]</a>
 
 <a  id="newfld" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=2&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Folder]</a>
 

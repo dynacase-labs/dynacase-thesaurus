@@ -11,7 +11,7 @@ var docTarget='fdoc';
 
 
 <a href="#" id="newdoc"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&classid=1&dirid=[dirid]',docTarget);closeAllMenu(); return false;"  >[TEXT:new document]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&classid=7&dirid=[dirid]',docTarget);closeAllMenu(); return false;"  >[TEXT:new document]</a>
 
 
 <a href="#" id="newgc"     
