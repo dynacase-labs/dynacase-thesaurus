@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.5 2002/12/10 16:15:19 eric Exp $
+// $Id: Method.DocUser.php,v 1.6 2003/01/13 18:55:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,8 +51,11 @@
      global $action;
      // -----------------------------------
      
-      $priv=$this->GetValue("US_PRIVCARD");
-      switch ($priv) {
+     $this->lay->Set("selectp", "");
+     $this->lay->Set("selectw", "");
+     $this->lay->Set("selectr", "");
+     $priv=$this->GetValue("US_PRIVCARD");
+     switch ($priv) {
       case "P":	
 	$this->lay->Set("selectp", "selected");
       break;
@@ -62,9 +65,9 @@
       case "R":	
 	$this->lay->Set("selectr", "selected");
       break;
-      }
-      if (($action->user->id != $this->owner) && ($this->id > 0)) $this->lay->Set("displaypriv", "none");
-      else $this->lay->Set("displaypriv", "block");
+     }
+     if (($action->user->id == $this->owner) || ($this->id == 0)) 
+       $this->lay->SetBlockData("PRIVATE",array(array("zou")));
    }
   // no in postUpdate method :: call this only if real change (values)
   function PostModify() {
@@ -253,7 +256,7 @@ function SpecRefresh() {
 	      // create attributes to LDAP update
 	      $oattr=$this-> GetAttribute($k);
 	    
-	      $ldapattr = array_search($k,$oldif->import);
+	      $ldapattr = array_search(strtoupper($k),$oldif->import);
 
 	      // particularity for URI need http://
 	      if ($oattr->id == "US_WORKWEB") $lvalue="http://".$lvalue;
