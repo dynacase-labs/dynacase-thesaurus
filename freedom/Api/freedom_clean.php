@@ -14,21 +14,12 @@ if ($dbaccess == "") {
   print "Freedom Database not found : param FREEDOM_DB";
   exit;
 }
-$dbid= pg_connect($dbaccess);
-$res= pg_exec($dbid,"delete from doc where doctype='T'");
-if (!$res) pg_errormessage($dbid);
-$res= pg_exec($dbid,"delete from docvalue where docid not in (select id from doc);");
-if (!$res) pg_errormessage($dbid);
-$res= pg_exec($dbid,"delete from docattr where docid not in (select id from doc); ");
-if (!$res) pg_errormessage($dbid);
 
-$res= pg_exec($dbid,"delete from fld where dirid not in (select id from doc); ");
-if (!$res) pg_errormessage($dbid);
 
-$res= pg_exec($dbid,"delete from fld where childid not in (select id from doc); ");
-if (!$res) pg_errormessage($dbid);
+global $HTTP_SERVER_VARS;
+$dir=dirname($HTTP_SERVER_VARS["argv"][0]);
 
-pg_close($dbid);
-    
+
+system("psql freedom anakeen -f ".$dir."/API/freedom_clean.sql"); 
 
 ?>
