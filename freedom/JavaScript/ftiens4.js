@@ -76,7 +76,7 @@ function initializeFolder(level, lastNode, leftSide)
       //the last child in the children array 
     
 	if (! this.isLoaded)  this.renderOb(leftSide  + "<img onMouseDown='clickOnNode("+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2loadlastnode.gif' width=16 height=22 border=0>");
-	else if (nc > 0)  this.renderOb(leftSide  + "<img onMouseDown='clickOnNode("+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mlastnode.gif' width=16 height=22 border=0>");
+	else if (nc > 0)      this.renderOb(leftSide  + "<img onMouseDown='clickOnNode("+this.id+");return false' name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2mlastnode.gif' width=16 height=22 border=0>");
 	else this.renderOb(leftSide +   "<img name='nodeIcon" + this.id + "' id='nodeIcon" + this.id + "' src='FREEDOM/Images/ftv2lastnode.gif' width=16 height=22 border=0>");
 
       leftSide = leftSide + "<img src='FREEDOM/Images/ftv2blank.gif' width=16 height=22>"  
@@ -178,7 +178,7 @@ function drawFolder(leftSide)
 
       doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) parent.info.location.href='"+actionviewfile+"&dirid="+this.refid+"'}\"") 
       doc.write("onMouseOver=\"if (drag == 1) clickOnFolder("+this.id+")\"") 
-      doc.write("onContextMenu=\"this.isLoaded=false;openMenu(event,'popfld',"+this.id+");return false\"") 
+      doc.write("onContextMenu=\"openMenu(event,'popfld',"+this.id+");return false\"") 
 
       doc.write("onMouseUp=\"if (drag == 1) {dirid="+this.refid+";selid="+this.id+";openMenu(event,'poppaste',"+this.id+")};return false;\"") 
 	} else {
