@@ -66,6 +66,7 @@
   
 <a  id="vlist" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_LIST&dirid='+parent.ffolder.dirid;closeAllMenu()">[TEXT:list]</a>
 <a  id="vicon" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ICONS&dirid='+parent.ffolder.dirid;closeAllMenu()">[TEXT:icon]</a>
+<a  id="vcol" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_COLUMN&dirid='+parent.ffolder.dirid;closeAllMenu()">[TEXT:column]</a>
 </div>
 
 <!-- ------------ MENU HELP --------------------- -->

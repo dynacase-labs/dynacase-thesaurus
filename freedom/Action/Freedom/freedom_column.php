@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_view.php,v 1.3 2002/08/22 07:00:27 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_view.php,v $
+// $Id: freedom_column.php,v 1.1 2002/08/22 07:00:27 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_column.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,42 +23,20 @@
 // ---------------------------------------------------------------
 
 
-include_once('FDL/viewfolder.php');
+include_once('FREEDOM/freedom_view.php');
 
 
 
 // -----------------------------------
 // -----------------------------------
-function freedom_view(&$action) {
-  // -----------------------------------
-  // redirect layout icon if needed
-      
-  $prefview = $action->Read("freedom_view","list");
-  
-  switch ($prefview) {
-  case "list":
-    $action->layout = $action->GetLayoutFile("freedom_list.xml");
-    $action->lay = new Layout($action->layout,$action);
-  viewfolder($action, false);
-  break;
-  case "icon":
-    $action->layout = $action->GetLayoutFile("freedom_icons.xml");
-    $action->lay = new Layout($action->layout,$action);
-  viewfolder($action, false);
-  break;
-  case "column":
-    $action->layout = $action->GetLayoutFile("freedom_column.xml");
-    $action->lay = new Layout($action->layout,$action);
+function freedom_column(&$action) {
+// -----------------------------------
+  // Set the globals elements
+
+  $action->Register("freedom_view","column");
   viewfolder($action, true);
-  break;
-    
-  }
   
-  
+
+
 }
-
-
-
-
-
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.17 2002/08/20 15:24:15 eric Exp $
+// $Id: viewfolder.php,v 1.18 2002/08/22 07:00:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,7 +43,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $refresh=GetHttpVars("refresh","no"); // force folder refresh
   $startpage=GetHttpVars("page","0"); // page number
 
-
+  $column = ($action->Read("freedom_view","list")=="column");
 
   // Set the globals elements
 
@@ -92,30 +92,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     } else $start=0;
 
 
-  $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id);
+  $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"LIST",$with_abstract);
 
 
   
-  
-
-
-
-
-  
-  $bdattr = new DocAttr($dbaccess);
-
-  
-
-
-
-  
-  if ($with_abstract) {
-    // ------------------------------------------------------
-    // construction of SQL condition to find abstract attributes
-    $abstractTable = $bdattr->GetAbstractIds();
-    $sql_cond_abs = GetSqlCond($abstractTable,"attrid");
-    $query_val = new QueryDb($dbaccess,"DocValue");
-  }
 
 
 
@@ -146,6 +126,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   }
       
     $nbdoc=0;
+  $prevFromId = -2;
+
+  if ($column) usort($ldoc,"orderbyfromid");
+
     while((list($k,$doc) = each($ldoc)) )
       {
 	$nbseedoc++;
@@ -159,8 +143,6 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	$docid=$doc->id;
 
 	$tdoc[$k]["id"] = $docid;
-	if ($with_abstract)
-	  $tdoc[$k]["blockabstract"]="abstract_$k";
 	// search title for freedom item
 
 
@@ -223,49 +205,84 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	if ($doc->classname == 'Dir') $tdoc[$k]["isfld"]= "true";
 	else $tdoc[$k]["isfld"]= "false";
 	
+	
+	  // ----------------------------------------------------------
+	  //                 ABSTRACT MODE
+	  // ----------------------------------------------------------
 	if ($with_abstract) {
-	  // search abstract for freedom item
+	  // search abstract attribute for freedom item
 
-	  $query_val->basic_elem->sup_where=array ("(docid=$docid)",
-						   $sql_cond_abs);
+	  $tdoc[$k]["blockabstract"]="abstract_$k";
+	  if ($doc->fromid != $prevFromId) {
+	    $adoc = $doc;
+	    if ($column) {
+	      if (count($tdoc) > 1) {
+		$doct = $tdoc[$k];
+		array_pop($tdoc);
+		$action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
+		//		print_r2($tdoc);
+		$tdoc=array();
+		$tdoc[0]=$doct;
+	      }
 
-
-	  $tablevalue = $query_val->Query();
+	      $tfamdoc[] = array("blockfam"=>"BFAM".$doc->fromid,
+				 "blockattr" => "BATT".$doc->fromid,
+				 "blockvalue" => "BVAL".$doc->fromid);
+	      $action->lay->SetBlockData("BFAM".$doc->fromid,
+					 array(array("iconsrc"=>$tdoc[0]["iconsrc"])));
+	      $lattr=$adoc->GetAbstractAttributes();
+	      $taname=array();
+	      $emptytableabstract=array();
+	      while (list($ka,$attr) = each($lattr))  {	
+		$emptytableabstract[$attr->id]["value"]="-";
+		$taname[$attr->id]["aname"]=_($attr->labeltext);
+	      }
+	      $action->lay->SetBlockData("BATT".$doc->fromid,$taname);
+	      
+	    }
+	  }
+	  $prevFromId=$doc->fromid;
 
  
 	  // Set the table elements
-	  $tableabstract= array();
-	  $nbabs=0; // nb abstract
-	  for ($i=0; $i < $query_val->nb; $i++)
-	    {
-	
-	      $lvalue = chop($tablevalue[$i]->value);
+	  if ($column) $tableabstract=$emptytableabstract;
+	  else $tableabstract= array();
 
-	      if ($lvalue != "")
-		{
-		  $oattr=$doc->GetAttribute($tablevalue[$i]->attrid);
 
-		   $tdoc[$k][$tablevalue[$i]->attrid]= $lvalue;
 
-		  $tableabstract[$nbabs]["name"]=$action->text($oattr->labeltext);
-		  $tableabstract[$nbabs]["valid"]=$tablevalue[$i]->attrid;
-		  switch ($oattr->type)
-		    {
-	      	    case "image": 
+	  $doc->getValues();
+	  while (list($attrid,$value) = each($doc->values))  {	
+	    $lvalue = chop($value);
+
+
+	    if ($lvalue != "") {
+	      $oattr=$adoc->GetAttribute($attrid);
+
+
+	      if ($oattr->abstract == "Y") {
+		$tdoc[$k][$attrid]= $lvalue;
+		$tableabstract[$attrid]["name"]=_($oattr->labeltext);
+		$tableabstract[$attrid]["valid"]=$attrid;
+
+
+		switch ($oattr->type)  {
+		case "image": 
 		    
-		      $efile=$doc->GetHtmlValue($oattr,$lvalue,"finfo");
+		  $efile=$doc->GetHtmlValue($oattr,$lvalue,"finfo");
 
-		    $tableabstract[$nbabs]["value"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"".$efile. "\">";
-		    break;
+		$tableabstract[$attrid]["value"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"".$efile. "\">";
+		break;
 		    
-		    default : 
-		      $tableabstract[$nbabs]["value"]=$doc->GetHtmlValue($oattr,$lvalue,"finfo");
-		    break;
+		default : 
+		  $tableabstract[$attrid]["value"]=$doc->GetHtmlValue($oattr,$lvalue,"finfo");
 		
-		    }
-		  $nbabs++;
+		break;
+		
 		}
+		$attrid++;
+	      }
 	    }
+	  }
 	  $action->lay->SetBlockData("abstract_$k",$tableabstract);
 
 	  unset($tableabstract);
@@ -280,7 +297,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $action->lay->SetBlockData("VIEWPROP",$tboo);
 
   $action->lay->Set("nbdiv",$kdiv-1);
-  $action->lay->SetBlockData("TABLEBODY", $tdoc);
+  if ($column){
+    $action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
+    $action->lay->SetBlockData("TABLEBODY", $tfamdoc);
+  } else  $action->lay->SetBlockData("TABLEBODY", $tdoc);
 
   if ($with_popup) {
     // display popup js
@@ -299,7 +319,19 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $action->lay->Set("prev",$startpage-1);
 
   $action->lay->Set("nbdoc",$nbdoc);
+
+
+
+  
   return $nbdoc;
+}
+
+function orderbyfromid($a, $b) {
+  
+    if ($a->fromid == $b->fromid) return 0;
+    if ($a->fromid > $b->fromid) return 1;
+  
+  return -1;
 }
 
 

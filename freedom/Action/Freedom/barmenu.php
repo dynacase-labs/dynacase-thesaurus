@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.2 2002/08/05 16:11:12 marc Exp $
+// $Id: barmenu.php,v 1.3 2002/08/22 07:00:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function barmenu(&$action) {
 
 
 
-  popupInit("viewmenu",	array('vlist','vicon'));
+  popupInit("viewmenu",	array('vlist','vicon','vcol'));
   popupInit("helpmenu", array('help'));
 
 
@@ -54,6 +54,7 @@ function barmenu(&$action) {
     else popupInvisible("searchmenu",1,'newsearchfulltext');
     popupActive("viewmenu",1,'vlist');
     popupActive("viewmenu",1,'vicon');
+    popupActive("viewmenu",1,'vcol');
     popupActive("helpmenu",1,'help');
 
 
