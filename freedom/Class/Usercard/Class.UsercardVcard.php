@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.3 2002/02/22 15:34:54 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.4 2002/03/06 17:20:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once('./CONTACTS/Class.ContactImport.php');
+
 
 Class UsercardVcard 
 {
@@ -41,6 +41,7 @@ Class UsercardVcard
 		      "TZ" => "",
 		      "GEO" => "",
 		      "URL" => "215",
+		      "URL;WORK" => "215",
 		      "PUBKEY" => "",
 		      "ORG" => "211",
 		      "ORG;NAME" => "211",
