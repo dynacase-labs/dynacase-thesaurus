@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.8 2002/12/07 16:00:11 eric Exp $
+// $Id: FDL.app,v 1.9 2003/01/15 11:43:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -99,6 +99,11 @@ $action_desc = array (
   array( 
    "name"		=>"VIEWSCARD",
    "short_name"		=>N_("view standalone card"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"WORKFLOW_INIT",
+   "short_name"		=>N_("init workflow profile attributes"),
    "acl"		=>"NORMAL"
   ) 
                       );	
