@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.5 2002/11/04 17:56:17 eric Exp $
+// $Id: editframe.php,v 1.6 2003/01/17 10:31:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,7 +92,11 @@ function editframe(&$action) {
 
   $action->lay->setBlockData("FVALUES",$tval);
   $action->lay->setBlockData("FHIDDENS",$thval);
-  if (count($tval) == 0) $action->lay->set("flabel",""); //dont'see frame label is no one value
+  if (count($tval) > 0) {
+    
+    $action->lay->setBlockData("FRAME",array(array("bou")));
+
+  }
     
   
 }
