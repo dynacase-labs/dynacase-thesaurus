@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.2 2002/07/29 13:34:01 eric Exp $
+// $Id: mailcard.php,v 1.3 2002/07/30 12:35:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function mailcard(&$action) {
   $to = GetHttpVars("_MAIL_TO",'eric.brison@i-cesam.com');
   $cc = GetHttpVars("_MAIL_CC","");
   $comment = GetHttpVars("_MAIL_CM","");
-
+  $bcc ="";
   $subject = GetHttpVars("_MAIL_SUBJECT");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -51,11 +51,13 @@ function mailcard(&$action) {
     if ($ma->isAffected()) {
       $dom = new Domain("",$ma->iddomain);
       $from = $ma->login."@".$dom->name;
+      if ($action->getParam("FDL_BCC") == "yes") $bcc="\n$from";
     } else {
       $from = $action->user->login;
     }
   }
 
+  
 
   $docmail = new Layout($action->GetLayoutFile("maildoc.xml"),$action);
 
@@ -71,13 +73,13 @@ function mailcard(&$action) {
  		      $sgen);
 
 
-  $pfout = "/tmp/".str_replace(" ", "_",$doc->title);
+  $pfout = "/tmp/".str_replace(array(" ","/"), "_",$doc->title);
   $fout = fopen($pfout,"w");
   fwrite($fout,$sgen);
   fclose($fout);
 
   if ($subject == "") $subject = $doc->title;
-  $cmd = ("metasend  -b -S 4000000 -c '$cc' -F '$from' -t '$to'   -m 'text/html' ".
+  $cmd = ("metasend  -b -S 4000000 -c '$cc' -F '$from' -t '$to$bcc'   -m 'text/html' ".
 	 "-s '$subject' -e 'quoted-printable' -i mailcard -f '$pfout' ");
   $cmd .= " -/ related ";
 
@@ -131,7 +133,7 @@ function mailcard(&$action) {
   if ($status == 0)  $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $to));
   else $action->addlogmsg(sprintf(_("%s cannot be sent"),$doc->title));
   
-  
+  unlink($pfout);
 
   //
 
