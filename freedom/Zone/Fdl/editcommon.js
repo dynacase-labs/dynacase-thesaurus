@@ -201,7 +201,7 @@ function canmodify() {
       e=document.getElementById(attrNid[i]);
 	if (e) {
 	  v=getIValue(document.getElementById(attrNid[i]));
-	  if (v == false) {
+	  if (v === false) {
 	    ta = document.getElementsByName('_'+attrNid[i]+'[]');
 	    if (ta.length == 0)	err += ' - '+attrNtitle[i]+'\n';
 	    for (var j=0; j< ta.length; j++) {
