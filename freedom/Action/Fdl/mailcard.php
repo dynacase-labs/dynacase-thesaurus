@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.26 2003/04/18 10:29:10 eric Exp $
+// $Id: mailcard.php,v 1.27 2003/05/15 09:11:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -138,13 +138,8 @@ function sendCard(&$action,
        
     } else {
       // contruct HTML mail
-      if ($action->parent->name == "FDL")
-	$docmail = new Layout($action->GetLayoutFile($layout),$action);
-      else {
-	$appl = new Application();
-	$appl->Set("FDL",	     $action->parent);
-	$docmail = new Layout($appl->GetLayoutFile($layout),$action);
-      }
+      
+      $docmail = new Layout(getLayoutFile("FDL",$layout),$action);
 
       $docmail->Set("TITLE", $title);
       $docmail->Set("zone", $zonebodycard);
@@ -166,35 +161,31 @@ function sendCard(&$action,
     fclose($fout);
   }
 
-  if (ereg("pdf",$format, $reg)) {
-    // ---------------------------
-    // contruct PDF mail
-    if ($szone) {
-      $sgen = $doc->viewDoc($zonebodycard,"_self",false);
-    } else {
-    if ($action->parent->name == "FDL")
-      $docmail2 = new Layout($action->GetLayoutFile($layout),$action);
-    else {
-      $appl = new Application();
-      $appl->Set("FDL",	     $action->parent);
-      $docmail2 = new Layout($appl->GetLayoutFile($layout),$action);
-    }
+    if (ereg("pdf",$format, $reg)) {
+      // ---------------------------
+      // contruct PDF mail
+      if ($szone) {
+	$sgen = $doc->viewDoc($zonebodycard,"_self",false);
+      } else {
+    
+    
+	$docmail2 = new Layout(getLayoutFile("FDL",$layout),$action);
 
 
-    $docmail2->Set("zone", $zonebodycard);
-    $docmail2->Set("TITLE", $title);
+	$docmail2->Set("zone", $zonebodycard);
+	$docmail2->Set("TITLE", $title);
   
-    $sgen = $docmail2->gen();
-    }
-    $sgen = preg_replace("/cid:([^\"]+)\"/e",
-			 "realfile('\\1')",
-			 $sgen);
+	$sgen = $docmail2->gen();
+      }
+      $sgen = preg_replace("/cid:([^\"]+)\"/e",
+			   "realfile('\\1')",
+			   $sgen);
 
-    $phtml = uniqid("/tmp/$title").".html";
-    $fout = fopen($phtml,"w");
-    fwrite($fout,$sgen);
-    fclose($fout);
-  }
+      $phtml = uniqid("/tmp/$title").".html";
+      $fout = fopen($phtml,"w");
+      fwrite($fout,$sgen);
+      fclose($fout);
+    }
 
   // ---------------------------
   // contruct metasend command
@@ -251,12 +242,17 @@ function sendCard(&$action,
 		 "-i '<icon>'  -f '".$info->path."'";
 	   
 	    }
+	  } else {
+	    $icon=$doc->getIcon();
+	    if (file_exists($pubdir."/$icon"))
+	      $cmd .= " -n -e 'base64' -m 'image/".fileextension($icon)."' ".
+		"-i '<icon>'  -f '".$pubdir."/$icon"."'";
 	  }
 	}
       }
     }
   
-    $ifiles[]=$doc->icon;
+    
     while(list($k,$v) = each($ifiles)) {
 
       if (file_exists($pubdir."/$v"))

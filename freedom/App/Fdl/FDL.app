@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.13 2003/04/23 10:00:48 eric Exp $
+// $Id: FDL.app,v 1.14 2003/05/15 09:11:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -39,7 +39,7 @@ $app_acl = array (
   array(
    "name"		=>"EDIT",
    "description"	=>N_("Access to edit action"),
-   "group_default"       =>"N"),
+   "group_default"       =>"Y"),
   array(
    "name"		=>"EXPORT",
    "description"	=>N_("For export functions"),
