@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.66 2002/11/13 15:49:36 eric Exp $
+// $Id: Class.Doc.php,v 1.67 2002/11/14 10:43:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.66 2002/11/13 15:49:36 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.67 2002/11/14 10:43:22 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -217,8 +217,8 @@ create unique index i_docir on doc(initid, revision);";
       }
       
       if ($this->locked == -1) $this->lmodify='N';
+      $this->RefreshTitle();
       if ($this->hasChanged) {
-	$this->RefreshTitle();
 	if (chop($this->title) == "") $this->title =_("untitle document");
 	// set modification date
 	$date = gettimeofday();
@@ -694,7 +694,6 @@ create unique index i_docir on doc(initid, revision);";
 	$title1.= $this->GetValue($v->id)." ";
       }
     }
-
     if (chop($title1) != "")  $this->title = chop($title1);
 
   }
@@ -702,6 +701,7 @@ create unique index i_docir on doc(initid, revision);";
   // no in postUpdate method :: call this only if real change (values)
   function PostModify() {
     // to be defined in child class
+    return "";
   }
 
   // optimize for speed 
@@ -1107,8 +1107,9 @@ create unique index i_docir on doc(initid, revision);";
   function Control ($aclname) {
     // -------------------------------------------------------------------- 
     if (($this->IsAffected()) ) {	
-      if ($this->profid <= 0) return ""; // no profil
       
+      if (($this->profid <= 0) || ($this->userid == 1 )) return ""; // no profil or admin
+
       return $this->controlId($this->profid,$aclname);
     }
 
@@ -1337,12 +1338,25 @@ create trigger UV{$this->fromid}_$v AFTER INSERT OR UPDATE ON doc$this->fromid F
       
        if (($value != "") && ($listattr[$i]->visibility != "H"))   {
 		
-	 // print values
-	 $tableframe[]=array("name"=>$attr->labelText,
-			     "aid"=>$attr->id,
-			     "value"=>$this->GetHtmlValue($listattr[$i],$value,$target,$ulink));
+	 switch ($attr->type)
+	   {
+	   case "image": 
+		  
+	     $img = "<IMG align=\"absbottom\" height=\"30px\" SRC=\"".
+	       $this->GetHtmlValue($listattr[$i],$value,$target,$ulink).
+	       "\">";
+	     $tableframe[]=array("name"=>$attr->labelText,
+				 "aid"=>$attr->id,
+				 "value"=>$img);
+	     break;
+	   default : 
+	     // print values
+	     $tableframe[]=array("name"=>$attr->labelText,
+				 "aid"=>$attr->id,
+				 "value"=>$this->GetHtmlValue($listattr[$i],$value,$target,$ulink));
 	
-
+	     break;
+	   }
 	      
       
        }
@@ -1635,6 +1649,22 @@ create trigger UV{$this->fromid}_$v AFTER INSERT OR UPDATE ON doc$this->fromid F
      }
   
    }
+
+
+
+function vault_filename($attrid) {
+
+  $fileid= $this->getValue($attrid);
+  $fname="";
+  if (ereg ("(.*)\|(.*)", $fileid, $reg)) {	 
+    // reg[1] is mime type
+      $vf = new VaultFile($this->dbaccess, "FREEDOM");
+    if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+    
+  } 
+
+  return $fname;
+}
 }
 
 ?>

@@ -1,7 +1,7 @@
-<?php
+
 // ---------------------------------------------------------------
-// $Id: viewfilecard.php,v 1.4 2002/09/02 16:32:25 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewfilecard.php,v $
+// $Id: Method.DocFile.php,v 1.1 2002/11/14 10:43:22 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Method.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -22,80 +22,33 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FDL/Class.Doc.php");
-include_once("FDL/Class.DocAttr.php");
-include_once("FDL/Class.DocValue.php");
 
-include_once("Class.TableLayout.php");
-include_once("Class.QueryDb.php");
-include_once("Class.QueryGen.php");
-include_once("FDL/freedom_util.php");
-include_once("VAULT/Class.VaultFile.php");
+
+  
+  
+var $defaultview= "FDL:VIEWFILECARD";
+		     
 
 // -----------------------------------
-// -----------------------------------
-function viewfilecard(&$action) {
+function viewfilecard($target="_self",$ulink=true,$abstract=false) {
   // -----------------------------------
-
-  // GetAllParameters
-  $docid = GetHttpVars("id");
-  $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
-  $props = (GetHttpVars("props",'Y') == "Y"); // view doc properties
-  $target = GetHttpVars("target","_self");
-  $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
-
-
-  // Set the globals elements
-
-  $baseurl=$action->GetParam("CORE_BASEURL");
-  $standurl=$action->GetParam("CORE_STANDURL");
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-
-
-
-  
-
-  $doc = new Doc($dbaccess, $docid);
-
-
-
-  
-
-
-
-  
-
-  if ($props) {
-    $action->lay->SetBlockData("PROP",array(array("boo"=>1)));
-  }
-  if ($abstract){
-    // only 3 properties for abstract mode
-    $listattr = $doc->GetAbstractAttributes();
-  } else {
-    $listattr = $doc->GetNormalAttributes();
-    
-  }
-    
-
-  $nattr = count($listattr); // attributes list count
-
-
 
 
   $nbimg=0;// number of image
 
 
+  $listattr = $this->GetNormalAttributes();
 
 
   $tableimage=array();
-  $vf = new VaultFile($dbaccess, "FREEDOM");
+  $vf = new VaultFile($this->dbaccess, "FREEDOM");
 
   // view all (and only) images
 
   while (list($i,$attr) = each($listattr)) {
 
    
-    $value = chop($doc->GetValue($i));
+    $value = chop($this->GetValue($i));
 
     //------------------------------
     // Set the table value elements
@@ -108,7 +61,7 @@ function viewfilecard(&$action) {
 	      
       case "file": 
 		  
-	$tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($attr,$value,$target,$ulink);
+	$tableimage[$nbimg]["imgsrc"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
       if (ereg ("(.*)\|(.*)", $value, $reg)) {		 
 	// reg[1] is mime type
 	$tableimage[$nbimg]["type"]=$reg[1];
@@ -135,14 +88,12 @@ function viewfilecard(&$action) {
   // Out
 
 
-  $action->lay->SetBlockData("TABLEFILE",	 $tableimage);
-
-  
-
-
-
+  $this->lay->SetBlockData("TABLEFILE",	 $tableimage);
 
 }
 
 
-?>
+function PostModify() {
+  $this->SetValue("FI_TITLE",$this->vault_filename("FI_FILE"));
+  $this->modify();
+}

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.2 2002/11/13 15:49:36 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.3 2002/11/14 10:43:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.2 2002/11/13 15:49:36 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.3 2002/11/14 10:43:22 eric Exp $';
 
 
 
@@ -130,7 +130,6 @@ Class DocCtrl extends DbObj
 
       if ($perm -> IsAffected()) $this->uperm = $perm->uperm;
       else $this->uperm = $perm->getUperm($docid,$this->userid);
-      //    print "$docid,$aclname:".$this->uperm."<BR>";
             
     }
     if (isset($this->dacls[$aclname])) {
@@ -141,22 +140,22 @@ Class DocCtrl extends DbObj
   }
 
 
-  // --------------------------------------------------------------------
-  function ControlUserId ($userid,$aclname) {
-    // --------------------------------------------------------------------     
+//   // --------------------------------------------------------------------
+//   function ControlUserId ($userid,$aclname) {
+//     // --------------------------------------------------------------------     
         
-    if (isset($this->dacls[$aclname])) {
+//     if (isset($this->dacls[$aclname])) {
       
-      $perm = new DocPerm($this->dbaccess, array($this->id,$userid));
+//       $perm = new DocPerm($this->dbaccess, array($this->id,$userid));
 
-      if ($perm -> IsAffected()) $uperm = $perm->uperm;
-      else $uperm = $perm->getUperm($this->id,$userid);
+//       if ($perm -> IsAffected()) $uperm = $perm->uperm;
+//       else $uperm = $perm->getUperm($this->id,$userid);
       
-      return (($uperm & (1 << ($this->dacls[$aclname]["pos"] ))) != 0)?"":sprintf(_("no privilege %s"),$aclname);
-    } else {
-      return sprintf(_("unknow privilege %s"),$aclname);
-    }
-  }
+//       return (($uperm & (1 << ($this->dacls[$aclname]["pos"] ))) != 0)?"":sprintf(_("no privilege %s"),$aclname);
+//     } else {
+//       return sprintf(_("unknow privilege %s"),$aclname);
+//     }
+//   }
 
 
 }

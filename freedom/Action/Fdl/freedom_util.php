@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.20 2002/11/06 15:59:27 eric Exp $
+// $Id: freedom_util.php,v 1.21 2002/11/14 10:43:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -165,7 +165,7 @@ function createDoc($dbaccess,$fromid) {
     return ($doc);
     
   }
-  return newDoc($dbaccess);
+  return new Doc($dbaccess);
 
 }
 

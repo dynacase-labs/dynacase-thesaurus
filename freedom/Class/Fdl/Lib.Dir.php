@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.34 2002/11/13 15:49:36 eric Exp $
+// $Id: Lib.Dir.php,v 1.35 2002/11/14 10:43:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -116,22 +116,42 @@ function getSqlSearchDoc($dbaccess,
       if (is_array($dirid)) {
 	$sqlfld=GetSqlCond($dirid,"dirid",true);
       } else {
-	$sqlfld = "fld.dirid=$dirid";
+	$sqlfld = "fld.dirid=$dirid and qtype='S'";
       }
       
+//       $qsql= "select $selectfields ".
+// 	"from $only $table RIGHT OUTER JOIN fld on ($sqlfld and initid=fld.childid)  ".
+// 	"where $sqlcond ";
+
+      
+//       $qsql= "select $selectfields ".
+// 	"from $only $table RIGHT OUTER JOIN fld on (initid=fld.childid)  ".
+// 	"where $sqlcond and $sqlfld";
+
+      
+
+//       $qsql= "select $selectfields ".
+// 	"from $only $table, fld  ".
+// 	"where  $sqlcond ".
+// 	"and $sqlfld ".
+// 	"and (fld.qtype='S' and fld.childid=initid )  ";
+
       $qsql= "select $selectfields ".
-	"from $only $table RIGHT OUTER JOIN fld on (initid=fld.childid)  ".
-	"where $sqlcond ".
-	"and $sqlfld ";
-      
-      
+	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
+	"where $sqlcond ";
+
+//       $qsql= "select $selectfields ".
+// 	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
+// 	"where $sqlcond ";
+
+
     } else {
       //-------------------------------------------
       // search familly
       //-------------------------------------------
       $docsearch = new QueryDb($dbaccess,"QueryDir");
       $docsearch ->AddQuery("dirid=$dirid");
-      $docsearch ->AddQuery("qtype!='S'");
+      $docsearch ->AddQuery("qtype != 'S'");
       $ldocsearch = $docsearch ->Query(0,0,"TABLE");
       
       
@@ -156,6 +176,23 @@ function getSqlSearchDoc($dbaccess,
   }
   return $qsql;
 }
+   function microtime_diff($a,$b) {
+    list($a_micro, $a_int)=explode(' ',$a);
+     list($b_micro, $b_int)=explode(' ',$b);
+     if ($a_int>$b_int) {
+        return ($a_int-$b_int)+($a_micro-$b_micro);
+     } elseif ($a_int==$b_int) {
+        if ($a_micro>$b_micro) {
+          return ($a_int-$b_int)+($a_micro-$b_micro);
+        } elseif ($a_micro<$b_micro) {
+           return ($b_int-$a_int)+($b_micro-$a_micro);
+        } else {
+          return 0;
+        }
+     } else { // $a_int<$b_int
+        return ($b_int-$a_int)+($b_micro-$a_micro);
+     }
+  }
 function getChildDoc($dbaccess, 
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
@@ -169,7 +206,7 @@ function getChildDoc($dbaccess,
   if ($userid > 1) { // control view privilege
      $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
     // and get permission
-    if ($qtype == "LIST") $qsql = str_replace(" from "," ,getuperm($userid,profid) as uperm from ",$qsql);
+    if ($qtype == "LIST") $qsql = str_replace("* from ","* ,getuperm($userid,profid) as uperm from ",$qsql);
   }
 
 
@@ -181,11 +218,15 @@ function getChildDoc($dbaccess,
    
   $query = new QueryDb($dbaccess,"Doc$fromid");
   
-  
+  $mb=microtime();
+
   $tableq=$query->Query(0,0,$qtype,$qsql);
+ 
   
-  print "<HR>".$query->LastQuery;
+  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
   
+
+
   if ($query->nb == 0)
     {
       return array();

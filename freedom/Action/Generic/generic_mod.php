@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.10 2002/09/19 13:45:10 eric Exp $
+// $Id: generic_mod.php,v 1.11 2002/11/14 10:43:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,9 +69,6 @@ function generic_mod(&$action) {
     
   } 
 
-  
-  $err = $doc->PostModify(); 
-  if ($err != "")  $action-> ExitError($err);
   
   $action->register("reload$ndocid","Y");// to reload cached client file
   redirect($action,GetHttpVars("redirect_app",GetHttpVars("app")),

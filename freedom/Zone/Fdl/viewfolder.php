@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.25 2002/11/13 15:49:36 eric Exp $
+// $Id: viewfolder.php,v 1.26 2002/11/14 10:43:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -98,7 +98,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     } else $start=0;
 
 
-  $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"LIST",$famid);
+  $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid);
 
   
   
@@ -139,8 +139,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     $tfamdoc=array();
   }
 
-  while((list($k,$doc) = each($ldoc)) )
+  $doc = createDoc($dbaccess,$famid);
+  while((list($k,$zdoc) = each($ldoc)) )
       {
+	$doc->Affect($zdoc);
 	$nbseedoc++;
 
 	// view control
