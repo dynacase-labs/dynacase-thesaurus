@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.20 2003/03/26 10:46:16 eric Exp $
+// $Id: editutil.php,v 1.21 2003/03/26 17:19:20 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -199,7 +199,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     //같같같같같같같같같같같같같같같같같같같같
 			
     case "date": 
-      $input="<input class=\"autoresize\" type=\"text\"  name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
+      $input="<input size=10 type=\"text\"  name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
     $input .= " id=\"".$attrid."\" "; 
 
     if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
