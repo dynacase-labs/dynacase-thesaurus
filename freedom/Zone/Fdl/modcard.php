@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.70 2005/02/18 07:46:00 eric Exp $
+ * @version $Id: modcard.php,v 1.71 2005/02/18 15:41:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -177,6 +177,9 @@ function modcard(&$action, &$ndocid) {
 	}
 	$ndocid = $doc->id;
       }
+    } else {
+      // just quick save
+      if ($err=="") {$err.=$doc-> Modify();  }
     }
   }
 
