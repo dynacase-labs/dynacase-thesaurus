@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.5 2002/11/28 18:19:21 eric Exp $
+// $Id: Lib.Attr.php,v 1.6 2002/12/16 11:46:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -104,6 +104,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 			   "elink"=>$v->elink,
 			   "phpfile"=>$v->phpfile,
 			   "phpfunc"=>$v->phpfunc);
+
 	$tattr[] = array("attrid"=>strtolower($v->id));	 
 	$attrids[] = strtolower($v->id)." text";    
 	break;

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.9 2002/11/04 09:13:16 eric Exp $
+// $Id: enum_choice.php,v 1.10 2002/12/16 11:46:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -81,6 +81,7 @@ function enum_choice(&$action) {
      while (list($k2, $v2) = each($v)) {
        // not for the title
        if ($k2>0) $res[$k][$k2]=addslashes(str_replace("\r","",str_replace("\n","\\n",$v2))); // because JS array 
+       else $res[$k][$k2]=substr($res[$k][$k2],0,$action->getParam("ENUM_TITLE_SIZE",40));
      }
    }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.8 2002/12/13 11:19:40 eric Exp $
+// $Id: FDL_init.php.in,v 1.9 2002/12/16 11:46:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,6 +29,10 @@ $app_const= array(
   "VERSION" => "@VERSION@-@RELEASE@",
   "FREEDOM_DB" => array("val"=>"host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
 			"descr"=>N_("freedom database")),
+  "ENUM_TITLE_SIZE" => array("val"=>"40",
+			     "user"=>"Y",
+			     "global"=>"Y",
+			     "descr"=>N_("string limit for popup enum")),
   "FDL_BCC"    =>array("val"=>"no",
 		       "descr"=>N_("send mail copy"),
 		       "user"=>"Y",

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.26 2002/12/07 16:00:11 eric Exp $
+// $Id: viewcard.php,v 1.27 2002/12/16 11:46:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -133,7 +133,6 @@ function viewcard(&$action) {
       
   }
   $action->lay->Set("profid", abs($doc->profid));
-  $action->lay->Set("iconalt","icon");
   
   if (($target=="mail") && ($doc->icon != "")) $action->lay->Set("iconsrc", "cid:icon");
   else $action->lay->Set("iconsrc", $doc->geticon());

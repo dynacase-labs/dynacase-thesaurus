@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.75 2002/12/13 11:19:40 eric Exp $
+// $Id: Class.Doc.php,v 1.76 2002/12/16 11:46:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.75 2002/12/13 11:19:40 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.76 2002/12/16 11:46:57 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -986,8 +986,9 @@ create unique index i_docir on doc(initid, revision);";
     $dbaccess = $action->GetParam("FREEDOM_DB");
     $urllink="";
     for ($i=0; $i < strlen($link); $i++) {
-      if ($link[$i] != "%") $urllink.=$link[$i];
-      else {
+      switch ($link[$i]) {
+      
+      case '%' :
 	$i++;
 	if ($link[$i+1] == "%") { 
 	  // special link
@@ -1025,9 +1026,30 @@ create unique index i_docir on doc(initid, revision);";
 	  
 	  
 	}
+	break;
+
+      case '{' :
+	$i++;
+
+	  
+	$sattrid="";
+	  while ($link[$i] != '}' ) {
+	    $sattrid.= $link[$i];
+	    $i++;
+	  }
+	  //	  print "attr=$sattrid";
+	  
+	  $ovalue = $action->GetParam($sattrid);
+	  $urllink.=$ovalue;
+	  
+	  
+	
+	break;
+
+      default:
+	$urllink.=$link[$i];
       }
     }
-    
     return ($urllink);
     
   }

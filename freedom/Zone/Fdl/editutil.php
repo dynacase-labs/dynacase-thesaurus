@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.13 2002/11/19 17:14:26 eric Exp $
+// $Id: editutil.php,v 1.14 2002/12/16 11:46:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -248,56 +248,74 @@ function getHtmlInput(&$doc, &$oattr, $value) {
   
 }
 
-  function elinkEncode( $link) {
-    // -----------------------------------
+function elinkEncode( $link) {
+  // -----------------------------------
     
    
     
-    $urllink="";
-    for ($i=0; $i < strlen($link); $i++) {
-      if ($link[$i] != "%") $urllink.=$link[$i];
-      else {
-	$i++;
-	if ($link[$i+1] == "%") { 
-	  // special link
+  $urllink="";
+  for ($i=0; $i < strlen($link); $i++) {
+    switch ($link[$i]) {
+      
+    case '%' :
+   
+      $i++;
+      if ($link[$i+1] == "%") { 
+	// special link
 	    
-	  switch ($link[$i]) {
-	    case "B": // baseurl	  
-	      $urllink.=GetParam("CORE_BASEURL");
+	switch ($link[$i]) {
+	case "B": // baseurl	  
+	  $urllink.=GetParam("CORE_BASEURL");
 	      
-	      break;
-	    case "S": // standurl	  
-	      $urllink.=GetParam("CORE_STANDURL");
+	  break;
+	case "S": // standurl	  
+	  $urllink.=GetParam("CORE_STANDURL");
 	      
-	      break;
-	    case "I": // id	  
-	      $urllink.=$this->id;
-	      
-	      break;
-	    default:
-	      
-	      break;
-	    }
-	  $i++; // skip end '%'
-	} else {
-	  
-	  $sattrid="";
-	  while ($link[$i] != "%" ) {
-	    $sattrid.= $link[$i];
-	    $i++;
-	  }
-	  //	  print "attr=$sattrid";
-	  
-	  $sattrid=strtolower($sattrid);
-
-	  $urllink.= "'+document.getElementById('$sattrid').value+'";
-	  
-	  
+	  break;
 	}
+	$i++; // skip end '%'
+      } else {
+	  
+	$sattrid="";
+	while ($link[$i] != "%" ) {
+	  $sattrid.= $link[$i];
+	  $i++;
+	}
+	//	  print "attr=$sattrid";
+	  
+	$sattrid=strtolower($sattrid);
+
+	$urllink.= "'+document.getElementById('$sattrid').value+'";
       }
+      break;
+
+    case "{" :
+      $i++;
+
+	  
+      $sattrid="";
+      while ($link[$i] != '}' ) {
+	$sattrid.= $link[$i];
+	$i++;
+      }
+      //	  print "attr=$sattrid";
+	  
+
+      $ovalue = GetParam($sattrid,
+			 getFamIdFromName(GetParam("FREEDOM_DB"),$sattrid));
+
+      $urllink.=$ovalue;
+	  
+	  
+	
+      break;
+
+    default:
+      $urllink.=$link[$i];
     }
-    
-    return ($urllink);
-    
   }
+    
+  return ($urllink);
+    
+}
 ?>
