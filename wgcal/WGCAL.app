@@ -26,6 +26,7 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETTOOLSTATE", "short_name" =>N_("set display/undisplay tool state in toolbar"), "toc" => "N", "root" =>"N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_MENUBAR", "short_name" =>N_("menubar"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_USETPARAM", "short_name" =>N_("set user param"), "toc" => "N", "root" =>"N"),
 
 
   // ---------------------------
@@ -33,6 +34,8 @@ $action_desc = array (
          "short_name" =>N_("edit event"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_STOREEVENT", 
          "short_name" =>N_("store event"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_DELETEEVENT", 
+         "short_name" =>N_("delete event"), "toc" => "N", "root" =>"N"),
 
   // ---------------------------
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_RESSPICKER_MAIN", 

@@ -185,3 +185,21 @@ function WGCalSaveToolsVisibility() {
  
 
    
+function usetparam(name, value, session) {
+  fset = document.getElementById('usetparam');
+  fpname    = document.getElementById('pname');
+  fpvalue   = document.getElementById('pvalue');
+  fpsession = document.getElementById('psession');
+  fpname.value = name;
+  fpvalue.value = value;
+  fpsession.value = session;
+  fset.submit();
+}
+
+function useressources() {
+ use_r = (document.getElementById('useressources').checked?1:0);
+ if (use_r==1) document.getElementById('spuseressources').className = 'WGCRessSelected';
+ else document.getElementById('spuseressources').className = 'WGCRessDefault';
+ usetparam("WGCAL_U_USERESSINEVENT", use_r);
+}
+ 

@@ -122,6 +122,7 @@ function refreshAttendees() {
       nTr.style.display = '';
       tab.appendChild(nTr);
       capp = document.getElementById('cp'+attendeesList[idx][0]);
+alert(attendeesList[idx][3]);
       switch (attendeesList[idx][3]) {
       case 1: /* approved */
 	capp.style.background = 'green';
@@ -149,7 +150,8 @@ function getAttendeeIdx(aid) {
 }
       
 function addRessource(rid, rtitle, ricon, rstate) {
-  if (getAttendeeIdx(rid)!=-1) return;
+  if (getAttendeeIdx(rid)!=-1) {
+    alert('Oooops '+return;
   idx = attendeesList.length;
   attendeesList[idx] = new Array();
   attendeesList[idx][0] = rid;
@@ -182,13 +184,20 @@ function saveEvent() {
    EventSelectAll(fs);
    fs.submit();
    fs.reset();
-  //displayEvent(document.getElementById('eventid').value;	
-  //self.close();
+   self.close();
 }
 
 function cancelEvent() {
-  ok = confirm('[TEXT: save before closins]'); 
+  ok = confirm('[TEXT: save before closing]'); 
   if (ok) saveEvent();
+  self.close();
+}
+
+function deleteEvent() {
+  ok = confirm('[TEXT: delete this event]'); 
+  if (!ok) return;
+  var fs = document.getElementById('deleteevent');
+  fs.submit();
   self.close();
 }
 
@@ -246,6 +255,15 @@ function everyInfo() {
   if (checkone==2) document.getElementById('d_rweekday').style.display = '';
   if (checkone==3) document.getElementById('d_rmonth').style.display = '';
 
+}
+
+function EventSetElement(arrElt, uElt) {
+  evst = document.getElementById(uElt);
+  evst.value = -1;
+  aevst = document.getElementById(arrElt);
+  for (ist=0; ist<aevst.length; ist++) {
+    if (aevst[ist].selected)  evst.value = ist;
+  }
 }
 
 

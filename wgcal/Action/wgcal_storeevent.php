@@ -8,7 +8,6 @@ function wgcal_storeevent(&$action) {
   
 //   global $_POST;
 //   print_r2($_POST);
-//   exit;
 
   $id  = GetHttpVars("eventid", -1);
   if ($id==-1) {
@@ -43,9 +42,8 @@ function wgcal_storeevent(&$action) {
   
   $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
   
-  $event->setValue("CALEV_EVCALENDAR", wgcal_getArrayVal("rvcalendar", 0));
-  
-  $event->setValue("CALEV_VISIBILITY", wgcal_getArrayVal("rvconfid", 0));
+  $event->setValue("CALEV_EVCALENDARID", GetHttpVars("evcalendar"));
+  $event->setValue("CALEV_VISIBILITY", GetHttpVars("evconfidentiality"));
   
   $event->setValue("CALEV_EVALARM", (GetHttpVars("AlarmCheck", "")=="on"?1:0));
   if (GetHttpVars("AlarmCheck", "")=="on") {
@@ -73,21 +71,30 @@ function wgcal_storeevent(&$action) {
   
 
   // Attendees
+  $oldatt_id    = $event->getTValue("CALEV_ATTID", array());
+  $oldatt_state = $event->getTValue("CALEV_ATTSTATE", array());
   $attendees = GetHttpVars("attendees", array());
   $attendeesname = array();
   $attendeesstate = array();
   foreach ($attendees as $ka => $va) {
     $att = new Doc($db, $va);
-    $attendeesname[] = $att->title;
-    $attendeesstate[] = 0;
+    $attendeesname[$ka] = $att->title;
+    if ($action->user->fid == $va) {
+      $attendeesstate[$ka] = GetHttpVars("evstatus");
+    }  else {
+      $k = array_search($va, $oldatt_id);
+      if ($k) $attendeesstate[$ka] = $oldatt_state[$k];
+      else $attendeesstate[$ka] = 0;
+    }
   }
+  //foreach ($attendees as $ka => $va)  echo "attendee id=".$attendees[$ka]." title=[".$attendeesname[$ka]."] state=".$attendeesstate[$ka]."<br>";
+  echo "Attendees : "; print_r2($attendees); 
+  echo "name      : "; print_r2($attendeesname); 
+  echo "status    : "; print_r2($attendeesstate); 
   $event->setValue("CALEV_ATTID", $attendees); 
   $event->setValue("CALEV_ATTTITLE", $attendeesname); 
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
     
-  // Compute global status according attendees one	   
-  // $ev->state = wgcal_getArrayVal("rvstatus", 0);
-  //  print_r2($event->getValues());		   
   $err = $event->Modify();
  
   if ($err!="") AddWarningMsg("$err");

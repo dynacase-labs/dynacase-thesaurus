@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.5 2004/12/24 17:44:55 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.6 2005/01/17 19:07:50 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,6 +42,8 @@ $app_const= array(
   "WGCAL_U_TOOLSSTATE" => array( "val"=>"", "descr"=>N_("tool display state"), "user"=>"Y"),
 
   "WGCAL_U_RESSDISPLAYED" => array( "val" => "", "descr"=>N_("WGCAL_U_RESSDISPLAYED"), "user"=>"Y"),
+
+  "WGCAL_U_USERESSINEVENT" => array( "kind" => "enum(0|1)", "val"=>"1", "descr"=>N_("use displayed ressource for event setting"), "user"=>"Y"),
 
   "VERSION" => "@VERSION@-@RELEASE@",
   "INIT" => "yes"

@@ -1,9 +1,13 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-<form id="editevent" name="editevent" method="POST" 
+<form id="deleteevent" name="deleteevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="eventid" name="eventid" value="[EVENTID]"> </form>
+<form id="editevent" name="editevent" method="POST" target="other"
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 <input type="hidden" id="ownerid" name="ownerid" value="[ownerid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
+<input type="hidden" id="evstatus" name="evstatus" value="[evstatus]">
+<input type="hidden" id="evcalendar" name="evcalendar" value="[evcalendar]">
+<input type="hidden" id="evconfidentiality" name="evconfidentiality" value="[evconfidentiality]">
 
 <table width="100%" style="margin-top: 0em;">
 <tr><td align="right">
@@ -118,17 +122,11 @@
 
 <hr>
 
-[TEXT:confidentiality] : <select id="rvconfid" name="rvconfid[]" [rvvisro]>
-[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]
-</select>
+[TEXT:confidentiality] : <select id="rvconfid" onchange="EventSetElement('rvconfid', 'evconfidentiality')" [rvvisro]>[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]</select>
 
-[TEXT:calendar] : <select id="rvcalendar" name="rvcalendar[]" [rvcalro]>
-[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]
-</select>
+[TEXT:calendar] : <select id="rvcalendar" onchange="EventSetElement('rvcalendar', 'evcalendar')" [rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
 
-[TEXT:status] : <select id="rvstatus"  name="rvstatus[]" [rvstaro]>
-[BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]
-</select>
+[TEXT:status] : <select id="rvstatus"  onchange="EventSetElement('rvstatus', 'evstatus')" [rvstaro]>[BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]</select>
 
 <hr>
 

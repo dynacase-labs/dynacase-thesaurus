@@ -2,6 +2,13 @@
 
 
 
+<form id="usetparam" target="wgcal_hidden" name="usetparam" method="POST"
+      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_USETPARAM">
+     <input id="pname" name="pname" type="hidden" value="">
+     <input id="pvalue" name="pvalue" type="hidden" value="">
+     <input id="psession" name="psession" type="hidden" value="0">
+</form>
+ 
 <form id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST"
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE">
      <input id="toolsvis" name="toolsvis" type="hidden" value="">
@@ -91,7 +98,9 @@
 </tr>
 </tbody>
 </table>
-<input type="checkbox" id="useressources" title"[TEXT:use ressource for event creation]">[TEXT:use ressource]
+
+<span id="spuseressources" title="[TEXT:use ressource for event creation]" class="[urclass]">[TEXT:use in event...]<input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources();" [urchecked]>
+</span>
 </div>
 
 </fieldset>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.9 2005/01/14 16:49:28 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.10 2005/01/17 19:07:50 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -48,7 +48,7 @@ function wgcal_editevent(&$action) {
     $evtitle  = $event->getValue("CALEV_EVTITLE", "");
     $evnote   = $event->getValue("CALEV_EVNOTE", "");
     $evstart  = db2date($event->getValue("CALEV_START", ""));
-    $evend    = db2date($event->getValue("CALEV_SEND", ""));
+    $evend    = db2date($event->getValue("CALEV_END", ""));
     $evtype   = $event->getValue("CALEV_TIMETYPE", "");
     $evfreq   = $event->getValue("CALEV_FREQUENCY", 1);
     $evcal    = $event->getValue("CALEV_CALENDAR", -1);
@@ -84,7 +84,7 @@ function wgcal_editevent(&$action) {
     $evruntild = $time;
     $evrexcld  = array();
     $attendees = array( $action->user->fid );
-    $attendeesState = array( 0 );
+    $attendeesState = array( 1 );
     $ownerid = $action->user->fid;
     $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
     $ownertitle = $attru["title"];
@@ -95,12 +95,14 @@ function wgcal_editevent(&$action) {
   $ro = true;
   if ($action->user->fid == $ownerid) $ro = false;
   $rostatus = true;
-  foreach ($attendees as $k => $v) {
-    if ($action->user->fid == $v) $rostatus = false;
+  if ($evid!=-1) {
+    foreach ($attendees as $k => $v) {
+      if ($action->user->fid == $v) $rostatus = false;
+    }
   }
   
   $action->lay->set("EVENTID", $evid);
-  if ($evid==-1) {
+  if ($evid==-1 || $ro) {
     $action->lay->setBlockData("EMPTY", null);
   } else {
     $action->lay->setBlockData("EMPTY", array( array("nop" => "") ));
@@ -164,6 +166,7 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
 function EventSetVisibility(&$action, $vis, $ro) {
   $avis = CAL_getEventVisibilities($action->GetParam("FREEDOM_DB"), "");
   $ic = 0;
+  $action->lay->set("evconfidentiality", $vis);
   foreach ($avis as $k => $v) {
     $tconf[$ic]["value"] = $k;
     $tconf[$ic]["descr"] = $v;
@@ -176,6 +179,7 @@ function EventSetVisibility(&$action, $vis, $ro) {
   
 function EventSetCalendar(&$action, $cal, $ro) {
   $acal = CAL_getCalendars($action->GetParam("FREEDOM_DB"), $action->user->id);
+  $action->lay->set("evcalendar", $cal);
   $ic = 0;
   foreach ($acal as $k => $v) {
     $tconf[$ic]["value"] = $k;
@@ -189,6 +193,7 @@ function EventSetCalendar(&$action, $cal, $ro) {
 
 function EventSetStatus(&$action, $status, $ro) {
   $acal = CAL_getEventStates($action->GetParam("FREEDOM_DB"), "");
+  $action->lay->set("evcalendar", $cal);
   $ic = 0;
   foreach ($acal as $k => $v) {
     $tconf[$ic]["value"] = $k;
@@ -273,6 +278,7 @@ function EventAddAttendees(&$action, $attendees = array(), $attendeesState = arr
   foreach ($attendees as $k => $v) {
     if ($v == "" ) continue;
     $att[$a]["attId"]    = $v;
+    if ($v == $action->user->fid) $status = $attendeesState[$k];
     $att[$a]["attState"] = $attendeesState[$k];
     $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
     $att[$a]["attTitle"] = $attru["title"];
@@ -281,6 +287,7 @@ function EventAddAttendees(&$action, $attendees = array(), $attendeesState = arr
   }
   $action->lay->setBlockData("ADD_RESS", $att);
   $action->lay->set("attendeesro", ($ro?"none":""));
+  $action->lay->set("evstatus", $vis);
 }
 
 
