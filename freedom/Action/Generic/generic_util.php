@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.17 2005/01/24 16:14:02 eric Exp $
+ * @version $Id: generic_util.php,v 1.18 2005/01/28 17:07:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.17 2005/01/24 16:14:02 eric Exp $
+// $Id: generic_util.php,v 1.18 2005/01/28 17:07:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -91,6 +91,21 @@ function getDefUKey(&$action) {
   }
   return "";
 }
+
+// return parameters key search
+function getDefU(&$action,$key) {
+  $famid=getDefFam($action);
+  $pu = $action->GetParam($key);
+  if ($pu) {
+    $tu = explode(",",$pu);
+    while (list($k,$v) = each($tu)) {
+      list($afamid,$aorder) = explode("|",$v);
+      if ($afamid == $famid) return $aorder;
+    }
+  }
+  return "";
+}
+
 // return attribute split mode
 function getSplitMode(&$action,$famid="") {
   if ($famid=="") $famid=getDefFam($action);

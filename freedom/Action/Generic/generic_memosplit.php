@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_memosplit.php,v 1.1 2003/10/16 09:38:01 eric Exp $
+ * @version $Id: generic_memosplit.php,v 1.2 2005/01/28 17:07:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,13 +11,23 @@
  /**
  */
 function generic_memosplit(&$action) {
+  $split = GetHttpVars("split"); // split H or V
+  generic_memo($action,"GENE_SPLITMODE",$split);
+}
+
+function generic_memosearch(&$action) {
+  $split = GetHttpVars("psearchid"); // preferential user search
+  generic_memo($action,"GENE_PREFSEARCH",$split);
+}
+
+
+function generic_memo(&$action,$attrid,$value) {
   // -----------------------------------
 
-  
+  print "generic_memo(&$action,$attrid,$value)";
   $famid  = GetHttpVars("famid");    // family id
-  $split = GetHttpVars("split"); // split H or V
 
-  $tmode= explode(",",$action->getParam("GENE_SPLITMODE"));
+  $tmode= explode(",",$action->getParam($attrid));
 
   // explode parameters
   while (list($k,$v) = each($tmode)) {
@@ -25,10 +35,7 @@ function generic_memosplit(&$action) {
     $tview[$fid]=$vmode;
   }
 
-  switch ($split) {
-  case "H":  
-  case "V":
-    $tview[$famid]=$split;
+    $tview[$famid]=$value;
     // implode parameters to change user preferences
     $tmode=array();
     while (list($k,$v) = each($tview)) {
@@ -36,10 +43,9 @@ function generic_memosplit(&$action) {
     }
     $pmode=implode(",",$tmode);
     
-    $action->parent->param->Set("GENE_SPLITMODE",$pmode,PARAM_USER.$action->user->id,$action->parent->id);
+    $action->parent->param->Set($attrid,$pmode,PARAM_USER.$action->user->id,$action->parent->id);
    
-    break;
-    
-  }
 }
+
+
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.15 2003/10/16 09:38:01 eric Exp $
+// $Id: GENERIC.app,v 1.16 2005/01/28 17:07:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -183,6 +183,13 @@ $action_desc = array (
    "name"		=>"GENERIC_MEMOSPLIT",
    "short_name"		=>N_("memorisation of split mode"),
    "acl"		=>"GENERIC"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_MEMOSEARCH",
+   "short_name"		=>N_("memorisation of pref search"),
+   "acl"		=>"GENERIC",
+   "script"		=>"generic_memosplit.php",
+   "function"		=>"generic_memosearch"
   ) 
                       );
    

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.27 2005/01/24 16:15:34 eric Exp $
+ * @version $Id: barmenu.php,v 1.28 2005/01/28 17:08:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.27 2005/01/24 16:15:34 eric Exp $
+// $Id: barmenu.php,v 1.28 2005/01/28 17:08:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -137,7 +137,7 @@ function barmenu(&$action) {
 
   popupInit("newmenu",  $tnewmenu   );
 
-  popupInit("helpmenu", array('help','imvcard','folders','isplit','cview','aview'));
+  popupInit("helpmenu", array('help','imvcard','folders','memosearch','isplit','cview','aview'));
 
 
   if ($action->HasPermission("GENERIC"))  {
@@ -151,6 +151,9 @@ function barmenu(&$action) {
       popupInactive("newmenu",1,$vid); 
     }
   }
+   if ($dirid < 1000000000 )   popupActive("helpmenu",1,'memosearch');  
+   else  popupInvisible("helpmenu",1,'memosearch'); 
+   
   if ($action->HasPermission("GENERIC_MASTER"))  {
     popupActive("helpmenu",1,'imvcard');
   
@@ -183,8 +186,9 @@ function barmenu(&$action) {
 
   // compute categories and searches
   $stree=getChildCatg( $homefld->id, 1,false,1);
-
   reset($stree);
+
+
   
   $lidsearch = array("catg0");
 
@@ -194,6 +198,14 @@ function barmenu(&$action) {
       $lidsearch[] = "search".$v["id"];
       $streeSearch[] = $v;
     } 
+  }
+  $filter[]="owner=".$action->user->id;
+  $filter[]="se_famid='$famid'";
+  $action->lay->set("MSEARCH",false);
+  $stree=getChildDoc($dbaccess,"0","0","10",$filter,$action->user->id,"TABLE",5);
+  if (count($stree) > 0) $action->lay->set("MSEARCH",true);
+  foreach ($stree as $k=>$v) {
+     $lidsearch[] = "search".$v["id"];
   }
   $lidsearch[]="text";
 
@@ -208,6 +220,9 @@ function barmenu(&$action) {
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("catg",$catg);
 
+
+  $action->lay->SetBlockData("SEARCH2",$stree);
+  
   //----------------------------
   // sort menu
 
