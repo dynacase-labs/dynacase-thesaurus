@@ -7,7 +7,8 @@ var colorPick = new ColorPicker();
 initDHTMLAPI();
 
 
-
+document.isCancelled=false;
+document.isSubmitted=false;
 
 function scruteadocs() { 
   var newTa = document.getElementsByTagName('iframe');
