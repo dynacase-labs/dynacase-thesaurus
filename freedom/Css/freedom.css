@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.56 2004/10/11 15:18:10 eric Exp $
+ * $Id: freedom.css,v 1.57 2004/10/13 09:45:02 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -80,9 +80,10 @@ TABLE.barmenu {
 	border-spacing: 0px;
 	empty-cells: show;
 }
+
 TD.MenuInactive{
 	background-color: [CORE_BGCOLORALTERN];
-        background-image: [CORE_FGIMG];	
+        background-image: [CORE_FGIMGMENU];	
 	color : [CORE_TEXTFGCOLOR];
         font-weight:bold;
         text-transform:capitalize;	
@@ -92,7 +93,7 @@ TD.MenuInactive{
 }
 TD.MenuActive {
 	background-color: [CORE_BGCOLORALTERN];
-        background-image: [CORE_FGIMG];	
+        background-image: [CORE_FGIMGMENU];	
 	color : [CORE_TEXTFGCOLOR];
         text-transform:capitalize;
 	border-width : 2px;
@@ -102,6 +103,7 @@ TD.MenuActive {
 }
 TD.MenuSelected {
 	background-color: [CORE_FGCOLOR];
+        background-image: [CORE_FGIMGMENU];
 	color : [CORE_TEXTBGCOLOR];
         font-weight:bold;
 	color : [CORE_TEXTBGCOLOR];   
@@ -360,7 +362,7 @@ TR.unselect:hover {
 
 TR.selhead {
   cursor: crosshair;
-  background-color:[CORE_BGCOLORALTERN];
+  background:[CORE_BGCOLORALTERN];
 }
 TR.selhead:hover {
   background-color:[CORE_BGCOLORHIGH];
@@ -373,7 +375,7 @@ TR.dash TD {
 
 
 TR.select {
-  background-color:[CORE_BGCOLORALTERN];
+  background:[CORE_BGCOLORALTERN];
   border-style : solid;
   cursor: crosshair;
 } 
@@ -494,7 +496,7 @@ SPAN.selected:hover, SPAN.unselected:hover, SPAN.hselected:hover{
 }
 
 SPAN.checked, TR.checked {
-        background-color: [CORE_BGCOLORALTERN]; 	
+        background: [CORE_BGCOLORALTERN]; 	
 }
 /* Put this inside a @media qualifier so Netscape 4 ignores it */
 @media screen { 

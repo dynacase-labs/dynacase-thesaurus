@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.25 2004/05/06 09:30:37 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.26 2004/10/13 09:45:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -35,7 +35,7 @@ function freedom_edit(&$action) {
   $classid = GetHttpVars("classid",0); // use when new doc or change class
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
   $usefor = GetHttpVars("usefor"); // default values for a document
-  $onlysubfam = GetHttpVars("onlysubfam","N"); // restricy to sub fam of
+  $onlysubfam = GetHttpVars("onlysubfam"); // restricy to sub fam of
 
 
   // Set the globals elements
@@ -71,11 +71,13 @@ function freedom_edit(&$action) {
       }
     } else {
 
-      if ($onlysubfam == "Y") {
-	$cdoc = new Doc($dbaccess,$classid);
+      if ($onlysubfam) {
+	
+	if (! is_numeric($onlysubfam))  $onlysubfam = getFamIdFromName($dbaccess,$onlysubfam);
+	$cdoc = new Doc($dbaccess,$onlysubfam);
 	$tclassdoc = $cdoc->GetChildFam();
 	$first = current($tclassdoc);
-	$classid = $first["id"];
+	if ($classid=="") $classid = $first["id"];
 	setHttpVar("classid",$classid); // propagate to subzones
       } else    $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
     }
@@ -171,6 +173,7 @@ function freedom_edit(&$action) {
 
   $action->lay->Set("id", $docid);
   $action->lay->Set("dirid", $dirid);
+  $action->lay->Set("onlysubfam", $onlysubfam);
   if ($docid > 0) $action->lay->Set("doctype", $doc->doctype);
 
 
