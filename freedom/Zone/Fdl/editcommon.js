@@ -459,6 +459,16 @@ function addtr(trid, tbodyid) {
 
     ntr = cloneNode(true);
     style.display='none';
+    if (isNetscape) {
+      // bug :: Mozilla don't clone textarea values
+      var newTa = ntr.getElementsByTagName('textarea');
+      for (var i=0; i < newTa.length; i++){ 
+	
+	newTa[i].setAttribute('value',getElementsByTagName('textarea')[i].value);
+	// -- this next line is for N7 + Mozilla
+	newTa[i].defaultValue = getElementsByTagName('textarea')[i].value;
+      }
+    }
   }
   
   ntr.id = '';
@@ -469,12 +479,15 @@ function addtr(trid, tbodyid) {
   nodereplacestr(ntr,'-1',ntable.childNodes.length);
   resizeInputFields(); // need to revaluate input width
  
-
   if (seltr)  {
     seltr.parentNode.insertBefore(ntr,seltr);
   } else {
     var ltr = ntable.getElementsByTagName('tr');
-    if (ltr.length > 1) ltr[ltr.length-2].parentNode.insertBefore(ntr,ltr[ltr.length-2]);
+    var ltrfil=new Array();
+    for (var i=0;i<ltr.length ;i++) {
+      if ((ltr[i].parentNode.id == tbodyid) || (ltr[i].parentNode.parentNode.id == tbodyid)) ltrfil.push(ltr[i]);
+    }
+    if (ltrfil.length > 1) ltrfil[ltrfil.length-2].parentNode.insertBefore(ntr,ltrfil[ltrfil.length-2]);
   }
   
 }
