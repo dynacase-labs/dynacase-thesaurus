@@ -10,7 +10,7 @@ function editidoc(idattr,xmlid,idocfam,zone) {
   var fxml = document.getElementById('fidoc');
 
 
-  subwindow(400,400,idattr,'');    
+  subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],idattr,'');    
   /*
     if (!exist){
     alert("exist pas");
