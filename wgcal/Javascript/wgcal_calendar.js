@@ -1,7 +1,7 @@
 function WGCalResetSizes() {
-  alert("resize");
-  WGCalComputeCoord();
-  WGCalRefreshAll();
+//  alert("resize");
+//  WGCalComputeCoord();
+//  WGCalRefreshAll();
 }
 
 var  Root = 'root';
