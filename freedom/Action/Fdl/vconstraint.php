@@ -3,7 +3,7 @@
  * Verify constraint on special attribute
  *
  * @author Anakeen 2003
- * @version $Id: vconstraint.php,v 1.2 2003/12/17 17:25:27 eric Exp $
+ * @version $Id: vconstraint.php,v 1.3 2004/10/04 07:43:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -67,11 +67,14 @@ function vconstraint(&$action) {
 
     // view possible correction
     while (list($k, $v) = each($tres)) {
-      $tselect[$k]["choice"]= $v[0];
+      $tselect[$k]["choice"]= htmlentities($v[0]);
       $tselect[$k]["cindex"]= $k;
       $tval[$k]["index"]=$k;
       array_shift($v);
-      
+
+      foreach($v as $kv=>$vv) {
+	$v[$kv]=addslashes($vv);
+      }
       $tval[$k]["attrv"]="['".implode("','", $v)."']";
     
 
