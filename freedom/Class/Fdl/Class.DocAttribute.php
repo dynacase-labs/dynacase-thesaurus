@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.19 2004/07/01 13:50:58 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.20 2004/09/09 12:56:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.19 2004/07/01 13:50:58 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.20 2004/09/09 12:56:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,6 +70,7 @@ Class NormalAttribute extends BasicAttribute {
   var $needed; // Y / N
   var $type; // text, longtext, date, file, ...
   var $format; // C format
+  var $eformat; // format for edition : list,vcheck,hcheck
   var $repeat; // true if is a repeatable attribute
   var $isInTitle;
   var $isInAbstract;
@@ -83,12 +84,13 @@ Class NormalAttribute extends BasicAttribute {
   var $usefor; // = Q if parameters
   function NormalAttribute($id, $docid, $label, $type, $format, $repeat, $order, $link,
 			   $visibility, $needed,$isInTitle,$isInAbstract,
-			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint="",$usefor="") {
+			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint="",$usefor="",$eformat="") {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
     $this->type=$type;
     $this->format=$format;
+    $this->eformat=$eformat;
     $this->ordered=$order;
     $this->link=$link;
     $this->visibility=$visibility;

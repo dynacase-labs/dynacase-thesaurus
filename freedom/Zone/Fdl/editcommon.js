@@ -492,6 +492,36 @@ function clearTime(nid) {
     t.value=' ';
   }
 }
+
+function checkinput(cid,check) {    
+  var i=document.getElementById(cid);
+  if (i) {
+    if (!i.disabled) {
+      if (check) i.checked=check;
+      else i.checked=(!i.checked);
+      changeCheckClasses(i);
+    }
+  }
+}
+// change style classes for check input
+function changeCheckClasses(th) {
+  if (th) {
+    var icheck=document.getElementsByName(th.name);
+
+    for (var i=0;i<icheck.length;i++) {
+      if (icheck[i].checked) icheck[i].parentNode.parentNode.className='checked';
+      else icheck[i].parentNode.parentNode.className='';
+    }
+  }
+}// change style classes for check bool input
+function changeCheckBoolClasses(th,name) {
+  if (th) {
+    var icheck=document.getElementsByName(name);
+    icheck[0].checked=(!th.checked);
+    icheck[1].checked=th.checked;
+
+  }
+}
 function addinlist(sel,value) {
 
   if (isNetscape) pos=null;

@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.50 2004/09/07 10:05:53 eric Exp $
+ * $Id: freedom.css,v 1.51 2004/09/09 12:56:59 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -467,6 +467,10 @@ SPAN.wselected {
 SPAN.selected:hover, SPAN.unselected:hover, SPAN.hselected:hover{
   color:darkgreen;
   -moz-border-radius:25px;	
+}
+
+SPAN.checked, TR.checked {
+        background-color: [CORE_BGCOLORALTERN]; 	
 }
 /* Put this inside a @media qualifier so Netscape 4 ignores it */
 @media screen { 

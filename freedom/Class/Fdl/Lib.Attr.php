@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.39 2004/09/06 10:30:32 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.40 2004/09/09 12:56:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,12 @@
 
 
 include_once('FDL/Class.Doc.php');
-
+/**
+ * Generate Class.Docxxx.php files
+ *
+ * @param string $dbaccess database specification
+ * @param array $tdoc array of family definition
+ */
 function AttrToPhp($dbaccess, $tdoc) {
   global $action;
  
@@ -92,6 +97,12 @@ function AttrToPhp($dbaccess, $tdoc) {
 	
       default: // normal
 	
+	if (ereg("\[([a-z]+)\](.*)",$v->phpfunc, $reg)) {
+	  $v->phpfunc=$reg[2];
+	  $funcformat=$reg[1];
+	} else {	  
+	  $funcformat="";
+	}
     
 	if (ereg("([a-z]+)\(\"(.*)\"\)",$v->type, $reg)) {
 	  $atype=$reg[1];
@@ -129,22 +140,23 @@ function AttrToPhp($dbaccess, $tdoc) {
 	// complete attributes characteristics
 	$v->id=chop(strtolower($v->id));
 	$tnormal[($v->id)] = array("attrid"=>($v->id),
-				 "label"=>str_replace("\"","\\\"",$v->labeltext),
-				 "type"=>$atype,
-				 "format"=>str_replace("\"","\\\"",$aformat),
-				 "order"=>intval($v->ordered),
-				 "link"=>str_replace("\"","\\\"",$v->link),
-				 "visibility"=>$v->visibility,
-				 "needed"=>($v->needed=="Y")?"true":"false",
-				 "title"=>($v->title=="Y")?"true":"false",
-				 "repeat"=>$repeat,
-				 "abstract"=>($v->abstract=="Y")?"true":"false",
-				 "frame"=>($v->frameid=="")?"FIELD_HIDDENS":strtolower($v->frameid),
-				 "elink"=>$v->elink,
-				 "phpfile"=>$v->phpfile,
-				 "phpfunc"=>str_replace(", ",",",$v->phpfunc),
-				 "phpconstraint"=>$v->phpconstraint,
-					     "usefor"=>$v->usefor);
+				   "label"=>str_replace("\"","\\\"",$v->labeltext),
+				   "type"=>$atype,
+				   "format"=>str_replace("\"","\\\"",$aformat),
+				   "eformat"=>str_replace("\"","\\\"",$funcformat),
+				   "order"=>intval($v->ordered),
+				   "link"=>str_replace("\"","\\\"",$v->link),
+				   "visibility"=>$v->visibility,
+				   "needed"=>($v->needed=="Y")?"true":"false",
+				   "title"=>($v->title=="Y")?"true":"false",
+				   "repeat"=>$repeat,
+				   "abstract"=>($v->abstract=="Y")?"true":"false",
+				   "frame"=>($v->frameid=="")?"FIELD_HIDDENS":strtolower($v->frameid),
+				   "elink"=>$v->elink,
+				   "phpfile"=>$v->phpfile,
+				   "phpfunc"=>str_replace(", ",",",str_replace(", |",",  |",$v->phpfunc)),
+				   "phpconstraint"=>$v->phpconstraint,
+				   "usefor"=>$v->usefor);
 	 
 	if (($v->type != "array") && ($v->usefor!="Q")) {
 	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>($v->id));	 

@@ -1,0 +1,2 @@
+[BLOCK OPTIONS]
+<span class="[checked]"><span><label onclick="checkinput('[optid]',true)">[fvalue]:</label><input [disabled] id="[optid]" onclick="changeCheckClasses(this)" type="radio" name="[name]" value="[kvalue]" [checked]></span></span>[ENDBLOCK OPTIONS]

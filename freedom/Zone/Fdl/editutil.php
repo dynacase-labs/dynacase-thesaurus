@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.74 2004/09/07 10:04:23 eric Exp $
+ * @version $Id: editutil.php,v 1.75 2004/09/09 12:53:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.74 2004/09/07 10:04:23 eric Exp $
+// $Id: editutil.php,v 1.75 2004/09/09 12:53:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -295,44 +295,50 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
      
     case "enum": 
       if (($oattr->repeat)&&(!$oattr->inArray())) { // enumlist
-	$input="<select size=3 multiple name=\"".$attrin."[]\""; 
-      
-	$input .= " id=\"".$attridk."\" "; 
-	if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-	$input.= ">";
 
-	$enuml = $oattr->getenumlabel();
-	$tvalues = explode("\n",$value);
-
-	while (list($k, $v) = each($enuml)) {
-	  if (in_array($k, $tvalues)) $selected = "selected";
-	  else $selected="";
-	  $input.="<option $selected value=\"$k\">$v</option>"; 
-
+	switch ($oattr->eformat) {
+	case "vcheck":
+	  $lay = new Layout("FDL/Layout/editenumlistvcheck.xml", $action);
+	  break;
+	case "hcheck":
+	  $lay = new Layout("FDL/Layout/editenumlisthcheck.xml", $action);
+	  break;
+	
+	default:
+	  $lay = new Layout("FDL/Layout/editenumlist.xml", $action);
 	}
-	$input.="<option  style=\"display:none\"  value=\" \"></option>"; 
-     
-	$input .= "</select> "; 
-	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
-	  " title=\""._("clear inputs")."\"".
-	  " onclick=\"unselectInput('$attrid')\">";
+	
+
       } else {
-	$input="<select $multiple name=\"".$attrin."\""; 
-	$input .= " id=\"".$attridk."\" "; 
-	if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
-	$input.= ">";
-
-	$enuml = $oattr->getenumlabel();
-
-	while (list($k, $v) = each($enuml)) {
-
-	  if ($k == $value) $selected = "selected";
-	  else $selected="";
-	  $input.="<option $selected value=\"$k\">$v</option>"; 
+	
+	switch ($oattr->eformat) {
+	case "vcheck":
+	  $lay = new Layout("FDL/Layout/editenumvcheck.xml", $action);
+	  break;
+	case "hcheck":
+	  $lay = new Layout("FDL/Layout/editenumhcheck.xml", $action);
+	  break;
+	case "bool":
+	  $lay = new Layout("FDL/Layout/editenumbool.xml", $action);
+	  
+	  $enuml = $oattr->getenumlabel();
+	  $lunset=current($enuml);
+	  if ($value=="") $value=key($enuml);
+	  $lset=next($enuml);
+	  if ($value==key($enuml))  $lay->set("checkedyesno","checked");
+	  else $lay->set("checkedyesno","");
+	  $lay->set("tyesno",sprintf(_("set for %s, unset for %s"),$lset,$lunset));
+	  break;
+	default:
+	  $lay = new Layout("FDL/Layout/editenum.xml", $action);
 	}
-	$input .= "</select> "; 
+
       }
     
+      getLayOptions($lay,$doc,$oattr,$value,$attrin,$index);
+      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+      else $lay->set("disabled","");
+      $input =$lay->gen(); 
       break;      
 		      
 
@@ -362,16 +368,16 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 		      
       $lay->set("disabled","");
       if (($visibility == "R")||($visibility == "S")) {
-	$lay->set("disabled",$idisabled);	
+	$lay->set("disabled",$idisabled);
+
       } else  if ($doc->usefor != 'D') 	$lay->set("disabled","disabled");
 
 
-      $input =$lay->gen(); 
       if (!(($visibility == "R")||($visibility == "S"))) {
-	$input.="<input type=\"button\" value=\"&diams;\"".
-	  " title=\""._("manual date")."\" onclick=\"focus_date(event,'$attridk')\"".
-	  ">";
+	$lay->setBlockData("VIEWCALSEL",array(array("zou")));
       }
+      if ($doc->usefor != 'D') 	$lay->setBlockData("CONTROLCAL",array(array("zou")));
+      $input =$lay->gen(); 
       break;     
       //같같같같같같같같같같같같같같같같같같같같
 			
@@ -788,6 +794,39 @@ function getLayDate(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $lay->set("id",$oattr->id.$index);
   $lay->set("idocid",strtolower($idocid));
   $lay->set("value",$value);
+
+}/**
+ * generate HTML for inline document (not virtual)
+ */
+function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
+  $idocid=$oattr->format.$index;
+  $lay->set("name",$aname);
+  $idx=$oattr->id.$index;
+  $lay->set("id",$idx);
+  $lay->set("idocid",strtolower($idocid));
+  
+
+  $tvalue=$doc->_val2array($value);
+
+  $enuml = $oattr->getenumlabel();
+  $ki=0;
+  foreach($enuml as $k=>$v) {
+
+    if (in_array($k,$tvalue)) {
+      $topt[$k]["selected"] = "selected";
+      $topt[$k]["checked"] = "checked";
+    } else {
+      $topt[$k]["selected"]="";
+      $topt[$k]["checked"] = "";
+    }
+	  
+    $topt[$k]["optid"] = "$idx$ki";
+    $topt[$k]["fvalue"]=$v;
+    $topt[$k]["kvalue"]=$k;
+    $ki++;
+  }
+
+  $lay->setBlockData("OPTIONS",$topt);
 
 }
 

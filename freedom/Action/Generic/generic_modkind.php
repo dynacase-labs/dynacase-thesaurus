@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_modkind.php,v 1.3 2003/10/09 12:08:42 eric Exp $
+ * @version $Id: generic_modkind.php,v 1.4 2004/09/09 12:58:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_modkind.php,v 1.3 2003/10/09 12:08:42 eric Exp $
+// $Id: generic_modkind.php,v 1.4 2004/09/09 12:58:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_modkind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -73,7 +73,14 @@ function generic_modkind(&$action) {
 
   $attr = new DocAttr($dbaccess, array($famid,$aid));
   if ($attr->isAffected()) {
+  
+    if (ereg("\[([a-z]+)\](.*)",$attr->phpfunc, $reg)) {	 
+      $funcformat=$reg[1];
+    } else {	  
+      $funcformat="";
+    }
     $attr->phpfunc = stripslashes(implode(",",$tsenum));
+    if ($funcformat != "") $attr->phpfunc="[$funcformat]".$attr->phpfunc;
     $attr->modify();
 
     refreshPhpPgDoc($dbaccess, $famid);

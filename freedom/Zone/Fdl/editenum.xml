@@ -1,0 +1,5 @@
+<select  name="[name]" id="[id]" [disabled]>
+[BLOCK OPTIONS]
+<option [selected] value="[kvalue]">[fvalue]</option>
+[ENDBLOCK OPTIONS]
+</select>

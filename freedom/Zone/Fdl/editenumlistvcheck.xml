@@ -1,0 +1,3 @@
+[BLOCK OPTIONS]
+<span class="[checked]"><span><label onclick="checkinput('[optid]',false)">[fvalue]:</label><input [disabled] id="[optid]" onclick="changeCheckClasses(this)" type="checkbox" name="[name][]" value="[kvalue]" [checked]></span></span>[ENDBLOCK OPTIONS]
+<span style="display:none"><span><input [disabled] type="checkbox" name="[name][]" value=" " checked></span></span>
