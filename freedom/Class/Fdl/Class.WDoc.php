@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.22 2003/04/29 16:29:39 eric Exp $
+// $Id: Class.WDoc.php,v 1.23 2003/05/12 15:45:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.22 2003/04/29 16:29:39 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.23 2003/05/12 15:45:49 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -196,7 +196,7 @@ Class WDoc extends Doc {
       $foundTo = false;
       reset($this->cycle);
       while (list($k, $trans) = each($this->cycle)) {
-	if ($this->doc->state == $trans["e1"]) {
+	if (($this->doc->state == $trans["e1"]) || ($this->userid==1) ) { // admin an go to any states 
 	  // from state OK
 	    $foundFrom = true;
 	  if ($newstate == $trans["e2"]) {
@@ -276,8 +276,10 @@ Class WDoc extends Doc {
       // search if following states in concordance with transition array
       if ($this->doc->locked == -1) return array(); // no next state for revised document
       
-	$fstate = array();
+      $fstate = array();
       if ($this->doc->state == "") $this->doc->state=$this->firstState;
+      
+      if ($this->userid==1) return $this->getStates(); // only admin can go to any states from anystates
       
       reset($this->cycle);
       while (list($k, $tr) = each($this->cycle)) {
