@@ -2,6 +2,10 @@
 # To use the authpam authentication module with pam_authent, you must
 # configure your PAM library to authenticate the "pam_authent" service.
 
-# Comment this line for a
+# >> With authentication
 auth    required        /lib/security/pam_what.so dbname=anakeen dbuser=anakeen
 account required        /lib/security/pam_what.so dbname=anakeen dbuser=anakeen
+
+# >> Without authentication
+#auth    required        /lib/security/pam_permit.so 
+#account required        /lib/security/pam_permit.so 
