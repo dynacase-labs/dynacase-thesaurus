@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Method.FullTextSearch.php,v 1.3 2004/10/18 09:46:33 marc Exp $
+ * @version $Id: Method.FullTextSearch.php,v 1.4 2004/10/19 05:24:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -108,12 +108,20 @@ function GetFullTextResultDocs ($dbaccess,
         if (is_array($r) && count($r)>0) {
           while (list($k, $v) = each($r)) {
             $ndoc = new Doc($dbaccess, $v->docid);
-	    if ($ndoc->fromid == $famid || $famid == 0) {
-              $debugs .= $ndoc->id." ";
-	      $tdocs[$idoc] = $ndoc;
-	      $idoc++;
+            if (  ($latest=="fixed" && $ndoc->locked==-1 && $ndoc->lmodify=="L")
+               || ($latest=="yes" && $ndoc->locked!=-1)
+               || ($latest=="no") ) {
+	      if ($ndoc->fromid == $famid || $famid == 0) {
+		$debugs .= $ndoc->id." ";
+		$tdocs[$idoc] = $ndoc;
+		$idoc++;
+	      } else {
+		$debugs .= " (not in searched families) ";
+	      }
+	    } else {
+              $debugs .= " (not searched revision) ";
 	    }
-          }
+	  }
         } else {
 	  $debugs .= " (none) ";
 	}
