@@ -253,6 +253,7 @@ end;
 ' language 'plpgsql';
 
 
+
 create or replace function fixeddoc() 
 returns trigger as '
 declare 
