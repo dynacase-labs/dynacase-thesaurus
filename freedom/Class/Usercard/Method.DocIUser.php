@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.19 2004/08/31 14:05:58 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.20 2004/09/20 14:41:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -57,7 +57,18 @@ function GetOtherGroups() {
   
   return $tgroup;
 }
-
+/**
+ * Refresh folder parent containt
+ */
+function refreshParentGroup() {
+  $tgid=$this->getTValue("US_IDGROUP");
+  foreach ($tgid as $gid) {
+    $gdoc=new Doc($this->dbaccess,$gid);
+    if ($gdoc->isAlive()) {
+      $gdoc->insertGroups();
+    }
+  }
+}
 /**
  * recompute intranet values from USER database
  */
@@ -113,6 +124,7 @@ function RefreshDocUser() {
 	$this->SetValue("US_IDGROUP"," ");
       }
       $err=$this->modify();
+
       $err.=$this->RefreshLdapCard();
 
     } else     {
@@ -183,6 +195,7 @@ function PostModify() {
     $this->setValue("US_WHATID",$user->id);
     $this->RefreshDocUser();
     $this->modify(true,array("us_whatid"));
+    $this->refreshParentGroup();
   } 
 
   

@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.16 2004/08/31 14:05:58 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.17 2004/09/20 14:41:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -52,6 +52,19 @@ function RefreshGroup() {
   return $err;
 }
 
+
+/**
+ * Refresh folder parent containt
+ */
+function refreshParentGroup() {
+  $tgid=$this->getTValue("GRP_IDPGROUP");
+  foreach ($tgid as $gid) {
+    $gdoc=new Doc($this->dbaccess,$gid);
+    if ($gdoc->isAlive()) {
+      $gdoc->insertGroups();
+    }
+  }
+}
 function PostModify() {
   $uid=$this->GetValue("US_WHATID");
   $gname=$this->GetValue("GRP_NAME");
@@ -71,7 +84,8 @@ function PostModify() {
     $this->modify(true,array("us_whatid"));
     
     // get members 
-    $this->insertGroups();
+    $this->RefreshGroup();
+    $this->refreshParentGroup();
   } 
 
 
