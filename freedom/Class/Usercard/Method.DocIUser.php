@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIUser.php,v 1.3 2003/07/30 14:53:02 eric Exp $
+// $Id: Method.DocIUser.php,v 1.4 2003/08/01 14:53:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -81,8 +81,8 @@ function GetOtherGroups() {
   include_once("FDL/freedom_util.php");  
   include_once("FDL/Lib.Dir.php");  
 
-  $sqlfilters[]="in_textlist(grp_iduser,{$this->id})";
-  $sqlfilters[]="fromid !=".getFamIdFromName($this->dbaccess,"IGROUP");
+  $sqlfilters[]="in_textlist(grp_idruser,{$this->id})";
+  // $sqlfilters[]="fromid !=".getFamIdFromName($this->dbaccess,"IGROUP");
   $tgroup=getChildDoc($this->dbaccess, 
 		      0, 
 		      "0", "ALL", $sqlfilters, 

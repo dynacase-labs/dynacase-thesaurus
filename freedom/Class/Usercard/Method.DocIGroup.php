@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIGroup.php,v 1.3 2003/07/24 13:02:44 eric Exp $
+// $Id: Method.DocIGroup.php,v 1.4 2003/08/01 14:53:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,10 +34,16 @@
 // Date            jun, 04 2003 - 09:39:09
 // Author          Eric Brison	(Anakeen)
 // --------------------------------------------------------------------------
+function PostModify() {
+  $err=$this->ComputeGroup();
+  $err.=_GROUP::PostModify();
+  return $err;
+}
+
 
  
-function SpecRefresh() {
-  
+function ComputeGroup() {
+  $err="";
   $this->AddParamRefresh("GRP_WHATID",
 			 "GRP_NAME,GRP_MAIL,GRP_LOGIN,GRP_USER,GRP_GROUP,GRP_IDUSER,GRP_IDGROUP");
 
@@ -51,7 +57,7 @@ function SpecRefresh() {
     $this->SetValue("GRP_MAIL",getMailAddr($iduser) );
 
     // get members 
-    $tu  = $user->GetRUsersList($user->id);
+    $tu  = $user->GetUsersGroupList($user->id);
     $tuid=array();
     $tulogin=array();
     $tgid=array();
@@ -91,13 +97,9 @@ function SpecRefresh() {
       $this->SetValue("GRP_IDPGROUP", implode("\n",$tgid));
     }
   
-  } else {
-    // it is not a real intranet group
-    // compute mail group
-    $gmail=$this->GetGroupMail();
-    $this->SetValue("GRP_MAIL", $gmail);
-    
-  }
+  } 
+
+  return $err;
   
 }
   

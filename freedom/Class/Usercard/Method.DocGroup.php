@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocGroup.php,v 1.2 2003/07/16 08:09:06 eric Exp $
+// $Id: Method.DocGroup.php,v 1.3 2003/08/01 14:53:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,48 +35,70 @@
 // Author          Eric Brison	(Anakeen)
 // --------------------------------------------------------------------------
 
-function SpecRefresh() {
-  $gmail=$this->GetGroupMail();
-  $this->SetValue("GRP_MAIL", $gmail);
+function PostModify() {
+  $err=$this->SetGroupMail();
+  return $err;
 }
  
-function GetGroupMail() {
+function RefreshGroup() {
+  $err=$this->PostModify();
+  $err.=$this->modify();
+  return $err;
+}
+
+function SetGroupMail() {
   
-  
+  $err="";
   $gmail=" ";
   $tmail=array();
   $tiduser = $this->getTValue("GRP_IDUSER");
+  $tuser = $this->getTValue("GRP_USER");
   if (count($tiduser) > 0) {
     $user = new User("",$iduser);
     while (list($k,$v) = each($tiduser)) {
 
       $udoc = new doc($this->dbaccess,$v);
-      if ($udoc) {
+      if ($udoc && $udoc->isAlive()) {
 	$mail = $udoc->getValue("US_MAIL");
 	if ($mail != "") $tmail[]=$mail;
+      } else {
+	$err .= sprintf("%s does not exist",$tuser[$k]);
       }
     }
 
-    $gmail=implode(", ",$tmail);
+    $gmail=implode(", ",array_unique($tmail));
   }
-  
-  return $gmail;
+
   // add mail groups
+  $tgmemberid=$tiduser; // affiliated members
+  $tgmember=$tuser; // affiliated members
   $tiduser = $this->getTValue("GRP_IDGROUP");
   if (count($tiduser) > 0) {
     $user = new User("",$iduser);
     while (list($k,$v) = each($tiduser)) {
 
       $udoc = new doc($this->dbaccess,$v);
-      if ($udoc) {
+      if ($udoc && $udoc->isAlive()) {
 	$mail = $udoc->getValue("GRP_MAIL");
-	if ($mail != "") $tmail[]=$mail;
+	if ($mail != "") {
+	  $tmail1 = explode(",",str_replace(" ", "", $mail));
+	  $tmail=array_merge($tmail,$tmail1);
+	}
+	$tgmemberid=array_merge($tgmemberid,$udoc->getTValue("GRP_IDUSER"));
+	$tgmember=array_merge($tgmember,$udoc->getTValue("GRP_USER"));
       }
     }
 
-    $gmail=implode(", ",$tmail);
+    $gmail=implode(", ",array_unique($tmail));
   }
-  
-  return $gmail;
+  $tgmembers=array();
+  while (list($k,$v) = each($tgmemberid)) {
+    $tgmembers[$v]=$tgmember[$k];
+  }
+
+  $this->SetValue("GRP_IDRUSER", implode("\n",array_keys($tgmembers)));
+  $this->SetValue("GRP_RUSER", implode("\n",$tgmembers));
+  $this->SetValue("GRP_MAIL", $gmail);
+  return $err;
 }
   
