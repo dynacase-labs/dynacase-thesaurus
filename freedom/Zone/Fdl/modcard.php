@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.51 2004/01/09 09:35:15 eric Exp $
+ * @version $Id: modcard.php,v 1.52 2004/01/14 15:56:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.51 2004/01/09 09:35:15 eric Exp $
+// $Id: modcard.php,v 1.52 2004/01/14 15:56:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -159,7 +159,6 @@ function modcard(&$action, &$ndocid) {
     // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
     $doc->unlock(true); // disabled autolock
   
-  
     if ($err == "") {
     
       // change state if needed
@@ -169,7 +168,8 @@ function modcard(&$action, &$ndocid) {
     
       $err="";
 
-      if (($newstate != "") ) {
+
+      if (($newstate != "") && ($newstate != "-")) {
 
 	if ($doc->wid > 0) {
 	  if ($newstate != "-") {
@@ -183,8 +183,11 @@ function modcard(&$action, &$ndocid) {
       } else {
 	// test if auto revision
 	$fdoc = $doc->getFamDoc();
+
 	if ($fdoc->schar == "R") {
-	  $doc->AddRevision(_("auto revision"));
+	  $doc->AddRevision(sprintf("%s : %s",_("auto revision"),$comment));
+	} else {
+	  if ($comment != "") $doc->AddComment($comment);
 	}
       }
       $ndocid = $doc->id;
