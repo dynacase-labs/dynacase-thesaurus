@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.74 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.75 2003/09/22 13:07:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.74 2003/08/18 15:47:04 eric Exp $
+// $Id: Lib.Dir.php,v 1.75 2003/09/22 13:07:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -197,7 +197,21 @@ function getSqlSearchDoc($dbaccess,
   }
   return $qsql;
 }
-
+/**
+ * return array of documents
+ *
+ * @param string $dbaccess database specification
+ * @param array  $dirid the array of id or single id of folder where search document 
+ * @param string $start the start index 
+ * @param string $slice the maximum number of returned document
+ * @param array $sqlfilters array of sql filter
+ * @param int $userid the current user id
+ * @param string $qtype LIST|TABLE the kind of return : list of object or list or values array
+ * @param int $fromid identificator of family document
+ * @param bool $distinct if true all revision of the document are returned else only latest
+ * @param string $orderby field order
+ * @return array/Doc
+ */
 function getChildDoc($dbaccess, 
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
@@ -206,6 +220,7 @@ function getChildDoc($dbaccess,
   
   // query to find child documents            
   
+  if (($fromid!="") && (! is_numeric($fromid))) $fromid=getFamIdFromName($dbaccess,$fromid);
   $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct);
 
   if ($userid > 1) { // control view privilege
@@ -231,7 +246,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
 
@@ -247,7 +262,23 @@ function getChildDoc($dbaccess,
   return($tableq);
 }
 
-
+/**
+ * return array of documents
+ *
+ * based on {@see getChilDoc()} it return document with enum attribute condition
+ * return document which the $aid attribute has the value $kid 
+ *
+ * @param string $dbaccess database specification
+ * @param string $famname internal name of family document
+ * @param string $aid the attribute identificator
+ * @param string $kid the key for enum value to search
+ * @param string $name additionnal filter on the title
+ * @param array $sqlfilters array of sql filter
+ * @param int $limit max document returned
+ * @param string $qtype LIST|TABLE the kind of return : list of object or list or values array
+ * @param int $userid the current user id
+ * @return array/Doc
+ */
 function getKindDoc($dbaccess, 
 		    $famname,
 		    $aid, 
@@ -310,45 +341,40 @@ function sqlval2array($sqlvalue) {
 
 
 
-function getChildDirId($dbaccess, $dirid, $notfldsearch=false) {
+function getChildDirId($dbaccess, $dirid) {
   // query to find child directories (no recursive - only in the specified folder)
-    
-    if ($notfldsearch) $odoctype='D';
-    else $odoctype='S';
-  $qsql= "select distinct on (doc.id) * from doc  ".
-    "where  ((doc.doctype='D') OR (doc.doctype='$odoctype')) ".
-      "and doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) ";
-  
-  
+        
+
   $tableid = array();
-  $query = new QueryDb($dbaccess,"Doc");
-  $query -> AddQuery("dirid=".$dirid);
   
-  
-  $tableq=$query->Query(0,0,"TABLE",$qsql);
-  if ($query->nb == 0) return array();  
-  
-  reset($tableq);
-  while(list($k,$v) = each($tableq)) {
+  $tdir=getChildDoc($dbaccess,$dirid,"0","ALL",array(),$userid,"TABLE",2);
+
+  while(list($k,$v) = each($tdir)) {
     $tableid[] = $v["id"];
   }
   
   
   return($tableid);
 }
-
-
 // --------------------------------------------------------------------
-function getRChildDirId($dbaccess, $dirid, $rchilds=array(), $level=0) {
-  // --------------------------------------------------------------------
-  // query to find child directories (RECURSIVE)
+
+/**
+ * return array of subfolder id until sublevel 2 (RECURSIVE)
+ *
+ * @param string $dbaccess database specification
+ * @param int  $dirid the id of folder where search subfolders 
+ * @param array $rchilds use for recursion (dont't set anything)
+ * @param int  $level use for recursion (dont't set anything)
+ * @return array/int
+ * @see getChildDir()
+ */
+function getRChildDirId($dbaccess, $dirid, $rchilds=array(), $level=0) { 
   global $action;
 
   
-  if ($level > 20) {
-    $action->log->warning("Max dir deep [$level levels] reached");
-    echo("<h3>Max dir deep [$level levels] reached</h3>");
-    exit; // limit recursivity
+  if ($level > 2) {
+    $action->addWarningMsg("getRChildDirId::Max dir deep [$level levels] reached");
+    return ($rchilds);
   }
 
   $rchilds[] = $dirid;
@@ -394,9 +420,16 @@ function hasChildFld($dbaccess, $dirid) {
 }
 
 
-// just to test array if set before
-function setv($v,$k,$d="") {
-  if (isset($v[$k]) && ($v[$k] != "")) return $v[$k];
+/**
+ * return the value of an array item
+ *
+ * @param array $t the array where get value
+ * @param string $k the index of the value
+ * @param string $d default value if not found or if it is empty
+ * @return string
+ */
+function getv($t,$k,$d="") {
+  if (isset($t[$k]) && ($t[$k] != "")) return $t[$k];
   return $d;
 }
 
