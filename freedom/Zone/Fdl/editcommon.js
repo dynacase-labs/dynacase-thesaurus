@@ -77,6 +77,7 @@ function getRowNumber(el) {
   return nrow;
 }
 
+var enuminprogress=false;
 function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm) {
 
 
@@ -89,7 +90,8 @@ function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm) {
  
   var inid;
 
-
+  if (enuminprogress) return;
+  enuminprogress=true;  
   //  inid= choiceButton.id.substr(3);
   inp=document.getElementById(attrid);
 
@@ -147,6 +149,7 @@ function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm) {
   f.action=oldact;
   f.target=oldtar;
 
+  enuminprogress=false;
 }
 
 function enableall() {
@@ -1432,10 +1435,7 @@ function trackKeys(event,onlystop)
 
 
   if ( stop) {
-    if (event.stopPropagation) event.stopPropagation();
-    else event.cancelBubble=true;
-    if (event.preventDefault) event.preventDefault();
-    else event.returnValue=true;
+    stopPropagation(event);
     
     return false;
   } 
@@ -1480,11 +1480,8 @@ function adrag(event,o) {
   hidro=getObjectHeight(idro);
   dro.style.top=Ypos-Math.round(hidro/2);
   ytr=Ypos;  
-  addEvent(document,"mousemove",dragtr);
-  if (event.stopPropagation) event.stopPropagation();
-  else event.cancelBubble=true;
-  if (event.preventDefault) event.preventDefault();
-  else event.returnValue=true;
+  addEvent(document,"mousemove",dragtr); 
+  stopPropagation(event);
 
   setTimeout('adraggo()',300); 
   //adraggo(event);
@@ -1527,12 +1524,16 @@ function sdrag(event) {
   idro=null;
   draggo=false;
   delEvent(document,"mousemove",dragtr);   
+  stopPropagation(event);
+
+  
+}
+
+function stopPropagation(event) {
   if (event.stopPropagation) event.stopPropagation();
   else event.cancelBubble=true;
   if (event.preventDefault) event.preventDefault();
-  else event.returnValue=true;
-
-  
+  else event.returnValue=true;  
 }
 function dragtr(event) {  
   if (dro && draggo) {
