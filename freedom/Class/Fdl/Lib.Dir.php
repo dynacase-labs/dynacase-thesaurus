@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.2 2002/03/21 16:13:38 eric Exp $
+// $Id: Lib.Dir.php,v 1.3 2002/03/21 18:04:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -133,7 +133,7 @@ function getFirstDir($dbaccess) {
     reset($tableq);
     while(list($k,$v) = each($tableq)) {
       if ($v->id == $previd) unset($tableq[$k]);
-      else $previd=$v->id;
+      $previd=$v->id;
 
     }
     reset($tableq);
