@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.7 2002/11/28 18:19:21 eric Exp $
+// $Id: viewframe.php,v 1.8 2002/12/10 16:15:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,6 +71,7 @@ function viewframe(&$action) {
     $value = chop($doc->GetValue($v->id));
     
     if ($value == "") continue;
+    if ($v->visibility == "O") continue;
     //------------------------------
       // Set the table value elements
 	if ($v->visibility != "H")	{	

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewbodycard.php,v 1.6 2002/11/04 09:13:17 eric Exp $
+// $Id: viewbodycard.php,v 1.7 2002/12/10 16:15:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -141,7 +141,8 @@ function viewbodycard(&$action) {
     // Set the table value elements
     if ($iattr <= $nattr)	{
       
-      if (($value != "") && ($listattr[$i]->visibility != "H"))   {
+      if (($value != "") && ($attr->visibility != "H")
+	  && ($attr->visibility != "O"))   {
 		
 	$currentFrameId = $listattr[$i]->fieldSet->id;
 

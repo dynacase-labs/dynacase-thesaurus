@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editchangecatg.php,v 1.5 2002/11/15 16:17:37 eric Exp $
+// $Id: generic_editchangecatg.php,v 1.6 2002/12/10 16:15:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editchangecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,6 @@
 
 
 include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
 include_once("GENERIC/generic_util.php");
 
 // -----------------------------------
@@ -49,7 +48,7 @@ function generic_editchangecatg(&$action) {
   reset($stree);
   
   while (list($k,$v) = each($stree)) {
-    if (isInDir($dbaccess, $v["id"], $docid)) $checked="checked";
+    if (isInDir($dbaccess, $v["id"], $doc->initid)) $checked="checked";
     else  $checked="";
     $stree[$k]["checked"]=$checked;
   }

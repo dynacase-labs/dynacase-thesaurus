@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.4 2002/11/26 13:53:46 eric Exp $
+// $Id: Method.DocUser.php,v 1.5 2002/12/10 16:15:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,7 +90,7 @@ function SpecRefresh() {
 
 
   // gaddrsociety(D,US_IDSOCIETY,US_SOCADDR):US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB
-  $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB");
+  $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX");
 
   $doc=new Doc($this->dbaccess, $this->getValue("US_IDSOCIETY"));
   if ($this->getValue("US_SOCADDR") != "") {
@@ -98,6 +98,7 @@ function SpecRefresh() {
     $this->setValue("US_WORKTOWN",$doc->getValue("SI_TOWN"," "));
     $this->setValue("US_WORKPOSTALCODE",$doc->getValue("SI_POSTCODE"," "));
     $this->setValue("US_WORKWEB",$doc->getValue("SI_WEB"," "));
+    $this->setValue("US_WORKCEDEX",$doc->getValue("SI_CEDEX"," "));
   }
 
   

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_importcsv.php,v 1.5 2002/09/26 15:45:15 eric Exp $
+// $Id: generic_importcsv.php,v 1.6 2002/12/10 16:15:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_importcsv.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -25,7 +25,6 @@
 
 
 
-include_once("FDL/Class.DocUser.php");
 include_once("FDL/Class.Dir.php");
 include_once("FDL/import_file.php");
 include_once("GENERIC/generic_util.php"); 
@@ -66,7 +65,7 @@ function generic_importcsv(&$action) {
   $tabadd = array(); // memo each added person
   $tabdel = array(); // memo each deleted person
 
-  $bdvalue = new DocValue($dbaccess);
+
   while ($data = fgetcsv ($fdoc, 1000, ";")) {
     {
 	 

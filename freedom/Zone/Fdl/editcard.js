@@ -109,7 +109,7 @@ function disableReadAttribute() {
       for (var i=0; i< taout[c].length; i++) {
 	    if (document.getElementById(taout[c][i])) {
 	      if (document.getElementById(taout[c][i]).type != 'hidden') {
-		document.getElementById(taout[c][i]).disabled=ndis;
+		document.getElementById(taout[c][i]).disabled=ndis;		
 	      }
 	    }
       }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_importvcard.php,v 1.8 2002/10/31 08:09:22 eric Exp $
+// $Id: usercard_importvcard.php,v 1.9 2002/12/10 16:15:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_importvcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -25,7 +25,6 @@
 
 
 
-include_once("FDL/Class.DocUser.php");
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.UsercardVcard.php");
 

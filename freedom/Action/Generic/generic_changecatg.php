@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_changecatg.php,v 1.3 2002/08/28 09:39:32 eric Exp $
+// $Id: generic_changecatg.php,v 1.4 2002/12/10 16:15:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_changecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,7 +26,6 @@
 include_once("FDL/modcard.php");
 
 include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
 include_once("GENERIC/generic_util.php");
 
 

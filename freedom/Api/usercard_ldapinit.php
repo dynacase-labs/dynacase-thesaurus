@@ -3,6 +3,7 @@
 
 // remove all tempory doc and orphelines values
 include_once("FDL/Class.Doc.php");
+include_once("FDL/Lib.Dir.php");
 
 
 $appl = new Application();
@@ -18,16 +19,15 @@ if ($dbaccess == "") {
   exit;
 }
 
-$query = new QueryDb($dbaccess,"Doc");
-$query->AddQuery("classname='DocUser'");
 
-$ldoc = $query->Query();
+$famid=getFamIdFromName($dbaccess,"USER");
+$ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"TABLE",$famid);
 
 
 if ($query->nb > 0) {
   
   while(list($k,$doc) = each($ldoc)) {
-    $priv=$doc->GetValue(QA_PRIVACITY);
+    $priv=$doc->GetValue("US_PRIVCARD");
     $err="";
 
     // update LDAP only no private card
