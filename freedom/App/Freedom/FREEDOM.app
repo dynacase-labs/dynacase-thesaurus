@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.4 2002/04/09 14:42:18 eric Exp $
+// $Id: FREEDOM.app,v 1.5 2002/07/16 08:35:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -119,8 +119,12 @@ $action_desc = array (
   ) ,
   array( 
    "name"		=>"FREEDOM_ICONS",
-   "toc"		=>"Y",
    "short_name"		=>N_("Freedoms icon list"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_IFLD",
+   "short_name"		=>N_("access path folder list"),
    "acl"		=>"FREEDOM_READ"
   ) ,
   array( 

@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-07-15 09:04+0200\n"
+	"POT-Creation-Date: 2002-07-16 10:28+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -234,7 +234,7 @@ msgstr	"%s a été envoyé"
 
 #, c-format
 msgid	"unknown attribute %s"
-msgstr "attribut inconnu : %s"
+msgstr	"attribut inconnu : %s"
 
 #, c-format
 msgid	"the external pluggin file %s cannot be read"
@@ -502,6 +502,9 @@ msgstr	"développer une branche"
 msgid	"Freedoms icon list"
 msgstr	"liste sous forme d'icones"
 
+msgid	"access path folder list"
+msgstr	"liste des chemin d'accès"
+
 msgid	"bar menu"
 msgstr	"barre de menu"
 
@@ -599,7 +602,7 @@ msgid	"Access Action Library"
 msgstr	"Bibliothèque pour les droits"
 
 msgid	"For export functions"
-msgstr "Pour les fonctions d'export"
+msgstr	"Pour les fonctions d'export"
 
 msgid	"nothing action"
 msgstr	"action nulle"
@@ -699,10 +702,10 @@ msgid	"global balance result"
 msgstr	"résultat du bilan général"
 
 msgid	"category id to find client"
-msgstr "identificateur catégorie pour la recherche de client"
+msgstr	"identificateur catégorie pour la recherche de client"
 
 msgid	"category id to find technical"
-msgstr "identificateur catégorie pour la recherche de techniciens"
+msgstr	"identificateur catégorie pour la recherche de techniciens"
 
 msgid	"Generic"
 msgstr	"Générique"
@@ -1134,6 +1137,12 @@ msgstr	"à partir du dossier courant"
 msgid	" case sensitive"
 msgstr	" casse sensible"
 
+msgid	" familly"
+msgstr	" famille"
+
+msgid	" any familly"
+msgstr	"toute famille"
+
 msgid	" save query in current folder"
 msgstr	" sauver la requête dans le dossier courant"
 
@@ -1203,6 +1212,9 @@ msgstr	" éditer le document"
 msgid	"link document"
 msgstr	"référencer le document"
 
+msgid	"access path list"
+msgstr	"liste des chemin d'accès"
+
 msgid	"delete link"
 msgstr	"supprimer la référence"
 
@@ -1223,6 +1235,12 @@ msgstr	" Changer de titre"
 
 msgid	"Change title"
 msgstr	"Changer de titre"
+
+msgid	"access path folder list:"
+msgstr	"liste des chemins d'accès"
+
+msgid	"Access Path Folder List"
+msgstr	"Liste des chemins d'accès"
 
 msgid	" choose value"
 msgstr	" choisir une valeur"
@@ -1246,10 +1264,10 @@ msgid	"Revise"
 msgstr	"Réviser"
 
 msgid	"Rename"
-msgstr "Renommer"
+msgstr	"Renommer"
 
 msgid	"Set default values"
-msgstr "Valeurs par défaut"
+msgstr	"Valeurs par défaut"
 
 msgid	"Unlock"
 msgstr	"Déverrouiller"
@@ -1300,7 +1318,7 @@ msgid	" date"
 msgstr	" date"
 
 msgid	"Familly Document"
-msgstr "Famille de document"
+msgstr	"Famille de document"
 
 msgid	"to"
 msgstr	"vers"

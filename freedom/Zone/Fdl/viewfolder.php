@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.14 2002/06/19 12:32:35 eric Exp $
+// $Id: viewfolder.php,v 1.15 2002/07/16 08:35:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -125,7 +125,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     include_once("FDL/popup_util.php");
     // ------------------------------------------------------
     // definition of popup menu
-    popupInit("popuplist",array('vprop','editdoc','cancel','copy','duplicate','delete'));
+    popupInit("popuplist",array('vprop','editdoc','cancel','copy','duplicate','ifld','delete'));
 
   }
 
@@ -187,6 +187,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  popupActive("popuplist",$kdiv,'vprop');
 	  popupActive("popuplist",$kdiv,'cancel');
 	  popupActive("popuplist",$kdiv,'copy');
+	  popupActive("popuplist",$kdiv,'ifld');
 	  popupActive("popuplist",$kdiv,'duplicate');
 
 	  if ($dirid > 0) popupActive("popuplist",$kdiv,'delete');

@@ -16,6 +16,9 @@
 <a href="#" id="copy" 
     onClick="activedrag(event);closeMenu('popuplist'); return false;" >[TEXT:link document]</a>
 
+<a href="#" id="ifld"
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IFLD&id='+docid+'&dirid='+parent.info.document.dirid,'doc_properties');closeMenu('popuplist'); return false;" >[TEXT:access path list]</a>
+
 <a href="#" id="delete"
     onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=DELDIRFILE&docid='+docid+'&dirid='+parent.info.document.dirid,'info');closeMenu('popuplist'); return false;" >[TEXT:delete link]</a>
 

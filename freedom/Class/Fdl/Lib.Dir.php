@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.17 2002/07/11 13:20:33 eric Exp $
+// $Id: Lib.Dir.php,v 1.18 2002/07/16 08:36:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -159,7 +159,7 @@ function getFirstDir($dbaccess) {
     }
     
     
-     print "<HR>".$qsql;
+    // print "<HR>".$qsql;
     $query = new QueryDb($dbaccess,"Doc");
     
     
