@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.165 2003/11/17 11:19:25 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.166 2003/11/18 14:37:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.165 2003/11/17 11:19:25 eric Exp $
+// $Id: Class.Doc.php,v 1.166 2003/11/18 14:37:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.165 2003/11/17 11:19:25 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.166 2003/11/18 14:37:03 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1696,7 +1696,6 @@ create unique index i_docir on doc(initid, revision);";
   function urlWhatEncode( $link, $k=-1) {
     // -----------------------------------
     global $action;
-    
     $dbaccess = $action->GetParam("FREEDOM_DB");
     $urllink="";
     for ($i=0; $i < strlen($link); $i++) {
@@ -1732,7 +1731,6 @@ create unique index i_docir on doc(initid, revision);";
 	    $sattrid.= $link[$i];
 	    $i++;
 	  }
-	  //	  print "attr=$sattrid";
 	  if ($k >= 0) {
 	    $tval= $this->GetTValue($sattrid);
 	    $ovalue = chop($tval[$k]);
@@ -1788,8 +1786,7 @@ create unique index i_docir on doc(initid, revision);";
     
     $aformat=$oattr->format;
     $atype=$oattr->type;
-
-    if ($oattr->repeat){
+    if (($oattr->repeat)&&($index <= 0)){
       $tvalues = explode("\n",$value);
     } else {
       $tvalues[$index]=$value;
@@ -1797,7 +1794,6 @@ create unique index i_docir on doc(initid, revision);";
     $idocfamid=$oattr->format;
     
     $attrid=$oattr->id;
-
 
     while (list($kvalue, $avalue) = each($tvalues)) {
       $htmlval="";

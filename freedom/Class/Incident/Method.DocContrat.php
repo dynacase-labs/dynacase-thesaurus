@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocContrat.php,v 1.4 2003/11/03 09:03:41 eric Exp $
+ * @version $Id: Method.DocContrat.php,v 1.5 2003/11/18 14:37:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocContrat.php,v 1.4 2003/11/03 09:03:41 eric Exp $
+// $Id: Method.DocContrat.php,v 1.5 2003/11/18 14:37:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocContrat.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -105,6 +105,10 @@ function setProductContract() {
   $tproduct = $this->getTvalue("CO_IDPRODUCT");
   while (list($k,$v) = each($tproduct)) {
     $prodoc = new doc($this->dbaccess, $v);
+    if ($prodoc->locked == -1) { // get latest contract
+      $prodoc= new Doc($this->dbaccess, $prodoc->latestId());
+      
+    }
     if ($prodoc->isAlive()) {
 
       $idcontract = $prodoc->getValue("PR_IDCONTRACT");
@@ -118,6 +122,7 @@ function setProductContract() {
       }
     }
   } 
+  
 }
 
 function refreshProduct() {
@@ -151,7 +156,7 @@ function recupProduct() {
 
   while (list($k,$prodoc) = each($tdoc)) {
 
-       $tidprod[]=$prodoc["initid"];
+       $tidprod[]=$prodoc["id"];
        $tprod[]=$prodoc["title"];
        $tidsite[]=getv($prodoc,"pr_idsite"," ");
        $tsite[]=getv($prodoc,"pr_site"," ");
@@ -162,6 +167,7 @@ function recupProduct() {
   $this->setValue("CO_PSITE",$tsite);
   $this->setValue("CO_IDPRODUCT",$tidprod);
   $this->setValue("CO_PRODUCT",$tprod);
+
 }
 
 function recupCallers() {
