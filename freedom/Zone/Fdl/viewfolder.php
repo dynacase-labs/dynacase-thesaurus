@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.54 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: viewfolder.php,v 1.55 2004/09/15 14:05:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -216,7 +216,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       
 	
 	      
-	if ($doc->doctype == 'D') $tdoc[$k]["isfld"]= "true";
+	if (($doc->doctype == 'D')||($doc->doctype == 'S')) $tdoc[$k]["isfld"]= "true";
 	else $tdoc[$k]["isfld"]= "false";
 	
 	
