@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.30 2003/06/18 14:57:29 eric Exp $
+// $Id: mailcard.php,v 1.31 2003/06/24 10:40:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -104,7 +104,7 @@ function sendCard(&$action,
   // set title
   
  
- 
+  setHttpVar("target","mail");
  
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -243,16 +243,22 @@ function sendCard(&$action,
     if (count($afiles) > 0) {
     
       while(list($k,$v) = each($afiles)) {
-	$va=$doc->getValue($v->id);
-	if ($va != "") {
-	  list($mime,$vid)=explode("|",$va);
-	  //      ereg ("(.*)\|(.*)", $va, list($mime,$vid)$reg);
+	$tva=array();
+	if ($v->repeat) $tva=$doc->getTValue($v->id);
+	else $tva[]=$doc->getValue($v->id);
 
-	  if ($vid != "") {
-	    if ($vf -> Retrieve ($vid, $info) == "") {  
-	      $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
-		 "-i '<".$v->id.">'  -f '".$info->path."'";
+	while(list($ka,$va) = each($tva)) {
+	  if ($va != "") {
+
+	    list($mime,$vid)=explode("|",$va);
+	    //      ereg ("(.*)\|(.*)", $va, list($mime,$vid)$reg);
+
+	    if ($vid != "") {
+	      if ($vf -> Retrieve ($vid, $info) == "") {  
+		$cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
+		  "-i '<".$v->id.">'  -f '".$info->path."'";
 	  
+	      }
 	    }
 	  }
 	}
