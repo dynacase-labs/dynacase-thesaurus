@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.35 2004/04/27 09:20:26 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.36 2004/05/06 08:05:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.35 2004/04/27 09:20:26 eric Exp $
+// $Id: Lib.Attr.php,v 1.36 2004/05/06 08:05:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -281,10 +281,10 @@ function PgUpdateFamilly($dbaccess, $docid) {
     $qattr->AddQuery("type != 'array'");
     $qattr->AddQuery("visibility != 'M'");
     $qattr->AddQuery("visibility != 'F'");
+    $qattr->AddQuery("usefor != 'Q' or usefor is null");
 
     $oattr=$qattr->Query();
-    if (count($oattr) > 0) {
-
+    if ($qattr->nb > 0) {
       foreach($oattr as $ka => $attr) {
 
 	if ($attr->type=="array") continue; // don't use column for container
