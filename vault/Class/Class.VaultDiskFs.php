@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.3 2002/02/06 17:19:58 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.4 2004/03/16 14:02:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskFs.php,v $
+// Revision 1.4  2004/03/16 14:02:52  eric
+// correction for extension file
+//
 // Revision 1.3  2002/02/06 17:19:58  eric
 // correction de tous les query : resultat par table
 //
@@ -148,6 +151,7 @@ Class VaultDiskFs extends DbObj {
     $query = new QueryDb($this->vault, $this->dbtable);
     $query->basic_elem->sup_where=array("free_size>".$f_size);
     $t = $query->Query(0,0,"TABLE");
+  
     if ($query->nb > 0) {
       $ifs = 0;
       $dirfound = FALSE;
