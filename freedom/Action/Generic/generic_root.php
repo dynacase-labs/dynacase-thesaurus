@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Display two frames
  *
  * @author Anakeen 2003
- * @version $Id: generic_root.php,v 1.1 2003/10/16 09:38:01 eric Exp $
+ * @version $Id: generic_root.php,v 1.2 2004/08/23 13:45:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
