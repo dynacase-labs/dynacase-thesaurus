@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.29 2003/05/19 10:45:02 eric Exp $
+ * $Id: freedom.css,v 1.30 2003/06/18 14:57:54 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -312,4 +312,71 @@ TH {
   .onlyprint { 
     display:block;
     }
+}
+/*--------------------------*/
+/* report CSS */
+TABLE.reportHBlue {
+	empty-cells: show;
+	color : black;	
+        -moz-border-radius:25px
+}
+.reportHBlue TR.trodd{
+	background-color: #99CCFF;	
+	border-color : cornflowerblue;
+}
+.reportHBlue TR.treven{
+	background-color: lavender;
+}
+.reportHBlue TH{
+	color : black;
+	background-color: cornflowerblue;
+}
+.reportHBlue TD.tdodd{
+	color : black;
+	empty-cells: show;
+	border-width : 1px;
+	border-style : none solid  none none;
+	border-color : cornflowerblue;
+
+}
+.reportHBlue TD.tdeven{
+	color : black;
+	empty-cells: show;
+	border-color : cornflowerblue;
+	border-style : none solid  none none;
+	border-width : 1px;
+}
+
+/*--------------------------*/
+/* report Col GREEN */
+TABLE.reportVGreen {
+	empty-cells: show;
+	color : black;	
+        -moz-border-radius:25px;
+}
+.reportVGreen TR.trodd{	
+	border-style : inset none none none;
+	border-color : #60d050;
+	border-width : 1px;
+}
+.reportVGreen TR.treven{
+	border-style : outset none none none;
+	border-width : 1px;
+}
+.reportVGreen TH{
+	color : black;
+	background-color: #60d050;
+}
+.reportVGreen TD.tdodd{
+	color : black;
+	empty-cells: show;
+	border-color : #60d050;
+	background-color: #40e0b0;
+
+}
+.reportVGreen TD.tdeven{
+	color : black;
+	empty-cells: show;
+	border-color : #60d050;
+	background-color: #80f0e0;
 }

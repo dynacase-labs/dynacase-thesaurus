@@ -3,6 +3,7 @@ var isNetscape = navigator.appName=="Netscape";
 // auxilarry window to select choice
 var wichoose= false;
 
+var colorPick = new ColorPicker();
 initDHTMLAPI();
 
 function sendmodifydoc(event,docid, attrid, sorm, index) {
@@ -316,7 +317,13 @@ function resetTrInputs(tr) {
   var tin = tr.getElementsByTagName('input');
   
   for (var i=0; i< tin.length; i++) { 
+    if (tin[i].name) resetInputsByName(tin[i].name);
+  }
 
+  // add select input also
+  tin = tr.getElementsByTagName('select');
+  
+  for (var i=0; i< tin.length; i++) { 
     if (tin[i].name) resetInputsByName(tin[i].name);
   }
 

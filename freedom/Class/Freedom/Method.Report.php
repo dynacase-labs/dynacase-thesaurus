@@ -3,8 +3,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2003/06/17 14:11:38 $
-// Version         $Revision: 1.1 $
+// Last Update     $Date: 2003/06/18 14:57:54 $
+// Version         $Revision: 1.2 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -104,15 +104,17 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
   $order=$this->getValue("REP_IDSORT","title");
   $tdoc = getChildDoc($this->dbaccess, $this->initid,0,"ALL",array(),$this->userid,"TABLE","",false,$order);
   $trodd=false;
-
+  $tcolor= $this->getTValue("REP_COLORS");
+ 
   while (list($k,$v) = each($tdoc)) {
     $rdoc->Affect($v);
-    $trow[$k]=array("CELLS"=>"doc$k",
+    $trow[$k]=array("CELLS"=>"row$k",
 		    "troddoreven"=>$trodd?"trodd":"treven");
     $trodd=!$trodd;
     $tdodd=false;
     $tcell=array();
     reset($tcolumn2);
+    reset($tcolor);
     while (list($kc,$vc) = each($tcolumn2)) {
       if ($v[$kc] == "") $tcell[$kc]=array("cellval"=>"");
       else {
@@ -129,18 +131,49 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
 	  if ($lattr[$kc]->type == "image") $cval="<img width=\"40px\" src=\"$cval\">";
 	
 	}
-	$tcell[$kc]=array("cellval"=>$cval);
+	$tcell[$kc]=array("cellval"=>$cval,
+			  "rawval"=>$v[$kc]);
       }
+      $tcell[$kc]["bgcell"]=current($tcolor);next($tcolor);
       $tcell[$kc]["tdoddoreven"]=$tdodd?"tdodd":"tdeven";
       $tcell[$kc]["rightfornumber"]=($lattr[$kc]->type == "money")?"right":"left";
       $tdodd=!$tdodd;
       
     }
-    $this->lay->setBlockData("doc$k",$tcell);
+    $this->lay->setBlockData("row$k",$tcell);
     
     
   }
   $this->lay->setBlockData("ROWS",$trow);
+  // ---------------------
+  // footer
 
+  $tfoots = $this->getTValue("REP_FOOTS");
+  while (list($k,$v) = each($tfoots)) {
+    switch ($v) {
+    case "CARD":
+      $val = count($trow);
+      break;
+    case "MOY":
+    case "SUM":
+      reset($trow);
+      $val=0;
+       while (list($kr,$vr) = each($trow)) {
+	 $ctr = $this->lay->getBlockData($vr["CELLS"]);
+	 
+	 $val += $ctr[$tcols[$k]]["rawval"];
+       }
+       if ($v == "MOY") $val = $val/count($trow);
+       $val = $rdoc->getHtmlValue($lattr[$tcols[$k]],$val,$target,$ulink);            
+      break;
+    
+    default:
+      $val="-";
+    }
+    $tlfoots[]=array("footval"=>$val,
+		     "rightfornumber"=>$tcolumn2[$tcols[$k]]["rightfornumber"]);
+    
+  }
+  $this->lay->setBlockData("TFOOT",$tlfoots);
 }
 // EOF

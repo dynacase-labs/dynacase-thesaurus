@@ -179,16 +179,31 @@ function lmask($dbaccess, $name, $maskfamid="") {
   
 }
 
-
 // liste des attributs d'une famille
+function getDocAttr($dbaccess, $famid, $name="") {
+  return getSortAttr($dbaccess, $famid, $name);
+}
+
+// liste des attributs triable d'une famille
 function getSortAttr($dbaccess, $famid, $name="") {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   
   $doc = createDoc($dbaccess, $famid);
-  
-  $tinter = $doc->GetSortAttributes();
+  // internal attributes
+  $ti = array("title" => _("doctitle"),
+	      "revdate" => _("revdate"),
+	      "revision" => _("revision"),
+	      "state" => _("state"));
   
   $tr = array();
+  while(list($k,$v) = each($ti)) {
+   
+      $tr[] = array($v , $k,$v);
+    
+  }
+
+  $tinter = $doc->GetSortAttributes();
+  
 
   while(list($k,$v) = each($tinter)) {
     if (($name == "") ||    (eregi("$name", $v->labelText , $reg)))

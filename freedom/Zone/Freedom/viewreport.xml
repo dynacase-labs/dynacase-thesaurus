@@ -6,9 +6,11 @@
 <thead><tr>
 [BLOCK COLS]<th align="[rightfornumber]" id="[colid]">[collabel]</th>[ENDBLOCK COLS]
 </tr></thead>
-<tbody>
-[BLOCK ROWS]<tr class="[troddoreven]">[BLOCK [CELLS]]<td valign="top" align="[rightfornumber]" class="[tdoddoreven]">[cellval]</td>[ENDBLOCK [CELLS]]
+<tbody >
+[BLOCK ROWS]<tr class="[troddoreven]">[BLOCK [CELLS]]<td valign="top" bgcolor="[bgcell]" align="[rightfornumber]" class="[tdoddoreven]">[cellval]</td>[ENDBLOCK [CELLS]]
 
 </tr>[ENDBLOCK ROWS]
-</tbody>
+</tbody><tfoot><tr>
+[BLOCK TFOOT]<th align="[rightfornumber]" >[footval]</th>[ENDBLOCK TFOOT]
+</tr></tfoot>
 </table>

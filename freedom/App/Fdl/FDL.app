@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.14 2003/05/15 09:11:36 eric Exp $
+// $Id: FDL.app,v 1.15 2003/06/18 14:57:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -112,6 +112,11 @@ $action_desc = array (
   array( 
    "name"		=>"VIEWSCARD",
    "short_name"		=>N_("view standalone card"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"IMPCARD",
+   "short_name"		=>N_("printed view card"),
    "acl"		=>"NORMAL"
   ) ,
   array( 
