@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.28 2003/06/03 14:52:49 eric Exp $
+// $Id: mailcard.php,v 1.29 2003/06/12 14:26:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -226,6 +226,8 @@ function sendCard(&$action,
   } else if ($format == "pdf") {
     $cmd .= " -/ mixed ";
     $ftxt = "/tmp/".str_replace(array(" ","/","(",")"), "_",uniqid($title).".txt");
+    $comment = str_replace("'","'\"'\"'",$comment);
+    
     system("echo '$comment' > $ftxt");
     $cmd .= " -m 'text/plain' -e 'quoted-printable' -i comment -f '$ftxt' ";
   }
