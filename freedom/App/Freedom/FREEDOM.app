@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.29 2005/03/25 17:09:41 eric Exp $
+// $Id: FREEDOM.app,v 1.30 2005/04/05 09:45:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,8 +25,8 @@
 
 $app_desc = array (
 "name"		=>"FREEDOM",		//Name
-"short_name"	=>N_("Freedoms"),		//Short name
-"description"	=>N_("Freedoms Management"),//long description
+"short_name"	=>N_("Documents management"),		//Short name
+"description"	=>N_("Documents management"),//long description
 "access_free"	=>"N",			//Access free ? (Y,N)
 "icon"		=>"freedom.gif",	//Icon
 "displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
