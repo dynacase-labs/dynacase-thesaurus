@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.11 2004/03/01 11:10:21 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.12 2004/04/29 08:41:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -226,6 +226,9 @@ function PostModify() {
     $this->setValue("US_WHATID",$user->id);
     $this->modify(true,array("us_whatid"));
   } 
+  $this->SetLdapParam();
+  $err=$this->UpdateLdapCard();
+
   if ($err=="") $err="-";
   return $err;
 

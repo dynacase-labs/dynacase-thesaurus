@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.21 2004/02/25 15:50:02 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.22 2004/04/29 08:41:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.21 2004/02/25 15:50:02 eric Exp $
+// $Id: Method.DocUser.php,v 1.22 2004/04/29 08:41:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -224,9 +224,7 @@ function SpecRefresh() {
 
 
 	      }
-	    if (! @ldap_add($ds, $dn, $infoldap))
-	      $retour = _("errldapadd");	    
-
+	    if (! @ldap_add($ds, $dn, $infoldap))     $retour = _("errldapadd");	    
 	    ldap_close($ds);
 	  }
 	else
@@ -269,10 +267,10 @@ function SpecRefresh() {
       }
       
     } 
-  // --------------------------------------------------------------------
-  function UpdateLdapCard()
-  // --------------------------------------------------------------------
-    {
+/**
+ * 
+ */
+  function UpdateLdapCard()    {
       include_once("FDL/Class.UsercardLdif.php");
       if (! $this->useldap) return;
 
@@ -281,9 +279,8 @@ function SpecRefresh() {
 	      
       $infoldap["cn"]=utf8_encode($this->title);
       $values=$this->GetValues();
-      
-      reset($values);
-      while(list($k,$v) = each($values)) {
+
+      foreach($values as $k=>$v) {
 
 
 	$lvalue=$v;
@@ -292,35 +289,39 @@ function SpecRefresh() {
 	    {
 
 	      // create attributes to LDAP update
-	      $oattr=$this-> GetAttribute($k);
+	      $oattr=$this->GetAttribute($k);
 	    
 	      $ldapattr = array_search(strtoupper($k),$oldif->import);
 
 	      // particularity for URI need http://
-	      if ($oattr->id == "US_WORKWEB") $lvalue="http://".$lvalue;
-
+	      if ($k == "us_workweb") $lvalue="http://".$lvalue;
+	      if ($k == "us_passwd") $lvalue="{CRYPT}".$lvalue;
+	    
 	      if ($ldapattr ) { 
+
 		switch ($oattr->type)
 		  {
 		  case "image":
-		    
-		    break;
-		    ereg ("(.*)\|(.*)\|(.*)", $lvalue, $reg); 
-		    $fd=fopen ($reg[2], "r");
+		    if (ereg ("(.*)\|(.*)", $lvalue, $reg)) {
+
+		      $vf = new VaultFile($this->dbaccess, "FREEDOM");
+		      if ($vf->Retrieve ($reg[2], $info) == "") { 
+		    $fd=fopen($info->path, "r");
       
 		    if ($fd)
 		      {
-			$contents = fread ($fd, filesize ($reg[2]));
+			$contents = fread($fd, filesize ($info->path));
 		  
 			$infoldap[$ldapattr]=  ($contents);
 
 			fclose ($fd);
 		      }
-		
+		      }
+		    }
 		    break;
 		  default:
-		  
-		    $infoldap[$ldapattr]=utf8_encode ($lvalue);
+		    if ($k == "us_passwd")$infoldap[$ldapattr]= ($lvalue);
+		    else $infoldap[$ldapattr]=utf8_encode ($lvalue);
 		  }
 	      }
 	    }

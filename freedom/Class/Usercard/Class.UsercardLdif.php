@@ -3,7 +3,7 @@
  * Class use to import and  export Ldif format (like LDAP) with FREEDOM USER Family
  *
  * @author Anakeen 2001
- * @version \$Id: Class.UsercardLdif.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+ * @version \$Id: Class.UsercardLdif.php,v 1.8 2004/04/29 08:41:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.UsercardLdif.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.UsercardLdif.php,v 1.8 2004/04/29 08:41:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardLdif.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,7 +47,7 @@ Class UsercardLdif
 		      // Person Class
 		      "sn"                              => "US_LNAME",
 		      "cn"                              => "",
-		      "userPassword"                    => "",
+		      "userPassword"                    => "US_PASSWD",
 		      "telephonenumber"                 => "US_PHONE",
 		      
 		      // organizationalPerson
@@ -91,7 +91,7 @@ Class UsercardLdif
 		      "photo"                           => "",
 		      "roomNumber"                      => "US_LOCALISATION",
 		      "secretary"                       => "",
-		      "uid"                             => "",
+		      "uid"                             => "US_WHATID",
 		      "userCertificate"                 => "",
 		      "x500uniqueIdentifier"            => "",
 		      "preferredLanguage"               => "",
