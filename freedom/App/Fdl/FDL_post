@@ -47,5 +47,7 @@ if [ "$1" = "U" ] ; then
   su - postgres -c "psql freedom anakeen -f /home/httpd/what/WHAT/getprivilege.sql"
   su - postgres -c "psql freedom anakeen -f /home/httpd/what/FDL/fdl.sql"
   $pubdir/wsh.php --api=fdl_adoc
+  $pubdir/wsh.php --api=fdl_trigger | psql freedom anakeen
+  $pubdir/wsh.php --api=fdl_trigger --trigger=Y | psql freedom anakeen
 
 fi
