@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.36 2004/05/06 08:05:35 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.37 2004/06/25 12:51:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.36 2004/05/06 08:05:35 eric Exp $
+// $Id: Lib.Attr.php,v 1.37 2004/06/25 12:51:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -147,7 +147,8 @@ function AttrToPhp($dbaccess, $tdoc) {
 
 
 	// complete attributes characteristics
-	$tnormal[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
+	$v->id=chop(strtolower($v->id));
+	$tnormal[($v->id)] = array("attrid"=>($v->id),
 				 "label"=>str_replace("\"","\\\"",$v->labeltext),
 				 "type"=>$atype,
 				 "format"=>str_replace("\"","\\\"",$aformat),
@@ -166,26 +167,26 @@ function AttrToPhp($dbaccess, $tdoc) {
 					     "usefor"=>$v->usefor);
 	 
 	if (($v->type != "array") && ($v->usefor!="Q")) {
-	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>strtolower($v->id));	 
+	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>($v->id));	 
 	if (($repeat=="true") || ($tnormal[$v->frameid]["type"]=="array")) {
-	  $attrids[$v->id] = strtolower($v->id)." text";  // for the moment all repeat are text
+	  $attrids[$v->id] = ($v->id)." text";  // for the moment all repeat are text
 	} else {
 	  switch($atype) {
 	  case double:
 	  case money:
-	    $attrids[$v->id] = strtolower($v->id)." float8";  
+	    $attrids[$v->id] = ($v->id)." float8";  
 	    break;
 	  case integer:
-	    $attrids[$v->id] = strtolower($v->id)." int4";  
+	    $attrids[$v->id] = ($v->id)." int4";  
 	    break;
 	  case date:
-	    $attrids[$v->id] = strtolower($v->id)." date";  
+	    $attrids[$v->id] = ($v->id)." date";  
 	    break;
 	  case time:
-	    $attrids[$v->id] = strtolower($v->id)." time";  
+	    $attrids[$v->id] = ($v->id)." time";  
 	    break;
 	  default: 
-	    $attrids[$v->id] = strtolower($v->id)." text";    
+	    $attrids[$v->id] = ($v->id)." text";    
 	  }
 	}
 
@@ -286,7 +287,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
     $oattr=$qattr->Query();
     if ($qattr->nb > 0) {
       foreach($oattr as $ka => $attr) {
-
+	$attr->id=chop($attr->id);
 	if ($attr->type=="array") continue; // don't use column for container
 	if ($attr->docid == $docid) { // modify my field not inherited fields
 
