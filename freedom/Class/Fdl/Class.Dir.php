@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.28 2004/03/16 14:12:11 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.29 2004/03/29 08:06:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,6 +39,7 @@ Class Dir extends PDir
   function GetHome() {
     
     include_once("FDL/freedom_util.php");
+    include_once("FDL/Lib.Dir.php");
     $rq=getChildDoc($this->dbaccess,0,0,1,array("owner = -". $this->userid),
 		    $this->userid,"LIST","DIR");
     
@@ -223,9 +224,10 @@ Class Dir extends PDir
       }
     }
 
-    // use post virtual method
-    if (!$noprepost) $err=$this->postInsertDoc($docid,false);
-    
+    if ($err == "") {
+      // use post virtual method
+      if (!$noprepost) $err=$this->postInsertDoc($docid,false);
+    }
     return $err;
   }
   // --------------------------------------------------------------------
