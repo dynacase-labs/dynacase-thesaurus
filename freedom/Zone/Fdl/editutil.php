@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.63 2004/01/21 13:26:50 eric Exp $
+ * @version $Id: editutil.php,v 1.64 2004/06/07 15:54:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.63 2004/01/21 13:26:50 eric Exp $
+// $Id: editutil.php,v 1.64 2004/06/07 15:54:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,7 +43,7 @@ include_once("VAULT/Class.VaultFile.php");
 
 
 // -----------------------------------
-function getHtmlInput(&$doc, &$oattr, $value, $index="") {
+function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
   global $action;
 
 
@@ -81,7 +81,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
     return $input;
   }
 
-  $oc = " onchange=\"document.isChanged=true\" "; // use in "pleaseSave" js function
+  $oc = "$jsevent onchange=\"document.isChanged=true\" "; // use in "pleaseSave" js function
 
   // output change with type
   switch ($attrtype)
@@ -150,7 +150,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 		      
       // input 
       $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\">";
-      $input .="<input $oc class=\"fullresize\" size=15 type=\"file\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+      $input .="<input $oc class=\"\" size=15 type=\"file\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " > "; 
@@ -274,85 +274,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
     case "array": 
 
       $lay = new Layout("FDL/Layout/editarray.xml", $action);
-      $ta = $doc->attributes->getArrayElements($attrid);
-      $talabel=array();
-      $tilabel=array();
-      $tvattr = array();
-
-      // get default values
-      $ddoc = createDoc($doc->dbaccess, $doc->fromid==0?$doc->id:$doc->fromid,false);
-      $tad = $ddoc->attributes->getArrayElements($attrid);
-
-
-      $nbcolattr=0; // number of column
-      while (list($k, $v) = each($ta)) {
-	if ($v->mvisibility=="R") {
-	  $v->mvisibility="H"; // don't see read attribute
-	  $ta[$k]->mvisibility="H";
-	}
-	$visible = ($v->mvisibility!="H");
-	$talabel[] = array("alabel"=>(!$visible)?"":$v->labelText,
-			   "ahw"=>(!$visible)?"0px":"auto",
-			   "ahvis"=>(!$visible)?"hidden":"visible");
-	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1),
-			   "ihw"=>($visible)?"0px":"auto",
-			   "ihvis"=>(!$visible)?"hidden":"visible");
-	$tvattr[]=array("bvalue" => "bvalue_$k",
-			"attrid" => $v->id);
-	
-	if ($visible) $nbcolattr++;
-	$tval[$k]=$doc->getTValue($k);
-	$nbitem=count($tval[$k]);
-	$tivalue=array();
-	for ($i=0;$i<$nbitem;$i++) {
-	  $tivalue[]=array("ivalue"=>$tval[$k][$i]);
-	}
-	$lay->setBlockData("bvalue_$k",$tivalue);
-      }
-      
-      if ($action->read("navigator") == "EXPLORER") {
-	// compute col width explicitly
-	if ($nbcolattr> 0) {
-	  $aw=sprintf("%d%%",100/$nbcolattr);
-
-	  foreach ($talabel as $ka => $va) {
-	    if ($va["ahw"]=="auto") {
-	      $talabel[$ka]["ahw"]=$aw;
-	      $tilabel[$ka]["ihw"]=$aw;
-	    }
-	  }
-	}
-      }
-
-      $lay->setBlockData("TATTR",$talabel);
-      $lay->setBlockData("IATTR",$tilabel);
-      $lay->setBlockData("VATTR",$tvattr);
-      $lay->set("attrid",$attrid);
-      $lay->set("caption",$oattr->labelText);
-     
-      $lay->set("footspan",count($ta)*2);
-
-      reset($tval);
-      $nbitem= count(current($tval));
-      $tvattr = array();
-      for ($k=0;$k<$nbitem;$k++) {
-	$tvattr[]=array("bevalue" => "bevalue_$k");
-	reset($ta);
-	$tivalue=array();
-	$ika=0;
-	while (list($ka, $va) = each($ta)) {
-	  
-	  
-	  $tivalue[]=array("eivalue"=>getHtmlInput($doc,$va,$tval[$ka][$k],$k),
-			   "vhw"=>($va->mvisibility=="H")?"0pt":$talabel[$ika]["ahw"]);
-	  $ika++;
-	}
-	$lay->setBlockData("bevalue_$k",$tivalue);
-      }
-      if (count($tvattr) > 0) $lay->setBlockData("EATTR",$tvattr);
-      
-
-    
+      getLayArray($lay,$doc,$attrid);
 		      
       $input =$lay->gen(); 
       break;
@@ -727,6 +649,92 @@ function elinkEncode(&$doc, $link,$index,&$ititle,&$isymbol) {
   }
     
   return ($urllink);
+    
+}
+
+function getLayArray(&$lay,&$doc,$attrid) {
+  global $action;
+
+ 
+  $ta = $doc->attributes->getArrayElements($attrid);
+     
+      $talabel=array();
+      $tilabel=array();
+      $tvattr = array();
+
+      // get default values
+      $ddoc = createDoc($doc->dbaccess, $doc->fromid==0?$doc->id:$doc->fromid,false);
+      $tad = $ddoc->attributes->getArrayElements($attrid);
+
+
+      $nbcolattr=0; // number of column
+      while (list($k, $v) = each($ta)) {
+	if ($v->mvisibility=="R") {
+	  $v->mvisibility="H"; // don't see read attribute
+	  $ta[$k]->mvisibility="H";
+	}
+	$visible = ($v->mvisibility!="H");
+	$talabel[] = array("alabel"=>(!$visible)?"":$v->labelText,
+			   "ahw"=>(!$visible)?"0px":"auto",
+			   "ahvis"=>(!$visible)?"hidden":"visible");
+	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1),
+			   "ihw"=>($visible)?"0px":"auto",
+			   "ihvis"=>(!$visible)?"hidden":"visible");
+	$tvattr[]=array("bvalue" => "bvalue_$k",
+			"attrid" => $v->id);
+	
+	if ($visible) $nbcolattr++;
+	$tval[$k]=$doc->getTValue($k);
+	$nbitem=count($tval[$k]);
+	$tivalue=array();
+	for ($i=0;$i<$nbitem;$i++) {
+	  $tivalue[]=array("ivalue"=>$tval[$k][$i]);
+	}
+	$lay->setBlockData("bvalue_$k",$tivalue);
+      }
+      
+      if ($action->read("navigator") == "EXPLORER") {
+	// compute col width explicitly
+	if ($nbcolattr> 0) {
+	  $aw=sprintf("%d%%",100/$nbcolattr);
+
+	  foreach ($talabel as $ka => $va) {
+	    if ($va["ahw"]=="auto") {
+	      $talabel[$ka]["ahw"]=$aw;
+	      $tilabel[$ka]["ihw"]=$aw;
+	    }
+	  }
+	}
+      }
+
+      $lay->setBlockData("TATTR",$talabel);
+      $lay->setBlockData("IATTR",$tilabel);
+      $lay->setBlockData("VATTR",$tvattr);
+      $lay->set("attrid",$attrid);
+      $lay->set("caption",$oattr->labelText);
+     
+      $lay->set("footspan",count($ta)*2);
+
+      reset($tval);
+      $nbitem= count(current($tval));
+      $tvattr = array();
+      for ($k=0;$k<$nbitem;$k++) {
+	$tvattr[]=array("bevalue" => "bevalue_$k");
+	reset($ta);
+	$tivalue=array();
+	$ika=0;
+	while (list($ka, $va) = each($ta)) {
+	  
+	  
+	  $tivalue[]=array("eivalue"=>getHtmlInput($doc,$va,$tval[$ka][$k],$k),
+			   "vhw"=>($va->mvisibility=="H")?"0pt":$talabel[$ika]["ahw"]);
+	  $ika++;
+	}
+	$lay->setBlockData("bevalue_$k",$tivalue);
+      }
+      if (count($tvattr) > 0) $lay->setBlockData("EATTR",$tvattr);
+      
+
     
 }
 ?>
