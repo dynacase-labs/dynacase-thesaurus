@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.4 2005/02/04 08:03:47 marc Exp $
+#  $Id: WGCAL.spec.in,v 1.5 2005/03/08 22:40:03 marc Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -51,7 +51,7 @@ make  pubdir=$RPM_BUILD_ROOT%{destdir}
 %postun
 cd %{destdir}/FDL
 ln -sf ../@PACKAGE@/Class*php .
-cd %{destdir}/EXTERNAL
+cd %{destdir}/EXTERNALS
 ln -sf ../@PACKAGE@/Method*php .
 cd -
 %{destdir}/wstop

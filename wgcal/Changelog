@@ -5,6 +5,8 @@
 --------------------------------------------------------------------------
 0.0.7 (Bond)
 --------------------------------------------------------------------------
+- Amélioration des positionnement des RV
+- Ajout de l'envoi de mail sur chaque modification du RV
 - edition de rv : aide à la saisie des heures
 - Gestion des contacts préférés
 - Ajout des préférences via une fenête dédiée

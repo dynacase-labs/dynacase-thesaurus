@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.5 2005/03/07 21:41:50 marc Exp $
+ * @version $Id: calev_card.php,v 1.6 2005/03/08 22:40:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -21,10 +21,10 @@ function calev_card(&$action) {
 
   $ref = GetHttpVars("ref", -1);
   $evid = GetHttpVars("ev", -1);
-  $mode  = GetHttpVars("mode", "h");
+  $mode  = GetHttpVars("mode", "");
   if ($evid==-1) return;
 
-  $action->lay->set("mode", ($mode=="h"?"none":""));
+  $action->lay->set("mode", ($mode=="v"?"":"none"));
 
   popupInit('calevcard'.$evid,  array('editrv', 
 				'deleterv', 

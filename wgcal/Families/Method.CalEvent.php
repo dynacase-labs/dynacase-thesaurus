@@ -32,8 +32,7 @@ function explodeEvt($d1, $d2) {
   // return event if there are not repeatable to produce 
   
   if ($e->mode==0) {
-    $eve[] = get_object_vars($this);
-    return $eve;
+    return $this;
   }
   if ($e->untildate<$jd1 || $e->jdds>$jd2 ) {
     return array();

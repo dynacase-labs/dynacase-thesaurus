@@ -161,4 +161,3 @@ function CAL_getRessourcesOwner($dbaccess, $filterTitle) {
 
 
 ?>
-

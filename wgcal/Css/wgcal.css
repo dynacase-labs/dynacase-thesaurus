@@ -124,8 +124,8 @@ TD {
 .WGCAL_DayCur {
 	border-top: 0px;
 	border-left: 0px;
-	border-bottom: 1px solid [WTH_COLOR_3];
-  	border-right: 1px solid [WTH_COLOR_3];
+	border-bottom: 1px dotted [WTH_COLOR_3];
+  	border-right: 1px dotted [WTH_COLOR_3];
         background-color : [WTH_CALTODAY];
 }
 .WGCAL_DaySelected {

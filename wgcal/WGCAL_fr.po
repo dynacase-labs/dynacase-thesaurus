@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 15:36+0100\n"
+"POT-Creation-Date: 2005-03-08 23:24+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -78,6 +78,9 @@ msgstr "Utiliser les ressources pour les rendez-vous"
 
 msgid "my prefered contacts"
 msgstr "Mes contacts préférés"
+
+msgid "send me event mail copy"
+msgstr "Me mettre en copie des mails émis"
 
 msgid "show icons in resume"
 msgstr "Afficher les icones et les heures sur l'agenda"
@@ -451,7 +454,6 @@ msgstr "Confirmer"
 msgid "edit"
 msgstr "Editer"
 
-#, fuzzy
 msgid "delconfirm"
 msgstr "à confirmer"
 
@@ -508,6 +510,12 @@ msgstr "modifié le"
 
 msgid "note"
 msgstr "Note"
+
+msgid "others"
+msgstr "Autres préférences"
+
+msgid "mail options"
+msgstr "Messages"
 
 msgid "search events containing phrase..."
 msgstr "rechercher les évènements contenant"
@@ -590,6 +598,9 @@ msgstr "Recherche d'évènement"
 
 msgid "main calendar"
 msgstr "Calendrier public"
+
+msgid "event proposal"
+msgstr "Proposition de rendez-vous"
 
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
@@ -689,9 +700,6 @@ msgstr "mon calendrier public"
 
 #~ msgid "orange"
 #~ msgstr "Orange"
-
-#~ msgid "for the girls"
-#~ msgstr "Pour les filles"
 
 #~ msgid "alt display timer"
 #~ msgstr "Délai avant affichage du popup"
