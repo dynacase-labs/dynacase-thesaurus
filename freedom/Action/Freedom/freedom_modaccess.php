@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_modaccess.php,v 1.6 2003/12/09 10:51:14 eric Exp $
+ * @version $Id: freedom_modaccess.php,v 1.7 2004/02/09 16:46:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_modaccess.php,v 1.6 2003/12/09 10:51:14 eric Exp $
+// $Id: freedom_modaccess.php,v 1.7 2004/02/09 16:46:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -35,6 +35,7 @@
 // ---------------------------------------------------------------
 
 include_once("FDL/Class.Doc.php");
+include_once("FDL/Lib.Dir.php");
 
 // -----------------------------------
 function freedom_modaccess(&$action) {
@@ -72,6 +73,21 @@ function freedom_modaccess(&$action) {
     
   }
   
+  // recompute all related profile
+  $pfamid=$doc->getValue("DPDOC_FAMID");
+  if ($pfamid > 0) {
+    
+    $filter = array("dprofid = ".$doc->id);
+    $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"TABLE",
+			$pfamid	);
+    if (count($tdoc)>0) {
+      $kdoc = createDoc($dbaccess,$pfamid,true);
+      foreach( $tdoc as $k=>$v) {
+	$kdoc->Affect($v);
+	$kdoc->computeDProfil();
+      }
+    }
+  }
   
  
   

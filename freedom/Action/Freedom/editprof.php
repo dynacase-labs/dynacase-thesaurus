@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editprof.php,v 1.12 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: editprof.php,v 1.13 2004/02/09 16:46:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.12 2003/12/12 15:45:25 eric Exp $
+// $Id: editprof.php,v 1.13 2004/02/09 16:46:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,6 +56,10 @@ function editprof(&$action)
   $doc= new Doc($dbaccess,$docid);
   // build values type array
 
+  // control view acl
+  $err= $doc->Control("viewacl");
+  if ($err != "")    $action-> ExitError($err);
+  
 
   $action->lay->Set("doctitle",_("new profile document"));
 
@@ -91,7 +95,11 @@ function editprof(&$action)
     $action->lay->Set("doctitle",$doc->title);
 
     if ($createp) $sprofid = abs($doc->cprofid);
-    else $sprofid = abs($doc->profid);
+    else {
+      $sprofid = abs($doc->profid);
+      // select dynamic profil if set
+      if ($doc->dprofid != 0)  $sprofid = abs($doc->dprofid);
+    }
 
     if ($sprofid == $doc->id) 
       $action->lay->Set("selected_spec","selected");

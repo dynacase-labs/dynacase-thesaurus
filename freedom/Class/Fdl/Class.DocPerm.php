@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocPerm.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Class.DocPerm.php,v 1.7 2004/02/09 16:46:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -12,7 +12,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocPerm.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.DocPerm.php,v 1.7 2004/02/09 16:46:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocPerm.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.6 2003/08/18 15:47:04 eric Exp $';
+$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.7 2004/02/09 16:46:14 eric Exp $';
 include_once("Class.DbObj.php");
 
 /**
@@ -84,9 +84,10 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
 
     return $t[0]["uperm"];
   }
-    
-  
-  
+  function recomputeControl() {
+    if ($this->docid > 0) 
+      $this->exec_query("select getuperm(userid,docid) as uperm from docperm where docid=".$this->docid);
+  }
   // --------------------------------------------------------------------
   function ControlU ($pos) {
     // --------------------------------------------------------------------     

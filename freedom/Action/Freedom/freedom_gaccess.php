@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.4 2004/02/09 16:46:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_gaccess.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_gaccess.php,v 1.4 2004/02/09 16:46:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_gaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,6 +35,7 @@
 // ---------------------------------------------------------------
 
 include_once("FDL/Class.Doc.php");
+include_once("FDL/Class.VGroup.php");
 
 
 
@@ -58,11 +59,10 @@ function freedom_gaccess(&$action) {
 
 
 
-
-
-  
-
   $doc = new Doc($dbaccess, $docid);
+  $err= $doc->control("viewacl");
+  if ($err != "") $action->exitError($err);
+
 
   $acls = $doc->acls;
   $acls[]="viewacl";
@@ -114,6 +114,7 @@ function freedom_gaccess(&$action) {
       $tg[]=array("level"=>0,
 		  "gid"=>$action->user->id,
 		  "displayuser"=>"inline",
+		  "displaydyn"=>"none",
 		  "displaygroup"=>"none");
       $title[$action->user->id]=$action->user->firstname." ".$action->user->lastname;
     }
@@ -127,6 +128,7 @@ function freedom_gaccess(&$action) {
     $tg[]=array("level"=>0,
 		"gid"=>$gid,
 		"displayuser"=>"none",
+		"displaydyn"=>"none",
 		"displaygroup"=>"inline");
     $title[$gid]=$ouser->firstname." ".$ouser->lastname;
     if ($tusers) {
@@ -136,16 +138,39 @@ function freedom_gaccess(&$action) {
 	$title[$v["id"]]=$v["firstname"]." ".$v["lastname"];
 	$tg[]=array("level"=>10,
 		    "gid"=>$v["id"],
+		    "displaydyn"=>"none",
 		    "displayuser"=>"inline",
 		    "displaygroup"=>"none");
       }
     }
   }
 
+  // add dynamic group for dynamic profile
+  if ($doc->getValue("DPDOC_FAMID") > 0) {
+    
+   
+    $pdoc = new Doc($dbaccess , $doc->getValue("DPDOC_FAMID"));
+    $pattr = $pdoc->GetProfilAttributes();
+    foreach($pattr as $k=>$v) {
 
-  reset($tg);
+      $vg=new Vgroup($dbaccess,$v->id);
+      if (! $vg->isAffected()) {
+	$vg->id=$v->id;
+	$vg->Add();
+      }
+      $tg[]=array("level"=>0,
+		  "gid"=>$vg->num,
+		  "displaydyn"=>"inline",
+		  "displayuser"=>"none",
+		  "displaygroup"=>"none");
+      $title[$vg->num]=$v->labelText;
+    }
+    
+  }
+
+
   // add  group title
-  while(list($k,$v) = each($tg)) {
+  foreach($tg as $k=>$v) {
     $tacl[$v["gid"]]=getTacl($dbaccess,$doc->dacls, $acls, $docid, $v["gid"]);
     $tg[$k]["gname"]=$title[$v["gid"]];
     $tg[$k]["ACLS"]="ACL$k";
@@ -156,6 +181,13 @@ function freedom_gaccess(&$action) {
 
   $action->lay->setBlockData("GROUPS",$tg);
   $action->lay->set("docid",$docid);
+
+
+  $err= $doc->control("modifyacl");
+  if ($err == "") {
+    $action->lay->setBlockData("MODIFY",array(array("zou")));
+    $action->lay->set("dmodify","");
+  } else $action->lay->set("dmodify","none");
 }
 
 //--------------------------------------------
@@ -165,6 +197,7 @@ function getTableG($hg,$id, $level=0) {
   $r[]=array("gid"=>$id,
 	     "level"=>$level*10,
 	     "displayuser"=>"none",
+	     "displaydyn"=>"none",
 	     "displaygroup"=>"inline");
   if (isset($hg[$id])) {
     reset($hg[$id]);

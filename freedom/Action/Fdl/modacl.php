@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modacl.php,v 1.4 2003/12/09 10:51:14 eric Exp $
+ * @version $Id: modacl.php,v 1.5 2004/02/09 16:46:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modacl.php,v 1.4 2003/12/09 10:51:14 eric Exp $
+// $Id: modacl.php,v 1.5 2004/02/09 16:46:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/modacl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -53,6 +53,12 @@ function modacl(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
+  $doc = new Doc($dbaccess, $docid);
+
+  // test if current user can modify ACL 
+  $err = $doc->Control("modifyacl");
+  if ($err != "") $action->exitError($err);
+
   $perm = new DocPerm($dbaccess, array($docid,$userid));
 
   $perm->UnSetControl();

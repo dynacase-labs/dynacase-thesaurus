@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.35 2004/01/15 16:30:33 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.36 2004/02/09 16:46:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.35 2004/01/15 16:30:33 eric Exp $
+// $Id: Class.WDoc.php,v 1.36 2004/02/09 16:46:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.35 2004/01/15 16:30:33 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.36 2004/02/09 16:46:14 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -361,7 +361,36 @@ Class WDoc extends Doc {
     
   }
 
+  function DocControl($aclname) {
+    return Doc::Control($aclname);
+  }
 
+  /**
+   * Special control in case of dynamic controlled profil
+   */
+  function Control($aclname) {
+    $err= Doc::Control($aclname);
+    if ($err == "") return $err; // normal case
+
+    if ($this->getValue("DPDOC_FAMID") > 0) {
+      // special control for dynamic users
+      if (! isset($this->pdoc)) {
+	$pdoc = createDoc($this->dbaccess,$this->fromid);
+	$pdoc->doctype="T"; // temporary
+	//	$pdoc->setValue("DPDOC_FAMID",$this->getValue("DPDOC_FAMID"));
+	$err=$pdoc->Add();
+	if ($err != "") return "WDoc::Control:".$err; // can't create profil
+	$pdoc->setProfil($this->profid, $this->doc);
+
+	$this->pdoc = &$pdoc;
+      }
+
+
+      $err=$this->pdoc->DocControl($aclname);
+
+    }
+    return $err;
+  }
   
 }
 

@@ -36,12 +36,13 @@ function enablefrom(th) {
     <span style="margin:0px 0px 0px [level]px">
       <img style="display:[displaygroup];cursor:pointer" src="[IMG:bblue.gif]" width="10" height="10" onclick="subwindow(300,600,'gaccess','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[docid]&gid=[gid]')" >
       <img style="display:[displayuser]" src="[IMG:bgreen.gif]" width="10" height="10"  >
+      <img style="display:[displaydyn]" src="[IMG:byellow.gif]" width="10" height="10"  >
       <A  href="#" onclick="subwindow(300,500,'uaccess','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ACCESS&id=[docid]&userid=[gid]')"
            >[gname]</A></span>
     <input type="hidden" disabled name="acls[[gid]][500]" value="nc"></TD>
 
    <TD align="right" style="border:none;border-top-style:ridge;border-top-width:1px;" >
-     <button onclick="enablefrom(this.parentNode.parentNode);"  type="button" ></button></TD>
+     <button style="display:[dmodify]" onclick="enablefrom(this.parentNode.parentNode);"  type="button" ></button></TD>
     [BLOCK [ACLS]]
     <TD style="border:none;border-top-style:ridge;border-top-width:1px;background-color:[CORE_BGCOLORALTERN]" align="center">
       <img  src="[IMG:[bimg]]" width="10" height="10"  >
@@ -54,9 +55,11 @@ function enablefrom(th) {
   [ENDBLOCK GROUPS]
 </tbody>
 </TABLE>
+[BLOCK MODIFY]
 <input class="CORETblHead" type="submit" 
          name="Modify" value="[TEXT:Validate]"  >
 <input class="CORETblHead" type="reset"  >
+[ENDBLOCK MODIFY]
 </form>
 
 [ZONE CORE:HTMLFOOT]

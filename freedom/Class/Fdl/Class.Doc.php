@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.184 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.185 2004/02/09 16:46:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.184 2004/02/05 15:42:58 eric Exp $
+// $Id: Class.Doc.php,v 1.185 2004/02/09 16:46:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -85,7 +85,8 @@ Class Doc extends DocCtrl {
 			"attrids",
 			"postitid",
 			"cvid",
-			"name");
+			"name",
+			"dprofid");
 
   /**
    * identificator of the document
@@ -204,6 +205,13 @@ Class Doc extends DocCtrl {
    * @var int
    */
   var $mid=0;
+  /**
+   * identificator of dynamic profil
+   * 
+   * if 0 then no dynamic profil
+   * @var int
+   */
+  var $dprofid=0;
 
   /**
    * identification of special views
@@ -252,7 +260,8 @@ create table doc ( id int not null,
                    attrids text,  
                    postitid int,
                    cvid int,
-                   name text
+                   name text,
+                   dprofid int DEFAULT 0
                    );
 create table docfrom ( id int not null,
                    primary key (id),
@@ -443,7 +452,6 @@ create unique index i_docir on doc(initid, revision);";
 	$this->revdate = $date['sec'];
 	//	$this->postModify(); // in modcard function
       }
-      $this->hasChanged=false;
       
     }
   // --------------------------------------------------------------------
@@ -455,6 +463,10 @@ create unique index i_docir on doc(initid, revision);";
   function PostUpdate() {
     global $gdocs;// optimize for speed :: reference is not a pointer !!
     $gdocs[$this->id]=&$this;    
+    if ($this->hasChanged) {
+      $this->computeDProfil();
+    }
+    $this->hasChanged=false;
   }
   // --------------------------------------------------------------------
 
@@ -870,10 +882,9 @@ create unique index i_docir on doc(initid, revision);";
       include_once("FDLGEN/Class.Doc{$defprof}.php");
       $query = new QueryDb($this->dbaccess, "Doc".$defprof);
       
-      $query->Addquery("fromid=$defprof");
+      //  $query->Addquery("fromid=$defprof");
 
       $query->Query();
-
       
       return $query->Query();
     }
@@ -1092,8 +1103,11 @@ create unique index i_docir on doc(initid, revision);";
 
   
 
-  // return all the attributes object for title
-  // the attribute can be defined in fathers
+  /**
+   * return all the attributes object for title
+   * the attribute can be defined in fathers
+   * @return array DocAttribute
+   */
   function GetTitleAttributes() { 
     if (!$this->_maskApplied) $this->ApplyMask();
     $tsa=array();
@@ -1105,8 +1119,30 @@ create unique index i_docir on doc(initid, revision);";
     }
     return $tsa;
   }
-  // return all the attributes object for to e use in edition
-  // the attribute can be defined in fathers
+
+  /**
+   * return all the attributes that can be use in profil
+   * 
+   * @return array DocAttribute
+   */
+  function GetProfilAttributes() { 
+    if (!$this->_maskApplied) $this->ApplyMask();
+    $tsa=array();
+    if (isset($this->attributes->attr)) {
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
+	if ((get_class($v) == "normalattribute") && ($v->type=="docid")) $tsa[$v->id]=$v;      
+      }
+    }
+    return $tsa;
+  }
+
+
+  /** 
+   * return all the attributes object for to e use in edition
+   * the attribute can be defined in fathers
+   * @return array DocAttribute
+   */
   function GetInputAttributes()
     { 
       if (!$this->_maskApplied) $this->ApplyMask();
@@ -1123,8 +1159,11 @@ create unique index i_docir on doc(initid, revision);";
       return $tsa;
     }
 
-  // return all the attributes object for abstract
-  // the attribute can be defined in fathers
+  /**
+   * return all the attributes object for abstract
+   * the attribute can be defined in fathers
+   * @return array DocAttribute
+   */
   function GetFileAttributes()
     {      
       if (!$this->_maskApplied) $this->ApplyMask();
@@ -2202,7 +2241,12 @@ create unique index i_docir on doc(initid, revision);";
 
   
 
-  // --------------------------------------------------------------------
+  /**
+   * Control Access privilege for document
+   *
+   * @param string $aclname identificator of the privilige to test
+   * @return string empty means access granted else it is an error message (access unavailable)
+   */
   function Control ($aclname) {
     // -------------------------------------------------------------------- 
     if (($this->IsAffected()) ) {	

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocCtrl.php,v 1.12 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.13 2004/02/09 16:46:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -11,7 +11,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.12 2004/02/05 15:42:58 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.13 2004/02/09 16:46:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,13 +33,14 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.12 2004/02/05 15:42:58 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.13 2004/02/09 16:46:14 eric Exp $';
 
 
 
 include_once("Class.DbObj.php");
 include_once('Class.Application.php');
 include_once("FDL/Class.DocPerm.php");
+include_once("FDL/Class.VGroup.php");
 
 define ("POS_INIT", 0);
 define ("POS_VIEW", 1);
@@ -145,15 +146,101 @@ Class DocCtrl extends DbObj
    *
    * @param int profid identificator for profil document
    */
-  function setProfil($profid) {
+  function setProfil($profid, $fromdocidvalues=0) {
 
     $this->profid = $profid;
     if (($profid > 0) && ($profid != $this->id)) {
       // make sure that the profil is activated
       $pdoc=new Doc($this->dbaccess, $profid);
+      if ($pdoc->getValue("DPDOC_FAMID") > 0) {
+	// dynamic profil
+	$this->dprofid = $profid;
+	$this->computeDProfil($this->dprofid,$fromdocidvalues);
+	unset($this->uperm); // force recompute privileges
+      }
       if ($pdoc->profid == 0) $this->profid = -$profid; // inhibition
     }
   }
+
+  /**
+   * reset right for dynamic profil
+   *
+   * @param int dprofid identificator for dynamic profil document
+   */
+  function computeDProfil($dprofid=0,$fromdocidvalues=0) {
+    if ($this->id == 0) return;
+    if ($dprofid == 0) $dprofid=$this->dprofid;
+    if ($dprofid == 0) return;
+    
+    $pdoc=new Doc($this->dbaccess, $dprofid);
+    $pfamid=  $pdoc->getValue("DPDOC_FAMID");
+    if ($pfamid > 0) {
+      if ($this->profid != $this->id) {
+	$this->profid = $this->id; //private profil
+	$this->modify(array("profid"));
+      }
+
+      $query=new QueryDb($this->dbaccess,"DocPerm");
+      $query->AddQuery("docid=".$pdoc->id);
+      $tacl=$query->Query(0,0,"TABLE");
+      if (! $tacl) $tacl=array();
+      $tgnum=array(); // list of virtual user/group
+      foreach ($tacl as $v) {
+	if ($v["userid"] >= STARTIDVGROUP) {
+	  $tgnum[]=$v["userid"];	  		  
+	}
+      }
+      if (count($tgnum>0)) {
+	
+	$query=new QueryDb($this->dbaccess,"VGroup");
+	$query->AddQuery(GetSqlCond($tgnum,"num",true));
+	$tg=$query->Query(0,0,"TABLE");
+	
+	foreach ($tg as $vg) {
+	  $tnum[$vg["num"]]=$vg["id"];
+	}
+      }
+      $this->exec_query("delete from docperm where docid=".$this->id);
+
+      if ($fromdocidvalues==0) $fromdocidvalues=&$this;
+      foreach ($tacl as $v) {
+	if ($v["userid"] <STARTIDVGROUP) {
+	  $uid=$v["userid"];
+	  //  $vupacl[$uid]=$v["upacl"];
+	  //$vunacl[$uid]=$v["unacl"];
+	} else {
+	  $aid=$tnum[$v["userid"]];
+	  $duid=$fromdocidvalues->getValue($aid);
+	  if ($duid == "") $duid=$fromdocidvalues->getParamValue($aid);
+	  if ($duid > 0) {
+	    $docu=getTDoc($fromdocidvalues->dbaccess,$duid);
+	    $uid=$docu["us_whatid"];
+	  }
+	    
+	}
+	  // add right in case of multiple use of the same user : possible in dynamic profile
+	  $vupacl[$uid]=(intval($vupacl[$uid]) | intval($v["upacl"]));
+	  $vunacl[$uid]=(intval($vunacl[$uid]) | intval($v["unacl"]));
+	  
+	
+	if ($uid>0) {
+	    $perm = new DocPerm($this->dbaccess, array($this->id,$uid));
+	    $perm->cacl="0";
+	    $perm->upacl=$vupacl[$uid];
+	    $perm->unacl=$vunacl[$uid];
+
+	    // print "<BR>$uid : ".$this->id."/".$perm->upacl;
+	    if ($perm -> isAffected()) $err=$perm ->modify();
+	    else $err=$perm->Add();
+
+
+	}
+      }
+ 
+      
+    }
+  }
+
 
   /**
    * set control view for document
