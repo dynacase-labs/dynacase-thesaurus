@@ -208,7 +208,43 @@ function pleaseSave(event) {
   
 }
 
+// change for time attribute
+function chtime(nid) {
+  var t=document.getElementById(nid);
+  var hh=document.getElementById('hh'+nid);
+  var mm=document.getElementById('mm'+nid);
+  var shh,smm,ihh,imm;
+  if (t && hh && mm) {
+    ihh=parseInt(hh.value)%24;
+    if (isNaN(ihh)) ihh=0;
+    if (ihh < 10) shh='0'+ihh.toString();
+    else shh=ihh.toString();
+    hh.value=shh;
 
+    imm=parseInt(mm.value)%60;
+    if (isNaN(imm)) imm=0;
+    if (imm < 10) smm='0'+imm.toString();
+    else smm=imm.toString();
+    mm.value=smm;
+
+    t.value=shh+':'+smm;
+  }
+}
+
+// change for time attribute
+function clearTime(nid) {
+  var t=document.getElementById(nid);
+  var hh=document.getElementById('hh'+nid);
+  var mm=document.getElementById('mm'+nid);
+
+  if (t && hh && mm) {
+   
+    hh.value='';hh.style.backgroundColor='[CORE_BGCOLORHIGH]';
+    mm.value='';mm.style.backgroundColor='[CORE_BGCOLORHIGH]';
+
+    t.value=' ';
+  }
+}
 function addinlist(sel,value) {
 
   if (isNetscape) pos=null;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.139 2003/06/24 10:41:46 eric Exp $
+// $Id: Class.Doc.php,v 1.140 2003/06/25 07:36:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.139 2003/06/24 10:41:46 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.140 2003/06/25 07:36:01 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/24 10:41:46 $
-// Version         $Revision: 1.139 $
+// Last Update     $Date: 2003/06/25 07:36:01 $
+// Version         $Revision: 1.140 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1021,45 +1021,53 @@ create unique index i_docir on doc(initid, revision);";
     if (($value != ""))  {
       // change only if different
       $attrid = strtolower($attrid);
-      $value=trim($value," \x0B\r");// suppress white spaces end & begin
 
-      if ($value == " ") $value=""; // erase value
-      if (!isset($this->$attrid)) $this->$attrid="";
-
-      if  ($this->$attrid != $value) 	  {
-	$this->hasChanged=true;
-	//   print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
-	
-      }
-      $oattr=$this->GetAttribute($attrid);
-
-      if ($oattr->repeat) {
-	$tvalues = $this->_val2array($value);
+      if ($value == " ") {
+	$value=""; // erase value
+	$this->$attrid="";
       } else {
-	$tvalues[]=$value;
-      }
+	$value=trim($value," \x0B\r");// suppress white spaces end & begin
+	if (!isset($this->$attrid)) $this->$attrid="";
+
+	if  ($this->$attrid != $value) 	  {
+	  $this->hasChanged=true;
+	  //   print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
+	
+	}
+	$oattr=$this->GetAttribute($attrid);
+
+	if ($oattr->repeat) {
+	  $tvalues = $this->_val2array($value);
+	} else {
+	  $tvalues[]=$value;
+	}
     
     
-      while (list($kvalue, $avalue) = each($tvalues)) {
-	if ($oattr) {
-	  switch($oattr->type) {
-	  case double:
-	  case money:
-	    $tvalues[$kvalue]=str_replace(",",".",$avalue);
-	    $tvalues[$kvalue]=str_replace(" ","",$tvalues[$kvalue]);
-	    $tvalues[$kvalue]=doubleval($tvalues[$kvalue]);
-	    break;
-	  case integer:
-	    $tvalues[$kvalue]=intval($avalue);
-	    break;
+	while (list($kvalue, $avalue) = each($tvalues)) {
+	  if ($oattr) {
+	    switch($oattr->type) {
+	    case double:
+	    case money:
+	      $tvalues[$kvalue]=str_replace(",",".",$avalue);
+	      $tvalues[$kvalue]=str_replace(" ","",$tvalues[$kvalue]);
+	      $tvalues[$kvalue]=doubleval($tvalues[$kvalue]);
+	      break;
+	    case integer:
+	      $tvalues[$kvalue]=intval($avalue);
+	      break;
+	    case time:
+	      list($hh,$mm) = explode(":",$avalue);
+	      $tvalues[$kvalue]=sprintf("%02d:%02d",intval($hh)%24,intval($mm)%60);
+	      break;
+	    }
 	  }
 	}
-      }
-      //      print $oattr->type;print_r2($tvalues);
-      $this->$attrid=implode("\n",$tvalues); 
+	//      print $oattr->type;print_r2($tvalues);
+	$this->$attrid=implode("\n",$tvalues); 
 
 	
-    }      
+      }      
+    }
   }
 
   // return the related value by linked attributes
@@ -1559,6 +1567,10 @@ create unique index i_docir on doc(initid, revision);";
 	
 	case htmltext:  
 	  $htmlval=$avalue;
+	
+	  break;
+	case time:  
+	  $htmlval=substr($avalue,0,5); // do not display second
 	
 	  break;
 
@@ -2689,7 +2701,7 @@ create unique index i_docir on doc(initid, revision);";
     if (intval($docid) > 0) {
       $doc = new Doc($this->dbaccess, $docid);
       if ($doc->isAlive()) {
-	return $doc->getValue($attrid);
+	return $doc->getRValue($attrid);
       }
     }
     return "";

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.20 2003/06/24 10:42:27 eric Exp $
+// $Id: Lib.Attr.php,v 1.21 2003/06/25 07:36:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -109,7 +109,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 	} else {
 	  $repeat="false";
 	}
-	$tnormal[] = array("attrid"=>strtolower($v->id),
+	$tnormal[$v->id] = array("attrid"=>strtolower($v->id),
 			   "label"=>str_replace("\"","\\\"",$v->labeltext),
 			   "type"=>$atype,
 			   "format"=>str_replace("\"","\\\"",$aformat),
@@ -124,25 +124,28 @@ function AttrToPhp($dbaccess, $tdoc) {
 			   "elink"=>$v->elink,
 			   "phpfile"=>$v->phpfile,
 			   "phpfunc"=>$v->phpfunc);
-
-	if ($v->type != "'array")  $tattr[] = array("attrid"=>strtolower($v->id));	 
-	if ($repeat)  $attrids[] = strtolower($v->id)." text";  // for the moment all repeat are text
-	else {
+	 
+	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>strtolower($v->id));	 
+	if (($repeat=="true") || ($tnormal[$v->frameid]["type"]=="array")) {
+	  $attrids[$v->id] = strtolower($v->id)." text";  // for the moment all repeat are text
+	} else {
 	  switch($atype) {
 	  case double:
 	  case money:
-	    $attrids[] = strtolower($v->id)." float8";  
+	    $attrids[$v->id] = strtolower($v->id)." float8";  
 	    break;
 	  case integer:
-	    $attrids[] = strtolower($v->id)." int4";  
+	    $attrids[$v->id] = strtolower($v->id)." int4";  
 	    break;
 	  case date:
-	    $attrids[] = strtolower($v->id)." date";  
+	    $attrids[$v->id] = strtolower($v->id)." date";  
+	    break;
+	  case time:
+	    $attrids[$v->id] = strtolower($v->id)." time";  
 	    break;
 	  default: 
-	    $attrids[] = strtolower($v->id)." text";    
+	    $attrids[$v->id] = strtolower($v->id)." text";    
 	  }
-	  break;
 	}
       }
     }	 
@@ -246,6 +249,9 @@ function PgUpdateFamilly($dbaccess, $docid) {
 	      break;
 	    case date:
 	      $sqltype = strtolower($v->id)." date";  
+	      break;
+	    case time:
+	      $sqltype = strtolower($v->id)." time";  
 	      break;
 	    default: 
 	      $sqltype = strtolower($v->id)." text";    

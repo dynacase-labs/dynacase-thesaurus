@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.39 2003/06/19 09:53:10 eric Exp $
+// $Id: editutil.php,v 1.40 2003/06/25 07:36:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -278,7 +278,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       //같같같같같같같같같같같같같같같같같같같같
 			
     case "color": 
-      $input="<input size=7 onchange=\"alert(this.value)\" style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+      $input="<input size=7  style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attridk."\" "; 
 
       if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
@@ -307,6 +307,21 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	  " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attridk."')\"".
 	  ">";
       }
+      break;      
+		      
+      //같같같같같같같같같같같같같같같같같같같같
+			
+    case "time": 
+      $isDisabled="";
+      if (($visibility == "R")||($visibility == "S")) $isDisabled =$idisabled;
+      list($hh,$mm,$ss) = explode(":",$value);
+      $input ="<input $isDisabled size=2 maxlength=2 onchange=\"chtime('$attridk')\" type=\"text\"  value=\"".$hh."\" id=\"hh".$attridk."\">:";
+     
+      $input.="<input $isDisabled size=2 maxlength=2 onchange=\"chtime('$attridk')\" type=\"text\"  value=\"".$mm."\"id=\"mm".$attridk."\">";
+      
+
+      $input.="<input  type=\"hidden\"  name=\"".$attrin."\" id=\"".$attridk."\" value=\"".$value."\">";
+
       break;      
 		      
       //같같같같같같같같같같같같같같같같같같같같
@@ -376,8 +391,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
     }else if ($oattr->type == "color") {
       $input.="<input type=\"button\" value=\"&times;\"".
 	" title=\""._("clear inputs")."\"".
-	" onclick=\"clearInputs(['$attrid'],'$index')\">";
-      
+	" onclick=\"clearInputs(['$attrid'],'$index')\">";      
+    }else if ($oattr->type == "time") {
+      $input.="<input type=\"button\" value=\"&times;\"".
+	" title=\""._("clear inputs")."\"".
+	" onclick=\"clearTime('$attridk')\">";      
     }
 		
     if ($oattr->elink != "") {
