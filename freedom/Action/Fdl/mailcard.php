@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.37 2003/10/10 10:21:18 eric Exp $
+ * @version $Id: mailcard.php,v 1.38 2004/01/14 14:21:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.37 2003/10/10 10:21:18 eric Exp $
+// $Id: mailcard.php,v 1.38 2004/01/14 14:21:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -113,6 +113,8 @@ function sendCard(&$action,
 		  $bcc="",
 		  $format="html"// define view action
 		  ) {
+
+  if ($to == "") return _("mail dest is empty");
   // -----------------------------------
   $viewonly=  (GetHttpVars("viewonly","N")=="Y");
   // -----------------------------------
@@ -123,7 +125,7 @@ function sendCard(&$action,
   $ifiles=array();
   // set title
   
- 
+  
   setHttpVar("target","mail");
   setHttpVar("id",$docid); // for view zone
   if (GetHttpVars("_mail_format") == "") setHttpVar("_mail_format",$format);
