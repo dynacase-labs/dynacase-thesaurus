@@ -1,12 +1,13 @@
 
+<table width="100%" cellspacing="0">
 
-<tbody>
+<tbody >
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
 
 
 <tr  >
-  <td  colspan="3" >
+  <td  colspan="3"  >
 <input type="hidden" name="title" value="[TITLE]"></input>
 
 <fieldset><legend>[frametext]</legend>
@@ -28,7 +29,6 @@
 </td>
 </tr>
 
-[ZONE FDL:EDITSTATE]
 
 
 <tr style="display:none">
@@ -39,4 +39,4 @@
 </td>
 </tr>
 </tbody>
-
+</table>
