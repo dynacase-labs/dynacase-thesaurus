@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.7 2002/04/03 15:47:31 eric Exp $
+// $Id: import_file.php,v 1.8 2002/04/05 08:41:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,6 +55,7 @@ function add_import_file(&$action, $fimport="") {
       $doc = createDoc($dbaccess, $data[1]);
     $doc->fromid = $data[1];
 
+    $doc->title =  $data[2];  
     if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
     if (isset($data[4]) && ($data[3] != "")) $doc->classname = $data[4]; // new classname for familly
 
