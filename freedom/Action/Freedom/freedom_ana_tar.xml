@@ -32,6 +32,14 @@
    <script language="JavaScript">
   <!--
     [JS:CODE]
+   function enabledImport(enabled) {
+     var bimport = document.anatar.bgimport;
+     var bana = document.anatar.banalyze;
+     bimport.disabled=(!enabled);
+     bana.disabled=(enabled);
+
+   }
+   
   //-->
    </script>   
 
@@ -60,23 +68,24 @@
 <tr><td>
 <fieldset >
 <legend>[TEXT:Options import]</legend> 
-   [TEXT:for]
-   <select name="famid" >  
+   [TEXT:default family]
+   <select name="famid" [fdisabled] onchange="enabledImport(false)">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]
     </select><BR>
 
-<input type="checkbox" value="1" [oselected] name="onlycsv">[TEXT:Only CSV]</input><br/>
-<input type="checkbox" name="topfld" value="1" [tselected]>[TEXT:Add top folder]</input> 
+<input type="checkbox" value="1" [oselected] onclick="document.anatar.famid.disabled=(this.checked);enabledImport(false)" name="onlycsv">[TEXT:Only CSV]</input><br/>
+<input type="checkbox" name="topfld" onclick="enabledImport(false)" value="1" [tselected]>[TEXT:Add top folder]</input> 
 <hr width="50%">
-<input type="submit" value="[TEXT:Analyze]"> 
+<input type="submit" name="banalyze" disabled value="[TEXT:Analyze]"> 
+<input type="submit" name="bimport" onmousedown="document.anatar.analyze.value='N'"  value="[TEXT:Import Direct]"> 
 </fieldset></td><td>
 <fieldset width="40%">
 <legend>[TEXT:Lauch Import]</legend> 
 <label for="to">[TEXT:report to (mail address)]</label>
 <input type="text" size=30 name="to" value=[mailaddr]></input><br><hr width="50%">
-<input id="bgimport" type="submit" [bgdisabled]
+<input id="bgimport" name="bgimport" type="submit" [bgdisabled]
        onclick="document.anatar.analyze.value='N';document.anatar.action='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IMPORT_DIR'" 
        value="[importtext]">
 </fieldset>

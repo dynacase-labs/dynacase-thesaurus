@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.62 2004/03/16 14:12:46 eric Exp $
+ * @version $Id: import_file.php,v 1.63 2004/03/17 17:33:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -314,10 +314,11 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='') {
   $tcr["familyid"]=$doc->fromid;
   if  ($data[2] > 0) $doc->id= $data[2]; // static id
   if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) {
-    $tcr["action"]="add";
+    $tcr["action"]=_("to be add");
     if (! $analyze) {
       $err = $doc->Add();
       $tcr["id"]=$doc->id;
+      $tcr["action"]=_("added");
       $msg .= $err . sprintf(_("add id [%d] "),$doc->id); 
     } else {
       $msg .=  sprintf(_("add [%s] "),implode('-',$data)); 
@@ -400,7 +401,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='') {
       $dir = new Doc($dbaccess, $data[3]);
       if ($dir->isAffected()) {
 	$tcr["folderid"]=$dir->id;
-	$tcr["foldername"]=$dir->title;
+	$tcr["foldername"]=dirname($ldir)."/".$dir->title;
 	if (! $analyze) $dir->AddFile($doc->id);
 	$msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
       }
@@ -409,7 +410,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='') {
 	$dir = new Doc($dbaccess, $dirid);
 	if ($dir->isAlive() && method_exists($dir,"AddFile")) {
 	  $tcr["folderid"]=$dir->id;
-	  $tcr["foldername"]=$dir->title;
+	  $tcr["foldername"]=dirname($ldir)."/".$dir->title;
 	  if (! $analyze) $dir->AddFile($doc->id);
 	  $msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
 	}
@@ -439,7 +440,10 @@ function AddVaultFile($dbaccess,$path,$analyze,&$vid) {
 
   $path=str_replace("//","/",$path);
   // return same if already imported (case of multi links)
-  if (isset($importedFiles[$path])) return $importedFiles[$path];
+  if (isset($importedFiles[$path])) {
+    $vid=$importedFiles[$path];
+    return "";
+  }
 
   $absfile2=str_replace('"','\\"',$path);
   // $mime=mime_content_type($absfile);

@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2004-03-16 16:30+0100\n"
+	"POT-Creation-Date: 2004-03-17 17:02+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -173,27 +173,7 @@ msgid	"new profile document"
 msgstr	""
 
 #, c-format
-msgid	"File %s is valid, and was successfully uploaded."
-msgstr	""
-
-#, c-format
-msgid	"The file %s has been correctly extracted"
-msgstr	""
-
-#, c-format
-msgid	"The file %s cannot be extracted"
-msgstr	""
-
-msgid	"Possible file upload attack!  Here's some debugging info:\n"
-msgstr	""
-
-#, c-format
-msgid	"cannot extract archive file %s.\n"
-	"Type %s not recognized as archive file"
-msgstr	""
-
-#, c-format
-msgid	"cannot extract archive file %s"
+msgid	"proceed background import of %d documents"
 msgstr	""
 
 #, c-format
@@ -242,6 +222,21 @@ msgid	"new title for %s"
 msgstr	""
 
 #, c-format
+msgid	"File %s is valid, and was successfully uploaded."
+msgstr	""
+
+#, c-format
+msgid	"The file %s has been correctly extracted"
+msgstr	""
+
+#, c-format
+msgid	"The file %s cannot be extracted"
+msgstr	""
+
+msgid	"Possible file upload attack!  Here's some debugging info:\n"
+msgstr	""
+
+#, c-format
 msgid	"result of archive import  %s"
 msgstr	""
 
@@ -287,7 +282,20 @@ msgid	"archive file %s has been deleted"
 msgstr	""
 
 #, c-format
-msgid	"proceed background import of %d documents"
+msgid	"cannot extract archive file %s.\n"
+	"Type %s not recognized as archive file"
+msgstr	""
+
+#, c-format
+msgid	"cannot extract archive file %s"
+msgstr	""
+
+#, c-format
+msgid	"The document <%s> is not a folder"
+msgstr	""
+
+#, c-format
+msgid	"Use your home folder instead <%s>"
 msgstr	""
 
 #, fuzzy
@@ -430,6 +438,51 @@ msgstr	""
 msgid	"%s cannot be sent"
 msgstr	""
 
+msgid	"to be add"
+msgstr	""
+
+msgid	"not added"
+msgstr	""
+
+#, fuzzy
+msgid	"added"
+msgstr	"Add new contact card"
+
+msgid	"no import file specified"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"create %s family"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"modify %s family"
+msgstr	"Modify"
+
+#, fuzzy, c-format
+msgid	"update %s attribute"
+msgstr	"Update Title Cards"
+
+#, c-format
+msgid	"add id [%d] "
+msgstr	""
+
+#, c-format
+msgid	"add [%s] "
+msgstr	""
+
+#, c-format
+msgid	"update id [%d] "
+msgstr	""
+
+#, c-format
+msgid	"double title %s <B>ignored</B> "
+msgstr	""
+
+#, c-format
+msgid	"and add in %s folder "
+msgstr	""
+
 msgid	"no file referenced"
 msgstr	""
 
@@ -450,16 +503,6 @@ msgstr	""
 #, c-format
 msgid	"workflow_init :: workflow id %s not found"
 msgstr	""
-
-msgid	"to be add"
-msgstr	""
-
-msgid	"not added"
-msgstr	""
-
-#, fuzzy
-msgid	"added"
-msgstr	"Add new contact card"
 
 msgid	"no zone specified"
 msgstr	""
@@ -498,41 +541,6 @@ msgstr	""
 
 #, c-format
 msgid	"geometry saved : %s"
-msgstr	""
-
-msgid	"no import file specified"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"create %s family"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"modify %s family"
-msgstr	"Modify"
-
-#, fuzzy, c-format
-msgid	"update %s attribute"
-msgstr	"Update Title Cards"
-
-#, c-format
-msgid	"add id [%d] "
-msgstr	""
-
-#, c-format
-msgid	"add [%s] "
-msgstr	""
-
-#, c-format
-msgid	"update id [%d] "
-msgstr	""
-
-#, c-format
-msgid	"double title %s <B>ignored</B> "
-msgstr	""
-
-#, c-format
-msgid	"and add in %s folder "
 msgstr	""
 
 msgid	"locked files of "
@@ -1475,6 +1483,9 @@ msgstr	""
 msgid	"id of the basket folder"
 msgstr	""
 
+msgid	"directory to upload archive"
+msgstr	""
+
 msgid	"mnoGoSearch: indexer database access specification"
 msgstr	""
 
@@ -2256,30 +2267,23 @@ msgstr	"Address"
 msgid	"Analysis Results"
 msgstr	""
 
+#, fuzzy
+msgid	"foldername"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"filename"
+msgstr	"Firstname"
+
+#, fuzzy
+msgid	"familyname"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"action"
+msgstr	"Edit"
+
 msgid	"err"
-msgstr	""
-
-#, fuzzy
-msgid	"Import Archive"
-msgstr	"Import"
-
-msgid	"Archive import"
-msgstr	""
-
-#, fuzzy
-msgid	"import file:"
-msgstr	"Import"
-
-msgid	"Upload archive"
-msgstr	""
-
-msgid	"View Archives"
-msgstr	""
-
-msgid	"Go to Archives"
-msgstr	""
-
-msgid	"Choose Archive"
 msgstr	""
 
 msgid	"Attributes definition"
@@ -2467,6 +2471,10 @@ msgstr	"Import"
 msgid	"Description of the import format"
 msgstr	""
 
+#, fuzzy
+msgid	"import file:"
+msgstr	"Import"
+
 msgid	"With Double"
 msgstr	""
 
@@ -2505,24 +2513,19 @@ msgid	"View Archive"
 msgstr	""
 
 #, fuzzy
+msgid	"Import Archive"
+msgstr	"Import"
+
+msgid	"Choose Archive"
+msgstr	""
+
+#, fuzzy
 msgid	"delete archive"
 msgstr	"Start search"
 
 #, fuzzy
-msgid	"foldername"
+msgid	"default family"
 msgstr	"Delete"
-
-#, fuzzy
-msgid	"filename"
-msgstr	"Firstname"
-
-#, fuzzy
-msgid	"familyname"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	"action"
-msgstr	"Edit"
 
 #, fuzzy
 msgid	"Detail Permissions"
@@ -2608,6 +2611,9 @@ msgstr	""
 msgid	"Change State"
 msgstr	"Category"
 
+msgid	"Archive import"
+msgstr	""
+
 msgid	"Supported format"
 msgstr	""
 
@@ -2615,6 +2621,15 @@ msgid	"compressed tar"
 msgstr	""
 
 msgid	"Zip File"
+msgstr	""
+
+msgid	"Upload archive"
+msgstr	""
+
+msgid	"View Archives"
+msgstr	""
+
+msgid	"Go to Archives"
 msgstr	""
 
 msgid	"Archive import in progress"

@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2004-03-16 16:30+0100\n"
+	"POT-Creation-Date: 2004-03-17 17:02+0100\n"
 	"PO-Revision-Date: 2004-03-16 11:17+0100\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -164,29 +164,8 @@ msgid	"new profile document"
 msgstr	"nouveau profil de document"
 
 #, c-format
-msgid	"File %s is valid, and was successfully uploaded."
-msgstr	"Le fichier %s est valide et a été sauvegardé correctement."
-
-#, c-format
-msgid	"The file %s has been correctly extracted"
-msgstr	"L'archive %s a été correctement extraite"
-
-#, c-format
-msgid	"The file %s cannot be extracted"
-msgstr	"L'archive %s n'a pas pue être extraite"
-
-msgid	"Possible file upload attack!  Here's some debugging info:\n"
-msgstr	"Possibilité d'attaque 'upload' : voir infos suivantes\n"
-
-#, c-format
-msgid	"cannot extract archive file %s.\n"
-	"Type %s not recognized as archive file"
-msgstr	"L'archive %s n'a pue être extraite\n"
-	"Son type %s n'est pas reconnu en tant que fichier d'archive"
-
-#, c-format
-msgid	"cannot extract archive file %s"
-msgstr	"L'archive %s n'a pas pue être extraite"
+msgid	"proceed background import of %d documents"
+msgstr	"Effectuer l'import en tache de fond de %d documents"
 
 #, c-format
 msgid	"%s has been deleted"
@@ -232,6 +211,21 @@ msgstr	"résultat de la recherche détaillée"
 #, c-format
 msgid	"new title for %s"
 msgstr	"nouveau titre pour %s"
+
+#, c-format
+msgid	"File %s is valid, and was successfully uploaded."
+msgstr	"Le fichier %s est valide et a été sauvegardé correctement."
+
+#, c-format
+msgid	"The file %s has been correctly extracted"
+msgstr	"L'archive %s a été correctement extraite"
+
+#, c-format
+msgid	"The file %s cannot be extracted"
+msgstr	"L'archive %s n'a pas pue être extraite"
+
+msgid	"Possible file upload attack!  Here's some debugging info:\n"
+msgstr	"Possibilité d'attaque 'upload' : voir infos suivantes\n"
 
 #, c-format
 msgid	"result of archive import  %s"
@@ -281,8 +275,22 @@ msgid	"archive file %s has been deleted"
 msgstr	"L'archive %s a été supprimée"
 
 #, c-format
-msgid	"proceed background import of %d documents"
-msgstr	"Effectuer l'import en tache de fond de %d documents"
+msgid	"cannot extract archive file %s.\n"
+	"Type %s not recognized as archive file"
+msgstr	"L'archive %s n'a pue être extraite\n"
+	"Son type %s n'est pas reconnu en tant que fichier d'archive"
+
+#, c-format
+msgid	"cannot extract archive file %s"
+msgstr	"L'archive %s n'a pas pue être extraite"
+
+#, c-format
+msgid	"The document <%s> is not a folder"
+msgstr	"Le document <%s> n'est pas un dossier"
+
+#, c-format
+msgid	"Use your home folder instead <%s>"
+msgstr	"Utilisation du dossier personnel <%s> à la place"
 
 msgid	"description"
 msgstr	"description"
@@ -415,6 +423,50 @@ msgstr	"envoi de %s à %s"
 msgid	"%s cannot be sent"
 msgstr	"%s n'a pas pu être envoyé"
 
+msgid	"to be add"
+msgstr	"à ajouter"
+
+msgid	"not added"
+msgstr	"pas ajouté"
+
+msgid	"added"
+msgstr	"ajouté"
+
+msgid	"no import file specified"
+msgstr	"pas de fichier d'import spécifié"
+
+#, c-format
+msgid	"create %s family"
+msgstr	"création de la famille %s"
+
+#, c-format
+msgid	"modify %s family"
+msgstr	"modification de la famille %s"
+
+#, c-format
+msgid	"update %s attribute"
+msgstr	"mise à jour attribut %s"
+
+#, c-format
+msgid	"add id [%d] "
+msgstr	"ajout id [%d] "
+
+#, c-format
+msgid	"add [%s] "
+msgstr	"ajout [%s] "
+
+#, c-format
+msgid	"update id [%d] "
+msgstr	"mise à jour id [%d] "
+
+#, c-format
+msgid	"double title %s <B>ignored</B> "
+msgstr	"titre en double %s <B>ignoré</B> "
+
+#, c-format
+msgid	"and add in %s folder "
+msgstr	"et ajout dans dossier %s"
+
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
 
@@ -435,15 +487,6 @@ msgstr	"msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 #, c-format
 msgid	"workflow_init :: workflow id %s not found"
 msgstr	"workflow_init :: cycle id %s pas trouvé"
-
-msgid	"to be add"
-msgstr	"à ajouter"
-
-msgid	"not added"
-msgstr	"pas ajouté"
-
-msgid	"added"
-msgstr	"ajouté"
 
 msgid	"no zone specified"
 msgstr	"pas de zone spécifiée"
@@ -483,41 +526,6 @@ msgstr	"%s a été déverrouillé"
 #, c-format
 msgid	"geometry saved : %s"
 msgstr	"disposition sauvée : %s"
-
-msgid	"no import file specified"
-msgstr	"pas de fichier d'import spécifié"
-
-#, c-format
-msgid	"create %s family"
-msgstr	"création de la famille %s"
-
-#, c-format
-msgid	"modify %s family"
-msgstr	"modification de la famille %s"
-
-#, c-format
-msgid	"update %s attribute"
-msgstr	"mise à jour attribut %s"
-
-#, c-format
-msgid	"add id [%d] "
-msgstr	"ajout id [%d] "
-
-#, c-format
-msgid	"add [%s] "
-msgstr	"ajout [%s] "
-
-#, c-format
-msgid	"update id [%d] "
-msgstr	"mise à jour id [%d] "
-
-#, c-format
-msgid	"double title %s <B>ignored</B> "
-msgstr	"titre en double %s <B>ignoré</B> "
-
-#, c-format
-msgid	"and add in %s folder "
-msgstr	"et ajout dans dossier %s"
 
 msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
@@ -1401,6 +1409,9 @@ msgstr	"autoriser la recherche plein texte"
 msgid	"id of the basket folder"
 msgstr	"identifiant du porte-documents"
 
+msgid	"directory to upload archive"
+msgstr	"Répertoire de stockage de l'archive"
+
 msgid	"mnoGoSearch: indexer database access specification"
 msgstr	"mnoGoSearch: spécification d'accès à la base de l'indexation plein "
 	"texte"
@@ -2105,29 +2116,20 @@ msgstr	"rapport à (email)"
 msgid	"Analysis Results"
 msgstr	"Résultat de l'analyse"
 
+msgid	"foldername"
+msgstr	"dossier"
+
+msgid	"filename"
+msgstr	"fichier"
+
+msgid	"familyname"
+msgstr	"famille"
+
+msgid	"action"
+msgstr	"action"
+
 msgid	"err"
 msgstr	"err"
-
-msgid	"Import Archive"
-msgstr	"Importer une archive"
-
-msgid	"Archive import"
-msgstr	"Import d'archives"
-
-msgid	"import file:"
-msgstr	"Importer un fichier"
-
-msgid	"Upload archive"
-msgstr	"Télécharger l'archive"
-
-msgid	"View Archives"
-msgstr	"Voir les archives"
-
-msgid	"Go to Archives"
-msgstr	"Aller aux archives"
-
-msgid	"Choose Archive"
-msgstr	"Choisir l'archive"
 
 msgid	"Attributes definition"
 msgstr	"définition des attributs"
@@ -2294,6 +2296,9 @@ msgstr	" Importer des documents"
 msgid	"Description of the import format"
 msgstr	"Description du format d'import"
 
+msgid	"import file:"
+msgstr	"Importer un fichier"
+
 msgid	"With Double"
 msgstr	"Avec double"
 
@@ -2325,22 +2330,19 @@ msgid	"Result Import TAR Documents"
 msgstr	"Résultat de l'importation d'archives"
 
 msgid	"View Archive"
-msgstr "Voir l'archive"
+msgstr	"Voir l'archive"
+
+msgid	"Import Archive"
+msgstr	"Importer une archive"
+
+msgid	"Choose Archive"
+msgstr	"Choisir l'archive"
 
 msgid	"delete archive"
-msgstr "supprimer l'archive"
+msgstr	"supprimer l'archive"
 
-msgid	"foldername"
-msgstr	"dossier"
-
-msgid	"filename"
-msgstr	"fichier"
-
-msgid	"familyname"
-msgstr	"famille"
-
-msgid	"action"
-msgstr	"action"
+msgid	"default family"
+msgstr "famille par défaut"
 
 msgid	"Detail Permissions"
 msgstr	"Détail des droits"
@@ -2411,6 +2413,9 @@ msgstr	"Fermer"
 msgid	"Change State"
 msgstr	"Changer d'état"
 
+msgid	"Archive import"
+msgstr	"Import d'archives"
+
 msgid	"Supported format"
 msgstr	"Formats supportés"
 
@@ -2419,6 +2424,15 @@ msgstr	"Tar compressé"
 
 msgid	"Zip File"
 msgstr	"Fichier Zip"
+
+msgid	"Upload archive"
+msgstr	"Télécharger l'archive"
+
+msgid	"View Archives"
+msgstr	"Voir les archives"
+
+msgid	"Go to Archives"
+msgstr	"Aller aux archives"
 
 msgid	"Archive import in progress"
 msgstr	"Import de l'archive en cours"

@@ -3,7 +3,7 @@
  * View imported tar
  *
  * @author Anakeen 2004
- * @version $Id: freedom_ana_tar.php,v 1.1 2004/03/16 14:12:46 eric Exp $
+ * @version $Id: freedom_ana_tar.php,v 1.2 2004/03/17 17:33:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -92,12 +92,12 @@ function analyze_tar(&$action,$selfile) {
   $dir = new Doc($dbaccess,$dirid);
   $dirtitle=$dir->title;
   if (! method_exists($dir,"addfile")) {
-    $action->AddWarningMsg(sprintf("The document <%s> is not a folder",$dirtitle));
+    $action->AddWarningMsg(sprintf(_("The document <%s> is not a folder"),$dirtitle));
     $dir=createDoc($dbaccess,"DIR");
     $dir=$dir->getHome();
     $dirtitle=$dir->title;
     $dirid=$dir->id;
-    $action->AddWarningMsg(sprintf("Use your home folder instead <%s>",$dirtitle));
+    $action->AddWarningMsg(sprintf(_("Use your home folder instead <%s>"),$dirtitle));
   }
   if ($topfld) {
       if ($analyze) {
@@ -133,6 +133,7 @@ function analyze_tar(&$action,$selfile) {
   $action->lay->Set("selfile",stripslashes($selfile));
   $action->lay->Set("oselected",$onlycsv?"checked":"");
   $action->lay->Set("tselected",$topfld?"checked":"");
+  $action->lay->Set("fdisabled",$onlycsv?"disabled":"");
   $action->lay->Set("mailaddr",getMailAddr($action->user->id));
   $action->lay->Set("bgdisabled",(count($tr)>0)?"":"disabled");
 

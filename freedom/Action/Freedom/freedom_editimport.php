@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_editimport.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_editimport.php,v 1.4 2004/03/17 17:33:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_editimport.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_editimport.php,v 1.4 2004/03/17 17:33:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_editimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,7 +76,7 @@ function freedom_editimport(&$action) {
 
 
   $lattr = $doc->GetImportAttributes();
-  $format = "DOC;".$doc->id.";<special id>;<special dirid> ";
+  $format = "DOC;".(($doc->name!="")?$doc->name:$doc->id).";<special id>;<special dirid> ";
 
   $ttemp=explode(";",$format);
   while (list($k, $v) = each ($ttemp)) {
