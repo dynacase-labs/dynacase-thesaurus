@@ -36,12 +36,8 @@ END;1;9;;;;;;;;;;
 ;;;;;;;;;;;;
 //DOC;122;<special id>;<special dirid>;titre;;;;;;;;
 // creation dossier personne;;;;
-BEGIN;2;[dossier personne];121;
-TYPE;D;;;
-1;[titre];carnet d'adresse;;
-END;2;0;;
-;;;;
-;;;;
+//DOC;Famille;<special id>;<special dirid>;titre
+DOC;2;121;;carnet d'adresses
 // creation requete all incident;;;;
 //SEARCH;<special id>;<special dir id>;titre;requête
 SEARCH;125;0;les personnes;select id from doc where (fromid=120) and (locked != -1) and (not useforprof) and (doctype='F')
