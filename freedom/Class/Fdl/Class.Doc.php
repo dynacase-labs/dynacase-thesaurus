@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.188 2004/02/25 13:25:59 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.189 2004/03/01 09:10:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -821,6 +821,7 @@ create unique index i_docir on doc(initid, revision);";
     reset($array);
     $this->ofields = $this->fields;
     $this->fields=array();
+    unset($this->uperm); // force recompute privileges
     while(list($k,$v) = each($array)) {
       if (!is_integer($k)) {
 	if ($k != "uperm") $this->fields[]=$k; // special for uperm : it is a function
@@ -828,7 +829,7 @@ create unique index i_docir on doc(initid, revision);";
       }
     }
     $this->Complete();
-    unset($this->uperm); // force recompute privileges
+   
     $this->isset = true;
   }
 
@@ -1583,7 +1584,7 @@ create unique index i_docir on doc(initid, revision);";
     $ok=array("err"=>"",
 	      "sug"=>array());
     $oattr = $this->getAttribute($attrid);
-    if (($oattr->phpconstraint != "") && ($this->getValue($attrid)!="")){
+    if (($oattr->phpconstraint != "") ){
 
        $res = $this->applyMethod($oattr->phpconstraint,'KO',$index);
        if ($res !== true) return $res;
