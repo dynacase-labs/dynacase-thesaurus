@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.5 2002/07/29 12:42:23 eric Exp $
+// $Id: editbodycard.php,v 1.6 2002/07/30 12:31:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -238,22 +238,8 @@ function editbodycard(&$action) {
   $action->lay->SetBlockData("TABLEBODY",$frames);
   
   
-  if (count( $doc->transitions) > 0) {
-    // compute the changed state
-      $fstate = $doc->GetFollowingStates();
-    $action->lay->Set("initstatevalue",$doc->state );
-    $action->lay->Set("initstatename", $action->text($doc->state) );
-    $tstate= array();
-    while (list($k, $v) = each($fstate)) {
-      $tstate[$k]["statevalue"] = $v;
-      $tstate[$k]["statename"] = _($v);
-    }
-    $action->lay->SetBlockData("NEWSTATE", $tstate);
-    $action->lay->SetBlockData("TRSTATE", array(0=>array("boo")));
-  }
-  
-  
-  
+
+      
   
   
 }
