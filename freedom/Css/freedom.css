@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.35 2003/10/16 09:38:02 eric Exp $
+ * $Id: freedom.css,v 1.36 2003/11/17 11:22:04 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -68,6 +68,7 @@ LEGEND {
 
 FIELDSET {
    -moz-border-radius: 6;
+   background-color: [CORE_BGCELLCOLOR];
 }
 
 .MenuInactive{

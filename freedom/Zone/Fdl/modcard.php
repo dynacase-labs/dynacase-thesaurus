@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.46 2003/10/17 16:38:57 eric Exp $
+ * @version $Id: modcard.php,v 1.47 2003/11/17 11:22:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.46 2003/10/17 16:38:57 eric Exp $
+// $Id: modcard.php,v 1.47 2003/11/17 11:22:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -146,7 +146,6 @@ function modcard(&$action, &$ndocid) {
 	      if (substr($k,0,4) == "UPL_") $k=substr($k,4);
 
 	      $doc->SetValue($k, $filename);
-		  
 	    	  
 	    }
 	}
@@ -217,6 +216,7 @@ function insert_file($dbaccess,$docid, $attrid)
   
   global $upload_max_filesize;
   
+
   $postfiles = $HTTP_POST_FILES["_".$attrid];
 
 
@@ -240,6 +240,7 @@ function insert_file($dbaccess,$docid, $attrid)
   $rt=array(); // array of file to be returned
 
   while(list($k,$userfile) = each($tuserfiles) )    {
+
     $rt[$k]="";
     if ($userfile['name'] == " ")  {
       $rt[$k]=" "; // delete reference file
@@ -299,7 +300,6 @@ function insert_file($dbaccess,$docid, $attrid)
     
   
   }
-
 
   if ((count($rt) == 0) || ((count($rt) == 1) && ($rt[0]==""))) return "";
   // return file type and upload file name

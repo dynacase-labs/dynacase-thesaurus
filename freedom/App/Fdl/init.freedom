@@ -41,7 +41,7 @@ METHOD;Method.PortFolio.php;;;;;;;;;;;;
 ATTR;PFL_OPEN;;ouvrir;N;N;menu;10;M;;%S%&app=FREEDOM&action=OPENFOLIO&id=%I%;;;
 ATTR;PFL_IDDEF;FLD_FR_PROF;id chemise defaut ;N;N;docid;1000;H;N;;;;
 ATTR;PFL_DEF;FLD_FR_PROF;chemise defaut;N;Y;text;1010;H;N;%S%&app=FDL&action=FDL_CARD&id=%PFL_IDDEF%;fdl.php;lfamilly(D,{PORTFOLIO},PFL_DEF):PFL_IDDEF,PFL_DEF;%S%&app=FREEDOM&action=OPENFOLIO&id=%PFL_IDDEF%
-ATTR;FLD_OPEN;FLD_FR_PROF;ouvrir;N;N;text;20;H;;;;;
+ATTR;FLD_OPEN;FLD_FR_PROF;ouvrir;N;N;menu;20;H;;;;;
 END;1;-1;;;;;;;;;;;
 // famille chemise;;;id;class;name;;;;;;;;
 BEGIN;DIR;porte-documents;26;;BASKET;;;;;;;;
@@ -49,7 +49,7 @@ TYPE;C;;;;;;;;;;;;
 ICON;basket.gif;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
-ATTR;FLD_COPYBASKET;FLD_FR_PROF;insérer le porte-document;N;N;text;20;H;;;;;
+ATTR;FLD_COPYBASKET;FLD_FR_PROF;insérer le porte-document;N;N;menu;20;H;;;;;
 ATTR;FLD_CLEAR;;vider;N;N;menu;20;M;;[basket]%S%app=FREEDOM&action=FREEDOM_CLEARFLD&id=%I%;;;
 END;1;-1;;;;;;;;;;;
 // famille cycle;;;id;class;name;;;;;;;
@@ -214,8 +214,12 @@ ICON;fichier.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ;;;;;;;;;;;;
 ATTR;FI_FRFILE;;fichier;N;N;frame;;F;;;;
-ATTR;FI_TITLE;FI_FRFILE;titre;Y;N;text;;R;;;;
-ATTR;FI_FILE;FI_FRFILE;fichier;N;Y;file;;W;Y;;;
+ATTR;FI_TITLE;FI_FRFILE;titre;Y;N;text;10;R;;;;
+ATTR;FI_FILE;FI_FRFILE;fichier;N;Y;file;20;W;Y;;;
+ATTR;FI_FR_OFORMAT;;Autres formats;;;frame;;F;;;;
+ATTR;FT_T_OFORMAT;FI_FR_OFORMAT;Colonnes;N;N;array;500;W;;;;
+ATTR;FI_OFILE;FT_T_OFORMAT;fichier;N;N;file;510;W;;;;
+;;;;;;;;;;;;
 END;-;9;;;;;;;;;;
 ;;;;;;;;;;;;
 // famille image;;;id;class;name;;;;;;;

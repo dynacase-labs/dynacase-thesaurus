@@ -28,9 +28,8 @@ a.menuItem, a:visited.menuItem {
 
 a.menuItemCtrl, a:visited.menuItemCtrl {
   color: [CORE_TEXTBGCOLOR];
-  border-style:none solid none solid;
-  border-color:[CORE_BGCOLORALTERN];
-  border-width:1px;
+  border-style:none  none none outset;
+  border-width:3px;
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
@@ -39,6 +38,8 @@ a.menuItemCtrl, a:visited.menuItemCtrl {
   padding: 2px 12px 2px 8px;
   text-decoration: none;
   text-transform:capitalize;
+  filter:alpha(opacity=80);
+  -moz-opacity:.8;
 }
 
 .separator {
@@ -70,9 +71,9 @@ a.menuItemDisabled, a.menuItemCtrlDisabled {
   text-decoration: none;
 }
 a.menuItemCtrlDisabled {
-  border-style:none solid none solid;
+  border-style:none none none outset;
+  border-width:3px;
   border-color:[CORE_BGCOLORALTERN];
-  border-width:1px;	
 }
 
 a.menuItemInvisible{ 

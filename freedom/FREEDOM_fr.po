@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2003-11-04 09:59+0100\n"
+	"POT-Creation-Date: 2003-11-07 11:16+0100\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -1227,6 +1227,9 @@ msgstr	"Ajouter un post-it"
 msgid	"View XML"
 msgstr	"Voir XML"
 
+msgid	"Reference document"
+msgstr	"Documents référence"
+
 msgid	"Edit attributes"
 msgstr	"Éditer les attributs"
 
@@ -1435,8 +1438,8 @@ msgid	"the document of %s family cannot be revised"
 msgstr	"lee documents de la famille %s ne peuvent être révisés"
 
 #, c-format
-msgid	"copy from document #%d"
-msgstr	"copie à partir du document n°%d"
+msgid	"copy from document #%d -%s-"
+msgstr	"copie à partir du document n°%d -%s-"
 
 msgid	"vault file error"
 msgstr	"erreur fichier Vault"
@@ -1618,7 +1621,7 @@ msgid	"Tconsumed"
 msgstr	"vers consommé"
 
 msgid	"Tlocked"
-msgstr "vers immobilisé"
+msgstr	"vers immobilisé"
 
 msgid	"Tasav"
 msgstr	"vers affecté SAV"
@@ -1697,6 +1700,21 @@ msgstr	"mail interne envoyé à %s (bcc: %s)"
 msgid	"send official mail to %s (cc: %s - bcc:%s)"
 msgstr	"mail officiel envoyé à %s (cc: %s - bcc:%s)"
 
+msgid	"created"
+msgstr	"Créé"
+
+msgid	"progressing"
+msgstr	"en cours"
+
+msgid	"clotured"
+msgstr	"cloturé"
+
+msgid	"Tprogressing"
+msgstr	"vers en cours"
+
+msgid	"Tclotured"
+msgstr	"vers cloturé"
+
 msgid	"read only"
 msgstr	"lecture seule"
 
@@ -1732,6 +1750,9 @@ msgstr	"égal"
 
 msgid	"not equal"
 msgstr	"pas égal"
+
+msgid	"not include"
+msgstr	"ne contient pas"
 
 msgid	"&gt; or equal"
 msgstr	"&gt; ou égal"
@@ -2423,6 +2444,10 @@ msgstr	"modifier les préférences"
 msgid	"Access To Onefam Management"
 msgstr	"Accès à la gestion par famille"
 
+#, c-format
+msgid	"copy from document #%d"
+msgstr	"copie à partir du document n°%d"
+
 #~ msgid	"yes"
 #~ msgstr	"oui"
 
@@ -2437,9 +2462,6 @@ msgstr	"Accès à la gestion par famille"
 
 #~ msgid	"change by %s"
 #~ msgstr	"modifié par %s"
-
-#~ msgid	"not include"
-#~ msgstr	"ne contient pas"
 
 #~ msgid	"%s all categories "
 #~ msgstr	"%s toutes catégories"
@@ -2526,9 +2548,6 @@ msgstr	"Accès à la gestion par famille"
 
 #~ msgid	"edit folder"
 #~ msgstr	"éditer un dossier"
-
-#~ msgid	"in progress incident"
-#~ msgstr	"incidents en cours"
 
 #~ msgid	"unclosed incident"
 #~ msgstr	"incidents non clôts"

@@ -241,17 +241,23 @@ create or replace function fixeddoc()
 returns trigger as '
 declare 
    lid int;
+   cfromid int;
 begin
 
 
 if (TG_OP = ''INSERT'') then
      update doc set lmodify=''N'' where initid=NEW.initid;
      update doc set lmodify=''L'' where id=(select distinct on (initid) id from doc where initid = NEW.initid and locked = -1 order by initid, revision desc);
+     if (NEW.doctype = ''C'') then 
+       cfromid=-1; -- for families
+     else
+       cfromid=NEW.fromid;
+     end if;
      select into lid id from docfrom where id= NEW.id;
      if (lid = NEW.id) then 
-	update docfrom set fromid=NEW.fromid where id=NEW.id;
+	update docfrom set fromid=cfromid where id=NEW.id;
      else 
-	insert into docfrom (id,fromid) values (NEW.id, NEW.fromid);
+	insert into docfrom (id,fromid) values (NEW.id, cfromid);
      end if;
 end if;
  
