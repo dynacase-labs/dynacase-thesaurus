@@ -20,6 +20,9 @@
 <a href="#" id="revise" 
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=REVCOMMENT&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: revise]</a>
 
+<a href="#" id="chgtitle" 
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=QUERYTITLE&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: change title]</a>
+
 <a href="#" id="unlockdoc"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=UNLOCKFILE&id=[id]','doc_properties');closeMenu('popupcard')" >[TEXT: unlock]</a>
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.2 2002/02/19 11:11:02 eric Exp $
+// $Id: popupcard.php,v 1.3 2002/04/09 14:42:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','properties','access','delete','cancel'));
+  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','chgtitle','unlockdoc','editattr','histo','editprof','editcprof','properties','access','delete','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -49,8 +49,11 @@ function popupcard(&$action) {
 
 
   Popupactive('popupcard',$kdiv,'cancel');
-  if (($doc->doctype=="C") && ($cud)) popupActive('popupcard',$kdiv,'chicon'); 
-  else popupInvisible('popupcard',$kdiv,'chicon');
+  if (($doc->doctype=="C") && ($cud)) {
+    popupActive('popupcard',$kdiv,'chicon'); 
+  } else {
+    popupInvisible('popupcard',$kdiv,'chicon');
+  }
 
   if (! $doc->isRevisable() ) popupInvisible('popupcard',$kdiv,'lockdoc');
   else if (($doc->locked != $action->user->id) && 
@@ -89,12 +92,14 @@ function popupcard(&$action) {
 
   if ($cud) {
     popupActive('popupcard',$kdiv,'editattr'); 
+    popupActive('popupcard',$kdiv,'chgtitle'); 
     popupActive('popupcard',$kdiv,'editdoc');
   } else {
     if ($doc->locked < 0){ // fixed document
       popupInvisible('popupcard',$kdiv,'editdoc');
       popupInvisible('popupcard',$kdiv,'delete');
       popupInvisible('popupcard',$kdiv,'editattr'); 
+      popupInvisible('popupcard',$kdiv,'chgtitle'); 
       popupInvisible('popupcard',$kdiv,'editprof');
       popupInvisible('popupcard',$kdiv,'revise');
       popupInvisible('popupcard',$kdiv,'lockdoc');
@@ -102,6 +107,7 @@ function popupcard(&$action) {
       popupInvisible('popupcard',$kdiv,'chicon');
     } else {
       popupInactive('popupcard',$kdiv,'editattr'); 
+      popupInactive('popupcard',$kdiv,'chgtitle'); 
       popupInactive('popupcard',$kdiv,'editprof');
       popupInactive('popupcard',$kdiv,'editdoc');
 
@@ -116,9 +122,11 @@ function popupcard(&$action) {
 
   if ($doc->doctype != "C") {
     popupInvisible('popupcard',$kdiv,'editcprof'); 
+    popupInvisible('popupcard',$kdiv,'chgtitle'); 
     popupInvisible('popupcard',$kdiv,'editattr'); 
+  } else {
+    popupInvisible('popupcard',$kdiv,'editdoc');
   }
-
   if ($doc->doctype == "S") popupInvisible('popupcard',$kdiv,'editdoc'); 
 
   popupGen($kdiv);

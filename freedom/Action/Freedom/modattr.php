@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.3 2002/03/26 16:14:00 eric Exp $
+// $Id: modattr.php,v 1.4 2002/04/09 14:42:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -147,17 +147,17 @@ function modattr(&$action) {
 
 
   
+
+  
+
+
       
-  
-
-
-      
 
   
 
   
   
-  redirect($action,GetHttpVars("app"),"FREEDOM_EDIT&id=$docid&dirid=$dirid");
+  redirect($action,GetHttpVars("app"),"QUERYTITLE&id=$docid");
 }
 
 

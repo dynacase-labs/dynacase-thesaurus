@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.3 2002/04/03 07:33:57 eric Exp $
+// $Id: FREEDOM.app,v 1.4 2002/04/09 14:42:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -181,6 +181,16 @@ $action_desc = array (
   array( 
    "name"		=>"CHANGEICON",
    "short_name"		=>N_("change icon document"),
+   "acl"		=>"FREEDOM"
+  ) ,
+  array( 
+   "name"		=>"CHANGETITLE",
+   "short_name"		=>N_("change title family"),
+   "acl"		=>"FREEDOM"
+  ) ,
+  array( 
+   "name"		=>"QUERYTITLE",
+   "short_name"		=>N_("query title family"),
    "acl"		=>"FREEDOM"
   ) ,
   array( 
