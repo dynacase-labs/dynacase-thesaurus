@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.48 2004/02/24 08:33:30 eric Exp $
+ * @version $Id: freedom_util.php,v 1.49 2004/03/22 15:33:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.48 2004/02/24 08:33:30 eric Exp $
+// $Id: freedom_util.php,v 1.49 2004/03/22 15:33:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -235,7 +235,9 @@ function getFromId($dbaccess, $id) {
  * 
  * @return array false if error occured
  */
-function getTDoc($dbaccess, $id) {
+function getTDoc($dbaccess, $id,$sqlfilters=array()) {
+  global $action;
+  global $SQLDELAY,$SQLDEBUG;
 
   if (!($id > 0)) return false;
   $dbid=getDbid($dbaccess);   
@@ -243,9 +245,19 @@ function getTDoc($dbaccess, $id) {
   $fromid= getFromId($dbaccess, $id);
   if ($fromid > 0) $table="doc$fromid";
   else if ($fromid == -1) $table="docfam";
-    
 
-  $result = pg_exec($dbid,"select * from only $table where id=$id;");
+  $sqlcond="";
+  if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
+
+  $userid=$action->user->id;
+  if ($SQLDEBUG) $sqlt1=microtime(); // to test delay of request
+  $sql="select *,getuperm($userid,profid) as uperm from only $table where id=$id $sqlcond;";
+  $result = pg_query($dbid,$sql); 
+  if ($SQLDEBUG) {
+       global $TSQLDELAY;
+       $SQLDELAY+=microtime_diff(microtime(),$sqlt1);// to test delay of request
+       $TSQLDELAY[]="t=>".microtime_diff(microtime(),$sqlt1)."s=>$sql";
+  }
   if (pg_numrows ($result) > 0) {
     $arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
 

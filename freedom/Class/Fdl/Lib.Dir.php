@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.83 2004/03/04 13:48:19 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.84 2004/03/22 15:33:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.83 2004/03/04 13:48:19 eric Exp $
+// $Id: Lib.Dir.php,v 1.84 2004/03/22 15:33:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -146,9 +146,13 @@ function getSqlSearchDoc($dbaccess,
       
 
 
-      //          $qsql= "select $selectfields ".
-      //    	"from  $table  ".
-      //    	"where initid in (select childid from fld where $sqlfld) and   $sqlcond ";
+     //            $qsql= "select $selectfields ".
+//           	"from  $table  ".
+//           	"where initid in (select childid from fld where $sqlfld) and   $sqlcond ";
+
+//                 $qsql= "select $selectfields ".
+//           	"from  fld,$table  ".
+//           	"where initid = childid and ($sqlfld) and   $sqlcond ";
 
       //       $qsql= "select $selectfields ".
       // 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
@@ -158,6 +162,7 @@ function getSqlSearchDoc($dbaccess,
       $qsql= "select $selectfields ".
    	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
    	"where  $sqlcond ";
+
       //     } else {
       //          $qsql= "select * ".
       //    	"from sfolder   ".
@@ -224,8 +229,19 @@ function getChildDoc($dbaccess,
 		     $userid=1, 
 		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
   
+
+
   // query to find child documents          
   if (($fromid!="") && (! is_numeric($fromid))) $fromid=getFamIdFromName($dbaccess,$fromid);
+
+  if (($fromid=="") && ($dirid!=0)&&($qtype=="TABLE")) {
+    $fld = new Doc($dbaccess, $dirid);
+    if ( $fld->defDoctype != 'S') {
+      // try optimize containt of folder
+      $td=getFldDoc($dbaccess,$dirid,$sqlfilters);
+      if (is_array($td)) return $td;
+    }
+  }
   $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest);
 
   if ($userid > 1) { // control view privilege
@@ -252,7 +268,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
 
@@ -267,6 +283,51 @@ function getChildDoc($dbaccess,
   
   return($tableq);
 }
+
+
+
+
+
+
+function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
+ 
+  if (is_array($dirid)) {
+	$sqlfld=GetSqlCond($dirid,"dirid",true);
+  } else {
+    $sqlfld = "fld.dirid=$dirid";
+  }
+  
+  $mc=microtime();
+  
+  $q = new QueryDb($dbaccess,"QueryDir");
+  $q->AddQuery($sqlfld);
+  $q->AddQuery("qtype='S'");
+
+  $tfld=$q->Query(0,0,"TABLE");
+
+  if ($q->nb > 100) return false;
+  $t=array();
+  foreach ($tfld as $k=>$v) {   
+
+      $t[$v["childid"]]=getTDoc($dbaccess,$v["childid"],$sqlfilters);
+      
+      if ($t[$v["childid"]] == false) unset($t[$v["childid"]]);
+      if (($t[$v["childid"]]["uperm"] & (1 << POS_VIEW)) == 0) { // control view
+	unset($t[$v["childid"]]);
+      }
+  }
+  
+  //  print "<HR>"; print " - getFldDoc<B>".microtime_diff(microtime(),$mc)."</B>";
+  return $t;
+}
+
+
+
+
+
+
+
+
 
 /**
  * return array of documents
