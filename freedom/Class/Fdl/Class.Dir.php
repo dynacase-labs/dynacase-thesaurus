@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.3 2002/02/22 15:34:54 eric Exp $
+// $Id: Class.Dir.php,v 1.4 2002/03/06 17:22:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.3 2002/02/22 15:34:54 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.4 2002/03/06 17:22:05 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -40,18 +40,22 @@ Class Dir extends Doc
   var $obj_acl = array (
 			array(
 			      "name"		=>"view",
-			      "description"	=>"view directory information", // N_("view directory")
+			      "description"	=>"view folder information", # N_("view folder")
 			      "group_default"       =>"Y"),
 			array(
 			      "name"               =>"edit",
-			      "description"        =>"edit directory information"),// N_("edit directory")
+			      "description"        =>"edit folder information"),# N_("edit folder")
 			array(
 			      "name"               =>"delete",
-			      "description"        =>"delete directory",// N_("delete directory")
+			      "description"        =>"delete folder",# N_("delete folder")
 			      "group_default"       =>"N"),
 			array(
 			      "name"               =>"open",
-			      "description"        =>"open directory",// N_("open directory")
+			      "description"        =>"open folder",# N_("open folder")
+			      "group_default"       =>"N"),
+			array(
+			      "name"               =>"modify",
+			      "description"        =>"modify folder",# N_("modify folder")
 			      "group_default"       =>"N")
 			);
   var $defDoctype='D';
@@ -63,7 +67,7 @@ Class Dir extends Doc
   }
 
 
-  // get the home directory
+  // get the home folder
   function GetHome() {
     
     $query = new QueryDb($this->dbaccess, get_class($this));
@@ -86,6 +90,10 @@ Class Dir extends Doc
   // add a file in this folder
   function AddFile($docid, $mode="latest") {
     
+    // need this privilege
+    $err = $this->Control("modify");
+    if ($err!= "") return $err;
+
 
   $qf = new QueryDir($this->dbaccess);
 
@@ -105,7 +113,7 @@ Class Dir extends Doc
   }  
 
 
-  $qf->dirid=$this->initid; // the reference directory is the initial id
+  $qf->dirid=$this->initid; // the reference folder is the initial id
   $qf->query="";
   $err = $qf->Add();
   return $err;
@@ -115,22 +123,25 @@ Class Dir extends Doc
   // delete reference to a  file in this folder
   function DelFile($docid ) {
     
-    $err="";
 
+
+    // need this privilege
+    $err = $this->Control("modify");
+    if ($err!= "") return $err;
 
    
     $qids = getQids($this->dbaccess,$this->initid, $docid);
 
-    if (count($qids) == 0) $err = sprintf(_("cannot delete link : link not found for doc %d in directory %d"),$docid, $this->initid);
+    if (count($qids) == 0) $err = sprintf(_("cannot delete link : link not found for doc %d in folder %d"),$docid, $this->initid);
     if ($err != "") return $err;
 
     // search original query
     $qf = new QueryDir($this->dbaccess, $qids[0]);
-    if (!($qf->isAffected())) $err = sprintf(_("cannot delete link : initial query not found for doc %d in directory %d"),$docid, $this->initid);
+    if (!($qf->isAffected())) $err = sprintf(_("cannot delete link : initial query not found for doc %d in folder %d"),$docid, $this->initid);
   
     if ($err != "") return $err;
 
-    if ($qf->qtype == "M") $err = sprintf(_("cannot delete link for doc %d in directory %d : the document comes from a user query. Delete initial query if you want delete this document"),$docid, $this->initid);
+    if ($qf->qtype == "M") $err = sprintf(_("cannot delete link for doc %d in folder %d : the document comes from a user query. Delete initial query if you want delete this document"),$docid, $this->initid);
   
     if ($err != "") return $err;
         $qf->Delete();
