@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.208 2004/07/05 13:02:37 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.209 2004/07/08 16:16:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1474,7 +1474,7 @@ create unique index i_docir on doc(initid, revision);";
 	      case money:
 		$tvalues[$kvalue]=str_replace(",",".",$avalue);
 		$tvalues[$kvalue]=str_replace(" ","",$tvalues[$kvalue]);
-		$tvalues[$kvalue]=doubleval($tvalues[$kvalue]);
+		$tvalues[$kvalue]=round(doubleval($tvalues[$kvalue]),2);
 		break;
 	      case integer:
 		$tvalues[$kvalue]=intval($avalue);
