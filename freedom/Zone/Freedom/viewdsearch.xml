@@ -55,10 +55,7 @@
  
 
   <tbody>[BLOCK PARAM]
-   <tr >
-    <td class="FREEDOMlabel">[label] : </td><td>[inputs]
-         [ENDBLOCK PARAM]</td>
-</tr>
+   <tr ><td width="30%" class="FREEDOMlabel">[label] : </td><td>[inputs]</td></tr>[ENDBLOCK PARAM]
   </tbody>
 </table>
 <input class="noprint" type="submit" value="[TEXT:send search]">
