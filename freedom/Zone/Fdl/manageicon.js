@@ -145,7 +145,7 @@ function openFld(docid) {
   subwindow([FDL_HD2SIZE],[FDL_VD2SIZE],'flist',url);
 }
 //--------------------- DRAG & DROP  --------------------------
-drag=0;
+var drag=0;
 
 if (isNetscape) {
     document.captureEvents(Event.MOUSEMOVE);

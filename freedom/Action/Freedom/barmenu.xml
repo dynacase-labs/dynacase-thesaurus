@@ -68,7 +68,7 @@ function SendSearchId(e,id) {
 </div>
 
 <div  id="bookmarks" class="popup">
-     <a  id="addtobook" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ADDBOOKMARK&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:add to bookmarks]</a>
+     <a  id="addtobook" href="#" onClick="subwindow(10,10,'fhidden','[CORE_BASEURL]app=[APPNAME]&action=FREEDOM_ADDBOOKMARK&dirid='+parent.ffolder.dirid);closeAllMenu();">[TEXT:add to bookmarks]</a>
      <a  id="broot" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FOLDERS&dirid=9';closeAllMenu();">[rootlabel]</a>
 <a class="separator"></a>
 [BLOCK MARKS]

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: folders.php,v 1.16 2004/08/10 07:55:25 eric Exp $
+ * @version $Id: folders.php,v 1.17 2005/03/30 12:03:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.16 2004/08/10 07:55:25 eric Exp $
+// $Id: folders.php,v 1.17 2005/03/30 12:03:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -78,7 +78,7 @@ function folders(&$action) {
   
   $doc = new Doc($dbaccess, $dirid);
   $action->lay->Set("dirid", $dirid);
-  $action->lay->Set("reptitle", $doc->title);
+  $action->lay->Set("reptitle", str_replace('"','\"',$doc->title));
   $action->lay->Set("icon", $doc->getIcon());
 
 

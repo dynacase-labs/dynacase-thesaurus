@@ -3,7 +3,7 @@
  * Add folder in user bookmarks
  *
  * @author Anakeen 2005 
- * @version $Id: freedom_addbookmark.php,v 1.1 2005/03/29 20:34:07 eric Exp $
+ * @version $Id: freedom_addbookmark.php,v 1.2 2005/03/30 12:03:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -21,9 +21,11 @@ function freedom_addbookmark(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $attrid="FREEDOM_UBOOK";
+
   $ubook=$action->GetParam($attrid);
   if (strlen($ubook)>2)   $tubook = explode('][',substr($ubook,1,-1));
   else $tubook=array();
+  $err="";
   $tid=array();
   foreach ($tubook as $k=>$v) {
     list($id,$label)=explode("|",$v);
@@ -33,6 +35,8 @@ function freedom_addbookmark(&$action) {
   $doc= new Doc($dbaccess,$dirid);
   if ($doc->isAlive()) {
     $tid[$doc->initid]=$doc->title;
+  } else {
+    $err=sprintf(_("folder is not valid: bookmark unchanged"));
   }
 
   // recompose the paramters
@@ -41,9 +45,13 @@ function freedom_addbookmark(&$action) {
     $newbook.="[$k|$v]";
   }
 
-
-  print "freedom_addbookmark $dirid $newbook";
-  $action->parent->param->Set($attrid,$newbook,PARAM_USER.$action->user->id,$action->parent->id);
+  if ($err != "") {
+    AddWarningMsg($err);
+  } else {
+    AddWarningMsg(sprintf(_("folder %s as been added in your bookmark"),
+			  $doc->title));
+    $action->parent->param->Set($attrid,$newbook,PARAM_USER.$action->user->id,$action->parent->id);
+  }
 
 }
 

@@ -219,6 +219,7 @@ function viewhome(event) {
 <!-- Build the browser's objects and display default view of the 
      tree. -->
 <script>initializeDocument()</script>
+<div  id="thefolderh"></div>
 <img id="micon" width="20" height="20"  style="position:absolute;visibility:hidden">
     <iframe id="fexpand" name="fexpand" style="display:none"   src="about:blank"  ></iframe>
 </body>

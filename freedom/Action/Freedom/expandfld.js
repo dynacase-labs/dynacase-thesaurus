@@ -81,6 +81,7 @@ function copydivfolder(fto, BeginnEntries) {
 
 
     var divtoinsert = null;
+    var divtoinserth = fto.document.getElementById('thefolderh');
     var flddiv = fto.document.getElementById('folder'+fto.fldidtoexpand);
     
     if (flddiv)
@@ -97,7 +98,12 @@ function copydivfolder(fto, BeginnEntries) {
       h.id= divs[i].id;
       h.className= divs[i].className;
       divs[i].style.backgroundColor='yellow';
-      fto.document.getElementById('bodyid').insertBefore(h,divtoinsert);
+
+      if (h.className=='fldh')  {
+	divtoinserth.appendChild(h); 
+      } else {
+	fto.document.getElementById('bodyid').insertBefore(h,divtoinsert); 
+      }
 //       if (divs[i].className=='folder') {      
 // 	ne = BeginnEntries+ifld-1;
 

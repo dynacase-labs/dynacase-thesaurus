@@ -183,41 +183,41 @@ function listUrl(url) {
 }
 function drawFolder(leftSide) 
 { 
-  var idParam = "id='folder" + this.id + "'"
+  var idParam = "id='folder" + this.id + "'";
 
 
-  this.blockStart("folder")
+  this.blockStart("folder");
 
-  doc.write("<tr><td class=\"fld\">") 
-  doc.write(leftSide) 
-    //  this.outputLink() 
+  doc.write("<tr><td class=\"fld\">");
+  doc.write(leftSide);
+  //  this.outputLink() 
   doc.write("<img width='20' id='folderIcon" + this.id + "' name='folderIcon" + this.id + "' src='" + this.iconSrc+"' border=0 style=\"cursor:crosshair\"");
 
 
 
   if (this.hreference == "#") {
 
-      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"") 
-      doc.write("onMouseOver=\"if (drag == 1) clickOnFolder(event,"+this.id+")\"") 
-      doc.write("onContextMenu=\"openMenu(event,'popfld',"+this.id+");return false\"") 
+    doc.write("onMouseDown=\"if (!drag) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"");
+    doc.write("onMouseOver=\"if (drag) clickOnFolder(event,"+this.id+")\"");
+    doc.write("onContextMenu=\"openMenu(event,'popfld',"+this.id+");return false\"");
 
-      doc.write("onMouseUp=\"if (drag == 1) {dirid="+this.refid+";selid="+this.id+";openMenu(event,'poppaste',"+this.id+")};return false;\"") 
-	} else {
-	  doc.write("onMouseDown=\"listUrl'"+this.hreference+"')\" "); 
-	}
-  doc.write(">") 
-  doc.write("</td><td class=\"fld\" valign=middle nowrap>") 
-    doc.write("<span class=\"urltext\" id='text"+this.id+"'")
-      doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"") 
-      doc.write("onMouseOver=\"if (drag == 0) this.className='urltextsel'\"") 
-      doc.write("onMouseOut=\"if (drag == 0) this.className='urltext'\"") 
-  doc.write(">")  
-  doc.write(this.desc) 
-  doc.write('['+this.id+']') 
-  doc.write("</span>")  
-  doc.write("</td>")  
+    doc.write("onMouseUp=\"if (drag) {dirid="+this.refid+";selid="+this.id+";openMenu(event,'poppaste',"+this.id+")};return false;\"");
+  } else {
+    doc.write("onMouseDown=\"listUrl'"+this.hreference+"')\" "); 
+  }
+  doc.write(">");
+  doc.write("</td><td class=\"fld\" valign=middle nowrap>");
+  doc.write("<span class=\"urltext\" id='text"+this.id+"'");
+  doc.write("onMouseDown=\"if (!drag) {selectFolder("+this.id+","+this.refid+");listUrl('"+actionviewfile+"&dirid="+this.refid+"')}\"");
+  doc.write("onMouseOver=\"if (!drag) this.className='urltextsel'\"");
+  doc.write("onMouseOut=\"if (!drag) this.className='urltext'\"");
+  doc.write(">");
+  doc.write(this.desc);
+  //  doc.write('['+this.id+']');
+  doc.write("</span>");
+  doc.write("</td>");
 
-    this.blockEnd();
+  this.blockEnd();
  
 
   this.navObj = doc.getElementById("folder"+this.id);
@@ -248,7 +248,6 @@ function drawFather() {
    doc.write(this.desc) 
    doc.write("</span>")  
    doc.write("</div>")  
-
   
 } 
 var selObj=0;
@@ -317,6 +316,7 @@ function transfertHtmlfolder(ffrom,fto) {
 
     var divtoinsert = null;
     var flddiv = fto.document.getElementById('folder'+fto.fldidtoexpand);
+    var divtoinserth = fto.document.getElementById('thefolderh');
     
     if (flddiv)
       divtoinsert=flddiv.nextSibling;
@@ -331,8 +331,12 @@ function transfertHtmlfolder(ffrom,fto) {
       h.innerHTML= divs[i].innerHTML;
       h.id= divs[i].id;
       h.className= divs[i].className;
-      divs[i].style.backgroundColor='yellow';
-      fto.document.getElementById('bodyid').insertBefore(h,divtoinsert);
+      divs[i].style.backgroundColor='yellow'; 
+      if (h.className=='fldh')  {
+	divtoinserth.appendChild(h); 
+      } else {
+	fto.document.getElementById('bodyid').insertBefore(h,divtoinsert); 
+      }
 
     }           
   

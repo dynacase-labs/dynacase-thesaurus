@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.69 2005/03/25 17:09:41 eric Exp $
+ * $Id: freedom.css,v 1.70 2005/03/30 12:03:31 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -781,7 +781,17 @@ TABLE.reportVGreen {
       
    }
 
-DIV.fldh {
-	float:right;
+DIV.fldh {	
   cursor:pointer;
+  overflow:hidden;
+  max-height:25px;
+}
+DIV.fldh IMG:hover {
+       background-color:[CORE_BGCOLORHIGH];
+}
+#thefolderh {
+   border:solid [CORE_BGCOLORALTERN] 1px;
+   float:right;
+   max-width:150px;
+  background: [CORE_BGCOLOR];
 }
