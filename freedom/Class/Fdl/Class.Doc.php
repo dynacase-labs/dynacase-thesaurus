@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.43 2002/08/22 06:58:23 eric Exp $
+// $Id: Class.Doc.php,v 1.44 2002/08/22 12:21:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.43 2002/08/22 06:58:23 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.44 2002/08/22 12:21:43 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -640,7 +640,8 @@ create sequence seq_id_doc start 1000";
 	} else {
 	  $this->values=array();
 	}
-      }
+      } 
+      reset($this->values);
       return $this->values;
     }
 
@@ -662,7 +663,7 @@ create sequence seq_id_doc start 1000";
 	$this->ovalue->docid=$this->id;	
       }
       $oldv=$this->getValue($attrid);
-      if ($oldv != "$value") {
+      if (($oldv != "$value") && ($value != ""))  {
 	// change only if different
 	$this->ovalue->attrid=$attrid;
 	$this->ovalue->value=$value;
