@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.7 2002/04/03 15:47:31 eric Exp $
+// $Id: Lib.Dir.php,v 1.8 2002/04/15 07:49:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,25 +51,44 @@ function getFirstDir($dbaccess) {
 
     // search classid and appid to test privilege
     global $action; // necessary to see information about user privilege
-    $classid = $action->parent->GetIdFromName('dir'); 
+    $classdirid = $action->parent->GetIdFromName('dir'); 
 
       $acl=new Acl();
-      if ( ! $acl->Set('view', $classid)) {
+      if ( ! $acl->Set('view', $classdirid)) {
 	    $this->log->warning("Acl $method not available for App $idclassapp ");    
 	    $err = "Acl $method not available for App $idclassapp ";
-	    $this->coid[$method]=$err; // memo for optimization (no new computing)
+	    $this->coid[$method]=$err; 
 	    return $err;
       }
 
+    $condfld = "(doc.doctype='D') and ".
+      "hasprivilege(".$action->user->id.",doc.profid,$classdirid,".$acl->id.") and ".
+	"hasprivilege(".$action->user->id.",doc.id,$classdirid,".$acl->id.") ";
 
-    if ($notfldsearch) $odoctype='D';
-    else $odoctype='S';
+    if (! $notfldsearch) {
+      // include conditions for get search document
+
+      $classsearchid = $action->parent->GetIdFromName('docsearch'); 
+      $aclsearch=new Acl();
+      if ( ! $aclsearch->Set('view', $classsearchid)) {
+	    $this->log->warning("Acl $method not available for App $idclassapp ");    
+	    $err = "Acl $method not available for App $idclassapp ";
+	    $this->coid[$method]=$err; 
+	    return $err;
+      }
+      $condsearch = "(doc.doctype='S') and ".
+      "hasprivilege(".$action->user->id.",doc.profid,$classsearchid,".$aclsearch->id.") and ".
+	"hasprivilege(".$action->user->id.",doc.id,$classsearchid,".$aclsearch->id.") ";
+
+
+      $condfld = "($condfld) OR ($condsearch)";
+
+    }
+
 
 
     $qsql =  "select doc.* from fld, doc where fld.dirid=$dirid ".
-      "and doc.id=fld.childid and ((doc.doctype='D') OR (doc.doctype='$odoctype')) ".
-	"and hasprivilege(".$action->user->id.",doc.profid,$classid,".$acl->id.") ".
-	"and hasprivilege(".$action->user->id.",doc.id,$classid,".$acl->id.") ".
+      "and doc.id=fld.childid and ($condfld) ".
 	  "order by doc.title";
 
 

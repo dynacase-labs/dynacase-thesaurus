@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.9 2002/04/08 15:12:18 eric Exp $
+// $Id: viewfolder.php,v 1.10 2002/04/15 07:49:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,12 +55,15 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   // Get all the params      
   $dirid=GetHttpVars("dirid"); // directory to see
   
-  $dir = new Dir($dbaccess,$dirid);
+  $dir = new Doc($dbaccess,$dirid);
   $dirid=$dir->initid;  // use initial id for directories
 
 
   // control open
-  if (($err=$dir->Control("open")) != "")  $action->exitError($err);
+    if ($doc->doctype='S') $aclctrl="execute";
+    else $aclctrl="open";
+  if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
+
 
   $action->lay->Set("dirtitle",$dir->title);
   $action->lay->Set("dirid",$dirid);
