@@ -20,7 +20,7 @@ Class ADoc[docid] extends [AParent] {
      [BLOCK NATTR]
      $this->attr["[attrid]"]=new NormalAttribute("[attrid]", "[docid]","[label]","[type]","[format]",[repeat],[order],"[link]",
                                                 "[visibility]",[needed],[title],[abstract],
-						$this->attr["[frame]"],"[phpfile]","[phpfunc]","[elink]","[phpconstraint]","[usefor]","[eformat]");
+						$this->attr["[frame]"],"[phpfile]","[phpfunc]","[elink]","[phpconstraint]","[usefor]","[eformat]","[options]");
 
      [ENDBLOCK NATTR]
      $this->fromids[[docid]]=[docid];

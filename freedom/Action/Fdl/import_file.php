@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.84 2005/02/10 11:34:33 caroline Exp $
+ * @version $Id: import_file.php,v 1.85 2005/02/18 17:06:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -389,6 +389,7 @@ function add_import_file(&$action, $fimport="") {
       $oattr->phpfile = $data[11];
       if (isset($data[13])) $oattr->elink = $data[13];
       if (isset($data[14])) $oattr->phpconstraint = $data[14];
+      if (isset($data[15])) $oattr->options = $data[15];
 	  
       if ($oattr->isAffected()) $err =$oattr ->Modify();
       else    $err = $oattr ->Add();

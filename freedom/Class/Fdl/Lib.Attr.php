@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.43 2005/02/08 11:34:37 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.44 2005/02/18 17:06:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -97,7 +97,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 	
       default: // normal
 	
-	if (ereg("\[([a-z]+)\](.*)",$v->phpfunc, $reg)) {
+	if (ereg("\[([a-z=0-9]+)\](.*)",$v->phpfunc, $reg)) {
 	  $v->phpfunc=$reg[2];
 	  $funcformat=$reg[1];
 	} else {	  
@@ -144,6 +144,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 				   "type"=>$atype,
 				   "format"=>str_replace("\"","\\\"",$aformat),
 				   "eformat"=>str_replace("\"","\\\"",$funcformat),
+				   "options"=>str_replace("\"","\\\"",$v->options),
 				   "order"=>intval($v->ordered),
 				   "link"=>str_replace("\"","\\\"",$v->link),
 				   "visibility"=>$v->visibility,

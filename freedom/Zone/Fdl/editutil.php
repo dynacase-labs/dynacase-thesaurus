@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.87 2005/02/08 11:36:19 eric Exp $
+ * @version $Id: editutil.php,v 1.88 2005/02/18 17:06:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -466,7 +466,13 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	}
 	if ($oattr->eformat == "") {
 	  //Common representation
-	  $input="<input $oc class=\"fullresize\" type=\"text\" name=\"".$attrin."\" value=\"".$hvalue."\"";     
+	  $eopt="class=\"fullresize\" ";
+	  $esize=$oattr->getOption("esize");
+	  if ($esize > 0) $eopt="size=$esize";
+	  $elabel=$oattr->getOption("elabel");
+	  if ($elabel != "") $eopt.=" title=\"$elabel\"";
+
+	  $input="<input $oc $eopt type=\"text\" name=\"".$attrin."\" value=\"".$hvalue."\"";     
 	  $input .= " id=\"".$attridk."\" "; 
 	  if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;		      
 	  $input .= " > "; 

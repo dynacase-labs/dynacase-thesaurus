@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.21 2004/11/19 09:55:05 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.22 2005/02/18 17:06:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -56,7 +56,7 @@ Class NormalAttribute extends BasicAttribute {
   var $usefor; // = Q if parameters
   function NormalAttribute($id, $docid, $label, $type, $format, $repeat, $order, $link,
 			   $visibility, $needed,$isInTitle,$isInAbstract,
-			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint="",$usefor="",$eformat="") {
+			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint="",$usefor="",$eformat="",$options="") {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
@@ -76,10 +76,27 @@ Class NormalAttribute extends BasicAttribute {
     $this->phpconstraint=$phpconstraint;
     $this->usefor=$usefor;
     $this->repeat=$repeat || $this->inArray();
+    $this->options=$options;
 
 
   }
 
+  /**
+   * return value of option $x
+   */
+  function getOption($x) {
+    if (!isset($this->_topt)) {
+      $topt=explode("|",$this->options);
+      $this->_topt=array();
+      foreach ($topt as $k=>$v) {
+	list($vn,$vv)=explode("=",$v);
+	$this->_topt[$vn]=$vv;
+      }
+    }
+    
+    return $this->_topt[$x];
+  }
+  
   function getEnum() {   
     global $__tenum; // for speed optimization
     global $__tlenum;
