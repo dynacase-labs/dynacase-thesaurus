@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.56 2004/01/28 08:22:11 eric Exp $
+ * @version $Id: import_file.php,v 1.57 2004/02/02 10:42:55 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.56 2004/01/28 08:22:11 eric Exp $
+// $Id: import_file.php,v 1.57 2004/02/02 10:42:55 caroline Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -355,13 +355,13 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
 	$doc=false; 
       } else {
 	// no double title found
-	$doc->PostModify(); // compute read attribute
-	$doc->modify();
+	$err=$doc->PostModify(); // compute read attribute
+	if ($err=="") $doc->modify();
       }
     } else {
       // with double title
-      $doc->PostModify(); // compute read attribute
-      $doc->modify();
+      $err=$doc->PostModify(); // compute read attribute
+      if ($err=="") $doc->modify();
     }
   }
 
