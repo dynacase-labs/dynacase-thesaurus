@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.5 2001/11/21 13:12:55 eric Exp $
+// $Id: defattr.php,v 1.6 2001/11/21 17:03:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: defattr.php,v $
+// Revision 1.6  2001/11/21 17:03:54  eric
+// modif pour création nouvelle famille
+//
 // Revision 1.5  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -47,6 +50,9 @@ function defattr(&$action)
 {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
+  $classid = GetHttpVars("classid",0); // use when new doc or change class
+  $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
+
 
   // Set Css
   $cssfile=$action->GetLayoutFile("freedom.css");
@@ -54,7 +60,7 @@ function defattr(&$action)
   $action->parent->AddCssCode($csslay->gen());
 
   $action->lay->Set("docid",$docid);
-
+  $action->lay->Set("dirid",$dirid);
 
   $doc= new Doc($dbaccess,$docid);
   // build values type array
@@ -63,9 +69,14 @@ function defattr(&$action)
   $action->lay->Set("TITLE",_("new document family"));
 
 
+  // when modification 
+  if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
+
+  // to show inherit attributes
+  if (($docid == 0) && ($classid > 0)) $doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
 
   $selectclass=array();
-  $tclassdoc = $doc->GetClassesDoc($doc->fromid);
+  $tclassdoc = $doc->GetClassesDoc($classid);
   while (list($k,$cdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$cdoc->id;
     $selectclass[$k]["classname"]=$cdoc->title;
@@ -89,20 +100,21 @@ function defattr(&$action)
     // control if user can update 
       $err = $doc->CanUpdateDoc();
       if ($err != "")   $action->ExitError($err);
-
-    $doc->GetFathersDoc();
     $action->lay->Set("TITLE",$doc->title);
+  }
+  if ($classid > 0) {
+    $doc->GetFathersDoc();
 
     // selected the current class document
     while (list($k,$cdoc)= each ($selectclass)) {
-      //      print $doc->doctype." == ".$selectclass[$k]["idcdoc"]."<BR>";
-      if ($doc->fromid == $selectclass[$k]["idcdoc"]) {
+
+      if ($classid == $selectclass[$k]["idcdoc"]) {
 
 	$selectclass[$k]["selected"]="selected";
       }
     }
     $query = new QueryDb($dbaccess,"Docattr");
-    $sql_cond_doc = sql_cond(array_merge($doc->fathers,$docid), "docid");
+    $sql_cond_doc = sql_cond(array_merge($doc->fathers,$doc->id), "docid");
     $query->AddQuery($sql_cond_doc);
     $query->order_by="ordered";
     $tattr = $query->Query();

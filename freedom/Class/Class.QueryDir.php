@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.3 2001/11/21 13:12:55 eric Exp $
+// $Id: Class.QueryDir.php,v 1.4 2001/11/21 17:03:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDir.php,v $
+// Revision 1.4  2001/11/21 17:03:54  eric
+// modif pour création nouvelle famille
+//
 // Revision 1.3  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -35,7 +38,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.3 2001/11/21 13:12:55 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.4 2001/11/21 17:03:54 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -96,7 +99,8 @@ create sequence seq_id_qdoc start 10";
 	  {
 	    $oqdv->childid = $v->id;
 	    $oqdv->qid = $this->id;
-	    $oqdv->Add();
+	    $err = $oqdv->Add();
+	    if ($err != "") return $err;
 	  }
       }
 

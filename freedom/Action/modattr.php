@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.4 2001/11/21 13:12:55 eric Exp $
+// $Id: modattr.php,v 1.5 2001/11/21 17:03:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: modattr.php,v $
+// Revision 1.5  2001/11/21 17:03:54  eric
+// modif pour création nouvelle famille
+//
 // Revision 1.4  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -53,6 +56,7 @@ function modattr(&$action) {
 
   // Get all the params      
   $docid=GetHttpVars("docid");
+  $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
 
   $orders= GetHttpVars("order");
   $names= GetHttpVars("name");
@@ -150,7 +154,7 @@ function modattr(&$action) {
 
   
   
-  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$docid");
+  redirect($action,GetHttpVars("app"),"FREEDOM_EDIT&id=$docid&dirid=$dirid");
 }
 
 

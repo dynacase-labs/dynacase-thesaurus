@@ -222,6 +222,7 @@ function drawFolder(leftSide)
  
 var selObj=0;
 var dirid=0; 
+document.dirid=0;
 function selectFolder(id, refid) {
   closeMenu('popfld');
   if (selObj)  {
@@ -233,6 +234,7 @@ function selectFolder(id, refid) {
     selid=id; // selected folder
     window.status="select:"+selid;
   dirid=refid;
+  document.dirid = refid;
 }
 function outputFolderLink() 
 { 

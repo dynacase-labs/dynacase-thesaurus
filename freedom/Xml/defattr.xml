@@ -36,7 +36,7 @@
 
 
 <!-- Title Table -->
-<form target="doc_properties" class="fborder" name="modifyfreedom" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=MODATTR&docid=[docid]" >
+<form target="info" class="fborder" name="modifyfamilly" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=MODATTR&docid=[docid]&dirid=[dirid]" >
 
       <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
                          
@@ -50,7 +50,7 @@
    <span class="FREEDOMTextTitle">[TITLE]</span>
   </td> 
   <td class="FREEDOMTblTitle" align="right"><span class="FREEDOMTextName">[TEXT:inherit from]</span>
-   <select name="classid" >   
+   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=DEFATTR&id=[docid]&classid='+self.document.modifyfamilly.classid.options[self.document.modifyfamilly.classid.selectedIndex].value">   
            <option VALUE="0">[TEXT:no document family]</option>      
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
@@ -66,12 +66,12 @@
 <table border="0" width="100%" border="0" cellspacing="0" cellpadding="0" >
 <thead>
 <tr>
-  <td><span class="FREEDOMTextName">order</span></td>
-  <td><span class="FREEDOMTextName">name</span></td>
-  <td><span class="FREEDOMTextName">type</span></td>
-  <td><span class="FREEDOMTextName">frame</span></td>
-  <td><span class="FREEDOMTextName">A?</span></td>
-  <td><span class="FREEDOMTextName">T?</span></td>
+  <td class="CORETblHeadBold">order</td>
+  <td class="CORETblHeadBold">name</td>
+  <td class="CORETblHeadBold">type</td>
+  <td class="CORETblHeadBold">frame</td>
+  <td class="CORETblHeadBold">A?</td>
+  <td class="CORETblHeadBold">T?</td>
 </tr>
 </thead>
 <tbody>
@@ -110,7 +110,7 @@
 </tr>
 [ENDBLOCK NEWELEM]
 <tr>
-  <td colspan="3" class = "tdstyle">
+  <td colspan="6" class = "tdstyle">
  <input type="submit" value="[TEXT:modify]"
         onClick="document.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LOGO'"> 
   </td>

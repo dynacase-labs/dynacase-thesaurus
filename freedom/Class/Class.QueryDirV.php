@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.5 2001/11/21 08:38:58 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.6 2001/11/21 17:03:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.6  2001/11/21 17:03:54  eric
+// modif pour création nouvelle famille
+//
 // Revision 1.5  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -41,7 +44,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.5 2001/11/21 08:38:58 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.6 2001/11/21 17:03:54 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -65,6 +68,22 @@ create table dirv ( dirid      int not null,
                     qid        int not null
                    );";
 
+
+  function preInsert() {
+    $doc = new Doc($this->dbaccess, $this->childid);
+    if ($doc->doctype == 'D') {
+      $tfid = $this->getFathersDir($this->dirid);
+      
+      if (in_array($this->childid, $tfid)) {
+	
+	$err = sprintf(_("cannot add folder : '%s'. It will be ancestor of itself"), 
+		       $doc->title );
+
+	return $err;
+      }
+    }
+    return "";
+  }
 
   // --------------------------------------------------------------------
   function getChildId() {
@@ -113,8 +132,8 @@ create table dirv ( dirid      int not null,
   
 
 
-  function getFirstRep() {
-    // query to find child directories
+  function getFirstDir() {
+    // query to find first directories
     $qsql= "select id from doc  where  (doctype='D') order by id LIMIT 1;";
 
 
@@ -132,8 +151,31 @@ create table dirv ( dirid      int not null,
     return(0);
   }
 
-  function getChildRep($dirid) {
-    // query to find child directories
+  function getFathersDir($dirid) {
+
+
+    $tableid = array();
+    $query = new QueryDb($this->dbaccess,"QueryDirV");
+    $query -> AddQuery("childid=".$dirid);
+
+    $tableq=$query->Query();
+    if ($query->nb > 0)
+      {
+	while(list($k,$v) = each($tableq)) 
+	  {	   
+	    $tableid[] =$v->dirid;
+	    $tableid = array_merge($tableid, 
+	                             $this->getFathersDir($v->dirid));
+	  }
+	unset ($tableq);
+      }
+
+
+    return($tableid);
+  }
+
+  function getChildDir($dirid) {
+    // query to find child directories (no recursive - only in the specified folder)
     $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  (t0.doctype='D') and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and  (t2.dirid=$dirid) and (not useforprof);";
 
 

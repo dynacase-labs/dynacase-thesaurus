@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.3 2001/11/21 13:12:55 eric Exp $
+// $Id: adddirfile.php,v 1.4 2001/11/21 17:03:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/adddirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: adddirfile.php,v $
+// Revision 1.4  2001/11/21 17:03:54  eric
+// modif pour création nouvelle famille
+//
 // Revision 1.3  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -54,6 +57,8 @@ function adddirfile(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+  $dir= new Doc($dbaccess, $dirid);
+
 
   switch ($mode) {
   case "static":
@@ -70,14 +75,14 @@ function adddirfile(&$action) {
 
   $qf = new QueryDir($dbaccess);
 
-  $dir= new Doc($dbaccess, $dirid);
   $qf->dirid=$dir->initid; // the reference directory is the initial id
   $qf->query=$query;
   $qf->qtype='S'; // single user query
-  $qf->Add();
+  $err = $qf->Add();
 
+
+  if ($err != "") $action->exitError($err);
   
-
   
   
   redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$docid");

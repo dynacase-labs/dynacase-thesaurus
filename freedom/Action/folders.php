@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.4 2001/11/21 13:12:55 eric Exp $
+// $Id: folders.php,v 1.5 2001/11/21 17:03:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: folders.php,v $
+// Revision 1.5  2001/11/21 17:03:54  eric
+// modif pour création nouvelle famille
+//
 // Revision 1.4  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -71,7 +74,7 @@ function folders(&$action) {
 
   $oqdv = new QueryDirV($dbaccess);
 
-  if ($dirid == 0) $dirid=$oqdv->getFirstRep();
+  if ($dirid == 0) $dirid=$oqdv->getFirstDir();
 
   
   $doc = new Doc($dbaccess, $dirid);
@@ -91,7 +94,7 @@ function folders(&$action) {
 
   // define sub tree
   $stree="";
-  $ldir =   $oqdv->getChildRep($dirid);
+  $ldir =   $oqdv->getChildDir($dirid);
   while (list($k,$v) = each($ldir)) {
     $stree .= addfolder($v, 1);
   }
@@ -149,7 +152,7 @@ function addfolder($doc, $level) {
   $nbfolders++;
 
 
-  $ldir = $oqdv->getChildRep($doc->id);
+  $ldir = $oqdv->getChildDir($doc->id);
   
 
   if (count($ldir) > 0 ) {

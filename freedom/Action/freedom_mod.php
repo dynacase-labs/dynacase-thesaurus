@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.6 2001/11/21 13:12:55 eric Exp $
+// $Id: freedom_mod.php,v 1.7 2001/11/21 17:03:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_mod.php,v $
+// Revision 1.7  2001/11/21 17:03:54  eric
+// modif pour création nouvelle famille
+//
 // Revision 1.6  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -88,7 +91,7 @@ function freedom_mod(&$action) {
       $ofreedom->fileref = "0";
       $ofreedom->doctype = 'F';// it is a new  document (not a familly)
       $ofreedom->cprofid = "0"; // NO CREATION PROFILE ACCESS
-      $ofreedom->useforprof = false;
+      $ofreedom->useforprof = 'f';
       $ofreedom->fromid = $classid;
 
       if ($ofreedom->fromid > 0) {
@@ -132,7 +135,7 @@ function freedom_mod(&$action) {
 	  
 
 	  $bdvalue->attrid = $k;
-	  $bdvalue->value = addslashes($v);
+	  $bdvalue->value = $v;
 	  $bdvalue ->Modify();
 
 	}      
@@ -169,7 +172,10 @@ function freedom_mod(&$action) {
   $ofreedom->title =  GetTitle($dbaccess,$docid);
   // change class document
   $ofreedom->fromid = $classid; // inherit from
-  if ($ofreedom->fromid == 2) $ofreedom->doctype='D'; // directory
+  if ($ofreedom->fromid == 2) {
+    $ofreedom->doctype='D'; // directory
+
+  }
   if (($ofreedom->fromid == 3) || ($ofreedom->fromid == 4)) { // profile doc
     if ($ofreedom->fromid == 4) $ofreedom->doctype='D'; // directory profile
     $ofreedom->useforprof = true;
@@ -182,22 +188,6 @@ function freedom_mod(&$action) {
 	  $action-> ExitError($err);
       
   
-  // ------------------------------
-  // update LDAP values
-  // conditions to be defined
-  if (false)
-    {
-      $oldap=new FreedomLdap($action);
-      if (  ($err=$oldap->Update($docid)) != "")
-	{		  
-	  $action-> ExitError($action->text($err));
-	  
-	    //  redirect($action,GetHttpVars("app"),"FREEDOM_EDIT&id=$docid&err=$err");
-	  exit;
-	}
-    }
-
-      
 
   if ($dirid > 0) {
     redirect($action,GetHttpVars("app"),"ADDDIRFILE&dirid=$dirid&mode=latest&docid=$docid");

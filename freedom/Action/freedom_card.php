@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.7 2001/11/21 13:12:55 eric Exp $
+// $Id: freedom_card.php,v 1.8 2001/11/21 17:03:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.8  2001/11/21 17:03:54  eric
+// modif pour création nouvelle famille
+//
 // Revision 1.7  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -350,10 +353,10 @@ function freedom_card(&$action) {
 		   $kf++;
 		 break;
 	       case "longtext": 
-		 $tableframe[$v]["value"]=nl2br(htmlentities(stripslashes($value)));
+		 $tableframe[$v]["value"]=nl2br(htmlentities($value));
 		 break;
 	       default : 
-		 $tableframe[$v]["value"]=htmlentities(stripslashes($value));
+		 $tableframe[$v]["value"]=htmlentities($value);
 		 break;
 		
 	       }
@@ -389,8 +392,8 @@ function freedom_card(&$action) {
       $cud = ($doc->CanUpdateDoc() == "");
 
       $tmenuaccess[$kdiv][$cancel]=1;
-      if ($cud) $tmenuaccess[$kdiv][$chicon]=1; 
-      else $tmenuaccess[$kdiv][$chicon]=0;
+      if (($doc->doctype=="C") && ($cud)) $tmenuaccess[$kdiv][$chicon]=1; 
+      else $tmenuaccess[$kdiv][$chicon]=2;
 
       if (($doc->locked != $action->user->id) && 
 	  $clf) $tmenuaccess[$kdiv][$lockdoc]=1;
