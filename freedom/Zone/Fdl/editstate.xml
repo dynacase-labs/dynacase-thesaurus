@@ -9,10 +9,10 @@ var WattrNtitle=new Array([Wattrntitle]);
 </script>
 
 [BLOCK TRSTATE]
-<tr class="FREEDOMBack2">
+<tr class="FREEDOMBack2" onmouseover="askForTransition();">
   <td style="width:50%">
  <label class="FREEDOMTextTitle" for="newstate">[TEXT:state] <i>[initstatename]</i> [TEXT:to]</label>
- <select id="seltrans" name="newstate" onchange="askForTransition(this);if (this.selectedIndex > 0) {document.getElementById('comment').style.visibility='';} else document.getElementById('comment').style.visibility='hidden';"> 
+ <select id="seltrans" name="newstate" onchange="askForTransition();if (this.selectedIndex > 0) {document.getElementById('comment').style.visibility='';} else document.getElementById('comment').style.visibility='hidden';"> 
  <option VALUE="-" >[TEXT:unchanged]</option> 
 [BLOCK NEWSTATE]
  <option VALUE="[statevalue]" [checked]>[statename]</option>  
