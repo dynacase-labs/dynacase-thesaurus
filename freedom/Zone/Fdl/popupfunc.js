@@ -101,26 +101,25 @@ function openMenuXY(event, menuid, x, y) {
   var el,menudiv;
 
   var x1,x2,w1,w2,dw;
+  var bm=document.getElementById('barmenu');
 
-  w2=getFrameWidth();
-  w2=getObjectWidth(document.getElementById('barmenu'));
   el = document.getElementById(menuid);
   if (el) {
     if (isNetscape && (el.style.position=='fixed')) {
       y -= getScrollYOffset();
     } 
     activeMenuItem(event,menuid, 1); // first item (no context : only one item)
+    el.style.display = "none";
     el.style.top  = y + "px";
     el.style.left = "0px";
+    el.style.visibility = "hidden";
     el.style.display = "";
-    el.style.visibility = "visible";
 
-
+    if (bm) {
+    w2=getObjectWidth(document.getElementById('barmenu'));
     // display right or left to maximize width
    w1=getObjectWidth(el);
 
-    el.style.display = "none";
-    el.style.display = "";
 
     if (x+w1 > w2) {
       if (w1<w2) {
@@ -132,8 +131,13 @@ function openMenuXY(event, menuid, x, y) {
       x2=x;
     }
 
-
+    } else {
+      x2=x;
+    }
     el.style.left = x2 + "px";
+    el.style.display = "none";
+    el.style.display = "";
+    el.style.visibility = "visible";
   }
   return false; // no navigator context menu
 }
@@ -159,7 +163,7 @@ function DeactiveMenu(th) {
   if (th.className!='MenuSelected')  th.className='MenuInactive';  
 }
 function activeMenuItem(event,menuid, itemid) {
-  window.status="menu:"+menuid+itemid;
+  //window.status="menu:"+menuid+itemid;
   // active css for animation for 'selid' object
     for (i=0; i<nbmitem[menuid]; i++) {
 

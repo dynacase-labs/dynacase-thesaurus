@@ -18,7 +18,7 @@ ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;W;;mailto:%US_MAIL%;;;
 ATTR;US_PHONE;US_FR_COORD;téléphone;N;Y;text;80;R;;;;;
 ATTR;US_PPHONE;US_FR_COORD;téléphone direct;N;N;text;90;O;;;usercard.php;getSphone(D,US_IDSOCIETY):US_PPHONE;
 ATTR;US_INTPHONE;US_FR_COORD;n°poste;N;N;text;100;W;;;;;
-ATTR;US_PFAX;US_FR_COORD;fax;N;N;text;110;O;;;usercard.php;getSFax(D,US_IDSOCIETY):US_PFAX;
+ATTR;US_PFAX;US_FR_COORD;fax direct;N;N;text;110;O;;;usercard.php;getSFax(D,US_IDSOCIETY):US_PFAX;
 ATTR;US_FAX;US_FR_COORD;fax;N;N;text;120;R;;;;;
 ATTR;US_MOBILE;US_FR_COORD;mobile;N;N;text;130;W;;;;;
 ATTR;US_FR_SOC;;Société;N;N;frame;1000;W;;;;;
@@ -103,7 +103,7 @@ ATTR;US_EXPIRESD;US_FR_INTRANET;date d'expiration;N;N;date;310;R;;;;;;::Constrai
 ATTR;US_EXPIREST;US_FR_INTRANET;heure d'expiration;N;N;time;320;R;;;;;;
 ATTR;US_PASSDELAY;US_FR_INTRANET;délai d'expiration epoch;N;N;int;330;H;;;;;;
 ATTR;US_IDDOMAIN;US_FR_INTRANET;id domaine;N;N;int;340;H;;;;;;
-ATTR;US_DOMAIN;US_FR_INTRANET;domaine;N;N;text;350;R;;;usercard.php;getdomainiuser():US_IDDOMAIN,US_DOMAIN;;
+ATTR;US_DOMAIN;US_FR_INTRANET;domaine;N;N;text;350;R;;;usercard.php;[list]getdomainiuser():US_IDDOMAIN,US_DOMAIN;;
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;R;Y;;;;;
 ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;R;Y;;;;;
 ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;
