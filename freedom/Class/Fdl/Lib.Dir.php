@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.93 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.94 2004/08/10 08:26:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -552,18 +552,33 @@ function isInDir($dbaccess, $dirid, $docid) {
   return ($query->nb > 0);
 }
 
-function hasChildFld($dbaccess, $dirid) {
+function hasChildFld($dbaccess, $dirid,$issearch=false) {
   // return true id dirid has one or more child dir
     
-    
-  $query = new QueryDb($dbaccess,"QueryDir");  
-  $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc2 where fld.dirid=$dirid and childid=doc2.id");
-  if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+  if ($issearch) {
+    $query = new QueryDb($dbaccess,"QueryDir");  
+    $query->AddQuery("qtype='M'");
+    $query->AddQuery("dirid=$dirid");
+    $list=$query->Query(0,1,"TABLE");
+    if ($list) {
+      $oquery=$list[0]["query"];
+      if (ereg("select (.+) from (.+)",$oquery,$reg)) {
+	$nq=sprintf("select count(%s) from %s and ((doctype='D')or(doctype='S')) limit 1",$reg[1],$reg[2]);
+	$count=$query->Query(0,0,"TABLE",$nq);
+	if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+      }
+      
+    }
+  } else {
+    $query = new QueryDb($dbaccess,"QueryDir");  
+    $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc2 where fld.dirid=$dirid and childid=doc2.id");
+    if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
 
 
-  $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc5 where fld.dirid=$dirid and childid=doc5.id");
-  if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+    $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc5 where fld.dirid=$dirid and childid=doc5.id");
+    if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
 
+  }
   return false;
 }
 
