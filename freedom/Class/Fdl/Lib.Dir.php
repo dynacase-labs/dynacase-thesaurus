@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.14 2002/06/19 12:32:34 eric Exp $
+// $Id: Lib.Dir.php,v 1.15 2002/06/20 11:58:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -233,7 +233,7 @@ function getFirstDir($dbaccess) {
     
     $query = new QueryDb($dbaccess,"QueryDir");
 
-    $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc where fld.dirid=$dirid and doc.id=fld.childid and (doc.classname='Dir' or doc.classname='DocSearch')");
+    $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc where fld.dirid=$dirid and doc.id=fld.childid and (doc.classname='Dir' or doc.classname='DocSearch') and not doc.useforprof");
     return (($query->nb > 0) && ($count[0]["count"] > 0));
   }
 
