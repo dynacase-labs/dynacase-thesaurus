@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.78 2004/10/05 07:21:28 eric Exp $
+ * @version $Id: import_file.php,v 1.79 2004/11/19 09:55:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -302,6 +302,7 @@ function add_import_file(&$action, $fimport="") {
       // -----------------------------------
     case "ATTR":
     case "PARAM":
+    case "OPTION":
       if     ($num < 13) $tcr[$nline]["err"]= "Error in line $nline: $num cols < 14";
 
       $tcr[$nline]["msg"].=sprintf(_("update %s attribute"),$data[1]);
@@ -309,6 +310,7 @@ function add_import_file(&$action, $fimport="") {
       $oattr=new DocAttr($dbaccess, array($doc->id,strtolower($data[1])));
      
       if ($data[0]=="PARAM") $oattr->usefor='Q'; // parameters
+      elseif ($data[0]=="OPTION") $oattr->usefor='O'; // options
       
       $oattr->docid = $doc->id;
       $oattr->id = trim(strtolower($data[1]));

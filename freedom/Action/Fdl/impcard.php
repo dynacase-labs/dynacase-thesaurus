@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: impcard.php,v 1.4 2004/10/19 16:05:41 eric Exp $
+ * @version $Id: impcard.php,v 1.5 2004/11/19 09:55:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,12 +27,18 @@ function impcard(&$action) {
   $ext = GetHttpVars("ext","html"); // extension
   $docid = GetHttpVars("id");
   $zonebodycard = GetHttpVars("zone"); // define view action
+  $valopt=GetHttpVars("opt"); // value of  options
   $szone=false;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-
-  $doc = new Doc($dbaccess, $docid);
+  if ($valopt != "") {
+    include_once("FDL/editoption.php");
+    $doc=getdocoption($action);
+    $docid=$doc->id;
+  } else {
+    $doc = new Doc($dbaccess, $docid);
+  }
   $action->lay->set("TITLE",$doc->title);  
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
   if ($zonebodycard == "") $zonebodycard="FDL:VIEWCARD";

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.222 2004/11/16 17:10:26 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.223 2004/11/19 09:55:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1073,11 +1073,11 @@ create unique index i_docir on doc(initid, revision);";
    * 
    * @return array DocAttribute
    */
-  function GetNormalAttributes()
+  function GetNormalAttributes($onlyopt=false)
     {      
       if (!$this->_maskApplied) $this->ApplyMask();
       if ((isset($this->attributes)) && (method_exists($this->attributes,"GetNormalAttributes")))
-	return $this->attributes->GetNormalAttributes();      
+	return $this->attributes->GetNormalAttributes($onlyopt);      
       else return array();
     } 
 
@@ -1154,17 +1154,18 @@ create unique index i_docir on doc(initid, revision);";
    * the attribute can be defined in fathers
    * @return array DocAttribute
    */
-  function GetInputAttributes()
+  function GetInputAttributes($onlyopt=false)
     { 
       if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
-      reset($this->attributes->attr);
 
-      while (list($k,$v) = each($this->attributes->attr)) {
+
+      foreach($this->attributes->attr as $k=>$v) {
 	if ((get_class($v) == "normalattribute") && (!$v->inArray()) && 
 	    ($v->mvisibility != "I" )) {  // I means not editable
 	  if ((($this->usefor=="Q") && ($v->usefor=="Q")) ||
-	      (($this->usefor!="Q") && ($v->usefor!="Q")))
+	      (($this->usefor!="Q") && 
+	       ((($v->usefor!="Q")&&(!$onlyopt)) || (($v->usefor=="O")&&($onlyopt))  )))
 	    $tsa[$v->id]=$v;    //special parameters
 	}
       }
@@ -2271,6 +2272,19 @@ create unique index i_docir on doc(initid, revision);";
 	    }
 	  }
 	  break;
+	case "option": 
+
+	  $lay = new Layout("FDL/Layout/viewdocoption.xml", $action);
+	  $htmlval = "";
+	 
+	  if ($kvalue>-1) $di=$this->getTValue($oattr->phpfunc,"",$kvalue);
+	  else $di=$this->getValue($oattr->phpfunc);
+	  if ($di > 0) {	    
+	    $lay->set("said",$di);
+	    $lay->set("uuvalue",urlencode($avalue));
+	    $htmlval =$lay->gen(); 
+	  }
+	  break;
 	case money:    
 
 
@@ -2324,9 +2338,12 @@ create unique index i_docir on doc(initid, revision);";
 	    $abegin="<A target=\"$target\" title=\"$ititle\" onmousedown=\"document.noselect=true;\" href=\"";
 	    $abegin.= $ulink."\" ";;
 	    if ($htmllink > 1){
-	      $turl=parse_url($ulink);
-	      if (($turl["scheme"] == "") || ($turl["scheme"] == "http")) {
-		if ($turl["scheme"] == "") $ulink.="&ulink=1";
+	      $scheme="";
+	      if (ereg("^([[:alpha:]]*):(.*)",$ulink,$reg)) {
+		$scheme=$reg[1];
+	      }
+	      if (($scheme == "") || ($scheme == "http")) {
+		if ($scheme == "") $ulink.="&ulink=1";
 		$abegin.=" oncontextmenu=\"popdoc(event,'$ulink');return false;\" ";
 	      }
 	    }
@@ -2510,10 +2527,10 @@ create unique index i_docir on doc(initid, revision);";
    * @param string $target window target name for hyperlink destination
    * @param bool $ulink if false hyperlink are not generated
    * @param bool $abstract if true only abstract attribute are generated
+   * @param bool $onlyopt if true only optionnal attributes are displayed
    */
-  function viewbodycard($target="_self",$ulink=true,$abstract=false) {
+  function viewbodycard($target="_self",$ulink=true,$abstract=false,$onlyopt=false) {
 
-    $this->lay->Set("cursor",$ulink?"crosshair":"inherit");
   
     $frames= array();
   
@@ -2523,7 +2540,7 @@ create unique index i_docir on doc(initid, revision);";
       // only 3 properties for abstract mode
       $listattr = $this->GetAbstractAttributes();
     } else {
-      $listattr = $this->GetNormalAttributes();    
+      $listattr = $this->GetNormalAttributes($onlyopt);    
     }
     
 
@@ -2622,6 +2639,7 @@ create unique index i_docir on doc(initid, revision);";
 	  $tableframe[$v]["name"]=$this->GetLabel($attr->id);
 	  if (( $attr->type != "array")&&( $attr->type != "htmltext"))  $tableframe[$v]["ndisplay"]="";
 	  else $tableframe[$v]["ndisplay"]="none";
+	  $tableframe[$v]["classback"]=($attr->usefor=="O")?"FREEDOMOpt":"FREEDOMBack1";
 	  $v++;
 	} else	{
 	  $tableimage[$nbimg]["imgalt"]=$this->GetLabel($attr->id);
@@ -2637,6 +2655,7 @@ create unique index i_docir on doc(initid, revision);";
       {
 				      
 	$frames[$k]["frametext"]=$this->GetLabel($currentFrameId);
+	$frames[$k]["frameid"]=$currentFrameId;
 	$frames[$k]["rowspan"]=$v+1; // for images cell
 	$frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
 
@@ -2774,7 +2793,7 @@ create unique index i_docir on doc(initid, revision);";
 
     // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
 
-    while (list($k,$v) = each($listattr)) {
+    foreach($listattr as $k=>$v) {
        
       $this->lay->Set("L_".strtoupper($v->id),$v->labelText);
       
@@ -2794,36 +2813,41 @@ create unique index i_docir on doc(initid, revision);";
 
   }
 
-  // ---------------------------------------------------------------
-  function editbodycard($dirid=0) {
+  /**
+   * view only option values
+   * @param int $dirid   directory to place doc if new doc
+   * @param bool $onlyopt if true only optionnal attributes are displayed
+   */
+  function viewoptcard($target="_self",$ulink=true,$abstract=false) {
+    return $this->viewbodycard($target,$ulink,$abstract,true);
+  }
+
+  /**
+   * edit only option
+   * @param int $dirid   directory to place doc if new doc
+   * @param bool $onlyopt if true only optionnal attributes are displayed
+   */
+  function editoptcard($target="_self",$ulink=true,$abstract=false) {
+    return $this->editbodycard($target,$ulink,$abstract,true);
+  }
+  /**
+   * value for edit interface
+   * @param bool $onlyopt if true only optionnal attributes are displayed
+   */
+  function editbodycard($target="_self",$ulink=true,$abstract=false,$onlyopt=false) {
 
     include_once("FDL/editutil.php");
-    // --------------------------------
-    // $classid   use when new doc or change class
-    // $dirid =  directory to place doc if new doc
-    // ---
-
  
     $docid = $this->id;        // document to edit
-	  
-	  
-    // Set the globals elements
-	    
-  
-  
-      
+	        
   
     // ------------------------------------------------------
     //  new or modify ?
-    if ($docid == 0)    {
-	
+    if ($docid == 0)    {	
       // new document
-
-
       if ($this->fromid > 0) {
 	$cdoc= $this->getFamDoc();
-	$this->lay->Set("TITLE", sprintf(_("new %s"),$cdoc->title));
-     
+	$this->lay->Set("TITLE", sprintf(_("new %s"),$cdoc->title));     
       }
 	
     }  else    {      
@@ -2845,7 +2869,6 @@ create unique index i_docir on doc(initid, revision);";
   
   
     $this->lay->Set("id", $docid);
-    $this->lay->Set("dirid", $dirid);
     $this->lay->Set("classid", $this->fromid);
   
   
@@ -2857,7 +2880,7 @@ create unique index i_docir on doc(initid, revision);";
   
  
     $frames=array();
-    $listattr = $this->GetInputAttributes();
+    $listattr = $this->GetInputAttributes($onlyopt);
 
   
     $nattr = count($listattr); // number of attributes
@@ -2872,8 +2895,8 @@ create unique index i_docir on doc(initid, revision);";
     $tableframe=array();
 
     $iattr=0;
-    reset($listattr);
-    while (list($i,$attr) = each($listattr)) {
+
+    foreach($listattr as $i=>$attr) {
       
       $iattr++;
     
@@ -2922,7 +2945,7 @@ create unique index i_docir on doc(initid, revision);";
 	// special case for hidden values
 	$thidden[$ih]["hname"]= "_".$listattr[$i]->id;
 	$thidden[$ih]["hid"]= $listattr[$i]->id;
-	if ($value == "") $thidden[$ih]["hvalue"] = GetHttpVars($listattr[$i]->id);
+	if (($value == "")&&($this->id==0)) $thidden[$ih]["hvalue"] = GetHttpVars($listattr[$i]->id);
 	else $thidden[$ih]["hvalue"]=chop(htmlentities($value));
 	  
 	  
@@ -2940,6 +2963,7 @@ create unique index i_docir on doc(initid, revision);";
 	if ($listattr[$i]->needed ) $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
 	else $tableframe[$v]["labelclass"]="FREEDOMLabel";
 
+	$tableframe[$v]["classback"]=($attr->usefor=="O")?"FREEDOMOpt":"FREEDOMBack1";
 	//$tableframe[$v]["name"]=$action->text($label);
 	$tableframe[$v]["inputtype"]=getHtmlInput($this,
 						  $listattr[$i],
@@ -2962,6 +2986,7 @@ create unique index i_docir on doc(initid, revision);";
 	  
 	      
       $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
+      $frames[$k]["frameid"]=$currentFrameId;
       $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
       $this->lay->SetBlockData($frames[$k]["TABLEVALUE"],
 			       $tableframe);

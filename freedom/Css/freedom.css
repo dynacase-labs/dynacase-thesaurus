@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.60 2004/10/27 15:36:27 eric Exp $
+ * $Id: freedom.css,v 1.61 2004/11/19 09:55:05 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -45,6 +45,22 @@ TD.FREEDOMText, .FREEDOMText {
 TD.FREEDOMLabel, .FREEDOMLabel {
   color: [CORE_TEXTFGCOLOR];
   text-align:right;
+}
+TR.FREEDOMOpt TD.FREEDOMLabel {
+  color: [CORE_TEXTFGCOLOR];
+  text-align:right;
+  font-style: italic;
+  background-color: [CORE_BGCOLORALTERN];
+}
+TR.FREEDOMOpt TD.FREEDOMText {
+  color: [CORE_TEXTFGCOLOR];
+  text-align:left;
+  background-color: [CORE_BGCOLORALTERN];
+}
+TR.FREEDOMOpt TD {
+  color: [CORE_TEXTFGCOLOR];
+  text-align:left;
+  background-color: [CORE_BGCOLORALTERN];
 }
 .FREEDOMLabelNeeded{
   color: [CORE_TEXTFGCOLOR];
@@ -467,6 +483,14 @@ TABLE.huge {
 TABLE.huge TBODY {
    overflow:auto;
    height:200px;	
+}
+DIV.button {
+	cursor:pointer;
+	border:2pt solid transparent;
+}
+
+DIV.button:hover {
+	border:outset [CORE_BGCOLORALTERN] 2pt;
 }
 
 SPAN.selected {

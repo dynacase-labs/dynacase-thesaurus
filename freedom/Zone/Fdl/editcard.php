@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.48 2004/09/22 16:16:39 eric Exp $
+ * @version $Id: editcard.php,v 1.49 2004/11/19 09:55:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.48 2004/09/22 16:16:39 eric Exp $
+// $Id: editcard.php,v 1.49 2004/11/19 09:55:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -66,11 +66,10 @@ function editcard(&$action) {
   } else { // modify document
     
       $doc= new Doc($dbaccess,$docid);
-    
   }
   
 
-if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+  if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
 
   if (($usefor == "D")||($usefor == "Q")) {
     $fdoc = new DocFam($dbaccess, $classid);

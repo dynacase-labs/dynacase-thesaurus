@@ -9,7 +9,7 @@
 <div id="T[frameid]" >
             [BLOCK [TABLEVALUE]]
 <table style="width:100%">
-<tr >
+<tr class="[classback]">
             [BLOCK [NORMALROW]]
   <td class="[labelclass]"  width="30%"><span >[name]&nbsp;:&nbsp;</span></td>
   <td >[inputtype]</td>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.21 2004/09/14 14:03:05 eric Exp $
+// $Id: FDL.app,v 1.22 2004/11/19 09:55:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -146,6 +146,24 @@ $action_desc = array (
    "name"		=>"LOCKFILE",
    "short_name"		=>N_("lock file to edit"),
    "acl"		=>"EDIT"
+  ) ,
+  array( 
+   "name"		=>"EDITOPTION",
+   "short_name"		=>N_("interface to change document option"),
+   "acl"		=>"EDIT"
+  ) ,
+  array( 
+   "name"		=>"MODOPTION",
+   "short_name"		=>N_("modify document option"),
+   "acl"		=>"EDIT"
+  ) ,
+
+  array( 
+   "name"		=>"VIEWOPTION",
+   "short_name"		=>N_("view document option"),
+   "script"		=>"editoption.php",
+   "function"           =>"viewoption",
+   "acl"		=>"NORMAL"
   ) ,
 
   array( 

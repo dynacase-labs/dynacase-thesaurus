@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.80 2004/11/03 17:46:47 eric Exp $
+ * @version $Id: editutil.php,v 1.81 2004/11/19 09:55:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -49,7 +49,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
   $idisabled = " style=\"background-color:".getParam("CORE_BGCOLORALTERN")."\" disabled readonly title=\""._("read only")."\" ";
   $input="";
 		
-  if ($value == "") {
+  if (($value == "") && ($docid==0)) {
+    // only for create doc because can be a security failure 
     $value = GetHttpVars($attrid); 
   }
 
@@ -415,6 +416,16 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
 		      
       $input .= " > "; 
+      break;
+
+      //같같같같같같같같같같같같같같같같같같같같
+    case "option": 
+
+      $lay = new Layout("FDL/Layout/editdocoption.xml", $action);
+      getLayDocOption($lay,$doc,$oattr,$value,$attrin,$index);
+      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+      else $lay->set("disabled","");
+      $input =$lay->gen(); 
       break;
       //같같같같같같같같같같같같같같같같같같같같
     default : 
@@ -864,6 +875,30 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
 
   $lay->setBlockData("OPTIONS",$topt);
   $lay->set("value",$value);
+
+}/**
+ * generate HTML for option attributes
+ *
+ * @param Layout $lay template of html input
+ * @param Doc $doc current document in edition
+ * @param DocAttribute $oattr current attribute for input
+ * @param string $value value of the attribute to display (generaly the value comes from current document)
+ * @param string $aname input HTML name (generaly it is '_'+$oattr->id)
+ * @param int $index current row number if it is in array ("" if it is not in array)
+ */
+function getLayDocOption(&$lay,&$doc, &$oattr,$value, $aname,$index) {
+  $idocid=$oattr->format.$index;
+  $lay->set("name",$aname);
+  $idx=$oattr->id.$index;
+  $lay->set("id",$idx);
+  $lay->set("didx",$index);
+  $lay->set("di",trim(strtolower($oattr->phpfunc)));
+  if ($index !== "") $lay->set("said",$doc->getTValue($oattr->phpfunc,"",$index));
+  else $lay->set("said",$doc->getValue($oattr->phpfunc));
+  
+
+  $lay->set("value",$value);
+  $lay->set("uuvalue",urlencode($value));
 
 }
 /**

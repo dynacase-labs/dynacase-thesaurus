@@ -1043,6 +1043,35 @@ function vconstraint(cButton,famid,attrid) {
   wf.moveTo(xy.x, xy.y+10);
 }
 
+function viewoption(aid,index,fid,said) {
+  nfid=document.getElementById(fid);
+  naid=document.getElementById(aid+index);
+  nval=document.getElementById(said);
+  pdivopt=document.getElementById('pdiv_'+said);
+
+  if (nfid && naid) {
+    docid=naid.value;
+    if (parseInt(docid) > 0) {
+      val=nval.value;
+      nfid.src='[CORE_STANDURL]&app=FDL&action=EDITOPTION&id='+docid+'&aid='+said+'&opt='+val;
+      nfid.style.display='';
+      pdivopt.style.display='none';
+    } else {
+      alert('[TEXT:Choose document before set options]');
+    }
+  }
+}
+function canceloption(said) {
+  nfid=self.parent.document.getElementById('if_'+said);
+  pdivopt=self.parent.document.getElementById('pdiv_'+said);
+
+  if (nfid && pdivopt) {
+      pdivopt.style.display='';
+      nfid.style.display='none';
+      nfid.src='about:blank';    
+  }
+}
+
 // Utility function to add an event listener
 function addEvent(o,e,f){
 	if (o.addEventListener){ o.addEventListener(e,f,true); return true; }
