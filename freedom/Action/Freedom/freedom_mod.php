@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.12 2002/11/14 10:43:22 eric Exp $
+// $Id: freedom_mod.php,v 1.13 2002/11/19 17:14:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,18 +45,18 @@ function freedom_mod(&$action) {
   
   $doc= new Doc($dbaccess, $ndocid);
   $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
-  
+
   
   if  ($docid == 0) {
     if ($dirid > 0) {
-      $fld = new Dir($dbaccess, $dirid);    
+      $fld = new Doc($dbaccess, $dirid);    
       if ($fld->doctype != 'D') $dirid=0;
     }
     if ($dirid == 0) {
       $cdoc = new DocFam($dbaccess, $doc->fromid);
-      if ($doc->dfldid>0)  $fld = new Dir($dbaccess,$cdoc->dfldid);
+      if ($cdoc->dfldid>0)  $fld = new Doc($dbaccess,$cdoc->dfldid);
       else {
-	$fld = new Dir($dbaccess,UNCLASS_FLD);
+	$fld = new Doc($dbaccess,UNCLASS_FLD);
 	$home = $fld->getHome();
       
 	if ($home->id > 0) $fld = $home;

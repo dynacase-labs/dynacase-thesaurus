@@ -19,7 +19,7 @@
 [TEXT:View all properties]</a>
 
 <a href="#" id="editattr"     
-    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=DEFATTR&id=[id]',self.name);closeMenu('popupcard')"  >[TEXT:Edit attributes]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=DEFATTR&id=[id]','defattr');closeMenu('popupcard')"  >[TEXT:Edit attributes]</a>
 
 <a href="#" id="lockdoc" 
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=LOCKFILE&id=[id]',self.name);closeMenu('popupcard')"  >[TEXT:Lock]</a>

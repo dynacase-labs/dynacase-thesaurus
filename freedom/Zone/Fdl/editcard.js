@@ -143,7 +143,7 @@ function autoUnlock(docid) {
 }
 
 function pleaseSave(event) {
-  if ((! document.isSubmitted) && (! document.isCancelled)) {
+  if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled)) {
     if (confirm('[TEXT:Save changes ?]')) {
       var bsubmit= document.getElementById('iSubmit');
 

@@ -30,7 +30,7 @@
 
  </head>
 
-<body class="freedom">
+<body class="freedom" onload="autoWresize()">
 
                          
 
@@ -115,10 +115,10 @@
       <input type="text" size="1"  name="visibility[[neweltid]]" value="[visibility]" [disabled]></input>
    </td>
    <td  >
-      <input type="text" size="4"  name="link[[neweltid]]" value="[link]" [disabled]></input>
+      <input type="text"   name="link[[neweltid]]" value="[link]" [disabled]></input>
    </td>
    <td  >
-      <input type="text" size="10"  name="phpfile[[neweltid]]" value="[phpfile]" [disabled]></input>
+      <input type="text"  name="phpfile[[neweltid]]" value="[phpfile]" [disabled]></input>
    </td>
    <td  >
       <input type="text"   name="phpfunc[[neweltid]]" value="[phpfunc]" [disabled]></input>

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.1 2002/11/04 09:13:17 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.2 2002/11/19 17:14:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,17 +24,19 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.1 2002/11/04 09:13:17 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.2 2002/11/19 17:14:26 eric Exp $';
 
 
 
 
 Class BasicAttribute {
   var $id;
+  var $docid;
   var $labelText;
 
-  function BasicAttribute($id, $label ) {
+  function BasicAttribute($id, $docid, $label ) {
     $this->id=$id;
+    $this->docid=$docid;
     $this->labelText=$label;
   }
 }
@@ -51,10 +53,11 @@ Class NormalAttribute extends BasicAttribute {
   var $phpfunc;
   var $elink; // extra link
   var $ordered;
-  function NormalAttribute($id, $label, $type, $order, $link,
+  function NormalAttribute($id, $docid, $label, $type, $order, $link,
 			   $visibility,$needed,$isInTitle,$isInAbstract,
 			   &$fieldSet,$phpfile,$phpfunc,$elink) {
     $this->id=$id;
+    $this->docid=$docid;
     $this->labelText=$label;
     $this->type=$type;
     $this->ordered=$order;
@@ -78,8 +81,9 @@ Class MenuAttribute extends BasicAttribute {
   var $ordered;
   var $precond; // pre-condition to activate menu
 
-  function MenuAttribute($id, $label, $order, $link) {
+  function MenuAttribute($id, $docid, $label, $order, $link) {
     $this->id=$id;
+    $this->docid=$docid;
     $this->labelText=$label;
     $this->ordered=$order;
     $this->link=$link;

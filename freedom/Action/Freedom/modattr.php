@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.7 2002/08/09 09:41:00 eric Exp $
+// $Id: modattr.php,v 1.8 2002/11/19 17:14:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,6 +25,7 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
+include_once("FDL/Class.DocFam.php");
 include_once("FDL/freedom_util.php");  
 
 
@@ -62,24 +63,23 @@ function modattr(&$action) {
   $bdfreedomattr = new DocAttr($dbaccess);
   if ( $docid == 0 )
     {
-      $ofreedom = new Doc($dbaccess);
+      $doc = new DocFam($dbaccess);
       //---------------------------
       // add new freedom familly
       //---------------------------
-      $ofreedom->title = _("new familly document");
-      $ofreedom->owner = $action->user->id;
-      $ofreedom->locked = $action->user->id; // lock for next modification
-      $ofreedom->doctype = 'C'; // it is a new class document
-      $ofreedom->fromid = GetHttpVars("classid"); // inherit from
-      $ofreedom->profid = "0"; // NO PROFILE ACCESS
-      $ofreedom->useforprof = false;
+      $doc->title = _("new familly document");
+      $doc->owner = $action->user->id;
+      $doc->locked = $action->user->id; // lock for next modification
+      $doc->doctype = 'C'; // it is a new class document
+      $doc->fromid = GetHttpVars("classid"); // inherit from
+      $doc->profid = "0"; // NO PROFILE ACCESS
+      $doc->useforprof = false;
       if (GetHttpVars("classid") >0) {
 	$cdoc = new Doc($dbaccess,GetHttpVars("classid") );
-	$ofreedom->classname = $cdoc->classname;
-	$ofreedom->profid = $cdoc->cprofid; // inherit father profile
+	$doc->classname = $cdoc->classname;
+	$doc->profid = $cdoc->cprofid; // inherit father profile
       }
-      $ofreedom-> Add();
-      $docid = $ofreedom-> id;
+      $doc-> Add();
       
       
 
@@ -88,29 +88,27 @@ function modattr(&$action) {
     {
 
       // initialise object
-      $ofreedom = new Doc($dbaccess,$docid);
+      $doc = new Doc($dbaccess,$docid);
       
       // test object permission before modify values (no access control on values yet)
-      $err=$ofreedom-> CanUpdateDoc();
+      $err=$doc-> CanUpdateDoc();
       if ($err != "")
-	  $action-> ExitError($err);
+	$action-> ExitError($err);
 
       // change class document
-      $ofreedom->fromid = GetHttpVars("classid"); // inherit from
-      $ofreedom-> Modify();
+      $doc->fromid = GetHttpVars("classid"); // inherit from
+      $doc-> Modify();
       
     }
 
   // ------------------------------
   // update POSGRES attributes
   $oattr=new DocAttr($dbaccess);
-  $oattr->docid = $ofreedom->initid;
+  $oattr->docid = $doc->initid;
   while(list($k,$v) = each($orders) )
     {
-      //print $k.":".$v."<BR>";
+      //      print $k.":".$v."<BR>";
 
-      if (is_int($k)) // doc attributes are identified by a number
-	{
 	  
 	  if ($names[$k] != "") {
 
@@ -128,7 +126,7 @@ function modattr(&$action) {
 
 	    if ($attrids[$k]=="") {
 	      //print $oattr->id;
-	      //print "add $names[$k]<BR>";
+	      //     print "add $names[$k]<BR>";
 	      if (isset($nattrids[$k]) && ($nattrids[$k] != ""))
 		$oattr->id = $nattrids[$k];
 	      $err = $oattr ->Add();
@@ -140,24 +138,22 @@ function modattr(&$action) {
 	  }
 	  
 
-	}
+	
       
     }
 
 
+  $wsh = GetParam("CORE_PUBDIR")."/wsh.php";
+  $cmd = $wsh . " --userid={$action->user->id} --api=fdl_adoc --docid=".$doc->initid;
+
+  $err= exec($cmd, $out, $ret);
+
+  if ($ret) $action->exitError($err);
+       
+
 
   
-
-  
-
-
-      
-
-  
-
-  
-  
-  redirect($action,GetHttpVars("app"),"QUERYTITLE&id=$docid");
+  redirect($action,GetHttpVars("app"),"QUERYTITLE&id=".$doc->id);
 }
 
 

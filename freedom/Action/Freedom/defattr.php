@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.6 2002/08/20 15:24:15 eric Exp $
+// $Id: defattr.php,v 1.7 2002/11/19 17:14:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
+include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
 
@@ -32,6 +33,8 @@ function defattr(&$action)
   $classid = GetHttpVars("classid",0); // use when new doc or change class
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
 
+
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
   // Set Css
   $cssfile=$action->GetLayoutFile("freedom.css");
@@ -51,8 +54,8 @@ function defattr(&$action)
   // when modification 
   if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
   else
-  // to show inherit attributes
-  if (($docid == 0) && ($classid > 0)) $doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
+    // to show inherit attributes
+    if (($docid == 0) && ($classid > 0)) $doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
 
   $selectclass=array();
   $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid);
@@ -77,12 +80,12 @@ function defattr(&$action)
   if ($docid > 0) {
 
     // control if user can update 
-      $err = $doc->CanUpdateDoc();
-      if ($err != "")   $action->ExitError($err);
+    $err = $doc->CanUpdateDoc();
+    if ($err != "")   $action->ExitError($err);
     $action->lay->Set("TITLE",$doc->title);
   }
   if (($classid > 0) || ($doc->doctype = 'C')) {
-    $doc->GetFathersDoc();
+   
 
     // selected the current class document
     while (list($k,$cdoc)= each ($selectclass)) {
@@ -92,81 +95,134 @@ function defattr(&$action)
 	$selectclass[$k]["selected"]="selected";
       }
     }
-    $query = new QueryDb($dbaccess,"Docattr");
-    $sql_cond_doc = GetSqlCond(array_merge($doc->fathers,$doc->id), "docid");
-    $query->AddQuery($sql_cond_doc);
-    $query->order_by="ordered";
-    $tattr = $query->Query();
+    
 
+    $ka = 0; // index attribute
 
-    if ($query->nb > 0)
-      {
-	$selectframe= array();
-	reset($tattr);
-	while (list($k,$attr)= each ($tattr)) {
-	  if ($attr->type == "frame") {
-	    $selectframe[$k]["framevalue"]=$attr->labeltext;
-	    $selectframe[$k]["frameid"]=$attr->id;
-	    $selectframe[$k]["selected"]="";
-	  }
+    //    ------------------------------------------
+    //  -------------------- FIELDSET ----------------------
+    $tattr = $doc->GetFieldAttributes();
+   
+    $selectframe= array();
+    reset($tattr);
+    while (list($k,$attr)= each ($tattr)) {
+      if ($attr->docid > 0) {
+	$selectframe[$k]["framevalue"]=$attr->labelText;
+	$selectframe[$k]["frameid"]=$attr->id;
+	$selectframe[$k]["selected"]="";
+	$newelem[$k]["attrid"]=$attr->id;
+	$newelem[$k]["attrname"]=$attr->labelText;
+	$newelem[$k]["neweltid"]=$k;
+	$newelem[$k]["visibility"]="F";
+	$newelem[$k]["typevalue"]="frame";
+	$newelem[$k]["disabledid"]="disabled";
+	$newelem[$k]["order"]="0";
+	$newelem[$k]["SELECTFRAME"]="SELECTFRAME_$k";
+	if ($attr->docid == $docid) {
+	  $newelem[$k]["disabled"]="";
+	} else {
+	  $newelem[$k]["disabled"]="disabled";
 	}
 
-	$nbattr=$query->nb;
-	reset($tattr);
-	while(list($k,$attr) = each($tattr)) 
-	  {
+	// unused be necessary for layout
+      $newelem[$k]["link"]="";
+      $newelem[$k]["phpfile"]="";
+      $newelem[$k]["phpfunc"]="";
+      $newelem[$k]["abscheck"]="";
+      $newelem[$k]["titcheck"]="";
+      }	  
+      $ka++;
+    }
 
-	    $newelem[$k]["attrid"]=$attr->id;
-	    $newelem[$k]["attrname"]=$attr->labeltext;
-	    $newelem[$k]["order"]=$attr->ordered;
-	    $newelem[$k]["visibility"]=$attr->visibility;
-	    $newelem[$k]["link"]=$attr->link;
-	    $newelem[$k]["phpfile"]=$attr->phpfile;
-	    $newelem[$k]["phpfunc"]=$attr->phpfunc;
-	    $newelem[$k]["disabledid"]="disabled";
-	    $newelem[$k]["neweltid"]=$k;
-	    if ($attr->abstract == "Y") {
-	      $newelem[$k]["abscheck"]="checked";
-	    } else {
-	      $newelem[$k]["abscheck"]="";
-	    }
-	    if ($attr->title == "Y") {
-	      $newelem[$k]["titcheck"]="checked";
-	    } else {
-	      $newelem[$k]["titcheck"]="";
-	    }
+    //    ------------------------------------------
+    //  -------------------- MENU ----------------------
+    $tattr = $doc->GetMenuAttributes();
+   
+    reset($tattr);
+    while (list($k,$attr)= each ($tattr)) {
+      if ($attr->docid > 0) {
+	$newelem[$k]["attrid"]=$attr->id;
+	$newelem[$k]["attrname"]=$attr->labelText;
+	$newelem[$k]["neweltid"]=$k;
+	$newelem[$k]["visibility"]="M";
+	$newelem[$k]["typevalue"]="";
+	$newelem[$k]["order"]=$attr->ordered;
+	$newelem[$k]["disabledid"]="disabled";
+	$newelem[$k]["SELECTFRAME"]="SELECTFRAME_$k";
+	if ($attr->docid == $docid) {
+	  $newelem[$k]["disabled"]="";
+	} else {
+	  $newelem[$k]["disabled"]="disabled";
+	}
 
-	    if ($attr->docid == $docid) {
-	      $newelem[$k]["disabled"]="";
-	    } else {
-	      $newelem[$k]["disabled"]="disabled";
-	    }
+      $newelem[$k]["link"]=$attr->link;
+	// unused be necessary for layout
+      $newelem[$k]["phpfile"]="";
+      $newelem[$k]["phpfunc"]="";
+      $newelem[$k]["abscheck"]="";
+      $newelem[$k]["titcheck"]="";
+      }	  
+      $ka++;
+    }
 
-	    $newelem[$k]["typevalue"]=$attr->type;
+    //    ------------------------------------------
+    //  -------------------- NORMAL ----------------------
+    $tattr = $doc->GetNormalAttributes();
 
-
-
-
-	    while(list($kopt,$opt) = each($selectframe))  {
-	      if ($opt["frameid"] == $attr->frameid){
-		$selectframe[$kopt]["selected"]="selected"; 
-	      }else{
-		$selectframe[$kopt]["selected"]=""; 
-	      }
-		  
-	    }
-
-	    $newelem[$k]["SELECTOPTION"]="SELECTOPTION_$k";
-	    $action->lay->SetBlockData($newelem[$k]["SELECTOPTION"],
-	    $selectoption);
-
-	    $newelem[$k]["SELECTFRAME"]="SELECTFRAME_$k";
-	    $action->lay->SetBlockData($newelem[$k]["SELECTFRAME"],
-	    $selectframe);
-	      
-  
-	  }
+    uasort($tattr,"tordered"); 
+    reset($tattr);
+    while(list($k,$attr) = each($tattr))  {
+      $newelem[$k]["attrid"]=$attr->id;
+      $newelem[$k]["attrname"]=$attr->labelText;
+      $newelem[$k]["order"]=$attr->ordered;
+      $newelem[$k]["visibility"]=$attr->visibility;
+      $newelem[$k]["link"]=$attr->link;
+      $newelem[$k]["phpfile"]=$attr->phpfile;
+      $newelem[$k]["phpfunc"]=$attr->phpfunc;
+      $newelem[$k]["disabledid"]="disabled";
+      $newelem[$k]["neweltid"]=$k;
+      if ($attr->isInAbstract) {
+	$newelem[$k]["abscheck"]="checked";
+      } else {
+	$newelem[$k]["abscheck"]="";
       }
+      if ($attr->isInTitle) {
+	$newelem[$k]["titcheck"]="checked";
+      } else {
+	$newelem[$k]["titcheck"]="";
+      }
+
+      if ($attr->docid == $docid) {
+	$newelem[$k]["disabled"]="";
+      } else {
+	$newelem[$k]["disabled"]="disabled";
+      }
+
+      $newelem[$k]["typevalue"]=$attr->type;
+
+
+
+
+      while(list($kopt,$opt) = each($selectframe))  {
+	if ($opt["frameid"] == $attr->fieldSet->id){
+	  $selectframe[$kopt]["selected"]="selected"; 
+	}else{
+	  $selectframe[$kopt]["selected"]=""; 
+	}
+		  
+      }
+
+      $newelem[$k]["SELECTOPTION"]="SELECTOPTION_$k";
+      $action->lay->SetBlockData($newelem[$k]["SELECTOPTION"],
+				 $selectoption);
+
+      $newelem[$k]["SELECTFRAME"]="SELECTFRAME_$k";
+      $action->lay->SetBlockData($newelem[$k]["SELECTFRAME"],
+				 $selectframe);
+	      
+      $ka++;
+    }
+      
     
   }
 
@@ -178,8 +234,11 @@ function defattr(&$action)
 
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);
 
+
   // add 3 new attributes to be defined
-  for ($k=$nbattr;$k<3+$nbattr;$k++) {
+
+  
+  for ($k=$ka;$k<3+$ka;$k++) {
     $newelem[$k]["neweltid"]=$k;
     $newelem[$k]["attrname"]="";
     $newelem[$k]["disabledid"]="";
@@ -187,13 +246,15 @@ function defattr(&$action)
     $newelem[$k]["attrid"]="";
     $newelem[$k]["SELECTOPTION"]="SELECTOPTION_$k";
     $action->lay->SetBlockData($newelem[$k]["SELECTOPTION"],
-					 $selectoption);
+			       $selectoption);
 
     $newelem[$k]["SELECTFRAME"]="SELECTFRAME_$k";
     $action->lay->SetBlockData($newelem[$k]["SELECTFRAME"],
-                              $selectframe);
+			       $selectframe);
     $newelem[$k]["disabled"]="";
   }
+
+
 
   $action->lay->SetBlockData("NEWELEM",$newelem);
 

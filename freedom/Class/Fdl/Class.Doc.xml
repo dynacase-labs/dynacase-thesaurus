@@ -1,7 +1,7 @@
 <?php
 
 
-include_once("FDL/Class.[DocParent].php");
+include_once("FDL[GEN]/Class.[DocParent].php");
 [include]
 Class ADoc[docid] extends [AParent] {
     // for familly : [title]
@@ -10,15 +10,15 @@ Class ADoc[docid] extends [AParent] {
       [AParent]::[AParent]();
 
      [BLOCK MATTR]
-     $this->attr["[attrid]"]=new MenuAttribute("[attrid]","[label]",[order],"[link]","[precond]");
+     $this->attr["[attrid]"]=new MenuAttribute("[attrid]", "[docid]","[label]",[order],"[link]","[precond]");
     
      [ENDBLOCK MATTR]
      [BLOCK FATTR]
-     $this->attr["[attrid]"]=new FieldSetAttribute("[attrid]","[label]");
+     $this->attr["[attrid]"]=new FieldSetAttribute("[attrid]", "[docid]","[label]");
 
      [ENDBLOCK FATTR]
      [BLOCK NATTR]
-     $this->attr["[attrid]"]=new NormalAttribute("[attrid]","[label]","[type]",[order],"[link]",
+     $this->attr["[attrid]"]=new NormalAttribute("[attrid]", "[docid]","[label]","[type]",[order],"[link]",
                                                 "[visibility]",[needed],[title],[abstract],
 						$this->attr["[frame]"],"[phpfile]","[phpfunc]","[elink]");
 

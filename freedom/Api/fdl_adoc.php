@@ -24,6 +24,7 @@ if ($dbaccess == "") {
 
 $docid = GetHttpVars("docid",0); // special docid
 
+
 	
 $query = new QueryDb($dbaccess,"DocFam");
 $query ->AddQuery("doctype='C'");
@@ -41,14 +42,17 @@ if ($query->nb > 0)	{
 
   while(list($k,$v) = each($table1))   {	     
     //    print AttrtoPhp($dbaccess,$v->id);
-    print "$pubdir/FDL/Class.Doc".$v["id"].".php\n";
-    $fphp=fopen("$pubdir/FDL/Class.Doc".$v["id"].".php","w");
+    print "$pubdir/FDLGEN/Class.Doc".$v["id"].".php\n";
+    $dfile = "$pubdir/FDLGEN/Class.Doc".$v["id"].".php";
+    $fphp=fopen($dfile,"w");
     if ($fphp) {
       fwrite($fphp,AttrtoPhp($dbaccess,$v));
       fclose($fphp);
+      @chmod ($dfile, 0666);  // write for nobody
     }
     
-    
+    $msg=PgUpdateFamilly($dbaccess, $v["id"]);
+    print $msg;
     
   }	 
   

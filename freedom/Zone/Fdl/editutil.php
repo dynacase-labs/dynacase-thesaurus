@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.12 2002/11/18 16:41:57 eric Exp $
+// $Id: editutil.php,v 1.13 2002/11/19 17:14:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,6 +53,8 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     return $input;
   }
 
+  $oc = " onchange=\"document.isChanged=true\" "; // use in "pleaseSave" js function
+
   // output change with type
   switch ($attrtype)
     {
@@ -90,7 +92,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
    
 		      
     // input 
-    $input .="<input class=\"autoresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
+    $input .="<input $oc class=\"autoresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
     $input .= " > "; 
@@ -116,7 +118,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
       $input = "<span class=\"FREEDOMText\">".$fname."</span><BR>";
 		      
       // input 
-      $input .="<input class=\"autoresize\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
+      $input .="<input $oc class=\"autoresize\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attrid."\" "; 
       if ($visibility == "R") $input .=" disabled ";
       $input .= " > "; 
@@ -124,7 +126,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
 		      
       //같같같같같같같같같같같같같같같같같같같같
     case "longtext": 
-      $input="<textarea wrap=\"virtual\" onclick=\"this.rows=10\" class=\"autoresize\" rows=2 name=\"_".
+      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=10\" class=\"autoresize\" rows=2 name=\"_".
 	 $attrid."\" ";
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
@@ -135,7 +137,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     break;
     //같같같같같같같같같같같같같같같같같같같같
     case "textlist": 
-      $input="<textarea class=\"autoresize\" rows=2 name=\"_".
+      $input="<textarea $oc class=\"autoresize\" rows=2 name=\"_".
 	 $attrid."\" ";
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
@@ -148,7 +150,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     //같같같같같같같같같같같같같같같같같같같같
 			
     case "enum": 
-      $input="<input class=\"autoresize\" type=\"text\"  name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
+      $input="<input $oc class=\"autoresize\" type=\"text\"  name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
     $input .= " > "; 
@@ -183,7 +185,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     //같같같같같같같같같같같같같같같같같같같같
     case "password" : 
       // don't see the value
-      $input="<input  class=\"autoresize\" type=\"password\" name=\"_".$attrid."\" value=\""."\"";
+      $input="<input $oc class=\"autoresize\" type=\"password\" name=\"_".$attrid."\" value=\""."\"";
     $input .= " id=\"".$attrid."\" "; 
 
 
@@ -194,7 +196,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     //같같같같같같같같같같같같같같같같같같같같
     default : 
     
-      $input="<input class=\"autoresize\" type=\"text\" name=\"_".$attrid."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
+      $input="<input $oc class=\"autoresize\" type=\"text\" name=\"_".$attrid."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
     
     $input .= " id=\"".$attrid."\" "; 
 

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.21 2002/11/14 10:43:22 eric Exp $
+// $Id: freedom_util.php,v 1.22 2002/11/19 17:14:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,6 +92,7 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
     return (true);
   }
   $fromid="";
+  $gen=""; // path GEN or not
   if ($id > 0) {
 
      if (isset($gdocs[$id])) {
@@ -111,28 +112,28 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
       $doctype= $arr[2];
       if ($doctype=="C") $classname="DocFam"; 
       else if ($fromid == 0) $classname= $arr[0];
-      else $classname="Doc$fromid";
+      else {$classname="Doc$fromid";$gen="GEN";}
     }
   } else if ($res != '') {
     $fromid=$res["fromid"];
     $doctype=$res["doctype"];
     if ($doctype=="C") $classname= "DocFam"; 
-    else if ($fromid > 0) $classname= "Doc".$res["fromid"];
+    else if ($fromid > 0) {$classname= "Doc".$res["fromid"];$gen="GEN";}
     else  $classname=$res["classname"];
   }
 	    
   if ($classname != "") {
-    include_once("FDL/Class.$classname.php");
+    include_once("FDL$gen/Class.$classname.php");
     //    print "new $classname($dbaccess, $id, $res, $dbid)<BR>";
     $doc=new $classname($dbaccess, $id, $res, $dbid);
     if ($id > 0)  $gdocs[$id]=&$doc;
 
-      return (true);
+    return (true);
   } else {
     include_once("FDL/Class.DocFile.php");
     $doc=new DocFile($dbaccess, $id, $res, $dbid);
 
-      return (true);
+    return (true);
   }
 } 
 
@@ -148,7 +149,7 @@ function createDoc($dbaccess,$fromid) {
 
     
     $classname = "Doc".$fromid;
-    include_once("FDL/Class.$classname.php");
+    include_once("FDLGEN/Class.$classname.php");
     $doc = new $classname($dbaccess);
     
     $doc->revision = "0";

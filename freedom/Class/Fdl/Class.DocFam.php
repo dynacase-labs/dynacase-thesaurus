@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.1 2002/11/04 09:13:17 eric Exp $
+// $Id: Class.DocFam.php,v 1.2 2002/11/19 17:14:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.1 2002/11/04 09:13:17 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.2 2002/11/19 17:14:26 eric Exp $';
 include_once('FDL/Class.DocFile.php');
 
 Class DocFam extends DocFile {
@@ -49,9 +49,10 @@ create unique index idx_idfam on docfam(id);";
      
      if ($this->id > 0) {
        $adoc = "Doc".$this->id;
-       include_once("FDL/Class.$adoc.php");
+       include_once("FDLGEN/Class.$adoc.php");
        $adoc = "ADoc".$this->id;
        $this->attributes = new $adoc();
+       uasort($this->attributes->attr,"tordered"); 
      }
                
    }

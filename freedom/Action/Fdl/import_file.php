@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.27 2002/11/18 16:41:57 eric Exp $
+// $Id: import_file.php,v 1.28 2002/11/19 17:14:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,6 +26,7 @@ include_once("FDL/Class.DocFam.php");
 include_once("FDL/Class.DocSearch.php");
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.QueryDir.php");
+include_once("FDL/Lib.Attr.php");
 
 function add_import_file(&$action, $fimport="") {
   // -----------------------------------
@@ -98,7 +99,9 @@ function add_import_file(&$action, $fimport="") {
       }
 
       
-      
+      if (  $doc->doctype=="C") {
+	$msg=PgUpdateFamilly($dbaccess, $doc->id);
+      }
       
     
     break;
@@ -165,7 +168,7 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "ATTR":
-      if     ($num < 12) print "Error in line $nline: $num cols < 13<BR>";
+      if     ($num < 13) print "Error in line $nline: $num cols < 14<BR>";
       $oattr=new DocAttr($dbaccess, array($doc->id,strtolower($data[1])));
      
       
@@ -183,10 +186,11 @@ function add_import_file(&$action, $fimport="") {
 
       $oattr->ordered = $data[7];
       $oattr->visibility = ($oattr->type=="frame")?"F":$data[8];
-      $oattr->link = $data[9];
-      $oattr->phpfile = $data[10];
-      $oattr->phpfunc = $data[11];
-      if (isset($data[12])) $oattr->elink = $data[12];
+      $oattr->needed =  ($data[9]=="Y")?"Y":"N";
+      $oattr->link = $data[10];
+      $oattr->phpfile = $data[11];
+      $oattr->phpfunc = $data[12];
+      if (isset($data[13])) $oattr->elink = $data[13];
 	  
       if ($oattr->isAffected()) $err =$oattr ->Modify();
       else    $err = $oattr ->Add();
@@ -283,7 +287,7 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
 
     $msg .= $doc->title;
     if ($data[3] > 0) { // dirid
-      $dir = new Dir($dbaccess, $data[3]);
+      $dir = new Doc($dbaccess, $data[3]);
       if (! $analyze) $dir->AddFile($doc->id);
       $msg .= $err.sprintf(_("and add in %s folder "),$dir->title); 
     } else if ($data[3] ==  0) {
