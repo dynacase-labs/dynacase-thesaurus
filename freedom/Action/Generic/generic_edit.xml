@@ -42,7 +42,11 @@
 
 
 <!-- Title Table -->
-<form   id="fedit"  class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD&id=[id]&dirid=[dirid]&classid=[classid]" >
+<form  id="fedit"  
+       class="fborder" 
+       name="modifydoc" 
+       method="POST" ENCTYPE="multipart/form-data" 
+       action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD&id=[id]&dirid=[dirid]&classid=[classid]" >
 
 
 

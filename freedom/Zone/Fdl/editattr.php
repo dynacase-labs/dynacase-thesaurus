@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editattr.php,v 1.1 2002/06/14 08:58:34 eric Exp $
+// $Id: editattr.php,v 1.2 2002/06/18 14:29:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,7 +37,8 @@ function editattr(&$action) {
   // -----------------------------------
 
   // GetAllParameters
-  $docid = GetHttpVars("id");
+  $docid = GetHttpVars("id",0);
+  $classid = GetHttpVars("classid");
   
 
   // Set the globals elements
@@ -45,37 +46,39 @@ function editattr(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc = new Doc($dbaccess, $docid);
+  if ($docid == 0) $doc = new Doc($dbaccess, $classid);
+  else $doc = new Doc($dbaccess, $docid);
 
   
-  $listattr = $doc->GetAttributes();
+  $listattr = $doc->GetAttributes(true);
     
     
 
   // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
 
-  while (list($k,$v) = each($listattr)) {
+    while (list($k,$v) = each($listattr)) {
 
-   
-    $value = chop($doc->GetValue($v->id));
 
-    //------------------------------
-    // Set the table value elements
-      
-
+	//------------------------------
+	  // Set the table value elements
+	    $value = chop($doc->GetValue($v->id));
+	
+	
+	
 	$action->lay->Set("V_".$v->id,
 			  getHtmlInput($action, 
-				       $docid,
+				       $doc->id,
 				       $v->id, 
 				       $v->type, 
 				       $v->visibility, 
 				       $value));
-	$action->lay->Set("L_".$v->id,$v->labeltext);
       
-  
+      $action->lay->Set("L_".$v->id,$v->labeltext);
+      
+      
     }
-
-
+  
+  
 }
 
 
