@@ -72,7 +72,7 @@
 
 <!-- ------------ common latest --------------------- -->
 <a href="#" id="delete"     
-    onclick="ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_DEL&id=[id]',self.name);closeMenu('popupcard');">
+    onclick="ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_DEL&id=[id]',self.name);closeMenu('popupcard');">
 [TEXT:Delete]</a>
 
 <a href="#" id="cancel"  

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.23 2003/04/03 12:00:14 eric Exp $
+// $Id: editutil.php,v 1.24 2003/04/07 16:51:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -75,7 +75,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
 	  
 	  $fname.="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
 	  $fname .= GetParam("CORE_BASEURL").
-	 "app=FDL&action=EXPORTFILE&docid=".$docid."&attrid=".$attrid;
+	    "app=FDL&action=EXPORTFILE&docid=".$docid."&attrid=".$attrid;
 	  $fname .= "\">";
 
 	  $fname .= "</A>";
@@ -93,14 +93,14 @@ function getHtmlInput(&$doc, &$oattr, $value) {
       $input =$fname;
    
 		      
-    // input 
-    $input .="<input $oc class=\"autoresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
-    $input .= " id=\"".$attrid."\" "; 
-    if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-    $input .= " > "; 
-    break;
+      // input 
+      $input .="<input $oc class=\"autoresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
+      $input .= " id=\"".$attrid."\" "; 
+      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+      $input .= " > "; 
+      break;
 		      
-    //같같같같같같같같같같같같같같같같같같같같
+      //같같같같같같같같같같같같같같같같같같같같
     case "file": 
       if (ereg ("(.*)\|(.*)", $value, $reg)) {
 			  
@@ -128,31 +128,33 @@ function getHtmlInput(&$doc, &$oattr, $value) {
 		      
       //같같같같같같같같같같같같같같같같같같같같
     case "longtext": 
-      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=2+((this.rows+1)%2)*7;\"  class=\"autoresize\" rows=2 name=\"_".
-	 $attrid."\" ";
-    $input .= " id=\"".$attrid."\" "; 
-    if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-    $input .= " >".
-       htmlentities(stripslashes($value)).
-       "</textarea>";
+      $expid="exp".$attrid;
+      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=9;document.getElementById('$expid').style.display='';\"  class=\"autoresize\" rows=2 name=\"_".
+	$attrid."\" ";
+      $input .= " id=\"".$attrid."\" "; 
+      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+      $input .= " >".
+	htmlentities(stripslashes($value)).
+	"</textarea>".
+	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attrid').rows=2;this.style.display='none'\" value=\"&Delta;\">";
     
-    break;
-    //같같같같같같같같같같같같같같같같같같같같
+      break;
+      //같같같같같같같같같같같같같같같같같같같같
     case "textlist": 
 
       $input="<textarea $oc class=\"autoresize\" rows=2 name=\"_".
-	 $attrid."\" ";
-    $input .= " id=\"".$attrid."\" "; 
-    if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-    $input .= " >\n".
-       htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
-       "</textarea>";
-    break;
+	$attrid."\" ";
+      $input .= " id=\"".$attrid."\" "; 
+      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+      $input .= " >\n".
+	htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
+	"</textarea>";
+      break;
 		      
-    //같같같같같같같같같같같같같같같같같같같같
+      //같같같같같같같같같같같같같같같같같같같같
 			
     case "enumlist": 
-     $input="<select size=3 multiple name=\"_".$attrid."[]\""; 
+      $input="<select size=3 multiple name=\"_".$attrid."[]\""; 
       
       $input .= " id=\"".$attrid."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
@@ -167,17 +169,17 @@ function getHtmlInput(&$doc, &$oattr, $value) {
 	$input.="<option $selected value=\"$k\">$v</option>"; 
 
       }
-	$input.="<option  style=\"display:none\"  value=\" \"></option>"; 
+      $input.="<option  style=\"display:none\"  value=\" \"></option>"; 
      
-    $input .= "</select> "; 
-    $input.="<input type=\"button\" value=\"&times;\"".
-	  " title=\""._("clear inputs")."\"".
-	   " onclick=\"i,unselectInput('$attrid')\">";
+      $input .= "</select> "; 
+      $input.="<input type=\"button\" value=\"&times;\"".
+	" title=\""._("clear inputs")."\"".
+	" onclick=\"unselectInput('$attrid')\">";
     
-    break;      
+      break;      
      
     case "enum": 
-       $input="<select $multiple name=\"_".$attrid."\""; 
+      $input="<select $multiple name=\"_".$attrid."\""; 
       $input .= " id=\"".$attrid."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
       $input.= ">";
@@ -192,85 +194,90 @@ function getHtmlInput(&$doc, &$oattr, $value) {
       }
      
     
-    break;      
+      break;      
 		      
 
 		      
-    //같같같같같같같같같같같같같같같같같같같같
+      //같같같같같같같같같같같같같같같같같같같같
 			
     case "date": 
       $input="<input size=10 type=\"text\"  name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
-    $input .= " id=\"".$attrid."\" "; 
+      $input .= " id=\"".$attrid."\" "; 
 
-    if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
-    else  $input .=" disabled "; // always but default
+      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
+      else  $input .=" disabled "; // always but default
 
-    $input .= " >&nbsp;"; 
-    if (!(($visibility == "R")||($visibility == "S"))) {
-      $input.="<input type=\"button\" value=\"&#133;\"".
-	" title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attrid."')\"".
-	">";
-    }
-    break;      
+      $input .= " >&nbsp;"; 
+      if (!(($visibility == "R")||($visibility == "S"))) {
+	$input.="<input type=\"button\" value=\"&#133;\"".
+	  " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attrid."')\"".
+	  ">";
+      }
+      break;      
 		      
-    //같같같같같같같같같같같같같같같같같같같같
+      //같같같같같같같같같같같같같같같같같같같같
     case "password" : 
       // don't see the value
       $input="<input $oc class=\"autoresize\" type=\"password\" name=\"_".$attrid."\" value=\""."\"";
-    $input .= " id=\"".$attrid."\" "; 
+      $input .= " id=\"".$attrid."\" "; 
 
 
-    if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
+      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
 		      
-    $input .= " > "; 
-    break;
-    //같같같같같같같같같같같같같같같같같같같같
+      $input .= " > "; 
+      break;
+      //같같같같같같같같같같같같같같같같같같같같
     default : 
     
       $input="<input $oc class=\"autoresize\" type=\"text\" name=\"_".$attrid."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
     
-    $input .= " id=\"".$attrid."\" "; 
+      $input .= " id=\"".$attrid."\" "; 
 
 
-    if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
+      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
 		      
-    $input .= " > "; 
-    break;
+      $input .= " > "; 
+      break;
 		      
     }
-	
-  if (($oattr->phpfunc != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") && ($visibility != "S")){
-    if (ereg("list",$attrtype, $reg)) $ctype="multiple";
-    else $ctype="single";
-    $input.="<input type=\"button\" value=\"&#133;\"".
-	  " title=\""._("choose inputs")."\"".
-       " onclick=\"sendmodifydoc(event,".$docid.
-       ",'".$attrid."','$ctype')\">";
+  if  ($visibility != "S") {
+    if (($oattr->phpfunc != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ){
+      if (ereg("list",$attrtype, $reg)) $ctype="multiple";
+      else $ctype="single";
+      $input.="<input type=\"button\" value=\"&#133;\"".
+	" title=\""._("choose inputs")."\"".
+	" onclick=\"sendmodifydoc(event,".$docid.
+	",'".$attrid."','$ctype')\">";
 
-    // clear button
-    if (ereg("(.*)\((.*)\)\:(.*)", $oattr->phpfunc, $reg)) {
+      // clear button
+      if (ereg("(.*)\((.*)\)\:(.*)", $oattr->phpfunc, $reg)) {
       
-      $argids = split(",",$reg[3]);  // output args
-      $arg = array();
-      while (list($k, $v) = each($argids)) {
-	if (strlen($v) > 1) $arg[$k]= strtolower(chop($v));
-      }
-      if (count($arg) > 0) {
-	$jarg="'".implode("','",$arg)."'";
-	$input.="<input type=\"button\" value=\"&times;\"".
-	  " title=\""._("clear inputs")."\"".
-	   " onclick=\"clearInputs([$jarg])\">";
-      }
+	$argids = split(",",$reg[3]);  // output args
+	$arg = array();
+	while (list($k, $v) = each($argids)) {
+	  if (strlen($v) > 1) $arg[$k]= strtolower(chop($v));
+	}
+	if (count($arg) > 0) {
+	  $jarg="'".implode("','",$arg)."'";
+	  $input.="<input type=\"button\" value=\"&times;\"".
+	    " title=\""._("clear inputs")."\"".
+	    " onclick=\"clearInputs([$jarg])\">";
+	}
+      } 
+    } 	else if ($oattr->type == "date") {
+      $input.="<input type=\"button\" value=\"&times;\"".
+	" title=\""._("clear inputs")."\"".
+	" onclick=\"clearInputs(['$attrid'])\">";
+      
     }
-  } 	
 		
-  if ($oattr->elink != "") {
-    $url= elinkEncode($oattr->elink);
-    $input.="<input type=\"button\" value=\"+\"".
-	  " title=\""._("add inputs")."\"".
-       " onclick=\"subwindowm(300,500,'$attrid','$url')\">";
+    if ($oattr->elink != "") {
+      $url= elinkEncode($oattr->elink);
+      $input.="<input type=\"button\" value=\"+\"".
+	" title=\""._("add inputs")."\"".
+	" onclick=\"subwindowm(300,500,'$attrid','$url')\">";
+    }
   }
-
 
   return $input;
   

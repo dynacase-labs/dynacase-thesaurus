@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.25 2003/03/26 10:46:16 eric Exp $
+// $Id: popupcard.php,v 1.26 2003/04/07 16:51:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -199,6 +199,6 @@ function popupcard(&$action) {
   // if ($doc->doctype == "S") popupInvisible('popupcard',$kdiv,'editdoc'); 
 
   if ($headers)  popupInvisible('popupcard',$kdiv,'headers');
-  else Popupactive('popupcard',$kdiv,'headers');
+  else PopupCtrlactive('popupcard',$kdiv,'headers');
   popupGen($kdiv);
 }

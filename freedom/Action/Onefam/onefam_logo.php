@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_logo.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Id: onefam_logo.php,v 1.2 2003/04/07 16:51:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_logo.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,11 +26,8 @@
 
 function onefam_logo(&$action) 
 {
-  $action->lay->Set("appicon", "<img width=\"100\" height=\"100\" border=0 src=\"".
-		    $action->GetImageUrl($action->parent->icon).
-		    "\" alt=\"".
-		    $action->parent->description.
-		    "\">");
+  $action->lay->Set("appicon",$action->GetImageUrl($action->parent->icon));
+  $action->lay->Set("apptitle",$action->parent->description);
 
 
 }

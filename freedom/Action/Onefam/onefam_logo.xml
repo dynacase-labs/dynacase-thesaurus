@@ -1,4 +1,3 @@
-
 <html>
   <head>
 
@@ -15,51 +14,21 @@
    <style type="text/css">
 [CSS:CODE]
    </style>
-<script language="JavaScript">
 
- 
-  function getFrameWidth() {
-      winW = window.innerWidth;
-      if (! winW)	   
-            winW = document.body.offsetWidth;
-
-      return (winW);
-  }
-
-  function getFrameHeight() {
-      winH= window.innerHeight;
-      if (! winH)	
-           winH = document.body.offsetHeight;
-      return (winH);
-  }
-
-
-
-  function CenterLogo() { 
-      winH=getFrameHeight();
-      winW=getFrameWidth();
-
-
-      if (document.getElementById) { // DOM3 = IE5, NS6
-         divlogo = document.getElementById('logo');
-
-     
-         if ((winH>0) && (winW>0)) {
-           divlogo.style.top = winH/2 - (divlogo.offsetHeight/2);
-           divlogo.style.left = winW/2 - (divlogo.offsetWidth/2);
-         }
-    
-       }
-    return true;
-  }
-
-</script>
+[JS:REF]
+<script language="JavaScript" src="WHAT/Layout/geometry.js"></script>
+   <script language="JavaScript">
+  <!--
+    [JS:CODE]
+  //-->
+   </script>
  </head>
 
-<body class="contact" onLoad="setTimeout('CenterLogo()',1)" onResize="CenterLogo()">
+<body onLoad="setTimeout('CenterDiv(\'logo\')',1)" onResize="CenterDiv('logo')">
 
-<div id="logo" style="position:absolute; top:0px; left:0px">
-       [appicon]
+<div id="logo" style="display:none;position:absolute; top:0px; left:0px">
+      <img src="[appicon]" title="[apptitle]" alt="[apptitle]">
+      
 </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_logo.php,v 1.2 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_logo.php,v 1.3 2003/04/07 16:51:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_logo.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,30 +21,13 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: freedom_logo.php,v $
-// Revision 1.2  2002/06/19 12:32:28  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-// Revision 1.1  2001/06/13 14:39:53  eric
-// Contact address book
-//
-// ---------------------------------------------------------------
+
 
 
 function freedom_logo(&$action) 
 {
-  $action->lay->Set("appicon", "<img width=\"100\" height=\"100\" border=0 src=\"".
-		    $action->GetImageUrl($action->parent->icon).
-		    "\" alt=\"".
-		    $action->parent->description.
-		    "\">");
-
+  $action->lay->Set("appicon",$action->GetImageUrl($action->parent->icon));
+  $action->lay->Set("apptitle",$action->parent->description);
 
 }
 

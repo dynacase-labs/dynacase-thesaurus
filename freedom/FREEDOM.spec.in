@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.34 2003/04/03 12:00:14 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.35 2003/04/07 16:51:12 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -29,6 +29,8 @@ Requires: php-pgsql >= 4.0.2
 Requires: html2ps
 Requires: ghostscript
 Requires: ghostscript-fonts-std
+Requires: libjpeg-devel
+Requires: netpbm
 PreReq: vixie-cron
 PreReq: WHAT >= 0.2.0
 PreReq: @PACKAGE@-LIB = %{version}
@@ -148,7 +150,7 @@ ln -sf %{destdir}/FDL/include.php %{destdir}/GENERIC/include.php
 %{destdir}/EXTERNALS/*
 
 %files LIB
-%defattr(-,httpd,httpd)
+%defattr(-,http,http)
 %dir %{destdir}/FDLGEN
 %defattr(-,root,root)
 %dir %{destdir}/FDL

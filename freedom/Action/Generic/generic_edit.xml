@@ -78,7 +78,7 @@
  <input id="iSubmit" type="submit" value=[editaction] onclick="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"> 
   </td>
   <td  align="right">
- <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO'"> 
+ <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'"> 
   </td>
   
 </tr>

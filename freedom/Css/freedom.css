@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.25 2003/02/25 09:55:24 eric Exp $
+ * $Id: freedom.css,v 1.26 2003/04/07 16:51:12 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -280,8 +280,9 @@ TH {
   .tableborder {
     border:none;
   }
-  A, TD, TH {
-    color:black;
+  A, TD, TH, A:link, A:visited {
+    color:[CORE_TEXTFGCOLOR];
+    font-family:arial, helvetica;
   }
   .onlyprint { 
     display:block;

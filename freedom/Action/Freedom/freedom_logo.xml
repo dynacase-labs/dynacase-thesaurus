@@ -28,7 +28,8 @@
 <body onLoad="setTimeout('CenterDiv(\'logo\')',1)" onResize="CenterDiv('logo')">
 
 <div id="logo" style="display:none;position:absolute; top:0px; left:0px">
-       [appicon]
+      <img src="[appicon]" title="[apptitle]" alt="[apptitle]">
+      
 </div>
 </body>
 </html>
