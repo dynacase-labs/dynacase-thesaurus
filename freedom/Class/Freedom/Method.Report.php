@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Report.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.Report.php,v 1.8 2004/03/04 09:11:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,8 +15,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2003/08/18 15:47:04 $
-// Version         $Revision: 1.7 $
+// Last Update     $Date: 2004/03/04 09:11:12 $
+// Version         $Revision: 1.8 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -114,7 +114,7 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
   // --------------------------
   // display body
   $order=$this->getValue("REP_IDSORT","title");
-  $tdoc = getChildDoc($this->dbaccess, $this->initid,0,"ALL",array(),$this->userid,"TABLE","",false,$order);
+  $tdoc = getChildDoc($this->dbaccess, $this->initid,0,"ALL",array(),$this->userid,"TABLE",$rfamid,false,$order);
   $trodd=false;
   $tcolor= $this->getTValue("REP_COLORS");
   $trow=array();
