@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.10 2002/06/20 09:57:47 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.11 2002/06/20 11:55:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -135,6 +135,8 @@ Class UsercardVcard
 	    {
 	      if (ereg ("([A-Z;]*);ENCODING=QUOTED-PRINTABLE:(.*)", $line, $reg)){
 		  $tattr[$reg[1]]=quoted_printable_decode(rtrim($reg[2]));
+	      } elseif (ereg ("([A-Z;]*);CHARSET=UTF-8:(.*)", $line, $reg)){
+		  $tattr[$reg[1]]=utf8_decode(rtrim($reg[2]));
 	      } elseif (ereg ("([A-Z;]*):(.*)", $line, $reg)){
 	      //line like TEL;WORK:05.61.15.54.54
 		  $tattr[$reg[1]]=str_replace("\\n","\n",rtrim($reg[2]));
