@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.3 2004/12/24 12:37:20 marc Exp $
+# $Id: Makefile.in,v 1.4 2005/01/11 05:48:00 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -31,4 +31,12 @@ clean:
 	rm -f config.log config.status configure WGCAL-*.tar.gz WGCAL_init.php WGCAL.spec 
 	rm -rf autom4te-2.53.cache
 	find . -name \*~  -exec rm {} \;
+
+$(pubdir)/EXTERNALS :
+	mkdir -p $@
+
+$(pubdir)/EXTERNALS/WGCAL_calevent.php: $(pubdir)/EXTERNALS
+	cp $(appname)_external.php $(pubdir)/EXTERNALS/WGCAL_calevent.php
+
+publish: $(pubdir)/$(applib) $(pages_csv) $(pubdir)/EXTERNALS/WGCAL_calevent.php
 

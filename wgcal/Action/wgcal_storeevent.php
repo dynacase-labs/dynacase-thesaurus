@@ -38,6 +38,7 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_EVTITLE", $ev->title);
   $event->setValue("CALEV_EVNOTE", $ev->note);
   $err = $event->Modify();
+  echo "<h2> Erreur : $err </h2>";
   print_r2($event);
   
     
