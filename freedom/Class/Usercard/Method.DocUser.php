@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.13 2003/05/23 15:30:03 eric Exp $
+// $Id: Method.DocUser.php,v 1.14 2003/05/28 14:35:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -95,7 +95,7 @@ function SpecRefresh() {
 
   
   $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX,US_COUNTRY");
-  $this->AddParamRefresh("US_IDSOCIETY","US_SCATG");
+  $this->AddParamRefresh("US_IDSOCIETY","US_SCATG,US_JOB");
 
   $doc=new Doc($this->dbaccess, $this->getValue("US_IDSOCIETY"));
   if ($doc->isAlive()) {
@@ -108,6 +108,7 @@ function SpecRefresh() {
       $this->setValue("US_COUNTRY",$doc->getValue("SI_COUNTRY"," "));
     }
     $this->setValue("US_SCATG",$doc->getValue("SI_CATG"));
+    $this->setValue("US_JOB",$doc->getValue("SI_JOB"));
   }
   
 }
