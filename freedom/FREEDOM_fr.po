@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-02-26 16:44+0100\n"
+	"POT-Creation-Date: 2002-03-05 17:56+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -107,6 +107,13 @@ msgstr	"non"
 msgid	"root folder"
 msgstr	"Freedom"
 
+msgid	"this kind of document cannot be duplicate"
+msgstr	""
+
+#, fuzzy
+msgid	"duplication of"
+msgstr	"éditer"
+
 #, c-format
 msgid	"the external pluggin file %s cannot be read"
 msgstr	"le fichier externe %s ne peut être lu"
@@ -121,20 +128,36 @@ msgstr	"pas de fichier d'import spécifié"
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
 
-#, c-format
-msgid	"cannot delete link : link not found for doc %d in directory %d"
+#, fuzzy
+msgid	"view folder"
+msgstr	"Dossier"
+
+#, fuzzy
+msgid	"edit folder"
+msgstr	"Dossier"
+
+#, fuzzy
+msgid	"delete folder"
+msgstr	"Dossier"
+
+msgid	"open folder"
+msgstr "Ouvrir le dossier"
+
+msgid	"modify folder"
+msgstr "modifier le dossier"
+
+#, fuzzy, c-format
+msgid	"cannot delete link : link not found for doc %d in folder %d"
 msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
 
-#, c-format
-msgid	"cannot delete link : initial query not found for doc %d in directory "
-	"%d"
+#, fuzzy, c-format
+msgid	"cannot delete link : initial query not found for doc %d in folder %d"
 msgstr	"le document %d n'existe plus dans le dossier %d.\n"
 	"mettre à jour la vue."
 
-#, c-format
-msgid	"cannot delete link for doc %d in directory %d : the document comes "
-	"from a user query. Delete initial query if you want delete this "
-	"document"
+#, fuzzy, c-format
+msgid	"cannot delete link for doc %d in folder %d : the document comes from "
+	"a user query. Delete initial query if you want delete this document"
 msgstr	"le lien pour le document %d dans le dossier %d ne peur être détruit :"
 	"\\n\n"
 	"le document provient d'une recherche utilisateur. Supprimer la "
@@ -302,6 +325,9 @@ msgstr	"carte publique - accès lecture"
 msgid	"public card - write access"
 msgstr	"carte publique - accès écriture"
 
+msgid	"help"
+msgstr	"Aide"
+
 msgid	" folder containt"
 msgstr	" contenu du dossier"
 
@@ -379,9 +405,6 @@ msgstr	"incidents traités"
 
 msgid	"all incident"
 msgstr	"tous les incidents"
-
-msgid	"help"
-msgstr	"Aide"
 
 msgid	"View"
 msgstr	"Affichage"
@@ -491,11 +514,13 @@ msgstr	" Créer un dossier"
 msgid	"cancel"
 msgstr	"Annuler"
 
-msgid	" paste this revision"
-msgstr	" référencer cette révision"
+#, fuzzy
+msgid	"copy reference"
+msgstr	"référence"
 
-msgid	" paste latest revision"
-msgstr	" référencer la dernière révision"
+#, fuzzy
+msgid	"move reference"
+msgstr	"référence"
 
 msgid	"updatetitle"
 msgstr	"Mise à jour des titres"
@@ -528,6 +553,10 @@ msgid	"view properties"
 msgstr	"voir les propriétés"
 
 msgid	"edit document"
+msgstr	" éditer le document"
+
+#, fuzzy
+msgid	"duplicate document"
 msgstr	" éditer le document"
 
 msgid	"link document"
@@ -636,7 +665,7 @@ msgid	"Unlock"
 msgstr	"Déverrouiller"
 
 msgid	"Vcard"
-msgstr "Vcard"
+msgstr	"Vcard"
 
 msgid	"Change category"
 msgstr	"Changer de catégorie"
@@ -734,6 +763,10 @@ msgid	"popup menu"
 msgstr	"popup menu"
 
 msgid	"add file query into directory"
+msgstr	"ajout d'un document dans un dossier"
+
+#, fuzzy
+msgid	"move file query into directory"
 msgstr	"ajout d'un document dans un dossier"
 
 msgid	"delete file query into directory"
@@ -836,21 +869,21 @@ msgid	"export first file to consulting"
 msgstr	""
 
 msgid	"User Card"
-msgstr "Carnet d'adresses"
+msgstr	"Carnet d'adresses"
 
 msgid	"User Card Management"
 msgstr	"Carnet d'adresses"
 
 msgid	"Access Usercard Master Management"
-msgstr "Accès à l'administration du carnet d'adresses"
+msgstr	"Accès à l'administration du carnet d'adresses"
 
 msgid	"Access To Usercard Management"
-msgstr "Accès à l'utilisation du carnet d'adresses"
+msgstr	"Accès à l'utilisation du carnet d'adresses"
 
 msgid	"Access To Read User Card"
 msgstr	"Accès à la lecture du carnet d'adresses"
 
-msgid	"incident home page"
+msgid	"usercard home page"
 msgstr	""
 
 msgid	"edition"
@@ -877,14 +910,16 @@ msgstr	""
 msgid	"display logo"
 msgstr	""
 
-msgid	"unlock incident file"
-msgstr	""
+#, fuzzy
+msgid	"unlock usercard"
+msgstr	"Nouvelle carte"
 
 msgid	"view list"
 msgstr	"voir la liste"
 
-msgid	"view an incident"
-msgstr	"voir un incident"
+#, fuzzy
+msgid	"view a usercard"
+msgstr	"voir une carte"
 
 msgid	"edit import vcard"
 msgstr	""
@@ -892,7 +927,8 @@ msgstr	""
 msgid	"view a part of list"
 msgstr	""
 
-msgid	"search an incident"
+#, fuzzy
+msgid	"search a usercardt"
 msgstr	"rechercher un incident"
 
 msgid	"initialisation"
@@ -909,6 +945,24 @@ msgstr	"Accès à la gestion des incidents"
 
 msgid	"Access To Read Incident"
 msgstr	"Accès en lecture seule aux incidents"
+
+msgid	"incident home page"
+msgstr	""
+
+msgid	"unlock incident file"
+msgstr	""
+
+msgid	"view an incident"
+msgstr	"voir un incident"
+
+msgid	"search an incident"
+msgstr	"rechercher un incident"
+
+#~ msgid	" paste this revision"
+#~ msgstr	" référencer cette révision"
+
+#~ msgid	" paste latest revision"
+#~ msgstr	" référencer la dernière révision"
 
 #~ msgid	" change category"
 #~ msgstr	" changer de catégorie"
@@ -979,9 +1033,6 @@ msgstr	"Accès en lecture seule aux incidents"
 
 #~ msgid	"case sensitive"
 #~ msgstr	" tenir compte de la casse"
-
-#~ msgid	"from folder"
-#~ msgstr	"à partir du dossier"
 
 #~ msgid	"root"
 #~ msgstr	"racine"
