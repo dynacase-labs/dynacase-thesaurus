@@ -48,7 +48,7 @@ END;1;9;;;;;;;;;;
 //SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;;
 ;;;;;;;;;;;;
 SEARCH;11;9;les familles;select * from docfam where doctype='C';;;;;;;;
-SEARCH;12;9;les profils;select * from doc where usefor='P' and doctype != 'C';;;;;;;;
+SEARCH;12;9;les profils;select * from doc where and doctype ='D';;;;;;;;
 SEARCH;13;9;les maisons;select * from doc where (owner < 0) and (locked != -1);;;;;;;;
 // famille profile doc;;;id;class
 BEGIN;1;famille profile de document;3;PDoc

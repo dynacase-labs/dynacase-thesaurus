@@ -24,24 +24,11 @@ echo "insert into docfam (id, owner, title, revision, initid, fromid, doctype, l
 $pubdir/wsh.php --api=fdl_adoc 
 
 $pubdir/wsh.php --api=migr_sql2.0 --table=yes | psql freedom anakeen
-echo "update  docfam set cprofid =  docfamtemp.cprofid from docfamtemp where docfamtemp.id=docfam.id;"| psql freedom anakeen
-echo "update  docfam set dfldid =  docfamtemp.dfldid from docfamtemp where docfamtemp.id=docfam.id;"| psql freedom anakeen
-echo "update  docfam set usefor =  'P' where id > 2 and id < 6;"| psql freedom anakeen
 
-
-#echo "CREATE UNIQUE INDEX idx_idfam ON docfam(id);" | psql freedom anakeen
-
-#/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocValue
-
-echo "update doc set classname='' where doctype != 'C'; update docfam set classname='Doc'||fromid where id > 6 and fromid > 0 and classname like 'Doc%';" | psql freedom anakeen
+psql freedom anakeen -f $pubdir/FDL/FDL_migr_0.2.0-1.sql
 
 
 
-echo "VACUUM FULL ANALYZE;" | psql freedom anakeen
-
-#echo "update docvalue set attrid=lower(attrid);" | psql freedom anakeen
-echo "update docattr set id=lower(id);" | psql freedom anakeen
-echo "update docattr set frameid=lower(frameid);" | psql freedom anakeen
 
 # creation des class PHP (2ème passe)
 $pubdir/wsh.php --api=fdl_adoc 

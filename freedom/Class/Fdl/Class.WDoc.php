@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.7 2002/11/13 15:49:36 eric Exp $
+// $Id: Class.WDoc.php,v 1.8 2002/11/26 13:53:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.7 2002/11/13 15:49:36 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.8 2002/11/26 13:53:46 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -74,8 +74,16 @@ Class WDoc extends Doc {
 
   function changeProfil($newstate) {
 
-    if ($newstate != "")
+    if ($newstate != "") {
       $this->doc->profid=intval($this->getValue($this->attrPrefix."_ID".strtoupper($newstate)));
+      if ($this->doc->profid > 0) {
+	
+	// make sure that the profil is activated
+	$pdoc=new Doc($this->dbaccess, $this->doc->profid );
+
+	if ($pdoc->profid == 0) $this->doc->profid = -$this->doc->profid; // inhibition
+      }
+    }
 
   }
   function CreateProfileAttribute() {

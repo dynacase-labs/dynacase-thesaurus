@@ -28,7 +28,7 @@ if ($dbaccess == "") {
 
 
 if ($famId > 0) {
-  include_once "FDL/Class.Doc$famId.php";
+  include_once "FDLGEN/Class.Doc$famId.php";
 }
 	
   

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.5 2002/11/15 16:17:37 eric Exp $
+// $Id: generic_util.php,v 1.6 2002/11/26 13:53:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,7 +57,7 @@ function getChildCatg($docid, $level) {
   $ltree=array();
 
 
-  if ($level < 4) {
+  if ($level < 3) {
     $ldir = getChildDir($dbaccess,$action->user->id,$docid, false,"TABLE");
   
 
@@ -69,7 +69,7 @@ function getChildCatg($docid, $level) {
 				 "doctype"=>$v["doctype"],
 				 "title"=>$v["title"]);
 
-	$ltree = $ltree +  getChildCatg($v["id"], $level+1);
+	if ($v["doctype"] == "D") $ltree = $ltree +  getChildCatg($v["id"], $level+1);
       }
     } 
   }

@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.3 2002/11/06 15:59:28 eric Exp $
+// $Id: Method.DocUser.php,v 1.4 2002/11/26 13:53:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -238,10 +238,10 @@ function SpecRefresh() {
       $infoldap=array();
 	      
       $infoldap["cn"]=utf8_encode($this->title);
-      $this->GetValues();
+      $values=$this->GetValues();
       
-      reset($this->values);
-      while(list($k,$v) = each($this->values)) {
+      reset($values);
+      while(list($k,$v) = each($values)) {
 
 
 	$lvalue=$v;
@@ -302,10 +302,10 @@ function SpecRefresh() {
 
     switch ($priv) {
     case "P":	
-      if ($this->profid == "0") {	
+      if ($this->profid == "0") {
+	$err=$this->setControl();	
 	$this->profid=$this->id;
 	$err=$this->modify();	
-	$err=$this->setControl();
       }
       $err=$this->lock();
 

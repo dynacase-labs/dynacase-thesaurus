@@ -102,18 +102,8 @@ ATTR;US_MSEDEPT;US_FR_MSE;DepartementMSX;N;N;text;630;W;;;;
 ;;;;;;;;;;;;
 ;;;;;;;;;;;;
 END;0;;;;;;;;;;;
-// famille profile personne;;;;;;;;;;;;;
-BEGIN;1;famille profile de personne;122;DocUser;;;;;;;;;
-USEFORPROF;;;;;;;;;;;;;
-TYPE;C;;;;;;;;;;;;
-CO_TITRE;[titre];famille profile de personne;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
-ATTR;US_PRDESC;2;description;N;N;longtext;10;W;;;;;
-END;1;9;;;;;;;;;;;
-;;;;;;;;;;;;;
-//DOC;122;<special id>;<special dirid>;titre;;;;;;;;;
-// creation dossier personne;;;;;;;;;;;;;
-//DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;;
-DOC;2;121;;carnet d'adresses;;;;;;;;;
-// creation requete all users;;;;;;;;;;;;;
-//SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;;;
+// creation dossier personne;;;;
+//DOC;Famille;<special id>;<special dirid>;titre
+DOC;2;121;;carnet d'adresses
+// creation requete all users;;;;
+//SEARCH;<special id>;<special dir id>;titre;requête

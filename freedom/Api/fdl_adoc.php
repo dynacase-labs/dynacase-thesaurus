@@ -33,10 +33,10 @@ $query->order_by="fromid";
   
 if ($docid > 0) $query->AddQuery("id=$docid");
       
+
     
 $table1 = $query->Query(0,0,"TABLE");
 
-     
 if ($query->nb > 0)	{
 
   $pubdir = $appl->GetParam("CORE_PUBDIR");
