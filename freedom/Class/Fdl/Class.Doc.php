@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.189 2004/03/01 09:10:19 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.190 2004/03/04 09:11:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -44,8 +44,8 @@ define ("MAXGDOCS", 20);
  * Document Class
  *
  */
-Class Doc extends DocCtrl {
-
+Class Doc extends DocCtrl
+{
   var $fields = array ( "id",
 			"owner",
 			"title",
@@ -1289,7 +1289,7 @@ create unique index i_docir on doc(initid, revision);";
       }
     }
 
-    if (chop($title1) != "")  $this->title = chop(str_replace("\n"," ",$title1));
+    if (chop($title1) != "")  $this->title = substr(chop(str_replace("\n"," ",$title1)),0,255);// restric to 256 char
 
   }
  
