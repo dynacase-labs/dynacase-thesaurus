@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.64 2003/04/03 08:00:14 eric Exp $
+// $Id: Lib.Dir.php,v 1.65 2003/04/03 12:00:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -249,10 +249,11 @@ function getKindDoc($dbaccess,
   
   $famid= getFamIdFromName($dbaccess,$famname);
   $fdoc = new Doc($dbaccess, $famid);
+
   // searches for all fathers kind
   $a = $fdoc->getAttribute($aid);
-
   $tkids=array();;
+  reset($a->enum);
   while (list($k, $v) = each($a->enum)) {
     if (in_array($kid,explode(".",$k))) {
       $tkids[] = substr($k,strrpos(".".$k,'.'));

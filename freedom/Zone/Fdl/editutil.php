@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.22 2003/03/28 17:52:38 eric Exp $
+// $Id: editutil.php,v 1.23 2003/04/03 12:00:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,23 +128,24 @@ function getHtmlInput(&$doc, &$oattr, $value) {
 		      
       //같같같같같같같같같같같같같같같같같같같같
     case "longtext": 
-      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=10\" onblur=\"this.rows=2\" class=\"autoresize\" rows=2 name=\"_".
+      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=2+((this.rows+1)%2)*7;\"  class=\"autoresize\" rows=2 name=\"_".
 	 $attrid."\" ";
     $input .= " id=\"".$attrid."\" "; 
     if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
     $input .= " >".
-       chop(htmlentities(stripslashes($value))).
+       htmlentities(stripslashes($value)).
        "</textarea>";
     
     break;
     //같같같같같같같같같같같같같같같같같같같같
     case "textlist": 
+
       $input="<textarea $oc class=\"autoresize\" rows=2 name=\"_".
 	 $attrid."\" ";
     $input .= " id=\"".$attrid."\" "; 
     if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-    $input .= " >".
-       chop(htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
+    $input .= " >\n".
+       htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
        "</textarea>";
     break;
 		      
