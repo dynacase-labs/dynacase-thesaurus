@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.18 2002/07/16 08:36:01 eric Exp $
+// $Id: Lib.Dir.php,v 1.19 2002/07/23 07:30:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -173,25 +173,35 @@ function getFirstDir($dbaccess) {
     // add values in comprehensive structure
     if ($wvalue) {
       while(list($k,$v) = each($tableq)) {
-	if ($v["sqlvalues"] != "") {
-	  $vals = split("\]\[",substr($v["sqlvalues"],1,-1));
-	  while(list($k1,$v1) = each($vals)) {
-	    list($aname,$aval)=split(";;",$v1);
-	    $tableq[$k][$aname]=$aval;
-	  }
+	$tableq[$k] += sqlval2array($v["sqlvalues"]);
 	}
       }
-    }
+    
     reset($tableq);
     
     return($tableq);
   }
      
      
+     function sqlval2array($sqlvalue) {
+       // return values in comprehensive structure
+	 
+	 $rt = array();
+       if ($sqlvalue != "") {
+	 $vals = split("\]\[",substr($sqlvalue,1,-1));
+	 while(list($k1,$v1) = each($vals)) {
+	   list($aname,$aval)=split(";;",$v1);
+	   $rt[$aname]=$aval;
+	 }
+	 
+       }
+       return $rt;
+     }
+     
      //same getChildDoc with value : return array , not doc object
      function getChildDocValue($dbaccess, $dirid, $start="0", $slice="ALL", $sqlfilters=array(), $userid=1) {
        
-
+       
        return getChildDoc($dbaccess, $dirid, $start, $slice, $sqlfilters, $userid, "TABLE", true);
        
      }
