@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.95 2004/10/14 14:15:35 marc Exp $
+ * @version $Id: Lib.Dir.php,v 1.96 2004/10/19 16:10:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -15,7 +15,6 @@
 include_once('FDL/Class.Dir.php');
 include_once('FDL/Class.DocSearch.php');
 include_once('FDL/Class.DocFam.php');
-include_once("FDL/Class.FTSMnoGoSearch.php");
 
 function getFirstDir($dbaccess) {
   // query to find first directories
