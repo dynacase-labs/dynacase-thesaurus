@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.3 2002/07/16 16:32:36 eric Exp $
+// $Id: editutil.php,v 1.4 2002/07/31 09:58:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,6 +35,9 @@ function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value)
 	
   $input="";
 		
+  if ($value == "") {
+    $value = GetHttpVars($attrid); 
+  }
 
   if ($visibility == "H") {
     $input="<input  type=\"hidden\" name=\"_".$attrid."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";    
