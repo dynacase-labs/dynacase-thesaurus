@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.56 2002/09/26 08:30:51 eric Exp $
+// $Id: Class.Doc.php,v 1.57 2002/09/26 15:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.56 2002/09/26 08:30:51 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.57 2002/09/26 15:45:15 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -712,6 +712,36 @@ create unique index i_docir on doc(initid, revision);";
       return $tsa;
     }
 
+
+  // return all the attributes object for import
+  // the attribute can be defined in fathers
+  function GetImportAttributes()
+    {      
+      $tsa=array();
+      if (!isset($this->attributes)) $this->GetAttributes();
+      
+      reset($this->attributes);
+      while (list($k,$v) = each($this->attributes)) {
+	if ((($v->visibility == "N") || ($v->visibility == "W")) 
+	    
+	    && (($v->type != "image") &&($v->type != "file")) ) {
+	  
+	  
+	  if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {
+	  
+	      $aout = explode(",",$reg[2]);
+	      while (list($ka,$va) = each($aout)) {
+		$ra = $this->GetAttribute($va);
+		if ($ra) $tsa[$va]=$ra;
+	      }
+	
+      
+	  }
+	  $tsa[$v->id]=$v;
+	}
+      }
+      return $tsa;      
+    }
 
 
 

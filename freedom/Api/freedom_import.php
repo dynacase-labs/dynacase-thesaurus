@@ -1,17 +1,27 @@
 <?php
 
 
-// remove all tempory doc and orphelines values
 global $appl,$action;
 
 include_once("FDL/import_file.php");
-$appl->Set("FDL",	     $core);
 
-$action->Set("",$appl);
+if (GetHttpVars("htmlmode") == "Y") {
+  // mode HTML
+  $appl->Set("FREEDOM",	     $core);
+
+  $action->Set("FREEDOM_IMPORT",$appl);
 
 
-add_import_file($action, 
+  print ($action->execute());
+} else {
+  // mode TEXT
+  $appl->Set("FDL",	     $core);
+  $action->Set("",$appl);
+  
+  add_import_file($action, 
     		    GetHttpVars("file"));
+  
+}
 
     
 

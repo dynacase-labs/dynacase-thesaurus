@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.12 2002/09/24 15:30:09 eric Exp $
+// $Id: FREEDOM.app,v 1.13 2002/09/26 15:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,17 +70,19 @@ $action_desc = array (
    "acl"		=>"FREEDOM",
   ) ,
   array( 
-   "name"		=>"FREEDOM_IMPORT",
+   "name"		=>"FREEDOM_EDITIMPORT",
    "short_name"		=>N_("query document import"),
    "acl"		=>"FREEDOM_MASTER",
   ) ,
   array( 
-   "name"		=>"ADDIMPORTFILE",
-   "short_name"		=>N_("add document import"),
+   "name"		=>"FREEDOM_BGIMPORT",
+   "short_name"		=>N_("background document import"),
    "acl"		=>"FREEDOM_MASTER",
-   "script"		=>"freedom_import.php",
-   "function"		=>"add_import_file",
-   "layout"		=>"freedom_import.xml"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_IMPORT",
+   "short_name"		=>N_("add document import"),
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"FREEDOM_VIEW",

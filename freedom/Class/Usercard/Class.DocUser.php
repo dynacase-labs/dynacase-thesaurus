@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.15 2002/09/17 16:58:56 eric Exp $
+// $Id: Class.DocUser.php,v 1.16 2002/09/26 15:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,10 +22,10 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.15 2002/09/17 16:58:56 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.16 2002/09/26 15:45:15 eric Exp $';
 
 
-include_once("FDL/Class.Doc.php");
+include_once("FDL/Class.PDoc.php");
 include_once("FDL/Class.UsercardLdif.php");
 
 

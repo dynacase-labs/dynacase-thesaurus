@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_importcsv.php,v 1.4 2002/08/28 09:39:32 eric Exp $
+// $Id: generic_importcsv.php,v 1.5 2002/09/26 15:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_importcsv.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -75,7 +75,7 @@ function generic_importcsv(&$action) {
       switch ($data[0]) {
 	
       case "DOC":
-	$doc =csvAddDoc($dbaccess, $data);
+	$doc =csvAddDoc($action,$dbaccess, $data);
 	if (!$doc) continue;
 
 	

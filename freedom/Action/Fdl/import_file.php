@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.22 2002/09/25 08:36:06 eric Exp $
+// $Id: import_file.php,v 1.23 2002/09/26 15:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,14 +34,18 @@ function add_import_file(&$action, $fimport="") {
 
   ini_set("max_execution_time", 300);
   $dirid = GetHttpVars("dirid",10); // directory to place imported doc 
+  $analyze = (GetHttpVars("analyze","N")=="Y"); // just analyze
 
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  if (isset($HTTP_POST_FILES["tsvfile"]))    
+  if (isset($HTTP_POST_FILES["file"]))    
     {
-      $fdoc = fopen($HTTP_POST_FILES["tsvfile"]['tmp_name'],"r");
-    } else $fdoc = fopen($fimport,"r");
+      $fdoc = fopen($HTTP_POST_FILES["file"]['tmp_name'],"r");
+    } else {
+      if ($fimport != "")      $fdoc = fopen($fimport,"r");
+      else $fdoc = fopen(GetHttpVars("file"),"r");
+    }
 
   if (! $fdoc) $action->exitError(_("no import file specified"));
   $nline=0;
@@ -54,6 +58,8 @@ function add_import_file(&$action, $fimport="") {
     case "BEGIN":
       $err="";
       $doc=new Doc($dbaccess, $data[3]);
+
+      if ($analyze) continue;
       if (! $doc->isAffected())  {
 	$doc = createDoc($dbaccess, $data[1]);
 	if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
@@ -62,9 +68,9 @@ function add_import_file(&$action, $fimport="") {
 
 	$doc->title =  $data[2];  
 	if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
-	  if (isset($data[4]) && ($data[3] != "")) $doc->classname = $data[4]; // new classname for familly
+	if (isset($data[4]) && ($data[3] != "")) $doc->classname = $data[4]; // new classname for familly
 
-	    $err = $doc->Add();
+	$err = $doc->Add();
       }
 
 
@@ -76,6 +82,7 @@ function add_import_file(&$action, $fimport="") {
     case "END":
 
       
+      if ($analyze) continue;
       $action->log->debug("add ");
       if (($num > 3) && ($data[3] != "")) $doc->doctype = "S";
       $doc->modify();
@@ -97,11 +104,8 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "DOC":
-      $ndoc=csvAddDoc($dbaccess, $data, $dirid);
-      if (! isset($HTTP_POST_FILES["tsvfile"])) {
-	// log of batch mode
-	print $ndoc->title."\n";
-      }
+      $ndoc=csvAddDoc($action,$dbaccess, $data, $dirid);
+      
     break;    
     // -----------------------------------
     case "SEARCH":
@@ -197,30 +201,46 @@ function add_import_file(&$action, $fimport="") {
   }
       
   fclose ($fdoc);
-  if ($gerr != "") $action->exitError($gerr);
 
 
-  if (isset($HTTP_POST_FILES["tsvfile"]))  
-    redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");
+  if (isset($HTTP_POST_FILES["file"])) {
+    if ($gerr != "") $action->exitError($gerr);
 
+  } else {
+    print $gerr;
+  }
     
   
 }
 
-function csvAddDoc($dbaccess, $data, $dirid=10) {
+function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
+  $analyze = (GetHttpVars("analyze","N")=="Y"); // just analyze
+
   // like : DOC;120;...
   $err="";
   $doc = createDoc($dbaccess, $data[1]);
+  if (! $doc) return;
+
+  $msg =""; // information message
   $doc->fromid = $data[1];
   if  ($data[2] > 0) $doc->id= $data[2]; // static id
-  if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) $err = $doc->Add();
+  if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) {
+    if (! $analyze) {
+      $err = $doc->Add();
+      $msg .= $err . sprintf(_("add id [%d] "),$doc->id); 
+    } else $msg .=  sprintf(_("add [%s] "),implode('-',$data)); 
+  } else {
+    
+    $msg .= $err . sprintf(_("update id [%d] "),$doc->id);
+  }
+  
     
   if ($err != "") {
     global $nline, $gerr;
     $gerr="\nline $nline:".$err;
     return false;
   }
-  $lattr = $doc->GetNormalAttributes();
+  $lattr = $doc->GetImportAttributes();
 
 
 
@@ -233,17 +253,33 @@ function csvAddDoc($dbaccess, $data, $dirid=10) {
     }
     $iattr++;
   }
-  // update title in finish
-  $doc->refresh(); // compute read attribute
-  $doc->modify();
-  $doc->postModify(); // case special classes
+  if (! $analyze) {
+    // update title in finish
+    $doc->refresh(); // compute read attribute
+    $doc->modify();
+    $doc->postModify(); // case special classes
+  }
+  $msg .= $doc->title;
   if ($data[3] > 0) { // dirid
     $dir = new Dir($dbaccess, $data[3]);
-    $dir->AddFile($doc->id);
+    if (! $analyze) $dir->AddFile($doc->id);
+    $msg .= $err.sprintf(_("and add in %s folder "),$dir->title); 
   } else if ($data[3] ==  0) {
-    $dir = new Dir($dbaccess, $dirid);
-    $dir->AddFile($doc->id);
+    if ($dirid > 0) {
+      $dir = new Dir($dbaccess, $dirid);
+      if (! $analyze) $dir->AddFile($doc->id);
+      $msg .= $err.sprintf(_("and add  in %s folder "),$dir->title); 
+    }
   }
+
+  if (isset($action->lay)) {
+    $tmsg = $action->lay->GetBlockData("MSG");
+    $tmsg[] = array("msg"=>$msg);
+    $tmsg = $action->lay->SetBlockData("MSG",$tmsg);
+  } else {
+    print $msg."\n";
+  }
+
 
   return $doc;
 }

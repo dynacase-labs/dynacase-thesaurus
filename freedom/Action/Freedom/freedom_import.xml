@@ -4,10 +4,11 @@
 <html>
   <head>
 
-   <title>[TEXT:edition: ] [TITLE]</title>
+   <title>[TEXT:Import Result] </title>
 
    <style>
 [ZONE CORE:GENCSS]
+[ZONE FDL:GENCSS]
    </style>
 
 
@@ -35,60 +36,15 @@
                          
 
 
-<!-- Title Table -->
-<form   class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[APPNAME]&action=ADDIMPORTFILE&id=[id]&dirid=[dirid]" >
-
       
 
+   <H1>[TEXT:Result Import Documents]</H1>
 
-<table class="tableborder"  cellspacing="0" width="100%">
-<tr class="FREEDOMBack1">
- <td  colspan="2">
-   <span class="FREEDOMTextBigTitle">[TEXT:Import Document]</span>
-  </td> 
-   <td  class="FREEDOMText" align="right">[TEXT:for]
-   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IMPORT&dirid=[dirid]&classid='+self.document.modifydoc.classid.options[self.document.modifydoc.classid.selectedIndex].value">  
-         [BLOCK SELECTCLASS]
-           <option VALUE="[idcdoc]" [selected]>[classname]</option>   
-         [ENDBLOCK SELECTCLASS]
-    </select>
-   </td>
-</tr>
-
-<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
-<tr  class="FREEDOMBack1" >
-  <td colspan="3" >
-     [TEXT:Description of the import format:]<BR>
-</td>
-</tr>
-<tr  class="FREEDOMBack1" >
-  <td colspan="3" align="center">
-     <textarea cols="40" rows="[rows]"  >[format]</textarea>
-</td>
-</tr>
-<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
-
-<tr class="FREEDOMBack1">
-  <td colspan="3" >
-      <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
- <label for="tsvfile">[TEXT:import file:]</label>
- <input type="file" name="tsvfile"  > 
-  </td>
-</tr>
-
-<tr class="FREEDOMBack1">
-  <td colspan="3" >
- <input type="submit" value=[TEXT:Import document description] > 
-  </td>
-</tr>
-
-</table>
-
-
-<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]"></input>
-
-</form>
-<!--  FOOT HTML -->
+<OL>
+[BLOCK MSG]
+<li>[msg]</li>
+[ENDBLOCK MSG]
+</OL>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.4 2002/09/02 16:38:49 eric Exp $
+// $Id: freedom_import.php,v 1.5 2002/09/26 15:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,51 +32,7 @@ include_once("FDL/import_file.php");
 // -----------------------------------
 function freedom_import(&$action) {
   // -----------------------------------
-
-  // Get all the params   
-  $classid = GetHttpVars("classid",0); // doc familly
-  $dirid = GetHttpVars("dirid",10); // directory to place imported doc (default unclassed folder)
-
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  // Set Css
-  $cssfile=$action->GetLayoutFile("freedom.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
-
-  // build list of class document
-  $query = new QueryDb($dbaccess,"Doc");
-  $query->AddQuery("doctype='C'");
-
-  $selectclass=array();
-  if ($classid == 0) $classid=$tclassdoc[0]->initid;
-
-  $doc = new Doc($dbaccess, $classid);
-  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid);
-
-  while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
-    if ($cdoc->initid == $classid) $selectclass[$k]["selected"]="selected";
-    else $selectclass[$k]["selected"]="";
-  }
-
-
-  $action->lay->SetBlockData("SELECTCLASS", $selectclass);
-
-
-  $lattr = $doc->GetNormalAttributes();
-  $format = "DOC;".$doc->id.";<special id>;<special dirid>; ";
-
-  while (list($k, $attr) = each ($lattr)) {
-    $format .= $attr->labeltext." ;";
-  }
-
-
-
-  $action->lay->Set("dirid",$dirid);
-  $action->lay->Set("rows",count($lattr)+2);
-  $action->lay->Set("format",$format);
+  add_import_file(&$action); 
 }
 
 

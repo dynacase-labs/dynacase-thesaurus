@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.6 2002/09/02 16:38:49 eric Exp $
+// $Id: exportfld.php,v 1.7 2002/09/26 15:45:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -81,14 +81,16 @@ function exportfld(&$action, $aflid="0")
     // write values
     while (list($ka,$attr)= each ($lattr)) {
       
-      if (isset($value[$doc->id][$attr->id])) fputs($fout,str_replace("\n","\\n",str_replace(";"," - ",$value[$doc->id][$attr->id])) .";");
+      if (isset($value[$doc->id][$attr->id])) fputs($fout,str_replace(array("\n",";","\r"),
+								      array("\\n"," - ",""),
+								      $value[$doc->id][$attr->id]) .";");
       else fputs($fout,";");
     }
     fputs($fout,"\n");
   }
   }
   fclose($fout);
-  Http_DownloadFile($foutnam, $feld->title.".csv", "text/csv");
+  Http_DownloadFile($foutname, $fld->title.".csv", "text/csv");
   unlink($foutname);
 
   

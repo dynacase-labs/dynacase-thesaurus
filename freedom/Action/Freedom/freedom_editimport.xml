@@ -1,0 +1,92 @@
+
+<!-- HEAD HTML -->
+
+<html>
+  <head>
+
+   <title>[TEXT:edition: ] [TITLE]</title>
+
+   <style>
+[ZONE CORE:GENCSS]
+[ZONE FDL:GENCSS]
+   </style>
+
+
+[CSS:REF]
+
+
+   <style type="text/css">
+[CSS:CODE]
+   </style>
+
+[JS:REF]
+
+   <script language="JavaScript">
+  <!--
+    [JS:CODE]
+  //-->
+   </script>   
+
+
+
+ </head>
+
+<body class="freedom">
+
+                         
+
+
+<!-- Title Table -->
+<form  class="fborder" 
+       name="modifydoc" 
+       method="POST" 
+       ENCTYPE="multipart/form-data" 
+       action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IMPORT&id=[id]" >
+
+      
+
+   <H1>[TEXT:Import Documents]</H1>
+
+<input type="hidden" name="dirid" value="[dirid]">
+<input type="hidden" name="analyze" value="N">
+<fieldset>
+<legend>[TEXT:Description of the import format]</legend> [TEXT:for]
+   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDITIMPORT&classid='+self.document.modifydoc.classid.options[self.document.modifydoc.classid.selectedIndex].value">  
+         [BLOCK SELECTCLASS]
+           <option VALUE="[idcdoc]" [selected]>[classname]</option>   
+         [ENDBLOCK SELECTCLASS]
+    </select><BR>
+
+     <input type="text"  size=80 value="[format]"</input>
+     <table border=1 cols=[cols]>
+     <tr>
+     [BLOCK TFORMAT]
+     <td style="border-left:solid 1px">[labeltext]</td>
+     [ENDBLOCK TFORMAT]
+     </tr>
+     </table>
+<hr width="50%">
+ <label for="file">[TEXT:import file:]</label>
+ <input type="file" name="file"  > 
+ <input type="submit" value="[TEXT:Analyze]" 
+        onclick="document.modifydoc.target='anaimport';document.modifydoc.analyze.value='Y'"> 
+</fieldset>
+<fieldset>
+<legend>[TEXT:Direct Import]</legend> 
+ <input type="submit" value="[TEXT:Import document description]"
+        onclick="document.modifydoc.target='_self';document.modifydoc.analyze.value='N'" > 
+
+</fieldset>
+<fieldset>
+<legend>[TEXT:Background Import]</legend> 
+<label for="to">[TEXT:report to (mail address)]</label>
+<input type="text" size=30 name="to" value=[mailaddr]></input><br>
+<input type="submit" 
+       onclick="document.modifydoc.target='_self';document.modifydoc.action='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_BGIMPORT'" 
+       value="[TEXT:proceed background import]">
+</fieldset>
+</form>
+<!--  FOOT HTML -->
+
+</body>
+</html>
