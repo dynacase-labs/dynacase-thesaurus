@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.61 2005/03/18 15:31:37 eric Exp $
+ * @version $Id: viewfolder.php,v 1.62 2005/03/23 10:31:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,7 +22,7 @@ include_once("FDL/Class.QueryDir.php");
 // -----------------------------------
 function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 		    $column=false,
-		    $slice="1000",  // view all document (not slice by slice)
+		    $slice="-",  // view all document (not slice by slice)
 		    $sqlfilters=array(),// more filters to see specials doc
 		    $famid="")       // folder containt special fam id 
 {
@@ -36,7 +36,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $target=GetHttpVars("target","fdoc"); // target for hyperlinks
   $sqlorder=GetHttpVars("sqlorder","title"); // order sort attribute
   $viewone=(GetHttpVars("viewone","N")=="Y"); // direct view if only one
-
+  if ($slice=="-") $slice=$action->GetParam("FDL_FOLDERMAXITEM",1000);
 
   // $column = ($with_popup && ($action->getParam("FREEDOM_VIEW")=="column"));
   

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.16 2004/05/13 16:17:15 eric Exp $
+// $Id: FDL_init.php.in,v 1.17 2005/03/23 10:31:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,6 +46,10 @@ $app_const= array(
   "FDL_VD2SIZE"    =>array("val"=>"400",
 		       "descr"=>N_("vertical size for secondary windows"),
 		       "user"=>"Y",
+		       "global"=>"Y"),
+  "FDL_FOLDERMAXITEM"    =>array("val"=>"1000",
+		       "descr"=>N_("max items return when open a folder"),
+		       "user"=>"N",
 		       "global"=>"Y"),
   "FDL_MAX_FGEXPORTDOC"    =>array("val"=>"20",
 				  "descr"=>N_("maximum document can be imported directly"),
