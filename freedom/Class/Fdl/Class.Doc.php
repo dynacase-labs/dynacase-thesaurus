@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.163 2003/10/28 16:32:27 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.164 2003/11/03 09:05:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.163 2003/10/28 16:32:27 eric Exp $
+// $Id: Class.Doc.php,v 1.164 2003/11/03 09:05:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.163 2003/10/28 16:32:27 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.164 2003/11/03 09:05:18 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -222,6 +222,9 @@ create table doc ( id int not null,
                    attrids text,  
                    postitid int
                    );
+create table docfrom ( id int not null,
+                   primary key (id),
+                   fromid int);
 create sequence seq_id_doc start 1000;
 create sequence seq_id_tdoc start 1000000000;
 create unique index i_docir on doc(initid, revision);";
@@ -1288,6 +1291,9 @@ create unique index i_docir on doc(initid, revision);";
     }
       
 
+    if (is_array($value)) {
+      $value = $this->_array2val($value);
+    }
     if (($value != ""))  {
       // change only if different
       $attrid = strtolower($attrid);
@@ -1297,6 +1303,7 @@ create unique index i_docir on doc(initid, revision);";
 	$this->hasChanged=true;
 	$this->$attrid="";
       } else {
+
 	$value=trim($value," \x0B\r");// suppress white spaces end & begin
 	if (!isset($this->$attrid)) $this->$attrid="";
 
@@ -1722,7 +1729,7 @@ create unique index i_docir on doc(initid, revision);";
 	  //	  print "attr=$sattrid";
 	  if ($k >= 0) {
 	    $tval= $this->GetTValue($sattrid);
-	    $ovalue = $tval[$k];
+	    $ovalue = chop($tval[$k]);
 	  } else {
 	    $ovalue = $this->GetValue($sattrid);
 	  }
@@ -1762,6 +1769,11 @@ create unique index i_docir on doc(initid, revision);";
   function _val2array($v) {
     
     return explode("\n", str_replace("\r","",$v));
+  }
+  
+  function _array2val($v) {    
+    if (count($v) == 0) return "";
+    return implode("\n", $v);
   }
   
   
