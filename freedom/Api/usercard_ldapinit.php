@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.6 2004/03/16 14:14:06 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.7 2004/07/06 08:38:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -17,7 +17,9 @@
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Lib.Dir.php");
 
-
+define("SKIPCOLOR",'[1;31;40m');
+define("UPDTCOLOR",'[1;32;40m');
+define("STOPCOLOR",'[0m');
 $appl = new Application();
 $appl->Set("USERCARD",	   $core);
 
@@ -31,26 +33,35 @@ if ($dbaccess == "") {
   exit;
 }
 
-
+$ldaphost=$action->GetParam("LDAP_SERVEUR","localhost");
+$ldappw=$action->GetParam("LDAP_ROOTPW");
+$ldapdn=$action->GetParam("LDAP_ROOTDN");
+$ldapr=$action->GetParam("LDAP_ROOT");
+print sprintf(_("delete %s on server %s...\n"),$ldapr,$ldaphost);
+system("ldapdelete -r -h $ldaphost -D '$ldapdn' -x -w '$ldappw' '$ldapr'");
 $famid=getFamIdFromName($dbaccess,"USER");
 $ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"TABLE",$famid);
 
 $udoc= createDoc($dbaccess,"USER");
+$uidoc= createDoc($dbaccess,"IUSER");
   
-  while(list($k,$tdoc) = each($ldoc)) {
-    $udoc->ResetMoreValues();
-    $udoc->Affect($tdoc);
-    $udoc->GetMoreValues();
-    $priv=$udoc->GetValue("US_PRIVCARD");
+$reste=count($ldoc);
+foreach($ldoc as $k=>$tdoc) {
+  if ($tdoc["fromid"]==$famid) $doc=$udoc;
+  else $doc=$uidoc;
+
+    $doc->ResetMoreValues();
+    $doc->Affect($tdoc);
+    $doc->GetMoreValues();
+    $priv=$doc->GetValue("US_PRIVCARD");
     $err="";
 
     // update LDAP only no private card
-    if (($priv != "P")) {
-      $udoc->SetLdapParam();
-      $err=$udoc->UpdateLdapCard();
-      if ($err == "") print $udoc->title.": updated\n";
-      else print $udoc->title.": skipped : $err\n";
-    }
+      $doc->SetLdapParam();
+      $err=$doc->UpdateLdapCard();
+      if (($err == "") && ($err !== false)) print UPDTCOLOR.$reste.")".$doc->title.": updated".STOPCOLOR."\n";
+      else print SKIPCOLOR.$reste.")".$doc->title.": skipped : $err".STOPCOLOR."\n";
+      $reste--;
   }
 	
   

@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.12 2004/04/29 08:41:24 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.13 2004/07/06 08:38:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -17,7 +17,8 @@ function SpecRefresh() {
     $this->AddParamRefresh("US_WHATID","US_MAIL,US_LOGIN,US_GROUP");
     if ($this->getValue("US_IDDOMAIN",1) > 1) $this->AddParamRefresh("US_WHATID","US_DOMAIN");
     $this->AddParamRefresh("US_IDDOMAIN","US_DOMAIN");
-    
+    $err="";
+    if ($this->getValue("US_STATUS")=='D') $err .= ($err==""?"":"\n")._("user is desactivated");
     // refresh MEID itself
     $this->SetValue("US_MEID",$this->id);
     $iduser = $this->getValue("US_WHATID");
@@ -27,8 +28,16 @@ function SpecRefresh() {
     } else {
       return _("user has not identificator");
     }
+    return $err;
 }
 
+/**
+ * test if the document can be set in LDAP
+ */
+function canUpdateLdapCard() {
+  return  ($this->getValue("US_STATUS")!='D');
+
+}
 
 // --------------------------------------------------------------------------
 // Set WHAT user & mail parameters
@@ -227,7 +236,9 @@ function PostModify() {
     $this->modify(true,array("us_whatid"));
   } 
   $this->SetLdapParam();
-  $err=$this->UpdateLdapCard();
+  if ($status=="D") $err=$this->DeleteLdapCard();
+  else $err=$this->UpdateLdapCard();
+  
 
   if ($err=="") $err="-";
   return $err;
@@ -236,6 +247,7 @@ function PostModify() {
 
 
 function PostDelete() {
+  _USER::PostDelete();
   $uid=$this->GetValue("US_WHATID");
                                                                                      
   if ($uid<>"")

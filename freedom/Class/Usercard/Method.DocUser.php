@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.23 2004/05/13 16:17:15 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.24 2004/07/06 08:38:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.23 2004/05/13 16:17:15 eric Exp $
+// $Id: Method.DocUser.php,v 1.24 2004/07/06 08:38:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,6 @@
   var $rootdn;
   var $rootpw;
   var $dbaccess;
-  var $orginit = false;
   var $action;
   
   var $defaultabstract= "USERCARD:VIEWABSTRACTCARD";
@@ -128,22 +127,16 @@ function SpecRefresh() {
     $this->rootpw= $action->GetParam("LDAP_ROOTPW");
     $this->useldap= ($action->GetParam("LDAP_ENABLED","no") == "yes");
 
-    if ($action->GetParam("LDAP_ORGINIT") == "OK")
-      $this->orginit = true;
     $this->action = $action;
   }
 
-  // --------------------------------------------------------------------
-  function ModifyLdapCard( $infoldap, $objectclass="inetOrgPerson") {
-  // --------------------------------------------------------------------
-
-    if (! $this->useldap) return;
-    $retour = "";
-    if ($this->serveur != "")
-      {
-
-	if (! $this->orginit)
-	  {
+/**
+ * init society organization of the tree
+ * @return bool true if organization has been created or its already created
+ */
+function OrgInit() {
+    if (! $this->useldap) false;
+  
 
 	    // ------------------------------
 	    // include LDAP organisation first
@@ -163,12 +156,25 @@ function SpecRefresh() {
 		if ((@ldap_search($ds, $dn, "", array()))  || 
 		    (ldap_add($ds, $dn, $orgldap))) {
 		  
-		  global $action;
-		  $action->parent->SetParam("LDAP_ORGINIT","OK");
+		  return true;
 		}
 	      }
 	    }
-	  }
+	    return false;
+}
+
+
+  // --------------------------------------------------------------------
+  function ModifyLdapCard( $infoldap, $objectclass="inetOrgPerson") {
+  // --------------------------------------------------------------------
+
+    if (! $this->useldap) return;
+    $retour = "";
+    if ($this->serveur != "")
+      {
+
+	if ($this->OrgInit()) {
+	  
 	// ------------------------------
 	// update LDAP values
 	
@@ -208,6 +214,10 @@ function SpecRefresh() {
 	  {	    
 	      $retour = _("errldapconnect");
 	  }
+	} else {
+	      $retour = _("errldaporginit");
+	  
+	}
       }
     
     return $retour;
@@ -218,7 +228,6 @@ function SpecRefresh() {
     {
       $this->SetLdapParam();
       $this->DeleteLdapCard();
-      Doc::PostDelete();
     }
   // --------------------------------------------------------------------
   function DeleteLdapCard()
@@ -244,12 +253,23 @@ function SpecRefresh() {
       }
       
     } 
+
 /**
- * 
+ * test if the document can be set in LDAP
+ */
+function canUpdateLdapCard() {
+  $priv=$this->GetValue("US_PRIVCARD");
+  if ($priv == "P") return false;
+  return true;
+}
+
+/**
+ * update LDAP card from user document
  */
   function UpdateLdapCard()    {
       include_once("FDL/Class.UsercardLdif.php");
-      if (! $this->useldap) return;
+      if (! $this->useldap) return false;
+      if (! $this->canUpdateLdapCard()) return false;
 
       $oldif=new UsercardLdif();
       $infoldap=array();
@@ -287,7 +307,7 @@ function SpecRefresh() {
       
 		    if ($fd)
 		      {
-			$contents = fread($fd, filesize ($info->path));
+			$contents = @fread($fd, filesize ($info->path));
 		  
 			$infoldap[$ldapattr]=  ($contents);
 
