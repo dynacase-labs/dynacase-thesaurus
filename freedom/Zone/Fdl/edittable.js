@@ -90,7 +90,7 @@ function chgivalue(iname, nval) {
 
 
 // replace s1 by s2 in node n
-function  nodereplacestr(n,s1,s2) {
+function  nodereplacestrold(n,s1,s2) {
   
   var kids=n.childNodes;
   var ka;
@@ -127,7 +127,7 @@ function  nodereplacestr(n,s1,s2) {
 	      }
 	    }
 	  }
-      nodereplacestr(kids[i],s1,s2);
+      nodereplacestrold(kids[i],s1,s2);
     } 
   }
 }
@@ -156,17 +156,6 @@ function disabledInput(from, value) {
 
 
 
-function resetInputsByName(name) {
-
-  var la=document.getElementsByName(name);
-  if (la) {
-    if (la.length > 1) {
-      for (var i=0; i< la.length; i++) { 
-	la[i].parentNode.insertBefore(la[i],la[i].nextSibling);      
-      }
-    }
-  }
-}
 
 
 // nid is the node id which containt one item of each inputs name
