@@ -2,39 +2,50 @@
 
 pubdir="/home/httpd/what";
 
+if [ "$dbanakeen" = "" ]; then
+    dbname="anakeen"
+else
+    dbname=$dbanakeen
+fi
+dbfree=`$pubdir/wsh.php --api=get_param --param=FREEDOM_DB | sed -e 's/^.*dbname[[:space:]]*=[[:space:]]*\([[:alnum:]]*\).*$/\1/'`
+echo $dbname $dbfree
+
 #------------------------------
 #post installation
 #------------------------------
 if [ "$1" = "I" ] ; then
 
-  echo "Create freedom database"
-  su - postgres -c "createdb --encoding LATIN1 freedom" 2>&1 >>/dev/null
+  echo "Create $dbfree database"
+  su - postgres -c "createdb --encoding LATIN1 $dbfree" 2>&1 >>/dev/null
   
   if [ -f /usr/lib/pgsql/plpgsql.so ]; then
-      su - postgres -c "createlang --dbname=freedom --pglib=/usr/lib/pgsql plpgsql" 2>&1 >>/dev/null
+      su - postgres -c "createlang --dbname=$dbfree --pglib=/usr/lib/pgsql plpgsql" 2>&1 >>/dev/null
   else
-      su - postgres -c "createlang --dbname=freedom --pglib=/usr/lib/postgresql plpgsql" 2>&1 >>/dev/null
+      su - postgres -c "createlang --dbname=$dbfree --pglib=/usr/lib/postgresql plpgsql" 2>&1 >>/dev/null
   fi
   
-  su - postgres -c "psql freedom anakeen -f /home/httpd/what/WHAT/getprivilege.sql"
-  su - postgres -c "psql freedom anakeen -f /home/httpd/what/FDL/fdl.sql"
-  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=Doc
-  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocPerm
-  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=VGroup
-  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom  --class=Group
+  su - postgres -c "psql $dbfree anakeen -f /home/httpd/what/WHAT/getprivilege.sql"
+  su - postgres -c "psql $dbfree anakeen -f /home/httpd/what/FDL/fdl.sql"
+  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=$dbfree --appc=FDL --class=Doc
+  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=$dbfree --appc=FDL --class=DocPerm
+  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=$dbfree --appc=FDL --class=VGroup
+  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=$dbfree  --class=Group
   #copy postgres group table
   $pubdir/wsh.php --api=freedom_groups
 
   #prepare VAULT directories
   mkdir -p /var/freedom
   chown http: /var/freedom
-  if [ ! -f $pubdir/VAULT/FREEDOM.vault ]; then
-    cp $pubdir/FDL/FREEDOM.vault $pubdir/VAULT/FREEDOM.vault
+
+  DBFREE=`echo $dbfree | tr [a-z] [A-Z]`
+  if [ ! -f $pubdir/VAULT/$DBFREE.vault ]; then
+    #cp $pubdir/FDL/FREEDOM.vault $pubdir/VAULT/FREEDOM.vault
+    sed -e"s/fs1/$dbfree/g" $pubdir/FDL/FREEDOM.vault > $pubdir/VAULT/$DBFREE.vault
   fi
   $pubdir/wsh.php --api=vault_init
 
-  $pubdir/wsh.php --app=FDL --action=FREEDOM_INIT  
-  psql freedom anakeen -f $pubdir/API/freedom_clean.sql
+#  $pubdir/wsh.php --app=FDL --action=FREEDOM_INIT  
+ # psql $dbfree anakeen -f $pubdir/API/freedom_clean.sql
 fi
 #------------------------------
 #post update
@@ -47,10 +58,10 @@ if [ "$1" = "U" ] ; then
 
   $pubdir/wsh.php --app=FDL --action=FREEDOM_INIT  
 
-  su - postgres -c "psql freedom anakeen -f /home/httpd/what/WHAT/getprivilege.sql"
-  su - postgres -c "psql freedom anakeen -f /home/httpd/what/FDL/fdl.sql"
+  su - postgres -c "psql $dbfree anakeen -f /home/httpd/what/WHAT/getprivilege.sql"
+  su - postgres -c "psql $dbfree anakeen -f /home/httpd/what/FDL/fdl.sql"
   $pubdir/wsh.php --api=fdl_adoc
-  $pubdir/wsh.php --api=fdl_trigger | psql freedom anakeen
-  $pubdir/wsh.php --api=fdl_trigger --trigger=Y | psql freedom anakeen
+  $pubdir/wsh.php --api=fdl_trigger | psql $dbfree anakeen
+  $pubdir/wsh.php --api=fdl_trigger --trigger=Y | psql $dbfree anakeen
 
 fi

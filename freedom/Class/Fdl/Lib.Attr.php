@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.37 2004/06/25 12:51:47 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.38 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,33 +11,13 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.37 2004/06/25 12:51:47 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 include_once('FDL/Class.Doc.php');
 
 function AttrToPhp($dbaccess, $tdoc) {
   global $action;
  
+  $GEN=getGen($dbaccess);
   $phpAdoc = new Layout("FDL/Layout/Class.Doc.xml",$action);
 
 
@@ -62,9 +42,9 @@ function AttrToPhp($dbaccess, $tdoc) {
     if ($tdoc["classname"] != "Doc".$tdoc["fromid"] ) {
       $phpAdoc->Set("DocParent", $tdoc["classname"]);
       $phpAdoc->Set("pinit", $tdoc["classname"]);
-      $phpAdoc->Set("include","include_once(\"FDLGEN/Class.Doc".$tdoc["fromid"].".php\");");
+      $phpAdoc->Set("include","include_once(\"FDL$GEN/Class.Doc".$tdoc["fromid"].".php\");");
     } else {
-      $phpAdoc->Set("GEN","GEN");
+      $phpAdoc->Set("GEN",$GEN);
       $phpAdoc->Set("DocParent", "Doc".$tdoc["fromid"]);
       if ($tdoc["usefor"] == "W") $phpAdoc->Set("pinit", "WDoc"); // special init for workflow
       else $phpAdoc->Set("pinit", "DocCtrl");
@@ -238,6 +218,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 function PgUpdateFamilly($dbaccess, $docid) {
 
   $msg="";
+  $GEN=getGen($dbaccess);
   $doc = new Doc($dbaccess);
   $err = $doc->exec_query("SELECT * FROM pg_class where relname='doc".$docid."';");
   if ($doc->numrows() == 0) {
@@ -272,30 +253,37 @@ function PgUpdateFamilly($dbaccess, $docid) {
     // -----------------------------
     // add column attribute
     $classname="Doc".$docid;
-    include_once("FDLGEN/Class.$classname.php");
+    include_once("FDL$GEN/Class.$classname.php");
     $cdoc = new $classname($dbaccess);
       
     $qattr = new QueryDb($dbaccess,"DocAttr");
     $qattr->AddQuery("docid=".$docid);
     $qattr->AddQuery("type != 'menu'");
     $qattr->AddQuery("type != 'frame'");
-    $qattr->AddQuery("type != 'array'");
+    //$qattr->AddQuery("type != 'array'");
     $qattr->AddQuery("visibility != 'M'");
     $qattr->AddQuery("visibility != 'F'");
     $qattr->AddQuery("usefor != 'Q' or usefor is null");
 
     $oattr=$qattr->Query();
     if ($qattr->nb > 0) {
-      foreach($oattr as $ka => $attr) {
+      foreach($oattr as $ka => $attr) {	
+	$tattr[strtolower($attr->id)]=$attr;
+      }
+
+      foreach($tattr as $ka => $attr) {
+	if ($attr->type == "array") continue; // skip array but must be in table to search element in arrays
 	$attr->id=chop($attr->id);
 	if ($attr->type=="array") continue; // don't use column for container
 	if ($attr->docid == $docid) { // modify my field not inherited fields
 
 	  if (! in_array($attr->id, $pgatt)) {
 	    $msg .= "add field {$attr->id} in table doc".$docid."\n";
-	  
-	    if ($attr->repeat)  $sqltype = strtolower($v->id)." text";  // for the moment all repeat are text
-	    else {
+
+	    if (($attr->repeat) || ($tattr[$attr->frameid]->type=="array")) { 
+		
+		$sqltype = strtolower($v->id)." text";  // for the moment all repeat are text
+	    } else {
 	      switch($attr->type) {
 	      case double:
 	      case money:
@@ -305,7 +293,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
 		$sqltype = strtolower($v->id)." int4";  
 		break;
 	      case date:
-		$sqltype = strtolower($v->id)." date";  
+		$sqltype = strtolower($v->id)." date"; 
 		break;
 	      case time:
 		$sqltype = strtolower($v->id)." time";  
@@ -329,8 +317,9 @@ function PgUpdateFamilly($dbaccess, $docid) {
 function createDocFile($dbaccess, $tdoc) {
   
 
+  $GEN=getGen($dbaccess);
   $pubdir = GetParam("CORE_PUBDIR");
-  $dfile = "$pubdir/FDLGEN/Class.Doc".$tdoc["id"].".php";
+  $dfile = "$pubdir/FDL$GEN/Class.Doc".$tdoc["id"].".php";
 
   $fphp=fopen($dfile,"w");
   if ($fphp) {
@@ -338,6 +327,7 @@ function createDocFile($dbaccess, $tdoc) {
       fclose($fphp);
       @chmod ($dfile, 0666);  // write for nobody
   }
+  return $dfile;
 }
 
 
@@ -365,7 +355,8 @@ function refreshPhpPgDoc($dbaccess, $docid) {
 
   if ($query->nb > 0)	{
     $v=$table1[0];
-    createDocFile($dbaccess,$v);
+    $df=createDocFile($dbaccess,$v);
+
     $msg=PgUpdateFamilly($dbaccess, $v["id"]);
     //------------------------------
     // see if workflow

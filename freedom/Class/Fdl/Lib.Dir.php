@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.92 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.93 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -279,7 +279,7 @@ function getChildDoc($dbaccess,
 
   // query to find child documents          
   if (($fromid!="") && (! is_numeric($fromid))) $fromid=getFamIdFromName($dbaccess,$fromid);
-
+  if ($fromid==0) $fromid="";
   if (($fromid=="") && ($dirid!=0)&&($qtype=="TABLE")) {
     $fld = new Doc($dbaccess, $dirid);
     if ( $fld->defDoctype != 'S') {
@@ -289,7 +289,6 @@ function getChildDoc($dbaccess,
     } 
   }
   $tqsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest);
-
 
   $tretdocs=array();
   foreach ($tqsql as $qsql) {
@@ -301,6 +300,7 @@ function getChildDoc($dbaccess,
       }
 
 
+      if ($start == "") $start="0";
       if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
       else  {
 	if ($fromid == "") $orderby="title";
@@ -309,7 +309,10 @@ function getChildDoc($dbaccess,
 	else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
       }
    
-      if ($fromid > 0) include_once "FDLGEN/Class.Doc$fromid.php";
+      if ($fromid > 0) {
+	$GEN=getGen($dbaccess);
+	include_once "FDL$GEN/Class.Doc$fromid.php";
+      }
 
    
       $query = new QueryDb($dbaccess,"Doc$fromid");
@@ -330,7 +333,6 @@ function getChildDoc($dbaccess,
     }
   }
 
-  
 
   
   reset($tretdocs);
@@ -615,5 +617,6 @@ function GetClassesDoc($dbaccess,$userid,$classid=0,$qtype="LIST")
      
       return $tcv;
     }
+
 
 ?>

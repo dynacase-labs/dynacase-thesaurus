@@ -3,7 +3,7 @@
  * Import directory with document descriptions
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_import_dir.php,v 1.1 2004/03/16 14:12:46 eric Exp $
+ * @version $Id: freedom_import_dir.php,v 1.2 2004/08/05 09:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -24,8 +24,8 @@ function freedom_import_dir(&$action) {
   $to = GetHttpVars("to"); 
   $filename = GetHttpVars("filename"); 
   
-  $wsh = "nice -n +10 ";
-  $wsh .= $action->GetParam("CORE_PUBDIR")."/wsh.php";
+ 
+  $wsh=getWshCmd(true);
 
   global $_GET,$_POST;
   $targs=array_merge($_GET,$_POST);

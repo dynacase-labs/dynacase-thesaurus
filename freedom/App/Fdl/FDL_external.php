@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.32 2004/07/01 13:50:58 eric Exp $
+ * @version $Id: FDL_external.php,v 1.33 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,7 +22,7 @@ function vault_filename($th, $fileid) {
 
   if (ereg ("(.*)\|(.*)", $fileid, $reg)) {	 
     // reg[1] is mime type
-      $vf = new VaultFile($th->dbaccess, "FREEDOM");
+      $vf = newFreeVaultFile($th->dbaccess);
     if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
     else $fname=sprintf(_("file %d"),$th->initid);
   } else {

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.22 2004/03/01 08:51:33 eric Exp $
+ * @version $Id: generic_edit.php,v 1.23 2004/08/05 09:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.22 2004/03/01 08:51:33 eric Exp $
+// $Id: generic_edit.php,v 1.23 2004/08/05 09:47:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -118,6 +118,7 @@ function generic_edit(&$action) {
     // verify if at least on attribute constraint
     
     $action->lay->Set("bconsdisplay", "none");
+    /*
     $listattr = $doc->GetNormalAttributes();
     foreach ($listattr as $k => $v) {
       if ($v->phpconstraint != "")  {
@@ -125,6 +126,7 @@ function generic_edit(&$action) {
 	break;
       }
     }
+    */
   }
 
  

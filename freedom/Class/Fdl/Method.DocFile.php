@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocFile.php,v 1.5 2004/03/16 14:10:53 eric Exp $
+ * @version $Id: Method.DocFile.php,v 1.6 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,7 +33,7 @@ function viewfilecard($target="_self",$ulink=true,$abstract=false) {
 
 
   $tableimage=array();
-  $vf = new VaultFile($this->dbaccess, "FREEDOM");
+  $vf = newFreeVaultFile($this->dbaccess);
 
   // view all (and only) images
 

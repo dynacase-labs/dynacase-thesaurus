@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.67 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: editutil.php,v 1.68 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.67 2004/07/28 10:17:15 eric Exp $
+// $Id: editutil.php,v 1.68 2004/08/05 09:47:20 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -93,7 +93,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       if (ereg ("(.*)\|(.*)", $value, $reg)) {
 			  
 	$dbaccess = GetParam("FREEDOM_DB");
-	$vf = new VaultFile($dbaccess, "FREEDOM");
+	$vf = newFreeVaultFile($dbaccess);
 	if ($vf -> Show ($reg[2], $info) == "") {
 	  $vid=$reg[2];
 	  $fname = "<A target=\"$attrid\" href=\"".
@@ -134,7 +134,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       if (ereg ("(.*)\|(.*)", $value, $reg)) {
 			  
 	$dbaccess = $action->GetParam("FREEDOM_DB");
-	$vf = new VaultFile($dbaccess, "FREEDOM");
+	$vf = newFreeVaultFile($dbaccess);
 	if ($vf -> Show ($reg[2], $info) == "") {
 	  $vid=$reg[2];
 	  $fname = "<A target=\"$attrid\" href=\"".

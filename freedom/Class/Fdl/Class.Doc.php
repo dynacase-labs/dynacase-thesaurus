@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.210 2004/07/22 14:33:23 caroline Exp $
+ * @version $Id: Class.Doc.php,v 1.211 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -19,7 +19,7 @@ include_once("FDL/freedom_util.php");
 include_once("FDL/Class.DocValue.php");
 include_once("FDL/Class.DocAttr.php");
 include_once('FDL/Class.ADoc.php');
-include_once("VAULT/Class.VaultFile.php");
+include_once("FDL/Lib.Util.php");
 
 
 // define constant for search attributes in concordance with the file "init.freedom"
@@ -2100,7 +2100,8 @@ create unique index i_docir on doc(initid, revision);";
 	     $htmlval.="<input type=\"button\" value=\"close frame\"".
 	       " title=\"fermer la frame\"".
 	       " onclick=\"close_frame('iframe_$attrid')\">";
-	     
+
+
 	     $htmlval.="<input type=\"button\" value=\"view\"".
 	       " title=\"voir dans une nouvelle fenêtre\"".
 	       " onclick=\"subwindowm(400,400,'_$attrid','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attrid','$idocfamid')\">";
@@ -2134,7 +2135,9 @@ create unique index i_docir on doc(initid, revision);";
 	  if (ereg ("(.*)\|(.*)", $avalue, $reg)) {
 	    // reg[1] is mime type
 	    $vid=$reg[2];
-	    $vf = new VaultFile($this->dbaccess, "FREEDOM");
+	    $mime=$reg[1];
+	    include_once("FDL/Lib.Dir.php");
+	    $vf = newFreeVaultFile($this->dbaccess);
 	    if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
 	    else $fname=_("vault file error");
 	  } else $fname=_("no filename");
@@ -2145,12 +2148,27 @@ create unique index i_docir on doc(initid, revision);";
 	    $htmlval.="cid:".$oattr->id;	    
 	    if ($index >= 0) $htmlval.="+$index";
 	    $htmlval.=  "\">".$fname."</A>";
-	  } else 
+	  } else {
 	    $htmlval="<A onmousedown=\"document.noselect=true;\" target=\"_blank\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
 	      "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
 	      ."\">".$fname.
 	      "</A>";
+	    
+	    $umime = trim(`file -ib $info->path`);
+	    $htmlval.=" <A onmousedown=\"document.noselect=true;\" target=\"_blank\" type=\"$mime\" href=\"".
+	      "http://".$_SERVER["HTTP_HOST"].
+	      "/davfreedom/doc".$this->id."/$fname".
+	      "\">"."[DAV:$vid]($mime)".
+	      "</A>";
+
+	    
+	    $htmlval.=" <A onmousedown=\"document.noselect=true;\" target=\"_blank\" type=\"$umime\" href=\"".
+	      "http://".$_SERVER["HTTP_HOST"].
+	      "/davfreedom/doc".$this->id."/$fname".
+	      "\">"."[DAV:$vid]($umime)".
+	      "</A>";
+	     }
 	
 	  break;
 	case "longtext": 	  
@@ -2193,6 +2211,7 @@ create unique index i_docir on doc(initid, revision);";
 	    
 	    reset($tval);
 	    $nbitem= count(current($tval));
+	    $lay->set("caption",$oattr->labelText." ($nbitem)");
 	    $tvattr = array();
 	    for ($k=0;$k<$nbitem;$k++) {
 	      $tvattr[]=array("bevalue" => "bevalue_$k");
@@ -2990,7 +3009,7 @@ create unique index i_docir on doc(initid, revision);";
     $fname="";
     if (ereg ("(.*)\|(.*)", $fileid, $reg)) {	 
       // reg[1] is mime type
-      $vf = new VaultFile($this->dbaccess, "FREEDOM");
+      $vf = newFreeVaultFile($this->dbaccess);
       if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
     
     } 

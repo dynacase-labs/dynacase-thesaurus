@@ -3,39 +3,18 @@
  * Folder managing
  *
  * @author Anakeen 2001
- * @version $Id: Class.QueryDir.php,v 1.15 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Class.QueryDir.php,v 1.16 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.15 2004/07/28 10:17:15 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.15 2004/07/28 10:17:15 eric Exp $';
+
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.16 2004/08/05 09:47:20 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -60,7 +39,7 @@ Class QueryDir extends DbObj
 
   var $sqlcreate = "
 create table fld ( 
-                    dirid   int not null 
+                    dirid   int not null,
                     query   text,
                     childid   int,
                     qtype   char

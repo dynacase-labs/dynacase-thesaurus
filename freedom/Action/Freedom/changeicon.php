@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: changeicon.php,v 1.5 2004/03/25 11:10:10 eric Exp $
+ * @version $Id: changeicon.php,v 1.6 2004/08/05 09:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: changeicon.php,v 1.5 2004/03/25 11:10:10 eric Exp $
+// $Id: changeicon.php,v 1.6 2004/08/05 09:47:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/changeicon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,6 +34,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: changeicon.php,v $
+// Revision 1.6  2004/08/05 09:47:21  eric
+// For multibase
+//
 // Revision 1.5  2004/03/25 11:10:10  eric
 // Replace global variable HTTP_ by _
 //
@@ -113,7 +116,7 @@ function changeicon(&$action)
       move_uploaded_file($fileinfo['tmp_name'], $destfile);
 
 
-      $vf = new VaultFile($dbaccess, "FREEDOM");
+      $vf = newFreeVaultFile($dbaccess);
 
 
       $err = $vf -> Store($destfile, true , $vid);

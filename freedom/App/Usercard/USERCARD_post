@@ -1,17 +1,26 @@
 #!/bin/bash
 
 pubdir="/home/httpd/what";
+dbfree="freedom";
+dbname="anakeen"
 
+if [ "$dbanakeen" = "" ]; then
+    dbname="anakeen"
+else
+    dbname=$dbanakeen
+fi
+dbfree=`$pubdir/wsh.php --api=get_param --param=FREEDOM_DB | sed -e 's/^.*dbname[[:space:]]*=[[:space:]]*\([[:alnum:]]*\).*$/\1/'`
+echo $dbname $dbfree
 #------------------------------
 #post installation
 #------------------------------
 if [ "$1" = "I" ] ; then
 
-  $pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
-  $pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
-  su - postgres -c "psql freedom anakeen -f $pubdir/USERCARD/init.sql"
-  su - postgres -c "psql freedom anakeen -f $pubdir/API/freedom_clean.sql"
-  $pubdir/wsh.php --api=usercard_iuser
+  $pubdir/wsh.php  --app=USERCARD --action=USERCARD_INIT 
+  $pubdir/wsh.php   --app=USERCARD --action=USERCARD_INIT 
+  su - postgres -c "psql $dbfree anakeen -f $pubdir/USERCARD/init.sql"
+  su - postgres -c "psql $dbfree anakeen -f $pubdir/API/freedom_clean.sql"
+  $pubdir/wsh.php   --api=usercard_iuser
 fi
 
 #------------------------------
@@ -19,8 +28,8 @@ fi
 #------------------------------
 if [ "$1" = "U" ] ; then
 
-  $pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
-  $pubdir/wsh.php --api=usercard_iuser
+  $pubdir/wsh.php  -a $dbname --app=USERCARD --action=USERCARD_INIT 
+  $pubdir/wsh.php  -a $dbname --api=usercard_iuser
 
 fi
 

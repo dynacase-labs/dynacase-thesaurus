@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_refresh.php,v 1.10 2003/11/03 09:11:33 eric Exp $
+ * @version $Id: freedom_refresh.php,v 1.11 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -44,7 +44,8 @@ if ($dbaccess == "") {
 if (! is_numeric($famId)) $famId=getFamIdFromName($dbaccess,$famId);
 
 if ($famId > 0) {
-  include_once "FDLGEN/Class.Doc$famId.php";
+  $GEN=getGen($dbaccess);
+  include_once "FDL$GEN/Class.Doc$famId.php";
 }
 	
   

@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.38 2004/04/23 15:24:57 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.39 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -235,7 +235,7 @@ Class WDoc extends Doc {
 	  
       if (! method_exists($this, $tr["m1"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m1"], get_class($this)));
 	
-      $err = call_user_method ($tr["m1"], $this, $newstate,$this->doc->state);
+      $err = call_user_method ($tr["m1"], $this, $newstate,$this->doc->state,$addcomment);
 	
       if ($err == "->") {
 	if ($force) {
@@ -247,7 +247,7 @@ Class WDoc extends Doc {
 	  return ""; //it is not a real error, but don't change state (reported)
 	}
       }
-      if ($err != "") return (sprintf(_("The change state to %s has been aborded.\n%s"), 
+      if ($err != "") return (sprintf(_("The change state to %s has been aborted.\n%s"), 
 				      _($newstate), $err));
 	
 	
@@ -272,7 +272,7 @@ Class WDoc extends Doc {
     // post action
     if ($tr["m2"] != "") {
       if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
-      $err = call_user_method ($tr["m2"], $this, $newstate,$oldstate );
+      $err = call_user_method ($tr["m2"], $this, $newstate,$oldstate,$addcomment);
 
 	  
       if ($err == "->") $err=""; //it is not a real error

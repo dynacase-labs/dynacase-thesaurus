@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_adoc.php,v 1.11 2003/12/30 10:12:41 eric Exp $
+ * @version $Id: fdl_adoc.php,v 1.12 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -60,9 +60,10 @@ if ($query->nb > 0)	{
 
   foreach ($tid as $k=>$v)   {	     
     //    print AttrtoPhp($dbaccess,$v->id);
-    print "$pubdir/FDLGEN/Class.Doc".$v["id"].".php\n";
-    createDocFile($dbaccess,$v);
-    
+
+    $phpfile=createDocFile($dbaccess,$v);
+    print "$phpfile\n";
+
     $msg=PgUpdateFamilly($dbaccess, $v["id"]);
     print $msg;
     if ($v["usefor"] == "W") { // add special attribute for workflow

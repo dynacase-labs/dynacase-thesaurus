@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.40 2004/06/01 16:14:34 eric Exp $
+ * @version $Id: mailcard.php,v 1.41 2004/08/05 09:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.40 2004/06/01 16:14:34 eric Exp $
+// $Id: mailcard.php,v 1.41 2004/08/05 09:47:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -137,7 +137,7 @@ function sendCard(&$action,
   $ftitle = str_replace("'", "",$ftitle);
   $ftitle = str_replace("&", "",$ftitle);
 
-  $vf = new VaultFile($dbaccess, "FREEDOM");
+  $vf = newFreeVaultFile($dbaccess);
   $pubdir = $action->getParam("CORE_PUBDIR");
   $szone=false;
   

@@ -3,7 +3,7 @@
  * Retrieve icon file
  *
  * @author Anakeen 2002
- * @version $Id: geticon.php,v 1.3 2004/02/12 10:27:54 eric Exp $
+ * @version $Id: geticon.php,v 1.4 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,7 +20,7 @@ $vaultid = GetHttpVars("vaultid",0);
 $$mimetype = GetHttpVars("$$mimetype","image");
 
 $dbaccess = "host=localhost user=anakeen port=5432 dbname=freedom";
-$vf = new VaultFile($dbaccess, "FREEDOM");
+$vf = newFreeVaultFile($dbaccess);
 
   if ($vf -> Retrieve ($vaultid, $info) != "") {    
   } else

@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.72 2004/07/06 08:37:40 eric Exp $
+ * @version $Id: import_file.php,v 1.73 2004/08/05 09:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -77,6 +77,7 @@ function add_import_file(&$action, $fimport="") {
 	  if (is_numeric($data[1]))   $doc->fromid = $data[1];
 	  else $doc->fromid = getFamIdFromName($dbaccess,$data[1]);
 	  $err = $doc->Add();
+
 	}
 	$tcr[$nline]["msg"]=sprintf(_("create %s family"),$data[2]);
 	$tcr[$nline]["action"]="added";
@@ -101,7 +102,6 @@ function add_import_file(&$action, $fimport="") {
       break;
       // -----------------------------------
     case "END":
-
       // add messages
       $msg=sprintf(_("modify %s family"),$doc->title);
       $tcr[$nline]["msg"]=$msg;
@@ -115,6 +115,11 @@ function add_import_file(&$action, $fimport="") {
 
       $doc->modify();
 
+      if (  $doc->doctype=="C") {
+	global $tFamIdName;
+	$msg=refreshPhpPgDoc($dbaccess, $doc->id);
+	if (isset($tFamIdName))	$tFamIdName[$doc->name]=$doc->id; // refresh getFamIdFromName for multiple family import
+      }
       if (isset($data[2])) {
 	if  ($data[2] > 0) { // dirid
 	  $dir = new Doc($dbaccess, $data[2]);
@@ -127,12 +132,7 @@ function add_import_file(&$action, $fimport="") {
       }
 
       
-      if (  $doc->doctype=="C") {
-
-	global $tFamIdName;
-	$msg=refreshPhpPgDoc($dbaccess, $doc->id);
-	if (isset($tFamIdName))	$tFamIdName[$doc->name]=$doc->id; // refresh getFamIdFromName for multiple family import
-      }
+     
       
       $nbdoc++;
 
@@ -686,7 +686,7 @@ function AddVaultFile($dbaccess,$path,$analyze,&$vid) {
   // $mime=mime_content_type($absfile);
   $mime=trim(`file -ib "$absfile2"`);
   if (!$analyze) {
-    $vf = new VaultFile($dbaccess, "FREEDOM");
+    $vf = newFreeVaultFile($dbaccess);
     $err=$vf->Store($path, false , $vid);
   }
   if ($err != "") {

@@ -3,7 +3,7 @@
  * Image document
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocImg.php,v 1.6 2004/03/16 14:10:53 eric Exp $
+ * @version $Id: Method.DocImg.php,v 1.7 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,7 +34,7 @@ function viewimgcard($target="_self",$ulink=true,$abstract=false) {
   $listattr = $this->GetNormalAttributes();
 
   $tableimage=array();
-  $vf = new VaultFile($this->dbaccess, "FREEDOM");
+  $vf = newFreeVaultFile($this->dbaccess);
 
   // view all (and only) images
 

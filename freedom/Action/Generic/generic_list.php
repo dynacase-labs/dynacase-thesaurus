@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.17 2004/07/28 10:13:52 eric Exp $
+ * @version $Id: generic_list.php,v 1.18 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.17 2004/07/28 10:13:52 eric Exp $
+// $Id: generic_list.php,v 1.18 2004/08/05 09:47:20 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -76,12 +76,13 @@ function generic_list(&$action) {
   $action->lay->Set("previcon",""); 
 
 
-
   $aorder = getDefUSort($action);
-  if ($aorder != "title") { // test if attribute order exist
-    $ndoc = createDoc($dbaccess, $famid,false);
-    if ($aorder[0]=="-") $aorder=substr($aorder,1);
-    if (in_array($aorder,$ndoc->fields))    setHttpVar("sqlorder",getDefUSqlSort($action) );
+  if ($famid > 0) {
+    if ($aorder != "title") { // test if attribute order exist
+      $ndoc = createDoc($dbaccess, $famid,false);
+      if ($aorder[0]=="-") $aorder=substr($aorder,1);
+      if (in_array($aorder,$ndoc->fields))    setHttpVar("sqlorder",getDefUSqlSort($action) );
+    }
   }
   if (viewfolder($action, true, false,$column,$slice,array(),$famid) == $slice) {
     // can see next

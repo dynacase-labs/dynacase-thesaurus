@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.20 2004/01/28 09:40:55 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.21 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -49,9 +49,10 @@ create unique index idx_idfam on docfam(id);";
     PFam::PFam($dbaccess, $id, $res, $dbid);
      
     $this->doctype='C';
-    if ($this->id > 0) {
+    if (($this->id > 0)&& ($this->isAffected())) {
       $adoc = "Doc".$this->id;
-      include_once("FDLGEN/Class.$adoc.php");
+      $GEN=getGen($dbaccess);
+      include_once("FDL$GEN/Class.$adoc.php");
       $adoc = "ADoc".$this->id;
       $this->attributes = new $adoc();
       uasort($this->attributes->attr,"tordered"); 

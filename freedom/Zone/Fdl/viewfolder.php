@@ -1,38 +1,15 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * View folder containt
  *
- * @author Anakeen 2000 
- * @version $Id: viewfolder.php,v 1.53 2004/06/23 14:08:24 eric Exp $
+ * @author Anakeen 2003
+ * @version $Id: viewfolder.php,v 1.54 2004/08/05 09:47:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
  */
  /**
  */
-
-// ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.53 2004/06/23 14:08:24 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 
 
@@ -95,11 +72,6 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
 
-
-
-
-
-
   if ($dirid == "")  {
     $action->exitError(_("cannot see unknow folder"));
 
@@ -121,7 +93,6 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 		      $distinct, $sqlorder);
 
   
-
 
 
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_bgimport.php,v 1.6 2004/03/25 11:10:09 eric Exp $
+ * @version $Id: freedom_bgimport.php,v 1.7 2004/08/05 09:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_bgimport.php,v 1.6 2004/03/25 11:10:09 eric Exp $
+// $Id: freedom_bgimport.php,v 1.7 2004/08/05 09:47:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_bgimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -65,8 +65,7 @@ function freedom_bgimport(&$action) {
       
     } 
 
-  
-  $wsh = "nice -n +10 ".$action->GetParam("CORE_PUBDIR")."/wsh.php";
+  $wsh =  getWshCmd(true);
 
   $cmd[] = "cp $file $file.1";
 

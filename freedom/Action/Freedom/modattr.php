@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.20 2004/03/25 11:10:09 eric Exp $
+ * @version $Id: modattr.php,v 1.21 2004/08/05 09:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -139,8 +139,8 @@ function modattr(&$action) {
     }
 
 
-  $wsh = GetParam("CORE_PUBDIR")."/wsh.php";
-  $cmd = $wsh . " --userid={$action->user->id} --api=fdl_adoc --docid=".$doc->initid;
+  $wsh = getWshCmd();
+  $cmd = $wsh . "--userid={$action->user->id} --api=fdl_adoc --docid=".$doc->initid;
 
   $err= exec($cmd, $out, $ret);
 

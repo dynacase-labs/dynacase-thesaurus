@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.45 2004/07/28 10:17:15 eric Exp $
+ * $Id: freedom.css,v 1.46 2004/08/05 09:47:20 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -447,6 +447,7 @@ SPAN.selected:hover, SPAN.unselected:hover, SPAN.hselected:hover{
 	/* Sublists are visible or not based on class of parent LI */
 	ul.mktree  li.liOpen    ul { display: block; }
 	ul.mktree  li.liClosed  ul { display: none; }
+	ul.mktree img  { cursor: pointer;}
 	/* Format menu items differently depending on what level of the tree they are in */
 	/*ul.mktree  li { font-size: 12pt; }
 	ul.mktree  li ul li { font-size: 10pt; }

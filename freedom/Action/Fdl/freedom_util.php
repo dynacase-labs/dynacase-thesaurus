@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.53 2004/07/05 13:01:31 eric Exp $
+ * @version $Id: freedom_util.php,v 1.54 2004/08/05 09:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,28 +12,6 @@
  */
 
 
-// ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.53 2004/07/05 13:01:31 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 //
 
@@ -118,6 +96,7 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
   }
   $fromid="";
   $gen=""; // path GEN or not
+  
   if ($id > 0) {
 
     if (isset($gdocs[$id])) {
@@ -131,7 +110,7 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
     $fromid= getFromId($dbaccess,$id);
     if ($fromid > 0) {
       $classname= "Doc$fromid";
-      $gen="GEN";
+      $gen=getGen($dbaccess);
     }else if ($fromid == -1) $classname="DocFam"; 
     
 
@@ -140,7 +119,7 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
     $fromid=$res["fromid"];
     $doctype=$res["doctype"];
     if ($doctype=="C") $classname= "DocFam"; 
-    else if ($fromid > 0) {$classname= "Doc".$res["fromid"];$gen="GEN";}
+    else if ($fromid > 0) {$classname= "Doc".$res["fromid"];$gen=getGen($dbaccess);}
     else  $classname=$res["classname"];
   }
 	    
@@ -183,7 +162,8 @@ function createDoc($dbaccess,$fromid,$control=true) {
 
     
     $classname = "Doc".$fromid;
-    include_once("FDLGEN/Class.$classname.php");
+    $GEN=getGen($dbaccess);
+    include_once("FDL$GEN/Class.$classname.php");
     $doc = new $classname($dbaccess);
     
     $doc->revision = "0";
@@ -348,7 +328,10 @@ function getFamIdFromName($dbaccess, $name) {
  */
 function getIdFromName($dbaccess, $name, $famid="") {
 
-    if ($famid > 0) include_once "FDLGEN/Class.Doc$famid.php";      
+    if ($famid > 0) {
+      $GEN=getGen($dbaccess);
+      include_once "FDL$GEN/Class.Doc$famid.php";      
+    }
     
     $q = new QueryDb($dbaccess, "Doc$famid");
     $q->AddQuery("name='$name'");

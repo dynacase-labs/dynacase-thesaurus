@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.9 2004/02/12 09:36:45 eric Exp $
+ * @version $Id: exportfile.php,v 1.10 2004/08/05 09:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -102,7 +102,7 @@ function exportfirstfile(&$action)
 function DownloadVault(&$action, $vaultid, $isControled, $mimetype="") {
   // --------------------------------------------------------------------
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $vf = new VaultFile($dbaccess, "FREEDOM");
+  $vf = newFreeVaultFile($dbaccess);
 
   if ($vf -> Retrieve ($vaultid, $info) != "") {    
       Http_DownloadFile("FREEDOM/Images/doc.gif", "unknow", "image/gif");
