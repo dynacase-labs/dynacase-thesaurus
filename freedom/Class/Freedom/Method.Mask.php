@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.7 2004/01/28 10:23:39 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.8 2004/02/02 11:11:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.7 2004/01/28 10:23:39 eric Exp $
+// $Id: Method.Mask.php,v 1.8 2004/02/02 11:11:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -89,7 +89,7 @@ function getCVisibilities() {
     if ($tvisid[$k]=="-") $vis=$attr->visibility;
     else $vis=$tvisid[$k];
 
-    $tvisibilities[$v]=ComputeVisibility($vis,$tsvis[$fvisid]);    
+    $tvisibilities[$v]=ComputeVisibility($vis,$tvisibilities[$fvisid]);    
   }
   return $tvisibilities;
 }
