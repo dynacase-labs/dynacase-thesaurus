@@ -131,7 +131,9 @@ function openMenuOrProperties(event,menuid,itemid) {
 
 function sendFirstFile(docid) {
   url='[CORE_STANDURL]&app=FDL&action=EXPORTFIRSTFILE&docid='+docid;
-  subwindow(300,400,'',url);
+
+  we = window.open('about:blank','','resizable=yes,scrollbars=yes');
+  we.document.location.href=url;
 }
 
 function openFld(docid) {
