@@ -1,90 +1,37 @@
 //          ---------------------------------------------------------------------------------
 // for idoc type documents 
 
-function viewidoc_in_frame(idframe,xmlid,idocfam){
-//cette meme fonction se trouve ds viewicard.js et editcard.js
-//alert(idframe);
-var iframe=document.getElementById(idframe);
-iframe.style.display='inline';
-//alert(iframe.name);
-var xml_element = document.getElementById(xmlid);
-var fxml = document.getElementById('fviewidoc');
-fxml.xml.value=xml_element.value;
-fxml.famid.value=idocfam;
-//alert(iframe.id);
-//alert(iframe.name);
 
-fxml.target=iframe.name;
-//alert(fxml.target);
-//window.setTimeout("soumettre()",500);
-fxml.submit();
-}
-
-
-
-function close_frame(idframe){
-//cette meme fonction se trouve ds fdl_card.xml,viewicard.xml et editcard.js
-var iframe=document.getElementById(idframe);
-iframe.style.display='none';
-
-}
 
 
 function editidoc(idattr,xmlid,idocfam,attr_type) {
 
-var xml_element = document.getElementById(xmlid);
-var fxml = document.getElementById('fidoc');
+  var xml_element = document.getElementById(xmlid);
+  var fxml = document.getElementById('fidoc');
 
 
- subwindowm(400,400,idattr,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT');    
-exist=windowExist("un",true);
-/*
-if (!exist){
-alert("exist pas");
-}
-if (exist){
-alert("existe");
-}
-*/
-fxml.famid.value=idocfam;
-fxml.attrid.value=idattr;
-fxml.type_attr.value=attr_type;
+  subwindow(400,400,idattr,'');    
+  /*
+    if (!exist){
+    alert("exist pas");
+    }
+    if (exist){
+    alert("existe");
+    }
+  */
+  fxml.famid.value=idocfam;
+  fxml.attrid.value=idattr;
+  fxml.type_attr.value=attr_type;
 
-if(!exist){
-fxml.xml.value="";
-//subwindowm(400,400,idattr,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT');
-fxml.action ="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT";
-fxml.target=idattr;
 
-fxml.submit();
-window.start=0;
-}
+  fxml.xml.value=xml_element.value;
+  fxml.action ="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT2";
+  fxml.target=idattr;
 
-fxml.xml.value=xml_element.value;
-fxml.action ="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT2";
-fxml.target="un";
-
-if(!exist){
-temp=window.setInterval("wait(temp)",100);
-}
-else{
-fxml.submit();
-}
+  fxml.submit();
 
 }
 
-
-function wait(temp){
-
-var fxml = document.getElementById('fidoc');
-if (window.start==1){
-//alert("ici");
-fxml.submit();
-window.clearInterval(temp);
-
-}
-
-}
 
 
 

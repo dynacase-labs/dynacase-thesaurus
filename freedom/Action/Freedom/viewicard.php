@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewicard.php,v 1.3 2004/06/11 16:12:53 eric Exp $
+ * @version $Id: viewicard.php,v 1.4 2005/03/04 17:15:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: viewicard.php,v 1.3 2004/06/11 16:12:53 eric Exp $
+// $Id: viewicard.php,v 1.4 2005/03/04 17:15:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/viewicard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,8 @@ function viewicard(&$action) {
 
   //$xml=stripslashes($xml);
   //$xml=ltrim($xml);
-  $xml=base64_decode($xml);
+  //  printf("<br>[$xml]");
+  $xml=base64_decode(trim($xml));
 
   $famid = GetHttpVars("famid"); 
  
@@ -61,7 +62,6 @@ function viewicard(&$action) {
    $idoc= createDoc($dbaccess,$famid);///new doc
  $action->lay->Set("TITLE",$idoc->title);
  
- // printf($xml);
 
 
   $idoc=fromxml($xml,$idoc);
@@ -70,7 +70,7 @@ function viewicard(&$action) {
   $idoc->SetTitle($idoc->title);
 
   redirect($action,GetHttpVars("redirect_app","FDL"),
-	     GetHttpVars("redirect_act","IMPCARD&&id=".$idoc->id),
+	     GetHttpVars("redirect_act","IMPCARD&dochead=no&id=".$idoc->id),
 	     $action->GetParam("CORE_STANDURL"));
   //printf($idoc->title);
   SetHttpVar("id",$idoc->id);

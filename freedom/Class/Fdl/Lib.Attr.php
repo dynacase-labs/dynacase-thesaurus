@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.45 2005/03/01 17:18:48 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.46 2005/03/04 17:18:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -107,6 +107,9 @@ function AttrToPhp($dbaccess, $tdoc) {
 	if (ereg("([a-z]+)\(\"(.*)\"\)",$v->type, $reg)) {
 	  $atype=$reg[1];
 	  $aformat=$reg[2];
+	  if ($atype=="idoc") {
+	    if (! is_numeric($aformat)) $aformat=getFamIdFromName($dbaccess,$aformat);
+	  }
 	} else {
 	  $atype=$v->type;
 	  $aformat="";

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.231 2005/03/01 17:17:13 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.232 2005/03/04 17:18:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2098,51 +2098,7 @@ create unique index i_docir on doc(initid, revision);";
 	 case "idoc":
 	   $aformat=""; 
 	   
-	   /*
-	   if (($oattr->repeat) && (!$oattr->inArray())){ // old idoclist type
-	    
-	    
-	     $value=explode("\n",$value);
-	     // printf($value.length)
-	     $input="";
-	     // printf($input);
-	     while (list($x,$xmlencode) = each($value)) {
-	       if ($xmlencode!=""){
-		 printf("ici");
-		 //printf($attrid);
-		 $input.=recup_argument_from_xml(base64_decode($xmlencode),"title");
-		 $attrid.="_$x";
-		 //printf($attrid);
 
-		 $input.="<FORM><INPUT id='_$attrid' TYPE=\"hidden\"  name='_$attrid' value=\"".$xmlencode." \"></input></FORM>";
-		 $input.="<iframe name='iframe_$attrid' id='iframe_$attrid' style='display:none' marginwidth=0 marginheight=0  width='100%' heigth=200></iframe>";
-		 
-		 // print_r($input);
-		 $input.="<input type=\"button\" value=\"view in frame\"".
-		   " title=\"voir dans une frame\"".
-		   " onclick=\"viewidoc_in_frame('iframe_$attrid','_$attrid','$idocfamid')\">";
-		 
-		 $input.="<input type=\"button\" value=\"close frame\"".
-		   " title=\"fermer la frame\"".
-		   " onclick=\"close_frame('iframe_$attrid')\">";
-		 
-		 $input.="<input type=\"button\" value=\"view\"".
-		   " title=\"voir dans une nouvelle fenêtre\"".
-		   " onclick=\"subwindowm(400,400,'_$attrid','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attrid','$idocfamid')\">";
-		 $input.="<BR/>";
-		 
-	       }
-	       
-	     }
-	     //printf($input);
-	     //print_r($input);
-	     $htmlval=$input;
-	     
-	     
-	   }
-	   
-	   else {
-	   */
 	   $value=$avalue;
 	     if($value!=""){
 	       // printf("la ");
@@ -2153,27 +2109,28 @@ create unique index i_docir on doc(initid, revision);";
 	       $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
 	     }
 	     $attrid=$attrid.$index;
-	     $htmlval="<FORM><INPUT id=\"_" .$attrid."\" TYPE=\"hidden\"  name=\"_".$attrid."\" value=\"".$value." \">$title</input></FORM>";
-	     $htmlval.="<iframe name='iframe_$attrid' id='iframe_$attrid' style='display:none' marginwidth=0 marginheight=0  width='100%' heigth=200></iframe>";
-	     
-	     
-	     $htmlval.="<input type=\"button\" value=\"view in frame\"".
-	       " title=\"voir dans une frame\"".
-	       " onclick=\"viewidoc_in_frame('iframe_$attrid','_$attrid','$idocfamid')\">";
-	     
-	     $htmlval.="<input type=\"button\" value=\"close frame\"".
-	       " title=\"fermer la frame\"".
-	       " onclick=\"close_frame('iframe_$attrid')\">";
+	     $htmlval="<FORM style=\"display:inline\"><INPUT id=\"_" .$attrid."\" TYPE=\"hidden\"  name=\"_".$attrid."\" value=\"".$value." \">";
+	     $htmlval.="<a onclick=\"subwindow(400,400,'_$attrid','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attrid','$idocfamid')\" ";
+	     $htmlval.="oncontextmenu=\"viewidoc_in_popdoc(event,'$attrid','_$attrid','$idocfamid');return false\">$title</a>";
+// 	     $htmlval.="<input id='ivc_$attrid' type=\"button\" value=\"x\"".
+// 	       " title=\""._("close beside window")."\"".
+// 	       " style=\"display:none\"".
+// 	       " onclick=\"close_frame('$attrid')\">";
 
+	  //    $htmlval.="<input type=\"button\" value=\"o\"".
+// 	       " title=\""._("view in other window")."\"".
+// 	       " onclick=\"viewidoc_in_frame('$attrid','_$attrid','$idocfamid')\">";
 
-	     $htmlval.="<input type=\"button\" value=\"view\"".
-	       " title=\"voir dans une nouvelle fenêtre\"".
-	       " onclick=\"subwindowm(400,400,'_$attrid','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attrid','$idocfamid')\">";
+	     $htmlval.="</FORM>";
+	     //     $htmlval.="<iframe name='iframe_$attrid' id='iframe_$attrid' style='display:none' marginwidth=0 marginheight=0  width='100%' heigth=200></iframe>";
+	     
+	     
+	     
+
 	     
 	     //print_r($htmlval);
 	     
 	     
-	     // }
 	   break;
 	   
      

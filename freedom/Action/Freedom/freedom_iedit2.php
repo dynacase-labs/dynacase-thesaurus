@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_iedit2.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_iedit2.php,v 1.4 2005/03/04 17:15:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_iedit2.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_iedit2.php,v 1.4 2005/03/04 17:15:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_iedit2.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,40 +61,35 @@ function freedom_iedit2(&$action) {
 
 
   $attrid=GetHttpVars("attrid");
-  //printf($attrid);
   $action->lay->Set("attrid",$attrid);
 
   $action->lay->Set("xml_initial",$xml);
 
- //   $xml=stripslashes($xml);
- // $xml=ltrim($xml);
-	$temp=base64_decode($xml);
-	$entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
-	$xml=$entete;
-	$xml.=$temp;
+  $temp=base64_decode(trim($xml));
+  $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
+  $xml=$entete;
+  $xml.=$temp;
 	
 
-	//	printf($xml);
 
  
   $famid = GetHttpVars("famid");
-  // printf($famid);
  
   $dbaccess = $action->GetParam("FREEDOM_DB");
-   $idoc= createDoc($dbaccess,$famid);///new doc
+  $idoc= createDoc($dbaccess,$famid,false);///new doc
  
 
 
 
   $idoc=fromxml($xml,$idoc);
   $idoc->doctype='T';
-  //printf($idoc->fromid);
   $idoc->Add();
   SetHttpVar("id",$idoc->id);
   $idoc->SetTitle($idoc->title);
 
   $action->lay->Set("docid",$idoc->id);
   $action->lay->Set("TITLE",$idoc->title);
+  $action->lay->Set("STITLE",addslashes($idoc->title));
   $action->lay->Set("iconsrc", $idoc->geticon()); 
   $action->lay->Set("famid", $famid);
 

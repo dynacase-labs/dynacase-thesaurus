@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.88 2005/02/18 17:06:30 eric Exp $
+ * @version $Id: editutil.php,v 1.89 2005/03/04 17:18:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -198,8 +198,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       if (($oattr->repeat) && (!$oattr->inArray())){ // old idoclist type
    
 	//print_r($oattr);
-
-      
+	print "MUST NOT USE IDOCLIST";
+	/* old idoclist type
 	$layout = new Layout("FREEDOM/Layout/idoclist.xml",$action);
 	$layout->Set("name","_$attrid"."[]");
 	$layout->Set("name_attr","_$attrid");
@@ -235,7 +235,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	}
 	$layout->Set("idframe","iframe_$attrid");
 	$layout->SetBlockData("OPTION",$tabxml);
-	$input=$layout->gen();    
+	$input=$layout->gen();  */  
       }
 
 
@@ -248,29 +248,30 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	  $xml.=$temp; 
 	  $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
 	}
+	if ($title=="") $title=_("create new");
+	$input.="<INPUT id=\"_" .$attridk."\" TYPE=\"hidden\"  name=$attrin value=\"".$value." \"><a id='iti_$attridk' ".
+	  " oncontextmenu=\"viewidoc_in_popdoc(event,'$attridk','_$attridk','$idocfamid')\"".
+	  " onclick=\"editidoc('_$attridk','_$attridk','$idocfamid','idoc');\">$title</a> ";
+// 	$input.="<input type=\"button\" value=\"o\"".
+// 	  " title=\""._("view in frame")."\"".
+// 	  " onclick=\"viewidoc_in_popdoc(event,'$attridk','_$attridk','$idocfamid')\"".
+// 	  " onclick=\"viewidoc_in_popdoc(event,'$attridk','_$attridk','$idocfamid')\">";
 	
-	$input.="<INPUT id=\"_" .$attridk."\" TYPE=\"hidden\"  name=$attrin value=\"".$value." \">$title </input>";
-	$input.="<iframe name='iframe_$attridk' id='iframe_$attridk' style='display:none' height=200 width='100%' marginwidth=0 marginheight=0></iframe>";
+// 	$input.="<input id='ivc_$attridk' type=\"button\" value=\"close frame\"".
+// 	  " title=\""._("close beside window")."\"".
+// 	  " style=\"display:none\"".
+// 	  " onclick=\"close_frame('$attridk')\">";
+// 	$input.="<iframe name='iframe_$attridk' id='iframe_$attridk' style='display:none' height=200 width='100%' marginwidth=0 marginheight=0></iframe>";
 	
 	/*  $input.="<input type=\"button\" value=\"+->\"".
       " title=\""._("add inputs")."\"".
       " onclick=\"special_edit('_$attridk','$idocfamid','idoc','_$attridk');\">";*/
 	
-	$input.="<input type=\"button\" value=\"+\"".
-	  " title=\""._("add inputs")."\"".
-	  " onclick=\"subwindowm(800,800,'_$attridk','[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT');editidoc('_$attridk','_$attridk','$idocfamid','idoc');\">";
 	
 	/* $input.="<input type=\"button\" value=\"view\"".
       " title=\"voir\"".
       " onclick=\"subwindowm(400,400,'_$attridk','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attridk','$idocfamid')\">";
 	*/
-	$input.="<input type=\"button\" value=\"view_in_frame\"".
-	  " title=\"voir dans une frame\"".
-	  " onclick=\"viewidoc_in_frame('iframe_$attridk','_$attridk','$idocfamid')\">";
-	
-	$input.="<input type=\"button\" value=\"close frame\"".
-	  " title=\"fermer la frame\"".
-	  " onclick=\"close_frame('iframe_$attridk')\">";
       }
       
       break;
@@ -983,7 +984,10 @@ function editmode(&$action) {
   $action->parent->AddCssRef("jscalendar/Layout/calendar-win2k-2.css");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITJS");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/viewicard.js");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITIJS");
-  $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=ENUMCHOICEJS");
+  $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=ENUMCHOICEJS");  
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/iframe.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=VIEWDOCJS");
 }
 ?>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_imod.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_imod.php,v 1.3 2005/03/04 17:15:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_imod.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_imod.php,v 1.3 2005/03/04 17:15:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_imod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,7 +62,7 @@ function freedom_imod(&$action) {
 
   //$xml=stripslashes($xml);
   // $xml=ltrim($xml);
-  $temp=base64_decode($xml);
+  $temp=base64_decode(trim($xml));
   $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
   $xml=$entete;
   $xml.=$temp;

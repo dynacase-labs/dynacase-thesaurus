@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.61 2005/01/18 08:44:30 eric Exp $
+ * @version $Id: freedom_util.php,v 1.62 2005/03/04 17:15:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -452,7 +452,6 @@ function createAutoFolder(&$doc) {
 function fromxml($xml,&$idoc){
   global $action;
   $fp = $xml;
-
   global $value; //used to stock value of one attribut (is string type)
     $value="";
     global $tabvalues; //used to stock document attribute values

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.54 2004/10/08 13:26:47 eric Exp $
+ * @version $Id: viewcard.php,v 1.55 2005/03/04 17:18:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,19 +43,6 @@ function viewcard(&$action) {
   if ($target != "mail") $action->lay->setBlockData("MVIEW",array(array("zou")));
   $action->lay->set("fhelp",($action->Read("navigator","")=="EXPLORER")?"_blank":"fhidden");
  
-  // set default geo for mini view
-  $mgeo = $action->GetParam("MVIEW_GEO");
-  if (ereg("([0-9]+)\+([0-9]+)\+([0-9]+)x([0-9]+)",$mgeo,$reg)) {   
-    $action->lay->set("mgeox",intval($reg[1]));
-    $action->lay->set("mgeoy",intval($reg[2]));
-    $action->lay->set("mgeow",intval($reg[3]));
-    $action->lay->set("mgeoh",intval($reg[4]));
-  } else {
-    $action->lay->set("mgeox","250");
-    $action->lay->set("mgeoy","210");
-    $action->lay->set("mgeow","300");
-    $action->lay->set("mgeoh","200");
-  }
 
   if ($ulink == "N") $ulink = false;
   else  if ($ulink == "Y") $ulink = 1;
@@ -142,6 +129,7 @@ function viewcard(&$action) {
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=VIEWDOCJS");
 
 
 

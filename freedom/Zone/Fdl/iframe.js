@@ -255,13 +255,13 @@ function popUp(x,y,w,h,cid,text,bgcolor,textcolor,fontstyleset,title,titlecolor,
 
       var bsavegeo=(noDecoration)?'<img style="display:none" src="Images/byellow.gif" id="'+cid+'_max">':'<img style="cursor:default" src="Images/byellow.gif" id="'+cid+'_max">';
       var tmp=(isresize)?'<img style="cursor:default" src="Images/bgreen.gif"  id="'+cid+'_min">'+bsavegeo:'';
-      titlebar.innerHTML='<span style="position:absolute; left:3px; top:1px; font:bold 10pt sans-serif; color:'+titletextcolor+'; height:18px; overflow:hidden; clip-height:16px;">'+title+'</span><div id="'+cid+'_btt" style="position:absolute; width:48px; height:16px; left:'+(tw-48)+'px; top:2px; text-align:right">'+tmp+'<img style="cursor:default" src="Images/bred.gif"  id="'+cid+'_cls"></div>';
+      titlebar.innerHTML='<span id="'+cid+'_ti" style="position:absolute; left:3px; top:1px; font:bold 10pt sans-serif; color:'+titletextcolor+'; height:18px; overflow:hidden; clip-height:16px;">'+title+'</span><div id="'+cid+'_btt" style="position:absolute; width:48px; height:16px; left:'+(tw-48)+'px; top:2px; text-align:right">'+tmp+'<img style="cursor:default" src="Images/bred.gif"  id="'+cid+'_cls"></div>';
       tw=(ie5)?w-7:w-13;
       var content=new subBox(2,24,tw,h-36,bgcolor,cid+'_c');
       content.style.borderColor=bordercolor;
       content.style.borderWidth="2px";
       if(isExt){
-	content.innerHTML='<iframe id="'+cid+'_ifrm" src="'+text+'" width="100%" height="100%"></iframe>';
+	content.innerHTML='<iframe name="'+cid+'_ifrm" id="'+cid+'_ifrm" src="'+text+'" width="100%" height="100%"></iframe>';
 	content.style.overflow="hidden";
       }else{
 	if(ie5)content.style.scrollbarBaseColor=scrollcolor;

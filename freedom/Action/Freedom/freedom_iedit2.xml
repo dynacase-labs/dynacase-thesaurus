@@ -34,8 +34,9 @@
  </head>
 
 <body class="freedom" 
-      onLoad="editOnLoad();autoHresize();"
-      onUnLoad="closechoose();pleaseSave(event);autoUnlock('[id]')"
+      onLoad="editOnLoad();autoHresize();" 
+      onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[STITLE]:[TEXT:Changes will be loosed if you continue]'";
+      onUnLoad="closechoose();"
       onResize="resizeInputFields()">
 
 <form id="fviewidoc"
@@ -91,15 +92,12 @@
 <tfoot>
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
-  <td  >
-
- <input id="iSubmit" type="submit" value="valider"
-        onmousedown="multiple_for_select();"
-        onclick="if (!canmodify()) return false;enableall();document.isSubmitted=true;return true"> 
-  </td>
-  <td>&nbsp;</td>
   <td  align="right">
- <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;window.close();"> 
+
+ <input id="iSubmit" type="submit" value="[TEXT:Ok]"
+        onmousedown="multiple_for_select();"
+        onclick="if (!canmodify()) return false;enableall();document.isSubmitted=true;return true">  
+ <input type="button" value="[TEXT:Close]" onclick="document.isCancelled=true;window.close();"> 
   </td>
 </tr>
 </tfoot>
