@@ -36,14 +36,9 @@
 
 
 <script type="text/javascript"> 
-window.onresize = WGCalResetSizes;
+var Days = new Array();
 [BLOCK DAYS]
-Days[[iday]] = new Object();
-Days[[iday]].start  = [days]; 
-Days[[iday]].vstart = [vstart]; 
-Days[[iday]].vend   = [vend];  
-Days[[iday]].col    = 1;  
-Days[[iday]].ev = new Array();[ENDBLOCK DAYS]
+Days[[iday]] = new Object(); Days[[iday]].start  = [days]; Days[[iday]].vstart = [vstart]; Days[[iday]].vend   = [vend]; Days[[iday]].ev = new Array();[ENDBLOCK DAYS]
 
 AltIsFixed = '[ALTFIXED]';
 AltTimerValue = '[ALTTIMER]';
@@ -51,8 +46,6 @@ WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [
 
 [BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END]);
 [ENDBLOCK EVENTSSC]
-
-// WGCalPrintAllEvents();
 
 WGCalDisplayAllEvents();
 </script>

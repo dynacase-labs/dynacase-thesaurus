@@ -2,6 +2,8 @@
 <div id="evtc[REF]" style="display:none; border:1px outset; background-color:white');">
 <div class="wEvBack">
 <table cellpadding="2px" cellspacing="0" border="0">
+<thead><tr><th></th><th></th></tr></thead>
+<tbody>
 <tr>
   <td width="15" style="border: 1px inset; background-color:[bgstate]" valign="top" rowspan="3">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]"><br>[ENDBLOCK icons]</td>
    <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white" -->
@@ -24,16 +26,16 @@
 [TEXT:modified] : <span style="font-style:italic">[modifdate]</span><br>
 </td>
   <td valign="top">
-<fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend>
+<fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend><div><!--  style="height:100px; overflow:hidden;"-->
 [BLOCK attlist]<div><img height="15" src="[atticon]"><span style="text-decoration:[attnamestyle]">[atttitle]</span>&nbsp;<span style="font-style:italic">([attstate])</span></div>
-[ENDBLOCK attlist]
+[ENDBLOCK attlist]</div>
 </fieldset></td>
 </tr>
 <tr style="display:[displaynote]">
-  <td colspan="2" valign="top">
-<fieldset><legend>[TEXT:note]</legend>
-[NOTE]</fieldset></td>
+ <td colspan="2" valign="top"><div style="width:100%">
+<fieldset ><legend>[TEXT:note]</legend>[NOTE]</fieldset></div></td>
 </tr>
+</tbody>
 </table>
 </div>
 <!-- End full [REF]::[ID] --></div>

@@ -1,25 +1,71 @@
+Doc
+---
+Manuel d'installation
+Manuel d'exploitation
+Manuel d'utilisation
+Aide en ligne
+
+Administration
+---------------
+- préférences des utilisateurs : forcer / resetter
+- autoriser ou pas les utilisateurs à modifier certains parametres
+- gestion des droits
+- marquage des groupes comme ressource d'évenement (idem pour toute ressource) ==> IHM
+- courrier électronique : active/non
+- journal de suivi : global ou par evenement
+- gestion des groupes : ne voir que les siens et les ressources appartenant à ces groupes (filtrage)
+
+Preferences utilisateur
+-----------------------
+- choix des formats de dates
+- choix des débuts de semaine
+- gestion des groupes : ne voir que les siens et les ressources appartenant à ces groupes (filtrage)
+
 General
 ------
 - explode de evenements
-- vue 2 semaines
-- algo de placement de rv
-- gestion de groupes : l'utilisateur ne manipule que des groupes, 
+- vue n semaines
+[0.0.7] Algo de placement de rv
+[0.0.7] Affichage des rv (resumé) simplification, plus de barre latérale
+        barre supérieure si rv avec invité : orange -> 1 personne au moins n'a pas accepté ou refusée ( rouge si c'est l'utilisateur connecté)
+[0.0.7] Gestion de groupes : l'utilisateur ne manipule que des groupes, 
+ * Affichage (vue agenda) : on applique la mm stratégie que pour les ressources unitaires.
+   et afficher le groupe dans le consultation de rv (popup)  => memoriser si la ressource provient 
+ * Edition : seul le groupe est visible ==> NON : modification de la recherche des evt d'une ressource : evt de la ress et des groupes d'appart. de cette ress.
+- popup Rv : limiter la liste des participants présentés
+
+Récupération depuis webcalendar (existant)
+------------------------------------------
+
+Synchronisation Outlook
+-----------------------
+
 
 
 Divers:
 -------
-- vue recherche
-- 
+- Vue recherche / recherche détaillée
+- Gestion des mails d'information pour les acceptations/refus de rv
 
-Edition
--------
+Edition/Consultation d'un rv
+----------------------------
+- vérification des conflits
 - modification de la methode d'acceptation
-- gestion des mode rw/ro
+- gestion des mode rw/ro => vue lecture
+- enregistrement des chgt sur les RV
+- accès à l'historique du RV
+- recherche de dispo : sélection d'un 'trou' --> maj des date/heure fin/debut
+- gestion des execeptions dans les repetables...
 
+Calendriers perso / autres
+--------------------------
+- suppression
+- renommage
+
+- intégration de calendriers société ical (?)
 
 Selection des calendriers
 -------------------------
 - supprimer le bouton "utiliser pour les rv" et mettre le déplacer dans la fenêtre de d'édition de Rv (utiliser les ressources affichées);
-
 - ajouter un bouton "afficher que mes utilisateurs préféré"
 - ajouter un bouton "afficher/effaceré toute les ressources

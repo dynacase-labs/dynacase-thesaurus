@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.1 2005/02/16 09:15:52 marc Exp $
+ * @version $Id: calev_card.php,v 1.2 2005/03/02 16:33:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -19,7 +19,7 @@ function calev_card(&$action) {
   $evref = GetHttpVars("ref", -1);
   if ($evid==-1) return;
 
-  $pretitle = "";
+//   $pretitle = "";
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $ev = new Doc($dbaccess, $evid);
@@ -33,6 +33,7 @@ function calev_card(&$action) {
   $tpriv[0]["REF"] = $evref;
   $action->lay->set("ID",    $ev->id);
   $tpriv[0]["ID"] = $ev->id;
+//    $pretitle = $evref.":".$ev->id."::";
 
 
   $ldstart = $ldend = $lstart = $lend = $lrhs = $lrhe = ""; 
@@ -162,7 +163,7 @@ function calev_card(&$action) {
 
   showIcons($action, $ev, $private, $present);
 
-  ev_showattendees($action, $ev, $present);
+  ev_showattendees($action, $ev, $present, "lightgrey");
 
   $nota = $ev->getValue("CALEV_EVNOTE");
   if ($nota!="" && !$private) {
@@ -181,7 +182,7 @@ function showIcons(&$action, &$ev, $private, $present) {
     if ($ev->getValue("CALEV_VISIBILITY") == 1)  addIcons($icons, "VIS_PRIV");
     if ($ev->getValue("CALEV_VISIBILITY") == 2)  addIcons($icons, "VIS_GRP");
     if ($ev->getValue("CALEV_REPEATMODE") != 0)  addIcons($icons, "REPEAT");
-    if (count($ev->getTValue("CALEV_ATTID"))>1)  addIcons($icons, "GROUP");
+    if ((count($ev->getTValue("CALEV_ATTID"))>1 && $present) ||  (count($ev->getTValue("CALEV_ATTID"))>0 && !$present))  addIcons($icons, "GROUP");
     if ($present && ($ev->getValue("CALEV_OWNERID") != $action->user->fid)) addIcons($icons, "INVIT");
   }
   $action->lay->SetBlockData("icons", $icons);
@@ -194,7 +195,7 @@ function addIcons(&$ia, $icol)
      "CONFID" => array( "iconsrc" => "WGCAL/Images/wm-confidential.png", "icontitle" => "[TEXT:confidential event]" ),
      "INVIT" => array( "iconsrc" => "WGCAL/Images/wm-invitation.png", "icontitle" => "[TEXT:invitation]" ),
      "VIS_PRIV" => array( "iconsrc" => "WGCAL/Images/wm-private.png", "icontitle" => "[TEXT:visibility private]" ),
-     "VIS_GRP" => array( "iconsrc" => "WGCAL/Images/wm-attendees.png", "icontitle" => "[TEXT:visibility group]" ),
+     "VIS_GRP" => array( "iconsrc" => "WGCAL/Images/wm-privgroup.png", "icontitle" => "[TEXT:visibility group]" ),
      "REPEAT" => array( "iconsrc" => "WGCAL/Images/wm-repeat.png", "icontitle" => "[TEXT:repeat event]" ),
      "GROUP" => array( "iconsrc" => "WGCAL/Images/wm-attendees.png", "icontitle" => "[TEXT:with attendees]" )
   );
@@ -202,9 +203,10 @@ function addIcons(&$ia, $icol)
   $ia[count($ia)] = $ricons[$icol];
 }
 
-function ev_showattendees(&$action, &$ev, $present) {
+function ev_showattendees(&$action, &$ev, $present, $dcolor) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $globalstate = "transparent";
+  $globalstate = $dcolor;
+  $globalstatesize = "0";
   $d = new Doc($dbaccess);
   $tress = $ev->getTValue("CALEV_ATTID");
   if (count($tress)>1) {
@@ -215,7 +217,11 @@ function ev_showattendees(&$action, &$ev, $present) {
     $tresse = $ev->getTValue("CALEV_ATTSTATE");
     $a = 0;
     foreach ($tress as $k => $v) {
-      if ($tresse[$k] != EVST_ACCEPT) $globalstate = "red";
+      if ($tresse[$k] != EVST_ACCEPT && $tresse[$k] != EVST_REJECT) {
+	if ($v == $action->user->fid) $globalstate = "red";
+	else if ($globalstate != "red") $globalstate = "orange";
+	$globalstatesize = "3";
+      }
       $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
       $t[$a]["atticon"] = $d->GetIcon($attru["icon"]);
       $t[$a]["atttitle"] = $tresst[$k];
@@ -228,5 +234,6 @@ function ev_showattendees(&$action, &$ev, $present) {
     $action->lay->set("attdisplay","none");
   }
     $action->lay->set("evglobalstate", $globalstate);
+    $action->lay->set("headsize", $globalstatesize);
 }
 ?>

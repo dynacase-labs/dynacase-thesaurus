@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.9 2005/02/18 15:38:35 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.10 2005/03/02 16:33:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -126,7 +126,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   $tout=array(); 
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
-//    echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres]<br>";
+//     echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres]<br>";
   $dre=new Doc($dbaccess,$reid);
   $edre=$dre->getEvents($d1,$d2);
   $first = false;
@@ -134,7 +134,9 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     $item = array( "REF" => $v["id"], 
 		   "ID" => $v["evt_idinitiator"],
 		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
+		   "HUMANSTART" => strftime("%x %X",FrenchDateToUnixTs($v["evt_begdate"])),
 		   "END" => FrenchDateToUnixTs($v["evt_enddate"]), 
+		   "HUMANEND" => strftime("%x %X",FrenchDateToUnixTs($v["evt_enddate"])),
 		   "IDC" =>  $v["evt_idcreator"] );
     $n = new Doc($dbaccess, $v["evt_idinitiator"]);
     $varclass = get_class_vars("_CALEVENT");
@@ -149,7 +151,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     $item["VIEW"] = $view;
     $tout[] = $item;
   }
-//       print_r2($tout);
+//         print_r2($tout);
   return $tout;
 }
        	
@@ -175,4 +177,38 @@ function dbdate2ts($dbtime) {
 function sendEventMail(&$action, $evid) {
   return;
 }
+
+
+
+function WGCalGetRGroups(&$action, $uid) {
+
+  $dbaccess = $action->GetParam("COREUSER_DB");
+  $u = new User($dbaccess, $uid);
+  $ug = $u->GetGroupsId();
+  foreach ($ug as $k=>$v) {
+    $gu = new User($dbaccess, $v);
+    $fug[] = $gu->fid;
+  }
+  return $fug;
+      
+}
+
+// Pour identifiant WHAT
+// Class.User.php
+//   /**
+//    * get All ascendant group ids of the user object
+//    */
+//   function GetGroupsId()
+
+// Par FREEDOM :
+//  $u->getTValue("US_IDGROUP");
+
+
+// Cela ne donne que les groupes directs. Il faut ensuite utiliser une autre fonctions pour avoir les pères de chacun des groupes d'appartenance.
+// Class.Group.php /**
+//    * get all parent (ascendant) group of this group
+//    * @return array id
+//    */
+//   function getParentsGroupId($pgid="", $level=0) {
+
 ?>

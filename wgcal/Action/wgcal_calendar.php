@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.30 2005/02/16 09:11:37 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.31 2005/03/02 16:33:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -185,11 +185,20 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HLINETITLE", $action->GetParam("WGCAL_U_HLINETITLE", 20));
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
-  
+
+  $viewme=false;
   $ress = WGCalGetRessDisplayed($action);
   $events = array();
   $tr=array(); 
-  foreach ($ress as $kr=>$vr) if ($vr->id>0) $tr[] = $vr->id;
+  $ire=0;
+  foreach ($ress as $kr=>$vr) {
+    if ($vr->id>0) $tr[$ire++] = $vr->id;
+    if ($vr->id==$action->user->fid) $viewme=true;
+  }
+  if ($viewme) {
+    $grp = WGCalGetRGroups($action, $action->user->id);
+    foreach ($grp as $kr=>$vr) $tr[$ire++] = $vr;
+  }
   $events = WGCalGetAgendaEvents( $action,
 				  $tr, 
 				  d2s($firstWeekDay, "%Y-%m-%d %H:%M:%S"),
