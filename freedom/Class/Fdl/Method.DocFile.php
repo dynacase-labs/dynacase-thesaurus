@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocFile.php,v 1.4 2003/11/17 11:04:07 eric Exp $
+ * @version $Id: Method.DocFile.php,v 1.5 2004/03/16 14:10:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: Method.DocFile.php,v 1.4 2003/11/17 11:04:07 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Method.DocFile.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 
 
@@ -49,6 +28,7 @@ function viewfilecard($target="_self",$ulink=true,$abstract=false) {
   $nbimg=0;// number of image
 
 
+  $this->viewattr($target,$ulink,$abstract);
   $listattr[] = $this->GetAttribute("FI_FILE");
 
 
