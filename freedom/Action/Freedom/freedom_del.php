@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_del.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: freedom_del.php,v 1.2 2002/02/13 14:31:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_del.php,v $
+// Revision 1.2  2002/02/13 14:31:58  eric
+// ajout usercard application
+//
 // Revision 1.1  2002/02/05 16:34:07  eric
 // decoupage pour FREEDOM-LIB
 //
@@ -56,7 +59,6 @@
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
 include_once("FDL/Class.DocValue.php");
-include_once("FDL/Class.FreedomLdap.php");
 include_once("FDL/freedom_util.php");
 
 // -----------------------------------

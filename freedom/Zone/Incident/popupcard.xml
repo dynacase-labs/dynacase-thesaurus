@@ -1,0 +1,31 @@
+<!-- ------------ POPUP DIVISION --------------------- -->
+<div  id="popupcard" class="popup">
+
+
+
+
+<a href="#" id="editdoc"     
+    onClick="activate(this,'[CORE_STANDURL]&app=INCIDENT&action=INCIDENT_EDIT&id=[id]','info');closeMenu('popupcard')"  >[TEXT: edit]</a>
+
+
+
+
+
+<a href="#" id="unlockdoc"
+    onClick="activate(this,'[CORE_STANDURL]&app=INCIDENT&action=UNLOCKFILE&id=[id]','info');closeMenu('popupcard')" >[TEXT: unlock]</a>
+
+
+<a href="#" id="histo"
+    onClick="activate(this,'[CORE_STANDURL]&app=INCIDENT&action=HISTO&id=[id]','info');closeMenu('popupcard')" >[TEXT: history]</a>
+
+<a href="#" id="properties"     
+    onClick="activate(this,'[CORE_STANDURL]&app=INCIDENT&action=INCIDENT_CARD&id=[id]','info');closeMenu('popupcard');">
+[TEXT: view properties]</a>
+
+<a href="#" id="cancel"  
+    onClick="closeMenu('popupcard')"  >[TEXT:cancel]</a>
+</div>
+<!-- ------------------ end POPUP DIVISION ------------------ -->
+
+
+

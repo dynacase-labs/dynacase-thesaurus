@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: import_file.php,v 1.2 2002/02/13 14:31:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -172,7 +172,7 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "ATTR":
-      if     ($num < 13) print "Error in line $nline: $num cols < 13<BR>";
+      if     ($num < 12) print "Error in line $nline: $num cols < 13<BR>";
       $oattr=new DocAttr($dbaccess);
     $oattr->docid = $doc->id;
     $oattr->id = $data[1];
@@ -181,12 +181,12 @@ function add_import_file(&$action, $fimport="") {
     $oattr->title = ($data[4] == "Y")?"Y":"N";
     $oattr->abstract = ($data[5] == "Y")?"Y":"N";
     $oattr->type = $data[6];
-    $oattr->ldapname = $data[7];
-    $oattr->ordered = $data[8];
-    $oattr->visibility = $data[9];
-    $oattr->link = $data[10];
-    $oattr->phpfile = $data[11];
-    $oattr->phpfunc = $data[12];
+
+    $oattr->ordered = $data[7];
+    $oattr->visibility = $data[8];
+    $oattr->link = $data[9];
+    $oattr->phpfile = $data[10];
+    $oattr->phpfunc = $data[11];
 	  
     $err = $oattr ->Add();
     if ($err != "") $err = $oattr ->Modify();

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: freedom_util.php,v 1.2 2002/02/13 14:31:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_util.php,v $
+// Revision 1.2  2002/02/13 14:31:58  eric
+// ajout usercard application
+//
 // Revision 1.1  2002/02/05 16:34:07  eric
 // decoupage pour FREEDOM-LIB
 //
@@ -123,7 +126,7 @@ function GetTitleF($dbaccess,$docid)
      $title = chop($title.$tablevalue[$i]->value)." ";
    }
 
- return $title;
+ return chop($title);
 }
 
 

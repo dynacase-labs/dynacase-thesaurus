@@ -53,7 +53,7 @@
    <span class="FREEDOMTextBigTitle">[TITLE]</span>
   </td> 
    <td  class="FREEDOMText" align="right">[TEXT:inherit from]
-   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=[id]&dirid=[dirid]&classid='+self.document.modifydoc.classid.options[self.document.modifydoc.classid.selectedIndex].value">  
+   <select name="sclassid" onChange="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=[id]&dirid=[dirid]&classid='+this.options[this.selectedIndex].value">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]

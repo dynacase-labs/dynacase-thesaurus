@@ -1,9 +1,9 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: deldirfile.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: deldirfile.php,v 1.2 2002/02/13 14:31:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/deldirfile.php,v $
 // ---------------------------------------------------------------
-//  O   Anakeen - 2001
+//  O   Anakeen - 2002
 // O*O  Anakeen development team
 //  O   dev@anakeen.com
 // ---------------------------------------------------------------
@@ -21,22 +21,9 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: deldirfile.php,v $
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.3  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/09 09:41:13  eric
-// gestion documentaire
-//
-// ---------------------------------------------------------------
 
-include_once("FDL/Class.Doc.php");
+
+include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.QueryDir.php");
 include_once("FDL/Class.QueryDirV.php");
 include_once("FDL/freedom_util.php");  
@@ -60,24 +47,9 @@ function deldirfile(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-  $dir = new Doc($dbaccess,$dirid);// use initial id for directories
-  $dirid=$dir->initid;
-
-  $qfv = new QueryDirV($dbaccess, $dirid);
-
-  if (!($qfv->isAffected())) $action->exitError(sprintf(_("cannot delete link : link not found for doc %d in directory %d"),$docid, $dirid));
-
-  $qids = $qfv->getQids($docid);
-  // search query
-  $qf = new QueryDir($dbaccess, $qids[0]);
-  if (!($qf->isAffected())) $action->exitError(sprintf(_("cannot delete link : initial query not found for doc %d in directory %d"),$docid, $dirid));
-  
-
-  if ($qf->qtype != "S") $action->exitError(sprintf(_("cannot delete link for doc %d in directory %d : the document comes from a user query. Delete initial query if you want delete this document"),$docid, $dirid));
-  $qf->Delete();
-
-  
-  $qf->RefreshDir($dirid);
+  $dir = new Dir($dbaccess,$dirid);// use initial id for directories
+  $err = $dir->DelFile($docid);
+  if ($err != "") $action->exitError($err);
 
   
   

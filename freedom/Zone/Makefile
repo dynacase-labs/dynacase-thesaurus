@@ -1,7 +1,15 @@
 # ============================================
-# $Id: Makefile,v 1.2 2002/02/05 16:34:07 eric Exp $
+# $Id: Makefile,v 1.3 2002/02/13 14:31:59 eric Exp $
 # ============================================
-appname=$(applib)
+
+
+export targetdir
+export utildir
+
+SUBDIR= Freedom Fdl Usercard Incident
+
 
 include $(utildir)/PubRule
 
+
+DISTFILES = $(SUBDIR) Makefile

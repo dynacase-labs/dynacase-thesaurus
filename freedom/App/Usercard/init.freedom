@@ -1,0 +1,55 @@
+//°°°°°°°°°°°°°°°°°°°°°°°°° famille usercard °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°;;;;;;;;;;;
+BEGIN;0;[famille usercard];120;DocUser;;;;;;;
+TYPE;C;;;;;;;;;;
+;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;
+ATTR;200;;Etat civil;N;N;frame;10;W;;;
+ATTR;201;200;prénom;Y;N;text;11;W;;;
+ATTR;202;200;nom;Y;N;text;12;W;;;
+ATTR;203;200;photographie;N;Y;image;13;W;;;
+ATTR;204;;Coordonnées;N;N;frame;14;W;;;
+ATTR;205;204;mail;N;Y;text;15;W;mailto:%205;;
+ATTR;206;204;téléphone;N;Y;text;16;W;;;
+ATTR;207;204;mobile;N;N;text;17;W;;;
+ATTR;208;204;n°poste;N;N;text;18;W;;;
+ATTR;210;204;fax;N;N;text;19;W;;;
+ATTR;211;204;société;N;N;text;20;W;;;
+ATTR;212;204;adresse;N;N;longtext;21;W;;;
+ATTR;213;204;code postal;N;N;text;22;W;;;
+ATTR;214;204;ville;N;N;text;23;W;;;
+ATTR;215;204;web;N;N;text;24;W;http://%215;;
+ATTR;216;204;privacity;N;N;text;25;H;;;
+;;;;;;;;;;;
+;;;;;;;;;;;
+;;;;;;;;;;;
+201;[titre];famille personne;;;;;;;;;
+END;0;;;;;;;;;;
+// famille profile incident;;;;;;;;;;;;
+BEGIN;1;[famille profile personnet];122;DocUser;;;;;;;;
+USEFORPROF;;;;;;;;;;;;
+TYPE;C;;;;;;;;;;;
+1;[titre];famille profile de personne;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ldapname;ord;vis;link;phpfile;phpfunc
+ATTR;280;2;description;N;N;longtext;;10;W;;;
+END;1;9;;;;;;;;;;
+;;;;;;;;;;;;
+//DOC;122;<special id>;<special dirid>;titre;;;;;;;;
+// creation dossier personne;;;;
+BEGIN;2;[dossier personne];121;
+TYPE;D;;;
+1;[titre];les personnes;;
+END;2;0;;
+;;;;
+;;;;
+// creation requete all incident;;;;
+//SEARCH;<special id>;<special dir id>;titre;requête
+SEARCH;125;0;les personnes;select id from doc where (fromid=120) and (locked != -1) and (not useforprof) and (doctype='F')
+SEARCH;126;0;les personnes ABC;select id from doc where (fromid=120) and (title ~* '^[a-c].*') and (locked != -1) and (not useforprof) and (doctype='F')
+SEARCH;127;0;les personnes DEF;select id from doc where (fromid=120) and (title ~* '^[d-f].*') and (locked != -1) and (not useforprof) and (doctype='F')
+SEARCH;128;0;les personnes GHI;select id from doc where (fromid=120) and (title ~* '^[g-i].*') and (locked != -1) and (not useforprof) and (doctype='F')
+SEARCH;129;0;les personnes JKL;select id from doc where (fromid=120) and (title ~* '^[j-l].*') and (locked != -1) and (not useforprof) and (doctype='F')
+SEARCH;130;0;les personnes MNO;select id from doc where (fromid=120) and (title ~* '^[mno].*') and (locked != -1) and (not useforprof) and (doctype='F')
+SEARCH;131;0;les personnes PQRS;select id from doc where (fromid=120) and (title ~* '^[pqrs].*') and (locked != -1) and (not useforprof) and (doctype='F')
+SEARCH;132;0;les personnes TUV;select id from doc where (fromid=120) and (title ~* '^[tuv].*') and (locked != -1) and (not useforprof) and (doctype='F')
+SEARCH;133;0;les personnes WXYZ;select id from doc where (fromid=120) and (title ~* '^[wxyz].*') and (locked != -1) and (not useforprof) and (doctype='F')
