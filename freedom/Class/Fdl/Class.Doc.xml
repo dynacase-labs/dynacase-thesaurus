@@ -34,13 +34,12 @@ Class Doc[docid] extends [DocParent] {
 
    var $dbtable="doc[docid]";
    var $dbseq="seq_doc[docid]";
-   var $sqlcreate = "
-     create table doc[docid] ([sattr]) inherits (doc[fromid]);
-     create unique index doc_pkey[docid] on doc[docid](id);
-     create sequence seq_doc[docid] start 1;
-     select setval('seq_doc[docid]', count(distinct initid)+1, false )  from only doc[docid];  
-     CREATE OR REPLACE FUNCTION upval[docid]() RETURNS opaque AS '
-declare 
+   var $sqlcreate = array("create table doc[docid] ([sattr]) inherits (doc[fromid]);",
+     "create unique index doc_pkey[docid] on doc[docid](id);",
+     "create sequence seq_doc[docid] start 1;",
+     "select setval('seq_doc[docid]', count(distinct initid)+1, false )  from only doc[docid];",
+     "CREATE OR REPLACE FUNCTION upval[docid]() RETURNS opaque AS '
+declare	
 begin
 [BLOCK ATTRFIELD2]
 if not NEW.[attrid] isnull then
@@ -50,7 +49,7 @@ end if;[ENDBLOCK ATTRFIELD2]
 
   return NEW;
 end;
-' LANGUAGE 'plpgsql'; ";
+' LANGUAGE 'plpgsql'; ");
 
      var $fromid=[docid];
 
