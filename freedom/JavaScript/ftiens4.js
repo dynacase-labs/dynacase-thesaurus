@@ -186,7 +186,7 @@ function drawFolder(leftSide)
 	}
   doc.write(">") 
   doc.write("</td><td class=\"fld\" valign=middle nowrap>") 
-    doc.write("<span class=\"urltext\" ")
+    doc.write("<span class=\"urltext\" id='text"+this.id+"'")
       doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");parent.finfo.location.href='"+actionviewfile+"&dirid="+this.refid+"'}\"") 
       doc.write("onMouseOver=\"if (drag == 0) this.className='urltextsel'\"") 
       doc.write("onMouseOut=\"if (drag == 0) this.className='urltext'\"") 

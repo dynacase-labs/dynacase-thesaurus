@@ -170,7 +170,7 @@ XXXX -->
 
 
 <script language="JavaScript">
-  <!--
+
 
 // Decide if the names are links or just the icons
 USETEXTLINKS = 0  //replace 0 with 1 for hyperlinks
@@ -200,13 +200,18 @@ function floatMenu () {
     return true;
 }
 
+function viewhome(event) {
+  var homeicon= document.getElementById('text[idHomeFolder]');
 
-  //-->
+  homeicon.onmousedown.apply(null,[event]);
+}
+
+
 </script>
 </head>
 
 <body topmargin=16 marginheight=16 id="bodyid"
-      onLoad="initmicon();if (document.all) document.getElementById('barmenu').style.position = 'absolute';" 
+      onLoad="initmicon();viewhome(event);if (document.all) document.getElementById('barmenu').style.position = 'absolute';" 
       onMouseOver="initDrag()" 
       onMouseUp="if (buttonNumber(event)==1) {if (drag==0) closeAllMenu(); else closeMenu('popfld')};endDrag(); " >
 

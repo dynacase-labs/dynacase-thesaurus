@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.9 2002/08/09 08:45:59 eric Exp $
+// $Id: folders.php,v 1.10 2002/09/26 15:44:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -101,6 +101,8 @@ function folders(&$action) {
   
   $stree=addfolder($doc, -1, "fldtop", false);
   $action->lay->Set("subtree", $stree);
+
+  $action->lay->Set("idHomeFolder", $nbfolders);
 
   $htree=addfolder($homefld, 0, "fldtop");
   $action->lay->Set("hometree", $htree);
