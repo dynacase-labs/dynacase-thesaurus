@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.15 2005/02/01 17:06:23 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.16 2005/02/01 17:17:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -207,7 +207,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 						 getv($v,"evt_frominitiator"),
 						 substr(getv($v,"evt_begdate"),0,10),
 						 substr(getv($v,"evt_enddate"),0,10),
-						 getv($v,"evt_desc")))));
+						 getv($v,"evt_desc"))))));
       
     
       if (! isset($colorredid[$RN[$sub][$idxc]])) $colorredid[$RN[$sub][$idxc]]=$idc++;
