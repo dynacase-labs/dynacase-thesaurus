@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.30 2005/04/05 09:45:14 eric Exp $
+// $Id: FREEDOM.app,v 1.31 2005/04/06 16:38:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,32 +61,32 @@ $action_desc = array (
   array( 
    "name"		=>"FREEDOM_LIST",
    "short_name"		=>N_("Freedoms list"),
-   "acl"		=>"FREEDOM_READ",
+   "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
    "name"		=>"FREEDOM_COLUMN",
    "short_name"		=>N_("Freedoms list by column"),
-   "acl"		=>"FREEDOM_READ",
+   "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
    "name"		=>"ENUM_CHOICE",
    "short_name"		=>N_("to choose value from set"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"FREEDOM_EDITIMPORT",
    "short_name"		=>N_("query document import"),
-   "acl"		=>"FREEDOM_MASTER",
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"FREEDOM_EDITIMPORTTAR",
    "short_name"		=>N_("query tar document import"),
-   "acl"		=>"FREEDOM_MASTER",
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"FREEDOM_BGIMPORT",
    "short_name"		=>N_("background document import"),
-   "acl"		=>"FREEDOM_MASTER",
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"FREEDOM_IMPORT",
@@ -122,12 +122,12 @@ $action_desc = array (
    "name"		=>"FREEDOM_VIEW",
    "short_name"		=>N_("Freedoms view folder"),
    "layout"		=>"freedom_list.xml",
-   "acl"		=>"FREEDOM_READ",
+   "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
    "name"		=>"FREEDOM_PREVIEW",
    "short_name"		=>N_("Freedoms preview document"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"POPUP",
@@ -137,37 +137,37 @@ $action_desc = array (
   array( 
    "name"		=>"ADDDIRFILE",
    "short_name"		=>N_("add file query into directory"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"FREEDOM_INSERTFLD",
    "short_name"		=>N_("insert containt of a folder into another"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"FREEDOM_CLEARFLD",
    "short_name"		=>N_("clear containt of a folder"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"MOVEDIRFILE",
    "short_name"		=>N_("move file query into directory"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"DELDIRFILE",
    "short_name"		=>N_("delete file query into directory"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"FOLDERS",
    "short_name"		=>N_("folder tree"),
-   "acl"		=>"FREEDOM_READ",
+   "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
    "name"		=>"EXPANDFLD",
    "short_name"		=>N_("expand folder tree"),
-   "acl"		=>"FREEDOM_READ",
+   "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
    "name"		=>"FREEDOM_ICONS",
@@ -176,6 +176,11 @@ $action_desc = array (
   ) ,
   array( 
    "name"		=>"FOLIOLIST",
+   "short_name"		=>N_("folio icon list"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+   array( 
+    "name"		=>"FOLIOSEARCH",
    "short_name"		=>N_("folio icon list"),
    "acl"		=>"FREEDOM_READ"
   ) ,
@@ -197,17 +202,17 @@ $action_desc = array (
   array( 
    "name"		=>"FREEDOM_CARD",
    "short_name"		=>N_("Freedoms card"),
-   "acl"		=>"FREEDOM_READ",
+   "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
    "name"		=>"FREEDOM_DUPLICATE",
    "short_name"		=>N_("duplicate document"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"DEFATTR",
    "short_name"		=>N_("attributes definitions"),
-   "acl"		=>"FREEDOM_MASTER",
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"REFRESHDIR",

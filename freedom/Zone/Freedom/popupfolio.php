@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * popup for portfolio list
  *
  * @author Anakeen 2000 
- * @version $Id: popupfolio.php,v 1.5 2005/04/05 17:29:38 eric Exp $
+ * @version $Id: popupfolio.php,v 1.6 2005/04/06 16:38:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,31 +11,9 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: popupfolio.php,v 1.5 2005/04/05 17:29:38 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Freedom/popupfolio.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+// 
 
 include_once("FDL/Class.Doc.php");
-// -----------------------------------
 function popupfolio(&$action) {
   // -----------------------------------
   // ------------------------------
@@ -50,9 +28,10 @@ function popupfolio(&$action) {
   // ------------------------------------------------------
   // definition of popup menu
   popupInit('popupfolio',  array('newdoc','newgc','newsgc',
-				 'insertbasket'));
+				 'insertbasket','searchinsert'));
 
   Popupactive('popupfolio',$kdiv,'insertbasket');
+  Popupactive('popupfolio',$kdiv,'searchinsert');
   Popupinvisible('popupfolio',$kdiv,'newdoc');
   Popupinvisible('popupfolio',$kdiv,'newgc');
   Popupinvisible('popupfolio',$kdiv,'newsgc');

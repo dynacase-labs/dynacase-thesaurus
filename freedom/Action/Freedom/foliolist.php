@@ -3,7 +3,7 @@
  * Folio List Containt
  *
  * @author Anakeen 2003
- * @version $Id: foliolist.php,v 1.9 2004/06/17 14:53:07 eric Exp $
+ * @version $Id: foliolist.php,v 1.10 2005/04/06 16:38:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -61,12 +61,13 @@ function foliolist(&$action) {
       
     }
   }
-
   
 
   $action->parent->SetVolatileParam("FREEDOM_VIEW", "icon");
-  viewfolder($action, false,true,false,
-	     100,$filter);
+  $nbdoc=viewfolder($action, false,true,false,
+		    100,$filter);
+  if ($nbdoc>1) $action->lay->set("docs",_("documents"));
+  else $action->lay->set("docs",_("document"));
   
 
 

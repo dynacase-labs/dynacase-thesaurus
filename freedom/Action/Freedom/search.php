@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: search.php,v 1.21 2005/03/18 15:31:37 eric Exp $
+ * @version $Id: search.php,v 1.22 2005/04/06 16:38:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.21 2005/03/18 15:31:37 eric Exp $
+// $Id: search.php,v 1.22 2005/04/06 16:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,7 +71,15 @@ function search(&$action) {
   if (! $ndoc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
     
   if ($keyword != "") $ndoc->title=_("new search ").$keyword;
-  else $ndoc->title=sprintf(_("detailled search result"));
+  else {
+    $famid=GetHttpVars("_se_famid");
+    if ($famid>0) {
+      $fam=$ndoc->getTitle($famid);
+      $ndoc->title=sprintf(_("search %s"),$fam);
+    } else {
+      $ndoc->title=sprintf(_("search result"));
+    }
+  }
   $ndoc->doctype='T';
   $ndoc->setValue("se_key",$keyword);
   $ndoc->setValue("se_latest","yes");
@@ -84,9 +92,6 @@ function search(&$action) {
   $err = modcard($action, $ndocid); // ndocid change if new doc
     
   
-
-
-
   redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&viewone=$viewone&dirid=".$ndoc->id,
 	   $action->GetParam("CORE_STANDURL"));
   

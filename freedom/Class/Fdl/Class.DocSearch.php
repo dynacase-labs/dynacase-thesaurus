@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.26 2005/04/01 17:20:27 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.27 2005/04/06 16:38:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -65,7 +65,7 @@ Class DocSearch extends PDocSearch {
 
 
     if ($query->nb > 0)
-     {
+      {
 	return $tq[0]["query"];
       }
     return "";
@@ -73,13 +73,13 @@ Class DocSearch extends PDocSearch {
 
   function getQuery() {
     if (! $this->isStaticSql()) {
-    $query= $this->ComputeQuery($this->getValue("se_key"),
-				 $this->getValue("se_famid"),
-				 $this->getValue("se_latest"),
-				 $this->getValue("se_case")=="yes",
-				 $this->getValue("se_idfld"),
-				 $this->getValue("se_sublevel") === "") ;
-    // print "<HR>getQuery1:[$query]";
+      $query= $this->ComputeQuery($this->getValue("se_key"),
+				  $this->getValue("se_famid"),
+				  $this->getValue("se_latest"),
+				  $this->getValue("se_case")=="yes",
+				  $this->getValue("se_idfld"),
+				  $this->getValue("se_sublevel") === "") ;
+      // print "<HR>getQuery1:[$query]";
     } else {
       $query[]=$this->getValue("SE_SQLSELECT");
       // print "<BR><HR>".$this->getValue("se_latest")."/".$this->getValue("se_case")."/".$this->getValue("se_key");
@@ -102,9 +102,9 @@ Class DocSearch extends PDocSearch {
     $keyword= str_replace("^","£",$keyword);
     $keyword= str_replace("$","\0",$keyword);
     if (strtolower(substr($keyword,0,5))=="::get") { // only get method allowed
-	// it's method call
-	$keyword = $this->ApplyMethod($keyword);
-      }
+      // it's method call
+      $keyword = $this->ApplyMethod($keyword);
+    }
 
     if ($keyword != "") {
       if ($sensitive) $filters[] = "values ~ '$keyword' ";
@@ -147,27 +147,52 @@ Class DocSearch extends PDocSearch {
     }
     return $err;
   }
-  function editsearch() {
+  function editsearch() {    
+    global $action;
 
-    
-  global $action;
+    $rtarget=getHttpVars("rtarget");
+    $this->lay->set("rtarget",$rtarget);
+    $this->lay->set("restrict",false);
+    $dirid = GetHttpVars("dirid"); // to set restriction family
+    $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/edittable.js");
+    $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
+    $famid=$this->getValue("se_famid");
+    $classid=0;
+    if ($dirid > 0) {
+      $dir = new Doc($this->dbaccess, $dirid);
+      if (method_exists($dir,"isAuthorized")) {	
+	if ($dir->isAuthorized($classid)) { 
+	  // verify if classid is possible
+	  if ($dir->norestrict) $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
+	  else {
+	    $tclassdoc=$dir->getAuthorizedFamilies();
+	    $this->lay->set("restrict",true);
+	  }
+	} else  {
+	  $tclassdoc=$dir->getAuthorizedFamilies();
+	  $first = current($tclassdoc);
+	  $famid = $first["id"];
+	  $this->lay->set("restrict",true);
+	}
+      }
+      else {
+	$tclassdoc = GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
+      }
+    } else {
+      $tclassdoc = GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
+    }
 
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/edittable.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
-  $famid=$this->getValue("se_famid");
-  $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,0,"TABLE");
-
-  $this->lay->set("selfam",_("no family"));
-  while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
-    $selectclass[$k]["classname"]=$cdoc["title"];
-    if ($cdoc["initid"] == $famid) {
-      $selectclass[$k]["selected"]="selected";
-      $this->lay->set("selfam",$cdoc["title"]);
-    } else $selectclass[$k]["selected"]="";
-  }
+    $this->lay->set("selfam",_("no family"));
+    while (list($k,$cdoc)= each ($tclassdoc)) {
+      $selectclass[$k]["idcdoc"]=$cdoc["id"];
+      $selectclass[$k]["classname"]=$cdoc["title"];
+      if ($cdoc["initid"] == $famid) {
+	$selectclass[$k]["selected"]="selected";
+	$this->lay->set("selfam",$cdoc["title"]);
+      } else $selectclass[$k]["selected"]="";
+    }
   
-  $this->lay->SetBlockData("SELECTCLASS", $selectclass);
+    $this->lay->SetBlockData("SELECTCLASS", $selectclass);
 
     $this->editattr();
   }

@@ -29,7 +29,7 @@
 <tr class="FREEDOMBack1">
   <td  align="center" colspan="2">
  
- <input type="button" style="font-weight: bold;" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH')"> </td>
+ <input type="button" style="font-weight: bold;" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH','[rtarget]')"> </td>
  
   <td>&nbsp</td>
 </tr>

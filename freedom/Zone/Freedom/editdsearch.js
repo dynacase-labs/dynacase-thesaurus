@@ -12,7 +12,7 @@ function deletenew() {
   
 
 
-function sendsearch(faction) {
+function sendsearch(faction,rtarget) {
   var fedit = document.fedit;
   resetInputs('newcond');
   
@@ -27,7 +27,8 @@ function sendsearch(faction) {
       var nt=document.getElementById('newstate');
       if (nt)   disabledInput(nt,true);
     }
-    target='fvfolder';
+    if (!rtarget) rtarget='fvfolder';
+    target=rtarget;
     action=faction;
     submit();
     target=editTarget;

@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.29 2005/02/01 13:37:35 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.30 2005/04/06 16:38:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -52,9 +52,7 @@ function freedom_edit(&$action) {
     // new document select special classes
     if ($dirid > 0) {
       $dir = new Doc($dbaccess, $dirid);
-      if (method_exists($dir,"isAuthorized")) {
-
-	
+      if (method_exists($dir,"isAuthorized")) {	
 	if ($dir->isAuthorized($classid)) { 
 	  // verify if classid is possible
 	  if ($dir->norestrict) $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");

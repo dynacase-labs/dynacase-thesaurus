@@ -129,17 +129,21 @@ function openMenuOrProperties(event,menuid,itemid,target) {
       button= event.button +1;
   }
   window.status=shiftKey+"/"+button;
-
-
-  if (! docTarget) docTarget='fdoc';
   if (button == 1) {
-    if (shiftKey ) {
-      openMenu(event,menuid, itemid);
+    if (parent.parent.ffoliolist && (parent.parent.ffoliolist!=self)) {
+      // copy to portfolio
+      addToBasket(event,'ffoliolist',parent.parent.ffoliolist.document.dirid,true);
     } else {
-      subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],docTarget,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id='+docid);
+
+      if (! docTarget) docTarget='fdoc';
+  
+      if (shiftKey ) {
+	openMenu(event,menuid, itemid);
+      } else {
+	subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],docTarget,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id='+docid);
+      }
     }
   }
-
 }
 
 function sendFirstFile(docid) {
@@ -184,14 +188,18 @@ function trackKey(event) {
   window.status=intKeyCode + ':'+altKey;
   if (ctrlKey &&  ( (intKeyCode == 99)||(intKeyCode == 67))) { // Ctrl-C key
     // activedrag(event); 
-    addToBasket(event); 
+    if (parent.parent.ffoliolist) {
+      addToBasket(event,'ffoliolist',parent.parent.ffoliolist.document.dirid,true); 
+    } else     addToBasket(event); 
     return false;
   } else
     return true;
 }
 
-function addToBasket(event) {  
-  var url='[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&dirid=[FREEDOM_IDBASKET]&docid=';
+function addToBasket(event,rtarget,dirid,folio) {
+  if (!dirid) dirid=[FREEDOM_IDBASKET];
+  if (!rtarget) rtarget='basket';
+  var url='[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&dirid='+dirid+'&docid=';
   var bsend=false;
   if (odocid) {    
     bsend=true;
@@ -200,8 +208,8 @@ function addToBasket(event) {
     bsend=true;
     url+=docid;
   }
-
-  if  (bsend)  subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'basket',url);
+  if (folio) url+='&folio=Y';
+  if  (bsend)  subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],rtarget,url);
 }
 
 function moveicon(event) {
