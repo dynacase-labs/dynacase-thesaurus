@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: expandfld.php,v 1.13 2004/02/24 08:34:13 eric Exp $
+ * @version $Id: expandfld.php,v 1.14 2004/06/29 09:00:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.13 2004/02/24 08:34:13 eric Exp $
+// $Id: expandfld.php,v 1.14 2004/06/29 09:00:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -107,7 +107,7 @@ function expandfld(&$action) {
       }
       
       $ftype=$dir->getIcon($doc["icon"]);
-      $stree .= "ffolder.insFld(fldtop, ffolder.gFld(\"".$doc["title"]."\", \"#\",".$doc["initid"].",\"$ftype\",$hasChild))\n";
+      $stree .= "ffolder.insFld(fldtop, ffolder.gFld(\"".str_replace('"','\"',$doc["title"])."\", \"#\",".$doc["initid"].",\"$ftype\",$hasChild))\n";
 
       
       

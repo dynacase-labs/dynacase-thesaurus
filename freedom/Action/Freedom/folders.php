@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: folders.php,v 1.14 2004/02/24 08:34:13 eric Exp $
+ * @version $Id: folders.php,v 1.15 2004/06/29 09:00:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.14 2004/02/24 08:34:13 eric Exp $
+// $Id: folders.php,v 1.15 2004/06/29 09:00:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -166,7 +166,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
     }
 
     $ftype=$doc->getIcon();
-    $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->initid.",\"$ftype\", $hasChild))\n";
+    $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".str_replace('"','\"',$doc->title)."\", \"#\",".$doc->initid.",\"$ftype\", $hasChild))\n";
 
 
     popupActive("popfld",$nbfolders,'cancel');
