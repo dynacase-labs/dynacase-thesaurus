@@ -10,6 +10,9 @@
     onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id='+docid,'info');closeMenu('popuplist'); return false;"  >[TEXT:edit document]</a>
 
 
+<a href="#" id="duplicate" 
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_DUPLICATE&id='+docid+'&dirid='+parent.info.document.dirid,'info');closeMenu('popuplist'); return false;"  >[TEXT:duplicate document]</a>
+
 <a href="#" id="copy" 
     onClick="activedrag(event);closeMenu('popuplist'); return false;" >[TEXT:link document]</a>
 
