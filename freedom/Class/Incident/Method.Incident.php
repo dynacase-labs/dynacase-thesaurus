@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Incident.php,v 1.5 2004/01/14 17:28:23 eric Exp $
+ * @version $Id: Method.Incident.php,v 1.6 2004/02/03 08:41:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Incident.php,v 1.5 2004/01/14 17:28:23 eric Exp $
+// $Id: Method.Incident.php,v 1.6 2004/02/03 08:41:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.Incident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -116,7 +116,7 @@ function SpecRefresh() {
     if ($respid > 0) {
       $resp=new Doc($this->dbaccess, $respid);
       $this->setValue("IN_IDRTECH", $resp->id);
-      $this->setValue("IN_RTECHMAIL", "responsable technique <".$resp->getValue("US_MAIL").">");
+      $this->setValue("IN_RTECHMAIL", $resp->getValue("US_MAIL"));
       $this->setValue("IN_RTECHNAME", $resp->title);
     }
   }
