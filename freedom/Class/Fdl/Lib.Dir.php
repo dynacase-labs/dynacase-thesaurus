@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.80 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.81 2004/02/24 08:38:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.80 2004/02/05 15:42:58 eric Exp $
+// $Id: Lib.Dir.php,v 1.81 2004/02/24 08:38:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -132,11 +132,11 @@ function getSqlSearchDoc($dbaccess,
     if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
 
 
-    $sqlfilters[-3] = "doctype != 'Z'";
+      $sqlfilters[-3] = "doctype != 'Z'";
     
-    if ($latest) $sqlfilters[-1] = "locked != -1";
-    ksort($sqlfilters);
-    if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
+      if ($latest) $sqlfilters[-1] = "locked != -1";
+      ksort($sqlfilters);
+      if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
       
       if (is_array($dirid)) {
 	$sqlfld=GetSqlCond($dirid,"dirid",true);
@@ -146,18 +146,23 @@ function getSqlSearchDoc($dbaccess,
       
 
 
-//          $qsql= "select $selectfields ".
-//    	"from  $table  ".
-//    	"where initid in (select childid from fld where $sqlfld) and   $sqlcond ";
+      //          $qsql= "select $selectfields ".
+      //    	"from  $table  ".
+      //    	"where initid in (select childid from fld where $sqlfld) and   $sqlcond ";
 
-//       $qsql= "select $selectfields ".
-// 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
-// 	"where  $sqlcond ";
+      //       $qsql= "select $selectfields ".
+      // 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
+      // 	"where  $sqlcond ";
 
-         $qsql= "select $selectfields ".
+      //  if ($table != "doc") {
+      $qsql= "select $selectfields ".
    	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
    	"where  $sqlcond ";
-
+      //     } else {
+      //          $qsql= "select * ".
+      //    	"from sfolder   ".
+      //    	"where  dirid=$dirid and $sqlcond ";
+      //       }
 
     } else {
       //-------------------------------------------
@@ -248,7 +253,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
 
