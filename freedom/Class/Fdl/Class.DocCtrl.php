@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.18 2004/07/05 13:03:09 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.19 2004/08/09 08:05:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -239,7 +239,7 @@ Class DocCtrl extends DbObj
   function AddControl($uid,$aclname) {
     if (! isset($this->dacls[$aclname])) {
       return sprintf(_("unknow privilege %s"),$aclname);
-    } 
+    }    
     $pos=$this->dacls[$aclname]["pos"];
     if (! is_numeric($uid)) {
       // logical name
@@ -278,6 +278,7 @@ Class DocCtrl extends DbObj
 
     $this->cvid = $cvid;
   }
+
   /**
    * use to know if current user has access privilege
    *
@@ -286,7 +287,6 @@ Class DocCtrl extends DbObj
    * @return string if empty access granted else error message
    */
   function ControlId ($docid,$aclname) {
-    // --------------------------------------------------------------------     
     
     if (! isset($this->uperm)) {
       
@@ -297,11 +297,25 @@ Class DocCtrl extends DbObj
             
     }
    
+    return $this->ControlUp($this->uperm,$aclname);
+  }
+
+
+
+  /**
+   * use to know if permission has access privilege
+   *
+   * @param int $uperm permission mask
+   * @param string $aclname name of the acl (edit, view,...)
+   * @return string if empty access granted else error message
+   */
+  function ControlUp($uperm, $aclname) {
     if (isset($this->dacls[$aclname])) {
-      return (($this->uperm & (1 << ($this->dacls[$aclname]["pos"] ))) != 0 )?"":sprintf(_("no privilege %s"),$aclname);
+      return (($uperm & (1 << ($this->dacls[$aclname]["pos"] ))) != 0 )?"":sprintf(_("no privilege %s"),$aclname);
     } else {
       return sprintf(_("unknow privilege %s"),$aclname);
     }
+    
   }
 
 
