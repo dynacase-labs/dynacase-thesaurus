@@ -1,5 +1,5 @@
 //°°°°°°°°°°°°°°°°°°°°°°°°° famille usercard °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°;;;;;;;;;;;
-BEGIN;0;[famille usercard];120;DocUser;;;;;;;
+BEGIN;0;famille personne;120;DocUser;;;;;;;
 TYPE;C;;;;;;;;;;
 ;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
@@ -27,7 +27,7 @@ ATTR;US_PRIVCARD;US_FR_COORD;privacity;N;N;text;170;H;;;
 US_LNAME;[titre];famille personne;;;;;;;;;
 END;0;;;;;;;;;;
 //°°°°°°°°°°°°°°°°°°°°°°°°° famille socata °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°;;;;;;;;;;;
-BEGIN;120;[famille socata];123;DocUser;;;;;;;
+BEGIN;120;famille personne entreprise;123;DocUser;;;;;;;
 TYPE;C;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;
@@ -70,7 +70,7 @@ ATTR;US_MSEDEPT;US_FR_MSE;DepartementMSX;N;N;text;220;W;;;
 US_LNAME;[titre];famille personne entreprise;;;;;;;;;
 END;0;;;;;;;;;;
 // famille profile personne;;;;;;;;;;;
-BEGIN;1;[famille profile personnet];122;DocUser;;;;;;;
+BEGIN;1;famille profile de personne;122;DocUser;;;;;;;
 USEFORPROF;;;;;;;;;;;
 TYPE;C;;;;;;;;;;
 CO_TITRE;[titre];famille profile de personne;;;;;;;;;

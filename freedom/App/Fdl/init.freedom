@@ -1,5 +1,5 @@
 // famille de base;;;id;class;;;;;;;
-BEGIN;0;[famille];1;DocFile;;;;;;;
+BEGIN;0;famille de base;1;DocFile;;;;;;;
 TYPE;C;;;;;;;;;;
 ;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
@@ -8,7 +8,7 @@ ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;W;;;
 BA_TITLE;[titre];famille de base;;;;;;;;;
 END;0;-1;;;;;;;;;
 // famille dossier;;;id;class;;;;;;;
-BEGIN;1;[famille];2;Dir;;;;;;;
+BEGIN;1;famille dossier;2;Dir;;;;;;;
 TYPE;C;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
 ATTR;BA_DESC;FR_BASIC;description;N;Y;text;;W;;;
@@ -20,7 +20,7 @@ DOC;2;9;;racine;;;;;;;
 DOC;2;10;9;non classé;;;;;;;
 // famille recherche;;;id;class;;;;;;;
 ;;;;;;;;;;;
-BEGIN;1;[famille];5;DocSearch;;;;;;;
+BEGIN;1;famille recherche;5;DocSearch;;;;;;;
 TYPE;C;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
 ATTR;SE_CRIT;;critère;N;N;frame;;W;;;
@@ -38,21 +38,21 @@ SEARCH;12;9;les profils;select * from doc where useforprof;;;;;;;
 SEARCH;13;9;les maisons;select * from doc where (owner < 0) and (locked != -1);;;;;;;
 SEARCH;14;9;orphelinat;select * from doc where (doctype != 'T') and (locked != -1) and (initid not in (select childid from fld where qtype='S'));;;;;;;;
 // famille profile doc;;;id;class
-BEGIN;1;[famille];3;DocFile
+BEGIN;1;famille profile de document;3;DocFile
 USEFORPROF;;;;
 TYPE;C;;;
 BA_TITLE;[titre];famille profile de document;;
 END;1;9;;
 ;;;;
 // famille profile dossier;;;;
-BEGIN;2;[famille];4;Dir
+BEGIN;2;famille profile de dossier;4;Dir
 USEFORPROF;;;;
 TYPE;C;;;
 BA_TITLE;[titre];famille profile de dossier;;
 END;1;9;;
 ;;;;
 // famille profile recherche;;;;
-BEGIN;5;[famille];6;DocSearch
+BEGIN;5;famille profile de recherche;6;DocSearch
 USEFORPROF;;;;
 TYPE;C;;;
 BA_TITLE;[titre];famille profile de recherche;;
