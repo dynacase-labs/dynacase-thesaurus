@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.23 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.24 2003/09/22 13:07:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.23 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.Dir.php,v 1.24 2003/09/22 13:07:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,16 +34,22 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.23 2003/08/18 15:47:04 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.24 2003/09/22 13:07:34 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
 
 include_once("FDL/Class.QueryDir.php");
 
+/**
+ * default folder to place document
+ */
+define ("UNCLASS_FLD",10); 
 
-define ("UNCLASS_FLD",10); // folder for unclassable document
-
+/**
+ * Folder document Class
+ *
+ */
 Class Dir extends PDir
 {
   
@@ -105,7 +111,11 @@ Class Dir extends PDir
     return $home;
   }
     
-
+  /**
+   * clear containt of this folder
+   *
+   * @return string error message, if no error empty string
+   */
   function Clear() {
     // need this privilege
     $err = $this->Control("modify");
@@ -116,7 +126,15 @@ Class Dir extends PDir
     $q->Query(0,0,"TABLE","delete from fld where dirid=".$this->id);
   }
 
-  // add a file in this folder
+  /**
+   * add a document reference in this folder
+   *
+   * if mode is latest the user always see latest revision 
+   * if mode is static the user see the revision which has been inserted
+   * @param int $docid document ident for the insertion
+   * @param string $mode latest|static 
+   * @return string error message, if no error empty string
+   */
   function AddFile($docid, $mode="latest") {
     
     // need this privilege
@@ -187,6 +205,7 @@ Class Dir extends PDir
     }
     return $err;
   }
+  // --------------------------------------------------------------------
 
 
   // --------------------------------------------------------------------
@@ -214,8 +233,14 @@ Class Dir extends PDir
   
     return($tableid);
   }
+  // --------------------------------------------------------------------
 
-  // delete reference to a  file in this folder
+  /**
+   * delete a document reference in this folder
+   *
+   * @param int $docid document ident for the deletion
+   * @return string error message, if no error empty string
+   */
   function DelFile($docid ) {
     
 
@@ -239,13 +264,15 @@ Class Dir extends PDir
     if ($qf->qtype == "M") $err = sprintf(_("cannot delete link for doc %d in folder %d : the document comes from a user query. Delete initial query if you want delete this document"),$docid, $this->initid);
   
     if ($err != "") return $err;
-        $qf->Delete();
+    $qf->Delete();
 
   
+    AddLogMsg(sprintf(_("Delete %d in %s folder"), $docid, $this->title));
 
   
     return $err;
   }
+  // --------------------------------------------------------------------
 
 
   // $classid : restrict for same usefor families
