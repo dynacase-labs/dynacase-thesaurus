@@ -28,58 +28,11 @@
 
 var    winfo = self.opener;
 
-var isNetscape = navigator.appName=="Netscape";
 if (isNetscape) {
     winfo.document.captureEvents(Event.MOUSEMOVE);
 }    
 
-function GetXYi(event) {
-  if (winfo.event) {
-    Xpos = winfo.event.clientX + document.documentElement.scrollLeft
-                             + document.body.scrollLeft;
-    Ypos = winfo.event.clientY + document.documentElement.scrollTop +
-                             + document.body.scrollTop;
-  }
-  else {
-    Xpos = event.clientX + window.scrollX;
-    Ypos = event.clientY + window.scrollY;
-  }    
-}
-function movewin(event) {
-    
-//    window.status="drag="+document.drag;
 
-    GetXYi(event);
-
-    window.status= Xpos+"+"+Ypos;
-
-    winfo.document.getElementById('choose').style.top = Ypos-2; 
-    winfo.document.getElementById('choose').style.left = Xpos-2; 
-    //    window.moveTo(Xpos, Ypos);
-
-  
-}
-function stopmove(event) {
-    
-//    window.status="drag="+document.drag;
-
-  winfo.document.onmousemove= "";
-  window.status='stop move';
-  
-}
-
-var moveon=false;
-function activemove(event)
-{
-
-  if (moveon)  winfo.document.onmousemove= "";
-  else   winfo.document.onmousemove= movewin;
-
-  moveon = (! moveon);
-
-
-  return false;
-}
     //--------------------- ATTR  --------------------------
 var tattrid= new Array();
     tattrid= [attrid];
@@ -88,81 +41,6 @@ var tattrv= new Array();
 [BLOCK ATTRVAL]
 tattrv[[index]] =[attrv]; 
 [ENDBLOCK ATTRVAL]
-
-
-function completechoice(index) {
-  var rvalue;
-
-  for (i=0; i< tattrid.length; i++) {
-      if  (tattrv[index][i].substring(0,1) != '?')  {
-	
-	if (winfo.document.getElementById(tattrid[i])) {
-	  winfo.document.getElementById(tattrid[i]).value = tattrv[index][i].replace(/\\n/g,'\n');
-
-	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
-	} else {
-	  if ([notalone]) alert('[TEXT:Attribute not found]'+'['+tattrid[i]+']'+winfo.name);
-	}
-
-      } else {
-	if ((tattrv[index][i].length > 1) &&
-	    ((winfo.document.getElementById(tattrid[i]).value == "") || (winfo.document.getElementById(tattrid[i]).value == " "))) {
-	  rvalue = tattrv[index][i].substring(1).replace(/\\n/g,'\n');
-	  winfo.document.getElementById(tattrid[i]).value = rvalue;
-	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
-	}
-						      
-      }
-  }
-  winfo.disableReadAttribute();
-  setTimeout('self.close()',200); // must be set in next event loop cause Mozilla crash sometimes
-  return;
-
-
-}
-
-function completechoices() {
-
-
-
-    var cvalues = new Array();
-    for (i=0; i< tattrid.length; i++) {	
-      cvalues[i] ="";
-    }
-    senum = document.getElementById('schoose');
-    for (c=0; c< senum.length; c++) {
-      if (senum.options[c].selected) {
-	index= senum.options[c].value;
-	for (i=0; i< tattrid.length; i++) {
-	  with (winfo.document.getElementById(tattrid[i])) {
-	    if (tattrv[index][i] != "") {
-	      cvalues[i] += tattrv[index][i];
-	       cvalues[i] += "\n";
-	      style.backgroundColor='[CORE_BGCOLORHIGH]';
-	    }
-	    //       style.fontWeight='bold';
-	  }
-	}
-      }
-    }
-    for (i=0; i< tattrid.length; i++) {	
-      if (cvalues[i][0] != '?')
-	// delete last CR
-	winfo.document.getElementById(tattrid[i]).value = cvalues[i].substring(0,cvalues[i].length-1);
-    }
-    winfo.disableReadAttribute();
-}
-
-function autoClose() {
-  // see if only one possibility
-  if (tattrv.length == 1) {
-     completechoice(0);     
-  }
-
-
- 
-}
-
 
 -->
 </script>   
@@ -185,7 +63,7 @@ function autoClose() {
 [BLOCK SELECTSINGLE]
 <select id="schoose" 
         style="align:center" 
-	onchange="completechoice(this.options[this.selectedIndex].value)" > 
+	onchange="completechoice(this.options[this.selectedIndex].value,tattrid,tattrv,winfo);setTimeout('self.close()',200);" > 
                     [BLOCK SELECT]
 <option value="[cindex]" >[choice]</option>        
                     [ENDBLOCK SELECT]

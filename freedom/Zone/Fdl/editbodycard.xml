@@ -1,20 +1,15 @@
 
-<table width="100%" cellspacing="0">
-
-<tbody >
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
 
 
-<tr  >
-  <td    >
 <input type="hidden" name="title" value="[TITLE]"></input>
 
-<fieldset><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
+<fieldset ><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
 
-<table id="T[frameid]" width="100%">
+<div id="T[frameid]" >
             [BLOCK [TABLEVALUE]]
-
+<table style="width:100%">
 <tr >
             [BLOCK [NORMALROW]]
   <td class="[labelclass]"  width="30%"><span >[name]&nbsp;:&nbsp;</span></td>
@@ -25,22 +20,17 @@
   <td colspan="3">[inputtype]</td>
             [ENDBLOCK [ARRAYROW]]
 </tr>
-           [ENDBLOCK [TABLEVALUE]]
 </table>
-
+           [ENDBLOCK [TABLEVALUE]]
+</div>
 </fieldset>
-</td>
-</tr>
 [ENDBLOCK TABLEBODY]
 
 
 
-<tr style="display:none">
-<td >
+<div style="display:none">
+
 [BLOCK HIDDENS]
 [inputtype]
 [ENDBLOCK HIDDENS]
-</td>
-</tr>
-</tbody>
-</table>
+</div>

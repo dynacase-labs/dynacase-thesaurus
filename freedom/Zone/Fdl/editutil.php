@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.76 2004/09/09 14:26:41 eric Exp $
+ * @version $Id: editutil.php,v 1.77 2004/09/14 14:03:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.76 2004/09/09 14:26:41 eric Exp $
+// $Id: editutil.php,v 1.77 2004/09/14 14:03:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -195,42 +195,42 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	//print_r($oattr);
 
       
-      $layout = new Layout("FREEDOM/Layout/idoclist.xml",$action);
-      $layout->Set("name","_$attrid"."[]");
-      $layout->Set("name_attr","_$attrid");
-      $layout->Set("famid",$idocfamid);
-      $layout->Set("listidoc","listidoc_$attrid");
+	$layout = new Layout("FREEDOM/Layout/idoclist.xml",$action);
+	$layout->Set("name","_$attrid"."[]");
+	$layout->Set("name_attr","_$attrid");
+	$layout->Set("famid",$idocfamid);
+	$layout->Set("listidoc","listidoc_$attrid");
 
 
 
-      $value=explode("\n",$value);
-      //printf(sizeof($value));
+	$value=explode("\n",$value);
+	//printf(sizeof($value));
 
-      $tabxml=array();
-      while (list($i,$xmlencode) = each($value)) {
+	$tabxml=array();
+	while (list($i,$xmlencode) = each($value)) {
 
-	if ($xmlencode!=""){
-	  $tabxml[$i]["xml"]=$xmlencode;
+	  if ($xmlencode!=""){
+	    $tabxml[$i]["xml"]=$xmlencode;
 	
-	  $temp=base64_decode($xmlencode);
-	  $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
-	  $xml=$entete;
-	  $xml.=$temp;
+	    $temp=base64_decode($xmlencode);
+	    $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
+	    $xml=$entete;
+	    $xml.=$temp;
 	  
-	  $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
-	  $id_arg=recup_argument_from_xml($xml,"id_doc");
-	  //strlen($oattr->LabelText);
-	  //$tabxml[$i]["id"]="_$attrid".$i;
+	    $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
+	    $id_arg=recup_argument_from_xml($xml,"id_doc");
+	    //strlen($oattr->LabelText);
+	    //$tabxml[$i]["id"]="_$attrid".$i;
 	 
-	  $tabxml[$i]["id"]= $id_arg;
-	  //printf(settype($id_arg,"int"));
-	  $number=str_replace("_$attrid","",$id_arg);//recupere le numero de l'argument
-	  $tabxml[$i]["titre"]=$number." : ".$title;
+	    $tabxml[$i]["id"]= $id_arg;
+	    //printf(settype($id_arg,"int"));
+	    $number=str_replace("_$attrid","",$id_arg);//recupere le numero de l'argument
+	    $tabxml[$i]["titre"]=$number." : ".$title;
+	  }
 	}
-      }
-      $layout->Set("idframe","iframe_$attrid");
-      $layout->SetBlockData("OPTION",$tabxml);
-      $input=$layout->gen();    
+	$layout->Set("idframe","iframe_$attrid");
+	$layout->SetBlockData("OPTION",$tabxml);
+	$input=$layout->gen();    
       }
 
 
@@ -306,9 +306,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	
 	default:
 	  $lay = new Layout("FDL/Layout/editenumlist.xml", $action);
-	}
-	
-
+	}	
       } else {
 	
 	$enuml = $oattr->getenumlabel();
@@ -424,22 +422,36 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
     default : 
     
       if (($oattr->repeat)&&(!$oattr->inArray())) { // textlist
-	 $input="<textarea $oc class=\"fullresize\" rows=2 name=\"".
-	   $attrin."\" ";
-	 $input .= " id=\"".$attridk."\" "; 
-	 if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-	 $input .= " >\n".
-	   htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
-	   "</textarea>";
+	$input="<textarea $oc class=\"fullresize\" rows=2 name=\"".
+	  $attrin."\" ";
+	$input .= " id=\"".$attridk."\" "; 
+	if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+	$input .= " >\n".
+	  htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
+	  "</textarea>";
       } else {
-      $input="<input $oc class=\"fullresize\" type=\"text\" name=\"".$attrin."\" value=\"".str_replace(array("[","$"),array("&#091;","&#036;"),chop(htmlentities(stripslashes($value))))."\"";
-     
-      $input .= " id=\"".$attridk."\" "; 
+	$hvalue=str_replace(array("[","$"),array("&#091;","&#036;"),chop(htmlentities(stripslashes($value))));
 
-
-      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
-		      
-      $input .= " > ";  
+	if ($oattr->eformat != "") {
+	  // input help with selector 
+	  $lay = new Layout("FDL/Layout/edittextlist.xml", $action);
+	  if (getLayTextOptions($lay,$doc,$oattr,$hvalue,$attrin,$index)) {
+	    if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+	    else $lay->set("disabled","");
+	    $lay->set("adisabled",$idisabled);
+	    $input =$lay->gen(); 
+	    $oattr->phpfunc=false; // disabled default input help
+	  }  else {
+	    $oattr->eformat = ""; // restore default display
+	  }
+	}
+	if ($oattr->eformat == "") {
+	  //Common representation
+	  $input="<input $oc class=\"fullresize\" type=\"text\" name=\"".$attrin."\" value=\"".$hvalue."\"";     
+	  $input .= " id=\"".$attridk."\" "; 
+	  if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;		      
+	  $input .= " > "; 
+	} 
       }
       break;
 		      
@@ -775,6 +787,13 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 
 /**
  * generate HTML for inline document (not virtual)
+ *
+ * @param Layout $lay template of html input
+ * @param Doc $doc current document in edition
+ * @param DocAttribute $oattr current attribute for input
+ * @param string $value value of the attribute to display (generaly the value comes from current document)
+ * @param string $aname input HTML name (generaly it is '_'+$oattr->id)
+ * @param int $index current row number if it is in array ("" if it is not in array)
  */
 function getLayAdoc(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $idocid=$oattr->format.$index;
@@ -786,7 +805,14 @@ function getLayAdoc(&$lay,&$doc, &$oattr,$value, $aname,$index) {
 }
 
 /**
- * generate HTML for inline document (not virtual)
+ * generate HTML for date attribute
+ *
+ * @param Layout $lay template of html input
+ * @param Doc $doc current document in edition
+ * @param DocAttribute $oattr current attribute for input
+ * @param string $value value of the attribute to display (generaly the value comes from current document)
+ * @param string $aname input HTML name (generaly it is '_'+$oattr->id)
+ * @param int $index current row number if it is in array ("" if it is not in array)
  */
 function getLayDate(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $idocid=$oattr->format.$index;
@@ -795,15 +821,23 @@ function getLayDate(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $lay->set("idocid",strtolower($idocid));
   $lay->set("value",$value);
 
-}/**
- * generate HTML for inline document (not virtual)
+}
+
+/**
+ * generate HTML for enum attributes
+ *
+ * @param Layout $lay template of html input
+ * @param Doc $doc current document in edition
+ * @param DocAttribute $oattr current attribute for input
+ * @param string $value value of the attribute to display (generaly the value comes from current document)
+ * @param string $aname input HTML name (generaly it is '_'+$oattr->id)
+ * @param int $index current row number if it is in array ("" if it is not in array)
  */
 function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $idocid=$oattr->format.$index;
   $lay->set("name",$aname);
   $idx=$oattr->id.$index;
   $lay->set("id",$idx);
-  $lay->set("idocid",strtolower($idocid));
   
 
   $tvalue=$doc->_val2array($value);
@@ -829,7 +863,43 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $lay->setBlockData("OPTIONS",$topt);
 
 }
+/**
+ * generate HTML for text attributes with help function 
+ *
+ * @param Layout $lay template of html input
+ * @param Doc $doc current document in edition
+ * @param DocAttribute $oattr current attribute for input
+ * @param string $value value of the attribute to display (generaly the value comes from current document)
+ * @param string $aname input HTML name (generaly it is '_'+$oattr->id)
+ * @param int $index current row number if it is in array ("" if it is not in array)
 
+ */
+function getLayTextOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
+  include_once("FDL/enum_choice.php");
+  $idocid=$oattr->format.$index;
+  $lay->set("name",$aname);
+  $idx=$oattr->id.$index;
+  $lay->set("id",$idx);
+  
+  $res=getResPhpFunc($doc,$oattr,$rargids,$tselect,$tval,false);
+
+  if ($res===false) return false; // one or more attribute are not set
+
+  $sattrid="[";
+  $sattrid.= strtolower("'".implode("','", $rargids)."'");
+  $sattrid.="]";
+  $lay->Set("attrid", $sattrid);
+  foreach ($tselect as $k=>$v) {
+    if ($v["choice"]==$value) $tselect[$k]["selected"]="selected";
+    else $tselect[$k]["selected"]="";
+  }
+
+  $lay->SetBlockData("SELECTENUM", $tselect);
+  $lay->SetBlockData("ATTRVAL", $tval);
+
+  $lay->set("value",$value);
+  return true;
+}
 /**
  * add different js files needed in edition mode
  */
@@ -853,5 +923,6 @@ function editmode(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITJS");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITIJS");
+  $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=ENUMCHOICEJS");
 }
 ?>

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.215 2004/09/07 10:04:23 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.216 2004/09/14 14:03:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2936,8 +2936,8 @@ create unique index i_docir on doc(initid, revision);";
 	$tableframe[$v]["NORMALROW"]="NORMALROW$i";		
 	$tableframe[$v]["ARRAYROW"]="ARRAYROW$i";
 
-	if ($listattr[$i]->type=="array") $this->lay->SetBlockData("ARRAYROW$i",array(array("zou")));
-	else	$this->lay->SetBlockData("NORMALROW$i",array(array("zou")));
+	if ($listattr[$i]->type=="array") $this->lay->SetBlockData("ARRAYROW$i",array(array("zou"=>"zou")));
+	else	$this->lay->SetBlockData("NORMALROW$i",array(array("zou"=>"zou")));
 	$v++;
 		
       }
