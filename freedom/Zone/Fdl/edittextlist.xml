@@ -1,15 +1,3 @@
-<script language="JavaScript1.2">
-  <!--
-var tattrid[id]= new Array();
-    tattrid[id]= [attrid];
-
-var tattrv[id]= new Array();
-[BLOCK ATTRVAL]
-tattrv[id][[index]] =[attrv]; 
-[ENDBLOCK ATTRVAL]
--->
-</script>  
-
 <select [disabled] id="schoose[id]" [oc]
         style="align:center" 
 	onchange="if (this.options[this.selectedIndex].value > -1) completechoice(this.options[this.selectedIndex].value,tattrid[id],tattrv[id],window);" > 
@@ -19,3 +7,19 @@ tattrv[id][[index]] =[attrv];
                     [ENDBLOCK SELECTENUM]
 </select>
 <input type="[atype]"  name="[name]" id="[id]" value="[value]" [adisabled]>
+<script language="JavaScript1.2">
+  <!--
+var tattrid[id]= new Array();
+    tattrid[id]= [attrid];
+
+var tattrv[id]= new Array();
+[BLOCK ATTRVAL]
+tattrv[id][[index]] =[attrv]; 
+[ENDBLOCK ATTRVAL]
+
+if ('[value]' == '') {
+  // preload first value
+  setTimeout('completechoice(0,tattrid[id],tattrv[id],window)',1000);
+}
+-->
+</script>  
