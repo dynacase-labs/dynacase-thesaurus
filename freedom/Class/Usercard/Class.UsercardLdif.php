@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardLdif.php,v 1.5 2002/04/18 12:55:26 eric Exp $
+// $Id: Class.UsercardLdif.php,v 1.6 2002/07/16 13:54:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardLdif.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 0US_SOCIETY1-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.UsercardLdif.php,v $
+// Revision 1.6  2002/07/16 13:54:55  eric
+// ajout initiales famille personne
+//
 // Revision 1.5  2002/04/18 12:55:26  eric
 // USERCARD: ajout fonction dans famille employe
 //
@@ -84,7 +87,7 @@ Class UsercardLdif
 		      "givenName"                       => "US_FNAME",
 		      "homePhone"                       => "US_HOMEPHONE",
 		      "homePostalAddress"               => "",
-		      "Initials"                        => "",
+		      "initials"                        => "US_INITIALS",
 		      "jpegPhoto"                       => "US_PHOTO",
 		      "labeledURI"                      => "US_WORKWEB",
 		      "mail"                            => "US_MAIL",
