@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.2 2002/09/16 14:42:10 eric Exp $
+// $Id: duplicate.php,v 1.3 2003/01/17 16:54:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,13 +35,19 @@ function duplicate(&$action, $dirid, $docid) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $copy= new Doc($dbaccess, $docid);
  
 
 
   // test if doc with values
   $doc= new Doc($dbaccess, $docid);
   $cdoc= new Doc($dbaccess, $doc->fromid);
+  
+  $err = $cdoc->control('view');
+  if ($err != "") $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$doc->fromid));
+
+
+  $copy= new Doc($dbaccess, $docid);
+
   $values = $doc->getValues();
   if (! is_array($values)) $action->exitError(_("this kind of document cannot be duplicate"));
 

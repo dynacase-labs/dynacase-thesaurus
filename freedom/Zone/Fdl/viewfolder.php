@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.34 2003/01/08 09:00:17 eric Exp $
+// $Id: viewfolder.php,v 1.35 2003/01/17 16:54:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -139,7 +139,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     $tfamdoc=array();
   }
 
-  $doc = createDoc($dbaccess,$famid);
+  $doc = createDoc($dbaccess,$famid,false);
   while((list($k,$zdoc) = each($ldoc)) )
       {
 	if ($column) $doc->ResetMoreValues();

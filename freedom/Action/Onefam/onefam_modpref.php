@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_modpref.php,v 1.2 2002/10/02 09:12:29 eric Exp $
+// $Id: onefam_modpref.php,v 1.3 2003/01/17 16:54:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_modpref.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -19,9 +19,7 @@
 //
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
-
+// 59 Temple Place, Suite 330, Boston, MA 02111-1307 
 
 include_once("FDL/Class.Doc.php");
 

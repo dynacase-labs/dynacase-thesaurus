@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.28 2003/01/13 18:58:47 eric Exp $
+// $Id: freedom_util.php,v 1.29 2003/01/17 16:54:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -139,13 +139,15 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
 
 
 // create a new document object in type concordance
-function createDoc($dbaccess,$fromid) {
+function createDoc($dbaccess,$fromid,$control=true) {
 
   if ($fromid > 0) {
     $cdoc = new Doc($dbaccess, $fromid);
 
-    $err = $cdoc->control('view');
-    if ($err != "") return false;
+    if ($control) {
+      $err = $cdoc->control('view');
+      if ($err != "") return false;
+    }
 
     
     $classname = "Doc".$fromid;

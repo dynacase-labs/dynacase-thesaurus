@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.84 2003/01/17 11:44:05 eric Exp $
+// $Id: Class.Doc.php,v 1.85 2003/01/17 16:54:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.84 2003/01/17 11:44:05 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.85 2003/01/17 16:54:24 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -529,7 +529,7 @@ create unique index i_docir on doc(initid, revision);";
       $query = new QueryDb($this->dbaccess, "DocFam");
       $query->AddQuery("fromid = ".$this->id);
       $table1 = $query->Query();
-
+      
       if ($table1) {
 	while (list($k,$v) = each($table1)) {
 	  $this->childs[]=$v->id;
@@ -913,6 +913,7 @@ create unique index i_docir on doc(initid, revision);";
     $this->revision = $this->revision+1;
 
     $this->Add();
+    $this->modify(); // need to applicate SQL triggers
 
     
     

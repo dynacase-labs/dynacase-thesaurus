@@ -23,6 +23,7 @@ a.menuItem {
   font-weight: bold;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
+  text-transform:capitalize;
 }
 
 

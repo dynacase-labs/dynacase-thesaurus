@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.2 2003/01/17 10:31:52 eric Exp $
+// $Id: barmenu.php,v 1.3 2003/01/17 16:54:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,7 +80,7 @@ function barmenu(&$action) {
     popupActive("helpmenu",1,'imvcard');
   }   else {
     popupInvisible("newmenu",1,'newcatg'); 
-    popupInvisible("newmenu",1,'imvcard'); 
+    popupInvisible("helpmenu",1,'imvcard'); 
   }
 
 
