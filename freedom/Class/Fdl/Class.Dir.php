@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.18 2003/03/17 12:04:33 eric Exp $
+// $Id: Class.Dir.php,v 1.19 2003/04/02 07:36:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.18 2003/03/17 12:04:33 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.19 2003/04/02 07:36:12 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -214,7 +214,9 @@ Class Dir extends PDir
 	include_once("FDL/Lib.Dir.php");
 	$tallfam = GetClassesDoc($this->dbaccess, $this->userid,$classid,"TABLE");
 	while (list($k,$cdoc)= each ($tallfam)) {
-	  $tclassdoc[$cdoc["id"]]=$cdoc;
+	  $tclassdoc[$cdoc["id"]]=$cdoc;	 
+	  $tclassdoc += $this->GetChildFam($cdoc["id"]);
+	  
 	}
 	// suppress undesirable families
       
@@ -227,6 +229,7 @@ Class Dir extends PDir
 	while (list($k,$famid)= each ($tfamid)) {
 	  $tclassdoc[intval($famid)]=array("id"=> intval($famid),
 					   "title"=>$tfam[$k]);
+	  $tclassdoc += $this->GetChildFam(intval($famid));
 	}
       
       }

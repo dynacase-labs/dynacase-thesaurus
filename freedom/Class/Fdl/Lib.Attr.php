@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.13 2003/03/26 10:46:16 eric Exp $
+// $Id: Lib.Attr.php,v 1.14 2003/04/02 07:36:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -119,6 +119,7 @@ function AttrToPhp($dbaccess, $tdoc) {
     $phpAdoc->SetBlockData("ATTRFIELD2", $tattr);
     reset( $tattr);
     $phpAdoc->SetBlockData("ATTRFIELD", $tattr);
+
       
   }      
     

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.107 2003/03/28 17:52:38 eric Exp $
+// $Id: Class.Doc.php,v 1.108 2003/04/02 07:36:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.107 2003/03/28 17:52:38 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.108 2003/04/02 07:36:12 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -575,21 +575,24 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   // --------------------------------------------------------------------
-  function GetChildFam() {
+  function GetChildFam($id=-1) {
     // -------------------------------------------------------------------- 
     // Return array of child doc id : class document 
-    if (! isset($this->childs)) {
+    
+    if ($id == 0) return array();
+    if (($id!=-1) || (! isset($this->childs))) {
 
-      $this->childs=array();
+      if ($id==-1) 	$id= $this->id;	
+      if (! isset($this->childs)) $this->childs=array();
       $query = new QueryDb($this->dbaccess, "DocFam");
-      $query->AddQuery("fromid = ".$this->id);
-      $table1 = $query->Query();
+      $query->AddQuery("fromid = ".$id);
+      $table1 = $query->Query(0,0,"TABLE");
       
       if ($table1) {
 	while (list($k,$v) = each($table1)) {
-	  $this->childs[]=$v->id;
+	  $this->childs[$v["id"]]=$v;
 
-	  $this->childs=array_merge($this->childs, $v->GetChildFam());
+	  $this->GetChildFam($v["id"]);
 	  
 	}
       }
@@ -2062,6 +2065,7 @@ $value = $this->GetValue($listattr[$i]->id);
   }
 
 
+  
 
   // =====================================================================================
   // ================= methods use for calculated attributes ======================

@@ -14,10 +14,10 @@ update doc124 set si_catg=str_replace(si_catg,'2','client');
 update doc124 set si_catg=str_replace(si_catg,'3','furnisher');" | psql freedom anakeen
 
 echo "update docattr set phpfunc='client|Client,furnisher|Fournisseur' where id='us_catg';
-update doc120 set si_catg=str_replace(si_catg,'1','client');
-update doc120 set si_catg=str_replace(si_catg,'2','furnisher');" | psql freedom anakeen
+update doc120 set us_catg=str_replace(us_catg,'1','client');
+update doc120 set us_catg=str_replace(us_catg,'2','furnisher');" | psql freedom anakeen
 
-update client societe 1|Constructeur,2|Client,3|Fournisseur
+
 # add sequences
 $pubdir/wsh.php --api=fdl_adoc
 $pubdir/wsh.php --api=fdl_trigger | psql freedom anakeen

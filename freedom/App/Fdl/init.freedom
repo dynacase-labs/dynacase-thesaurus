@@ -39,7 +39,7 @@ ATTR;PFL_OPEN;;ouvrir;N;N;text;10;M;;%S%&app=FREEDOM&action=OPENFOLIO&id=%I%;;
 ;;;;;;;;;;;;
 END;1;-1;;;;;;;;;;
 // famille cycle;;;id;class;name;;;;;;;
-BEGIN;1;cycle de vie;20;;WDOC;;;;;;;
+BEGIN;1;cycle de vie;20;WDoc;WDOC;;;;;;;
 TYPE;C;;;;;;;;;;;
 USEFOR;W;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
@@ -56,9 +56,9 @@ METHOD;Method.Mask.php;;;;;;;;;;;
 ATTR;MSK_FR_REST;;Famille;N;N;frame;0;F;;;;
 ATTR;MSK_FAM;MSK_FR_REST;familles;N;N;text;10;W;Y;%S%app=FDL&action=FDL_CARD&id=%MSK_FAMID%;fdl.php;lfamilies(D):MSK_FAMID,MSK_FAM
 ATTR;MSK_FAMID;MSK_FR_REST;id familles;N;N;text;20;H;;;;
-ATTR;MSK_ATTRIDS;MSK_FR_REST;attrid;N;N;text;10;H;;;;
-ATTR;MSK_VISIBILITIES;MSK_FR_REST;visibilité;N;N;text;20;H;;;;
-;;;;;;;;;;;;
+ATTR;MSK_ATTRIDS;MSK_FR_REST;attrid;N;N;textlist;10;H;;;;
+ATTR;MSK_VISIBILITIES;MSK_FR_REST;visibilité;N;N;textlist;20;H;;;;
+ATTR;MSK_NEEDEEDS;MSK_FR_REST;obligatoire;N;N;textlist;30;H;;;;
 ;;;;;;;;;;;;
 END;1;-1;;;;;;;;;;
 // famille dossier;inherit;;id;class;name;;;;;;;

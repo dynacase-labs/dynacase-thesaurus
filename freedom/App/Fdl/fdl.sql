@@ -10,12 +10,12 @@ begin
   if (not rvalue) then	
     
      -- search in middle
-    wt := \'\n\'||arg_v||\'\r\';
+    wt := \'\n\'||arg_v||\'\n\';
     rvalue := (position(wt in arg_tl) > 0);
 
      -- search in begin
      if (not rvalue) then	
-       wt := arg_v||\'\r\';
+       wt := arg_v||\'\n\';
        rvalue := (position(wt in arg_tl) = 1);
 
 	

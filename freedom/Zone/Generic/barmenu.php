@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.8 2003/03/28 17:52:38 eric Exp $
+// $Id: barmenu.php,v 1.9 2003/04/02 07:36:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,18 +41,17 @@ function barmenu(&$action) {
   $famid = getDefFam($action);
   
   $fdoc= new Doc( $dbaccess, $famid);
-  $child[-1] = $famid;
+  $child[$famid] = array("title"=> $fdoc->title,
+		     "id" => $famid);
   $child += $fdoc->GetChildFam();
-  
+
   $tchild = array();
   $tnewmenu= array();
   while (list($k,$vid) = each($child)) {
-    $cdoc= new Doc( $dbaccess, $vid);
-    $tchild[] = array("stitle" => $cdoc->title,
-		      "subfam" => $vid);
-    $tnewmenu[]="newdoc$vid";
+    $tchild[] = array("stitle" => $vid["title"],
+		      "subfam" => $vid["id"]);
+    $tnewmenu[]="newdoc".$k;
   }
-
   $action->lay->SetBlockData("NEWFAM", $tchild);
   $action->lay->Set("ftitle", $fdoc->title);
 
