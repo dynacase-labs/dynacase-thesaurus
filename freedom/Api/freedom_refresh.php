@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_refresh.php,v 1.12 2004/12/01 08:11:24 eric Exp $
+ * @version $Id: freedom_refresh.php,v 1.13 2005/01/14 17:55:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -51,6 +51,7 @@ if ($famId > 0) {
   
 $query = new QueryDb($dbaccess,"Doc$famId");
 $query->AddQuery("locked != -1");
+$query->AddQuery("doctype != 'T'");
 if ($docid > 0) $query->AddQuery("id = $docid");
 
 
