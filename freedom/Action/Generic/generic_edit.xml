@@ -62,6 +62,7 @@ addEvent(window,"load",focusFirst);
 
 <!-- end for idoc -->
 
+[IFNOT NOFORM]
 <!-- Title Table -->
 <form  id="fedit"  
        class="fborder" 
@@ -69,6 +70,7 @@ addEvent(window,"load",focusFirst);
        onsubmit="if (document.isSubmitted) return false;if (!canmodify()) return false;document.isSubmitted=true;enableall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD" >
+[ENDIF NOFORM]
 <INPUT TYPE="hidden" name="classid" value="[classid]"></input>
 <INPUT TYPE="hidden" name="id" value="[id]"></input>
 <INPUT TYPE="hidden" name="dirid" value="[dirid]"></input>
@@ -91,7 +93,9 @@ addEvent(window,"load",focusFirst);
 </table>
 [ENDIF HEAD]
 <div id="fixspanhead" style="visibility:hidden;padding:0px;margin:0px;"></div>
+[IFNOT NOFORM]
 [ZONE FDL:EDITCARD]
+[ENDIF NOFORM]
 <div id="fixspanfoot" style="display:[ddivfoot];visibility:hidden;padding:0px;margin:0px;"></div>
 <table id="fixtablefoot" class="[tablefoot]"   cellspacing="0" width="100%">
 <tfoot >
@@ -119,7 +123,9 @@ addEvent(window,"load",focusFirst);
 [ENDIF FOOT]
 </tfoot>
 </table>
+[IFNOT NOFORM]
 </form>
+[ENDIF NOFORM]
 <!--  FOOT HTML -->
 <iframe name="fhsave" style="display:none"></iframe>
 </body>
