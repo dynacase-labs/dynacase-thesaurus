@@ -6,6 +6,55 @@ var wichoose= false;
 var colorPick = new ColorPicker();
 initDHTMLAPI();
 
+
+
+
+function scruteadocs() { 
+  var newTa = document.getElementsByTagName('iframe');
+  for (var i=0; i < newTa.length; i++){ 
+    ofr=newTa[i];
+    updateOfr(ofr,true);
+  }
+}
+
+function updateIfr(ifr) { 
+  var ofr=document.getElementById(ifr);
+  if (ofr) updateOfr(ofr,false);
+}
+
+function updateOfr(ofr,onlyclose) {    
+  if (ofr.id.substr(0,4)=="ifr_") {
+	  
+      iid=ofr.id.substr(4);
+      viid=document.getElementById(iid);
+      if (viid) {
+	nurl=ofr.src;
+	if ((viid.value==' ') || (viid.value=='')) {
+	  nurl='about:blank';
+	  ofr.style.display='none';
+	} else {
+	  if (!onlyclose)  nurl='[CORE_STANDURL]&app=FDL&action=IMPCARD&zone=FDL:VIEWTHUMBCARD:T&id='+viid.value;
+	}
+
+	if (ofr.src.substr(-10) != nurl.substr(-10) ) {
+	  ofr.src=nurl;	      
+	  if (nurl != 'about:blank') {
+	    ofr.style.display='';  
+	    sdisplay='none';
+	  } else {
+	    sdisplay='';
+	  }
+	  nnode=ofr.nextSibling;
+	  while (nnode && (nnode.nodeType != 1)) nnode = nnode.nextSibling; //case TEXT node
+	  nnode.style.display=sdisplay;
+	      
+	}
+      }
+    }
+  
+}
+
+setInterval('scruteadocs()',1000);
 // search the row number of an element present in array
 function getRowNumber(el) {
   var tr=el;
@@ -404,7 +453,7 @@ function  nodereplacestr(n,s1,s2) {
   var regs1;
   var rs1;
   var tmp;
-  var attnames = new Array('onclick','href','onmousedown','id','name');
+  var attnames = new Array('onclick','href','onmousedown','onmouseover','id','name');
   // for regexp
   rs1 = s1.replace('[','\\[');
   rs1 = rs1.replace(']','\\]');
@@ -433,7 +482,7 @@ function  nodereplacestr(n,s1,s2) {
 		avalue=attr.value.replace(regs1,s2);
 
 		if (isNetscape) attr.value=avalue;
-		else if ((attr.name == 'onclick') || (attr.name == 'onmousedown')) kids[i][attr.name]=new Function(avalue); // special for IE5.5+
+		else if ((attr.name == 'onclick') || (attr.name == 'onmousedown') || (attr.name == 'onmouseover')) kids[i][attr.name]=new Function(avalue); // special for IE5.5+
 		else attr.value=avalue;
 	      }
 	    }
@@ -708,6 +757,7 @@ function vconstraint(cButton,famid,attrid) {
   }
   wf.moveTo(xy.x, xy.y+10);
 }
+
 
 
 //          ---------------------------------------------------------------------------------

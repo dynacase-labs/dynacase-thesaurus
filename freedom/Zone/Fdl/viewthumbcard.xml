@@ -1,0 +1,11 @@
+
+<div  id="d[id]"
+     <img border="0" align="right" width="30"  class="aicon" src="[iconsrc]">
+<B>[TITLE]</B> <I>[state]</I>
+<UL>
+[BLOCK TABLEVALUE]
+<LI>[name]&nbsp;:&nbsp;[value]</LI>
+[ENDBLOCK TABLEVALUE]
+</UL>
+
+</div>

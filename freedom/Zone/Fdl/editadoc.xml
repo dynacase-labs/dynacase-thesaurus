@@ -1,0 +1,4 @@
+<iframe width="100%" id="ifr_[idocid]" style="display:none" src=""></iframe>
+<div><img align="bottom" onmouseover="updateIfr('ifr_[idocid]')" src="Images/finish.png">
+<input [disabled] type="text" name="[name]" id="[id]" value="[value]" >
+</div>

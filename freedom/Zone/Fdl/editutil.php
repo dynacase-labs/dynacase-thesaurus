@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.64 2004/06/07 15:54:10 eric Exp $
+ * @version $Id: editutil.php,v 1.65 2004/06/11 16:11:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.64 2004/06/07 15:54:10 eric Exp $
+// $Id: editutil.php,v 1.65 2004/06/11 16:11:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -280,7 +280,16 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       break;
 		      
       //같같같같같같같같같같같같같같같같같같같같
-			
+    case "doc": 
+
+      $lay = new Layout("FDL/Layout/editadoc.xml", $action);
+      getLayAdoc($lay,$doc,$oattr,$value,$attrin,$index);
+		      
+      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+      else $lay->set("disabled","");
+      $input =$lay->gen(); 
+      break;		
+      //같같같같같같같같같같같같같같같같같같같같
  
      
     case "enum": 
@@ -736,5 +745,17 @@ function getLayArray(&$lay,&$doc,$attrid) {
       
 
     
+}
+
+/**
+ * generate HTML for inline document (not virtual)
+ */
+function getLayAdoc(&$lay,&$doc, &$oattr,$value, $aname,$index) {
+  $idocid=$oattr->format.$index;
+  $lay->set("name",$aname);
+  $lay->set("id",$oattr->id.$index);
+  $lay->set("idocid",strtolower($idocid));
+  $lay->set("value",$value);
+
 }
 ?>

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.203 2004/06/07 16:01:09 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.204 2004/06/11 16:15:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -201,7 +201,8 @@ Class Doc extends DocCtrl
    * @var array
    */
   var $cviews=array("FDL:VIEWBODYCARD",
-		    "FDL:VIEWABSTRACTCARD");
+		    "FDL:VIEWABSTRACTCARD",
+		    "FDL:VIEWTHUMBCARD");
   var $eviews=array("FDL:EDITBODYCARD");
 
 
@@ -495,8 +496,8 @@ create unique index i_docir on doc(initid, revision);";
     
     $values = $from->getValues();
     
-    reset($values);
-    while(list($k,$v) = each($values)) {
+
+    foreach($values as $k=>$v) {
       $this->setValue($k,$v);
     }
   }
@@ -1717,6 +1718,7 @@ create unique index i_docir on doc(initid, revision);";
     $copy->locked = "0";
     $copy->state = "";
     $copy->comment = "";
+
     if ($temporary) $copy->doctype = "T";
     $cdoc= $this->getFamDoc();
     $copy->setProfil($cdoc->cprofid);
@@ -1724,6 +1726,7 @@ create unique index i_docir on doc(initid, revision);";
     $err = $copy->Add();
 
     if ($err != "") return $err;
+    $copy->Modify();
 
     return $copy;
   }
@@ -1987,6 +1990,7 @@ create unique index i_docir on doc(initid, revision);";
     
     $aformat=$oattr->format;
     $atype=$oattr->type;
+
     if (($oattr->repeat)&&($index <= 0)){
       $tvalues = explode("\n",$value);
     } else {
@@ -1995,7 +1999,6 @@ create unique index i_docir on doc(initid, revision);";
     $idocfamid=$oattr->format;
     
     $attrid=$oattr->id;
-
     while (list($kvalue, $avalue) = each($tvalues)) {
       $htmlval="";
       switch ($atype)
@@ -2183,7 +2186,24 @@ create unique index i_docir on doc(initid, revision);";
 	    $htmlval = "";
 	  }
 	  break;
+ 
+	case "doc": 
 
+	  $htmlval = "";
+	  if ($avalue != "") {
+	    if ($kvalue>-1)   $idocid=$this->getTValue($aformat,"",$kvalue);
+	    else $idocid=$this->getValue($aformat);
+	    
+	    if ($idocid>0) {
+	      //$lay = new Layout("FDL/Layout/viewadoc.xml", $action);
+	      //$lay->set("id",$idocid);
+	      $idoc = new Doc($this->dbaccess,$idocid);
+	      $htmlval =$idoc->viewDoc("FDL:VIEWTHUMBCARD:T","finfo");
+
+	      //$htmlval =$lay->gen(); 
+	    }
+	  }
+	  break;
 	case money:    
 
 
@@ -2208,7 +2228,7 @@ create unique index i_docir on doc(initid, revision);";
 	
 	}
     
-      if ($aformat != "") {
+      if (($aformat != "") && ($atype != "doc")){
 	//printf($htmlval);
 	$htmlval=sprintf($aformat,$htmlval);
       } 
@@ -2567,7 +2587,19 @@ create unique index i_docir on doc(initid, revision);";
 
   }
   
-  // -----------------------------------
+  /**
+   * write layout for thumb view
+   */
+  function viewthumbcard($target="finfo",$ulink=true,$abstract=true) {
+    $this->viewabstractcard($target,$ulink,$abstract);
+    $this->viewprop($target,$ulink,$abstract);
+    $this->lay->set("iconsrc",$this->getIcon());
+    if ($this->state != "") $this->lay->set("state",_($this->state));
+    else $this->lay->set("state","");
+  }
+  /**
+   * write layout for abstract view
+   */
   function viewabstractcard($target="finfo",$ulink=true,$abstract=true) {
     // -----------------------------------
     
@@ -3339,7 +3371,10 @@ create unique index i_docir on doc(initid, revision);";
 
   // return the personn doc id conform to firstname & lastname of the user
   function userDocId() {
+    global $action;
+
     
+    return $action->user->fid;
     include_once("FDL/Lib.Dir.php");
     $famid=getFamIdFromName($this->dbaccess,"IUSER");
     $filter[]="us_whatid = '".$this->userid."'";
@@ -3356,6 +3391,12 @@ create unique index i_docir on doc(initid, revision);";
 
     return $action->user->lastname;
     return $action->user->lastname." ".$action->user->firstname;
+  }
+
+  function myAttribute($idattr) {
+    $mydoc=new Doc($this->dbaccess,$this->userDocId());
+
+    return $mydoc->getValue($idattr);
   }
 
 
