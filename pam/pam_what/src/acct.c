@@ -28,6 +28,8 @@
 #include "pam_sql.h"
 
 
+#define LDOMAIN 512
+#define LUSER 256
 
 PAM_EXTERN int pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
 				 int argc, const char **argv)
@@ -36,7 +38,7 @@ PAM_EXTERN int pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
   db_conn *conn;
   db_result *result;
   const char *userdomain;
-  char user[256],optdomain[50],*stok,domain[512], userdomaintmp[256+512+1];
+  char user[LUSER],optdomain[50+LDOMAIN],*stok,domain[LDOMAIN], userdomaintmp[LUSER+LDOMAIN+1];
   char query[BUFLEN];
   int retval;
 
@@ -56,6 +58,20 @@ PAM_EXTERN int pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
     /*}*/
 
 
+
+  /* get the username */
+  retval = pam_get_user (pamh, &userdomain, NULL);
+  if ( ( retval != PAM_SUCCESS ) || ( ! userdomain ) ) {
+    syslog (LOG_NOTICE, "Failed fetching username");
+    return retval;
+  } 
+
+  // test limits
+  if (strlen(userdomain) > (LDOMAIN+LUSER)) {
+    syslog (LOG_NOTICE, "user login name and domain too long");
+    return PAM_AUTH_ERR;
+  }
+
   /* connect to the database */
   /* db_connect logs it's own errors */
   conn = db_connect (opts);
@@ -63,21 +79,24 @@ PAM_EXTERN int pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
     return PAM_AUTHINFO_UNAVAIL;
   }
 
-  /* get the username */
-  retval = pam_get_user (pamh, &userdomain, NULL);
-  if ( ( retval != PAM_SUCCESS ) || ( ! userdomain ) ) {
-    syslog (LOG_NOTICE, "Failed fetching username");
-    db_close(conn);
-    return retval;
-  } 
-
-
   /* user can be composed : user@zou.com or user_zou.com */
   strcpy(userdomaintmp, userdomain);
   stok=strtok(userdomaintmp,"@_");
-  if (stok) strcpy(user,stok);
+  if (stok) {
+    if (strlen(stok) >= (LUSER)) {
+      syslog (LOG_NOTICE, "user login name too long");
+      db_close(conn);
+      return PAM_AUTH_ERR;
+    }
+    strcpy(user,stok);
+  }
   stok=strtok(NULL,"@_");
   if (stok) {
+    if (strlen(stok) >= (LDOMAIN)) {
+      syslog (LOG_NOTICE, "user domain name too long");
+      db_close(conn);
+      return PAM_AUTH_ERR;
+    }
     strcpy(domain,stok);
     /* set up the query string */
     snprintf (query, BUFLEN-1, 
@@ -93,11 +112,13 @@ PAM_EXTERN int pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
   
     if ( db_numrows(result) != 1 ) {
       syslog (LOG_WARNING, "Authentication failed for user %s [%s]", user,query);
+      db_free_result(result);
       db_close(conn);
       return PAM_AUTH_ERR;
     }
     
     sprintf(optdomain, "AND iddomain = '%s'", db_getvalue(result));
+    db_free_result(result);
   } else {
     strcpy(optdomain,"");
   }
@@ -121,6 +142,7 @@ PAM_EXTERN int pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
   result = db_exec (conn, query);
   if ( ! result ) {
     syslog (LOG_ERR, "Query failed");
+    db_free_result(result);
     db_close(conn);
     return PAM_AUTH_ERR;
   }
@@ -131,12 +153,14 @@ PAM_EXTERN int pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
   /* should be exactly one row */
   if ( db_numrows(result) != 1 ) {
     syslog (LOG_NOTICE, "Account expired for user %s [%s]", user, query);
+    db_free_result(result);
     db_close(conn);
     return PAM_AUTH_ERR;
   }
 
   
 
+  db_free_result(result);
   db_close(conn);
   return PAM_SUCCESS;
 }
