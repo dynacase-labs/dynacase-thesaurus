@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.4 2004/12/13 17:15:05 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.5 2005/01/14 17:53:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -45,14 +45,19 @@ function toIso8601($fdate,$wtz=false) {
 
 function FrenchDateToJD($fdate) {
  if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$reg)) {   
-    $isoDate=sprintf("%04d-%02d-%02d %02d:%02d:%02d",
-		     $reg[3],$reg[2],$reg[1],$reg[4],$reg[5],$reg[6]);
-    if ($reg[8]!="") $tz=$reg[7];
-
-
-  return cal2jd("CE",  $reg[3], $reg[2], $reg[1], $reg[4],$reg[5] , 0 );
+   return cal2jd("CE",  $reg[3], $reg[2], $reg[1], $reg[4],$reg[5] , 0 );
   }
+ return false;
 }
+
+function Iso8601ToJD($isodate) {
+ if (preg_match("/^(\d\d\d\d)-(\d\d)-(\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/",$isodate ,$reg)) {   
+   return cal2jd("CE",  $reg[1], $reg[2], $reg[3], $reg[4],$reg[5] , 0 );
+  }
+ return false;
+}
+
+
 function cal2jd( $era, $y, $m, $d, $h, $mn, $s ) {
   if (($y>1969) && ($y<2038)) {
     $nd=unixtojd(mktime($h,$mn,$s,$m,$d,$y));
@@ -172,7 +177,6 @@ function jd2cal( $jd,$dformat='' ) {
     $ce='';
     //   form.era[0].checked = true;
   }
-
   switch ($dformat) {
   case 'M':
     $retiso8601=$m;
@@ -182,6 +186,9 @@ function jd2cal( $jd,$dformat='' ) {
     break;
   case 'd':
     $retiso8601=$d;
+    break;
+  case 'French':
+    $retiso8601=sprintf("%02d/%02d/%04s",$d,$m,$y);
     break;
   default:
     $retiso8601=sprintf("%04d-%02d-%02s %02d:%02d%s",
