@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.14 2003/04/25 14:51:31 eric Exp $
+// $Id: defattr.php,v 1.15 2003/08/05 06:43:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -206,6 +206,7 @@ function defattr(&$action)
       }
 
       $newelem[$k]["typevalue"]=$attr->type;
+      if (($attr->repeat) && (!$attr->inArray())) $newelem[$k]["typevalue"].="list"; // add list if repetable attribute without array
 
 
 
