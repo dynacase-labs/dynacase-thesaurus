@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.7 2003/01/27 13:26:32 eric Exp $
+// $Id: editframe.php,v 1.8 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,8 +71,9 @@ function editframe(&$action) {
     if ($docid == 0) {
       $value=$doc->GetValueMethod($value); // execute method for default values
     }
-    if ( ($v->visibility == "H") || 
-	 ($v->visibility == "R") && (substr_count($v->type,"text") > 0)) {
+    if ( ($v->mvisibility == "H") || 
+	 ($v->mvisibility == "R") && (substr_count($v->type,"text") > 0)) {
+
 
       $thval[$k]["avalue"]=  getHtmlInput($doc,
 					  $v, 
@@ -86,6 +87,7 @@ function editframe(&$action) {
       $tval[$k]["avalue"]=  getHtmlInput($doc,
 					 $v, 
 					 $value);
+      
     }
 	
       

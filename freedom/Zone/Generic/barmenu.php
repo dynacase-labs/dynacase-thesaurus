@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.5 2003/02/20 11:34:04 eric Exp $
+// $Id: barmenu.php,v 1.6 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,7 +65,8 @@ function barmenu(&$action) {
   
   $tkind=array();
   while (list($k,$a) = each($lattr)) {
-    if (($a->type == "enum") || ($a->type == "enumlist")) {
+    if ((($a->type == "enum") || ($a->type == "enumlist")) &&
+	($a->phpfile == "")) {
       
       $tkind[]=array("kindname"=>$a->labelText,
 		     "kindid"=>$a->id,

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.14 2003/03/04 15:05:29 eric Exp $
+// $Id: freedom_edit.php,v 1.15 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,15 +55,19 @@ function freedom_edit(&$action) {
     // new document select special classes
     if ($dirid > 0) {
       $dir = new Doc($dbaccess, $dirid);
-      $tclassdoc=$dir->getAuthorizedFamilies();
+      if (method_exists($dir,"getAuthorizedFamilies")) {
+	$tclassdoc=$dir->getAuthorizedFamilies();
 
-      // verify if classid is possible
-      if (! isset($tclassdoc[$classid])) {
-	$first = current($tclassdoc);
-	$classid = $first["id"];
-	setHttpVar("classid",$classid); // propagate to subzones
+	// verify if classid is possible
+	if (! isset($tclassdoc[$classid])) {
+	  $first = current($tclassdoc);
+	  $classid = $first["id"];
+	  setHttpVar("classid",$classid); // propagate to subzones
+	}
       }
-
+      else {
+	$tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
+      }
     } else {
       $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
     }

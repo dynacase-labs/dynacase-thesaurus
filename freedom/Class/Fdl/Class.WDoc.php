@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.18 2003/02/28 19:39:17 eric Exp $
+// $Id: Class.WDoc.php,v 1.19 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.18 2003/02/28 19:39:17 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.19 2003/03/05 16:49:28 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -91,52 +91,96 @@ Class WDoc extends Doc {
     if ($this->doctype=='C') $cid = $this->id;
     else $cid = $this->fromid;
 
-    $oattr = new DocAttr($this->dbaccess);
-    $oattr->docid=$cid;
-
-    // create frame attribute
-    $aid=strtolower($this->attrPrefix."_FR_PROFIL");
-    
-    
-      $oattr->id=$aid;
-      $oattr->type="frame";
-      $oattr->visibility="F";
-      $oattr->ordered=100;
-      $oattr->labeltext=_("state profile");
-     if (! $this->getAttribute($oattr->id)) $oattr->Add();
-      $oattr->frameid=$oattr->id;
+  
       
+    $ordered=100;
+
     $this->getStates();
     reset($this->states);
     while (list($k, $state) = each($this->states)) {
-      $aprofilid=$this->attrPrefix."_".strtoupper($state);
-      $aidprofilid=$this->attrPrefix."_ID".strtoupper($state);
 
-      // id
+      // --------------------------
+      // frame
+      $aidframe=strtolower($this->attrPrefix."_FR".strtoupper($state));
+      $oattr = new DocAttr($this->dbaccess, array($cid,$aidframe));
+      $oattr->docid=$cid;
+      $oattr->visibility="F";
+      $oattr->type="frame";
+      $oattr->id=$aidframe;
+      $oattr->frameid=$oattr->id;
+      $oattr->labeltext=sprintf(_("parameters for %s state"),_($state));
+      $oattr->link="";
+      $oattr->ordered=$ordered++;
+      if ($oattr->isAffected()) $oattr->Modify();
+      else $oattr->Add();
+     
+
+
+      // --------------------------
+      // profil id
+      $aidprofilid=strtolower($this->attrPrefix."_ID".strtoupper($state));
+      $oattr = new DocAttr($this->dbaccess, array($cid,$aidprofilid));
+      $oattr->docid=$cid;
       $oattr->visibility="H";
       $oattr->type="text";
-      $oattr->id=strtolower($aidprofilid);
+      $oattr->id=$aidprofilid;
       $oattr->labeltext=sprintf(_("id %s profile"),_($state));
       $oattr->link="";
-      //      $oattr->phpfile="fdl.php";
-      // $oattr->phpfunc="gettitle(D,$aidprofilid):$aprofilid";
-      if (! $this->getAttribute($oattr->id))  $oattr->Add();
+      $oattr->frameid=$aidframe;
+      $oattr->ordered=$ordered++;
+      if ($oattr->isAffected()) $oattr->Modify();
+      else $oattr->Add();
 
-      $oattr->ordered++;
 
-      // user comprehensive
+      // --------------------------
+      // profil user comprehensive
+      $aid=strtolower($this->attrPrefix."_".strtoupper($state));
+      $oattr = new DocAttr($this->dbaccess, array($cid,$aid));
+      $oattr->docid=$cid;
       $oattr->visibility="W";
       $oattr->type="text";
       $oattr->link="%S%app=FDL&action=FDL_CARD&id=%".$aidprofilid."%";
       $oattr->phpfile="fdl.php";
-      $oattr->id=strtolower($aprofilid);
+      $oattr->id=$aid;
+      $oattr->frameid=$aidframe;
       $oattr->phpfunc="lprofil(D,{$oattr->id}):$aidprofilid,{$oattr->id}";
       $oattr->labeltext=sprintf(_("%s profile"),_($state));
-       if (! $this->getAttribute($oattr->id)) {
-	 $oattr->Add();
-       }
+      $oattr->ordered=$ordered++;
+      if ($oattr->isAffected()) $oattr->Modify();
+      else $oattr->Add();
+      
+      // --------------------------
+      // mask id
+      $aidmaskid=strtolower($this->attrPrefix."_MSKID".strtoupper($state));
+      $oattr = new DocAttr($this->dbaccess, array($cid,$aidmaskid));
+      $oattr->docid=$cid;
+      $oattr->visibility="H";
+      $oattr->type="text";
+      $oattr->id=$aidmaskid;
+      $oattr->labeltext=sprintf(_("id %s mask"),_($state));
+      $oattr->link="";
+      $oattr->frameid=$aidframe;
+      $oattr->ordered=$ordered++;
+      if ($oattr->isAffected()) $oattr->Modify();
+      else $oattr->Add();
 
-      $oattr->ordered++;
+
+      // --------------------------
+      // mask user comprehensive
+      $aid=strtolower($this->attrPrefix."_MSK".strtoupper($state));
+      $oattr = new DocAttr($this->dbaccess, array($cid,$aid));
+      $oattr->docid=$cid;
+      $oattr->visibility="W";
+      $oattr->type="text";
+      $oattr->link="%S%app=FDL&action=FDL_CARD&id=%".$aidmaskid."%";
+      $oattr->phpfile="fdl.php";
+      $oattr->id=$aid;
+      $oattr->frameid=$aidframe;
+      $oattr->ordered=$ordered++;
+      $oattr->phpfunc="lmask(D,{$oattr->id}):$aidmaskid,{$oattr->id}";
+      $oattr->labeltext=sprintf(_("%s mask"),_($state));
+      if ($oattr->isAffected()) $oattr->Modify();
+      else $oattr->Add();
 
     }
     

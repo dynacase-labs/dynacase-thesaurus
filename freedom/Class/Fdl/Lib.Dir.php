@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.61 2003/03/04 15:05:29 eric Exp $
+// $Id: Lib.Dir.php,v 1.62 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -376,27 +376,8 @@ function GetClassesDoc($dbaccess,$userid,$classid=1,$qtype="LIST")
   $query->AddQuery("doctype='C'");
   
   $cdoc = new DocFam($dbaccess, $classid);
-  if ($cdoc->usefor == "P") $query->AddQuery("usefor = 'P'");
-  else {
-
-    switch ($classid) {
-    case FAM_ACCESSDOC:
-    case FAM_ACCESSDIR:
-    case FAM_ACCESSSEARCH:
-      
-      
-      break;
-    case FAM_SEARCH:
-      $query->AddQuery("(id = ".FAM_SEARCH.")");
-      break;
-    case FAM_DIR:
-      $query->AddQuery("(id = ".FAM_DIR.")");
-      break;
-    default:	
-      $query->AddQuery("usefor != 'P'");
-    }
-    //      $query->AddQuery("initid=id");
-  }
+  $query->AddQuery("usefor = '".$cdoc->usefor."'");
+  
   
   $query->AddQuery("hasviewprivilege(".$userid.",docfam.profid)");
   $query->order_by="title";

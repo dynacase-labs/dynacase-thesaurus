@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.15 2003/03/04 15:05:29 eric Exp $
+// $Id: generic_mod.php,v 1.16 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,6 +37,7 @@ function generic_mod(&$action) {
   $dirid=GetHttpVars("dirid",0);
   $docid=GetHttpVars("id",0); 
   $catgid=GetHttpVars("catgid",0); 
+  $retedit=GetHttpVars("retedit","N")=="Y"; // true  if return need edition
   
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -71,11 +72,17 @@ function generic_mod(&$action) {
     
   } 
   
+  if ($retedit) {
+    redirect($action,GetHttpVars("redirect_app","GENERIC"),
+	     GetHttpVars("redirect_act","GENERIC_EDIT&id=$ndocid"),
+	     $action->GetParam("CORE_STANDURL"));
+  } else {
   
-  //  $action->register("reload$ndocid","Y");// to reload cached client file
-  redirect($action,GetHttpVars("redirect_app","FDL"),
-	   GetHttpVars("redirect_act","FDL_CARD&refreshfld=Y&id=$ndocid"),
-	   $action->GetParam("CORE_STANDURL"));
+    // $action->register("reload$ndocid","Y"); // to reload cached client file
+    redirect($action,GetHttpVars("redirect_app","FDL"),
+	     GetHttpVars("redirect_act","FDL_CARD&refreshfld=Y&id=$ndocid"),
+	     $action->GetParam("CORE_STANDURL"));
+  }
   
 }
 

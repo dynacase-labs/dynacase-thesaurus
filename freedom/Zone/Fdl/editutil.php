@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.17 2003/02/20 11:34:04 eric Exp $
+// $Id: editutil.php,v 1.18 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,7 +38,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
   if ($docid== 0) intval($docid=$doc->fromid);
   $attrtype=$oattr->type;
   $attrid=$oattr->id;
-  $visibility=$oattr->visibility;
+  $visibility=$oattr->mvisibility;
 
   $input="";
 		
@@ -94,7 +94,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     // input 
     $input .="<input $oc class=\"autoresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
     $input .= " id=\"".$attrid."\" "; 
-    if ($visibility == "R") $input .=" disabled ";
+    if (($visibility == "R")||($visibility == "S")) $input .=" disabled ";
     $input .= " > "; 
     break;
 		      
@@ -120,7 +120,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
       // input 
       $input .="<input $oc class=\"autoresize\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attrid."\" "; 
-      if ($visibility == "R") $input .=" disabled ";
+      if (($visibility == "R")||($visibility == "S")) $input .=" disabled ";
       $input .= " > "; 
       break;
 		      
@@ -129,7 +129,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
       $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=10\" class=\"autoresize\" rows=2 name=\"_".
 	 $attrid."\" ";
     $input .= " id=\"".$attrid."\" "; 
-    if ($visibility == "R") $input .=" disabled ";
+    if (($visibility == "R")||($visibility == "S")) $input .=" disabled ";
     $input .= " >".
        chop(htmlentities(stripslashes($value))).
        "</textarea>";
@@ -140,7 +140,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
       $input="<textarea $oc class=\"autoresize\" rows=2 name=\"_".
 	 $attrid."\" ";
     $input .= " id=\"".$attrid."\" "; 
-    if ($visibility == "R") $input .=" disabled ";
+    if (($visibility == "R")||($visibility == "S")) $input .=" disabled ";
     $input .= " >".
        chop(htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
        "</textarea>";
@@ -153,7 +153,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
      $input="<select size=3 multiple name=\"_".$attrid."[]\""; 
       
       $input .= " id=\"".$attrid."\" "; 
-      if ($visibility == "R") $input .=" disabled ";
+      if (($visibility == "R")||($visibility == "S")) $input .=" disabled ";
       $input.= ">";
 
       reset($oattr->enum);
@@ -177,7 +177,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     case "enum": 
        $input="<select $multiple name=\"_".$attrid."\""; 
       $input .= " id=\"".$attrid."\" "; 
-      if ($visibility == "R") $input .=" disabled ";
+      if (($visibility == "R")||($visibility == "S")) $input .=" disabled ";
       $input.= ">";
 
       reset($oattr->enum);
@@ -201,9 +201,11 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     $input .= " id=\"".$attrid."\" "; 
     if ($doc->usefor != 'D') $input .=" disabled "; // always but default
     $input .= " >&nbsp;"; 
-    $input.="<input type=\"button\" value=\"&#133;\"".
-       " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attrid."')\"".
-       ">";
+    if (!(($visibility == "R")||($visibility == "S"))) {
+      $input.="<input type=\"button\" value=\"&#133;\"".
+	" title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attrid."')\"".
+	">";
+    }
     break;      
 		      
     //같같같같같같같같같같같같같같같같같같같같
@@ -213,7 +215,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     $input .= " id=\"".$attrid."\" "; 
 
 
-    if ($visibility == "R") $input .=" disabled ";
+    if (($visibility == "R")||($visibility == "S")) $input .=" disabled ";
 		      
     $input .= " > "; 
     break;
@@ -225,7 +227,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     $input .= " id=\"".$attrid."\" "; 
 
 
-    if ($visibility == "R") $input .=" disabled ";
+    if (($visibility == "R")||($visibility == "S")) $input .=" disabled ";
 		      
     $input .= " > "; 
     break;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.36 2003/02/07 17:31:50 eric Exp $
+// $Id: viewfolder.php,v 1.37 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -232,7 +232,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  // ----------------------------------------------------------
 	if ($with_abstract ) {
 	  // search abstract attribute for freedom item
-	   $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");
+	  $doc->ApplyMask(); // apply mask attribute
+	  $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");
 	}
 	
 	  // ----------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.95 2003/02/28 19:39:17 eric Exp $
+// $Id: Class.Doc.php,v 1.96 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.95 2003/02/28 19:39:17 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.96 2003/03/05 16:49:28 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -627,6 +627,39 @@ create unique index i_docir on doc(initid, revision);";
       return $this->attributes->attr;
     }
 
+  function ApplyMask() {
+    
+    
+    // copy defalut visibilities
+    if (isset($this->attributes->attr)) {
+	reset($this->attributes->attr);
+	while (list($k,$v) = each($this->attributes->attr)) {
+	  $this->attributes->attr[$k]->mvisibility=$v->visibility;
+	}
+    }
+
+    // modify visibilities if needed
+    if (($this->wid > 0) && ($this->wid != $this->id)) {
+      
+      $wdoc=new Doc($this->dbaccess,$this->wid );
+      if ($wdoc->isAlive()) {
+	$mid = $wdoc->getValue($wdoc->attrPrefix."_MSKID".$this->state);
+
+	$mdoc = new Doc($this->dbaccess,$mid );
+	if ($mdoc->isAlive()) {
+	  $tvis = $mdoc->getVisibilities();
+	  
+	  while (list($k,$v)= each ($tvis)) {
+	    if (isset($this->attributes->attr[$k])) {
+	      if ($v != "-") $this->attributes->attr[$k]->mvisibility=$v;	      
+	      
+	    }
+	  }
+	}
+      }
+    }
+  }
+
   // return all the attributes object for abstract
   // the attribute can be defined in fathers
   function GetNormalAttributes()
@@ -1121,7 +1154,7 @@ create unique index i_docir on doc(initid, revision);";
     $lattr = $this->GetNormalAttributes();
     
     while (list($i,$attr) = each($lattr)) {
-      if ((($attr->visibility == "H") || ($attr->visibility == "R")) &&
+      if ((($attr->visibility == "H") || ($attr->visibility == "R") || ($attr->visibility == "S")) &&
 	  ($attr->phpfunc != "")) {
 
 	$this->setValue($attr->id, $this->GetValueMethod($attr->phpfunc));
@@ -1401,7 +1434,7 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
   if ($this->usefor == "D") {
     $listattr = $this->GetAttributes();
     while (list($i,$attr) = each($listattr)) {
-      if (($attr->visibility == "H") || ($attr->visibility == "R")) {
+      if (($attr->visibility == "H") || ($attr->visibility == "R") || ($attr->visibility == "S")) {
 	$this->attributes->attr[$i]->visibility="W";
       }
     }
@@ -1518,7 +1551,7 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
       // Set the table value elements
       if ($iattr <= $nattr)	{
       
-	if (($value != "") && ($listattr[$i]->visibility != "H"))   {
+	if (($value != "") && ($listattr[$i]->mvisibility != "H"))   {
 		
 	  $currentFrameId = $listattr[$i]->fieldSet->id;
 
@@ -1607,8 +1640,7 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
     
 
 
-      
-      if (($value != "") && ($listattr[$i]->visibility != "H"))   {
+      if (($value != "") && ($attr->mvisibility != "H"))   {
 		
 	switch ($attr->type)
 	  {
@@ -1669,7 +1701,7 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
       
      	
 	// don't see  non abstract if not
-      if (($v->visibility == "H") || (($abstract) && (! $v->isInAbstract ))) {
+      if (($v->mvisibility == "H") || (($abstract) && (! $v->isInAbstract ))) {
 	$this->lay->Set("V_".$v->id,"");
 	$this->lay->Set("L_".$v->id,"");
       } else {
@@ -1833,8 +1865,8 @@ $value = $this->GetValue($listattr[$i]->id);
     
 	      
       $currentFrameId = $listattr[$i]->fieldSet->id;
-      if ( ($listattr[$i]->visibility == "H") || 
-	   ($listattr[$i]->visibility == "R") && (substr_count($listattr[$i]->type,"text") > 0)) {
+      if ( ($listattr[$i]->mvisibility == "H") || 
+	   ($listattr[$i]->mvisibility == "R") && (substr_count($listattr[$i]->type,"text") > 0)) {
 	// special case for hidden values
 	$thidden[$ih]["hname"]= "_".$listattr[$i]->id;
 	$thidden[$ih]["hid"]= $listattr[$i]->id;

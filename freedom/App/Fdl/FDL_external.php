@@ -171,4 +171,12 @@ function lprofil($dbaccess, $name) {
   
 }
 
+// liste des masque
+function lmask($dbaccess, $name, $maskfamid="") {
+
+  $filter=array();
+  //$filter[]="mskfamid='$maskfamid'"; // when workflow will have attribut to say the compatible families
+  return lfamilly($dbaccess, "MASK", $name, 0, $filter);
+  
+}
 ?>

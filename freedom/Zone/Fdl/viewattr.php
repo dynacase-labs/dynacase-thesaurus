@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewattr.php,v 1.5 2002/10/31 08:09:23 eric Exp $
+// $Id: viewattr.php,v 1.6 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,7 +61,7 @@ function viewattr(&$action, $htmlval=true, $htmllink=true) {
     //------------------------------
     // Set the table value elements
       
-    if ($v->visibility != "H")	{	
+    if ($v->mvisibility != "H")	{	
       // don't see  non abstract if not
       if (($abstract) && ($v->abstract != "Y")) {
 	$action->lay->Set("V_".$v->id,"");

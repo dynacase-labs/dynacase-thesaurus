@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.8 2002/12/10 16:15:19 eric Exp $
+// $Id: viewframe.php,v 1.9 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,7 +63,6 @@ function viewframe(&$action) {
   while (list($k,$v) = each($listattr)) {
     
     
-    
     if ($v->fieldSet->id != $frameid) continue;
 
     $action->lay->set("flabel",$v->fieldSet->labelText);
@@ -71,10 +70,10 @@ function viewframe(&$action) {
     $value = chop($doc->GetValue($v->id));
     
     if ($value == "") continue;
-    if ($v->visibility == "O") continue;
+    if ($v->mvisibility == "O") continue;
     //------------------------------
       // Set the table value elements
-	if ($v->visibility != "H")	{	
+	if ($v->mvisibility != "H")	{	
 	  // don't see  non abstract if not
 	    if (( !$abstract) || ($v->isInAbstract)) {
 	      $tval[$k]["alabel"]=  $v->labelText;;

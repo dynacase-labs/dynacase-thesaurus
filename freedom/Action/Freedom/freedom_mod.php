@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.17 2003/03/04 15:05:29 eric Exp $
+// $Id: freedom_mod.php,v 1.18 2003/03/05 16:49:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,9 @@ function freedom_mod(&$action) {
   // Get all the params      
   $dirid=GetHttpVars("dirid",0);
   $docid=GetHttpVars("id",0); 
+  $retedit=GetHttpVars("retedit","N")=="Y"; // true  if return need edition
   
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   $err = modcard($action, $ndocid); // ndocid change if new doc
@@ -94,12 +96,17 @@ function freedom_mod(&$action) {
   
   
   
+  if ($retedit) {
+    redirect($action,GetHttpVars("redirect_app","FREEDOM"),
+	     GetHttpVars("redirect_act","FREEDOM_EDIT&id=$ndocid"),
+	     $action->GetParam("CORE_STANDURL"));
+  } else {
   
-  
-  // $action->register("reload$ndocid","Y"); // to reload cached client file
-  redirect($action,GetHttpVars("redirect_app","FDL"),
-	   GetHttpVars("redirect_act","FDL_CARD&refreshfld=Y&id=$ndocid"),
-	   $action->GetParam("CORE_STANDURL"));
+    // $action->register("reload$ndocid","Y"); // to reload cached client file
+    redirect($action,GetHttpVars("redirect_app","FDL"),
+	     GetHttpVars("redirect_act","FDL_CARD&refreshfld=Y&id=$ndocid"),
+	     $action->GetParam("CORE_STANDURL"));
+  }
   
 }
 
