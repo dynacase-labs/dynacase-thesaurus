@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.15 2002/07/30 12:37:55 eric Exp $
+// $Id: import_file.php,v 1.16 2002/08/09 08:44:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -192,46 +192,45 @@ function add_import_file(&$action, $fimport="") {
 
 function csvAddDoc($dbaccess, $data, $dirid=10) {
   // like : DOC;120;...
+  $err="";
   $doc = createDoc($dbaccess, $data[1]);
-    $doc->fromid = $data[1];
-    if  ($data[2] > 0) $doc->id= $data[2]; // static id
-    $err = $doc->Add();
-    if (($err != "") && ($doc->id > 0)) { // case only modify
-      if ($doc -> Select($doc->id)) $err = "";
-    }
+  $doc->fromid = $data[1];
+  if  ($data[2] > 0) $doc->id= $data[2]; // static id
+  if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) $err = $doc->Add();
+    
   if ($err != "") {
     global $nline, $gerr;
     $gerr="\nline $nline:".$err;
     return false;
   }
-    $lattr = $doc->GetAttributes();
+  $lattr = $doc->GetAttributes();
 
 
-    $bdvalue = new DocValue($dbaccess);
-    $bdvalue->docid = $doc->id;
-    $iattr = 4; // begin in 5th column
-    reset($lattr);
-    while (list($k, $attr) = each ($lattr)) {
+  $bdvalue = new DocValue($dbaccess);
+  $bdvalue->docid = $doc->id;
+  $iattr = 4; // begin in 5th column
+  reset($lattr);
+  while (list($k, $attr) = each ($lattr)) {
 
-      if (isset($data[$iattr]) &&  ($data[$iattr] != "")) {
-	$bdvalue->attrid = $attr->id;
-	$bdvalue->value = $data[$iattr];
-	$bdvalue->Modify();
-      }
-      $iattr++;
+    if (isset($data[$iattr]) &&  ($data[$iattr] != "")) {
+      $bdvalue->attrid = $attr->id;
+      $bdvalue->value = $data[$iattr];
+      $bdvalue->Modify();
     }
-    // update title in finish
-    $doc->modify();
+    $iattr++;
+  }
+  // update title in finish
+  $doc->modify();
   $doc->refresh(); // compute read attribute
-    if ($data[3] > 0) { // dirid
-      $dir = new Dir($dbaccess, $data[3]);
-      $dir->AddFile($doc->id);
-    } else if ($data[3] ==  0) {
-      $dir = new Dir($dbaccess, $dirid);
-      $dir->AddFile($doc->id);
-    }
+  if ($data[3] > 0) { // dirid
+    $dir = new Dir($dbaccess, $data[3]);
+    $dir->AddFile($doc->id);
+  } else if ($data[3] ==  0) {
+    $dir = new Dir($dbaccess, $dirid);
+    $dir->AddFile($doc->id);
+  }
 
-    return $doc;
+  return $doc;
 }
 
 ?>
