@@ -92,14 +92,23 @@ tattrv[[index]] =[attrv];
 
 function completechoice(index) {
 
-
+  var rvalue;
 
     for (i=0; i< tattrid.length; i++) {
-      if (tattrv[index][i] != '?') {
+      if  (tattrv[index][i].substring(0,1) != '?')  {
+	
        winfo.document.getElementById(tattrid[i]).value = tattrv[index][i].replace(/\\n/g,'\n');
 
        winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
 
+      } else {
+	if ((tattrv[index][i].length > 1) &&
+	    ((winfo.document.getElementById(tattrid[i]).value == "") || (winfo.document.getElementById(tattrid[i]).value == " "))) {
+	  rvalue = tattrv[index][i].substring(1).replace(/\\n/g,'\n');
+	  winfo.document.getElementById(tattrid[i]).value = rvalue;
+	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
+	}
+						      
       }
     }
     winfo.disableReadAttribute();
