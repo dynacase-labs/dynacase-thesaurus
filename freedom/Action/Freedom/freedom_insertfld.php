@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_insertfld.php,v 1.1 2003/07/18 16:33:10 eric Exp $
+// $Id: freedom_insertfld.php,v 1.2 2003/07/22 13:13:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_insertfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,7 +63,7 @@ function freedom_insertfld(&$action) {
   if ($err != "") $action->exitError($err);
   
   
-  redirect($action,"FREEDOM","FREEDOM_VIEW&dirid=$docid");
+  redirect($action,"FREEDOM","FREEDOM_VIEW&dirid=".$doc->initid);
 }
 
 
