@@ -3,43 +3,14 @@
  * Incident Workflow
  *
  * @author Anakeen 2002
- * @version \$Id: Class.WDocIncident.php,v 1.13 2003/10/09 12:08:43 eric Exp $
+ * @version \$Id: Class.WDocIncident.php,v 1.14 2004/01/15 16:31:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
  */
 /**
  */
-// ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.13 2003/10/09 12:08:43 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
-
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.13 2003/10/09 12:08:43 eric Exp $';
-
-
 include_once("FDL/Class.WDoc.php");
-
-
-
 
 
 define ("recorded", "recorded");   # N_("recorded")
@@ -49,6 +20,7 @@ define ("traited", "traited");     # N_("traited")
 define ("rejected", "rejected");   # N_("rejected")
 define ("closed", "closed");       # N_("closed")
 define ("suspended", "suspended");       # N_("suspended")
+define ("draft", "draft");       # N_("draft")
 
 
 define ("Trecorded",  "Trecorded");   # N_("Trecorded")
@@ -63,98 +35,98 @@ define ("Tsuspended", "Tsuspended");  # N_("Tsuspended")
  * Incident Workflow
  *
  */
-Class WDocIncident extends WDoc {
+     Class WDocIncident extends WDoc {
   
   
 
   // ------------
   var $defClassname="WDocIncident";
   var $attrPrefix="IWF"; // prefix attribute
-
+  var $firstState=draft;
 
   var $transitions = array("Trecorded" =>array("m1"=>"",
 					       "m2"=>"SendMailByState"),
-			     "Tqualified" =>array("m1"=>"",
+			   "Tqualified" =>array("m1"=>"",
+						"m2"=>"SendMailByState"),
+			   "Tanalyzed" =>array("m1"=>"",
 					       "m2"=>"SendMailByState"),
-			     "Tanalyzed" =>array("m1"=>"",
-					       "m2"=>"SendMailByState"),
-			     "Ttraited" =>array("m1"=>"",
-					       "m2"=>"SendMailByState"),
-			     "Trejected" =>array("m1"=>"",
+			   "Ttraited" =>array("m1"=>"isCompleteIncident",
+					      "m2"=>"SendMailByState"),
+			   "Trejected" =>array("m1"=>"",
 					       "m2"=>""),
-			     "Tsuspended" =>array("m1"=>"",
-					       "m2"=>""),
-			     "Tclosed" =>array("m1"=>"",
+			   "Tsuspended" =>array("m1"=>"",
+						"m2"=>""),
+			   "Tclosed" =>array("m1"=>"",
 					     "m2"=>""));
-    var $cycle = array(
-			  array("e1"=>"",
-				"e2"=>recorded, 
-				"t"=>Trecorded),			  
+  var $cycle = array(
+		     array("e1"=>draft,
+			   "e2"=>recorded, 
+			   "t"=>Trecorded),			  
 
-			  array("e1"=>recorded,
-				"e2"=>qualified,
-				"t"=>Tqualified),			  
+		     array("e1"=>recorded,
+			   "e2"=>qualified,
+			   "t"=>Tqualified),			  
 
-			  array("e1"=>recorded,
-				"e2"=>rejected,
-				"t"=>Trejected),
+		     array("e1"=>recorded,
+			   "e2"=>rejected,
+			   "t"=>Trejected),
 
-			  array("e1"=>recorded,
-				"e2"=>suspended,
-				"t"=>Tsuspended),
+		     array("e1"=>recorded,
+			   "e2"=>suspended,
+			   "t"=>Tsuspended),
 
-			  array("e1"=>recorded,
-				"e2"=>traited,
-				"t"=>Ttraited),
+		     array("e1"=>recorded,
+			   "e2"=>traited,
+			   "t"=>Ttraited),
 
-			  array("e1"=>qualified,
-				"e2"=>analyzed,
-				"t"=>Tanalyzed),
+		     array("e1"=>qualified,
+			   "e2"=>analyzed,
+			   "t"=>Tanalyzed),
 
-			  array("e1"=>qualified,
-				"e2"=>suspended,
-				"t"=>Tsuspended),
+		     array("e1"=>qualified,
+			   "e2"=>suspended,
+			   "t"=>Tsuspended),
 			 
 
-			  array("e1"=>analyzed,
-				"e2"=>traited,
-				"t"=>Ttraited),
+		     array("e1"=>analyzed,
+			   "e2"=>traited,
+			   "t"=>Ttraited),
 
-			  array("e1"=>analyzed,
-				"e2"=>suspended,
-				"t"=>Tsuspended),
+		     array("e1"=>analyzed,
+			   "e2"=>suspended,
+			   "t"=>Tsuspended),
 
-			  array("e1"=>qualified,
-				"e2"=>rejected,
-				"t"=>Trejected),			  
+		     array("e1"=>qualified,
+			   "e2"=>rejected,
+			   "t"=>Trejected),			  
 
-			  array("e1"=>qualified,
-				"e2"=>traited,
-				"t"=>Ttraited),
+		     array("e1"=>qualified,
+			   "e2"=>traited,
+			   "t"=>Ttraited),
 
-			  array("e1"=>traited,
-				"e2"=>analyzed,
-				"t"=>Tanalyzed),
+		     array("e1"=>traited,
+			   "e2"=>qualified,
+			   "t"=>Tqualified),
 
-			  array("e1"=>traited,
-				"e2"=>closed, 
-				"t"=>Tclosed),
+		     array("e1"=>traited,
+			   "e2"=>closed, 
+			   "t"=>Tclosed),
 
-			  array("e1"=>analyzed,
-				"e2"=>qualified,
-				"t"=>Tqualified),
+		     array("e1"=>analyzed,
+			   "e2"=>qualified,
+			   "t"=>Tqualified),
 
-			  array("e1"=>suspended,
-				"e2"=>traited, 
-				"t"=>Ttraited),
+		     array("e1"=>suspended,
+			   "e2"=>traited, 
+			   "t"=>Ttraited),
 
-			  array("e1"=>suspended,
-				"e2"=>analyzed, 
-				"t"=>Tanalyzed),
+		     array("e1"=>suspended,
+			   "e2"=>analyzed, 
+			   "t"=>Tanalyzed),
 
-			  array("e1"=>suspended,
-				"e2"=>qualified, 
-				"t"=>Tqualified));
+		     array("e1"=>suspended,
+			   "e2"=>qualified, 
+			   "t"=>Tqualified));
 				    
 
 
@@ -164,8 +136,12 @@ Class WDocIncident extends WDoc {
   
 
 
+
+
   function SendMailByState($newstate) {
+    include_once("FDL/mailcard.php");
     global $action;
+    $err="";
 
     switch ($newstate) {
     case recorded:
@@ -174,60 +150,73 @@ Class WDocIncident extends WDoc {
       // send recorded mail to clients
 
       $this->sendOfficialMail(
-			  sprintf(_("[%s] incident registration"), $this->doc->initid), 
-			  "INCIDENT:INCIDENT_MAILRECORD:S");
-    break;
+			      sprintf(_("[%s] incident registration"), $this->doc->initid), 
+			      "INCIDENT:INCIDENT_MAILRECORD:S");
+      break;
 
     case qualified:
-    $mail =  $this->doc->getValue("IN_ANALMAIL"); // send mail to analyzer
-    $this->sendmail($mail , 
-		    sprintf(_("Freedom : incident %s : transition to %s"),$this->doc->title,_($newstate)),
-		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=FDL&action=FDL_CARD&id=".$this->doc->id);
-    break;
+
+      if ($action->getParam("INCIDENT_SENDMAIL") == "yes") {
+	// send mail to analyze the incident
+	$to =  $this->doc->getValue("IN_ANALMAIL"); // send mail to analyzer 
+	$cc = "";
+	$subject=sprintf(_("Incident : ask for analyze %s"),$this->doc->title,_($newstate));
+
+	sendCard(&$action,
+		 $this->doc->id,
+		 $to,$cc,$subject,"INCIDENT:MAILTOANALYZER:S",true);
+      }
+
+      break;
 
     case analyzed:
-    $mail =  $this->doc->getValue("IN_TRTMAIL");// send mail to realyser
-    $this->sendmail($mail , 
-		    sprintf(_("Freedom : incident %s : transition to %s"),$this->doc->title,_($newstate)),
-		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=FDL&action=FDL_CARD&id=".$this->doc->id);
-    break;
+      
+
+      if ($action->getParam("INCIDENT_SENDMAIL") == "yes") {
+	// send mail to perform the incident
+	$to =  $this->doc->getValue("IN_TRTMAIL");// send mail to realyser $cc = "";
+	$subject=sprintf(_("Incident : ask for perform %s"),$this->doc->title,_($newstate));
+
+	sendCard(&$action,
+		 $this->doc->id,
+		 $to,$cc,$subject,"INCIDENT:MAILTOPERFORM:S",true);
+      }
+    
+      break;
 
     case traited:
       //------------------------------
       // send traited mail to clients
-      $this->sendOfficialMail(
-			      sprintf(_("[%s] incident traited"), $this->doc->initid), 
-			      "INCIDENT:INCIDENT_MAILTRAITED:S");
+      $err=$this->isCompleteIncident();
+      if ($err == "") {
 
+	$this->sendOfficialMail(
+				sprintf(_("[%s] incident traited"), $this->doc->initid), 
+				"INCIDENT:INCIDENT_MAILTRAITED:S");
+      }
       
-    break;
+      break;
     }
 
+    return $err;
 
   }
   
 
   
+  function isCompleteIncident() {
+    
+    // the value IN_TRTPB must be set
+    $err="";
+    $trtpb = $this->doc->getValue("IN_TRTPB");
+    
 
-  function sendmail($addr,  $object="Freedom", $body="") {
-    if ($addr != "") {
-
-
-      global $action;
-      if ($action->getParam("INCIDENT_SENDMAIL") != "yes") return;
-
-     
-      $mailok=mail($addr,
-		   $object,
-		   $body,
-		   "From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
-		   "Bcc: ".$action->GetParam("BCC_MAIL_INCIDENT")."\r\n".
-		   "Return-Path: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
-		   "X-Mailer: PHP/" . phpversion());
-      if (! $mailok) $action->exitError("mail cannot be sent");
-      AddLogMsg(sprintf(_("send internal mail to %s (bcc:%s)"),$addr,$action->GetParam("BCC_MAIL_INCIDENT")));
-    }
+    
+    if ($trtpb=="") $err=sprintf(_("the %s attribute must be set."),$this->doc->getLabel("in_trtpb"));
+    return $err;
   }
+
+
 
 
 
@@ -240,12 +229,13 @@ Class WDocIncident extends WDoc {
     
     $to = $this->doc->GetValue( "IN_CALLMAIL");
 
-    $idsite = $this->doc->GetValue("IN_IDSITE");
+    $idcontract = $this->doc->GetValue("IN_IDCONTRACT");
     $bcc = $action->GetParam("BCC_MAIL_INCIDENT");
     $cc="";
-    if ($idsite > 0) {
-	$site = new Doc($this->doc->dbaccess, $idsite);
-	$cc = $site->GetValue("SI_CCMAIL");	
+    if ($idcontract > 0) {
+      $contract = new Doc($this->doc->dbaccess,$idcontract );
+      if ($contract->getValue("CO_CLTCOPYMAIL1")=="1")
+	$cc = $this->doc->GetValue("IN_RTECHMAIL");	
     }
     $comment="";
     $from=$action->GetParam("FROM_MAIL_INCIDENT");
@@ -254,10 +244,10 @@ Class WDocIncident extends WDoc {
 	     $to,$cc,$subject,$zone,true,$comment,
 	     $from,$bcc);
        
-      AddLogMsg(sprintf(_("send official mail to %s (cc: %s - bcc:%s)"),
-			$to,
-			$cc,
-			$bcc));
+    AddLogMsg(sprintf(_("send official mail to %s (cc: %s - bcc:%s)"),
+		      $to,
+		      $cc,
+		      $bcc));
     return "";
 
   }
