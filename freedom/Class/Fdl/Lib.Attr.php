@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.8 2003/02/28 19:39:17 eric Exp $
+// $Id: Lib.Attr.php,v 1.9 2003/03/11 17:09:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -148,7 +148,9 @@ function PgUpdateFamilly($dbaccess, $docid) {
     $msg .= "Create table doc".$docid."\n";
     // create postgres table if new familly
     $cdoc = createDoc($dbaccess, $docid);
-    $err =$doc->exec_query($cdoc->sqlcreate);
+    
+    // step by step
+    $cdoc->Create();
     // activate trigger by trigger
     $sqlcmds = explode(";",$cdoc->SqlTrigger());
     while (list($k,$sqlquery)=each($sqlcmds)) {
