@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.86 2004/03/30 13:35:57 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.87 2004/04/27 13:24:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.86 2004/03/30 13:35:57 eric Exp $
+// $Id: Lib.Dir.php,v 1.87 2004/04/27 13:24:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -293,7 +293,7 @@ function getChildDoc($dbaccess,
 function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
  
   if (is_array($dirid)) {
-	$sqlfld=GetSqlCond($dirid,"dirid",true);
+    $sqlfld=GetSqlCond($dirid,"dirid",true);
   } else {
     $sqlfld = "fld.dirid=$dirid";
   }
@@ -308,7 +308,8 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
 
   if ($q->nb > 100) return false;
   $t=array();
-  foreach ($tfld as $k=>$v) {   
+  if ($q->nb > 0) {
+    foreach ($tfld as $k=>$v) {   
 
       $t[$v["childid"]]=getLatestTDoc($dbaccess,$v["childid"],$sqlfilters);
       
@@ -316,8 +317,8 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
       if (($t[$v["childid"]]["uperm"] & (1 << POS_VIEW)) == 0) { // control view
 	unset($t[$v["childid"]]);
       }
+    }
   }
-  
   //  print "<HR>"; print " - getFldDoc<B>".microtime_diff(microtime(),$mc)."</B>";
   return $t;
 }
