@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD_init.php.in,v 1.9 2002/12/04 17:13:36 eric Exp $
+// $Id: USERCARD_init.php.in,v 1.10 2003/01/13 19:01:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,16 +28,29 @@ global $app_const;
 $app_const= array(
   "INIT" => "yes",
   "VERSION"			=>"@VERSION@-@RELEASE@",
-  "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
+
   "DEFAULT_FAMILY" => "120",
   "DEFAULT_FLD" => "121",
 
-  "LDAP_SERVEUR" => "localhost",
-  "LDAP_PORT" => "389",
-  "LDAP_ROOT" => "o=Anakeen,c=fr",
-  "LDAP_ROOTDN" => "cn=Manager,o=Anakeen,c=fr",
-  "LDAP_ROOTPW" => "secret",
-  "LDAP_ENABLED" => "no"
+  "LDAP_SERVEUR" => array("val"=>"localhost",
+			  "descr"=>N_("nom du serveur LDAP"),
+			  "global"=>"Y"),
+  "LDAP_PORT" => array("val"=>"389",
+		       "descr"=>N_("n° de port du serveur LDAP"),
+		       "global"=>"Y"),
+  "LDAP_ROOT" => array("val"=>"o=Anakeen,c=fr",
+		       "descr"=>N_("racine du serveur LDAP"),
+		       "global"=>"Y"),
+  "LDAP_ROOTDN" => array("val"=>"cn=Manager,o=Anakeen,c=fr",
+		       "descr"=>N_("identifiant LDAP de l'administrateur"),
+		       "global"=>"Y"),
+  "LDAP_ROOTPW" => array("val"=>"secret",
+		       "descr"=>N_("mot de passe LDAP"),
+		       "global"=>"Y"),
+  "LDAP_ENABLED" => array("val"=>"no",
+			  "descr"=>N_("activation LDAP"),
+			  "kind" => "enum(yes|no)",
+			  "global"=>"Y"),
 );
 
 

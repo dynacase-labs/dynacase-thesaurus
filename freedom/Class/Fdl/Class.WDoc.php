@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.10 2003/01/08 09:07:00 eric Exp $
+// $Id: Class.WDoc.php,v 1.11 2003/01/13 19:01:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.10 2003/01/08 09:07:00 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.11 2003/01/13 19:01:11 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -76,6 +76,7 @@ Class WDoc extends Doc {
 
     if ($newstate != "") {
       $profid=intval($this->getValue($this->attrPrefix."_ID".strtoupper($newstate)));
+      
       if ($profid > 0) {
 	// change only if new profil
 	$this->doc->setProfil($profid);

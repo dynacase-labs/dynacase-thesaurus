@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.49 2002/12/23 09:16:13 eric Exp $
+// $Id: Lib.Dir.php,v 1.50 2003/01/13 19:01:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,6 +90,7 @@ function getSqlSearchDoc($dbaccess,
   }
 
   $sqlcond="";
+  ksort($sqlfilters);
   if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
 
 
@@ -100,9 +101,8 @@ function getSqlSearchDoc($dbaccess,
     //-------------------------------------------
     
     if ($latest) $sqlfilters[-1] = "locked != -1";
+    ksort($sqlfilters);
     if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
-    
-
     $qsql= "select $selectfields ".
       "from $only $table  ".
       "where  ".
@@ -121,6 +121,7 @@ function getSqlSearchDoc($dbaccess,
 
     
     if ($latest) $sqlfilters[-1] = "locked != -1";
+    ksort($sqlfilters);
     if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
       
       if (is_array($dirid)) {
@@ -209,7 +210,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  //    print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
   
 
 

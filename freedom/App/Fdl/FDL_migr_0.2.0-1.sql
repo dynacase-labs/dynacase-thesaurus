@@ -9,6 +9,4 @@ update docattr set id=lower(id);
 update docattr set frameid=lower(frameid);
 update fld set query = str_replace(query,'not useforprof','usefor != ''P''') where qtype='M';
 update fld set query = str_replace(query,'useforprof','usefor = ''P''') where qtype='M';
-update doc5 set se_key=str_replace(se_key,'$','£');
-update doc5 set se_key=str_replace(se_key,'^','£');
 VACUUM FULL ANALYZE;
