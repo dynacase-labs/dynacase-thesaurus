@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.1 2001/11/09 09:35:47 eric Exp $
+# $Id: Makefile.in,v 1.2 2001/12/08 17:16:30 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -19,11 +19,14 @@ SUBDIR= Xml Images Css Action JavaScript Class
 
 include $(utildir)/PubRule
 
-DISTFILES = $(SUBDIR) configure.in $(PACKAGE).app \
+DISTFILES = $(SUBDIR) configure.in $(PACKAGE).app init.freedom\
             $(PACKAGE)_init.php.in Makefile.in $(PACKAGE).spec.in $(PACKAGE).attributes.php\
             VERSION RELEASE \
 	    $(PACKAGE)_en.po $(PACKAGE)_fr.po 
 
 
 
+$(pubdir)/$(appname)/init.freedom : init.freedom
+	cp init.freedom $(pubdir)/$(appname)
+publish: $(pubdir)/$(appname)/init.freedom
 

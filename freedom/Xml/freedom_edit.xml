@@ -23,6 +23,27 @@
    <script language="JavaScript">
   <!--
     [JS:CODE]
+
+function sendmodifydoc(docid, attrid) {
+
+
+  f =document.modifydoc;
+  // modify to initial action
+  oldact = f.action;
+  oldtar = f.target;
+  f.action = '[CORE_STANDURL]&app=[FREEDOM_APP]&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid;
+  w= window.open('about:blank',
+              'choose',
+              'resizable=yes,scrollbars=yes,width=100,height=100,top=100,left=100');
+  w.focus();
+  f.target='choose';
+
+  f.submit();
+  // reset to initial action
+  f.action=oldact;
+  f.target=oldtar;
+
+}
   //-->
    </script>   
 
@@ -32,7 +53,7 @@
 
 <body class="freedom">
 
-                         
+<form method="POST" target="_blank" name="choose"></form>
 
 
 <!-- Title Table -->

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.9 2001/11/30 15:13:39 eric Exp $
+// $Id: freedom_mod.php,v 1.10 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_mod.php,v $
+// Revision 1.10  2001/12/08 17:16:30  eric
+// evolution des attributs
+//
 // Revision 1.9  2001/11/30 15:13:39  eric
 // modif pour Css
 //
@@ -251,6 +254,7 @@ function insert_file($dbaccess,$docid, $attrid)
     $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
     move_uploaded_file($userfile['tmp_name'], $destfile);
     global $action;
+    if (isset($vf)) unset($vf);
     $vf = new VaultFile($dbaccess, $action->parent->name);
     $vf -> Store($destfile, false , $vid);
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.14 2001/11/30 15:13:39 eric Exp $
+// $Id: Class.Doc.php,v 1.15 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,54 +21,9 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.Doc.php,v $
-// Revision 1.14  2001/11/30 15:13:39  eric
-// modif pour Css
-//
-// Revision 1.13  2001/11/28 13:40:10  eric
-// home directory
-//
-// Revision 1.12  2001/11/26 18:01:02  eric
-// new popup & no lock for no revisable document
-//
-// Revision 1.11  2001/11/22 17:49:13  eric
-// search doc
-//
-// Revision 1.10  2001/11/22 10:00:59  eric
-// premier pas vers une API pour les popup
-//
-// Revision 1.9  2001/11/21 14:28:19  eric
-// double click : first file export
-//
-// Revision 1.8  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.7  2001/11/21 08:38:58  eric
-// ajout historique + modif sur control object
-//
-// Revision 1.6  2001/11/19 18:04:22  eric
-// aspect change
-//
-// Revision 1.5  2001/11/16 18:04:39  eric
-// modif de fin de semaine
-//
-// Revision 1.4  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.3  2001/11/14 15:31:03  eric
-// optimisation & divers...
-//
-// Revision 1.2  2001/11/09 18:54:21  eric
-// et un de plus
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-//
-// ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.14 2001/11/30 15:13:39 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.15 2001/12/08 17:16:30 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -79,14 +34,18 @@ include_once("FREEDOM/Class.DocAttr.php");
 
 // define constant for search attributes
 define ("QA_TITLE", 1);
-define ("QA_KEY", 2);
-define ("QA_LAST", 3);
-define ("QA_CASE", 4);
-define ("QA_FROM", 5);
+define ("QA_KEY",  20);
+define ("QA_LAST", 21);
+define ("QA_CASE", 22);
+define ("QA_FROM", 23);
 
+
+define ("FAM_BASE", 1);
 define ("FAM_DIR", 2);
+define ("FAM_ACCESSDOC", 3);
+define ("FAM_ACCESSDIR", 4);
 define ("FAM_SEARCH", 5);
-
+define ("FAM_ACCESSSEARCH", 6);
 Class Doc extends DbObjCtrl
 {
   var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment","cprofid");
@@ -117,7 +76,7 @@ create table doc ( id      int not null,
                    comment varchar(1024),
                    cprofid int
                    );
-create sequence seq_id_doc start 10";
+create sequence seq_id_doc start 1000";
 
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
@@ -138,7 +97,18 @@ create sequence seq_id_doc start 10";
 
 
   function PostInit() {
-    $this->id=1;
+
+    include_once("FREEDOM/Class.QueryDir.php");
+    $oqdv = new QueryDir($this->dbaccess,"2"); // just to create table if needed
+    include_once("FREEDOM/Class.QueryDirV.php");
+    $oqdv = new QueryDirV($this->dbaccess,"2");// just to create table if needed
+
+    include_once("FREEDOM/freedom_import.php");
+    add_import_file($this->action, 
+    $this->action->GetParam("CORE_PUBDIR")."/FREEDOM/init.freedom");
+
+    return "";
+    $this->id=FAM_BASE;
     $this->initid=$this->id;
     $this->fromid="0";
     $this->owner=1; //admin
@@ -148,17 +118,26 @@ create sequence seq_id_doc start 10";
     $this->Add();
 
     $oattr=new DocAttr($this->dbaccess);
+    $oattr->id = QA_BASIC;
+    $oattr->labeltext=_("basic");
+    $oattr->title = "N";
+    $oattr->abstract = "N";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
     $oattr->id = QA_TITLE;
     $oattr->labeltext=_("title");
     $oattr->title = "Y";
     $oattr->abstract = "N";
+    $oattr->frameid = QA_BASIC;
     $oattr->docid = $this->initid;
     $oattr ->Add();
 
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     $this->id=FAM_DIR;
     $this->initid=$this->id;
-    $this->fromid="1";
+    $this->fromid=FAM_BASE;
     $this->owner=1; //admin
     $this->title=N_("directory familly");
     $this->revision="0";
@@ -167,7 +146,7 @@ create sequence seq_id_doc start 10";
 
 
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-    $this->id=3;
+    $this->id=FAM_ACCESSDOC;
     $this->fromid=1; // from basic doc
     $this->initid=$this->id;
     $this->owner=1; //admin
@@ -178,9 +157,9 @@ create sequence seq_id_doc start 10";
 
 
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-    $this->id=4;
+    $this->id=FAM_ACCESSDIR;
     $this->initid=$this->id;
-    $this->fromid=2; // from directory
+    $this->fromid=FAM_DIR; // from directory
     $this->owner=1; //admin
     $this->title=N_("profile directory access familly");
     $this->revision="0";
@@ -191,7 +170,7 @@ create sequence seq_id_doc start 10";
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     $this->id=FAM_SEARCH;
     $this->initid=$this->id;    
-    $this->fromid="1"; // from nothing
+    $this->fromid=FAM_BASE; // from nothing
     $this->owner=1; //admin
     $this->title=N_("search familly");
     $this->revision="0";
@@ -200,9 +179,9 @@ create sequence seq_id_doc start 10";
 
 
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-    $this->id=6;
+    $this->id=FAM_ACCESSSEARCH;
     $this->initid=$this->id;    
-    $this->fromid=5; // from search
+    $this->fromid=FAM_SEARCH; // from search
     $this->owner=1; //admin
     $this->title=N_("profile search familly");
     $this->revision="0";
@@ -246,7 +225,7 @@ create sequence seq_id_doc start 10";
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     $this->id=9;
     $this->initid=9;    
-    $this->fromid=2; // first folder
+    $this->fromid= FAM_DIR; // first folder
     $this->owner=1; //admin
     $this->title=N_("root");
     $this->revision="0";
@@ -307,12 +286,24 @@ create sequence seq_id_doc start 10";
 	  $res = pg_exec($this->dbid, "select nextval ('seq_id_doc')");
 	  $arr = pg_fetch_array ($res, 0);
 	  $this->id = $arr[0];
-	  if ($this->initid == "") $this->initid=$this->id;
 	}
       }
+
+      // set default values
+
+      if ($this->initid == "") $this->initid=$this->id;
       if (chop($this->title) == "") $this->title =_("untitle document");
       if ($this->doctype == "") $this->doctype = $this->defDoctype;
-      $this->revision = "0";
+      if ($this->revision == "") $this->revision = "0";
+      if ($this->useforprof == "") $this->useforprof = "f";
+      if ($this->profid == "") $this->profid = "0";
+      if ($this->cprofid == "") $this->cprofid = "0";
+      if ($this->lmodify == "") $this->lmodify = "N";
+      if ($this->locked == "") $this->locked = "0";
+      if ($this->owner == "") $this->owner = $this->action->user->id;
+      // set creation date
+      $date = gettimeofday();
+      $this->revdate = $date['sec'];
       return $err;
     } 
 
@@ -335,7 +326,7 @@ create sequence seq_id_doc start 10";
     }
 
   function isRevisable() {
-    return (($this->doctype == 'F') && (! $this->useforprof));
+    return (($this->doctype == 'F') && ($this->useforprof == 'f'));
   }
  
   // --------------------------------------------------------------------
@@ -350,7 +341,7 @@ create sequence seq_id_doc start 10";
     else {
       if ($this->locked == 0) {     
 	$err = sprintf(_("the file %s (rev %d) must be locked before"), $this->title,$this->revision);      
-      } else
+      } else {
 	if ($this->locked != $this->action->user->id) {
 	  if ($this->locked > 0) {
 	    $user = new User("", $this->locked);
@@ -362,6 +353,7 @@ create sequence seq_id_doc start 10";
 
 	  } 
 	} else $err = $this-> Control( "edit");
+      }
     }
     return($err);
   }
@@ -508,19 +500,18 @@ create sequence seq_id_doc start 10";
       $query->AddQuery("doctype='C'");
 
       switch ($classid) {
-      case 3:
-      case 4:
-      case 6:
-	$query->AddQuery("(id = 3) OR (id = 4) OR (id = 6)");
+      case FAM_ACCESSDOC:
+      case FAM_ACCESSDIR:
+      case FAM_ACCESSSEARCH:
+	$query->AddQuery("(id = ".FAM_ACCESSDOC.") OR (id = ".FAM_ACCESSDIR.") OR (id = ".FAM_ACCESSSEARCH.")");
       break;
-      case 5:
-	$query->AddQuery("(id = 5)");
+      case FAM_SEARCH:
+	$query->AddQuery("(id = ".FAM_SEARCH.")");
       break;
-      case 2:
-	$query->AddQuery("(id = 2)");
+      case FAM_DIR:
+	$query->AddQuery("(id = ".FAM_DIR.")");
       break;
-      default:
-	
+      default:	
 	$query->AddQuery("(id = 1) OR (id > 9)");
       }
       //      $query->AddQuery("initid=id");
@@ -777,6 +768,51 @@ create sequence seq_id_doc start 10";
     $this->Modify();
   }
 
+  // recompute all calculated attribut
+  function Refresh() {
+    $lattr = $this->GetAttributes();
+
+    while(list($k,$v) = each($lattr)) {
+      if (($v->visibility != "W") && 
+	  (chop($v->phpfile) != "") && 
+	  (chop($v->phpfunc) != "") ) {
+	// it's a calculated attribute
+	
+
+
+	if (! @include("PLUGGINGS/$v->phpfile")) {
+	  $this->action->exitError(sprintf(_("the external pluggin file %s cannot be read"), $v->phpfile));
+	}
+	
+
+	if (! ereg("(.*)\((.*)\)\:(.*)", $v->phpfunc, $reg))
+	  $this->action->exitError(sprintf(_("the pluggins function description '%s' is not conform"), $v->phpfunc));
+	
+  
+	$argids = split(",",$reg[2]);  // input args
+	$rargids = split(",",$reg[3]); // return args
+
+
+	while (list($k, $v) = each($argids)) {
+	  $ovalue = new DocValue($this->dbaccess, array($this->id, $v));
+	  $arg[$k]= $ovalue->value;
+	}
+	// activate plug	
+	$res = call_user_func_array($reg[1], $arg);
+
+	reset($res);
+	while (list($k, $v) = each($res)) {
+	  $ovalue = new DocValue($this->dbaccess, array($this->id, $rargids[$k]));
+	  $ovalue->docid=$this->id;
+	  $ovalue->attrid=$rargids[$k];
+	  $ovalue->value=$v;
+	  $ovalue->modify();
+	  
+	}
+      }
+    }
+    
+  }
   
   // --------------------------------------------------------------------
   function Control ($aclname) {

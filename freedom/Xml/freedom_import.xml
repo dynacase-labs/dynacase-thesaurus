@@ -1,59 +1,95 @@
-[ZONE CORE:HTMLHEAD]
-<H2>Import from LDIF, CSV, or VCard</H2>
 
-<TABLE WIDTH=85% border="1">
-	  <TR>
-	    <TD COLSPAN="2" ><FORM ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_IMPORT" method="post">
-            <OL>
-            <LI>In Netscape, open the Addressbook and select <b>Export</b> from the <b>File</b> menu.
-                The file exported will be in LDIF format.
-              <P>Or, in Outlook, select your Freedom folder, select <b>Import 
-                and Export...</b> from the <b>File</b> 
-                menu and export your freedom into a comma separated text (CSV) file.
-              <P>Or, in Palm Desktop 4.0 or greater, visit your addressbook and select <b>Export</b> from the <b>File</b> menu.
-                The file exported will be in VCard format.<P>
-			</LI>
-            <LI>Enter the path to the exported file here:
-              <INPUT NAME="tsvfile" SIZE=48 TYPE="file" VALUE=""><P></LI>
-            <LI>Select import policy if find card with same title:
-            <SELECT NAME="policy">
-            <OPTION VALUE="add">Add new card (duplicate title)</OPTION>
-            <OPTION VALUE="update">Replace address book card if owner else keep</OPTION>
-            <OPTION VALUE="keep">Keep address book card </OPTION>
-            </SELECT><P></LI>
-            </OL>
-</TD>
-</TR>
+<!-- HEAD HTML -->
 
-<TR>
-<TD><OL start="4">
-            <LI>Select the type of conversion:
-            <SELECT NAME="conv_type">
-	    <OPTION VALUE="Ldif">Import from Netscape</OPTION>
-	    <OPTION VALUE="Csv">Import from Outlook</OPTION>
-	    <OPTION VALUE="Vcard">Import from VCard</OPTION>
-            </SELECT><P></LI>
-			<LI>
- <label for="category"> [TEXT:category]:</label>
-  <select name="category" >
-    
-[BLOCK SELECTOPTION]
-    <option VALUE="[catgvalue]" >[catgtextvalue]    
-[ENDBLOCK SELECTOPTION]
+<html>
+  <head>
+
+   <title>[TEXT:edition: ] [TITLE]</title>
+
+   <style>
+[ZONE CORE:GENCSS]
+   </style>
+
+
+[CSS:REF]
+
+
+   <style type="text/css">
+[CSS:CODE]
+   </style>
+
+[JS:REF]
+
+   <script language="JavaScript">
+  <!--
+    [JS:CODE]
+  //-->
+   </script>   
+
+
+
+ </head>
+
+<body class="freedom">
+
+                         
+
+
+<!-- Title Table -->
+<form   class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=ADDIMPORTFILE&id=[id]&dirid=[dirid]" >
+
+      
+
+
+<table class="tableborder"  cellspacing="0" width="100%">
+<tr class="FREEDOMBack1">
+ <td  colspan="2">
+   <span class="FREEDOMTextBigTitle">[TEXT:Import Document]</span>
+  </td> 
+   <td  class="FREEDOMText" align="right">[TEXT:for]
+   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_IMPORT&dirid=[dirid]&classid='+self.document.modifydoc.classid.options[self.document.modifydoc.classid.selectedIndex].value">  
+         [BLOCK SELECTCLASS]
+           <option VALUE="[idcdoc]" [selected]>[classname]</option>   
+         [ENDBLOCK SELECTCLASS]
     </select>
-            </LI>
-			<LI>
-<label for="visibility"> [TEXT:visibility]&nbsp;:</label>
- <input type="radio" name="visibility" value="W"  >[TEXT:readwriteall]
- <input type="radio" name="visibility" value="R"  >[TEXT:readall]
- <input type="radio" name="visibility" value="N" checked >[TEXT:readwriteowner]
-            <LI><INPUT NAME="convert" TYPE="submit" VALUE="Submit"></LI>
-            </OL>
-            </FORM></TD>	
-<TD>[CR]</TD>    
-          </TR>
-</TABLE>
+   </td>
+</tr>
 
-[ZONE CORE:HTMLFOOT]
+<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
+<tr  class="FREEDOMBack1" >
+  <td colspan="3" >
+     [TEXT:Description of the import format:]<BR>
+     [TEXT:The text between brackets are only indication for user readable]<BR>
+</td>
+</tr>
+<tr  class="FREEDOMBack1" >
+  <td colspan="3" align="center">
+     <textarea cols="40" rows="[rows]"  >[format]</textarea>
+</td>
+</tr>
+<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
+
+<tr class="FREEDOMBack1">
+  <td colspan="3" >
+      <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
+ <label for="tsvfile">[TEXT:import file:]</label>
+ <input type="file" name="tsvfile"  > 
+  </td>
+</tr>
+
+<tr class="FREEDOMBack1">
+  <td colspan="3" >
+ <input type="submit" value=[TEXT:Import document description] > 
+  </td>
+</tr>
+
+</table>
 
 
+<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]"></input>
+
+</form>
+<!--  FOOT HTML -->
+
+</body>
+</html>

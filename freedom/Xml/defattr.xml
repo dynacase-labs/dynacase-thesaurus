@@ -43,8 +43,8 @@
 
 <input type="hidden" name="title" value="[TITLE]"> 
 
-<div class="TITLE">
-<table width="100%"  cellspacing="0" cellpadding="0" >
+
+<table class="tableborder"  width="100%" cellspacing="0" cellpadding="0" >
 <tr>
  <td class="FREEDOMTblTitle">
    <span class="FREEDOMTextTitle">[TITLE]</span>
@@ -59,19 +59,24 @@
    </td>
 </tr>
 </table>
-</div>
+
 <!-- Frame Table -->
 
 
-<table border="0" width="100%" border="0" cellspacing="0" cellpadding="0" >
+<table  class="tablesimple"   cellspacing="0" cellpadding="0" >
 <thead>
 <tr>
-  <td class="CORETblHeadBold">order</td>
-  <td class="CORETblHeadBold">name</td>
-  <td class="CORETblHeadBold">type</td>
-  <td class="CORETblHeadBold">frame</td>
-  <td class="CORETblHeadBold">A?</td>
-  <td class="CORETblHeadBold">T?</td>
+  <td class="CORETblHeadBold">[TEXT:ID]</td>
+  <td class="CORETblHeadBold">[TEXT:order]</td>
+  <td class="CORETblHeadBold">[TEXT:name]</td>
+  <td class="CORETblHeadBold">[TEXT:type]</td>
+  <td class="CORETblHeadBold">[TEXT:frame]</td>
+  <td class="CORETblHeadBold">[TEXT:A?]</td>
+  <td class="CORETblHeadBold">[TEXT:T?]</td>
+  <td class="CORETblHeadBold">[TEXT:Vi]</td>
+  <td class="CORETblHeadBold">[TEXT:Link]</td>
+  <td class="CORETblHeadBold">[TEXT:file]</td>
+  <td class="CORETblHeadBold">[TEXT:func]</td>
 </tr>
 </thead>
 <tbody>
@@ -79,38 +84,54 @@
 
 [BLOCK NEWELEM]
 <tr>
-   <td class = "tdstyle" >
+   <td  >
    <input type="hidden" name="attrid[[neweltid]]" value="[attrid]" >
+         <span class="FREEDOMText">[attrid]</span>
+   </td>
+   <td  >
+
       <input type="text" name="order[[neweltid]]" value="[order]" size="3" [disabled]>
    </td>
-   <td class = "tdstyle" >
+   <td  >
       <input type="text" name="name[[neweltid]]" value="[attrname]" [disabled]>
    </td>
-   <td class = "tdstyle" >
+   <td  >
       <select name="type[[neweltid]]"  [disabled]>        
          [BLOCK [SELECTOPTION]]
            <option VALUE="[typevalue]" [selected]>[typevalue]</option>   
          [ENDBLOCK [SELECTOPTION]]
     </select>
    </td>
-   <td class = "tdstyle" >
+   <td  >
       <select name="frameid[[neweltid]]"  [disabled]>        
          [BLOCK [SELECTFRAME]]
            <option VALUE="[frameid]" [selected]>[framevalue]</option>
          [ENDBLOCK [SELECTFRAME]]
     </select>
    </td>
-   <td class = "tdstyle" >
+   <td  >
       <input type="checkbox" value="Y" name="abstractyn[[neweltid]]" [abscheck] [disabled]></input>
    </td>
-   <td class = "tdstyle" >
+   <td  >
       <input type="checkbox" value="Y" name="titleyn[[neweltid]]" [titcheck] [disabled]></input>
+   </td>
+   <td  >
+      <input type="text" size="1"  name="visibility[[neweltid]]" value="[visibility]" [disabled]></input>
+   </td>
+   <td  >
+      <input type="text" size="4"  name="link[[neweltid]]" value="[link]" [disabled]></input>
+   </td>
+   <td  >
+      <input type="text" size="10"  name="phpfile[[neweltid]]" value="[phpfile]" [disabled]></input>
+   </td>
+   <td  >
+      <input type="text" size="10"  name="phpfunc[[neweltid]]" value="[phpfunc]" [disabled]></input>
    </td>
   
 </tr>
 [ENDBLOCK NEWELEM]
 <tr>
-  <td colspan="6" class = "tdstyle">
+  <td colspan="11" >
  <input type="submit" value="[TEXT:modify]"
         onClick="document.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LOGO'"> 
   </td>

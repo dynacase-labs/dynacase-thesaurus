@@ -49,6 +49,8 @@
 
      <a  id="newfam" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=DEFATTR&classid=1&id=0&dirid='+parent.list.document.dirid;closeAllMenu();">[TEXT:new family]</a>
 
+     <a  id="import" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_IMPORT&classid=1&dirid='+parent.list.document.dirid;closeAllMenu();">[TEXT:import document]</a>
+
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.7 2001/11/30 15:13:39 eric Exp $
+// $Id: defattr.php,v 1.8 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: defattr.php,v $
+// Revision 1.8  2001/12/08 17:16:30  eric
+// evolution des attributs
+//
 // Revision 1.7  2001/11/30 15:13:39  eric
 // modif pour Css
 //
@@ -143,6 +146,10 @@ function defattr(&$action)
 	    $newelem[$k]["attrid"]=$attr->id;
 	    $newelem[$k]["attrname"]=$attr->labeltext;
 	    $newelem[$k]["order"]=$attr->ordered;
+	    $newelem[$k]["visibility"]=$attr->visibility;
+	    $newelem[$k]["link"]=$attr->link;
+	    $newelem[$k]["phpfile"]=$attr->phpfile;
+	    $newelem[$k]["phpfunc"]=$attr->phpfunc;
 	    $newelem[$k]["neweltid"]=$k;
 	    if ($attr->abstract == "Y") {
 	      $newelem[$k]["abscheck"]="checked";

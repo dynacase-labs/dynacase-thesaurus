@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.10 2001/12/04 09:37:53 eric Exp $
+// $Id: freedom_edit.php,v 1.11 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.11  2001/12/08 17:16:30  eric
+// evolution des attributs
+//
 // Revision 1.10  2001/12/04 09:37:53  eric
 // correction pb sur section vide
 //
@@ -80,6 +83,7 @@ function freedom_edit(&$action) {
   $baseurl=$action->GetParam("CORE_BASEURL");
   $standurl=$action->GetParam("CORE_STANDURL");
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
    
 
@@ -268,46 +272,8 @@ function freedom_edit(&$action) {
 	  // output change with type
 	  switch ($listattr[$i]->type)
 	    {
-	      case "application":
-		// image
-		$tableframe[$v]["inputtype"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
-		if ($value != "")		
-		  {		  
-		    ereg ("(.*)\|(.*)\|(.*)", $value, $reg); 
-		    $tableframe[$v]["inputtype"] .= $action->GetImageUrl("appli.png");
-		    $tableframe[$v]["inputtype"] .= "\" alt=\"".$reg[3]; // export name
-		  }
-		else	  
-		  {
-		    $tableframe[$v]["inputtype"] .= $action->GetImageUrl("noappli.png");
-		    $tableframe[$v]["inputtype"] .= "\" alt=\"".$action->Text("noappli");
-		  }
-		$tableframe[$v]["inputtype"] .= "\">";
-
-		//input 
-		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\">";
-		break;
-
-	      case "embed":
-		// image
-		$tableframe[$v]["inputtype"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
-		if ($value != "")		
-		  {		  
-		    ereg ("(.*)\|(.*)\|(.*)", $value, $reg); 
-		    $tableframe[$v]["inputtype"] .= $action->GetImageUrl("embed.png");
-		    $tableframe[$v]["inputtype"] .= "\" alt=\"".$reg[3]; // export name
-		  }
-		else	  
-		  {
-		    $tableframe[$v]["inputtype"] .= $action->GetImageUrl("noembed.png");
-		    $tableframe[$v]["inputtype"] .= "\" alt=\"".$action->Text("noembed");
-		  }
-		$tableframe[$v]["inputtype"] .= "\">";
-
-		//input 
-		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\">";
-		break;
-
+	      
+	      //같같같같같같같같같같같같같같같같같같같같
 	      case "image": 
 		$tableframe[$v]["inputtype"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
 		if ($value != "")				  {
@@ -322,33 +288,61 @@ function freedom_edit(&$action) {
 		$tableframe[$v]["inputtype"] .= "\">";
 
 		// input 
-		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\">";
+		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      $tableframe[$v]["inputtype"] .= " > "; 
 		break;
 
+	      //같같같같같같같같같같같같같같같같같같같같
 	      case "file": 
-		  ereg ("(.*)\|(.*)", $value, $reg);	
+		if (ereg ("(.*)\|(.*)", $value, $reg)) {
+
 		  $vf = new VaultFile($dbaccess, $action->parent->name);
-		if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+		  if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+		}
 		else $fname=_("no filename");
 			
 		$tableframe[$v]["inputtype"] = "<span class=\"FREEDOMText\">".$fname."</span><BR>";
 
 		// input 
-		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\">";
+		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      $tableframe[$v]["inputtype"] .= " > "; 
 		break;
 
+	      //같같같같같같같같같같같같같같같같같같같같
 	      case "longtext": 
 		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
-		  $listattr[$i]->id."\">".
+		   $listattr[$i]->id."\" ";
+	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      $tableframe[$v]["inputtype"] .= " >".
 		  chop(htmlentities(stripslashes($value))).
 		  "</textarea>";
 		break;
 
-	      case "date": 
-		$tableframe[$v]["inputtype"]="<input type=\"text\" maxlength=\"10\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\">";
+	      
+	      //같같같같같같같같같같같같같같같같같같같같
+
+	      case "enum": 
+		$tableframe[$v]["inputtype"]="<input type=\"text\"  name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      $tableframe[$v]["inputtype"] .= " > "; 
+	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
+		 _("...")."\" onClick=\"sendmodifydoc(".$doc->id.
+		 ",".$listattr[$i]->id.")\">";
 		break;
+
+
+	      //같같같같같같같같같같같같같같같같같같같같
 	      default : 
-		$tableframe[$v]["inputtype"]="<input type=\"text\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities(stripslashes($value)))."\">";
+		$tableframe[$v]["inputtype"]="<input type=\"text\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
+	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      $tableframe[$v]["inputtype"] .= " > "; 
 		break;
 		
 	    }

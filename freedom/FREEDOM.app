@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.9 2001/11/28 13:40:10 eric Exp $
+// $Id: FREEDOM.app,v 1.10 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.10  2001/12/08 17:16:30  eric
+// evolution des attributs
+//
 // Revision 1.9  2001/11/28 13:40:10  eric
 // home directory
 //
@@ -119,6 +122,24 @@ $action_desc = array (
    "name"		=>"FREEDOM_LIST",
    "short_name"		=>N_("Freedoms list"),
    "acl"		=>"FREEDOM_READ",
+  ) ,
+  array( 
+   "name"		=>"ENUM_CHOICE",
+   "short_name"		=>N_("to choose value from set"),
+   "acl"		=>"FREEDOM",
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_IMPORT",
+   "short_name"		=>N_("query document import"),
+   "acl"		=>"FREEDOM_MASTER",
+  ) ,
+  array( 
+   "name"		=>"ADDIMPORTFILE",
+   "short_name"		=>N_("add document import"),
+   "acl"		=>"FREEDOM_MASTER",
+   "script"		=>"freedom_import.php",
+   "function"		=>"add_import_file",
+   "layout"		=>"freedom_import.xml"
   ) ,
   array( 
    "name"		=>"FREEDOM_VIEW",
@@ -273,23 +294,6 @@ $action_desc = array (
    "acl"		=>"FREEDOM"
   ),
   array(
-   "name"		=>"FREEDOM_IMPORT",
-   "short_name"		=>N_("Freedom importation"),
-   "acl"		=>"FREEDOM"
-  ),
-  array(
-   "name"		=>"FREEDOM_EXPORT",
-   "short_name"		=>N_("Freedoms exportation"),
-   "acl"		=>"FREEDOM_READ"
-  ),
-  array(
-   "name"		=>"FREEDOM_ONEEXPORT",
-   "short_name"		=>N_("Freedom exportation"),
-   "acl"		=>"FREEDOM_READ",
-   "function"           =>"freedom_one_export",
-   "script"		=>"freedom_export.php"
-  ),
-  array(
    "name"		=>"FREEDOM_ADMIN",
    "acl"		=>"FREEDOM_MASTER",
    "layout"		=>"freedom_admin.xml",
@@ -303,14 +307,6 @@ $action_desc = array (
    "layout"		=>"freedom_admin.xml",
    "script"		=>"freedom_admin.php"
 	
-  ),
-  array(
-   "name"		=>"FREEDOM_UPDATELDAP",
-   "short_name"		=>N_("Freedom update LDAP server"),
-   "acl"		=>"FREEDOM_MASTER",
-   "function"           =>"freedom_updateldap",
-   "layout"		=>"freedom_admin.xml",
-   "script"		=>"freedom_admin.php"
   ),
   array(
    "name"		=>"FREEDOM_ACCESS",

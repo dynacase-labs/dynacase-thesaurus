@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.5 2001/11/21 17:03:54 eric Exp $
+// $Id: modattr.php,v 1.6 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: modattr.php,v $
+// Revision 1.6  2001/12/08 17:16:30  eric
+// evolution des attributs
+//
 // Revision 1.5  2001/11/21 17:03:54  eric
 // modif pour création nouvelle famille
 //
@@ -65,6 +68,10 @@ function modattr(&$action) {
   $titles= GetHttpVars("titleyn");
   $attrids= GetHttpVars("attrid");
   $frameids= GetHttpVars("frameid");
+  $visibilities= GetHttpVars("visibility");
+  $links= GetHttpVars("link");
+  $phpfiles= GetHttpVars("phpfile");
+  $phpfuncs= GetHttpVars("phpfunc");
   
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -124,6 +131,10 @@ function modattr(&$action) {
 	    $oattr->id=$attrids[$k];
 	    $oattr->frameid=isset($frameids[$k])?$frameids[$k]:"0";
 	    $oattr->ordered=isset($orders[$k])?$orders[$k]:"999";
+	    $oattr->visibility=$visibilities[$k];
+	    $oattr->link=$links[$k];
+	    $oattr->phpfile=$phpfiles[$k];
+	    $oattr->phpfunc=$phpfuncs[$k];
 
 	    if ($attrids[$k]=="") {
 	      //print $oattr->id;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.5 2001/11/28 13:40:10 eric Exp $
+// $Id: popup_util.php,v 1.6 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: popup_util.php,v $
+// Revision 1.6  2001/12/08 17:16:30  eric
+// evolution des attributs
+//
 // Revision 1.5  2001/11/28 13:40:10  eric
 // home directory
 //
@@ -48,8 +51,6 @@ function popupInit($name, $items) {
   global $tmenus;
 
   
-  
-
   // ------------------------------------------------------
   // definition of popup menu
   $menuitems= $items;
@@ -72,13 +73,14 @@ function popupInit($name, $items) {
 function popupInitItem($name, $k) {
   global $tmenuaccess;
   global $menuitems;
+
   if (! isset($tmenuaccess[$name][$k]["divid"])) {
-    
+    $tmenuaccess[$name][$k]["divid"] = $k;
+    reset($menuitems);
     while (list($ki, $v) = each($menuitems)) {
       $tmenuaccess[$name][$k]['v'.$ki] = 2; // invisible
 
     }
-    $tmenuaccess[$name][$k]["divid"] = $k;
 
   }
 }

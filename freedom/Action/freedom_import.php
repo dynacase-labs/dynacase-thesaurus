@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.3 2001/11/21 13:12:55 eric Exp $
+// $Id: freedom_import.php,v 1.4 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_import.php,v $
+// Revision 1.4  2001/12/08 17:16:30  eric
+// evolution des attributs
+//
 // Revision 1.3  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -43,19 +46,7 @@
 //
 // ---------------------------------------------------------------
 include_once("FREEDOM/Class.Doc.php");
-include_once("FREEDOM/Class.DocAttr.php");
-include_once("FREEDOM/Class.DocValue.php");
-include_once("FREEDOM/Class.FreedomLdap.php");
-
-
-
-
-
-
-
-
-
-
+include_once("FREEDOM/Class.QueryDir.php");
 
 
 
@@ -64,10 +55,11 @@ include_once("FREEDOM/Class.FreedomLdap.php");
 // -----------------------------------
 function freedom_import(&$action) {
   // -----------------------------------
-  global $HTTP_POST_FILES;
 
-  // Get all the params      
-  $id=GetHttpVars("id");
+  // Get all the params   
+  $classid = GetHttpVars("classid",0); // doc familly
+  $dirid = GetHttpVars("dirid",0); // directory to place imported doc 
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   // Set Css
@@ -75,121 +67,142 @@ function freedom_import(&$action) {
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
 
-  // ------------------------------
-  // construction of selection category
-  $bdfreedom = new Doc($dbaccess);
-  $categories = $bdfreedom->GetCategories();
+  // build list of class document
+  $query = new QueryDb($dbaccess,"Doc");
+  $query->AddQuery("doctype='C'");
+
+  $selectclass=array();
+  if ($classid == 0) $classid=$tclassdoc[0]->initid;
+
+  $doc = new Doc($dbaccess, $classid);
+  $tclassdoc = $doc->GetClassesDoc($classid);
+
+  while (list($k,$cdoc)= each ($tclassdoc)) {
+    $selectclass[$k]["idcdoc"]=$cdoc->initid;
+    $selectclass[$k]["classname"]=$cdoc->title;
+    if ($cdoc->initid == $classid) $selectclass[$k]["selected"]="selected";
+    else $selectclass[$k]["selected"]="";
+  }
 
 
-  $tablecatg= array();
-  while(list($k,$v) = each($categories) )
-    {
+  $action->lay->SetBlockData("SELECTCLASS", $selectclass);
 
-      if ($categories[$k] != "")
-	{
-	  $tablecatg[$k]["catgvalue"]=$categories[$k];
-	  $tablecatg[$k]["catgtextvalue"]=$categories[$k];
-	}
 
-    }
+  $lattr = $doc->GetAttributes();
+  $format = "BEGIN:".$doc->id.":[".chop($doc->title)."]\n";
 
-  $action->lay->SetBlockData("SELECTOPTION",$tablecatg); 
+  while (list($k, $attr) = each ($lattr)) {
+    $format .= $attr->id.":[".$attr->labeltext."]:<"._("value").">\n";
+  }
+  $format .= "END:$doc->id\n";
+
+
+  $action->lay->Set("dirid",$dirid);
+  $action->lay->Set("rows",count($lattr)+2);
+  $action->lay->Set("format",$format);
+}
+
+function add_import_file(&$action, $fimport="") {
+  // -----------------------------------
+  global $HTTP_POST_FILES;
+
+  $dirid = GetHttpVars("dirid",0); // directory to place imported doc 
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
 
   $action->lay->Set("CR","");
   if (isset($HTTP_POST_FILES["tsvfile"]))    
     {
-      // importation 
+      $fdoc = fopen($HTTP_POST_FILES["tsvfile"]['tmp_name'],"r");
+    } else $fdoc = fopen($fimport,"r");
+
+  if (! $fdoc) $action->exitError(_("no import file specified"));
+  while ($data = fgetcsv ($fdoc, 1000, ":")) {
+    $num = count ($data);
+    if ($num < 2) continue;
+
+    switch ($data[0]) {
+      // -----------------------------------
+    case "BEGIN":
+      $doc = new Doc($dbaccess);
+    $doc->fromid = $data[1];
+
+    if ($data[2] > 0) $doc->id= $data[2]; // static id
+
+    $err = $doc->Add();
+
+    if ($err != "") $action->exitError($err);
+    $bdvalue = new DocValue($dbaccess);
+    $bdvalue->docid = $doc->id;
+	  
+    break;
+    // -----------------------------------
+    case "END":
+      if ($num > 3) $doc->doctype = "S";
+      $doc->title =  GetTitle($dbaccess,$doc->id);
+      $doc->modify();
+      $qf = new QueryDir($dbaccess);
+      if (($num < 3) || ($data[2] == 0)) $qf->dirid=$dirid; // current folder
+      else $qf->dirid=$data[2]; // specific folder
+
+      $qf->query="select id from doc where id=".$doc->id;
+      $qf->qtype='S'; // single user query
+      $err = $qf->Add();
+      if ($err != "") $action->exitError($err);
+
       
-      $conv_type= GetHttpVars("conv_type"); 
-      include_once("FREEDOM/Class.FreedomImport".$conv_type.".php");
-
-      $class = "FreedomImport".$conv_type;
-      $vcard_import = new $class();
-      $vcard_import-> Open($HTTP_POST_FILES["tsvfile"]["tmp_name"]);
-      
-      $oldap=new FreedomLdap($action);
-	      $policy = GetHttpVars("policy"); 
-      $tvalue=array();
-      $infocr="<ol>";
-      while ( $vcard_import-> Read($tvalue))
-	{
-	  if (count($tvalue) > 0)
-	    {
-	      // Add new freedom card
-	      $bdfreedom = new Doc($dbaccess);
-	      $bdfreedom->owner = $action->user->id;
-	      $bdfreedom-> Add();
-	      $docid = $bdfreedom-> id;
-	      
-	      $bdvalue = new DocValue($dbaccess);
-	      $bdvalue -> docid = $docid;
-
-	      // Add values
-	      $bdfreedomattr = new DocAttr($dbaccess);
-
-	      while(list($k,$v) = each($tvalue)) 
-		{
-		  $bdvalue->attrid = $k;
-		  $bdvalue->value = $v;
-		  $bdvalue ->Modify();
-		}
-	      // update title
-	      $ofreedom = new Doc($dbaccess, $docid);
-	      $ofreedom->visibility= GetHttpVars("visibility"); 
-	      $ofreedom->category = GetHttpVars("category"); 
-
-	      $ofreedom->title =  GetTitle($dbaccess,$docid);
-
-	      // duplicate policy
-	      switch ($policy)
-		{
-		case "add":
-		  $idsamefreedom=0;
-		  break;
-		case "update":
-
-		  
-		  $idsamefreedom=$ofreedom-> GetFreedomFromTitle($ofreedom->title);
-		  if ($idsamefreedom > 0)
-		    {
-		      $osamefreedom = new Doc($dbaccess, $idsamefreedom);
-		      if ( ($action->HasPermission("ADMIN")) ||
-			   ($osamefreedom->owner == $action->user->id) ||
-			   ($osamefreedom->visibility == "W"))
-			{		
-			  //delete POSGRES osamefreedom
-			  $osamefreedom-> Delete();
-
-			  // delete LDAP entry			  
-			  $oldap=new FreedomLdap($action);
-			  $oldap-> Delete($idsamefreedom);
-			  $idsamefreedom=0;
-			}
-			   
-		    }
-		  break;
-		case "keep":
-		  $idsamefreedom=$ofreedom-> GetFreedomFromTitle($ofreedom->title);
-		  break;
-		}
-
-
-	      if ($idsamefreedom == 0)
-		{
-		  // change card properties
-		  $ofreedom-> Modify();
-		  if ($ofreedom->visibility != "N")
-		    $oldap->update($docid);
-		  $infocr .= "<li>".$ofreedom->title."</li>";
-		}
-
-	    }
-
-	}
-      $vcard_import-> Close();
-      $infocr .= "</ol>";
-      $action->lay->Set("CR",$infocr);
+      if ($num > 3) { // specific search 
+	$qf->qid="";
+	$qf->dirid=$doc->id;
+	$qf->qtype='M'; // complex query
+	$qf->query=$data[3];
+	$err = $qf->Add();
+	if ($err != "") $action->exitError($err);
+      }
+    
+    break;
+    // -----------------------------------
+    case "TYPE":
+      $doc->doctype =  $data[1];
+    break;
+    // -----------------------------------
+    case "ATTR":
+	    
+      $oattr=new DocAttr($dbaccess);
+    $oattr->docid = $doc->id;
+    $oattr->id = $data[1];
+    $oattr->frameid = $data[2];
+    $oattr->labeltext=$data[3];
+    $oattr->title = ($data[4] == "Y")?"Y":"N";
+    $oattr->abstract = ($data[5] == "Y")?"Y":"N";
+    $oattr->type = $data[6];
+    $oattr->ldapname = $data[7];
+    $oattr->ordered = $data[8];
+	  
+    $err = $oattr ->Add();
+    if ($err != "") $action->exitError($err);
+    break;
+    // -----------------------------------
+    case ($data[0] > 0):
+      $bdvalue->attrid = $data[0];
+    $bdvalue->value = $data[2];
+    $bdvalue ->Add();
+    break;
+	  
     }
+
+	  
+  }
+      
+  fclose ($fdoc);
+
+
+  if (isset($HTTP_POST_FILES["tsvfile"]))  
+    redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");
+
+    
+  
 }
 
 

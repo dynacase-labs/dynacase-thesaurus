@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.10 2001/11/28 13:40:10 eric Exp $
+// $Id: folders.php,v 1.11 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: folders.php,v $
+// Revision 1.11  2001/12/08 17:16:30  eric
+// evolution des attributs
+//
 // Revision 1.10  2001/11/28 13:40:10  eric
 // home directory
 //
@@ -152,22 +155,23 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
   
 
   if ($thisfld) {
-  if ($level == 0) $levelp="";
-  else $levelp = $level-1;
-  if ($doc->owner < 0) $ftype=3;
-  else if ($doc->doctype == 'D') $ftype=1;
-  else if ($doc->doctype == 'S') $ftype=2;
-  $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->id.",$ftype))\n";
+    if ($level == 0) $levelp="";
+    else $levelp = $level-1;
+    if ($doc->owner < 0) $ftype=3;
+    else if ($doc->doctype == 'D') $ftype=1;
+    else if ($doc->doctype == 'S') $ftype=2;
+
+    $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->id.",$ftype))\n";
 
 
-  popupActive("popfld",$nbfolders,'cancel');
-  popupActive("popfld",$nbfolders,'vprop');
-  if ($doc->doctype == 'D') popupActive("popfld",$nbfolders,'mkdir');
-  else popupInvisible("popfld",$nbfolders,'mkdir');
-  popupActive("poppaste",$nbfolders,'staticpaste');
-  popupActive("poppaste",$nbfolders,'pastelatest');
-  popupActive("poppaste",$nbfolders,'cancel2');
-  $nbfolders++;
+    popupActive("popfld",$nbfolders,'cancel');
+    popupActive("popfld",$nbfolders,'vprop');
+    if ($doc->doctype == 'D') popupActive("popfld",$nbfolders,'mkdir');
+    else popupInvisible("popfld",$nbfolders,'mkdir');
+    popupActive("poppaste",$nbfolders,'staticpaste');
+    popupActive("poppaste",$nbfolders,'pastelatest');
+    popupActive("poppaste",$nbfolders,'cancel2');
+    $nbfolders++;
   } else $ltree = "";
   if ($doc->doctype == 'D') {
 
@@ -187,7 +191,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
 // -----------------------------------
 function barmenu(&$action) {
   // -----------------------------------
-  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam'));
+  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','import'));
   popupInit("searchmenu", array( 'newsearch'));
 
 
@@ -200,6 +204,7 @@ function barmenu(&$action) {
     popupActive("newmenu",1,'newfld'); 
     popupActive("newmenu",1,'newprof');
     popupActive("newmenu",1,'newfam');
+    popupActive("newmenu",1,'import'); 
     popupActive("searchmenu",1,'newsearch');
     popupActive("viewmenu",1,'vlist');
     popupActive("viewmenu",1,'vicon');

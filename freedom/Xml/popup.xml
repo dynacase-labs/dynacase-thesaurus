@@ -7,7 +7,7 @@
 
 
 <a href="#" id="editdoc"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id='+docid,'doc_properties');closeMenu('popuplist'); return false;"  >[TEXT:edit document]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id='+docid,'info');closeMenu('popuplist'); return false;"  >[TEXT:edit document]</a>
 
 
 <a href="#" id="copy" 

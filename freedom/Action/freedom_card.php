@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.13 2001/11/30 15:13:39 eric Exp $
+// $Id: freedom_card.php,v 1.14 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,48 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: freedom_card.php,v $
-// Revision 1.13  2001/11/30 15:13:39  eric
-// modif pour Css
-//
-// Revision 1.12  2001/11/28 13:40:10  eric
-// home directory
-//
-// Revision 1.11  2001/11/26 18:01:01  eric
-// new popup & no lock for no revisable document
-//
-// Revision 1.10  2001/11/22 17:49:13  eric
-// search doc
-//
-// Revision 1.9  2001/11/22 10:00:59  eric
-// premier pas vers une API pour les popup
-//
-// Revision 1.8  2001/11/21 17:03:54  eric
-// modif pour création nouvelle famille
-//
-// Revision 1.7  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.6  2001/11/21 08:38:58  eric
-// ajout historique + modif sur control object
-//
-// Revision 1.5  2001/11/19 18:04:22  eric
-// aspect change
-//
-// Revision 1.4  2001/11/16 18:04:39  eric
-// modif de fin de semaine
-//
-// Revision 1.3  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.2  2001/11/14 15:31:03  eric
-// optimisation & divers...
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-//
-// ---------------------------------------------------------------
+
 include_once("FREEDOM/Class.Doc.php");
 include_once("FREEDOM/Class.DocAttr.php");
 include_once("FREEDOM/Class.DocValue.php");
@@ -107,6 +66,7 @@ function freedom_card(&$action) {
   $kf=0; // number of files
 
   $doc = new Doc($dbaccess, $docid);
+  $doc->refresh();
   //------------------------------
   // display document attributes
   $action->lay->Set("reference", $doc->initid);
@@ -236,6 +196,7 @@ function freedom_card(&$action) {
   $changeframe=false; // is true when need change frame
   $tableframe=array();
   $tableimage=array();
+  $vf = new VaultFile($dbaccess, $action->parent->name);
   for ($i=0; $i < $nattr + 1; $i++)
     {
 
@@ -272,6 +233,7 @@ function freedom_card(&$action) {
 	      $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
 	      $frames[$k]["rowspan"]=$v+1; // for images cell
 	      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+
 	      $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
 	      $tableframe);
 	      $frames[$k]["IMAGES"]="IMAGES_$k";
@@ -307,25 +269,6 @@ function freedom_card(&$action) {
 		     "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id; // upload name
 
 		break;
-		case "application": 
-		  ereg ("(.*)\|(.*)\|(.*)", $value, $reg);
-		  $tableframe[$v]["value"]="<A type=\"".$reg[1]."\" HREF=\"". 
-		     $reg[2]."\">".$reg[3]."</A>" ;
-
-		 
-		  break;
-		case "embed": 
-		  ereg ("(.*)\|(.*)", $value, $reg);		 
-		  // reg[1] is mime type
-		  $src = $action->GetParam("CORE_BASEURL").
-		     "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id;
-		  $tableframe[$v]["value"]="<embed autostart=false  type=\"".$reg[1]."\" src=\"". 
-		     $src."\">" ;
-		  $tableframe[$v]["value"].="<noembed>
-       Your browser doesn't support plug-ins! Please <a
-       HREF=\"".$efile."\">use a helper application instead</a>
-       </noembed>";
-		  break;
 		case "url": 
 		  $tableframe[$v]["value"]="<A target=\"_blank\" href=\"". 
 		     htmlentities($value)."\">".$value.
@@ -339,7 +282,6 @@ function freedom_card(&$action) {
 		case "file": 
 		  ereg ("(.*)\|(.*)", $value, $reg);		 
 		  // reg[1] is mime type
-		  $vf = new VaultFile($dbaccess, $action->parent->name);
 		if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
 		else $fname=_("no filename");
 		  $tableframe[$v]["value"]="<A target=\"_blank\" href=\"".
@@ -359,6 +301,18 @@ function freedom_card(&$action) {
 		break;
 		
 		}
+
+	      
+	      // add link if needed
+	      if ($listattr[$i]->link != "") {
+		$tableframe[$v]["Abegin"]="<A href=\"";
+		$tableframe[$v]["Abegin"].= urlWhatEncode(&$action, $listattr[$i]->link, $docid);
+		$tableframe[$v]["Abegin"].="\">";
+		$tableframe[$v]["Aend"]="</A>";
+	      } else {
+		$tableframe[$v]["Abegin"]="";
+		$tableframe[$v]["Aend"]="";
+	      }
 	
 	      // print name except image (printed otherthere)
 	      if ($listattr[$i]->type != "image")
@@ -371,6 +325,8 @@ function freedom_card(&$action) {
 		  $tableimage[$nbimg]["imgalt"]=$action->text($doc->GetLabel($listattr[$i]->id));
 		  $nbimg++;
 		}
+
+	      
 	    }
 	}
   
@@ -391,6 +347,7 @@ function freedom_card(&$action) {
   $clf = ($doc->CanLockFile() == "");
   $cuf = ($doc->CanUnLockFile() == "");
   $cud = ($doc->CanUpdateDoc() == "");
+
 
   Popupactive('popupcard',$kdiv,'cancel');
   if (($doc->doctype=="C") && ($cud)) popupActive('popupcard',$kdiv,'chicon'); 
@@ -413,26 +370,29 @@ function freedom_card(&$action) {
 
 
   if ($doc->Control("modifyacl") == "") {
-    popupActive('popupcard',$kdiv,'editdoc'); 
+    popupActive('popupcard',$kdiv,'editprof'); 
     popupActive('popupcard',$kdiv,'editcprof');
-  }else {
-    popupInactive('popupcard',$kdiv,'editdoc');
+  } else {
+    popupInactive('popupcard',$kdiv,'editprof');
     popupInactive('popupcard',$kdiv,'editcprof');
   }
   if ($cud) {
     popupActive('popupcard',$kdiv,'editattr'); 
-    popupActive('popupcard',$kdiv,'editprof');
-  } else if ($doc->locked < 0){ // fixed document
-    popupInvisible('popupcard',$kdiv,'editdoc');
-    popupInvisible('popupcard',$kdiv,'editattr'); 
-    popupInvisible('popupcard',$kdiv,'editprof');
-    popupInvisible('popupcard',$kdiv,'revise');
-    popupInvisible('popupcard',$kdiv,'lockdoc');
-    popupInvisible('popupcard',$kdiv,'unlockdoc');
-    popupInvisible('popupcard',$kdiv,'chicon');
+    popupActive('popupcard',$kdiv,'editdoc');
   } else {
-    popupInactive('popupcard',$kdiv,'editattr'); 
-    popupInactive('popupcard',$kdiv,'editprof');
+    if ($doc->locked < 0){ // fixed document
+      popupInvisible('popupcard',$kdiv,'editdoc');
+      popupInvisible('popupcard',$kdiv,'editattr'); 
+      popupInvisible('popupcard',$kdiv,'editprof');
+      popupInvisible('popupcard',$kdiv,'revise');
+      popupInvisible('popupcard',$kdiv,'lockdoc');
+      popupInvisible('popupcard',$kdiv,'unlockdoc');
+      popupInvisible('popupcard',$kdiv,'chicon');
+    } else {
+      popupInactive('popupcard',$kdiv,'editattr'); 
+      popupInactive('popupcard',$kdiv,'editprof');
+      popupInactive('popupcard',$kdiv,'editdoc');
+    }
   }
   if ($doc->doctype=="F") popupActive('popupcard',$kdiv,'histo'); 
   else popupInvisible('popupcard',$kdiv,'histo');
@@ -441,7 +401,7 @@ function freedom_card(&$action) {
   else popupInvisible('popupcard',$kdiv,'properties'); 
 
 
-  if ($doc->doctype !="C") {
+  if ($doc->doctype != "C") {
     popupInvisible('popupcard',$kdiv,'editcprof'); 
     popupInvisible('popupcard',$kdiv,'editattr'); 
   }
@@ -453,11 +413,64 @@ function freedom_card(&$action) {
   $action->lay->SetBlockData("TABLEBODY",$frames);
   
 
-  $owner = new User("", $doc->owner);
+  $owner = new User("", abs($doc->owner));
   $action->lay->Set("username", $owner->firstname." ".$owner->lastname);
 
   popupGen($kdiv);
 
 
 }
+
+
+// -----------------------------------
+  function urlWhatEncode(&$action, $link, $docid) {
+// -----------------------------------
+
+    
+    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $urllink="";
+    for ($i=0; $i < strlen($link); $i++) {
+      if ($link[$i] != "%") $urllink.=$link[$i];
+      else {
+	$i++;
+	switch ($link[$i]) {
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+	case 9:
+
+	  $sattrid="";
+	  while (($link[$i] >= '0') && ($link[$i] <= '9')) {
+	    $sattrid.=$link[$i];
+	    $i++;
+	  }
+	  //	  print "attr=$sattrid";
+
+	  $ovalue = new DocValue($dbaccess,array($docid,$sattrid));
+	  $urllink.=$ovalue->value;
+	  $i--;
+	  break;
+	case "B": // baseurl	  
+	  $urllink.=$action->GetParam("CORE_BASEURL");
+	  $i--;
+	  break;
+	case "S": // standurl	  
+	  $urllink.=$action->GetParam("CORE_STANDURL");
+	  $i--;
+	  break;
+	 default:
+	  print "NOT $link[$i]<BR>";
+	  break;
+	}
+      }
+    }
+
+    return ($urllink);
+
+  }
 ?>

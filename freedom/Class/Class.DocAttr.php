@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.3 2001/11/30 15:13:39 eric Exp $
+// $Id: Class.DocAttr.php,v 1.4 2001/12/08 17:16:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocAttr.php,v $
+// Revision 1.4  2001/12/08 17:16:30  eric
+// evolution des attributs
+//
 // Revision 1.3  2001/11/30 15:13:39  eric
 // modif pour Css
 //
@@ -43,14 +46,14 @@
 //
 // ---------------------------------------------------------------
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.3 2001/11/30 15:13:39 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.4 2001/12/08 17:16:30 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
 
 Class Docattr extends DbObj
 {
-  var $fields = array ("id","docid","frameid","labeltext", "title", "abstract","type","ldapname","ordered");
+  var $fields = array ("id","docid","frameid","labeltext", "title", "abstract","type","ldapname","ordered","visibility","link","phpfile", "phpfunc");
 
   var $id_fields = array ("docid","id");
 
@@ -70,20 +73,22 @@ create table docattr ( id      int not null,
                      Abstract  varchar(1),
                      Type  varchar(20),
                      LdapName varchar(60),
-                     ordered int
+                     ordered int,
+                     visibility varchar(1),
+                     link varchar(256),
+                     phpfile varchar(128),
+                     phpfunc varchar(64)
                    );
-create sequence seq_id_docattr start 10";
+create sequence seq_id_docattr start 1000";
 
 
   // possible type of attributes
   var $deftype = array("text",
 		    "longtext",
-		    "mail",
-		    "url",
 		    "image",
-		    "embed",
 		    "file",
-		    "frame");
+		    "frame",
+		    "enum");
 		    
  
   
@@ -100,6 +105,9 @@ create sequence seq_id_docattr start 10";
     $this->id = $arr[0];  
   }
 
+  if ($this->abstract=="") $this->abstract='N';
+  if ($this->title=="") $this->title='N';
+  if ($this->visibility=="") $this->visibility=='W';
 } 
 
 
