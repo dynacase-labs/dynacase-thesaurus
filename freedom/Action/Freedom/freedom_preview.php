@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_preview.php,v 1.4 2003/01/08 09:04:32 eric Exp $
+// $Id: freedom_preview.php,v 1.5 2003/01/20 15:34:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_preview.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,6 +49,7 @@ function freedom_preview(&$action) {
     $ndoc = createDoc($dbaccess, $classid);
     if (! $ndoc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
     
+    $ndoc->doctype='T';
     $err = $ndoc-> Add();
     if ($err != "")  $action->ExitError($err);
     
@@ -58,7 +59,6 @@ function freedom_preview(&$action) {
 
    
   $tdoc = new Doc($dbaccess, $ndocid);
-  $tdoc->doctype='T';
   $tdoc->modify();
   //if ($err != "")  $action-> ExitError($err);
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.85 2003/01/17 16:54:24 eric Exp $
+// $Id: Class.Doc.php,v 1.86 2003/01/20 15:34:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.85 2003/01/17 16:54:24 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.86 2003/01/20 15:34:06 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -100,6 +100,7 @@ create table doc ( id int not null,
                    attrids text
                    );
 create sequence seq_id_doc start 1000;
+create sequence seq_id_tdoc start 1000000000;
 create unique index i_docir on doc(initid, revision);";
 
   // --------------------------------------------------------------------
@@ -170,7 +171,8 @@ create unique index i_docir on doc(initid, revision);";
       $err="";
       // compute new id
       if ($this->id == "") {
-	$res = pg_exec($this->init_dbid(), "select nextval ('seq_id_doc')");
+	if ($this->doctype=='T') $res = pg_exec($this->init_dbid(), "select nextval ('seq_id_tdoc')");
+	else $res = pg_exec($this->init_dbid(), "select nextval ('seq_id_doc')");
 	$arr = pg_fetch_array ($res, 0);
 	$this->id = $arr[0];
       }
@@ -1021,7 +1023,7 @@ create unique index i_docir on doc(initid, revision);";
   function Refresh() {	
 
     if ($this->locked == -1) return; // no refresh revised document
-    if (($this->doctype != 'F')  && ($this->doctype != 'S')) return; // no refresh for family  document
+    if (($this->doctype != 'F')  && ($this->doctype != 'S') && ($this->doctype != 'T')) return; // no refresh for family  document
     if ($this->usefor == 'D') return; // no refresh for default document
 	  
 
