@@ -87,7 +87,7 @@ METHOD;+Method.DocIntranet.php;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint
 ATTR;US_FR_INTRANET;;Identification intranet;N;N;frame;0;R;;;;;;
 ATTR;US_MEID;US_FR_INTRANET;utilisateur id;N;N;docid;200;H;;;;;;
-ATTR;US_LOGIN;US_FR_INTRANET;login;N;N;text;200;R;Y;;;;;::ConstraintLogin(US_LOGIN)
+ATTR;US_LOGIN;US_FR_INTRANET;login;N;N;text;200;R;Y;;;;;::ConstraintLogin(US_LOGIN,US_IDDOMAIN)
 ATTR;US_PASSWD;US_FR_INTRANET;mot de passe;N;N;password;210;H;;;;;;
 ATTR;US_PASSWD1;US_FR_INTRANET;nouveau mot de passe;N;N;password;220;O;;;;;;
 ATTR;US_PASSWD2;US_FR_INTRANET;confirmation mot de passe;N;N;password;230;O;;;;;;::ConstraintPassword(US_PASSWD1,US_PASSWD2)
@@ -128,7 +128,7 @@ METHOD;+Method.DocIntranet.php;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint
 ATTR;GRP_FR_INTRANET;;Identification intranet;N;N;frame;0;R;;;;;;
 ;;;;;;;;;;;;;;
-ATTR;US_LOGIN;GRP_FR_INTRANET;login;N;N;text;200;R;Y;;;;;::ConstraintLogin(US_LOGIN)
+ATTR;US_LOGIN;GRP_FR_INTRANET;login;N;N;text;200;R;Y;;;;;::ConstraintLogin(US_LOGIN,US_IDDOMAIN)
 ATTR;US_WHATID;GRP_FR_INTRANET;identifiant;N;N;int;210;R;;;;;;
 ATTR;US_MEID;GRP_FR_INTRANET;groupe id;N;N;docid;220;H;;;;;;
 ATTR;US_IDDOMAIN;GRP_FR_INTRANET;id domaine;N;N;int;230;H;;;;;;
