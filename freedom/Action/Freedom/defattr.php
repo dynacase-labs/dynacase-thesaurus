@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: defattr.php,v 1.18 2003/12/30 10:12:57 eric Exp $
+ * @version $Id: defattr.php,v 1.19 2004/06/11 16:08:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.18 2003/12/30 10:12:57 eric Exp $
+// $Id: defattr.php,v 1.19 2004/06/11 16:08:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -222,6 +222,7 @@ function defattr(&$action)
 
       $newelem[$k]["typevalue"]=$attr->type;
       if (($attr->repeat) && (!$attr->inArray())) $newelem[$k]["typevalue"].="list"; // add list if repetable attribute without array
+      if ($attr->format != "") $newelem[$k]["typevalue"].="(\"".$attr->format."\")";
 
 
 
