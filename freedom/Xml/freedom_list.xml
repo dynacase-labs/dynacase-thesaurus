@@ -83,7 +83,7 @@ TR.select {
 [ZONE FREEDOM:POPUP]
 
 <table class="tablesimple" cellspacing="0" width="100%" >
-
+<tr><td class="tlist" colspan="4" align="center">[nbdoc] [TEXT:document(s) found]</td></tr>
 <!-- TABLEBODY -->
                     [BLOCK TABLEBODY]
 <tr  id="d[divid]"

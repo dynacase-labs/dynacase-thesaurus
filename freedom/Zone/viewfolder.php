@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.4 2002/01/04 15:08:04 eric Exp $
+// $Id: viewfolder.php,v 1.5 2002/01/25 09:43:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,7 +41,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
   $refresh=GetHttpVars("refresh","no"); // force folder refresh
 
 
-  $action->log->start("freedom_icons");
+
   // Set the globals elements
 
 
@@ -86,7 +86,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
 
 
 
-  //  $action->log->tic("before query gen");  
+
 
   if ($refresh == "yes") { // force refresh    
     $oqd=new QueryDir($dbaccess );
@@ -98,8 +98,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
   else $ldoc = $oqdv->getChildDoc($dirid);
 
   
-  //  $ldoc = $query->Query();
-  // $action->log->tic("after query gen");
+  
+
 
 
 
@@ -136,7 +136,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
   $tdoc=array();
 
   if (is_array($ldoc)) {
-    //  $action->log->tic("begin loop");
+    $action->lay->Set("nbdoc",count($ldoc));
+
   while(list($k,$doc) = each($ldoc)) 
     {
       // view control
@@ -274,7 +275,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
       }
     }
   }
-  //  $action->log->tic("end loop");
+
   // Out
   //------------------------------
   // display popup action
@@ -294,7 +295,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true) {
     $action->parent->AddJsCode($licon->gen());
   }
 
-  $action->log->end("freedom_icons");
+
 }
 
 
