@@ -28,14 +28,15 @@ WGCalViewInit('[IDSTART]', '[IDSTOP]', '[DAYCOUNT]', '[HCOUNT]', '[HSTART]');
 
 [BLOCK EVENTS]
 <div id="evt[ID]" 
-     onclick="subwindow(300, 500, 'EditEvent[ID]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1');"  
+     onclick="subwindow(300, 500, 'EditEvent[ID]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[rvevtid]');"  
      onmouseover="WGCalEvOnMouseOver(event, '[ID]');" 
      onmouseout="WGCalEvOnMouseOut(event, '[ID]');" 
-    style="cursor:pointer; background-color:red; border:0px; display:none">
-<div id="evtt[ID]" style="border:1px outset; background-color:grey; height:4px"></div>
-<div id="evta[ID]" style="border:1px outset; background-color:white;">[ABSTRACT]</div>
+    style="cursor:pointer; border:0px; display:none">
+<div id="evth[ID]" style="border:0px inset; background-color:grey;"></div>
+<div id="evta[ID]" style="cursor:crosshair; background-color:white; border:0px ">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=R]</div>
+<div id="evtf[ID]" style="border:0px outset; background-color:grey;"></div>
 </div>
-<div id="evtc[ID]" style="background-color:black; color:white; border:2px outset solid; display:none">[LONGDESCR]</div> 
+<div id="evtc[ID]" style="display:none; border:1px outset; background-color:#CCFFFF;">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=F]</div>
 [ENDBLOCK EVENTS]
 <script type="text/javascript">
 [BLOCK EVENTSSC]WGCalAddEvent('[IDSTART]', [ID], [START], [END], [SHIFT]);

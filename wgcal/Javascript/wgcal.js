@@ -55,4 +55,21 @@ function  mynodereplacestr(n,s1,s2) {
   }
 }
 
+// --------------------------------------------------------
+function WGCalImgAltern(ev, eltId, img1, img2) {
+  var elt = document.getElementById(eltId);
+  var result;
+  if (!elt) {
+    window.status = "Element["+eltId+"] not found";
+    return;
+  }
+  var sea = new String(elt.src);
+  if (sea.indexOf(img1) != -1) {
+    elt.src = img2;
+  } else {
+    elt.src = img1;
+  }
+}
+
+
 var isNetscape = navigator.appName=="Netscape";

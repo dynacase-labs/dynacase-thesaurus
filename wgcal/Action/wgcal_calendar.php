@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.11 2005/01/19 13:08:31 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.12 2005/01/20 11:06:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -208,6 +208,12 @@ function wgcal_calendar(&$action) {
 			 "START" => 1105974000,  
 			 "END" => 1105981200,
 			 "SHIFT" => 0),
+		  array( "IDSTART" => "DOHO", 
+			 "ID" => 8003, 
+			 "ABSTRACT" => strftime("%d/%m %H:%M",1105974000)."<br>".strftime("%d/%m %H:%M",1105984800),
+			 "START" => 1105974000,  
+			 "END" => 1105984800,
+			 "SHIFT" => 1),
 		  array( "IDSTART" => "DOHO", 
 			 "ID" => 8002, 
 			 "START" => 1106218800,  

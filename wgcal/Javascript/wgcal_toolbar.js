@@ -196,10 +196,16 @@ function usetparam(name, value, session) {
   fset.submit();
 }
 
-function useressources() {
- use_r = (document.getElementById('useressources').checked?1:0);
- if (use_r==1) document.getElementById('spuseressources').className = 'WGCRessSelected';
- else document.getElementById('spuseressources').className = 'WGCRessDefault';
+function useressources(frominput) {
+ rf = document.getElementById('useressources');
+ rft = document.getElementById('spuseressources');
+ if (!frominput)  {
+   if (rf.checked) rf.checked = false;
+   else rf.checked = true;
+ }
+ use_r = (rf.checked?1:0);
+ if (use_r==1) rft.className = 'WGCRessSelected';
+ else rft.className = 'WGCRessOver';
  usetparam("WGCAL_U_USERESSINEVENT", use_r);
 }
  

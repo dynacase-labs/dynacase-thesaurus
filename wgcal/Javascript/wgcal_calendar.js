@@ -64,8 +64,9 @@ function WGCalRefreshAll() {
 // --------------------------------------------------------
 function WGCalEvOnMouseOver(ev, id) {
   evt  = document.getElementById('evt'+id);
-  evtc = document.getElementById('evtc'+id);
   evt.style.zIndex = 1000;
+
+  evtc = document.getElementById('evtc'+id);
   x = getX(ev);
   y = getY(ev);
   evtc.style.left = x+'px';
@@ -74,7 +75,7 @@ function WGCalEvOnMouseOver(ev, id) {
   evtc.style.width = "70px";
   evtc.style.height = "30px";
   evtc.style.fixed = 'fixed';
-  evt.style.zIndex = 0;
+  evtc.style.zIndex = 1001;
   evtc.style.display = '';
 }
 
@@ -208,6 +209,14 @@ function PosToDate(ev) {
   alert('Date = '+sdate+' Ydivision='+Ydivision);
   return pdate;
 }
+// --------------------------------------------------------
+function WGCalChangeClass(event, id, refclass, nclass)
+{
+  var elt = document.getElementById(id);
+  if (!elt) return;
+  if (elt.className!=refclass) elt.className = nclass;
+}
+
 
 // --------------------------------------------------------
 function EvTs2String(ts) {
@@ -284,7 +293,7 @@ function WGCalDisplayEvent(iev, newEvent) {
   evtid  = Event[iev][1];
   dstart = Event[iev][2];
   dend   = Event[iev][3];
-  shift  = Event[iev][3];
+  shift  = Event[iev][4];
   
   if (dend<dstart) {
     t = dend;
@@ -293,23 +302,33 @@ function WGCalDisplayEvent(iev, newEvent) {
   }
   root = document.getElementById(Root);
   evtElt = document.getElementById('evt'+evtid);
+  evtHeadElt = document.getElementById('evth'+evtid);
+  evtFootElt = document.getElementById('evtf'+evtid);
+  evtAbstractElt = document.getElementById('evta'+evtid);
   evtcElt = document.getElementById('evtc'+evtid);
 
   pstart = GetCoordFromDate(dstart);
   pend   = GetCoordFromDate(dend);
 
-  //x = Math.round(pstart.x) + (shift*Wshift);
-  x = Math.round(pstart.x);
+  x = Math.round(pstart.x) + (shift*Wshift);
+  //x = Math.round(pstart.x);
   y = Math.round(pstart.y);
   h = Math.round(pend.y - pstart.y);
   w = Math.round(Wevt);
 
-  //alert('evt(x,y,h,w)=('+x+','+y+','+h+','+w);
+  foot = head = 3;
+  content = h - foot - head;
+	
+  evtHeadElt.style.height = head+"px";
+  evtFootElt.style.height = foot+"px";
+  evtAbstractElt.style.height = content+"px";
+
+
   evtElt.style.top = y+"px";
   evtElt.style.left = x+"px";
   evtElt.style.width = w+"px";
   evtElt.style.height = h+"px";
-  evtElt.style.position = 'fixed';
+  evtElt.style.position = 'absolute';
   evtElt.style.display = '';
 
   root.appendChild(evtElt);

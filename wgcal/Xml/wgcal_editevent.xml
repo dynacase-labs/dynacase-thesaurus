@@ -316,6 +316,7 @@ Calendar.setup(
  [BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]');
  [ENDBLOCK ADD_RESS] 
  //window.onunload = cancelEvent;
+ document.getElementById('rvtitle').focus();
 </script>
 
 </form>

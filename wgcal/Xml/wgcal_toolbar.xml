@@ -81,7 +81,7 @@
 <table cellspacing="0" cellpadding="0">
 <tbody id="tabress">
 <tr style="display:none" id="trsample">
-<td> <img style="cursor:pointer;border:1px outset grey" height="8"  src="WGCAL/Images/wgcal-suppress.gif" 
+<td> <img style="cursor:pointer;border:0px" height="15"  src="WGCAL/Images/wm-delete.png" 
           onclick="suppress = confirm('[TEXT:supress ressource] %RDESCR%'); if (suppress) deleteRessource('%RID%');" 
           title="[TEXT:suppress ressource] %RDESCR%">
 </td>
@@ -99,7 +99,7 @@
 </tbody>
 </table>
 
-<span id="spuseressources" title="[TEXT:use ressource for event creation]" class="[urclass]">[TEXT:use in event...]<input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources();" [urchecked]>
+<span id="spuseressources" title="[TEXT:use ressource for event creation]" onclick="useressources();" class="[urclass]">[TEXT:use in event...]<input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources();" [urchecked]>
 </span>
 </div>
 
