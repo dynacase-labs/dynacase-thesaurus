@@ -32,7 +32,8 @@ function fselect(o) {
 function hiselect(o) {
   var i=o.previousSibling; // input
   if (i.checked) {
-    o.style.backgroundColor='yellow';
+    o.style.backgroundColor='[CORE_BGCOLORHIGH]';
+    o.title='[TEXT:set as first family view]';
     o.style.cursor='pointer';
   }
 }
@@ -86,7 +87,7 @@ addEvent(window,"load",viewfirst);
 <br>
 <fieldset style="width:50%;float:left;"><legend>[TEXT:open first family]</legend>
 <div style="float:left;" id="openfirst"></div>
-<input type="image" onclick="clearfirst();return false;" src="[IMG:clear.gif]"></input>
+<input type="image" title="[TEXT:No family first]" onclick="clearfirst();return false;" src="[IMG:clear.gif]"></input>
 </fieldset>
  <table style="width:40%;float:left;"><tr>
   <td align="right"><input type="submit" value="[TEXT:Validate]" onclick="setTimeout('self.close()',1000)"> <input  type="button" value="[TEXT:Close]" onclick="self.close()"></td></tr></table> 
