@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.5 2002/08/28 09:39:33 eric Exp $
+// $Id: popupcard.php,v 1.6 2002/09/16 14:42:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','chgtitle','defval','unlockdoc','editattr','histo','editprof','editcprof','editdfld','properties','access','delete','cancel'));
+  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','chgtitle','defval','unlockdoc','editattr','histo','editprof','editcprof','editstate','editdfld','properties','access','delete','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -93,6 +93,7 @@ function popupcard(&$action) {
   if ($cud) {
     popupActive('popupcard',$kdiv,'editattr'); 
     popupActive('popupcard',$kdiv,'chgtitle'); 
+    popupInvisible('popupcard',$kdiv,'editstate'); 
     popupActive('popupcard',$kdiv,'defval'); 
     popupActive('popupcard',$kdiv,'editdoc');
     popupActive('popupcard',$kdiv,'editdfld');
@@ -109,6 +110,7 @@ function popupcard(&$action) {
       popupInvisible('popupcard',$kdiv,'unlockdoc');
       popupInvisible('popupcard',$kdiv,'chicon');
       popupInvisible('popupcard',$kdiv,'editdfld');
+      popupInvisible('popupcard',$kdiv,'editstate'); 
     } else {
       popupInactive('popupcard',$kdiv,'editattr'); 
       popupInactive('popupcard',$kdiv,'editdfld');
@@ -116,6 +118,14 @@ function popupcard(&$action) {
       popupInactive('popupcard',$kdiv,'defval'); 
       popupInactive('popupcard',$kdiv,'editprof');
       popupInactive('popupcard',$kdiv,'editdoc');
+      popupInactive('popupcard',$kdiv,'editstate');
+      
+      if ($doc->wid > 0) {
+	$wdoc=new Doc($doc->dbaccess, $doc->wid);
+	$wdoc->Set($doc);
+	if (count($wdoc->GetFollowingStates()) > 0)
+	  popupActive('popupcard',$kdiv,'editstate');
+      }
 
     }
   }

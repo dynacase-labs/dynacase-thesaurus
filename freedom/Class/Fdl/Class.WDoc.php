@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.1 2002/09/13 15:06:07 eric Exp $
+// $Id: Class.WDoc.php,v 1.2 2002/09/16 14:42:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.1 2002/09/13 15:06:07 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.2 2002/09/16 14:42:10 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -65,12 +65,17 @@ Class WDoc extends Doc {
 
     function Set(&$doc) {
       $this->doc= &$doc;
+      if ($doc->state == "") {
+	$doc->state=$this->firstState;
+	$this->changeProfil($doc->state);
+      }
     }
   
 
   function changeProfil($newstate) {
 
-    $this->doc->profid=intval($this->getValue($this->attrPrefix."_ID".strtoupper($newstate)));
+    if ($newstate != "")
+      $this->doc->profid=intval($this->getValue($this->attrPrefix."_ID".strtoupper($newstate)));
 
   }
   function CreateProfileAttribute() {
@@ -166,7 +171,8 @@ Class WDoc extends Doc {
       // change the state
 	$this->doc->state = $newstate;
       $this->changeProfil($newstate);
-      $err = $this->doc->modify();
+      $this->doc->disableEditControl();
+      $err = $this->doc->Modify();   // don't control edit permission
       if ($err != "") return $err;
       
       $revcomment = sprintf(_("change state to %s"), _($newstate));
@@ -175,6 +181,7 @@ Class WDoc extends Doc {
       $this->doc->AddRevision($revcomment);
       AddLogMsg(sprintf(_("%s new state %s"),$this->doc->title, _($newstate)));
       
+      $this->doc->enableEditControl();
       // post action
 	if ($tr["m2"] != "") {
 	  if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
@@ -200,7 +207,8 @@ Class WDoc extends Doc {
       while (list($k, $tr) = each($this->cycle)) {
 	if ($this->doc->state == $tr["e1"]) {
 	  // from state OK
-	    $fstate[] = $tr["e2"];
+	    if ($this->control($tr["t"]) == "")
+	      $fstate[] = $tr["e2"];
 	}
       }
       return $fstate;

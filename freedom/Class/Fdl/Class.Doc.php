@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.49 2002/09/13 15:06:07 eric Exp $
+// $Id: Class.Doc.php,v 1.50 2002/09/16 14:42:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.49 2002/09/13 15:06:07 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.50 2002/09/16 14:42:09 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -217,7 +217,7 @@ create unique index i_docir on doc(initid, revision);";
 
       if ($this->initid == "") $this->initid=$this->id;
       if (chop($this->title) == "") $this->title =_("untitle document");
-      if ($this->doctype == "") $this->doctype = $this->defDoctype;
+      if ($this->doctype == "")  $this->doctype = $this->defDoctype;
       if ($this->revision == "") $this->revision = "0";
       if ($this->useforprof == "") $this->useforprof = "f";
       if ($this->profid == "") $this->profid = "0";
@@ -230,6 +230,11 @@ create unique index i_docir on doc(initid, revision);";
       // set creation date
       $date = gettimeofday();
       $this->revdate = $date['sec'];
+
+      if ($this->wid > 0) {
+	$wdoc = new Doc($this->dbaccess,$this->wid);
+	$wdoc->Set($this); // set first state
+      }
       return $err;
     } 
 
@@ -240,8 +245,10 @@ create unique index i_docir on doc(initid, revision);";
   function PreUpdate()
     // --------------------------------------------------------------------
     {
-      $err = $this-> Control("edit");//$this->CanUpdateDoc() ;
-      if ($err != "") return ($err); 
+      if (! isset($this->withoutControl)) {
+	$err = $this-> Control("edit");
+	if ($err != "") return ($err); 
+      }
       
       if ($this->locked < 0) $this->lmodify='N';
       if ($this->hasChanged) {
@@ -254,7 +261,14 @@ create unique index i_docir on doc(initid, revision);";
 
     }
 
-
+  // modify without edit control
+  function disableEditControl() {
+    $this->withoutControl=true;
+  }
+  // default edit control enable
+  function enableEditControl() {
+    unset($this->withoutControl);
+  }
 
   function isRevisable() {
     return (($this->doctype == 'F') && ($this->useforprof == 'f'));
@@ -571,6 +585,7 @@ create unique index i_docir on doc(initid, revision);";
 	
 	$query->order_by="ordered";
 	$lattributes=$query->Query();
+
 	while (list($k,$v) = each($lattributes)) {
 	    $this->attributes[$v->id]=$v;	    	  
 	}
@@ -766,6 +781,12 @@ create unique index i_docir on doc(initid, revision);";
 
   function SetValue($attrid, $value) {
       if (!isset($this->ovalue)) {
+	// control edit before set values
+	  
+	  if (! isset($this->withoutControl)) {
+	    $err = $this-> Control("edit");
+	    if ($err != "") return ($err); 
+	  }
 	$this->ovalue = new DocValue($this->dbaccess);
 	$this->ovalue->docid=$this->id;	
       }
@@ -1165,9 +1186,6 @@ create unique index i_docir on doc(initid, revision);";
   
   
  
-    function firstState () {
-      return "";
-    }
 
   
   

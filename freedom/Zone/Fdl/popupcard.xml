@@ -37,6 +37,9 @@
 <a href="#" id="histo"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:History]</a>
 
+<a href="#" id="editstate"
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDITSTATE&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Change state]</a>
+
 <a href="#" id="editprof"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Change profile]</a>
 

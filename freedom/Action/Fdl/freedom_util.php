@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.12 2002/09/13 15:06:07 eric Exp $
+// $Id: freedom_util.php,v 1.13 2002/09/16 14:42:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -134,7 +134,7 @@ function createDoc($dbaccess,$fromid) {
     $doc->deditzone = $cdoc->deditzone; // inherit from its familly
     $doc->dfldid = $cdoc->dfldid; // inherit from its familly
     $doc->wid=$cdoc->wid;
-    $doc->state=$doc->firstState();
+
     return ($doc);
     
   }

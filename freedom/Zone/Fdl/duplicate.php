@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.1 2002/08/20 14:05:09 eric Exp $
+// $Id: duplicate.php,v 1.2 2002/09/16 14:42:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,7 +51,7 @@ function duplicate(&$action, $dirid, $docid) {
   $copy->initid = "";
   $copy->revision = "0";
   $copy->locked = "0";
-  $copy->state = $copy->firstState;
+  $copy->state = "";
   $copy->profid = $cdoc->cprofid;;
   $copy->title = _("duplication of")." ".$copy->title;
   $err = $copy->Add();

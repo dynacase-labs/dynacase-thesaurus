@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.20 2002/09/13 15:06:07 eric Exp $
+// $Id: import_file.php,v 1.21 2002/09/16 14:42:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,18 +52,20 @@ function add_import_file(&$action, $fimport="") {
     switch ($data[0]) {
       // -----------------------------------
     case "BEGIN":
-      $doc = createDoc($dbaccess, $data[1]);
-    $doc->fromid = $data[1];
+      $err="";
+      $doc=new Doc($dbaccess, $data[3]);
+      if (! $doc->isAffected())  {
+	$doc = createDoc($dbaccess, $data[1]);
+	$doc->fromid = $data[1];
 
-    $doc->title =  $data[2];  
-    if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
-    if (isset($data[4]) && ($data[3] != "")) $doc->classname = $data[4]; // new classname for familly
+	$doc->title =  $data[2];  
+	if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
+	  if (isset($data[4]) && ($data[3] != "")) $doc->classname = $data[4]; // new classname for familly
 
-    $err = $doc->Add();
+	    $err = $doc->Add();
+      }
 
-    if (($err != "") && ($doc->id > 0)) { // case only modify
-      if ($doc -> Select($doc->id)) $err = "";
-    }
+
     if ($err != "") $gerr="\nline $nline:".$err;
 
 	  
@@ -162,23 +164,27 @@ function add_import_file(&$action, $fimport="") {
     // -----------------------------------
     case "ATTR":
       if     ($num < 12) print "Error in line $nline: $num cols < 13<BR>";
-      $oattr=new DocAttr($dbaccess);
-    $oattr->docid = $doc->id;
-    $oattr->id = $data[1];
-    $oattr->frameid = $data[2];
-    $oattr->labeltext=$data[3];
-    $oattr->title = ($data[4] == "Y")?"Y":"N";
-    $oattr->abstract = ($data[5] == "Y")?"Y":"N";
-    $oattr->type = $data[6];
+      $oattr=new DocAttr($dbaccess, array($doc->id,$data[1]));
+      if ($oattr->isAffected()) $amodify=true;
+      else $amodify=false;
+      
+      $oattr->docid = $doc->id;
+      $oattr->id = $data[1];
+      $oattr->frameid = $data[2];
+      $oattr->labeltext=$data[3];
+      $oattr->title = ($data[4] == "Y")?"Y":"N";
+      $oattr->abstract = ($data[5] == "Y")?"Y":"N";
+      $oattr->type = $data[6];
 
-    $oattr->ordered = $data[7];
-    $oattr->visibility = $data[8];
-    $oattr->link = $data[9];
-    $oattr->phpfile = $data[10];
-    $oattr->phpfunc = $data[11];
-    if (isset($data[12])) $oattr->elink = $data[12];
+      $oattr->ordered = $data[7];
+      $oattr->visibility = $data[8];
+      $oattr->link = $data[9];
+      $oattr->phpfile = $data[10];
+      $oattr->phpfunc = $data[11];
+      if (isset($data[12])) $oattr->elink = $data[12];
 	  
-    $err = $oattr ->Add();
+      if ($oattr->isAffected()) $err =$oattr ->Modify();
+      else    $err = $oattr ->Add();
       //    if ($err != "") $err = $oattr ->Modify();
     if ($err != "") $gerr="\nline $nline:".$err;
     break;

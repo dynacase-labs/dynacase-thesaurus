@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.1 2002/09/13 15:06:07 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.2 2002/09/16 14:42:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.1 2002/09/13 15:06:07 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.2 2002/09/16 14:42:10 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -44,15 +44,12 @@ define ("Tfinal", "Tfinal");       # N_("Tfinal")
 
 Class WDocIncident extends WDoc
 {
-    // --------------------------------------------------------------------
-  //---------------------- OBJECT CONTROL PERMISSION --------------------
   
   
 
   // ------------
-  var $defDoctype='W';
   var $defClassname="WDocIncident";
-    var $attrPrefix="IWF"; // prefix attribute
+  var $attrPrefix="IWF"; // prefix attribute
 
 
     var $transitions = array(Tsimple =>array("m1"=>"",

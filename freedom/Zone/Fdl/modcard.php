@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.13 2002/09/13 15:06:07 eric Exp $
+// $Id: modcard.php,v 1.14 2002/09/16 14:42:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -153,24 +153,29 @@ function modcard(&$action, &$ndocid) {
   if ($err == "") {
     
     // change state if needed
+      
     $newstate=GetHttpVars("newstate","");
     $comment=GetHttpVars("comment","");
     
-    
+    $err="";
+
     if (($newstate != "") && ($doc->state != $newstate)) {
 
       if ($doc->wid > 0) {
 	$wdoc = new Doc($dbaccess,$doc->wid);
 	$wdoc->Set($doc);
 	$err=$wdoc->ChangeState($newstate,$comment);
+
       }
 
-    }
-
+    } 
     $ndocid = $doc->id;
   }
   return $err;
 }
+
+
+
 //------------------------------------------------------------
 function insert_file($dbaccess,$docid, $attrid)
      //------------------------------------------------------------

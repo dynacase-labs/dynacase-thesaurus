@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.10 2002/09/11 14:13:54 eric Exp $
+// $Id: FREEDOM.app,v 1.11 2002/09/16 14:42:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -161,6 +161,11 @@ $action_desc = array (
   array( 
    "name"		=>"LOCKFILE",
    "short_name"		=>N_("lock file to edit"),
+   "acl"		=>"FREEDOM"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_EDITSTATE",
+   "short_name"		=>N_("edit state "),
    "acl"		=>"FREEDOM"
   ) ,
   array( 
