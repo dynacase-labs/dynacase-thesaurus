@@ -11,7 +11,7 @@
 [ENDBLOCK NEWSTATE]
   </select>
   </td><td colspan="2">
-  <textarea title="[TEXT:revision comment]" rows="2" name="comment" id="comment" style="width:100%;visibility:hidden"></textarea>
+  <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:hidden"></textarea>
   </td>
 </tr>
 [ENDBLOCK TRSTATE]
@@ -20,7 +20,7 @@
 <tr class="FREEDOMBack2">
   <td colspan="3" >
 
-  <textarea title="[TEXT:revision comment for autorevision]" rows="2" style="width:100%" name="comment" id="comment" ></textarea>
+  <textarea title="[TEXT:revision comment for autorevision]" rows="1" style="width:100%" name="comment" id="comment" ></textarea>
   </td>
 </tr>
 [ENDBLOCK COMMENT]

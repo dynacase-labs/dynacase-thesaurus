@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.68 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: editutil.php,v 1.69 2004/08/27 14:12:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.68 2004/08/05 09:47:20 eric Exp $
+// $Id: editutil.php,v 1.69 2004/08/27 14:12:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -357,6 +357,13 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       //같같같같같같같같같같같같같같같같같같같같
 			
     case "date": 
+      $lay = new Layout("FDL/Layout/editdate.xml", $action);
+      getLayDate($lay,$doc,$oattr,$value,$attrin,$index);
+		      
+      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+      else $lay->set("disabled","");
+      $input =$lay->gen(); 
+      break;
       $input="<input size=10  type=\"text\"   name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attridk."\" "; 
 
@@ -767,6 +774,18 @@ function getLayAdoc(&$lay,&$doc, &$oattr,$value, $aname,$index) {
 }
 
 /**
+ * generate HTML for inline document (not virtual)
+ */
+function getLayDate(&$lay,&$doc, &$oattr,$value, $aname,$index) {
+  $idocid=$oattr->format.$index;
+  $lay->set("name",$aname);
+  $lay->set("id",$oattr->id.$index);
+  $lay->set("idocid",strtolower($idocid));
+  $lay->set("value",$value);
+
+}
+
+/**
  * add different js files needed in edition mode
  */
 function editmode(&$action) {
@@ -781,7 +800,11 @@ function editmode(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
+  //  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
+  $action->parent->AddJsRef("jscalendar/calendar.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
+  $action->parent->AddJsRef("jscalendar/calendar-setup.js");
+  $action->parent->AddCssRef("jscalendar/Layout/calendar-win2k-2.css");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITJS");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITIJS");
