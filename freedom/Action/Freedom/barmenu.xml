@@ -58,6 +58,7 @@
 <!-- ------------ MENU SEARCH  --------------------- -->
 <div  id="searchmenu" class="popup">
   <a  id="newsearch" href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]app=[APPNAME]&action=EDIT_SEARCH&keyword=zz&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:simple]</a>
+  <a  id="newsearchfulltext" href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]app=[APPNAME]&action=EDIT_SEARCH_FULLTEXT&keyword=zz&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:fulltext]</a>
 </div>
 
 <!-- ------------ MENU VIEW  --------------------- -->

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.6 2002/07/30 12:37:12 eric Exp $
+// $Id: FREEDOM.app,v 1.7 2002/08/05 16:11:12 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -201,6 +201,16 @@ $action_desc = array (
   array( 
    "name"		=>"EDIT_SEARCH",
    "short_name"		=>N_("search document criteria"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"SEARCH_FULLTEXT",
+   "short_name"		=>N_("full text search"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"EDIT_SEARCH_FULLTEXT",
+   "short_name"		=>N_("full text search document criteria"),
    "acl"		=>"FREEDOM_READ"
   ) ,
   array( 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.1 2002/07/16 08:35:01 eric Exp $
+// $Id: barmenu.php,v 1.2 2002/08/05 16:11:12 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,7 @@ include_once("FDL/freedom_util.php");
 function barmenu(&$action) {
   // -----------------------------------
   popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','import'));
-  popupInit("searchmenu", array( 'newsearch'));
+  popupInit("searchmenu", array( 'newsearch','newsearchfulltext'));
 
 
 
@@ -50,6 +50,8 @@ function barmenu(&$action) {
     popupActive("newmenu",1,'newfam');
     popupActive("newmenu",1,'import'); 
     popupActive("searchmenu",1,'newsearch');
+    if ($action->GetParam("FULLTEXT_SEARCH") == "yes") popupActive("searchmenu",1,'newsearchfulltext');
+    else popupInvisible("searchmenu",1,'newsearchfulltext');
     popupActive("viewmenu",1,'vlist');
     popupActive("viewmenu",1,'vicon');
     popupActive("helpmenu",1,'help');
