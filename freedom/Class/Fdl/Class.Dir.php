@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.29 2004/03/29 08:06:35 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.30 2004/06/17 14:51:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -120,10 +120,15 @@ Class Dir extends PDir
   function postInsertDoc($docid,$multiple=false) { }
   /**
    * virtual method use after insert multiple document in this folder
+   * must be redefined to optimize algorithm
    * @param array $tdocid array of document identificator to insert
    * @return string error message 
    */
-  function postMInsertDoc($tdocid) { }
+  function postMInsertDoc($tdocid) {
+    foreach ($tdocid as $docid) {
+      $this->postInsertDoc($docid);
+    }
+  }
 
   /**
    * virtual method use after unlink document in folder
