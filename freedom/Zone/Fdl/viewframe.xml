@@ -1,5 +1,6 @@
 
 
+[BLOCK FIELDSET]
 <tr >
   <td  colspan="2" >
  <fieldset style="cursor:crosshair;"><legend>[flabel]</legend>
@@ -12,3 +13,5 @@
 [ENDBLOCK FVALUES]
 </table>
 </td></tr>
+
+[ENDBLOCK FIELDSET]

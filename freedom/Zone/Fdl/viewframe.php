@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.1 2002/07/15 07:03:56 eric Exp $
+// $Id: viewframe.php,v 1.2 2002/07/23 07:29:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,9 +79,12 @@ function viewframe(&$action) {
     
   }
   
-  
-  $action->lay->setBlockData("FVALUES",$tval);
-  if (count($tval) == 0) $action->lay->set("flabel",""); //dont'see frame label is no one value
+  //dont'see frame label is no one value
+  if (count($tval) > 0) { 
+   
+    $action->lay->setBlockData("FIELDSET",array(array("zou")));
+    $action->lay->setBlockData("FVALUES",$tval);
+  }
   
   
   
