@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-11 11:52+0000\n"
-"PO-Revision-Date: 2004-10-11 13:52+0200\n"
+"POT-Creation-Date: 2004-10-18 18:13+0200\n"
+"PO-Revision-Date: 2004-10-18 18:13+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -698,6 +698,83 @@ msgid "request not found"
 msgstr "requête non trouvée"
 
 #, c-format
+msgid "parameters for %s state"
+msgstr "paramètres pour l'état %s"
+
+#, c-format
+msgid "id %s profile"
+msgstr "profil id %s "
+
+#, c-format
+msgid "%s profile"
+msgstr "Profil %s"
+
+#, c-format
+msgid "id %s mask"
+msgstr "identificateur du masque %s"
+
+#, c-format
+msgid "%s mask"
+msgstr "masque %s"
+
+#, c-format
+msgid "ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr ""
+"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé"
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr "Changement d'état: l'état initial '%s' est inconnu"
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr "La méthode '%s' n'est pas connu de la classe d'objet %s"
+
+#, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr ""
+"Le changement d'état vers %s a échoué.\n"
+"%s"
+
+#, c-format
+msgid "change state : %s to %s"
+msgstr "changement d'état de %s vers %s"
+
+#, c-format
+msgid "%s new state %s"
+msgstr "%s changement d'état vers %s"
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
+"%s "
+
+#, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "ne peux pas changer l'état du document n°%d vers %s"
+
+#, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr ""
+"changement d'état automatique issu du document %s\n"
+"%s"
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
+
+msgid "no filename"
+msgstr "pas de fichier"
+
+#, c-format
 msgid "untitle %s %d"
 msgstr "%s sans titre %d"
 
@@ -773,9 +850,6 @@ msgstr "copie à partir du document n°%d -%s-"
 msgid "vault file error"
 msgstr "erreur fichier Vault"
 
-msgid "no filename"
-msgstr "pas de fichier"
-
 #, c-format
 msgid "cannot control : object not initialized : %s"
 msgstr "contrôle impossible : objet non initialisé : %s"
@@ -787,80 +861,6 @@ msgstr "erreur dans la format pzone %s"
 #, c-format
 msgid "new %s"
 msgstr "nouvelle %s"
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
-
-#, c-format
-msgid "parameters for %s state"
-msgstr "paramètres pour l'état %s"
-
-#, c-format
-msgid "id %s profile"
-msgstr "profil id %s "
-
-#, c-format
-msgid "%s profile"
-msgstr "Profil %s"
-
-#, c-format
-msgid "id %s mask"
-msgstr "identificateur du masque %s"
-
-#, c-format
-msgid "%s mask"
-msgstr "masque %s"
-
-#, c-format
-msgid "ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr ""
-"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé"
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr "Changement d'état: l'état initial '%s' est inconnu"
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr "La méthode '%s' n'est pas connu de la classe d'objet %s"
-
-#, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr ""
-"Le changement d'état vers %s a échoué.\n"
-"%s"
-
-#, c-format
-msgid "change state : %s to %s"
-msgstr "changement d'état de %s vers %s"
-
-#, c-format
-msgid "%s new state %s"
-msgstr "%s changement d'état vers %s"
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
-"%s "
-
-#, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "ne peux pas changer l'état du document n°%d vers %s"
-
-#, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr ""
-"changement d'état automatique issu du document %s\n"
-"%s"
 
 msgid "not perm for admin"
 msgstr "pas de permission pour admin"
@@ -1145,7 +1145,6 @@ msgstr ""
 msgid "change"
 msgstr "modification"
 
-#, c-format
 msgid "auto revision"
 msgstr "révision automatique"
 
@@ -1237,6 +1236,9 @@ msgstr "elinkEncode :  attribut non trouvé %s"
 #, c-format
 msgid "Sure %s ?"
 msgstr "Confirmation : %s ?"
+
+msgid "To"
+msgstr "Vers"
 
 msgid "this kind of document cannot be duplicate"
 msgstr "ce type de document ne peut être dupliqué"
@@ -1423,9 +1425,6 @@ msgstr "Recherche de documents"
 
 msgid "search document criteria"
 msgstr "critères de recherche de document"
-
-msgid "full text search"
-msgstr "recherche plein texte"
 
 msgid "full text search document criteria"
 msgstr "critères de recherche plein texte"
@@ -2153,11 +2152,14 @@ msgstr "Importer des documents"
 msgid "Import Tar"
 msgstr "Importation Archive"
 
-msgid "Attributes definition"
-msgstr "définition des attributs"
+msgid "Change State"
+msgstr "Changer d'état"
 
 msgid "inherit from"
 msgstr "hérite de"
+
+msgid "Attributes definition"
+msgstr "définition des attributs"
 
 msgid "no document family"
 msgstr "Aucune famille de document"
@@ -2459,9 +2461,6 @@ msgstr "nombre total de fichiers indexés"
 msgid "informations"
 msgstr "informations"
 
-msgid "modification date"
-msgstr "date de modification"
-
 msgid "more families"
 msgstr "toutes les familles"
 
@@ -2473,9 +2472,6 @@ msgstr "Choix des familles visibles"
 
 msgid "Close"
 msgstr "Fermer"
-
-msgid "Change State"
-msgstr "Changer d'état"
 
 msgid "Archive import"
 msgstr "Import d'archives"
@@ -2787,11 +2783,23 @@ msgstr " date"
 msgid "revised by"
 msgstr "révisé par"
 
+msgid "to"
+msgstr "vers"
+
+msgid "unchanged"
+msgstr "inchangé"
+
+msgid "revision comment"
+msgstr "commentaire de révision"
+
+msgid "revision comment for autorevision"
+msgstr " commentaire de révision pour révision automatique"
+
+msgid "Transition parameters"
+msgstr "Paramètres pour le changement d'état"
+
 msgid "view abstract card"
 msgstr "Carte résumé"
-
-msgid "comment"
-msgstr " commentaire"
 
 msgid "select"
 msgstr "sélectionner"
@@ -2823,20 +2831,11 @@ msgstr "contrôle de vue de création"
 msgid "current folder"
 msgstr "dossier courant"
 
-msgid "to"
-msgstr "vers"
+msgid "Tounchanged"
+msgstr "Valider"
 
-msgid "unchanged"
-msgstr "inchangé"
-
-msgid "revision comment"
-msgstr "commentaire de révision"
-
-msgid "revision comment for autorevision"
-msgstr " commentaire de révision pour révision automatique"
-
-msgid "Transition parameters"
-msgstr "Paramètres pour le changement d'état"
+msgid "no change state"
+msgstr "Pas de changement d'état"
 
 msgid "manual date"
 msgstr "Date manuelle"
@@ -2867,6 +2866,15 @@ msgstr "Changer de catégorie"
 
 msgid "View properties"
 msgstr "Voir les propriétés"
+
+#~ msgid "full text search"
+#~ msgstr "recherche plein texte"
+
+#~ msgid "modification date"
+#~ msgstr "date de modification"
+
+#~ msgid "comment"
+#~ msgstr " commentaire"
 
 #~ msgid "some needed attributes are empty"
 #~ msgstr "certains attributs obligatoires sont vides"
@@ -3041,9 +3049,6 @@ msgstr "Voir les propriétés"
 
 #~ msgid "Bilan"
 #~ msgstr "Bilan"
-
-#~ msgid "Tool"
-#~ msgstr "Outil"
 
 #~ msgid "All catg"
 #~ msgstr "Toutes catg."

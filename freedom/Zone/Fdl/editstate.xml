@@ -8,11 +8,11 @@ var WattrNtitle=new Array([Wattrntitle]);
   //-->
 </script>
 
-[BLOCK TRSTATE]
-<tr class="FREEDOMBack2" onmouseover="askForTransition();">
-  <td style="width:50%">
+[BLOCK LISTSTATE]
+<tr class="FREEDOMBack2" onmouseover="askForTransition(event);">
+  <td style="width:50%" align="right">
  <label class="FREEDOMTextTitle" for="newstate">[TEXT:state] <i>[initstatename]</i> [TEXT:to]</label>
- <select id="seltrans" name="newstate" onchange="askForTransition();if (this.selectedIndex > 0) {document.getElementById('comment').style.visibility='';} else document.getElementById('comment').style.visibility='hidden';"> 
+ <select id="seltrans" name="newstate" onchange="askForTransition(event);if (this.selectedIndex > 0) {document.getElementById('comment').style.visibility='';} else document.getElementById('comment').style.visibility='hidden';"> 
  <option VALUE="-" >[TEXT:unchanged]</option> 
 [BLOCK NEWSTATE]
  <option VALUE="[statevalue]" [checked]>[statename]</option>  
@@ -22,7 +22,23 @@ var WattrNtitle=new Array([Wattrntitle]);
   <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:hidden"></textarea>
   </td>
 </tr>
-[ENDBLOCK TRSTATE]
+[ENDBLOCK LISTSTATE]
+[BLOCK BUTTONSTATE]
+<tr class="FREEDOMBack2" onmouseover="askForTransition(event);">
+  <td style="width:50%" align="right" id="editstatebutton">
+ <label class="FREEDOMTextTitle" for="newstate">[TEXT:state] <i>[initstatename]</i> </label>
+ <input id="seltrans" name="newstate" value="[dstate]" type="hidden"> 
+
+[BLOCK NEWSTATE]
+<input type="submit" class="[dsubmit]" title="[TEXT:to] [statename]" value="[tostatename]" onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event);document.getElementById('comment').style.visibility=''">
+[ENDBLOCK NEWSTATE]
+<input type="submit" value="[TEXT:Tounchanged]" title="[TEXT:no change state]" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);document.getElementById('comment').style.visibility='hidden'">
+  </td><td colspan="2">
+  <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:hidden"></textarea>
+  </td>
+</tr>
+<script>addEvent(window,"load",mvbuttonsState);</script>
+[ENDBLOCK BUTTONSTATE]
 
 [BLOCK COMMENT]
 <tr class="FREEDOMBack2">
@@ -36,7 +52,7 @@ var WattrNtitle=new Array([Wattrntitle]);
 <tr >
   <td  colspan="3" ><fieldset style="display:none" id="hwfask"><legend style="cursor:pointer" onclick="viewornot('T[key]')">hidden parameters</legend>
 [BLOCK FINPUTS]
-<table style="display:[idisplay]" width="100%" id="TWF[aid]">
+<table style="display:[idisplay]"  id="TWF[aid]">
 <tr class="FREEDOMBack1">
   <td width="30%" valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</td>
   <td>[avalue]</td>

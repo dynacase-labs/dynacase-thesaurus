@@ -520,9 +520,9 @@ var OattrNid=null; //original attrNid
 var OattrNtitle=null; //original attrNtitle
 var askState=null; // memo displayed state
 
-function askForTransition() {
+function askForTransition(event) {
   var th=document.getElementById('seltrans');
-  var state=th.options[th.selectedIndex].value;
+  var state=getIValue(th);
   
   var wf=document.getElementById('hwfask');
   var nf=document.getElementById('wfask');
@@ -531,6 +531,7 @@ function askForTransition() {
   var tnf=new Array();
   var k=-1; // index for searches
   var xy;
+  var nx;
   var h;
   
   if (askState == state) return;
@@ -574,25 +575,30 @@ function askForTransition() {
     }
     if (ask.length > 0) {
       xy=getAnchorPosition(th.id);
+      GetXY(event);
+      xy.x=Xpos;
+      xy.y=Ypos;
       
       nf.style.display='none';	
       nf.style.display='';	// to refresh div
       	
       nf.style.top='160px';
       //nf.style.top='300px';
-      nf.style.left=xy.x+'px';
-      if (xy.y < 100)  nf.style.top=(xy.y+40)+'px';
+      w=getObjectWidth(nf);
+      nx=xy.x-w+40;
+      if (nx < 0) nx=0;
+      nf.style.left=nx+'px';
+      if (xy.y < 100)  nf.style.top=(xy.y+10)+'px';
       else {
 
 	h=getObjectHeight(nf);
-	if (isNetscape) {
-	  nf.style.position='fixed';//h-=document.body.scrollTop; // fixed position
-	}
+	
 	//	alert(xy.y+'/'+h+'/'+(xy.y-h));
-	nf.style.top=(xy.y-h)+'px';
+	nf.style.top=(xy.y-h-10)+'px';
 
       }
       if (isNetscape) { // more beautifull
+	  nf.style.position='fixed';//h-=document.body.scrollTop; // fixed position
 	  nf.style.MozOpacity=0.02;
 	  moz_unfade(nf.id);
 	}
@@ -1061,3 +1067,28 @@ function fixedPosition() {
 }
 if (isNetscape) addEvent(window,"load",fixedPosition);
 
+// move inputs buttons from node to node
+function mvbuttons(idnode1, idnode2) {
+  var node1=document.getElementById(idnode1);
+  var node2=document.getElementById(idnode2);
+  var ti;
+  var fc;
+  if (node1 && node2) {
+     ti= node1.getElementsByTagName("input");  
+     fc=node2.firstChild;
+     while (ti.length>0) {
+       node2.insertBefore(ti[0],fc);
+     }
+  }
+
+  
+}
+
+
+function mvbuttonsState() {
+  var isub=document.getElementById('iSubmit');
+  if (isub) isub.style.display='none';
+
+  mvbuttons('editstatebutton','editbutton');
+  
+}

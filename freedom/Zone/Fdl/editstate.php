@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.12 2004/10/08 13:26:40 eric Exp $
+ * @version $Id: editstate.php,v 1.13 2004/10/19 16:09:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -69,12 +69,22 @@ function editstate(&$action) {
       $tstate= array();
       $taskes=array();
       if (isset($wdoc->autonext[$doc->state])) $dstate=$wdoc->autonext[$doc->state];
+      $action->lay->Set("dstate",""); // default state
       foreach ($fstate as $k=>$v) {
 	$tr=$wdoc->getTransition($doc->state,$v);
 	$tk=$tr["id"];
 	$tstate[$k]["statevalue"] = $v;
-	$tstate[$k]["checked"] = ($v==$dstate)?"selected":"";
+	if ($v==$dstate) {
+	  $tstate[$k]["checked"]="selected";
+	  $action->lay->Set("dstate",$dstate);
+	  $tstate[$k]["dsubmit"]="dsubmit";
+	} else {
+	  $tstate[$k]["checked"]="";
+	  $tstate[$k]["dsubmit"]="state";
+	}
+
 	$tstate[$k]["statename"] = _($v);
+	$tstate[$k]["tostatename"] =ucfirst( _("To".$v));
 	$tstate[$k]["transid"] = $tk;
 	if (is_array($tr["ask"]))  $tjsaskes[] = "['".implode("','",$tr["ask"])."']";
 	else $tjsaskes[] = "[]";
@@ -86,7 +96,8 @@ function editstate(&$action) {
       $action->lay->set("ttransid","'".implode("','",$tjstransid)."'");
       $action->lay->set("askes","".strtolower(implode(",",$tjsaskes))."");
       $action->lay->SetBlockData("NEWSTATE", $tstate);
-      $action->lay->SetBlockData("TRSTATE", array(0=>array("boo")));
+      if ($wdoc->viewlist=="button")$action->lay->SetBlockData("BUTTONSTATE", array(0=>array("boo")));
+      else $action->lay->SetBlockData("LISTSTATE", array(0=>array("boo")));
       $task=array();
       $tneed=array();
       $tinputs=array();

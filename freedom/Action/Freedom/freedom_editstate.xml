@@ -36,31 +36,29 @@
 <form  class="fborder" 
        id="fedit" 
        name="modifydoc" 
+       onsubmit="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"
        method="POST"  
        action="[CORE_STANDURL]&app=[APPNAME]&action=MODSTATE&id=[docid]" >
 
 
-<table class="tableborder"  cellspacing="0" width="100%">
+<table id="fixtablehead" class="[tablehead]"   cellspacing="0" width="100%">
      
 <tr class="FREEDOMBack1">
   <td colspan="3"><span class="FREEDOMTextBigTitle">[title]</span>  </td>
-</tr>
-           
-[ZONE FDL:EDITSTATE?wneed=Y]         
-
+</tr>       
+[ZONE FDL:EDITSTATE?wneed=Y]  
 <tr >
-  <td><input type="submit" value="[TEXT:Change State]" onmousedown="multiple_for_select();" onclick="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"></td>
-  <td>&nbsp;</td>
-  <td  align="right">
+  <td  colspan="3" align="right" id="editbutton"><input id="iSubmit" type="submit" value="[TEXT:Change State]" onmousedown="multiple_for_select();" >
     <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[docid]';"> 
   </td>
 </tr>
-</table>
-
+</table> 
+<div id="fixspanhead" style="visibility:hidden;padding:0px;margin:0px;"></div>
 
 
 
 </form>
+[ZONE FDL:VIEWSCARD]  
 <!--  FOOT HTML -->
 
 </body>
