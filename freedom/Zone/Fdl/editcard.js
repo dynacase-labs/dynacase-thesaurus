@@ -328,7 +328,6 @@ function addinlist(sel,value) {
   sel.add(new Option(value, value, false, true),pos);
 }
 
-// replace s1 by s2 in node n
 function  nodereplacestr(n,s1,s2) {
   
   var kids=n.childNodes;
@@ -336,7 +335,6 @@ function  nodereplacestr(n,s1,s2) {
   var avalue;
   var rs1;
   var attnames = new Array('onclick','href','onmousedown','id','name');
- var regs1 = new RegExp(s1,'g');
   // for regexp
     rs1 = s1.replace('[','\\[');
   rs1 = rs1.replace(']','\\]');
@@ -346,7 +344,7 @@ function  nodereplacestr(n,s1,s2) {
       // Node.TEXT_NODE
 	
 	if (kids[i].data.search(rs1) != -1) {
-	  kids[i].data = kids[i].data.replace(regs1,s2);
+	  kids[i].data = kids[i].data.replace(s1,s2);
 	}
     } else if (kids[i].nodeType==1) { 
       // Node.ELEMENT_NODE
@@ -360,11 +358,10 @@ function  nodereplacestr(n,s1,s2) {
 	      
 	      if (attr.value.search(rs1) != -1) {
 		
-		avalue=attr.value.replace(regs1,s2);
-
-		if ((!isNetscape) && ((attr.name == 'onclick') || (attr.name == 'onmousedown'))) kids[i][attr.name]=new Function(avalue); // special for IE5.5+
-		else 
-		  attr.value=avalue;
+		avalue=attr.value.replace(s1,s2);
+		
+		if ((attr.name == 'onclick') || (attr.name == 'onmousedown')) kids[i][attr.name]=new Function(avalue); // special for IE5.5+
+		else attr.value=avalue;
 	      }
 	    }
 	  }
@@ -372,6 +369,9 @@ function  nodereplacestr(n,s1,s2) {
     } 
   }
 }
+
+
+
  
 
 //-------------------------------------------------------------
