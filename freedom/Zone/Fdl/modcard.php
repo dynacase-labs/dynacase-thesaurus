@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.67 2004/09/29 09:29:14 eric Exp $
+ * @version $Id: modcard.php,v 1.68 2004/12/23 14:16:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -307,39 +307,39 @@ function insert_file($dbaccess,$docid, $attrid)
   
   
   
-  
-    if (is_uploaded_file($userfile['tmp_name'])) {
-      // move to add extension
-      //$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
+    if (file_exists($userfile['tmp_name'])) {
+      if (is_uploaded_file($userfile['tmp_name'])) {
+	// move to add extension
+	//$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
     
-      $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
-      $destfile=str_replace("'","",$destfile);
-      $destfile=str_replace("\"","",$destfile);
+	$destfile=str_replace(" ","_","/tmp/".$userfile['name']);
+	$destfile=str_replace("'","",$destfile);
+	$destfile=str_replace("\"","",$destfile);
 
-      move_uploaded_file($userfile['tmp_name'], $destfile);
-      if (isset($vf)) unset($vf);
-      $vf = newFreeVaultFile($dbaccess);
-      $err=$vf -> Store($destfile, false , $vid);
+	move_uploaded_file($userfile['tmp_name'], $destfile);
+	if (isset($vf)) unset($vf);
+	$vf = newFreeVaultFile($dbaccess);
+	$err=$vf -> Store($destfile, false , $vid);
       
 
-      if ($userfile['type']=="none") {
-	// read system mime 
-	$userfile['type']=trim(`file -ib $destfile`);      
+	if ($userfile['type']=="none") {
+	  // read system mime 
+	  $userfile['type']=trim(`file -ib $destfile`);      
+	}
+	if ($err != "") {
+	  AddWarningMsg($err);
+	}
+	unlink($destfile);
+      } else {
+	$err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
+	$action->ExitError($err);
       }
-      if ($err != "") {
-	AddWarningMsg($err);
-      }
-      unlink($destfile);
-    } else {
-      $err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
-      $action->ExitError($err);
-    }
 
-    $rt[$k]=$userfile['type']."|".$vid; // return file type and upload file name
+      $rt[$k]=$userfile['type']."|".$vid; // return file type and upload file name
     
-  
+    }
   }
-
+  
   if ((count($rt) == 0) || ((count($rt) == 1) && ($rt[0]==""))) return "";
   // return file type and upload file name
   return implode("\n",$rt);
