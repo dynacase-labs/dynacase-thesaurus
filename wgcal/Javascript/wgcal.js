@@ -84,11 +84,11 @@ function mytoto(name, value, target, taction)
 function usetparam(name, value, updatetarget, updateaction) 
 {
   fset = document.getElementById('usetparam');
-  fpname    = document.getElementById('pname');
-  fpvalue   = document.getElementById('pvalue');
   taction = document.getElementById('taction');
-  fpname.value = name;
-  fpvalue.value = value;
+  if (name!='') {
+    document.getElementById('pname').value = name;
+    document.getElementById('pvalue').value = value;
+  }
   if (updatetarget=='') {
     updatetarget = 'wgcal_hidden';
     updateaction = '/what/index.php?sole=A&app=WGCAL&action=WGCAL_HIDDEN';

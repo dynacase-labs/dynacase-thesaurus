@@ -1,13 +1,8 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
-<table  width="100%" cellspacing="0" cellpadding="0">
-
-[BLOCK LWEEKS]<tr>
-[BLOCK DLINE]<td class="WGCAL_Period">[day]</td><td></td>[ENDBLOCK BLOCK DLINE][ENDBLOCK ALLDAYS]
-[BLOCK DLINE]<td>[hd] - [hf] [descr]</td><td></td>[ENDBLOCK BLOCK DLINE]
-</tr>
-
-<tr>
-
+<table  style="border:thin outset grey;" align="center" width="95%" cellspacing="0" cellpadding="2px">
+<tr><td class="wMonthTextTitle" align="center" colspan="[dayperline]">[month]</td></tr><tr><td  colspan="[dayperline]"></td></tr>
+[BLOCK DLINE]<tr valign="top">[line]</tr>[ENDBLOCK DLINE]
 </table>
+
 [ZONE WGCAL:WGCAL_HTMLFOOT]

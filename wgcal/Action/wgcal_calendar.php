@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.27 2005/02/11 19:51:48 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.28 2005/02/13 22:24:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -105,7 +105,7 @@ function wgcal_calendar(&$action) {
       $curday = $i; 
     } else if ($sdate==$tabdays[$i]["days"]) {
       $classh[$i] = "WGCAL_DayLineCur";
-      $class[$i] = "WGCAL_DaySelected";
+      $class[$i] = "WGCAL_Day";
     } else {
       $classh[$i] = "WGCAL_Period"; 
       if ($i==5||$i==6) $class[$i] = "WGCAL_DayWE";

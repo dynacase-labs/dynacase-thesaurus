@@ -172,7 +172,38 @@ TD {
   cursor:pointer;
   height : 22px;
 }
+.wToolButtonOver {
+  background-color : [CORE_BGCOLORHIGH];
+  font-weight : bold;
+  border : 2px inset [CORE_BGCOLORALTERN];
+  cursor:pointer;
+  height : 22px;
+}
 .wToolArea {
   border : 1px outset [CORE_BGCOLORALTERN];
   padding : 2px;
+}
+.wMonthTextTitle {
+  font-weight : bold;
+  font-size : 14pt;
+  border-top : 1px solid black;
+  border-bottom : 1px solid black;
+  width: 100%;
+  background-color : black;
+  color : white;
+}
+.wMonthTextDayTitle {
+  font-weight : bold;
+  border-bottom : 1px solid black;
+  width : 100%;
+  background-color : lightgrey;
+  color : black;
+}
+.wMonthTextTD {
+  border-right : thin solid grey;
+  border-bottom : thin solid grey;
+  height : 10px;
+  width : 14%;
+  background-color : white;
+  color : black;
 }

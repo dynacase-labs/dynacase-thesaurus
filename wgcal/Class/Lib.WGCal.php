@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.5 2005/02/11 19:51:48 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.6 2005/02/13 22:24:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -110,8 +110,8 @@ function WGCalGetFirstDayOfWeek($ts) {
 }
 function WGCalGetFirstDayOfMonth($ts) {
 	if ($ts<=0) return false;
- 	$mm = strftime("%m", $tsfwd);
- 	$yy = strftime("%Y", $tsfwd);
+ 	$mm = strftime("%m", $ts);
+ 	$yy = strftime("%Y", $ts);
 	$fwdt = mktime ( 0, 0, 0, $mm, 1, $yy);
 	return $fwdt;
 }
