@@ -47,7 +47,7 @@ function moveicon(e) {
     //    micon.style.zIndex = 4; 
   }
 }
-var micon;
+var micon=false;
 var cdocid=0;
 function initDrag() {
 
@@ -63,17 +63,14 @@ function initDrag() {
     imicon.style.visibility="hidden";
   }
 }
-function endDrag() {
 
-  
-    drag=0;
-    micon.style.visibility="hidden";
-
+function endDrag() {  
+    drag=0;    
+    if (micon) micon.style.visibility="hidden";
 }
+
 function initmicon() {
-
   micon = document.getElementById('micon');
-
 }
     [JS:CODE]
   //-->
