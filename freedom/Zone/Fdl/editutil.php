@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.58 2003/12/17 17:25:27 eric Exp $
+ * @version $Id: editutil.php,v 1.59 2003/12/30 10:10:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.58 2003/12/17 17:25:27 eric Exp $
+// $Id: editutil.php,v 1.59 2003/12/30 10:10:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -164,11 +164,10 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " >".
-	htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
+	str_replace(array("[","$"),array("&#091;","&#036;"),htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
 	"</textarea>".
 	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attridk').rows=2;this.style.display='none'\" value=\"&Delta;\">";
-
-      
+    
     
       break;
       //같같같같같같같같같같같같같같같같같같같같
@@ -484,18 +483,19 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	   htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
 	   "</textarea>";
       } else {
-      $input="<input $oc class=\"fullresize\" type=\"text\" name=\"".$attrin."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
-    
+      $input="<input $oc class=\"fullresize\" type=\"text\" name=\"".$attrin."\" value=\"".str_replace(array("[","$"),array("&#091;","&#036;"),chop(htmlentities(stripslashes($value))))."\"";
+     
       $input .= " id=\"".$attridk."\" "; 
 
 
       if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
 		      
-      $input .= " > "; 
+      $input .= " > ";  
       }
       break;
 		      
     }
+  
   if ($oattr->type != "array") {
     if  ($visibility != "S") {
       if (($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {

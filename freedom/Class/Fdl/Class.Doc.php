@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.174 2003/12/17 17:25:27 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.175 2003/12/30 10:11:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.174 2003/12/17 17:25:27 eric Exp $
+// $Id: Class.Doc.php,v 1.175 2003/12/30 10:11:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -994,13 +994,11 @@ create unique index i_docir on doc(initid, revision);";
     
     // copy default visibilities
     if (isset($this->attributes->attr)) {
-      reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
-	if (isset($v->visibility)) $this->attributes->attr[$k]->mvisibility=$v->visibility;
 
-	// extand visibility from fieldSet
-	if ((isset($v->fieldSet))&&($v->fieldSet->visibility == "H")) $this->attributes->attr[$k]->mvisibility="H";
-	else if (($v->fieldSet->visibility == "R") && ($v->visibility != "H")) $this->attributes->attr[$k]->mvisibility="R";
+      foreach($this->attributes->attr as $k=>$v) {
+	//	if (is_object($v))
+	$this->attributes->attr[$k]->mvisibility=ComputeVisibility($v->visibility,$v->fieldSet->mvisibility);
+
       }
     }
 
@@ -1009,7 +1007,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($mid == 0) $mid=$this->mid;
     if ($mid == 0) {
       if (($this->wid > 0) && ($this->wid != $this->id)) {
-     
+	// search mask from workflow
 	$wdoc=new Doc($this->dbaccess,$this->wid);
 	if ($wdoc->isAlive()) {
 	  if ($this->id == 0) {	  
@@ -1023,7 +1021,7 @@ create unique index i_docir on doc(initid, revision);";
 
       $mdoc = new Doc($this->dbaccess,$mid );
       if ($mdoc->isAlive()) {
-	$tvis = $mdoc->getVisibilities();
+	$tvis = $mdoc->getCVisibilities();
 	  
 	while (list($k,$v)= each ($tvis)) {
 	  if (isset($this->attributes->attr[$k])) {
@@ -1355,6 +1353,8 @@ create unique index i_docir on doc(initid, revision);";
       // change only if different
       $attrid = strtolower($attrid);
 
+      $oattr=$this->GetAttribute($attrid);
+      if ($oattr->mvisibility=="I") return sprintf(_("no permission to modify this attribute %s"),$attrid);
       if ($value == " ") {
 	$value=""; // erase value
 	$this->hasChanged=true;
@@ -1369,7 +1369,6 @@ create unique index i_docir on doc(initid, revision);";
 	  //   print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
 	
 	}
-	$oattr=$this->GetAttribute($attrid);
 
 	if ($oattr->repeat) {
 	  $tvalues = $this->_val2array($value);
@@ -2035,7 +2034,8 @@ create unique index i_docir on doc(initid, revision);";
 	
 	  break;
 	case "longtext": 	  
-	  $htmlval=nl2br(htmlentities(stripslashes(str_replace("<BR>","\n",$avalue))));
+	  $htmlval=str_replace(array("[","$"),array("&#091;","&#036;"),nl2br(htmlentities(stripslashes(str_replace("<BR>",
+											"\n",$avalue)))));
 	  break;
 	case "password": 
 	  $htmlval=ereg_replace(".", "*", htmlentities(stripslashes($avalue)));
@@ -2106,9 +2106,9 @@ create unique index i_docir on doc(initid, revision);";
 	  break;
 
 	default : 
-
-	  $htmlval=htmlentities(stripslashes($avalue));
 	
+	  $htmlval=str_replace(array("[","$"),array("&#091;","&#036;"),htmlentities(stripslashes($avalue)));
+	  
 	  break;
 	
 	}
