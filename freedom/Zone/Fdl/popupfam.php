@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.9 2003/05/23 15:30:03 eric Exp $
+// $Id: popupfam.php,v 1.10 2003/07/30 14:51:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,10 +55,15 @@ function popupfam(&$action) {
   while(list($k,$v) = each($lmenu)) {
     
     $confirm=false;
+    $control=false;
 
     if ($v->link[0] == '?') { 
       $v->link=substr($v->link,1);
       $confirm=true;
+    }
+    if ($v->link[0] == 'C') { 
+      $v->link=substr($v->link,1);
+      $control=true;
     }
     if (ereg('\[(.*)\](.*)', $v->link, $reg)) {      
       $v->link=$reg[2];
@@ -70,6 +75,7 @@ function popupfam(&$action) {
     $tlink[$k]["descr"] = $v->labelText;
     $tlink[$k]["url"] = addslashes($doc->urlWhatEncode($v->link));
     $tlink[$k]["confirm"]=$confirm?"true":"false";
+    $tlink[$k]["control"]=$control;
     $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
     $tmenu[$km++] = $v->id;
   }
@@ -81,8 +87,10 @@ function popupfam(&$action) {
   
 
   while(list($k,$v) = each($tmenu)) {
-    if ($tlink[$v]["url"] != "") Popupactive('popupcard',$kdiv,$v);
-    else PopupInactive('popupcard',$kdiv,$v);
+    if ($tlink[$v]["url"] != "") {
+      if ($tlink[$v]["control"]) PopupCtrlActive('popupcard',$kdiv,$v);
+      else Popupactive('popupcard',$kdiv,$v);
+    } else PopupInactive('popupcard',$kdiv,$v);
   }
 
 
