@@ -33,7 +33,7 @@ ATTR;US_WORKTOWN;US_FR_SOC;ville;N;N;text;1090;W;;;;;
 ATTR;US_COUNTRY;US_FR_SOC;pays;N;N;text;1100;W;;;;;
 ATTR;US_WORKCEDEX;US_FR_SOC;cedex;N;N;text;1110;W;;;;;
 ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;1120;W;;http://%US_WORKWEB%;;;
-ATTR;US_SCATG;US_FR_SOC;activité;N;N;enumlist;1130;W;;;usercard.php;enumscatg;
+ATTR;US_SCATG;US_FR_SOC;activité;N;N;enumlist;1130;W;;;usercard.php;enumscatg();
 ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1140;W;;;-;W|carte publique - accès écriture,R|carte publique - accès lecture,P|carte privée,S|spécifique;
 ATTR;US_VCARD;US_FR_SOC;Vcard;N;N;menu;0;M;;%S%&app=USERCARD&action=USERCARD_VCARD&id=%I%;;;
 ;;;;;;;;;;;;;
