@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.17 2005/02/02 21:29:38 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.18 2005/02/04 12:01:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,7 +15,7 @@ include_once("FDL/Lib.Util.php");
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/WGCAL_external.php");
 
-define("FDATE", "%A %d %b %Y");
+define("FDATE", "%a %d %B %Y");
 
 function wgcal_editevent(&$action) {
 
@@ -255,7 +255,7 @@ function EventSetAlarm(&$action, $alarm, $alarmt, $ro) {
 
   $action->lay->set("ALARM", ($alarm?1:0));
   $action->lay->set("ALARMRO", ($ro?"disabled":""));
-  $action->lay->set("ALRMVIS", ($alarm?"none":""));
+  $action->lay->set("ALRMVIS", ($alarm?"visible":"hidden"));
 
   if ($alarmt>0) {
     $H = floor($alarmt / 60);

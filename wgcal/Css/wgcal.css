@@ -20,16 +20,24 @@ INPUT, SELECT, TEXTAREA {
 	font-family: Helvetica, Arial, sans-serif ;
 	border : thin inset white;
 }
+INPUT.Mandatory {
+	font-weight: bold;
+	border : 2px inset red;
+}
 TD {
 	empty-cells: show;
 	border-style : inherit;
 }
 
 
+.WGCalAction {
+  cursor : pointer;
+  border : 0px;
+}
 .WGCalButton {
   filter:alpha(opacity=60);
   -moz-opacity:.45;	
-  cursor : crosshair;
+  cursor : pointer;
   border : 0px;
 }
 .WGCalButtonOver {

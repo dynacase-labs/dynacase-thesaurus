@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.11 2005/02/04 08:03:47 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.12 2005/02/04 12:01:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -78,16 +78,19 @@ function _seewaitrv(&$action, $state, &$wrv) {
       case 0 : 
 	$wrv[$irv]["wrvcolor"] = "black"; 
 	$wrv[$irv]["wrvbgcolor"] = "red"; 
+	$wrv[$irv]["wrvfontstyle"] = "font-weight:bold;"; 
       $state = _("new"); 
       break; 
       case 1 : 
 	$wrv[$irv]["wrvcolor"] = "red"; 
 	$wrv[$irv]["wrvbgcolor"] = "white"; 
+	$wrv[$irv]["wrvfontstyle"] = "font-style:italic;"; 
 	$state = _("read"); 
 	break; 
       default : 
 	$wrv[$irv]["wrvcolor"] = "orange";
 	$wrv[$irv]["wrvbgcolor"] = "white"; 
+	$wrv[$irv]["wrvfontstyle"] = ""; 
 	$state = _("to be confirmed"); 
       }
       $wrv[$irv]["wrvid"] = $v["id"];

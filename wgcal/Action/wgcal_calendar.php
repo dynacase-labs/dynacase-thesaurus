@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.21 2005/02/04 08:03:47 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.22 2005/02/04 12:01:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -207,9 +207,10 @@ function getAgendaEvent(&$action,$tress,$d1="",$d2="") {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $tout=array(); 
-  foreach ($tress as $kr=>$vr) $idres .= $vr->id."|";
+  $tr=array(); 
+  foreach ($tress as $kr=>$vr) if ($vr->id>0) $tr[] = $vr->id;
+  $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
-    print_r2($idres);
   $dre=new Doc($dbaccess,$reid);
   $edre=$dre->getEvents($d1,$d2);
   foreach ($edre as $k=>$v) {

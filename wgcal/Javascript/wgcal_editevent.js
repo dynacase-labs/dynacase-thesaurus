@@ -25,8 +25,8 @@ function ChangeAlarm(state) {
   chk = document.getElementById('AlarmCheck');
   alrm = document.getElementById('AlarmVis');
   if (state!=-1) chk.checked = (state==0?false:true);
-  if (chk.checked) alrm.style.display = '';
-  else alrm.style.display = 'none';
+  if (chk.checked) alrm.style.visibility = 'visible';
+  else alrm.style.display = 'hidden';
 }
 
 
@@ -37,19 +37,25 @@ function ChangeNoHour(init, cstate) {
   allday = document.getElementById('allday');
   tallday = document.getElementById('tallday');
   hstart = document.getElementById('start_hour');
-  hend = document.getElementById('end_hour');
+  hend1 = document.getElementById('end_hour1');
+  hend2 = document.getElementById('end_hour2');
+  hend3 = document.getElementById('end_hour3');
 
-  if (!init) cstate =  (nohour.checked ? 1 : 0 );
+  if (!init) cstate =  (nohour.checked ? 0 : 1 );
   if (cstate == 1) {
     nohour.checked = true; 
     allday.checked = false;
     tallday.style.visibility = 'hidden';
-    hend.style.visibility = 'hidden';
+    hend1.style.visibility = 'hidden';
+    hend2.style.visibility = 'hidden';
+    hend3.style.visibility = 'hidden';
     hstart.style.visibility = 'hidden';
   } else {
     nohour.checked = false;
     tallday.style.visibility = 'visible';
-    hend.style.visibility = 'visible';
+    hend1.style.visibility = 'visible';
+    hend2.style.visibility = 'visible';
+    hend3.style.visibility = 'visible';
     hstart.style.visibility = 'visible';
   }
   return;
@@ -61,19 +67,25 @@ function ChangeAllDay(init, cstate) {
   tnohour = document.getElementById('tnohour');
   allday = document.getElementById('allday');
   hstart = document.getElementById('start_hour');
-  hend = document.getElementById('end_hour');
+  hend1 = document.getElementById('end_hour1');
+  hend2 = document.getElementById('end_hour2');
+  hend3 = document.getElementById('end_hour3');
 
-  if (!init) cstate =  (allday.checked ? 1 : 0 );
+  if (!init) cstate =  (allday.checked ? 0 : 1 );
   if (cstate == 1) {
     allday.checked = true; 
     nohour.checked = false;
     tnohour.style.visibility = 'hidden';
-    hend.style.visibility = 'hidden';
+    hend1.style.visibility = 'hidden';
+    hend2.style.visibility = 'hidden';
+    hend3.style.visibility = 'hidden';
     hstart.style.visibility = 'hidden';
   } else {
     allday.checked = false;
     tnohour.style.visibility = 'visible';
-    hend.style.visibility = 'visible';
+    hend1.style.visibility = 'visible';
+    hend2.style.visibility = 'visible';
+    hend3.style.visibility = 'visible';
     hstart.style.visibility = 'visible';
   }
   return;
@@ -82,7 +94,7 @@ function ChangeAllDay(init, cstate) {
 
 function SwitchZone(view) {
 
-  var zones = new Array ( 'evmainzone', 'evrepeatzone', 'evattendeeszone');
+  var zones = new Array ( 'evmainzone', 'evrepeatzone');
 
   for (zx in zones) {
     z = zones[zx];

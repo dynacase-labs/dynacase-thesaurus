@@ -16,7 +16,7 @@
 <legend class="WGCToolTitle">[TEXT:waiting rv] ([RVCOUNT])&nbsp;
 <input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></legend>
 [BLOCK WAITRV]
-<div id="wrv[wrvid]" style="font-style:italic; color:[wrvcolor]" title="[wrvfulldescr]"
+<div id="wrv[wrvid]" style="[wrvfontstyle] color:[wrvcolor]" title="[wrvfulldescr]"
      onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'"
      class="WGCwrvdefault"
      onclick="subwindow(300, 500, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[wrvid]');"  >
