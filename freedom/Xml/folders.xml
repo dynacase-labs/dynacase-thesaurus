@@ -170,6 +170,17 @@ fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4)
 [subtree]
 [hometree]
 
+if (document.all)
+     window.onscroll = floatMenu;
+     else
+     setInterval ('floatMenu()', 100);
+function floatMenu () {
+
+    document.getElementById('barmenu').style.top = getScrollYOffset();
+    return true;
+}
+
+
   //-->
 </script>
 </head>
@@ -184,7 +195,7 @@ fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4)
 	 instructions to obtain a version without the link -->
 <!-- Removing this link will make the script stop from working -->
 
-<div style="position:absolute; top:30px; left:0; "><table border=0><tr><td><font size=-2><a style="font-size:6pt;text-decoration:none;color:gray" href=http://www.mmartins.com target=_top></a></font></td></table></div>
+<div style="position:absolute; top:30px; left:0; "><table border=0><tr><td><font size=-2><a style="font-size:6pt;text-decoration:none;color:gray" href="http://www.mmartins.com" target="_top"></a></font></td></table></div>
 
 <!-- ------------------ BAR MENU ------------------ -->
 [ZONE FREEDOM:BARMENU]

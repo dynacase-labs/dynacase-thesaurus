@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.12 2001/11/28 13:40:10 eric Exp $
+// $Id: freedom_card.php,v 1.13 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.13  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.12  2001/11/28 13:40:10  eric
 // home directory
 //
@@ -68,6 +71,7 @@ include_once("Class.TableLayout.php");
 include_once("Class.QueryDb.php");
 include_once("Class.QueryGen.php");
 include_once("FREEDOM/freedom_util.php");
+include_once("VAULT/Class.VaultFile.php");
 
 // -----------------------------------
 // -----------------------------------
@@ -213,7 +217,7 @@ function freedom_card(&$action) {
     
   }
   // see locker for lockable document
-  if ($doc->doctype == "F")  {
+  if ($doc->isRevisable())  {
     $action->lay->SetBlockData("LOCK",array(array("boo"=>1)));  
   } else  $nprop-=2; // revision & locker
   $action->lay->Set("nprop",$nprop);  
@@ -333,10 +337,15 @@ function freedom_card(&$action) {
 		     "</A>";
 		break;
 		case "file": 
+		  ereg ("(.*)\|(.*)", $value, $reg);		 
+		  // reg[1] is mime type
+		  $vf = new VaultFile($dbaccess, $action->parent->name);
+		if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+		else $fname=_("no filename");
 		  $tableframe[$v]["value"]="<A target=\"_blank\" href=\"".
 		     $action->GetParam("CORE_BASEURL").
 		     "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id
-		     ."\">".$value.
+		     ."\">".$fname.
 		     "</A>";
 		$tfile[$kf]["file"]=$listattr[$i]->labeltext;
 		$tfile[$kf]["attrid"]=$listattr[$i]->id;
@@ -387,22 +396,30 @@ function freedom_card(&$action) {
   if (($doc->doctype=="C") && ($cud)) popupActive('popupcard',$kdiv,'chicon'); 
   else popupInvisible('popupcard',$kdiv,'chicon');
 
-  if ($doc->doctype != 'F') popupInvisible('popupcard',$kdiv,'lockdoc');
+  if (! $doc->isRevisable() ) popupInvisible('popupcard',$kdiv,'lockdoc');
   else if (($doc->locked != $action->user->id) && 
       $clf) popupActive('popupcard',$kdiv,'lockdoc');
   else popupInactive('popupcard',$kdiv,'lockdoc');
 
-  if ($doc->doctype != 'F') popupInvisible('popupcard',$kdiv,'unlockdoc');
+  if (! $doc->isRevisable() ) popupInvisible('popupcard',$kdiv,'unlockdoc');
   elseif (($doc->locked != 0) && $cuf) popupActive('popupcard',$kdiv,'unlockdoc'); 
   else popupInactive('popupcard',$kdiv,'unlockdoc');
 
-  if ($doc->doctype != "F") popupInvisible('popupcard',$kdiv,'revise');
+  if (! $doc->isRevisable()) popupInvisible('popupcard',$kdiv,'revise');
   else if (($doc->lmodify == 'Y') && 
 	   ($cud)) popupActive('popupcard',$kdiv,'revise'); 
   else popupInactive('popupcard',$kdiv,'revise');
 
-  if ($cud) {
+
+
+  if ($doc->Control("modifyacl") == "") {
     popupActive('popupcard',$kdiv,'editdoc'); 
+    popupActive('popupcard',$kdiv,'editcprof');
+  }else {
+    popupInactive('popupcard',$kdiv,'editdoc');
+    popupInactive('popupcard',$kdiv,'editcprof');
+  }
+  if ($cud) {
     popupActive('popupcard',$kdiv,'editattr'); 
     popupActive('popupcard',$kdiv,'editprof');
   } else if ($doc->locked < 0){ // fixed document
@@ -414,7 +431,6 @@ function freedom_card(&$action) {
     popupInvisible('popupcard',$kdiv,'unlockdoc');
     popupInvisible('popupcard',$kdiv,'chicon');
   } else {
-    popupInactive('popupcard',$kdiv,'editdoc');
     popupInactive('popupcard',$kdiv,'editattr'); 
     popupInactive('popupcard',$kdiv,'editprof');
   }
@@ -429,8 +445,6 @@ function freedom_card(&$action) {
     popupInvisible('popupcard',$kdiv,'editcprof'); 
     popupInvisible('popupcard',$kdiv,'editattr'); 
   }
-  else if ($cud) popupActive('popupcard',$kdiv,'editcprof');
-  else popupInactive('popupcard',$kdiv,'editcprof');
 
   if ($doc->doctype == "S") popupInvisible('popupcard',$kdiv,'editdoc'); 
   // unused menu items

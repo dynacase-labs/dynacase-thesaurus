@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.2 2001/11/28 13:40:10 eric Exp $
+// $Id: Class.Dir.php,v 1.3 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Dir.php,v $
+// Revision 1.3  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.2  2001/11/28 13:40:10  eric
 // home directory
 //
@@ -31,7 +34,7 @@
 // Revision 1.2  2001/11/09 18:54:21  eric
 // et un de plus
 // ---------------------------------------------------------------
-$CLASS_CONTACT_PHP = '$Id: Class.Dir.php,v 1.2 2001/11/28 13:40:10 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Dir.php,v 1.3 2001/11/30 15:13:39 eric Exp $';
 
 
 include_once("FREEDOM/Class.Doc.php");
@@ -65,7 +68,7 @@ Class Dir extends Doc
 
   function Dir($dbaccess='', $id='',$res='',$dbid=0) {
     DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
-    $this->fromid= FAM_DIR;
+    if ($this->fromid == "") $this->fromid= FAM_DIR;
   }
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.6 2001/11/21 17:03:54 eric Exp $
+// $Id: defattr.php,v 1.7 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: defattr.php,v $
+// Revision 1.7  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.6  2001/11/21 17:03:54  eric
 // modif pour création nouvelle famille
 //
@@ -71,7 +74,7 @@ function defattr(&$action)
 
   // when modification 
   if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
-
+  else
   // to show inherit attributes
   if (($docid == 0) && ($classid > 0)) $doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
 
@@ -102,7 +105,7 @@ function defattr(&$action)
       if ($err != "")   $action->ExitError($err);
     $action->lay->Set("TITLE",$doc->title);
   }
-  if ($classid > 0) {
+  if (($classid > 0) || ($doc->doctype = 'C')) {
     $doc->GetFathersDoc();
 
     // selected the current class document

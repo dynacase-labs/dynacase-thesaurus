@@ -16,16 +16,26 @@
 
 <style type="text/css">
 [CSS:CODE]
-.iconimg {
+
+IMG.unselect {
+  border-style: hidden;
+  border-width: 3;
+  border-style : none
+  width:40;
+  height:40;  
+}
+IMG.select {
   border-style: hidden;
   border-width: 3;
   border-color: [CORE_FGCOLOR];
   width:40;
-  height:40;
-  
+  height:40;  
+  background-color:[CORE_BGCOLORALTERN];
+  border-style : solid
 }
-.icon{
 
+
+DIV.icon{
   font-weight: normal;
   font-size: 60%;
   text-align: center;
@@ -38,7 +48,6 @@
   border-style:none;
   border-color:[CORE_FGCOLOR];
   visibility : hidden;
-
 
 }
 
@@ -70,7 +79,7 @@
 <!-- TABLEBODY -->
                              [BLOCK TABLEBODY]
 <div class="icon" id="d[divid]" >
-<IMG class="iconimg" id="i[divid]" 
+<IMG class="unselect" id="i[divid]" 
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="sendFirstFile([id]);return false"

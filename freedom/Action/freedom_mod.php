@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.8 2001/11/22 17:49:13 eric Exp $
+// $Id: freedom_mod.php,v 1.9 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_mod.php,v $
+// Revision 1.9  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.8  2001/11/22 17:49:13  eric
 // search doc
 //
@@ -185,11 +188,11 @@ function freedom_mod(&$action) {
     if ($ofreedom->fromid == 4) $ofreedom->doctype='D'; // directory profile
     if ($ofreedom->fromid == 6) $ofreedom->doctype='S'; // search profile
     $ofreedom->useforprof = true;
-    $ofreedom->profid = -1;
+    //$ofreedom->profid = -1;
     $err=$ofreedom-> Modify();
     if ($err != "") $action-> ExitError($err);
     $ofreedom = new Doc($dbaccess, $docid); // change class object (perhaps)
-    $ofreedom->SetControl();
+    //$ofreedom->SetControl();
   }
   $ofreedom->lmodify='Y'; // locally modified
   $err=$ofreedom-> Modify();

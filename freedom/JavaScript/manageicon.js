@@ -5,17 +5,18 @@ var oldBdstyle=0;
 function highlight(th) {
 
 
-  //th.className="selecticon":
+  th.className="select";
   //oldBgcolor=th.style.backgroundColor;
   //oldBdstyle=th.style.borderStyle;
-  th.style.backgroundColor='[CORE_BGCOLORALTERN]';
-  th.style.borderStyle='solid';
+  //th.style.backgroundColor='[CORE_BGCOLORALTERN]';
+  //th.style.borderStyle='solid';
   
 }
 function unhighlight(th) {
+  th.className="unselect";
   //th.className="icon";
-  th.style.backgroundColor='[CORE_BGCELLCOLOR]';
-  th.style.borderStyle='none';
+  //th.style.backgroundColor='[CORE_BGCELLCOLOR]';
+  //th.style.borderStyle='none';
   //th.style.backgroundColor=oldBgcolor;
     //  th.style.borderStyle=oldBdstyle;
 }

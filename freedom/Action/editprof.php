@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.3 2001/11/21 13:12:55 eric Exp $
+// $Id: editprof.php,v 1.4 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: editprof.php,v $
+// Revision 1.4  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.3  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -68,10 +71,12 @@ function editprof(&$action)
 
   $selectclass=array();
   $tclassdoc = $doc->GetProfileDoc();
+  if (is_array($tclassdoc)) {
   while (list($k,$pdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idpdoc"]=$pdoc->id;
     $selectclass[$k]["profname"]=$pdoc->title;
     $selectclass[$k]["selected"]="";
+  }
   }
 
 

@@ -5,7 +5,7 @@
 
    <title>[TEXT:Properties:] [TITLE]</title>
    <LINK REL="icon" HREF="[CORE_PUBURL]/CORE/Images/logo-1-mini.ico" >
-   <LINK REL="SHORTCUT ICON" HREF="[CORE_PUBURL]/[imgsrc]" >
+   <LINK REL="SHORTCUT ICON" HREF="[CORE_PUBURL]/[iconsrc]" >
    <style>
 [ZONE CORE:GENCSS]
    </style>
@@ -87,13 +87,13 @@
 <table class="tableborder"  cellspacing="0" width="100%"
      onContextMenu="openMenu(event,'popupcard',1);return false" 
      onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard',1)"      >
-<tr>
+<tr class="FREEDOMBack1">
   
- <td class="FREEDOMTblTitle" colspan="2">
+ <td  colspan="2">
    <span class="FREEDOMTextBigTitle">[TITLE]
     </span>
   </td>
-  <td align="right"  class="FREEDOMTblTitle">
+  <td align="right"  >
 <a href="#" onClick="subwindow(300,500,'FREEDOM_ACCESS','[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_ACCESS&id=[id]')">[imgaccess]</a>
 
 <a href="#" onclick="self.print()">
@@ -104,38 +104,38 @@
   </td>
 </tr>
 
-<tr><td class="FREEDOMTblFrame" colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
-<tr>
-  <td class = "tdstyle" width="10%" align="center" rowspan="[nprop]">
-    <a href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id=[cid]"><IMG id="1"  border="0" title="[iconalt]" alt="[iconalt]" align="absbottom" width="50" SRC="[iconsrc]"><br>
-     <span class="FREEDOMTextValue" style="font-size:50%">[classtitle]</span></a>
-  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:author]</span></td>
-  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[username]</span></td>
+<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
+<tr class="FREEDOMBack1">
+  <td  width="10%" align="center" rowspan="[nprop]">
+    <a href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id=[cid]"><IMG id="1"  border="0"  title="[iconalt]" alt="[iconalt]" align="absbottom" width="50" SRC="[iconsrc]"><br>
+     <span class="FREEDOMText" style="font-size:50%">[classtitle]</span></a>
+  <td  width="30%"><span class="FREEDOMText">[TEXT:author]</span></td>
+  <td  width="60%"><span class="FREEDOMText">[username]</span></td>
   </td>
 </tr>
 [BLOCK LOCK]
-<tr>
-  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:revision]</span></td>
-  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[revision]</span></td>
+<tr class="FREEDOMBack1">
+  <td  width="30%"><span class="FREEDOMText">[TEXT:revision]</span></td>
+  <td  width="60%"><span class="FREEDOMText">[revision]</span></td>
 </tr>
-<tr>
-  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:locked by]</span></td>
-  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[locked]</span></td>
+<tr class="FREEDOMBack1">
+  <td  width="30%"><span class="FREEDOMText">[TEXT:locked by]</span></td>
+  <td  width="60%"><span class="FREEDOMText">[locked]</span></td>
 </tr>
 [ENDBLOCK LOCK]
 [BLOCK ALLPROP]
-<tr>
-  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:revision date]</span></td>
-  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[revdate]</span></td>
+<tr class="FREEDOMBack1">
+  <td  width="30%"><span class="FREEDOMText">[TEXT:revision date]</span></td>
+  <td  width="60%"><span class="FREEDOMText">[revdate]</span></td>
 </tr>
 
-<tr>
-  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT: profile access]</span></td>
-  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[profile]</span></td>
+<tr class="FREEDOMBack1">
+  <td  width="30%"><span class="FREEDOMText">[TEXT: profile access]</span></td>
+  <td  width="60%"><span class="FREEDOMText">[profile]</span></td>
 </tr>
-<tr>
-  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:reference]</span></td>
-  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[reference]</span></td>
+<tr class="FREEDOMBack1">
+  <td  width="30%"><span class="FREEDOMText">[TEXT:reference]</span></td>
+  <td  width="60%"><span class="FREEDOMText">[reference]</span></td>
 </tr>
 [ENDBLOCK ALLPROP]
 
@@ -143,23 +143,22 @@
 [BLOCK TABLEBODY]
 
 
-<tr>
+<tr class="FREEDOMBack2">
 
-  <td class="FREEDOMTblFrame" colspan="3" ><span class="FREEDOMTextTitle"> [frametext]</span></td>
+  <td  colspan="3" ><span class="FREEDOMTextTitle"> [frametext]</span></td>
 </tr>
 
-<tr>
+<tr class="FREEDOMBack1">
 
-  <td class = "tdstyle" width="10%" rowspan="[rowspan]" align="center"><img src="[IMG:1x1.png]" border="0">[BLOCK [IMAGES]]<A href="[imgsrc]" ><IMG border="0" title="[imgalt]" alt="[imgalt]" align="absbottom" width="50" SRC="[imgsrc]"></A><br>[ENDBLOCK [IMAGES]]</td>
-  <td class = "tdstyle"  colspan="2"><img src="[IMG:1x1.png]" border="0"></td>
+  <td  width="10%" rowspan="[rowspan]" align="center"><img src="[IMG:1x1.png]" border="0">[BLOCK [IMAGES]]<A href="[imgsrc]" ><IMG border="0" title="[imgalt]" alt="[imgalt]" align="absbottom" width="50" SRC="[imgsrc]"></A><br>[ENDBLOCK [IMAGES]]</td>
+  <td   colspan="2"><img src="[IMG:1x1.png]" border="0"></td>
 
 </tr>
 [BLOCK [TABLEVALUE]]
 
-<tr>
-
-  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[name]&nbsp;:&nbsp;</span></td>
-  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[value]</span></td>
+<tr class="FREEDOMBack1">
+  <td  width="30%"><span class="FREEDOMText">[name]&nbsp;:&nbsp;</span></td>
+  <td  width="60%"><span class="FREEDOMText">[value]</span></td>
 </tr>
 
 [ENDBLOCK [TABLEVALUE]]

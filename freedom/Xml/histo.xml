@@ -26,12 +26,24 @@ TD.tlist {
   font-size: 80%;
 }
 
-TR.tlist {
+TD.select {
+   border-width : 1px;
+   border-style : dashed solid none none;
+   border-color : [CORE_BGCOLOR];
+  font-family: [CORE_FONTLIST1];
+  font-size: 80%;
+}
+
+TR.unselect {
   margin:0px;
   padding:0px;
 }
 
 
+TR.select {
+  background-color:[CORE_BGCOLORALTERN];
+  border-style : solid
+} 
 
 </style>
 
@@ -64,7 +76,7 @@ TR.tlist {
 
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
-<tr class="tlist" id="d[id]"
+<tr class="unselect" id="d[id]"
      onMouseDown="select(this,[id],[divid]);parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id=[id]'" >
 <td class="tlist"  >[revision]</td>
 <td class="tlist" >  

@@ -2,30 +2,31 @@
 
 
 <!-- ------------------ BAR MENU ------------------ -->
-<table class="tablesimple" style="position:absolute; top:0; left:0;cursor:default; cols="4"  cellspacing="0"   >
+<div id="barmenu" style="position:absolute;left:0;top:0;cursor:default;">
+<table  class="tablesimple"  cols="4"  cellspacing="0"   >
 <thead>
 <tr>
 <td  class="MenuInactive"  
      style="padding: 0px 0pt 0px 10px;" 
-     onClick="closeAllMenu();openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);window.status=this.offsetTop+'.'+this.offsetHeight+'.'+this.style.top;return false" 
+     onClick="closeAllMenu();openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
      onMouseOver="this.className='MenuActive'"
      onMouseOut="this.className='MenuInactive'">
 <span class="FREEDOMTextTitle">[TEXT:New]</span>
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" 
+     onClick="closeAllMenu();openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
      onMouseOut="this.className='MenuInactive'">
 <span class="FREEDOMTextTitle">[TEXT:Search]</span>
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" 
+     onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
      onMouseOut="this.className='MenuInactive'">
 <span class="FREEDOMTextTitle">[TEXT:View]</span>
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" 
+     onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
      onMouseOut="this.className='MenuInactive'">
 <span class="FREEDOMTextTitle">[TEXT:Help]</span>
@@ -34,7 +35,7 @@
 </thead>
 
 </table >
-
+</div>
 
 
 <!-- ------------ MENU NEW --------------------- -->

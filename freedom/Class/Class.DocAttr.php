@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.2 2001/11/26 18:01:02 eric Exp $
+// $Id: Class.DocAttr.php,v 1.3 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocAttr.php,v $
+// Revision 1.3  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.2  2001/11/26 18:01:02  eric
 // new popup & no lock for no revisable document
 //
@@ -40,7 +43,7 @@
 //
 // ---------------------------------------------------------------
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.2 2001/11/26 18:01:02 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.3 2001/11/30 15:13:39 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -82,41 +85,7 @@ create sequence seq_id_docattr start 10";
 		    "file",
 		    "frame");
 		    
-  // --------------------------------------------------------------------
-  function PostInit() {
-    // Create Attributes definitions from file
  
-    include(GetHttpVars("app").'/'.GetHttpVars("app").".attributes.php");
-
-
-    if (sizeof($attributes)>0) 
-      {
-	//	$bdattr= new Docattr();
-	$this->id = 0;
-	while (list($frame,$frametable) = each ($attributes)) 
-
-	  {
-	    while (list($k,$attrtable) = each ($frametable)) 
-
-	      {
-		$this->id = "";
-		$this->frametext = $frame;
-		$this->labeltext = "";
-		$this->title = "N";
-		$this->abstract = "N";
-		$this->type = "text";
-		$this->ldapname = "";
-		while (list($k2,$v2) = each ($attrtable)) 
-		  {
-
-		    $this->$k2 = "$v2";
-		  }
-	 
-		$this-> Add();
-	      }
-	  }
-      } 
-  }
   
      
   function PreInsert()

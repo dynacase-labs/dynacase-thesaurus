@@ -34,9 +34,9 @@
 
                          
 <!-- Title Table -->
-<form  class="fborder" name="modifyfreedom" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=MODPROF&create=[create]&docid=[docid]" >
+<form  class="fborder" name="modifyfreedom" method="POST"  action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=MODPROF&create=[create]&docid=[docid]" >
 
-      <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
+
                          
 
 <input type="hidden" name="title" value="[TITLE]"> 
@@ -44,11 +44,11 @@
 <div class="TITLE">
 <p>[TITLE]</p>
 <table width="100%"  cellspacing="0" cellpadding="0" >
-<tr>
- <td class="FREEDOMTblTitle">
+<tr class="FREEDOMBack1">
+ <td >
    <span class="FREEDOMTextTitle">[doctitle]</span>
   </td> 
-  <td class="FREEDOMTblTitle" align="right"><span class="FREEDOMTextName">[TEXT:profile access]</span>
+  <td  align="right"><span class="FREEDOMText">[TEXT:profile access]</span>
    <select name="profid" >   
            <option VALUE="0">[TEXT:no profile]</option>      
          [BLOCK SELECTPROF]
@@ -58,7 +58,7 @@
     </select>
    </td>
 </tr>
-<tr>
+<tr class="FREEDOMBack1">
   <td colspan="3" class = "tdstyle">
  <input type="submit" value="[TEXT:modify]"> 
   </td>

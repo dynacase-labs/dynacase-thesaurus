@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.9 2001/11/28 13:40:10 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.10 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.10  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.9  2001/11/28 13:40:10  eric
 // home directory
 //
@@ -53,7 +56,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.9 2001/11/28 13:40:10 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.10 2001/11/30 15:13:39 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -95,7 +98,7 @@ create table dirv ( dirid      int not null,
 	return $err;
       }
     }
-
+    return "";
   }
 
   // --------------------------------------------------------------------

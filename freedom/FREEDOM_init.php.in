@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.4 2001/11/22 17:49:12 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.5 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM_init.php.in,v $
+// Revision 1.5  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.4  2001/11/22 17:49:12  eric
 // search doc
 //
@@ -58,11 +61,6 @@ global $app_const;
 $app_const= array(
   "INIT" => "yes",
   "VERSION" => "@VERSION@",
-  "FREEDOM_TITLEBGCOLOR" => "lightblue" ,
-  "FREEDOM_TITLEFGCOLOR" => "black" ,
-  "FREEDOM_ABSFGCOLOR" => "black" ,
-  "FREEDOM_FRAMEBGCOLOR" => "lightskyblue" ,
-  "FREEDOM_BGATTRCOLOR" => "powderblue",
   "FREEDOM_DEFAULT_IMAGE" => "./FREEDOM/Images/nobody.gif",
   "LDAP_SERVEUR" => "localhost",
   "LDAP_PORT" => "389",

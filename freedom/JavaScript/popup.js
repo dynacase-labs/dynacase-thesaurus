@@ -37,7 +37,10 @@ function buttonNumber(event) {
   else return button= event.button +1;
 }
 
-
+function getScrollYOffset() {
+  if (document.all) return document.body.scrollTop;
+  else return window.pageYOffset;
+}
 
 
 

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.8 2001/11/21 14:28:19 eric Exp $
+// $Id: freedom_edit.php,v 1.9 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.9  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.8  2001/11/21 14:28:19  eric
 // double click : first file export
 //
@@ -57,6 +60,7 @@ include_once("Class.TableLayout.php");
 include_once("Class.QueryDb.php");
 include_once("Class.QueryGen.php");
 include_once("FREEDOM/freedom_util.php");
+include_once("VAULT/Class.VaultFile.php");
 
 // -----------------------------------
 function freedom_edit(&$action) {
@@ -319,11 +323,12 @@ function freedom_edit(&$action) {
 		break;
 
 	      case "file": 
-		$tableframe[$v]["inputtype"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
-		
-		  $tableframe[$v]["inputtype"] .= 
-		    $action-> GetParam("FREEDOM_DEFAULT_IMAGE");		
-		$tableframe[$v]["inputtype"] .= "\">";
+		  ereg ("(.*)\|(.*)", $value, $reg);	
+		  $vf = new VaultFile($dbaccess, $action->parent->name);
+		if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+		else $fname=_("no filename");
+			
+		$tableframe[$v]["inputtype"] = "<span class=\"FREEDOMText\">".$fname."</span><BR>";
 
 		// input 
 		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\">";

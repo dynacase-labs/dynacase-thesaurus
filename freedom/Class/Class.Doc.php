@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.13 2001/11/28 13:40:10 eric Exp $
+// $Id: Class.Doc.php,v 1.14 2001/11/30 15:13:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.14  2001/11/30 15:13:39  eric
+// modif pour Css
+//
 // Revision 1.13  2001/11/28 13:40:10  eric
 // home directory
 //
@@ -65,14 +68,13 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.13 2001/11/28 13:40:10 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.14 2001/11/30 15:13:39 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
 include_once('Class.DbObjCtrl.php');
 include_once("FREEDOM/freedom_util.php");
 include_once("FREEDOM/Class.DocAttr.php");
-include_once("FREEDOM/Class.FileDisk.php");
 
 
 // define constant for search attributes
@@ -138,6 +140,7 @@ create sequence seq_id_doc start 10";
   function PostInit() {
     $this->id=1;
     $this->initid=$this->id;
+    $this->fromid="0";
     $this->owner=1; //admin
     $this->title=N_("basic documentation family");
     $this->revision="0";
@@ -145,6 +148,7 @@ create sequence seq_id_doc start 10";
     $this->Add();
 
     $oattr=new DocAttr($this->dbaccess);
+    $oattr->id = QA_TITLE;
     $oattr->labeltext=_("title");
     $oattr->title = "Y";
     $oattr->abstract = "N";
@@ -154,18 +158,13 @@ create sequence seq_id_doc start 10";
     // 같같같같같같같같같같같같같같같같같같같같
     $this->id=FAM_DIR;
     $this->initid=$this->id;
+    $this->fromid="1";
     $this->owner=1; //admin
     $this->title=N_("directory familly");
     $this->revision="0";
     $this->doctype='C'; //  class type        
     $this->Add();
 
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->labeltext=_("title");
-    $oattr->title = "Y";
-    $oattr->abstract = "N";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
 
     // 같같같같같같같같같같같같같같같같같같같같
     $this->id=3;
@@ -177,12 +176,6 @@ create sequence seq_id_doc start 10";
     $this->doctype='C'; //  class type        
     $this->Add();
 
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->labeltext=_("title");
-    $oattr->title = "Y";
-    $oattr->abstract = "N";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
 
     // 같같같같같같같같같같같같같같같같같같같같
     $this->id=4;
@@ -194,29 +187,17 @@ create sequence seq_id_doc start 10";
     $this->doctype='C'; //  class type        
     $this->Add();
 
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->labeltext=_("title");
-    $oattr->title = "Y";
-    $oattr->abstract = "N";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
 
     // 같같같같같같같같같같같같같같같같같같같같
     $this->id=FAM_SEARCH;
     $this->initid=$this->id;    
-    $this->fromid=0; // from nothing
+    $this->fromid="1"; // from nothing
     $this->owner=1; //admin
     $this->title=N_("search familly");
     $this->revision="0";
     $this->doctype='C'; //  class type        
     $this->Add();
 
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->labeltext=_("title");
-    $oattr->title = "Y";
-    $oattr->abstract = "N";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
 
     // 같같같같같같같같같같같같같같같같같같같같
     $this->id=6;
@@ -228,13 +209,6 @@ create sequence seq_id_doc start 10";
     $this->doctype='C'; //  class type        
     $this->Add();
 
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->id = QA_TITLE;
-    $oattr->labeltext=_("title");
-    $oattr->title = "Y";
-    $oattr->abstract = "N";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
 
     $oattr=new DocAttr($this->dbaccess);
     $oattr->id = QA_KEY;
@@ -269,6 +243,15 @@ create sequence seq_id_doc start 10";
     $oattr ->Add();
 
 
+    // 같같같같같같같같같같같같같같같같같같같같
+    $this->id=9;
+    $this->initid=9;    
+    $this->fromid=2; // first folder
+    $this->owner=1; //admin
+    $this->title=N_("root");
+    $this->revision="0";
+    $this->doctype='D'; //  class type        
+    $this->Add();
 
   }
 
@@ -290,11 +273,11 @@ create sequence seq_id_doc start 10";
       } else if ($this->profid > 0) {
 
 	if (! isset($lprof[$this->profid])) {
-	$pdoc = new Doc($this->dbaccess, $this->profid);
-	$lprof[$this->profid] = $pdoc ->operm;
-	//	print "SET $this->id : controlled by $this->profid <BR>";
+	  $pdoc = new Doc($this->dbaccess, $this->profid);
+	  $lprof[$this->profid] = $pdoc ->operm;
+	  //	print "SET $this->id : controlled by $this->profid <BR>";
 	} 
-	$pdoc ->operm= $lprof[$this->profid];
+	$this ->operm= $lprof[$this->profid];
 	//	print "$this->id : controlled by $this->profid <BR>";
       }
 
@@ -351,7 +334,9 @@ create sequence seq_id_doc start 10";
 
     }
 
-
+  function isRevisable() {
+    return (($this->doctype == 'F') && (! $this->useforprof));
+  }
  
   // --------------------------------------------------------------------
   // test if the document can be revised now
@@ -361,7 +346,7 @@ create sequence seq_id_doc start 10";
     if ($this->action->parent->user->id == 1) return "";// admin can do anything
     $err="";
 
-    if ($this->doctype != 'F') $err = $this-> Control( "edit"); // only document 'F' can be locked
+    if (! $this->isRevisable()) $err = $this-> Control("edit"); // only revisable can be locked
     else {
       if ($this->locked == 0) {     
 	$err = sprintf(_("the file %s (rev %d) must be locked before"), $this->title,$this->revision);      
