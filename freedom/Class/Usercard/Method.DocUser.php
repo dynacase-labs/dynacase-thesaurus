@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.14 2003/05/28 14:35:16 eric Exp $
+// $Id: Method.DocUser.php,v 1.15 2003/06/24 10:38:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -213,9 +213,9 @@ function SpecRefresh() {
   function PostDelete()    
   // --------------------------------------------------------------------
     {
-      Doc::PostDelete();
       $this->SetLdapParam();
       $this->DeleteLdapCard();
+      Doc::PostDelete();
     }
   // --------------------------------------------------------------------
   function DeleteLdapCard()
@@ -223,21 +223,21 @@ function SpecRefresh() {
     {
 
       if (! $this->useldap) return;
+     
  
-      if ($this->serveur != "") {
+      if (($this->serveur != "") && ($this->id > 0)) {
 	$ds=ldap_connect($this->serveur,$this->port);
-	
-	if ($ds)
-	  {
+
+	if ($ds)  {
 	    
-	  if (ldap_bind($ds, $this->rootdn, $this->rootpw))
-	    
-	    $r=ldap_delete($ds,"cn=".$this->id.",".$this->racine);
-	  
+	  ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
+	  if (ldap_bind($ds, $this->rootdn, $this->rootpw)) {
+	     $r=@ldap_delete($ds,"cn=".$this->id.",".$this->racine);
+	  }
 	  
 	  
 	  ldap_close($ds);
-	  }
+	}
       }
       
     } 
