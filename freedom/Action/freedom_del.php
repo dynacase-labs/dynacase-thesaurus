@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_del.php,v 1.3 2001/11/21 13:12:55 eric Exp $
+// $Id: freedom_del.php,v 1.4 2002/01/25 09:37:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_del.php,v $
+// Revision 1.4  2002/01/25 09:37:06  eric
+// suppression appel LDAP
+//
 // Revision 1.3  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -76,15 +79,6 @@ function freedom_del(&$action) {
     
 
   
-
-  // ------------------------------
-  // delete LDAP entry
-
-  $oldap=new FreedomLdap($action);
-  $err  = $oldap-> Delete($docid);
-
-  if ($err != "")
-    $action->ExitErrot($err);
   redirect($action,GetHttpVars("app"),"FREEDOM_LOGO");
 
 }
