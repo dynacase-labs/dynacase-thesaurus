@@ -9,15 +9,36 @@ function swstate(s) {
   else return 1;
 }
 
-function UpdateEndTime() {
-  var stime = document.getElementById('rvstart');
-  var etime = document.getElementById('rvend');
+function UpdateTime(fromend) {
+  var sd = document.getElementById('rvstart');
+  var sh = document.getElementById('hrvstart');
+  var sm = document.getElementById('mrvstart');
+  var ed = document.getElementById('rvend');
+  var eh = document.getElementById('hrvend');
+  var em = document.getElementById('mrvend');
   var letime = document.getElementById('Trvend');
-  if (etime.value<stime.value) {
-    et = stime.value*1; 
-    etime.value = et + 3600;
-    d = new Date((etime.value * 1000));//Samedi 29 Jan 2005
-    letime.innerHTML = Calendar._DN[d.getDay()]+' '+d.getDate()+' '+Calendar._SMN[d.getMonth()]+' '+d.getFullYear();
+  var lstime = document.getElementById('Trvstart');
+
+  sdate = parseInt(sd.value) + (parseInt(sh.value)*3600) + (parseInt(sm.value)*60);
+  edate = parseInt(ed.value) + (parseInt(eh.value)*3600) + (parseInt(em.value)*60);
+
+  alert('sdate='+sdate+' edate='+edate+' (diff='+(edate-sdate)+')');
+
+  if (edate<sdate) {
+
+    if (fromend==0) {
+      nt = sdate + 3600;
+      d = new Date((nt * 1000));
+      letime.innerHTML = Calendar._DN[d.getDay()]+' '+d.getDate()+' '+Calendar._SMN[d.getMonth()]+' '+d.getFullYear();
+      eh.value = d.getHours();
+    } else {
+      nt = edate + 3600;
+      d = new Date((nt * 1000));
+      lstime.innerHTML = Calendar._DN[d.getDay()]+' '+d.getDate()+' '+Calendar._SMN[d.getMonth()]+' '+d.getFullYear();
+      sh.value = d.getHours();
+    }
+    var dalert = document.getElementById('rvupdate');
+    dalert.style.display='';
   }
 }
 
@@ -189,7 +210,7 @@ function saveEvent() {
   EventSelectAll(fs);
   fs.submit();
   fs.reset();
-  self.close();
+  //self.close();
 }
 
 function cancelEvent() {

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.18 2005/02/04 12:01:11 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.19 2005/02/04 15:47:53 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,7 +15,7 @@ include_once("FDL/Lib.Util.php");
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/WGCAL_external.php");
 
-define("FDATE", "%a %d %B %Y");
+define("FDATE", "%a %d %B %Y %H:%M:%S");
 
 function wgcal_editevent(&$action) {
 

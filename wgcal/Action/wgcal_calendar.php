@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.22 2005/02/04 12:01:11 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.23 2005/02/04 15:47:53 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -168,7 +168,7 @@ function wgcal_calendar(&$action) {
 	$tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
 	$tcell[$itc]["hourclass"] = $classh[$id];
 	$tcell[$itc]["cellcontent"] = "";
-// 	$tcell[$itc]["cellcontent"] = $h."/".$hd." ".strftime("%H:%M",$tcell[$itc]["times"])." " . strftime("%H:%M",$tcell[$itc]["timee"]);
+ 	//$tcell[$itc]["cellcontent"] = $h."/".$hd." ".strftime("%H:%M:%S",$tcell[$itc]["times"])." " . strftime("%H:%M:%S",$tcell[$itc]["timee"]);
 	$itc++;
       }
       $lcell->SetBlockData("CELLS", $tcell);

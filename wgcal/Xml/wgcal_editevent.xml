@@ -62,7 +62,7 @@
 <span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="Brvstart" style="cursor:pointer;"
       title="[TEXT:click here to enter the start date]">
 <img style="display:[DATEBUTVIS]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;<span id="Trvstart">[STARTREAD]</span></span>
-<input type="hidden" value="[START]" id="rvstart" name="rvstart" onChange="UpdateEndTime();">
+<input type="hidden" value="[START]" id="rvstart" name="rvstart" onChange="UpdateTime(0, '[TEXT:end time update]');">
 <script type="text/javascript">
   Calendar.setup(
     {
@@ -81,8 +81,8 @@
 </td>
 
 <td id="start_hour" align="left" style="visibility:visible">
-<input type="text" size="2" value="[H_START]" [DATERO] id="hrvstart" name="hrvstart" >
-:<input size="2" type="text" value="[M_START]" [DATERO] id="mrvstart" name="mrvstart">
+<input type="text" size="2" value="[H_START]" [DATERO] id="hrvstart" name="hrvstart" onchange="UpdateTime(0, '[TEXT:end time update]');">
+:<input size="2" type="text" value="[M_START]" [DATERO] id="mrvstart" name="mrvstart" onchange="UpdateTime(0, '[TEXT:end time update]');">
 </td>
 
 </tr>
@@ -93,7 +93,7 @@
 <span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="Brvend" style="cursor:pointer;"
       title="[TEXT:click here to enter the end date]">
 <img style="display:[DATEBUTVIS];" src="WGCAL/Images/cal-other.gif" height="15">&nbsp;<span id="Trvend">[ENDREAD]</span></span>
-<input type="hidden" value="[END]" id="rvend" name="rvend">
+<input type="hidden" value="[END]" id="rvend" name="rvend" onchange="UpdateTime(1,'[TEXT:start time update]')">
 <script type="text/javascript">
   Calendar.setup(
     {
@@ -112,8 +112,8 @@
 </td>
 
 <td align="left" id="end_hour3" style="visibility:visible">
-<input type="text" size="2" value="[H_END]" [DATERO] name="hrvend" id="hrvend" >
-:<input size="2" type="text" value="[M_END]" [DATERO] name="mrvend" id="mrvend" >
+<input type="text" size="2" value="[H_END]" [DATERO] name="hrvend" id="hrvend" onchange="UpdateTime(1,'[TEXT:start time update]')">
+:<input size="2" type="text" value="[M_END]" [DATERO] name="mrvend" id="mrvend" onchange="UpdateTime(1,'[TEXT:start time update]')">
 </td>
 </tr>
 
@@ -354,6 +354,7 @@ Calendar.setup(
 
 </div> <!-- end of repeat zone -->
 
+<div id="rvupdate" style="display:" onclick="this.style.display='none'">[TEXT:update time]</div>
 
 
 <script type="text/javascript">

@@ -89,7 +89,7 @@ function wgcal_storeevent(&$action) {
       if ($k) $attendeesstate[$ka] = $oldatt_state[$k];
       else $attendeesstate[$ka] = 0;
     }
-    //echo "ressource #".$attendees[$ka]." [".$attendeesname[$ka]."] status =  ".$attendeesstate[$ka]."<br>";
+    echo "ressource #".$attendees[$ka]." [".$attendeesname[$ka]."] status =  ".$attendeesstate[$ka]."<br>";
   }
   $event->setValue("CALEV_ATTID", $attendees); 
   $event->setValue("CALEV_ATTTITLE", $attendeesname); 
