@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.38 2003/06/06 12:44:57 eric Exp $
+// $Id: modcard.php,v 1.39 2003/06/10 08:55:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,7 +128,6 @@ function modcard(&$action, &$ndocid) {
 	      
 	  $filename=insert_file($dbaccess,$doc->id,$k);
 	
-	      
 	      
 	  if ($filename != "")
 	    {
@@ -281,7 +280,7 @@ function insert_file($dbaccess,$docid, $attrid)
   }
 
 
-  if (count($rt) == 0) return "";
+  if ((count($rt) == 0) || ((count($rt) == 1) && ($rt[0]==""))) return "";
   // return file type and upload file name
   return implode("\n",$rt);
   

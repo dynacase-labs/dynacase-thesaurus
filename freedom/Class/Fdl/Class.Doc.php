@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.132 2003/06/06 11:47:09 eric Exp $
+// $Id: Class.Doc.php,v 1.133 2003/06/10 08:55:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.132 2003/06/06 11:47:09 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.133 2003/06/10 08:55:04 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/06 11:47:09 $
-// Version         $Revision: 1.132 $
+// Last Update     $Date: 2003/06/10 08:55:04 $
+// Version         $Revision: 1.133 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1492,32 +1492,38 @@ create unique index i_docir on doc(initid, revision);";
 	  $tvattr = array();
 	  $lay->set("caption",$oattr->labelText);
 
-
+	  $emptyarray=true;
 	  while (list($k, $v) = each($ta)) {
 	    if ($v->visibility=="H") continue;
 	    $talabel[] = array("alabel"=>$v->labelText);	
 	    $tval[$k]=explode("\n",$this->getValue($k));
+	    if ($emptyarray && ($this->getValue($k)!="")) $emptyarray=false;
+	   
 	  }
 	  $lay->setBlockData("TATTR",$talabel);
-
-	  reset($tval);
-	  $nbitem= count(current($tval));
-	  $tvattr = array();
-	  for ($k=0;$k<$nbitem;$k++) {
-	    $tvattr[]=array("bevalue" => "bevalue_$k");
-	    reset($ta);
-	    $tivalue=array();
-	    while (list($ka, $va) = each($ta)) {	  
-	      if ($va->visibility=="H") continue;
-	      $hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
-	      if ($va->type=="image") $hval="<img width=\"128\" src=\"".$hval."\">";
-	      $tivalue[]=array("evalue"=>$hval);
+	  if (! $emptyarray) {
+	    
+	    reset($tval);
+	    $nbitem= count(current($tval));
+	    $tvattr = array();
+	    for ($k=0;$k<$nbitem;$k++) {
+	      $tvattr[]=array("bevalue" => "bevalue_$k");
+	      reset($ta);
+	      $tivalue=array();
+	      while (list($ka, $va) = each($ta)) {	  
+		if ($va->visibility=="H") continue;
+		$hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
+		if ($va->type=="image") $hval="<img width=\"128\" src=\"".$hval."\">";
+		$tivalue[]=array("evalue"=>$hval);
+	      }
+	      $lay->setBlockData("bevalue_$k",$tivalue);
 	    }
-	    $lay->setBlockData("bevalue_$k",$tivalue);
-	  }
-	  $lay->setBlockData("EATTR",$tvattr);
+	    $lay->setBlockData("EATTR",$tvattr);
       
-	  $htmlval =$lay->gen(); 
+	    $htmlval =$lay->gen(); 
+	  } else {
+	    $htmlval = "";
+	  }
 	  break;
 
 	case money:    
@@ -1554,17 +1560,18 @@ create unique index i_docir on doc(initid, revision);";
 	  $abegin.="\">";
 	} else {
 	  $abegin="<A target=\"$target\" onclick=\"document.noselect=true;\" href=\"";
-	  $abegin.= $ulink;
-	  $abegin.="\">";
+	  $abegin.= $ulink."\" ";;
+	  if ($htmllink > 1){
+	    $turl=parse_url($ulink);
+	    if (($turl["scheme"] == "") || ($turl["scheme"] == "http")) {
+	      if ($turl["scheme"] == "") $ulink.="&ulink=1";
+	      $abegin.=" oncontextmenu=\"popdoc(event,'$ulink');return false;\" ";
+	    }
+	  }
+	  $abegin.=">";
 	}
 	$aend="</A>";
-	if ($htmllink > 1){
-	  $turl=parse_url($ulink);
-	  if (($turl["scheme"] == "") || ($turl["scheme"] == "http")) {
-	    if ($turl["scheme"] == "") $ulink.="&ulink=1";
-	    $aend.=" <img align=\"absbottom\" style=\"cursor:pointer\" class=\"noprint\" title=\""._("see contents")."\" onclick=\"popdoc('$ulink')\" src=\"Images/contents.gif\">";
-	  }
-	}
+	
 
       } else {
 	$abegin="";
