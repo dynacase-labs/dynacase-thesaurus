@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.49 2003/06/24 10:40:49 eric Exp $
+// $Id: import_file.php,v 1.50 2003/07/07 14:44:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -294,7 +294,8 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
   while (list($k, $attr) = each ($lattr)) {
 
     if (isset($data[$iattr]) &&  ($data[$iattr] != "")) {
-      $doc->setValue($attr->id, "${data[$iattr]}");
+      $dv = str_replace('\n',"\n",$data[$iattr]);
+      $doc->setValue($attr->id, $dv);
     }
     $iattr++;
   }
