@@ -65,6 +65,25 @@ end;
        
    }
 
+   function SpecRefreshGen() {
+     $err ="";
+[BLOCK ACALC]
+    // -------------------
+  if (method_exists($this,"[method]")) {
+    $iargs=array();
+  [BLOCK [biattr]]
+    $iargs[]=$this->getValue("[niarg]","[niarg]");
+  [ENDBLOCK [biattr]]
+    $this->AddParamRefresh("[niargs]","[rarg]");
+    $v = call_user_method_array("[method]",$this,$iargs);
+    $this->setValue("[rarg]",$v); 
+     
+    }  else {
+      $err.= sprintf(_("method %s does not exist."),"[method]");
+    }[ENDBLOCK ACALC]
+
+       return $err;
+   }
    [METHODS]
 
 }

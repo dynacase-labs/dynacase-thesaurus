@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.23 2003/07/11 16:11:06 eric Exp $
+// $Id: Lib.Attr.php,v 1.24 2003/07/15 09:35:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,6 +76,7 @@ function AttrToPhp($dbaccess, $tdoc) {
     $tnormal=array();
     $tattr=array();
     $attrids=array();
+    $tcattr=array();
     while(list($k,$v) = each($table1))   {
       switch ($v->visibility) {
       case "M": // menu
@@ -109,6 +110,25 @@ function AttrToPhp($dbaccess, $tdoc) {
 	} else {
 	  $repeat="false";
 	}
+	// create code for calculated attributes
+	if (substr($v->phpfunc,0,2)=="::") {
+	  if (ereg("::([^\(]+)\(([^\)]*)\)[:]{0,1}(.*)",$v->phpfunc, $reg)) {
+	    $iattr = explode(",",$reg[2]);
+	    $tiattr=array();
+	    while(list($ka,$va) = each($iattr))   {
+	      $tiattr[]= array("niarg"=>trim($va));
+	    }
+	    
+	    $phpAdoc->SetBlockData("biattr".$v->id, $tiattr);
+	    $tcattr[]=array("method"=>$reg[1],
+			    "biattr"=>"biattr".$v->id,
+			    "rarg"=>($reg[3]=="")?$v->id:trim($reg[3]),
+			    "niargs"=>implode(",",$iattr));
+	  }
+	}
+	
+
+	// complete attributes characteristics
 	$tnormal[$v->id] = array("attrid"=>strtolower($v->id),
 				 "label"=>str_replace("\"","\\\"",$v->labeltext),
 				 "type"=>$atype,
@@ -147,6 +167,8 @@ function AttrToPhp($dbaccess, $tdoc) {
 	    $attrids[$v->id] = strtolower($v->id)." text";    
 	  }
 	}
+
+	
       }
     }	 
 
@@ -159,6 +181,7 @@ function AttrToPhp($dbaccess, $tdoc) {
     reset( $tattr);
     $phpAdoc->SetBlockData("ATTRFIELD", $tattr);
 
+    $phpAdoc->SetBlockData("ACALC", $tcattr);
 
     
       

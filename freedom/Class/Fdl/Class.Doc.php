@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.144 2003/07/11 13:04:57 eric Exp $
+// $Id: Class.Doc.php,v 1.145 2003/07/15 09:35:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.144 2003/07/11 13:04:57 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.145 2003/07/15 09:35:30 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/07/11 13:04:57 $
-// Version         $Revision: 1.144 $
+// Last Update     $Date: 2003/07/15 09:35:30 $
+// Version         $Revision: 1.145 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1336,6 +1336,10 @@ create unique index i_docir on doc(initid, revision);";
   function SpecRefresh() {
     // Special Refresh
     // to define in child classes
+  }  
+  function SpecRefreshGen() {
+    // Special Refresh Generated automatically
+    // is define in generated child classes
   }
   // recompute all calculated attribut
   function Refresh() {	
@@ -1349,16 +1353,8 @@ create unique index i_docir on doc(initid, revision);";
     // if ($this->id == 0) return; // no refresh for no created document
 	
 
-    $lattr = $this->GetNormalAttributes();
-    
-    while (list($i,$attr) = each($lattr)) {
-      if ((($attr->visibility == "H") || ($attr->visibility == "R") || ($attr->visibility == "S")) &&
-	  ($attr->phpfunc != "")) {
+    $err=$this->SpecRefreshGen();
 
-	$this->setValue($attr->id, $this->GetValueMethod($attr->phpfunc));
-      }
-	  
-    }
     if ($this->hasChanged)    $this->modify(); // refresh title
     return $err;
 	
