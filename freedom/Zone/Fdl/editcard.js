@@ -11,23 +11,22 @@ function sendmodifydoc(event,docid, attrid, sorm) {
   oldtar = f.target;
   f.action = '[CORE_STANDURL]&app=FDL&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&wname='+window.name;
 
-  var xw, yw;
-  if (window.event) {
-      xw = window.event.screenX;
-      yw = window.event.screenY;
-  } else {
-      xw = event.screenX;
-      yw = event.screenY;
+  
+  
+  var xy= getAnchorWindowPosition(attrid);
 
+  if (isNaN(window.screenX)){
+    xy.y+=15; // add supposed decoration height
+    // add body left width for IE sometimes ...
+    if (parent.ffolder)  xy.x += parent.ffolder.document.body.clientWidth;
+    
   }
-  with (document.getElementById(attrid))  {
-    if (type == 'text')  xw = xw - (size*7) -200;
-    else  if (type == 'textarea') xw = xw - (cols*7) -200;
-  }
-  status = xw +"+"+yw;
-  wichoose = window.open('', 'wchoose', 'resizable=yes,height=30,width=40,left='+xw+',top='+yw);
+
+
+  wichoose = window.open('', 'wchoose', 'scrollbars=yes,resizable=yes,height=30,width=290,left='+xy.x+',top='+xy.y);
   wichoose.focus();
-  wichoose.moveTo(xw, yw);
+
+  wichoose.moveTo(xy.x, xy.y+10);
   f.target='wchoose';
 
 

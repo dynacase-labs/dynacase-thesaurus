@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.15 2002/09/02 16:32:25 eric Exp $
+// $Id: viewcard.php,v 1.16 2002/09/11 14:12:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -77,6 +77,7 @@ function viewcard(&$action) {
   
  
 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
 

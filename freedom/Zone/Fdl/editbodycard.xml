@@ -18,8 +18,8 @@
 <tr >
 
   <td  width="10%">&nbsp;</td>
-  <td  width="30%"><span class="[labelclass]">[name]&nbsp;:&nbsp;</span></td>
-  <td  width="60%">[inputtype]</td>
+  <td  width="25%"><span class="[labelclass]">[name]&nbsp;:&nbsp;</span></td>
+  <td  width="65%">[inputtype]</td>
 </tr>
            [ENDBLOCK [TABLEVALUE]]
 </table>

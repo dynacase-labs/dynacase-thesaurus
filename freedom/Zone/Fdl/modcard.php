@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.11 2002/09/10 13:30:28 eric Exp $
+// $Id: modcard.php,v 1.12 2002/09/11 14:12:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -157,8 +157,11 @@ function modcard(&$action, &$ndocid) {
     $comment=GetHttpVars("comment","");
     
     
-    if (($newstate != "") && ($doc->state != $newstate)) $err = $doc->ChangeState($newstate,$comment );
-    else   $err=$doc-> Modify(); // new modify in case of the title reference a calculated value
+    if (($newstate != "") && ($doc->state != $newstate)) {
+      $err = $doc->ChangeState($newstate,$comment );
+
+    }
+
     $ndocid = $doc->id;
   }
   return $err;
