@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.169 2003/12/02 10:53:19 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.170 2003/12/09 10:50:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.169 2003/12/02 10:53:19 eric Exp $
+// $Id: Class.Doc.php,v 1.170 2003/12/09 10:50:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,6 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.169 2003/12/02 10:53:19 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -179,10 +178,17 @@ Class Doc extends DocCtrl {
   /**
    * identificator of the workflow document
    * 
-   * is 0 if no workflow
+   * if 0 then no workflow
    * @var int
    */
   var $wid;
+
+  /**
+   * identification of special views
+   * 
+   * @var array
+   */
+  var $views=array();
 
 
 
@@ -2020,7 +2026,7 @@ create unique index i_docir on doc(initid, revision);";
 
 	if ($target == "mail") {
 	  $abegin="<A target=\"$target\"  href=\"";
-	  $abegin.= $action->GetParam("CORE_PUBURL")."/".$ulink;
+	  $abegin.= $action->GetParam("CORE_ABSURL")."/".$ulink;
 	  $abegin.="\">";
 	} else {
 	  $abegin="<A target=\"$target\" onmousedown=\"document.noselect=true;\" href=\"";
