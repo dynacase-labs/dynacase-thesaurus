@@ -113,6 +113,7 @@ function completechoice(index) {
       }
     }
     winfo.disableReadAttribute();
+  self.close();
 
 }
 
@@ -148,7 +149,7 @@ function completechoices() {
     winfo.disableReadAttribute();
 }
 
-function resizeIFrame() {
+function autoClose() {
   // see if only one possibility
   if (tattrv.length == 1) {
      completechoice(0);
@@ -156,26 +157,7 @@ function resizeIFrame() {
   }
 
 
-  document.getElementById('dchoose').style.width= document.getElementById('schoose').offsetWidth+2;
-  document.getElementById('dchoose').style.height= document.getElementById('schoose').offsetHeight+30;
-  window.resizeTo(document.getElementById('schoose').offsetWidth+35,
-                  document.getElementById('schoose').offsetHeight+90);
-
-  var xw;
-  var ww = document.getElementById('schoose').offsetWidth+20;
-  if (window.event) {
-      xw = window.event.screenX;
-  } else {
-      xw = window.screenX;
-
-  }
-
-  var dx = screen.availWidth-ww-xw;
-
-
-  if (xw+ww > screen.availWidth) {
-     window.moveBy(screen.availWidth-ww-xw-10, 0);
-  }
+ 
 }
 
 
@@ -184,17 +166,19 @@ function resizeIFrame() {
  </head>
 
 <body style="padding:0pt;marging:0pt"
-      onLoad="resizeIFrame()">
+      onLoad="autoClose();autoHresize()">
 
 
 <div id="dchoose" style="border-width:4px;border-style:groove;border-color:[CORE_FGCOLOR]">
+<table width="100%">
+<tr><td>
 <img src="[IMG:bred.gif]" 
      style="cursor:pointer" 
      onClick="self.close()"
      title="[TEXT:Close]"
      alt="[TEXT:Close]">
-<br>
-
+</td></tr>
+<tr><td>
 [BLOCK SELECTSINGLE]
 <select id="schoose" 
         style="align:center" 
@@ -217,6 +201,7 @@ function resizeIFrame() {
 </select>
 [ENDBLOCK SELECTMULTIPLE]
 
-</div>
+</td></tr>
+</table>
 </body>
 </html>

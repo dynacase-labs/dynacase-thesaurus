@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.47 2002/09/10 13:30:28 eric Exp $
+// $Id: Class.Doc.php,v 1.48 2002/09/11 14:13:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.47 2002/09/10 13:30:28 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.48 2002/09/11 14:13:54 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -83,7 +83,8 @@ create table doc ( id int not null,
                    deditzone varchar(64),
                    dfldid int DEFAULT 0
                    );
-create sequence seq_id_doc start 1000";
+create sequence seq_id_doc start 1000;
+create unique index i_docir on doc(initid, revision);";
 
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
@@ -796,12 +797,14 @@ create sequence seq_id_doc start 1000";
   }
   function AddRevision($comment='') {
 
+
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
     $this->owner = $this->userid; // rev user
     if ($comment != '') $this->comment .= "\n".$comment;
-    $this->modify();
 
+    $this->modify();
+    $listvalue = $this->GetValues(); // save copy of values
 
     $olddocid = $this->id;
     $this->id="";
@@ -814,12 +817,13 @@ create sequence seq_id_doc start 1000";
     // duplicate values
     
     
-    $listvalue = $this->GetValues();
+
     $this->values=array();
     if (isset($this->ovalue)) $this->ovalue->docid=$this->id;
     
+
     while(list($k,$v) = each($listvalue)) {
-      $this->Setvalue( $k, $v);      
+      $this->Setvalue( $k, $v);     
     }
 
     return $this->id;
@@ -1141,12 +1145,13 @@ create sequence seq_id_doc start 1000";
   
   
   // --------------------------------------------------------------------
-    function ChangeState ($newstate, $addcomment="") {
+    function ChangeState ($newstate, $addcomment="", $force=false) {
       
       if ($this->state == $newstate) return ""; // no change => no action
 	// search if possible change in concordance with transition array
 	  $foundFrom = false;
       $foundTo = false;
+      reset($this->transitions);
       while (list($k, $trans) = each($this->transitions)) {
 	if ($this->state == $trans["e1"]) {
 	  // from state OK
@@ -1162,13 +1167,14 @@ create sequence seq_id_doc start 1000";
       if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), $this->state));
       if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), $newstate));
       
-      if ($tr["m1"] != "") {
+      if (($tr["m1"] != "") && (!$force)) {
 	// apply first method (condition for the change)
 	  
 	  if (! method_exists($this, $tr["m1"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m1"], get_class($this)));
 	
 	$err = call_user_method ($tr["m1"], $this, $newstate);
 	
+	if ($err == "->") return ""; //it is not a real error, but don't change state (reported)
 	if ($err != "") return (sprintf(_("ChangeState :: the method '%s' has the following error %s"), $tr["m1"], $err));
 	
 	
@@ -1183,15 +1189,18 @@ create sequence seq_id_doc start 1000";
       if ($addcomment != "") $revcomment.= "\n".$addcomment;
       
       $this->AddRevision($revcomment);
+      AddLogMsg(sprintf(_("%s new state %s"),$this->title, _($newstate)));
       
       // post action
 	if ($tr["m2"] != "") {
 	  if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
 	  $err = call_user_method ($tr["m2"], $this, $newstate);
+
+	  
+	  if ($err == "->") $err=""; //it is not a real error
 	  if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' has the following error %s"), $tr["m2"], $err));
 	  
 	}
-      AddLogMsg(sprintf(_("%s new state %s"),$this->title, _($newstate)));
       return ""; // its OK 
     }
   

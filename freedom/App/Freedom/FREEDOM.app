@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.9 2002/08/28 09:39:32 eric Exp $
+// $Id: FREEDOM.app,v 1.10 2002/09/11 14:13:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -171,6 +171,11 @@ $action_desc = array (
   array( 
    "name"		=>"MODPROF",
    "short_name"		=>N_("change profile access"),
+   "acl"		=>"FREEDOM"
+  ) ,
+  array( 
+   "name"		=>"MODSTATE",
+   "short_name"		=>N_("change state transition"),
    "acl"		=>"FREEDOM"
   ) ,
   array( 
