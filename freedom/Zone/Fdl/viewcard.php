@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.49 2004/03/18 08:30:29 eric Exp $
+ * @version $Id: viewcard.php,v 1.50 2004/05/06 09:33:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.49 2004/03/18 08:30:29 eric Exp $
+// $Id: viewcard.php,v 1.50 2004/05/06 09:33:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -137,7 +137,8 @@ function viewcard(&$action) {
   
   if ($doc->usefor=="D") $zonebodycard="FDL:VIEWBODYCARD"; // always default view for default document
 
-  $action->lay->set("zone", $zonebodycard);
+  if ($doc->defaultmview != "") $action->lay->set("mzone", $doc->defaultmview);
+  else $action->lay->set("mzone", $zonebodycard);
   // with doc head ?
   if (GetHttpVars("dochead")=="")   $dochead=  (! ereg("[A-Z]+:[^:]+:T", $zonebodycard, $reg))||$props;
   else $dochead = (GetHttpVars("dochead",'Y') == "Y");

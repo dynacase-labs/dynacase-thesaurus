@@ -76,7 +76,7 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
  </td>
   <td align="right" valign="bottom" >
 [BLOCK ACTIONS]
-<a href="#" style="display:[amail]" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'fdoc','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]&mzone=[zone]')">
+<a href="#" style="display:[amail]" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'fdoc','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]&mzone=[mzone]')">
       <img  align="absmiddle" height="22px" alt="[TEXT:mail]" title="[TEXT:senddoc]"  border="0" src="[IMG:mail.gif]">
       </a>   
 <a  style="display:none" href="[CORE_STANDURL]&app=FDL&action=VIEWSCARD&wedit=Y&id=[id]" target="_blank">
