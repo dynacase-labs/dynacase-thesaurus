@@ -200,7 +200,7 @@ function addToBasket(event) {
     bsend=true;
     url+=docid;
   }
-  if  (bsend) alert(url);
+
   if  (bsend)  subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'basket',url);
 }
 
