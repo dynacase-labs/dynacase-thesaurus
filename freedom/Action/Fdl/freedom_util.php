@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.46 2004/01/27 13:19:56 eric Exp $
+ * @version $Id: freedom_util.php,v 1.47 2004/02/09 16:44:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.46 2004/01/27 13:19:56 eric Exp $
+// $Id: freedom_util.php,v 1.47 2004/02/09 16:44:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -342,7 +342,7 @@ function getDocFromUserId($dbaccess,$userid) {
   $user = new User("",$userid);
   if (! $user->isAffected()) return false;
   if ($user->isgroup == "Y") {
-    $filter = array("grp_whatid = $userid");
+    $filter = array("us_whatid = $userid");
     $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
 			getFamIdFromName($dbaccess,"IGROUP"));
   } else {
