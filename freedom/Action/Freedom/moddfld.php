@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Change default folder for family
  *
  * @author Anakeen 2000 
- * @version $Id: moddfld.php,v 1.6 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: moddfld.php,v 1.7 2004/10/04 08:18:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: moddfld.php,v 1.6 2003/08/18 15:47:03 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/moddfld.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 
 include_once("FDL/Class.Doc.php");
@@ -64,17 +43,8 @@ function moddfld(&$action) {
 
   // create folder if auto 
   if ($newfolder) {
-    $dir = createDoc($dbaccess, getFamIdFromName($dbaccess,"DIR"));
-    $err=$dir->Add();
-    if ($err!="") $action->exitError($err);
-    $dir->setValue("BA_TITLE",sprintf(_("root for %s"),$doc->title));
-    $dir->setValue("BA_DESC",_("default folder"));
-    $dir->setValue("FLD_ALLBUT","1");
-    $dir->setValue("FLD_FAM",$doc->title."\n"._("folder")."\n"._("search"));
-    $dir->setValue("FLD_FAMIDS",$doc->id."\n".getFamIdFromName($dbaccess,"DIR").
-		   "\n".getFamIdFromName($dbaccess,"SEARCH"));
-    $dir->Modify();
-    $fldid=$dir->id;
+    
+    $fldid=createAutoFolder($doc);
   }
 
   if ($current) $doc->cfldid = $fldid; 

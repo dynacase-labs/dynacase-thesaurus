@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.56 2004/10/04 07:44:30 eric Exp $
+ * @version $Id: freedom_util.php,v 1.57 2004/10/04 08:18:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -425,6 +425,27 @@ function getLatestTDoc($dbaccess, $initid,$sqlfilters=array()) {
   return false;  
 } 
 
+/**
+ * Create default folder for a family with deafult constraint
+ *
+ * @param Doc $Doc the family object document
+ * @return int id of new folder (false if error)
+ */
+function createAutoFolder(&$doc) {
+    $dir = createDoc($doc->dbaccess, getFamIdFromName($doc->dbaccess,"DIR"));
+    $err=$dir->Add();
+    if ($err!="") return false;
+    $dir->setValue("BA_TITLE",sprintf(_("root for %s"),$doc->title));
+    $dir->setValue("BA_DESC",_("default folder"));
+    $dir->setValue("FLD_ALLBUT","1");
+    $dir->setValue("FLD_FAM",$doc->title."\n"._("folder")."\n"._("search"));
+    $dir->setValue("FLD_FAMIDS",$doc->id."\n".getFamIdFromName($doc->dbaccess,"DIR").
+		   "\n".getFamIdFromName($doc->dbaccess,"SEARCH"));
+    $dir->Modify();
+    $fldid=$dir->id;
+    return $fldid;
+  
+}
 //============================== XML =======================
 
 function fromxml($xml,&$idoc){

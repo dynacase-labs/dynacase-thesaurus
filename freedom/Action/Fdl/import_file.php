@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.76 2004/09/14 11:36:58 eric Exp $
+ * @version $Id: import_file.php,v 1.77 2004/10/04 08:18:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -214,10 +214,22 @@ function add_import_file(&$action, $fimport="") {
       break;
       // -----------------------------------
     case "DFLDID":
-      if (is_numeric($data[1]))   $fldid = $data[1];
+      if ($data[1] == "auto") {
+	if ($doc->dfldid == "") {
+	  if (! $analyze) {
+	    // create auto
+	    include_once("FDL/freedom_util.php");
+	    $fldid=createAutoFolder($doc);
+	    $tcr[$nline]["msg"].=sprintf(_("create default folder (id [%d])\n"),$fldid);
+	  }
+	} else {
+	  $fldid=$doc->dfldid;
+	  $tcr[$nline]["err"]=sprintf(_("default folder already set. Auto ignored"));
+	}
+      } elseif (is_numeric($data[1]))   $fldid = $data[1];
       else $fldid =  getIdFromName($dbaccess,$data[1],2);
       $doc->dfldid =  $fldid;
-      $tcr[$nline]["msg"]=sprintf(_("set default folder to '%s'"),$data[1]);
+      $tcr[$nline]["msg"].=sprintf(_("set default folder to '%s'"),$data[1]);
       break;
       // -----------------------------------
     case "WID":
