@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocFile.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.DocFile.php,v 1.4 2003/11/17 11:04:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocFile.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.DocFile.php,v 1.4 2003/11/17 11:04:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Method.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,7 @@ function viewfilecard($target="_self",$ulink=true,$abstract=false) {
   $nbimg=0;// number of image
 
 
-  $listattr = $this->GetNormalAttributes();
+  $listattr[] = $this->GetAttribute("FI_FILE");
 
 
   $tableimage=array();
@@ -59,8 +59,8 @@ function viewfilecard($target="_self",$ulink=true,$abstract=false) {
 
   while (list($i,$attr) = each($listattr)) {
 
-   
-    $value = chop($this->GetValue($i));
+  
+    $value = chop($this->GetValue($attr->id));
 
     //------------------------------
     // Set the table value elements
