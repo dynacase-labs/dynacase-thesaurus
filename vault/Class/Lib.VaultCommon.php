@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.VaultCommon.php,v 1.1 2002/08/01 17:42:39 marc Exp $
+// $Id: Lib.VaultCommon.php,v 1.2 2002/08/06 16:51:03 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Lib.VaultCommon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,14 +22,16 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Lib.VaultCommon.php,v $
+// Revision 1.2  2002/08/06 16:51:03  marc
+// 0.0.3-2, see ChangeLog
+//
 // Revision 1.1  2002/08/01 17:42:39  marc
 // Version 0.0.3 release 1 see changelog
 //
 // ---------------------------------------------------------------
 
 // ---------------------------------------------------------
-function fileextension($filename) {
-  $ext = "nop";
+function fileextension($filename, $ext="nop") {
   $te = explode(".", $filename);
   if (count($te)>1) $ext = $te[count($te)-1];
   return $ext;

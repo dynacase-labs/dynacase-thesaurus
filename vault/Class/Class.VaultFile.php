@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultFile.php,v 1.5 2002/02/06 17:19:58 eric Exp $
+// $Id: Class.VaultFile.php,v 1.6 2002/08/06 16:51:03 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultFile.php,v $
+// Revision 1.6  2002/08/06 16:51:03  marc
+// 0.0.3-2, see ChangeLog
+//
 // Revision 1.5  2002/02/06 17:19:58  eric
 // correction de tous les query : resultat par table
 //
@@ -55,7 +58,7 @@ Class VaultFile {
     else $this->chrono = $chrono;
     $this->idf      = $idf;
     $this->name     = $vaultname;
-    $this->logger = new Log("/var/log/what-vault/vault-".$this->name.".log", "Vault[".$this->name."]", "");
+    $this->logger = new Log("", "vault", $this->name);
     if ($this->chrono)  $this->logger->warning("Running with chrono !!!!");
     $this->dbaccess = $access;
     $this->u_owner  = $u_owner;

@@ -1,5 +1,8 @@
 0.0.3
-   release 0
+   release 2
+   - modif pour migration des fs multiples
+   - le vault utilise syslog... idem what
+   release 1
     - migration : changement de la strategie de nomage des fichiers 
       dans le vault pour indexation mnoGoSearch.
 
