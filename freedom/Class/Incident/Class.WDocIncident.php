@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.9 2003/01/27 14:17:28 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.10 2003/02/25 09:54:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.9 2003/01/27 14:17:28 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.10 2003/02/25 09:54:48 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -159,9 +159,10 @@ Class WDocIncident extends WDoc
 
       //------------------------------
       // send recorded mail to clients
-      $this->sendHtmlmail(
+
+      $this->sendOfficialMail(
 			  sprintf(_("[%s] incident registration"), $this->doc->initid), 
-			  "incident_mailrecord.xml");
+			  "INCIDENT:INCIDENT_MAILRECORD");
     break;
 
     case qualified:
@@ -181,9 +182,9 @@ Class WDocIncident extends WDoc
     case traited:
       //------------------------------
       // send traited mail to clients
-      $this->sendHtmlmail(
-			  sprintf(_("[%s] incident traited"), $this->doc->initid), 
-			  "incident_mailtraited.xml");
+      $this->sendOfficialMail(
+			      sprintf(_("[%s] incident traited"), $this->doc->initid), 
+			      "INCIDENT:INCIDENT_MAILTRAITED");
 
       
     break;
@@ -214,90 +215,39 @@ Class WDocIncident extends WDoc
       AddLogMsg(sprintf(_("send internal mail to %s (bcc:%s)"),$addr,$action->GetParam("BCC_MAIL_INCIDENT")));
     }
   }
-  function sendHtmlmail(  $object, $layout) {
 
 
 
-      global $action;
 
-      if ($action->getParam("INCIDENT_SENDMAIL") != "yes") return;
-      $mailaddr = $this->doc->GetValue( "IN_CALLMAIL");
-      if ($mailaddr == "") return; // no mail to deliver
-      $title = stripslashes($this->doc->GetValue( "IN_TITLE"));// the title
+  function sendOfficialMail( $subject, $zone) {
+    global $action;
 
+    include_once("FDL/mailcard.php");
 
-   
+    
+    $to = $this->doc->GetValue( "IN_CALLMAIL");
 
-      if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
-	setlocale (LC_TIME, "fr_FR");
-	$sdate= strftime ("%A %d %B %Y");
-      } else {
-	$sdate= strftime ("%x");
-      }
-
-      
-     
-      $incidentmail = new Layout($action->Getparam("CORE_PUBDIR")."/INCIDENT/Layout/$layout",$action);
-      $incidentmail->set("title", $title);
-      $incidentmail->set("ref", $this->doc->initid);
-      $incidentmail->set("date", $sdate);
-      $incidentmail->set("contactname",$this->doc->GetValue( "IN_CALLNAME"));
-      $incidentmail->set("contract",$this->doc->GetValue("IN_CONTRACT"));
-      $incidentmail->set("site",$this->doc->GetValue("IN_SITE"));
-      $incidentmail->set("frommail",$action->GetParam("FROM_MAIL_INCIDENT"));
-      $incidentmail->set("datesept",strftime("%A %d %B %Y", $this->doc->revdate+24*3600*7)); // date + 7days
-
-
-      // search ccmail from site
-      $ccmail = "";
-      $idsite = $this->doc->GetValue("IN_IDSITE");
-
-      if ($idsite > 0) {
+    $idsite = $this->doc->GetValue("IN_IDSITE");
+    $bcc = $action->GetParam("BCC_MAIL_INCIDENT");
+    $cc="";
+    if ($idsite > 0) {
 	$site = new Doc($this->doc->dbaccess, $idsite);
-	$ccmail = $site->GetValue("SI_CCMAIL");	
-      }
-
-      // insert logo image
-      $logofile=$action->GetImageFile("logocesam.gif");
-      $fd = fopen($logofile, "r");
-      $logocontent=fread($fd, filesize($logofile));
-      fclose($fd);
-      $incidentmail->set("imgdata",base64_encode($logocontent));
-      $body = $incidentmail->gen();
-
-      $bcc = $action->GetParam("BCC_MAIL_INCIDENT");
-
-      // send bcc if activated
-
-      if ($action->getParam("FDL_BCC") == "yes") {
-	
-	include_once("Class.MailAccount.php");
-	$ma = new MailAccount("",$action->user->id);
-	if ($ma->isAffected()) {
-	  $dom = new Domain("",$ma->iddomain);
-	  $umail = $ma->login."@".$dom->name;
-
-	  if ($bcc == "") $bcc = $umail;
-	  else $bcc .= ",$umail";
-	}
-      }
-
-      $mailok=mail($mailaddr,
-		   $object, // object
-		   $body,
-		   "From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
-		   "Return-Path: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
-		   "Bcc: ".$bcc."\r\n".
-		   "Cc: ".$ccmail."\r\n".
-		   "Content-Type: multipart/alternative; boundary=\"=_alternative 003C044E00256A9A_=\"\r\n".
-		   "X-Mailer: PHP/" . phpversion());
-      if (! $mailok) $action->exitError("mail cannot be sent");      
+	$cc = $site->GetValue("SI_CCMAIL");	
+    }
+    $comment="";
+    $from=$action->GetParam("FROM_MAIL_INCIDENT");
+    sendCard(&$action,
+	     $this->doc->id,
+	     $to,$cc,$subject,$zone,true,$comment,
+	     $from,$bcc);
+       
       AddLogMsg(sprintf(_("send official mail to %s (cc: %s - bcc:%s)"),
-			$mailaddr,
-			$ccmail,
+			$to,
+			$cc,
 			$bcc));
-  }
+    return "";
 
+  }
  
 }
 

@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.Incident.php,v 1.1 2002/11/25 16:24:01 eric Exp $
+// $Id: Method.Incident.php,v 1.2 2003/02/25 09:54:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.Incident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,3 +96,31 @@ function PostModify() {
 
   
 
+
+// -----------------------------------
+function incident_mailrecord($target="_self",$ulink=true,$abstract=false) {
+  
+  if (GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
+    setlocale (LC_TIME, "fr_FR");
+    $sdate= strftime ("%A %d %B %Y");
+  } else {
+    $sdate= strftime ("%x");
+  }
+  $this->lay->set("title", stripslashes($this->GetValue( "IN_TITLE")));
+  $this->lay->set("ref", $this->initid);
+  $this->lay->set("date", $sdate);
+  $this->lay->set("contactname",$this->GetValue( "IN_CALLNAME"));
+  $this->lay->set("contract",$this->GetValue("IN_CONTRACT"));
+  $this->lay->set("site",$this->GetValue("IN_SITE"));
+  $this->lay->set("frommail",GetParam("FROM_MAIL_INCIDENT"));
+  $this->lay->set("datesept",strftime("%A %d %B %Y", $this->revdate+24*3600*7)); // date + 7days
+
+  $this->viewattr($target,$ulink,$abstract);
+  return;
+}
+
+// -----------------------------------
+function incident_mailtraited($target="_self",$ulink=true,$abstract=false) {
+  
+  return $this->incident_mailrecord($target,$ulink,$abstract); 
+}
