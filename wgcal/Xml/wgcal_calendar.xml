@@ -30,8 +30,8 @@
 </table>[ZONE WGCAL:WGCAL_INFOS]</div>
 
 [BLOCK EVENTS]
-[ZONE [RESUME]?ev=[ID]&ref=[REF]]
-[ZONE [VIEW]?ev=[ID]&ref=[REF]]
+[ZONE [RESUME]?ev=[ID]&ref=[RG]]
+[ZONE [VIEW]?ev=[ID]&ref=[RG]]
 [ENDBLOCK EVENTS]
 
 
@@ -44,7 +44,7 @@ AltIsFixed = '[ALTFIXED]';
 AltTimerValue = '[ALTTIMER]';
 WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
 
-[BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END]);
+[BLOCK EVENTSSC]WGCalAddEvent([RG], [START], [END]);
 [ENDBLOCK EVENTSSC]
 
 WGCalDisplayAllEvents();

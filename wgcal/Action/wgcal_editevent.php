@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.30 2005/03/06 21:29:54 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.31 2005/03/07 21:41:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -368,14 +368,16 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
   
   for ($i=0; $i<=4; $i++) $action->lay->set("REPEATTYPE_".$i, ($rmode==$i?"checked":""));
 
- $tday = array( _("monday"), _("tuesday"),_("wenesday"),_("thursday"),_("friday"),_("saturday"), _("sunday"));
+  $tday = array( _("monday"), _("tuesday"),_("wenesday"),_("thursday"),_("friday"),_("saturday"), _("sunday"));
   for ($i=0; $i<=6; $i++) {
     $td[$i]["dayn"] = $i;
     $td[$i]["repeatdis"] = ($ro?"disabled":"");
     $td[$i]["tDay"] = $tday[$i];
+    $td[$i]["rdstate"] = "";
   }
-
+  foreach ($rday as $kd => $vd) $td[$vd]["rdstate"] = "checked";
   $action->lay->SetBlockData("D_RWEEKDISPLAY", $td);
+
   $action->lay->set("RWEEKDISPLAY", ($rmode==2?"":"none"));
 
   $action->lay->set("D_RMONTH", ($rmode==3?"":"none"));
@@ -395,8 +397,9 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
     $ide = 0;
     foreach ($recxlude as $kd => $vd) {
       if ($vd!="" && $vd>0) {
-        $rx[]["rDate"] = strftime("%a %d %b %Y", $vd);
-        $rx[]["mDate"] = $vd;
+        $ld = db2date($vd);
+        $rx[]["rDate"] = strftime("%a %d %b %Y", $ld);
+        $rx[]["mDate"] = $ld;
         $rx[]["iDate"] = $i;
 	$ide++;
       }

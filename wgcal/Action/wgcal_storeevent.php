@@ -81,8 +81,8 @@ function wgcal_storeevent(&$action) {
   $excl = GetHttpVars("excludedate", "");
   if ($excl != "") {
     $excludedate = explode("|",$excl);
-    foreach ($excludedate as $kd => $vd) $tex[] = date2db($vd);
-    $event->setValue("CALEV_EXCLUDEDATE", $excludedate);
+    foreach ($excludedate as $kd => $vd) if ($vd>0 && $vd!="") $tex[] = date2db($vd);
+    $event->setValue("CALEV_EXCLUDEDATE", $tex);
   }
   
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.11 2005/03/06 21:29:54 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.12 2005/03/07 21:41:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -126,17 +126,20 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   $tout=array(); 
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
-//     echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres]<br>";
+  //echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres]<br>";
   $dre=new Doc($dbaccess,$reid);
   $edre=$dre->getEvents($d1,$d2);
   $first = false;
   foreach ($edre as $k=>$v) {
+    $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
     $item = array( "REF" => $v["id"], 
 		   "ID" => $v["evt_idinitiator"],
-		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
-		   "HUMANSTART" => strftime("%x %X",FrenchDateToUnixTs($v["evt_begdate"])),
-		   "END" => FrenchDateToUnixTs($v["evt_enddate"]), 
-		   "HUMANEND" => strftime("%x %X",FrenchDateToUnixTs($v["evt_enddate"])),
+ 		   "TSSTART" => $v["evt_begdate"],
+ 		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
+		   "TSEND" => $end, 
+		   "END" => FrenchDateToUnixTs($end), 
+// 		   "TSEND" => $v["evt_enddate"], 
+// 		   "END" => FrenchDateToUnixTs($v["evt_enddate"]), 
 		   "IDC" =>  $v["evt_idcreator"] );
     $n = new Doc($dbaccess, $v["evt_idinitiator"]);
     $varclass = get_class_vars("_CALEVENT");
@@ -149,9 +152,10 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     }
     $item["RESUME"] = $abstract;
     $item["VIEW"] = $view;
+    $item["RG"] = count($tout);
     $tout[] = $item;
   }
-//          print_r2($tout);
+    print_r2($tout);
   return $tout;
 }
        	

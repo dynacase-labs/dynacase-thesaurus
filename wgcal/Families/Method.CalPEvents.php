@@ -9,9 +9,6 @@ var $eventFamily       = "EVENT_FROM_CAL";
 var $ZoneEvtAbstract =  "WGCAL:CALEV_ABSTRACT";
 var $ZoneEvtCard =  "WGCAL:CALEV_CARD";
 
-
-var $eventRVStatus     = "";
-
 function postModify() {
   $err = $this->setEvent(); 
   if ($err!="") print_r2($err);
@@ -20,4 +17,30 @@ function postModify() {
 
 function getEventRessources() {
   return $this->getTValue("CALEV_ATTID", array());
+}
+
+function  setEventSpec(&$e) {
+  $e->setValue("EVFC_REALENDDATE", $this->getValue("CALEV_END"));
+  $e->setValue("EVFC_REPEATMODE", $this->getValue("CALEV_REPEATMODE"));
+  if ($this->getValue("CALEV_REPEATMODE") > 0) {
+    $e->setValue("evt_enddate", $this->getValue("evfc_repeatuntil")==0 ? jd2cal((5000001), 'FrenchLong') :  $this->getValue("evfc_repeatuntildate"));
+  }
+  $e->setValue("EVFC_REPEATWEEKDAY", $this->getValue("CALEV_REPEATWEEKDAY"));
+  $e->setValue("EVFC_REPEATMONTH", $this->getValue("CALEV_REPEATMONTH"));
+  $e->setValue("EVFC_REPEATUNTIL", $this->getValue("CALEV_REPEATUNTIL"));
+  $e->setValue("EVFC_REPEATUNTILDATE", $this->getValue("CALEV_REPEATUNTILDATE"));
+  $e->setValue("EVFC_EXCLUDEDATE", $this->getTValue("CALEV_EXCLUDEDATE"));
+  $e->setValue("EVFC_REPEATFREQ", $this->getValue("CALEV_FREQUENCY"));
+
+  $tattid = $this->getTValue("CALEV_ATTID");
+  $tattst = $this->getTValue("CALEV_ATTSTATE");
+  $tattgp = $this->getTValue("CALEV_ATTGROUP");
+  $nattid = array();
+  $nattst = array();
+  foreach ($tattid as $ka => $va) {
+    $nattid[$va] = $va;
+    $nattst[$va] =  $tattst[$ka];
+  }
+  $e->setValue("EVFC_ATTID", $nattid);
+  $e->setValue("EVFC_ATTST", $nattst);  
 }

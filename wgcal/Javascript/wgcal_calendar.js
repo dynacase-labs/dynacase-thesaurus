@@ -111,7 +111,7 @@ function GetYForTime(ts) {
 function WGCalCleanAllFullView() {
   for (id=0; id<XDays; id++) {
     for (i=0; i<Days[id].ev.length; i++) {
-      evtc = document.getElementById('evtc'+Days[id].ev[i].id);
+      evtc = document.getElementById('evtc'+Days[id].ev[i].n);
       evtc.style.display = 'none';
     }
   }
@@ -302,14 +302,13 @@ function TraceOnDoc(s) {
 }
 
 // --------------------------------------------------------
-function WGCalAddEvent(evtid, tstart, tend) 
+function WGCalAddEvent(n, tstart, tend) 
 {
   var evt = new Object;
   var id;
   var cEv;
   var dd = new Date();
   var Tz =  dd.getTimezoneOffset() * 60;
-  var evtid;
   var tstart;
   var tend;
   var id;
@@ -332,7 +331,7 @@ function WGCalAddEvent(evtid, tstart, tend)
   dend = Math.floor((tend - Days[0].start) / (24*3600));
   dend = (dend<dstart ? dstart : (dend>=XDays ? (XDays-1) : dend) );
 
-//   TraceOnDoc('Evt['+evtid+'] Start:'+TextDate(tstart)+' End:'+TextDate(tend)+' firstD='+dstart+' lastD='+dend);
+//   TraceOnDoc('Evt['+n+'] Start:'+TextDate(tstart)+' End:'+TextDate(tend)+' firstD='+dstart+' lastD='+dend);
 
   mdays = (dstart!=dend ? true : false);
 
@@ -355,7 +354,7 @@ function WGCalAddEvent(evtid, tstart, tend)
     if (vend<Days[id].vend && vend>Days[id].vstart) vend += Tz;
     cEv = Days[id].ev.length; 
     Days[id].ev[cEv] = new Object();
-    Days[id].ev[cEv].id = evtid;
+    Days[id].ev[cEv].n = n;
     Days[id].ev[cEv].tstart = tstart;
     Days[id].ev[cEv].tend = tend;
     Days[id].ev[cEv].curday = id;
@@ -500,14 +499,14 @@ function WGCalDisplayEvent(cEv, ncol) {
 
   h = endY - startY;
   if (!cEv.mdays) {
-    eE = document.getElementById('evt'+cEv.id); // Event container
-    eA = document.getElementById('evta'+cEv.id); // Abstract
-    eC = document.getElementById('evtc'+cEv.id); // Comment
+    eE = document.getElementById('evt'+cEv.n); // Event container
+    eA = document.getElementById('evta'+cEv.n); // Abstract
+    eC = document.getElementById('evtc'+cEv.n); // Comment
     content = h - foot - head;
     root.appendChild(eC);
     //eA.style.height = content+"px";
   } else {
-    etmp = document.getElementById('evt'+cEv.id); 
+    etmp = document.getElementById('evt'+cEv.n); 
     eE = etmp.cloneNode(true);
   }
   eE.style.top = startY+"px";

@@ -279,7 +279,7 @@
 
   <div id="d_rweekday" style="left:10%; width:100%; align:center; display:[RWEEKDISPLAY]">
    [TEXT:day repetition] : <br>
-[BLOCK D_RWEEKDISPLAY]<span onclick="clickB('rweekday[dayn]')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="rweekday[]" value="[dayn]" [repeatdis]>[tDay]</span>[ENDBLOCK D_RWEEKDISPLAY]
+[BLOCK D_RWEEKDISPLAY]<span onclick="clickB('rweekday[dayn]')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="rweekday[]" value="[dayn]" [rdstate] [repeatdis]>[tDay]</span>[ENDBLOCK D_RWEEKDISPLAY]
   </div>
 
   <div id="d_rmonth" style="left:10%; display:[D_RMONTH]">

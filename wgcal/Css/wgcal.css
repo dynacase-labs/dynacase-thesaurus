@@ -119,7 +119,7 @@ TD {
 	border-left: 0px;
 	border-bottom: 1px dotted [WTH_COLOR_3];
  	border-right: 1px dotted [WTH_COLOR_3];
-        background-color : [WTH_CALWEEKEND];
+        background-color : [WTH_COLOR_1];
 }
 .WGCAL_DayCur {
 	border-top: 0px;

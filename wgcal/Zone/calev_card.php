@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.4 2005/03/06 21:29:54 marc Exp $
+ * @version $Id: calev_card.php,v 1.5 2005/03/07 21:41:50 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -19,8 +19,8 @@ function calev_card(&$action) {
 //   global $_POST, $_GET;
 //   echo "avant"; print_r2($_POST); print_r2($_GET); echo "apres";
 
+  $ref = GetHttpVars("ref", -1);
   $evid = GetHttpVars("ev", -1);
-  $evref = GetHttpVars("ref", -1);
   $mode  = GetHttpVars("mode", "h");
   if ($evid==-1) return;
 
@@ -53,8 +53,8 @@ function calev_card(&$action) {
   $private = ((($ownerid != $action->user->fid) && ($conf!=0)) ? true : false );
   $tpriv = array();
 
-  $action->lay->set("REF",   $evref);
-  $tpriv[0]["REF"] = $evref;
+  $action->lay->set("REF",   $ref);
+  $tpriv[0]["REF"] = $ref;
   $action->lay->set("ID",    $ev->id);
   $tpriv[0]["ID"] = $ev->id;
   
@@ -162,7 +162,7 @@ function calev_card(&$action) {
   $tday = array( _("monday"), _("tuesday"),_("wenesday"),_("thursday"),_("friday"),_("saturday"), _("sunday"));
   if (!$private) {
     $rmode = $ev->getValue("CALEV_REPEATMODE", 0);
-    $rday = $ev->getValue("CALEV_REPEATWEEKDAY", -1);
+    $rday = $ev->getTValue("CALEV_REPEATWEEKDAY", -1);
     $rmonth = $ev->getValue("CALEV_REPEATMONTH", -1);
     $runtil = $ev->getValue("CALEV_REPEATUNTIL", 0);
     $runtild = $ev->getValue("CALEV_REPEATUNTILDATE", "");
@@ -175,7 +175,8 @@ function calev_card(&$action) {
         break;
       case 2:
         $tr = _("weekly");
-        $tr .= " (".$tday[$rday].")";
+        $tr .= ": ";
+        foreach ($rday as $kd => $vd) $tr .= $tday[$vd]." ";
         break;
       case 3:
         $tr = _("monthly");
