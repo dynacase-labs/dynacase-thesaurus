@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.8 2003/01/02 15:37:17 eric Exp $
+// $Id: modprof.php,v 1.9 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,7 +90,7 @@ function modprof(&$action) {
   
   
   
-  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$docid");
+  redirect($action,"FDL","FDL_CARD&id=$docid");
 }
 
 

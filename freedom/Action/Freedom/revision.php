@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.4 2002/09/19 13:45:10 eric Exp $
+// $Id: revision.php,v 1.5 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,7 +41,7 @@ function revision(&$action)
     
   $action->AddLogMsg(sprintf(_("%s new revision %d"),$doc->title, $doc->revision));
   
-  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=".$doc->id);
+  redirect($action,"FDL","FDL_CARD&id=".$doc->id);
 
 }
 

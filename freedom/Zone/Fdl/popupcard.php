@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.15 2003/01/20 14:00:02 eric Exp $
+// $Id: popupcard.php,v 1.16 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,6 +30,7 @@ function popupcard(&$action) {
   // define accessibility
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");
+  $headers = (GetHttpVars("props",'Y') == "Y"); // view doc properties
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
@@ -41,7 +42,26 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('chicon','editdoc','lockdoc','revise','chgtitle','defval','unlockdoc','editattr','histo','editprof','editcprof','editstate','editdfld','properties','access','delete','cancel'));
+  popupInit('popupcard',  array(
+				'headers',
+				'editdoc',
+				'lockdoc',
+				'unlockdoc',
+				'revise',
+				'histo',
+				'editprof',
+				'access',
+				'delete',
+
+				'chicon',
+				'chgtitle',
+				'defval',
+				'editattr',
+				'editcprof',
+				'editstate',
+				'editdfld',
+				'properties',
+				'cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -59,30 +79,31 @@ function popupcard(&$action) {
 
   if ($doc->locked == $action->user->id) popupInvisible('popupcard',$kdiv,'lockdoc');
   else if (($doc->locked != $action->user->id) && 
-	   $clf) popupActive('popupcard',$kdiv,'lockdoc');
-  else popupInactive('popupcard',$kdiv,'lockdoc');
+	   $clf) popupCtrlActive('popupcard',$kdiv,'lockdoc');
+  else popupInvisible('popupcard',$kdiv,'lockdoc');
 
-  if ($doc->locked == 0 ) popupInvisible('popupcard',$kdiv,'unlockdoc');
-  elseif (($doc->locked != 0) && $cuf) popupActive('popupcard',$kdiv,'unlockdoc'); 
-  else popupInactive('popupcard',$kdiv,'unlockdoc');
+  if ($doc->isLocked()) {
+    if ($cuf) popupActive('popupcard',$kdiv,'unlockdoc');
+    else popupInactive('popupcard',$kdiv,'unlockdoc');
+  } else popupInvisible('popupcard',$kdiv,'unlockdoc'); 
 
   if (! $doc->isRevisable()) popupInvisible('popupcard',$kdiv,'revise');
   else if (($doc->lmodify == 'Y') && 
-	   ($cud||$clf)) popupActive('popupcard',$kdiv,'revise'); 
-  else popupInactive('popupcard',$kdiv,'revise');
+	   ($cud||$clf)) popupCtrlActive('popupcard',$kdiv,'revise'); 
+  else popupCtrlInactive('popupcard',$kdiv,'revise');
 
 
   if ($doc->IsControlled() && ($doc->profid > 0) && ($doc->Control("viewacl") == "")) {
-    popupActive('popupcard',$kdiv,'access');
+    popupCtrlActive('popupcard',$kdiv,'access');
   } else {
     popupInvisible('popupcard',$kdiv,'access');
   }
 
   if ($doc->Control("modifyacl") == "") {
-    popupActive('popupcard',$kdiv,'editprof'); 
+    popupCtrlActive('popupcard',$kdiv,'editprof'); 
     popupActive('popupcard',$kdiv,'editcprof');
   } else {
-    popupInactive('popupcard',$kdiv,'editprof');
+    popupCtrlInactive('popupcard',$kdiv,'editprof');
     popupInactive('popupcard',$kdiv,'editcprof');
   }
   if ($doc->PreDelete() == "") {
@@ -110,7 +131,6 @@ function popupcard(&$action) {
       popupInvisible('popupcard',$kdiv,'editprof');
       popupInvisible('popupcard',$kdiv,'revise');
       popupInvisible('popupcard',$kdiv,'lockdoc');
-      popupInvisible('popupcard',$kdiv,'unlockdoc');
       popupInvisible('popupcard',$kdiv,'chicon');
       popupInvisible('popupcard',$kdiv,'editdfld');
     } else {
@@ -118,9 +138,8 @@ function popupcard(&$action) {
       popupInactive('popupcard',$kdiv,'editdfld');
       popupInactive('popupcard',$kdiv,'chgtitle'); 
       popupInactive('popupcard',$kdiv,'defval'); 
-      popupInactive('popupcard',$kdiv,'editprof');
+      popupCtrlInactive('popupcard',$kdiv,'editprof');
       popupInactive('popupcard',$kdiv,'editdoc');
-      popupInactive('popupcard',$kdiv,'editstate');
       
 
     }
@@ -134,7 +153,7 @@ function popupcard(&$action) {
 	else popupInactive('popupcard',$kdiv,'editstate');
       }
   }
-  if ($doc->doctype=="F") popupActive('popupcard',$kdiv,'histo'); 
+  if ($doc->doctype=="F") popupCtrlActive('popupcard',$kdiv,'histo'); 
   else popupInvisible('popupcard',$kdiv,'histo');
 
   if ($abstract) popupActive('popupcard',$kdiv,'properties'); 
@@ -153,5 +172,7 @@ function popupcard(&$action) {
   }
   if ($doc->doctype == "S") popupInvisible('popupcard',$kdiv,'editdoc'); 
 
+  if ($headers)  popupInvisible('popupcard',$kdiv,'headers');
+  else Popupactive('popupcard',$kdiv,'headers');
   popupGen($kdiv);
 }

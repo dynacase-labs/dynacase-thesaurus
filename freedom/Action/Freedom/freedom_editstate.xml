@@ -53,7 +53,7 @@
   <td><input type="submit" value="[TEXT:Change State]"></td>
   <td>&nbsp;</td>
   <td  align="right">
-    <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_CARD&id=[docid]';"> 
+    <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[docid]';"> 
   </td>
 </tr>
 </table>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.86 2003/01/20 15:34:06 eric Exp $
+// $Id: Class.Doc.php,v 1.87 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.86 2003/01/20 15:34:06 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.87 2003/01/20 19:09:28 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -255,9 +255,12 @@ create unique index i_docir on doc(initid, revision);";
     $cdoc->locked=$this->locked;
     $cdoc->comment=$this->comment;
     $values = $this->getValues();
-    $this->delete(true); // delete before add to avoid double id (it is not authorized)
+    $err=$this->delete(true); // delete before add to avoid double id (it is not authorized)
+    if ($err != "") return $err;
 
     $err=$cdoc->Add();
+    if ($err != "") return $err;
+
     reset($values);
     while(list($k,$v) = each($values)) {
       $cdoc->setValue($k,$v);
@@ -435,7 +438,7 @@ create unique index i_docir on doc(initid, revision);";
   function Delete($really=false) {
 
     if ($really) {
-      DbObj::delete();
+      return(DbObj::delete());
     } else {
     $msg=$this->PreDelete();
     if ($msg!='') return $msg;
@@ -455,6 +458,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
     $msg=$this->PostDelete();
+    return $msg;
     }
   }
 

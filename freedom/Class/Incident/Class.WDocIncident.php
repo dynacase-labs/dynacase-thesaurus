@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.7 2003/01/17 16:54:24 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.8 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.7 2003/01/17 16:54:24 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.8 2003/01/20 19:09:28 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -168,14 +168,14 @@ Class WDocIncident extends WDoc
     $mail =  $this->doc->getValue("IN_ANALMAIL"); // send mail to analyzer
     $this->sendmail($mail , 
 		    sprintf(_("Freedom : incident %s : transition to %s"),$this->doc->title,_($newstate)),
-		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=INCIDENT&action=GENERIC_CARD&id=".$this->doc->id);
+		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=FDL&action=FDL_CARD&id=".$this->doc->id);
     break;
 
     case analyzed:
     $mail =  $this->doc->getValue("IN_TRTMAIL");// send mail to realyser
     $this->sendmail($mail , 
 		    sprintf(_("Freedom : incident %s : transition to %s"),$this->doc->title,_($newstate)),
-		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=INCIDENT&action=GENERIC_CARD&id=".$this->doc->id);
+		    $action->Getparam("CORE_PUBURL")."/index.php?sole=A&app=FDL&action=FDL_CARD&id=".$this->doc->id);
     break;
 
     case traited:

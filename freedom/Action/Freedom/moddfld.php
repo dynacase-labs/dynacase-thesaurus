@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: moddfld.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Id: moddfld.php,v 1.2 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/moddfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,7 +62,7 @@ function moddfld(&$action) {
   
   
   
-  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$docid");
+  redirect($action,"FDL","FDL_CARD&id=$docid");
 }
 
 

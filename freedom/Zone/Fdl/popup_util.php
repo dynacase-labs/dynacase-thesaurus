@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.5 2003/01/13 18:56:50 eric Exp $
+// $Id: popup_util.php,v 1.6 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -85,6 +85,24 @@ function popupInvisible($name,$k, $nameid) {
 
   popupInitItem($name,$k);
   $tmenuaccess[$name][$k][$$nameid]=2;
+}
+
+// active if Ctrl Key Pushed
+function popupCtrlActive($name,$k, $nameid) {
+  global $tmenuaccess;
+  global $$nameid;
+
+  popupInitItem($name,$k);
+  $tmenuaccess[$name][$k][$$nameid]=3;
+}
+
+// inactive if Ctrl Key Pushed
+function popupCtrlInactive($name,$k, $nameid) {
+  global $tmenuaccess;
+  global $$nameid;
+
+  popupInitItem($name,$k);
+  $tmenuaccess[$name][$k][$$nameid]=4;
 }
 
   function vcompare($a, $b) {

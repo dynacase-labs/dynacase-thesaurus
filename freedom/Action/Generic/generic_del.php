@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_del.php,v 1.5 2002/12/23 09:16:13 eric Exp $
+// $Id: generic_del.php,v 1.6 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function generic_del(&$action) {
     // delete document
      $err=$doc-> Delete();
      if ($err != "")  $action-> ExitError($err);
-     redirect($action,GetHttpVars("app"),"GENERIC_CARD&id=$docid");
+     redirect($action,"FDL","FDL_CARD&id=$docid");
       
   }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewhisto.php,v 1.4 2002/09/02 16:32:25 eric Exp $
+// $Id: viewhisto.php,v 1.5 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewhisto.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,8 +29,8 @@ function viewhisto(&$action)
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
   $target = GetHttpVars("target","doc_properties");
-  $viewapp = GetHttpVars("viewapp","FREEDOM");
-  $viewact = GetHttpVars("viewact","FREEDOM_CARD");
+  $viewapp = GetHttpVars("viewapp","FDL");
+  $viewact = GetHttpVars("viewact","FDL_CARD");
   $target = GetHttpVars("target","doc_properties");
   $comment = GetHttpVars("comment",_("no comment"));
 

@@ -42,7 +42,7 @@ if ("[LGTEXTERROR]" != "0") {
 <tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
 <tr class="FREEDOMBack1">
   <td   align="center" rowspan="[nprop]">
-    <a href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[cid]"><IMG   border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="50px" SRC="[iconsrc]"><br>
+    <a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cid]"><IMG   border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="50px" SRC="[iconsrc]"><br>
      <span class="FREEDOMText" style="font-size:50%">[classtitle]</span></a></td>
   <td   class="FREEDOMText">[TEXT:author]</td>
   <td  ><span class="FREEDOMText">[username]</span></td>
@@ -50,7 +50,7 @@ if ("[LGTEXTERROR]" != "0") {
 </tr>
 <tr class="FREEDOMBack1" >  
   <td    class="FREEDOMText"><span style="display:[viewstate]" >[TEXT:state]</span></td>
-  <td   ><span style="display:[viewstate]" class="FREEDOMText"><A href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[wid]">[state]</a></span></td>
+  <td   ><span style="display:[viewstate]" class="FREEDOMText"><A href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[wid]">[state]</a></span></td>
   </td>
 </tr>
 <tr class="FREEDOMBack1">
@@ -72,7 +72,7 @@ if ("[LGTEXTERROR]" != "0") {
 
 <tr class="FREEDOMBack1">
   <td   class="FREEDOMText">[TEXT: profile access]</td>
-  <td  ><span style="display:[displaylprof]" class="FREEDOMText"><a href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[profid]">[profile]</a></span><span style="display:[displayprof]" class="FREEDOMText">[profile]</span></td>
+  <td  ><span style="display:[displaylprof]" class="FREEDOMText"><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[profid]">[profile]</a></span><span style="display:[displayprof]" class="FREEDOMText">[profile]</span></td>
 </tr>
 <tr class="FREEDOMBack1">
   <td   class="FREEDOMText">[TEXT:reference]</td>

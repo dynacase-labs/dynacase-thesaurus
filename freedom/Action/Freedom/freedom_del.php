@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_del.php,v 1.6 2002/12/16 17:47:37 eric Exp $
+// $Id: freedom_del.php,v 1.7 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,7 +54,7 @@ function freedom_del(&$action) {
   $action->AddLogMsg(sprintf(_("%s has been deleted"),$doc->title));
 
   
-  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$docid");
+  redirect($action,"FDL","FDL_CARD&id=$docid");
 
 }
 ?>

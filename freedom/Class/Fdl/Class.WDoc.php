@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.12 2003/01/15 11:40:17 eric Exp $
+// $Id: Class.WDoc.php,v 1.13 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.12 2003/01/15 11:40:17 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.13 2003/01/20 19:09:28 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -122,8 +122,8 @@ Class WDoc extends Doc {
 
       // user comprehensive
       $oattr->visibility="W";
-      $oattr->type="enum";
-      $oattr->link="%S%app=FREEDOM&action=FREEDOM_CARD&id=%".$aidprofilid."%";
+      $oattr->type="text";
+      $oattr->link="%S%app=FDL&action=FDL_CARD&id=%".$aidprofilid."%";
       $oattr->phpfile="fdl.php";
       $oattr->id=$aprofilid;
       $oattr->phpfunc="lprofil(D,{$oattr->id}):$aidprofilid,{$oattr->id}";

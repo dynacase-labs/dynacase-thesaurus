@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.8 2002/10/31 08:09:22 eric Exp $
+// $Id: GENERIC.app,v 1.9 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,11 +90,6 @@ $action_desc = array (
    "acl"		=>"GENERIC"
   ) ,
   array( 
-   "name"		=>"HISTO",
-   "short_name"		=>N_("document history"),
-   "acl"		=>"GENERIC_READ"
-  ) ,
-  array( 
    "name"		=>"GENERIC_MOD",
    "short_name"		=>N_("modification or creation"),
    "acl"		=>"GENERIC"
@@ -108,11 +103,6 @@ $action_desc = array (
    "name"		=>"GENERIC_LOGO",
    "short_name"		=>N_("display logo"),
    "acl"		=>"GENERIC_READ"
-  ) ,
-  array( 
-   "name"		=>"UNLOCKFILE",
-   "short_name"		=>N_("unlock generic"),
-   "acl"		=>"GENERIC"
   ) ,
   array( 
    "name"		=>"GENERIC_LIST",

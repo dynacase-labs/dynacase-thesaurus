@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: changetitle.php,v 1.2 2002/06/19 12:32:28 eric Exp $
+// $Id: changetitle.php,v 1.3 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/changetitle.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,7 +55,7 @@ function changetitle(&$action)
 
   
     
-  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=".$doc->id);
+  redirect($action,"FDL","FDL_CARD&id=".$doc->id);
 
 }
 

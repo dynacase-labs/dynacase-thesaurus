@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modstate.php,v 1.1 2002/09/16 14:42:09 eric Exp $
+// $Id: modstate.php,v 1.2 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modstate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -72,8 +72,8 @@ function modstate(&$action) {
   
   
   
-    redirect($action,GetHttpVars("redirect_app",GetHttpVars("app")),
-	     GetHttpVars("redirect_act","FREEDOM_CARD&id=".$doc->id));
+    redirect($action,GetHttpVars("redirect_app","FDL"),
+	     GetHttpVars("redirect_act","FDL_CARD&id=".$doc->id));
   
   
   

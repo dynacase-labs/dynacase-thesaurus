@@ -19,6 +19,14 @@ function shiftKeyPushed(event) {
   return shiftKey;
 }
 
+// return true is shift key is pushed
+function ctrlKeyPushed(event) {
+
+  if (window.event) ctrlKey = window.event.ctrlKey	
+    else ctrlKey = event.ctrlKey	
+
+  return ctrlKey;
+}
 
 // 1 for first : 1 | 2 | 3
 function buttonNumber(event) {
@@ -57,7 +65,7 @@ function openMenu(event, menuid, itemid) {
   el.style.top  = y + "px";
   el.style.visibility = "visible";
 
-  activeMenuItem(menuid, itemid);
+  activeMenuItem(event,menuid, itemid);
  // event.stopPropagation();
   return false; // no navigator context menu
 }
@@ -74,11 +82,11 @@ function openMenuXY(event, menuid, x, y) {
   el.style.top  = y + "px";
   el.style.visibility = "visible";
 
-  activeMenuItem(menuid, 1); // first item (no context : only one item)
+  activeMenuItem(event,menuid, 1); // first item (no context : only one item)
   return false; // no navigator context menu
 }
 
-function activeMenuItem(menuid, itemid) {
+function activeMenuItem(event,menuid, itemid) {
   window.status="menu:"+menuid+itemid;
   // active css for animation for 'selid' object
     for (i=0; i<nbmitem[menuid]; i++) {
@@ -90,6 +98,14 @@ function activeMenuItem(menuid, itemid) {
 	
       } else      if (tdiv[menuid][itemid][i] == 2) {
 	mitem.className='menuItemInvisible';
+	
+      }else   if (tdiv[menuid][itemid][i] == 3) {
+	if (ctrlKeyPushed(event)) mitem.className='menuItemCtrl';
+	else  mitem.className='menuItemInvisible';
+	
+      }else  if (tdiv[menuid][itemid][i] == 4) {
+	if (ctrlKeyPushed(event)) mitem.className='menuItemCtrlDisabled';
+	else  mitem.className='menuItemInvisible';
 	
       }else {
 	mitem.className = 'menuItemDisabled';
@@ -110,7 +126,7 @@ function closeMenu(menuid) {
 }
 
 function activate(th, url, wname) {
-  if (th.className == 'menuItem') {
+  if ((th.className == 'menuItem') || (th.className == 'menuItemCtrl')) {
         subwindowm(300,400,wname,url);
    
   }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.9 2003/01/15 11:43:09 eric Exp $
+// $Id: FDL.app,v 1.10 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -36,6 +36,10 @@ $app_acl = array (
    "name"		=>"NORMAL",
    "description"	=>N_("Access Action Library"),
    "group_default"       =>"Y"),
+  array(
+   "name"		=>"EDIT",
+   "description"	=>N_("Access to edit action"),
+   "group_default"       =>"N"),
   array(
    "name"		=>"EXPORT",
    "description"	=>N_("For export functions"),
@@ -100,6 +104,22 @@ $action_desc = array (
    "name"		=>"VIEWSCARD",
    "short_name"		=>N_("view standalone card"),
    "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"FDL_CARD",
+   "short_name"		=>N_("view card"),
+   "acl"		=>"NORMAL"
+  ) ,
+
+  array( 
+   "name"		=>"LOCKFILE",
+   "short_name"		=>N_("lock file to edit"),
+   "acl"		=>"EDIT"
+  ) ,
+  array( 
+   "name"		=>"UNLOCKFILE",
+   "short_name"		=>N_("unlock file to discard edit"),
+   "acl"		=>"EDIT"
   ) ,
   array( 
    "name"		=>"WORKFLOW_INIT",

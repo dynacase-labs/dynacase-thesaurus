@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.18 2003/01/08 09:08:21 eric Exp $
+// $Id: FREEDOM.app,v 1.19 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -166,11 +166,6 @@ $action_desc = array (
    "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
-   "name"		=>"LOCKFILE",
-   "short_name"		=>N_("lock file to edit"),
-   "acl"		=>"FREEDOM"
-  ) ,
-  array( 
    "name"		=>"FREEDOM_EDITSTATE",
    "short_name"		=>N_("edit state "),
    "acl"		=>"FREEDOM"
@@ -203,11 +198,6 @@ $action_desc = array (
   array( 
    "name"		=>"CTRLDOC",
    "short_name"		=>N_("set the document controlled"),
-   "acl"		=>"FREEDOM"
-  ) ,
-  array( 
-   "name"		=>"UNLOCKFILE",
-   "short_name"		=>N_("abord edition"),
    "acl"		=>"FREEDOM"
   ) ,
   array( 

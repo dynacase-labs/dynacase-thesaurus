@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_addcatg.php,v 1.4 2002/12/10 16:15:18 eric Exp $
+// $Id: generic_addcatg.php,v 1.5 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_addcatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,7 +60,7 @@ function generic_addcatg(&$action) {
     $fld->AddFile($doc->id);
     
   } 
-  redirect($action,GetHttpVars("app"),"GENERIC_CARD&id=$ndocid");
+  redirect($action,"FDL","FDL_CARD&id=$ndocid");
   
 }
 

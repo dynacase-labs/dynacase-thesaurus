@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_duplicate.php,v 1.1 2002/09/02 16:38:49 eric Exp $
+// $Id: generic_duplicate.php,v 1.2 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,7 +52,7 @@ function generic_duplicate(&$action) {
       $action->exitError($err);
     }
   }
-  redirect($action,GetHttpVars("app"),"GENERIC_CARD&id=".$copy->id);
+  redirect($action,"FDL","FDL_CARD&id=".$copy->id);
   
 }
 

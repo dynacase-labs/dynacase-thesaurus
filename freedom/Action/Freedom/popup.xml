@@ -2,7 +2,7 @@
 <div  id="popuplist" class="popup">
 
 <a href="#" id="vprop"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_CARD&id='+docid,'fdoc');closeMenu('popuplist'); return false;">[TEXT:view properties] </a>
+    onClick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&id='+docid,'fdoc');closeMenu('popuplist'); return false;">[TEXT:view properties] </a>
 
 
 

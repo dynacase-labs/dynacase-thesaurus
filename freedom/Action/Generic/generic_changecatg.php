@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_changecatg.php,v 1.4 2002/12/10 16:15:18 eric Exp $
+// $Id: generic_changecatg.php,v 1.5 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_changecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,7 +62,7 @@ function generic_changecatg(&$action) {
 
   
 
-   redirect($action,GetHttpVars("app"),"GENERIC_CARD&id=$docid");
+   redirect($action,"FDL","FDL_CARD&id=$docid");
   
 }
 

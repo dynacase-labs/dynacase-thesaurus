@@ -230,7 +230,7 @@ function viewhome(event) {
 <div  id="popfld" class="popup">
 
 <a href="#" id="vprop"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_CARD&id='+dirid,'fdoc');closeMenu('popfld');return false">[TEXT:Properties] </a>
+    onClick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&id='+dirid,'fdoc');closeMenu('popfld');return false">[TEXT:Properties] </a>
 <a id="export" href="#" onclick="this.href='[CORE_STANDURL]&app=FDL&action=EXPORTFLD&id='+dirid">[TEXT:Export] </a>
 <a href="#" id="mkdir"     
     onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'fdoc');closeMenu('popfld');return false">

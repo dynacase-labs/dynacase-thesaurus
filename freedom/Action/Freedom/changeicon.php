@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: changeicon.php,v 1.2 2002/06/19 12:32:28 eric Exp $
+// $Id: changeicon.php,v 1.3 2003/01/20 19:09:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/changeicon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: changeicon.php,v $
+// Revision 1.3  2003/01/20 19:09:28  eric
+// homogénisation visu des documents
+//
 // Revision 1.2  2002/06/19 12:32:28  eric
 // modif des permissions : intégration de rq sql hasviewpermission
 //
@@ -109,7 +112,7 @@ function changeicon(&$action)
     
   }
     
-  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=".$doc->id);
+  redirect($action,"FDL","FDL_CARD&id=".$doc->id);
 
 }
 

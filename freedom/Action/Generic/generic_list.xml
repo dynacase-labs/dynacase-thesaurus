@@ -90,7 +90,7 @@ var catgid=[catg];
 <div  id="d[id]"
         onmouseover="if (this.className != 'select') this.className='unselecth'"
         onmouseout="if (this.className != 'select') this.className='unselect'" 
-        onclick="if (document.noselect) document.noselect=false; else {vselect(this);subwindow(300,400,'finfo','[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&abstract=N&id=[id]');}" 
+        onclick="if (document.noselect) document.noselect=false; else {vselect(this);subwindow(300,400,'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&id=[id]');}" 
      class="unselect" >   
      <img align="right" width="30" src="[iconsrc]">
      <A class="title" id="t[id]">[title]</A> <I>[state]</I>

@@ -9,7 +9,7 @@ function SendSearchId(e,id) {
      else keyCode = e.which;
 
      if (keyCode==13) {
-        parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_CARD&latest=Y&id='+id;
+        parent.fdoc.location.href='[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id='+id;
      }
 }
 

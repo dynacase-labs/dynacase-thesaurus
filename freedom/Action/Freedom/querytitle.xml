@@ -42,7 +42,7 @@
       
   <input type="text" name="ititle" value="[title]">
   <input type="submit" value="[TEXT:Change title]" >
-  <input type="submit" value="[TEXT:Cancel]" onclick="document.edit.action='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_CARD&id=[docid]'">
+  <input type="submit" value="[TEXT:Cancel]" onclick="document.edit.action='[CORE_STANDURL]app=FDL&action=FDL_CARD&id=[docid]'">
 </form>
 </div>
 
