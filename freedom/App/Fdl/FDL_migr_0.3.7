@@ -3,11 +3,11 @@
  
 
 pubdir="/home/httpd/what";
+
+psql freedom anakeen -f $pubdir/WHAT/getprivilege.sql
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=VGroup
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --class=Group
 
 echo "alter table doc add column dprofid int;" | psql freedom anakeen
 
 
-echo "alter table doc127 add column us_whatid text;" | psql freedom anakeen
-echo "update doc127 set us_whatid = grp_whatid;" | psql freedom anakeen
-echo "update doc127 set grp_whatid = '';" | psql freedom anakeen

@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.9 2004/02/25 15:50:02 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.10 2004/03/01 09:32:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -16,6 +16,7 @@ function SpecRefresh() {
   //  $err=_USER::SpecRefresh();
     $this->AddParamRefresh("US_WHATID","US_MAIL,US_LOGIN,US_GROUP");
     if ($this->getValue("US_IDDOMAIN",1) > 1) $this->AddParamRefresh("US_WHATID","US_DOMAIN");
+    $this->AddParamRefresh("US_IDDOMAIN","US_DOMAIN");
     
     // refresh MEID itself
     $this->SetValue("US_MEID",$this->id);
@@ -242,28 +243,13 @@ function PostDelete() {
 }                                                                                    
                                                                                     
                                                                                       
-function ConstraintLogin($login) {
-  $sug=array();
-  $id=$this->GetValue("US_WHATID");
-  $user=new User("",$id);
-                                                                                      
-  if (!ereg("^[a-z][a-z0-9\.]+[a-z0-9]+$", $login)) {$err= _("the login syntax is like : john.doe");}
 
-  if ($user->iddomain<>"")
-    {
-      if (!$user->CheckLogin($login,$user->iddomain,$id))
-	{$err= _("login yet use");
-	}
-    }
-
-  return array("err"=>$err,"sug"=>$sug);
-}
                                                                                       
 function ConstraintPassword($pwd1,$pwd2) {
   $sug=array();     
   if (($pwd1 == "")&&($this->id =="")) {
     $err= _("passwords must not be empty");
-  }  else  if (($pwd1<>$pwd2) || ($pwd1=="")) {
+  }  else  if ($pwd1<>$pwd2) {
     $err= _("the 2 passwords are not the same");
   }      
                                                                                       

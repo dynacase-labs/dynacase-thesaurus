@@ -3,7 +3,7 @@
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocGroup.php,v 1.8 2004/02/25 15:50:02 eric Exp $
+ * @version $Id: Method.DocGroup.php,v 1.9 2004/03/01 09:32:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -49,7 +49,7 @@ function RefreshGroup() {
  * 
  * @return string error message, if no error empty string
  */
-function SetGroupMail() {
+function SetGroupMail($nomail=false) {
   
   $err="";
   $gmail=" ";
@@ -67,9 +67,11 @@ function SetGroupMail() {
 
       $udoc = new doc($this->dbaccess,$v);
       if ($udoc && $udoc->isAlive()) {
-	$mail = $udoc->getValue("US_MAIL");
-
-	if ($mail != "") $tmail[]=$mail;
+	if (!$nomail) {
+	  $mail = $udoc->getValue("US_MAIL");
+	  
+	  if ($mail != "") $tmail[]=$mail;
+	}
       } else {
 	if ($tuser[$k]!="") $err .= sprintf("%s does not exist",$tuser[$k]);
       }
@@ -90,10 +92,12 @@ function SetGroupMail() {
 
       $udoc = new doc($this->dbaccess,$v);
       if ($udoc && $udoc->isAlive()) {
-	$mail = $udoc->getValue("GRP_MAIL");
-	if ($mail != "") {
-	  $tmail1 = explode(",",str_replace(" ", "", $mail));
-	  $tmail=array_merge($tmail,$tmail1);
+	if (!$nomail) {
+	  $mail = $udoc->getValue("GRP_MAIL");
+	  if ($mail != "") {
+	    $tmail1 = explode(",",str_replace(" ", "", $mail));
+	    $tmail=array_merge($tmail,$tmail1);
+	  }
 	}
 	$tgmemberid=array_merge($tgmemberid,$udoc->getTValue("GRP_IDUSER"));
 	$tgmember=array_merge($tgmember,$udoc->getTValue("GRP_USER"));
@@ -112,7 +116,7 @@ function SetGroupMail() {
 
   $this->SetValue("GRP_IDRUSER", implode("\n",array_keys($tgmembers)));
   $this->SetValue("GRP_RUSER", implode("\n",$tgmembers));
-  $this->SetValue("GRP_MAIL", $gmail);
+  if (!$nomail) $this->SetValue("GRP_MAIL", $gmail);
   return $err;
 }
   

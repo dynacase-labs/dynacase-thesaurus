@@ -23,9 +23,9 @@ ATTR;FLD_PDOC;FLD_FR_PROF;profil par défaut de document;N;N;text;1030;W;;%S%app=
 ATTR;FLD_PDOCID;FLD_FR_PROF;id profil par défaut de document;N;N;docid;1040;H;;;;;
 ATTR;FLD_PDIR;FLD_FR_PROF;profil par défaut de dossier;N;N;text;1050;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDIRID%;fdl.php;lfamilly(D,PDIR,FLD_PDIR):FLD_PDIRID,FLD_PDIR;
 ATTR;FLD_PDIRID;FLD_FR_PROF;id profil par défaut de dossier;N;N;docid;1060;H;;;;;
-ATTR;FLD_ROOT;FLD_FR_PROF;nouvelle racine;N;N;menu;10;M;;C[ffolder]%S%app=FREEDOM&action=FOLDERS&dirid=%I%;;;
-ATTR;FLD_OPEN;FLD_FR_PROF;ouvrir;N;N;menu;20;M;;%S%app=FREEDOM&action=FREEDOM_VIEW&dirid=%I%;;;
-ATTR;FLD_COPYBASKET;FLD_FR_PROF;insérer le porte-document;N;N;menu;20;M;;C%S%app=FREEDOM&action=FREEDOM_INSERTFLD&id=%I%&dirid={FREEDOM_IDBASKET}&clean=Y;;;
+ATTR;FLD_ROOT;;nouvelle racine;N;N;menu;10;M;;C[ffolder]%S%app=FREEDOM&action=FOLDERS&dirid=%I%;;;
+ATTR;FLD_OPEN;;ouvrir;N;N;menu;20;M;;%S%app=FREEDOM&action=FREEDOM_VIEW&dirid=%I%;;;
+ATTR;FLD_COPYBASKET;;insérer le porte-document;N;N;menu;20;M;;C%S%app=FREEDOM&action=FREEDOM_INSERTFLD&id=%I%&dirid={FREEDOM_IDBASKET}&clean=Y;;;
 END;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;;
@@ -52,51 +52,64 @@ ICON;basket.gif;;;;;;;;;;;;
 ATTR;FLD_COPYBASKET;FLD_FR_PROF;insérer le porte-document;N;N;menu;20;H;;;;;
 ATTR;FLD_CLEAR;;vider;N;N;menu;20;M;;[basket]%S%app=FREEDOM&action=FREEDOM_CLEARFLD&id=%I%;;;
 END;1;-1;;;;;;;;;;;
-// famille cycle;;;id;class;name;;;;;;;
-BEGIN;1;cycle de vie;20;WDoc;WDOC;;;;;;;
-TYPE;C;;;;;;;;;;;
-ICON;cycle.gif;;;;;;;;;;;
-USEFOR;W;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-ATTR;WF_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;
-ATTR;WF_INIT;;initialisation;N;N;menu;30;M;;%S%app=FDL&action=WORKFLOW_INIT&id=%I%;;
-ATTR;WF_FAMID;FR_BASIC;family id;N;N;docid;40;H;;;;::getTitle(WF_FAMID):WF_FAM
-ATTR;WF_FAM;FR_BASIC;famille;Y;N;text;50;W;;%S%app=FDL&action=FDL_CARD&id=%WF_FAMID%;fdl.php;lfamilies(D,WF_FAM):WF_FAMID,WF_FAM
-;;;;;;;;;;;;
-END;1;-1;;;;;;;;;;
-;;;;;;;;;;;;
-// famille mask;;;id;class;name;;;;;;;
-BEGIN;1;masque de saisie;21;;MASK;;;;;;;
-TYPE;C;;;;;;;;;;;
-ICON;masque.gif;;;;;;;;;;;
-METHOD;Method.Mask.php;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-ATTR;MSK_FR_REST;;Famille;N;N;frame;0;F;;;;
-ATTR;MSK_FAMID;MSK_FR_REST;id familles;N;N;docid;10;H;;;;::getTitle(MSK_FAMID):MSK_FAM
-ATTR;MSK_FAM;MSK_FR_REST;familles;T;N;text;20;W;Y;%S%app=FDL&action=FDL_CARD&id=%MSK_FAMID%;fdl.php;lfamilies(D,MSK_FAM):MSK_FAMID,MSK_FAM
-ATTR;MSK_ATTRIDS;MSK_FR_REST;attrid;N;N;textlist;30;H;;;;
-ATTR;MSK_VISIBILITIES;MSK_FR_REST;visibilité;N;N;textlist;40;H;;;;
-ATTR;MSK_NEEDEEDS;MSK_FR_REST;obligatoire;N;N;textlist;50;H;;;;
-;;;;;;;;;;;;
-END;1;-1;;;;;;;;;;
-;;;;;;;;;;;;
-// famille contrôle de vues;;;id;class;name;;;;;;;
-BEGIN;1;contrôle de vues;28;CVDoc;CVDOC;;;;;;;
-TYPE;C;;;;;;;;;;;
-ICON;cview.gif;;;;;;;;;;;
-;;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-ATTR;CV_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;
-ATTR;CV_FAMID;FR_BASIC;family id;N;N;docid;30;H;;;;::getTitle(CV_FAMID):CV_FAM
-ATTR;CV_FAM;FR_BASIC;famille;Y;N;text;40;W;;%S%app=FDL&action=FDL_CARD&id=%CV_FAMID%;fdl.php;lfamilies(D,CV_FAM):CV_FAMID,CV_FAM
-ATTR;CV_T_VIEWS;FR_BASIC;vues;N;N;array;100;W;;;;
-ATTR;CV_IDVIEW;CV_T_VIEWS;id vues;N;N;text;110;W;;;;
-ATTR;CV_LVIEW;CV_T_VIEWS;label;N;N;text;120;W;;;;
-ATTR;CV_KVIEW;CV_T_VIEWS;type;N;N;enum;130;W;;;-;VCONS|Consultation,VEDIT|Edition
-ATTR;CV_ZVIEW;CV_T_VIEWS;zone;N;N;text;140;W;;;fdl.php;lzone(D,CV_KVIEW,CV_FAMID):CV_ZVIEW
-ATTR;CV_MSKID;CV_T_VIEWS;id masque;N;N;docid;150;H;;;;::getTitle(CV_MSKID):CV_MSK
-ATTR;CV_MSK;CV_T_VIEWS;masque;N;N;text;160;W;N;%S%app=FDL&action=FDL_CARD&id=%CV_MSKID%;fdl.php;lmask(D,CV_MSK,CV_FAMID):CV_MSKID,CV_MSK
-END;;;;;;;;;;;;
+// famille cycle;;;id;class;name;;;;;;;;;
+BEGIN;1;cycle de vie;20;WDoc;WDOC;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;
+ICON;cycle.gif;;;;;;;;;;;;;
+USEFOR;W;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;;
+ATTR;WF_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;;
+ATTR;WF_INIT;;initialisation;N;N;menu;30;M;;%S%app=FDL&action=WORKFLOW_INIT&id=%I%;;;;
+ATTR;WF_FAMID;FR_BASIC;family id;N;N;docid;40;H;;;;::getTitle(WF_FAMID):WF_FAM;;
+ATTR;WF_FAM;FR_BASIC;famille;Y;N;text;50;W;;%S%app=FDL&action=FDL_CARD&id=%WF_FAMID%;fdl.php;lfamilies(D,WF_FAM):WF_FAMID,WF_FAM;;
+ATTR;DPDOC_FR_DYN;;dynamique;N;N;frame;100;W;;;;;;
+ATTR;DPDOC_FAMID;DPDOC_FR_DYN;family id;N;N;docid;110;H;;;;::getTitle(DPDOC_FAMID):DPDOC_FAM;;
+ATTR;DPDOC_FAM;DPDOC_FR_DYN;famille;N;N;text;120;W;;%S%app=FDL&action=FDL_CARD&id=%DPDOC_FAMID%;fdl.php;lfamilies(D,DPDOC_FAM):DPDOC_FAMID,DPDOC_FAM;;
+;;;;;;;;;;;;;;
+END;1;-1;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+// famille mask;;;id;class;name;;;;;;;;;
+BEGIN;1;masque de saisie;21;;MASK;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;
+ICON;masque.gif;;;;;;;;;;;;;
+METHOD;Method.Mask.php;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;;
+ATTR;MSK_FR_REST;;Famille;N;N;frame;0;F;;;;;;
+ATTR;MSK_FAMID;MSK_FR_REST;id familles;N;N;docid;10;H;;;;::getTitle(MSK_FAMID):MSK_FAM;;
+ATTR;MSK_FAM;MSK_FR_REST;familles;Y;N;text;20;W;Y;%S%app=FDL&action=FDL_CARD&id=%MSK_FAMID%;fdl.php;lfamilies(D,MSK_FAM):MSK_FAMID,MSK_FAM;;
+ATTR;MSK_ATTRIDS;MSK_FR_REST;attrid;N;N;textlist;30;H;;;;;;
+ATTR;MSK_VISIBILITIES;MSK_FR_REST;visibilité;N;N;textlist;40;H;;;;;;
+ATTR;MSK_NEEDEEDS;MSK_FR_REST;obligatoire;N;N;textlist;50;H;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+END;1;-1;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+// famille contrôle de vues;;;id;class;name;;;;;;;;;
+BEGIN;1;contrôle de vues;28;CVDoc;CVDOC;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;
+ICON;cview.gif;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint
+ATTR;CV_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;;
+ATTR;CV_FAMID;FR_BASIC;family id;N;N;docid;30;H;;;;::getTitle(CV_FAMID):CV_FAM;;
+ATTR;CV_FAM;FR_BASIC;famille;Y;N;text;40;W;;%S%app=FDL&action=FDL_CARD&id=%CV_FAMID%;fdl.php;lfamilies(D,CV_FAM):CV_FAMID,CV_FAM;;
+ATTR;CV_T_VIEWS;FR_BASIC;vues;N;N;array;100;W;;;;;;
+ATTR;CV_IDVIEW;CV_T_VIEWS;id vues;N;N;text;110;W;;;;;;
+ATTR;CV_LVIEW;CV_T_VIEWS;label;N;N;text;120;W;;;;;;
+ATTR;CV_KVIEW;CV_T_VIEWS;type;N;N;enum;130;W;;;-;VCONS|Consultation,VEDIT|Edition;;
+ATTR;CV_ZVIEW;CV_T_VIEWS;zone;N;N;text;140;W;;;fdl.php;lzone(D,CV_KVIEW,CV_FAMID):CV_ZVIEW;;
+ATTR;CV_MSKID;CV_T_VIEWS;id masque;N;N;docid;150;H;;;;::getTitle(CV_MSKID):CV_MSK;;
+ATTR;CV_MSK;CV_T_VIEWS;masque;N;N;text;160;W;N;%S%app=FDL&action=FDL_CARD&id=%CV_MSKID%;fdl.php;lmask(D,CV_MSK,CV_FAMID):CV_MSKID,CV_MSK;;
+ATTR;CV_FR_DEFAULT;;vues par défauts;N;N;frame;100;W;;;;;;
+ATTR;CV_IDCVIEW;CV_FR_DEFAULT;id création vues par défaut;N;N;text;110;H;;;;::nothing(CV_IDCVIEW):CV_LCVIEW;;
+ATTR;CV_LCVIEW;CV_FR_DEFAULT;création vue;N;N;text;120;W;;;fdl.php;lview(CV_IDVIEW,CV_LVIEW):CV_IDCVIEW,CV_LCVIEW;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+ATTR;DPDOC_FR_DYN;;dynamique;N;N;frame;200;W;;;;;;
+ATTR;DPDOC_FAMID;DPDOC_FR_DYN;family id;N;N;docid;210;H;;;;::getTitle(DPDOC_FAMID):DPDOC_FAM;;
+ATTR;DPDOC_FAM;DPDOC_FR_DYN;famille;N;N;text;220;W;;%S%app=FDL&action=FDL_CARD&id=%DPDOC_FAMID%;fdl.php;lfamilies(D,DPDOC_FAM):DPDOC_FAMID,DPDOC_FAM;;
+END;;;;;;;;;;;;;;
 // famille dossier;inherit;;id;class;name;;;;;;;
 BEGIN;0;mail;15;;MAIL;;;;;;;
 TYPE;C;;;;;;;;;;;
@@ -200,10 +213,14 @@ TYPE;C;;;;;;;;;;;
 ICON;profil.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;PRF_DESC;FR_BASIC;description;N;N;longtext;10;W;N;;;
+ATTR;DPDOC_FR_DYN;;dynamique;N;N;frame;100;W;;;;
+ATTR;DPDOC_FAMID;DPDOC_FR_DYN;family id;N;N;docid;110;H;;;;::getTitle(DPDOC_FAMID):DPDOC_FAM
+ATTR;DPDOC_FAM;DPDOC_FR_DYN;famille;N;Y;text;120;W;;%S%app=FDL&action=FDL_CARD&id=%DPDOC_FAMID%;fdl.php;lfamilies(D,DPDOC_FAM):DPDOC_FAMID,DPDOC_FAM
+;;;;;;;;;;;;
 END;1;9;;;;;;;;;;
 ;;;;;;;;;;;;
 // famille profile dossier;;;;;name;;;;;;;
-BEGIN;3;profil de dossier;4;PDir;PDIR;;;;;;;
+BEGIN;PDOC;profil de dossier;4;PDir;PDIR;;;;;;;
 USEFORPROF;;;;;;;;;;;;
 SCHAR;S;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;
@@ -211,7 +228,7 @@ ICON;profil_dossier.gif;;;;;;;;;;;
 END;1;9;;;;;;;;;;
 ;;;;;;;;;;;;
 // famille profile recherche;;;;;name;;;;;;;
-BEGIN;3;profil de recherche;6;PDocSearch;PSEARCH;;;;;;;
+BEGIN;PDOC;profil de recherche;6;PDocSearch;PSEARCH;;;;;;;
 SCHAR;S;;;;;;;;;;;
 USEFORPROF;;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;
@@ -219,7 +236,7 @@ ICON;profil_recherche.gif;;;;;;;;;;;
 END;1;9;;;;;;;;;;
 ;;;;;;;;;;;;
 // famille profile famille;;;;;name;;;;;;;
-BEGIN;3;profil de famille;23;PFam;PFAM;;;;;;;
+BEGIN;PDOC;profil de famille;23;PFam;PFAM;;;;;;;
 SCHAR;S;;;;;;;;;;;
 USEFORPROF;;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;

@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.10 2004/02/25 15:50:02 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.11 2004/03/01 09:32:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -16,6 +16,7 @@ function specRefresh() {
   //  $err=$this->ComputeGroup();
   $this->AddParamRefresh("US_WHATID","GRP_MAIL,US_LOGIN");
   if ($this->getValue("US_IDDOMAIN",1) > 1) $this->AddParamRefresh("US_WHATID","US_DOMAIN");
+  $this->AddParamRefresh("US_IDDOMAIN","US_DOMAIN");
   return $err;
 }
 
@@ -31,7 +32,7 @@ function RefreshGroup() {
   $err.=$this->RefreshDocUser();
    $err.=$this->refreshMembers();
    $err.=$this->insertGroups();
-   $err.=$this->SetGroupMail();
+   $err.=$this->SetGroupMail(($this->GetValue("US_IDDOMAIN")>1));
    $err.=$this->Modify();
    
    //  AddWarningMsg(sprintf("RefreshGroup %d %s",$this->id, $this->title));
@@ -119,22 +120,21 @@ function postMInsertDoc($tdocid) {
  * @return string error message 
  */
 function postUnlinkDoc($docid) {
-  AddLogMsg("postUnlinkDoc $docid");
 
   $err="";
-    $gid = $this->getValue("US_WHATID");
-    if ($gid > 0) {
+  $gid = $this->getValue("US_WHATID");
+  if ($gid > 0) {
       $du = getTDoc($this->dbaccess,$docid);
       $uid = getv($du,"us_whatid");
       if ($uid > 0) {
 	$g = new Group("",$gid);
-
+	$g->iduser=$gid;
 	$err=$g->SuppressUser($uid);
 	
       }
       
-    }    
-    return $err;
+  }    
+  return $err;
 }
 /**
  * (re)insert members of the group in folder from USER databasee
@@ -328,5 +328,7 @@ function ComputeGroup() {
   return $err;
   
 }
-  
+
+
+
 ?>

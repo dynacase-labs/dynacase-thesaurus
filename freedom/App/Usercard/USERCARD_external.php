@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.13 2004/02/03 09:41:56 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.14 2004/03/01 09:32:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -207,24 +207,15 @@ function members($dbaccess, $groupid, $name="") {
 //get domain of IUSER
 function getdomainiuser()
 {
-$dbaccess=GetParam("CORE_USERDB");
-$tab=array();
-                                                                                                                                                             
-                                                                                                                                                             
-$domain=new Domain($dbaccess);
-                                                                                                                                                             
-$domain->ListAll(0);
-                                                                                                                                                             
-                                                                                                                                                             
-while (list($k, $v) = each($domain->qlist)) {
-
-if ($v->iddomain==1) $v->name="Pas de compte mail";                                                                                                                                                             
-        $tab[$k] = array($v->name,$v->iddomain,$v->name);
-                                                                                                                                                             
-                                                                                                                                                             
-}                                                                                                                                                        
-                                                                                                                                                             
-return $tab;
+  $dbaccess=GetParam("CORE_USERDB");
+  $tab=array();                                                 
+  $domain=new Domain($dbaccess);                  
+  $domain->ListAll(0);                          
+  while (list($k, $v) = each($domain->qlist)) {    
+    if ($v->iddomain==1) $v->name="local";                                                  
+    $tab[$k] = array($v->name,$v->iddomain,$v->name);  
+  }                                                
+  return $tab;
 }
 
 ?>

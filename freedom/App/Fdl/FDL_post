@@ -9,7 +9,7 @@ if [ "$1" = "I" ] ; then
 
   echo "Create freedom database"
   su - postgres -c "createdb --encoding LATIN1 freedom" 2>&1 >>/dev/null
-  log "Add plpgsql language"
+  
   if [ -f /usr/lib/pgsql/plpgsql.so ]; then
       su - postgres -c "createlang --dbname=freedom --pglib=/usr/lib/pgsql plpgsql" 2>&1 >>/dev/null
   else
@@ -21,6 +21,7 @@ if [ "$1" = "I" ] ; then
   /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=Doc
   /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocPerm
   /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=VGroup
+  /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom  --class=Group
   #copy postgres group table
   $pubdir/wsh.php --api=freedom_groups
 
@@ -32,7 +33,8 @@ if [ "$1" = "I" ] ; then
   fi
   $pubdir/wsh.php --api=vault_init
 
-  
+  $pubdir/wsh.php --app=FDL --action=FREEDOM_INIT  
+  psql freedom anakeen -f $pubdir/API/freedom_clean.sql
 fi
 #------------------------------
 #post update
