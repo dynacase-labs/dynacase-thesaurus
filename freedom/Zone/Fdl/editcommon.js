@@ -1250,14 +1250,15 @@ function mvbuttonsState() {
   
 }
 
-function preview(faction) {
+function preview(faction,ntarget) {
   var fedit = document.fedit;
   //resetInputs();
   
   with (document.modifydoc) {
     var editAction=action;
     var editTarget=target;
-    wf=subwindowm(300,600,'preview','about:blank');
+    if (! ntarget) ntarget='preview';
+    wf=subwindowm(300,600,ntarget,'about:blank');
     enableall();  
     var na=document.getElementById('newart');
     if (na) {
