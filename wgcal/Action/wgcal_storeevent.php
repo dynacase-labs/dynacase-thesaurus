@@ -22,7 +22,6 @@ function wgcal_storeevent(&$action) {
   $id  = GetHttpVars("eventid", -1);
   if ($id==-1) {
     $event = createDoc($db, "CALEVENT");
-    $event->Add();
   } else {
     $event = new Doc($db, $id);
   }
@@ -173,10 +172,18 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_ATTGROUP", $attendeesgroup); 
     
 
-  $event->Modify();
-  $event->PostModify();
-  if ($err!="") AddWarningMsg("$err");
-  
+  if (!$event->IsAffected()) $err = $event->Add();
+  if ($err!="") {
+     AddWarningMsg("$err");
+  } else {
+     $err = $event->Modify();
+     if ($err!="") {
+        AddWarningMsg("$err");
+     } else {
+        $err = $event->PostModify();
+        if ($err!="") AddWarningMsg("$err");
+     }
+  }
   $event->AddComment(_("change content "));
   $changed = true;
   //if ($changed) sendRv($action, $event);

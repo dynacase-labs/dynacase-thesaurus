@@ -399,6 +399,8 @@ function EventSelectAll(f) {
 
 function viewattdispo(url) {
 
+  var withme = document.getElementById('withMe');
+  var me = document.getElementById('ownerid').value;
   var rvs = document.getElementById('Fstart').value;
   var js;
   var je;
@@ -406,7 +408,12 @@ function viewattdispo(url) {
   rll = "";
   for (att=0; att<attendeesList.length; att++) {
     if (attendeesList[att]==-1) continue;
-    rll += attendeesList[att][0] + '|';
+    if (rll!='') rll += '|';
+    rll += attendeesList[att][0];
+  }
+  if (withme.checked) {
+    if (rll!='') rll += '|';
+    rll += me;
   }
   
   var td = new Date(rvs*1000);

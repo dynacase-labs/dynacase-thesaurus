@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.20 2005/03/15 14:48:14 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.21 2005/03/16 16:44:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -133,6 +133,9 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   $tout=array(); 
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
+  $rvf = getIdFromName($db, "CALEVENT");
+  $fref = $action->getParam("WGCAL_G_VFAM", $rvf);
+  setHttpVar("idfamref", $fref);
   $dre=new Doc($dbaccess,$reid);
   $edre = array();
   $edre=$dre->getEvents($d1,$d2);
