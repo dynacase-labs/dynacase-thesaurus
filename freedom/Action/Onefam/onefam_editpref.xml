@@ -1,0 +1,63 @@
+
+<!-- HEAD HTML -->
+
+<html>
+  <head>
+
+   <title>[TITLE] [doctitle]</title>
+
+   <style>
+[ZONE CORE:GENCSS]
+[ZONE FDL:GENCSS]
+   </style>
+
+
+[CSS:REF]
+
+
+   <style type="text/css">
+[CSS:CODE]
+   </style>
+
+[JS:REF]
+
+   <script language="JavaScript">
+  <!--
+    [JS:CODE]
+  //-->
+   </script>   
+
+
+
+ </head>
+
+<body onload="autoHresize()">
+
+                         
+<!-- Title Table -->
+<form  class="fborder" name="modpref" method="POST"  action="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_MODPREF" >
+
+
+                         
+
+
+<p>[TEXT:Choose visibles families]</p>
+   
+        
+         [BLOCK SELECTPREF] 
+	 <input type="checkbox" [selected] name="idsfam[]" value="[cid]">[ctitle]</input><br>
+         [ENDBLOCK SELECTPREF]
+
+  
+ <input type="submit" value="[TEXT:modify]"> 
+
+
+
+
+
+
+</form>
+<!--  FOOT HTML -->
+
+</body>
+</html>
