@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.78 2004/09/21 14:34:12 eric Exp $
+ * @version $Id: editutil.php,v 1.79 2004/09/28 13:22:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -116,9 +116,28 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	$vf = newFreeVaultFile($dbaccess);
 	if ($vf -> Show ($reg[2], $info) == "") {
 	  $vid=$reg[2];
+	  $DAV=false;
+	  if ($DAV) {
+	    if (ereg("Linux",$_SERVER["HTTP_USER_AGENT"],$regi)) {
+	      $fname = "<A target=\"$attrid\" href=\"".
+		"vnd.sun.star.webdav://".$_SERVER["HTTP_HOST"].
+		"/davfreedom/doc".$doc->id."/".$info->name."\">";
+	    } else {
+	    $davurl="http://".$_SERVER["HTTP_HOST"].
+		"/davfreedom/doc".$doc->id."/";
+	      $fname .= '<A style="behavior: url(#default#AnchorClick)" '."target=\"F$attrid\" href=\"".$davurl.$info->name."\" folder=\"".$davurl."\">";
+	      $fname .= "wfolder";
+	      $fname .= "</A> ";
+	      
+
+	     
+	      $fname .= "<A target=\"$attrid\" href=\"".$davurl.$info->name."\">";
+	    }
+	  } else {
 	  $fname = "<A target=\"$attrid\" href=\"".
 	    $action->GetParam("CORE_BASEURL").
 	    "app=FDL&action=EXPORTFILE&vid=$vid&docid=$docid&attrid=$attrid&index=$index\">";
+	  }
 	  $fname .= $info->name;
 	  $fname .= "</A>";
 	}
