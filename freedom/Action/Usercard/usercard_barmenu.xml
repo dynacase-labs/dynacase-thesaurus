@@ -74,9 +74,9 @@ function SendSearch(e) {
 
 <!-- ------------ MENU CATG  --------------------- -->
 <div  id="catgmenu" class="popup">
-<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_TAB&catg=[topid]&tab=1';closeAllMenu()">[TEXT:All catg]</a>
+<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_TAB&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All catg]</a>
 [BLOCK CATG]
-<a  id="catg[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_TAB&catg=[id]&tab=1';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[title]</span></a>
+<a  id="catg[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_TAB&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[title]</span></a>
 [ENDBLOCK CATG]
 </div>
 

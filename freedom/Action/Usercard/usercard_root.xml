@@ -10,7 +10,7 @@
 <frameset frameborder="1" framespacing="5" border="5" cols="40%,*" >
 
 
-  <frame name="list" src="[CORE_STANDURL]&app=USERCARD&action=USERCARD_TAB&tab=1&dirid=121&viewfld=no&refresh=no" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="list" src="[CORE_STANDURL]&app=USERCARD&action=USERCARD_TAB&tab=0&dirid=121&viewfld=no&refresh=no" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
   <frame name="info" src="[CORE_STANDURL]&app=USERCARD&action=USERCARD_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
 
 </frameset>
