@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.2 2002/07/11 13:28:59 eric Exp $
+// $Id: editutil.php,v 1.3 2002/07/16 16:32:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,7 +90,7 @@ function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value)
 		      
       //같같같같같같같같같같같같같같같같같같같같
     case "longtext": 
-      $input="<textarea class=\"autoresize\" rows=2 name=\"_".
+      $input="<textarea onclick=\"this.rows=10\" class=\"autoresize\" rows=2 name=\"_".
 	 $attrid."\" ";
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";

@@ -1,8 +1,8 @@
 
 
-<tr class="FREEDOMBack2">
-  <td  colspan="3" class="FREEDOMTextTitle">[flabel]</td>
-</tr>
+<tr >
+  <td  colspan="3" ><fieldset><legend>[flabel]</legend>
+<table width="100%">
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1">
   <td width="10%">&nbsp;</td>
@@ -10,6 +10,11 @@
   <td width="60%" >[avalue]</td>
 </tr>
 [ENDBLOCK FVALUES]
+</table>
+
+</fieldset>
+</td></tr>
+
 <tr style="display:none"><td>
 [BLOCK FHIDDENS]
 [avalue]

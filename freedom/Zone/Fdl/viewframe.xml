@@ -1,11 +1,14 @@
 
 
-<tr class="FREEDOMBack2">
-  <td  colspan="2" class="FREEDOMTextTitle">[flabel]</td>
-</tr>
+<tr >
+  <td  colspan="2" >
+ <fieldset style="cursor:crosshair;"><legend>[flabel]</legend>
+<table width="100%" >
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1">
-  <td valign="top" class="FREEDOMlabel">[alabel]</td>
-  <td  class="FREEDOMText">[avalue]</td>
+  <td valign="top" class="FREEDOMlabel" >[alabel]&nbsp;:&nbsp;</td>
+  <td valign="top" class="FREEDOMText">[avalue]</td>
 </tr>
 [ENDBLOCK FVALUES]
+</table>
+</td></tr>

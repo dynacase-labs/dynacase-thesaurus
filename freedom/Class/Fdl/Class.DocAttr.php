@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.6 2002/06/14 08:58:34 eric Exp $
+// $Id: Class.DocAttr.php,v 1.7 2002/07/16 16:32:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,14 +24,16 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.6 2002/06/14 08:58:34 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.7 2002/07/16 16:32:36 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
 
 Class Docattr extends DbObj
 {
-  var $fields = array ("id","docid","frameid","labeltext", "title", "abstract","type","ordered","visibility","link","phpfile", "phpfunc");
+  var $fields = array ("id","docid","frameid","labeltext", "title", "abstract","type","ordered",
+		       "visibility", // W, R, H, O, M, T
+		       "link","phpfile", "phpfunc");
 
   var $id_fields = array ("docid","id");
 

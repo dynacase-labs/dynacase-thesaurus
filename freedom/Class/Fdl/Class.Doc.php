@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.32 2002/07/15 07:04:53 eric Exp $
+// $Id: Class.Doc.php,v 1.33 2002/07/16 16:32:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.32 2002/07/15 07:04:53 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.33 2002/07/16 16:32:36 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -829,7 +829,7 @@ create sequence seq_id_doc start 1000";
     $lattr = $this->GetAttributes();
 
     while(list($k,$v) = each($lattr)) {
-      if (($v->visibility != "W") && 
+      if (($v->visibility != "W") && ($v->visibility != "T") &&
 	  (chop($v->phpfile) != "") && 
 	  (chop($v->phpfunc) != "") ) {
 	// it's a calculated attribute

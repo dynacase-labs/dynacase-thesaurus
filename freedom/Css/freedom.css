@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.10 2002/07/11 13:23:08 eric Exp $
+ * $Id: freedom.css,v 1.11 2002/07/16 16:32:36 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -46,12 +46,22 @@ TR.FREEDOMBack2{
 .FREEDOMLabel{
   font-size: 100%;
   color: [CORE_TEXTFGCOLOR];
-  align:right;
+  text-align:right;
 }
 TD.FREEDOMLabel:first-letter {
   text-transform:capitalize;
 }
 
+LEGEND {
+  color: [CORE_FGCOLOR];
+}
+
+LEGEND:first-letter {
+  text-transform:capitalize;
+}
+FIELDSET {
+   -moz-border-radius: 6;
+}
 
 .MenuInactive{
 	background-color: [CORE_BGCOLORALTERN];
