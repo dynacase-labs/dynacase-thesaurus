@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.2 2001/11/15 17:51:50 eric Exp $
+// $Id: freedom_import.php,v 1.3 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_import.php,v $
+// Revision 1.3  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.2  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -74,7 +77,7 @@ function freedom_import(&$action) {
 
   // ------------------------------
   // construction of selection category
-  $bdfreedom = newDoc($dbaccess);
+  $bdfreedom = new Doc($dbaccess);
   $categories = $bdfreedom->GetCategories();
 
 
@@ -113,7 +116,7 @@ function freedom_import(&$action) {
 	  if (count($tvalue) > 0)
 	    {
 	      // Add new freedom card
-	      $bdfreedom = newDoc($dbaccess);
+	      $bdfreedom = new Doc($dbaccess);
 	      $bdfreedom->owner = $action->user->id;
 	      $bdfreedom-> Add();
 	      $docid = $bdfreedom-> id;
@@ -131,7 +134,7 @@ function freedom_import(&$action) {
 		  $bdvalue ->Modify();
 		}
 	      // update title
-	      $ofreedom = newDoc($dbaccess, $docid);
+	      $ofreedom = new Doc($dbaccess, $docid);
 	      $ofreedom->visibility= GetHttpVars("visibility"); 
 	      $ofreedom->category = GetHttpVars("category"); 
 
@@ -149,7 +152,7 @@ function freedom_import(&$action) {
 		  $idsamefreedom=$ofreedom-> GetFreedomFromTitle($ofreedom->title);
 		  if ($idsamefreedom > 0)
 		    {
-		      $osamefreedom = newDoc($dbaccess, $idsamefreedom);
+		      $osamefreedom = new Doc($dbaccess, $idsamefreedom);
 		      if ( ($action->HasPermission("ADMIN")) ||
 			   ($osamefreedom->owner == $action->user->id) ||
 			   ($osamefreedom->visibility == "W"))

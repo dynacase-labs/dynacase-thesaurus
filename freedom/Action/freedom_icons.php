@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.7 2001/11/21 08:38:58 eric Exp $
+// $Id: freedom_icons.php,v 1.8 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.8  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.7  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -72,7 +75,7 @@ function freedom_icons(&$action, $with_abstract=true) {
   // Get all the params      
   $dirid=GetHttpVars("dirid"); // directory to see
   
-  $dir = newDoc($dbaccess,$dirid);
+  $dir = new Doc($dbaccess,$dirid);
   $dirid=$dir->initid;  // use initial id for directories
 
   $action->lay->Set("dirid",$dirid);
@@ -208,7 +211,7 @@ function freedom_icons(&$action, $with_abstract=true) {
       $clf = ($doc->CanLockFile() == "");
       $cuf = ($doc->CanUnLockFile() == "");
       $cud = ($doc->CanUpdateDoc() == "");
-      if ($clf || $cuf) {
+      if ($cud) {
 	$tmenuaccess[$kdiv][$editdoc]=1;
       } else {
 	$tmenuaccess[$kdiv][$editdoc]=0;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.4 2001/11/21 08:38:58 eric Exp $
+// $Id: defattr.php,v 1.5 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: defattr.php,v $
+// Revision 1.5  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.4  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -53,7 +56,7 @@ function defattr(&$action)
   $action->lay->Set("docid",$docid);
 
 
-  $doc= newDoc($dbaccess,$docid);
+  $doc= new Doc($dbaccess,$docid);
   // build values type array
   $odocattr= new DocAttr($dbaccess);
 
@@ -83,10 +86,10 @@ function defattr(&$action)
   $newelem=array();
   if ($docid > 0) {
 
-    if ($doc->locked==0) { // lock if not yet
-	$err = $doc->Lock();
-	if ($err != "")   $action->ExitError($err);	
-    }
+    // control if user can update 
+      $err = $doc->CanUpdateDoc();
+      if ($err != "")   $action->ExitError($err);
+
     $doc->GetFathersDoc();
     $action->lay->Set("TITLE",$doc->title);
 

@@ -3,9 +3,8 @@
 
 
 .popup {
-  background-color: #40a0c0;
-  
-  border-color: blue;
+  background-color: [CORE_FGCOLOR];  
+  border-color: [CORE_FGCOLOR];
   border-style: outset;
   border-width: 2px; 
   margin: 0px;
@@ -17,7 +16,7 @@
 }
 
 a.menuItem {
-  color: #ffffff;
+  color: [CORE_BGCOLORALTERN];
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
@@ -28,17 +27,23 @@ a.menuItem {
 }
 
 a.menuItem:hover {
-  background-color: #004060;
-  color: #ffff00;
+  background-color: [CORE_BGCOLORALTERN];
+  color: black;
 }
 
-a.menuItemDisabled{
-  color: gray;
+a.menuItemDisabled{ 
+  color: [CORE_BGCOLORALTERN];
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
   font-size: 8pt;
-  font-weight: bold;
+  font-weight: medium;
+  font-style: italic;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
+}
+a.menuItemInvisible{ 
+  display: none;
+  cursor: default;
+
 }

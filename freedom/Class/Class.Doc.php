@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.7 2001/11/21 08:38:58 eric Exp $
+// $Id: Class.Doc.php,v 1.8 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.8  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.7  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -47,7 +50,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.7 2001/11/21 08:38:58 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.8 2001/11/21 13:12:55 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -61,7 +64,7 @@ include_once("FREEDOM/Class.FileDisk.php");
 
 Class Doc extends DbObjCtrl
 {
-  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment");
+  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment","cprofid");
 
   var $id_fields = array ("id");
 
@@ -86,7 +89,8 @@ create table doc ( id      int not null,
                    profid int,
                    useforprof bool,
                    revdate int,  
-                   comment varchar(1024)
+                   comment varchar(1024),
+                   cprofid int
                    );
 create sequence seq_id_doc start 10";
 
@@ -194,7 +198,7 @@ create sequence seq_id_doc start 10";
       } else if ($this->profid > 0) {
 
 	if (! isset($lprof[$this->profid])) {
-	$pdoc = newDoc($this->dbaccess, $this->profid);
+	$pdoc = new Doc($this->dbaccess, $this->profid);
 	$lprof[$this->profid] = $pdoc ->operm;
 	//	print "SET $this->id : controlled by $this->profid <BR>";
 	} 
@@ -453,7 +457,7 @@ create sequence seq_id_doc start 10";
     if (! isset($this->fathers)) {
       $this->fathers=array();
       if ($this->fromid > 0) {
-	$fdoc= newDoc($this->dbaccess,$this->fromid);
+	$fdoc= new Doc($this->dbaccess,$this->fromid);
 	$this->fathers=array_merge($this->fromid, $fdoc->GetFathersDoc());
       }
     }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.6 2001/11/21 08:38:58 eric Exp $
+// $Id: freedom_card.php,v 1.7 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.7  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.6  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -106,7 +109,7 @@ function freedom_card(&$action) {
   $tfile=array(); // array of file attributes 
   $kf=0; // number of files
 
-  $doc = newDoc($dbaccess, $docid);
+  $doc = new Doc($dbaccess, $docid);
   //------------------------------
   // display document attributes
   $action->lay->Set("reference", $doc->initid);
@@ -135,13 +138,13 @@ function freedom_card(&$action) {
     }
   }
   if ($doc->fromid > 0) {
-    $cdoc = newDoc($dbaccess, $doc->fromid);
+    $cdoc = new Doc($dbaccess, $doc->fromid);
     $action->lay->Set("classtitle", $cdoc->title);
   } else {
     $action->lay->Set("classtitle", _("no family"));
   }
   if ($doc->profid > 0) {
-    $pdoc = newDoc($dbaccess, $doc->profid);
+    $pdoc = new Doc($dbaccess, $doc->profid);
     $action->lay->Set("profile", $pdoc->title);
   } else {
     if ($doc->profid == 0)
@@ -212,7 +215,7 @@ function freedom_card(&$action) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  $menuitems= array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','cancel');
+  $menuitems= array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','cancel');
   while (list($ki, $imenu) = each($menuitems)) {
     $lpopup->Set("menuitem$ki",$imenu);
     ${$imenu} = "vmenuitem$ki";
@@ -381,34 +384,53 @@ function freedom_card(&$action) {
 
 
 
+      $clf = ($doc->CanLockFile() == "");
+      $cuf = ($doc->CanUnLockFile() == "");
+      $cud = ($doc->CanUpdateDoc() == "");
 
       $tmenuaccess[$kdiv][$cancel]=1;
-      if (($doc->CanLockFile() == "") || 
-	  ($doc->CanUnLockFile() == "")) $tmenuaccess[$kdiv][$chicon]=1; 
+      if ($cud) $tmenuaccess[$kdiv][$chicon]=1; 
       else $tmenuaccess[$kdiv][$chicon]=0;
 
       if (($doc->locked != $action->user->id) && 
-	  ($doc->CanLockFile() == "")) $tmenuaccess[$kdiv][$lockdoc]=1;
+	  $clf) $tmenuaccess[$kdiv][$lockdoc]=1;
       else $tmenuaccess[$kdiv][$lockdoc]=0;
-      if (($doc->locked != 0) && ($doc->CanUnLockFile() == "")) $tmenuaccess[$kdiv][$unlockdoc]=1; 
+
+      if (($doc->locked != 0) && $cuf) $tmenuaccess[$kdiv][$unlockdoc]=1; 
       else $tmenuaccess[$kdiv][$unlockdoc]=0;
-      if (($doc->doctype=="F") && 
-	  ($doc->lmodify == 'Y') && 
-	  ($doc->CanUpdateDoc() == "")) $tmenuaccess[$kdiv][$revise]=1; 
+
+      if ($doc->doctype != "F") $tmenuaccess[$kdiv][$revise]=2;
+      else if (($doc->lmodify == 'Y') && 
+	       ($cud)) $tmenuaccess[$kdiv][$revise]=1; 
       else $tmenuaccess[$kdiv][$revise]=0;
-      if (($doc->CanLockFile() == "") || 
-	  ($doc->CanUnLockFile() == "")) {
+
+      if ($cud) {
 	$tmenuaccess[$kdiv][$editdoc]=1; 
 	$tmenuaccess[$kdiv][$editattr]=1; 
+	$tmenuaccess[$kdiv][$editprof]=1;
+      } else if ($doc->locked < 0){ // fixed document
+	$tmenuaccess[$kdiv][$editdoc]= 2;
+	$tmenuaccess[$kdiv][$editattr]=2; 
+	$tmenuaccess[$kdiv][$editprof]=2;
+	$tmenuaccess[$kdiv][$revise]=2;
+	$tmenuaccess[$kdiv][$lockdoc]=2;
+	$tmenuaccess[$kdiv][$unlockdoc]=2;
+	$tmenuaccess[$kdiv][$chicon]=2;
       } else {
 	$tmenuaccess[$kdiv][$editdoc]=0;
 	$tmenuaccess[$kdiv][$editattr]=0; 
+	$tmenuaccess[$kdiv][$editprof]=0;
       }
       if ($doc->doctype=="F") $tmenuaccess[$kdiv][$histo]=1; 
-      else $tmenuaccess[$kdiv][$histo]=0; 
-    $tmenuaccess[$kdiv][$editprof]=1;
+      else $tmenuaccess[$kdiv][$histo]=2; 
+
+
+
+      if ($doc->doctype!="C") $tmenuaccess[$kdiv][$editcprof]=2; 
+      else if ($cud) $tmenuaccess[$kdiv][$editcprof]=1;
+      else $tmenuaccess[$kdiv][$editcprof]=0;
       // unused menu items
-      $tmenuaccess[$kdiv]["vmenuitem9"]=0;
+      //$tmenuaccess[$kdiv]["vmenuitem9"]=0;
 
   $action->lay->SetBlockData("TABLEBODY",$frames);
   

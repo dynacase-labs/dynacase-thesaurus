@@ -64,6 +64,9 @@
 <a href="#" id="editprof"
     onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=EDITPROF&id='+docid,'doc_properties');closeMenu('popupcard')" >[TEXT: change profile]</a>
 
+<a href="#" id="editcprof"
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=EDITPROF&create=1&id='+docid,'doc_properties');closeMenu('popupcard')" >[TEXT: change creation profile]</a>
+
 
 <a href="#" id="cancel"  
     onClick="closeMenu('popupcard')"  >cancel</a>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.2 2001/11/15 17:51:50 eric Exp $
+// $Id: modprof.php,v 1.3 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: modprof.php,v $
+// Revision 1.3  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.2  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -48,6 +51,7 @@ function modprof(&$action) {
 
   // Get all the params      
   $docid=GetHttpVars("docid");
+  $createp = GetHttpVars("create",0); // 1 if use for create profile (only for familly)
 
   
 
@@ -58,7 +62,7 @@ function modprof(&$action) {
       
       
       // initialise object
-      $ofreedom = newDoc($dbaccess,$docid);
+      $ofreedom = new Doc($dbaccess,$docid);
       
   switch ($ofreedom->fromid) {
   case 2: // directory
@@ -72,8 +76,13 @@ function modprof(&$action) {
       if ($err != "")
 	  $action-> ExitError($err);
 
-      // change class document
-      $ofreedom->profid = GetHttpVars("profid"); // new profile access
+      if ($createp) {
+	// change creation profile
+	$ofreedom->cprofid = GetHttpVars("profid"); // new creation profile access
+      } else {
+	// change profile
+	$ofreedom->profid = GetHttpVars("profid"); // new profile access
+      }
       $ofreedom-> Modify();
       
     

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.2 2001/11/15 17:51:50 eric Exp $
+// $Id: editprof.php,v 1.3 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: editprof.php,v $
+// Revision 1.3  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.2  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -41,6 +44,7 @@ function editprof(&$action)
 {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
+  $createp = GetHttpVars("create",0); // 1 if use for create profile (only for familly)
 
   // Set Css
   $cssfile=$action->GetLayoutFile("freedom.css");
@@ -48,13 +52,17 @@ function editprof(&$action)
   $action->parent->AddCssCode($csslay->gen());
 
   $action->lay->Set("docid",$docid);
+  $action->lay->Set("create",$createp);
+
+  if ($createp) $action->lay->Set("TITLE",_("change creation profile"));
+  else  $action->lay->Set("TITLE",_("change profile"));
 
 
-  $doc= newDoc($dbaccess,$docid);
+  $doc= new Doc($dbaccess,$docid);
   // build values type array
   $odocattr= new DocAttr($dbaccess);
 
-  $action->lay->Set("TITLE",_("new profile document"));
+  $action->lay->Set("doctitle",_("new profile document"));
 
 
 
@@ -80,27 +88,27 @@ function editprof(&$action)
   $newelem=array();
   if ($docid > 0) {
 
-    if ($doc->locked==0) { // lock if not yet
-	$err = $doc->Lock();
-	if ($err != "")   $action->ExitError($err);	
-    }
+
     $doc->GetFathersDoc();
-    $action->lay->Set("TITLE",$doc->title);
+    $action->lay->Set("doctitle",$doc->title);
 
     if ($doc->profid == -1) 
       $action->lay->Set("selected_spec","selected");
     else {
       $action->lay->Set("selected_spec","");
-    // selected the current class document
-    while (list($k,$pdoc)= each ($selectclass)) {
-      //      print $doc->doctype." == ".$selectclass[$k]["idcdoc"]."<BR>";
-      if ($doc->profid == $selectclass[$k]["idpdoc"]) {
-	$selectclass[$k]["selected"]="selected";
+      // selected the current class document
+
+      if ($createp) $sprofid = $doc->cprofid;
+      else $sprofid = $doc->profid;
+      while (list($k,$pdoc)= each ($selectclass)) {
+	//      print $doc->doctype." == ".$selectclass[$k]["idcdoc"]."<BR>";
+	if ($sprofid == $selectclass[$k]["idpdoc"]) {
+	  $selectclass[$k]["selected"]="selected";
+	}
       }
     }
-    }
   
-  $action->lay->SetBlockData("SELECTPROF", $selectclass);
+    $action->lay->SetBlockData("SELECTPROF", $selectclass);
 	  
       
     

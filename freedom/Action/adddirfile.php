@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.2 2001/11/15 17:51:50 eric Exp $
+// $Id: adddirfile.php,v 1.3 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/adddirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: adddirfile.php,v $
+// Revision 1.3  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.2  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -57,7 +60,7 @@ function adddirfile(&$action) {
     $query="select id from doc where id=".$docid;
   break;
   case "latest":
-    $doc= newDoc($dbaccess, $docid);
+    $doc= new Doc($dbaccess, $docid);
     $query="select id from doc where initid=".$doc->initid." order by revision DESC LIMIT 1";
   break;
   default:
@@ -67,7 +70,7 @@ function adddirfile(&$action) {
 
   $qf = new QueryDir($dbaccess);
 
-  $dir= newDoc($dbaccess, $dirid);
+  $dir= new Doc($dbaccess, $dirid);
   $qf->dirid=$dir->initid; // the reference directory is the initial id
   $qf->query=$query;
   $qf->qtype='S'; // single user query

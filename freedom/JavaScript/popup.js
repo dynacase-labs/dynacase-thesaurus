@@ -64,7 +64,10 @@ function openMenu(event, menuid) {
       if (tdiv[selid][i] == 1) {
 	mitem.className='menuItem';
 	
-      } else {
+      } else      if (tdiv[selid][i] == 2) {
+	mitem.className='menuItemInvisible';
+	
+      }else {
 	mitem.className = 'menuItemDisabled';
       } 
     }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: histo.php,v 1.1 2001/11/21 08:40:34 eric Exp $
+// $Id: histo.php,v 1.2 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/histo.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: histo.php,v $
+// Revision 1.2  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.1  2001/11/21 08:40:34  eric
 // ajout historique
 //
@@ -47,7 +50,7 @@ function histo(&$action)
   $docid = GetHttpVars("id",0);
   $comment = GetHttpVars("comment",_("no comment"));
 
-  $doc= newDoc($dbaccess,$docid);
+  $doc= new Doc($dbaccess,$docid);
   $action->lay->Set("title",$doc->title);
 
   $ldoc = $doc->GetRevisions();

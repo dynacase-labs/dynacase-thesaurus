@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.5 2001/11/21 08:38:58 eric Exp $
+// $Id: freedom_mod.php,v 1.6 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_mod.php,v $
+// Revision 1.6  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.5  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -56,9 +59,9 @@ function freedom_mod(&$action) {
   global $HTTP_POST_FILES;
 
   // Get all the params      
-  $docid=GetHttpVars("id"); 
-  $dirid=GetHttpVars("dirid");
-  $classid=GetHttpVars("classid");
+  $docid=GetHttpVars("id",0); 
+  $dirid=GetHttpVars("dirid",0);
+  $classid=GetHttpVars("classid",0);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -78,14 +81,22 @@ function freedom_mod(&$action) {
 
   if ( $docid == "" )
     {
-      // add new freedom
+      // add new document
       $ofreedom->revision = "0";
       $ofreedom->owner = $action->user->id;
       $ofreedom->locked = $action->user->id; // lock for next modification
       $ofreedom->fileref = "0";
-      $ofreedom->doctype = 'F';// it is a new  document (not a class)
-      $ofreedom->profid = "0"; // NO PROFILE ACCESS
+      $ofreedom->doctype = 'F';// it is a new  document (not a familly)
+      $ofreedom->cprofid = "0"; // NO CREATION PROFILE ACCESS
       $ofreedom->useforprof = false;
+      $ofreedom->fromid = $classid;
+
+      if ($ofreedom->fromid > 0) {
+	$cdoc = new Doc($dbaccess, $ofreedom->fromid);
+	$ofreedom->profid = $cdoc->cprofid; // inherit from its familly	
+      } else
+	$ofreedom->profid = "0"; // NO PROFILE ACCESS
+
       $ofreedom-> Add();
       $docid = $ofreedom-> id;
       $ofreedom->initid = $docid;// it is initial doc
@@ -231,7 +242,7 @@ function insert_file($dbaccess,$docid, $attrid)
 
   if (is_uploaded_file($userfile['tmp_name'])) {
     // move to add extension
-    $doc= newDoc($dbaccess,$docid);
+    $doc= new Doc($dbaccess,$docid);
     $attr= $doc->GetAttribute( $attrid);
     //$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
     

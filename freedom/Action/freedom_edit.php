@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.6 2001/11/21 08:38:58 eric Exp $
+// $Id: freedom_edit.php,v 1.7 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.7  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.6  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -76,7 +79,7 @@ function freedom_edit(&$action) {
   $classid = GetHttpVars("classid",0); // use when new doc or change class
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
 
-  $doc= newDoc($dbaccess,$docid);
+  $doc= new Doc($dbaccess,$docid);
 
   // when modification 
   if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
@@ -117,7 +120,7 @@ function freedom_edit(&$action) {
       }
       $action->lay->Set("editaction", $action->text("create"));
       if ($classid > 0) {
-	$doc=newDoc($dbaccess,$classid); // the doc inherit from chosen class
+	$doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
       }
       // selected the current class document
       while (list($k,$cdoc)= each ($selectclass)) {	
@@ -131,16 +134,12 @@ function freedom_edit(&$action) {
 
 
 
-      if ($doc->locked==0) { // lock if not yet
-	$err = $doc->Lock();
-	if ($err != "")   $action->ExitError($err);	
-      }
+
       $err = $doc->CanUpdateDoc();
       if ($err != "")   $action->ExitError($err);
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
   
-      $err = $doc->lock();
-      if ($err != "")   $action->ExitError($err);
+
       $action->lay->Set("TITLE", $doc->title);
       $action->lay->Set("editaction", $action->text("modify"));
       

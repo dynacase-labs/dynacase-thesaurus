@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.3 2001/11/15 17:51:50 eric Exp $
+// $Id: folders.php,v 1.4 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: folders.php,v $
+// Revision 1.4  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.3  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -71,7 +74,7 @@ function folders(&$action) {
   if ($dirid == 0) $dirid=$oqdv->getFirstRep();
 
   
-  $doc = newDoc($dbaccess, $dirid);
+  $doc = new Doc($dbaccess, $dirid);
   $action->lay->Set("dirid", $dirid);
   $action->lay->Set("reptitle", $doc->title);
 

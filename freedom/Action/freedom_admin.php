@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_admin.php,v 1.2 2001/11/15 17:51:50 eric Exp $
+// $Id: freedom_admin.php,v 1.3 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_admin.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_admin.php,v $
+// Revision 1.3  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.2  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -72,7 +75,7 @@ function freedom_updatetitle(&$action)
   $cssfile=$action->GetLayoutFile("freedom.css");
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
-  $bdfreedom = newDoc($dbaccess);
+  $bdfreedom = new Doc($dbaccess);
   $bdfreedom->UpdateTitles();
 
   $action->lay->Set("CR",$action->text("updatetitle")."OK");

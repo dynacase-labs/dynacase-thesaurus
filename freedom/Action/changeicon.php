@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: changeicon.php,v 1.1 2001/11/21 08:40:34 eric Exp $
+// $Id: changeicon.php,v 1.2 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/changeicon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: changeicon.php,v $
+// Revision 1.2  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.1  2001/11/21 08:40:34  eric
 // ajout historique
 //
@@ -51,7 +54,7 @@ function changeicon(&$action)
 
   $action->lay->Set("docid",$docid);
 
-  $doc= newDoc($dbaccess,$docid);
+  $doc= new Doc($dbaccess,$docid);
 
   //print_r($HTTP_POST_FILES);
   $fileinfo = $HTTP_POST_FILES["ifile"];

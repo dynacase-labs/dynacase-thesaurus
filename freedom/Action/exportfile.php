@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfile.php,v 1.3 2001/11/16 18:04:39 eric Exp $
+// $Id: exportfile.php,v 1.4 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/exportfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: exportfile.php,v $
+// Revision 1.4  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.3  2001/11/16 18:04:39  eric
 // modif de fin de semaine
 //
@@ -47,7 +50,7 @@ function exportfile(&$action)
   $vaultid = GetHttpVars("vaultid",0);
 
 
-    $doc= newDoc($dbaccess,$docid);
+    $doc= new Doc($dbaccess,$docid);
   // ADD CONTROL ACCESS HERE
 
   if ($vaultid == 0) {

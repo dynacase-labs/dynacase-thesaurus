@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.5 2001/11/21 08:38:58 eric Exp $
+// $Id: revision.php,v 1.6 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: revision.php,v $
+// Revision 1.6  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.5  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -48,7 +51,7 @@ function revision(&$action)
   $docid = GetHttpVars("id",0);
   $comment = GetHttpVars("comment",_("no comment"));
 
-  $doc= newDoc($dbaccess,$docid);
+  $doc= new Doc($dbaccess,$docid);
 
   $err = $doc->CanUpdateDoc();
   if ($err != "") $action->ExitError($err);

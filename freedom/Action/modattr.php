@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.3 2001/11/15 17:51:50 eric Exp $
+// $Id: modattr.php,v 1.4 2001/11/21 13:12:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: modattr.php,v $
+// Revision 1.4  2001/11/21 13:12:55  eric
+// ajout caractéristique creation profil
+//
 // Revision 1.3  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -65,7 +68,7 @@ function modattr(&$action) {
   $bdfreedomattr = new DocAttr($dbaccess);
   if ( $docid == 0 )
     {
-      $ofreedom = newDoc($dbaccess);
+      $ofreedom = new Doc($dbaccess);
       // add new freedom
       $ofreedom->title = _("new document");
       $ofreedom->owner = $action->user->id;
@@ -84,7 +87,7 @@ function modattr(&$action) {
     {
 
       // initialise object
-      $ofreedom = newDoc($dbaccess,$docid);
+      $ofreedom = new Doc($dbaccess,$docid);
       
       // test object permission before modify values (no access control on values yet)
       $err=$ofreedom-> CanUpdateDoc();
