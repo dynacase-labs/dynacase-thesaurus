@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.15 2004/08/05 09:46:02 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.16 2004/08/09 08:07:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -137,6 +137,8 @@ function PostModify() {
   $fname=$this->GetValue("US_FNAME");
   $pwd1=$this->GetValue("US_PASSWD1");
   $pwd2=$this->GetValue("US_PASSWD2");
+  $pwd=$this->GetValue("US_PASSWD");
+  if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {$pwd1=$pwd;$pwd2=$pwd;};
   $expires=$this->GetValue("US_EXPIRES");
   $daydelay=$this->GetValue("US_DAYDELAY");
   $passdelay=intval($daydelay)*3600*24;

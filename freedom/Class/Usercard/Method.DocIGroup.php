@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.13 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.14 2004/08/09 08:07:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -16,6 +16,7 @@ var $eviews=array("USERCARD:CHOOSEGROUP");
 
 function specRefresh() {
   //  $err=$this->ComputeGroup();
+  $err="";
   $this->AddParamRefresh("US_WHATID","GRP_MAIL,US_LOGIN");
   if ($this->getValue("US_IDDOMAIN",1) > 1) $this->AddParamRefresh("US_WHATID","US_DOMAIN");
   $this->AddParamRefresh("US_IDDOMAIN","US_DOMAIN");
@@ -29,7 +30,7 @@ function specRefresh() {
   } else {
     return _("group has not identificator");
   }
-  $err = "NB:".count($this->getTValue("GRP_IDRUSER"));
+
   return $err;
 }
 
@@ -59,6 +60,7 @@ function PostModify() {
 
   $fid=$this->id;        
   $user=$this->getWUser();
+  if (!$user) $user=new User(""); // create new user
   $err=$this->setGroups();
   $err.=$user->SetGroups($fid,$gname,
 		       $login,
@@ -88,13 +90,17 @@ function postInsertDoc($docid,$multiple) {
   if ($multiple == false) {
     $gid = $this->getValue("US_WHATID");
     if ($gid > 0) {
-      $du = getTDoc($this->dbaccess,$docid);
-      $uid = getv($du,"us_whatid");
+      $du = new doc($this->dbaccess,$docid);
+      $uid = $du->getValue("us_whatid");
       if ($uid > 0) {
 	$g = new Group("",$uid);
 	$g->iduser=$uid;
 	$g->idgroup=$gid;
 	$err=$g->Add();
+	if ($err=="") {
+	  $du->RefreshDocUser();
+	  $this->RefreshGroup();
+	}
 	
       }
       
@@ -115,16 +121,17 @@ function postMInsertDoc($tdocid) {
 
     $g = new Group("",$uid);
     foreach ($tdocid as $k=>$docid) {
-      $du = getTDoc($this->dbaccess,$docid);
-	
-      $uid = getv($du,"us_whatid");
+      $du = new doc($this->dbaccess,$docid);
+      $uid = $du->getValue("us_whatid");
       if ($uid > 0) {
 	$g->iduser=$uid;
 	$g->idgroup=$gid;
 	$err=$g->Add(true);
+	if ($err=="") $du->RefreshDocUser();
       }	      
     }     
     $g->PostInsert();
+    $this->RefreshGroup();
   }
   return $err;
 }
@@ -137,12 +144,16 @@ function postUnlinkDoc($docid) {
   $err="";
   $gid = $this->getValue("US_WHATID");
   if ($gid > 0) {
-      $du = getTDoc($this->dbaccess,$docid);
-      $uid = getv($du,"us_whatid");
+      $du = new doc($this->dbaccess,$docid);
+      $uid = $du->getValue("us_whatid");
       if ($uid > 0) {
 	$g = new Group("",$gid);
 	$g->iduser=$gid;
 	$err=$g->SuppressUser($uid);
+	if ($err=="") {
+	  $du->RefreshDocUser();
+	  $this->RefreshGroup();
+	}
 	
       }
       

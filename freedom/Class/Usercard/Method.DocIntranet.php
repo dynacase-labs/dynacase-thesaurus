@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.4 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.5 2004/08/09 08:07:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -64,38 +64,42 @@ function ChooseGroup($target="_self",$ulink=true,$abstract=false) {
 
 
 
-    $iduser = $this->getValue("US_WHATID");
-    if ($iduser > 0) {
-      $user = $this->getWUser();
-      if (! $user->isAffected()) return sprintf(_("user #%d does not exist"), $iduser);
-    } else return _("user has not identificator");
+  $iduser = $this->getValue("US_WHATID");
+  if ($iduser > 0) {
+    $user = $this->getWUser();
+    if (! $user->isAffected()) return sprintf(_("user #%d does not exist"), $iduser);
+  } else return _("user has not identificator");
 
-    $this->lay->set("wid",$iduser);
-    $ugroup=$user->GetGroupsId();
+  $this->lay->set("wid",$iduser);
+  $ugroup=$user->GetGroupsId();
     
-     $q2= new queryDb("","User");
-     $groups=$q2->Query(0,0,"TABLE","select users.*, groups.idgroup, domain.name as domain from users, groups, domain where users.id = groups.iduser and users.iddomain=domain.iddomain and users.isgroup='Y'");
+  $q2= new queryDb("","User");
+  $groups=$q2->Query(0,0,"TABLE","select users.*, groups.idgroup, domain.name as domain from users, groups, domain where users.id = groups.iduser and users.iddomain=domain.iddomain and users.isgroup='Y'");
 
 
-     $q2= new queryDb("","User");
-     $mgroups=$q2->Query(0,0,"TABLE","select users.*, domain.name as domain from users,domain where users.iddomain=domain.iddomain and isgroup='Y' and id not in (select iduser from groups)");
+  $q2= new queryDb("","User");
+  $mgroups=$q2->Query(0,0,"TABLE","select users.*, domain.name as domain from users,domain where users.iddomain=domain.iddomain and isgroup='Y' and id not in (select iduser from groups)");
 
-
-     foreach ($groups as $k=>$v) {
-       $groupuniq[$v["id"]]=$v;
-       $groupuniq[$v["id"]]["checkbox"]="";
-       if (in_array($v["id"],$ugroup)) 	 $groupuniq[$v["id"]]["checkbox"]="checked";
-     }
-     foreach ($mgroups as $k=>$v) {
-       $cgroup=$this->_getChildsGroup($v["id"],$groups);
-       $tgroup[$k]=$v;
-       $tgroup[$k]["SUBUL"]=$cgroup;
-       $groupuniq[$v["id"]]=$v;
-       $groupuniq[$v["id"]]["checkbox"]="";
-       if (in_array($v["id"],$ugroup)) $groupuniq[$v["id"]]["checkbox"]="checked";
-     }
-     $this->lay->setBlockData("LI",$tgroup);
-     $this->lay->setBlockData("SELECTGROUP",$groupuniq);
+  if ($groups) {
+    foreach ($groups as $k=>$v) {
+      $groupuniq[$v["id"]]=$v;
+      $groupuniq[$v["id"]]["checkbox"]="";
+      if (in_array($v["id"],$ugroup)) 	 $groupuniq[$v["id"]]["checkbox"]="checked";
+    }
+  }
+  if (!$groups) $groups=array();
+  if ($mgroups) {
+    foreach ($mgroups as $k=>$v) {
+	$cgroup=$this->_getChildsGroup($v["id"],$groups);
+	$tgroup[$k]=$v;
+	$tgroup[$k]["SUBUL"]=$cgroup;
+      $groupuniq[$v["id"]]=$v;
+      $groupuniq[$v["id"]]["checkbox"]="";
+      if (in_array($v["id"],$ugroup)) $groupuniq[$v["id"]]["checkbox"]="checked";
+    }
+  }
+  $this->lay->setBlockData("LI",$tgroup);
+  $this->lay->setBlockData("SELECTGROUP",$groupuniq);
 
 }
 

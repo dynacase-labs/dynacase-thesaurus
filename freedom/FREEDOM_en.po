@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-28 12:17+0200\n"
+"POT-Creation-Date: 2004-08-06 17:12+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -445,76 +445,6 @@ msgstr ""
 msgid "%s cannot be sent"
 msgstr ""
 
-msgid "no file referenced"
-msgstr ""
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-msgid "workflow_init :: id is empty"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: id %s is not a workflow"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: workflow id %s not found"
-msgstr ""
-
-msgid "to be add"
-msgstr ""
-
-msgid "not added"
-msgstr ""
-
-#, fuzzy
-msgid "added"
-msgstr "Add new contact card"
-
-msgid "no zone specified"
-msgstr ""
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "reference must be a number not '%s'"
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, c-format
-msgid "%s has been unlocked"
-msgstr ""
-
-#, c-format
-msgid "geometry saved : %s"
-msgstr ""
-
 msgid "no import file specified"
 msgstr ""
 
@@ -601,6 +531,10 @@ msgstr "Category"
 msgid "update id [%d] "
 msgstr ""
 
+#, fuzzy
+msgid "added"
+msgstr "Add new contact card"
+
 #, c-format
 msgid "add %s id [%d]  "
 msgstr ""
@@ -642,6 +576,72 @@ msgstr "Update LDAP server"
 
 #, c-format
 msgid "and add in %s folder "
+msgstr ""
+
+msgid "no file referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+msgid "workflow_init :: id is empty"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: id %s is not a workflow"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: workflow id %s not found"
+msgstr ""
+
+msgid "to be add"
+msgstr ""
+
+msgid "not added"
+msgstr ""
+
+msgid "no zone specified"
+msgstr ""
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "reference must be a number not '%s'"
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, c-format
+msgid "%s has been unlocked"
+msgstr ""
+
+#, c-format
+msgid "geometry saved : %s"
 msgstr ""
 
 msgid "locked files of "
@@ -771,79 +771,6 @@ msgstr ""
 msgid "new %s"
 msgstr ""
 
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
-#, c-format
-msgid "parameters for %s state"
-msgstr ""
-
-#, c-format
-msgid "id %s profile"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s profile"
-msgstr "Category"
-
-#, c-format
-msgid "id %s mask"
-msgstr ""
-
-#, c-format
-msgid "%s mask"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr ""
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"The change state to %s has been aborded.\n"
-"%s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state : %s to %s"
-msgstr "Category"
-
-#, c-format
-msgid "%s new state %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr "Category"
-
 msgid "not perm for admin"
 msgstr ""
 
@@ -952,39 +879,78 @@ msgstr ""
 msgid "the date %s is in the past: today is %s"
 msgstr ""
 
-msgid "errldapadd"
+msgid "uncomplete request"
 msgstr ""
-"Card is not modify in LDAP server : one of this attribute is not appropriate"
 
-msgid "errldapconnect"
-msgstr "LDAP server cannot be contacted"
-
-#, fuzzy
-msgid "errldaporginit"
-msgstr "LDAP server cannot be contacted"
-
-msgid "user is desactivated"
+msgid "request not found"
 msgstr ""
 
 #, c-format
-msgid "user #%d does not exist"
-msgstr ""
-
-msgid "user has not identificator"
+msgid "invalid syntax for [%s] for enum attribute"
 msgstr ""
 
 #, c-format
-msgid "user %d does not exist"
+msgid "parameters for %s state"
 msgstr ""
 
-msgid "passwords must not be empty"
+#, c-format
+msgid "id %s profile"
 msgstr ""
 
-msgid "the 2 passwords are not the same"
+#, fuzzy, c-format
+msgid "%s profile"
+msgstr "Category"
+
+#, c-format
+msgid "id %s mask"
 msgstr ""
 
-msgid "Expiration delay must not be 0 to keep expiration date"
+#, c-format
+msgid "%s mask"
 msgstr ""
+
+#, c-format
+msgid "ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr ""
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state : %s to %s"
+msgstr "Category"
+
+#, c-format
+msgid "%s new state %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr "Category"
 
 #, c-format
 msgid "group #%d does not exist"
@@ -1014,6 +980,40 @@ msgid ""
 "what id already set in freedom\n"
 "This kind of document can not be duplicated"
 msgstr ""
+
+#, c-format
+msgid "user #%d does not exist"
+msgstr ""
+
+msgid "user has not identificator"
+msgstr ""
+
+msgid "user is desactivated"
+msgstr ""
+
+#, c-format
+msgid "user %d does not exist"
+msgstr ""
+
+msgid "passwords must not be empty"
+msgstr ""
+
+msgid "the 2 passwords are not the same"
+msgstr ""
+
+msgid "Expiration delay must not be 0 to keep expiration date"
+msgstr ""
+
+msgid "errldapadd"
+msgstr ""
+"Card is not modify in LDAP server : one of this attribute is not appropriate"
+
+msgid "errldapconnect"
+msgstr "LDAP server cannot be contacted"
+
+#, fuzzy
+msgid "errldaporginit"
+msgstr "LDAP server cannot be contacted"
 
 msgid "read only"
 msgstr ""
@@ -1858,6 +1858,12 @@ msgid "To choose other families"
 msgstr ""
 
 msgid "Access choose masters families"
+msgstr ""
+
+msgid "Users"
+msgstr ""
+
+msgid "Users Management"
 msgstr ""
 
 #, fuzzy
@@ -2922,13 +2928,17 @@ msgstr ""
 msgid "confidentiality"
 msgstr ""
 
+#, fuzzy
+msgid "view detail"
+msgstr "Start search"
+
+msgid "Select group appartenance"
+msgstr ""
+
 msgid "expand all"
 msgstr ""
 
 msgid "collapse all"
-msgstr ""
-
-msgid "Select group appartenance"
 msgstr ""
 
 msgid "loop detected. You must undo this selection"

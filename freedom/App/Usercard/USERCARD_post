@@ -28,8 +28,9 @@ fi
 #------------------------------
 if [ "$1" = "U" ] ; then
 
-  $pubdir/wsh.php  -a $dbname --app=USERCARD --action=USERCARD_INIT 
-  $pubdir/wsh.php  -a $dbname --api=usercard_iuser
+  $pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
+  $pubdir/wsh.php --api=freedom_import --file=$pubdir/USERCARD/userinit.csv
+  $pubdir/wsh.php --api=usercard_iuser
 
 fi
 

@@ -3,7 +3,7 @@
  * Import CSV
  *
  * @author Anakeen 2004
- * @version $Id: generic_importcsv.php,v 1.11 2004/05/13 16:17:14 eric Exp $
+ * @version $Id: generic_importcsv.php,v 1.12 2004/08/09 08:07:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -128,7 +128,7 @@ function generic_importcsv(&$action) {
       else $fromid = getFamIdFromName($dbaccess,$data[1]);
       if ($fromid == $classid)   {
 	$tcolorder=getOrder($data);
-	$cr[$line]["msg"]=sprintf(_("new column order %s"),implode(";",$tcolorder));
+	$cr[$line]["msg"]=sprintf(_("new column order %s"),implode(" - ",$tcolorder));
       }
  
       
