@@ -4,7 +4,7 @@ TYPE;C;;;;;;;;;;
 ;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
 ATTR;FR_BASIC;;basique;N;N;frame;0;W;;;
-ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;W;;;
+ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;N;;;
 BA_TITLE;[titre];famille de base;;;;;;;;;
 END;0;-1;;;;;;;;;
 // famille dossier;;;id;class;;;;;;;
@@ -68,7 +68,7 @@ DVIEWZONE;FDL:VIEWFILECARD;;;;;;;;;;
 ;;;;;;;;;;;
 ATTR;FI_FRFILE;;fichier;N;N;frame;;W;;;
 ATTR;FI_TITLE;FI_FRFILE;titre;Y;N;text;;R;;fdl.php;vault_filename(T,FI_FILE):FI_TITLE
-ATTR;FI_FILE;FI_FRFILE;fichier;N;Y;file;;W;;;
+ATTR;FI_FILE;FI_FRFILE;fichier;N;Y;file;;N;;;
 END;-;9;;;;;;;;;
 ;;;;;;;;;;;
 // famille image;;;id;class;;;;;;;
@@ -80,5 +80,5 @@ DVIEWZONE;FDL:VIEWIMGCARD;;;;;;;;;;
 ;;;;;;;;;;;
 ATTR;IMG_FRFILE;;image;N;N;frame;;W;;;
 ATTR;IMG_TITLE;IMG_FRFILE;titre;Y;N;text;;R;;fdl.php;vault_filename(T,IMG_FILE):IMG_TITLE
-ATTR;IMG_FILE;IMG_FRFILE;image;N;Y;image;;W;;;
+ATTR;IMG_FILE;IMG_FRFILE;image;N;Y;image;;N;;;
 END;-;9;;;;;;;;;

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+pubdir="/home/httpd/what";
+
+#------------------------------
+#post installation
+#------------------------------
+if [ "$1" = "I" ] ; then
+    echo    
+fi
+
+#------------------------------
+#post update
+#------------------------------
+if [ "$1" = "U" ] ; then
+
+  $pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
+
+fi
+
+#------------------------------
+#post uninstallation
+#------------------------------
+if [ "$1" = "D" ] ; then
+    echo
+fi

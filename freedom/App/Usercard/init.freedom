@@ -5,8 +5,8 @@ TYPE;C;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;
 ATTR;US_FR_IDENT;;Etat civil;N;N;frame;10;W;;;
-ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;W;;;
-ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;W;;;
+ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;N;;;
+ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;N;;;
 ATTR;US_PHOTO;US_FR_IDENT;photographie;N;N;image;40;W;;;
 ATTR;US_INITIALS;US_FR_IDENT;initiales;N;N;text;42;W;;;
 ATTR;US_FR_COORD;;Coordonnées;N;N;frame;50;W;;;
