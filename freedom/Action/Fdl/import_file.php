@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.60 2004/02/25 13:24:55 eric Exp $
+ * @version $Id: import_file.php,v 1.61 2004/03/01 08:49:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -382,8 +382,12 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
 }
 
 function AddImportLog(&$action, $msg) {
-	$tmsg = $action->lay->GetBlockData("MSG");
-	$tmsg[] = array("msg"=>$msg);
-	$action->lay->SetBlockData("MSG",$tmsg);
+  if ($action->lay) {
+    $tmsg = $action->lay->GetBlockData("MSG");
+    $tmsg[] = array("msg"=>$msg);
+    $action->lay->SetBlockData("MSG",$tmsg);
+  } else {
+    print "\n$msg";
+  }
 }
 ?>
