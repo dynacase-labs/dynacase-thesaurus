@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_groups.php,v 1.2 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: freedom_groups.php,v 1.3 2004/02/17 10:51:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,8 +32,10 @@ if ($dbaccess == "") {
 
 $doc = new Doc($dbaccess);
 
-system("echo 'drop table groups;delete from docperm where upacl=0 and unacl=0;update docperm set cacl=0' | psql freedom anakeen");
-system("pg_dump -t groups anakeen -U anakeen | psql freedom anakeen");
+system("echo 'delete from groups;delete from docperm where upacl=0 and unacl=0;update docperm set cacl=0' | psql freedom anakeen");
+system("pg_dump -a -t groups anakeen -U anakeen | psql freedom anakeen");
+//system("echo 'select getuperm(userid, docid) from docperm' | psql freedom anakeen");
+
 
 
 ?>

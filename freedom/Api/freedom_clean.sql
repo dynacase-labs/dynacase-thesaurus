@@ -4,6 +4,7 @@ delete from doc where doctype='T';
 select setval('seq_id_tdoc', 1000000000);
 delete from docattr where docid not in (select id from doc);
 delete from docperm where docid not in (select id from doc);
+delete from docperm where userid not in (select iduser from groups) and userid not in (select id from vgroup) and userid not in (select idgroup from groups);
 delete from fld where dirid not in (select id from doc);
 delete from fld where childid not in (select id from doc) and qtype='S'; 
 update doc set locked=0 where locked < -1;
