@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search_fulltext.php,v 1.4 2002/12/04 17:13:36 eric Exp $
+// $Id: search_fulltext.php,v 1.5 2003/01/03 09:10:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search_fulltext.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,7 +65,7 @@ function search_fulltext(&$action) {
   $adminstat[0]["searchfor"] = $s_searchfor;
   $viewfile=GetHttpVars("viewfile", false); // display files
 
-  $famid=GetHttpVars("famid",0); // famid restrictive familly
+  $famid=GetHttpVars("famid"); // famid restrictive familly
   $action->lay->Set("classdoc", _(" any familly"));
   $tclassdoc=GetClassesDoc($dbaccess, $action->user->id);
   while (list($k,$cdoc)= each ($tclassdoc)) {
@@ -85,12 +85,7 @@ function search_fulltext(&$action) {
   else $searchtitle .= _(" from any folder");
   $action->lay->Set("dirtitle", $searchtitle);
   $action->lay->Set("dirid",$dirid);
-  $sql_fromdir = "";
-  if ($fromdir) {
-    $cdirid = getRChildDirId($dbaccess, $dirid);
-    $sql_where = GetSqlCond($cdirid,"dirid");
-    $sql_fromdir .= " and (t0.id in (select childid from fld where ".$sql_where."))" ;
-  }
+  
 
   $with_abstract=false;
   $start=0;
@@ -156,25 +151,26 @@ function search_fulltext(&$action) {
       $idf = fileNameToId($resurl);
       if ($idf>0) {
 	// Querying db ...
-	$query = new QueryDb($dbaccess, "doc");
-	$q = "select t0.id,t2.attrid"
-	  . " from doc t0,docattr t1,docvalue t2  "
-	  . " where  (t2.attrid=t1.id) "
-	  . "   and  (t0.id=t2.docid) "
-	  . "   and  (t2.value like '%|".$idf."')  "
-	  . "   and  (t1.type ='file') ";   
-	if ($latest)  $q .= " and (t0.locked != -1)";
-	if ($famid)   $q .= " and (t0.fromid = ".$famid.")";
-	$q .= $sql_fromdir;
-	$q .= " and hasviewprivilege(".$action->user->id.", t0.profid)";
-	$rq = $query->Query(0,0,"TABLE",$q);
+
+
+	$filter=array();
+	$filter[]="values like '%|$idf'";
+
+	if ($famid==0) $famid="";
+	$cdirid=0;
+	if ($fromdir) {
+	  $cdirid = getRChildDirId($dbaccess, $dirid);
+	}
+	$rq=getChildDoc($dbaccess, $cdirid ,0,100, $filter,
+			$action->user->id, "TABLE",$famid);
+
 	if (is_array($rq) && count($rq)>0) {
 	  while (count($rq)>0 && list($kv,$vd) = each($rq)) {
 	    $adminfile[$i]["ix"] .= "[".$vd["id"]."]";
 	    if (!isset($doclist[$vd["id"]])) $doclist[$vd["id"]]["fcnt"] = 0;
 	    $x = $doclist[$vd["id"]]["fcnt"];
 	    $doclist[$vd["id"]]["fcnt"]++;
-	    $doclist[$vd["id"]][$x]["attrid"] = $vd["attrid"];
+	    //	    $doclist[$vd["id"]][$x]["attrid"] = $vd["attrid"];
 	    $doclist[$vd["id"]][$x]["file"] = $resurl;
 	    $doclist[$vd["id"]][$x]["idv"] = $idf;
 	    $doclist[$vd["id"]][$x]["size"] = Udm_Get_Res_Field($res,$i,UDM_FIELD_SIZE);

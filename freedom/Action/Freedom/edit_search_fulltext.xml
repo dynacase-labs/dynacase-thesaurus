@@ -108,7 +108,7 @@ function refreshfld(dirid) {
       <label for="sensitive"> [TEXT: familly]&nbsp;:</label></td>
   <td class="tlist">
      <select name="famid" >  
-           <option VALUE="0" >[TEXT: any familly]</option> 
+           <option VALUE="" >[TEXT: any familly]</option> 
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" >[classname]</option>   
          [ENDBLOCK SELECTCLASS]

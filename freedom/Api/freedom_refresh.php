@@ -9,6 +9,7 @@ include_once("FDL/Class.Doc.php");
 $className = GetHttpVars("class","-"); // classname filter
 $famId = GetHttpVars("famid",""); // familly filter
 
+
 if (($className == "-") && ($famId == 0)) {
   print "arg class needed :usage --class=<class name> --famid=<familly id>";
   return;
@@ -47,6 +48,7 @@ if ($query->nb > 0)	{
 	    {	     
 	      print $v->title . "\n";
 	      $v->refresh();
+	      $v->refreshTitle();
 	      $v->Modify();
 
 	    }	  

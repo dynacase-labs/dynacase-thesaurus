@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.9 2002/12/16 11:46:57 eric Exp $
+// $Id: FDL_init.php.in,v 1.10 2003/01/03 09:10:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,6 +28,7 @@ $app_const= array(
   "INIT" => "yes",
   "VERSION" => "@VERSION@-@RELEASE@",
   "FREEDOM_DB" => array("val"=>"host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
+			"global"=>"Y",
 			"descr"=>N_("freedom database")),
   "ENUM_TITLE_SIZE" => array("val"=>"40",
 			     "user"=>"Y",

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.8 2002/12/13 11:19:40 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.9 2003/01/03 09:10:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,13 +27,14 @@ global $app_const;
 $app_const= 
        array(
 	     "INIT" => "yes",
-	     "VERSION"			=>"@VERSION@-@RELEASE@",
-	     "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",	    
-	     "ROOTFLD" => "9",
+	     "VERSION"			=>"@VERSION@-@RELEASE@",	    
+	     "ROOTFLD" => array(		
+				"val"=>"9",
+				"descr"=> N_("root folder id")),
 
 	     "FULLTEXT_SEARCH" => array(		
 					"val"=>"no",
-					"descr"=>N_("enabled/disabled full text search"),
+					"descr"=> N_("enabled/disabled full text search"),
 					"user"=>"N",
 					"style"=>"N",
 					"kind"=>"enum(yes|no)"
@@ -41,38 +42,38 @@ $app_const=
 	     // mnoGoSearch configuration
 	     "MNOGOSEARCH_DB" => array(
 					"val"   => "pgsql://anakeen@localhost/mnoGoSearch/",
-					"descr" => _("mnoGoSearch: ndexer database access specification"),
+					"descr" => N_("mnoGoSearch: indexer database access specification"),
 					"user"=>"N",
 					"style"=>"N"
 					     ),
 	     "MNOGOSEARCH_DBMODE" => array(
 					    "val"   => "crc",
-					    "descr" => _("mnoGoSearch: indexer database access mode"),
+					    "descr" => N_("mnoGoSearch: indexer database access mode"),
 					    "user"=>"N",
 					    "style"=>"N"
 					    ),
 	     "MNOGOSEARCH_SEARCHLIMIT" => array(
 						 "val"   => "%/freedom/fs/%",
-						 "descr" => _("mnoGoSearch: limit search on path that contain"),
+						 "descr" => N_("mnoGoSearch: limit search on path that contain"),
 						 "user"=>"N",
 						 "style"=>"N"
 						 ),
 	     "MNOGOSEARCH_RESULTBYPAGE" => array(
 						  "val"   => 1000,
-						  "descr" => _("mnoGoSearch: max result count by page"),
+						  "descr" => N_("mnoGoSearch: max result count by page"),
 						  "user"=>"N",
 						  "style"=>"N"
 						  ),
 	     "MNOGOSEARCH_PHRASE" => array(
 					    "val"   => 1,
 					    "kind"=>"enum(1|0)",
-					    "descr" => _("mnoGoSearch: index database using phrase"),
+					    "descr" => N_("mnoGoSearch: index database using phrase"),
 					    "user"=>"N",
 					    "style"=>"N"
 					    ),
 	     "MNOGOSEARCH_CHARSET" => array(
 					     "val"   => "8859-1",
-					     "descr" => _("mnoGoSearch: charset"),
+					     "descr" => N_("mnoGoSearch: charset"),
 					     "user"=>"N",
 					     "style"=>"N"
 					     ),

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: ONEFAM_init.php.in,v 1.2 2002/10/01 14:47:22 eric Exp $
+// $Id: ONEFAM_init.php.in,v 1.3 2003/01/03 09:10:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Onefam/ONEFAM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,7 +27,6 @@ global $app_const;
 
 $app_const= array(
 		  "VERSION"			=>"@VERSION@-@RELEASE@",
-		  "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
 		  "ONEFAM_IDS" => array("val"=>"",
 					"global"=>"Y",
 					"user"=>"Y",

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC_init.php.in,v 1.2 2002/05/27 14:54:14 eric Exp $
+// $Id: GENERIC_init.php.in,v 1.3 2003/01/03 09:10:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,7 +27,6 @@ global $app_const;
 $app_const= array(
   "INIT" => "yes",
   "VERSION"			=>"@VERSION@-@RELEASE@",
-  "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
   "DEFAULT_FAMILY" => array("val"=>"1",
 			     "descr"=>N_("default document family")),
   "DEFAULT_FLD" =>     array("val"=>"10",
