@@ -237,6 +237,21 @@ end;
 ' language 'plpgsql';
 
 
+create or replace function fixeddoc() 
+returns trigger as '
+declare 
+begin
+
+
+if (TG_OP = ''INSERT'') then
+     update doc set lmodify=''N'' where initid=NEW.initid;
+     update doc set lmodify=''L'' where id=(select distinct on (initid) id from doc where initid = NEW.initid and locked = -1 order by initid, revision desc);
+
+end if;
+ 
+return NEW;
+end;
+' language 'plpgsql';
 
 create or replace function droptrigger(name) 
 returns bool as '

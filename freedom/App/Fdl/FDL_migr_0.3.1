@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ 
+
+pubdir="/home/httpd/what";
+
+
+psql freedom anakeen -f $pubdir/FDL/fdl.sql
+$pubdir/wsh.php --api=fdl_trigger --trigger=yes | psql freedom anakeen
+
+echo "update doc set lmodify='L' where id in (select distinct on (initid) id from doc where locked = -1  order by initid, revision desc);" | psql freedom anakeen

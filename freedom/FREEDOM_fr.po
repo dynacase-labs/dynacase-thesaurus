@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2003-08-22 17:51+0200\n"
+	"POT-Creation-Date: 2003-10-16 11:38+0200\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -477,7 +477,7 @@ msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
 
 #, c-format
 msgid	"Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
+msgstr	"Suppression n°%d du dossier %s"
 
 msgid	"already exist : not added"
 msgstr	"déjà existant : pas ajouté"
@@ -528,6 +528,11 @@ msgstr	"attribut inconnu"
 #, c-format
 msgid	"%s needed\n"
 msgstr	"%s doit être rempli\n"
+
+#, c-format
+msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
+	"automatically"
+msgstr "la date '%s' pour l'attribut %s est incorrect. Il a été corrigé automatiquement."
 
 msgid	"document already revised"
 msgstr	"document déjà révisé"
@@ -942,6 +947,15 @@ msgstr	"Bilan par état"
 
 msgid	"Import file"
 msgstr	"Importer un fichier"
+
+msgid	"Abstract card"
+msgstr "Carte résumé"
+
+msgid	"Column mode"
+msgstr "Mode colonne"
+
+msgid	"Invert split"
+msgstr "Inverser le découpage"
 
 msgid	"Freedom"
 msgstr	"Freedom"
@@ -1753,6 +1767,9 @@ msgstr	"choix de couleur"
 msgid	"date picker"
 msgstr	"choix de date"
 
+msgid	"manual date"
+msgstr "Date manuelle"
+
 msgid	"choose inputs"
 msgstr	"choisir une valeur"
 
@@ -2228,6 +2245,9 @@ msgstr	"Accès à la lecture"
 msgid	"generic home page"
 msgstr	"page d'accueil générique"
 
+msgid	"generic vertical home page"
+msgstr "page d'accueil découpage vertical"
+
 msgid	"inverted search"
 msgstr	"Recherche inversée"
 
@@ -2267,11 +2287,29 @@ msgstr	"rechercher une carte"
 msgid	"search with kind criteria"
 msgstr	"recherche avec des critères de catégories"
 
+msgid	"memorisation of split mode"
+msgstr "mémorisation du mode de découpage de la fenêtre"
+
 msgid	"default document family"
 msgstr	"famille de document par défaut"
 
 msgid	"number of card by page"
 msgstr	"nombre de cartes par page"
+
+msgid	"width of the abstract card"
+msgstr "largeur de la carte résumé (en px ou en %)"
+
+msgid	"width of the frame for abstract card"
+msgstr "largeur de la fenêtre pour l'affichage des listes de documents (découpage vertical)"
+
+msgid	"height of the frame for abstract card"
+msgstr "hauteur de la fenêtre pour l'affichage des listes de documents (découpage horizontal)"
+
+msgid	"differents view mode by family"
+msgstr "mode de vues par familles"
+
+msgid	"split view mode by family"
+msgstr "mode de découpage par famille"
 
 msgid	"Products"
 msgstr	"Produits"
@@ -2293,9 +2331,6 @@ msgstr	"Contrats"
 
 msgid	"Contract Management"
 msgstr	"Gestion des contrats"
-
-msgid	"visible families"
-msgstr	"familles visibles"
 
 msgid	"Onefam"
 msgstr	"Une famille"
@@ -2320,6 +2355,9 @@ msgstr	"modifier les préférences"
 
 msgid	"Access To Onefam Management"
 msgstr	"Accès à la gestion par famille"
+
+#~ msgid	"visible families"
+#~ msgstr	"familles visibles"
 
 #~ msgid	"yes"
 #~ msgstr	"oui"
@@ -2667,6 +2705,3 @@ msgstr	"Accès à la gestion par famille"
 
 #~ msgid	"Contacts list"
 #~ msgstr	"Listes des contacts"
-
-#~ msgid	"Contacts card"
-#~ msgstr	"Lecture carte"

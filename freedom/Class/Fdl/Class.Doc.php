@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.160 2003/10/16 09:38:02 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.161 2003/10/17 16:39:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.160 2003/10/16 09:38:02 eric Exp $
+// $Id: Class.Doc.php,v 1.161 2003/10/17 16:39:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.160 2003/10/16 09:38:02 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.161 2003/10/17 16:39:33 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -204,7 +204,7 @@ create table doc ( id int not null,
                    primary key (id),
                    owner int,
                    title varchar(256),
-                   revision float4 DEFAULT 0,
+                   revision int DEFAULT 0,
                    initid int,
                    fromid int,
                    doctype char DEFAULT 'F',
@@ -2073,7 +2073,9 @@ create unique index i_docir on doc(initid, revision);";
      
     }
     // the reset trigger must begin with 'A' letter to be proceed first (pgsql 7.3.2)
-      $sql .="create trigger AUVR{$cid} BEFORE  UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
+    $sql .="create trigger AUVR{$cid} BEFORE UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
+    $sql .="create trigger FIXDOC{$cid} AFTER INSERT ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fixeddoc();";
+    
     return $sql;
   }
 

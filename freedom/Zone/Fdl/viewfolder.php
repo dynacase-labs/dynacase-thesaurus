@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewfolder.php,v 1.46 2003/10/16 09:38:02 eric Exp $
+ * @version $Id: viewfolder.php,v 1.47 2003/10/17 16:39:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.46 2003/10/16 09:38:02 eric Exp $
+// $Id: viewfolder.php,v 1.47 2003/10/17 16:39:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -75,11 +75,12 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $dir = new Doc($dbaccess,$dirid);
 
   $dirid=$dir->id;  // use initial id for directories
-
+  $distinct=false;
 
   // control open
-    if ($dir->defDoctype=='S') $aclctrl="execute";
-    else $aclctrl="open";
+  if ($dir->defDoctype=='S') {    
+    $aclctrl="execute";
+  } else $aclctrl="open";
   if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
 
 
@@ -111,7 +112,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
   $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid, 
-		      false, $sqlorder);
+		      $distinct, $sqlorder);
 
   
   
@@ -223,7 +224,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	      popupInactive("popuplist",$kdiv,'editdoc');
 	    }
 	  }
-	  if ($doc->doctype == "S") popupInvisible('popuplist',$kdiv,'editdoc'); 
+	  
 	  if ($dir->defDoctype != 'D') {
 	    // it's a search :: inhibit duplicate and suppress reference
 	    popupInvisible("popuplist",$kdiv,'duplicate');

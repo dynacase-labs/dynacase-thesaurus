@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.13 2003/10/09 12:08:43 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.14 2003/10/17 16:39:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.13 2003/10/09 12:08:43 eric Exp $
+// $Id: Class.DocSearch.php,v 1.14 2003/10/17 16:39:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.13 2003/10/09 12:08:43 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.14 2003/10/17 16:39:33 eric Exp $';
 
 
 include_once("FDL/Class.PDocSearch.php");
@@ -76,7 +76,7 @@ Class DocSearch extends PDocSearch {
 
 
     if ($query->nb > 0)
-      {
+     {
 	return $tq[0]["query"];
       }
     return "";
@@ -93,7 +93,10 @@ Class DocSearch extends PDocSearch {
 
     $filters=array();
 
-    if ($latest == "fixed") $filters[] = "locked = -1";
+    if ($latest == "fixed") {
+      $filters[] = "locked = -1";
+      $filters[] = "lmodify = 'L'";       
+    }
     $filters[] = "usefor = 'N'";
     $keyword= str_replace("^","£",$keyword);
     $keyword= str_replace("$","\0",$keyword);

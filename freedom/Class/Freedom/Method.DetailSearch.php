@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.14 2003/10/09 12:08:43 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.15 2003/10/17 16:39:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.14 2003/10/09 12:08:43 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.15 2003/10/17 16:39:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -68,8 +68,11 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
     if ($sensitive) $filters[] = "values ~ '$keyword' ";
     else $filters[] = "values ~* '$keyword' ";
   }
- 
-  if ($latest == "fixed") $filters[] = "locked = -1";
+  $distinct=false;
+  if ($latest == "fixed") {
+    $filters[] = "locked = -1";
+    $filters[] = "lmodify = 'L'";   
+  }
 
   $tol = $this->getTValue("SE_OLS");
   $tkey = $this->getTValue("SE_KEYS");
@@ -97,7 +100,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   if ($cond != "") $filters[]=$cond;
 
 
-  $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes");
+  $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,$distinct,$latest=="yes");
 
   return $query;
 }

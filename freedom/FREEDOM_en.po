@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-08-22 17:51+0200\n"
+	"POT-Creation-Date: 2003-10-16 11:38+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -542,6 +542,11 @@ msgstr	""
 msgid	"%s needed\n"
 msgstr	""
 
+#, c-format
+msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
+	"automatically"
+msgstr	""
+
 msgid	"document already revised"
 msgstr	""
 
@@ -985,6 +990,15 @@ msgstr	"Identity"
 #, fuzzy
 msgid	"Import file"
 msgstr	"Import"
+
+msgid	"Abstract card"
+msgstr	""
+
+msgid	"Column mode"
+msgstr	""
+
+msgid	"Invert split"
+msgstr	""
 
 msgid	"Freedom"
 msgstr	""
@@ -1901,6 +1915,10 @@ msgstr	""
 msgid	"date picker"
 msgstr	""
 
+#, fuzzy
+msgid	"manual date"
+msgstr	"Edit"
+
 msgid	"choose inputs"
 msgstr	""
 
@@ -2405,6 +2423,9 @@ msgstr	""
 msgid	"generic home page"
 msgstr	""
 
+msgid	"generic vertical home page"
+msgstr	""
+
 #, fuzzy
 msgid	"inverted search"
 msgstr	"Start search"
@@ -2449,10 +2470,28 @@ msgstr	"Start search"
 msgid	"search with kind criteria"
 msgstr	""
 
+msgid	"memorisation of split mode"
+msgstr	""
+
 msgid	"default document family"
 msgstr	""
 
 msgid	"number of card by page"
+msgstr	""
+
+msgid	"width of the abstract card"
+msgstr	""
+
+msgid	"width of the frame for abstract card"
+msgstr	""
+
+msgid	"height of the frame for abstract card"
+msgstr	""
+
+msgid	"differents view mode by family"
+msgstr	""
+
+msgid	"split view mode by family"
 msgstr	""
 
 msgid	"Products"
@@ -2476,10 +2515,6 @@ msgstr	""
 
 msgid	"Contract Management"
 msgstr	""
-
-#, fuzzy
-msgid	"visible families"
-msgstr	"Start search"
 
 #, fuzzy
 msgid	"Onefam"
@@ -2510,6 +2545,10 @@ msgstr	"Modify"
 
 msgid	"Access To Onefam Management"
 msgstr	""
+
+#, fuzzy
+#~ msgid	"visible families"
+#~ msgstr	"Start search"
 
 #, fuzzy
 #~ msgid	"created by %s"
