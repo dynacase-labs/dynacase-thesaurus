@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search_fulltext.php,v 1.1 2002/08/05 16:11:12 marc Exp $
+// $Id: search_fulltext.php,v 1.2 2002/08/05 18:57:36 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search_fulltext.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -104,7 +104,7 @@ function search_fulltext(&$action) {
   
 
   $s_db     = $action->GetParam("MNONGOSEARCH_DB","pgsql://anakeen@localhost/mnoGoSearch/");
-  $s_dbmode = $action->GetParam("MNONGOSEARCH_DBMODE", "single");
+  $s_dbmode = $action->GetParam("MNONGOSEARCH_DBMODE", "crc");
 
   $search_limit = $action->GetParam("MNONGOSEARCH_SEARCHLIMIT", "%/freedom/fs/%");
 
