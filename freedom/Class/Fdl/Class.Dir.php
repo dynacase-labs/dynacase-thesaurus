@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.24 2003/09/22 13:07:34 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.25 2004/01/14 16:04:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.24 2003/09/22 13:07:34 eric Exp $
+// $Id: Class.Dir.php,v 1.25 2004/01/14 16:04:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.24 2003/09/22 13:07:34 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.25 2004/01/14 16:04:33 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -64,11 +64,12 @@ Class Dir extends PDir
   // get the home and basket folder
   function GetHome() {
     
-    $query = new QueryDb($this->dbaccess, get_class($this));
-    $query->AddQuery("owner = -". $this->userid);
+    include_once("FDL/freedom_util.php");
+    $rq=getChildDoc($this->dbaccess,0,0,1,array("owner = -". $this->userid),
+		    $this->userid,"LIST","DIR");
     
-    $rq = $query->Query();
-    if ($query->nb > 0)      $home = $rq[0];
+ 
+    if (count($rq) > 0)      $home = $rq[0];
     else {
       $home = createDoc($this->dbaccess,"DIR");
       $home ->owner = -$this->userid;
