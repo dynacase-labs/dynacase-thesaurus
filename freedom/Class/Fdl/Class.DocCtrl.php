@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.19 2004/08/09 08:05:26 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.20 2004/10/04 07:42:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -337,23 +337,26 @@ Class DocCtrl extends DbObj
 //   }
 
 
-  function parseMail($Email) {
-
+  function parseMail($Email) {   
     $sug=array(); // suggestions
     $err="";
+
     if ($Email != "") {
-      if (ereg("^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,6}$", $Email)) {      
-	return true;
-      }
-      $err= _("the email syntax  is like : john.doe@anywhere.org");
+      if ($Email[0] == "<") {
+	$sug[]=_("<it's a message>");
+      } else {      
+	if (ereg("^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,6}$", $Email)) {      
+	  return true;
+	}
+	$err= _("the email syntax  is like : john.doe@anywhere.org");
     
-      if (eregi("^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,6}$", $Email)) {      
-	$sug[]=strtolower($Email);
-	$err="";
-      }
-      if (! ereg("@", $Email)) {      
-	$err= _("the email must containt the @ character");
-      
+	if (eregi("^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,6}$", $Email)) {      
+	  $sug[]=strtolower($Email);
+	  $err="";
+	}
+	if (! ereg("@", $Email)) {      
+	  $err= _("the email must containt the @ character");
+	}
       }
     }
     return array("err"=>$err,
