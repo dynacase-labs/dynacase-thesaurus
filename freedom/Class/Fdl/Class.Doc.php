@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.123 2003/05/15 13:48:08 eric Exp $
+// $Id: Class.Doc.php,v 1.124 2003/05/19 10:44:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.123 2003/05/15 13:48:08 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.124 2003/05/19 10:44:11 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/05/15 13:48:08 $
-// Version         $Revision: 1.123 $
+// Last Update     $Date: 2003/05/19 10:44:11 $
+// Version         $Revision: 1.124 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -94,12 +94,12 @@ create table doc ( id int not null,
                    revision float4 DEFAULT 0,
                    initid int,
                    fromid int,
-                   doctype varchar(1) DEFAULT 'F',
+                   doctype char DEFAULT 'F',
                    locked int DEFAULT 0,
                    icon varchar(256),
-                   lmodify varchar(1) DEFAULT 'N',
+                   lmodify char DEFAULT 'N',
                    profid int DEFAULT 0,
-                   usefor varchar(1)  DEFAULT 'N',
+                   usefor char  DEFAULT 'N',
                    revdate int,  
                    comment text,
                    classname varchar(64),

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.11 2003/03/21 17:57:58 eric Exp $
+// $Id: Class.QueryDir.php,v 1.12 2003/05/19 10:44:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.11 2003/03/21 17:57:58 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.12 2003/05/19 10:44:15 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -47,7 +47,7 @@ create table fld ( id      int PRIMARY KEY,
                     dirid   int not null ,
                     query   text,
                     childid   int,
-                    qtype   varchar(1)
+                    qtype   char
                    );
 create index fld_iqd on fld(qtype,dirid);
 create unique index fld_u on fld(qtype,dirid,childid);
