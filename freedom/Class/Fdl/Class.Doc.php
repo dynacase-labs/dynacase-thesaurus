@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.192 2004/03/16 14:11:40 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.193 2004/03/18 08:29:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -519,7 +519,7 @@ create unique index i_docir on doc(initid, revision);";
     $cdoc->comment=$this->comment;
     $values = $this->getValues();
 
-    $err=$this->delete(true,false); // delete before add to avoid double id (it is not authorized)
+    $err=$this->delete(true,false,true); // delete before add to avoid double id (it is not authorized)
     if ($err != "") return $err;
 
     reset($prevalues);
@@ -752,9 +752,11 @@ create unique index i_docir on doc(initid, revision);";
    * Set the document to zombie state
    * For the user the document is in the trash
    * @param bool $really if true call {@link ReallyDelete} really delete from database
+   * @param bool $control if false don't control 'delete' acl
+   * @param bool $nopost if true don't call {@link PostDelete} and {@link PreDelete}
    * @return void
    */
-  function Delete($really=false,$control=true) {
+  function Delete($really=false,$control=true,$nopost=false) {
 
     if ($control) {
     // Control if the doc can be deleted
@@ -775,7 +777,7 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->doctype == 'Z') $msg= _("already deleted");       
       if ($msg!='') return $msg;
 
-      $msg=$this->PreDelete();
+      if (!$nopost) $msg=$this->PreDelete();
       if ($msg!='') return $msg;
 
       $this->doctype='Z'; // Zombie Doc
@@ -792,7 +794,7 @@ create unique index i_docir on doc(initid, revision);";
 				$HTTP_SERVER_VARS["REMOTE_ADDR"]));
 
 
-      $msg=$this->PostDelete();
+      if (!$nopost) $msg=$this->PostDelete();
 
 
       // delete all revision also
