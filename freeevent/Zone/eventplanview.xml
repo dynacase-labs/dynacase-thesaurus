@@ -1,2 +1,2 @@
-<div class="EventCalView" title="[TITLE] : [BEGIN_DATE] [END_DATE] ([OWNER])"  style="border: 1px outset;" >
-<table width="100%"><tr><td height="2px" style="border: 1px inset; background-color:[COLOR]"></td></tr></table></div>
+<span class="EventCalView" title="[TITLE] : [BEGIN_DATE] [END_DATE] ([OWNER])"  style="width:auto;border: 1px outset;background-color:[COLOR]" >
+</span>

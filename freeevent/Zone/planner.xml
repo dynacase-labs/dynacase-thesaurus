@@ -1,3 +1,27 @@
+<script>
+var mstart=[mstart];
+var mend=[mend];
+var tevents=new Array();
+var zoom=1;
+function placeEvt(divid,line,subline,x,w) {
+  var dw=500*zoom;
+  var dih=10*zoom;
+  var oimg= document.getElementById(divid);
+  if (oimg) {
+    oimg.style.left=(x-mstart)*dw/(mend-mstart);
+    oimg.style.top=300+(subline*dih);
+    oimg.width=(w)*dw/(mend-mstart);
+    oimg.height=dih;
+  }
+}
+function placeEvents() {
+  for (i=0;i<tevents.length;i++) {
+    placeEvt(tevents[i][0],tevents[i][1],tevents[i][2],tevents[i][3],tevents[i][4]);
+  }
+}
+addEvent(window,"load",placeEvents);
+</script>
+
 <div width="100%" height="100%" style="background-image:url('[IMG:millimetre.png]')">
 
 
@@ -5,9 +29,16 @@
 <thead>
 <tr><td width="100px" align="right">[begdate]</td><td align="right">[enddate]</td></tr>
 </thead>
-[BLOCK RES]
-<tr style="background-color:transparent"><td width="100px">[res]</td><td>[BLOCK [BAR]]
-<img style="cursor:pointer;position:relative;left:[x]%" title="[bartitle]" height="20px" width="[w]%" src="[barimg]" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'helpwhat','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')">[ENDBLOCK [BAR]]</td></tr>
-[ENDBLOCK RES]
 </table>
+[BLOCK RES]
+<P style="background-image:url('[barimg]');background-color:[rescolor]">[res]</P>
+[BLOCK [BAR]]
+<img id="[divid]" style="background-color:[color];border:solid blue 1px;cursor:pointer;position:absolute" title="[bartitle]"   src="[barimg]" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'helpwhat','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')">
+<script>
+tevents[[idx]]=['[divid]',[line],[subline],[absx],[absw]];
+</script>
+[ENDBLOCK [BAR]]
+[ENDBLOCK RES]
 </div>
+<button onclick="zoom=zoom*1.1;placeEvents();" >+10</button>
+<button onclick="zoom=zoom/1.1;placeEvents();" >-10</button>

@@ -66,9 +66,10 @@ function pEventDefault() {
   $evt->setValue("evt_idinitiator",$this->id);
   $evt->setValue("evt_title",$this->getEventTitle());
   $evt->setValue("evt_idres",$this->getEventRessources());
-  if ($evt->isAlive()) {
-    $err=$evt->modify();
-  } else $err=$evt->Add();
+  if (!$evt->isAlive())     $err=$evt->Add();
+
+  if ($err=="") $err=$evt->modify();
+
   return $err;
   
 }
