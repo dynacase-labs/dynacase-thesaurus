@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.206 2004/06/23 14:24:22 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.207 2004/06/25 12:48:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -3384,54 +3384,6 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   
-  // =====================================================================================
-  // ================= methods use for calculated attributes ======================
-
-
-  // return the personn doc id conform to firstname & lastname of the user
-  function userDocId() {
-    global $action;
-
-    
-    return $action->user->fid;
-    include_once("FDL/Lib.Dir.php");
-    $famid=getFamIdFromName($this->dbaccess,"IUSER");
-    $filter[]="us_whatid = '".$this->userid."'";
-    
-    $tpers = getChildDoc($this->dbaccess, 0,0,1, $filter,$action->user->id,"TABLE",$famid);
-    if (count($tpers) > 0)    return($tpers[0]["id"]);
-    
-    return "";
-    
-  }
-  // return the personn doc id conform to firstname & lastname of the user
-  function userName() {
-    global $action;
-
-    return $action->user->lastname;
-    return $action->user->lastname." ".$action->user->firstname;
-  }
-
-  function myAttribute($idattr) {
-    $mydoc=new Doc($this->dbaccess,$this->userDocId());
-
-    return $mydoc->getValue($idattr);
-  }
-
-  /**
-   * return title of document
-   * @see Doc::getSpecTitle()
-   */
-  function getTitle($id="") {
-    if ($id=="") return $this->getSpecTitle();
-    if (! is_numeric($id)) return ""; 
-    
-    $t = getTDoc($this->dbaccess,$id);
-    if ($t)    return $t["title"];
-
-    return " "; // delete title
-  }
- 
   /**
    * return possible dynamic title
    * this method can be redefined in child if the title is variable by other parameters than containt
@@ -3439,25 +3391,6 @@ create unique index i_docir on doc(initid, revision);";
   function getSpecTitle() {
     return $this->title;
   }
-  function getDate($daydelta=0) {
-    $delta = abs(intval($daydelta));
-    if ($daydelta > 0) {
-      return date("d/m/Y",strtotime ("+$delta day"));
-    } else if ($daydelta < 0) {
-      return date("d/m/Y",strtotime ("-$delta day"));
-    }
-    return date("d/m/Y");
-  }
-  function getDocValue($docid, $attrid) {
-    if (intval($docid) > 0) {
-      $doc = new Doc($this->dbaccess, $docid);
-      if ($doc->isAlive()) {
-	return $doc->getRValue($attrid);
-      }
-    }
-    return "";
-  }
-
   function refreshDocTitle($nameId,$nameTitle) {
   
     // gettitle(D,SI_IDSOC):SI_SOCIETY,SI_IDSOC
@@ -3478,6 +3411,98 @@ create unique index i_docir on doc(initid, revision);";
     return "";
   }
 
+  //같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같
+  //   USUAL METHODS USE FOR CALCULATED ATTRIBUTES OR FUNCTION SEARCHES
+  //같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같
+  // ALL THESE METHODS NAME MUST BEGIN WITH 'GET'
+
+  /**
+   * return title of document
+   * @see Doc::getSpecTitle()
+   */
+  function getTitle($id="-1") {
+    if ($id=="-1") return $this->getSpecTitle();
+    if (! is_numeric($id)) return ""; 
+    
+    $t = getTDoc($this->dbaccess,$id);
+    if ($t)    return $t["title"];
+
+    return " "; // delete title
+  }
+
+  /**
+   * return the today date with european format DD/MM/YYYY
+   * @param int $daydelta to have the current date more or less day (-1 means yesterday, 1 tomorrow)
+   * @return string DD/MM/YYYY
+   */
+  function getDate($daydelta=0) {
+    $delta = abs(intval($daydelta));
+    if ($daydelta > 0) {
+      return date("d/m/Y",strtotime ("+$delta day"));
+    } else if ($daydelta < 0) {
+      return date("d/m/Y",strtotime ("-$delta day"));
+    }
+    return date("d/m/Y");
+  }
+  function getDocValue($docid, $attrid) {
+    if (intval($docid) > 0) {
+      $doc = new Doc($this->dbaccess, $docid);
+      if ($doc->isAlive()) {
+	return $doc->getRValue($attrid);
+      }
+    }
+    return "";
+  }
+
+  /**
+   * return the user last name 
+   * @return string
+   */
+  function getUserName() {
+    global $action;
+
+    return $action->user->lastname;
+    return $action->user->lastname." ".$action->user->firstname;
+  }
+
+  
+
+  /**
+   * return the personn doc id conform to firstname & lastname of the user
+   * @return int
+   */
+  function userDocId() {
+    global $action;
+
+    
+    return $action->user->fid;
+    include_once("FDL/Lib.Dir.php");
+    $famid=getFamIdFromName($this->dbaccess,"IUSER");
+    $filter[]="us_whatid = '".$this->userid."'";
+    
+    $tpers = getChildDoc($this->dbaccess, 0,0,1, $filter,$action->user->id,"TABLE",$famid);
+    if (count($tpers) > 0)    return($tpers[0]["id"]);
+    
+    return "";    
+  }
+  /**
+   * alias for @see Doc:userDocId
+   * @return int
+   */
+  function getUserId() {
+    return $this->userDocId();
+  }
+
+
+  /**
+   * return a specific attribute of the current user document
+   * @return int
+   */
+  function getMyAttribute($idattr) {
+    $mydoc=new Doc($this->dbaccess,$this->getUserId());
+
+    return $mydoc->getValue($idattr);
+  }
 
 }
 
