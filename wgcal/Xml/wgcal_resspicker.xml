@@ -45,7 +45,8 @@ function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
 </script>
 
 <form id="fgettext" target="wgcal_mresspicker_list" name="fgettext" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKERLIST&updt=[updt]">
-<fieldset><legend>[TEXT:searched families]</legend>
+<fieldset><legend>[TEXT:searched families]&nbsp;
+<img style="cursor:pointer;" title=[TEXT:close window]" height="12" src="WGCAL/Images/wm-close-small.png" onclick="parent.window.close();">&nbsp;</legend>
 [BLOCK FAMRESS]
 <div id="[FAMID]"  class="WGCRessDefault" style="height:50%; overflow:auto"
      onmouseover="WGCalChangeClass(event, '[FAMID]', 'WGCFamSelected', 'WGCRessOver');" 

@@ -149,7 +149,7 @@ function ChangeAllDay() {
 
 function SwitchZone(view) {
 
-  var zones = new Array ( 'evmainzone', 'evrepeatzone');
+  var zones = new Array ( 'evattendees', 'evrepeatzone');
 
   for (zx in zones) {
     z = zones[zx];
@@ -259,19 +259,11 @@ function  deleteAttendee(aid) {
     if (attendeesList[i].id != -1) showt = true;
   }
   var vress = document.getElementById('attlist');
-  var vdispo = document.getElementById('viewplan');
-  var vdelall = document.getElementById('delall');
   if (showt) {
     vress.style.display = '';
-    vdispo.style.display = '';
-    vdelall.style.display = '';
-    document.getElementById('vnatt').style.display = '';
   } else {
     vress.style.display = 'none';
-    vdispo.style.display = 'none';
-    vdelall.style.display = 'none';
     document.getElementById('withMe').checked = true;
-    document.getElementById('vnatt').style.display = 'none';
   }
 }
 
@@ -438,10 +430,7 @@ function clickB(idb) {
 function ShowHideStatus() {
   if (ROMode) return;
   evch = document.getElementById('withMe');
-//   evs = document.getElementById('spall');
   evch.checked = (evch.checked ? "" : "checked" );
-  if (evch.checked) evs.style.visibility = 'visible';
-  else evs.style.visibility = 'hidden';
 }
   
 function setStatus(st, cst) {

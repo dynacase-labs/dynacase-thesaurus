@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.22 2005/03/18 18:58:36 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.23 2005/03/30 10:04:40 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,6 +69,11 @@ array(
 "WGCAL_U_MINCUSED" => array("kind"=>"static", "val"=>"15", "descr"=>N_("minutes increment used for event setting"),"user"=>"Y"),
 
 "WGCAL_U_REFRESH_T" => array("kind"=>"static", "val"=>"0", "descr"=>N_("refresh toolbar"),"user"=>"Y"),
+
+"WGCAL_U_TODODAYS" => array("kind"=>"static", "val"=>"7", "descr"=>N_("view todos for ... days"),"user"=>"Y"),
+"WGCAL_U_TODOWARN" => array("kind"=>"static", "val"=>"2", "descr"=>N_("warn for todo having a date in the ... days"),"user"=>"Y"),
+"WGCAL_U_TODODEFLIMIT" => array("kind"=>"static", "val"=>"7", "descr"=>N_("set todo date to today + ... days"),"user"=>"Y"),
+
 
 // Globals
 "WGCAL_G_SENDMAILS" => array("val"=>"0", "descr"=>N_("mails send")),

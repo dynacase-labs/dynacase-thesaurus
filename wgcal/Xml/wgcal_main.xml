@@ -1,8 +1,8 @@
 <html>
 <head>
-<title>[TEXT:freedom groupware calendar]</title>
+  <title>[TEXT:freedom groupware calendar]</title>
+  <script language="JavaScript">window.resizeTo(900,700);</script>
 </head>
-
 <frameset name="wgcal" id="wgcal" frameborder="0" framespacing="0" border="0" cols="[toolbarwidth]pt,*">
 
   <frame id="wgcal_toolbar" name="wgcal_toolbar" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TOOLBAR&f=1" scrolling="needed">
@@ -11,5 +11,4 @@
     <frame name="wgcal_calendar" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR" scrolling="none">
     <frame name="wgcal_hidden"   src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_HIDDEN" noresize style="border-style:none" scrolling="needed">
   </frameset>
-
 </html>

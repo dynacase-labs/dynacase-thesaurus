@@ -1,4 +1,4 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD]
+[ZONE WGCAL:WGCAL_HTMLHEAD?W=700&H=400]
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="cev" name="cev" value="[EVENTID]"> </form>
 
 <form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER">
@@ -18,18 +18,8 @@
 
 
 
-<fieldset>
-<legend>
-<img id="butevmainzone" src="WGCAL/Images/wm-rvset.png" class="WGCalZoneSelected"
-    height="28" title="[TEXT:set event]" style="border:0px" 
-    onClick="SwitchZone('evmainzone'); autoHresize(); autoVresize();" >
-<img id="butevrepeatzone" src="WGCAL/Images/wm-repeat.png" class="WGCalZoneDefault"
-    height="28"  title="[TEXT:manage repeat]" style="border:0px" 
-    onClick="SwitchZone('evrepeatzone'); autoHresize(); autoVresize();" >
-</legend>
-
 <!-- Event default view -->
-<div  name="_addatt" id="_addatt" style="position:absolute;left:1%;top:1%;width:50%;height:90%;border:1px outset;display:none">
+<div  name="_addatt" id="_addatt" style="position:absolute;left:1%;top:1%;width:60%;height:95%;border:1px outset;display:none">
 <iframe name="wgcal_addatt" id="wgcal_addatt" style="position:absolute;width:100%;height:100%;" marginwidth="0" marginheight="0">
 </iframe>
 </div>
@@ -37,9 +27,14 @@
 <div id="evmainzone" style="display:">
 
 <table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
-<tr><td>
+<tr><td width="45%" valign="top">
 
-<table width="300px" style="margin-top: 0em;" cellspacing="0" border="0">
+<fieldset width="100%">
+<legend>
+<img src="WGCAL/Images/wgcal-small.png"  height="22" title="[TEXT:event description]" style="border:0px" >
+</legend>
+
+<table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
 
 <tr>
 
@@ -163,31 +158,49 @@
 
 </table>
 
+</fieldset>
+
+<table width="100%" style="margin-top: 0em;">
+<tr>
+<td align="left">
+[BLOCK EMPTY][nop]&nbsp;&nbsp;
+<a href="mailto:[mailadd]"><img src="WGCAL/Images/wm-mail.png" 
+  height="20" title="[TEXT:mail to contacts]" class="WGCalAction" style="border:0px"></a>
+<img src="WGCAL/Images/wm-print.png" 
+  height="20" title="[TEXT:print]" class="WGCalAction" onclick="window.print();">
+<img src="WGCAL/Images/wm-delete.png" 
+  height="20" title="[TEXT:delete]" class="WGCalAction" onclick="deleteEvent('[TEXT: delete this event]');">
+[ENDBLOCK EMPTY]
 </td>
-<td valign="top" align="left">
+<td align="right">
+<img src="WGCAL/Images/wm-save.png" id="btnSave"
+  height="20" title="[TEXT:save]" class="WGCalAction" onclick="saveEvent();">
+<img src="WGCAL/Images/wm-close.png" id="btnCancel"
+  height="20" title="[TEXT:cancel]" class="WGCalAction" onclick="cancelEvent('[TEXT: cancel modifications]');">
+</td></tr></table>
 
-<fieldset id="vical" style="width:90%">
-  <legend class="WGCToolTitle">
-  [TEXT:attendees]&nbsp;
 
-  <img id="addattendee" style="display:[attendeesro]; cursor:pointer;" 
-     onclick="ViewRessourceHelper('_addatt', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN'); " 
-     height="20"
-     src="WGCAL/Images/wm-attendees.png" title="[TEXT:add attendees]">
 
-   <img id="viewplan" style="display:[voneatt]; cursor:pointer;" height="20"
-          onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T?idfamref=[idfamref]&byres=Y&id=[planid]');";
-          src="WGCAL/Images/wm-planner.png" title="[TEXT:vew disponibility]">
 
-   <img id="delall" style="display:[voneatt]; cursor:pointer;" height="20"
-          onclick="ok=confirm('[TEXT:confirm delete all attendees]'); if (ok) deleteAttendee(-1);";
-          src="WGCAL/Images/wm-delete.png" title="[TEXT:delete all attendees]">
+</td>
+<td height="100%" valign="top" align="left">
 
-  </legend>
+<fieldset>
+<legend>
+<img id="butevattendees" src="WGCAL/Images/wm-attendees.png" class="WGCalZoneSelected"
+    height="22" title="[TEXT:meeting]" style="border:0px" 
+    onClick="SwitchZone('evattendees'); autoHresize(); autoVresize();" >
+<img id="butevrepeatzone" src="WGCAL/Images/wm-repeat.png" class="WGCalZoneDefault"
+    height="22"  title="[TEXT:manage repeat]" style="border:0px" 
+    onClick="SwitchZone('evrepeatzone'); autoHresize(); autoVresize();" >
+</legend>
+
 
 <div id="errAtt" name="errAtt" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:one ressource or you in event]</div>
 
-<table width="98%"><tr><td>
+<table id="evattendees" height="100%"  width="100%">
+
+<tr><td width="40%" valign="top">
 
 <table id="vnatt" cellspacing="0" cellpadding="0" width="100%">
 
@@ -212,23 +225,43 @@
 <span id="dress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add displayed ressources]">&nbsp;[TEXT:use displayed ressources]</span>
 </td></tr>
 
+<tr><td>&nbsp;</td></tr>
+
+<tr><td>
+<span id="pasearch" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"
+      onclick="ViewRessourceHelper('_addatt', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN'); "
+      title="[TEXT:ressources advanced search]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:ressources advanced search]">&nbsp;[TEXT:advanced search]</span>
+</td></tr>
+
 </table>
 
 
-</td><td>
+</td><td heidht="100%" width="60%" valign="top">
 
-<div style="width:100%; border: 1px inset lightgrey;" id="attlist">
+<div style="height:100%; width:100%; overflow:auto" id="attlist">
  
-<table cellspacing="0" cellpadding="0" align="center" width="100%">
+<table cellspacing="0" cellpadding="0" width="100%">
 <tbody id="tabress">
 
+<tr><td width="100%" align="left">
+   <img id="viewplan" style="display:[voneatt]; cursor:pointer;" height="20"
+          onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T?idfamref=[idfamref]&byres=Y&id=[planid]');";
+          src="WGCAL/Images/wm-planner.png" title="[TEXT:vew disponibility]">
+
+   <img id="delall" style="display:[voneatt]; cursor:pointer;" height="20"
+          onclick="ok=confirm('[TEXT:confirm delete all attendees]'); if (ok) deleteAttendee(-1);";
+          src="WGCAL/Images/wm-delete.png" title="[TEXT:delete all attendees]">
+</td></tr>
+
 <tr style="display:none" id="trsample">
+<!--
 <td> <img style="display:[attendeesro];cursor:pointer;border:1px outset grey" height="12"  
           onmouseover="this.style.border='1px inset grey'" onmouseout="this.style.border='1px outset grey'"
-          src="WGCAL/Images/wm-delete.png" onclick="deleteAttendee('%RID%');" title="[TEXT:delete attendee] %RDESCR%">
+          src="WGCAL/Images/wm-delete.png" onclick="deleteAttendee('%RID%');" title="[TEXT:delete attendee] %RDESCR%" >
 </td>
 <td>&nbsp;</td>
-<td><span id="cp%RID%" name="cp%RID%" style="cursor:crosshair; border:1px inset grey;" title="">&nbsp;&nbsp;</span>&nbsp;
+-->
+<td style="overflow:hidden;"><span id="cp%RID%" name="cp%RID%" title="">&nbsp;</span>&nbsp;
   <span style="cursor:pointer" id="%RID%" width="90%" title="%RDESCR%"
     onmouseover="ViewGroup(this,true);"  onmouseout="ViewGroup(this,false);"
     onclick="RessourceSelect(%RID%);">
@@ -253,15 +286,6 @@ PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBL
 
 
 
-</fieldset>
-
-</td></tr></table>
-
-
-
-</div>
-
-
 <!-- Repeat zone -->
 
 <div id="evrepeatzone" style="display:none">
@@ -276,14 +300,14 @@ PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBL
 <span onclick="if (clickB('repeattype2')) everyInfo();" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="if (clickB('repeattype2')) everyInfo()" type="radio" id="repeattype2" name="repeattype" value="2" [repeatdis] [REPEATTYPE_2]>[TEXT:week]</span>
 <span onclick="if (clickB('repeattype3')) everyInfo();" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="if (clickB('repeattype3')) everyInfo()" type="radio" id="repeattype3" name="repeattype" value="3" [repeatdis] [REPEATTYPE_3]>[TEXT:month]</span>
 <span onclick="if (clickB('repeattype4')) everyInfo();" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="if (clickB('repeattype4')) everyInfo()" type="radio" id="repeattype4" name="repeattype" value="4" [repeatdis] [REPEATTYPE_4]>[TEXT:year]</span>
-   ([TEXT:frequency] <input id="rfrequency" name="rfrequency" size="1" type="text" value="[FREQVALUE]" [repeatdis]>)
+   
   </div>
 
 <br>
 
   <div id="d_rweekday" style="left:10%; width:100%; align:center; display:[RWEEKDISPLAY]">
    [TEXT:day repetition] : <br>
-[BLOCK D_RWEEKDISPLAY]<span onclick="clickB('rweekday[dayn]')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="rweekday[]" value="[dayn]" [rdstate] [repeatdis]>[tDay]</span>[ENDBLOCK D_RWEEKDISPLAY]
+[BLOCK D_RWEEKDISPLAY]<span onclick="clickB('rweekday[dayn]')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="rweekday[]" value="[dayn]" [rdstate] [repeatdis]>[tDay]</span>[IF weekend]<br>[ENDIF weekend][ENDBLOCK D_RWEEKDISPLAY]
   </div>
 
   <div id="d_rmonth" style="left:10%; display:[D_RMONTH]">
@@ -324,7 +348,7 @@ PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBL
       }
     );
    </script></span>
-
+<div>[TEXT:frequency] <input id="rfrequency" name="rfrequency" size="1" type="text" value="[FREQVALUE]" [repeatdis]></div>
 <hr>
 
 <fieldset><legend>[TEXT:exclude days]</legend>
@@ -365,25 +389,12 @@ Calendar.setup(
 </div> <!-- end of repeat zone -->
 
 </fieldset>
-
-<table width="100%" style="margin-top: 0em;">
-<tr>
-<td align="left">
-[BLOCK EMPTY][nop]&nbsp;&nbsp;
-<a href="mailto:[mailadd]"><img src="WGCAL/Images/wm-mail.png" 
-  height="20" title="[TEXT:mail to contacts]" class="WGCalAction" style="border:0px"></a>
-<img src="WGCAL/Images/wm-print.png" 
-  height="20" title="[TEXT:print]" class="WGCalAction" onclick="window.print();">
-<img src="WGCAL/Images/wm-delete.png" 
-  height="20" title="[TEXT:delete]" class="WGCalAction" onclick="deleteEvent('[TEXT: delete this event]');">
-[ENDBLOCK EMPTY]
-</td>
-<td align="right">
-<img src="WGCAL/Images/wm-save.png" id="btnSave"
-  height="20" title="[TEXT:save]" class="WGCalAction" onclick="saveEvent();">
-<img src="WGCAL/Images/wm-close.png" id="btnCancel"
-  height="20" title="[TEXT:cancel]" class="WGCalAction" onclick="cancelEvent('[TEXT: cancel modifications]');">
 </td></tr></table>
+
+
+
+</div>
+
 
 
 <script type="text/javascript">

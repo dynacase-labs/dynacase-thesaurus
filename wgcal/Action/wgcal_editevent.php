@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.38 2005/03/22 13:29:38 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.39 2005/03/30 10:04:40 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -347,6 +347,8 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
     $td[$i]["repeatdis"] = ($ro?"disabled":"");
     $td[$i]["tDay"] = $tday[$i];
     $td[$i]["rdstate"] = "";
+    if ($i==4) $td[$i]["weekend"] = true;
+    else $td[$i]["weekend"] = false;
   }
   foreach ($rday as $kd => $vd) $td[$vd]["rdstate"] = "checked";
   $action->lay->SetBlockData("D_RWEEKDISPLAY", $td);
@@ -491,10 +493,5 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
 }
 
 
-function db2date($i) {
-  $i = preg_replace( '/(\d{2})\W(\d{2})\W(\d{4}|\d{4})\W(\d{2}:\d{2})/', '$2/$1/$3 $4', $i);
-  $d = strtotime($i);
-  return $d;
-}
 
 ?>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.21 2005/03/18 18:58:36 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.22 2005/03/30 10:04:40 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -61,6 +61,10 @@ function wgcal_toolbar(&$action) {
   }
   $action->lay->SetBlockData("InitTools", $td);
   $action->lay->set("countTools", $nbTools);
+
+
+  $todoviewday = $action->getParam("WGCAL_U_TODODAYS", 7);
+  $action->lay->set("tododays", $todoviewday);
 }
 
 

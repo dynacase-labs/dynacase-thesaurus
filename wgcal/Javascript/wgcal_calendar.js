@@ -189,7 +189,7 @@ function SetCurrentEvent(id) {
 
 // --------------------------------------------------------
 function ClickCalendarCell(urlroot, nh,times,timee) {
-  subwindow(400, 650, 'EditEvent', urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh='+nh+'&ts='+times+'&te='+timee);
+  subwindow(400, 700, 'EditEvent', urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh='+nh+'&ts='+times+'&te='+timee);
 }
 
 // --------------------------------------------------------

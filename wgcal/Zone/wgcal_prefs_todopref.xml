@@ -1,0 +1,17 @@
+<h4>[TEXT:todos...]</h4>
+<table width="100%" cellspacing="0" style="margin:0px;">
+
+<tr class="wTextActive"><td colspan="2">[TEXT:todos options]</td></tr>
+
+[BLOCK SELECT]<tr>
+<td align="right" width="60%">[iText] : </td>
+<td><select style="cursor:pointer" id="sel[iSel]" 
+    onchange="mytoto('[iVar]', this.options[this.selectedIndex].value, '[iFrame]', '[iAction]');">
+[BLOCK OPT[iSel]]<option value="[iOptVal]" [iOptSelected]>[iOptText][ENDBLOCK OPT[iSel]]
+</select>
+</td>
+</tr>[ENDBLOCK SELECT]
+
+</table>
+
+

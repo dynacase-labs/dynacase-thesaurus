@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.3 2005/03/10 10:30:59 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.4 2005/03/30 10:04:41 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.3 2005/03/10 10:30:59 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.4 2005/03/30 10:04:41 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -19,8 +19,22 @@ include_once('Class.Application.php');
 
 function wgcal_htmlhead(&$action) {
 
-  global $_SERVER;
 
+  $sTitle = GetHttpVars("S", "");
+  $winW = GetHttpVars("W", 0);
+  $winH = GetHttpVars("H", 0);
+  if ($winW>0 && $winH>0) {
+    $action->lay->set("resize", true);
+    $action->lay->set("winW", $winW);
+    $action->lay->set("winH", $winH);
+  } else {
+    $action->lay->set("resize", false);
+  }    
+    
+
+  $action->lay->set("SubTitle", $sTitle);
+  $action->lay->set("bstitle", ($sTitle!="" ? true : false));
+  
   $theme = $action->getParam("WGCAL_U_THEME", "default");
   $action->lay->set("theme", $theme);
   

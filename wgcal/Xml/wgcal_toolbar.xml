@@ -127,9 +127,16 @@
 </div>
 
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
-<tr><td onclick="WGCalChangeVisibility(3, 'mytodo');" align="left">[TEXT:my todo]</td></tr>
+<tr>
+<td onclick="WGCalChangeVisibility(3, 'mytodo');" align="left">[TEXT:my todo]</td>
+<td align="right" width="50">
+<img id="allTodo" style="cursor:pointer;" onclick="subwindow(300, 400, 'AllTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ALLTODO');" height="15" src="WGCAL/Images/todo-all.png" title="[TEXT:view all todo]">
+<img id="addTodo" style="cursor:pointer;" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT');" height="15" src="WGCAL/Images/todo-new.png" title="[TEXT:add a todo]">
+</td></tr>
 </table>
-<div id="mytodo" style="display:[vTool3]" class="wToolArea">pas de tâche....</div> 
+<div id="mytodo" style="display:[vTool3]" class="wToolArea">
+[ZONE WGCAL:TODO?dtodo=[tododays]]
+</div> 
 
 <script type="text/javascript">
 

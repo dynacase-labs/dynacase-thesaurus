@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.22 2005/03/18 18:58:36 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.23 2005/03/30 10:04:40 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -124,16 +124,17 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
 
   include_once('FDL/popup_util.php');
 
-  // echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres]<br>";
 
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $rvfamid = getIdFromName($dbaccess, "CALEVENT");
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $tout=array(); 
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
   $fref = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
+//   $fref = "EVENT_CALL";
   $ft = explode("|", $fref);
   $fti = array();
   foreach ($ft as $k => $v) {
@@ -141,6 +142,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   }
   $idfamref = implode("|", $fti);
   setHttpVar("idfamref", $idfamref);
+  echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
   $dre=new Doc($dbaccess,$reid);
   $edre = array();
   $edre=$dre->getEvents($d1,$d2);
@@ -166,8 +168,9 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
  		   "TSEND" => $end, 
 		   "END" => FrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
+      print_r2($item);
     $ref = false;
-    if ($showrefused!=1) {
+    if ($showrefused!=1 && $v["evt_frominitiatorid"] == $rvfamid) {
       $attr = $dre->_val2array($v["evfc_rejectattid"]);
       foreach ($attr as $kat => $vat) {
         if ($action->user->fid == $vat) $ref = true;
@@ -245,7 +248,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   }
   popupGen(count($tout));
   $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
-//      print_r2($tout);
+      print_r2($tout);
   return $tout;
 }
        	
@@ -258,6 +261,11 @@ function WGCalDaysInMonth($ts)
   return ($thisDay-1);
 } 
 
+function db2date($i) {
+  $i = preg_replace( '/(\d{2})\W(\d{2})\W(\d{4}|\d{4})\W(\d{2}:\d{2})/', '$2/$1/$3 $4', $i);
+  $d = strtotime($i);
+  return $d;
+}
 function date2db($d, $hm = true) {
   $fmt = ($hm ? "%d/%m/%Y %H:%M" : "%d/%m/%Y" );
   $s = strftime($fmt, $d);

@@ -1,0 +1,9 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD?S=[TEXT:my todos...]&W=250&H=300]
+<table cellspacing="0" cellpadding="0" width="100%"><tr><td class="wMonthTextTitle" align="left">[TEXT:my todos...]</td></tr></table>
+
+[ZONE WGCAL:TODO?dtodo=-1]
+
+<table cellspacing="0" cellpadding="0" width="100%"><tr><td class="wMonthTextTitle"  align="right">
+<img src="WGCAL/Images/wm-close.png" id="btnCancel" height="12" title="[TEXT:cancel]" class="WGCalAction" onclick="window.close();"></td></tr></table>
+[ZONE WGCAL:WGCAL_HTMLFOOT]
+

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-22 14:15+0100\n"
+"POT-Creation-Date: 2005-03-27 09:16+0200\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -73,9 +73,6 @@ msgstr ""
 msgid "use prefered ressource for event setting"
 msgstr "Utiliser mes contacts préférés pour les rendez-vous"
 
-msgid "use displayed ressource for event setting"
-msgstr "Utiliser les ressources pour les rendez-vous"
-
 msgid "my prefered contacts"
 msgstr "Mes contacts préférés"
 
@@ -109,11 +106,14 @@ msgstr "Incrément pour les minutes en saisie de RV"
 msgid "refresh toolbar"
 msgstr "Raffraichir la barre d'outil"
 
+msgid "todo days"
+msgstr "Tâches affichées pour ... jours"
+
 msgid "mails send"
 msgstr "Envoi des mails"
 
 msgid "viewed events (from producters)"
-msgstr ""
+msgstr "Famille des producteurs des évènements affichés"
 
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
@@ -178,6 +178,20 @@ msgstr "Supression d'un rendez-vous"
 msgid "event history"
 msgstr "Historique"
 
+msgid "mark to done todos"
+msgstr "Marquer la tâche comme terminée"
+
+#, fuzzy
+msgid "edit todos"
+msgstr "Editer"
+
+#, fuzzy
+msgid "view todos"
+msgstr "Afficher"
+
+msgid "view all todos"
+msgstr "Afficher toutes les tâches"
+
 msgid "ressource picker main"
 msgstr "Selecteur de ressources"
 
@@ -198,6 +212,30 @@ msgstr "Vue mensuelle texte"
 
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
+
+msgid "enter todo title"
+msgstr "Donner un titre à la tâche"
+
+msgid "give a title"
+msgstr "saississez un titre"
+
+msgid "todo date limit"
+msgstr "Date butée"
+
+msgid "click here to set the todo limit date"
+msgstr "Cliquer pour choisir la date butée de la tâche"
+
+msgid "todo note"
+msgstr "Note"
+
+msgid "save todo"
+msgstr "Sauvegarder la tâche"
+
+msgid "cancel"
+msgstr "Annuler"
+
+msgid " cancel modifications"
+msgstr "Annuler les éventuelles modifications"
 
 msgid "there are conflicts with events (see after)"
 msgstr "Cet évènement est en conflit avec ceux ci-dessous"
@@ -244,20 +282,20 @@ msgstr "Afficher / cacher les week-end"
 msgid "searched families"
 msgstr "Rechercher dans les familles..."
 
+msgid "close window"
+msgstr "Fermer la fenêtre"
+
 msgid "search"
 msgstr "Rechercher"
 
-msgid "set event"
-msgstr ""
+msgid "my todos..."
+msgstr "Mes tâches..."
 
-msgid "manage repeat"
-msgstr "Gérer les répétitions"
+msgid "event description"
+msgstr "Description de l'évènement"
 
 msgid "rv title"
 msgstr "Titre"
-
-msgid "give a title"
-msgstr "saississez un titre"
 
 msgid "start date"
 msgstr "Date de début"
@@ -298,90 +336,6 @@ msgstr "Alarme"
 msgid "before"
 msgstr "avant"
 
-msgid "attendees"
-msgstr "Personnes conviées"
-
-msgid "add attendees"
-msgstr "Convier des personnes"
-
-msgid "vew disponibility"
-msgstr "Voir les disponibilités"
-
-msgid "confirm delete all attendees"
-msgstr "confirmez la suppression de toutes les personnes conviées"
-
-msgid "delete all attendees"
-msgstr "Suppression de toutes les personnes conviées"
-
-msgid "one ressource or you in event"
-msgstr "Utiliser les ressources pour les rendez-vous"
-
-msgid "I participe to this meeting"
-msgstr "je participe à la réunion"
-
-msgid "delete attendee"
-msgstr "Supprimer une personne conviée"
-
-msgid "use my prefered ressources"
-msgstr "mes contacts préférés"
-
-msgid "use my prefered ressource"
-msgstr "mes contacts préférés"
-
-msgid "use displayed ressources"
-msgstr "ressources affichées"
-
-msgid "every"
-msgstr "tout les"
-
-msgid "none"
-msgstr "jamais"
-
-msgid "day"
-msgstr "Jour"
-
-msgid "month"
-msgstr "Mois"
-
-msgid "year"
-msgstr "Année"
-
-msgid "frequency"
-msgstr "Fréquence"
-
-msgid "day repetition"
-msgstr "Jour de répétition"
-
-msgid "month repetition"
-msgstr "Répétition mensuelle"
-
-msgid "per date"
-msgstr "par date"
-
-msgid "per day"
-msgstr "par jour"
-
-msgid "repeat until"
-msgstr "jusqu'au"
-
-msgid "forever"
-msgstr "toujours"
-
-msgid "this date"
-msgstr "cette date"
-
-msgid "click to select a date"
-msgstr "cliquer pour choisir une date"
-
-msgid "exclude days"
-msgstr "Jours exclus"
-
-msgid "add a new day to exclude"
-msgstr "Ajouter un jour à exclure"
-
-msgid "del selected dates"
-msgstr "Supprimer les jours sélectionnés"
-
 msgid "mail to contacts"
 msgstr "Envoyer un mail aux personnes conviées"
 
@@ -397,11 +351,107 @@ msgstr "Supprimer le rendez-vous"
 msgid "save"
 msgstr "Sauver"
 
-msgid "cancel"
-msgstr "Annuler"
+msgid "meeting"
+msgstr "Réunion"
 
-msgid " cancel modifications"
-msgstr "Annuler les éventuelles modifications"
+msgid "manage repeat"
+msgstr "Gérer les répétitions"
+
+msgid "one ressource or you in event"
+msgstr "Utiliser les ressources pour les rendez-vous"
+
+msgid "search for a contact..."
+msgstr "Recherche un contact..."
+
+msgid "I participe to this meeting"
+msgstr "je participe à la réunion"
+
+msgid "I participe..."
+msgstr "Je participe..."
+
+msgid "add my prefered ressources"
+msgstr "Ajouter mes contacts préférés"
+
+msgid "add my prefered ressource"
+msgstr "Ajouter mes contacts préférés"
+
+msgid "use my prefered ressource"
+msgstr "mes contacts préférés"
+
+msgid "add displayed ressources"
+msgstr "Ajouter les ressources affichées"
+
+msgid "use displayed ressources"
+msgstr "ressources affichées"
+
+msgid "ressources advanced search"
+msgstr "Recherche avancée de contact"
+
+msgid "advanced search"
+msgstr "Recherche avancée"
+
+msgid "vew disponibility"
+msgstr "Voir les disponibilités"
+
+msgid "confirm delete all attendees"
+msgstr "confirmez la suppression de toutes les personnes conviées"
+
+msgid "delete all attendees"
+msgstr "Suppression de toutes les personnes conviées"
+
+msgid "delete attendee"
+msgstr "Supprimer une personne conviée"
+
+msgid "every"
+msgstr "Tout les"
+
+msgid "none"
+msgstr "jamais"
+
+msgid "day"
+msgstr "Jour"
+
+msgid "month"
+msgstr "Mois"
+
+msgid "year"
+msgstr "Année"
+
+msgid "day repetition"
+msgstr "Jour de répétition"
+
+msgid "month repetition"
+msgstr "Répétition mensuelle"
+
+msgid "per date"
+msgstr "par date"
+
+msgid "per day"
+msgstr "par jour"
+
+msgid "repeat until"
+msgstr "Jusqu'au"
+
+msgid "forever"
+msgstr "toujours"
+
+msgid "this date"
+msgstr "cette date"
+
+msgid "click to select a date"
+msgstr "cliquer pour choisir une date"
+
+msgid "frequency"
+msgstr "Fréquence"
+
+msgid "exclude days"
+msgstr "Jours exclus"
+
+msgid "add a new day to exclude"
+msgstr "Ajouter un jour à exclure"
+
+msgid "del selected dates"
+msgstr "Supprimer les jours sélectionnés"
 
 msgid "search phrase"
 msgstr "Texte recherché"
@@ -468,6 +518,12 @@ msgstr "Sauvegarder la liste des calendriers"
 
 msgid "my todo"
 msgstr "Mes tâches"
+
+msgid "view all todo"
+msgstr "Afficher toutes les tâches"
+
+msgid "add a todo"
+msgstr "Ajout d'une nouvelle tâche"
 
 msgid "found ressources"
 msgstr "Ressources trouvées"
@@ -547,8 +603,11 @@ msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 msgid "my calendars"
 msgstr "Mes calendriers"
 
-msgid "freeevent app name"
-msgstr ""
+msgid "others"
+msgstr "Autres préférences"
+
+msgid "options"
+msgstr "Options"
 
 msgid "note"
 msgstr "Note"
@@ -565,12 +624,8 @@ msgstr "Calendrier"
 msgid "modified"
 msgstr "modifié le"
 
-msgid "others"
-msgstr "Autres préférences"
-
-#, fuzzy
-msgid "options"
-msgstr "Messages"
+msgid "attendees"
+msgstr "Personnes conviées"
 
 msgid "search events containing phrase..."
 msgstr "rechercher les évènements contenant"
@@ -578,8 +633,20 @@ msgstr "rechercher les évènements contenant"
 msgid "enter words here"
 msgstr "entrer les mots recherchés"
 
-msgid "advanced search"
-msgstr "Recherche avancée"
+msgid " no todo"
+msgstr "Pas de tâches"
+
+msgid "todo done"
+msgstr "Tâche terminée"
+
+msgid "set to done"
+msgstr "Marquer la tâche comme terminée"
+
+msgid "todo warning"
+msgstr "Attention date butée"
+
+msgid "todo alert"
+msgstr "La date butée est dépassée"
 
 msgid " interface look"
 msgstr "Aspect et comportement de l'interface"
@@ -626,9 +693,8 @@ msgstr "Proposition de rendez-vous"
 msgid "look preferences"
 msgstr "Aspect et comportement de l'interface"
 
-#, fuzzy
 msgid "other preferences"
-msgstr "Préférence de l'utilisateur"
+msgstr "Autres préférences"
 
 msgid "state set to "
 msgstr "Rendez-vous "
@@ -670,9 +736,6 @@ msgstr "Modification du contenu"
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
 
-msgid "display refused meetings"
-msgstr "Afficher les évènements refusés"
-
 msgid "confidential event"
 msgstr "Evènement confidentiel"
 
@@ -695,7 +758,7 @@ msgid "yearly"
 msgstr "annuelle"
 
 msgid "until"
-msgstr "jusqu'au"
+msgstr "Jusqu'au"
 
 msgid "there is excluded days"
 msgstr "il y a des jours exclus"
@@ -742,6 +805,9 @@ msgstr "1 seconde"
 msgid "1,5 second"
 msgstr "1,5 seconde"
 
+msgid "display refused meetings"
+msgstr "Afficher les évènements refusés"
+
 msgid "new"
 msgstr "nouveau"
 
@@ -753,6 +819,12 @@ msgstr "à confirmer"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"
+
+#~ msgid "use displayed ressource for event setting"
+#~ msgstr "Utiliser les ressources pour les rendez-vous"
+
+#~ msgid "add attendees"
+#~ msgstr "Convier des personnes"
 
 #~ msgid "mail management"
 #~ msgstr "Gestion des mail"
@@ -800,9 +872,6 @@ msgstr "mon calendrier public"
 #~ msgid "add new call"
 #~ msgstr "Ajout d'un nouvel appel"
 
-#~ msgid "add todo"
-#~ msgstr "Ajout d'une nouvelle tâche"
-
 #~ msgid "one week view"
 #~ msgstr "Une semaine"
 
@@ -823,9 +892,6 @@ msgstr "mon calendrier public"
 
 #~ msgid "refuse event "
 #~ msgstr "refuse"
-
-#~ msgid "today"
-#~ msgstr "Aujourd'hui"
 
 #, fuzzy
 #~ msgid "end time update"
