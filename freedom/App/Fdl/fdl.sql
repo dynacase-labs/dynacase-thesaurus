@@ -76,33 +76,6 @@ begin
 end;
 ' language 'plpgsql';
 
-create or replace function computegperm(int, int) 
-returns int as '
-declare 
-  a_userid alias for $1;
-  profid alias for $2;
-  uperm int;
-  group RECORD;
-  gperm int;
-  
-begin
-   if (a_userid = 1) or (profid <= 0) then 
-     return -1; -- it is admin user or no controlled object
-   end if;
-  
-   uperm := 0;
-   for group in select idgroup from groups where iduser=a_userid loop
-     gperm := getuperm(group.idgroup, profid);
-  
-     uperm := gperm | uperm;
-    
-   end loop;
-
-
-   return uperm;
-end;
-' language 'plpgsql' with (iscachable);
-
 create or replace function flog(int, int) 
 returns bool as '
 declare 
@@ -122,39 +95,65 @@ return true;
 end;
 ' language 'plpgsql' with (iscachable);
 
+create or replace function computegperm(int, int) 
+returns int as '
+declare 
+  a_userid alias for $1;
+  a_profid alias for $2;
+  uperm int;
+  xgroup RECORD;
+  gperm int;
+  
+begin
+   if (a_userid = 1) or (a_profid <= 0) then 
+     return -1; -- it is admin user or no controlled object
+   end if;
+  
+   uperm := 0;
+   for xgroup in select idgroup from groups where iduser=a_userid loop
+     gperm := getuperm(xgroup.idgroup, a_profid);
+  
+     uperm := gperm | uperm;
+    
+   end loop;
+
+
+   return uperm;
+end;
+' language 'plpgsql' with (iscachable);
+
+
+
 create or replace function getuperm(int, int) 
 returns int as '
 declare 
   a_userid alias for $1;
-  profid alias for $2;
+  a_profid alias for $2;
   uperm int;
   gperm int;
   upperm int;
   unperm int;
   tlog int;
 begin
-   if (a_userid = 1) or (profid <= 0) then 
+   if (a_userid = 1) or (a_profid <= 0) then 
      return -1; -- it is admin user or no controlled object
    end if;
   
-   select into uperm, upperm, unperm cacl, upacl, unacl from docperm where docid=profid and userid=a_userid;
-
- 
-
-
+   select into uperm, upperm, unperm cacl, upacl, unacl from docperm where docid=a_profid and userid=a_userid;
 
    if (uperm is null) then
-     uperm := computegperm(a_userid,profid);
-     insert into docperm (docid, userid, upacl, unacl, cacl) values (profid,a_userid,0,0,uperm); 
+     uperm := computegperm(a_userid,a_profid);
+     uperm := uperm | 1;
+     insert into docperm (docid, userid, upacl, unacl, cacl) values (a_profid,a_userid,0,0,uperm); 
      return uperm;
    end if;
 
    if (uperm = 0) then
-     gperm := computegperm(a_userid,profid);
+     gperm := computegperm(a_userid,a_profid);
     
      uperm := ((gperm | upperm) & (~ unperm)) | 1;
 
-     update docperm set cacl=uperm where docid=profid and userid=a_userid;
+     update docperm set cacl=uperm where docid=a_profid and userid=a_userid;
    end if;
 
    return uperm;
@@ -165,14 +164,31 @@ create or replace function hasviewprivilege(int, int)
 returns bool as '
 declare 
   a_userid alias for $1;
-  profid alias for $2;
+  a_profid alias for $2;
   uperm int;
 begin
    
-   uperm := getuperm(a_userid, profid);
+   uperm := getuperm(a_userid, a_profid);
 
 
    return ((uperm & 2) != 0);
+end;
+' language 'plpgsql' with (iscachable);
+
+
+create or replace function hasdocprivilege(int, int, int) 
+returns bool as '
+declare 
+  a_userid alias for $1;
+  a_profid alias for $2;
+  a_pos alias for $3;
+  uperm int;
+begin
+   
+   uperm := getuperm(a_userid, a_profid);
+
+
+   return ((uperm & a_pos) != 0);
 end;
 ' language 'plpgsql' with (iscachable);
 
@@ -286,4 +302,3 @@ begin
    return true;
 end;
 ' language 'plpgsql' ;
-
