@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.5 2002/09/26 15:45:15 eric Exp $
+// $Id: freedom_import.php,v 1.6 2003/01/08 09:05:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,7 +32,9 @@ include_once("FDL/import_file.php");
 // -----------------------------------
 function freedom_import(&$action) {
   // -----------------------------------
-  add_import_file(&$action); 
+  $nbdoc=add_import_file(&$action); 
+
+  $action->lay->Set("nbdoc","$nbdoc");
 }
 
 

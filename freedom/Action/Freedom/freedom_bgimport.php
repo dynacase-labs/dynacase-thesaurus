@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_bgimport.php,v 1.3 2002/10/08 12:11:29 eric Exp $
+// $Id: freedom_bgimport.php,v 1.4 2003/01/08 09:05:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_bgimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -64,18 +64,25 @@ function freedom_bgimport(&$action) {
 
   
   $subject=sprintf(_("result of import  %s"), $filename);
-  $cmd[] = "metasend  -b -S 4000000  -F 'freedom' -t '$to' -s \"$subject\"  -m 'text/html' -e 'quoted-printable' -f  $file.2";
-  $cmd[]="/bin/rm -f $file.?";
+  $from=getMailAddr($action->user->id);
+  if ($from == "")  $from = $action->user->login;
+  $bcc ="";
+  
+  $bcc .="\\nReturn-Path:$from";
+  $cmd[] = "export LANG=C";
+  $cmd[] = "metasend  -b -S 4000000  -F 'freedom' -t '$to$bcc' -s \"$subject\"  -m 'text/html' -e 'quoted-printable' -f  $file.2";
+  // $cmd[]="/bin/rm -f $file.?";
 
   $scmd="(";
   $scmd.=implode(";",$cmd);
   
   
-  $scmd .= ") > /dev/null &";
+  $scmd .= ") 2>&1 > /dev/null &";
 
 
   session_write_close(); // necessary to close if not background cmd 
   exec($scmd, $result, $err);  
+  // passthru($scmd, $err);  
   @session_start();
 
 

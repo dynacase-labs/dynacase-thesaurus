@@ -50,8 +50,9 @@
 <input type="hidden" name="dirid" value="[dirid]">
 <input type="hidden" name="analyze" value="N">
 <fieldset>
-<legend>[TEXT:Description of the import format]</legend> [TEXT:for]
-   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDITIMPORT&classid='+self.document.modifydoc.classid.options[self.document.modifydoc.classid.selectedIndex].value">  
+<legend>[TEXT:Description of the import format]</legend> 
+   [TEXT:for]
+   <select name="classid" onchange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDITIMPORT&classid='+self.document.modifydoc.classid.options[self.document.modifydoc.classid.selectedIndex].value">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]
@@ -67,14 +68,14 @@
      </table>
 <hr width="50%">
  <label for="file">[TEXT:import file:]</label>
- <input type="file" name="file"  > 
+ <input type="file" name="file" onchange="document.getElementById('bgimport').disabled=true;document.getElementById('fgimport').disabled=true;" onblur="document.getElementById('bgimport').disabled=true;document.getElementById('fgimport').disabled=true;" > 
  <input type="submit" value="[TEXT:Analyze]" 
         onclick="document.modifydoc.target='anaimport';document.modifydoc.analyze.value='Y'"> 
  <input type="checkbox" name="double" value="Y" >[TEXT:With Double]</input> 
 </fieldset>
 <fieldset>
 <legend>[TEXT:Direct Import]</legend> 
- <input type="submit" value="[TEXT:Import document description]"
+ <input id="fgimport" type="submit" value="[TEXT:Import document description]" disabled
         onclick="document.modifydoc.target='_self';document.modifydoc.analyze.value='N'" > 
 
 </fieldset>
@@ -82,7 +83,7 @@
 <legend>[TEXT:Background Import]</legend> 
 <label for="to">[TEXT:report to (mail address)]</label>
 <input type="text" size=30 name="to" value=[mailaddr]></input><br>
-<input type="submit" 
+<input id="bgimport" type="submit" disabled
        onclick="document.modifydoc.target='_self';document.modifydoc.action='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_BGIMPORT'" 
        value="[TEXT:proceed background import]">
 </fieldset>
