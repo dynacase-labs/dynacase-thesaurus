@@ -5,7 +5,7 @@
   <head>
 
    <title>[TEXT: folder containt]</title>
-
+<link rel="shortcut icon" href="FDL/Images/logo16.ico" >
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=FDL&action=FDL_CSS" >
 [CSS:REF]
