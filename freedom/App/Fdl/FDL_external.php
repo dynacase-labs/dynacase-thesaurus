@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.30 2004/03/29 13:41:29 eric Exp $
+ * @version $Id: FDL_external.php,v 1.31 2004/06/17 14:50:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -233,6 +233,15 @@ function lmask($dbaccess, $name, $maskfamid="") {
   
 }
 
+/**
+ * search list not filters
+ */
+function lsearches($dbaccess, $name) {
+
+  $filter=array("fromid=5 or fromid=16");
+  return lfamilly($dbaccess, "SEARCH", $name, 0, $filter);
+  
+}
 // liste des zones possibles
 // $tview VCONS|VEDIT
 function lzone_($dbaccess, $tview, $famid ="") {
