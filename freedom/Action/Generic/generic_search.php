@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.5 2002/09/13 15:06:07 eric Exp $
+// $Id: generic_search.php,v 1.6 2002/10/08 10:27:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,14 +54,15 @@ function generic_search(&$action) {
 
   $sdoc->Add();
   
-
+  $searchquery="";
 
   if ($doc->doctype == 'S') { // case of search in search doc
     $searchquery="and doc.id in (".$doc->GetQuery().")";
     // replace 'select * from' by 'select doc.id from'
       $searchquery="and doc.id in (".str_replace("select * from","select doc.id from",$searchquery).")";
   } else { // case of search in folder
-    $searchquery="and doc.initid in (select childid from fld where childid=doc.initid and dirid=$dirid)";
+    if ($doc->id != getDefFld($action))
+      $searchquery="and doc.initid in (select childid from fld where childid=doc.initid and dirid=$dirid)";
   }
 
   $famid = getDefFam($action);
@@ -71,6 +72,7 @@ function generic_search(&$action) {
      " $searchquery ".
      "and (doc.id = docvalue.docid) ".
      "and (doc.locked != -1)".
+     "and (doc.doctype = 'F')".
      "and (not useforprof)".
      "and $sqlfrom";
   $sdoc-> AddQuery($query);
