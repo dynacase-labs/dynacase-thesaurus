@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editdfld.php,v 1.3 2003/01/21 15:43:35 eric Exp $
+// $Id: editdfld.php,v 1.4 2003/04/02 07:35:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editdfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@ function editdfld(&$action) {
 
   $action->lay->Set("docid",$docid);
 
-   $action->lay->Set("TITLE",_("change default folder"));
+  $action->lay->Set("TITLE",_("change default folder"));
  
 
 
@@ -62,22 +62,22 @@ function editdfld(&$action) {
   if (is_array($tclassdoc)) {
     while (list($k,$pdoc)= each ($tclassdoc)) {
      
-	$selectclass[$k]["idpdoc"]=$pdoc["id"];
-	$selectclass[$k]["profname"]=$pdoc["title"];
+      $selectclass[$k]["idpdoc"]=$pdoc["id"];
+      $selectclass[$k]["profname"]=$pdoc["title"];
 	
-	$selectclass[$k]["selected"]=($pdoc["id"]==$fldid)?"selected":"";
+      $selectclass[$k]["selected"]=($pdoc["id"]==$fldid)?"selected":"";
       
     }
   }
 
 
-
+  $action->lay->Set("autodisabled",$current||($fldid>0)?"disabled":"");
   
-    $action->lay->SetBlockData("SELECTFLD", $selectclass);
+  $action->lay->SetBlockData("SELECTFLD", $selectclass);
 	  
       
     
-  }
+}
 
 
 

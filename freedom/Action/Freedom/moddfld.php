@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: moddfld.php,v 1.3 2003/01/21 15:43:35 eric Exp $
+// $Id: moddfld.php,v 1.4 2003/04/02 07:35:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/moddfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,16 +39,31 @@ function moddfld(&$action) {
   // Get all the params      
   $docid=GetHttpVars("docid");
   $current = (GetHttpVars("current","N")=="Y");
+  $newfolder = (GetHttpVars("autofolder","N")=="Y");
   $fldid=  GetHttpVars("dfldid");
     
-  if ( $docid == 0 ) $action->exitError(_("the document is not referenced: cannot apply profile access modification"));
+  if ( $docid == 0 ) $action->exitError(_("the document is not referenced: cannot apply defaut folder"));
     
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   
-  
   // initialise object
   $doc = new Doc($dbaccess,$docid);
+
+  // create folder if auto 
+  if ($newfolder) {
+    $dir = createDoc($dbaccess, getFamIdFromName($dbaccess,"DIR"));
+    $err=$dir->Add();
+    if ($err!="") $action->exitError($err);
+    $dir->setValue("BA_TITLE",sprintf(_("root for %s"),$doc->title));
+    $dir->setValue("BA_DESC",_("default folder"));
+    $dir->setValue("FLD_ALLBUT","1");
+    $dir->setValue("FLD_FAM",$doc->title."\n"._("folder"));
+    $dir->setValue("FLD_FAMIDS",$doc->id."\n".getFamIdFromName($dbaccess,"DIR"));
+    $dir->Modify();
+    $fldid=$dir->id;
+  }
+
   if ($current) $doc->cfldid = $fldid; 
   else $doc->dfldid = $fldid; // new default folder
   

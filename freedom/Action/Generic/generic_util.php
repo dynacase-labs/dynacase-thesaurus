@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.9 2003/01/30 09:38:36 eric Exp $
+// $Id: generic_util.php,v 1.10 2003/04/02 07:35:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,7 +79,7 @@ function getSqlFrom($dbaccess, $docid) {
   // -----------------------------------
   $fdoc= new Doc( $dbaccess, $docid);
   $child= $fdoc->GetChildFam();
-  return GetSqlCond(array_merge(array($docid),$fdoc->GetChildFam()),"fromid");
+  return GetSqlCond(array_merge(array($docid),array_keys($fdoc->GetChildFam())),"fromid");
   
 }
 

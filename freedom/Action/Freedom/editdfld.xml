@@ -39,6 +39,7 @@
 
 
                          
+<input type="hidden" id="autofolder" name="autofolder" value="N"> 
 
 <input type="hidden" name="title" value="[TITLE]"> 
 
@@ -60,8 +61,12 @@
    </td>
 </tr>
 <tr class="FREEDOMBack1">
-  <td colspan="3" class = "tdstyle">
+  <td colspan="2" class = "tdstyle">
  <input type="submit" value="[TEXT:Validate]"> 
+  </td>
+  <td colspan="2" class = "tdstyle">
+ <input type="submit" [autodisabled] onclick="document.getElementById('autofolder').value='Y'" 
+        value="[TEXT:Create New]"> 
   </td>
 </tr>
 </table>
