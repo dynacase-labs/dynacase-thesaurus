@@ -7,8 +7,8 @@
    action="http://www.tlse.i-cesam.com/what/freedomsearch.php"
    update="http://www.tlse.i-cesam.com/freedom.src"
    updateCheckDays=1   
-   queryEncoding="utf-8"
-   queryCharset="utf-8"
+   queryEncoding="iso8859-1"
+   queryCharset="iso8859-1"
 >
 
 <input name="famid" value="0">
@@ -19,7 +19,7 @@
 
 <interpret 
     browserResultType="result" 
-    charset = "UTF-8"
+    charset = "iso8859-1"
     resultListStart="<!--a-->" 
     resultListEnd="<!--z-->" 
     resultItemStart="<!--m-->" 
