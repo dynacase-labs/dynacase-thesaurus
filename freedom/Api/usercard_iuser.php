@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.10 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.11 2004/08/12 07:00:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,11 +29,12 @@ $appl->Set("FDL",	   $core);
 $dbaccess=$appl->GetParam("FREEDOM_DB");
 if ($dbaccess == "") {
   print "Freedom Database not found : param FREEDOM_DB";
-  exit;
+  return;
 }
 
 
 $whatid = GetHttpVars("whatid",""); // document
+$fbar = GetHttpVars("bar"); // for progress bar
 
   
 $query = new QueryDb("","User");
@@ -154,7 +155,10 @@ if ($query->nb > 0)	{
       $u->modify();
 	unset($u);
     }
+
+    wbar($reste,$card,$title);    
   }	  
+
 }      
     
 

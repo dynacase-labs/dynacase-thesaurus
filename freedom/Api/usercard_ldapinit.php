@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Initiate LDAP database
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.7 2004/07/06 08:38:44 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.8 2004/08/12 07:00:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -24,28 +24,35 @@ $appl = new Application();
 $appl->Set("USERCARD",	   $core);
 
 if ($action->GetParam("LDAP_ENABLED","no") != "yes") {
-  print "LDAP disabled : do nothing ; modify LDAP_ENABLED parameter if you want update LDAP usercard";
-  exit;
+  $err= "LDAP disabled : do nothing ; modify LDAP_ENABLED parameter if you want update LDAP usercard";
+  print $err;
+  wbar(0,0,$err); 
+  return true;
 }
 $dbaccess=$appl->GetParam("FREEDOM_DB");
 if ($dbaccess == "") {
-  print "Freedom Database not found : param FREEDOM_DB";
-  exit;
+  $err = "Freedom Database not found : param FREEDOM_DB";
+  print $err;
+  wbar(0,0,$err); 
+  return true;
 }
 
 $ldaphost=$action->GetParam("LDAP_SERVEUR","localhost");
 $ldappw=$action->GetParam("LDAP_ROOTPW");
 $ldapdn=$action->GetParam("LDAP_ROOTDN");
 $ldapr=$action->GetParam("LDAP_ROOT");
-print sprintf(_("delete %s on server %s...\n"),$ldapr,$ldaphost);
+$msg= sprintf(_("delete %s on server %s...\n"),$ldapr,$ldaphost);
+print $msg;
+wbar(1,-1,$msg); 
 system("ldapdelete -r -h $ldaphost -D '$ldapdn' -x -w '$ldappw' '$ldapr'");
+wbar(1,-1,_("LDAP cleaned")); 
 $famid=getFamIdFromName($dbaccess,"USER");
 $ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"TABLE",$famid);
 
 $udoc= createDoc($dbaccess,"USER");
 $uidoc= createDoc($dbaccess,"IUSER");
-  
-$reste=count($ldoc);
+$total=count($ldoc);
+$reste=$total;
 foreach($ldoc as $k=>$tdoc) {
   if ($tdoc["fromid"]==$famid) $doc=$udoc;
   else $doc=$uidoc;
@@ -62,9 +69,12 @@ foreach($ldoc as $k=>$tdoc) {
       if (($err == "") && ($err !== false)) print UPDTCOLOR.$reste.")".$doc->title.": updated".STOPCOLOR."\n";
       else print SKIPCOLOR.$reste.")".$doc->title.": skipped : $err".STOPCOLOR."\n";
       $reste--;
+
+    wbar($reste,$total);  
   }
 	
   
+  if ($fbar) { unlink($fbar);}
 
     
 
