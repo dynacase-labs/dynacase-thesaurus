@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.38 2003/03/06 18:41:41 eric Exp $
+// $Id: viewfolder.php,v 1.39 2003/04/07 16:50:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,7 +47,6 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
   $column = ($with_popup && ($action->getParam("FREEDOM_VIEW")=="column"));
-
   // Set the globals elements
 
 

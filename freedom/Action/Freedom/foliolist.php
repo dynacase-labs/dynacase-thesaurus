@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: foliolist.php,v 1.3 2003/04/03 11:59:40 eric Exp $
+// $Id: foliolist.php,v 1.4 2003/04/07 16:50:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliolist.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,6 +53,7 @@ function foliolist(&$action) {
   }
   
 
+  $action->parent->SetVolatileParam("FREEDOM_VIEW", "icon");
   viewfolder($action, false,true,
 	     100,$filter);
   
