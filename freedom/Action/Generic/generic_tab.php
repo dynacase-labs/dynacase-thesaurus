@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.9 2003/02/05 17:04:21 eric Exp $
+// $Id: generic_tab.php,v 1.10 2003/04/11 13:56:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,6 +63,11 @@ function generic_tab(&$action) {
 
 
   $dir = new Doc($dbaccess, $dirid);
+
+  // control open
+  if ($dir->defDoctype=='S') $aclctrl="execute";
+  else $aclctrl="open";
+  if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
 
 
   $sdoc = createDoc($dbaccess,5); // new DocSearch

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.14 2003/01/30 12:36:26 eric Exp $
+// $Id: generic_search.php,v 1.15 2003/04/11 13:56:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,7 +76,7 @@ function generic_search(&$action) {
   $keyword= str_replace("$","£",$keyword);
 
   $sqlfilter[]= "locked != -1";
-  $sqlfilter[]= "doctype='F'";
+  //  $sqlfilter[]= "doctype ='F'";
   $sqlfilter[]= "usefor = 'N'";
   $sqlfilter[]= "values ~* '$keyword' ";
 
