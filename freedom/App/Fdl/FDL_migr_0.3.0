@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ 
+
+pubdir="/home/httpd/what";
+
+# add default attribute
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocFam
+
+
+

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.50 2003/07/07 14:44:28 eric Exp $
+// $Id: import_file.php,v 1.51 2003/07/15 07:28:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -180,6 +180,10 @@ function add_import_file(&$action, $fimport="") {
     // -----------------------------------
     case "WID":
       $doc->wid =  $data[1];
+    break;
+    // -----------------------------------
+    case "SCHAR":
+      $doc->schar =  $data[1];
     break;
     // -----------------------------------
     case "METHOD":

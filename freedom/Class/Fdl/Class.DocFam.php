@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.11 2003/05/23 15:30:03 eric Exp $
+// $Id: Class.DocFam.php,v 1.12 2003/07/15 07:28:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.11 2003/05/23 15:30:03 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.12 2003/07/15 07:28:11 eric Exp $';
 include_once('FDL/Class.PFam.php');
 
 Class DocFam extends PFam {
@@ -38,7 +38,8 @@ create table docfam (cprofid int ,
                      ddocid int,
                      name text,
                      methods text,
-                     defval text) inherits (doc);
+                     defval text,
+                     schar char) inherits (doc);
 create unique index idx_idfam on docfam(id);";
 
 
@@ -56,6 +57,7 @@ create unique index idx_idfam on docfam(id);";
     $this->fields["methods"]="methods";
     $this->fields["name"]="name";
     $this->fields["defval"]="defval";
+    $this->fields["schar"]="schar"; // specials characteristics R : revised on each modification
     PFam::PFam($dbaccess, $id, $res, $dbid);
      
      

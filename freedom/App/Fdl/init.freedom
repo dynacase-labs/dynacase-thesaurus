@@ -187,6 +187,7 @@ END;1;9;;;
 BEGIN;0;fichier;7;;FILE;;;;;;;
 METHOD;Method.DocFile.php;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;
+SCHAR;R;;;;;;;;;;;
 ICON;fichier.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ;;;;;;;;;;;;
@@ -199,6 +200,7 @@ END;-;9;;;;;;;;;;
 BEGIN;0;image;8;;IMAGE;;;;;;;
 METHOD;Method.DocImg.php;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;
+SCHAR;R;;;;;;;;;;;
 ICON;photo.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ;;;;;;;;;;;;
