@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.71 2005/02/18 15:41:23 eric Exp $
+ * @version $Id: modcard.php,v 1.72 2005/04/04 18:31:21 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -143,11 +143,16 @@ function modcard(&$action, &$ndocid) {
       // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
       $doc->unlock(true); // disabled autolock
   
+     
+
       if ($err == "") {
     
 	// change state if needed
       
 	$newstate=GetHttpVars("newstate","");
+
+	print "newstate=".$newstate;
+
 	$comment=GetHttpVars("comment","");
     
 	$err="";
