@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.198 2004/04/27 09:21:16 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.199 2004/04/29 08:41:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1369,7 +1369,8 @@ create unique index i_docir on doc(initid, revision);";
       foreach($nattr as $k=>$v) {
 	$this->lvalues[$v->id] = $this->GetValue($v->id);
       }
-    }            
+    }
+    $this->lvalues=array_merge($this->lvalues,$this->mvalues); // add more values possibilities
     reset($this->lvalues);
     return $this->lvalues;
   }
@@ -1532,13 +1533,16 @@ create unique index i_docir on doc(initid, revision);";
       $tvalues = explode("£",$this->values);
       $tattrids = explode("£",$this->attrids);
       
-      while(list($k,$v) = each($tvalues)) {
+      foreach($tvalues as $k=>$v) {
 	$attrid = $tattrids[$k];
 	if (! isset($tattrids[$k])) {
 	  //print_r2($tattrids);
 	  //print_r2($tvalues);
 	}
-	if ($attrid != "") 	$this->$attrid=$v;
+	if ($attrid != "") {
+	  $this->$attrid=$v;
+	  $this->mvalues[$attrid]=$v; // to be use in getValues()
+	}
       }
     }      
   }
@@ -1552,7 +1556,8 @@ create unique index i_docir on doc(initid, revision);";
 	$attrid = $tattrids[$k];
 	$this->$attrid="";
       }
-    }      
+    } 
+    $this->mvalues=array();
   }
 
   function GetValueMethod($value, $attrid='') {
