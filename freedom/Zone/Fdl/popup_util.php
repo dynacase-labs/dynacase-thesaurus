@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: popup_util.php,v 1.2 2002/03/15 16:02:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -148,6 +148,9 @@ function popupGen($kdiv) {
     $lpopup->SetBlockData("CMENUS", $tcmenus);
   }
   $action->parent->AddJsCode( $lpopup->gen());
+
+  if ($action->Read("navigator","")=="EXPLORER") $action->lay->Set("divpos","absolute");
+  else $action->lay->Set("divpos","fixed");
 
   $tmenus = array(); // re-init (for next time)
   $tmenuaccess = array(); 

@@ -20,6 +20,10 @@ function sendmodifydoc(event,docid, attrid, sorm) {
       yw = event.screenY;
 
   }
+  with (document.getElementById(attrid))  {
+    if (type == 'text')  xw = xw - (size*7) -200;
+    else  if (type == 'textarea') xw = xw - (cols*7) -200;
+  }
   status = xw +"+"+yw;
   wichoose = window.open('', 'wchoose', 'resizable=yes,height=30,width=40,left='+xw+',top='+yw);
   wichoose.focus();

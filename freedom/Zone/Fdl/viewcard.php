@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.3 2002/03/14 14:56:55 eric Exp $
+// $Id: viewcard.php,v 1.4 2002/03/15 16:02:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,14 +62,15 @@ function viewcard(&$action) {
   $kf=0; // number of files
 
   $doc = new Doc($dbaccess, $docid);
-  $doc->refresh();
+  $err=$doc->refresh();
+  if ($err != "") $action->exitError($err);
   //------------------------------
   // display document attributes
   $action->lay->Set("reference", $doc->initid);
 
   $action->lay->Set("revision", $doc->revision);
   
-  if ($action->GetParam("CORE_LANG") == "fr") { // date format depend of locale
+  if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
     setlocale (LC_TIME, "fr_FR");
     $action->lay->Set("revdate", strftime ("%a %d %b %H:%M",$doc->revdate));
   } else {

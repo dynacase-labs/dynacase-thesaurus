@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocIncident.php,v 1.3 2002/03/14 14:56:55 eric Exp $
+// $Id: Class.DocIncident.php,v 1.4 2002/03/15 16:02:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.DocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.3 2002/03/14 14:56:55 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.4 2002/03/15 16:02:53 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -216,19 +216,19 @@ Class DocIncident extends Doc
     $oval = new DocValue($this->dbaccess, array($this->id, 187));
     $ref =  $oval->value; 
 
-    if ($action->GetParam("CORE_LANG") == "fr") { // date format depend of locale
+    if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
       setlocale (LC_TIME, "fr_FR");
       $sdate= strftime ("%A %d %B %H:%M");
     } else {
       $sdate= strftime ("%x %T");
     }
-    $this->sendmail($mail , 
-    		    sprintf(_("receipt call %s"), $ref),
-		    sprintf(_("The incident call '%s' has been recorded on %s.\nIts reference is %s"),
-			    $this->title,
-			    $sdate,
-			    $ref)
-		    );
+//     $this->sendmail($mail , 
+//     		    sprintf(_("receipt call %s"), $ref),
+// 		    sprintf(_("The incident call '%s' has been recorded on %s.\nIts reference is %s"),
+// 			    $this->title,
+// 			    $sdate,
+// 			    $ref)
+// 		    );
     break;
     case qualified:
       $this->profid=112;

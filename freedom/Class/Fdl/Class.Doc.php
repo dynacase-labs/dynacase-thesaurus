@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.9 2002/03/14 18:13:22 eric Exp $
+// $Id: Class.Doc.php,v 1.10 2002/03/15 16:02:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.9 2002/03/14 18:13:22 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.10 2002/03/15 16:02:53 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -789,10 +789,10 @@ create sequence seq_id_doc start 1000";
 	
 
 
-	if (! @include("EXTERNALS/$v->phpfile")) {
-	  return(sprintf(_("the external pluggin file %s cannot be read"), $v->phpfile));
-	}
+
+	include_once("EXTERNALS/$v->phpfile");
 	
+
 
 	if (! ereg("(.*)\((.*)\)\:(.*)", $v->phpfunc, $reg))
 	  return(sprintf(_("the pluggins function description '%s' is not conform"), $v->phpfunc));
@@ -810,9 +810,10 @@ create sequence seq_id_doc start 1000";
 	    $arg[$k]= $this->GetValue($v);
 	  }
 	}
-
 	// activate plug	
+
 	$res = call_user_func_array($reg[1], $arg);
+
 
 	if (is_array($res)) {
 	  reset($res);

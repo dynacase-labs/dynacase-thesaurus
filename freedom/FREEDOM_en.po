@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-09 18:07+0100\n"
+	"POT-Creation-Date: 2002-03-15 11:37+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -134,160 +134,6 @@ msgid	"no import file specified"
 msgstr	""
 
 msgid	"no file referenced"
-msgstr	""
-
-msgid	"view folder"
-msgstr	""
-
-msgid	"edit folder"
-msgstr	""
-
-#, fuzzy
-msgid	"delete folder"
-msgstr	"Delete"
-
-msgid	"open folder"
-msgstr	""
-
-#, fuzzy
-msgid	"modify folder"
-msgstr	"Modify"
-
-#, c-format
-msgid	"cannot delete link : link not found for doc %d in folder %d"
-msgstr	""
-
-#, c-format
-msgid	"cannot delete link : initial query not found for doc %d in folder %d"
-msgstr	""
-
-#, c-format
-msgid	"cannot delete link for doc %d in folder %d : the document comes from "
-	"a user query. Delete initial query if you want delete this document"
-msgstr	""
-
-msgid	"untitle document"
-msgstr	""
-
-#, c-format
-msgid	"the file %s (rev %d) must be locked before"
-msgstr	""
-
-#, c-format
-msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr	""
-
-#, c-format
-msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr	""
-
-msgid	"this document cannot be locked : it is not a revisable document"
-msgstr	""
-
-#, c-format
-msgid	"cannot lock file %s (rev %d): already locked by %s."
-msgstr	""
-
-#, c-format
-msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
-msgstr	""
-
-#, fuzzy
-msgid	"current revision"
-msgstr	"Organisation"
-
-#, fuzzy
-msgid	"no filename"
-msgstr	"Firstname"
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	""
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the method '%s' has the following error %s"
-msgstr	""
-
-#, c-format
-msgid	"change state to %s"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the state has been realized but the post method '%s' "
-	"has the following error %s"
-msgstr	""
-
-msgid	"already exist : not added"
-msgstr	""
-
-msgid	"view usercard"
-msgstr	""
-
-msgid	"edit usercard"
-msgstr	""
-
-msgid	"delete usercard"
-msgstr	""
-
-msgid	"errldapadd"
-msgstr	"Card is not modify in LDAP server : one of this attribute is not "
-	"appropriate"
-
-msgid	"errldapconnect"
-msgstr	"LDAP server cannot be contacted"
-
-#, c-format
-msgid	"private access of the user card %s. You're not the owner"
-msgstr	""
-
-msgid	"recorded"
-msgstr	""
-
-msgid	"qualified"
-msgstr	""
-
-msgid	"analyzed"
-msgstr	""
-
-#, fuzzy
-msgid	"traited"
-msgstr	"Identity"
-
-msgid	"rejected"
-msgstr	""
-
-msgid	"closed"
-msgstr	""
-
-msgid	"view incident"
-msgstr	""
-
-msgid	"edit incident"
-msgstr	""
-
-#, fuzzy
-msgid	"delete incident"
-msgstr	"Delete"
-
-#, c-format
-msgid	"receipt call %s"
-msgstr	""
-
-#, c-format
-msgid	"The incident call '%s' has been recorded on %s.\n"
-	"Its reference is %s"
-msgstr	""
-
-#, c-format
-msgid	"Freedom : incident %s : transition to %s"
 msgstr	""
 
 msgid	"New"
@@ -445,8 +291,16 @@ msgstr	""
 msgid	"traited incident"
 msgstr	""
 
+#, fuzzy
+msgid	"suspended incident"
+msgstr	"Delete"
+
 msgid	"all incident"
 msgstr	""
+
+#, fuzzy
+msgid	"state"
+msgstr	"Identity"
 
 msgid	"View"
 msgstr	""
@@ -674,10 +528,6 @@ msgid	"author"
 msgstr	""
 
 #, fuzzy
-msgid	"state"
-msgstr	"Identity"
-
-#, fuzzy
 msgid	"revision"
 msgstr	"Organisation"
 
@@ -731,6 +581,154 @@ msgid	"Delete"
 msgstr	"Delete"
 
 msgid	"Cancel"
+msgstr	""
+
+msgid	"view folder"
+msgstr	""
+
+msgid	"edit folder"
+msgstr	""
+
+#, fuzzy
+msgid	"delete folder"
+msgstr	"Delete"
+
+msgid	"open folder"
+msgstr	""
+
+#, fuzzy
+msgid	"modify folder"
+msgstr	"Modify"
+
+#, c-format
+msgid	"cannot delete link : link not found for doc %d in folder %d"
+msgstr	""
+
+#, c-format
+msgid	"cannot delete link : initial query not found for doc %d in folder %d"
+msgstr	""
+
+#, c-format
+msgid	"cannot delete link for doc %d in folder %d : the document comes from "
+	"a user query. Delete initial query if you want delete this document"
+msgstr	""
+
+msgid	"untitle document"
+msgstr	""
+
+#, c-format
+msgid	"the file %s (rev %d) must be locked before"
+msgstr	""
+
+#, c-format
+msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr	""
+
+#, c-format
+msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr	""
+
+msgid	"this document cannot be locked : it is not a revisable document"
+msgstr	""
+
+#, c-format
+msgid	"cannot lock file %s (rev %d): already locked by %s."
+msgstr	""
+
+#, c-format
+msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
+msgstr	""
+
+#, fuzzy
+msgid	"current revision"
+msgstr	"Organisation"
+
+#, fuzzy
+msgid	"no filename"
+msgstr	"Firstname"
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	""
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the method '%s' has the following error %s"
+msgstr	""
+
+#, c-format
+msgid	"change state to %s"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the state has been realized but the post method '%s' "
+	"has the following error %s"
+msgstr	""
+
+msgid	"already exist : not added"
+msgstr	""
+
+msgid	"view usercard"
+msgstr	""
+
+msgid	"edit usercard"
+msgstr	""
+
+msgid	"delete usercard"
+msgstr	""
+
+msgid	"errldapadd"
+msgstr	"Card is not modify in LDAP server : one of this attribute is not "
+	"appropriate"
+
+msgid	"errldapconnect"
+msgstr	"LDAP server cannot be contacted"
+
+#, c-format
+msgid	"private access of the user card %s. You're not the owner"
+msgstr	""
+
+msgid	"recorded"
+msgstr	""
+
+msgid	"qualified"
+msgstr	""
+
+msgid	"analyzed"
+msgstr	""
+
+#, fuzzy
+msgid	"traited"
+msgstr	"Identity"
+
+msgid	"rejected"
+msgstr	""
+
+msgid	"closed"
+msgstr	""
+
+msgid	"suspended"
+msgstr	""
+
+msgid	"view incident"
+msgstr	""
+
+msgid	"edit incident"
+msgstr	""
+
+#, fuzzy
+msgid	"delete incident"
+msgstr	"Delete"
+
+#, c-format
+msgid	"Freedom : incident %s : transition to %s"
 msgstr	""
 
 #, fuzzy
@@ -1022,6 +1020,15 @@ msgid	"view an incident"
 msgstr	""
 
 msgid	"search an incident"
+msgstr	""
+
+#, c-format
+msgid	"receipt call %s"
+msgstr	""
+
+#, c-format
+msgid	"The incident call '%s' has been recorded on %s.\n"
+	"Its reference is %s"
 msgstr	""
 
 #, fuzzy

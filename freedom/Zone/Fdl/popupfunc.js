@@ -83,6 +83,7 @@ function activeMenuItem(menuid, itemid) {
   // active css for animation for 'selid' object
     for (i=0; i<nbmitem[menuid]; i++) {
 
+      //      alert(tdivid[menuid][i]);
       mitem = document.getElementById(tdivid[menuid][i]);
       if (tdiv[menuid][itemid][i] == 1) {
 	mitem.className='menuItem';

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewhisto.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: viewhisto.php,v 1.2 2002/03/15 16:02:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewhisto.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: viewhisto.php,v $
+// Revision 1.2  2002/03/15 16:02:53  eric
+// modif pour présentation & correction/optimisation mineures
+//
 // Revision 1.1  2002/02/13 14:31:59  eric
 // ajout usercard application
 //
@@ -82,7 +85,7 @@ function viewhisto(&$action)
     $trdoc[$k]["id"]= $rdoc->id;
     $trdoc[$k]["divid"]= $k;
 
-    if ($action->GetParam("CORE_LANG") == "fr") { // date format depend of locale
+    if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
       setlocale (LC_TIME, "fr_FR");
       $trdoc[$k]["date"]= strftime ("%a %d %b %Y %H:%M",$rdoc->revdate);
     } else {

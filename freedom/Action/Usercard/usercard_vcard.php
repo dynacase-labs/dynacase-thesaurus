@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_vcard.php,v 1.1 2002/02/18 13:37:21 eric Exp $
+// $Id: usercard_vcard.php,v 1.2 2002/03/15 16:02:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_vcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -58,14 +58,14 @@ function usercard_vcard(&$action) {
   $vcard->WriteCard($doc->title, $tval);
   $vcard->close();
 
-  //  $fcontents = join ('', file ($export_file));
+  
 
   
-    //  Http_DownloadFile($export_file, "zou.vcf", $vcard->mime_type);
+
   
-    http_DownloadFile($export_file, chop($doc->title).".".$vcard->ext, $vcard->mime_type);
-    //http_DownloadFile($export_file, "zou".".".$vcard->ext, $vcard->mime_type);
-  //http_DownloadFile($export_file, "zou.".$vcard->ext, $vcard->mime_type);
+  http_DownloadFile($export_file, chop($doc->title).".".$vcard->ext, $vcard->mime_type);
+
+  
   unlink($export_file);
   exit;
 }

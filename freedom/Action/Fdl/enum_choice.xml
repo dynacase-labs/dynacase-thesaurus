@@ -138,8 +138,8 @@ function resizeIFrame() {
 
   document.getElementById('dchoose').style.width= document.getElementById('schoose').offsetWidth+2;
   document.getElementById('dchoose').style.height= document.getElementById('schoose').offsetHeight+30;
-  window.resizeTo(document.getElementById('schoose').offsetWidth+20,
-                  document.getElementById('schoose').offsetHeight+35);
+  window.resizeTo(document.getElementById('schoose').offsetWidth+35,
+                  document.getElementById('schoose').offsetHeight+90);
 
   var xw;
   var ww = document.getElementById('schoose').offsetWidth+20;

@@ -69,7 +69,7 @@ DIV.unselecth {
 DIV.select {
   background-color:[CORE_BGCOLORALTERN];
   color:[CORE_TEXTFGCOLOR];
-  border-style : solid;
+  border-style : outset;
   cursor: crosshair;
    border-width : 1px;
    font-size: 80%;

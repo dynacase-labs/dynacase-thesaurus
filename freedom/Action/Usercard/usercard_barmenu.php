@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_barmenu.php,v 1.4 2002/03/11 10:26:48 eric Exp $
+// $Id: usercard_barmenu.php,v 1.5 2002/03/15 16:02:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@ function usercard_barmenu(&$action) {
 
   include_once("FDL/popup_util.php");
   popupInit("newmenu",    array('newdoc','newcatg','imvcard'));
-  popupInit("searchmenu", array('none' ));
+  popupInit("searchmenu", array('text' ));
   popupInit("helpmenu", array('help'));
 
 
@@ -48,7 +48,7 @@ function usercard_barmenu(&$action) {
     popupInvisible("newmenu",1,'imvcard'); 
   }
 
-  popupActive("searchmenu",1,'none');
+  popupActive("searchmenu",1,'text');
 
   popupActive("helpmenu",1,'help');
 
