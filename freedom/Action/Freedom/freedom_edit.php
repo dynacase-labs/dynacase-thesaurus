@@ -1,39 +1,15 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.24 2004/03/01 08:50:50 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.25 2004/05/06 09:30:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
  */
  /**
  */
-
-
-// ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.24 2004/03/01 08:50:50 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 include_once("FDL/Class.WDoc.php");
 
@@ -42,7 +18,15 @@ include_once("FDL/freedom_util.php");
 include_once("FDL/Lib.Dir.php");
 include_once("VAULT/Class.VaultFile.php");
 
-// -----------------------------------
+/**
+ * Edit or create a document
+ * @param Action &$action current action
+ * @global id Http var : document identificator to édit (empty means create)
+ * @global classid Http var : family identificator use for create
+ * @global dirid Http var : folder identificator to add when create
+ * @global usefor Http var : set to  "D" for edit default values
+ * @global onlysubfam Http var : to show in family list only sub family of classid
+ */
 function freedom_edit(&$action) {
   // -----------------------------------
 
@@ -51,12 +35,12 @@ function freedom_edit(&$action) {
   $classid = GetHttpVars("classid",0); // use when new doc or change class
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
   $usefor = GetHttpVars("usefor"); // default values for a document
-
-
+  $onlysubfam = GetHttpVars("onlysubfam","N"); // restricy to sub fam of
 
 
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
    
   if ($docid > 0) {
     $doc= new Doc($dbaccess,$docid);
@@ -86,7 +70,14 @@ function freedom_edit(&$action) {
 	$tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
       }
     } else {
-      $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
+
+      if ($onlysubfam == "Y") {
+	$cdoc = new Doc($dbaccess,$classid);
+	$tclassdoc = $cdoc->GetChildFam();
+	$first = current($tclassdoc);
+	$classid = $first["id"];
+	setHttpVar("classid",$classid); // propagate to subzones
+      } else    $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
     }
 
   }
