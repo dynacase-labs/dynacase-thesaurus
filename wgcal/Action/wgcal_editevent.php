@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.28 2005/02/18 15:38:35 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.29 2005/03/03 20:10:22 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -71,6 +71,7 @@ function wgcal_editevent(&$action) {
     $evrexcld  = $event->getTValue("CALEV_EXCLUDEDATE", array());
     $attendees = $event->getTValue("CALEV_ATTID", array());
     $attendeesState = $event->getTValue("CALEV_ATTSTATE", array());
+    $attendeesGroup = $event->getTValue("CALEV_ATTGROUP", array());
     $evstatus = EVST_READ;
     $mailadd = "";
     $withme = false;
@@ -120,6 +121,7 @@ function wgcal_editevent(&$action) {
     $withme = true;
     $attendees = array( );
     $attendeesState = array( );
+    $attendeesGroup = array( );
     $userd = $action->GetParam("WGCAL_U_USERESSINEVENT", 0);
     if ($userd == 1) {
       $curress = $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
@@ -132,6 +134,7 @@ function wgcal_editevent(&$action) {
 	    if ($dd->fromid != getIdFromName($db,"SCALENDAR")) {
 	      $attendees[$iatt] = $tt[0];
 	      $attendeesState[$iatt] = EVST_NEW;
+	      $attendeesGroup[$iatt] = -1;
 	      $iatt++;
 	    }
 	  }
@@ -149,6 +152,7 @@ function wgcal_editevent(&$action) {
 	  if ($dd->fromid != getIdFromName($db,"SCALENDAR")) {
 	    $attendees[$iatt] = $v;
 	    $attendeesState[$iatt] = EVST_NEW;
+	    $attendeesGroup[$iatt] = -1;
 	    $iatt++;
 	  }
 	}
@@ -180,7 +184,7 @@ function wgcal_editevent(&$action) {
   EventSetStatus($action, $evstatus, $withme, $onlyme, $rostatus);
   EventSetAlarm($action, $evalarm, $evalarmt, $ro);
   EventSetRepeat($action, $evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld, $ro);
-  EventAddAttendees($action, $ownerid, $attendees, $attendeesState, $withme, $ro, $onlyme);
+  EventAddAttendees($action, $ownerid, $attendees, $attendeesState, $attendeesGroup, $withme, $ro, $onlyme);
   EventSetOwner($action, $ownerid, $ownertitle);
 
   return;  
@@ -409,13 +413,14 @@ function EventSetOwner(&$action, $ownerid, $ownertitle) {
   $action->lay->set("ownertitle", $ownertitle);
 }
 
-function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesState = array(), $withme=true, $ro=false, $onlyme) {
+function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesState = array(), $attendeesGroup = array(), $withme=true, $ro=false, $onlyme) {
 //echo "ownerid = $ownerid cuser = ".$action->user->fid." withme = ".($withme?"T":"F")."<br>";
   $att = array();
   $a = 0;
   $doc = new Doc($action->GetParam("FREEDOM_DB"));
   foreach ($attendees as $k => $v) {
     if ($v == "" || $v==0 || ($ownerid==$action->user->fid&&$action->user->fid==$v) ) continue;
+    if ($attendeesGroup[$k] != -1) continue;
     $att[$a]["attId"]    = $v;
     $att[$a]["attState"] = $attendeesState[$k];
     $att[$a]["attLabel"] = WGCalGetLabelState($attendeesState[$k]);

@@ -1,5 +1,10 @@
-<!-- Start abstract [REF]::[ID] --> <div id="evt[REF]" 
- [BLOCK ISCONF]onclick="subwindow(400, 650, 'EditEvent[REF]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[ID]');"[ENDBLOCK ISCONF]
+<!-- Start abstract [REF]::[ID] -->
+[ZONE WGCAL:CALEV_POPUP] 
+<!-- onContextMenu="openMenu(event,'calevcard[ID]',1);return false" 
+  onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'calevcard[ID]',1)" 
+ -->
+<div id="evt[REF]"     
+  [BLOCK ISCONF]onclick="subwindow(400, 650, 'ViewEvent[REF]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[ID]&ref=[REF]');"[ENDBLOCK ISCONF]
      onmouseover="WGCalEvOnMouseOver(event, '[REF]');" 
      onmouseout="WGCalEvOnMouseOut(event, '[REF]');" 
     style="cursor:pointer; border:0px; display:none;overflow:hidden;">

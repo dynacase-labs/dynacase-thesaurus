@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_css.php,v 1.3 2005/02/17 17:25:29 marc Exp $
+ * @version $Id: wgcal_css.php,v 1.4 2005/03/03 20:10:22 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,7 +12,8 @@
  */
 
 function wgcal_css(&$action) {
-  $action->lay = new Layout("WGCAL/Layout/wgcal.css");
+  $css = GetHttpVars("css", "wgcal");
+  $action->lay = new Layout("WGCAL/Layout/".$css.".css");
   $themef = GetHttpVars("theme", $action->getParam("WGCAL_U_THEME", "default"));
   if (file_exists("WGCAL/Themes/".$themef.".thm")) 
     include_once("WGCAL/Themes/".$themef.".thm");

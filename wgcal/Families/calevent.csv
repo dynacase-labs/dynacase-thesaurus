@@ -41,6 +41,7 @@ ATTR;CALEV_T_ATTENDEES;CALEV_ATTENDEES;;N;N;array;510;W;;;;;
 ATTR;CALEV_ATTID;CALEV_T_ATTENDEES;Attendee ressource id;N;N;docid;520;H;;;;;
 ATTR;CALEV_ATTTITLE;CALEV_T_ATTENDEES;Invités;N;N;text;530;W;;%S%app=FDL&action=FDL_CARD&id=%CALEV_ATTID%;WGCAL_external.php;CAL_getRessources(D,CALEV_ATTTITLE):CALEV_ATTID,CALEV_ATTTITLE;
 ATTR;CALEV_ATTSTATE;CALEV_T_ATTENDEES;Acceptation;N;N;enum;540;W;;;WGCAL_external.php;[hcheck]CAL_getEventStates(D);
+ATTR;CALEV_ATTGROUP;CALEV_T_ATTENDEES;Groupe d'appartenance;N;N;int;550;W;;;;;
 ;;;;;;;;;;;;;
 ATTR;CALEV_M_EDIT;;Editer le RV;N;N;menu;1000;M;;%S%app=WGCAL&action=WGCAL_EDITEVENT&evt=%I%;;;
 ;;;;;;;;;;;;;

@@ -335,13 +335,14 @@ function WGCalAddEvent(evtid, ts_start, ts_end)
     ts_end = ts_start;
     ts_start = t;
   }
-  if (ts_start<Days[0].start) ts_start = Days[0].start;
-  e = (Days[XDays-1].start + (24*3600)) - 1;
-  if (ts_end>e) ts_end = e;
-
   tstart = ts_start + Tz;
   tend   = ts_end + Tz;
 
+  if (tstart!=tend) {
+    if (tstart<Days[0].start) tstart = Days[0].vstart;
+    e = (Days[XDays-1].vstart + (24*3600));
+    if (tend>e) ts_end = e;
+  }
   istart = GetTimeInfoFromTs(tstart);
   istart.day--;
   istart.day = (istart.day<0 ? 0 : istart.day);
@@ -352,17 +353,17 @@ function WGCalAddEvent(evtid, ts_start, ts_end)
 //   dstart= (dstart<0 ? 0 : dstart);
 //   dstart = (dstart>=XDays ? (XDays-1) : dstart);
 
-  deltad = Math.round((tend - tstart) / (24*3600));
-  dend =  dstart+ deltad;
-  dend = (dend>=XDays ? (XDays-1) : dend);
+//   deltad = Math.round((tend - tstart) / (24*3600));
+//   dend =  dstart+ deltad;
+//   dend = (dend>=XDays ? (XDays-1) : dend);
   
-//   iend   = GetTimeInfoFromTs(tend);
-//   iend.day--;
-//   iend.day = (iend.day<0 ? 6 : iend.day);
-//   iend.day = (iend.day>=XDays ? (XDays-1) : iend.day);
-//   dend   = iend.day;
+  iend   = GetTimeInfoFromTs(tend);
+  iend.day--;
+  iend.day = (iend.day<0 ? 6 : iend.day);
+  iend.day = (iend.day>=XDays ? (XDays-1) : iend.day);
+  dend   = iend.day;
 
-//   alert('jour deb ='+dstart+' fin='+dend);
+//    alert('jour deb ='+dstart+' fin='+dend);
 
   mdays = (dstart!=dend ? true : false);
 
@@ -370,8 +371,8 @@ function WGCalAddEvent(evtid, ts_start, ts_end)
     vstart = tstart;
     vend   = tend;
     if (tend==tstart) {
-      vstart = Days[id].vstart - (YDivMinute * 60);
-      vend   = Days[id].vstart - 60;
+      vstart = Days[0].vstart - (YDivMinute * 60);
+      vend   = Days[0].vstart;
     } else {
       if (tstart<Days[id].vstart || ((id==dend) && mdays) ) {
 	vstart = Days[id].vstart - (YDivMinute * 60);

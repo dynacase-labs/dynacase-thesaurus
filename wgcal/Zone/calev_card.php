@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.2 2005/03/02 16:33:05 marc Exp $
+ * @version $Id: calev_card.php,v 1.3 2005/03/03 20:10:22 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -12,12 +12,36 @@
  */
 include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/WGCAL_external.php");
+include_once("FDL/popup_util.php");
 
 function calev_card(&$action) {
 
+//   global $_POST, $_GET;
+//   echo "avant"; print_r2($_POST); print_r2($_GET); echo "apres";
+
   $evid = GetHttpVars("ev", -1);
   $evref = GetHttpVars("ref", -1);
+  $mode  = GetHttpVars("mode", "h");
   if ($evid==-1) return;
+
+  $action->lay->set("mode", ($mode=="h"?"none":""));
+
+  popupInit('calevcard'.$evid,  array('editrv', 
+				'deleterv', 
+				'acceptrv', 
+				'rejectrv', 
+				'tbcrv', 
+				'historyrv', 
+				'cancelrv'));
+
+  PopupInactive('calevcard'.$evid,$evid,'editrv');
+  PopupInactive('calevcard'.$evid,$evid,'deleterv');
+  PopupInactive('calevcard'.$evid,$evid,'acceptrv');
+  PopupInactive('calevcard'.$evid,$evid,'rejectrv');
+  PopupInactive('calevcard'.$evid,$evid,'tbcrv');
+  PopupInactive('calevcard'.$evid,$evid,'historyrv');
+  PopupActive('calevcard'.$evid,$evid,'cancelrv');
+  $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
 
 //   $pretitle = "";
 
@@ -45,7 +69,7 @@ function calev_card(&$action) {
     break;
   case 2: 
     $ldstart = $lrhs = _("all the day"); 
-    $cardheight = "10%";
+    $cardheight = "100%";
     $ldend = substr($ev->getValue("CALEV_END"),0,10);
     break;
   default:
@@ -74,6 +98,7 @@ function calev_card(&$action) {
 
   $action->lay->set("owner", $ev->getValue("CALEV_OWNER"));
   $action->lay->set("modifdate", strftime("%x %X",$ev->revdate));
+  $action->lay->set("incalendar", $ev->getValue("CALEV_EVCALENDAR"));
 
   $ress = WGCalGetRessDisplayed($action);
   if ($private) $action->lay->set("TITLE", $pretitle." "._("confidential event"));
@@ -81,6 +106,8 @@ function calev_card(&$action) {
 
   $tress  = $ev->getTValue("CALEV_ATTID");
   $tresse = $ev->getTValue("CALEV_ATTSTATE");
+  $tressg = $ev->getTValue("CALEV_ATTGROUP");
+
 
   // Compute color according the owner, participant, etc,...
   $o_or_p = 0;
@@ -99,7 +126,7 @@ function calev_card(&$action) {
     if ($o_or_p==0) {
       foreach ($ress as $k => $v) {
         foreach ($tress as $kr => $vr) {
-          if ($v->id==$vr) $o_or_p = $vr;
+          if ($v->id==$vr && $tressg[$kr]==-1) $o_or_p = $vr;
         }
       }
     }
@@ -121,6 +148,11 @@ function calev_card(&$action) {
   $action->lay->set("bgcolor", $bgcolor);
   $action->lay->set("bgresumecolor", $bgresumecolor);
 
+  if ($present) {
+    Popupactive('calevcard'.$evid,1,'acceptrv');
+    Popupactive('calevcard'.$evid,1,'rejectrv');
+    Popupactive('calevcard'.$evid,1,'tbcrv');
+  }
 
   if ($private && !$present) $action->lay->SetBlockData("ISCONF", null);
   else $action->lay->SetBlockData("ISCONF", $tpriv);
@@ -158,6 +190,7 @@ function calev_card(&$action) {
       $action->lay->set("repeatinfos", $tr);
       $action->lay->set("repeatuntil", $tru);
     }
+
   }
       
 
@@ -172,6 +205,7 @@ function calev_card(&$action) {
   } else {
     $action->lay->set("displaynote", "none");
   }    
+   popupGen($evid);
 }
 
 function showIcons(&$action, &$ev, $private, $present) {
@@ -209,25 +243,28 @@ function ev_showattendees(&$action, &$ev, $present, $dcolor) {
   $globalstatesize = "0";
   $d = new Doc($dbaccess);
   $tress = $ev->getTValue("CALEV_ATTID");
-  if (count($tress)>1) {
+  if ((count($tress)>1 && $present) ||  (count($tress)>0 && !$present)) {
     $states = CAL_getEventStates($dbaccess,"");
     $action->lay->set("attdisplay","");
     $t = array();
     $tresst = $ev->getTValue("CALEV_ATTTITLE");
     $tresse = $ev->getTValue("CALEV_ATTSTATE");
+    $tressg = $ev->getTValue("CALEV_ATTGROUP");
     $a = 0;
     foreach ($tress as $k => $v) {
-      if ($tresse[$k] != EVST_ACCEPT && $tresse[$k] != EVST_REJECT) {
-	if ($v == $action->user->fid) $globalstate = "red";
-	else if ($globalstate != "red") $globalstate = "orange";
-	$globalstatesize = "3";
+      if ($tressg[$k] == -1) {
+	if ($tresse[$k] != EVST_ACCEPT && $tresse[$k] != EVST_REJECT) {
+	  if ($v == $action->user->fid) $globalstate = "red";
+	  else if ($globalstate != "red") $globalstate = "orange";
+	  $globalstatesize = "3";
+	}
+	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
+	$t[$a]["atticon"] = $d->GetIcon($attru["icon"]);
+	$t[$a]["atttitle"] = $tresst[$k];
+	$t[$a]["attnamestyle"] = ($tresse[$k] != EVST_REJECT ? "none" : "line-through");
+	$t[$a]["attstate"] = $states[$tresse[$k]];
+	$a++;
       }
-      $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
-      $t[$a]["atticon"] = $d->GetIcon($attru["icon"]);
-      $t[$a]["atttitle"] = $tresst[$k];
-      $t[$a]["attnamestyle"] = ($tresse[$k] != EVST_REJECT ? "none" : "line-through");
-      $t[$a]["attstate"] = $states[$tresse[$k]];
-      $a++;
     }
     $action->lay->setBlockData("attlist",$t);
   } else {
@@ -236,4 +273,6 @@ function ev_showattendees(&$action, &$ev, $present, $dcolor) {
     $action->lay->set("evglobalstate", $globalstate);
     $action->lay->set("headsize", $globalstatesize);
 }
+
+
 ?>

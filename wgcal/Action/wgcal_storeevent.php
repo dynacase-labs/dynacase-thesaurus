@@ -49,7 +49,15 @@ function wgcal_storeevent(&$action) {
   
   $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
   
-  $event->setValue("CALEV_EVCALENDARID", GetHttpVars("evcalendar", -1));
+  $calid = GetHttpVars("evcalendar", -1);
+  $event->setValue("CALEV_EVCALENDARID", $calid);
+  $caltitle = _("main calendar");
+  if ($calid>0) {
+    $cal = new Doc($db, $calid);
+    $caltitle = $cal->title;
+  }
+  $event->setValue("CALEV_EVCALENDAR", $caltitle);
+
   $event->setValue("CALEV_VISIBILITY", GetHttpVars("evconfidentiality", 0));
   
   $event->setValue("CALEV_EVALARM", (GetHttpVars("AlarmCheck", "")=="on"?1:0));
@@ -78,38 +86,87 @@ function wgcal_storeevent(&$action) {
   }
   
 
+  // --------------------------------------------------------------------------------------------------
   // Attendees
+  $udbaccess = $action->GetParam("COREUSER_DB");
+  $ugrp = new User($udbaccess);
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $groupfid = getIdFromName($dbaccess, "GROUP");
+  $igroupfid = getIdFromName($dbaccess, "IGROUP");
+
   $withme = GetHttpVars("withMe", "off");
   $oldatt_id    = $event->getTValue("CALEV_ATTID", array());
   $oldatt_state = $event->getTValue("CALEV_ATTSTATE", array());
+  $oldatt_group = $event->getTValue("CALEV_ATTGROUP", array());
+
   $attl = GetHttpVars("attendees", "");
   if ($attl!="") {
     $attendees = explode("|", $attl);
-    $attendeesname = array();
-    $attendeesstate = array();
+    
+    $nattl = array(); $iatt = 0;
+    
+    // first, find all groups and expand it
     foreach ($attendees as $ka => $va) {
-      if ($va<=0||$va=="") continue;
       $att = new Doc($db, $va);
-      $attendeesname[$ka] = $att->title;
-      $attendeesstate[$ka] = 0;
-      if ($va == $action->user->fid) $attendeesstate[$ka] = $evstatus;
-      else {
-        foreach ($oldatt_id as $ko => $vo) {
-	   if ($vo == $va) $attendeesstate[$ka] = $oldatt_state[$ko];
-        }
+      if ($att->fromid==$groupfid || $att->fromid==$igroupfid) {
+	$nattl[$iatt]["fid"] = $att->id;
+	$nattl[$iatt]["fgid"] = -1;
+	$iatt++;
+	$ulist = $ugrp->GetRUsersList($att->getValue("US_WHATID"));
+	foreach ($ulist as $ku=>$vu) {
+	  $nattl[$iatt]["fid"] = $vu["fid"];
+	  $nattl[$iatt]["fgid"] = $att->id;
+	  $iatt++;
+	}
       }
     }
+
+    // Look at others attendees
+    foreach ($attendees as $ka => $va) {
+      $att = new Doc($db, $va);
+      if ($att->fromid!=$groupfid && $att->fromid!=$igroupfid) {
+	$nattl[$iatt]["fid"] = $att->id;
+	$nattl[$iatt]["fgid"] = -1;
+	$iatt++;
+      }
+    }
+//     print_r2($nattl);
+
+    $attendeesid    = array();
+    $attendeesname  = array();
+    $attendeesstate = array();
+    $attendeesgroup = array();
+    $attcnt = 0;
+    foreach ($nattl as $ka => $va) {
+      if ($va<=0||$va=="") continue;
+      $att = new Doc($db, $va["fid"]);
+      $attendeesid[$attcnt]  = $att->id;
+      $attendeesname[$attcnt]  = $att->title;
+      $attendeesgroup[$attcnt] = $va["fgid"];
+      $attendeesstate[$attcnt] = 0;
+      if ($att->id == $action->user->fid) $attendeesstate[$attcnt] = $evstatus;
+      else {
+	foreach ($oldatt_id as $ko => $vo) {
+	  if ($vo == $va["fid"]) $attendeesstate[$attcnt] = $oldatt_state[$ko];
+	}
+      }
+      $attcnt++;
+    }
   }
+  
   if ($withme == "on" && $owner==$action->user->fid) {
-    $i = count($attendees);
-    $attendeesname[$i] = $action->user->lastname." ".$action->user->firstname;
-    $attendees[$i] = $action->user->fid;
-    $attendeesstate[$i] = $evstatus;
+    $attendeesname[$attcnt] = $action->user->lastname." ".$action->user->firstname;
+    $attendeesid[$attcnt] = $action->user->fid;
+    $attendeesstate[$attcnt] = $evstatus;
+    $attendeesgroup[$attcnt] = -1;
   }
     
-  $event->setValue("CALEV_ATTID", $attendees); 
+//   foreach ($attendeesid as $ka => $va)   echo "<p>[".$va." name:".$attendeesname[$ka]." state:".$attendeesstate[$ka]." group:".$attendeesgroup[$ka];
+
+  $event->setValue("CALEV_ATTID", $attendeesid); 
   $event->setValue("CALEV_ATTTITLE", $attendeesname); 
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
+  $event->setValue("CALEV_ATTGROUP", $attendeesgroup); 
     
   $event->Modify();
   $event->PostModify();

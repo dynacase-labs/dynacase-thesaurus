@@ -1,5 +1,5 @@
 <!-- Start resume [REF]::[ID] -->
-<div id="evtc[REF]" style="display:none; border:1px outset; background-color:white');">
+<div id="evtc[REF]" style="display:[mode]; border:1px outset; background-color:white');">
 <div class="wEvBack">
 <table cellpadding="2px" cellspacing="0" border="0">
 <thead><tr><th></th><th></th></tr></thead>
@@ -23,6 +23,7 @@
 <span style="display:[repeatdisplay]">[TEXT:repeat] [repeatinfos]</span><br>
 <span style="font-style:italic; display:[repeatdisplay]">[repeatuntil]</span><br><br>
 [TEXT:owner] : <span style="font-style:italic">[owner]</span><br>
+[TEXT:incalendar] : <span style="font-style:italic">[incalendar]</span><br>
 [TEXT:modified] : <span style="font-style:italic">[modifdate]</span><br>
 </td>
   <td valign="top">

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.31 2005/03/02 16:33:05 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.32 2005/03/03 20:10:22 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -33,13 +33,13 @@ function d2s($t, $f="%x %X") {
 
 function wgcal_calendar(&$action) {
 
-
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
   $action->parent->AddJsRef("WHAT/Layout/geometry.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
+
 
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
   $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
@@ -122,7 +122,7 @@ function wgcal_calendar(&$action) {
   $urlroot = $action->GetParam("CORE_STANDURL");
   $lcell = new Layout( "WGCAL/Layout/wgcal-cellcalendar.xml", $action );
   $nl = 0;
-  for ($h=$hstart-1; $h<=$hstop; $h++) {
+  for ($h=$hstart-1; $h<=($hstop+1); $h++) {
     if ($h<$hstart || $h>$hstop) $ndiv = 1;
     else $ndiv = $hdiv;
     $mdiv = round(SEC_PER_HOUR/$ndiv);
@@ -207,6 +207,18 @@ function wgcal_calendar(&$action) {
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
 
+  // Popup on events
+//   include_once("FDL/popup_util.php");
+//   PopupInactive('calevcard',$kdiv,'editrv');
+//   PopupInactive('calevcard',$kdiv,'deleterv');
+//   PopupInactive('calevcard',$kdiv,'acceptrv');
+//   PopupInactive('calevcard',$kdiv,'rejectrv');
+//   PopupInactive('calevcard',$kdiv,'tbcrv');
+//   PopupInactive('calevcard',$kdiv,'historyrv');
+//   PopupActive('calevcard',$kdiv,'cancelrv');
+
+//   popupGen($kdiv, "WGCAL:WGCAL_CSS");
+//   $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
 }
 
 
