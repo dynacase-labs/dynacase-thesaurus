@@ -156,33 +156,35 @@ USEFOR;G;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 END;0;;;;;;;;;;;;
-// famille profile doc;;;id;class;name
-BEGIN;1;profil de document;3;PDoc;PDOC
-USEFORPROF;;;;;
-TYPE;C;;;;
-ICON;profil.gif;;;;
-END;1;9;;;
-;;;;;
-// famille profile dossier;;;;;name
-BEGIN;3;profil de dossier;4;PDir;PDIR
-USEFORPROF;;;;;
-TYPE;C;;;;
-ICON;profil_dossier.gif;;;;
-END;1;9;;;
-;;;;;
-// famille profile recherche;;;;;name
-BEGIN;3;profil de recherche;6;PDocSearch;PSEARCH
-USEFORPROF;;;;;
-TYPE;C;;;;
-ICON;profil_recherche.gif;;;;
-END;1;9;;;
-;;;;;
-// famille profile famille;;;;;name
-BEGIN;3;profil de famille;23;PFam;PFAM
-USEFORPROF;;;;;
-TYPE;C;;;;
-ICON;profil_family.gif;;;;
-END;1;9;;;
+// famille profile doc;;;id;class;name;;;;;;;
+BEGIN;1;profil de document;3;PDoc;PDOC;;;;;;;
+USEFORPROF;;;;;;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;profil.gif;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+ATTR;PRF_DESC;FR_BASIC;description;N;N;longtext;10;W;N;;;
+END;1;9;;;;;;;;;;
+;;;;;;;;;;;;
+// famille profile dossier;;;;;name;;;;;;;
+BEGIN;3;profil de dossier;4;PDir;PDIR;;;;;;;
+USEFORPROF;;;;;;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;profil_dossier.gif;;;;;;;;;;;
+END;1;9;;;;;;;;;;
+;;;;;;;;;;;;
+// famille profile recherche;;;;;name;;;;;;;
+BEGIN;3;profil de recherche;6;PDocSearch;PSEARCH;;;;;;;
+USEFORPROF;;;;;;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;profil_recherche.gif;;;;;;;;;;;
+END;1;9;;;;;;;;;;
+;;;;;;;;;;;;
+// famille profile famille;;;;;name;;;;;;;
+BEGIN;3;profil de famille;23;PFam;PFAM;;;;;;;
+USEFORPROF;;;;;;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;profil_family.gif;;;;;;;;;;;
+END;1;9;;;;;;;;;;
 // famille fichier;;;id;class;name;;;;;;;
 BEGIN;0;fichier;7;;FILE;;;;;;;
 METHOD;Method.DocFile.php;;;;;;;;;;;

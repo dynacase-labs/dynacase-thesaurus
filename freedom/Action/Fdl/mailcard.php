@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.31 2003/06/24 10:40:16 eric Exp $
+// $Id: mailcard.php,v 1.32 2003/07/16 08:10:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -31,6 +31,7 @@ function mailcard(&$action) {
   // -----------------------------------
 
   $docid = GetHttpVars("id"); 
+  $cr = GetHttpVars("cr"); // want a status
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
@@ -39,8 +40,12 @@ function mailcard(&$action) {
   $err=$doc->control('send');
   if ($err != "") $action->exitError($err);
 
-  sendmailcard($action);  
+  $err=sendmailcard($action);  
 
+  if ($cr == "Y") {
+    if ($err != "") $action->exitError($err);
+    else $action->exitError(sprintf(_("the document %s has been sended"),$doc->title));
+  }
 
 }
 // -----------------------------------
