@@ -26,9 +26,9 @@
 <script language="JavaScript">
   <!--
 
-     var fldtop =parent.list.indexOfEntries[parent.list.fldidtoexpand];
+     var fldtop =parent.ffolder.indexOfEntries[parent.ffolder.fldidtoexpand];
      var BeginnEntries;
-    BeginnEntries=parent.list.indexOfEntries.length;
+    BeginnEntries=parent.ffolder.indexOfEntries.length;
      
      
      [subtree]

@@ -22,9 +22,9 @@ function addbranch(fldtopnode, BeginnEntries) {
    }
    
 
-  // init the logical tree in parent.list :: add a branch in fldtopnode node
-  parent.list.doc=document;
-  parent.list.nEntries = BeginnEntries;
+  // init the logical tree in parent.ffolder :: add a branch in fldtopnode node
+  parent.ffolder.doc=document;
+  parent.ffolder.nEntries = BeginnEntries;
 
     var level=1;
     for (i=0 ; i < fldtopnode.nChildren; i++)    { 
@@ -39,7 +39,7 @@ function addbranch(fldtopnode, BeginnEntries) {
 
 
   // restore parameters
-  parent.list.doc=parent.list.document;
+  parent.ffolder.doc=parent.ffolder.document;
 
 
   // --------------------------------------------------
@@ -55,18 +55,18 @@ function addbranch(fldtopnode, BeginnEntries) {
 
 
     var divtoinsert = null;
-    var flddiv = parent.list.document.getElementById('folder'+parent.list.fldidtoexpand);
+    var flddiv = parent.ffolder.document.getElementById('folder'+parent.ffolder.fldidtoexpand);
 
     if (flddiv)
       divtoinsert=flddiv.nextSibling;
 
 
-    //   alert('nch1:'+parent.list.indexOfEntries[parent.list.fldidtoexpand].nChildren);
+    //   alert('nch1:'+parent.ffolder.indexOfEntries[parent.ffolder.fldidtoexpand].nChildren);
     for (var i=1; i < ndiv; i++)  {
       
-      //   alert(parent.list.fldidtoexpand);
+      //   alert(parent.ffolder.fldidtoexpand);
       
-      h=  parent.list.document.createElement("div");
+      h=  parent.ffolder.document.createElement("div");
       h.innerHTML= divs[i].innerHTML;
       h.id= divs[i].id;
       h.className= divs[i].className;
@@ -74,13 +74,13 @@ function addbranch(fldtopnode, BeginnEntries) {
       var ne = BeginnEntries+i-1;
 
       
-      parent.list.document.getElementById('bodyid').insertBefore(h,divtoinsert);
+      parent.ffolder.document.getElementById('bodyid').insertBefore(h,divtoinsert);
       
       divs[i].style.backgroundColor='yellow';
       
-      parent.list.indexOfEntries[ne].navObj=h;  
-      parent.list.indexOfEntries[ne].iconImg=parent.list.document.getElementById('folderIcon'+ne);  
-      parent.list.indexOfEntries[ne].nodeImg=parent.list.document.getElementById('nodeIcon'+ne);  
+      parent.ffolder.indexOfEntries[ne].navObj=h;  
+      parent.ffolder.indexOfEntries[ne].iconImg=parent.ffolder.document.getElementById('folderIcon'+ne);  
+      parent.ffolder.indexOfEntries[ne].nodeImg=parent.ffolder.document.getElementById('nodeIcon'+ne);  
       
       
     }
@@ -100,8 +100,8 @@ function copypopup( tdivpopup, BeginnEntries ) {
 // --------------------------------------------------
 
     for (var i=1; i< tdivpopup['popfld'].length; i++) {
-      parent.list.tdiv['popfld'][i-1+BeginnEntries]=tdivpopup['popfld'][i];
-      parent.list.tdiv['poppaste'][i-1+BeginnEntries]=tdivpopup['poppaste'][i];
+      parent.ffolder.tdiv['popfld'][i-1+BeginnEntries]=tdivpopup['popfld'][i];
+      parent.ffolder.tdiv['poppaste'][i-1+BeginnEntries]=tdivpopup['poppaste'][i];
     }
 }
 

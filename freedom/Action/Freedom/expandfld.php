@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.2 2002/04/03 09:40:15 eric Exp $
+// $Id: expandfld.php,v 1.3 2002/04/24 09:39:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,7 +79,7 @@ function expandfld(&$action) {
 	  if (hasChildFld($dbaccess,$doc["id"]))  $hasChild='true';
       }
       
-      $stree .= "parent.list.insFld(fldtop, parent.list.gFld(\"".$doc["title"]."\", \"#\",".$doc["id"].",$ftype,$hasChild))\n";
+      $stree .= "parent.ffolder.insFld(fldtop, parent.ffolder.gFld(\"".$doc["title"]."\", \"#\",".$doc["id"].",$ftype,$hasChild))\n";
 
       
       

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.11 2002/04/19 15:24:46 eric Exp $
+// $Id: viewfolder.php,v 1.12 2002/04/24 09:39:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -244,13 +244,13 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 		    {
 	      	    case "image": 
 		    
-		      $efile=$doc->GetHtmlValue($oattr,$lvalue);
+		      $efile=$doc->GetHtmlValue($oattr,$lvalue,"finfo");
 
 		    $tableabstract[$nbabs]["value"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"".$efile. "\">";
 		    break;
 		    
 		    default : 
-		      $tableabstract[$nbabs]["value"]=$doc->GetHtmlValue($oattr,$lvalue);
+		      $tableabstract[$nbabs]["value"]=$doc->GetHtmlValue($oattr,$lvalue,"finfo");
 		    break;
 		
 		    }

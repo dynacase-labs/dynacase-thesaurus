@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.21 2002/04/23 09:58:35 eric Exp $
+// $Id: Class.Doc.php,v 1.22 2002/04/24 09:39:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.21 2002/04/23 09:58:35 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.22 2002/04/24 09:39:45 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -638,9 +638,13 @@ create sequence seq_id_doc start 1000";
 	  $query = new QueryDb($this->dbaccess,"DocValue");
 	  $query->AddQuery("docid=".$this->id);
     
-	  $values=$query->Query(0,0,"TABLE");    
-	  while (list($k,$v) = each($values)) {
-	    $this->values[$v["attrid"]] = $v["value"];
+	  $values=$query->Query(0,0,"TABLE");
+	  if ($values) {
+	    while (list($k,$v) = each($values)) {
+	      $this->values[$v["attrid"]] = $v["value"];
+	    }
+	  } else {
+	    $this->values=array();
 	  }
 	} else {
 	  $this->values=array();
@@ -885,7 +889,7 @@ create sequence seq_id_doc start 1000";
 	  //	  print "attr=$sattrid";
 
 	  $ovalue = $this->GetValue($sattrid);
-	  	  if ($ovalue == "") return false;
+	  if ($ovalue == "") return false;
 	  $urllink.=$ovalue;
 
 	  
@@ -897,7 +901,7 @@ create sequence seq_id_doc start 1000";
 
   }
 
-    function GetHtmlValue($oattr, $value) {
+    function GetHtmlValue($oattr, $value, $target="_self") {
       global $action;
       switch ($oattr->type)
 	{
@@ -934,6 +938,7 @@ create sequence seq_id_doc start 1000";
 	  break;
 	case "textlist": 
 	case "enumlist":
+	  if (strstr($value,"\n")) $oattr->link="";
 	case "longtext": 
 	  $htmlval=nl2br(htmlentities(stripslashes($value)));
 	break;
@@ -947,7 +952,7 @@ create sequence seq_id_doc start 1000";
       // add link if needed
       if (($oattr->link != "") && 
 	  ($ulink = $this->urlWhatEncode( $oattr->link))) {
-	$abegin="<A href=\"";
+	$abegin="<A target=\"$target\" href=\"";
 	$abegin.= $ulink;
 	$abegin.="\">";
 	$aend="</A>";

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.10 2002/04/19 15:24:46 eric Exp $
+// $Id: Lib.Dir.php,v 1.11 2002/04/24 09:39:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,7 +67,7 @@ function getFirstDir($dbaccess) {
 
 
     $qsql =  "select doc.* from fld, doc where fld.dirid=$dirid ".
-      "and doc.id=fld.childid and ($condfld) ".
+      "and doc.id=fld.childid and ($condfld) and not doc.useforprof ".
 	  "order by doc.title";
 
     $query = new QueryDb($dbaccess,"Doc");

@@ -5,21 +5,21 @@
 
 
 <a href="#" id="editdoc"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=INCIDENT_EDIT&id=[id]','info');closeMenu('popupcard')"  >[TEXT: edit]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=INCIDENT_EDIT&id=[id]','finfo');closeMenu('popupcard')"  >[TEXT: edit]</a>
 
 
 
 
 
 <a href="#" id="unlockdoc"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=UNLOCKFILE&id=[id]','info');closeMenu('popupcard')" >[TEXT: unlock]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=UNLOCKFILE&id=[id]','finfo');closeMenu('popupcard')" >[TEXT: unlock]</a>
 
 
 <a href="#" id="histo"
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=HISTO&id=[id]','info');closeMenu('popupcard')" >[TEXT: history]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=HISTO&id=[id]','finfo');closeMenu('popupcard')" >[TEXT: history]</a>
 
 <a href="#" id="properties"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=INCIDENT_CARD&id=[id]','info');closeMenu('popupcard');">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=INCIDENT_CARD&id=[id]','finfo');closeMenu('popupcard');">
 [TEXT: view properties]</a>
 
 <a href="#" id="cancel"  

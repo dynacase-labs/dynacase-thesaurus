@@ -12,7 +12,7 @@
 
 
 <frameset  frameborder="1" border="5" framespacing="5"  rows="40%,*" >
-  <frame name="list" src="[CORE_STANDURL]&app=FREEDOM&action=FOLDERS" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
+  <frame name="ffolder" src="[CORE_STANDURL]&app=FREEDOM&action=FOLDERS" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
   <frame name="doc_properties" src="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
 </frameset>
 

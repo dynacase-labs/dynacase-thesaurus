@@ -41,7 +41,7 @@
 <form  name="edit" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]app=FREEDOM&action=CHANGEICON&id=[docid]">
       <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
   <input type="file" name="ifile" value="[ifilevalue]">
-  <input type="submit" value="[TEXT: lauch importation]" onclick="parent.list.location.reload(true);">
+  <input type="submit" value="[TEXT: lauch importation]" onclick="parent.ffolder.location.reload(true);">
 </form>
 </div>
 

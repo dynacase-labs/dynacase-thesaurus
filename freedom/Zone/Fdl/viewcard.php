@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.5 2002/04/08 07:30:37 eric Exp $
+// $Id: viewcard.php,v 1.6 2002/04/24 09:39:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -100,13 +100,18 @@ function viewcard(&$action) {
   if ($doc->profid > 0) {
     $pdoc = new Doc($dbaccess, $doc->profid);
     $action->lay->Set("profile", $pdoc->title);
+    $action->lay->Set("displaylprof", "inherit");
+    $action->lay->Set("displayprof", "none");
   } else {
+    $action->lay->Set("displaylprof", "none");
+    $action->lay->Set("displayprof", "inherit");
     if ($doc->profid == 0)
       $action->lay->Set("profile", _("no access control"));
     else
       $action->lay->Set("profile", _("specific control"));
       
   }
+  $action->lay->Set("profid", $doc->profid);
   $action->lay->Set("iconalt","icon");
   
   $action->lay->Set("iconsrc", $doc->geticon());

@@ -43,7 +43,6 @@ TD.tlist {
 }
 
 DIV.unselect {
-  cursor: crosshair;
    border-style : inset;
   background-color:[CORE_BGCELLCOLOR];
   color:[CORE_TEXTFGCOLOR];
@@ -55,7 +54,6 @@ DIV.unselect {
 }
 
 DIV.unselecth {
-  cursor: crosshair;
    border-style : inset;
   background-color:[CORE_BGCOLORHIGH];
   color:[CORE_TEXTFGCOLOR];
@@ -70,7 +68,6 @@ DIV.select {
   background-color:[CORE_BGCOLORALTERN];
   color:[CORE_TEXTFGCOLOR];
   border-style : outset;
-  cursor: crosshair;
    border-width : 1px;
    font-size: 80%;
   margin: 2px 0px 0px 0px;
@@ -78,6 +75,18 @@ DIV.select {
 
 HR {
   color:[CORE_BGCOLOR];
+}
+
+A.title {
+  font-weight:bold;
+  font-size: 100%;
+  color:[CORE_TEXTFGCOLOR];  
+}
+
+
+A.title:hover {
+  background-color:[CORE_BGCOLORALTERN];
+   
 }
 
 .onglet {
@@ -179,13 +188,13 @@ function vselect(th) {
 
 <!-- TABLEBODY -->
 <div  id="d[divid]"
-     class="unselect" style="cursor:pointer"
+     class="unselect" 
      onmouseover="if (this.className != 'select') this.className='unselecth'"
-     onmouseout="if (this.className != 'select') this.className='unselect'"
-     onmousedown="vselect(this);subwindow(300,400,'info','[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&abstract=N&id=[id]');"  >   
-     <B>[title]</B>
+     onmouseout="if (this.className != 'select') this.className='unselect'" >   
+     <A class="title" onclick="vselect(document.getElementById('d[divid]'));" 
+        target="finfo"
+        href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&abstract=N&id=[id]" >[title]</A>
    <span id="p[id]"></span>
-<script>if ([profid] == 1) document.getElementById('p[id]').innerHTML='[TEXT:(private)]';</script>
 
     <ul >
         [BLOCK [blockabstract]]

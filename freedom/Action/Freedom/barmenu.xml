@@ -41,15 +41,15 @@
 <!-- ------------ MENU NEW --------------------- -->
 <div  id="newmenu" class="popup">
 
-<a  id="newdoc" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_EDIT&classid=1&id=&dirid='+parent.list.dirid;closeAllMenu();">[TEXT:new doc]</a>
+<a  id="newdoc" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_EDIT&classid=1&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:new doc]</a>
 
-<a  id="newfld" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_EDIT&classid=2&id=&dirid='+parent.list.dirid;closeAllMenu();">[TEXT:new folder]</a>
+<a  id="newfld" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_EDIT&classid=2&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:new folder]</a>
 
-<a  id="newprof" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_EDIT&classid=3&id=&dirid='+parent.list.dirid;closeAllMenu();">[TEXT:new profile]</a>
+<a  id="newprof" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_EDIT&classid=3&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:new profile]</a>
 
-     <a  id="newfam" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=DEFATTR&classid=1&id=0&dirid='+parent.list.dirid;closeAllMenu();">[TEXT:new family]</a>
+     <a  id="newfam" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=DEFATTR&classid=1&id=0&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:new family]</a>
 
-     <a  id="import" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_IMPORT&classid=1&dirid='+parent.list.dirid;closeAllMenu();">[TEXT:import document]</a>
+     <a  id="import" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_IMPORT&classid=1&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:import document]</a>
 
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
@@ -57,14 +57,14 @@
 
 <!-- ------------ MENU SEARCH  --------------------- -->
 <div  id="searchmenu" class="popup">
-  <a  id="newsearch" href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]app=FREEDOM&action=EDIT_SEARCH&keyword=zz&dirid='+parent.list.dirid;closeAllMenu();">[TEXT:simple]</a>
+  <a  id="newsearch" href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]app=FREEDOM&action=EDIT_SEARCH&keyword=zz&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:simple]</a>
 </div>
 
 <!-- ------------ MENU VIEW  --------------------- -->
 <div  id="viewmenu" class="popup">
   
-<a  id="vlist" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_LIST&dirid='+parent.list.dirid;closeAllMenu()">[TEXT:list]</a>
-<a  id="vicon" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ICONS&dirid='+parent.list.dirid;closeAllMenu()">[TEXT:icon]</a>
+<a  id="vlist" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_LIST&dirid='+parent.ffolder.dirid;closeAllMenu()">[TEXT:list]</a>
+<a  id="vicon" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ICONS&dirid='+parent.ffolder.dirid;closeAllMenu()">[TEXT:icon]</a>
 </div>
 
 <!-- ------------ MENU HELP --------------------- -->
