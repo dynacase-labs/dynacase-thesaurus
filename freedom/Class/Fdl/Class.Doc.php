@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.40 2002/08/06 16:52:34 eric Exp $
+// $Id: Class.Doc.php,v 1.41 2002/08/09 08:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.40 2002/08/06 16:52:34 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.41 2002/08/09 08:46:44 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -663,7 +663,8 @@ create sequence seq_id_doc start 1000";
     }
 
   function AddComment($comment='') {
-    $this->comment .= "\n".$comment;
+    if ($this->comment != '') $this->comment .= "\n".$comment;
+    else $this->comment = $comment;
     $this->modify();
   }
   function AddRevision($comment='') {
@@ -980,7 +981,7 @@ create sequence seq_id_doc start 1000";
 	break;
       default : 
 	if ($aformat != "") {
-	  $htmlval=htmlentities(stripslashes(sprintf($aformat,$value)));
+	  $htmlval=(stripslashes(sprintf($aformat,$value)));
 	} else {
 	  $htmlval=htmlentities(stripslashes($value));
 	}
