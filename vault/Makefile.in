@@ -1,0 +1,30 @@
+# ============================================
+# $Id: Makefile.in,v 1.1 2001/11/16 09:57:01 marc Exp $
+# ============================================
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+utildir=@PUBRULE@
+appname = @PACKAGE@
+pubdir = @prefix@
+srcdir = @srcdir@
+
+export pubdir utildir appname
+
+TAR = gtar
+GZIP_ENV = --best
+
+export targetdir PACKAGE
+
+#SUBDIR= Xml Images Css Action JavaScript Class
+SUBDIR= Class
+
+include $(utildir)/PubRule
+
+DISTFILES = $(SUBDIR) configure.in $(PACKAGE).app \
+            $(PACKAGE)_init.php.in Makefile.in $(PACKAGE).spec.in $(PACKAGE).attributes.php\
+            VERSION RELEASE PACKAGE\
+	    $(PACKAGE)_en.po $(PACKAGE)_fr.po 
+
+
+
+
