@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.27 2004/02/25 13:26:31 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.28 2004/03/16 14:12:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -96,9 +96,9 @@ Class Dir extends PDir
     $err = $this->Control("modify");
     if ($err!= "") return $err;
     
-    $q = new QueryDb($this->dbaccess,"QueryDir");
-    
-    $q->Query(0,0,"TABLE","delete from fld where dirid=".$this->id);
+    $err=$this->exec_query("delete from fld where dirid=".$this->initid);
+    return $err;
+
   }
 
 
@@ -319,7 +319,7 @@ Class Dir extends PDir
 
       // if (! isset($ta[$doc->fromid])) return sprintf(_("Cannot add %s in %s folder, restriction set to add this kind of document"),  $doc->title ,$this->title);
 
-
+      $err="";
      
       $qf->id="";
       $qf->qtype='S'; // single user query
