@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.151 2003/07/28 17:56:29 eric Exp $
+// $Id: Class.Doc.php,v 1.152 2003/08/01 09:05:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.151 2003/07/28 17:56:29 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.152 2003/08/01 09:05:08 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/07/28 17:56:29 $
-// Version         $Revision: 1.151 $
+// Last Update     $Date: 2003/08/01 09:05:08 $
+// Version         $Revision: 1.152 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1610,8 +1610,10 @@ create unique index i_docir on doc(initid, revision);";
 	   
      
 	case "image": 
-	  if ($target=="mail") $htmlval="cid:".$oattr->id;
-	  else {
+	  if ($target=="mail") {
+	    $htmlval="cid:".$oattr->id;
+	    if ($index >= 0) $htmlval.="+$index";
+	  } else {
 	    $vid="";
 	    if (ereg ("(.*)\|(.*)", $avalue, $reg)) {
 	      $vid=$reg[2];
@@ -1637,9 +1639,9 @@ create unique index i_docir on doc(initid, revision);";
 	
 	  if ($target=="mail") {
 	    $htmlval="<A target=\"_blank\" href=\"";
-	    $htmlval.="cid:".$oattr->id
-	      ."\">".$fname.
-	      "</A>";;
+	    $htmlval.="cid:".$oattr->id;	    
+	    if ($index >= 0) $htmlval.="+$index";
+	    $htmlval.=  "\">".$fname."</A>";
 	  } else 
 	    $htmlval="<A onclick=\"document.noselect=true;\" target=\"_blank\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
@@ -1854,7 +1856,7 @@ create unique index i_docir on doc(initid, revision);";
   function viewDoc($layout="FDL:VIEWBODYCARD",$target="_self",$ulink=true,$abstract=false) {
     global $action;
 
-
+ 
     if (! ereg("([A-Z_-]+):([^:]+):{0,1}[A-Z]{0,1}", $layout, $reg)) 
       $action->exitError(sprintf(_("error in pzone format %s"),$layout));
      
@@ -1875,7 +1877,7 @@ create unique index i_docir on doc(initid, revision);";
 
     if (! $ulink) {
       // suppress href attributes
-      return preg_replace(array("/href=\"[^\"]*\"/i", "/onclick=\"[^\"]*\"/i","/ondblclick=\"[^\"]*\"/i"), 
+      return preg_replace(array("/href=\"([^c]|c[^i]|ci[^d])[^\"]*\"/i", "/onclick=\"[^\"]*\"/i","/ondblclick=\"[^\"]*\"/i"), 
 			  array("","","") ,$this->lay->gen() );
     }
     if ($target=="mail") {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.33 2003/07/30 14:55:09 eric Exp $
+// $Id: mailcard.php,v 1.34 2003/08/01 09:05:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -196,11 +196,11 @@ function sendCard(&$action,
     fclose($fout);
   }
 
-    if (ereg("pdf",$format, $reg)) {
+  if (ereg("pdf",$format, $reg)) {
       // ---------------------------
       // contruct PDF mail
       if ($szone) {
-	$sgen = $doc->viewDoc($zonebodycard,"_self",false);
+	$sgen = $doc->viewDoc($zonebodycard,"mail",false);
       } else {
     
     
@@ -212,15 +212,16 @@ function sendCard(&$action,
   
 	$sgen = $docmail2->gen();
       }
-      $sgen = preg_replace("/cid:([^\"]+)\"/e",
+      $sgen2 = preg_replace("/cid:([^\"]+)\"/e",
 			   "realfile('\\1')",
 			   $sgen);
 
       $phtml = uniqid("/tmp/$title").".html";
       $fout = fopen($phtml,"w");
-      fwrite($fout,$sgen);
+      fwrite($fout,$sgen2);
       fclose($fout);
-    }
+  }
+
 
   // ---------------------------
   // contruct metasend command
@@ -246,35 +247,45 @@ function sendCard(&$action,
     // ---------------------------
     // insert attached files
 
+  if (preg_match_all("/href=\"cid:([^\"+]*)[+|\"]/i",$sgen,$match)) {
+    $tcids = $match[1]; // list of file references inserted in mail
+
     $afiles = $doc->GetFileAttributes();
 
     if (count($afiles) > 0) {
-    
       while(list($k,$v) = each($afiles)) {
-	$tva=array();
-	if ($v->repeat) $tva=$doc->getTValue($v->id);
-	else $tva[]=$doc->getValue($v->id);
+	if (in_array($v->id, $tcids)) {
+	  $tva=array();
+	  $cidindex="";
+	  if ($v->repeat) $tva=$doc->getTValue($v->id);
+	  else $tva[]=$doc->getValue($v->id);
 
-	while(list($ka,$va) = each($tva)) {
-	  if ($va != "") {
+	  while(list($ka,$va) = each($tva)) {
+	    if ($va != "") {
 
-	    list($mime,$vid)=explode("|",$va);
-	    //      ereg ("(.*)\|(.*)", $va, list($mime,$vid)$reg);
+	      list($mime,$vid)=explode("|",$va);
+	      //      ereg ("(.*)\|(.*)", $va, list($mime,$vid)$reg);
 
-	    if ($vid != "") {
-	      if ($vf -> Retrieve ($vid, $info) == "") {  
-		$cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
-		  "-i '<".$v->id.">'  -f '".$info->path."'";
+	      if ($vid != "") {
+		if ($vf -> Retrieve ($vid, $info) == "") {  
+		
+		  $cidindex= ($v->repeat)?"+$ka":"";
+		  $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
+		    "-i '<".$v->id.$cidindex.">'  -f '".$info->path."'";
 	  
+		}
 	      }
 	    }
 	  }
 	}
       }
     }
+  }
+
+    // ---------------------------
+    // add icon image
     if (ereg("html",$format, $reg)) {
       if (! $szone) {
-	// add icon image
 	$va=$doc->icon;
 	if ($va != "") {
 	  list($mime,$vid)=explode("|",$va);
@@ -296,6 +307,8 @@ function sendCard(&$action,
     }
   
     
+    // ---------------------------
+    // add inserted image
     while(list($k,$v) = each($ifiles)) {
 
       if (file_exists($pubdir."/$v"))
