@@ -63,11 +63,14 @@
 
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 </thead>
+</table>
    
 [ZONE FDL:EDITCARD]
 
 
+<table class="tableborder"  cellspacing="0" width="100%">
 <tfoot>
+[ZONE FDL:EDITSTATE]
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td colspan="2" >

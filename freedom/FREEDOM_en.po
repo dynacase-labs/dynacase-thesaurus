@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-01-30 11:45+0100\n"
+	"POT-Creation-Date: 2003-03-12 16:28+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -117,6 +117,10 @@ msgid	"%s has been modified"
 msgstr	""
 
 #, c-format
+msgid	"%s has been created"
+msgstr	""
+
+#, c-format
 msgid	"search  contains %s in all state"
 msgstr	""
 
@@ -157,6 +161,10 @@ msgstr	""
 msgid	"%s has been deleted"
 msgstr	""
 
+#, c-format
+msgid	"document id %d not found"
+msgstr	""
+
 msgid	"no document type"
 msgstr	""
 
@@ -182,9 +190,6 @@ msgstr	""
 #, fuzzy, c-format
 msgid	"%s new revision %d"
 msgstr	"Organisation"
-
-msgid	"kind of search is not defined"
-msgstr	""
 
 #, fuzzy
 msgid	"new search "
@@ -368,6 +373,10 @@ msgstr	""
 msgid	"workflow_init :: id %s is not a workflow"
 msgstr	""
 
+#, c-format
+msgid	"workflow_init :: workflow id %s not found"
+msgstr	""
+
 msgid	"no zone specified"
 msgstr	""
 
@@ -384,6 +393,10 @@ msgid	"the pluggins function description '%s' is not conform"
 msgstr	""
 
 #, c-format
+msgid	"reference must be a number not '%s'"
+msgstr	""
+
+#, c-format
 msgid	"%s has been locked"
 msgstr	""
 
@@ -392,6 +405,15 @@ msgid	"%s has been unlocked"
 msgstr	""
 
 msgid	"locked files of "
+msgstr	""
+
+#, c-format
+msgid	"Cannot add %s in %s folder, restriction set to add this kind of "
+	"document"
+msgstr	""
+
+#, c-format
+msgid	"Cannot add in %s folder, doc id (%d) unknown"
 msgstr	""
 
 #, c-format
@@ -448,6 +470,9 @@ msgstr	""
 msgid	"unknow attribute"
 msgstr	""
 
+msgid	"document already revised"
+msgstr	""
+
 msgid	"vault file error"
 msgstr	""
 
@@ -467,9 +492,9 @@ msgstr	""
 msgid	"new %s"
 msgstr	""
 
-#, fuzzy
-msgid	"state profile"
-msgstr	"Category"
+#, c-format
+msgid	"parameters for %s state"
+msgstr	""
 
 #, c-format
 msgid	"id %s profile"
@@ -480,11 +505,19 @@ msgid	"%s profile"
 msgstr	"Category"
 
 #, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
+msgid	"id %s mask"
+msgstr	""
+
+#, c-format
+msgid	"%s mask"
 msgstr	""
 
 #, c-format
 msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
 msgstr	""
 
 #, c-format
@@ -495,9 +528,9 @@ msgstr	""
 msgid	"ChangeState :: the method '%s' has the following error %s"
 msgstr	""
 
-#, c-format
-msgid	"change state to %s"
-msgstr	""
+#, fuzzy, c-format
+msgid	"change state : %s to %s"
+msgstr	"Category"
 
 #, c-format
 msgid	"%s new state %s"
@@ -672,6 +705,23 @@ msgstr	"Add new contact card"
 msgid	"or"
 msgstr	""
 
+msgid	"read only"
+msgstr	""
+
+#, fuzzy
+msgid	"read write"
+msgstr	"readwriteall"
+
+msgid	"write only"
+msgstr	""
+
+msgid	"hidden"
+msgstr	""
+
+#, fuzzy
+msgid	"read disabled"
+msgstr	"Delete"
+
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
 	"The Size Limit is %d bytes."
@@ -797,6 +847,12 @@ msgstr	"Delete"
 msgid	"Freedoms icon list"
 msgstr	""
 
+msgid	"folio icon list"
+msgstr	""
+
+msgid	"folio select doc"
+msgstr	""
+
 #, fuzzy
 msgid	"access path folder list"
 msgstr	"Delete"
@@ -835,6 +891,13 @@ msgstr	""
 #, fuzzy
 msgid	"edit default folder"
 msgstr	"Delete"
+
+#, fuzzy
+msgid	"choose workflow"
+msgstr	"Delete"
+
+msgid	"modify associated worflow"
+msgstr	""
 
 msgid	"set the document controlled"
 msgstr	""
@@ -909,6 +972,13 @@ msgid	"Freedom initialisation"
 msgstr	"Organisation"
 
 #, fuzzy
+msgid	"open portfolio"
+msgstr	"Modify"
+
+msgid	"portfolio tab"
+msgstr	""
+
+#, fuzzy
 msgid	"root folder id"
 msgstr	"Modify"
 
@@ -974,6 +1044,9 @@ msgstr	""
 #, fuzzy
 msgid	"edit mail"
 msgstr	"Email"
+
+msgid	"confirm mail sended before change state"
+msgstr	""
 
 #, fuzzy
 msgid	"view standalone card"
@@ -1121,15 +1194,6 @@ msgid	"address for replying for the client"
 msgstr	""
 
 msgid	"send mail for qualifier and analyzer"
-msgstr	""
-
-msgid	"usercard category to find clients"
-msgstr	""
-
-msgid	"usercard category id to find technical"
-msgstr	""
-
-msgid	"SOCIETY category id to find constructors"
 msgstr	""
 
 msgid	"Generic"
@@ -1342,6 +1406,9 @@ msgstr	"Start search"
 msgid	"Bilan"
 msgstr	""
 
+msgid	"Tool"
+msgstr	""
+
 #, fuzzy
 msgid	"All catg"
 msgstr	"All"
@@ -1362,6 +1429,9 @@ msgstr	"Identity"
 #, fuzzy
 msgid	"Import file"
 msgstr	"Import"
+
+msgid	"Freedom"
+msgstr	""
 
 msgid	"Incident Report"
 msgstr	""
@@ -1474,9 +1544,6 @@ msgstr	"Edit"
 msgid	"Tools"
 msgstr	""
 
-msgid	"Freedom"
-msgstr	""
-
 msgid	"Properties:"
 msgstr	""
 
@@ -1547,6 +1614,9 @@ msgstr	""
 #, fuzzy
 msgid	"date"
 msgstr	"Edit"
+
+msgid	"PortFolio"
+msgstr	""
 
 msgid	"View"
 msgstr	""
@@ -1639,6 +1709,10 @@ msgstr	"Update Title Cards"
 
 msgid	"func"
 msgstr	""
+
+#, fuzzy
+msgid	"elink"
+msgstr	"Delete"
 
 #, fuzzy
 msgid	"profile access"
@@ -1797,6 +1871,17 @@ msgstr	"Address"
 msgid	"proceed background import"
 msgstr	""
 
+msgid	"Choose Worflow"
+msgstr	""
+
+#, fuzzy
+msgid	"workflow"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"no workflow"
+msgstr	"Delete"
+
 #, fuzzy
 msgid	"Detail Permissions"
 msgstr	"Edit"
@@ -1888,7 +1973,23 @@ msgstr	""
 msgid	"mail edition"
 msgstr	"Edit"
 
+msgid	"email sended"
+msgstr	""
+
+msgid	"Send the email and change document state to"
+msgstr	""
+
 msgid	"send mail"
+msgstr	""
+
+#, fuzzy
+msgid	"Change the document state to"
+msgstr	"Category"
+
+msgid	"confirm manually send"
+msgstr	""
+
+msgid	"workflow has been recomposed"
 msgstr	""
 
 msgid	"yes"
@@ -1914,6 +2015,30 @@ msgstr	"Add new contact card"
 #, fuzzy
 msgid	"addstate"
 msgstr	"Identity"
+
+#, fuzzy
+msgid	"fieldset"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"attrname"
+msgstr	"Lastname"
+
+#, fuzzy
+msgid	"new visibility"
+msgstr	"Visibility"
+
+#, fuzzy
+msgid	"default visibility"
+msgstr	"Visibility"
+
+#, fuzzy
+msgid	"new guide-card"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"new search guide-card"
+msgstr	"Start search"
 
 msgid	"some needed attributes are empty"
 msgstr	""
@@ -1981,6 +2106,10 @@ msgstr	"Delete"
 
 #, fuzzy
 msgid	"Change current folder"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"Choose workflow"
 msgstr	"Delete"
 
 msgid	"delconfirm"
@@ -2056,6 +2185,10 @@ msgid	"View properties"
 msgstr	""
 
 #, fuzzy
+#~ msgid	"state profile"
+#~ msgstr	"Category"
+
+#, fuzzy
 #~ msgid	"New category"
 #~ msgstr	"Category"
 
@@ -2096,20 +2229,12 @@ msgstr	""
 #~ msgstr	"Start search"
 
 #, fuzzy
-#~ msgid	"delete workflow"
-#~ msgstr	"Delete"
-
-#, fuzzy
 #~ msgid	"delete folder"
 #~ msgstr	"Delete"
 
 #, fuzzy
 #~ msgid	"suspended incident"
 #~ msgstr	"Delete"
-
-#, fuzzy
-#~ msgid	"new usercard"
-#~ msgstr	"Start search"
 
 #, fuzzy
 #~ msgid	"Tsimple"
@@ -2154,9 +2279,6 @@ msgstr	""
 #, fuzzy
 #~ msgid	"move"
 #~ msgstr	"Cellular"
-
-#~ msgid	"readwriteall"
-#~ msgstr	"readwriteall"
 
 #~ msgid	"readwriteowner"
 #~ msgstr	"Private"

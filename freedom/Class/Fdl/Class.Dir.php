@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.17 2003/03/11 17:13:11 eric Exp $
+// $Id: Class.Dir.php,v 1.18 2003/03/17 12:04:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.17 2003/03/11 17:13:11 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.18 2003/03/17 12:04:33 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -202,7 +202,8 @@ Class Dir extends PDir
   }
 
 
-  function getAuthorizedFamilies() {
+  // $classid : restrict for same usefor families
+  function getAuthorizedFamilies($classid=0) {
     
       $tfamid = explode("\n", $this->getValue("FLD_FAMIDS"));
       $tfam   = explode("\n", $this->getValue("FLD_FAM"));
@@ -211,7 +212,7 @@ Class Dir extends PDir
       $tclassdoc=array();
       if ($allbut != "1") {
 	include_once("FDL/Lib.Dir.php");
-	$tallfam = GetClassesDoc($this->dbaccess, $this->userid,0,"TABLE");
+	$tallfam = GetClassesDoc($this->dbaccess, $this->userid,$classid,"TABLE");
 	while (list($k,$cdoc)= each ($tallfam)) {
 	  $tclassdoc[$cdoc["id"]]=$cdoc;
 	}

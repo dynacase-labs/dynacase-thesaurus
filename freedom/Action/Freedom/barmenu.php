@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.6 2003/01/24 14:10:45 eric Exp $
+// $Id: barmenu.php,v 1.7 2003/03/17 12:04:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,29 +35,32 @@ include_once("FDL/freedom_util.php");
 // -----------------------------------
 function barmenu(&$action) {
   // -----------------------------------
-  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam'));
+  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','newwf'));
   popupInit("searchmenu", array( 'newsearch','newdsearch','newsearchfulltext'));
-
-
-
   popupInit("viewmenu",	array('vlist','vicon','vcol'));
   popupInit("helpmenu", array('help','import'));
 
 
-    popupActive("newmenu",1,'newdoc'); 
-    popupActive("newmenu",1,'newfld'); 
-    popupActive("newmenu",1,'newprof');
+  popupActive("newmenu",1,'newdoc'); 
+  popupActive("newmenu",1,'newfld'); 
+  popupActive("newmenu",1,'newprof');
+  if ($action->HasPermission("FREEDOM_MASTER")) {
+    popupActive("helpmenu",1,'import'); 
     popupActive("newmenu",1,'newfam');
-    if ($action->HasPermission("FREEDOM_MASTER"))    popupActive("helpmenu",1,'import'); 
-    else popupInvisible("helpmenu",1,'import');
-    popupActive("searchmenu",1,'newsearch');
-    popupActive("searchmenu",1,'newdsearch');
-    if ($action->GetParam("FULLTEXT_SEARCH") == "yes") popupActive("searchmenu",1,'newsearchfulltext');
-    else popupInvisible("searchmenu",1,'newsearchfulltext');
-    popupActive("viewmenu",1,'vlist');
-    popupActive("viewmenu",1,'vicon');
-    popupActive("viewmenu",1,'vcol');
-    popupActive("helpmenu",1,'help');
+    popupActive("newmenu",1,'newwf'); 
+  } else {
+    popupInvisible("helpmenu",1,'import');
+    popupInvisible("newmenu",1,'newfam');
+    popupInvisible("newmenu",1,'newwf'); 
+  }
+  popupActive("searchmenu",1,'newsearch');
+  popupActive("searchmenu",1,'newdsearch');
+  if ($action->GetParam("FULLTEXT_SEARCH") == "yes") popupActive("searchmenu",1,'newsearchfulltext');
+  else popupInvisible("searchmenu",1,'newsearchfulltext');
+  popupActive("viewmenu",1,'vlist');
+  popupActive("viewmenu",1,'vicon');
+  popupActive("viewmenu",1,'vcol');
+  popupActive("helpmenu",1,'help');
 
 
   popupGen(1);

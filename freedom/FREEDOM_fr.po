@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-01-30 11:45+0100\n"
+	"POT-Creation-Date: 2003-03-12 16:28+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -76,11 +76,11 @@ msgstr	"recherche %s"
 
 #, c-format
 msgid	"search %s is %s"
-msgstr "recherche %s est %s"
+msgstr	"recherche %s est %s"
 
 #, c-format
 msgid	"search %s is %s in %s"
-msgstr "recherche %s est %s dans %s"
+msgstr	"recherche %s est %s dans %s"
 
 #, c-format
 msgid	"cannot see unknow reference %s"
@@ -105,6 +105,10 @@ msgstr	"pas de fichier d'import CSV spécifié"
 #, c-format
 msgid	"%s has been modified"
 msgstr	"%s a été modifié"
+
+#, c-format
+msgid	"%s has been created"
+msgstr "%s a été créé"
 
 #, c-format
 msgid	"search  contains %s in all state"
@@ -147,6 +151,10 @@ msgstr	"nouveau profil de document"
 msgid	"%s has been deleted"
 msgstr	"%s a été supprimé"
 
+#, c-format
+msgid	"document id %d not found"
+msgstr "identificateur %d du document non trouvé"
+
 msgid	"no document type"
 msgstr	"pas de famille de document"
 
@@ -173,9 +181,6 @@ msgstr	"pas de commentaire"
 #, c-format
 msgid	"%s new revision %d"
 msgstr	"%s nouvelle révision %d"
-
-msgid	"kind of search is not defined"
-msgstr "type de recherche non défini"
 
 msgid	"new search "
 msgstr	"Recherche "
@@ -352,6 +357,10 @@ msgstr	"workflow_init :: id est vide"
 msgid	"workflow_init :: id %s is not a workflow"
 msgstr	"msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 
+#, c-format
+msgid	"workflow_init :: workflow id %s not found"
+msgstr "workflow_init :: cycle id %s pas trouvé"
+
 msgid	"no zone specified"
 msgstr	"pas de zone spécifiée"
 
@@ -368,6 +377,10 @@ msgid	"the pluggins function description '%s' is not conform"
 msgstr	"La description de la fonction externe '%s' est incorrecte"
 
 #, c-format
+msgid	"reference must be a number not '%s'"
+msgstr "la référence '%s' doit être un nombre"
+
+#, c-format
 msgid	"%s has been locked"
 msgstr	"%s a été verrouillé"
 
@@ -377,6 +390,15 @@ msgstr	"%s a été déverrouillé"
 
 msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
+
+#, c-format
+msgid	"Cannot add %s in %s folder, restriction set to add this kind of "
+	"document"
+msgstr "Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de ce type de document"
+
+#, c-format
+msgid	"Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
 
 #, c-format
 msgid	"Add %s in %s folder"
@@ -435,6 +457,9 @@ msgstr	"supprimé par %s avec l'action %s sur %s par %s"
 msgid	"unknow attribute"
 msgstr	"attribut inconnu"
 
+msgid	"document already revised"
+msgstr "document déjà révisé"
+
 msgid	"vault file error"
 msgstr	"erreur fichier Vault"
 
@@ -453,8 +478,9 @@ msgstr	"erreur dans la format pzone %s"
 msgid	"new %s"
 msgstr	"nouvelle %s"
 
-msgid	"state profile"
-msgstr	"Profil d'état"
+#, c-format
+msgid	"parameters for %s state"
+msgstr "paramètres pour l'état %s"
 
 #, c-format
 msgid	"id %s profile"
@@ -465,13 +491,21 @@ msgid	"%s profile"
 msgstr	"Profil %s"
 
 #, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	"Changement d'état: l'état initial '%s' est inconnu"
+msgid	"id %s mask"
+msgstr "identificateur du masque %s"
+
+#, c-format
+msgid	"%s mask"
+msgstr "masque %s"
 
 #, c-format
 msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
 msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
 	"autorisé"
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	"Changement d'état: l'état initial '%s' est inconnu"
 
 #, c-format
 msgid	"the method '%s' is not known for the object class %s"
@@ -482,8 +516,8 @@ msgid	"ChangeState :: the method '%s' has the following error %s"
 msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
 
 #, c-format
-msgid	"change state to %s"
-msgstr	"changement d'état vers %s"
+msgid	"change state : %s to %s"
+msgstr "changement d'état de %s vers %s"
 
 #, c-format
 msgid	"%s new state %s"
@@ -641,6 +675,21 @@ msgstr	"et"
 msgid	"or"
 msgstr	"ou"
 
+msgid	"read only"
+msgstr	"lecture seule"
+
+msgid	"read write"
+msgstr "lecture écriture"
+
+msgid	"write only"
+msgstr "écriture seule"
+
+msgid	"hidden"
+msgstr "caché"
+
+msgid	"read disabled"
+msgstr "statique"
+
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
 	"The Size Limit is %d bytes."
@@ -760,6 +809,12 @@ msgstr	"développer une branche"
 msgid	"Freedoms icon list"
 msgstr	"liste sous forme d'icones"
 
+msgid	"folio icon list"
+msgstr "liste icones pour chemise"
+
+msgid	"folio select doc"
+msgstr "sélection de chemise"
+
 msgid	"access path folder list"
 msgstr	"liste des chemin d'accès"
 
@@ -795,6 +850,12 @@ msgstr	"changement d'état"
 
 msgid	"edit default folder"
 msgstr	"éditer dossier par défaut"
+
+msgid	"choose workflow"
+msgstr "choisir un cycle"
+
+msgid	"modify associated worflow"
+msgstr "modification cycle de vie associé"
 
 msgid	"set the document controlled"
 msgstr	"Mettre le document sous contrôle"
@@ -865,6 +926,12 @@ msgstr	"Modification des Droits"
 msgid	"Freedom initialisation"
 msgstr	"Initialisation Freedom"
 
+msgid	"open portfolio"
+msgstr "Ouvrir la chemise"
+
+msgid	"portfolio tab"
+msgstr "onglets chemise"
+
 msgid	"root folder id"
 msgstr	"Identificateur du dossier racine"
 
@@ -929,6 +996,9 @@ msgstr	"envoyer un document"
 msgid	"edit mail"
 msgstr	"éditer un mail"
 
+msgid	"confirm mail sended before change state"
+msgstr "confirmation envoi email avant changement d'état"
+
 msgid	"view standalone card"
 msgstr	"voir une carte autonome"
 
@@ -939,7 +1009,7 @@ msgid	"lock file to edit"
 msgstr	"verrouillez le document pour l'éditer"
 
 msgid	"unlock file to discard edit"
-msgstr "déverrouillez le document pour l'éditer"
+msgstr	"déverrouillez le document pour l'éditer"
 
 msgid	"init workflow profile attributes"
 msgstr	"initialisation des attributs profil"
@@ -1068,15 +1138,6 @@ msgstr	"adresse de réponse pour le client"
 msgid	"send mail for qualifier and analyzer"
 msgstr	"activer l'envoi de mail vers les qualifieurs et analyseurs"
 
-msgid	"usercard category to find clients"
-msgstr	"identificateur catégorie pour la recherche de personne cliente"
-
-msgid	"usercard category id to find technical"
-msgstr	"identificateur catégorie pour la recherche de techniciens"
-
-msgid	"SOCIETY category id to find constructors"
-msgstr	"identificateur catégorie pour la recherche de sociétés clientes"
-
 msgid	"Generic"
 msgstr	"Générique"
 
@@ -1126,7 +1187,7 @@ msgid	"search a generict"
 msgstr	"rechercher une carte"
 
 msgid	"search with kind criteria"
-msgstr "recherche avec des critères de catégories"
+msgstr	"recherche avec des critères de catégories"
 
 msgid	"default document family"
 msgstr	"famille de document par défaut"
@@ -1270,11 +1331,14 @@ msgstr	"Recherche"
 msgid	"Bilan"
 msgstr	"Bilan"
 
+msgid	"Tool"
+msgstr "Outil"
+
 msgid	"All catg"
 msgstr	"Toutes catg."
 
 msgid	"All kind"
-msgstr "tout type"
+msgstr	"tout type"
 
 msgid	"client bilan"
 msgstr	"bilan client"
@@ -1287,6 +1351,9 @@ msgstr	"Bilan par état"
 
 msgid	"Import file"
 msgstr	"Importer un fichier"
+
+msgid	"Freedom"
+msgstr	"Freedom"
 
 msgid	"Incident Report"
 msgstr	"Rapport d'incident"
@@ -1387,9 +1454,6 @@ msgstr	"Création"
 msgid	"Tools"
 msgstr	"Outils"
 
-msgid	"Freedom"
-msgstr "Freedom"
-
 msgid	"Properties:"
 msgstr	"Propriétés:"
 
@@ -1455,6 +1519,9 @@ msgstr	"n°série"
 
 msgid	"date"
 msgstr	"date"
+
+msgid	"PortFolio"
+msgstr "Chemise"
 
 msgid	"View"
 msgstr	"Affichage"
@@ -1526,7 +1593,7 @@ msgid	"T?"
 msgstr	"T?"
 
 msgid	"N?"
-msgstr "O?"
+msgstr	"O?"
 
 msgid	"Vi"
 msgstr	"Vi"
@@ -1539,6 +1606,9 @@ msgstr	"fichier"
 
 msgid	"func"
 msgstr	"ft"
+
+msgid	"elink"
+msgstr "extra Lien"
 
 msgid	"profile access"
 msgstr	"Profil d'accès"
@@ -1678,6 +1748,15 @@ msgstr	"rapport à (email)"
 msgid	"proceed background import"
 msgstr	"Effectuer l'import en tache de fond"
 
+msgid	"Choose Worflow"
+msgstr "Cycle de cie"
+
+msgid	"workflow"
+msgstr "cycle de vie"
+
+msgid	"no workflow"
+msgstr "pas de cycle de vie"
+
 msgid	"Detail Permissions"
 msgstr	"Détail des droits"
 
@@ -1753,8 +1832,23 @@ msgstr	" choisir une valeur"
 msgid	"mail edition"
 msgstr	"édition de mail"
 
+msgid	"email sended"
+msgstr "email envoyé"
+
+msgid	"Send the email and change document state to"
+msgstr "Envoi du email et changement d'état vers"
+
 msgid	"send mail"
 msgstr	"envoyer le mail"
+
+msgid	"Change the document state to"
+msgstr "changer l'état du document en"
+
+msgid	"confirm manually send"
+msgstr "Envoi manuel"
+
+msgid	"workflow has been recomposed"
+msgstr "le cycle de vie a été regénéré"
 
 msgid	"yes"
 msgstr	"oui"
@@ -1766,16 +1860,34 @@ msgid	"Conditions"
 msgstr	"Conditions"
 
 msgid	"up"
-msgstr "monter"
+msgstr	"monter"
 
 msgid	"down"
-msgstr "descendre"
+msgstr	"descendre"
 
 msgid	"addcond"
 msgstr	"attributs"
 
 msgid	"addstate"
 msgstr	"état"
+
+msgid	"fieldset"
+msgstr "cadre"
+
+msgid	"attrname"
+msgstr	"Nom"
+
+msgid	"new visibility"
+msgstr "nouvelle visibilité"
+
+msgid	"default visibility"
+msgstr "visibilité par défaut"
+
+msgid	"new guide-card"
+msgstr "Nouvel intercalaire"
+
+msgid	"new search guide-card"
+msgstr "Nouveau filtre"
 
 msgid	"some needed attributes are empty"
 msgstr	"certains attributs obligatoires sont vides"
@@ -1836,6 +1948,9 @@ msgstr	"Changer dossier par défaut"
 
 msgid	"Change current folder"
 msgstr	"Changer dossier courant"
+
+msgid	"Choose workflow"
+msgstr "Choisir un cycle"
 
 msgid	"delconfirm"
 msgstr	"Voulez-vous supprimer"
@@ -1900,6 +2015,23 @@ msgstr	"Changer de catégorie"
 msgid	"View properties"
 msgstr	"Voir les propriétés"
 
+#~ msgid	"kind of search is not defined"
+#~ msgstr	"type de recherche non défini"
+
+#~ msgid	"state profile"
+#~ msgstr	"Profil d'état"
+
+#~ msgid	"usercard category to find clients"
+#~ msgstr	"identificateur catégorie pour la recherche de personne "
+#~ 	"cliente"
+
+#~ msgid	"usercard category id to find technical"
+#~ msgstr	"identificateur catégorie pour la recherche de techniciens"
+
+#~ msgid	"SOCIETY category id to find constructors"
+#~ msgstr	"identificateur catégorie pour la recherche de sociétés "
+#~ 	"clientes"
+
 #~ msgid	"New category"
 #~ msgstr	"Nouvelle catégorie"
 
@@ -1948,9 +2080,6 @@ msgstr	"Voir les propriétés"
 #~ msgid	"incident familly id"
 #~ msgstr	"id famille incident"
 
-#~ msgid	"new user card"
-#~ msgstr	"Nouvelle personne"
-
 #~ msgid	"search incident %s"
 #~ msgstr	"recherche incident %s"
 
@@ -1959,12 +2088,6 @@ msgstr	"Voir les propriétés"
 
 #~ msgid	"search  incident contains %s in %s"
 #~ msgstr	"recherche des incidents contenant %s dans %s"
-
-#~ msgid	"view workflow"
-#~ msgstr	"voir le workflow"
-
-#~ msgid	"edit workflow"
-#~ msgstr	"éditer le workflow"
 
 #~ msgid	"delete workflow"
 #~ msgstr	"supprimer un workflow"
@@ -2004,9 +2127,6 @@ msgstr	"Voir les propriétés"
 
 #~ msgid	"Access Onefam Master Management"
 #~ msgstr	"Accès à l'administration par famille"
-
-#~ msgid	"new usercard"
-#~ msgstr	"Nouvelle carte"
 
 #~ msgid	"Tsimple"
 #~ msgstr	"Autres transitions"
@@ -2136,9 +2256,6 @@ msgstr	"Voir les propriétés"
 
 #~ msgid	"open directory"
 #~ msgstr	"ouvrir le dossier"
-
-#~ msgid	"readwriteall"
-#~ msgstr	"publique modifiable"
 
 #~ msgid	"readwriteowner"
 #~ msgstr	"privée"

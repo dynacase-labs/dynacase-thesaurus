@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.41 2003/02/07 17:31:49 eric Exp $
+// $Id: import_file.php,v 1.42 2003/03/17 12:04:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -109,8 +109,7 @@ function add_import_file(&$action, $fimport="") {
       
       if (  $doc->doctype=="C") {
 
-	createDocFile($dbaccess, get_object_vars($doc)); 
-	$msg=PgUpdateFamilly($dbaccess, $doc->id);
+	$msg=refreshPhpPgDoc($dbaccess, $doc->id);
       }
       
       $nbdoc++;

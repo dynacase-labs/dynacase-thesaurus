@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modstate.php,v 1.3 2003/02/25 09:53:09 eric Exp $
+// $Id: modstate.php,v 1.4 2003/03/17 12:04:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modstate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,10 +56,12 @@ function modstate(&$action) {
   
  
   if ($doc->wid > 0) {
-    $wdoc = new Doc($dbaccess,$doc->wid);
-    $wdoc->Set($doc);
-    $err=$wdoc->ChangeState($state,$comment,$force);
-    if ($err != "")  $action-> ExitError($err);
+    if ($state != "-") {
+      $wdoc = new Doc($dbaccess,$doc->wid);
+      $wdoc->Set($doc);
+      $err=$wdoc->ChangeState($state,$comment,$force);
+      if ($err != "")  $action-> ExitError($err);
+    }
   } else {
     $action->AddLogMsg(sprintf(_("the document %s is not related to a workflow"),$doc->title));
   }

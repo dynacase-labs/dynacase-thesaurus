@@ -63,6 +63,9 @@ function SendSearchId(e,id) {
 
      <a  id="newfam" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=DEFATTR&classid=1&id=0&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Family]</a>
 
+<a  id="newwf" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=20&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Workflow]</a>
+
+
 
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->

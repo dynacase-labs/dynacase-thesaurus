@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.15 2003/03/05 16:49:28 eric Exp $
+// $Id: freedom_edit.php,v 1.16 2003/03/17 12:04:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,7 +56,7 @@ function freedom_edit(&$action) {
     if ($dirid > 0) {
       $dir = new Doc($dbaccess, $dirid);
       if (method_exists($dir,"getAuthorizedFamilies")) {
-	$tclassdoc=$dir->getAuthorizedFamilies();
+	$tclassdoc=$dir->getAuthorizedFamilies($classid);
 
 	// verify if classid is possible
 	if (! isset($tclassdoc[$classid])) {

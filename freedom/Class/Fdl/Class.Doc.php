@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.98 2003/03/11 17:14:05 eric Exp $
+// $Id: Class.Doc.php,v 1.99 2003/03/17 12:04:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.98 2003/03/11 17:14:05 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.99 2003/03/17 12:04:33 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1439,8 +1439,8 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
   if ($this->usefor == "D") {
     $listattr = $this->GetAttributes();
     while (list($i,$attr) = each($listattr)) {
-      if (($attr->visibility == "H") || ($attr->visibility == "R") || ($attr->visibility == "S")) {
-	$this->attributes->attr[$i]->visibility="W";
+      if (($attr->mvisibility == "H") || ($attr->mvisibility == "R") || ($attr->mvisibility == "S")) {
+	$this->attributes->attr[$i]->mvisibility="W";
       }
     }
   }
@@ -1467,6 +1467,11 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
       $this->viewbodycard($target,$ulink,$abstract);
     }
 
+
+    if (! $ulink) {
+      // suppress href attributes
+      return preg_replace("/href=\"[^\"]*\"/i", "" ,$this->lay->gen() );
+    }
     return $this->lay->gen();
   }
 

@@ -41,7 +41,7 @@ END;1;-1;;;;;;;;;;
 // famille cycle;;;id;class;name;;;;;;;
 BEGIN;1;cycle de vie;20;;WDOC;;;;;;;
 TYPE;C;;;;;;;;;;;
-;;;;;;;;;;;;
+USEFOR;W;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;WF_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;
 ATTR;WF_INIT;;initialisation;N;N;text;30;M;;%S%app=FDL&action=WORKFLOW_INIT&id=%I%;;

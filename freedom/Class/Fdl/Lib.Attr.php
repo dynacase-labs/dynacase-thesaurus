@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.9 2003/03/11 17:09:18 eric Exp $
+// $Id: Lib.Attr.php,v 1.10 2003/03/17 12:04:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -210,5 +210,24 @@ function createDocFile($dbaccess, $tdoc) {
       fclose($fphp);
       @chmod ($dfile, 0666);  // write for nobody
   }
+}
+
+
+// refresh PHP Class & Postgres Table Definition
+function refreshPhpPgDoc($dbaccess, $docid) {
+  
+  $query = new QueryDb($dbaccess,"DocFam");
+  $query ->AddQuery("doctype='C'");  
+  $query->AddQuery("id=$docid");
+  $table1 = $query->Query(0,0,"TABLE");
+
+  if ($query->nb > 0)	{
+    $v=$table1[0];
+    createDocFile($dbaccess,$v);
+    $msg=PgUpdateFamilly($dbaccess, $v["id"]);
+    print $v["id"].$msg;
+    AddLogMsg($msg);
+  }
+  
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.8 2003/02/28 19:39:17 eric Exp $
+// $Id: Class.DocFam.php,v 1.9 2003/03/17 12:04:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.8 2003/02/28 19:39:17 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.9 2003/03/17 12:04:33 eric Exp $';
 include_once('FDL/Class.DocFile.php');
 
 Class DocFam extends DocFile {
@@ -71,7 +71,7 @@ create unique index idx_idfam on docfam(id);";
 
   function PostModify() {    
     include_once("FDL/Lib.Attr.php");
-    return PgUpdateFamilly($this->dbaccess, $this->id);
+    return refreshPhpPgDoc($this->dbaccess, $this->id);
   }
 
   // use to view default attribute when new doc
