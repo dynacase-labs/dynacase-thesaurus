@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.7 2002/11/26 13:53:46 eric Exp $
+// $Id: modprof.php,v 1.8 2003/01/02 15:37:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,21 +62,14 @@ function modprof(&$action) {
   if (($doc->profid == $doc->id) && ($profid == 0)) {
     // unset control
     $doc->UnsetControl();
-  }
-  
-  if (($profid > 0) && ($profid != $doc->id)) {
-    // make sure that the profil is activated
-    $pdoc=new Doc($dbaccess, $profid);
-    if ($pdoc->profid == 0) $profid = -$profid; // inhibition
-  }
+  }  
+
+  $doc->setProfil($profid);// change profile
 
   if ($createp) {
     // change creation profile
     $doc->cprofid = $profid; // new creation profile access
-  } else {
-    // change profile
-    $doc->profid = $profid; // new profile access
-  }
+  } 
   
   
   

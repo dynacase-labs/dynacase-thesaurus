@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.5 2002/11/28 18:19:21 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.6 2003/01/02 15:37:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.5 2002/11/28 18:19:21 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.6 2003/01/02 15:37:17 eric Exp $';
 
 
 
@@ -119,6 +119,16 @@ Class DocCtrl extends DbObj
       }
       // reactivation of doc with its profil
       $this->exec_query("update doc set profid=-profid where profid=-".$this->id." and locked != -1;");
+  }
+
+  function setProfil($profid) {
+
+    $this->profid = $profid;
+    if (($profid > 0) && ($profid != $this->id)) {
+      // make sure that the profil is activated
+      $pdoc=new Doc($this->dbaccess, $profid);
+      if ($pdoc->profid == 0) $this->profid = -$profid; // inhibition
+    }
   }
   // --------------------------------------------------------------------
   function ControlId ($docid,$aclname) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.33 2002/12/06 17:15:15 eric Exp $
+// $Id: import_file.php,v 1.34 2003/01/02 15:37:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -171,7 +171,7 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "PROFID":     
-      $doc->profid =  $data[1];
+      $doc->setProfil($data[1]);// change profile
     break;
     // -----------------------------------
     case "ATTR":
