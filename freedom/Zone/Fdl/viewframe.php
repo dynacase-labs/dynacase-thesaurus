@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.14 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: viewframe.php,v 1.15 2003/11/17 10:38:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.14 2003/08/18 15:47:04 eric Exp $
+// $Id: viewframe.php,v 1.15 2003/11/17 10:38:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -77,23 +77,30 @@ function viewframe(&$action) {
     
     if ($v->fieldSet->id != $frameid) continue;
 
+
     $action->lay->set("flabel",$v->fieldSet->labelText);
 
     $value = chop($doc->GetValue($v->id));
     
-    if ($value == "") continue;
+    $goodvalue=((($value != "") || ( $v->type=="array")) && 
+		($v->mvisibility != "H") && ($v->mvisibility != "O") && (! $v->inArray()));  
+    if ($goodvalue)   {	 
+	$htmlvalue=$doc->GetHtmlValue($v,$value,$target,$ulink);
+    } else $htmlvalue="";
+    if ($htmlvalue == "") continue;
     if ($v->mvisibility == "O") continue;
     if ($v->inArray() ) continue;
     //------------------------------
       // Set the table value elements
-	if ($v->mvisibility != "H")	{	
+	if ($v->mvisibility != "H")	{
+   	
 	  // don't see  non abstract if not
 	    if (( !$abstract) || ($v->isInAbstract)) {
 	      $tval[$k]["wvalue"]=($v->type=="array")?"1%":"30%";  // width
 	      $tval[$k]["ndisplay"]=($v->type=="array")?"none":"";  // display alabel ?
 	     
 	      $tval[$k]["alabel"]=  $v->labelText;;
-	      $tval[$k]["avalue"]=  $doc->GetHtmlValue($v,$value,$target,$ulink);
+	      $tval[$k]["avalue"]=  $htmlvalue;
 	    }
 	  
 	}
