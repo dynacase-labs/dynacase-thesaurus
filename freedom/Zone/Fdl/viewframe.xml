@@ -2,13 +2,14 @@
 
 [BLOCK FIELDSET]
 <tr >
-  <td  colspan="2" >
+  <td  colspan="3" >
  <fieldset style="cursor:[cursor];"><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[flabel]</legend>
 <table id="T[frameid]" width="100%" >
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1"><td valign="top" width="10%"&nbsp;</td>
   <td valign="top" width="[wvalue]" class="FREEDOMlabel"><span style="display:[ndisplay]">[alabel]&nbsp;:&nbsp;</span></td>
   <td valign="top"  class="FREEDOMText">[avalue]</td>
+  <td></td>
 </tr>
 [ENDBLOCK FVALUES]
 </table>
