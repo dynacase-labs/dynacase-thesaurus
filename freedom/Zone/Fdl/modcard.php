@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.61 2004/03/01 08:46:33 eric Exp $
+ * @version $Id: modcard.php,v 1.62 2004/03/16 14:05:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.61 2004/03/01 08:46:33 eric Exp $
+// $Id: modcard.php,v 1.62 2004/03/16 14:05:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -291,7 +291,7 @@ function insert_file($dbaccess,$docid, $attrid)
 	// if no file specified, keep current file
 	
 	if ($userfile['name'] != "") {
-	  $err = sprintf(_("Filename '%s' cannot be transmitted.\nThe Size Limit is %d bytes."), $userfile['name'],ini_get('upload_max_filesize'));
+	  $err = sprintf(_("Filename '%s' cannot be transmitted.\nThe Size Limit is %s bytes."), $userfile['name'],ini_get('upload_max_filesize'));
 	  $action->ExitError($err);
 	}
 	// reuse old value
