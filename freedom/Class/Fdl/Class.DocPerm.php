@@ -3,7 +3,7 @@
  * Document permissions
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocPerm.php,v 1.11 2004/08/09 08:07:06 eric Exp $
+ * @version $Id: Class.DocPerm.php,v 1.12 2004/11/12 10:16:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -14,7 +14,7 @@
 
 
 
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.11 2004/08/09 08:07:06 eric Exp $';
+$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.12 2004/11/12 10:16:49 eric Exp $';
 include_once("Class.DbObj.php");
 
 /**
@@ -78,19 +78,10 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
   function ControlU ($pos) {
     // --------------------------------------------------------------------     
         
-    if ( ! isset($this->uacl)) {       
-      if ($this->upacl == 0) {
-	if ( ! isset($this->gacl)) {       
-	  $q = new QueryDb($this->dbaccess, "docperm");
-	  $t = $q -> Query(0,1,"TABLE","select computegperm({$this->userid},{$this->docid}) as uperm");
-
-	  $this->gacl=$t[0]["uperm"];
-	  $this->uacl = $this->gacl;
-	}
-      } else $this->uacl = $this->getUperm($this->docid,$this->userid);
-
+    if ( $this->cacl == 0) {       
+      $this->cacl = $this->getUperm($this->docid,$this->userid);
     }
-    return ($this->ControlMask($this->uacl,$pos));
+    return ($this->ControlMask($this->cacl,$pos));
   }
 
   // --------------------------------------------------------------------
@@ -142,7 +133,7 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
     $this->upacl=0;
     $this->unacl=0;
     $this->cacl=1;
-  }
+  }  
 
   // --------------------------------------------------------------------
   function SetControlP($pos) {

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_modaccess.php,v 1.8 2004/02/12 10:06:48 eric Exp $
+ * @version $Id: freedom_modaccess.php,v 1.9 2004/11/12 10:16:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_modaccess.php,v 1.8 2004/02/12 10:06:48 eric Exp $
+// $Id: freedom_modaccess.php,v 1.9 2004/11/12 10:16:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -64,11 +64,11 @@ function freedom_modaccess(&$action) {
   
     // modif permission for a particular user
     $perm = new DocPerm($dbaccess, array($docid,$userid));
-    $perm->UnSetControl();
+    $perm->UnsetControl();
     while (list($k,$pos) = each ($aclon)) { 
       if (intval($pos) > 0)  $perm->SetControlP($pos);
     }
-    if ($perm -> isAffected()) $perm ->modify();
+    if ($perm->isAffected()) $perm ->modify();
     else $perm->Add();
     
   }

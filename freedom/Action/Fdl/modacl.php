@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modacl.php,v 1.5 2004/02/09 16:46:15 eric Exp $
+ * @version $Id: modacl.php,v 1.6 2004/11/12 10:16:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modacl.php,v 1.5 2004/02/09 16:46:15 eric Exp $
+// $Id: modacl.php,v 1.6 2004/11/12 10:16:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/modacl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -74,7 +74,7 @@ function modacl(&$action) {
     }
   }
 
-  if ($perm -> isAffected()) $perm ->modify();
+  if ($perm->isAffected()) $perm ->modify();
   else $perm->Add();
 
 
