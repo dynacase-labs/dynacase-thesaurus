@@ -129,7 +129,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
     }
   
     if ( db_numrows(result) != 1 ) {
-      syslog (LOG_WARNING, "Authentication failed for user %s [%s]", user,query);
+      syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
       db_free_result(result);
       db_close(conn);
       return PAM_AUTH_ERR;
@@ -173,7 +173,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 
   
   if ( db_numrows(result) != 1 ) {
-    syslog (LOG_WARNING, "Authentication failed for user %s [%s]", user,query);
+    syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
     db_free_result(result);
     db_close(conn);
     return PAM_AUTH_ERR;
@@ -187,7 +187,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   salt[2]='\0';
 
   if (strcmp(crypt(passwd, salt) , passwdk)) {
-    syslog (LOG_WARNING, "Authentication failed for user %s", user);
+    syslog (LOG_DEBUG, "Authentication failed for user %s", user);
     db_free_result(result);
     db_close(conn);
     return PAM_AUTH_ERR;
