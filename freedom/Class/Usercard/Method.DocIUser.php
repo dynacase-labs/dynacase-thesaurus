@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.14 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.15 2004/08/05 09:46:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -113,16 +113,7 @@ function RefreshDocUser() {
 	$this->SetValue("US_IDGROUP"," ");
       }
       $err=$this->modify();
-  
-      // refresh groups
- //      $tgid = $wuser->GetGroupsId();
-//       foreach ($tgid as $k=>$v) {
-// 	$g = new User("",$v);
-// 	if ($g->isAffected() && ($g->fid > 0)) {
-// 	  $gdoc = new Doc($this->dbaccess, $g->fid);
-// 	  $gdoc->RefreshGroup();
-// 	}
-//      }
+      $err.=$this->RefreshLdapCard();
 
     } else     {
       $err= sprintf(_("user %d does not exist",$wid));
@@ -185,9 +176,6 @@ function PostModify() {
     $this->modify(true,array("us_whatid"));
   } 
 
-  $this->SetLdapParam();
-  if ($status=="D") $err.=$this->DeleteLdapCard();
-  else $err.=$this->UpdateLdapCard();
   
 
 

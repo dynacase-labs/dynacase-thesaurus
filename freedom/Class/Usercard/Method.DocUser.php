@@ -3,7 +3,7 @@
  * Persons & LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.26 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.27 2004/08/05 09:46:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -45,20 +45,11 @@
 
   // no in postUpdate method :: call this only if real change (values)
 function PostModify() {
-  $priv=$this->GetValue("US_PRIVCARD");
   $err="";
 
-  $this->SetLdapParam();
-  if ($this->useldap) {
-    // update LDAP only no private card
-    if (($priv == 'R') || ($priv == 'W')) {
+  $err=$this->RefreshLdapCard();
 
-      $err=$this->UpdateLdapCard();
-    } else if ($priv == 'P') {
-      $this->SetLdapParam();
-      $err=$this->DeleteLdapCard();
-    }
-  }
+  
   $this->SetPrivacity(); // set doc properties in concordance with its privacity
 
   return ($err);
@@ -248,6 +239,21 @@ function canUpdateLdapCard() {
 }
 
 /**
+ * update or delete LDAP card
+ */
+function RefreshLdapCard() {
+  $this->SetLdapParam();
+  if (! $this->useldap) return false;
+
+  if ($this->canUpdateLdapCard()) {
+    $err=$this->UpdateLdapCard();
+  } else {
+    $err=$this->DeleteLdapCard();
+  }
+  return $err;
+}
+
+/**
  * update LDAP card from user document
  */
   function UpdateLdapCard()    {
@@ -285,7 +291,7 @@ function canUpdateLdapCard() {
 		  case "image":
 		    if (ereg ("(.*)\|(.*)", $lvalue, $reg)) {
 
-		      $vf = new VaultFile($this->dbaccess, "FREEDOM");
+		      $vf = newFreeVaultFile($this->dbaccess);
 		      if ($vf->Retrieve ($reg[2], $info) == "") { 
 		    $fd=fopen($info->path, "r");
       
