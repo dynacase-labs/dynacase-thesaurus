@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.5 2002/03/14 14:56:55 eric Exp $
+// $Id: editcard.php,v 1.6 2002/04/19 15:24:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -153,7 +153,7 @@ function editcard(&$action) {
   // ------------------------------------------------------
   
 
-  $bdvalue = new DocValue($dbaccess);
+
 
 
   $bdattr = new DocAttr($dbaccess);
@@ -180,22 +180,18 @@ function editcard(&$action) {
   $tableframe=array();
   for ($i=0; $i < $nattr + 1; $i++)
     {
-
-
       // Compute value elements
       if ($i < $nattr)
 	{
       
-	  $bdvalue->value=""; // to avoid remanence
-	  $bdvalue->Select(array($docid,$listattr[$i]->id));
-	  $value = $bdvalue->value;
+
+	  $value = $doc->GetValue($listattr[$i]->id);
 	 
-	  if (true) // to define when change frame
-	    {
-	      if ( $currentFrameId != $listattr[$i]->frameid) {
+	  
+	  if ( $currentFrameId != $listattr[$i]->frameid) {
 		if ($currentFrameId != "") $changeframe=true;
 	      }
-	    }
+	    
 	}
 
 
@@ -220,9 +216,10 @@ function editcard(&$action) {
 
       //------------------------------
       // Set the table value elements
-      if ($i < $nattr)
+	if (($i < $nattr) && ($listattr[$i]->type != "frame"))
 	{
       	  
+	  $currentFrameId = $listattr[$i]->frameid;
 	  if ($listattr[$i]->visibility == "H") {
 	    // special case for hidden values
 	    $thidden[$ih]["hname"]= "_".$listattr[$i]->id;
@@ -230,7 +227,6 @@ function editcard(&$action) {
 	    $thidden[$ih]["hvalue"]=chop(htmlentities($value));
 	    $ih++;
 	  } else {
-	    $currentFrameId = $listattr[$i]->frameid;
 	    $tableframe[$v]["value"]=chop(htmlentities($value));
 	    $label = $doc->GetLabel($listattr[$i]->id);
 	    $tableframe[$v]["attrid"]=$listattr[$i]->id;

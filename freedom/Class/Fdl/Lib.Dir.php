@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.9 2002/04/17 15:25:03 eric Exp $
+// $Id: Lib.Dir.php,v 1.10 2002/04/19 15:24:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,7 +92,7 @@ function getFirstDir($dbaccess) {
 
     if ( $fld->classname != 'DocSearch') {
 
-    $qsql= "select distinct * ".
+      $qsql= "select distinct * ".
       "from doc  ".
 	"where (doc.doctype != 'T')  ".
 	  "and ((doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) and doc.locked != -1)".
@@ -100,6 +100,7 @@ function getFirstDir($dbaccess) {
 	    $sqlcond.
 	      " order by doc.title LIMIT $slice OFFSET $start;";
 
+    
     } else {
       // search familly
       $docsearch = new QueryDb($dbaccess,"QueryDir");
@@ -135,7 +136,7 @@ function getFirstDir($dbaccess) {
     }
     
 
-    //	print "<HR>".$qsql;
+    //   	print "<HR>".$qsql;
     $query = new QueryDb($dbaccess,"Doc");
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.18 2002/04/18 12:55:25 eric Exp $
+// $Id: Class.Doc.php,v 1.19 2002/04/19 15:24:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.18 2002/04/18 12:55:25 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.19 2002/04/19 15:24:46 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -819,6 +819,7 @@ create sequence seq_id_doc start 1000";
 	  else if ($v == "T") $arg[$k]= &$this;
 	  else {
 	    $arg[$k]= $this->GetValue($v);
+	    if ($arg[$k] == "") return;
 	  }
 	}
 	// activate plug	
@@ -868,7 +869,7 @@ create sequence seq_id_doc start 1000";
 
 	      break;
 	    default:
-	      print "NOT $link<BR>";
+	      
 	      break;
 	    }
 	  $i++; // skip end '%'
@@ -882,7 +883,9 @@ create sequence seq_id_doc start 1000";
 	  //	  print "attr=$sattrid";
 
 	  $ovalue = $this->GetValue($sattrid);
-	  $urllink.=$ovalue->value;
+	  	  if ($ovalue == "") return false;
+	  $urllink.=$ovalue;
+
 	  
 	}
       }
@@ -940,9 +943,10 @@ create sequence seq_id_doc start 1000";
 
 	      
       // add link if needed
-      if ($oattr->link != "") {
+      if (($oattr->link != "") && 
+	  ($ulink = $this->urlWhatEncode( $oattr->link))) {
 	$abegin="<A href=\"";
-	$abegin.= $this->urlWhatEncode( $oattr->link);
+	$abegin.= $ulink;
 	$abegin.="\">";
 	$aend="</A>";
       } else {

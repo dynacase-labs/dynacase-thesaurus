@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.10 2002/04/15 07:49:39 eric Exp $
+// $Id: viewfolder.php,v 1.11 2002/04/19 15:24:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,7 +60,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
   // control open
-    if ($doc->doctype='S') $aclctrl="execute";
+    if ($dir->doctype=='S') $aclctrl="execute";
     else $aclctrl="open";
   if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
 
