@@ -96,10 +96,10 @@ function openMenuXY(event, menuid, x, y) {
 
 
   el = document.getElementById(menuid);
-  if (!(isNetscape && (el.style.position=='fixed'))) {
-
-    el.style.top  = y + "px";
-  }
+  if (isNetscape && (el.style.position=='fixed')) {
+    y -= getScrollYOffset();
+  } 
+  el.style.top  = y + "px";
   el.style.left = x + "px";
   el.style.visibility = "visible";
 
