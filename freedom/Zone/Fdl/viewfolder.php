@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.55 2004/09/15 14:05:07 eric Exp $
+ * @version $Id: viewfolder.php,v 1.56 2004/10/20 17:10:30 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -151,15 +151,19 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
 	$tdoc[$k]["title"] = $doc->title;
+
 	if ($doc->doctype =="C") 	$tdoc[$k]["title"] = "<B>". $doc->title ."</B>";
-	if (strlen($doc->title) > 20)	$tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)." ... ".substr($doc->title,-5);
+
+	if (strlen($doc->title) > 20) $tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)." ... ".substr($doc->title,-5);
 	else $tdoc[$k]["abrvtitle"] =  $doc->title;
+
+	if (isset($doc->_highlight) && $doc->_highlight!="")  {
+	  $tdoc[$k]["highlight"] = $doc->_highlight;
+	} else $tdoc[$k]["highlight"] = $doc->title;
+	$tdoc[$k]["icontitle"] = $tdoc[$k]["highlight"];
 
 	$tdoc[$k]["profid"] = $doc->profid;
 	$tdoc[$k]["revdate"] = strftime ($fdate, $doc->revdate);
-
-      
- 
 
 	$tdoc[$k]["iconsrc"]= $doc->geticon();
   
@@ -175,7 +179,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	
 
 	$tdoc[$k]["iconsrc"]= $doc->geticon();
-
+	
 	if ($with_popup) {
 	  // ------------------------------
 	  // define popup accessibility

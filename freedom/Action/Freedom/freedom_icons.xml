@@ -39,12 +39,13 @@
 <!-- TABLEBODY -->
                              [BLOCK TABLEBODY]
 <div class="icon" id="d[divid]"  >
-<IMG class="unselect" id="i[divid]" title="[title]"
+<IMG class="unselect" id="i[divid]"
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
-     align="absbottom"  src="[iconsrc]"><br>
-
+     align="absbottom"  src="[iconsrc]"
+     title="[icontitle]"><br>
+ 
   
   [abrvtitle]
 

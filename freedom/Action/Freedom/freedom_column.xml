@@ -69,7 +69,8 @@ TH {
      onMouseUp="if (! document.noselect) {select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);};document.noselect=false;" 
      
      onContextMenu="select(this,[id],[divid]);openMenu(event,'popuplist',[divid]);return false" 
-     onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false">   
+     onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
+     title="[highlight]">   
  <td class="tlist">
 <IMG style="display:none" id="i[divid]"      src="[iconsrc]">[title]</td>
        

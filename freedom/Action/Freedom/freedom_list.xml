@@ -89,7 +89,7 @@ TR.select {
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
-     >
+     title="[highlight]">
 <td class="tlist" width="30" >
 <IMG class="iconimg" id="i[divid]" 
      align="absmiddle"  src="[iconsrc]">

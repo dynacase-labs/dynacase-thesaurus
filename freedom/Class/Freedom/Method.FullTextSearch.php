@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Method.FullTextSearch.php,v 1.6 2004/10/19 16:42:42 marc Exp $
+ * @version $Id: Method.FullTextSearch.php,v 1.7 2004/10/20 17:10:30 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -64,6 +64,7 @@ function GetFullTextResultDocs ($dbaccess,
 
   include_once("FDL/Class.FTSMnoGoSearch.php");
   include_once("FDL/Class.DocVaultIndex.php");
+  include_once("VAULT/Class.VaultFile.php");
 
   global $action;
   $tdocs = array();
@@ -102,9 +103,15 @@ function GetFullTextResultDocs ($dbaccess,
     if ($s->found && $s->rcount>0) {
       $dvi = new DocVaultIndex($dbaccess);
       $idoc = 0;
-      while (list($k, $v) = each($resultfiles)) {
-        $vid = $this->fileNameToId($v["file"]);
-        $debugs = "[$k] Filename = [".$v["file"]."] VaultId = [".$vid."] DocId = [ ";
+      reset($resultfiles);
+
+      $vault = new VaultFile($dbaccess, strtoupper(getDbName($this->dbaccess)));
+
+      while (list($kr, $vr) = each($resultfiles)) {
+        $vid = $this->fileNameToId($vr["file"]);
+        $debugs = "[$k] Filename = [".$vr["file"]."] VaultId = [".$vid."] DocId = [ ";
+	$rating = $vr["rating"];
+	$filename = $vr["file"];
         $r = $dvi->GetDocId($vid);
         if (is_array($r) && count($r)>0) {
 	  while (list($k, $v) = each($r)) {
@@ -116,6 +123,9 @@ function GetFullTextResultDocs ($dbaccess,
 		if ($ndoc->fromid == $famid || $famid == 0) {
 		  $debugs .= $ndoc->id." ";
 		  $tdocs[$idoc] = $ndoc;
+
+		  $vault->Show($vid, $infos);		  
+		  $tdocs[$idoc]->_highlight = "[".$rating."] ".($infos->name==""?"????":$infos->name)." (".($infos->size==""?"-":round($infos->size/1024,2))." Ko)";
 		  $idoc++;
 		} else {
 		  $debugs .= " (not in searched families) ";

@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.FTSMnoGoSearch.php,v 1.1 2004/10/14 14:15:35 marc Exp $
+ * @version $Id: Class.FTSMnoGoSearch.php,v 1.2 2004/10/20 17:10:30 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,6 +75,9 @@ Class FTSMnoGoSearch  {
 	$result[$i]["rating"] = Udm_Get_Res_Field($this->Result,$i,UDM_FIELD_RATING);
       }
     }
+//     $result[$i]["file"] = "/fichier/test/46.nop";
+//     $result[$i]["rating"] = "6.38%";
+//     $this->rcount++; $this->found = true;
     return $result;
   }
 
