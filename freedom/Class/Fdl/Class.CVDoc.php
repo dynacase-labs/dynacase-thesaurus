@@ -3,7 +3,7 @@
  *  Control view Class Document
  *
  * @author Anakeen 2003
- * @version $Id: Class.CVDoc.php,v 1.4 2004/08/09 08:07:06 eric Exp $
+ * @version $Id: Class.CVDoc.php,v 1.5 2004/08/09 16:23:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -93,6 +93,20 @@ Class CVDoc extends Doc {
       }
     }
     return false;
+  }
+  
+
+  function getViews() {
+    $ti = $this->getTValue("CV_IDVIEW");
+    $tv=array();
+    foreach ($ti as $k=>$v) {
+     
+	$tv[$v]=$this->getView($v);
+
+	
+      
+    }
+    return $tv;
   }
   
 

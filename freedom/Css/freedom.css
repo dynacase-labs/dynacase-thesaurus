@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.46 2004/08/05 09:47:20 eric Exp $
+ * $Id: freedom.css,v 1.47 2004/08/09 16:23:28 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -327,7 +327,11 @@ TR.select {
   border-style : solid;
   cursor: crosshair;
 } 
-
+ 
+.freedom A:hover {
+        background-color: [CORE_BGCOLORHIGH]; 
+        text-decoration: overline underline;
+}
 
 DIV.icon{
   font-weight: normal;

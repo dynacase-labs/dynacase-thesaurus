@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.212 2004/08/09 07:59:28 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.213 2004/08/09 16:23:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1264,12 +1264,14 @@ create unique index i_docir on doc(initid, revision);";
   function GetImportAttributes()
     {      
 
+      if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
       $tattr = $this->attributes->attr;
-      while (list($k,$v) = each($tattr)) {
+
+      foreach($tattr as $k=>$v) {
 
 	if ((get_class($v) == "normalattribute") && 
-	    (($v->visibility == "W") || ($v->visibility == "O") || ($v->type == "docid")) &&
+	    (($v->mvisibility == "W") || ($v->mvisibility == "O") || ($v->type == "docid")) &&
 	    ($v->type != "array")  ) {
 	  
 	  if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {

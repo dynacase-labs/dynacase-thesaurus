@@ -1,9 +1,11 @@
 <html>
   <head>
 
-   <title>[TEXT:edition: ] [TITLE]</title>
+   <title>[TEXT:import edition] [TITLE]</title>
 
 
+<link rel="icon" href="FDL/Images/logo16.ico" >
+<link rel="shortcut icon" href="FDL/Images/logo16.ico">
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=FDL&action=FDL_CSS" >
 
@@ -58,7 +60,7 @@ function changeFormat(fmt) {
 function rewriteOrder() {
   var ocolorder=document.getElementById('icolorder');
   var oformat=document.modifydoc.iformat;
-  var s='ORDER;[classid];0;0';
+  var s='ORDER;[classname];0;0';
   if ((ocolorder) && (oformat)) {
     for (var i=0; i<ocolorder.options.length; i++) {
     
@@ -66,7 +68,7 @@ function rewriteOrder() {
       
     }
     s=s+'\n';
-    s=s+'#DOC;[classid];0;[topdir]';
+    s=s+'#DOC;[classname];0;[topdir]';
     for (var i=0; i<ocolorder.options.length; i++) {
     
       s = s+ '; ' + ocolorder.options[i].text;
@@ -110,11 +112,12 @@ function rewriteOrder() {
 <p style="font-family:courier">[format]</p>
 </div>
 
-<HR><label for="vcardfile"> [TEXT:Import description file]&nbsp;:</label><INPUT NAME="vcardfile" SIZE=48 TYPE="file" accept="text/x-vcard,text/*.csv" VALUE=""><HR>
 
 <fieldset><legend style="cursor:pointer" onclick="viewornot('dcolumns');rewriteOrder()" title="[TEXT:if you want to change order of column]">
-[TEXT:column order]</legend>
-<div  id="dcolumns" style="display:none" >   
+[TEXT:column order]
+<a style="display:[dnallcol]" onclick="return confirm('[TEXT:View all attributes ?]\n[TEXT:Be carreful.]\n[TEXT:Certain attribute can be not use for import]');" href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_EDITIMPORT&famid=[classid]&allcol=Y">
+[TEXT:view all columns]</A></legend>
+<div  id="dcolumns" style="display:[dallcol]" >   
  <TABLE BORDER=0 width="100%">
 <TR>
 	<TD width="40%">
@@ -181,6 +184,7 @@ function rewriteOrder() {
 <div  id="deditdefault" style="display:none" >
 [ZONE FDL:EDITCARD?classid=[classid]]
 </div></fieldset>
+<HR><label for="vcardfile"> [TEXT:Import description file]&nbsp;:</label><INPUT NAME="vcardfile" SIZE=48 TYPE="file" accept="text/x-vcard,text/*.csv" VALUE=""><HR>
  <input type="checkbox" name="analyze" checked value="Y">[TEXT:Analyze only]</input> 
 <input type="submit" id="bsubmit" value="[TEXT:Import CSV]">
 

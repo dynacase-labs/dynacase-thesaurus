@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.16 2004/08/09 08:07:06 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.17 2004/08/09 16:23:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -138,7 +138,6 @@ function PostModify() {
   $pwd1=$this->GetValue("US_PASSWD1");
   $pwd2=$this->GetValue("US_PASSWD2");
   $pwd=$this->GetValue("US_PASSWD");
-  if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {$pwd1=$pwd;$pwd2=$pwd;};
   $expires=$this->GetValue("US_EXPIRES");
   $daydelay=$this->GetValue("US_DAYDELAY");
   $passdelay=intval($daydelay)*3600*24;
@@ -170,7 +169,15 @@ function PostModify() {
   else $user=new User(""); // create new user
   $err.=$user->SetUsers($fid,$lname,$fname,$expires,$passdelay,
 		       $login,$status,$pwd1,$pwd2,
-		       $iddomain);   
+		       $iddomain);  
+  if ($err=="") { 
+    if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {
+      if (($pwd != $user->password) && (strlen($pwd>12))) {
+	$user->password=$pwd;
+	$err=$user->modify();
+      }
+    }
+  }
  
   if ($err=="") {
     $this->setValue("US_WHATID",$user->id);

@@ -75,7 +75,7 @@ DEFAULT;FLD_FAM;groupe\npersonne;;;;;;;;;;;
 DEFAULT;FLD_ALLBUT;1;;;;;;;;;;;
 END;0;;;;;;;;;;;;
 // ;fromid;titre;id;class;name;;;;;;;;;
-BEGIN;120;personne intranet;128;;IUSER;;;;;;;;;
+BEGIN;120;utilisateur;128;;IUSER;;;;;;;;;
 TYPE;C;;;;;;;;;;;;;
 DFLDID;121;;;;;;;;;;;;;
 ICON;ipersonne.gif;;;;;;;;;;;;;

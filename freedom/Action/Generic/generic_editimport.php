@@ -3,7 +3,7 @@
  * Import document from CSV file
  *
  * @author Anakeen 2004
- * @version $Id: generic_editimport.php,v 1.11 2004/05/13 16:17:14 eric Exp $
+ * @version $Id: generic_editimport.php,v 1.12 2004/08/09 16:23:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,6 +22,7 @@ function generic_editimport(&$action) {
   // -----------------------------------
 
   global $dbaccess;
+  $allcol = (GetHttpVars("allcol","N")=="Y"); // special controlled view
   
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/selectbox.js");
@@ -43,10 +44,35 @@ function generic_editimport(&$action) {
 
   // spec for csv file
   $doc=new Doc($dbaccess, $famid);
+  if ($doc->name != "") $famname=$doc->name;
+  else $famname=$doc->id;
+  if ($doc->ccvid > 0) {
+    // special controlled view
+    $cvdoc= new Doc($dbaccess, $doc->ccvid);
+    $cvid=$cvdoc->getValue("CV_IDCVIEW");
+    if ($cvid) {
+      $err = $cvdoc->control($cvid); // control special view
+      if ($err != "") $action->exitError($err);
+      $tview = $cvdoc->getView($cvid);
+      if (isset($tview["CV_MSKID"]))    $doc->setMask($tview["CV_MSKID"]);
+    }
+    
+  }
+  
+
+  $action->lay->Set("TITLE",$doc->title);
 
   $action->lay->Set("dtitle",sprintf(_("import <I>%s</I> documents from"),$doc->title));
-  $lattr = $doc->GetImportAttributes();
-  $format = "DOC;".$doc->id.";0;". getDefFld($action)."; ";
+  if ($allcol) {
+    $lattr = $doc->GetNormalAttributes();
+    $action->lay->Set("dallcol","");
+    $action->lay->Set("dnallcol","none");
+  }else {
+    $lattr = $doc->GetImportAttributes();
+    $action->lay->Set("dallcol","none");
+    $action->lay->Set("dnallcol","");
+  }
+  $format = "DOC;".$famname.";0;". getDefFld($action)."; ";
 
   foreach ($lattr as $k=>$attr) {
     $format .= $attr->labelText." ;";
@@ -68,6 +94,7 @@ function generic_editimport(&$action) {
   $action->lay->SetBlockData("COLUMNS",$tcol);
   $action->lay->Set("format",$format);
   $action->lay->Set("classid",$famid);
+  $action->lay->Set("classname",$famname);
 
 }
 
