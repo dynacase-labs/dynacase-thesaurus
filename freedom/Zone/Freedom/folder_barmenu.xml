@@ -40,7 +40,7 @@
 <!-- ------------ MENU TOOL --------------------- -->
 <div  id="toolmenu" class="popup">
      <a  id="props" href="#" onClick="activate(this,'[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[dirid]','fdoc');closeAllMenu();">[TEXT:Properties]</a>
-  <a id="tobasket" target="basket" href="[CORE_STANDURL]app=FREEDOM&action=FREEDOM_INSERTFLD&dirid=[dirid]&id=[FREEDOM_IDBASKET]" onClick="closeAllMenu()">[TEXT:All To basket]</a>
+  <a id="tobasket"  href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_INSERTFLD&dirid=[dirid]&id=[FREEDOM_IDBASKET]','basket');closeAllMenu()" >[TEXT:All To basket]</a>
      <a  id="clear" href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_CLEARFLD&id=[dirid]','basket');closeAllMenu();">[TEXT:Clear Folder]</a>
 </div>
 
