@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.209 2004/07/08 16:16:30 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.210 2004/07/22 14:33:23 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2006,6 +2006,7 @@ create unique index i_docir on doc(initid, revision);";
   }
   
   function _array2val($v) {    
+    $v=str_replace("\n","<BR>",$v);	  
     if (count($v) == 0) return "";
     return implode("\n", $v);
   }
