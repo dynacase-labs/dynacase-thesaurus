@@ -1,0 +1,57 @@
+<?php
+
+
+// refreah for a classname
+// use this only if you have changed title attributes
+
+include_once("FDL/Lib.Attr.php");
+include_once("FDL/Class.DocFam.php");
+
+
+
+
+$appl = new Application();
+$appl->Set("FDL",	   $core);
+
+
+$dbaccess=$appl->GetParam("FREEDOM_DB");
+if ($dbaccess == "") {
+  print "Freedom Database not found : param FREEDOM_DB";
+  exit;
+}
+
+
+
+$docid = GetHttpVars("docid",0); // special docid
+
+	
+$query = new QueryDb($dbaccess,"DocFam");
+
+  
+if ($docid > 0) $query->AddQuery("id=$docid");
+      
+    
+$table1 = $query->Query(0,0,"TABLE");
+
+     
+if ($query->nb > 0)	{
+
+  $pubdir = $appl->GetParam("CORE_PUBDIR");
+
+  while(list($k,$v) = each($table1))   {	     
+    //    print AttrtoPhp($dbaccess,$v->id);
+    print "$pubdir/FDL/Class.Doc".$v["id"].".php\n";
+    $fphp=fopen("$pubdir/FDL/Class.Doc".$v["id"].".php","w");
+    if ($fphp) {
+      fwrite($fphp,AttrtoPhp($dbaccess,$v));
+      fclose($fphp);
+    }
+    
+    
+    
+  }	 
+  
+}      
+    
+
+?>

@@ -1,0 +1,11 @@
+<span id="p[ID]"></span>
+<script>if ([PROFID] != 0) document.getElementById('p[ID]').innerHTML='[TEXT:(private)]';</script>
+
+<UL >
+[BLOCK TABLEVALUE]
+
+<LI class="translucide">[name]&nbsp;:&nbsp;[value]</LI>
+
+
+[ENDBLOCK TABLEVALUE]
+</UL>

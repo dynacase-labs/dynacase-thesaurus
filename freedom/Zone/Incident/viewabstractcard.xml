@@ -1,0 +1,7 @@
+<ul id="ul[ID]" >
+<li ><span class="FREEDOMText">[TEXT:state] : [state]</span></li>
+[BLOCK TABLEVALUE]
+<li id="[aid][ID]"><span class="FREEDOMText">[name]&nbsp;:&nbsp;[value]</span></li>
+[ENDBLOCK TABLEVALUE]
+</ul>
+<script>hilightGravity('[IN_GRAV]','[ID]');</script>
