@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.23 2003/05/12 15:45:49 eric Exp $
+// $Id: Class.WDoc.php,v 1.24 2003/05/15 09:10:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.23 2003/05/12 15:45:49 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.24 2003/05/15 09:10:33 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -196,7 +196,7 @@ Class WDoc extends Doc {
       $foundTo = false;
       reset($this->cycle);
       while (list($k, $trans) = each($this->cycle)) {
-	if (($this->doc->state == $trans["e1"]) || ($this->userid==1) ) { // admin an go to any states 
+	if (($this->doc->state == $trans["e1"])  ) { 
 	  // from state OK
 	    $foundFrom = true;
 	  if ($newstate == $trans["e2"]) {
@@ -208,11 +208,11 @@ Class WDoc extends Doc {
 	}
       }
       
-      
+      if  ($this->userid!=1) {// admin an go to any states 
 
-      if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), _($newstate)));
-      if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), _($this->doc->state)));
-      
+	if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), _($newstate)));
+	if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), _($this->doc->state)));
+      }
       // verify if completed doc
       $err = $this->doc->isCompleteNeeded();
       if ($err != "") return $err;
