@@ -89,5 +89,21 @@ function enumscatg() {
   return "";
 }
 
+function members($dbaccess, $groupid, $name="") {
+  $doc  = new Doc($dbaccess, $groupid);
+  $tmembers= $doc->getTvalue("GRP_USER");
+  $tmembersid= $doc->getTvalue("GRP_IDUSER");
+
+  $tr = array();
+  while(list($k,$v)=each($tmembersid)) {
+    
+    $tr[] = array($tmembers[$k] ,
+		  $v,$tmembers[$k]);
+    
+  }
+  return $tr;  
+
+}
+
 
 ?>
