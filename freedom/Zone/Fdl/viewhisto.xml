@@ -17,7 +17,7 @@
 
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
-<tr class="unselect" id="d[id]"
+<tr class="selhead" id="d[id]"
     style="cursor:pointer"
      onMouseDown="select(this,[id],[divid]);subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
 <td>[revision]</td>
