@@ -19,7 +19,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
  
   // window time interval
   $wstart=FrenchDateToJD("10/11/2004 00:00:00");
-  $wend=FrenchDateToJD("10/12/2004 23:59:59");
+  $wend=FrenchDateToJD("10/11/2004 23:59:59");
   print "<br>$wstart:".jd2cal($wstart);
   print "<br>$wend:".jd2cal($wend);
   

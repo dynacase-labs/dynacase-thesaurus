@@ -4,19 +4,21 @@ var mend=[mend];
 var mdelta=mend-mstart;
 var tevents=new Array();
 var zoom=1;
+var zoomx=1;
+var zoomy=1;
 var maxw;
 var maxh=300;;
 var dh=17;
 var bx=50;
-var by=120;
+var by;
 var rw=50; // ressource column width
-var oy=60; // margin offset in y
+var oy=80; // margin offset in y
 var eh=20; // offset event position
-
+var xyby;
 
 function placeEvt(divid,line,subline,x,w) {
-  var dw=maxw*zoom;
-  var dih=dh*zoom;
+  var dw=maxw*zoomx;
+  var dih=dh*zoomy;
   var oimg= document.getElementById(divid);
   var ores= document.getElementById('res'+divid);
   if (oimg) {
@@ -28,18 +30,18 @@ function placeEvt(divid,line,subline,x,w) {
     //oimg.height=dih;
    
     oimg.style.width=(w)*dw/mdelta;
-    oimg.style.height=(dh-2)*zoom;
+    oimg.style.height=(dh-2)*zoomy;
     oimg.style.display='';;
     
     ores.style.top=h;
     ores.style.left=bx;
     ores.style.width=rw;
-    ores.style.height=(dh-2)*zoom;
+    ores.style.height=(dh-2)*zoomy;
     ores.style.display='';;
   }
 }
 function placeEvents() {
-  var xyby=getAnchorPosition('bgmilli');
+  xyby=getAnchorPosition('bgmilli');
   viewgyro(true);
   by=xyby.y+oy;
   bx=xyby.x;
@@ -50,8 +52,8 @@ function placeEvents() {
   }
   dmilli=document.getElementById('bgmilli');
   if (dmilli) {
-    dmilli.style.height=(maxh)-xyby.y+(dh*zoom);
-    dmilli.style.width=parseInt(maxw*zoom)+rw+bx;
+    dmilli.style.height=(maxh)-xyby.y+(dh*zoomy);
+    dmilli.style.width=parseInt(maxw*zoomx)+rw+bx;
   }
   placeDays();
   viewgyro(false);
@@ -60,6 +62,7 @@ function placeEvents() {
 function placeDays() {
   var nbday=mdelta;
   var odday=document.getElementById('dday');
+  var odhour=document.getElementById('dhour');
   var ocdday=document.getElementById('cdday');
 
 
@@ -72,21 +75,18 @@ function placeDays() {
   pXMonth=parseInt(rw+bx); // precedent 
   pXYear=pXMonth;
   for (var i=0;i<nbday;i++) {
-    onday=odday.cloneNode(true);
-    onday.id='dday'+i;
     dx=dw*i;
-    onday.title=weekDay(mstart+i)+jd_to_cal(mstart+i);
     if (weekDay(mstart+i)=='Monday') {
       // begin week
-      if ((dw*zoom*7) > 10) { // mini 10 pixel
+      if ((dw*zoomx*7) > 10) { // mini 10 pixel
 	if (nWeek==0) {
 	  onweek=odday.cloneNode(true);
 	  onweek.id='dweek0'+i;
 	
 	  onweek.innerHTML=jdToWeekNUmber(mstart+i-1);
-	  onweek.style.width=parseInt(dx*zoom);
+	  onweek.style.width=parseInt(dx*zoomx);
 	  onweek.style.height=20;
-	  onweek.style.top=by-20;
+	  onweek.style.top=by-40;
 	  onweek.style.left=parseInt(rw+bx);
 	  if ((nWeek % 2) == 1) onweek.style.backgroundColor='orange';
 	  else onweek.style.backgroundColor='green';
@@ -96,10 +96,10 @@ function placeDays() {
 	onweek.id='dweek'+i;
 	onweek.innerHTML=jdToWeekNUmber(mstart+i);
 	onweek.title=jd_to_cal(mstart+i);
-	onweek.style.width=Math.min(parseInt(dw*zoom*7),(maxw-dx)*zoom);
+	onweek.style.width=Math.min(parseInt(dw*zoomx*7),(maxw-dx)*zoomx);
 	onweek.style.height=20;
-	onweek.style.top=by-20;
-	onweek.style.left=parseInt(rw+bx+(dx*zoom));
+	onweek.style.top=by-40;
+	onweek.style.left=parseInt(rw+bx+(dx*zoomx));
 	if ((nWeek % 2) == 0) onweek.style.backgroundColor='orange';
 	else onweek.style.backgroundColor='green';
 	ocdday.appendChild(onweek);
@@ -111,20 +111,20 @@ function placeDays() {
     if (nDay == 1) {
       nMonth=(jd_to_cal(mstart+i,'M'));
       
-      if ((dw*zoom*30) > 10) { // mini 10 pixel
+      if ((dw*zoomx*30) > 10) { // mini 10 pixel
 	// begin month
 	onmonth=odday.cloneNode(true);
 	onmonth.id='dmonth0'+i;
 
 	onmonth.innerHTML=month[(nMonth+10)%12];
-	onmonth.style.width=parseInt(rw+bx+(dx*zoom))-pXMonth;
+	onmonth.style.width=parseInt(rw+bx+(dx*zoomx))-pXMonth;
 	onmonth.style.height=20;
-	onmonth.style.top=by-40;
+	onmonth.style.top=by-60;
 	onmonth.style.left=pXMonth;
 	if ((nMonth % 2) == 1) onmonth.style.backgroundColor='pink';
 	else onmonth.style.backgroundColor='salmon';
 	ocdday.appendChild(onmonth);	
-	pXMonth=parseInt(rw+bx+(dx*zoom));
+	pXMonth=parseInt(rw+bx+(dx*zoomx));
       }
       if (nMonth == 1) {
 	// happy new year
@@ -132,44 +132,62 @@ function placeDays() {
 	onyear.id='dyear'+i;
 
 	onyear.innerHTML=jd_to_cal(mstart+i-1,'Y');
-	onyear.style.width=parseInt(rw+bx+(dx*zoom))-pXYear;
+	onyear.style.width=parseInt(rw+bx+(dx*zoomx))-pXYear;
 	onyear.style.height=20;
-	onyear.style.top=by-60;
+	onyear.style.top=by-80;
 	onyear.style.left=pXYear; 
 	onyear.style.backgroundColor='yellow';
 	ocdday.appendChild(onyear);	
-	pXYear=parseInt(rw+bx+(dx*zoom));
+	pXYear=parseInt(rw+bx+(dx*zoomx));
       }
     }
-    if ((dw*zoom) > 10) {
+    if ((dw*zoomx) > 10) {
+      onday=odday.cloneNode(true);
+      onday.id='dday'+i;
+      onday.title=weekDay(mstart+i)+jd_to_cal(mstart+i);
       onday.innerHTML=jd_to_cal(mstart+i,'d');
-      onday.style.top=by;
+      onday.style.top=by-20;
       
-      onday.style.width=parseInt(dw*zoom);
-      onday.style.height=maxh;
-      onday.style.left=parseInt(rw+bx+(dx*zoom));
+      onday.style.width=parseInt(dw*zoomx);
+      onday.style.height=20
+      onday.style.left=parseInt(rw+bx+(dx*zoomx));
       if ((i % 2) == 0) onday.style.backgroundColor='lightyellow';
       else onday.style.backgroundColor='lightblue';
       ocdday.appendChild(onday);
+      if ((dw*zoomx) > 100) {
+	// include hours
+	onhour=odhour.cloneNode(true);
+	onhour.id='dhour'+i;
+	onhour.title=weekDay(mstart+i)+jd_to_cal(mstart+i);
+	
+	onhour.style.top=by;
+	
+	onhour.style.width=parseInt(dw*zoomx);
+	onhour.style.height=20
+	  onhour.style.left=parseInt(rw+bx+(dx*zoomx));
+	if ((i % 2) == 0) onhour.style.backgroundColor='lightyellow';
+	else onhour.style.backgroundColor='lightblue';
+	ocdday.appendChild(onhour);
+      }
     }
   }
 
   // last month
-  if ((dw*zoom*30) > 10) { // mini 10 pixel
+  if ((dw*zoomx*30) > 10) { // mini 10 pixel
     nMonth=parseInt(jd_to_cal(mstart+i-0.01,'M'));
     // begin month
     onmonth=odday.cloneNode(true);
     onmonth.id='dmonth'+i;
 	
     onmonth.innerHTML=month[(nMonth+11)%12];
-    onmonth.style.width=parseInt(rw+bx+((dw+dx)*zoom))-pXMonth;
+    onmonth.style.width=parseInt(rw+bx+((dw+dx)*zoomx))-pXMonth;
     onmonth.style.height=20;
-    onmonth.style.top=by-40;
+    onmonth.style.top=by-60;
     onmonth.style.left=pXMonth;
     if ((nMonth % 2) == 1) onmonth.style.backgroundColor='pink';
     else onmonth.style.backgroundColor='salmon';
     ocdday.appendChild(onmonth);	
-    pXMonth=parseInt(rw+bx+(dx*zoom));
+    pXMonth=parseInt(rw+bx+(dx*zoomx));
   }
   // last year
 	// happy new year
@@ -177,13 +195,13 @@ function placeDays() {
 	onyear.id='dyear'+i;
 
 	onyear.innerHTML=jd_to_cal(mstart+i,'Y');
-	onyear.style.width=parseInt(rw+bx+((dw+dx)*zoom))-pXYear;
+	onyear.style.width=parseInt(rw+bx+((dw+dx)*zoomx))-pXYear;
 	onyear.style.height=20;
-	onyear.style.top=by-60;
+	onyear.style.top=by-80;
 	onyear.style.left=pXYear; 
 	onyear.style.backgroundColor='yellow';
 	ocdday.appendChild(onyear);	
-	pXYear=parseInt(rw+bx+(dx*zoom));
+	pXYear=parseInt(rw+bx+(dx*zoomx));
   
 }
 
@@ -204,10 +222,12 @@ function viewgyro(v) {
 addEvent(window,"load",placeEvents);
 </script>
 
-<button onclick="zoom=zoom*2;placeEvents();" >+10</button>
+<button onclick="zoomx=zoomx*2;zoomy=zoomy*1.1;placeEvents();" >+10</button>
 <button onclick="zoom=1;placeEvents();" >0</button>
-<button onclick="zoom=zoom/2;placeEvents();" >-10</button>
+<button onclick="zoomx=zoomx/2;placeEvents();" >-10</button>
 <div id="dday" name="dday" title="XX" style="overflow:hidden;text-align:center;-moz-opacity:.8;filter:alpha(opacity=80);position:absolute;left=0px;top=0px;border:solid black 1pt;')">XX</div>
+<div id="dhour" name="dhour" title="HH" style="overflow:hidden;text-align:center;-moz-opacity:.8;filter:alpha(opacity=80);position:absolute;left=0px;top=0px;border:solid black 1pt;')">
+<table class="rowright24" cellspacing=0 width="100%" cols="24"><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr></table></div>
 <div id="cdday"   style="position:absolute;left:0px;top:0px;border:solid black 1pt;background-color:yellow')"></div>
 
 
