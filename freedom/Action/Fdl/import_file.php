@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.66 2004/05/13 16:17:14 eric Exp $
+ * @version $Id: import_file.php,v 1.67 2004/06/07 15:59:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -382,10 +382,10 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   $tcr["familyid"]=$doc->fromid;
   if  ($data[2] > 0) $doc->id= $data[2]; // static id
   if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) {
-    $tcr["action"]=_("to be add");
+    $tcr["action"]="added";
     
   } else {
-    $tcr["action"]=_("update");
+    $tcr["action"]="updated";
     $tcr["id"]=$doc->id;
     $msg .= $err . sprintf(_("update id [%d] "),$doc->id);
     
