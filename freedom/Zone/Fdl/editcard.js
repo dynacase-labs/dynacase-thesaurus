@@ -285,8 +285,8 @@ function addtr(trid, tbodyid) {
   if (seltr)  {
     seltr.parentNode.insertBefore(ntr,seltr);
   } else {
-    var ltr = document.getElementById('lasttr');
-    if (ltr) ltr.parentNode.insertBefore(ntr,ltr);
+    var ltr = ntable.getElementsByTagName('tr');
+    if (ltr.length > 1) ltr[ltr.length-2].parentNode.insertBefore(ntr,ltr[ltr.length-2]);
   }
   
 }
