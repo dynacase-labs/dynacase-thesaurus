@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.147 2003/07/18 16:33:11 eric Exp $
+// $Id: Class.Doc.php,v 1.148 2003/07/22 13:15:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.147 2003/07/18 16:33:11 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.148 2003/07/22 13:15:17 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/07/18 16:33:11 $
-// Version         $Revision: 1.147 $
+// Last Update     $Date: 2003/07/22 13:15:17 $
+// Version         $Revision: 1.148 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1793,7 +1793,7 @@ create unique index i_docir on doc(initid, revision);";
     global $action;
 
 
-    if (! ereg("([A-Z]+):([^:]+):{0,1}[S]{0,1}", $layout, $reg)) 
+    if (! ereg("([A-Z_-]+):([^:]+):{0,1}[S]{0,1}", $layout, $reg)) 
       $action->exitError(sprintf(_("error in pzone format %s"),$layout));
      
   
@@ -1946,12 +1946,12 @@ create unique index i_docir on doc(initid, revision);";
 	      break;
 	      
 	    default : 
-	      $tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
 	      break;
 		
 	    }
 
+	  $tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
 
 	
 	  // print name except image (printed otherthere)
