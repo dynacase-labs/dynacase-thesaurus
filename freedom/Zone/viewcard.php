@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.3 2001/12/31 15:23:11 eric Exp $
+// $Id: viewcard.php,v 1.4 2002/01/25 09:44:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -119,6 +119,8 @@ function viewcard(&$action) {
   //------------------------------
   // display icon action
   
+	$action->lay->Set("imgdel", "");
+	$action->lay->Set("imgaccess", "");
   if ($action->HasPermission("FREEDOM"))
     {
       if ($doc->CanUpdateDoc() == "")	{
@@ -131,18 +133,12 @@ function viewcard(&$action) {
       if ($doc->PreDelete() == "")	{
 	$action->lay->Set("imgdel", $action->GetIcon("delete.gif",N_("delete")));
 	$action->lay->Set("deltitle", AddSlashes($doc->title));
-      } else {
-	$action->lay->Set("imgdel", "");
-
-      }
+      } 
       
       if (($doc->IsControlled() )
 	  &&($doc->Control("viewacl") == ""))	{
 	$action->lay->Set("imgaccess", $action->GetIcon("access.gif",N_("goaccess"),20));
-      } else {
-	$action->lay->Set("imgaccess", "");
-
-      }
+      } 
 
       
       
