@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.23 2004/01/28 09:40:55 eric Exp $
+ * @version $Id: enum_choice.php,v 1.24 2004/01/28 09:43:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.23 2004/01/28 09:40:55 eric Exp $
+// $Id: enum_choice.php,v 1.24 2004/01/28 09:43:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -98,11 +98,10 @@ function enum_choice(&$action) {
     else if ($v == "T") $arg[$k]= &$doc;
     else if ($index === "") {
       $a = $doc->GetAttribute($v);
+      $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
       if ($a && ($a->usefor=="P")) {
-	$arg[$k]=$doc->getParamValue($v);
-      } else {
-	$arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
-      }
+	if ($arg[$k]=="") $arg[$k]=$doc->getParamValue($v);
+      } 
     } else {
       $a = $doc->GetAttribute($v);
       if ($a && ($a->usefor=="P")) {

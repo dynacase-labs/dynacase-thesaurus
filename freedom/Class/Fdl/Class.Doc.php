@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.180 2004/01/28 08:22:11 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.181 2004/01/28 09:40:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.180 2004/01/28 08:22:11 eric Exp $
+// $Id: Class.Doc.php,v 1.181 2004/01/28 09:40:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -686,10 +686,10 @@ create unique index i_docir on doc(initid, revision);";
    * @param string $def default value if parameter not found or if it is null
    * @return string parameter value
    */
-  function getFamParam($idp, $def="") {
+  function getParamValue($idp, $def="") {
     $fdoc=$this->getFamDoc();
 
-    return $fdoc->getParam($idp,$def);
+    return $fdoc->getParamValue($idp,$def);
     
   }
   
