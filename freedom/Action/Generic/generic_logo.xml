@@ -23,6 +23,7 @@
 
 <div id="logo" style="display:none;position:absolute; top:0px; left:0px">
       <img src="[appicon]" title="[apptitle]" alt="[apptitle]">
+      <img src="[IMG:logofreedom.gif]" title="[apptitle]" alt="[apptitle]">
 </div>
 </body>
 </html>

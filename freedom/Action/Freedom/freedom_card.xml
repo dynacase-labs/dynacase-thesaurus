@@ -4,8 +4,7 @@
   <head>
 
    <title>[TEXT:Properties:] [TITLE]</title>
-   <LINK REL="icon" HREF="[CORE_PUBURL]/CORE/Images/logo-1-mini.ico" >
-   <LINK REL="SHORTCUT ICON" HREF="[CORE_PUBURL]/[iconsrc]" >
+<link rel="shortcut icon" href="FDL/Images/logo16.ico" />
 
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=FDL&action=FDL_CSS" >
