@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------
-// $Id: Method.PortFolio.php,v 1.3 2003/05/27 12:30:37 eric Exp $
+// $Id: Method.PortFolio.php,v 1.4 2003/07/24 13:02:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.PortFolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,11 +42,12 @@ function PostCreated() {
 
       if ($doc->usefor == "G") {
 	$copy=$doc->Copy();
+	if (! is_object($copy)) return $copy;
 
 
 	$err=$this->AddFile($copy->id);
 
-	print $err;
+	return $err;
       }
     }
   }
