@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.67 2004/06/07 15:59:19 eric Exp $
+ * @version $Id: import_file.php,v 1.68 2004/06/25 13:01:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -284,8 +284,8 @@ function add_import_file(&$action, $fimport="") {
       if ($data[0]=="PARAM") $oattr->usefor='Q'; // parameters
       
       $oattr->docid = $doc->id;
-      $oattr->id = strtolower($data[1]);
-      $oattr->frameid = strtolower($data[2]);
+      $oattr->id = trim(strtolower($data[1]));
+      $oattr->frameid = trim(strtolower($data[2]));
       $oattr->labeltext=$data[3];
 
       if (! $oattr->isAffected()) { 

@@ -98,7 +98,7 @@ ATTR;US_EXPIRES;US_FR_INTRANET;date d'expiration epoch;N;N;int;290;H;;;;;;
 ATTR;US_DAYDELAY;US_FR_INTRANET;délai d'expiration en jours;N;N;int;300;R;;;;;;
 ATTR;US_EXPIRESD;US_FR_INTRANET;date d'expiration;N;N;date;310;R;;;;;;::ConstraintExpires(US_EXPIRESD,US_EXPIREST,US_DAYDELAY)
 ATTR;US_EXPIREST;US_FR_INTRANET;heure d'expiration;N;N;time;320;R;;;;;;
-ATTR;US_PASSDELAY ;US_FR_INTRANET;délai d'expiration epoch;N;N;int;330;H;;;;;;
+ATTR;US_PASSDELAY;US_FR_INTRANET;délai d'expiration epoch;N;N;int;330;H;;;;;;
 ATTR;US_IDDOMAIN;US_FR_INTRANET;id domaine;N;N;int;340;H;;;;;;
 ATTR;US_DOMAIN;US_FR_INTRANET;domaine;N;N;text;350;R;;;usercard.php;getdomainiuser():US_IDDOMAIN,US_DOMAIN;;
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;R;Y;;;;;
