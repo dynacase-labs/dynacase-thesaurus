@@ -73,8 +73,11 @@ end;
     $iargs=array();
   [BLOCK [biattr]]
     $attr = $this->getAttribute("[niarg]");
-    if (! $attr) $iargs[]="[niarg]";
-    else {
+    if (! $attr) {
+      $tmparg = "[niarg]";
+      if ($tmparg[0] == "'") $tmparg=substr($tmparg,1);
+      $iargs[]=$tmparg;
+    } else {
       if ($attr->inArray()) {
 	$t = $this->getTValue("[niarg]");
 	$iargs[]=$t;
