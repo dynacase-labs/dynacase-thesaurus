@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: FREEDOM.app,v 1.2 2002/03/06 17:21:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,77 +21,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: FREEDOM.app,v $
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.12  2002/01/04 15:08:04  eric
-// modif pour init
-//
-// Revision 1.11  2001/12/18 09:18:10  eric
-// first API with ZONE
-//
-// Revision 1.10  2001/12/08 17:16:30  eric
-// evolution des attributs
-//
-// Revision 1.9  2001/11/28 13:40:10  eric
-// home directory
-//
-// Revision 1.8  2001/11/22 17:49:12  eric
-// search doc
-//
-// Revision 1.7  2001/11/21 14:28:19  eric
-// double click : first file export
-//
-// Revision 1.6  2001/11/21 08:38:58  eric
-// ajout historique + modif sur control object
-//
-// Revision 1.5  2001/11/19 18:04:22  eric
-// aspect change
-//
-// Revision 1.4  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.3  2001/11/14 15:31:03  eric
-// optimisation & divers...
-//
-// Revision 1.2  2001/11/09 18:54:21  eric
-// et un de plus
-//
-// Revision 1.1  2001/11/09 09:35:47  eric
-// gestion documentaire
-//
-// Revision 1.10  2001/10/17 14:35:55  eric
-// mise en place de i18n via gettext
-//
-// Revision 1.9  2001/09/10 16:51:45  eric
-// ajout accessibilté objet
-//
-// Revision 1.8  2001/09/05 17:13:19  eric
-// changement user_default par group_default
-//
-// Revision 1.7  2001/08/31 13:30:51  eric
-// modif pour accessibilité
-//
-// Revision 1.6  2001/07/26 10:45:17  eric
-// droit par défaut FREEDOM
-//
-// Revision 1.5  2001/07/26 09:40:42  eric
-// correction noms acl
-//
-// Revision 1.4  2001/07/05 11:41:31  eric
-// ajout export format vcard
-//
-// Revision 1.3  2001/06/19 15:58:01  eric
-// fonctions d'importation
-//
-// Revision 1.2  2001/06/15 10:21:54  eric
-// typage des attributs avec ajout image
-//
-// Revision 1.1  2001/06/13 14:32:01  eric
-// freedom address book
-//
-// ---------------------------------------------------------------
+
+
 $app_desc = array (
 "name"		=>"FREEDOM",		//Name
 "short_name"	=>N_("Freedoms"),		//Short name
@@ -167,6 +98,11 @@ $action_desc = array (
    "acl"		=>"FREEDOM",
   ) ,
   array( 
+   "name"		=>"MOVEDIRFILE",
+   "short_name"		=>N_("move file query into directory"),
+   "acl"		=>"FREEDOM",
+  ) ,
+  array( 
    "name"		=>"DELDIRFILE",
    "short_name"		=>N_("delete file query into directory"),
    "acl"		=>"FREEDOM",
@@ -191,6 +127,11 @@ $action_desc = array (
    "name"		=>"FREEDOM_CARD",
    "short_name"		=>N_("Freedoms card"),
    "acl"		=>"FREEDOM_READ",
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_DUPLICATE",
+   "short_name"		=>N_("duplicate document"),
+   "acl"		=>"FREEDOM",
   ) ,
   array( 
    "name"		=>"DEFATTR",
