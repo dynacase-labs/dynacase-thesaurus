@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.11 2005/02/09 17:52:45 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.12 2005/02/10 11:55:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -37,15 +37,26 @@ function ev_weekview(&$action) {
 
   $ldstart = $ldend = $lstart = $lend = $lrhs = $lrhe = ""; 
   switch($ev->getValue("CALEV_TIMETYPE",0)) {
-  case 1: $lstart = $lrhs = _("no hour"); break;
-  case 2: $lstart = $lrhs = _("all the day"); break;
+  case 1: 
+    $ldstart = $lrhs = _("no hour"); 
+    $ldend = substr($ev->getValue("CALEV_END"),0,10);
+    break;
+  case 2: 
+    $ldstart = $lrhs = _("all the day"); 
+    $ldend = substr($ev->getValue("CALEV_END"),0,10);
+    break;
   default:
+    
     $ldstart = substr($ev->getValue("CALEV_START"),0,10);
     $lstart = substr($ev->getValue("CALEV_START"),11,5);
     $ldend = substr($ev->getValue("CALEV_END"),0,10);
     $lend = substr($ev->getValue("CALEV_END"),11,5);
-    $lrhs = substr($ev->getValue("CALEV_START"),11,5);
-    $lrhe = substr($ev->getValue("CALEV_END"),11,5);
+    if ($ldend!=$ldstart) {
+      $lrhs = substr($ev->getValue("CALEV_START"),0,5)." ";
+      $lrhe = substr($ev->getValue("CALEV_END"),0,5)." ";
+    }
+    $lrhs .= substr($ev->getValue("CALEV_START"),11,5);
+    $lrhe .= substr($ev->getValue("CALEV_END"),11,5);
   }
   $action->lay->set("DSTART", $ldstart);
   $action->lay->set("START", $lstart);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.25 2005/02/07 20:33:18 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.26 2005/02/10 11:55:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -18,9 +18,6 @@ include_once("WGCAL/Lib.WGCal.php");
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
 define("SEC_PER_MIN", 60);
-
-global $trace;
-$trace = "";
 
 function GetFirstDayOfWeek($ts) {
 	if ($ts<=0) return false;
@@ -48,7 +45,6 @@ function d2s($t, $f="%x %X") {
 
 function wgcal_calendar(&$action) {
 
-  global $trace;
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
@@ -84,7 +80,12 @@ function wgcal_calendar(&$action) {
   $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
   $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
   $hdiv   = $action->GetParam("WGCAL_U_HOURDIV", 1);
-
+  for ($h=0; $h<=3; $h++) {
+    $tdiv[$h]["value"] = $h+1;
+    $tdiv[$h]["descr"] = ($h==0?"1h":"1/".($h+1)."h");
+    $tdiv[$h]["selected"] = ($hdiv==$h+1?"selected":"");
+  }
+  $action->lay->SetBlockData("CHHDIV", $tdiv);
   if ($hdiv>1) $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40) / ($hdiv - 1);
   else $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40);
   
@@ -108,9 +109,8 @@ function wgcal_calendar(&$action) {
     $tabdays[$i]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
     $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstart-1));
     $tabdays[$i]["vstartc"] =  strftime("%x %X", $tabdays[$i]["vstart"]);
-    $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstop+1)) -1;
+    $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstop) -1;
     $tabdays[$i]["vendc"] =  strftime("%x %X", $tabdays[$i]["vend"]);
-    $trace .= "day $i::".$tabdays[$i]["days"]." start=".$tabdays[$i]["vstartc"]."::".$tabdays[$i]["vstart"]." end=".$tabdays[$i]["vend"]."::".$tabdays[$i]["vendc"]."\n";
     if ($cdate==$tabdays[$i]["days"]) {
       $class[$i] = "WGCAL_DayCur";
       $classh[$i] = "WGCAL_DayLineCur";
@@ -132,7 +132,7 @@ function wgcal_calendar(&$action) {
   $urlroot = $action->GetParam("CORE_STANDURL");
   $lcell = new Layout( "WGCAL/Layout/wgcal-cellcalendar.xml", $action );
   $nl = 0;
-  for ($h=$hstart-1; $h<=($hstop+1); $h++) {
+  for ($h=$hstart-1; $h<=$hstop; $h++) {
     if ($h<$hstart || $h>$hstop) $ndiv = 1;
     else $ndiv = $hdiv;
     $mdiv = round(SEC_PER_HOUR/$ndiv);
@@ -182,8 +182,10 @@ function wgcal_calendar(&$action) {
   $action->lay->SetBlockData("DAYS", $tabdays);
   
   $action->lay->set("DAYCOUNT", $ndays);
-  $action->lay->set("HCOUNT", (($hstop - $hstart + 1) * $hdiv ) + 1 ); // Minutes
   $action->lay->set("HSTART", ($hstart - 1)); // Minutes
+  $action->lay->set("HCOUNT", (($hstop - $hstart + 1) * $hdiv ) + 1 ); // Minutes
+  $action->lay->set("HDIV", $hdiv); // Minutes
+  $action->lay->set("YDURATION", (60/$hdiv) );
   $action->lay->set("IDSTART", "D0H0");
   $action->lay->set("IDSTOP", "D".($ndays-1)."H".($nl-1));
   
@@ -201,14 +203,10 @@ function wgcal_calendar(&$action) {
   $action->lay->SetBlockData("EVENTSSC", $events);
 
   //$action->lay->set("comment",strftime("%x %X", time())."<hr><pre>".print_r($events, true)."<pre>");
-
-  //$action->lay->set("trace", $trace);
 }
 
 
 function getAgendaEvent(&$action,$tress,$d1="",$d2="", $fday) {
-
-  global $trace;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
@@ -220,14 +218,13 @@ function getAgendaEvent(&$action,$tress,$d1="",$d2="", $fday) {
   $dre=new Doc($dbaccess,$reid);
   $edre=$dre->getEvents($d1,$d2);
   foreach ($edre as $k=>$v) {
-    $item = array("REF" => $v["id"], "ID" => $v["evt_idinitiator"],
-		  "START" => FrenchDateToUnixTs($v["evt_begdate"]),
-		  "END" => FrenchDateToUnixTs($v["evt_enddate"]), 
-		  "IDC" =>  $v["evt_idcreator"],
-                  "DAY" =>  floor((FrenchDateToUnixTs($v["evt_begdate"]) - $fday ) / SEC_PER_DAY ));
+    $item = array( "REF" => $v["id"], "ID" => $v["evt_idinitiator"],
+		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
+		   "END" => FrenchDateToUnixTs($v["evt_enddate"]), 
+		   "IDC" =>  $v["evt_idcreator"] );
     $tout[] = $item;
   }
-  $trace .= print_r($tout, true);
+  //   print_r2($tout);
   return $tout;
 }
 
