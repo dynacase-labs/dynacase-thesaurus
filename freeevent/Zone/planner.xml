@@ -345,8 +345,8 @@ function movecal(pc) {
   if (m1 && m2) {
     document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid=[vid]&id=[id]&jdstart="+m1+'&jdend='+m2;
   }
-
 }
+
 function resizecal() {
   var op=document.getElementById("period");
   var onp=document.getElementById("nperiod");
@@ -356,10 +356,49 @@ function resizecal() {
     m2=m1+parseInt(onp.value)*op.options[op.selectedIndex].value;
     document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid=[vid]&id=[id]&jdstart="+m1+'&jdend='+m2;
   }
-
-
-
 }
+function allcal() {
+
+    document.location.href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid=[vid]&id=[id]";
+  
+}
+
+function viewdesc(event,idx) {
+  var dd=document.getElementById('desc');
+  if (dd) {
+    if (dd.style.display=='none') {
+      dd.style.display='';
+      GetXY(event);
+      //      dd.innerHTML=Xpos+'+'+Ypos;
+      dd.style.top=0;
+      dd.style.left=0;
+      dbar=document.getElementById(tevents[idx][0]);
+      if (dbar) {
+	dd.style.backgroundColor=dbar.style.backgroundColor;
+	dd.innerHTML=tevents[idx][5];
+	w=getObjectWidth(dd);
+	w2=getObjectWidth(document.body);
+
+	if ((Xpos+w+20)>w2) Xpos=Xpos-w-40;
+	if (Xpos<0) Xpos=0;
+      }
+      dd.style.top=Ypos+10;
+      dd.style.left=Xpos+10;
+    }
+  }  
+}
+
+
+function unviewdesc(event) {
+  var dd=document.getElementById('desc');
+  if (dd) {
+    if (dd.style.display!='none') {
+      dd.style.display='none';
+    }
+  }  
+}
+
+
 addEvent(window,"load",placeEvents);
 </script>
 
@@ -374,6 +413,7 @@ addEvent(window,"load",placeEvents);
 <button onclick="movecal(-50)" >&lt;50</button>
 <button onclick="movecal(100)" >&gt;100</button>
 <button onclick="movecal(-100)" >&lt;100</button>
+<button onclick="allcal()" >[TEXT:all]</button>
 <button onclick="copy_clip('un test de clipbord')" >Copy</button>
 <input id="nperiod" type="text" size="2"></input>
 <select id="period" name="period">
@@ -398,14 +438,14 @@ addEvent(window,"load",placeEvents);
 [BLOCK [BAR]]
 <b id="res[divid]" style="display:none;overflow:hidden;background-color:[rescolor];position:absolute;left:0px;top:0px;font-size:7pt">[res]</b>
 
-<div id="[divid]" class="event" style="display:none;background-color:[color];" title="[bartitle]"    onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'helpwhat','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')"><img  align="right" src="[evticon]" height="20px"><span style="font-size:7pt">[divtitle]</span></div>
+<div id="[divid]" class="event" style="display:none;background-color:[color];"     onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'detailevt','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')" onmouseout="unviewdesc(event)" onmouseover="viewdesc(event,[idx])"><img  align="right" src="[evticon]" height="20px"><span style="font-size:7pt">[divtitle]</span></div>
 <script>
-tevents[[idx]]=['[divid]',[line],[subline],[absx],[absw]];
+tevents[[idx]]=['[divid]',[line],[subline],[absx],[absw],'[desc]'];
 </script>
 [ENDBLOCK [BAR]]
 [ENDBLOCK RES]
 </div>
-
+<div id="desc" style="display:none" class="description">The description</div>
 
 
 <div id="cdday"    style="position:absolute;left:0px;top:0px;"></div>
