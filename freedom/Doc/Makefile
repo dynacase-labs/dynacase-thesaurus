@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.3 2004/08/24 13:36:37 eric Exp $
+# $Id: Makefile,v 1.4 2004/09/09 08:19:39 caroline Exp $
 # ============================================
 
 
@@ -12,4 +12,4 @@ export utildir
 include $(utildir)/PubRule
 
 
-DISTFILES = $(SUBDIR) Makefile
+DISTFILES+=$(SUBDIR) Makefile
