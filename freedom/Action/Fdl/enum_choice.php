@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.5 2002/06/18 14:24:01 eric Exp $
+// $Id: enum_choice.php,v 1.6 2002/06/21 14:19:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,9 +80,10 @@ function enum_choice(&$action) {
    while (list($k, $v) = each($res)) {
      while (list($k2, $v2) = each($v)) {
        // not for the title
-       if ($k2>0) $res[$k][$k2]=addslashes(str_replace("\n"," ",$v2)); // because JS array 
+       if ($k2>0) $res[$k][$k2]=addslashes(str_replace("\r","",str_replace("\n","\\n",$v2))); // because JS array 
      }
    }
+
 
   reset($res);
   $tselect = array();

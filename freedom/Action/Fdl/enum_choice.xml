@@ -96,7 +96,8 @@ function completechoice(index) {
 
     for (i=0; i< tattrid.length; i++) {
       if (tattrv[index][i] != '?') {
-       winfo.document.getElementById(tattrid[i]).value = tattrv[index][i];
+       winfo.document.getElementById(tattrid[i]).value = tattrv[index][i].replace(/\\n/g,'\n');
+
        winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
 
       }
