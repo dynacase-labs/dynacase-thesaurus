@@ -3,7 +3,7 @@
  * Import CSV
  *
  * @author Anakeen 2004
- * @version $Id: generic_importcsv.php,v 1.12 2004/08/09 08:07:06 eric Exp $
+ * @version $Id: generic_importcsv.php,v 1.13 2004/08/24 15:13:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -93,7 +93,6 @@ function generic_importcsv(&$action) {
       } else {
 	
 	if ($cr[$line]["id"] > 0) {
-	  print_r2($category);
 	  // add in each selected folder
 	  if (is_array($category)) {
 
