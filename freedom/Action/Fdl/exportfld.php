@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.3 2002/06/19 12:32:28 eric Exp $
+// $Id: exportfld.php,v 1.4 2002/06/21 14:19:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@ function exportfld(&$action, $aflid="0")
   $fldid = GetHttpVars("id",$aflid);
   $fld = new Dir($dbaccess, $fldid);
 
-  $ldoc = getChildDoc($dbaccess, $fldid,"0","ALL",array("doctype='F'"));
+  $ldoc = getChildDoc($dbaccess, $fldid,"0","ALL",array("doctype='F'"),$action->user->id);
 
 
   $foutname = uniqid("/tmp/exportfld").".csv";
@@ -72,7 +72,7 @@ function exportfld(&$action, $aflid="0")
       while (list($ka,$attr)= each ($lattr)) {
 	fputs($fout,$attr->labeltext.";");
       }
-      fputs($fout,"\r\n");
+      fputs($fout,"\n");
       $prevfromid = $doc->fromid;
     }
     reset($lattr);
@@ -84,7 +84,7 @@ function exportfld(&$action, $aflid="0")
       if (isset($value[$doc->id][$attr->id])) fputs($fout,str_replace("\n","\\n",$value[$doc->id][$attr->id]) .";");
       else fputs($fout,";");
     }
-    fputs($fout,"\r\n");
+    fputs($fout,"\n");
   }
   }
   fclose($fout);
