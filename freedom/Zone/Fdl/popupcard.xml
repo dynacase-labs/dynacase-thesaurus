@@ -6,6 +6,9 @@
 <a href="#" id="headers"     
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=Y&id=[id]',self.name);closeMenu('popupcard');">[TEXT:View headers]</a>
 
+<a href="#" id="latest"     
+    onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id=[id]',self.name);closeMenu('popupcard')"  >[TEXT:View latest]</a>
+
 <a href="#" id="editdoc"     
     onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&id=[id]',self.name);closeMenu('popupcard')"  >[TEXT:Edit]</a>
 

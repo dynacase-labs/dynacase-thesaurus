@@ -131,8 +131,8 @@ function activate(th, url, wname) {
     var urlref;
     if (isNetscape) urlref=url;
     else urlref= url+'&http_referer='+escape(window.location.href);
-    
-    subwindowm(300,400,wname,urlref);
+    if (wname == "") window.location.href=urlref;
+    else subwindowm(300,400,wname,urlref);
    
   }
 }

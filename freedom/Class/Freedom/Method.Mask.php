@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.1 2003/03/05 16:49:28 eric Exp $
+// $Id: Method.Mask.php,v 1.2 2003/03/26 10:46:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,12 +36,17 @@ function SpecRefresh() {
 }
 
 function getLabelVis() {
-  return $labelvis = array("-" => " ",
+  return  array("-" => " ",
 		    "R" => _("read only"),
 		    "W" => _("read write"),
 		    "O" => _("write only"),
 		    "H" => _("hidden"),
 		    "S" => _("read disabled"));
+}
+function getLabelNeed() {
+  return  array("-" => " ",
+		"Y" => _("Y"),
+		"N" => _("N"));
 }
 
 
@@ -56,11 +61,24 @@ function getVisibilities() {
   return $tvisibilities;
 }
 
+function getNeedeeds() {
+  $tvisid = explode("\n",$this->getValue("MSK_NEEDEEDS"));
+  $tattrid = explode("\n",$this->getValue("MSK_ATTRIDS"));
+
+  $tvisibilities=array();
+  while (list($k,$v)= each ($tattrid)) {
+    $tvisibilities[$v]=$tvisid[$k];    
+  }
+  return $tvisibilities;
+}
+
 function viewmask($target="_self",$ulink=true,$abstract=false) {
  
   $docid = $this->getValue("MSK_FAMID",1);
 
   $tvisibilities=$this->getVisibilities();
+  $tneedeeds=$this->getNeedeeds();
+
   $this->lay->Set("docid",$docid);
 
   $doc= new Doc($this->dbaccess,$docid);
@@ -85,11 +103,24 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
   while(list($k,$attr) = each($tattr))  {
     $tmask[$k]["attrname"]=$attr->labelText;
     $tmask[$k]["visibility"]=$labelvis[$attr->visibility];
+    $tmask[$k]["wneed"]=($attr->needed)?"bold":"normal";
     $tmask[$k]["bgcolor"]="";
+    $tmask[$k]["vislabel"] = " ";
     if (isset($tvisibilities[$attr->id])) {
       $tmask[$k]["vislabel"] = $labelvis[$tvisibilities[$attr->id]];
       if ($tvisibilities[$attr->id] != "-") $tmask[$k]["bgcolor"]=getParam("CORE_BGCOLORALTERN");
     } else $tmask[$k]["vislabel"] = $labelvis["-"];
+
+    
+    if (isset($tneedeeds[$attr->id])) {
+      if (($tneedeeds[$attr->id]=="Y") || (($tneedeeds[$attr->id]=="-") && ($attr->needed)))  $tmask[$k]["waneed"] = "bold";
+      else $tmask[$k]["waneed"] = "normal";
+      if ($tneedeeds[$attr->id] != "-") $tmask[$k]["bgcolor"]=getParam("CORE_BGCOLORALTERN");
+    } else $tmask[$k]["waneed"] = "normal";
+
+ 
+    // display visibility case of change in needed only
+    if (($tmask[$k]["vislabel"]==" ") && ($tneedeeds[$attr->id] != "-")) $tmask[$k]["vislabel"]=$labelvis[$attr->visibility];
 
 
     if ($attr->docid == $docid) {
@@ -120,6 +151,7 @@ function editmask() {
 
 
   $tvisibilities=$this->getVisibilities();
+  $tneedeeds=$this->getNeedeeds();
   
   $selectclass=array();
   $tclassdoc = GetClassesDoc($this->dbaccess, $this->userid);
@@ -155,13 +187,15 @@ function editmask() {
   $ka = 0; // index attribute
 
   
-  $labelvis=$this->getLabelVis();
-  
-    
+  $labelvis=$this->getLabelVis();      
   while(list($k,$v) = each($labelvis))  {
-
     $selectvis[] = array("visid" =>$k ,
 			 "vislabel" => $v);
+  }
+  $labelneed=$this->getLabelNeed();      
+  while(list($k,$v) = each($labelneed))  {
+    $selectneed[] = array("needid" =>$k ,
+			  "needlabel" => $v);
   }
 		     
 
@@ -175,7 +209,8 @@ function editmask() {
     $newelem[$k]["attrid"]=$attr->id;
     $newelem[$k]["attrname"]=$attr->labelText;
     $newelem[$k]["visibility"]=$labelvis[$attr->visibility];
-    
+
+    $newelem[$k]["wneed"]=($attr->needed)?"bold":"normal";
     $newelem[$k]["neweltid"]=$k;
     
 
@@ -195,14 +230,26 @@ function editmask() {
 	$selectvis[$kopt]["selected"]="selected"; 
       } else{
 	$selectvis[$kopt]["selected"]=""; 
-      }
-		  
+      }		  
+    }
+    // idem for needed
+    reset($selectneed);
+    while(list($kopt,$opt) = each($selectneed))  {
+      if ($opt["needid"] == $tneedeeds[$attr->id]) {
+	$selectneed[$kopt]["selectedneed"]="selected"; 
+      } else{
+	$selectneed[$kopt]["selectedneed"]=""; 
+      }		  
+
     }
 
 
     $newelem[$k]["SELECTVIS"]="SELECTVIS_$k";
     $this->lay->SetBlockData($newelem[$k]["SELECTVIS"],
 			     $selectvis);
+    $newelem[$k]["SELECTNEED"]="SELECTNEED_$k";
+    $this->lay->SetBlockData($newelem[$k]["SELECTNEED"],
+			     $selectneed);
 	      
     $ka++;
   }

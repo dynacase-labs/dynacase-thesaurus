@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.24 2003/03/11 17:04:47 eric Exp $
+// $Id: popupcard.php,v 1.25 2003/03/26 10:46:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,6 +44,7 @@ function popupcard(&$action) {
   // definition of popup menu
   popupInit('popupcard',  array(
 				'headers',
+				'latest',
 				'editdoc',
 				'lockdoc',
 				'unlockdoc',
@@ -118,6 +119,7 @@ function popupcard(&$action) {
 
   popupInvisible('popupcard',$kdiv,'editstate'); 
 
+  popupInvisible('popupcard',$kdiv,'latest');
 
 
   if (($clf)||($cud)) {
@@ -142,6 +144,7 @@ function popupcard(&$action) {
 
   }
   if ($doc->locked == -1) { // fixed document
+    popupActive('popupcard',$kdiv,'latest');
     popupInvisible('popupcard',$kdiv,'editdoc');
     popupInvisible('popupcard',$kdiv,'delete');
     popupInvisible('popupcard',$kdiv,'editattr'); 

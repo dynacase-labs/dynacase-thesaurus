@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.12 2003/03/24 16:17:48 eric Exp $
+// $Id: Lib.Attr.php,v 1.13 2003/03/26 10:46:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -217,15 +217,18 @@ function createDocFile($dbaccess, $tdoc) {
 
 
 function activateTrigger($dbaccess, $docid) {
-    $cdoc = new Doc($dbaccess, $docid);
+    $cdoc = createDoc($dbaccess, $docid);
+
     $msg=$cdoc->exec_query($cdoc->sqltcreate,1);
-    print $cdoc->sqltcreate;
+  //  print $cdoc->sqltcreate;
     $sqlcmds = explode(";",$cdoc->SqlTrigger());
-    
+    $cdoc = new Doc($dbaccess, $docid);
+  //  print $cdoc->SqlTrigger();
     while (list($k,$sqlquery)=each($sqlcmds)) {
       if ($sqlquery != "") $msg=$cdoc->exec_query($sqlquery,1);
     }
 }
+
 
 // refresh PHP Class & Postgres Table Definition
 function refreshPhpPgDoc($dbaccess, $docid) {

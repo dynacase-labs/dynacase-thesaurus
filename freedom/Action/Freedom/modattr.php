@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.14 2003/03/24 16:17:48 eric Exp $
+// $Id: modattr.php,v 1.15 2003/03/26 10:46:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -112,7 +112,7 @@ function modattr(&$action) {
   $oattr->docid = $doc->initid;
   while(list($k,$v) = each($orders) )
     {
-      //      print $k.":".$v."<BR>";
+      //  print $k.":".$v."<BR>";
 
 	  
 	  if ($names[$k] != "") {
@@ -122,7 +122,7 @@ function modattr(&$action) {
 	    $oattr->abstract=isset($abstracts[$k])?$abstracts[$k]:"N";
 	    $oattr->needed=isset($needed[$k])?$needed[$k]:"N";
 	    $oattr->type=stripslashes($types[$k]);
-	    $oattr->id=$attrids[$k];
+	    $oattr->id=strtolower($attrids[$k]);
 	    $oattr->frameid=isset($frameids[$k])?$frameids[$k]:"0";
 	    $oattr->ordered=isset($orders[$k])?$orders[$k]:"999";
 	    $oattr->visibility=$visibilities[$k];
@@ -140,8 +140,10 @@ function modattr(&$action) {
 	      //	      print($err);
 	    } else {
 	      //print "mod $names[$k]<BR>";
-	      $oattr ->Modify();
+	      $err=$oattr ->Modify();
+
 	    }
+
 	  }
 	  
 
@@ -161,7 +163,8 @@ function modattr(&$action) {
 
 
   
-  redirect($action,GetHttpVars("app"),"QUERYTITLE&id=".$doc->id);
+  redirect($action,GetHttpVars("app"),"QUERYTITLE&id=".$doc->id,
+	   $action->GetParam("CORE_STANDURL"));
 }
 
 

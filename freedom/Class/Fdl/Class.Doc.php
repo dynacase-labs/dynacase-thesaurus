@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.103 2003/03/24 16:59:01 eric Exp $
+// $Id: Class.Doc.php,v 1.104 2003/03/26 10:46:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.103 2003/03/24 16:59:01 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.104 2003/03/26 10:46:16 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -138,13 +138,13 @@ create unique index i_docir on doc(initid, revision);";
 
   function PostInit() {
 
-    include_once("FDL/Class.QueryDir.php");
-    $oqdv = new QueryDir($this->dbaccess,"2"); // just to create table if needed
+//     include_once("FDL/Class.QueryDir.php");
+//     $oqdv = new QueryDir($this->dbaccess,"2"); // just to create table if needed
 
-    $sqlquery=$this->SqlTrigger();
-    $msg=$this->exec_query($sqlquery,1);
+//     $sqlquery=$this->SqlTrigger();
+//     $msg=$this->exec_query($sqlquery,1);
 
-    return $msg;
+//     return $msg;
     
 
   }
@@ -674,7 +674,14 @@ create unique index i_docir on doc(initid, revision);";
 	  while (list($k,$v)= each ($tvis)) {
 	    if (isset($this->attributes->attr[$k])) {
 	      if ($v != "-") $this->attributes->attr[$k]->mvisibility=$v;	      
-	      
+	    }
+	  }
+	  // modify needed attribute also
+	  $tneed = $mdoc->getNeedeeds();
+	  while (list($k,$v)= each ($tneed)) {
+	    if (isset($this->attributes->attr[$k])) {
+	      if ($v == "Y") $this->attributes->attr[$k]->needed=true;
+	      else if ($v == "N") $this->attributes->attr[$k]->needed=false;
 	    }
 	  }
 	}
@@ -1430,21 +1437,22 @@ create unique index i_docir on doc(initid, revision);";
   // use triggers to update docvalue table
   // --------------------------------------------------------------------
   function SqlTrigger() {
-    if (intval($this->fromid) == 0) return;
+    if ($this->doctype != 'C') return;
+    if (intval($this->id) == 0) return;
     reset($this->attributes->fromids);
       
     $sql = "";
 
     // delete all relative triggers
-    $sql .= "select droptrigger('doc".$this->fromid."');";
+    $sql .= "select droptrigger('doc".$this->id."');";
      
     while(list($k,$v) = each($this->attributes->fromids)) {
 
-      $sql .="create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE upval$v();";
+      $sql .="create trigger UV{$this->id}_$v BEFORE INSERT OR UPDATE ON doc$this->id FOR EACH ROW EXECUTE PROCEDURE upval$v();";
      
     }
     // the reset trigger must begin with 'A' letter to be proceed first (pgsql 7.3.2)
-      $sql .="create trigger AUVR{$this->fromid} BEFORE  UPDATE  ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
+      $sql .="create trigger AUVR{$this->id} BEFORE  UPDATE  ON doc$this->id FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
     return $sql;
   }
 
@@ -1895,7 +1903,7 @@ $value = $this->GetValue($listattr[$i]->id);
 	      
       $currentFrameId = $listattr[$i]->fieldSet->id;
       if ( ($listattr[$i]->mvisibility == "H") || 
-	   ($listattr[$i]->mvisibility == "R") && (substr_count($listattr[$i]->type,"text") > 0)) {
+	   ($listattr[$i]->mvisibility == "R") ) {
 	// special case for hidden values
 	$thidden[$ih]["hname"]= "_".$listattr[$i]->id;
 	$thidden[$ih]["hid"]= $listattr[$i]->id;

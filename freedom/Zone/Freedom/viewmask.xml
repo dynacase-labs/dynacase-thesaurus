@@ -18,8 +18,8 @@
 <tr class="FREEDOMBack1" style="background-color:[bgcolor]">  
   <td>[framelabel]</td>     
    <td>[attrname]</td>  
-   <td>[vislabel]</td>
-   <td>[visibility]</td>
+   <td style="font-weight:[waneed]">[vislabel]</td>
+   <td style="font-weight:[wneed]">[visibility]</td>
 </tr>
 [ENDBLOCK MASK]
 </table>
