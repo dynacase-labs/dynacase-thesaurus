@@ -19,7 +19,7 @@ a.menuItem, a:visited.menuItem {
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
-  font-size: 8pt;
+  font-size: 70%;
   font-weight: bold;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
@@ -33,7 +33,7 @@ a.menuItemCtrl, a:visited.menuItemCtrl {
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
-  font-size: 8pt;
+  font-size: 70%;
   font-weight: bold;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
@@ -45,7 +45,7 @@ a.menuItemCtrl, a:visited.menuItemCtrl {
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
-  font-size: 8pt;
+  font-size: 70%;
   font-weight: bold;
   text-align: center;
   padding: 2px 12px 2px 8px;
@@ -62,7 +62,7 @@ a.menuItemDisabled, a.menuItemCtrlDisabled {
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
-  font-size: 8pt;
+  font-size: 70%;
   font-weight: medium;
   font-style: italic;
   padding: 2px 12px 2px 8px;
