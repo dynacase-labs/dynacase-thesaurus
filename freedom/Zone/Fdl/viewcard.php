@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.53 2004/08/24 13:36:37 eric Exp $
+ * @version $Id: viewcard.php,v 1.54 2004/10/08 13:26:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -41,7 +41,8 @@ function viewcard(&$action) {
   $reload = ($action->read("reload$docid","N")=="Y"); // need reload
 
   if ($target != "mail") $action->lay->setBlockData("MVIEW",array(array("zou")));
-
+  $action->lay->set("fhelp",($action->Read("navigator","")=="EXPLORER")?"_blank":"fhidden");
+ 
   // set default geo for mini view
   $mgeo = $action->GetParam("MVIEW_GEO");
   if (ereg("([0-9]+)\+([0-9]+)\+([0-9]+)x([0-9]+)",$mgeo,$reg)) {   

@@ -150,7 +150,7 @@ function SendSearch(e) {
 
 <!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup" style="position:[positionstyle];">
-  <a id="help" target="fhidden" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
+  <a id="help" target="[fhelp]" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
 <a  id="imvcard" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
 <a  id="aview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=abstract&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Abstract card]</a>
 <a  id="cview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=column&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Column mode]</a>
