@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.5 2004/02/24 08:35:05 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.6 2004/03/01 08:51:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_gaccess.php,v 1.5 2004/02/24 08:35:05 eric Exp $
+// $Id: freedom_gaccess.php,v 1.6 2004/03/01 08:51:20 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_gaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,11 +90,11 @@ function freedom_gaccess(&$action) {
     $sgroup=array(); // all group which are in a group i.e. not the root group
 
     foreach($tiduser as $k=>$v) {
-      $g = new Group($dbaccess,$v["id"]);
-
+      $g = new Group("",$v["id"]);
 
       $title[$v["id"]]=$v["firstname"]." ".$v["lastname"];
-      while(list($kg,$gid) = each($g->groups)) {
+
+      foreach($g->groups as $kg=>$gid) {
 
 	$hg[$gid][$v["id"]]=$v["id"];
 	$sgroup[$v["id"]]=$v["id"];// to define root group
@@ -102,11 +102,8 @@ function freedom_gaccess(&$action) {
 
     }
 
-    reset($hg);
 
-   
-  
-    while(list($k,$v) = each($hg)) {
+    foreach($hg as $k=>$v) {
       if (! in_array( $k, $sgroup)) {
 	// it's a root group
 	$tg = array_merge($tg,getTableG($hg, $k));
