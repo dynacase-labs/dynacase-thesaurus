@@ -13,33 +13,57 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   global $action;
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/jdate.js");
+  $action->parent->AddCssRef($action->GetParam("CORE_PUBURL")."/FREEEVENT/Layout/planner.css");
   $tevt=$this->getEvents();
   $byres= (getHttpVars("byres","N")=="Y");
   $mb=microtime();
  
   // window time interval
-  $wstart=FrenchDateToJD("10/11/2004 00:00:00");
-  $wend=FrenchDateToJD("10/11/2004 23:59:59");
-  print "<br>$wstart:".jd2cal($wstart);
-  print "<br>$wend:".jd2cal($wend);
+  $hwstart=getHttpVars("wstart");
+  if ($hwstart) {
+    $wstart=FrenchDateToJD($hwstart);
+  } else $wstart=getHttpVars("jdstart"); 
+  
+  $hwend=getHttpVars("wend");
+  if ($hwend) {
+    $wend=FrenchDateToJD($hwend);
+  } else $wend=getHttpVars("jdend");
+
+  if (!$wstart) {
+    $isoperiode=getHttpVars("isoperiod"); 
+    if ($isoperiode) {
+      if (ereg("([0-9]+)-([0-9]+)",$isoperiode,$reg)) {
+	// month period
+	$wstart=FrenchDateToJD(sprintf("01/%02d/%04d",$reg[2],$reg[1]));
+	$wend=FrenchDateToJD(sprintf("01/%02d/%04d",$reg[2]+1,$reg[1]));
+      } elseif (ereg("([0-9]+)",$isoperiode,$reg)) {
+	// year period
+	$wstart=FrenchDateToJD(sprintf("01/01/%04d",$reg[1]));
+	$wend=FrenchDateToJD(sprintf("01/01/%04d",$reg[1]+1));
+      }
+    }
+  }
+
+    print "<br>wstart:$wstart:".jd2cal($wstart);
+   print "<br>wend:$wend:".jd2cal($wend);
   
 
+  $mstart=5000000; // vers 9999
+  $mend=0;
   if ($wstart) {
     $mstart=$wstart;
-    $mend=$wend;
-  $mstart=floor($mstart)-0.5; // begin at 00:00
-  $mend=floor($mend)+0.5; // end at 00:00
-  } else {    
-    $mstart=5000000; // vers 9999
-    $mend=0;
+    $mstart=floor($mstart+0.5)-0.5; // begin at 00:00
   }
+  if ($wend) {
+    $mend=$wend;
+    $mend=floor($mend)+0.5; // end at 00:00
+  } 
   
   foreach ($tevt as $k=>$v) {
 
     $mdate1=FrenchDateToJD(getv($v,"evt_begdate"));
     $mdate2=FrenchDateToJD(getv($v,"evt_enddate"));
     if ($wstart) {
-
       if (($mdate2<$mstart) || ($mdate1>$wend)) {
 	unset($tevt[$k]);       
       } else {  
@@ -60,8 +84,8 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   $delta=$mend-$mstart;
   $sub=0;
   $idc=0;
-  print "delta=$delta";
-  print " - <B>".microtime_diff(microtime(),$mb)."</B> ";
+//   print "delta=$delta";
+//   print " - <B>".microtime_diff(microtime(),$mb)."</B> ";
   foreach ($tevt as $k=>$v) {
     $tr=$this->_val2array(getv($v,"evt_idres"));
     $x=floor(100*($v["m1"]-$mstart)/$delta);
@@ -76,9 +100,10 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 		       //"subline"=>$colorredid[$ir],
 		       "divid"=>"div$k$ki",
 		       "idx"=>$sub,
+		       "evticon"=>$this->getIcon($v["icon"]),
 		       "rid"=>getv($v,"evt_idinitiator"),
 		       "eid"=>getv($v,"id"),
-		       "divtitle"=>$v["title"],
+		       "divtitle"=>((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"],
 		       "bartitle"=>sprintf("%s - %s",
 					   substr(getv($v,"evt_begdate"),0,10),
 					   substr(getv($v,"evt_enddate"),0,10)));
@@ -95,14 +120,13 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   foreach ($tres as $k=>$v) {    
     
     //  $rn=1;
-    $col=HSL2RGB($colorredid[$k]*$dcol,1,0.5);
+    $col=HSL2RGB($colorredid[$k]*$dcol,1,0.8);
     foreach ($RN[$k] as $kn=>$vn) $RN[$k][$kn]["color"]=$col;
     $tres[$k]["rescolor"]=$col;
     $this->lay->setBlockData("bar$k",$RN[$k]);
   }
   $this->lay->setBlockData("RES",$tres);
-  if ($action->Read("navigator","")=="NETSCAPE") $this->lay->set("barimg",$action->GetImageUrl('baqua.png'));
-  else  $this->lay->set("barimg","none");
+
 
 
     if (!$wstart) {
@@ -114,9 +138,11 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->set("enddate",jd2cal($mend));
   $this->lay->set("mstart",$mstart);
   $this->lay->set("mend",$mend);
+  $this->lay->set("id",$this->id);
+  $this->lay->set("vid",GetHttpVars("vid"));
 
-  print "<HR>". print " - <B>".microtime_diff(microtime(),$mb)."</B>";
-  print "<hr>";
+  //  print "<HR>". print " - <B>".microtime_diff(microtime(),$mb)."</B>";
+  // print "<hr>";
 
 }
 
