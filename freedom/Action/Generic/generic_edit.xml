@@ -68,7 +68,7 @@
 <form  id="fedit"  
        class="fborder" 
        name="modifydoc" 
-       onsubmit="if (!canmodify()) return false;document.isSubmitted=true;enableall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid"
+       onsubmit="if (document.isSubmitted) return false;if (!canmodify()) return false;document.isSubmitted=true;enableall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD" >
 <INPUT TYPE="hidden" name="classid" value="[classid]"></input>

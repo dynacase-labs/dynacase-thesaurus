@@ -36,7 +36,7 @@
 <form  class="fborder" 
        id="fedit" 
        name="modifydoc" 
-       onsubmit="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"
+       onsubmit="if (document.isSubmitted) return false;if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"
        method="POST"  
        action="[CORE_STANDURL]&app=[APPNAME]&action=MODSTATE&id=[docid]" >
 

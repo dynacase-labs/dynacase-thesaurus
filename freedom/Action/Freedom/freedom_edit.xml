@@ -71,7 +71,7 @@ function refreshfld(dirid) {
 <form  id="fedit" 
        class="fborder" 
        name="modifydoc" 
-       onsubmit="selectall()" 
+       onsubmit="if (document.isSubmitted) return false;selectall();document.isSubmitted=true;" 
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_MOD" >
 
