@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.7 2002/07/16 16:32:36 eric Exp $
+// $Id: Class.DocAttr.php,v 1.8 2002/07/23 07:32:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.7 2002/07/16 16:32:36 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.8 2002/07/23 07:32:59 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -51,7 +51,7 @@ create table docattr ( id      varchar(20) not null,
                      LabelText varchar(60),
                      Title  varchar(1),
                      Abstract  varchar(1),
-                     Type  varchar(20),
+                     Type  varchar(40),
                      ordered int,
                      visibility varchar(1),
                      link varchar(256),

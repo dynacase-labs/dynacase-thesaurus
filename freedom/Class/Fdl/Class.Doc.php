@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.34 2002/07/17 13:35:54 eric Exp $
+// $Id: Class.Doc.php,v 1.35 2002/07/23 07:33:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.34 2002/07/17 13:35:54 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.35 2002/07/23 07:33:05 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -925,9 +925,22 @@ create sequence seq_id_doc start 1000";
 
   }
 
+
+
+
     function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true) {
       global $action;
-      switch ($oattr->type)
+
+
+      if (ereg("([a-z]+)\(\"(.*)\"\)",$oattr->type, $reg)) {
+	$atype=$reg[1];
+	$aformat=$reg[2];
+      } else {
+	$atype=$oattr->type;
+	$aformat="";
+      }
+
+      switch ($atype)
 	{
 	      
 	case "image": 
@@ -963,6 +976,17 @@ create sequence seq_id_doc start 1000";
 	case "textlist": 
 	case "enumlist":
 	  if (strstr($value,"\n")) $oattr->link="";
+	  if ($aformat != "") {
+	    $ta = explode("\n",$value);
+	    while (list($k, $a) = each($ta)) {
+	      $ta[$k]=stripslashes(sprintf($aformat,$a));
+	    }
+	    $htmlval=implode("<BR>",$ta);
+
+	  } else {
+	    $htmlval=nl2br(htmlentities(stripslashes($value)));
+	  }
+	break;
 	case "longtext": 
 	  $htmlval=nl2br(htmlentities(stripslashes($value)));
 	break;
@@ -971,7 +995,11 @@ create sequence seq_id_doc start 1000";
 
 	break;
 	default : 
-	  $htmlval=htmlentities(stripslashes($value));
+	  if ($aformat != "") {
+	    $htmlval=htmlentities(stripslashes(sprintf($aformat,$value)));
+	  } else {
+	    $htmlval=htmlentities(stripslashes($value));
+	  }
 	break;
 		
 	}
@@ -993,6 +1021,10 @@ create sequence seq_id_doc start 1000";
       return $abegin.$htmlval.$aend;
     }
 
+    function GetHtmlAttrValue($attrid, $target="_self",$htmllink=true) {
+      return $this->GetHtmlValue($this->getAttribute($attrid),
+				 $this->getValue($attrid),$target,$htmllink);
+    }
   // --------------------------------------------------------------------
   function Control ($aclname) {
     // -------------------------------------------------------------------- 
