@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.5 2002/11/06 15:59:28 eric Exp $
+// $Id: popupcard.php,v 1.6 2003/01/03 09:10:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,34 +59,33 @@ function popupcard(&$action) {
 
   popupActive('popupcard',$kdiv,'duplicate'); 
 
+  popupInvisible('popupcard',$kdiv,'editstate');
  
 
   if ($doc->locked == -1){ // fixed document
-      popupInvisible('popupcard',$kdiv,'editdoc');
-      popupInvisible('popupcard',$kdiv,'delete');
-      popupInvisible('popupcard',$kdiv,'unlockdoc');
-      popupInvisible('popupcard',$kdiv,'chgcatg'); 
-      popupInvisible('popupcard',$kdiv,'editstate'); 
+    popupInvisible('popupcard',$kdiv,'editdoc');
+    popupInvisible('popupcard',$kdiv,'delete');
+    popupInvisible('popupcard',$kdiv,'unlockdoc');
+    popupInvisible('popupcard',$kdiv,'chgcatg'); 
   } else {
     if ($cud || $clf)   {
       popupActive('popupcard',$kdiv,'editdoc');
-      $action->lay->Set("deltitle", $doc->title);
-      popupInvisible('popupcard',$kdiv,'editstate'); 
+      $action->lay->Set("deltitle", $doc->title); 
       popupActive('popupcard',$kdiv,'delete');
       popupActive('popupcard',$kdiv,'chgcatg'); 
     }  else   {
       popupInactive('popupcard',$kdiv,'editdoc');
       popupInactive('popupcard',$kdiv,'delete');
       popupInactive('popupcard',$kdiv,'chgcatg'); 
-      
-      if ($doc->wid > 0) {
-	$wdoc=new Doc($doc->dbaccess, $doc->wid);
-	$wdoc->Set($doc);
-	if (count($wdoc->GetFollowingStates()) > 0)
-	  popupActive('popupcard',$kdiv,'editstate');
-      } else popupInvisible('popupcard',$kdiv,'editstate'); 
     }
-  }
+    if ($doc->wid > 0) {
+      $wdoc=new Doc($doc->dbaccess, $doc->wid);
+      $wdoc->Set($doc);
+      if (count($wdoc->GetFollowingStates()) > 0) popupActive('popupcard',$kdiv,'editstate');
+      else popupInactive('popupcard',$kdiv,'editstate'); 
+    }
+    
+  } 
   
   if ($abstract) popupActive('popupcard',$kdiv,'properties'); 
   else popupInvisible('popupcard',$kdiv,'properties'); 

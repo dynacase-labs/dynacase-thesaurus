@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.13 2002/12/23 09:16:13 eric Exp $
+// $Id: popupcard.php,v 1.14 2003/01/03 09:10:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,6 +92,7 @@ function popupcard(&$action) {
     popupInactive('popupcard',$kdiv,'delete');
   }
 
+  popupInvisible('popupcard',$kdiv,'editstate'); 
 
   if (($clf)||($cud)) {
     popupActive('popupcard',$kdiv,'editattr'); 
@@ -112,7 +113,6 @@ function popupcard(&$action) {
       popupInvisible('popupcard',$kdiv,'unlockdoc');
       popupInvisible('popupcard',$kdiv,'chicon');
       popupInvisible('popupcard',$kdiv,'editdfld');
-      popupInvisible('popupcard',$kdiv,'editstate'); 
     } else {
       popupInactive('popupcard',$kdiv,'editattr'); 
       popupInactive('popupcard',$kdiv,'editdfld');
@@ -130,8 +130,8 @@ function popupcard(&$action) {
       if ($doc->wid > 0) {
 	$wdoc=new Doc($doc->dbaccess, $doc->wid);
 	$wdoc->Set($doc);
-	if (count($wdoc->GetFollowingStates()) > 0)
-	  popupActive('popupcard',$kdiv,'editstate');
+	if (count($wdoc->GetFollowingStates()) > 0)  popupActive('popupcard',$kdiv,'editstate');
+	else popupInactive('popupcard',$kdiv,'editstate');
       }
   }
   if ($doc->doctype=="F") popupActive('popupcard',$kdiv,'histo'); 
