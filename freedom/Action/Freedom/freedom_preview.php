@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_preview.php,v 1.3 2002/09/30 11:46:44 eric Exp $
+// $Id: freedom_preview.php,v 1.4 2003/01/08 09:04:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_preview.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,20 +42,24 @@ function freedom_preview(&$action) {
 
     $action->lay->Set("TITLE",$doc->title);
     $ndoc= duplicate($action, 0, $docid);
-    $ndoc->doctype='T';
+    
     $ndoc->modify();
   } else {
     // new doc
     $ndoc = createDoc($dbaccess, $classid);
     if (! $ndoc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
-    $ndoc->doctype='T';
+    
     $err = $ndoc-> Add();
     if ($err != "")  $action->ExitError($err);
     
   }
   SetHttpVar("id", $ndoc->id);
-
   $err = modcard($action, $ndocid); // ndocid change if new doc
+
+   
+  $tdoc = new Doc($dbaccess, $ndocid);
+  $tdoc->doctype='T';
+  $tdoc->modify();
   //if ($err != "")  $action-> ExitError($err);
 
 }
