@@ -1,0 +1,4 @@
+#!/bin/bash
+pubdir="/home/httpd/what";
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocVaultIndex
+echo "insert into docvaultindex SELECT id,id_file from doc,vaultdiskstorage where values  ~ (select '£[a-z]+/[a-z]+\\|'||id_file||'[£|$]') ;" | psql freedom anakeen 
