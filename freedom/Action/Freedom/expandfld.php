@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: expandfld.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: expandfld.php,v 1.13 2004/02/24 08:34:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+// $Id: expandfld.php,v 1.13 2004/02/24 08:34:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,11 +49,11 @@ function expandfld(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $dirid=GetHttpVars("dirid",9); // root directory
-    $doc = new Doc($dbaccess, $dirid);
+  $dir = new Doc($dbaccess, $dirid);
   
   
   $action->lay->Set("dirid", $dirid);
-  $action->lay->Set("reptitle", $doc->title);
+  $action->lay->Set("reptitle", $dir->title);
 
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/expandfld.js");
@@ -70,7 +70,7 @@ function expandfld(&$action) {
       include_once("FDL/popup_util.php");
   popupInit("popfld", array('vprop','mkdir','export','refresh','cancel'));
   popupInit("poppaste", array('staticpaste','pastelatest','cancel2'));
-  $ldir = getChildDir($dbaccess,$action->user->id, $doc->id, false,"TABLE");
+  $ldir = getChildDir($dbaccess,$action->user->id, $dir->id, false,"TABLE");
   $stree = "";
   if (count($ldir) > 0 ) {
     $nbfolders=1;
@@ -103,10 +103,11 @@ function expandfld(&$action) {
       if ($doc["doctype"] != 'S') {
 	// no child for a search
 
-	  if (hasChildFld($dbaccess,$doc["id"]))  $hasChild='true';
+	  if (hasChildFld($dbaccess,$doc["initid"]))  $hasChild='true';
       }
       
-      $stree .= "ffolder.insFld(fldtop, ffolder.gFld(\"".$doc["title"]."\", \"#\",".$doc["id"].",$ftype,$hasChild))\n";
+      $ftype=$dir->getIcon($doc["icon"]);
+      $stree .= "ffolder.insFld(fldtop, ffolder.gFld(\"".$doc["title"]."\", \"#\",".$doc["initid"].",\"$ftype\",$hasChild))\n";
 
       
       

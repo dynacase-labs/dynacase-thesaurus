@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: folders.php,v 1.13 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: folders.php,v 1.14 2004/02/24 08:34:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.13 2003/08/18 15:47:03 eric Exp $
+// $Id: folders.php,v 1.14 2004/02/24 08:34:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,6 +79,7 @@ function folders(&$action) {
   $doc = new Doc($dbaccess, $dirid);
   $action->lay->Set("dirid", $dirid);
   $action->lay->Set("reptitle", $doc->title);
+  $action->lay->Set("icon", $doc->getIcon());
 
 
   // ------------------------------------------------------
@@ -161,11 +162,11 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
     $hasChild='false';
     if ($doc->doctype != 'S') {
       // no child for a search
-	if (hasChildFld($dbaccess,$doc->id))  $hasChild='true';
+	if (hasChildFld($dbaccess,$doc->initid))  $hasChild='true';
     }
 
-
-    $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->id.",$ftype, $hasChild))\n";
+    $ftype=$doc->getIcon();
+    $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".$doc->title."\", \"#\",".$doc->initid.",\"$ftype\", $hasChild))\n";
 
 
     popupActive("popfld",$nbfolders,'cancel');

@@ -183,7 +183,7 @@ actionviewfile = "[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_VIEW";
 actionexpfld = "[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid=";
 
 
-fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4,true)
+fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],"[icon]",true)
 
 
 [subtree]
@@ -229,7 +229,7 @@ function viewhome(event) {
 <div  id="popfld" class="popup">
 
 <a href="#" id="vprop"
-    onClick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&id='+dirid,'fdoc');closeMenu('popfld');return false">[TEXT:Properties] </a>
+    onClick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id='+dirid,'fdoc');closeMenu('popfld');return false">[TEXT:Properties] </a>
 <a id="export" href="#" onclick="this.href='[CORE_STANDURL]&app=FDL&action=EXPORTFLD&id='+dirid">[TEXT:Export] </a>
 <a href="#" id="mkdir"     
     onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'fdoc');closeMenu('popfld');return false">
