@@ -62,7 +62,6 @@ function saveContacts() {
     if (PrefContactsList[i][0] != -1 ) 
       rlist += PrefContactsList[i][0]+"|";
   }
-  alert('contacts = ['+rlist+']');
   usetparam("WGCAL_U_PREFRESSOURCES", rlist, 'wgcal_hidden', 'WGCAL_HIDDEN');
   return;
 }
