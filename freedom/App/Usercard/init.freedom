@@ -46,7 +46,7 @@ ICON;group.gif;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 ATTR;GRP_FR_IDENT;;Identification;N;N;frame;10;W;;;;;
 ATTR;GRP_NAME;GRP_FR_IDENT;nom;Y;N;text;20;W;Y;;;;
-ATTR;GRP_ROLE;GRP_FR_IDENT;rôle;Y;N;longtext;30;W;;;;;
+ATTR;GRP_ROLE;GRP_FR_IDENT;rôle;N;N;longtext;30;W;;;;;
 ATTR;GRP_MAIL;GRP_FR_IDENT;mail;N;Y;text;40;W;;mailto:%GRP_MAIL%;;;
 ATTR;GRP_TYPE;GRP_FR_IDENT;fonction;N;N;enum;50;W;;;;none| ,service|service,desk|bureau;
 ATTR;GRP_FR;;Description;N;N;frame;0;W;;;;;
