@@ -65,7 +65,7 @@ end;
    }
 
    function SpecRefreshGen() {
-     $err ="";
+     $err = parent::SpecRefreshGen();
 [BLOCK ACALC]
     // -------------------
   if (method_exists($this,"[method]")) {
