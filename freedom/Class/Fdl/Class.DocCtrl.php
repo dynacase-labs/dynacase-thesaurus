@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.14 2004/02/12 10:32:09 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.15 2004/02/17 11:03:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -153,21 +153,23 @@ Class DocCtrl extends DbObj
     if ($pfamid > 0) {
       if ($this->profid != $this->id) {
 	$this->profid = $this->id; //private profil
-	$this->modify(array("profid"));
+	$this->modify(true,array("profid"));
       }
 
       $query=new QueryDb($this->dbaccess,"DocPerm");
       $query->AddQuery("docid=".$pdoc->id);
       $tacl=$query->Query(0,0,"TABLE");
-      if (! $tacl) $tacl=array();
+      if (! is_array($tacl)) {
+	//	print "err $tacl";
+	$tacl=array();
+      }
       $tgnum=array(); // list of virtual user/group
       foreach ($tacl as $v) {
 	if ($v["userid"] >= STARTIDVGROUP) {
 	  $tgnum[]=$v["userid"];	  		  
 	}
       }
-      if (count($tgnum>0)) {
-	
+      if (count($tgnum)>0) {
 	$query=new QueryDb($this->dbaccess,"VGroup");
 	$query->AddQuery(GetSqlCond($tgnum,"num",true));
 	$tg=$query->Query(0,0,"TABLE");
@@ -191,6 +193,7 @@ Class DocCtrl extends DbObj
 	  if ($duid > 0) {
 	    $docu=getTDoc($fromdocidvalues->dbaccess,intval($duid)); // not for idoc list for the moment
 	    $uid=$docu["us_whatid"];
+	    //print "<br>$aid:$duid:$uid";
 	  }
 	    
 	}
@@ -205,7 +208,7 @@ Class DocCtrl extends DbObj
 	    $perm->upacl=$vupacl[$uid];
 	    $perm->unacl=$vunacl[$uid];
 
-	    // print "<BR>$uid : ".$this->id."/".$perm->upacl;
+	    //print "<BR>$uid : ".$this->id."/".$perm->upacl;
 	    if ($perm -> isAffected()) $err=$perm ->modify();
 	    else $err=$perm->Add();
 
