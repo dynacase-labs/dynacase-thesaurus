@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.39 2003/06/10 08:55:04 eric Exp $
+// $Id: modcard.php,v 1.40 2003/06/20 14:40:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -224,7 +224,11 @@ function insert_file($dbaccess,$docid, $attrid)
 
   while(list($k,$userfile) = each($tuserfiles) )    {
     $rt[$k]="";
-    if (($userfile['tmp_name'] == "none") || ($userfile['tmp_name'] == ""))
+    if ($userfile['name'] == " ")  {
+      $rt[$k]=" "; // delete reference file
+      continue;
+    }
+    if (($userfile['tmp_name'] == "none") || ($userfile['tmp_name'] == "") || ($userfile['size'] == 0))
       {
 	// if no file specified, keep current file
 	
