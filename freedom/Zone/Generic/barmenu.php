@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.14 2003/06/16 12:00:35 eric Exp $
+// $Id: barmenu.php,v 1.15 2003/07/22 13:12:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,7 +71,7 @@ function barmenu(&$action) {
 		     "kindid"=>$a->id,
 		     "vkind"=>"kind".$a->id);
       $tvkind=array();
-      $tmkind=array($a->id."00");
+      $tmkind=array();
       $tmkind[]=$a->id."kedit";
       $enum=$a->getenum();
       while (list($kk,$ki) = each($enum)) {

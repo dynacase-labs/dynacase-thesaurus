@@ -87,7 +87,6 @@ function SendSearch(e) {
 <!-- ------------ MENU KIND  --------------------- -->
 [BLOCK MKIND]
 <div  id="[kindid]menu" class="popup">
-<a  id="[kindid]00" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[catg]&tab=0';closeAllMenu()">[TEXT:All kind]</a>
 [BLOCK [vkind]]
 <a  id="[kindid][kid]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH_KIND&kid=[kid]&aid=[kindid]&catg=[catg]';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[ktitle]</span></a>
 [ENDBLOCK [vkind]]
