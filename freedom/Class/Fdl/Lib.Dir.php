@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.21 2002/07/29 12:42:23 eric Exp $
+// $Id: Lib.Dir.php,v 1.22 2002/07/30 12:34:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -103,7 +103,7 @@ function getChildDoc($dbaccess,
   
   if ($dirid == 0) {
     // search in all Db
-    $qsql= "select * ".
+    $qsql= "select doc.* $sqlwvalue".
       "from doc  ".
 	"where (doc.doctype != 'T')  ".
 	    $sqlcond.
@@ -169,7 +169,7 @@ function getChildDoc($dbaccess,
     }
   }
   
-  //  print "<HR>".$qsql;
+  //   print "<HR>".$qsql;
   $query = new QueryDb($dbaccess,"Doc");
   
   
