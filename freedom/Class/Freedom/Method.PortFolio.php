@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.PortFolio.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.7 2004/06/11 16:12:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,7 +11,7 @@
  /**
  */
 // ---------------------------------------------------------------
-// $Id: Method.PortFolio.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+// $Id: Method.PortFolio.php,v 1.7 2004/06/11 16:12:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.PortFolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,15 +53,14 @@ function PostCreated() {
 
     reset($child);
     while (list($k,$doc) = each($child)) {
-
-      if ($doc->usefor == "G") {
+      //if ($doc->usefor == "G") {
+	$doc->getMoreValues();
 	$copy=$doc->Copy();
 	if (! is_object($copy)) return $copy;
 
-
 	$err.=$this->AddFile($copy->id);
 
-      }
+	//      }
     }
   }
   return $err;
