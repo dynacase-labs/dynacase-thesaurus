@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.29 2005/02/13 22:33:29 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.30 2005/02/16 09:11:37 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -50,6 +50,9 @@ function wgcal_calendar(&$action) {
     $ndays = $dayperweek;
     $action->lay->set("wedisplayed", "checked" );
   }
+  $hcolsize = 5;
+  $colsize = round((100 - $hcolsize) / $ndays);
+
   $sdate = WGCalGetDayFromTs($action->GetParam("WGCAL_U_CALCURDATE", time()));
   $cdate = WGCalGetDayFromTs(time());
   $firstWeekDay = WGCalGetFirstDayOfWeek($sdate);
@@ -110,6 +113,7 @@ function wgcal_calendar(&$action) {
       else $class[$i] = "WGCAL_Day";
     }
     $t[$i]["IDD"] = $i;
+    $t[$i]["colsize"] = $colsize;
     $t[$i]["CSS"] = $classh[$i];
     $t[$i]["LABEL"] = d2s($firstWeekDay+($i*SEC_PER_DAY), "%a %d %b");
   }
@@ -141,6 +145,7 @@ function wgcal_calendar(&$action) {
 	if ($id>6) $mo = $id;
 	else $mo = $id % 7;
 	$tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
+	$tcell[$itc]["colsize"] = $colsize;
 	$tcell[$itc]["urlroot"] = $urlroot;
 	if ($h==($hstart-1)) $tcell[$itc]["nh"] = 1;
 	else $tcell[$itc]["nh"] = 0;
@@ -174,6 +179,8 @@ function wgcal_calendar(&$action) {
   $action->lay->set("YDURATION", (60/$hdiv) );
   $action->lay->set("IDSTART", "D0H0");
   $action->lay->set("IDSTOP", "D".($ndays-1)."H".($nl-1));
+  $action->lay->set("ALTFIXED", $action->GetParam("WGCAL_U_ALTFIXED", "Float"));
+  $action->lay->set("ALTTIMER", $action->GetParam("WGCAL_U_ALTTIMER", "500"));
   
   $action->lay->set("WGCAL_U_HLINETITLE", $action->GetParam("WGCAL_U_HLINETITLE", 20));
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.7 2005/02/14 10:11:10 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.8 2005/02/16 09:11:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -126,18 +126,30 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   $tout=array(); 
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
-//   echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres]<br>";
+//    echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres]<br>";
   $dre=new Doc($dbaccess,$reid);
   $edre=$dre->getEvents($d1,$d2);
+  $first = false;
   foreach ($edre as $k=>$v) {
     $item = array( "REF" => $v["id"], 
 		   "ID" => $v["evt_idinitiator"],
 		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
 		   "END" => FrenchDateToUnixTs($v["evt_enddate"]), 
 		   "IDC" =>  $v["evt_idcreator"] );
+    $n = new Doc($dbaccess, $v["evt_idinitiator"]);
+    $varclass = get_class_vars("_CALEVENT");
+    if (isset($varclass["ZoneEvtAbstract"]) && isset($varclass["ZoneEvtCard"])) {
+      $abstract =  $varclass["ZoneEvtAbstract"];
+      $view = $varclass["ZoneEvtCard"];
+    } else {
+      $abstract =  "WGCAL:DEFAULTABS";
+      $view = "WGCAL:DEFAULTVIEW";
+    }
+    $item["RESUME"] = $abstract;
+    $item["VIEW"] = $view;
     $tout[] = $item;
   }
-//    print_r2($tout);
+  //    print_r2($tout);
   return $tout;
 }
        	

@@ -34,7 +34,7 @@
     }
   );
 </script>
-[TEXT:search phrase] : <input type="text" size="40" id="searchphrase" name="searchphrase" type="hidden" value=""><br>
+[TEXT:search phrase] : <input type="text" size="40" id="searchphrase" name="searchphrase" value=""><br>
 [TEXT:between] : <span id="Trvstart">[rdstart]</span>
 <img style="cursor:pointer" id="Brvstart"  title="[TEXT:start date]" src="WGCAL/Images/cal-other.gif" height="15" >
  [TEXT:and] <span id="Trvend">[rdend]</span>

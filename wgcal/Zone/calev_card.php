@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.12 2005/02/10 11:55:49 marc Exp $
+ * @version $Id: calev_card.php,v 1.1 2005/02/16 09:15:52 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -13,7 +13,7 @@
 include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/WGCAL_external.php");
 
-function ev_weekview(&$action) {
+function calev_card(&$action) {
 
   $evid = GetHttpVars("ev", -1);
   $evref = GetHttpVars("ref", -1);
@@ -36,6 +36,7 @@ function ev_weekview(&$action) {
 
 
   $ldstart = $ldend = $lstart = $lend = $lrhs = $lrhe = ""; 
+  $cardheight = "100%";
   switch($ev->getValue("CALEV_TIMETYPE",0)) {
   case 1: 
     $ldstart = $lrhs = _("no hour"); 
@@ -43,6 +44,7 @@ function ev_weekview(&$action) {
     break;
   case 2: 
     $ldstart = $lrhs = _("all the day"); 
+    $cardheight = "10%";
     $ldend = substr($ev->getValue("CALEV_END"),0,10);
     break;
   default:
@@ -58,6 +60,7 @@ function ev_weekview(&$action) {
     $lrhs .= substr($ev->getValue("CALEV_START"),11,5);
     $lrhe .= substr($ev->getValue("CALEV_END"),11,5);
   }
+  $action->lay->set("cardheight", $cardheight);
   $action->lay->set("DSTART", $ldstart);
   $action->lay->set("START", $lstart);
   if ($ldstart == $ldend ) $ldend = "";
@@ -100,7 +103,6 @@ function ev_weekview(&$action) {
       }
     }
   }
-  $bgheadcolor = $action->GetParam("WGCAL_U_EVHEADCOLOR","black");
   $bgresumecolor = $bgcolor = "white";
   foreach ($ress as $k => $v) if ($v->id==$o_or_p) $bgresumecolor=$bgcolor=$v->color;
 
@@ -112,10 +114,10 @@ function ev_weekview(&$action) {
       $cstate = $tresse[$k];
     }
   }
-  $bgnew = WGCalGetColorState($cstate);
+  if ($present) $bgnew = WGCalGetColorState($cstate);
+  else $bgnew = "transparent";
   $action->lay->set("bgstate", $bgnew);
   $action->lay->set("bgcolor", $bgcolor);
-  $action->lay->set("bgheadcolor", $bgheadcolor);
   $action->lay->set("bgresumecolor", $bgresumecolor);
 
 
@@ -160,17 +162,6 @@ function ev_weekview(&$action) {
 
   showIcons($action, $ev, $private, $present);
 
-  $states = CAL_getEventStates($dbaccess,"");
-  $valert = "none";
-  foreach ($tress as $k => $v) {
-    if ($v == $action->user->fid && $tresse[$k]<2) {
-      $valert  = "";
-      $vtext = WGCalGetLabelState($tresse[$k]);
-    }
-  }
-  $action->lay->set("valert", $valert);
-  $action->lay->set("vtext", $vtext);
-
   ev_showattendees($action, $ev, $present);
 
   $nota = $ev->getValue("CALEV_EVNOTE");
@@ -213,7 +204,7 @@ function addIcons(&$ia, $icol)
 
 function ev_showattendees(&$action, &$ev, $present) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $globalstate = "grey";
+  $globalstate = "transparent";
   $d = new Doc($dbaccess);
   $tress = $ev->getTValue("CALEV_ATTID");
   if (count($tress)>1) {
@@ -228,6 +219,7 @@ function ev_showattendees(&$action, &$ev, $present) {
       $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
       $t[$a]["atticon"] = $d->GetIcon($attru["icon"]);
       $t[$a]["atttitle"] = $tresst[$k];
+      $t[$a]["attnamestyle"] = ($tresse[$k] != EVST_REJECT ? "none" : "line-through");
       $t[$a]["attstate"] = $states[$tresse[$k]];
       $a++;
     }

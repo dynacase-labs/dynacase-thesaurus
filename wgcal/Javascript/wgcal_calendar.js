@@ -39,6 +39,51 @@ var EventCount = -1;
 var EvTObject = new Array();
 var EvTObjectCount = -1;
 
+var AltIsFixed = 'Float';
+var AltCoord = new Object();
+
+
+
+function SetAltCoord(alt) {
+  
+  delta = 50;
+  
+  ww = getFrameWidth();
+  wh = getFrameHeight();
+  var h = getObjectHeight(alt);
+  var w = getObjectWidth(alt);
+  
+  var recompute = false;
+
+  if (AltIsFixed!='Float') {
+    switch(AltIsFixed) {
+    case 'RightTop':
+      AltCoord.x = ww/2 + delta;
+      AltCoord.y = delta;
+      break;
+    case 'RightBottom':
+      AltCoord.x = ww/2 + delta;
+      AltCoord.y = wh/2 + delta;
+      break;
+    case 'LeftBottom':
+      AltCoord.x = delta;
+      AltCoord.y = wh/2 + delta;
+      break;
+    default:
+      AltCoord.x = delta;
+      AltCoord.y = delta;
+    }
+  }
+  if (   (TimerMouseX>AltCoord.x && TimerMouseX<(AltCoord.x+w+delta)) 
+      && (TimerMouseY>AltCoord.y && TimerMouseY<(AltCoord.y+h+delta)) ) recompute = true;
+  if (AltIsFixed=='Float' || recompute) {
+    if ((TimerMouseX + w + 30) > ww) AltCoord.x = TimerMouseX - 15 - w;
+    else AltCoord.x = TimerMouseX + 15;
+    if ((TimerMouseY + h + 30)> wh) AltCoord.y = TimerMouseY - 15 - h;
+    else AltCoord.y = TimerMouseY + 15;
+  }
+  return;
+}
 
 // --------------------------------------------------------
 function GetTimeInfoFromTs(ts) {
@@ -88,26 +133,47 @@ function WGCalCleanAllFullView() {
 }
   
 
-
 // --------------------------------------------------------
-function WGCalEvOnMouseOver(ev, id) {
-  evt  = document.getElementById('evt'+id);
-  evt.style.zIndex = 1000;
-  WGCalCleanAllFullView();
-  evtc = document.getElementById('evtc'+id);
-  x = getX(ev);
-  y = getY(ev);
-  evtc.style.left = (x+15)+'px';
-  evtc.style.top = (y+5)+'px';
-  evtc.style.position = 'absolute';
-  evtc.style.zIndex = 1001;
-  evtc.style.display = '';
+var TimerOnElt = '';
+var TimerID = -1;
+var TimerMouseX = 10;
+var TimerMouseY = 10;
+var AltTimerValue = 500;
+function  SetTimerOnMO(elt) {
+  if (TimerOnElt == elt) return;
+  ResetSetTimerOnMO();
+  TimerOnElt = elt;
+  TimerID = self.setTimeout("ShowEvInfos()", AltTimerValue);
+}
+function  ResetSetTimerOnMO() {
+  if (TimerID!=-1) clearTimeout(TimerID);
+  TimerID = -1;
+  TimerOnElt = '';
 }
 
-// --------------------------------------------------------
+function ShowEvInfos() {
+  if (TimerOnElt!='') {
+    WGCalCleanAllFullView();
+    evtc = document.getElementById(TimerOnElt);
+    evtc.style.position = 'absolute';
+    evtc.style.width = 'auto';
+    evtc.style.zIndex = 1001;
+    evtc.style.display = '';
+    SetAltCoord(evtc);
+    evtc.style.left = AltCoord.x+'px';
+    evtc.style.top = AltCoord.y+'px';
+  }
+  ResetSetTimerOnMO();
+}
+
+function WGCalEvOnMouseOver(ev, id) {
+  TimerMouseX = getX(ev);
+  TimerMouseY = getY(ev);
+  SetTimerOnMO('evtc'+id);
+}
+
 function WGCalEvOnMouseOut(ev, id) {
-  evt  = document.getElementById('evt'+id);
-  evt.style.zIndex = 0;
+  ResetSetTimerOnMO();
   WGCalCleanAllFullView();
 }
  
@@ -179,8 +245,9 @@ function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart, ydivc, ydmin) {
 
 
 
-function DrawRect(x,y,w,h,c) {
-  text = '(x,y,w,h)=('+x+','+y+','+w+','+h+')';
+function DrawRect(x,y,w,h,c,t) {
+  //text = '(x,y,w,h)=('+x+','+y+','+w+','+h+')';
+  text = t;
   nText = document.createElement('div');
   content = document.createTextNode(text);
   nText.appendChild(content);
@@ -190,7 +257,7 @@ function DrawRect(x,y,w,h,c) {
   nText.style.top = y+"px";
   nText.style.width = w+"px";
   nText.style.height = h+"px";
-  nText.style.border = '0px';
+  nText.style.border = '1px solid black';
   document.getElementById(Root).appendChild(nText);
 }
 
@@ -202,6 +269,7 @@ function WGCalComputeCoord() {
   // compute area coord left/top (Xs,Ys) right/bottom (Xe,Ye)
   var os = getAnchorPosition(IdStart);
   var hr = getObjectHeight(document.getElementById(IdStart));
+  var wref = getObjectWidth(document.getElementById(IdStart));
   var oe = getAnchorPosition(IdEnd);
   var w = getObjectWidth(document.getElementById(IdEnd));
   var h = getObjectHeight(document.getElementById(IdEnd));
@@ -213,9 +281,10 @@ function WGCalComputeCoord() {
   Hzone = Ye-Ys;
   Hhdiv = Hzone / Ydivision;
   Wzone = Xe-Xs;
-  Wday = Wzone / XDays;
+  Wday = wref;
   Wevt = Wday;
-  Wshift = Wday / 5;
+  AltCoord.x = 15;
+  AltCoord.y = Hzone - 15;
  
   PixelByMinute = (hr - gamma) / YDivMinute;
 //   DrawRect(os.x,os.y,w,(hr-gamma),'yellow');
@@ -285,9 +354,6 @@ function WGCalAddDaylyEvent(evtid, dstart, dend, daystart, dayend, day, clone)
       evt.end = Days[day].vend;  
     }
   }
-//   tmpd   = GetTimeInfoFromTs(evt.start);
-//   tmpe   = GetTimeInfoFromTs(evt.end);
-//   alert('Début day:'+tmpd.day+' h:'+tmpd.hours+' m:'+tmpd.minutes+'\nFin   day:'+tmpe.day+' h:'+tmpe.hours+' m:'+tmpe.minutes);
 
   pstart   = GetCoordFromDate(evt.start);
   pend     = GetCoordFromDate(evt.end);
@@ -297,8 +363,10 @@ function WGCalAddDaylyEvent(evtid, dstart, dend, daystart, dayend, day, clone)
   evt.x = pstart.x;
   evt.y = pstart.y;
   evt.h = pend.y - pstart.y;
-  evt.w = Wevt;
-  evt.s = 0;
+  evt.w = Wday;
+  evt.s = -1;
+  evt.pos = 1;
+  evt.displayed = false;
   evt.clone = clone; // Clone number
   Days[day].ev[cEv] = evt;
 
@@ -307,37 +375,112 @@ function WGCalAddDaylyEvent(evtid, dstart, dend, daystart, dayend, day, clone)
   
 
 function WGCalSortEventInDay( e1, e2) {
+  if (e1.y == e2.y) return e2.h - e1.h;
   return e1.y - e2.y;
+}
+
+
+
+function WGCalComputeDayLine(day) {
+
+  evs = Days[day].ev.sort(WGCalSortEventInDay);
+  var r = new Array();
+
+  if (evs.length==0) return;
+
+  // compute ranges
+  for (i=0; i<evs.length; i++) {
+    ir = -1;
+    y = evs[i].y;
+    h = y + evs[i].h;
+    for (irv=0; irv<r.length && ir==-1; irv++) {
+      if (y>=r[irv].ymin && h<=[irv].ymax) ir=irv;
+    }
+    if (ir==-1) {
+      irx = r.length;
+      r[irx] = new Object();
+      r[irx].count = 1;
+      r[irx].ymin = y;
+      r[irx].ymax = h;
+      r[irx].evs = new Array();
+    }
+  }
+  // for each range search evs are into
+  for (i=0; i<evs.length; i++) {
+    y = evs[i].y;
+    h = y + evs[i].h;
+    for (irv=0; irv<r.length && ir==-1; irv++) {
+      if (Intersect(y, h, r[irv].ymin, r[irv].ymax)) {
+	r[irv].evs[r[irv].evs.length] = i;
+      }
+    }
+  }
+//   for (irv=0; irv<r.length && ir==-1; irv++) {
+//     t='['+irv+']';
+//     for (e=0; e<r[irv].evs.length; e++) t += r[irv].evs[e]+' ';
+//     DrawRect(400+irv*10,r[irv].ymin,50,(r[irv].ymax-r[irv].ymin),'red',t);
+//   }
+
+     
+  s = '';
+  for (i=0; i<evs.length; i++) {
+    c = 0;
+    y = evs[i].y;
+    h = y + evs[i].h;
+    evs[i].pos = -1;
+    evs[i].count = -1;
+    for (irv=0; irv<r.length; irv++) {
+      f = false;
+      for (e=0; e<r[irv].evs.length && !f; e++) {
+// 	if (r[irv].ymin==y && r[irv].ymax==h) continue;
+	if (r[irv].evs[e] == i) {
+	  if (evs[i].count==-1 || r[irv].evs.length>evs[i].count) {
+	    f = true;
+	    evs[i].count = r[irv].evs.length;
+	    evs[i].pos = e;
+	  }
+	}
+      }
+    }
+    s += WGCalPrintAnEvent(evs[i])+'\n';
+  }
+  //alert(s);
+
+  return evs;    
+
 }
   
 
+
+
 function WGCalComputeDay(day) {
-  dEvent = Days[id].ev.sort(WGCalSortEventInDay);
+  
+  dEvent = Days[day].ev.sort(WGCalSortEventInDay);
+  
   for (i=0; i<dEvent.length; i++) {
-    var rs_x = dEvent[i].x;
-    var rs_y = dEvent[i].y;
-    var re_x = dEvent[i].x + dEvent[i].w;
-    var re_y = dEvent[i].y + dEvent[i].h;
-    for (j=1; j<dEvent.length; j++) {
-      if (dEvent[i].id == dEvent[j].id) continue;
-      var cs_x = dEvent[j].x;
-      var cs_y = dEvent[j].y;
-      var ce_x = dEvent[j].x + dEvent[j].w;
-      var ce_y = dEvent[j].y + dEvent[j].h;
-      if (PtInRect(rs_x,rs_y,re_x,re_y,cs_x,cs_y)) {
-	dEvent[j].s++;
-	if (dEvent[j].s > Days[id].col) {
-	  Days[id].col = dEvent[j].s;
-	}
-      } 
+    for (j=i; j<dEvent.length; j++) {
+      if (i==j) continue;
+      if (Intersect( dEvent[i].y, (dEvent[i].y + dEvent[i].h), dEvent[j].y, (dEvent[j].y + dEvent[j].h))) {
+	dEvent[j].pos = dEvent[i].pos + 1;
+      }
     }
   }
   return dEvent;
 }
+      
+    
+    
+
+function Intersect(asy,aey,bsy,bey) {
+  st = false;
+  if ( (bsy>=asy && bsy<=aey) || (bey>=asy && bey<=aey)) return true;
+  if ( (asy>=bsy && asy<=bey) || (aey>=bsy && aey<=bey)) return true;
+  return st;
+}
 
 function WGCalPrintAnEvent(ev) {
   s = '';
-  s += ' -- Ev['+ev.id+'] (x1,y1),(x2,y2)=('+ ev.x + ',' + ev.y + '),(' + parseInt(ev.x+ev.w) + ',' + parseInt(ev.y+ev.w) + ') s='+ev.s;
+  s += ' -- Ev['+ev.id+'] (x1,y1),(x2,y2)=('+ ev.x + ',' + ev.y + '),(' + parseInt(ev.x+ev.w) + ',' + parseInt(ev.y+ev.w) + ') pos='+ev.pos+ ' count='+ev.count;
   return s;
 
 }
@@ -345,7 +488,7 @@ function WGCalPrintAllEvents() {
   for (id=0; id<XDays; id++) {
     s = 'Day '+id+'\n';
     for (i=0; i<Days[id].ev.length; i++) {
-      s += WGCalPrintAnEvent(Days[id].ev[i]);
+      s += WGCalPrintAnEvent(Days[id].ev[i]) + '\n';
     }
     alert(s)
   }
@@ -358,49 +501,48 @@ function WGCalDisplayAllEvents() {
   var  root = document.getElementById(Root);
   
   foot = 1;
-  head = 5;
-  for (id=0; id<XDays; id++) {
-    
-    dEvent = WGCalComputeDay(id);
-    cShift = Days[id].col;
-    cWidth = (Wday/6) / (cShift);
-    
-    for (i=0; i<dEvent.length; i++) {
+  head = 3;
+  cWidth = Wday - (2*head);
 
-      if (dEvent[i].clone==0) {
-     
-	eE = document.getElementById('evt'+dEvent[i].id); // Event container
-	eH = document.getElementById('evth'+dEvent[i].id); // Header
-	eF = document.getElementById('evtf'+dEvent[i].id); // Footer
-	eA = document.getElementById('evta'+dEvent[i].id); // Abstract
-	eC = document.getElementById('evtc'+dEvent[i].id); // Comment
-	content = dEvent[i].h - foot - head;
+//     WGCalPrintAllEvents();    
+  for (id=0; id<XDays; id++) {
+
+//     dEvent = WGCalComputeDay(id);
+
+    dEvent = WGCalComputeDayLine(id);
+    dEvent = Days[id].ev.sort(WGCalSortEventInDay);
+    
+    for (iev=0; iev<dEvent.length; iev++) {
+
+      cEv = dEvent[iev];
+      if (cEv.clone==0) {
+	eE = document.getElementById('evt'+cEv.id); // Event container
+	eH = document.getElementById('evth'+cEv.id); // Header
+	eF = document.getElementById('evtf'+cEv.id); // Footer
+	eA = document.getElementById('evta'+cEv.id); // Abstract
+	eC = document.getElementById('evtc'+cEv.id); // Comment
+	content = cEv.h - foot - head;
 	root.appendChild(eC);
-	
 	eH.style.height = head+"px";
 	eF.style.height = foot+"px";
 	eA.style.height = content+"px";
-	
       } else {
-
-	etmp = document.getElementById('evt'+dEvent[i].id); 
+	etmp = document.getElementById('evt'+cEv.id); 
 	eE = etmp.cloneNode(true);
       }
-      eE.style.top = dEvent[i].y+"px";
-      eE.style.left = ((dEvent[i].s * cWidth) + dEvent[i].x + 2)+"px";
-      eE.style.width = (dEvent[i].w-(cShift*cWidth))+"px";
-      eE.style.height = dEvent[i].h+"px";
+      eE.style.top = cEv.y+"px";
+//       div = (cEv.count == 1 ? 1 : cEv.count - 1);
+      div = cEv.count;
+     xw = Math.round(cWidth/div);
+      shift = xw * cEv.pos;
+      eE.style.left = parseInt(cEv.x + head + shift) + "px";
+      eE.style.width = xw+"px";
+      eE.style.height = cEv.h+"px";
       eE.style.position = 'absolute';
       eE.style.display = '';
-      
+	
       root.appendChild(eE);
     }
   }
-  
-}
-
-function PtInRect(rx1, ry1, rx2, ry2, px, py) {
-  st = false;
-  if (px>=rx1 && px<rx2 && py>=ry1 && py<ry2) st = true;
-  return st;
+  return;
 }

@@ -1,0 +1,2 @@
+<div  width="100%" class="wMonthTextDayTitle">[daytitle]</div><br>
+[BLOCK HLine]<span style="cursor:pointer" onclick="subwindow(400, 650, 'EditEvent[id]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[id]');" onmouseover="this.style.background='lightgrey'" onmouseout="this.style.background=''">[hours] [title]</span><br>[ENDBLOCK HLine]<br>

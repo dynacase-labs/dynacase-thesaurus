@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.16 2005/02/11 19:51:48 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.17 2005/02/16 09:11:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -103,6 +103,7 @@ function _waitrv(&$action) {
   _seewaitrv($action, $trv);
 
 
+  $action->lay->set("zonealertsize", $action->GetParam("WGCAL_U_ZWRVALERTSIZE", 100));
   $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
   $action->lay->set("alertwrv", "checked");
   if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");

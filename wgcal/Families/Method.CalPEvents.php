@@ -6,6 +6,8 @@ var $eventAttDesc      = "CALEV_TITLE";
 var $eventAttCode      = "RV";
 var $eventFamily       = "EVENT_FROM_CAL";
 
+var $eventRVStatus     = "";
+
 function postModify() {
   $err = $this->setEvent(); //modification de l'événement à chaque modification du producteur
   //print_r2($this);

@@ -16,20 +16,7 @@
 <br>
 
 <!-- search zone -->
-<table class="wToolButton" width="100%" cellspacing="0" cellpadding="0">
-<tr><td>
-<form id="fsearch" target="wgcal_" name="fsearch" method="POST" 
-       onsubmit="subwindow(300, 500, 'Search Result', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH'); document.getElementById('searchphrase').style.color='orange';document.getElementById('searchphrase').value='[TEXT:enter words here]';return false;">
- <input type="text" title="[TEXT:search events containing phrase...]" size="20" id="searchphrase" name="searchphrase" type="hidden" value="([TEXT:enter words here])" style="background:white;color:orange" onfocus="this.value = ''; this.style.color='black';">
- <input type="hidden" id="searchdstart" name="searchdstart" value="-1">
- <input type="hidden" id="searchdend" name="searchdend" value="-1">
- <input type="hidden" id="searchressource" name="searchressource" value="">
-</form>
-</td>
-<td align="right">
-<img id="advsearch" title="[TEXT:advanced search]" onclick="subwindow(300, 500, '[TEXT:advanced search]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ASEARCH');" src="WGCAL/Images/wgcal-search+.png" height="15">
-</td></tr>
-</table>
+[ZONE WGCAL:SEARCH]
 
 <!-- Rendez-vous en attente -->
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
@@ -39,7 +26,7 @@
 </tr>
 </table>
 
-<div id='waitrv' class="wToolArea" style="height:80px; overflow:auto; display:[vTool0]">
+<div id='waitrv' class="wToolArea" style="height:[zonealertsize]px; overflow:auto; display:[vTool0]">
 [BLOCK WAITRV]
 <div id="evt[wrvid]"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="iacceptrv" title="[TEXT:accept event] [wrvtitle]" src="WGCAL/Images/wm-evaccept.png" height="10" onclick="ok=confirm('[TEXT:accept event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 1);"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="irefuserv" title="[TEXT:refuse event] [wrvtitle]" src="WGCAL/Images/wm-evrefuse.png" height="10" onclick="ok=confirm('[TEXT:refuse event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 0);"><span id="wrv[wrvid]" style="[wrvfontstyle] color:[wrvcolor]; background-color:white" title="[wrvfulldescr]"
      onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'"

@@ -104,24 +104,24 @@ TD {
 .WGCAL_Day {
 	border-left: 0px;
 	border-bottom: 1px solid [CORE_BGCOLORHIGH];
- 	border-right: 1px solid [CORE_BGCOLORHIGH];
+ 	border-right: 1px solid #93A3C5;
 }
 .WGCAL_DayWE {
 	border-left: 0px;
 	border-bottom: 1px solid [CORE_BGCOLORHIGH];
- 	border-right: 1px solid [CORE_BGCOLORHIGH];
+ 	border-right: 1px solid #93A3C5;
         background-color : [WGCAL_U_WEDAY];
 }
 .WGCAL_DayCur {
 	border-left: 0px;
 	border-bottom: 1px solid [CORE_BGCOLORHIGH];
- 	border-right: 1px solid [CORE_BGCOLORHIGH];
+  	border-right: 1px solid #93A3C5;
         background-color : [WGCAL_U_CURDAY];
 }
 .WGCAL_DaySelected {
 	border-left: 0px;
 	border-bottom: 1px solid [CORE_BGCOLORHIGH];
- 	border-right: 1px solid [CORE_BGCOLORHIGH];
+	border-right: 1px solid #93A3C5;
         background-color : [WGCAL_U_SELDAY];
 }
 

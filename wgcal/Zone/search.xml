@@ -1,0 +1,13 @@
+<table class="wToolButton" width="100%" cellspacing="0" cellpadding="0">
+<tr><td>
+<form id="fsearch" target="wgcal_" name="fsearch" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH">
+ <input type="text" title="[TEXT:search events containing phrase...]" size="20" id="searchphrase" name="searchphrase" value="([TEXT:enter words here])" style="background:white;color:orange" onfocus="this.value = ''; this.style.color='black';">
+ <input type="hidden" id="searchdstart" name="searchdstart" value="-1">
+ <input type="hidden" id="searchdend" name="searchdend" value="-1">
+ <input type="hidden" id="searchressource" name="searchressource" value="">
+</form>
+</td>
+<td align="right">
+<img id="advsearch" title="[TEXT:advanced search]" onclick="subwindow(300, 500, '[TEXT:advanced search]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ASEARCH');" src="WGCAL/Images/wgcal-search+.png" height="15">
+</td></tr>
+</table>

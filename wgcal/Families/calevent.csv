@@ -28,7 +28,7 @@ ATTR;CALEV_FREQUENCY;CALEV_EVENT;Fréquence;N;N;int;140;W;;;;;
 ;;;;;;;;;;;;;
 ATTR;CALEV_REPEAT;;Répétition;N;N;frame;300;;;;;;
 ATTR;CALEV_REPEATMODE;CALEV_REPEAT;Mode;N;N;enum;310;W;;;-;[hcheck]0|none,1|daily,2|weekly,3|monthly,4|yearly;
-ATTR;CALEV_REPEATWEEKDAY;CALEV_REPEAT;Jour de la semaine;N;N;enum;320;W;;;-;[hcheck]0|Monday,1|Tuesday,2|wenesday,3|thurday,4|Friday,5|Saturday,6|Sunday;
+ATTR;CALEV_REPEATWEEKDAY;CALEV_REPEAT;Jour de la semaine;N;N;enumlist;320;W;;;-;[hcheck]0|Monday,1|Tuesday,2|wenesday,3|thurday,4|Friday,5|Saturday,6|Sunday;
 ATTR;CALEV_REPEATMONTH;CALEV_REPEAT;Jour ou Date;N;N;enum;330;W;;;-;[hcheck]0|by date,1|by day;
 ATTR;CALEV_REPEATUNTIL;CALEV_REPEAT;Répéter jusqu'à;N;N;enum;340;W;;;-;[hcheck]0|infinite,1|date;
 ATTR;CALEV_REPEATUNTILDATE;CALEV_REPEAT;Date;N;N;timestamp;350;W;;;;;
@@ -56,58 +56,6 @@ ATTR;EVFC_REPEATMONTH;EVFC_REPEAT;Jour ou Date;N;N;enum;30;W;;;-;[hcheck]0|by da
 ATTR;EVFC_REPEATUNTIL;EVFC_REPEAT;Répéter jusqu'à;N;N;enum;40;W;;;-;[hcheck]0|infinite,1|date;
 ATTR;EVFC_REPEATUNTILDATE;EVFC_REPEAT;Date;N;N;timestamp;50;W;;;;;
 ATTR;EVFC_EXCLUDEDATE;EVFC_REPEAT;Dates exclues;N;N;timestamp;60;W;;;;;
-;;;;;;;;;;;;;
+ATTR;EVFC_REPEATFREQ;EVFC_REPEATMODE;Fréquence;N;N;int;70;W;;;;;
 END;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-//FAM;recherche événement(DCALENDAR);<specid>;<fldid>;titre;couleur intercalaire;mot-clef;dernière révision;différence majuscule/minuscule;fid amille;dossier racine;profondeur de recherche;requête sql;id dossier père courant;dossier père courant;Conditions;opérateurs logiques;attributs;fonctions;mot-clefs;texte;texte opérateur;id producteur;producteur;famille;famille ressource;ressources;id famille ressources;id ressouce;ressource;couleurs;luminance;trié par;sens du tri;puis par;sens du tri
-ORDER;DCALENDAR;;;ba_title;gui_color;se_key;se_latest;se_case;se_famid;se_idfld;se_sublevel;se_sqlselect;se_idcfld;se_cfld;se_t_detail;se_ols;se_attrids;se_funcs;se_keys;dcal_text;dcal_textop;dcal_idproducer;dcal_producer;se_fam;dcal_fres;dcal_t_res;dcal_idfres;dcal_idres;dcal_res;dcal_coloridx;dcal_luminance;dcal_orderidx1;dcal_orderdesc1;dcal_orderidx2;dcal_orderdesc2
-DOC;DCALENDAR;WG_AGENDA;;Mon agenda;;;yes;;EVENT_FROM_CAL;;;;;;;and;evt_idres;~y;?idres;;~*;;Tous les familles;Evènements calendrier;;;;;;ir;0.6;absx;ASC;;ASC
-DOC;DCALENDAR;WG_DISPO;;Disponibilités;;;;;;?idres;;yes;;;;;select doc1098.* from  doc1098  where   (doctype != 'Z') and (doctype != 'T') and (locked != -1) and (usefor = 'N') and ( evt_idres ~ '\\y()\\y'  ) and ( evt_frominitiatorid = '1038' );;;;and;evt_idres;~y;?idres;;~*;CALEVENT;Rendez-vous;Evènements calendrier;ir;0.6;absx;ASC;;ASC
-BEGIN;0;personne;120;;USER
-TAG;R;;;;
-END;;;;;
-;;;;;
-BEGIN;120;utilisateur;128;;IUSER
-TAG;R;;;;
-END;;;;;
-// ;fromid;titre;id;class;name;;;;;;;;
-BEGIN;0;Salles;;;ROOMS;;;;;;;;
-TYPE;C;;;;;;;;;;;;
-DFLDID;;;;;;;;;;;;;
-WID;;;;;;;;;;;;;
-ICON;rooms.gif;;;;;;;;;;;;
-TAG;R;;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
-ATTR;ROOM_MAIN;;Salle;N;N;frame;10;;;;;;
-ATTR;ROOM_NAME;ROOM_MAIN;Nom;Y;Y;text;20;W;;;;;
-ATTR;ROOM_DESCRIPTION;ROOM_MAIN;Description;N;N;longtext;30;W;;;;;
-;;;;;;;;;;;;;
-ATTR;ROOM_LOCALISATION;;Localisation;N;N;frame;300;;;;;;
-ATTR;ROOM_SITEID;ROOM_LOCALISATION;Site Id;N;N;text;310;H;;;;;
-ATTR;ROOM_SITE;ROOM_LOCALISATION;Site;N;N;text;320;W;;[rooms]%S%app=FDL&action=FDL_CARD&id=%ROOM_SITEID%;fdl.php;lfamilly(D,{SITE},ROOM_SITE):ROOM_SITEID,ROOM_SITE;
-ATTR;ROOM_BUILDING;ROOM_LOCALISATION;Bâtiment;N;N;text;330;W;;;;;
-ATTR;ROOM_FLOOR;ROOM_LOCALISATION;Etage;N;N;int;340;W;;;;;
-ATTR;ROOM_NUMBER;ROOM_LOCALISATION;Numéro;N;N;int;350;W;;;;;
-;;;;;;;;;;;;;
-ATTR;ROOM_INFORMATIONS;;Informations;N;N;frame;500;;;;;;
-ATTR;ROOM_SITTEDPLACES;ROOM_INFORMATIONS;Places assises;N;N;int;510;W;;;;;
-ATTR;ROOM_PHONE;ROOM_INFORMATIONS;Numero de téléphone;N;N;text;520;W;;;;;
-ATTR;ROOM_RESPONSABLE;ROOM_INFORMATIONS;Responsable;N;N;text;530;W;;[rooms]%S%app=FDL&action=FDL_CARD&id=%ROOM_RESPONSABLEID%;fdl.php;lfamilly(D,{IUSER},ROOM_RESPONSABLE):ROOM_RESPONSABLEID,ROOM_RESPONSABLE;
-ATTR;ROOM_RESPONSABLEID;ROOM_INFORMATIONS;Resp Id;N;N;docid;540;H;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-END;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
 ;;;;;;;;;;;;;

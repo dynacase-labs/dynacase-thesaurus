@@ -25,8 +25,8 @@
      </td>
  </tr>    
  <tr height="[WGCAL_U_HLINETITLE]px">
-    <td width="6%" class="WGCAL_Period"></td>[BLOCK DAYS_LINE]<td width="14%" id="D[IDD]" align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]</tr>
-[BLOCK HOURS]<tr height="[HLINEHOURS]px"><td id="L[LID]" width="6%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>[ENDBLOCK HOURS]
+    <td width="[hcolsize]%" class="WGCAL_Period"></td>[BLOCK DAYS_LINE]<td id="D[IDD]" width="[colsize]%" align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]</tr>
+[BLOCK HOURS]<tr height="[HLINEHOURS]px"><td id="L[LID]" width="[hcolsize]%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>[ENDBLOCK HOURS]
 </table>[ZONE WGCAL:WGCAL_INFOS]</div>
 
 <form target="wgcal_calhidden" style="display:none" id="textform" method="POST">
@@ -35,7 +35,10 @@
 <input id="itext" type="text" style="background:lightblue; border:1px inset;" onsubmit="viewNewText(event);" onBlur="viewNewText(event);">
 </form>
 
-[BLOCK EVENTS][ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&ref=[REF]][ENDBLOCK EVENTS]
+[BLOCK EVENTS]
+[ZONE [RESUME]?ev=[ID]&ref=[REF]]
+[ZONE [VIEW]?ev=[ID]&ref=[REF]]
+[ENDBLOCK EVENTS]
 
 
 <script type="text/javascript"> 
@@ -47,6 +50,9 @@ Days[[iday]].vstart = [vstart];
 Days[[iday]].vend   = [vend];  
 Days[[iday]].col    = 1;  
 Days[[iday]].ev = new Array();[ENDBLOCK DAYS]
+
+AltIsFixed = '[ALTFIXED]';
+AltTimerValue = '[ALTTIMER]';
 WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
 
 [BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END]);

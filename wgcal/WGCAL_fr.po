@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-11 20:49+0100\n"
+"POT-Creation-Date: 2005-02-16 09:15+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -49,11 +49,17 @@ msgstr "Heure de fin de la journée"
 msgid "hour division"
 msgstr "Division de l'heure"
 
+msgid "calendar view"
+msgstr "Vue agenda"
+
 msgid "tool display state"
 msgstr "Etat d'affiche de l'outil"
 
 msgid "alert for new event ?"
 msgstr "me prévenir pour les évènements en attente"
+
+msgid "new event zone size"
+msgstr "Hauteur de la zone des évènements en attente"
 
 msgid "my event color"
 msgstr "Modifier la couleur de mes évènements"
@@ -70,9 +76,14 @@ msgstr ""
 msgid "use displayed ressource for event setting"
 msgstr "Utiliser les ressources pour les rendez-vous"
 
-#, fuzzy
-msgid "ev head color"
-msgstr "Modifier la couleur de mes évènements"
+msgid "show icons in resume"
+msgstr "Afficher les icones et les heures sur l'agenda"
+
+msgid "alt postion is fixed"
+msgstr "Position des popup fixe"
+
+msgid "alt display timer"
+msgstr "Délai avant affichage du popup"
 
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
@@ -143,12 +154,8 @@ msgstr "Sélectionner la ressource pour l'affichage"
 msgid "init ressource selection"
 msgstr "Réinitialiser la liste des ressources"
 
-msgid "calendar view"
-msgstr "Vue agenda"
-
-#, fuzzy
 msgid "month text"
-msgstr "vue mensuelle"
+msgstr "Vue mensuelle texte"
 
 msgid "calendar creation"
 msgstr "Sélection du calendrier"
@@ -157,49 +164,13 @@ msgid "Enter new calendar name"
 msgstr "Nom du calendrier"
 
 msgid "enter new calendar name"
-msgstr "entrer ici le nom du calendrier"
+msgstr "Entrer ici le nom du calendrier"
 
 msgid "create calendar"
-msgstr "création d'un calendrier"
+msgstr "Création d'un calendrier"
 
 msgid "freedom groupware calendar"
 msgstr "Agenda de groupe Freedom"
-
-msgid "add new event"
-msgstr "Ajout d'un nouveau rendez-vous"
-
-msgid "add new call"
-msgstr "Ajout d'un nouvel appel"
-
-msgid "add todo"
-msgstr "Ajout d'une nouvelle tâche"
-
-msgid "one week view"
-msgstr "Une semaine"
-
-msgid "two week view"
-msgstr "Deux semaines"
-
-msgid "enter words here"
-msgstr "entrer les mots recherchés"
-
-msgid "search events containing phrase..."
-msgstr "rechercher les évènements contenant"
-
-msgid "advanced search"
-msgstr "Recherche avancée"
-
-msgid "print this view"
-msgstr "Imprimer l'agenda"
-
-msgid "add a calendar"
-msgstr "Ajout d'un calendrier"
-
-msgid "change preferences"
-msgstr "Modifier les préférences"
-
-msgid "print view"
-msgstr "imprimer"
 
 msgid "prev period"
 msgstr "Période précédente"
@@ -213,32 +184,17 @@ msgstr "Période suivante"
 msgid "week"
 msgstr "Semaine"
 
-msgid "week view"
-msgstr "vue semaine"
-
-msgid "month view"
-msgstr "vue mensuelle"
-
-msgid "month text view"
-msgstr "vue mensuelle text"
-
 msgid "change hours division"
 msgstr "Division de l'heure"
 
 msgid "view/hide week-end"
-msgstr "afficher / cacher les week-end"
+msgstr "Afficher / cacher les week-end"
 
 msgid "searched families"
 msgstr "Rechercher dans les familles..."
 
 msgid "search"
 msgstr "Rechercher"
-
-msgid "save"
-msgstr "Sauver"
-
-msgid "close"
-msgstr "Fermer"
 
 msgid "mail to contacts"
 msgstr "Envoyer un mail aux personnes conviées"
@@ -248,6 +204,9 @@ msgstr "Imprimer"
 
 msgid "delete"
 msgstr "Supprimer"
+
+msgid " delete this event"
+msgstr "Supprimer le rendez-vous"
 
 msgid "set event"
 msgstr ""
@@ -301,7 +260,7 @@ msgid "confirm delete all attendees"
 msgstr "confirmez la suppression de toutes les personnes conviées"
 
 msgid "delete all attendees"
-msgstr "la suppression de toutes les personnes conviées"
+msgstr "Suppression de toutes les personnes conviées"
 
 msgid "one ressource or you in event"
 msgstr "Utiliser les ressources pour les rendez-vous"
@@ -378,6 +337,15 @@ msgstr "Ajouter un jour à exclure"
 msgid "del selected dates"
 msgstr "Supprimer les jours sélectionnés"
 
+msgid "save"
+msgstr "Sauver"
+
+msgid "cancel"
+msgstr "Annuler"
+
+msgid " cancel modifications"
+msgstr "Annuler les éventuelles modifications"
+
 msgid "search phrase"
 msgstr "Texte recherché"
 
@@ -450,20 +418,32 @@ msgstr "Mes tâches"
 msgid "found ressources"
 msgstr "Ressources trouvées"
 
-msgid " save before closing"
-msgstr "Sauver"
-
-msgid " delete this event"
-msgstr "Supprimer le rendez-vous"
-
 msgid " ressource list changed, save it ?"
 msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
 
-msgid "event"
-msgstr "Evènement"
+msgid "week view"
+msgstr "Une semaine"
+
+msgid "two week view"
+msgstr "Deux semaines"
+
+msgid "month text view"
+msgstr "Vue mensuelle texte"
+
+msgid "print view"
+msgstr "imprimer"
+
+msgid "change preferences"
+msgstr "Modifier les préférences"
+
+msgid "my calendars"
+msgstr "Mes calendriers"
+
+msgid "freeevent app name"
+msgstr ""
 
 msgid "repeat"
 msgstr "répétition"
@@ -477,11 +457,14 @@ msgstr "modifié le"
 msgid "note"
 msgstr "Note"
 
-msgid "my calendars"
-msgstr "Mes calendriers"
+msgid "search events containing phrase..."
+msgstr "rechercher les évènements contenant"
 
-msgid "freeevent app name"
-msgstr ""
+msgid "enter words here"
+msgstr "entrer les mots recherchés"
+
+msgid "advanced search"
+msgstr "Recherche avancée"
 
 msgid "monday"
 msgstr "Lundi"
@@ -558,6 +541,40 @@ msgstr "à confirmer"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"
+
+#~ msgid "close"
+#~ msgstr "Fermer"
+
+#~ msgid " save before closing"
+#~ msgstr "Sauver"
+
+#, fuzzy
+#~ msgid "ev head color"
+#~ msgstr "Modifier la couleur de mes évènements"
+
+#~ msgid "add new event"
+#~ msgstr "Ajout d'un nouveau rendez-vous"
+
+#~ msgid "add new call"
+#~ msgstr "Ajout d'un nouvel appel"
+
+#~ msgid "add todo"
+#~ msgstr "Ajout d'une nouvelle tâche"
+
+#~ msgid "one week view"
+#~ msgstr "Une semaine"
+
+#~ msgid "print this view"
+#~ msgstr "Imprimer l'agenda"
+
+#~ msgid "add a calendar"
+#~ msgstr "Ajout d'un calendrier"
+
+#~ msgid "month view"
+#~ msgstr "vue mensuelle"
+
+#~ msgid "event"
+#~ msgstr "Evènement"
 
 #~ msgid "thurday"
 #~ msgstr "Jeudi"

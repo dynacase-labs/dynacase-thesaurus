@@ -1,4 +1,8 @@
 
+var $ZoneEvtAbstract =  "WGCAL:CALEV_ABSTRACT";
+var $ZoneEvtCard =  "WGCAL:CALEV_CARD";
+
+
 // function explodeEvt($d1, $d2) {
 // }
 

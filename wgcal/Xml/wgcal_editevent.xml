@@ -24,19 +24,14 @@
 <span style="cursor:pointer" margin:0px; padding:0px" id="sp[iState]" onclick="clickB2('cbstate[iState]'); setStatus([vState], '[cState]');" style="cursor:pointer" onmouseover="this.style.background='[cState]'" onmouseout="this.style.background=''">[tState] <input onclick="clickB2('cbstate[iState]'); setStatus([vState], '[cState]')" type="radio" id="cbstate[iState]" name="evstatus" value="[vState]" [sState] [rState]></span>
 [ENDBLOCK STATUSZ]</span></td>
 <td align="right">
-<img src="WGCAL/Images/wm-save.png" 
-  height="20" title="[TEXT:save]" class="WGCalAction" onclick="saveEvent();">
-<img src="WGCAL/Images/wm-close.png" 
-  height="20" title="[TEXT:close]" class="WGCalAction" onclick="cancelEvent();">
 [BLOCK EMPTY][nop]&nbsp;&nbsp;
 <a href="mailto:[mailadd]"><img src="WGCAL/Images/wm-mail.png" 
   height="20" title="[TEXT:mail to contacts]" class="WGCalAction" style="border:0px"></a>
 <img src="WGCAL/Images/wm-print.png" 
   height="20" title="[TEXT:print]" class="WGCalAction" onclick="window.print();">
 <img src="WGCAL/Images/wm-delete.png" 
-  height="20" title="[TEXT:delete]" class="WGCalAction" onclick="deleteEvent();">
+  height="20" title="[TEXT:delete]" class="WGCalAction" onclick="deleteEvent('[TEXT: delete this event]');">
 [ENDBLOCK EMPTY]
-
 </td></tr></table>
 
 
@@ -366,6 +361,16 @@ Calendar.setup(
 
 </div> <!-- end of repeat zone -->
 
+</fieldset>
+
+
+<table width="100%" style="margin-top: 0em;">
+<tr><td align="right">
+<img src="WGCAL/Images/wm-save.png" 
+  height="20" title="[TEXT:save]" class="WGCalAction" onclick="saveEvent();">
+<img src="WGCAL/Images/wm-close.png" 
+  height="20" title="[TEXT:cancel]" class="WGCalAction" onclick="cancelEvent('[TEXT: cancel modifications]');">
+</td></tr></table>
 
 
 <script type="text/javascript">
@@ -377,6 +382,8 @@ document.getElementById('rvtitle').focus();
 </script>
 
 </form>
+
+
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]
  

@@ -9,6 +9,9 @@ function wgcal_textmonth(&$action)
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
 
+  $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
+  $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
+
   $dayperline  = 7;
   $line = 5;
 
@@ -81,18 +84,15 @@ function wgcal_textmonth(&$action)
 	  for ($ie=0; $ie<=$tdays[$cday]->ecount; $ie++) {
 	    $ievent = $tdays[$cday]->events[$ie]["ID"];
 	    $ev = new Doc($dbaccess, $ievent);
-            $s = "...";
-            if ($tdays[$cday]->events[$ie]["START"]>0) 
-              $s = strftime("%H:%M",$tdays[$cday]->events[$ie]["START"]);
-            $e = "...";
-            if ($tdays[$cday]->events[$ie]["END"]>0) 
-              $e = strftime("%H:%M",$tdays[$cday]->events[$ie]["END"]);
-            $sep = ($s=="..." && $e=="..." ? "" : "-" );
-            $st = ($s!="" && $e!="" ? ": " : "" );
-	    $d[$ie]["hours"] = $s . $sep. $e;
+	    $d[$ie]["hours"] = "";
+            if ($tdays[$cday]->events[$ie]["START"]>0) $s = strftime("%H:%M",$tdays[$cday]->events[$ie]["START"]);
+            else $s = $hstart."H00";
+            if ($tdays[$cday]->events[$ie]["END"]>0) $e = strftime("%H:%M",$tdays[$cday]->events[$ie]["END"]);
+            else $e = $hstop."H00";
+	    $d[$ie]["hours"] = "[".$s."-".$e."]";
 	    $d[$ie]["title"] = $st.$tdays[$cday]->events[$ie]["TITLE"];
 	    $d[$ie]["id"] = $tdays[$cday]->events[$ie]["ID"];
-	  }
+          }
 	}
 	$h->SetBlockData("HLine", $d);
 	$hday[$li]["line"] .= "<td class=\"wMonthTextTD\">".$h->gen()."</td>";

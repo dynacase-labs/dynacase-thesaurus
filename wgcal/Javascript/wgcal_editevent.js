@@ -295,14 +295,13 @@ function saveEvent() {
   return false;
 }
 
-function cancelEvent() {
-  ok = confirm('[TEXT: save before closing]'); 
-  if (ok) saveEvent();
-  self.close();
+function cancelEvent(text) {
+  ok = confirm(text); 
+  if (ok) self.close();
 }
 
-function deleteEvent() {
-  ok = confirm('[TEXT: delete this event]'); 
+function deleteEvent(text) {
+  ok = confirm(text); 
   if (!ok) return;
   var fs = document.getElementById('deleteevent');
   fs.submit();
