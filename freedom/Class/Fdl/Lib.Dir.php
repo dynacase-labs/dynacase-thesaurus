@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.98 2004/12/28 17:02:37 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.99 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -603,7 +603,14 @@ function hasChildFld($dbaccess, $dirid,$issearch=false) {
 
 
 
-// --------------------------------------------------------------------
+/**
+ * return families with the same usefor
+ * @param string $dbaccess database specification
+ * @param int $userid identificator of the user
+ * @param int $classid the reference family to find by usefor (if 0 all families) can be an array of id
+ * @param string $qtype  [TABLE|LIST] use TABLE if you can because LIST cost too many memory
+ * @return array the families
+ */
 function GetClassesDoc($dbaccess,$userid,$classid=0,$qtype="LIST")
      // --------------------------------------------------------------------
 {
@@ -612,14 +619,21 @@ function GetClassesDoc($dbaccess,$userid,$classid=0,$qtype="LIST")
   
   $query->AddQuery("doctype='C'");
   
-  if ($classid >0 ) {
+  if (is_array($classid)) {
+    foreach ($classid as $fid) {
+      $tcdoc = getTDoc($dbaccess, $fid);
+      $use[]=$tcdoc["usefor"];          
+    }
+    $query->AddQuery(GetSqlCond($use,"usefor"));  
+  } else  if ($classid >0 ) {
     $cdoc = new DocFam($dbaccess, $classid);
     $query->AddQuery("usefor = '".$cdoc->usefor."'");
   }
   
   
-  $query->AddQuery("hasviewprivilege(".$userid.",docfam.profid)");
+  if ($userid > 1) $query->AddQuery("hasviewprivilege(".$userid.",docfam.profid)");
   $query->order_by="lower(title)";
+
   return $query->Query(0,0,$qtype);
 }
 

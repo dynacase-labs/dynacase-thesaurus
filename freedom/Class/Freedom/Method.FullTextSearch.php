@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Method.FullTextSearch.php,v 1.7 2004/10/20 17:10:30 marc Exp $
+ * @version $Id: Method.FullTextSearch.php,v 1.8 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,11 +38,11 @@ function editftsearch() {
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
 
   $this->lay->set("selfam","");
-  $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id);
+  $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,0,"TABLE");
   while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"] = $cdoc->initid;
-    $selectclass[$k]["classname"] = $cdoc->title;
-    if ($cdoc->initid == $this->se_famid) {
+    $selectclass[$k]["idcdoc"] = $cdoc["initid"];
+    $selectclass[$k]["classname"] = $cdoc["title"];
+    if ($cdoc["initid"] == $this->se_famid) {
       $selectclass[$k]["selected"]="selected";
       $this->lay->set("selfam",$this->se_famid);
     } else {

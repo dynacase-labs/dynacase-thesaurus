@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_editimport.php,v 1.4 2004/03/17 17:33:07 eric Exp $
+ * @version $Id: freedom_editimport.php,v 1.5 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_editimport.php,v 1.4 2004/03/17 17:33:07 eric Exp $
+// $Id: freedom_editimport.php,v 1.5 2005/02/08 11:34:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_editimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,15 +59,14 @@ function freedom_editimport(&$action) {
   $query->AddQuery("doctype='C'");
 
   $selectclass=array();
-  if ($classid == 0) $classid=$tclassdoc[0]->initid;
 
   $doc = new Doc($dbaccess, $classid);
-  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid);
+  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
 
   while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
-    if ($cdoc->initid == $classid) $selectclass[$k]["selected"]="selected";
+    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
+    if ($cdoc["initid"] == $classid) $selectclass[$k]["selected"]="selected";
     else $selectclass[$k]["selected"]="";
   }
 

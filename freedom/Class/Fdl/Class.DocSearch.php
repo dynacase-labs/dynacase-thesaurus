@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.22 2005/01/14 17:53:55 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.23 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -155,15 +155,15 @@ Class DocSearch extends PDocSearch {
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/edittable.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
   $famid=$this->getValue("se_famid");
-  $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id);
+  $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,0,"TABLE");
 
   $this->lay->set("selfam",_("no family"));
   while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
-    if ($cdoc->initid == $famid) {
+    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
+    if ($cdoc["initid"] == $famid) {
       $selectclass[$k]["selected"]="selected";
-      $this->lay->set("selfam",$cdoc->title);
+      $this->lay->set("selfam",$cdoc["title"]);
     } else $selectclass[$k]["selected"]="";
   }
   

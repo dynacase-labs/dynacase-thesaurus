@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.32 2005/01/18 18:17:55 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.33 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -294,14 +294,14 @@ function editdsearch() {
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/edittable.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
 
-  $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id);
+  $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,0,"TABLE");
 
   while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
-    if ($cdoc->initid == $famid) {
+    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
+    if ($cdoc["initid"] == $famid) {
       $selectclass[$k]["selected"]="selected";
-      $this->lay->set("selfam",$cdoc->title);
+      $this->lay->set("selfam",$cdoc["title"]);
     } else $selectclass[$k]["selected"]="";
   }
   $this->lay->Set("dirid",$dirid);

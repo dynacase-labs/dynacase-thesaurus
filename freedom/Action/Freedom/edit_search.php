@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: edit_search.php,v 1.6 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: edit_search.php,v 1.7 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: edit_search.php,v 1.6 2003/08/18 15:47:03 eric Exp $
+// $Id: edit_search.php,v 1.7 2005/02/08 11:34:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/edit_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,11 +54,11 @@ function edit_search(&$action) {
   $action->lay->Set("dirid", $dir);
   
 
-  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id);
+  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,0,"TABLE");
 
   while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
+    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
   }
   
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);

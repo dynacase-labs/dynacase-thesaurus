@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: defattr.php,v 1.20 2004/09/09 12:57:23 eric Exp $
+ * @version $Id: defattr.php,v 1.21 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.20 2004/09/09 12:57:23 eric Exp $
+// $Id: defattr.php,v 1.21 2005/02/08 11:34:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -66,10 +66,10 @@ function defattr(&$action)
     if (($docid == 0) && ($classid > 0)) $doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
 
   $selectclass=array();
-  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid);
+  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
   while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->id;
-    $selectclass[$k]["classname"]=$cdoc->title;
+    $selectclass[$k]["idcdoc"]=$cdoc["id"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
     $selectclass[$k]["selected"]="";
   }
 

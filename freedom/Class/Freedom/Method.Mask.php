@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.10 2004/09/22 16:16:39 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.11 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.10 2004/09/22 16:16:39 eric Exp $
+// $Id: Method.Mask.php,v 1.11 2005/02/08 11:34:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -191,10 +191,10 @@ function editmask() {
   $tneedeeds=$this->getNeedeeds();
   
   $selectclass=array();
-  $tclassdoc = GetClassesDoc($this->dbaccess, $this->userid);
+  $tclassdoc = GetClassesDoc($this->dbaccess, $this->userid,0,"TABLE");
   while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->id;
-    $selectclass[$k]["classname"]=$cdoc->title;
+    $selectclass[$k]["idcdoc"]=$cdoc["id"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
     $selectclass[$k]["selected"]="";
   }
 

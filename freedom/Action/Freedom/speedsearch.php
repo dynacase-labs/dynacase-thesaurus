@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: speedsearch.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: speedsearch.php,v 1.3 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: speedsearch.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+// $Id: speedsearch.php,v 1.3 2005/02/08 11:34:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/speedsearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,11 +71,11 @@ function speedsearch(&$action) {
     $action->lay->SetBlockData("SELECTPREFCLASS", $selectclass);
   }
 
-  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,1);
+  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");
 
   while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
+    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
   }
   
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);

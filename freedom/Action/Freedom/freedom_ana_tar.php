@@ -3,7 +3,7 @@
  * View imported tar
  *
  * @author Anakeen 2004
- * @version $Id: freedom_ana_tar.php,v 1.3 2004/09/29 08:16:53 eric Exp $
+ * @version $Id: freedom_ana_tar.php,v 1.4 2005/02/08 11:34:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -75,22 +75,22 @@ function analyze_tar(&$action,$selfile) {
   $selectclass=array();
 
   $doc = new Doc($dbaccess, $classid);
-  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$famid);
+  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,0,"TABLE");
 
   foreach ($tclassdoc as $k=>$cdoc) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
-    if ($cdoc->initid == $famid) $selectclass[$k]["selected"]="selected";
+    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
+    if ($cdoc["initid"] == $famid) $selectclass[$k]["selected"]="selected";
     else $selectclass[$k]["selected"]="";
   }
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);
+  
+  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,2,"TABLE");
   foreach ($tclassdoc as $k=>$cdoc) {
-    if (in_array(2,$cdoc->attributes->fromids)) {
-      $selectfld[$k]["idcdoc"]=$cdoc->initid;
-      $selectfld[$k]["classname"]=$cdoc->title;
-      if ($cdoc->initid == $dfldid) $selectfld[$k]["selected"]="selected";
-      else $selectfld[$k]["selected"]="";
-    }
+      $selectfld[$k]["idcdoc"]=$cdoc["initid"];
+      $selectfld[$k]["classname"]=$cdoc["title"];
+      if ($cdoc["initid"] == $dfldid) $selectfld[$k]["selected"]="selected";
+      else $selectfld[$k]["selected"]="";    
   }
 
   $action->lay->SetBlockData("SELECTDFLD", $selectfld);
