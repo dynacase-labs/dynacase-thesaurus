@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.104 2003/03/26 10:46:16 eric Exp $
+// $Id: Class.Doc.php,v 1.105 2003/03/26 17:20:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.104 2003/03/26 10:46:16 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.105 2003/03/26 17:20:26 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -162,7 +162,7 @@ create unique index i_docir on doc(initid, revision);";
       // controlled will be set explicitly
       //$this->SetControl();
 
-      if ($this->revision == 0) {
+      if (($this->revision == 0) && ($this->doctype != "T")) {
 	// increment family sequence
 	$this->nextSequence();
       }
@@ -280,7 +280,16 @@ create unique index i_docir on doc(initid, revision);";
     return (($this->doctype == 'F') && ($this->usefor != 'P'));
   }
  
-
+  // copy values from anothers document (must be same family or descendant)
+  function transfertValuesFrom(&$from) {
+    
+    $values = $from->getValues();
+    
+    reset($values);
+    while(list($k,$v) = each($values)) {
+      $this->setValue($k,$v);
+    }
+  }
   // convert to another family
   function convert($fromid) {
     
@@ -944,6 +953,26 @@ create unique index i_docir on doc(initid, revision);";
     }      
   }
 
+  // return the related value by linked attributes
+  function GetRValue($RidAttr, $def="")  {      
+    
+    $tattrid = explode(":",$RidAttr);
+    $lattrid=array_pop($tattrid);
+
+    $doc=$this;
+    while(list($k,$v) = each($tattrid)) {
+      $docid= $doc->getValue($v);
+
+      if ($docid == "") return $def;
+      $doc = new Doc($this->dbaccess, $docid);
+      if (! $doc->isAlive())  return $def;
+
+    }
+      
+    return $doc->getValue($lattrid, $def);
+
+
+  }
   
   function DeleteValue($attrid) {
     return $this->SetValue($attrid," ");
