@@ -6,7 +6,7 @@ $app_desc= array (
 "short_name"	=>N_("workgroup calendar"),                 //Short name
 "description"	=>N_("workgroup calendar"),  //long description
 "access_free"	=>"N",                    //Access type (ALL,RESTRICT)
-"icon"		=>"wgcal.gif",             //Icon
+"icon"		=>"wgcal.png",             //Icon
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
 "displayable"	=>"Y"                    //Should be displayed on an app list
 );

@@ -543,6 +543,7 @@ TD {
   position: absolute;
   visibility: hidden;
   text-decoration: none;
+  font-size: [WTH_FONTSIZE_SMALL]px;
   z-index:10;
 }
 @media print {

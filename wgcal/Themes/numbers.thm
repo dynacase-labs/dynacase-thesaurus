@@ -1,0 +1,29 @@
+<?php
+
+include_once("WGCAL/Themes/default.thm");
+
+$theme->Name   = _("numbers");
+$theme->Descr  = _("numbers theme");
+
+$theme->WTH_BGIMG                 =  "url('WGCAL/Images/bg-numbers.png')";
+
+$theme->WTH_TEXTCOLOR_1           =  "#5B5D5D";  // Foncé
+$theme->WTH_TEXTCOLOR_2           =  "#E8EDED";    // Clair
+
+$theme->WTH_COLOR_1               =  "#E5EAEA";  // Clair
+$theme->WTH_COLOR_2               =  "#B8BCBC";  // Moyen
+$theme->WTH_COLOR_3               =  "#505252";  // Foncé
+$theme->WTH_ALERT                 =  "red";
+
+// Calendar specific colors
+$theme->WTH_CALWEEKEND            =  "#F0E8FF";
+$theme->WTH_CALTODAY              =  "#eef4f9";
+
+
+$theme->WTH_FONTLIST              =  "Arial, Tahoma, Helvetica, sans-serif";
+$theme->WTH_FONTSIZE_NORMAL       =  "10";
+$theme->WTH_FONTSIZE_BIG          =  "10";
+$theme->WTH_FONTSIZE_SMALL        =  "7";
+
+$theme->WTH_TOOLBARW              =  "200";
+?>

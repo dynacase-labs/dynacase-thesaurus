@@ -266,19 +266,11 @@ function  deleteAttendee(aid) {
     vdispo.style.display = '';
     vdelall.style.display = '';
     document.getElementById('vnatt').style.display = '';
-//     document.getElementById('spall').style.visibility = 'visible';
   } else {
-    document.getElementById('bpress').checked = false;
-    document.getElementById('press').style.background = '';
-    document.getElementById('press').style.display = '';
-    document.getElementById('bdress').checked = false;
-    document.getElementById('dress').style.background = '';
-    document.getElementById('dress').style.display = '';
     vress.style.display = 'none';
     vdispo.style.display = 'none';
     vdelall.style.display = 'none';
     document.getElementById('withMe').checked = true;
-//     document.getElementById('spall').style.visibility = 'hidden';
     document.getElementById('vnatt').style.display = 'none';
   }
 }
@@ -477,16 +469,8 @@ function ViewGroup(ev,st) {
 
 function ImportRessources(elt, tress) {
   var i;
-  var ch = document.getElementById(elt);
-  var bch = document.getElementById('b'+elt);
-  if (bch.checked) {
-    bch.checked = false;
-  } else {
-    ch.style.display = 'none';
-    bch.checked = true;
-    for (i=0; i<tress.length; i++) {
-       addRessource(tress[i][0], tress[i][1], tress[i][2], '0', 'nouveau', 'red', true);
-    }
+  for (i=0; i<tress.length; i++) {
+    addRessource(tress[i][0], tress[i][1], tress[i][2], '0', 'nouveau', 'red', true);
   }
 }
 
@@ -523,11 +507,18 @@ function ViewRessourceHelper(idh, url) {
 }
   
 
-function SearchIUser(iuser) {
-  if (iuser=='') return;
-  var fvl = document.getElementById('fgetiuser');
-  var vl = document.getElementById('iusertext');
-  vl.value = iuser;
-  fvl.submit();
+function SearchIUser(evt) {
+  evt = (evt) ? evt : ((event) ? event : null );
+  var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
+  var nitem = document.getElementById('stmptext');
+  if ((cc == 13)  && (nitem.value != "")) {
+    var fvl = document.getElementById('fgetiuser');
+    var val = document.getElementById('iusertext');
+    val.value = nitem.value;
+    fvl.submit();
+    nitem.value = '';
+    return false;
+  }
+  return true;
 }
   

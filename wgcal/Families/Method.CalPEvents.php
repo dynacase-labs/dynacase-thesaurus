@@ -57,7 +57,7 @@ function  setEventSpec(&$e) {
   $e->setValue("EVFC_REJECTATTID", $rejattid);  
 
   // Propagate RV profil to events
-  $e->setProfil($this->dprofid );
+  //$e->setProfil($this->dprofid );
 }
 
 

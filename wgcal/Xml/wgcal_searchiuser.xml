@@ -1,0 +1,5 @@
+<script type="text/javascript">
+[BLOCK RESSLIST]
+top.window.addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attLabel]', '[attColor]', [attSelect]);
+[ENDBLOCK RESSLIST]
+</script>
