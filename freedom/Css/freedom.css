@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.43 2004/03/31 08:49:34 eric Exp $
+ * $Id: freedom.css,v 1.44 2004/06/23 14:21:19 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -406,6 +406,13 @@ TABLE.reportHBlue {
 	background-color: cornflowerblue;
 }
 
+.reportHBlue A{
+	color : #2e67c9; 
+}
+.reportHBlue A:hover{
+        background-color: #a7bee5; 
+        text-decoration: overline underline;
+}
 .reportHBlue TD.tdodd{
 	color : black;
 	empty-cells: show;
@@ -421,6 +428,84 @@ TABLE.reportHBlue {
 	border-width : 1px;
 }
 
+/* report Yellow */
+TABLE.reportHYellow {
+	empty-cells: show;
+	color : black;	
+        -moz-border-radius:25px
+}
+.reportHYellow TR.trodd{
+	background-color: #e8e89d;
+}
+.reportHYellow TR.treven{
+	background-color: #f4f4c3;
+}
+
+.reportHYellow TH{
+	color : black;
+	background-color: #cccc2a;
+}
+.reportHYellow A{
+	color : #d68031; 
+}
+.reportHYellow A:hover{
+        background-color: #f9f92f; 
+        text-decoration: overline underline;
+}
+
+.reportHYellow TD.tdodd{
+	color : black;
+	empty-cells: show;
+	border-color : lightyellow #c1aa11 #c1aa11 lightyellow ;
+	border-style : inset none outset none;
+	border-width : 1px;
+}
+.reportHYellow TD.tdeven{
+	color : black;
+	empty-cells: show;
+	border-color : lightyellow #c1aa11 #c1aa11 lightyellow ;
+	border-style : inset none outset none;
+	border-width : 1px;
+}
+/* report Inverse */
+TABLE.reportHInverse {
+	empty-cells: show;
+	background-color : black;
+        -moz-border-radius:25px
+}
+.reportHInverse TR.trodd{
+	background-color : black;
+	color: #e8e89d;
+}
+.reportHInverse TR.treven{
+	background-color : black;
+	color: #f4f4c3;
+}
+
+.reportHInverse TH{
+	background-color : black;
+	color: #cccc2a;
+}
+.reportHInverse A{
+	color : #d68031; 
+}
+.reportHInverse A:hover{
+        color: #f9f92f; 
+        text-decoration: overline underline;
+}
+
+.reportHInverse TD.tdodd{
+	empty-cells: show;
+	border-color : lightyellow #c1aa11 #c1aa11 lightyellow ;
+	border-style : inset none outset none;
+	border-width : 1px;
+}
+.reportHInverse TD.tdeven{
+	empty-cells: show;
+	border-color : lightyellow #c1aa11 #c1aa11 lightyellow ;
+	border-style : inset none outset none;
+	border-width : 1px;
+}
 /*--------------------------*/
 /* report Col GREEN */
 TABLE.reportVGreen {
@@ -453,4 +538,12 @@ TABLE.reportVGreen {
 	empty-cells: show;
 	border-color : #60d050;
 	background-color: #80f0e0;
+}
+
+.reportVGreen A{
+	color : #2e5e2d; 
+}
+.reportVGreen A:hover{
+        background-color: #84ea81; 
+        text-decoration: overline underline;
 }
