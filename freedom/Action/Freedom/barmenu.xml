@@ -1,5 +1,19 @@
 
 
+<script language="JavaScript1.2">
+function SendSearchId(e,id) {
+
+     var keyCode;
+
+     if (window.event) keyCode=window.event.keyCode;
+     else keyCode = e.which;
+
+     if (keyCode==13) {
+        parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_CARD&latest=Y&id='+id;
+     }
+}
+
+</script>   
 
 <!-- ------------------ BAR MENU ------------------ -->
 <div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;">
@@ -59,6 +73,8 @@
 <div  id="searchmenu" class="popup">
   <a  id="newsearch" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=EDIT_SEARCH&keyword=zz&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:simple]</a>
   <a  id="newsearchfulltext" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=EDIT_SEARCH_FULLTEXT&keyword=zz&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:fulltext]</a>
+  [TEXT:Ref]
+  <input   onmouseup="return false" onmousedown="document.menuclosed=false;this.focus();" onKeyPress="SendSearchId(event,this.value)" type="text" size=6 id="searchid">
 </div>
 
 <!-- ------------ MENU VIEW  --------------------- -->
