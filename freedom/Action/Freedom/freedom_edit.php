@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: freedom_edit.php,v 1.2 2002/04/26 15:20:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -86,6 +86,7 @@ function freedom_edit(&$action) {
       switch ($classid) {
 	case 2:
 	  $action->lay->Set("TITLE", _("new directory"));
+	  $action->lay->Set("refreshfld", "yes");
 	break;
 	case 3:	  
 	case 4:	  

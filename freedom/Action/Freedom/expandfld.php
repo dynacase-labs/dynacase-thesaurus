@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.3 2002/04/24 09:39:45 eric Exp $
+// $Id: expandfld.php,v 1.4 2002/04/26 15:20:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function expandfld(&$action) {
   // ------------------------------------------------------
     // definition of popup menu
       include_once("FDL/popup_util.php");
-  popupInit("popfld", array('vprop','mkdir','export','cancel'));
+  popupInit("popfld", array('vprop','mkdir','export','refresh','cancel'));
   popupInit("poppaste", array('staticpaste','pastelatest','cancel2'));
   $ldir = getChildDir($dbaccess, $doc->id, false,"TABLE");
   $stree = "";
@@ -62,8 +62,13 @@ function expandfld(&$action) {
       popupActive("popfld",$nbfolders,'cancel');
       popupActive("popfld",$nbfolders,'vprop');
       popupActive("popfld",$nbfolders,'export');
-      if ($doc["doctype"] == 'D') popupActive("popfld",$nbfolders,'mkdir');
-      else popupInvisible("popfld",$nbfolders,'mkdir');
+      if ($doc["doctype"] == 'D') {
+	popupActive("popfld",$nbfolders,'mkdir');
+	popupActive("popfld",$nbfolders,'refresh');
+      } else {
+	popupInvisible("popfld",$nbfolders,'mkdir');
+	popupInvisible("popfld",$nbfolders,'refresh');
+      }
       popupActive("poppaste",$nbfolders,'staticpaste');
       popupActive("poppaste",$nbfolders,'pastelatest');
       popupActive("poppaste",$nbfolders,'cancel2');

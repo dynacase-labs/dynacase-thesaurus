@@ -178,7 +178,7 @@ function drawFolder(leftSide)
 
       doc.write("onMouseDown=\"if (drag == 0) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) parent.info.location.href='"+actionviewfile+"&dirid="+this.refid+"'}\"") 
       doc.write("onMouseOver=\"if (drag == 1) clickOnFolder("+this.id+")\"") 
-      doc.write("onContextMenu=\"openMenu(event,'popfld',"+this.id+");return false\"") 
+      doc.write("onContextMenu=\"this.isLoaded=false;openMenu(event,'popfld',"+this.id+");return false\"") 
 
       doc.write("onMouseUp=\"if (drag == 1) {dirid="+this.refid+";selid="+this.id+";openMenu(event,'poppaste',"+this.id+")};return false;\"") 
 	} else {
@@ -218,6 +218,7 @@ function selectFolder(id, refid) {
     selid=id; // selected folder
     window.status="select:"+selid;
   dirid=refid;
+  fldidtoexpand=id;
 
 }
 function outputFolderLink() 
@@ -431,10 +432,11 @@ function clickOnNode(folderId)
     clickedFolder.setState(!state) //open<->close  
 
     if (allinitialized && (! clickedFolder.isLoaded) ) {
+      fldidtoexpand=folderId;
       parent.fldexp.document.location.href=actionexpfld+clickedFolder.refid;
-           fldidtoexpand=folderId;
+           
       
-     clickedFolder.isLoaded=true;
+      clickedFolder.isLoaded=true;
     }
 
 } 

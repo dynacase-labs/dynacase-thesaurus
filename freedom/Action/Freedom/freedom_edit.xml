@@ -24,7 +24,10 @@
   <!--
     [JS:CODE]
 
-
+function refreshfld(dirid) {
+   if ((dirid > 0) && ('[refreshfld]'=='yes'))
+   parent.fldexp.document.location.href='[CORE_STANDURL]&app=FREEDOM&action=EXPANDFLD&dirid='+dirid;
+}
 
   //-->
    </script>   
@@ -43,7 +46,13 @@
 
 
 <!-- Title Table -->
-<form  id="fedit" target="doc_properties" class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
+<form  id="fedit" 
+       target="doc_properties" 
+       class="fborder" 
+       name="modifydoc" 
+       onsubmit="setTimeout('refreshfld([dirid])',20)",
+       method="POST" ENCTYPE="multipart/form-data" 
+       action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
 
    
 <table class="tableborder"  cellspacing="0" width="100%">

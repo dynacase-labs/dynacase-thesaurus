@@ -224,8 +224,11 @@ function floatMenu () {
     onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld');return false">[TEXT:Properties] </a>
 <a id="export" href="#" onclick="this.href='[CORE_STANDURL]&app=FDL&action=EXPORTFLD&id='+dirid">[TEXT:Export] </a>
 <a href="#" id="mkdir"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'doc_properties');closeMenu('popfld');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'info');closeMenu('popfld');return false">
 [TEXT:Create subfolder]</a>
+<a href="fldexp" id="refresh"     
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EXPANDFLD&dirid='+dirid,'fldexp');closeMenu('popfld');return false">
+[TEXT:Refresh folder]</a>
 <a href="#" id="cancel"  
     onClick="closeMenu('popfld');return false"  >[TEXT:cancel]</a>
 </div>

@@ -27,8 +27,23 @@
   <!--
 
      var fldtop =parent.ffolder.indexOfEntries[parent.ffolder.fldidtoexpand];
-     var BeginnEntries;
-    BeginnEntries=parent.ffolder.indexOfEntries.length;
+
+  //   var nch=fldtop.nChildren;
+  //   for (i=0; i < nch; i++){ 
+  //     if (fldtop.children[i].navObj) //is a folder 
+  //        parent.ffolder.document.getElementById('bodyid').removeChild(fldtop.children[i].navObj);
+  //   } 
+
+  
+  if (fldtop.nChildren > 0) {
+    // necessary when refresh folder
+    fldtop.setState(false);// set old html child invisible
+    fldtop.nChildren=0;    // remove old child 
+    fldtop.setState(true);
+  }
+
+   var BeginnEntries;
+   BeginnEntries=parent.ffolder.indexOfEntries.length;
      
      
      [subtree]

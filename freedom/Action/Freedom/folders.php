@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.6 2002/04/03 09:40:15 eric Exp $
+// $Id: folders.php,v 1.7 2002/04/26 15:20:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,7 +69,7 @@ function folders(&$action) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit("popfld", array('vprop','mkdir','export','cancel'));
+  popupInit("popfld", array('vprop','mkdir','export','refresh','cancel'));
   popupInit("poppaste", array('staticpaste','pastelatest','cancel2'));
 
   // for the first (top) folder
@@ -77,6 +77,7 @@ function folders(&$action) {
   popupActive("popfld",$nbfolders,'vprop');
   popupActive("popfld",$nbfolders,'export');
   popupActive("popfld",$nbfolders,'mkdir');  
+  popupInvisible("popfld",$nbfolders,'refresh');  
   popupActive("poppaste",$nbfolders,'staticpaste');
   popupActive("poppaste",$nbfolders,'pastelatest');
   popupActive("poppaste",$nbfolders,'cancel2');
@@ -136,8 +137,13 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
     popupActive("popfld",$nbfolders,'cancel');
     popupActive("popfld",$nbfolders,'vprop');
     popupActive("popfld",$nbfolders,'export');
-    if ($doc->doctype == 'D') popupActive("popfld",$nbfolders,'mkdir');
-    else popupInvisible("popfld",$nbfolders,'mkdir');
+    if ($doc->doctype == 'D') {
+      popupActive("popfld",$nbfolders,'mkdir');
+      popupActive("popfld",$nbfolders,'refresh');
+    } else {
+      popupInvisible("popfld",$nbfolders,'mkdir');
+      popupInvisible("popfld",$nbfolders,'refresh');
+    }
     popupActive("poppaste",$nbfolders,'staticpaste');
     popupActive("poppaste",$nbfolders,'pastelatest');
     popupActive("poppaste",$nbfolders,'cancel2');
