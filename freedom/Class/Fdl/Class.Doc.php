@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.166 2003/11/18 14:37:03 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.167 2003/11/25 08:25:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.166 2003/11/18 14:37:03 eric Exp $
+// $Id: Class.Doc.php,v 1.167 2003/11/25 08:25:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.166 2003/11/18 14:37:03 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.167 2003/11/25 08:25:51 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1136,13 +1136,12 @@ create unique index i_docir on doc(initid, revision);";
     {      
 
       $tsa=array();
-      
-      reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
+      $tattr = $this->attributes->attr;
+      while (list($k,$v) = each($tattr)) {
+
 	if ((get_class($v) == "normalattribute") && 
 	    (($v->visibility == "W") || ($v->visibility == "O") || ($v->type == "docid")) &&
 	    (($v->type != "image") &&($v->type != "file")) ) {
-	  
 	  
 	  if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {
 	  
@@ -1322,35 +1321,36 @@ create unique index i_docir on doc(initid, revision);";
 	  $tvalues[]=$value;
 	}
     
-    
-	while (list($kvalue, $avalue) = each($tvalues)) {
-	  if ($oattr) {
-	    switch($oattr->type) {
-	    case double:
-	    case money:
-	      $tvalues[$kvalue]=str_replace(",",".",$avalue);
-	      $tvalues[$kvalue]=str_replace(" ","",$tvalues[$kvalue]);
-	      $tvalues[$kvalue]=doubleval($tvalues[$kvalue]);
-	      break;
-	    case integer:
-	      $tvalues[$kvalue]=intval($avalue);
-	      break;
-	    case time:
-	      list($hh,$mm) = explode(":",$avalue);
-	      $tvalues[$kvalue]=sprintf("%02d:%02d",intval($hh)%24,intval($mm)%60);
-	      break;
-	    case date:
-	      list($dd,$mm,$yy) = explode("/",$avalue);
-	      $yy = intval($yy);
-	      $mm = intval($mm); 
-	      $dd = intval($dd); 
+	if ($this->usefor != 'D') { // not for default values
+	  while (list($kvalue, $avalue) = each($tvalues)) {
+	    if ($oattr) {
+	      switch($oattr->type) {
+	      case double:
+	      case money:
+		$tvalues[$kvalue]=str_replace(",",".",$avalue);
+		$tvalues[$kvalue]=str_replace(" ","",$tvalues[$kvalue]);
+		$tvalues[$kvalue]=doubleval($tvalues[$kvalue]);
+		break;
+	      case integer:
+		$tvalues[$kvalue]=intval($avalue);
+		break;
+	      case time:
+		list($hh,$mm) = explode(":",$avalue);
+		$tvalues[$kvalue]=sprintf("%02d:%02d",intval($hh)%24,intval($mm)%60);
+		break;
+	      case date:
+		list($dd,$mm,$yy) = explode("/",$avalue);
+		$yy = intval($yy);
+		$mm = intval($mm); 
+		$dd = intval($dd); 
 	      
-	      if (($mm == 0) || ($dd == 0)) AddWarningMsg(sprintf(_("the date '%s' for %s attribute is not correct. It has been corrected automatically"),$avalue,$oattr->labelText));
-	      if ($mm == 0) $mm=1; // 1st january
-	      if ($dd == 0) $dd=1; // 1st day
-	      $tvalues[$kvalue]=sprintf("%02d/%02d/%04d",$dd,$mm,
-					($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy));
-	      break;
+		if (($mm == 0) || ($dd == 0)) AddWarningMsg(sprintf(_("the date '%s' for %s attribute is not correct. It has been corrected automatically"),$avalue,$oattr->labelText));
+		if ($mm == 0) $mm=1; // 1st january
+		if ($dd == 0) $dd=1; // 1st day
+		$tvalues[$kvalue]=sprintf("%02d/%02d/%04d",$dd,$mm,
+					  ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy));
+		break;
+	      }
 	    }
 	  }
 	}
@@ -1375,8 +1375,10 @@ create unique index i_docir on doc(initid, revision);";
       if ($docid == "") return $def;
       $doc = new Doc($this->dbaccess, $docid);
       if ($latest) {
-	$ldocid = $doc->latestId();
-	if ($ldocid != $doc->id) $doc = new Doc($this->dbaccess, $ldocid);
+	if ($doc->locked == -1) { // it is revised document
+	  $ldocid = $doc->latestId();
+	  if ($ldocid != $doc->id) $doc = new Doc($this->dbaccess, $ldocid);
+	}
       }
 
       if (! $doc->isAlive())  return $def;

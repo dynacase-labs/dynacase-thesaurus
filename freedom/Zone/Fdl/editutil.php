@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.53 2003/11/03 15:04:11 eric Exp $
+ * @version $Id: editutil.php,v 1.54 2003/11/25 08:25:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.53 2003/11/03 15:04:11 eric Exp $
+// $Id: editutil.php,v 1.54 2003/11/25 08:25:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -400,11 +400,13 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       //같같같같같같같같같같같같같같같같같같같같
 			
     case "date": 
-      $input="<input size=10  type=\"text\"  onblur=\"control_date(event,this)\" name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+      $input="<input size=10  type=\"text\"   name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attridk."\" "; 
 
-      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
-      else  if ($doc->usefor != 'D') $input .=" disabled "; // always but default
+      if (($visibility == "R")||($visibility == "S")) {
+	$input .= $idisabled; 
+	$input .= " onblur=\"control_date(event,this)\" ";	
+      } else  if ($doc->usefor != 'D') $input .=" disabled "; // always but default
 
       $input .= " >&nbsp;"; 
       if (!(($visibility == "R")||($visibility == "S"))) {
