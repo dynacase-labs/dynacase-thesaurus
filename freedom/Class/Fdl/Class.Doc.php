@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.20 2002/04/23 07:45:15 eric Exp $
+// $Id: Class.Doc.php,v 1.21 2002/04/23 09:58:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.20 2002/04/23 07:45:15 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.21 2002/04/23 09:58:35 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -701,8 +701,8 @@ create sequence seq_id_doc start 1000";
     
     
     while(list($k,$v) = each($listvalue)) {
-      $value->attrid = $v["attrid"];
-      $value->value = $v["value"];
+      $value->attrid = $k;
+      $value->value = $v;
       $value->Add();
       
     }
