@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_mod.php,v 1.1 2002/02/18 13:37:21 eric Exp $
+// $Id: usercard_mod.php,v 1.2 2002/03/01 09:36:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,6 +39,13 @@ function usercard_mod(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+  if ($docid > 0) {
+    
+      $doc= new DocUser ($dbaccess,$docid);
+      // lock the doc if not before modify
+      $err = $doc->lock();
+      if ($err != "")   $action->ExitError($err);
+  }
   $err = modcard($action, $ndocid); // ndocid change if new doc
 
   if ($err != "")  $action-> ExitError($err);
@@ -57,7 +64,7 @@ function usercard_mod(&$action) {
   }
 
 
-  $doc->PostModify();
+  $doc->PostModify(); // compute new lock & LDAP
   
   redirect($action,GetHttpVars("app"),"USERCARD_CARD&id=$ndocid");
   

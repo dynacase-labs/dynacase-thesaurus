@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: editcard.php,v 1.2 2002/03/01 09:36:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,7 +38,7 @@ include_once("VAULT/Class.VaultFile.php");
 // -----------------------------------
 function editcard(&$action) {
   // -----------------------------------
-
+    //print "<HR>EDITCARD<HR>";
   // Get All Parameters
   $docid = GetHttpVars("id",0);        // document to edit
   $classid = GetHttpVars("classid",0); // use when new doc or change class
@@ -119,10 +119,7 @@ function editcard(&$action) {
   else
     {      
 
-
-
-
-      $err = $doc->CanUpdateDoc();
+      $err = $doc->CanLockFile();
       if ($err != "")   $action->ExitError($err);
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
   

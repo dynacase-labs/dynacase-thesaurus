@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: usercard_edit.php,v 1.1 2002/02/18 13:37:21 eric Exp $
+// $Id: usercard_edit.php,v 1.2 2002/03/01 09:36:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,10 +69,7 @@ function usercard_edit(&$action) {
     {    
 
       $doc= new DocUser ($dbaccess,$docid);
-      // lock the doc if not
-      $err = $doc->lock();
-      if ($err != "")   $action->ExitError($err);
-      $err = $doc->CanUpdateDoc();
+      $err = $doc->CanLockFile();
       if ($err != "")   $action->ExitError($err);
 
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));

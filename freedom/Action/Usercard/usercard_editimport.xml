@@ -28,6 +28,7 @@
             <OPTION VALUE="keep">[TEXT:Keep address book card]</OPTION>
   </SELECT><BR>
 <input type="submit" value="[TEXT:import vcard]">
+ <input type="button" value=[TEXT:help] onClick="subwindow(300,400,'helpwhat','[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=USERCARD&sectid=usercard.adm.import');"> 
 </FORM>
 
 [ZONE CORE:HTMLFOOT]

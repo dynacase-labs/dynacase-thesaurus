@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocIncident.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.DocIncident.php,v 1.2 2002/03/01 09:36:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.DocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.2 2002/03/01 09:36:42 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -210,7 +210,7 @@ Class DocIncident extends Doc
       mail($addr,
 	   $object,
 	   $body,
-	   "From: freedom@i-cesam.com\r\n".
+	   "From: support@i-cesam.com\r\n".
 	   "X-Mailer: PHP/" . phpversion());
     }
   }
