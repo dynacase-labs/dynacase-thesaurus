@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_view.php,v 1.7 2003/10/16 09:38:01 eric Exp $
+ * @version $Id: freedom_view.php,v 1.8 2004/06/23 14:13:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_view.php,v 1.7 2003/10/16 09:38:01 eric Exp $
+// $Id: freedom_view.php,v 1.8 2004/06/23 14:13:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_view.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,7 +44,7 @@ include_once('FDL/viewfolder.php');
 function freedom_view(&$action) {
   // -----------------------------------
   // redirect layout icon if needed
-      
+
   $prefview = $action->getParam("FREEDOM_VIEW","list");
 
   switch ($prefview) {
