@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.42 2004/03/08 11:18:22 eric Exp $
+ * @version $Id: popupcard.php,v 1.43 2004/07/19 07:46:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.42 2004/03/08 11:18:22 eric Exp $
+// $Id: popupcard.php,v 1.43 2004/07/19 07:46:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -97,7 +97,7 @@ function popupcard(&$action) {
   if (getParam("FREEDOM_IDBASKET") > 0)   popupCtrlActive('popupcard',$kdiv,'tobasket'); 
   else popupInvisible('popupcard',$kdiv,'tobasket');
 
-  Popupactive('popupcard',$kdiv,'cancel');
+  popupInvisible('popupcard',$kdiv,'cancel');
   if (($doc->doctype=="C") && ($cud)) {
     
     popupActive('popupcard',$kdiv,'chicon'); 
@@ -199,7 +199,8 @@ function popupcard(&$action) {
       }
   }
 
-  popupActive('popupcard',$kdiv,'histo'); 
+  if (($doc->wid > 0)|| ($doc->revision > 0))  popupActive('popupcard',$kdiv,'histo'); 
+  else popupCtrlActive('popupcard',$kdiv,'histo'); 
   
 
   if ($abstract) popupActive('popupcard',$kdiv,'properties'); 
