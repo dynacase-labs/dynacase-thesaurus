@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editframe.php,v 1.18 2004/05/13 16:17:15 eric Exp $
+ * @version $Id: editframe.php,v 1.19 2004/11/22 17:37:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.18 2004/05/13 16:17:15 eric Exp $
+// $Id: editframe.php,v 1.19 2004/11/22 17:37:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,7 +52,6 @@ function editframe(&$action) {
   $classid = GetHttpVars("classid");
   $frameid = strtolower(GetHttpVars("frameid"));
   $vid = GetHttpVars("vid"); // special controlled view
-  
 
   // Set the globals elements
 
@@ -69,7 +68,7 @@ function editframe(&$action) {
       if ($tview)  $doc->setMask($tview["CV_MSKID"]);
   }
   
-  $listattr = $doc->GetNormalAttributes(true);
+  $listattr = $doc->GetNormalAttributes();
     
     
 
@@ -119,7 +118,6 @@ function editframe(&$action) {
       
       
   }
-
   $action->lay->setBlockData("FVALUES",$tval);
   $action->lay->setBlockData("FHIDDENS",$thval);
   if (count($tval) > 0) {
