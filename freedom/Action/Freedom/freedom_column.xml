@@ -32,10 +32,26 @@ TR.select {
 TH {
   font-family: [CORE_FONTLIST1];
   font-size: [CORE_FONTBASESIZE];
-  font-weight: bold;  
+  font-weight: normal;  
+  font-style: italic;
   text-align:left;
+  border-bottom: 1px solid;
 }
 
+TD.tlist {
+   border-width : 1px;
+   border-style : dashed none none none;
+   border-color : [CORE_BGCOLOR];
+   font-size: [CORE_FONTBASESIZE];
+}
+.iconimg {
+  border-style: hidden;
+  border-width: 1;
+  border-color: [CORE_FGCOLOR];
+  width:20;
+  height:20;
+  
+}
 </style>
 
 [JS:REF]
@@ -68,9 +84,8 @@ TH {
 
                     [BLOCK TABLEBODY]
 <table class="tableborder" cellspacing="0" style="margin-top:5pt" width="100%" >
-[BLOCK [blockfam]]
-<tr><th><IMG class="iconimg" id="i[divid]" width="20" height="20"
-     align="absmiddle"  src="[iconsrc]"></th>
+
+<tr><th><IMG class="iconimg"   align="absmiddle"  src="[iconsrc]"></th>
 [BLOCK [blockattr]]
 <th>[aname]</th>
 [ENDBLOCK [blockattr]]</tr>
@@ -81,16 +96,16 @@ TH {
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false">   
- <td>    [title]  </td>
+ <td class="tlist"><IMG style="display:none"  id="i[divid]"   src="[iconsrc]">[title]</td>
         [BLOCK [blockabstract]]
-<td>[value]</td>
+<td class="tlist">[value]</td>
         [ENDBLOCK [blockabstract]]
 
 </tr>
 [ENDBLOCK [blockvalue]]
 
 
-[ENDBLOCK [blockfam]]
+
 </table>
                     [ENDBLOCK TABLEBODY]
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.18 2002/08/22 07:00:27 eric Exp $
+// $Id: viewfolder.php,v 1.19 2002/08/22 12:22:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,7 +43,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $refresh=GetHttpVars("refresh","no"); // force folder refresh
   $startpage=GetHttpVars("page","0"); // page number
 
-  $column = ($action->Read("freedom_view","list")=="column");
+  $column = ($with_popup && ($action->Read("freedom_view","list")=="column"));
 
   // Set the globals elements
 
@@ -130,7 +130,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
   if ($column) usort($ldoc,"orderbyfromid");
 
-    while((list($k,$doc) = each($ldoc)) )
+  while((list($k,$doc) = each($ldoc)) )
       {
 	$nbseedoc++;
 
@@ -220,16 +220,15 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 		$doct = $tdoc[$k];
 		array_pop($tdoc);
 		$action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
-		//		print_r2($tdoc);
 		$tdoc=array();
-		$tdoc[0]=$doct;
+
+		$tdoc[$k]=$doct;
 	      }
 
-	      $tfamdoc[] = array("blockfam"=>"BFAM".$doc->fromid,
+	      $tfamdoc[] = array("iconsrc"=>$tdoc[$k]["iconsrc"],
 				 "blockattr" => "BATT".$doc->fromid,
 				 "blockvalue" => "BVAL".$doc->fromid);
-	      $action->lay->SetBlockData("BFAM".$doc->fromid,
-					 array(array("iconsrc"=>$tdoc[0]["iconsrc"])));
+	      
 	      $lattr=$adoc->GetAbstractAttributes();
 	      $taname=array();
 	      $emptytableabstract=array();
@@ -245,12 +244,13 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
  
 	  // Set the table elements
-	  if ($column) $tableabstract=$emptytableabstract;
+	  if ($column) $tableabstract=$emptytableabstract; // all attributes must be present
 	  else $tableabstract= array();
 
 
 
-	  $doc->getValues();
+	  $doc->GetValues();
+
 	  while (list($attrid,$value) = each($doc->values))  {	
 	    $lvalue = chop($value);
 

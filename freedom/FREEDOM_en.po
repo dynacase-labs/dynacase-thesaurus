@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-08-09 10:47+0200\n"
+	"POT-Creation-Date: 2002-08-22 14:13+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,7 +14,7 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"\n"
 
 #, fuzzy
-msgid	"new usercard"
+msgid	"new user card"
 msgstr	"Start search"
 
 msgid	"create"
@@ -26,7 +26,10 @@ msgstr	""
 msgid	"modify"
 msgstr	"Modify"
 
-msgid	"no cvs import file specified"
+msgid	"no vcard file specified"
+msgstr	""
+
+msgid	"new incident"
 msgstr	""
 
 #, fuzzy
@@ -34,36 +37,6 @@ msgid	"next"
 msgstr	"Export this card"
 
 msgid	"prev"
-msgstr	""
-
-#, c-format
-msgid	"%s has been modified"
-msgstr	""
-
-#, c-format
-msgid	"search usercard contains %s in all categories"
-msgstr	""
-
-#, c-format
-msgid	"search usercard contains %s in %s category"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"%s : all categories "
-msgstr	"Title"
-
-#, fuzzy, c-format
-msgid	"%s : %s category "
-msgstr	"Title"
-
-#, fuzzy
-msgid	"new user card"
-msgstr	"Start search"
-
-msgid	"no vcard file specified"
-msgstr	""
-
-msgid	"new incident"
 msgstr	""
 
 #, c-format
@@ -122,6 +95,17 @@ msgid	"undated"
 msgstr	"Update LDAP server"
 
 msgid	"IN_GRAV"
+msgstr	""
+
+#, fuzzy
+msgid	"new usercard"
+msgstr	"Start search"
+
+msgid	"no csv import file specified"
+msgstr	""
+
+#, c-format
+msgid	"%s has been modified"
 msgstr	""
 
 #, fuzzy, c-format
@@ -214,17 +198,6 @@ msgstr	""
 
 #, c-format
 msgid	"new title for %s"
-msgstr	""
-
-msgid	"this kind of document cannot be duplicate"
-msgstr	""
-
-#, fuzzy
-msgid	"duplication of"
-msgstr	"Edit"
-
-#, c-format
-msgid	"new duplicate document is named : %s"
 msgstr	""
 
 #, c-format
@@ -526,6 +499,17 @@ msgstr	"Firstname"
 msgid	"..."
 msgstr	""
 
+msgid	"this kind of document cannot be duplicate"
+msgstr	""
+
+#, fuzzy
+msgid	"duplication of"
+msgstr	"Edit"
+
+#, c-format
+msgid	"new duplicate document is named : %s"
+msgstr	""
+
 msgid	"Freedoms"
 msgstr	""
 
@@ -546,6 +530,10 @@ msgstr	""
 
 msgid	"Freedoms list"
 msgstr	""
+
+#, fuzzy
+msgid	"Freedoms list by column"
+msgstr	"Organisation"
 
 msgid	"to choose value from set"
 msgstr	""
@@ -854,6 +842,10 @@ msgstr	""
 msgid	"generic home page"
 msgstr	""
 
+#, fuzzy
+msgid	"duplication"
+msgstr	"Edit"
+
 msgid	"delete"
 msgstr	"Delete"
 
@@ -925,10 +917,6 @@ msgid	"Contract Management"
 msgstr	""
 
 #, fuzzy
-msgid	"current revision"
-msgstr	"Organisation"
-
-#, fuzzy
 msgid	"edition: "
 msgstr	"Edit"
 
@@ -950,40 +938,6 @@ msgstr	""
 msgid	"(private)"
 msgstr	""
 
-msgid	"New"
-msgstr	""
-
-#, fuzzy
-msgid	"Search"
-msgstr	"Start search"
-
-msgid	"Catg"
-msgstr	""
-
-msgid	"Help"
-msgstr	""
-
-msgid	"New personn"
-msgstr	""
-
-#, fuzzy
-msgid	"New category"
-msgstr	"Category"
-
-#, fuzzy
-msgid	"Import file"
-msgstr	"Import"
-
-#, fuzzy
-msgid	"All catg"
-msgstr	"All"
-
-msgid	"Properties:"
-msgstr	""
-
-msgid	"Choose new categories"
-msgstr	""
-
 #, fuzzy
 msgid	"Import vcard"
 msgstr	"Import"
@@ -1000,6 +954,27 @@ msgid	"VCARD"
 msgstr	""
 
 msgid	"CSV"
+msgstr	""
+
+msgid	"category"
+msgstr	"Category"
+
+msgid	"visibility"
+msgstr	"Visibility"
+
+msgid	"policy if same title"
+msgstr	""
+
+msgid	"Add new card (duplicate title)"
+msgstr	""
+
+msgid	"Replace address book card if has permission else duplicate"
+msgstr	""
+
+msgid	"Keep address book card"
+msgstr	""
+
+msgid	"Help"
 msgstr	""
 
 msgid	"Vcard example"
@@ -1022,49 +997,15 @@ msgid	"If an attribut is a multiline string, use the \\ n characters to "
 	"specify the new line"
 msgstr	""
 
-msgid	"category"
-msgstr	"Category"
-
-msgid	"visibility"
-msgstr	"Visibility"
-
-msgid	"policy if same title"
-msgstr	""
-
-msgid	"Add new card (duplicate title)"
-msgstr	""
-
-msgid	"Replace address book card if has permission else duplicate"
-msgstr	""
-
-msgid	"Keep address book card"
-msgstr	""
-
-msgid	"Choose a father category"
-msgstr	""
-
-msgid	"no father category (its a top category)"
-msgstr	""
-
-#, fuzzy
-msgid	"new category"
-msgstr	"Category"
-
-#, fuzzy
-msgid	"add new category"
-msgstr	"Category"
-
-msgid	"Import Results"
-msgstr	""
-
-msgid	"personn added"
-msgstr	""
-
-msgid	"personn deleted"
-msgstr	""
-
 msgid	" history"
 msgstr	""
+
+msgid	"New"
+msgstr	""
+
+#, fuzzy
+msgid	"Search"
+msgstr	"Start search"
 
 msgid	"Bilan"
 msgstr	""
@@ -1094,6 +1035,9 @@ msgstr	""
 #, fuzzy
 msgid	"state bilan"
 msgstr	"Identity"
+
+msgid	"Properties:"
+msgstr	""
 
 msgid	"Incident Report"
 msgstr	""
@@ -1199,9 +1143,53 @@ msgstr	"Update Title Cards"
 msgid	"Problem"
 msgstr	""
 
+msgid	"Catg"
+msgstr	""
+
 #, fuzzy
 msgid	"New card"
 msgstr	"Category"
+
+#, fuzzy
+msgid	"New category"
+msgstr	"Category"
+
+#, fuzzy
+msgid	"Import file"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"All catg"
+msgstr	"All"
+
+msgid	"Choose a father category"
+msgstr	""
+
+msgid	"no father category (its a top category)"
+msgstr	""
+
+#, fuzzy
+msgid	"new category"
+msgstr	"Category"
+
+#, fuzzy
+msgid	"add new category"
+msgstr	"Category"
+
+msgid	"Generic Management"
+msgstr	""
+
+msgid	"Choose new categories"
+msgstr	""
+
+msgid	"Import Results"
+msgstr	""
+
+msgid	"personn added"
+msgstr	""
+
+msgid	"personn deleted"
+msgstr	""
 
 msgid	"bilan"
 msgstr	""
@@ -1261,6 +1249,9 @@ msgid	"list"
 msgstr	""
 
 msgid	"icon"
+msgstr	""
+
+msgid	"column"
 msgstr	""
 
 msgid	"inherit from"
@@ -1578,16 +1569,6 @@ msgid	"unchanged"
 msgstr	""
 
 #, fuzzy
-msgid	"Change category"
-msgstr	"Category"
-
-msgid	"Vcard"
-msgstr	""
-
-msgid	"View headers"
-msgstr	""
-
-#, fuzzy
 msgid	" edit"
 msgstr	"Edit"
 
@@ -1597,8 +1578,31 @@ msgstr	""
 msgid	" view properties"
 msgstr	""
 
+#, fuzzy
+msgid	"Change category"
+msgstr	"Category"
+
 msgid	"View properties"
 msgstr	""
+
+#, fuzzy
+msgid	"Duplicate"
+msgstr	"Edit"
+
+msgid	"View headers"
+msgstr	""
+
+#, fuzzy
+#~ msgid	"%s : all categories "
+#~ msgstr	"Title"
+
+#, fuzzy
+#~ msgid	"%s : %s category "
+#~ msgstr	"Title"
+
+#, fuzzy
+#~ msgid	"current revision"
+#~ msgstr	"Organisation"
 
 #, fuzzy
 #~ msgid	"charset"

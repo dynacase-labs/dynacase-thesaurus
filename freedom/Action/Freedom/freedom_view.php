@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_view.php,v 1.3 2002/08/22 07:00:27 eric Exp $
+// $Id: freedom_view.php,v 1.4 2002/08/22 12:22:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_view.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@ function freedom_view(&$action) {
   // redirect layout icon if needed
       
   $prefview = $action->Read("freedom_view","list");
-  
+
   switch ($prefview) {
   case "list":
     $action->layout = $action->GetLayoutFile("freedom_list.xml");

@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-08-09 10:47+0200\n"
+	"POT-Creation-Date: 2002-08-22 14:13+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -13,8 +13,8 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"Content-Transfer-Encoding: 8-bit\n"
 	"\n"
 
-msgid	"new usercard"
-msgstr	"Nouvelle carte"
+msgid	"new user card"
+msgstr	"Nouvelle personne"
 
 msgid	"create"
 msgstr	"Créer"
@@ -25,43 +25,17 @@ msgstr	"document non référencé"
 msgid	"modify"
 msgstr	"Modifier"
 
-msgid	"no cvs import file specified"
-msgstr	"pas de fichier d'import CSV spécifié"
+msgid	"no vcard file specified"
+msgstr	"pas de fichier vcard spécifié"
+
+msgid	"new incident"
+msgstr	"Nouvel incident"
 
 msgid	"next"
 msgstr	"suivant"
 
 msgid	"prev"
 msgstr	"suivant"
-
-#, c-format
-msgid	"%s has been modified"
-msgstr	"%s a été modifié"
-
-#, c-format
-msgid	"search usercard contains %s in all categories"
-msgstr	"recherche des cartes contenant %s toutes catégories"
-
-#, c-format
-msgid	"search usercard contains %s in %s category"
-msgstr	"recherche des cartes contenant %s dans la catégorie %s"
-
-#, c-format
-msgid	"%s : all categories "
-msgstr	"%s : toutes catégories"
-
-#, c-format
-msgid	"%s : %s category "
-msgstr	"%s : catégorie %s"
-
-msgid	"new user card"
-msgstr	"Nouvelle personne"
-
-msgid	"no vcard file specified"
-msgstr	"pas de fichier vcard spécifié"
-
-msgid	"new incident"
-msgstr	"Nouvel incident"
 
 #, c-format
 msgid	"%s has been locked"
@@ -116,7 +90,17 @@ msgid	"undated"
 msgstr	"non daté"
 
 msgid	"IN_GRAV"
-msgstr ""
+msgstr	""
+
+msgid	"new usercard"
+msgstr	"Nouvelle carte"
+
+msgid	"no csv import file specified"
+msgstr	"pas de fichier d'import CSV spécifié"
+
+#, c-format
+msgid	"%s has been modified"
+msgstr	"%s a été modifié"
 
 #, c-format
 msgid	"search %s"
@@ -210,16 +194,6 @@ msgstr	"Freedom"
 msgid	"new title for %s"
 msgstr	"nouveau titre pour %s"
 
-msgid	"this kind of document cannot be duplicate"
-msgstr	"ce type de document ne peut être dupliqué"
-
-msgid	"duplication of"
-msgstr	"duplication de"
-
-#, c-format
-msgid	"new duplicate document is named : %s"
-msgstr	"la duplication est nommée : %s"
-
 #, c-format
 msgid	"%s has been added in %s folder"
 msgstr	"%s a été ajouté dans le dossier %s"
@@ -284,11 +258,11 @@ msgstr	"se terminant par..."
 
 #, c-format
 msgid	"PDF conversion failed for %s"
-msgstr "conversion PDF a échoué pour %s"
+msgstr	"conversion PDF a échoué pour %s"
 
 #, c-format
 msgid	"sended to %s"
-msgstr "envoi à %s"
+msgstr	"envoi à %s"
 
 #, c-format
 msgid	"sending %s to %s"
@@ -512,6 +486,16 @@ msgstr	"erreur dans le nom de fichier"
 msgid	"..."
 msgstr	"..."
 
+msgid	"this kind of document cannot be duplicate"
+msgstr	"ce type de document ne peut être dupliqué"
+
+msgid	"duplication of"
+msgstr	"duplication de"
+
+#, c-format
+msgid	"new duplicate document is named : %s"
+msgstr	"la duplication est nommée : %s"
+
 msgid	"Freedoms"
 msgstr	"Freedoms"
 
@@ -532,6 +516,9 @@ msgstr	"fenêtres freedom"
 
 msgid	"Freedoms list"
 msgstr	"liste freedom"
+
+msgid	"Freedoms list by column"
+msgstr "liste freedom par colonne"
 
 msgid	"to choose value from set"
 msgstr	"pour choisir une valeur à partir d'un ensemble"
@@ -829,6 +816,9 @@ msgstr	"Accès à la lecture"
 msgid	"generic home page"
 msgstr	"page d'accueil générique"
 
+msgid	"duplication"
+msgstr "duplication"
+
 msgid	"delete"
 msgstr	"supprimer"
 
@@ -892,9 +882,6 @@ msgstr	"Contrats"
 msgid	"Contract Management"
 msgstr	"Gestion des contrats"
 
-msgid	"current revision"
-msgstr	"dernière révision"
-
 msgid	"edition: "
 msgstr	"éditer"
 
@@ -916,36 +903,6 @@ msgstr	" contenu du dossier"
 msgid	"(private)"
 msgstr	"(privé)"
 
-msgid	"New"
-msgstr	"Nouveau"
-
-msgid	"Search"
-msgstr	"Recherche"
-
-msgid	"Catg"
-msgstr	"Catg"
-
-msgid	"Help"
-msgstr	"Aide"
-
-msgid	"New personn"
-msgstr	"Nouvelle personne"
-
-msgid	"New category"
-msgstr	"Nouvelle catégorie"
-
-msgid	"Import file"
-msgstr	"Importer un fichier"
-
-msgid	"All catg"
-msgstr	"Toutes catg."
-
-msgid	"Properties:"
-msgstr	"Propriétés:"
-
-msgid	"Choose new categories"
-msgstr	"Choisissez de nouvelles catégories"
-
 msgid	"Import vcard"
 msgstr	"Importation Vcard"
 
@@ -960,6 +917,27 @@ msgstr	"VCARD"
 
 msgid	"CSV"
 msgstr	"CSV"
+
+msgid	"category"
+msgstr	"catégorie"
+
+msgid	"visibility"
+msgstr	"visibilité"
+
+msgid	"policy if same title"
+msgstr	"politique si même titre"
+
+msgid	"Add new card (duplicate title)"
+msgstr	"Ajout nouvelle carte (titre dupliqué)"
+
+msgid	"Replace address book card if has permission else duplicate"
+msgstr	"Remplace la carte si permission accordée sinon duplication"
+
+msgid	"Keep address book card"
+msgstr	"Garde la carte originale"
+
+msgid	"Help"
+msgstr	"Aide"
 
 msgid	"Vcard example"
 msgstr	"Exemple de Vcard"
@@ -983,47 +961,14 @@ msgid	"If an attribut is a multiline string, use the \\ n characters to "
 msgstr	"Si un attribut est multi-ligne, utilisez les caractères \\n pour "
 	"indiquer le saut de ligne"
 
-msgid	"category"
-msgstr	"catégorie"
-
-msgid	"visibility"
-msgstr	"visibilité"
-
-msgid	"policy if same title"
-msgstr	"politique si même titre"
-
-msgid	"Add new card (duplicate title)"
-msgstr	"Ajout nouvelle carte (titre dupliqué)"
-
-msgid	"Replace address book card if has permission else duplicate"
-msgstr	"Remplace la carte si permission accordée sinon duplication"
-
-msgid	"Keep address book card"
-msgstr	"Garde la carte originale"
-
-msgid	"Choose a father category"
-msgstr	"Choisissez une catégorie père"
-
-msgid	"no father category (its a top category)"
-msgstr	"pas de catégorie père (catégorie primaire)"
-
-msgid	"new category"
-msgstr	"Nouvelle catégorie"
-
-msgid	"add new category"
-msgstr	"ajout nouvelle catégorie"
-
-msgid	"Import Results"
-msgstr	"Résultat de l'importation"
-
-msgid	"personn added"
-msgstr	"Personnes ajoutées"
-
-msgid	"personn deleted"
-msgstr	"Personnes supprimées"
-
 msgid	" history"
 msgstr	" historique"
+
+msgid	"New"
+msgstr	"Nouveau"
+
+msgid	"Search"
+msgstr	"Recherche"
 
 msgid	"Bilan"
 msgstr	"Bilan"
@@ -1051,6 +996,9 @@ msgstr	"bilan général"
 
 msgid	"state bilan"
 msgstr	"Bilan par état"
+
+msgid	"Properties:"
+msgstr	"Propriétés:"
 
 msgid	"Incident Report"
 msgstr	"Rapport d'incident"
@@ -1145,8 +1093,47 @@ msgstr	"Titre"
 msgid	"Problem"
 msgstr	"Problème"
 
+msgid	"Catg"
+msgstr	"Catg"
+
 msgid	"New card"
 msgstr	"Nouvelle carte"
+
+msgid	"New category"
+msgstr	"Nouvelle catégorie"
+
+msgid	"Import file"
+msgstr	"Importer un fichier"
+
+msgid	"All catg"
+msgstr	"Toutes catg."
+
+msgid	"Choose a father category"
+msgstr	"Choisissez une catégorie père"
+
+msgid	"no father category (its a top category)"
+msgstr	"pas de catégorie père (catégorie primaire)"
+
+msgid	"new category"
+msgstr	"Nouvelle catégorie"
+
+msgid	"add new category"
+msgstr	"ajout nouvelle catégorie"
+
+msgid	"Generic Management"
+msgstr "Gestion générique"
+
+msgid	"Choose new categories"
+msgstr	"Choisissez de nouvelles catégories"
+
+msgid	"Import Results"
+msgstr	"Résultat de l'importation"
+
+msgid	"personn added"
+msgstr	"Personnes ajoutées"
+
+msgid	"personn deleted"
+msgstr	"Personnes supprimées"
 
 msgid	"bilan"
 msgstr	"bilan"
@@ -1204,6 +1191,9 @@ msgstr	"Liste"
 
 msgid	"icon"
 msgstr	"Icone"
+
+msgid	"column"
+msgstr "colonne"
 
 msgid	"inherit from"
 msgstr	"hérite de"
@@ -1487,15 +1477,6 @@ msgstr	"vers"
 msgid	"unchanged"
 msgstr	"inchangé"
 
-msgid	"Change category"
-msgstr	"Changer de catégorie"
-
-msgid	"Vcard"
-msgstr	"Vcard"
-
-msgid	"View headers"
-msgstr	"Voir entête"
-
 msgid	" edit"
 msgstr	" Éditer"
 
@@ -1505,11 +1486,38 @@ msgstr	" deverrouiller"
 msgid	" view properties"
 msgstr	" Voir les propriétés"
 
+msgid	"Change category"
+msgstr	"Changer de catégorie"
+
 msgid	"View properties"
 msgstr	"Voir les propriétés"
 
-#~ msgid	"comment"
-#~ msgstr	"commentaire"
+msgid	"Duplicate"
+msgstr "Dupliquer"
+
+msgid	"View headers"
+msgstr	"Voir entête"
+
+#~ msgid	"search usercard contains %s in all categories"
+#~ msgstr	"recherche des cartes contenant %s toutes catégories"
+
+#~ msgid	"search usercard contains %s in %s category"
+#~ msgstr	"recherche des cartes contenant %s dans la catégorie %s"
+
+#~ msgid	"%s : all categories "
+#~ msgstr	"%s : toutes catégories"
+
+#~ msgid	"%s : %s category "
+#~ msgstr	"%s : catégorie %s"
+
+#~ msgid	"current revision"
+#~ msgstr	"dernière révision"
+
+#~ msgid	"New personn"
+#~ msgstr	"Nouvelle personne"
+
+#~ msgid	"Vcard"
+#~ msgstr	"Vcard"
 
 #~ msgid	"charset"
 #~ msgstr	"jeux de caractères"
