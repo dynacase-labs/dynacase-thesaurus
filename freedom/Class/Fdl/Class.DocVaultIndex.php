@@ -4,14 +4,14 @@
  * for files attached to a Freedom document
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocVaultIndex.php,v 1.2 2004/10/25 09:10:03 marc Exp $
+ * @version $Id: Class.DocVaultIndex.php,v 1.3 2004/11/04 15:54:02 marc Exp $
  * @license http://license.i-cesam.com/license.php
  * @package FREEDOM
  */
  /**
  */
 
-$CLASS_DOCVAULTINDEX_PHP = '$Id: Class.DocVaultIndex.php,v 1.2 2004/10/25 09:10:03 marc Exp $';
+$CLASS_DOCVAULTINDEX_PHP = '$Id: Class.DocVaultIndex.php,v 1.3 2004/11/04 15:54:02 marc Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -31,7 +31,7 @@ Class DocVaultIndex extends DbObj
 create table docvaultindex ( docid  int not null,
                              vaultid int not null
                    ); 
-create unique idx_docvaultindex on docvaultindex (docid, vaultid);";
+create unique index idx_docvaultindex on docvaultindex (docid, vaultid);";
 
   // --------------------------------------------------------------------
   function GetDocId($vid) {
