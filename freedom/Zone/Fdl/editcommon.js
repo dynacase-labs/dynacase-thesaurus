@@ -1122,3 +1122,32 @@ function mvbuttonsState() {
   mvbuttons('editstatebutton','editbutton');
   
 }
+
+function preview(faction) {
+  var fedit = document.fedit;
+  //resetInputs();
+  
+  with (document.modifydoc) {
+    var editAction=action;
+    var editTarget=target;
+    wf=subwindowm(300,600,'preview','about:blank');
+    enableall();  
+    var na=document.getElementById('newart');
+    if (na) {
+      disabledInput(na,true);        
+      var nt=document.getElementById('newtxt');
+      disabledInput(nt,true);
+    }
+    target='preview';
+    action=faction;
+    submit();
+    target=editTarget;
+    action=editAction;
+
+    
+    if (na) {
+      disabledInput(na,false);            
+      disabledInput(nt,false);
+    }    
+  }
+}
