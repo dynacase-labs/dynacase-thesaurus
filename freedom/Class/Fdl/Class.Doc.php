@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.27 2002/06/14 08:58:34 eric Exp $
+// $Id: Class.Doc.php,v 1.28 2002/06/18 14:22:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.27 2002/06/14 08:58:34 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.28 2002/06/18 14:22:36 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -529,14 +529,14 @@ create sequence seq_id_doc start 1000";
     {      
       if (! isset($this->fathers)) $this->GetFathersDoc();
 
-      if (!isset($this->attributes)) $this->GetAttributes();
+      if (!isset($this->attributes)) $this->GetAttributes(true);
      
       reset($this->attributes);
       while(list($k,$v) = each($this->attributes)) {
 	if ($v->id==$idAttr) return $v;
       }
 
-      return "unknow attribute";
+      return false;
 
     }
 
