@@ -6,12 +6,16 @@
 
 </head>
 
-
 <frameset frameborder="1" framespacing="3" border="3" cols="[wcols]px,*" >
 
 
   <frame name="famlist" src="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_LIST" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+[IF OPENFAM]
+<frame name="faminfo" src="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_TOGEN&famid=[openfam]" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+[ENDIF OPENFAM]
+[IFNOT OPENFAM] 
   <frame name="faminfo" src="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+[ENDIF OPENFAM]
 
 </frameset>
 </html>

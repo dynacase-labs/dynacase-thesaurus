@@ -22,6 +22,47 @@
    <script language="JavaScript">
   <!--
     [JS:CODE]
+function fselect(o) {
+  var i=o.previousSibling; // input
+  if (i.checked) {
+    document.getElementById('preffirstfam').value=i.value;
+    viewfirst();
+  }
+}
+function hiselect(o) {
+  var i=o.previousSibling; // input
+  if (i.checked) {
+    o.style.backgroundColor='yellow';
+    o.style.cursor='pointer';
+  }
+}
+function loselect(o) {
+  var i=o.previousSibling; // input
+  if (i.checked) o.style.backgroundColor='';
+}
+
+function viewfirst() {
+  var first=document.getElementById('preffirstfam').value;
+
+  var d=document.getElementById('d'+first);
+  var of=document.getElementById('openfirst');
+  of.innerHTML='';
+  if (d) {
+    of.innerHTML=d.innerHTML;
+
+    for (i=0;i<of.childNodes.length;i++) {
+      if (of.childNodes[i].tagName == 'INPUT') {
+	of.childNodes[i].style.display='none';
+	of.childNodes[i].disabled=true;
+      }
+    }
+  }
+}
+function clearfirst() {
+  document.getElementById('preffirstfam').value=''; 
+  viewfirst();
+}
+addEvent(window,"load",viewfirst);
   //-->
    </script>   
 
@@ -35,27 +76,20 @@
 <!-- Title Table -->
 <form  class="fborder" target="famlist" name="modpref" method="POST"  action="[CORE_STANDURL]&app=[APPNAME]&action=[modaction]" >
 
-
-                         
-
-
 <p>[TEXT:Choose visibles families]</p>
    
-        
          [BLOCK SELECTPREF] 
-	 <input type="checkbox" [selected] name="idsfam[]" value="[cid]">[ctitle]</input><br>
+<div id="d[cid]"  style="float:left;overflow:hidden;width:150px">
+<img src="[iconsrc]" width="20"><input type="checkbox" [selected] name="idsfam[]"  value="[cid]"></input><span onmouseover="hiselect(this)" onmouseout="loselect(this)" onclick="fselect(this)">[ctitle]</span></div>
          [ENDBLOCK SELECTPREF]
-
- <table><tr>
-  <td><input type="submit" value="[TEXT:Validate]" onclick="setTimeout('self.close()',1000)"> </td>
-  <td align="right"><input  type="button" value="[TEXT:Close]" onclick="self.close()"></td></tr></table>
- 
-
-
-
-
-
-
+<input type="hidden" value="[openfirst]" id="preffirstfam" name="preffirstfam"></input>
+<br>
+<fieldset style="width:50%;float:left;"><legend>[TEXT:open first family]</legend>
+<div style="float:left;" id="openfirst"></div>
+<input type="image" onclick="clearfirst();return false;" src="[IMG:clear.gif]"></input>
+</fieldset>
+ <table style="width:40%;float:left;"><tr>
+  <td align="right"><input type="submit" value="[TEXT:Validate]" onclick="setTimeout('self.close()',1000)"> <input  type="button" value="[TEXT:Close]" onclick="self.close()"></td></tr></table> 
 </form>
 <!--  FOOT HTML -->
 

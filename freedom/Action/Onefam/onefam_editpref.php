@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_editpref.php,v 1.6 2004/06/03 14:47:28 eric Exp $
+ * @version $Id: onefam_editpref.php,v 1.7 2005/01/21 17:42:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: onefam_editpref.php,v 1.6 2004/06/03 14:47:28 eric Exp $
+// $Id: onefam_editpref.php,v 1.7 2005/01/21 17:42:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_editpref.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,20 +43,36 @@ function onefam_editpref(&$action,$idsattr="ONEFAM_IDS",$modaction="ONEFAM_MODPR
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $tcdoc=GetClassesDoc($dbaccess,$action->user->id);
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
+
+
+
+  $tcdoc=GetClassesDoc($dbaccess,$action->user->id,0,"TABLE");
   
   $idsfam = $action->GetParam($idsattr);
   $tidsfam = explode(",",$idsfam);
 
+  $openfam=$action->getParam("ONEFAM_FAMOPEN");
+  $action->lay->set("openfirst",$openfam);
+  print "<hr>openfam:$openfam";
 
+  $m1=memory_get_usage();
+  print "<br>[".memory_get_usage()."]";
+  $doc = new Doc($dbaccess,128);
+  $m1=memory_get_usage();
+  $doc = new Doc128($dbaccess);
+  $m2=memory_get_usage();
+  print "<br>[".($m2-$m1)."]";
+  $doc = new Doc($dbaccess);
 
   $selectclass=array();
   if (is_array($tcdoc)) {
     while (list($k,$pdoc)= each ($tcdoc)) {
-      if ($pdoc->dfldid > 0) {
-	$selectclass[$k]["cid"]=$pdoc->id;
-	$selectclass[$k]["ctitle"]=$pdoc->title;
-	$selectclass[$k]["selected"]=(in_array($pdoc->id,$tidsfam))?"checked":"";
+      if ($pdoc["dfldid"] > 0) {
+	$selectclass[$k]["cid"]=$pdoc["id"];
+	$selectclass[$k]["ctitle"]=$pdoc["title"];
+	$selectclass[$k]["iconsrc"]=$doc->getIcon($pdoc["icon"]);
+	$selectclass[$k]["selected"]=(in_array($pdoc["id"],$tidsfam))?"checked":"";
       }
     }
     

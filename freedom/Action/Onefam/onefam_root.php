@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_root.php,v 1.3 2004/09/13 11:53:04 eric Exp $
+ * @version $Id: onefam_root.php,v 1.4 2005/01/21 17:42:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,5 +22,14 @@ function onefam_root(&$action) {
   $action->lay->set("wcols",56*$nbcol+$delta);
   $action->lay->set("Title",_($action->parent->short_name));
  
+  
+  $openfam=$action->getParam("ONEFAM_FAMOPEN");
+  if ($openfam > 0) {
+
+    $action->lay->set("OPENFAM",true);
+    $action->lay->set("openfam",$openfam);
+  } else {
+    $action->lay->set("OPENFAM",false);
+  }
 }
 ?>
