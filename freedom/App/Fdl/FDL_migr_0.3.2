@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ 
+
+pubdir="/home/httpd/what";
+
+echo "create table docfrom ( id int not null, primary key (id), fromid int);" | psql freedom anakeen
+echo "insert INTO docfrom (id, fromid) select id, fromid from doc;" | psql freedom anakeen
+echo "update docfrom set fromid=-1 where id in (select id from docfam);" | psql freedom anakeen
+
+$pubdir/wsh.php --api=fdl_pkey  | psql freedom anakeen
+

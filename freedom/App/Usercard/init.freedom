@@ -35,7 +35,7 @@ ATTR;US_WORKCEDEX;US_FR_SOC;cedex;N;N;text;250;W;;;;;
 ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;260;W;;http://%US_WORKWEB%;;;
 ATTR;US_SCATG;US_FR_SOC;activité;N;N;enumlist;270;W;;;usercard.php;enumscatg;
 ATTR;US_PRIVCARD;US_FR_SOC;privacity;N;N;text;280;H;;;;;
-ATTR;US_VCARD;US_FR_SOC;Vcard;N;N;text;0;M;;%S%&app=USERCARD&action=USERCARD_VCARD&id=%I%;;;
+ATTR;US_VCARD;US_FR_SOC;Vcard;N;N;menu;0;M;;%S%&app=USERCARD&action=USERCARD_VCARD&id=%I%;;;
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;

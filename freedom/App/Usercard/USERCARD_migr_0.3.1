@@ -1,0 +1,7 @@
+#!/bin/bash
+
+pubdir="/home/httpd/what";
+echo "alter table doc120 add column us_pphone text;" | psql freedom anakeen
+echo "update doc120 set us_pphone=us_phone;" | psql freedom anakeen
+
+
