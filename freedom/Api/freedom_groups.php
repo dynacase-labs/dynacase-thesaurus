@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_groups.php,v 1.6 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: freedom_groups.php,v 1.7 2004/08/10 07:55:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,6 +38,7 @@ $dbank=getDbName(getDbAccess());
 
 system("echo 'delete from groups;delete from docperm where upacl=0 and unacl=0;update docperm set cacl=0 where cacl != 0;; ' | psql $dbname $dbuser");
 system("pg_dump -a --disable-triggers -t groups $dbank -U $dbuser | psql $dbname $dbuser");
+system("echo 'vacuum  docperm;vacuum  groups' | psql $dbname $dbuser");
 //system("echo 'select getuperm(userid, docid) from docperm' | psql freedom anakeen");
 
 
