@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_root.php,v 1.2 2003/10/28 16:31:47 eric Exp $
+ * @version $Id: onefam_root.php,v 1.3 2004/09/13 11:53:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,6 +20,7 @@ function onefam_root(&$action) {
   if ($action->read("navigator") == "EXPLORER") $delta=50;
   
   $action->lay->set("wcols",56*$nbcol+$delta);
+  $action->lay->set("Title",_($action->parent->short_name));
  
 }
 ?>
