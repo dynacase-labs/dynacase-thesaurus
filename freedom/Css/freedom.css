@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.37 2003/12/02 10:53:19 eric Exp $
+ * $Id: freedom.css,v 1.38 2004/01/14 16:00:16 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -340,6 +340,10 @@ DIV.icon{
   border-style:none;
   border-color:[CORE_FGCOLOR];
   overflow : hidden;
+}
+
+IMG.aicon {
+	-moz-border-radius:0px 0px 0px 25px;
 }
 
 .onlyprint {
