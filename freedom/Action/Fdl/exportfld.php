@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: exportfld.php,v 1.14 2004/04/23 15:24:38 eric Exp $
+ * @version $Id: exportfld.php,v 1.15 2004/06/10 10:34:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.14 2004/04/23 15:24:38 eric Exp $
+// $Id: exportfld.php,v 1.15 2004/06/10 10:34:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,7 +42,6 @@ include_once("VAULT/Class.VaultFile.php");
 function exportfld(&$action, $aflid="0", $famid="") 
 // --------------------------------------------------------------------
 {
-  
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $fldid = GetHttpVars("id",$aflid);
   $fld = new Doc($dbaccess, $fldid);
@@ -82,8 +81,13 @@ function exportfld(&$action, $aflid="0", $famid="")
 	$adoc = $doc->getFamDoc();
 	$lattr=$adoc->GetExportAttributes();
 	fputs($fout,"//FAM;".$adoc->title."(".$doc->fromid.");<specid>;<fldid>;");
-	while (list($ka,$attr)= each ($lattr)) {
+	foreach($lattr as $ka=>$attr) {
 	  fputs($fout,str_replace(";"," - ",$attr->labelText).";");
+	}
+	fputs($fout,"\n");
+	fputs($fout,"ORDER;".$doc->fromid.";;;");
+	foreach($lattr as $ka=>$attr) {
+	  fputs($fout,$attr->id.";");
 	}
 	fputs($fout,"\n");
 	$prevfromid = $doc->fromid;
@@ -112,7 +116,9 @@ function exportfld(&$action, $aflid="0", $famid="")
     }
   }
   fclose($fout);
-  Http_DownloadFile($foutname, $fld->title.".csv", "text/csv");
+
+  $fname=str_replace(array(" ","'"),array("_",""),$fld->title);
+  Http_DownloadFile($foutname, "$fname.csv", "text/csv");
   unlink($foutname);
 
   exit;
