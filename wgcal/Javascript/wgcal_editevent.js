@@ -18,6 +18,9 @@ function ShowDate(ts) {
 
 function ComputeTime(id) {
 
+  document.getElementById('tUstart').style.display = 'none';
+  document.getElementById('tUend').style.display = 'none';
+
   var textTime = document.getElementById('T'+id);
   var daysTime = document.getElementById('D'+id);
   var hourTime = document.getElementById('H'+id);
@@ -58,9 +61,6 @@ function CheckIfUpdate(id, alert) {
   daysTime.value = d.getSeconds();
   textTime.innerHTML = Calendar._DN[ctd.getDay()]+' '+ctd.getDate()+' '+Calendar._SMN[ctd.getMonth()]+' '+ctd.getFullYear();
   
-  //ts = ShowDate(start.value);
-  //te = ShowDate(end.value);
-  //alert('Start : '+ts+'\nEnd   : '+te);
   if (alert) {
     var dalert = document.getElementById('tU'+idn);
     dalert.style.display='';
@@ -70,6 +70,7 @@ function CheckIfUpdate(id, alert) {
 function ChangeAlarm() {
   chk = document.getElementById('AlarmCheck');
   alrm = document.getElementById('AlarmVis');
+  chk.checked =  (chk.checked ? "" : "checked" );
   if (chk.checked) alrm.style.visibility = 'visible';
   else alrm.style.visibility = 'hidden';
 }
@@ -110,7 +111,7 @@ function SetSelectedItem(from, to) {
    var f = document.getElementById(from);
    var to = document.getElementById(to);
    for (i=0; i<f.options.length; i++) {
-    if (list.options[i].selected) to.value = list.options[i].value;
+    if (f.options[i].selected) to.value = f.options[i].value;
    }
 }
 
@@ -172,17 +173,16 @@ function refreshAttendees() {
   var nTr;
   var tab = document.getElementById('tabress');
   var vress = document.getElementById('attlist');
+  var vdispo = document.getElementById('viewplan');
 
-  var showtab = 0;
+  var showtab = false;
 
   for (idx in attendeesList) {
-    if (attendeesList[idx][0] != -1) {
-      if (attendeesList[idx][4]!='none') showtab = true;
-      if (attendeesList[idx][5] == 0) {
-        attendeesList[idx][5] = 1;
-        //alert("display = "+attendeesList[idx][4]);
+    if (attendeesList[idx]!=-1) {
+      showtab = true;
+      if (attendeesList[idx][4] == 0) {
+        attendeesList[idx][4] = 1;
         with (document.getElementById('trsample')) {
-	  style.display = attendeesList[idx][4];
 	  nTr = cloneNode(true);
 	  style.display = 'none';
         }
@@ -195,27 +195,32 @@ function refreshAttendees() {
         else if (attendeesList[idx][3] == 2) scolor = 'red';
         else if (attendeesList[idx][3] == 3) scolor = 'orange';
         else scolor = 'yellow';
+	nTr.style.display = '';
         tab.appendChild(nTr);
-        nTr.style.display = attendeesList[idx][4];
         capp = document.getElementById('cp'+attendeesList[idx][0]);
         capp.style.backgroundColor = scolor;
       }
     }
   }
-  if (showtab) vress.style.display = '';
-  else vress.style.display = 'none';
+  if (showtab) {
+    vress.style.display = '';
+    vdispo.style.display = '';
+  }  else {
+    vress.style.display = 'none';
+    vdispo.style.display = '';
+  }
   return; 
 }
 
 function getAttendeeIdx(aid) {
   var idx = -1;
   for (i=0; i<attendeesList.length; i++) {
-    if (attendeesList[i][0] == aid) idx = i;
+    if (attendeesList[i]!=-1 && attendeesList[i][0] == aid) idx = i;
   } 
   return idx;
 }
       
-function addRessource(rid, rtitle, ricon, rstate, vis) {
+function addRessource(rid, rtitle, ricon, rstate) {
   if (getAttendeeIdx(rid)!=-1) {
     return;
   }
@@ -225,8 +230,7 @@ function addRessource(rid, rtitle, ricon, rstate, vis) {
   attendeesList[idx][1] = rtitle;
   attendeesList[idx][2] = ricon;
   attendeesList[idx][3] = rstate; /* confirmation status */
-  attendeesList[idx][4] = vis;
-  attendeesList[idx][5] = 0; /* displayed status */
+  attendeesList[idx][4] = 0; /* displayed status */
   refreshAttendees();
 }
 
@@ -241,11 +245,18 @@ function  deleteAttendee(aid) {
   }
   showt = false;
   for (i=0; i<attendeesList.length; i++) {
-    if (attendeesList[i] != -1 && attendeesList[i][4] != 'none') showt = true;
+    if (attendeesList[i] != -1) showt = true;
   }
   var vress = document.getElementById('attlist');
-  if (showt) vress.style.display = '';
-  else vress.style.display = 'none';
+  var vdispo = document.getElementById('viewplan');
+  if (showt) {
+    vress.style.display = '';
+    vdispo.style.display = '';
+  } else {
+    vress.style.display = 'none';
+    vdispo.style.display = 'none';
+    document.getElementById('withMe').checked = true;
+  }
 }
 
 
@@ -260,13 +271,14 @@ function saveEvent() {
   if (ti.value=='') {
     ti.style.background = 'red';
     document.getElementById('errTitle').style.display='';
-    return;
+    return false;
   }
-  EventSelectAll(fs);
-  
-  fs.submit();
-  fs.reset();
-  //self.close();
+  if (EventSelectAll(fs)) { 
+    fs.submit();
+    fs.reset();
+    self.close();
+  }
+  return false;
 }
 
 function cancelEvent() {
@@ -346,24 +358,21 @@ function EventSelectAll(f) {
   for (i=(list.options.length-1); i>=0; i--) {
     list.options[i].selected = true;
   }
-
+  
   alist = document.getElementById('attendees');
+  nlist = '';
   me  = document.getElementById('withMe');
   for (att=0; att<attendeesList.length; att++) {
-    if (attendeesList[att][0]==-1) continue;
-    var nOpt   = new Option();
-    nOpt.id    = 'natt'+attendeesList[att][0];
-    nOpt.value = attendeesList[att][0];
-    nOpt.text  = attendeesList[att][0]+'::'+attendeesList[att][1];
-    i = alist.options.length;
-    alist.options[i] = nOpt;
+    if (attendeesList[att]==-1) continue;
+    sep = (nlist==''?'':'|');
+    nlist = nlist+sep+attendeesList[att][0];
   }
-  for (i=(alist.options.length-1); i>=0; i--) {
-    alist.options[i].selected = true;
+  if (nlist=='' && !me.checked) {
+    document.getElementById('errAtt').style.display = '';
+    return false;
   }
-  if (alist.options.length<=1 && me.value!='on') 
-  
-
+  alist.value = nlist;
+  return true;
 }
 
 
@@ -378,7 +387,7 @@ function viewattdispo() {
 
   rll = "";
   for (att=0; att<attendeesList.length; att++) {
-    if (attendeesList[att][0]==-1) continue;
+    if (attendeesList[att]==-1) continue;
     rll += attendeesList[att][0] + '|';
   }
   rl.value = rll;

@@ -89,11 +89,12 @@ function usetparam(name, value, updatetarget, updateaction)
   taction = document.getElementById('taction');
   fpname.value = name;
   fpvalue.value = value;
-  if (updatetarget!='') {
-    // alert('update target = '+updatetarget+' action='+updateaction);
-    taction.value = updateaction;
-    fset.target = updatetarget;
+  if (updatetarget=='') {
+    updatetarget = 'wgcal_hidden';
+    updateaction = '/what/index.php?sole=A&app=WGCAL&action=WGCAL_HIDDEN';
   }
+  taction.value = updateaction;
+  fset.target = updatetarget;
   fset.submit();
 }
 

@@ -187,7 +187,7 @@ function DrawRect(x,y,w,h,c) {
 // --------------------------------------------------------
 function WGCalComputeCoord() {
 
-  var gamma = 0.25;
+  var gamma = 0; //0.25;
 
   // compute area coord left/top (Xs,Ys) right/bottom (Xe,Ye)
   var os = getAnchorPosition(IdStart);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.21 2005/02/07 20:33:18 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.22 2005/02/08 06:45:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -49,7 +49,7 @@ function wgcal_editevent(&$action) {
   $timee = GetHttpVars("te", time()+3600);
   $evid = GetHttpVars("evt", -1);
   
-  if ($evid != -1) {
+  if ($evid > 0) {
     $event = new Doc($db, $evid);
     $evtitle  = $event->getValue("CALEV_EVTITLE", "");
     $evnote   = $event->getValue("CALEV_EVNOTE", "");
@@ -65,22 +65,21 @@ function wgcal_editevent(&$action) {
     $evrweekd = $event->getValue("CALEV_REPEATWEEKDAY", 0);
     $evrmonth = $event->getValue("CALEV_REPEATMONTH", 0);
     $evruntil = $event->getValue("CALEV_REPEATUNTIL", 0);
-    $evruntild = db2date($event->getValue("CALEV_REPEATUNTILDATE", ""));
+    $evruntild = db2date($event->getValue("CALEV_REPEATUNTILDATE"));
     $evrexcld  = $event->getTValue("CALEV_EXCLUDEDATE", array());
     $attendees = $event->getTValue("CALEV_ATTID", array());
     $attendeesState = $event->getTValue("CALEV_ATTSTATE", array());
     $evstatus = 0;
     $mailadd = "";
+    $withme = false;
     foreach ($attendees as $k => $v) {
-      $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
-      $m = $u->getValue("US_MAIL");
-      if ($m) $mailadd .= ($mailadd==""?"":", ").$u->getValue("US_FNAME")." ".$u->getValue("US_LNAME")." <".$m.">";
       if ($v == $action->user->fid) {
-	$evstatus = $attendeesState[$k];
-	if ($evstatus==0) {
-	  $evstatus = 1;
-	  $attendeesState[$k] = 1;
-	}
+	$ecstatus = ($evstatus == EVST_NEW ? EVST_READ : $evstatus);
+	$withme = true;
+      } else {
+	$u = new Doc($action->GetParam("FREEDOM_DB"), $v);
+	$m = $u->getValue("US_MAIL");
+	if ($m) $mailadd .= ($mailadd==""?"":", ").$u->getValue("US_FNAME")." ".$u->getValue("US_LNAME")." <".$m.">";
       }
     }
     $ownerid = $event->getValue("CALEV_OWNERID", "");
@@ -102,16 +101,12 @@ function wgcal_editevent(&$action) {
     $evrweekd = 0;
     $evrmonth = 0;
     $evruntil = -1;
-    $evruntild = $timee;
+    $evruntild = $timee + (14*24*3600);
     $evrexcld  = array();
-    $evstatus = 2;
+    $evstatus = EVST_ACCEPT;
+    $withme = true;
     $attendees = array( );
     $attendeesState = array( );
-    $iatt = 0;
-    $attendees[$iatt] = $action->user->fid;
-    $attendeesState[$iatt] = $evstatus;
-    $iatt++;
-    
     $userd = $action->GetParam("WGCAL_U_USERESSINEVENT", 0);
     if ($userd == 1) {
       $curress = $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
@@ -123,14 +118,13 @@ function wgcal_editevent(&$action) {
 	    $dd = new Doc($db, $tt[0]);
 	    if ($dd->fromid != getIdFromName($db,"SCALENDAR")) {
 	      $attendees[$iatt] = $tt[0];
-	      $attendeesState[$iatt] = 0;
+	      $attendeesState[$iatt] = EVST_NEW;
 	      $iatt++;
 	    }
 	  }
 	}
       }
     }
-     
     $ownerid = $action->user->fid;
     $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
     $ownertitle = $attru["title"];
@@ -164,7 +158,7 @@ function wgcal_editevent(&$action) {
   EventSetStatus($action, $evstatus, $rostatus);
   EventSetAlarm($action, $evalarm, $evalarmt, $ro);
   EventSetRepeat($action, $evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld, $ro);
-  EventAddAttendees($action, $attendees, $attendeesState, $ro);
+  EventAddAttendees($action, $attendees, $attendeesState, $withme, $ro);
   EventSetOwner($action, $ownerid, $ownertitle);
 
   return;  
@@ -314,7 +308,7 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
   $action->lay->set("D_RUNTIL_DATE", ($runtil==1?"checked":""));
   $action->lay->set("RUNUNTIL_DATE_DISPLAY", ($runtil==1?"":"none"));
   
-  $action->lay->set("uDate", strftime(DATE_F_LONG, $runtildate));
+  $action->lay->set("uDate", strftime("%A %d %b %Y", $runtildate));
   $action->lay->set("umDate", $runtildate*1000);
   
 
@@ -331,19 +325,13 @@ function EventSetOwner(&$action, $ownerid, $ownertitle) {
   $action->lay->set("ownertitle", $ownertitle);
 }
 
-function EventAddAttendees(&$action, $attendees = array(), $attendeesState = array(), $ro = false) {
-  $withme = "";
+function EventAddAttendees(&$action, $attendees = array(), $attendeesState = array(), $withme=true, $ro=false) {
   $att = array();
   $a = 0;
   $doc = new Doc($action->GetParam("FREEDOM_DB"));
   foreach ($attendees as $k => $v) {
-    if ($v == "" || $v==0) continue;
-    if ($v == $action->user->fid) {
-      $att[$a]["attvis"] = 'none';
-      $withme = "checked";
-    } else $att[$a]["attvis"] = '';
+    if ($v == "" || $v==0 || $v == $action->user->fid) continue;
     $att[$a]["attId"]    = $v;
-    if ($v == $action->user->fid) $status = $attendeesState[$k];
     $att[$a]["attState"] = $attendeesState[$k];
     $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
     $att[$a]["attTitle"] = $attru["title"];
@@ -352,7 +340,7 @@ function EventAddAttendees(&$action, $attendees = array(), $attendeesState = arr
   }
   $action->lay->setBlockData("ADD_RESS", $att);
   $action->lay->set("attendeesro", ($ro?"none":""));
-  $action->lay->set("WITHME", $withme);
+  $action->lay->set("WITHME", ($withme?"checked":""));
   $action->lay->set("WITHMERO", ($ro?"readonly":""));
 }
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.8 2005/02/07 07:09:18 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.9 2005/02/08 06:45:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -33,10 +33,23 @@ function ev_weekview(&$action) {
   $tpriv[0]["REF"] = $evref;
   $action->lay->set("ID",    $ev->id);
   $tpriv[0]["ID"] = $ev->id;
-  $action->lay->set("START", substr($ev->getValue("CALEV_START"),0,16));
-  $action->lay->set("END",   substr($ev->getValue("CALEV_END"),0,16));
-  $action->lay->set("RHOURS", substr($ev->getValue("CALEV_START"),11,5));
-  $action->lay->set("RHOURE", substr($ev->getValue("CALEV_END"),11,5));
+
+
+  $lstart = $lend = $lrhs = $lrhe = ""; 
+  switch($ev->getValue("CALEV_TIMETYPE",0)) {
+  case 1: $lstart = $lrhe = N_("no hour"); break;
+  case 2: $lstart = $lrhe = N_("all the day"); break;
+  default:
+    $lstart = substr($ev->getValue("CALEV_START"),0,16);
+    $lend = substr($ev->getValue("CALEV_END"),0,16);
+    $lrhs = substr($ev->getValue("CALEV_START"),11,5);
+    $lrhe = substr($ev->getValue("CALEV_END"),11,5);
+  }
+  $action->lay->set("START", $lstart);
+  $action->lay->set("END",   $lend);
+  $action->lay->set("RHOURS", $lrhs);
+  $action->lay->set("RHOURE", $lrhe);
+
   $action->lay->set("iconevent", $ev->getIcon($ev->icon));
 
   $action->lay->set("owner", $ev->getValue("CALEV_OWNER"));
@@ -151,7 +164,7 @@ function ev_showattendees(&$action, &$ev, $present) {
   $globalstate = "grey";
   $d = new Doc($dbaccess);
   $tress = $ev->getTValue("CALEV_ATTID");
-  if ($present && count($tress)>1) {
+  if (count($tress)>1) {
     $states = CAL_getEventStates($dbaccess,"");
     $action->lay->set("attdisplay","");
     $t = array();

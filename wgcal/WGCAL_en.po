@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-06 10:42+0100\n"
+"POT-Creation-Date: 2005-02-08 06:28+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -97,6 +97,12 @@ msgstr ""
 msgid "set event state"
 msgstr ""
 
+msgid "create a new calendar"
+msgstr ""
+
+msgid "add a new calendar"
+msgstr ""
+
 msgid "menubar"
 msgstr ""
 
@@ -136,6 +142,18 @@ msgstr ""
 msgid "calendar view"
 msgstr ""
 
+msgid "calendar creation"
+msgstr ""
+
+msgid "Enter new calendar name"
+msgstr ""
+
+msgid "enter new calendar name"
+msgstr ""
+
+msgid "create calendar"
+msgstr ""
+
 msgid "freedom groupware calendar"
 msgstr ""
 
@@ -148,13 +166,13 @@ msgstr ""
 msgid "add todo"
 msgstr ""
 
-msgid "today"
-msgstr ""
-
 msgid "one week view"
 msgstr ""
 
 msgid "two week view"
+msgstr ""
+
+msgid "enter words here"
 msgstr ""
 
 msgid "search events containing phrase..."
@@ -182,6 +200,9 @@ msgid "next period"
 msgstr ""
 
 msgid "week"
+msgstr ""
+
+msgid "view/hide week-end"
 msgstr ""
 
 msgid "searched families"
@@ -214,25 +235,28 @@ msgstr ""
 msgid "rv title"
 msgstr ""
 
+msgid "give a title"
+msgstr ""
+
 msgid "rv note"
 msgstr ""
 
 msgid "start date"
 msgstr ""
 
-msgid "click here to enter the start date"
+msgid "start time update according end time"
 msgstr ""
 
-msgid "end time update"
+msgid "click here to enter the start date"
 msgstr ""
 
 msgid "end date"
 msgstr ""
 
-msgid "click here to enter the end date"
+msgid "end time update according start time"
 msgstr ""
 
-msgid "start time update"
+msgid "click here to enter the end date"
 msgstr ""
 
 msgid "no hour"
@@ -250,10 +274,16 @@ msgstr ""
 msgid "vew disponibility"
 msgstr ""
 
+msgid "one ressource or you in event"
+msgstr ""
+
 msgid "delete attendee"
 msgstr ""
 
 msgid "event state "
+msgstr ""
+
+msgid "I participe to this meeting"
 msgstr ""
 
 msgid "status"
@@ -343,9 +373,6 @@ msgstr ""
 msgid "del selected dates"
 msgstr ""
 
-msgid "update time"
-msgstr ""
-
 msgid "search phrase"
 msgstr ""
 
@@ -388,15 +415,6 @@ msgstr ""
 msgid "update calendar"
 msgstr ""
 
-msgid "reinit the list"
-msgstr ""
-
-msgid " ressource list saved"
-msgstr ""
-
-msgid "save the list"
-msgstr ""
-
 msgid "change my event color"
 msgstr ""
 
@@ -413,6 +431,15 @@ msgid "use ressource for event creation"
 msgstr ""
 
 msgid "use in event..."
+msgstr ""
+
+msgid "reinit the list"
+msgstr ""
+
+msgid " ressource list saved"
+msgstr ""
+
+msgid "save the list"
 msgstr ""
 
 msgid "found ressources"
@@ -456,4 +483,7 @@ msgid "You have waiting events"
 msgstr ""
 
 msgid "confidential event"
+msgstr ""
+
+msgid "My public calendar"
 msgstr ""

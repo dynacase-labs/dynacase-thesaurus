@@ -32,7 +32,6 @@
    <td id="L[LID]" width="[WGCAL_U_HCOLW]px" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>
 [ENDBLOCK HOURS]
 </table>[comment]</div>
-<pre>[trace]<pre>
 
 <form target="wgcal_calhidden" style="display:none" id="textform" method="POST">
 <input id="Xtext" type="hidden" value="0">
