@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.18 2005/02/03 16:52:23 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.19 2005/03/15 08:21:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -24,7 +24,7 @@ function postCreated() {
  * @param date $d2 end date in iso8601 format
  * @return array array of event. These events returned are not objects but only a array of variables.
  */
-function getEvents($d1="",$d2="",$exploded=true) {
+function getEvents($d1="",$d2="",$exploded=true,$filter=array()) {
   if ($d2=="")$filter[]="evt_begdate is not null";
   else $filter[]="evt_begdate <= '$d2'";
   if ($d1=="") $filter[]="evt_enddate is not null";

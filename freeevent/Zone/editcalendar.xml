@@ -9,7 +9,7 @@
 </fieldset><table  width="100%" cellspacing="0">
 [ZONE FDL:EDITFRAME?frameid=DCAL_FR_PRESENT]
 </table>
-<input type="button" value="[TEXT:planner]" onClick="preview('[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_PREVIEW&dochead=N&vid=PLANNER&isoperiod=2004')">
+<input type="button" value="[TEXT:planner]" onClick="preview('[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_PREVIEW&dochead=N&vid=PLANNER')">
 </td><td>
 <table  width="100%" cellspacing="0">
 [ZONE FDL:EDITFRAME?frameid=DCAL_FR_RES]
