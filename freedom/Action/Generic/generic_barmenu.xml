@@ -83,7 +83,7 @@ function SendSearch(e) {
 
 <!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup">
-  <a id="help" target="helpwhat" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=USERCARD&sectid=usercard.gen" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
+  <a id="help" target="helpwhat" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
 </div>
 
 

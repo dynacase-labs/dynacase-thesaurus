@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.8 2002/04/05 08:41:08 eric Exp $
+// $Id: import_file.php,v 1.9 2002/05/28 16:33:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -134,6 +134,14 @@ function add_import_file(&$action, $fimport="") {
       $doc->useforprof =  "t";
     break;
     // -----------------------------------
+    case "CPROFID":     
+      $doc->cprofid =  $data[1];
+    break;
+    // -----------------------------------
+    case "PROFID":     
+      $doc->profid =  $data[1];
+    break;
+    // -----------------------------------
     case "ATTR":
       if     ($num < 12) print "Error in line $nline: $num cols < 13<BR>";
       $oattr=new DocAttr($dbaccess);
@@ -203,7 +211,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10) {
     reset($lattr);
     while (list($k, $attr) = each ($lattr)) {
 
-      if ($data[$iattr] != "") {
+      if (isset($data[$iattr]) &&  ($data[$iattr] != "")) {
 	$bdvalue->attrid = $attr->id;
 	$bdvalue->value = $data[$iattr];
 	$bdvalue->Modify();

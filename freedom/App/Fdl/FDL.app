@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.2 2002/03/27 17:42:21 eric Exp $
+// $Id: FDL.app,v 1.3 2002/05/28 16:33:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -40,6 +40,12 @@ $app_acl = array (
 
 $action_desc = array (
   
+  array( 
+   "name"		=>"NONE",
+   "short_name"		=>N_("nothing action"),
+   "acl"		=>"NORMAL",
+   "root"		=>"Y"
+  ) ,
   array( 
    "name"		=>"ENUM_CHOICE",
    "short_name"		=>N_("to choose value from set"),
