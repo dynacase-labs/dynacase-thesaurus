@@ -173,8 +173,8 @@ function resizeIFrame() {
 <img src="[IMG:bred.gif]" 
      style="cursor:pointer" 
      onClick="self.close()"
-     title="[TEXT:close]"
-     alt="[TEXT:close]">
+     title="[TEXT:Close]"
+     alt="[TEXT:Close]">
 <br>
 
 [BLOCK SELECTSINGLE]
