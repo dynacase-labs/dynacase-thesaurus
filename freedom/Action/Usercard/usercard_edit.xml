@@ -1,0 +1,86 @@
+
+<!-- HEAD HTML -->
+
+<html>
+  <head>
+
+   <title>[TEXT:edition: ] [TITLE]</title>
+
+   <style>
+[ZONE CORE:GENCSS]
+   </style>
+
+
+[CSS:REF]
+
+
+   <style type="text/css">
+[CSS:CODE]
+   </style>
+
+[JS:REF]
+
+   <script language="JavaScript">
+  <!--
+    [JS:CODE]
+
+
+
+  //-->
+   </script>   
+
+
+
+ </head>
+
+<body class="freedom" 
+      onLoad="resizeInputFields()"
+      onUnLoad="closechoose()"
+      onResize="resizeInputFields()">
+
+
+
+
+<!-- Title Table -->
+<form  id="fedit"  class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=USERCARD&action=USERCARD_MOD&id=[id]&dirid=[dirid]&classid=120" >
+
+
+
+<table class="tableborder"  cellspacing="0" width="100%">
+<thead>
+<tr class="FREEDOMBack1">
+ <td  colspan="3">
+   <span class="FREEDOMTextBigTitle">[TITLE]</span>
+  </td> 
+</tr>
+
+<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
+</thead>
+   
+[ZONE FDL:EDITCARD]
+
+
+<tfoot>
+<tr class="FREEDOMBack1">
+  <td colspan="3" >
+  <select name="[privacity]" id="[privacity]">
+    <option value="P" [selectp]>[TEXT:private card]</option>
+    <option value="R" [selectr]>[TEXT:public card - read access]</option>
+    <option value="W" [selectw]>[TEXT:public card - write access]</option>
+  </select>
+
+  </td>
+</tr>
+<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
+<tr class="FREEDOMBack1">
+  <td colspan="3" >
+ <input type="submit" value=[editaction] onClick="enableall();"> 
+  </td>
+</tr>
+</tfoot>
+</table>
+</form>
+<!--  FOOT HTML -->
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+[ZONE CORE:HTMLHEAD]
+<H2>[TEXT:Import Results]</H2>
+
+
+<P>[TEXT:personn added]
+<OL>
+[BLOCK ADDED]
+    <LI>[title] [id]</LI>
+[ENDBLOCK ADDED]
+</OL>
+
+<P>[TEXT:personn deleted]
+<OL>
+[BLOCK DELETED]
+    <LI>[title] [id]</LI>
+[ENDBLOCK DELETED]
+</OL>
+
+
+[ZONE CORE:HTMLFOOT]
+
+

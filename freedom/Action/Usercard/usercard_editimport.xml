@@ -1,0 +1,35 @@
+[ZONE CORE:HTMLHEAD]
+<H2>[TEXT:Import from VCard]</H2>
+
+<FORM ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=USERCARD&action=USERCARD_IMPORTVCARD" method="post">
+              <P>[TEXT:The file to be imported must be in VCard format.]<P>
+
+              <INPUT NAME="vcardfile" SIZE=48 TYPE="file" VALUE=""><BR>
+ <label for="category"> [TEXT:category]:</label><BR>
+
+    
+[BLOCK CATG]
+    <input type="checkbox" name="category[]" VALUE="[id]" style="margin:0px [level]px 0px 0px">[title]</input><BR>
+[ENDBLOCK CATG]
+
+<BR>
+<label for="visibility"> [TEXT:visibility]&nbsp;:</label>
+ <select name="privacity" >
+    <option value="P" >[TEXT:private card]</option>
+    <option value="R" select>[TEXT:public card - read access]</option>
+    <option value="W" >[TEXT:public card - write access]</option>
+  </select>
+
+<BR>
+<label for="policy"> [TEXT:policy if same title]&nbsp;:</label>
+  <SELECT NAME="policy">
+            <OPTION VALUE="add">[TEXT:Add new card (duplicate title)]</OPTION>
+            <OPTION VALUE="update">[TEXT:Replace address book card if has permission else duplicate]</OPTION>
+            <OPTION VALUE="keep">[TEXT:Keep address book card]</OPTION>
+  </SELECT><BR>
+<input type="submit" value="[TEXT:import vcard]">
+</FORM>
+
+[ZONE CORE:HTMLFOOT]
+
+
