@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-04-08 16:55+0200\n"
+	"POT-Creation-Date: 2002-04-09 10:50+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -130,7 +130,7 @@ msgstr	"nouveau profil de document"
 
 #, c-format
 msgid	"%s has been deleted"
-msgstr "%s a été supprimé"
+msgstr	"%s a été supprimé"
 
 msgid	"no document type"
 msgstr	"pas de famille de document"
@@ -170,6 +170,10 @@ msgstr	"non"
 
 msgid	"root folder"
 msgstr	"Freedom"
+
+#, c-format
+msgid	"new title for %s"
+msgstr	"nouveau titre pour %s"
 
 msgid	"this kind of document cannot be duplicate"
 msgstr	"ce type de document ne peut être dupliqué"
@@ -501,6 +505,12 @@ msgstr	"abandon de l'édition"
 msgid	"change icon document"
 msgstr	"changer l'icone du document"
 
+msgid	"change title family"
+msgstr	"changement du titre de famille"
+
+msgid	"query title family"
+msgstr "demande de changement de titre"
+
 msgid	"search document"
 msgstr	"Nouveau document"
 
@@ -563,6 +573,10 @@ msgstr	"exportation d'un fichier pour consultation"
 
 msgid	"export first file to consulting"
 msgstr	"exportation du premier fichier pour consultation"
+
+#, c-format
+msgid	"file %d"
+msgstr	"fichier %d"
 
 msgid	"User Card"
 msgstr	"Carnet d'adresses"
@@ -1061,6 +1075,12 @@ msgstr	" commentaire de révision"
 msgid	" revise document"
 msgstr	"réviser le document"
 
+msgid	" change title"
+msgstr	" Changer de titre"
+
+msgid	"Change title"
+msgstr	"Changer de titre"
+
 msgid	" choose value"
 msgstr	" choisir une valeur"
 
@@ -1227,9 +1247,6 @@ msgstr	"Annuler"
 
 #~ msgid	"basic documentation family"
 #~ msgstr	"Famille de base"
-
-#~ msgid	"directory familly"
-#~ msgstr	"famille de dossier"
 
 #~ msgid	"profile documentation access familly"
 #~ msgstr	"famille des profils d'accès documents"

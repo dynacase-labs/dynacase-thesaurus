@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.14 2002/04/08 15:12:18 eric Exp $
+// $Id: Class.Doc.php,v 1.15 2002/04/09 14:47:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.14 2002/04/08 15:12:18 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.15 2002/04/09 14:47:47 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -440,7 +440,7 @@ create sequence seq_id_doc start 1000";
 	$query->AddQuery("(id = ".FAM_DIR.")");
       break;
       default:	
-	$query->AddQuery("(id = 1) OR (id > 9)");
+		$query->AddQuery("(id = 1) OR (id > 5)");
       }
       //      $query->AddQuery("initid=id");
       }
@@ -594,6 +594,8 @@ create sequence seq_id_doc start 1000";
 
   // recompute the title from attribute values
   function RefreshTitle() {
+
+    if ($this->doctype == 'C') return; // no refresh for family  document
 
     $ltitle = $this->GetTitleAttributes();
 
@@ -781,6 +783,9 @@ create sequence seq_id_doc start 1000";
 
   // recompute all calculated attribut
   function Refresh() {
+
+    if ($this->doctype == 'C') return; // no refresh for family  document
+
     $lattr = $this->GetAttributes();
 
     while(list($k,$v) = each($lattr)) {
