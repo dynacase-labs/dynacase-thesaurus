@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search_kind.php,v 1.8 2004/06/03 14:47:28 eric Exp $
+ * @version $Id: generic_search_kind.php,v 1.9 2004/07/09 09:00:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.8 2004/06/03 14:47:28 eric Exp $
+// $Id: generic_search_kind.php,v 1.9 2004/07/09 09:00:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,6 @@ function generic_search_kind(&$action) {
   $aid=GetHttpVars("aid"); // attribute to search
   $dirid=GetHttpVars("catg"); // folder or research to search
 
-
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -73,7 +72,7 @@ function generic_search_kind(&$action) {
   if (($dirid == 0) || ($dir->id == getDefFld($action))) $sdoc->title = sprintf(_("search %s is %s"),
 							     $attr->labelText,$kindname );
   else $sdoc->title = sprintf(_("search %s is %s in %s"),
-			      $attr->labelText,$kindname,$dir->title );
+			      $attr->labelText,$kindname,$dir->gettitle() );
 
   $sdoc->Add();
   
@@ -81,6 +80,8 @@ function generic_search_kind(&$action) {
   $sdirid = 0;
   if ($dir->defDoctype == 'S') { // case of search in search doc
     $sdirid = $dir->id;
+    $pds=$dir->urlWhatEncodeSpec("");
+    //print "<hr>pds=$pds";
   } else { // case of search in folder
     if ($dir->id != getDefFld($action))
       $sdirid = $dirid;
@@ -124,7 +125,7 @@ function generic_search_kind(&$action) {
 
   $sdoc->AddQuery($query);
 
-  redirect($action,GetHttpVars("app"),"GENERIC_LIST&famid=$famid&dirid=".$sdoc->id."&catg=".$dirid);
+  redirect($action,GetHttpVars("app"),"GENERIC_LIST$pds&famid=$famid&dirid=".$sdoc->id."&catg=".$dirid);
   
   
 }

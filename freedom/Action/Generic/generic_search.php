@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.19 2004/06/23 14:08:24 eric Exp $
+ * @version $Id: generic_search.php,v 1.20 2004/07/09 09:00:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.19 2004/06/23 14:08:24 eric Exp $
+// $Id: generic_search.php,v 1.20 2004/07/09 09:00:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,12 +56,16 @@ function generic_search(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if ($keyword[0]!=">") {
-    $dirid=$catgid; // search sub searches   
-  } else {
+    $dirid=$catgid; 
+    $doc = new Doc($dbaccess, $dirid);
+    $pds=$doc->urlWhatEncodeSpec("");
+  } else {  // search sub searches   
     $keyword=substr($keyword,1);
+    $catg = new Doc($dbaccess,$catgid );
+    $pds=$catg->urlWhatEncodeSpec("");
+    $doc = new Doc($dbaccess, $dirid);
   }
 
-  $doc = new Doc($dbaccess, $dirid);
 
   $sdoc = createDoc($dbaccess,5,false); //new DocSearch($dbaccess);
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
@@ -100,7 +104,7 @@ function generic_search(&$action) {
 
   $sdoc-> AddQuery($query);
 
-  redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&catg=$catgid");
+  redirect($action,GetHttpVars("app"),"GENERIC_LIST$pds&dirid=".$sdoc->id."&catg=$catgid");
   
   
 }

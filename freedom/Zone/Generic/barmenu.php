@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.23 2004/06/23 14:08:24 eric Exp $
+ * @version $Id: barmenu.php,v 1.24 2004/07/09 09:00:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.23 2004/06/23 14:08:24 eric Exp $
+// $Id: barmenu.php,v 1.24 2004/07/09 09:00:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -64,7 +64,10 @@ function barmenu(&$action) {
   $fdoc= new Doc( $dbaccess, $famid);
 
 
-  $fld=new Doc($dbaccess, $dirid);
+  
+  if ($catg>1)   $fld=new Doc($dbaccess, $catg);
+  else  $fld=new Doc($dbaccess, $dirid);
+
   $action->lay->set("pds",$fld->urlWhatEncodeSpec("")); // parameters for searches
 
   if ($fdoc->control("create") == "") {
