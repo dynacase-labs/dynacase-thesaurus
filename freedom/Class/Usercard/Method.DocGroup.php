@@ -3,7 +3,7 @@
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocGroup.php,v 1.9 2004/03/01 09:32:43 eric Exp $
+ * @version $Id: Method.DocGroup.php,v 1.10 2004/06/10 08:06:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -40,6 +40,30 @@ function RefreshGroup() {
     
   }
   return $err;
+}
+/**
+ * update groups table in USER database
+ * @return string error message 
+ */
+function postInsertDoc($docid,$multiple) {
+  $this->SetGroupMail();
+  $this->refreshMembers();
+}
+/**
+ * update groups table in USER database
+ * @return string error message 
+ */
+function postMInsertDoc($tdocid) {
+  $this->SetGroupMail();
+  $this->refreshMembers();
+}
+/**
+ * update groups table in USER database before suppress
+ * @return string error message 
+ */
+function postUnlinkDoc($docid) {
+  $this->SetGroupMail();
+  $this->refreshMembers();
 }
 
 /**
@@ -152,5 +176,52 @@ function refreshParentGroup() {
   return $tgroup;
   
 }
-?>
+
+/**
+ * refresh members of the group from USER database
+ */
+function refreshMembers() { 
+  include_once("FDL/Lib.Dir.php");  
+
+  // 1)users
+  $tu=getChildDoc($this->dbaccess, 
+		  $this->initid, 
+		  "0", "ALL", array(), 
+		  1, 
+		  "TABLE", "USER");
+  if (count($tu) > 0) {
+    foreach ($tu as $k=>$v) {
+      $tmemid[]=$v["id"];
+      $tmem[]=$v["title"];
+    }
+    $this->SetValue("GRP_USER", $tmem);
+    $this->SetValue("GRP_IDUSER",$tmemid );
+  } else {
+    $this->DeleteValue("GRP_USER");
+    $this->DeleteValue("GRP_IDUSER");
+    $this->DeleteValue("GRP_GROUP");
+    $this->DeleteValue("GRP_IDGROUP");
+  }
+  // 2)groups
+  $tu=getChildDoc($this->dbaccess, 
+		  $this->initid, 
+		  "0", "ALL", array(), 
+		  1, 
+		  "TABLE", "GROUP");
+  $tmemid=array();
+  $tmem=array();
+  if (count($tu) > 0) {
+    foreach ($tu as $k=>$v) {
+      $tmemid[]=$v["id"];
+      $tmem[]=$v["title"];
+    }
+    $this->SetValue("GRP_GROUP", $tmem);
+    $this->SetValue("GRP_IDGROUP",$tmemid );
+  } else {
+    $this->DeleteValue("GRP_GROUP");
+    $this->DeleteValue("GRP_IDGROUP");
+  }
+  $err=$this->modify();
+}
+
 ?>
