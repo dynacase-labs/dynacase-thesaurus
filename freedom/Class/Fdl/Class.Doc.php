@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.164 2003/11/03 09:05:18 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.165 2003/11/17 11:19:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.164 2003/11/03 09:05:18 eric Exp $
+// $Id: Class.Doc.php,v 1.165 2003/11/17 11:19:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.164 2003/11/03 09:05:18 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.165 2003/11/17 11:19:25 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1079,7 +1079,9 @@ create unique index i_docir on doc(initid, revision);";
       
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
-	if ((get_class($v) == "menuattribute")) $tsa[$v->id]=$v;
+	if (((get_class($v) == "menuattribute"))&&($v->visibility != 'H')) $tsa[$v->id]=$v;
+	  
+	
       }
       return $tsa;
     }
@@ -1487,7 +1489,9 @@ create unique index i_docir on doc(initid, revision);";
     $this->revdate = $date['sec']; // change rev date
     if ($comment != '') $this->Addcomment($comment);
 
+
     $this->modify();
+
     //$listvalue = $this->GetValues(); // save copy of values
 
     // duplicate values
@@ -1497,6 +1501,7 @@ create unique index i_docir on doc(initid, revision);";
     $this->comment = ""; // change comment
     $this->revision = $this->revision+1;
     $this->postitid=$postitid;
+   
     $this->Add();
     $this->modify(); // need to applicate SQL triggers
        
@@ -1521,10 +1526,11 @@ create unique index i_docir on doc(initid, revision);";
     $copy->revision = "0";
     $copy->locked = "0";
     $copy->state = "";
+    $copy->comment = "";
     if ($temporary) $copy->doctype = "T";
     $cdoc= $this->getFamDoc();
     $copy->setProfil($cdoc->cprofid);
-    $copy->addComment(sprintf(_("copy from document #%d"),$this->id));
+    $copy->addComment(sprintf(_("copy from document #%d -%s-"),$this->id, $this->title));
     $err = $copy->Add();
 
     if ($err != "") return $err;
@@ -1782,7 +1788,8 @@ create unique index i_docir on doc(initid, revision);";
     
     $aformat=$oattr->format;
     $atype=$oattr->type;
-    if (($oattr->repeat)&&((!$oattr->inArray()))||($index==-1)) {
+
+    if ($oattr->repeat){
       $tvalues = explode("\n",$value);
     } else {
       $tvalues[$index]=$value;
@@ -1919,7 +1926,7 @@ create unique index i_docir on doc(initid, revision);";
 	      "</A>";
 	
 	  break;
-	case "longtext": 
+	case "longtext": 	  
 	  $htmlval=nl2br(htmlentities(stripslashes(str_replace("<BR>","\n",$avalue))));
 	  break;
 	case "password": 
@@ -2069,11 +2076,16 @@ create unique index i_docir on doc(initid, revision);";
   // use triggers to update docvalue table
   // --------------------------------------------------------------------
   function SqlTrigger($drop=false) {
-    if ($this->doctype == 'C') return;
-    if (intval($this->fromid) == 0) return;
 
-    $cid = $this->fromid;
-    reset($this->attributes->fromids);
+    if (get_class($this) == "docfam") {
+      $cid = "fam";
+    } else {
+      if ($this->doctype == 'C') return;
+      if (intval($this->fromid) == 0) return;
+      
+      $cid = $this->fromid;
+    }
+    
       
     $sql = "";
 
@@ -2081,10 +2093,13 @@ create unique index i_docir on doc(initid, revision);";
     $sql .= "select droptrigger('doc".$cid."');";
      
     if ($drop) return $sql; // only drop
+    if (is_array($this->attributes->fromids)) {
+    reset($this->attributes->fromids);
     while(list($k,$v) = each($this->attributes->fromids)) {
 
       $sql .="create trigger UV{$cid}_$v BEFORE INSERT OR UPDATE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE upval$v();";
      
+    }
     }
     // the reset trigger must begin with 'A' letter to be proceed first (pgsql 7.3.2)
     $sql .="create trigger AUVR{$cid} BEFORE UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
@@ -2226,8 +2241,14 @@ create unique index i_docir on doc(initid, revision);";
 	  
       $value = chop($this->GetValue($i));
 
+      $goodvalue=((($value != "") || ( $attr->type=="array")) && 
+		  ($attr->mvisibility != "H") && ($attr->mvisibility != "O") && (! $attr->inArray()));
+      if ($goodvalue)   {
+	 
+	$htmlvalue=$this->GetHtmlValue($attr,$value,$target,$ulink);
+      } else $htmlvalue="";
     
-      if (($value != "") || ($attr->type=="array")) // to define when change frame
+      if ($htmlvalue != "") // to define when change frame
 	{
 	  if ( $currentFrameId != $attr->fieldSet->id) {	    
 	    if (($currentFrameId != "") && ($attr->fieldSet->visibility == "F")) $changeframe=true;
@@ -2239,7 +2260,7 @@ create unique index i_docir on doc(initid, revision);";
       //------------------------------
       // change frame if needed
 
-      if (  // to generate  fiedlset
+      if (  // to generate  fieldset
 	  $changeframe)
 	{
 	  $changeframe=false;
@@ -2268,59 +2289,38 @@ create unique index i_docir on doc(initid, revision);";
 
       //------------------------------
       // Set the table value elements
-      if ($iattr <= $nattr)	{
-      
-	if ((($value != "") || ( $attr->type=="array")) && 
-	    ($attr->mvisibility != "H") && ($attr->mvisibility != "O") && (! $attr->inArray()))   {
+    
+      if ($goodvalue)   {
+	  	 
+	switch ($attr->type)
+	  {	      
+	  case "image": 		  
+	    $tableimage[$nbimg]["imgsrc"]=$htmlvalue;
+	    break;
+	  default : 
+	    $tableframe[$v]["value"]=$htmlvalue;
+	    break;
 		
-	  if ($attr->fieldSet->visibility=="F") $currentFrameId = $attr->fieldSet->id;
-	 
-	  // print values
-	  // printf($attr->type);
-	  switch ($attr->type)
-	    {
-	      
-	    case "image": 
-		  
-	      $tableimage[$nbimg]["imgsrc"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
-	      break;
-		
-		
-	    case "file": 
-		  
-	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
-	    
-	      break;
-	      
-	    case "idoc" :
-	      //printf("ici  ");
-	      $tableframe[$v]["value"] =$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
-	      	         
-	      break;
-	      
-	    default : 
-	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
-	      break;
-		
-	    }
-
-	  $tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
-
-	
-	  // print name except image (printed otherthere)
-	  if ($attr->type != "image") {
-	    $tableframe[$v]["name"]=$this->GetLabel($attr->id);
-	    if (( $attr->type != "array")&&( $attr->type != "htmltext"))  $tableframe[$v]["ndisplay"]="";
-	    else $tableframe[$v]["ndisplay"]="none";
-	    $v++;
-	  } else	{
-	    $tableimage[$nbimg]["imgalt"]=$this->GetLabel($attr->id);
-	    $nbimg++;
 	  }
 
-	      
+	if (($attr->fieldSet->visibility=="F")&&($htmlvalue)) $currentFrameId = $attr->fieldSet->id;
+	$tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
+
+	
+	// print name except image (printed otherthere)
+	if ($attr->type != "image") {
+	  $tableframe[$v]["name"]=$this->GetLabel($attr->id);
+	  if (( $attr->type != "array")&&( $attr->type != "htmltext"))  $tableframe[$v]["ndisplay"]="";
+	  else $tableframe[$v]["ndisplay"]="none";
+	  $v++;
+	} else	{
+	  $tableimage[$nbimg]["imgalt"]=$this->GetLabel($attr->id);
+	  $nbimg++;
 	}
+
+	      
       }
+      
     }
 
     if (($v+$nbimg) > 0) // // last fieldset
