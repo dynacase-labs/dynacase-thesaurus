@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-05-16 11:33+0200\n"
+	"POT-Creation-Date: 2002-05-29 11:07+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -595,6 +595,9 @@ msgstr	"bibliothèque freedom"
 msgid	"Access Action Library"
 msgstr	"Bibliothèque pour les droits"
 
+msgid	"nothing action"
+msgstr "action nulle"
+
 msgid	"export folder"
 msgstr	"exportation de dossier"
 
@@ -603,6 +606,9 @@ msgstr	"exportation d'un fichier pour consultation"
 
 msgid	"export first file to consulting"
 msgstr	"exportation du premier fichier pour consultation"
+
+msgid	"freedom database"
+msgstr "base de donnée Freedom"
 
 #, c-format
 msgid	"file %d"
@@ -736,6 +742,15 @@ msgstr	"Import csv"
 
 msgid	"search a generict"
 msgstr	"rechercher une carte"
+
+msgid	"default document family"
+msgstr "famille de document par défaut"
+
+msgid	"default folder to place document"
+msgstr "n° dossier par défaut"
+
+msgid	"number of card by page"
+msgstr "nombre de cartes par page"
 
 msgid	"Products"
 msgstr	"Produits"
@@ -958,7 +973,7 @@ msgid	"Description"
 msgstr	"Description"
 
 msgid	"First Revision"
-msgstr "Première révision"
+msgstr	"Première révision"
 
 msgid	"Latest Revision"
 msgstr	"Dernière révision"
@@ -1001,6 +1016,9 @@ msgstr	"bilan"
 
 msgid	"Product Report"
 msgstr	"Rapport produits"
+
+msgid	"all constructors"
+msgstr "tous les constructeurs"
 
 msgid	"Balance Result"
 msgstr	"Résultat du bilan"
