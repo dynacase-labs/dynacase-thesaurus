@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.12 2003/06/11 14:37:31 eric Exp $
+// $Id: barmenu.php,v 1.13 2003/06/12 07:23:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -187,7 +187,7 @@ function barmenu(&$action) {
   while (list($k,$a) = each($lattr)) {
     if ($a->repeat || ($a->visibility == "H")|| ($a->visibility == "O") || ($a->type == "longtext") || 
 	($a->type == "docid")||  ($a->type == "htmltext")||
-	($a->type == "image" )|| ($a->type == "file" )) continue;
+	($a->type == "image" )|| ($a->type == "file" ) || ($a->fieldSet->visibility == "H" )) continue;
     $tsort[$a->id] = array("said"=>$a->id,
 			   "satitle"=>$a->labelText);
     $tmsort[$a->id] = "sortdoc".$a->id;
