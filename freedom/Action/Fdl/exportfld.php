@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.8 2002/12/13 11:19:40 eric Exp $
+// $Id: exportfld.php,v 1.9 2003/01/08 09:03:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,6 +37,7 @@ function exportfld(&$action, $aflid="0")
 
   $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE");
 
+    usort($tdoc,"orderbyfromid");
 
   $foutname = uniqid("/tmp/exportfld").".csv";
   $fout = fopen($foutname,"w");
@@ -49,12 +50,16 @@ function exportfld(&$action, $aflid="0")
 
   if (isset($docids)) {
 
+    // to invert HTML entities
+    $trans = get_html_translation_table (HTML_ENTITIES);
+    $trans = array_flip ($trans);
+    
 
     
     $doc = createDoc($dbaccess,0);
 
     // compose the csv file
-    $prevfromid = 0;
+    $prevfromid = -1;
     reset($tdoc);
     while (list($k,$zdoc)= each ($tdoc)) {
       $doc->ResetMoreValues();
@@ -63,8 +68,8 @@ function exportfld(&$action, $aflid="0")
 
       if ($prevfromid != $doc->fromid) {
 	$adoc = new DocFam($dbaccess,$doc->fromid);
-	$lattr=$adoc->GetNormalAttributes();
-	fputs($fout,"//DOC;".$doc->fromid.";<specid>;<fldid>;");
+	$lattr=$adoc->GetExportAttributes();
+	fputs($fout,"//FAM;".$adoc->title."(".$doc->fromid.");<specid>;<fldid>;");
 	while (list($ka,$attr)= each ($lattr)) {
 	  fputs($fout,str_replace(";"," - ",$attr->labelText).";");
 	}
@@ -78,6 +83,14 @@ function exportfld(&$action, $aflid="0")
       while (list($ka,$attr)= each ($lattr)) {
       
 	$value= $doc->getValue($attr->id);
+	// invert HTML entities
+	$value = preg_replace("/(\&[a-zA-Z0-9\#]+;)/es", "strtr('\\1',\$trans)", $value);
+ 
+	// invert HTML entities which ascii code like &#232;
+
+	$value = preg_replace("/\&#([0-9]+);/es", "chr('\\1')", $value);
+
+	
 	fputs($fout,str_replace(array("\n",";","\r"),
 				array("\\n"," - ",""),
 				$value) .";");
@@ -90,7 +103,16 @@ function exportfld(&$action, $aflid="0")
   Http_DownloadFile($foutname, $fld->title.".csv", "text/csv");
   unlink($foutname);
 
-  
+  exit;
 }
+
+function orderbyfromid($a, $b) {
+  
+    if ($a["fromid"] == $b["fromid"]) return 0;
+    if ($a["fromid"] > $b["fromid"]) return 1;
+  
+  return -1;
+}
+
 
 ?>
