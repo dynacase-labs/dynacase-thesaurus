@@ -50,7 +50,7 @@ function refreshfld(dirid) {
        target="doc_properties" 
        class="fborder" 
        name="modifydoc" 
-       onsubmit="setTimeout('refreshfld([dirid])',20)",
+       onsubmit="setTimeout('refreshfld([dirid])',20)"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
 
