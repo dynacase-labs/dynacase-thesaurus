@@ -6,7 +6,12 @@ pubdir="/home/httpd/what";
 #post installation
 #------------------------------
 if [ "$1" = "I" ] ; then
-    echo    
+
+  $pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
+  $pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
+  su - postgres -c "psql freedom anakeen -f $pubdir/USERCARD/init.sql"
+  su - postgres -c "psql freedom anakeen -f $pubdir/API/freedom_clean.sql"
+  $pubdir/wsh.php --api=usercard_iuser
 fi
 
 #------------------------------
@@ -15,6 +20,7 @@ fi
 if [ "$1" = "U" ] ; then
 
   $pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
+  $pubdir/wsh.php --api=usercard_iuser
 
 fi
 
