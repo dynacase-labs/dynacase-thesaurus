@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.32 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.33 2004/08/10 07:55:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -55,16 +55,17 @@ Class Dir extends PDir
       include_once("Class.User.php");
       $user = new User("", $this->userid);
       $home ->title = $user->firstname." ".$user->lastname;
+      $home->setTitle($home ->title);
       $home ->icon = 'fldhome.gif';
       $home -> Add(); 
 
       $privlocked = createDoc($this->dbaccess,"SEARCH");
       if (! $privlocked) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),getFamIdFromName($dbaccess,"SEARCH")));
 
-      $privlocked->title=(_("locked files of ").$home ->title);
+      $privlocked->title=(_("locked document of ").$home ->title);
       $privlocked->Add();
-      $privlocked->AddQuery("select * from doc where (doctype='F') ".
-			    "and (locked=".$this->userid.") ");
+      $privlocked->AddQuery("select * from doc where (doctype!='Z') ".
+			    " (locked=".$this->userid.") ");
       $home -> AddFile($privlocked->id); 
 
     }
