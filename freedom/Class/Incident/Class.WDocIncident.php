@@ -3,7 +3,7 @@
  * Incident Workflow
  *
  * @author Anakeen 2002
- * @version \$Id: Class.WDocIncident.php,v 1.14 2004/01/15 16:31:43 eric Exp $
+ * @version \$Id: Class.WDocIncident.php,v 1.15 2004/01/16 16:33:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -206,13 +206,13 @@ define ("Tsuspended", "Tsuspended");  # N_("Tsuspended")
   
   function isCompleteIncident() {
     
-    // the value IN_TRTPB must be set
+    // the value IN_INFOCLT must be set
     $err="";
-    $trtpb = $this->doc->getValue("IN_TRTPB");
+    $trtpb = $this->doc->getValue("IN_INFOCLT");
     
 
     
-    if ($trtpb=="") $err=sprintf(_("the %s attribute must be set."),$this->doc->getLabel("in_trtpb"));
+    if ($trtpb=="") $err=sprintf(_("the %s attribute must be set."),$this->doc->getLabel("in_infoclt"));
     return $err;
   }
 
