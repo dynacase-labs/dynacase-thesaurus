@@ -1,5 +1,5 @@
 <!-- ------------ POPUP DIVISION --------------------- -->
-<div  id="popupcard" class="popup">
+<div  style="display:none" id="popupcard" class="popup">
 
 
 
