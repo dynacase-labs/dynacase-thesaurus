@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: ONEFAM_init.php.in,v 1.6 2005/01/21 17:42:12 eric Exp $
+// $Id: ONEFAM_init.php.in,v 1.7 2005/01/28 17:08:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Onefam/ONEFAM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,7 +44,7 @@ $app_const= array(
 		  "ONEFAM_FAMOPEN" => array("val"=>"",
 					    "user"=>"Y",
 					    "global"=>"N",
-					    "descr"=>_("famille ouverte par défaut"))
+					    "descr"=>_("default opened family"))
 );
 
 
