@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.4 2002/06/19 12:32:29 eric Exp $
+// $Id: search.php,v 1.5 2002/07/16 08:25:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,6 +46,7 @@ function search(&$action) {
   $save=GetHttpVars("save", false); // the query need to be saved
   $sensitive=GetHttpVars("sensitive", false); // the keyword is case sensitive
   $fromdir=GetHttpVars("fromdir", false); // the keyword is case sensitive
+  $famid=GetHttpVars("famid",0); // famid restrictive familly
 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -102,6 +103,10 @@ function search(&$action) {
     $oval -> Add();
 
 
+    $oval ->docid = $sdoc->id;
+    $oval ->attrid = "SE_FAMID";
+    $oval ->value = $famid;
+    $oval -> Add();
   }
 
      
@@ -123,13 +128,16 @@ function search(&$action) {
 
   if ($sensitive) $testval = "like '%$keyword%'";
   else $testval = "~* '.*$keyword.*'";
+
+  if ($famid) $sqlfam = "(doc.fromid = $famid) and";
+  else $sqlfam = "";
 		    
   if ($fromdir) {
     
-    $query = "select doc.*  from doc, docvalue where (value $testval)  and (doc.id in (select childid from fld where $sql_fromdir)) and (doc.id = docvalue.docid) $sqllatest "; 
+    $query = "select doc.*  from doc, docvalue where  $sqlfam (value $testval)  and (doc.id in (select childid from fld where $sql_fromdir)) and (doc.id = docvalue.docid) $sqllatest "; 
     
   } else  {
-    $query = "select doc.* from doc, docvalue where (value $testval) and (doc.id = docvalue.docid) $sqllatest"; 
+    $query = "select doc.* from doc, docvalue where $sqlfam (value $testval) and (doc.id = docvalue.docid) $sqllatest"; 
   } 
 
   $sdoc-> AddQuery($query);

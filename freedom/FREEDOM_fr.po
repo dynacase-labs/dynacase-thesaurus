@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-05-29 11:07+0200\n"
+	"POT-Creation-Date: 2002-07-15 09:04+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -132,6 +132,9 @@ msgstr	"%s toutes catégories"
 msgid	"%s %s category "
 msgstr	"%s catégorie %s"
 
+msgid	"all constructors"
+msgstr	"tous les constructeurs"
+
 #, c-format
 msgid	"add %s in %s folder"
 msgstr	"ajout %s dans dossier %s"
@@ -219,14 +222,6 @@ msgstr	"%s a été ajouté dans le dossier %s"
 msgid	"%s has been removed in %s folder"
 msgstr	"%s a été supprimé dans le dossier %s"
 
-#, c-format
-msgid	"the external pluggin file %s cannot be read"
-msgstr	"le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid	"the pluggins function description '%s' is not conform"
-msgstr	"La description de la fonction externe '%s' est incorrecte"
-
 msgid	"no import file specified"
 msgstr	"pas de fichier d'import spécifié"
 
@@ -236,6 +231,18 @@ msgstr	"pas de fichier référencé"
 #, c-format
 msgid	"%s has be sended"
 msgstr	"%s a été envoyé"
+
+#, c-format
+msgid	"unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid	"the external pluggin file %s cannot be read"
+msgstr	"le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid	"the pluggins function description '%s' is not conform"
+msgstr	"La description de la fonction externe '%s' est incorrecte"
 
 msgid	"view folder"
 msgstr	"voir dossier"
@@ -354,10 +361,6 @@ msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
 msgid	"errldapconnect"
 msgstr	"Le server LDAP n'a pas pu être contacté"
 
-#, c-format
-msgid	"private access of the user card %s. You're not the owner"
-msgstr	"Accès privé de la carte %s. Vous n'en n'êtes pas propriétaire"
-
 msgid	"recorded"
 msgstr	"enregistré"
 
@@ -408,12 +411,6 @@ msgstr	"mail interne envoyé à %s (bcc: %s)"
 msgid	"send official mail to %s (cc: %s - bcc:%s)"
 msgstr	"mail officiel envoyé à %s (cc: %s - bcc:%s)"
 
-msgid	"error in filename"
-msgstr	"erreur dans le nom de fichier"
-
-msgid	"..."
-msgstr	"..."
-
 #, c-format
 msgid	"Possible file upload attack: filename '%s'."
 msgstr	"Possibilité d'atttaque 'upload' : fichier %s"
@@ -441,6 +438,12 @@ msgstr	"verrouillé"
 
 msgid	"changed"
 msgstr	"modifié"
+
+msgid	"error in filename"
+msgstr	"erreur dans le nom de fichier"
+
+msgid	"..."
+msgstr	"..."
 
 msgid	"Freedoms"
 msgstr	"Freedoms"
@@ -595,8 +598,11 @@ msgstr	"bibliothèque freedom"
 msgid	"Access Action Library"
 msgstr	"Bibliothèque pour les droits"
 
+msgid	"For export functions"
+msgstr "Pour les fonctions d'export"
+
 msgid	"nothing action"
-msgstr "action nulle"
+msgstr	"action nulle"
 
 msgid	"export folder"
 msgstr	"exportation de dossier"
@@ -608,7 +614,7 @@ msgid	"export first file to consulting"
 msgstr	"exportation du premier fichier pour consultation"
 
 msgid	"freedom database"
-msgstr "base de donnée Freedom"
+msgstr	"base de donnée Freedom"
 
 #, c-format
 msgid	"file %d"
@@ -692,6 +698,12 @@ msgstr	"Requête de bilan général"
 msgid	"global balance result"
 msgstr	"résultat du bilan général"
 
+msgid	"category id to find client"
+msgstr "identificateur catégorie pour la recherche de client"
+
+msgid	"category id to find technical"
+msgstr "identificateur catégorie pour la recherche de techniciens"
+
 msgid	"Generic"
 msgstr	"Générique"
 
@@ -744,13 +756,13 @@ msgid	"search a generict"
 msgstr	"rechercher une carte"
 
 msgid	"default document family"
-msgstr "famille de document par défaut"
+msgstr	"famille de document par défaut"
 
 msgid	"default folder to place document"
-msgstr "n° dossier par défaut"
+msgstr	"n° dossier par défaut"
 
 msgid	"number of card by page"
-msgstr "nombre de cartes par page"
+msgstr	"nombre de cartes par page"
 
 msgid	"Products"
 msgstr	"Produits"
@@ -1017,9 +1029,6 @@ msgstr	"bilan"
 msgid	"Product Report"
 msgstr	"Rapport produits"
 
-msgid	"all constructors"
-msgstr "tous les constructeurs"
-
 msgid	"Balance Result"
 msgstr	"Résultat du bilan"
 
@@ -1164,6 +1173,9 @@ msgstr	"Mise à jour des titres"
 msgid	"updateldap"
 msgstr	"Mise à jour du serveur LDAP"
 
+msgid	"Cancel"
+msgstr	"Annuler"
+
 msgid	"document(s) found"
 msgstr	"document(s) trouvé(s)"
 
@@ -1212,23 +1224,17 @@ msgstr	" Changer de titre"
 msgid	"Change title"
 msgstr	"Changer de titre"
 
-msgid	"Cancel"
-msgstr	"Annuler"
-
 msgid	" choose value"
 msgstr	" choisir une valeur"
 
 msgid	"Close"
 msgstr	"Fermer"
 
-msgid	"to"
-msgstr	"vers"
-
-msgid	"unchanged"
-msgstr	"inchangé"
-
 msgid	"Edit"
 msgstr	"Éditer"
+
+msgid	"View all properties"
+msgstr	"Voir toutes les propriétés"
 
 msgid	"Edit attributes"
 msgstr	"Éditer les attributs"
@@ -1238,6 +1244,12 @@ msgstr	"Verrouiller"
 
 msgid	"Revise"
 msgstr	"Réviser"
+
+msgid	"Rename"
+msgstr "Renommer"
+
+msgid	"Set default values"
+msgstr "Valeurs par défaut"
 
 msgid	"Unlock"
 msgstr	"Déverrouiller"
@@ -1250,9 +1262,6 @@ msgstr	"Changer de profil"
 
 msgid	"Change creation profile"
 msgstr	"Changer de profil par défaut"
-
-msgid	"View all properties"
-msgstr	"Voir toutes les propriétés"
 
 msgid	"goaccess"
 msgstr	"accessibilités..."
@@ -1290,6 +1299,15 @@ msgstr	" révisé par"
 msgid	" date"
 msgstr	" date"
 
+msgid	"Familly Document"
+msgstr "Famille de document"
+
+msgid	"to"
+msgstr	"vers"
+
+msgid	"unchanged"
+msgstr	"inchangé"
+
 msgid	"Change category"
 msgstr	"Changer de catégorie"
 
@@ -1310,6 +1328,9 @@ msgstr	" Voir les propriétés"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+#~ msgid	"private access of the user card %s. You're not the owner"
+#~ msgstr	"Accès privé de la carte %s. Vous n'en n'êtes pas propriétaire"
 
 #~ msgid	" change profile"
 #~ msgstr	" Changer de profil"
@@ -1426,10 +1447,6 @@ msgstr	"Voir les propriétés"
 #, fuzzy
 #~ msgid	"Freedoms exportation"
 #~ msgstr	"Exportation de cartes"
-
-#, fuzzy
-#~ msgid	"Freedom exportation"
-#~ msgstr	"Exportation d'une carte"
 
 #~ msgid	" set control"
 #~ msgstr	" poser un contrôle spécifique"

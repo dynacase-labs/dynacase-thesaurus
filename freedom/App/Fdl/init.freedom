@@ -27,6 +27,8 @@ ATTR;SE_CRIT;;critère;N;N;frame;;W;;;
 ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;;W;;;
 ATTR;SE_LATEST;SE_CRIT;dernière révision;N;Y;text;;W;;;
 ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;Y;text;;W;;;
+ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;;R;;fdl.php;gettitle(D,SE_FAMID):SE_FAM
+ATTR;SE_FAMID;SE_CRIT;famille;N;Y;text;;H;;;
 ATTR;SE_CFLD;SE_CRIT;dans le dossier;N;Y;text;;W;;;
 BA_TITLE;[titre];famille recherche;;;;;;;;;
 END;1;9;;;;;;;;;

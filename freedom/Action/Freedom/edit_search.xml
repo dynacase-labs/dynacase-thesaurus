@@ -88,6 +88,20 @@ function refreshfld(dirid) {
 </tr>
 
 <tr class="tlist">
+  <td class="tlist" align="right">
+      <label for="sensitive"> [TEXT: familly]&nbsp;:</label></td>
+  <td class="tlist">
+     <select name="famid" >  
+           <option VALUE="0" >[TEXT: any familly]</option> 
+         [BLOCK SELECTCLASS]
+           <option VALUE="[idcdoc]" >[classname]</option>   
+         [ENDBLOCK SELECTCLASS]
+    </select>  </td>
+</tr>
+
+
+
+<tr class="tlist">
      <td class="tlist" align="right">
       <label for="latest"> [TEXT: save query in current folder]&nbsp;:</label></td>
      <td class="tlist">

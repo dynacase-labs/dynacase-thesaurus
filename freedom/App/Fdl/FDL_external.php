@@ -21,4 +21,11 @@ function vault_filename($th, $fileid) {
 }
 
 
+function gettitle($dbaccess, $docid) {
+
+  $doc=new Doc($dbaccess, $docid);
+
+  return array($doc->title);
+}
+
 ?>

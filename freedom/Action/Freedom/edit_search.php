@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: edit_search.php,v 1.2 2002/06/19 12:32:28 eric Exp $
+// $Id: edit_search.php,v 1.3 2002/07/16 08:25:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/edit_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: edit_search.php,v $
+// Revision 1.3  2002/07/16 08:25:08  eric
+// ajout critère famille pour recherche
+//
 // Revision 1.2  2002/06/19 12:32:28  eric
 // modif des permissions : intégration de rq sql hasviewpermission
 //
@@ -43,6 +46,7 @@
 function edit_search(&$action) {
   // -----------------------------------
 
+  $dbaccess = $action->GetParam("FREEDOM_DB");
   
 
   // Get all the params      
@@ -50,6 +54,15 @@ function edit_search(&$action) {
   
   $action->lay->Set("dirid", $dir);
   
+  $doc = new Doc($dbaccess);
+  $tclassdoc=$doc->GetClassesDoc();
+
+  while (list($k,$cdoc)= each ($tclassdoc)) {
+    $selectclass[$k]["idcdoc"]=$cdoc->initid;
+    $selectclass[$k]["classname"]=$cdoc->title;
+  }
+  
+  $action->lay->SetBlockData("SELECTCLASS", $selectclass);
   
 }
 
