@@ -1,4 +1,15 @@
 <?php
+/**
+ * Color utilities
+ *
+ * @author Anakeen 2005
+ * @version $Id: Lib.Color.php,v 1.2 2005/01/21 17:42:20 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
 
 // JScript source code
 //Red : 0..255
