@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.16 2002/06/21 14:18:37 eric Exp $
+// $Id: Lib.Dir.php,v 1.17 2002/07/11 13:20:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,7 +54,7 @@ function getFirstDir($dbaccess) {
 
 
       $docfld = new Dir($dbaccess);
-      $condfld="  hasviewprivilege($userid,doc.id) ";
+      $condfld="  hasviewprivilege($userid,doc.profid) ";
       $conddoctype="doc.doctype='".$docfld->defDoctype."' ";
 
     if (! $notfldsearch) {
@@ -66,7 +66,7 @@ function getFirstDir($dbaccess) {
 
     }
 
-      $condfld = "($condfld) and ($conddoctype)";
+      $condfld = "($conddoctype) and ($condfld) ";
 
 
     $qsql =  "select doc.* from fld, doc where fld.dirid=$dirid ".
@@ -94,7 +94,8 @@ function getFirstDir($dbaccess) {
       
       if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
       else $sqlcond = "";
-    if ($userid > 1) $sqlcond .= " and hasviewprivilege($userid,doc.id) ";
+    if ($userid > 1) $sqlcondpriv = " and hasviewprivilege($userid,doc.profid) ";
+    else $sqlcondpriv ="";
     
     if ($wvalue) $sqlwvalue="";
     $sqlwvalue=", getdocvalues(doc.id) as sqlvalues ";
@@ -105,11 +106,12 @@ function getFirstDir($dbaccess) {
 
       $qsql= "select distinct doc.* $sqlwvalue".
 	"from doc   ".
-	  "where (doc.doctype != 'T')  ".
-		$sqlcond.
-	    "and ((doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) and doc.locked != -1)".
-	      "   or (doc.id in (select childid from fld where (qtype='F') and (dirid=$dirid))))".
-		  " order by doc.title LIMIT $slice OFFSET $start;";
+	 "where (doc.doctype != 'T')  ".
+	 $sqlcond.
+	 "and ((doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) and doc.locked != -1)".
+	 "   or (doc.id in (select childid from fld where (qtype='F') and (dirid=$dirid))))".
+	 $sqlcondpriv.
+	 " order by doc.title LIMIT $slice OFFSET $start;";
 
       $qsql2= "select  doc.* ".
 	"from doc, fld  ".
@@ -146,7 +148,7 @@ function getFirstDir($dbaccess) {
 	    
 	    
 	    $qsql= "{$ldocsearch[0]->query} ".
-	      $sqlcond.
+	      $sqlcond.$sqlcondpriv.
 		" order by doc.title LIMIT $slice OFFSET $start;";
 	    $qsql= str_replace("select ", "select distinct  ", $qsql);
 	    break;
@@ -157,7 +159,7 @@ function getFirstDir($dbaccess) {
     }
     
     
-    print "<HR>".$qsql;
+     print "<HR>".$qsql;
     $query = new QueryDb($dbaccess,"Doc");
     
     

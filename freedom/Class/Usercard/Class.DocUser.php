@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.13 2002/06/20 07:29:03 eric Exp $
+// $Id: Class.DocUser.php,v 1.14 2002/07/11 13:20:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.13 2002/06/20 07:29:03 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.14 2002/07/11 13:20:33 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -301,7 +301,7 @@ Class DocUser extends Doc
     switch ($priv) {
     case "P":	
       if ($this->profid == "0") {	
-	$this->profid=-1;
+	$this->profid=$this->id;
 	$err=$this->modify();	
 	$err=$this->setControl();
       }
@@ -334,7 +334,7 @@ Class DocUser extends Doc
   function _GetCatgId($docid, $title) {
   // -----------------------------------
 
-    $ldir = getChildDir($this->dbaccess, $docid, true);
+    $ldir = getChildDir($this->dbaccess, $this->userid, $docid, true);
   
     if (count($ldir) > 0 ) {
      

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.2 2002/06/19 12:32:28 eric Exp $
+// $Id: editprof.php,v 1.3 2002/07/11 13:19:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: editprof.php,v $
+// Revision 1.3  2002/07/11 13:19:15  eric
+// optimisation calcul profil access
+//
 // Revision 1.2  2002/06/19 12:32:28  eric
 // modif des permissions : intégration de rq sql hasviewpermission
 //
@@ -104,7 +107,7 @@ function editprof(&$action)
     $doc->GetFathersDoc();
     $action->lay->Set("doctitle",$doc->title);
 
-    if ($doc->profid == -1) 
+    if ($doc->profid == $doc->id) 
       $action->lay->Set("selected_spec","selected");
     else {
       $action->lay->Set("selected_spec","");

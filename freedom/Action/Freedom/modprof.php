@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.3 2002/06/19 12:32:29 eric Exp $
+// $Id: modprof.php,v 1.4 2002/07/11 13:19:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,16 +69,16 @@ function modprof(&$action) {
   
   
   // specific control
-    if (($ofreedom->profid == -1) && 
+    if (($ofreedom->profid == $ofreedom->id) && 
 	(! $ofreedom->isControlled()) )
       $ofreedom->SetControl();
+    else {
+      // remove control 
+      if (($ofreedom->profid >= 0) && 
+	  ($ofreedom->isControlled()) )
+	$ofreedom->UnsetControl();
   
-  // remove control 
-    if (($ofreedom->profid >= 0) && 
-	($ofreedom->isControlled()) )
-      $ofreedom->UnsetControl();
-  
-  
+    }
   
   
   

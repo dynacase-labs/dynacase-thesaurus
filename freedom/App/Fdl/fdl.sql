@@ -34,19 +34,20 @@ create or replace function hasviewprivilege(int, int)
 returns bool as '
 declare 
   arg_user alias for $1;
-  arg_obj alias for $2;
+  profid alias for $2;
   classid int;
   aclid int;
-  profid int;
 begin
    if (arg_user = 1) then 
      return true; -- it is admin user
    end if;
-   select into profid doc.profid from doc where doc.id=arg_obj;
 
-   if (profid = -1) then
-	profid=arg_obj;
+   if (profid = 0) then
+	return true; -- no controlled object
    end if;
+
+  
+
    select into classid application.id from application, doc where doc.id=profid and lower(doc.classname) = application.name;
    select into aclid id from acl where id_application=classid and name=''view'';
 

@@ -55,7 +55,7 @@
          [BLOCK SELECTPROF]
            <option VALUE="[idpdoc]" [selected]>[profname]</option>   
          [ENDBLOCK SELECTPROF]
-           <option VALUE="-1" [selected_spec]>[TEXT:specific control]</option> 
+           <option VALUE="[docid]" [selected_spec]>[TEXT:specific control]</option> 
     </select>
    </td>
 </tr>
