@@ -5,6 +5,7 @@
   display: none;
   font-size: 8px;
   cursor: default;
+  background: white;
 }
 
 .calendar table {

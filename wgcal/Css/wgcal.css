@@ -19,15 +19,29 @@ table, td {
 
 INPUT, SELECT, TEXTAREA {
   background: [CORE_BGCOLORALTERN]; 
-  font-weight: bold ;
+  font-size: 10px;
   font-family: Helvetica, Arial, sans-serif ;
   border : 0px;
+  border : 1px inset white;
 }
 
 
 .WGCalButton {
   cursor : pointer;
   border : 1px inset [CORE_BGCOLORHIGH];
+}
+
+.WGCalZoneSelected {
+  cursor : pointer;
+  border : 1px outset [CORE_BGCOLORHIGH];
+  background-color : [CORE_BGCOLORHIGH];
+  font-weight: bold;
+}
+.WGCalZoneDefault {
+  cursor : pointer;
+  border : 1px outset [CORE_BGCOLORHIGH];
+  background-color : [CORE_BGCOLORALTERN];
+  font-weight: bold;
 }
 
 
