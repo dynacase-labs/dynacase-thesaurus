@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.13 2003/04/29 16:29:39 eric Exp $
+// $Id: editframe.php,v 1.14 2003/06/16 12:00:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,6 +62,7 @@ function editframe(&$action) {
 
     if (($v->fieldSet->id != $frameid) ) continue;
     if ($v->inArray() ) continue;
+    if ($v->mvisibility == "I" ) continue;// not editable
 
     $action->lay->set("flabel",$v->fieldSet->labelText);
 

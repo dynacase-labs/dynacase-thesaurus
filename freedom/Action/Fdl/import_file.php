@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.47 2003/05/27 12:30:36 eric Exp $
+// $Id: import_file.php,v 1.48 2003/06/16 12:00:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,7 +70,8 @@ function add_import_file(&$action, $fimport="") {
 	if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
 	$err = $doc->Add();
       }
-      $doc->fromid = $data[1];
+      if (is_numeric($data[1]))   $doc->fromid = $data[1];
+      else $doc->fromid = getFamIdFromName($dbaccess,$data[1]);
 
       $doc->title =  $data[2];  
      
@@ -78,7 +79,6 @@ function add_import_file(&$action, $fimport="") {
       if (isset($data[4])) $doc->classname = $data[4]; // new classname for familly
 
       if (isset($data[5])) $doc->name = $data[5]; // internal name
-
 
 
     if ($err != "") $gerr="\nBEGIN line $nline:".$err;
@@ -112,7 +112,9 @@ function add_import_file(&$action, $fimport="") {
       
       if (  $doc->doctype=="C") {
 
+	global $tFamIdName;
 	$msg=refreshPhpPgDoc($dbaccess, $doc->id);
+	$tFamIdName[$doc->name]=$doc->id; // refresh getFamIdFromName for multiple family import
       }
       
       $nbdoc++;

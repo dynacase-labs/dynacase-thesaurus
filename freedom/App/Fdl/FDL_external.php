@@ -151,7 +151,7 @@ function lenum($val, $enum) {
 
   while(list($k,$v) = each($tenum)) {
             
-    if (($val == "") || (ereg("$val", $v , $reg)))
+    if (($val == "") || (eregi("$val", $v , $reg)))
       $tr[] = array($v , $v);
     
   }
@@ -177,5 +177,25 @@ function lmask($dbaccess, $name, $maskfamid="") {
   //$filter[]="mskfamid='$maskfamid'"; // when workflow will have attribut to say the compatible families
   return lfamilly($dbaccess, "MASK", $name, 0, $filter);
   
+}
+
+
+// liste des attributs d'une famille
+function getSortAttr($dbaccess, $famid, $name="") {
+  //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
+  
+  $doc = createDoc($dbaccess, $famid);
+  
+  $tinter = $doc->GetSortAttributes();
+  
+  $tr = array();
+
+  while(list($k,$v) = each($tinter)) {
+    if (($name == "") ||    (eregi("$name", $v->labelText , $reg)))
+      $tr[] = array($v->labelText ,
+		    $v->id,$v->labelText);
+    
+  }
+  return $tr;  
 }
 ?>

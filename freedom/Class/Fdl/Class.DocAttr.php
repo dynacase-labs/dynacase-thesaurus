@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.15 2003/05/23 15:30:03 eric Exp $
+// $Id: Class.DocAttr.php,v 1.16 2003/06/16 12:00:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.15 2003/05/23 15:30:03 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.16 2003/06/16 12:00:35 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -58,7 +58,7 @@ Class Docattr extends DbObj
 create table docattr ( id  name,
                      docid int not null,
                      FrameId  name,
-                     LabelText text),
+                     LabelText text,
                      Title  char,
                      Abstract  char,
                      Type  varchar(40),

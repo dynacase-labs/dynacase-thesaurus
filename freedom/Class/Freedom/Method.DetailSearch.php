@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.7 2003/06/10 13:56:58 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.8 2003/06/16 12:00:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -99,10 +99,10 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
    $this->viewattr($target,$ulink, $abstract);
   //-----------------------------------------------
   // display already condition written
-  $tol = $this->getValue("SE_OLS");
-  $tkey = $this->getValue("SE_KEYS");
-  $taid = $this->getValue("SE_ATTRIDS");
-  $tf = $this->getValue("SE_FUNCS");
+  $tol = $this->getTValue("SE_OLS");
+  $tkey = $this->getTValue("SE_KEYS");
+  $taid = $this->getTValue("SE_ATTRIDS");
+  $tf = $this->getTValue("SE_FUNCS");
 
   if ((count($tkey) > 1) || ($tkey[0] != "")) {
 

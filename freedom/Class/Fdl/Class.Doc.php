@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.135 2003/06/12 09:44:08 eric Exp $
+// $Id: Class.Doc.php,v 1.136 2003/06/16 12:00:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.135 2003/06/12 09:44:08 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.136 2003/06/16 12:00:35 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/12 09:44:08 $
-// Version         $Revision: 1.135 $
+// Last Update     $Date: 2003/06/16 12:00:35 $
+// Version         $Revision: 1.136 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -906,6 +906,20 @@ create unique index i_docir on doc(initid, revision);";
     }
 
 
+  // attributes can be sorted
+  function GetSortAttributes()  {      
+    $tsa=array();
+    $nattr = $this->GetNormalAttributes();
+    reset($nattr);
+
+    while (list($k,$a) = each($nattr)) {
+      if ($a->repeat || ($a->visibility == "H")|| ($a->visibility == "O") || ($a->type == "longtext") || 
+	  ($a->type == "docid") ||  ($a->type == "htmltext") ||
+	  ($a->type == "image") || ($a->type == "file" ) || ($a->fieldSet->visibility == "H" )) continue;
+      $tsa[$a->id]=$a;
+    }
+    return $tsa;      
+  } 
 
   // recompute the title from attribute values
   function RefreshTitle() {
@@ -2074,6 +2088,7 @@ create unique index i_docir on doc(initid, revision);";
     while (list($i,$attr) = each($listattr)) {
       if ((get_class($attr) != "normalattribute")) continue;
       if ($attr->inArray()) continue;
+      if ($attr->mvisibility == "I" ) continue; // not editable
       $iattr++;
     
       // Compute value elements
