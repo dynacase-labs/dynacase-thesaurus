@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2003-07-16 09:57+0200\n"
+	"POT-Creation-Date: 2003-07-21 13:45+0200\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -129,11 +129,11 @@ msgid	"%s all "
 msgstr	"%s tout"
 
 msgid	"related search aborted : no parameter found"
-msgstr "recherche relative abondonnée ; pas de paramètres"
+msgstr	"recherche relative abondonnée ; pas de paramètres"
 
 #, c-format
 msgid	"related search of %s"
-msgstr "recherche relative de %s"
+msgstr	"recherche relative de %s"
 
 #, c-format
 msgid	"definition of enumerate attribute %s of %s family"
@@ -227,6 +227,10 @@ msgstr	"%s a été ajouté dans le dossier %s"
 #, c-format
 msgid	"%s has been removed in %s folder"
 msgstr	"%s a été supprimé dans le dossier %s"
+
+#, c-format
+msgid	"the document %s is not a container"
+msgstr "le document %s n'est pas un conteneur"
 
 msgid	"description"
 msgstr	"description"
@@ -329,7 +333,7 @@ msgstr	"la famille (%d) n'est pas référencée"
 
 #, c-format
 msgid	"the document %s has been sended"
-msgstr "Le document %s a été envoyé"
+msgstr	"Le document %s a été envoyé"
 
 msgid	"email sended"
 msgstr	"email envoyé"
@@ -427,6 +431,10 @@ msgstr	"%s a été déverrouillé"
 
 msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
+
+#, c-format
+msgid	"basket of %s"
+msgstr "panier de %s"
 
 #, c-format
 msgid	"Cannot add %s in %s folder, restriction set to add this kind of "
@@ -786,6 +794,14 @@ msgstr	"%s intranet group créé\n"
 msgid	"%s iuser created\n"
 msgstr	"%s intranet personne a été créé\n"
 
+#, c-format
+msgid	"%d documents found"
+msgstr "%d documents trouvés"
+
+#, c-format
+msgid	"%d document found"
+msgstr "%d document trouvé"
+
 msgid	"creation"
 msgstr	"création"
 
@@ -793,7 +809,7 @@ msgid	"change"
 msgstr	"modification"
 
 msgid	"auto revision"
-msgstr "révision automatique"
+msgstr	"révision automatique"
 
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
@@ -906,6 +922,12 @@ msgstr	"popup menu"
 msgid	"add file query into directory"
 msgstr	"ajout d'un document dans un dossier"
 
+msgid	"insert containt of a folder into another"
+msgstr "insérer le contenu d'un dossier dans un autre"
+
+msgid	"clear containt of a folder"
+msgstr "effacer le contenu d'un dossier"
+
 msgid	"move file query into directory"
 msgstr	"déplacement d'un document dans un dossier"
 
@@ -952,16 +974,16 @@ msgid	"edit state "
 msgstr	"Édition état"
 
 msgid	"edit icard "
-msgstr "éditer une carte virtuelle"
+msgstr	"éditer une carte virtuelle"
 
 msgid	"edit icard 2 "
-msgstr "éditer une carte virtuelle 2"
+msgstr	"éditer une carte virtuelle 2"
 
 msgid	"edit workflow transitions "
-msgstr "édition des transitions des cycles"
+msgstr	"édition des transitions des cycles"
 
 msgid	"edit args of actions in workflow edition "
-msgstr "édition des arguments des actions dans l'édition des cycles"
+msgstr	"édition des arguments des actions dans l'édition des cycles"
 
 msgid	"edit profile access"
 msgstr	"édition des profiles d'accès"
@@ -1033,10 +1055,10 @@ msgid	"Freedom modification"
 msgstr	"Modification de documents"
 
 msgid	"Freedom imodification"
-msgstr "Modification de documents virtuels"
+msgstr	"Modification de documents virtuels"
 
 msgid	"view idoc attribute card"
-msgstr "Visualisation des attributs d'un document virtuel"
+msgstr	"Visualisation des attributs d'un document virtuel"
 
 msgid	"Freedom deletion"
 msgstr	"Suppression de documents"
@@ -1073,6 +1095,9 @@ msgstr	"Identificateur du dossier racine"
 
 msgid	"enabled/disabled full text search"
 msgstr	"autoriser la recherche plein texte"
+
+msgid	"id of the basket folder"
+msgstr "identifiant du panier"
 
 msgid	"mnoGoSearch: indexer database access specification"
 msgstr	"mnoGoSearch: spécification d'accès à la base de l'indexation plein "
@@ -1169,19 +1194,19 @@ msgid	"maximum document can be imported directly"
 msgstr	"nombre maximum de documents pouvant être importé en direct"
 
 msgid	"name and address of our society"
-msgstr "nom et adresse de votre société"
+msgstr	"nom et adresse de votre société"
 
 msgid	"logo of our society"
-msgstr "logo de votre société"
+msgstr	"logo de votre société"
 
 msgid	"town of our society"
-msgstr "ville de votre société"
+msgstr	"ville de votre société"
 
 msgid	"name of our society"
-msgstr "nom de votre société"
+msgstr	"nom de votre société"
 
 msgid	"phone of our society"
-msgstr "téléphone de votre société"
+msgstr	"téléphone de votre société"
 
 #, c-format
 msgid	"file %d"
@@ -1314,7 +1339,7 @@ msgid	"generic home page"
 msgstr	"page d'accueil générique"
 
 msgid	"inverted search"
-msgstr "Recherche inversée"
+msgstr	"Recherche inversée"
 
 msgid	"duplication"
 msgstr	"duplication"
@@ -1722,9 +1747,6 @@ msgstr	"date"
 msgid	"PortFolio"
 msgstr	"Chemise"
 
-msgid	"View"
-msgstr	"Affichage"
-
 msgid	"Document"
 msgstr	"Document"
 
@@ -1751,15 +1773,6 @@ msgstr	"plein texte"
 
 msgid	"Ref"
 msgstr	"Réf"
-
-msgid	"list"
-msgstr	"Liste"
-
-msgid	"icon"
-msgstr	"Icone"
-
-msgid	"column"
-msgstr	"colonne"
 
 msgid	"Import documents"
 msgstr	"Importer des documents"
@@ -1878,9 +1891,6 @@ msgstr	"Mise à jour des titres"
 msgid	"updateldap"
 msgstr	"Mise à jour du serveur LDAP"
 
-msgid	"document(s) found"
-msgstr	"document(s) trouvé(s)"
-
 msgid	"Import Result"
 msgstr	"Résultat de l'importation"
 
@@ -1890,8 +1900,8 @@ msgstr	" Résultat de l'importation de documents"
 msgid	"view properties"
 msgstr	"voir les propriétés"
 
-msgid	"link document"
-msgstr	"référencer le document"
+msgid	"Add to basket"
+msgstr "Ajouter au panier"
 
 msgid	"access path list"
 msgstr	"liste des chemin d'accès"
@@ -1949,6 +1959,9 @@ msgstr	"rapport à (email)"
 
 msgid	"proceed background import"
 msgstr	"Effectuer l'import en tache de fond"
+
+msgid	"document(s) found"
+msgstr	"document(s) trouvé(s)"
 
 msgid	"Choose Worflow"
 msgstr	"Cycle de cie"
@@ -2094,6 +2107,24 @@ msgstr	"attributs"
 msgid	"addstate"
 msgstr	"état"
 
+msgid	"View"
+msgstr	"Affichage"
+
+msgid	"list"
+msgstr	"Liste"
+
+msgid	"icon"
+msgstr	"Icone"
+
+msgid	"column"
+msgstr	"colonne"
+
+msgid	"All To basket"
+msgstr "Mettre tout au panier"
+
+msgid	"Clear Folder"
+msgstr "Vider le dossier"
+
 msgid	"some needed attributes are empty"
 msgstr	"certains attributs obligatoires sont vides"
 
@@ -2238,6 +2269,9 @@ msgstr	"Changer de catégorie"
 msgid	"View properties"
 msgstr	"Voir les propriétés"
 
+#~ msgid	"link document"
+#~ msgstr	"référencer le document"
+
 #~ msgid	"yes"
 #~ msgstr	"oui"
 
@@ -2344,9 +2378,6 @@ msgstr	"Voir les propriétés"
 
 #~ msgid	"edit folder"
 #~ msgstr	"éditer un dossier"
-
-#~ msgid	"delete folder"
-#~ msgstr	"supprimer un dossier"
 
 #~ msgid	"in progress incident"
 #~ msgstr	"incidents en cours"

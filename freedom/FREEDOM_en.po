@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-07-16 09:57+0200\n"
+	"POT-Creation-Date: 2003-07-21 13:45+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -234,6 +234,10 @@ msgstr	""
 msgid	"%s has been removed in %s folder"
 msgstr	""
 
+#, c-format
+msgid	"the document %s is not a container"
+msgstr	""
+
 #, fuzzy
 msgid	"description"
 msgstr	"Edit"
@@ -442,6 +446,10 @@ msgid	"%s has been unlocked"
 msgstr	""
 
 msgid	"locked files of "
+msgstr	""
+
+#, c-format
+msgid	"basket of %s"
 msgstr	""
 
 #, c-format
@@ -819,6 +827,14 @@ msgstr	""
 msgid	"%s iuser created\n"
 msgstr	""
 
+#, fuzzy, c-format
+msgid	"%d documents found"
+msgstr	"Import"
+
+#, fuzzy, c-format
+msgid	"%d document found"
+msgstr	"Import"
+
 #, fuzzy
 msgid	"creation"
 msgstr	"Edit"
@@ -945,6 +961,12 @@ msgid	"popup menu"
 msgstr	""
 
 msgid	"add file query into directory"
+msgstr	""
+
+msgid	"insert containt of a folder into another"
+msgstr	""
+
+msgid	"clear containt of a folder"
 msgstr	""
 
 msgid	"move file query into directory"
@@ -1126,6 +1148,9 @@ msgid	"root folder id"
 msgstr	"Modify"
 
 msgid	"enabled/disabled full text search"
+msgstr	""
+
+msgid	"id of the basket folder"
 msgstr	""
 
 msgid	"mnoGoSearch: indexer database access specification"
@@ -1832,9 +1857,6 @@ msgstr	"Edit"
 msgid	"PortFolio"
 msgstr	""
 
-msgid	"View"
-msgstr	""
-
 #, fuzzy
 msgid	"Document"
 msgstr	"Import"
@@ -1866,15 +1888,6 @@ msgid	"fulltext"
 msgstr	""
 
 msgid	"Ref"
-msgstr	""
-
-msgid	"list"
-msgstr	""
-
-msgid	"icon"
-msgstr	""
-
-msgid	"column"
 msgstr	""
 
 #, fuzzy
@@ -2009,9 +2022,6 @@ msgstr	"Update Title Cards"
 msgid	"updateldap"
 msgstr	"Update LDAP server"
 
-msgid	"document(s) found"
-msgstr	""
-
 #, fuzzy
 msgid	"Import Result"
 msgstr	"Import"
@@ -2022,7 +2032,7 @@ msgstr	""
 msgid	"view properties"
 msgstr	""
 
-msgid	"link document"
+msgid	"Add to basket"
 msgstr	""
 
 msgid	"access path list"
@@ -2087,6 +2097,9 @@ msgid	"report to (mail address)"
 msgstr	"Address"
 
 msgid	"proceed background import"
+msgstr	""
+
+msgid	"document(s) found"
 msgstr	""
 
 msgid	"Choose Worflow"
@@ -2262,6 +2275,25 @@ msgstr	"Add new contact card"
 #, fuzzy
 msgid	"addstate"
 msgstr	"Identity"
+
+msgid	"View"
+msgstr	""
+
+msgid	"list"
+msgstr	""
+
+msgid	"icon"
+msgstr	""
+
+msgid	"column"
+msgstr	""
+
+msgid	"All To basket"
+msgstr	""
+
+#, fuzzy
+msgid	"Clear Folder"
+msgstr	"Delete"
 
 msgid	"some needed attributes are empty"
 msgstr	""
