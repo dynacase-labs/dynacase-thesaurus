@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.10 2002/07/25 16:41:38 eric Exp $
+// $Id: viewcard.php,v 1.11 2002/07/29 12:42:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,6 +43,8 @@ function viewcard(&$action) {
   $props = (GetHttpVars("props",'Y') == "Y"); // view doc properties
   $zonebodycard = GetHttpVars("zone"); // define view action
   $dochead = (GetHttpVars("dochead",'Y') == "Y"); // with doc head
+  $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
+  $target = GetHttpVars("target"); // may be mail
 
   // Set the globals elements
 
@@ -125,7 +127,8 @@ function viewcard(&$action) {
   $action->lay->Set("profid", $doc->profid);
   $action->lay->Set("iconalt","icon");
   
-  $action->lay->Set("iconsrc", $doc->geticon());
+  if (($target=="mail") && ($doc->icon != "")) $action->lay->Set("iconsrc", "cid:icon");
+  else $action->lay->Set("iconsrc", $doc->geticon());
 
   if ($doc->fromid > 0)    $action->lay->Set("cid", $doc->fromid);
   else   $action->lay->Set("cid", $doc->id);
@@ -160,6 +163,7 @@ function viewcard(&$action) {
   if ($props) {
     $action->lay->SetBlockData("PROP",array(array("boo"=>1)));
   }
+  $action->lay->Set("dicon",$props?"none":"inline");
   if ($abstract){
     // only 3 properties for abstract mode
     $listattr = $doc->GetAbstractAttributes();
@@ -179,6 +183,9 @@ function viewcard(&$action) {
     
   // see or don't see head
   if ($dochead)  $action->lay->SetBlockData("HEAD",array(array("boo"=>1))); 
+  if ($ulink)  $action->lay->SetBlockData("ACTIONS",array(array("boo"=>1))); 
+
+  $action->lay->Set("amail",($doc->doctype == "F")?"inline":"none");
 
   $owner = new User("", abs($doc->owner));
   $action->lay->Set("username", $owner->firstname." ".$owner->lastname);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.37 2002/07/25 16:41:38 eric Exp $
+// $Id: Class.Doc.php,v 1.38 2002/07/29 12:42:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.37 2002/07/25 16:41:38 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.38 2002/07/29 12:42:23 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -774,71 +774,76 @@ create sequence seq_id_doc start 1000";
   }
 
   // recompute all calculated attribut
-  function Refresh() {
+    function Refresh() {	
 
-    if ($this->locked == -1) return; // no refresh revised document
-    if ($this->doctype == 'C') return; // no refresh for family  document
-
-    $lattr = $this->GetAttributes();
-
-    while(list($k,$v) = each($lattr)) {
-      if ((($v->visibility == "R") || ($v->visibility == "H")) &&
-	  (chop($v->phpfile) != "") && 
-	  (chop($v->phpfunc) != "") ) {
-	// it's a calculated attribute
-	
-
-
-
-	include_once("EXTERNALS/$v->phpfile");
-	
-
-
-	if (! ereg("(.*)\((.*)\)\:(.*)", $v->phpfunc, $reg))
-	  return(sprintf(_("the pluggins function description '%s' is not conform"), $v->phpfunc));
-	
-  
-	$argids = split(",",$reg[2]);  // input args
-	$rargids = split(",",$reg[3]); // return args
-
-	
-	while (list($k, $v) = each($argids)) {
-	  if ($v == "A")     {global $action;$arg[$k]= &$action;}
-	  else if ($v == "D") $arg[$k]= $this->dbaccess;
-	  else if ($v == "T") $arg[$k]= &$this;
-	  else if ($v == "I") $arg[$k]= $this->id;
-	  else {
-	    $arg[$k]= $this->GetValue($v);
-	    //if ($arg[$k] == "") AddLogMsg("missing $v");
-	    if ($arg[$k] == "") continue;
-	  }
-	}
-	// activate plug	
-
-	$res = call_user_func_array($reg[1], $arg);
-
-
-	if (is_array($res)) {
-	  reset($res);
-	  while (list($k, $v) = each($res)) {
-	    if ($v != "?") {
-	      $ovalue = new DocValue($this->dbaccess);
-	      $ovalue->docid=$this->id;
-	      $ovalue->attrid=$rargids[$k];
-	      $ovalue->value=$v;
-	      $ovalue->modify();
+      if ($this->locked == -1) return; // no refresh revised document
+	if ($this->doctype == 'C') return; // no refresh for family  document
+	  
+	  $lattr = $this->GetAttributes();
+      
+      $ovalue = new DocValue($this->dbaccess);
+      $ovalue->docid=$this->id;
+      while(list($k,$v) = each($lattr)) {
+	if ((($v->visibility == "R") || ($v->visibility == "H")) &&
+	    (chop($v->phpfile) != "") && 
+	    (chop($v->phpfunc) != "") ) {
+	  // it's a calculated attribute
+	    
+	    
+	    
+	    
+	    include_once("EXTERNALS/$v->phpfile");
+	  
+	  
+	  
+	  if (! ereg("(.*)\((.*)\)\:(.*)", $v->phpfunc, $reg))
+	    return(sprintf(_("the pluggins function description '%s' is not conform"), $v->phpfunc));
+	  
+	  
+	  $argids = split(",",$reg[2]);  // input args
+	    $rargids = split(",",$reg[3]); // return args
+	      
+	      
+	      while (list($k, $v) = each($argids)) {
+		if ($v == "A")     {global $action;$arg[$k]= &$action;}
+		else if ($v == "D") $arg[$k]= $this->dbaccess;
+		else if ($v == "T") $arg[$k]= &$this;
+		else if ($v == "I") $arg[$k]= $this->id;
+		else {
+		  $arg[$k]= $this->GetValue($v);
+		  //if ($arg[$k] == "") AddLogMsg("missing $v");
+		  if ($arg[$k] == "") continue;
+		}
+	      }
+	  // activate plug	
+	    $res = call_user_func_array($reg[1], $arg);
+	  
+	  
+	  if (is_array($res)) {
+	    reset($res);
+	    while (list($k, $v) = each($res)) {
+	      if ($v != "?") {
+		if ($this->getValue($rargids[$k]) != "$v") {
+		  // change only if different
+		    $ovalue->attrid=$rargids[$k];
+		  $ovalue->value=$v;
+		  $ovalue->modify();
+		}
+	      }
 	    }
 	  }
+	  
 	}
       }
+      unset($this->values); // in case of modified values
+	
+	
+	
     }
-    unset($this->values); // in case of modified values
-
-  }
-
-
-    function urlWhatEncode( $link) {
-      // -----------------------------------
+  
+  
+  function urlWhatEncode( $link) {
+    // -----------------------------------
       global $action;
     
     $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -857,7 +862,7 @@ create sequence seq_id_doc start 1000";
 	      break;
 	    case "S": // standurl	  
 	      $urllink.=$action->GetParam("CORE_STANDURL");
-
+	      
 	      break;
 	    case "I": // id	  
 	      $urllink.=$this->id;
@@ -869,117 +874,117 @@ create sequence seq_id_doc start 1000";
 	    }
 	  $i++; // skip end '%'
 	} else {
-
+	  
 	  $sattrid="";
 	  while ($link[$i] != "%" ) {
 	    $sattrid.= $link[$i];
 	    $i++;
 	  }
 	  //	  print "attr=$sattrid";
-
+	  
 	  $ovalue = $this->GetValue($sattrid);
 	  if ($ovalue == "") return false;
 	  $urllink.=$ovalue;
-
+	  
 	  
 	}
       }
     }
-
+    
     return ($urllink);
-
+    
   }
-
-
-
-
-    function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true) {
-      global $action;
-
-
-      if (ereg("([a-z]+)\(\"(.*)\"\)",$oattr->type, $reg)) {
-	$atype=$reg[1];
-	$aformat=$reg[2];
-      } else {
-	$atype=$oattr->type;
-	$aformat="";
-      }
-
-      switch ($atype)
-	{
+  
+  
+  
+  
+  function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true) {
+    global $action;
+    
+    
+    if (ereg("([a-z]+)\(\"(.*)\"\)",$oattr->type, $reg)) {
+      $atype=$reg[1];
+      $aformat=$reg[2];
+    } else {
+      $atype=$oattr->type;
+      $aformat="";
+    }
+    
+    switch ($atype)
+      {
+	
+      case "image": 
+	if ($target=="mail") $htmlval="cid:".$oattr->id;
+	else
+	  $htmlval=$action->GetParam("CORE_BASEURL").
+	    "app=FDL"."&action=EXPORTFILE&docid=".$this->id."&attrid=".$oattr->id; // upload name
 	      
-	case "image": 
-	  if ($target=="mail") $htmlval="cid:".$oattr->id;
-	    else
-	$htmlval=$action->GetParam("CORE_BASEURL").
-	     "app=FDL"."&action=EXPORTFILE&docid=".$this->id."&attrid=".$oattr->id; // upload name
-
-
+	      
+	      break;
+      case "url": 
+	$htmlval="<A target=\"_blank\" href=\"". 
+	  htmlentities($value)."\">".$value.
+	    "</A>";
 	break;
-	case "url": 
-	  $htmlval="<A target=\"_blank\" href=\"". 
-	     htmlentities($value)."\">".$value.
-	     "</A>";
+      case "mail": 
+	$htmlval="<A href=\"mailto:". 
+	  htmlentities($value)."\">".$value.
+	    "</A>";
 	break;
-	case "mail": 
-	  $htmlval="<A href=\"mailto:". 
-	     htmlentities($value)."\">".$value.
-	     "</A>";
-	break;
-	case "file": 
-	  ereg ("(.*)\|(.*)", $value, $reg);		 
-	  // reg[1] is mime type
+      case "file": 
+	ereg ("(.*)\|(.*)", $value, $reg);		 
+	// reg[1] is mime type
 	  $vf = new VaultFile($this->dbaccess, "FREEDOM");
-	  if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
-	  else $fname=_("no filename");
-
-	  
-	  if ($target=="mail") {
-	    $htmlval="<A target=\"_blank\" href=\"";
-	    $htmlval.="cid:".$oattr->id
-	     ."\">".$fname.
-	     "</A>";;
-	  } else 
+	if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+	else $fname=_("no filename");
+	
+	
+	if ($target=="mail") {
+	  $htmlval="<A target=\"_blank\" href=\"";
+	  $htmlval.="cid:".$oattr->id
+	    ."\">".$fname.
+	      "</A>";;
+	} else 
 	  $htmlval="<A target=\"_blank\" href=\"".
-	     $action->GetParam("CORE_BASEURL").
-	     "app=FDL"."&action=EXPORTFILE&docid=".$this->id."&attrid=".$oattr->id
-	     ."\">".$fname.
-	     "</A>";
-
-	  break;
-	case "textlist": 
-	case "enumlist":
-	  if (strstr($value,"\n")) $oattr->link="";
-	  if ($aformat != "") {
-	    $ta = explode("\n",$value);
-	    while (list($k, $a) = each($ta)) {
-	      $ta[$k]=stripslashes(sprintf($aformat,$a));
-	    }
-	    $htmlval=implode("<BR>",$ta);
-
-	  } else {
-	    $htmlval=nl2br(htmlentities(stripslashes($value)));
-	  }
+	    $action->GetParam("CORE_BASEURL").
+	      "app=FDL"."&action=EXPORTFILE&docid=".$this->id."&attrid=".$oattr->id
+		."\">".$fname.
+		  "</A>";
+	
 	break;
-	case "longtext": 
+      case "textlist": 
+      case "enumlist":
+	if (strstr($value,"\n")) $oattr->link="";
+	if ($aformat != "") {
+	  $ta = explode("\n",$value);
+	  while (list($k, $a) = each($ta)) {
+	    $ta[$k]=stripslashes(sprintf($aformat,$a));
+	  }
+	  $htmlval=implode("<BR>",$ta);
+	  
+	} else {
 	  $htmlval=nl2br(htmlentities(stripslashes($value)));
-	break;
-	case "password": 
-	  $htmlval=ereg_replace(".", "*", htmlentities(stripslashes($value)));
-
-	break;
-	default : 
-	  if ($aformat != "") {
-	    $htmlval=htmlentities(stripslashes(sprintf($aformat,$value)));
-	  } else {
-	    $htmlval=htmlentities(stripslashes($value));
-	  }
-	break;
-		
 	}
-
-	      
-      // add link if needed
+	break;
+      case "longtext": 
+	$htmlval=nl2br(htmlentities(stripslashes($value)));
+	break;
+      case "password": 
+	$htmlval=ereg_replace(".", "*", htmlentities(stripslashes($value)));
+	
+	break;
+      default : 
+	if ($aformat != "") {
+	  $htmlval=htmlentities(stripslashes(sprintf($aformat,$value)));
+	} else {
+	  $htmlval=htmlentities(stripslashes($value));
+	}
+	break;
+	
+      }
+    
+    
+    // add link if needed
       if ($htmllink && ($oattr->link != "") && 
 	  ($ulink = $this->urlWhatEncode( $oattr->link))) {
 	$abegin="<A target=\"$target\" href=\"";
@@ -990,101 +995,101 @@ create sequence seq_id_doc start 1000";
 	$abegin="";
 	$aend="";
       }
-
-
-      return $abegin.$htmlval.$aend;
-    }
-
-    function GetHtmlAttrValue($attrid, $target="_self",$htmllink=true) {
-      return $this->GetHtmlValue($this->getAttribute($attrid),
-				 $this->getValue($attrid),$target,$htmllink);
-    }
-  // --------------------------------------------------------------------
-  function Control ($aclname) {
-    // -------------------------------------------------------------------- 
-    if (($this->IsAffected()) )
-      if (isset($this->operm) )
-	return $this->operm->Control($this, $aclname);
-      else return "";
-
-    return "object not initialized : $aclname";
+    
+    
+    return $abegin.$htmlval.$aend;
   }
   
+  function GetHtmlAttrValue($attrid, $target="_self",$htmllink=true) {
+    return $this->GetHtmlValue($this->getAttribute($attrid),
+			       $this->getValue($attrid),$target,$htmllink);
+  }
+  // --------------------------------------------------------------------
+    function Control ($aclname) {
+      // -------------------------------------------------------------------- 
+	if (($this->IsAffected()) )
+	  if (isset($this->operm) )
+	    return $this->operm->Control($this, $aclname);
+	  else return "";
+      
+      return "object not initialized : $aclname";
+    }
+  
   
   // --------------------------------------------------------------------
-  function ChangeState ($newstate, $addcomment="") {
-
-    if ($this->state == $newstate) return ""; // no change => no action
-    // search if possible change in concordance with transition array
-    $foundFrom = false;
-    $foundTo = false;
-    while (list($k, $trans) = each($this->transitions)) {
-      if ($this->state == $trans["e1"]) {
-	// from state OK
-	$foundFrom = true;
-	if ($newstate == $trans["e2"]) {
-	  $foundTo = true;
-	  $tr = $trans;
-	}
+    function ChangeState ($newstate, $addcomment="") {
+      
+      if ($this->state == $newstate) return ""; // no change => no action
+	// search if possible change in concordance with transition array
+	  $foundFrom = false;
+      $foundTo = false;
+      while (list($k, $trans) = each($this->transitions)) {
+	if ($this->state == $trans["e1"]) {
+	  // from state OK
+	    $foundFrom = true;
+	  if ($newstate == $trans["e2"]) {
+	    $foundTo = true;
+	    $tr = $trans;
+	  }
 	  
+	}
       }
-    }
-
-    if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), $this->state));
-    if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), $newstate));
-
-    if ($tr["m1"] != "") {
-      // apply first method (condition for the change)
       
-      if (! method_exists($this, $tr["m1"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m1"], get_class($this)));
+      if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), $this->state));
+      if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), $newstate));
       
-      $err = call_user_method ($tr["m1"], $this, $newstate);
-
-      if ($err != "") return (sprintf(_("ChangeState :: the method '%s' has the following error %s"), $tr["m1"], $err));
-
-
-    }
-
-    // change the state
-    $this->state = $newstate;
-    $err = $this->modify();
-    if ($err != "") return $err;
-    
-    $revcomment = sprintf(_("change state to %s"), _($newstate));
-    if ($addcomment != "") $revcomment.= "\n".$addcomment;
-
-    $this->AddRevision($revcomment);
-
-    // post action
-    if ($tr["m2"] != "") {
-      if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
-      $err = call_user_method ($tr["m2"], $this, $newstate);
-      if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' has the following error %s"), $tr["m2"], $err));
+      if ($tr["m1"] != "") {
+	// apply first method (condition for the change)
+	  
+	  if (! method_exists($this, $tr["m1"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m1"], get_class($this)));
+	
+	$err = call_user_method ($tr["m1"], $this, $newstate);
+	
+	if ($err != "") return (sprintf(_("ChangeState :: the method '%s' has the following error %s"), $tr["m1"], $err));
+	
+	
+      }
       
-    }
-
+      // change the state
+	$this->state = $newstate;
+      $err = $this->modify();
+      if ($err != "") return $err;
+      
+      $revcomment = sprintf(_("change state to %s"), _($newstate));
+      if ($addcomment != "") $revcomment.= "\n".$addcomment;
+      
+      $this->AddRevision($revcomment);
+      
+      // post action
+	if ($tr["m2"] != "") {
+	  if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
+	  $err = call_user_method ($tr["m2"], $this, $newstate);
+	  if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' has the following error %s"), $tr["m2"], $err));
+	  
+	}
+      
       AddLogMsg(sprintf(_("%s new state %s"),$this->title, _($newstate)));
-    return ""; // its OK 
-  }
-    
+      return ""; // its OK 
+    }
+  
   
   // --------------------------------------------------------------------
-  function GetFollowingStates () {
-    // search if following states in concordance with transition array
-
-    $fstate = array();
-    reset($this->transitions);
-    while (list($k, $tr) = each($this->transitions)) {
-      if ($this->state == $tr["e1"]) {
-	// from state OK
-	$fstate[] = $tr["e2"];
+    function GetFollowingStates () {
+      // search if following states in concordance with transition array
+	
+	$fstate = array();
+      reset($this->transitions);
+      while (list($k, $tr) = each($this->transitions)) {
+	if ($this->state == $tr["e1"]) {
+	  // from state OK
+	    $fstate[] = $tr["e2"];
+	}
       }
+      return $fstate;
     }
-    return $fstate;
-  }
-
-
-
+  
+  
+  
   
 }
 

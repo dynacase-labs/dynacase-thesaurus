@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfile.php,v 1.3 2002/06/19 12:32:28 eric Exp $
+// $Id: exportfile.php,v 1.4 2002/07/29 12:42:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,12 +36,16 @@ function exportfile(&$action)
   $attrid = GetHttpVars("attrid",0);
   $vaultid = GetHttpVars("vaultid",0);
 
+  $isControled=false;
 
-    $doc= new Doc($dbaccess,$docid);
-  // ADD CONTROL ACCESS HERE
 
   if ($vaultid == 0) {
 
+    $doc= new Doc($dbaccess,$docid);
+    // ADD CONTROL ACCESS HERE
+    $err = $doc->control("view");
+    if ($err != "") $action->exiterror($err);
+    $isControled=true;;
     $ovalue = new DocValue($dbaccess,array($docid,$attrid));
 
     
@@ -54,7 +58,7 @@ function exportfile(&$action)
     $mimetype = "";
   }
 
-  DownloadVault($action, $vaultid, $mimetype);
+  DownloadVault($action, $vaultid, $isControled, $mimetype);
 
     
   exit;
@@ -75,6 +79,10 @@ function exportfirstfile(&$action)
 
     $doc= new Doc($dbaccess,$docid);
   // ADD CONTROL ACCESS HERE
+    $err = $doc->control("view");
+    if ($err != "") $action->exiterror($err);
+
+  $isControled=true;
   $attr = $doc->GetFirstFileAttributes();
     $ovalue = new DocValue($dbaccess,array($docid,$attr->id));
 
@@ -86,7 +94,7 @@ function exportfirstfile(&$action)
     $mimetype=$reg[1];
 
   
-  DownloadVault($action, $vaultid, $mimetype);
+  DownloadVault($action, $vaultid, $isControled, $mimetype);
         
   
     
@@ -94,7 +102,7 @@ function exportfirstfile(&$action)
 
 
   // --------------------------------------------------------------------
-function DownloadVault(&$action, $vaultid, $mimetype="") {
+function DownloadVault(&$action, $vaultid, $isControled, $mimetype="") {
   // --------------------------------------------------------------------
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $vf = new VaultFile($dbaccess, "FREEDOM");
@@ -104,8 +112,12 @@ function DownloadVault(&$action, $vaultid, $mimetype="") {
   } else
     {
       //Header("Location: $url");
-      Http_DownloadFile($info->path, $info->name, $mimetype);
-      if (! $info->public_access)   AddlogMsg(sprintf(_("%s has be sended"),$info->name));
+      if ($isControled || ( $info->public_access)) {
+	Http_DownloadFile($info->path, $info->name, $mimetype);
+	if (! $info->public_access)   AddlogMsg(sprintf(_("%s has be sended"),$info->name));
+      } else {
+	$action->exiterror(_("file must be controlled : read permission needed"));
+      }
     }
 
   exit;

@@ -28,4 +28,32 @@ function gettitle($dbaccess, $docid) {
   return array($doc->title);
 }
 
+// liste de personnes
+function lmail( $dbaccess, $name) {     
+
+  global $action;
+  //comlist(A,D,PRO_COM):PRO_COM,PRO_IDCOM
+  
+
+  
+
+  $filter=array();
+  if ($name != "") {
+    $filter[]="doc.title ~* '.*$name.*'";
+  }
+  $filter[]="doc.classname = 'DocUser'";
+
+
+  $tinter = getChildDoc($dbaccess, 0,0,100, $filter,$action->user->id);
+  
+  $tr = array();
+
+  while(list($k,$v) = each($tinter)) {
+            
+    $mail = $v->getValue("US_MAIL");
+    if ($mail != "")  $tr[] = array($v->title ,$v->title." <$mail>");
+    
+  }
+  return $tr;  
+}
 ?>

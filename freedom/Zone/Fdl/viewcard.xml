@@ -7,13 +7,19 @@
 <tr class="FREEDOMBack1">
   
  <td  colspan="2">
+<IMG  style="display:[dicon]" border="0"  title="[iconalt]" alt="[iconalt]" align="absbottom" width="50px" SRC="[iconsrc]">
    <span class="FREEDOMTextBigTitle">[TITLE]
     </span>
   </td>
   <td align="right"  >
-<a href="#" onclick="self.print()">
-      <img   alt="[TEXT:print]" title="[TEXT:print]" border="0" src="[IMG:print.gif]">
+[BLOCK ACTIONS]
+<a href="#" style="display:[amail]" onclick="subwindow(400,400,'info','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]')">
+      <img  align="absmiddle"  alt="[TEXT:print]" title="[TEXT:senddoc]" height="22" width="30" border="0" src="[IMG:mail.gif]">
       </a>   
+<a href="#" onclick="self.print()">
+      <img align="absmiddle"   alt="[TEXT:print]" title="[TEXT:print]"  border="0" src="[IMG:print.gif]">
+      </a>   
+[ENDBLOCK ACTIONS]
   </td>
 </tr>
 
@@ -21,7 +27,7 @@
 <tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
 <tr class="FREEDOMBack1">
   <td   align="center" rowspan="[nprop]">
-    <a href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[cid]"><IMG id="1"  border="0"  title="[iconalt]" alt="[iconalt]" align="absbottom" width="50px" SRC="[iconsrc]"><br>
+    <a href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[cid]"><IMG   border="0"  title="[iconalt]" alt="[iconalt]" align="absbottom" width="50px" SRC="[iconsrc]"><br>
      <span class="FREEDOMText" style="font-size:50%">[classtitle]</span></a></td>
   <td   class="FREEDOMText">[TEXT:author]</td>
   <td  ><span class="FREEDOMText">[username]</span></td>

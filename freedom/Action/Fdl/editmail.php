@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editnewcatg.php,v 1.3 2002/07/29 12:42:23 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editnewcatg.php,v $
+// $Id: editmail.php,v 1.1 2002/07/29 12:42:23 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/editmail.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -22,54 +22,13 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-
-include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
+include_once("FDL/Class.Doc.php");
 
 // -----------------------------------
-function generic_editnewcatg(&$action) {
-  // -----------------------------------
-
-  global $dbaccess;
-  
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess, $action->GetParam("DEFAULT_FLD"));
-
-  
-
-
-  $stree=getChildCatg($homefld, 1);
-
-  reset($stree);
-  
-  $action->lay->SetBlockData("CATG",$stree);
-  $action->lay->Set("topdir",$action->GetParam("DEFAULT_FLD"));
-  
-
-}
-
-
 // -----------------------------------
-function getChildCatg($doc, $level) {
-  // -----------------------------------
-  global $dbaccess;
-  global $action;
-
-  $ltree=array();
-
-    $ldir = getChildDir($dbaccess,$action->user->id,$doc->id, true);
+function editmail(&$action) {
+  $docid = GetHttpVars("mid"); 
   
-
-    if (count($ldir) > 0 ) {
-     
-      while (list($k,$v) = each($ldir)) {
-	$ltree[] = array("level"=>$level*20,
-			 "id"=>$v->id,
-			 "title"=>$v->title);
-	$ltree = array_merge($ltree, getChildCatg($v, $level+1));
-      }
-    } 
   
-  return $ltree;
+  $action->lay->Set("mid",$docid);
 }
-?>

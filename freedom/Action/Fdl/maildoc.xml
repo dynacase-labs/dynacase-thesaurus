@@ -1,0 +1,29 @@
+<!-- HEAD HTML -->
+
+<html>
+  <head>
+
+   <title>[TEXT:Properties:] [TITLE]</title>
+   <style>
+[ZONE CORE:GENCSS]
+[ZONE FDL:GENCSS]
+   </style>
+
+
+[CSS:REF]
+
+
+   <style type="text/css">
+[CSS:CODE]
+   </style>
+
+ </head>
+
+<body class="freedom"  >
+
+
+
+[ZONE FDL:VIEWCARD]
+
+</body>
+</html>

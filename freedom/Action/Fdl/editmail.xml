@@ -1,0 +1,80 @@
+
+<!-- HEAD HTML -->
+
+<html>
+  <head>
+
+   <title>[TEXT:mail edition]</title>
+
+   <style>
+[ZONE CORE:GENCSS]
+   </style>
+
+
+[CSS:REF]
+
+
+   <style type="text/css">
+[CSS:CODE]
+   </style>
+
+[JS:REF]
+
+   <script language="JavaScript">
+  <!--
+    [JS:CODE]
+
+
+  //-->
+   </script>   
+
+
+
+ </head>
+
+<body class="freedom" 
+      onLoad="resizeInputFields()"
+      onUnLoad="closechoose()"
+      onResize="resizeInputFields()">
+
+
+
+
+<!-- Title Table -->
+<form  id="fedit"  
+       class="fborder" 
+       name="modifydoc" 
+       method="POST" ENCTYPE="multipart/form-data" 
+       action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=N&dochead=Y&props=N&id=[mid]" >
+
+
+
+<table class="tableborder"  cellspacing="0" width="100%">
+<thead>
+<tr class="FREEDOMBack1">
+ <td  colspan="3">
+   <span class="FREEDOMTextBigTitle">[TEXT:mail edition]</span>
+  </td> 
+</tr>
+
+<tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
+</thead>
+   
+[ZONE FDL:EDITCARD?classid=15]
+
+
+<tfoot>
+<tr class="FREEDOMBack2"><td  colspan="3"  height="1px"></td></tr>
+<tr class="FREEDOMBack1">
+  <td colspan="3" >
+ <input type="submit" value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();"> 
+  </td>
+  
+</tr>
+</tfoot>
+</table>
+</form>
+<!--  FOOT HTML -->
+
+</body>
+</html>

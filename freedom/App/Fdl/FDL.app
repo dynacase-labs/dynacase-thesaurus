@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.4 2002/06/05 07:47:33 eric Exp $
+// $Id: FDL.app,v 1.5 2002/07/29 12:42:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -76,6 +76,16 @@ $action_desc = array (
    "acl"		=>"NORMAL",
    "script"		=>"exportfile.php",
    "function"		=>"exportfirstfile"
+  ) ,
+  array( 
+   "name"		=>"MAILCARD",
+   "short_name"		=>N_("send a document"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"EDITMAIL",
+   "short_name"		=>N_("edit mail"),
+   "acl"		=>"NORMAL"
   ) 
                       );	
    

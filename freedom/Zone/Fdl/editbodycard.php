@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.4 2002/07/23 13:25:11 eric Exp $
+// $Id: editbodycard.php,v 1.5 2002/07/29 12:42:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,10 +49,7 @@ function editbodycard(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   
-  
-  
-  
-  
+      
   
   // ------------------------------------------------------
     //  new or modify ?
