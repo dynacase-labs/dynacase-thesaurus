@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.5 2003/01/20 19:09:28 eric Exp $
+// $Id: revision.php,v 1.6 2003/07/24 13:04:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,7 +37,8 @@ function revision(&$action)
   if ($err != "") $action->ExitError($err);
   
 
-  $doc->Addrevision($comment);
+  $err=$doc->Addrevision($comment);
+  if ($err != "") $action->ExitError($err);
     
   $action->AddLogMsg(sprintf(_("%s new revision %d"),$doc->title, $doc->revision));
   
