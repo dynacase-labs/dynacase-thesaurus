@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIUser.php,v 1.2 2003/07/25 12:42:27 eric Exp $
+// $Id: Method.DocIUser.php,v 1.3 2003/07/30 14:53:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,6 +38,9 @@ function SpecRefresh() {
   _USER::SpecRefresh();
   $this->AddParamRefresh("US_WHATID","US_FNAME,US_LNAME,US_MAIL,US_PASSWD,US_LOGIN,US_GROUP");
 
+
+  $tgid=array();
+  $tglogin=array();
   $iduser = $this->getValue("US_WHATID");
   if ($iduser > 0) {
     $user = new User("",$iduser);
@@ -58,14 +61,33 @@ function SpecRefresh() {
       while (list($k,$v) = each($tu)) {
 	$udoc = getDocFromUserId($this->dbaccess,$v);
 	if ($udoc) {	 
-	    $tgid[]=$udoc->id;
-	    $tglogin[]=$udoc->title;	  
+	    $tgid[$udoc->id]=$udoc->id;
+	    $tglogin[$udoc->id]=$udoc->title;	  
 	}
       }
-    $this->SetValue("US_GROUP", implode("\n",$tglogin));
-    $this->SetValue("US_IDGROUP", implode("\n",$tgid));
+    }
   }
+ 
+  $tog=$this->GetOtherGroups(); 
+  while (list($k,$v) = each($tog)) {
+    $tgid[$v["id"]]=$v["id"];
+    $tglogin[$v["id"]]=$v["title"];
   }
-  
+  $this->SetValue("US_GROUP", implode("\n",$tglogin));
+  $this->SetValue("US_IDGROUP", implode("\n",$tgid));
 }
   
+function GetOtherGroups() {
+  include_once("FDL/freedom_util.php");  
+  include_once("FDL/Lib.Dir.php");  
+
+  $sqlfilters[]="in_textlist(grp_iduser,{$this->id})";
+  $sqlfilters[]="fromid !=".getFamIdFromName($this->dbaccess,"IGROUP");
+  $tgroup=getChildDoc($this->dbaccess, 
+		      0, 
+		      "0", "ALL", $sqlfilters, 
+		      1, 
+		      "TABLE", getFamIdFromName($this->dbaccess,"GROUP"));
+  
+  return $tgroup;
+}
