@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.32 2004/09/15 09:46:54 eric Exp $
+ * @version $Id: enum_choice.php,v 1.33 2004/09/27 07:49:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -57,7 +57,7 @@ function enum_choice(&$action) {
   }
   $action->lay->set("ititle",$ititle);
 
-  $res=getResPhpFunc($doc,$oattr,$rargids,$tselect,$tval);
+  $res=getResPhpFunc($doc,$oattr,$rargids,$tselect,$tval,true,$index);
 
  
   if (count($res) == 0) {
@@ -102,7 +102,7 @@ function getFuncVar($n,$def="",$whttpvars,&$doc,&$oa) {
     }
     
 }
-function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true) { 
+function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,$index="") { 
   global $action;
 
   if (! include_once("EXTERNALS/$oattr->phpfile")) {
@@ -150,7 +150,6 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true)
 	  if (($a->fieldSet->id == $oattr->fieldSet->id)) { // search with index
 	    $ta = getFuncVar($v,$v,$whttpvars,$doc,$a);
 	    if ($ta === false) return false;
-	  
 	    $arg[$k]=trim($ta[$index]);
 	  } else {
 	    $ta = getFuncVar($v,$v,$whttpvars,$doc,$a);	   
@@ -170,6 +169,7 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true)
       } 
     }
   }
+
   $res = call_user_func_array($reg[1], $arg);
 
 
