@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.26 2004/11/12 11:20:01 eric Exp $
+ * @version $Id: generic_edit.php,v 1.27 2004/11/26 14:28:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.26 2004/11/12 11:20:01 eric Exp $
+// $Id: generic_edit.php,v 1.27 2004/11/26 14:28:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -111,8 +111,11 @@ function generic_edit(&$action) {
   $action->lay->Set("boverdisplay", "none");
   
   if (GetHttpVars("viewconstraint")=="Y") {
-    $action->lay->Set("bconsdisplay", "none");
-    if ($action->user->id==1) $action->lay->Set("boverdisplay", ""); // only admin can do this
+    $action->lay->Set("bconsdisplay", "");
+    if ($action->user->id==1) {
+      $action->lay->SetBlockData("INPUTCONSTRAINT",array(array("zou")));
+      $action->lay->Set("boverdisplay", ""); // only admin can do this
+    }
     
   } else {
     // verify if at least on attribute constraint

@@ -34,7 +34,7 @@ var WattrNtitle=new Array([Wattrntitle]);
 [BLOCK NEWSTATE]
 <input type="submit" class="[dsubmit]" title="[TEXT:to] [statename]" value="[tostatename]" onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event);">
 [ENDBLOCK NEWSTATE]
-<input type="submit" value="[TEXT:Tounchanged]" style="display:[dvalidate]" title="[TEXT:no change state]" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);">
+<input type="submit" value="[TEXT:Tounchanged]" style="margin-left:30px;margin-right:0px;display:[dvalidate]" title="[TEXT:no change state]" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);">
   </td><td colspan="2">
   <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:[dcomment]"></textarea>
   </td>

@@ -36,7 +36,8 @@ function refreshfld(dirid) {
 
 <body class="freedom" 
       onLoad="editOnLoad();autoHresize()"
-      onUnLoad="closechoose();pleaseSave(event);autoUnlock('[id]')"
+      onUnLoad="closechoose();autoUnlock('[id]')"
+      onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[TITLE]:[TEXT:Changes will be loosed if you continue]'";
       onResize="resizeInputFields()">
 <!-- for idoc -->
 
@@ -71,7 +72,7 @@ function refreshfld(dirid) {
 <form  id="fedit" 
        class="fborder" 
        name="modifydoc" 
-       onsubmit="if (document.isSubmitted) return false;document.isSubmitted=true;selectall();" 
+       onsubmit="if (document.isSubmitted) return false;if (!canmodify()) return false;document.isSubmitted=true;enableall();setTimeout('refreshfld([dirid])',20)" 
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_MOD" >
 
@@ -106,15 +107,15 @@ function refreshfld(dirid) {
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td  colspan="3"  align="right" id="editbutton">
-<input type="hidden" name="noconstraint" value="N">
- <input id="iSubmit" type="submit" value="[editaction]"
-        onmousedown="multiple_for_select();"
-        onclick="if (!canmodify()) return false;enableall();setTimeout('refreshfld([dirid])',20);return true"> 
+ [BLOCK INPUTCONSTRAINT]
  <input type="button" title="[TEXT:view constraints]" style="display:[bconsdisplay]" 
         value="[TEXT:Constraints]" onclick="selectall();document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> 
  <input type="submit" title="[TEXT:override constraints]" style="display:[boverdisplay]" value="[editaction]!" onclick="enableall();document.modifydoc.noconstraint.value='Y';return true">
-  
- <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]'"> 
+ [ENDBLOCK INPUTCONSTRAINT]
+
+ <input id="iSubmit" type="submit" value="[editaction]"
+        onmousedown="multiple_for_select();"><input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]'">
+<input type="hidden" name="noconstraint" value="N">
   </td>
 </tr>
 </tfoot>

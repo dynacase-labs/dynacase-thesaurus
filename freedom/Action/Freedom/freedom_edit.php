@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.27 2004/11/12 11:20:01 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.28 2004/11/26 14:28:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -185,8 +185,11 @@ function freedom_edit(&$action) {
   $action->lay->Set("boverdisplay", "none");
   
   if (GetHttpVars("viewconstraint")=="Y") {
-    $action->lay->Set("bconsdisplay", "none");
-    if ($action->user->id==1) $action->lay->Set("boverdisplay", ""); // only admin can do this
+    $action->lay->Set("bconsdisplay", "");
+    if ($action->user->id==1) {
+      $action->lay->SetBlockData("INPUTCONSTRAINT",array(array("zou")));
+      $action->lay->Set("boverdisplay", ""); // only admin can do this
+    }
     
   } else {
     // verify if at least on attribute constraint
