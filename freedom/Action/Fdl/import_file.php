@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.39 2003/01/30 09:38:36 eric Exp $
+// $Id: import_file.php,v 1.40 2003/02/03 09:24:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -204,7 +204,7 @@ function add_import_file(&$action, $fimport="") {
 	$oattr->title = ($data[4] == "Y")?"Y":"N";
 	$oattr->abstract = ($data[5] == "Y")?"Y":"N";
       }
-      if (($data[6] != "enum") || 
+      if (($data[6] != "enum")  &&
 	  ($data[6] != "enumlist") || 
 	  ($oattr->phpfunc == "")) $oattr->phpfunc = $data[12]; // don(t modify  enum possibilities
       $oattr->type = $data[6];
