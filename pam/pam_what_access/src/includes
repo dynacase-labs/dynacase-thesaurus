@@ -1,0 +1,6 @@
+acct.c:#include <unistd.h>
+acct.c:#include <syslog.h>
+acct.c:#include <security/pam_modules.h>
+db.h:#include <mysql/mysql.h>
+db.h:#include <pgsql/libpq-fe.h>
+misc.c:#include <security/_pam_macros.h>

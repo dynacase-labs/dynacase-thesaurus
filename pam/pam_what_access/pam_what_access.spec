@@ -1,8 +1,8 @@
-# $Revision: 1.2 $, $Date: 2001/08/21 13:21:30 $
+# $Revision: 1.3 $, $Date: 2001/08/21 13:24:57 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what_access
-Version:	0.1.0
+Version:	0.1.2
 Release:	1
 License:	GPL or BSD
 Group:		Base
@@ -22,7 +22,7 @@ Only authent service is provided
 
 %description -l fr
 Ce module PAM permet de vérifier les droits utilisateur via la base de données de WHAT
-Seul le service d'authenfication est fourni
+Seul le service d'authentification est fourni
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what_access.spec,v $
+Revision 1.3  2001/08/21 13:24:57  eric
+modification pour nouvelle gestion des ACL
+
 Revision 1.2  2001/08/21 13:21:30  eric
 modification pour nouvelle gestion des ACL
 

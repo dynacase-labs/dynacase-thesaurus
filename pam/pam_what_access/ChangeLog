@@ -1,3 +1,13 @@
+=========pam what ====
+0.1.2 : correction fuite memoire
+	mise à jour pour nouvelles gestion des ACL
+
+0.1.0 : adaptation pour WHAT
+
+
+
+
+======= pam sql =========
 0.7.0 -- 12 Jan 2001
 	+ Initial Release
 
