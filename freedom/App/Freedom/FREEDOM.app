@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.25 2003/07/18 16:33:11 eric Exp $
+// $Id: FREEDOM.app,v 1.26 2004/03/16 14:13:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,6 +44,10 @@ $app_acl = array (
   array(
    "name"               =>"FREEDOM_READ",
    "description"        =>N_("Access To Read Only"),
+   "group_default"       =>"Y"),
+  array(
+   "name"               =>"FREEDOM_GED",
+   "description"        =>N_("Access To Main Interface"),
    "group_default"       =>"Y")
 );
 
@@ -51,7 +55,7 @@ $action_desc = array (
   array( 
    "name"		=>"FREEDOM_FRAME",
    "short_name"		=>N_("Freedoms frame"),
-   "acl"		=>"FREEDOM_READ",
+   "acl"		=>"FREEDOM_GED",
    "root"		=>"Y"
   ) ,
   array( 
@@ -75,6 +79,11 @@ $action_desc = array (
    "acl"		=>"FREEDOM_MASTER",
   ) ,
   array( 
+   "name"		=>"FREEDOM_EDITIMPORTTAR",
+   "short_name"		=>N_("query tar document import"),
+   "acl"		=>"FREEDOM_MASTER",
+  ) ,
+  array( 
    "name"		=>"FREEDOM_BGIMPORT",
    "short_name"		=>N_("background document import"),
    "acl"		=>"FREEDOM_MASTER",
@@ -82,6 +91,26 @@ $action_desc = array (
   array( 
    "name"		=>"FREEDOM_IMPORT",
    "short_name"		=>N_("add document import"),
+   "acl"		=>"FREEDOM_MASTER"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_IMPORT_TAR",
+   "short_name"		=>N_("import archive file"),
+   "acl"		=>"FREEDOM_MASTER"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_ANA_TAR",
+   "short_name"		=>N_("analyze archive file"),
+   "acl"		=>"FREEDOM_MASTER"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_IMPORT_DIR",
+   "short_name"		=>N_("add document from directories file import"),
+   "acl"		=>"FREEDOM_MASTER"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_VIEW_TAR",
+   "short_name"		=>N_("view imported tar"),
    "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 

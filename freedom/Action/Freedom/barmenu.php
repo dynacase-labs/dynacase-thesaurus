@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.9 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: barmenu.php,v 1.10 2004/03/16 14:12:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.9 2003/08/18 15:47:03 eric Exp $
+// $Id: barmenu.php,v 1.10 2004/03/16 14:12:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function barmenu(&$action) {
   popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','newwf'));
   popupInit("searchmenu", array( 'newsearch','newdsearch','newsearchfulltext'));
  
-  popupInit("helpmenu", array('help','import'));
+  popupInit("helpmenu", array('help','import','importtar'));
 
 
   popupActive("newmenu",1,'newdoc'); 
@@ -58,10 +58,12 @@ function barmenu(&$action) {
   popupActive("newmenu",1,'newprof');
   if ($action->HasPermission("FREEDOM_MASTER")) {
     popupActive("helpmenu",1,'import'); 
+    popupActive("helpmenu",1,'importtar'); 
     popupActive("newmenu",1,'newfam');
     popupActive("newmenu",1,'newwf'); 
   } else {
     popupInvisible("helpmenu",1,'import');
+    popupInvisible("helpmenu",1,'importtar');
     popupInvisible("newmenu",1,'newfam');
     popupInvisible("newmenu",1,'newwf'); 
   }

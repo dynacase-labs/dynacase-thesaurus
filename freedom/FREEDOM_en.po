@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2004-03-01 14:07+0100\n"
+	"POT-Creation-Date: 2004-03-16 10:41+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -18,6 +18,65 @@ msgstr	""
 
 #, c-format
 msgid	"no privilege to create this kind (%d) of document"
+msgstr	""
+
+#, c-format
+msgid	"period from %s to %s"
+msgstr	""
+
+#, c-format
+msgid	"the end date (%s) is before the begin date (%s)"
+msgstr	""
+
+#, fuzzy
+msgid	"state"
+msgstr	"Identity"
+
+msgid	"unreferenced site"
+msgstr	""
+
+#, c-format
+msgid	"bilan cannot be perform : %s society not found"
+msgstr	""
+
+msgid	"dayfirstletter"
+msgstr	""
+
+msgid	"hourfirstletter"
+msgstr	""
+
+msgid	"minfirstletter"
+msgstr	""
+
+#, fuzzy
+msgid	"undated"
+msgstr	"Update LDAP server"
+
+#, fuzzy
+msgid	"untitle"
+msgstr	"Update Title Cards"
+
+msgid	"undefined gravity"
+msgstr	""
+
+#, fuzzy
+msgid	"new incident"
+msgstr	"Delete"
+
+msgid	"create"
+msgstr	"Create"
+
+msgid	"document not referenced"
+msgstr	""
+
+msgid	"modify"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"next"
+msgstr	"Export this card"
+
+msgid	"prev"
 msgstr	""
 
 #, fuzzy, c-format
@@ -51,12 +110,6 @@ msgstr	"Delete"
 msgid	"parameters values"
 msgstr	""
 
-msgid	"create"
-msgstr	"Create"
-
-msgid	"document not referenced"
-msgstr	""
-
 #, fuzzy
 msgid	"Validate"
 msgstr	"Edit"
@@ -65,13 +118,6 @@ msgid	"no family"
 msgstr	""
 
 msgid	"no csv import file specified"
-msgstr	""
-
-#, fuzzy
-msgid	"next"
-msgstr	"Export this card"
-
-msgid	"prev"
 msgstr	""
 
 #, c-format
@@ -103,6 +149,9 @@ msgstr	"Start search"
 
 #, c-format
 msgid	"definition of enumerate attribute %s of %s family"
+msgstr	""
+
+msgid	"all constructors"
 msgstr	""
 
 msgid	"no file specified : update aborted"
@@ -169,7 +218,22 @@ msgid	"new title for %s"
 msgstr	""
 
 #, c-format
-msgid	"result of import  %s"
+msgid	"File %s is valid, and was successfully uploaded."
+msgstr	""
+
+#, c-format
+msgid	"The file %s has been correctly extracted"
+msgstr	""
+
+#, c-format
+msgid	"The file %s cannot be extracted"
+msgstr	""
+
+msgid	"Possible file upload attack!  Here's some debugging info:\n"
+msgstr	""
+
+#, c-format
+msgid	"result of archive import  %s"
 msgstr	""
 
 #, c-format
@@ -182,6 +246,10 @@ msgid	"update of %s catalogue has failed,"
 msgstr	""
 
 #, c-format
+msgid	"result of import  %s"
+msgstr	""
+
+#, c-format
 msgid	"%s has been added in %s folder"
 msgstr	""
 
@@ -191,6 +259,19 @@ msgstr	""
 
 #, c-format
 msgid	"the document %s is not a container"
+msgstr	""
+
+#, c-format
+msgid	"cannot extract archive file %s.\n"
+	"Type %s not recognized as archive file"
+msgstr	""
+
+#, c-format
+msgid	"cannot extract archive file %s"
+msgstr	""
+
+#, c-format
+msgid	"proceed background import of %d documents"
 msgstr	""
 
 #, fuzzy
@@ -333,6 +414,45 @@ msgstr	""
 msgid	"%s cannot be sent"
 msgstr	""
 
+msgid	"no import file specified"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"create %s family"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"modify %s family"
+msgstr	"Modify"
+
+#, fuzzy, c-format
+msgid	"update %s attribute"
+msgstr	"Update Title Cards"
+
+#, c-format
+msgid	"add id [%d] "
+msgstr	""
+
+#, c-format
+msgid	"add [%s] "
+msgstr	""
+
+#, c-format
+msgid	"update id [%d] "
+msgstr	""
+
+#, c-format
+msgid	"double title %s <B>ignored</B> "
+msgstr	""
+
+#, c-format
+msgid	"and add in %s folder "
+msgstr	""
+
+#, c-format
+msgid	"and add  in %s folder "
+msgstr	""
+
 msgid	"no file referenced"
 msgstr	""
 
@@ -393,45 +513,6 @@ msgstr	""
 msgid	"geometry saved : %s"
 msgstr	""
 
-msgid	"no import file specified"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"create %s family"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"modify %s family"
-msgstr	"Modify"
-
-#, fuzzy, c-format
-msgid	"update %s attribute"
-msgstr	"Update Title Cards"
-
-#, c-format
-msgid	"add id [%d] "
-msgstr	""
-
-#, c-format
-msgid	"add [%s] "
-msgstr	""
-
-#, c-format
-msgid	"update id [%d] "
-msgstr	""
-
-#, c-format
-msgid	"double title %s <B>ignored</B> "
-msgstr	""
-
-#, c-format
-msgid	"and add in %s folder "
-msgstr	""
-
-#, c-format
-msgid	"and add  in %s folder "
-msgstr	""
-
 msgid	"locked files of "
 msgstr	""
 
@@ -471,167 +552,6 @@ msgstr	""
 
 #, c-format
 msgid	"Delete %d in %s folder"
-msgstr	""
-
-#, c-format
-msgid	"parameters for %s state"
-msgstr	""
-
-#, c-format
-msgid	"id %s profile"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"%s profile"
-msgstr	"Category"
-
-#, c-format
-msgid	"id %s mask"
-msgstr	""
-
-#, c-format
-msgid	"%s mask"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	""
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"The change state to %s has been aborded.\n"
-	"%s"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"change state : %s to %s"
-msgstr	"Category"
-
-#, c-format
-msgid	"%s new state %s"
-msgstr	""
-
-#, c-format
-msgid	"The change state to %s has been realized. But the following warning "
-	"is appeared.\n"
-	"%s"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"cannot change state of document #%d to %s"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"automaticaly by change state of %s\n"
-	"%s"
-msgstr	"Category"
-
-#, fuzzy
-msgid	"no filename"
-msgstr	"Firstname"
-
-msgid	"not perm for admin"
-msgstr	""
-
-msgid	"not pertinent"
-msgstr	""
-
-#, fuzzy
-msgid	"view document"
-msgstr	"Organisation"
-
-msgid	"view"
-msgstr	""
-
-#, fuzzy
-msgid	"send document"
-msgstr	"Import"
-
-#, fuzzy
-msgid	"send"
-msgstr	"Edit"
-
-msgid	"edit document"
-msgstr	""
-
-#, fuzzy
-msgid	"edit"
-msgstr	"Edit"
-
-#, fuzzy
-msgid	"delete document"
-msgstr	"Delete"
-
-msgid	"delete"
-msgstr	"Delete"
-
-#, fuzzy
-msgid	"open folder"
-msgstr	"Modify"
-
-msgid	"open"
-msgstr	""
-
-#, fuzzy
-msgid	"execute search"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	"execute"
-msgstr	"Delete"
-
-#, fuzzy
-msgid	"modify folder"
-msgstr	"Modify"
-
-msgid	"modify"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"view acl"
-msgstr	"Start search"
-
-msgid	"viewacl"
-msgstr	""
-
-#, fuzzy
-msgid	"modify acl"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"modifyacl"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"create doc"
-msgstr	"Create"
-
-#, c-format
-msgid	"no privilege %s"
-msgstr	""
-
-#, c-format
-msgid	"unknow privilege %s"
-msgstr	""
-
-msgid	"the email syntax  is like : john.doe@anywhere.org"
-msgstr	""
-
-msgid	"the email must containt the @ character"
-msgstr	""
-
-msgid	"the date syntax must be like : DD/MM/AAAA"
-msgstr	""
-
-#, c-format
-msgid	"the date %s is in the past: today is %s"
 msgstr	""
 
 #, fuzzy, c-format
@@ -706,6 +626,10 @@ msgstr	""
 msgid	"vault file error"
 msgstr	""
 
+#, fuzzy
+msgid	"no filename"
+msgstr	"Firstname"
+
 #, c-format
 msgid	"cannot control : object not initialized : %s"
 msgstr	""
@@ -716,6 +640,160 @@ msgstr	""
 
 #, c-format
 msgid	"new %s"
+msgstr	""
+
+#, c-format
+msgid	"parameters for %s state"
+msgstr	""
+
+#, c-format
+msgid	"id %s profile"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"%s profile"
+msgstr	"Category"
+
+#, c-format
+msgid	"id %s mask"
+msgstr	""
+
+#, c-format
+msgid	"%s mask"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	""
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"The change state to %s has been aborded.\n"
+	"%s"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"change state : %s to %s"
+msgstr	"Category"
+
+#, c-format
+msgid	"%s new state %s"
+msgstr	""
+
+#, c-format
+msgid	"The change state to %s has been realized. But the following warning "
+	"is appeared.\n"
+	"%s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"cannot change state of document #%d to %s"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"automaticaly by change state of %s\n"
+	"%s"
+msgstr	"Category"
+
+msgid	"not perm for admin"
+msgstr	""
+
+msgid	"not pertinent"
+msgstr	""
+
+#, fuzzy
+msgid	"view document"
+msgstr	"Organisation"
+
+msgid	"view"
+msgstr	""
+
+#, fuzzy
+msgid	"send document"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"send"
+msgstr	"Edit"
+
+msgid	"edit document"
+msgstr	""
+
+#, fuzzy
+msgid	"edit"
+msgstr	"Edit"
+
+#, fuzzy
+msgid	"delete document"
+msgstr	"Delete"
+
+msgid	"delete"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"open folder"
+msgstr	"Modify"
+
+msgid	"open"
+msgstr	""
+
+#, fuzzy
+msgid	"execute search"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"execute"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"modify folder"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"view acl"
+msgstr	"Start search"
+
+msgid	"viewacl"
+msgstr	""
+
+#, fuzzy
+msgid	"modify acl"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"modifyacl"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"create doc"
+msgstr	"Create"
+
+#, c-format
+msgid	"no privilege %s"
+msgstr	""
+
+#, c-format
+msgid	"unknow privilege %s"
+msgstr	""
+
+msgid	"the email syntax  is like : john.doe@anywhere.org"
+msgstr	""
+
+msgid	"the email must containt the @ character"
+msgstr	""
+
+msgid	"the date syntax must be like : DD/MM/AAAA"
+msgstr	""
+
+#, c-format
+msgid	"the date %s is in the past: today is %s"
 msgstr	""
 
 msgid	"errldapadd"
@@ -749,6 +827,13 @@ msgid	"Expiration delay must not be 0 to keep expiration date"
 msgstr	""
 
 #, c-format
+msgid	"group #%d does not exist"
+msgstr	""
+
+msgid	"group has not identificator"
+msgstr	""
+
+#, c-format
 msgid	"group %d does not exist"
 msgstr	""
 
@@ -764,6 +849,170 @@ msgstr	""
 
 msgid	"login yet use"
 msgstr	""
+
+#, fuzzy
+msgid	"created"
+msgstr	"Create"
+
+msgid	"progressing"
+msgstr	""
+
+#, fuzzy
+msgid	"clotured"
+msgstr	"Create"
+
+msgid	"Tprogressing"
+msgstr	""
+
+#, fuzzy
+msgid	"Tclotured"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"recorded"
+msgstr	"Create"
+
+msgid	"qualified"
+msgstr	""
+
+msgid	"analyzed"
+msgstr	""
+
+#, fuzzy
+msgid	"traited"
+msgstr	"Identity"
+
+#, fuzzy
+msgid	"rejected"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"closed"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"suspended"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"draft"
+msgstr	"Edit"
+
+#, fuzzy
+msgid	"Trecorded"
+msgstr	"Create"
+
+msgid	"Tqualified"
+msgstr	""
+
+msgid	"Tanalyzed"
+msgstr	""
+
+#, fuzzy
+msgid	"Ttraited"
+msgstr	"Identity"
+
+#, fuzzy
+msgid	"Trejected"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"Tclosed"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"Tsuspended"
+msgstr	"Delete"
+
+#, fuzzy, c-format
+msgid	"[%s] incident registration"
+msgstr	"Organisation"
+
+#, c-format
+msgid	"Incident : ask for level 2 %s"
+msgstr	""
+
+#, c-format
+msgid	"Incident : ask for perform %s"
+msgstr	""
+
+#, c-format
+msgid	"[%s] incident traited"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"the %s attribute must be set."
+msgstr	"Update Title Cards"
+
+#, c-format
+msgid	"send official mail to %s (cc: %s - bcc:%s)"
+msgstr	""
+
+#, fuzzy
+msgid	"virtual"
+msgstr	"Update Title Cards"
+
+msgid	"consumed"
+msgstr	""
+
+msgid	"plocked"
+msgstr	""
+
+msgid	"asav"
+msgstr	""
+
+msgid	"aclient"
+msgstr	""
+
+#, fuzzy
+msgid	"returned"
+msgstr	"Create"
+
+msgid	"stocked"
+msgstr	""
+
+msgid	"out"
+msgstr	""
+
+#, fuzzy
+msgid	"Tvirtual"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"Tconsumed"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"Tlocked"
+msgstr	"Create"
+
+msgid	"Tasav"
+msgstr	""
+
+msgid	"Taclient"
+msgstr	""
+
+#, fuzzy
+msgid	"Treturned"
+msgstr	"Create"
+
+msgid	"Tstocked"
+msgstr	""
+
+msgid	"Tout"
+msgstr	""
+
+#, fuzzy
+msgid	"doctitle"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"revdate"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"revision"
+msgstr	"Organisation"
 
 msgid	"read only"
 msgstr	""
@@ -791,22 +1040,6 @@ msgstr	""
 
 msgid	"N"
 msgstr	""
-
-#, fuzzy
-msgid	"doctitle"
-msgstr	"Update Title Cards"
-
-#, fuzzy
-msgid	"revdate"
-msgstr	"Create"
-
-#, fuzzy
-msgid	"revision"
-msgstr	"Organisation"
-
-#, fuzzy
-msgid	"state"
-msgstr	"Identity"
 
 msgid	"include"
 msgstr	""
@@ -876,7 +1109,7 @@ msgstr	"Organisation"
 
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
-	"The Size Limit is %d bytes."
+	"The Size Limit is %s bytes."
 msgstr	""
 
 #, c-format
@@ -908,6 +1141,11 @@ msgid	"cannot see unknow folder"
 msgstr	""
 
 msgid	"read-only"
+msgstr	""
+
+#, c-format
+msgid	"Filename '%s' cannot be transmitted.\n"
+	"The Size Limit is %d bytes."
 msgstr	""
 
 #, fuzzy
@@ -956,14 +1194,6 @@ msgstr	"Edit"
 msgid	"new duplicate document is named : %s"
 msgstr	""
 
-#, c-format
-msgid	"period from %s to %s"
-msgstr	""
-
-#, c-format
-msgid	"the end date (%s) is before the begin date (%s)"
-msgstr	""
-
 msgid	"Freedoms"
 msgstr	""
 
@@ -977,6 +1207,9 @@ msgid	"Access To My Own account"
 msgstr	""
 
 msgid	"Access To Read Only"
+msgstr	""
+
+msgid	"Access To Main Interface"
 msgstr	""
 
 msgid	"Freedoms frame"
@@ -995,11 +1228,28 @@ msgstr	""
 msgid	"query document import"
 msgstr	""
 
+msgid	"query tar document import"
+msgstr	""
+
 msgid	"background document import"
 msgstr	""
 
 msgid	"add document import"
 msgstr	""
+
+#, fuzzy
+msgid	"import archive file"
+msgstr	"Import"
+
+msgid	"analyze archive file"
+msgstr	""
+
+msgid	"add document from directories file import"
+msgstr	""
+
+#, fuzzy
+msgid	"view imported tar"
+msgstr	"Import"
 
 msgid	"Freedoms view folder"
 msgstr	""
@@ -1486,6 +1736,23 @@ msgstr	""
 msgid	"split view mode by family"
 msgstr	""
 
+msgid	"Products"
+msgstr	""
+
+msgid	"Product Management"
+msgstr	""
+
+#, fuzzy
+msgid	"product balance"
+msgstr	"Start search"
+
+msgid	"balance query"
+msgstr	""
+
+#, fuzzy
+msgid	"balance result"
+msgstr	"Start search"
+
 #, fuzzy
 msgid	"visible families"
 msgstr	"Start search"
@@ -1594,9 +1861,8 @@ msgid	"If an attribut is a multiline string, use the \\ n characters to "
 	"specify the new line"
 msgstr	""
 
-#, fuzzy
-msgid	"Creation"
-msgstr	"Edit"
+msgid	"New"
+msgstr	""
 
 #, fuzzy
 msgid	"Search"
@@ -1606,12 +1872,15 @@ msgstr	"Start search"
 msgid	"Sort"
 msgstr	"Export selected cards"
 
-msgid	"Tools"
+msgid	"Bilan"
+msgstr	""
+
+msgid	"Tool"
 msgstr	""
 
 #, fuzzy
-msgid	"All document"
-msgstr	"Delete"
+msgid	"All catg"
+msgstr	"All"
 
 #, fuzzy
 msgid	"Edit kind"
@@ -1620,6 +1889,18 @@ msgstr	"Edit"
 #, fuzzy
 msgid	"invert order"
 msgstr	"Delete"
+
+#, fuzzy
+msgid	"client bilan"
+msgstr	"Identity"
+
+#, fuzzy
+msgid	"global bilan"
+msgstr	"Identity"
+
+#, fuzzy
+msgid	"state bilan"
+msgstr	"Identity"
 
 #, fuzzy
 msgid	"Import file"
@@ -1636,6 +1917,143 @@ msgstr	""
 
 msgid	"Freedom"
 msgstr	""
+
+msgid	"Incident Management"
+msgstr	""
+
+msgid	" history"
+msgstr	""
+
+msgid	"Incident Report"
+msgstr	""
+
+msgid	"Bilan Query"
+msgstr	""
+
+#, fuzzy
+msgid	"incident state"
+msgstr	"Organisation"
+
+#, fuzzy
+msgid	"new bilan"
+msgstr	"Identity"
+
+#, fuzzy
+msgid	"incident historical"
+msgstr	"Organisation"
+
+msgid	"SUPPORT Service"
+msgstr	""
+
+#, fuzzy
+msgid	"edited the"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"Detail"
+msgstr	"Email"
+
+#, fuzzy
+msgid	"Reference"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"Title"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"Recorded Date"
+msgstr	"Create"
+
+#, fuzzy
+msgid	"State"
+msgstr	"Identity"
+
+msgid	"Gravity"
+msgstr	""
+
+#, fuzzy
+msgid	"Problem"
+msgstr	"Update Title Cards"
+
+msgid	"the from date is in the future"
+msgstr	""
+
+msgid	"the end date is in the future"
+msgstr	""
+
+msgid	"the from date is before the end date"
+msgstr	""
+
+#, fuzzy
+msgid	"fromdate"
+msgstr	"Edit"
+
+#, fuzzy
+msgid	"todate"
+msgstr	"Identity"
+
+msgid	"today"
+msgstr	""
+
+msgid	"Global Balance"
+msgstr	""
+
+msgid	"global balance"
+msgstr	""
+
+msgid	"print"
+msgstr	"Print this page"
+
+#, fuzzy
+msgid	"Description"
+msgstr	"Edit"
+
+#, fuzzy
+msgid	"First Revision"
+msgstr	"Organisation"
+
+#, fuzzy
+msgid	"Latest Revision"
+msgstr	"Organisation"
+
+msgid	"Bilan:"
+msgstr	""
+
+msgid	"General Synthesis"
+msgstr	""
+
+msgid	"gravity"
+msgstr	""
+
+#, fuzzy
+msgid	"Total"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"End Date"
+msgstr	"Edit"
+
+msgid	"Delay"
+msgstr	""
+
+#, fuzzy
+msgid	"edition: "
+msgstr	"Edit"
+
+msgid	" folder containt"
+msgstr	""
+
+#, fuzzy
+msgid	"Creation"
+msgstr	"Edit"
+
+msgid	"Tools"
+msgstr	""
+
+#, fuzzy
+msgid	"All document"
+msgstr	"Delete"
 
 msgid	"Properties:"
 msgstr	""
@@ -1658,10 +2076,6 @@ msgid	"help"
 msgstr	""
 
 #, fuzzy
-msgid	"edition: "
-msgstr	"Edit"
-
-#, fuzzy
 msgid	"view constraints"
 msgstr	"Edit"
 
@@ -1673,9 +2087,6 @@ msgid	"override constraints"
 msgstr	""
 
 msgid	"Cancel"
-msgstr	""
-
-msgid	" folder containt"
 msgstr	""
 
 msgid	"Generic Management"
@@ -1711,6 +2122,40 @@ msgstr	""
 
 msgid	"personn deleted"
 msgstr	""
+
+#, fuzzy
+msgid	"bilan"
+msgstr	"Identity"
+
+msgid	"Product Report"
+msgstr	""
+
+msgid	"Balance Result"
+msgstr	""
+
+msgid	"product historical"
+msgstr	""
+
+msgid	"Sales Out"
+msgstr	""
+
+#, fuzzy
+msgid	"site"
+msgstr	"Identity"
+
+#, fuzzy
+msgid	"designation"
+msgstr	"Edit"
+
+msgid	"reference"
+msgstr	""
+
+msgid	"serial number"
+msgstr	""
+
+#, fuzzy
+msgid	"date"
+msgstr	"Edit"
 
 msgid	"PortFolio"
 msgstr	""
@@ -1750,6 +2195,10 @@ msgstr	""
 
 #, fuzzy
 msgid	"Import documents"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"Import Tar"
 msgstr	"Import"
 
 msgid	"Attributes definition"
@@ -1897,9 +2346,6 @@ msgstr	"Import"
 msgid	"Result Import Documents"
 msgstr	""
 
-msgid	" history"
-msgstr	""
-
 msgid	"view properties"
 msgstr	""
 
@@ -1989,6 +2435,43 @@ msgid	"no workflow"
 msgstr	"Delete"
 
 #, fuzzy
+msgid	"Result Import TAR Documents"
+msgstr	"Import"
+
+msgid	"View Archive"
+msgstr	""
+
+#, fuzzy
+msgid	"Import Archive"
+msgstr	"Import"
+
+msgid	"Choose Archive"
+msgstr	""
+
+msgid	"Analyze Archive"
+msgstr	""
+
+msgid	"Options import"
+msgstr	""
+
+msgid	"Only CSV"
+msgstr	""
+
+#, fuzzy
+msgid	"Add top folder"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"Lauch Import"
+msgstr	"Import"
+
+msgid	"Analysis Results"
+msgstr	""
+
+msgid	"err"
+msgstr	""
+
+#, fuzzy
 msgid	"Detail Permissions"
 msgstr	"Edit"
 
@@ -2071,6 +2554,21 @@ msgstr	""
 #, fuzzy
 msgid	"Change State"
 msgstr	"Category"
+
+msgid	"Archive import"
+msgstr	""
+
+msgid	"Upload archive"
+msgstr	""
+
+msgid	"View Archives"
+msgstr	""
+
+msgid	"Go to Archives"
+msgstr	""
+
+msgid	"Archive import in progress"
+msgstr	""
 
 #, fuzzy
 msgid	"families"
@@ -2302,9 +2800,6 @@ msgstr	""
 msgid	"wordedit"
 msgstr	"Modify not possible"
 
-msgid	"print"
-msgstr	"Print this page"
-
 msgid	"author"
 msgstr	""
 
@@ -2320,9 +2815,6 @@ msgid	" profile access"
 msgstr	"Control access"
 
 msgid	"control view"
-msgstr	""
-
-msgid	"reference"
 msgstr	""
 
 msgid	"rev"
@@ -2349,17 +2841,6 @@ msgstr	""
 #, fuzzy
 msgid	"delete selected"
 msgstr	"Delete"
-
-#, fuzzy
-msgid	"fromdate"
-msgstr	"Edit"
-
-#, fuzzy
-msgid	"todate"
-msgstr	"Identity"
-
-msgid	"today"
-msgstr	""
 
 msgid	"Familly Document"
 msgstr	""
@@ -2404,124 +2885,12 @@ msgid	"View properties"
 msgstr	""
 
 #, fuzzy
-#~ msgid	"undated"
-#~ msgstr	"Update LDAP server"
-
-#, fuzzy
-#~ msgid	"untitle"
-#~ msgstr	"Update Title Cards"
-
-#, fuzzy
-#~ msgid	"Tvirtual"
-#~ msgstr	"Update Title Cards"
-
-#, fuzzy
-#~ msgid	"Treturned"
-#~ msgstr	"Create"
-
-#, fuzzy
-#~ msgid	"created"
-#~ msgstr	"Create"
-
-#, fuzzy
-#~ msgid	"Tclotured"
-#~ msgstr	"Create"
-
-#, fuzzy
-#~ msgid	"traited"
-#~ msgstr	"Identity"
-
-#, fuzzy
-#~ msgid	"draft"
-#~ msgstr	"Edit"
-
-#, fuzzy
-#~ msgid	"Trecorded"
-#~ msgstr	"Create"
-
-#, fuzzy
-#~ msgid	"Ttraited"
-#~ msgstr	"Identity"
-
-#, fuzzy
-#~ msgid	"Tsuspended"
-#~ msgstr	"Delete"
-
-#, fuzzy
-#~ msgid	"the %s attribute must be set."
-#~ msgstr	"Update Title Cards"
-
-#, fuzzy
-#~ msgid	"incident list application"
-#~ msgstr	"Organisation"
-
-#, fuzzy
 #~ msgid	"relance"
 #~ msgstr	"Create"
 
 #, fuzzy
 #~ msgid	"Sites"
 #~ msgstr	"Identity"
-
-#, fuzzy
-#~ msgid	"All catg"
-#~ msgstr	"All"
-
-#, fuzzy
-#~ msgid	"state bilan"
-#~ msgstr	"Identity"
-
-#, fuzzy
-#~ msgid	"edited the"
-#~ msgstr	"Create"
-
-#, fuzzy
-#~ msgid	"Description"
-#~ msgstr	"Edit"
-
-#, fuzzy
-#~ msgid	"First Revision"
-#~ msgstr	"Organisation"
-
-#, fuzzy
-#~ msgid	"Latest Revision"
-#~ msgstr	"Organisation"
-
-#, fuzzy
-#~ msgid	"State"
-#~ msgstr	"Identity"
-
-#, fuzzy
-#~ msgid	"Detail"
-#~ msgstr	"Email"
-
-#, fuzzy
-#~ msgid	"Recorded Date"
-#~ msgstr	"Create"
-
-#, fuzzy
-#~ msgid	"End Date"
-#~ msgstr	"Edit"
-
-#, fuzzy
-#~ msgid	"Title"
-#~ msgstr	"Update Title Cards"
-
-#, fuzzy
-#~ msgid	"site"
-#~ msgstr	"Identity"
-
-#, fuzzy
-#~ msgid	"designation"
-#~ msgstr	"Edit"
-
-#, fuzzy
-#~ msgid	"date"
-#~ msgstr	"Edit"
-
-#, fuzzy
-#~ msgid	"Reference document"
-#~ msgstr	"Delete"
 
 #, fuzzy
 #~ msgid	"created by %s"
@@ -2568,20 +2937,12 @@ msgstr	""
 #~ msgstr	"Organisation"
 
 #, fuzzy
-#~ msgid	"product familly id"
-#~ msgstr	"Start search"
-
-#, fuzzy
 #~ msgid	"contract familly id"
 #~ msgstr	"Start search"
 
 #, fuzzy
 #~ msgid	"incident familly id"
 #~ msgstr	"Start search"
-
-#, fuzzy
-#~ msgid	"suspended incident"
-#~ msgstr	"Delete"
 
 #, fuzzy
 #~ msgid	"Tsimple"

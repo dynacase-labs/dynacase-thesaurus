@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.61 2004/03/01 08:49:57 eric Exp $
+ * @version $Id: import_file.php,v 1.62 2004/03/16 14:12:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -21,7 +21,7 @@ include_once("FDL/Lib.Attr.php");
 
 function add_import_file(&$action, $fimport="") {
   // -----------------------------------
-  global $HTTP_POST_FILES;
+  global $_FILES;
   $gerr=""; // general errors
 
   ini_set("max_execution_time", 300);
@@ -31,9 +31,9 @@ function add_import_file(&$action, $fimport="") {
   $nbdoc=0; // number of imported document
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  if (isset($HTTP_POST_FILES["file"]))    
+  if (isset($_FILES["file"]))    
     {
-      $fdoc = fopen($HTTP_POST_FILES["file"]['tmp_name'],"r");
+      $fdoc = fopen($_FILES["file"]['tmp_name'],"r");
     } else {
       if ($fimport != "")      $fdoc = fopen($fimport,"r");
       else $fdoc = fopen(GetHttpVars("file"),"r");
@@ -64,7 +64,7 @@ function add_import_file(&$action, $fimport="") {
 	else $doc->fromid = getFamIdFromName($dbaccess,$data[1]);
 	$err = $doc->Add();
 	$msg=sprintf(_("create %s family"),$data[2]);
-	AddImportLog($action,$msg);
+	AddImportLog($msg);
       }
       
       if (is_numeric($data[1]))   $doc->fromid = $data[1];
@@ -87,7 +87,7 @@ function add_import_file(&$action, $fimport="") {
 
       // add messages
       $msg=sprintf(_("modify %s family"),$doc->title);
-      AddImportLog($action,$msg);
+      AddImportLog($msg);
       
       if ($analyze) {
 	$nbdoc++;
@@ -124,8 +124,8 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "DOC":
-      $ndoc=csvAddDoc($action,$dbaccess, $data, $dirid);
-      $nbdoc++;
+      $tr=csvAddDoc($dbaccess, $data, $dirid,$analyze);
+      if ($tr["err"]=="") $nbdoc++;
     break;    
     // -----------------------------------
     case "SEARCH":
@@ -222,7 +222,7 @@ function add_import_file(&$action, $fimport="") {
       //   $famdoc=$doc->getFamDoc();
       $doc->setDefValue($data[1],str_replace('\n',"\n",$data[2]));
       $msg=sprintf("add default value %s %s",$data[1],$data[2]);
-      AddImportLog($action,$msg);
+      AddImportLog($msg);
     break;
     // -----------------------------------
     case "ATTR":
@@ -262,7 +262,7 @@ function add_import_file(&$action, $fimport="") {
       //    if ($err != "") $err = $oattr ->Modify();
     if ($err != "") $gerr="\nATTR line $nline:".$err;
     $msg=sprintf(_("update %s attribute"),$data[1]);
-    AddImportLog($action,$msg);
+    AddImportLog($msg);
     break;
 	  
     }
@@ -273,7 +273,7 @@ function add_import_file(&$action, $fimport="") {
   fclose ($fdoc);
 
 
-  if (isset($HTTP_POST_FILES["file"])) {
+  if (isset($_FILES["file"])) {
     if ($gerr != "") $action->exitError($gerr);
 
   } else {
@@ -283,10 +283,27 @@ function add_import_file(&$action, $fimport="") {
   return $nbdoc;
 }
 
-function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
-  $analyze = (GetHttpVars("analyze","N")=="Y"); // just analyze
+
+/**
+ * Add a document from csv import file
+ * @param string $dbaccess database specification
+ * @param array $data  data information conform to {@link Doc::GetImportAttributes()}
+ * @param int $dirid default folder id to add new document
+ * @param string $ldir path where to search imported files
+ * @return array properties of document added (or analyzed to be added)
+ */
+function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='') {
   $wdouble = (GetHttpVars("double","N")=="Y"); // with double title document
 
+  $tcr=array("err"=>"",
+	     "folderid"=>0,
+	     "foldername"=>"",
+	     "filename"=>"",
+	     "title"=>"",
+	     "id"=>0,
+	     "familyid"=>0,
+	     "familyname"=>"",
+	     "action"=>"");
   // like : DOC;120;...
   $err="";
   $doc = createDoc($dbaccess, $data[1]);
@@ -294,15 +311,20 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
 
   $msg =""; // information message
   $doc->fromid = $data[1];
+  $tcr["familyid"]=$doc->fromid;
   if  ($data[2] > 0) $doc->id= $data[2]; // static id
   if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) {
+    $tcr["action"]="add";
     if (! $analyze) {
       $err = $doc->Add();
+      $tcr["id"]=$doc->id;
       $msg .= $err . sprintf(_("add id [%d] "),$doc->id); 
     } else {
       $msg .=  sprintf(_("add [%s] "),implode('-',$data)); 
     }
   } else {
+    $tcr["action"]="update";
+    $tcr["id"]=$doc->id;
     $msg .= $err . sprintf(_("update id [%d] "),$doc->id);
     
   }
@@ -311,6 +333,7 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
   if ($err != "") {
     global $nline, $gerr;
     $gerr="\nline $nline:".$err;
+    $tcr["err"]=$err;
     return false;
   }
   $lattr = $doc->GetImportAttributes();
@@ -323,7 +346,25 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
 
     if (isset($data[$iattr]) &&  ($data[$iattr] != "")) {
       $dv = str_replace('\n',"\n",$data[$iattr]);
-      $doc->setValue($attr->id, $dv);
+      if (($attr->type == "file") || ($attr->type == "image")) {
+	// insert file
+	$absfile="$ldir/$dv";
+	$tcr["foldername"]=$ldir;
+	$tcr["filename"]=$dv;
+
+	if (! $analyze) {
+	  $err=AddVaultFile($dbaccess,$absfile,$analyze,$vfid);
+	  if ($err != "") { 
+	     $tcr["err"]=$err;
+	  } else {
+	    $doc->setValue($attr->id, $vfid);
+	  }
+	
+      
+      }
+      } else {
+	$doc->setValue($attr->id, $dv);
+      }
     }
     $iattr++;
   }
@@ -336,6 +377,8 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
       $lsdoc = $doc->GetDocWithSameTitle();
 
       if (count($lsdoc) > 0) {
+	$tcr["action"]="ignored";
+	$tcr["err"]=sprintf(_("double title %s <B>ignored</B> "),$doc->title);
 	$msg .= $err.sprintf(_("double title %s <B>ignored</B> "),$doc->title); 
 	$doc->delete(true); // really delete it's not a really doc yet
 	$doc=false; 
@@ -352,11 +395,12 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
   }
 
   if ($doc) {
-
     $msg .= $doc->title;
     if ($data[3] > 0) { // dirid
       $dir = new Doc($dbaccess, $data[3]);
       if ($dir->isAffected()) {
+	$tcr["folderid"]=$dir->id;
+	$tcr["foldername"]=$dir->title;
 	if (! $analyze) $dir->AddFile($doc->id);
 	$msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
       }
@@ -364,24 +408,23 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
       if ($dirid > 0) {
 	$dir = new Doc($dbaccess, $dirid);
 	if ($dir->isAlive() && method_exists($dir,"AddFile")) {
+	  $tcr["folderid"]=$dir->id;
+	  $tcr["foldername"]=$dir->title;
 	  if (! $analyze) $dir->AddFile($doc->id);
-	  $msg .= $err." ".sprintf(_("and add  in %s folder "),$dir->title); 
+	  $msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
 	}
       }
     }
   }
-  if (isset($action->lay)) {
-    AddImportLog($action,$msg);
-
-  } else {
-    print $msg."\n";
-  }
+  
+  AddImportLog($msg);
 
 
-  return $doc;
+  return $tcr;
 }
 
-function AddImportLog(&$action, $msg) {
+function AddImportLog( $msg) {
+  global $action;
   if ($action->lay) {
     $tmsg = $action->lay->GetBlockData("MSG");
     $tmsg[] = array("msg"=>$msg);
@@ -390,4 +433,34 @@ function AddImportLog(&$action, $msg) {
     print "\n$msg";
   }
 }
+
+function AddVaultFile($dbaccess,$path,$analyze,&$vid) {
+  global $importedFiles;
+
+  $path=str_replace("//","/",$path);
+  // return same if already imported (case of multi links)
+  if (isset($importedFiles[$path])) return $importedFiles[$path];
+
+  $absfile2=str_replace('"','\\"',$path);
+  // $mime=mime_content_type($absfile);
+  $mime=trim(`file -ib "$absfile2"`);
+  if (!$analyze) {
+    $vf = new VaultFile($dbaccess, "FREEDOM");
+    $err=$vf->Store($path, false , $vid);
+  }
+  if ($err != "") {
+
+    AddWarningMsg($err);
+    return $err;
+  } else {
+    $importedFiles[$path]="$mime|$vid";
+    $vid="$mime|$vid";
+  
+   
+    return "";
+  }
+  return false;
+}
+
+
 ?>
