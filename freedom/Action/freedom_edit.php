@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.9 2001/11/30 15:13:39 eric Exp $
+// $Id: freedom_edit.php,v 1.10 2001/12/04 09:37:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.10  2001/12/04 09:37:53  eric
+// correction pb sur section vide
+//
 // Revision 1.9  2001/11/30 15:13:39  eric
 // modif pour Css
 //
@@ -222,7 +225,7 @@ function freedom_edit(&$action) {
 	 $bdvalue->Select(array($docid,$listattr[$i]->id));
 	 $value = $bdvalue->value;
 	 
-	 if ($value != "") // to define when change frame
+	 if (true) // to define when change frame
 	   {
 	     if ( $currentFrameId != $listattr[$i]->frameid) {
 	       if ($currentFrameId != "") $changeframe=true;
