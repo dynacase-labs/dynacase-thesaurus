@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.33 2004/09/27 07:49:27 eric Exp $
+ * @version $Id: enum_choice.php,v 1.34 2004/10/04 07:36:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -26,13 +26,7 @@ function enum_choice(&$action) {
   $sorm = GetHttpVars("sorm","single"); // single or multiple
   $index = GetHttpVars("index",""); // index of the attributes for arrays
   $domindex = GetHttpVars("domindex",""); // index in dom of the attributes for arrays
-  $notalone="true";
 
-  if (ereg("([a-z]*)-alone",$sorm,$reg)) {
-    $sorm=$reg[1];
-    $notalone="false";
-  }
-  $action->lay->set("notalone",$notalone);
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -41,7 +35,13 @@ function enum_choice(&$action) {
   if (! $oattr) 
     $action->exitError(sprintf(_("unknown attribute %s"), $attrid));
 
+  $notalone="true";
 
+  if (ereg("([a-z]*)-alone",$sorm,$reg)) {
+    $sorm=$reg[1];
+    $notalone="false";
+  }
+  $action->lay->set("notalone",$notalone);
 
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=ENUMCHOICEJS");
   $phpfunc=$oattr->phpfunc;
@@ -88,6 +88,16 @@ function enum_choice(&$action) {
   $action->lay->SetBlockData("ATTRVAL", $tval);
 }
 
+function enumjschoice(&$action) {
+  $sorm = GetHttpVars("sorm","single"); // single or multiple
+  $notalone="true";
+
+  if (ereg("([a-z]*)-alone",$sorm,$reg)) {
+    $sorm=$reg[1];
+    $notalone="false";
+  }
+  $action->lay->set("notalone",$notalone);
+}
 
 function getFuncVar($n,$def="",$whttpvars,&$doc,&$oa) {
    

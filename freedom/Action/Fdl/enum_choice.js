@@ -9,7 +9,7 @@ function completechoice(index,tattrid,tattrv,winfo) {
 
 	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
 	} else {
-	  if ([notalone]) alert('[TEXT:Attribute not found]'+'['+tattrid[i]+']'+winfo.name);
+	  if (notalone) alert('[TEXT:Attribute not found]'+'['+tattrid[i]+']'+winfo.name);
 	}
 
       } else {

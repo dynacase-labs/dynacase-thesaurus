@@ -41,7 +41,7 @@ var tattrv= new Array();
 [BLOCK ATTRVAL]
 tattrv[[index]] =[attrv]; 
 [ENDBLOCK ATTRVAL]
-
+var notalone=[notalone];
 -->
 </script>   
  </head>
