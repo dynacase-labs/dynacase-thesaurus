@@ -19,8 +19,8 @@
 [BLOCK [TABLEVALUE]]
 
 <tr class="FREEDOMBack1">
-  <td valign="top"  class="FREEDOMlabel" ><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
-  <td valign="bottom" width="[wvalue]" class="FREEDOMText" >[value]</td>
+  <td valign="top"  class="FREEDOMlabel"  width="[wvalue]"><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
+  <td valign="bottom" class="FREEDOMText" >[value]</td>
 </tr>
 
 [ENDBLOCK [TABLEVALUE]]

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.118 2003/04/28 12:15:34 eric Exp $
+// $Id: Class.Doc.php,v 1.119 2003/04/28 12:21:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.118 2003/04/28 12:15:34 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.119 2003/04/28 12:21:58 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1676,7 +1676,7 @@ create unique index i_docir on doc(initid, revision);";
 		
 	  if ($attr->fieldSet->visibility=="F") $currentFrameId = $attr->fieldSet->id;
 	 
-	  $tableframe[$v]["wvalue"]="50%"; // width
+	  $tableframe[$v]["wvalue"]="30%"; // width
 	  // print values
 	  switch ($attr->type)
 	    {
@@ -1693,7 +1693,7 @@ create unique index i_docir on doc(initid, revision);";
 	    
 	      break;
 	    case "array": 
-	      $tableframe[$v]["wvalue"]="80%"; // width
+	      $tableframe[$v]["wvalue"]="1%"; // width
 		
 	    default : 
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
