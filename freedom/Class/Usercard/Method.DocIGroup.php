@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.15 2004/08/11 16:16:28 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.16 2004/08/31 14:05:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -279,24 +279,26 @@ function refreshMembers() {
 	if ($tvu["isgroup"]=="Y") {
 	  $tgid[$uid]=$tvu["fid"];
 	  //	  $tglogin[$uid]=$this->getTitle($tvu["fid"]);
-	  $tglogin[$uid]=$tvu["lastname"];
+	  $tglogin[$tvu["fid"]]=$tvu["lastname"];
 	} else {
 	  $tuid[$uid]=$tvu["fid"];
 	  //	  $tulogin[$uid]=$this->getTitle($tvu["fid"]);
-	  $tulogin[$uid]=trim($tvu["firstname"]." ".$tvu["lastname"]);
+	  $tulogin[$tvu["fid"]]=trim($tvu["lastname"]." ".$tvu["firstname"]);
 	}
       }
     }
     if (is_array($tulogin)) {
+      uasort($tulogin, "strcasecmp");
       $this->SetValue("GRP_USER", $tulogin);
-      $this->SetValue("GRP_IDUSER", $tuid);
+      $this->SetValue("GRP_IDUSER", array_keys($tulogin));
     } else {
       $this->DeleteValue("GRP_USER");
       $this->DeleteValue("GRP_IDUSER");
     }
     if (is_array($tglogin)) {
+      uasort($tglogin, "strcasecmp");
       $this->SetValue("GRP_GROUP", $tglogin);
-      $this->SetValue("GRP_IDGROUP", $tgid);
+      $this->SetValue("GRP_IDGROUP",array_keys($tglogin) );
     } else {
       $this->DeleteValue("GRP_GROUP");
       $this->DeleteValue("GRP_IDGROUP");

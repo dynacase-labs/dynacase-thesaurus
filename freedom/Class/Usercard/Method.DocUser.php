@@ -3,7 +3,7 @@
  * Persons & LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.27 2004/08/05 09:46:02 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.28 2004/08/31 14:05:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -126,7 +126,7 @@ function OrgInit() {
 	    
 	    if ($ds) {
 	      ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
-	      if (ldap_bind($ds, $this->rootdn, $this->rootpw)) {
+	      if (@ldap_bind($ds, $this->rootdn, $this->rootpw)) {
 		
 		if ((@ldap_search($ds, $dn, "", array()))  || 
 		    (ldap_add($ds, $dn, $orgldap))) {
@@ -163,7 +163,7 @@ function OrgInit() {
 	    ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
 	    $dn = "cn=".$this->id.",".$this->racine;
 
-	    if (ldap_bind($ds, $this->rootdn, $this->rootpw))
+	    if (@ldap_bind($ds, $this->rootdn, $this->rootpw))
 	      {
 
 		$sr = @ldap_search($ds, $dn, "", array());
@@ -218,7 +218,7 @@ function OrgInit() {
 	if ($ds)  {
 	    
 	  ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
-	  if (ldap_bind($ds, $this->rootdn, $this->rootpw)) {
+	  if (@ldap_bind($ds, $this->rootdn, $this->rootpw)) {
 	     $r=@ldap_delete($ds,"cn=".$this->id.",".$this->racine);
 	  }
 	  

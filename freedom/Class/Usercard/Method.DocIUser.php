@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.18 2004/08/11 16:16:57 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.19 2004/08/31 14:05:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -13,11 +13,11 @@
 var $eviews=array("USERCARD:CHOOSEGROUP");
 
 function SpecRefresh() {
-  //  $err=_USER::SpecRefresh();
+  $err=_USER::SpecRefresh();
     $this->AddParamRefresh("US_WHATID","US_MAIL,US_LOGIN,US_GROUP");
     if ($this->getValue("US_IDDOMAIN",1) > 1) $this->AddParamRefresh("US_WHATID","US_DOMAIN");
     $this->AddParamRefresh("US_IDDOMAIN","US_DOMAIN");
-    $err="";
+    
     if ($this->getValue("US_STATUS")=='D') $err .= ($err==""?"":"\n")._("user is desactivated");
     // refresh MEID itself
     $this->SetValue("US_MEID",$this->id);
