@@ -68,14 +68,14 @@
 <form  id="fedit"  
        class="fborder" 
        name="modifydoc" 
-       onsubmit="document.isSubmitted=true;selectall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid"
+       onsubmit="if (!canmodify()) return false;document.isSubmitted=true;enableall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD" >
 <INPUT TYPE="hidden" name="classid" value="[classid]"></input>
 <INPUT TYPE="hidden" name="id" value="[id]"></input>
 <INPUT TYPE="hidden" name="dirid" value="[dirid]"></input>
 <input type="hidden" name="vid" value="[vid]">
-<table id="fixtablehead" class="tableborder" style="position:fixed;right:0;bottom:auto;left:0;top:0;width:100%;"  cellspacing="0" width="100%">
+<table id="fixtablehead" class="[tablehead]"   cellspacing="0" width="100%">
 <thead >
 <tr class="FREEDOMBack1">
  <td  colspan="2"><IMG   border="0"   alt="icon" align="absbottom" height="25px" SRC="[iconsrc]">
@@ -97,15 +97,13 @@
 [ZONE FDL:EDITSTATE]
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
-  <td colspan="2" >
+  <td colspan="3"  align="right" id="editbutton">
 <input type="hidden" name="catgid" >
 <input type="hidden" name="noconstraint" value="N">
- <input id="iSubmit" type="submit" value="[editaction]" onmousedown="multiple_for_select();" onclick="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"> 
+ <input id="iSubmit" type="submit" value="[editaction]" onmousedown="multiple_for_select();" > 
  <input type="button" title="[TEXT:view constraints]" style="display:[bconsdisplay]" 
         value="[TEXT:Constraints]" onclick="document.isSubmitted=true;selectall();document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> 
  <input type="submit" title="[TEXT:override constraints]" style="display:[boverdisplay]" value="[editaction]!" onclick="document.isSubmitted=true;enableall();document.modifydoc.noconstraint.value='Y';return true"> 
-  </td>
-  <td  align="right">
  <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[id]'"> 
   </td>
   

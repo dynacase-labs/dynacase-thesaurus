@@ -105,7 +105,7 @@ function refreshfld(dirid) {
 [ZONE FDL:EDITSTATE]
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
-  <td  >
+  <td  colspan="3"  align="right" id="editbutton">
 <input type="hidden" name="noconstraint" value="N">
  <input id="iSubmit" type="submit" value="[editaction]"
         onmousedown="multiple_for_select();"
@@ -113,9 +113,7 @@ function refreshfld(dirid) {
  <input type="button" title="[TEXT:view constraints]" style="display:[bconsdisplay]" 
         value="[TEXT:Constraints]" onclick="document.isSubmitted=true;selectall();document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> 
  <input type="submit" title="[TEXT:override constraints]" style="display:[boverdisplay]" value="[editaction]!" onclick="document.isSubmitted=true;enableall();document.modifydoc.noconstraint.value='Y';return true">
-  </td>
-  <td>&nbsp;</td>
-  <td  align="right">
+  
  <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]'"> 
   </td>
 </tr>

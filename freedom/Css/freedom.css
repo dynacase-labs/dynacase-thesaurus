@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.58 2004/10/13 10:03:56 eric Exp $
+ * $Id: freedom.css,v 1.59 2004/10/19 16:07:29 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -255,6 +255,13 @@ TABLE.tablefoot {
 	bottom:0;
 	left:0;
 }
+TABLE.tablehead {
+	position:fixed;
+	bottom:auto;
+	right:0;
+	top:0;
+	left:0;
+}
 .onglet {
    font-size: 50%;
   background-image:url('[IMG:tab.png]');
@@ -419,8 +426,14 @@ INPUT.fullresize, TEXTAREA.fullresize {
 }
 input[type="file"] { 
 	width:auto;
-   }
-
+}
+input.dsubmit {
+  font-weight: bold;
+  background: [CORE_BGCOLORALTERN]; 
+}
+input.state {
+  background: [CORE_BGCOLORALTERN]; 
+}
 @media print {
   .noprint {
     display:none;
