@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocIncident.php,v 1.5 2002/03/18 13:57:43 eric Exp $
+// $Id: Class.DocIncident.php,v 1.6 2002/03/21 13:27:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.DocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.5 2002/03/18 13:57:43 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.6 2002/03/21 13:27:09 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -107,11 +107,7 @@ Class DocIncident extends Doc
 				"e2"=>suspended,
 				"m1"=>"controlTrans",
 				"m2"=>"changeTransProfil"),
-
-			  array("e1"=>qualified,
-				"e2"=>traited,
-				"m1"=>"controlTrans",
-				"m2"=>"changeTransProfil"),
+			 
 
 			  array("e1"=>analyzed,
 				"e2"=>traited,
@@ -126,12 +122,7 @@ Class DocIncident extends Doc
 			  array("e1"=>qualified,
 				"e2"=>rejected,
 				"m1"=>"controlTrans",
-				"m2"=>"changeTransProfil"),
-
-			  array("e1"=>qualified,
-				"e2"=>suspended,
-				"m1"=>"controlTrans",
-				"m2"=>"changeTransProfil"),
+				"m2"=>"changeTransProfil"),			  
 
 			  array("e1"=>qualified,
 				"e2"=>traited,
@@ -189,29 +180,19 @@ Class DocIncident extends Doc
     switch ($newstate) {
     case recorded:
       $this->profid=111;
-    $oval = new DocValue($this->dbaccess, array($this->id, 165));
-    $mail =  $oval->value; // send mail to client
 
-    $oval = new DocValue($this->dbaccess, array($this->id, 187));
-    $ref =  $oval->value; 
-
-    if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
-      setlocale (LC_TIME, "fr_FR");
-      $sdate= strftime ("%A %d %B %H:%M");
-    } else {
-      $sdate= strftime ("%x %T");
-    }
-//     $this->sendmail($mail , 
-//     		    sprintf(_("receipt call %s"), $ref),
-// 		    sprintf(_("The incident call '%s' has been recorded on %s.\nIts reference is %s"),
-// 			    $this->title,
-// 			    $sdate,
-// 			    $ref)
-// 		    );
+      //------------------------------
+      // send recorded mail to clients
+      $this->sendHtmlmail(
+			  sprintf(_("[%s] incident registration"), $this->initid), 
+			  "incident_mailrecord.xml");
     break;
+
+
+
     case qualified:
       $this->profid=112;
-    $oval = new DocValue($this->dbaccess, array($this->id, 124));
+    $oval = new DocValue($this->dbaccess, array($this->id, "IN_ANALMAIL"));
     $mail =  $oval->value; // send mail to analyzer
     $this->sendmail($mail , 
 		    sprintf(_("Freedom : incident %s : transition to %s"),$this->title,_($newstate)),
@@ -222,7 +203,7 @@ Class DocIncident extends Doc
     break;
     case analyzed:
       $this->profid=114;
-    $oval = new DocValue($this->dbaccess, array($this->id, 122));
+    $oval = new DocValue($this->dbaccess, array($this->id, "IN_TRTMAIL"));
     $mail =  $oval->value;// send mail to realyser
     $this->sendmail($mail , 
 		    sprintf(_("Freedom : incident %s : transition to %s"),$this->title,_($newstate)),
@@ -230,6 +211,13 @@ Class DocIncident extends Doc
     break;
     case traited:
       $this->profid=115;
+      //------------------------------
+      // send tratited mail to clients
+      $this->sendHtmlmail(
+			  sprintf(_("[%s] incident traited"), $this->initid), 
+			  "incident_mailtraited.xml");
+
+      
     break;
     case closed:
       $this->profid=116;
@@ -245,12 +233,69 @@ Class DocIncident extends Doc
 
   function sendmail($addr,  $object="Freedom", $body="") {
     if ($addr != "") {
-      mail($addr,
-	   $object,
-	   $body,
-	   "From: support@i-cesam.com\r\n".
-	   "X-Mailer: PHP/" . phpversion());
+
+
+      global $action;
+
+      $incidentmail = new Layout($action->GetLayoutFile("incident_mailrecord.xml"),$action);
+      $incidentmail->set("title", $this->title);
+      $incidentmail->set("ref", $this->title);
+      $body = $incidentmail->gen();
+      $mailok=mail($addr,
+		$object,
+		$body,
+		"From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
+		"Bcc: ".$action->GetParam("BCC_MAIL_INCIDENT")."\r\n".
+		"X-Mailer: PHP/" . phpversion());
+      if (! $mailok) $action->exitError("mail cannot be sent");
     }
+  }
+  function sendHtmlmail(  $object, $layout) {
+
+
+
+      global $action;
+
+      $mailaddr = $this->GetValue( "IN_CALLMAIL");
+      if ($mailaddr == "") return; // no mail to deliver
+      $title = stripslashes($this->GetValue( "IN_TITLE"));// the title
+
+   
+
+      if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
+	setlocale (LC_TIME, "fr_FR");
+	$sdate= strftime ("%A %d %B %Y");
+      } else {
+	$sdate= strftime ("%x");
+      }
+
+      
+     
+      $incidentmail = new Layout($action->GetLayoutFile($layout),$action);
+      $incidentmail->set("title", $title);
+      $incidentmail->set("ref", $this->initid);
+      $incidentmail->set("date", $sdate);
+      $incidentmail->set("contactname",$this->GetValue( "IN_CALLNAME"));
+      $incidentmail->set("contract",$this->GetValue("IN_CONTRACT"));
+      $incidentmail->set("site",$this->GetValue("IN_SITE"));
+      $incidentmail->set("frommail",$action->GetParam("FROM_MAIL_INCIDENT"));
+      $incidentmail->set("datesept",strftime("%A %d %B %Y", $this->revdate+24*3600*7)); // date + 7days
+
+      $logofile=$action->GetImageFile("logocesam.gif");
+      $fd = fopen($logofile, "r");
+      $logocontent=fread($fd, filesize($logofile));
+      fclose($fd);
+      $incidentmail->set("imgdata",base64_encode($logocontent));
+      $body = $incidentmail->gen();
+      $mailok=mail($mailaddr,
+		   $object, // object
+		   $body,
+		   "From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
+		   "Bcc: ".$action->GetParam("BCC_MAIL_INCIDENT")."\r\n".
+		   "Content-Type: multipart/alternative; boundary=\"=_alternative 003C044E00256A9A_=\"\r\n".
+		   "X-Mailer: PHP/" . phpversion());
+      if (! $mailok) $action->exitError("mail cannot be sent");      
+    
   }
 
  

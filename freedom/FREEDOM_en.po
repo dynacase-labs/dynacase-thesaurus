@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-18 12:12+0100\n"
+	"POT-Creation-Date: 2002-03-19 17:54+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -60,6 +60,14 @@ msgstr	""
 
 #, c-format
 msgid	"search incident %s"
+msgstr	""
+
+#, c-format
+msgid	"search incident contains %s in all state"
+msgstr	""
+
+#, c-format
+msgid	"search  incident contains %s in %s"
 msgstr	""
 
 msgid	"no file specified : update aborted"
@@ -731,7 +739,15 @@ msgid	"delete incident"
 msgstr	"Delete"
 
 #, c-format
+msgid	"[%s] incident registration"
+msgstr	""
+
+#, c-format
 msgid	"Freedom : incident %s : transition to %s"
+msgstr	""
+
+#, c-format
+msgid	"[%s] incident traited"
 msgstr	""
 
 #, fuzzy
