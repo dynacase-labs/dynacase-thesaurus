@@ -565,4 +565,43 @@ function show_yearly_calendar(p_item, p_year, p_format) {
 	Build(p_item, null, p_year, p_format);
 }
 
+function padout2(number) { return (number < 10) ? '0' + number : number; }
+function padout4(number) { return (number < 30) ? '20' + padout2(number) : (number < 100) ? '19' + padout2(number) : number; }
 
+
+function control_date(event, th) {
+  var dpat = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
+  var yyyy,mm,dd;
+  var d=new Date();
+  var r = th.value.match(dpat);
+
+  if ((th.value!="") && (th.value!=" ")) {
+
+
+    if (r != null) {
+    
+
+      d.setFullYear(r[3],r[2]-1,r[1]);
+      th.disabled=true; // to say OK
+      th.value= padout2(d.getDate())+'/'+padout2(d.getMonth()+1)+'/'+padout4(d.getFullYear());
+		     
+    } else {
+      var oldvalue=th.value;
+      th.value= padout2(d.getDate())+'/'+padout2(d.getMonth()+1)+'/'+padout4(d.getFullYear());
+      alert('date incorrecte : '+oldvalue);
+      th.select();
+      th.focus();
+   
+    }
+    
+  }
+}
+
+function focus_date(event,id) {
+  var oid=document.getElementById(id);
+  if (oid) {
+    oid.disabled=false;
+    oid.select();
+    oid.focus();
+  }
+}

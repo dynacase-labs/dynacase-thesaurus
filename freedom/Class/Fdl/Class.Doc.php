@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.158 2003/10/09 12:08:43 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.159 2003/10/13 16:10:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.158 2003/10/09 12:08:43 eric Exp $
+// $Id: Class.Doc.php,v 1.159 2003/10/13 16:10:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.158 2003/10/09 12:08:43 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.159 2003/10/13 16:10:31 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1327,6 +1327,18 @@ create unique index i_docir on doc(initid, revision);";
 	    case time:
 	      list($hh,$mm) = explode(":",$avalue);
 	      $tvalues[$kvalue]=sprintf("%02d:%02d",intval($hh)%24,intval($mm)%60);
+	      break;
+	    case date:
+	      list($dd,$mm,$yy) = explode("/",$avalue);
+	      $yy = intval($yy);
+	      $mm = intval($mm); 
+	      $dd = intval($dd); 
+	      
+	      if (($mm == 0) || ($dd == 0)) AddWarningMsg(sprintf(_("the date '%s' for %s attribute is not correct. It has been corrected automatically"),$avalue,$oattr->labelText));
+	      if ($mm == 0) $mm=1; // 1st january
+	      if ($dd == 0) $dd=1; // 1st day
+	      $tvalues[$kvalue]=sprintf("%02d/%02d/%04d",$dd,$mm,
+					($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy));
 	      break;
 	    }
 	  }

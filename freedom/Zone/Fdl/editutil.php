@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.49 2003/10/09 12:08:43 eric Exp $
+ * @version $Id: editutil.php,v 1.50 2003/10/13 16:10:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.49 2003/10/09 12:08:43 eric Exp $
+// $Id: editutil.php,v 1.50 2003/10/13 16:10:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -399,7 +399,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       //같같같같같같같같같같같같같같같같같같같같
 			
     case "date": 
-      $input="<input size=10  type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+      $input="<input size=10  type=\"text\"  onblur=\"control_date(event,this)\" name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
       $input .= " id=\"".$attridk."\" "; 
 
       if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
@@ -409,6 +409,9 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       if (!(($visibility == "R")||($visibility == "S"))) {
 	$input.="<input type=\"button\" value=\"&#133;\"".
 	  " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attridk."')\"".
+	  ">";
+	$input.="<input type=\"button\" value=\"&diams;\"".
+	  " title=\""._("manual date")."\" onclick=\"focus_date(event,'$attridk')\"".
 	  ">";
       }
       break;      
