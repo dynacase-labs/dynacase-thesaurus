@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.223 2004/11/19 09:55:05 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.224 2004/12/01 08:10:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1981,7 +1981,7 @@ create unique index i_docir on doc(initid, revision);";
 	    $ovalue = $this->GetValue($sattrid);
 	  }
 	  if ($ovalue == "") return false;
-	  $urllink.=$ovalue;
+	  $urllink.=urlencode($ovalue);
 	  
 	  
 	}
@@ -2331,8 +2331,13 @@ create unique index i_docir on doc(initid, revision);";
 
 
 	  if ($target == "mail") {
+	      $scheme="";
+	      if (ereg("^([[:alpha:]]*):(.*)",$ulink,$reg)) {
+		$scheme=$reg[1];
+	      }
 	    $abegin="<A target=\"$target\"  href=\"";
-	    $abegin.= $action->GetParam("CORE_ABSURL")."/".$ulink;
+	    if ($scheme == "") $abegin.= $action->GetParam("CORE_ABSURL")."/".$ulink;
+	    else $abegin.= $ulink;
 	    $abegin.="\">";
 	  } else {
 	    $abegin="<A target=\"$target\" title=\"$ititle\" onmousedown=\"document.noselect=true;\" href=\"";
@@ -2476,11 +2481,23 @@ create unique index i_docir on doc(initid, revision);";
   function viewDoc($layout="FDL:VIEWBODYCARD",$target="_self",$ulink=true,$abstract=false) {
     global $action;
 
+    if (ereg("(.*)\?(.*)",$layout, $reg)) {
+      // in case of arguments in zone
+      global $ZONE_ARGS;
+      $layout=$reg[1];
+      $zargs = explode("&", $reg[2] );
+      while (list($k, $v) = each($zargs)) {
+	if (ereg("([^=]*)=(.*)",$v, $regs)) {
+	  // memo zone args for next action execute
+	   $ZONE_ARGS[$regs[1]]=urldecode($regs[2]);
+	}
+      }
+    }
  
     if (! ereg("([A-Z_-]+):([^:]+):{0,1}[A-Z]{0,1}", $layout, $reg)) 
       $action->exitError(sprintf(_("error in pzone format %s"),$layout));
      
-  
+    
     $this->SetDefaultAttributes();
 
     $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
@@ -3537,6 +3554,11 @@ create unique index i_docir on doc(initid, revision);";
     return date("d/m/Y %G:H");
   }
 
+  /**
+   * return value of an attribute for the document referenced
+   * @param int document identificator
+   * @param string attribute identificator
+   */
   function getDocValue($docid, $attrid) {
     if (intval($docid) > 0) {
       $doc = new Doc($this->dbaccess, $docid);
@@ -3547,6 +3569,20 @@ create unique index i_docir on doc(initid, revision);";
     return "";
   }
 
+  /**
+   * return value of an property for the document referenced
+   * @param int document identificator
+   * @param string  property identificator
+   */
+  function getDocProp($docid, $propid) {
+    if (intval($docid) > 0) {
+      $doc = new Doc($this->dbaccess, $docid);
+      if ($doc->isAlive()) {
+	return $doc->$propid;
+      }
+    }
+    return "";
+  }
   /**
    * return the user last name 
    * @return string
