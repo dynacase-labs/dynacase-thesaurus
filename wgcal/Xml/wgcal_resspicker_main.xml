@@ -1,0 +1,11 @@
+<html>
+<head>
+<title>[TEXT:freedom groupware calendar]</title>
+</head>
+
+<frameset name="wgcal_resspicker_main" id="wgcal_resspicker_main" frameborder="0" framespacing="0" border="0" cols="50%,50%">
+  <frame name="wgcal_resspicker" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER&updt=[updt]" scrolling="needed">
+  <frame name="wgcal_mresspicker_list"  src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKERLIST&updt=[updt]" scrolling="needed">
+</frameset>
+
+</html>

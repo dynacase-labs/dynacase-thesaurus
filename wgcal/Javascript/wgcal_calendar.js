@@ -302,7 +302,6 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
   }
 }
 
-
 // --------------------------------------------------------
 function WGCalShowHideElt(ev, eltId) {
   var elt = document.getElementById(eltId);

@@ -5,11 +5,11 @@
 <fieldset id='vinav' class="WGCListRess">
 <legend class="WGCToolTitle" style="cursor:pointer"
     onClick="WGCalImgAltern(event, 'idimgnav', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
-             WGCalShowHideElt(event, 'inav'); document.getElementById('dispNav').submit(); ">
+             WGCalChangeVisibility(datePickerVisible, 'inav'); ">
     <img id="idimgnav" src="WGCAL/Images/wgcal-arrow[VISICO].gif" title="[TEXT:calendar selector]">
      [TEXT:date selector]</legend>
 
-<div id="inav" style="display:[VISTOOL]">
+<div id="inav" style="display:none">
 <script type="text/javascript">
     Calendar.setup({
         ifFormat       :    '%s',       // format of the input field

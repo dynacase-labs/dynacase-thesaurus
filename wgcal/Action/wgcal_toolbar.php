@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.2 2004/12/01 17:07:08 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.3 2004/12/08 16:43:52 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -11,6 +11,7 @@
  /**
  */
 
+include_once("FDL/Class.Doc.php");
 
 function wgcal_toolbar(&$action) {
 
@@ -29,4 +30,69 @@ function wgcal_toolbar(&$action) {
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
 
+   _navigator($action);
+   _listress($action);
+
+   // Set initial visibility
+   $all =  explode("|", $action->GetParam("WGCAL_U_TOOLSSTATE", ""));
+   $vis = array ( "up", "down");
+   $visstyle = array ( "none", "");
+   if (count($all)>0) {
+     while (list($k, $v) = each($all)) {
+       $t = explode("%",$v);
+       $action->lay->set($t[0], $t[1]);
+       $action->lay->set($t[0]."ico", $vis[$t[1]]);
+       $action->lay->set($t[0]."init", $visstyle[$t[1]]);
+     }
+   }
+
 }
+
+function _navigator(&$action) {
+
+  $ctime = $action->Read("WGCAL_SU_CURDATE", time());
+  $cmtime = $ctime * 1000;
+  $action->lay->set("CTIME", $ctime);
+  $action->lay->set("CmTIME", $cmtime);
+
+  $cy = strftime("%Y",$ctime);
+  $cys = $cy - 5;
+  $cye = $cy + 5;
+  $action->lay->set("YSTART", $cys);
+  $action->lay->set("YSTOP",$cye );
+}
+
+
+
+function _listress(&$action)
+{
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $i = 0;
+  $j = 0;
+
+  $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
+
+  $lress = explode("|", $curress);
+  if (count($lress)>0) {
+    foreach ($lress as $k => $v) {
+      $tt = explode("%", $v);
+      $rid = $tt[0];
+      $sid = ($tt[1]!="" ? $tt[1] : 0);
+      $cid = ($tt[2]!="" ? $tt[2] : "blue");
+      $rd = new Doc($dbaccess, $rid);
+      if ($rd->IsAffected()) {
+	$t[$i]["RID"] = $rd->id;
+	$t[$i]["RDESCR"] = $rd->title;
+	$t[$i]["RICON"] = $rd->getIcon();
+	$t[$i]["RCOLOR"] = $cid;
+	if ($sid==1 || $rid == $action->user->fid) $t[$i]["RSTYLE"] = "WGCRessSelected";
+	else $t[$i]["RSTYLE"] = "WGCRessDefault";
+	$i++;
+      }
+    }
+  }
+  $action->lay->SetBlockData("L_RESS", $t);
+}
+?>

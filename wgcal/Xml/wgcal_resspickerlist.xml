@@ -1,0 +1,23 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+
+<script type="text/javascript">
+
+function SelectRessource(fid, ftitle, ficon) {
+  top.opener.addRessource(fid, ftitle, ficon)
+  elt = document.getElementById(fid);
+  elt.style.display = 'none';
+}
+
+</script>
+
+<fieldset><legend>[TEXT:found ressources]</legend>
+[BLOCK RESSOURCES]
+<div id="[RESSID]"  class="WGCRessDefault" title="[RESSTITLE]"
+     onmouseover="WGCalChangeClass(event, '[RESSID]', 'WGCFamSelected', 'WGCRessOver');" 
+     onmouseout="WGCalChangeClass(event, '[RESSID]', 'WGCFamSelected', 'WGCRessDefault');"
+     onclick="SelectRessource('[RESSID]', '[RESSTITLE]', '[RESSICON]');" >
+  <img height="15"  src="[RESSICON]" title="[RESSTITLE]"/>[RESSTITLE]
+</div>[ENDBLOCK RESSOURCES]
+</fieldset>
+
+[ZONE WGCAL:WGCAL_HTMLFOOT]

@@ -1,7 +1,6 @@
 <script type="text/javascript">
+
 var cp = new ColorPicker();
-
-
 
 var curRessource = -1;
 
@@ -23,12 +22,14 @@ var picker = null;
 window.onunload = killwins;
 function killwins() {
   if (picker != null) picker.close();
+  if (toolsVisibilityChange==1) {
+    saveToolsVisibility();
+  }
   if (ressourcesChange == 1) {
     ok = confirm('[TEXT: ressource list changed, save it ?]');
     if (ok) saveRessources();
   }
 }
-
 
 function  mynodereplacestr(n,s1,s2) {
   
@@ -213,15 +214,11 @@ function updateCalendar() {
 
 <form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 
-<form id="dispCals" target="wgcal_hidden" name="dispNav" method="POST"  
-      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input name="tool" type="hidden" value="1">
-</form>
-
 <fieldset id='vical' class="WGCListRess">
   <legend class="WGCToolTitle" style="cursor:pointer">
     <img id='idimgical' src="WGCAL/Images/wgcal-arrow[VISICO].gif" title="[TEXT:calendar selector]"
          onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
-                  WGCalShowHideElt(event, 'vvical'); document.getElementById('dispCals').submit(); ">
+                  WGCalChangeVisibility(ressListVisible,'vvical');">
     [TEXT:my calendars]
 <img id="resssel" style="cursor:pointer;" onclick="updateCalendar();" height="15"
      src="WGCAL/Images/calendar.gif" title="[TEXT:update calendar]">
@@ -234,7 +231,7 @@ function updateCalendar() {
 
 </legend>
 
-<div id="vvical" style="display:[VISTOOL]">
+<div id="vvical" style="display:none">
  
 <table cellspacing="0" cellpadding="0">
 <tbody id="tabress">
