@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocSiteTech.php,v 1.5 2003/11/03 09:03:41 eric Exp $
+ * @version $Id: Method.DocSiteTech.php,v 1.6 2003/11/17 10:44:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocSiteTech.php,v 1.5 2003/11/03 09:03:41 eric Exp $
+// $Id: Method.DocSiteTech.php,v 1.6 2003/11/17 10:44:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocSiteTech.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,19 +44,21 @@ function SpecRefresh() {
 
 
   // contracts():SI_IDCONTRATS,SI_CONTRATS
-  $filter[]="in_textlist(co_idsites, $this->initid)";
-  $contract = getChildDoc($this->dbaccess, 0,0,"ALL", $filter,1,"TABLE","CONTRACT");
-  $idc=array();
-  $tc=array();
-  while(list($k,$v) = each($contract)) {
+  if ($this->initid > 0) {
+    $filter[]="in_textlist(co_idsites, $this->initid)";
+    $contract = getChildDoc($this->dbaccess, 0,0,"ALL", $filter,1,"TABLE","CONTRACT");
+    $idc=array();
+    $tc=array();
+    while(list($k,$v) = each($contract)) {
 
-    $idc[] = $v["id"];
-    $tc[] = $v["title"];
+      $idc[] = $v["id"];
+      $tc[] = $v["title"];
+    }
+
+
+    $this->setValue("SI_IDCONTRACTS",$idc);
+    $this->setValue("SI_CONTRACTS",$tc);
   }
-
-
-  $this->setValue("SI_IDCONTRACTS",$idc);
-  $this->setValue("SI_CONTRACTS",$tc);
   
 }
 	

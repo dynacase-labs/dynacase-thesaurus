@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocProduct.php,v 1.3 2003/11/03 09:03:41 eric Exp $
+ * @version $Id: Method.DocProduct.php,v 1.4 2003/11/17 10:44:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocProduct.php,v 1.3 2003/11/03 09:03:41 eric Exp $
+// $Id: Method.DocProduct.php,v 1.4 2003/11/17 10:44:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocProduct.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,7 +39,7 @@
  * Special methods for PRODUCT family
  *
  * @author Anakeen 2001
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @package FREEDOM
  * @subpackage INCIDENT
  */
@@ -70,6 +70,10 @@ function SpecRefresh() {
   $idcontract=$this->getValue("PR_IDCONTRACT");
   if ($idcontract > 0) {
     $doc = new Doc($this->dbaccess,$idcontract);
+    if ($doc->locked == -1) { // get latest contract
+      $doc= new Doc($this->dbaccess, $doc->latestId());
+      $this->setValue("PR_IDCONTRACT", $doc->id);
+    }
     $tidprod = $doc->getTvalue("CO_IDPRODUCT");
     if (! in_array($this->initid, $tidprod)) {
       // delete reference to contract
