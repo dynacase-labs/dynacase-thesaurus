@@ -51,7 +51,7 @@ function refreshfld(dirid) {
 
 
 <!-- Title Table -->
-<form  target="finfo" class="fborder" name="search_fulltext" method="POST" 
+<form  target="finfo" class="flist" name="search_fulltext" method="POST" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=SEARCH_FULLTEXT" >
 
 <table class="tablesimple" cellspacing="0"  width="100%" >

@@ -1,8 +1,0 @@
-[BLOCK ALLRESULT]
-<tr>
-     <td class="tlist" width="40">&nbsp;</td>
-     <td class="tlist" style="font-size:80%"  colspan="3">
-     [[rating]] &#149; <span class="button"> [imgsrc]</span> [TEXT:modification date] : [date]
-     </td>
-</tr>[ENDBLOCK ALLRESULT]
-

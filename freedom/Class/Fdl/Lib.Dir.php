@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.94 2004/08/10 08:26:51 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.95 2004/10/14 14:15:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -15,6 +15,7 @@
 include_once('FDL/Class.Dir.php');
 include_once('FDL/Class.DocSearch.php');
 include_once('FDL/Class.DocFam.php');
+include_once("FDL/Class.FTSMnoGoSearch.php");
 
 function getFirstDir($dbaccess) {
   // query to find first directories
@@ -251,7 +252,6 @@ function getChildDocError($dbaccess,
     }
 
   }
-
   return $terr;
 }
 /**
@@ -276,12 +276,20 @@ function getChildDoc($dbaccess,
 		     $userid=1, 
 		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
   
+  global $action;
 
   // query to find child documents          
   if (($fromid!="") && (! is_numeric($fromid))) $fromid=getFamIdFromName($dbaccess,$fromid);
   if ($fromid==0) $fromid="";
   if (($fromid=="") && ($dirid!=0)&&($qtype=="TABLE")) {
+
     $fld = new Doc($dbaccess, $dirid);
+
+    // In case of full text search, execute specific code
+    if ($fld->fromid == getFamIdFromName($dbaccess,"FTEXTSEARCH")) 
+      return $fld->GetFullTextResultDocs($dbaccess, $dirid, $start, $slice, $sqlfilters, 
+					 $userid, $qtype, $fromid, $distinct, $orderby, $latest);
+    
     if ( $fld->defDoctype != 'S') {
       // try optimize containt of folder
       $td=getFldDoc($dbaccess,$dirid,$sqlfilters);
@@ -613,25 +621,25 @@ function GetClassesDoc($dbaccess,$userid,$classid=0,$qtype="LIST")
  * @return array/Doc
  * @see getChildDir()
  */
-  function GetProfileDoc($dbaccess,$docid,$defProfFamId="")
-    // --------------------------------------------------------------------
-    {
-      global $action;
-      $filter=array();
+function GetProfileDoc($dbaccess,$docid,$defProfFamId="")
+{
+  global $action;
+  $filter=array();
+  
+  $doc=new Doc($dbaccess,$docid);
+  $chdoc=$doc->GetFromDoc();
+  if ($defProfFamId=="") $defProfFamId=$doc->defProfFamId;
+  
+  $cond = GetSqlCond($chdoc,"dpdoc_famid");
+  if ($cond != "") $filter[]="dpdoc_famid is null or (".GetSqlCond($chdoc,"dpdoc_famid").")";
+  else $filter[]="dpdoc_famid is null";
+  $filter[]="fromid=".$defProfFamId;
+  $tcv = getChildDoc($dbaccess,
+		     0,0,"ALL",$filter,$action->user->id,"TABLE",$defProfFamId);
+  
+  return $tcv;
+}
 
-      $doc=new Doc($dbaccess,$docid);
-      $chdoc=$doc->GetFromDoc();
-      if ($defProfFamId=="") $defProfFamId=$doc->defProfFamId;
-     
-      $cond = GetSqlCond($chdoc,"dpdoc_famid");
-      if ($cond != "") $filter[]="dpdoc_famid is null or (".GetSqlCond($chdoc,"dpdoc_famid").")";
-      else $filter[]="dpdoc_famid is null";
-      $filter[]="fromid=".$defProfFamId;
-      $tcv = getChildDoc($dbaccess,
-			 0,0,"ALL",$filter,$action->user->id,"TABLE",$defProfFamId);
-     
-      return $tcv;
-    }
 
 
 ?>
