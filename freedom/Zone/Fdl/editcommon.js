@@ -1,4 +1,3 @@
-
 var isNetscape = navigator.appName=="Netscape";
 // auxilarry window to select choice
 var wichoose= false;
@@ -949,13 +948,11 @@ function duptr() {
     tbodyselid=tbodysel.id;
     tnewid='tnew'+tbodyselid.substr(5);
     if (document.getElementById(tnewid)) {
-      alert('indirect');
       ntr=addtr(tnewid,tbodyselid);
       afterCloneBug(seltr,ntr);
     
     } else {
       // direct clone tr
-      alert('direct');
       csel=seltr.cloneNode(true);
       csel.style.backgroundColor='';
       seltr.parentNode.insertBefore(csel,seltr);
@@ -969,22 +966,41 @@ function duptr() {
 }
 
 function afterCloneBug(o1,o2) {
+  var ti1,ti2,t;
+  var itag=new Array('input','textarea','select');
+
+  for (t in itag) {
+    ti1= o1.getElementsByTagName(itag[t]);
+    ti2= o2.getElementsByTagName(itag[t]);
+    for ( i=0; i< ti1.length; i++) {
+      setIValue(ti2[i],getIValue(ti1[i]));
+    }
+  }
+}
+
+// change input (id) value (v) in node n
+function chgInputValue(nid,id,v) {
   
-      ti1= o1.getElementsByTagName("input");
-      ti2= o2.getElementsByTagName("input");
-      for ( i=0; i< ti1.length; i++) {
-	setIValue(ti2[i],getIValue(ti1[i]));
+  var itag=new Array('input','textarea','select');
+  var ti,t;
+  var n=document.getElementById(nid);
+
+  if (n) {
+    for (t in itag) {
+      ti=n.getElementsByTagName(itag[t]);
+      for (var i=0; i< ti.length; i++) {
+	pos=ti[i].name.indexOf('[');
+	if (pos==-1) ni=ti[i].name;
+	else ni=ti[i].name.substr(0,pos);
+	if (ni==id) {
+	  setIValue(ti[i],v);
+	}
       }
-      ti1= o1.getElementsByTagName("textarea");
-      ti2= o2.getElementsByTagName("textarea");
-      for ( i=0; i< ti1.length; i++) {
-	setIValue(ti2[i],getIValue(ti1[i]));
-      }
-      ti1= o1.getElementsByTagName("select");
-      ti2= o2.getElementsByTagName("select");
-      for ( i=0; i< ti1.length; i++) {
-	setIValue(ti2[i],getIValue(ti1[i]));
-      }
+    
+    }
+  }
+  
+  
 }
 function visibilityinsert(n,d) {
   var ti = document.getElementsByName(n);
