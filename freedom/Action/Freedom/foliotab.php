@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: foliotab.php,v 1.5 2003/10/09 12:08:42 eric Exp $
+ * @version $Id: foliotab.php,v 1.6 2004/06/11 16:09:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: foliotab.php,v 1.5 2003/10/09 12:08:42 eric Exp $
+// $Id: foliotab.php,v 1.6 2004/06/11 16:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliotab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,6 +55,7 @@ function foliotab(&$action) {
   $nbfolders=1;
   
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
  
   $doc = new Doc($dbaccess,$docid);
   $action->lay->set("docid",$docid);
@@ -76,19 +77,16 @@ function foliotab(&$action) {
   $action->lay->set("icon",$doc->getIcon());
   $ttag=array();
   while(list($k,$v) = each($child)) {
-      $icolor="";
-      if ($v["usefor"] == "G") {
 	$icolor=getv($v,"gui_color");
-      }
       if ($v["initid"] != $doc->initid) {
       $ttag[$v["initid"]] = array(
-		      "tabid"=>$v["id"],
+		      "tabid"=>$v["initid"],
 		      "doctype"=>$v["doctype"],
 		      "TAG_LABELCLASS" => $v["doctype"]=="S"?"searchtab":"",
 		      "tag_cellbgclass"=>($v["id"] ==$docid)?$tabongletsel:$tabonglet,
 		      "icolor"=>$icolor,
 		      "icontab"=>$doc->getIcon($v["icon"]),
-		      "tabtitle"=>$v["title"]);
+		      "tabtitle"=>str_replace(" ","&nbsp;",$v["title"]));
       }
    
   }
