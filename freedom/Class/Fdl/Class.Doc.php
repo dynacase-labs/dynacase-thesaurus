@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.138 2003/06/19 09:53:09 eric Exp $
+// $Id: Class.Doc.php,v 1.139 2003/06/24 10:41:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.138 2003/06/19 09:53:09 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.139 2003/06/24 10:41:46 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/19 09:53:09 $
-// Version         $Revision: 1.138 $
+// Last Update     $Date: 2003/06/24 10:41:46 $
+// Version         $Revision: 1.139 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1711,7 +1711,7 @@ create unique index i_docir on doc(initid, revision);";
     if (method_exists ( $this, $method)) {
       $this->$method($target,$ulink,$abstract);
     } else {
-      $this->viewbodycard($target,$ulink,$abstract);
+      $this->viewdefaultcard($target,$ulink,$abstract);
     }
 
 
@@ -1725,6 +1725,14 @@ create unique index i_docir on doc(initid, revision);";
       return preg_replace("/\?session=[^&]*&/", "?" ,$this->lay->gen() );
     }
     return $this->lay->gen();
+  }
+
+  // --------------------------------------------------------------------
+  // construct layout for view card containt
+  // --------------------------------------------------------------------
+  function viewdefaultcard($target="_self",$ulink=true,$abstract=false) {
+    $this->viewattr($target,$ulink,$abstract);
+    $this->viewprop($target,$ulink,$abstract);
   }
 
   // --------------------------------------------------------------------
@@ -1814,7 +1822,7 @@ create unique index i_docir on doc(initid, revision);";
       if ($iattr <= $nattr)	{
       
 	if ((($value != "") || ( $attr->type=="array")) && 
-	    ($attr->mvisibility != "H") && (! $attr->inArray()))   {
+	    ($attr->mvisibility != "H") && ($attr->mvisibility != "O") && (! $attr->inArray()))   {
 		
 	  if ($attr->fieldSet->visibility=="F") $currentFrameId = $attr->fieldSet->id;
 	 
@@ -2649,8 +2657,8 @@ create unique index i_docir on doc(initid, revision);";
   function userDocId() {
     
     include_once("FDL/Lib.Dir.php");
-    $famid=getFamIdFromName($this->dbaccess,"USER");
-    $filter[]="title = '".$this->userName()."'";
+    $famid=getFamIdFromName($this->dbaccess,"IUSER");
+    $filter[]="us_whatid = '".$this->userid."'";
     
     $tpers = getChildDoc($this->dbaccess, 0,0,1, $filter,$action->user->id,"TABLE",$famid);
     if (count($tpers) > 0)    return($tpers[0]["id"]);
