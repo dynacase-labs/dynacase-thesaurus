@@ -181,6 +181,7 @@ function getInputValue(id,index) {
 
 function getInputLocked() {
   var tlock=new Array();
+  if (tain) {
   for (var c=0; c< tain.length; c++) {
     ndis = true;
     for (var i=0; i< tain[c].length; i++) {
@@ -192,6 +193,7 @@ function getInputLocked() {
 
       tlock=tlock.concat(taout[c]);
     }
+  }
   }
  
   return (tlock);
@@ -225,6 +227,7 @@ function disableReadAttribute() {
   var vin;
   var lin;
   var inx,inc; // input button
+  if (tain) {
   for (var c=0; c< tain.length; c++) {
     ndis = true;
     for (var i=0; i< tain[c].length; i++) {
@@ -268,7 +271,7 @@ function disableReadAttribute() {
 	  }
 		
 	}
-	      
+      }
       }
     }
   }
