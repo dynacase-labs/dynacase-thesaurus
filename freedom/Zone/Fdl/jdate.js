@@ -65,7 +65,7 @@ function cal_to_jd( era, y, m, d, h, mn, s )
     return jd/100000;
 }
 function jdToWeekNumber(JD) {
-  var J=JD+0;
+  var J=parseFloat(JD) + 0.5;
     var D4=(J+31741-(J %7))% 146097 % 36524 % 1461;
     var L=Math.floor(D4/1460);
     var D1=((D4-L) % 365)+L;

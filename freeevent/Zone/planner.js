@@ -127,7 +127,7 @@ function placeDays() {
 	tjdstart[ndiv]=mstart+i-7;
 	tjdend[ndiv]=mstart+i;
 	onweek.id='DIV'+(ndiv++);
-	nWeek=jdToWeekNumber(mstart+i);
+	nWeek=jdToWeekNumber(mstart+i-7);
 	onweek.innerHTML=nWeek;
 	onweek.title=jd_to_cal(mstart+i);
 	onweek.style.width=parseInt(rw+bx+(dx*zoomx))-pXWeek;
@@ -273,8 +273,8 @@ function placeDays() {
     tjdstart[ndiv]=mstart+pDJWeek;
     tjdend[ndiv]=mstart+pDJWeek+7;
     onweek.id='DIV'+(ndiv++);
-	
-    onweek.innerHTML=jdToWeekNumber(mstart+i);
+
+    onweek.innerHTML=jdToWeekNumber(mstart+pDJWeek);
     onweek.style.width=parseInt(rw+bx+((dw+dx)*zoomx))-pXWeek;
     onweek.style.height=20;
     onweek.style.top=by-40;
