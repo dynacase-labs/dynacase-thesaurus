@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.75 2004/08/24 08:13:50 eric Exp $
+ * @version $Id: import_file.php,v 1.76 2004/09/14 11:36:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -24,7 +24,7 @@ function add_import_file(&$action, $fimport="") {
   global $_FILES;
   $gerr=""; // general errors 
 
-  ini_set("max_execution_time", 300);
+  if (intval(ini_get("max_execution_time")) < 300) ini_set("max_execution_time", 300);
   $dirid = GetHttpVars("dirid",10); // directory to place imported doc 
   $analyze = (GetHttpVars("analyze","N")=="Y"); // just analyze
   $policy = GetHttpVars("policy","update"); 
@@ -510,7 +510,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	if ($doc->id == "") {
 	  // insert default values
 	  foreach($prevalues as $k=>$v) {
-	    if ($doc->getValue($k)=="") $doc->setValue($k,$v);
+	    $doc->setValue($k,$v);
 	  }
 	  $err = $doc->Add(); 
 	}
@@ -535,7 +535,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	  if ($doc->id == "") {
 	    // insert default values
 	    foreach($prevalues as $k=>$v) {
-	      if ($doc->getValue($k)=="") $doc->setValue($k,$v);
+	      $doc->setValue($k,$v);
 	    }
 	    $err = $doc->Add(); 
 	  }
