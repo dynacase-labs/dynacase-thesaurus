@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.47 2004/02/12 10:28:29 eric Exp $
+ * @version $Id: viewcard.php,v 1.48 2004/02/17 10:59:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.47 2004/02/12 10:28:29 eric Exp $
+// $Id: viewcard.php,v 1.48 2004/02/17 10:59:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -146,8 +146,11 @@ function viewcard(&$action) {
   if ($doc->doctype == 'Z') {
     $err =_("This document has been deleted");
      $err .= "\n\n".$doc->comment;
-  } else {
+  } else {    
+    // disabled control just to refresh
+    $doc->disableEditControl();
     $err=$doc->refresh();
+    $doc->enableEditControl();
   }
   $action->lay->set("LGTEXTERROR", strlen($err));
   $action->lay->set("TEXTERROR", nl2br($err));
@@ -194,6 +197,7 @@ function viewcard(&$action) {
   } else {
     $action->lay->Set("classtitle", _("no family"));
   }
+  $action->lay->Set("profid", abs($doc->profid));
   if ((abs($doc->profid) > 0) && ($doc->profid != $doc->id)) {
     $pdoc = new Doc($dbaccess, abs($doc->profid));
     $action->lay->Set("profile", $pdoc->title);
@@ -204,11 +208,17 @@ function viewcard(&$action) {
     $action->lay->Set("displayprof", "inherit");
     if ($doc->profid == 0)
       $action->lay->Set("profile", _("no access control"));
-    else
-      $action->lay->Set("profile", _("specific control"));
-      
+    else {
+      if ($doc->dprofid==0) $action->lay->Set("profile", _("specific control"));
+      else {
+	
+	$action->lay->Set("displaylprof", "inherit");
+	$action->lay->Set("displayprof", "none");
+	$action->lay->Set("profile", _("dynamic control"));
+	$action->lay->Set("profid", abs($doc->dprofid));
+      }
+    }
   }
-  $action->lay->Set("profid", abs($doc->profid));
   $action->lay->Set("postitid", $doc->postitid);
   
   if ($doc->cvid == 0) {
