@@ -1,0 +1,29 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FREEDOM\n"
+"POT-Creation-Date: 2004-11-23 17:28+0100\n"
+"PO-Revision-Date: 2004-10-18 18:13+0200\n"
+"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+"Language-Team: French <distrib@anakeen.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
+
+#, c-format
+msgid "change period from [%s %s] to [%s %s]"
+msgstr ""
+
+#, c-format
+msgid "Changes from document \"%s\" [%d]"
+msgstr ""
+
+msgid "use what gate"
+msgstr ""
+
+msgid "preferential doc gate id"
+msgstr ""
