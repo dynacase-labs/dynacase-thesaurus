@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.30 2002/06/20 11:58:42 eric Exp $
+// $Id: Class.Doc.php,v 1.31 2002/07/11 13:22:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.30 2002/06/20 11:58:42 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.31 2002/07/11 13:22:25 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -136,7 +136,7 @@ create sequence seq_id_doc start 1000";
       // --------------------------------
     global $lprof;
     //print "select $this->id <BR>";
-    if ($this->profid < 0) { // self control
+    if ($this->profid == $this->id) { // self control
 
 	if (! isset($lprof[$this->id])) {
 	$lprof[$this->id] =  new ObjectPermission($this->dbaccess, 
@@ -543,7 +543,8 @@ create sequence seq_id_doc start 1000";
   // return all the attributes object 
   // the attribute can be defined in fathers
     // wonly :: with write only attributes
-    function GetAttributes($wonly=false) 
+    // wonly :: with frame attributes
+    function GetAttributes($wonly=false,$wframe=false) 
     {
       if (!isset($this->attributes)) {
 	$query = new QueryDb($this->dbaccess,"DocAttr");
@@ -552,7 +553,7 @@ create sequence seq_id_doc start 1000";
 	$sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
 	$query->AddQuery($sql_cond_doc);
     
-	$query->AddQuery("type != 'frame'");
+	if (!$wframe) $query->AddQuery("type != 'frame'");
 	$query->AddQuery("visibility != 'M'"); // not menu attributes (not editable)
 	  if (! $wonly)	$query->AddQuery("visibility != 'O'"); // not readable directly
 	$query->order_by="ordered";
@@ -720,7 +721,7 @@ create sequence seq_id_doc start 1000";
     $this->locked = "0"; // the file is unlocked
     $this->comment = _("current revision"); // change comment
     $this->revision = $this->revision+1;
-    if ($this->profid == -1) $this->profid=$olddocid; // redirect for special control acces
+
     $this->Add();
 
     // duplicate values
@@ -851,6 +852,7 @@ create sequence seq_id_doc start 1000";
 	  if ($v == "A")     {global $action;$arg[$k]= &$action;}
 	  else if ($v == "D") $arg[$k]= $this->dbaccess;
 	  else if ($v == "T") $arg[$k]= &$this;
+	  else if ($v == "I") $arg[$k]= $this->id;
 	  else {
 	    $arg[$k]= $this->GetValue($v);
 	    if ($arg[$k] == "") return;
@@ -902,6 +904,10 @@ create sequence seq_id_doc start 1000";
 	      $urllink.=$action->GetParam("CORE_STANDURL");
 
 	      break;
+	    case "I": // id	  
+	      $urllink.=$this->id;
+	      
+	      break;
 	    default:
 	      
 	      break;
@@ -929,7 +935,7 @@ create sequence seq_id_doc start 1000";
 
   }
 
-    function GetHtmlValue($oattr, $value, $target="_self") {
+    function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true) {
       global $action;
       switch ($oattr->type)
 	{
@@ -982,7 +988,7 @@ create sequence seq_id_doc start 1000";
 
 	      
       // add link if needed
-      if (($oattr->link != "") && 
+      if ($htmllink && ($oattr->link != "") && 
 	  ($ulink = $this->urlWhatEncode( $oattr->link))) {
 	$abegin="<A target=\"$target\" href=\"";
 	$abegin.= $ulink;
