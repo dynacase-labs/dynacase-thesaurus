@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.16 2004/01/28 08:22:11 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.17 2004/01/28 10:23:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.16 2004/01/28 08:22:11 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.17 2004/01/28 10:23:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -169,11 +169,12 @@ Class NormalAttribute extends BasicAttribute {
 
 Class FieldSetAttribute extends BasicAttribute {
 
-  function FieldSetAttribute($id, $docid, $label, $visibility="" ) {
+  function FieldSetAttribute($id, $docid, $label, $visibility="",$usefor="" ) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
     $this->visibility=$visibility;
+    $this->usefor=$usefor;
   }
 }
 

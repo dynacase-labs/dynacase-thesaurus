@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.38 2004/01/28 08:22:11 eric Exp $
+ * @version $Id: editcard.php,v 1.39 2004/01/28 10:23:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.38 2004/01/28 08:22:11 eric Exp $
+// $Id: editcard.php,v 1.39 2004/01/28 10:23:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -75,8 +75,8 @@ function editcard(&$action) {
       $doc= new Doc($dbaccess,$docid);
     
   }
-
-  if ($usefor != "") {
+  
+  if (($usefor == "D")||($usefor == "P")) {
     $fdoc = new DocFam($dbaccess, $classid);
     $zonebodycard="FDL:EDITBODYCARD";
     switch ($usefor) {
@@ -130,7 +130,7 @@ function editcard(&$action) {
 
   //compute constraint for enable/disable input
   $tjsa=array();
-  if ($usefor == "") {
+  if ($usefor != "D") {
     if (GetHttpVars("viewconstraint")!="Y") $doc->Refresh();
     else {
       $err=$doc->SpecRefresh();

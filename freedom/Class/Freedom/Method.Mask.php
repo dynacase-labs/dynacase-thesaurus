@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.6 2003/12/30 10:12:57 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.7 2004/01/28 10:23:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.6 2003/12/30 10:12:57 eric Exp $
+// $Id: Method.Mask.php,v 1.7 2004/01/28 10:23:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -81,7 +81,6 @@ function getCVisibilities() {
   $doc= new Doc($this->dbaccess,$docid);
 
   $tsvis = $this->getVisibilities();
-
   $tvisibilities=array();
 
   foreach($tattrid as $k=>$v) {
@@ -89,6 +88,7 @@ function getCVisibilities() {
     $fvisid=$attr->fieldSet->id;
     if ($tvisid[$k]=="-") $vis=$attr->visibility;
     else $vis=$tvisid[$k];
+
     $tvisibilities[$v]=ComputeVisibility($vis,$tsvis[$fvisid]);    
   }
   return $tvisibilities;
@@ -243,6 +243,7 @@ function editmask() {
   
   uasort($tattr,"tordered"); 
   foreach($tattr as $k=>$attr) {
+    if ($attr->usefor=="P") continue;
     $newelem[$k]["attrid"]=$attr->id;
     $newelem[$k]["attrname"]=$attr->labelText;
     $newelem[$k]["visibility"]=$labelvis[$attr->visibility];

@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.5 2004/01/14 15:59:31 eric Exp $
+ * @version $Id: editstate.php,v 1.6 2004/01/28 10:23:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -48,7 +48,7 @@ function editstate(&$action) {
   }
   
 
-  
+  if ($doc->usefor=="N") {
   
   if ($doc->wid > 0) {
     // compute the changed state
@@ -72,7 +72,7 @@ function editstate(&$action) {
     }
     
   }
-  
+  }
   
   
   

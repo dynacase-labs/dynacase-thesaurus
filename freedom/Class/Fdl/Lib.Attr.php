@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.31 2004/01/28 08:22:11 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.32 2004/01/28 10:23:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.31 2004/01/28 08:22:11 eric Exp $
+// $Id: Lib.Attr.php,v 1.32 2004/01/28 10:23:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -105,8 +105,9 @@ function AttrToPhp($dbaccess, $tdoc) {
 	break;
       case "frame": // frame
 	$tfield[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
-			  "visibility"=>$v->visibility,
-			  "label"=>str_replace("\"","\\\"",$v->labeltext));
+					    "visibility"=>$v->visibility,
+					    "label"=>str_replace("\"","\\\"",$v->labeltext),
+					    "usefor"=>$v->usefor);
 	break;
 	
       default: // normal

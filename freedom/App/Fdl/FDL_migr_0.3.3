@@ -11,3 +11,5 @@ echo "alter table docfam add column ccvid int;" | psql freedom anakeen
 
 $pubdir/wsh.php --api=fdl_adoc 
 $pubdir/wsh.php --api=fdl_adoc 
+$pubdir/wsh.php --api=fdl_trigger | psql freedom anakeen
+$pubdir/wsh.php --api=fdl_trigger --trigger=Y | psql freedom anakeen

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.24 2004/01/28 09:43:05 eric Exp $
+ * @version $Id: enum_choice.php,v 1.25 2004/01/28 10:23:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.24 2004/01/28 09:43:05 eric Exp $
+// $Id: enum_choice.php,v 1.25 2004/01/28 10:23:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,28 +96,31 @@ function enum_choice(&$action) {
     else if ($v == "D") $arg[$k]= $dbaccess;
     else if ($v == "I") $arg[$k]= $doc->id;
     else if ($v == "T") $arg[$k]= &$doc;
-    else if ($index === "") {
+    else {
+      // can be values or family parameter
       $a = $doc->GetAttribute($v);
-      $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
-      if ($a && ($a->usefor=="P")) {
-	if ($arg[$k]=="") $arg[$k]=$doc->getParamValue($v);
-      } 
-    } else {
-      $a = $doc->GetAttribute($v);
-      if ($a && ($a->usefor=="P")) {
-	$arg[$k]=$doc->getParamValue($v);
-      } else if ($a && $a->inArray()) {
-	if (($a->fieldSet->id == $oattr->fieldSet->id)) { // search with index
-	  $ta = GetHttpVars("_".strtolower($v),$v);
+      if ($index === "") {
+	$arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
+	
+      } else {
+	if ($a && ($a->usefor=="P")) {
+	  $arg[$k]=$doc->getParamValue($v);
+	} else if ($a && $a->inArray()) {
+	  if (($a->fieldSet->id == $oattr->fieldSet->id)) { // search with index
+	    $ta = GetHttpVars("_".strtolower($v),$v);
 	  
-	  $arg[$k]=trim($ta[$index]);
-	} else {
-	  $ta = GetHttpVars("_".strtolower($v),$v);
-	  unset($ta["-1"]); // suppress hidden row because not set yet
+	    $arg[$k]=trim($ta[$index]);
+	  } else {
+	    $ta = GetHttpVars("_".strtolower($v),$v);
+	    unset($ta["-1"]); // suppress hidden row because not set yet
 
-	  $arg[$k]= $ta;
-	}
-      } else $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
+	    $arg[$k]= $ta;
+	  }
+	} else $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
+      }
+      if ($a && ($a->usefor=="P")) {
+	if (GetHttpVars("_".strtolower($v),false)===false) $arg[$k]=$doc->getParamValue($v);
+      } 
     }
   }
 

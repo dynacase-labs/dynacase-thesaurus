@@ -14,7 +14,7 @@ Class ADoc[docid] extends [AParent] {
     
      [ENDBLOCK MATTR]
      [BLOCK FATTR]
-     $this->attr["[attrid]"]=new FieldSetAttribute("[attrid]", "[docid]","[label]","[visibility]");
+     $this->attr["[attrid]"]=new FieldSetAttribute("[attrid]", "[docid]","[label]","[visibility]","[usefor]");
 
      [ENDBLOCK FATTR]
      [BLOCK NATTR]
