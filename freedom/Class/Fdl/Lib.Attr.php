@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.22 2003/07/11 13:04:26 eric Exp $
+// $Id: Lib.Attr.php,v 1.23 2003/07/11 16:11:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -123,7 +123,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 				 "frame"=>($v->frameid=="")?"FIELD_HIDDENS":strtolower($v->frameid),
 				 "elink"=>$v->elink,
 				 "phpfile"=>$v->phpfile,
-				 "phpfunc"=>str_replace(" ","",$v->phpfunc));
+				 "phpfunc"=>str_replace(", ",",",$v->phpfunc));
 	 
 	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>strtolower($v->id));	 
 	if (($repeat=="true") || ($tnormal[$v->frameid]["type"]=="array")) {
