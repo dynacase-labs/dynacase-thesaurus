@@ -111,9 +111,8 @@ function closeMenu(menuid) {
 
 function activate(th, url, wname) {
   if (th.className == 'menuItem') {
-        subwindow(300,400,wname,url);
-	//document.location.href=url;
-	//	closeMenu();
+        subwindowm(300,400,wname,url);
+   
   }
 }
 
