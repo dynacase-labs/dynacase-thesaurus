@@ -95,21 +95,46 @@ function viewwait() {
     CenterDiv(wimgo.id);
   }
 }
+
 function openMenuXY(event, menuid, x, y) {
 
-  var el;
+  var el,menudiv;
 
+  var x1,x2,w1,w2,dw;
 
-
+  w2=getFrameWidth();
+  w2=getObjectWidth(document.getElementById('barmenu'));
   el = document.getElementById(menuid);
-  if (isNetscape && (el.style.position=='fixed')) {
-    y -= getScrollYOffset();
-  } 
-  el.style.top  = y + "px";
-  el.style.left = x + "px";
-  el.style.visibility = "visible";
+  if (el) {
+    if (isNetscape && (el.style.position=='fixed')) {
+      y -= getScrollYOffset();
+    } 
+    activeMenuItem(event,menuid, 1); // first item (no context : only one item)
+    el.style.top  = y + "px";
+    el.style.left = "0px";
+    el.style.display = "";
+    el.style.visibility = "visible";
 
-  activeMenuItem(event,menuid, 1); // first item (no context : only one item)
+
+    // display right or left to maximize width
+   w1=getObjectWidth(el);
+
+    el.style.display = "none";
+    el.style.display = "";
+
+    if (x+w1 > w2) {
+      if (w1<w2) {
+	x2=w2-w1;
+      } else {
+	x2=0;
+      }
+    } else {
+      x2=x;
+    }
+
+
+    el.style.left = x2 + "px";
+  }
   return false; // no navigator context menu
 }
 var menusel=null;

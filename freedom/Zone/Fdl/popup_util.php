@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popup_util.php,v 1.9 2004/04/27 16:15:18 eric Exp $
+ * @version $Id: popup_util.php,v 1.10 2004/09/28 13:22:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.9 2004/04/27 16:15:18 eric Exp $
+// $Id: popup_util.php,v 1.10 2004/09/28 13:22:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -137,7 +137,9 @@ function popupGen($kdiv) {
 
 
   if ($first) {
-    // static part
+    // static part    
+    $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
+    $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
     $action->parent->AddJsRef($action->Getparam("CORE_PUBURL")."/FDL/Layout/popupfunc.js");
 
     // css pour popup
