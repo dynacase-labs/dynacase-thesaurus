@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-10 07:33+0000\n"
-"PO-Revision-Date: 2004-08-10 09:35+0200\n"
+"POT-Creation-Date: 2004-08-12 14:48+0000\n"
+"PO-Revision-Date: 2004-08-12 17:16+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -131,7 +131,7 @@ msgid "search contains %s in %s"
 msgstr "recherche contenant %s dans %s"
 
 msgid "cookies seem to be blocked"
-msgstr "les cookies semble être bloquées par le navigateur"
+msgstr "les cookies semblent être bloqués par le navigateur"
 
 #, c-format
 msgid "%s all "
@@ -678,9 +678,6 @@ msgstr "requête incomplète"
 msgid "request not found"
 msgstr "requête non trouvée"
 
-msgid "locked files of "
-msgstr "fichiers verrouillés par "
-
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
 msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
@@ -1077,6 +1074,9 @@ msgstr "une des valeurs"
 #, c-format
 msgid "delete %s on server %s...\n"
 msgstr "suppression de %s sur le serveur %s...\n"
+
+msgid "LDAP cleaned"
+msgstr "LDAP vidé"
 
 #, c-format
 msgid "%s updated\n"
@@ -1770,6 +1770,9 @@ msgstr "Gestion par famille"
 msgid "one familly root"
 msgstr "racine gestion par famille"
 
+msgid "one family generic root"
+msgstr "racine generic gestion par famille"
+
 msgid "familly list"
 msgstr "liste des familles"
 
@@ -1802,6 +1805,15 @@ msgstr "Utilisateurs"
 
 msgid "Users Management"
 msgstr "Gestion des utilisateurs"
+
+msgid "administrative tools"
+msgstr "outils d'administration"
+
+msgid "refresh users intranet attributes"
+msgstr "actualisation des attributs intranet des utilisateurs"
+
+msgid "refresh ldap entries"
+msgstr "actualiser les entrées du LDAP"
 
 msgid "Import vcard"
 msgstr "Importation Vcard"
@@ -2487,6 +2499,21 @@ msgstr "test des contraintes"
 msgid "suggestions"
 msgstr "suggestions"
 
+msgid "Refresh users characteristics from system"
+msgstr "Raffraichir les caractéristiques des utilisateurs depuis le système"
+
+msgid "Refersh users may take long time. Sure ?"
+msgstr "Raffraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
+
+msgid "Refresh users"
+msgstr "Actualiser les utilisateurs"
+
+msgid "Refresh LDAP"
+msgstr "Actualiser LDAP"
+
+msgid "Refresh LDAP may take long time. Sure ?"
+msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
+
 msgid "Details"
 msgstr "Détails"
 
@@ -2766,9 +2793,6 @@ msgstr "Carte résumé"
 msgid "(private)"
 msgstr "(privé)"
 
-msgid "confidentiality"
-msgstr "confidentialité"
-
 msgid "view detail"
 msgstr "voir détails"
 
@@ -2784,11 +2808,17 @@ msgstr "replier tout"
 msgid "loop detected. You must undo this selection"
 msgstr "Boucle détectée. Vous devez annuler votre sélection"
 
+msgid "confidentiality"
+msgstr "confidentialité"
+
 msgid "Change category"
 msgstr "Changer de catégorie"
 
 msgid "View properties"
 msgstr "Voir les propriétés"
+
+#~ msgid "locked files of "
+#~ msgstr "fichiers verrouillés par "
 
 #~ msgid "Add %d in %s folder"
 #~ msgstr "Ajout %d dans dossier %s"
@@ -3265,9 +3295,6 @@ msgstr "Voir les propriétés"
 #~ msgid "new family"
 #~ msgstr "Famille"
 
-#~ msgid "Administration"
-#~ msgstr "Administration"
-
 #~ msgid "society familly id"
 #~ msgstr "id famille société"
 
@@ -3411,9 +3438,6 @@ msgstr "Voir les propriétés"
 
 #~ msgid " change category"
 #~ msgstr " changer de catégorie"
-
-#~ msgid "refresh"
-#~ msgstr "Raffraichir"
 
 #~ msgid "cannot add folder : '%s'. It will be ancestor of itself"
 #~ msgstr "ajout du dossier %s impossible, il est son propre ancêtre"
