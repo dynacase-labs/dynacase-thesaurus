@@ -1,0 +1,53 @@
+
+
+<tbody>
+<!-- TABLEBODY -->
+
+<tr  >
+  <td  colspan="3" >
+<input type="hidden" name="title" value="[TITLE]"></input>
+
+<fieldset><legend>action</legend>
+
+<table width="100%">
+           
+<tr >
+
+
+  <td  width="20%"><span class="FREEDOMLabel">[name1]&nbsp;:&nbsp;</span></td>
+  <td  width="80%">[inputtype1]</td>
+</tr>
+           
+<tr >
+
+
+  <td  width="20%"><span class="FREEDOMLabel">[name2]&nbsp;:&nbsp;</span></td>
+  <td  width="80%">[inputtype2]</td>
+</tr>
+
+<tr><td><input type="button" value="chercher arguments" onclick="document.isChanged=false;search_args([famid]);return false;"></input></td></tr>
+
+<tr >
+
+  <td  width="20%"><span class="FREEDOMLabel">[name3]&nbsp;:&nbsp;</span></td>
+  <td  width="80%">[inputtype3]</td>
+</tr>
+
+<tr >
+
+  
+  <td  width="80%">[inputtype4]</td>
+</tr>
+
+
+</table>
+
+</fieldset>
+</td>
+</tr>
+
+
+
+
+</tbody>
+

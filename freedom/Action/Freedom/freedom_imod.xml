@@ -1,0 +1,84 @@
+<html>
+<script language="JavaScript">
+
+function txml(type_attribut,attrid){
+var parametre = document.getElementById('parametre');
+
+//alert("type_attribut"+type_attribut);
+
+if ([mod]=='special'){
+//alert("special");
+  if(window.parent.frames[0].name=="un"){
+   var frame_edit=(window.parent.frames[0]);
+  }
+  else{
+   var frame_edit=(window.parent.frames[1]);
+  }
+
+}
+else{
+var frame_edit=(window.top.opener);
+}
+
+
+var form_frame_edit = frame_edit.document.getElementById(attrid);
+form_frame_edit.value=parametre.xml.value;
+
+
+
+if (type_attribut=='idoc'){
+//alert("iframe"+attrid);
+//var iframe_frame_edit = frame_edit.document.getElementById("iframe"+attrid);
+//iframe_frame_edit.src="[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD&famid=[famid]&xml='[xml2]'";
+parametre.target="iframe"+attrid;
+parametre.submit();
+form_frame_edit.nextSibling.nodeValue="[title2]";
+
+
+}
+
+
+if(type_attribut=='idoclist'){
+var option_selected=frame_edit.document.getElementById(attrid);
+option_selected.text='[title]';
+
+var nom= attrid.substring(0,attrid.length-1);
+
+
+
+//var iframe_frame_edit = frame_edit.document.getElementById("iframe"+nom);
+
+parametre.target="iframe"+"[att]";
+parametre.submit();
+//iframe_frame_edit.src="[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD&famid=[famid]&xml='[xml2]'";
+
+}
+
+if ([mod]!='special'){
+window.top.close();
+}
+
+if ([mod]=='special'){
+window.open("[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO","deux");
+}
+
+}
+
+
+
+</script>
+
+
+<body onLoad="txml([type_attr],'[attrid]')">
+<form id="parametre"
+      name="parametre"
+      method="POST" ENCTYPE="multipart/form-data"
+      action="[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD"
+>
+<input type="hidden" id="xml" name="xml" value="[xml2]">
+<input type="hidden" name="famid" value="[famid]">
+
+</form>
+</body>
+   
+</html>

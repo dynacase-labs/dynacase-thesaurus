@@ -1,0 +1,19 @@
+<html>
+[JS:REF]
+<script language="JavaScript">
+function reload(){
+window.name="deux";
+subwindowm(600,600,window.name,"[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT2&xml='[xml2]'&famid=[famid]&type_attr=idoc&attrid=[attrid]&mod=special");
+
+//window.close();
+}
+</script>
+
+
+<body onLoad="reload()">
+<form id="parametre">
+<input type="hidden" id="xml2" name="xml2" value="[xml2]">
+</form>
+</body>
+   
+</html>

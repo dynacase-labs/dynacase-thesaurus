@@ -1,9 +1,10 @@
 <?php
+
 // ---------------------------------------------------------------
-// $Id: viewxml.php,v 1.2 2003/06/27 07:40:45 mathieu Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/viewxml.php,v $
+// $Id: freedom_iedit.php,v 1.1 2003/06/27 07:40:45 mathieu Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_iedit.php,v $
 // ---------------------------------------------------------------
-//  O   Anakeen - 2002
+//  O   Anakeen - 2001
 // O*O  Anakeen development team
 //  O   dev@anakeen.com
 // ---------------------------------------------------------------
@@ -21,50 +22,34 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-
-
-
 include_once("FDL/Class.Doc.php");
-
-
-
+include_once("FDL/Class.WDoc.php");
+include_once("Class.QueryDb.php");
+include_once("FDL/freedom_util.php");
+include_once("FDL/Lib.Dir.php");
+include_once("VAULT/Class.VaultFile.php");
 
 
 // -----------------------------------
-function viewxml(&$action) {
+function freedom_iedit(&$action) {
   // -----------------------------------
+  global $action;
 
- 
 
-  // Get all the params      
-  $docid=GetHttpVars("id"); // dccument to export
+  // Get All Parameters
+  $xml = GetHttpVars("xml");
+  SetHttpVar("xml",$xml);
 
-  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $famid = GetHttpVars("famid");
+  $action->lay->Set("famid",$famid);
 
-  $doc = new Doc($dbaccess, $docid);
-  $xml=$doc->toxml(true,$docid);
-  //$doc->fromxml($xml);
-  //$xml=$doc->viewdtd();
+  $type_attr=GetHttpVars("type_attr");
+  $action->lay->Set("type_attr",$type_attr);
 
-  
-  
-  
- 
-  $export_file = uniqid("/tmp/xml");
-  $export_file.=".xml";
- $fp= fopen($export_file,"w");
+  $attrid=GetHttpVars("attrid");
+  $action->lay->Set("attrid",$attrid);
 
- fwrite($fp,$xml);
- fclose($fp);
- 
+     
 
-  
- //http_DownloadFile($export_file,chop($doc->title).".xml","text/dtd");
- http_DownloadFile($export_file,str_replace(" ","_",chop($doc->title)).".xml","text/xml");
-  
-  unlink($export_file);
-  exit;
 }
-
-
 ?>

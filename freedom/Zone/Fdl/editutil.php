@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.40 2003/06/25 07:36:01 eric Exp $
+// $Id: editutil.php,v 1.41 2003/06/27 07:40:45 mathieu Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,6 +38,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
   $docid=intval($doc->id);
   if ($docid== 0) intval($docid=$doc->fromid);
   $attrtype=$oattr->type;
+
+ $idocfamid=$oattr->format;
+
+
+
   $attrid=$oattr->id;
   $attrin='_'.$oattr->id; // for js name => for return values from client
   $attridk=$oattr->id.$index;
@@ -170,7 +175,90 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
     
       break;
       //같같같같같같같같같같같같같같같같같같같같
+    case "idoc":
+      //  printf("ici");
+      if (($oattr->repeat) && (!$oattr->inArray())){ // old idoclist type
    
+	//print_r($oattr);
+
+      
+      $layout = new Layout("FREEDOM/Layout/idoclist.xml",$action);
+      $layout->Set("name","_$attrid"."[]");
+      $layout->Set("name_attr","_$attrid");
+      $layout->Set("famid",$idocfamid);
+      $layout->Set("listidoc","listidoc_$attrid");
+
+
+
+      $value=explode("\n",$value);
+      //printf(sizeof($value));
+
+      $tabxml=array();
+      while (list($i,$xmlencode) = each($value)) {
+
+	if ($xmlencode!=""){
+	  $tabxml[$i]["xml"]=$xmlencode;
+	
+	  $temp=base64_decode($xmlencode);
+	  $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
+	  $xml=$entete;
+	  $xml.=$temp;
+	  
+	  $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
+	  $id_arg=recup_argument_from_xml($xml,"id_doc");
+	  //strlen($oattr->LabelText);
+	  //$tabxml[$i]["id"]="_$attrid".$i;
+	 
+	  $tabxml[$i]["id"]= $id_arg;
+	  //printf(settype($id_arg,"int"));
+	  $number=str_replace("_$attrid","",$id_arg);//recupere le numero de l'argument
+	  $tabxml[$i]["titre"]=$number." : ".$title;
+	}
+      }
+      $layout->Set("idframe","iframe_$attrid");
+      $layout->SetBlockData("OPTION",$tabxml);
+      $input=$layout->gen();    
+      }
+
+
+      else{//idoc normal
+	//	printf("la");
+	if($value!=""){
+	  $temp=base64_decode($value);
+	  $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
+	  $xml=$entete;
+	  $xml.=$temp; 
+	  $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
+	}
+	
+	$input.="<INPUT id=\"_" .$attridk."\" TYPE=\"hidden\"  name=$attrin value=\"".$value." \">$title </input>";
+	$input.="<iframe name='iframe_$attridk' id='iframe_$attridk' style='display:none' height=200 width='100%' marginwidth=0 marginheight=0></iframe>";
+	
+	/*  $input.="<input type=\"button\" value=\"+->\"".
+      " title=\""._("add inputs")."\"".
+      " onclick=\"special_edit('_$attridk','$idocfamid','idoc','_$attridk');\">";*/
+	
+	$input.="<input type=\"button\" value=\"+\"".
+	  " title=\""._("add inputs")."\"".
+	  " onclick=\"subwindowm(800,800,'_$attridk','[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT');editidoc('_$attridk','_$attridk','$idocfamid','idoc');\">";
+	
+	/* $input.="<input type=\"button\" value=\"view\"".
+      " title=\"voir\"".
+      " onclick=\"subwindowm(400,400,'_$attridk','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attridk','$idocfamid')\">";
+	*/
+	$input.="<input type=\"button\" value=\"view_in_frame\"".
+	  " title=\"voir dans une frame\"".
+	  " onclick=\"viewidoc_in_frame('iframe_$attridk','_$attridk','$idocfamid')\">";
+	
+	$input.="<input type=\"button\" value=\"close frame\"".
+	  " title=\"fermer la frame\"".
+	  " onclick=\"close_frame('iframe_$attridk')\">";
+      }
+      
+      break;
+      
+
+      //같같같같같같같같같같같같같같같같같같같같
     case "array": 
 
       $lay = new Layout("FDL/Layout/editarray.xml", $action);
@@ -399,10 +487,52 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
     }
 		
     if ($oattr->elink != "") {
-      $url= elinkEncode($oattr->elink);
-      $input.="<input type=\"button\" value=\"+\"".
+      if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
+	//print_r($reg);      
+	$oattr->elink=$reg[2];
+	$tabFunction=explode(":",$reg[1]);
+	//	print_r($tabFunction);
+
+	if ( $tabFunction[0]!=""){
+	  $target = $tabFunction[0];
+	}
+	else{
+	  $target=$attrid;
+	}
+	$function=false;
+	$i=1;
+	while ( $tabFunction[$i]!=""){
+	  $function=true;
+	  ereg('(.*)\((.*)\)', $tabFunction[$i], $arg);
+	  //print_r($arg);
+	  $args[$i]=addslashes($arg[2]);
+	  $tabFunction[$i]=$arg[1];
+	  $string_function.="doing($tabFunction[$i],'$args[$i]');";
+	  $i++;
+	}
+      }
+      
+
+    
+
+
+      else {
+	$target= $attrid;
+      }
+   
+     
+      $url= elinkEncode($oattr->elink,$index);
+      $input.="<input type=\"button\" value=\"***\"".
 	" title=\""._("add inputs")."\"".
-	" onclick=\"subwindowm(300,500,'$attrid','$url')\">";
+	" onclick=\"subwindowm(300,500,'$target','$url');";
+      if ($function) {
+	$input.="$string_function\">";
+      }
+      else{
+	$input.="\">";
+      }
+
+
     }
   }
 
@@ -413,7 +543,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
   
 }
 
-function elinkEncode( $link) {
+function elinkEncode($link,$index) {
   // -----------------------------------
     
    
@@ -435,7 +565,10 @@ function elinkEncode( $link) {
 	  break;
 	case "S": // standurl	  
 	  $urllink.=GetParam("CORE_STANDURL");
-	      
+	  break;
+
+	case "K" :
+	  $urllink.=$index;  
 	  break;
 	}
 	$i++; // skip end '%'
@@ -449,7 +582,8 @@ function elinkEncode( $link) {
 	//	  print "attr=$sattrid";
 	  
 	$sattrid=strtolower($sattrid);
-
+	$sattrid.=$index;
+	//print "attr=$sattrid";
 	$urllink.= "'+document.getElementById('$sattrid').value+'";
       }
       break;

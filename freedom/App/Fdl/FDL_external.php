@@ -213,4 +213,12 @@ function getSortAttr($dbaccess, $famid, $name="") {
   }
   return $tr;  
 }
+
+
+function laction($dbaccess, $famid, $name,$type) {
+  $filter=array();
+  $filter[]="act_type='$type'";
+  return lfamilly($dbaccess, $famid,$name,0,$filter);
+}
+
 ?>

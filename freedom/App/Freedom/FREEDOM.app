@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.23 2003/05/19 10:45:02 eric Exp $
+// $Id: FREEDOM.app,v 1.24 2003/06/27 07:40:45 mathieu Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -180,6 +180,28 @@ $action_desc = array (
    "short_name"		=>N_("edit state "),
    "acl"		=>"FREEDOM"
   ) ,
+array( 
+   "name"		=>"FREEDOM_IEDIT",
+   "short_name"		=>N_("edit icard "),
+   "acl"		=>"FREEDOM"
+  ) ,
+array( 
+   "name"		=>"FREEDOM_IEDIT2",
+   "short_name"		=>N_("edit icard 2 "),
+   "acl"		=>"FREEDOM"
+  ) ,
+
+array( 
+   "name"		=>"EDITRANSITION",
+   "short_name"		=>N_("edit workflow transitions "),
+   "acl"		=>"FREEDOM"
+  ) ,
+array( 
+   "name"		=>"RECUP_ARGS",
+   "short_name"		=>N_("edit args of actions in workflow edition "),
+   "acl"		=>"FREEDOM"
+  ) ,
+
   array( 
    "name"		=>"EDITPROF",
    "short_name"		=>N_("edit profile access"),
@@ -306,6 +328,16 @@ $action_desc = array (
   array(
    "name"		=>"FREEDOM_MOD",
    "short_name"		=>N_("Freedom modification"),
+   "acl"		=>"FREEDOM"
+  ),
+ array(
+   "name"		=>"FREEDOM_IMOD",
+   "short_name"		=>N_("Freedom imodification"),
+   "acl"		=>"FREEDOM"
+  ),
+ array(
+   "name"		=>"VIEWICARD",
+   "short_name"		=>N_("view idoc attribute card"),
    "acl"		=>"FREEDOM"
   ),
   array(

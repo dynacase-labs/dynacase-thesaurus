@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.29 2003/06/18 14:57:54 eric Exp $
+// $Id: editcard.php,v 1.30 2003/06/27 07:40:45 mathieu Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,7 +44,7 @@ function editcard(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
-
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 

@@ -40,8 +40,32 @@ function refreshfld(dirid) {
       onLoad="editOnLoad();autoHresize()"
       onUnLoad="closechoose();pleaseSave(event);autoUnlock('[id]')"
       onResize="resizeInputFields()">
+<!-- for idoc -->
+
+<form id="fviewidoc"
+      name="fviewidoc"
+      onsubmit="selectall()"
+      method="POST" ENCTYPE="multipart/form-data"
+      action="[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD"
+      >
+
+<input type="hidden" name="xml">
+<input type="hidden" name="famid">
+</form>
 
 
+<form id="fidoc"
+      name="fidoc"
+      method="POST" ENCTYPE="multipart/form-data"
+      action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT"
+      >
+<input type="hidden" name="xml">
+<input type="hidden" name="famid">
+<input type="hidden" name="attrid">
+<input type="hidden" name="type_attr">
+</form>
+
+<!-- end for idoc -->
 
 
 
@@ -49,7 +73,7 @@ function refreshfld(dirid) {
 <form  id="fedit" 
        class="fborder" 
        name="modifydoc" 
-       
+       onsubmit="selectall()" 
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
 
@@ -83,6 +107,7 @@ function refreshfld(dirid) {
   <td  >
 
  <input id="iSubmit" type="submit" value="[editaction]"
+        onmousedown="multiple_for_select();"
         onclick="if (!canmodify()) return false;enableall();document.isSubmitted=true;setTimeout('refreshfld([dirid])',20);return true"> 
   </td>
   <td>&nbsp;</td>

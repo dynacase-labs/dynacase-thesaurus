@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.38 2003/06/06 09:39:16 eric Exp $
+// $Id: viewcard.php,v 1.39 2003/06/27 07:40:45 mathieu Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,6 +51,12 @@ function viewcard(&$action) {
   else  if ($ulink == "Y") $ulink = 1;
 
   // Set the globals elements
+
+ $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
+ //pour les idocs
+ $jsfile=$action->GetLayoutFile("viewicard.js");
+ $jslay = new Layout($jsfile,$action);
+ $action->parent->AddJsCode($jslay->gen());
 
   $baseurl=$action->GetParam("CORE_BASEURL");
   $standurl=$action->GetParam("CORE_STANDURL");

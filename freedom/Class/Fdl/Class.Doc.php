@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.140 2003/06/25 07:36:01 eric Exp $
+// $Id: Class.Doc.php,v 1.141 2003/06/27 07:40:45 mathieu Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.140 2003/06/25 07:36:01 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.141 2003/06/27 07:40:45 mathieu Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/25 07:36:01 $
-// Version         $Revision: 1.140 $
+// Last Update     $Date: 2003/06/27 07:40:45 $
+// Version         $Revision: 1.141 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1457,13 +1457,97 @@ create unique index i_docir on doc(initid, revision);";
     } else {
       $tvalues[$index]=$value;
     }
+    $idocfamid=$oattr->format;
     
-    
+    $attrid=$oattr->id;
+
+
     while (list($kvalue, $avalue) = each($tvalues)) {
       $htmlval="";
       switch ($atype)
 	{
-	
+
+	 case "idoc":
+	   $aformat=""; 
+	   
+	   /*
+	   if (($oattr->repeat) && (!$oattr->inArray())){ // old idoclist type
+	    
+	    
+	     $value=explode("\n",$value);
+	     // printf($value.length)
+	     $input="";
+	     // printf($input);
+	     while (list($x,$xmlencode) = each($value)) {
+	       if ($xmlencode!=""){
+		 printf("ici");
+		 //printf($attrid);
+		 $input.=recup_argument_from_xml(base64_decode($xmlencode),"title");
+		 $attrid.="_$x";
+		 //printf($attrid);
+
+		 $input.="<FORM><INPUT id='_$attrid' TYPE=\"hidden\"  name='_$attrid' value=\"".$xmlencode." \"></input></FORM>";
+		 $input.="<iframe name='iframe_$attrid' id='iframe_$attrid' style='display:none' marginwidth=0 marginheight=0  width='100%' heigth=200></iframe>";
+		 
+		 // print_r($input);
+		 $input.="<input type=\"button\" value=\"view in frame\"".
+		   " title=\"voir dans une frame\"".
+		   " onclick=\"viewidoc_in_frame('iframe_$attrid','_$attrid','$idocfamid')\">";
+		 
+		 $input.="<input type=\"button\" value=\"close frame\"".
+		   " title=\"fermer la frame\"".
+		   " onclick=\"close_frame('iframe_$attrid')\">";
+		 
+		 $input.="<input type=\"button\" value=\"view\"".
+		   " title=\"voir dans une nouvelle fenêtre\"".
+		   " onclick=\"subwindowm(400,400,'_$attrid','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attrid','$idocfamid')\">";
+		 $input.="<BR/>";
+		 
+	       }
+	       
+	     }
+	     //printf($input);
+	     //print_r($input);
+	     $htmlval=$input;
+	     
+	     
+	   }
+	   
+	   else {
+	   */
+	   $value=$avalue;
+	     if($value!=""){
+	       // printf("la ");
+	       $temp=base64_decode($value);
+	       $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
+	       $xml=$entete;
+	       $xml.=$temp; 
+	       $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
+	     }
+	     $attrid=$attrid.$index;
+	     $htmlval="<FORM><INPUT id=\"_" .$attrid."\" TYPE=\"hidden\"  name=\"_".$attrid."\" value=\"".$value." \">$title</input></FORM>";
+	     $htmlval.="<iframe name='iframe_$attrid' id='iframe_$attrid' style='display:none' marginwidth=0 marginheight=0  width='100%' heigth=200></iframe>";
+	     
+	     
+	     $htmlval.="<input type=\"button\" value=\"view in frame\"".
+	       " title=\"voir dans une frame\"".
+	       " onclick=\"viewidoc_in_frame('iframe_$attrid','_$attrid','$idocfamid')\">";
+	     
+	     $htmlval.="<input type=\"button\" value=\"close frame\"".
+	       " title=\"fermer la frame\"".
+	       " onclick=\"close_frame('iframe_$attrid')\">";
+	     
+	     $htmlval.="<input type=\"button\" value=\"view\"".
+	       " title=\"voir dans une nouvelle fenêtre\"".
+	       " onclick=\"subwindowm(400,400,'_$attrid','[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD');viewidoc('_$attrid','$idocfamid')\">";
+	     
+	     //print_r($htmlval);
+	     
+	     
+	     // }
+	   break;
+	   
+     
 	case "image": 
 	  if ($target=="mail") $htmlval="cid:".$oattr->id;
 	  else {
@@ -1583,6 +1667,7 @@ create unique index i_docir on doc(initid, revision);";
 	}
     
       if ($aformat != "") {
+	//printf($htmlval);
 	$htmlval=sprintf($aformat,$htmlval);
       } 
       // add link if needed
@@ -1839,6 +1924,7 @@ create unique index i_docir on doc(initid, revision);";
 	  if ($attr->fieldSet->visibility=="F") $currentFrameId = $attr->fieldSet->id;
 	 
 	  // print values
+	  // printf($attr->type);
 	  switch ($attr->type)
 	    {
 	      
@@ -1853,8 +1939,13 @@ create unique index i_docir on doc(initid, revision);";
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
 	    
 	      break;
-
-
+	      
+	    case "idoc" :
+	      //printf("ici  ");
+	      $tableframe[$v]["value"] =$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	      	         
+	      break;
+	      
 	    default : 
 	      $tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
@@ -2277,15 +2368,18 @@ create unique index i_docir on doc(initid, revision);";
     return $fname;
   }
 
-
-
-  // =====================================================================================
+ // =====================================================================================
   // ================= methods use for XML ======================
-  function toxml($withdtd)  {
+  function toxml($withdtd,$id_doc="")  {
 
     global $action;
     $doctype=$this->doctype; 
+    
     $docid=intval($this->id);
+    if ($id_doc==""){
+      $id_doc=$docid;
+    }
+
     $title=$this->title;
     $fromid=$this->fromid;
     $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -2304,7 +2398,7 @@ create unique index i_docir on doc(initid, revision);";
     $this->lay = new Layout("FDL/Layout/viewxml.xml", $action);
     $this->lay->Set("DTD",$dtd);
     $this->lay->Set("NOM_FAM",$name);
-    $this->lay->Set("id_doc",$docid);
+    $this->lay->Set("id_doc",$id_doc);
     $this->lay->Set("TITRE",$title);
     $this->lay->Set("ID_FAM",$fam_doc->name);  
     $this->lay->Set("revision",$this->revision);
@@ -2339,6 +2433,7 @@ create unique index i_docir on doc(initid, revision);";
 
     while (list($i,$attr) = each($listattr)) {
       $iattr++;
+      // printf($listattr[$i]->id);
 
       if ((chop($listattr[$i]->id)!="") && ($listattr[$i]->id!="FIELD_HIDDENS")){
 
@@ -2393,7 +2488,10 @@ create unique index i_docir on doc(initid, revision);";
 	  if ((strstr($listattr[$i]->type,"idoc"))!=false){
 	    $attrtype_idoc=true;
 	  }
-      
+	  if($listattr[$i]->inArray()){
+  	  $attrtype_list=true;
+	  }
+
 	  if ($attrtype_list){
 	    // $value=htmlspecialchars($this->GetValue($i));
 	    $value=$this->GetValue($i);
@@ -2661,6 +2759,8 @@ create unique index i_docir on doc(initid, revision);";
     $this->lay->SetBlockData("ELEMENT",$elements);
     return $this->lay->gen();
   }
+
+  
   // =====================================================================================
   // ================= methods use for calculated attributes ======================
 

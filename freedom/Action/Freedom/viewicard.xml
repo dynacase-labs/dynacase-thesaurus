@@ -1,3 +1,4 @@
+
 <!-- HEAD HTML -->
 
 <html>
@@ -6,9 +7,10 @@
    <title>[TEXT:Properties:] [TITLE]</title>
    <LINK REL="icon" HREF="[CORE_PUBURL]/CORE/Images/logo-1-mini.ico" >
    <LINK REL="SHORTCUT ICON" HREF="[CORE_PUBURL]/[iconsrc]" >
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=CORE&action=CORE_CSS" >
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=FDL&action=FDL_CSS" >
-
+   <style>
+[ZONE CORE:GENCSS]
+[ZONE FDL:GENCSS]
+   </style>
 
 
 [CSS:REF]
@@ -23,13 +25,19 @@
    <script language="JavaScript">
   <!--
     [JS:CODE]
+
+
+
+
+
+
   //-->
    </script>
  </head>
 
 <body class="freedom" 
-      onload="autoHresize()";
-      onClick="closeMenu('popupcard');" >
+      onload="autoHresize();"
+      >
 
 <!--pour visualisation-->
 
@@ -45,12 +53,9 @@
 
 
 
-[ZONE FDL:POPUPCARD]
-
 <div width="100%" class="tableborder" 
-     style="cursor:crosshair;"
-     onContextMenu="openMenu(event,'popupcard',1);return false" 
-     onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard',1)"      >
+     style="cursor:crosshair;">
+    
 
 [ZONE FDL:VIEWCARD]
 </div>

@@ -6,24 +6,23 @@
 
    <title>[TEXT:edition: ] [TITLE]</title>
 
+   <style>
+[ZONE CORE:GENCSS]
+   </style>
 
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=CORE&action=CORE_CSS" >
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=FDL&action=FDL_CSS" >
 
 [CSS:REF]
 
 
    <style type="text/css">
-   @import url(htmlarea/htmlarea.css);
 [CSS:CODE]
    </style>
-<script type="text/javascript" src="htmlarea/htmlarea.js"></script>
-<script type="text/javascript" src="htmlarea/htmlarea-lang-en.js"></script>
-<script type="text/javascript" src="htmlarea/dialog.js"></script>
+
 [JS:REF]
 
    <script language="JavaScript">
   <!--
+
     [JS:CODE]
 
 
@@ -35,17 +34,16 @@
  </head>
 
 <body class="freedom" 
-      onLoad="editOnLoad();autoHresize()"
-      onsubmit="selectall()"
-      onUnLoad="closechoose();pleaseSave(event) ;autoUnlock('[id]')"
+      onLoad="editOnLoad();autoHresize();"
+      onUnLoad="closechoose();pleaseSave(event);autoUnlock('[id]')"
       onResize="resizeInputFields()">
 
-<!-- for idoc -->
 <form id="fviewidoc"
       name="fviewidoc"
       method="POST" ENCTYPE="multipart/form-data"
       action="[CORE_STANDURL]&app=FREEDOM&action=VIEWICARD"
-       >
+      >
+
 <input type="hidden" name="xml">
 <input type="hidden" name="famid">
 </form>
@@ -53,7 +51,7 @@
 <form id="fidoc"
       name="fidoc"
       method="POST" ENCTYPE="multipart/form-data"
-      action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT"
+      action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IEDIT";
       >
 <input type="hidden" name="xml">
 <input type="hidden" name="famid">
@@ -62,46 +60,45 @@
 </form>
 
 
-<!-- end for idoc -->
+
 
 <!-- Title Table -->
-<form  id="fedit"  
+<form  id="fedit" 
        class="fborder" 
        name="modifydoc" 
-       onsubmit="document.isSubmitted=true;selectall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid"
+      onsubmit="selectall()"
        method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD&id=[id]&dirid=[dirid]&classid=[classid]" >
+       action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IMOD&famid=[famid]&type_attr='[type_attr]'&attrid='[attrid]'&mod='[mod]'" >
+<input type="hidden" id="idattr" value="[attrid]">
+<!-- ca sert pour les workflows, la fonction search_args() vient chercher cette valeur. c laid mais j'ai trouvé que ca-->
+
 <table class="tableborder"  cellspacing="0" width="100%">
 <thead>
 <tr class="FREEDOMBack1">
  <td  colspan="2"><IMG   border="0"   alt="icon" align="absbottom" height="25px" SRC="[iconsrc]">
    <span class="FREEDOMTextBigTitle">[TITLE]</span>
   </td> 
- <td  align="right">
-   <span class="FREEDOMText">[FTITLE]</span>
-  </td> 
 </tr>
-
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
-</thead>
-</table>
-   
+</thead> 
+ 
 [ZONE FDL:EDITCARD]
 
 
-<table class="tableborder"  cellspacing="0" width="100%">
+<input type="hidden" name="xml_initial" id="xml_initial" value="[xml_initial]">
 <tfoot>
-[ZONE FDL:EDITSTATE]
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
-  <td colspan="2" >
-<input type="hidden" name="catgid" >
- <input id="iSubmit" type="submit" value=[editaction] onmousedown="multiple_for_select();" onclick="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"> 
+  <td  >
+
+ <input id="iSubmit" type="submit" value="valider"
+        onmousedown="multiple_for_select();"
+        onclick="if (!canmodify()) return false;enableall();document.isSubmitted=true;return true"> 
   </td>
+  <td>&nbsp;</td>
   <td  align="right">
- <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'"> 
+ <input type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;window.close();"> 
   </td>
-  
 </tr>
 </tfoot>
 </table>

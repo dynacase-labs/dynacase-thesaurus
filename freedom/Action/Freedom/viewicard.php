@@ -1,9 +1,10 @@
 <?php
+
 // ---------------------------------------------------------------
-// $Id: viewxml.php,v 1.2 2003/06/27 07:40:45 mathieu Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/viewxml.php,v $
+// $Id: viewicard.php,v 1.1 2003/06/27 07:40:45 mathieu Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/viewicard.php,v $
 // ---------------------------------------------------------------
-//  O   Anakeen - 2002
+//  O   Anakeen - 2001
 // O*O  Anakeen development team
 //  O   dev@anakeen.com
 // ---------------------------------------------------------------
@@ -21,50 +22,45 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-
-
-
-include_once("FDL/Class.Doc.php");
-
-
-
-
+/*
+include_once("FDL/Class.WDoc.php");
+include_once("Class.QueryDb.php");
+include_once("FDL/freedom_util.php");
+include_once("FDL/Lib.Dir.php");
+include_once("VAULT/Class.VaultFile.php");*/
+include_once("FREEDOM/freedom_card.php");
 
 // -----------------------------------
-function viewxml(&$action) {
+function viewicard(&$action) {
   // -----------------------------------
+  global $action;
+  // Get All Parameters
+  $xml = GetHttpVars("xml");
+  $famid = GetHttpVars("famid");
 
+
+  //$xml=stripslashes($xml);
+  //$xml=ltrim($xml);
+  $xml=base64_decode($xml);
+
+  $famid = GetHttpVars("famid"); 
  
-
-  // Get all the params      
-  $docid=GetHttpVars("id"); // dccument to export
-
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  $doc = new Doc($dbaccess, $docid);
-  $xml=$doc->toxml(true,$docid);
-  //$doc->fromxml($xml);
-  //$xml=$doc->viewdtd();
-
-  
-  
-  
+   $idoc= createDoc($dbaccess,$famid);///new doc
+ $action->lay->Set("TITLE",$idoc->title);
  
-  $export_file = uniqid("/tmp/xml");
-  $export_file.=".xml";
- $fp= fopen($export_file,"w");
+ // printf($xml);
 
- fwrite($fp,$xml);
- fclose($fp);
+
+  $idoc=fromxml($xml,$idoc);
+  $idoc->doctype='T';
+  $idoc->Add();
+  $idoc->SetTitle($idoc->title);
+  //printf($idoc->title);
+  SetHttpVar("id",$idoc->id);
+  // $action->lay = new Layout("FREEDOM/Layout/freedom_card.xml",$action);
  
+  //freedom_card($action);
 
-  
- //http_DownloadFile($export_file,chop($doc->title).".xml","text/dtd");
- http_DownloadFile($export_file,str_replace(" ","_",chop($doc->title)).".xml","text/xml");
-  
-  unlink($export_file);
-  exit;
 }
-
-
 ?>
