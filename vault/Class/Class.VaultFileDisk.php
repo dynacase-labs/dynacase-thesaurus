@@ -1,44 +1,15 @@
 <?php
-// ---------------------------------------------------------------
-// $Id: Class.VaultFileDisk.php,v 1.5 2004/06/30 07:26:33 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/vault/Class/Attic/Class.VaultFileDisk.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
-// $Log: Class.VaultFileDisk.php,v $
-// Revision 1.5  2004/06/30 07:26:33  eric
-// suppress warning in copy
-//
-// Revision 1.4  2002/08/01 17:42:39  marc
-// Version 0.0.3 release 1 see changelog
-//
-// Revision 1.3  2002/02/06 17:19:58  eric
-// correction de tous les query : resultat par table
-//
-// Revision 1.2  2001/11/16 15:05:23  marc
-// Release 0.0.2, see CHANGELOG
-//
-// Revision 1.1  2001/11/16 09:57:01  marc
-// V0_0_1 Initial release, see CHANGELOG
-//
-//
-// ---------------------------------------------------------------
+/**
+ * Retrieve and store file in Vault for unix fs
+ *
+ * @author Anakeen 2004
+ * @version $Id: Class.VaultFileDisk.php,v 1.6 2004/06/30 07:32:06 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package VAULT
+ */
+ /**
+ */
+
 include_once("VAULT/Class.VaultDiskFsStorage.php");
 include_once("VAULT/Class.VaultDiskFsCache.php");
 include_once("VAULT/Class.VaultDiskDirStorage.php");
@@ -170,6 +141,48 @@ Class VaultFileDisk extends DbObj {
     }
 
     return $msg;
+  }
+
+  // --------------------------------------------------------------------
+  function Save($infile, $public_access, $idf, $pathname) {
+  // -------------------------------------------------------------------- 
+
+
+    $vf = new VaultFile($dbaccess, "FREEDOM");
+    if ($vf -> Show ($idf, $info) == "") 
+    {  
+     $path = $info->path;
+    }
+    
+    $this->size = filesize($infile);
+
+   // Verifier s'il y a assez de places ???
+   
+   $this->public_access = $public_access;
+   $this->name = basename($infile);
+
+   $path = str_replace("//","/",$pathname);
+    
+   $fd = fopen($path, "w+");
+
+//    if (!unlink($path))
+//	return("NOT UNLINK $path\n"); 
+ 
+
+  if (!copy($infile, $path)) {
+    return("La copie du fichier $infile dans $path n'a pas r&eacute;ussi...\n");
+  }
+
+    if (!chmod($pathname, $this->vault->f_mode)) {
+      $this->vault->logger->warning("Can't change mode for $pathname");
+    }
+    if (!chown($pathname, $this->vault->u_owner) || !chgrp($pathname, $this->vault->g_owner)) {
+      $this->vault->logger->warning("Can't change owner for $pathname");
+    }
+
+    $this->fs->AddEntry(size);
+    $this->vault->logger->debug("File $infile saved in $pathname");
+    return "";
   }
 
 
