@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.20 2005/02/06 20:47:29 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.21 2005/02/07 20:33:18 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -154,7 +154,7 @@ function wgcal_editevent(&$action) {
     $action->lay->setBlockData("EMPTY", array( array("nop" => "") ));
     $action->lay->set("mailadd", $mailadd);
   }    
-  $action->lay->set("DFMT", DATE_F_LONG);
+  $action->lay->set("DFMT", "%A %d %b %Y");
 
   EventSetTitle($action, $evtitle, $ro);
   EventSetDescr($action, $evnote, $ro);  
@@ -180,6 +180,7 @@ function EventSetDescr(&$action, $text, $ro) {
   $action->lay->set("DESCRRO", ($ro?"readonly":""));
 }
 
+
 function EventSetDate(&$action,  $dstart, $dend, $type, $ro) 
 {
 
@@ -188,17 +189,28 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   $action->lay->set("NOHOUR", ($type==2?1:0));
   $action->lay->set("NOHOURRO", ($ro?"disabled":""));
   
-  $action->lay->set("START", $dstart);
-  $action->lay->set("mSTART", $dstart*1000);
-  $action->lay->set("STARTREAD", strftime(DATE_F_LONG, $dstart));
+  
+  $start_y = strftime("%Y", $dstart);
+  $start_m = strftime("%m", $dstart);
+  $start_d = strftime("%d", $dstart);
+  $lstart = mktime(0,0,0,$start_m,$start_d,$start_y);
+  $action->lay->set("START", $lstart);
+  $action->lay->set("mSTART", $lstart*1000);
+  $action->lay->set("STARTREAD", strftime("%a %d %b %Y", $lstart));
   $action->lay->set("H_START", strftime("%H", $dstart));
   $action->lay->set("M_START", strftime("%M", $dstart));
+  $action->lay->set("FSTART", $dstart);
   
-  $action->lay->set("END", $dend);
-  $action->lay->set("mEND", $dend*1000);
-  $action->lay->set("ENDREAD", strftime(DATE_F_LONG, $dend));
+  $end_y = strftime("%Y", $dend);
+  $end_m = strftime("%m", $dend);
+  $end_d = strftime("%d", $dend);
+  $lend = mktime(0,0,0,$end_m,$end_d,$end_y);
+  $action->lay->set("END", $lend);
+  $action->lay->set("mEND", $lend*1000);
+  $action->lay->set("ENDREAD", strftime("%a %d %b %Y", $lend));
   $action->lay->set("H_END", strftime("%H", $dend));
   $action->lay->set("M_END", strftime("%M", $dend));
+  $action->lay->set("FEND", $dend);
  
   if ($ro) {
     $action->lay->set("DATEBUTVIS", "none");
@@ -255,7 +267,7 @@ function EventSetStatus(&$action, $status, $ro) {
   
 function EventSetAlarm(&$action, $alarm, $alarmt, $ro) {
 
-  $action->lay->set("ALARM", ($alarm?1:0));
+  $action->lay->set("ALARMCHK", ($alarm?"checked":""));
   $action->lay->set("ALARMRO", ($ro?"disabled":""));
   $action->lay->set("ALRMVIS", ($alarm?"visible":"hidden"));
 
@@ -320,11 +332,16 @@ function EventSetOwner(&$action, $ownerid, $ownertitle) {
 }
 
 function EventAddAttendees(&$action, $attendees = array(), $attendeesState = array(), $ro = false) {
+  $withme = "";
   $att = array();
   $a = 0;
   $doc = new Doc($action->GetParam("FREEDOM_DB"));
   foreach ($attendees as $k => $v) {
     if ($v == "" || $v==0) continue;
+    if ($v == $action->user->fid) {
+      $att[$a]["attvis"] = 'none';
+      $withme = "checked";
+    } else $att[$a]["attvis"] = '';
     $att[$a]["attId"]    = $v;
     if ($v == $action->user->fid) $status = $attendeesState[$k];
     $att[$a]["attState"] = $attendeesState[$k];
@@ -335,7 +352,8 @@ function EventAddAttendees(&$action, $attendees = array(), $attendeesState = arr
   }
   $action->lay->setBlockData("ADD_RESS", $att);
   $action->lay->set("attendeesro", ($ro?"none":""));
-  $action->lay->set("evstatus", $vis);
+  $action->lay->set("WITHME", $withme);
+  $action->lay->set("WITHMERO", ($ro?"readonly":""));
 }
 
 

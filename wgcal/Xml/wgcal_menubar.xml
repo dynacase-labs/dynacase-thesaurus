@@ -60,8 +60,8 @@ var RCall = 0;
 
 <td align="center" height="40">
 <form id="fsearch" target="wgcal_" name="fsearch" method="POST" 
-       onsubmit="subwindow(300, 500, 'Search Result', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH'); document.getElementById('searchphrase').style.color='white';document.getElementById('searchphrase').value='[TEXT:enter words here]';return false;">
- <input type="text" title="[TEXT:search events containing phrase...]" size="20" id="searchphrase" name="searchphrase" type="hidden" value="([TEXT:enter words here])" style="color:white" onclick="this.value = ''; this.style.color='black';">
+       onsubmit="subwindow(300, 500, 'Search Result', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH'); document.getElementById('searchphrase').style.color='orange';document.getElementById('searchphrase').value='[TEXT:enter words here]';return false;">
+ <input type="text" title="[TEXT:search events containing phrase...]" size="20" id="searchphrase" name="searchphrase" type="hidden" value="([TEXT:enter words here])" style="color:orange" onfocus="this.value = ''; this.style.color='black';">
  <input type="hidden" id="searchdstart" name="searchdstart" value="-1">
  <input type="hidden" id="searchdend" name="searchdend" value="-1">
  <input type="hidden" id="searchressource" name="searchressource" value="">

@@ -50,7 +50,7 @@
 
 <tr>
 
-<td colspan="3" style="padding-top:4px; padding-bottom:2em;"><input class="Mandatory" id="rvtitle" name="rvtitle" size="40" type="text" title="[TEXT:rv title]" value="[TITLE]" [TITLERO]></td>
+<td colspan="3" style="padding-top:4px; padding-bottom:2em;"><input onfocus="document.getElementById('errTitle').style.display='none'; this.style.background='';" class="Mandatory" id="rvtitle" name="rvtitle" size="40" type="text" title="[TEXT:rv title]" value="[TITLE]" [TITLERO]><div id="errTitle" name="errTitle" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:give a title]</div></td>
 <td width="8%"  rowspan="4"></td>
 <td rowspan="4">[TEXT:rv note]<br><textarea cols="40" rows="3" id="rvnote" name="rvnote" [DESCRRO]>[DESCR]</textarea></td>
 
@@ -59,19 +59,21 @@
 <tr>
 <td align="right">[TEXT:start date] : </td>
 <td align="center">
-<span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="Brvstart" style="cursor:pointer;"
+<div id="tUstart" name="tUstart" style="display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:start time update according end time]</div>
+<span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="Bstart" style="cursor:pointer;"
       title="[TEXT:click here to enter the start date]">
-<img style="display:[DATEBUTVIS]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;<span id="Trvstart">[STARTREAD]</span></span>
-<input type="hidden" value="[START]" id="rvstart" name="rvstart" onChange="UpdateTime(0, '[TEXT:end time update]');">
+<img style="display:[DATEBUTVIS]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;<span id="Tstart">[STARTREAD]</span></span>
+<input type="hidden" value="[START]" id="Dstart" name="Dstart" onChange="ComputeTime('start');">
+<input type="hidden" value="[FSTART]" id="Fstart" name="Fstart">
 <script type="text/javascript">
   Calendar.setup(
     {
-      inputField   : "rvstart",        
-      displayArea  : "Trvstart",        
+      inputField   : "Dstart",        
+      displayArea  : "Tstart",        
       ifFormat     : "%s",   
       daFormat     : "[DFMT]",
       showsTime    : false,
-      button       : "Brvstart",
+      button       : "Bstart",
       date         : new Date([mSTART]),
       weekNumbers  : false,
       firstDay     : 1
@@ -81,8 +83,8 @@
 </td>
 
 <td id="start_hour" align="left" style="visibility:visible">
-<input type="text" size="2" value="[H_START]" [DATERO] id="hrvstart" name="hrvstart" onchange="UpdateTime(0, '[TEXT:end time update]');">
-:<input size="2" type="text" value="[M_START]" [DATERO] id="mrvstart" name="mrvstart" onchange="UpdateTime(0, '[TEXT:end time update]');">
+<input type="text" size="2" value="[H_START]" [DATERO] id="Hstart" name="Hstart" onchange="ComputeTime('start');">
+:<input size="2" type="text" value="[M_START]" [DATERO] id="Mstart" name="Mstart" onchange="ComputeTime('start');">
 </td>
 
 </tr>
@@ -90,19 +92,21 @@
 <tr>
 <td align="right" id="end_hour1" style="visibility:visible">[TEXT:end date] : </td>
 <td align="center" id="end_hour2" style="visibility:visible">
-<span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="Brvend" style="cursor:pointer;"
+<div id="tUend" name="tUend" style="display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:end time update according start time]</div>
+<span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="Bend" style="cursor:pointer;"
       title="[TEXT:click here to enter the end date]">
-<img style="display:[DATEBUTVIS];" src="WGCAL/Images/cal-other.gif" height="15">&nbsp;<span id="Trvend">[ENDREAD]</span></span>
-<input type="hidden" value="[END]" id="rvend" name="rvend" onchange="UpdateTime(1,'[TEXT:start time update]')">
+<img style="display:[DATEBUTVIS];" src="WGCAL/Images/cal-other.gif" height="15">&nbsp;<span id="Tend">[ENDREAD]</span></span>
+<input type="hidden" value="[END]" id="Dend" name="Dend" onchange="ComputeTime('end');">
+<input type="hidden" value="[FEND]" id="Fend" name="Fend">
 <script type="text/javascript">
   Calendar.setup(
     {
-      inputField   : "rvend",
-      displayArea  : "Trvend",
+      inputField   : "Dend",
+      displayArea  : "Tend",
       ifFormat     : "%s",
       daFormat     : "[DFMT]",
       showsTime    : false,
-      button       : "Trvend",
+      button       : "Bend",
       date         : new Date([mEND]),
       weekNumbers  : false,
       firstDay     : 1
@@ -112,8 +116,8 @@
 </td>
 
 <td align="left" id="end_hour3" style="visibility:visible">
-<input type="text" size="2" value="[H_END]" [DATERO] name="hrvend" id="hrvend" onchange="UpdateTime(1,'[TEXT:start time update]')">
-:<input size="2" type="text" value="[M_END]" [DATERO] name="mrvend" id="mrvend" onchange="UpdateTime(1,'[TEXT:start time update]')">
+<input type="text" size="2" value="[H_END]" [DATERO] name="Hend" id="Hend" onchange="ComputeTime('end');">
+:<input size="2" type="text" value="[M_END]" [DATERO] name="Mend" id="Mend" onchange="ComputeTime('end');">
 </td>
 </tr>
 
@@ -160,12 +164,14 @@
 
   </legend>
 
+<div id="errAtt" name="errAtt" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:one ressource or you in event]</div>
+
 <div id="attlist">
  
 <table cellspacing="0" cellpadding="0">
 <tbody id="tabress">
 
-<tr style="display:none" id="trsample">
+<tr style="display:[attvis]" id="trsample">
 <td> <img style="display:[attendeesro];cursor:pointer;border:1px outset grey" height="8"  
           src="WGCAL/Images/wgcal-suppress.gif" 
           onclick="deleteAttendee('%RID%');" 
@@ -183,6 +189,7 @@
 </tr>
 </tbody>
 </table>
+<div width="100%" align="right"><span style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="st=(document.getElementById('withMe').checked?false:true); document.getElementById('withMe').checked = st;" title="[TEXT:I participe to this meeting]">[TEXT:I participe to this meeting]<input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="st=(this.checked?false:true); this.checked = st;" [WITHME] [WITHMERO]></span></div>
 
 </div>
 
@@ -198,27 +205,22 @@
 <table cellspacing="0" cellpadding="0">
 
 <tr><td colspan="3" align="center" style="padding-top:2em; padding-bottom:2em">
-[TEXT:status] : <select id="rvstatus" name="rvstatus" [rvstaro]>[BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]</select>
+[TEXT:status] : <select id="rvstatus" name="rvstatus" onchange="SetSelectedItem('rvstatus', 'evstatus')" [rvstaro]>[BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]</select>
 </td></tr>
 <tr>
 <td colspan="2" align="right">[TEXT:confidentiality]&nbsp;:&nbsp;</td>
-<td><select id="rvconfid" onchange="EventSetElement('rvconfid', 'evconfidentiality')" [rvvisro]>[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]</select>
+<td><select id="rvconfid" onchange="SetSelectedItem('rvconfid', 'evconfidentiality')" [rvvisro]>[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]</select>
 </td>
 </tr>
 
 <tr>
 <td colspan="2" align="right">[TEXT:calendar]&nbsp;:&nbsp;</td>
-<td><select id="rvcalendar" name="rvcalendar" [[rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
+<td><select id="rvcalendar" name="rvcalendar" onchange="SetSelectedItem('rvcalendar', 'evcalendar');" [rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
 </td>
 </tr>
 
 <tr>
-<td colspan="2" align="right">[TEXT:alarm]&nbsp;:&nbsp;</td>
-<td><input id="AlarmCheck" name="AlarmCheck" type="checkbox" onClick="ChangeAlarm(-1)" [ALARMRO]></td>
-</tr>
-
-<tr>
-<td colspan="2"></td>
+<td colspan="2" align="right"><span style="cursor:pointer" onclick="ChangeAlarm()" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''">[TEXT:alarm]</span>&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></td>
 <td>
 <span id="AlarmVis" style="visibility:[ALRMVIS]">
 &nbsp;<select id="alarmhour" name="alarmhour" [ALARMRO]>[BLOCK ALARM_HR]
@@ -354,15 +356,13 @@ Calendar.setup(
 
 </div> <!-- end of repeat zone -->
 
-<div id="rvupdate" style="display:" onclick="this.style.display='none'">[TEXT:update time]</div>
 
 
 <script type="text/javascript">
  ChangeNoHour(true, [NOHOUR]);
  ChangeAllDay(true, [ALLDAY]);
- ChangeAlarm([ALARM]);
 
- [BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]');
+ [BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attvis]');
  [ENDBLOCK ADD_RESS] 
  //window.onunload = cancelEvent;
  document.getElementById('rvtitle').focus();

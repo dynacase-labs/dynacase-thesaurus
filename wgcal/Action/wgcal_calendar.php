@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.24 2005/02/06 20:47:29 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.25 2005/02/07 20:33:18 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -202,7 +202,7 @@ function wgcal_calendar(&$action) {
 
   //$action->lay->set("comment",strftime("%x %X", time())."<hr><pre>".print_r($events, true)."<pre>");
 
-  $action->lay->set("trace", $trace);
+  //$action->lay->set("trace", $trace);
 }
 
 

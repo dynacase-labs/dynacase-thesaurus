@@ -7,8 +7,8 @@ function wgcal_storeevent(&$action) {
 
   $db = $action->getParam("FREEDOM_DB");
   
-  //   global $_POST;
-  //   print_r2($_POST);
+     global $_POST;
+     print_r2($_POST);
 
   $id  = GetHttpVars("eventid", -1);
   if ($id==-1) {
@@ -72,22 +72,25 @@ function wgcal_storeevent(&$action) {
   
 
   // Attendees
+  $withme = GetHttpVars("withMe", "off");
   $oldatt_id    = $event->getTValue("CALEV_ATTID", array());
   $oldatt_state = $event->getTValue("CALEV_ATTSTATE", array());
   $attendees = GetHttpVars("attendees", array());
   $attendeesname = array();
   $attendeesstate = array();
-  $cstatus = GetHttpVars("rvstatus");
+  $cstatus = GetHttpVars("evstatus", 0);
   foreach ($attendees as $ka => $va) {
     if ($va<=0||$va=="") continue;
+    if ($withme!="on" && $va==$action->user->fid) continue
     $att = new Doc($db, $va);
     $attendeesname[$ka] = $att->title;
+    $attendeesstate[$ka] = 0;
     if ($action->user->fid == $va) {
       $attendeesstate[$ka] = $cstatus;
     }  else {
-      $k = array_search($va, $oldatt_id);
-      if ($k) $attendeesstate[$ka] = $oldatt_state[$k];
-      else $attendeesstate[$ka] = 0;
+      foreach ($oldatt_id as $ko => $vo) {
+        if ($vo == $va) $attendeesstate[$ka] = $oldatt_state[$ko];
+      }
     }
     echo "ressource #".$attendees[$ka]." [".$attendeesname[$ka]."] status =  ".$attendeesstate[$ka]."<br>";
   }
@@ -103,7 +106,7 @@ function wgcal_storeevent(&$action) {
    }
   
   $changed = true;
-  if ($changed) mail_rv($action, $event);
+  //if ($changed) mail_rv($action, $event);
 
   redirect($action, "WGCAL","WGCAL_CALENDAR");
 }

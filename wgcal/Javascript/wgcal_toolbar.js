@@ -203,7 +203,7 @@ function useressources(updatetarget, updateaction) {
   use_r = (rf.checked?1:0);
   if (use_r==1) rft.className = 'WGCRessSelected';
   else rft.className = 'WGCRessOver';
-  alert('update target = '+updatetarget+' action='+updateaction);
+  //alert('update target = '+updatetarget+' action='+updateaction);
   usetparam("WGCAL_U_USERESSINEVENT", use_r, updatetarget, updateaction);
 }
  
