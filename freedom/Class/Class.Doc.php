@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.8 2001/11/21 13:12:55 eric Exp $
+// $Id: Class.Doc.php,v 1.9 2001/11/21 14:28:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.9  2001/11/21 14:28:19  eric
+// double click : first file export
+//
 // Revision 1.8  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -50,7 +53,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.8 2001/11/21 13:12:55 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.9 2001/11/21 14:28:19 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -251,6 +254,9 @@ create sequence seq_id_doc start 10";
       
       if (chop($this->title) == "") $this->title =_("untitle document");
       if ($this->locked < 0) $this->lmodify='N';
+      // set modification date
+      $date = gettimeofday();
+      $this->revdate = $date['sec'];
 
     }
 
@@ -533,14 +539,43 @@ create sequence seq_id_doc start 10";
 	}
     }
 
+  // return all the attributes object 
+  // the attribute can be defined in fathers
+  function GetAttributes()
+    {
+      $query = new QueryDb($this->dbaccess,"DocAttr");
+      // initialise query with all fathers doc
+      // 
+      $sql_cond_doc = sql_cond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
+      $query->AddQuery($sql_cond_doc);
+    
+      $query->AddQuery("type != 'frame'");
+      $query->order_by="ordered";
+      return $query->Query();      
+    }
+
+  // return the first attribute of type 'file'
+  function GetFirstFileAttributes()
+    {
+      $query = new QueryDb($this->dbaccess,"DocAttr");
+      // initialise query with all fathers doc
+      // 
+      $sql_cond_doc = sql_cond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
+      $query->AddQuery($sql_cond_doc);
+    
+      $query->AddQuery("type = 'file'");
+      $query->order_by="ordered";
+      $rq = $query->Query();   
+      if ($query->nb > 0)  return $rq[0];	    	      
+      return false;      
+    }
+
   function AddRevision($comment='') {
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
     $this->owner = $this->action->parent->user->id; // rev user
     $this->comment = $comment;
-    $date = gettimeofday();
-    $this->revdate = $date['sec'];
     $this->modify();
 
 

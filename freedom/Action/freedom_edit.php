@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.7 2001/11/21 13:12:55 eric Exp $
+// $Id: freedom_edit.php,v 1.8 2001/11/21 14:28:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.8  2001/11/21 14:28:19  eric
+// double click : first file export
+//
 // Revision 1.7  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -59,6 +62,12 @@ include_once("FREEDOM/freedom_util.php");
 function freedom_edit(&$action) {
   // -----------------------------------
 
+  // Get All Parameters
+  $docid = GetHttpVars("id",0);        // document to edit
+  $classid = GetHttpVars("classid",0); // use when new doc or change class
+  $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
+
+
   // Set the globals elements
 
   $baseurl=$action->GetParam("CORE_BASEURL");
@@ -74,10 +83,6 @@ function freedom_edit(&$action) {
   $action->parent->AddCssCode($csslay->gen());
 
 
-
-  $docid = GetHttpVars("id",0);        // document to edit
-  $classid = GetHttpVars("classid",0); // use when new doc or change class
-  $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
 
   $doc= new Doc($dbaccess,$docid);
 
@@ -165,7 +170,6 @@ function freedom_edit(&$action) {
   // ------------------------------------------------------
   // Perform SQL search for doc attributes
   // ------------------------------------------------------
-  $query = new QueryDb($dbaccess,"DocAttr");
   
 
   $bdvalue = new DocValue($dbaccess);
@@ -191,11 +195,11 @@ function freedom_edit(&$action) {
 
   //$frames= $query->Query(0,0,"TABLE","select distinct frametext from DocAttr" );
   $frames=array();
-  $listattr = $query->Query();
+  $listattr = $doc->GetAttributes();
 
   
 
-
+  $nattr = count($listattr); // number of attributes
 
 
   $k=0; // number of frametext
@@ -203,11 +207,11 @@ function freedom_edit(&$action) {
   $currentFrameId="";
   $changeframe=false;
   $tableframe=array();
-  for ($i=0; $i < $query->nb + 1; $i++)
+  for ($i=0; $i < $nattr + 1; $i++)
     {
 
       // Compute value elements
-     if ($i < $query->nb)
+     if ($i < $nattr)
        {
       
 	 $bdvalue->value=""; // to avoid remanence
@@ -223,7 +227,7 @@ function freedom_edit(&$action) {
        }
 
 
-      if (($i == $query->nb) ||  // to generate final frametext
+      if (($i == $nattr) ||  // to generate final frametext
 	  $changeframe)
 	{
 	 $changeframe=false;
@@ -244,7 +248,7 @@ function freedom_edit(&$action) {
      $destdir="./".GetHttpVars("app")."/Download/"; // for downloading file
       //------------------------------
       // Set the table value elements
-      if ($i < $query->nb)
+      if ($i < $nattr)
 	{
       	  
 	    $currentFrameId = $listattr[$i]->frameid;

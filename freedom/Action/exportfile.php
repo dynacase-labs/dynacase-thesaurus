@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfile.php,v 1.4 2001/11/21 13:12:55 eric Exp $
+// $Id: exportfile.php,v 1.5 2001/11/21 14:28:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/exportfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: exportfile.php,v $
+// Revision 1.5  2001/11/21 14:28:19  eric
+// double click : first file export
+//
 // Revision 1.4  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -41,7 +44,9 @@ include_once("FREEDOM/Class.Doc.php");
 include_once("FREEDOM/Class.DocAttr.php");
 include_once("VAULT/Class.VaultFile.php");
 
+// --------------------------------------------------------------------
 function exportfile(&$action) 
+// --------------------------------------------------------------------
 {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -67,7 +72,49 @@ function exportfile(&$action)
     $mimetype = "";
   }
 
+  DownloadVault($action, $vaultid, $mimetype);
+
+    
+  exit;
+    
   
+    
+}
+
+
+  // --------------------------------------------------------------------
+function exportfirstfile(&$action) 
+  // --------------------------------------------------------------------
+{
+  
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $docid = GetHttpVars("docid",0);
+
+
+    $doc= new Doc($dbaccess,$docid);
+  // ADD CONTROL ACCESS HERE
+  $attr = $doc->GetFirstFileAttributes();
+    $ovalue = new DocValue($dbaccess,array($docid,$attr->id));
+
+    
+    if (!($ovalue->IsAffected())) $action->exiterror(_("no file referenced"));
+    
+    ereg ("(.*)\|(.*)", $ovalue->value, $reg);
+    $vaultid= $reg[2];
+    $mimetype=$reg[1];
+
+  
+  DownloadVault($action, $vaultid, $mimetype);
+        
+  
+    
+}
+
+
+  // --------------------------------------------------------------------
+function DownloadVault(&$action, $vaultid, $mimetype="") {
+  // --------------------------------------------------------------------
+  $dbaccess = $action->GetParam("FREEDOM_DB");
   $vf = new VaultFile($dbaccess, $action->parent->name);
 
   if ($vf -> Retrieve ($vaultid, $info) != "") {    
@@ -77,15 +124,7 @@ function exportfile(&$action)
       //Header("Location: $url");
       Http_DownloadFile($info->path, $info->name, $mimetype);
     }
-
-  //unlink($efile);
   exit;
-    
-    
-  
-    
 }
-
-
 
 ?>

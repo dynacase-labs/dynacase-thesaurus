@@ -89,6 +89,7 @@ TR.tlist {
 <tr  id="d[divid]"  
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event);" 
      onContextMenu="openMenu(event,'popup');return false" 
+     onDblClick="sendFirstFile([id]);return false"
      >
 <td class="tlist" width="40" >
 <IMG class="iconimg" id="i[divid]" 

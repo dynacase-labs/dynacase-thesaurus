@@ -92,6 +92,7 @@
 <IMG class="iconimg" id="i[divid]" 
      onMouseDown="select(this,[id],[divid]);openMenuOrAbstract(event);" 
      onContextMenu="openMenu(event,'popup');return false" 
+     onDblClick="sendFirstFile([id]);return false"
      align="absbottom"  src="[iconsrc]"><br>
 
   

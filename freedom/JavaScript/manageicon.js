@@ -143,6 +143,11 @@ function openMenuOrProperties(event) {
 
 }
 
+function sendFirstFile(docid) {
+  url='[CORE_STANDURL]&app=[FREEDOM_APP]&action=EXPORTFIRSTFILE&docid='+docid;
+  subwindow(300,400,'',url);
+}
+
 //--------------------- DRAG & DROP  --------------------------
 document.drag=0;
 

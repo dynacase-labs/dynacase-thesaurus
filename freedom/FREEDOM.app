@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.6 2001/11/21 08:38:58 eric Exp $
+// $Id: FREEDOM.app,v 1.7 2001/11/21 14:28:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.7  2001/11/21 14:28:19  eric
+// double click : first file export
+//
 // Revision 1.6  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -156,52 +159,59 @@ $action_desc = array (
   array( 
    "name"		=>"REFRESHDIR",
    "short_name"		=>N_("refresh directory"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"MODATTR",
    "short_name"		=>N_("attributes modification"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"EXPORTFILE",
    "short_name"		=>N_("export file to consulting"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"EXPORTFIRSTFILE",
+   "short_name"		=>N_("export first file to consulting"),
    "acl"		=>"FREEDOM_READ",
+   "script"		=>"exportfile.php",
+   "function"		=>"exportfirstfile"
   ) ,
   array( 
    "name"		=>"LOCKFILE",
    "short_name"		=>N_("lock file to edit"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"EDITPROF",
    "short_name"		=>N_("edit profile access"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"MODPROF",
    "short_name"		=>N_("change profile access"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"CTRLDOC",
    "short_name"		=>N_("set the document controlled"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"UNLOCKFILE",
    "short_name"		=>N_("abord edition"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"CHANGEICON",
    "short_name"		=>N_("change icon file"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"QUERYFILE",
    "short_name"		=>N_("ask for a new file revision"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array(
    "name"               =>"GENCSS",
@@ -215,7 +225,7 @@ $action_desc = array (
   array( 
    "name"		=>"REVCOMMENT",
    "short_name"		=>N_("add comment before revise document"),
-   "acl"		=>"FREEDOM",
+   "acl"		=>"FREEDOM"
   ) ,
   array(
    "name"		=>"REVISION",
