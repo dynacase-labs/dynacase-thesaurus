@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-03-12 16:28+0100\n"
+	"POT-Creation-Date: 2003-03-31 10:42+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -135,6 +135,10 @@ msgstr	"Title"
 #, fuzzy, c-format
 msgid	"%s %s category "
 msgstr	"Title"
+
+#, c-format
+msgid	"definition of enumerate attribute %s of %s family"
+msgstr	""
 
 msgid	"all constructors"
 msgstr	""
@@ -470,6 +474,10 @@ msgstr	""
 msgid	"unknow attribute"
 msgstr	""
 
+#, c-format
+msgid	"%s needed\n"
+msgstr	""
+
 msgid	"document already revised"
 msgstr	""
 
@@ -721,6 +729,12 @@ msgstr	""
 #, fuzzy
 msgid	"read disabled"
 msgstr	"Delete"
+
+msgid	"Y"
+msgstr	""
+
+msgid	"N"
+msgstr	""
 
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
@@ -1222,7 +1236,13 @@ msgstr	"Edit"
 msgid	"add category"
 msgstr	"Category"
 
+msgid	"change king in enum attribute"
+msgstr	""
+
 msgid	"edit to add category"
+msgstr	""
+
+msgid	"edit to add or modify category"
 msgstr	""
 
 msgid	"edit to change category"
@@ -1544,6 +1564,10 @@ msgstr	"Edit"
 msgid	"Tools"
 msgstr	""
 
+#, fuzzy
+msgid	"Edit kind"
+msgstr	"Edit"
+
 msgid	"Properties:"
 msgstr	""
 
@@ -1569,6 +1593,25 @@ msgstr	""
 
 msgid	"Generic Management"
 msgstr	""
+
+msgid	"labeltext"
+msgstr	""
+
+msgid	"upk"
+msgstr	""
+
+msgid	"downk"
+msgstr	""
+
+msgid	"previous level"
+msgstr	""
+
+msgid	"next level"
+msgstr	""
+
+#, fuzzy
+msgid	"add"
+msgstr	"Add new contact card"
 
 msgid	"Choose new categories"
 msgstr	""
@@ -1636,6 +1679,10 @@ msgstr	"Update Title Cards"
 #, fuzzy
 msgid	"Family"
 msgstr	"Start search"
+
+#, fuzzy
+msgid	"Workflow"
+msgstr	"Delete"
 
 msgid	"simple"
 msgstr	""
@@ -2028,6 +2075,9 @@ msgstr	"Lastname"
 msgid	"new visibility"
 msgstr	"Visibility"
 
+msgid	"new needed"
+msgstr	""
+
 #, fuzzy
 msgid	"default visibility"
 msgstr	"Visibility"
@@ -2050,6 +2100,9 @@ msgid	"Data cannot be saved"
 msgstr	""
 
 msgid	"View headers"
+msgstr	""
+
+msgid	"View latest"
 msgstr	""
 
 #, fuzzy
@@ -2121,6 +2174,10 @@ msgstr	"Delete"
 
 msgid	"senddoc"
 msgstr	""
+
+#, fuzzy
+msgid	"wordedit"
+msgstr	"Modify not possible"
 
 msgid	"author"
 msgstr	""
@@ -2328,6 +2385,3 @@ msgstr	""
 
 #~ msgid	"onlyowner"
 #~ msgstr	"my"
-
-#~ msgid	"noedit"
-#~ msgstr	"Modify not possible"

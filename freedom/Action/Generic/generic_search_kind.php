@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.2 2003/03/28 17:52:38 eric Exp $
+// $Id: generic_search_kind.php,v 1.3 2003/03/31 08:55:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -78,31 +78,41 @@ function generic_search_kind(&$action) {
 
   $a = $fdoc->getAttribute($aid);
 
-  $tkids[]=$kid;
+  $tkids=array();;
   while (list($k, $v) = each($a->enum)) {
-    if (strpos($k, $kid.".") !== false) {
-      $tkids[] = substr($k,strrpos($k,'.')+1);
+
+    if (in_array($kid,explode(".",$k))) {
+      $tkids[] = substr($k,strrpos(".".$k,'.'));
     }
   }
+
 
 
   $sqlfilter[]= "locked != -1";
   $sqlfilter[]= "doctype='F'";
   $sqlfilter[]= "usefor = 'N'";
-  $sqlfilter[]="$aid ~ '".implode("|",$tkids)."'";
+  // $sqlfilter[]="$aid ~ '".implode("|",$tkids)."'";
+  //  print "[$kid]";
+//    if (strstr($kid,".") == "") {
+//          $sqlfilter[] = "in_textlist($aid,$kid)";
+//    } else {
+  //  $tkids=explode(".",$kid);
+  //   print_r2($tkids);
 
-//   if (strstr($kid,".") != "") {
-//     $sqlfilter[] = "$aid ~ '".str_replace(".","\\\\\.",$kid)."'";
-//   } else {
-//     $sqlfilter[] = "in_textlist($aid,'$kid') or $aid ~ '$kid\.'";
-//  }
+  if ($a->type == "enumlist") {
+     $sqlfilter[] = "in_textlist($aid,'".
+       implode("') or in_textlist($aid,'",$tkids)."')";
+  } else  if ($a->type == "enum") {
+     $sqlfilter[] = "$aid='".
+       implode("' or $aid='",$tkids)."'";    
+  }
 
   $query=getSqlSearchDoc($dbaccess, 
 			 $sdirid,  
 			 $famid, 
 			 $sqlfilter);
 
-  $sdoc-> AddQuery($query);
+  $sdoc->AddQuery($query);
 
   redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&catg=".$dirid);
   

@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.31 2003/03/24 16:17:48 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.32 2003/03/31 08:55:56 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -32,6 +32,7 @@ PreReq: @PACKAGE@-LIB = %{version}
 Prereq: VAULT
 Prereq: php-cgi >= 4.0.2
 Prereq: gettext
+Prereq: gettext-devel > 0.11
 Conflicts: ROAMING < 0.0.5
 %description
 The FREEDOM (Free Document Object Model) module is use to manage document in intranet
