@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.7 2004/02/24 13:40:58 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.8 2004/03/01 09:05:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -112,7 +112,7 @@ if ($query->nb > 0)	{
 	    $udoc->modify();
 	    $fid=$udoc->id;
 	    print "$reste)";printf( _("%s updated\n"),$title);
-	    uset($udoc);
+	    unset($udoc);
 	  }
 
 
