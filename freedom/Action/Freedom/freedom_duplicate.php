@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_duplicate.php,v 1.10 2003/12/09 10:51:14 eric Exp $
+ * @version $Id: freedom_duplicate.php,v 1.11 2005/04/05 17:29:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.10 2003/12/09 10:51:14 eric Exp $
+// $Id: freedom_duplicate.php,v 1.11 2005/04/05 17:29:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,11 +47,14 @@ function freedom_duplicate(&$action) {
     // Get all the params      
   $dirid=GetHttpVars("dirid",10); // where to duplicate
   $docid=GetHttpVars("id",0);       // doc to duplicate
+  $folio=GetHttpVars("folio","N")=="Y"; // return in folio
   
   duplicate($action, $dirid, $docid);
 
-  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");
-  // RedirectSender($action);
+  
+  if ($folio) redirect($action,"FREEDOM","FOLIOLIST&dirid=".$dirid);
+  else  redirect($action,"FREEDOM","FREEDOM_VIEW&dirid=".$dirid);
+
 
 }
 

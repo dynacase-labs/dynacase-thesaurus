@@ -129,7 +129,7 @@ function trackMenuKey(event)
     altKey = window.event.altKey;
     ctrlKey = window.event.ctrlKey
    }
-    window.status=intKeyCode + ':'+ event.which +':'+altKey+ ':'+ctrlKey;
+  window.status=intKeyCode + ':'+ event.which +':'+altKey+ ':'+ctrlKey;
 
   if (((intKeyCode ==  93))) {
     // Ctrl-Menu

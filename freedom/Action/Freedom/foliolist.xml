@@ -37,7 +37,7 @@
 <p class="anakeen" align="center">[nbdoc] [TEXT:document(s) found]</p>
 
 [ZONE FREEDOM:POPUPFOLIO]
-[ZONE FREEDOM:POPUP]
+[ZONE FREEDOM:POPUP?folio=Y]
 
 <!-- TABLEBODY -->
                              [BLOCK TABLEBODY]

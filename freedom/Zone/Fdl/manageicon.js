@@ -23,7 +23,7 @@ function unhighlight(th) {
 
 var isNetscape = navigator.appName=="Netscape";
 
-var docid = 1;
+var docid = 0;
 
 
 
@@ -64,6 +64,15 @@ function select(th, id, divid) {
   imgid="i"+divid;
 }
 
+var odocid=false;
+// select on mouse over document
+function oselect(id) {
+  odocid=id;
+}
+// select on mouse over document
+function ounselect() {
+  odocid=false;
+}
 
 function viewabstract(event) {
     
@@ -134,14 +143,14 @@ function openMenuOrProperties(event,menuid,itemid,target) {
 }
 
 function sendFirstFile(docid) {
-  url='[CORE_STANDURL]&app=FDL&action=EXPORTFIRSTFILE&docid='+docid;
+  var url='[CORE_STANDURL]&app=FDL&action=EXPORTFIRSTFILE&docid='+docid;
 
   we = window.open('about:blank','','resizable=yes,scrollbars=yes');
   we.document.location.href=url;
 }
 
 function openFld(docid) {
-  url='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW&dirid='+docid;
+  var url='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW&dirid='+docid;
   subwindow([FDL_HD2SIZE],[FDL_VD2SIZE],'fvfolder',url);
 }
 //--------------------- DRAG & DROP  --------------------------
@@ -155,29 +164,45 @@ if (isNetscape) {
 
 //document.onmousemove = GetXY;;
 
-document.onkeypress = trackKey;
+//document.onkeypress = trackKey;
+addEvent(document,"keypress",trackKey);
 
-function trackKey(event)
-{
+function trackKey(event) {
   var intKeyCode;
 
+  if (!event) event=window.event;
   if (isNetscape) {
     intKeyCode = event.which;
-  altKey = event.altKey
-   }  else {
+    altKey = event.altKey;
+    ctrlKey = event.ctrlKey;
+  }  else {
     intKeyCode = window.event.keyCode;
     altKey = window.event.altKey;
-    }
-  
+    ctrlKey = window.event.ctrlKey;
+  }
+ 
   window.status=intKeyCode + ':'+altKey;
-  if ( (intKeyCode == 99)) { // Alt-C key
-         activedrag(event); 
-  return false;
+  if (ctrlKey &&  ( (intKeyCode == 99)||(intKeyCode == 67))) { // Ctrl-C key
+    // activedrag(event); 
+    addToBasket(event); 
+    return false;
   } else
     return true;
 }
 
-
+function addToBasket(event) {  
+  var url='[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&dirid=[FREEDOM_IDBASKET]&docid=';
+  var bsend=false;
+  if (odocid) {    
+    bsend=true;
+    url+=odocid;
+  } else if (docid) {
+    bsend=true;
+    url+=docid;
+  }
+  if  (bsend) alert(url);
+  if  (bsend)  subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'basket',url);
+}
 
 function moveicon(event) {
     

@@ -3,7 +3,7 @@
  * insert the documents of $dirid in folder $id
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_insertfld.php,v 1.6 2004/02/24 08:35:45 eric Exp $
+ * @version $Id: freedom_insertfld.php,v 1.7 2005/04/05 17:29:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -29,6 +29,7 @@ function freedom_insertfld(&$action) {
   $docid=GetHttpVars("id");   // destination folder
   $mode=GetHttpVars("mode","latest");
   $clean=GetHttpVars("clean","N")=="Y"; // if want to clean source folder
+  $folio=GetHttpVars("folio","N")=="Y"; // return in folio
 
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -52,7 +53,9 @@ function freedom_insertfld(&$action) {
     $sfld->Clear();
   }
 
-  redirect($action,"FREEDOM","FREEDOM_VIEW&dirid=".$doc->initid);
+  if ($folio) redirect($action,"FREEDOM","FOLIOLIST&dirid=".$doc->initid);
+  else  redirect($action,"FREEDOM","FREEDOM_VIEW&dirid=".$doc->initid);
+  
 }
 
 

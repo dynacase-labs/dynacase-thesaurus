@@ -43,18 +43,11 @@
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
+     onmouseover="oselect([id])"  onmouseout="ounselect()"
      align="absbottom"  src="[iconsrc]"
-     title="[icontitle]"><br>
- 
-  
+     title="[icontitle]"><br>  
   [abrvtitle]
-
-
-
 </div>
-
-
-
                            [ENDBLOCK TABLEBODY]
 <!-- /TABLEBODY -->
 

@@ -19,8 +19,7 @@ var docTarget='fdoc';
 <a href="#" id="newsgc"     
     onClick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=[IDFAM_SGUIDECARD]&dirid=[dirid]',docTarget);closeAllMenu(); return false;"  >[TEXT:new search guide-card]</a>
 
+  <a id="insertbasket"  href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_INSERTFLD&folio=Y&dirid=[FREEDOM_IDBASKET]&id=[dirid]&clean=Y','_self');closeAllMenu()" >[TEXT:Basket to here]</a>
 
-<a href="#" id="cancelf"  
-    onClick="closeAllMenu(); return false;"  >[TEXT:cancel]</a>
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->

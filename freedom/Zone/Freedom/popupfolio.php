@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupfolio.php,v 1.4 2003/10/09 12:08:43 eric Exp $
+ * @version $Id: popupfolio.php,v 1.5 2005/04/05 17:29:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupfolio.php,v 1.4 2003/10/09 12:08:43 eric Exp $
+// $Id: popupfolio.php,v 1.5 2005/04/05 17:29:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Freedom/popupfolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,9 +50,9 @@ function popupfolio(&$action) {
   // ------------------------------------------------------
   // definition of popup menu
   popupInit('popupfolio',  array('newdoc','newgc','newsgc',
-				 'cancelf'));
+				 'insertbasket'));
 
-  Popupactive('popupfolio',$kdiv,'cancelf');
+  Popupactive('popupfolio',$kdiv,'insertbasket');
   Popupinvisible('popupfolio',$kdiv,'newdoc');
   Popupinvisible('popupfolio',$kdiv,'newgc');
   Popupinvisible('popupfolio',$kdiv,'newsgc');
