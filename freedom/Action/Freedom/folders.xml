@@ -230,12 +230,12 @@ function floatMenu () {
 <!-- ------------ SECOND POPUP DIVISION (paste)--------------------- -->
 <div  id="poppaste" class="popup">
 
-<a href="#" id="staticpaste"
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&mode=static&dirid='+dirid+'&docid='+cdocid,'doc_properties');closeMenu('poppaste');return false">
-   [TEXT: paste this revision] </a>
 <a href="#" id="pastelatest"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'doc_properties');closeMenu('poppaste');return false">
-   [TEXT: paste latest revision]</a>
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
+   [TEXT:copy reference]</a>
+<a href="#" id="staticpaste"
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=MOVEDIRFILE&todirid='+dirid+'&fromdirid='+parent.info.document.dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
+   [TEXT:move reference] </a>
 <a href="#" id="cancel2"  
     onClick="closeMenu('poppaste');return false">[TEXT:cancel]</a>
 </div>
