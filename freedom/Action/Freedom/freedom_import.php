@@ -3,7 +3,7 @@
  * Import document descriptions
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_import.php,v 1.9 2004/05/13 16:17:14 eric Exp $
+ * @version $Id: freedom_import.php,v 1.10 2005/01/14 17:58:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -30,6 +30,7 @@ function freedom_import(&$action) {
     $cr[$k]["taction"]=_($v["action"]); // translate action
     $cr[$k]["order"]=$k; // translate action
     $cr[$k]["svalues"]="";
+    $cr[$k]["msg"]=nl2br($v["msg"]);
     foreach ($v["values"] as $ka=>$va) {
       $cr[$k]["svalues"].= "<LI>[$ka:$va]</LI>"; // 
     }
