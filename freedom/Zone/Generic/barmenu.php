@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.19 2004/02/17 10:59:23 eric Exp $
+ * @version $Id: barmenu.php,v 1.20 2004/02/24 08:41:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.19 2004/02/17 10:59:23 eric Exp $
+// $Id: barmenu.php,v 1.20 2004/02/24 08:41:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -157,8 +157,10 @@ function barmenu(&$action) {
   
   popupInvisible("helpmenu",1,'folders');
   if ($idappfree=$action->parent->Exists("FREEDOM")) {
+   
     $permission = new Permission($action->dbaccess, array($action->user->id,$idappfree));
-    if ($permission->isAffected() && (count($permission->privileges) > 0)) {
+    
+    if (($action->user->id==1) || ($permission->isAffected() && (count($permission->privileges) > 0))) {
       popupActive("helpmenu",1,'folders');
     }
   }
