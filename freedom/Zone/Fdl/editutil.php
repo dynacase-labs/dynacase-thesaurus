@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.52 2003/11/03 09:01:26 eric Exp $
+ * @version $Id: editutil.php,v 1.53 2003/11/03 15:04:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.52 2003/11/03 09:01:26 eric Exp $
+// $Id: editutil.php,v 1.53 2003/11/03 15:04:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -622,6 +622,10 @@ function elinkEncode(&$doc, $link,$index,&$ititle,&$isymbol) {
 	$sattrid=strtolower($sattrid);
 
 	$attr = $doc->getAttribute($sattrid);
+	if (!$attr) {
+	  global $action;
+	  $action->exitError(sprintf(_("elinkEncode::attribute not found %s"),$sattrid));
+	}
 	if ($attr->inArray())	$sattrid.=$index;
 	//print "attr=$sattrid";
 	$urllink.= "'+document.getElementById('$sattrid').value+'";
