@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.14 2001/12/08 17:16:30 eric Exp $
+// $Id: freedom_card.php,v 1.15 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -139,6 +139,7 @@ function freedom_card(&$action) {
 	$action->lay->Set("imgdel", "");
 
       }
+      
       if (($doc->IsControlled() )
 	  &&($doc->Control("viewacl") == ""))	{
 	$action->lay->Set("imgaccess", $action->GetIcon("access.gif",N_("goaccess"),20));
@@ -255,7 +256,7 @@ function freedom_card(&$action) {
       if ($i < $nattr)
 	{
       
-	  if ($value != "")
+	  if (($value != "") && ($listattr[$i]->visibility != "H"))
 	    {
 		
 	      $currentFrameId = $listattr[$i]->frameid;
@@ -293,6 +294,8 @@ function freedom_card(&$action) {
 		$tfile[$kf]["attrid"]=$listattr[$i]->id;
 		$kf++;
 		break;
+		case "textlist": 
+		case "enumlist":
 		case "longtext": 
 		  $tableframe[$v]["value"]=nl2br(htmlentities($value));
 		break;
@@ -457,11 +460,11 @@ function freedom_card(&$action) {
 	  break;
 	case "B": // baseurl	  
 	  $urllink.=$action->GetParam("CORE_BASEURL");
-	  $i--;
+
 	  break;
 	case "S": // standurl	  
 	  $urllink.=$action->GetParam("CORE_STANDURL");
-	  $i--;
+
 	  break;
 	 default:
 	  print "NOT $link[$i]<BR>";

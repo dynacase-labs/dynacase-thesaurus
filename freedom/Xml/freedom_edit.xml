@@ -25,14 +25,14 @@
     [JS:CODE]
 
 
-function sendmodifydoc(event,docid, attrid) {
+function sendmodifydoc(event,docid, attrid, sorm) {
 
 
   f =document.modifydoc;
   // modify to initial action
   oldact = f.action;
   oldtar = f.target;
-  f.action = '[CORE_STANDURL]&app=[FREEDOM_APP]&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid;
+  f.action = '[CORE_STANDURL]&app=[FREEDOM_APP]&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&wname='+window.name;
 
   f.target='ichoose';
 
@@ -48,6 +48,15 @@ function sendmodifydoc(event,docid, attrid) {
   f.target=oldtar;
 
 }
+
+function enableall() {
+
+  with (document.getElementById('fedit')) {
+       for (i=0; i< length; i++) {	
+           elements[i].disabled=false;
+       }
+  }
+}
   //-->
    </script>   
 
@@ -55,17 +64,19 @@ function sendmodifydoc(event,docid, attrid) {
 
  </head>
 
-<body class="freedom">
+<body class="freedom" >
 
-<iframe  style="visibility:hidden;position:absolute;top:0;left:0;padding:0pt;marging:0pt;" SRC="about:blank" NAME="ichoose" id="choose" width="100px" marginwidth="0" marginheight="0" frameborder="0"> 
+<iframe  style="visibility:hidden;position:absolute;top:0;left:0;padding:0pt;marging:0pt;" 
+         scrolling="no"
+         SRC="about:blank" NAME="ichoose" id="choose" width="400px" marginwidth="0" marginheight="0" frameborder="0" > 
    You will not see this text if your browser supports IFRAME.
 If you CAN see this, you are in a bad way.
-   </iframe>
-<form method="POST" target="_blank" name="choose"></form>
+</iframe>
+
 
 
 <!-- Title Table -->
-<form  target="doc_properties" class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
+<form  id="fedit" target="doc_properties" class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
 
       
 
@@ -91,13 +102,12 @@ If you CAN see this, you are in a bad way.
 
 
 <tr class="FREEDOMBack2" >
-
   <td  colspan="3" ><span class="FREEDOMTextTitle"> [frametext]</span></td>
 </tr>
 
 
 
-[BLOCK [TABLEVALUE]]
+            [BLOCK [TABLEVALUE]]
 
 <tr class="FREEDOMBack1">
 
@@ -106,14 +116,14 @@ If you CAN see this, you are in a bad way.
   <td  width="60%">[inputtype]</td>
 </tr>
 
-[ENDBLOCK [TABLEVALUE]]
+           [ENDBLOCK [TABLEVALUE]]
 
 [ENDBLOCK TABLEBODY]
 
 
 <tr class="FREEDOMBack1">
   <td colspan="3" >
- <input type="submit" value=[editaction] onClick="document.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LOGO'"> 
+ <input type="submit" value=[editaction] onClick="enableall();document.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LOGO'"> 
   </td>
 </tr>
 

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.4 2001/11/22 17:49:13 eric Exp $
+// $Id: freedom_util.php,v 1.5 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_util.php,v $
+// Revision 1.5  2001/12/13 17:45:01  eric
+// ajout attribut classname sur les doc
+//
 // Revision 1.4  2001/11/22 17:49:13  eric
 // search doc
 //
@@ -78,21 +81,18 @@ function sql_cond($Table, $column)
 function GetTitle($dbaccess,$docid)
 // ------------------------------------------------------
 {
-  static $first=1;
-  static $sql_cond_title;
+  
   // ------------------------------------------------------
   // construction of TITLE
   // ------------------------------------------------------
   // construction of SQL condition to find title attributes
 
   
-  if (  $first ) // optimisation to avoid same multiple query
-    {
+  
       $bdattr = new DocAttr($dbaccess);
       $titleTable = $bdattr->GetTitleIds();
       $sql_cond_title = $sql_cond_abs = sql_cond($titleTable,"attrid");
-      $first=0;
-    }
+  
 
 
   $query_val = new QueryDb($dbaccess,"DocValue");
@@ -228,6 +228,7 @@ function freedom_get_attr_card($dbaccess, $docid,&$title, &$tattr) {
 // return document object in type concordance
 function newDoc($dbaccess, $id='',$res='',$dbid=0) {
 
+  
   if ($dbaccess=="") {
     // don't test if file exist or must be searched in include_path 
     include("dbaccess.php");
@@ -240,32 +241,51 @@ function newDoc($dbaccess, $id='',$res='',$dbid=0) {
     include_once("FREEDOM/Class.DocFile.php");
     return new DocFile($dbaccess);
   }
-  $doctype="";
+  $fromid="";
   if ($id != '') {
     global $CORE_DBID;
+	if (!isset($CORE_DBID) || !isset($CORE_DBID["$dbaccess"])) {
+           $CORE_DBID["$dbaccess"] = pg_connect("$dbaccess");
+        } 
     $dbid=$CORE_DBID["$dbaccess"];
 
-    $result = pg_exec($dbid,"select doctype from doc where id=$id;");
+    $result = pg_exec($dbid,"select classname from doc where id=$id;");
     if (pg_numrows ($result) > 0) {
       $arr = pg_fetch_array ($result, 0);
-      $doctype= $arr[0];
+      $classname= $arr[0];
     }
-  } else if ($res != '') $doctype=$res["doctype"];
+  } else if ($res != '') $classname=$res["classname"];
 	    
-  switch ($doctype) {
-  case "D":
-    include_once("FREEDOM/Class.Dir.php");
-      return (new Dir($dbaccess, $id, $res, $dbid));
-  case "S":
-    include_once("FREEDOM/Class.DocSearch.php");
-    return (new DocSearch($dbaccess, $id, $res, $dbid));
-  default:
+  if ($classname != "") {
+    include_once("FREEDOM/Class.$classname.php");
+      return (new $classname($dbaccess, $id, $res, $dbid));
+  } else {
     include_once("FREEDOM/Class.DocFile.php");
-    return (new DocFile($dbaccess, $id, $res, $dbid));	  
+      return (new DocFile($dbaccess, $id, $res, $dbid));
   }
 } 
 
 
+// create a new document object in type concordance
+function createDoc($dbaccess,$fromid) {
+  // search the good class of document
+  switch ($fromid) {
+  case 2: // directory
+  case 4: // profile access directory
+    include_once("FREEDOM/Class.Dir.php");
+    return  new Dir($dbaccess);
+  break;
+  case 5: // search
+  case 6: // profile access serach
+    include_once("FREEDOM/Class.DocSearch.php");
+    return  new DocSearch($dbaccess);
+  break;
+  default:
+    include_once("FREEDOM/Class.DocFile.php");
+    return new DocFile($dbaccess);
+  }
+
+}
 
 
 

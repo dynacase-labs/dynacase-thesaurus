@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.5 2001/12/10 10:05:52 eric Exp $
+// $Id: Class.DocAttr.php,v 1.6 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocAttr.php,v $
+// Revision 1.6  2001/12/13 17:45:01  eric
+// ajout attribut classname sur les doc
+//
 // Revision 1.5  2001/12/10 10:05:52  eric
 // mise en place iFrame pour choix enum
 //
@@ -49,7 +52,7 @@
 //
 // ---------------------------------------------------------------
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.5 2001/12/10 10:05:52 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.6 2001/12/13 17:45:01 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -91,7 +94,9 @@ create sequence seq_id_docattr start 1000";
 		    "image",
 		    "file",
 		    "frame",
-		    "enum");
+		    "enum",
+		    "textlist",
+		    "enumlist");
 		    
  
   

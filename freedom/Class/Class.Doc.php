@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.15 2001/12/08 17:16:30 eric Exp $
+// $Id: Class.Doc.php,v 1.16 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.15 2001/12/08 17:16:30 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.16 2001/12/13 17:45:01 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -48,7 +48,7 @@ define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 Class Doc extends DbObjCtrl
 {
-  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment","cprofid");
+  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment","cprofid","classname");
 
   var $id_fields = array ("id");
 
@@ -74,7 +74,8 @@ create table doc ( id      int not null,
                    useforprof bool,
                    revdate int,  
                    comment varchar(1024),
-                   cprofid int
+                   cprofid int,
+                   classname varchar(64)
                    );
 create sequence seq_id_doc start 1000";
 
@@ -92,6 +93,7 @@ create sequence seq_id_doc start 1000";
   function Doc($dbaccess='', $id='',$res='',$dbid=0) {
 
          $this= newDoc($dbaccess, $id, $res, $dbid);
+  
   }
 
 
@@ -108,129 +110,7 @@ create sequence seq_id_doc start 1000";
     $this->action->GetParam("CORE_PUBDIR")."/FREEDOM/init.freedom");
 
     return "";
-    $this->id=FAM_BASE;
-    $this->initid=$this->id;
-    $this->fromid="0";
-    $this->owner=1; //admin
-    $this->title=N_("basic documentation family");
-    $this->revision="0";
-    $this->doctype='C'; // class type        
-    $this->Add();
-
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->id = QA_BASIC;
-    $oattr->labeltext=_("basic");
-    $oattr->title = "N";
-    $oattr->abstract = "N";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
-
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->id = QA_TITLE;
-    $oattr->labeltext=_("title");
-    $oattr->title = "Y";
-    $oattr->abstract = "N";
-    $oattr->frameid = QA_BASIC;
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
-
-    // 같같같같같같같같같같같같같같같같같같같같
-    $this->id=FAM_DIR;
-    $this->initid=$this->id;
-    $this->fromid=FAM_BASE;
-    $this->owner=1; //admin
-    $this->title=N_("directory familly");
-    $this->revision="0";
-    $this->doctype='C'; //  class type        
-    $this->Add();
-
-
-    // 같같같같같같같같같같같같같같같같같같같같
-    $this->id=FAM_ACCESSDOC;
-    $this->fromid=1; // from basic doc
-    $this->initid=$this->id;
-    $this->owner=1; //admin
-    $this->title=N_("profile documentation access familly");
-    $this->revision="0";
-    $this->doctype='C'; //  class type        
-    $this->Add();
-
-
-    // 같같같같같같같같같같같같같같같같같같같같
-    $this->id=FAM_ACCESSDIR;
-    $this->initid=$this->id;
-    $this->fromid=FAM_DIR; // from directory
-    $this->owner=1; //admin
-    $this->title=N_("profile directory access familly");
-    $this->revision="0";
-    $this->doctype='C'; //  class type        
-    $this->Add();
-
-
-    // 같같같같같같같같같같같같같같같같같같같같
-    $this->id=FAM_SEARCH;
-    $this->initid=$this->id;    
-    $this->fromid=FAM_BASE; // from nothing
-    $this->owner=1; //admin
-    $this->title=N_("search familly");
-    $this->revision="0";
-    $this->doctype='C'; //  class type        
-    $this->Add();
-
-
-    // 같같같같같같같같같같같같같같같같같같같같
-    $this->id=FAM_ACCESSSEARCH;
-    $this->initid=$this->id;    
-    $this->fromid=FAM_SEARCH; // from search
-    $this->owner=1; //admin
-    $this->title=N_("profile search familly");
-    $this->revision="0";
-    $this->doctype='C'; //  class type        
-    $this->Add();
-
-
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->id = QA_KEY;
-    $oattr->labeltext=_("keyword");
-    $oattr->title = "N";
-    $oattr->abstract = "Y";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
-
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->id = QA_LAST;
-    $oattr->labeltext=_("only latest revision");
-    $oattr->title = "N";
-    $oattr->abstract = "Y";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
-
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->id = QA_CASE;
-    $oattr->labeltext=_("case sensitive");
-    $oattr->title = "N";
-    $oattr->abstract = "Y";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
-
-    $oattr=new DocAttr($this->dbaccess);
-    $oattr->id = QA_FROM;
-    $oattr->labeltext=_("from folder");
-    $oattr->title = "N";
-    $oattr->abstract = "Y";
-    $oattr->docid = $this->initid;
-    $oattr ->Add();
-
-
-    // 같같같같같같같같같같같같같같같같같같같같
-    $this->id=9;
-    $this->initid=9;    
-    $this->fromid= FAM_DIR; // first folder
-    $this->owner=1; //admin
-    $this->title=N_("root");
-    $this->revision="0";
-    $this->doctype='D'; //  class type        
-    $this->Add();
+    
 
   }
 
@@ -241,9 +121,9 @@ create sequence seq_id_doc start 1000";
       if ($this->profid < 0) {
 
 	if (! isset($lprof[$this->id])) {
-	$lprof[$this->id] =  new ObjectPermission($this->dbaccess, 
+	$lprof[$this->id] =  new ObjectPermission("", 
                                        array($this->action->parent->user->id,
-				             $this->oid ));
+				             $this->id ));
 	//	print "SET $this->id : controlled  <BR>";
 	}
 	$this->operm= $lprof[$this->id];
@@ -269,8 +149,9 @@ create sequence seq_id_doc start 1000";
     // --------------------------------------------------------------------    
     {
       // controlled will be set explicitly
-      $this->Select($this->id);
       //$this->SetControl();
+
+      $this->Select($this->id);
     }
   
   // --------------------------------------------------------------------
@@ -301,6 +182,7 @@ create sequence seq_id_doc start 1000";
       if ($this->lmodify == "") $this->lmodify = "N";
       if ($this->locked == "") $this->locked = "0";
       if ($this->owner == "") $this->owner = $this->action->user->id;
+      if ($this->classname == "") $this->classname= $this->defClassname; //get_class($this);// dont use this because lost of uppercase letters
       // set creation date
       $date = gettimeofday();
       $this->revdate = $date['sec'];
@@ -324,6 +206,8 @@ create sequence seq_id_doc start 1000";
       $this->revdate = $date['sec'];
 
     }
+
+
 
   function isRevisable() {
     return (($this->doctype == 'F') && ($this->useforprof == 'f'));
@@ -781,12 +665,12 @@ create sequence seq_id_doc start 1000";
 
 
 	if (! @include("PLUGGINGS/$v->phpfile")) {
-	  $this->action->exitError(sprintf(_("the external pluggin file %s cannot be read"), $v->phpfile));
+	  return(sprintf(_("the external pluggin file %s cannot be read"), $v->phpfile));
 	}
 	
 
 	if (! ereg("(.*)\((.*)\)\:(.*)", $v->phpfunc, $reg))
-	  $this->action->exitError(sprintf(_("the pluggins function description '%s' is not conform"), $v->phpfunc));
+	  return(sprintf(_("the pluggins function description '%s' is not conform"), $v->phpfunc));
 	
   
 	$argids = split(",",$reg[2]);  // input args
@@ -794,20 +678,24 @@ create sequence seq_id_doc start 1000";
 
 
 	while (list($k, $v) = each($argids)) {
-	  $ovalue = new DocValue($this->dbaccess, array($this->id, $v));
-	  $arg[$k]= $ovalue->value;
+	  if ($v == "A") $arg[$k]= &$this->action;
+	  else if ($v == "D") $arg[$k]= $this->dbaccess;
+	  else {
+	    $ovalue = new DocValue($this->dbaccess, array($this->id, $v));
+	    $arg[$k]= $ovalue->value;
+	  }
 	}
 	// activate plug	
 	$res = call_user_func_array($reg[1], $arg);
-
-	reset($res);
-	while (list($k, $v) = each($res)) {
-	  $ovalue = new DocValue($this->dbaccess, array($this->id, $rargids[$k]));
-	  $ovalue->docid=$this->id;
-	  $ovalue->attrid=$rargids[$k];
-	  $ovalue->value=$v;
-	  $ovalue->modify();
-	  
+	if (is_array($res)) {
+	  reset($res);
+	  while (list($k, $v) = each($res)) {
+	    $ovalue = new DocValue($this->dbaccess, array($this->id, $rargids[$k]));
+	    $ovalue->docid=$this->id;
+	    $ovalue->attrid=$rargids[$k];
+	    $ovalue->value=$v;
+	    $ovalue->modify();
+	  }
 	}
       }
     }

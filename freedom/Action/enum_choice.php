@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.2 2001/12/10 10:05:52 eric Exp $
+// $Id: enum_choice.php,v 1.3 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,6 +33,9 @@ function enum_choice(&$action) {
 
   $docid = GetHttpVars("docid",0);        // document being edition
   $attrid = GetHttpVars("attrid",0); // attribute need to enum
+  $sorm = GetHttpVars("sorm","single"); // single or multiple
+  $wname = GetHttpVars("wname",""); // single or multiple
+
 
   //global $HTTP_POST_VARS;print_r($HTTP_POST_VARS);
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -56,10 +59,11 @@ function enum_choice(&$action) {
   $sattrid.= implode(",", $rargids);
   $sattrid.="]";
 
-
   $argids = split(",",$reg[2]);  // input args
   while (list($k, $v) = each($argids)) {
-    $arg[$k]= GetHttpVars($v,"");
+    if ($v == "A") $arg[$k]= &$action;
+    else if ($v == "D") $arg[$k]= $dbaccess;
+    else $arg[$k]= GetHttpVars($v,"");
   }
 
   
@@ -68,18 +72,29 @@ function enum_choice(&$action) {
   
 
   reset($res);
+  $tselect = array();
+  $tval = array();
   while (list($k, $v) = each($res)) {
     $tselect[$k]["choice"]= $v[0];
     $tselect[$k]["cindex"]= $k;
     $tval[$k]["index"]=$k;
     array_shift($v);
+
     $tval[$k]["attrv"]="['".implode("','", $v)."']";
+
     
   }
 
+  $action->lay->Set("wname", $wname);
+  if ($sorm == "single") {
+    $action->lay->Set("multiple", "");
+    $action->lay->Set("nselect", 1);
+  } else {
+    $action->lay->Set("multiple", "multiple");
+    $action->lay->Set("nselect", (count($tselect)>7)?7:count($tselect));
+  }
   $action->lay->Set("attrid", $sattrid);
   $action->lay->SetBlockData("SELECT", $tselect);
-  $action->lay->Set("nselect", (count($tselect)>7)?7:count($tselect));
   $action->lay->SetBlockData("ATTRVAL", $tval);
 }
 

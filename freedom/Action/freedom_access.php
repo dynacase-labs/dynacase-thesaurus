@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_access.php,v 1.3 2001/11/21 13:12:55 eric Exp $
+// $Id: freedom_access.php,v 1.4 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_access.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_access.php,v $
+// Revision 1.4  2001/12/13 17:45:01  eric
+// ajout attribut classname sur les doc
+//
 // Revision 1.3  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -61,7 +64,7 @@ function freedom_access(&$action) {
 
 
   
-  redirect($action,"ACCESS","EDIT_OBJECT&sole=Y&mod=app&isclass=yes&userid={$action->parent->user->id}&appid={$ofreedom->classid}&oid={$ofreedom->oid}");
+  redirect($action,"ACCESS","EDIT_OBJECT&sole=Y&mod=app&isclass=yes&userid={$action->parent->user->id}&appid={$ofreedom->classid}&oid={$ofreedom->id}");
 }
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.4 2001/12/08 17:16:30 eric Exp $
+// $Id: freedom_import.php,v 1.5 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_import.php,v $
+// Revision 1.5  2001/12/13 17:45:01  eric
+// ajout attribut classname sur les doc
+//
 // Revision 1.4  2001/12/08 17:16:30  eric
 // evolution des attributs
 //
@@ -89,12 +92,12 @@ function freedom_import(&$action) {
 
 
   $lattr = $doc->GetAttributes();
-  $format = "BEGIN:".$doc->id.":[".chop($doc->title)."]\n";
+  $format = "BEGIN;".$doc->id.";[".chop($doc->title)."]\n";
 
   while (list($k, $attr) = each ($lattr)) {
-    $format .= $attr->id.":[".$attr->labeltext."]:<"._("value").">\n";
+    $format .= $attr->id.";[".$attr->labeltext."];<"._("value").">\n";
   }
-  $format .= "END:$doc->id\n";
+  $format .= "END;$doc->id\n";
 
 
   $action->lay->Set("dirid",$dirid);
@@ -118,14 +121,16 @@ function add_import_file(&$action, $fimport="") {
     } else $fdoc = fopen($fimport,"r");
 
   if (! $fdoc) $action->exitError(_("no import file specified"));
-  while ($data = fgetcsv ($fdoc, 1000, ":")) {
+  $nline=0;
+  while ($data = fgetcsv ($fdoc, 1000, ";")) {
+    $nline++;
     $num = count ($data);
     if ($num < 2) continue;
 
     switch ($data[0]) {
       // -----------------------------------
     case "BEGIN":
-      $doc = new Doc($dbaccess);
+      $doc = createDoc($dbaccess, $data[1]);
     $doc->fromid = $data[1];
 
     if ($data[2] > 0) $doc->id= $data[2]; // static id
@@ -141,11 +146,13 @@ function add_import_file(&$action, $fimport="") {
     case "END":
       if ($num > 3) $doc->doctype = "S";
       $doc->title =  GetTitle($dbaccess,$doc->id);
+
       $doc->modify();
       $qf = new QueryDir($dbaccess);
       if (($num < 3) || ($data[2] == 0)) $qf->dirid=$dirid; // current folder
       else $qf->dirid=$data[2]; // specific folder
 
+      if ($qf->dirid >=0) {
       $qf->query="select id from doc where id=".$doc->id;
       $qf->qtype='S'; // single user query
       $err = $qf->Add();
@@ -160,6 +167,7 @@ function add_import_file(&$action, $fimport="") {
 	$err = $qf->Add();
 	if ($err != "") $action->exitError($err);
       }
+      }
     
     break;
     // -----------------------------------
@@ -168,7 +176,7 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "ATTR":
-	    
+      if     ($num != 13) print "Error in line $nline: $num cols not 13<BR>";
       $oattr=new DocAttr($dbaccess);
     $oattr->docid = $doc->id;
     $oattr->id = $data[1];
@@ -179,6 +187,10 @@ function add_import_file(&$action, $fimport="") {
     $oattr->type = $data[6];
     $oattr->ldapname = $data[7];
     $oattr->ordered = $data[8];
+    $oattr->visibility = $data[9];
+    $oattr->link = $data[10];
+    $oattr->phpfile = $data[11];
+    $oattr->phpfunc = $data[12];
 	  
     $err = $oattr ->Add();
     if ($err != "") $action->exitError($err);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.6 2001/12/08 17:16:30 eric Exp $
+// $Id: popup_util.php,v 1.7 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: popup_util.php,v $
+// Revision 1.7  2001/12/13 17:45:01  eric
+// ajout attribut classname sur les doc
+//
 // Revision 1.6  2001/12/08 17:16:30  eric
 // evolution des attributs
 //
@@ -121,10 +124,10 @@ function popupGen($kdiv) {
   global $action;
 
 
-  $lpopup = new Layout($action->GetLayoutFile("popup.js"));
+  $lpopup = new Layout($action->Getparam("CORE_PUBDIR")."/FREEDOM/Layout/popup.js");
 
   // css pour popup
-  $cssfile=$action->GetLayoutFile("popup.css");
+  $cssfile=$action->Getparam("CORE_PUBDIR")."/FREEDOM/Layout/popup.css";
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
 

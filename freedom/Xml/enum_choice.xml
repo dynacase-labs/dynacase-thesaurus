@@ -37,7 +37,7 @@ tattrv[[index]] =[attrv];
 
 function completechoice(index) {
 
-    winfo = window.open('','info','');
+    winfo = window.open('','[wname]','');
 
     for (i=0; i< tattrid.length; i++) {
        winfo.document.getElementById(tattrid[i]).value = tattrv[index][i];
@@ -47,16 +47,48 @@ function completechoice(index) {
 
 }
 
+function completechoices() {
+
+    winfo = window.open('','[wname]','');
+
+    var cvalues = new Array();
+    for (i=0; i< tattrid.length; i++) {	
+      cvalues[i] ="";
+    }
+    senum = document.getElementById('schoose');
+    for (c=0; c< senum.length; c++) {
+      if (senum.options[c].selected) {
+	index= senum.options[c].value;
+	for (i=0; i< tattrid.length; i++) {	 
+	  with (winfo.document.getElementById(tattrid[i])) {
+	    if (tattrv[index][i] != "") {
+	      cvalues[i] += tattrv[index][i];
+	      cvalues[i] += "\n";
+	      style.backgroundColor='[CORE_BGCOLORHIGH]';
+	    }
+	    //       style.fontWeight='bold';
+	  }
+	}
+      }
+    }
+    for (i=0; i< tattrid.length; i++) {	
+      if (cvalues[i][0] != '?')
+	winfo.document.getElementById(tattrid[i]).value = cvalues[i];
+    }
+
+}
 function closeframe(idf) {
-    winfo = window.open('','info','');
+    winfo = window.open('','[wname]','');
 winfo.document.getElementById(idf).style.visibility='hidden';
 }
 
 function resizeIFrame() {
 
   document.getElementById('dchoose').style.width= document.getElementById('schoose').offsetWidth+2;
-    winfo = window.open('','info','');
+  document.getElementById('dchoose').style.height= document.getElementById('schoose').offsetHeight+30;
+    winfo = window.open('','[wname]','');
 winfo.document.getElementById('choose').style.width= document.getElementById('schoose').offsetWidth+10;
+winfo.document.getElementById('choose').style.height= document.getElementById('dchoose').offsetHeight;
 }
 -->
 </script>   
@@ -73,10 +105,10 @@ winfo.document.getElementById('choose').style.width= document.getElementById('sc
      title="[TEXT:close]"
      alt="[TEXT:close]">
 <br>
-<select id="schoose" 
+<select id="schoose" [multiple]
         style="align:center" 
 	size="[nselect]" 
-	onClick="completechoice(this.options[this.selectedIndex].value)" >
+	onChange="completechoices()" >
                     [BLOCK SELECT]
 <option value="[cindex]"   >[choice]</option>        
                     [ENDBLOCK SELECT]

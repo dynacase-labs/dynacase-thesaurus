@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.1 2001/11/21 08:40:34 eric Exp $
+// $Id: Class.DocFile.php,v 1.2 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,13 +22,16 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.DocFile.php,v $
+// Revision 1.2  2001/12/13 17:45:01  eric
+// ajout attribut classname sur les doc
+//
 // Revision 1.1  2001/11/21 08:40:34  eric
 // ajout historique
 //
 // Revision 1.2  2001/11/09 18:54:21  eric
 // et un de plus
 // ---------------------------------------------------------------
-$CLASS_CONTACT_PHP = '$Id: Class.DocFile.php,v 1.1 2001/11/21 08:40:34 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocFile.php,v 1.2 2001/12/13 17:45:01 eric Exp $';
 
 
 include_once("FREEDOM/Class.Doc.php");
@@ -59,6 +62,7 @@ Class DocFile extends Doc
 
   // ------------
   var $defDoctype='F';
+  var $defClassname='DocFile';
 
   function DocFile($dbaccess='', $id='',$res='',$dbid=0) {
      DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);

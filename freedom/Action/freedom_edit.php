@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.12 2001/12/10 10:05:52 eric Exp $
+// $Id: freedom_edit.php,v 1.13 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.13  2001/12/13 17:45:01  eric
+// ajout attribut classname sur les doc
+//
 // Revision 1.12  2001/12/10 10:05:52  eric
 // mise en place iFrame pour choix enum
 //
@@ -193,19 +196,7 @@ function freedom_edit(&$action) {
   $bdattr = new DocAttr($dbaccess);
 
 
-  // initialise query with all fathers doc
-  if ($docid == "") {
-    if ($classid > 0) {   
-      // here $doc is the class document
-      $sql_cond_doc = sql_cond(array_merge($doc->GetFathersDoc(),$doc->initid), "docid");
-      $query->AddQuery($sql_cond_doc);
-    }
-  } else {
-    $sql_cond_doc = sql_cond(array_merge($doc->GetFathersDoc(),$doc->initid), "docid");
-    $query->AddQuery($sql_cond_doc);
-  }
-  $query->AddQuery("type != 'frame'");
-  $query->order_by="ordered";
+ 
 
 
   //$frames= $query->Query(0,0,"TABLE","select distinct frametext from DocAttr" );
@@ -260,7 +251,7 @@ function freedom_edit(&$action) {
 	  $v=1;
 	}
 
-     $destdir="./".GetHttpVars("app")."/Download/"; // for downloading file
+
       //------------------------------
       // Set the table value elements
       if ($i < $nattr)
@@ -294,7 +285,7 @@ function freedom_edit(&$action) {
 		// input 
 		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " > "; 
 		break;
 
@@ -304,6 +295,7 @@ function freedom_edit(&$action) {
 
 		  $vf = new VaultFile($dbaccess, $action->parent->name);
 		  if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+		  else $fname=_("error in filename");
 		}
 		else $fname=_("no filename");
 			
@@ -312,7 +304,7 @@ function freedom_edit(&$action) {
 		// input 
 		$tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " > "; 
 		break;
 
@@ -321,7 +313,17 @@ function freedom_edit(&$action) {
 		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
 		   $listattr[$i]->id."\" ";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+	      $tableframe[$v]["inputtype"] .= " >".
+		  chop(htmlentities(stripslashes($value))).
+		  "</textarea>";
+		break;
+	      //같같같같같같같같같같같같같같같같같같같같
+	      case "textlist": 
+		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
+		   $listattr[$i]->id."\" ";
+	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " >".
 		  chop(htmlentities(stripslashes($value))).
 		  "</textarea>";
@@ -333,11 +335,26 @@ function freedom_edit(&$action) {
 	      case "enum": 
 		$tableframe[$v]["inputtype"]="<input type=\"text\"  name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " > "; 
 	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
 		 _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
-		 ",".$listattr[$i]->id.")\">";
+		 ",".$listattr[$i]->id.",'single')\">";
+		break;      
+		
+		//같같같같같같같같같같같같같같같같같같같같
+
+	      case "enumlist": 
+		$tableframe[$v]["inputtype"]="<textarea rows=2 name=\"".
+		   $listattr[$i]->id."\" ";
+	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
+	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
+	      $tableframe[$v]["inputtype"] .= " >".
+		  chop(htmlentities(stripslashes($value))).
+		  "</textarea>";
+	      $tableframe[$v]["inputtype"].="<input type=\"button\" value=\"".
+		 _("...")."\" onClick=\"sendmodifydoc(event,".$doc->id.
+		 ",".$listattr[$i]->id.",'multiple')\">";
 		break;
 
 
@@ -345,7 +362,7 @@ function freedom_edit(&$action) {
 	      default : 
 		$tableframe[$v]["inputtype"]="<input type=\"text\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
-	      if ($listattr[$i]->visibility != "W") $tableframe[$v]["inputtype"] .=" disabled ";
+	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " > "; 
 		break;
 		

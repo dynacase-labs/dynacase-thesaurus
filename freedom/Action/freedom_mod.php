@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.10 2001/12/08 17:16:30 eric Exp $
+// $Id: freedom_mod.php,v 1.11 2001/12/13 17:45:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_mod.php,v $
+// Revision 1.11  2001/12/13 17:45:01  eric
+// ajout attribut classname sur les doc
+//
 // Revision 1.10  2001/12/08 17:16:30  eric
 // evolution des attributs
 //
@@ -77,18 +80,8 @@ function freedom_mod(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-
   // search the good class of document
-  switch ($classid) {
-  case 2: // directory
-  case 4: // profile access directory
-    include_once("FREEDOM/Class.Dir.php");
-    $ofreedom = new Dir($dbaccess);
-  break;
-  default:
-    include_once("FREEDOM/Class.DocFile.php");
-    $ofreedom = new DocFile($dbaccess);
-  }
+  $ofreedom = createDoc($dbaccess, $classid);
 
 
   if ( $docid == "" )
