@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.60 2004/09/01 12:51:12 caroline Exp $
+#  $Id: FREEDOM.spec.in,v 1.61 2004/09/01 13:00:50 caroline Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -145,6 +145,7 @@ cd -
 %dir %{destdir}/EXTERNALS
 %{destdir}/EXTERNALS/*
 %{destdir}/htmlarea/*
+%{destdir}/jscalendar/*
 
 /etc/cron.daily/*
 
