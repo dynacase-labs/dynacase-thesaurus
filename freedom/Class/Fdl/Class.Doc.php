@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.205 2004/06/18 15:20:27 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.206 2004/06/23 14:24:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1984,10 +1984,16 @@ create unique index i_docir on doc(initid, revision);";
 	$urllink.=$link[$i];
       }
     }
+    $urllink=$this->urlWhatEncodeSpec($urllink); // complete in special case families
     return (chop($urllink));
     
   }
   
+  /**
+   * virtual method must be use in child families if needed complete url
+   */
+  function urlWhatEncodeSpec($l) {return $l;}
+
   function _val2array($v) {
     
     return explode("\n", str_replace("\r","",$v));
@@ -2264,7 +2270,7 @@ create unique index i_docir on doc(initid, revision);";
 	    $abegin.= $action->GetParam("CORE_ABSURL")."/".$ulink;
 	    $abegin.="\">";
 	  } else {
-	    $abegin="<A target=\"$target\" title=\"$ititle\"onmousedown=\"document.noselect=true;\" href=\"";
+	    $abegin="<A target=\"$target\" title=\"$ititle\" onmousedown=\"document.noselect=true;\" href=\"";
 	    $abegin.= $ulink."\" ";;
 	    if ($htmllink > 1){
 	      $turl=parse_url($ulink);
@@ -3412,8 +3418,12 @@ create unique index i_docir on doc(initid, revision);";
     return $mydoc->getValue($idattr);
   }
 
-
-  function getTitle($id) {
+  /**
+   * return title of document
+   * @see Doc::getSpecTitle()
+   */
+  function getTitle($id="") {
+    if ($id=="") return $this->getSpecTitle();
     if (! is_numeric($id)) return ""; 
     
     $t = getTDoc($this->dbaccess,$id);
@@ -3421,7 +3431,14 @@ create unique index i_docir on doc(initid, revision);";
 
     return " "; // delete title
   }
-
+ 
+  /**
+   * return possible dynamic title
+   * this method can be redefined in child if the title is variable by other parameters than containt
+   */
+  function getSpecTitle() {
+    return $this->title;
+  }
   function getDate($daydelta=0) {
     $delta = abs(intval($daydelta));
     if ($daydelta > 0) {
