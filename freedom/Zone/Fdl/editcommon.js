@@ -630,11 +630,11 @@ function changeCheckClasses(th,iin) {
   if (th) {
     var icheck=document.getElementsByName(th.name);
     /*var icheck=new Array();
-    p=th.parentNode.childNodes[0];// firstSibling;
-    for (var i=0;i<th.parentNode.childNodes.length;i++) {
+      p=th.parentNode.childNodes[0];// firstSibling;
+      for (var i=0;i<th.parentNode.childNodes.length;i++) {
       alert(th.parentNode.childNodes[i].name);
       if (th.parentNode.childNodes[i].name && (th.parentNode.childNodes[i].name == th.name)) {
-	icheck.push(th.parentNode.childNodes[i]);
+      icheck.push(th.parentNode.childNodes[i]);
       }
       }*/
     //alert (icheck.length);
@@ -650,10 +650,12 @@ function changeCheckClasses(th,iin) {
     }
     
     icheck[icheck.length-1].checked=(!needuncheck);
-    for (var i=0;i<icheck.length;i++) {
-      if (icheck[i].checked) {
-	var oi=document.getElementById(iin);
-	oi.value=icheck[i].value;
+    if (iin) {
+      for (var i=0;i<icheck.length;i++) {
+	if (icheck[i].checked) {
+	  var oi=document.getElementById(iin);
+	  oi.value=icheck[i].value;
+	}
       }
     }
   }
