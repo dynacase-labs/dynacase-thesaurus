@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.2 2001/11/15 17:51:50 eric Exp $
+// $Id: revision.php,v 1.3 2001/11/16 18:04:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: revision.php,v $
+// Revision 1.3  2001/11/16 18:04:39  eric
+// modif de fin de semaine
+//
 // Revision 1.2  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -33,7 +36,6 @@
 
 include_once("FREEDOM/Class.Doc.php");
 include_once("FREEDOM/Class.DocAttr.php");
-include_once("FREEDOM/Class.FileDisk.php");
 function revision(&$action) 
 {
   $dbaccess = $action->GetParam("FREEDOM_DB");

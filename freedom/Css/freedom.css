@@ -1,9 +1,9 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.1 2001/11/09 09:43:59 eric Exp $
+ * $Id: freedom.css,v 1.2 2001/11/16 18:04:39 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
-	background-color: [FREEDOM_TITLEBGCOLOR];	
+	background-color: [CORE_BGCOLORALTERN];	
 }
 
 .FREEDOMTextBigTitle{
@@ -45,7 +45,7 @@
 
 
 .FREEDOMTblFrame{
-	background-color: [FREEDOM_FRAMEBGCOLOR];	
+	background-color: [CORE_FGCOLOR];	
 }
 .FREEDOMTextName{
   font-size: 80%;
@@ -79,7 +79,7 @@ label{
   border-style: solid ;
 }
 .tdstyle{
-  background-color: [FREEDOM_BGATTRCOLOR];
+  background-color: [CORE_BGCOLORALTERN];
   color: [FREEDOM_ABSFGCOLOR];	
 }
 
@@ -109,3 +109,5 @@ DIV.TITLE { color : black;
 	
 }
 
+
+.empty {}

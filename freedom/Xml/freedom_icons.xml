@@ -19,7 +19,7 @@
 .iconimg {
   border-style: hidden;
   border-width: 3;
-  border-color: purple;
+  border-color: [CORE_FGCOLOR];
   width:40;
   height:40;
   
@@ -44,21 +44,21 @@
   left:0;
   top:0;
   border-style:none;
-  border-color:purple;
+  border-color:[CORE_FGCOLOR];
 
 
 }
 
 
 .abstract {
-  background-color: [FREEDOM_FRAMEBGCOLOR];
+  background-color: [CORE_BGCOLORALTERN];
 /*  background-image: url('FREEDOM/Images/button9.png'); */
 /*  background-repeat:no-repeat; */
   font-size: 60%;
   text-align: left;
   position:absolute;
   border-style:groove;
-  border-color:purple;
+  border-color:[CORE_FGCOLOR];
   border-width: 4;
   visibility:hidden;
   z-index:3;

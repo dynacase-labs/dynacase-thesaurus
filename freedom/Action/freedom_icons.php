@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.4 2001/11/15 17:51:50 eric Exp $
+// $Id: freedom_icons.php,v 1.5 2001/11/16 18:04:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.5  2001/11/16 18:04:39  eric
+// modif de fin de semaine
+//
 // Revision 1.4  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -44,7 +47,6 @@ include_once("Class.TableLayout.php");
 include_once("Class.QueryDb.php");
 include_once("Class.QueryGen.php");
 include_once("FREEDOM/freedom_util.php");
-include_once("FREEDOM/Class.FileDisk.php");
 include_once('FREEDOM/Class.QueryDirV.php');
 
 
@@ -177,6 +179,14 @@ function freedom_icons(&$action, $with_abstract=true) {
       $tdoc[$k]["iconsrc"]= $doc->geticon();
   
       $tdoc[$k]["divid"] = $kdiv;
+
+
+      if ($doc->locked > 0) $tdoc[$k]["locked"] = $action->GetIcon("clef2.gif",N_("locked"), 20,20);
+      else if ($doc->locked < 0) $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("fixed"), 20,20);
+      else if ($doc->lmodify == "Y") $tdoc[$k]["locked"] =$action->GetIcon("changed2.gif",N_("changed"), 20,20);
+      else $tdoc[$k]["locked"] ="";
+
+      $tdoc[$k]["iconsrc"]= $doc->geticon();
 
       // ------------------------------
       // define accessibility

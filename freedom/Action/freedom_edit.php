@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.4 2001/11/15 17:51:50 eric Exp $
+// $Id: freedom_edit.php,v 1.5 2001/11/16 18:04:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.5  2001/11/16 18:04:39  eric
+// modif de fin de semaine
+//
 // Revision 1.4  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -45,7 +48,6 @@ include_once("Class.TableLayout.php");
 include_once("Class.QueryDb.php");
 include_once("Class.QueryGen.php");
 include_once("FREEDOM/freedom_util.php");
-include_once("FREEDOM/Class.FileDisk.php");
 
 // -----------------------------------
 function freedom_edit(&$action) {
@@ -67,13 +69,14 @@ function freedom_edit(&$action) {
 
 
 
-  $docid = GetHttpVars("id");        // document to edit
-  $classid = GetHttpVars("classid"); // use when new doc or change class
-  $dirid = GetHttpVars("dirid"); // directory to place doc if new doc
+  $docid = GetHttpVars("id",0);        // document to edit
+  $classid = GetHttpVars("classid",0); // use when new doc or change class
+  $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
 
   $doc= newDoc($dbaccess,$docid);
 
-  
+  // when modification 
+  if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
 
   
     
@@ -104,7 +107,7 @@ function freedom_edit(&$action) {
       $selectclass[$k+1]["classname"]=_("no document type");
   }
 
-  if ($docid == "")
+  if ($docid == 0)
     {
       switch ($classid) {
 	case 2:
@@ -302,12 +305,10 @@ function freedom_edit(&$action) {
 
 	      case "image": 
 		$tableframe[$v]["inputtype"]="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
-		if ($value != "")		
-		  {
-		 ereg ("(.*)\|(.*)", $value, $reg);
-		 $efd = new FileDisk($dbaccess, $reg[2]);
-		 $efile = $destdir.$efd->origname;  
-		 $efd->Copyin($action->GetParam("CORE_PUBDIR")."/".$efile);
+		if ($value != "")				  {
+		 
+		    $efile = $action->GetParam("CORE_BASEURL").
+		    "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id;
 		    $tableframe[$v]["inputtype"] .=$efile;
 		  }
 		else	  // if no image force default image

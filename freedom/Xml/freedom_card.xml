@@ -28,32 +28,8 @@
    </script>
  </head>
 
-<body class="freedom"  >
-
-
-
-
-<!-- Title Table -->
-<div class="TITLE">
-<table width="100%" border="0" cellspacing="0" cellpadding="0"frame="box" rules="none" >
-<tr>
-  
- <td class="FREEDOMTblTitle">
-   <span class="FREEDOMTextBigTitle">[TITLE]
-    </span>
-  </td>
-  <td align="right"  class="FREEDOMTblTitle">
-<a href="#" onClick="subwindow(300,500,'FREEDOM_ACCESS','[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_ACCESS&id=[id]')">[imgaccess]</a>
-<a   type="text/x-vcard" href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_ONEEXPORT&conv_type=Vcard&id=[id]"><img  alt="[TEXT:oneexport]" title="[TEXT:oneexport]" border="0" src="[IMG:export.gif]"></a>
-<a href="#" onclick="self.print()">
-      <img   alt="[TEXT:print]" title="[TEXT:print]" border="0" src="[IMG:print.gif]">
-      </a>
-<a   href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_DEL&id=[id]" onClick="ok=confirm('[TEXT:delconfirm] [deltitle]'); if (ok) setTimeout('parent.list.document.location.reload()',1); return (ok);" >[imgdel]</a>
-   
-  </td>
-</tr>
-</table>
-</div>
+<body class="freedom" 
+      onClick="closeMenu('popupcard');" >
 
 
 
@@ -95,11 +71,34 @@
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 
 
+<!-- Title Table -->
 
-<table 
+<table class="tableborder" cellspacing="0" width="100%" >
+<tr>
+  
+ <td class="FREEDOMTblTitle">
+   <span class="FREEDOMTextBigTitle">[TITLE]
+    </span>
+  </td>
+  <td align="right"  class="FREEDOMTblTitle">
+<a href="#" onClick="subwindow(300,500,'FREEDOM_ACCESS','[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_ACCESS&id=[id]')">[imgaccess]</a>
+<a   type="text/x-vcard" href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_ONEEXPORT&conv_type=Vcard&id=[id]"><img  alt="[TEXT:oneexport]" title="[TEXT:oneexport]" border="0" src="[IMG:export.gif]"></a>
+<a href="#" onclick="self.print()">
+      <img   alt="[TEXT:print]" title="[TEXT:print]" border="0" src="[IMG:print.gif]">
+      </a>
+<a   href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_DEL&id=[id]" onClick="ok=confirm('[TEXT:delconfirm] [deltitle]'); if (ok) setTimeout('parent.list.document.location.reload()',1); return (ok);" >[imgdel]</a>
+   
+  </td>
+</tr>
+</table>
+
+
+
+<p></p>
+
+<table class="tableborder"  cellspacing="0" width="100%"
      onContextMenu="openMenu(event,'popupcard');return false" 
-     onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard')"
-     border="0" width="100%" frame="box" rules="all" cellspacing="0" cellpadding="0" >
+     onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard')"      >
 <tr>
 
   <td class="FREEDOMTblFrame" colspan="3" ><span class="FREEDOMTextTitle">[TEXT:document attributes]</span></td>
@@ -107,7 +106,7 @@
 
 <tr>
   <td class = "tdstyle" width="10%" align="center" rowspan="4">
-    <a href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id=[cid]"<IMG id="1"  border="0" title="[iconalt]" alt="[iconalt]" align="absbottom" width="50" SRC="[iconsrc]"><br>
+    <a href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id=[cid]"><IMG id="1"  border="0" title="[iconalt]" alt="[iconalt]" align="absbottom" width="50" SRC="[iconsrc]"><br>
      <span class="FREEDOMTextValue" style="font-size:50%">[classtitle]</span></a>
   </td>
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:reference]</span></td>

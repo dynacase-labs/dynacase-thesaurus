@@ -103,7 +103,7 @@ function initmicon() {
        width:100%;
        /*border-color: violet;
        border-style: inset;*/
-       background-color:[FREEDOM_FRAMEBGCOLOR];
+       background-color:[CORE_BGCOLORALTERN];
        display:block;
        cursor: default;
        position:block;}
@@ -155,6 +155,8 @@ actionaddfile = "[CORE_STANDURL]&app=[FREEDOM_APP]&action=ADDDIRFILE";
 actionviewfile = "[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LIST";
 
 aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]")
+
+
 [subtree]
 
   //-->
@@ -164,7 +166,8 @@ aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]")
 <body topmargin=16 marginheight=16
       onLoad="initmicon()" 
       onMouseOver="initDrag()" 
-      onMouseUp="drag=0" >
+      onMouseUp="drag=0;"
+      onMouseDown="closeMenu('popfld');">
 
 <!-- By making any changes to this code you are violating your user agreement;
      this can be specially troublesome for corporate users. Check the online 

@@ -19,18 +19,18 @@
 .iconimg {
   border-style: hidden;
   border-width: 1;
-  border-color: purple;
+  border-color: [CORE_FGCOLOR];
   width:30;
   height:30;
   
 }
 .iconline {
-  border-color: purple;
+  border-color: [CORE_FGCOLOR];
   margin:1px;
   padding:0px;
   border-width:3px;
   border-style: hidden;
-  background-color: palegoldenrod;
+  /*background-color: palegoldenrod;*/
   
 }
 /*
@@ -69,24 +69,32 @@
 
 [ZONE FREEDOM:POPUP]
 
+<table class="tablesimple" cellspacing="0" width="100%" >
+
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
-<P  id="d[divid]" class="iconline"  
-     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event);" 
-     onContextMenu="openMenu(event,'popup');return false" >
+<tr  id="d[divid]" class="iconline"  
+     onMouseDown="this.style.borderWidth=10;this.style.borderStyle='solid';select(this,[id],[divid]);openMenuOrProperties(event);" 
+     onContextMenu="openMenu(event,'popup');return false" 
+     >
+<td style="border:thin;border-style : dashed none none none;  ">
 <IMG class="iconimg" id="i[divid]" 
      align="absmiddle"  src="[iconsrc]">
+</td>
+<td style="border:thin;border-style : dashed none none none;  " >  
+  <span class="FREEDOMTextTitle">
+     [title]
+  </span>
+</td>
+     <td style="border:thin;border-style : dashed none none none;  "><sup style="font-size:50%">[revision]</sup></td>
+     <td style="border:thin;border-style : dashed none none none;  ">[locked]</td>
 
-  
-  <span class="FREEDOMTextTitle">[title]<sup style="font-size:50%">[revision]</sup></span>
     
-
-
-</P>
-
+</tr>
 
 
 [ENDBLOCK TABLEBODY]
+</table>
 <!-- /TABLEBODY -->
 
 

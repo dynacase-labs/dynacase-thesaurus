@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.4 2001/11/15 17:51:50 eric Exp $
+// $Id: Class.Doc.php,v 1.5 2001/11/16 18:04:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.5  2001/11/16 18:04:39  eric
+// modif de fin de semaine
+//
 // Revision 1.4  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -38,7 +41,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.4 2001/11/15 17:51:50 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.5 2001/11/16 18:04:39 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -209,7 +212,7 @@ create sequence seq_id_doc start 10";
       if ($err != "") return ($err); 
       
       if (chop($this->title) == "") $this->title =_("untitle document");
-      if ($this->locked <= 0) $this->lmodify='N';
+      if ($this->locked < 0) $this->lmodify='N';
 
     }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.3 2001/11/15 17:51:50 eric Exp $
+// $Id: freedom_mod.php,v 1.4 2001/11/16 18:04:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_mod.php,v $
+// Revision 1.4  2001/11/16 18:04:39  eric
+// modif de fin de semaine
+//
 // Revision 1.3  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -39,7 +42,7 @@ include_once("FREEDOM/Class.DocAttr.php");
 include_once("FREEDOM/Class.DocValue.php");
 include_once("FREEDOM/Class.FreedomLdap.php");
 include_once("FREEDOM/freedom_util.php");  
-include_once("FREEDOM/Class.FileDisk.php");
+include_once("VAULT/Class.VaultFile.php");
 
 
 
@@ -60,6 +63,7 @@ function freedom_mod(&$action) {
   // search the good class of document
   switch ($classid) {
   case 2: // directory
+  case 4: // profile access directory
     include_once("FREEDOM/Class.Dir.php");
     $ofreedom = new Dir($dbaccess);
   break;
@@ -229,8 +233,10 @@ function insert_file($dbaccess,$docid, $attrid)
     
     $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
     move_uploaded_file($userfile['tmp_name'], $destfile);
-    $fd = new FileDisk($dbaccess);
-    $fd->addfile($destfile);
+    global $action;
+    $vf = new VaultFile($dbaccess, $action->parent->name);
+    $vf -> Store($destfile, false , $vid);
+
     unlink($destfile);
   } else {
     $err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
@@ -239,7 +245,7 @@ function insert_file($dbaccess,$docid, $attrid)
   
       
   // return file type and upload file name
-  return $userfile['type']."|".$fd->id;
+  return $userfile['type']."|".$vid;
     
 }
 ?>

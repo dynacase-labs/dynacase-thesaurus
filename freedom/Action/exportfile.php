@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfile.php,v 1.2 2001/11/15 17:51:50 eric Exp $
+// $Id: exportfile.php,v 1.3 2001/11/16 18:04:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/exportfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: exportfile.php,v $
+// Revision 1.3  2001/11/16 18:04:39  eric
+// modif de fin de semaine
+//
 // Revision 1.2  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -33,7 +36,8 @@
 
 include_once("FREEDOM/Class.Doc.php");
 include_once("FREEDOM/Class.DocAttr.php");
-include_once("FREEDOM/Class.FileDisk.php");
+include_once("VAULT/Class.VaultFile.php");
+
 function exportfile(&$action) 
 {
   
@@ -61,17 +65,15 @@ function exportfile(&$action)
   }
 
   
-  $efd = new FileDisk($dbaccess, $vaultid);
+  $vf = new VaultFile($dbaccess, $action->parent->name);
 
-  $destdir="./".GetHttpVars("app")."/Download/";
-  $efile = $destdir.$efd->origname;  
-  $efd->Copyin($action->GetParam("CORE_PUBDIR")."/".$efile);
-
-  $action->log->info("exportfile ".$efd->origname);
-  $url = $action->GetParam("CORE_PUBURL")."/".$efile;
-  //Header("Location: $url");
-  Http_DownloadFile($efile, $efd->origname, $mimetype);
-
+  if ($vf -> Retrieve ($vaultid, $info) != "") {    
+      Http_DownloadFile("FREEDOM/Images/doc.gif", "unknow", "image/gif");
+  } else
+    {
+      //Header("Location: $url");
+      Http_DownloadFile($info->path, $info->name, $mimetype);
+    }
 
   //unlink($efile);
   exit;

@@ -8,7 +8,7 @@ function highlight(th) {
   //th.className="selecticon":
   //oldBgcolor=th.style.backgroundColor;
   //oldBdstyle=th.style.borderStyle;
-  th.style.backgroundColor='[FREEDOM_FRAMEBGCOLOR]';
+  th.style.backgroundColor='[CORE_BGCOLORALTERN]';
   th.style.borderStyle='solid';
   
 }

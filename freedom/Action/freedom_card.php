@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.3 2001/11/15 17:51:50 eric Exp $
+// $Id: freedom_card.php,v 1.4 2001/11/16 18:04:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.4  2001/11/16 18:04:39  eric
+// modif de fin de semaine
+//
 // Revision 1.3  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -61,7 +64,6 @@ include_once("Class.TableLayout.php");
 include_once("Class.QueryDb.php");
 include_once("Class.QueryGen.php");
 include_once("FREEDOM/freedom_util.php");
-include_once("FREEDOM/Class.FileDisk.php");
 
 // -----------------------------------
 // -----------------------------------
@@ -121,7 +123,7 @@ function freedom_card(&$action) {
     $cdoc = newDoc($dbaccess, $doc->fromid);
     $action->lay->Set("classtitle", $cdoc->title);
   } else {
-    $action->lay->Set("classtitle", _("no class"));
+    $action->lay->Set("classtitle", _("no family"));
   }
   if ($doc->profid > 0) {
     $pdoc = newDoc($dbaccess, $doc->profid);
@@ -286,12 +288,6 @@ function freedom_card(&$action) {
 	       {
 	      
 	       case "image": 
-		 ereg ("(.*)\|(.*)", $value, $reg);
-		 $efd = new FileDisk($dbaccess, $reg[2]);
-		 $efile = $destdir.$efd->origname;
-		 $efd->Copyin($action->GetParam("CORE_PUBDIR")."/".$efile);
-		 // reg[1] is image type
-		 $tableimage[$nbimg]["imgsrc"]=$efile; // upload name
 		 $tableimage[$nbimg]["imgsrc"]=$action->GetParam("CORE_BASEURL").
 		    "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id; // upload name
 
@@ -304,12 +300,12 @@ function freedom_card(&$action) {
 		 
 		 break;
 	       case "embed": 
-		 ereg ("(.*)\|(.*)", $value, $reg);
-		 $efd = new FileDisk($dbaccess, $reg[2]);
-		 $efile = $destdir.$efd->origname;  
-		 $efd->Copyin($action->GetParam("CORE_PUBDIR")."/".$efile);
+		 ereg ("(.*)\|(.*)", $value, $reg);		 
+		 // reg[1] is mime type
+		 $src = $action->GetParam("CORE_BASEURL").
+		    "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id;
 		 $tableframe[$v]["value"]="<embed autostart=false  type=\"".$reg[1]."\" src=\"". 
-		   $efile."\">" ;
+		   $src."\">" ;
 		 $tableframe[$v]["value"].="<noembed>
        Your browser doesn't support plug-ins! Please <a
        HREF=\"".$efile."\">use a helper application instead</a>
