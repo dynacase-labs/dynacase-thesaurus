@@ -2,7 +2,7 @@
 [V_PIT_IDADOC]
 
 <select onchange="colorsel2(this)" id="pit_ncolor" name="_pit_ncolor">
-<option value="#f7f58c" onmouseover="colorsel(this)" style="background-color:#"f7f58c>Jaune</option>
+<option value="#f7f58c" onmouseover="colorsel(this)" style="background-color:#f7f58c">Jaune</option>
 <option value="#bbf78c" onmouseover="colorsel(this)" style="background-color:#bbf78c">Vert</option>
 <option value="#8ce5f7" onmouseover="colorsel(this)" style="background-color:#8ce5f7">Bleu</option>
 <option value="#f7d78c" onmouseover="colorsel(this)" style="background-color:#f7d78c">Orange</option>

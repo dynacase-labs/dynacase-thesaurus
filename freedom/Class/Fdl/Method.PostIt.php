@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.PostIt.php,v 1.3 2005/01/20 16:45:53 eric Exp $
+ * @version $Id: Method.PostIt.php,v 1.4 2005/02/15 15:47:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,10 +75,11 @@ function PostModify() {
 	unset($tcolor[$k]);
       }
     }
-    $tcom[]=$ncom;
-    $tdate[]=$this->getDate();
-    $tiduser[]=$this->getUserId();
-    $tcolor[]=$this->getValue("PIT_NCOLOR");
+    $nk=count($tcom);
+    $tcom[$nk]=$ncom;
+    $tdate[$nk]=$this->getDate();
+    $tiduser[$nk]=$this->getUserId();
+    $tcolor[$nk]=$this->getValue("PIT_NCOLOR");
 
     $this->setValue("PIT_COM",$tcom);
     $this->setValue("PIT_DATE",$tdate);
