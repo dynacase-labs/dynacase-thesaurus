@@ -3,7 +3,7 @@
  * Verify constraint on special attribute
  *
  * @author Anakeen 2003
- * @version $Id: vconstraint.php,v 1.3 2004/10/04 07:43:48 eric Exp $
+ * @version $Id: vconstraint.php,v 1.4 2004/11/12 11:19:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -23,6 +23,7 @@ function vconstraint(&$action) {
   $index = GetHttpVars("index",-1); // index of the attributes for arrays
   $domindex = GetHttpVars("domindex",""); // index in dom of the attributes for arrays
 
+  if ($index === "") $index=-1;
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -36,11 +37,9 @@ function vconstraint(&$action) {
 
   } else {
 
-    $doc = createDoc($dbaccess, $famid);
+    $doc = createDoc($dbaccess, $famid,false);
   }
   setPostVars($doc);
-  
-
   
 
 

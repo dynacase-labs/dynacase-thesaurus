@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.220 2004/10/18 08:46:13 marc Exp $
+ * @version $Id: Class.Doc.php,v 1.221 2004/11/12 11:17:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1598,7 +1598,7 @@ create unique index i_docir on doc(initid, revision);";
     return $value;
   } 
 
-  function ApplyMethod($method,$def="",$index=0) {
+  function ApplyMethod($method,$def="",$index=-1) {
     $value=$def;
     if (ereg("::([^\(]+)\(([^\)]*)\)",$method, $reg)) {
       if (method_exists ( $this, $reg[1])) {
@@ -1638,7 +1638,7 @@ create unique index i_docir on doc(initid, revision);";
    * The err is the string error message (empty means no error)
    * The sug is an array of possibles corrections
    */
-  function verifyConstraint($attrid, $index=0) {
+  function verifyConstraint($attrid, $index=-1) {
     $ok=array("err"=>"",
 	      "sug"=>array());
     $oattr = $this->getAttribute($attrid);
