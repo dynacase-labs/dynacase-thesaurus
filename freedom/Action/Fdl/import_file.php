@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.68 2004/06/25 13:01:02 eric Exp $
+ * @version $Id: import_file.php,v 1.69 2004/06/25 14:48:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -533,6 +533,26 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       }
 	
       break;
+    }
+  } else {
+    // add special id
+    if (! $doc->isAffected()) {
+      $tcr["action"]="added"; 
+      if (! $analyze) {
+	// insert default values
+	foreach($prevalues as $k=>$v) {
+	  if ($doc->getValue($k)=="") $doc->setValue($k,$v);
+	}
+	$err = $doc->Add(); 
+	
+	$tcr["id"]=$doc->id;
+	$msg .= $err . sprintf(_("add %s id [%d]  "),$doc->title,$doc->id); 
+	$tcr["msg"]=sprintf(_("add %s id [%d]  "),$doc->title,$doc->id); 
+      } else {
+	$doc->RefreshTitle();
+	$tcr["id"]=$doc->id;
+	$tcr["msg"]=sprintf(_("%s to be add"),$doc->title);
+      }
     }
   }
     
