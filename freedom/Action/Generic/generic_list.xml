@@ -90,11 +90,8 @@ var catgid=[catg];
         onmouseout="if (this.className != 'select') this.className='unselect'" 
         onclick="if (document.noselect) document.noselect=false; else {vselect(this);subwindow(300,400,'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&latest=Y&id=[id]');}" 
      class="unselect" >   
-     <img align="right" width="30" id="ic[id]" class="aicon" src="[iconsrc]">
-     <A class="title" id="t[id]">[title]</A> <I>[state]</I>
-   
+     <img align="right" width="30" id="ic[id]" class="aicon" src="[iconsrc]"><A class="title" id="t[id]">[title]</A> <I>[state]</I>
 [ABSTRACTVALUES]
-
 </div>
                     [ENDBLOCK TABLEBODY]
 <BR>
