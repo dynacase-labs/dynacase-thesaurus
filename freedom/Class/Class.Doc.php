@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.5 2001/11/16 18:04:39 eric Exp $
+// $Id: Class.Doc.php,v 1.6 2001/11/19 18:04:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.6  2001/11/19 18:04:22  eric
+// aspect change
+//
 // Revision 1.5  2001/11/16 18:04:39  eric
 // modif de fin de semaine
 //
@@ -41,7 +44,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.5 2001/11/16 18:04:39 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.6 2001/11/19 18:04:22 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -55,7 +58,7 @@ include_once("FREEDOM/Class.FileDisk.php");
 
 Class Doc extends DbObjCtrl
 {
-  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof");
+  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment");
 
   var $id_fields = array ("id");
 
@@ -67,18 +70,20 @@ Class Doc extends DbObjCtrl
 
   var $sqlcreate = "
 create table doc ( id      int not null,
-                     primary key (id),
-                     owner int,
-                     title varchar(256),
-                     revision float4,
-                     initid int,
-                     fromid int,
-                     doctype varchar(1),
-                     locked int,
-                     icon varchar(256),
-                     lmodify varchar(1),
-                     profid int,
-                     useforprof bool
+                   primary key (id),
+                   owner int,
+                   title varchar(256),
+                   revision float4,
+                   initid int,
+                   fromid int,
+                   doctype varchar(1),
+                   locked int,
+                   icon varchar(256),
+                   lmodify varchar(1),
+                   profid int,
+                   useforprof bool,
+                   revdate int,  
+                   comment varchar(1024)
                    );
 create sequence seq_id_doc start 10";
 
@@ -467,10 +472,13 @@ create sequence seq_id_doc start 10";
 	}
     }
 
-  function AddRevision() {
+  function AddRevision($comment='') {
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
+    $this->comment = $comment;
+    $date =  gettimeofday();
+    $this->revdate = $date['sec'];
     $this->modify();
 
 

@@ -42,6 +42,19 @@
 }
 */
 
+TD.tlist {
+   border-width : 1px;
+   border-style : dashed none none none;
+   border-color : [CORE_BGCOLOR];
+}
+
+TR.tlist {
+  margin:0px;
+  padding:0px;
+}
+
+
+
 </style>
 
 [JS:REF]
@@ -73,21 +86,21 @@
 
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
-<tr  id="d[divid]" class="iconline"  
-     onMouseDown="this.style.borderWidth=10;this.style.borderStyle='solid';select(this,[id],[divid]);openMenuOrProperties(event);" 
+<tr  id="d[divid]"  
+     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event);" 
      onContextMenu="openMenu(event,'popup');return false" 
      >
-<td style="border:thin;border-style : dashed none none none;  ">
+<td class="tlist" width="40" >
 <IMG class="iconimg" id="i[divid]" 
      align="absmiddle"  src="[iconsrc]">
 </td>
-<td style="border:thin;border-style : dashed none none none;  " >  
+<td class="tlist" >  
   <span class="FREEDOMTextTitle">
      [title]
   </span>
 </td>
-     <td style="border:thin;border-style : dashed none none none;  "><sup style="font-size:50%">[revision]</sup></td>
-     <td style="border:thin;border-style : dashed none none none;  ">[locked]</td>
+     <td class="tlist"  width="20"><sup style="font-size:50%">[revision]</sup></td>
+     <td class="tlist"  width="20">[locked]</td>
 
     
 </tr>

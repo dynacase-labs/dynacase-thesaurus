@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.5 2001/11/16 18:04:39 eric Exp $
+// $Id: freedom_icons.php,v 1.6 2001/11/19 18:04:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.6  2001/11/19 18:04:22  eric
+// aspect change
+//
 // Revision 1.5  2001/11/16 18:04:39  eric
 // modif de fin de semaine
 //
@@ -145,12 +148,12 @@ function freedom_icons(&$action, $with_abstract=true) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  $menuitems= array('vprop','chicon','chstate','editdoc','lockdoc','revise','unlockdoc','cancel','copy','delete');
+  $menuitems= array('vprop','chicon','chstate','editdoc','cancel','copy','delete');
   while (list($ki, $imenu) = each($menuitems)) {
     $lpopup->Set("menuitem$ki",$imenu);
     ${$imenu} = "vmenuitem$ki";
   }
-  $lpopup->Set("nbmitem", 10);
+  $lpopup->Set("nbmitem", count($menuitems));
 
 
   $kdiv=1;
@@ -183,7 +186,7 @@ function freedom_icons(&$action, $with_abstract=true) {
 
       if ($doc->locked > 0) $tdoc[$k]["locked"] = $action->GetIcon("clef2.gif",N_("locked"), 20,20);
       else if ($doc->locked < 0) $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("fixed"), 20,20);
-      else if ($doc->lmodify == "Y") $tdoc[$k]["locked"] =$action->GetIcon("changed2.gif",N_("changed"), 20,20);
+      else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
       else $tdoc[$k]["locked"] ="";
 
       $tdoc[$k]["iconsrc"]= $doc->geticon();
@@ -208,19 +211,15 @@ function freedom_icons(&$action, $with_abstract=true) {
 	$tmenuaccess[$kdiv][$chicon]=0; 
 	$tmenuaccess[$kdiv][$editdoc]=0;
       }
-      if (($doc->locked != $action->user->id) && 
-	  $clf) $tmenuaccess[$kdiv][$lockdoc]=1;
-      else $tmenuaccess[$kdiv][$lockdoc]=0;
-      if (($doc->locked != 0) && $clf) $tmenuaccess[$kdiv][$unlockdoc]=1; 
-      else $tmenuaccess[$kdiv][$unlockdoc]=0;
-
-      if (($doc->lmodify == 'Y') && $cud) $tmenuaccess[$kdiv][$revise]=1; 
-      else $tmenuaccess[$kdiv][$revise]=0;
+      $tmenuaccess[$kdiv]["vmenuitem7"]=0;
       
+      $tmenuaccess[$kdiv]["vmenuitem8"]=0;
+      $tmenuaccess[$kdiv]["vmenuitem9"]=0;
       
       
       $kdiv++;
-      $tdoc[$k]["revision"]= $doc->revision;
+      if ($doc->doctype == 'F') $tdoc[$k]["revision"]= $doc->revision;
+      else $tdoc[$k]["revision"]="";
 
       
 

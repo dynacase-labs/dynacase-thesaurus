@@ -7,14 +7,14 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"POT-Creation-Date: 2001-11-19 17:28+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
-	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
+	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
 	"MIME-Version: 1.0\n"
 	"Content-Type: text/plain; charset=ISO-8859-1\n"
 	"Content-Transfer-Encoding: 8-bit\n"
 	"\n"
 
 msgid	"help"
-msgstr	"aide"
+msgstr	""
 
 msgid	"inherit from"
 msgstr	""
@@ -23,14 +23,14 @@ msgid	"no document family"
 msgstr	""
 
 msgid	"modify"
-msgstr	"Modifier"
+msgstr	"Modify"
 
 msgid	" change profile"
 msgstr	""
 
 #, fuzzy
 msgid	"profile access"
-msgstr	"Accessibilité"
+msgstr	"Control access"
 
 msgid	"no profile"
 msgstr	""
@@ -51,10 +51,10 @@ msgid	" paste latest revision"
 msgstr	""
 
 msgid	"updatetitle"
-msgstr	"Mise à jour des titres"
+msgstr	"Update Title Cards"
 
 msgid	"updateldap"
-msgstr	"Mise à jour du serveur LDAP"
+msgstr	"Update LDAP server"
 
 msgid	"Properties:"
 msgstr	""
@@ -64,7 +64,7 @@ msgstr	""
 
 #, fuzzy
 msgid	" edit"
-msgstr	"Éditer"
+msgstr	"Edit"
 
 msgid	" edit attributes"
 msgstr	""
@@ -82,10 +82,10 @@ msgid	" set control"
 msgstr	""
 
 msgid	"print"
-msgstr	"Impression de la page"
+msgstr	"Print this page"
 
 msgid	"delconfirm"
-msgstr	"Voulez-vous supprimer"
+msgstr	"Really Delete"
 
 msgid	"document attributes"
 msgstr	""
@@ -95,36 +95,36 @@ msgstr	""
 
 #, fuzzy
 msgid	"revision"
-msgstr	"Société"
+msgstr	"Organisation"
 
 msgid	"locked by"
 msgstr	""
 
 #, fuzzy
 msgid	" profile access"
-msgstr	"Accessibilité"
+msgstr	"Control access"
 
 msgid	"createdby"
-msgstr	"Créé par"
+msgstr	"Created by"
 
 #, fuzzy
 msgid	"edition: "
-msgstr	"Éditer"
+msgstr	"Edit"
 
 msgid	"category"
-msgstr	"Catégorie"
+msgstr	"Category"
 
 msgid	"visibility"
-msgstr	"Visibilité"
+msgstr	"Visibility"
 
 msgid	"readwriteall"
-msgstr	"publique modifiable"
+msgstr	"readwriteall"
 
 msgid	"readall"
-msgstr	"publique"
+msgstr	"readall"
 
 msgid	"readwriteowner"
-msgstr	"privée"
+msgstr	"Private"
 
 msgid	" view properties"
 msgstr	""
@@ -140,11 +140,10 @@ msgstr	""
 
 #, fuzzy
 msgid	" delete link"
-msgstr	"Supprimer"
+msgstr	"Delete"
 
-#, fuzzy
 msgid	" lauch importation"
-msgstr	"Importation de cartes"
+msgstr	""
 
 msgid	"no file specified : update aborted"
 msgstr	""
@@ -177,17 +176,17 @@ msgid	"no file referenced"
 msgstr	""
 
 msgid	"updateldapok"
-msgstr	"mise à jour du serveur LDAP"
+msgstr	"Update LDAP server"
 
 msgid	"updateldapko"
-msgstr	"échec de mise à jour du serveur LDAP"
+msgstr	"Fail Update LDAP server"
 
 msgid	"fixed"
 msgstr	""
 
 #, fuzzy
 msgid	"nobody"
-msgstr	"Aucun document inclu"
+msgstr	"No embed file"
 
 msgid	"no family"
 msgstr	""
@@ -196,13 +195,13 @@ msgid	"no access control"
 msgstr	""
 
 msgid	"edit"
-msgstr	"Éditer"
+msgstr	"Edit"
 
 msgid	"delete"
-msgstr	"Supprimer"
+msgstr	"Delete"
 
 msgid	"goaccess"
-msgstr	"Accessibilité"
+msgstr	"Control access"
 
 msgid	"no document type"
 msgstr	""
@@ -217,29 +216,28 @@ msgid	"new document"
 msgstr	""
 
 msgid	"create"
-msgstr	"Créer"
+msgstr	"Create"
 
 msgid	"document not referenced"
 msgstr	""
 
 msgid	"noappli"
-msgstr	"Aucune application"
+msgstr	"No application"
 
 msgid	"noembed"
-msgstr	"Aucun document inclu"
+msgstr	"No embed file"
 
 msgid	"admin"
-msgstr	"Fonctions d'administration"
+msgstr	"Admnistration functions"
 
 msgid	"import"
-msgstr	"Importer"
+msgstr	"Import"
 
 msgid	"add"
-msgstr	"Ajouter un nouveau contact"
+msgstr	"Add new contact card"
 
 msgid	"export"
-msgstr	"Exporter les cartes \n"
-	"selon les critères courants"
+msgstr	"Export selected cards"
 
 msgid	"locked"
 msgstr	""
@@ -273,16 +271,15 @@ msgstr	""
 msgid	"edit document"
 msgstr	""
 
-#, fuzzy
 msgid	"delete document"
-msgstr	"supprimer mes propres cartes"
+msgstr	""
 
 msgid	"basic documentation family"
 msgstr	""
 
 #, fuzzy
 msgid	"title"
-msgstr	"Mise à jour des titres"
+msgstr	"Update Title Cards"
 
 msgid	"directory class"
 msgstr	""
@@ -293,9 +290,8 @@ msgstr	""
 msgid	"profile directory access class"
 msgstr	""
 
-#, fuzzy
 msgid	"Cannot Add : need FREEDOM privilege"
-msgstr	"L'ajout de carte nécessite le privilège CONTACT"
+msgstr	""
 
 msgid	"untitle document"
 msgstr	""
@@ -321,30 +317,29 @@ msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
 msgstr	""
 
 msgid	"errldapadd"
-msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
-	"attributs n'est pas conforme"
+msgstr	"Card is not modify in LDAP server : one of this attribute is not "
+	"appropriate"
 
 msgid	"errldapconnect"
-msgstr	"Le server LDAP n'a pas pu être contacté"
+msgstr	"LDAP server cannot be contacted"
 
 msgid	"Freedoms"
 msgstr	""
 
-#, fuzzy
 msgid	"Freedoms Management"
-msgstr	"Gestion de cartes"
+msgstr	""
 
 msgid	"Access To All Users"
-msgstr	"Accès à tous les utilisateurs"
+msgstr	""
 
 msgid	"Access Management Database"
-msgstr	"Accès administration de la base"
+msgstr	""
 
 msgid	"Access To My Own account"
-msgstr	"Accès à ses propres cartes"
+msgstr	""
 
 msgid	"Access To Read Only"
-msgstr	"Accès en lecture seule"
+msgstr	""
 
 msgid	"Freedoms frame"
 msgstr	""
@@ -379,9 +374,8 @@ msgstr	""
 msgid	"refresh directory"
 msgstr	""
 
-#, fuzzy
 msgid	"attributes modification"
-msgstr	"Modification de cartes"
+msgstr	""
 
 msgid	"export file to consulting"
 msgstr	""
@@ -410,28 +404,24 @@ msgstr	""
 msgid	"make a new document revision"
 msgstr	""
 
-#, fuzzy
 msgid	"Freedom modification"
-msgstr	"Modification de cartes"
+msgstr	""
 
-#, fuzzy
 msgid	"Freedom deletion"
-msgstr	"Suppression de cartes"
+msgstr	""
 
-#, fuzzy
 msgid	"Freedom importation"
-msgstr	"Importation de cartes"
+msgstr	""
 
-#, fuzzy
 msgid	"Freedoms exportation"
-msgstr	"Exportation de cartes"
+msgstr	""
+
+msgid	"Freedom exportation"
+msgstr	""
 
 #, fuzzy
-msgid	"Freedom exportation"
-msgstr	"Exportation d'une carte"
-
 msgid	"Administration"
-msgstr	"Administration"
+msgstr	"Organisation"
 
 msgid	"Freedom update title fields"
 msgstr	""
@@ -443,105 +433,70 @@ msgid	"Freedom accessibilities"
 msgstr	""
 
 #~ msgid	"civilstate"
-#~ msgstr	"État civil"
+#~ msgstr	"Identity"
 
 #~ msgid	"photo"
-#~ msgstr	"Photographie"
+#~ msgstr	"Photography"
 
 #~ msgid	"buscategory"
-#~ msgstr	"Fonction"
+#~ msgstr	"Title"
 
 #~ msgid	"department"
-#~ msgstr	"Département"
+#~ msgstr	"Department"
 
 #~ msgid	"email"
 #~ msgstr	"Email"
 
 #~ msgid	"phone"
-#~ msgstr	"Téléphone"
+#~ msgstr	"Phone"
 
 #~ msgid	"fax"
 #~ msgstr	"Fax"
 
 #~ msgid	"organisation"
-#~ msgstr	"Société"
+#~ msgstr	"Organisation"
 
 #~ msgid	"postaladdress"
-#~ msgstr	"Adresse"
+#~ msgstr	"Address"
 
 #~ msgid	"postalcode"
-#~ msgstr	"Code Postal"
+#~ msgstr	"Zip"
 
 #~ msgid	"locality"
-#~ msgstr	"Ville"
+#~ msgstr	"Locality"
 
 #~ msgid	"url"
-#~ msgstr	"Page Web (URL)"
+#~ msgstr	"URL"
 
 #~ msgid	"home"
-#~ msgstr	"Domicile"
+#~ msgstr	"Home"
 
 #~ msgid	"mobile"
-#~ msgstr	"Mobile"
+#~ msgstr	"Cellular"
 
 #~ msgid	"firstname"
-#~ msgstr	"Prénom"
+#~ msgstr	"Firstname"
 
 #~ msgid	"lastname"
-#~ msgstr	"Nom"
+#~ msgstr	"Lastname"
 
 #~ msgid	"business"
-#~ msgstr	"Professionnel"
+#~ msgstr	"Bussiness"
 
 #~ msgid	"oneexport"
-#~ msgstr	"Exporter cette carte"
+#~ msgstr	"Export this card"
 
 #~ msgid	"newcatg"
-#~ msgstr	"Autre"
+#~ msgstr	"Others"
 
 #~ msgid	"allcatg"
-#~ msgstr	"Toutes"
+#~ msgstr	"All"
 
 #~ msgid	"onlyowner"
-#~ msgstr	"perso"
+#~ msgstr	"my"
 
 #~ msgid	"search"
-#~ msgstr	"Lancer la recherche"
+#~ msgstr	"Start search"
 
 #~ msgid	"noedit"
-#~ msgstr	"Modification refusée"
-
-#~ msgid	"delete any card"
-#~ msgstr	"supprimer n'importe quelles cartes"
-
-#, fuzzy
-#~ msgid	"modify own cardgroup_default"
-#~ msgstr	"modifier mes propres cartes"
-
-#~ msgid	"modify any card"
-#~ msgstr	"modifier n'importe quelles cartes"
-
-#~ msgid	"modify public card"
-#~ msgstr	"modifier les cartes publiques"
-
-#~ msgid	"Cannot Modify : need CONTACT privilege"
-#~ msgstr	"La modification de carte nécessite le privilège CONTACT"
-
-#~ msgid	"Cannot Modify : Not Owner"
-#~ msgstr	"La modification n'est autorisé que par son propriétaire"
-
-#~ msgid	"Cannot Delete : Not Owner"
-#~ msgstr	"La suppression n'est autorisé que par son propriétaire"
-
-#~ msgid	"Contacts"
-#~ msgstr	"Contacts"
-
-#, fuzzy
-#~ msgid	"Contacts frame"
-#~ msgstr	"Contacts"
-
-#~ msgid	"Contacts list"
-#~ msgstr	"Listes des contacts"
-
-#~ msgid	"Contacts card"
-#~ msgstr	"Lecture carte"
+#~ msgstr	"Modify not possible"

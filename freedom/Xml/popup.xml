@@ -10,18 +10,9 @@
 
 <a href="#" id="chstate">[TEXT: change state]</a>
 
-<a href="#" id="editdoc" 
-    
+<a href="#" id="editdoc"     
     onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id='+docid,'doc_properties');closeMenu('popup')"  >[TEXT: edit document]</a>
 
-<a href="#" id="lockdoc" 
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=LOCKFILE&id='+docid,'doc_properties');closeMenu('popup')"  >[TEXT: lock document]</a>
-
-<a href="#" id="revise" 
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=REVISION&id='+docid,'doc_properties');closeMenu('popup')" >[TEXT: revise document]</a>
-
-<a href="#" id="unlockdoc"
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=UNLOCKFILE&id='+docid,'doc_properties');closeMenu('popup')" >[TEXT: unlock document]</a>
 
 <a href="#" id="copy" 
     onClick="activedrag(event);closeMenu('popup')" >[TEXT: link document]</a>

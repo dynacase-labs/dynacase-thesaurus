@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.4 2001/11/16 18:04:39 eric Exp $
+// $Id: freedom_card.php,v 1.5 2001/11/19 18:04:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.5  2001/11/19 18:04:22  eric
+// aspect change
+//
 // Revision 1.4  2001/11/16 18:04:39  eric
 // modif de fin de semaine
 //
@@ -106,7 +109,16 @@ function freedom_card(&$action) {
   $action->lay->Set("reference", $doc->initid);
 
   $action->lay->Set("revision", $doc->revision);
+  
+  if ($action->GetParam("CORE_LANG") == "fr") { // date format depend of locale
+    setlocale (LC_TIME, "fr_FR");
+    $action->lay->Set("revdate", strftime ("%a %d %b %Y %T",$doc->revdate));
+  } else {
+    $action->lay->Set("revdate", strftime ("%x %T",$doc->revdate));
 
+  }
+
+  $action->lay->Set("comment", $doc->comment);
   $destdir="./".GetHttpVars("app")."/Download/"; // for downloading file
 
   if ($doc->locked > 0) {

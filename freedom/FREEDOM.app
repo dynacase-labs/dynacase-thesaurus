@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.4 2001/11/15 17:51:50 eric Exp $
+// $Id: FREEDOM.app,v 1.5 2001/11/19 18:04:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.5  2001/11/19 18:04:22  eric
+// aspect change
+//
 // Revision 1.4  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -205,6 +208,11 @@ $action_desc = array (
    "name"		=>"FREEDOM_EDIT",
    "acl"		=>"FREEDOM"
   ),
+  array( 
+   "name"		=>"REVCOMMENT",
+   "short_name"		=>N_("add comment before revise document"),
+   "acl"		=>"FREEDOM",
+  ) ,
   array(
    "name"		=>"REVISION",
    "short_name"		=>N_("make a new document revision"),
