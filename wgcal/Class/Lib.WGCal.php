@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.17 2005/03/10 21:41:55 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.18 2005/03/14 06:40:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -173,12 +173,15 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
       if (isset($varclass["ZoneEvtAbstract"]) && isset($varclass["ZoneEvtCard"])) {
         $abstract =  $varclass["ZoneEvtAbstract"];
         $view = $varclass["ZoneEvtCard"];
+        $viewltext = $varclass["ZoneEvtCardLongText"];
       } else {
         $abstract =  "WGCAL:DEFAULTABS";
         $view = "WGCAL:DEFAULTVIEW";
+        $viewltext = "WGCAL:VLONGTEXT";
       }
       $item["RESUME"] = $abstract;
       $item["VIEW"] = $view;
+      $item["VIEWLTEXT"] = $viewltext;
       $item["RG"] = count($tout);
 
       if ($action->user->fid == $v["evt_idcreator"]) {
@@ -253,6 +256,12 @@ function WGCalDaysInMonth($ts)
   for($thisDay=1;checkdate($thisMonth,$thisDay,$thisYear);$thisDay++);
   return ($thisDay-1);
 } 
+
+function date2db($d, $hm = true) {
+  $fmt = ($hm ? "%d/%m/%Y %H:%M" : "%d/%m/%Y" );
+  $s = strftime($fmt, $d);
+  return $s;
+}
 
 function dbdate2ts($dbtime) {
   $sec = substr($dbtime,17,2);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-10 18:32+0100\n"
+"POT-Creation-Date: 2005-03-13 11:42+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -84,6 +84,9 @@ msgstr "Me mettre en copie des mails émis"
 
 msgid "displayed refused events"
 msgstr "Afficher les évènements refusé :"
+
+msgid "check for conflicts"
+msgstr "Vérifier les conflits"
 
 msgid "show icons in resume"
 msgstr "Afficher les icones et les heures sur l'agenda"
@@ -189,6 +192,15 @@ msgstr "Vue mensuelle texte"
 
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
+
+msgid "there are conflicts with events (see after)"
+msgstr "Cet évènement est en conflit avec ceux ci-dessous"
+
+msgid "modify event"
+msgstr "Modifier le rendez-vous"
+
+msgid "ignore conflict"
+msgstr "Ignorer les conflits"
 
 msgid "calendar creation"
 msgstr "Sélection des calendriers"
@@ -573,6 +585,9 @@ msgstr "heure de début"
 
 msgid "end hour"
 msgstr "heure de fin"
+
+msgid "hours division size"
+msgstr "Division de l'heure"
 
 msgid "meetings edition"
 msgstr "Edition des rendez-vous"

@@ -6,8 +6,8 @@
 <input id="jdend" name="jdend" type="hidden" value="">
 </form>
 
-<form id="editevent" name="editevent" method="POST" target="wgcal_conflict" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
-<input type="hidden" id="check" name="check" value="1">
+<form id="editevent" name="editevent" method="POST" target="wgcal_conflict" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHECKCONFLICT">
+<input type="hidden" id="cfchecked" name="cfchecked" value="0">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 <input type="hidden" id="ownerid" name="ownerid" value="[ownerid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
@@ -359,9 +359,9 @@ Calendar.setup(
 [ENDBLOCK EMPTY]
 </td>
 <td align="right">
-<img src="WGCAL/Images/wm-save.png" 
+<img src="WGCAL/Images/wm-save.png" id="btnSave"
   height="20" title="[TEXT:save]" class="WGCalAction" onclick="saveEvent();">
-<img src="WGCAL/Images/wm-close.png" 
+<img src="WGCAL/Images/wm-close.png" id="btnCancel"
   height="20" title="[TEXT:cancel]" class="WGCalAction" onclick="cancelEvent('[TEXT: cancel modifications]');">
 </td></tr></table>
 
@@ -381,7 +381,8 @@ document.getElementById('rvtitle').focus();
 <div><img height="15" src="[atticon]"><span style="text-decoration:[attnamestyle]">[atttitle]</span>&nbsp;<span style="font-style:italic">([attstate])</span></div>[ENDBLOCK [GROUPCONTENT]]
 </div>[ENDBLOCK GROUPS]
 
-[ZONE WGCAL:WGCAL_CONFLICT]
+<iframe name="wgcal_conflict" id="wgcal_conflict" style="position:absolute;left:1%;top:1%;width:98%;height:98%;border:1px dotted red;display:none" marginwidth="0" marginheight="0">
+</iframe>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]
  

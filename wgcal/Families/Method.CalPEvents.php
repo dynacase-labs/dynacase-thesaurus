@@ -8,6 +8,7 @@ var $eventFamily       = "EVENT_FROM_CAL";
 
 var $ZoneEvtAbstract =  "WGCAL:CALEV_ABSTRACT";
 var $ZoneEvtCard =  "WGCAL:CALEV_CARD";
+var $ZoneEvtCardLongText =  "WGCAL:CALEV_VIEWLTEXT";
 
 function postModify() {
   $err = $this->setEvent(); 

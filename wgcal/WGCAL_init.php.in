@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.20 2005/03/10 10:30:59 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.21 2005/03/14 06:40:56 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,6 +59,7 @@ array(
 
 "WGCAL_U_RVMAILCC" => array("kind"=>"static", "val"=>"", "descr"=>N_("send me event mail copy"), "user"=>"Y"),
 "WGCAL_U_DISPLAYREFUSED" => array("kind"=>"static", "val"=>"0", "descr"=>N_("displayed refused events"), "user"=>"Y"),
+"WGCAL_U_CHECKCONFLICT" => array("kind"=>"static", "val"=>"1", "descr"=>N_("check for conflicts"), "user"=>"Y"),
 
 "WGCAL_U_RESUMEICON" => array("kind"=>"static", "val"=>"1", "descr"=>N_("show icons in resume"),"user"=>"Y"),
 "WGCAL_U_ALTFIXED" => array("kind"=>"static", "val"=>"Float", "descr"=>N_("alt postion is fixed"),"user"=>"Y"),

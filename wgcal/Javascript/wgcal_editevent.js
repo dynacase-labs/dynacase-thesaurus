@@ -285,6 +285,7 @@ function attkillwins() {
 function saveEvent() {
   var fs = document.getElementById('editevent');
   var ti = document.getElementById('rvtitle');
+  var refi = document.getElementById('editevent');
   if (ti.value=='') {
     ti.style.background = 'red';
     document.getElementById('errTitle').style.display='';
@@ -292,8 +293,6 @@ function saveEvent() {
   }
   if (EventSelectAll(fs)) { 
     fs.submit();
-    document.getElementById('wgcal_conflict').style.display='';
-//     self.close();
   }
   return false;
 }

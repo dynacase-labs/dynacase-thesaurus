@@ -1,0 +1,5 @@
+<table width="100%" border=1 cellspacing="0" cellpadding="0px"><tr>
+<td width="30%">[dates]</td>
+<td width="40%">[title]</td>
+<td align="right" width="30%">[owner]&nbsp;[BLOCK icons]<img style="border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]</td>
+</tr></table>

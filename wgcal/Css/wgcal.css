@@ -399,7 +399,8 @@ TD {
 }
 
 .calendar tbody td.weekend { /* Cells showing weekend days */
-  color: [WTH_COLOR_1];
+  color: [WTH_COLOR_3];
+  background-color: [WTH_COLOR_1];
 }
 
 .calendar tbody td.today { /* Cell showing today date */
