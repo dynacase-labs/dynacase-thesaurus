@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.65 2004/06/11 16:11:12 eric Exp $
+ * @version $Id: editutil.php,v 1.66 2004/06/23 14:27:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.65 2004/06/11 16:11:12 eric Exp $
+// $Id: editutil.php,v 1.66 2004/06/23 14:27:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,6 +53,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 
  $idocfamid=$oattr->format;
 
+ $alone=$oattr->isAlone; // set by method caller in special case to display alone
 
 
   $attrid=$oattr->id;
@@ -442,18 +443,24 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	$input.="</td><td width=\"100px\">";
 	if (ereg("list",$attrtype, $reg)) $ctype="multiple";
 	else $ctype="single";
+
+	if ($alone) $ctype.="-alone";
 	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
 	  " title=\"".$ititle."\"".
 	  " onclick=\"sendEnumChoice(event,".$docid.
 	  ",this,'$attridk','$ctype')\">";
 
 	// clear button
+	
 	if (ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg)) {
-      
-	  $argids = split(",",$reg[3]);  // output args
-	  $arg = array();
-	  while (list($k, $v) = each($argids)) {
-	    if (strlen($v) > 1) $arg[$k]= strtolower(chop($v));
+	  if ($alone) {
+	    $arg = array($oattr->id);
+	  } else {
+	    $argids = split(",",$reg[3]);  // output args
+	    $arg = array();
+	    while (list($k, $v) = each($argids)) {
+	      if (strlen($v) > 1) $arg[$k]= strtolower(chop($v));
+	    }
 	  }
 	  if (count($arg) > 0) {
 	    $jarg="'".implode("','",$arg)."'";
@@ -757,5 +764,25 @@ function getLayAdoc(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $lay->set("idocid",strtolower($idocid));
   $lay->set("value",$value);
 
+}
+
+/**
+ * add different js files needed in edition mode
+ */
+function editmode(&$action) {
+  
+  $action->parent->AddJsRef("htmlarea/htmlarea.js");
+  $action->parent->AddJsRef("htmlarea/htmlarea-lang-en.js");
+  $action->parent->AddJsRef("htmlarea/dialog.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=EDITJS");
 }
 ?>
