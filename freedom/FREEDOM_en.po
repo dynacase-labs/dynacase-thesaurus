@@ -5,7 +5,7 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"Report-Msgid-Bugs-To: \n"
-	"POT-Creation-Date: 2004-04-27 11:06+0200\n"
+	"POT-Creation-Date: 2004-04-27 15:09+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -586,92 +586,68 @@ msgid	"Delete %d in %s folder"
 msgstr	""
 
 #, fuzzy
-msgid	"view document"
-msgstr	"Organisation"
-
-msgid	"view"
-msgstr	""
-
-#, fuzzy
-msgid	"send document"
-msgstr	"Import"
-
-#, fuzzy
-msgid	"send"
-msgstr	"Edit"
-
-msgid	"edit document"
-msgstr	""
-
-#, fuzzy
-msgid	"edit"
-msgstr	"Edit"
-
-#, fuzzy
-msgid	"delete document"
-msgstr	"Delete"
-
-msgid	"delete"
-msgstr	"Delete"
-
-#, fuzzy
-msgid	"open folder"
-msgstr	"Modify"
-
-msgid	"open"
-msgstr	""
-
-#, fuzzy
-msgid	"execute search"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	"execute"
-msgstr	"Delete"
-
-#, fuzzy
-msgid	"modify folder"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"view acl"
-msgstr	"Start search"
-
-msgid	"viewacl"
-msgstr	""
-
-#, fuzzy
-msgid	"modify acl"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"modifyacl"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"create doc"
-msgstr	"Create"
+msgid	"no filename"
+msgstr	"Firstname"
 
 #, c-format
-msgid	"no privilege %s"
+msgid	"parameters for %s state"
 msgstr	""
 
 #, c-format
-msgid	"unknow privilege %s"
+msgid	"id %s profile"
 msgstr	""
 
-msgid	"the email syntax  is like : john.doe@anywhere.org"
-msgstr	""
+#, fuzzy, c-format
+msgid	"%s profile"
+msgstr	"Category"
 
-msgid	"the email must containt the @ character"
-msgstr	""
-
-msgid	"the date syntax must be like : DD/MM/AAAA"
+#, c-format
+msgid	"id %s mask"
 msgstr	""
 
 #, c-format
-msgid	"the date %s is in the past: today is %s"
+msgid	"%s mask"
 msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	""
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"The change state to %s has been aborded.\n"
+	"%s"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"change state : %s to %s"
+msgstr	"Category"
+
+#, c-format
+msgid	"%s new state %s"
+msgstr	""
+
+#, c-format
+msgid	"The change state to %s has been realized. But the following warning "
+	"is appeared.\n"
+	"%s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"cannot change state of document #%d to %s"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"automaticaly by change state of %s\n"
+	"%s"
+msgstr	"Category"
 
 #, fuzzy, c-format
 msgid	"untitle %s %d"
@@ -745,10 +721,6 @@ msgstr	""
 msgid	"vault file error"
 msgstr	""
 
-#, fuzzy
-msgid	"no filename"
-msgstr	"Firstname"
-
 #, c-format
 msgid	"cannot control : object not initialized : %s"
 msgstr	""
@@ -761,66 +733,6 @@ msgstr	""
 msgid	"new %s"
 msgstr	""
 
-#, c-format
-msgid	"parameters for %s state"
-msgstr	""
-
-#, c-format
-msgid	"id %s profile"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"%s profile"
-msgstr	"Category"
-
-#, c-format
-msgid	"id %s mask"
-msgstr	""
-
-#, c-format
-msgid	"%s mask"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	""
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"The change state to %s has been aborded.\n"
-	"%s"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"change state : %s to %s"
-msgstr	"Category"
-
-#, c-format
-msgid	"%s new state %s"
-msgstr	""
-
-#, c-format
-msgid	"The change state to %s has been realized. But the following warning "
-	"is appeared.\n"
-	"%s"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"cannot change state of document #%d to %s"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"automaticaly by change state of %s\n"
-	"%s"
-msgstr	"Category"
-
 msgid	"not perm for admin"
 msgstr	""
 
@@ -828,10 +740,98 @@ msgid	"not pertinent"
 msgstr	""
 
 #, fuzzy
+msgid	"view document"
+msgstr	"Organisation"
+
+msgid	"view"
+msgstr	""
+
+#, fuzzy
+msgid	"send document"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"send"
+msgstr	"Edit"
+
+msgid	"edit document"
+msgstr	""
+
+#, fuzzy
+msgid	"edit"
+msgstr	"Edit"
+
+#, fuzzy
+msgid	"delete document"
+msgstr	"Delete"
+
+msgid	"delete"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"open folder"
+msgstr	"Modify"
+
+msgid	"open"
+msgstr	""
+
+#, fuzzy
+msgid	"execute search"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"execute"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"modify folder"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"view acl"
+msgstr	"Start search"
+
+msgid	"viewacl"
+msgstr	""
+
+#, fuzzy
+msgid	"modify acl"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"modifyacl"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"create doc"
+msgstr	"Create"
+
+#, fuzzy
 msgid	"unlock"
 msgstr	"Create"
 
 msgid	"unlock unowner locked doc"
+msgstr	""
+
+#, c-format
+msgid	"no privilege %s"
+msgstr	""
+
+#, c-format
+msgid	"unknow privilege %s"
+msgstr	""
+
+msgid	"the email syntax  is like : john.doe@anywhere.org"
+msgstr	""
+
+msgid	"the email must containt the @ character"
+msgstr	""
+
+msgid	"the date syntax must be like : DD/MM/AAAA"
+msgstr	""
+
+#, c-format
+msgid	"the date %s is in the past: today is %s"
 msgstr	""
 
 msgid	"errldapadd"
@@ -1040,6 +1040,40 @@ msgstr	""
 msgid	"Tout"
 msgstr	""
 
+msgid	"include"
+msgstr	""
+
+msgid	"equal"
+msgstr	""
+
+msgid	"not equal"
+msgstr	""
+
+#, fuzzy
+msgid	"not include"
+msgstr	"Modify"
+
+msgid	"&gt; or equal"
+msgstr	""
+
+msgid	"&lt; or equal"
+msgstr	""
+
+#, fuzzy
+msgid	"and"
+msgstr	"Add new contact card"
+
+msgid	"or"
+msgstr	""
+
+#, fuzzy
+msgid	"doctitle"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"revdate"
+msgstr	"Create"
+
 msgid	"read only"
 msgstr	""
 
@@ -1068,41 +1102,13 @@ msgid	"N"
 msgstr	""
 
 #, fuzzy
-msgid	"doctitle"
-msgstr	"Update Title Cards"
-
-#, fuzzy
-msgid	"revdate"
-msgstr	"Create"
-
-#, fuzzy
 msgid	"revision"
 msgstr	"Organisation"
 
-msgid	"include"
+msgid	"is empty"
 msgstr	""
 
-msgid	"equal"
-msgstr	""
-
-msgid	"not equal"
-msgstr	""
-
-#, fuzzy
-msgid	"not include"
-msgstr	"Modify"
-
-msgid	"&gt; or equal"
-msgstr	""
-
-msgid	"&lt; or equal"
-msgstr	""
-
-#, fuzzy
-msgid	"and"
-msgstr	"Add new contact card"
-
-msgid	"or"
+msgid	"is not empty"
 msgstr	""
 
 #, fuzzy, c-format

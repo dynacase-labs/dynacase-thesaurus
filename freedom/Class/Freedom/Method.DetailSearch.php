@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.18 2004/03/08 11:18:56 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.19 2004/04/27 13:25:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.18 2004/03/08 11:18:56 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.19 2004/04/27 13:25:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,9 @@ var $tfunc=array("~*" => "include",         #N_("include")
 		 ">" => "&gt;",       #N_("not equal")
 		 "<" => "&lt;",       #N_("not equal")
 		 ">=" => "&gt; or equal",       #N_("&gt; or equal")
-		 "<=" => "&lt; or equal");   #N_("&lt; or equal")
+		 "<=" => "&lt; or equal",   #N_("&lt; or equal")
+		 "is null" => "is empty",   #N_("is empty")
+		 "is not null" => "is not empty");       #N_("is not empty")
 var $tol=array("and" => "and",              #N_("and")
 	       "or" => "or");               #N_("or")
 
@@ -81,18 +83,27 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   
   $cond="";
   $tol[0]="";
-  if ((count($tkey) > 1) || ($tkey[0] != "")) {
+  if ((count($taid) > 1) || ($taid[0] != "")) {
     // special loop for revdate
-    while(list($k,$v) = each($tkey)) {
+    foreach($tkey as $k=>$v) {
       if ($taid[$k] == "revdate") {
 	list($dd,$mm,$yyyy) = explode("/",$v);
 	$tkey[$k]=mktime (0,0,0,$mm,$dd,$yyyy);
       }
     }
     
-    reset($tkey);
-    while(list($k,$v) = each($tkey)) {
-      $cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".pg_escape_string(trim($tkey[$k]))."' ";
+    foreach ($tol as $k=>$v) {
+      switch($tf[$k]) {
+      case "is null":
+	$cond .= $tol[$k].sprintf("(%s is null or %s = '')",$taid[$k],$taid[$k]);
+	break;
+      case "is not null":
+	$cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k]);
+	break;
+      default:
+	$cond .= $tol[$k]." ".$taid[$k]." ".trim($tf[$k])." '".pg_escape_string(trim($tkey[$k]))."' ";
+      
+      }
     }
   }
 
@@ -191,6 +202,7 @@ function editdsearch() {
   $zpi=$fdoc->GetNormalAttributes();
 
   while (list($k,$v) = each($zpi)) {
+    if ($v->type == "array") continue;
     $tattr[]=array("attrid"=> $v->id,
 		   "attrname" => $v->labelText);
   }
