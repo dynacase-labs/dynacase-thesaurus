@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.27 2004/10/08 07:45:11 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.28 2004/11/26 14:21:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -193,6 +193,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
     $zpi["state"]->labelText=_("state");
     $zpi["title"]->labelText=_("doctitle");
     $zpi["revdate"]->labelText=_("revdate");
+    $zpi["owner"]->labelText=_("id owner");
   
     $tol[0]=" ";
     foreach ($tkey as $k=>$v) {
@@ -279,6 +280,7 @@ function editdsearch() {
   $tattr=array();
   $internals=array("title" => _("doctitle"),
 		   "revdate" => _("revdate"),
+		   "owner" => _("id owner"),
 		   "values"=> _("any values"));
   
   while (list($k,$v) = each($internals)) {
