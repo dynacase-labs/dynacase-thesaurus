@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.1 2002/06/14 08:58:34 eric Exp $
+// $Id: editutil.php,v 1.2 2002/07/11 13:28:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -131,7 +131,7 @@ function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value)
     if ($visibility == "R") $input .=" disabled ";
     $input .= " >".
        chop(htmlentities(stripslashes($value))).
-       "</textarea>";
+       "</textarea> ";
     $input.="<input type=\"button\" value=\"".
        _("...")."\" onClick=\"sendmodifydoc(event,".$docid.
        ",'".$attrid."','multiple')\">";
@@ -143,7 +143,7 @@ function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value)
       $input="<input class=\"autoresize\" type=\"text\"  name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
-    $input .= " > "; 
+    $input .= " >&nbsp;"; 
     $input.="<input type=\"button\" value=\"".
        _("...")."\" ".
        "onClick=\"show_calendar(event,'".$attrid."')\"".
