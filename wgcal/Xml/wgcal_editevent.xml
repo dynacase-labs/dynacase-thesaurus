@@ -1,7 +1,6 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="eventid" name="eventid" value="[EVENTID]"> </form>
-<form id="editevent" name="editevent" method="POST" target="other"
-      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
+<form id="editevent" name="editevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 <input type="hidden" id="ownerid" name="ownerid" value="[ownerid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
@@ -13,7 +12,9 @@
 <tr><td align="right">
 <img src="WGCAL/Images/wm-save.png" 
   height="20" title="[TEXT:save]" class="WGCalButton" style="border:0px" onclick="saveEvent();">
-[BLOCK EMPTY][nop]
+<img src="WGCAL/Images/wm-close.png" 
+  height="20" title="[TEXT:close]" class="WGCalButton" style="border:0px" onclick="cancelEvent();">
+[BLOCK EMPTY][nop]&nbsp;&nbsp;
 <img src="WGCAL/Images/wm-mail.png" 
   height="20" title="[TEXT:mail to contacts]" class="WGCalButton" style="border:0px" onclick="mailatt();">
 <img src="WGCAL/Images/wm-print.png" 
@@ -21,8 +22,7 @@
 <img src="WGCAL/Images/wm-delete.png" 
   height="20" title="[TEXT:delete]" class="WGCalButton" style="border:0px" onclick="deleteEvent();">
 [ENDBLOCK EMPTY]
-<img src="WGCAL/Images/wm-close.png" 
-  height="20" title="[TEXT:close]" class="WGCalButton" style="border:0px" onclick="cancelEvent();">
+
 </td></tr></table>
 
 <fieldset>
@@ -124,9 +124,9 @@
 
 [TEXT:confidentiality] : <select id="rvconfid" onchange="EventSetElement('rvconfid', 'evconfidentiality')" [rvvisro]>[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]</select>
 
-[TEXT:calendar] : <select id="rvcalendar" onchange="EventSetElement('rvcalendar', 'evcalendar')" [rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
+[TEXT:calendar] : <select id="rvcalendar" [rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
 
-[TEXT:status] : <select id="rvstatus"  onchange="EventSetElement('rvstatus', 'evstatus')" [rvstaro]>[BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]</select>
+[TEXT:status] : <select id="rvstatus" [rvstaro]>[BLOCK RVSTATUS]<option value="[value]" [selected]>[descr][ENDBLOCK RVSTATUS]</select>
 
 <hr>
 

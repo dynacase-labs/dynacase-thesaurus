@@ -23,7 +23,7 @@ function UpdateEndTime() {
 function ChangeAlarm(state) {
   chk = document.getElementById('AlarmCheck');
   alrm = document.getElementById('AlarmVis');
- if (state!=-1) chk.checked = (state==0?false:true);
+  if (state!=-1) chk.checked = (state==0?false:true);
   if (chk.checked) alrm.style.display = '';
   else alrm.style.display = 'none';
 }
@@ -88,9 +88,9 @@ function SwitchZone(view) {
     document.getElementById(z).style.display = 'none';
     document.getElementById('but'+z).className = 'WGCalZoneDefault';
     if (z == view) {
-       document.getElementById(view).style.display = '';
-       document.getElementById('but'+view).className = 'WGCalZoneSelected';
-   }
+      document.getElementById(view).style.display = '';
+      document.getElementById('but'+view).className = 'WGCalZoneSelected';
+    }
   }
 
 }
@@ -119,24 +119,15 @@ function refreshAttendees() {
       mynodereplacestr(nTr, '%RICON%', attendeesList[idx][2]);
       mynodereplacestr(nTr, '%RDESCR%', attendeesList[idx][1]);
       mynodereplacestr(nTr, '%RSTATE%', attendeesList[idx][3]);
+      if (attendeesList[idx][3] == 1) scolor = 'green';
+      else if (attendeesList[idx][3] == 2) scolor = 'red';
+      else if (attendeesList[idx][3] == 3) scolor = 'orange';
+      else scolor = 'yellow';
       nTr.style.display = '';
       tab.appendChild(nTr);
       capp = document.getElementById('cp'+attendeesList[idx][0]);
-alert(attendeesList[idx][3]);
-      switch (attendeesList[idx][3]) {
-      case 1: /* approved */
-	capp.style.background = 'green';
-	break;
-      case 2: /* refused */
-	capp.style.background = 'red';
-	break;
-      case 3:
-	capp.style.background = 'orange';
-	break;
-      default:
-	capp.style.background = 'yellow';
-      }
-    }
+      capp.style.backgroundColor = scolor;
+   }
   }
   return; 
 }
@@ -144,14 +135,15 @@ alert(attendeesList[idx][3]);
 function getAttendeeIdx(aid) {
   var idx = -1;
   for (i=0; i<attendeesList.length; i++) {
-    if (attendeesList[i][0] == aid) idx = ix;
-  }
+    if (attendeesList[i][0] == aid) idx = i;
+  } 
   return idx;
 }
       
 function addRessource(rid, rtitle, ricon, rstate) {
   if (getAttendeeIdx(rid)!=-1) {
-    alert('Oooops '+return;
+    return;
+  }
   idx = attendeesList.length;
   attendeesList[idx] = new Array();
   attendeesList[idx][0] = rid;
@@ -180,11 +172,14 @@ function attkillwins() {
 }
 
 function saveEvent() {
-   var fs = document.getElementById('editevent');
-   EventSelectAll(fs);
-   fs.submit();
-   fs.reset();
-   self.close();
+  var fs = document.getElementById('editevent');
+  EventSelectAll(fs);
+  EventSetElement('rvstatus','evstatus');
+  EventSetElement('rvcalendar','evcalendar');
+  EventSetElement('rvconfid', 'evconfidentiality');
+  fs.submit();
+  fs.reset();
+  self.close();
 }
 
 function cancelEvent() {

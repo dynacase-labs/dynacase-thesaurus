@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.10 2005/01/17 19:07:50 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.11 2005/01/18 18:40:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -13,7 +13,7 @@
 
 include_once("FDL/Lib.Util.php");
 include_once("FDL/Class.Doc.php");
-include_once("WGCAL/WGCAL_calevent.php");
+include_once("WGCAL/WGCAL_external.php");
 
 define("FDATE", "%A %d %b %Y");
 
@@ -40,7 +40,9 @@ function wgcal_editevent(&$action) {
   $action->parent->AddCssCode($csslay->gen());
   
 
-  $time = GetHttpVars("time", time());
+  $nh = GetHttpVars("nh", 0);
+  $times = GetHttpVars("ts", time());
+  $timee = GetHttpVars("te", time()+3600);
   $evid = GetHttpVars("evt", -1);
   
   if ($evid != -1) {
@@ -63,15 +65,25 @@ function wgcal_editevent(&$action) {
     $evrexcld  = $event->getTValue("CALEV_EXCLUDEDATE", array());
     $attendees = $event->getTValue("CALEV_ATTID", array());
     $attendeesState = $event->getTValue("CALEV_ATTSTATE", array());
+    $evstatus = 0;
+    foreach ($attendees as $k => $v) {
+      if ($v == $action->user->fid) {
+	$evstatus = $attendeesState[$k];
+	if ($evstatus==0) {
+	  $evstatus = 1;
+	  $attendeesState[$k] = 1;
+	}
+      }
+    }
     $ownerid = $event->getValue("CALEV_OWNERID", "");
     $ownertitle = $event->getValue("CALEV_OWNER", "");
     $rwstatus = false;
   } else {
     $evtitle  = "";
     $evnote   = "";
-    $evstart  = $time;
-    $evend    = $time+3600;
-    $evtype   = 0;
+    $evstart  = $times;
+    $evend    = $timee;
+    $evtype   = ($nh==1?2:0);
     $evfreq   = 1;
     $evcal    = -1;
     $evvis    = 0;
@@ -81,10 +93,32 @@ function wgcal_editevent(&$action) {
     $evrweekd = 0;
     $evrmonth = 0;
     $evruntil = -1;
-    $evruntild = $time;
+    $evruntild = $timee;
     $evrexcld  = array();
-    $attendees = array( $action->user->fid );
-    $attendeesState = array( 1 );
+    $evstatus = 2;
+    $attendees = array( );
+    $attendeesState = array( );
+    $iatt = 0;
+    $attendees[$iatt] = $action->user->fid;
+    $attendeesState[$iatt] = $evstatus;
+    $iatt++;
+    
+    $userd = $action->GetParam("WGCAL_U_USERESSINEVENT", 0);
+    if ($userd == 1) {
+      $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
+      $lress = explode("|", $curress);
+      if (count($lress)>0) {
+	foreach ($lress as $k => $v) {
+	  $tt = explode("%", $v);
+	  if ($tt[1] == 1) {
+	    $attendees[$iatt] = $tt[0];
+	    $attendeesState[$iatt] = 0;
+	    $iatt++;
+	  }
+	}
+      }
+    }
+     
     $ownerid = $action->user->fid;
     $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
     $ownertitle = $attru["title"];
@@ -193,9 +227,10 @@ function EventSetCalendar(&$action, $cal, $ro) {
 
 function EventSetStatus(&$action, $status, $ro) {
   $acal = CAL_getEventStates($action->GetParam("FREEDOM_DB"), "");
-  $action->lay->set("evcalendar", $cal);
+  $action->lay->set("evstatus", $status);
   $ic = 0;
   foreach ($acal as $k => $v) {
+    if ($status!=0 && $k==0) continue;
     $tconf[$ic]["value"] = $k;
     $tconf[$ic]["descr"] = $v;
     $tconf[$ic]["selected"] = ($status==$k?"selected":"");

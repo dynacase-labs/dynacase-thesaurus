@@ -1,7 +1,6 @@
 [BLOCK CELLS]
 <td id="[cellref]"  name="[cellref]"  title="[rtime]" class="[cclass]"  
     onDblClick="DblClickCalendarCell(event, this, '[urlroot]', [time]);"  
-    onClick="ClickCalendarCell(event, this);"  
+    onclick="subwindow(300, 500, 'EditEvent', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1&nh=[nh]&ts=[times]&te=[timee]');"  
     onmouseover="OverCalendarCell(event, this, '[lref]', '[cref]')" 
-    onmouseout="OutCalendarCell(event, this, '[lref]', '[cref]', '[cclass]', '[hourclass]', '[dayclass]') ">
-</td>[ENDBLOCK CELLS]
+    onmouseout="OutCalendarCell(event, this, '[lref]', '[cref]', '[cclass]', '[hourclass]', '[dayclass]') ">[cellcontent]</td>[ENDBLOCK CELLS]

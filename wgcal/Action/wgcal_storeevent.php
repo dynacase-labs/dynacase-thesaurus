@@ -6,8 +6,8 @@ function wgcal_storeevent(&$action) {
 
   $db = $action->getParam("FREEDOM_DB");
   
-//   global $_POST;
-//   print_r2($_POST);
+  //   global $_POST;
+  //   print_r2($_POST);
 
   $id  = GetHttpVars("eventid", -1);
   if ($id==-1) {
@@ -87,10 +87,6 @@ function wgcal_storeevent(&$action) {
       else $attendeesstate[$ka] = 0;
     }
   }
-  //foreach ($attendees as $ka => $va)  echo "attendee id=".$attendees[$ka]." title=[".$attendeesname[$ka]."] state=".$attendeesstate[$ka]."<br>";
-  echo "Attendees : "; print_r2($attendees); 
-  echo "name      : "; print_r2($attendeesname); 
-  echo "status    : "; print_r2($attendeesstate); 
   $event->setValue("CALEV_ATTID", $attendees); 
   $event->setValue("CALEV_ATTTITLE", $attendeesname); 
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
@@ -107,6 +103,7 @@ function wgcal_getArrayVal($key, $def=null) {
   if (count($a)>0) $v = $a[0];
   return $v;
 }
+
 function date2db($d, $hm = true) {
   $fmt = ($hm ? "%d/%m/%Y %H:%M" : "%d/%m/%Y" );
   $s = strftime($fmt, $d);

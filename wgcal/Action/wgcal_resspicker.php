@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.3 2004/12/24 12:37:20 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.4 2005/01/18 18:40:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -11,7 +11,7 @@
  /**
  */
 include_once('FDL/Lib.Dir.php');
-include_once('WGCAL/WGCAL_calevent.php');
+include_once('WGCAL/WGCAL_external.php');
 
 function wgcal_resspicker(&$action) {
 

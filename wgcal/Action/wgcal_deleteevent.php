@@ -11,7 +11,6 @@ function wgcal_deleteevent(&$action) {
     $event = new Doc($db, $id);
     $err = "xxx";
     if ($event->isAlive()) $err = $event->Delete();
-    print_r2($err);
   }
 }
 ?>

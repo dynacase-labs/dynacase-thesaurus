@@ -43,7 +43,7 @@ function getRessourcePos(rid) {
   return idx;
 }
  
-function addRessource(rid, rtitle, ricon) {
+function addRessource(rid, rtitle, ricon, rstate) {
   idx = getRessourcePos(rid);
   if (idx!=-1) return;
   InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', 0 );

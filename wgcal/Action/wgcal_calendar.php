@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.9 2004/12/24 17:44:55 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.10 2005/01/18 18:40:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -13,12 +13,17 @@
 
 
 define("SEC_PER_DAY", 24*3600);
+define("SEC_PER_HOUR", 3600);
 
 function GetFirstDayOfWeek($ts) {
 	if ($ts<=0) return false;
 	$iday  = strftime("%u",$ts);
 	$dt = 1-$iday;
-	$fwdt = $ts - (($iday-1) * SEC_PER_DAY);
+        $tsfwd = $ts - (($iday-1) * SEC_PER_DAY);
+	$dd = strftime("%d", $tsfwd);
+ 	$mm = strftime("%m", $tsfwd);
+ 	$yy = strftime("%Y", $tsfwd);
+	$fwdt = mktime ( 0, 0, 0, $mm, $dd, $yy);
 	return $fwdt;
 }
        	
@@ -159,15 +164,21 @@ function wgcal_calendar(&$action) {
 	      else $mo = $id % 7;
               $tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
               $tcell[$itc]["urlroot"] = $action->GetParam("CORE_STANDURL");
-              $tcell[$itc]["time"] = strftime("%s",($firstWeekDay+($id*SEC_PER_DAY))+($h*SEC_PER_HOUR));
-              $tcell[$itc]["rtime"] = strftime("%a %d",$firstWeekDay+($id*SEC_PER_DAY));
+              if ($h==($hstart-1)) $tcell[$itc]["nh"] = 1;
+	      else $tcell[$itc]["nh"] = 0;
+              $tcell[$itc]["times"] = strftime("%s",($firstWeekDay+($id*SEC_PER_DAY))+($h*SEC_PER_HOUR));
+              $tcell[$itc]["timee"] = strftime("%s",($firstWeekDay+($id*SEC_PER_DAY))+($h*SEC_PER_HOUR)+(60/$hdiv*60));
+              $tcell[$itc]["rtime"] = strftime("%a %d %b ",$firstWeekDay+($id*SEC_PER_DAY));
+	      $tcell[$itc]["rtime"] .= strftime("%H:%M",$tcell[$itc]["times"])." - " . strftime("%H:%M",$tcell[$itc]["timee"]);
               if ($hd!=0) $tcell[$itc]["rtime"] .= ', '.$h.'H'.printhdiv($hdiv,$hd).'"';
 	      $tcell[$itc]["lref"] = "L".$nl;
 	      $tcell[$itc]["cref"] = "D".$id;
 	      $tcell[$itc]["cclass"] = $class[$id];
 	      $tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
 	      $tcell[$itc]["hourclass"] = $classh[$id];
-              $itc++;
+	      //$tcell[$itc]["cellcontent"] = strftime("%H:%M",$tcell[$itc]["times"])." ** " . strftime("%H:%M",$tcell[$itc]["timee"]);
+	      $tcell[$itc]["cellcontent"] = "";
+             $itc++;
 	    }
           $lcell->SetBlockData("CELLS", $tcell);
           $thr[$nl]["C_LINE"] =  $lcell->Gen();
