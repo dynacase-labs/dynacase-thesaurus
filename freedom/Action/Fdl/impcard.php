@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: impcard.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: impcard.php,v 1.3 2003/09/22 13:05:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: impcard.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+// $Id: impcard.php,v 1.3 2003/09/22 13:05:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/impcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,13 +47,26 @@ function impcard(&$action) {
   $mime = GetHttpVars("mime"); // send to be view by word editor
   $ext = GetHttpVars("ext","html"); // extension
   $docid = GetHttpVars("id");
-
+  $zonebodycard = GetHttpVars("zone"); // define view action
+  $szone=false;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
   $doc = new Doc($dbaccess, $docid);
-  $action->lay->set("TITLE",$doc->title);
+  $action->lay->set("TITLE",$doc->title);  
+  if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
+  if ($zonebodycard == "") $zonebodycard="FDL:VIEWCARD";
+
+  if (ereg("[A-Z]+:[^:]+:S", $zonebodycard, $reg))  $szone=true;// the zonebodycard is a standalone zone ?
+
+  if ($szone) {
+    // change layout
+    include_once("FDL/viewscard.php");
+    $action->lay = new Layout(getLayoutFile("FDL","viewscard.xml"),$action);
+    viewscard(&$action); 
+    
+  }
 
   if ($mime != "") {
     $export_file = uniqid("/tmp/export").".$ext";
