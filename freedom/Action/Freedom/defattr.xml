@@ -36,7 +36,7 @@
 
 
 <!-- Title Table -->
-<form target="info" class="fborder" name="modifyfamilly" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=FREEDOM&action=MODATTR&docid=[docid]&dirid=[dirid]" >
+<form target="info" class="fborder" name="modifyfamilly" method="POST"  action="[CORE_STANDURL]&app=FREEDOM&action=MODATTR&docid=[docid]&dirid=[dirid]" >
 
       <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
                          
