@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.58 2002/09/30 11:46:44 eric Exp $
+// $Id: Class.Doc.php,v 1.59 2002/10/22 09:43:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.58 2002/09/30 11:46:44 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.59 2002/10/22 09:43:22 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -277,6 +277,25 @@ create unique index i_docir on doc(initid, revision);";
     return (($this->doctype == 'F') && ($this->useforprof == 'f'));
   }
  
+
+  // convert to another family
+  function convert($fromid) {
+    $cdoc = new Doc($this->dbaccess, $fromid);
+    $err = $cdoc->control('view');
+    if ($err != "") return false;
+
+
+    $this->fromid = $fromid;
+    $this->profid = $cdoc->cprofid; // inherit from its familly	
+    $this->icon = $cdoc->icon; // inherit from its familly	
+    $this->useforprof = $cdoc->useforprof; // inherit from its familly
+    $this->dviewzone = $cdoc->dviewzone; // inherit from its familly
+    $this->deditzone = $cdoc->deditzone; // inherit from its familly
+    $this->dfldid = $cdoc->dfldid; // inherit from its familly
+    $this->wid=$cdoc->wid;
+    
+  }
+
   // --------------------------------------------------------------------
   // test if the document can be revised now
   // ie must be locked by the current user
