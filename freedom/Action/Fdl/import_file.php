@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.82 2005/01/14 17:57:50 eric Exp $
+ * @version $Id: import_file.php,v 1.83 2005/02/10 10:14:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -708,15 +708,17 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   // add in folder
   if ($err=="") {
     $msg .= $doc->title;
-    if ($data[3] > 0) { // dirid
-      $dir = new Doc($dbaccess, $data[3]);
+    if (is_numeric($data[3])) $ndirid=$data[3];
+    else =  $ndirid=getIdFromName($dbaccess,$data[3],2);
+    if ($ndirid > 0) { // dirid
+      $dir = new Doc($dbaccess, $ndirid);
       if ($dir->isAffected()) {
 	$tcr["folderid"]=$dir->id;
 	$tcr["foldername"]=dirname($ldir)."/".$dir->title;
 	if (! $analyze) $dir->AddFile($doc->id);
 	$msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
       }
-    } else if ($data[3] ==  0) {
+    } else if ($ndirid ==  0) {
       if ($dirid > 0) {
 	$dir = new Doc($dbaccess, $dirid);
 	if ($dir->isAlive() && method_exists($dir,"AddFile")) {
