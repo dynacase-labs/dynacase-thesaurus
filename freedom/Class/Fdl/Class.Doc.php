@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.175 2003/12/30 10:11:36 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.176 2004/01/09 09:35:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.175 2003/12/30 10:11:36 eric Exp $
+// $Id: Class.Doc.php,v 1.176 2004/01/09 09:35:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -2118,29 +2118,41 @@ create unique index i_docir on doc(initid, revision);";
 	$htmlval=sprintf($aformat,$htmlval);
       } 
       // add link if needed
-      if ($htmllink && ($oattr->link != "") && 
-	  ($ulink = $this->urlWhatEncode( $oattr->link, $kvalue))) {
-
-
-	if ($target == "mail") {
-	  $abegin="<A target=\"$target\"  href=\"";
-	  $abegin.= $action->GetParam("CORE_ABSURL")."/".$ulink;
-	  $abegin.="\">";
-	} else {
-	  $abegin="<A target=\"$target\" onmousedown=\"document.noselect=true;\" href=\"";
-	  $abegin.= $ulink."\" ";;
-	  if ($htmllink > 1){
-	    $turl=parse_url($ulink);
-	    if (($turl["scheme"] == "") || ($turl["scheme"] == "http")) {
-	      if ($turl["scheme"] == "") $ulink.="&ulink=1";
-	      $abegin.=" oncontextmenu=\"popdoc(event,'$ulink');return false;\" ";
-	    }
+      if ($htmllink && ($oattr->link != "") ) {
+	$ititle="";
+	$hlink=$oattr->link;
+	if ($hlink[0] == "[") {
+	  if (ereg('\[(.*)\](.*)', $hlink, $reg)) {   
+	    $hlink=$reg[2];
+	    $ititle=addslashes($reg[1]);
 	  }
-	  $abegin.=">";
 	}
-	$aend="</A>";
+	if ($ulink = $this->urlWhatEncode( $hlink, $kvalue)) {
+
+
+	  if ($target == "mail") {
+	    $abegin="<A target=\"$target\"  href=\"";
+	    $abegin.= $action->GetParam("CORE_ABSURL")."/".$ulink;
+	    $abegin.="\">";
+	  } else {
+	    $abegin="<A target=\"$target\" title=\"$ititle\"onmousedown=\"document.noselect=true;\" href=\"";
+	    $abegin.= $ulink."\" ";;
+	    if ($htmllink > 1){
+	      $turl=parse_url($ulink);
+	      if (($turl["scheme"] == "") || ($turl["scheme"] == "http")) {
+		if ($turl["scheme"] == "") $ulink.="&ulink=1";
+		$abegin.=" oncontextmenu=\"popdoc(event,'$ulink');return false;\" ";
+	      }
+	    }
+	    $abegin.=">";
+	  }
+	  $aend="</A>";
 	
 
+	} else {
+	  $abegin="";
+	  $aend="";
+	}
       } else {
 	$abegin="";
 	$aend="";

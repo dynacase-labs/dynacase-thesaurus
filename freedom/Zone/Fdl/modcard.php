@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.50 2003/12/30 10:12:57 eric Exp $
+ * @version $Id: modcard.php,v 1.51 2004/01/09 09:35:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.50 2003/12/30 10:12:57 eric Exp $
+// $Id: modcard.php,v 1.51 2004/01/09 09:35:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -324,7 +324,7 @@ function insert_file($dbaccess,$docid, $attrid)
       $err=$vf -> Store($destfile, false , $vid);
       
       if ($err != "") {
-	AddMsgWarning($err);
+	AddWarningMsg($err);
       }
       unlink($destfile);
     } else {

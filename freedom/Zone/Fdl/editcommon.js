@@ -27,7 +27,7 @@ function getRowNumber(el) {
   return nrow;
 }
 
-function sendEnumChoice(event,docid,  choiceButton , sorm) {
+function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm) {
 
 
   var inp  = choiceButton.previousSibling;
@@ -40,12 +40,12 @@ function sendEnumChoice(event,docid,  choiceButton , sorm) {
   var inid;
 
 
-  inid= choiceButton.id.substr(3);
-  inp=document.getElementById(inid);
+  //  inid= choiceButton.id.substr(3);
+  inp=document.getElementById(attrid);
 
 
   if ((! inp)||(inp==null)) {
-    alert('[TEXT:enumerate input not found]');
+    alert('[TEXT:enumerate input not found]'+':'+attrid);
   }
 
 

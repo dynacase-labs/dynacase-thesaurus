@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.59 2003/12/30 10:10:57 eric Exp $
+ * @version $Id: editutil.php,v 1.60 2004/01/09 09:35:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.59 2003/12/30 10:10:57 eric Exp $
+// $Id: editutil.php,v 1.60 2004/01/09 09:35:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -499,16 +499,26 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
   if ($oattr->type != "array") {
     if  ($visibility != "S") {
       if (($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
+	$phpfunc=$oattr->phpfunc;
+	// capture title
+	$ititle=_("choose inputs");
+	
+	if ($phpfunc[0] == "[") {
+	  if (ereg('\[(.*)\](.*)', $phpfunc, $reg)) {   
+	    $phpfunc=$reg[2];
+	    $ititle=addslashes($reg[1]);
+	  }
+	}
 	$input.="</td><td width=\"100px\">";
 	if (ereg("list",$attrtype, $reg)) $ctype="multiple";
 	else $ctype="single";
 	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
-	  " title=\""._("choose inputs")."\"".
+	  " title=\"".$ititle."\"".
 	  " onclick=\"sendEnumChoice(event,".$docid.
-	  ",this,'$ctype')\">";
+	  ",this,'$attridk','$ctype')\">";
 
 	// clear button
-	if (ereg("(.*)\((.*)\)\:(.*)", $oattr->phpfunc, $reg)) {
+	if (ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg)) {
       
 	  $argids = split(",",$reg[3]);  // output args
 	  $arg = array();
@@ -542,10 +552,18 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       }
 		
       if ($oattr->elink != "") {
-	$url= elinkEncode($doc,$oattr->elink,$index,$ititle,$isymbol);
 
-	$target= $attrid;
-	/* --- for idoc ---
+	if (substr($oattr->elink,0,3)=="JS:") {
+	  // javascript action
+	  $url= elinkEncode($doc,substr($oattr->elink,3),$index,$ititle,$isymbol);
+	  print $url;
+	  $jsfunc=$url;
+	  
+	} else {
+	  $url= elinkEncode($doc,$oattr->elink,$index,$ititle,$isymbol);
+
+	  $target= $attrid;
+	  /* --- for idoc ---
 	if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
 	// special case wit javascript inputs
 
@@ -578,11 +596,13 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	  $target= $attrid;
 	}
 	--- end for idoc */
-   
+
+	  $jsfunc="subwindowm(300,500,'$target','$url');";
+	}
      
 	$input.="<input type=\"button\" value=\"$isymbol\"".
 	  " title=\"".$ititle."\"".
-	  " onclick=\"subwindowm(300,500,'$target','$url');";
+	  " onclick=\"$jsfunc;";
 	if ($function) {
 	  $input.="$string_function\">";
 	}
