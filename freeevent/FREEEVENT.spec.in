@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEEVENT.spec.in,v 1.3 2005/02/01 16:50:05 eric Exp $
+#  $Id: FREEEVENT.spec.in,v 1.4 2005/03/08 11:27:34 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -23,6 +23,7 @@ Packager: Eric Brison <eric.brison@anakeen.com>
 BuildArchitectures: noarch
 BuildRoot: /tmp/anakeen-root
 Requires: FREEDOM-LIB >= 1.0.7
+Requires: WHAT >= 1.1.7
 
 %description
 This package offers the freedom engine to process events

@@ -3,7 +3,7 @@
  * Produce events methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.PEvents.php,v 1.9 2005/01/31 17:46:56 eric Exp $
+ * @version $Id: Method.PEvents.php,v 1.10 2005/03/08 11:25:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -114,9 +114,8 @@ function pEventDefault() {
   $this->setEventSpec(&$evt);
   if (!$evt->isAlive())    {
     $err=$evt->Add();
-  } else {
-  }
-  $err=$evt->refresh();
+  } 
+  if ($err=="") $err=$evt->refresh();
   if ($err=="") $err=$evt->modify();
   return $err;
   
