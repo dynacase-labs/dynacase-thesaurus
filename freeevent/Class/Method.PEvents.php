@@ -3,7 +3,7 @@
  * Produce events methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.PEvents.php,v 1.8 2005/01/18 08:45:48 eric Exp $
+ * @version $Id: Method.PEvents.php,v 1.9 2005/01/31 17:46:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -31,6 +31,10 @@ function setEventSpec(&$e) {;}
  */
 function deleteEvent() {
   return $this->dEventDefault();
+}
+
+function postDelete() {
+  $this->deleteEvent();
 }
 /**
  * identificator of the attribute which containt the begin date for event
@@ -197,7 +201,6 @@ function getEventRessources() {
   }
   return $tr;
 }
-
 
 
 
