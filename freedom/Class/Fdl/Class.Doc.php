@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.229 2005/01/24 16:14:53 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.230 2005/02/01 13:38:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1431,7 +1431,12 @@ create unique index i_docir on doc(initid, revision);";
    * @return array the list of attribute values 
    */
   function GetTValue($idAttr, $def="",$index=-1)  { 
-    $t = $this->_val2array($this->getValue("$idAttr",$def));
+    $v=$this->getValue("$idAttr",$def);
+    if ($v == "") {
+     if ($index == -1) return array();
+     else return $def;
+    }
+    $t = $this->_val2array($v);
     if ($index == -1) return $t;
     if (isset($t[$index])) return $t[$index];
     else return $def;
@@ -2352,7 +2357,7 @@ create unique index i_docir on doc(initid, revision);";
 	
 	}
     
-      if (($aformat != "") && ($atype != "doc")){
+      if (($aformat != "") && ($atype != "doc") && ($atype != "array") ){
 	//printf($htmlval);
 	$htmlval=sprintf($aformat,$htmlval);
       } 

@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.41 2004/12/13 17:14:48 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.42 2005/02/01 13:38:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -158,8 +158,8 @@ function AttrToPhp($dbaccess, $tdoc) {
 				   "phpconstraint"=>$v->phpconstraint,
 				   "usefor"=>$v->usefor);
 	 
-	if (($v->type != "array") && ($v->usefor!="Q")) {
-	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>($v->id));	 
+	if (($atype != "array") && ($v->usefor!="Q")) {
+	if ($atype != "array")  $tattr[$v->id] = array("attrid"=>($v->id));	 
 	if (($repeat=="true") || ($tnormal[$v->frameid]["type"]=="array")) {
 	  $attrids[$v->id] = ($v->id)." text";  // for the moment all repeat are text
 	} else {

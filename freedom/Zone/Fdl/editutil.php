@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.85 2005/01/28 17:09:49 eric Exp $
+ * @version $Id: editutil.php,v 1.86 2005/02/01 13:39:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -731,9 +731,8 @@ function getLayArray(&$lay,&$doc,&$oattr) {
       $ddoc = createDoc($doc->dbaccess, $doc->fromid==0?$doc->id:$doc->fromid,false);
       $tad = $ddoc->attributes->getArrayElements($attrid);
 
-
       $nbcolattr=0; // number of column
-      while (list($k, $v) = each($ta)) {
+      foreach($ta as $k=>$v) {
 	if ($v->mvisibility=="R") {
 	  $v->mvisibility="H"; // don't see read attribute
 	  $ta[$k]->mvisibility="H";
@@ -751,6 +750,13 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	if ($visible) $nbcolattr++;
 	$tval[$k]=$doc->getTValue($k);
 	$nbitem=count($tval[$k]);
+	if ($nbitem==0) {
+	  // add first range
+	  if ($oattr->format != "empty") {
+	    $tval[$k]=array(0=>"");
+	    $nbitem=1;
+	  }
+	}
 	$tivalue=array();
 	for ($i=0;$i<$nbitem;$i++) {
 	  $tivalue[]=array("ivalue"=>$tval[$k][$i]);
@@ -783,6 +789,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 
       reset($tval);
       $nbitem= count(current($tval));
+
       $tvattr = array();
       for ($k=0;$k<$nbitem;$k++) {
 	$tvattr[]=array("bevalue" => "bevalue_$k");
