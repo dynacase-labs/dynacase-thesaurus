@@ -3,7 +3,7 @@
  * list available families
  *
  * @author Anakeen 2003
- * @version $Id: onefam_list.php,v 1.8 2004/06/03 14:47:28 eric Exp $
+ * @version $Id: onefam_list.php,v 1.9 2004/06/03 15:32:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -23,7 +23,6 @@ function onefam_list(&$action) {
  
   
 
-  $action->lay->SetBlockData("SELECTUSER",  getTableFamilyList($action->GetParam("ONEFAM_IDS")) );
   $action->lay->SetBlockData("SELECTMASTER",getTableFamilyList($action->GetParam("ONEFAM_MIDS")) );
 
   if (($action->GetParam("ONEFAM_IDS") != "")&&($action->GetParam("ONEFAM_MIDS") != "")) {
@@ -33,6 +32,7 @@ function onefam_list(&$action) {
 
   if ($action->HasPermission("ONEFAM"))  {
     $action->lay->SetBlockData("CHOOSEUSERFAMILIES", array(array("zou")));    
+    $action->lay->SetBlockData("SELECTUSER",  getTableFamilyList($action->GetParam("ONEFAM_IDS")) );
   }
   if ($action->HasPermission("ONEFAM_MASTER"))  {
     $action->lay->SetBlockData("CHOOSEMASTERFAMILIES", array(array("zou")));    
