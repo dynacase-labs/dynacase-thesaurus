@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.6 2002/09/25 08:36:06 eric Exp $
+// $Id: editprof.php,v 1.7 2002/10/08 10:27:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -73,14 +73,16 @@ function editprof(&$action)
     $doc->GetFathersDoc();
     $action->lay->Set("doctitle",$doc->title);
 
-    if ($doc->profid == $doc->id) 
+    if ($createp) $sprofid = $doc->cprofid;
+    else $sprofid = $doc->profid;
+
+    if ($sprofid == $doc->id) 
       $action->lay->Set("selected_spec","selected");
     else {
       $action->lay->Set("selected_spec","");
       // selected the current class document
 
-      if ($createp) $sprofid = $doc->cprofid;
-      else $sprofid = $doc->profid;
+      
       while (list($k,$pdoc)= each ($selectclass)) {
 	//      print $doc->doctype." == ".$selectclass[$k]["idcdoc"]."<BR>";
 	if ($sprofid == $selectclass[$k]["idpdoc"]) {
