@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.143 2003/07/07 14:44:07 eric Exp $
+// $Id: Class.Doc.php,v 1.144 2003/07/11 13:04:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.143 2003/07/07 14:44:07 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.144 2003/07/11 13:04:57 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/07/07 14:44:07 $
-// Version         $Revision: 1.143 $
+// Last Update     $Date: 2003/07/11 13:04:57 $
+// Version         $Revision: 1.144 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -1613,7 +1613,7 @@ create unique index i_docir on doc(initid, revision);";
 
 	  $emptyarray=true;
 	  while (list($k, $v) = each($ta)) {
-	    if ($v->visibility=="H") continue;
+	    if (($v->visibility=="H")||($v->visibility=="O")) continue;
 	    $talabel[] = array("alabel"=>$v->labelText);	
 	    $tval[$k]=$this->getTValue($k);
 	    if ($emptyarray && ($this->getValue($k)!="")) $emptyarray=false;
@@ -1653,7 +1653,7 @@ create unique index i_docir on doc(initid, revision);";
 	  break;
 	
 	case htmltext:  
-	  $htmlval=$avalue;
+	  $htmlval="<DIV>$avalue</DIV>";
 	
 	  break;
 	case time:  
