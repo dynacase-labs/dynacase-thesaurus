@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.12 2002/07/17 13:35:54 eric Exp $
+ * $Id: freedom.css,v 1.13 2002/07/23 07:30:51 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -87,7 +87,105 @@ FIELDSET {
 	border-color : [CORE_BGCOLORALTERN];
 }
 
+.iconimg {
+  border-style: hidden;
+  border-width: 1;
+  border-color: [CORE_FGCOLOR];
+  width:30;
+  height:30;
+  
+}
+.iconline {
+  border-color: [CORE_FGCOLOR];
+  margin:1px;
+  padding:0px;
+  border-width:3px;
+  border-style: hidden;
+  /*background-color: palegoldenrod;*/
+  
+}
 
+TD.tlist {
+   border-width : 1px;
+   border-style : dashed none none none;
+   border-color : [CORE_BGCOLOR];
+   font-size: 100%;
+}
+
+DIV.unselect {
+   border-style : inset;
+  background-color:[CORE_BGCELLCOLOR];
+  color:[CORE_TEXTFGCOLOR];
+   border-color : [CORE_BGCOLOR];
+   border-width : 1px;
+   font-size: 100%;
+  margin: 2px 0px 0px 0px;
+
+}
+
+DIV.unselecth {
+   border-style : inset;
+  background-color:[CORE_BGCOLORHIGH];
+  color:[CORE_TEXTFGCOLOR];
+   border-color : [CORE_BGCOLOR];
+   border-width : 1px;
+   font-size: 100%;
+  margin: 2px 0px 0px 0px;
+
+}
+
+DIV.select {
+  background-color:[CORE_BGCOLORALTERN];
+  color:[CORE_TEXTFGCOLOR];
+  border-style : outset;
+   border-width : 1px;
+   font-size: 100%;
+  margin: 2px 0px 0px 0px;
+} 
+
+HR {
+  color:[CORE_BGCOLOR];
+}
+
+A.title {
+  font-weight:bold;
+  font-size: 100%;
+  color:[CORE_TEXTFGCOLOR];  
+}
+
+
+A.title:hover {
+  background-color:[CORE_BGCELLCOLOR];
+   
+}
+
+.onglet {
+   font-size: 50%;
+  background-image:url('[IMG:tab.png]');
+  color:[CORE_TEXTFGCOLOR];
+  cursor: pointer;
+  border-style: none;
+  align: center;
+}
+
+.ongleth {
+   font-size: 50%;
+  background-image:url('[IMG:tabh.png]');
+  color:[CORE_TEXTFGCOLOR];
+  cursor: pointer;
+  border-style: none;
+}
+
+.onglets {
+   font-size: 50%;
+  cursor: pointer;
+  background-image:url('[IMG:tabh.png]');
+  color:[CORE_TEXTBGCOLOR];
+  border-style: none;
+}
+UL {
+  margin-top:0px;
+}
 
 
 
