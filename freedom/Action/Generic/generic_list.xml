@@ -85,8 +85,7 @@ A.title {
 
 
 A.title:hover {
-  background-color:[CORE_BGCOLORALTERN];
-   
+  background-color:[CORE_BGCELLCOLOR];
 }
 
 .onglet {
@@ -188,11 +187,11 @@ function vselect(th) {
 
 <!-- TABLEBODY -->
 <div  id="d[divid]"
-     class="unselect" 
-     onmouseover="if (this.className != 'select') this.className='unselecth'"
-     onmouseout="if (this.className != 'select') this.className='unselect'" >   
-     <A class="title" onclick="vselect(document.getElementById('d[divid]'));" 
+     class="unselect" >   
+     <A class="title" onclick="vselect(this.parentNode);" 
         target="finfo"
+        onmouseover="if (this.parentNode.className != 'select') this.parentNode.className='unselecth'"
+        onmouseout="if (this.parentNode.className != 'select') this.parentNode.className='unselect'" 
         href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&abstract=N&id=[id]" >[title]</A>
    <span id="p[id]"></span>
 
