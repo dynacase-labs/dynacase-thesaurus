@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_modaccess.php,v 1.7 2004/02/09 16:46:15 eric Exp $
+ * @version $Id: freedom_modaccess.php,v 1.8 2004/02/12 10:06:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_modaccess.php,v 1.7 2004/02/09 16:46:15 eric Exp $
+// $Id: freedom_modaccess.php,v 1.8 2004/02/12 10:06:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -85,6 +85,7 @@ function freedom_modaccess(&$action) {
       foreach( $tdoc as $k=>$v) {
 	$kdoc->Affect($v);
 	$kdoc->computeDProfil();
+
       }
     }
   }
