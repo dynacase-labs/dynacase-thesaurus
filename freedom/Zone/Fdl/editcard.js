@@ -396,7 +396,9 @@ function  nodereplacestr(n,s1,s2) {
   var kids=n.childNodes;
   var ka;
   var avalue;
+  var regs1 = new RegExp(s1,'g');
   var rs1;
+  var tmp;
   var attnames = new Array('onclick','href','onmousedown','id','name');
   // for regexp
     rs1 = s1.replace('[','\\[');
@@ -405,9 +407,10 @@ function  nodereplacestr(n,s1,s2) {
   for (var i=0; i< kids.length; i++) {     
     if (kids[i].nodeType==3) { 
       // Node.TEXT_NODE
-	
+      
 	if (kids[i].data.search(rs1) != -1) {
-	  kids[i].data = kids[i].data.replace(s1,s2);
+	  tmp=kids[i].data; // need to copy to avoid recursive replace
+	  kids[i].data = tmp.replace(s1,s2);
 	}
     } else if (kids[i].nodeType==1) { 
       // Node.ELEMENT_NODE
@@ -421,7 +424,7 @@ function  nodereplacestr(n,s1,s2) {
 	      
 	      if (attr.value.search(rs1) != -1) {
 		
-		avalue=attr.value.replace(s1,s2);
+		avalue=attr.value.replace(regs1,s2);
 		if (isNetscape) attr.value=avalue;
 		else if ((attr.name == 'onclick') || (attr.name == 'onmousedown')) kids[i][attr.name]=new Function(avalue); // special for IE5.5+
 		else attr.value=avalue;
