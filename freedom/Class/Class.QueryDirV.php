@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.10 2001/11/30 15:13:39 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.11 2002/01/28 16:51:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.11  2002/01/28 16:51:35  eric
+// modif pour cache dbobj
+//
 // Revision 1.10  2001/11/30 15:13:39  eric
 // modif pour Css
 //
@@ -56,7 +59,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.10 2001/11/30 15:13:39 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.11 2002/01/28 16:51:35 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -81,6 +84,7 @@ create table dirv ( dirid      int not null,
                    );";
 
 
+  var $relatedCacheClass= array("Doc"); // class must ne cleaned also in case of modify
 
   // test if the childid will be inserted in dirid is also an ancestor of dirid
   // it is clear ?

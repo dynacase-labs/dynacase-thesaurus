@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-01-04 16:01+0100\n"
+	"POT-Creation-Date: 2002-01-25 14:48+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -13,300 +13,53 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"Content-Transfer-Encoding: 8-bit\n"
 	"\n"
 
-msgid	"New"
-msgstr	"Nouveau"
+msgid	"no document type"
+msgstr	"pas de famille de document"
 
-msgid	"Search"
-msgstr	"Recherche"
-
-msgid	"View"
-msgstr	"Affichage"
-
-msgid	"Help"
-msgstr	"Aide"
-
-msgid	"new doc"
-msgstr	"Document"
-
-msgid	"new folder"
-msgstr	"Dossier"
+msgid	"new directory"
+msgstr	"Nouveau dossier"
 
 msgid	"new profile"
 msgstr	"Profil"
 
-msgid	"new family"
-msgstr	"Famille"
+msgid	"new document"
+msgstr	"Nouveau document"
 
-#, fuzzy
-msgid	"import document"
-msgstr	" importer le document"
+msgid	"create"
+msgstr	"Créer"
 
-msgid	"simple"
-msgstr	"Simple"
-
-msgid	"list"
-msgstr	"Liste"
-
-msgid	"icon"
-msgstr	"Icone"
-
-msgid	"refresh"
-msgstr	"Raffraichir"
-
-msgid	"help"
-msgstr	"Aide"
-
-msgid	"inherit from"
-msgstr	"hérite de"
-
-msgid	"no document family"
-msgstr	"Ce n'est pas une famille de document!"
-
-msgid	"ID"
-msgstr "ID"
-
-msgid	"order"
-msgstr "ordre"
-
-#, fuzzy
-msgid	"name"
-msgstr	"Nom"
-
-msgid	"type"
-msgstr "type"
-
-#, fuzzy
-msgid	"frame"
-msgstr	"Prénom"
-
-msgid	"A?"
-msgstr "R?"
-
-msgid	"T?"
-msgstr "T?"
-
-msgid	"Vi"
-msgstr "Vi"
-
-msgid	"Link"
-msgstr "Lien"
-
-#, fuzzy
-msgid	"file"
-msgstr	"figé"
-
-msgid	"func"
-msgstr "ft"
+msgid	"document not referenced"
+msgstr	"document non référencé"
 
 msgid	"modify"
 msgstr	"Modifier"
 
-msgid	"profile access"
-msgstr	"Profil d'accès"
-
-msgid	"no profile"
-msgstr	"Pas de profil"
-
-msgid	"specific control"
-msgstr	"Contrôle dédié"
-
-msgid	"edition: "
-msgstr	"éditer"
-
-msgid	"search document"
-msgstr	"Nouveau document"
-
-msgid	" keyword"
-msgstr " mot-clef"
-
-#, fuzzy
-msgid	" only latest revision"
-msgstr	" référencer la dernière révision"
-
-#, fuzzy
-msgid	" from current folder"
-msgstr	" Créer un dossier"
-
-msgid	" case sensitive"
-msgstr " casse sensible"
-
-msgid	" save query in current folder"
-msgstr " sauver la requête dans le dossier courant"
-
-#, fuzzy
-msgid	" search title"
-msgstr	"Lancer la recherche"
-
-#, fuzzy
-msgid	" send search"
-msgstr	"Lancer la recherche"
-
-msgid	" cancel"
-msgstr	" annuler"
-
-msgid	" choose value"
-msgstr " choisir une valeur"
-
-msgid	"close"
-msgstr "fermer"
-
-#, fuzzy
-msgid	"move"
-msgstr	"Mobile"
-
-msgid	" properties"
-msgstr	" Propriétés"
-
-msgid	" create subfolder"
-msgstr	" Créer un dossier"
-
-msgid	"cancel"
-msgstr	"Annuler"
-
-msgid	" paste this revision"
-msgstr	" référencer cette révision"
-
-msgid	" paste latest revision"
-msgstr	" référencer la dernière révision"
+msgid	"no import file specified"
+msgstr	"pas de fichier d'import spécifié"
 
 msgid	"updatetitle"
 msgstr	"Mise à jour des titres"
 
-msgid	"updateldap"
-msgstr	"Mise à jour du serveur LDAP"
+msgid	"updateldapok"
+msgstr	"mise à jour du serveur LDAP"
 
-msgid	"Properties:"
-msgstr	"Propriétés:"
+msgid	"updateldapko"
+msgstr	"échec de mise à jour du serveur LDAP"
 
-msgid	" folder containt"
-msgstr	" contenu du dossier"
+msgid	"new document family"
+msgstr	"nelle famille de document"
 
-#, fuzzy
-msgid	"Import Document"
-msgstr	" éditer le document"
+msgid	"no file referenced"
+msgstr	"pas de fichier référencé"
 
-msgid	"for"
-msgstr	"pour"
-
-msgid	"Description of the import format:"
-msgstr	"Description du format d'import"
-
-msgid	"The text between brackets are only indication for user readable"
-msgstr	""
-
-#, fuzzy
-msgid	"import file:"
-msgstr	"Importer"
-
-#, fuzzy
-msgid	"Import document description"
-msgstr	"attributs du document"
-
-msgid	" history"
-msgstr	" historique"
-
-msgid	" rev"
-msgstr	" rév."
-
-msgid	" comment"
-msgstr	" commentaire"
-
-msgid	" revised by"
-msgstr	" révisé par"
-
-msgid	" date"
-msgstr	" date"
-
-msgid	"view properties"
-msgstr	"voir les propriétés"
-
-msgid	"edit document"
-msgstr	" éditer le document"
-
-msgid	"link document"
-msgstr	"référencer le document"
-
-msgid	"delete link"
-msgstr	"supprimer la référence"
-
-msgid	" change icon"
-msgstr	" changer d'icone"
-
-msgid	" lauch importation"
-msgstr	" importer"
-
-msgid	" comment for revision"
-msgstr	" commentaire de révision"
-
-msgid	" revise document"
-msgstr	"réviser le document"
-
-msgid	"to"
-msgstr	"vers"
-
-msgid	"unchanged"
-msgstr "inchangé"
-
-msgid	" edit"
-msgstr	" Éditer"
-
-msgid	" edit attributes"
-msgstr	" éditer les attributs"
-
-msgid	" lock"
-msgstr	" verrouiller"
-
-msgid	" revise"
-msgstr	" réviser"
-
-msgid	" unlock"
-msgstr	" deverrouiller"
-
-#, fuzzy
-msgid	" change profile"
-msgstr	" Changer de profil"
-
-msgid	" change creation profile"
-msgstr	" changer de profil par défaut"
-
-msgid	" view properties"
-msgstr	" Voir les propriétés"
-
-msgid	"print"
-msgstr	"imprimer"
-
-msgid	"delconfirm"
-msgstr	"Voulez-vous supprimer"
-
-msgid	"author"
-msgstr	"auteur"
-
-msgid	"state"
-msgstr	"état"
-
-msgid	"revision"
-msgstr	"révision"
-
-msgid	"locked by"
-msgstr	"verrouillé par"
-
-msgid	"revision date"
-msgstr	"date de révision"
-
-msgid	" profile access"
-msgstr	" profil d'accès"
-
-msgid	"reference"
-msgstr	"référence"
+msgid	"no comment"
+msgstr "pas de commentaire"
 
 msgid	"no file specified : update aborted"
 msgstr	"pas de fichier fournit, attaque possible : mise à jour abandonnée"
 
 msgid	"file not expected : possible attack : update aborted"
 msgstr	"fichier inattendu, attaque possible : mise à jour abandonnée"
-
-msgid	"new document family"
-msgstr	"nelle famille de document"
 
 #, c-format
 msgid	"cannot delete link : link not found for doc %d in directory %d"
@@ -322,7 +75,9 @@ msgstr	"le document %d n'existe plus dans le dossier %d.\n"
 msgid	"cannot delete link for doc %d in directory %d : the document comes "
 	"from a user query. Delete initial query if you want delete this "
 	"document"
-msgstr	""
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peur être détruit :\n"
+"le document provient d'une recheche utilisateur. Supprimer la requête initiale si vous voulez delié le document"
 
 msgid	"change creation profile"
 msgstr	"changer de profil par défaut"
@@ -332,45 +87,6 @@ msgstr	"changer de profil"
 
 msgid	"new profile document"
 msgstr	"nouveau profil de document"
-
-#, c-format
-msgid	"the external pluggin file %s cannot be read"
-msgstr	"le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid	"the pluggins function description '%s' is not conform"
-msgstr	"La description de la fonction externe '%s' est incorrecte"
-
-msgid	"no file referenced"
-msgstr	"pas de fichier référencé"
-
-msgid	"updateldapok"
-msgstr	"mise à jour du serveur LDAP"
-
-msgid	"updateldapko"
-msgstr	"échec de mise à jour du serveur LDAP"
-
-msgid	"no document type"
-msgstr	"pas de famille de document"
-
-msgid	"new directory"
-msgstr	"Nouveau dossier"
-
-msgid	"new document"
-msgstr	"Nouveau document"
-
-msgid	"create"
-msgstr	"Créer"
-
-msgid	"document not referenced"
-msgstr	"document non référencé"
-
-msgid	"no import file specified"
-msgstr	"pas de fichier d'import spécifié"
-
-#, fuzzy
-msgid	"no comment"
-msgstr	"Nouveau document"
 
 msgid	"the document is not referenced: cannot apply profile access "
 	"modification"
@@ -388,6 +104,14 @@ msgstr	"non"
 
 msgid	"root folder"
 msgstr	"Freedom"
+
+#, c-format
+msgid	"the external pluggin file %s cannot be read"
+msgstr	"le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid	"the pluggins function description '%s' is not conform"
+msgstr	"La description de la fonction externe '%s' est incorrecte"
 
 msgid	"untitle document"
 msgstr	"document sans titre"
@@ -431,17 +155,17 @@ msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
 msgid	"the method '%s' is not known for the object class %s"
 msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
 
-#, c-format
-msgid	"ChangeState :: the method '%s' return the following error %s"
+#, fuzzy, c-format
+msgid	"ChangeState :: the method '%s' has the following error %s"
 msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
 
 #, fuzzy, c-format
 msgid	"change state to %s"
 msgstr	" changer d'état"
 
-#, c-format
+#, fuzzy, c-format
 msgid	"ChangeState :: the state has been realized but the post method '%s' "
-	"return the following error %s"
+	"has the following error %s"
 msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
 	"méthode '%s' a retourné l'erreur suivante : %s "
 
@@ -455,60 +179,6 @@ msgstr	"Le server LDAP n'a pas pu être contacté"
 #, c-format
 msgid	"cannot add folder : '%s'. It will be ancestor of itself"
 msgstr	"ajout du dossier %s impossible, il est son propre ancêtre"
-
-#, fuzzy
-msgid	"error in filename"
-msgstr	"pas de fichier"
-
-msgid	"no filename"
-msgstr	"pas de fichier"
-
-msgid	"..."
-msgstr	"..."
-
-#, c-format
-msgid	"Possible file upload attack: filename '%s'."
-msgstr	"Possibilité d'atttaque 'upload' : fichier %s"
-
-msgid	"fixed"
-msgstr	"figé"
-
-msgid	"nobody"
-msgstr "personne"
-
-msgid	"no family"
-msgstr	"pas de famille"
-
-msgid	"no access control"
-msgstr	"pas de contrôle d'accès"
-
-msgid	"edit"
-msgstr	"éditer"
-
-msgid	"delete"
-msgstr	"supprimer"
-
-msgid	"goaccess"
-msgstr	"accessibilités..."
-
-msgid	"admin"
-msgstr	"administration"
-
-msgid	"import"
-msgstr	"Importer"
-
-msgid	"add"
-msgstr	"Ajouter un nouveau contact"
-
-msgid	"export"
-msgstr	"Exporter les cartes \n"
-	"selon les critères courants"
-
-msgid	"locked"
-msgstr	"verrouillé"
-
-msgid	"changed"
-msgstr	"modifié"
 
 msgid	"Freedoms"
 msgstr	"Freedoms"
@@ -529,10 +199,10 @@ msgid	"Access To Read Only"
 msgstr	"Accès en lecture seule"
 
 msgid	"Freedoms frame"
-msgstr "fenêtres freedom"
+msgstr	"fenêtres freedom"
 
 msgid	"Freedoms list"
-msgstr "liste freedom"
+msgstr	"liste freedom"
 
 msgid	"to choose value from set"
 msgstr	"pour choisir une valeur à partir d'un ensemble"
@@ -550,13 +220,13 @@ msgid	"Freedoms view folder"
 msgstr	"Suppression de cartes"
 
 msgid	"popup menu"
-msgstr	""
+msgstr "popup menu"
 
 msgid	"add file query into directory"
-msgstr	""
+msgstr "ajout d'un document dans un dossier"
 
 msgid	"delete file query into directory"
-msgstr	""
+msgstr "supprimer un document dans un dossier"
 
 msgid	"folder tree"
 msgstr	""
@@ -603,11 +273,13 @@ msgstr	""
 
 #, fuzzy
 msgid	"change icon document"
-msgstr	" référencer le document"
+msgstr "changer l'icone du document"
 
-#, fuzzy
+msgid	"search document"
+msgstr	"Nouveau document"
+
 msgid	"search document criteria"
-msgstr	"attributs du document"
+msgstr "critères de recherche de document"
 
 msgid	"ask for a new file revision"
 msgstr	""
@@ -633,7 +305,7 @@ msgid	"view history revision"
 msgstr	" référencer cette révision"
 
 msgid	"style sheet"
-msgstr "feuille de style"
+msgstr	"feuille de style"
 
 msgid	"widget display popup for a description card"
 msgstr	""
@@ -658,6 +330,336 @@ msgstr	""
 #, fuzzy
 msgid	"Freedom initialisation"
 msgstr	"Importation de cartes"
+
+#, fuzzy
+msgid	"error in filename"
+msgstr	"pas de fichier"
+
+msgid	"no filename"
+msgstr	"pas de fichier"
+
+msgid	"..."
+msgstr	"..."
+
+#, c-format
+msgid	"Possible file upload attack: filename '%s'."
+msgstr	"Possibilité d'atttaque 'upload' : fichier %s"
+
+msgid	"fixed"
+msgstr	"figé"
+
+msgid	"nobody"
+msgstr	"personne"
+
+msgid	"no family"
+msgstr	"pas de famille"
+
+msgid	"no access control"
+msgstr	"pas de contrôle d'accès"
+
+msgid	"specific control"
+msgstr	"Contrôle dédié"
+
+msgid	"edit"
+msgstr	"éditer"
+
+msgid	"delete"
+msgstr	"supprimer"
+
+msgid	"goaccess"
+msgstr	"accessibilités..."
+
+msgid	"admin"
+msgstr	"administration"
+
+msgid	"import"
+msgstr	"Importer"
+
+msgid	"add"
+msgstr	"Ajouter un nouveau contact"
+
+msgid	"export"
+msgstr	"Exporter les cartes \n"
+	"selon les critères courants"
+
+msgid	"locked"
+msgstr	"verrouillé"
+
+msgid	"changed"
+msgstr	"modifié"
+
+msgid	" folder containt"
+msgstr	" contenu du dossier"
+
+msgid	"document(s) found"
+msgstr "document(s) trouvé(s)"
+
+msgid	"view properties"
+msgstr	"voir les propriétés"
+
+msgid	"edit document"
+msgstr	" éditer le document"
+
+msgid	"link document"
+msgstr	"référencer le document"
+
+msgid	"delete link"
+msgstr	"supprimer la référence"
+
+msgid	"cancel"
+msgstr	"Annuler"
+
+msgid	"Properties:"
+msgstr	"Propriétés:"
+
+msgid	"edition: "
+msgstr	"éditer"
+
+#, fuzzy
+msgid	"Import Document"
+msgstr	" éditer le document"
+
+msgid	"for"
+msgstr	"pour"
+
+msgid	"Description of the import format:"
+msgstr	"Description du format d'import"
+
+msgid	"The text between brackets are only indication for user readable"
+msgstr	""
+
+#, fuzzy
+msgid	"import file:"
+msgstr	"Importer"
+
+#, fuzzy
+msgid	"Import document description"
+msgstr	"attributs du document"
+
+msgid	"inherit from"
+msgstr	"hérite de"
+
+msgid	"no document family"
+msgstr	"Ce n'est pas une famille de document!"
+
+msgid	"ID"
+msgstr	"ID"
+
+msgid	"order"
+msgstr	"ordre"
+
+#, fuzzy
+msgid	"name"
+msgstr	"Nom"
+
+msgid	"type"
+msgstr	"type"
+
+#, fuzzy
+msgid	"frame"
+msgstr	"Prénom"
+
+msgid	"A?"
+msgstr	"R?"
+
+msgid	"T?"
+msgstr	"T?"
+
+msgid	"Vi"
+msgstr	"Vi"
+
+msgid	"Link"
+msgstr	"Lien"
+
+msgid	"file"
+msgstr "fichier"
+
+msgid	"func"
+msgstr	"ft"
+
+msgid	"help"
+msgstr	"Aide"
+
+msgid	"updateldap"
+msgstr	"Mise à jour du serveur LDAP"
+
+msgid	" change icon"
+msgstr	" changer d'icone"
+
+msgid	" lauch importation"
+msgstr	" importer"
+
+msgid	" keyword"
+msgstr	" mot-clef"
+
+#, fuzzy
+msgid	" only latest revision"
+msgstr	" référencer la dernière révision"
+
+#, fuzzy
+msgid	" from current folder"
+msgstr	" Créer un dossier"
+
+msgid	" case sensitive"
+msgstr	" casse sensible"
+
+msgid	" save query in current folder"
+msgstr	" sauver la requête dans le dossier courant"
+
+#, fuzzy
+msgid	" search title"
+msgstr	"Lancer la recherche"
+
+#, fuzzy
+msgid	" send search"
+msgstr	"Lancer la recherche"
+
+msgid	" cancel"
+msgstr	" annuler"
+
+msgid	" properties"
+msgstr	" Propriétés"
+
+msgid	" create subfolder"
+msgstr	" Créer un dossier"
+
+msgid	" paste this revision"
+msgstr	" référencer cette révision"
+
+msgid	" paste latest revision"
+msgstr	" référencer la dernière révision"
+
+msgid	"New"
+msgstr	"Nouveau"
+
+msgid	"Search"
+msgstr	"Recherche"
+
+msgid	"View"
+msgstr	"Affichage"
+
+msgid	"Help"
+msgstr	"Aide"
+
+msgid	"new doc"
+msgstr	"Document"
+
+msgid	"new folder"
+msgstr	"Dossier"
+
+msgid	"new family"
+msgstr	"Famille"
+
+#, fuzzy
+msgid	"import document"
+msgstr	" importer le document"
+
+msgid	"simple"
+msgstr	"Simple"
+
+msgid	"list"
+msgstr	"Liste"
+
+msgid	"icon"
+msgstr	"Icone"
+
+msgid	"refresh"
+msgstr	"Raffraichir"
+
+msgid	"profile access"
+msgstr	"Profil d'accès"
+
+msgid	"no profile"
+msgstr	"Pas de profil"
+
+msgid	" comment for revision"
+msgstr	" commentaire de révision"
+
+msgid	" revise document"
+msgstr	"réviser le document"
+
+msgid	" history"
+msgstr	" historique"
+
+msgid	" rev"
+msgstr	" rév."
+
+msgid	" comment"
+msgstr	" commentaire"
+
+msgid	" revised by"
+msgstr	" révisé par"
+
+msgid	" date"
+msgstr	" date"
+
+msgid	" choose value"
+msgstr	" choisir une valeur"
+
+msgid	"close"
+msgstr	"fermer"
+
+#, fuzzy
+msgid	"move"
+msgstr	"Mobile"
+
+msgid	"to"
+msgstr	"vers"
+
+msgid	"unchanged"
+msgstr	"inchangé"
+
+msgid	"print"
+msgstr	"imprimer"
+
+msgid	"delconfirm"
+msgstr	"Voulez-vous supprimer"
+
+msgid	"author"
+msgstr	"auteur"
+
+msgid	"state"
+msgstr	"état"
+
+msgid	"revision"
+msgstr	"révision"
+
+msgid	"locked by"
+msgstr	"verrouillé par"
+
+msgid	"revision date"
+msgstr	"date de révision"
+
+msgid	" profile access"
+msgstr	" profil d'accès"
+
+msgid	"reference"
+msgstr	"référence"
+
+msgid	" edit"
+msgstr	" Éditer"
+
+msgid	" edit attributes"
+msgstr	" éditer les attributs"
+
+msgid	" lock"
+msgstr	" verrouiller"
+
+msgid	" revise"
+msgstr	" réviser"
+
+msgid	" unlock"
+msgstr	" deverrouiller"
+
+#, fuzzy
+msgid	" change profile"
+msgstr	" Changer de profil"
+
+msgid	" change creation profile"
+msgstr	" changer de profil par défaut"
+
+msgid	" view properties"
+msgstr	" Voir les propriétés"
 
 #~ msgid	"view directory"
 #~ msgstr	"voir le dossier"

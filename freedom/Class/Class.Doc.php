@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.22 2002/01/25 09:39:41 eric Exp $
+// $Id: Class.Doc.php,v 1.23 2002/01/28 16:51:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.22 2002/01/25 09:39:41 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.23 2002/01/28 16:51:35 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -619,30 +619,30 @@ create sequence seq_id_doc start 1000";
 
     global $action;
       
-  if ($this->icon != "") {
+    if ($this->icon != "") {
     
-    ereg ("(.*)\|(.*)", $this->icon, $reg); 
+      ereg ("(.*)\|(.*)", $this->icon, $reg); 
     
 
-    $efile=$action->GetParam("CORE_BASEURL").
-       "app=FREEDOM".
-       "&action=EXPORTFILE".
-       "&vaultid=".$reg[2]; // upload name
-    return $efile;
+      $efile=$action->GetParam("CORE_BASEURL").
+	 "app=FREEDOM".
+	 "&action=EXPORTFILE".
+	 "&vaultid=".$reg[2]; // upload name
+      return $efile;
 
-  } else {
-    if ($this->fromid == 0) {
+    } else {
+      if ($this->fromid == 0) {
 
 
+	return  $action->GetImageUrl("doc.gif");
+
+      }
+      $fdoc = new doc($this->dbaccess, $this->fromid);
+    
       return  $action->GetImageUrl("doc.gif");
-
+      // don't recursivity to increase speed
+      //    return $fdoc->geticon();
     }
-    $fdoc = new doc($this->dbaccess, $this->fromid);
-    
-    return  $action->GetImageUrl("doc.gif");
-    // don't recursivity to increase speed
-    //    return $fdoc->geticon();
-  }
 
   }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: changeicon.php,v 1.3 2001/12/18 09:18:10 eric Exp $
+// $Id: changeicon.php,v 1.4 2002/01/28 16:51:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/changeicon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: changeicon.php,v $
+// Revision 1.4  2002/01/28 16:51:35  eric
+// modif pour cache dbobj
+//
 // Revision 1.3  2001/12/18 09:18:10  eric
 // first API with ZONE
 //
@@ -84,7 +87,10 @@ function changeicon(&$action)
 
 
       $vf = new VaultFile($dbaccess, "FREEDOM");
-      $vf -> Store($destfile, true , $vid);
+
+
+      $err = $vf -> Store($destfile, true , $vid);
+      if ($err != "")   $action->ExitError($err);
 
 
       $doc->ChangeIcon($fileinfo['type']."|".$vid);

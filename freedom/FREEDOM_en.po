@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-01-04 16:01+0100\n"
+	"POT-Creation-Date: 2002-01-25 14:48+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -13,303 +13,52 @@ msgstr	"Project-Id-Version: WHAT 1.3\n"
 	"Content-Transfer-Encoding: 8-bit\n"
 	"\n"
 
-msgid	"New"
+msgid	"no document type"
 msgstr	""
 
-#, fuzzy
-msgid	"Search"
-msgstr	"Start search"
-
-msgid	"View"
-msgstr	""
-
-msgid	"Help"
-msgstr	""
-
-msgid	"new doc"
-msgstr	""
-
-msgid	"new folder"
+msgid	"new directory"
 msgstr	""
 
 msgid	"new profile"
 msgstr	""
 
-msgid	"new family"
+msgid	"new document"
 msgstr	""
 
-msgid	"import document"
-msgstr	""
+msgid	"create"
+msgstr	"Create"
 
-msgid	"simple"
-msgstr	""
-
-msgid	"list"
-msgstr	""
-
-msgid	"icon"
-msgstr	""
-
-msgid	"refresh"
-msgstr	""
-
-msgid	"help"
-msgstr	""
-
-msgid	"inherit from"
-msgstr	""
-
-msgid	"no document family"
-msgstr	""
-
-msgid	"ID"
-msgstr	""
-
-msgid	"order"
-msgstr	""
-
-#, fuzzy
-msgid	"name"
-msgstr	"Lastname"
-
-msgid	"type"
-msgstr	""
-
-msgid	"frame"
-msgstr	""
-
-msgid	"A?"
-msgstr	""
-
-msgid	"T?"
-msgstr	""
-
-msgid	"Vi"
-msgstr	""
-
-msgid	"Link"
-msgstr	""
-
-#, fuzzy
-msgid	"file"
-msgstr	"Update Title Cards"
-
-msgid	"func"
+msgid	"document not referenced"
 msgstr	""
 
 msgid	"modify"
 msgstr	"Modify"
 
-#, fuzzy
-msgid	"profile access"
-msgstr	"Control access"
-
-msgid	"no profile"
-msgstr	""
-
-msgid	"specific control"
-msgstr	""
-
-#, fuzzy
-msgid	"edition: "
-msgstr	"Edit"
-
-msgid	"search document"
-msgstr	""
-
-msgid	" keyword"
-msgstr	""
-
-msgid	" only latest revision"
-msgstr	""
-
-msgid	" from current folder"
-msgstr	""
-
-msgid	" case sensitive"
-msgstr	""
-
-msgid	" save query in current folder"
-msgstr	""
-
-#, fuzzy
-msgid	" search title"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	" send search"
-msgstr	"Start search"
-
-msgid	" cancel"
-msgstr	""
-
-msgid	" choose value"
-msgstr	""
-
-msgid	"close"
-msgstr	""
-
-#, fuzzy
-msgid	"move"
-msgstr	"Cellular"
-
-msgid	" properties"
-msgstr	""
-
-msgid	" create subfolder"
-msgstr	""
-
-msgid	"cancel"
-msgstr	""
-
-msgid	" paste this revision"
-msgstr	""
-
-msgid	" paste latest revision"
+msgid	"no import file specified"
 msgstr	""
 
 msgid	"updatetitle"
 msgstr	"Update Title Cards"
 
-msgid	"updateldap"
+msgid	"updateldapok"
 msgstr	"Update LDAP server"
 
-msgid	"Properties:"
+msgid	"updateldapko"
+msgstr	"Fail Update LDAP server"
+
+msgid	"new document family"
 msgstr	""
 
-msgid	" folder containt"
+msgid	"no file referenced"
 msgstr	""
 
-msgid	"Import Document"
-msgstr	""
-
-msgid	"for"
-msgstr	""
-
-msgid	"Description of the import format:"
-msgstr	""
-
-msgid	"The text between brackets are only indication for user readable"
-msgstr	""
-
-#, fuzzy
-msgid	"import file:"
-msgstr	"Import"
-
-msgid	"Import document description"
-msgstr	""
-
-msgid	" history"
-msgstr	""
-
-msgid	" rev"
-msgstr	""
-
-msgid	" comment"
-msgstr	""
-
-#, fuzzy
-msgid	" revised by"
-msgstr	"Created by"
-
-#, fuzzy
-msgid	" date"
-msgstr	"Edit"
-
-msgid	"view properties"
-msgstr	""
-
-msgid	"edit document"
-msgstr	""
-
-msgid	"link document"
-msgstr	""
-
-#, fuzzy
-msgid	"delete link"
-msgstr	"Delete"
-
-msgid	" change icon"
-msgstr	""
-
-msgid	" lauch importation"
-msgstr	""
-
-msgid	" comment for revision"
-msgstr	""
-
-msgid	" revise document"
-msgstr	""
-
-msgid	"to"
-msgstr	""
-
-msgid	"unchanged"
-msgstr	""
-
-#, fuzzy
-msgid	" edit"
-msgstr	"Edit"
-
-msgid	" edit attributes"
-msgstr	""
-
-msgid	" lock"
-msgstr	""
-
-msgid	" revise"
-msgstr	""
-
-msgid	" unlock"
-msgstr	""
-
-msgid	" change profile"
-msgstr	""
-
-msgid	" change creation profile"
-msgstr	""
-
-msgid	" view properties"
-msgstr	""
-
-msgid	"print"
-msgstr	"Print this page"
-
-msgid	"delconfirm"
-msgstr	"Really Delete"
-
-msgid	"author"
-msgstr	""
-
-#, fuzzy
-msgid	"state"
-msgstr	"Identity"
-
-#, fuzzy
-msgid	"revision"
-msgstr	"Organisation"
-
-msgid	"locked by"
-msgstr	""
-
-#, fuzzy
-msgid	"revision date"
-msgstr	"Organisation"
-
-#, fuzzy
-msgid	" profile access"
-msgstr	"Control access"
-
-msgid	"reference"
+msgid	"no comment"
 msgstr	""
 
 msgid	"no file specified : update aborted"
 msgstr	""
 
 msgid	"file not expected : possible attack : update aborted"
-msgstr	""
-
-msgid	"new document family"
 msgstr	""
 
 #, c-format
@@ -336,44 +85,6 @@ msgstr	""
 msgid	"new profile document"
 msgstr	""
 
-#, c-format
-msgid	"the external pluggin file %s cannot be read"
-msgstr	""
-
-#, c-format
-msgid	"the pluggins function description '%s' is not conform"
-msgstr	""
-
-msgid	"no file referenced"
-msgstr	""
-
-msgid	"updateldapok"
-msgstr	"Update LDAP server"
-
-msgid	"updateldapko"
-msgstr	"Fail Update LDAP server"
-
-msgid	"no document type"
-msgstr	""
-
-msgid	"new directory"
-msgstr	""
-
-msgid	"new document"
-msgstr	""
-
-msgid	"create"
-msgstr	"Create"
-
-msgid	"document not referenced"
-msgstr	""
-
-msgid	"no import file specified"
-msgstr	""
-
-msgid	"no comment"
-msgstr	""
-
 msgid	"the document is not referenced: cannot apply profile access "
 	"modification"
 msgstr	""
@@ -389,6 +100,14 @@ msgid	"no"
 msgstr	""
 
 msgid	"root folder"
+msgstr	""
+
+#, c-format
+msgid	"the external pluggin file %s cannot be read"
+msgstr	""
+
+#, c-format
+msgid	"the pluggins function description '%s' is not conform"
 msgstr	""
 
 msgid	"untitle document"
@@ -434,7 +153,7 @@ msgid	"the method '%s' is not known for the object class %s"
 msgstr	""
 
 #, c-format
-msgid	"ChangeState :: the method '%s' return the following error %s"
+msgid	"ChangeState :: the method '%s' has the following error %s"
 msgstr	""
 
 #, c-format
@@ -443,7 +162,7 @@ msgstr	""
 
 #, c-format
 msgid	"ChangeState :: the state has been realized but the post method '%s' "
-	"return the following error %s"
+	"has the following error %s"
 msgstr	""
 
 msgid	"errldapadd"
@@ -455,61 +174,6 @@ msgstr	"LDAP server cannot be contacted"
 
 #, c-format
 msgid	"cannot add folder : '%s'. It will be ancestor of itself"
-msgstr	""
-
-#, fuzzy
-msgid	"error in filename"
-msgstr	"Firstname"
-
-#, fuzzy
-msgid	"no filename"
-msgstr	"Firstname"
-
-msgid	"..."
-msgstr	""
-
-#, c-format
-msgid	"Possible file upload attack: filename '%s'."
-msgstr	""
-
-msgid	"fixed"
-msgstr	""
-
-#, fuzzy
-msgid	"nobody"
-msgstr	"No embed file"
-
-msgid	"no family"
-msgstr	""
-
-msgid	"no access control"
-msgstr	""
-
-msgid	"edit"
-msgstr	"Edit"
-
-msgid	"delete"
-msgstr	"Delete"
-
-msgid	"goaccess"
-msgstr	"Control access"
-
-msgid	"admin"
-msgstr	"Admnistration functions"
-
-msgid	"import"
-msgstr	"Import"
-
-msgid	"add"
-msgstr	"Add new contact card"
-
-msgid	"export"
-msgstr	"Export selected cards"
-
-msgid	"locked"
-msgstr	""
-
-msgid	"changed"
 msgstr	""
 
 msgid	"Freedoms"
@@ -602,6 +266,9 @@ msgstr	""
 msgid	"change icon document"
 msgstr	""
 
+msgid	"search document"
+msgstr	""
+
 msgid	"search document criteria"
 msgstr	""
 
@@ -651,6 +318,342 @@ msgstr	""
 #, fuzzy
 msgid	"Freedom initialisation"
 msgstr	"Organisation"
+
+#, fuzzy
+msgid	"error in filename"
+msgstr	"Firstname"
+
+#, fuzzy
+msgid	"no filename"
+msgstr	"Firstname"
+
+msgid	"..."
+msgstr	""
+
+#, c-format
+msgid	"Possible file upload attack: filename '%s'."
+msgstr	""
+
+msgid	"fixed"
+msgstr	""
+
+#, fuzzy
+msgid	"nobody"
+msgstr	"No embed file"
+
+msgid	"no family"
+msgstr	""
+
+msgid	"no access control"
+msgstr	""
+
+msgid	"specific control"
+msgstr	""
+
+msgid	"edit"
+msgstr	"Edit"
+
+msgid	"delete"
+msgstr	"Delete"
+
+msgid	"goaccess"
+msgstr	"Control access"
+
+msgid	"admin"
+msgstr	"Admnistration functions"
+
+msgid	"import"
+msgstr	"Import"
+
+msgid	"add"
+msgstr	"Add new contact card"
+
+msgid	"export"
+msgstr	"Export selected cards"
+
+msgid	"locked"
+msgstr	""
+
+msgid	"changed"
+msgstr	""
+
+msgid	" folder containt"
+msgstr	""
+
+msgid	"document(s) found"
+msgstr	""
+
+msgid	"view properties"
+msgstr	""
+
+msgid	"edit document"
+msgstr	""
+
+msgid	"link document"
+msgstr	""
+
+#, fuzzy
+msgid	"delete link"
+msgstr	"Delete"
+
+msgid	"cancel"
+msgstr	""
+
+msgid	"Properties:"
+msgstr	""
+
+#, fuzzy
+msgid	"edition: "
+msgstr	"Edit"
+
+msgid	"Import Document"
+msgstr	""
+
+msgid	"for"
+msgstr	""
+
+msgid	"Description of the import format:"
+msgstr	""
+
+msgid	"The text between brackets are only indication for user readable"
+msgstr	""
+
+#, fuzzy
+msgid	"import file:"
+msgstr	"Import"
+
+msgid	"Import document description"
+msgstr	""
+
+msgid	"inherit from"
+msgstr	""
+
+msgid	"no document family"
+msgstr	""
+
+msgid	"ID"
+msgstr	""
+
+msgid	"order"
+msgstr	""
+
+#, fuzzy
+msgid	"name"
+msgstr	"Lastname"
+
+msgid	"type"
+msgstr	""
+
+msgid	"frame"
+msgstr	""
+
+msgid	"A?"
+msgstr	""
+
+msgid	"T?"
+msgstr	""
+
+msgid	"Vi"
+msgstr	""
+
+msgid	"Link"
+msgstr	""
+
+#, fuzzy
+msgid	"file"
+msgstr	"Update Title Cards"
+
+msgid	"func"
+msgstr	""
+
+msgid	"help"
+msgstr	""
+
+msgid	"updateldap"
+msgstr	"Update LDAP server"
+
+msgid	" change icon"
+msgstr	""
+
+msgid	" lauch importation"
+msgstr	""
+
+msgid	" keyword"
+msgstr	""
+
+msgid	" only latest revision"
+msgstr	""
+
+msgid	" from current folder"
+msgstr	""
+
+msgid	" case sensitive"
+msgstr	""
+
+msgid	" save query in current folder"
+msgstr	""
+
+#, fuzzy
+msgid	" search title"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	" send search"
+msgstr	"Start search"
+
+msgid	" cancel"
+msgstr	""
+
+msgid	" properties"
+msgstr	""
+
+msgid	" create subfolder"
+msgstr	""
+
+msgid	" paste this revision"
+msgstr	""
+
+msgid	" paste latest revision"
+msgstr	""
+
+msgid	"New"
+msgstr	""
+
+#, fuzzy
+msgid	"Search"
+msgstr	"Start search"
+
+msgid	"View"
+msgstr	""
+
+msgid	"Help"
+msgstr	""
+
+msgid	"new doc"
+msgstr	""
+
+msgid	"new folder"
+msgstr	""
+
+msgid	"new family"
+msgstr	""
+
+msgid	"import document"
+msgstr	""
+
+msgid	"simple"
+msgstr	""
+
+msgid	"list"
+msgstr	""
+
+msgid	"icon"
+msgstr	""
+
+msgid	"refresh"
+msgstr	""
+
+#, fuzzy
+msgid	"profile access"
+msgstr	"Control access"
+
+msgid	"no profile"
+msgstr	""
+
+msgid	" comment for revision"
+msgstr	""
+
+msgid	" revise document"
+msgstr	""
+
+msgid	" history"
+msgstr	""
+
+msgid	" rev"
+msgstr	""
+
+msgid	" comment"
+msgstr	""
+
+#, fuzzy
+msgid	" revised by"
+msgstr	"Created by"
+
+#, fuzzy
+msgid	" date"
+msgstr	"Edit"
+
+msgid	" choose value"
+msgstr	""
+
+msgid	"close"
+msgstr	""
+
+#, fuzzy
+msgid	"move"
+msgstr	"Cellular"
+
+msgid	"to"
+msgstr	""
+
+msgid	"unchanged"
+msgstr	""
+
+msgid	"print"
+msgstr	"Print this page"
+
+msgid	"delconfirm"
+msgstr	"Really Delete"
+
+msgid	"author"
+msgstr	""
+
+#, fuzzy
+msgid	"state"
+msgstr	"Identity"
+
+#, fuzzy
+msgid	"revision"
+msgstr	"Organisation"
+
+msgid	"locked by"
+msgstr	""
+
+#, fuzzy
+msgid	"revision date"
+msgstr	"Organisation"
+
+#, fuzzy
+msgid	" profile access"
+msgstr	"Control access"
+
+msgid	"reference"
+msgstr	""
+
+#, fuzzy
+msgid	" edit"
+msgstr	"Edit"
+
+msgid	" edit attributes"
+msgstr	""
+
+msgid	" lock"
+msgstr	""
+
+msgid	" revise"
+msgstr	""
+
+msgid	" unlock"
+msgstr	""
+
+msgid	" change profile"
+msgstr	""
+
+msgid	" change creation profile"
+msgstr	""
+
+msgid	" view properties"
+msgstr	""
 
 #~ msgid	"category"
 #~ msgstr	"Category"
