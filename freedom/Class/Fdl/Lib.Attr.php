@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.33 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.34 2004/04/23 15:25:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.33 2004/02/05 15:42:58 eric Exp $
+// $Id: Lib.Attr.php,v 1.34 2004/04/23 15:25:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -274,40 +274,46 @@ function PgUpdateFamilly($dbaccess, $docid) {
     include_once("FDLGEN/Class.$classname.php");
     $cdoc = new $classname($dbaccess);
       
-    $oattr = $cdoc->GetNormalAttributes();
-    reset($oattr);
+    $qattr = new QueryDb($dbaccess,"DocAttr");
+    $qattr->AddQuery("docid=".$docid);
+    $qattr->AddQuery("type != 'menu'");
+    $qattr->AddQuery("type != 'frame'");
+    $qattr->AddQuery("type != 'array'");
 
-    while (list($ka,$attr) = each($oattr)) {
+    $oattr=$qattr->Query();
+    if (count($oattr) > 0) {
 
-      if ($attr->type=="array") continue; // don't use column for container
-      if ($attr->docid == $docid) { // modify my field not inherited fields
+      foreach($oattr as $ka => $attr) {
 
-	if (! in_array($attr->id, $pgatt)) {
-	  $msg .= "add field {$attr->id} in table doc".$docid."\n";
+	if ($attr->type=="array") continue; // don't use column for container
+	if ($attr->docid == $docid) { // modify my field not inherited fields
+
+	  if (! in_array($attr->id, $pgatt)) {
+	    $msg .= "add field {$attr->id} in table doc".$docid."\n";
 	  
-	  if ($attr->repeat)  $sqltype = strtolower($v->id)." text";  // for the moment all repeat are text
-	  else {
-	    switch($attr->type) {
-	    case double:
-	    case money:
-	      $sqltype = strtolower($v->id)." float8";  
-	      break;
-	    case integer:
-	      $sqltype = strtolower($v->id)." int4";  
-	      break;
-	    case date:
-	      $sqltype = strtolower($v->id)." date";  
-	      break;
-	    case time:
-	      $sqltype = strtolower($v->id)." time";  
-	      break;
-	    default: 
-	      $sqltype = strtolower($v->id)." text";    
+	    if ($attr->repeat)  $sqltype = strtolower($v->id)." text";  // for the moment all repeat are text
+	    else {
+	      switch($attr->type) {
+	      case double:
+	      case money:
+		$sqltype = strtolower($v->id)." float8";  
+		break;
+	      case integer:
+		$sqltype = strtolower($v->id)." int4";  
+		break;
+	      case date:
+		$sqltype = strtolower($v->id)." date";  
+		break;
+	      case time:
+		$sqltype = strtolower($v->id)." time";  
+		break;
+	      default: 
+		$sqltype = strtolower($v->id)." text";    
+	      }
 	    }
+	    $sqlquery="ALTER TABLE doc".$docid." ADD COLUMN {$attr->id} $sqltype;";
+	    $doc->exec_query($sqlquery,1); // add new field
 	  }
-	  $sqlquery="ALTER TABLE doc".$docid." ADD COLUMN {$attr->id} $sqltype;";
-	  $doc->exec_query($sqlquery,1); // add new field
-	  
 	}
       }
     }
