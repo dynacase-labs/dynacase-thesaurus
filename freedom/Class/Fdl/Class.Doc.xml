@@ -70,15 +70,39 @@ end;
 [BLOCK ACALC]
     // -------------------
   if (method_exists($this,"[method]")) {
+    $arraycount=0;
     $iargs=array();
   [BLOCK [biattr]]
-    $iargs[]=$this->getValue("[niarg]","[niarg]");
+    $attr = $this->getAttribute("[niarg]");
+    if (! $attr) $iargs[]="[niarg]";
+    else {
+      if ($attr->inArray()) {
+	$t = $this->getTValue("[niarg]");
+	$iargs[]=$t;
+	$arraycount=count($t);
+      } else $iargs[]=$this->getValue("[niarg]");
+    }
   [ENDBLOCK [biattr]]
+
     $this->AddParamRefresh("[niargs]","[rarg]");
-    $v = call_user_method_array("[method]",$this,$iargs);
-    $this->setValue("[rarg]",$v); 
-     
-    }  else {
+    if ($arraycount > 0) {
+      $tv=array();
+      for ($c=0;$c<$arraycount;$c++) {
+	$tiargs=array(); // parameters for each row
+	reset($iargs);
+	while (list($k, $va) = each($iargs)) {
+	  if (is_array($va)) $tiargs[]=$va[$c];
+	  else $tiargs[]=$va;
+	}
+	$tv[] = call_user_method_array("[method]",$this,$tiargs);
+	
+      }
+      $this->setValue("[rarg]",implode("\\n",$tv)); 
+    } else {
+      $v = call_user_method_array("[method]",$this,$iargs);
+      $this->setValue("[rarg]",$v); 
+    }
+  }  else {
       $err.= sprintf(_("method %s does not exist."),"[method]");
     }[ENDBLOCK ACALC]
 
