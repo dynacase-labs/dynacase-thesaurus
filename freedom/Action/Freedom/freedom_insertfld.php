@@ -1,38 +1,15 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * insert the documents of $dirid in folder $id
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_insertfld.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_insertfld.php,v 1.6 2004/02/24 08:35:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
  */
  /**
  */
-
-// ---------------------------------------------------------------
-// $Id: freedom_insertfld.php,v 1.5 2003/08/18 15:47:03 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_insertfld.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 
 include_once("FDL/Lib.Dir.php");
@@ -65,11 +42,7 @@ function freedom_insertfld(&$action) {
 								  $doc->title));
   if ($dirid > 0) {
     $ldoc=getChildDoc($dbaccess,$dirid,0,"ALL",array(),1,"TABLE");
-  
-    while (list($k, $v) = each($ldoc)) {
-
-      $err .= $doc->AddFile($v["id"], $mode);
-    }
+    $err=$doc->InsertMDoc($ldoc, $mode);
   
   }
   if ($err != "") $action->addWarningMsg($err);
