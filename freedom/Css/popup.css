@@ -1,0 +1,44 @@
+
+/* pop up style */
+
+
+.popup {
+  background-color: #40a0c0;
+  
+  border-color: blue;
+  border-style: outset;
+  border-width: 2px; 
+  margin: 0px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  visibility: hidden;
+  z-index:10;
+}
+
+a.menuItem {
+  color: #ffffff;
+  cursor: default;
+  display: block;
+  font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
+  font-size: 8pt;
+  font-weight: bold;
+  padding: 2px 12px 2px 8px;
+  text-decoration: none;
+}
+
+a.menuItem:hover {
+  background-color: #004060;
+  color: #ffff00;
+}
+
+a.menuItemDisabled{
+  color: gray;
+  cursor: default;
+  display: block;
+  font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
+  font-size: 8pt;
+  font-weight: bold;
+  padding: 2px 12px 2px 8px;
+  text-decoration: none;
+}

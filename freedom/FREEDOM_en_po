@@ -1,0 +1,244 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid	""
+msgstr	"Project-Id-Version: WHAT 1.3\n"
+	"POT-Creation-Date: 2001-10-17 17:43+0200\n"
+	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
+	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
+	"MIME-Version: 1.0\n"
+	"Content-Type: text/plain; charset=ISO-8859-1\n"
+	"Content-Transfer-Encoding: 8-bit\n"
+	"\n"
+
+msgid	"civilstate"
+msgstr	"Identity"
+
+msgid	"firstname"
+msgstr	"Firstname"
+
+msgid	"lastname"
+msgstr	"Lastname"
+
+msgid	"photo"
+msgstr	"Photography"
+
+msgid	"business"
+msgstr	"Bussiness"
+
+msgid	"buscategory"
+msgstr	"Title"
+
+msgid	"department"
+msgstr	"Department"
+
+msgid	"email"
+msgstr	"Email"
+
+msgid	"phone"
+msgstr	"Phone"
+
+msgid	"fax"
+msgstr	"Fax"
+
+msgid	"organisation"
+msgstr	"Organisation"
+
+msgid	"postaladdress"
+msgstr	"Address"
+
+msgid	"postalcode"
+msgstr	"Zip"
+
+msgid	"locality"
+msgstr	"Locality"
+
+msgid	"url"
+msgstr	"URL"
+
+msgid	"home"
+msgstr	"Home"
+
+msgid	"mobile"
+msgstr	"Cellular"
+
+msgid	"updatetitle"
+msgstr	"Update Title Cards"
+
+msgid	"help"
+msgstr	""
+
+msgid	"updateldap"
+msgstr	"Update LDAP server"
+
+msgid	"oneexport"
+msgstr	"Export this card"
+
+msgid	"print"
+msgstr	"Print this page"
+
+msgid	"delconfirm"
+msgstr	"Really Delete"
+
+msgid	"createdby"
+msgstr	"Created by"
+
+msgid	"category"
+msgstr	"Category"
+
+msgid	"newcatg"
+msgstr	"Others"
+
+msgid	"visibility"
+msgstr	"Visibility"
+
+msgid	"readwriteall"
+msgstr	"readwriteall"
+
+msgid	"readall"
+msgstr	"readall"
+
+msgid	"readwriteowner"
+msgstr	"Private"
+
+msgid	"allcatg"
+msgstr	"All"
+
+msgid	"onlyowner"
+msgstr	"my"
+
+msgid	"search"
+msgstr	"Start search"
+
+msgid	"noedit"
+msgstr	"Modify not possible"
+
+msgid	"edit"
+msgstr	"Edit"
+
+msgid	"updateldapok"
+msgstr	"Update LDAP server"
+
+msgid	"updateldapko"
+msgstr	"Fail Update LDAP server"
+
+msgid	"delete"
+msgstr	"Delete"
+
+msgid	"goaccess"
+msgstr	"Control access"
+
+msgid	"create"
+msgstr	"Create"
+
+msgid	"modify"
+msgstr	"Modify"
+
+msgid	"noappli"
+msgstr	"No application"
+
+msgid	"noembed"
+msgstr	"No embed file"
+
+msgid	"admin"
+msgstr	"Admnistration functions"
+
+msgid	"import"
+msgstr	"Import"
+
+msgid	"add"
+msgstr	"Add new contact card"
+
+msgid	"export"
+msgstr	"Export selected cards"
+
+msgid	"errldapadd"
+msgstr	"Card is not modify in LDAP server : one of this attribute is not "
+	"appropriate"
+
+msgid	"errldapconnect"
+msgstr	"LDAP server cannot be contacted"
+
+msgid	"delete own card"
+msgstr	""
+
+msgid	"delete any card"
+msgstr	""
+
+msgid	"modify own cardgroup_default"
+msgstr	""
+
+msgid	"modify any card"
+msgstr	""
+
+msgid	"modify public card"
+msgstr	""
+
+msgid	"Cannot Add : need CONTACT privilege"
+msgstr	""
+
+msgid	"Cannot Modify : need CONTACT privilege"
+msgstr	""
+
+msgid	"Cannot Modify : Not Owner"
+msgstr	""
+
+msgid	"Cannot Delete : Not Owner"
+msgstr	""
+
+msgid	"Contacts"
+msgstr	""
+
+msgid	"Contacts Management"
+msgstr	""
+
+msgid	"Access To All Users"
+msgstr	""
+
+msgid	"Access Management Database"
+msgstr	""
+
+msgid	"Access To My Own account"
+msgstr	""
+
+msgid	"Access To Read Only"
+msgstr	""
+
+msgid	"Contacts frame"
+msgstr	""
+
+msgid	"Contacts list"
+msgstr	""
+
+msgid	"Contacts card"
+msgstr	""
+
+msgid	"Contact modification"
+msgstr	""
+
+msgid	"Contact deletion"
+msgstr	""
+
+msgid	"Contact importation"
+msgstr	""
+
+msgid	"Contacts exportation"
+msgstr	""
+
+msgid	"Contact exportation"
+msgstr	""
+
+#, fuzzy
+msgid	"Administration"
+msgstr	"Organisation"
+
+msgid	"Contact update title fields"
+msgstr	""
+
+msgid	"Contact update LDAP server"
+msgstr	""
+
+msgid	"Contact accessibilities"
+msgstr	""

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- HEAD HTML -->
+
+<html>
+  <head>
+
+   <title>[WHAT] [APP_TITLE]</title>
+
+   <style>
+[ZONE CORE:GENCSS]
+   </style>
+
+
+[CSS:REF]
+
+
+<style type="text/css">
+[CSS:CODE]
+.iconimg {
+  border-style: hidden;
+  border-width: 3;
+  border-color: purple;
+  width:40;
+  height:40;
+  
+}
+/*
+.iconimg:hover {
+  background-color: [FREEDOM_FRAMEBGCOLOR];
+  border-style:dashed;
+  border-width: 3;
+  
+}
+*/
+.icon{
+
+  font-weight: bold;
+  font-size: 60%;
+  text-align: center;
+  font-variant: small-caps;
+  width:60;
+  height:100;
+  position:absolute;
+  left:0;
+  top:0;
+  border-style:none;
+  border-color:purple;
+
+
+}
+
+
+.abstract {
+  background-color: [FREEDOM_FRAMEBGCOLOR];
+/*  background-image: url('FREEDOM/Images/button9.png'); */
+/*  background-repeat:no-repeat; */
+  font-size: 60%;
+  text-align: left;
+  position:absolute;
+  border-style:groove;
+  border-color:purple;
+  border-width: 4;
+  visibility:hidden;
+  z-index:3;
+
+}
+</style>
+
+[JS:REF]
+
+   <script language="JavaScript1.2">
+  <!--
+    [JS:CODE]
+    document.dirid='[dirid]';
+-->
+</script>   
+ </head>
+
+<body class="freedom" onLoad="initmicon();placeicons();" onResize="placeicons()">
+
+
+
+<img id="micon" width="20" height="20"   style="position:absolute;visibility:hidden;z-index:10" border="0" src="FREEDOM/Images/doc.gif">
+
+
+[ZONE FREEDOM:POPUP]
+
+<!-- TABLEBODY -->
+[BLOCK TABLEBODY]
+<div class="icon" id="d[divid]" >
+<IMG class="iconimg" id="i[divid]" 
+     onMouseDown="select(this,[id],[divid]);openMenuOrAbstract(event);" 
+     onContextMenu="openMenu(event,'popup');return false" 
+     align="absbottom"  src="[iconsrc]"><br>
+
+  
+  <span class="FREEDOMTextTitle">[title]<sup style="font-size:50%">[revision]</sup></span>
+    
+
+
+</div>
+<!-- -------------- ABSTRACT DIVISION --------------------- -->
+<div id="a[divid]" class="abstract">
+<span class="FREEDOMTextAbstractValue">[title]</span>
+
+<ul>
+  [BLOCK [blockabstract]]
+  <li><span  class="FREEDOMTextAbstract">[name]&nbsp;:&nbsp;[value]</span></li>
+  [ENDBLOCK [blockabstract]]
+  </ul>
+</div>
+
+
+[ENDBLOCK TABLEBODY]
+<!-- /TABLEBODY -->
+
+
+
+
+
+<!--  FOOT HTML -->
+
+</body>
+</html>

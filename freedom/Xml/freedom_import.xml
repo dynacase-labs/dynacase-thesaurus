@@ -1,0 +1,59 @@
+[ZONE CORE:HTMLHEAD]
+<H2>Import from LDIF, CSV, or VCard</H2>
+
+<TABLE WIDTH=85% border="1">
+	  <TR>
+	    <TD COLSPAN="2" ><FORM ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_IMPORT" method="post">
+            <OL>
+            <LI>In Netscape, open the Addressbook and select <b>Export</b> from the <b>File</b> menu.
+                The file exported will be in LDIF format.
+              <P>Or, in Outlook, select your Freedom folder, select <b>Import 
+                and Export...</b> from the <b>File</b> 
+                menu and export your freedom into a comma separated text (CSV) file.
+              <P>Or, in Palm Desktop 4.0 or greater, visit your addressbook and select <b>Export</b> from the <b>File</b> menu.
+                The file exported will be in VCard format.<P>
+			</LI>
+            <LI>Enter the path to the exported file here:
+              <INPUT NAME="tsvfile" SIZE=48 TYPE="file" VALUE=""><P></LI>
+            <LI>Select import policy if find card with same title:
+            <SELECT NAME="policy">
+            <OPTION VALUE="add">Add new card (duplicate title)</OPTION>
+            <OPTION VALUE="update">Replace address book card if owner else keep</OPTION>
+            <OPTION VALUE="keep">Keep address book card </OPTION>
+            </SELECT><P></LI>
+            </OL>
+</TD>
+</TR>
+
+<TR>
+<TD><OL start="4">
+            <LI>Select the type of conversion:
+            <SELECT NAME="conv_type">
+	    <OPTION VALUE="Ldif">Import from Netscape</OPTION>
+	    <OPTION VALUE="Csv">Import from Outlook</OPTION>
+	    <OPTION VALUE="Vcard">Import from VCard</OPTION>
+            </SELECT><P></LI>
+			<LI>
+ <label for="category"> [TEXT:category]:</label>
+  <select name="category" >
+    
+[BLOCK SELECTOPTION]
+    <option VALUE="[catgvalue]" >[catgtextvalue]    
+[ENDBLOCK SELECTOPTION]
+    </select>
+            </LI>
+			<LI>
+<label for="visibility"> [TEXT:visibility]&nbsp;:</label>
+ <input type="radio" name="visibility" value="W"  >[TEXT:readwriteall]
+ <input type="radio" name="visibility" value="R"  >[TEXT:readall]
+ <input type="radio" name="visibility" value="N" checked >[TEXT:readwriteowner]
+            <LI><INPUT NAME="convert" TYPE="submit" VALUE="Submit"></LI>
+            </OL>
+            </FORM></TD>	
+<TD>[CR]</TD>    
+          </TR>
+</TABLE>
+
+[ZONE CORE:HTMLFOOT]
+
+

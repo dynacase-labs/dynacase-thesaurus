@@ -1,0 +1,246 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid	""
+msgstr	"Project-Id-Version: WHAT 1.3\n"
+	"POT-Creation-Date: 2001-10-17 17:43+0200\n"
+	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
+	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
+	"MIME-Version: 1.0\n"
+	"Content-Type: text/plain; charset=ISO-8859-1\n"
+	"Content-Transfer-Encoding: 8-bit\n"
+	"\n"
+
+msgid	"civilstate"
+msgstr	"État civil"
+
+msgid	"firstname"
+msgstr	"Prénom"
+
+msgid	"lastname"
+msgstr	"Nom"
+
+msgid	"photo"
+msgstr	"Photographie"
+
+msgid	"business"
+msgstr	"Professionnel"
+
+msgid	"buscategory"
+msgstr	"Fonction"
+
+msgid	"department"
+msgstr	"Département"
+
+msgid	"email"
+msgstr	"Email"
+
+msgid	"phone"
+msgstr	"Téléphone"
+
+msgid	"fax"
+msgstr	"Fax"
+
+msgid	"organisation"
+msgstr	"Société"
+
+msgid	"postaladdress"
+msgstr	"Adresse"
+
+msgid	"postalcode"
+msgstr	"Code Postal"
+
+msgid	"locality"
+msgstr	"Ville"
+
+msgid	"url"
+msgstr	"Page Web (URL)"
+
+msgid	"home"
+msgstr	"Domicile"
+
+msgid	"mobile"
+msgstr	"Mobile"
+
+msgid	"updatetitle"
+msgstr	"Mise à jour des titres"
+
+msgid	"help"
+msgstr	"aide"
+
+msgid	"updateldap"
+msgstr	"Mise à jour du serveur LDAP"
+
+msgid	"oneexport"
+msgstr	"Exporter cette carte"
+
+msgid	"print"
+msgstr	"Impression de la page"
+
+msgid	"delconfirm"
+msgstr	"Voulez-vous supprimer"
+
+msgid	"createdby"
+msgstr	"Créé par"
+
+msgid	"category"
+msgstr	"Catégorie"
+
+msgid	"newcatg"
+msgstr	"Autre"
+
+msgid	"visibility"
+msgstr	"Visibilité"
+
+msgid	"readwriteall"
+msgstr	"publique modifiable"
+
+msgid	"readall"
+msgstr	"publique"
+
+msgid	"readwriteowner"
+msgstr	"privée"
+
+msgid	"allcatg"
+msgstr	"Toutes"
+
+msgid	"onlyowner"
+msgstr	"perso"
+
+msgid	"search"
+msgstr	"Lancer la recherche"
+
+msgid	"noedit"
+msgstr	"Modification refusée"
+
+msgid	"edit"
+msgstr	"Éditer"
+
+msgid	"updateldapok"
+msgstr	"mise à jour du serveur LDAP"
+
+msgid	"updateldapko"
+msgstr	"échec de mise à jour du serveur LDAP"
+
+msgid	"delete"
+msgstr	"Supprimer"
+
+msgid	"goaccess"
+msgstr	"Accessibilité"
+
+msgid	"create"
+msgstr	"Créer"
+
+msgid	"modify"
+msgstr	"Modifier"
+
+msgid	"noappli"
+msgstr	"Aucune application"
+
+msgid	"noembed"
+msgstr	"Aucun document inclu"
+
+msgid	"admin"
+msgstr	"Fonctions d'administration"
+
+msgid	"import"
+msgstr	"Importer"
+
+msgid	"add"
+msgstr	"Ajouter un nouveau contact"
+
+msgid	"export"
+msgstr	"Exporter les cartes \n"
+	"selon les critères courants"
+
+msgid	"errldapadd"
+msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
+	"attributs n'est pas conforme"
+
+msgid	"errldapconnect"
+msgstr	"Le server LDAP n'a pas pu être contacté"
+
+msgid	"delete own card"
+msgstr	"supprimer mes propres cartes"
+
+msgid	"delete any card"
+msgstr	"supprimer n'importe quelles cartes"
+
+#, fuzzy
+msgid	"modify own cardgroup_default"
+msgstr	"modifier mes propres cartes"
+
+msgid	"modify any card"
+msgstr	"modifier n'importe quelles cartes"
+
+msgid	"modify public card"
+msgstr	"modifier les cartes publiques"
+
+msgid	"Cannot Add : need CONTACT privilege"
+msgstr	"L'ajout de carte nécessite le privilège CONTACT"
+
+msgid	"Cannot Modify : need CONTACT privilege"
+msgstr "La modification de carte nécessite le privilège CONTACT"
+
+msgid	"Cannot Modify : Not Owner"
+msgstr "La modification n'est autorisé que par son propriétaire"
+
+msgid	"Cannot Delete : Not Owner"
+msgstr "La suppression n'est autorisé que par son propriétaire"
+
+msgid	"Contacts"
+msgstr	"Contacts"
+
+msgid	"Contacts Management"
+msgstr	"Gestion de cartes"
+
+msgid	"Access To All Users"
+msgstr	"Accès à tous les utilisateurs"
+
+msgid	"Access Management Database"
+msgstr	"Accès administration de la base"
+
+msgid	"Access To My Own account"
+msgstr	"Accès à ses propres cartes"
+
+msgid	"Access To Read Only"
+msgstr	"Accès en lecture seule"
+
+#, fuzzy
+msgid	"Contacts frame"
+msgstr	"Contacts"
+
+msgid	"Contacts list"
+msgstr	"Listes des contacts"
+
+msgid	"Contacts card"
+msgstr	"Lecture carte"
+
+msgid	"Contact modification"
+msgstr	"Modification de cartes"
+
+msgid	"Contact deletion"
+msgstr	"Suppression de cartes"
+
+msgid	"Contact importation"
+msgstr	"Importation de cartes"
+
+msgid	"Contacts exportation"
+msgstr	"Exportation de cartes"
+
+msgid	"Contact exportation"
+msgstr	"Exportation d'une carte"
+
+msgid	"Administration"
+msgstr	"Administration"
+
+msgid	"Contact update title fields"
+msgstr	""
+
+msgid	"Contact update LDAP server"
+msgstr	""
+
+msgid	"Contact accessibilities"
+msgstr	""

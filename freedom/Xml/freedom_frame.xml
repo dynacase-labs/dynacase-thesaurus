@@ -1,0 +1,23 @@
+<html>
+<head>
+
+<title>[WHAT] [APP_TITLE]</title>
+
+</head>
+
+
+<frameset frameborder="1" framespacing="5" border="5" cols="40%,*" >
+
+
+<frameset frameborder="1" framespacing="5" border="5" rows="40%,*" >
+  <frame name="list" src="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FOLDERS" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="doc_properties" src="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+</frameset>
+
+<frameset frameborder="1" framespacing="0" border="1" rows="40,*" >
+  <frame name="menu" src="[CORE_STANDURL]&app=[FREEDOM_APP]&action=BARMENU" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="info" src="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+</frameset>
+
+</frameset>
+</html>

@@ -1,0 +1,35 @@
+<!-- ------------ POPUP DIVISION --------------------- -->
+<div  id="popup" class="popup">
+
+<a href="#" id="vprop"
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+docid,'doc_properties');closeMenu('popup');">[TEXT: view properties] </a>
+
+<a href="#" id="chicon"     
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=QUERYFILE&id='+docid,'doc_properties');closeMenu('popup');">
+[TEXT: change icon]</a>
+
+<a href="#" id="chstate">[TEXT: change state]</a>
+
+<a href="#" id="editdoc" 
+    
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id='+docid,'doc_properties');closeMenu('popup')"  >[TEXT: edit document]</a>
+
+<a href="#" id="lockdoc" 
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=LOCKFILE&id='+docid,'doc_properties');closeMenu('popup')"  >[TEXT: lock document]</a>
+
+<a href="#" id="revise" 
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=REVISION&id='+docid,'doc_properties');closeMenu('popup')" >[TEXT: revise document]</a>
+
+<a href="#" id="unlockdoc"
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=UNLOCKFILE&id='+docid,'doc_properties');closeMenu('popup')" >[TEXT: unlock document]</a>
+
+<a href="#" id="copy" 
+    onClick="activedrag(event);closeMenu('popup')" >[TEXT: link document]</a>
+
+<a href="#" id="delete"
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=DELDIRFILE&docid='+docid+'&dirid='+parent.info.document.dirid,'info');closeMenu('popup')" >[TEXT: delete link]</a>
+
+<a href="#" id="cancel"  
+    onClick="closeMenu('popup')"  >cancel</a>
+</div>
+<!-- ------------------ end POPUP DIVISION ------------------ -->

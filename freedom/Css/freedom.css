@@ -1,0 +1,111 @@
+/* ---------------------------------------------------------------------------
+ * $Id: freedom.css,v 1.1 2001/11/09 09:43:59 eric Exp $
+ * ---------------------------------------------------------------------------
+ */
+.FREEDOMTblTitle{
+	background-color: [FREEDOM_TITLEBGCOLOR];	
+}
+
+.FREEDOMTextBigTitle{
+
+  color: [FREEDOM_TITLEFGCOLOR];
+  font-weight: bold;
+  font-size: 120%;
+  text-align: center;
+  font-variant: small-caps;
+}
+
+.FREEDOMTextTitle{
+  color: [FREEDOM_TITLEFGCOLOR];	
+  font-size: 80%;
+  font-weight: bold;
+}
+
+.FREEDOMTextAbstractName{
+  color: [FREEDOM_ABSFGCOLOR];	
+  font-size: 80%;
+  font-style: italic;
+  text-align: right;
+}
+.FREEDOMTextAbstractValue{
+  color: [FREEDOM_ABSFGCOLOR];	
+  font-size: 80%;
+  font-style: regular;
+  text-align: left;
+  font-weight: bold;
+}
+.FREEDOMTextAbstract{
+  color: [FREEDOM_ABSFGCOLOR];	
+  font-size: 80%;
+  font-style: regular;
+  text-align: left;
+  font-weight: medium;
+}
+
+
+
+.FREEDOMTblFrame{
+	background-color: [FREEDOM_FRAMEBGCOLOR];	
+}
+.FREEDOMTextName{
+  font-size: 80%;
+  font-style: italic;
+  text-align: right;
+}
+.FREEDOMTextValue{
+  font-size: 80%;
+  font-style: italic;
+  text-align: left;
+}
+.FREEDOMTextCopyright{
+  font-size: 70%;
+  font-style: italic;
+  text-align: right;
+}
+
+label{
+  font-style: italic;
+  text-align: right;
+  color: [FREEDOM_ABSFGCOLOR];	
+}
+
+
+
+.fborder{
+  background-color: [FREEDOM_BGATTRCOLOR];
+  color: [FREEDOM_ABSFGCOLOR];	
+  border-color: [CORE_FGCOLOR];
+  border-width: 0pt;
+  border-style: solid ;
+}
+.tdstyle{
+  background-color: [FREEDOM_BGATTRCOLOR];
+  color: [FREEDOM_ABSFGCOLOR];	
+}
+
+
+.FREEDOMError{
+  color: red;	
+  font-style: bold;
+  text-align: right;
+}
+
+DIV.TITLE { color : black;
+	border-width : thin;
+	  background-color : #EEEEEE;
+
+	padding : 3pt;
+	border-left : solid slategrey; 
+	border-left-width : thin;
+	border-top : solid slategrey; 
+	border-top-width : thin;
+
+	border-right : solid ivory; 
+	border-right-width : thin;
+	border-bottom : solid ivory; 
+	border-bottom-width : thin;
+
+	
+	
+}
+
