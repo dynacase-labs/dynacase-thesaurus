@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.18 2003/05/28 14:36:30 eric Exp $
+// $Id: Lib.Attr.php,v 1.19 2003/06/19 17:58:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -126,21 +126,24 @@ function AttrToPhp($dbaccess, $tdoc) {
 			   "phpfunc"=>$v->phpfunc);
 
 	$tattr[] = array("attrid"=>strtolower($v->id));	 
-	switch($atype) {
-	case double:
-	case money:
-	  $attrids[] = strtolower($v->id)." float8";  
+	if ($repeat)  $attrids[] = strtolower($v->id)." text";  // for the moment all repeat are text
+	else {
+	  switch($atype) {
+	  case double:
+	  case money:
+	    $attrids[] = strtolower($v->id)." float8";  
+	    break;
+	  case integer:
+	    $attrids[] = strtolower($v->id)." int4";  
+	    break;
+	  case date:
+	    $attrids[] = strtolower($v->id)." date";  
+	    break;
+	  default: 
+	    $attrids[] = strtolower($v->id)." text";    
+	  }
 	  break;
-	case integer:
-	  $attrids[] = strtolower($v->id)." int4";  
-	  break;
-	case date:
-	  $attrids[] = strtolower($v->id)." date";  
-	  break;
-	default: 
-	  $attrids[] = strtolower($v->id)." text";    
 	}
-	break;
       }
     }	 
 
