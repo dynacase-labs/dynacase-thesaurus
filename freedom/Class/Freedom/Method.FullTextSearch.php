@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Method.FullTextSearch.php,v 1.5 2004/10/19 15:28:02 marc Exp $
+ * @version $Id: Method.FullTextSearch.php,v 1.6 2004/10/19 16:42:42 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -62,6 +62,7 @@ function GetFullTextResultDocs ($dbaccess,
 				$userid=1, 
 				$qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
 
+  include_once("FDL/Class.FTSMnoGoSearch.php");
   include_once("FDL/Class.DocVaultIndex.php");
 
   global $action;
@@ -106,9 +107,9 @@ function GetFullTextResultDocs ($dbaccess,
         $debugs = "[$k] Filename = [".$v["file"]."] VaultId = [".$vid."] DocId = [ ";
         $r = $dvi->GetDocId($vid);
         if (is_array($r) && count($r)>0) {
-	  if ($ndoc->id>0) {
-	    while (list($k, $v) = each($r)) {
-	      $ndoc = new Doc($dbaccess, $v->docid);
+	  while (list($k, $v) = each($r)) {
+	    $ndoc = new Doc($dbaccess, $v->docid);
+	    if ($ndoc->id>0) {
 	      if (  ($latest=="fixed" && $ndoc->locked==-1 && $ndoc->lmodify=="L")
 		    || ($latest=="yes" && $ndoc->locked!=-1)
 		    || ($latest=="no") ) {
@@ -122,9 +123,9 @@ function GetFullTextResultDocs ($dbaccess,
 	      } else {
 		$debugs .= " (not searched revision) ";
 	      }
+	    } else {
+	      $debugs .= " (invalid doc id) ";
 	    }
-	  } else {
-	    $debugs .= " (invalid doc id) ";
 	  }
         } else {
 	  $debugs .= " (none) ";
