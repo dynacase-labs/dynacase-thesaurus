@@ -87,7 +87,7 @@ function openMenu(event, menuid, itemid) {
  // event.stopPropagation();
   return false; // no navigator context menu
 }
-document.write('<img id="WIMG" src="Images/mr_alarm_clock.gif" style="display:none;position:absolute">');
+document.write('<img id="WIMG" src="Images/gyro.gif" style="display:none;position:absolute">');
 function viewwait() {
   var wimgo = document.getElementById('WIMG');
   if (wimgo) {
