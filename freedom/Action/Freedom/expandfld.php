@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.10 2002/11/28 18:19:21 eric Exp $
+// $Id: expandfld.php,v 1.11 2002/12/23 09:16:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -100,6 +100,12 @@ function expandfld(&$action) {
       
     }
   } 
+  
+  // define icon from style
+  $iconfolder = $action->GetImageUrl("ftv2folderopen1.gif");
+  $pathicon = explode("/",$iconfolder);
+  if (count($pathicon) == 4) $action->lay->set("iconFolderPath",$pathicon[0]."/".$pathicon[1]);
+  else $action->lay->set("iconFolderPath","FREEDOM");
   
   $action->lay->Set("subtree", $stree);
   

@@ -5,7 +5,7 @@
 [JS:REF]
    <script language="JavaScript">
 
-document.wstyle='STYLE/AQUA';
+document.wstyle='[iconFolderPath]';
 
     [JS:CODE]
   //-->

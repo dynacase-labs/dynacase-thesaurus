@@ -160,7 +160,7 @@ XXXX -->
 
 <!-- Code for browser detection -->
 <script src="FREEDOM/Layout/ua.js"></script>
-<script language="JavaScript">document.wstyle='STYLE/AQUA';</script>
+<script language="JavaScript">document.wstyle='[iconFolderPath]';</script>
 <!-- Infrastructure code for the tree -->
 <script src="FREEDOM/Layout/ftiens4.js"></script>
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: edit_search_fulltext.php,v 1.2 2002/08/07 13:00:15 marc Exp $
+// $Id: edit_search_fulltext.php,v 1.3 2002/12/23 09:16:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/edit_search_fulltext.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 include_once("FDL/Lib.Dir.php");
+include_once("FREEDOM/search_fulltext.php");
 
 
 // -----------------------------------

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.32 2002/12/18 15:02:02 eric Exp $
+// $Id: viewfolder.php,v 1.33 2002/12/23 09:16:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -207,6 +207,11 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  }
 	
 	  if ($doc->doctype == "S") popupInvisible('popuplist',$kdiv,'editdoc'); 
+	  if ($dir->defDoctype != 'D') {
+	    // it's a search :: inhibit duplicate and suppress reference
+	    popupInvisible("popuplist",$kdiv,'duplicate');
+	    popupInvisible("popuplist",$kdiv,'delete');	  
+	  }
 	}
 
 

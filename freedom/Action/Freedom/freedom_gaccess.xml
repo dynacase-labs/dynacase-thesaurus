@@ -1,4 +1,4 @@
-[ZONE CORE:HTMLHEAD]
+[ZONE CORE:HTMLHEAD?title=[TEXT:Permissions]:[title]]
 <script>
 function enablefrom(th) {
   var checkboxes = th.getElementsByTagName("input");

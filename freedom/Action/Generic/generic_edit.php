@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.10 2002/11/18 16:41:57 eric Exp $
+// $Id: generic_edit.php,v 1.11 2002/12/23 09:16:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -83,6 +83,7 @@ function generic_edit(&$action) {
 
  
 
+  $action->lay->Set("iconsrc", $doc->geticon());
   
 
   $action->lay->Set("id", $docid);

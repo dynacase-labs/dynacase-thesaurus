@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.11 2002/10/31 08:09:22 eric Exp $
+// $Id: folders.php,v 1.12 2002/12/23 09:16:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,6 +96,13 @@ function folders(&$action) {
   $nbfolders++; // one for the top
 
 
+  // define icon from style
+  $iconfolder = $action->GetImageUrl("ftv2folderopen1.gif");
+  $pathicon = explode("/",$iconfolder);
+  if (count($pathicon) == 4) $action->lay->set("iconFolderPath",$pathicon[0]."/".$pathicon[1]);
+  else $action->lay->set("iconFolderPath","FREEDOM");
+  
+
   // define sub trees
 
   
@@ -135,6 +142,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
     if ($level == 0) $levelp="";
     else $levelp = $level-1;
     if ($doc->owner < 0) $ftype=3;
+    else if ($doc->id == 14) $ftype=5;
     else if ($doc->doctype == 'D') $ftype=1;
     else if ($doc->doctype == 'S') $ftype=2;
 

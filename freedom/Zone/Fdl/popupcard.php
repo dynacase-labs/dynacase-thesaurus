@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.12 2002/12/16 17:47:37 eric Exp $
+// $Id: popupcard.php,v 1.13 2002/12/23 09:16:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,12 +57,12 @@ function popupcard(&$action) {
     popupInvisible('popupcard',$kdiv,'chicon');
   }
 
-  if (! $doc->isRevisable() ) popupInvisible('popupcard',$kdiv,'lockdoc');
+  if ($doc->locked == $action->user->id) popupInvisible('popupcard',$kdiv,'lockdoc');
   else if (($doc->locked != $action->user->id) && 
-      $clf) popupActive('popupcard',$kdiv,'lockdoc');
+	   $clf) popupActive('popupcard',$kdiv,'lockdoc');
   else popupInactive('popupcard',$kdiv,'lockdoc');
 
-  if (! $doc->isRevisable() ) popupInvisible('popupcard',$kdiv,'unlockdoc');
+  if ($doc->locked == 0 ) popupInvisible('popupcard',$kdiv,'unlockdoc');
   elseif (($doc->locked != 0) && $cuf) popupActive('popupcard',$kdiv,'unlockdoc'); 
   else popupInactive('popupcard',$kdiv,'unlockdoc');
 

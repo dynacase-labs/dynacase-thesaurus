@@ -757,7 +757,7 @@ msgid	"query icon"
 msgstr	"requête icone"
 
 msgid	"search document"
-msgstr	"Nouveau document"
+msgstr "Recherche de documents"
 
 msgid	"search document criteria"
 msgstr	"critères de recherche de document"

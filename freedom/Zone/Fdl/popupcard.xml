@@ -24,6 +24,9 @@
 <a href="#" id="lockdoc" 
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=LOCKFILE&id=[id]',self.name);closeMenu('popupcard')"  >[TEXT:Lock]</a>
 
+<a href="#" id="unlockdoc"
+    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=UNLOCKFILE&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Unlock]</a>
+
 <a href="#" id="revise" 
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=REVCOMMENT&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Revise]</a>
 
@@ -32,10 +35,6 @@
 
 <a href="#" id="defval" 
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_DEDIT&id=[ddocid]&classid=[id]',self.name);closeMenu('popupcard')" >[TEXT:Set default values]</a>
-
-<a href="#" id="unlockdoc"
-    onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=UNLOCKFILE&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:Unlock]</a>
-
 
 <a href="#" id="histo"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]',self.name);closeMenu('popupcard')" >[TEXT:History]</a>

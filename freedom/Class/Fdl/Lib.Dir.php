@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.48 2002/12/16 17:47:37 eric Exp $
+// $Id: Lib.Dir.php,v 1.49 2002/12/23 09:16:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -326,31 +326,6 @@ function hasChildFld($dbaccess, $dirid) {
   return false;
 }
 
-// --------------------------------------------------------------------
-function getQids($dbaccess, $dirid, $docid) {
-  // return array of document id includes in a directory
-    // --------------------------------------------------------------------
-      
-      $tableid = array();
-  
-  $doc = new Doc($dbaccess, $docid);
-  $query = new QueryDb($dbaccess,"QueryDir");
-  $query -> AddQuery("dirid=".$dirid);
-  $query -> AddQuery("((childid=$docid) and (qtype='F')) OR ((childid={$doc->initid}) and (qtype='S'))");
-  $tableq=$query->Query();
-  
-  if ($query->nb > 0)
-    {
-      while(list($k,$v) = each($tableq)) 
-	{
-	  $tableid[$k] = $v->id;
-	}
-      unset ($tableq);
-    }
-  
-  
-  return($tableid);
-}
 
 // just to test array if set before
 function setv($v,$k,$d="") {

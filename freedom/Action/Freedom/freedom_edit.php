@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.11 2002/12/04 17:13:36 eric Exp $
+// $Id: freedom_edit.php,v 1.12 2002/12/23 09:16:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -117,7 +117,7 @@ function freedom_edit(&$action) {
       }
     }
     
-
+  $action->lay->Set("iconsrc", $doc->geticon());
  
   // compute the changed state
   $tstate= array();

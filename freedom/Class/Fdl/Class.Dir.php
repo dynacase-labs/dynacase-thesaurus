@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.10 2002/11/22 18:08:22 eric Exp $
+// $Id: Class.Dir.php,v 1.11 2002/12/23 09:16:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.10 2002/11/22 18:08:22 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.11 2002/12/23 09:16:13 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -104,6 +104,32 @@ Class Dir extends PDir
   }
 
 
+  // --------------------------------------------------------------------
+  function getQids($docid) {
+    // return array of document id includes in a directory
+    // --------------------------------------------------------------------
+      
+    $tableid = array();
+  
+    $doc = new Doc($this->dbaccess, $docid);
+    $query = new QueryDb($this->dbaccess,"QueryDir");
+    $query -> AddQuery("dirid=".$this->id);
+    $query -> AddQuery("((childid=$docid) and (qtype='F')) OR ((childid={$doc->initid}) and (qtype='S'))");
+    $tableq=$query->Query();
+  
+    if ($query->nb > 0)
+      {
+	while(list($k,$v) = each($tableq)) 
+	  {
+	    $tableid[$k] = $v->id;
+	  }
+	unset ($tableq);
+      }
+  
+  
+    return($tableid);
+  }
+
   // delete reference to a  file in this folder
   function DelFile($docid ) {
     
@@ -114,7 +140,7 @@ Class Dir extends PDir
     if ($err!= "") return $err;
 
    
-    $qids = getQids($this->dbaccess,$this->initid, $docid);
+    $qids = $this->getQids($docid);
 
     if (count($qids) == 0) $err = sprintf(_("cannot delete link : link not found for doc %d in folder %d"),$docid, $this->initid);
     if ($err != "") return $err;
