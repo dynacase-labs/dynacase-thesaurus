@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.5 2002/06/19 12:32:28 eric Exp $
+// $Id: expandfld.php,v 1.6 2002/08/09 08:45:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,6 +45,11 @@ function expandfld(&$action) {
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/expandfld.js");
 
+  // get export permission
+  global $core;
+  $appfld=new Application();
+  $appfld->Set("FDL",$core);
+  $pexport=$appfld->HasPermission("EXPORT");
   
   
   // ------------------------------------------------------
@@ -61,7 +66,10 @@ function expandfld(&$action) {
       
       popupActive("popfld",$nbfolders,'cancel');
       popupActive("popfld",$nbfolders,'vprop');
-      popupActive("popfld",$nbfolders,'export');
+
+      if ($pexport)  popupActive("popfld",$nbfolders,'export');
+      else popupInvisible("popfld",$nbfolders,'export');
+
       if ($doc["doctype"] == 'D') {
 	popupActive("popfld",$nbfolders,'mkdir');
 	popupActive("popfld",$nbfolders,'refresh');

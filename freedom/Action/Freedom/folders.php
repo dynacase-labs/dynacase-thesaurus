@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.8 2002/06/19 12:32:28 eric Exp $
+// $Id: folders.php,v 1.9 2002/08/09 08:45:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,8 +36,10 @@ function folders(&$action) {
   // -----------------------------------
 
   
-  global  $nbfolders, $dbaccess;
+  global  $nbfolders, $dbaccess, $pexport;
   $nbfolders=0;
+
+  
 
 
   // Get all the params      
@@ -75,7 +77,15 @@ function folders(&$action) {
   // for the first (top) folder
   popupActive("popfld",$nbfolders,'cancel');
   popupActive("popfld",$nbfolders,'vprop');
-  popupActive("popfld",$nbfolders,'export');
+
+  // get export permission
+  global $core;
+  $appfld=new Application();
+  $appfld->Set("FDL",$core);
+  $pexport=$appfld->HasPermission("EXPORT");
+  if ($pexport)  popupActive("popfld",$nbfolders,'export');
+  else popupInvisible("popfld",$nbfolders,'export');
+
   popupActive("popfld",$nbfolders,'mkdir');  
   popupInvisible("popfld",$nbfolders,'refresh');  
   popupActive("poppaste",$nbfolders,'staticpaste');
@@ -116,6 +126,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
   global $tmenuaccess;
   global $nbfolders;
   global $action;
+  global $pexport;
   
 
   if ($thisfld) {
@@ -137,7 +148,8 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
 
     popupActive("popfld",$nbfolders,'cancel');
     popupActive("popfld",$nbfolders,'vprop');
-    popupActive("popfld",$nbfolders,'export');
+    if ($pexport)  popupActive("popfld",$nbfolders,'export');
+    else popupInvisible("popfld",$nbfolders,'export');
     if ($doc->doctype == 'D') {
       popupActive("popfld",$nbfolders,'mkdir');
       popupActive("popfld",$nbfolders,'refresh');
