@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.133 2003/06/10 08:55:04 eric Exp $
+// $Id: Class.Doc.php,v 1.134 2003/06/10 13:56:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.133 2003/06/10 08:55:04 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.134 2003/06/10 13:56:58 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/10 08:55:04 $
-// Version         $Revision: 1.133 $
+// Last Update     $Date: 2003/06/10 13:56:58 $
+// Version         $Revision: 1.134 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -988,7 +988,10 @@ create unique index i_docir on doc(initid, revision);";
     return $def;
 
   }
-  
+  // return the array value of an repeatable attribute object 
+  function GetTValue($idAttr, $def="")  { 
+    return $this->_val2array($this->getValue("$idAttr"));
+  }
 
   function SetValue($attrid, $value) {
     // control edit before set values
@@ -1017,7 +1020,7 @@ create unique index i_docir on doc(initid, revision);";
       $oattr=$this->GetAttribute($attrid);
 
       if ($oattr->repeat) {
-	$tvalues = explode("\n",$value);
+	$tvalues = $this->_val2array($value);
       } else {
 	$tvalues[]=$value;
       }
@@ -1378,7 +1381,7 @@ create unique index i_docir on doc(initid, revision);";
 	  }
 	  //	  print "attr=$sattrid";
 	  if ($k >= 0) {
-	    $tval= explode("\n",$this->GetValue($sattrid));
+	    $tval= $this->GetTValue($sattrid);
 	    $ovalue = $tval[$k];
 	  } else {
 	    $ovalue = $this->GetValue($sattrid);
@@ -1416,7 +1419,10 @@ create unique index i_docir on doc(initid, revision);";
     
   }
   
-  
+  function _val2array($v) {
+    
+    return explode("\n", str_replace("\r","",$v));
+  }
   
   
   function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true, $index=-1) {
@@ -1496,7 +1502,7 @@ create unique index i_docir on doc(initid, revision);";
 	  while (list($k, $v) = each($ta)) {
 	    if ($v->visibility=="H") continue;
 	    $talabel[] = array("alabel"=>$v->labelText);	
-	    $tval[$k]=explode("\n",$this->getValue($k));
+	    $tval[$k]=$this->getTValue($k);
 	    if ($emptyarray && ($this->getValue($k)!="")) $emptyarray=false;
 	   
 	  }
@@ -2352,7 +2358,7 @@ create unique index i_docir on doc(initid, revision);";
 	  if ($attrtype_list){
 	    // $value=htmlspecialchars($this->GetValue($i));
 	    $value=$this->GetValue($i);
-	    $textlist=explode("\n",$value);
+	    $textlist=$this->_val2array($value);
 	      
 	    while ($text = each($textlist)){
 	      $currentFrameId = $listattr[$i]->fieldSet->id;

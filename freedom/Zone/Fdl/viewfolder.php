@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.40 2003/04/08 12:44:10 eric Exp $
+// $Id: viewfolder.php,v 1.41 2003/06/10 13:56:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,6 +43,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $dirid=GetHttpVars("dirid"); // directory to see
   $refresh=GetHttpVars("refresh","no"); // force folder refresh
   $startpage=GetHttpVars("page","0"); // page number
+  $aorder=GetHttpVars("aorder","title"); // order sort attribute
 
 
   $column = ($with_popup && ($action->getParam("FREEDOM_VIEW")=="column"));
@@ -94,7 +95,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     } else $start=0;
 
 
-  $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid);
+  $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid, 
+		      false, $aorder);
 
   
   

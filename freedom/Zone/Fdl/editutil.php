@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.35 2003/05/28 14:36:56 eric Exp $
+// $Id: editutil.php,v 1.36 2003/06/10 13:56:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -189,7 +189,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 	$tvattr[]=array("bvalue" => "bvalue_$k",
 			"attrid" => $v->id);
 	
-	$tval[$k]=explode("\n",$doc->getValue($k));
+	$tval[$k]=$doc->getTValue($k);
 	$nbitem=count($tval[$k]);
 	$tivalue=array();
 	for ($i=0;$i<$nbitem;$i++) {

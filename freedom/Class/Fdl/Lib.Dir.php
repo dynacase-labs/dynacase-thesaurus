@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.70 2003/05/23 15:30:03 eric Exp $
+// $Id: Lib.Dir.php,v 1.71 2003/06/10 13:56:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -190,7 +190,7 @@ function getChildDoc($dbaccess,
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
 		     $userid=1, 
-		     $qtype="LIST", $fromid="",$distinct=false) {
+		     $qtype="LIST", $fromid="",$distinct=false, $aorder="title") {
   
   // query to find child documents            
   
@@ -204,7 +204,7 @@ function getChildDoc($dbaccess,
 
 
   if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
-  else  $qsql .= " ORDER BY title LIMIT $slice OFFSET $start;";
+  else  $qsql .= " ORDER BY $aorder LIMIT $slice OFFSET $start;";
    
    if ($fromid > 0) include_once "FDLGEN/Class.Doc$fromid.php";
 

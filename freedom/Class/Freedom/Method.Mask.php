@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.2 2003/03/26 10:46:16 eric Exp $
+// $Id: Method.Mask.php,v 1.3 2003/06/10 13:56:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,8 +51,8 @@ function getLabelNeed() {
 
 
 function getVisibilities() {
-  $tvisid = explode("\n",$this->getValue("MSK_VISIBILITIES"));
-  $tattrid = explode("\n",$this->getValue("MSK_ATTRIDS"));
+  $tvisid = $this->getTValue("MSK_VISIBILITIES");
+  $tattrid = $this->getTValue("MSK_ATTRIDS");
 
   $tvisibilities=array();
   while (list($k,$v)= each ($tattrid)) {
@@ -62,8 +62,8 @@ function getVisibilities() {
 }
 
 function getNeedeeds() {
-  $tvisid = explode("\n",$this->getValue("MSK_NEEDEEDS"));
-  $tattrid = explode("\n",$this->getValue("MSK_ATTRIDS"));
+  $tvisid = $this->getTValue("MSK_NEEDEEDS");
+  $tattrid = $this->getTValue("MSK_ATTRIDS");
 
   $tvisibilities=array();
   while (list($k,$v)= each ($tattrid)) {

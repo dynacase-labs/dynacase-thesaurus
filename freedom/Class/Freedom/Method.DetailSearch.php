@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.6 2003/05/27 12:30:37 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.7 2003/06/10 13:56:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,10 +57,10 @@ function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$diri
     else $filters[] = "values ~* '$keyword' ";
   }
  
-  $tol = explode("\n",$this->getValue("SE_OLS"));
-  $tkey = explode("\n",$this->getValue("SE_KEYS"));
-  $taid = explode("\n",$this->getValue("SE_ATTRIDS"));
-  $tf = explode("\n",$this->getValue("SE_FUNCS"));
+  $tol = $this->getTValue("SE_OLS");
+  $tkey = $this->getTValue("SE_KEYS");
+  $taid = $this->getTValue("SE_ATTRIDS");
+  $tf = $this->getTValue("SE_FUNCS");
   
   $cond="";
   $tol[0]="";
@@ -99,10 +99,10 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
    $this->viewattr($target,$ulink, $abstract);
   //-----------------------------------------------
   // display already condition written
-  $tol = explode("\n",$this->getValue("SE_OLS"));
-  $tkey = explode("\n",$this->getValue("SE_KEYS"));
-  $taid = explode("\n",$this->getValue("SE_ATTRIDS"));
-  $tf = explode("\n",$this->getValue("SE_FUNCS"));
+  $tol = $this->getValue("SE_OLS");
+  $tkey = $this->getValue("SE_KEYS");
+  $taid = $this->getValue("SE_ATTRIDS");
+  $tf = $this->getValue("SE_FUNCS");
 
   if ((count($tkey) > 1) || ($tkey[0] != "")) {
 
@@ -200,10 +200,10 @@ function editdsearch() {
 
   //-----------------------------------------------
   // display already condition written
-  $tol = explode("\n",$this->getValue("SE_OLS"));
-  $tkey = explode("\n",$this->getValue("SE_KEYS"));
-  $taid = explode("\n",$this->getValue("SE_ATTRIDS"));
-  $tf = explode("\n",$this->getValue("SE_FUNCS"));
+  $tol = $this->getTValue("SE_OLS");
+  $tkey = $this->getTValue("SE_KEYS");
+  $taid = $this->getTValue("SE_ATTRIDS");
+  $tf = $this->getTValue("SE_FUNCS");
   
   $cond="";
  
