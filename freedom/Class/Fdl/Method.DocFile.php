@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocFile.php,v 1.6 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: Method.DocFile.php,v 1.7 2004/09/28 13:25:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -86,6 +86,14 @@ function viewfilecard($target="_self",$ulink=true,$abstract=false) {
 
 
 function PostModify() {
-  $this->SetValue("FI_TITLE",$this->vault_filename("FI_FILE"));
+  $filename=$this->vault_filename("FI_FILE");
+  /* to not view extension file
+  $pos = strrpos($filename , ".");
+  if ($pos !== false) { 
+    $filename=substr($filename,0,$pos);
+  }
+  */
+
+  $this->SetValue("FI_TITLE",$filename);
 }
 ?>
