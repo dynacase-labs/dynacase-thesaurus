@@ -1,0 +1,7 @@
+<div class="EventCalView">
+<span class="EventCalViewTitle">[TITLE]</span><br/>
+<span class="EventCalViewDate">[BEGIN_DATE]</span> - <span class="EventCalViewDate">[END_DATE]</span><br/>
+<span class="EventCalViewOwner">[OWNER]</span><br/>
+<span class="EventCalViewRessources">
+[BLOCK RESSOURCES]<ul>[R]</ul>[ENDBLOCK RESSOURCES] </span>
+</div>
