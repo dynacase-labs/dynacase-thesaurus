@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * Examine vault files
+ *
+ * @author Anakeen 2004
+ * @version $Id: VaultExamine.php,v 1.2 2005/03/30 17:43:14 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
 ini_set("include_path", ".:/home/httpd/what:/home/httpd/what/WHAT:/usr/share/pear");
 ini_set("max_execution_time", "36000");
 

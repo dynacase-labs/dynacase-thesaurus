@@ -1,5 +1,15 @@
 <?php
-include_once("Lib.Http.php");
+/**
+ * Search come from mozilla seach engine
+ *
+ * @author Anakeen 2005 
+ * @version $Id: freedomsearch.php,v 1.3 2005/03/30 17:42:09 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */include_once("Lib.Http.php");
 $famid = GetHttpVars("famid", 0);
 $latest = GetHttpVars("latest", true);
 $fromdir = GetHttpVars("fromdir", false);
