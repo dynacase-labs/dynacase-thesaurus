@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.17 2002/09/13 15:06:07 eric Exp $
+// $Id: viewcard.php,v 1.18 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -101,14 +101,14 @@ function viewcard(&$action) {
   $action->lay->Set("comment", $doc->comment);
 
 
-  if ($doc->locked > 0) {
-    $user = new User("", $doc->locked);
-    $action->lay->Set("locked", $user->firstname." ".$user->lastname);
+  if ($doc->locked == 0) {
+      $action->lay->Set("locked", _("nobody"));
   } else {
-    if ($doc->locked < 0) {
+    if ($doc->locked == -1) {
       $action->lay->Set("locked", _("fixed"));
     } else {
-      $action->lay->Set("locked", _("nobody"));
+      $user = new User("", abs($doc->locked));
+      $action->lay->Set("locked", $user->firstname." ".$user->lastname);
     }
   }
   if ($doc->fromid > 0) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: unlockfile.php,v 1.3 2002/06/19 12:32:29 eric Exp $
+// $Id: unlockfile.php,v 1.4 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/Attic/unlockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,27 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: unlockfile.php,v $
-// Revision 1.3  2002/06/19 12:32:29  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.2  2002/04/08 15:12:18  eric
-// ajout message de log
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.3  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
 
-// ---------------------------------------------------------------
 
 include_once("FDL/Class.Doc.php");
 function unlockfile(&$action) 
@@ -49,6 +29,7 @@ function unlockfile(&$action)
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
+  $auto = (GetHttpVars("auto","N")=="Y"); // just auto unlock
 
 
 
@@ -57,13 +38,11 @@ function unlockfile(&$action)
 
 
 
-  $err=$doc->UnLock();
+  $err=$doc->UnLock($auto);
   if ($err != "") $action->ExitError($err);
   
 
-  
-    
-  $action->AddLogMsg(sprintf(_("%s has been unlocked"),$doc->title));
+  if (! $auto)  $action->AddLogMsg(sprintf(_("%s has been unlocked"),$doc->title));
 
     
   

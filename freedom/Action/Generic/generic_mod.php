@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.9 2002/09/10 13:30:27 eric Exp $
+// $Id: generic_mod.php,v 1.10 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,13 +40,7 @@ function generic_mod(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  if ($docid > 0) {
-    
-      $doc= new Doc ($dbaccess,$docid);
-      // lock the doc if not before modify
-      $err = $doc->lock();
-      if ($err != "")   $action->ExitError($err);
-  }
+  
   $err = modcard($action, $ndocid); // ndocid change if new doc
 
 
@@ -75,10 +69,6 @@ function generic_mod(&$action) {
     
   } 
 
-
-
-  $err = $doc->unlock();
-  if ($err != "")  $action-> ExitError($err);
   
   $err = $doc->PostModify(); 
   if ($err != "")  $action-> ExitError($err);

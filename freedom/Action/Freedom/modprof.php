@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.4 2002/07/11 13:19:15 eric Exp $
+// $Id: modprof.php,v 1.5 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,8 +36,8 @@ function modprof(&$action) {
     
     
     
-    // Get all the params      
-      $docid=GetHttpVars("docid");
+  // Get all the params      
+  $docid=GetHttpVars("docid");
   $createp = GetHttpVars("create",0); // 1 if use for create profile (only for familly)
     
     
@@ -48,43 +48,45 @@ function modprof(&$action) {
   
   
   // initialise object
-    $ofreedom = new Doc($dbaccess,$docid);
+  $doc = new Doc($dbaccess,$docid);
+  $err= $doc -> lock(true); // auto lock
+  if ($err != "")    $action-> ExitError($err);
   
   
   // test object permission before modify values (no access control on values yet)
-    $err=$ofreedom-> CanUpdateDoc();
-  if ($err != "")
-    $action-> ExitError($err);
+  $err=$doc-> CanUpdateDoc();
+  if ($err != "")    $action-> ExitError($err);
   
   if ($createp) {
     // change creation profile
-      $ofreedom->cprofid = GetHttpVars("profid"); // new creation profile access
+    $doc->cprofid = GetHttpVars("profid"); // new creation profile access
   } else {
     // change profile
-      $ofreedom->profid = GetHttpVars("profid"); // new profile access
+    $doc->profid = GetHttpVars("profid"); // new profile access
   }
-  $ofreedom-> Modify();
+  $doc-> Modify();
   
   
   
   
   // specific control
-    if (($ofreedom->profid == $ofreedom->id) && 
-	(! $ofreedom->isControlled()) )
-      $ofreedom->SetControl();
-    else {
-      // remove control 
-      if (($ofreedom->profid >= 0) && 
-	  ($ofreedom->isControlled()) )
-	$ofreedom->UnsetControl();
+  if (($doc->profid == $doc->id) && 
+      (! $doc->isControlled()) )
+    $doc->SetControl();
+  else {
+    // remove control 
+    if (($doc->profid >= 0) && 
+	($doc->isControlled()) )
+      $doc->UnsetControl();
   
-    }
-  
-  
+  }
   
   
   
   
+  
+  
+  $doc -> unlock(true); // auto unlock
   
   
   

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.7 2002/09/13 15:06:07 eric Exp $
+// $Id: freedom_edit.php,v 1.8 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -99,9 +99,10 @@ function freedom_edit(&$action) {
     }
   else
     {     
-      $err = $doc->CanUpdateDoc();
-      if ($err != "")   $action->ExitError($err);
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
+
+      $err = $doc->lock(true); // autolock
+      if ($err != "")   $action->ExitError($err);
   
 
       $action->lay->Set("TITLE", $doc->title);

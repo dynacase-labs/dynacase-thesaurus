@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: revcomment.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: revcomment.php,v 1.3 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/revcomment.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,30 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: revcomment.php,v $
-// Revision 1.2  2002/06/19 12:32:29  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.2  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.1  2001/11/21 08:40:34  eric
-// ajout historique
-//
-// Revision 1.3  2001/11/16 18:04:39  eric
-// modif de fin de semaine
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
 
-// ---------------------------------------------------------------
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
@@ -57,6 +34,8 @@ function revcomment(&$action)
   $doc= new Doc($dbaccess,$docid);
 
 
+  $err= $doc -> lock(true); // auto lock
+  if ($err != "")    $action-> ExitError($err);
   
   $err = $doc->CanUpdateDoc();
   if ($err != "") $action->ExitError($err);

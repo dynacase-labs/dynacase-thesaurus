@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.9 2002/09/18 15:00:59 eric Exp $
+// $Id: freedom_mod.php,v 1.10 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,8 +61,7 @@ function freedom_mod(&$action) {
   }
   
   if  ($docid == 0) {
-    $fld->AddFile($doc->id);    
-    $doc->unlock();
+    $fld->AddFile($doc->id);   
   } 
   
   

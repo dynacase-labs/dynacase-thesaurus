@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.52 2002/09/18 11:09:35 eric Exp $
+// $Id: Class.Doc.php,v 1.53 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.52 2002/09/18 11:09:35 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.53 2002/09/19 13:45:10 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -257,7 +257,7 @@ create unique index i_docir on doc(initid, revision);";
 	if ($err != "") return ($err); 
       }
       
-      if ($this->locked < 0) $this->lmodify='N';
+      if ($this->locked == -1) $this->lmodify='N';
       if ($this->hasChanged) {
 	$this->RefreshTitle();
 	if (chop($this->title) == "") $this->title =_("untitle document");
@@ -294,8 +294,8 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->locked == 0) {     
 	$err = sprintf(_("the file %s (rev %d) must be locked before"), $this->title,$this->revision);      
       } else {
-	if ($this->locked != $this->userid) {
-	  if ($this->locked > 0) {
+	if (abs($this->locked) != $this->userid) {
+	  if ($this->locked != -1) {
 	    $user = new User("", $this->locked);
 	    $err = sprintf(_("you are not allowed to update the file %s (rev %d) is locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname); 
 	  } else {
@@ -313,24 +313,30 @@ create unique index i_docir on doc(initid, revision);";
   // test if the document can be locked
   // ie not locked before, and latest revision (the old revision are locked
   function CanLockFile() {
-  // --------------------------------------------------------------------
+    // --------------------------------------------------------------------
     if ($this->userid == 1) return ""; // admin can do anything
     $err="";
-    if ($this->doctype != 'F') $err = _("this document cannot be locked : it is not a revisable document");  // only document 'F' can be locked
-    else {
-      if ($this->locked > 0) {
-	// test if is not already locked
-	if ($this->locked != $this->userid) {
-	  $user = new User("", $this->locked);
-	  $err = sprintf(_("cannot lock file %s (rev %d): already locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname);
-	} 
-      } else if ($this->locked != 0) {
+
+    
+      if ($this->locked == -1) {
       
-	$err = sprintf(_("cannot lock file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);
-      } else {      
-	$err = $this-> Control( "edit");
+	$err = sprintf(_("cannot lock file %s (rev %d) : fixed. Get the latest version"), 
+		       $this->title,$this->revision);
+      }  else {
+	if ($this->locked == 0) $err = $this-> Control( "edit");
+	// test if is not already locked
+	else {
+	  if ( abs($this->locked) != $this->userid) {
+	    $user = new User("", $this->locked);
+	    $err = sprintf(_("cannot lock file %s (rev %d): already locked by %s."), 
+			   $this->title,$this->revision,$user->firstname." ".$user->lastname);
+	  }   else  {      
+	    $err = $this-> Control( "edit");
+	  }
+	}
       }
-    }
+    
+
     return($err);  
   } 
 
@@ -882,28 +888,42 @@ create unique index i_docir on doc(initid, revision);";
     
   }
 
-  function lock() {
+  function lock($auto=false) {
     
     $err=$this->CanLockFile();
     if ($err != "") return $err;
       
     // test if is not already locked
-    if ($this->locked != $this->userid) {
-      $this->locked = $this->userid;      
-      $this->modify();
+    if ($auto) {
+      if ($this->locked == 0) {
+	$this->locked = -$this->userid;     
+	$err=$this->modify();
+      }
+    } else { 
+      if ($this->locked != $this->userid) {
+	$this->locked = $this->userid;     
+	$err=$this->modify();
+      }
     }
     
-    return "";
+    return $err;
   }
-  function unlock() {
+  function unlock($auto=false) {
     
 
-      $err=$this->CanLockFile();
-      if ($err != "") return $err;
+    $err=$this->CanLockFile();
+    if ($err != "") return $err;
       
-    if ($this->locked != 0) {
-      $this->locked = "0";      
-      $this->modify();
+    if ($auto) {
+      if ($this->locked < 0) {
+	$this->locked = "0";      
+	$this->modify();
+      }
+    } else {
+      if ($this->locked != 0) {
+	$this->locked = "0";      
+	$this->modify();
+	}
     }
     
     return "";
@@ -1188,8 +1208,8 @@ create unique index i_docir on doc(initid, revision);";
     function Control ($aclname) {
       // -------------------------------------------------------------------- 
       if (($this->IsAffected()) ) {	
-	  if (isset($this->operm) ) {
-	    global $lprof;
+	global $lprof;
+	  if (isset($lprof[$this->profid]) ) {
 
 	    return $lprof[$this->profid]->Control( $aclname);
 	  } else return "";

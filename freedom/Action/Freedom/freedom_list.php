@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_list.php,v 1.2 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_list.php,v 1.3 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,24 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: freedom_list.php,v $
-// Revision 1.2  2002/06/19 12:32:28  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.3  2001/12/18 09:18:10  eric
-// first API with ZONE
-//
-// Revision 1.2  2001/11/28 13:40:10  eric
-// home directory
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-//
-// ---------------------------------------------------------------
+
 
 include_once("FREEDOM/freedom_view.php");
 

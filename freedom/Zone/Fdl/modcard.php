@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.15 2002/09/17 16:58:56 eric Exp $
+// $Id: modcard.php,v 1.16 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,7 +56,7 @@ function modcard(&$action, &$ndocid) {
       
       
       $doc->owner = $action->user->id;
-      $doc->locked = $action->user->id; // lock for next modification
+      $doc->locked = 0;
       if ($doc->fromid <= 0) {
 	$doc->profid = "0"; // NO PROFILE ACCESS
       }
@@ -75,6 +75,9 @@ function modcard(&$action, &$ndocid) {
       // initialise object
       $doc = new Doc($dbaccess, $docid);
       
+      $err = $doc->lock(true); // autolock
+      if ($err != "")   $action->ExitError($err);
+
       // test object permission before modify values (no access control on values yet)
       $err=$doc-> CanUpdateDoc();
       if ($err != "")  $action-> ExitError($err);
@@ -133,7 +136,8 @@ function modcard(&$action, &$ndocid) {
   
   $doc->lmodify='Y'; // locally modified
   $doc->refresh();
-  $err=$doc-> Modify();
+  $err=$doc-> Modify(); 
+  $doc->unlock(true); // disabled autolock
   
   
   if ($err == "") {

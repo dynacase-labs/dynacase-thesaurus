@@ -28,7 +28,6 @@ function refreshfld(dirid) {
    if ((dirid > 0) && ('[refreshfld]'=='yes'))
    top.fhidden.document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid;
 }
-
   //-->
    </script>   
 
@@ -38,7 +37,7 @@ function refreshfld(dirid) {
 
 <body class="freedom" 
       onLoad="editOnLoad();autoHresize()"
-      onUnLoad="closechoose()"
+      onUnLoad="closechoose();autoUnlock('[id]')"
       onResize="resizeInputFields()">
 
 
@@ -79,7 +78,7 @@ function refreshfld(dirid) {
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td  >
- <input type="button" value=[editaction] onclick="if (('[doctype]' != 'C') && (!canmodify())) return false;;enableall();if (document.modifydoc.onsubmit) document.modifydoc.onsubmit();document.modifydoc.submit();setTimeout('refreshfld([dirid])',20)"> 
+ <input type="button" value=[editaction] onclick="if (('[doctype]' != 'C') && (!canmodify())) return false;;enableall();if (document.modifydoc.onsubmit) document.modifydoc.onsubmit();document.isSubmitted=true;document.modifydoc.submit();setTimeout('refreshfld([dirid])',20)"> 
   </td>
   <td>&nbsp;</td>
   <td  align="right">

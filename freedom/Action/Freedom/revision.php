@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.3 2002/06/19 12:32:29 eric Exp $
+// $Id: revision.php,v 1.4 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,36 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: revision.php,v $
-// Revision 1.3  2002/06/19 12:32:29  eric
-// modif des permissions : intégration de rq sql hasviewpermission
-//
-// Revision 1.2  2002/04/08 15:12:18  eric
-// ajout message de log
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.6  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.5  2001/11/21 08:38:58  eric
-// ajout historique + modif sur control object
-//
-// Revision 1.4  2001/11/19 18:04:22  eric
-// aspect change
-//
-// Revision 1.3  2001/11/16 18:04:39  eric
-// modif de fin de semaine
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
 
-// ---------------------------------------------------------------
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");

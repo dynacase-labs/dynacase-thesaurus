@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.6 2002/09/16 14:42:10 eric Exp $
+// $Id: popupcard.php,v 1.7 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -66,7 +66,7 @@ function popupcard(&$action) {
 
   if (! $doc->isRevisable()) popupInvisible('popupcard',$kdiv,'revise');
   else if (($doc->lmodify == 'Y') && 
-	   ($cud)) popupActive('popupcard',$kdiv,'revise'); 
+	   ($cud||$clf)) popupActive('popupcard',$kdiv,'revise'); 
   else popupInactive('popupcard',$kdiv,'revise');
 
 
@@ -90,7 +90,7 @@ function popupcard(&$action) {
     popupInactive('popupcard',$kdiv,'delete');
   }
 
-  if ($cud) {
+  if (($clf)||($cud)) {
     popupActive('popupcard',$kdiv,'editattr'); 
     popupActive('popupcard',$kdiv,'chgtitle'); 
     popupInvisible('popupcard',$kdiv,'editstate'); 
@@ -98,7 +98,7 @@ function popupcard(&$action) {
     popupActive('popupcard',$kdiv,'editdoc');
     popupActive('popupcard',$kdiv,'editdfld');
   } else {
-    if ($doc->locked < 0){ // fixed document
+    if ($doc->locked == -1){ // fixed document
       popupInvisible('popupcard',$kdiv,'editdoc');
       popupInvisible('popupcard',$kdiv,'delete');
       popupInvisible('popupcard',$kdiv,'editattr'); 

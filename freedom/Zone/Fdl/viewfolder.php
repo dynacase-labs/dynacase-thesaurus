@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.20 2002/08/22 13:35:53 eric Exp $
+// $Id: viewfolder.php,v 1.21 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -164,9 +164,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 	$tdoc[$k]["locked"] ="";
 	if ($doc->isRevisable()) {
-	  if (($doc->locked > 0) && ($doc->locked == $action->parent->user->id)) $tdoc[$k]["locked"] = $action->GetIcon("clef1.gif",N_("locked"), 20,20);
-	  else if ($doc->locked > 0) $tdoc[$k]["locked"] = $action->GetIcon("clef2.gif",N_("locked"), 20,20);
-	  else if ($doc->locked < 0) $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("fixed"), 20,20);
+	  if ($doc->locked == -1) $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("fixed"), 20,20);
+	  else if ((abs($doc->locked) == $action->parent->user->id)) $tdoc[$k]["locked"] = $action->GetIcon("clef1.gif",N_("locked"), 20,20);
+	  else if ($doc->locked != 0) $tdoc[$k]["locked"] = $action->GetIcon("clef2.gif",N_("locked"), 20,20);
+	   
 	  else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
 	}
       
@@ -187,7 +188,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  else popupInactive("popuplist",$kdiv,'delete');
 
 	
-	  $cud = ($doc->CanUpdateDoc() == "");
+	  $cud = ($doc->CanLockFile() == "");
 	  if ($cud) {
 	    popupActive("popuplist",$kdiv,'editdoc');
 	  } else {

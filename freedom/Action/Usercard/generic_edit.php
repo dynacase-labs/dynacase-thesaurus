@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.3 2002/09/02 16:38:49 eric Exp $
+// $Id: generic_edit.php,v 1.4 2002/09/19 13:45:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,7 +65,8 @@ function generic_edit(&$action) {
     {    
 
       $doc= new Doc ($dbaccess,$docid);
-      $err = $doc->CanLockFile();
+
+      $err = $doc->lock(true); // autolock
       if ($err != "")   $action->ExitError($err);
 
       $famid = $doc->fromid;

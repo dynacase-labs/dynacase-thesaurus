@@ -131,3 +131,12 @@ function clearInputs(tinput) {
   disableReadAttribute();
 
 }
+
+function autoUnlock(docid) {
+  if (parseInt(docid) > 0) {
+    if (! document.isSubmitted) {
+      var fhidden = window.open('','fhidden','');
+      fhidden.document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=UNLOCKFILE&auto=Y&id='+docid;
+    }
+  }
+}
