@@ -46,6 +46,7 @@ function centerError() {
 function refreshParentWindows() {
   if (window.opener && window.opener.document.needreload) window.opener.location.reload();
   else if (parent.flist) parent.flist.location.reload();
+  else if (parent.fvfolder) parent.fvfolder.location.reload();
   
 }
 function updatePopDocTitle() {
