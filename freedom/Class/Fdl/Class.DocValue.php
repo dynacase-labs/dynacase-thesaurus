@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocValue.php,v 1.4 2002/04/09 14:48:44 eric Exp $
+// $Id: Class.DocValue.php,v 1.5 2002/04/18 12:55:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocValue.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.4 2002/04/09 14:48:44 eric Exp $';
+$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.5 2002/04/18 12:55:26 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -58,8 +58,8 @@ create unique index idx_docvalue on docvalue (docid, attrid);";
     $query = new QueryDb($this->dbaccess, "Docvalue");
 
 
-        $query->basic_elem->sup_where=array ("attrid = '".$this->attrid."'",
-    				 "docid = ".$this->docid);
+    $query->basic_elem->sup_where=array ("attrid = '".$this->attrid."'",
+					 "docid = ".$this->docid);
     
     $query->Query();
     if ($query->nb == 0)
@@ -73,7 +73,7 @@ create unique index idx_docvalue on docvalue (docid, attrid);";
   function GetDocids($text)
     {
   
-      $query = new QueryDb($this->dbaccess,"$this->dbtable");
+      $query = new QueryDb($this->dbaccess,get_class($this));
 
       $query->basic_elem->sup_where=array ("value ~* '.*$text.*'");
     
@@ -99,7 +99,7 @@ create unique index idx_docvalue on docvalue (docid, attrid);";
   function DeleteValues($docid)
     {
   
-      $query = new QueryDb($this->dbaccess,"$this->dbtable");
+      $query = new QueryDb($this->dbaccess,get_class($this));
 
       $query->basic_elem->sup_where=array ("docid = $docid");
     

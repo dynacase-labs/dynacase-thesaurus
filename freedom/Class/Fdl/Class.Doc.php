@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.17 2002/04/17 15:25:03 eric Exp $
+// $Id: Class.Doc.php,v 1.18 2002/04/18 12:55:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.17 2002/04/17 15:25:03 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.18 2002/04/18 12:55:25 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -619,7 +619,7 @@ create sequence seq_id_doc start 1000";
   function SetTitle($title) {
     $ltitle = $this->GetTitleAttributes();
 
-    $otitle = new DocValue($this->dbaccess, array($this->id, $ltitle[0]->id));
+    $otitle = $this->GetValue($ltitle[0]->id);
 
     //    print "title:".$title->value;
     if ($otitle->isAffected()) {
@@ -830,7 +830,7 @@ create sequence seq_id_doc start 1000";
 	  reset($res);
 	  while (list($k, $v) = each($res)) {
 	    if ($v != "?") {
-	      $ovalue = new DocValue($this->dbaccess, array($this->id, $rargids[$k]));
+	      $ovalue = new DocValue($this->dbaccess);
 	      $ovalue->docid=$this->id;
 	      $ovalue->attrid=$rargids[$k];
 	      $ovalue->value=$v;
@@ -881,7 +881,7 @@ create sequence seq_id_doc start 1000";
 	  }
 	  //	  print "attr=$sattrid";
 
-	  $ovalue = new DocValue($dbaccess,array($this->id,$sattrid));
+	  $ovalue = $this->GetValue($sattrid);
 	  $urllink.=$ovalue->value;
 	  
 	}

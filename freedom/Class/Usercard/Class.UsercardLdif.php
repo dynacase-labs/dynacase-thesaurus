@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardLdif.php,v 1.4 2002/03/14 14:56:55 eric Exp $
+// $Id: Class.UsercardLdif.php,v 1.5 2002/04/18 12:55:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardLdif.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 0US_SOCIETY1-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.UsercardLdif.php,v $
+// Revision 1.5  2002/04/18 12:55:26  eric
+// USERCARD: ajout fonction dans famille employe
+//
 // Revision 1.4  2002/03/14 14:56:55  eric
 // evolution de incident
 //
@@ -77,7 +80,7 @@ Class UsercardLdif
 		      "departmentNumber"                => "US_SERV",
 		      "displayName"                     => "",
 		      "employeeNumber"                  => "US_MATRICULE",
-		      "employeeType"                    => "",
+		      "employeeType"                    => "US_TYPE",
 		      "givenName"                       => "US_FNAME",
 		      "homePhone"                       => "US_HOMEPHONE",
 		      "homePostalAddress"               => "",
