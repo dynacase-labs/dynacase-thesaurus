@@ -50,7 +50,7 @@ function enableall() {
 
 function resizeInputFields() {
 
-  newsize = getFrameWidth() / 15;
+  newsize = getFrameWidth() / 17;
 
   with (document.getElementById('fedit')) {
        for (i=0; i< length; i++) { 
