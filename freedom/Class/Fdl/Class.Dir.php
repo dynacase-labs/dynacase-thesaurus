@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.33 2004/08/10 07:55:50 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.34 2004/09/06 13:48:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -105,8 +105,9 @@ Class Dir extends PDir
     // need this privilege
     $err = $this->Control("modify");
     if ($err!= "") return $err;
-    
+
     $err=$this->exec_query("delete from fld where dirid=".$this->initid);
+    $this->ClearCacheIndex("querydir");
     return $err;
 
   }
