@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Functions use for input help in edition for calendars
+ *
+ * @author Anakeen 2005
+ * @version $Id: FREEEVENT_external.php,v 1.4 2005/01/18 08:45:48 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEEVENT
+ */
+ /**
+ */
 function getEventProducers($dbaccess) {
   
   $famid=-1;

@@ -1,13 +1,29 @@
 <?php
-
+/**
+ * Dynamic calendar methods
+ *
+ * @author Anakeen 2005
+ * @version $Id: Method.DCalendar.php,v 1.12 2005/01/18 08:45:48 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEEVENT
+ */
+ /**
+ */
 var $eviews=array("FREEEVENT:EDITCALENDAR");
 var $cviews=array("FREEEVENT:PLANNER","FREEEVENT:VIEWCALENDAR");
 var $defaultedit="FREEEVENT:EDITCALENDAR";
 var $defaultview="FREEEVENT:PLANNER";
 function postCreated() {
-  $this->setValue("SE_FAMID",getFamIdFromName($this->dbaccess,"EVENT"));
+  if ($this->getValue("SE_FAMID") == "")  $this->setValue("SE_FAMID",getFamIdFromName($this->dbaccess,"EVENT"));
 }
 
+/**
+ * return all atomic event found in period between $d1 and $d2
+ * 
+ * @param date $d1 begin date in iso8601 format YYYY-MM-DD HH:MM
+ * @param date $d2 end date in iso8601 format
+ * @return array array of event. These events returned are not objects but only a array of variables.
+ */
 function getEvents($d1="",$d2="",$exploded=true) {
   if ($d2=="")$filter[]="evt_begdate is not null";
   else $filter[]="evt_begdate <= '$d2'";
@@ -27,11 +43,13 @@ function getEvents($d1="",$d2="",$exploded=true) {
 		$doc=&$fdoc[$v["fromid"]];		
 	      }
 	      $doc->Affect($v);
+	      $doc->GetMoreValues();
 	      $tevtx1=$doc->explodeEvt($d1,$d2);
 	      //	      $tevx+=$tevtx1;
 	      $tevx=array_merge($tevx,$tevtx1);
     
   }
+
   return $tevx;
 }
 
@@ -46,6 +64,13 @@ function editcalendar($target="_self",$ulink=true,$abstract=false) {
     $this->editattr();
     $this->viewprop($target,$ulink,$abstract);
 }
+
+/**
+ * planner view
+ * @param string $target window target name for hyperlink destination
+ * @param bool $ulink if false hyperlink are not generated
+ * @param bool $abstract if true only abstract attribute are generated
+ */
 function planner($target="finfo",$ulink=true,$abstract="Y") {
   include_once("FREEEVENT/Lib.DCalendar.php");
   include_once("FDL/Lib.Color.php");
@@ -115,8 +140,8 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   $tevt=$this->getEvents($qstart,$qend);
   foreach ($tevt as $k=>$v) {
 
-    $mdate1=FrenchDateToJD(getv($v,"evt_begdate"));
-    $mdate2=FrenchDateToJD(getv($v,"evt_enddate"));
+    $mdate1=StringDateToJD(getv($v,"evt_begdate"));
+    $mdate2=StringDateToJD(getv($v,"evt_enddate"));
     if ($wstart) {
       if (($mdate2<$mstart) || ($mdate1>$wend)) {
 	unset($tevt[$k]);       
@@ -145,12 +170,11 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
  
 //   print "delta=$delta";
 //   print " - <B>".microtime_diff(microtime(),$mb)."</B> ";
-  foreach ($tevt as $k=>$v) {
+  foreach ($tevt as $k=>$v) {   
     $tr=$this->_val2array(getv($v,"evt_idres"));
     $tresname=$this->_val2array(getv($v,"evt_res"));
     $x=floor(100*($v["m1"]-$mstart)/$delta);
     $w=floor(100*($v["m2"]-$v["m1"])/$delta);
-    
     foreach ($tr as $ki=>$ir) {
       if (! isset($residx[$ir])) $residx[$ir]=count($residx)+1;
       $RN[$sub]=array("w"=>sprintf("%d",($w<1)?1:$w),
@@ -174,6 +198,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 						 substr(getv($v,"evt_enddate"),0,10),
 						 getv($v,"evt_desc"))));
       
+    
       if (! isset($colorredid[$RN[$sub][$idxc]])) $colorredid[$RN[$sub][$idxc]]=$idc++;
       $sub++;
       $tres[$ir]=array("divid"=>"div$ir",

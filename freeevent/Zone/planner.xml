@@ -26,10 +26,10 @@ addEvent(window,"load",placeEvents);
 <thead>
 <tr><td  align="left">[begdate]<button onclick="movecal(-100)" >&lt;[dday100]</button><button onclick="movecal(-50)" >&lt;[dday50]</button><button onclick="movecal(-10)">&lt;[dday10]</button></td>
 <td><button onclick="zoomx=zoomx*2;placeEvents();" title="[TEXT:zoom x2]">&rarr;</button>
-<button onclick="zoomy=zoomy*2;placeEvents();" title="[TEXT:zoom x2]">&darr;</button>
+<button onclick="zoomy=zoomy*1.5;placeEvents();" title="[TEXT:zoom x1.5]">&darr;</button>
 <button onclick="zoomx=1;zoomy=1;placeEvents();"title="[TEXT:zoom 0]" >0</button>
 <button onclick="zoomx=zoomx/2;placeEvents();" title="[TEXT:zoom /2]">&larr;</button>
-<button onclick="zoomy=zoomy/2;placeEvents();" title="[TEXT:zoom /2]">&uarr;</button></td>
+<button onclick="zoomy=zoomy/1.5;placeEvents();" title="[TEXT:zoom /1.5]">&uarr;</button></td>
 <td align="right">
 <button onclick="movecal(10)">&gt;[dday10]</button>
 <button onclick="movecal(50)">&gt;[dday50]</button>

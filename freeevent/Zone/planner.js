@@ -430,12 +430,14 @@ function unviewdesc(event) {
 function subwinevt(w,h,name,url) {  
   var ename=name;
   var wn=null;
+  var ww=0;
   if (window.name == 'folio1') wn=windowExist('folio0');
   else if (window.name == 'folio0') wn=windowExist('folio1');
 
   if (wn != null) {
-    alert(getFrameWidth(wn));
-    wn.location.href=url;
+    ww=getFrameWidth(wn);
+    if (ww > 10) wn.location.href=url;
+    else subwindow(w,h,ename,url);
   } else { 
     subwindow(w,h,ename,url);
   }

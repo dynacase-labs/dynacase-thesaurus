@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Produce events methods
+ *
+ * @author Anakeen 2005
+ * @version $Id: Method.PEvents.php,v 1.8 2005/01/18 08:45:48 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEEVENT
+ */
+ /**
+ */
 
 
 /**
@@ -8,6 +17,20 @@
  */
 function setEvent() {
   return $this->pEventDefault();
+}
+
+/**
+ * Use for derived event by the producer to set added attributes
+ * @param Event &$e event object
+ */
+function setEventSpec(&$e) {;}
+
+/**
+ * Delete events 
+ * Delete related events
+ */
+function deleteEvent() {
+  return $this->dEventDefault();
 }
 /**
  * identificator of the attribute which containt the begin date for event
@@ -41,23 +64,27 @@ var $eventRessources=array();
 var $eventFamily="EVENT";
 
 
+/**
+ * produce event based on default methods
+ * @access private
+ * @return string error text (empty if no error)
+ */
 function pEventDefault() {
-  $evt=createDoc($this->dbaccess,$this->eventFamily);
+  $evt=createDoc($this->dbaccess,$this->eventFamily,false);
   if ($evt) {
     include_once("FDL/Lib.Dir.php");
     $filter[]="evt_idinitiator=".$this->initid;
     $filter[]="evt_transft='pEventDefault'";
-    
+    // search if already created
     $tevt = getChildDoc($this->dbaccess, 0 ,0,1, $filter,1, "TABLE",$this->eventFamily);
     if (count($tevt) > 0) {
       $evt=new Doc($this->dbaccess,$tevt[0]["id"]);
-    }
-    
+    }    
   }
   if ($evt->isAlive()) {
     if (($evt->getValue("evt_begdate") != $this->getEventBeginDate()) ||
 	($evt->getValue("evt_enddate") != $this->getEventEndDate())) {
-      $evt->AddComment(sprintf(_("change period from [%s %s] to [%s %s]"),
+      $evt->AddComment(sprintf(_("Change period from [%s %s] to [%s %s]"),
 			       $evt->getValue("evt_begdate"),
 			       $evt->getValue("evt_enddate"),
 			       $this->getEventBeginDate(),
@@ -79,6 +106,8 @@ function pEventDefault() {
   $evt->setValue("evt_idinitiator",$this->initid);
   $evt->setValue("evt_title",$this->getEventTitle());
   $evt->setValue("evt_idres",$this->getEventRessources());
+
+  $this->setEventSpec(&$evt);
   if (!$evt->isAlive())    {
     $err=$evt->Add();
   } else {
@@ -90,22 +119,44 @@ function pEventDefault() {
 }
 
 /**
+ * delete event based on default methods
+ * @access private
+ * @return string error text (empty if no error)
+ */
+function dEventDefault() {
+  $evt=createDoc($this->dbaccess,$this->eventFamily,false);
+  if ($evt) {
+    include_once("FDL/Lib.Dir.php");
+    $filter[]="evt_idinitiator=".$this->initid;
+    $filter[]="evt_transft='pEventDefault'";
+    // search if already created
+    $tevt = getChildDoc($this->dbaccess, 0 ,0,1, $filter,1, "TABLE",$this->eventFamily);
+    if (count($tevt) > 0) {
+      $evt=new Doc($this->dbaccess,$tevt[0]["id"]);
+    }    
+  }
+  if ($evt->isAlive()) {
+    $err=$evt->delete();
+  }
+  return $err;
+}
+/**
  * get the begin date for the event
- * @return timestamp the date
+ * @return timestamp the date in iso8601 format or native (French)
  */
 function getEventBeginDate() {
   return $this->getValue($this->eventAttBeginDate);
 }
 /**
  * get the end date for the event
- * @return timestamp the date
+ * @return timestamp the date in iso8601 format or native (French)
  */
 function getEventEndDate() {
   return $this->getValue($this->eventAttEndDate);
 }
 
 /**
- * get the owner the event
+ * get the owner of the event
  * @return int freedom id user
  */
 function getEventOwner() {
@@ -113,7 +164,7 @@ function getEventOwner() {
   return $u->fid;
 }
 /**
- * get the title the event
+ * get the title of the event
  * @return string 
  */
 function getEventTitle() {
@@ -128,7 +179,7 @@ function getEventDesc() {
   return $this->getValue($this->eventAttDesc);
 }
 /**
- * get the description of the event
+ * get the category of the event
  * @return string
  */
 function getEventCode() {
@@ -136,7 +187,7 @@ function getEventCode() {
 }
 /**
  * get the ressources
- * @return array of ressources
+ * @return array array of ressources
  */
 function getEventRessources() {
   $tr=array();
