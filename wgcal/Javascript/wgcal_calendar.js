@@ -343,12 +343,3 @@ function WGCUpdateDisplay(ev, calid, formid, color, classSelect, classOver, clas
   ff.submit();
 }
 
-// --------------------------------------------------------
-function Fade(id, size) {
-  document.getElementById(id).width += size;  
-  document.getElementById(id).height += size;
-}
-function UnFade(id, size) {
-  document.getElementById(id).width -= size;  
-  document.getElementById(id).height -= size;
-}

@@ -5,7 +5,7 @@
   <LINK REL="SHORTCUT ICON" HREF="CORE/Images/logo32.ico" >
   <title>[TEXT:freeevent app name]</title>
 
-  <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
+  <!-- LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" -->
   <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS" >
   [CSS:REF]
 

@@ -1,3 +1,22 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
+
+<table cellspacing="0" cellpadding="0" width="100%"><tr>
+
+<td align="left">
+<img id="menu_edit" style="WGCalButton" title="[TEXT:add new event]"
+     onmouseover="Fade(this, 5);" onmouseout="UnFade('menu_edit', 5);"
+     onclick="subwindow(300, 400, 'EditEvent', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1');" 
+     src="WGCAL/Images/wgcal-editevent.gif" height="[WGCAL_U_MENUICONS_H]" >
+</td>
+
+<td align="center">
+</td>
+
+<td align="right">
+</td>
+
+</tr></table>
+
+
 [ZONE WGCAL:WGCAL_HTMLFOOT]

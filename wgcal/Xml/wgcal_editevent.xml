@@ -1,0 +1,338 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+
+<script type="text/javascript">
+
+function swstate(s) {
+  if (s==1) return 0;
+  else return 1;
+}
+
+var Alarm = 0;
+ChangeAlarm(state)
+
+}
+
+var NoHourState = 0;
+function ChangeNoHour(state) {
+  chk = document.getElementById('nohour');
+  chko = document.getElementById('allday');
+  hstart = document.getElementById('start_hour');
+  hend = document.getElementById('end_hour');
+  if (state==1) {
+    chk.checked = true;
+    chko.checked = false;
+    hend.style.display = 'none';
+    hstart.style.display = 'none';
+    NoHourState = 1;
+  } else {
+    chk.checked = false;
+    hend.style.display = '';
+    hstart.style.display = '';
+    NoHourState = 0;
+  }
+  return;
+}
+     
+var  AllDayState= 0;
+function ChangeAllDay(state) {
+  chk = document.getElementById('allday');
+  chko = document.getElementById('nohour');
+  hstart = document.getElementById('start_hour');
+  hend = document.getElementById('end_hour');
+  if (state==1) {
+    chk.checked = true;
+    chko.checked = false;
+    hend.style.display = 'none';
+    hstart.style.display = 'none';
+    AllDayState = 1;
+  } else {
+    chk.checked = false;
+    hend.style.display = '';
+    hstart.style.display = '';
+    AllDayState = 0;
+  }
+  return;
+}
+     
+</script>
+
+<table width="100%"><tr>
+<td align="right"><input class="inputButton" type="button" id="rvsave" value="[TEXT:save]"></td>
+</td></table>
+
+<fieldset><legend>
+<input class="inputButton" type="button" id="rendezvous" value="[TEXT:appointment]" 
+       onClick="document.getElementById('rvinfoszone').style.display = '';
+                document.getElementById('rvrepeatzone').style.display = 'none';
+                document.getElementById('rvattendeeszone').style.display = 'none'; autoHresize()"></td>
+<input class="inputButton" type="button" id="repeat" value="[TEXT:repeat]" 
+       onClick="document.getElementById('rvinfoszone').style.display = '';
+                document.getElementById('rvrepeatzone').style.display = '';
+                document.getElementById('rvattendeeszone').style.display = 'none'; autoHresize()"></td>
+<input class="inputButton" type="button" id="repeat" value="[TEXT:attendees]" 
+       onClick="document.getElementById('rvinfoszone').style.display = '';
+                document.getElementById('rvrepeatzone').style.display = 'none';
+                document.getElementById('rvattendeeszone').style.display = ''; autoHresize()"></td>
+</legend>
+
+<div id="rvinfoszone" style="display:">
+
+
+[TEXT:rv title] : <input id="rvtitle" size="50" type="text" value="[TITLE]">
+
+<hr>
+
+<table>
+
+<tr valign="center">
+<td width="50%" id="tnohour">
+[TEXT:no hour] : <input id="nohour" name="nohour" type="checkbox" onclick="ChangeNoHour(swstate(NoHourState));">
+</td>
+<td width="50%" id="tallday">
+[TEXT:all the day] : <input id="allday" name="allday" type="checkbox" onclick="ChangeAllDay(swstate(AllDayState));">
+</td>
+</tr>
+</table>
+
+<table>
+<tr id="start_hour" style="display:none">
+<td>[TEXT:start date] : </td>
+<td>
+<input type="text" value="[STARTREAD]" id="rvstart" >
+<input type="hidden" value="[START]" id="rvtsstart" name="rvtsstart">
+<img id="lrvstart"  alt="[TEXT:start date]" title="[TEXT:start date]" src="RENDEZVOUS/Images/cal-other.gif">
+<script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField   : "rvstart",        
+      ifFormat     : "%d %b %Y %H:%M",   
+      showsTime    : true,
+      singleClick  : true,
+      button       : "lrvstart",
+      date         : new Date([mSTART]),
+      firstDay     : 1
+    }
+  );
+</script></td>
+</tr>
+
+<tr id="end_hour" style="display:none">
+<td>[TEXT:end date] : </td>
+<td>
+<input type="text" value="[ENDREAD]" id="rvend" >
+<input type="hidden" value="[END]" id="rvtsend" name="rvtsend">
+<img id="lrvend"  alt="[TEXT:end date]" title="[TEXT:end date]" src="RENDEZVOUS/Images/cal-other.gif">
+<script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField   : "rvend",        
+      ifFormat     : "%d %b %Y %H:%M",   
+      showsTime    : true,
+      singleClick  : true,
+      button       : "lrvend",
+      date         : new Date([mEND]),
+      firstDay     : 1
+    }
+  );
+</script></td>
+<tr>
+
+</table>
+
+<script type="text/javascript">
+ ChangeNoHour([NOHOUR]);
+ ChangeAllDay([ALLDAY]);
+</script>
+
+
+<hr>
+
+[TEXT:rv note] : <textarea cols="50" rows="3" id="rvnote" name="rvnote">[DESCR]</textarea>
+
+<hr>
+
+[TEXT:confidentiality] : <select id="rvconfid">
+<option value="0" selected>[TEXT:public]
+<option value="0">[TEXT:private]
+<option value="0">[TEXT:my groups]
+</select>
+
+[TEXT:calendar] : <select id="rvcalendar">
+<option value="0" selected>[TEXT:my agenda]
+<option value="0">[TEXT:birthdays]
+<option value="0">[TEXT:school]
+</select>
+[TEXT:status] : <select id="rvcalendar">
+<option value="0" selected>[TEXT:definitive]
+<option value="1">[TEXT:to be confirmed]
+<option value="2">[TEXT:rejected]
+</select>
+
+<hr>
+
+[TEXT:alarm] : <input id="idAlarm" type="checkbox"
+                      onClick="ChangeAlarm(swstate(Alarm))" >
+
+<span id="AlarmVis"">
+<select id="idAlrmMin" name="idAlrmMin">[BLOCK ALARM_MIN]
+<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_MIN]
+</select>[TEXT:minutes]
+<select id="idAlrmHr" name="idAlrmHr">[BLOCK ALARM_HR]
+<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_T][ENDBLOCK ALARM_MIN]
+</select>[TEXT:minutes]
+&nbsp;[TEXT:before]</span>
+<br>
+[TEXT:add repeat] : <input id="viewRepeat"  type="checkbox" [VIEWREPEAT_CHECK]
+       onClick="if (this.checked) document.getElementById('rvrepeatzone').style.display = ''; else document.getElementById('rvrepeatzone').style.display = 'none';">
+</div></fieldset> <!-- end of general zone -->
+
+<br>
+
+<div id="rvrepeatzone" style="display:[VIEWREPEAT]">
+
+<fieldset><legend>[TEXT:repeat]</legend>
+
+<input type="checkbox" onClick="document.getElementById('rvrepeatcnt').readonly = false;"> 
+
+<div id="ifreapeat" style="dislpay:none">
+
+[TEXT:repeat every] 
+&nbsp<input id="'rvrepeatcnt'" size="2" type="text" readonly value="1">&nbsp;
+<select id="'rvrepeatwhen'" onChange="if (this.option.selected == "0") >
+<option value="0" selected>days
+<option value="1">week
+<option value="2">month
+<option value="2">year
+</select><br>
+[TEXT:monday]&nbsp;<input type="checkbox">&nbsp;&nbsp;&nbsp;
+[TEXT:thuesday]&nbsp;<input type="checkbox">&nbsp;&nbsp;&nbsp;
+[TEXT:wenesday]&nbsp;<input type="checkbox">&nbsp;&nbsp;&nbsp;
+[TEXT:thursday]&nbsp;<input type="checkbox">&nbsp;&nbsp;&nbsp;
+[TEXT:friday]&nbsp;<input type="checkbox">&nbsp;&nbsp;&nbsp;
+[TEXT:saturday]&nbsp;<input type="checkbox">&nbsp;&nbsp;&nbsp;
+[TEXT:sunday]&nbsp;<input type="checkbox">
+
+</div>
+<hr>
+
+<input type="checkbox"> [TEXT:forever]<br>
+<input type="checkbox"> [TEXT:repeat count] <input id="rvalrmcnt" size="2" type="text" readonly value="1"><br>
+<input type="checkbox"> [TEXT:repeat until]<input type="text" value=[HCUR] id="rvstart" readonly> 
+<img alt="[TEXT:start date]" title="[TEXT:start date]" src="RENDEZVOUS/Images/cal-other.gif">
+<script type="text/javascript">
+/*
+    Calendar.setup({
+        ifFormat       :    '%s',       // format of the input field
+        showsTime      :    false,            // will display a time selector
+        singleClick    :    false,           // double-click mode
+        firstDay       :    1,
+        date           :    new Date([mSTART]),
+        weekNumbers    :    true,
+        flat           :    'ical',
+        step           :    1              
+    });
+*/
+</script>
+<fieldset><legend>[TEXT:exclude]</legend>
+<table>
+<tr>
+<td rowspan="3">
+<select name="attendees[]" size="5" multiple>
+<option value="1">14 juillet 2004
+<option value="2">15 août 2004
+</select>
+</td>
+<td>
+<img alt="[TEXT:add attendee]" title="[TEXT:add attendee]" src="RENDEZVOUS/Images/cal-add.gif">[TEXT:add] <input type="text" value=[HCUR] id="rvstart" readonly> 
+<img alt="[TEXT:start date]" title="[TEXT:start date]" src="RENDEZVOUS/Images/cal-other.gif">
+<script type="text/javascript">
+/* 
+Calendar.setup({
+        ifFormat       :    '%s',       // format of the input field
+        showsTime      :    false,            // will display a time selector
+        singleClick    :    false,           // double-click mode
+        firstDay       :    1,
+        date           :    new Date([mEND]),
+        weekNumbers    :    true,
+        flat           :    'ical',
+        step           :    1              
+    });
+*/
+</script>
+</td>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>
+<img alt="[TEXT:del attendee]" title="[TEXT:del attendee]" src="RENDEZVOUS/Images/cal-delete.gif">[TEXT:delete]
+</td>
+</tr>
+</table>
+</fieldset>
+
+</div>
+
+</fieldset></div> <!-- end of repeat zone -->
+
+
+<div id="rvattendeeszone" style="display:none">
+
+<fieldset>
+<table>
+<tr>
+<td>
+<fieldset><legend>[TEXT:calendar]</legend>
+
+<input type="radio">&nbsp;[TEXT:all calendars]<br><br>
+<input type="radio">&nbsp;[TEXT:my groups]<br>
+<input type="radio">&nbsp;[TEXT:internals]<br>
+<input type="radio">&nbsp;[TEXT:public]<br>
+<input type="radio">&nbsp;[TEXT:mine]<br>
+</fieldset>
+</td>
+
+
+<td>
+<select name="attendees[]" size="10" multiple>
+<option value="1">Alain Josien
+<option value="2">Alain Simonne
+<option value="3">Eric Brison
+<option value="4">Yannick Le Briquer
+<option value="5">Caroline Fuentes
+<option value="6">Alain Chabat
+</select><br>
+<input type="text" value="" id="rvstart" size="12"> 
+<img alt="[TEXT:search]" title="[TEXT:search]" src="RENDEZVOUS/Images/cal-search.gif">
+</td>
+
+<td>
+<br>
+<img alt="[TEXT:add calendar]" title="[TEXT:add calendar]" src="RENDEZVOUS/Images/cal-arrowright.gif">[TEXT:add calendar]<img alt="[TEXT:add calendar]" title="[TEXT:add calendar]" src="RENDEZVOUS/Images/cal-arrowright.gif">
+<br><br><img alt="[TEXT:suppress calendar]" title="[TEXT:suppress calendar]" src="RENDEZVOUS/Images/cal-arrowleft.gif">[TEXT:suppress calendar]<img alt="[TEXT:suppress calendar]" title="[TEXT:suppress calendar]" src="RENDEZVOUS/Images/cal-arrowleft.gif">
+</td>
+
+<td>
+<select name="attendees[]" size="10" multiple>
+<option value="3">Eric Brison
+<option value="4">Yannick Le Briquer
+<option value="5">Caroline Fuentes
+<option value="6">Alain Chabat
+</select><br>
+<div onClick="subwindow(300, 600, 'viewdispo', '[CORE_STANDURL]&app=RENDEZVOUS&action=RV_DISPOVIEW')">
+    <img valign="top" border="0" width="25" alt="[TEXT:search]"  title="[TEXT:searc]" src="RENDEZVOUS/Images/cal-search.gif">
+</div>
+
+</td>
+
+</tr>
+</table>
+
+</fieldset>
+</div>
+
+
+</fieldset>
+
+[ZONE WGCAL:WGCAL_HTMLFOOT]
+ 

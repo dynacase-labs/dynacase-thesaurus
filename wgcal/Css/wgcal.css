@@ -1,9 +1,36 @@
 /* This is the default CSS for WGCal application */
-body, table, td {
+
+body {
   padding : 0px;
   margin : 1px;
-  font-size: 11px;
+  font-size: 10px;
+  background: url('CORE/Images/bg.gif');
+  font-family: Helvetica, Arial, sans-serif ;
 }
+
+table, td {
+  padding : 0px;
+  margin : 0px;
+  font-size: 10px;
+  font-family: Helvetica, Arial, sans-serif ;
+}
+
+
+
+INPUT, SELECT, TEXTAREA {
+  background: [CORE_BGCOLORALTERN]; 
+  font-weight: bold ;
+  font-family: Helvetica, Arial, sans-serif ;
+  border : 0px;
+}
+
+
+.WGCalButton {
+  cursor : pointer;
+  border : 1px inset [CORE_BGCOLORHIGH];
+}
+
+
 .WGCAL_Period {
   background-color : [CORE_BGCOLORALTERN];
   border : 1px outset [CORE_BGCOLORHIGH];
@@ -40,10 +67,9 @@ body, table, td {
   border-left : 1px outset [CORE_BGCOLORHIGH];
   border-right : 1px outset [CORE_BGCOLORHIGH];
 }
-.WGCAL_DayLineWe {
+.WGCAL_DayLineWE {
   background-color : #FFFFEF;
-  border-bottom : 1px inset [CORE_BGCOLORALTERN];
-  border-right : 1px solid [CORE_BGCOLORALTERN];
+  border : 1px solid [CORE_BGCOLORALTERN];
 }
 .WGCAL_DayLineOver {
   background-color : [CORE_BGCOLORALTERN];

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.3 2004/12/08 16:43:52 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.4 2004/12/09 17:30:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -25,6 +25,7 @@ function wgcal_toolbar(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_toolbar.js");
 
   $cssfile = $action->GetLayoutFile("calendar-default.css");
   $csslay = new Layout($cssfile,$action);
@@ -85,9 +86,10 @@ function _listress(&$action)
       if ($rd->IsAffected()) {
 	$t[$i]["RID"] = $rd->id;
 	$t[$i]["RDESCR"] = $rd->title;
-	$t[$i]["RICON"] = $rd->getIcon();
+	$t[$i]["RICON"] =  $rd->getIcon();
 	$t[$i]["RCOLOR"] = $cid;
-	if ($sid==1 || $rid == $action->user->fid) $t[$i]["RSTYLE"] = "WGCRessSelected";
+        $t[$i]["RSTATE"] = $sid;
+	if ($sid==1) $t[$i]["RSTYLE"] = "WGCRessSelected";
 	else $t[$i]["RSTYLE"] = "WGCRessDefault";
 	$i++;
       }

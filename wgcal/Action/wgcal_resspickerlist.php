@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspickerlist.php,v 1.1 2004/12/08 16:44:18 marc Exp $
+ * @version $Id: wgcal_resspickerlist.php,v 1.2 2004/12/09 17:30:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -17,37 +17,29 @@ function wgcal_resspickerlist(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
 
   $target = GetHttpVars("updt", "");
-  if ($target == "") {
-    echo "<h2> Missing form to update ! </h2>";
-    return;
-  }
-  $action->lay->set("updt", $target);
-
   $families = GetHttpVars("sfam", "");
   $title    = GetHttpVars("stext", "");
 
   if ($families == "") return;
   //if ($title == "") return;
 
+  $doc = new Doc($action->GetParam("FREEDOM_DB"));
   $filter = array( );
   $if = 0;
   if ($title!="") $filter[$if++] = "title ~* '".$title."'";
+  $fdoc = 0;
   $fam = explode("|", $families);
-  $ffam = "";
-  foreach ($fam as $k => $v) {
-    if ($v!="") {
-      $ffam .= ($ffam==""?"":" or ");
-      $ffam .= "fromid = $v";
+  foreach ($fam as $kf => $vf) { 
+    if ($vf == "" ) continue;
+    $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, "ALL", $filter, 
+			$action->user->id, "TABLE", $vf);
+    foreach ($rdoc as $k => $v) {
+      $t[$fdoc]["RESSID"] = $v["id"];
+      $t[$fdoc]["RESSICON"] = $doc->GetIcon($v["icon"]);
+      $t[$fdoc]["RESSTITLE"] = $v["title"];
+      $fdoc++;
     }
-  }
-  if ($ffam!="") $filter[$if++] = "( ".$ffam." ) ";
-  $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, "ALL", $filter, $action->user->id);
-  $i = 0;
-  foreach ($rdoc as $k => $v) {
-    $t[$i]["RESSID"] = $v->id;
-    $t[$i]["RESSICON"] = $v->GetIcon();
-    $t[$i]["RESSTITLE"] = $v->title;
-    $i++;
   }
   $action->lay->SetBlockData("RESSOURCES", $t);
 }
+?>

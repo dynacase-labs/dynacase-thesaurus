@@ -6,7 +6,7 @@
 	<tr height="[WGCAL_U_HLINETITLE]px"><td class="WGCAL_Period" width="[WGCAL_U_HCOLW]px"></td>
 	    [BLOCK DAYS_LINE]<td align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]
 	</tr>
-	[BLOCK HOURS]<tr height="[WGCAL_U_HLINEHOURS]px"><td id="L[LID]" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>
+	[BLOCK HOURS]<tr style="border-bottom : 1px inset black" height="[WGCAL_U_HLINEHOURS]px"><td id="L[LID]" width="[WGCAL_U_HCOLW]px" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>
 [ENDBLOCK HOURS]
 </table>
 </div>
