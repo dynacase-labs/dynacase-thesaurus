@@ -53,7 +53,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&dirid=[FREEDOM_IDBASKET]&docid=[id]','basket');closeMenu('popupcard');">[TEXT:Add to basket]</a>
 
 <a href="#" id="addpostit"     
-    onclick="postit('[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=27&pit_idadoc=[id]',50,50,400,300);closeMenu('popupcard');">[TEXT:Add postit]</a>
+    onclick="postit('[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=27&pit_idadoc=[id]',50,50,300,200);closeMenu('popupcard');">[TEXT:Add postit]</a>
 
 <a href="#" id="toxml"     
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=VIEWXML&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View XML]</a>
