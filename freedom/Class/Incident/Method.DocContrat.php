@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocContrat.php,v 1.5 2003/11/18 14:37:03 eric Exp $
+ * @version $Id: Method.DocContrat.php,v 1.6 2004/01/14 17:29:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocContrat.php,v 1.5 2003/11/18 14:37:03 eric Exp $
+// $Id: Method.DocContrat.php,v 1.6 2004/01/14 17:29:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocContrat.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,6 +80,16 @@ function setProductSite() {
   $this->setValue("CO_IDPSITE",$tidsite);
   $this->setValue("CO_PSITE",$tsite);
 }	
+function setProductInit() {
+  $tproduct = $this->getTvalue("CO_IDPRODUCT");
+  while (list($k,$v) = each($tproduct)) {
+    $prodoc = getTDoc($this->dbaccess, $v);
+    if ($prodoc) {
+       $tidprod[]=getv($prodoc,"initid");
+    }
+  }
+  $this->setValue("CO_IDPRODUCT",$tidprod);
+}	
 function setCallerPhone() {
   $tproduct = $this->getTvalue("CO_IDCALLER");
   $tcidsite = $this->getTvalue("CO_IDCSITES");
@@ -103,7 +113,8 @@ function setCallerPhone() {
 	
 function setProductContract() {
   $tproduct = $this->getTvalue("CO_IDPRODUCT");
-  while (list($k,$v) = each($tproduct)) {
+  
+  foreach ($tproduct as $k=>$v) {
     $prodoc = new doc($this->dbaccess, $v);
     if ($prodoc->locked == -1) { // get latest contract
       $prodoc= new Doc($this->dbaccess, $prodoc->latestId());
@@ -118,7 +129,8 @@ function setProductContract() {
 	$prodoc->setValue("PR_IDCONTRACT",$this->id);
 	$prodoc->setValue("PR_CONTRACT",$this->title);
 	$prodoc->setValue("PR_PLATDATE",$this->getValue("CO_DATEEND"));
-	$prodoc->modify();
+	$err=$prodoc->modify();
+
       }
     }
   } 
@@ -156,7 +168,7 @@ function recupProduct() {
 
   while (list($k,$prodoc) = each($tdoc)) {
 
-       $tidprod[]=$prodoc["id"];
+       $tidprod[]=$prodoc["initid"];
        $tprod[]=$prodoc["title"];
        $tidsite[]=getv($prodoc,"pr_idsite"," ");
        $tsite[]=getv($prodoc,"pr_site"," ");
