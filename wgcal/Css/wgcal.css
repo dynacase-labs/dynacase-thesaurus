@@ -209,8 +209,14 @@ TD {
 .wMonthTextTD {
   border-right : thin solid grey;
   border-bottom : thin solid grey;
-  height : 10px;
   width : 14%;
   background-color : white;
+  color : black;
+}
+.wMonthTextTDUnused {
+  border-right : thin solid grey;
+  border-bottom : thin solid grey;
+  width : 14%;
+  background-color : #EFEFEF;
   color : black;
 }

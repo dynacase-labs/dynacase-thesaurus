@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.6 2005/02/13 22:24:03 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.7 2005/02/14 10:11:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -149,6 +149,16 @@ function WGCalDaysInMonth($ts)
   for($thisDay=1;checkdate($thisMonth,$thisDay,$thisYear);$thisDay++);
   return ($thisDay-1);
 } 
+
+function dbdate2ts($dbtime) {
+  $sec = substr($dbtime,17,2);
+  $min = substr($dbtime,14,2);
+  $hou = substr($dbtime,11,2);
+  $day = substr($dbtime,0,2);
+  $mon = substr($dbtime,3,2);
+  $yea = substr($dbtime,6,4);
+  return mktime($hou, $min, $sec, $mon, $day, $yea);
+}
 
 function sendEventMail(&$action, $evid) {
   return;
