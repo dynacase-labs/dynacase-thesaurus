@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popup_util.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: popup_util.php,v 1.8 2004/02/17 11:00:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+// $Id: popup_util.php,v 1.8 2004/02/17 11:00:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,16 +45,19 @@ function popupInit($name, $items) {
   // ------------------------------------------------------
   // definition of popup menu
   $menuitems= $items;
-  $jsarray = "[";
-  while (list($ki, $imenu) = each($menuitems)) {
+  if (count($menuitems) == 0) {
+    $jsarray = "[]";
+  } else {
+    $jsarray = "[";
+    foreach($menuitems as $ki=>$imenu) {
 
-    $jsarray .= "'".$imenu."',";
-    global ${$imenu} ;
-    ${$imenu} = 'v'.$ki;
+      $jsarray .= "'".$imenu."',";
+      global ${$imenu} ;
+      ${$imenu} = 'v'.$ki;
+    }
+    // replace last comma by ']'
+    $jsarray[strlen($jsarray)-1]="]";
   }
-  // replace last comma by ']'
-  $jsarray[strlen($jsarray)-1]="]";
-
   $tmenus[$name]["menuitems"] = $jsarray;
   $tmenus[$name]["name"] = $name;
   $tmenus[$name]["nbmitem"] = count($menuitems);
