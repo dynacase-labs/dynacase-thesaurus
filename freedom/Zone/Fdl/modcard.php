@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.65 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: modcard.php,v 1.66 2004/09/22 16:16:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -157,6 +157,7 @@ function modcard(&$action, &$ndocid) {
 	    $wdoc = new Doc($dbaccess,$doc->wid);
 	
 	    $wdoc->Set($doc);
+	    setPostVars($wdoc);
 	    $err=$wdoc->ChangeState($newstate,$comment);
 	  }
 	}

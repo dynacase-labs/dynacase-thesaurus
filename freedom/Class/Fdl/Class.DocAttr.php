@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttr.php,v 1.21 2004/07/28 10:17:15 eric Exp $
+ * @version $Id: Class.DocAttr.php,v 1.22 2004/09/22 16:16:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -12,7 +12,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.21 2004/07/28 10:17:15 eric Exp $
+// $Id: Class.DocAttr.php,v 1.22 2004/09/22 16:16:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.21 2004/07/28 10:17:15 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.22 2004/09/22 16:16:39 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -88,7 +88,7 @@ create table docattr ( id  name,
                      phpfunc text,
                      elink text,
                      phpconstraint text,
-                     usefor char
+                     usefor char DEFAULT 'N'
                    );
 create sequence seq_id_docattr start 1000;
 create unique index idx_iddocid on docattr(id, docid)";
@@ -113,10 +113,7 @@ create unique index idx_iddocid on docattr(id, docid)";
      
   function PreInsert()
     {
-
-      // compute new id
-
-  
+      // compute new id  
       if ($this->id == "") {
 	$res = pg_exec($this->dbid, "select nextval ('seq_id_docattr')");
 	$arr = pg_fetch_array ($res, 0);
@@ -126,6 +123,7 @@ create unique index idx_iddocid on docattr(id, docid)";
       if ($this->type=="") $this->type="text";
       if ($this->abstract=="") $this->abstract='N';
       if ($this->title=="") $this->title='N';
+      if ($this->usefor=="") $this->usefor='N';
       if ($this->visibility=="") $this->visibility='W';
     } 
 

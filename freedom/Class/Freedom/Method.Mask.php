@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.9 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.10 2004/09/22 16:16:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.9 2004/02/05 15:42:58 eric Exp $
+// $Id: Method.Mask.php,v 1.10 2004/09/22 16:16:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -243,7 +243,7 @@ function editmask() {
   
   uasort($tattr,"tordered"); 
   foreach($tattr as $k=>$attr) {
-    if ($attr->usefor=="Q") continue;
+    if ($attr->usefor!="N") continue;
     $newelem[$k]["attrid"]=$attr->id;
     $newelem[$k]["attrname"]=$attr->labelText;
     $newelem[$k]["visibility"]=$labelvis[$attr->visibility];

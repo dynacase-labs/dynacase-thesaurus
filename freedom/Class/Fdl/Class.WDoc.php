@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.39 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.40 2004/09/22 16:16:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -263,7 +263,16 @@ Class WDoc extends Doc {
       
     $revcomment = sprintf(_("change state : %s to %s"), _($oldstate), _($newstate));
     if ($addcomment != "") $this->doc->AddComment($addcomment);
-      
+    if (isset($tr["ask"])) {
+      foreach ($tr["ask"] as $vpid) {
+	$pv=$this->getValue($vpid);
+	if ($pv != "") {
+	  $oa=$this->getAttribute($vpid);
+	  $revcomment.="\n-".$oa->labelText.":".$pv;
+	}
+      }
+    }
+    
     $err=$this->doc->AddRevision($revcomment);
     if ($err != "") return $err;
     AddLogMsg(sprintf(_("%s new state %s"),$this->doc->title, _($newstate)));
@@ -337,6 +346,23 @@ Class WDoc extends Doc {
       
     }
     
+  }
+
+  /**
+   * get transition array for the transition between $to and $from states
+   * @param string $to first state
+   * @param string $from next state
+   * @return array transition array (false if not found)
+   */
+  function getTransition($from,$to) {
+    foreach ($this->cycle as $v) {
+      if (($v["e1"] == $from) && ($v["e2"] == $to)) {
+	$t=$this->transitions[$v["t"]];
+	$t["id"]=$v["t"];
+	return $t;
+      }
+    }
+    return false;
   }
 
   function DocControl($aclname) {

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-14 08:41+0000\n"
+"POT-Creation-Date: 2004-09-22 09:25+0000\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -176,6 +176,30 @@ msgstr ""
 msgid "new profile document"
 msgstr ""
 
+msgid "new familly document"
+msgstr ""
+
+msgid "the document is not referenced: cannot apply state modification"
+msgstr ""
+
+#, c-format
+msgid "the document %s is not related to a workflow"
+msgstr ""
+
+#, c-format
+msgid "result of import  %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Import %s is in progress. When update will be finished an email to &lt;%"
+"s&gt; will be sended with result rapport"
+msgstr ""
+
+#, c-format
+msgid "update of %s catalogue has failed,"
+msgstr ""
+
 #, c-format
 msgid "%s has been deleted"
 msgstr ""
@@ -194,9 +218,6 @@ msgid "new profile"
 msgstr ""
 
 msgid "new document"
-msgstr ""
-
-msgid "new familly document"
 msgstr ""
 
 msgid ""
@@ -238,20 +259,6 @@ msgstr ""
 
 #, c-format
 msgid "result of archive import  %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"Import %s is in progress. When update will be finished an email to &lt;%"
-"s&gt; will be sended with result rapport"
-msgstr ""
-
-#, c-format
-msgid "update of %s catalogue has failed,"
-msgstr ""
-
-#, c-format
-msgid "result of import  %s"
 msgstr ""
 
 #, c-format
@@ -401,13 +408,6 @@ msgstr "Identity"
 msgid "ending"
 msgstr "Edit"
 
-msgid "the document is not referenced: cannot apply state modification"
-msgstr ""
-
-#, c-format
-msgid "the document %s is not related to a workflow"
-msgstr ""
-
 #, fuzzy, c-format
 msgid "default values for %s"
 msgstr "Delete"
@@ -443,6 +443,80 @@ msgstr ""
 
 #, c-format
 msgid "%s cannot be sent"
+msgstr ""
+
+msgid "no file referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+msgid "workflow_init :: id is empty"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: id %s is not a workflow"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: workflow id %s not found"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
+
+msgid "to be add"
+msgstr ""
+
+msgid "not added"
+msgstr ""
+
+#, fuzzy
+msgid "added"
+msgstr "Add new contact card"
+
+msgid "no zone specified"
+msgstr ""
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform"
+msgstr ""
+
+#, c-format
+msgid "reference must be a number not '%s'"
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, c-format
+msgid "%s has been unlocked"
+msgstr ""
+
+#, c-format
+msgid "geometry saved : %s"
 msgstr ""
 
 msgid "no import file specified"
@@ -531,10 +605,6 @@ msgstr "Category"
 msgid "update id [%d] "
 msgstr ""
 
-#, fuzzy
-msgid "added"
-msgstr "Add new contact card"
-
 #, c-format
 msgid "add %s id [%d]  "
 msgstr ""
@@ -578,76 +648,6 @@ msgstr "Update LDAP server"
 msgid "and add in %s folder "
 msgstr ""
 
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-msgid "no file referenced"
-msgstr ""
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-msgid "workflow_init :: id is empty"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: id %s is not a workflow"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: workflow id %s not found"
-msgstr ""
-
-#, c-format
-msgid "file for %s not found."
-msgstr ""
-
-msgid "to be add"
-msgstr ""
-
-msgid "not added"
-msgstr ""
-
-msgid "no zone specified"
-msgstr ""
-
-#, c-format
-msgid "reference must be a number not '%s'"
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, c-format
-msgid "%s has been unlocked"
-msgstr ""
-
-#, c-format
-msgid "geometry saved : %s"
-msgstr ""
-
 #, fuzzy
 msgid "locked document of "
 msgstr "Import"
@@ -681,6 +681,12 @@ msgstr ""
 
 #, c-format
 msgid "Delete %d in %s folder"
+msgstr ""
+
+msgid "uncomplete request"
+msgstr ""
+
+msgid "request not found"
 msgstr ""
 
 #, fuzzy, c-format
@@ -776,16 +782,6 @@ msgstr ""
 msgid "new %s"
 msgstr ""
 
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
 #, c-format
 msgid "parameters for %s state"
 msgstr ""
@@ -848,6 +844,10 @@ msgid ""
 "automaticaly by change state of %s\n"
 "%s"
 msgstr "Category"
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
 
 msgid "not perm for admin"
 msgstr ""
@@ -957,6 +957,31 @@ msgstr ""
 msgid "the date %s is in the past: today is %s"
 msgstr ""
 
+msgid "the login must not be empty"
+msgstr ""
+
+msgid "the login syntax is like : john.doe"
+msgstr ""
+
+msgid "login yet use"
+msgstr ""
+
+msgid ""
+"what id already set in freedom\n"
+"This kind of document can not be duplicated"
+msgstr ""
+
+#, c-format
+msgid "user #%d does not exist"
+msgstr ""
+
+msgid "user has not identificator"
+msgstr ""
+
+#, fuzzy
+msgid "direct"
+msgstr "Edit"
+
 msgid "errldapadd"
 msgstr ""
 "Card is not modify in LDAP server : one of this attribute is not appropriate"
@@ -969,13 +994,6 @@ msgid "errldaporginit"
 msgstr "LDAP server cannot be contacted"
 
 msgid "user is desactivated"
-msgstr ""
-
-#, c-format
-msgid "user #%d does not exist"
-msgstr ""
-
-msgid "user has not identificator"
 msgstr ""
 
 #, c-format
@@ -1004,20 +1022,6 @@ msgstr ""
 
 #, c-format
 msgid "Group %s not exist"
-msgstr ""
-
-msgid "the login must not be empty"
-msgstr ""
-
-msgid "the login syntax is like : john.doe"
-msgstr ""
-
-msgid "login yet use"
-msgstr ""
-
-msgid ""
-"what id already set in freedom\n"
-"This kind of document can not be duplicated"
 msgstr ""
 
 msgid "read only"
@@ -2955,6 +2959,9 @@ msgstr "Start search"
 msgid "Data cannot be saved"
 msgstr ""
 
+msgid "changeCheckBoolClasses Error"
+msgstr ""
+
 msgid "vconstraint input not found id="
 msgstr ""
 
@@ -3019,12 +3026,24 @@ msgstr "Created by"
 msgid " date"
 msgstr "Edit"
 
+msgid "to"
+msgstr ""
+
+#, fuzzy
+msgid "unchanged"
+msgstr "Start search"
+
+#, fuzzy
+msgid "revision comment"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "revision comment for autorevision"
+msgstr "Organisation"
+
 #, fuzzy
 msgid "view abstract card"
 msgstr "Start search"
-
-msgid "some needed attributes are empty"
-msgstr ""
 
 #, fuzzy
 msgid "select"
@@ -3064,20 +3083,8 @@ msgstr "Category"
 msgid "current folder"
 msgstr "Modify"
 
-msgid "to"
+msgid "Transition parameters"
 msgstr ""
-
-#, fuzzy
-msgid "unchanged"
-msgstr "Start search"
-
-#, fuzzy
-msgid "revision comment"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "revision comment for autorevision"
-msgstr "Organisation"
 
 #, fuzzy
 msgid "manual date"

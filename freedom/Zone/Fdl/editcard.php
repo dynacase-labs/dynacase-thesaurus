@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.47 2004/09/14 08:50:44 eric Exp $
+ * @version $Id: editcard.php,v 1.48 2004/09/22 16:16:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.47 2004/09/14 08:50:44 eric Exp $
+// $Id: editcard.php,v 1.48 2004/09/22 16:16:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -120,8 +120,12 @@ if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) 
   $action->lay->Set("classid", $classid);
   $action->lay->Set("usefor", $usefor);
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
-
   // compute modify condition js
+  setNeededAttributes($action,$doc);
+
+}
+
+function setNeededAttributes(&$action,&$doc) {  
   $attrn = $doc->GetNeededAttributes();
   
   if (count($attrn) == 0) {
@@ -168,6 +172,7 @@ if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) 
   $jslay->Set("attrntitle",$sattrNtitle);
   $jslay->SetBlockData("RATTR",$tjsa);
   $action->parent->AddJsCode($jslay->gen());
+  
 }
 
 function moreone($v) {

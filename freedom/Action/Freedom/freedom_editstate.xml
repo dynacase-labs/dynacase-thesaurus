@@ -34,7 +34,8 @@
                          
 <!-- Title Table -->
 <form  class="fborder" 
-       name="modifyfreedom" 
+       id="fedit" 
+       name="modifydoc" 
        method="POST"  
        action="[CORE_STANDURL]&app=[APPNAME]&action=MODSTATE&id=[docid]" >
 
@@ -45,10 +46,10 @@
   <td colspan="3"><span class="FREEDOMTextBigTitle">[title]</span>  </td>
 </tr>
            
-[ZONE FDL:EDITSTATE]         
+[ZONE FDL:EDITSTATE?wneed=Y]         
 
 <tr >
-  <td><input type="submit" value="[TEXT:Change State]"></td>
+  <td><input type="submit" value="[TEXT:Change State]" onmousedown="multiple_for_select();" onclick="if (!canmodify()) return false;document.isSubmitted=true;enableall();return true"></td>
   <td>&nbsp;</td>
   <td  align="right">
     <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[docid]';"> 

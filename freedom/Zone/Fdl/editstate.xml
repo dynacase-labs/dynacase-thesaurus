@@ -1,10 +1,18 @@
-
+<script>
+  <!--
+var states = new Array([tstates]);
+var transid = new Array([ttransid]);
+var askes = new Array([askes]);
+var WattrNid=new Array([Wattrnid]);
+var WattrNtitle=new Array([Wattrntitle]);
+  //-->
+</script>
 
 [BLOCK TRSTATE]
 <tr class="FREEDOMBack2">
   <td style="width:50%">
  <label class="FREEDOMTextTitle" for="newstate">[TEXT:state] <i>[initstatename]</i> [TEXT:to]</label>
- <select name="newstate" onchange="if (this.selectedIndex > 0) document.getElementById('comment').style.visibility=''; else document.getElementById('comment').style.visibility='hidden';"> 
+ <select id="seltrans" name="newstate" onchange="askForTransition(this);if (this.selectedIndex > 0) {document.getElementById('comment').style.visibility='';} else document.getElementById('comment').style.visibility='hidden';"> 
  <option VALUE="-" >[TEXT:unchanged]</option> 
 [BLOCK NEWSTATE]
  <option VALUE="[statevalue]" >[statename]</option>  
@@ -24,3 +32,21 @@
   </td>
 </tr>
 [ENDBLOCK COMMENT]
+
+<tr >
+  <td  colspan="3" ><fieldset style="display:none" id="hwfask"><legend style="cursor:pointer" onclick="viewornot('T[key]')">hidden parameters</legend>
+[BLOCK FINPUTS]
+<table style="display:[idisplay]" width="100%" id="TWF[aid]">
+<tr class="FREEDOMBack1">
+  <td width="30%" valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</td>
+  <td>[avalue]</td>
+</tr>
+</table>
+[ENDBLOCK FINPUTS]
+</fieldset>
+<fieldset style="position:absolute;top:100px;left:300px;display:none" id="wfask"><legend>[TEXT:Transition parameters]</legend>
+
+</fieldset>
+
+</td></tr>
+
