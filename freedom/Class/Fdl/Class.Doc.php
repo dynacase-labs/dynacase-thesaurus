@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.117 2003/04/25 14:51:32 eric Exp $
+// $Id: Class.Doc.php,v 1.118 2003/04/28 12:15:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.117 2003/04/25 14:51:32 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.118 2003/04/28 12:15:34 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1445,7 +1445,7 @@ create unique index i_docir on doc(initid, revision);";
 	while (list($ka, $va) = each($ta)) {	  
 	  if ($va->visibility=="H") continue;
 	  $hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
-	  if ($va->type=="image") $hval="<img src=\"".$hval."\">";
+	  if ($va->type=="image") $hval="<img width=\"128\" src=\"".$hval."\">";
 	  $tivalue[]=array("evalue"=>$hval);
 	}
 	$lay->setBlockData("bevalue_$k",$tivalue);
@@ -1628,10 +1628,10 @@ create unique index i_docir on doc(initid, revision);";
       $value = chop($this->GetValue($i));
 
     
-      if ($value != "") // to define when change frame
+      if (($value != "") || ($attr->type=="array")) // to define when change frame
 	{
-	  if ( $currentFrameId != $listattr[$i]->fieldSet->id) {
-	    if ($currentFrameId != "") $changeframe=true;
+	  if ( $currentFrameId != $attr->fieldSet->id) {	    
+	    if (($currentFrameId != "") && ($attr->fieldSet->visibility == "F")) $changeframe=true;
 	  }
 	}
 	
@@ -1671,31 +1671,32 @@ create unique index i_docir on doc(initid, revision);";
       // Set the table value elements
       if ($iattr <= $nattr)	{
       
-	if ((($value != "") || ( $listattr[$i]->type=="array")) && 
-	    ($listattr[$i]->mvisibility != "H") && (! $listattr[$i]->inArray()))   {
+	if ((($value != "") || ( $attr->type=="array")) && 
+	    ($attr->mvisibility != "H") && (! $attr->inArray()))   {
 		
-	  $currentFrameId = $listattr[$i]->fieldSet->id;
+	  if ($attr->fieldSet->visibility=="F") $currentFrameId = $attr->fieldSet->id;
+	 
 	  $tableframe[$v]["wvalue"]="50%"; // width
 	  // print values
-	  switch ($listattr[$i]->type)
+	  switch ($attr->type)
 	    {
 	      
 	    case "image": 
 		  
-	      $tableimage[$nbimg]["imgsrc"]=$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	      $tableimage[$nbimg]["imgsrc"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
 	      break;
 		
 		
 	    case "file": 
 		  
-	      $tableframe[$v]["value"]=$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
 	    
 	      break;
 	    case "array": 
-	      $tableframe[$v]["wvalue"]="100%"; // width
+	      $tableframe[$v]["wvalue"]="80%"; // width
 		
 	    default : 
-	      $tableframe[$v]["value"]=$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	      $tableframe[$v]["value"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
 	      break;
 		
 	    }
@@ -1703,13 +1704,13 @@ create unique index i_docir on doc(initid, revision);";
 
 	
 	  // print name except image (printed otherthere)
-	  if ($listattr[$i]->type != "image") {
-	    $tableframe[$v]["name"]=$this->GetLabel($listattr[$i]->id);
-	    if ( $listattr[$i]->type != "array") $tableframe[$v]["ndisplay"]="";
+	  if ($attr->type != "image") {
+	    $tableframe[$v]["name"]=$this->GetLabel($attr->id);
+	    if ( $attr->type != "array") $tableframe[$v]["ndisplay"]="";
 	    else $tableframe[$v]["ndisplay"]="none";
 	    $v++;
 	  } else	{
-	    $tableimage[$nbimg]["imgalt"]=$this->GetLabel($listattr[$i]->id);
+	    $tableimage[$nbimg]["imgalt"]=$this->GetLabel($attr->id);
 	    $nbimg++;
 	  }
 
