@@ -10,7 +10,16 @@
  <option VALUE="[statevalue]" >[statename]</option>  
 [ENDBLOCK NEWSTATE]
   </select>
-  <textarea rows="2" cols="40" name="comment" id="comment" style="display:none"></textarea>
+  <textarea title="[TEXT:revision comment]" rows="2" style="width:100%" name="comment" id="comment" style="display:none"></textarea>
   </td>
 </tr>
 [ENDBLOCK TRSTATE]
+
+[BLOCK COMMENT]
+<tr class="FREEDOMBack2">
+  <td colspan="3" >
+
+  <textarea title="[TEXT:revision comment for autorevision]" rows="2" style="width:100%" name="comment" id="comment" ></textarea>
+  </td>
+</tr>
+[ENDBLOCK COMMENT]
