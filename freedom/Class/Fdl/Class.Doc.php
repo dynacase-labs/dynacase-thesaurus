@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.213 2004/08/09 16:23:27 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.214 2004/09/06 10:30:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2267,6 +2267,10 @@ create unique index i_docir on doc(initid, revision);";
 	  break;
 	case time:  
 	  $htmlval=substr($avalue,0,5); // do not display second
+	
+	  break;
+	case timestamp:  
+	  $htmlval=substr($avalue,0,-3); // do not display second
 	
 	  break;
 

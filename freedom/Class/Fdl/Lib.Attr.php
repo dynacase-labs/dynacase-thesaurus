@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.38 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.39 2004/09/06 10:30:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -162,6 +162,9 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  case date:
 	    $attrids[$v->id] = ($v->id)." date";  
 	    break;
+	  case timestamp:
+	    $attrids[$v->id] = ($v->id)." timestamp";  
+	    break;
 	  case time:
 	    $attrids[$v->id] = ($v->id)." time";  
 	    break;
@@ -249,7 +252,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
       $pgatt[$row["attname"]]=$row["attname"];
 	
     }
-      
+   
     // -----------------------------
     // add column attribute
     $classname="Doc".$docid;
@@ -270,7 +273,6 @@ function PgUpdateFamilly($dbaccess, $docid) {
       foreach($oattr as $ka => $attr) {	
 	$tattr[strtolower($attr->id)]=$attr;
       }
-
       foreach($tattr as $ka => $attr) {
 	if ($attr->type == "array") continue; // skip array but must be in table to search element in arrays
 	$attr->id=chop($attr->id);
@@ -294,6 +296,9 @@ function PgUpdateFamilly($dbaccess, $docid) {
 		break;
 	      case date:
 		$sqltype = strtolower($v->id)." date"; 
+		break;
+	      case timestamp:
+		$sqltype = strtolower($v->id)." timestamp"; 
 		break;
 	      case time:
 		$sqltype = strtolower($v->id)." time";  

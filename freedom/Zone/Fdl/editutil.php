@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.71 2004/08/31 14:06:16 eric Exp $
+ * @version $Id: editutil.php,v 1.72 2004/09/06 10:30:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.71 2004/08/31 14:06:16 eric Exp $
+// $Id: editutil.php,v 1.72 2004/09/06 10:30:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -358,6 +358,20 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 			
     case "date": 
       $lay = new Layout("FDL/Layout/editdate.xml", $action);
+      getLayDate($lay,$doc,$oattr,$value,$attrin,$index);
+		      
+      $lay->set("disabled","");
+      if (($visibility == "R")||($visibility == "S")) {
+	$lay->set("disabled",$idisabled);	
+      } else  if ($doc->usefor != 'D') 	$lay->set("disabled","disabled");
+
+
+      $input =$lay->gen(); 
+      break;     
+      //같같같같같같같같같같같같같같같같같같같같
+			
+    case "timestamp": 
+      $lay = new Layout("FDL/Layout/edittimestamp.xml", $action);
       getLayDate($lay,$doc,$oattr,$value,$attrin,$index);
 		      
       $lay->set("disabled","");
