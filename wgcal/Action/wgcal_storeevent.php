@@ -7,11 +7,43 @@ include_once("WGCAL/Lib.WGCal.php");
 
 function wgcal_storeevent(&$action) {
 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
+
   $db = $action->getParam("FREEDOM_DB");
+
+  $checkForConflict = GetHttpVars("check", 1);
+
+  $ds = GetHttpVars("Fstart", 0);
+  $de = GetHttpVars("Fend", 0);
+  $start = date2db($ds);
+  $end = date2db($de);
+  $htype = 0;
+  if (GetHttpVars("nohour", "") == "on") {
+    $htype = 1;
+    $start = date2db($ds, false) . " 00:00";
+    $end = date2db($de, false) . " 00:00";
+  }
+  if (GetHttpVars("allday", "") == "on") {
+    $htype = 2;
+    $start = date2db($ds, false)." 00:00";
+    $end = date2db($ds, false)." 23:59";
+  }
+  $withme = GetHttpVars("withMe", "off");
+  $attendees = array();
+  $attl = GetHttpVars("attendees", "");
+  if ($attl!="") $attendees = explode("|", $attl);
+  if ($withme) $attendees[count($attendees)] = $action->user->fid;
   
-//      global $_POST;
-//      print_r2($_POST);
-//      return;
+  if ($checkForConflict) $conflict = CheckConflict($action, $attendees, $start, $end);
+return;
+  if ($conflict) return;
+
+
 
   $err = "";
   $id  = GetHttpVars("eventid", -1);
@@ -38,16 +70,10 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_START", date2db($ds));
   $event->setValue("CALEV_END", date2db($de));
   
-  if (GetHttpVars("nohour", "") == "on") {
-    $event->setValue("CALEV_TIMETYPE", 1);
-    $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
-    $event->setValue("CALEV_END", date2db($ds, false)." 00:00");
-  }
-  if (GetHttpVars("allday", "") == "on") {
-    $event->setValue("CALEV_TIMETYPE", 2);
-    $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
-    $event->setValue("CALEV_END", date2db($ds, false)." 23:59");
-  }
+  
+  $event->setValue("CALEV_TIMETYPE", $htype);
+  $event->setValue("CALEV_START", $start);
+  $event->setValue("CALEV_END", $end);
   
   $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
   
@@ -96,64 +122,56 @@ function wgcal_storeevent(&$action) {
   $groupfid = getIdFromName($dbaccess, "GROUP");
   $igroupfid = getIdFromName($dbaccess, "IGROUP");
 
-  $withme = GetHttpVars("withMe", "off");
   $oldatt_id    = $event->getTValue("CALEV_ATTID", array());
   $oldatt_state = $event->getTValue("CALEV_ATTSTATE", array());
   $oldatt_group = $event->getTValue("CALEV_ATTGROUP", array());
 
-  $attl = GetHttpVars("attendees", "");
-  if ($attl!="") {
-    $attendees = explode("|", $attl);
-    
-    $nattl = array(); $iatt = 0;
-    
-    // first, find all groups and expand it
-    foreach ($attendees as $ka => $va) {
-      $att = new Doc($db, $va);
-      if ($att->fromid==$groupfid || $att->fromid==$igroupfid) {
-	$nattl[$iatt]["fid"] = $att->id;
-	$nattl[$iatt]["fgid"] = -1;
-	$iatt++;
-	$ulist = $ugrp->GetUsersGroupList($att->getValue("US_WHATID"));
-	foreach ($ulist as $ku=>$vu) {
-	  $nattl[$iatt]["fid"] = $vu["fid"];
-	  $nattl[$iatt]["fgid"] = $att->id;
-	  $iatt++;
-	}
-      }
-    }
-
-    // Look at others attendees
-    foreach ($attendees as $ka => $va) {
-      $att = new Doc($db, $va);
-      if ($att->fromid!=$groupfid && $att->fromid!=$igroupfid) {
-	$nattl[$iatt]["fid"] = $att->id;
-	$nattl[$iatt]["fgid"] = -1;
+  $nattl = array(); $iatt = 0;
+  // first, find all groups and expand it
+  foreach ($attendees as $ka => $va) {
+    $att = new Doc($db, $va);
+    if ($att->fromid==$groupfid || $att->fromid==$igroupfid) {
+      $nattl[$iatt]["fid"] = $att->id;
+      $nattl[$iatt]["fgid"] = -1;
+      $iatt++;
+      $ulist = $ugrp->GetUsersGroupList($att->getValue("US_WHATID"));
+      foreach ($ulist as $ku=>$vu) {
+	$nattl[$iatt]["fid"] = $vu["fid"];
+	$nattl[$iatt]["fgid"] = $att->id;
 	$iatt++;
       }
     }
-//     print_r2($nattl);
-
-    $attendeesid    = array();
-    $attendeesname  = array();
-    $attendeesstate = array();
-    $attendeesgroup = array();
-    $attcnt = 0;
-    foreach ($nattl as $ka => $va) {
-      if ($va<=0||$va=="") continue;
-      $att = new Doc($db, $va["fid"]);
-      $attendeesid[$attcnt]  = $att->id;
-      $attendeesname[$attcnt]  = $att->title;
-      $attendeesgroup[$attcnt] = $va["fgid"];
-      $attendeesstate[$attcnt] = 0;
-      if ($att->id == $action->user->fid) $attendeesstate[$attcnt] = $evstatus;
-      else {
-	foreach ($oldatt_id as $ko => $vo) {
-	  if ($vo == $va["fid"]) $attendeesstate[$attcnt] = $oldatt_state[$ko];
-	}
-      }
-      $attcnt++;
+  }
+  // Look at others attendees
+  foreach ($attendees as $ka => $va) {
+    $att = new Doc($db, $va);
+    if ($att->fromid!=$groupfid && $att->fromid!=$igroupfid) {
+      $nattl[$iatt]["fid"] = $att->id;
+      $nattl[$iatt]["fgid"] = -1;
+      $iatt++;
     }
+  }
+  //     print_r2($nattl);
+  
+  $attendeesid    = array();
+  $attendeesname  = array();
+  $attendeesstate = array();
+  $attendeesgroup = array();
+  $attcnt = 0;
+  foreach ($nattl as $ka => $va) {
+    if ($va<=0||$va=="") continue;
+    $att = new Doc($db, $va["fid"]);
+    $attendeesid[$attcnt]  = $att->id;
+    $attendeesname[$attcnt]  = $att->title;
+    $attendeesgroup[$attcnt] = $va["fgid"];
+    $attendeesstate[$attcnt] = 0;
+    if ($att->id == $action->user->fid) $attendeesstate[$attcnt] = $evstatus;
+    else {
+      foreach ($oldatt_id as $ko => $vo) {
+	if ($vo == $va["fid"]) $attendeesstate[$attcnt] = $oldatt_state[$ko];
+      }
+    }
+    $attcnt++;
   }
   
   if ($withme == "on" && $owner==$action->user->fid) {
@@ -196,5 +214,27 @@ function date2db($d, $hm = true) {
 }
 
 
+
+function CheckConflict(&$action, $rl, $ds, $de) {
+  $conflict = array();
+
+  $nrl = array();
+  foreach($rl as $k => $v) {
+    $trl = GroupExplode($action, $v);
+    $nrl = array_merge($nrl, $trl);
+  }
+//   echo "Recherche des conflits : ressource [$idres] debut [$ds] fin [$de]<br>";
+
+  $tev = WGCalGetAgendaEvents($action, $nrl, $ds, $de);
+  
+  $action->lay->setBlockData("CARDS", $tev);
+
+  foreach ($tev as $k=>$v) {
+    $line[]["line"] = "[".$v["RG"]." id=".$v["ID"]." debut=".$v["TSSTART"]." fin=".$v["TSEND"]." owner=".$v["IDP"];
+  }
+  $action->lay->set("CF", (count($tev)>0 ? true : false));
+  $action->lay->SetBlockData("CONFLICTS", $tev);
+  return (count($tev)>0 ? true : false);
+}
 
 ?>

@@ -292,7 +292,8 @@ function saveEvent() {
   }
   if (EventSelectAll(fs)) { 
     fs.submit();
-    self.close();
+    document.getElementById('wgcal_conflict').style.display='';
+//     self.close();
   }
   return false;
 }

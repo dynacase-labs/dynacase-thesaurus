@@ -1,0 +1,44 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+<script type="text/javascript">
+
+  var myframe = parent.wgcal_conflict;
+  alert(myframe);
+  myframe.close();
+
+  var IdOpened = -1;
+
+  function ShowElt(t, id) {
+    var evtc = document.getElementById('evtc'+id);
+    evtc.style.display = '';
+    evtc.style.position = 'absolute';
+    evtc.style.width = 'auto';
+    evtc.style.zIndex = 1001;
+    evtc.style.display = '';
+    ww = getFrameWidth();
+    wh = getFrameHeight();
+    var h = getObjectHeight(evtc);
+    var w = getObjectWidth(evtc);
+    evtc.style.left = (ww-w-10)+'px';
+    evtc.style.top = (wh-h-10)+'px';
+    IdOpened = id;
+    t.className = 'WGCFamSelected';
+ }
+
+  function HideElt(t) {
+    if (IdOpened!=-1) document.getElementById('evtc'+IdOpened).style.display = 'none';
+    IdOpened = -1;
+    t.className = 'WGCRessDefault';
+  }
+
+</script>
+<div style="padding:2em">
+[IF CF]<div class="wMonthTextTitle">[TEXT:there are conflicts with events (see after)].</div>[ENDIF CF]
+[BLOCK CONFLICTS]
+<li><span class="WGCRessDefault" style="width:100%" onmouseover="HideElt(this); ShowElt(this,[ID]);" onmouseout="HideElt(this);">
+rg=[RG] id=[ID] debut=[TSSTART] fin=[TSEND] owner=[IDP]
+</span><br>[ENDBLOCK CONFLICTS]
+[BLOCK CARDS]
+
+<div id="evtc[ID]" style="display:none; border:1px outset; background-color:white');">[ZONE [VIEW]?ev=[ID]]</div>[ENDBLOCK CARDS]
+</div>
+[ZONE WGCAL:WGCAL_HTMLFOOT]

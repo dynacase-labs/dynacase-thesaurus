@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.16 2005/03/10 18:06:49 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.17 2005/03/10 21:41:55 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -348,6 +348,22 @@ function GetCalEvent($dbaccess, $ev, $cev) {
   if ($evid<1) return false;
   $nev = new Doc($dbaccess, $evid);
   return $nev;
+}
+
+
+function GroupExplode(&$action, $gid) {
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $groupfid = getIdFromName($dbaccess, "GROUP");
+  $igroupfid = getIdFromName($dbaccess, "IGROUP");
+  $g = new Doc($dbaccess, $gid);
+  if ($g->fromid!=$groupfid && $g->fromid!=$igroupfid) return array($gid);
+
+  $udbaccess = $action->GetParam("COREUSER_DB");
+  $ugrp = new User($udbaccess);
+  $ulist = $ugrp->GetUsersGroupList($g->getValue("US_WHATID"));
+  foreach ($ulist as $ku=>$vu)	$gr[] = $vu["fid"];
+  return $gr;
 }
 
 ?>
