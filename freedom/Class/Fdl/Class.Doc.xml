@@ -101,7 +101,7 @@ end;
 	$tv[] = call_user_method_array("[method]",$this,$tiargs);
 	
       }
-      $this->setValue("[rarg]",implode("\\n",$tv)); 
+      $this->setValue("[rarg]",$tv); 
     } else {
       $v = call_user_method_array("[method]",$this,$iargs);
       $this->setValue("[rarg]",$v); 
