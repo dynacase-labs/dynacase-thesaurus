@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.32 2003/10/28 16:30:49 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.33 2003/11/17 11:07:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.32 2003/10/28 16:30:49 eric Exp $
+// $Id: Class.WDoc.php,v 1.33 2003/11/17 11:07:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.32 2003/10/28 16:30:49 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.33 2003/11/17 11:07:07 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -257,7 +257,7 @@ Class WDoc extends Doc {
 	  
       if (! method_exists($this, $tr["m1"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m1"], get_class($this)));
 	
-      $err = call_user_method ($tr["m1"], $this, $newstate);
+      $err = call_user_method ($tr["m1"], $this, $newstate,$this->doc->state);
 	
       if ($err == "->") {
 	if ($force) {
@@ -293,7 +293,7 @@ Class WDoc extends Doc {
     // post action
     if ($tr["m2"] != "") {
       if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
-      $err = call_user_method ($tr["m2"], $this, $newstate);
+      $err = call_user_method ($tr["m2"], $this, $newstate,$oldstate );
 
 	  
       if ($err == "->") $err=""; //it is not a real error
