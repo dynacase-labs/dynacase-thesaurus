@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.9 2002/04/23 07:45:15 eric Exp $
+// $Id: Class.DocUser.php,v 1.10 2002/04/24 13:34:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.9 2002/04/23 07:45:15 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.10 2002/04/24 13:34:14 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -296,7 +296,7 @@ Class DocUser extends Doc
   // --------------------------------------------------------------------
     
     $priv=$this->GetValue(QA_PRIVACITY);
-    
+    $err="";
     switch ($priv) {
     case "P":	
       if ($this->profid != "1") {
