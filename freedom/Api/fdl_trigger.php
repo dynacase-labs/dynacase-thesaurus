@@ -42,7 +42,13 @@ if ($query->nb > 0)	{
     $doc = createDoc($dbaccess,$v["id"]);
     
     if ($trig)    print $doc->sqltrigger()."\n";
-    else print $doc->sqlcreate."\n";
+    else {
+      if (is_array($doc->sqlcreate)) {
+	print implode(";\n",$doc->sqlcreate);
+      } else {
+	print $doc->sqlcreate."\n";
+      }
+    }
     
     
   }	 
