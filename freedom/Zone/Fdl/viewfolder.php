@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.42 2003/06/11 14:37:31 eric Exp $
+// $Id: viewfolder.php,v 1.43 2003/07/24 12:57:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -109,7 +109,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     include_once("FDL/popup_util.php");
     // ------------------------------------------------------
     // definition of popup menu
-    popupInit("popuplist",array('vprop','editdoc','cancel','copy','duplicate','ifld','delete'));
+    popupInit("popuplist",array('vprop','editdoc','cancel','copy','addbasket','duplicate','ifld','delete'));
 
   }
 
@@ -191,6 +191,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  popupInvisible("popuplist",$kdiv,'vprop'); // don't use : idem like simple clic
 	  popupActive("popuplist",$kdiv,'cancel');
 	  popupActive("popuplist",$kdiv,'copy');
+	  popupActive("popuplist",$kdiv,'addbasket');
 	  popupActive("popuplist",$kdiv,'ifld');
 	  popupActive("popuplist",$kdiv,'duplicate');
 
@@ -240,7 +241,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  // ----------------------------------------------------------
 	if ($column) {
 	  if ($doc->fromid != $prevFromId) {
-	    $adoc = new DocFam($dbaccess,$doc->fromid);
+	    $adoc = $doc->getFamDoc();
 	    if (count($tdoc) > 1) {
 	      $doct = $tdoc[$k];
 	      array_pop($tdoc);
