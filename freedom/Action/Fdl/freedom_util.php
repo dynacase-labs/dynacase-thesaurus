@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.58 2004/10/08 07:42:48 eric Exp $
+ * @version $Id: freedom_util.php,v 1.59 2004/10/08 09:51:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -238,7 +238,7 @@ function getTDoc($dbaccess, $id,$sqlfilters=array()) {
        $SQLDELAY+=microtime_diff(microtime(),$sqlt1);// to test delay of request
        $TSQLDELAY[]="t=>".microtime_diff(microtime(),$sqlt1)."s=>$sql";
   }
-  if (pg_numrows ($result) > 0) {
+  if (($result) && (pg_numrows ($result) > 0)) {
     $arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
 
     return $arr;
