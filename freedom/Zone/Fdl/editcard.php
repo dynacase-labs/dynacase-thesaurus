@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.3 2002/03/06 17:16:03 eric Exp $
+// $Id: editcard.php,v 1.4 2002/03/08 14:44:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -119,7 +119,8 @@ function editcard(&$action) {
   else
     {      
 
-      $err = $doc->CanLockFile();
+      $err = $doc->CanLockFile()  ;
+      if ($err != "")	$err=$doc->CanUpdateDoc();
       if ($err != "")   $action->ExitError($err);
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
   
