@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.13 2003/10/16 09:38:01 eric Exp $
+ * @version $Id: generic_tab.php,v 1.14 2003/11/03 09:12:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.13 2003/10/16 09:38:01 eric Exp $
+// $Id: generic_tab.php,v 1.14 2003/11/03 09:12:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -120,7 +120,6 @@ function generic_tab(&$action) {
   setHttpVar("tab", $tab);
   setHttpVar("dirid",$sdoc->id );
   setHttpVar("catg",$dirid );
-  setHttpVar("target","finfo" );
 
 
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.13 2003/10/16 09:38:01 eric Exp $
+ * @version $Id: generic_list.php,v 1.14 2003/11/03 09:12:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.13 2003/10/16 09:38:01 eric Exp $
+// $Id: generic_list.php,v 1.14 2003/11/03 09:12:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -53,6 +53,7 @@ function generic_list(&$action) {
   $wonglet=GetHttpVars("onglet","Y")=="Y"; // if you want onglet
   $famid=GetHttpVars("famid"); // family restriction
 
+  setHttpVar("target","finfo" );
   if (!($famid > 0)) $famid = getDefFam($action);
 
   $column=generic_viewmode($action,$famid); // choose the good view mode
