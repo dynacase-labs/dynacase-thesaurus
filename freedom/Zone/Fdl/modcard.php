@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.49 2003/12/17 17:25:27 eric Exp $
+ * @version $Id: modcard.php,v 1.50 2003/12/30 10:12:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.49 2003/12/17 17:25:27 eric Exp $
+// $Id: modcard.php,v 1.50 2003/12/30 10:12:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,6 +53,7 @@ function modcard(&$action, &$ndocid) {
   $dirid=GetHttpVars("dirid",10);
   $classid=GetHttpVars("classid",0);
   $usefordef = GetHttpVars("usefordef"); // use for default values for a document
+  $vid = GetHttpVars("vid"); // special controlled view
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $ndocid=$docid;
@@ -101,6 +102,16 @@ function modcard(&$action, &$ndocid) {
   
 
   
+  // apply specified mask
+  if (($vid != "") && ($doc->cvid > 0)) {
+    // special controlled view
+    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $err = $cvdoc->control($vid); // control special view
+    if ($err != "") $action->exitError($err);
+    $tview = $cvdoc->getView($vid);
+    $doc->setMask($tview["CV_MSKID"]); // apply mask to avoid modification of invisible attribute
+  }
+
   // ------------------------------
 
   setPostVars($doc);
@@ -192,9 +203,7 @@ function setPostVars(&$doc) {
   foreach ($HTTP_POST_VARS as $k=>$v)    {
       
       if ($k[0] == "_") // freedom attributes  begin with  _
-	{
-
-	  
+	{	  
 	  $attrid = substr($k,1);
 	  if (is_array($v)) {
 	    if (isset($v["-1"])) {
@@ -211,16 +220,14 @@ function setPostVars(&$doc) {
     }
     // ------------------------------
   // update POSGRES files values
-  
   foreach ($HTTP_POST_FILES as $k=>$v)    {
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{	  
 	  $k=substr($k,1);
 
 	      
-	  $filename=insert_file($dbaccess,$doc->id,$k);
+	  $filename=insert_file($doc->dbaccess,$doc->id,$k);
 	
-	      
 	  if ($filename != "")
 	    {
 	      if (substr($k,0,4) == "UPL_") $k=substr($k,4);
@@ -266,7 +273,6 @@ function insert_file($dbaccess,$docid, $attrid)
   }
 
   $rt=array(); // array of file to be returned
-
   while(list($k,$userfile) = each($tuserfiles) )    {
 
     $rt[$k]="";
@@ -315,8 +321,11 @@ function insert_file($dbaccess,$docid, $attrid)
       move_uploaded_file($userfile['tmp_name'], $destfile);
       if (isset($vf)) unset($vf);
       $vf = new VaultFile($dbaccess, "FREEDOM");
-      $vf -> Store($destfile, false , $vid);
-    
+      $err=$vf -> Store($destfile, false , $vid);
+      
+      if ($err != "") {
+	AddMsgWarning($err);
+      }
       unlink($destfile);
     } else {
       $err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttr.php,v 1.18 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: Class.DocAttr.php,v 1.19 2003/12/30 10:12:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -12,7 +12,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.18 2003/12/16 15:05:39 eric Exp $
+// $Id: Class.DocAttr.php,v 1.19 2003/12/30 10:12:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.18 2003/12/16 15:05:39 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.19 2003/12/30 10:12:57 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -74,8 +74,8 @@ Class DocAttr extends DbObj
   var $sqlcreate = "
 create table docattr ( id  name,
                      docid int not null,
-                     FrameId  name,
-                     LabelText text,
+                     frameid  name,
+                     labeltext text,
                      Title  char,
                      Abstract  char,
                      Type  varchar(40),
@@ -127,6 +127,12 @@ create unique index idx_iddocid on docattr(id, docid)";
       if ($this->visibility=="") $this->visibility='W';
     } 
 
+   function CVisibility() {
+     
+     if ((isset($this->fieldSet))&&($this->fieldSet->visibility == "H")) return "H";
+     else if (($this->fieldSet->visibility == "R") && ($this->visibility != "H")) return "R";
+     return $this->visibility;
+   }
 
     
 }

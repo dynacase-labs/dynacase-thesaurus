@@ -49,7 +49,7 @@
    <span class="FREEDOMTextTitle">[TITLE]</span>
   </td> 
   <td class="FREEDOMTblTitle" align="right"><span class="FREEDOMTextName">[TEXT:inherit from]</span>
-   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=DEFATTR&id=[docid]&classid='+self.document.modifyfamilly.classid.options[self.document.modifyfamilly.classid.selectedIndex].value">   
+   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=DEFATTR&id='+self.document.modifyfamilly.classid.options[self.document.modifyfamilly.classid.selectedIndex].value">   
            <option VALUE="0">[TEXT:no document family]</option>      
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.43 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: freedom_util.php,v 1.44 2003/12/30 10:12:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.43 2003/12/12 15:45:25 eric Exp $
+// $Id: freedom_util.php,v 1.44 2003/12/30 10:12:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -300,8 +300,8 @@ function tordered($a, $b) {
 	if (intval($a->ordered) > intval($b->ordered)) return 1;
 	return -1;
   }
-  if (isset($a->ordered) ) return -1;
-  if (isset($b->ordered) ) return 1;
+  if (isset($a->ordered) ) return 1;
+  if (isset($b->ordered) ) return -1;
   return 0;
 	
 }
@@ -365,6 +365,16 @@ function getDocFromUserId($dbaccess,$userid) {
   }
   if (count($tdoc) == 0) return false;
   return $tdoc[0];
+}
+
+
+function ComputeVisibility($vis, $fvis) {
+  if ($vis == "I") return $vis;
+  if ($fvis == "H") return $fvis;
+  if (($fvis == "R") && ($vis != "H")) return $fvis;
+
+  return $vis;
+
 }
 
 

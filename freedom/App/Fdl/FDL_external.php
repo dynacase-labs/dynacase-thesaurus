@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.27 2003/12/15 08:38:52 eric Exp $
+ * @version $Id: FDL_external.php,v 1.28 2003/12/30 10:12:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -140,6 +140,8 @@ function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
   return $tr;
   
 }
+
+// alias name
 function lfamily($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
   return lfamilly($dbaccess, $famid, $name, $dirid, $filter);
 }

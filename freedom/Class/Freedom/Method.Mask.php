@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.5 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.6 2003/12/30 10:12:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.5 2003/12/16 15:05:39 eric Exp $
+// $Id: Method.Mask.php,v 1.6 2003/12/30 10:12:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,6 +74,25 @@ function getVisibilities() {
   return $tvisibilities;
 }
 
+function getCVisibilities() {
+  $tvisid = $this->getTValue("MSK_VISIBILITIES");
+  $tattrid = $this->getTValue("MSK_ATTRIDS");
+  $docid = $this->getValue("MSK_FAMID",1);
+  $doc= new Doc($this->dbaccess,$docid);
+
+  $tsvis = $this->getVisibilities();
+
+  $tvisibilities=array();
+
+  foreach($tattrid as $k=>$v) {
+    $attr = $doc->getAttribute($v);
+    $fvisid=$attr->fieldSet->id;
+    if ($tvisid[$k]=="-") $vis=$attr->visibility;
+    else $vis=$tvisid[$k];
+    $tvisibilities[$v]=ComputeVisibility($vis,$tsvis[$fvisid]);    
+  }
+  return $tvisibilities;
+}
 function getNeedeeds() {
   $tvisid = $this->getTValue("MSK_NEEDEEDS");
   $tattrid = $this->getTValue("MSK_ATTRIDS");
@@ -89,7 +108,7 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
  
   $docid = $this->getValue("MSK_FAMID",1);
 
-  $tvisibilities=$this->getVisibilities();
+  $tvisibilities=$this->getCVisibilities();
   $tneedeeds=$this->getNeedeeds();
 
   $this->lay->Set("docid",$docid);
@@ -104,16 +123,22 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
   $labelvis = $this->getLabelVis();
   
     
- 
-		     
-
-  //    ------------------------------------------
-  //  -------------------- NORMAL ----------------------
+  $tattr = $doc->GetFieldAttributes();
   $tattr = $doc->GetNormalAttributes();
+  foreach($tattr as $k=>$attr) {
+    
+    if ((isset($attr->fieldSet))&&
+	($attr->fieldSet->visibility == "H")) $this->attributes->attr[$k]->mvisibility="H";
+  }
+ 
+
+
+
+  //  --------------------  ----------------------
   
   uasort($tattr,"tordered"); 
-  reset($tattr);
-  while(list($k,$attr) = each($tattr))  {
+
+  foreach($tattr as $k=>$attr) {
     $tmask[$k]["attrname"]=$attr->labelText;
     $tmask[$k]["visibility"]=$labelvis[$attr->visibility];
     $tmask[$k]["wneed"]=($attr->needed)?"bold":"normal";
@@ -121,7 +146,7 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
     $tmask[$k]["vislabel"] = " ";
     if (isset($tvisibilities[$attr->id])) {
       $tmask[$k]["vislabel"] = $labelvis[$tvisibilities[$attr->id]];
-      if ($tvisibilities[$attr->id] != "-") $tmask[$k]["bgcolor"]=getParam("CORE_BGCOLORALTERN");
+      if ($tmask[$k]["visibility"] != $tmask[$k]["vislabel"]) $tmask[$k]["bgcolor"]=getParam("CORE_BGCOLORALTERN");
     } else $tmask[$k]["vislabel"] = $labelvis["-"];
 
     
@@ -146,7 +171,6 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
     $tmask[$k]["framelabel"]=$attr->fieldSet->labelText;
 
   }
-          
 
   $this->lay->SetBlockData("MASK",$tmask);  
 }
@@ -215,10 +239,10 @@ function editmask() {
   //    ------------------------------------------
   //  -------------------- NORMAL ----------------------
   $tattr = $doc->GetNormalAttributes();
+  $tattr += $doc->GetFieldAttributes();
   
   uasort($tattr,"tordered"); 
-  reset($tattr);
-  while(list($k,$attr) = each($tattr))  {
+  foreach($tattr as $k=>$attr) {
     $newelem[$k]["attrid"]=$attr->id;
     $newelem[$k]["attrname"]=$attr->labelText;
     $newelem[$k]["visibility"]=$labelvis[$attr->visibility];
@@ -226,6 +250,8 @@ function editmask() {
     $newelem[$k]["wneed"]=($attr->needed)?"bold":"normal";
     $newelem[$k]["neweltid"]=$k;
     
+    if (($attr->type=="array") || (get_class($attr) == "fieldsetattribute"))$newelem[$k]["fieldweight"]="bold";
+    else $newelem[$k]["fieldweight"]="";
 
     if ($attr->docid == $docid) {
       $newelem[$k]["disabled"]="";

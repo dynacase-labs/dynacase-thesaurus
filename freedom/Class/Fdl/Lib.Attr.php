@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.28 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.29 2003/12/30 10:12:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.28 2003/12/16 15:05:39 eric Exp $
+// $Id: Lib.Attr.php,v 1.29 2003/12/30 10:12:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,7 +96,7 @@ function AttrToPhp($dbaccess, $tdoc) {
       switch ($v->type) {
       case "menu": // menu
 	
-	  $tmenu[] = array("attrid"=>strtolower($v->id),
+	  $tmenu[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
 			   "label"=>str_replace("\"","\\\"",$v->labeltext),
 			   "order"=>intval($v->ordered),
 			   "link"=>str_replace("\"","\\\"",$v->link),
@@ -104,7 +104,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 			   "precond"=>$v->phpfunc);
 	break;
       case "frame": // frame
-	$tfield[] = array("attrid"=>strtolower($v->id),
+	$tfield[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
 			  "visibility"=>$v->visibility,
 			  "label"=>str_replace("\"","\\\"",$v->labeltext));
 	break;
@@ -144,8 +144,9 @@ function AttrToPhp($dbaccess, $tdoc) {
 	}
 	
 
+
 	// complete attributes characteristics
-	$tnormal[$v->id] = array("attrid"=>strtolower($v->id),
+	$tnormal[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
 				 "label"=>str_replace("\"","\\\"",$v->labeltext),
 				 "type"=>$atype,
 				 "format"=>str_replace("\"","\\\"",$aformat),
@@ -225,7 +226,6 @@ function AttrToPhp($dbaccess, $tdoc) {
   return $phpAdoc->gen();
     
 }
-
 
 function PgUpdateFamilly($dbaccess, $docid) {
 

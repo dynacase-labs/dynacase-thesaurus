@@ -35,11 +35,11 @@
 
 
 [BLOCK NEWELEM]
-<tr>
+<tr >
    <td  >[framelabel]</td>
   
    
-   <td>
+   <td style="font-weight:[fieldweight]">
    <input type="hidden" name="_MSK_ATTRIDS[[neweltid]]" value="[attrid]" >[attrname]</td>
   
    <td  >

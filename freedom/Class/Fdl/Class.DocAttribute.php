@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.14 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.15 2003/12/30 10:12:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.14 2003/12/16 15:05:39 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.15 2003/12/30 10:12:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.14 2003/12/16 15:05:39 eric Exp $';
+
 
 
 
@@ -45,7 +45,7 @@ Class BasicAttribute {
   var $id;
   var $docid;
   var $labelText;
-  var $visibility; // W, R, H, O, M
+  var $visibility; // W, R, H, O, M, I
 
   function BasicAttribute($id, $docid, $label ) {
     $this->id=$id;
@@ -54,13 +54,16 @@ Class BasicAttribute {
   }
 
   
-   // to see if an attribute is n item of an array
+  /**
+   * to see if an attribute is n item of an array
+   */
    function inArray() {
      if (get_class($this) == "normalattribute") {
        if ($this->fieldSet->type=="array") return true;
      }
      return false;
    }
+  
 }
 
 Class NormalAttribute extends BasicAttribute {
@@ -78,7 +81,7 @@ Class NormalAttribute extends BasicAttribute {
   var $ordered;
   var $phpconstraint; // special constraint set
   function NormalAttribute($id, $docid, $label, $type, $format, $repeat, $order, $link,
-			   $visibility,$needed,$isInTitle,$isInAbstract,
+			   $visibility, $needed,$isInTitle,$isInAbstract,
 			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint) {
     $this->id=$id;
     $this->docid=$docid;
@@ -157,6 +160,8 @@ Class NormalAttribute extends BasicAttribute {
     
   
   }
+
+ 
 }
 
 

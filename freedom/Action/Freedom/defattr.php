@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: defattr.php,v 1.17 2003/12/16 15:05:39 eric Exp $
+ * @version $Id: defattr.php,v 1.18 2003/12/30 10:12:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.17 2003/12/16 15:05:39 eric Exp $
+// $Id: defattr.php,v 1.18 2003/12/30 10:12:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -121,7 +121,7 @@ function defattr(&$action)
 	$newelem[$k]["attrid"]=$attr->id;
 	$newelem[$k]["attrname"]=$attr->labelText;
 	$newelem[$k]["neweltid"]=$k;
-	$newelem[$k]["visibility"]="F";
+	$newelem[$k]["visibility"]=$attr->visibility;
 	$newelem[$k]["typevalue"]="frame";
 	$newelem[$k]["disabledid"]="disabled";
 	$newelem[$k]["order"]="0";
@@ -155,8 +155,8 @@ function defattr(&$action)
 	$newelem[$k]["attrid"]=$attr->id;
 	$newelem[$k]["attrname"]=$attr->labelText;
 	$newelem[$k]["neweltid"]=$k;
-	$newelem[$k]["visibility"]="M";
-	$newelem[$k]["typevalue"]="";
+	$newelem[$k]["visibility"]=$attr->visibility;
+	$newelem[$k]["typevalue"]="menu";
 	$newelem[$k]["order"]=$attr->ordered;
 	$newelem[$k]["disabledid"]="disabled";
 	$newelem[$k]["SELECTFRAME"]="SELECTFRAME_$k";

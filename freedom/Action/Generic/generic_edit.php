@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.18 2003/12/17 17:25:27 eric Exp $
+ * @version $Id: generic_edit.php,v 1.19 2003/12/30 10:12:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.18 2003/12/17 17:25:27 eric Exp $
+// $Id: generic_edit.php,v 1.19 2003/12/30 10:12:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,7 +51,9 @@ function generic_edit(&$action) {
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
   $usefordef = GetHttpVars("usefordef"); // default values for a document
 
+  $vid = GetHttpVars("vid"); // special controlled view
 
+  $action->lay->Set("vid", $vid);
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
    
