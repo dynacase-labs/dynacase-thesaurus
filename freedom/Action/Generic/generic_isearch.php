@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_isearch.php,v 1.1 2003/07/03 10:40:24 eric Exp $
+// $Id: generic_isearch.php,v 1.2 2003/07/07 07:45:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_isearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,13 +43,17 @@ function generic_isearch(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if (($famid !== 0) && (! is_numeric($famid))) {
-    $famid=getFamIdFromName($dbaccess,$famid);
-  
+    $famid=getFamIdFromName($dbaccess,$famid);  
   }
   if ($docid == "") $action->exitError(_("related search aborted : no parameter found"));
 
 
   $doc = new Doc($dbaccess, $docid);
+  $tdoc = $doc->getRevisions("TABLE");
+  $tfil=array();
+  while (list($k,$v) = each($tdoc)) {
+    $tfil[]="values ~ '[£|\n]".$v["id"]."[£|\n]'";
+  }
   
 
   $sdoc = createDoc($dbaccess,5); //new DocSearch($dbaccess);
@@ -62,7 +66,7 @@ function generic_isearch(&$action) {
   $sqlfilter[]= "locked != -1";
   //  $sqlfilter[]= "doctype ='F'";
   $sqlfilter[]= "usefor = 'N'";
-  $sqlfilter[]= "values ~ '£{$docid}£' ";
+  $sqlfilter[]= "(".implode(") OR (",$tfil).")";
 
   $query=getSqlSearchDoc($dbaccess, 
 			 0,  
@@ -70,7 +74,6 @@ function generic_isearch(&$action) {
 			 $sqlfilter);
 
   $sdoc-> AddQuery($query);
- 
   redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&famid=$famid&catg=0");
   
   

@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.45 2003/06/06 09:39:15 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.46 2003/07/07 07:45:05 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -74,6 +74,7 @@ Version: @VERSION@
 Release: @RELEASE@
 PreReq: WHAT
 PreReq: @PACKAGE@-LIB = %{version}
+PreReq: @PACKAGE@-USERCARD = %{version}
 
 %description INCIDENT
 The incident module allow to edit problems for an hot-line

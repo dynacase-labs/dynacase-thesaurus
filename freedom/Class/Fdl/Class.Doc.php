@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.141 2003/06/27 07:40:45 mathieu Exp $
+// $Id: Class.Doc.php,v 1.142 2003/07/07 07:45:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.141 2003/06/27 07:40:45 mathieu Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.142 2003/07/07 07:45:05 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/06/27 07:40:45 $
-// Version         $Revision: 1.141 $
+// Last Update     $Date: 2003/07/07 07:45:05 $
+// Version         $Revision: 1.142 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -762,7 +762,9 @@ create unique index i_docir on doc(initid, revision);";
   function GetNormalAttributes()
     {      
       
-      return $this->attributes->GetNormalAttributes();      
+      if ((isset($this->attributes)) && (method_exists($this->attributes,"GetNormalAttributes")))
+	return $this->attributes->GetNormalAttributes();      
+      else return array();
     } 
 
   function GetFieldAttributes()
@@ -1588,7 +1590,7 @@ create unique index i_docir on doc(initid, revision);";
 	
 	  break;
 	case "longtext": 
-	  $htmlval=nl2br(htmlentities(stripslashes($avalue)));
+	  $htmlval=nl2br(htmlentities(stripslashes(str_replace("<BR>","\n",$avalue))));
 	  break;
 	case "password": 
 	  $htmlval=ereg_replace(".", "*", htmlentities(stripslashes($avalue)));
