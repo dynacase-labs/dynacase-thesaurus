@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.85 2004/03/25 11:08:02 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.86 2004/03/30 13:35:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.85 2004/03/25 11:08:02 eric Exp $
+// $Id: Lib.Dir.php,v 1.86 2004/03/30 13:35:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -254,6 +254,7 @@ function getChildDoc($dbaccess,
   if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
   else  {
     if ($fromid == "") $orderby="title";
+    elseif (substr($qsql,0,12)  == "select doc.*") $orderby="title";
     if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
     else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
   }
