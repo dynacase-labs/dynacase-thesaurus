@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.9 2001/11/21 14:28:19 eric Exp $
+// $Id: Class.Doc.php,v 1.10 2001/11/22 10:00:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.10  2001/11/22 10:00:59  eric
+// premier pas vers une API pour les popup
+//
 // Revision 1.9  2001/11/21 14:28:19  eric
 // double click : first file export
 //
@@ -53,7 +56,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.9 2001/11/21 14:28:19 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.10 2001/11/22 10:00:59 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -553,6 +556,24 @@ create sequence seq_id_doc start 10";
       $query->order_by="ordered";
       return $query->Query();      
     }
+
+  // return all the attributes object for abstract
+  // the attribute can be defined in fathers
+  function GetAbstractAttributes()
+    {
+      $query = new QueryDb($this->dbaccess,"DocAttr");
+      // initialise query with all fathers doc
+      // 
+      $sql_cond_doc = sql_cond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
+      $query->AddQuery($sql_cond_doc);
+    
+      $query->AddQuery("type != 'frame'");
+      $query->AddQuery("abstract = 'Y'");
+      $query->order_by="ordered";
+      return $query->Query();      
+    }
+
+
 
   // return the first attribute of type 'file'
   function GetFirstFileAttributes()

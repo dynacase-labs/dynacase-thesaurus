@@ -104,8 +104,8 @@ function sendandreload(th, url) {
 
 var nbmitem =[nbmitem]; 
 var tdiv= new Array([nbdiv]+1);
-tdivid=['[menuitem0]','[menuitem1]','[menuitem2]','[menuitem3]','[menuitem4]','[menuitem5]','[menuitem6]','[menuitem7]','[menuitem8]','[menuitem9]'];
+tdivid=[menuitems];
 [BLOCK MENUACCESS]
-tdiv[[divid]]=[[vmenuitem0],[vmenuitem1],[vmenuitem2],[vmenuitem3],[vmenuitem4],[vmenuitem5],[vmenuitem6],[vmenuitem7],[vmenuitem8],[vmenuitem9]];
+tdiv[[divid]]=[vmenuitems];
 [ENDBLOCK MENUACCESS]
 

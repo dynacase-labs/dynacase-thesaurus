@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.9 2001/11/21 17:03:54 eric Exp $
+// $Id: freedom_icons.php,v 1.10 2001/11/22 10:00:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.10  2001/11/22 10:00:59  eric
+// premier pas vers une API pour les popup
+//
 // Revision 1.9  2001/11/21 17:03:54  eric
 // modif pour création nouvelle famille
 //
@@ -86,17 +89,13 @@ function freedom_icons(&$action, $with_abstract=true) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
 
-
-  $lpopup = new Layout($action->GetLayoutFile("popup.js"),$action);
-
   // Set Css
   $cssfile=$action->GetLayoutFile("freedom.css");
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
-  // css pour popup
-  $cssfile=$action->GetLayoutFile("popup.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
+
+  // Set Popup
+  include_once("FREEDOM/popup_util.php");
 
   
   // Admin need FREEDOM_MASTER privilege
@@ -142,7 +141,7 @@ function freedom_icons(&$action, $with_abstract=true) {
 
 
   $destdir="./".GetHttpVars("app")."/Download/"; // for downloading file
-  $tmenuaccess = array(); // to define action an each icon
+
   
   if ($with_abstract) {
     // ------------------------------------------------------
@@ -157,12 +156,7 @@ function freedom_icons(&$action, $with_abstract=true) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  $menuitems= array('vprop','editdoc','cancel','copy','delete');
-  while (list($ki, $imenu) = each($menuitems)) {
-    $lpopup->Set("menuitem$ki",$imenu);
-    ${$imenu} = "vmenuitem$ki";
-  }
-  $lpopup->Set("nbmitem", count($menuitems));
+  popupInit(array('vprop','editdoc','cancel','copy','delete'));
 
 
   $kdiv=1;
@@ -203,28 +197,22 @@ function freedom_icons(&$action, $with_abstract=true) {
 
       // ------------------------------
       // define accessibility
-      $tmenuaccess[$kdiv]["divid"] = $kdiv;
-      $tmenuaccess[$kdiv][$vprop]=1;
-      $tmenuaccess[$kdiv][$cancel]=1;
-      $tmenuaccess[$kdiv][$copy]=1;
 
-      if ($dirid > 0) $tmenuaccess[$kdiv][$delete]=1;
-      else $tmenuaccess[$kdiv][$delete]=0;
+      popupActive($kdiv,'vprop');
+      popupActive($kdiv,'cancel');
+      popupActive($kdiv,'copy');
+
+      if ($dirid > 0) popupActive($kdiv,'delete');
+      else popupInactive($kdiv,'delete');
 
       $clf = ($doc->CanLockFile() == "");
       $cuf = ($doc->CanUnLockFile() == "");
       $cud = ($doc->CanUpdateDoc() == "");
       if ($cud) {
-	$tmenuaccess[$kdiv][$editdoc]=1;
+	popupActive($kdiv,'editdoc');
       } else {
-	$tmenuaccess[$kdiv][$editdoc]=0;
+	popupInactive($kdiv,'editdoc');
       }
-      $tmenuaccess[$kdiv]["vmenuitem5"]=0;
-      $tmenuaccess[$kdiv]["vmenuitem6"]=0;
-      $tmenuaccess[$kdiv]["vmenuitem7"]=0;
-      
-      $tmenuaccess[$kdiv]["vmenuitem8"]=0;
-      $tmenuaccess[$kdiv]["vmenuitem9"]=0;
       
       
       $kdiv++;
@@ -319,11 +307,7 @@ function freedom_icons(&$action, $with_abstract=true) {
   $action->lay->SetBlockData("TABLEBODY", $tdoc);
 
   // display popup js
-  $lpopup->Set("nbdiv",$kdiv-1);
-  $lpopup->SetBlockData("MENUACCESS", $tmenuaccess);
-
-
-  $action->parent->AddJsCode($lpopup->gen());
+  popupGen($kdiv-1);
   
   // js : manage icons
   $licon = new Layout($action->GetLayoutFile("manageicon.js"),$action);

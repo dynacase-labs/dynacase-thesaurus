@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.8 2001/11/21 17:03:54 eric Exp $
+// $Id: freedom_card.php,v 1.9 2001/11/22 10:00:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.9  2001/11/22 10:00:59  eric
+// premier pas vers une API pour les popup
+//
 // Revision 1.8  2001/11/21 17:03:54  eric
 // modif pour création nouvelle famille
 //
@@ -82,31 +85,29 @@ include_once("FREEDOM/freedom_util.php");
 function freedom_card(&$action) {
   // -----------------------------------
 
+  // GetAllParameters
+  $docid = GetHttpVars("id");
+  $abstract = (GetHttpVars("abstract",'N') == "Y");
+
+
   // Set the globals elements
 
   $baseurl=$action->GetParam("CORE_BASEURL");
   $standurl=$action->GetParam("CORE_STANDURL");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-   
-  // layout javascript for popup
-  $lpopup = new Layout($action->GetLayoutFile("popup.js"));
 
   // Set Css
   $cssfile=$action->GetLayoutFile("freedom.css");
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
-  // css pour poopup
-  $cssfile=$action->GetLayoutFile("popup.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
+
+  include_once("FREEDOM/popup_util.php");
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   
 
 
-
-  $docid = GetHttpVars("id");
 
 
   $tfile=array(); // array of file attributes 
@@ -179,17 +180,17 @@ function freedom_card(&$action) {
 
       //print ("errdel:".$doc->PreDelete());
       if ($doc->PreDelete() == "")	{
-	  $action->lay->Set("imgdel", $action->GetIcon("delete.gif",N_("delete")));
-	  $action->lay->Set("deltitle", AddSlashes($doc->title));
+	$action->lay->Set("imgdel", $action->GetIcon("delete.gif",N_("delete")));
+	$action->lay->Set("deltitle", AddSlashes($doc->title));
       } else {
-	  $action->lay->Set("imgdel", "");
+	$action->lay->Set("imgdel", "");
 
       }
       if (($doc->IsControlled() )
 	  &&($doc->Control("viewacl") == ""))	{
-	  $action->lay->Set("imgaccess", $action->GetIcon("access.gif",N_("goaccess"),20));
+	$action->lay->Set("imgaccess", $action->GetIcon("access.gif",N_("goaccess"),20));
       } else {
-	  $action->lay->Set("imgaccess", "");
+	$action->lay->Set("imgaccess", "");
 
       }
 
@@ -198,253 +199,235 @@ function freedom_card(&$action) {
     }
  
 
- $action->lay->Set("TITLE", $doc->title);
- $action->lay->Set("id", $docid);
+  $action->lay->Set("TITLE", $doc->title);
+  $action->lay->Set("id", $docid);
 
-  // ------------------------------------------------------
-  // Perform SQL search freedom
-  $query = new QueryDb($dbaccess,"DocAttr");
-  
 
-  $sql_cond_doc = sql_cond(array_merge($doc->GetFathersDoc(),$doc->initid), "docid");
-  $query->AddQuery($sql_cond_doc);
- $query->AddQuery("type != 'frame'");
- $query->order_by="ordered";
+  $bdvalue = new DocValue($dbaccess);
 
- $bdvalue = new DocValue($dbaccess);
 
- $bdattr = new DocAttr($dbaccess);
 
 
   // ------------------------------------------------------
   // definition of popup menu
-  $menuitems= array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','cancel');
-  while (list($ki, $imenu) = each($menuitems)) {
-    $lpopup->Set("menuitem$ki",$imenu);
-    ${$imenu} = "vmenuitem$ki";
-  }
-  $lpopup->Set("nbmitem", count($menuitems));
+  popupInit( array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','cancel'));
 
   $frames= array();
   
- $listattr = $query->Query();
 
   
+  if ($abstract) $listattr = $doc->GetAbstractAttributes();
+  else           $listattr = $doc->GetAttributes();
+  $nattr = count($listattr);
 
 
-
-
- $k=0; // number of frametext
- $v=0;// number of value in one frametext
- $nbimg=0;// number of image in one frametext
- $currentFrameId="";
+  $k=0; // number of frametext
+  $v=0;// number of value in one frametext
+  $nbimg=0;// number of image in one frametext
+  $currentFrameId="";
 
   $changeframe=false; // is true when need change frame
- $tableframe=array();
- $tableimage=array();
- for ($i=0; $i < $query->nb + 1; $i++)
-   {
+  $tableframe=array();
+  $tableimage=array();
+  for ($i=0; $i < $nattr + 1; $i++)
+    {
 
      
 
-     //------------------------------
-     // Compute value elements
-     if ($i < $query->nb)
-       {
-	 $bdvalue->value=""; // to avoid remanence
-	 $bdvalue->Select(array($docid,$listattr[$i]->id));
-	 $value = $bdvalue->value;
+      //------------------------------
+      // Compute value elements
+      if ($i < $nattr)
+	{
+	  $bdvalue->value=""; // to avoid remanence
+	  $bdvalue->Select(array($docid,$listattr[$i]->id));
+	  $value = $bdvalue->value;
 	 
 
-	 if ($value != "") // to define when change frame
-	   {
-	     if ( $currentFrameId != $listattr[$i]->frameid) {
-	       if ($currentFrameId != "") $changeframe=true;
-	     }
-	   }
-       }
+	  if ($value != "") // to define when change frame
+	    {
+	      if ( $currentFrameId != $listattr[$i]->frameid) {
+		if ($currentFrameId != "") $changeframe=true;
+	      }
+	    }
+	}
 
 
-     //------------------------------
-     // change frame if needed
+      //------------------------------
+      // change frame if needed
 
-     if (($i == $query->nb) ||  // to generate final frametext
-	 $changeframe)
-       {
-	 $changeframe=false;
-	 if (($v+$nbimg) > 0) // one value detected
-	   {
+      if (($i == $nattr) ||  // to generate final frametext
+	  $changeframe)
+	{
+	  $changeframe=false;
+	  if (($v+$nbimg) > 0) // one value detected
+	    {
 				      
-	     $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
-	     $frames[$k]["rowspan"]=$v+1; // for images cell
-	     $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
-	     $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
-					$tableframe);
-	     $frames[$k]["IMAGES"]="IMAGES_$k";
-	     $action->lay->SetBlockData($frames[$k]["IMAGES"],
-					$tableimage);
-	     unset($tableframe);
-	     unset($tableimage);
-	     $tableframe=array();
-	     $tableimage=array();
-	     $k++;
-	   }
-	 $v=0;
-	 $nbimg=0;
-       }
+	      $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
+	      $frames[$k]["rowspan"]=$v+1; // for images cell
+	      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+	      $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
+	      $tableframe);
+	      $frames[$k]["IMAGES"]="IMAGES_$k";
+	      $action->lay->SetBlockData($frames[$k]["IMAGES"],
+	      $tableimage);
+	      unset($tableframe);
+	      unset($tableimage);
+	      $tableframe=array();
+	      $tableimage=array();
+	      $k++;
+	    }
+	  $v=0;
+	  $nbimg=0;
+	}
 
 
-     //------------------------------
-     // Set the table value elements
-     if ($i < $query->nb)
-       {
+      //------------------------------
+      // Set the table value elements
+      if ($i < $nattr)
+	{
       
-	 if ($value != "")
-	   {
+	  if ($value != "")
+	    {
 		
-	       $currentFrameId = $listattr[$i]->frameid;
+	      $currentFrameId = $listattr[$i]->frameid;
 
-	     // print values
-	     switch ($listattr[$i]->type)
-	       {
+	      // print values
+	      switch ($listattr[$i]->type)
+		{
 	      
-	       case "image": 
-		 $tableimage[$nbimg]["imgsrc"]=$action->GetParam("CORE_BASEURL").
-		    "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id; // upload name
+		case "image": 
+		  $tableimage[$nbimg]["imgsrc"]=$action->GetParam("CORE_BASEURL").
+		     "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id; // upload name
 
-		 break;
-	       case "application": 
-		 ereg ("(.*)\|(.*)\|(.*)", $value, $reg);
-		 $tableframe[$v]["value"]="<A type=\"".$reg[1]."\" HREF=\"". 
-		   $reg[2]."\">".$reg[3]."</A>" ;
+		break;
+		case "application": 
+		  ereg ("(.*)\|(.*)\|(.*)", $value, $reg);
+		  $tableframe[$v]["value"]="<A type=\"".$reg[1]."\" HREF=\"". 
+		     $reg[2]."\">".$reg[3]."</A>" ;
 
 		 
-		 break;
-	       case "embed": 
-		 ereg ("(.*)\|(.*)", $value, $reg);		 
-		 // reg[1] is mime type
-		 $src = $action->GetParam("CORE_BASEURL").
-		    "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id;
-		 $tableframe[$v]["value"]="<embed autostart=false  type=\"".$reg[1]."\" src=\"". 
-		   $src."\">" ;
-		 $tableframe[$v]["value"].="<noembed>
+		  break;
+		case "embed": 
+		  ereg ("(.*)\|(.*)", $value, $reg);		 
+		  // reg[1] is mime type
+		  $src = $action->GetParam("CORE_BASEURL").
+		     "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id;
+		  $tableframe[$v]["value"]="<embed autostart=false  type=\"".$reg[1]."\" src=\"". 
+		     $src."\">" ;
+		  $tableframe[$v]["value"].="<noembed>
        Your browser doesn't support plug-ins! Please <a
        HREF=\"".$efile."\">use a helper application instead</a>
        </noembed>";
-		 break;
-	       case "url": 
-		 $tableframe[$v]["value"]="<A target=\"_blank\" href=\"". 
-		   htmlentities($value)."\">".$value.
-		   "</A>";
-		 break;
-	       case "mail": 
-		 $tableframe[$v]["value"]="<A href=\"mailto:". 
-		   htmlentities($value)."\">".$value.
-		   "</A>";
-		 break;
-	       case "file": 
-		 $tableframe[$v]["value"]="<A target=\"_blank\" href=\"".
-		    $action->GetParam("CORE_BASEURL").
-		    "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id
-		    ."\">".$value.
-		   "</A>";
-		   $tfile[$kf]["file"]=$listattr[$i]->labeltext;
-		   $tfile[$kf]["attrid"]=$listattr[$i]->id;
-		   $kf++;
-		 break;
-	       case "longtext": 
-		 $tableframe[$v]["value"]=nl2br(htmlentities($value));
-		 break;
-	       default : 
-		 $tableframe[$v]["value"]=htmlentities($value);
-		 break;
+		  break;
+		case "url": 
+		  $tableframe[$v]["value"]="<A target=\"_blank\" href=\"". 
+		     htmlentities($value)."\">".$value.
+		     "</A>";
+		break;
+		case "mail": 
+		  $tableframe[$v]["value"]="<A href=\"mailto:". 
+		     htmlentities($value)."\">".$value.
+		     "</A>";
+		break;
+		case "file": 
+		  $tableframe[$v]["value"]="<A target=\"_blank\" href=\"".
+		     $action->GetParam("CORE_BASEURL").
+		     "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$listattr[$i]->id
+		     ."\">".$value.
+		     "</A>";
+		$tfile[$kf]["file"]=$listattr[$i]->labeltext;
+		$tfile[$kf]["attrid"]=$listattr[$i]->id;
+		$kf++;
+		break;
+		case "longtext": 
+		  $tableframe[$v]["value"]=nl2br(htmlentities($value));
+		break;
+		default : 
+		  $tableframe[$v]["value"]=htmlentities($value);
+		break;
 		
-	       }
+		}
 	
-	     // print name except image (printed otherthere)
-	     if ($listattr[$i]->type != "image")
-	       {
-		 $tableframe[$v]["name"]=$action->text($doc->GetLabel($listattr[$i]->id));
-		 $v++;
-	       }
-	     else
-	       {
-		 $tableimage[$nbimg]["imgalt"]=$action->text($doc->GetLabel($listattr[$i]->id));
-		 $nbimg++;
-	       }
-	   }
-       }
+	      // print name except image (printed otherthere)
+	      if ($listattr[$i]->type != "image")
+		{
+		  $tableframe[$v]["name"]=$action->text($doc->GetLabel($listattr[$i]->id));
+		  $v++;
+		}
+	      else
+		{
+		  $tableimage[$nbimg]["imgalt"]=$action->text($doc->GetLabel($listattr[$i]->id));
+		  $nbimg++;
+		}
+	    }
+	}
   
-   }
+    }
 
- // Out
+  // Out
 
 
   // ------------------------------
   // define accessibility
- $kdiv=1; // only one division
-      $tmenuaccess[$kdiv]["divid"] = $kdiv;
+  $kdiv=1; // only one division
 
 
 
-      $clf = ($doc->CanLockFile() == "");
-      $cuf = ($doc->CanUnLockFile() == "");
-      $cud = ($doc->CanUpdateDoc() == "");
+  $clf = ($doc->CanLockFile() == "");
+  $cuf = ($doc->CanUnLockFile() == "");
+  $cud = ($doc->CanUpdateDoc() == "");
 
-      $tmenuaccess[$kdiv][$cancel]=1;
-      if (($doc->doctype=="C") && ($cud)) $tmenuaccess[$kdiv][$chicon]=1; 
-      else $tmenuaccess[$kdiv][$chicon]=2;
+  Popupactive($kdiv,'cancel');
+  if (($doc->doctype=="C") && ($cud)) popupActive($kdiv,'chicon'); 
+  else popupInvisible($kdiv,'chicon');
 
-      if (($doc->locked != $action->user->id) && 
-	  $clf) $tmenuaccess[$kdiv][$lockdoc]=1;
-      else $tmenuaccess[$kdiv][$lockdoc]=0;
+  if (($doc->locked != $action->user->id) && 
+      $clf) popupActive($kdiv,'lockdoc');
+  else popupInactive($kdiv,'lockdoc');
 
-      if (($doc->locked != 0) && $cuf) $tmenuaccess[$kdiv][$unlockdoc]=1; 
-      else $tmenuaccess[$kdiv][$unlockdoc]=0;
+  if (($doc->locked != 0) && $cuf) popupActive($kdiv,'unlockdoc'); 
+  else popupInactive($kdiv,'unlockdoc');
 
-      if ($doc->doctype != "F") $tmenuaccess[$kdiv][$revise]=2;
-      else if (($doc->lmodify == 'Y') && 
-	       ($cud)) $tmenuaccess[$kdiv][$revise]=1; 
-      else $tmenuaccess[$kdiv][$revise]=0;
+  if ($doc->doctype != "F") popupInvisible($kdiv,'revise');
+  else if (($doc->lmodify == 'Y') && 
+	   ($cud)) popupActive($kdiv,'revise'); 
+  else popupInactive($kdiv,'revise');
 
-      if ($cud) {
-	$tmenuaccess[$kdiv][$editdoc]=1; 
-	$tmenuaccess[$kdiv][$editattr]=1; 
-	$tmenuaccess[$kdiv][$editprof]=1;
-      } else if ($doc->locked < 0){ // fixed document
-	$tmenuaccess[$kdiv][$editdoc]= 2;
-	$tmenuaccess[$kdiv][$editattr]=2; 
-	$tmenuaccess[$kdiv][$editprof]=2;
-	$tmenuaccess[$kdiv][$revise]=2;
-	$tmenuaccess[$kdiv][$lockdoc]=2;
-	$tmenuaccess[$kdiv][$unlockdoc]=2;
-	$tmenuaccess[$kdiv][$chicon]=2;
-      } else {
-	$tmenuaccess[$kdiv][$editdoc]=0;
-	$tmenuaccess[$kdiv][$editattr]=0; 
-	$tmenuaccess[$kdiv][$editprof]=0;
-      }
-      if ($doc->doctype=="F") $tmenuaccess[$kdiv][$histo]=1; 
-      else $tmenuaccess[$kdiv][$histo]=2; 
+  if ($cud) {
+    popupActive($kdiv,'editdoc'); 
+    popupActive($kdiv,'editattr'); 
+    popupActive($kdiv,'editprof');
+  } else if ($doc->locked < 0){ // fixed document
+    popupInvisible($kdiv,'editdoc');
+    popupInvisible($kdiv,'editattr'); 
+    popupInvisible($kdiv,'editprof');
+    popupInvisible($kdiv,'revise');
+    popupInvisible($kdiv,'lockdoc');
+    popupInvisible($kdiv,'unlockdoc');
+    popupInvisible($kdiv,'chicon');
+  } else {
+    popupInactive($kdiv,'editdoc');
+    popupInactive($kdiv,'editattr'); 
+    popupInactive($kdiv,'editprof');
+  }
+  if ($doc->doctype=="F") popupActive($kdiv,'histo'); 
+  else popupInvisible($kdiv,'histo'); 
 
 
 
-      if ($doc->doctype!="C") $tmenuaccess[$kdiv][$editcprof]=2; 
-      else if ($cud) $tmenuaccess[$kdiv][$editcprof]=1;
-      else $tmenuaccess[$kdiv][$editcprof]=0;
-      // unused menu items
-      //$tmenuaccess[$kdiv]["vmenuitem9"]=0;
+  if ($doc->doctype!="C") popupInvisible($kdiv,'editcprof'); 
+  else if ($cud) popupActive($kdiv,'editcprof');
+  else popupInactive($kdiv,'editcprof');
+  // unused menu items
+  //$tmenuaccess[$kdiv]["vmenuitem9"]=0;
 
   $action->lay->SetBlockData("TABLEBODY",$frames);
   
 
- $owner = new User("", $doc->owner);
- $action->lay->Set("username", $owner->firstname." ".$owner->lastname);
+  $owner = new User("", $doc->owner);
+  $action->lay->Set("username", $owner->firstname." ".$owner->lastname);
 
-  // display popup js
-  $lpopup->Set("nbdiv",$kdiv-1);
-  $lpopup->SetBlockData("MENUACCESS", $tmenuaccess);
-  $action->parent->AddJsCode($lpopup->gen());
+  popupGen($kdiv);
 
 
 }

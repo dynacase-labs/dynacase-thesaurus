@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.5 2001/11/21 17:03:54 eric Exp $
+// $Id: folders.php,v 1.6 2001/11/22 10:00:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: folders.php,v $
+// Revision 1.6  2001/11/22 10:00:59  eric
+// premier pas vers une API pour les popup
+//
 // Revision 1.5  2001/11/21 17:03:54  eric
 // modif pour création nouvelle famille
 //
@@ -81,16 +84,11 @@ function folders(&$action) {
   $action->lay->Set("dirid", $dirid);
   $action->lay->Set("reptitle", $doc->title);
 
-  $lpopup = new Layout($action->GetLayoutFile("popup.js"),$action);
+  include_once("FREEDOM/popup_util.php");
 
   // ------------------------------------------------------
   // definition of popup menu
-  $menuitems= array('vprop','mkdir','cancel','staticpaste','pastelatest','cancel2');
-  while (list($ki, $imenu) = each($menuitems)) {
-    $lpopup->Set("menuitem$ki",$imenu);
-    ${$imenu} = "vmenuitem$ki";
-  }
-  $lpopup->Set("nbmitem", 6);
+  popupInit(array('vprop','mkdir','cancel','staticpaste','pastelatest','cancel2'));
 
   // define sub tree
   $stree="";
@@ -106,34 +104,22 @@ function folders(&$action) {
 
   //-------------- pop-up menu ----------------
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
-  // css pour popup
-  $cssfile=$action->GetLayoutFile("popup.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
   // display popup js
 
 
 
 
-  $lpopup->Set("nbdiv",$nbfolders);
   for ($i=0; $i<$nbfolders; $i++) {
-      $tmenuaccess[$i]["divid"] = $i;
-    $tmenuaccess[$i][$cancel]=1;
-    $tmenuaccess[$i][$vprop]=1;
-    $tmenuaccess[$i][$mkdir]=1;
-    $tmenuaccess[$i][$staticpaste]=1;
-    $tmenuaccess[$i][$pastelatest]=1;
-    $tmenuaccess[$i][$cancel2]=1;
-      // unused menu items
-    $tmenuaccess[$i]["vmenuitem6"]=0;
-    $tmenuaccess[$i]["vmenuitem7"]=0;
-    $tmenuaccess[$i]["vmenuitem8"]=0;
-    $tmenuaccess[$i]["vmenuitem9"]=0;
+    popupActive($i,'cancel');
+    popupActive($i,'vprop');
+    popupActive($i,'mkdir');
+    popupActive($i,'staticpaste');
+    popupActive($i,'pastelatest');
+    popupActive($i,'cancel2');
 
   }
-  $lpopup->SetBlockData("MENUACCESS", $tmenuaccess);
-
-  $action->parent->AddJsCode($lpopup->gen());
+  // display popup js
+  popupGen($nbfolders);
   
 }
 

@@ -137,7 +137,7 @@ function openMenuOrProperties(event) {
     if (shiftKey ) {
       openMenu(event,'popup');
      } else {
-       parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+docid;
+       parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&abstract=Y&id='+docid;
     }
   }
 
