@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.22 2004/06/17 14:49:34 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.23 2004/06/23 14:21:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -70,6 +70,12 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
 	$rv = $this->ApplyMethod($v);
 	$tkey[$k]=$rv;
       }
+      if (substr($v,0,1)=="?") {
+	// it's a parameter
+	$rv = getHttpVars(substr($v,1),"-");
+	if ($rv == "-") return array(false);
+	$tkey[$k]=$rv;
+      }
       if ($taid[$k] == "revdate") {
 	list($dd,$mm,$yyyy) = explode("/",$tkey[$k]);
 	$tkey[$k]=mktime (0,0,0,$mm,$dd,$yyyy);
@@ -100,14 +106,76 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   return $query;
 }
 
+/**
+ * return true if the search need parameters
+ */
+function isParameterizable() {
+  $tkey = $this->getTValue("SE_KEYS");
 
+  if ((count($tkey) > 1) || ($tkey[0] != "")) {
 
+    foreach ($tkey as $k=>$v) {
+     
+       if ($v[0]=='?') {
+	 return true;
+	 //if (getHttpVars(substr($v,1),"-") == "-") return true;
+       }
+				    
+    }
+  }
+  return false;
+}
 
+/**
+ * Add parameters 
+ */
+function urlWhatEncodeSpec($l) {
+  $tkey = $this->getTValue("SE_KEYS");
 
+  if ((count($tkey) > 1) || ($tkey[0] != "")) {
+
+    foreach ($tkey as $k=>$v) {
+     
+       if ($v[0]=='?') {
+	 if (getHttpVars(substr($v,1),"-") != "-") {
+	   $l.='&'.substr($v,1)."=".getHttpVars(substr($v,1));
+	 }
+       }
+				    
+    }
+  }
+  
+  return $l;
+}
+
+/**
+ * add parameters in title
+ */
+function getSpecTitle() {
+  $tkey = $this->getTValue("SE_KEYS");
+  $l="";
+  if ((count($tkey) > 1) || ($tkey[0] != "")) {
+    $tl=array();
+    foreach ($tkey as $k=>$v) {
+     
+       if ($v[0]=='?') {
+	 $vh=getHttpVars(substr($v,1),"-");
+	 if (($vh != "-") && ($vh != "")) {
+	   $tl[]= getHttpVars(substr($v,1));
+	 }
+       }
+				    
+    }
+    if (count($tl)> 0) {
+      $l=" (".implode(", ",$tl).")";
+    }
+  }
+  return $this->title.$l;
+}
 
 function viewdsearch($target="_self",$ulink=true,$abstract=false) {
   // Compute value to be inserted in a  layout
-   $this->viewattr($target,$ulink, $abstract);
+  $this->viewattr($target,$ulink, $abstract);
   //-----------------------------------------------
   // display already condition written
   $tol = $this->getTValue("SE_OLS");
@@ -117,20 +185,60 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
 
   if ((count($tkey) > 1) || ($tkey[0] != "")) {
 
-  $fdoc=new Doc($this->dbaccess, $this->getValue("SE_FAMID",1));
-  $zpi=$fdoc->GetNormalAttributes();
+    $fdoc=new Doc($this->dbaccess, $this->getValue("SE_FAMID",1));
+    $zpi=$fdoc->GetNormalAttributes();
+    $zpi["state"]->labelText=_("state");
+    $zpi["title"]->labelText=_("doctitle");
+    $zpi["revdate"]->labelText=_("revdate");
   
-  $tol[0]=" ";
-    while(list($k,$v) = each($tkey)) {
+    $tol[0]=" ";
+    foreach ($tkey as $k=>$v) {
       $tcond[]["condition"]=sprintf("%s %s %s %s",
 				    _($tol[$k]),
 				    $zpi[$taid[$k]]->labelText,
 				    _($this->tfunc[$tf[$k]]),
-				    $tkey[$k]);
+ 				    ($tkey[$k]!="")?_($tkey[$k]):$tkey[$k]);
+       if ($v[0]=='?') {
+ 	$tparm[substr($v,1)]=$taid[$k];
+       }
 				    
     }
     $this->lay->SetBlockData("COND", $tcond);
   }
+  $this->lay->Set("ddetail", "");
+  if (count($tparm) > 0) {
+    include_once("FDL/editutil.php");
+    global $action;
+    editmode($action);
+
+    $doc= createDoc($this->dbaccess,$this->getValue("SE_FAMID",1));
+    foreach ($tparm as $k=>$v) {
+       
+     $ttransfert[]=array("idi"=>$v,
+			 "idp"=>$k,
+			 "value"=>getHttpVars($k));
+     $tinputs[$k]["label"]=$zpi[$v]->labelText;
+     if (isset($zpi[$v]->id)) {
+       $zpi[$v]->isAlone=true;
+       $tinputs[$k]["inputs"]=getHtmlInput($doc,$zpi[$v],getHttpVars($k));
+     } else {
+       $aotxt=new BasicAttribute($v,$doc->id,"eou");
+       $tinputs[$k]["inputs"]=getHtmlInput($doc,$aotxt,getHttpVars($k));
+     }
+   }
+    $this->lay->setBlockData("PARAM",$tinputs);
+    $this->lay->setBlockData("TRANSFERT",$ttransfert);
+    $this->lay->setBlockData("PINPUTS",$ttransfert);
+    $this->lay->Set("ddetail", "none");
+    $this->lay->setBlockData("VPARAM1",array(array("zou")));
+    $this->lay->setBlockData("VPARAM2",array(array("zou")));
+    $this->lay->setBlockData("VPARAM3",array(array("zou")));
+    $this->lay->set("saction",getHttpVars("saction","FREEDOM_VIEW"));
+    $this->lay->set("sapp",getHttpVars("sapp","FREEDOM"));
+    $this->lay->set("sid",getHttpVars("sid","dirid"));
+    $this->lay->set("starget",getHttpVars("starget","flist"));
+    
+  } 
 }
   // -----------------------------------
 

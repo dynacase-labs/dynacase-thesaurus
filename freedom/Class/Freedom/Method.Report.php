@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Report.php,v 1.9 2004/03/16 14:10:07 eric Exp $
+ * @version $Id: Method.Report.php,v 1.10 2004/06/23 14:21:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,14 +15,19 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2004/03/16 14:10:07 $
-// Version         $Revision: 1.9 $
+// Last Update     $Date: 2004/06/23 14:21:39 $
+// Version         $Revision: 1.10 $
 // ==========================================================================
 
 //var $defDoctype='F';
 
 var $defaultedit= "FREEDOM:EDITREPORT";
 var $defaultview= "FREEDOM:VIEWREPORT";
+
+
+var $cviews=array("FREEDOM:VIEWREPORT",
+		  "FREEDOM:VIEWMINIREPORT:T");
+var $eviews=array("FREEDOM:EDITREPORT");
 function _getInternals() {
   return array("title" => _("doctitle"),
 		      "revdate" => _("revdate"),
@@ -95,8 +100,8 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
   while (list($k,$v) = each($tinternals)) {
    
     $tcolumn1[$k]=array("colid"=>$k,
-			    "collabel"=>$v,
-			    "rightfornumber"=>"left");
+			"collabel"=>$v,
+			"rightfornumber"=>"left");
   }
   
 
@@ -111,6 +116,10 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
 
   $this->lay->set("reportstyle",$this->getValue("REP_STYLE","reportHBlue"));
   
+  if ($this->isParameterizable() && $ulink) {
+    $this->lay->setBlockData("PARAMS",array(array("zou")));
+  } 
+
   // --------------------------
   // display body
   $order=$this->getValue("REP_IDSORT","title");
@@ -188,6 +197,11 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
     
   }
   $this->lay->setBlockData("TFOOT",$tlfoots);
+  $this->lay->set("TITLE",$this->getTitle());
+  
+}
+function viewminireport($target="_self",$ulink=true,$abstract=false) {
+  return $this->viewreport($target,$ulink,$abstract);
 }
 // EOF
 ?>
