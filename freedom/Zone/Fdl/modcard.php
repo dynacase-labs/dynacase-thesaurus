@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.73 2005/04/04 18:35:52 caroline Exp $
+ * @version $Id: modcard.php,v 1.74 2005/04/05 13:57:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,6 +34,8 @@ function modcard(&$action, &$ndocid) {
   $usefor = GetHttpVars("usefor"); // use for default values for a document
   $vid = GetHttpVars("vid"); // special controlled view
   $noredirect=(GetHttpVars("noredirect")); // true  if return need edition
+
+  $force = (GetHttpVars("fstate","no")=="yes"); // force change
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $ndocid=$docid;
@@ -164,7 +166,7 @@ function modcard(&$action, &$ndocid) {
 	
 	      $wdoc->Set($doc);
 	      setPostVars($wdoc);
-	      $err=$wdoc->ChangeState($newstate,$comment);
+	      $err=$wdoc->ChangeState($newstate,$comment,$force);
 	    }
 	  }
 
