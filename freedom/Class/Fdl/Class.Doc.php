@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.90 2003/01/30 09:38:36 eric Exp $
+// $Id: Class.Doc.php,v 1.91 2003/01/31 13:04:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.90 2003/01/30 09:38:36 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.91 2003/01/31 13:04:43 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1056,20 +1056,21 @@ create unique index i_docir on doc(initid, revision);";
     if (($this->doctype != 'F')  && ($this->doctype != 'S') && ($this->doctype != 'T')) return; // no refresh for family  document
     if ($this->usefor == 'D') return; // no refresh for default document
 	  
-
+   
     
     $err=$this->SpecRefresh();
 	
+
     $lattr = $this->GetNormalAttributes();
     
     while (list($i,$attr) = each($lattr)) {
       if ((($attr->visibility == "H") || ($attr->visibility == "R")) &&
 	  ($attr->phpfunc != "")) {
+
 	$this->setValue($attr->id, $this->GetValueMethod($attr->phpfunc));
       }
 	  
     }
-
     if ($this->hasChanged)    $this->modify(); // refresh title
     return $err;
 	
@@ -1694,7 +1695,6 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
     // ------------------------------------------------------	        
   
   
-  
  
     $frames=array();
     $listattr = $this->GetAttributes();
@@ -1720,9 +1720,11 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
     
       // Compute value elements
 	    
+	
       if ($docid > 0) $value = $this->GetValue($listattr[$i]->id);
       else {
-	$value = $this->GetValueMethod($value);
+$value = $this->GetValue($listattr[$i]->id);
+//	$value = $this->GetValueMethod($this->GetValue($listattr[$i]->id));
       }
 	    	    
 

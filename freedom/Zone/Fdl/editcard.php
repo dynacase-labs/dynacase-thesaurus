@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.23 2003/01/27 13:26:32 eric Exp $
+// $Id: editcard.php,v 1.24 2003/01/31 13:04:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,7 +65,6 @@ function editcard(&$action) {
       if ($zonebodycard == "") $zonebodycard=$doc->defaultedit;
     
   }
-  
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
 
   if ($doc->usefor=="D") $zonebodycard="FDL:EDITBODYCARD"; // always default view for default document

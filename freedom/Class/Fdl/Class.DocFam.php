@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.5 2003/01/21 15:43:35 eric Exp $
+// $Id: Class.DocFam.php,v 1.6 2003/01/31 13:04:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.5 2003/01/21 15:43:35 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.6 2003/01/31 13:04:43 eric Exp $';
 include_once('FDL/Class.DocFile.php');
 
 Class DocFam extends DocFile {
@@ -71,14 +71,14 @@ create unique index idx_idfam on docfam(id);";
   // use to view default attribute when new doc
   function PostSelect($id) { 
     if ($this->ddocid > 0) {
+
+      
       $ddoc= new Doc($this->dbaccess, $this->ddocid);
       $nattr = $ddoc->GetNormalAttributes();
       while (list($k,$v) = each($nattr)) {
 	$aid = $v->id;
-	$this->$aid = $ddoc->getValue($aid);
-      }
-       
-       
+	$this->$aid = $ddoc->GetValueMethod($ddoc->getValue($aid));//$ddoc->getValue($aid);
+      }              
     }
   }
   // -----------------------------------
