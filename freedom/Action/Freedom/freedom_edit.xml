@@ -13,15 +13,18 @@
 
 [CSS:REF]
 
+[JS:REF]
 
    <style type="text/css">
 [CSS:CODE]
    </style>
-[JS:REF]
 
    <script language="JavaScript">
   <!--
     [JS:CODE]
+addEvent(window,"load",editOnLoad);
+addEvent(window,"load",autoHresize);
+addEvent(window,"load",focusFirst);
 
 function refreshfld(dirid) {
    if ((dirid > 0) && ('[refreshfld]'=='yes'))
@@ -35,7 +38,6 @@ function refreshfld(dirid) {
  </head>
 
 <body class="freedom" 
-      onLoad="editOnLoad();autoHresize()"
       onUnLoad="closechoose();autoUnlock('[id]')"
       onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[TITLE]:[TEXT:Changes will be loosed if you continue]'";
       onResize="resizeInputFields()">

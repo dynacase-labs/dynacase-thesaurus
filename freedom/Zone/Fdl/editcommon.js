@@ -1095,6 +1095,38 @@ function fixedPosition() {
   }
   
 }
+
+function focusFirst() {
+  
+  var fedit= document.getElementById('fedit');
+  if (fedit) {
+    for (var i=0;i<fedit.elements.length;i++) {
+      
+      switch (fedit.elements[i].type) {
+      case 'text':
+      case 'select-one':
+      case 'select-multiple':
+      case 'textarea':
+      case 'FIELDSET':
+	if (! fedit.elements[i].disabled) {
+	  fedit.elements[i].focus();
+	  return;
+	}
+	break;
+      case 'hidden':
+      case 'file':
+      case 'button':
+      case 'submit':
+      case 'radio':
+      case 'undefined':
+      case '':
+	break;
+      default:		  
+	;
+      }
+    }
+  }
+}
 if (isNetscape) addEvent(window,"load",fixedPosition);
 
 // move inputs buttons from node to node

@@ -8,7 +8,7 @@
 // Version 3.0 developed by Mihai Bazon for InteractiveTools.
 //           http://students.infoiasi.ro/~mishoo
 //
-// $Id: htmlarea.js,v 1.4 2004/09/09 12:54:55 eric Exp $
+// $Id: htmlarea.js,v 1.5 2005/01/21 17:42:49 eric Exp $
 
 // Creates a new HTMLArea object.  Tries to replace the textarea with the given
 // ID with it.
@@ -449,7 +449,7 @@ HTMLArea.prototype.generate = function () {
 			doc.body.contentEditable = true;
 		}
 
-		editor.focusEditor();
+		//	editor.focusEditor();
 		// intercept some events; for updating the toolbar & keyboard handlers
 		HTMLArea._addEvents
 			(doc, ["keydown", "keypress", "mousedown", "mouseup", "drag"],
@@ -457,7 +457,7 @@ HTMLArea.prototype.generate = function () {
 				 return editor._editorEvent(HTMLArea.is_ie ? editor._iframe.contentWindow.event : event);
 			 });
 		editor.updateToolbar();
-		editor.focusEditor();
+		//		editor.focusEditor();
 	};
 	setTimeout(initIframe, HTMLArea.is_gecko ? 10 : 0);
 };

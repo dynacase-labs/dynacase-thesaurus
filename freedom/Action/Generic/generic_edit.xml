@@ -20,13 +20,16 @@
  
 [CSS:CODE]
    </style>
+   
+
 [JS:REF]
 
    <script language="JavaScript">
   <!--
     [JS:CODE]
-
-
+addEvent(window,"load",editOnLoad);
+addEvent(window,"load",autoHresize);
+addEvent(window,"load",focusFirst);
   //-->
    </script>   
 
@@ -35,7 +38,6 @@
  </head>
 
 <body class="freedom" 
-      onLoad="editOnLoad();autoHresize()"
       onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[TITLE]:[TEXT:Changes will be loosed if you continue]'";
       onUnLoad="closechoose();if (! document.isCancelled) autoUnlock('[id]')"
      >

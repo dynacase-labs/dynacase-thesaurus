@@ -24,6 +24,7 @@
    <script language="JavaScript">
   <!--
     [JS:CODE]
+addEvent(window,"load",focusFirst);
 
 
   //-->
