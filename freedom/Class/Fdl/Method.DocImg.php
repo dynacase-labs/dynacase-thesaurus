@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocImg.php,v 1.4 2003/12/10 16:50:30 eric Exp $
+ * @version $Id: Method.DocImg.php,v 1.5 2004/01/15 10:11:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocImg.php,v 1.4 2003/12/10 16:50:30 eric Exp $
+// $Id: Method.DocImg.php,v 1.5 2004/01/15 10:11:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Method.DocImg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,15 +40,9 @@
   
 var $defaultview= "FDL:VIEWIMGCARD";
 	
-var $views = array("photo" => array("kind" => "VCONS",
-				    "text" => "photo only",
-				    "zone" => "FDL:VIEWIMGCARD:T"),
-		   "default" => array("kind" => "VCONS",
-				      "text" => "default view",
-				      "zone" => "FDL:VIEWBODYCARD"),
-		   "editdef" => array("kind" => "VEDIT",
-				       "text" => "default edit",
-				       "zone" => "FDL:EDITBODYCARD"));
+
+
+var $cviews=array("FDL:VIEWIMGCARD:T");
 
 // -----------------------------------
 function viewimgcard($target="_self",$ulink=true,$abstract=false) {
