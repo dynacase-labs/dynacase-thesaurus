@@ -3,7 +3,7 @@
  * PortFolio Methods
  *
  * @author Anakeen 2003
- * @version $Id: Method.PortFolio.php,v 1.8 2004/06/17 14:49:34 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.9 2004/09/10 15:27:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -17,6 +17,7 @@ function PostCreated() {
 
   
   if ($this->revision > 0) return;
+  if (! method_exists($this,"addfile")) return;
   // copy all guide-card from default values
   include_once("FDL/Lib.Dir.php");  
 
