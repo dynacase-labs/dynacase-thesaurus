@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.6 2002/10/08 10:27:47 eric Exp $
+// $Id: generic_search.php,v 1.7 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,7 +46,7 @@ function generic_search(&$action) {
 
   $doc = new Doc($dbaccess, $dirid);
 
-  $sdoc = new DocSearch($dbaccess);
+  $sdoc = createDoc($dbaccess,5); //new DocSearch($dbaccess);
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
   $sdoc->title = sprintf(_("search %s"),$keyword);
   if ($doc->id == getDefFld($action)) $sdoc->title = sprintf(_("search  contains %s in all state"),$keyword );
@@ -55,26 +55,28 @@ function generic_search(&$action) {
   $sdoc->Add();
   
   $searchquery="";
-
-  if ($doc->doctype == 'S') { // case of search in search doc
+  $sdirid = 0;
+  if ($doc->defDoctype == 'S') { // case of search in search doc
     $searchquery="and doc.id in (".$doc->GetQuery().")";
     // replace 'select * from' by 'select doc.id from'
       $searchquery="and doc.id in (".str_replace("select * from","select doc.id from",$searchquery).")";
   } else { // case of search in folder
     if ($doc->id != getDefFld($action))
+      $sdirid = $dirid;
       $searchquery="and doc.initid in (select childid from fld where childid=doc.initid and dirid=$dirid)";
   }
 
   $famid = getDefFam($action);
-  $sqlfrom = getSqlFrom($dbaccess,$famid);
 
-  $query = "select doc.* from docvalue, doc where (value ~* '.*$keyword.*') ".
-     " $searchquery ".
-     "and (doc.id = docvalue.docid) ".
-     "and (doc.locked != -1)".
-     "and (doc.doctype = 'F')".
-     "and (not useforprof)".
-     "and $sqlfrom";
+  $sqlfilter[]= "locked != -1";
+  $sqlfilter[]= "doctype='F'";
+  $sqlfilter[]= "getdocvalues(doc$famid.id)~* '.*$keyword.*' ";
+
+  $query=getSqlSearchDoc($dbaccess, 
+			 $sdirid,  
+			 $famid, 
+			 $sqlfilter);
+
   $sdoc-> AddQuery($query);
 
   redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&catg=$dirid");

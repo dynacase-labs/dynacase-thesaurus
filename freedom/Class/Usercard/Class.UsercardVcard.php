@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.11 2002/06/20 11:55:15 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.12 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -200,10 +200,12 @@ Class UsercardVcard
 	fputs($this->fd,"BEGIN:VCARD\n");
       fputs($this->fd,"FN:".chop($title)."\n");
       reset($this->import);
+      
       while(list($k,$v) = each($this->import))
 	{
 	  if ($v != "")
 	    {
+	      $v=strtolower($v);
 	      if (isset($tattr[$v]))
 		fputs($this->fd,$k.":".str_replace("\n","\\n",$tattr[$v])."\n");
 	      

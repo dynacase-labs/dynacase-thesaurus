@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.PDocSearch.php,v 1.1 2002/09/17 16:57:58 eric Exp $
+// $Id: Class.PDocSearch.php,v 1.2 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.PDocSearch.php,v 1.1 2002/09/17 16:57:58 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.PDocSearch.php,v 1.2 2002/10/31 08:09:23 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -53,8 +53,7 @@ Class PDocSearch extends Doc
 			      "group_default"       =>"N")
 			);
   var $defDoctype='P';
-  var $defClassname='PDocSearch';
-  var $defProfClassname='PDocSearch';
+  var $defProfFamId=FAM_ACCESSSEARCH;
 
   function PDocSearch($dbaccess='', $id='',$res='',$dbid=0) {
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.7 2002/10/02 09:12:29 eric Exp $
+// $Id: GENERIC.app,v 1.8 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -132,7 +132,8 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_TAB",
    "short_name"		=>N_("view a part of list"),
-   "acl"		=>"GENERIC_READ"
+   "acl"		=>"GENERIC_READ",
+   "layout"		=>"generic_list.xml"
   ) ,
   array( 
    "name"		=>"GENERIC_IMPORTCSV",

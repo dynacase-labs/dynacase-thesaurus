@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewbodycard.php,v 1.4 2002/09/02 16:32:25 eric Exp $
+// $Id: viewbodycard.php,v 1.5 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -101,7 +101,7 @@ function viewbodycard(&$action) {
 
 	  if ($value != "") // to define when change frame
 	    {
-	      if ( $currentFrameId != $listattr[$i]->frameid) {
+	      if ( $currentFrameId != $listattr[$i]->fieldSet->id) {
 		if ($currentFrameId != "") $changeframe=true;
 	      }
 	    }
@@ -144,7 +144,7 @@ function viewbodycard(&$action) {
       
 	  if (($value != "") && ($listattr[$i]->visibility != "H"))   {
 		
-	      $currentFrameId = $listattr[$i]->frameid;
+	      $currentFrameId = $listattr[$i]->fieldSet->id;
 
 	      // print values
 	      switch ($listattr[$i]->type)

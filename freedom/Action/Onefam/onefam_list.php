@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_list.php,v 1.3 2002/10/01 16:30:35 eric Exp $
+// $Id: onefam_list.php,v 1.4 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,11 +41,11 @@ function onefam_list(&$action)
   while (list($k,$cid)= each ($tidsfam)) {
     $cdoc= new Doc($dbaccess, $cid);
     if ($cdoc->dfldid > 0) {
-      if ($cdoc->control('view') == "") {
+
 	$selectclass[$k]["idcdoc"]=$cdoc->initid;
 	$selectclass[$k]["classname"]=$cdoc->title;
 	$selectclass[$k]["iconsrc"]=$cdoc->getIcon();
-      }
+      
     }
   }
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: popupcard.php,v 1.2 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Incident/Attic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

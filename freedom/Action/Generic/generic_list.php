@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.5 2002/09/02 16:38:49 eric Exp $
+// $Id: generic_list.php,v 1.6 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -41,7 +41,7 @@ function generic_list(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $dir = new Dir($dbaccess,$dirid);
+  $dir = new Doc($dbaccess,$dirid);
   $action->lay->Set("fldtitle",$dir->title);
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("tab",$tab);
@@ -54,15 +54,13 @@ function generic_list(&$action) {
   $action->lay->Set("nexticon",""); 
   $action->lay->Set("previcon",""); 
 
-  $famid = getDefFam($action);
 
 
 
-  // add filters like view control see DocUser::Control
-  $sqlfilters[]=getSqlFrom($dbaccess,$famid);
 
 
-  if (viewfolder($action, true, false,$slice, $sqlfilters) == $slice) {
+
+  if (viewfolder($action, true, false,$slice) == $slice) {
     // can see next
     $action->lay->Set("nexticon",$action->GetIcon("next.png",N_("next"))); 
   }

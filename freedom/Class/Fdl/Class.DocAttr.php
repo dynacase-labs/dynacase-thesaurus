@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.11 2002/09/13 15:06:07 eric Exp $
+// $Id: Class.DocAttr.php,v 1.12 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,16 +24,27 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.11 2002/09/13 15:06:07 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.12 2002/10/31 08:09:23 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
 
 Class Docattr extends DbObj
 {
-  var $fields = array ("id","docid","frameid","labeltext", "title", "abstract","type","ordered",
-		       "visibility", // W, R, H, O, M, T
-		       "link","phpfile", "phpfunc","elink");
+  var $fields = array ("id",
+		       "docid",
+		       "frameid",
+		       "labeltext", 
+		       "title",
+		       "abstract",
+		       "type",
+		       "ordered",
+		       "visibility", // W, R, H, O, M, C
+		       "needed",
+		       "link",
+		       "phpfile", 
+		       "phpfunc", 
+		       "elink");
 
   var $id_fields = array ("docid","id");
 
@@ -44,17 +55,18 @@ Class Docattr extends DbObj
   var $fulltextfields = array ("labeltext");
 
   var $sqlcreate = "
-create table docattr ( id      varchar(20) not null,
+create table docattr ( id  name,
                      docid int not null,
-                     FrameId  varchar(20),
+                     FrameId  name,
                      LabelText varchar(60),
                      Title  varchar(1),
                      Abstract  varchar(1),
                      Type  varchar(40),
                      ordered int,
                      visibility varchar(1),
+                     needed varchar(1),
                      link text,
-                     phpfile varchar(64),
+                     phpfile text,
                      phpfunc text,
                      elink text
                    );
@@ -102,75 +114,6 @@ create unique index idx_iddocid on docattr(id, docid)";
 
 
 
-
-  // return array of attributes id for abstract
-  function GetAbstractIds()
-    {
-      $query = new QueryDb($this->dbaccess,"$this->dbtable");
-
-      $query->basic_elem->sup_where=array ("abstract='Y'");
-    
-      $table1 = $query->Query();
-      
-      $abstract = array();
-
-      if ($query->nb > 0)
-	{
-	  while(list($k,$v) = each($table1)) 
-	    {
-	      $abstract[$k] = $v->id;
-	    }
-	  unset ($table1);
-	}
-      return $abstract;
-    }
-
-
-  // return array of attributes id for title
-  function GetTitleIds()
-    {
-      $query = new QueryDb($this->dbaccess,"$this->dbtable");
-
-      $query->basic_elem->sup_where=array ("title='Y'");
-    
-      $table1 = $query->Query();
-      
-      $title = array();
-
-      if ($query->nb > 0)
-	{
-	  while(list($k,$v) = each($table1)) 
-	    {
-	      $title[$k] = $v->id;
-	    }
-	  unset ($table1);
-	}
-      return $title;
-    }
-  
-    
-  // return array of attributes id for partivular type
-  // type are [text, longtext, image, url, mail]
-  function GetTypedIds($type)
-    {
-      $query = new QueryDb($this->dbaccess,"$this->dbtable");
-
-      $query->basic_elem->sup_where=array ("type='".$type."'");
-    
-      $table1 = $query->Query();
-      
-      $title = array();
-
-      if ($query->nb > 0)
-	{
-	  while(list($k,$v) = each($table1)) 
-	    {
-	      $title[$k] = $v->id;
-	    }
-	  unset ($table1);
-	}
-      return $title;
-    }
   
     
 }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.1 2002/09/02 16:38:49 eric Exp $
+// $Id: generic_util.php,v 1.2 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,6 +21,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
+
+include_once("FDL/Lib.Dir.php");  
 
 function getDefFld(&$action) {
   
@@ -54,16 +56,17 @@ function getChildCatg($doc, $level) {
 
   $ltree=array();
 
+
   if ($level < 4) {
-    $ldir = getChildDir($dbaccess,$action->user->id,$doc->id, true);
+    $ldir = getChildDir($dbaccess,$action->user->id,$doc->id, true,"TABLE");
   
 
     if (count($ldir) > 0 ) {
      
       while (list($k,$v) = each($ldir)) {
-	$ltree[$v->id] = array("level"=>$level*20,
-			 "id"=>$v->id,
-			 "title"=>$v->title);
+	$ltree[$v["id"]] = array("level"=>$level*20,
+				 "id"=>$v["id"],
+				 "title"=>$v["title"]);
 
 	$ltree = $ltree +  getChildCatg($v, $level+1);
       }
@@ -77,7 +80,7 @@ function getSqlFrom($dbaccess, $docid) {
   // -----------------------------------
   $fdoc= new Doc( $dbaccess, $docid);
   $child= $fdoc->GetChildDoc();
-  return GetSqlCond(array_merge(array($docid),$fdoc->GetChildDoc()),"doc.fromid");
+  return GetSqlCond(array_merge(array($docid),$fdoc->GetChildDoc()),"fromid");
   
 }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.4 2002/09/02 16:38:49 eric Exp $
+// $Id: generic_tab.php,v 1.5 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,9 +24,11 @@
 
 
 include_once("FDL/Class.DocSearch.php");
-include_once("FDL/Class.Dir.php");
+include_once("FDL/Lib.Dir.php");
+
 include_once("FDL/freedom_util.php");  
 include_once("GENERIC/generic_util.php");
+include_once("GENERIC/generic_list.php");
 
 
 
@@ -51,45 +53,51 @@ function generic_tab(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $dir = new Dir($dbaccess, $dirid);
+  $dir = new Doc($dbaccess, $dirid);
 
 
-  $sdoc = new DocSearch($dbaccess);
+  $sdoc = createDoc($dbaccess,5); // new DocSearch
 
 
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
 
+  $famid = getDefFam($action);
+
   if ($dir->id == getDefFld($action))   {
     $sdoc->title = sprintf(_("%s all categories "),$tabletter[$tab] );
     $qfld = "";
+    $sdirid=0; // search in all DB
   }  else {
     $sdoc->title = sprintf(_("%s %s category "),$tabletter[$tab],$dir->title );
-    $qfld = "and doc.initid in (select childid from fld where childid=doc.id and dirid=$dirid) ";
+    $qfld = "and initid in (select childid from fld where childid=doc$famid.id and dirid=$dirid) ";
+    $sdirid=$dir->id;
   }
 
 
-  $ldoc = $sdoc->GetDocWithSameTitle();
 
  
 
   $sdoc->Add();
-  $qtitle = ($tabletter[$tab]=="")?"":"and (title ~* '^[".$tabletter[$tab]."].*') ";
 
-  $famid = getDefFam($action);
-  $sqlfrom = getSqlFrom($dbaccess,$famid);
+  $sqlfilter[]= "locked != -1";
+  $sqlfilter[]= "doctype='F'";
 
-  $query = "select * from doc where $sqlfrom ".
-    $qtitle.
-     $qfld.
-     "and (locked != -1) ".
-     "and (not useforprof) ".
-     "and (doctype='F')";
+  if ($tabletter[$tab]!="") $sqlfilter[]="title ~* '^[".$tabletter[$tab]."].*'";
+
+
+
+  $query = getSqlSearchDoc($dbaccess,$sdirid,$famid,$sqlfilter);
 
 
   $sdoc-> AddQuery($query);
   
 
-  redirect($action,GetHttpVars("app"),"GENERIC_LIST&tab=$tab&dirid=".$sdoc->id."&catg=$dirid");
+  setHttpVar("tab", $tab);
+  setHttpVar("dirid",$sdoc->id );
+  setHttpVar("catg",$dirid );
+
+  generic_list($action);
+  //  redirect($action,GetHttpVars("app"),"GENERIC_LIST&tab=$tab&dirid=".$sdoc->id."&catg=$dirid");
   
   
 }

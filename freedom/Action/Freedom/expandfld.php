@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.7 2002/09/13 15:06:07 eric Exp $
+// $Id: expandfld.php,v 1.8 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,6 +25,7 @@
 
 
 include_once("FREEDOM/folders.php");  
+
 
 
 

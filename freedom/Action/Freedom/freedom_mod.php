@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.10 2002/09/19 13:45:10 eric Exp $
+// $Id: freedom_mod.php,v 1.11 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,6 +26,7 @@
 include_once("FDL/modcard.php");
 
 include_once("FDL/Class.Dir.php");
+include_once("FDL/Class.DocFam.php");
 
 
 // -----------------------------------
@@ -46,21 +47,22 @@ function freedom_mod(&$action) {
   $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
   
   
-  if ($dirid > 0) {
-    $fld = new Dir($dbaccess, $dirid);    
-    if ($fld->doctype != 'D') $dirid=0;
-  }
-  if ($dirid == 0) {
-    if ($doc->dfldid>0)  $fld = new Dir($dbaccess,$doc->dfldid);
-    else {
-      $fld = new Dir($dbaccess,UNCLASS_FLD);
-      $home = $fld->getHome();
-      
-      if ($home->id > 0) $fld = $home;
-    }
-  }
-  
   if  ($docid == 0) {
+    if ($dirid > 0) {
+      $fld = new Dir($dbaccess, $dirid);    
+      if ($fld->doctype != 'D') $dirid=0;
+    }
+    if ($dirid == 0) {
+      $cdoc = new DocFam($dbaccess, $doc->fromid);
+      if ($doc->dfldid>0)  $fld = new Dir($dbaccess,$cdoc->dfldid);
+      else {
+	$fld = new Dir($dbaccess,UNCLASS_FLD);
+	$home = $fld->getHome();
+      
+	if ($home->id > 0) $fld = $home;
+      }
+    }
+  
     $fld->AddFile($doc->id);   
   } 
   

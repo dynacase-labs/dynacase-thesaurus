@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_editpref.php,v 1.1 2002/10/01 14:47:53 eric Exp $
+// $Id: onefam_editpref.php,v 1.2 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_editpref.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,7 +30,7 @@ function onefam_editpref(&$action)
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $tcdoc=GetClassesDoc($dbaccess,$action->user->id);
+  $tcdoc=GetClassesDoc($dbaccess,1);
   
   $idsfam = $action->GetParam("ONEFAM_IDS");
   $tidsfam = explode(",",$idsfam);

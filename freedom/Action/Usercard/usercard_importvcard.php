@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_importvcard.php,v 1.7 2002/09/25 08:36:06 eric Exp $
+// $Id: usercard_importvcard.php,v 1.8 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_importvcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -79,20 +79,15 @@ function usercard_importvcard(&$action) {
 
 	      
 	  $doc->Add();
-	  $bdvalue = new DocValue($dbaccess);
 
-	  $bdvalue->docid = $doc->id;
+
 
 	  // set privacity
-	  $bdvalue->attrid = QA_PRIVACITY;
-	  $bdvalue->value = $privacity;
-	  $bdvalue ->Modify();
+	      $doc->setvalue("US_PRIVCARD",$privacity);
 	      
 	  while(list($k,$v) = each($tvalue)) 
 	    {
-	      $bdvalue->attrid = $k;
-	      $bdvalue->value = $v;
-	      $bdvalue ->Modify();
+	      $doc->setvalue($k,$v);
 	    }
 	  $doc->Modify();
 	  $dir->AddFile($doc->id);

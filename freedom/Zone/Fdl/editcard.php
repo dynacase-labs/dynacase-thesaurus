@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.18 2002/09/24 15:30:09 eric Exp $
+// $Id: editcard.php,v 1.19 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,7 +57,7 @@ function editcard(&$action) {
     
   if ($docid == 0) { // new document
     if ($classid > 0) {
-      $doc= new Doc($dbaccess,$classid);
+      $doc= createDoc($dbaccess,$classid);
       if ($zonebodycard == "") $zonebodycard=$doc->deditzone;
     }
   } else { // modify document
@@ -65,7 +65,7 @@ function editcard(&$action) {
       $doc= new Doc($dbaccess,$docid);
       if ($zonebodycard == "") $zonebodycard=$doc->deditzone;
     } else {
-      $doc= new Doc($dbaccess,$classid);
+      $doc= createDoc($dbaccess,$classid);
       if ($zonebodycard == "") $zonebodycard=$doc->deditzone;
     }
   }

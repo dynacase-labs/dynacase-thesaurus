@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.5 2002/09/10 13:30:28 eric Exp $
+// $Id: viewframe.php,v 1.6 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,7 +37,7 @@ function viewframe(&$action) {
     
     // GetAllParameters
       $docid = GetHttpVars("id");
-  $frameid = GetHttpVars("frameid");
+  $frameid = strtolower(GetHttpVars("frameid"));
   $abstract = (GetHttpVars("abstract",'N') == "Y");// view doc abstract attributes
   $target = GetHttpVars("target","_self");
   $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
@@ -53,7 +53,7 @@ function viewframe(&$action) {
   $doc = new Doc($dbaccess, $docid);
   
   
-  $listattr = $doc->GetAttributes(true); // get frame attribute also
+  $listattr = $doc->GetNormalAttributes(); // get frame attribute also
     
     
     
@@ -62,9 +62,12 @@ function viewframe(&$action) {
   $tval = array();
   while (list($k,$v) = each($listattr)) {
     
-    if (($v->visibility == "O") || ($v->visibility == "M")) continue;
-    if ($v->id == $frameid) $action->lay->set("flabel",$v->labeltext);
-    if ($v->frameid != $frameid) continue;
+    
+    
+    if ($v->fieldSet->id != $frameid) continue;
+
+    $action->lay->set("flabel",$v->fieldSet->labelText);
+
     $value = chop($doc->GetValue($v->id));
     
     if ($value == "") continue;
@@ -73,7 +76,7 @@ function viewframe(&$action) {
 	if ($v->visibility != "H")	{	
 	  // don't see  non abstract if not
 	    if (( !$abstract) || ($v->abstract == "Y")) {
-	      $tval[$k]["alabel"]=  $v->labeltext;;
+	      $tval[$k]["alabel"]=  $v->labelText;;
 	      $tval[$k]["avalue"]=  $doc->GetHtmlValue($v,$value,$target,$ulink);
 	    }
 	  

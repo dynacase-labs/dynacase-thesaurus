@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.PDir.php,v 1.1 2002/09/17 16:57:58 eric Exp $
+// $Id: Class.PDir.php,v 1.2 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.PDir.php,v 1.1 2002/09/17 16:57:58 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.PDir.php,v 1.2 2002/10/31 08:09:23 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -55,8 +55,7 @@ Class PDir extends Doc
 			      "group_default"       =>"N")
 			);
   var $defDoctype='P';
-  var $defClassname='PDir';
-  var $defProfClassname='PDir';
+  var $defProfFamId=FAM_ACCESSDIR;
 
   function PDir($dbaccess='', $id='',$res='',$dbid=0) {
     // don't use Doc constructor because it could call this constructor => infinitive loop

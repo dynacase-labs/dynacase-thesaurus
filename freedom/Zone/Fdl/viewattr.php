@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewattr.php,v 1.4 2002/09/02 16:32:25 eric Exp $
+// $Id: viewattr.php,v 1.5 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,7 +47,7 @@ function viewattr(&$action, $htmlval=true, $htmllink=true) {
   $doc = new Doc($dbaccess, $docid);
 
   
-  $listattr = $doc->GetAttributes(true);
+  $listattr = $doc->GetNormalAttributes();
     
     
 
@@ -67,8 +67,8 @@ function viewattr(&$action, $htmlval=true, $htmllink=true) {
 	$action->lay->Set("V_".$v->id,"");
 	$action->lay->Set("L_".$v->id,"");
       } else {
-	$action->lay->Set("V_".$v->id,$htmlval?$doc->GetHtmlValue($v,$value,"_self",$htmllink):$value);
-	$action->lay->Set("L_".$v->id,$v->labeltext);
+	$action->lay->Set("V_".strtoupper($v->id),$htmlval?$doc->GetHtmlValue($v,$value,"_self",$htmllink):$value);
+	$action->lay->Set("L_".strtoupper($v->id),$v->labelText);
       }
   
     }
@@ -77,6 +77,23 @@ function viewattr(&$action, $htmlval=true, $htmllink=true) {
   }
 
   
+  
+  $listattr = $doc->GetFieldAttributes();
+    
+    
+
+  // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
+
+  while (list($k,$v) = each($listattr)) {
+       
+    $action->lay->Set("L_".strtoupper($v->id),$v->labelText);
+      
+  
+  }
+
+
+  
+
 
 
 

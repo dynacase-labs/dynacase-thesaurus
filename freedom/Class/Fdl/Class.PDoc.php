@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.PDoc.php,v 1.2 2002/09/30 11:46:44 eric Exp $
+// $Id: Class.PDoc.php,v 1.3 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.2 2002/09/30 11:46:44 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.3 2002/10/31 08:09:23 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -54,8 +54,7 @@ Class PDoc extends Doc
 
   // ------------
   var $defDoctype='P';
-  var $defClassname='PDoc';
-  var $defProfClassname='PDoc';
+  var $defProfFamId=FAM_ACCESSDOC;
 
   function PDoc($dbaccess='', $id='',$res='',$dbid=0) {
     // don't use Doc constructor because it could call this constructor => infinitive loop

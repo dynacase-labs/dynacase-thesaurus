@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.11 2002/09/30 11:46:44 eric Exp $
+// $Id: editbodycard.php,v 1.12 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,7 +25,7 @@
 
 //
 // ---------------------------------------------------------------
-include_once("FDL/Class.Doc.php");
+include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.DocAttr.php");
 
 include_once("Class.QueryDb.php");
@@ -145,7 +145,7 @@ function editbodycard(&$action) {
 
   $iattr=0;
   while (list($i,$attr) = each($listattr)) {
-    if ($attr->visibility == "M") continue;
+    if ((get_class($attr) != "normalattribute")) continue;
     $iattr++;
     
     // Compute value elements
@@ -154,7 +154,7 @@ function editbodycard(&$action) {
     else $value = $cdoc->GetValue($listattr[$i]->id);
 	    	    
 
-    if ( $currentFrameId != $listattr[$i]->frameid) {
+    if ( $currentFrameId != $listattr[$i]->fieldSet->id) {
       if ($currentFrameId != "") $changeframe=true;
     }
 	    
@@ -180,10 +180,9 @@ function editbodycard(&$action) {
       
     //------------------------------
     // Set the table value elements
-    if ( ($listattr[$i]->type != "frame"))
-      {
+    
 	      
-	$currentFrameId = $listattr[$i]->frameid;
+	$currentFrameId = $listattr[$i]->fieldSet->id;
 	if ( ($listattr[$i]->visibility == "H") || 
 	     ($listattr[$i]->visibility == "R") && (substr_count($listattr[$i]->type,"text") > 0)) {
 	  // special case for hidden values
@@ -201,11 +200,11 @@ function editbodycard(&$action) {
 
 	} else {
 	  $tableframe[$v]["value"]=chop(htmlentities($value));
-	  $label = $listattr[$i]->labeltext;
+	  $label = $listattr[$i]->labelText;
 	  $tableframe[$v]["attrid"]=$listattr[$i]->id;
 	  $tableframe[$v]["name"]=chop("[TEXT:".$label."]");
 
-	  if ($listattr[$i]->visibility == "N") $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
+	  if ($listattr[$i]->needed ) $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
 	  else $tableframe[$v]["labelclass"]="FREEDOMLabel";
 
 	  //$tableframe[$v]["name"]=$action->text($label);
@@ -220,7 +219,7 @@ function editbodycard(&$action) {
 	  $v++;
 		
 	}
-      }
+      
   }
   
   // Out

@@ -86,3 +86,14 @@ end loop;
 return values;
 end;
 ' language 'plpgsql';
+
+
+
+create or replace function deletevalues() 
+returns opaque as '
+declare 
+begin
+delete from docvalue where docid=NEW.id;
+return NEW;
+end;
+' language 'plpgsql';

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.22 2002/09/24 15:30:09 eric Exp $
+// $Id: viewfolder.php,v 1.23 2002/10/31 08:09:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,8 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Dir.php");
+
+include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.DocAttr.php");
 include_once("FDL/Class.DocValue.php");
 include_once("FDL/freedom_util.php");
@@ -55,12 +56,15 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   // Get all the params      
   $dirid=GetHttpVars("dirid"); // directory to see
   
+
+
   $dir = new Doc($dbaccess,$dirid);
+
   $dirid=$dir->initid;  // use initial id for directories
 
 
   // control open
-    if ($dir->doctype=='S') $aclctrl="execute";
+    if ($dir->defDoctype=='S') $aclctrl="execute";
     else $aclctrl="open";
   if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
 
@@ -92,9 +96,9 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     } else $start=0;
 
 
-  $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"LIST",$with_abstract);
+  $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"LIST");
 
-
+  
   
 
 
@@ -206,7 +210,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       
 	
 	      
-	if ($doc->classname == 'Dir') $tdoc[$k]["isfld"]= "true";
+	if ($doc->defDoctype == 'D') $tdoc[$k]["isfld"]= "true";
 	else $tdoc[$k]["isfld"]= "false";
 	
 	
@@ -238,7 +242,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	      $emptytableabstract=array();
 	      while (list($ka,$attr) = each($lattr))  {	
 		$emptytableabstract[$attr->id]["value"]="-";
-		$taname[$attr->id]["aname"]=_($attr->labeltext);
+		$taname[$attr->id]["aname"]=_($attr->labelText);
 	      }
 	      $action->lay->SetBlockData("BATT".$doc->fromid,$taname);
 	      
@@ -252,20 +256,18 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  else $tableabstract= array();
 
 
-
 	  $doc->GetValues();
 
 	  while (list($attrid,$value) = each($doc->values))  {	
 	    $lvalue = chop($value);
 
-
 	    if ($lvalue != "") {
 	      $oattr=$adoc->GetAttribute($attrid);
 
 
-	      if ($oattr->abstract == "Y") {
+	      if ($oattr->isInAbstract ) {
 		$tdoc[$k][$attrid]= $lvalue;
-		$tableabstract[$attrid]["name"]=_($oattr->labeltext);
+		$tableabstract[$attrid]["name"]=_($oattr->labelText);
 		$tableabstract[$attrid]["valid"]=$attrid;
 
 
@@ -287,6 +289,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	      }
 	    }
 	  }
+
 	  $action->lay->SetBlockData("abstract_$k",$tableabstract);
 
 	  unset($tableabstract);

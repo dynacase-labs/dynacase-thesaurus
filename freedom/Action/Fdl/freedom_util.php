@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.16 2002/09/30 11:46:44 eric Exp $
+// $Id: freedom_util.php,v 1.17 2002/10/31 08:09:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,7 +69,9 @@ function GetSqlCond($Table, $column)
 
 
 // return document object in type concordance
-function newDoc($dbaccess, $id='',$res='',$dbid=0) {
+function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
+
+  global $gdocs;// optimize for speed
 
   
   if ($dbaccess=="") {
@@ -82,29 +84,52 @@ function newDoc($dbaccess, $id='',$res='',$dbid=0) {
   $classname="";
   if (($id == '') && ($res == "")) {
     include_once("FDL/Class.DocFile.php");
-    return new DocFile($dbaccess);
+    $doc=new DocFile($dbaccess);
+
+    return (true);
   }
   $fromid="";
   if ($id != '') {
+
+    if (isset($gdocs[$id])) {
+      $doc = $gdocs[$id]; // optimize for speed
+      return true;
+    }
     global $CORE_DBID;
 	if (!isset($CORE_DBID) || !isset($CORE_DBID["$dbaccess"])) {
            $CORE_DBID["$dbaccess"] = pg_connect("$dbaccess");
         } 
     $dbid=$CORE_DBID["$dbaccess"];
 
-    $result = pg_exec($dbid,"select classname from doc where id=$id;");
+    $result = pg_exec($dbid,"select classname, fromid, doctype from doc where id=$id;");
     if (pg_numrows ($result) > 0) {
       $arr = pg_fetch_array ($result, 0);
-      $classname= $arr[0];
+      $fromid= $arr[1];
+      $doctype= $arr[2];
+      if ($doctype=="C") $classname="DocFam"; 
+      else if ($fromid == 0) $classname= $arr[0];
+      else $classname="Doc$fromid";
     }
-  } else if ($res != '') $classname=$res["classname"];
+  } else if ($res != '') {
+    $fromid=$res["fromid"];
+    $doctype=$res["doctype"];
+    if ($doctype=="C") $classname= "DocFam"; 
+    else if ($fromid > 0) $classname= "Doc".$res["fromid"];
+    else  $classname=$res["classname"];
+  }
 	    
   if ($classname != "") {
     include_once("FDL/Class.$classname.php");
-      return (new $classname($dbaccess, $id, $res, $dbid));
+    //    print "new $classname($dbaccess, $id, $res, $dbid)<BR>";
+    $doc=new $classname($dbaccess, $id, $res, $dbid);
+    if ($id != '') $gdocs[$id]=&$doc;
+
+      return (true);
   } else {
     include_once("FDL/Class.DocFile.php");
-      return (new DocFile($dbaccess, $id, $res, $dbid));
+    $doc=new DocFile($dbaccess, $id, $res, $dbid);
+
+      return (true);
   }
 } 
 
@@ -114,12 +139,12 @@ function createDoc($dbaccess,$fromid) {
 
   if ($fromid > 0) {
     $cdoc = new Doc($dbaccess, $fromid);
-    
+
     $err = $cdoc->control('view');
     if ($err != "") return false;
 
     
-    $classname = $cdoc->classname;
+    $classname = "Doc".$fromid;
     include_once("FDL/Class.$classname.php");
     $doc = new $classname($dbaccess);
     
@@ -140,15 +165,17 @@ function createDoc($dbaccess,$fromid) {
     return ($doc);
     
   }
-  return new Doc($dbaccess);
+  return newDoc($dbaccess);
 
 }
 
 // use to usort attributes
 function tordered($a, $b) {
+  if (isset($a->ordered) && isset($b->ordered)) {
 	if ($a->ordered == $b->ordered) return 0;
 	if ($a->ordered > $b->ordered) return 1;
-	return -1;
+  }
+  return -1;
 	
 }
 
