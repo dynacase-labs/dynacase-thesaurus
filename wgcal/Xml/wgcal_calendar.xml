@@ -29,12 +29,6 @@
 [BLOCK HOURS]<tr height="[HLINEHOURS]px"><td id="L[LID]" width="[hcolsize]%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>[ENDBLOCK HOURS]
 </table>[ZONE WGCAL:WGCAL_INFOS]</div>
 
-<form target="wgcal_calhidden" style="display:none" id="textform" method="POST">
-<input id="Xtext" type="hidden" value="0">
-<input id="Ytext" type="hidden" value="0">
-<input id="itext" type="text" style="background:lightblue; border:1px inset;" onsubmit="viewNewText(event);" onBlur="viewNewText(event);">
-</form>
-
 [BLOCK EVENTS]
 [ZONE [RESUME]?ev=[ID]&ref=[REF]]
 [ZONE [VIEW]?ev=[ID]&ref=[REF]]

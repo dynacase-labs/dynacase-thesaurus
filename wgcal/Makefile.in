@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.6 2005/02/04 08:03:47 marc Exp $
+# $Id: Makefile.in,v 1.7 2005/02/17 17:25:29 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -16,7 +16,7 @@ GZIP_ENV = --best
 
 export targetdir PACKAGE
 
-SUBDIR=  Class Images Zone Xml Action Css Javascript Families
+SUBDIR=  Class Images Zone Xml Action Css Javascript Families Themes
 
 include $(utildir)/PubRule
 

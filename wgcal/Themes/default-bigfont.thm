@@ -1,0 +1,16 @@
+<?php
+
+include_once("WGCAL/Themes/default.thm");
+
+$theme->Name   = _("big-fonts");
+$theme->Descr  = _("the default theme with bigger fonts");
+
+
+$theme->WTH_FONTLIST              =  "Tahoma, Helvetica, Arial, sans-serif";
+$theme->WTH_FONTSIZE_NORMAL       =  "12";
+$theme->WTH_FONTSIZE_BIG          =  "16";
+$theme->WTH_FONTSIZE_SMALL        =  "10";
+
+$theme->WTH_TOOLBARW               =  "250";
+
+?>

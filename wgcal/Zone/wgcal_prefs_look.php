@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.1 2005/02/17 07:11:46 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.2 2005/02/17 17:25:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -16,11 +16,24 @@ include_once("WGCAL/WGCAL_external.php");
 
 function wgcal_prefs_look(&$action) {
 
-  $themes = array(
-		  array("name" => "default", "descr" => N_("the default theme")),
-		  array("name" => "orange", "descr" => N_("orange")),
-		  array("name" => "caroline", "descr" => N_("for the girls"))
-		  );
+
+  $themes = array();
+  $themedir = "WGCAL/Themes";
+  $ith=0;
+  if ($dh = opendir($themedir)) {
+    while (($file = readdir($dh)) !== false) {
+      $the = basename($file, ".thm");
+      if ($the!="." && $the!="..") {
+        include_once($themedir."/".$file);
+        $themes[$ith]["name"] = $theme->Name;
+        $themes[$ith++]["descr"] = $theme->Descr;
+      }
+    }
+    closedir($dh);
+  }
+  if (count($themes)<1) $themes[0] = array("name" => "default", "descr" => _("the default theme"));
+
+
   $opt = array(); $i = 0;
   foreach ($themes as $k => $v) {
     $opt[$i]["optvalue"] = $v["name"];
@@ -31,7 +44,7 @@ function wgcal_prefs_look(&$action) {
   $action->lay->SetBlockData("THEME", $opt);
 
   $optchk = array(
-		  "useicon" => array(N_("view icon in event"),"WGCAL_U_RESUMEICON", "wgcal_calendar", "WGCAL_CALENDAR")
+		  "useicon" => array(_("view icon in event"),"WGCAL_U_RESUMEICON", "wgcal_calendar", "WGCAL_CALENDAR")
 		  );
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -48,11 +61,11 @@ function wgcal_prefs_look(&$action) {
   }
   $action->lay->SetBlockData("OPTCHK", $toptchk);
 
-  $popuppos = array( "Float" => N_("floating, follows the pointer"),
-		     "LeftTop" => N_("on the left top"), 
-		     "LeftBottom" => N_("on the left bottom"), 
-		     "RightTop" => N_("on the right top"), 
-		     "RightBottom" => N_("on the right bottom") );
+  $popuppos = array( "Float" => _("floating, follows the pointer"),
+		     "LeftTop" => _("on the left top"), 
+		     "LeftBottom" => _("on the left bottom"), 
+		     "RightTop" => _("on the right top"), 
+		     "RightBottom" => _("on the right bottom") );
   $opt = array(); $i = 0;
   foreach ($popuppos as $k => $v) {
     $opt[$i]["optvalue"] = $k;
@@ -62,10 +75,10 @@ function wgcal_prefs_look(&$action) {
   }
   $action->lay->SetBlockData("ALTPOS", $opt);
 
-  $popuptimer = array( "200" => N_("200 milli second"),
-		       "500" => N_("1/2 second"), 
-		       "1000" => N_("1 second"), 
-		       "1500" => N_("1,5 second"));
+  $popuptimer = array( "200" => _("200 milli second"),
+		       "500" => _("1/2 second"), 
+		       "1000" => _("1 second"), 
+		       "1500" => _("1,5 second"));
   $opt = array(); $i = 0;
   foreach ($popuptimer as $k => $v) {
     $opt[$i]["optvalue"] = $k;
@@ -79,7 +92,7 @@ function wgcal_prefs_look(&$action) {
   for ($i=0; $i<13; $i++) {
     $opt[$i]["optvalue"] = $i;
     $opt[$i]["optdescr"] = $i."H00";
-    $opt[$i]["optselect"] = ($k==$action->GetParam("WGCAL_U_STARTHOUR") ? "selected" : "");
+    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_STARTHOUR") ? "selected" : "");
   }
   $action->lay->SetBlockData("SH", $opt);
 
@@ -87,7 +100,7 @@ function wgcal_prefs_look(&$action) {
   for ($i=13; $i<24; $i++) {
     $opt[$i]["optvalue"] = $i;
     $opt[$i]["optdescr"] = $i."H00";
-    $opt[$i]["optselect"] = ($k==$action->GetParam("WGCAL_U_ENDHOUR") ? "selected" : "");
+    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_ENDHOUR") ? "selected" : "");
   }
   $action->lay->SetBlockData("EH", $opt);
  

@@ -94,7 +94,6 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
 
 function mytoto(name, value, target, taction)
  {
-//    alert(' p.name='+name+' p.value='+value+' target='+target+' action='+taction);
    usetparam(name, value, target, taction);
 }
 
@@ -109,10 +108,11 @@ function usetparam(name, value, updatetarget, updateaction)
   }
   if (updatetarget=='') {
     updatetarget = 'wgcal_hidden';
-    updateaction = '/what/index.php?sole=A&app=WGCAL&action=WGCAL_HIDDEN';
+    updateaction = 'WGCAL_HIDDEN';
   }
   taction.value = updateaction;
   fset.target = updatetarget;
+  //alert(' name='+name+' value='+value+' target='+updatetarget+' action='+updateaction);
   fset.submit();
 }
 
