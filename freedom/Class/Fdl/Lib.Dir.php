@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.4 2002/03/26 16:14:01 eric Exp $
+// $Id: Lib.Dir.php,v 1.5 2002/03/27 17:42:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,9 +65,7 @@ function getFirstDir($dbaccess) {
     return($tableq);
   }
 
-function cmpdoctitle ($a, $b) {
-  return strcmp($a->title, $b->title);
-}
+
 
   function getChildDoc($dbaccess, $dirid, $start="0", $slice="ALL", $sqlfilters=array()) {
 
@@ -138,8 +136,7 @@ function cmpdoctitle ($a, $b) {
     reset($tableq);
 
 
-    // sort by title
-    //    usort ($tableq, "cmpdoctitle");
+ 
 
 
 

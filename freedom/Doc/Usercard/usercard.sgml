@@ -4,7 +4,7 @@
 ]
 >
 
-<article id="usercard" lang="fr" revision="$Id: usercard.sgml,v 1.3 2002/03/12 09:55:12 eric Exp $">
+<article id="usercard" lang="fr" revision="$Id: usercard.sgml,v 1.4 2002/03/27 17:42:21 eric Exp $">
   <title>
   <inlinemediaobject>
     <imageobject>
@@ -24,6 +24,12 @@
         <date>11 Mars 2002</date>
         <authorinitials>EB</authorinitials>
 	<revremark>CSV import</revremark>
+      </revision>
+      <revision>
+        <revnumber>0.3</revnumber>
+        <date>27 Mars 2002</date>
+        <authorinitials>EB</authorinitials>
+	<revremark>CSV export</revremark>
       </revision>
     </revhistory>
     <mediaobject><imageobject>
@@ -312,7 +318,14 @@
     <!--			EXPORT				   -->
     <sect2 id="usercard.adm.export">
       <title>exportation</title>
-      <para>Aucune exportation n'est proposée la version actuelle</para>
+      <para>L'exportation au format CSV est possible par l'API shell. Le seul paramètre est l'identifiant de la catégorie. L'identifiant pour toutes catégories est 121.</para>
+      <para>De manière générale l'identifiant est donné dans l'URL de la fenêtre (frame). Pour obtenir l'URL, placez le curseur de la souris sur le titre de la fenêtre de droite et sélectionnez l'item 'Propriété' (pour IE) ou 'Afficher les informations sur le cadre' (pour Netscape) du menu contextuel. L'URL est de la forme  <itemizedlist> 
+	  <listitem><para>http://.../what/index.php? ... ;action=USERCARD_LIST&amp;tab=1&amp;<emphasis>dirid=4336</emphasis>&amp;<emphasis>catg=3177</emphasis></para>
+	  </listitem>	 
+	</itemizedlist> </para>
+      <para> L'identifiant de la catégorie est donnée par la variable <emphasis>catg</emphasis>. Vous devez  mettre cette valeur pour exporter la catégorie courante. Vous pouvez exporter la sélection courante en utilisant la valeur donnée par <emphasis>dirid</emphasis>. Dans ce cas l'exportation tient compte de l'onglet courant (ABC, DEF, ...) et/ou de la recherche texte effectuée.
+      </para>
+      <screen width=80>[root@yoda]# /home/httpd/what/wsh.php --app=FDL --action=EXPORTFLD --id=121</screen>
     </sect2>
   </sect1>
 </article>

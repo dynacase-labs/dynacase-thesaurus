@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.3 2002/03/06 17:17:25 eric Exp $
+// $Id: folders.php,v 1.4 2002/03/27 17:42:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,12 +69,13 @@ function folders(&$action) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit("popfld", array('vprop','mkdir','cancel'));
+  popupInit("popfld", array('vprop','mkdir','export','cancel'));
   popupInit("poppaste", array('staticpaste','pastelatest','cancel2'));
 
   // for the first (top) folder
   popupActive("popfld",$nbfolders,'cancel');
   popupActive("popfld",$nbfolders,'vprop');
+  popupActive("popfld",$nbfolders,'export');
   popupActive("popfld",$nbfolders,'mkdir');  
   popupActive("poppaste",$nbfolders,'staticpaste');
   popupActive("poppaste",$nbfolders,'pastelatest');
@@ -128,6 +129,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
 
     popupActive("popfld",$nbfolders,'cancel');
     popupActive("popfld",$nbfolders,'vprop');
+    popupActive("popfld",$nbfolders,'export');
     if ($doc->doctype == 'D') popupActive("popfld",$nbfolders,'mkdir');
     else popupInvisible("popfld",$nbfolders,'mkdir');
     popupActive("poppaste",$nbfolders,'staticpaste');

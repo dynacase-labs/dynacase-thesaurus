@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: FDL.app,v 1.2 2002/03/27 17:42:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -50,6 +50,11 @@ $action_desc = array (
    "short_name"		=>N_("Freedom initialisation"),
    "acl"		=>"NORMAL"	
   ),
+  array( 
+   "name"		=>"EXPORTFLD",
+   "short_name"		=>N_("export folder"),
+   "acl"		=>"NORMAL"
+  ) ,
   array( 
    "name"		=>"EXPORTFILE",
    "short_name"		=>N_("export file to consulting"),

@@ -218,10 +218,11 @@ function floatMenu () {
 <div  id="popfld" class="popup">
 
 <a href="#" id="vprop"
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld');return false">[TEXT: properties] </a>
+    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld');return false">[TEXT:Properties] </a>
+<a id="export" href="#" onclick="this.href='[CORE_STANDURL]&app=FDL&action=EXPORTFLD&id='+dirid">[TEXT:Export] </a>
 <a href="#" id="mkdir"     
     onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'doc_properties');closeMenu('popfld');return false">
-[TEXT: create subfolder]</a>
+[TEXT:Create subfolder]</a>
 <a href="#" id="cancel"  
     onClick="closeMenu('popfld');return false"  >[TEXT:cancel]</a>
 </div>
@@ -232,10 +233,10 @@ function floatMenu () {
 
 <a href="#" id="pastelatest"     
     onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
-   [TEXT:copy reference]</a>
+   [TEXT:Copy reference]</a>
 <a href="#" id="staticpaste"
     onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=MOVEDIRFILE&todirid='+dirid+'&fromdirid='+parent.info.document.dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
-   [TEXT:move reference] </a>
+   [TEXT:Move reference] </a>
 <a href="#" id="cancel2"  
     onClick="closeMenu('poppaste');return false">[TEXT:cancel]</a>
 </div>
