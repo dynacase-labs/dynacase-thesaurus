@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.13 2003/04/23 10:00:48 eric Exp $
+// $Id: defattr.php,v 1.14 2003/04/25 14:51:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -171,6 +171,11 @@ function defattr(&$action)
     uasort($tattr,"tordered"); 
     reset($tattr);
     while(list($k,$attr) = each($tattr))  {
+      if ($attr->type=="array") {
+	$selectframe[$k]["framevalue"]=$attr->labelText;
+	$selectframe[$k]["frameid"]=$attr->id;
+	$selectframe[$k]["selected"]="";
+      }
       $newelem[$k]["attrid"]=$attr->id;
       $newelem[$k]["attrname"]=$attr->labelText;
       $newelem[$k]["order"]=$attr->ordered;

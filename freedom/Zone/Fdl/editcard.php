@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.25 2003/04/23 10:00:48 eric Exp $
+// $Id: editcard.php,v 1.26 2003/04/25 14:51:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,6 +40,7 @@ function editcard(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");

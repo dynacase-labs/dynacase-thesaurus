@@ -1,0 +1,20 @@
+<fieldset ><legend>[caption]</legend>
+<table width="100%" class="tarray">
+   <thead><tr><td></td>
+    [BLOCK TATTR]<th>[alabel]</th> [ENDBLOCK TATTR]
+   </tr></thead>
+ <tbody id="tbody[attrid]" >
+  
+     [BLOCK EATTR]<tr ><td><img  src="[IMG:trash22.gif]"  title="[TEXT:delete]" onclick="deltr(this.parentNode.parentNode);return false;"><img  src="[IMG:up16.gif]"  title="[TEXT:up]" onclick="uptr(this.parentNode.parentNode);return false;"><img  src="[IMG:down16.gif]"  title="[TEXT:down]" onclick="downtr(this.parentNode.parentNode);return false;"></td>
+    [BLOCK [bevalue]]<td>[eivalue]</td>[ENDBLOCK [bevalue]]
+ </tr>[ENDBLOCK EATTR]
+
+  </tbody>
+   <tfoot><tr style="display:none" id="tnew[attrid]"><td><img  src="[IMG:trash22.gif]"  title="[TEXT:delete]" onclick="deltr(this.parentNode.parentNode);return false;"></td>
+    [BLOCK IATTR]<td>[ilabel]</td> [ENDBLOCK IATTR]
+   </tr>
+   <tr><td></td><td colspan="[footspan]"><input type="image" src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;"></input></td></tr>
+  </tfoot>
+</table>
+
+</fieldset>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.31 2003/04/16 12:15:58 eric Exp $
+// $Id: modcard.php,v 1.32 2003/04/25 14:51:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -98,6 +98,9 @@ function modcard(&$action, &$ndocid) {
 	  
 	  $attrid = substr($k,1);
 	  if (is_array($v)) {
+	    if (isset($v["-1"])) {
+	      unset($v["-1"]);	     
+	    }
 	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
 	  }
 	  else $value = stripslashes($v);
@@ -117,15 +120,16 @@ function modcard(&$action, &$ndocid) {
 	  $k=substr($k,1);
 
 	      
-	    $filename=insert_file($dbaccess,$doc->id,$k);
+	  $filename=insert_file($dbaccess,$doc->id,$k);
 	
 	      
 	      
 	  if ($filename != "")
 	    {
+	      if (substr($k,0,4) == "UPL_") $k=substr($k,4);
+
 	      $doc->SetValue($k, $filename);
 		  
-	      $action->register("reload$docid","Y"); // to reload cached client file
 	    	  
 	    }
 	}
@@ -186,53 +190,88 @@ function insert_file($dbaccess,$docid, $attrid)
   
   global $upload_max_filesize;
   
-  $userfile = $HTTP_POST_FILES["_".$attrid];
-  
+  $postfiles = $HTTP_POST_FILES["_".$attrid];
 
-  if (($userfile['tmp_name'] == "none") || ($userfile['tmp_name'] == ""))
-    {
-      // if no file specified, keep current file
-	
-      if ($userfile['name'] != "") {
-	$err = sprintf(_("Filename '%s' cannot be transmitted.\nThe Size Limit is %d bytes."), $userfile['name'],ini_get('upload_max_filesize'));
-	$action->ExitError($err);
-      }
-      return "";
+
+  $toldfile=array();
+
+  if (is_array($postfiles['tmp_name'])) {// array of file
+    $tuserfiles=array();
+    while(list($kp,$v) = each($postfiles) )  {
+      while(list($k,$ufv) = each($v) )  {
+	if ($k >= 0)	$tuserfiles[$k][$kp]=$ufv;
+      }      
     }
+    
+
   
 
-  ereg ("(.*)\.(.*)$", $userfile['name'], $reg);
-  
-  // print_r($userfile);
-  $ext=$reg[2];
-  
-  
-  
-  
-  if (is_uploaded_file($userfile['tmp_name'])) {
-    // move to add extension
-      $doc= new Doc($dbaccess,$docid);
-    $attr= $doc->GetAttribute( $attrid);
-    //$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
-    
-    $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
-    $destfile=str_replace("'","",$destfile);
-    $destfile=str_replace("\"","",$destfile);
-
-    move_uploaded_file($userfile['tmp_name'], $destfile);
-    if (isset($vf)) unset($vf);
-    $vf = new VaultFile($dbaccess, "FREEDOM");
-    $vf -> Store($destfile, false , $vid);
-    
-    unlink($destfile);
-  } else {
-    $err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
-    $action->ExitError($err);
+  } else { // only one file
+    $tuserfiles=$postfiles;
   }
+
+  $rt=array(); // array of file to be returned
+  
+  while(list($k,$userfile) = each($tuserfiles) )    {
+    $rt[$k]="";
+    if (($userfile['tmp_name'] == "none") || ($userfile['tmp_name'] == ""))
+      {
+	// if no file specified, keep current file
+	
+	if ($userfile['name'] != "") {
+	  $err = sprintf(_("Filename '%s' cannot be transmitted.\nThe Size Limit is %d bytes."), $userfile['name'],ini_get('upload_max_filesize'));
+	  $action->ExitError($err);
+	}
+	// reuse old value
+	
+	if (substr($attrid,0,3) == "UPL") {
+	  $oldfile = getHttpVars(substr($attrid,3));
+	 
+
+	  if (isset($oldfile[$k])) $rt[$k]=$oldfile[$k];
+
+	}
+	
+	continue;
+      }
+  
+
+    ereg ("(.*)\.(.*)$", $userfile['name'], $reg);
+  
+    // print_r($userfile);
+    $ext=$reg[2];
   
   
+  
+  
+    if (is_uploaded_file($userfile['tmp_name'])) {
+      // move to add extension
+      //$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
+    
+      $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
+      $destfile=str_replace("'","",$destfile);
+      $destfile=str_replace("\"","",$destfile);
+
+      move_uploaded_file($userfile['tmp_name'], $destfile);
+      if (isset($vf)) unset($vf);
+      $vf = new VaultFile($dbaccess, "FREEDOM");
+      $vf -> Store($destfile, false , $vid);
+    
+      unlink($destfile);
+    } else {
+      $err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
+      $action->ExitError($err);
+    }
+
+
+    $rt[$k]=$userfile['type']."|".$vid; // return file type and upload file name
+    
+  
+  }
+
+
   // return file type and upload file name
-    return $userfile['type']."|".$vid;
+  return implode("\n",$rt);
   
 }
 ?>

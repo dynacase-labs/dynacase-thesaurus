@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.116 2003/04/23 10:00:48 eric Exp $
+// $Id: Class.Doc.php,v 1.117 2003/04/25 14:51:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.116 2003/04/23 10:00:48 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.117 2003/04/25 14:51:32 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -709,14 +709,8 @@ create unique index i_docir on doc(initid, revision);";
   // the attribute can be defined in fathers
   function GetNormalAttributes()
     {      
-      $tsa=array();
-      if (isset($this->attributes->attr)) {
-	reset($this->attributes->attr);
-	while (list($k,$v) = each($this->attributes->attr)) {
-	  if (get_class($v) == "normalattribute")  $tsa[$v->id]=$v;
-	}
-      }
-      return $tsa;      
+      
+      return $this->attributes->GetNormalAttributes();      
     } 
 
   function GetFieldAttributes()
@@ -876,7 +870,7 @@ create unique index i_docir on doc(initid, revision);";
       }
     }
 
-    if (chop($title1) != "")  $this->title = chop($title1);
+    if (chop($title1) != "")  $this->title = chop(str_replace("\n"," ",$title1));
 
   }
  
@@ -900,7 +894,7 @@ create unique index i_docir on doc(initid, revision);";
     $otitle = current($ltitle);
     $idt=$otitle->id;
 
-    $this->title=$title;
+    $this->title=str_replace("\n"," ",$title);
     $this->setvalue($idt,$title);
 
 
@@ -1325,7 +1319,7 @@ create unique index i_docir on doc(initid, revision);";
   
   
   
-  function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true) {
+  function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true, $index=-1) {
     global $action;
     
     
@@ -1342,15 +1336,20 @@ create unique index i_docir on doc(initid, revision);";
 	
       case "image": 
 	if ($target=="mail") $htmlval="cid:".$oattr->id;
-	else
-	  $htmlval=$action->GetParam("CORE_BASEURL").
-	    "app=FDL"."&action=EXPORTFILE&docid=".$this->id."&attrid=".$oattr->id; // upload name
-	      
+	else {
+	$vid="";
+	if (ereg ("(.*)\|(.*)", $value, $reg)) $vid=$reg[2];
+	
+	$htmlval=$action->GetParam("CORE_BASEURL").
+	    "app=FDL"."&action=EXPORTFILE&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$index"; // upload name
+	}
 	      
 	break;
       case "file": 
+	$vid="";
 	if (ereg ("(.*)\|(.*)", $value, $reg)) {
 	  // reg[1] is mime type
+	  $vid=$reg[2];
 	  $vf = new VaultFile($this->dbaccess, "FREEDOM");
 	  if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
 	  else $fname=_("vault file error");
@@ -1365,7 +1364,7 @@ create unique index i_docir on doc(initid, revision);";
 	} else 
 	  $htmlval="<A onclick=\"document.noselect=true;\" target=\"_blank\" href=\"".
 	    $action->GetParam("CORE_BASEURL").
-	    "app=FDL"."&action=EXPORTFILE&docid=".$this->id."&attrid=".$oattr->id
+	    "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
 	    ."\">".$fname.
 	    "</A>";
 	
@@ -1419,7 +1418,42 @@ create unique index i_docir on doc(initid, revision);";
 	if (isset($oattr->enumlabel[$value]))  $htmlval=$oattr->enumlabel[$value];
 	else $htmlval=$value;
 	
-	break;
+	break;    
+      case "array": 
+
+      $lay = new Layout("FDL/Layout/viewarray.xml", $action);
+      $ta = $this->attributes->getArrayElements($oattr->id);
+      $talabel=array();
+      $tvattr = array();
+      $lay->set("caption",$oattr->labelText);
+
+
+      while (list($k, $v) = each($ta)) {
+	if ($v->visibility=="H") continue;
+	$talabel[] = array("alabel"=>$v->labelText);	
+	$tval[$k]=explode("\n",$this->getValue($k));
+      }
+      $lay->setBlockData("TATTR",$talabel);
+
+      reset($tval);
+      $nbitem= count(current($tval));
+      $tvattr = array();
+      for ($k=0;$k<$nbitem;$k++) {
+	$tvattr[]=array("bevalue" => "bevalue_$k");
+	reset($ta);
+	$tivalue=array();
+	while (list($ka, $va) = each($ta)) {	  
+	  if ($va->visibility=="H") continue;
+	  $hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
+	  if ($va->type=="image") $hval="<img src=\"".$hval."\">";
+	  $tivalue[]=array("evalue"=>$hval);
+	}
+	$lay->setBlockData("bevalue_$k",$tivalue);
+      }
+      $lay->setBlockData("EATTR",$tvattr);
+      
+      $htmlval =$lay->gen(); 
+      break;
       default : 
 	if ($aformat != "") {
 	  $htmlval=(stripslashes(sprintf($aformat,$value)));
@@ -1433,7 +1467,8 @@ create unique index i_docir on doc(initid, revision);";
     
     // add link if needed
     if ($htmllink && ($oattr->link != "") && 
-	($ulink = $this->urlWhatEncode( $oattr->link))) {
+	($ulink = $this->urlWhatEncode( $oattr->link, $index))) {
+
       if ($target == "mail") {
 	$abegin="<A target=\"$target\"  href=\"";
 	$abegin.= $action->GetParam("CORE_PUBURL")."/".$ulink;
@@ -1636,10 +1671,11 @@ create unique index i_docir on doc(initid, revision);";
       // Set the table value elements
       if ($iattr <= $nattr)	{
       
-	if (($value != "") && ($listattr[$i]->mvisibility != "H"))   {
+	if ((($value != "") || ( $listattr[$i]->type=="array")) && 
+	    ($listattr[$i]->mvisibility != "H") && (! $listattr[$i]->inArray()))   {
 		
 	  $currentFrameId = $listattr[$i]->fieldSet->id;
-
+	  $tableframe[$v]["wvalue"]="50%"; // width
 	  // print values
 	  switch ($listattr[$i]->type)
 	    {
@@ -1655,6 +1691,8 @@ create unique index i_docir on doc(initid, revision);";
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
 	    
 	      break;
+	    case "array": 
+	      $tableframe[$v]["wvalue"]="100%"; // width
 		
 	    default : 
 	      $tableframe[$v]["value"]=$this->GetHtmlValue($listattr[$i],$value,$target,$ulink);
@@ -1667,6 +1705,8 @@ create unique index i_docir on doc(initid, revision);";
 	  // print name except image (printed otherthere)
 	  if ($listattr[$i]->type != "image") {
 	    $tableframe[$v]["name"]=$this->GetLabel($listattr[$i]->id);
+	    if ( $listattr[$i]->type != "array") $tableframe[$v]["ndisplay"]="";
+	    else $tableframe[$v]["ndisplay"]="none";
 	    $v++;
 	  } else	{
 	    $tableimage[$nbimg]["imgalt"]=$this->GetLabel($listattr[$i]->id);
@@ -1909,6 +1949,7 @@ create unique index i_docir on doc(initid, revision);";
     reset($listattr);
     while (list($i,$attr) = each($listattr)) {
       if ((get_class($attr) != "normalattribute")) continue;
+      if ($attr->inArray()) continue;
       $iattr++;
     
       // Compute value elements
@@ -1916,7 +1957,7 @@ create unique index i_docir on doc(initid, revision);";
 	
       if ($docid > 0) $value = $this->GetValue($listattr[$i]->id);
       else {
-$value = $this->GetValue($listattr[$i]->id);
+	$value = $this->GetValue($listattr[$i]->id);
 //	$value = $this->GetValueMethod($this->GetValue($listattr[$i]->id));
       }
 	    	    
@@ -1969,7 +2010,8 @@ $value = $this->GetValue($listattr[$i]->id);
 	$label = $listattr[$i]->labelText;
 	$tableframe[$v]["attrid"]=$listattr[$i]->id;
 	$tableframe[$v]["name"]=chop("[TEXT:".$label."]");
-
+	$tableframe[$v]["winput"]=($listattr[$i]->type=="array")?"100%":"65%";  // width
+	$tableframe[$v]["ndisplay"]=($listattr[$i]->type=="array")?"none":"";  // display label
 	if ($listattr[$i]->needed ) $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
 	else $tableframe[$v]["labelclass"]="FREEDOMLabel";
 

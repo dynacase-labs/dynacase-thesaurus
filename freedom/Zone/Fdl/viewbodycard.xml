@@ -12,15 +12,15 @@
 
 <tr class="FREEDOMBack1">
 
-  <td  width="10%" rowspan="[rowspan]" align="center">[BLOCK [IMAGES]]<A href="[imgsrc]" target="_blank"><IMG border="0" title="[imgalt]" alt="[imgalt]" align="absbottom" width="50" SRC="[imgsrc]"></A><br>[ENDBLOCK [IMAGES]]</td>
+  <td  width="0%" rowspan="[rowspan]" align="center" >[BLOCK [IMAGES]]<A href="[imgsrc]" target="_blank"><IMG border="0" title="[imgalt]" alt="[imgalt]" align="absbottom" width="50" SRC="[imgsrc]"></A><br>[ENDBLOCK [IMAGES]]</td>
   <td   colspan="2" height="1px"></td>
 
 </tr>
 [BLOCK [TABLEVALUE]]
 
 <tr class="FREEDOMBack1">
-  <td valign="top" width="40%" class="FREEDOMlabel" >[name]&nbsp;:&nbsp;</td>
-  <td valign="bottom" width="50%" class="FREEDOMText" >[value]</td>
+  <td valign="top"  class="FREEDOMlabel" ><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
+  <td valign="bottom" width="[wvalue]" class="FREEDOMText" >[value]</td>
 </tr>
 
 [ENDBLOCK [TABLEVALUE]]

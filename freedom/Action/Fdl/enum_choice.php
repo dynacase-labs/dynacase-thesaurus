@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.12 2003/01/08 09:08:21 eric Exp $
+// $Id: enum_choice.php,v 1.13 2003/04/25 14:51:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,6 +35,7 @@ function enum_choice(&$action) {
   $attrid = GetHttpVars("attrid",0); // attribute need to enum
   $sorm = GetHttpVars("sorm","single"); // single or multiple
   $wname = GetHttpVars("wname",""); // single or multiple
+  $index = GetHttpVars("index",""); // index of the attributes for arrays
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
@@ -59,10 +60,6 @@ function enum_choice(&$action) {
 
 
   $rargids = split(",",$reg[3]); // return args
-  
-  $sattrid="[";
-  $sattrid.= strtolower("'".implode("','", $rargids)."'");
-  $sattrid.="]";
 
   // change parameters familly
   $iarg =  preg_replace(
@@ -76,7 +73,16 @@ function enum_choice(&$action) {
     if ($v == "A") $arg[$k]= &$action;
     else if ($v == "D") $arg[$k]= $dbaccess;
     else if ($v == "T") $arg[$k]= &$this;
-    else $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
+    else if ($index === "") $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
+    else {
+      $a = $doc->GetAttribute($v);
+    
+      if ($a && $a->inArray()) { // search with index
+	$ta = GetHttpVars("_".strtolower($v),$v);
+     
+	$arg[$k]=trim($ta[$index]);
+      } else $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
+    }
   }
 
 
@@ -118,6 +124,14 @@ function enum_choice(&$action) {
     $action->lay->SetBlockData("SELECTMULTIPLE", array(array("zou")));
     $action->lay->Set("nselect", (count($tselect)>7)?7:count($tselect));
   }
+  
+  // add  index for return args
+  while (list($k, $v) = each($rargids)) {
+    $rargids[$k].=$index;
+  }
+  $sattrid="[";
+  $sattrid.= strtolower("'".implode("','", $rargids)."'");
+  $sattrid.="]";
   $action->lay->Set("attrid", $sattrid);
   $action->lay->SetBlockData("SELECT", $tselect);
   $action->lay->SetBlockData("ATTRVAL", $tval);

@@ -6,9 +6,9 @@
  <fieldset style="cursor:[cursor];"><legend>[flabel]</legend>
 <table width="100%" >
 [BLOCK FVALUES]
-<tr class="FREEDOMBack1">
-  <td valign="top" width="40%" class="FREEDOMlabel" >[alabel]&nbsp;:&nbsp;</td>
-  <td valign="top" width="50%" class="FREEDOMText">[avalue]</td>
+<tr class="FREEDOMBack1"><td valign="top" width="10%"&nbsp;</td>
+  <td valign="top"  class="FREEDOMlabel"><span style="display:[ndisplay]">[alabel]&nbsp;:&nbsp;</span></td>
+  <td valign="top" width="[wvalue]" class="FREEDOMText">[avalue]</td>
 </tr>
 [ENDBLOCK FVALUES]
 </table>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfile.php,v 1.6 2002/11/25 16:23:02 eric Exp $
+// $Id: exportfile.php,v 1.7 2003/04/25 14:51:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,6 +35,7 @@ function exportfile(&$action)
   $docid = GetHttpVars("docid",0);
   $attrid = GetHttpVars("attrid",0);
   $vaultid = GetHttpVars("vaultid",0);
+  $index = GetHttpVars("index");
 
   $isControled=false;
 
@@ -48,6 +49,10 @@ function exportfile(&$action)
     $isControled=true;;
     $ovalue = $doc->getValue($attrid);
 
+    if (($index !== "") && ($index >= 0)) {
+      $tvalue = explode("\n",$ovalue);
+      $ovalue= $tvalue[$index];
+    }
     
     if ($ovalue == "") $action->exiterror(_("no file referenced"));
     

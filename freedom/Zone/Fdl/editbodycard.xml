@@ -7,7 +7,7 @@
 
 
 <tr  >
-  <td  colspan="3"  >
+  <td    >
 <input type="hidden" name="title" value="[TITLE]"></input>
 
 <fieldset><legend>[frametext]</legend>
@@ -16,10 +16,8 @@
             [BLOCK [TABLEVALUE]]
 
 <tr >
-
-  <td  width="10%">&nbsp;</td>
-  <td  width="25%"><span class="[labelclass]">[name]&nbsp;:&nbsp;</span></td>
-  <td  width="65%">[inputtype]</td>
+  <td class="[labelclass]" ><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
+  <td  width="[winput]">[inputtype]</td>
 </tr>
            [ENDBLOCK [TABLEVALUE]]
 </table>

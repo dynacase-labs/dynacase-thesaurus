@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.7 2003/03/28 17:52:38 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.8 2003/04/25 14:51:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.7 2003/03/28 17:52:38 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.8 2003/04/25 14:51:32 eric Exp $';
 
 
 
@@ -39,6 +39,15 @@ Class BasicAttribute {
     $this->docid=$docid;
     $this->labelText=$label;
   }
+
+  
+   // to see if an attribute is n item of an array
+   function inArray() {
+     if (get_class($this) == "normalattribute") {
+       if ($this->fieldSet->type=="array") return true;
+     }
+     return false;
+   }
 }
 
 Class NormalAttribute extends BasicAttribute {

@@ -3,17 +3,21 @@ var isNetscape = navigator.appName=="Netscape";
 // auxilarry window to select choice
 var wichoose= false;
 
-function sendmodifydoc(event,docid, attrid, sorm) {
+initDHTMLAPI();
 
+function sendmodifydoc(event,docid, attrid, sorm, index) {
+
+  if (! index) index='';
 
   f =document.modifydoc;
   // modify to initial action
   oldact = f.action;
   oldtar = f.target;
-  f.action = '[CORE_STANDURL]&app=FDL&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&wname='+window.name;
+  f.action = '[CORE_STANDURL]&app=FDL&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&index='+index+'&wname='+window.name;
 
   
-  
+  if (index) attrid+=index;
+
   var xy= getAnchorWindowPosition(attrid);
 
   if (isNaN(window.screenX)){
@@ -51,18 +55,23 @@ function enableall() {
 
 function resizeInputFields() {
 
-  newsize = getFrameWidth() / 17;
+
+  var w, newsize;
 
   with (document.getElementById('fedit')) {
        for (i=0; i< length; i++) { 
          if (elements[i].className == 'autoresize') {
-	   if (elements[i].type == 'text')
-             elements[i].size=newsize;
-	   if (elements[i].type == 'textarea')
-             elements[i].cols=newsize;
-         }
-     }
-   }
+	   w=getObjectWidth(elements[i].parentNode);
+	   if (w > 45) {
+	     newsize = (w - 45) / 9;
+	     if (elements[i].type == 'text')
+	       elements[i].size=newsize;
+	     if (elements[i].type == 'textarea')
+	       elements[i].cols=newsize;
+	   }
+	 }
+       }
+  }
 }
 
 // close auxillary window if open
@@ -73,15 +82,22 @@ function closechoose() {
 
 function canmodify() {
     var attrNid=[attrnid];
-    
+    var err='';
 
     for (var i=0; i< attrNid.length; i++) {	
 	if (document.getElementById(attrNid[i])) {
 	  if (document.getElementById(attrNid[i]).value == '') {
-	    alert('[TEXT:some needed attributes are empty]');
-	    return false;
+	    ta = document.getElementsByName('_'+attrNid[i]+'[]');
+	    if (ta.length == 0)	err += attrNid[i]+'\n';
+	    for (var j=0; j< ta.length; j++) {
+	      if (ta[j].value == '') err += attrNid[i]+'/'+(j+1)+'\n';
+	    }
 	  }
         }
+    }
+    if (err != '') {
+	    alert(err+'[TEXT:some needed attributes are empty]');
+	    return false;
     }
     return true;
 }
@@ -123,11 +139,13 @@ function editOnLoad() {
 }
 
 
-function clearInputs(tinput) {
+function clearInputs(tinput, idx) {
+  var iinput;
   for (var i=0; i< tinput.length; i++) {
-    if (document.getElementById(tinput[i])) {
-      document.getElementById(tinput[i]).value=' ';
-      document.getElementById(tinput[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
+    iinput=tinput[i]+idx;
+    if (document.getElementById(iinput)) {
+      document.getElementById(iinput).value=' ';
+      document.getElementById(iinput).style.backgroundColor='[CORE_BGCOLORHIGH]';
     }    
   }
   disableReadAttribute();
@@ -182,4 +200,139 @@ function addinlist(sel,value) {
   if (isNetscape) pos=null;
   else pos=sel.options.length+1;
   sel.add(new Option(value, value, false, true),pos);
+}
+
+// replace s1 by s2 in node n
+function  nodereplacestr(n,s1,s2) {
+  
+  var kids=n.childNodes;
+  var ka;
+  var avalue;
+  var rs1;
+  var attnames = new Array('onclick','href','onmousedown','id','name');
+  // for regexp
+    rs1 = s1.replace('[','\\[');
+  rs1 = rs1.replace(']','\\]');
+  
+  for (var i=0; i< kids.length; i++) {     
+    if (kids[i].nodeType==3) { 
+      // Node.TEXT_NODE
+	
+	if (kids[i].data.search(rs1) != -1) {
+	  kids[i].data = kids[i].data.replace(s1,s2);
+	}
+    } else if (kids[i].nodeType==1) { 
+      // Node.ELEMENT_NODE
+	
+	// replace  attributes defined in attnames array
+	  for (iatt in attnames) {
+	    
+	    attr = kids[i].getAttributeNode(attnames[iatt]);
+	    if ((attr != null) && (attr.value != null) && (attr.value != 'null'))  {
+	      
+	      
+	      if (attr.value.search(rs1) != -1) {
+		
+		avalue=attr.value.replace(s1,s2);
+
+		if ((!isNetscape) && ((attr.name == 'onclick') || (attr.name == 'onmousedown'))) kids[i][attr.name]=new Function(avalue); // special for IE5.5+
+		else 
+		  attr.value=avalue;
+	      }
+	    }
+	  }
+      nodereplacestr(kids[i],s1,s2);
+    } 
+  }
+}
+ 
+function addtr(trid, tbodyid) {
+  
+  var ntr;
+  with (document.getElementById(trid)) {
+    // need to change display before because IE doesn't want after clonage
+    style.display='';
+
+    ntr = cloneNode(true);
+    style.display='none';
+  }
+  
+  ntr.id = '';
+  ntable = document.getElementById(tbodyid);
+  ntable.appendChild(ntr);
+
+  nodereplacestr(ntr,'-1',ntable.childNodes.length);
+  resizeInputFields(); // need to revaluate input width
+}
+
+// use to delete an article
+function deltr(tr) {
+
+
+  tr.parentNode.removeChild(tr);
+  
+  return;
+  
+}
+
+function resetInputsByName(name) {
+  if (! isNetscape) return;
+  var la=document.getElementsByName(name);
+  if (la) {
+    for (var i=0; i< la.length; i++) { 
+	    la[i].parentNode.insertBefore(la[i],la[i].nextSibling);      
+	  }
+  }
+}
+
+function resetTrInputs(tr) {
+  if (! isNetscape) return;
+  var tin = tr.getElementsByTagName('input');
+  
+  for (var i=0; i< tin.length; i++) { 
+
+    if (tin[i].name) resetInputsByName(tin[i].name);
+  }
+
+}
+// up tr order 
+function uptr(trnode) {
+
+  var pnode = trnode.previousSibling;
+  var textnode=false;
+
+  while (pnode && (pnode.nodeType != 1)) pnode = pnode.previousSibling; // case TEXT attribute in mozilla between TR ??
+
+  if (pnode)  {
+    trnode.parentNode.insertBefore(trnode,pnode);
+    
+  }  else {
+    trnode.parentNode.appendChild(trnode); // latest (cyclic)
+  }
+  resetTrInputs(trnode);
+  return;  
+}
+
+// down tr order 
+function downtr(trnode) {
+
+  var nnode = trnode.nextSibling;
+
+  while (nnode && (nnode.nodeType != 1)) nnode = nnode.nextSibling; // case TEXT attribute in mozilla between TR ??
+
+  if (nnode ) {
+      nnnode = nnode.nextSibling; 
+      while (nnnode && (nnnode.nodeType != 1)) nnnode = nnnode.nextSibling; // case TEXT attribute in mozilla between TR ??
+
+      if (nnnode) 
+         trnode.parentNode.insertBefore(trnode,nnnode);
+      else 
+         trnode.parentNode.appendChild(trnode); // latest
+  } else {
+      trnode.parentNode.insertBefore(trnode,trnode.parentNode.firstChild); // latest (cyclic)
+  }
+
+
+  resetTrInputs(trnode);
+  return;  
 }
