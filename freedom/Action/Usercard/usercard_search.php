@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_search.php,v 1.1 2002/02/18 13:37:21 eric Exp $
+// $Id: usercard_search.php,v 1.2 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,8 +25,6 @@
 
 include_once("FDL/Class.DocSearch.php");
 include_once("FDL/Class.DocUser.php");
-include_once("FDL/Class.QueryDir.php");
-include_once("FDL/Class.QueryDirV.php");
 include_once("FDL/freedom_util.php");  
 
 
@@ -54,7 +52,7 @@ function usercard_search(&$action) {
   
 
   $query = "select distinct docid as id from docvalue, doc where (value ~* '.*$keyword.*') ".
-     "and doc.id in (select childid from dirv where dirid=$dirid) ".
+     "and doc.id in (select childid from fld where dirid=$dirid) ".
      "and (doc.id = docvalue.docid) ".
      "and (doc.locked != -1)".
      "and (not useforprof)".

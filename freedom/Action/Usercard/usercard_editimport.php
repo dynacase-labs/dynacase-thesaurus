@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_editimport.php,v 1.1 2002/02/18 13:37:21 eric Exp $
+// $Id: usercard_editimport.php,v 1.2 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_editimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,20 +25,18 @@
 
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.DocUser.php");
-include_once("FDL/Class.QueryDirV.php");
 
 // -----------------------------------
 function usercard_editimport(&$action) {
   // -----------------------------------
 
-  global $oqdv;
+  global $dbaccess;
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $homefld = new Dir( $dbaccess, TOP_USERDIR);
 
   
 
-    $oqdv = new QueryDirV($dbaccess);
 
   $stree=getChildCatg($homefld, 1);
 
@@ -54,11 +52,11 @@ function usercard_editimport(&$action) {
 // -----------------------------------
 function getChildCatg($doc, $level) {
   // -----------------------------------
-  global $oqdv;
+  global $dbaccess;
 
   $ltree=array();
 
-    $ldir = $oqdv->getChildDir($doc->id, true);
+    $ldir = getChildDir($dbaccess,$doc->id, true);
   
 
     if (count($ldir) > 0 ) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_editchangecatg.php,v 1.1 2002/02/18 13:37:21 eric Exp $
+// $Id: usercard_editchangecatg.php,v 1.2 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_editchangecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,22 +25,21 @@
 
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.DocUser.php");
-include_once("FDL/Class.QueryDirV.php");
 
 // -----------------------------------
 function usercard_editchangecatg(&$action) {
   // -----------------------------------
   global $docid;
+  global $dbaccess;
 
   $docid=GetHttpVars("id"); // the user to change catg
 
-  global $oqdv;
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $homefld = new Dir( $dbaccess, TOP_USERDIR);
 
   
-  $oqdv = new QueryDirV($dbaccess);
+
 
 
   $stree=getChildCatg($homefld, 1);
@@ -58,19 +57,19 @@ function usercard_editchangecatg(&$action) {
 // -----------------------------------
 function getChildCatg($doc, $level) {
   // -----------------------------------
-  global $oqdv;
+  global $dbaccess;
   global $docid;
   
 
   $ltree=array();
 
-    $ldir = $oqdv->getChildDir($doc->id, true);
+    $ldir = getChildDir($dbaccess, $doc->id, true);
   
 
     if (count($ldir) > 0 ) {
      
       while (list($k,$v) = each($ldir)) {
-	if ($oqdv->isInDir($v->id, $docid)) $checked="checked";
+	if (isInDir($dbaccess, $v->id, $docid)) $checked="checked";
 	else  $checked="";
 	$ltree[] = array("level"=>$level*20,
 			 "id"=>$v->id,

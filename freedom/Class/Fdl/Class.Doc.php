@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.4 2002/02/18 10:53:59 eric Exp $
+// $Id: Class.Doc.php,v 1.5 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.4 2002/02/18 10:53:59 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.5 2002/02/22 15:34:54 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -109,8 +109,7 @@ create sequence seq_id_doc start 1000";
 
     include_once("FDL/Class.QueryDir.php");
     $oqdv = new QueryDir($this->dbaccess,"2"); // just to create table if needed
-    include_once("FDL/Class.QueryDirV.php");
-    $oqdv = new QueryDirV($this->dbaccess,array("2","0"));// just to create table if needed
+
 
     
     
@@ -598,13 +597,13 @@ create sequence seq_id_doc start 1000";
   function RefreshTitle() {
     $ltitle = $this->GetTitleAttributes();
 
-    $this->title = "";
+    $title1 = "";
     while(list($k,$v) = each($ltitle)) {
       if ($this->GetValue($v->id) != "") {
-	$this->title.= $this->GetValue($v->id)." ";
+	$title1.= $this->GetValue($v->id)." ";
       }
     }
-    $this->title = chop($this->title);
+    if (chop($title1) != "")  $this->title = chop($title1);
 
   }
   // return all the values

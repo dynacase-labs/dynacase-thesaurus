@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_barmenu.php,v 1.1 2002/02/18 13:37:21 eric Exp $
+// $Id: usercard_barmenu.php,v 1.2 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,6 +26,8 @@
 // -----------------------------------
 function usercard_barmenu(&$action) {
   // -----------------------------------
+  global $dbaccess; // use in getChildCatg function
+
   $dirid=GetHttpVars("dirid", TOP_USERDIR); // folder where search
 
   include_once("FDL/popup_util.php");
@@ -51,9 +53,8 @@ function usercard_barmenu(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $homefld = new Dir( $dbaccess, TOP_USERDIR);
 
-  global $oqdv; // use in getChildCatg function
-  $oqdv = new QueryDirV($dbaccess);
-  $stree=getChildCatg($homefld, 1);
+
+  $stree=getChildCatg( $homefld, 1);
 
   reset($stree);
   
@@ -79,11 +80,12 @@ function usercard_barmenu(&$action) {
 // -----------------------------------
 function getChildCatg($doc, $level) {
   // -----------------------------------
-  global $oqdv;
+  global $dbaccess;
 
   $ltree=array();
 
-    $ldir = $oqdv->getChildDir($doc->id, true);
+
+    $ldir = getChildDir($dbaccess, $doc->id, true);
   
 
     if (count($ldir) > 0 ) {

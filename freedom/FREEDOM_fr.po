@@ -45,7 +45,7 @@ msgstr "%s : toutes catégories"
 
 #, c-format
 msgid	"%s : %s category "
-msgstr	"%s : %s catégorie"
+msgstr "%s : catégorie %s"
 
 msgid	"no vcard file specified"
 msgstr	"pas de fichier vcard spécifié"
@@ -506,13 +506,12 @@ msgstr	"le document %d n'existe plus dans le dossier %d.\n"
 msgid	"cannot delete link for doc %d in directory %d : the document comes "
 	"from a user query. Delete initial query if you want delete this "
 	"document"
-msgstr	"le lien pour le document %d dans le dossier %d ne peur être "
-	"détruit :\n"
-	"le document provient d'une recheche utilisateur. Supprimer la "
-	"requête initiale si vous voulez delié le document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peur être détruit :\\n\n"
+"le document provient d'une recherche utilisateur. Supprimer la requête initiale si vous voulez delier le document"
 
 msgid	"untitle document"
-msgstr	"document sans titre"
+msgstr "document sans titre"
 
 #, c-format
 msgid	"the file %s (rev %d) must be locked before"

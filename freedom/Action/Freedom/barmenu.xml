@@ -65,7 +65,6 @@
   
 <a  id="vlist" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_LIST&dirid='+parent.list.document.dirid;closeAllMenu()">[TEXT:list]</a>
 <a  id="vicon" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ICONS&dirid='+parent.list.document.dirid;closeAllMenu()">[TEXT:icon]</a>
-<a  id="refresh" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=FREEDOM&action=REFRESHDIR&dirid='+parent.list.document.dirid;closeAllMenu()">[TEXT:refresh]</a>
 </div>
 
 <!-- ------------ MENU HELP --------------------- -->

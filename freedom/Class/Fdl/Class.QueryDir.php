@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.3 2002/02/18 10:53:59 eric Exp $
+// $Id: Class.QueryDir.php,v 1.4 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,67 +21,35 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.QueryDir.php,v $
-// Revision 1.3  2002/02/18 10:53:59  eric
-// correction chg id_fieds de QueryDirV pour cause cache
-//
-// Revision 1.2  2002/02/14 18:11:42  eric
-// ajout onglet et autres...
-//
-// Revision 1.1  2002/02/13 14:31:58  eric
-// ajout usercard application
-//
-// Revision 1.7  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.6  2001/11/26 18:01:02  eric
-// new popup & no lock for no revisable document
-//
-// Revision 1.5  2001/11/22 17:49:13  eric
-// search doc
-//
-// Revision 1.4  2001/11/21 17:03:54  eric
-// modif pour création nouvelle famille
-//
-// Revision 1.3  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-//
-// ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.3 2002/02/18 10:53:59 eric Exp $';
+
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.4 2002/02/22 15:34:54 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
-include_once("FDL/Class.QueryDirV.php");
 
   
 Class QueryDir extends DbObj
 {
-  var $fields = array ( "id","dirid","query","qtype");
+  var $fields = array ( "id","dirid","query","childid","qtype");
 
   var $id_fields = array ("id");
 
-  var $dbtable = "dirq";
+  var $dbtable = "fld";
 
   var $order_by="dirid";
 
   var $fulltextfields = array ("");
 
   var $sqlcreate = "
-create table dirq ( id      int not null,
+create table fld ( id      int not null,
                     dirid   int not null,
                     query   varchar(1024),
+                    childid   int,
                     qtype   varchar(1)
                    );
-create sequence seq_id_qdoc start 10";
+create sequence seq_id_fld start 100";
 
 
   // --------------------------------------------------------------------
@@ -91,119 +59,19 @@ create sequence seq_id_qdoc start 10";
       // test if not already exist 
       $query = new QueryDb($this->dbaccess,"QueryDir");
       $query->AddQuery("dirid=".$this->dirid);
-      $query->AddQuery("query='".$this->query."'");
+      $query->AddQuery("childid='".$this->childid."'");
       $query->Query(0,0,"TABLE");
       if ($query->nb != 0) return _("already exist : not added");
 	// compute new id
 	if ($this->id == "") {
-	  $res = pg_exec($this->dbid, "select nextval ('seq_id_qdoc')");
+	  $res = pg_exec($this->dbid, "select nextval ('seq_id_fld')");
 	  $arr = pg_fetch_array ($res, 0);
 	  $this->id = $arr[0];
 	  
 	}
     }
  
-  // --------------------------------------------------------------------
-  function PostInsert()
-    // --------------------------------------------------------------------    
-    {
-      // update pre-calculate value 
-      $tableid = array();
-      $query = new QueryDb($this->dbaccess,"QueryDir");
-      
-      $tableq=$query->Query(0,0,"TABLE",$this->query);
-      if ($query->nb > 0)
-      {
-	$oqdv = new QueryDirV($this->dbaccess);
-	$dir = new Doc($this->dbaccess,$this->dirid);
-	$oqdv->dirid = $dir->initid;
-	
-
-
-	while(list($k,$v) = each($tableq)) 
-	  {
-	    $oqdv->childid = $v["id"];
-	    $oqdv->qid = $this->id;
-	    $err = "";
-	    if ($dir->doctype == 'D') $err = $oqdv->ItSelfAncestor($dir->initid);
-	    $this->log->Debug("oqdv try add ".$v["id"].$dir->doctype.$err);
-	    if ($err == "") $err = $oqdv->Add();
-	    if ($err != "") return $err;
-	  }
-      }
-
-    }
-
-
-  // --------------------------------------------------------------------
-  function RefreshDir($dirid)
-    // --------------------------------------------------------------------    
-    {
-      // refresh values of QueryDirV table
-      $dir = new Doc($this->dbaccess,$dirid);// use initial id for directories
-      $oqdv = new QueryDirV($this->dbaccess);
-      $oqdv-> DeleteDirV($dir->initid);
-
-
-      $this->ClearCache(true); // clear cache to not have the same result
-      $querydir = new QueryDb($this->dbaccess,"QueryDir");
-      $querydir->AddQuery("dirid=$dirid");
-      $lqd=$querydir->Query();
-      
-
-      $query = new QueryDb($this->dbaccess,"QueryDir");
-      $oqdv = new QueryDirV($this->dbaccess);
-
-      if (is_array($lqd)) {
-	      $lid = array();
-	while(list($k,$dq) = each($lqd)) {
-
-	  $tableq=$query->Query(0,0,"TABLE",$dq->query);
-	  if ($query->nb > 0) {
-
-	      $oqdv->dirid = $dir->initid;
-	      while(list($k,$v) = each($tableq))  {	
-		if (! in_array($v["id"], $lid)) {
-		  // insert only different doc
-		  $oqdv->childid = $v["id"];
-		  $oqdv->qid = $dq->id;
-		  $oqdv->Add();
-		  $lid[] = $v["id"];
-
-		}
-	      }
-	  
-	    }
-	}
-
-      }
-    }
-  
-
-
-  // --------------------------------------------------------------------
-  function DeleteDir($dirid)
-    // --------------------------------------------------------------------    
-    {
-      // refresh values of QueryDirV table
-      $dir = new Doc($this->dbaccess,$dirid);// use initial id for directories
-      $oqdv = new QueryDirV($this->dbaccess);
-      $oqdv-> DeleteDirV($dir->initid);
-
-      $querydir = new QueryDb($this->dbaccess,"QueryDir");
-      $querydir->AddQuery("dirid=$dirid");
-      $lqd=$querydir->Query();
-      
-
-      $query = new QueryDb($this->dbaccess,"QueryDir");
-      $oqdv = new QueryDirV($this->dbaccess);
-
-      if (is_array($lqd)) {
-	while(list($k,$dq) = each($lqd)) {
-	  $dq->delete();
-	}      
-      }
-    }
+ 
 
 
 }

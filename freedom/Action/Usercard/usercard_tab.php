@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_tab.php,v 1.1 2002/02/18 13:37:21 eric Exp $
+// $Id: usercard_tab.php,v 1.2 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,8 +25,6 @@
 
 include_once("FDL/Class.DocSearch.php");
 include_once("FDL/Class.DocUser.php");
-include_once("FDL/Class.QueryDir.php");
-include_once("FDL/Class.QueryDirV.php");
 include_once("FDL/freedom_util.php");  
 
 
@@ -72,7 +70,7 @@ function usercard_tab(&$action) {
 
   $query = "select id from doc where (className = 'DocUser') ".
      "and (title ~* '^[".$tabletter[$tab]."].*') ".
-     "and doc.id in (select childid from dirv where dirid=$dirid) ".
+     "and doc.id in (select childid from fld where dirid=$dirid) ".
      "and (locked != -1) ".
      "and (not useforprof) ".
      "and (doctype='F')";

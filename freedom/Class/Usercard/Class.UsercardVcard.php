@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.2 2002/02/14 18:11:42 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.3 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,7 @@ Class UsercardVcard
   var $import = array(
 		      "FN" => "",
 
-		      "N" => "202;201",
+		      "N" => "201;202",
 		      "N;GIVEN" => "202",
 		      "N;FAMILY"=> "201",		
 		      "N;MIDDLE" => "",
@@ -68,7 +68,7 @@ Class UsercardVcard
 		      "ADR;HOME;LOCALITY" => "325",
 		      "ADR;HOME;REGION" => "",
 		      "ADR;HOME;POSTALCODE" => "322",
-		      "ADR;HOME;COUNTRYNAME",
+		      "ADR;HOME;COUNTRYNAME" => "",
 			
 		      "TEL;WORK" => "206",
 		      "TEL;HOME" => "",
@@ -198,7 +198,19 @@ Class UsercardVcard
 		if (isset($tattr[$v]))
 		  fputs($this->fd,$k.":".str_replace("\n","\\n",$tattr[$v])."\n");
 		  
-		//		fputs($this->fd,"$k:$v\n");
+		else { // multi fields
+		  $lidattr = explode(";", $v);
+		  if ((is_array($lidattr)) && (count($lidattr) > 1)){
+		    fputs($this->fd,"$k:");
+		    while(list($k2,$idattr) = each($lidattr)) {
+		    
+		      if (isset($tattr[$idattr])) fputs($this->fd,str_replace("\n","\\n",$tattr[$idattr]));
+		      if ($k2 < count($lidattr) - 1) fputs($this->fd,";");
+		    }
+		    fputs($this->fd,"\n");
+		  }
+		}
+
 	      }
 	  }
       fputs($this->fd,"END:VCARD\n\n");

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.3 2002/02/18 10:53:59 eric Exp $
+// $Id: viewfolder.php,v 1.4 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,7 +28,6 @@ include_once("FDL/Class.DocAttr.php");
 include_once("FDL/Class.DocValue.php");
 include_once("FDL/freedom_util.php");
 include_once("FDL/Class.QueryDir.php");
-include_once("FDL/Class.QueryDirV.php");
 
 // -----------------------------------
 // -----------------------------------
@@ -92,15 +91,9 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
 
-  if ($refresh == "yes") { // force refresh    
-    $oqd=new QueryDir($dbaccess );
-    $oqd->RefreshDir($dirid);
-  }
-
-  $oqdv=new QueryDirV($dbaccess );
   if ($dirid == "")  {
     $action->exitError(_("cannot see unknow folder"));
-    //     $ldoc = $oqdv->getAllDoc($dirid);
+
   }
   
     if ($startpage>0) {
@@ -109,7 +102,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     } else $start=0;
 
 
-  $ldoc = $oqdv->getChildDoc($dirid,$start,$slice,$sqlfilters);
+  $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters);
 
 
   

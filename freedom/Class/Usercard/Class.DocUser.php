@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.3 2002/02/18 10:53:59 eric Exp $
+// $Id: Class.DocUser.php,v 1.4 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.3 2002/02/18 10:53:59 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.4 2002/02/22 15:34:54 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -328,7 +328,7 @@ Class DocUser extends Doc
   function _GetCatgId($docid, $title) {
   // -----------------------------------
 
-    $ldir = $this->oqdv->getChildDir($docid, true);
+    $ldir = getChildDir($this->dbaccess, $docid, true);
   
     if (count($ldir) > 0 ) {
      
@@ -351,7 +351,7 @@ Class DocUser extends Doc
   // --------------------------------------------------------------------
   function GetCatgId($title) { // return the id for catg named $title
   // --------------------------------------------------------------------
-    $this->oqdv=new  QueryDirV($this->dbaccess);
+
     return $this->_GetCatgId(TOP_USERDIR, $title);
   }
 

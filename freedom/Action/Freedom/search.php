@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: search.php,v 1.2 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,32 +21,11 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: search.php,v $
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.5  2001/12/21 13:58:35  eric
-// modif pour incident
-//
-// Revision 1.4  2001/12/19 17:57:32  eric
-// on continue
-//
-// Revision 1.3  2001/11/28 13:40:10  eric
-// home directory
-//
-// Revision 1.2  2001/11/26 18:01:01  eric
-// new popup & no lock for no revisable document
-//
-// Revision 1.1  2001/11/22 17:49:13  eric
-// search doc
-//
-//
-// ---------------------------------------------------------------
+
 
 include_once("FDL/Class.DocSearch.php");
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.QueryDir.php");
-include_once("FDL/Class.QueryDirV.php");
 include_once("FDL/freedom_util.php");  
 
 
@@ -129,33 +108,29 @@ function search(&$action) {
   
 
   if ($fromdir) {
-    $oqdv = new QueryDirV($dbaccess);
-    $cdirid = $oqdv->getRChildDirId($dirid);
+
+    $cdirid = getRChildDirId($dbaccess, $dirid);
     $cdirid[] = $dirid;
     
-    $sql_fromdir = "and ".GetSqlCond($cdirid,"dirv.dirid");
+    $sql_fromdir = GetSqlCond($cdirid,"dirid");
 
   } else $sql_fromdir = "";
 
 
+    if ($latest)       $sqllatest = "and (doc.locked != -1)";
+    else   $sqllatest = "";
 
 
   if ($sensitive) $testval = "like '%$keyword%'";
   else $testval = "~* '.*$keyword.*'";
 		    
   if ($fromdir) {
-    if ($latest) {
-      $query = "select distinct on (initid) * from doc, docvalue, dirv where (value $testval)  $sql_fromdir and (doc.id = docvalue.docid) and (doc.id = dirv.childid) order by initid, revision desc"; 
-    } else {
-      $query = "select distinct on (docid) docid as id from docvalue, dirv where (value $testval) $sql_fromdir and (docvalue.docid = dirv.childid)";
-
-    }
-  } else if ($latest) {
-    $query = "select distinct on (initid) * from doc, docvalue where (value $testval) and (doc.id = docvalue.docid)  order by initid, revision desc"; 
-  } else {
-  $query = "select distinct docid as id from docvalue where (value $testval) ";
-
-  }
+    
+    $query = "select distinct id from doc, docvalue where (value $testval)  and (doc.id in (select childid from fld where $sql_fromdir)) and (doc.id = docvalue.docid) $sqllatest "; 
+    
+  } else  {
+    $query = "select distinct doc.id from doc, docvalue where (value $testval) and (doc.id = docvalue.docid) $sqllatest"; 
+  } 
 
   $sdoc-> AddQuery($query);
 

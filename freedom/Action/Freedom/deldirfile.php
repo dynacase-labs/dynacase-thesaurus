@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: deldirfile.php,v 1.2 2002/02/13 14:31:58 eric Exp $
+// $Id: deldirfile.php,v 1.3 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/deldirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -24,8 +24,6 @@
 
 
 include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.QueryDir.php");
-include_once("FDL/Class.QueryDirV.php");
 include_once("FDL/freedom_util.php");  
 
 

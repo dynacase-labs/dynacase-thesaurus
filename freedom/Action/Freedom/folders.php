@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: folders.php,v 1.2 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,48 +21,11 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: folders.php,v $
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.11  2001/12/08 17:16:30  eric
-// evolution des attributs
-//
-// Revision 1.10  2001/11/28 13:40:10  eric
-// home directory
-//
-// Revision 1.9  2001/11/27 13:09:08  eric
-// barmenu & modif popup
-//
-// Revision 1.8  2001/11/26 18:01:01  eric
-// new popup & no lock for no revisable document
-//
-// Revision 1.7  2001/11/22 17:49:13  eric
-// search doc
-//
-// Revision 1.6  2001/11/22 10:00:59  eric
-// premier pas vers une API pour les popup
-//
-// Revision 1.5  2001/11/21 17:03:54  eric
-// modif pour création nouvelle famille
-//
-// Revision 1.4  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.3  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.2  2001/11/14 15:31:03  eric
-// optimisation & divers...
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-// ---------------------------------------------------------------
+
 
 
 include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.QueryDirV.php");
+include_once("FDL/Class.QueryDir.php");
 include_once("FDL/freedom_util.php");  
 
 
@@ -73,7 +36,7 @@ function folders(&$action) {
   // -----------------------------------
 
   
-  global $oqdv, $nbfolders;
+  global  $nbfolders, $dbaccess;
   $nbfolders=0;
 
 
@@ -94,9 +57,9 @@ function folders(&$action) {
 
   $tmenuaccess = array(); // to define action an each icon
 
-  $oqdv = new QueryDirV($dbaccess);
 
-  if ($dirid == 0) $dirid=$oqdv->getFirstDir();
+
+  if ($dirid == 0) $dirid=getFirstDir($dbaccess);
 
   
   $doc = new Doc($dbaccess, $dirid);
@@ -147,7 +110,7 @@ function folders(&$action) {
 // -----------------------------------
 function addfolder($doc, $level, $treename, $thisfld=true) {
   // -----------------------------------
-  global $oqdv;
+  global $dbaccess;
   global $tmenuaccess;
   global $nbfolders;
   
@@ -173,7 +136,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
   } else $ltree = "";
   if ($doc->doctype == 'D') {
 
-    $ldir = $oqdv->getChildDir($doc->id);
+    $ldir = getChildDir($dbaccess, $doc->id);
   
 
     if (count($ldir) > 0 ) {
@@ -194,7 +157,7 @@ function barmenu(&$action) {
 
 
 
-  popupInit("viewmenu",	array('vlist','vicon','refresh'));
+  popupInit("viewmenu",	array('vlist','vicon'));
   popupInit("helpmenu", array('help'));
 
 
@@ -206,7 +169,6 @@ function barmenu(&$action) {
     popupActive("searchmenu",1,'newsearch');
     popupActive("viewmenu",1,'vlist');
     popupActive("viewmenu",1,'vicon');
-    popupActive("viewmenu",1,'refresh');
     popupActive("helpmenu",1,'help');
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.2 2002/02/18 10:53:59 eric Exp $
+// $Id: Class.Dir.php,v 1.3 2002/02/22 15:34:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,12 +22,13 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.2 2002/02/18 10:53:59 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.3 2002/02/22 15:34:54 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
 
 include_once("FDL/Class.QueryDir.php");
+include_once("FDL/Lib.Dir.php");
 
 
 
@@ -86,24 +87,26 @@ Class Dir extends Doc
   function AddFile($docid, $mode="latest") {
     
 
+  $qf = new QueryDir($this->dbaccess);
+
   switch ($mode) {
   case "static":
-    $query="select id from doc where id=".$docid;
+
+    $qf->qtype='F'; // fixed document
+    $qf->childid=$docid; // initial doc
   break;
   case "latest":
-    $doc= new Doc($this->dbaccess, $docid);
-    $query="select id from doc where initid=".$doc->initid." and (locked != -1) LIMIT 1";
-  break;
   default:
-    $query="select id from doc where id=".$docid;
+    $doc= new Doc($this->dbaccess, $docid);
+    $qf->qtype='S'; // single user query
+    $qf->childid=$doc->initid; // initial doc
+    
   break;
   }  
 
-  $qf = new QueryDir($this->dbaccess);
 
   $qf->dirid=$this->initid; // the reference directory is the initial id
-  $qf->query=$query;
-  $qf->qtype='S'; // single user query
+  $qf->query="";
   $err = $qf->Add();
   return $err;
   }
@@ -113,10 +116,10 @@ Class Dir extends Doc
   function DelFile($docid ) {
     
     $err="";
-    $qfv = new QueryDirV($this->dbaccess);
+
 
    
-    $qids = $qfv->getQids($this->initid, $docid);
+    $qids = getQids($this->dbaccess,$this->initid, $docid);
 
     if (count($qids) == 0) $err = sprintf(_("cannot delete link : link not found for doc %d in directory %d"),$docid, $this->initid);
     if ($err != "") return $err;
@@ -127,13 +130,13 @@ Class Dir extends Doc
   
     if ($err != "") return $err;
 
-    if ($qf->qtype != "S") $err = sprintf(_("cannot delete link for doc %d in directory %d : the document comes from a user query. Delete initial query if you want delete this document"),$docid, $this->initid);
+    if ($qf->qtype == "M") $err = sprintf(_("cannot delete link for doc %d in directory %d : the document comes from a user query. Delete initial query if you want delete this document"),$docid, $this->initid);
   
     if ($err != "") return $err;
         $qf->Delete();
 
   
-    $qf->RefreshDir($this->initid);
+
   
     return $err;
   }
