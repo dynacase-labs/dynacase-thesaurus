@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.14 2002/07/23 07:31:55 eric Exp $
+// $Id: import_file.php,v 1.15 2002/07/30 12:37:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,11 +44,10 @@ function add_import_file(&$action, $fimport="") {
 
   if (! $fdoc) $action->exitError(_("no import file specified"));
   $nline=0;
-  while ($data = fgetcsv ($fdoc, 1000, ";")) {
+  while ($data = fgetcsv ($fdoc, 2000, ";")) {
     $nline++;
     $num = count ($data);
     if ($num < 1) continue;
-
     switch ($data[0]) {
       // -----------------------------------
     case "BEGIN":
@@ -75,7 +74,6 @@ function add_import_file(&$action, $fimport="") {
       
       $action->log->debug("add ");
       if (($num > 3) && ($data[3] != "")) $doc->doctype = "S";
-    
       $doc->modify();
 
       if (isset($data[2])) {
