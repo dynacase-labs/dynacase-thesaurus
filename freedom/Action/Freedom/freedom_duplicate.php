@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.5 2002/07/30 12:33:16 eric Exp $
+// $Id: freedom_duplicate.php,v 1.6 2002/08/09 16:51:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,6 +54,7 @@ function freedom_duplicate(&$action) {
   $copy->initid = "";
   $copy->revision = "0";
   $copy->locked = "0";
+  $copy->state = $copy->firstState;
   $copy->profid = $cdoc->cprofid;;
   $copy->title = _("duplication of")." ".$copy->title;
   $err = $copy->Add();
