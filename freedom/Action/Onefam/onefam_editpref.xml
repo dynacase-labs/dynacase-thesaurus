@@ -33,7 +33,7 @@
 
                          
 <!-- Title Table -->
-<form  class="fborder" target="famlist" name="modpref" method="POST"  action="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_MODPREF" >
+<form  class="fborder" target="famlist" name="modpref" method="POST"  action="[CORE_STANDURL]&app=[APPNAME]&action=[modaction]" >
 
 
                          
@@ -46,9 +46,10 @@
 	 <input type="checkbox" [selected] name="idsfam[]" value="[cid]">[ctitle]</input><br>
          [ENDBLOCK SELECTPREF]
 
-  
- <input align="right" type="button" value="[TEXT:Close]" onclick="self.close()"> 
- <input type="submit" value="[TEXT:Validate]" onclick="setTimeout('self.close()',1000)"> 
+ <table><tr>
+  <td><input type="submit" value="[TEXT:Validate]" onclick="setTimeout('self.close()',1000)"> </td>
+  <td align="right"><input  type="button" value="[TEXT:Close]" onclick="self.close()"></td></tr></table>
+ 
 
 
 

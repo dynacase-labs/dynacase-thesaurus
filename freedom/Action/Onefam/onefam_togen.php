@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_togen.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: onefam_togen.php,v 1.5 2004/06/03 14:47:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: onefam_togen.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+// $Id: onefam_togen.php,v 1.5 2004/06/03 14:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_togen.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,8 +48,8 @@ function onefam_togen(&$action)
   if ($famid == 0) $action->exitError(_("Family is not instanciate"));
 
 			
-  if ($gonlylist == "yes") $gaction="GENERIC_TAB&tab=0";
-  else $gaction="GENERIC_ROOT";
+  if ($gonlylist == "yes") $gaction="GENERIC_TAB&tab=0&famid=$famid";
+  else $gaction="GENERIC_ROOT&famid=$famid";
 	     
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc ($dbaccess, $famid);

@@ -5,7 +5,7 @@
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
 	"Report-Msgid-Bugs-To: \n"
-	"POT-Creation-Date: 2004-05-13 10:00+0200\n"
+	"POT-Creation-Date: 2004-06-03 16:33+0200\n"
 	"PO-Revision-Date: 2004-03-16 11:17+0100\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -445,47 +445,6 @@ msgstr	"envoi de %s à %s"
 msgid	"%s cannot be sent"
 msgstr	"%s n'a pas pu être envoyé"
 
-msgid	"no import file specified"
-msgstr	"pas de fichier d'import spécifié"
-
-#, c-format
-msgid	"create %s family"
-msgstr	"création de la famille %s"
-
-#, c-format
-msgid	"modify %s family"
-msgstr	"modification de la famille %s"
-
-#, c-format
-msgid	"update %s attribute"
-msgstr	"mise à jour attribut %s"
-
-msgid	"to be add"
-msgstr	"à ajouter"
-
-msgid	"added"
-msgstr	"ajouté"
-
-#, c-format
-msgid	"add id [%d] "
-msgstr	"ajout id [%d] "
-
-#, c-format
-msgid	"add [%s] "
-msgstr	"ajout [%s] "
-
-#, c-format
-msgid	"update id [%d] "
-msgstr	"mise à jour id [%d] "
-
-#, c-format
-msgid	"double title %s <B>ignored</B> "
-msgstr	"titre en double %s <B>ignoré</B> "
-
-#, c-format
-msgid	"and add in %s folder "
-msgstr	"et ajout dans dossier %s"
-
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
 
@@ -507,8 +466,14 @@ msgstr	"msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 msgid	"workflow_init :: workflow id %s not found"
 msgstr	"workflow_init :: cycle id %s pas trouvé"
 
+msgid	"to be add"
+msgstr	"à ajouter"
+
 msgid	"not added"
 msgstr	"pas ajouté"
+
+msgid	"added"
+msgstr	"ajouté"
 
 msgid	"no zone specified"
 msgstr	"pas de zone spécifiée"
@@ -549,9 +514,20 @@ msgstr	"%s a été déverrouillé"
 msgid	"geometry saved : %s"
 msgstr	"disposition sauvée : %s"
 
+msgid	"no import file specified"
+msgstr	"pas de fichier d'import spécifié"
+
+#, c-format
+msgid	"create %s family"
+msgstr	"création de la famille %s"
+
 #, c-format
 msgid	"update %s family"
 msgstr	"mise à jour de la famille %s"
+
+#, c-format
+msgid	"modify %s family"
+msgstr	"modification de la famille %s"
 
 #, c-format
 msgid	"update %s search"
@@ -604,8 +580,16 @@ msgstr	"changer de profil à '%s'"
 msgid	"add default value %s %s"
 msgstr	"ajout valeurs par défaut pour %s à %s"
 
+#, c-format
+msgid	"update %s attribute"
+msgstr	"mise à jour attribut %s"
+
 msgid	"update"
 msgstr	"mis à jour"
+
+#, c-format
+msgid	"update id [%d] "
+msgstr	"mise à jour id [%d] "
 
 #, c-format
 msgid	"add %s id [%d]  "
@@ -614,6 +598,10 @@ msgstr	"ajout %s id [%d] "
 #, c-format
 msgid	"%s to be add"
 msgstr	"%s à ajouter"
+
+#, c-format
+msgid	"add id [%d] "
+msgstr	"ajout id [%d] "
 
 msgid	"updated"
 msgstr	"mis à jour"
@@ -639,6 +627,10 @@ msgstr	"document similaire à %s a été trouve. L'original est conservé"
 
 msgid	"updated by import"
 msgstr	"mise à jour par import"
+
+#, c-format
+msgid	"and add in %s folder "
+msgstr	"et ajout dans dossier %s"
 
 msgid	"locked files of "
 msgstr	"fichiers verrouillés par "
@@ -835,6 +827,9 @@ msgid	"automaticaly by change state of %s\n"
 	"%s"
 msgstr	"changement d'état automatique issu du document %s\n"
 	"%s"
+
+msgid	"cannot unlock"
+msgstr "ne peut pas déverrouiller"
 
 msgid	"not perm for admin"
 msgstr	"pas de permission pour admin"
@@ -1823,8 +1818,11 @@ msgstr	"Requête de bilan"
 msgid	"balance result"
 msgstr	"résultat du bilan"
 
-msgid	"visible families"
-msgstr	"familles visibles"
+msgid	"visible user families"
+msgstr "familles personnelles visibles"
+
+msgid	"visible master families"
+msgstr "familles administratives visibles"
 
 msgid	"icon column number"
 msgstr	"nombre de colonne d'icones"
@@ -1853,8 +1851,17 @@ msgstr	"editer les préférences"
 msgid	"modify preferences"
 msgstr	"modifier les préférences"
 
-msgid	"Access To Onefam Management"
-msgstr	"Accès à la gestion par famille"
+msgid	"edit master preferences"
+msgstr "editer les préférences administratives"
+
+msgid	"modify master preferences"
+msgstr "modifier les préférences administratives"
+
+msgid	"To choose other families"
+msgstr "Pour choisir d'autres familles"
+
+msgid	"Access choose masters families"
+msgstr "Accès au choix des familles visibles administratives"
 
 msgid	"Import vcard"
 msgstr	"Importation Vcard"
@@ -1957,7 +1964,7 @@ msgid	"state bilan"
 msgstr	"Bilan par état"
 
 msgid	"Import file"
-msgstr "Fichier à importer"
+msgstr	"Fichier à importer"
 
 msgid	"Abstract card"
 msgstr	"Carte résumé"
@@ -2457,7 +2464,7 @@ msgid	"for"
 msgstr	"pour"
 
 msgid	"import file:"
-msgstr "Fichier à importer :"
+msgstr	"Fichier à importer :"
 
 msgid	"Analyze"
 msgstr	"Analyse"
@@ -2630,11 +2637,11 @@ msgstr	"Aller aux archives"
 msgid	"Archive import in progress"
 msgstr	"Import de l'archive en cours"
 
-msgid	"families"
-msgstr	"familles"
+msgid	"master choose families"
+msgstr "choix des familles administratives"
 
-msgid	"manage visible families"
-msgstr	"gestion des familles visibles"
+msgid	"choose user families"
+msgstr "Choix des familles personnelles"
 
 msgid	" choose value"
 msgstr	" choisir une valeur"
@@ -2905,6 +2912,21 @@ msgstr	"Changer de catégorie"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+#~ msgid	"add [%s] "
+#~ msgstr	"ajout [%s] "
+
+#~ msgid	"double title %s <B>ignored</B> "
+#~ msgstr	"titre en double %s <B>ignoré</B> "
+
+#~ msgid	"Access To Onefam Management"
+#~ msgstr	"Accès à la gestion par famille"
+
+#~ msgid	"families"
+#~ msgstr	"familles"
+
+#~ msgid	"manage visible families"
+#~ msgstr	"gestion des familles visibles"
 
 #~ msgid	"With Double"
 #~ msgstr	"Avec double"

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_editpref.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: onefam_editpref.php,v 1.6 2004/06/03 14:47:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: onefam_editpref.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+// $Id: onefam_editpref.php,v 1.6 2004/06/03 14:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_editpref.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,14 +38,14 @@
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Lib.Dir.php");
 
-function onefam_editpref(&$action) 
+function onefam_editpref(&$action,$idsattr="ONEFAM_IDS",$modaction="ONEFAM_MODPREF") 
 {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $tcdoc=GetClassesDoc($dbaccess,$action->user->id);
   
-  $idsfam = $action->GetParam("ONEFAM_IDS");
+  $idsfam = $action->GetParam($idsattr);
   $tidsfam = explode(",",$idsfam);
 
 
@@ -63,12 +63,13 @@ function onefam_editpref(&$action)
   }
 
   $action->lay->SetBlockData("SELECTPREF", $selectclass);
-	  
-      
-    
-  
-
+  $action->lay->Set("modaction",$modaction );
+	           
 
 }
 
+function onefam_editmasterpref(&$action) {
+  onefam_editpref($action,"ONEFAM_MIDS","ONEFAM_MODMASTERPREF");
+	           
+}
 ?>

@@ -39,7 +39,7 @@ function sendgeneric(event,th,docid) {
  </head>
 
 <body >
-[BLOCK SELECTCLASS]
+[BLOCK SELECTMASTER]
 <img 
      src="[iconsrc]"  
      onclick="sendgeneric(event,this,'[idcdoc]');"
@@ -48,11 +48,32 @@ function sendgeneric(event,th,docid) {
      class="iconone"
      alt="[ftitle]"
      title="[ftitle]">
-[ENDBLOCK SELECTCLASS]
-<BR>
-<input type="button" value="[TEXT:families]" 
-       title="[TEXT:manage visible families]" 
-       onclick="subwindow(100,300,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITPREF')">
+[ENDBLOCK SELECTMASTER]
 
+[BLOCK CHOOSEMASTERFAMILIES]
+<BR>
+<input style="float:left;width:54px"  type="button" value="+" 
+       title="[TEXT:master choose families]" 
+       onclick="subwindow(100,300,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITMASTERPREF')">
+[ENDBLOCK CHOOSEMASTERFAMILIES]
+[BLOCK SEPARATOR]
+<BR><BR><br><HR style="float:left;" width="100%"><br >
+[ENDBLOCK SEPARATOR]
+[BLOCK SELECTUSER]
+<img 
+     src="[iconsrc]"  
+     onclick="sendgeneric(event,this,'[idcdoc]');"
+     onmouseover="if (this.className != 'icononesel') this.className='icononehi'"
+     onmouseout="if (this.className != 'icononesel') this.className='iconone'"
+     class="iconone"
+     alt="[ftitle]"
+     title="[ftitle]">
+[ENDBLOCK SELECTUSER]
+<BR>
+[BLOCK CHOOSEUSERFAMILIES]
+<input style="float:left;width:54px" type="button" value="+" 
+       title="[TEXT:choose user families]" 
+       onclick="subwindow(100,300,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITPREF')">
+[ENDBLOCK CHOOSEUSERFAMILIES]
 </body>
 </html>

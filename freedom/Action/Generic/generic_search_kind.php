@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search_kind.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_search_kind.php,v 1.8 2004/06/03 14:47:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_search_kind.php,v 1.8 2004/06/03 14:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -124,7 +124,7 @@ function generic_search_kind(&$action) {
 
   $sdoc->AddQuery($query);
 
-  redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&catg=".$dirid);
+  redirect($action,GetHttpVars("app"),"GENERIC_LIST&famid=$famid&dirid=".$sdoc->id."&catg=".$dirid);
   
   
 }

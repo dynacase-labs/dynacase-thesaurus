@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_usort.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_usort.php,v 1.3 2004/06/03 14:47:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_usort.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_usort.php,v 1.3 2004/06/03 14:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_usort.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -56,9 +56,10 @@ function generic_usort(&$action) {
    $action->parent->param->Set("GENERIC_USORT",setUsort($action,$aorder),PARAM_USER.$action->user->id,$action->parent->id);
 
 
+  $famid = getDefFam($action);
 
    redirect($action,$action->GetParam("APPNAME","GENERIC"),
-	    "GENERIC_TAB&tab=0",
+	    "GENERIC_TAB&tab=0&famid=$famid",
 	     $action->GetParam("CORE_STANDURL"));
   
  

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: ONEFAM.app,v 1.2 2002/10/01 14:47:22 eric Exp $
+// $Id: ONEFAM.app,v 1.3 2004/06/03 14:47:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Onefam/ONEFAM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,6 +63,22 @@ $action_desc = array (
    "name"		=>"ONEFAM_MODPREF",
    "short_name"		=>N_("modify preferences"),
    "acl"		=>"ONEFAM"
+  ) ,
+  array( 
+   "name"		=>"ONEFAM_EDITMASTERPREF",
+   "short_name"		=>N_("edit master preferences"),
+   "layout"		=>"onefam_editpref.xml",
+   "script"		=>"onefam_editpref.php",
+   "function"		=>"onefam_editmasterpref",
+   "acl"		=>"ONEFAM_MASTER"
+  )  ,
+  array( 
+   "name"		=>"ONEFAM_MODMASTERPREF",
+   "short_name"		=>N_("modify master preferences"),
+   "layout"		=>"onefam_modpref.xml",
+   "script"		=>"onefam_modpref.php",
+   "function"		=>"onefam_modmasterpref",
+   "acl"		=>"ONEFAM_MASTER"
   ) 
 );
 
@@ -70,11 +86,15 @@ $app_acl = array (
   
   array(
    "name"               =>"ONEFAM",
-   "description"        =>N_("Access To Onefam Management"),
+   "description"        =>N_("To choose other families"),
    "group_default"       =>"Y"),
   array(
    "name"               =>"ONEFAM_READ",
    "description"        =>N_("Access To Read Card"),
-   "group_default"       =>"Y")
+   "group_default"       =>"Y"),
+  array(
+   "name"               =>"ONEFAM_MASTER",
+   "description"        =>N_("Access choose masters families"),
+   "group_default"       =>"N"),
 );
 ?>

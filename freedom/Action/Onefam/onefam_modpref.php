@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * validate user or master choosen families
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_modpref.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: onefam_modpref.php,v 1.5 2004/06/03 14:47:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,47 +11,28 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: onefam_modpref.php,v 1.4 2003/08/18 15:47:03 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_modpref.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 
 
 include_once("FDL/Class.Doc.php");
 
-function onefam_modpref(&$action) 
+function onefam_modpref(&$action,$idsattr="ONEFAM_IDS") 
 {
-  $tidsfam = GetHttpVars("idsfam"); // preferenced families
+  $tidsfam = GetHttpVars("idsfam",array()); // preferenced families
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
   
-  $idsfam = $action->GetParam("ONEFAM_IDS");
+  $idsfam = $action->GetParam($idsattr);
   $idsfam = implode(",",$tidsfam);
 
-  $action->parent->param->Set("ONEFAM_IDS",$idsfam,PARAM_USER.$action->user->id,$action->parent->id);
+  if ($idsattr=="ONEFAM_IDS")  $action->parent->param->Set($idsattr,$idsfam,PARAM_USER.$action->user->id,$action->parent->id);
+  else $action->parent->param->Set($idsattr,$idsfam,PARAM_APP,$action->parent->id);
 	  
       
   redirect($action,GetHttpVars("app"),"ONEFAM_LIST");
   
-
-
+}
+function onefam_modmasterpref(&$action) {
+  onefam_modpref($action,"ONEFAM_MIDS");  
 }
 
 ?>

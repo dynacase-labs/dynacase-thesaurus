@@ -121,8 +121,8 @@ function SendSearch(e) {
 </script>   
 <!-- ------------ MENU SEARCH  --------------------- -->
 <div  id="searchmenu" class="popup" style="position:[positionstyle];">
-<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All document]</a>[BLOCK SEARCH]
-<a  id="search[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
+<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All document]</a>[BLOCK SEARCH]
+<a  id="search[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
 [ENDBLOCK SEARCH]
 <a id="text"></a>
   <input   onMouseUp="return true" onKeyPress="SendSearch(event)" type="text" id="keyword">
@@ -133,7 +133,7 @@ function SendSearch(e) {
 [BLOCK MKIND]
 <div  id="[kindid]menu" class="popup" style="position:[positionstyle];">
 [BLOCK [vkind]]
-<a  id="[kindid][kid]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH_KIND&kid=[kid]&aid=[kindid]&catg=[catg]';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[ktitle]</span></a>
+<a  id="[kindid][kid]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH_KIND&famid=[famid]&kid=[kid]&aid=[kindid]&catg=[catg]';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[ktitle]</span></a>
 [ENDBLOCK [vkind]]
 <a  id="[kindid]kedit" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITCATG&fid=[famid]&aid=[kindid]';closeAllMenu()"><I>[TEXT:Edit kind]</I></a>
 </div>
@@ -141,9 +141,9 @@ function SendSearch(e) {
 
 <!-- ------------ MENU SORT --------------------- -->
 <div  id="sortmenu" class="popup" style="position:[positionstyle];">
-<a  id="sortdesc" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&aorder=-';closeAllMenu()">[TEXT:invert order]</a>
+<a  id="sortdesc" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&famid=[famid]&aorder=-';closeAllMenu()">[TEXT:invert order]</a>
 <a class="separator">____________</a>
-[BLOCK USORT]<a  id="sortdoc[said]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&aorder=[said]';closeAllMenu()">[dsort]&nbsp;[satitle]</a>
+[BLOCK USORT]<a  id="sortdoc[said]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&famid=[famid]&aorder=[said]';closeAllMenu()">[dsort]&nbsp;[satitle]</a>
 [ENDBLOCK USORT]
 </div>
 
