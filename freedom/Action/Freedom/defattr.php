@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Display family attributes
  *
  * @author Anakeen 2000 
- * @version $Id: defattr.php,v 1.21 2005/02/08 11:34:37 eric Exp $
+ * @version $Id: defattr.php,v 1.22 2005/03/23 10:30:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: defattr.php,v 1.21 2005/02/08 11:34:37 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.Doc.php");
@@ -122,6 +101,7 @@ function defattr(&$action)
 	$newelem[$k]["attrname"]=$attr->labelText;
 	$newelem[$k]["neweltid"]=$k;
 	$newelem[$k]["visibility"]=$attr->visibility;
+	$newelem[$k]["options"]=$attr->options;
 	$newelem[$k]["typevalue"]="frame";
 	$newelem[$k]["disabledid"]="disabled";
 	$newelem[$k]["order"]="0";
@@ -159,6 +139,7 @@ function defattr(&$action)
 	$newelem[$k]["typevalue"]="menu";
 	$newelem[$k]["order"]=$attr->ordered;
 	$newelem[$k]["disabledid"]="disabled";
+	$newelem[$k]["options"]=$attr->options;
 	$newelem[$k]["SELECTFRAME"]="SELECTFRAME_$k";
 	if ($attr->docid == $docid) {
 	  $newelem[$k]["disabled"]="";
@@ -197,6 +178,7 @@ function defattr(&$action)
       $newelem[$k]["link"]=$attr->link;
       $newelem[$k]["phpfile"]=$attr->phpfile;
       $newelem[$k]["phpfunc"]=$attr->phpfunc;
+      $newelem[$k]["options"]=$attr->options;
       $newelem[$k]["phpconstraint"]=$attr->phpconstraint;
       $newelem[$k]["elink"]=$attr->elink;
       $newelem[$k]["disabledid"]="disabled";

@@ -79,6 +79,7 @@
   <td class="CORETblHeadBold">[TEXT:func]</td>
   <td class="CORETblHeadBold">[TEXT:elink]</td>
   <td class="CORETblHeadBold">[TEXT:constraint]</td>
+  <td class="CORETblHeadBold">[TEXT:options]</td>
 </tr>
 </thead>
 <tbody>
@@ -133,6 +134,9 @@
    </td>
    <td  >
       <input type="text"   name="phpconstraint[[neweltid]]" value="[phpconstraint]" [disabled]></input>
+   </td>
+   <td  >
+      <input type="text"   name="options[[neweltid]]" value="[options]" [disabled]></input>
    </td>
   
 </tr>
