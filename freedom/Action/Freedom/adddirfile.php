@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.10 2003/03/27 09:42:58 eric Exp $
+// $Id: adddirfile.php,v 1.11 2003/07/30 14:55:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/adddirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function adddirfile(&$action) {
   $err = $dir->AddFile($docid, $mode);
   
 
-  if ($err != "") $action->exitError($err);
+  if ($err != "") $action->addWarningMsg($err);
   
   
 

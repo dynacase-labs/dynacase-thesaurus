@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_insertfld.php,v 1.3 2003/07/24 13:06:35 eric Exp $
+// $Id: freedom_insertfld.php,v 1.4 2003/07/30 14:55:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_insertfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,7 +60,7 @@ function freedom_insertfld(&$action) {
     }
   
   }
-  if ($err != "") $action->exitError($err);
+  if ($err != "") $action->addWarningMsg($err);
   
   if ($clean) {
     $sfld = new Doc($dbaccess,$dirid );
