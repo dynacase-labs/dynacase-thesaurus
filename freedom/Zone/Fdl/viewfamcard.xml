@@ -6,17 +6,24 @@
 <tbody>
 
 <!-- TABLEBODY -->
-<tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
+<tr class="FREEDOMBack2"><td  colspan="2" height="1px"></td></tr>
 
 
 
 <tr class="FREEDOMBack1">
    <td colspan="3" align="center">
-       [TEXT:Familly Document]
+       <B>[TEXT:Familly Document]</B>
   </td>
 </tr>
 
+<tr class="FREEDOMBack2"><td  colspan="2" height="1px"></td></tr>
 
+<tr class="FREEDOMBack1" style="display:[cprofdisplay]">
+   <td width="50%" class="FREEDOMlabel">[TEXT:created profile] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cprofid]">[cproftitle]</A></td></tr>
+<tr class="FREEDOMBack1" style="display:[cflddisplay]">
+   <td  width="50%" class="FREEDOMlabel">[TEXT:current folder] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cfldid]">[cfldtitle]</A></td></tr>
+<tr class="FREEDOMBack1" style="display:[dflddisplay]">
+   <td  width="50%" class="FREEDOMlabel" >[TEXT:default folder] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[dfldid]">[dfldtitle]</A></td></tr>
 
 </tbody>
 </table>

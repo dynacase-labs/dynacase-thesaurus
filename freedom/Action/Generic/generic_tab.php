@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.7 2002/12/04 17:13:36 eric Exp $
+// $Id: generic_tab.php,v 1.8 2003/01/21 15:43:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,16 +42,25 @@ function generic_tab(&$action) {
 
   // Get all the params      
   $keyword=GetHttpVars("keyword"); // keyword to search
-  $dirid=GetHttpVars("catg", getDefFld($action)); // folder where search
+  $dirid=GetHttpVars("catg",0); // folder where search
   $tab=GetHttpVars("tab", 1); // tab index
 
+  $dbaccess = $action->GetParam("FREEDOM_DB");
   
+  $famid = getDefFam($action);
+  $fdoc = new DocFam($dbaccess,$famid);
+  if ($dirid == 0) {
+    if ($fdoc->cfldid > 0) {
+      $dirid=$fdoc->cfldid;
+    } else {
+      $dirid=$fdoc->dfldid;
+    }
+  }
 
   // hightlight the selected part (ABC, DEF, ...)
   $tabletter=array("", "ABC","DEF", "GHI","JKL","MNO","PQRS","TUV","WXYZ");
 
 
-  $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $dir = new Doc($dbaccess, $dirid);
 
@@ -61,9 +70,8 @@ function generic_tab(&$action) {
 
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
 
-  $famid = getDefFam($action);
 
-  if ($dir->id == getDefFld($action))   {
+  if ($dir->id == $fdoc->dfldid)   {
     $sdoc->title = sprintf(_("%s all categories "),$tabletter[$tab] );
     $sdirid=0; // search in all DB
   }  else {

@@ -28,7 +28,7 @@ a.menuItem {
 
 a.menuItemCtrl {
   color: [CORE_TEXTBGCOLOR];
-  border-style:inset;
+  border-style:none inset none inset;
   border-width:1px;
   cursor: default;
   display: block;
@@ -69,7 +69,7 @@ a.menuItemDisabled, a.menuItemCtrlDisabled {
   text-decoration: none;
 }
 a.menuItemCtrlDisabled {
-  border-style:inset;
+  border-style:none inset none inset;
   border-width:1px;	
 }
 

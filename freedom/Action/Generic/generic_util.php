@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.7 2003/01/17 10:31:52 eric Exp $
+// $Id: generic_util.php,v 1.8 2003/01/21 15:43:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,17 +24,6 @@
 
 include_once("FDL/Lib.Dir.php");  
 
-function getDefFld(&$action) {
-  
-  // special for onefam application
-  $topdirid=$action->GetParam("DEFAULT_FLD",10);
-  if ($topdirid==10) {
-    $topdirid=$action->Read("DEFAULT_FLD", 10);
-    $action->parent->SetVolatileParam("DEFAULT_FLD",$topdirid);
-  }
-
-  return $topdirid;
-}
 
 function getDefFam(&$action) {
   
@@ -48,6 +37,15 @@ function getDefFam(&$action) {
   return $famid;
 }
 
+function getDefFld(&$action) {
+  $famid=getDefFam($action);
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $fdoc = new DocFam($dbaccess,$famid);
+  if ($fdoc->dfldid > 0) return $fdoc->dfldid;
+  
+
+  return 10;
+}
 // -----------------------------------
 function getChildCatg($docid, $level,$notfldsearch=false) {
   // -----------------------------------

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.4 2002/11/28 18:19:21 eric Exp $
+// $Id: Class.DocFam.php,v 1.5 2003/01/21 15:43:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.4 2002/11/28 18:19:21 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.5 2003/01/21 15:43:35 eric Exp $';
 include_once('FDL/Class.DocFile.php');
 
 Class DocFam extends DocFile {
@@ -34,6 +34,7 @@ Class DocFam extends DocFile {
   var $sqlcreate = "
 create table docfam (cprofid int , 
                      dfldid int, 
+                     cfldid int, 
                      ddocid int,
                      name text,
                      methods text) inherits (doc);
@@ -41,43 +42,87 @@ create unique index idx_idfam on docfam(id);";
 
 
  
+  var $defaultview= "FDL:VIEWFAMCARD";
+
   var $attr;
 
-   function DocFam ($dbaccess='', $id='',$res='',$dbid=0) {
+  function DocFam ($dbaccess='', $id='',$res='',$dbid=0) {
 
-     $this->fields["dfldid"] ="dfldid";
-     $this->fields["cprofid"]="cprofid";
-     $this->fields["ddocid"] ="ddocid";
-     $this->fields["methods"]="methods";
-     $this->fields["name"]="name";
-     DocFile::DocFile($dbaccess, $id, $res, $dbid);
+    $this->fields["dfldid"] ="dfldid";
+    $this->fields["cfldid"] ="cfldid";
+    $this->fields["cprofid"]="cprofid";
+    $this->fields["ddocid"] ="ddocid";
+    $this->fields["methods"]="methods";
+    $this->fields["name"]="name";
+    DocFile::DocFile($dbaccess, $id, $res, $dbid);
      
      
-     if ($this->id > 0) {
-       $adoc = "Doc".$this->id;
-       include_once("FDLGEN/Class.$adoc.php");
-       $adoc = "ADoc".$this->id;
-       $this->attributes = new $adoc();
-       uasort($this->attributes->attr,"tordered"); 
-     }
+    if ($this->id > 0) {
+      $adoc = "Doc".$this->id;
+      include_once("FDLGEN/Class.$adoc.php");
+      $adoc = "ADoc".$this->id;
+      $this->attributes = new $adoc();
+      uasort($this->attributes->attr,"tordered"); 
+    }
                
-   }
+  }
 
 
-   // use to view default attribute when new doc
-   function PostSelect($id) { 
-     if ($this->ddocid > 0) {
-       $ddoc= new Doc($this->dbaccess, $this->ddocid);
-       $nattr = $ddoc->GetNormalAttributes();
-       while (list($k,$v) = each($nattr)) {
-	 $aid = $v->id;
-	 $this->$aid = $ddoc->getValue($aid);
-       }
+  // use to view default attribute when new doc
+  function PostSelect($id) { 
+    if ($this->ddocid > 0) {
+      $ddoc= new Doc($this->dbaccess, $this->ddocid);
+      $nattr = $ddoc->GetNormalAttributes();
+      while (list($k,$v) = each($nattr)) {
+	$aid = $v->id;
+	$this->$aid = $ddoc->getValue($aid);
+      }
        
        
-     }
-   }
+    }
+  }
+  // -----------------------------------
+  function viewfamcard($target="_self",$ulink=true,$abstract=false) {
+    // -----------------------------------
+
+    global $action;
+
+    while (list($k,$v) = each($this->fields)) {
+
+      $this->lay->set("$v",$this->$v);
+      switch ($v) {
+      case cprofid:
+	if ($this->$v > 0) {
+	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $this->lay->set("cproftitle",$tdoc->title);
+	  $this->lay->set("cprofdisplay","");
+	} else {
+	  $this->lay->set("cprofdisplay","none");
+	}
+	break;
+      case cfldid:
+	if ($this->$v > 0) {
+	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $this->lay->set("cfldtitle",$tdoc->title);
+	  $this->lay->set("cflddisplay","");
+	} else {
+	  $this->lay->set("cflddisplay","none");
+	}
+	break;
+      case dfldid:
+	if ($this->$v > 0) {
+	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $this->lay->set("dfldtitle",$tdoc->title);
+	  $this->lay->set("dflddisplay","");
+	} else {
+	  $this->lay->set("dflddisplay","none");
+	}
+	break;
+      }
+    }
+
+
+  }
 }
-
 
 ?>

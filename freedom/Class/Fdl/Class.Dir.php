@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.12 2003/01/17 11:44:05 eric Exp $
+// $Id: Class.Dir.php,v 1.13 2003/01/21 15:43:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.12 2003/01/17 11:44:05 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.13 2003/01/21 15:43:35 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -147,7 +147,7 @@ Class Dir extends PDir
 
     // search original query
     $qf = new QueryDir($this->dbaccess, $qids[0]);
-    if (!($qf->isAlive())) $err = sprintf(_("cannot delete link : initial query not found for doc %d in folder %d"),$docid, $this->initid);
+    if (!($qf->isAffected())) $err = sprintf(_("cannot delete link : initial query not found for doc %d in folder %d"),$docid, $this->initid);
   
     if ($err != "") return $err;
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_importvcard.php,v 1.9 2002/12/10 16:15:18 eric Exp $
+// $Id: usercard_importvcard.php,v 1.10 2003/01/21 15:43:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_importvcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -57,7 +57,7 @@ function usercard_importvcard(&$action) {
       $vcardfile = GetHttpVars("file"); 
     }
   if (! $vcard_import-> Open($vcardfile)) $action->exitError(_("no vcard file specified"));
-  $dir = new Dir($dbaccess, $action->GetParam("DEFAULT_FLD"));
+  $dir = new Dir($dbaccess, getDefFld($action));
 
   $tvalue=array();
 
@@ -69,7 +69,7 @@ function usercard_importvcard(&$action) {
       if (count($tvalue) > 0)
 	{
 	  // Add new contact card
-	  $classid=$action->GetParam("DEFAULT_FAMILY");
+	  $classid=getDefFam($action);
 	  $doc = createDoc($dbaccess, $classid );
 
 	  if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));

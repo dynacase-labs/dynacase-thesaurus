@@ -5,3 +5,6 @@ pubdir="/home/httpd/what";
 # ajout sequence doc temporaire
 
 echo "create sequence seq_id_tdoc start 1000000000;" | psql freedom anakeen
+echo "ALTER TABLE docfam ADD COLUMN cfldid int;" | psql freedom anakeen
+echo "delete from paramv where name='DEFAULT_FLD';" | psql anakeen anakeen
+echo "delete from paramdef where name='DEFAULT_FLD';" | psql anakeen anakeen

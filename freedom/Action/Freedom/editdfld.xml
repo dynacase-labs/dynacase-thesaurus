@@ -35,7 +35,7 @@
 
                          
 <!-- Title Table -->
-<form  class="fborder" name="modifyfreedom" method="POST"  action="[CORE_STANDURL]&app=[APPNAME]&action=MODDFLD&docid=[docid]" >
+<form  class="fborder" name="modifyfreedom" method="POST"  action="[CORE_STANDURL]&app=[APPNAME]&action=MODDFLD&current=[current]&docid=[docid]" >
 
 
                          

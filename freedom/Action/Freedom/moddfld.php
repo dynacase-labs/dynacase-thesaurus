@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: moddfld.php,v 1.2 2003/01/20 19:09:28 eric Exp $
+// $Id: moddfld.php,v 1.3 2003/01/21 15:43:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/moddfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,10 +36,10 @@ function moddfld(&$action) {
     
     
     
-    // Get all the params      
-      $docid=GetHttpVars("docid");
-  $createp = GetHttpVars("create",0); // 1 if use for create profile (only for familly)
-    
+  // Get all the params      
+  $docid=GetHttpVars("docid");
+  $current = (GetHttpVars("current","N")=="Y");
+  $fldid=  GetHttpVars("dfldid");
     
   if ( $docid == 0 ) $action->exitError(_("the document is not referenced: cannot apply profile access modification"));
     
@@ -48,21 +48,24 @@ function moddfld(&$action) {
   
   
   // initialise object
-    $ofreedom = new Doc($dbaccess,$docid);
-      $ofreedom->dfldid = GetHttpVars("dfldid"); // new profile access
+  $doc = new Doc($dbaccess,$docid);
+  if ($current) $doc->cfldid = $fldid; 
+  else $doc->dfldid = $fldid; // new default folder
   
   
   // test object permission before modify values (no access control on values yet)
-    $err=$ofreedom-> CanUpdateDoc();
+  $doc->lock(true); // enabled autolock
+  $err=$doc-> CanUpdateDoc();
   if ($err != "") $action-> ExitError($err);
   
-  $ofreedom-> Modify();
+  $doc-> Modify();
+  
+  
+  $doc->unlock(true); // disabled autolock
   
   
   
-  
-  
-  redirect($action,"FDL","FDL_CARD&id=$docid");
+  redirect($action,"FDL","FDL_CARD&id=$docid",$action->GetParam("CORE_STANDURL"));
 }
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editdfld.php,v 1.2 2002/11/06 15:59:27 eric Exp $
+// $Id: editdfld.php,v 1.3 2003/01/21 15:43:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editdfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,6 +29,7 @@ include_once("FDL/Lib.Dir.php");
 function editdfld(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
+  $current = (GetHttpVars("current","N")=="Y");
   
 
 
@@ -41,18 +42,30 @@ function editdfld(&$action) {
   $doc= new Doc($dbaccess,$docid);
 
   $action->lay->Set("doctitle",$doc->title);
+  $sqlfilters=array();
+  if ($current) {
+    $fldid=$doc->cfldid;
+    $action->lay->Set("TITLE",_("change current folder"));
+    $action->lay->Set("current","Y");
 
+    $tclassdoc = getChildDoc($dbaccess,$doc->dfldid,"0","ALL",$sqlfilters, $action->user->id, "TABLE",5);
+    $tclassdoc = array_merge($tclassdoc,getChildDoc($dbaccess,$doc->dfldid,"0","ALL",$sqlfilters, $action->user->id, "TABLE",2));
+  } else {
+    $fldid=$doc->dfldid;
+    $action->lay->Set("TITLE",_("change default folder"));
+    $action->lay->Set("current","N");
+    $sqlfilters[]="doctype='D'";
+    $tclassdoc = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE",2);
+  }
 
   $selectclass=array();
-  $sqlfilters[]="doctype='D'";
-  $tclassdoc = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE",2);
   if (is_array($tclassdoc)) {
     while (list($k,$pdoc)= each ($tclassdoc)) {
      
 	$selectclass[$k]["idpdoc"]=$pdoc["id"];
 	$selectclass[$k]["profname"]=$pdoc["title"];
 	
-	$selectclass[$k]["selected"]=($pdoc["id"]==$doc->dfldid)?"selected":"";
+	$selectclass[$k]["selected"]=($pdoc["id"]==$fldid)?"selected":"";
       
     }
   }

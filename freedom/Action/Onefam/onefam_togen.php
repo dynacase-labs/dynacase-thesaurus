@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_togen.php,v 1.2 2003/01/20 15:08:01 eric Exp $
+// $Id: onefam_togen.php,v 1.3 2003/01/21 15:43:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_togen.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,12 +37,12 @@ function onefam_togen(&$action)
 
 			
   if ($gonlylist == "yes") $gaction="GENERIC_TAB&tab=0";
+  else $gaction="GENERIC_ROOT";
 	     
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc ($dbaccess, $famid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("Family (#%d) is not referenced"),$famid));
   $action->Register("DEFAULT_FAMILY", $famid);
-  $action->Register("DEFAULT_FLD", $doc->dfldid);
 
   redirect($action,"GENERIC", $gaction);
 }

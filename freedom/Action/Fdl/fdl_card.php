@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC_init.php.in,v 1.4 2003/01/21 15:43:35 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC_init.php.in,v $
+// $Id: fdl_card.php,v 1.1 2003/01/21 15:43:35 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/fdl_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -22,16 +22,27 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-global $app_const;
+include_once("FDL/Class.Dir.php");
 
-$app_const= array(
-  "INIT" => "yes",
-  "VERSION"			=>"@VERSION@-@RELEASE@",
-  "DEFAULT_FAMILY" => array("val"=>"1",
-			     "descr"=>N_("default document family")),
-  "CARD_SLICE_LIST" => array("val"=>"8",
-			     "descr"=>N_("number of card by page"),
-			     "user"=>"Y")
-);
+
+// -----------------------------------
+// -----------------------------------
+function fdl_card(&$action) {
+  // -----------------------------------
+  
+  $docid = GetHttpVars("id");
+  $latest = GetHttpVars("latest");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $doc = new Doc($dbaccess, $docid);
+  if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
+
+  if (($latest == "Y") && ($doc->locked == -1)) {
+    // get latest revision
+    SetHttpVar("id",$doc->latestId());
+  }
+
+
+  $action->lay->Set("TITLE",$doc->title);
+}
 
 ?>

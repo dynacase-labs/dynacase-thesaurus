@@ -10,7 +10,7 @@
 <frameset frameborder="1" framespacing="3" border="3" cols="40%,*" >
 
 
-  <frame name="flist" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&tab=0&dirid=[DEFAULT_FLD]&viewfld=no&refresh=no" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="flist" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&tab=0&viewfld=no&refresh=no" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
   <frame name="finfo" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
 
 </frameset>

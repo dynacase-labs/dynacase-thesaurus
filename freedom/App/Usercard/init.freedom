@@ -1,6 +1,7 @@
 // ;fromid;titre;id;class;name;;;;;;;;
 BEGIN;0;personne;120;;USER;;;;;;;;
 TYPE;C;;;;;;;;;;;;
+DFLDID;121;;;;;;;;;;;;
 METHOD;Method.DocUser.php;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
@@ -18,7 +19,7 @@ ATTR;US_MOBILE;US_FR_COORD;mobile;N;N;text;110;W;;;;;
 ATTR;US_FR_SOC;;Société;N;N;frame;120;W;;;;;
 ATTR;US_IDSOCIETY;US_FR_SOC;id société;N;N;text;130;H;;;;;
 ATTR;US_SOCADDR;US_FR_SOC;même adresse ?;N;N;text;140;H;;;;;
-ATTR;US_SOCIETY;US_FR_SOC;site société;N;Y;text;150;W;;%S%&app=USERCARD&action=GENERIC_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%
+ATTR;US_SOCIETY;US_FR_SOC;site société;N;Y;text;150;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%
 ATTR;US_TYPE;US_FR_SOC;fonction;N;N;text;160;W;;;;;
 ATTR;US_WORKADDR;US_FR_SOC;adresse;N;N;longtext;170;W;;;usercard.php;laddrsoc(D,US_IDSOCIETY):US_SOCADDR,US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX;
 ATTR;US_WORKPOSTALCODE;US_FR_SOC;code postal;N;N;text;180;W;;;;;
@@ -59,13 +60,14 @@ METHOD;Method.DocSite.php;;;;;;;;;;;;
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 ATTR;SI_IDSOC;0;id société;N;N;text;11;H;N;;fdl.php;gettitle(D,SI_IDSOC):SI_SOCIETY,SI_IDSOC;
-ATTR;SI_SOCIETY;SI_FR_IDENT;société;Y;N;text;31;W;Y;%S%&app=USERCARD&action=GENERIC_CARD&id=%SI_IDSOC%;usercard.php;lsociety(D,SI_SOCIETY):SI_IDSOC,SI_SOCIETY;%S%app=USERCARD&action=GENERIC_EDIT&id=%SI_IDSOC%&classid={SOCIETY}&si_society=%SI_SOCIETY%
+ATTR;SI_SOCIETY;SI_FR_IDENT;société;Y;N;text;31;W;Y;%S%&app=FDL&action=FDL_CARD&id=%SI_IDSOC%;usercard.php;lsociety(D,SI_SOCIETY):SI_IDSOC,SI_SOCIETY;%S%app=USERCARD&action=GENERIC_EDIT&id=%SI_IDSOC%&classid={SOCIETY}&si_society=%SI_SOCIETY%
 ATTR;SI_LOCAL;SI_FR_IDENT;nom;Y;N;text;32;W;N;;;;
 ATTR;SI_TOWN;SI_FR_COORD;ville;Y;N;text;130;W;Y;;;;
 END;0;;;;;;;;;;;;
 // ;fromid;titre;id;class;name;;;;;;;
 BEGIN;120;personne entreprise;123;;USERSOCATA;;;;;;;
 TYPE;C;;;;;;;;;;;
+DFLDID;121;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;
 ;;;;;;;;;;;;
