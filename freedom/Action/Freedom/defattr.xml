@@ -36,9 +36,9 @@
 
 
 <!-- Title Table -->
-<form target="info" class="fborder" name="modifyfamilly" method="POST"  action="[CORE_STANDURL]&app=FREEDOM&action=MODATTR&docid=[docid]&dirid=[dirid]" >
+<form target="doc_properties" class="fborder" name="modifyfamilly" method="POST"  action="[CORE_STANDURL]&app=FREEDOM&action=MODATTR&docid=[docid]&dirid=[dirid]" >
 
-      <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
+
                          
 
 <input type="hidden" name="title" value="[TITLE]"> 
@@ -133,7 +133,7 @@
 <tr>
   <td colspan="11" >
  <input type="submit" value="[TEXT:modify]"
-        onClick="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO'"> 
+        onclick="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO'"> 
   </td>
 </tr>
 
