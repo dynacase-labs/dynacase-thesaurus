@@ -1,6 +1,6 @@
 
 <script language="javascript">
-  document.modifydoc.onsubmit=new Function("deletenew()");
+  addEvent(document.modifydoc,'submit',deletenew);
 </script>
 
 

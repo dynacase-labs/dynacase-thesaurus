@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.19 2004/06/25 12:50:27 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.20 2004/11/26 14:27:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,30 +11,6 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.19 2004/06/25 12:50:27 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
-
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.19 2004/06/25 12:50:27 eric Exp $';
 
 
 include_once("FDL/Class.PDocSearch.php");
@@ -60,7 +36,10 @@ Class DocSearch extends PDocSearch {
     if (is_array($tquery)) $query=implode(";\n",$tquery);
     else $query=$tquery;
 
-
+    if (substr($query,0,6) != "select") {
+      AddWarningMsg(sprintf(_("query [%s] not valid for select document"), $query));
+      return sprintf(_("query [%s] not valid for select document"), $query);
+    }
     $oqd = new QueryDir($this->dbaccess);
     $oqd->dirid = $this->id;
     $oqd->qtype="M"; // multiple
@@ -153,11 +132,13 @@ Class DocSearch extends PDocSearch {
   }
 
   function SpecRefresh() {
+    $err="";
     if (! $this->isStaticSql()) {
       $query=$this->getQuery();
 
-      $this->AddQuery($query);
+      $err=$this->AddQuery($query);
     }
+    return $err;
   }
   function editsearch() {
 
@@ -182,6 +163,21 @@ Class DocSearch extends PDocSearch {
   $this->lay->SetBlockData("SELECTCLASS", $selectclass);
 
     $this->editattr();
+  }
+
+
+  /**
+   * return document includes in folder
+   * @param bool $controlview if false all document are returned else only visible for current user  document are return
+   * @param array $filter to add list sql filter for selected document
+   * @return array array of document array
+   */
+  function getContent($controlview=true,$filter=array()) {
+    if ($controlview) $uid=$this->userid;
+    else $uid=1;
+    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, "TABLE");
+    return $tdoc;
+    
   }
 }
 
