@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.19 2003/06/19 17:58:45 eric Exp $
+// $Id: Lib.Attr.php,v 1.20 2003/06/24 10:42:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -125,7 +125,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 			   "phpfile"=>$v->phpfile,
 			   "phpfunc"=>$v->phpfunc);
 
-	$tattr[] = array("attrid"=>strtolower($v->id));	 
+	if ($v->type != "'array")  $tattr[] = array("attrid"=>strtolower($v->id));	 
 	if ($repeat)  $attrids[] = strtolower($v->id)." text";  // for the moment all repeat are text
 	else {
 	  switch($atype) {
@@ -228,7 +228,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
     reset($oattr);
 
     while (list($ka,$attr) = each($oattr)) {
-
+      if ($attr->type=="array") continue; // don't use column for container
       if ($attr->docid == $docid) { // modify my field not inherited fields
 
 	if (! in_array($attr->id, $pgatt)) {
