@@ -31,16 +31,16 @@
 
 [ZONE WGCAL:WGCAL_POPUP]
 [BLOCK EVENTS]
-<div id="evt[ID]"     
+<div id="evt[RG]"     
   onclick="subwindow(400, 650, 'ViewEvent[ID]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_[action]&ev=[ID]');"
-  onmouseover="WGCalEvOnMouseOver(event, '[ID]');" 
-  onmouseout="WGCalEvOnMouseOut(event, '[ID]');" 
+  onmouseover="WGCalEvOnMouseOver(event, '[RG]');" 
+  onmouseout="WGCalEvOnMouseOut(event, '[RG]');" 
   onContextMenu="SetCurrentEvent([ID]); openMenu(event,'calpopup',[RG]);return false" 
   onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([ID]);openMenu(event,'calpopup',[RG])}"
   style="cursor:pointer; border:0px; display:none;overflow:hidden;">
 [ZONE [RESUME]?ev=[ID]]
 </div>
-<div id="evtc[ID]" style="display:none; border:1px outset; background-color:white');">
+<div id="evtc[RG]" style="display:none; border:1px outset; background-color:white');">
 [ZONE [VIEW]?ev=[ID]]
 </div>
 [ENDBLOCK EVENTS]
@@ -55,7 +55,7 @@ AltIsFixed = '[ALTFIXED]';
 AltTimerValue = '[ALTTIMER]';
 WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
 
-[BLOCK EVENTSSC]WGCalAddEvent([ID], [START], [END]);
+[BLOCK EVENTSSC]WGCalAddEvent([RG], [START], [END]);
 [ENDBLOCK EVENTSSC]
 
 WGCalDisplayAllEvents();

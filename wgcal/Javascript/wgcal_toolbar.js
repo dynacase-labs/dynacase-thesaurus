@@ -206,12 +206,12 @@ function setwrvalert() {
 }
  
 
-function SetEventState(event, state) {
+function SetEventState(cevent, state) {
   frm = document.getElementById('eventstate');
-  seeev = document.getElementById('evt'+event);
-  evid = document.getElementById('evid');
-  evst = document.getElementById('evstate');
-  evid.value = event;
+  seeev = document.getElementById('evt'+cevent);
+  cevid = document.getElementById('cev');
+  cevid.value = cevent;
+  evst = document.getElementById('st');
   evst.value = state;
   frm.submit();
   seeev.style.display = 'none';

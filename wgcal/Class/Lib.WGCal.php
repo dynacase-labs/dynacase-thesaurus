@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.15 2005/03/10 10:30:59 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.16 2005/03/10 18:06:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -136,6 +136,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   $dre=new Doc($dbaccess,$reid);
   $edre = array();
   $edre=$dre->getEvents($d1,$d2);
+
   $first = false;
 
   popupInit('calpopup',  array('editrv',  
@@ -153,12 +154,10 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     $item = array( "ID" => $v["id"], 
 		   "IDP" => $v["evt_idinitiator"], 
  		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
-//  		   "TSSTART" => $v["evt_begdate"],
-// 		   "TSEND" => $end, 
+  		   "TSSTART" => $v["evt_begdate"],
+ 		   "TSEND" => $end, 
 		   "END" => FrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
-
-//     print_r2($v);
 
     $ref = false;
     if ($showrefused!=1) {
@@ -242,7 +241,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   }
   popupGen(count($tout));
   $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
-  //print_r2($tout);
+//   print_r2($tout);
   return $tout;
 }
        	
@@ -335,6 +334,20 @@ function sendRv(&$action, &$event) {
           "WGCAL:MAILRV?ev=$event->id:S",
           true, "", $from, $bcc, $format="html" );
   }
+}
+
+function GetCalEvent($dbaccess, $ev, $cev) {
+
+  if ($ev<1 && $cev<1) return false;
+  if ($ev==-1) {
+    $evid = $cev;
+  } else {
+    $evtmp = new Doc($dbaccess, $ev);
+    $evid = $evtmp->getValue("evt_idinitiator");
+  }
+  if ($evid<1) return false;
+  $nev = new Doc($dbaccess, $evid);
+  return $nev;
 }
 
 ?>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.8 2005/03/10 10:30:59 marc Exp $
+ * @version $Id: calev_card.php,v 1.9 2005/03/10 18:06:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -17,24 +17,18 @@ function calev_card(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $ev = GetHttpVars("ev", -1);
-  $rg = GetHttpVars("rg", -1);
-  $mode  = GetHttpVars("m", "");
-  if ($ev==-1) $evid = -1;
-  else {
-    $evtmp = new Doc($dbaccess, $ev);
-    $evid = $evtmp->getValue("evt_idinitiator");
-  }
-  if ($evid==-1) {
-    echo "No event #$ev";
+  $evi = GetHttpVars("ev", -1);
+  $cev = GetHttpVars("cev", -1);
+  $ev = GetCalEvent($dbaccess, $evi, $cev);
+  if (!$ev) {
     $action->lay->set("OUT", "No event #$ev");
     return;
   }
+  $rg = GetHttpVars("rg", -1);
+  $mode  = GetHttpVars("m", "");
   $action->lay->set("mode", ($mode=="v"?"":"none"));
 
 //   $pretitle = "";
-
-  $ev = new Doc($dbaccess, $evid);
 
   $ownerid = $ev->getValue("CALEV_OWNERID");
   $conf    = $ev->getValue("CALEV_VISIBILITY");
@@ -233,7 +227,10 @@ function ev_showattendees(&$action, &$ev, $present, $dcolor) {
     $a = 0;
     foreach ($tress as $k => $v) {
       if ($tressg[$k] == -1) {
-	if ($tresse[$k] != EVST_ACCEPT && $tresse[$k] != EVST_REJECT) {
+	if ($v == $action->user->fid && $tresse[$k] == EVST_REJECT)  {
+	  $globalstate = "black";
+	  $globalstatesize = "3";
+	} else if ($tresse[$k] != EVST_ACCEPT && $tresse[$k] != EVST_REJECT) {
 	  if ($v == $action->user->fid) $globalstate = "red";
 	  else if ($globalstate != "red") $globalstate = "orange";
 	  $globalstatesize = "3";

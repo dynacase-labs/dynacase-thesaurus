@@ -8,17 +8,13 @@ include_once("WGCAL/Lib.WGCal.php");
 function wgcal_seteventstate(&$action) {
 
   $db = $action->getParam("FREEDOM_DB");
-  $ev     = GetHttpVars("ev", -1);
-  if ($ev==-1) $evid = -1;
-  else {
-    $evtmp = new Doc($db, $ev);
-    $evid = $evtmp->getValue("evt_idinitiator");
-  }
+  $evi = GetHttpVars("ev", -1);
+  $cev = GetHttpVars("cev", -1);
+  $event = GetCalEvent($db, $evi, $cev);
   $evstate  = GetHttpVars("st", -1);
-  if ($evid<1 || $evstate==-1) return;
+  if (!$event || $evstate==-1) return;
 
   $ress = "";
-  $event = new Doc($db, $evid);
   $att_id    = $event->getTValue("CALEV_ATTID", array());
   $att_state = $event->getTValue("CALEV_ATTSTATE", array());
   $att_title = $event->getTValue("CALEV_ATTTITLE", array());
@@ -40,5 +36,6 @@ function wgcal_seteventstate(&$action) {
    $event->AddComment(_("state set to ").WGCalGetLabelState($evstate));
    redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
+
 
 ?>

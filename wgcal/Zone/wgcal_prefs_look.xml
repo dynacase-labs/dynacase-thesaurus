@@ -23,6 +23,8 @@
 <tr><td width="10%"></td><td colspan="2" align="center">[TEXT:start hour] : <select style="cursor:pointer" id="altposition" onchange="mytoto('WGCAL_U_STARTHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK SH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SH]</select>, [TEXT:end hour] : <select style="cursor:pointer" id="alttimeout" onchange="mytoto('WGCAL_U_STOPHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK EH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EH]</select></td>
 </tr>
 
+<tr><td width="10%"></td><td align="right">[TEXT:hours division size] : </td><td><select style="cursor:pointer" id="hdiv" onchange="mytoto('WGCAL_U_HLINEHOURS', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR');">[BLOCK HDIVSZ]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HDIVSZ]</select></td></tr>
+
 <tr><td width="10%"></td><td align="center" colspan="2"><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" title="[textoption]">[textoption] : <input id="[idoption]" name="[idoption]" type="checkbox" style="cursor:pointer;" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" [stateoption]></span></td></tr>[ENDBLOCK OPTCHK]
 
 <tr class="wTextActive"><td colspan="3">[TEXT:meetings edition]</td></tr>

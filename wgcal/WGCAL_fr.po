@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-10 11:25+0100\n"
+"POT-Creation-Date: 2005-03-10 18:32+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -102,6 +102,9 @@ msgstr "Heure de fin utilsée pour la saisie de RV"
 
 msgid "minutes increment used for event setting"
 msgstr "Incrément pour les minutes en saisie de RV"
+
+msgid "refresh toolbar"
+msgstr "Raffraichir la barre d'outil"
 
 msgid "mails send"
 msgstr "Envoi des mails"
@@ -631,9 +634,6 @@ msgstr "Vous avez des rendez-vous en attente"
 
 msgid "display refused meetings"
 msgstr "Afficher les évènements refusés"
-
-msgid "refresh toolbar"
-msgstr "Raffraichir la barre d'outil"
 
 msgid "confidential event"
 msgstr "Evènement confidentiel"

@@ -1,8 +1,8 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <div style="display:none">
-<form id="eventstate" target="wgcal_hidden" name="feventstate" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE">
-     <input id="evid" name="evid" type="hidden" value="-1">
-     <input id="evstate" name="evstate" type="hidden" value="-1">
+<form id="eventstate" target="wgcal_calendar" name="feventstate" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE">
+     <input id="cev" name="cev" type="hidden" value="-1">
+     <input id="st" name="st" type="hidden" value="-1">
 </form>
 <form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 
@@ -20,17 +20,17 @@
 <!-- Rendez-vous en attente -->
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
 <tr>
-<td onclick="WGCalChangeVisibility(0, 'waitrv');" align="left">[TEXT:waiting rv]&nbsp;([RVCOUNT])</td>
+<td onclick="WGCalChangeVisibility(0, 'waitrv');" align="left">[TEXT:waiting rv]</td>
 <td align="right"><input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></td>
 </tr>
 </table>
 
 <div id='waitrv' class="wToolArea" style="height:[zonealertsize]px; overflow:auto; display:[vTool0]">
 [BLOCK WAITRV]
-<div id="evt[wrvid]"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="iacceptrv" title="[TEXT:accept event] [wrvtitle]" src="WGCAL/Images/wm-evaccept.png" height="10" onclick="ok=confirm('[TEXT:accept event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 1);"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="irefuserv" title="[TEXT:refuse event] [wrvtitle]" src="WGCAL/Images/wm-evrefuse.png" height="10" onclick="ok=confirm('[TEXT:refuse event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 0);"><span id="wrv[wrvid]" style="[wrvfontstyle] color:[wrvcolor]; background-color:white" title="[wrvfulldescr]"
+<div id="evt[wrvid]"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="iacceptrv" title="[TEXT:accept event] [wrvtitle]" src="WGCAL/Images/wm-evaccept.png" height="10" onclick="ok=confirm('[TEXT:accept event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 2);"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="irefuserv" title="[TEXT:refuse event] [wrvtitle]" src="WGCAL/Images/wm-evrefuse.png" height="10" onclick="ok=confirm('[TEXT:refuse event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 3);"><span id="wrv[wrvid]" style="[wrvfontstyle] color:[wrvcolor]; background-color:white" title="[wrvfulldescr]"
      onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'"
      class="WGCwrvdefault"
-     onclick="subwindow(400, 650, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[wrvid]');"  ><img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</span></div>[ENDBLOCK WAITRV]
+     onclick="subwindow(400, 650, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&cev=[wrvid]');"  ><img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</span></div>[ENDBLOCK WAITRV]
 <div height="10px"></div>
 </div>
  
