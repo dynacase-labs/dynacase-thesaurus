@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.ADoc.php,v 1.5 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: Class.ADoc.php,v 1.6 2004/06/18 15:20:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -41,12 +41,27 @@ Class ADoc  {
       return $tsa;      
     } 
 
+   function getParamAttributes()
+    {      
+      $tsa=array();
+      if (isset($this->attr)) {
+	reset($this->attr);
+	while (list($k,$v) = each($this->attr)) {
+	  if ((get_class($v) == "normalattribute") && ($v->usefor == "Q")) $tsa[$v->id]=$v;
+	}
+      }
+      return $tsa;      
+    } 
    function getArrayElements($id) {
      $a = $this->getAttr($id);
      if ($a && ($a->type == "array")) {
-       $tsa=$this->GetNormalAttributes();
+       if ($a->usefor != "Q") {
+	 $tsa=$this->GetNormalAttributes();
+       } else {
+	 $tsa=$this->getParamAttributes();
+       }
        $ta=array();
-       while (list($k, $v) = each($tsa)) {
+       foreach ($tsa as $k=>$v) {
 	 if ($v->fieldSet->id == $id) $ta[$v->id]=$v;
        }
        return $ta;

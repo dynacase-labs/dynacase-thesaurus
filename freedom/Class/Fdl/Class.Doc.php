@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.204 2004/06/11 16:15:29 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.205 2004/06/18 15:20:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1150,6 +1150,7 @@ create unique index i_docir on doc(initid, revision);";
       if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
       reset($this->attributes->attr);
+
       while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute") && (!$v->inArray()) && 
 	    ($v->mvisibility != "I" )) {  // I means not editable
@@ -1160,6 +1161,19 @@ create unique index i_docir on doc(initid, revision);";
       }
       return $tsa;
     }
+  /** 
+   * return all the parameters definition for its family
+   * the attribute can be defined in fathers
+   * @return array DocAttribute
+   */
+  function getParamAttributes()    { 
+     
+      if (!$this->_maskApplied) $this->ApplyMask();
+      if ((isset($this->attributes)) && (method_exists($this->attributes,"getParamAttributes")))
+	return $this->attributes->getParamAttributes();      
+      else return array();
+    }
+
 
   /**
    * return all the attributes object for abstract
@@ -2787,7 +2801,6 @@ create unique index i_docir on doc(initid, revision);";
  
     $frames=array();
     $listattr = $this->GetInputAttributes();
-  
 
   
     $nattr = count($listattr); // number of attributes
