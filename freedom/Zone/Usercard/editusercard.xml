@@ -6,6 +6,7 @@
 
 <tr class="FREEDOMBack1">
   <td colspan="2" >
+  [TEXT:confidentiality] :
   <select name="_US_PRIVCARD" id="[US_PRIVCARD]">
     <option value="R" [selectr]>[TEXT:public card - read access]</option>
     <option value="W" [selectw]>[TEXT:public card - write access]</option>
