@@ -39,7 +39,7 @@ function placeicons() {
          div = document.getElementById('d'+i);
 
 	 div.style.left = ((i-1)%nbcol) * (div.offsetWidth);
-	 div.style.top = Math.floor((i-1)/nbcol)*(div.offsetHeight) + 10;
+	 div.style.top = Math.floor((i-1)/nbcol)*(div.offsetHeight) + 30;
 	 div.style.visibility = 'visible';
 	}
   }
