@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.190 2004/03/04 09:11:45 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.191 2004/03/08 11:19:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1664,6 +1664,8 @@ create unique index i_docir on doc(initid, revision);";
     $this->postitid=$postitid;
    
     $this->Add();
+    if ($this->dprofid > 0) $this->setProfil($this->dprofid); // recompute profil if needed
+
     $this->modify(); // need to applicate SQL triggers
        
     return "";
