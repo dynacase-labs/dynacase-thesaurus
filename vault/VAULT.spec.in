@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: VAULT.spec.in,v 1.5 2002/08/06 16:51:03 marc Exp $
+#  $Id: VAULT.spec.in,v 1.6 2003/03/07 09:53:05 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -28,7 +28,7 @@ Requires: apache >= 1.3.12
 Requires: postgresql >= 7.0.0
 Requires: php-pgsql >= 4.0.2
 Prereq: WHAT >= 0.1.0
-Prereq: php-shell >= 4.0.2
+Prereq: php-cgi >= 4.0.2
 Prereq: gettext
 
 %description
@@ -50,6 +50,15 @@ make pubdir=$RPM_BUILD_ROOT%{destdir}
 
 %post
 %{destdir}/wstop
+  mkdir -p /var/log/what-vault
+  chown http: /var/log/what-vault
+  cat <<EOF > /etc/logrotate.d/what-vault
+/var/log/what-vault/*.log {
+  weekly
+  rotate 4
+  compress
+}
+EOF
 
 
 %preun
