@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.21 2003/06/25 07:36:01 eric Exp $
+// $Id: Lib.Attr.php,v 1.22 2003/07/11 13:04:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -110,20 +110,20 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  $repeat="false";
 	}
 	$tnormal[$v->id] = array("attrid"=>strtolower($v->id),
-			   "label"=>str_replace("\"","\\\"",$v->labeltext),
-			   "type"=>$atype,
-			   "format"=>str_replace("\"","\\\"",$aformat),
-			   "order"=>intval($v->ordered),
-			   "link"=>str_replace("\"","\\\"",$v->link),
-			   "visibility"=>$v->visibility,
-			   "needed"=>($v->needed=="Y")?"true":"false",
-			   "title"=>($v->title=="Y")?"true":"false",
-			   "repeat"=>$repeat,
-			   "abstract"=>($v->abstract=="Y")?"true":"false",
-			   "frame"=>($v->frameid=="")?"FIELD_HIDDENS":strtolower($v->frameid),
-			   "elink"=>$v->elink,
-			   "phpfile"=>$v->phpfile,
-			   "phpfunc"=>$v->phpfunc);
+				 "label"=>str_replace("\"","\\\"",$v->labeltext),
+				 "type"=>$atype,
+				 "format"=>str_replace("\"","\\\"",$aformat),
+				 "order"=>intval($v->ordered),
+				 "link"=>str_replace("\"","\\\"",$v->link),
+				 "visibility"=>$v->visibility,
+				 "needed"=>($v->needed=="Y")?"true":"false",
+				 "title"=>($v->title=="Y")?"true":"false",
+				 "repeat"=>$repeat,
+				 "abstract"=>($v->abstract=="Y")?"true":"false",
+				 "frame"=>($v->frameid=="")?"FIELD_HIDDENS":strtolower($v->frameid),
+				 "elink"=>$v->elink,
+				 "phpfile"=>$v->phpfile,
+				 "phpfunc"=>str_replace(" ","",$v->phpfunc));
 	 
 	if ($v->type != "array")  $tattr[$v->id] = array("attrid"=>strtolower($v->id));	 
 	if (($repeat=="true") || ($tnormal[$v->frameid]["type"]=="array")) {
