@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.226 2004/12/29 08:35:21 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.227 2005/01/14 17:54:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1508,6 +1508,7 @@ create unique index i_docir on doc(initid, revision);";
 		break;
 	      case date:
 		list($dd,$mm,$yy) = explode("/",$avalue);
+		if (($mm == 0) || ($dd == 0)) list($yy,$mm,$dd) = explode("-",$avalue); // iso8601
 		$yy = intval($yy);
 		$mm = intval($mm); 
 		$dd = intval($dd); 
@@ -2183,7 +2184,7 @@ create unique index i_docir on doc(initid, revision);";
 	      $htmlval=$action->GetParam("CORE_BASEURL").
 		"app=FDL"."&action=EXPORTFILE&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$index"; // upload name
 	    } else {
-	      $htmlval="Images/noimage.png";
+	      $htmlval=$action->GetImageUrl($avalue);
 	    }
 	  }
 	      
