@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.120 2003/04/29 16:29:39 eric Exp $
+// $Id: Class.Doc.php,v 1.121 2003/04/30 13:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.120 2003/04/29 16:29:39 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.121 2003/04/30 13:46:44 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -643,11 +643,17 @@ create unique index i_docir on doc(initid, revision);";
     return $query->Query(0,0,$type);
   }
 
-  // get LatestId
+  // get Latest Id
   function latestId() {
     if ($this->id == "") return false;
-    $rev = $this->GetRevisions("TABLE");
+    if ($this->locked != -1) return $this->id;
     
+    $query = new QueryDb($this->dbaccess, get_class($this));
+
+    $query->AddQuery("initid = ".$this->initid);
+    $query->AddQuery("locked != -1");
+      
+    $rev= $query->Query(0,0,"TABLE");
     return $rev[0]["id"];
   }
 
@@ -995,21 +1001,26 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   // return the related value by linked attributes
-  function GetRValue($RidAttr, $def="")  {      
+  function GetRValue($RidAttr, $def="",$latest=true)  {      
     
     $tattrid = explode(":",$RidAttr);
-    $lattrid=array_pop($tattrid);
+    $lattrid=array_pop($tattrid); // last attribute
 
     $doc=$this;
-    while(list($k,$v) = each($tattrid)) {
+    reset($tattrid);
+    while(list($k,$v) = each($tattrid)) { 
       $docid= $doc->getValue($v);
-
       if ($docid == "") return $def;
       $doc = new Doc($this->dbaccess, $docid);
+      if ($latest) {
+	$ldocid = $doc->latestId();
+	if ($ldocid != $doc->id) $doc = new Doc($this->dbaccess, $ldocid);
+      }
+
       if (! $doc->isAlive())  return $def;
 
     }
-      
+
     return $doc->getValue($lattrid, $def);
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.32 2003/04/25 14:51:32 eric Exp $
+// $Id: modcard.php,v 1.33 2003/04/30 13:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -207,7 +207,7 @@ function insert_file($dbaccess,$docid, $attrid)
   
 
   } else { // only one file
-    $tuserfiles=$postfiles;
+    $tuserfiles[]=$postfiles;
   }
 
   $rt=array(); // array of file to be returned
