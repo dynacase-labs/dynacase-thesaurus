@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_importcsv.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: generic_importcsv.php,v 1.3 2002/08/19 12:19:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_importcsv.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -40,7 +40,6 @@ function generic_importcsv(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $policy = GetHttpVars("policy","add"); 
   $category = GetHttpVars("category"); 
-  $privacity = GetHttpVars("privacity","R"); 
 
 
 
@@ -58,7 +57,7 @@ function generic_importcsv(&$action) {
     }
 
   $fdoc = fopen($vcardfile,"r");
-  if (! $fdoc) $action->exitError(_("no cvs import file specified"));
+  if (! $fdoc) $action->exitError(_("no csv import file specified"));
   $dir = new Dir($dbaccess, $action->GetParam("DEFAULT_FLD"));
 
   $tvalue=array();
@@ -78,12 +77,6 @@ function generic_importcsv(&$action) {
 	$doc =csvAddDoc($dbaccess, $data);
 	if (!$doc) continue;
 
-	$bdvalue->docid = $doc->id;
-
-	// set privacity
-	$bdvalue->attrid = QA_PRIVACITY;
-	$bdvalue->value = $privacity;
-	$bdvalue ->Modify();
 	
 	      
 	      
