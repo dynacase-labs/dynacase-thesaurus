@@ -7,8 +7,7 @@
 
 
 <tr class="FREEDOMBack2">
-
-  <td  colspan="3" ><span class="FREEDOMTextTitle"> [frametext]</span></td>
+  <td  colspan="3" class="FREEDOMTextTitle">[frametext]</td>
 </tr>
 
 <tr class="FREEDOMBack1">
@@ -21,7 +20,7 @@
 
 <tr class="FREEDOMBack1">
   <td valign="top" class="FREEDOMlabel">[name]&nbsp;:&nbsp;</td>
-  <td ><span class="FREEDOMText">[value]</span></td>
+  <td  class="FREEDOMText">[value]</td>
 </tr>
 
 [ENDBLOCK [TABLEVALUE]]
