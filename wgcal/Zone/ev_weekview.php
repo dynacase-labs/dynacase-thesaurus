@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.9 2005/02/08 06:45:08 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.10 2005/02/08 11:32:24 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -37,8 +37,8 @@ function ev_weekview(&$action) {
 
   $lstart = $lend = $lrhs = $lrhe = ""; 
   switch($ev->getValue("CALEV_TIMETYPE",0)) {
-  case 1: $lstart = $lrhe = N_("no hour"); break;
-  case 2: $lstart = $lrhe = N_("all the day"); break;
+  case 1: $lstart = $lrhs = _("no hour"); break;
+  case 2: $lstart = $lrhs = _("all the day"); break;
   default:
     $lstart = substr($ev->getValue("CALEV_START"),0,16);
     $lend = substr($ev->getValue("CALEV_END"),0,16);
@@ -57,7 +57,7 @@ function ev_weekview(&$action) {
 
   $ress = WGCalGetRessDisplayed($action);
   //   $pretitle = "[$evref::".$ev->id."] ";
-  if ($private) $action->lay->set("TITLE", $pretitle." ".N_("confidential event"));
+  if ($private) $action->lay->set("TITLE", $pretitle." "._("confidential event"));
   else $action->lay->set("TITLE", $pretitle." ".$ev->getValue("CALEV_EVTITLE"));
 
   $tress  = $ev->getTValue("CALEV_ATTID");
@@ -105,6 +105,42 @@ function ev_weekview(&$action) {
 
   if ($private && !$present) $action->lay->SetBlockData("ISCONF", null);
   else $action->lay->SetBlockData("ISCONF", $tpriv);
+
+  // repeat informations
+  $action->lay->set("repeatdisplay", "none");
+  $tday = array( _("monday"), _("tuesday"),_("wenesday"),_("thursday"),_("friday"),_("saturday"), _("sunday"));
+  if (!$private) {
+    $rmode = $ev->getValue("CALEV_REPEATMODE", 0);
+    $rday = $ev->getValue("CALEV_REPEATWEEKDAY", -1);
+    $rmonth = $ev->getValue("CALEV_REPEATMONTH", -1);
+    $runtil = $ev->getValue("CALEV_REPEATUNTIL", 0);
+    $runtild = $ev->getValue("CALEV_REPEATUNTILDATE", "");
+    $rexclude = $ev->getValue("CALEV_EXCLUDEDATE", array());
+    if ($rmode>0 && $rmode<5) {
+      $action->lay->set("repeatdisplay", "");
+      switch ($rmode) {
+      case 1:
+        $tr = _("dayly");
+        break;
+      case 2:
+        $tr = _("weekly");
+        $tr .= " (".$tday[$rday].")";
+        break;
+      case 3:
+        $tr = _("monthly");
+        if ($rmonth==0) $tr .= " ("._("by date").")";
+        if ($rmonth==1) $tr .= " ("._("by day").")";
+        break;
+      case 4: $tr = _("yearly"); break;
+      }
+      $tru = "";
+      if ($runtil==1 && $runtild>0) $tru = " "._("until")." ".substr($runtild,0,10);
+      if (count($rexclude)>0) $tru .= " "._("there is excluded days");
+      $action->lay->set("repeatinfos", $tr);
+      $action->lay->set("repeatuntil", $tru);
+    }
+  }
+      
 
   showIcons($action, $ev, $private, $present);
 

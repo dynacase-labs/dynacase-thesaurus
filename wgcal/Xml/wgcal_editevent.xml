@@ -14,6 +14,7 @@
 <input type="hidden" id="evcalendar" name="evcalendar" value="[evcalendar]">
 <input type="hidden" id="evconfidentiality" name="evconfidentiality" value="[evconfidentiality]">
 <input type="hidden" id="attendees" name="attendees" value="">
+<input type="hidden" id="excludedate" name="excludedate" value="">
 
 
 <table width="100%" style="margin-top: 0em;">
@@ -158,9 +159,13 @@
      height="20"
      src="WGCAL/Images/wm-attendees.png" title="[TEXT:add attendees]">
 
-   <img id="viewplan" style="cursor:pointer;" height="20"
+   <img id="viewplan" style="display:[voneatt]; cursor:pointer;" height="20"
           onclick="viewattdispo();";
           src="WGCAL/Images/wm-planner.png" title="[TEXT:vew disponibility]">
+
+   <img id="delall" style="display:[voneatt]; cursor:pointer;" height="20"
+          onclick="ok=confirm('[TEXT:confirm delete all attendees]'); if (ok) deleteAttendee(-1);";
+          src="WGCAL/Images/wm-delete.png" title="[TEXT:delete all attendees]">
 
   </legend>
 
@@ -191,7 +196,7 @@
 </tr>
 </tbody>
 </table>
-<div width="100%" align="right"><span style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="st=(document.getElementById('withMe').checked?false:true); document.getElementById('withMe').checked = st;" title="[TEXT:I participe to this meeting]">[TEXT:I participe to this meeting]<input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="st=(this.checked?false:true); this.checked = st;" [WITHME] [WITHMERO]></span></div>
+<div style="display:[vnatt]" width="100%" align="right"><span style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="st=(document.getElementById('withMe').checked?false:true); document.getElementById('withMe').checked = st;" title="[TEXT:I participe to this meeting]">[TEXT:I participe to this meeting]<input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="st=(this.checked?false:true); this.checked = st;" [WITHME] [WITHMERO]></span></div>
 
 </div>
 

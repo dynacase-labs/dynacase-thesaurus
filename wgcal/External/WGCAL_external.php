@@ -33,11 +33,11 @@ define(EVST_READ, 1);
 define(EVST_ACCEPT, 2);
 define(EVST_REJECT, 3);
 define(EVST_TBC, 4);
-$EventStateDescr = array( EVST_NEW => array( N_('new'), "red" ),
-			  EVST_READ => array( N_('read'), "orange" ),
-			  EVST_ACCEPT => array( N_('accept'), "#0dff00" ),
-			  EVST_REJECT => array( N_('reject'), "black" ),
-			  EVST_TBC => array( N_('to be confirmed'), "yellow" ) );
+$EventStateDescr = array( EVST_NEW => array( _('new'), "red" ),
+			  EVST_READ => array( _('read'), "orange" ),
+			  EVST_ACCEPT => array( _('accept'), "#0dff00" ),
+			  EVST_REJECT => array( _('reject'), "black" ),
+			  EVST_TBC => array( _('to be confirmed'), "yellow" ) );
 
 function CAL_getEventStates($dbaccess, $fmt="A") {
   return WGCalGetState($dbaccess, $fmt);
@@ -51,7 +51,7 @@ function WGCalGetState($dbaccess, $fmt="A") {
 
 function WGCalGetLabelState($state) {
   global $EventStateDescr;
-  if ($state>=count($EventStateDescr)) return N_('unknown');
+  if ($state>=count($EventStateDescr)) return _('unknown');
   else return $EventStateDescr[$state][0];
 }
 
@@ -65,9 +65,9 @@ function WGCalGetColorState($state) {
  ** Return event visibilities in attribute value format
  */
 function CAL_getEventVisibilities($dbaccess, $fmt="A") {
-  $evvis = array ( N_('public'), 
-		   N_('private'), 
-		   N_('my groups'));
+  $evvis = array ( _('public'), 
+		   _('private'), 
+		   _('my groups'));
   return array2attrval($evvis, $fmt);
 }
 
@@ -76,7 +76,7 @@ function CAL_getEventVisibilities($dbaccess, $fmt="A") {
  */
 function WGCalGetMyCalendars(&$action, $dbaccess) {
   $tcals = array();
-  $tcals[] = array( 0, N_("My public calendar"));
+  $tcals[] = array( 0, _("My public calendar"));
   $cals = array();
   $cals = GetChildDoc($dbaccess, 0, 0, "ALL", array(), 
 		      $action->user->fid, "TABLE", getIdFromName($dbaccess,"SCALENDAR"));

@@ -69,11 +69,12 @@ function wgcal_storeevent(&$action) {
   $err .= $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
   $date = GetHttpVars("Vruntildate");
   if ($date>0) $sdate = $err .= $event->setValue("CALEV_REPEATUNTILDATE", date2db($date));
-  $excl = array();
-  foreach (GetHttpVars("listexcldate", array()) as $k => $v) {
-    $excl[] = date2db($v);
+  $excl = GetHttpVars("excludedate", "");
+  if ($excl != "") {
+    $excludedate = explode("|",$excl);
+    foreach ($excludedate as $kd => $vd) $tex[] = date2db($vd);
+    $err .= $event->setValue("CALEV_EXCLUDEDATE", $excludedate);
   }
-  $err .= $event->setValue("CALEV_T_EXCLUDEDATE", $excl);
   
 
   // Attendees

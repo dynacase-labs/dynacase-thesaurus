@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 06:28+0100\n"
+"POT-Creation-Date: 2005-02-08 12:28+0100\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -274,6 +274,12 @@ msgstr "Convier des personnes"
 msgid "vew disponibility"
 msgstr "Voir les disponibilités"
 
+msgid "confirm delete all attendees"
+msgstr "confirmez la suppression de toutes les personnes conviées"
+
+msgid "delete all attendees"
+msgstr "la suppression de toutes les personnes conviées"
+
 msgid "one ressource or you in event"
 msgstr "Utiliser les ressources pour les rendez-vous"
 
@@ -389,13 +395,13 @@ msgid "waiting rv"
 msgstr "Rendez-vous en attente"
 
 msgid "accept event"
-msgstr "accepter"
+msgstr "accepter l'évènement"
 
 msgid "accept event "
 msgstr "accepter"
 
 msgid "refuse event"
-msgstr "refuser"
+msgstr "refuser l'évènement"
 
 msgid "refuse event "
 msgstr "refuse"
@@ -460,7 +466,9 @@ msgstr "Identifiant de ressource invalide"
 msgid "event"
 msgstr "Evènement"
 
-# Propriétaire
+msgid "repeat"
+msgstr "répétition"
+
 msgid "owner"
 msgstr "Propriétaire"
 
@@ -485,6 +493,33 @@ msgstr "Vous avez des rendez-vous en attente"
 
 msgid "confidential event"
 msgstr "Evènement confidentiel"
+
+msgid "thursday"
+msgstr "Jeudi"
+
+msgid "dayly"
+msgstr "journalière"
+
+msgid "weekly"
+msgstr "hebdomadaire"
+
+msgid "monthly"
+msgstr "mensuelle"
+
+msgid "by date"
+msgstr "par date"
+
+msgid "by day"
+msgstr "par jour"
+
+msgid "yearly"
+msgstr "annuelle"
+
+msgid "until"
+msgstr "jusqu'au"
+
+msgid "there is excluded days"
+msgstr "il y a des jours exclus"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"

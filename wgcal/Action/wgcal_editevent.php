@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.22 2005/02/08 06:45:08 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.23 2005/02/08 11:32:24 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -297,10 +297,10 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
   
   for ($i=0; $i<=4; $i++) $action->lay->set("REPEATTYPE_".$i, ($rmode==$i?"checked":""));
 
-  $action->lay->set("D_RWEEKDISPLAY", ($rmode==1?"":"none"));
+  $action->lay->set("D_RWEEKDISPLAY", ($rmode==2?"":"none"));
   for ($i=1; $i<=7; $i++)  $action->lay->set("D_RWEEKDISPLAY_".$i, ($rday==$i?"checked":""));
 
-  $action->lay->set("D_RMONTH", ($rmode==2?"":"none"));
+  $action->lay->set("D_RMONTH", ($rmode==3?"":"none"));
   $action->lay->set("D_RMONTH_DATE_CHECKED", ($rmonthdate==0?"checked":""));
   $action->lay->set("D_RMONTH_DAY_CHECKED", ($rmonthdate==1?"checked":""));
   
@@ -313,8 +313,18 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
   
 
   // Excluded dates
-  $action->lay->setBlockData("EXCLDATE", null);
-
+  if (is_array($recxlude) && count($recxlude)>0) {
+    $ide = 0;
+    foreach ($recxlude as $kd => $vd) {
+      if ($vd!="" && $vd>0) {
+        $rx[]["rDate"] = strftime("%a %d %b %Y", $vd);
+        $rx[]["mDate"] = $vd;
+        $rx[]["iDate"] = $i;
+	$ide++;
+      }
+    }
+    if ($ide>0) $action->lay->setBlockData("EXCLDATE", $rx);
+  }
   $action->lay->set("repeatvie", ($ro?"none":""));
   $action->lay->set("repeatdis", ($ro?"disabled":""));
   
@@ -337,6 +347,13 @@ function EventAddAttendees(&$action, $attendees = array(), $attendeesState = arr
     $att[$a]["attTitle"] = $attru["title"];
     $att[$a]["attIcon"]  = $doc->GetIcon($attru["icon"]);
     $a++;
+  }
+  if ($a==0) {
+    $action->lay->set("voneatt", "none");
+    $action->lay->set("vnatt", "none");
+  } else {
+    $action->lay->set("voneatt", "");
+    $action->lay->set("vnatt", "");
   }
   $action->lay->setBlockData("ADD_RESS", $att);
   $action->lay->set("attendeesro", ($ro?"none":""));

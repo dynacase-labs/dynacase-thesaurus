@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.7 2005/02/06 20:47:29 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.8 2005/02/08 11:32:24 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -32,7 +32,7 @@ function wgcal_resspicker(&$action) {
   $t[$i]["FAMID"] = getIdFromName($dbaccess,"SCALENDAR");
   $df = new Doc($dbaccess, $t[$i]["FAMID"]);
   $t[$i]["FAMICON"] = $df->GetIcon();
-  $t[$i]["FAMTITLE"] = N_("my calendars");
+  $t[$i]["FAMTITLE"] = _("my calendars");
 
   $action->lay->SetBlockData("FAMRESS", $t);
   $action->lay->set("updt", $target);
