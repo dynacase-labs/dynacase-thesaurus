@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.36 2003/05/28 14:36:56 eric Exp $
+// $Id: modcard.php,v 1.37 2003/06/02 09:38:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -150,10 +150,13 @@ function modcard(&$action, &$ndocid) {
 
   $err=$doc-> PostModify(); 
   // add trace to know when and who modify the document
-
-  $doc->Addcomment( sprintf(_("change by %s"),
-			    $action->user->firstname." ".$action->user->lastname));
-  
+  if ( $docid == 0 ) {
+    $doc->Addcomment( sprintf(_("created by %s"),
+			      $action->user->firstname." ".$action->user->lastname));
+  } else {
+    $doc->Addcomment( sprintf(_("change by %s"),
+			      $action->user->firstname." ".$action->user->lastname));
+  }
   $err.=$doc-> Modify(); 
   // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
   $doc->unlock(true); // disabled autolock
