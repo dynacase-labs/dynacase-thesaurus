@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.5 2002/07/29 12:42:23 eric Exp $
+// $Id: GENERIC.app,v 1.6 2002/08/20 14:05:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,6 +57,11 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_EDIT",
    "short_name"		=>N_("edition"),
+   "acl"		=>"GENERIC"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_DUPLICATE",
+   "short_name"		=>N_("duplication"),
    "acl"		=>"GENERIC"
   ) ,
   array( 

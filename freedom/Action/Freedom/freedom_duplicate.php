@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_duplicate.php,v 1.6 2002/08/09 16:51:25 eric Exp $
+// $Id: freedom_duplicate.php,v 1.7 2002/08/20 14:05:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/modcard.php");
+include_once("FDL/duplicate.php");
 
 include_once("FDL/Class.Dir.php");
 
@@ -36,63 +36,7 @@ function freedom_duplicate(&$action) {
   $dirid=GetHttpVars("dirid",10); // where to duplicate
   $docid=GetHttpVars("id",0);       // doc to duplicate
   
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  $copy= new Doc($dbaccess, $docid);
- 
-
-
-  // test if doc with values
-  $doc= new Doc($dbaccess, $docid);
-  $cdoc= new Doc($dbaccess, $doc->fromid);
-  $values = $doc->getValues();
-  if (! is_array($values)) $action->exitError(_("this kind of document cannot be duplicate"));
-
-
-  // initiate a copy of the doc
-  $copy->id = "";
-  $copy->initid = "";
-  $copy->revision = "0";
-  $copy->locked = "0";
-  $copy->state = $copy->firstState;
-  $copy->profid = $cdoc->cprofid;;
-  $copy->title = _("duplication of")." ".$copy->title;
-  $err = $copy->Add();
-
-  
-  if ($err != "") $action->exitError($err);
-  
-
-  //duplicate values 
-    $value = new DocValue($dbaccess);
-    $value->docid = $copy->id;
-    
-    
-    while(list($k,$v) = each($values)) {
-      $value->attrid = $k;
-      $value->value = $v;
-      $value->Add();
-      
-    }
-
-
-  $copy->SetTitle($copy->title);
-  // add to the same folder
-  
-  if (($dirid > 0) && ($copy->id > 0)) {
-    $fld = new Dir($dbaccess, $dirid);
-
-    
-    $err = $fld->AddFile($copy->id);
-    if ($err != "") {
-      $copy->Delete();
-      $action->exitError($err);
-    }
-    
-  } 
-
-
-  $action->AddLogMsg(sprintf(_("new duplicate document is named : %s"),$copy->title));
+  duplicate($action, $dirid, $docid);
 
 
   redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");

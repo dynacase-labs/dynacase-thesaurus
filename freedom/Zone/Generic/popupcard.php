@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.2 2002/04/23 07:47:11 eric Exp $
+// $Id: popupcard.php,v 1.3 2002/08/20 14:05:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,7 +41,7 @@ function popupcard(&$action) {
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu
-  popupInit('popupcard',  array('editdoc','unlockdoc','chgcatg','properties','headers','delete','cancel'));
+  popupInit('popupcard',  array('editdoc','unlockdoc','chgcatg','properties','duplicate','headers','delete','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -54,6 +54,7 @@ function popupcard(&$action) {
 
  
   popupInvisible('popupcard',$kdiv,'unlockdoc'); // don't use for the moment
+  popupActive('popupcard',$kdiv,'duplicate'); 
 
  
 

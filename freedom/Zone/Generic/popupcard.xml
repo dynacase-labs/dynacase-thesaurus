@@ -22,6 +22,9 @@
 <a href="#" id="properties"     
     onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View properties]</a>
 
+<a href="#" id="duplicate"     
+    onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_DUPLICATE&id=[id]&dirid='+parent.flist.catgid,'finfo');closeMenu('popupcard');">[TEXT:Duplicate]</a>
+
 <a href="#" id="headers"     
     onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&head=yes&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View headers]</a>
 
