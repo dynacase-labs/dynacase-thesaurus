@@ -188,6 +188,7 @@ fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4,true)
 
 if (document.all) {
   window.onscroll = floatMenu; /* position fixed not IE supported yet */
+
 }
 function floatMenu () {
   document.getElementById('barmenu').style.position = 'absolute';
@@ -201,7 +202,7 @@ function floatMenu () {
 </head>
 
 <body topmargin=16 marginheight=16 id="bodyid"
-      onLoad="initmicon()" 
+      onLoad="initmicon();if (document.all) document.getElementById('barmenu').style.position = 'absolute';" 
       onMouseOver="initDrag()" 
       onMouseUp="if (buttonNumber(event)==1) {if (drag==0) closeAllMenu(); else closeMenu('popfld')};endDrag(); " >
 

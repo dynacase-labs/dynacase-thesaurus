@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocIncident.php,v 1.8 2002/04/08 15:12:18 eric Exp $
+// $Id: Class.DocIncident.php,v 1.9 2002/04/16 14:45:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.DocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,14 +22,13 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.8 2002/04/08 15:12:18 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.9 2002/04/16 14:45:07 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
 
 
-define ("FAM_INCIDENT", 103);
-define("TOP_INCIDENTDIR",105); // main folder for incident documents
+
 
 
 define ("recorded", "recorded");   # N_("recorded")
