@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.7 2005/02/06 20:47:29 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.8 2005/02/07 07:09:18 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -58,10 +58,15 @@ function ev_weekview(&$action) {
       if ($action->user->fid == $v) $o_or_p = $v;
     }
     if ($o_or_p == 0) {
-    // see for one displayed ressource is attendee
-      foreach ($ress as $k => $v) {
-	foreach ($tress as $kr => $vr) {
-	  if ($v->id==$vr) $o_or_p = $vr;
+      foreach ($tress as $k => $v)  {
+	if ($ownerid == $v) $o_or_p = $v;
+      }
+      if ($o_or_p == 0) {
+	// see for one displayed ressource is attendee
+	foreach ($ress as $k => $v) {
+	  foreach ($tress as $kr => $vr) {
+	    if ($v->id==$vr) $o_or_p = $vr;
+	  }
 	}
       }
     }

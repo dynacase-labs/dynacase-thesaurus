@@ -11,6 +11,8 @@ var  XDays = 0;
 var  Ydivision = 0;
 var  Ystart = 0;
 
+var  PxFormMin = 0;
+
 var Wzone = 0;
 var Hzone = 0;
 var Hhdiv  = 0;
@@ -32,15 +34,10 @@ var EventCount = -1;
 var EvTObject = new Array();
 var EvTObjectCount = -1;
 
-// -----------------------------------------------------"private"---
-function GetPxForMin() {
-  return (Hzone / ((Ydivision)*60));  
-}
-
 
 // --------------------------------------------------------
 function GetTimeInfoFromTs(ts) {
-   var evd = new Date();
+var evd = new Date();
    var tinfo = new Object();
    evd.setTime((ts*1000));
    tinfo.day = evd.getDay();
@@ -58,7 +55,7 @@ function GetCoordFromDate(ts) {
   if (day==0) day = 7;
   evt.x = (Wday * (day - 1)) + Xs;
   hmin = ((tinf.hours-Ystart) * 60) + tinf.minutes;
-  ypx = GetPxForMin();
+  ypx = PxForMin;
   evt.y = (ypx * hmin) + Ys;
 
   return evt;
@@ -123,18 +120,6 @@ function WGCalSetDate(calendar)
 
 
 // --------------------------------------------------------
-function getElementGeo(e) {
-  var geo = new Object();
-  geo.x = geo.y = geo.w = geo.h = -1;
-  geo.w = e.offsetWidth;
-  geo.h = e.offsetHeight;
-  geo.x = e.offsetLeft;
-  geo.y = e.offsetTop;
-  return geo;
-}
-  
-
-// --------------------------------------------------------
 function getX(e) { 
   var posx = 0; 
   if (!e) var e = window.event;
@@ -150,11 +135,6 @@ function getY(e) {
   if (e.pageY)  posy = e.pageY;
   else if (e.clientY)  posy = e.clientY + document.body.scrollTop;
   return posy;
-}
-
-// --------------------------------------------------------
-function AddEvent(urlroot,time) {
-  subwindow(400, 650, 'EditEvent'+time, urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&time='+time);	
 }
 
 // --------------------------------------------------------
@@ -181,16 +161,37 @@ function OutCalendarCell(ev, elt, lref, cref, cclass, hourclass, dayclass) {
 function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart) {
   IdStart   = idstart;
   IdEnd     = idend;	
-  XDays = xdiv;
+  XDays     = xdiv;
   Ydivision = ydiv;
   Ystart    = ystart;
   WGCalComputeCoord();
 }
 
+
+
+function DrawRect(x,y,w,h,c) {
+  text = '(x,y,w,h)=('+x+','+y+','+w+','+h+')';
+  nText = document.createElement('div');
+  content = document.createTextNode(text);
+  nText.appendChild(content);
+  nText.style.position = 'absolute';
+  nText.style.background = c;
+  nText.style.left = x+"px";
+  nText.style.top = y+"px";
+  nText.style.width = w+"px";
+  nText.style.height = h+"px";
+  nText.style.border = '0px';
+  document.getElementById(Root).appendChild(nText);
+}
+
 // --------------------------------------------------------
 function WGCalComputeCoord() {
+
+  var gamma = 0.25;
+
   // compute area coord left/top (Xs,Ys) right/bottom (Xe,Ye)
   var os = getAnchorPosition(IdStart);
+  var hr = getObjectHeight(document.getElementById(IdStart));
   var oe = getAnchorPosition(IdEnd);
   var w = getObjectWidth(document.getElementById(IdEnd));
   var h = getObjectHeight(document.getElementById(IdEnd));
@@ -206,18 +207,9 @@ function WGCalComputeCoord() {
   Wevt = Wday - 4;
   Wshift = Wday / 5;
  
-  text = ' W zone = '+Wzone+' W day = '+Wday+' W evt = '+Wevt+' Wshift = '+Wshift;  
-  nText = document.createElement('div');
-  content = document.createTextNode(text);
-  nText.appendChild(content);
-  nText.style.position = 'absolute';
-  nText.style.background = 'yellow';
-  nText.style.left = Xs+"px";
-  nText.style.top = Ys+"px";
-  nText.style.width = Wzone+"px";
-  nText.style.height = Hzone+"px";
-  nText.style.border = '1px outset #afafaf';
-  //document.getElementById(Root).appendChild(nText);
+  PxForMin = (hr - gamma) / 60;
+  //DrawRect(os.x,os.y,w,(hr-gamma),'yellow');
+  //   DrawRect(Xs,Ys,Wzone,Hzone,'yellow');
 }
 
 // --------------------------------------------------------
@@ -230,49 +222,6 @@ function WGCalChangeClass(event, id, refclass, nclass)
   if (elt.className!=refclass) elt.className = nclass;
 }
 
-
-// --------------------------------------------------------
-function EvTs2String(ts) {
-   var d = new Date();
-   d.setTime((ts*1000));
-   var ms = [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jui', 'Jui', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ];
-   return d.getDay()+'.'+ms[d.getMonth()]+'.'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
-}
-
-// --------------------------------------------------------
-function GetCurCell(ev) {
-  x = getX(ev);
-  y = getY(ev);
-  cell = new Object();
-  cell.x = cell.y = cell.width = cell.height = 0;
-  d = Math.round(x/Wday) - 1;
-  cell.x = Xs + (d * Wday);
-  cell.width = Wday;
-  h = Math.round(y / Hhdiv) - 1;
-  cell.y = Ys + (h * Hhdiv);
-  cell.height = Hhdiv;
-  return cell;
-}
-
-// --------------------------------------------------------
-function AddNewEvent(ev, c) {
-
-  var cell = GetCurCell(ev);
-  var geo = getElementGeo(c);
-
-  x = getX(ev);
-  y = getY(ev);
-  nText = document.createElement('input');
-  nText.id = 'test';
-  nText.style.left = x+"px";
-  nText.style.top = y+"px";
-  nText.style.background = 'yellow';
-  nText.style.border = '1px solid red';
-  nText.style.position = 'absolute';
-  document.getElementById(Root).appendChild(nText);
-  document.getElementById('test').focus();
-
-}
 
 // --------------------------------------------------------
 function WGCalAddEvent(evtid, dstart, dend, day) 
@@ -305,7 +254,7 @@ function WGCalAddEvent(evtid, dstart, dend, day)
   evt.h = pend.y - pstart.y;
   if (evt.y<dstartt.y) {
     evt.y = dstartt.y;
-    evt.h = Math.round(pend.y - dstartt.y + (GetPxForMin()*60));
+    evt.h = Math.round(pend.y - dstartt.y + (PxForMin*60));
   }
   if ((evt.h+evt.y)>dendt.y) evt.h = dendt.y - pstart.y;
 

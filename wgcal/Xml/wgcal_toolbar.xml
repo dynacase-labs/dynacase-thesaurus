@@ -74,10 +74,6 @@
      src="WGCAL/Images/wm-attendees.png" title="[TEXT:modify the list]">
 <img id="resssel" style="cursor:pointer;" onclick="document.getElementById('updatecal').submit();" height="15"
      src="WGCAL/Images/calendar.gif" title="[TEXT:update calendar]">
-<img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" 
-     src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]">
-<img id="resssav" style="cursor:pointer;" onclick="saveRessources(); alert('[TEXT: ressource list saved]');" height="15" 
-     src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
 
 </legend>
 
@@ -119,10 +115,17 @@
 </tbody>
 </table>
 
-<span id="spuseressources" title="[TEXT:use ressource for event creation]" onclick="useressources('wgcal_calendar','WGCAL_CALENDAR');" class="[urclass]">[TEXT:use in event...]<input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources('wgcal_calendar','WGCAL_CALENDAR');" [urchecked]>
-</span>
-</div>
+<table cellspacing="0" cellpadding="0" width="100%">
+<tr><td height="10px"></td></tr>
+<tr>
+<td align="left"><span id="spuseressources" title="[TEXT:use ressource for event creation]" onclick="useressources('wgcal_calendar','WGCAL_CALENDAR');" class="[urclass]" style="font-size:80%"><input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources('wgcal_calendar','WGCAL_CALENDAR');" [urchecked]>[TEXT:use in event...]</span></td>
+<td align="right"><img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" 
+     src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]">&nbsp;<img id="resssav" style="cursor:pointer;" onclick="saveRessources(); alert('[TEXT: ressource list saved]');" height="15" 
+     src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
+</td>
+</tr></table>
 
+</div>
 </fieldset>
 
 <script type="text/javascript">
