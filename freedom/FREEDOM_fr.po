@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-14 19:01+0100\n"
+"POT-Creation-Date: 2005-01-19 12:20+0100\n"
 "PO-Revision-Date: 2005-01-14 19:01+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -1091,15 +1091,6 @@ msgstr "égal"
 msgid "not equal"
 msgstr "pas égal"
 
-msgid "not include"
-msgstr "ne contient pas"
-
-msgid "&gt; or equal"
-msgstr "&gt; ou égal"
-
-msgid "&lt; or equal"
-msgstr "&lt; ou égal"
-
 msgid "is empty"
 msgstr "est vide"
 
@@ -1108,6 +1099,15 @@ msgstr "n'est pas vide"
 
 msgid "one value equal"
 msgstr "une des valeurs égale"
+
+msgid "not include"
+msgstr "ne contient pas"
+
+msgid "&gt; or equal"
+msgstr "&gt; ou égal"
+
+msgid "&lt; or equal"
+msgstr "&lt; ou égal"
 
 msgid "and"
 msgstr "et"
@@ -1120,6 +1120,9 @@ msgstr "identifiant propriétaire"
 
 msgid "label"
 msgstr "désignation"
+
+msgid "send search"
+msgstr "Lancer la recherche"
 
 msgid "any values"
 msgstr "une des valeurs"
@@ -2617,9 +2620,6 @@ msgstr "Détails"
 
 msgid "Parameters"
 msgstr "Paramètres"
-
-msgid "send search"
-msgstr "Lancer la recherche"
 
 msgid "fieldset"
 msgstr "cadre"

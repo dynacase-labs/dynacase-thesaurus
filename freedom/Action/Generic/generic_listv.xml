@@ -82,7 +82,7 @@ var catgid=[catg];
 
 <table class="tableborder" cellspacing="0" style="margin-top:5pt" width="100%" >
 
-<tr><th><IMG class="iconimg20"  align="absmiddle"  src="[iconsrc]"><B>[ftitle]</B></th>
+<tr><th><IMG class="iconimg20"  align="absmiddle"  src="[iconfamsrc]"><B>[ftitle]</B></th>
 [BLOCK [blockattr]]
 <th>[aname]</th>
 [ENDBLOCK [blockattr]]</tr>
@@ -91,10 +91,9 @@ var catgid=[catg];
      class="unselect" 
      onmouseover="if (this.className != 'select') this.className='unselecth'"
      onmouseout="if (this.className != 'select') this.className='unselect'" 
-     onclick="if (document.noselect) document.noselect=false; else {select(this,[id],[divid]);;subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&props=N&id=[id]');}" 
-     >   
+     onclick="if (document.noselect) document.noselect=false; else {select(this,[id],[divid]);;subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&props=N&id=[id]');}" >   
  <td class="tlist">
-<IMG style="display:none" id="i[divid]"      src="[iconsrc]">[title]</td>
+<IMG width="16" align="absbottom" [IFNOT canedit]class="aiconnoh"[ENDIF canedit][IF canedit]class="aicon" title="[TEXT:toedit]" onclick="document.noselect=true;select(this.parentNode.parentNode,[id],[divid]);subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo','[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&id=[id]');"[ENDIF canedit]  id="i[divid]"      src="[iconsrc]">[title]</td>
        
 <td class="tlist">[values]</td>
         

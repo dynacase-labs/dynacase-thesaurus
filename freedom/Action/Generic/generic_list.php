@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.18 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: generic_list.php,v 1.19 2005/01/20 16:44:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.18 2004/08/05 09:47:20 eric Exp $
+// $Id: generic_list.php,v 1.19 2005/01/20 16:44:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -159,7 +159,8 @@ function generic_viewmode(&$action,$famid) {
   case "column":
     $action->layout = $action->GetLayoutFile("generic_listv.xml");
     $action->lay = new Layout($action->layout,$action);
-    $column=true;
+    //    $column=true;
+    $column=2;
     break;
   
   case "abstract":

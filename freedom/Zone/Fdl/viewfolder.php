@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.59 2005/01/14 17:52:33 eric Exp $
+ * @version $Id: viewfolder.php,v 1.60 2005/01/20 16:47:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -26,7 +26,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 		    $sqlfilters=array(),// more filters to see specials doc
 		    $famid="")       // folder containt special fam id 
 {
-// -----------------------------------
+  // -----------------------------------
 
 
   // Get all the params      
@@ -78,10 +78,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
   }
   
-    if ($startpage>0) {
-      $pagefolder = $action->Read("pagefolder");
-      $start = $pagefolder[$startpage];
-    } else $start=0;
+  if ($startpage>0) {
+    $pagefolder = $action->Read("pagefolder");
+    $start = $pagefolder[$startpage];
+  } else $start=0;
 
 
   $terr = getChildDocError($dbaccess, $dirid);
@@ -115,203 +115,205 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $kdiv=1;
   $tdoc=array();
 
-    $nbseedoc=0;
+  $nbseedoc=0;
   if (is_array($ldoc)) {
     
 
     // get date format 
-  if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
-    setlocale (LC_TIME, "fr_FR");
-    $fdate= "%d/%m/%y";
-  } else {
-    $fdate="%x";
-  }
+    if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
+      setlocale (LC_TIME, "fr_FR");
+      $fdate= "%d/%m/%y";
+    } else {
+      $fdate="%x";
+    }
       
     $nbdoc=0;
-  $prevFromId = -2;
+    $prevFromId = -2;
 
-  if ($column) {
-    usort($ldoc,"orderbyfromid");
-    $tfamdoc=array();
-  } else {
-    uasort($ldoc,"orderbytitle");
-  }
+    if ($column==1) {
+      usort($ldoc,"orderbyfromid");
+      $tfamdoc=array();
+    } else {
+      if ((GetHttpVars("sqlorder")=="")&&($slice > 999)) uasort($ldoc,"orderbytitle");
+    }
 
-  $doc = createDoc($dbaccess,$famid,false);
-
-
-  foreach($ldoc as $k=>$zdoc )  {
-
-	if ($column) $doc->ResetMoreValues();
-	$doc->Affect($zdoc);
-	if ($column) $doc->GetMoreValues();
-	$nbseedoc++;
-
-	// view control
-	  //unnecessary now// if ($doc-> Control("view") != "") continue;
+    $doc = createDoc($dbaccess,$famid,false);
 
 
-	$nbdoc++; // one more visible doc
+    foreach($ldoc as $k=>$zdoc )  {
 
-	$docid=$doc->id;
+      if ($column==1) $doc->ResetMoreValues();
+      $doc->Affect($zdoc);
+      if ($column==1) $doc->GetMoreValues();
+      $nbseedoc++;
 
-	$tdoc[$k]["id"] = $docid;
-	// search title for freedom item
+      // view control
+      //unnecessary now// if ($doc-> Control("view") != "") continue;
 
 
-	$tdoc[$k]["title"] = $doc->title;
+      $nbdoc++; // one more visible doc
 
-	if ($doc->doctype =="C") 	$tdoc[$k]["title"] = "<B>". $doc->title ."</B>";
+      $docid=$doc->id;
 
-	if (strlen($doc->title) > 20) $tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)." ... ".substr($doc->title,-5);
-	else $tdoc[$k]["abrvtitle"] =  $doc->title;
+      $tdoc[$k]["id"] = $docid;
+      // search title for freedom item
 
-	if (isset($doc->_highlight) && $doc->_highlight!="")  {
-	  $tdoc[$k]["highlight"] = $doc->_highlight;
-	} else $tdoc[$k]["highlight"] = $doc->title;
-	$tdoc[$k]["icontitle"] = $tdoc[$k]["highlight"];
 
-	$tdoc[$k]["profid"] = $doc->profid;
-	$tdoc[$k]["revdate"] = strftime ($fdate, $doc->revdate);
+      $tdoc[$k]["title"] = $doc->title;
 
-	$tdoc[$k]["iconsrc"]= $doc->geticon();
+      if ($doc->doctype =="C") 	$tdoc[$k]["title"] = "<B>". $doc->title ."</B>";
+
+      if (strlen($doc->title) > 20) $tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)." ... ".substr($doc->title,-5);
+      else $tdoc[$k]["abrvtitle"] =  $doc->title;
+
+      if (isset($doc->_highlight) && $doc->_highlight!="")  {
+	$tdoc[$k]["highlight"] = $doc->_highlight;
+      } else $tdoc[$k]["highlight"] = $doc->title;
+      $tdoc[$k]["icontitle"] = $tdoc[$k]["highlight"];
+
+      $tdoc[$k]["profid"] = $doc->profid;
+      $tdoc[$k]["revdate"] = strftime ($fdate, $doc->revdate);
+
+      $tdoc[$k]["iconsrc"]= $doc->geticon();
   
-	$tdoc[$k]["divid"] = $kdiv;
+      $tdoc[$k]["divid"] = $kdiv;
 
-	$tdoc[$k]["locked"] ="";
-	$tdoc[$k]["emblem"] = $action->GetImageUrl("1x1.png");
-	$tdoc[$k]["emblemt"] ="";
-	$tdoc[$k]["emblemw"] ="0";
-	$tdoc[$k]["canedit"] =1;
+      $tdoc[$k]["locked"] ="";
+      $tdoc[$k]["emblem"] = $action->GetImageUrl("1x1.png");
+      $tdoc[$k]["emblemt"] ="";
+      $tdoc[$k]["emblemw"] ="0";
+      $tdoc[$k]["canedit"] =1;
 	
-	if ($doc->locked == -1) {
-	  $tdoc[$k]["emblem"] = $action->GetImageUrl("revised.gif");
-	  $tdoc[$k]["emblemt"] = N_("fixed");
-	  $tdoc[$k]["emblemw"] ="12";
-	  $tdoc[$k]["canedit"] =false;
-	  $tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
-	} else if ((abs($doc->locked) == $action->parent->user->id)) {
+      if ($doc->locked == -1) {
+	$tdoc[$k]["emblem"] = $action->GetImageUrl("revised.gif");
+	$tdoc[$k]["emblemt"] = N_("fixed");
+	$tdoc[$k]["emblemw"] ="12";
+	$tdoc[$k]["canedit"] =false;
+	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
+      } else if ((abs($doc->locked) == $action->parent->user->id)) {
 
-	  $tdoc[$k]["emblem"] = $action->GetImageUrl("clef1.gif");
-	  $tdoc[$k]["emblemt"] = N_("locked");
-	  $tdoc[$k]["emblemw"] ="12";
-	  $tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
+	$tdoc[$k]["emblem"] = $action->GetImageUrl("clef1.gif");
+	$tdoc[$k]["emblemt"] = N_("locked");
+	$tdoc[$k]["emblemw"] ="12";
+	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
 
-	} else if ($doc->locked != 0) {
-	  $tdoc[$k]["emblem"] = $action->GetImageUrl("clef2.gif");
-	  $tdoc[$k]["emblemt"] = N_("locked");
-	  $tdoc[$k]["emblemw"] ="12";
-	  $tdoc[$k]["canedit"] =false;
-	  $tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
+      } else if ($doc->locked != 0) {
+	$tdoc[$k]["emblem"] = $action->GetImageUrl("clef2.gif");
+	$tdoc[$k]["emblemt"] = N_("locked");
+	$tdoc[$k]["emblemw"] ="12";
+	$tdoc[$k]["canedit"] =false;
+	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
 
-	} else if ($doc->control("edit") != "")  {
-	  $tdoc[$k]["emblem"] = $action->GetImageUrl("nowrite.gif");
-	  $tdoc[$k]["emblemt"] = N_("read-only");
-	  $tdoc[$k]["emblemw"] ="12";
-	  $tdoc[$k]["canedit"] =false;
-	  $tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
-	}
-	//else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
+      } else if ($doc->control("edit") != "")  {
+	$tdoc[$k]["emblem"] = $action->GetImageUrl("nowrite.gif");
+	$tdoc[$k]["emblemt"] = N_("read-only");
+	$tdoc[$k]["emblemw"] ="12";
+	$tdoc[$k]["canedit"] =false;
+	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
+      }
+      //else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
 	
-	$tdoc[$k]["iconsrc"]= $doc->geticon();
+      $tdoc[$k]["iconsrc"]= $doc->geticon();
 	
-	if ($with_popup) {
-	  // ------------------------------
-	  // define popup accessibility
+      if ($with_popup) {
+	// ------------------------------
+	// define popup accessibility
 
-	  popupInvisible("popuplist",$kdiv,'vprop'); // don't use : idem like simple clic
-	  popupActive("popuplist",$kdiv,'cancel');
-	  popupActive("popuplist",$kdiv,'copy');
-	  popupActive("popuplist",$kdiv,'addbasket');
-	  popupActive("popuplist",$kdiv,'ifld');
-	  popupActive("popuplist",$kdiv,'duplicate');
+	popupInvisible("popuplist",$kdiv,'vprop'); // don't use : idem like simple clic
+	popupActive("popuplist",$kdiv,'cancel');
+	popupActive("popuplist",$kdiv,'copy');
+	popupActive("popuplist",$kdiv,'addbasket');
+	popupActive("popuplist",$kdiv,'ifld');
+	popupActive("popuplist",$kdiv,'duplicate');
 
-	  if ($dirid > 0) popupActive("popuplist",$kdiv,'delete');
-	  else popupInactive("popuplist",$kdiv,'delete');
+	if ($dirid > 0) popupActive("popuplist",$kdiv,'delete');
+	else popupInactive("popuplist",$kdiv,'delete');
 
-	  if ($doc->doctype=='C') {
-	    popupInvisible("popuplist",$kdiv,'editdoc');
+	if ($doc->doctype=='C') {
+	  popupInvisible("popuplist",$kdiv,'editdoc');
+	} else {
+	  $cud = ($doc->CanLockFile() == "");
+	  if ($cud) {
+	    popupActive("popuplist",$kdiv,'editdoc');
 	  } else {
-	    $cud = ($doc->CanLockFile() == "");
-	    if ($cud) {
-	      popupActive("popuplist",$kdiv,'editdoc');
-	    } else {
-	      popupInactive("popuplist",$kdiv,'editdoc');
-	    }
-	  }
-	  
-	  if ($dir->defDoctype != 'D') {
-	    // it's a search :: inhibit duplicate and suppress reference
-	    popupInvisible("popuplist",$kdiv,'duplicate');
-	    popupInvisible("popuplist",$kdiv,'delete');	  
+	    popupInactive("popuplist",$kdiv,'editdoc');
 	  }
 	}
+	  
+	if ($dir->defDoctype != 'D') {
+	  // it's a search :: inhibit duplicate and suppress reference
+	  popupInvisible("popuplist",$kdiv,'duplicate');
+	  popupInvisible("popuplist",$kdiv,'delete');	  
+	}
+      }
 
-	$kdiv++;
-	if ($doc->isRevisable()) $tdoc[$k]["revision"]= $doc->revision;
-	else $tdoc[$k]["revision"]="";
-	if ($doc->wid > 0) $tdoc[$k]["state"]= $action->Text($doc->state);
-	else $tdoc[$k]["state"]="";
+      $kdiv++;
+      if ($doc->isRevisable()) $tdoc[$k]["revision"]= $doc->revision;
+      else $tdoc[$k]["revision"]="";
+      if ($doc->wid > 0) $tdoc[$k]["state"]= $action->Text($doc->state);
+      else $tdoc[$k]["state"]="";
       
 	
 	      
-	if (($doc->doctype == 'D')||($doc->doctype == 'S')) $tdoc[$k]["isfld"]= "true";
-	else $tdoc[$k]["isfld"]= "false";
+      if (($doc->doctype == 'D')||($doc->doctype == 'S')) $tdoc[$k]["isfld"]= "true";
+      else $tdoc[$k]["isfld"]= "false";
 	
 	
-	  // ----------------------------------------------------------
-	  //                 ABSTRACT MODE
-	  // ----------------------------------------------------------
-	if ($with_abstract ) {
-	  // search abstract attribute for freedom item
-	  $doc->ApplyMask(); // apply mask attribute
-	  $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");
-	  $tdoc[$k]["LOrR"]=($k%2==0)?"left":"right";
-	}
-	
-	  // ----------------------------------------------------------
-	  //                 COLUMN MODE
-	  // ----------------------------------------------------------
-	if ($column) {
-	  if ($doc->fromid != $prevFromId) {
-	    $adoc = $doc->getFamDoc();
-	    if (count($tdoc) > 1) {
-	      $doct = $tdoc[$k];
-	      array_pop($tdoc);
-	      $action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
-	      $tdoc=array();
-
-	      $tdoc[$k]=$doct;
-	    }
-
-	    $tfamdoc[] = array("iconsrc"=>$tdoc[$k]["iconsrc"],
-			       "ftitle"=>$adoc->title,
-			       "blockattr" => "BATT".$doc->fromid,
-			       "blockvalue" => "BVAL".$doc->fromid);
-	      
-	    // create the TR head 
-	    $lattr=$adoc->GetAbstractAttributes();
-	    $taname=array();
-	    $emptytableabstract=array();
-	    while (list($ka,$attr) = each($lattr))  {	
-	      $emptytableabstract[$attr->id]["value"]="-";
-	      $taname[$attr->id]["aname"]=_($attr->labelText);
-	    }
-	    $action->lay->SetBlockData("BATT".$doc->fromid,$taname);
-	      
-	  }
-	  
-	  reset($lattr);
-	  $tvalues=array();
-	  while (list($ka,$attr) = each($lattr))  {	
-	    //$tvalues[]=$doc->getValue($attr->id,"-");
-	    if ($attr->type=="image") $tvalues[]='<img src="'.$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target).'"  height="30">';
-	    else  $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target);
-	  }
-	  $tdoc[$k]["values"]=implode('</td><td class="tlist">',$tvalues);
-	}
-	$prevFromId=$doc->fromid;
+      // ----------------------------------------------------------
+      //                 ABSTRACT MODE
+      // ----------------------------------------------------------
+      if ($with_abstract ) {
+	// search abstract attribute for freedom item
+	$doc->ApplyMask(); // apply mask attribute
+	$tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");
+	$tdoc[$k]["LOrR"]=($k%2==0)?"left":"right";
       }
+	
+      // ----------------------------------------------------------
+      //                 COLUMN MODE
+      // ----------------------------------------------------------
+      if ($column) {
+	if ($doc->fromid != $prevFromId) {
+	  if (($column==1) || (count($tfamdoc)==0)) {
+	  $adoc = $doc->getFamDoc();
+	  if (count($tdoc) > 1) {
+	    $doct = $tdoc[$k];
+	    array_pop($tdoc);
+	    $action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
+	    $tdoc=array();
+
+	    $tdoc[$k]=$doct;
+	  }
+	  $prevFromId=$doc->fromid;
+	  $tfamdoc[] = array("iconfamsrc"=>$tdoc[$k]["iconsrc"],
+			     "ftitle"=>$adoc->title,
+			     "blockattr" => "BATT".$doc->fromid,
+			     "blockvalue" => "BVAL".$doc->fromid);
+	      
+	  // create the TR head 
+	  $lattr=$adoc->GetAbstractAttributes();
+	  $taname=array();
+	  $emptytableabstract=array();
+	  while (list($ka,$attr) = each($lattr))  {	
+	    $emptytableabstract[$attr->id]["value"]="-";
+	    $taname[$attr->id]["aname"]=_($attr->labelText);
+	  }
+	  $action->lay->SetBlockData("BATT".$doc->fromid,$taname);
+	  }
+	}
+	  
+
+	$tvalues=array();
+	foreach($lattr as $ka=>$attr)  {	
+	  //$tvalues[]=$doc->getValue($attr->id,"-");
+	  if ($attr->type=="image") $tvalues[]='<img src="'.$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target).'"  height="30">';
+	  else  $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target);
+	}
+	$tdoc[$k]["values"]=implode('</td><td class="tlist">',$tvalues);
+	
+      }
+      //if ($column == 1) $prevFromId=$doc->fromid;
+    }
   }
 
   // Out
