@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.26 2004/09/24 11:16:56 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.27 2004/10/08 07:45:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -221,6 +221,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
 			 "idp"=>$k,
 			 "value"=>getHttpVars($k));
      $tinputs[$k]["label"]=$zpi[$v]->labelText;
+     if ($zpi[$v]->visibility=='R') $zpi[$v]->mvisibility='W';
      if (isset($zpi[$v]->id)) {
        $zpi[$v]->isAlone=true;
        $tinputs[$k]["inputs"]=getHtmlInput($doc,$zpi[$v],getHttpVars($k));
