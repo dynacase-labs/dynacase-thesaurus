@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.10 2004/03/01 09:32:43 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.11 2004/03/01 11:10:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -125,6 +125,7 @@ function RefreshDocUser() {
       $this->SetValue("US_EXPIRES",$wuser->expires);
       $this->SetValue("US_DAYDELAY",$wuser->passdelay/3600/24);
       $this->SetValue("US_IDDOMAIN",$wuser->iddomain);
+      include_once("Class.Domain.php");
       $dom = new Domain("",$wuser->iddomain);
       $this->SetValue("US_DOMAIN",$dom->name);
       $this->SetValue("US_MAIL",getMailAddr($wid) );
