@@ -69,7 +69,7 @@ d.gEl(ids+"_s").style.width=Math.max(rx+12,((ie5)?100:104))+'px';
 d.gEl(ids+"_s").style.height=Math.max(ry+((ie5)?12:13),((ie5)?80:86))+'px';
 d.gEl(ids+"_c").style.width=Math.max(rx-((ie5)?-5:5),((ie5)?92:87))+'px';
 d.gEl(ids+"_c").style.height=Math.max(ry-((ie5)?24:28),44)+'px';
-d.gEl(ids+"_max").h=parseInt(d.gEl(ids+"_b").style.height);
+d.gEl(ids+"_min").h=parseInt(d.gEl(ids+"_b").style.height);
 }}}
 
 //******* END OF EXPOSED FUNCTIONS *******\\
@@ -117,6 +117,7 @@ ns6bugfix();
 }}
 
 function ns6bugfix(){
+  return;
   if(ns6)setTimeout('self.resizeBy(0,1); self.resizeBy(0,-1);', 100);
 }
 
