@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_mod.php,v 1.20 2003/10/09 12:08:42 eric Exp $
+ * @version $Id: generic_mod.php,v 1.21 2004/08/10 07:54:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.20 2003/10/09 12:08:42 eric Exp $
+// $Id: generic_mod.php,v 1.21 2004/08/10 07:54:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,9 +74,10 @@ function generic_mod(&$action) {
 
       if ($dirid > 0) {
 	$fld = new Doc($dbaccess, $dirid);
-       
-	$err=$fld->AddFile($doc->id);
-	if ($err != "") $action->AddLogMsg($err);
+	if (method_exists($fld,"AddFile")) {
+	  $err=$fld->AddFile($doc->id);
+	  if ($err != "") $action->AddLogMsg($err);
+	}
       }
     
    
