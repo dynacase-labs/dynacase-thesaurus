@@ -1,4 +1,5 @@
 ======pam _what ===
+modif require change libwhat to What
 0.1.1 -> 0.1.2
 	correction fuite mémoire
 
