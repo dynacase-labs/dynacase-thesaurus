@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocPerm.php,v 1.8 2004/02/17 11:02:14 eric Exp $
+ * @version $Id: Class.DocPerm.php,v 1.9 2004/02/24 08:44:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -12,7 +12,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocPerm.php,v 1.8 2004/02/17 11:02:14 eric Exp $
+// $Id: Class.DocPerm.php,v 1.9 2004/02/24 08:44:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocPerm.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.8 2004/02/17 11:02:14 eric Exp $';
+$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.9 2004/02/24 08:44:31 eric Exp $';
 include_once("Class.DbObj.php");
 
 /**
@@ -79,7 +79,8 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
   }
 
   function preInsert() {
-    if ($this->userid==1) return _("not perm for admin");    
+    if ($this->userid==1) return _("not perm for admin");   
+    if (($this->upacl==0) && ($this->unacl==0)) return _("not pertinent");   
   }
 
   function getUperm($docid, $userid) {
@@ -96,8 +97,16 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
   function ControlU ($pos) {
     // --------------------------------------------------------------------     
         
-    if ( ! isset($this->uacl)) {                  
-      $this->uacl = $this->getUperm($this->docid,$this->userid);
+    if ( ! isset($this->uacl)) {       
+      if ($this->upacl == 0) {
+	if ( ! isset($this->gacl)) {       
+	  $q = new QueryDb($this->dbaccess, "docperm");
+	  $t = $q -> Query(0,1,"TABLE","select computegperm({$this->userid},{$this->docid}) as uperm");
+
+	  $this->gacl=$t[0]["uperm"];
+	  $this->uacl = $this->gacl;
+	}
+      } else $this->uacl = $this->getUperm($this->docid,$this->userid);
 
     }
     return ($this->ControlMask($this->uacl,$pos));
