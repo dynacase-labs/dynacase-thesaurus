@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.8 2002/10/08 10:26:04 eric Exp $
+// $Id: popupcard.php,v 1.9 2002/10/22 13:34:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -93,7 +93,6 @@ function popupcard(&$action) {
   if (($clf)||($cud)) {
     popupActive('popupcard',$kdiv,'editattr'); 
     popupActive('popupcard',$kdiv,'chgtitle'); 
-    popupInvisible('popupcard',$kdiv,'editstate'); 
     popupActive('popupcard',$kdiv,'defval'); 
     popupActive('popupcard',$kdiv,'editdoc');
     popupActive('popupcard',$kdiv,'editdfld');
@@ -120,14 +119,17 @@ function popupcard(&$action) {
       popupInactive('popupcard',$kdiv,'editdoc');
       popupInactive('popupcard',$kdiv,'editstate');
       
+
+    }
+  }
+
+  if ($doc->locked != -1) {
       if ($doc->wid > 0) {
 	$wdoc=new Doc($doc->dbaccess, $doc->wid);
 	$wdoc->Set($doc);
 	if (count($wdoc->GetFollowingStates()) > 0)
 	  popupActive('popupcard',$kdiv,'editstate');
       }
-
-    }
   }
   if ($doc->doctype=="F") popupActive('popupcard',$kdiv,'histo'); 
   else popupInvisible('popupcard',$kdiv,'histo');
