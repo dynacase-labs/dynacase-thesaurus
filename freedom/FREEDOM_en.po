@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-12-17 18:19+0100\n"
+	"POT-Creation-Date: 2004-01-15 11:36+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -354,6 +354,9 @@ msgstr	""
 msgid	"email sended"
 msgstr	""
 
+msgid	"mail dest is empty"
+msgstr	""
+
 #, c-format
 msgid	"PDF conversion failed for %s"
 msgstr	""
@@ -545,9 +548,10 @@ msgstr	""
 msgid	"the method '%s' is not known for the object class %s"
 msgstr	""
 
-#, c-format
-msgid	"ChangeState :: the method '%s' has the following error %s"
-msgstr	""
+#, fuzzy, c-format
+msgid	"The change state to %s has been aborded.\n"
+	"%s"
+msgstr	"Category"
 
 #, fuzzy, c-format
 msgid	"change state : %s to %s"
@@ -558,8 +562,9 @@ msgid	"%s new state %s"
 msgstr	""
 
 #, c-format
-msgid	"ChangeState :: the state has been realized but the post method '%s' "
-	"has the following error %s"
+msgid	"The change state to %s has been realized. But the following warning "
+	"is appeared.\n"
+	"%s"
 msgstr	""
 
 #, fuzzy, c-format
@@ -709,6 +714,10 @@ msgid	"%s needed\n"
 msgstr	""
 
 #, c-format
+msgid	"no permission to modify this attribute %s"
+msgstr	""
+
+#, c-format
 msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
 	"automatically"
 msgstr	""
@@ -843,6 +852,10 @@ msgid	"suspended"
 msgstr	""
 
 #, fuzzy
+msgid	"draft"
+msgstr	"Edit"
+
+#, fuzzy
 msgid	"Trecorded"
 msgstr	"Create"
 
@@ -871,16 +884,20 @@ msgid	"[%s] incident registration"
 msgstr	""
 
 #, c-format
-msgid	"Freedom : incident %s : transition to %s"
+msgid	"Incident : ask for analyze %s"
+msgstr	""
+
+#, c-format
+msgid	"Incident : ask for perform %s"
 msgstr	""
 
 #, c-format
 msgid	"[%s] incident traited"
 msgstr	""
 
-#, c-format
-msgid	"send internal mail to %s (bcc:%s)"
-msgstr	""
+#, fuzzy, c-format
+msgid	"the %s attribute must be set."
+msgstr	"Update Title Cards"
 
 #, c-format
 msgid	"send official mail to %s (cc: %s - bcc:%s)"
@@ -2580,7 +2597,7 @@ msgid	"View XML"
 msgstr	""
 
 #, fuzzy
-msgid	"Reference document"
+msgid	"Search linked documents"
 msgstr	"Delete"
 
 msgid	"Edit attributes"
@@ -2709,6 +2726,14 @@ msgstr	""
 msgid	"unchanged"
 msgstr	""
 
+#, fuzzy
+msgid	"revision comment"
+msgstr	"Organisation"
+
+#, fuzzy
+msgid	"revision comment for autorevision"
+msgstr	"Organisation"
+
 msgid	"(private)"
 msgstr	""
 
@@ -2721,6 +2746,10 @@ msgstr	"Category"
 
 msgid	"View properties"
 msgstr	""
+
+#, fuzzy
+#~ msgid	"Reference document"
+#~ msgstr	"Delete"
 
 #, fuzzy
 #~ msgid	"created by %s"
