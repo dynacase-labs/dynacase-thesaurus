@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.2 2004/11/29 16:36:23 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.3 2004/12/01 17:07:08 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,7 +28,7 @@ $app_const= array(
 
   "WGCAL_U_LEFTWIDTH" => array(  "val"=>"150", "descr"=>N_("left toolbar width"), "user"=>"Y"),
   "WGCAL_U_HLINETITLE" => array(  "val"=>"10", "descr"=>N_("title line height"), "user"=>"Y"),
-  "WGCAL_U_HLINEHOURS" => array(  "val"=>"40", "descr"=>N_("title line height"), "user"=>"Y"),
+  "WGCAL_U_HLINEHOURS" => array(  "val"=>"40", "descr"=>N_("hour lines height"), "user"=>"Y"),
   "WGCAL_U_HCOLW" => array(  "val"=>"25", "descr"=>N_("hour in day column width"), "user"=>"Y"),
 
   "WGCAL_U_VIEWWEEKEND" => array(  "val"=>"yes", "descr"=>N_("display week end"), "user"=>"Y"),
@@ -39,7 +39,7 @@ $app_const= array(
 
   "WGCAL_U_TOOLSSTATE" => array( "val"=>"", "descr"=>N_("tool display state"), "user"=>"Y"),
 
-  "WGCAL_U_RESSDISPLAYED" => array( "val" => "", "descr"=>N_("displayed ressources"), "user"=>"Y"),
+  "WGCAL_U_RESSDISPLAYED" => array( "val" => "", "descr"=>N_("WGCAL_U_RESSDISPLAYED"), "user"=>"Y"),
 
   "VERSION" => "@VERSION@-@RELEASE@",
   "INIT" => "yes"

@@ -1,18 +1,18 @@
-<form id="f_selress" target="wgcal_calendar" name="calsel" method="POST" 
-      action="[CORE_STANDURL]&app=WGCAL&action=">
-  <input type="hidden" value="nop" name="calact">
-  <input type="hidden" value="-1" name="calid">
-  <input type="hidden" value="-1" name="color">
+<form id="f_selress" target="wgcal_calendar" name="selress" method="POST" 
+      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETRESSDISPLAY">
+      <input type="hidden" value="-1" name="calid">
+      <input type="hidden" value="-1" name="calact">
 </form>
 
-<form id="f_calcolor" target="toolbar" name="f_calcolor" method="POST" 
-      action="[CORE_STANDURL]&app=RENDEZVOUS&action=RV_SETCALCOLOR">
+<form id="f_calcolor" target="wgcal_toolbar" name="wgcal_toolbar" method="POST" 
+      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETCALCOLOR">
   <input type="hidden" value="green" name="calcolor">
   <input type="hidden" value="-1" name="calid">
 </form>
 
-<form id="dispCals" target="fcalhidden" name="dispNav" method="POST"  
-      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input name="tool" type="hidden" value="1"></form>
+<form id="dispCals" target="wgcal_hidden" name="dispNav" method="POST"  
+      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input name="tool" type="hidden" value="1">
+</form>
 
 <fieldset id='vical' class="WGCListRess">
   <legend class="WGCToolTitle" style="cursor:pointer"
@@ -38,18 +38,24 @@ function showColorPicker(event, id, idcal) {
 
 </script>
 
-<div id="vvical" style="display:[VISTOOL]" > 
-[BLOCK L_RESS]  
-<span id="cp[RID]" style="border: 1px outset;background:[RCOLOR];cursor:pointer;" onClick="showColorPicker(event, 'cp[RID]', '[RID]');">&nbsp;&nbsp;</span>&nbsp;&nbsp;
-<span id="[RID]"  width="90%" onclick="RvUpdateDisplay(event, '[RID]', 'f_calsel', '[RCOLOR]');"  
-    onmouseover="ChangeClass(event, '[RID]', 'cal_over');" onmouseout="ChangeClass(event, '[RID]', 'cal_unselected');"  
-    class="[RSTYLE]"><img height="15" src="[RICON]">[RDESCR]</span>
-</span><br>
+<div id="vvical" style="display:[VISTOOL]">
+ 
+[BLOCK L_RESS] 
+<span id="cp[RID]" style="border: 1px outset;background:[RCOLOR];cursor:pointer;" onClick="showColorPicker(event, 'cp[RID]', '[RID]');">&nbsp;&nbsp;</span>&nbsp;
+<span id="[RID]" class="[RSTYLE]" width="90%" 
+    onclick="WGCUpdateDisplay(event, '[RID]', 'f_selress', '[RCOLOR]');"  
+    onmouseover="WGCalChangeClass(event, '[RID]', 'WGCRessOver');" 
+    onmouseout="WGCalChangeClass(event, '[RID]', 'WGCRessDefault');"><img height="15" src="[RICON]">[RDESCR]</span>
+<br>
 [ENDBLOCK L_RESS]
 
-<div class="cal_unselected"
-     onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER');">
-<hr><center><img height="15" src="WGCAL/Images/cal-modify.gif">[TEXT:modify the list]
+<hr>
+<div class="WGCRessDefault" >
+<img style="cursor:pointer;" align="left" onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER');" height="15"
+     src="WGCAL/Images/ress-modify.gif" title="[TEXT:modify the list]">
+<img style="cursor:pointer;" align="left" onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER');" height="15" 
+     src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
 </div>
+
 </div>
 </fieldset>

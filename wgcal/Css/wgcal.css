@@ -66,3 +66,20 @@ body, table, td {
   border-right : 1px solid [CORE_BGCOLORALTERN];
   background-color : [CORE_BGCOLORALTERN];
 }
+
+.WGCListRess {
+  border : 2px inset [CORE_BGCOLORALTERN];
+}
+.WGCRessOver {
+  border : 2px outset [CORE_BGCOLORALTERN];
+  cursor:pointer;
+}
+.WGCRessDefault {
+  border : 2px intset [CORE_BGCOLORALTERN];
+}
+.WGCRessSelected {
+  background-color : [CORE_BGCOLORHIGH];	
+  border : 2px inset [CORE_BGCOLORALTERN];
+  cursor:pointer;
+}
+

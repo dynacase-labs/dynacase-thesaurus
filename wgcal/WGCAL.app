@@ -21,11 +21,16 @@ $app_acl = array (
 $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_CSS", "layout" => "wgcal.css", "short_name" =>N_("css manager"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_MAIN", "short_name" =>N_("main view"), "toc" => "N", "root" =>"Y"),
+
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_TOOLBAR", "short_name" =>N_("toolbar"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETTOOLSTATE", "short_name" =>N_("set display/undisplay tool state in toolbar"), "toc" => "N", "root" =>"N"),
+
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_MENUBAR", "short_name" =>N_("menubar"), "toc" => "N", "root" =>"N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_RESSPICKER", "short_name" =>N_("ressource picker"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SELECTRESS", "short_name" =>N_("select ressource for display"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETCALCOLOR", "short_name" =>N_("set color for calendar"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETRESSDISPLAY", "short_name" =>N_("change display/not displayed ress status"), "toc" => "N", "root" =>"N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_CALENDAR", "short_name" =>N_("calendar view"), "toc" => "N", "root" =>"N"),
 

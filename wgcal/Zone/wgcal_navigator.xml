@@ -2,15 +2,14 @@
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input name="tool" type="hidden" value="0">
 </form>
 
-<!--
-<div id="vlical"  class="calButton" style="display:block"
-  onClick="CalImgAltern(event, 'imgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
-           CalShowHideElt(event, 'ical'); document.getElementById('dispNav').submit();">
-<img id="imgical" src="WGCAL/Images/cal-arrow[VISICO].gif" title="[TEXT:date navigator]">
-[TEXT:date navigator]</div>
--->
+<fieldset id='vinav' class="WGCListRess">
+<legend class="WGCToolTitle" style="cursor:pointer"
+    onClick="WGCalImgAltern(event, 'idimgnav', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
+             WGCalShowHideElt(event, 'inav'); document.getElementById('dispNav').submit(); ">
+    <img id="idimgnav" src="WGCAL/Images/wgcal-arrow[VISICO].gif" title="[TEXT:calendar selector]">
+     [TEXT:date selector]</legend>
 
-<div id="ical">
+<div id="inav" style="display:[VISTOOL]">
 <script type="text/javascript">
     Calendar.setup({
         ifFormat       :    '%s',       // format of the input field
@@ -19,13 +18,14 @@
         firstDay       :    1,
         date           :    new Date([CmTIME]),
         weekNumbers    :    true,
-        flat           :    'ical',
+        flat           :    'inav',
         range          :    [ [YSTART] , [YSTOP] ],
         flatCallback   :    WGCalSetDate,
         step           :    1              
     });
 </script>
 </div>
+</fieldset>
 
 <form id="fdatesel" target="wgcal_calendar" name="datesel" method="POST"  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR">
   <input type="hidden" id="iodate" value="[CTIME]" name="olddate">

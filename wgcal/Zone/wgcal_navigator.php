@@ -4,7 +4,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_navigator.php,v 1.1 2004/11/26 18:05:35 marc Exp $
+ * @version $Id: wgcal_navigator.php,v 1.2 2004/12/01 17:07:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -16,7 +16,15 @@ include_once("Lib.WGCal.php");
 
 function wgcal_navigator(&$action) {
 
-  WGCalToolInitState($action, CAL_T_NAVIGATOR);
+  $ico = "down";
+  $vis = "none";
+  $state = WGCalToolIsVisible($action, CAL_T_NAVIGATOR);
+  if ($state) {
+    $ico = "up";
+    $vis = "";
+  }
+  $action->lay->set("VISICO",$ico);
+  $action->lay->set("VISTOOL",$vis);
 
   $ctime = $action->Read("WGCAL_SU_CURDATE", time());
   $cmtime = $ctime * 1000;

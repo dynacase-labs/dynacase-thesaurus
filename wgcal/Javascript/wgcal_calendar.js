@@ -260,6 +260,7 @@ function EvTs2String(ts, fmt) {
    return d.getDay()+'.'+ms[d.getMonth()]+'.'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
 }
 
+// --------------------------------------------------------
 function WGCalSetDate(calendar)
 {  
       var ff = document.getElementById('fdatesel');
@@ -276,4 +277,66 @@ function WGCalSetDate(calendar)
        eltD.value = ts;
        ff.submit();
       }
+}
+
+
+// --------------------------------------------------------
+function WGCalAlternCss() {
+
+
+}
+
+// --------------------------------------------------------
+function WGCalImgAltern(ev, eltId, img1, img2) {
+  var elt = document.getElementById(eltId);
+  var result;
+  if (!elt) {
+    window.status = "Element["+eltId+"] not found";
+    return;
+  }
+  var sea = new String(elt.src);
+  if (sea.indexOf(img1) != -1) {
+    elt.src = img2;
+  } else {
+    elt.src = img1;
+  }
+}
+
+
+// --------------------------------------------------------
+function WGCalShowHideElt(ev, eltId) {
+  var elt = document.getElementById(eltId);
+  if (!elt) {
+    window.status = "Element["+eltId+"] not found";
+    return; 
+  } 
+  if ( elt.style.display == 'none' ) {
+    elt.style.display = '';
+  } else {
+    elt.style.display = 'none';
+  } 
+}
+
+// --------------------------------------------------------
+function WGCalChangeClass(event, id, nclass)
+{
+  var elt = document.getElementById(id);
+  if (!elt) return;
+  if (elt.className!='WGCRessSelected') elt.className = nclass;
+}
+
+// --------------------------------------------------------
+function WGCUpdateDisplay(ev, calid, formid, color) {
+  var elt = document.getElementById(calid);
+  var ff = document.getElementById(formid);
+  if (!elt || !ff) return;
+  ff.calid.value = calid;
+  if (elt.className == 'WGCRessDefault' || elt.className == 'WGCRessOver') {
+    elt.className = 'WGCRessSelected';
+    ff.calact.value = 1;
+  } else {
+    elt.className = 'WGCRessOver';
+    ff.calact.value = 0;
+  }
+  ff.submit();
 }

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.1 2004/11/26 18:05:35 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.2 2004/12/01 17:07:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -23,25 +23,31 @@ define(CAL_T_TODAY, 2);
 
 function WGCalToolSwitchState(&$action, $tool) {
   $val = "";
+  $fnd = false;
   $all =  explode("|", $action->GetParam("WGCAL_U_TOOLSSTATE", ""));
   if (count($all)>0) {
     while (list($k, $v) = each($all)) {
       $t = explode("%",$v);
-      if ($tool == $t[0]) $ns = ($t[1] == 0 ? 1 : 0 );
-      else $ns = $t[1];
+      if ($tool == $t[0]) {
+	$ns = ($t[1] == 0 ? 1 : 0 );
+	$fnd = true;
+      }
+      else 
+	$ns = $t[1];
       $nv = $t[0]."%".$ns;
       if ($val!="") $val .= "|";
       $val .= $nv;
     }
-    $action->parent->param->set("WGCAL_U_TOOLSSTATE", $val, PARAM_USER.$action->user->id, $action->parent->id);
-  }    
+  } 
+  if (!$fnd) {
+    if ($val!="") $val .= "|";
+    $val = $tool."%1";
+  }
+  $action->parent->param->set("WGCAL_U_TOOLSSTATE", $val, PARAM_USER.$action->user->id, $action->parent->id);
 }
 
-function WGCalToolInitState( &$action,  $tool ) {
+function WGCalToolIsVisible( &$action,  $tool ) {
   $state = false;
-  $ico = "down";
-  $vis = "none";
-
   $all =  explode("|", $action->GetParam("WGCAL_U_TOOLSSTATE", ""));
   if (count($all)>0) {
     while (list($k, $v) = each($all)) {
@@ -51,12 +57,8 @@ function WGCalToolInitState( &$action,  $tool ) {
       }
     }
   }
-  if ($state==1) {
-    $ico = "up";
-    $vis = "";
-  }
-  $action->lay->set("VISICO",$ico);
-  $action->lay->set("VISTOOL",$vis);
+  if ($state==1) $state = true;
+  return $state;
 }
 
 ?>

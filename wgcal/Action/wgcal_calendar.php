@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.3 2004/11/29 16:36:23 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.4 2004/12/01 17:07:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -29,6 +29,25 @@ function printhdiv($hdiv, $hd) {
   return $sh;
 }
 
+
+function wgcal_getRessDisplayed(&$action) {
+  $r = array();
+  $ir = 0;
+  $ress = $action->GetParam("WGCAL_U_RESSLISTED", "");
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSLISTED", ""));
+  while (list($k,$v) = each($cals)) {
+    $tc = explode("%", $v);
+    if ($tc[0] != "" && $tc[1] == 1) {
+      $r[$ir]->id = $tc[0];
+      $r[$ir]->color = $tc[2]; 
+      $ir++;
+    }
+  }
+  return $r;
+}
+  
+
+
 function wgcal_calendar(&$action) {
 
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
@@ -45,6 +64,8 @@ function wgcal_calendar(&$action) {
   $sdate = GetHttpVars("newdate", time());
   $sdatef = strftime("%d/%m/%Y", $sdate);
   
+  $ress = wgcal_getRessDisplayed($action);
+  //echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." => .".$v->color." |";
 
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);
