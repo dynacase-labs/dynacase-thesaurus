@@ -1,6 +1,8 @@
-<input [disabled] size="8"  onblur="control_date(event,this)" type="text" name="[name]" value="[value]" id="[id]" />
+<input [disabled] size="8"  [BLOCK CONTROLCAL]onblur="control_date(event,this)"[ENDBLOCK CONTROLCAL] type="text" name="[name]" value="[value]" id="[id]" />
+[BLOCK VIEWCALSEL]
 <input  type="button" id="[id]T" value="&#133;" />
-
+<input type="button" value="&diams;"
+       title="[TEXT:manual date]" onclick="focus_date(event,'[id]')" />
 <script type="text/javascript">
     Calendar.setup({
         inputField     :    "[id]",      // id of the input field
@@ -11,3 +13,4 @@
         step           :    1                // show all years in drop-down boxes (instead of every other year as default)
     });
 </script>
+[ENDBLOCK VIEWCALSEL]
