@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.10 2005/03/07 15:19:29 marc Exp $
+ * @version $Id: Lib.Util.php,v 1.11 2005/04/05 14:39:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -140,6 +140,20 @@ function jdWeekDay($jd) {
   return $wd+1;
 }
 
+
+/**
+ * return the number of the week in year
+ * @param float julian date
+ * @return int between 1 and 53
+ */
+function jdWeekNumber($jd) {
+    $j  = doubleval($jd) + 0.5;
+    $d4 = ((($j + 31741 - ($j % 7)) % 146097) % 36524) % 1461;
+    $l  = floor($d4 / 1460);
+    $d1 = (($d4 - $l) % 365) + $l;
+    $wn = floor($d1 / 7) + 1;
+    return($wn);
+}
 function jd2cal( $jd,$dformat='' ) {
 
 
