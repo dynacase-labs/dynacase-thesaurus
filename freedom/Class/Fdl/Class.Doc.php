@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.167 2003/11/25 08:25:51 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.168 2003/12/01 13:32:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.167 2003/11/25 08:25:51 eric Exp $
+// $Id: Class.Doc.php,v 1.168 2003/12/01 13:32:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.167 2003/11/25 08:25:51 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.168 2003/12/01 13:32:48 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -421,7 +421,7 @@ create unique index i_docir on doc(initid, revision);";
    */
   function PostUpdate() {
     global $gdocs;// optimize for speed :: reference is not a pointer !!
-    $gdocs[$this->id]=&$this;    
+    $gdocs[$this->id]=$this;    
   }
   // --------------------------------------------------------------------
 
@@ -1519,9 +1519,11 @@ create unique index i_docir on doc(initid, revision);";
    * @param bool $temporary if true the document create is a temporary document
    * @return Doc in case of error return a string that indicate the error
    */
-  function Copy($temporary=false) {
-    $copy= new Doc($this->dbaccess, $this->id);
-
+  function Copy($temporary=false,$control=true) {
+    $copy=createDoc($this->dbaccess, $this->fromid, $control);
+    if (! is_object($copy)) return false;
+    
+    $copy->transfertValuesFrom($this);
     
     $copy->id = "";
     $copy->initid = "";
