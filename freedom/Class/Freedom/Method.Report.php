@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Report.php,v 1.8 2004/03/04 09:11:12 eric Exp $
+ * @version $Id: Method.Report.php,v 1.9 2004/03/16 14:10:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,8 +15,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2004/03/04 09:11:12 $
-// Version         $Revision: 1.8 $
+// Last Update     $Date: 2004/03/16 14:10:07 $
+// Version         $Revision: 1.9 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -36,7 +36,7 @@ function editreport() {
 
  
   $rfamid = GetHttpVars("sfamid",$this->getValue("SE_FAMID",1));
-  $rdoc=createDoc($this->dbaccess, $rfamid);
+  $rdoc=createDoc($this->dbaccess, $rfamid,false);
   $lattr=$rdoc->GetNormalAttributes();
   $tcolumn1=array();
   $tcolumn2=array();
