@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.27 2003/04/25 14:51:32 eric Exp $
+// $Id: editutil.php,v 1.28 2003/05/15 09:09:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -269,7 +269,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       $input .= " id=\"".$attridk."\" "; 
 
       if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
-      else  $input .=" disabled "; // always but default
+      else  if ($doc->usefor != 'D') $input .=" disabled "; // always but default
 
       $input .= " >&nbsp;"; 
       if (!(($visibility == "R")||($visibility == "S"))) {
