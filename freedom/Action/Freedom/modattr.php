@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.2 2002/03/11 10:26:48 eric Exp $
+// $Id: modattr.php,v 1.3 2002/03/26 16:14:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,32 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: modattr.php,v $
-// Revision 1.2  2002/03/11 10:26:48  eric
-// import CSV
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.6  2001/12/08 17:16:30  eric
-// evolution des attributs
-//
-// Revision 1.5  2001/11/21 17:03:54  eric
-// modif pour création nouvelle famille
-//
-// Revision 1.4  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.3  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.2  2001/11/14 15:31:03  eric
-// optimisation & divers...
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-// ---------------------------------------------------------------
+
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
@@ -78,6 +53,8 @@ function modattr(&$action) {
   $links= GetHttpVars("link");
   $phpfiles= GetHttpVars("phpfile");
   $phpfuncs= GetHttpVars("phpfunc");
+  $nattrids= GetHttpVars("nattrid"); // for new attributes
+
   
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -152,6 +129,8 @@ function modattr(&$action) {
 	    if ($attrids[$k]=="") {
 	      //print $oattr->id;
 	      //print "add $names[$k]<BR>";
+	      if (isset($nattrids[$k]) && ($nattrids[$k] != ""))
+		$oattr->id = $nattrids[$k];
 	      $err = $oattr ->Add();
 	      //	      print($err);
 	    } else {

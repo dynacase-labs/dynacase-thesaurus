@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.3 2002/03/21 18:04:12 eric Exp $
+// $Id: Lib.Dir.php,v 1.4 2002/03/26 16:14:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,6 +65,10 @@ function getFirstDir($dbaccess) {
     return($tableq);
   }
 
+function cmpdoctitle ($a, $b) {
+  return strcmp($a->title, $b->title);
+}
+
   function getChildDoc($dbaccess, $dirid, $start="0", $slice="ALL", $sqlfilters=array()) {
 
     // query to find child documents
@@ -77,13 +81,13 @@ function getFirstDir($dbaccess) {
 
     if ( $fld->classname != 'DocSearch') {
 
-    $qsql= "select * ".
+    $qsql= "select distinct * ".
       "from doc  ".
 	"where (doc.doctype != 'T')  ".
 	  "and ((doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) and doc.locked != -1)".
 	  "   or (doc.id in (select childid from fld where (qtype='F') and (dirid=$dirid))))".
 	    $sqlcond.
-	      " order by title LIMIT $slice OFFSET $start;";
+	      " order by doc.title LIMIT $slice OFFSET $start;";
 
     } else {
       // search familly
@@ -97,18 +101,21 @@ function getFirstDir($dbaccess) {
       // for the moment only one query search
 	if (($docsearch ->nb) > 0) {
 	  switch ($ldocsearch[0]->qtype) {
-	  case "C":  // just condition
-	  $qsql= "select * ".
-	    "from doc  ".
-	      "where (doc.doctype != 'T')  ".
-		"and ({$ldocsearch[0]->query}) ".
-		    $sqlcond.
-		      " order by title LIMIT $slice OFFSET $start;";
-	  break;
+// 	  case "C":  // just condition
+// 	  $qsql= "select * ".
+// 	    "from doc  ".
+// 	      "where (doc.doctype != 'T')  ".
+// 		"and ({$ldocsearch[0]->query}) ".
+// 		    $sqlcond.
+// 		      " order by title LIMIT $slice OFFSET $start;";
+//	  break;
 	  case "M": // complex query
+
+	    
 	  $qsql= "{$ldocsearch[0]->query} ".
 		    $sqlcond.
-		      " order by title LIMIT $slice OFFSET $start;";
+		      " order by doc.title LIMIT $slice OFFSET $start;";
+	  $qsql= str_replace("select ", "select distinct  ", $qsql);
 	  break;
 	  }
 	} else {
@@ -117,7 +124,7 @@ function getFirstDir($dbaccess) {
     }
     
 
-    //     	print "<HR>".$qsql;
+    //	print "<HR>".$qsql;
     $query = new QueryDb($dbaccess,"Doc");
 
 
@@ -128,15 +135,14 @@ function getFirstDir($dbaccess) {
 	return array();
       }
 
-    // suppress duplicate doc
-    $previd="0";
     reset($tableq);
-    while(list($k,$v) = each($tableq)) {
-      if ($v->id == $previd) unset($tableq[$k]);
-      $previd=$v->id;
 
-    }
-    reset($tableq);
+
+    // sort by title
+    //    usort ($tableq, "cmpdoctitle");
+
+
+
     return($tableq);
   }
 

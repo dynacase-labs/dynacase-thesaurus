@@ -84,9 +84,9 @@
 
 [BLOCK NEWELEM]
 <tr>
-   <td  >
+   <td >
    <input type="hidden" name="attrid[[neweltid]]" value="[attrid]" >
-      <input type="text" name="attrid[[neweltid]]" value="[attrid]"  disabled>
+      <input type="text" name="nattrid[[neweltid]]" value="[attrid]"  [disabledid]>
    </td>
    <td  >
 

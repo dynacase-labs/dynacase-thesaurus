@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: defattr.php,v 1.2 2002/03/26 16:14:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -20,39 +20,6 @@
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
-// $Log: defattr.php,v $
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.9  2001/12/19 17:57:32  eric
-// on continue
-//
-// Revision 1.8  2001/12/08 17:16:30  eric
-// evolution des attributs
-//
-// Revision 1.7  2001/11/30 15:13:39  eric
-// modif pour Css
-//
-// Revision 1.6  2001/11/21 17:03:54  eric
-// modif pour création nouvelle famille
-//
-// Revision 1.5  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.4  2001/11/21 08:38:58  eric
-// ajout historique + modif sur control object
-//
-// Revision 1.3  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.2  2001/11/14 15:31:03  eric
-// optimisation & divers...
-//
-// Revision 1.1  2001/11/09 09:41:13  eric
-// gestion documentaire
-//
-
 // ---------------------------------------------------------------
 
 include_once("FDL/Class.Doc.php");
@@ -156,6 +123,7 @@ function defattr(&$action)
 	    $newelem[$k]["link"]=$attr->link;
 	    $newelem[$k]["phpfile"]=$attr->phpfile;
 	    $newelem[$k]["phpfunc"]=$attr->phpfunc;
+	    $newelem[$k]["disabledid"]="disabled";
 	    $newelem[$k]["neweltid"]=$k;
 	    if ($attr->abstract == "Y") {
 	      $newelem[$k]["abscheck"]="checked";
@@ -219,6 +187,7 @@ function defattr(&$action)
   for ($k=$nbattr;$k<3+$nbattr;$k++) {
     $newelem[$k]["neweltid"]=$k;
     $newelem[$k]["attrname"]="";
+    $newelem[$k]["disabledid"]="";
     $newelem[$k]["order"]="";
     $newelem[$k]["attrid"]="";
     $newelem[$k]["SELECTOPTION"]="SELECTOPTION_$k";

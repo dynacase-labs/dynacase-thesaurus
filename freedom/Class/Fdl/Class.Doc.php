@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.10 2002/03/15 16:02:53 eric Exp $
+// $Id: Class.Doc.php,v 1.11 2002/03/26 16:14:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.10 2002/03/15 16:02:53 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.11 2002/03/26 16:14:00 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -478,7 +478,7 @@ create sequence seq_id_doc start 1000";
   
 
   // --------------------------------------------------------------------
-  function GetRevisions() {
+  function GetRevisions($type="LIST") {
     // -------------------------------------------------------------------- 
     // Return the document revision 
       $query = new QueryDb($this->dbaccess, get_class($this));
@@ -488,7 +488,7 @@ create sequence seq_id_doc start 1000";
       $query->AddQuery("initid = ".$this->initid);
       $query->order_by="revision DESC";
       
-      return $query->Query();
+      return $query->Query(0,0,$type);
   }
 
   // return the string label text for a id
@@ -917,10 +917,10 @@ create sequence seq_id_doc start 1000";
 	case "textlist": 
 	case "enumlist":
 	case "longtext": 
-	  $htmlval=nl2br(htmlentities($value));
+	  $htmlval=nl2br(htmlentities(stripslashes($value)));
 	break;
 	default : 
-	  $htmlval=htmlentities($value);
+	  $htmlval=htmlentities(stripslashes($value));
 	break;
 		
 	}

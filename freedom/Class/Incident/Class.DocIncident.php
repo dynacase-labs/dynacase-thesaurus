@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocIncident.php,v 1.6 2002/03/21 13:27:09 eric Exp $
+// $Id: Class.DocIncident.php,v 1.7 2002/03/26 16:14:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.DocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.6 2002/03/21 13:27:09 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.7 2002/03/26 16:14:01 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -237,10 +237,9 @@ Class DocIncident extends Doc
 
       global $action;
 
-      $incidentmail = new Layout($action->GetLayoutFile("incident_mailrecord.xml"),$action);
-      $incidentmail->set("title", $this->title);
-      $incidentmail->set("ref", $this->title);
-      $body = $incidentmail->gen();
+      if ($action->getParam("INCIDENT_SENDMAIL") != "yes") return;
+
+     
       $mailok=mail($addr,
 		$object,
 		$body,
@@ -256,6 +255,7 @@ Class DocIncident extends Doc
 
       global $action;
 
+      if ($action->getParam("INCIDENT_SENDMAIL") != "yes") return;
       $mailaddr = $this->GetValue( "IN_CALLMAIL");
       if ($mailaddr == "") return; // no mail to deliver
       $title = stripslashes($this->GetValue( "IN_TITLE"));// the title
@@ -281,6 +281,17 @@ Class DocIncident extends Doc
       $incidentmail->set("frommail",$action->GetParam("FROM_MAIL_INCIDENT"));
       $incidentmail->set("datesept",strftime("%A %d %B %Y", $this->revdate+24*3600*7)); // date + 7days
 
+
+      // search ccmail from site
+      $ccmail = "";
+      $idsite = $this->GetValue("IN_IDSITE");
+
+      if ($idsite > 0) {
+	$site = new Doc($this->dbaccess, $idsite);
+	$ccmail = $site->GetValue("SI_CCMAIL");	
+      }
+
+      // insert logo image
       $logofile=$action->GetImageFile("logocesam.gif");
       $fd = fopen($logofile, "r");
       $logocontent=fread($fd, filesize($logofile));
@@ -292,6 +303,7 @@ Class DocIncident extends Doc
 		   $body,
 		   "From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
 		   "Bcc: ".$action->GetParam("BCC_MAIL_INCIDENT")."\r\n".
+		   "Cc: ".$ccmail."\r\n".
 		   "Content-Type: multipart/alternative; boundary=\"=_alternative 003C044E00256A9A_=\"\r\n".
 		   "X-Mailer: PHP/" . phpversion());
       if (! $mailok) $action->exitError("mail cannot be sent");      

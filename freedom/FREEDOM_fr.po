@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-19 17:54+0100\n"
+	"POT-Creation-Date: 2002-03-26 16:29+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -68,6 +68,29 @@ msgstr	"recherche des incidents contenant %s (tout état)"
 msgid	"search  incident contains %s in %s"
 msgstr	"recherche des incidents contenant %s dans %s"
 
+msgid	"dayfirstletter"
+msgstr	"j"
+
+msgid	"hourfirstletter"
+msgstr	"h"
+
+msgid	"minfirstletter"
+msgstr	"min"
+
+msgid	"undefined gravity"
+msgstr	"indéfinie"
+
+msgid	"undated"
+msgstr	"non daté"
+
+#, c-format
+msgid	"period from %s to %s"
+msgstr	"période du %s au %s"
+
+#, c-format
+msgid	"the end date (%s) is before the begin date (%s)"
+msgstr	"La date de fin (%s) est antérieure à la date de début (%s)"
+
 msgid	"no file specified : update aborted"
 msgstr	"pas de fichier fournit, attaque possible : mise à jour abandonnée"
 
@@ -98,9 +121,6 @@ msgstr	"Profil"
 msgid	"new document"
 msgstr	"Nouveau document"
 
-msgid	"no comment"
-msgstr	"pas de commentaire"
-
 msgid	"new familly document"
 msgstr	"nouvelle famille de document"
 
@@ -108,6 +128,9 @@ msgid	"the document is not referenced: cannot apply profile access "
 	"modification"
 msgstr	"le document n'est pas référencé : la modification du profil d'accès\n"
 	"ne peut pas être appliquée"
+
+msgid	"no comment"
+msgstr	"pas de commentaire"
 
 msgid	"new search "
 msgstr	"Recherche"
@@ -140,6 +163,162 @@ msgstr	"pas de fichier d'import spécifié"
 
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
+
+msgid	"view folder"
+msgstr	"voir dossier"
+
+msgid	"edit folder"
+msgstr	"éditer un dossier"
+
+msgid	"delete folder"
+msgstr	"supprimer un dossier"
+
+msgid	"open folder"
+msgstr	"Ouvrir le dossier"
+
+msgid	"modify folder"
+msgstr	"modifier le dossier"
+
+#, c-format
+msgid	"cannot delete link : link not found for doc %d in folder %d"
+msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
+
+#, c-format
+msgid	"cannot delete link : initial query not found for doc %d in folder %d"
+msgstr	"le document %d n'existe plus dans le dossier %d.\n"
+	"mettre à jour la vue."
+
+#, c-format
+msgid	"cannot delete link for doc %d in folder %d : the document comes from "
+	"a user query. Delete initial query if you want delete this document"
+msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
+	"détruit : \n"
+	"le document provient d'une recherche utilisateur. Supprimer la "
+	"requête initiale si vous voulez delier le document"
+
+msgid	"untitle document"
+msgstr	"document sans titre"
+
+#, c-format
+msgid	"the file %s (rev %d) must be locked before"
+msgstr	"le fichier %s (rév %d) doit être verrouillé au préalable"
+
+#, c-format
+msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr	"le fichier %s (rév. %d) est verrouillé par %s."
+
+#, c-format
+msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+msgid	"this document cannot be locked : it is not a revisable document"
+msgstr	"ce document n'est pas verrouillable, il ne peut pas être révisé"
+
+#, c-format
+msgid	"cannot lock file %s (rev %d): already locked by %s."
+msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
+
+#, c-format
+msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
+msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+msgid	"current revision"
+msgstr	"dernière révision"
+
+msgid	"no filename"
+msgstr	"pas de fichier"
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	"Changement d'état: l'état initial '%s' est inconnu"
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
+	"autorisé"
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
+
+#, c-format
+msgid	"ChangeState :: the method '%s' has the following error %s"
+msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
+
+#, c-format
+msgid	"change state to %s"
+msgstr	"changement d'état vers %s"
+
+#, c-format
+msgid	"ChangeState :: the state has been realized but the post method '%s' "
+	"has the following error %s"
+msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
+	"méthode '%s' a retourné l'erreur suivante : %s "
+
+msgid	"already exist : not added"
+msgstr	"déjà existant : pas ajouté"
+
+msgid	"view usercard"
+msgstr	"voir une carte"
+
+msgid	"edit usercard"
+msgstr	"éditer une carte"
+
+msgid	"delete usercard"
+msgstr	"supprimer une carte"
+
+msgid	"errldapadd"
+msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
+	"attributs n'est pas conforme"
+
+msgid	"errldapconnect"
+msgstr	"Le server LDAP n'a pas pu être contacté"
+
+#, c-format
+msgid	"private access of the user card %s. You're not the owner"
+msgstr	"Accès privé de la carte %s. Vous n'en n'êtes pas propriétaire"
+
+msgid	"recorded"
+msgstr	"enregistré"
+
+msgid	"qualified"
+msgstr	"qualifié"
+
+msgid	"analyzed"
+msgstr	"analysé"
+
+msgid	"traited"
+msgstr	"traité"
+
+msgid	"rejected"
+msgstr	"rejeté"
+
+msgid	"closed"
+msgstr	"clôt"
+
+msgid	"suspended"
+msgstr	"suspendu"
+
+msgid	"view incident"
+msgstr	"voir un incident"
+
+msgid	"edit incident"
+msgstr	" éditer un incident"
+
+msgid	"delete incident"
+msgstr	"supprimer un incident"
+
+#, c-format
+msgid	"[%s] incident registration"
+msgstr	"[%s] enregistrement de l'incident"
+
+#, c-format
+msgid	"Freedom : incident %s : transition to %s"
+msgstr	"Incident %s : transition vers %s"
+
+#, c-format
+msgid	"[%s] incident traited"
+msgstr	"[%s] incident traité"
 
 msgid	"New"
 msgstr	"Nouveau"
@@ -295,8 +474,77 @@ msgstr	"incidents suspendus"
 msgid	"all incident"
 msgstr	"tous les incidents"
 
+msgid	"bilan"
+msgstr	"bilan"
+
 msgid	"state"
 msgstr	"état"
+
+msgid	"Bilan:"
+msgstr	"Bilan"
+
+msgid	"the from date is in the future"
+msgstr	"la date de début est dans le futur"
+
+msgid	"the end date is in the future"
+msgstr	"la date de fin est dans le futur"
+
+msgid	"the from date is before the end date"
+msgstr	"La date de fin (%s) est antérieure à la date de début (%s)"
+
+msgid	"SUPPORT Service"
+msgstr "Service SUPPORT"
+
+msgid	"incident historical"
+msgstr	"Suivis des incidents"
+
+msgid	"edited the"
+msgstr	"Édition du"
+
+msgid	"fromdate"
+msgstr	"date de début"
+
+msgid	"todate"
+msgstr	"date de fin"
+
+msgid	"today"
+msgstr	"aujourd'hui"
+
+msgid	"new bilan"
+msgstr	"nouveau bilan"
+
+msgid	"General Synthesis"
+msgstr	"Synthèse générale"
+
+msgid	"gravity"
+msgstr	"gravité"
+
+msgid	"Total"
+msgstr	"Total"
+
+msgid	"Detail"
+msgstr	"Détail"
+
+msgid	"Reference"
+msgstr	"Référence"
+
+msgid	"Description"
+msgstr	"Description"
+
+msgid	"Recorded Date"
+msgstr	"Date d'enregistrement"
+
+msgid	"End Date"
+msgstr	"Date de fin"
+
+msgid	"Delay"
+msgstr	"Délai"
+
+msgid	"Gravity"
+msgstr	"Gravité"
+
+msgid	"State"
+msgstr	"État"
 
 msgid	"View"
 msgstr	"Affichage"
@@ -561,162 +809,6 @@ msgstr	"Supprimer"
 
 msgid	"Cancel"
 msgstr	"Annuler"
-
-msgid	"view folder"
-msgstr	"voir dossier"
-
-msgid	"edit folder"
-msgstr	"éditer un dossier"
-
-msgid	"delete folder"
-msgstr	"supprimer un dossier"
-
-msgid	"open folder"
-msgstr	"Ouvrir le dossier"
-
-msgid	"modify folder"
-msgstr	"modifier le dossier"
-
-#, c-format
-msgid	"cannot delete link : link not found for doc %d in folder %d"
-msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
-
-#, c-format
-msgid	"cannot delete link : initial query not found for doc %d in folder %d"
-msgstr	"le document %d n'existe plus dans le dossier %d.\n"
-	"mettre à jour la vue."
-
-#, c-format
-msgid	"cannot delete link for doc %d in folder %d : the document comes from "
-	"a user query. Delete initial query if you want delete this document"
-msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
-	"détruit : \n"
-	"le document provient d'une recherche utilisateur. Supprimer la "
-	"requête initiale si vous voulez delier le document"
-
-msgid	"untitle document"
-msgstr	"document sans titre"
-
-#, c-format
-msgid	"the file %s (rev %d) must be locked before"
-msgstr	"le fichier %s (rév %d) doit être verrouillé au préalable"
-
-#, c-format
-msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr	"le fichier %s (rév. %d) est verrouillé par %s."
-
-#, c-format
-msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-msgid	"this document cannot be locked : it is not a revisable document"
-msgstr	"ce document n'est pas verrouillable, il ne peut pas être révisé"
-
-#, c-format
-msgid	"cannot lock file %s (rev %d): already locked by %s."
-msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
-
-#, c-format
-msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
-msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-msgid	"current revision"
-msgstr	"dernière révision"
-
-msgid	"no filename"
-msgstr	"pas de fichier"
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	"Changement d'état: l'état initial '%s' est inconnu"
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
-	"autorisé"
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
-
-#, c-format
-msgid	"ChangeState :: the method '%s' has the following error %s"
-msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
-
-#, c-format
-msgid	"change state to %s"
-msgstr	"changement d'état vers %s"
-
-#, c-format
-msgid	"ChangeState :: the state has been realized but the post method '%s' "
-	"has the following error %s"
-msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
-	"méthode '%s' a retourné l'erreur suivante : %s "
-
-msgid	"already exist : not added"
-msgstr	"déjà existant : pas ajouté"
-
-msgid	"view usercard"
-msgstr	"voir une carte"
-
-msgid	"edit usercard"
-msgstr	"éditer une carte"
-
-msgid	"delete usercard"
-msgstr	"supprimer une carte"
-
-msgid	"errldapadd"
-msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
-	"attributs n'est pas conforme"
-
-msgid	"errldapconnect"
-msgstr	"Le server LDAP n'a pas pu être contacté"
-
-#, c-format
-msgid	"private access of the user card %s. You're not the owner"
-msgstr	"Accès privé de la carte %s. Vous n'en n'êtes pas propriétaire"
-
-msgid	"recorded"
-msgstr	"enregistré"
-
-msgid	"qualified"
-msgstr	"qualifié"
-
-msgid	"analyzed"
-msgstr	"analysé"
-
-msgid	"traited"
-msgstr	"traité"
-
-msgid	"rejected"
-msgstr	"rejeté"
-
-msgid	"closed"
-msgstr	"clôt"
-
-msgid	"suspended"
-msgstr	"suspendu"
-
-msgid	"view incident"
-msgstr	"voir un incident"
-
-msgid	"edit incident"
-msgstr	" éditer un incident"
-
-msgid	"delete incident"
-msgstr	"supprimer un incident"
-
-#, c-format
-msgid	"[%s] incident registration"
-msgstr	"[%s] enregistrement de l'incident"
-
-#, c-format
-msgid	"Freedom : incident %s : transition to %s"
-msgstr	"Incident %s : transition vers %s"
-
-#, c-format
-msgid	"[%s] incident traited"
-msgstr "[%s] incident traité"
 
 msgid	"error in filename"
 msgstr	"erreur dans le nom de fichier"
@@ -1113,9 +1205,6 @@ msgstr	"L'incident intitulé %s a bien été enregistré le %s.\n"
 
 #~ msgid	"department"
 #~ msgstr	"Département"
-
-#~ msgid	"email"
-#~ msgstr	"Email"
 
 #~ msgid	"phone"
 #~ msgstr	"Téléphone"

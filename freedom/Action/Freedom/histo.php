@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: histo.php,v 1.2 2002/03/15 16:02:53 eric Exp $
+// $Id: histo.php,v 1.3 2002/03/26 16:14:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/histo.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,72 +21,13 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: histo.php,v $
-// Revision 1.2  2002/03/15 16:02:53  eric
-// modif pour présentation & correction/optimisation mineures
-//
-// Revision 1.1  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.3  2001/12/21 13:58:35  eric
-// modif pour incident
-//
-// Revision 1.2  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.1  2001/11/21 08:40:34  eric
-// ajout historique
-//
-// Revision 1.4  2001/11/19 18:04:22  eric
-// aspect change
-//
-// Revision 1.3  2001/11/16 18:04:39  eric
-// modif de fin de semaine
-//
-// Revision 1.2  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
 
-// ---------------------------------------------------------------
 
 include_once("FDL/Class.Doc.php");
 function histo(&$action) 
 {
   return;
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $docid = GetHttpVars("id",0);
-  $comment = GetHttpVars("comment",_("no comment"));
-
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
-
-  $doc= new Doc($dbaccess,$docid);
-  $action->lay->Set("title",$doc->title);
-
-  $ldoc = $doc->GetRevisions();
-
-  $trdoc= array();
-  while(list($k,$rdoc) = each($ldoc)) {
-    $owner = new User("", $rdoc->owner);
-    $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
-    $trdoc[$k]["revision"]= $rdoc->revision;
-    $trdoc[$k]["comment"]= nl2br($rdoc->comment);
-    $trdoc[$k]["id"]= $rdoc->id;
-    $trdoc[$k]["divid"]= $k;
-
-    if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
-      setlocale (LC_TIME, "fr_FR");
-      $trdoc[$k]["date"]= strftime ("%a %d %b %Y %H:%M",$rdoc->revdate);
-    } else {
-      $trdoc[$k]["date"]= strftime ("%x<BR>%T",$rdoc->revdate);
-    
-    
-    }
-  }
-
-  $action->lay->SetBlockData("TABLEBODY",$trdoc);
+  
 }
 
 ?>
