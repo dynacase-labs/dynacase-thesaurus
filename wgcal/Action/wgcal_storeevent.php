@@ -77,6 +77,7 @@ function wgcal_storeevent(&$action) {
   $attendeesname = array();
   $attendeesstate = array();
   foreach ($attendees as $ka => $va) {
+    if ($va<=0||$va=="") continue;
     $att = new Doc($db, $va);
     $attendeesname[$ka] = $att->title;
     if ($action->user->fid == $va) {

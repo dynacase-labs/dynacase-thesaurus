@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.11 2005/01/18 18:40:48 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.12 2005/01/19 13:08:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -66,7 +66,11 @@ function wgcal_editevent(&$action) {
     $attendees = $event->getTValue("CALEV_ATTID", array());
     $attendeesState = $event->getTValue("CALEV_ATTSTATE", array());
     $evstatus = 0;
+    $mailadd = "";
     foreach ($attendees as $k => $v) {
+      $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
+      $m = $u->getValue("US_MAIL");
+      if ($m) $mailadd .= ($mailadd==""?"":", ").$u->getValue("US_FNAME")." ".$u->getValue("US_LNAME")." <".$m.">";
       if ($v == $action->user->fid) {
 	$evstatus = $attendeesState[$k];
 	if ($evstatus==0) {
@@ -79,6 +83,7 @@ function wgcal_editevent(&$action) {
     $ownertitle = $event->getValue("CALEV_OWNER", "");
     $rwstatus = false;
   } else {
+    $mailadd = "";
     $evtitle  = "";
     $evnote   = "";
     $evstart  = $times;
@@ -140,6 +145,7 @@ function wgcal_editevent(&$action) {
     $action->lay->setBlockData("EMPTY", null);
   } else {
     $action->lay->setBlockData("EMPTY", array( array("nop" => "") ));
+    $action->lay->set("mailadd", $mailadd);
   }    
   $action->lay->set("DFMT", FDATE);
 

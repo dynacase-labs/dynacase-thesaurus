@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.10 2005/01/18 18:40:48 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.11 2005/01/19 13:08:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -64,6 +64,7 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
+  $action->parent->AddJsRef("WHAT/Layout/geometry.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
 
 
@@ -178,7 +179,8 @@ function wgcal_calendar(&$action) {
 	      $tcell[$itc]["hourclass"] = $classh[$id];
 	      //$tcell[$itc]["cellcontent"] = strftime("%H:%M",$tcell[$itc]["times"])." ** " . strftime("%H:%M",$tcell[$itc]["timee"]);
 	      $tcell[$itc]["cellcontent"] = "";
-             $itc++;
+ 	      //$tcell[$itc]["cellcontent"] = $tcell[$itc]["cellref"] .":".$tcell[$itc]["timee"] ;
+            $itc++;
 	    }
           $lcell->SetBlockData("CELLS", $tcell);
           $thr[$nl]["C_LINE"] =  $lcell->Gen();
@@ -191,13 +193,29 @@ function wgcal_calendar(&$action) {
   $action->lay->set("DAYCOUNT", $ndays);
   $action->lay->set("HCOUNT", (($hstop - $hstart + 1) * $hdiv ) + 1 ); // Minutes
   $action->lay->set("HSTART", ($hstart - 1)); // Minutes
-  $action->lay->set("IDSTART", "root");
+  $action->lay->set("IDSTART", "D0H0");
   $action->lay->set("IDSTOP", "D".($ndays-1)."H".($nl-1));
-  $action->lay->set("RVWIDTH", $rvwidth);
  
   $action->lay->set("WGCAL_U_HLINETITLE", $action->GetParam("WGCAL_U_HLINETITLE", 20));
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
+
+
+  $events = array(
+		  array( "IDSTART" => "DOHO", 
+			 "ID" => 8001, 
+			 "ABSTRACT" => strftime("%d/%m %H:%M",1105974000)."<br>".strftime("%d/%m %H:%M",1105981200),
+			 "START" => 1105974000,  
+			 "END" => 1105981200,
+			 "SHIFT" => 0),
+		  array( "IDSTART" => "DOHO", 
+			 "ID" => 8002, 
+			 "START" => 1106218800,  
+			 "END" => 1106222400,
+			 "SHIFT" => 0)
+		  );
+  $action->lay->SetBlockData("EVENTS", $events);
+  $action->lay->SetBlockData("EVENTSSC", $events);
 }
 
 ?>

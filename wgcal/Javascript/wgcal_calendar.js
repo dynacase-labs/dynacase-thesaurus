@@ -1,10 +1,10 @@
 function WGCalResetSizes() {
   alert("resize");
   WGCalComputeCoord();
-  FevRefreshAll();
+  WGCalRefreshAll();
 }
 
-var  Root = '';
+var  Root = 'root';
 var  IdStart = 0;
 var  IdEnd   = 0;
 var  Xdivision = 0;
@@ -26,16 +26,16 @@ var Xe = 0;
 var Ye = 0;
 
 // Array to save rv event 
-var FevEvent = new Array();
-var FevEventCount = -1;
+var Event = new Array();
+var EventCount = -1;
 
 // -----------------------------------------------------"private"---
-function FevGetPxForMin() {
+function GetPxForMin() {
   return (Hzone / (Ydivision*60));  
 }
 
 // --------------------------------------------------------
-function FevGetCoordFromDate(ts) {
+function GetCoordFromDate(ts) {
  
    var evt = new Object();
    var evd = new Date();
@@ -44,169 +44,48 @@ function FevGetCoordFromDate(ts) {
    
    day = evd.getDay();
    evt.x = (Wday * (day - 1)) + Xs;
-
    hmin = ((evd.getHours()-Ystart) * 60) + evd.getMinutes();
-   ypx = FevGetPxForMin();
+   ypx = GetPxForMin();
    evt.y = (ypx * hmin) + Ys;
+   //alert('evt(x,y)=('+evt.x+','+evt.y+')'+' day='+day+' Wday='+Wday+' Xs='+Xs);
     
    return evt;
 }
 
 
 // --------------------------------------------------------
-function FevAddElement(id, elttype, content, style) {
-  elt = document.createElement(elttype);
-  elt.appendChild(document.createTextNode(content));
-  elt.className = style;
-  id.appendChild(elt);
-  return elt;
-}
-
-// --------------------------------------------------------
-function FevRefreshAll() {
-  for (i=0; i<=FevEventCount; i++) {
-    EvtDisplayEvent(i, false);
+function WGCalRefreshAll() {
+  for (i=0; i<=EventCount; i++) {
+    WGCalDisplayEvent(i, false);
   }
 }
   
-// --------------------------------------------------------
-function FevAddEvt(id, evtid, dstart, dend, owner, title, description, gico, rico, pico, tbcico, attendees, style, shl) {
-  FevEventCount++;
-  FevEvent[FevEventCount] = new Array();
-  for (i=0; i<arguments.length; i++) {
-    FevEvent[FevEventCount][i] = arguments[i];
-  }
-  FevDisplayEvent(FevEventCount, true);
-}
-  
-function FevDisplayEvent(iev, newEvent) {
-
-  id = FevEvent[iev][0];
-  evtid = FevEvent[iev][1];
-  dstart  = FevEvent[iev][2];
-  dend  = FevEvent[iev][3];
-  owner  = FevEvent[iev][4];
-  title  = FevEvent[iev][5];
-  description  = FevEvent[iev][6];
-  gico  = FevEvent[iev][7];
-  rico  = FevEvent[iev][8];
-  pico  = FevEvent[iev][9];
-  tbcico  = FevEvent[iev][10];
-  attendees  = FevEvent[iev][11];
-  style  = FevEvent[iev][12];
-  shl = FevEvent[iev][13];
-  
-  if (dend<dstart) {
-	t = dend;
-	dend = dstart;
-	dstart = t;
-  }
-
-  root = document.getElementById(id);
-
-  if (newEvent) {
-    descr = document.getElementById('evtdescr');
-    ndescr = descr.cloneNode(true);
-    ndescr.id = evtid;
-    FevEvent[iev][0] = evtid;
-  } else {
-    ndescr = document.getElementById(id);
-  }
-
-  pstart = EvGetCoordFromDate(dstart);
-  pend   = EvGetCoordFromDate(dend);
-
-  x = Math.round(pstart.x) + (shl*Wshift);
-  y = Math.round(pstart.y);
-  h = Math.round(pend.y - pstart.y);
-  w = Math.round(Wevt);
-
-  ndescr.style.top = y+"px";
-  ndescr.style.left = x+"px";
-  ndescr.style.width = w+"px";
-  ndescr.style.height = h+"px";
-
-  if (newEvent) {
-    ndescr.style.position = 'absolute';
-    ndescr.className = "evt";
-    ndescr.style.background = style;
-    ndescr.style.display = '';
-  
-    if (gico+rico+pico+tbcico>0) {
-      imgs = document.createElement('div');
-      if (pico) {
-          e = AddImage(EvGetIcon("private"), "Prive", Hicon, Wicon);
-	  imgs.appendChild(e);
-      }
-      if (gico) {
-        e = AddImage(EvGetIcon("group"), "Groupe", Hicon, Wicon);
-        imgs.appendChild(e);
-      }
-      if (rico) {
-     e = AddImage(EvGetIcon("repeat"), "Repetable", Hicon, Wicon);
-     imgs.appendChild(e);
-        }
-        if (tbcico) {
-     e = AddImage(EvGetIcon("tbd"), "A confirmer", Hicon, Wicon);
-	     imgs.appendChild(e);
-         }
-      ndescr.appendChild(imgs);
-    }
-  
-    content = document.createTextNode(title);
-    ndescr.appendChild(content);
-  
-    root.appendChild(ndescr);
-
-    ldescr = document.getElementById('evtlongdescr');
-    lndescr = ldescr.cloneNode(true);
-    lndescr.id = 'ldescr'+evtid;
-    ix = AddElement(lndescr, 'div', EvTs2String(dstart)+" - "+EvTs2String(dend), ''); 
-    ix = AddElement(lndescr, 'div', owner, ''); 
-    ix = AddElement(lndescr, 'div', title, ''); 
-    ix = AddElement(lndescr, 'div', description, ''); 
-    ix = AddElement(lndescr, 'div', attendees, ''); 
-    lndescr.className = "evtlongdescr";
-    lndescr.style.width = "160px";
-    lndescr.style.position = 'absolute';
-  
-    root.appendChild(lndescr);
-  }
-
-}
-
-
 
 // --------------------------------------------------------
-function RvEVTOnBlur(ev, id) {
-
+function WGCalEvOnMouseOver(ev, id) {
+  evt  = document.getElementById('evt'+id);
+  evtc = document.getElementById('evtc'+id);
+  evt.style.zIndex = 1000;
+  x = getX(ev);
+  y = getY(ev);
+  evtc.style.left = x+'px';
+  evtc.style.top = y+'px';
+  evtc.style.position = 'absolute';
+  evtc.style.width = "70px";
+  evtc.style.height = "30px";
+  evtc.style.fixed = 'fixed';
+  evt.style.zIndex = 0;
+  evtc.style.display = '';
 }
 
 // --------------------------------------------------------
-function RvEVTOnMouseOver(ev, id) {
-  elt = document.getElementById(id);
-  elt.style.zIndex = 3;
-  CalDisplayGroup(ev, 'ldescr'+id, 'r', 10,10,180,0);
-}
-
-// --------------------------------------------------------
-function RvEVTOnMouseOut(ev, id) {
-  elt = document.getElementById(id);
-  elt.style.zIndex = 0;
-  CalHideGroup(ev, 'ldescr'+id);
+function WGCalEvOnMouseOut(ev, id) {
+  evt  = document.getElementById('evt'+id);
+  evtc = document.getElementById('evtc'+id);
+  evt.style.zIndex = 0;
+  evtc.style.display = 'none';
 }
  
-// --------------------------------------------------------
-function RvEVTOnClick(ev, id) {
- alert('RvEVTOnClick');
-}
-
-// --------------------------------------------------------
-function RvEVTOnDblClick(ev, id) {
- alert('Edition du bordel...');
-}
-
-
 
 // --------------------------------------------------------
 function WGCalSetDate(calendar)
@@ -229,73 +108,6 @@ function WGCalSetDate(calendar)
 
 
 // --------------------------------------------------------
-function WGCalAlternCss() {
-
-
-}
-
-// --------------------------------------------------------
-function WGCalImgAltern(ev, eltId, img1, img2) {
-  var elt = document.getElementById(eltId);
-  var result;
-  if (!elt) {
-    window.status = "Element["+eltId+"] not found";
-    return;
-  }
-  var sea = new String(elt.src);
-  if (sea.indexOf(img1) != -1) {
-    elt.src = img2;
-  } else {
-    elt.src = img1;
-  }
-}
-
-// --------------------------------------------------------
-function WGCalShowHideElt(ev, eltId) {
-  var elt = document.getElementById(eltId);
-  if (!elt) {
-    window.status = "Element["+eltId+"] not found";
-    return; 
-  } 
-  if ( elt.style.display == 'none' ) {
-    elt.style.display = '';
-  } else {
-    elt.style.display = 'none';
-  } 
-}
-
-// --------------------------------------------------------
-function WGCalChangeClass(event, id, refclass, nclass)
-{
-  var elt = document.getElementById(id);
-  if (!elt) return;
-  if (elt.className!=refclass) elt.className = nclass;
-}
-
-// --------------------------------------------------------
-function WGCUpdateDisplay(ev, calid, formid, color, classSelect, classOver, classOut) {
-  var elt = document.getElementById(calid);
-  var ff = document.getElementById(formid);
-  ff.rid.value = -1;
-  ff.sid.value = 0;
-  if (!elt || !ff) return;
-  if (elt.className == classOut || elt.className == classOver) {
-    elt.className = classSelect;
-    ff.rid.value = calid;
-    ff.sid.value = 1;
-  } else {
-    elt.className = classOver;
-    ff.rid.value = calid;
-    ff.sid.value = 0;
-  }
-  ff.submit();
-}
-
-
-// ---------------------------------------------------
-// REALLY USED
-// ---------------------------------------------------
-
 function getElementGeo(e) {
   var geo = new Object();
   geo.x = geo.y = geo.w = geo.h = -1;
@@ -330,17 +142,6 @@ function AddEvent(urlroot,time) {
   subwindow(300, 500, 'EditEvent'+time, urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&time='+time);	
 }
 
-
-// --------------------------------------------------------
-function ClickCalendarCell(ev, cell) {
-  return;
-}
-// --------------------------------------------------------
-function DblClickCalendarCell(ev, cell, urlroot, time) {
-  //AddEvent(urlroot,time);
-  AddNewEvent(ev, cell);
-  
-}
 // --------------------------------------------------------
 function OverCalendarCell(ev, elt, lref, cref) {
   elt.className = 'WGCAL_DayLineOver';
@@ -354,13 +155,12 @@ function OutCalendarCell(ev, elt, lref, cref, cclass, hourclass, dayclass) {
   document.getElementById(cref).className = hourclass;
 }
 // --------------------------------------------------------
-function WGCalViewInit(root, idstart, idend, xdiv, ydiv, ystart) {
-  Root = root;	
-  IdStart = idstart;
-  IdEnd   = idend;	
+function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart) {
+  IdStart   = idstart;
+  IdEnd     = idend;	
   Xdivision = xdiv;
   Ydivision = ydiv;
-  Ystart = ystart;
+  Ystart    = ystart;
   WGCalComputeCoord();
 }
 // --------------------------------------------------------
@@ -383,17 +183,17 @@ function WGCalComputeCoord() {
   Wshift = Math.round(Wday / 20);
  
   text = ' W zone = '+Wzone+' W day = '+Wday+' W evt = '+Wevt+' Wshift = '+Wshift;  
-  //  alert(text);
-//   nText = document.createElement('div');
-//   content = document.createTextNode(text);
-//   nText.appendChild(content);
-//   nText.style.position = 'absolute';
-//   nText.style.left = Xs+"px";
-//   nText.style.top = Ys+"px";
-//   nText.style.width = Wzone+"px";
-//   nText.style.height = Hzone+"px";
-//   nText.style.border = '1px outset #afafaf';
-//   document.getElementById(Root).appendChild(nText);
+  nText = document.createElement('div');
+  content = document.createTextNode(text);
+  nText.appendChild(content);
+  nText.style.position = 'absolute';
+  nText.style.background = 'yellow';
+  nText.style.left = Xs+"px";
+  nText.style.top = Ys+"px";
+  nText.style.width = Wzone+"px";
+  nText.style.height = Hzone+"px";
+  nText.style.border = '1px outset #afafaf';
+  //document.getElementById(Root).appendChild(nText);
 }
 
 // --------------------------------------------------------
@@ -467,3 +267,52 @@ function AddNewEvent(ev, c) {
 //   document.getElementById(Root).appendChild(nText);
 
 }
+
+function WGCalAddEvent(id, evtid, dstart, dend) {
+  EventCount++;
+  Event[EventCount] = new Array();
+  for (i=0; i<arguments.length; i++) {
+    Event[EventCount][i] = arguments[i];
+  }
+  WGCalDisplayEvent(EventCount, true);
+}
+  
+// --------------------------------------------------------
+function WGCalDisplayEvent(iev, newEvent) {
+
+  id     = Event[iev][0];
+  evtid  = Event[iev][1];
+  dstart = Event[iev][2];
+  dend   = Event[iev][3];
+  shift  = Event[iev][3];
+  
+  if (dend<dstart) {
+    t = dend;
+    dend = dstart;
+    dstart = t;
+  }
+  root = document.getElementById(Root);
+  evtElt = document.getElementById('evt'+evtid);
+  evtcElt = document.getElementById('evtc'+evtid);
+
+  pstart = GetCoordFromDate(dstart);
+  pend   = GetCoordFromDate(dend);
+
+  //x = Math.round(pstart.x) + (shift*Wshift);
+  x = Math.round(pstart.x);
+  y = Math.round(pstart.y);
+  h = Math.round(pend.y - pstart.y);
+  w = Math.round(Wevt);
+
+  //alert('evt(x,y,h,w)=('+x+','+y+','+h+','+w);
+  evtElt.style.top = y+"px";
+  evtElt.style.left = x+"px";
+  evtElt.style.width = w+"px";
+  evtElt.style.height = h+"px";
+  evtElt.style.position = 'fixed';
+  evtElt.style.display = '';
+
+  root.appendChild(evtElt);
+  root.appendChild(evtcElt);
+}
+
