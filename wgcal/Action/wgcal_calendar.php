@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.4 2004/12/01 17:07:08 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.5 2004/12/03 16:25:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -33,8 +33,7 @@ function printhdiv($hdiv, $hd) {
 function wgcal_getRessDisplayed(&$action) {
   $r = array();
   $ir = 0;
-  $ress = $action->GetParam("WGCAL_U_RESSLISTED", "");
-  $cals = explode("|", $action->GetParam("WGCAL_U_RESSLISTED", ""));
+  $cals = explode("|", $action->Read("WGCAL_RESSOURCES"));
   while (list($k,$v) = each($cals)) {
     $tc = explode("%", $v);
     if ($tc[0] != "" && $tc[1] == 1) {
@@ -46,7 +45,14 @@ function wgcal_getRessDisplayed(&$action) {
   return $r;
 }
   
+function GetRegisterDate(&$action) {
+  return $action->Read("WGCAL_CUR_TIME", time());
+}
 
+function SetRegisterDate(&$action, $d) {
+   $action->Register("WGCAL_CUR_TIME", $d);
+ 
+}
 
 function wgcal_calendar(&$action) {
 
@@ -62,10 +68,14 @@ function wgcal_calendar(&$action) {
   else $ndays = $dayperweek;
 
   $sdate = GetHttpVars("newdate", time());
+  if ($sdate == 0) {
+    $sdate = GetRegisterDate($action);
+  }
+  SetRegisterDate($action, $sdate);
   $sdatef = strftime("%d/%m/%Y", $sdate);
   
   $ress = wgcal_getRessDisplayed($action);
-  //echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." => .".$v->color." |";
+  echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." => .".$v->color." |";
 
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);

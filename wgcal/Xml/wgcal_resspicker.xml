@@ -1,0 +1,52 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+
+<script type="text/javascript">
+
+
+function updateOpener(from) {
+  inp =  document.getElementById(from);
+  target = window.opener.ressources
+  var l = target.length;
+  var s = inp.value;
+  alert('target['+l+'] = "'+s+'"');
+  target[l] = s;
+}
+
+var families = new Array();
+
+function SetFamily(fid, classSet, classUnset) {
+  elt = document.getElementById(fid);
+  var idx = -1;
+  families.sort();
+  for (i=0; i<families.length && fid<=families[i] && idx!=-1; i++) {
+    if (families[i] = fid) idx = i;
+  }
+  if (idx!=-1) {
+    families[idx] = -1;    
+    css = classUnset;
+  } else {
+    for (i=0; i<families.length && families[i]!=-1; i++);
+    families[i] = fid;
+    css = classSet;
+  }
+  alert(css);
+  elt.className = css;
+}
+
+
+</script>
+
+<form id="fgettext" target="_self" name="fgettext" method="POST" onsubmit="updateOpener('gettext', '[updt]')">
+<input id="gettext" type="text"></input>
+<input type="button">Go</input>
+
+[BLOCK FAMRESS]
+<div id="[FAMID]"  class="WGCRessDefault"
+     onmouseover="WGCalChangeClass(event, '[FAMID]', 'WGCFamSelected', 'WGCRessOver');" 
+     onmouseout="WGCalChangeClass(event, '[FAMID]', 'WGCFamSelected', 'WGCRessDefault');"
+     onclick="SetFamily('[FAMID]', 'WGCFamSelected', 'WGCRessDefault');" >
+  <img height="15"  src="[FAMICON]" title="[FAMTITLE]"/>[FAMTITLE]
+</div>[ENDBLOCK FAMRESS]
+</form>
+
+[ZONE WGCAL:WGCAL_HTMLFOOT]

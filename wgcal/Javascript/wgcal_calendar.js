@@ -318,25 +318,38 @@ function WGCalShowHideElt(ev, eltId) {
 }
 
 // --------------------------------------------------------
-function WGCalChangeClass(event, id, nclass)
+function WGCalChangeClass(event, id, refclass, nclass)
 {
   var elt = document.getElementById(id);
   if (!elt) return;
-  if (elt.className!='WGCRessSelected') elt.className = nclass;
+  if (elt.className!=refclass) elt.className = nclass;
 }
 
 // --------------------------------------------------------
-function WGCUpdateDisplay(ev, calid, formid, color) {
+function WGCUpdateDisplay(ev, calid, formid, color, classSelect, classOver, classOut) {
   var elt = document.getElementById(calid);
   var ff = document.getElementById(formid);
+  ff.rid.value = -1;
+  ff.sid.value = 0;
   if (!elt || !ff) return;
-  ff.calid.value = calid;
-  if (elt.className == 'WGCRessDefault' || elt.className == 'WGCRessOver') {
-    elt.className = 'WGCRessSelected';
-    ff.calact.value = 1;
+  if (elt.className == classOut || elt.className == classOver) {
+    elt.className = classSelect;
+    ff.rid.value = calid;
+    ff.sid.value = 1;
   } else {
-    elt.className = 'WGCRessOver';
-    ff.calact.value = 0;
+    elt.className = classOver;
+    ff.rid.value = calid;
+    ff.sid.value = 0;
   }
   ff.submit();
+}
+
+// --------------------------------------------------------
+function Fade(id, size) {
+  document.getElementById(id).width += size;  
+  document.getElementById(id).height += size;
+}
+function UnFade(id, size) {
+  document.getElementById(id).width -= size;  
+  document.getElementById(id).height -= size;
 }

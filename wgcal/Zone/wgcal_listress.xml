@@ -1,8 +1,11 @@
 <form id="f_selress" target="wgcal_calendar" name="selress" method="POST" 
-      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETRESSDISPLAY">
-      <input type="hidden" value="-1" name="calid">
-      <input type="hidden" value="-1" name="calact">
+      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SELECTRESS">
+      <input type="hidden" value="-1" name="rid">
+      <input type="hidden" value="-1" name="sid">
 </form>
+
+<form id="f_saveress" target="wgcal_hidden" name="saveress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SAVERESSOURCES"></form>
+<form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 
 <form id="f_calcolor" target="wgcal_toolbar" name="wgcal_toolbar" method="POST" 
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETCALCOLOR">
@@ -15,11 +18,22 @@
 </form>
 
 <fieldset id='vical' class="WGCListRess">
-  <legend class="WGCToolTitle" style="cursor:pointer"
-    onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
-             WGCalShowHideElt(event, 'vvical'); document.getElementById('dispCals').submit(); ">
-    <img id='idimgical' src="WGCAL/Images/wgcal-arrow[VISICO].gif" title="[TEXT:calendar selector]">
-     [TEXT:my calendars]</legend>
+  <legend class="WGCToolTitle" style="cursor:pointer">
+    <img id='idimgical' src="WGCAL/Images/wgcal-arrow[VISICO].gif" title="[TEXT:calendar selector]"
+         onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif');
+                  WGCalShowHideElt(event, 'vvical'); document.getElementById('dispCals').submit(); ">
+    [TEXT:my calendars]
+<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER&updt=memoress');" height="15"
+     src="WGCAL/Images/ress-modify.gif" title="[TEXT:modify the list]">
+<img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" 
+     src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]">
+<img id="resssav" style="cursor:pointer;" onclick="getElementById('f_saveress').submit();" height="15" 
+     src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
+
+<img id="test" style="cursor:pointer;" onclick="showRessource();" height="15" 
+     src="WGCAL/Images/ress-test.gif" title="[TEXT:test]">
+
+</legend>
 
 <script type="text/javascript">
 var cp = new ColorPicker();
@@ -36,26 +50,63 @@ function showColorPicker(event, id, idcal) {
   cp.show(id);
 }
 
+var picker = null;
+
+window.onunload = killwins;
+
+function killwins() {
+  if (picker != null) picker.close();
+}
+
+var ressources = new Array();
+ressources[0] = "ressource 1";
+function showRessource() {
+    var l = ressources.length;
+    m = "Liste des ressources :\n";
+    for (i=0; i<l; i++) {
+      m += ressources[i]+'\n';
+    }
+    alert(m);
+}
+
+
 </script>
 
 <div id="vvical" style="display:[VISTOOL]">
  
+<table cellspacing="0" cellpadding="0">
+
 [BLOCK L_RESS] 
-<span id="cp[RID]" style="border: 1px outset;background:[RCOLOR];cursor:pointer;" onClick="showColorPicker(event, 'cp[RID]', '[RID]');">&nbsp;&nbsp;</span>&nbsp;
+<tr>
+<td>
+<img style="cursor:pointer;border:1px outset grey" onclick="supress = confirm('[TEXT:supress ressource] [RDESCR]'); if (suppress) getElementById('f_delress').submit();" 
+     height="10"  src="WGCAL/Images/wgcal-suppress.gif" title="[TEXT:suppress ressourc] [RDESCR]">
+</td>
+<td>&nbsp;&nbsp;</td>
+<td>
 <span id="[RID]" class="[RSTYLE]" width="90%" 
-    onclick="WGCUpdateDisplay(event, '[RID]', 'f_selress', '[RCOLOR]');"  
-    onmouseover="WGCalChangeClass(event, '[RID]', 'WGCRessOver');" 
-    onmouseout="WGCalChangeClass(event, '[RID]', 'WGCRessDefault');"><img height="15" src="[RICON]">[RDESCR]</span>
-<br>
+    onclick="WGCUpdateDisplay(event, '[RID]', 'f_selress', '[RCOLOR]', 'WGCRessSelect','WGCRessOver', 'WGCRessDefault');"  
+    onmouseover="WGCalChangeClass(event, '[RID]', 'WGCRessSelected', 'WGCRessOver');" 
+    onmouseout="WGCalChangeClass(event, '[RID]', 'WGCRessSelected', 'WGCRessDefault');">
+    <img onmouseover="Fade('im[RID]',15);" onmouseout="UnFade('im[RID]',15);" id="im[RID]" width="20px" height="20px" align="absbottom" src="[RICON]">&nbsp;[RDESCR]</span>
+</td>
+<td>&nbsp;</td>
+<td>
+<span id="cp[RID]" style="border: 1px outset;background:[RCOLOR];cursor:pointer;" onClick="showColorPicker(event, 'cp[RID]', '[RID]');"
+      title="[TEXT:change color for ressource] [RDESCR]">&nbsp;&nbsp;</span>&nbsp;
+</td>
+</tr>
 [ENDBLOCK L_RESS]
-
-<hr>
-<div class="WGCRessDefault" >
-<img style="cursor:pointer;" align="left" onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER');" height="15"
-     src="WGCAL/Images/ress-modify.gif" title="[TEXT:modify the list]">
-<img style="cursor:pointer;" align="left" onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER');" height="15" 
-     src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
-</div>
+</table>
 
 </div>
+
+<form id="show" target="_self" name="show" method="POST" onsubmit="showRessource()">
+<input id="gettext" type="text"></input>
+<input type="button">Go</input>
+</form>
+
+
 </fieldset>
+
+

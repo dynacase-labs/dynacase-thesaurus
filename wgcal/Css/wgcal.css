@@ -68,18 +68,24 @@ body, table, td {
 }
 
 .WGCListRess {
-  border : 2px inset [CORE_BGCOLORALTERN];
+  border : 2px outset [CORE_BGCOLORALTERN];
+  background-color : white;
 }
 .WGCRessOver {
-  border : 2px outset [CORE_BGCOLORALTERN];
+  border : 1px outset [CORE_BGCOLORALTERN];
   cursor:pointer;
 }
 .WGCRessDefault {
-  border : 2px intset [CORE_BGCOLORALTERN];
 }
+
 .WGCRessSelected {
-  background-color : [CORE_BGCOLORHIGH];	
-  border : 2px inset [CORE_BGCOLORALTERN];
+  background-color : [CORE_BGCOLORHIGH];
+  border : 1px inset [CORE_BGCOLORALTERN];
   cursor:pointer;
 }
 
+.WGCFamSelected {
+  background-color : [CORE_BGCOLORHIGH];
+  border : 1px inset [CORE_BGCOLORALTERN];
+  cursor:pointer;
+}
