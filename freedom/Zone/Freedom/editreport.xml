@@ -1,0 +1,57 @@
+
+
+<fieldset><legend>[TEXT:Search criteria]</legend>
+
+[ZONE FDL:EDITCARD?zone=FREEDOM:EDITDSEARCH]
+
+</fieldset>
+
+<table class="tableborder"  cellspacing="0" width="100%">
+<tbody>
+
+[ZONE FDL:EDITFRAME?frameid=REP_FR_PRESENTATION]
+
+
+
+</tbody>
+</table>
+
+<table BORDER=0>
+<tr>
+	<td>
+	<select NAME="list1" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form.list1,document.getElementById('rep_idcols'),false,this.form.movepattern1.value)">
+	<optgroup label="[TEXT:Internals]">
+	[BLOCK INTERNALS]
+		<option VALUE="[aid]">[alabel]</option>
+	[ENDBLOCK INTERNALS]
+	</optgroup>
+	<optgroup label="[TEXT:Attributes]">
+	[BLOCK COLUMN1]
+		<option VALUE="[aid]">[alabel]</option>
+	[ENDBLOCK COLUMN1]
+	</optgroup>
+	</select>
+	</td>
+	<td VALIGN=MIDDLE ALIGN=CENTER>
+
+		<input TYPE="button" NAME="right" VALUE="&rarr;" ONCLICK="moveSelectedOptions(this.form.list1,document.getElementById('rep_idcols'),false,this.form.movepattern1.value)"><br><br>
+		<input TYPE="button" NAME="right" VALUE="All &rarr;" ONCLICK="moveAllOptions(this.form.list1,document.getElementById('rep_idcols'),false,this.form.movepattern1.value)"><br><br>
+		<input TYPE="button" NAME="left" VALUE="&larr;" ONCLICK="moveSelectedOptions(document.getElementById('rep_idcols'),this.form.list1,false,this.form.movepattern1.value)"><br><br>
+		<input TYPE="button" NAME="left" VALUE="All &larr;" ONCLICK="moveAllOptions(document.getElementById('rep_idcols'),this.form.list1,false,this.form.movepattern1.value)">
+	</td>
+	<td>
+	<select id="rep_idcols" NAME="_rep_idcols[]" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(document.getElementById('rep_idcols'),this.form.list1,false,this.form.movepattern1.value)">
+	[BLOCK COLUMN2]
+		<option VALUE="[aid]">[alabel]</option>
+	[ENDBLOCK COLUMN2]
+	</select>	
+<input TYPE="button" VALUE="&uarr;" onClick="moveOptionUp(document.getElementById('rep_idcols'))">
+
+	<input TYPE="button" VALUE="&darr;" onClick="moveOptionDown(document.getElementById('rep_idcols'))">
+	</td>
+</tr>
+</table>
+
+<script language="javascript">
+  document.modifydoc.onsubmit=new Function("selectallcol()");
+</script>

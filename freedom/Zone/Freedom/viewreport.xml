@@ -1,0 +1,14 @@
+<H1 align="center">[V_BA_TITLE]</H1>
+
+
+<table class="[reportstyle]" width="100%" cellspacing=0>
+<caption>[V_REP_CAPTION]</caption>
+<thead><tr>
+[BLOCK COLS]<th align="[rightfornumber]" id="[colid]">[collabel]</th>[ENDBLOCK COLS]
+</tr></thead>
+<tbody>
+[BLOCK ROWS]<tr class="[troddoreven]">[BLOCK [CELLS]]<td valign="top" align="[rightfornumber]" class="[tdoddoreven]">[cellval]</td>[ENDBLOCK [CELLS]]
+
+</tr>[ENDBLOCK ROWS]
+</tbody>
+</table>
