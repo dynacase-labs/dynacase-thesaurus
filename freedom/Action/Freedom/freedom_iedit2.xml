@@ -99,8 +99,8 @@ window.setInterval('autoclose()',2000);
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td  align="right" id="editbutton">
-<input id="iQuicksave" type="button"  value="[TEXT:Quick Save]" onclick="if (hasOpener()) quicksave();return false">
- <input id="iSubmit" type="submit" value="[TEXT:Ok]"
+<input id="iQuicksave" type="button"  style="display:none" onmouseout="viewquick(event,false)"  value="[TEXT:Quick Save]" onclick="if (hasOpener()) quicksave();return false">
+ <input id="iSubmit" type="submit" value="[TEXT:Ok]" onmouseover="viewquick(event,true)"
         onclick="if ((!hasOpener()) || (!canmodify())) return false;enableall();document.isSubmitted=true;return true">  
  <input type="button" value="[TEXT:Close]" onclick="document.isCancelled=true;window.close();"> 
   </td>
@@ -108,7 +108,7 @@ window.setInterval('autoclose()',2000);
 </tfoot>
 </table>
 </form>
-<iframe name="fhsave" style="visibility:hidden;display:"></iframe>
+<iframe name="fhsave" style="visibility:hidden;display:none"></iframe>
 
 </body>
 </html>
