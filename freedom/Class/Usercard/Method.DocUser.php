@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.9 2003/03/11 17:04:05 eric Exp $
+// $Id: Method.DocUser.php,v 1.10 2003/04/10 13:54:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -146,7 +146,9 @@ function SpecRefresh() {
 
 	    $dn=$this->racine;
 	    $ds=ldap_connect($this->serveur,$this->port);
-	    if ($ds)
+	    
+	    if ($ds) {
+	      ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
 	      if (ldap_bind($ds, $this->rootdn, $this->rootpw)) {
 		
 		if ((@ldap_search($ds, $dn, "", array()))  || 
@@ -156,18 +158,20 @@ function SpecRefresh() {
 		  $action->parent->SetParam("LDAP_ORGINIT","OK");
 		}
 	      }
+	    }
 	  }
 	// ------------------------------
 	// update LDAP values
 	
 	$infoldap["objectclass"]=$objectclass;
-	if (! isset($ds))
+	if (! isset($ds)) {
 	  $ds=ldap_connect($this->serveur,$this->port);
-
+	}
 
 	if ($ds)
 	  {
-	    $dn = "id=".$this->id.",".$this->racine;
+	    ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
+	    $dn = "cn=".$this->id.",".$this->racine;
 
 	    if (ldap_bind($ds, $this->rootdn, $this->rootpw))
 	      {
@@ -189,7 +193,7 @@ function SpecRefresh() {
 
 	      }
 	    if (! @ldap_add($ds, $dn, $infoldap))
-	      $retour = _("errldapadd");
+	      $retour = _("errldapadd");	    
 
 	    ldap_close($ds);
 	  }
@@ -224,7 +228,7 @@ function SpecRefresh() {
 	    
 	  if (ldap_bind($ds, $this->rootdn, $this->rootpw))
 	    
-	    $r=ldap_delete($ds,"id=".$this->id.",".$this->racine);
+	    $r=ldap_delete($ds,"cn=".$this->id.",".$this->racine);
 	  
 	  
 	  

@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.37 2003/04/10 07:21:28 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.38 2003/04/10 13:54:15 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -54,8 +54,12 @@ The FREEDOM LIBS is necessary to use functionnality of the FREEDOM module
 %package USERCARD
 Summary: user card management
 Group: Applications/Web
+Requires: php-ldap
 Version: @VERSION@
 Release: @RELEASE@
+Requires: openldap-devel
+Requires: openldap-server
+Requires: openldap-backend-ldbm
 PreReq: WHAT
 PreReq: @PACKAGE@-LIB = %{version}
 
