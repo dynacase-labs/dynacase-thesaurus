@@ -7,8 +7,8 @@
    <LINK REL="icon" HREF="[CORE_PUBURL]/CORE/Images/logo-1-mini.ico" >
    <LINK REL="SHORTCUT ICON" HREF="[CORE_PUBURL]/[iconsrc]" >
 
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=CORE&action=CORE_CSS" >
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=FDL&action=FDL_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=FDL&action=FDL_CSS" >
 
 
 [CSS:REF]

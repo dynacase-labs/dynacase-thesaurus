@@ -4,8 +4,8 @@
 <LINK REL="icon" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
 <LINK REL="SHORTCUT ICON" HREF="FREEDOM/Images/freedom.gif" TYPE="image/gif">
 <title>[WHAT] [TEXT:PortFolio] [title]</title>
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=CORE&action=CORE_CSS" >
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=FDL&action=FDL_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=FDL&action=FDL_CSS" >
 
     [JS:REF]
 <script language="JavaScript">
