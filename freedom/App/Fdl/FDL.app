@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.19 2004/07/28 10:17:15 eric Exp $
+// $Id: FDL.app,v 1.20 2004/08/24 13:36:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -105,6 +105,11 @@ $action_desc = array (
   array( 
    "name"		=>"EDITMAIL",
    "short_name"		=>N_("edit mail"),
+   "acl"		=>"NORMAL"
+  )  ,
+  array( 
+   "name"		=>"FAMILY_HELP",
+   "short_name"		=>N_("help manual for family"),
    "acl"		=>"NORMAL"
   )  ,
   array( 

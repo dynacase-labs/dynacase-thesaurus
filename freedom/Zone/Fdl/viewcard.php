@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.52 2004/08/23 13:43:29 eric Exp $
+ * @version $Id: viewcard.php,v 1.53 2004/08/24 13:36:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,6 +20,7 @@ include_once("Class.TableLayout.php");
 include_once("Class.QueryDb.php");
 include_once("Class.QueryGen.php");
 include_once("FDL/freedom_util.php");
+include_once("FDL/family_help.php");
 include_once("VAULT/Class.VaultFile.php");
 
 // -----------------------------------
@@ -171,9 +172,15 @@ function viewcard(&$action) {
       $action->lay->Set("locked", $user->firstname." ".$user->lastname);
     }
   }
+  $action->lay->Set("dhelp", "none");
   if ($doc->fromid > 0) {
     $cdoc = $doc->getFamDoc();
     $action->lay->Set("classtitle", $cdoc->title);
+    if (getFamilyHelpFile($action,$doc->fromid) ) {
+      
+      $action->lay->Set("dhelp", "");
+      $action->lay->Set("helpid", $doc->fromid);
+    }
   } else {
     $action->lay->Set("classtitle", _("no family"));
   }
