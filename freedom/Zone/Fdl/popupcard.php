@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.45 2004/09/15 12:25:50 eric Exp $
+ * @version $Id: popupcard.php,v 1.46 2004/09/15 12:54:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.45 2004/09/15 12:25:50 eric Exp $
+// $Id: popupcard.php,v 1.46 2004/09/15 12:54:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -138,7 +138,7 @@ function popupcard(&$action) {
     $action->lay->Set("deltitle", AddSlashes($doc->title));
     popupCtrlActive('popupcard',$kdiv,'delete');    
   } else {
-    popupInactive('popupcard',$kdiv,'delete');
+    popupCtrlInactive('popupcard',$kdiv,'delete');
   }
 
   popupInvisible('popupcard',$kdiv,'editstate'); 
