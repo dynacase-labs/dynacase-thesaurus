@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2003-10-16 11:38+0200\n"
+	"POT-Creation-Date: 2003-11-04 09:59+0100\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -437,402 +437,6 @@ msgstr	"%s a été déverrouillé"
 msgid	"geometry saved : %s"
 msgstr	"disposition sauvée : %s"
 
-msgid	"locked files of "
-msgstr	"fichiers verrouillés par "
-
-#, c-format
-msgid	"basket of %s"
-msgstr	"porte-documents de %s"
-
-#, c-format
-msgid	"Cannot add %s in %s folder, restriction set to add this kind of "
-	"document"
-msgstr	"Ne peut ajouter %s dans le dossier %s, restrictions activées pour "
-	"l'ajout de ce type de document"
-
-#, c-format
-msgid	"Cannot add in %s folder, doc id (%d) unknown"
-msgstr	"Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid	"Add %s in %s folder"
-msgstr	"Ajout %s dans dossier %s"
-
-#, c-format
-msgid	"cannot delete link : link not found for doc %d in folder %d"
-msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
-
-#, c-format
-msgid	"cannot delete link : initial query not found for doc %d in folder %d"
-msgstr	"le document %d n'existe plus dans le dossier %d.\n"
-	"mettre à jour la vue."
-
-#, c-format
-msgid	"cannot delete link for doc %d in folder %d : the document comes from "
-	"a user query. Delete initial query if you want delete this document"
-msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
-	"détruit : \n"
-	"le document provient d'une recherche utilisateur. Supprimer la "
-	"requête initiale si vous voulez delier le document"
-
-#, c-format
-msgid	"Delete %d in %s folder"
-msgstr	"Suppression n°%d du dossier %s"
-
-msgid	"already exist : not added"
-msgstr	"déjà existant : pas ajouté"
-
-#, c-format
-msgid	"untitle %s %d"
-msgstr	"%s sans titre %d"
-
-msgid	"creation"
-msgstr	"création"
-
-msgid	"cannot update no initialized document"
-msgstr	"mise à jour impossible : document non initialisé"
-
-msgid	"untitle document"
-msgstr	"document sans titre"
-
-#, c-format
-msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-#, c-format
-msgid	"the file %s (rev %d) must be locked before"
-msgstr	"le fichier %s (rév %d) doit être verrouillé au préalable"
-
-#, c-format
-msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr	"le fichier %s (rév. %d) est verrouillé par %s."
-
-#, c-format
-msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
-msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-#, c-format
-msgid	"cannot lock file %s (rev %d): already locked by %s."
-msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
-
-msgid	"already deleted"
-msgstr	"déjà supprimé"
-
-#, c-format
-msgid	"delete by %s by action %s on %s from %s"
-msgstr	"supprimé par %s avec l'action %s sur %s par %s"
-
-msgid	"unknow attribute"
-msgstr	"attribut inconnu"
-
-#, c-format
-msgid	"%s needed\n"
-msgstr	"%s doit être rempli\n"
-
-#, c-format
-msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
-	"automatically"
-msgstr "la date '%s' pour l'attribut %s est incorrect. Il a été corrigé automatiquement."
-
-msgid	"document already revised"
-msgstr	"document déjà révisé"
-
-#, c-format
-msgid	"the document of %s family cannot be revised"
-msgstr	"lee documents de la famille %s ne peuvent être révisés"
-
-#, c-format
-msgid	"copy from document #%d"
-msgstr	"copie à partir du document n°%d"
-
-msgid	"vault file error"
-msgstr	"erreur fichier Vault"
-
-msgid	"no filename"
-msgstr	"pas de fichier"
-
-#, c-format
-msgid	"cannot control : object not initialized : %s"
-msgstr	"contrôle impossible : objet non initialisé : %s"
-
-#, c-format
-msgid	"error in pzone format %s"
-msgstr	"erreur dans la format pzone %s"
-
-#, c-format
-msgid	"new %s"
-msgstr	"nouvelle %s"
-
-#, c-format
-msgid	"parameters for %s state"
-msgstr	"paramètres pour l'état %s"
-
-#, c-format
-msgid	"id %s profile"
-msgstr	"profil id %s "
-
-#, c-format
-msgid	"%s profile"
-msgstr	"Profil %s"
-
-#, c-format
-msgid	"id %s mask"
-msgstr	"identificateur du masque %s"
-
-#, c-format
-msgid	"%s mask"
-msgstr	"masque %s"
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
-	"autorisé"
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	"Changement d'état: l'état initial '%s' est inconnu"
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
-
-#, c-format
-msgid	"ChangeState :: the method '%s' has the following error %s"
-msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
-
-#, c-format
-msgid	"change state : %s to %s"
-msgstr	"changement d'état de %s vers %s"
-
-#, c-format
-msgid	"%s new state %s"
-msgstr	"%s changement d'état vers %s"
-
-#, c-format
-msgid	"ChangeState :: the state has been realized but the post method '%s' "
-	"has the following error %s"
-msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
-	"méthode '%s' a retourné l'erreur suivante : %s "
-
-#, c-format
-msgid	"cannot change state of document #%d to %s"
-msgstr	"ne peux pas changer l'état du document n°%d vers %s"
-
-#, c-format
-msgid	"automaticaly by change state of %s\n"
-	"%s"
-msgstr	"changement d'état automatique issu du document %s\n"
-	"%s"
-
-msgid	"view document"
-msgstr	"voir le document"
-
-msgid	"view"
-msgstr	"voir"
-
-msgid	"send document"
-msgstr	"envoyer le document"
-
-msgid	"send"
-msgstr	"envoyer"
-
-msgid	"edit document"
-msgstr	" éditer le document"
-
-msgid	"edit"
-msgstr	"éditer"
-
-msgid	"delete document"
-msgstr	"supprimer le document"
-
-msgid	"delete"
-msgstr	"supprimer"
-
-msgid	"open folder"
-msgstr	"Ouvrir le dossier"
-
-msgid	"open"
-msgstr	"ouvrir"
-
-msgid	"execute search"
-msgstr	"executer une recheche"
-
-msgid	"execute"
-msgstr	"execute"
-
-msgid	"modify folder"
-msgstr	"modifier le dossier"
-
-msgid	"view acl"
-msgstr	"voir les droits"
-
-msgid	"viewacl"
-msgstr	"voir les droits"
-
-msgid	"modify acl"
-msgstr	"Modifier les droits"
-
-msgid	"modifyacl"
-msgstr	"modifier les droits"
-
-msgid	"create doc"
-msgstr	"Créer des documents de la famille"
-
-#, c-format
-msgid	"no privilege %s"
-msgstr	"Pas de profil %s"
-
-#, c-format
-msgid	"unknow privilege %s"
-msgstr	"privilège inconnu : %s"
-
-msgid	"errldapadd"
-msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
-	"attributs n'est pas conforme"
-
-msgid	"errldapconnect"
-msgstr	"Le server LDAP n'a pas pu être contacté"
-
-#, c-format
-msgid	"user #%d does not exist"
-msgstr	"l'utilisateur n°%d n'existe pas"
-
-msgid	"user is desactivated"
-msgstr	"l'utilisateur est désactivé"
-
-msgid	"recorded"
-msgstr	"enregistré"
-
-msgid	"qualified"
-msgstr	"qualifié"
-
-msgid	"analyzed"
-msgstr	"analysé"
-
-msgid	"traited"
-msgstr	"traité"
-
-msgid	"rejected"
-msgstr	"rejeté"
-
-msgid	"closed"
-msgstr	"clôt"
-
-msgid	"suspended"
-msgstr	"suspendu"
-
-msgid	"Trecorded"
-msgstr	"vers enregistré"
-
-msgid	"Tqualified"
-msgstr	"vers qualifié"
-
-msgid	"Tanalyzed"
-msgstr	"vers analysé"
-
-msgid	"Ttraited"
-msgstr	"vers traité"
-
-msgid	"Trejected"
-msgstr	"vers rejeté"
-
-msgid	"Tclosed"
-msgstr	"vers clôt"
-
-msgid	"Tsuspended"
-msgstr	"vers suspendu"
-
-#, c-format
-msgid	"[%s] incident registration"
-msgstr	"[%s] enregistrement de l'incident"
-
-#, c-format
-msgid	"Freedom : incident %s : transition to %s"
-msgstr	"Incident %s : transition vers %s"
-
-#, c-format
-msgid	"[%s] incident traited"
-msgstr	"[%s] incident traité"
-
-#, c-format
-msgid	"send internal mail to %s (bcc:%s)"
-msgstr	"mail interne envoyé à %s (bcc: %s)"
-
-#, c-format
-msgid	"send official mail to %s (cc: %s - bcc:%s)"
-msgstr	"mail officiel envoyé à %s (cc: %s - bcc:%s)"
-
-msgid	"read only"
-msgstr	"lecture seule"
-
-msgid	"read write"
-msgstr	"lecture écriture"
-
-msgid	"write only"
-msgstr	"écriture seule"
-
-msgid	"hidden"
-msgstr	"caché"
-
-msgid	"read disabled"
-msgstr	"statique"
-
-msgid	"Y"
-msgstr	"O"
-
-msgid	"N"
-msgstr	"N"
-
-msgid	"doctitle"
-msgstr	"titre"
-
-msgid	"revdate"
-msgstr	"date de modification"
-
-msgid	"revision"
-msgstr	"révision"
-
-msgid	"include"
-msgstr	"contient"
-
-msgid	"equal"
-msgstr	"égal"
-
-msgid	"not equal"
-msgstr	"pas égal"
-
-msgid	"&gt; or equal"
-msgstr	"&gt; ou égal"
-
-msgid	"&lt; or equal"
-msgstr	"&lt; ou égal"
-
-msgid	"and"
-msgstr	"et"
-
-msgid	"or"
-msgstr	"ou"
-
-#, c-format
-msgid	"%s updated\n"
-msgstr	"%s mis à jour\n"
-
-#, c-format
-msgid	"find %s more than one, created aborded\n"
-msgstr	"%s trouvé plus d'une fois, création abandonnée\n"
-
-#, c-format
-msgid	"%s migrated\n"
-msgstr	"%s migré\n"
-
-#, c-format
-msgid	"%s igroup created\n"
-msgstr	"%s intranet group créé\n"
-
-#, c-format
-msgid	"%s iuser created\n"
-msgstr	"%s intranet personne a été créé\n"
-
 msgid	"Import vcard"
 msgstr	"Importation Vcard"
 
@@ -949,13 +553,13 @@ msgid	"Import file"
 msgstr	"Importer un fichier"
 
 msgid	"Abstract card"
-msgstr "Carte résumé"
+msgstr	"Carte résumé"
 
 msgid	"Column mode"
-msgstr "Mode colonne"
+msgstr	"Mode colonne"
 
 msgid	"Invert split"
-msgstr "Inverser le découpage"
+msgstr	"Inverser le découpage"
 
 msgid	"Freedom"
 msgstr	"Freedom"
@@ -1112,6 +716,9 @@ msgstr	"niveau supérieur"
 
 msgid	"add"
 msgstr	"ajout"
+
+msgid	"delete"
+msgstr	"supprimer"
 
 msgid	"change category"
 msgstr	"changer de catégorie"
@@ -1320,6 +927,9 @@ msgstr	" Résultat de l'importation de documents"
 msgid	"view properties"
 msgstr	"voir les propriétés"
 
+msgid	"edit document"
+msgstr	" éditer le document"
+
 msgid	"duplicate document"
 msgstr	" dupliquer le document"
 
@@ -1482,6 +1092,9 @@ msgstr	"gestion des familles visibles"
 msgid	" choose value"
 msgstr	" choisir une valeur"
 
+msgid	"Attribute not found"
+msgstr	"Attribut non trouvé"
+
 msgid	"mail edition"
 msgstr	"édition de mail"
 
@@ -1562,6 +1175,9 @@ msgstr	"entrée énumérée non trouvé"
 
 msgid	"some needed attributes are empty"
 msgstr	"certains attributs obligatoires sont vides"
+
+msgid	"NOT Clear"
+msgstr	"Non effacé"
 
 msgid	"Save changes ?"
 msgstr	"Sauver les changements ?"
@@ -1656,6 +1272,9 @@ msgstr	"auteur"
 msgid	"locked by"
 msgstr	"verrouillé par"
 
+msgid	"revision"
+msgstr	"révision"
+
 msgid	"revision date"
 msgstr	"date de révision"
 
@@ -1709,6 +1328,442 @@ msgstr	"Changer de catégorie"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+msgid	"locked files of "
+msgstr	"fichiers verrouillés par "
+
+#, c-format
+msgid	"basket of %s"
+msgstr	"porte-documents de %s"
+
+#, c-format
+msgid	"Cannot add %s in %s folder, restriction set to add this kind of "
+	"document"
+msgstr	"Ne peut ajouter %s dans le dossier %s, restrictions activées pour "
+	"l'ajout de ce type de document"
+
+#, c-format
+msgid	"Cannot add in %s folder, doc id (%d) unknown"
+msgstr	"Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid	"Add %s in %s folder"
+msgstr	"Ajout %s dans dossier %s"
+
+#, c-format
+msgid	"cannot delete link : link not found for doc %d in folder %d"
+msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
+
+#, c-format
+msgid	"cannot delete link : initial query not found for doc %d in folder %d"
+msgstr	"le document %d n'existe plus dans le dossier %d.\n"
+	"mettre à jour la vue."
+
+#, c-format
+msgid	"cannot delete link for doc %d in folder %d : the document comes from "
+	"a user query. Delete initial query if you want delete this document"
+msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
+	"détruit : \n"
+	"le document provient d'une recherche utilisateur. Supprimer la "
+	"requête initiale si vous voulez delier le document"
+
+#, c-format
+msgid	"Delete %d in %s folder"
+msgstr	"Suppression n°%d du dossier %s"
+
+msgid	"already exist : not added"
+msgstr	"déjà existant : pas ajouté"
+
+#, c-format
+msgid	"untitle %s %d"
+msgstr	"%s sans titre %d"
+
+msgid	"creation"
+msgstr	"création"
+
+msgid	"cannot update no initialized document"
+msgstr	"mise à jour impossible : document non initialisé"
+
+msgid	"untitle document"
+msgstr	"document sans titre"
+
+#, c-format
+msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+#, c-format
+msgid	"the file %s (rev %d) must be locked before"
+msgstr	"le fichier %s (rév %d) doit être verrouillé au préalable"
+
+#, c-format
+msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr	"le fichier %s (rév. %d) est verrouillé par %s."
+
+#, c-format
+msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
+msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+#, c-format
+msgid	"cannot lock file %s (rev %d): already locked by %s."
+msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
+
+msgid	"already deleted"
+msgstr	"déjà supprimé"
+
+#, c-format
+msgid	"delete by %s by action %s on %s from %s"
+msgstr	"supprimé par %s avec l'action %s sur %s par %s"
+
+msgid	"unknow attribute"
+msgstr	"attribut inconnu"
+
+#, c-format
+msgid	"%s needed\n"
+msgstr	"%s doit être rempli\n"
+
+#, c-format
+msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
+	"automatically"
+msgstr	"la date '%s' pour l'attribut %s est incorrect. Il a été corrigé "
+	"automatiquement."
+
+msgid	"document already revised"
+msgstr	"document déjà révisé"
+
+#, c-format
+msgid	"the document of %s family cannot be revised"
+msgstr	"lee documents de la famille %s ne peuvent être révisés"
+
+#, c-format
+msgid	"copy from document #%d"
+msgstr	"copie à partir du document n°%d"
+
+msgid	"vault file error"
+msgstr	"erreur fichier Vault"
+
+msgid	"no filename"
+msgstr	"pas de fichier"
+
+#, c-format
+msgid	"cannot control : object not initialized : %s"
+msgstr	"contrôle impossible : objet non initialisé : %s"
+
+#, c-format
+msgid	"error in pzone format %s"
+msgstr	"erreur dans la format pzone %s"
+
+#, c-format
+msgid	"new %s"
+msgstr	"nouvelle %s"
+
+#, c-format
+msgid	"parameters for %s state"
+msgstr	"paramètres pour l'état %s"
+
+#, c-format
+msgid	"id %s profile"
+msgstr	"profil id %s "
+
+#, c-format
+msgid	"%s profile"
+msgstr	"Profil %s"
+
+#, c-format
+msgid	"id %s mask"
+msgstr	"identificateur du masque %s"
+
+#, c-format
+msgid	"%s mask"
+msgstr	"masque %s"
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
+	"autorisé"
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	"Changement d'état: l'état initial '%s' est inconnu"
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
+
+#, c-format
+msgid	"ChangeState :: the method '%s' has the following error %s"
+msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
+
+#, c-format
+msgid	"change state : %s to %s"
+msgstr	"changement d'état de %s vers %s"
+
+#, c-format
+msgid	"%s new state %s"
+msgstr	"%s changement d'état vers %s"
+
+#, c-format
+msgid	"ChangeState :: the state has been realized but the post method '%s' "
+	"has the following error %s"
+msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
+	"méthode '%s' a retourné l'erreur suivante : %s "
+
+#, c-format
+msgid	"cannot change state of document #%d to %s"
+msgstr	"ne peux pas changer l'état du document n°%d vers %s"
+
+#, c-format
+msgid	"automaticaly by change state of %s\n"
+	"%s"
+msgstr	"changement d'état automatique issu du document %s\n"
+	"%s"
+
+msgid	"view document"
+msgstr	"voir le document"
+
+msgid	"view"
+msgstr	"voir"
+
+msgid	"send document"
+msgstr	"envoyer le document"
+
+msgid	"send"
+msgstr	"envoyer"
+
+msgid	"edit"
+msgstr	"éditer"
+
+msgid	"delete document"
+msgstr	"supprimer le document"
+
+msgid	"open folder"
+msgstr	"Ouvrir le dossier"
+
+msgid	"open"
+msgstr	"ouvrir"
+
+msgid	"execute search"
+msgstr	"executer une recheche"
+
+msgid	"execute"
+msgstr	"execute"
+
+msgid	"modify folder"
+msgstr	"modifier le dossier"
+
+msgid	"view acl"
+msgstr	"voir les droits"
+
+msgid	"viewacl"
+msgstr	"voir les droits"
+
+msgid	"modify acl"
+msgstr	"Modifier les droits"
+
+msgid	"modifyacl"
+msgstr	"modifier les droits"
+
+msgid	"create doc"
+msgstr	"Créer des documents de la famille"
+
+#, c-format
+msgid	"no privilege %s"
+msgstr	"Pas de profil %s"
+
+#, c-format
+msgid	"unknow privilege %s"
+msgstr	"privilège inconnu : %s"
+
+msgid	"errldapadd"
+msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
+	"attributs n'est pas conforme"
+
+msgid	"errldapconnect"
+msgstr	"Le server LDAP n'a pas pu être contacté"
+
+#, c-format
+msgid	"user #%d does not exist"
+msgstr	"l'utilisateur n°%d n'existe pas"
+
+msgid	"user is desactivated"
+msgstr	"l'utilisateur est désactivé"
+
+msgid	"virtual"
+msgstr	"virtuel"
+
+msgid	"consumed"
+msgstr	"consommé"
+
+msgid	"plocked"
+msgstr	"immobilisé"
+
+msgid	"asav"
+msgstr	"affecté SAV"
+
+msgid	"aclient"
+msgstr	"affecté client"
+
+msgid	"returned"
+msgstr	"retourné"
+
+msgid	"stocked"
+msgstr	"stocké"
+
+msgid	"out"
+msgstr	"sorti"
+
+msgid	"Tvirtual"
+msgstr	"vers virtuel"
+
+msgid	"Tconsumed"
+msgstr	"vers consommé"
+
+msgid	"Tlocked"
+msgstr "vers immobilisé"
+
+msgid	"Tasav"
+msgstr	"vers affecté SAV"
+
+msgid	"Taclient"
+msgstr	"vers affecté client"
+
+msgid	"Treturned"
+msgstr	"vers retourné"
+
+msgid	"Tstocked"
+msgstr	"vers stocké"
+
+msgid	"Tout"
+msgstr	"vers sorti"
+
+msgid	"recorded"
+msgstr	"enregistré"
+
+msgid	"qualified"
+msgstr	"qualifié"
+
+msgid	"analyzed"
+msgstr	"analysé"
+
+msgid	"traited"
+msgstr	"traité"
+
+msgid	"rejected"
+msgstr	"rejeté"
+
+msgid	"closed"
+msgstr	"clôt"
+
+msgid	"suspended"
+msgstr	"suspendu"
+
+msgid	"Trecorded"
+msgstr	"vers enregistré"
+
+msgid	"Tqualified"
+msgstr	"vers qualifié"
+
+msgid	"Tanalyzed"
+msgstr	"vers analysé"
+
+msgid	"Ttraited"
+msgstr	"vers traité"
+
+msgid	"Trejected"
+msgstr	"vers rejeté"
+
+msgid	"Tclosed"
+msgstr	"vers clôt"
+
+msgid	"Tsuspended"
+msgstr	"vers suspendu"
+
+#, c-format
+msgid	"[%s] incident registration"
+msgstr	"[%s] enregistrement de l'incident"
+
+#, c-format
+msgid	"Freedom : incident %s : transition to %s"
+msgstr	"Incident %s : transition vers %s"
+
+#, c-format
+msgid	"[%s] incident traited"
+msgstr	"[%s] incident traité"
+
+#, c-format
+msgid	"send internal mail to %s (bcc:%s)"
+msgstr	"mail interne envoyé à %s (bcc: %s)"
+
+#, c-format
+msgid	"send official mail to %s (cc: %s - bcc:%s)"
+msgstr	"mail officiel envoyé à %s (cc: %s - bcc:%s)"
+
+msgid	"read only"
+msgstr	"lecture seule"
+
+msgid	"read write"
+msgstr	"lecture écriture"
+
+msgid	"write only"
+msgstr	"écriture seule"
+
+msgid	"hidden"
+msgstr	"caché"
+
+msgid	"read disabled"
+msgstr	"statique"
+
+msgid	"Y"
+msgstr	"O"
+
+msgid	"N"
+msgstr	"N"
+
+msgid	"doctitle"
+msgstr	"titre"
+
+msgid	"revdate"
+msgstr	"date de modification"
+
+msgid	"include"
+msgstr	"contient"
+
+msgid	"equal"
+msgstr	"égal"
+
+msgid	"not equal"
+msgstr	"pas égal"
+
+msgid	"&gt; or equal"
+msgstr	"&gt; ou égal"
+
+msgid	"&lt; or equal"
+msgstr	"&lt; ou égal"
+
+msgid	"and"
+msgstr	"et"
+
+msgid	"or"
+msgstr	"ou"
+
+#, c-format
+msgid	"%s updated\n"
+msgstr	"%s mis à jour\n"
+
+#, c-format
+msgid	"find %s more than one, created aborded\n"
+msgstr	"%s trouvé plus d'une fois, création abandonnée\n"
+
+#, c-format
+msgid	"%s migrated\n"
+msgstr	"%s migré\n"
+
+#, c-format
+msgid	"%s igroup created\n"
+msgstr	"%s intranet group créé\n"
+
+#, c-format
+msgid	"%s iuser created\n"
+msgstr	"%s intranet personne a été créé\n"
 
 #, c-format
 msgid	"%d documents found"
@@ -1768,10 +1823,14 @@ msgid	"date picker"
 msgstr	"choix de date"
 
 msgid	"manual date"
-msgstr "Date manuelle"
+msgstr	"Date manuelle"
 
 msgid	"choose inputs"
 msgstr	"choisir une valeur"
+
+#, c-format
+msgid	"elinkEncode::attribute not found %s"
+msgstr	"elinkEncode :  attribut non trouvé %s"
 
 #, c-format
 msgid	"Sure %s ?"
@@ -2246,7 +2305,7 @@ msgid	"generic home page"
 msgstr	"page d'accueil générique"
 
 msgid	"generic vertical home page"
-msgstr "page d'accueil découpage vertical"
+msgstr	"page d'accueil découpage vertical"
 
 msgid	"inverted search"
 msgstr	"Recherche inversée"
@@ -2288,7 +2347,7 @@ msgid	"search with kind criteria"
 msgstr	"recherche avec des critères de catégories"
 
 msgid	"memorisation of split mode"
-msgstr "mémorisation du mode de découpage de la fenêtre"
+msgstr	"mémorisation du mode de découpage de la fenêtre"
 
 msgid	"default document family"
 msgstr	"famille de document par défaut"
@@ -2297,19 +2356,21 @@ msgid	"number of card by page"
 msgstr	"nombre de cartes par page"
 
 msgid	"width of the abstract card"
-msgstr "largeur de la carte résumé (en px ou en %)"
+msgstr	"largeur de la carte résumé (en px ou en %)"
 
 msgid	"width of the frame for abstract card"
-msgstr "largeur de la fenêtre pour l'affichage des listes de documents (découpage vertical)"
+msgstr	"largeur de la fenêtre pour l'affichage des listes de documents "
+	"(découpage vertical)"
 
 msgid	"height of the frame for abstract card"
-msgstr "hauteur de la fenêtre pour l'affichage des listes de documents (découpage horizontal)"
+msgstr	"hauteur de la fenêtre pour l'affichage des listes de documents "
+	"(découpage horizontal)"
 
 msgid	"differents view mode by family"
-msgstr "mode de vues par familles"
+msgstr	"mode de vues par familles"
 
 msgid	"split view mode by family"
-msgstr "mode de découpage par famille"
+msgstr	"mode de découpage par famille"
 
 msgid	"Products"
 msgstr	"Produits"
@@ -2331,6 +2392,12 @@ msgstr	"Contrats"
 
 msgid	"Contract Management"
 msgstr	"Gestion des contrats"
+
+msgid	"visible families"
+msgstr	"familles visibles"
+
+msgid	"icon column number"
+msgstr	"nombre de colonne d'icones"
 
 msgid	"Onefam"
 msgstr	"Une famille"
@@ -2355,9 +2422,6 @@ msgstr	"modifier les préférences"
 
 msgid	"Access To Onefam Management"
 msgstr	"Accès à la gestion par famille"
-
-#~ msgid	"visible families"
-#~ msgstr	"familles visibles"
 
 #~ msgid	"yes"
 #~ msgstr	"oui"

@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-10-16 11:38+0200\n"
+	"POT-Creation-Date: 2003-11-04 09:59+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -453,420 +453,6 @@ msgstr	""
 msgid	"geometry saved : %s"
 msgstr	""
 
-msgid	"locked files of "
-msgstr	""
-
-#, c-format
-msgid	"basket of %s"
-msgstr	""
-
-#, c-format
-msgid	"Cannot add %s in %s folder, restriction set to add this kind of "
-	"document"
-msgstr	""
-
-#, c-format
-msgid	"Cannot add in %s folder, doc id (%d) unknown"
-msgstr	""
-
-#, c-format
-msgid	"Add %s in %s folder"
-msgstr	""
-
-#, c-format
-msgid	"cannot delete link : link not found for doc %d in folder %d"
-msgstr	""
-
-#, c-format
-msgid	"cannot delete link : initial query not found for doc %d in folder %d"
-msgstr	""
-
-#, c-format
-msgid	"cannot delete link for doc %d in folder %d : the document comes from "
-	"a user query. Delete initial query if you want delete this document"
-msgstr	""
-
-#, c-format
-msgid	"Delete %d in %s folder"
-msgstr	""
-
-msgid	"already exist : not added"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"untitle %s %d"
-msgstr	"Update Title Cards"
-
-#, fuzzy
-msgid	"creation"
-msgstr	"Edit"
-
-msgid	"cannot update no initialized document"
-msgstr	""
-
-msgid	"untitle document"
-msgstr	""
-
-#, c-format
-msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr	""
-
-#, c-format
-msgid	"the file %s (rev %d) must be locked before"
-msgstr	""
-
-#, c-format
-msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr	""
-
-#, c-format
-msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
-msgstr	""
-
-#, c-format
-msgid	"cannot lock file %s (rev %d): already locked by %s."
-msgstr	""
-
-#, fuzzy
-msgid	"already deleted"
-msgstr	"Delete"
-
-#, c-format
-msgid	"delete by %s by action %s on %s from %s"
-msgstr	""
-
-msgid	"unknow attribute"
-msgstr	""
-
-#, c-format
-msgid	"%s needed\n"
-msgstr	""
-
-#, c-format
-msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
-	"automatically"
-msgstr	""
-
-msgid	"document already revised"
-msgstr	""
-
-#, c-format
-msgid	"the document of %s family cannot be revised"
-msgstr	""
-
-#, c-format
-msgid	"copy from document #%d"
-msgstr	""
-
-msgid	"vault file error"
-msgstr	""
-
-#, fuzzy
-msgid	"no filename"
-msgstr	"Firstname"
-
-#, c-format
-msgid	"cannot control : object not initialized : %s"
-msgstr	""
-
-#, c-format
-msgid	"error in pzone format %s"
-msgstr	""
-
-#, c-format
-msgid	"new %s"
-msgstr	""
-
-#, c-format
-msgid	"parameters for %s state"
-msgstr	""
-
-#, c-format
-msgid	"id %s profile"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"%s profile"
-msgstr	"Category"
-
-#, c-format
-msgid	"id %s mask"
-msgstr	""
-
-#, c-format
-msgid	"%s mask"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	""
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the method '%s' has the following error %s"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"change state : %s to %s"
-msgstr	"Category"
-
-#, c-format
-msgid	"%s new state %s"
-msgstr	""
-
-#, c-format
-msgid	"ChangeState :: the state has been realized but the post method '%s' "
-	"has the following error %s"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"cannot change state of document #%d to %s"
-msgstr	"Category"
-
-#, fuzzy, c-format
-msgid	"automaticaly by change state of %s\n"
-	"%s"
-msgstr	"Category"
-
-#, fuzzy
-msgid	"view document"
-msgstr	"Organisation"
-
-msgid	"view"
-msgstr	""
-
-#, fuzzy
-msgid	"send document"
-msgstr	"Import"
-
-#, fuzzy
-msgid	"send"
-msgstr	"Edit"
-
-msgid	"edit document"
-msgstr	""
-
-#, fuzzy
-msgid	"edit"
-msgstr	"Edit"
-
-#, fuzzy
-msgid	"delete document"
-msgstr	"Delete"
-
-msgid	"delete"
-msgstr	"Delete"
-
-#, fuzzy
-msgid	"open folder"
-msgstr	"Modify"
-
-msgid	"open"
-msgstr	""
-
-#, fuzzy
-msgid	"execute search"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	"execute"
-msgstr	"Delete"
-
-#, fuzzy
-msgid	"modify folder"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"view acl"
-msgstr	"Start search"
-
-msgid	"viewacl"
-msgstr	""
-
-#, fuzzy
-msgid	"modify acl"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"modifyacl"
-msgstr	"Modify"
-
-#, fuzzy
-msgid	"create doc"
-msgstr	"Create"
-
-#, c-format
-msgid	"no privilege %s"
-msgstr	""
-
-#, c-format
-msgid	"unknow privilege %s"
-msgstr	""
-
-msgid	"errldapadd"
-msgstr	"Card is not modify in LDAP server : one of this attribute is not "
-	"appropriate"
-
-msgid	"errldapconnect"
-msgstr	"LDAP server cannot be contacted"
-
-#, c-format
-msgid	"user #%d does not exist"
-msgstr	""
-
-msgid	"user is desactivated"
-msgstr	""
-
-msgid	"recorded"
-msgstr	""
-
-msgid	"qualified"
-msgstr	""
-
-msgid	"analyzed"
-msgstr	""
-
-#, fuzzy
-msgid	"traited"
-msgstr	"Identity"
-
-msgid	"rejected"
-msgstr	""
-
-msgid	"closed"
-msgstr	""
-
-msgid	"suspended"
-msgstr	""
-
-#, fuzzy
-msgid	"Trecorded"
-msgstr	"Create"
-
-msgid	"Tqualified"
-msgstr	""
-
-msgid	"Tanalyzed"
-msgstr	""
-
-#, fuzzy
-msgid	"Ttraited"
-msgstr	"Identity"
-
-msgid	"Trejected"
-msgstr	""
-
-msgid	"Tclosed"
-msgstr	""
-
-#, fuzzy
-msgid	"Tsuspended"
-msgstr	"Delete"
-
-#, c-format
-msgid	"[%s] incident registration"
-msgstr	""
-
-#, c-format
-msgid	"Freedom : incident %s : transition to %s"
-msgstr	""
-
-#, c-format
-msgid	"[%s] incident traited"
-msgstr	""
-
-#, c-format
-msgid	"send internal mail to %s (bcc:%s)"
-msgstr	""
-
-#, c-format
-msgid	"send official mail to %s (cc: %s - bcc:%s)"
-msgstr	""
-
-msgid	"read only"
-msgstr	""
-
-#, fuzzy
-msgid	"read write"
-msgstr	"readwriteall"
-
-msgid	"write only"
-msgstr	""
-
-msgid	"hidden"
-msgstr	""
-
-#, fuzzy
-msgid	"read disabled"
-msgstr	"Delete"
-
-msgid	"Y"
-msgstr	""
-
-msgid	"N"
-msgstr	""
-
-#, fuzzy
-msgid	"doctitle"
-msgstr	"Update Title Cards"
-
-#, fuzzy
-msgid	"revdate"
-msgstr	"Create"
-
-#, fuzzy
-msgid	"revision"
-msgstr	"Organisation"
-
-msgid	"include"
-msgstr	""
-
-msgid	"equal"
-msgstr	""
-
-msgid	"not equal"
-msgstr	""
-
-msgid	"&gt; or equal"
-msgstr	""
-
-msgid	"&lt; or equal"
-msgstr	""
-
-#, fuzzy
-msgid	"and"
-msgstr	"Add new contact card"
-
-msgid	"or"
-msgstr	""
-
-#, fuzzy, c-format
-msgid	"%s updated\n"
-msgstr	"Update LDAP server"
-
-#, c-format
-msgid	"find %s more than one, created aborded\n"
-msgstr	""
-
-#, c-format
-msgid	"%s migrated\n"
-msgstr	""
-
-#, c-format
-msgid	"%s igroup created\n"
-msgstr	""
-
-#, c-format
-msgid	"%s iuser created\n"
-msgstr	""
-
 #, fuzzy
 msgid	"Import vcard"
 msgstr	"Import"
@@ -1173,6 +759,9 @@ msgstr	""
 msgid	"add"
 msgstr	"Add new contact card"
 
+msgid	"delete"
+msgstr	"Delete"
+
 #, fuzzy
 msgid	"change category"
 msgstr	"Category"
@@ -1406,6 +995,9 @@ msgstr	""
 msgid	"view properties"
 msgstr	""
 
+msgid	"edit document"
+msgstr	""
+
 msgid	"duplicate document"
 msgstr	""
 
@@ -1594,6 +1186,9 @@ msgstr	""
 msgid	" choose value"
 msgstr	""
 
+msgid	"Attribute not found"
+msgstr	""
+
 #, fuzzy
 msgid	"mail edition"
 msgstr	"Edit"
@@ -1686,6 +1281,9 @@ msgid	"enumerate input not found"
 msgstr	""
 
 msgid	"some needed attributes are empty"
+msgstr	""
+
+msgid	"NOT Clear"
 msgstr	""
 
 msgid	"Save changes ?"
@@ -1793,6 +1391,10 @@ msgid	"locked by"
 msgstr	""
 
 #, fuzzy
+msgid	"revision"
+msgstr	"Organisation"
+
+#, fuzzy
 msgid	"revision date"
 msgstr	"Organisation"
 
@@ -1852,6 +1454,460 @@ msgid	"Change category"
 msgstr	"Category"
 
 msgid	"View properties"
+msgstr	""
+
+msgid	"locked files of "
+msgstr	""
+
+#, c-format
+msgid	"basket of %s"
+msgstr	""
+
+#, c-format
+msgid	"Cannot add %s in %s folder, restriction set to add this kind of "
+	"document"
+msgstr	""
+
+#, c-format
+msgid	"Cannot add in %s folder, doc id (%d) unknown"
+msgstr	""
+
+#, c-format
+msgid	"Add %s in %s folder"
+msgstr	""
+
+#, c-format
+msgid	"cannot delete link : link not found for doc %d in folder %d"
+msgstr	""
+
+#, c-format
+msgid	"cannot delete link : initial query not found for doc %d in folder %d"
+msgstr	""
+
+#, c-format
+msgid	"cannot delete link for doc %d in folder %d : the document comes from "
+	"a user query. Delete initial query if you want delete this document"
+msgstr	""
+
+#, c-format
+msgid	"Delete %d in %s folder"
+msgstr	""
+
+msgid	"already exist : not added"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"untitle %s %d"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"creation"
+msgstr	"Edit"
+
+msgid	"cannot update no initialized document"
+msgstr	""
+
+msgid	"untitle document"
+msgstr	""
+
+#, c-format
+msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr	""
+
+#, c-format
+msgid	"the file %s (rev %d) must be locked before"
+msgstr	""
+
+#, c-format
+msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr	""
+
+#, c-format
+msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
+msgstr	""
+
+#, c-format
+msgid	"cannot lock file %s (rev %d): already locked by %s."
+msgstr	""
+
+#, fuzzy
+msgid	"already deleted"
+msgstr	"Delete"
+
+#, c-format
+msgid	"delete by %s by action %s on %s from %s"
+msgstr	""
+
+msgid	"unknow attribute"
+msgstr	""
+
+#, c-format
+msgid	"%s needed\n"
+msgstr	""
+
+#, c-format
+msgid	"the date '%s' for %s attribute is not correct. It has been corrected "
+	"automatically"
+msgstr	""
+
+msgid	"document already revised"
+msgstr	""
+
+#, c-format
+msgid	"the document of %s family cannot be revised"
+msgstr	""
+
+#, c-format
+msgid	"copy from document #%d"
+msgstr	""
+
+msgid	"vault file error"
+msgstr	""
+
+#, fuzzy
+msgid	"no filename"
+msgstr	"Firstname"
+
+#, c-format
+msgid	"cannot control : object not initialized : %s"
+msgstr	""
+
+#, c-format
+msgid	"error in pzone format %s"
+msgstr	""
+
+#, c-format
+msgid	"new %s"
+msgstr	""
+
+#, c-format
+msgid	"parameters for %s state"
+msgstr	""
+
+#, c-format
+msgid	"id %s profile"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"%s profile"
+msgstr	"Category"
+
+#, c-format
+msgid	"id %s mask"
+msgstr	""
+
+#, c-format
+msgid	"%s mask"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	""
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the method '%s' has the following error %s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"change state : %s to %s"
+msgstr	"Category"
+
+#, c-format
+msgid	"%s new state %s"
+msgstr	""
+
+#, c-format
+msgid	"ChangeState :: the state has been realized but the post method '%s' "
+	"has the following error %s"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"cannot change state of document #%d to %s"
+msgstr	"Category"
+
+#, fuzzy, c-format
+msgid	"automaticaly by change state of %s\n"
+	"%s"
+msgstr	"Category"
+
+#, fuzzy
+msgid	"view document"
+msgstr	"Organisation"
+
+msgid	"view"
+msgstr	""
+
+#, fuzzy
+msgid	"send document"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"send"
+msgstr	"Edit"
+
+#, fuzzy
+msgid	"edit"
+msgstr	"Edit"
+
+#, fuzzy
+msgid	"delete document"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"open folder"
+msgstr	"Modify"
+
+msgid	"open"
+msgstr	""
+
+#, fuzzy
+msgid	"execute search"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"execute"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"modify folder"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"view acl"
+msgstr	"Start search"
+
+msgid	"viewacl"
+msgstr	""
+
+#, fuzzy
+msgid	"modify acl"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"modifyacl"
+msgstr	"Modify"
+
+#, fuzzy
+msgid	"create doc"
+msgstr	"Create"
+
+#, c-format
+msgid	"no privilege %s"
+msgstr	""
+
+#, c-format
+msgid	"unknow privilege %s"
+msgstr	""
+
+msgid	"errldapadd"
+msgstr	"Card is not modify in LDAP server : one of this attribute is not "
+	"appropriate"
+
+msgid	"errldapconnect"
+msgstr	"LDAP server cannot be contacted"
+
+#, c-format
+msgid	"user #%d does not exist"
+msgstr	""
+
+msgid	"user is desactivated"
+msgstr	""
+
+msgid	"virtual"
+msgstr	""
+
+msgid	"consumed"
+msgstr	""
+
+msgid	"plocked"
+msgstr	""
+
+msgid	"asav"
+msgstr	""
+
+msgid	"aclient"
+msgstr	""
+
+msgid	"returned"
+msgstr	""
+
+msgid	"stocked"
+msgstr	""
+
+msgid	"out"
+msgstr	""
+
+#, fuzzy
+msgid	"Tvirtual"
+msgstr	"Update Title Cards"
+
+msgid	"Tconsumed"
+msgstr	""
+
+msgid	"Tlocked"
+msgstr	""
+
+msgid	"Tasav"
+msgstr	""
+
+msgid	"Taclient"
+msgstr	""
+
+#, fuzzy
+msgid	"Treturned"
+msgstr	"Create"
+
+msgid	"Tstocked"
+msgstr	""
+
+msgid	"Tout"
+msgstr	""
+
+msgid	"recorded"
+msgstr	""
+
+msgid	"qualified"
+msgstr	""
+
+msgid	"analyzed"
+msgstr	""
+
+#, fuzzy
+msgid	"traited"
+msgstr	"Identity"
+
+msgid	"rejected"
+msgstr	""
+
+msgid	"closed"
+msgstr	""
+
+msgid	"suspended"
+msgstr	""
+
+#, fuzzy
+msgid	"Trecorded"
+msgstr	"Create"
+
+msgid	"Tqualified"
+msgstr	""
+
+msgid	"Tanalyzed"
+msgstr	""
+
+#, fuzzy
+msgid	"Ttraited"
+msgstr	"Identity"
+
+msgid	"Trejected"
+msgstr	""
+
+msgid	"Tclosed"
+msgstr	""
+
+#, fuzzy
+msgid	"Tsuspended"
+msgstr	"Delete"
+
+#, c-format
+msgid	"[%s] incident registration"
+msgstr	""
+
+#, c-format
+msgid	"Freedom : incident %s : transition to %s"
+msgstr	""
+
+#, c-format
+msgid	"[%s] incident traited"
+msgstr	""
+
+#, c-format
+msgid	"send internal mail to %s (bcc:%s)"
+msgstr	""
+
+#, c-format
+msgid	"send official mail to %s (cc: %s - bcc:%s)"
+msgstr	""
+
+msgid	"read only"
+msgstr	""
+
+#, fuzzy
+msgid	"read write"
+msgstr	"readwriteall"
+
+msgid	"write only"
+msgstr	""
+
+msgid	"hidden"
+msgstr	""
+
+#, fuzzy
+msgid	"read disabled"
+msgstr	"Delete"
+
+msgid	"Y"
+msgstr	""
+
+msgid	"N"
+msgstr	""
+
+#, fuzzy
+msgid	"doctitle"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"revdate"
+msgstr	"Create"
+
+msgid	"include"
+msgstr	""
+
+msgid	"equal"
+msgstr	""
+
+msgid	"not equal"
+msgstr	""
+
+msgid	"&gt; or equal"
+msgstr	""
+
+msgid	"&lt; or equal"
+msgstr	""
+
+#, fuzzy
+msgid	"and"
+msgstr	"Add new contact card"
+
+msgid	"or"
+msgstr	""
+
+#, fuzzy, c-format
+msgid	"%s updated\n"
+msgstr	"Update LDAP server"
+
+#, c-format
+msgid	"find %s more than one, created aborded\n"
+msgstr	""
+
+#, c-format
+msgid	"%s migrated\n"
+msgstr	""
+
+#, c-format
+msgid	"%s igroup created\n"
+msgstr	""
+
+#, c-format
+msgid	"%s iuser created\n"
 msgstr	""
 
 #, fuzzy, c-format
@@ -1920,6 +1976,10 @@ msgid	"manual date"
 msgstr	"Edit"
 
 msgid	"choose inputs"
+msgstr	""
+
+#, c-format
+msgid	"elinkEncode::attribute not found %s"
 msgstr	""
 
 #, c-format
@@ -2517,6 +2577,13 @@ msgid	"Contract Management"
 msgstr	""
 
 #, fuzzy
+msgid	"visible families"
+msgstr	"Start search"
+
+msgid	"icon column number"
+msgstr	""
+
+#, fuzzy
 msgid	"Onefam"
 msgstr	"Lastname"
 
@@ -2545,10 +2612,6 @@ msgstr	"Modify"
 
 msgid	"Access To Onefam Management"
 msgstr	""
-
-#, fuzzy
-#~ msgid	"visible families"
-#~ msgstr	"Start search"
 
 #, fuzzy
 #~ msgid	"created by %s"

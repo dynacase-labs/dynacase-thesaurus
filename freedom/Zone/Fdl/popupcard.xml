@@ -51,6 +51,8 @@
 
 <a href="#" id="toxml"     
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=VIEWXML&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View XML]</a>
+<a href="#" id="reference"     
+    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_ISEARCH&id=[id]','fisearch');closeMenu('popupcard');">[TEXT:Reference document]</a>
 
 
 <!-- ------------ special family --------------------- -->

@@ -71,13 +71,13 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
   
  <td  colspan="2">
   <IMG  style="display:[dicon]" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="50px" SRC="[iconsrc]">
-  <IMG  style="display:[dicon];position:absolute" border="0"   width="20px" SRC="[emblem]">
+  <IMG  style="display:[dicon];position:absolute" border="0"  SRC="[emblem]">
   <span class="FREEDOMTextBigTitle">[TITLE]</span>
  </td>
   <td align="right" valign="bottom" >
 [BLOCK ACTIONS]
 <a href="#" style="display:[amail]" onclick="subwindow(400,400,'fdoc','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]')">
-      <img  align="absmiddle"  alt="[TEXT:mail]" title="[TEXT:senddoc]" height="22" width="30" border="0" src="[IMG:mail.gif]">
+      <img  align="absmiddle"  alt="[TEXT:mail]" title="[TEXT:senddoc]"  border="0" src="[IMG:mail.gif]">
       </a>   
 <a  style="display:none" href="[CORE_STANDURL]&app=FDL&action=VIEWSCARD&wedit=Y&id=[id]" target="_blank">
       <img  align="absmiddle"  alt="[TEXT:wordedit]" title="[TEXT:wordedit]" height="22" width="30" border="0" src="[IMG:openoffice.png]">

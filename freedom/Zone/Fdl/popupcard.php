@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.33 2003/10/09 12:08:43 eric Exp $
+ * @version $Id: popupcard.php,v 1.34 2003/11/04 14:22:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.33 2003/10/09 12:08:43 eric Exp $
+// $Id: popupcard.php,v 1.34 2003/11/04 14:22:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,6 +67,7 @@ function popupcard(&$action) {
 				'access',
 				'delete',
 				'toxml',
+				'reference',
 				'tobasket',
 				'addpostit',
 
@@ -88,6 +89,7 @@ function popupcard(&$action) {
   $cud = ($doc->CanUpdateDoc() == "");
 
   popupCtrlActive('popupcard',$kdiv,'toxml'); 
+  popupCtrlActive('popupcard',$kdiv,'reference'); 
 
   if (getParam("FREEDOM_IDBASKET") > 0)   popupCtrlActive('popupcard',$kdiv,'tobasket'); 
   else popupInvisible('popupcard',$kdiv,'tobasket');
