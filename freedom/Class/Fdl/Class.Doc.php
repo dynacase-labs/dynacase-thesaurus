@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.196 2004/03/30 13:35:17 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.197 2004/04/23 15:25:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -744,8 +744,8 @@ create unique index i_docir on doc(initid, revision);";
    * Really delete document from database
    * @return string error message, if no error empty string
    */
-  function ReallyDelete() {
-    return DbObj::delete();
+  function ReallyDelete($nopost) {
+    return DbObj::delete($nopost);
   }
 
   /** 
@@ -769,7 +769,7 @@ create unique index i_docir on doc(initid, revision);";
 	// delete all revision also
 	$rev=$this->GetRevisions();
 	while (list($k,$v) = each($rev)) {
-	  $v->ReallyDelete();
+	  $v->ReallyDelete($nopost);
 	}
       }
     } else {
@@ -1672,7 +1672,8 @@ create unique index i_docir on doc(initid, revision);";
     if ($comment != '') $this->Addcomment($comment);
 
 
-    $this->modify();
+    $err=$this->modify();
+    if ($err != "") return $err;
 
     //$listvalue = $this->GetValues(); // save copy of values
 
@@ -1684,12 +1685,13 @@ create unique index i_docir on doc(initid, revision);";
     $this->revision = $this->revision+1;
     $this->postitid=$postitid;
    
-    $this->Add();
+    $err=$this->Add();
+    if ($err != "") return $err;
     if ($this->dprofid > 0) $this->setProfil($this->dprofid); // recompute profil if needed
 
-    $this->modify(); // need to applicate SQL triggers
+    $err=$this->modify(); // need to applicate SQL triggers
        
-    return "";
+    return $err;
     
   }
 
@@ -1845,7 +1847,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($this->doctype == "C") { //  a class
       $query = new QueryDb($this->dbaccess,"Doc");
       $tableq=$query->Query(0,0,"LIST",
-			    "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != 'C') and (icon='".$this->icon."')");
+			    "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != 'C') and ((icon='".$this->icon."') or (icon is null))");
     
 
 
@@ -3361,7 +3363,13 @@ create unique index i_docir on doc(initid, revision);";
     return " "; // delete title
   }
 
-  function getDate() {
+  function getDate($daydelta=0) {
+    $delta = abs(intval($daydelta));
+    if ($daydelta > 0) {
+      return date("d/m/Y",strtotime ("+$delta day"));
+    } else if ($daydelta < 0) {
+      return date("d/m/Y",strtotime ("-$delta day"));
+    }
     return date("d/m/Y");
   }
   function getDocValue($docid, $attrid) {
