@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.20 2003/07/24 13:08:54 eric Exp $
+// $Id: freedom_edit.php,v 1.21 2003/07/25 12:43:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -166,6 +166,10 @@ function freedom_edit(&$action) {
   $action->lay->Set("id", $docid);
   $action->lay->Set("dirid", $dirid);
   if ($docid > 0) $action->lay->Set("doctype", $doc->doctype);
+
+
+  // sort by classname
+  uasort($selectclass, "cmpselect");
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);
 
 
@@ -173,4 +177,9 @@ function freedom_edit(&$action) {
     
 
 }
+function cmpselect ($a, $b) {
+  return strcasecmp($a["classname"], $b["classname"]);
+}
+
+
 ?>
