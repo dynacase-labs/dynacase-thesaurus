@@ -3,7 +3,7 @@
  * Modify a document
  *
  * @author Anakeen 2000 
- * @version $Id: generic_mod.php,v 1.22 2004/11/19 09:55:05 eric Exp $
+ * @version $Id: generic_mod.php,v 1.23 2005/01/14 17:55:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,9 +28,9 @@ function generic_mod(&$action) {
   $dirid=GetHttpVars("dirid",0);
   $docid=GetHttpVars("id",0); 
   $catgid=GetHttpVars("catgid",0); 
-  $retedit=GetHttpVars("retedit","N")=="Y"; // true  if return need edition
-  
+  $retedit=(GetHttpVars("retedit","N")=="Y"); // true  if return need edition
 
+ 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   
