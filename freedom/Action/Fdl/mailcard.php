@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.4 2002/07/31 10:01:53 eric Exp $
+// $Id: mailcard.php,v 1.5 2002/08/06 16:52:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -129,7 +129,10 @@ function mailcard(&$action) {
   //print ($cmd);
   system ($cmd, $status);
 
-  if ($status == 0)  $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $to));
+  if ($status == 0)  {
+    $doc->addcomment(sprintf(_("sending to %s"), $to));
+    $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $to));
+  }
   else $action->addlogmsg(sprintf(_("%s cannot be sent"),$doc->title));
   
   unlink($pfout);
@@ -137,10 +140,7 @@ function mailcard(&$action) {
   //
 
 }
-function fileextension($filename) {
-	return substr(basename($filename), strrpos(basename($filename),
-".") + 1);
-}
+
 
 function srcfile($src) {
   global $ifiles;

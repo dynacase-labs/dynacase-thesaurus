@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.12 2002/07/30 12:36:28 eric Exp $
+// $Id: viewcard.php,v 1.13 2002/08/06 16:52:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,7 +54,9 @@ function viewcard(&$action) {
 
 
   $doc = new Doc($dbaccess, $docid);
-
+  $err = $doc->control("view");
+  if ($err != "") $action->exitError($err);
+  
   if ($doc->doctype == 'C') {
     $zonebodycard ="FDL:VIEWFAMCARD";
   } else {

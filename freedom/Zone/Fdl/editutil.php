@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.4 2002/07/31 09:58:06 eric Exp $
+// $Id: editutil.php,v 1.5 2002/08/06 16:52:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -93,7 +93,7 @@ function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value)
 		      
       //같같같같같같같같같같같같같같같같같같같같
     case "longtext": 
-      $input="<textarea onclick=\"this.rows=10\" class=\"autoresize\" rows=2 name=\"_".
+      $input="<textarea wrap=\"virtual\" onclick=\"this.rows=10\" class=\"autoresize\" rows=2 name=\"_".
 	 $attrid."\" ";
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
@@ -108,7 +108,7 @@ function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value)
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
     $input .= " >".
-       chop(htmlentities(stripslashes($value))).
+       chop(htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
        "</textarea>";
     break;
 		      
@@ -133,7 +133,7 @@ function getHtmlInput(&$action, $docid, $attrid, $attrtype, $visibility, $value)
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
     $input .= " >".
-       chop(htmlentities(stripslashes($value))).
+       chop(htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
        "</textarea> ";
     $input.="<input type=\"button\" value=\"".
        _("...")."\" onClick=\"sendmodifydoc(event,".$docid.

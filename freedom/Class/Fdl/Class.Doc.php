@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.39 2002/07/31 10:01:53 eric Exp $
+// $Id: Class.Doc.php,v 1.40 2002/08/06 16:52:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.39 2002/07/31 10:01:53 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.40 2002/08/06 16:52:34 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -202,6 +202,7 @@ create sequence seq_id_doc start 1000";
       if ($this->locked == "") $this->locked = "0";
       if ($this->owner == "") $this->owner = $this->userid;
       if ($this->classname == "") $this->classname= $this->defClassname; //get_class($this);// dont use this because lost of uppercase letters
+	if (($this->state == "") && isset($this->firstState)) $this->state=$this->firstState;
       // set creation date
       $date = gettimeofday();
       $this->revdate = $date['sec'];
@@ -661,19 +662,23 @@ create sequence seq_id_doc start 1000";
       return false;      
     }
 
+  function AddComment($comment='') {
+    $this->comment .= "\n".$comment;
+    $this->modify();
+  }
   function AddRevision($comment='') {
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
     $this->owner = $this->userid; // rev user
-    $this->comment = $comment;
+    if ($comment != '') $this->comment .= "\n".$comment;
     $this->modify();
 
 
     $olddocid = $this->id;
     $this->id="";
     $this->locked = "0"; // the file is unlocked
-    $this->comment = _("current revision"); // change comment
+    $this->comment = ""; // change comment
     $this->revision = $this->revision+1;
 
     $this->Add();
@@ -1077,6 +1082,7 @@ create sequence seq_id_doc start 1000";
       // search if following states in concordance with transition array
 	
 	$fstate = array();
+      if (($this->state == "") && isset($this->firstState)) $this->state=$this->firstState;
       reset($this->transitions);
       while (list($k, $tr) = each($this->transitions)) {
 	if ($this->state == $tr["e1"]) {

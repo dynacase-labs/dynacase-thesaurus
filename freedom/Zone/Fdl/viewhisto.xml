@@ -18,6 +18,7 @@
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
 <tr class="unselect" id="d[id]"
+    style="cursor:pointer"
      onMouseDown="select(this,[id],[divid]);subwindow(300,400,'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
 <td class="tlist"  >[revision]</td>
 <td class="tlist" >  
