@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.2 2004/07/07 07:00:23 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.3 2004/07/19 08:26:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -41,7 +41,13 @@ function ConstraintLogin($login) {
 }
 
 function preCreated() {
-  if ($this->getValue("US_WHATID") != "") return _("what id already set in freedom\nThis kind of document can not be duplicated");
+  if ($this->getValue("US_WHATID") != "") {
+    include_once('FDL/Lib.Dir.php');
+
+    $filter = array("us_whatid = ".$this->getValue("US_WHATID"));
+    $tdoc = getChildDoc($this->dbaccess, 0,0,"ALL", $filter,1,"TABLE",$this->fromid);
+    if (count ($tdoc) > 0)  return _("what id already set in freedom\nThis kind of document can not be duplicated");
+  }
 }
 
 ?>
