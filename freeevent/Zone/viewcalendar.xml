@@ -1,0 +1,32 @@
+<table id="viewdetail"  width="100%" cellspacing="0">
+<tbody>
+
+<!-- TABLEBODY -->
+
+
+[ZONE FDL:VIEWFRAME?frameid=FR_BASIC]
+[ZONE FDL:VIEWFRAME?frameid=DCAL_FR_SEARCH]
+</tbody>
+</table>
+[BLOCK VPARAM3]
+<form id="fedit"
+      name="modifydoc"
+      target="[starget]"
+      method="POST" ENCTYPE="multipart/form-data"
+      onsubmit="[BLOCK TRANSFERT]transfertValue('[idi]','[idp]');[ENDBLOCK TRANSFERT]"
+      action="[CORE_STANDURL]&app=[sapp]&action=[saction]">
+<fieldset><legend>[TEXT:Parameters]</legend>
+<input type="hidden" name="[sid]" value="[id]">
+[BLOCK PINPUTS]
+<input type="hidden" name="[idp]" id="[idp]" value="[value]">[ENDBLOCK PINPUTS]
+<table border=0 width="100%">
+ 
+
+  <tbody>[BLOCK PARAM]
+   <tr ><td width="30%" class="FREEDOMlabel">[label] : </td><td>[inputs]</td></tr>[ENDBLOCK PARAM]
+  </tbody>
+</table>
+<input class="noprint" type="submit" value="[TEXT:send search]">
+</fieldset>
+</form>
+[ENDBLOCK VPARAM3]

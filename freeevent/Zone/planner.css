@@ -79,7 +79,7 @@ DIV.year {
 	background-color:cyan;
 	overflow:hidden;
 	text-align:center;
-	-moz-opacity:.8;
+	/*-moz-opacity:.8;*/
 	filter:alpha(opacity=80);
 	position:absolute;
 	left=0px;
@@ -125,7 +125,8 @@ DIV.ygrid:hover {
 }
 
 DIV.fond {
-/*	background-image:url('[IMG:millimetre.png]');
-	background-image:url('../../Images/millimetre.png');*/
-	background-color:transparent;;
+/*	background-image:url('[IMG:millimetre.png]');*/
+/*	background-image:url('../../Images/millimetre.png');*/
+	background-color:transparent;
+
 }

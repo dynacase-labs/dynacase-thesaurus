@@ -60,6 +60,7 @@ function pEventDefault() {
   }
   $evt->setValue("evt_begdate",$this->getEventBeginDate());
   $evt->setValue("evt_enddate",$this->getEventEndDate());
+
   $evt->setValue("evt_idcreator",$this->getEventOwner());
   $evt->setValue("evt_transft", 'pEventDefault');
   $evt->setValue("evt_itransft",'mEventDefault');
@@ -72,7 +73,6 @@ function pEventDefault() {
   }
   $err=$evt->refresh();
   if ($err=="") $err=$evt->modify();
-
   return $err;
   
 }

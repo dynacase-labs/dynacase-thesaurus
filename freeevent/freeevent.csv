@@ -1,24 +1,28 @@
 // famille portail;;;id;class;name;;;;;;;
-BEGIN;0;événement;34;;EVENT;;;;;;;
+BEGIN;DSEARCH;recherche événement;33;;DCALENDAR;;;;;;;
 TYPE;C;;;;;;;;;;;
 ;;;;;;;;;;;;
-ICON;event.gif;;;;;;;;;;;
-METHOD;Method.Event.php;;;;;;;;;;;
+ICON;dcal.gif;;;;;;;;;;;
+METHOD;Method.DCalendar.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-ATTR;EVT_FR_IDENT;;identification;N;N;frame;10;W;;;;
-ATTR;EVT_TITLE;EVT_FR_IDENT;titre;Y;N;text;20;W;Y;;;
 ;;;;;;;;;;;;
-ATTR;EVT_DESC;EVT_FR_IDENT;description;N;N;longtext;30;W;;;;
-ATTR;EVT_BEGDATE;EVT_FR_IDENT;date début;N;N;timestamp;40;W;;;;
-ATTR;EVT_ENDDATE;EVT_FR_IDENT;date fin;N;N;timestamp;50;W;;;;
-ATTR;EVT_IDCREATOR;EVT_FR_IDENT;id créateur;N;N;docid;60;H;;;;::getTitle(EVT_IDCREATOR):EVT_CREATOR
-ATTR;EVT_CREATOR;EVT_FR_IDENT;créateur;N;N;text;70;W;;%S%app=FDL&action=FDL_CARD&id=%EVT_IDCREATOR%;fdl.php;lfamily(D,IUSER,EVT_CREATOR):EVT_IDCREATOR,EVT_CREATOR
-ATTR;EVT_T_RES;EVT_FR_IDENT;ressources;N;N;array;80;W;;;;
-ATTR;EVT_IDRES;EVT_T_RES;id ressource;N;N;docid;90;H;;;;
-ATTR;EVT_RES;EVT_T_RES;ressource;N;N;text;100;R;;%S%app=FDL&action=FDL_CARD&id=%EVT_IDRES%;;::getTitle(EVT_IDRES)
-ATTR;EVT_IDINITIATOR;EVT_FR_IDENT;id document référent;N;N;docid;110;H;;;;::getTitle(EVT_IDCREATOR):EVT_CREATOR
-ATTR;EVT_INITIATOR;EVT_FR_IDENT;référent;N;N;text;120;W;;%S%app=FDL&action=FDL_CARD&id=%EVT_IDINITIATOR%;;
-ATTR;EVT_TRANSFT;EVT_FR_IDENT;fonction de transfert;N;N;text;130;R;;;;
-ATTR;EVT_ITRANSFT;EVT_FR_IDENT;fonction de transfert inverse;N;N;text;140;R;;;;
+ATTR;DCAL_FR_SEARCH;;paramètres de recherche;N;N;frame;400;W;;;;
+ATTR;DCAL_TEXT;DCAL_FR_SEARCH;texte;N;N;text;410;W;;;;
+ATTR;DCAL_TEXTOP;DCAL_FR_SEARCH;texte opérateur;N;N;enum;420;W;;;;~*|contient,!~*|ne contient pas
+ATTR;DCAL_IDPRODUCER;DCAL_FR_SEARCH;id producteur;N;N;docid;430;H;;;;
+ATTR;DCAL_PRODUCER;DCAL_FR_SEARCH;producteur;N;N;text;440;W;;%S%&app=FDL&action=FDL_CARD&id=%DCAL_IDPRODUCER%;event.php;getEventProducers(D):DCAL_IDPRODUCER,DCAL_PRODUCER
+ATTR;SE_FAM;DCAL_FR_SEARCH;famille;N;Y;text;450;W;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFAM%;fdl.php;[hlist]lfamilies(D,,EVENT):SE_FAMID,SE_FAM
+ATTR;DCAL_T_RES;DCAL_FR_SEARCH;ressources;N;N;array;;W;;;;
+ATTR;DCAL_IDFRES;DCAL_FR_SEARCH;id famille ressources;N;N;docid;10;H;;;;
+ATTR;DCAL_FRES;DCAL_FR_SEARCH;famille ressource;N;N;text;20;W;;%S%&app=FDL&action=FDL_CARD&id=%DCAL_IDFRES%;event.php;[hlist]getFamRessource(D):DCAL_IDFRES,DCAL_FRES
 ;;;;;;;;;;;;
-END;0;;;;;;;;;;;
+ATTR;DCAL_IDRES;DCAL_T_RES;id ressouce;N;N;docid;460;H;;;;
+ATTR;DCAL_RES;DCAL_T_RES;ressource;N;N;text;470;W;;%S%&app=FDL&action=FDL_CARD&id=%DCAL_IDRES%;event.php;getRessource(D,DCAL_IDFRES,DCAL_RES):DCAL_IDRES,DCAL_RES
+;;;;;;;;;;;;
+;;;;;;;;;;;;
+;;;;;;;;;;;;
+;;;;;;;;;;;;
+;;;;;;;;;;;;
+;;;;;;;;;;;;
+;;;;;;;;;;;;
+END;;;;;;;;;;;;

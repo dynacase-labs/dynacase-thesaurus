@@ -1,11 +1,20 @@
-
-
-<H1> TEST</H1>
-
-
-[V_DCAL_TEXTOP][V_DCAL_TEXT]
-[V_SE_FAM]
-
+<table width="100%" cellspacing="0">
+<tr><td width="45%">
+<fieldset><legend>[TEXT:Criteria]</legend>
+<table width="100%"><tr><td title="[L_DCAL_TEXT]">[V_DCAL_TEXTOP]</td>
+<td colspan="3">[V_DCAL_TEXT]</td></tr>
+<tr><td title="[L_SE_FAM]">[V_SE_FAM][V_SE_FAMID]</td>
+    <td>[V_DCAL_IDPRODUCER][V_DCAL_PRODUCER]</td></tr>
+</table>
+</fieldset>
+<input type="button" value="[TEXT:planner]" onClick="preview('[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_PREVIEW&dochead=N&vid=PLANNER&isoperiod=2004')">
+</td><td>
+<table  width="100%" cellspacing="0">
+[ZONE FDL:EDITFRAME?frameid=DCAL_FR_RES]
+</table></td>
+</tr>
+<tr><td colspan="2">
 <table width="100%" cellspacing="0">
 [ZONE FDL:EDITFRAME?frameid=FR_BASIC]
+</table></td></tr>
 </table>

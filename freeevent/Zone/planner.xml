@@ -8,7 +8,7 @@ var zoomy=1;
 var maxw;
 var maxh=300;;
 var dh=17;//width events
-var mdh=15; //margin height between events
+var mdh=6; //margin height between events
 var bx;
 var by;
 var rw=50; // ressource column width
@@ -363,9 +363,11 @@ function resizecal() {
 addEvent(window,"load",placeEvents);
 </script>
 
-<button onclick="zoomx=zoomx*2;zoomy=zoomy*1.1;placeEvents();" >+10</button>
+<button onclick="zoomx=zoomx*2;placeEvents();" >x2&rarr;</button>
+<button onclick="zoomy=zoomy*2;placeEvents();" >x2&darr;</button>
 <button onclick="zoomx=1;zoomy=1;placeEvents();" >0</button>
-<button onclick="zoomx=zoomx/2;placeEvents();" >-10</button>
+<button onclick="zoomx=zoomx/2;placeEvents();" >x2&larr;</button>
+<button onclick="zoomy=zoomy/2;placeEvents();" >x2&uarr;</button>
 <button onclick="movecal(10)" >&gt;10</button>
 <button onclick="movecal(-10)" >&lt;10</button>
 <button onclick="movecal(50)" >&gt;50</button>

@@ -1,17 +1,46 @@
 <?php
 
 var $eviews=array("FREEEVENT:EDITCALENDAR");
-var $cviews=array("FREEEVENT:PLANNER");
-
+var $cviews=array("FREEEVENT:PLANNER","FREEEVENT:VIEWCALENDAR");
+var $defaultedit="FREEEVENT:EDITCALENDAR";
+var $defaultview="FREEEVENT:VIEWCALENDAR";
 function postCreated() {
   $this->setValue("SE_FAMID",getFamIdFromName($this->dbaccess,"EVENT"));
 }
 
-function getEvents($d1="",$d2="") {
+function getEvents($d1="",$d2="",$exploded=true) {
+  if ($d2=="")$filter[]="evt_begdate is not null";
+  else $filter[]="evt_begdate <= '$d2'";
+  if ($d1=="") $filter[]="evt_enddate is not null";
+  else $filter[]="evt_enddate >= '$d1'";
 
-  return $this->getContent();
+  $tev=$this->getContent(true,$filter);
+  if (!$exploded) return $tev;
+  $tevx=array();
+  $fdoc=array();
+  $fevtid=getFamIdFromName($this->dbaccess,"EVENT");
+  $fdoc[$fevtid]=createDoc($this->dbaccess,"EVENT",false);
+  $doc=&$fdoc[$fevtid];
+  foreach ($tev as $k=>$v) {
+	      if ($v["fromid"] != $doc->fromid) {
+		if (! isset($fdoc[$v["fromid"]])) $fdoc[$v["fromid"]] = createDoc($this->dbaccess,$v["fromid"],false);
+		$doc=&$fdoc[$v["fromid"]];		
+	      }
+	      $doc->Affect($v);
+	      $tevtx1=$doc->explodeEvt($d1,$d2);
+	      //	      $tevx+=$tevtx1;
+	      $tevx=array_merge($tevx,$tevtx1);
+    
+  }
+  return $tevx;
 }
 
+
+function viewcalendar($target="_self",$ulink=true,$abstract=false) {
+   
+    $this->viewprop($target,$ulink,$abstract);
+    $this->viewdsearch($target,$ulink,$abstract);
+}
 
 function editcalendar($target="_self",$ulink=true,$abstract=false) {
     $this->editattr();
@@ -24,7 +53,6 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/jdate.js");
   $action->parent->AddCssRef($action->GetParam("CORE_PUBURL")."/FREEEVENT/Layout/planner.css");
-  $tevt=$this->getEvents();
   $byres= (getHttpVars("byres","N")=="Y");
   $mb=microtime();
  
@@ -60,15 +88,20 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 
   $mstart=5000000; // vers 9999
   $mend=0;
+  $qstart="";
+  $qend="";
   if ($wstart) {
     $mstart=$wstart;
     $mstart=floor($mstart+0.5)-0.5; // begin at 00:00
+    $qstart=jd2cal($wstart);
   }
   if ($wend) {
     $mend=$wend;
     $mend=floor($mend)+0.5; // end at 00:00
+    $qend=jd2cal($wend);
   } 
   
+  $tevt=$this->getEvents($qstart,$qend);
   foreach ($tevt as $k=>$v) {
 
     $mdate1=FrenchDateToJD(getv($v,"evt_begdate"));
@@ -125,7 +158,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
     }
     
   }
-  
+  if (count($tres) > 0) {
   $dcol=360/count($tres);
   foreach ($tres as $k=>$v) {    
     
@@ -137,12 +170,12 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   }
   $this->lay->setBlockData("RES",$tres);
 
+  } 
 
-
-    if (!$wstart) {
-      $mstart=floor($mstart)-0.5; // begin at 00:00
-      $mend=floor($mend)+0.5; // end at 00:00
-    }
+  if (!$wstart) {
+    $mstart=floor($mstart)-0.5; // begin at 00:00
+    $mend=floor($mend)+0.5; // end at 00:00
+  }
 
   $this->lay->set("begdate",jd2cal($mstart));
   $this->lay->set("enddate",jd2cal($mend));
@@ -169,6 +202,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive);
 
   $cond=$this->getSqlDetailFilter();
+  if ($cond === false) return array(false);
 
   if ($cond != "") $filters[]=$cond;
 
@@ -180,6 +214,15 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   $idp=$this->getValue("DCAL_IDPRODUCER");
   if ($idp != "") {
     $cond=$this->getSqlCond("evt_frominitiator","=",$idp);
+    $filters[]=$cond;
+  }
+  $tidres=$this->getTValue("DCAL_IDRES");
+  foreach ($tidres as $k=>$v) {
+    if (!($v > 0)) unset($tidres[$k]);
+  }
+  //  print_r2($tidres);
+  if (count($tidres)>0) {
+    $cond=$this->getSqlCond("evt_idres","~y",$tidres);
     $filters[]=$cond;
   }
   
