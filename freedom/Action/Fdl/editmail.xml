@@ -45,7 +45,7 @@
        class="fborder" 
        name="modifydoc" 
        method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=N&dochead=Y&props=N&id=[mid]" >
+       action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=N&dochead=[dochead]&props=N&id=[mid]&zone=[mzone]" >
 
 
 
@@ -66,8 +66,11 @@
 <tfoot>
 <tr class="FREEDOMBack2"><td  colspan="3"  height="1px"></td></tr>
 <tr class="FREEDOMBack1">
-  <td colspan="3" >
+  <td colspan="2" >
  <input type="submit" value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();"> 
+  </td>
+  <td align="right" >
+ <input type="button" value="[TEXT:cancel]" onclick="history.back()"> 
   </td>
   
 </tr>

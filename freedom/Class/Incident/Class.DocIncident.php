@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocIncident.php,v 1.9 2002/04/16 14:45:07 eric Exp $
+// $Id: Class.DocIncident.php,v 1.10 2002/07/31 10:00:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.DocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.9 2002/04/16 14:45:07 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.DocIncident.php,v 1.10 2002/07/31 10:00:09 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -298,11 +298,28 @@ Class DocIncident extends Doc
       fclose($fd);
       $incidentmail->set("imgdata",base64_encode($logocontent));
       $body = $incidentmail->gen();
+
+      $bcc = $action->GetParam("BCC_MAIL_INCIDENT");
+
+      // send bcc if activated
+
+      if ($action->getParam("FDL_BCC") == "yes") {
+	
+	include_once("Class.MailAccount.php");
+	$ma = new MailAccount("",$action->user->id);
+	if ($ma->isAffected()) {
+	  $dom = new Domain("",$ma->iddomain);
+	  $umail = $ma->login."@".$dom->name;
+print "umail=$umail";
+	  if ($bcc == "") $bcc = $umail;
+	  else $bcc .= ",$umail";
+	}
+      }
       $mailok=mail($mailaddr,
 		   $object, // object
 		   $body,
 		   "From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
-		   "Bcc: ".$action->GetParam("BCC_MAIL_INCIDENT")."\r\n".
+		   "Bcc: ".$bcc."\r\n".
 		   "Cc: ".$ccmail."\r\n".
 		   "Content-Type: multipart/alternative; boundary=\"=_alternative 003C044E00256A9A_=\"\r\n".
 		   "X-Mailer: PHP/" . phpversion());
@@ -310,7 +327,7 @@ Class DocIncident extends Doc
       AddLogMsg(sprintf(_("send official mail to %s (cc: %s - bcc:%s)"),
 			$mailaddr,
 			$ccmail,
-			$action->GetParam("BCC_MAIL_INCIDENT")));
+			$bcc));
   }
 
  

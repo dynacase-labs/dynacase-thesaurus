@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editmail.php,v 1.2 2002/07/29 13:34:01 eric Exp $
+// $Id: editmail.php,v 1.3 2002/07/31 10:00:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/editmail.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,11 +28,15 @@ include_once("FDL/Class.Doc.php");
 // -----------------------------------
 function editmail(&$action) {
   $docid = GetHttpVars("mid"); 
+  $zone = GetHttpVars("mzone"); 
+  $dochead = GetHttpVars("dochead","Y"); 
   
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
   $action->lay->Set("mid",$docid);
+  $action->lay->Set("mzone",$zone);
+  $action->lay->Set("dochead",$dochead);
   $action->lay->Set("title",$doc->title);
   
 }
