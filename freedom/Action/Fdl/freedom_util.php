@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.41 2003/09/16 07:37:50 eric Exp $
+ * @version $Id: freedom_util.php,v 1.42 2003/11/03 09:09:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.41 2003/09/16 07:37:50 eric Exp $
+// $Id: freedom_util.php,v 1.42 2003/11/03 09:09:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,7 +79,6 @@ function GetSqlCond($Table, $column, $integer=false)
 }
 
 
-
 /** 
  * optimize for speed : memorize object for future use
  * @global array $_GLOBALS["gdocs"] 
@@ -121,25 +120,22 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
   $gen=""; // path GEN or not
   if ($id > 0) {
 
-     if (isset($gdocs[$id])) {
-       $doc = $gdocs[$id]; // optimize for speed
-       return true;
-     }
-    global $CORE_DBID;
-	if (!isset($CORE_DBID) || !isset($CORE_DBID["$dbaccess"])) {
-           $CORE_DBID["$dbaccess"] = pg_connect("$dbaccess");
-        } 
-    $dbid=$CORE_DBID["$dbaccess"];
-
-    $result = pg_exec($dbid,"select classname, fromid, doctype from doc where id=$id;");
-    if (pg_numrows ($result) > 0) {
-      $arr = pg_fetch_array ($result, 0);
-      $fromid= $arr[1];
-      $doctype= $arr[2];
-      if ($doctype=="C") $classname="DocFam"; 
-      else if ($fromid == 0) $classname= $arr[0];
-      else {$classname="Doc$fromid";$gen="GEN";}
+    if (isset($gdocs[$id])) {
+      $doc = $gdocs[$id]; // optimize for speed
+      return true;
     }
+  
+    $dbid=getDbid($dbaccess);
+
+        
+    $fromid= getFromId($dbaccess,$id);
+    if ($fromid > 0) {
+      $classname= "Doc$fromid";
+      $gen="GEN";
+    }else if ($fromid == -1) $classname="DocFam"; 
+    
+
+    
   } else if ($res != '') {
     $fromid=$res["fromid"];
     $doctype=$res["doctype"];
@@ -208,6 +204,91 @@ function createDoc($dbaccess,$fromid,$control=true) {
   }
   return new Doc($dbaccess);
 
+}
+/**
+ * return document table value
+ * @param string $dbaccess database specification
+ * @param int $id identificator of the object
+ * 
+ * @return array false if error occured
+ */
+function getFromId($dbaccess, $id) {
+
+  if (!($id > 0)) return false;
+  $dbid=getDbid($dbaccess);   
+  $fromid=false;
+  $result = pg_query($dbid,"select  fromid from docfrom where id=$id;");
+
+  if (pg_numrows ($result) > 0) {
+    $arr = pg_fetch_array ($result, 0,PGSQL_ASSOC);
+
+    $fromid= $arr["fromid"];
+  }
+  
+  return $fromid;    
+} 
+/**
+ * return document table value
+ * @param string $dbaccess database specification
+ * @param int $id identificator of the object
+ * 
+ * @return array false if error occured
+ */
+function getTDoc($dbaccess, $id) {
+
+  if (!($id > 0)) return false;
+  $dbid=getDbid($dbaccess);   
+  $table="doc";
+  $fromid= getFromId($dbaccess, $id);
+  if ($fromid > 0) $table="doc$fromid";
+  else if ($fromid == -1) $table="docfam";
+    
+
+  $result = pg_exec($dbid,"select * from only $table where id=$id;");
+  if (pg_numrows ($result) > 0) {
+    $arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
+
+    return $arr;
+  }
+  return false;
+  $q = new QueryDb($dbaccess, "Doc");
+  $q->AddQuery("id=$id");
+  $ql=$q->Query(0,0,"TABLE");
+
+  if ($q->nb == 1) {
+//     $attrs = explode("£",$ql[0]["attrids"]);
+//     $vals = explode("£",$ql[0]["values"]);
+//     while(list($k,$v) = each($attrs)) {
+//       $ql[0][$v]=$vals[$k];
+//     }
+    return $ql[0];
+  }
+  
+} 
+/**
+ * return the value of an array item
+ *
+ * @param array $t the array where get value
+ * @param string $k the index of the value
+ * @param string $d default value if not found or if it is empty
+ * @return string
+ */
+function getv(&$t,$k,$d="") {
+  if (isset($t[$k]) && ($t[$k] != "")) return $t[$k];
+  if (strpos($t["attrids"],"£$k") !== 0) {
+    
+    $tvalues = explode("£",$t["values"]);
+    $tattrids = explode("£",$t["attrids"]);
+      
+    while(list($ka,$va) = each($tattrids)) {
+      $t[$va]=$tvalues[$ka];
+      if ($va == $k) {
+	if ($tvalues[$ka]!="") return $tvalues[$ka];
+	break;
+      }
+    }
+  }
+  return $d;
 }
 
 // use to usort attributes
