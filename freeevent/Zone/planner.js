@@ -429,8 +429,14 @@ function unviewdesc(event) {
 
 function subwinevt(w,h,name,url) {  
   var ename=name;
-  if (window.name == 'folio1') ename='folio0';
-  else if (window.name == 'folio0') ename='folio1';
+  var wn=null;
+  if (window.name == 'folio1') wn=windowExist('folio0');
+  else if (window.name == 'folio0') wn=windowExist('folio1');
 
-  subwindow(w,h,ename,url);
+  if (wn != null) {
+    alert(getFrameWidth(wn));
+    wn.location.href=url;
+  } else { 
+    subwindow(w,h,ename,url);
+  }
 }
