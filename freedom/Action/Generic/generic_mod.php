@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_mod.php,v 1.3 2002/04/23 07:47:11 eric Exp $
+// $Id: generic_mod.php,v 1.4 2002/04/29 15:40:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,6 +67,8 @@ function generic_mod(&$action) {
   AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
   $err = $doc->PostModify(); 
+  if ($err != "")  $action-> ExitError($err);
+  $err = $doc->unlock();
   if ($err != "")  $action-> ExitError($err);
   
   
