@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.62 2002/11/04 17:56:17 eric Exp $
+// $Id: Class.Doc.php,v 1.63 2002/11/06 15:59:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.62 2002/11/04 17:56:17 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.63 2002/11/06 15:59:27 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -372,6 +372,11 @@ create unique index i_docir on doc(initid, revision);";
     return($err);
   
   }
+
+  function isLocked() {
+    return (($this->locked > 0) || ($this->locked < -1));
+  }
+
 
   // ----------------------------------------------------------------------
   function GetFreedomFromTitle($title) {
@@ -854,8 +859,9 @@ create unique index i_docir on doc(initid, revision);";
     if ($comment != '') $this->comment .= "\n".$comment;
 
     $this->modify();
-    $listvalue = $this->GetValues(); // save copy of values
+    //$listvalue = $this->GetValues(); // save copy of values
 
+    // duplicate values
     $olddocid = $this->id;
     $this->id="";
     $this->locked = "0"; // the file is unlocked
@@ -864,17 +870,8 @@ create unique index i_docir on doc(initid, revision);";
 
     $this->Add();
 
-    // duplicate values
     
     
-
-    $this->values=array();
-    if (isset($this->ovalue)) $this->ovalue->docid=$this->id;
-    
-
-    while(list($k,$v) = each($listvalue)) {
-      $this->Setvalue( $k, $v);     
-    }
 
     return $this->id;
     
@@ -1215,6 +1212,8 @@ create trigger UV{$this->fromid}_$v AFTER INSERT OR UPDATE ON doc$this->fromid F
      $method = strtolower($reg[2]);
      if (method_exists ( $this, $method)) {
        $this->$method($target,$ulink,$abstract);
+     } else {
+       $this->viewbodycard($target,$ulink,$abstract);
      }
 
      return $this->lay->gen();

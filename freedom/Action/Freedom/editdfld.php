@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editdfld.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Id: editdfld.php,v 1.2 2002/11/06 15:59:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editdfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,8 +23,8 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Doc.php");
-include_once("FDL/Class.DocAttr.php");
+include_once("FDL/Lib.Dir.php");
+
 
 function editdfld(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -45,7 +45,7 @@ function editdfld(&$action) {
 
   $selectclass=array();
   $sqlfilters[]="doctype='D'";
-  $tclassdoc = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE");
+  $tclassdoc = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE",2);
   if (is_array($tclassdoc)) {
     while (list($k,$pdoc)= each ($tclassdoc)) {
      

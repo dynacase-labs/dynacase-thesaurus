@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.16 2002/09/26 15:45:15 eric Exp $
+// $Id: Class.DocUser.php,v 1.17 2002/11/06 15:59:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,10 +22,10 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.16 2002/09/26 15:45:15 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.17 2002/11/06 15:59:28 eric Exp $';
 
 
-include_once("FDL/Class.PDoc.php");
+include_once("FDL/Class.DocFile.php");
 include_once("FDL/Class.UsercardLdif.php");
 
 
@@ -38,17 +38,10 @@ define('QA_LNAME', "US_LNAME"); // Last name attribute
 define('TOP_FAMDIR', 121); // idem  DEFAULT_FLD
 
 
-Class DocUser extends PDoc
+Class DocUser extends DocFile
 {
-  // --------------------------------------------------------------------
-    //---------------------- OBJECT CONTROL PERMISSION --------------------
-      
+  
 
-  
-  // ------------
-    var $defDoctype='F';
-  var $defClassname='DocUser';
-  
   
   // LDAP parameters
   var $serveur;
@@ -60,10 +53,6 @@ Class DocUser extends PDoc
   var $orginit = false;
   var $action;
   
-  function DocUser($dbaccess='', $id='',$res='',$dbid=0) {
-    // don't use Doc constructor because it could call this constructor => infinitive loop
-    DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
-  }
   
   
   // no in postUpdate method :: call this only if real change (values)

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.8 2002/10/31 08:09:22 eric Exp $
+// $Id: expandfld.php,v 1.9 2002/11/06 15:59:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,6 +90,7 @@ function expandfld(&$action) {
       $hasChild='false';
       if ($doc["doctype"] != 'S') {
 	// no child for a search
+
 	  if (hasChildFld($dbaccess,$doc["id"]))  $hasChild='true';
       }
       

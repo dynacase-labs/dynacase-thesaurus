@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.19 2002/11/04 17:56:17 eric Exp $
+// $Id: freedom_util.php,v 1.20 2002/11/06 15:59:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,18 +46,21 @@ function GetSqlCond2($Table, $column)
 }
 
 
-function GetSqlCond($Table, $column) 
+function GetSqlCond($Table, $column, $integer=false) 
 // ------------------------------------------------------
 {
   $sql_cond="";
   if (count($Table) > 0)
     {
-      $sql_cond = "$column in ('$Table[0]'";
-      for ($i=1; $i< count($Table); $i++)
-	{
-	  $sql_cond .= ",'$Table[$i]'";
-	}
-      $sql_cond .= ")";
+      if ($integer) { // for integer type 
+	$sql_cond = "$column in (";      
+	$sql_cond .= implode(",",$Table);
+	$sql_cond .= ")";
+      } else {// for text type 
+	$sql_cond = "$column in ('";      
+	$sql_cond .= implode("','",$Table);
+	$sql_cond .= "')";
+      }
     }
 
   return $sql_cond;

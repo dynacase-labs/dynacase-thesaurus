@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.25 2002/11/04 09:13:16 eric Exp $
+// $Id: import_file.php,v 1.26 2002/11/06 15:59:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -140,10 +140,6 @@ function add_import_file(&$action, $fimport="") {
       $doc->doctype =  $data[1];
     break;
     // -----------------------------------
-    case "DVIEWZONE":
-      $doc->dviewzone =  $data[1];
-    break;
-    // -----------------------------------
     case "DFLDID":
       $doc->dfldid =  $data[1];
     break;
@@ -152,8 +148,8 @@ function add_import_file(&$action, $fimport="") {
       $doc->wid =  $data[1];
     break;
     // -----------------------------------
-    case "DEDITZONE":
-      $doc->deditzone =  $data[1];
+    case "METHOD":
+      $doc->methods =  $data[1];
     break;
     // -----------------------------------
     case "USEFORPROF":     
@@ -183,7 +179,7 @@ function add_import_file(&$action, $fimport="") {
       $oattr->type = $data[6];
 
       $oattr->ordered = $data[7];
-      $oattr->visibility = ($oattr->type=="frame"):"F"?$data[8];
+      $oattr->visibility = ($oattr->type=="frame")?"F":$data[8];
       $oattr->link = $data[9];
       $oattr->phpfile = $data[10];
       $oattr->phpfunc = $data[11];

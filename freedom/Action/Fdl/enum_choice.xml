@@ -95,7 +95,7 @@ function completechoice(index) {
 
   var rvalue;
 
-    for (i=0; i< tattrid.length; i++) {
+  for (i=0; i< tattrid.length; i++) {
       if  (tattrv[index][i].substring(0,1) != '?')  {
 	
        winfo.document.getElementById(tattrid[i]).value = tattrv[index][i].replace(/\\n/g,'\n');
@@ -111,8 +111,8 @@ function completechoice(index) {
 	}
 						      
       }
-    }
-    winfo.disableReadAttribute();
+  }
+  winfo.disableReadAttribute();
   self.close();
 
 }
@@ -152,8 +152,7 @@ function completechoices() {
 function autoClose() {
   // see if only one possibility
   if (tattrv.length == 1) {
-     completechoice(0);
-     self.close();
+     completechoice(0);     
   }
 
 
@@ -166,7 +165,7 @@ function autoClose() {
  </head>
 
 <body style="padding:0pt;marging:0pt"
-      onLoad="autoClose();autoHresize()">
+      onLoad="autoClose();autoWresize()">
 
 
 <div id="dchoose" style="border-width:4px;border-style:groove;border-color:[CORE_FGCOLOR]">

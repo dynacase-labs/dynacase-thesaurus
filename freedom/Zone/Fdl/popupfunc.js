@@ -104,7 +104,7 @@ function closeMenu(menuid) {
 
   if (document.getElementById) { // DOM3 = IE5, NS6
          divpop = document.getElementById(menuid);
-	 divpop.style.visibility = 'hidden';
+	 if (divpop) divpop.style.visibility = 'hidden';
    }    
   return false;
 }

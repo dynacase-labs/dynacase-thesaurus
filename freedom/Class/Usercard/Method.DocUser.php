@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.2 2002/11/04 17:56:17 eric Exp $
+// $Id: Method.DocUser.php,v 1.3 2002/11/06 15:59:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,12 +37,34 @@
   var $action;
   
   var $defaultabstract= "USERCARD:VIEWABSTRACTCARD";
+  var $defaultedit = "USERCARD:EDITUSERCARD";
   
 // -----------------------------------
    function viewabstractcard($target="finfo",$ulink=true,$abstract="Y") {
      // -----------------------------------
      doc::viewabstractcard($target,$ulink,$abstract);
      $this->viewprop($target,$ulink,$abstract);
+   }
+
+
+   function editusercard($target="finfo",$ulink=true,$abstract="Y") {
+     global $action;
+     // -----------------------------------
+     
+      $priv=$this->GetValue("US_PRIVCARD");
+      switch ($priv) {
+      case "P":	
+	$this->lay->Set("selectp", "selected");
+      break;
+      case "W":	
+	$this->lay->Set("selectw", "selected");
+      break;
+      case "R":	
+	$this->lay->Set("selectr", "selected");
+      break;
+      }
+      if (($action->user->id != $this->owner) && ($this->id > 0)) $this->lay->Set("displaypriv", "none");
+      else $this->lay->Set("displaypriv", "block");
    }
   // no in postUpdate method :: call this only if real change (values)
   function PostModify() {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.4 2002/10/08 10:25:26 eric Exp $
+// $Id: popupcard.php,v 1.5 2002/11/06 15:59:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,8 +52,11 @@ function popupcard(&$action) {
   Popupactive('popupcard',$kdiv,'cancel');
 
 
- 
-  popupInvisible('popupcard',$kdiv,'unlockdoc'); // don't use for the moment
+  if ($doc->isLocked()) {
+    if ($cuf) popupActive('popupcard',$kdiv,'unlockdoc');
+    else popupInactive('popupcard',$kdiv,'unlockdoc');
+  } else popupInvisible('popupcard',$kdiv,'unlockdoc'); 
+
   popupActive('popupcard',$kdiv,'duplicate'); 
 
  

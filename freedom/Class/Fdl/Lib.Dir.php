@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.31 2002/11/04 17:56:17 eric Exp $
+// $Id: Lib.Dir.php,v 1.32 2002/11/06 15:59:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,42 +52,25 @@ function getChildDir($dbaccess, $userid, $dirid, $notfldsearch=false, $restype="
     if (!($dirid > 0)) return array();   
   
   // search classid and appid to test privilege
-    
-    
-    $docfld = new Dir($dbaccess);
-  $condfld="  hasviewprivilege($userid,doc.profid) ";
-  $conddoctype="doc.doctype='".$docfld->defDoctype."' ";
-  
-  if (! $notfldsearch) {
-    // include conditions for get search document
+    if ($notfldsearch) {
+      // just folder no serach
+      return  getChildDoc($dbaccess,$dirid,"0","ALL",array(),$userid,$restype,2);
+    } else {
+      // with folder and searches
       
-      $docse = new DocSearch($dbaccess);
-    $conddoctype="(doc.doctype='".$docfld->defDoctype."' or doc.doctype='".$docse->defDoctype."')";
-    
-    
-  }
-  
-  $condfld = "($conddoctype) and ($condfld) ";
-  
-  
-  $qsql =  "select doc.* from fld, doc where fld.dirid=$dirid ".
-    "and doc.id=fld.childid and ($condfld) and not doc.useforprof ".
-      "order by doc.title";
-  
-  $query = new QueryDb($dbaccess,"Doc");
-  //  print "<HR>$restype,$qsql";
-  $tableq=$query->Query(0,0,$restype,$qsql);
-  
-  if ($query->nb == 0) return array();            
-  
-  return($tableq);
+      return  array_merge(getChildDoc($dbaccess,$dirid,"0","ALL",array(),$userid,$restype,2),
+			  getChildDoc($dbaccess,$dirid,"0","ALL",array(),$userid,$restype,5));
+      
+    }
+      
 }
 
 
 function getSqlSearchDoc($dbaccess, 
 			 $dirid,  // in a specific folder (0 => in all DB)
 			 $fromid, // for a specific familly (0 => all familly) (<0 strict familly)
-			 $sqlfilters=array()) {
+			 $sqlfilters=array(),
+			 $distinct=false) {// if want distinct without locked
 
   if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
   else $sqlcond="";
@@ -96,15 +79,20 @@ function getSqlSearchDoc($dbaccess,
   if ($fromid != 0) $table="doc$fromid";
   if ($fromid < 0) $only="only" ;
 
+  if ($distinct) {
+    $selectfields =  "distinct on (initid) $table.*";
+  } else {
+    $selectfields =  "$table.*";
+    $sqlcond = "and (locked != -1) " . $sqlcond ;
+  }
 
   if ($dirid == 0) {
     //-------------------------------------------
     // search in all Db
     //-------------------------------------------
-    $qsql= "select $table.* ".
+    $qsql= "select $selectfields ".
       "from $only $table  ".
       "where (doctype != 'T') ".
-      "and (locked != -1) ". 
       $sqlcond;
   } else {
 
@@ -112,17 +100,22 @@ function getSqlSearchDoc($dbaccess,
     // in a specific folder
     //-------------------------------------------
 
+    if (! is_array($dirid))
     $fld = new Doc($dbaccess, $dirid);
 
-    if ( $fld->defDoctype != 'S') {
+    if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
       
-  
+      if (is_array($dirid)) {
+	$sqlfld=GetSqlCond($dirid,"dirid",true);
+      } else {
+	$sqlfld = "fld.dirid=$dirid";
+      }
       
-      $qsql= "select $table.* ".
+      $qsql= "select $selectfields ".
 	"from $only $table, fld  ".
 	"where (doctype != 'T') $sqlcond ".
-	"and fld.dirid=$dirid ".
-	"and (fld.qtype='S' and fld.childid=initid and locked != -1)  ";
+	"and $sqlfld ".
+	"and (fld.qtype='S' and fld.childid=initid )  ";
       
       
     } else {
@@ -143,7 +136,7 @@ function getSqlSearchDoc($dbaccess,
 	case "M": // complex query
 	    
 	  $sqlM=$ldocsearch[0]["query"];
-	  if ($fromid > 0) $sqlM=str_replace("from doc ","from $table ",$sqlM);
+	  if ($fromid > 0) $sqlM=str_replace("from doc ","from $only $table ",$sqlM);
 	    
 	  $qsql= $sqlM . $sqlcond;
 	  break;
@@ -160,12 +153,13 @@ function getChildDoc($dbaccess,
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
 		     $userid=1, 
-		     $qtype="LIST", $fromid="") {
+		     $qtype="LIST", $fromid="",$distinct=false) {
   
   // query to find child documents            
   
-  $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters);
-  $qsql .= " ORDER BY title LIMIT $slice OFFSET $start;";
+  $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct);
+  if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
+  else  $qsql .= " ORDER BY title LIMIT $slice OFFSET $start;";
    
    if ($fromid > 0) include_once "FDL/Class.Doc$fromid.php";
 
@@ -216,13 +210,6 @@ function sqlval2array($sqlvalue) {
   return $rt;
 }
 
-//same getChildDoc with value : return array , not doc object
-function getChildDocValue($dbaccess, $dirid, $start="0", $slice="ALL", $sqlfilters=array(), $userid=1) {
-  
-  
-  return getChildDoc($dbaccess, $dirid, $start, $slice, $sqlfilters, $userid, "TABLE", true);
-  
-}
 
 
 function getChildDirId($dbaccess, $dirid, $notfldsearch=false) {
@@ -299,7 +286,7 @@ function hasChildFld($dbaccess, $dirid) {
     
     $query = new QueryDb($dbaccess,"QueryDir");
   
-  $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc where fld.dirid=$dirid and doc.id=fld.childid and (doc.doctype='D' or doc.doctype='S') and not doc.useforprof");
+  $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc2 where fld.dirid=$dirid and childid=doc2.id");
   return (($query->nb > 0) && ($count[0]["count"] > 0));
 }
 
