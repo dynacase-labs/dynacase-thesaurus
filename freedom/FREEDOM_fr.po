@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-15 16:49+0100\n"
-"PO-Revision-Date: 2005-02-15 16:50+0100\n"
+"POT-Creation-Date: 2005-03-23 11:13+0000\n"
+"PO-Revision-Date: 2005-03-23 12:18+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -706,6 +706,12 @@ msgstr ""
 msgid "Delete %d in %s folder"
 msgstr "Suppression n°%d du dossier %s"
 
+msgid "uncomplete request"
+msgstr "requête incomplète"
+
+msgid "request not found"
+msgstr "requête non trouvée"
+
 #, c-format
 msgid "untitle %s %d"
 msgstr "%s sans titre %d"
@@ -797,12 +803,6 @@ msgstr "erreur dans la format pzone %s"
 msgid "new %s"
 msgstr "nouvelle %s"
 
-msgid "uncomplete request"
-msgstr "requête incomplète"
-
-msgid "request not found"
-msgstr "requête non trouvée"
-
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
 msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
@@ -828,9 +828,9 @@ msgid "%s mask"
 msgstr "masque %s"
 
 #, c-format
-msgid "ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr ""
-"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé"
+msgid ""
+"ChangeState :: the new state '%s' is not known or is not allowed from %s"
+msgstr "Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé depuis %s"
 
 #, c-format
 msgid "ChangeState :: the initial state '%s' is not known"
@@ -1245,9 +1245,6 @@ msgstr "erreur dans le nom de fichier"
 msgid "no image"
 msgstr "pas d'image"
 
-msgid "add inputs"
-msgstr "ajouter entrée"
-
 #, c-format
 msgid "set for %s, unset for %s"
 msgstr "cocher pour %s, décocher pour %s"
@@ -1261,9 +1258,16 @@ msgstr "choisir une valeur"
 msgid "clear inputs"
 msgstr "effacer entrée(s)"
 
+msgid "add inputs"
+msgstr "ajouter entrée"
+
 #, c-format
 msgid "elinkEncode::attribute not found %s"
 msgstr "elinkEncode :  attribut non trouvé %s"
+
+#, c-format
+msgid "create new %s"
+msgstr "créé par %s"
 
 #, c-format
 msgid "Sure %s ?"
@@ -1631,6 +1635,9 @@ msgstr "taille horizontale lors de l'ouverture de fenêtre secondaire"
 
 msgid "vertical size for secondary windows"
 msgstr "taille verticale lors de l'ouverture de fenêtre secondaire"
+
+msgid "max items return when open a folder"
+msgstr "nombre d'éléments maximum visibles dans un dossier"
 
 msgid "maximum document can be imported directly"
 msgstr "nombre maximum de documents pouvant être importé en direct"
@@ -2090,6 +2097,9 @@ msgstr "Contraintes"
 msgid "override constraints"
 msgstr "outrepasser les contraintes"
 
+msgid "Quick Save"
+msgstr "Sauver vite"
+
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -2240,6 +2250,9 @@ msgstr "extra Lien"
 msgid "constraint"
 msgstr "contrainte"
 
+msgid "options"
+msgstr "options"
+
 msgid "profile access"
 msgstr "Profil d'accès"
 
@@ -2387,6 +2400,12 @@ msgstr "Effectuer l'import en tache de fond"
 msgid "document(s) found"
 msgstr "document(s) trouvé(s)"
 
+msgid "Ok"
+msgstr "Ok"
+
+msgid "Close"
+msgstr "Fermer"
+
 msgid "Choose Worflow"
 msgstr "Cycle de vie"
 
@@ -2507,9 +2526,6 @@ msgstr "restriction aux familles préférées"
 msgid "Choose visibles families"
 msgstr "Choix des familles visibles"
 
-msgid "Close"
-msgstr "Fermer"
-
 msgid "Change State"
 msgstr "Changer d'état"
 
@@ -2560,9 +2576,6 @@ msgstr " choisir une valeur"
 
 msgid "Attribute not found"
 msgstr "Attribut non trouvé"
-
-msgid "Ok"
-msgstr "Ok"
 
 msgid "mail edition"
 msgstr "édition de mail"
@@ -2640,6 +2653,24 @@ msgstr "attributs"
 msgid "addstate"
 msgstr "état"
 
+msgid "View"
+msgstr "Affichage"
+
+msgid "list"
+msgstr "Liste"
+
+msgid "icon"
+msgstr "Icone"
+
+msgid "column"
+msgstr "colonne"
+
+msgid "All To basket"
+msgstr "Tout insérer dans le porte-documents"
+
+msgid "Clear Folder"
+msgstr "Vider le dossier"
+
 msgid "Details"
 msgstr "Détails"
 
@@ -2670,23 +2701,8 @@ msgstr "Nouvel intercalaire"
 msgid "new search guide-card"
 msgstr "Nouveau filtre"
 
-msgid "View"
-msgstr "Affichage"
-
-msgid "list"
-msgstr "Liste"
-
-msgid "icon"
-msgstr "Icone"
-
-msgid "column"
-msgstr "colonne"
-
-msgid "All To basket"
-msgstr "Tout insérer dans le porte-documents"
-
-msgid "Clear Folder"
-msgstr "Vider le dossier"
+msgid "Basket to here"
+msgstr "Insérer le porte-documents"
 
 msgid "View headers"
 msgstr "Voir entête"
@@ -2799,11 +2815,8 @@ msgstr "entrée vconstraint non trouvé id="
 msgid "Choose document before set options"
 msgstr "Choisissez un document avant de choisir les options"
 
-msgid "mini view"
-msgstr "mini vue"
-
-msgid "post it"
-msgstr "post-it"
+msgid "quick save not possible"
+msgstr "Sauvegarde rapide impossible"
 
 msgid "mail"
 msgstr "mail"
@@ -2846,6 +2859,13 @@ msgstr "révisé par"
 
 msgid "view abstract card"
 msgstr "Carte résumé"
+
+msgid ""
+"Master document has been closed.\n"
+"Close window ?"
+msgstr ""
+"Le document maître a été fermé.\n"
+"Voulez-vous fermer la fenêtre ?"
 
 msgid "Monday"
 msgstr "Lundi"
@@ -2915,6 +2935,12 @@ msgstr "déselectionner"
 
 msgid "duplicate"
 msgstr "Dupliquer"
+
+msgid "mini view"
+msgstr "mini vue"
+
+msgid "post it"
+msgstr "post-it"
 
 msgid "fromdate"
 msgstr "date de début"
@@ -3454,9 +3480,6 @@ msgstr "Voir les propriétés"
 
 #~ msgid "see contents"
 #~ msgstr "voir le contenu"
-
-#~ msgid "created by %s"
-#~ msgstr "créé par %s"
 
 #~ msgid "change by %s"
 #~ msgstr "modifié par %s"
