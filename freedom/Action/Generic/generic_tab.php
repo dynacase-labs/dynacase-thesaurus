@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.14 2003/11/03 09:12:01 eric Exp $
+ * @version $Id: generic_tab.php,v 1.15 2004/02/17 10:50:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.14 2003/11/03 09:12:01 eric Exp $
+// $Id: generic_tab.php,v 1.15 2004/02/17 10:50:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -82,7 +82,7 @@ function generic_tab(&$action) {
   if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
 
 
-  $sdoc = createDoc($dbaccess,5); // new DocSearch
+  $sdoc = createDoc($dbaccess,5,false); // new DocSearch
 
 
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
