@@ -139,10 +139,10 @@ function trackMenuKey(event)
     altKey = window.event.altKey;
     ctrlKey = window.event.ctrlKey
    }
-  window.status=intKeyCode + ':'+altKey+ ':'+ctrlKey;
+  //  window.status=intKeyCode + ':'+ event.which +':'+altKey+ ':'+ctrlKey;
 
   if (((intKeyCode ==  93))) {
-    // Ctrl-V
+    // Ctrl-Menu
     openMenu(event,'popupcard',1);
     
     if (event.stopPropagation) event.stopPropagation();
