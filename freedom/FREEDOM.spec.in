@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.52 2004/01/28 10:23:38 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.53 2004/03/01 08:48:41 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -68,17 +68,7 @@ PreReq: @PACKAGE@-LIB = %{version}
 %description USERCARD
 The user card module allow to view & edit user card and to insert them in a LDAP server
 
-%package INCIDENT
-Summary: incident management
-Group: Applications/Web
-Version: @VERSION@
-Release: @RELEASE@
-PreReq: WHAT
-PreReq: @PACKAGE@-LIB = %{version}
-PreReq: @PACKAGE@-USERCARD = %{version}
 
-%description INCIDENT
-The incident module allow to edit problems for an hot-line
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -111,14 +101,6 @@ ln -sf %{destdir}/FDL/include.php %{destdir}/USERCARD/include.php
 %preun USERCARD
 
 
-%post INCIDENT
-ln -sf %{destdir}/FDL/include.php %{destdir}/INCIDENT/include.php
-ln -sf %{destdir}/FDL/include.php %{destdir}/SITE/include.php
-ln -sf %{destdir}/FDL/include.php %{destdir}/PRODUCT/include.php
-ln -sf %{destdir}/FDL/include.php %{destdir}/CONTRACT/include.php
-%{destdir}/wstop
-
-%preun INCIDENT
 
 
 %post LIB
@@ -146,19 +128,6 @@ cd -
 %dir %{destdir}/USERCARD
 %{destdir}/USERCARD/*
 
-
-%files INCIDENT
-%defattr(-,root,root)
-%dir %{destdir}/INCIDENT
-%dir %{destdir}/SITE
-%dir %{destdir}/PRODUCT
-%dir %{destdir}/CONTRACT
-%dir %{destdir}/EXTERNALS
-%{destdir}/INCIDENT/*
-%{destdir}/SITE/*
-%{destdir}/PRODUCT/*
-%{destdir}/CONTRACT/*
-%{destdir}/EXTERNALS/*
 
 %files LIB
 %defattr(-,http,http)
