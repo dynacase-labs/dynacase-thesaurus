@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.75 2004/09/09 12:53:44 eric Exp $
+ * @version $Id: editutil.php,v 1.76 2004/09/09 14:26:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.75 2004/09/09 12:53:44 eric Exp $
+// $Id: editutil.php,v 1.76 2004/09/09 14:26:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -311,6 +311,9 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 
       } else {
 	
+	$enuml = $oattr->getenumlabel();
+	$lunset=current($enuml);
+	if ($value=="") $value=key($enuml);
 	switch ($oattr->eformat) {
 	case "vcheck":
 	  $lay = new Layout("FDL/Layout/editenumvcheck.xml", $action);
@@ -321,9 +324,6 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	case "bool":
 	  $lay = new Layout("FDL/Layout/editenumbool.xml", $action);
 	  
-	  $enuml = $oattr->getenumlabel();
-	  $lunset=current($enuml);
-	  if ($value=="") $value=key($enuml);
 	  $lset=next($enuml);
 	  if ($value==key($enuml))  $lay->set("checkedyesno","checked");
 	  else $lay->set("checkedyesno","");
