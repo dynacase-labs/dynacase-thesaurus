@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.17 2004/04/27 09:21:16 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.18 2004/07/05 13:03:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -103,21 +103,27 @@ Class DocCtrl extends DbObj
       $this->profid = "0";      
       $this->modify();
   }
-  function SetControl() {
+  /**
+   * activate access specific control 
+   * @param bool $userctrl if true add all acls for current user
+   */
+  function SetControl($userctrl=true) {
+    if ($userctrl) {
       $perm = new DocPerm($this->dbaccess, array($this->id,$this->userid));
-	$perm->docid=$this->id;
-	$perm->userid=$this->userid;
-	$perm->upacl= -2; // all privileges
-	$perm->unacl=0;
-	$perm->cacl=0;
+      $perm->docid=$this->id;
+      $perm->userid=$this->userid;
+      $perm->upacl= -2; // all privileges
+      $perm->unacl=0;
+      $perm->cacl=0;
       if (! $perm -> IsAffected()) {
 	// add all privileges to current user
 	$perm->Add();
       } else {
 	$perm->Modify();
       }
-      // reactivation of doc with its profil
-      $this->exec_query("update doc set profid=-profid where profid=-".$this->id." and locked != -1;");
+    }
+    // reactivation of doc with its profil
+    $this->exec_query("update doc set profid=-profid where profid=-".$this->id." and locked != -1;");
   }
 
   /**
@@ -176,9 +182,10 @@ Class DocCtrl extends DbObj
 	$query=new QueryDb($this->dbaccess,"VGroup");
 	$query->AddQuery(GetSqlCond($tgnum,"num",true));
 	$tg=$query->Query(0,0,"TABLE");
-	
-	foreach ($tg as $vg) {
-	  $tnum[$vg["num"]]=$vg["id"];
+	if ($query->nb>0) {
+	  foreach ($tg as $vg) {
+	    $tnum[$vg["num"]]=$vg["id"];
+	  }
 	}
       }
       $this->exec_query("delete from docperm where docid=".$this->id);
@@ -223,6 +230,44 @@ Class DocCtrl extends DbObj
     }
   }
 
+  /**
+   * add control for a specific user
+   *
+   * @param int uid user identificator 
+   * @param string $aclname name of the acl (edit, view,...)
+   */
+  function AddControl($uid,$aclname) {
+    if (! isset($this->dacls[$aclname])) {
+      return sprintf(_("unknow privilege %s"),$aclname);
+    } 
+    $pos=$this->dacls[$aclname]["pos"];
+    if (! is_numeric($uid)) {
+      // logical name
+      $vg = new VGroup($this->dbaccess,strtolower($uid));
+      if (! $vg->isAffected()) {
+	// try to add 
+	$ddoc=new Doc($this->dbaccess, $this->getValue("dpdoc_famid"));
+	$oa=$ddoc->getAttribute($uid);
+	if ($oa->type=="docid") {
+	  $vg->id=$oa->id;
+	  $vg->Add();
+	  $uid=$vg->num;	  
+	} else $err=sprintf(_("unknow virtual user identificateur %s"),$uid);
+      } else {
+	$uid=$vg->num;
+      }
+    }
+
+    if ($uid > 0) {      
+      $perm = new DocPerm($this->dbaccess, array($this->id,$uid));
+      $perm->SetControlP($pos);
+      if ($perm->isAffected()) $err=$perm->modify();
+      else {
+	$err=$perm->Add();
+      }
+    } 
+    return $err;
+  }
 
   /**
    * set control view for document
@@ -233,7 +278,13 @@ Class DocCtrl extends DbObj
 
     $this->cvid = $cvid;
   }
-  // --------------------------------------------------------------------
+  /**
+   * use to know if current user has access privilege
+   *
+   * @param int $docid profil identificator
+   * @param string $aclname name of the acl (edit, view,...)
+   * @return string if empty access granted else error message
+   */
   function ControlId ($docid,$aclname) {
     // --------------------------------------------------------------------     
     
