@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2004-01-21 14:37+0100\n"
+	"POT-Creation-Date: 2004-01-28 11:24+0100\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -98,6 +98,9 @@ msgstr	"Nouvelle carte"
 
 msgid	"default values"
 msgstr	"Valeurs par défaut"
+
+msgid	"parameters values"
+msgstr "valeurs des paramètres"
 
 msgid	"Validate"
 msgstr	"Valider"
@@ -740,6 +743,10 @@ msgstr	"l'utilisateur n°%d n'existe pas"
 msgid	"user is desactivated"
 msgstr	"l'utilisateur est désactivé"
 
+#, c-format
+msgid	"Group %s not exist"
+msgstr "le groupe n°%s n'existe pas"
+
 msgid	"virtual"
 msgstr	"virtuel"
 
@@ -854,7 +861,7 @@ msgstr	"[%s] enregistrement de l'incident"
 
 #, c-format
 msgid	"Incident : ask for level 2 %s"
-msgstr "Incident : Demande d'analyse niveau 2 %s"
+msgstr	"Incident : Demande d'analyse niveau 2 %s"
 
 #, c-format
 msgid	"Incident : ask for perform %s"
@@ -1491,7 +1498,7 @@ msgid	"global balance result"
 msgstr	"résultat du bilan général"
 
 msgid	"relance"
-msgstr "relance"
+msgstr	"relance"
 
 msgid	"bcc mail to control each opened incident"
 msgstr	"mail caché pour controler chaque nouvel incident"
@@ -2426,6 +2433,9 @@ msgstr	"Éditer les attributs"
 msgid	"Set default values"
 msgstr	"Valeurs par défaut"
 
+msgid	"Parameters values"
+msgstr "Valeurs des paramètres"
+
 msgid	"Rename"
 msgstr	"Renommer"
 
@@ -2493,13 +2503,13 @@ msgid	"control view"
 msgstr	"contrôle de vues"
 
 msgid	"rev"
-msgstr "rev"
+msgstr	"rev"
 
 msgid	"comment"
 msgstr	" commentaire"
 
 msgid	"revised by"
-msgstr "révisé par"
+msgstr	"révisé par"
 
 msgid	" date"
 msgstr	" date"
