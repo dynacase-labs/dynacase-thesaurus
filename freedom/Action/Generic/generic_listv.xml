@@ -57,7 +57,6 @@ var catgid=[catg];
 <div onmouseup="closeAllMenu();">
 
 
-<img id="micon" width="20" height="20"   style="position:absolute;visibility:hidden;z-index:10" border="0" src="FREEDOM/Images/doc.gif">
 
 <table class="transparent" cellspacing="0" width="100%"><tr >
 <td align="left" width="30px"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]">[previcon]</a></td>

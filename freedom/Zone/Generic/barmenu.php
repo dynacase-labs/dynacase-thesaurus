@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.26 2004/12/28 17:08:17 eric Exp $
+ * @version $Id: barmenu.php,v 1.27 2005/01/24 16:15:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.26 2004/12/28 17:08:17 eric Exp $
+// $Id: barmenu.php,v 1.27 2005/01/24 16:15:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -232,6 +232,8 @@ function barmenu(&$action) {
     $tmsort[$a->id] = "sortdoc".$a->id;
     
   }
+
+  $action->lay->set("ukey",getDefUKey($action));
   // select the current sort
   $csort=getDefUSort($action);
   if ($csort[0]=='-') {

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.20 2004/07/09 09:00:16 eric Exp $
+ * @version $Id: generic_search.php,v 1.21 2005/01/24 16:14:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.20 2004/07/09 09:00:16 eric Exp $
+// $Id: generic_search.php,v 1.21 2005/01/24 16:14:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,6 +54,10 @@ function generic_search(&$action) {
   $dirid=GetHttpVars("dirid", getDefFld($action)); // folder where search
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  if ($keyword) $action->parent->param->Set("GENE_LATESTTXTSEARCH",
+					    setUkey($action,$keyword),PARAM_USER.$action->user->id,
+					    $action->parent->id);
 
   if ($keyword[0]!=">") {
     $dirid=$catgid; 
@@ -109,5 +113,38 @@ function generic_search(&$action) {
   
 }
 
+function setUkey(&$action, $key) {
+  
+  $famid=getDefFam(&$action);
+  $dbaccess = $action->GetParam("FREEDOM_DB");
 
+
+  $fdoc= new Doc( $dbaccess, $famid);
+
+  $pu = $action->GetParam("GENE_LATESTTXTSEARCH");
+  $tr=array();
+  if ($pu) {
+    // disambled parameter
+    $tu = explode("|",$pu);
+    
+    while (list($k,$v) = each($tu)) {
+      list($afamid,$uk) = explode(":",$v);
+      $tr[$afamid]=$uk;
+    }
+  }
+
+
+ 
+  $tr[$famid]=$key;
+
+  // rebuild parameter
+  $tu=array();
+  foreach($tr as $k=>$v) {
+    $tu[]="$k:$v";
+  }
+  return implode("|", $tu);
+  
+  
+  
+}
 ?>

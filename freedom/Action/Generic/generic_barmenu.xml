@@ -59,7 +59,7 @@ testSplit();
 [TEXT:Creation]</span>
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());document.getElementById('keyword').focus();" 
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());document.getElementById('keyword').focus();document.getElementById('keyword').select()" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:Search]
@@ -121,12 +121,12 @@ function SendSearch(e) {
 
 </script>   
 <!-- ------------ MENU SEARCH  --------------------- -->
-<div  id="searchmenu" class="popup" style="position:[positionstyle];">
+<div  id="searchmenu" class="popup" style="position:[positionstyle];" >
 <a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All document]</a>[BLOCK SEARCH]
 <a  id="search[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
 [ENDBLOCK SEARCH]
 <a id="text"></a>
-  <input   onMouseUp="return true" onKeyPress="SendSearch(event)" type="text" id="keyword">
+  <input   onMouseUp="return true" onKeyPress="SendSearch(event)" type="text"  value="[ukey]" id="keyword">
 </div>
 
 
