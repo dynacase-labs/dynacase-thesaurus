@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.3 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_mod.php,v 1.4 2002/07/31 10:01:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,15 +46,19 @@ function freedom_mod(&$action) {
 
   if (($dirid > 0) && ($docid == 0)) {
     $fld = new Dir($dbaccess, $dirid);
-
     
     $fld->AddFile($doc->id);
     
   } 
 
+  $err = $doc->PostModify(); 
+  if ($err != "")  $action-> ExitError($err);
+
   $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
-  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$ndocid");
+  
+  redirect($action,GetHttpVars("redirect_app",GetHttpVars("app")),
+	   GetHttpVars("redirect_act","FREEDOM_CARD&id=$ndocid"));
   
 }
 

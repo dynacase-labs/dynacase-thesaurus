@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.21 2002/06/04 16:10:36 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.22 2002/07/31 10:01:53 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -26,7 +26,7 @@ BuildRoot: /tmp/anakeen-root
 Requires: php >= 4.0.5
 Requires: postgresql >= 7.2
 Requires: php-pgsql >= 4.0.2
-PreReq: WHAT >= 0.1.0
+PreReq: WHAT >= 0.1.2
 PreReq: @PACKAGE@-LIB = %{version}
 Prereq: VAULT
 Prereq: php-shell >= 4.0.2

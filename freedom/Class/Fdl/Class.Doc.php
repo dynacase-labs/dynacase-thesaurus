@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.38 2002/07/29 12:42:23 eric Exp $
+// $Id: Class.Doc.php,v 1.39 2002/07/31 10:01:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.38 2002/07/29 12:42:23 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.39 2002/07/31 10:01:53 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -1067,7 +1067,6 @@ create sequence seq_id_doc start 1000";
 	  if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' has the following error %s"), $tr["m2"], $err));
 	  
 	}
-      
       AddLogMsg(sprintf(_("%s new state %s"),$this->title, _($newstate)));
       return ""; // its OK 
     }

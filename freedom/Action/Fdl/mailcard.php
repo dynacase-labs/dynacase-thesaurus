@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.3 2002/07/30 12:35:54 eric Exp $
+// $Id: mailcard.php,v 1.4 2002/07/31 10:01:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,6 @@ function mailcard(&$action) {
     // set title
   $docid = GetHttpVars("id");  
   $zonebodycard = GetHttpVars("zone"); // define view action
-  $dochead = (GetHttpVars("dochead",'Y') == "Y"); // with doc head
 
   $from = GetHttpVars("_MAIL_FROM","");
   $to = GetHttpVars("_MAIL_TO",'eric.brison@i-cesam.com');
@@ -51,7 +50,7 @@ function mailcard(&$action) {
     if ($ma->isAffected()) {
       $dom = new Domain("",$ma->iddomain);
       $from = $ma->login."@".$dom->name;
-      if ($action->getParam("FDL_BCC") == "yes") $bcc="\n$from";
+      if ($action->getParam("FDL_BCC") == "yes") $bcc="\\nbcc:$from";
     } else {
       $from = $action->user->login;
     }
@@ -127,7 +126,7 @@ function mailcard(&$action) {
     
   }
 
-
+  //print ($cmd);
   system ($cmd, $status);
 
   if ($status == 0)  $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $to));
