@@ -1,4 +1,4 @@
-<html>
+[IFNOT NOFORM]<html>
   <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -58,7 +58,7 @@ addEvent(window,"load",focusFirst);
 <input type="hidden" name="attrid">
 <input type="hidden" name="type_attr">
 </form>
-
+[ENDIF NOFORM]
 
 <!-- end for idoc -->
 
@@ -125,8 +125,8 @@ addEvent(window,"load",focusFirst);
 </table>
 [IFNOT NOFORM]
 </form>
-[ENDIF NOFORM]
 <!--  FOOT HTML -->
 <iframe name="fhsave" style="display:none"></iframe>
 </body>
 </html>
+[ENDIF NOFORM]
