@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.42 2003/07/07 07:44:54 eric Exp $
+// $Id: editutil.php,v 1.43 2003/07/11 13:03:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -521,8 +521,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
       }
    
      
-      $url= elinkEncode($oattr->elink,$index);
-      $input.="<input type=\"button\" value=\"***\"".
+      $url= elinkEncode($doc,$oattr->elink,$index);
+      $input.="<input type=\"button\" value=\"+\"".
 	" title=\""._("add inputs")."\"".
 	" onclick=\"subwindowm(300,500,'$target','$url');";
       if ($function) {
@@ -543,7 +543,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
   
 }
 
-function elinkEncode($link,$index) {
+function elinkEncode(&$doc, $link,$index) {
   // -----------------------------------
     
    
@@ -582,7 +582,9 @@ function elinkEncode($link,$index) {
 	//	  print "attr=$sattrid";
 	  
 	$sattrid=strtolower($sattrid);
-	$sattrid.=$index;
+
+	$attr = $doc->getAttribute($sattrid);
+	if ($attr->inArray())	$sattrid.=$index;
 	//print "attr=$sattrid";
 	$urllink.= "'+document.getElementById('$sattrid').value+'";
       }
