@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.16 2003/02/20 11:34:04 eric Exp $
+// $Id: Class.WDoc.php,v 1.17 2003/02/25 09:54:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.16 2003/02/20 11:34:04 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.17 2003/02/25 09:54:30 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -170,27 +170,34 @@ Class WDoc extends Doc {
 	$err=$this->control($tname);
       if ($err != "") return $err;
 
-      if (($tr["m1"] != "") && (!$force)) {
+      if ($tr["m1"] != "")  {
 	// apply first method (condition for the change)
 	  
 	  if (! method_exists($this, $tr["m1"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m1"], get_class($this)));
 	
 	$err = call_user_method ($tr["m1"], $this, $newstate);
 	
-	if ($err == "->") return ""; //it is not a real error, but don't change state (reported)
+	if ($err == "->") {
+	  if ($force) {
+	    $err=""; // it is the return of the report	    
+	    SetHttpVar("redirect_app",""); // override the redirect
+	    SetHttpVar("redirect_act","");
+	  } else return ""; //it is not a real error, but don't change state (reported)
+	}
 	if ($err != "") return (sprintf(_("ChangeState :: the method '%s' has the following error %s"), $tr["m1"], $err));
 	
 	
       }
       
       // change the state
-	$this->doc->state = $newstate;
+      $oldstate = $this->doc->state==""?" ":$this->doc->state;
+      $this->doc->state = $newstate;
       $this->changeProfil($newstate);
       $this->doc->disableEditControl();
       $err = $this->doc->Modify();   // don't control edit permission
       if ($err != "") return $err;
       
-      $revcomment = sprintf(_("change state to %s"), _($newstate));
+      $revcomment = sprintf(_("change state : %s to %s"), _($oldstate), _($newstate));
       if ($addcomment != "") $revcomment.= "\n".$addcomment;
       
       $this->doc->AddRevision($revcomment);
