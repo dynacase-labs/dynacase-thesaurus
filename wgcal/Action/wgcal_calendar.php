@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.14 2005/01/26 11:16:16 eric Exp $
+ * @version $Id: wgcal_calendar.php,v 1.15 2005/01/27 12:06:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,6 +15,7 @@
 include_once("FDL/Class.Doc.php");
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
+define("SEC_PER_MIN", 60);
 
 function GetFirstDayOfWeek($ts) {
 	if ($ts<=0) return false;
@@ -28,13 +29,17 @@ function GetFirstDayOfWeek($ts) {
 	return $fwdt;
 }
        	
-function printhdiv($hdiv, $hd) {
+function printhdiv($h, $hdiv, $hd) {
+  $sd = $h."H";
   $sh = "00";
-  $sh = sprintf("%d",(60/$hdiv)*$hd);
+  $sh = sprintf("%d",((60/$hdiv)*$hd));
   if (strlen($sh) == 1) $sh = "0".$sh;
-  return $sh;
+  return $sd.$sh;
 }
 
+function d2s($t, $f="%x %X") {
+  return strftime($f, $t);
+}
 
 function wgcal_getRessDisplayed(&$action, $rlist) {
   $r = array();
@@ -74,22 +79,24 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
 
 
-  $rvwidth = $action->GetParam("xxx", 45);
-  $swe = $action->GetParam("WGCAL_U_VIEWWEEKEN", "yes");
+  $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
   $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   if ($swe!="yes") $ndays = $dayperweek - 2;
   else $ndays = $dayperweek;
-
   $sdate = GetHttpVars("newdate", time());
+  $firstWeekDay = GetFirstDayOfWeek($sdate);
+  $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
+  $today = d2s("%d/%m/%Y", time());
+  $curdate = d2s("%d/%m/%Y", $sdate);
+  $fday  = strftime("%u",$firstWeekDay);
+  // echo "start date : ".d2s($sdate)." end : ".d2s($edate)." first : ".d2s($firstWeekDay)."<br>";
   if ($sdate == 0) {
     $sdate = GetRegisterDate($action);
   }
   SetRegisterDate($action, $sdate);
-  $sdatef = strftime("%d/%m/%Y", $sdate);
   
   $rlist = GetHttpVars("rlist", "");
   $ress = wgcal_getRessDisplayed($action, $rlist);
-  echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." (".$v->color.") |";
 
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);
@@ -99,14 +106,11 @@ function wgcal_calendar(&$action) {
 
   $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
   $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
-  $hdiv  = $action->GetParam("WGCAL_U_HOURDIV", 1);
+  $hdiv   = $action->GetParam("WGCAL_U_HOURDIV", 1);
 
   if ($hdiv>1) $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40) / ($hdiv - 1);
   else $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40);
   
-  $today = strftime("%d/%m/%Y", time());
-  $firstWeekDay = GetFirstDayOfWeek($sdate);
-  $fday  = strftime("%u",$firstWeekDay);
 
   $action->lay->set("DIVSTART", "calareastart");
   $action->lay->set("DIVEND", "calareaend");
@@ -117,146 +121,125 @@ function wgcal_calendar(&$action) {
   $classalt = array ( 0 => "WGCAL_Day1", 1 => "WGCAL_Day2" );
   $curday = -1;
   $tabdays = array(); $itd=0;
-  for ($i=0; $i<$ndays; $i++) 
-    { 
-      $tabdays[$itd]["iday"] =  $itd;
-      $tabdays[$itd++]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
-      $ld = strftime("%d/%m/%Y", $firstWeekDay+($i*SEC_PER_DAY));
-      if (!strcmp($ld,$today)) {
-	$class[$i] = $classh[$i] = "WGCAL_DayLineCur";
-        $curday = $i; 
-      } else if (!strcmp($ld,$sdatef)) {
-	$classh[$i] = "WGCAL_DayLineCur";
-	$class[$i] = "WGCAL_DaySelected";
-      } else {
-	$classh[$i] = "WGCAL_Period"; 
-	$classh[$i] = "WGCAL_Period"; 
-	if ($i==5||$i==6) $class[$i] = "WGCAL_DayLineWE";  
-	else {
+  for ($i=0; $i<$ndays; $i++) { 
+    $tabdays[$itd]["iday"] =  $itd;
+    $tabdays[$itd++]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
+    $ld = strftime("%d/%m/%Y", $firstWeekDay+($i*SEC_PER_DAY));
+    if (!strcmp($ld,$today)) {
+      $class[$i] = $classh[$i] = "WGCAL_DayLineCur";
+      $curday = $i; 
+    } else if (!strcmp($ld, $curdate)) {
+      $classh[$i] = "WGCAL_DayLineCur";
+      $class[$i] = "WGCAL_DaySelected";
+    } else {
+      $classh[$i] = "WGCAL_Period"; 
+      $classh[$i] = "WGCAL_Period"; 
+      if ($i==5||$i==6) $class[$i] = "WGCAL_DayLineWE";  
+      else {
 	if ($alt==1) $alt = 0;
 	else $alt = 1;
 	$class[$i] = $classalt[$alt];
-}
       }
-      $t[$i]["IDD"] = $i;
-      $t[$i]["CSS"] = $classh[$i];
-      $t[$i]["LABEL"] = strftime("%a %d",$firstWeekDay+($i*SEC_PER_DAY));
     }
+    $t[$i]["IDD"] = $i;
+    $t[$i]["CSS"] = $classh[$i];
+    $t[$i]["LABEL"] = d2s($firstWeekDay+($i*SEC_PER_DAY), "%a %d %b");
+  }
   $action->lay->SetBlockData("DAYS_LINE", $t);
-
-
+  
+  $urlroot = $action->GetParam("CORE_STANDURL");
   $lcell = new Layout( "WGCAL/Layout/wgcal-cellcalendar.xml", $action );
   $nl = 0;
-  for ($h=$hstart-1; $h<=$hstop; $h++) 
-    {
-      for ($hd=0; $hd<$hdiv&&!($hd>0&&$h==$hstart-1); $hd++) 
-        {
-          $thr[$nl]["LID"] = $nl;
-          $thr[$nl]["HLINEHOURS"] = $hhight;
-          $thr[$nl]["HCLASS"] = "WGCAL_DayNoHours";
-	  if ($h==($hstart-1)) $thr[$nl]["HOURR"] = "";
-	  else {
-            if ($hd==0) {
-		$thr[$nl]["HOURR"] = ($h==($hstart-1)?"":$h)."H00";
-          	$thr[$nl]["HCLASS"] = "WGCAL_DayHours";
-    	    } else {
-	        $thr[$nl]["HOURR"] = ($h==($hstart-1)?"":$h)."H".printhdiv($hdiv,$hd);
-                $thr[$nl]["HCLASS"] = "WGCAL_DayMin";
-	    }
-	  }
-	  $tcell = array();
-	  $itc = 0;
-          for ($id=0; $id<$ndays; $id++) 
-	    {
-	      if ($id>6) $mo = $id;
-	      else $mo = $id % 7;
-              $tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
-              $tcell[$itc]["urlroot"] = $action->GetParam("CORE_STANDURL");
-              if ($h==($hstart-1)) $tcell[$itc]["nh"] = 1;
-	      else $tcell[$itc]["nh"] = 0;
-              $tcell[$itc]["times"] = strftime("%s",($firstWeekDay+($id*SEC_PER_DAY))+($h*SEC_PER_HOUR));
-              $tcell[$itc]["timee"] = strftime("%s",($firstWeekDay+($id*SEC_PER_DAY))+($h*SEC_PER_HOUR)+(60/$hdiv*60));
-              $tcell[$itc]["rtime"] = strftime("%a %d %b ",$firstWeekDay+($id*SEC_PER_DAY));
-	      $tcell[$itc]["rtime"] .= strftime("%H:%M",$tcell[$itc]["times"])." - " . strftime("%H:%M",$tcell[$itc]["timee"]);
-              if ($hd!=0) $tcell[$itc]["rtime"] .= ', '.$h.'H'.printhdiv($hdiv,$hd).'"';
-	      $tcell[$itc]["lref"] = "L".$nl;
-	      $tcell[$itc]["cref"] = "D".$id;
-	      $tcell[$itc]["cclass"] = $class[$id];
-	      $tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
-	      $tcell[$itc]["hourclass"] = $classh[$id];
-	      //$tcell[$itc]["cellcontent"] = strftime("%H:%M",$tcell[$itc]["times"])." ** " . strftime("%H:%M",$tcell[$itc]["timee"]);
-	      $tcell[$itc]["cellcontent"] = "";
- 	      //$tcell[$itc]["cellcontent"] = $tcell[$itc]["cellref"] .":".$tcell[$itc]["timee"] ;
-            $itc++;
-	    }
-          $lcell->SetBlockData("CELLS", $tcell);
-          $thr[$nl]["C_LINE"] =  $lcell->Gen();
-	  $nl++;
-        }
+  for ($h=$hstart-1; $h<=($hstop+1); $h++) {
+    if ($h<$hstart || $h>$hstop) $ndiv = 1;
+    else $ndiv = $hdiv;
+    $mdiv = round(SEC_PER_HOUR/$ndiv);
+    for ($hd=0; $hd<$ndiv; $hd++) {
+      $thr[$nl]["LID"] = $nl;
+      $thr[$nl]["HLINEHOURS"] = $hhight;
+      $thr[$nl]["HCLASS"] = "WGCAL_DayHours";
+      if ($h==($hstart-1) || $h==$hstop+1) 
+	$thr[$nl]["HOURR"] = "";
+      else if ($hd==0) {
+	$thr[$nl]["HOURR"] = ($h==($hstart-1)?"":$h)."H00";
+	$thr[$nl]["HCLASS"] = "WGCAL_DayHours";
+      } else {
+	$thr[$nl]["HOURR"] = printhdiv(($h==($hstart-1)?"":$h), $ndiv,$hd);
+	$thr[$nl]["HCLASS"] = "WGCAL_DayMin";
+      }
+      $tcell = array();
+      $itc = 0;
+      for ($id=0; $id<$ndays; $id++) {
+	if ($id>6) $mo = $id;
+	else $mo = $id % 7;
+	$tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
+	$tcell[$itc]["urlroot"] = $urlroot;
+	if ($h==($hstart-1)) $tcell[$itc]["nh"] = 1;
+	else $tcell[$itc]["nh"] = 0;
+	$tcell[$itc]["times"] = d2s($firstWeekDay+($id*SEC_PER_DAY)+($h*SEC_PER_HOUR)+ ($hd*$mdiv), "%s");
+	$tcell[$itc]["timee"] = $tcell[$itc]["times"] + (($hd==0?1:$hd) * $mdiv) - 1;
+	$tcell[$itc]["rtime"] = d2s($firstWeekDay+($id*SEC_PER_DAY), "%a %d %B %Y, ");
+	$tcell[$itc]["rtime"] .= d2s($tcell[$itc]["times"],"%H:%M")." - ";
+	$tcell[$itc]["rtime"] .= d2s($tcell[$itc]["timee"],"%H:%M");
+	$tcell[$itc]["lref"] = "L".$nl;
+	$tcell[$itc]["cref"] = "D".$id;
+	$tcell[$itc]["cclass"] = $class[$id];
+	$tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
+	$tcell[$itc]["hourclass"] = $classh[$id];
+	$tcell[$itc]["cellcontent"] = "";
+// 	$tcell[$itc]["cellcontent"] = $h."/".$hd." ".strftime("%H:%M",$tcell[$itc]["times"])." " . strftime("%H:%M",$tcell[$itc]["timee"]);
+	$itc++;
+      }
+      $lcell->SetBlockData("CELLS", $tcell);
+      $thr[$nl]["C_LINE"] =  $lcell->Gen();
+      $nl++;
     }
+  }
+
   $action->lay->SetBlockData("HOURS", $thr);
   $action->lay->SetBlockData("DAYS", $tabdays);
-
+  
   $action->lay->set("DAYCOUNT", $ndays);
   $action->lay->set("HCOUNT", (($hstop - $hstart + 1) * $hdiv ) + 1 ); // Minutes
   $action->lay->set("HSTART", ($hstart - 1)); // Minutes
   $action->lay->set("IDSTART", "D0H0");
   $action->lay->set("IDSTOP", "D".($ndays-1)."H".($nl-1));
- 
+  
   $action->lay->set("WGCAL_U_HLINETITLE", $action->GetParam("WGCAL_U_HLINETITLE", 20));
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
-
-  $events=getAgendaEvent($action, $ress );
-//   $events = array(
-// 		  array( "IDSTART" => "DOHO", 
-// 			 "ID" => 8001, 
-// 			 "ABSTRACT" => strftime("%d/%m %H:%M",1105974000)."<br>".strftime("%d/%m %H:%M",1105981200),
-// 			 "START" => 1105974000,  
-// 			 "END" => 1105981200,
-// 			 "SHIFT" => 0),
-// 		  array( "IDSTART" => "DOHO", 
-// 			 "ID" => 8003, 
-// 			 "ABSTRACT" => strftime("%d/%m %H:%M",1105974000)."<br>".strftime("%d/%m %H:%M",1105984800),
-// 			 "START" => 1105974000,  
-// 			 "END" => 1105984800,
-// 			 "SHIFT" => 1),
-// 		  array( "IDSTART" => "DOHO", 
-// 			 "ID" => 8002, 
-// 			 "START" => 1106218800,  
-// 			 "END" => 1106222400,
-// 			 "SHIFT" => 0)
-//		  );
+  
+  $events=getAgendaEvent($action, $ress, 
+			 d2s($firstWeekDay, "%Y-%m-%d %H:%M:%S"),
+			 d2s($edate, "%Y-%m-%d %H:%M:%S") );
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
 }
 
 
 function getAgendaEvent(&$action,$tress,$d1="",$d2="") {
-  //  print_r2($tress);
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
-  $rid=array();
-  foreach ($tress as $k=>$v) {
-    if ($v->id>0) $rid[]=$v->id;
+  $tout=array(); 
+  $it=0;
+  foreach ($tress as $kr=>$vr) {
+    echo "ressource : ".$vr->id."(".$vr->color.") <br>";
+    setHttpVar("idres",$vr->id);
+    $dre=new Doc($dbaccess,$reid);
+    $edre=$dre->getEvents($d1,$d2);
+    foreach ($edre as $k=>$v) {
+      $tout[]=array("REF" => $k,
+		    "ID" => $v["evt_idinitiator"],
+		    "ABSTRACT" => $v["evt_title"],
+		    "START" => FrenchDateToUnixTs($v["evt_begdate"]),
+		    "END" => FrenchDateToUnixTs($v["evt_enddate"]),
+		    "COLOR" => $vr->color,
+		    "SHIFT"=>0);
+
+      $it++;
+    }
   }
-  //  print_r2($rid);
-  if (count($rid) == 0) return _("no ressource detected");
-  setHttpVar("idres",implode('|',$rid));
-  $dre=new Doc($dbaccess,$reid);
-  $edre=$dre->getEvents($d1,$d2);
-  $tout=array();
-  foreach ($edre as $k=>$v) {
-    $tout[]=array("IDSTART" => "DOHO", 
-		  "ID" => $v["evt_frominitiatorid"],
-		  "ABSTRACT" => $v["evt_desc"],
-		  "START" => jdtounix(StringDateToJD($v["evt_begdate"])),
-		  "END" => jdtounix(StringDateToJD($v["evt_enddate"]))+3600,
-		  "SHIFT"=>0);
-		  
-  }
-  //print count($edre);
-  //print_r2($tout);
+  //print_r2( $tout );
   return $tout;
 }
 

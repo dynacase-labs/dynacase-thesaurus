@@ -27,19 +27,19 @@ WGCalViewInit('[IDSTART]', '[IDSTOP]', '[DAYCOUNT]', '[HCOUNT]', '[HSTART]');
 </script>
 
 [BLOCK EVENTS]
-<div id="evt[ID]" 
-     onclick="subwindow(300, 500, 'EditEvent[ID]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[rvevtid]');"  
-     onmouseover="WGCalEvOnMouseOver(event, '[ID]');" 
-     onmouseout="WGCalEvOnMouseOut(event, '[ID]');" 
-    style="cursor:pointer; overflow:hidden; border:0px; display:none">
-<div id="evth[ID]" style="border:0px inset; background-color:grey;"></div>
-<div id="evta[ID]" style="overflow:hidden; cursor:crosshair; background-color:white; border:1px inset blue ">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=R]</div>
-<div id="evtf[ID]" style="border:0px outset; background-color:grey;"></div>
+<div id="evt[REF]" 
+     onclick="subwindow(300, 500, 'EditEvent[REF]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[ID]');"  
+     onmouseover="WGCalEvOnMouseOver(event, '[REF]');" 
+     onmouseout="WGCalEvOnMouseOut(event, '[REF]');" 
+    style="cursor:pointer; border:0px; display:none">
+<div id="evth[REF]" style="border:0px inset; background-color:grey;"></div>
+<div id="evta[REF]" style="overflow:hidden; cursor:pointer; background-color:[COLOR]; border:1px inset blue ">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=R]</div>
+<div id="evtf[REF]" style="border:0px outset; background-color:grey;"></div>
 </div>
-<div id="evtc[ID]" style="display:none; border:1px outset; background-color:#CCFFFF;">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=F]</div>
+<div id="evtc[REF]" style="display:none; border:1px outset; background-color:[COLOR]">[ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&vi=F]</div>
 [ENDBLOCK EVENTS]
 <script type="text/javascript">
-[BLOCK EVENTSSC]WGCalAddEvent('[IDSTART]', [ID], [START], [END], [SHIFT]);
+[BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END], [SHIFT]);
 [ENDBLOCK EVENTSSC]
 </script>
 

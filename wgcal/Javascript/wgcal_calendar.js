@@ -277,7 +277,8 @@ function AddNewEvent(ev, c) {
 
 }
 
-function WGCalAddEvent(id, evtid, dstart, dend) {
+// --------------------------------------------------------
+function WGCalAddEvent(evtid, dstart, dend, shift) {
   EventCount++;
   Event[EventCount] = new Array();
   for (i=0; i<arguments.length; i++) {
@@ -290,31 +291,29 @@ function WGCalAddEvent(id, evtid, dstart, dend) {
 function WGCalDisplayEvent(iev, newEvent) {
 
   id     = Event[iev][0];
-  evtid  = Event[iev][1];
-  dstart = Event[iev][2];
-  dend   = Event[iev][3];
-  shift  = Event[iev][4];
-  
+  dstart = Event[iev][1];
+  dend   = Event[iev][2];
+  shift  = Event[iev][3];
   if (dend<dstart) {
     t = dend;
     dend = dstart;
     dstart = t;
   }
   root = document.getElementById(Root);
-  evtElt = document.getElementById('evt'+evtid);
-  evtHeadElt = document.getElementById('evth'+evtid);
-  evtFootElt = document.getElementById('evtf'+evtid);
-  evtAbstractElt = document.getElementById('evta'+evtid);
-  evtcElt = document.getElementById('evtc'+evtid);
+  evtElt = document.getElementById('evt'+id);
+  evtHeadElt = document.getElementById('evth'+id);
+  evtFootElt = document.getElementById('evtf'+id);
+  evtAbstractElt = document.getElementById('evta'+id);
+  evtcElt = document.getElementById('evtc'+id);
 
   pstart = GetCoordFromDate(dstart);
   pend   = GetCoordFromDate(dend);
 
   x = Math.round(pstart.x) + (shift*Wshift);
-  //x = Math.round(pstart.x);
-  y = Math.round(pstart.y);
+  y = Math.round(pstart.y) + Ys;
   h = Math.round(pend.y - pstart.y);
   w = Math.round(Wevt);
+  //alert(' YS='+Ys+' x='+x+' y='+y+' h='+h+' w='+w)
 
   foot = head = 3;
   content = h - foot - head;

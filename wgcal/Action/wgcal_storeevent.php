@@ -102,7 +102,7 @@ function wgcal_storeevent(&$action) {
   $changed = true;
   // if ($changed) mail_rv($action, $event);
 
-  redirect($action, "WGCAL","WGCAL_EDITEVENT&evt=".$event->id);
+  redirect($action, "WGCAL","WGCAL_CALENDAR");
 }
 
 function wgcal_getArrayVal($key, $def=null) {

@@ -57,5 +57,6 @@ ATTR;EVFC_REPEATUNTIL;EVFC_REPEAT;Répéter jusqu'à;N;N;enum;40;W;;;-;[hcheck]0|in
 ATTR;EVFC_REPEATUNTILDATE;EVFC_REPEAT;Date;N;N;timestamp;50;W;;;;;
 ATTR;EVFC_EXCLUDEDATE;EVFC_REPEAT;Dates exclues;N;N;timestamp;60;W;;;;;
 ;;;;;;;;;;;;;
+END;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;

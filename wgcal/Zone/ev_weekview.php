@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.1 2005/01/20 11:07:12 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.2 2005/01/27 12:06:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -22,22 +22,25 @@ function ev_weekview(&$action) {
   default: $layf = "ev_weekview_full.xml"; 
   }
 
-  //echo "Rendez vous $ev vue $vi <br>";
-
   $action->layout = $action->GetLayoutFile($layf);
   $action->lay = new Layout($action->layout, $action);
   switch ($vi) {
-  case "R":  ev_weekview_resume(); break;
-  default: ev_weekview_full(); 
+  case "R":  $r = ev_weekview_resume($action, $ev); break;
+  default: $r = ev_weekview_full($action, $ev); 
   }
-  $action->lay->set("CONTENT", "[$ev::$vi]");
-
+  return $r;
 }
 
-function ev_weekview_resume() {
+function ev_weekview_resume(&$action, $ev) {
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $evg = new Doc($dbaccess, $ev);
+  $action->lay->set("START", $evg->getValue("CALEV_START"));
+  $action->lay->set("END", $evg->getValue("CALEV_END"));
+  $action->lay->set("TITLE", $evg->getValue("CALEV_EVTITLE"));
 }
 
-function ev_weekview_full() {
+function ev_weekview_full(&$action, $ev) {
+  ev_weekview_resume($action, $ev);
 }
 
 ?>
