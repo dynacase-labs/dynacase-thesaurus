@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.34 2003/05/27 12:30:37 eric Exp $
+// $Id: editutil.php,v 1.35 2003/05/28 14:36:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,8 +45,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
     if ($index == -1) $attrin.='[-1]';
     else $attrin.='[]';
   }
-  $visibility=$oattr->mvisibility;
-
+  if (isset($oattr->mvisibility)) $visibility=$oattr->mvisibility;
+  else $visibility=$oattr->visibility;
  
   $idisabled = " disabled readonly title=\""._("read only")."\" ";
   $input="";

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.35 2003/05/23 15:30:03 eric Exp $
+// $Id: modcard.php,v 1.36 2003/05/28 14:36:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -149,6 +149,11 @@ function modcard(&$action, &$ndocid) {
   $doc->refresh();
 
   $err=$doc-> PostModify(); 
+  // add trace to know when and who modify the document
+
+  $doc->Addcomment( sprintf(_("change by %s"),
+			    $action->user->firstname." ".$action->user->lastname));
+  
   $err.=$doc-> Modify(); 
   // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
   $doc->unlock(true); // disabled autolock
@@ -295,9 +300,7 @@ function moddefcard(&$action) {
       //print $k.":".$v."<BR>";
       
       if ($k[0] == "_") // freedom attributes  begin with  _
-	{
-
-	  
+	{	  
 	  $attrid = substr($k,1);
 	  if (is_array($v)) {
 	    if (isset($v["-1"])) {
@@ -312,6 +315,27 @@ function moddefcard(&$action) {
 	}      
     }
 
+  
+  // ------------------------------
+  // update POSGRES files values
+  while(list($k,$v) = each($HTTP_POST_FILES) )    {
+      if ($k[0] == "_") // freedom attributes  begin with  _
+	{	  
+	  $k=substr($k,1);
+
+	      
+	  $filename=insert_file($dbaccess,$doc->id,$k);
+	
+	      
+	      
+	  if ($filename != "")
+	    {
+	      if (substr($k,0,4) == "UPL_") $k=substr($k,4);
+	      $tdefattr[]="$k|$filename";		  	    	  
+	    }
+	}
+    }
+  
 
   $cdoc = new Doc($dbaccess, $classid);
   $cdoc->defval = "[".implode("][",$tdefattr)."]";

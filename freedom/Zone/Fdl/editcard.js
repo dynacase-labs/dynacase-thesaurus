@@ -373,7 +373,7 @@ function visibilityinsert(n,d) {
 function selecttr(tr) {
 
   if (seltr) {
-    seltr.style.backgroundColor='inherit';
+    seltr.style.backgroundColor='';
     
   } else {
     
@@ -392,7 +392,7 @@ function selecttr(tr) {
 function unseltr() {
 
   if (seltr) {
-    seltr.style.backgroundColor='inherit';
+    seltr.style.backgroundColor='';
     
     visibilityinsert('insertup','hidden');
   }

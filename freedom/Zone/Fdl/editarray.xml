@@ -12,7 +12,7 @@
 <td class="und" align="left" colspan="[footspan]">
   <img  title="[TEXT:unselect]" align="bottom" onclick="unseltr()" src="[IMG:next22.gif]">
   <img name="insertup" style="visibility:hidden" title="[TEXT:insert up]" align="top" onclick="movetr(this.parentNode.parentNode)" src="[IMG:up22.gif]">
-  <img title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]">
+  <img  name="insertup" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]">
   <img src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;">
 </td><td>&nbsp;</td></tr>
   </tbody>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editattr.php,v 1.7 2003/04/08 12:44:10 eric Exp $
+// $Id: editattr.php,v 1.8 2003/05/28 14:36:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,7 +42,6 @@ function editattr(&$action) {
 
   // Set the globals elements
 
-
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if ($docid == 0) $doc = new Doc($dbaccess, $classid);
@@ -57,31 +56,7 @@ function editattr(&$action) {
 
   return;
 
-  $listattr = $doc->GetAttributes();
-    
-    
-
-  // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
-
-    while (list($k,$v) = each($listattr)) {
-
-
-	//------------------------------
-	  // Set the table value elements
-      $value = chop($doc->GetValue($v->id));
-	
-	
-	
-	$action->lay->Set("V_".$v->id,
-			  getHtmlInput($doc,
-				       $v, 
-				       $value));
-      
-      $action->lay->Set("L_".$v->id,$v->labeltext);
-      
-      
-    }
-  
+ 
   
 }
 
