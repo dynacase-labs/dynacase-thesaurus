@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.4 2002/03/14 18:13:22 eric Exp $
+// $Id: enum_choice.php,v 1.5 2002/06/18 14:24:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,7 +28,6 @@ include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
 
 function enum_choice(&$action) {
-  
 
   // list of choice to be insert in attribute values
 
@@ -45,6 +44,9 @@ function enum_choice(&$action) {
   $doc= new Doc($dbaccess,$docid);
   $oattr= $doc->GetAttribute($attrid);
 
+  if (! $oattr) 
+    $action->exitError(sprintf(_("unknown attribute %s"), $attrid));
+
 
   if (! include_once("EXTERNALS/$oattr->phpfile")) {
     $action->exitError(sprintf(_("the external pluggin file %s cannot be read"), $oattr->phpfile));
@@ -54,6 +56,7 @@ function enum_choice(&$action) {
 
   if (! ereg("(.*)\((.*)\)\:(.*)", $oattr->phpfunc, $reg))
     $action->exitError(sprintf(_("the pluggins function description '%s' is not conform"), $oattr->phpfunc));
+
 
   $rargids = split(",",$reg[3]); // return args
   
@@ -68,6 +71,7 @@ function enum_choice(&$action) {
     else if ($v == "T") $arg[$k]= &$this;
     else $arg[$k]= GetHttpVars("_".$v,"");
   }
+
   $res = call_user_func_array($reg[1], $arg);
 
 
