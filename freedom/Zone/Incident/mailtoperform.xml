@@ -1,6 +1,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <HTML>
 <head>
+<BASE href="[CORE_ABSURL]">
 <style type="text/css">
   * {    
     font-family:arial, helvetica;
@@ -21,7 +22,7 @@
 <div class="otto" >
 <P>
 Objet : Demande de traitement</P>
-<P>L'incident <A HREF="[CORE_ABSURL]/[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id=[ID]">[TITLE]</a>  doit être traité.</P>
+<P>L'incident <A HREF="[CORE_PUBURL]/[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id=[ID]">[TITLE]</a>  doit être traité.</P>
 <table  width="100%" cellspacing="0">
 <tbody>
   [ZONE FDL:VIEWFRAME?frameid=IN_FR_IDENT]
