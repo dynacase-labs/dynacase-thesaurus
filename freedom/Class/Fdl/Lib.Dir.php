@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.24 2002/08/09 16:51:46 eric Exp $
+// $Id: Lib.Dir.php,v 1.25 2002/08/20 14:05:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -160,7 +160,7 @@ function getChildDoc($dbaccess,
 	  $qsql= "{$ldocsearch[0]->query} ".
 	     $sqlcond.$sqlcondpriv.
 	     " order by doc.title LIMIT $slice OFFSET $start;";
-	$qsql= str_replace("select *", "select distinct doc.* $sqlwvalue ", $qsql);
+	$qsql= str_replace(array("select *","select doc.*"), "select distinct doc.* $sqlwvalue ", $qsql);
 	break;
 	}
       } else {
@@ -169,7 +169,7 @@ function getChildDoc($dbaccess,
     }
   }
   
-  //     print "<HR>".$qsql;
+  //    print "<HR>".$qsql;
   $query = new QueryDb($dbaccess,"Doc");
   
   
