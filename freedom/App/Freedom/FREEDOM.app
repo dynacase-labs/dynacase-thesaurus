@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.5 2002/07/16 08:35:01 eric Exp $
+// $Id: FREEDOM.app,v 1.6 2002/07/30 12:37:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,10 +34,6 @@ $app_desc = array (
 );
 
 $app_acl = array (
-  array(
-   "name"		=>"ADMIN",
-   "description"	=>N_("Access To All Users"),
-   "admin"		=>TRUE),
   array(
    "name"               =>"FREEDOM_MASTER",
    "description"        =>N_("Access Management Database")),
