@@ -3,7 +3,7 @@
  * List document of a category
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.17 2004/06/23 14:08:24 eric Exp $
+ * @version $Id: generic_tab.php,v 1.18 2004/06/28 16:05:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,6 +38,8 @@ function generic_tab(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   $famid = getDefFam($action);
+  if ($famid == "0") $action->exitError(_("cookies seem to be blocked"));
+
   $fdoc = new DocFam($dbaccess,$famid);
   if ($dirid == 0) {
     if ($fdoc->cfldid > 0) {

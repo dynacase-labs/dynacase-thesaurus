@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.14 2004/05/06 09:32:36 eric Exp $
+ * @version $Id: generic_util.php,v 1.15 2004/06/28 16:05:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.14 2004/05/06 09:32:36 eric Exp $
+// $Id: generic_util.php,v 1.15 2004/06/28 16:05:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,7 @@ function getDefFam(&$action) {
 
   $famid = $action->GetParam("DEFAULT_FAMILY", 1); 
   if ($famid==1) {
-    $famid=$action->Read("DEFAULT_FAMILY", 1);
+    $famid=$action->Read("DEFAULT_FAMILY", 0);
     $action->parent->SetVolatileParam("DEFAULT_FAMILY",$famid);
   }
   
