@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.2 2002/09/16 14:42:10 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.3 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.2 2002/09/16 14:42:10 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.3 2002/09/30 11:46:44 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -38,8 +38,15 @@ define ("traited", "traited");     # N_("traited")
 define ("rejected", "rejected");   # N_("rejected")
 define ("closed", "closed");       # N_("closed")
 define ("suspended", "suspended");       # N_("suspended")
-define ("Tsimple", "Tsimple");       # N_("Tsimple")
-define ("Tfinal", "Tfinal");       # N_("Tfinal")
+
+
+define ("Trecorded",  "Trecorded");   # N_("Trecorded")
+define ("Tqualified", "Tqualified");  # N_("Tqualified")
+define ("Tanalyzed",  "Tanalyzed");   # N_("Tanalyzed")
+define ("Ttraited",   "Ttraited");    # N_("Ttraited")
+define ("Trejected",  "Trejected");   # N_("Trejected")
+define ("Tclosed",    "Tclosed");     # N_("Tclosed")
+define ("Tsuspended", "Tsuspended");  # N_("Tsuspended")
 
 
 Class WDocIncident extends WDoc
@@ -52,79 +59,89 @@ Class WDocIncident extends WDoc
   var $attrPrefix="IWF"; // prefix attribute
 
 
-    var $transitions = array(Tsimple =>array("m1"=>"",
-					     "m2"=>"SendMailAndProfil"),
-			     Tfinal =>array("m1"=>"",
-					    "m2"=>"SendMailAndProfil"));
+    var $transitions = array(Trecorded =>array("m1"=>"",
+					       "m2"=>"SendMailByState"),
+			     Tqualified =>array("m1"=>"",
+					       "m2"=>"SendMailByState"),
+			     Tanalyzed =>array("m1"=>"",
+					       "m2"=>"SendMailByState"),
+			     Ttraited =>array("m1"=>"",
+					       "m2"=>"SendMailByState"),
+			     Trejected =>array("m1"=>"",
+					       "m2"=>""),
+			     Tsuspended =>array("m1"=>"",
+					       "m2"=>""),
+			     Tclosed =>array("m1"=>"",
+					     "m2"=>""));
     var $cycle = array(
 			  array("e1"=>"",
 				"e2"=>recorded, 
-				"t"=>Tsimple),			  
+				"t"=>Trecorded),			  
 
 			  array("e1"=>recorded,
 				"e2"=>qualified,
-				"t"=>Tsimple),			  
+				"t"=>Tqualified),			  
 
 			  array("e1"=>recorded,
 				"e2"=>rejected,
-				"t"=>Tsimple),
+				"t"=>Trejected),
 
 			  array("e1"=>recorded,
 				"e2"=>suspended,
-				"t"=>Tsimple),
+				"t"=>Tsuspended),
 
 			  array("e1"=>recorded,
 				"e2"=>traited,
-				"t"=>Tsimple),
+				"t"=>Ttraited),
 
 			  array("e1"=>qualified,
 				"e2"=>analyzed,
-				"t"=>Tsimple),
+				"t"=>Tanalyzed),
 
 			  array("e1"=>qualified,
 				"e2"=>suspended,
-				"t"=>Tsimple),
+				"t"=>Tsuspended),
 			 
 
 			  array("e1"=>analyzed,
 				"e2"=>traited,
-				"t"=>Tsimple),
+				"t"=>Ttraited),
 
 			  array("e1"=>analyzed,
 				"e2"=>suspended,
-				"t"=>Tsimple),
+				"t"=>Tsuspended),
 
 			  array("e1"=>qualified,
 				"e2"=>rejected,
-				"t"=>Tsimple),			  
+				"t"=>Trejected),			  
 
 			  array("e1"=>qualified,
 				"e2"=>traited,
-				"t"=>Tsimple),
+				"t"=>Ttraited),
 
 			  array("e1"=>traited,
 				"e2"=>analyzed,
-				"t"=>Tsimple),
+				"t"=>Tanalyzed),
 
 			  array("e1"=>traited,
 				"e2"=>closed, 
-				"t"=>Tfinal),
+				"t"=>Tclosed),
 
 			  array("e1"=>analyzed,
 				"e2"=>qualified,
-				"t"=>Tsimple),
+				"t"=>Tqualified),
 
 			  array("e1"=>suspended,
 				"e2"=>traited, 
-				"t"=>Tsimple),
+				"t"=>Ttraited),
 
 			  array("e1"=>suspended,
 				"e2"=>analyzed, 
-				"t"=>Tsimple),
+				"t"=>Tanalyzed),
 
 			  array("e1"=>suspended,
 				"e2"=>qualified, 
-				"t"=>Tsimple));
+				"t"=>Tqualified));
 				    
 
 
@@ -176,11 +193,7 @@ Class WDocIncident extends WDoc
   }
   
 
-  function  SendMailAndProfil($newstate) {
-    $err=$this->SendMailByState($newstate);
-
-    return $err;
-  }
+  
 
   function sendmail($addr,  $object="Freedom", $body="") {
     if ($addr != "") {

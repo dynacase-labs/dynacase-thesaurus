@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.8 2002/09/25 08:36:06 eric Exp $
+// $Id: generic_edit.php,v 1.9 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@ function generic_edit(&$action) {
 
   // Get All Parameters
   $docid = GetHttpVars("id",0);        // document to edit
-  $famid = GetHttpVars("classid",getDefFam($action)); // use when new doc or change class
+  $classid = GetHttpVars("classid",getDefFam($action)); // use when new doc or change class
 
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
 
@@ -54,10 +54,15 @@ function generic_edit(&$action) {
 
   if ($docid == 0)
     {
-      $action->lay->Set("TITLE", _("new usercard"));
+    if ($classid > 0) {
+      $cdoc= new Doc($dbaccess,$classid);
+      $action->lay->Set("TITLE", sprintf(_("new %s"),$cdoc->title));
+    } else {
+      $action->lay->Set("TITLE",_("new card"));
+    }
       $action->lay->Set("editaction", $action->text("create"));
-      $doc= createDoc($dbaccess,$famid);
-      if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$famid));
+      $doc= createDoc($dbaccess,$classid);
+      if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
     }
   else
     {    
@@ -67,7 +72,7 @@ function generic_edit(&$action) {
       $err = $doc->lock(true); // autolock
       if ($err != "")   $action->ExitError($err);
 
-      $famid = $doc->fromid;
+      $classid = $doc->fromid;
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
   
 
@@ -86,7 +91,7 @@ function generic_edit(&$action) {
 
  
   // information propagation
-  $action->lay->Set("classid", $famid);
+  $action->lay->Set("classid", $classid);
   $action->lay->Set("dirid", $dirid);
   $action->lay->Set("id", $docid);
     

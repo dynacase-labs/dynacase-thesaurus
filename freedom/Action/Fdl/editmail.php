@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editmail.php,v 1.4 2002/08/09 08:47:28 eric Exp $
+// $Id: editmail.php,v 1.5 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/editmail.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,6 +35,11 @@ function editmail(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
+
+  // control sending
+  $err=$doc->control('send');
+  if ($err != "") $action->exitError($err);
+
   $action->lay->Set("mid",$docid);
   $action->lay->Set("mzone",$zone);
   $action->lay->Set("szone",$szone);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.57 2002/09/26 15:45:15 eric Exp $
+// $Id: Class.Doc.php,v 1.58 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.57 2002/09/26 15:45:15 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.58 2002/09/30 11:46:44 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -717,6 +717,7 @@ create unique index i_docir on doc(initid, revision);";
   // the attribute can be defined in fathers
   function GetImportAttributes()
     {      
+
       $tsa=array();
       if (!isset($this->attributes)) $this->GetAttributes();
       
@@ -740,6 +741,7 @@ create unique index i_docir on doc(initid, revision);";
 	  $tsa[$v->id]=$v;
 	}
       }
+      uasort($tsa,"tordered"); 
       return $tsa;      
     }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.3 2002/08/22 07:00:27 eric Exp $
+// $Id: barmenu.php,v 1.4 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,7 +48,8 @@ function barmenu(&$action) {
     popupActive("newmenu",1,'newfld'); 
     popupActive("newmenu",1,'newprof');
     popupActive("newmenu",1,'newfam');
-    popupActive("newmenu",1,'import'); 
+    if ($action->HasPermission("FREEDOM_MASTER"))    popupActive("newmenu",1,'import'); 
+    else popupInvisible("newmenu",1,'import');
     popupActive("searchmenu",1,'newsearch');
     if ($action->GetParam("FULLTEXT_SEARCH") == "yes") popupActive("searchmenu",1,'newsearchfulltext');
     else popupInvisible("searchmenu",1,'newsearchfulltext');

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.9 2002/09/26 08:30:51 eric Exp $
+// $Id: mailcard.php,v 1.10 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,9 +25,24 @@
 include_once("FDL/viewbodycard.php");
 include_once("Class.MailAccount.php");
 
-// -----------------------------------
+
 // -----------------------------------
 function mailcard(&$action) {
+  // -----------------------------------
+
+  $docid = GetHttpVars("id"); 
+  
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $doc = new Doc($dbaccess, $docid);
+
+  // control sending
+  $err=$doc->control('send');
+  if ($err != "") $action->exitError($err);
+
+  sendmailcard($action);  
+}
+// -----------------------------------
+function sendmailcard(&$action) {
   // -----------------------------------
   global $ifiles;
   global $vf; 
@@ -49,6 +64,7 @@ function mailcard(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
+
 
   $title = str_replace(array(" ","/"), "_",$doc->title);
   $vf = new VaultFile($dbaccess, "FREEDOM");
@@ -74,7 +90,13 @@ function mailcard(&$action) {
   if (ereg("html",$format, $reg)) {
     // ---------------------------
     // contruct HTML mail
-    $docmail = new Layout($action->GetLayoutFile($layout),$action);
+    if ($action->parent->name == "FDL")
+      $docmail = new Layout($action->GetLayoutFile($layout),$action);
+    else {
+      $appl = new Application();
+      $appl->Set("FDL",	     $action->parent);
+      $docmail = new Layout($appl->GetLayoutFile($layout),$action);
+    }
 
     $docmail->Set("TITLE", $title);
     $docmail->Set("zone", $zonebodycard);
@@ -202,14 +224,15 @@ print ($cmdpdf);
     }
   }  
 
-   print ($cmd);
   system ($cmd, $status);
 
   if ($status == 0)  {
     $doc->addcomment(sprintf(_("sended to %s"), $to));
     $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to));
+  } else {
+    print ($cmd);
+    $action->addlogmsg(sprintf(_("%s cannot be sent"),$title));
   }
-  else $action->addlogmsg(sprintf(_("%s cannot be sent"),$title));
 
   
   // suppress temporaries files

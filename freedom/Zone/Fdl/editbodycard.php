@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.10 2002/09/25 08:36:06 eric Exp $
+// $Id: editbodycard.php,v 1.11 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,21 +56,12 @@ function editbodycard(&$action) {
   if ($docid == 0)    {
 	
     // new document
-    switch ($classid) {
-    case 2:
-      $action->lay->Set("TITLE", _("new directory"));
-    break;
-    case 3:	  
-    case 4:	  
-      $action->lay->Set("TITLE", _("new profile"));
-    break;
-    default:
-      $action->lay->Set("TITLE", _("new document"));
-    }
+
     $action->lay->Set("editaction", $action->text("create"));
 
     if ($classid > 0) {
       $cdoc= new Doc($dbaccess,$classid);
+      $action->lay->Set("TITLE", sprintf(_("new %s"),$cdoc->title));
       $doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class
       if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
       

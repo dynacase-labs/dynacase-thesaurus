@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD_init.php.in,v 1.6 2002/05/27 14:54:14 eric Exp $
+// $Id: USERCARD_init.php.in,v 1.7 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,6 +33,12 @@ $app_const= array(
   "DEFAULT_FLD" => "121",
   "CARD_SLICE_LIST" => array("val"=>"8",
 			     "user"=>"Y"),
+  "IDFAM_SOCIETY"   =>array("val"=>"124",
+			    "global"=>"Y",
+			      "descr"=>N_("society familly id")),
+  "IDFAM_SITE"   =>array("val"=>"126",
+			 "global"=>"Y",
+			 "descr"=>N_("site familly id")),
   "LDAP_SERVEUR" => "localhost",
   "LDAP_PORT" => "389",
   "LDAP_ROOT" => "o=Anakeen,c=fr",

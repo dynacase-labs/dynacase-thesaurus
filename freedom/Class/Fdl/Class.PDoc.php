@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.PDoc.php,v 1.1 2002/09/17 16:57:58 eric Exp $
+// $Id: Class.PDoc.php,v 1.2 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.1 2002/09/17 16:57:58 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.2 2002/09/30 11:46:44 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -40,6 +40,9 @@ Class PDoc extends Doc
 			      "name"		=>"view",
 			      "description"	=>"view document", // N_("view document")
 			      "group_default"       =>"Y"),
+			array(
+			      "name"               =>"send",
+			      "description"        =>"send document"),// N_("send document")
 			array(
 			      "name"               =>"edit",
 			      "description"        =>"edit document"),// N_("edit document")

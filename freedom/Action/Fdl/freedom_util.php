@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.15 2002/09/25 08:36:06 eric Exp $
+// $Id: freedom_util.php,v 1.16 2002/09/30 11:46:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -144,6 +144,12 @@ function createDoc($dbaccess,$fromid) {
 
 }
 
-
+// use to usort attributes
+function tordered($a, $b) {
+	if ($a->ordered == $b->ordered) return 0;
+	if ($a->ordered > $b->ordered) return 1;
+	return -1;
+	
+}
 
 ?>
