@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-02 09:06+0000\n"
+"POT-Creation-Date: 2005-02-15 16:49+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -178,10 +178,6 @@ msgid "new profile document"
 msgstr ""
 
 #, c-format
-msgid "%s has been deleted"
-msgstr ""
-
-#, c-format
 msgid "document id %d not found"
 msgstr ""
 
@@ -195,6 +191,10 @@ msgid "new profile"
 msgstr ""
 
 msgid "new document"
+msgstr ""
+
+#, c-format
+msgid "%s has been deleted"
 msgstr ""
 
 msgid "new familly document"
@@ -715,83 +715,6 @@ msgstr ""
 msgid "Delete %d in %s folder"
 msgstr ""
 
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
-#, fuzzy
-msgid "no filename"
-msgstr "Firstname"
-
-#, c-format
-msgid "parameters for %s state"
-msgstr ""
-
-#, c-format
-msgid "id %s profile"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s profile"
-msgstr "Category"
-
-#, c-format
-msgid "id %s mask"
-msgstr ""
-
-#, c-format
-msgid "%s mask"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr ""
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state : %s to %s"
-msgstr "Category"
-
-#, c-format
-msgid "%s new state %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr "Category"
-
 #, fuzzy, c-format
 msgid "untitle %s %d"
 msgstr "Update Title Cards"
@@ -869,6 +792,10 @@ msgstr ""
 msgid "vault file error"
 msgstr ""
 
+#, fuzzy
+msgid "no filename"
+msgstr "Firstname"
+
 #, c-format
 msgid "cannot control : object not initialized : %s"
 msgstr ""
@@ -880,6 +807,79 @@ msgstr ""
 #, c-format
 msgid "new %s"
 msgstr ""
+
+msgid "uncomplete request"
+msgstr ""
+
+msgid "request not found"
+msgstr ""
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+#, c-format
+msgid "parameters for %s state"
+msgstr ""
+
+#, c-format
+msgid "id %s profile"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s profile"
+msgstr "Category"
+
+#, c-format
+msgid "id %s mask"
+msgstr ""
+
+#, c-format
+msgid "%s mask"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr ""
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state : %s to %s"
+msgstr "Category"
+
+#, c-format
+msgid "%s new state %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr "Category"
 
 msgid "not perm for admin"
 msgstr ""
@@ -2535,6 +2535,10 @@ msgid "for"
 msgstr "Delete"
 
 #, fuzzy
+msgid "specific import"
+msgstr "Import"
+
+#, fuzzy
 msgid "import file:"
 msgstr "Import"
 
@@ -2757,6 +2761,14 @@ msgid "Archive import in progress"
 msgstr ""
 
 #, fuzzy
+msgid "master choose families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "choose user families"
+msgstr "Start search"
+
+#, fuzzy
 msgid "set as first family view"
 msgstr "Organisation"
 
@@ -2766,14 +2778,6 @@ msgstr "Category"
 
 #, fuzzy
 msgid "No family first"
-msgstr "Start search"
-
-#, fuzzy
-msgid "master choose families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "choose user families"
 msgstr "Start search"
 
 msgid "Generic Management"
