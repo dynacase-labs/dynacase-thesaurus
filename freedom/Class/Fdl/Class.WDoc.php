@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.14 2003/01/24 14:10:46 eric Exp $
+// $Id: Class.WDoc.php,v 1.15 2003/01/30 10:24:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.14 2003/01/24 14:10:46 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.15 2003/01/30 10:24:59 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -114,8 +114,8 @@ Class WDoc extends Doc {
       $oattr->id=strtolower($aidprofilid);
       $oattr->labeltext=sprintf(_("id %s profile"),_($state));
       $oattr->link="";
-      $oattr->phpfile="fdl.php";
-      $oattr->phpfunc="gettitle(D,$aidprofilid):$aprofilid";
+      //      $oattr->phpfile="fdl.php";
+      // $oattr->phpfunc="gettitle(D,$aidprofilid):$aprofilid";
       $oattr->Add();
 
       $oattr->ordered++;
