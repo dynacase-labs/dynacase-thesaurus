@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.79 2004/11/19 09:55:05 eric Exp $
+ * @version $Id: import_file.php,v 1.80 2004/12/13 17:15:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -253,11 +253,15 @@ function add_import_file(&$action, $fimport="") {
       // -----------------------------------
     case "METHOD":
 
-      if ($data[1][0]=="+") {
+      $s1=$data[1][0];
+      if (($s1=="+")||($s1=="*")) {
+	if ($s1=="*") $method=$data[1];
+	else $method=substr($data[1],1);
+
 	if ($doc->methods == "") {
-	  $doc->methods =  substr($data[1],1);
+	  $doc->methods =  $method;
 	} else {
-	  $doc->methods .= "\n".substr($data[1],1);
+	  $doc->methods .= "\n$method";
 	  // not twice
 	  $tmeth = explode("\n",$doc->methods);
 	  $tmeth=array_unique($tmeth);

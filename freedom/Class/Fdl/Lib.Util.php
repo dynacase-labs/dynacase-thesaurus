@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.3 2004/11/26 14:18:50 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.4 2004/12/13 17:15:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,35 +40,156 @@ function toIso8601($fdate,$wtz=false) {
 
   return $isoDate;
 }
-/**
- * convert French date to iso8601
- * @param string $fdate DD/MM/YYYY HH:MM:SS
- * @return Date object date
- */
-function toDate($fdate) {
-  //"^([0-9]{2})/([0-9]{2})/([0-9]{4})[ ]?(([0-2][0-9]):([0-9]{2}):?([0-9]{0,2}))? ?([A-Z]{3,4})?$"
-  if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s(\d\d)?:?(\d\d)?:?(\d\d)?\s+?(\w+)?$/", $fdate,$reg)) {   
+
+
+
+function FrenchDateToJD($fdate) {
+ if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$reg)) {   
     $isoDate=sprintf("%04d-%02d-%02d %02d:%02d:%02d",
 		     $reg[3],$reg[2],$reg[1],$reg[4],$reg[5],$reg[6]);
     if ($reg[8]!="") $tz=$reg[7];
+
+
+  return cal2jd("CE",  $reg[3], $reg[2], $reg[1], $reg[4],$reg[5] , 0 );
   }
-    // ISO 8601
-  $d=new Date($isoDate);
-  if ($tz) $d->setTZbyID($tz);
+}
+function cal2jd( $era, $y, $m, $d, $h, $mn, $s ) {
+  if (($y>1969) && ($y<2038)) {
+    $nd=unixtojd(mktime($h,$mn,$s,$m,$d,$y));
+    $nm=(($h*60+$mn)-720)/1440;
+    $nd+=round($nm,3);
+    return $nd;
+  } else {	
+    
+    if( $y == 0 ) {
+      AddWarningMsg("There is no year 0 in the Julian system!");
+      return "invalid";
+    }
+    if( $y == 1582 && $m == 10 && $d > 4 && $d < 15 && $era != "BCE" ) {
+      AddWarningMsg("The dates 5 through 14 October, 1582, do not exist in the Gregorian system!");
+      return "invalid";
+    }
 
-  return $d;
+    if( $era == "BCE" ) $y = -$y + 1;
+	if( $m > 2 ) {
+		$jy = $y;
+		$jm = $m + 1;
+	} else {
+		$jy = $y - 1;
+		$jm = $m + 13;
+	}
+
+	$intgr = floor( floor(365.25*$jy) + floor(30.6001*$jm) + $d + 1720995 );
+
+	//check for switch to Gregorian calendar
+	$gregcal = 15 + 31*( 10 + 12*1582 );
+	if( $d + 31*($m + 12*$y) >= $gregcal ) {
+		$ja = floor(0.01*$jy);
+		$intgr += 2 - $ja + floor(0.25*$ja);
+	}
+
+	//correct for half-day offset
+	$dayfrac = $h/24.0 - 0.5;
+	if( $dayfrac < 0.0 ) {
+		$dayfrac += 1.0;
+		$intgr--;
+	}
+
+	//now set the fraction of a day
+	$frac = $dayfrac + ($mn + $s/60.0)/60.0/24.0;
+
+    //round to nearest second
+    $jd0 = ($intgr + $frac)*100000;
+    $jd  = floor($jd0);
+    if( $jd0 - $jd > 0.5 ) $jd++;
+    return $jd/100000;
+    
+  }
+  return "Date Error";
 }
 
-function DatetoMinute($d) {
-  return $d->minute+((Date_Calc::dateToDays($d->day,$d->month,$d->year)*24)+$d->hour)*60;
-}
-function MinutetoDate($n) {
-  $m= fmod($n,1440);
-  $d = floor($n/1440);
+function jd2cal( $jd,$dformat='' ) {
 
-  return sprintf("%s, %02d:%02d",Date_Calc::daysToDate($d),
-		 floor($m/60),fmod($m, 60));
+
+  //
+  // get the date from the Julian day number
+  //
+   $intgr   = floor($jd);
+   $frac    = $jd - $intgr;
+   $gregjd  = 2299160.5;
+  if( $jd >= $gregjd ) {				//Gregorian calendar correction
+     $tmp = floor( ( ($intgr - 1867216.0) - 0.25 ) / 36524.25 );
+    $j1 = $intgr + 1 + $tmp - floor(0.25*$tmp);
+  } else
+    $j1 = $intgr;
+
+  //correction for half day offset
+  $df = $frac + 0.5;
+  if( $df >= 1.0 ) {
+    $df -= 1.0;
+    $j1++;
+  }
+
+  $j2 = $j1 + 1524.0;
+  $j3 = floor( 6680.0 + ( ($j2 - 2439870.0) - 122.1 )/365.25 );
+  $j4 = floor($j3*365.25);
+  $j5 = floor( ($j2 - $j4)/30.6001 );
+
+  $d = floor($j2 - $j4 - floor($j5*30.6001));
+  $m = floor($j5 - 1.0);
+  if( $m > 12 ) $m -= 12;
+  $y = floor($j3 - 4715.0);
+  if( $m > 2 )   $y--;
+  if( $y <= 0 )  $y--;
+
+  //
+  // get time of day from day fraction
+  //
+  $hr  = floor($df * 24.0);
+  $mn  = floor(($df*24.0 - $hr)*60.0);
+  $f  = (($df*24.0 - $hr)*60.0 - $mn)*60.0;
+  $sc  = floor($f);
+  $f -= $sc;
+  if( $f > 0.5 ) $sc++;
+  if( $sc == 60 ) {
+    $sc = 0;
+    $mn++;
+  }
+  if( $mn == 60 )  {
+    $mn = 0;
+    $hr++;
+  }
+  if( $hr == 24 )  {
+    $hr = 0;
+    $d++;            //this could cause a bug, but probably will never happen in practice
+  }
+
+  if( $y < 0 ) {
+    $y = -$y;
+    $ce=' BCE';
+    // form.era[1].checked = true;
+  } else {
+    $ce='';
+    //   form.era[0].checked = true;
+  }
+
+  switch ($dformat) {
+  case 'M':
+    $retiso8601=$m;
+    break;
+  case 'Y':
+    $retiso8601=$y;
+    break;
+  case 'd':
+    $retiso8601=$d;
+    break;
+  default:
+    $retiso8601=sprintf("%04d-%02d-%02s %02d:%02d%s",
+			$y,$m,$d,$hr,$mn,$ce);
+  }
+  return $retiso8601;
 }
+  
 
 
 

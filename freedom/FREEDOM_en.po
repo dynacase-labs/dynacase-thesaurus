@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-22 09:29+0000\n"
+"POT-Creation-Date: 2004-12-01 09:49+0000\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -713,6 +713,77 @@ msgstr ""
 msgid "request not found"
 msgstr ""
 
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+#, fuzzy
+msgid "no filename"
+msgstr "Firstname"
+
+#, c-format
+msgid "parameters for %s state"
+msgstr ""
+
+#, c-format
+msgid "id %s profile"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s profile"
+msgstr "Category"
+
+#, c-format
+msgid "id %s mask"
+msgstr ""
+
+#, c-format
+msgid "%s mask"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr ""
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state : %s to %s"
+msgstr "Category"
+
+#, c-format
+msgid "%s new state %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr "Category"
+
 #, fuzzy, c-format
 msgid "untitle %s %d"
 msgstr "Update Title Cards"
@@ -790,10 +861,6 @@ msgstr ""
 msgid "vault file error"
 msgstr ""
 
-#, fuzzy
-msgid "no filename"
-msgstr "Firstname"
-
 #, c-format
 msgid "cannot control : object not initialized : %s"
 msgstr ""
@@ -805,73 +872,6 @@ msgstr ""
 #, c-format
 msgid "new %s"
 msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
-#, c-format
-msgid "parameters for %s state"
-msgstr ""
-
-#, c-format
-msgid "id %s profile"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s profile"
-msgstr "Category"
-
-#, c-format
-msgid "id %s mask"
-msgstr ""
-
-#, c-format
-msgid "%s mask"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr ""
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state : %s to %s"
-msgstr "Category"
-
-#, c-format
-msgid "%s new state %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr "Category"
 
 msgid "not perm for admin"
 msgstr ""
@@ -982,6 +982,10 @@ msgstr ""
 
 #, c-format
 msgid "the date %s is in the past: today is %s"
+msgstr ""
+
+#, c-format
+msgid "query [%s] not valid for select document"
 msgstr ""
 
 msgid "the login must not be empty"
@@ -1124,6 +1128,9 @@ msgid "and"
 msgstr "Add new contact card"
 
 msgid "or"
+msgstr ""
+
+msgid "id owner"
 msgstr ""
 
 #, fuzzy
@@ -3072,32 +3079,6 @@ msgstr "Created by"
 msgid "view abstract card"
 msgstr "Start search"
 
-msgid "to"
-msgstr ""
-
-#, fuzzy
-msgid "unchanged"
-msgstr "Start search"
-
-#, fuzzy
-msgid "revision comment"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Tounchanged"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "revision comment for autorevision"
-msgstr "Organisation"
-
-msgid "Transition parameters"
-msgstr ""
-
 #, fuzzy
 msgid "select"
 msgstr "Delete"
@@ -3135,6 +3116,32 @@ msgstr "Category"
 #, fuzzy
 msgid "current folder"
 msgstr "Modify"
+
+msgid "to"
+msgstr ""
+
+#, fuzzy
+msgid "unchanged"
+msgstr "Start search"
+
+#, fuzzy
+msgid "revision comment"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Tounchanged"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "revision comment for autorevision"
+msgstr "Organisation"
+
+msgid "Transition parameters"
+msgstr ""
 
 #, fuzzy
 msgid "manual date"

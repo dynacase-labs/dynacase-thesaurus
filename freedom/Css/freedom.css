@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.61 2004/11/19 09:55:05 eric Exp $
+ * $Id: freedom.css,v 1.62 2004/12/13 17:15:05 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -250,6 +250,7 @@ TABLE.rows TBODY TR TD {
   border-style:solid;
 }
 
+
 TABLE.tarray  TR TD {  
   border-width:0px 0px 1px 0px;	 
   border-color:[CORE_BGCOLORALTERN]; 
@@ -492,6 +493,7 @@ DIV.button {
 DIV.button:hover {
 	border:outset [CORE_BGCOLORALTERN] 2pt;
 }
+
 
 SPAN.selected {
   cursor: pointer;
