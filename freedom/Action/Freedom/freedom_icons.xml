@@ -28,13 +28,14 @@ IMG.unselect {
 }
 IMG.select {
   border-style: hidden;
-  border-width: 3;
+  border-width: 1px;
   border-color: [CORE_FGCOLOR];
   width:40;
   height:40;  
   background-color:[CORE_BGCOLORALTERN];
   border-style : solid;
   cursor: crosshair;
+  -moz-border-radius:25px;
 }
 
 

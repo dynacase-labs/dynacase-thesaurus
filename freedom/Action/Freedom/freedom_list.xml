@@ -39,6 +39,7 @@ TD.tlist {
    border-width : 1px;
    border-style : dashed none none none;
    border-color : [CORE_BGCOLOR];
+   font-size: [CORE_FONTBASESIZE];
 }
 
 TR.unselect {
@@ -100,9 +101,9 @@ TR.select {
      [title]
 
 </td>
-     <td class="tlist"  width="40" style="font-size:80%"><I>[revdate]</I></td>
+     <td class="tlist"  width="40" ><I style="font-size:80%">[revdate]</I></td>
      <td class="tlist"  width="20">[locked]</td>
-     <td class="tlist"  width="20"><sup style="font-size:50%">[revision]</sup></td>
+     <td class="tlist"  width="20" ><sup style="font-size:80%">[revision]</sup></td>
 
     
 </tr>

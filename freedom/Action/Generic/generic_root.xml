@@ -2,12 +2,12 @@
 <html>
 <head>
 
-<title>[WHAT] [TEXT:Incident Management]</title>
+<title>[WHAT] [TEXT:Generic Management]</title>
 
 </head>
 
 
-<frameset frameborder="1" framespacing="5" border="5" cols="40%,*" >
+<frameset frameborder="1" framespacing="3" border="3" cols="40%,*" >
 
 
   <frame name="flist" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&tab=0&dirid=[DEFAULT_FLD]&viewfld=no&refresh=no" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
