@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_adoc.php,v 1.10 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: fdl_adoc.php,v 1.11 2003/12/30 10:12:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,20 +40,25 @@ $docid = GetHttpVars("docid",0); // special docid
 	
 $query = new QueryDb($dbaccess,"DocFam");
 $query ->AddQuery("doctype='C'");
-$query->order_by="fromid";
+$query->order_by="id";
 
   
-if ($docid > 0) $query->AddQuery("id=$docid");
-      
+if ($docid > 0) {
+  $query->AddQuery("id=$docid");
+  $tid = $query->Query(0,0,"TABLE");
+} else {
+  // sort id by dependance
+  $table1 = $query->Query(0,0,"TABLE");
+  $tid=array();
+  pushfam(0, $tid, $table1);  
+}      
 
     
-$table1 = $query->Query(0,0,"TABLE");
-
 if ($query->nb > 0)	{
 
   $pubdir = $appl->GetParam("CORE_PUBDIR");
 
-  while(list($k,$v) = each($table1))   {	     
+  foreach ($tid as $k=>$v)   {	     
     //    print AttrtoPhp($dbaccess,$v->id);
     print "$pubdir/FDLGEN/Class.Doc".$v["id"].".php\n";
     createDocFile($dbaccess,$v);
@@ -70,5 +75,18 @@ if ($query->nb > 0)	{
   
 }      
     
+
+// recursive sort by fromid
+function pushfam($fromid, &$tid, $tfam) {
+  
+  foreach($tfam as $k=>$v) {
+   
+    if ($v["fromid"]==$fromid) {
+      $tid[$v["id"]]=$v;
+     
+      pushfam($v["id"],$tid,$tfam);
+    }
+  }
+}
 
 ?>
