@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.4 2002/11/25 16:23:02 eric Exp $
+// $Id: Lib.Attr.php,v 1.5 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,6 +30,10 @@ function AttrToPhp($dbaccess, $tdoc) {
 
 
   
+  if ($tdoc["classname"] == "") { // defualt classname
+    if ($tdoc["fromid"] == 0)  $tdoc["classname"]="DocFile";
+    else    $tdoc["classname"]="Doc".$tdoc["fromid"];
+  }
 
 
   $phpAdoc->Set("docid", $tdoc["id"]);
@@ -196,7 +200,7 @@ function createDocFile($dbaccess, $tdoc) {
   $pubdir = GetParam("CORE_PUBDIR");
   $dfile = "$pubdir/FDLGEN/Class.Doc".$tdoc["id"].".php";
 
-  print $dfile."\n";
+
   $fphp=fopen($dfile,"w");
   if ($fphp) {
       fwrite($fphp,AttrtoPhp($dbaccess,$tdoc));

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.28 2002/11/25 16:23:02 eric Exp $
+// $Id: viewfolder.php,v 1.29 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -160,8 +160,9 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
 	$tdoc[$k]["title"] = $doc->title;
-	if (strlen($doc->title) > 20)	$tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)."... ".substr($doc->title,-5);
-	else $tdoc[$k]["abrvtitle"] = $doc->title;
+	if (strlen($doc->title) > 20)	$tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)." ... ".substr($doc->title,-5);
+	else $tdoc[$k]["abrvtitle"] =  $doc->title;
+
 	$tdoc[$k]["profid"] = $doc->profid;
 	$tdoc[$k]["revdate"] = strftime ($fdate, $doc->revdate);
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.13 2002/11/22 18:08:22 eric Exp $
+// $Id: search.php,v 1.14 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,8 +128,8 @@ function search(&$action) {
 
 
   if ($keyword != "") {
-    if ($sensitive) $filters[] = "values ~ '.*$keyword.*' ";
-    else $filters[] = "values ~* '.*$keyword.*' ";
+    if ($sensitive) $filters[] = "values ~ '$keyword' ";
+    else $filters[] = "values ~* '$keyword' ";
   }
  
   

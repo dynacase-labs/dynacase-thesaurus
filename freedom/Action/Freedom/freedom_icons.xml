@@ -52,7 +52,7 @@ DIV.icon{
   border-style:none;
   border-color:[CORE_FGCOLOR];
   visibility : hidden;
-
+  overflow : hidden;
 }
 
 

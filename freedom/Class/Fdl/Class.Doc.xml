@@ -41,8 +41,8 @@ declare
 begin
 [BLOCK ATTRFIELD2]
 if not NEW.[attrid] isnull then
-  NEW.values := NEW.values || ''^'' || NEW.[attrid];
-  NEW.attrids := NEW.attrids || ''^'' || ''[attrid]'';
+  NEW.values := NEW.values || ''£'' || NEW.[attrid];
+  NEW.attrids := NEW.attrids || ''£'' || ''[attrid]'';
 end if;[ENDBLOCK ATTRFIELD2]
 
   return NEW;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.40 2002/11/26 13:53:46 eric Exp $
+// $Id: Lib.Dir.php,v 1.41 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,8 +58,8 @@ function getChildDir($dbaccess, $userid, $dirid, $notfldsearch=false, $restype="
     } else {
       // with folder and searches
       
-      return  array_merge(getChildDoc($dbaccess,$dirid,"0","ALL",array(),$userid,$restype,2),
-			  getChildDoc($dbaccess,$dirid,"0","ALL",array(),$userid,$restype,5));
+      return  array_merge(getChildDoc($dbaccess,$dirid,"0","ALL",array("doctype='D'"),$userid,$restype,2),
+			  getChildDoc($dbaccess,$dirid,"0","ALL",array("doctype='S'"),$userid,$restype,5));
       
     }
       
@@ -207,7 +207,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+    print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
   
 
 
@@ -379,7 +379,7 @@ function GetClassesDoc($dbaccess,$userid,$classid=1)
       $query->AddQuery("(id = ".FAM_DIR.")");
       break;
     default:	
-      $query->AddQuery("(id = 1) OR (id > 5)");
+      $query->AddQuery("usefor != 'P'");
     }
     //      $query->AddQuery("initid=id");
   }

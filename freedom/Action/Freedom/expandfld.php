@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.9 2002/11/06 15:59:27 eric Exp $
+// $Id: expandfld.php,v 1.10 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -86,7 +86,7 @@ function expandfld(&$action) {
       if ($doc["owner"] < 0) $ftype=3;
       else if ($doc["doctype"] == 'D') $ftype=1;
       else if ($doc["doctype"] == 'S') $ftype=2;
-      
+      else continue; // it 'is not a folder
       $hasChild='false';
       if ($doc["doctype"] != 'S') {
 	// no child for a search

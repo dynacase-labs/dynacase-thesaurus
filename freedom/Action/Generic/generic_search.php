@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.10 2002/11/18 16:41:57 eric Exp $
+// $Id: generic_search.php,v 1.11 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -68,7 +68,7 @@ function generic_search(&$action) {
 
 
   $sqlfilter[]= "doctype='F'";
-  $sqlfilter[]= "values ~* '.*$keyword.*' ";
+  $sqlfilter[]= "values ~* '$keyword' ";
 
   $query=getSqlSearchDoc($dbaccess, 
 			 $sdirid,  

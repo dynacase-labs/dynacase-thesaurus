@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.9 2002/11/22 18:08:22 eric Exp $
+// $Id: modattr.php,v 1.10 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,7 +76,7 @@ function modattr(&$action) {
 
       if (GetHttpVars("classid") >0) {
 	$cdoc = new Doc($dbaccess,GetHttpVars("classid") );
-	$doc->classname = $cdoc->classname;
+	$doc->classname = "";
 	$doc->profid = $cdoc->cprofid; // inherit father profile
       }
       $doc-> Add();

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.6 2002/10/31 08:09:23 eric Exp $
+// $Id: viewframe.php,v 1.7 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -75,7 +75,7 @@ function viewframe(&$action) {
       // Set the table value elements
 	if ($v->visibility != "H")	{	
 	  // don't see  non abstract if not
-	    if (( !$abstract) || ($v->abstract == "Y")) {
+	    if (( !$abstract) || ($v->isInAbstract)) {
 	      $tval[$k]["alabel"]=  $v->labelText;;
 	      $tval[$k]["avalue"]=  $doc->GetHtmlValue($v,$value,$target,$ulink);
 	    }

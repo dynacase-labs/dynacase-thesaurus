@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.30 2002/11/25 16:23:02 eric Exp $
+// $Id: import_file.php,v 1.31 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -66,14 +66,17 @@ function add_import_file(&$action, $fimport="") {
 	$doc  =new DocFam($dbaccess);
 	if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
 
-	$doc->fromid = $data[1];
-
-	$doc->title =  $data[2];  
-	if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
-	if (isset($data[4]) && ($data[3] != "")) $doc->classname = $data[4]; // new classname for familly
-
 	$err = $doc->Add();
       }
+      $doc->fromid = $data[1];
+
+      $doc->title =  $data[2];  
+     
+      if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
+      if (isset($data[4])) $doc->classname = $data[4]; // new classname for familly
+
+      if (isset($data[5])) $doc->name = $data[5]; // internal name
+
 
 
     if ($err != "") $gerr="\nline $nline:".$err;
@@ -87,6 +90,7 @@ function add_import_file(&$action, $fimport="") {
       if ($analyze) continue;
       $action->log->debug("add ");
       if (($num > 3) && ($data[3] != "")) $doc->doctype = "S";
+
       $doc->modify();
 
       if (isset($data[2])) {
@@ -101,7 +105,7 @@ function add_import_file(&$action, $fimport="") {
 
       
       if (  $doc->doctype=="C") {
-	print "createDocFile ".$doc->id;
+
 	createDocFile($dbaccess, get_object_vars($doc)); 
 	$msg=PgUpdateFamilly($dbaccess, $doc->id);
       }

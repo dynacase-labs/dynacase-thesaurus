@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.3 2002/11/22 18:08:22 eric Exp $
+// $Id: Class.DocFam.php,v 1.4 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.3 2002/11/22 18:08:22 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.4 2002/11/28 18:19:21 eric Exp $';
 include_once('FDL/Class.DocFile.php');
 
 Class DocFam extends DocFile {
@@ -34,7 +34,8 @@ Class DocFam extends DocFile {
   var $sqlcreate = "
 create table docfam (cprofid int , 
                      dfldid int, 
-                     ddocid int, 
+                     ddocid int,
+                     name text,
                      methods text) inherits (doc);
 create unique index idx_idfam on docfam(id);";
 
@@ -48,6 +49,7 @@ create unique index idx_idfam on docfam(id);";
      $this->fields["cprofid"]="cprofid";
      $this->fields["ddocid"] ="ddocid";
      $this->fields["methods"]="methods";
+     $this->fields["name"]="name";
      DocFile::DocFile($dbaccess, $id, $res, $dbid);
      
      

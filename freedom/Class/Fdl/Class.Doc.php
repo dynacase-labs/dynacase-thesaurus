@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.71 2002/11/25 11:03:26 eric Exp $
+// $Id: Class.Doc.php,v 1.72 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.71 2002/11/25 11:03:26 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.72 2002/11/28 18:19:21 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -461,7 +461,7 @@ create unique index i_docir on doc(initid, revision);";
   function GetProfileDoc()
     // --------------------------------------------------------------------
     {
-      include_once("FDL/Class.Doc{$this->defProfFamId}.php");
+      include_once("FDLGEN/Class.Doc{$this->defProfFamId}.php");
       $query = new QueryDb($this->dbaccess, "Doc".$this->defProfFamId);
       
 
@@ -675,7 +675,7 @@ create unique index i_docir on doc(initid, revision);";
 	      $aout = explode(",",$reg[2]);
 	      while (list($ka,$va) = each($aout)) {
 		$ra = $this->GetAttribute($va);
-		if ($ra) $tsa[$va]=$ra;
+		if ($ra) $tsa[strtolower($va)]=$ra;
 	      }
 	
       
@@ -683,6 +683,8 @@ create unique index i_docir on doc(initid, revision);";
 	  $tsa[$v->id]=$v;
 	}
       }
+
+
       uasort($tsa,"tordered"); 
       return $tsa;      
     }
@@ -717,6 +719,7 @@ create unique index i_docir on doc(initid, revision);";
   function PostUpdate() {
     global $gdocs;// optimize for speed :: reference is not a pointer !!
     $gdocs[$this->id]=&$this;
+    
   }
 
   // recompute the title from attribute values
@@ -777,10 +780,15 @@ create unique index i_docir on doc(initid, revision);";
       if (($value != ""))  {
 	// change only if different
 	$attrid = strtolower($attrid);
+	$value=trim($value);// suppress white spaces end & begin
 
-	$this->$attrid=trim($value); // suppress white spaces end & begin
-	//		print "change $attrid  to $value<BR>";
-	$this->hasChanged=true;
+
+
+	if (empty($this->$attrid) || ($this->$attrid != $value)) 	  {
+	  $this->hasChanged=true;
+	}
+	  $this->$attrid=($value); 
+	  //		print "change $attrid  to $value<BR>";
 	
       }      
     }
@@ -794,8 +802,8 @@ create unique index i_docir on doc(initid, revision);";
   // add values present in values field
   function GetMoreValues()  {      
     if (isset($this->values)) {
-      $tvalues = explode("^",$this->values);
-      $tattrids = explode("^",$this->attrids);
+      $tvalues = explode("£",$this->values);
+      $tattrids = explode("£",$this->attrids);
       
       while(list($k,$v) = each($tvalues)) {
 	$attrid = $tattrids[$k];
@@ -811,7 +819,7 @@ create unique index i_docir on doc(initid, revision);";
   // reset values present in values field
   function ResetMoreValues()  {      
     if (isset($this->values)) {
-      $tattrids = explode("^",$this->attrids);
+      $tattrids = explode("£",$this->attrids);
       
       while(list($k,$v) = each($tattrids)) {
 	$attrid = $tattrids[$k];
@@ -967,8 +975,7 @@ create unique index i_docir on doc(initid, revision);";
 
     $this->SpecRefresh();
 	
-
-    $this->modify(); // refresh title
+    if ($this->hasChanged)    $this->modify(); // refresh title
 	
   }
   

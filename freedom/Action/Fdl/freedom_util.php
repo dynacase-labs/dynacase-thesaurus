@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.23 2002/11/22 18:08:22 eric Exp $
+// $Id: freedom_util.php,v 1.24 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -180,4 +180,22 @@ function tordered($a, $b) {
 	
 }
 
+
+
+function getFamIdFromName($dbaccess, $name) {
+  global $tFamIdName;
+
+  if (! isset($tFamIdName)) {
+    $q = new QueryDb($dbaccess, "DocFam");
+    $ql=$q->Query(0,0,"TABLE");
+    
+    while(list($k,$v) = each($ql)) {
+      $tFamIdName[$v["name"]]=$v["id"];
+    }
+  }
+
+  if (isset($tFamIdName[$name])) return $tFamIdName[$name];
+  return 0; 
+  
+}
 ?>

@@ -78,8 +78,10 @@ function refreshfld(dirid) {
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td  >
- <input type="button" value=[editaction] onclick="if  (!canmodify()) return false;;enableall();if (document.modifydoc.onsubmit) document.modifydoc.onsubmit();document.isSubmitted=true;document.modifydoc.submit();setTimeout('refreshfld([dirid])',20)"> 
- <input id="iSubmit" type="submit" value=[editaction] onclick="if (!canmodify()) return false;enableall();document.isSubmitted=true;setTimeout('refreshfld([dirid])',20);return true"> 
+ <input type="button" value="don't push"
+        onclick="if  (!canmodify()) return false;;enableall();if (document.modifydoc.onsubmit) document.modifydoc.onsubmit();document.isSubmitted=true;document.modifydoc.submit();setTimeout('refreshfld([dirid])',20)"> 
+ <input id="iSubmit" type="submit" value="[editaction]"
+        onclick="if (!canmodify()) return false;enableall();document.isSubmitted=true;setTimeout('refreshfld([dirid])',20);return true"> 
   </td>
   <td>&nbsp;</td>
   <td  align="right">

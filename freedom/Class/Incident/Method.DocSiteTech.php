@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocSiteTech.php,v 1.1 2002/11/04 09:13:17 eric Exp $
+// $Id: Method.DocSiteTech.php,v 1.2 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocSiteTech.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function SpecRefresh() {
   }
 
   // contracts():SI_IDCONTRATS,SI_CONTRATS
-  $famid=getParam("IDFAM_CONTRACT");
+  $famid=getFamIdFromName($this->dbaccess,"CONTRACT");
   $filter[]="in_textlist(co_idsites, $this->id)";
   $contract = getChildDoc($this->dbaccess, 0,0,"ALL", $filter,$action->user->id,"TABLE",$famid);
   $idc=array();

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.8 2002/11/26 13:53:46 eric Exp $
+// $Id: Class.WDoc.php,v 1.9 2002/11/28 18:19:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.8 2002/11/26 13:53:46 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.9 2002/11/28 18:19:21 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -96,7 +96,7 @@ Class WDoc extends Doc {
 
     // create frame attribute
 
-      $oattr->id=$this->attrPrefix."_FR_PROFIL";
+      $oattr->id=strtolower($this->attrPrefix."_FR_PROFIL");
       $oattr->type="frame";
       $oattr->ordered=100;
       $oattr->labeltext=_("state profile");
