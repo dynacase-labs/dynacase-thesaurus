@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.3 2002/06/19 12:32:28 eric Exp $
+// $Id: defattr.php,v 1.4 2002/07/23 13:25:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,7 +55,7 @@ function defattr(&$action)
   if (($docid == 0) && ($classid > 0)) $doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
 
   $selectclass=array();
-  $tclassdoc = $doc->GetClassesDoc($classid);
+  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid);
   while (list($k,$cdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$cdoc->id;
     $selectclass[$k]["classname"]=$cdoc->title;

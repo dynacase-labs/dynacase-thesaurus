@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: edit_search.php,v 1.3 2002/07/16 08:25:08 eric Exp $
+// $Id: edit_search.php,v 1.4 2002/07/23 13:25:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/edit_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: edit_search.php,v $
+// Revision 1.4  2002/07/23 13:25:11  eric
+// getclassesdoc is now a function (no method)
+//
 // Revision 1.3  2002/07/16 08:25:08  eric
 // ajout critère famille pour recherche
 //
@@ -39,6 +42,7 @@
 
 
 
+include_once("FDL/Lib.Dir.php.php");
 
 
 
@@ -54,8 +58,8 @@ function edit_search(&$action) {
   
   $action->lay->Set("dirid", $dir);
   
-  $doc = new Doc($dbaccess);
-  $tclassdoc=$doc->GetClassesDoc();
+
+  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id);
 
   while (list($k,$cdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$cdoc->initid;

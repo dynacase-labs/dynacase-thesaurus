@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.35 2002/07/23 07:33:05 eric Exp $
+// $Id: Class.Doc.php,v 1.36 2002/07/23 13:25:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.35 2002/07/23 07:33:05 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.36 2002/07/23 13:25:11 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -417,41 +417,6 @@ create sequence seq_id_doc start 1000";
     
     return $this->title." - ".$this->revision;
   }
-
- // --------------------------------------------------------------------
-  function GetClassesDoc($classid=1)
-    // --------------------------------------------------------------------
-    {
-      $query = new QueryDb($this->dbaccess,"Doc");
-
-      
-      $query->AddQuery("doctype='C'");
-
-      $cdoc = new Doc($this->dbaccess, $classid);
-      if ($cdoc->useforprof == "t") $query->AddQuery("(useforprof)");
-      else {
-	$query->AddQuery("(not useforprof)");
-      switch ($classid) {
-      case FAM_ACCESSDOC:
-      case FAM_ACCESSDIR:
-      case FAM_ACCESSSEARCH:
-	$query->AddQuery("(useforprof)");
-      break;
-      case FAM_SEARCH:
-	$query->AddQuery("(id = ".FAM_SEARCH.")");
-      break;
-      case FAM_DIR:
-	$query->AddQuery("(id = ".FAM_DIR.")");
-      break;
-      default:	
-		$query->AddQuery("(id = 1) OR (id > 5)");
-      }
-      //      $query->AddQuery("initid=id");
-      }
-      
-		$query->AddQuery("hasviewprivilege(".$this->userid.",doc.profid)");
-      return $query->Query();
-    }
 
 
  // --------------------------------------------------------------------

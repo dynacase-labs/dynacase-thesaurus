@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.3 2002/07/17 13:35:54 eric Exp $
+// $Id: editbodycard.php,v 1.4 2002/07/23 13:25:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -102,7 +102,7 @@ function editbodycard(&$action) {
   
   $selectclass=array();
   
-  $tclassdoc = $doc->GetClassesDoc($classid);
+  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid);
   while (list($k,$icdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$icdoc->initid;
     $selectclass[$k]["classname"]=$icdoc->title;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.2 2002/06/19 12:32:28 eric Exp $
+// $Id: freedom_import.php,v 1.3 2002/07/23 13:25:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,7 +52,7 @@ function freedom_import(&$action) {
   if ($classid == 0) $classid=$tclassdoc[0]->initid;
 
   $doc = new Doc($dbaccess, $classid);
-  $tclassdoc = $doc->GetClassesDoc($classid);
+  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid);
 
   while (list($k,$cdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$cdoc->initid;
