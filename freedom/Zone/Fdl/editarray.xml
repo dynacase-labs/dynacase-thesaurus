@@ -5,15 +5,20 @@
    </tr></thead>
  <tbody id="tbody[attrid]" >
   
-     [BLOCK EATTR]<tr ><td><img  src="[IMG:trash22.gif]"  title="[TEXT:delete]" onclick="deltr(this.parentNode.parentNode);return false;"><img  src="[IMG:up16.gif]"  title="[TEXT:up]" onclick="uptr(this.parentNode.parentNode);return false;"><img  src="[IMG:down16.gif]"  title="[TEXT:down]" onclick="downtr(this.parentNode.parentNode);return false;"></td>
+     [BLOCK EATTR]<tr ><td><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onclick="selecttr(this.parentNode.parentNode);return false;"><img style="visibility:hidden" name="insertup" src="[IMG:up22.gif]"  title="[TEXT:insert up]" onclick="movetr(this.parentNode.parentNode);return false;"></td>
     [BLOCK [bevalue]]<td>[eivalue]</td>[ENDBLOCK [bevalue]]
  </tr>[ENDBLOCK EATTR]
-
+<tr id="lasttr">
+<td class="und" align="left" colspan="[footspan]">
+  <img  title="[TEXT:unselect]" align="bottom" onclick="unseltr()" src="[IMG:next22.gif]">
+  <img name="insertup" style="visibility:hidden" title="[TEXT:insert up]" align="top" onclick="movetr(this.parentNode.parentNode)" src="[IMG:up22.gif]">
+  <img title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]">
+  <img src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;">
+</td><td>&nbsp;</td></tr>
   </tbody>
-   <tfoot><tr style="display:none" id="tnew[attrid]"><td><img  src="[IMG:trash22.gif]"  title="[TEXT:delete]" onclick="deltr(this.parentNode.parentNode);return false;"><img  src="[IMG:up16.gif]"  title="[TEXT:up]" onclick="uptr(this.parentNode.parentNode);return false;"><img  src="[IMG:down16.gif]"  title="[TEXT:down]" onclick="downtr(this.parentNode.parentNode);return false;"></td>
+   <tfoot><tr style="visibility:hidden" id="tnew[attrid]"><td><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onclick="selecttr(this.parentNode.parentNode);return false;"><img  src="[IMG:up22.gif]"  title="[TEXT:insert up]" onclick="movetr(this.parentNode.parentNode);return false;"></td>
     [BLOCK IATTR]<td>[ilabel]</td> [ENDBLOCK IATTR]
    </tr>
-   <tr><td></td><td colspan="[footspan]"><img src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;"></td></tr>
   </tfoot>
 </table>
 

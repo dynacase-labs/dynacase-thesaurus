@@ -246,6 +246,10 @@ function  nodereplacestr(n,s1,s2) {
   }
 }
  
+
+//-------------------------------------------------------------
+// select tr (row table) 
+var seltr=false; 
 function addtr(trid, tbodyid) {
   
   var ntr;
@@ -263,6 +267,15 @@ function addtr(trid, tbodyid) {
 
   nodereplacestr(ntr,'-1',ntable.childNodes.length);
   resizeInputFields(); // need to revaluate input width
+ 
+
+  if (seltr)  {
+    seltr.parentNode.insertBefore(ntr,seltr);
+  } else {
+    var ltr = document.getElementById('lasttr');
+    if (ltr) ltr.parentNode.insertBefore(ntr,ltr);
+  }
+  
 }
 
 // use to delete an article
@@ -337,5 +350,75 @@ function downtr(trnode) {
   return;  
 }
 
+// use to delete an article
+function delseltr() {
+
+
+  if (seltr) {
+    seltr.parentNode.removeChild(seltr);  
+    seltr=false;
+    visibilityinsert('insertup','hidden');
+  }
+  return;
+  
+}
+
+function visibilityinsert(n,d) {
+  var ti = document.getElementsByName(n);
+  for (var i=0; i< ti.length; i++) { 
+    ti[i].style.visibility=d;
+  }
+}
+
+function selecttr(tr) {
+
+  if (seltr) {
+    seltr.style.backgroundColor='inherit';
+    
+  } else {
+    
+    visibilityinsert('insertup','visible');
+  }
+
+  seltr=tr;
+
+  seltr.style.backgroundColor='lightgrey';
+
+
+  return;  
+}
+
+//unselect selected
+function unseltr() {
+
+  if (seltr) {
+    seltr.style.backgroundColor='inherit';
+    
+    visibilityinsert('insertup','hidden');
+  }
+
+  seltr=false;
+
+  return;  
+}
+
+function movetr(tr) {
+
+  var trnode= seltr;
+  var pnode = tr;
+  if (seltr) {  
+
+    while (pnode && (pnode.nodeType != 1)) pnode = pnode.previousSibling; // case TEXT attribute in mozilla between TR ??
+    if (pnode)  {
+      trnode.parentNode.insertBefore(trnode,pnode);
+    
+    }  else {
+      trnode.parentNode.appendChild(trnode); // latest (cyclic)
+    }
+    
+    resetTrInputs(trnode);
+  }
+  return;  
+}
 
 //-----------------------------------------
