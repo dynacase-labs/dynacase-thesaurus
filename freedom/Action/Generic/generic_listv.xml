@@ -59,11 +59,10 @@ var catgid=[catg];
 
 <img id="micon" width="20" height="20"   style="position:absolute;visibility:hidden;z-index:10" border="0" src="FREEDOM/Images/doc.gif">
 
-
-<p align="center">[fldtitle]</p>
-<table class="tablesimple" cellspacing="0" width="100%"><tr>
-<td align="left"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]">[previcon]</a></td>
-<td align="right"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]">[nexticon]</a></td>
+<table class="transparent" cellspacing="0" width="100%"><tr >
+<td align="left" width="30px"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]">[previcon]</a></td>
+<td align="center"><i><b>[fldtitle]</b></i></td>
+<td align="right" width="30px"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]">[nexticon]</a></td>
 </tr></table>
 
 <table class="tablesimple"  width="100%">
@@ -114,7 +113,7 @@ var catgid=[catg];
 </tr>
 </table>
 
-<table class="tablesimple" cellspacing="0" width="100%"><tr>
+<table class="transparent" cellspacing="0" width="100%"><tr>
 <td align="left"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&onglet=[onglet]">[previcon]</a></td>
 <td align="right"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]&onglet=[onglet]">[nexticon]</a></td>
 </tr></table>
