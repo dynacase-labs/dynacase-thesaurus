@@ -192,7 +192,7 @@ function drawFolder(leftSide)
 
   if (this.hreference == "#") {
 
-      doc.write("onMouseDown='if (drag == 0) {selectFolder("+this.id+","+this.refid+");parent.info.location.href=\""+actionviewfile+"&dirid="+this.refid+"\"}'") 
+      doc.write("onMouseDown='if (drag == 0) {selectFolder("+this.id+","+this.refid+");if (buttonNumber(event) == 1) parent.info.location.href=\""+actionviewfile+"&dirid="+this.refid+"\"}'") 
       doc.write("onMouseOver='if (drag == 1) clickOnFolder("+this.id+")'") 
       doc.write("onContextMenu='openMenu(event,\"popfld\","+this.id+");return false'") 
 
