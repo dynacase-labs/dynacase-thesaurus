@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.76 2003/10/09 12:08:43 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.77 2003/11/03 09:04:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.76 2003/10/09 12:08:43 eric Exp $
+// $Id: Lib.Dir.php,v 1.77 2003/11/03 09:04:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -245,7 +245,7 @@ function getChildDoc($dbaccess,
 
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
-  
+ 
   //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
@@ -420,30 +420,6 @@ function hasChildFld($dbaccess, $dirid) {
 }
 
 
-/**
- * return the value of an array item
- *
- * @param array $t the array where get value
- * @param string $k the index of the value
- * @param string $d default value if not found or if it is empty
- * @return string
- */
-function getv($t,$k,$d="") {
-  if (isset($t[$k]) && ($t[$k] != "")) return $t[$k];
-  if (strpos($t["attrids"],"£$k") !== 0) {
-    
-    $tvalues = explode("£",$t["values"]);
-    $tattrids = explode("£",$t["attrids"]);
-      
-      while(list($ka,$va) = each($tattrids)) {
-	if ($va == $k) {
-	  if ($tvalues[$ka]!="") return $tvalues[$ka];
-	  break;
-	}
-      }
-  }
-  return $d;
-}
 
 
 // --------------------------------------------------------------------
