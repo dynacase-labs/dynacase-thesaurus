@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.11 2002/11/04 09:13:17 eric Exp $
+// $Id: editutil.php,v 1.12 2002/11/18 16:41:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,8 @@ include_once("VAULT/Class.VaultFile.php");
 function getHtmlInput(&$doc, &$oattr, $value) {
   global $action;
 
-  $docid=$doc->id;
+  $docid=intval($doc->id);
+  if ($docid== 0) intval($docid=$doc->fromid);
   $attrtype=$oattr->type;
   $attrid=$oattr->id;
   $visibility=$oattr->visibility;

@@ -43,7 +43,7 @@
 <div  id="newmenu" class="popup">
 
 
-[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]&id=&dirid=[DEFAULT_FLD]';closeAllMenu()">[TEXT:Newfam] [stitle]</a>
+[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]&id=&dirid=[DEFAULT_FLD]';closeAllMenu()">[stitle]</a>
 [ENDBLOCK NEWFAM]
 <a  id="newcatg" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITNEWCATG';closeAllMenu()">[TEXT:New category]</a>
 <a  id="imvcard" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>

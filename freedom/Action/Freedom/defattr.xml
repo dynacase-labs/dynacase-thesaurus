@@ -128,7 +128,7 @@
 [ENDBLOCK NEWELEM]
 <tr>
   <td colspan="11" >
- <input type="submit" value="[TEXT:modify]"
+ <input type="submit" value="[TEXT:Validate]"
         onclick="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO'"> 
   </td>
 </tr>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.26 2002/11/06 15:59:27 eric Exp $
+// $Id: import_file.php,v 1.27 2002/11/18 16:41:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -167,15 +167,18 @@ function add_import_file(&$action, $fimport="") {
     case "ATTR":
       if     ($num < 12) print "Error in line $nline: $num cols < 13<BR>";
       $oattr=new DocAttr($dbaccess, array($doc->id,strtolower($data[1])));
-      if ($oattr->isAffected()) $amodify=true;
-      else $amodify=false;
+     
       
       $oattr->docid = $doc->id;
       $oattr->id = strtolower($data[1]);
       $oattr->frameid = strtolower($data[2]);
       $oattr->labeltext=$data[3];
-      $oattr->title = ($data[4] == "Y")?"Y":"N";
-      $oattr->abstract = ($data[5] == "Y")?"Y":"N";
+
+      if (! $oattr->isAffected()) { 
+	// don't change config by admin
+	$oattr->title = ($data[4] == "Y")?"Y":"N";
+	$oattr->abstract = ($data[5] == "Y")?"Y":"N";
+      }
       $oattr->type = $data[6];
 
       $oattr->ordered = $data[7];

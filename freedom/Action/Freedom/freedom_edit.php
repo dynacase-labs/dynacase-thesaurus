@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.9 2002/09/24 15:30:09 eric Exp $
+// $Id: freedom_edit.php,v 1.10 2002/11/18 16:41:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -107,7 +107,7 @@ function freedom_edit(&$action) {
   
 
       $action->lay->Set("TITLE", $doc->title);
-      $action->lay->Set("editaction", $action->text("modify"));
+      $action->lay->Set("editaction", $action->text("Validate"));
       
       // selected the current class document
       while (list($k,$cdoc)= each ($selectclass)) {	

@@ -50,7 +50,7 @@
 
   
  <input align="right" type="button" value="[TEXT:Close]" onclick="self.close()"> 
- <input type="submit" value="[TEXT:modify]"> 
+ <input type="submit" value="[TEXT:Validate]"> 
 
 
 

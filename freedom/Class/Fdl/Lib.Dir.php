@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.35 2002/11/14 10:43:22 eric Exp $
+// $Id: Lib.Dir.php,v 1.36 2002/11/18 16:41:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -176,23 +176,7 @@ function getSqlSearchDoc($dbaccess,
   }
   return $qsql;
 }
-   function microtime_diff($a,$b) {
-    list($a_micro, $a_int)=explode(' ',$a);
-     list($b_micro, $b_int)=explode(' ',$b);
-     if ($a_int>$b_int) {
-        return ($a_int-$b_int)+($a_micro-$b_micro);
-     } elseif ($a_int==$b_int) {
-        if ($a_micro>$b_micro) {
-          return ($a_int-$b_int)+($a_micro-$b_micro);
-        } elseif ($a_micro<$b_micro) {
-           return ($b_int-$a_int)+($b_micro-$a_micro);
-        } else {
-          return 0;
-        }
-     } else { // $a_int<$b_int
-        return ($b_int-$a_int)+($b_micro-$a_micro);
-     }
-  }
+
 function getChildDoc($dbaccess, 
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
@@ -223,7 +207,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
   
 
 
@@ -232,18 +216,7 @@ function getChildDoc($dbaccess,
       return array();
     }
   
-  // add values in comprehensive structure
-//   if ($wvalue) {
-//     if ($qtype=="TABLE") {
-//       while(list($k,$v) = each($tableq)) {
-// 	$tableq[$k] += sqlval2array($v["sqlvalues"]);
-//       } 
-//     } else {
-//       while(list($k,$v) = each($tableq)) {
-// 	$tableq[$k]->values= sqlval2array($v->sqlvalues);
-//      } 
-//    }
-//  }
+
   
   reset($tableq);
   

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.68 2002/11/15 16:17:37 eric Exp $
+// $Id: Class.Doc.php,v 1.69 2002/11/18 16:41:57 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.68 2002/11/15 16:17:37 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.69 2002/11/18 16:41:57 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -67,7 +67,9 @@ Class Doc extends DocCtrl {
 		       "comment",
 		       "classname",
 		       "state",
-		       "wid");
+		       "wid",
+			"values",
+			"attrids");
 
   var $id_fields = array ("id");
 
@@ -97,7 +99,9 @@ create table doc ( id int not null,
                    comment text,
                    classname varchar(64),
                    state varchar(64),
-                   wid int DEFAULT 0
+                   wid int DEFAULT 0,  
+                   values text,  
+                   attrids text
                    );
 create sequence seq_id_doc start 1000;
 create unique index i_docir on doc(initid, revision);";
@@ -1129,12 +1133,15 @@ create unique index i_docir on doc(initid, revision);";
      
           $sql .="drop trigger UVC{$this->fromid} ON doc$this->fromid;
      create trigger UVC{$this->fromid} BEFORE  DELETE  ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE deletevalues();   ";
+     
      while(list($k,$v) = each($this->attributes->fromids)) {
 
       $sql .="drop trigger UV{$this->fromid}_$v ON doc$this->fromid;
-create trigger UV{$this->fromid}_$v AFTER INSERT OR UPDATE ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE upval$v();  
+create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE upval$v();  
       ";
 	}
+          $sql .="drop trigger UVR{$this->fromid} ON doc$this->fromid;
+     create trigger UVR{$this->fromid} BEFORE  UPDATE  ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE resetvalues();   ";
      return $sql;
    }
 

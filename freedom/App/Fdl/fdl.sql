@@ -145,6 +145,16 @@ end;
 ' language 'plpgsql';
 
 
+create or replace function resetvalues() 
+returns opaque as '
+declare 
+begin
+NEW.values:='''';
+NEW.attrids:='''';
+return NEW;
+end;
+' language 'plpgsql';
+
 create or replace function initacl() 
 returns opaque as '
 declare 

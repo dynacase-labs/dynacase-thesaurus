@@ -141,3 +141,25 @@ function autoUnlock(docid) {
     }
   }
 }
+
+function pleaseSave(event) {
+  if ((! document.isSubmitted) && (! document.isCancelled)) {
+    if (confirm('[TEXT:Save changes ?]')) {
+      var bsubmit= document.getElementById('iSubmit');
+
+      var can=bsubmit.onclick.apply(null,[event]);
+
+      if (can) {
+	var fedit= document.getElementById('fedit');
+	fedit.submit();
+      
+      } else {
+	alert('[TEXT:Data cannot be saved]');
+	return false;
+      }
+    }
+  }
+  
+  return true;
+  
+}
