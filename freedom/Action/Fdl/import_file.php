@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.9 2002/05/28 16:33:12 eric Exp $
+// $Id: import_file.php,v 1.10 2002/06/10 09:09:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -160,7 +160,7 @@ function add_import_file(&$action, $fimport="") {
     $oattr->phpfunc = $data[11];
 	  
     $err = $oattr ->Add();
-    if ($err != "") $err = $oattr ->Modify();
+      //    if ($err != "") $err = $oattr ->Modify();
     if ($err != "") $gerr="\nline $nline:".$err;
     break;
     // -----------------------------------

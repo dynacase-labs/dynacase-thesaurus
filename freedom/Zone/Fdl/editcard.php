@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.9 2002/05/29 08:19:26 eric Exp $
+// $Id: editcard.php,v 1.10 2002/06/10 09:09:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -161,7 +161,7 @@ function editcard(&$action) {
   
   //$frames= $query->Query(0,0,"TABLE","select distinct frametext from DocAttr" );
   $frames=array();
-  $listattr = $doc->GetAttributes();
+  $listattr = $doc->GetAttributes(true);
   
   
   
@@ -343,6 +343,7 @@ function editcard(&$action) {
 		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 
 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 		      
 		$tableframe[$v]["inputtype"] .= " > "; 
 		break;
@@ -352,6 +353,7 @@ function editcard(&$action) {
 		$tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 
 
+		if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 		      
 		$tableframe[$v]["inputtype"] .= " > "; 
 		break;

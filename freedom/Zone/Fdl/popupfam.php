@@ -1,0 +1,72 @@
+<?php
+// ---------------------------------------------------------------
+// $Id: popupfam.php,v 1.1 2002/06/10 09:09:40 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
+// ---------------------------------------------------------------
+//  O   Anakeen - 2001
+// O*O  Anakeen development team
+//  O   dev@anakeen.com
+// ---------------------------------------------------------------
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or (at
+//  your option) any later version.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+// for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+// ---------------------------------------------------------------
+
+include_once("FDL/Class.Doc.php");
+// -----------------------------------
+function popupfam(&$action) {
+  // -----------------------------------
+  // ------------------------------
+  // define accessibility
+  $docid = GetHttpVars("id");
+  $abstract = (GetHttpVars("abstract",'N') == "Y");
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $doc = new Doc($dbaccess, $docid);
+  $kdiv=1; // only one division
+
+  $action->lay->Set("id", $docid);
+
+  include_once("FDL/popup_util.php");
+
+
+
+  $lmenu = $doc->GetMenuAttributes();
+  if (! $lmenu) return;
+
+  $tmenu = array();
+  while(list($k,$v) = each($lmenu)) {
+    $tlink[$k]["idlink"] = $v->id;
+    $tlink[$k]["descr"] = $v->labeltext;
+    $tlink[$k]["url"] = $doc->urlWhatEncode($v->link);
+    $tmenu[$k] = $v->id;
+  }
+
+  if (count($tmenu) ==  0) return;
+  // ------------------------------------------------------
+  // definition of popup menu
+  popupInit('popupcard',  $tmenu);
+  
+
+  while(list($k,$v) = each($tmenu)) {
+    if ($tlink[$k]["url"]) Popupactive('popupcard',$kdiv,$v);
+    else PopupInactive('popupcard',$kdiv,$v);
+  }
+
+
+
+
+  popupAddGen($kdiv);
+  $action->lay->SetBlockData("ADDLINK",$tlink);
+  $action->lay->SetBlockData("SEP",array(array("zou")));// to see separatot
+}

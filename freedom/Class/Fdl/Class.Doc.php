@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.24 2002/05/29 08:19:26 eric Exp $
+// $Id: Class.Doc.php,v 1.25 2002/06/10 09:09:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.24 2002/05/29 08:19:26 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.25 2002/06/10 09:09:40 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -538,7 +538,8 @@ create sequence seq_id_doc start 1000";
 
   // return all the attributes object 
   // the attribute can be defined in fathers
-  function GetAttributes()
+    // wonly :: with write only attributes
+    function GetAttributes($wonly=false) 
     {
       if (!isset($this->attributes)) {
 	$query = new QueryDb($this->dbaccess,"DocAttr");
@@ -548,6 +549,8 @@ create sequence seq_id_doc start 1000";
 	$query->AddQuery($sql_cond_doc);
     
 	$query->AddQuery("type != 'frame'");
+	$query->AddQuery("visibility != 'M'"); // not menu attributes (not editable)
+	  if (! $wonly)	$query->AddQuery("visibility != 'O'"); // not readable directly
 	$query->order_by="ordered";
 	$this->attributes=$query->Query();    
       }
@@ -567,6 +570,7 @@ create sequence seq_id_doc start 1000";
       $query->AddQuery("type != 'frame'");
       $query->AddQuery("abstract = 'Y'");
       $query->AddQuery("visibility != 'H'");
+      $query->AddQuery("visibility != 'M'");
       $query->order_by="ordered";
       return $query->Query();      
     }
@@ -591,6 +595,24 @@ create sequence seq_id_doc start 1000";
       return $this->titleattr;
     }
 
+  // return all the attributes object for popup menu
+  // the attribute can be defined in fathers
+  function GetMenuAttributes()
+    {
+      if (isset($this->titleattr)) return $this->titleattr;
+
+      $query = new QueryDb($this->dbaccess,"DocAttr");
+      // initialise query with all fathers doc
+      // 
+      $sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
+      $query->AddQuery($sql_cond_doc);
+    
+      $query->AddQuery("type != 'frame'");
+      $query->AddQuery("visibility = 'M'");
+      $query->order_by="ordered";
+
+      return $query->Query();      
+    }
 
   // recompute the title from attribute values
   function RefreshTitle() {

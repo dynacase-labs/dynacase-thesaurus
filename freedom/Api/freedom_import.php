@@ -9,7 +9,7 @@ $appl->Set("FDL",	     $core);
 
 $action->Set("",$appl);
 
-print $action->GetParam("FREEDOM_DB");
+
 add_import_file($action, 
     		    GetHttpVars("file"));
 

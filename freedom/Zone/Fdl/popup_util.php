@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.2 2002/03/15 16:02:53 eric Exp $
+// $Id: popup_util.php,v 1.3 2002/06/10 09:09:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -151,6 +151,56 @@ function popupGen($kdiv) {
 
   if ($action->Read("navigator","")=="EXPLORER") $action->lay->Set("divpos","absolute");
   else $action->lay->Set("divpos","fixed");
+
+  $tmenus = array(); // re-init (for next time)
+  $tmenuaccess = array(); 
+  $menuitems = array(); 
+  unset($tmenus);
+  unset($tmenusaccess);
+  unset($tmenuitems);
+}
+
+function popupAddGen($kdiv) {  
+  global $tmenuaccess;
+  global $menuitems;
+  global $tmenus;
+  global $action;
+
+
+  
+  $lpopup = new Layout($action->Getparam("CORE_PUBDIR")."/FDL/Layout/popupadd.js");
+  if (isset($tmenuaccess)) {
+    reset($tmenuaccess);
+    $kv=0; // index for item
+
+    while (list($name, $v2) = each($tmenuaccess)) {
+      $nbdiv=0;
+      while (list($k, $v) = each($v2)) {
+      
+	uksort($v, 'vcompare');
+      
+	$tma[$kv]["vmenuitems"]="[";
+	while (list($ki, $vi) = each($v)) {
+	  if ($ki[0] == 'v') // its a value
+	    $tma[$kv]["vmenuitems"] .= "".$vi.",";
+	}
+	// replace last comma by ']'
+	$tma[$kv]["vmenuitems"][strlen($tma[$kv]["vmenuitems"])-1]="]";
+      
+	$tma[$kv]["name"]=$name;
+	$tma[$kv]["divid"]=$v["divid"];
+	$kv++;
+	$nbdiv++;
+      }
+      $tmenus[$name]["nbdiv"]=$nbdiv;
+    }
+
+    $lpopup->SetBlockData("ADDMENUACCESS", $tma);
+    $lpopup->SetBlockData("ADDMENUS", $tmenus);
+    
+  }
+  $action->parent->AddJsCode( $lpopup->gen());
+
 
   $tmenus = array(); // re-init (for next time)
   $tmenuaccess = array(); 

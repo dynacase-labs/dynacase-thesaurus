@@ -1,0 +1,16 @@
+<!-- ------------ ADD POPUP DIVISION --------------------- -->
+
+[BLOCK SEP]
+<a class="separator">_____</a>
+[ENDBLOCK SEP]
+
+[BLOCK ADDLINK]
+<a href="#" id="[idlink]"     
+    onclick="activate(this,'[url]','');closeMenu('popupcard');">
+[descr]</a>
+
+[ENDBLOCK ADDLINK]
+
+<!-- ------------------ end POPUP DIVISION ------------------ -->
+
+

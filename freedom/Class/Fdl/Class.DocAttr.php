@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.4 2002/05/29 08:19:26 eric Exp $
+// $Id: Class.DocAttr.php,v 1.5 2002/06/10 09:09:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,49 +22,9 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.DocAttr.php,v $
-// Revision 1.4  2002/05/29 08:19:26  eric
-// ajout type password
-//
-// Revision 1.3  2002/04/22 14:03:35  eric
-// ajout type date dans attribut
-//
-// Revision 1.2  2002/03/14 14:56:55  eric
-// evolution de incident
-//
-// Revision 1.1  2002/02/13 14:31:58  eric
-// ajout usercard application
-//
-// Revision 1.6  2001/12/13 17:45:01  eric
-// ajout attribut classname sur les doc
-//
-// Revision 1.5  2001/12/10 10:05:52  eric
-// mise en place iFrame pour choix enum
-//
-// Revision 1.4  2001/12/08 17:16:30  eric
-// evolution des attributs
-//
-// Revision 1.3  2001/11/30 15:13:39  eric
-// modif pour Css
-//
-// Revision 1.2  2001/11/26 18:01:02  eric
-// new popup & no lock for no revisable document
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-// Revision 1.3  2001/06/22 09:44:45  eric
-// support attribut multimédia
-//
-// Revision 1.2  2001/06/19 16:15:39  eric
-// importation fichier
-//
-// Revision 1.1  2001/06/13 14:41:13  eric
-// contact address book
-//
-// ---------------------------------------------------------------
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.4 2002/05/29 08:19:26 eric Exp $';
+
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.5 2002/06/10 09:09:40 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');

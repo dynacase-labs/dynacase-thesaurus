@@ -50,6 +50,8 @@
 
 <a href="#" id="cancel"  
     onclick="closeMenu('popupcard')"  >[TEXT:Cancel]</a>
+
+[ZONE FDL:POPUPFAM]
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 
