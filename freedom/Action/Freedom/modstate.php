@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Document State modification
  *
  * @author Anakeen 2000 
- * @version $Id: modstate.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: modstate.php,v 1.6 2004/01/14 14:23:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: modstate.php,v 1.5 2003/08/18 15:47:03 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modstate.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 
 include_once("FDL/Class.Doc.php");
@@ -47,7 +26,7 @@ function modstate(&$action) {
     
     
     // Get all the params      
-      $docid=GetHttpVars("id");
+  $docid=GetHttpVars("id");
   $state = GetHttpVars("newstate"); // new state
   $comment = GetHttpVars("comment"); // comment
   $force = (GetHttpVars("fstate","no")=="yes"); // force change
@@ -72,7 +51,9 @@ function modstate(&$action) {
       $wdoc = new Doc($dbaccess,$doc->wid);
       $wdoc->Set($doc);
       $err=$wdoc->ChangeState($state,$comment,$force);
-      if ($err != "")  $action-> ExitError($err);
+      if ($err != "")  $action->AddWarningMsg($err);
+    } else {
+      if ($comment != "") $doc->addComment($comment);
     }
   } else {
     $action->AddLogMsg(sprintf(_("the document %s is not related to a workflow"),$doc->title));
