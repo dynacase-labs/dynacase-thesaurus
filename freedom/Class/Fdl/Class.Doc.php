@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.45 2002/08/28 09:39:33 eric Exp $
+// $Id: Class.Doc.php,v 1.46 2002/09/02 16:35:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.45 2002/08/28 09:39:33 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.46 2002/09/02 16:35:24 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -450,6 +450,29 @@ create sequence seq_id_doc start 1000";
     return $this->fathers;
   }
   
+  // --------------------------------------------------------------------
+  function GetChildDoc() {
+    // -------------------------------------------------------------------- 
+    // Return array of child doc id : class document 
+    if (! isset($this->childs)) {
+
+      $this->childs=array();
+      $query = new QueryDb($this->dbaccess, "Doc");
+      $query->AddQuery("doctype = 'C'");
+      $query->AddQuery("fromid = ".$this->id);
+      $table1 = $query->Query();
+
+      if ($table1) {
+	while (list($k,$v) = each($table1)) {
+	  $this->childs[]=$v->id;
+
+	  $this->childs=array_merge($this->childs, $v->GetChildDoc());
+	  
+	}
+      }
+    }
+    return $this->childs;
+  }
 
   // --------------------------------------------------------------------
   function GetRevisions($type="LIST") {
@@ -497,9 +520,8 @@ create sequence seq_id_doc start 1000";
   function GetAttribute($idAttr)
     {      
 
-      if (! isset($this->fathers)) $this->GetFathersDoc();
 
-      if (!isset($this->attributes)) $this->GetAttributes(true);
+      if (!isset($this->attributes)) $this->GetAttributes();
       if (isset($this->attributes[$idAttr])) return $this->attributes[$idAttr];
      
 
@@ -509,9 +531,9 @@ create sequence seq_id_doc start 1000";
 
   // return all the attributes object 
   // the attribute can be defined in fathers
-    // wonly :: with write only attributes
-    // wonly :: with frame attributes
-    function GetAttributes($wonly=false,$wframe=false) 
+
+    // wframe :: with frame attributes
+    function GetAttributes($wframe=false) 
     {
       if (!isset($this->attributes)) {
 	$query = new QueryDb($this->dbaccess,"DocAttr");
@@ -521,13 +543,13 @@ create sequence seq_id_doc start 1000";
 	$query->AddQuery($sql_cond_doc);
 
 	if (!$wframe) $query->AddQuery("type != 'frame'");
-	$query->AddQuery("visibility != 'M'"); // not menu attributes (not editable)
-	if (! $wonly)	$query->AddQuery("visibility != 'O'"); // not readable directly
+	
 	$query->order_by="ordered";
 	$lattributes=$query->Query();
 	while (list($k,$v) = each($lattributes)) {
-	  $this->attributes[$v->id]=$v;
+	    $this->attributes[$v->id]=$v;	    	  
 	}
+
 	
       }
       return $this->attributes;
@@ -535,60 +557,117 @@ create sequence seq_id_doc start 1000";
 
   // return all the attributes object for abstract
   // the attribute can be defined in fathers
+  function GetNormalAttributes()
+    {      
+      $tsa=array();
+      if (!isset($this->attributes)) $this->GetAttributes();
+      
+      reset($this->attributes);
+      while (list($k,$v) = each($this->attributes)) {
+	if (($v->type != "frame") && 
+	    ($v->visibility != "O") && 
+	    ($v->visibility != "M")) $tsa[$v->id]=$v;
+      }
+      return $tsa;      
+    }
+  // return all the attributes object for abstract
+  // the attribute can be defined in fathers
   function GetAbstractAttributes()
     {      
-      return $this->GetSpecialAttributes("(abstract = 'Y') and (visibility != 'H') and (visibility != 'M')");
+      $tsa=array();
+      if (!isset($this->attributes)) $this->GetAttributes();
+      
+      reset($this->attributes);
+      while (list($k,$v) = each($this->attributes)) {
+	if (($v->abstract == "Y") && 
+	    ($v->visibility != "H") && 
+	    ($v->visibility != "M")) $tsa[$v->id]=$v;
+      }
+      return $tsa;      
+    }
+
+  // return all the attributes object for abstract
+  // the attribute can be defined in fathers
+  function GetComputedAttributes()
+    {      
+      $tsa=array();
+      if (!isset($this->attributes)) $this->GetAttributes();
+      
+      reset($this->attributes);
+      while (list($k,$v) = each($this->attributes)) {
+	if (($v->phpfunc != "") && 
+	    (($v->visibility == "R") || ($v->visibility == "H"))
+	    ) $tsa[$v->id]=$v;
+      }
+      return $tsa;      
     }
 
   // return all the attributes object for title
   // the attribute can be defined in fathers
   function GetTitleAttributes()
-    {      
-      return $this->GetSpecialAttributes("title = 'Y'");
+    { 
+      $tsa=array();
+      if (!isset($this->attributes)) $this->GetAttributes();
+      
+      while (list($k,$v) = each($this->attributes)) {
+	if ($v->title == "Y") $tsa[$v->id]=$v;
+      }
+      return $tsa;
     }
 
+  // return all the attributes object for abstract
+  // the attribute can be defined in fathers
+  function GetFileAttributes()
+    {      
+      $tsa=array();
+      if (!isset($this->attributes)) $this->GetAttributes();
+      
+      reset($this->attributes);
+      while (list($k,$v) = each($this->attributes)) {
+	if (($v->type == "image") || 
+	    ($v->type == "file")) $tsa[$v->id]=$v;
+      }
+      return $tsa;      
+    }
   // return all the attributes object for popup menu
   // the attribute can be defined in fathers
   function GetMenuAttributes()
     {      
-      return $this->GetSpecialAttributes("visibility = 'M'");
+      $tsa=array();
+      if (!isset($this->attributes)) $this->GetAttributes();
+
+      reset($this->attributes);
+      while (list($k,$v) = each($this->attributes)) {
+	if ($v->visibility == "M") $tsa[$v->id]=$v;
+      }
+
+      return $tsa;
     }
 
   // return all the necessary attributes 
   // the attribute can be defined in fathers
   function GetNeededAttributes()
-    {      
-      return $this->GetSpecialAttributes("visibility = 'N'");
+    {            
+      $tsa=array();
+      if (!isset($this->attributes)) $this->GetAttributes();
+      
+      reset($this->attributes);
+      while (list($k,$v) = each($this->attributes)) {
+	if ($v->visibility == "N") $tsa[$v->id]=$v;
+      }
+      return $tsa;
     }
 
-  // return all the attributes conform $condition
-  // the attribute can be defined in fathers
-  function GetSpecialAttributes($condition)
-    {
-      $query = new QueryDb($this->dbaccess,"DocAttr");
-      // initialise query with all fathers doc
-      // 
-      $sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
-      $query->AddQuery($sql_cond_doc);
-    
-      $query->AddQuery("type != 'frame'");
-      $query->AddQuery($condition);
-      $query->order_by="ordered";
-      $lgsa= $query->Query();  
-      if ($query->nb == 0) return array();
-      
-      while (list($k,$v) = each($lgsa)) {
-	$gsa[$v->id]=$v;
-      }
-      return $gsa; 
-    }
+
+
+
   // recompute the title from attribute values
   function RefreshTitle() {
 
     if ($this->doctype == 'C') return; // no refresh for family  document
 
     $ltitle = $this->GetTitleAttributes();
-
+    
     $title1 = "";
     while(list($k,$v) = each($ltitle)) {
       if ($this->GetValue($v->id) != "") {
@@ -676,6 +755,9 @@ create sequence seq_id_doc start 1000";
       }      
     }
 
+  function ResetValues() {
+    unset($this->values);
+  }
   // return the first attribute of type 'file'
   function GetFirstFileAttributes()
     {

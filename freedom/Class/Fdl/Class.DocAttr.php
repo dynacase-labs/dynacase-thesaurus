@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.8 2002/07/23 07:32:59 eric Exp $
+// $Id: Class.DocAttr.php,v 1.9 2002/09/02 16:35:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.8 2002/07/23 07:32:59 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.9 2002/09/02 16:35:23 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -45,7 +45,6 @@ Class Docattr extends DbObj
 
   var $sqlcreate = "
 create table docattr ( id      varchar(20) not null,
-                     primary key (id),
                      docid int not null,
                      FrameId  varchar(20),
                      LabelText varchar(60),
@@ -58,7 +57,8 @@ create table docattr ( id      varchar(20) not null,
                      phpfile varchar(64),
                      phpfunc varchar(256)
                    );
-create sequence seq_id_docattr start 1000";
+create sequence seq_id_docattr start 1000;
+create unique index idx_iddocid on docattr(id, docid)";
 
 
   // possible type of attributes
