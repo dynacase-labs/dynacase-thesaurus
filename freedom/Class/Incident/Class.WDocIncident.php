@@ -3,7 +3,7 @@
  * Incident Workflow
  *
  * @author Anakeen 2002
- * @version \$Id: Class.WDocIncident.php,v 1.15 2004/01/16 16:33:23 eric Exp $
+ * @version \$Id: Class.WDocIncident.php,v 1.16 2004/01/21 13:26:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage INCIDENT
@@ -160,7 +160,7 @@ define ("Tsuspended", "Tsuspended");  # N_("Tsuspended")
 	// send mail to analyze the incident
 	$to =  $this->doc->getValue("IN_ANALMAIL"); // send mail to analyzer 
 	$cc = "";
-	$subject=sprintf(_("Incident : ask for analyze %s"),$this->doc->title,_($newstate));
+	$subject=sprintf(_("Incident : ask for level 2 %s"),$this->doc->title,_($newstate));
 
 	sendCard(&$action,
 		 $this->doc->id,
@@ -235,7 +235,9 @@ define ("Tsuspended", "Tsuspended");  # N_("Tsuspended")
     if ($idcontract > 0) {
       $contract = new Doc($this->doc->dbaccess,$idcontract );
       if ($contract->getValue("CO_CLTCOPYMAIL1")=="1")
-	$cc = $this->doc->GetValue("IN_RTECHMAIL");	
+	$cc = $contract->GetValue("CO_CLTMAIL1");
+      if ($contract->getValue("CO_CLTCOPYMAIL2")=="1")
+	$cc .= (($cc=="")?"":",") .$contract->GetValue("CO_CLTMAIL2");	
     }
     $comment="";
     $from=$action->GetParam("FROM_MAIL_INCIDENT");
