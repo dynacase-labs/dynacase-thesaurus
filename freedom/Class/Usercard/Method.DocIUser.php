@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIUser.php,v 1.1 2003/06/06 09:39:16 eric Exp $
+// $Id: Method.DocIUser.php,v 1.2 2003/07/25 12:42:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // Author          Eric Brison	(Anakeen)
 // --------------------------------------------------------------------------
 function SpecRefresh() {
-  
+  _USER::SpecRefresh();
   $this->AddParamRefresh("US_WHATID","US_FNAME,US_LNAME,US_MAIL,US_PASSWD,US_LOGIN,US_GROUP");
 
   $iduser = $this->getValue("US_WHATID");
