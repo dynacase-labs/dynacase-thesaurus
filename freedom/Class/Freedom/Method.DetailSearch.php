@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.15 2003/10/17 16:39:33 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.16 2003/11/17 10:52:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.15 2003/10/17 16:39:33 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.16 2003/11/17 10:52:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,7 +41,7 @@ var $defaultview= "FREEDOM:VIEWDSEARCH";
 var $tfunc=array("~*" => "include",         #N_("include")
 		 "=" => "equal",            #N_("equal")
 		 "!=" => "not equal",       #N_("not equal")
-		 "!~*" => "not include",       #N_("not equal")
+		 "!~*" => "not include",       #N_("not include")
 		 ">" => "&gt;",       #N_("not equal")
 		 "<" => "&lt;",       #N_("not equal")
 		 ">=" => "&gt; or equal",       #N_("&gt; or equal")
