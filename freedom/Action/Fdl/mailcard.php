@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.29 2003/06/12 14:26:48 eric Exp $
+// $Id: mailcard.php,v 1.30 2003/06/18 14:57:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -113,6 +113,7 @@ function sendCard(&$action,
 
   $title = str_replace(array(" ","/"), "_",$doc->title);
   $title = str_replace("'", "",$title);
+  $title = str_replace("&", "",$title);
   $vf = new VaultFile($dbaccess, "FREEDOM");
   $pubdir = $action->getParam("CORE_PUBDIR");
   $szone=false;
