@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.5 2002/02/27 08:33:16 eric Exp $
+// $Id: Class.QueryDir.php,v 1.6 2002/04/03 12:46:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.5 2002/02/27 08:33:16 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.6 2002/04/03 12:46:24 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -51,6 +51,7 @@ create table fld ( id      int PRIMARY KEY,
                    );
 create sequence seq_id_fld start 100";
 
+  var $relatedCacheClass= array("doc"); // class must ne cleaned also in case of modify
 
   // --------------------------------------------------------------------
   function PreInsert()
