@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultFile.php,v 1.3 2001/11/16 15:05:23 marc Exp $
+// $Id: Class.VaultFile.php,v 1.4 2001/12/04 15:48:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultFile.php,v $
+// Revision 1.4  2001/12/04 15:48:13  eric
+// correction include pour appel multiple
+//
 // Revision 1.3  2001/11/16 15:05:23  marc
 // Release 0.0.2, see CHANGELOG
 //
@@ -41,7 +44,7 @@ Class VaultFile {
 
   function VaultFile($access, $vaultname="Sample", $idf=-1) {
 
-    if (!include_once("VAULT/".$vaultname.".vault")) {
+    if (!include("VAULT/".$vaultname.".vault")) {
       $this = NULL;
       return;
     }
