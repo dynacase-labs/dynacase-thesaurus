@@ -8,7 +8,7 @@ Source0:            %{name}-%{version}.tar.gz
 Vendor:             Anakeen
 Buildroot:          /var/tmp/pam-authent
 BuildArchitectures: i386
-Requires:	    pam_what pam_what_access
+Requires:	    pam_what
 %description
 PAM Authentication program
 
