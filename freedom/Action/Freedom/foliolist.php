@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: foliolist.php,v 1.2 2003/02/07 17:31:49 eric Exp $
+// $Id: foliolist.php,v 1.3 2003/04/03 11:59:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliolist.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,7 +48,7 @@ function foliolist(&$action) {
     $dir->Add();
     $dir->SpecRefresh();
 
-    SetHttpVar("dirid",$dir->id); // redirect dirid to new temporary search
+    SetHttpVar("dirid",$dir->initid); // redirect dirid to new temporary search
     
   }
   

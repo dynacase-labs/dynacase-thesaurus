@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: openfolio.php,v 1.1 2003/02/05 17:04:21 eric Exp $
+// $Id: openfolio.php,v 1.2 2003/04/03 11:59:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/openfolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,8 @@ function openfolio(&$action) {
   $docid = GetHttpVars("id",0);        // document to edit
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $action->lay->Set("dirid", $docid);
+  $folio = new Doc($dbaccess,$docid);
+  $action->lay->Set("dirid", $folio->initid);
   
 
 
