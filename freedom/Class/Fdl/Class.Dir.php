@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.16 2003/03/04 15:05:29 eric Exp $
+// $Id: Class.Dir.php,v 1.17 2003/03/11 17:13:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.16 2003/03/04 15:05:29 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.17 2003/03/11 17:13:11 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -81,6 +81,7 @@ Class Dir extends PDir
     // verify if doc family is autorized
     $doc= new Doc($this->dbaccess, $docid);
     $ta=$this->getAuthorizedFamilies();
+
 
     if (! isset($ta[$doc->fromid])) return sprintf(_("Cannot add %s in %s folder, restriction set to add this kind of document"),  $doc->title ,$this->title);
 
@@ -210,7 +211,7 @@ Class Dir extends PDir
       $tclassdoc=array();
       if ($allbut != "1") {
 	include_once("FDL/Lib.Dir.php");
-	$tallfam = GetClassesDoc($this->dbaccess, $this->userid,1,"TABLE");
+	$tallfam = GetClassesDoc($this->dbaccess, $this->userid,0,"TABLE");
 	while (list($k,$cdoc)= each ($tallfam)) {
 	  $tclassdoc[$cdoc["id"]]=$cdoc;
 	}
