@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.8 2004/02/05 15:42:58 eric Exp $
+ * @version $Id: editstate.php,v 1.9 2004/05/06 08:07:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,8 +29,8 @@ function editstate(&$action) {
 	  
 	  
       
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  
+  $dbaccess = $action->GetParam("FREEDOM_DB");  
+  if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
   // ------------------------------------------------------
   //  new or modify ?
   if ($docid == 0)    {		

@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.42 2004/02/17 11:01:30 eric Exp $
+ * @version $Id: editcard.php,v 1.43 2004/05/06 08:07:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.42 2004/02/17 11:01:30 eric Exp $
+// $Id: editcard.php,v 1.43 2004/05/06 08:07:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,6 +61,7 @@ function editcard(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+  if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
   
 
   if (($usefor=="D") && ($zonebodycard == "")) $zonebodycard="FDL:EDITBODYCARD";// always default view for default document
