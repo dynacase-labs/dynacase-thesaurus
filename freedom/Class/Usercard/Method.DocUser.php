@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.24 2004/07/06 08:38:44 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.25 2004/07/08 08:48:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.24 2004/07/06 08:38:44 eric Exp $
+// $Id: Method.DocUser.php,v 1.25 2004/07/08 08:48:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,20 +65,25 @@
  
 
   // no in postUpdate method :: call this only if real change (values)
-  function PostModify() {
-    $priv=$this->GetValue("US_PRIVCARD");
-    $err="";
+function PostModify() {
+  $priv=$this->GetValue("US_PRIVCARD");
+  $err="";
 
+  $this->SetLdapParam();
+  if ($this->useldap) {
     // update LDAP only no private card
     if (($priv == 'R') || ($priv == 'W')) {
-      $this->SetLdapParam();
+
       $err=$this->UpdateLdapCard();
+    } else if ($priv == 'P') {
+      $this->SetLdapParam();
+      $err=$this->DeleteLdapCard();
     }
-
-    $this->SetPrivacity(); // set doc properties in concordance with its privacity
-
-    return ($err);
   }
+  $this->SetPrivacity(); // set doc properties in concordance with its privacity
+
+  return ($err);
+}
 
 function SpecRefresh() {
 
