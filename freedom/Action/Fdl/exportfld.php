@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: exportfld.php,v 1.13 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: exportfld.php,v 1.14 2004/04/23 15:24:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.13 2003/08/18 15:47:03 eric Exp $
+// $Id: exportfld.php,v 1.14 2004/04/23 15:24:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,7 +46,7 @@ function exportfld(&$action, $aflid="0", $famid="")
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $fldid = GetHttpVars("id",$aflid);
   $fld = new Doc($dbaccess, $fldid);
-
+  if ($famid=="") $famid=GetHttpVars("famid");
   $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE",$famid);
 
     usort($tdoc,"orderbyfromid");
