@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.21 2004/01/14 14:17:26 eric Exp $
+ * @version $Id: enum_choice.php,v 1.22 2004/01/27 13:21:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.21 2004/01/14 14:17:26 eric Exp $
+// $Id: enum_choice.php,v 1.22 2004/01/27 13:21:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -94,7 +94,8 @@ function enum_choice(&$action) {
   while (list($k, $v) = each($argids)) {
     if ($v == "A") $arg[$k]= &$action;
     else if ($v == "D") $arg[$k]= $dbaccess;
-    else if ($v == "T") $arg[$k]= &$this;
+    else if ($v == "I") $arg[$k]= $doc->id;
+    else if ($v == "T") $arg[$k]= &$doc;
     else if ($index === "") $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
     else {
       $a = $doc->GetAttribute($v);
