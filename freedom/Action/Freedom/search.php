@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: search.php,v 1.19 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.18 2003/02/20 11:34:03 eric Exp $
+// $Id: search.php,v 1.19 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,7 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Class.DocAttr.php,v 1.17 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ */
+ /**
+ */
+
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.16 2003/06/16 12:00:35 eric Exp $
+// $Id: Class.DocAttr.php,v 1.17 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,12 +35,17 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.16 2003/06/16 12:00:35 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.17 2003/08/18 15:47:04 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
 
-Class Docattr extends DbObj
+/**
+ * Database Attribute document
+ * @package FREEDOM
+ *
+ */
+Class DocAttr extends DbObj
 {
   var $fields = array ("id",
 		       "docid",

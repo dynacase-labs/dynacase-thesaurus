@@ -1,6 +1,18 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.Mask.php,v 1.4 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.3 2003/06/10 13:56:58 eric Exp $
+// $Id: Method.Mask.php,v 1.4 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -259,3 +271,4 @@ function editmask() {
 
   $this->editattr();
 }
+?>

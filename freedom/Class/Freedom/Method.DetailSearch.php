@@ -1,6 +1,18 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.DetailSearch.php,v 1.13 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.12 2003/07/03 10:41:07 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.13 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -300,3 +312,4 @@ function editdsearch() {
   $this->lay->Set("id", $this->id);
   $this->editattr();
 }
+?>

@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: fdl_css.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: fdl_css.php,v 1.2 2003/08/12 16:33:01 eric Exp $
+// $Id: fdl_css.php,v 1.3 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/fdl_css.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

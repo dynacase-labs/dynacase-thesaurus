@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: duplicate.php,v 1.12 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.11 2003/07/24 12:59:52 eric Exp $
+// $Id: duplicate.php,v 1.12 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

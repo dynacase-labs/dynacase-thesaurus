@@ -1,6 +1,15 @@
 <?php
+/**
+ * Document Object Definition
+ *
+ * @author Anakeen 2002
+ * @version $Id: Class.Doc.php,v 1.155 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.154 2003/08/12 16:31:21 eric Exp $
+// $Id: Class.Doc.php,v 1.155 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +32,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.154 2003/08/12 16:31:21 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.155 2003/08/18 15:47:04 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -45,15 +54,11 @@ define ("FAM_ACCESSDIR", 4);
 define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 define ("FAM_ACCESSFAM", 23);
-// ==========================================================================
-// Document Class
 
-// Author          Eric Brison	(Anakeen)
-// Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/08/12 16:31:21 $
-// Version         $Revision: 1.154 $
-// ==========================================================================
-
+/**
+ * Document Class
+ *
+ */
 Class Doc extends DocCtrl {
 
   var $fields = array ( "id",
@@ -121,10 +126,26 @@ create unique index i_docir on doc(initid, revision);";
 
   // --------------------------------------------------------------------
 
+  /**
+   * default view to view card
+   * @var string
+   */
   var $defaultview= "FDL:VIEWBODYCARD";
+  /**
+   * default view to edit card
+   * @var string
+   */
   var $defaultedit = "FDL:EDITBODYCARD";
+  /**
+   * default view for abstract card
+   * @var string 
+   */
   var $defaultabstract = "FDL:VIEWABSTRACTCARD";
-  var $defaultmview = ""; // for email : the same as $defaultview by default
+  /**
+   * for email : the same as $defaultview by default
+   * @var string 
+   */
+  var $defaultmview = ""; 
  
 
   // --------------------------------------------------------------------
@@ -133,25 +154,31 @@ create unique index i_docir on doc(initid, revision);";
 
   var $defDoctype='F';
 
-  var $hasChanged=false; // to indicate values modification
+  /**
+   * to indicate values modification
+   * @var bool 
+   * @access private
+   */
+  var $hasChanged=false; 
+
   var $isCacheble= false;
 
   var $paramRefresh=array();
+
+  /**
+   * optimize: compute mask in needed only
+   * @var bool 
+   * @access private
+   */
   var $_maskApplied=false; // optimize: compute mask in needed only
  
-  // --------------------------------------------------------------------------
-  // Contructor
-
-  // I               dbaccess - coordinates of database  
-  // I               id - document numeric identificator
-  // I               res - array of result issue to QueryDb
-  // I               dbid - the connection database ressource
-
-  // Return          none
-
-  // Date            May, 14 2003 - 11:40:49
-  // Author          Eric Brison	(Anakeen)
-  // --------------------------------------------------------------------------
+  /** 
+   * Document Constructor
+   * 
+   * @see DbObj::DbObj()
+   * @see newDoc()
+   * @return none
+   */
   function Doc($dbaccess='', $id='',$res='',$dbid=0) {
     newDoc($this,$dbaccess, $id, $res, $dbid);
 	   

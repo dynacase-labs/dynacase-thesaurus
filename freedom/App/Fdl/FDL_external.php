@@ -1,4 +1,15 @@
 <?php
+/**
+ * Functions used for edition help
+ *
+ * @author Anakeen 2003
+ * @version $Id: FDL_external.php,v 1.25 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+/**
+ */
 
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Lib.Dir.php");
@@ -22,6 +33,13 @@ function vault_filename($th, $fileid) {
 }
 
 
+/**
+ * Functions used for edition help
+ *
+ * @param string $dbaccess database specification
+ * @param int $docid identificator document 
+ * @return array first item : the title
+ */
 function gettitle($dbaccess, $docid) {
 
   $doc=new Doc($dbaccess, $docid);
@@ -80,12 +98,20 @@ function lfamilies($dbaccess) {
 
 
 // liste des documents par familles
+/**
+ * list of documents of a same family
+ *
+ * @param string $dbaccess database specification
+ * @param string $famid family identifier (if 0 any family). It can be internal name
+ * @param string $name string filter on the title
+ * @param int $dirid identifier of folder for restriction to a folder tree (deprecated)
+ * @param array $filter additionnals SQL filters
+ * @return array/string*3 array of (title, identifier, title)
+ */
 function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
   
-
-
 
   if (! is_numeric($famid)) {
     $famid=getFamIdFromName($dbaccess,$famid);
@@ -113,8 +139,17 @@ function lfamilly($dbaccess, $famid, $name, $dirid=0, $filter=array()) {
 }
 
 
-
-// liste des documents par catégories
+/**
+ * list of documents of a same family and which are in the $kid category
+ *
+ * @param string $dbaccess database specification
+ * @param string $famname family internal name
+ * @param string $aid enum attribute identifier 
+ * @param string $kid enum key to search
+ * @param string $name string filter on the title
+ * @param array $filter additionnals SQL filters
+ * @return array/string*3 array of (title, identifier, title)
+ */
 function lkfamily($dbaccess, $famname, $aid, 
 		  $kid, $name, $filter=array()) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
@@ -140,7 +175,13 @@ function lkfamily($dbaccess, $famname, $aid,
   return $tr;
   
 }
-// liste 
+/**
+ * return list of string for multiple static choice
+ *
+ * @param string $val filter value - can be empty => see all choices
+ * @param string $enum possible choices like 'the first|the second|the last'
+ * @return array/string*2 array of (enum, enum)
+ */
 function lenum($val, $enum) {
   // $enum like 'a|b|c'
  

@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: editattr.php,v 1.9 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: editattr.php,v 1.8 2003/05/28 14:36:56 eric Exp $
+// $Id: editattr.php,v 1.9 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,5 +1,17 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.PortFolio.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
 // ---------------------------------------------------------------
-// $Id: Method.PortFolio.php,v 1.5 2003/08/12 16:32:28 eric Exp $
+// $Id: Method.PortFolio.php,v 1.6 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.PortFolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,3 +66,4 @@ function PostCreated() {
   }
   return $err;
 }
+?>

@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: editprof.php,v 1.11 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.10 2003/04/23 10:00:48 eric Exp $
+// $Id: editprof.php,v 1.11 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,11 +1,23 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: FDL_migr_0.2.6.php,v 1.2 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ==========================================================================
 // default attribute migration
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 23 2003 - 11:13:08
-// Last Update     $Date: 2003/05/23 15:30:03 $
-// Version         $Revision: 1.1 $
+// Last Update     $Date: 2003/08/18 15:47:04 $
+// Version         $Revision: 1.2 $
 // ==========================================================================
 
 

@@ -1,4 +1,15 @@
 <?php
+/**
+ * Functions used for edition help of USER, GROUP & SOCIETY Family
+ *
+ * @author Anakeen 2003
+ * @version $Id: USERCARD_external.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+/**
+ */
 
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Lib.Dir.php");
@@ -7,7 +18,16 @@ include_once("EXTERNALS/fdl.php");
 
 
 
-// liste des sociétés
+
+/**
+ * society list
+ *
+ * the SOCIETY documents and the SITE documents wich doesn't have society father
+ * @param string $dbaccess database specification
+ * @param string $name string filter on the title
+ * @return array/string*3 array of (title, identifier, title)
+ * see lfamilly()
+ */
 function lsociety($dbaccess, $name) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
@@ -24,7 +44,15 @@ function lsociety($dbaccess, $name) {
 }
 
 
-// liste des sociétés
+/**
+ * site list
+ *
+ * all the SITE documents
+ * @param string $dbaccess database specification
+ * @param string $name string filter on the title
+ * @return array/string*3 array of (title, identifier, title)
+ * see lfamilly()
+ */
 function lsite($dbaccess, $name) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
 

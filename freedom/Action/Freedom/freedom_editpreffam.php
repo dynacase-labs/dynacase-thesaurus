@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: freedom_editpreffam.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: freedom_editpreffam.php,v 1.1 2003/05/19 10:45:02 eric Exp $
+// $Id: freedom_editpreffam.php,v 1.2 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_editpreffam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,6 +1,17 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Class.DocValue.php,v 1.8 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: Class.DocValue.php,v 1.7 2002/10/31 08:09:23 eric Exp $
+// $Id: Class.DocValue.php,v 1.8 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocValue.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +33,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.7 2002/10/31 08:09:23 eric Exp $';
+$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.8 2003/08/18 15:47:04 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -30,8 +41,13 @@ include_once('Class.Log.php');
 
 
 
-
-Class Docvalue extends DbObj
+/**
+ * Values of Attribute document
+ * @package FREEDOM
+ * @deprecated
+ *
+ */
+Class DocValue extends DbObj
 {
   var $fields = array ( "docid","attrid","value");
 

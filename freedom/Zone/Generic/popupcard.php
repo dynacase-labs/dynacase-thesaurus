@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: popupcard.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.6 2003/01/03 09:10:27 eric Exp $
+// $Id: popupcard.php,v 1.7 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

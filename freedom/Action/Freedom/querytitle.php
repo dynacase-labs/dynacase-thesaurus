@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: querytitle.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: querytitle.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: querytitle.php,v 1.3 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/querytitle.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: workflow_init.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: workflow_init.php,v 1.2 2003/02/28 19:39:17 eric Exp $
+// $Id: workflow_init.php,v 1.3 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/workflow_init.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

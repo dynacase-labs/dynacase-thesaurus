@@ -1,6 +1,17 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Class.DocCtrl.php,v 1.8 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.7 2003/04/16 12:15:58 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.8 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +33,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.7 2003/04/16 12:15:58 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.8 2003/08/18 15:47:04 eric Exp $';
 
 
 
@@ -46,7 +57,11 @@ define ("POS_CREATE", 5);
 
 define ("POS_WF", 12); // begin of workflow privilege definition 
 // end of privilege is 31 : (coded on 32bits)
-
+/**
+ * Control Access Document Class
+ * @package FREEDOM
+ *
+ */
 Class DocCtrl extends DbObj
 { 
   var $isCacheble= false;

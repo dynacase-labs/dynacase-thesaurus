@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Class.Dir.php,v 1.23 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.22 2003/07/18 16:33:11 eric Exp $
+// $Id: Class.Dir.php,v 1.23 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +34,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.22 2003/07/18 16:33:11 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.23 2003/08/18 15:47:04 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");

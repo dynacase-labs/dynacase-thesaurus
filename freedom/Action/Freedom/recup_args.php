@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: recup_args.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: recup_args.php,v 1.1 2003/06/27 07:40:45 mathieu Exp $
+// $Id: recup_args.php,v 1.2 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/recup_args.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: changetitle.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: changetitle.php,v 1.3 2003/01/20 19:09:28 eric Exp $
+// $Id: changetitle.php,v 1.4 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/changetitle.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

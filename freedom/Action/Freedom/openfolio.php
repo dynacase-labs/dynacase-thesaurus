@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: openfolio.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: openfolio.php,v 1.3 2003/04/18 09:14:17 eric Exp $
+// $Id: openfolio.php,v 1.4 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/openfolio.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

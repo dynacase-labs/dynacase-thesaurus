@@ -1,6 +1,21 @@
 <?php
+/**
+ * Attribute Document Object Definition
+ *
+ * @author Anakeen 2002
+ * @version $Id: Class.ADoc.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+/**
+ */
 
 include_once("FDL/Class.DocAttribute.php");
+/**
+ * Attribute Document Class
+ *
+ */
 Class ADoc  {
 
    function ADoc () {

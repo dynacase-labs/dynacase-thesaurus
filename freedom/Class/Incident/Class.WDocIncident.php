@@ -1,6 +1,17 @@
 <?php
+/**
+ * Incident Workflow
+ *
+ * @author Anakeen 2002
+ * @version \$Id: Class.WDocIncident.php,v 1.12 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage INCIDENT
+ */
+/**
+ */
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.11 2003/03/21 17:57:58 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.12 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +33,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.11 2003/03/21 17:57:58 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.12 2003/08/18 15:47:04 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -48,7 +59,10 @@ define ("Trejected",  "Trejected");   # N_("Trejected")
 define ("Tclosed",    "Tclosed");     # N_("Tclosed")
 define ("Tsuspended", "Tsuspended");  # N_("Tsuspended")
 
-
+/**
+ * Incident Workflow
+ *
+ */
 Class WDocIncident extends WDoc
 {
   

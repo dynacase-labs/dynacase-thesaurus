@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: ctrldoc.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: ctrldoc.php,v 1.4 2003/04/08 12:44:10 eric Exp $
+// $Id: ctrldoc.php,v 1.5 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/ctrldoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

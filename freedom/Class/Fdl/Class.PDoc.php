@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Class.PDoc.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: Class.PDoc.php,v 1.5 2002/11/13 15:49:36 eric Exp $
+// $Id: Class.PDoc.php,v 1.6 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +34,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.5 2002/11/13 15:49:36 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.6 2003/08/18 15:47:04 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");

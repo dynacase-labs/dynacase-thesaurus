@@ -1,6 +1,17 @@
 <?php
+/**
+ * Folder managing
+ *
+ * @author Anakeen 2001
+ * @version $Id: Class.QueryDir.php,v 1.13 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.12 2003/05/19 10:44:15 eric Exp $
+// $Id: Class.QueryDir.php,v 1.13 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,12 +35,17 @@
 
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.12 2003/05/19 10:44:15 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.13 2003/08/18 15:47:04 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
 
   
+/**
+ * Folder managing 
+ * @package FREEDOM
+ *
+ */
 Class QueryDir extends DbObj
 {
   var $fields = array ( "id","dirid","query","childid","qtype");

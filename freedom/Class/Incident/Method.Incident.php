@@ -1,6 +1,18 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.Incident.php,v 1.4 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage INCIDENT
+ */
+ /**
+ */
 
 // ---------------------------------------------------------------
-// $Id: Method.Incident.php,v 1.3 2003/05/19 15:48:48 eric Exp $
+// $Id: Method.Incident.php,v 1.4 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.Incident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -124,3 +136,4 @@ function incident_mailtraited($target="_self",$ulink=true,$abstract=false) {
   
   return $this->incident_mailrecord($target,$ulink,$abstract); 
 }
+?>

@@ -1,6 +1,17 @@
 <?php
+/**
+ * Class use to import and  export Ldif format (like LDAP) with FREEDOM USER Family
+ *
+ * @author Anakeen 2001
+ * @version \$Id: Class.UsercardLdif.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+/**
+ */
 // ---------------------------------------------------------------
-// $Id: Class.UsercardLdif.php,v 1.6 2002/07/16 13:54:55 eric Exp $
+// $Id: Class.UsercardLdif.php,v 1.7 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardLdif.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,33 +32,15 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 0US_SOCIETY1-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.UsercardLdif.php,v $
-// Revision 1.6  2002/07/16 13:54:55  eric
-// ajout initiales famille personne
-//
-// Revision 1.5  2002/04/18 12:55:26  eric
-// USERCARD: ajout fonction dans famille employe
-//
-// Revision 1.4  2002/03/14 14:56:55  eric
-// evolution de incident
-//
-// Revision 1.3  2002/03/12 09:55:12  eric
-// correction pour vcard & ldap
-//
-// Revision 1.2  2002/02/14 18:11:42  eric
-// ajout onglet et autres...
-//
-// Revision 1.1  2002/02/13 14:31:58  eric
-// ajout usercard application
-//
-// Revision 1.1  2001/06/19 16:16:37  eric
-// importation fichier
-//
-//
-// ---------------------------------------------------------------
 
 
 
+
+/**
+ * Class use to import and  export Ldif format (like LDAP) with FREEDOM USER Family
+ *
+ * @deprecated use Method.User.php instead
+ */
 Class UsercardLdif 
 {
   var $import = array(

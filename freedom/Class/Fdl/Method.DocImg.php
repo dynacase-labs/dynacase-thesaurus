@@ -1,6 +1,18 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.DocImg.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocImg.php,v 1.2 2003/01/30 09:38:36 eric Exp $
+// $Id: Method.DocImg.php,v 1.3 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Method.DocImg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -94,3 +106,4 @@ function viewimgcard($target="_self",$ulink=true,$abstract=false) {
 function PostModify() {
   $this->SetValue("IMG_TITLE",$this->vault_filename("IMG_FILE"));
 }
+?>

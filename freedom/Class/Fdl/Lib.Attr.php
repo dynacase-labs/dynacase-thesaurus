@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Lib.Attr.php,v 1.25 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.24 2003/07/15 09:35:30 eric Exp $
+// $Id: Lib.Attr.php,v 1.25 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -201,7 +213,7 @@ function AttrToPhp($dbaccess, $tdoc) {
     $fd = fopen ($filename, "rb");
     $contents = fread ($fd, filesize ($filename));
     fclose ($fd);
-    $phpAdoc->Set("METHODS",$contents  );
+    $phpAdoc->Set("METHODS",str_replace(array( "<?php\n","\n?>"),"",$contents)  );
   } else $phpAdoc->Set("METHODS","");
   
 

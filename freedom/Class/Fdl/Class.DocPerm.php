@@ -1,7 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Class.DocPerm.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ */
+ /**
+ */
+
 
 // ---------------------------------------------------------------
-// $Id: Class.DocPerm.php,v 1.5 2003/01/17 16:54:24 eric Exp $
+// $Id: Class.DocPerm.php,v 1.6 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocPerm.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,10 +35,15 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.5 2003/01/17 16:54:24 eric Exp $';
+$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.6 2003/08/18 15:47:04 eric Exp $';
 include_once("Class.DbObj.php");
 
-Class Docperm extends DbObj
+/**
+ * Managing permissions of documents
+ * @package FREEDOM
+ *
+ */
+Class DocPerm extends DbObj
 {
   var $fields = array ("docid",
 		       "userid",

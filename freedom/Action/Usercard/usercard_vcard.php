@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: usercard_vcard.php,v 1.8 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: usercard_vcard.php,v 1.7 2002/11/28 18:19:21 eric Exp $
+// $Id: usercard_vcard.php,v 1.8 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_vcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002

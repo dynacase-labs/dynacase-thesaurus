@@ -1,6 +1,18 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.DocUser.php,v 1.17 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+ /**
+ */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.16 2003/07/30 14:53:02 eric Exp $
+// $Id: Method.DocUser.php,v 1.17 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -351,3 +363,5 @@ function SpecRefresh() {
 
   
 
+
+?>

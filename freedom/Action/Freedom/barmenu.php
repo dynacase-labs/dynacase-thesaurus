@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: barmenu.php,v 1.9 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.8 2003/07/18 16:33:10 eric Exp $
+// $Id: barmenu.php,v 1.9 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,6 +1,18 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.PostIt.php,v 1.2 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
 
 // ---------------------------------------------------------------
-// $Id: Method.PostIt.php,v 1.1 2003/07/24 12:53:00 eric Exp $
+// $Id: Method.PostIt.php,v 1.2 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Method.PostIt.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,3 +92,4 @@ function PostDelete() {
     }
   }
 }
+?>

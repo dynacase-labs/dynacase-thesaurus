@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: refreshdir.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: refreshdir.php,v 1.2 2002/06/19 12:32:29 eric Exp $
+// $Id: refreshdir.php,v 1.3 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/refreshdir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +34,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: refreshdir.php,v $
+// Revision 1.3  2003/08/18 15:47:03  eric
+// phpdoc
+//
 // Revision 1.2  2002/06/19 12:32:29  eric
 // modif des permissions : intégration de rq sql hasviewpermission
 //

@@ -1,6 +1,27 @@
-
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.DocGroup.php,v 1.5 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+ /**
+ */
+<?php
+/**
+ * Specials methods for GROUP family
+ *
+ * @author Anakeen 2003
+ * @version \$Id: Method.DocGroup.php,v 1.5 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
 // ---------------------------------------------------------------
-// $Id: Method.DocGroup.php,v 1.4 2003/08/05 09:12:33 eric Exp $
+// $Id: Method.DocGroup.php,v 1.5 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,26 +46,26 @@
 
 
 
-// --------------------------------------------------------------------------
-// construct mail group
-// I               
-// O               
-// I/O             
-// Return          
-// Date            jun, 04 2003 - 09:39:09
-// Author          Eric Brison	(Anakeen)
-// --------------------------------------------------------------------------
 
-  
-
-
+/**
+ * reconstruct mail group & recompute parent group
+ *
+ * @return string error message, if no error empty string
+ * @see Doc::PostModify()
+ */
 function PostModify() {
 
   $err=$this->SetGroupMail(); 
-   $this->refreshParentGroup();
+  $this->refreshParentGroup();
   return $err;
 }
- 
+
+/**
+ * recompute only parent group 
+ *
+ * @author Anakeen 2003
+ * @return string error message, if no error empty string
+ */
 function RefreshGroup() {
   global $refreshedGrpId; // to avoid inifinitive loop recursion
   
@@ -58,6 +79,13 @@ function RefreshGroup() {
   return $err;
 }
 
+/**
+ * compute the mail of the group 
+ * concatenation of each user mail and group member mail
+ *
+ * @author Anakeen 2003
+ * @return string error message, if no error empty string
+ */
 function SetGroupMail() {
   
   $err="";
@@ -116,7 +144,12 @@ function SetGroupMail() {
   return $err;
 }
   
-
+/**
+ * recompute parent group and its ascendant
+ *
+ * @return array/array parents group list refreshed
+ * @see RefreshGroup()
+ */
 function refreshParentGroup() {
   include_once("FDL/freedom_util.php");  
   include_once("FDL/Lib.Dir.php");  
@@ -143,3 +176,5 @@ function refreshParentGroup() {
   return $tgroup;
   
 }
+?>
+?>

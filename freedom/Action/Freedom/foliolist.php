@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: foliolist.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: foliolist.php,v 1.4 2003/04/07 16:50:18 eric Exp $
+// $Id: foliolist.php,v 1.5 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliolist.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,7 +1,19 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Class.DocFam.php,v 1.13 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.12 2003/07/15 07:28:11 eric Exp $
+// $Id: Class.DocFam.php,v 1.13 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +36,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.12 2003/07/15 07:28:11 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.13 2003/08/18 15:47:04 eric Exp $';
 include_once('FDL/Class.PFam.php');
 
 Class DocFam extends PFam {

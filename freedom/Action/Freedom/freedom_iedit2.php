@@ -1,7 +1,19 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: freedom_iedit2.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
+
 
 // ---------------------------------------------------------------
-// $Id: freedom_iedit2.php,v 1.2 2003/06/27 09:43:02 mathieu Exp $
+// $Id: freedom_iedit2.php,v 1.3 2003/08/18 15:47:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_iedit2.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

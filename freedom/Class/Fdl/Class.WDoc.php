@@ -1,6 +1,18 @@
 <?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Class.WDoc.php,v 1.30 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.29 2003/07/29 13:09:33 eric Exp $
+// $Id: Class.WDoc.php,v 1.30 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.29 2003/07/29 13:09:33 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.30 2003/08/18 15:47:04 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 

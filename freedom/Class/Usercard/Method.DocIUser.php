@@ -1,6 +1,18 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.DocIUser.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+ /**
+ */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIUser.php,v 1.5 2003/08/12 16:31:54 eric Exp $
+// $Id: Method.DocIUser.php,v 1.6 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -93,3 +105,4 @@ function GetOtherGroups() {
   
   return $tgroup;
 }
+?>

@@ -1,10 +1,22 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2000 
+ * @version $Id: Method.Report.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage GED
+ */
+ /**
+ */
 // ==========================================================================
 // document to present a report on one family document
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2003/07/11 16:10:47 $
-// Version         $Revision: 1.6 $
+// Last Update     $Date: 2003/08/18 15:47:04 $
+// Version         $Revision: 1.7 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -178,3 +190,4 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
   $this->lay->setBlockData("TFOOT",$tlfoots);
 }
 // EOF
+?>

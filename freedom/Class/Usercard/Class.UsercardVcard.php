@@ -1,6 +1,15 @@
 <?php
+/**
+ * Class use to import and export VCARD format with FREEDOM USER Family
+ *
+ * @author Anakeen 2001
+ * @version \$Id: Class.UsercardVcard.php,v 1.15 2003/08/18 15:47:04 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.14 2003/05/12 12:15:27 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.15 2003/08/18 15:47:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +32,10 @@
 // ---------------------------------------------------------------
 
 
-
+/**
+ * Class use to read, import and export VCARD format with FREEDOM USER Family
+ *
+ */
 Class UsercardVcard 
 {
   var $import = array(
