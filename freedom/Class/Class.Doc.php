@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.21 2002/01/04 15:08:04 eric Exp $
+// $Id: Class.Doc.php,v 1.22 2002/01/25 09:39:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.21 2002/01/04 15:08:04 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.22 2002/01/25 09:39:41 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -123,18 +123,18 @@ create sequence seq_id_doc start 1000";
     {
     global $lprof;
     //print "select $this->id <BR>";
-      if ($this->profid < 0) {
+    if ($this->profid < 0) { // self control
 
 	if (! isset($lprof[$this->id])) {
 	$lprof[$this->id] =  new ObjectPermission("", 
-                                       array($this->action->parent->user->id,
+                                       array($this->userid,
 				             $this->id ));
 	//	print "SET $this->id : controlled  <BR>";
 	}
 	$this->operm= $lprof[$this->id];
 
 	//	print "$this->id : controlled <BR>";
-      } else if ($this->profid > 0) {
+      } else if ($this->profid > 0) {// indirect profil control
 
 	if (! isset($lprof[$this->profid])) {
 	  $pdoc = new Doc($this->dbaccess, $this->profid);
@@ -185,7 +185,7 @@ create sequence seq_id_doc start 1000";
       if ($this->cprofid == "") $this->cprofid = "0";
       if ($this->lmodify == "") $this->lmodify = "N";
       if ($this->locked == "") $this->locked = "0";
-      if ($this->owner == "") $this->owner = $this->action->user->id;
+      if ($this->owner == "") $this->owner = $this->userid;
       if ($this->classname == "") $this->classname= $this->defClassname; //get_class($this);// dont use this because lost of uppercase letters
       // set creation date
       $date = gettimeofday();
@@ -222,7 +222,7 @@ create sequence seq_id_doc start 1000";
   // ie must be locked by the current user
   function CanUpdateDoc() {
   // --------------------------------------------------------------------
-    if ($this->action->parent->user->id == 1) return "";// admin can do anything
+    if ($this->userid == 1) return "";// admin can do anything
     $err="";
 
     if (! $this->isRevisable()) $err = $this-> Control("edit"); // only revisable can be locked
@@ -230,7 +230,7 @@ create sequence seq_id_doc start 1000";
       if ($this->locked == 0) {     
 	$err = sprintf(_("the file %s (rev %d) must be locked before"), $this->title,$this->revision);      
       } else {
-	if ($this->locked != $this->action->user->id) {
+	if ($this->locked != $this->userid) {
 	  if ($this->locked > 0) {
 	    $user = new User("", $this->locked);
 	    $err = sprintf(_("you are not allowed to update the file %s (rev %d) is locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname); 
@@ -250,13 +250,13 @@ create sequence seq_id_doc start 1000";
   // ie not locked before, and latest revision (the old revision are locked
   function CanLockFile() {
   // --------------------------------------------------------------------
-    if ($this->action->parent->user->id == 1) return ""; // admin can do anything
+    if ($this->userid == 1) return ""; // admin can do anything
     $err="";
     if ($this->doctype != 'F') $err = _("this document cannot be locked : it is not a revisable document");  // only document 'F' can be locked
     else {
       if ($this->locked > 0) {
 	// test if is not already locked
-	if ($this->locked != $this->action->user->id) {
+	if ($this->locked != $this->userid) {
 	  $user = new User("", $this->locked);
 	  $err = sprintf(_("cannot lock file %s (rev %d): already locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname);
 	} 
@@ -275,7 +275,7 @@ create sequence seq_id_doc start 1000";
   // ie like UpdateDoc
   function CanUnLockFile() {
   // --------------------------------------------------------------------
-    if ($this->action->parent->user->id == 1) return "";// admin can do anything
+    if ($this->userid == 1) return "";// admin can do anything
     $err="";
     if ($this->locked != 0) // if is already unlocked
       $err=$this->CanUpdateDoc();
@@ -334,11 +334,9 @@ create sequence seq_id_doc start 1000";
     // --------------------------------------------------------------------
     {
       
-      if ($this->action->HasPermission("ADMIN")) {
-	$err = ""; // ADMIN privilege can delete all cards
-      } else  {
+
 	$err = $this-> Control( "delete");
-      }
+      
                   
 
       return $err;
@@ -559,7 +557,7 @@ create sequence seq_id_doc start 1000";
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
-    $this->owner = $this->action->parent->user->id; // rev user
+    $this->owner = $this->userid; // rev user
     $this->comment = $comment;
     $this->modify();
 
@@ -597,8 +595,8 @@ create sequence seq_id_doc start 1000";
     if ($err != "") return $err;
       
     // test if is not already locked
-    if ($this->locked != $this->action->user->id) {
-      $this->locked = $this->action->user->id;      
+    if ($this->locked != $this->userid) {
+      $this->locked = $this->userid;      
       $this->modify();
     }
     
@@ -619,23 +617,31 @@ create sequence seq_id_doc start 1000";
   // return icon file
   function getIcon() {
 
+    global $action;
+      
   if ($this->icon != "") {
     
     ereg ("(.*)\|(.*)", $this->icon, $reg); 
     
 
-    $efile=$this->action->GetParam("CORE_BASEURL").
+    $efile=$action->GetParam("CORE_BASEURL").
        "app=FREEDOM".
        "&action=EXPORTFILE".
        "&vaultid=".$reg[2]; // upload name
     return $efile;
 
   } else {
-    if ($this->fromid == 0)
-      return  $this->action->GetImageUrl("doc.gif");
+    if ($this->fromid == 0) {
 
+
+      return  $action->GetImageUrl("doc.gif");
+
+    }
     $fdoc = new doc($this->dbaccess, $this->fromid);
-    return $fdoc->geticon();
+    
+    return  $action->GetImageUrl("doc.gif");
+    // don't recursivity to increase speed
+    //    return $fdoc->geticon();
   }
 
   }
@@ -652,7 +658,7 @@ create sequence seq_id_doc start 1000";
 
 
     } 
-    $this->title = AddSlashes($this->title);
+    //    $this->title = AddSlashes($this->title);
     $this->icon = $icon;
     $this->Modify();
   }
@@ -683,7 +689,7 @@ create sequence seq_id_doc start 1000";
 
 	
 	while (list($k, $v) = each($argids)) {
-	  if ($v == "A") $arg[$k]= &$this->action;
+	  if ($v == "A")     {global $action;$arg[$k]= &$action;}
 	  else if ($v == "D") $arg[$k]= $this->dbaccess;
 	  else if ($v == "T") $arg[$k]= &$this;
 	  else {
@@ -718,7 +724,7 @@ create sequence seq_id_doc start 1000";
 	return $this->operm->Control($this, $aclname);
       else return "";
 
-    return "object not initialized ; $aclname";
+    return "object not initialized : $aclname";
   }
   
   
@@ -751,7 +757,7 @@ create sequence seq_id_doc start 1000";
       
       $err = call_user_method ($tr["m1"], $this, $newstate);
 
-      if ($err != "") return (sprintf(_("ChangeState :: the method '%s' return the following error %s"), $tr["m1"], $err));
+      if ($err != "") return (sprintf(_("ChangeState :: the method '%s' has the following error %s"), $tr["m1"], $err));
 
 
     }
@@ -767,7 +773,7 @@ create sequence seq_id_doc start 1000";
     if ($tr["m2"] != "") {
       if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
       $err = call_user_method ($tr["m2"], $this, $newstate);
-      if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' return the following error %s"), $tr["m2"], $err));
+      if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' has the following error %s"), $tr["m2"], $err));
       
     }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.5 2001/12/18 09:18:10 eric Exp $
+// $Id: Class.Dir.php,v 1.6 2002/01/25 09:38:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.5 2001/12/18 09:18:10 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.6 2002/01/25 09:38:56 eric Exp $';
 
 
 include_once("FREEDOM/Class.Doc.php");
@@ -66,15 +66,15 @@ Class Dir extends Doc
   function GetHome() {
     
     $query = new QueryDb($this->dbaccess, get_class($this));
-    $query->AddQuery("owner = -". $this->action->user->id);
+    $query->AddQuery("owner = -". $this->userid);
     
     $rq = $query->Query();
     if ($query->nb > 0)      $home = $rq[0];
     else {
       $home = new Dir($this->dbaccess);
-      $home ->owner = -$this->action->user->id;
+      $home ->owner = -$this->userid;
       include_once("Class.User.php");
-      $user = new User("", $this->action->user->id);
+      $user = new User("", $this->userid);
       $home ->title = $user->firstname." ".$user->lastname;
       $home -> Add();    
     }
