@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.27 2003/07/11 13:05:32 eric Exp $
+// $Id: Class.WDoc.php,v 1.28 2003/07/22 13:13:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.27 2003/07/11 13:05:32 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.28 2003/07/22 13:13:08 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -116,6 +116,7 @@ Class WDoc extends Doc {
       $oattr->frameid=$oattr->id;
       $oattr->labeltext=sprintf(_("parameters for %s state"),_($state));
       $oattr->link="";
+      $oattr->phpfunc="";
       $oattr->ordered=$ordered++;
       if ($oattr->isAffected()) $oattr->Modify();
       else $oattr->Add();
@@ -124,6 +125,7 @@ Class WDoc extends Doc {
 
       // --------------------------
       // profil id
+      $aid=strtolower($this->attrPrefix."_".strtoupper($state));
       $aidprofilid=strtolower($this->attrPrefix."_ID".strtoupper($state));
       $oattr = new DocAttr($this->dbaccess, array($cid,$aidprofilid));
       $oattr->docid=$cid;
@@ -133,6 +135,7 @@ Class WDoc extends Doc {
       $oattr->labeltext=sprintf(_("id %s profile"),_($state));
       $oattr->link="";
       $oattr->frameid=$aidframe;
+      $oattr->phpfunc="::getTitle($aidprofilid):$aid";
       $oattr->ordered=$ordered++;
       if ($oattr->isAffected()) $oattr->Modify();
       else $oattr->Add();
@@ -140,7 +143,6 @@ Class WDoc extends Doc {
 
       // --------------------------
       // profil user comprehensive
-      $aid=strtolower($this->attrPrefix."_".strtoupper($state));
       $oattr = new DocAttr($this->dbaccess, array($cid,$aid));
       $oattr->docid=$cid;
       $oattr->visibility="W";
@@ -158,6 +160,7 @@ Class WDoc extends Doc {
       // --------------------------
       // mask id
       $aidmaskid=strtolower($this->attrPrefix."_MSKID".strtoupper($state));
+      $aid=strtolower($this->attrPrefix."_MSK".strtoupper($state));
       $oattr = new DocAttr($this->dbaccess, array($cid,$aidmaskid));
       $oattr->docid=$cid;
       $oattr->visibility="H";
@@ -166,6 +169,7 @@ Class WDoc extends Doc {
       $oattr->labeltext=sprintf(_("id %s mask"),_($state));
       $oattr->link="";
       $oattr->frameid=$aidframe;
+      $oattr->phpfunc="::getTitle($aidmaskid):$aid";
       $oattr->ordered=$ordered++;
       if ($oattr->isAffected()) $oattr->Modify();
       else $oattr->Add();
@@ -173,7 +177,6 @@ Class WDoc extends Doc {
 
       // --------------------------
       // mask user comprehensive
-      $aid=strtolower($this->attrPrefix."_MSK".strtoupper($state));
       $oattr = new DocAttr($this->dbaccess, array($cid,$aid));
       $oattr->docid=$cid;
       $oattr->visibility="W";
