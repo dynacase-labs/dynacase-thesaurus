@@ -3,7 +3,7 @@
  * Display two frames
  *
  * @author Anakeen 2003
- * @version $Id: generic_root.php,v 1.2 2004/08/23 13:45:08 eric Exp $
+ * @version $Id: generic_root.php,v 1.3 2005/01/21 17:45:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -30,5 +30,6 @@ function generic_root(&$action) {
     break;
     
   }
+  $action->lay->set("GTITLE",_($action->parent->short_name));
 }
 ?>
