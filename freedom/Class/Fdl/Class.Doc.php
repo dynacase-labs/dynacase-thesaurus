@@ -3,13 +3,15 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.155 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.156 2003/09/16 07:38:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
  */
+/**
+ */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.155 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.Doc.php,v 1.156 2003/09/16 07:38:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.155 2003/08/18 15:47:04 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.156 2003/09/16 07:38:19 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -45,8 +47,10 @@ include_once("VAULT/Class.VaultFile.php");
 
 // define constant for search attributes in concordance with the file "init.freedom"
 
-
-
+/**#@+
+ * constant for document family identificator in concordance with the file "FDL/init.freedom"
+ * 
+ */
 define ("FAM_BASE", 1);
 define ("FAM_DIR", 2);
 define ("FAM_ACCESSDOC", 3);
@@ -54,7 +58,7 @@ define ("FAM_ACCESSDIR", 4);
 define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 define ("FAM_ACCESSFAM", 23);
-
+/**#@-*/
 /**
  * Document Class
  *
@@ -82,6 +86,106 @@ Class Doc extends DocCtrl {
 			"attrids",
 			"postitid");
 
+  /**
+   * identificator of the document
+   * @var int
+   */
+  var $id;
+  /**
+   * user identificator for the creator
+   * @var int
+   */
+  var $owner;
+  /**
+   * the title of the document
+   * @var string
+   */
+  var $title;
+  /**
+   * number of the revision. First is zero
+   * @var int
+   */
+  var $revision;
+  /**
+   * identificator of the first revision document
+   * @var int
+   */
+  var $initid;
+  /**
+   * identificator of the family document
+   * @var int
+   */
+  var $fromid;
+  /**
+   * the type of document
+   *
+   * F : normal document (default)
+   * C : family document
+   * D : folder document
+   * P : profil document
+   * S : search document
+   * T : temporary document
+   * W : workflow document
+   * Z : zombie document
+   *
+   * @var char
+   */
+  var $doctype;
+  /**
+   * user identificator for the locker
+   * @var int
+   */
+  var $locked;
+  /**
+   * filename or vault id for the icon
+   * @var string
+   */
+  var $icon;
+  /**
+   * set to 'Y' if the document has been modify until last revision
+   * @var char
+   */
+  var $lmodify;
+  /**
+   * identificator of the profil document
+   * @var int
+   */
+  var $profid;
+  /**
+   * to precise a special use of the document
+   * @var char
+   */
+  var $usefor;
+  /**
+   * date of the last modification (the revision date for fixed docuemnt)
+   * @var int
+   */
+  var $revdate;
+  /**
+   * comment for the history
+   * @var string
+   */
+  var $comment;
+  /**
+   * class name in case of special family (only set in family document)
+   * @var string
+   */
+  var $classname;
+  /**
+   * state of the document if it is associated with a workflow
+   * @var string
+   */
+  var $state;
+  /**
+   * identificator of the workflow document
+   * 
+   * is 0 if no workflow
+   * @var int
+   */
+  var $wid;
+
+
+
   var $id_fields = array ("id");
 
   var $dbtable = "doc";
@@ -90,7 +194,10 @@ Class Doc extends DocCtrl {
 
   var $fulltextfields = array ("title");
 
-
+  /**
+   * default family id for the profil access
+   * @var int
+   */
   var $defProfFamId=FAM_ACCESSDOC;
   var $sqlcreate = "
 create table doc ( id int not null,
@@ -177,7 +284,7 @@ create unique index i_docir on doc(initid, revision);";
    * 
    * @see DbObj::DbObj()
    * @see newDoc()
-   * @return none
+   * @return void
    */
   function Doc($dbaccess='', $id='',$res='',$dbid=0) {
     newDoc($this,$dbaccess, $id, $res, $dbid);
@@ -219,12 +326,17 @@ create unique index i_docir on doc(initid, revision);";
       }
       $this->Select($this->id);
       if ($this->doctype != "T") $this->PostCreated(); 
-    }
-  
+    }  
   // --------------------------------------------------------------------
-  function PreInsert()
-    // --------------------------------------------------------------------
-    {
+
+  /**
+   * set default values and creation date
+   * the access control is provided by {@see createDoc()} function.
+   * call {@see Doc::PreCreated()} method before execution
+   * 
+   * @return string error message, if no error empty string
+   */
+  function PreInsert() {
 
       $err=$this->PreCreated(); 
       if ($err != "") return $err;
@@ -268,14 +380,19 @@ create unique index i_docir on doc(initid, revision);";
       }
       return $err;
     } 
+    // --------------------------------------------------------------------
 
   
 
 
-  // --------------------------------------------------------------------
-  function PreUpdate()
-    // --------------------------------------------------------------------
-    {
+    /** 
+     * Verify control edit
+     * 
+     * if {@link disableEditControl()} is call before control permission is desactivated
+     * if attribute values are changed the modification date is updated
+     * @return string error message, if no error empty string
+     */
+  function PreUpdate() {
       if ($this->id == "") return _("cannot update no initialized document");
       if (! isset($this->withoutControl)) {
 	$err = $this-> Control("edit");
@@ -293,16 +410,22 @@ create unique index i_docir on doc(initid, revision);";
       $this->hasChanged=false;
       
     }
+  // --------------------------------------------------------------------
 
-  // optimize for speed 
+  /**
+   * optimize for speed : memorize object for future use
+   * @global array optimize for speed :: reference is not a pointer !!
+   */
   function PostUpdate() {
     global $gdocs;// optimize for speed :: reference is not a pointer !!
-    $gdocs[$this->id]=&$this;
-    
+    $gdocs[$this->id]=&$this;    
   }
+  // --------------------------------------------------------------------
 
-
-  // get current sequence number :: numbre of doc for this family
+  /**
+   * get current sequence number :: number of doc for this family
+   * @return int
+   */
   function getCurSequence() {
     if ($this->doctype=='C') return 0;
     if ($this->fromid == "") return 0;
@@ -327,11 +450,15 @@ create unique index i_docir on doc(initid, revision);";
     return $cur;
   }
 
-  // modify without edit control
+  /**
+   * modify without edit control
+   */
   function disableEditControl() {
     $this->withoutControl=true;
   }
-  // default edit control enable
+  /**
+   * default edit control enable
+   */
   function enableEditControl() {
     unset($this->withoutControl);
   }
@@ -390,9 +517,11 @@ create unique index i_docir on doc(initid, revision);";
     
   }
 
-  // --------------------------------------------------------------------
-  // test if the document can be revised now
-  // ie must be locked by the current user
+  /**
+   * test if the document can be revised now
+   * it must be locked by the current user
+   * @return bool
+   */
   function CanUpdateDoc() {
     // --------------------------------------------------------------------
 
@@ -417,12 +546,13 @@ create unique index i_docir on doc(initid, revision);";
     return($err);
   }
   // --------------------------------------------------------------------
-  // test if the document can be locked
-  // ie not locked before, and latest revision (the old revision are locked
-  function CanLockFile() {
-    // --------------------------------------------------------------------
-   
 
+  /**
+   * test if the document can be locked
+   * it is not locked before, and the current user can edit document
+   * @return bool
+   */
+  function CanLockFile() {
     $err="";
     
     if ($this->locked == -1) {
@@ -447,12 +577,16 @@ create unique index i_docir on doc(initid, revision);";
 
     return($err);  
   } 
-
   // --------------------------------------------------------------------
-  // test if the document can be unlocked
-  // ie like UpdateDoc
+
+ 
+  /** 
+   * test if the document can be unlocked
+   * @see CanLockFile()
+   * @see CanUpdateDoc()
+   * @return bool
+   */
   function CanUnLockFile() {
-    // --------------------------------------------------------------------
     if ($this->userid == 1) return "";// admin can do anything
     $err="";
     if ($this->locked != 0) // if is already unlocked
@@ -463,12 +597,24 @@ create unique index i_docir on doc(initid, revision);";
     return($err);
   
   }
+  // --------------------------------------------------------------------
 
+  /** 
+   * test if the document is locked
+   * @see CanLockFile()
+   * 
+   * @return bool true if locked
+   */
   function isLocked() {
     return (($this->locked > 0) || ($this->locked < -1));
   }
+  // --------------------------------------------------------------------
 
-
+  /** 
+   * return the family document where the document comes from
+   * 
+   * @return Doc
+   */
   function getFamDoc() {
     if (! isset($this->famdoc)||($this->famdoc->id != $this->fromid)) $this->famdoc= new Doc($this->dbaccess, $this->fromid);
     return $this->famdoc;
@@ -494,26 +640,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
 
-  // --------------------------------------------------------------------
-  function UpdateTitles()
-    // --------------------------------------------------------------------
-    {
-      $query = new QueryDb($this->dbaccess,"Doc");
-
-      
-    
-      $table1 = $query->Query();
-
-     
-      if ($query->nb > 0)
-	{
-	  while(list($k,$v) = each($table1)) 
-	    {	     
-	      $v->refreshTitle();
-	      $v->Modify();
-	    }	  
-	}      
-    }
+  
 
 
   // --------------------------------------------------------------------
@@ -536,11 +663,14 @@ create unique index i_docir on doc(initid, revision);";
     
   }
 
-  // --------------------------------------------------------------------
-  // return the latest revision with the indicated state 
-  function getRevisionState($state) {
-  // --------------------------------------------------------------------
-    
+   
+  /** 
+   * return the latest revision id with the indicated state 
+   * For the user the document is in the trash
+   * @param string $state wanted state
+   * @return int document id (0 if no found)
+   */
+  function getRevisionState($state) {    
     $ldoc = $this->GetRevisions("TABLE");
     $vdocid=0;
     while (list($k,$v) = each($ldoc)) {
@@ -562,26 +692,42 @@ create unique index i_docir on doc(initid, revision);";
   }
   
   // --------------------------------------------------------------------
+  /** 
+   * Control if the doc can be deleted
+   * @access private
+   * @return string error message, if no error empty string
+   * @see Doc::Delete()
+   */
   function PreDocDelete()    
-    // --------------------------------------------------------------------
     {
       
       if ($this->doctype == 'Z') return _("already deleted");
-      $err = $this-> Control( "delete");
-      
-                  
-
-      return $err;
-      
+      $err = $this->Control("delete");
+                        
+      return $err;      
     }
+  // --------------------------------------------------------------------
 
-
+  /** 
+   * Really delete document from database
+   * @return string error message, if no error empty string
+   */
   function ReallyDelete() {
     return DbObj::delete();
   }
+  // --------------------------------------------------------------------
 
+  /** 
+   * Set the document to zombie state
+   * For the user the document is in the trash
+   * @param bool $really if true call {@link ReallyDelete} really delete from database
+   * @return void
+   */
   function Delete($really=false) {
 
+    // Control if the doc can be deleted
+    $msg = $this->Control("delete");
+    if ($msg!='') return $msg;
 
 
     if ($really) {
@@ -593,7 +739,11 @@ create unique index i_docir on doc(initid, revision);";
 	}
       }
     } else {
-      $msg=$this->PreDocDelete();
+      // Control if the doc can be deleted
+      if ($this->doctype == 'Z') $msg= _("already deleted");       
+      if ($msg!='') return $msg;
+
+      $msg=$this->PreDelete();
       if ($msg!='') return $msg;
 
       $this->doctype='Z'; // Zombie Doc
@@ -629,9 +779,12 @@ create unique index i_docir on doc(initid, revision);";
     }
   }
 
-  // --------------------------------------------------------------------
-  // Adaptation of affect Method from DbObj because of inheritance table
-  // this function is call from QueryDb and all fields can not be instanciate
+
+  /** 
+   * Adaptation of affect Method from DbObj because of inheritance table
+   * this function is call from QueryDb and all fields can not be instanciate
+   * @return void
+   */
   function Affect($array) {
     // --------------------------------------------------------------------
   
@@ -1057,7 +1210,12 @@ create unique index i_docir on doc(initid, revision);";
   }
 
  
-  // return all the values
+  
+  /**
+   * return all attribute values
+   *
+   * @return array all attribute values 
+   */
   function GetValues()  {
     $this->lvalues=array();
     if (isset($this->id) && ($this->id>0)) {
@@ -1069,28 +1227,40 @@ create unique index i_docir on doc(initid, revision);";
 
 	$this->lvalues[$v->id] = $this->GetValue($v->id);
       }
-    }
-      
-      
+    }            
     reset($this->lvalues);
     return $this->lvalues;
   }
+  //-------------------------------------------------------------------
 
-  // return the value of an attribute object 
+
+  /**
+   * return the value of an attribute document 
+   * @param string $idAttr identificator of attribute
+   * @param string $def default value returned if attribute not found or if is empty
+   * @return string the attribute value 
+   */
   function GetValue($idAttr, $def="")  {      
     
     $lidAttr=strtolower($idAttr);
     if (isset($this->$lidAttr) && ($this->$lidAttr != "")) return $this->$lidAttr;
-
-      
-   
+         
     return $def;
-
   }
-  // return the array value of an repeatable attribute object 
+  //-------------------------------------------------------------------
+
+  /**
+   * return the value of an list attribute document
+   *
+   * the attribute must be in an array or of a type '*list' like enumlist or textlist
+   * @param string $idAttr identificator of list attribute 
+   * @param string $def default value returned if attribute not found or if is empty
+   * @return array the list of attribute values 
+   */
   function GetTValue($idAttr, $def="")  { 
     return $this->_val2array($this->getValue("$idAttr"));
   }
+  //-------------------------------------------------------------------
 
   function SetValue($attrid, $value) {
     // control edit before set values
@@ -1300,7 +1470,14 @@ create unique index i_docir on doc(initid, revision);";
     
   }
 
-  // return the  copy of this
+  /**
+   * return the copy of the document
+   * the copy is created to the database
+   * the profil of the copy is the default profil according to his family
+   * the copy is not locked and if it is related to a workflow, his state is the first state
+   * @param bool $temporary if true the document create is a temporary document
+   * @return Doc in case of error return a string that indicate the error
+   */
   function Copy($temporary=false) {
     $copy= new Doc($this->dbaccess, $this->id);
 
@@ -1312,8 +1489,8 @@ create unique index i_docir on doc(initid, revision);";
     $copy->state = "";
     if ($temporary) $copy->doctype = "T";
     $cdoc= $this->getFamDoc();
-    $copy->profid = $cdoc->cprofid;;
-
+    $copy->setProfil($cdoc->cprofid);
+    $copy->addComment(sprintf(_("copy from document #%d"),$this->id));
     $err = $copy->Add();
 
     if ($err != "") return $err;
@@ -1331,6 +1508,16 @@ create unique index i_docir on doc(initid, revision);";
     }
   }
 
+  /** 
+   * lock document
+   * 
+   * the auto lock is unlocked when the user discard edition or when he's modify document
+   * @param bool $auto if true it is a automatic lock due to an edition (@see editcard()}
+   * 
+   * @return string error message, if no error empty string, if message
+   * @see Doc::CanLockFile()
+   * @see Doc::unlock()
+   */
   function lock($auto=false) {
     
     $err=$this->CanLockFile();
@@ -1339,7 +1526,7 @@ create unique index i_docir on doc(initid, revision);";
     // test if is not already locked
     if ($auto) {
       if (($this->userid != 1) && ($this->locked == 0)) {
-	$this->locked = -$this->userid;     
+	$this->locked = -$this->userid; // in case of auto lock the locked id is negative
 	$err=$this->modify();
       }
     } else { 
@@ -1351,6 +1538,18 @@ create unique index i_docir on doc(initid, revision);";
     
     return $err;
   }
+
+  /** 
+   * unlock document
+   * 
+   * the automatic unlock is done only if the lock has been set automatically also
+   * the explicit unlock, unlock in all case (if CanLockFile)
+   * @param bool $auto if true it is a automatic unlock 
+   * 
+   * @return string error message, if no error empty string, if message
+   * @see Doc::CanLockFile()
+   * @see Doc::lock()
+   */
   function unlock($auto=false) {
     
 
@@ -1372,7 +1571,11 @@ create unique index i_docir on doc(initid, revision);";
     return "";
   }
 
-  // return icon file
+  /**
+   * return icon url
+   * if no icon found return doc.gif
+   * @return string icon url
+   */
   function getIcon() {
 
     global $action;
@@ -1389,9 +1592,7 @@ create unique index i_docir on doc(initid, revision);";
     } else {
       if ($this->fromid == 0) {
 
-
 	return  $action->GetImageUrl("doc.gif");
-
       }
       //$fdoc = new doc(newDoc($this->dbaccess, $this->fromid);
     
@@ -1817,8 +2018,10 @@ create unique index i_docir on doc(initid, revision);";
     return sprintf(_("cannot control : object not initialized : %s"),$aclname);
   }
   
- 
-  // if doc is in Trash is considered
+  /**
+   * verify that the document exists and is not in trash (not a zombie)
+   * @return bool
+   */
   function isAlive() {
     return ((DbObj::isAffected()) && ($this->doctype != 'Z'));
   }
@@ -1861,6 +2064,13 @@ create unique index i_docir on doc(initid, revision);";
   }
   }
 
+  /**
+   * set default values define in family document
+   * the format of the string which define default values is like
+   * [US_ROLE|director][US_SOCIETY|alwaysNet]...
+   * @param string $defval the default values
+   * @access private
+   */
   function setDefaultValues($defval) {
     if ($defval != "") {
 
