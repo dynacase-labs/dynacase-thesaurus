@@ -18,6 +18,7 @@ DIV.monthOdd {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
+  	background-image:url('[IMG:tabvg.png]');
 }
 DIV.monthEven {
 	background-color:orange;
@@ -29,6 +30,7 @@ DIV.monthEven {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
+  	background-image:url('[IMG:tabvg.png]');
 }
 
 DIV.weekOdd {
@@ -41,6 +43,7 @@ DIV.weekOdd {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
+  	background-image:url('[IMG:tabvg.png]');
 }
 DIV.weekEven {
 	background-color:salmon;
@@ -52,6 +55,7 @@ DIV.weekEven {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
+  	background-image:url('[IMG:tabvg.png]');
 }
 DIV.dayOdd {
 	background-color:lightgreen;
@@ -63,6 +67,7 @@ DIV.dayOdd {
 	left=0px;
 	top=0px;
 	border: green 1pt;
+  	background-image:url('[IMG:tabvg.png]');
 }
 DIV.dayEven {
 	background-color:pink;
@@ -74,6 +79,7 @@ DIV.dayEven {
 	left=0px;
 	top=0px;
 	border: red 1pt;
+  	background-image:url('[IMG:tabvg.png]');
 }
 DIV.year {
 	background-color:cyan;
@@ -85,6 +91,7 @@ DIV.year {
 	left=0px;
 	top=0px;
 	border:solid black 1pt;
+  	background-image:url('[IMG:tabvg.png]');
 }
 
 DIV.event {

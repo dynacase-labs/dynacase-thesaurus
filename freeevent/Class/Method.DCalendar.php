@@ -51,8 +51,10 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   include_once("FDL/Lib.Color.php");
   global $action;
 
-  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/jdate.js");
-  $action->parent->AddCssRef($action->GetParam("CORE_PUBURL")."/FREEEVENT/Layout/planner.css");
+  $action->parent->AddJsRef("FDL:JDATE.JS",true);
+  $action->parent->AddJsRef("FREEEVENT:PLANNER.JS",true);
+  $action->parent->AddCssRef("FREEEVENT:PLANNER.CSS",true);
+  //  $action->parent->AddCssRef($action->GetParam("CORE_PUBURL")."/FREEEVENT/Layout/planner.css",true);
   $byres= (getHttpVars("byres","N")=="Y");
   $mb=microtime();
  
