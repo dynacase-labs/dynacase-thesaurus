@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.60 2002/10/31 08:09:23 eric Exp $
+// $Id: Class.Doc.php,v 1.61 2002/11/04 09:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.60 2002/10/31 08:09:23 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.61 2002/11/04 09:13:17 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -121,6 +121,7 @@ create unique index i_docir on doc(initid, revision);";
   var $hasChanged=false; // to indicate values modification
  var $isCacheble= false;
 
+ var $paramRefresh=array();
 
   function Doc($dbaccess='', $id='',$res='',$dbid=0) {
 
@@ -458,17 +459,7 @@ create unique index i_docir on doc(initid, revision);";
   // --------------------------------------------------------------------
     {
 
-      // ------------------------------
-      // delete POSGRES image files
-  
-      
-      
 
-
-      // ------------------------------
-      // delete POSGRES values
-      $bdvalue = new DocValue($this->dbaccess);
-      $bdvalue -> DeleteValues ($this->id);
   
       // ------------------------------
       // delete control object
@@ -477,6 +468,25 @@ create unique index i_docir on doc(initid, revision);";
 
       
     }
+
+  // --------------------------------------------------------------------
+  // Adaptation of affect Method from DbObj because of inheritance table
+  // this function is call from QueryDb and all fields can not be instanciate
+  function Affect($array) {
+    // --------------------------------------------------------------------
+  
+    reset($array);
+    $this->ofields = $this->fields;
+    $this->fields=array();
+    while(list($k,$v) = each($array)) {
+      if (!is_integer($k)) {
+	$this->fields[]=$k;
+	$this->$k = $v;
+      }
+    }
+    $this->Complete();
+    $this->isset = true;
+  }
 
   // --------------------------------------------------------------------
   function Description() {
@@ -515,14 +525,21 @@ create unique index i_docir on doc(initid, revision);";
   }
   
   // --------------------------------------------------------------------
-  function GetChildDoc() {
+  function GetFromDoc() {
+    // -------------------------------------------------------------------- 
+    // Return array of fathers doc id : class document 
+
+    return $this->attributes->fromids;
+  }
+
+  // --------------------------------------------------------------------
+  function GetChildFam() {
     // -------------------------------------------------------------------- 
     // Return array of child doc id : class document 
     if (! isset($this->childs)) {
 
       $this->childs=array();
-      $query = new QueryDb($this->dbaccess, "Doc");
-      $query->AddQuery("doctype = 'C'");
+      $query = new QueryDb($this->dbaccess, "DocFam");
       $query->AddQuery("fromid = ".$this->id);
       $table1 = $query->Query();
 
@@ -530,7 +547,7 @@ create unique index i_docir on doc(initid, revision);";
 	while (list($k,$v) = each($table1)) {
 	  $this->childs[]=$v->id;
 
-	  $this->childs=array_merge($this->childs, $v->GetChildDoc());
+	  $this->childs=array_merge($this->childs, $v->GetChildFam());
 	  
 	}
       }
@@ -556,7 +573,7 @@ create unique index i_docir on doc(initid, revision);";
   function GetLabel($idAttr)
     {
 
-      if (isset($this->attr[$idAttr])) return $this->attr[$idAttr]->labelText;
+      if (isset($this->attributes->attr[$idAttr])) return $this->attributes->attr[$idAttr]->labelText;
       return _("unknow attribute");
 
     }
@@ -567,7 +584,7 @@ create unique index i_docir on doc(initid, revision);";
   function GetAttribute($idAttr)
     {      
       $idAttr = strtolower($idAttr);
-      if (isset($this->attr[$idAttr])) return $this->attr[$idAttr];
+      if (isset($this->attributes->attr[$idAttr])) return $this->attributes->attr[$idAttr];
      
 
       return false;
@@ -579,8 +596,8 @@ create unique index i_docir on doc(initid, revision);";
 
     function GetAttributes() 
     {     
-      reset($this->attr);
-      return $this->attr;
+      reset($this->attributes->attr);
+      return $this->attributes->attr;
     }
 
   // return all the attributes object for abstract
@@ -590,8 +607,8 @@ create unique index i_docir on doc(initid, revision);";
       $tsa=array();
      
       
-      reset($this->attr);
-      while (list($k,$v) = each($this->attr)) {
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
 	if (get_class($v) == "normalattribute")  $tsa[$v->id]=$v;
       }
       return $tsa;      
@@ -602,8 +619,8 @@ create unique index i_docir on doc(initid, revision);";
       $tsa=array();
      
       
-      reset($this->attr);
-      while (list($k,$v) = each($this->attr)) {
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
 	if (get_class($v) == "FieldSetAttribute")  $tsa[$v->id]=$v;
       }
       return $tsa;      
@@ -615,35 +632,22 @@ create unique index i_docir on doc(initid, revision);";
       $tsa=array();
 
       
-      reset($this->attr);
-      while (list($k,$v) = each($this->attr)) {
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute")&&($v->isInAbstract)) $tsa[$v->id]=$v;
       }
       return $tsa;      
     }
 
-  // return all the attributes object for abstract
-  // the attribute can be defined in fathers
-  function GetComputedAttributes()
-    {      
-      $tsa=array();
-      
-      reset($this->attr);
-      while (list($k,$v) = each($this->attr)) {
-	if ((get_class($v) == "normalattribute") && ($v->phpfunc != "") && 
-	    (($v->visibility == "R") || ($v->visibility == "H"))
-	    ) $tsa[$v->id]=$v;
-      }
-      return $tsa;      
-    }
+  
 
   // return all the attributes object for title
   // the attribute can be defined in fathers
   function GetTitleAttributes()
     { 
       $tsa=array();
-      reset($this->attr);
-      while (list($k,$v) = each($this->attr)) {
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute") && ($v->isInTitle)) $tsa[$v->id]=$v;      
       }
       return $tsa;
@@ -655,8 +659,8 @@ create unique index i_docir on doc(initid, revision);";
     {      
       $tsa=array();
       
-      reset($this->attr);
-      while (list($k,$v) = each($this->attr)) {
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute") && (($v->type == "image") || 
 						     ($v->type == "file"))) $tsa[$v->id]=$v;
       }
@@ -668,8 +672,8 @@ create unique index i_docir on doc(initid, revision);";
     {      
       $tsa=array();
       
-      reset($this->attr);
-      while (list($k,$v) = each($this->attr)) {
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "menuattribute")) $tsa[$v->id]=$v;
       }
       return $tsa;
@@ -680,8 +684,8 @@ create unique index i_docir on doc(initid, revision);";
   function GetNeededAttributes()
     {            
       $tsa=array();
-      reset($this->attr);
-      while (list($k,$v) = each($this->attr)) {
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute") && ($v->needed)) $tsa[$v->id]=$v;      
       }
 
@@ -696,8 +700,8 @@ create unique index i_docir on doc(initid, revision);";
 
       $tsa=array();
       
-      reset($this->attr);
-      while (list($k,$v) = each($this->attr)) {
+      reset($this->attributes->attr);
+      while (list($k,$v) = each($this->attributes->attr)) {
 	if ((get_class($v) == "normalattribute") && ($v->visibility == "W") 	    
 	    && (($v->type != "image") &&($v->type != "file")) ) {
 	  
@@ -744,6 +748,11 @@ create unique index i_docir on doc(initid, revision);";
     // to be defined in child class
   }
 
+  // optimize for speed 
+  function PostUpdate() {
+    global $gdocs;// optimize for speed :: reference is not a pointer !!
+    $gdocs[$this->id]=&$this;
+  }
 
   // recompute the title from attribute values
   function SetTitle($title) {
@@ -782,7 +791,7 @@ create unique index i_docir on doc(initid, revision);";
   function GetValue($idAttr, $def="")  {      
     
     $lidAttr=strtolower($idAttr);
-    if (isset($this->$lidAttr)) return $this->$lidAttr;
+    if (isset($this->$lidAttr) && ($this->$lidAttr != "")) return $this->$lidAttr;
 
       
 
@@ -810,6 +819,11 @@ create unique index i_docir on doc(initid, revision);";
 	
       }      
     }
+
+  
+  function DeleteValue($attrid) {
+    return $this->SetValue($attrid," ");
+  }
 
   function ResetValues() {
     unset($this->values);
@@ -949,17 +963,28 @@ create unique index i_docir on doc(initid, revision);";
     $this->Modify();
   }
 
+  function AddParamRefresh($in,$out) {
+    // to know which attribut must be disabled in edit mode
+    $this->paramRefresh[]=array("in"=>explode(",",strtolower($in)),
+				"out"=>explode(",",strtolower($out)));
+  }
+  function SpecRefresh() {
+    // Special Refresh
+    // to define in child classes
+  }
   // recompute all calculated attribut
   function Refresh() {	
+
+
 
     if ($this->locked == -1) return; // no refresh revised document
     if ($this->doctype == 'C') return; // no refresh for family  document
 	  
 
-      
+    $this->SpecRefresh();
 	
 
-    //$this->modify(); // refresh title
+    $this->modify(); // refresh title
 	
   }
   

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.24 2002/10/08 10:28:17 eric Exp $
+// $Id: import_file.php,v 1.25 2002/11/04 09:13:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FDL/Class.Doc.php");
+include_once("FDL/Class.DocFam.php");
 include_once("FDL/Class.DocSearch.php");
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.QueryDir.php");
@@ -57,7 +57,7 @@ function add_import_file(&$action, $fimport="") {
       // -----------------------------------
     case "BEGIN":
       $err="";
-      $doc=new Doc($dbaccess, $data[3]);
+      $doc=new DocFam($dbaccess, $data[3]);
 
       if ($analyze) continue;
       if (! $doc->isAffected())  {
@@ -109,7 +109,7 @@ function add_import_file(&$action, $fimport="") {
     break;    
     // -----------------------------------
     case "SEARCH":
-    $doc = new DocSearch($dbaccess);
+    $doc = createDoc($dbaccess,5);
 
     if  ($data[1] > 0) $doc->id= $data[1]; // static id
     $err = $doc->Add();
@@ -170,20 +170,20 @@ function add_import_file(&$action, $fimport="") {
     // -----------------------------------
     case "ATTR":
       if     ($num < 12) print "Error in line $nline: $num cols < 13<BR>";
-      $oattr=new DocAttr($dbaccess, array($doc->id,$data[1]));
+      $oattr=new DocAttr($dbaccess, array($doc->id,strtolower($data[1])));
       if ($oattr->isAffected()) $amodify=true;
       else $amodify=false;
       
       $oattr->docid = $doc->id;
-      $oattr->id = $data[1];
-      $oattr->frameid = $data[2];
+      $oattr->id = strtolower($data[1]);
+      $oattr->frameid = strtolower($data[2]);
       $oattr->labeltext=$data[3];
       $oattr->title = ($data[4] == "Y")?"Y":"N";
       $oattr->abstract = ($data[5] == "Y")?"Y":"N";
       $oattr->type = $data[6];
 
       $oattr->ordered = $data[7];
-      $oattr->visibility = $data[8];
+      $oattr->visibility = ($oattr->type=="frame"):"F"?$data[8];
       $oattr->link = $data[9];
       $oattr->phpfile = $data[10];
       $oattr->phpfunc = $data[11];

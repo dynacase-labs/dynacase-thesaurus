@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.10 2002/10/01 16:29:35 eric Exp $
+// $Id: editutil.php,v 1.11 2002/11/04 09:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -31,8 +31,10 @@ include_once("VAULT/Class.VaultFile.php");
 
 
 // -----------------------------------
-function getHtmlInput(&$action, $docid, &$oattr, $value) {
-	
+function getHtmlInput(&$doc, &$oattr, $value) {
+  global $action;
+
+  $docid=$doc->id;
   $attrtype=$oattr->type;
   $attrid=$oattr->id;
   $visibility=$oattr->visibility;
@@ -58,17 +60,17 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
     case "image": 
       if (ereg ("(.*)\|(.*)", $value, $reg)) {
 			  
-	$dbaccess = $action->GetParam("FREEDOM_DB");
+	$dbaccess = GetParam("FREEDOM_DB");
 	$vf = new VaultFile($dbaccess, "FREEDOM");
 	if ($vf -> Show ($reg[2], $info) == "") {
 	  $fname = "<A target=\"$attrid\" href=\"".
-	    $action->GetParam("CORE_BASEURL").
+	    GetParam("CORE_BASEURL").
 	    "app=FDL&action=EXPORTFILE&docid=$docid&attrid=$attrid\" title=\"{$info->name}\">";
 	  // put image
 	  
 	  $fname.="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
-	  $fname .= $action->GetParam("CORE_BASEURL").
-	 "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$attrid;
+	  $fname .= GetParam("CORE_BASEURL").
+	 "app=FDL&action=EXPORTFILE&docid=".$docid."&attrid=".$attrid;
 	  $fname .= "\">";
 
 	  $fname .= "</A>";
@@ -217,7 +219,7 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
       $argids = split(",",$reg[3]);  // output args
       $arg = array();
       while (list($k, $v) = each($argids)) {
-	if (strlen($v) > 1) $arg[$k]= chop($v);
+	if (strlen($v) > 1) $arg[$k]= strtolower(chop($v));
       }
       if (count($arg) > 0) {
 	$jarg="'".implode("','",$arg)."'";
@@ -245,7 +247,7 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
 
   function elinkEncode( $link) {
     // -----------------------------------
-      global $action;
+    
    
     
     $urllink="";
@@ -258,11 +260,11 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
 	    
 	  switch ($link[$i]) {
 	    case "B": // baseurl	  
-	      $urllink.=$action->GetParam("CORE_BASEURL");
+	      $urllink.=GetParam("CORE_BASEURL");
 	      
 	      break;
 	    case "S": // standurl	  
-	      $urllink.=$action->GetParam("CORE_STANDURL");
+	      $urllink.=GetParam("CORE_STANDURL");
 	      
 	      break;
 	    case "I": // id	  
@@ -283,7 +285,7 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
 	  }
 	  //	  print "attr=$sattrid";
 	  
-
+	  $sattrid=strtolower($sattrid);
 
 	  $urllink.= "'+document.getElementById('$sattrid').value+'";
 	  

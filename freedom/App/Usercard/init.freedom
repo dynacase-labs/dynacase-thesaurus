@@ -1,6 +1,6 @@
 BEGIN;0;famille personne;120;DocUser;;;;;;;;
 TYPE;C;;;;;;;;;;;
-;;;;;;;;;;;;
+METHOD;Method.DocUser.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc;elink
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;
 ATTR;US_FR_IDENT;;Etat civil;N;N;frame;10;W;;;;
@@ -15,8 +15,8 @@ ATTR;US_MOBILE;US_FR_COORD;mobile;N;N;text;90;W;;;;
 ATTR;US_INTPHONE;US_FR_COORD;n°poste;N;N;text;100;W;;;;
 ATTR;US_FAX;US_FR_COORD;fax;N;N;text;110;W;;;;
 ATTR;US_FR_SOC;;Société;N;N;frame;120;W;;;;
-ATTR;US_IDSOCIETY;US_FR_SOC;id société;N;N;text;130;H;;fdl.php;gettitle(D,US_IDSOCIETY):US_SOCIETY,US_IDSOCIETY;
-ATTR;US_SOCADDR;US_FR_SOC;même adresse ?;N;N;text;140;H;;usercard.php;gaddrsociety(D,US_IDSOCIETY,US_SOCADDR):US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB;
+ATTR;US_IDSOCIETY;US_FR_SOC;id société;N;N;text;130;H;;;;
+ATTR;US_SOCADDR;US_FR_SOC;même adresse ?;N;N;text;140;H;;;;
 ATTR;US_SOCIETY;US_FR_SOC;site société;N;N;enum;150;W;%S%&app=USERCARD&action=GENERIC_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid=124&SI_SOCIETY=%US_SOCIETY%
 ATTR;US_TYPE;US_FR_SOC;fonction;N;N;text;160;W;;;;
 ATTR;US_WORKADDR;US_FR_SOC;adresse;N;N;longtext;170;W;;usercard.php;laddrsoc(D,US_IDSOCIETY):US_SOCADDR,US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB;
@@ -49,7 +49,7 @@ ATTR;SI_WEB;SI_FR_COORD;web;N;N;text;140;W;http://%SI_WEB%;;;
 END;0;;;;;;;;;;;
 BEGIN;124;famille site;126;DocFile;;;;;;;;
 TYPE;C;;;;;;;;;;;
-;;;;;;;;;;;;
+METHOD;Method.DocSite.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc;elink
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;
 ;;;;;;;;;;;;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.19 2002/09/30 11:46:44 eric Exp $
+// $Id: viewcard.php,v 1.20 2002/11/04 09:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -82,8 +82,9 @@ function viewcard(&$action) {
 
 
 
-
   $err=$doc->refresh();
+
+
   if ($err != "") $action->exitError($err);
   //------------------------------
   // display document attributes

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_barmenu.php,v 1.5 2002/09/02 16:38:49 eric Exp $
+// $Id: generic_barmenu.php,v 1.6 2002/11/04 09:13:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,8 +40,9 @@ function generic_barmenu(&$action) {
   $famid = getDefFam($action);
   
   $fdoc= new Doc( $dbaccess, $famid);
-  $child= $fdoc->GetChildDoc();
-
+  $child[-1] = $famid;
+  $child += $fdoc->GetChildFam();
+  
   $tchild = array();
   $tnewmenu= array();
   while (list($k,$vid) = each($child)) {
@@ -58,18 +59,18 @@ function generic_barmenu(&$action) {
 
 
   include_once("FDL/popup_util.php");
-  popupInit("newmenu",  array_merge($tnewmenu ,array('newdoc','newcatg','imvcard'))  );
+  popupInit("newmenu",  array_merge($tnewmenu ,array('newcatg','imvcard'))  );
   popupInit("searchmenu", array('text' ));
   popupInit("helpmenu", array('help'));
 
 
   if ($action->HasPermission("GENERIC"))  {
-    popupActive("newmenu",1,'newdoc'); 
+
     while (list($k,$vid) = each($tnewmenu)) {
       popupActive("newmenu",1,$vid); 
     }
   } else {
-    popupInactive("newmenu",1,'newdoc'); 
+
     while (list($k,$vid) = each($tnewmenu)) {
       popupInactive("newmenu",1,$vid); 
     }

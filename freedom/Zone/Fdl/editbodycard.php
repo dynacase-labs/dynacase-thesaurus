@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.12 2002/10/31 08:09:23 eric Exp $
+// $Id: editbodycard.php,v 1.13 2002/11/04 09:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -192,8 +192,7 @@ function editbodycard(&$action) {
 	  else $thidden[$ih]["hvalue"]=chop(htmlentities($value));
 	  
 	  
-	  $thidden[$ih]["inputtype"]=getHtmlInput($action, 
-						  $doc->id,
+	  $thidden[$ih]["inputtype"]=getHtmlInput($doc,
 						  $listattr[$i],
 						  $value);
 	  $ih++;
@@ -208,8 +207,7 @@ function editbodycard(&$action) {
 	  else $tableframe[$v]["labelclass"]="FREEDOMLabel";
 
 	  //$tableframe[$v]["name"]=$action->text($label);
-	  $tableframe[$v]["inputtype"]=getHtmlInput($action, 
-						    $doc->id,
+	  $tableframe[$v]["inputtype"]=getHtmlInput($doc,
 						    $listattr[$i],
 						    $value);
 		

@@ -1,6 +1,7 @@
 <?php
 
 include_once("FDL/Class.Dir.php");
+include_once("FDL/Lib.Dir.php");
 
 
 
@@ -39,12 +40,12 @@ function lmail( $dbaccess, $name) {
 
   $filter=array();
   if ($name != "") {
-    $filter[]="doc.title ~* '.*$name.*'";
+    $filter[]="title ~* '.*$name.*'";
   }
-  $filter[]="doc.classname = 'DocUser'";
 
 
-  $tinter = getChildDoc($dbaccess, 0,0,100, $filter,$action->user->id);
+
+  $tinter = getChildDoc($dbaccess, 0,0,100, $filter,$action->user->id,"LIST",120);
   
   $tr = array();
 
@@ -59,19 +60,19 @@ function lmail( $dbaccess, $name) {
 
 
 // liste des sociétés
-function lfamilly($dbaccess, $famid, $name, $catgid=0) {
+function lfamilly($dbaccess, $famid, $name, $catgid=0, $filter=array()) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
   $catgid= 0;
   
-  $filter=array();
-  $filter[]="doc.fromid=$famid";
-  if ($name != "") {
-    $filter[]="doc.title ~* '.*$name.*'";
-  }
-  $filter[]="doc.doctype != 'C'";
 
-  $tinter = getChildDoc($dbaccess, $catgid,0,"ALL", $filter,$action->user->id,"TABLE");
+
+  if ($name != "") {
+    $filter[]="title ~* '.*$name.*'";
+  }
+
+
+  $tinter = getChildDoc($dbaccess, $catgid,0,"ALL", $filter,$action->user->id,"TABLE",$famid);
   
   $tr = array();
 

@@ -42,7 +42,7 @@
 <!-- ------------ MENU NEW --------------------- -->
 <div  id="newmenu" class="popup">
 
-<a  id="newdoc" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[DEFAULT_FAMILY]&id=&dirid=[DEFAULT_FLD]';closeAllMenu()">[TEXT:Newfam] [ftitle]</a>
+
 [BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]&id=&dirid=[DEFAULT_FLD]';closeAllMenu()">[TEXT:Newfam] [stitle]</a>
 [ENDBLOCK NEWFAM]
 <a  id="newcatg" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITNEWCATG';closeAllMenu()">[TEXT:New category]</a>

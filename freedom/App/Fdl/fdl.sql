@@ -93,7 +93,7 @@ create or replace function deletevalues()
 returns opaque as '
 declare 
 begin
-delete from docvalue where docid=NEW.id;
-return NEW;
+delete from docvalue where docid=OLD.id;
+return OLD;
 end;
 ' language 'plpgsql';

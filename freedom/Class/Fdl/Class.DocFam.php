@@ -1,7 +1,8 @@
 <?php
+
 // ---------------------------------------------------------------
-// $Id: onefam_editpref.php,v 1.3 2002/11/04 09:13:16 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_editpref.php,v $
+// $Id: Class.DocFam.php,v 1.1 2002/11/04 09:13:17 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,40 +24,38 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Doc.php");
-include_once("FDL/Lib.Dir.php");
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.1 2002/11/04 09:13:17 eric Exp $';
+include_once('FDL/Class.DocFile.php');
 
-function onefam_editpref(&$action) 
-{
-  $dbaccess = $action->GetParam("FREEDOM_DB");
+Class DocFam extends DocFile {
+ 
+  var $dbtable="docfam";
 
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $tcdoc=GetClassesDoc($dbaccess,1);
-  
-  $idsfam = $action->GetParam("ONEFAM_IDS");
-  $tidsfam = explode(",",$idsfam);
+  var $sqlcreate = "
+create table docfam (cprofid int , dfldid int, methods text) inherits (doc);
+create unique index idx_idfam on docfam(id);";
 
 
+ 
+  var $attr;
 
-  $selectclass=array();
-  if (is_array($tcdoc)) {
-    while (list($k,$pdoc)= each ($tcdoc)) {
-      if ($pdoc->dfldid > 0) {
-	$selectclass[$k]["cid"]=$pdoc->id;
-	$selectclass[$k]["ctitle"]=$pdoc->title;
-	$selectclass[$k]["selected"]=(in_array($pdoc->id,$tidsfam))?"checked":"";
-      }
-    }
-    
-  }
+   function DocFam ($dbaccess='', $id='',$res='',$dbid=0) {
 
-  $action->lay->SetBlockData("SELECTPREF", $selectclass);
-	  
-      
-    
-  
-
-
+     $this->fields["dfldid"]="dfldid";
+     $this->fields["cprofid"]="cprofid";
+     $this->fields["methods"]="methods";
+     DocFile::DocFile($dbaccess, $id, $res, $dbid);
+     
+     
+     if ($this->id > 0) {
+       $adoc = "Doc".$this->id;
+       include_once("FDL/Class.$adoc.php");
+       $adoc = "ADoc".$this->id;
+       $this->attributes = new $adoc();
+     }
+               
+   }
 }
+
 
 ?>

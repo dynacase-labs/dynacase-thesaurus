@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.19 2002/10/31 08:09:23 eric Exp $
+// $Id: editcard.php,v 1.20 2002/11/04 09:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,25 +90,22 @@ function editcard(&$action) {
 
 
   //compute constraint for enable/disable input
-  $rattr = $doc->GetComputedAttributes();
+  $doc->Refresh();
     
   $ka=0;
   $tjsa=array();
-  while(list($k,$v) = each($rattr)) {
-      
-    if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {
-      $ain = array_filter(explode(",",$reg[1]),"moreone");
 
-      if (count($ain) > 0) {
-	  
-	$aout = explode(",",$reg[2]);
-	$tjsa[]=array("jstain" => "['".implode("','", $ain)."']",
-		      "jstaout" => "['".implode("','", $aout)."']",
+  reset($doc->paramRefresh);
+  
+  while(list($k,$v) = each($doc->paramRefresh)) {
+
+	$tjsa[]=array("jstain" => "['".implode("','", $v["in"])."']",
+		      "jstaout" => "['".implode("','", $v["out"])."']",
 		      "jska"=> "$ka");
 	$ka++;
 	
-      }
-    }
+      
+    
   }
 
 

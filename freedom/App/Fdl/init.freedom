@@ -11,7 +11,7 @@ END;0;-1;;;;;;;;;
 BEGIN;1;famille dossier;2;Dir;;;;;;;
 TYPE;C;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
-ATTR;BA_DESC;FR_BASIC;description;N;Y;text;;W;;;
+ATTR;BA_DESC;FR_BASIC;description;N;Y;text;20;W;;;
 ;;;;;;;;;;;
 END;1;-1;;;;;;;;;
 ;;;;;;;;;;;
@@ -39,7 +39,7 @@ ATTR;SE_CRIT;;critère;N;N;frame;;W;;;
 ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;;W;;;
 ATTR;SE_LATEST;SE_CRIT;dernière révision;N;Y;text;;W;;;
 ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;Y;text;;W;;;
-ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;;R;;fdl.php;gettitle(D,SE_FAMID):SE_FAM
+ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;;R;;;
 ATTR;SE_FAMID;SE_CRIT;famille;N;Y;text;;H;;;
 ATTR;SE_CFLD;SE_CRIT;dans le dossier;N;Y;text;;W;;;
 ;;;;;;;;;;;
@@ -48,25 +48,25 @@ END;1;9;;;;;;;;;
 //SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;
 ;;;;;;;;;;;
 SEARCH;11;9;les familles;select * from doc where doctype='C';;;;;;;
-SEARCH;12;9;les profils;select * from doc where useforprof;;;;;;;
+SEARCH;12;9;les profils;select * from doc where useforprof and doctype != 'C';;;;;;;
 SEARCH;13;9;les maisons;select * from doc where (owner < 0) and (locked != -1);;;;;;;
-SEARCH;14;9;orphelinat;select * from doc where (doctype != 'T') and (locked != -1) and (initid not in (select childid from fld where qtype='S'));;;;;;;;
+SEARCH;14;9;orphelinat;select * from doc where (doctype != 'T') and (locked != -1) and (owner > 0) and (initid not in (select childid from fld where qtype='S'));;;;;;;;
 // famille profile doc;;;id;class
-BEGIN;1;famille profile de document;3;DocFile
+BEGIN;1;famille profile de document;3;PDoc
 USEFORPROF;;;;
 TYPE;C;;;
 ;;;;
 END;1;9;;
 ;;;;
 // famille profile dossier;;;;
-BEGIN;2;famille profile de dossier;4;Dir
+BEGIN;3;famille profile de dossier;4;PDir
 USEFORPROF;;;;
 TYPE;C;;;
 ;;;;
 END;1;9;;
 ;;;;
 // famille profile recherche;;;;
-BEGIN;5;famille profile de recherche;6;DocSearch
+BEGIN;3;famille profile de recherche;6;PDocSearch
 USEFORPROF;;;;
 TYPE;C;;;
 ;;;;
@@ -79,7 +79,7 @@ DVIEWZONE;FDL:VIEWFILECARD;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
 ;;;;;;;;;;;
 ATTR;FI_FRFILE;;fichier;N;N;frame;;W;;;
-ATTR;FI_TITLE;FI_FRFILE;titre;Y;N;text;;R;;fdl.php;vault_filename(T,FI_FILE):FI_TITLE
+ATTR;FI_TITLE;FI_FRFILE;titre;Y;N;text;;R;;;
 ATTR;FI_FILE;FI_FRFILE;fichier;N;Y;file;;N;;;
 END;-;9;;;;;;;;;
 ;;;;;;;;;;;
@@ -91,6 +91,6 @@ DVIEWZONE;FDL:VIEWIMGCARD;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
 ;;;;;;;;;;;
 ATTR;IMG_FRFILE;;image;N;N;frame;;W;;;
-ATTR;IMG_TITLE;IMG_FRFILE;titre;Y;N;text;;R;;fdl.php;vault_filename(T,IMG_FILE):IMG_TITLE
+ATTR;IMG_TITLE;IMG_FRFILE;titre;Y;N;text;;R;;;
 ATTR;IMG_FILE;IMG_FRFILE;image;N;Y;image;;N;;;
 END;-;9;;;;;;;;;

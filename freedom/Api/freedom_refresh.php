@@ -7,7 +7,7 @@
 include_once("FDL/Class.Doc.php");
 
 $className = GetHttpVars("class","-"); // classname filter
-$famId = GetHttpVars("famid",0); // familly filter
+$famId = GetHttpVars("famid",""); // familly filter
 
 if (($className == "-") && ($famId == 0)) {
   print "arg class needed :usage --class=<class name> --famid=<familly id>";
@@ -27,14 +27,16 @@ if ($dbaccess == "") {
 
 
 
-
+if ($famId > 0) {
+  include_once "FDL/Class.Doc$famId.php";
+}
 	
   
-$query = new QueryDb($dbaccess,"Doc");
+$query = new QueryDb($dbaccess,"Doc$famId");
 $query->AddQuery("locked != -1");
 
 if ($className != "-")$query->AddQuery("classname ~* '$className'");
-if ($famId > 0) $query->AddQuery("fromid = $famId");
+
       
     
 $table1 = $query->Query();
@@ -46,7 +48,7 @@ if ($query->nb > 0)	{
 	      print $v->title . "-";
 	      $v->refresh();
 	      $v->Modify();
-	      print $v->title."\n" ;
+	      print "\n" ;
 	    }	  
 }      
     

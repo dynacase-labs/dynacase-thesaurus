@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.17 2002/10/31 08:09:22 eric Exp $
+// $Id: freedom_util.php,v 1.18 2002/11/04 09:13:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -89,12 +89,12 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
     return (true);
   }
   $fromid="";
-  if ($id != '') {
+  if ($id > 0) {
 
-    if (isset($gdocs[$id])) {
-      $doc = $gdocs[$id]; // optimize for speed
-      return true;
-    }
+     if (isset($gdocs[$id])) {
+       $doc = $gdocs[$id]; // optimize for speed
+       return true;
+     }
     global $CORE_DBID;
 	if (!isset($CORE_DBID) || !isset($CORE_DBID["$dbaccess"])) {
            $CORE_DBID["$dbaccess"] = pg_connect("$dbaccess");
@@ -122,7 +122,7 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
     include_once("FDL/Class.$classname.php");
     //    print "new $classname($dbaccess, $id, $res, $dbid)<BR>";
     $doc=new $classname($dbaccess, $id, $res, $dbid);
-    if ($id != '') $gdocs[$id]=&$doc;
+    if ($id > 0)  $gdocs[$id]=&$doc;
 
       return (true);
   } else {

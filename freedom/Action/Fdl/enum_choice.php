@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.8 2002/09/10 13:30:27 eric Exp $
+// $Id: enum_choice.php,v 1.9 2002/11/04 09:13:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,7 +61,7 @@ function enum_choice(&$action) {
   $rargids = split(",",$reg[3]); // return args
   
   $sattrid="[";
-  $sattrid.= "'".implode("','", $rargids)."'";
+  $sattrid.= strtolower("'".implode("','", $rargids)."'");
   $sattrid.="]";
 
   $argids = split(",",$reg[2]);  // input args
@@ -69,7 +69,7 @@ function enum_choice(&$action) {
     if ($v == "A") $arg[$k]= &$action;
     else if ($v == "D") $arg[$k]= $dbaccess;
     else if ($v == "T") $arg[$k]= &$this;
-    else $arg[$k]= trim(GetHttpVars("_".$v,""));
+    else $arg[$k]= trim(GetHttpVars("_".strtolower($v),""));
   }
 
   $res = call_user_func_array($reg[1], $arg);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewbodycard.php,v 1.5 2002/10/31 08:09:23 eric Exp $
+// $Id: viewbodycard.php,v 1.6 2002/11/04 09:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/viewbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,7 +58,6 @@ function viewbodycard(&$action) {
 
 
 
-
   $kf=0; // number of files
 
   $frames= array();
@@ -67,13 +66,13 @@ function viewbodycard(&$action) {
   if ($props) {
     $action->lay->SetBlockData("PROP",array(array("boo"=>1)));
   }
-    if ($abstract){
-      // only 3 properties for abstract mode
-      $listattr = $doc->GetAbstractAttributes();
-    } else {
-      $listattr = $doc->GetNormalAttributes();
+  if ($abstract){
+    // only 3 properties for abstract mode
+    $listattr = $doc->GetAbstractAttributes();
+  } else {
+    $listattr = $doc->GetNormalAttributes();
     
-    }
+  }
     
 
   $nattr = count($listattr); // attributes list count
@@ -89,116 +88,116 @@ function viewbodycard(&$action) {
   $tableimage=array();
   $vf = new VaultFile($dbaccess, "FREEDOM");
 
-    $iattr=0;
-    while (list($i,$attr) = each($listattr)) {
-      $iattr++;
-    
+  $iattr=0;
+  while (list($i,$attr) = each($listattr)) {
+    $iattr++;
 
-      //------------------------------
-      // Compute value elements
+    //------------------------------
+    // Compute value elements
 	  
-	  $value = chop($doc->GetValue($i));
+    $value = chop($doc->GetValue($i));
 
-	  if ($value != "") // to define when change frame
-	    {
-	      if ( $currentFrameId != $listattr[$i]->fieldSet->id) {
-		if ($currentFrameId != "") $changeframe=true;
-	      }
-	    }
+    
+    if ($value != "") // to define when change frame
+      {
+	if ( $currentFrameId != $listattr[$i]->fieldSet->id) {
+	  if ($currentFrameId != "") $changeframe=true;
+	}
+      }
 	
 
 
-      //------------------------------
-      // change frame if needed
+    //------------------------------
+    // change frame if needed
 
-      if (  // to generate  fiedlset
-	  $changeframe)
-	{
-	  $changeframe=false;
-	  if (($v+$nbimg) > 0) // one value detected
-	    {
+    if (  // to generate  fiedlset
+	$changeframe)
+      {
+	$changeframe=false;
+	if (($v+$nbimg) > 0) // one value detected
+	  {
 				      
-	      $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
-	      $frames[$k]["rowspan"]=$v+1; // for images cell
-	      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+	    $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
+	    $frames[$k]["rowspan"]=$v+1; // for images cell
+	    $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
 
-	      $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
-					 $tableframe);
-	      $frames[$k]["IMAGES"]="IMAGES_$k";
-	      $action->lay->SetBlockData($frames[$k]["IMAGES"],
-					 $tableimage);
-	      unset($tableframe);
-	      unset($tableimage);
-	      $tableframe=array();
-	      $tableimage=array();
-	      $k++;
-	    }
-	  $v=0;
-	  $nbimg=0;
-	}
+	    $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
+				       $tableframe);
+	    $frames[$k]["IMAGES"]="IMAGES_$k";
+	    $action->lay->SetBlockData($frames[$k]["IMAGES"],
+				       $tableimage);
+	    unset($tableframe);
+	    unset($tableimage);
+	    $tableframe=array();
+	    $tableimage=array();
+	    $k++;
+	  }
+	$v=0;
+	$nbimg=0;
+      }
 
 
-      //------------------------------
-      // Set the table value elements
-      if ($iattr <= $nattr)	{
+    //------------------------------
+    // Set the table value elements
+    if ($iattr <= $nattr)	{
       
-	  if (($value != "") && ($listattr[$i]->visibility != "H"))   {
+      if (($value != "") && ($listattr[$i]->visibility != "H"))   {
 		
-	      $currentFrameId = $listattr[$i]->fieldSet->id;
+	$currentFrameId = $listattr[$i]->fieldSet->id;
 
-	      // print values
-	      switch ($listattr[$i]->type)
-		{
+	// print values
+	switch ($listattr[$i]->type)
+	  {
 	      
-		case "image": 
+	  case "image": 
 		  
-		  $tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
-		break;
+	    $tableimage[$nbimg]["imgsrc"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	    break;
 		
 		
-		case "file": 
+	  case "file": 
 		  
-		  $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
-		$tfile[$kf]["file"]=$listattr[$i]->labeltext;
-		$tfile[$kf]["attrid"]=$listattr[$i]->id;
-		$kf++;
-		break;
+	    $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	    $tfile[$kf]["file"]=$listattr[$i]->labeltext;
+	    $tfile[$kf]["attrid"]=$listattr[$i]->id;
+	    $kf++;
+	    break;
 		
-		default : 
-		  $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
-		break;
+	  default : 
+	    $tableframe[$v]["value"]=$doc->GetHtmlValue($listattr[$i],$value,$target,$ulink);
+	    break;
 		
-		}
+	  }
 
 
 	
-	      // print name except image (printed otherthere)
-	      if ($listattr[$i]->type != "image") {
-		  $tableframe[$v]["name"]=$action->text($doc->GetLabel($listattr[$i]->id));
-		  $v++;
-		} else	{
-		  $tableimage[$nbimg]["imgalt"]=$action->text($doc->GetLabel($listattr[$i]->id));
-		  $nbimg++;
-		}
+	// print name except image (printed otherthere)
+	if ($listattr[$i]->type != "image") {
+	  $tableframe[$v]["name"]=$action->text($doc->GetLabel($listattr[$i]->id));
+	  $v++;
+	} else	{
+	  $tableimage[$nbimg]["imgalt"]=$action->text($doc->GetLabel($listattr[$i]->id));
+	  $nbimg++;
+	}
 
 	      
-	    }
-	}
+      }
     }
+  }
 
-	  if (($v+$nbimg) > 0) // // last fieldset
-	    {
+  if (($v+$nbimg) > 0) // // last fieldset
+    {
 				      
-	      $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
-	      $frames[$k]["rowspan"]=$v+1; // for images cell
-	      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+      $frames[$k]["frametext"]="[TEXT:".$doc->GetLabel($currentFrameId)."]";
+      $frames[$k]["rowspan"]=$v+1; // for images cell
+      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
 
-	      $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
-					 $tableframe);
-	      $frames[$k]["IMAGES"]="IMAGES_$k";
-	      $action->lay->SetBlockData($frames[$k]["IMAGES"],
-					 $tableimage);
-	    }
+      $action->lay->SetBlockData($frames[$k]["TABLEVALUE"],
+				 $tableframe);
+      $frames[$k]["IMAGES"]="IMAGES_$k";
+      $action->lay->SetBlockData($frames[$k]["IMAGES"],
+				 $tableimage);
+    }
   // Out
 
 

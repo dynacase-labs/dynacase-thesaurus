@@ -1,7 +1,7 @@
-<?php
+
 // ---------------------------------------------------------------
-// $Id: onefam_editpref.php,v 1.3 2002/11/04 09:13:16 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_editpref.php,v $
+// $Id: Method.DocProduct.php,v 1.1 2002/11/04 09:13:17 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocProduct.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,40 +23,33 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Doc.php");
-include_once("FDL/Lib.Dir.php");
 
-function onefam_editpref(&$action) 
-{
-  $dbaccess = $action->GetParam("FREEDOM_DB");
+function SpecRefresh() {
+  //gettitle(D,PR_IDSITE):PR_SITE,PR_IDSITE
+  $this->refreshDocTitle("PR_IDSITE","PR_SITE");
+  //gettitle(D,PR_IDCONTRACT):PR_CONTRACT,PR_IDCONTRACT
+  $this->refreshDocTitle("PR_IDCONTRACT","PR_CONTRACT");
+  //gettitle(D,PR_IDMARK):PR_MARK,PR_IDMARK
+  $this->refreshDocTitle("PR_IDMARK","PR_MARK");
 
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $tcdoc=GetClassesDoc($dbaccess,1);
+
+
+  //date2epoch(PR_INDATE):PR_INDATE_EPOCH
+  $this->AddParamRefresh("PR_INDATE","PR_INDATE_EPOCH");
+  $date = $this->getValue("PR_INDATE");
   
-  $idsfam = $action->GetParam("ONEFAM_IDS");
-  $tidsfam = explode(",",$idsfam);
-
-
-
-  $selectclass=array();
-  if (is_array($tcdoc)) {
-    while (list($k,$pdoc)= each ($tcdoc)) {
-      if ($pdoc->dfldid > 0) {
-	$selectclass[$k]["cid"]=$pdoc->id;
-	$selectclass[$k]["ctitle"]=$pdoc->title;
-	$selectclass[$k]["selected"]=(in_array($pdoc->id,$tidsfam))?"checked":"";
-      }
-    }
-    
+  if ($date != "") {    
+    list($d,$m,$y)=split("/",$date);
+    $this->setValue("PR_INDATE_EPOCH",mktime(0,0,0,$m,$d,$y));
   }
 
-  $action->lay->SetBlockData("SELECTPREF", $selectclass);
-	  
-      
-    
-  
-
-
+  //dateplat(D,PR_IDCONTRACT):PR_PLATDATE
+  $this->AddParamRefresh("PR_IDCONTRACT","PR_PLATDATE");
+  $idcontract=$this->getValue("PR_IDCONTRACT");
+  if ($idcontract > 0) {
+    $doc = new Doc($this->dbaccess,$idcontract);
+    $this->setValue("PR_PLATDATE", $doc->getValue("CO_DATEEND"));
+  }
+ 
 }
-
-?>
+	

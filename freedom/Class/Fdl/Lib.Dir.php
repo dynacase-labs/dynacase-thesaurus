@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.29 2002/10/31 08:09:23 eric Exp $
+// $Id: Lib.Dir.php,v 1.30 2002/11/04 09:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -159,14 +159,17 @@ function getChildDoc($dbaccess,
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
 		     $userid=1, 
-		     $qtype="LIST", $wvalue=false) {
+		     $qtype="LIST", $fromid="") {
   
   // query to find child documents            
   
-  $qsql=getSqlSearchDoc($dbaccess,$dirid,0,$sqlfilters);
+  $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters);
   $qsql .= " ORDER BY title LIMIT $slice OFFSET $start;";
-   print "<HR>$qtype:".$qsql;
-  $query = new QueryDb($dbaccess,"Doc");
+   
+   if ($fromid > 0) include_once "FDL/Class.Doc$fromid.php";
+
+   
+  $query = new QueryDb($dbaccess,"Doc$fromid");
   
   
   $tableq=$query->Query(0,0,$qtype,$qsql);
@@ -177,17 +180,17 @@ function getChildDoc($dbaccess,
     }
   
   // add values in comprehensive structure
-  if ($wvalue) {
-    if ($qtype=="TABLE") {
-      while(list($k,$v) = each($tableq)) {
-	$tableq[$k] += sqlval2array($v["sqlvalues"]);
-      } 
-    } else {
+//   if ($wvalue) {
+//     if ($qtype=="TABLE") {
+//       while(list($k,$v) = each($tableq)) {
+// 	$tableq[$k] += sqlval2array($v["sqlvalues"]);
+//       } 
+//     } else {
 //       while(list($k,$v) = each($tableq)) {
 // 	$tableq[$k]->values= sqlval2array($v->sqlvalues);
 //      } 
-    }
-  }
+//    }
+//  }
   
   reset($tableq);
   

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.3 2002/09/02 16:32:25 eric Exp $
+// $Id: editframe.php,v 1.4 2002/11/04 09:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,8 +71,7 @@ function editframe(&$action) {
 	      if ( ($v->visibility == "H") || 
 		  ($v->visibility == "R") && (substr_count($v->type,"text") > 0)) {
 
-	      $thval[$k]["avalue"]=  getHtmlInput($action, 
-						  $doc->id,
+	      $thval[$k]["avalue"]=  getHtmlInput($doc,
 						  $v, 
 						  $value);
 

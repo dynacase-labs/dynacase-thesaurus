@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.2 2002/10/31 08:09:22 eric Exp $
+// $Id: generic_util.php,v 1.3 2002/11/04 09:13:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,8 +79,8 @@ function getChildCatg($doc, $level) {
 function getSqlFrom($dbaccess, $docid) {
   // -----------------------------------
   $fdoc= new Doc( $dbaccess, $docid);
-  $child= $fdoc->GetChildDoc();
-  return GetSqlCond(array_merge(array($docid),$fdoc->GetChildDoc()),"fromid");
+  $child= $fdoc->GetChildFam();
+  return GetSqlCond(array_merge(array($docid),$fdoc->GetChildFam()),"fromid");
   
 }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_editimport.php,v 1.1 2002/09/26 15:45:15 eric Exp $
+// $Id: freedom_editimport.php,v 1.2 2002/11/04 09:13:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_editimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,6 +24,7 @@
 
 // ---------------------------------------------------------------
 include_once("FDL/import_file.php");
+include_once("FDL/Lib.Dir.php");
 
 
 
@@ -71,8 +72,8 @@ function freedom_editimport(&$action) {
   }
 
   while (list($k, $attr) = each ($lattr)) {
-    $format .= "; ".$attr->labeltext;
-    $tformat[$k]["labeltext"]=$attr->labeltext;
+    $format .= "; ".$attr->labelText;
+    $tformat[$k]["labeltext"]=$attr->labelText;
   }
   
   $action->lay->set("mailaddr",getMailAddr($action->user->id));

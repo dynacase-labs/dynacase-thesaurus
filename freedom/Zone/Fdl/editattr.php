@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editattr.php,v 1.3 2002/09/02 16:32:25 eric Exp $
+// $Id: editattr.php,v 1.4 2002/11/04 09:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -66,8 +66,7 @@ function editattr(&$action) {
 	
 	
 	$action->lay->Set("V_".$v->id,
-			  getHtmlInput($action, 
-				       $doc->id,
+			  getHtmlInput($doc,
 				       $v, 
 				       $value));
       
