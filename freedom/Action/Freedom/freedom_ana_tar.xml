@@ -79,7 +79,7 @@
 <input type="checkbox" name="topfld" onclick="enabledImport(false)" value="1" [tselected]>[TEXT:Add top folder]</input> 
 <hr width="50%">
 <input type="submit" name="banalyze" disabled value="[TEXT:Analyze]"> 
-<input type="submit" name="bimport" onmousedown="document.anatar.analyze.value='N'"  value="[TEXT:Import Direct]"> 
+<input type="submit" name="bimport" style="display:none" onmousedown="document.anatar.analyze.value='N'"  value="[TEXT:Import Direct]"> 
 </fieldset></td><td>
 <fieldset width="40%">
 <legend>[TEXT:Lauch Import]</legend> 
