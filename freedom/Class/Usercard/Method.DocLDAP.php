@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocLDAP.php,v 1.1 2005/02/01 16:23:24 eric Exp $
+ * @version $Id: Method.DocLDAP.php,v 1.2 2005/04/05 18:44:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -107,6 +107,10 @@ function RefreshLdapCard() {
       
     } 
 
+function getLDAPtitle() {
+  return $this->title;
+}
+
 /**
  * update LDAP card from user document
  */
@@ -116,7 +120,7 @@ function RefreshLdapCard() {
 
       $infoldap=array();
 	      
-      $infoldap["cn"]=utf8_encode($this->title);
+      $infoldap["cn"]=utf8_encode($this->getLDAPtitle());
       $values=$this->GetValues();
       foreach($values as $k=>$v) {
 
