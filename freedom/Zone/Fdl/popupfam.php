@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.8 2003/05/13 07:41:54 eric Exp $
+// $Id: popupfam.php,v 1.9 2003/05/23 15:30:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,10 +50,13 @@ function popupfam(&$action) {
 
   $tmenu = array();
   $km=0;
+
+
   while(list($k,$v) = each($lmenu)) {
     
     $confirm=false;
-    if (ereg('\?(.*)', $v->link, $reg)) { 
+
+    if ($v->link[0] == '?') { 
       $v->link=substr($v->link,1);
       $confirm=true;
     }

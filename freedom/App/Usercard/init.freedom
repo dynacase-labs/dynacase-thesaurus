@@ -20,7 +20,7 @@ ATTR;US_MOBILE;US_FR_COORD;mobile;N;N;text;110;W;;;;;
 ATTR;US_FR_SOC;;Société;N;N;frame;120;W;;;;;
 ATTR;US_IDSOCIETY;US_FR_SOC;id société;N;N;docid;130;H;;;;;
 ATTR;US_SOCADDR;US_FR_SOC;même adresse ?;N;N;text;140;H;;;;;
-ATTR;US_SOCIETY;US_FR_SOC;site société;N;Y;text;150;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,US_SCATG;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%
+ATTR;US_SOCIETY;US_FR_SOC;site société;N;Y;text;150;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%
 ATTR;US_TYPE;US_FR_SOC;fonction;N;N;enumlist;160;W;;;;directeur|directeur,commercial|commercial,respinf|responsable informatique,respachat|responsable achat,respliv|responsable livraison,chefserv|chef de service;
 ATTR;US_ROLE;US_FR_SOC;rôle;N;N;longtext;170;W;;;;;
 ATTR;US_WORKADDR;US_FR_SOC;adresse;N;N;longtext;180;W;;;usercard.php;laddrsoc(D,US_IDSOCIETY):US_SOCADDR,US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX,US_COUNTRY;

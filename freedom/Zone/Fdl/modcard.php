@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.34 2003/05/12 11:59:04 eric Exp $
+// $Id: modcard.php,v 1.35 2003/05/23 15:30:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,11 +42,16 @@ function modcard(&$action, &$ndocid) {
   $docid=GetHttpVars("id",0); 
   $dirid=GetHttpVars("dirid",10);
   $classid=GetHttpVars("classid",0);
+  $usefordef = GetHttpVars("usefordef"); // use for default values for a document
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-
+  if ($usefordef== "Y") {
+    //  set values to family document
+    moddefcard($action);
+    return "";
+  }
   if ( $docid == 0 )
     {
       // add new document
@@ -60,6 +65,7 @@ function modcard(&$action, &$ndocid) {
       if ($doc->fromid <= 0) {
 	$doc->profid = "0"; // NO PROFILE ACCESS
       }
+
       $err = $doc-> Add();
       if ($err != "")  $action->ExitError($err);
       
@@ -134,7 +140,6 @@ function modcard(&$action, &$ndocid) {
 	    }
 	}
     }
-  
   
   
   
@@ -274,5 +279,47 @@ function insert_file($dbaccess,$docid, $attrid)
   // return file type and upload file name
   return implode("\n",$rt);
   
+}
+// -----------------------------------
+function moddefcard(&$action) {
+  
+  global $HTTP_POST_VARS;
+  global $HTTP_POST_FILES;
+
+  
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $classid=GetHttpVars("classid",0);
+  
+  $tdefattr=array();
+  while(list($k,$v) = each($HTTP_POST_VARS) )    {
+      //print $k.":".$v."<BR>";
+      
+      if ($k[0] == "_") // freedom attributes  begin with  _
+	{
+
+	  
+	  $attrid = substr($k,1);
+	  if (is_array($v)) {
+	    if (isset($v["-1"])) {
+	      unset($v["-1"]);	     
+	    }
+	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
+	  }
+	  else $value = stripslashes($v);
+	  if ($value != "")	  $tdefattr[]="$attrid|$value";	      
+	      
+	      
+	}      
+    }
+
+
+  $cdoc = new Doc($dbaccess, $classid);
+  $cdoc->defval = "[".implode("][",$tdefattr)."]";
+  $cdoc->modify();
+
+  
+  redirect($action,GetHttpVars("redirect_app","FDL"),
+	   GetHttpVars("redirect_act","FDL_CARD&refreshfld=Y&id=$classid"),
+	   $action->GetParam("CORE_STANDURL"));
 }
 ?>

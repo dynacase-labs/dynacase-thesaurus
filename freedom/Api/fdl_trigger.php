@@ -44,10 +44,10 @@ if ($query->nb > 0)	{
     
     if ($trig)    print $doc->sqltrigger($drop)."\n";
     else {
-      if (is_array($doc->sqlcreate)) {
-	print implode(";\n",$doc->sqlcreate);
+      if (is_array($doc->sqltcreate)) {
+	print implode(";\n",$doc->sqltcreate);
       } else {
-	print $doc->sqlcreate."\n";
+	print $doc->sqltcreate."\n";
       }
     }
     

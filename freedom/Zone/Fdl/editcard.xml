@@ -1,3 +1,4 @@
 
 <INPUT TYPE="hidden" name="classid" value="[classid]"></input>
+<input type="hidden" name="usefordef" value="[usefordef]">
 [ZONEBODYCARD]

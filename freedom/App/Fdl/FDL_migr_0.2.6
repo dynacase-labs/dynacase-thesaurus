@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ 
+
+pubdir="/home/httpd/what";
+
+# add default attribute
+/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocFam
+
+
+/usr/bin/php -q $pubdir/FDL/FDL_migr_0.2.6.php | psql freedom anakeen
+

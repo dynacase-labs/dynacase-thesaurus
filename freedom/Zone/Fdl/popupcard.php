@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.28 2003/04/18 09:14:17 eric Exp $
+// $Id: popupcard.php,v 1.29 2003/05/23 15:30:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -195,6 +195,7 @@ function popupcard(&$action) {
   if ($doc->doctype == "C") {
     popupInvisible('popupcard',$kdiv,'editdoc');
     popupInvisible('popupcard',$kdiv,'editstate'); 
+    popupInvisible('popupcard',$kdiv,'delete');
     if ($doc->dfldid == 0)  popupInactive('popupcard',$kdiv,'editcfld');
   }
 

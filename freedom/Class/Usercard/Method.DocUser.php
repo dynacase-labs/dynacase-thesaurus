@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.12 2003/05/22 16:24:57 eric Exp $
+// $Id: Method.DocUser.php,v 1.13 2003/05/23 15:30:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -95,6 +95,7 @@ function SpecRefresh() {
 
   
   $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX,US_COUNTRY");
+  $this->AddParamRefresh("US_IDSOCIETY","US_SCATG");
 
   $doc=new Doc($this->dbaccess, $this->getValue("US_IDSOCIETY"));
   if ($doc->isAlive()) {

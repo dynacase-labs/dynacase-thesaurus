@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.26 2003/04/25 14:51:32 eric Exp $
+// $Id: editcard.php,v 1.27 2003/05/23 15:30:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,6 +35,7 @@ function editcard(&$action) {
   $docid = GetHttpVars("id",0);        // document to edit
   $classid = GetHttpVars("classid",0); // use when new doc or change class
   $zonebodycard = GetHttpVars("zone"); // define view action
+  $usefordef = GetHttpVars("usefordef"); // default values for a document
 
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -63,9 +64,15 @@ function editcard(&$action) {
   }
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
 
-  if ($doc->usefor=="D") $zonebodycard="FDL:EDITBODYCARD"; // always default view for default document
+  if ($usefordef=="Y") {
+    $zonebodycard="FDL:EDITBODYCARD"; // always default view for default document
+    $fdoc = new DocFam($dbaccess, $classid);
+    $doc->usefor='D';
+    $doc->setDefaultValues($fdoc->defval);    
+  }
 
   $action->lay->Set("classid", $classid);
+  $action->lay->Set("usefordef", $usefordef);
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
 
   // compute modify condition js

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.10 2003/04/16 12:15:58 eric Exp $
+// $Id: Class.DocFam.php,v 1.11 2003/05/23 15:30:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.10 2003/04/16 12:15:58 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.11 2003/05/23 15:30:03 eric Exp $';
 include_once('FDL/Class.PFam.php');
 
 Class DocFam extends PFam {
@@ -37,7 +37,8 @@ create table docfam (cprofid int ,
                      cfldid int, 
                      ddocid int,
                      name text,
-                     methods text) inherits (doc);
+                     methods text,
+                     defval text) inherits (doc);
 create unique index idx_idfam on docfam(id);";
 
 
@@ -54,6 +55,7 @@ create unique index idx_idfam on docfam(id);";
     $this->fields["ddocid"] ="ddocid";
     $this->fields["methods"]="methods";
     $this->fields["name"]="name";
+    $this->fields["defval"]="defval";
     PFam::PFam($dbaccess, $id, $res, $dbid);
      
      
@@ -74,19 +76,7 @@ create unique index idx_idfam on docfam(id);";
     return refreshPhpPgDoc($this->dbaccess, $this->id);
   }
 
-  // use to view default attribute when new doc
-  function PostSelect($id) { 
-    if ($this->ddocid > 0) {
 
-      
-      $ddoc= new Doc($this->dbaccess, $this->ddocid);
-      $nattr = $ddoc->GetNormalAttributes();
-      while (list($k,$v) = each($nattr)) {
-	$aid = $v->id;
-	$this->$aid = $ddoc->GetValueMethod($ddoc->getValue($aid));//$ddoc->getValue($aid);
-      }              
-    }
-  }
   // -----------------------------------
   function viewfamcard($target="_self",$ulink=true,$abstract=false) {
     // -----------------------------------

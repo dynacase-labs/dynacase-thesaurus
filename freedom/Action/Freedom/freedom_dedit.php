@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_dedit.php,v 1.3 2003/01/27 13:26:31 eric Exp $
+// $Id: freedom_dedit.php,v 1.4 2003/05/23 15:30:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_dedit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -31,7 +31,7 @@ function freedom_dedit(&$action) {
   // -----------------------------------
 
   // Get All Parameters
-  $docid = GetHttpVars("id",0);        // document to edit
+  $docid = 0;//GetHttpVars("id",0);        // document to edit
   $classid = GetHttpVars("classid",0); // use when new doc or change class
 
 
@@ -57,6 +57,7 @@ function freedom_dedit(&$action) {
     $doc->usefor='D'; // default document
     $doc->profid=$fdoc->profid; // same profil as familly doc
     $doc->title=sprintf(_("default values for %s"),$fdoc->title);
+    $doc->setDefaultValues($fdoc->defval);
     $err=$doc->Add();
 
     if ($err != "") $action->exitError($err);
