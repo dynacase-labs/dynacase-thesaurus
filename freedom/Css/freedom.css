@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.66 2005/02/01 13:40:14 eric Exp $
+ * $Id: freedom.css,v 1.67 2005/02/15 15:51:26 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -223,7 +223,7 @@ DIV.select {
   background-color:[CORE_BGCOLORALTERN];
   color:[CORE_TEXTFGCOLOR];
   border-style : outset;
-   border-width : 1px;
+  border-width : 1px;
   margin: 2px 0px 0px 0px;
 } 
 
