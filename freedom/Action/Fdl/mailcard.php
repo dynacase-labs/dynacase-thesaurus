@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.25 2003/04/14 09:57:59 eric Exp $
+// $Id: mailcard.php,v 1.26 2003/04/18 10:29:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -121,6 +121,7 @@ function sendCard(&$action,
   if (ereg("[A-Z]+:[^:]+:S", $zonebodycard, $reg))  $szone=true;// the zonebodycard is a standalone zone ?
   if (ereg("[A-Z]+:[^:]+:T", $zonebodycard, $reg))  setHttpVar("dochead","N");// the zonebodycard without head ?
 
+
   if (ereg("html",$format, $reg)) {
     // ---------------------------
     if ($szone) {
@@ -130,7 +131,7 @@ function sendCard(&$action,
 
       if ($comment != "") {
 	$comment= nl2br($comment);
-	$sgen = preg_replace("'<body([^>]+)>'",
+	$sgen = preg_replace("'<body([^>]*)>'i",
 			     "<body \\1><P>$comment<P><HR>",
 			     $sgen);
       }
