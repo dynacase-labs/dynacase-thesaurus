@@ -1,0 +1,12 @@
+<html>
+<head>
+[JS:REF]
+<script>
+if (window.parent) {
+  if (parseInt('[id]')>0) window.parent.document.modifydoc.id.value=[id];
+  window.parent.viewwait(false);
+}
+    [JS:CODE] 
+</script>
+</head>
+</html>

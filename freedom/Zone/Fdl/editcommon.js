@@ -142,6 +142,7 @@ function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm) {
 
   enableall();
   f.submit();
+  restoreall();
   disableReadAttribute();
   // reset to initial action
   f.action=oldact;
@@ -153,7 +154,16 @@ function enableall() {
 
   with (document.getElementById('fedit')) {
        for (i=0; i< length; i++) {	
+           elements[i].oridisabled=elements[i].disabled;
            elements[i].disabled=false;
+       }
+  }
+}
+function restoreall() {
+
+  with (document.getElementById('fedit')) {
+       for (i=0; i< length; i++) {	
+           elements[i].disabled=elements[i].oridisabled;
        }
   }
 }
@@ -497,7 +507,7 @@ function unselectInput(id) {
 function autoUnlock(docid) {
   if (parseInt(docid) > 0) {
     if (! document.isSubmitted) {
-      var fhidden = window.open('','fhidden','');
+      var fhidden = window.open('','fhsave','');
       fhidden.document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id='+docid;
     }
   }
@@ -1061,7 +1071,7 @@ function submitinputs(faction, itarget) {
     target=itarget;
     action=faction;
     submit();
-
+    restoreall();
     target=editTarget;
     action=editAction;
         
@@ -1242,7 +1252,7 @@ function preview(faction) {
     submit();
     target=editTarget;
     action=editAction;
-
+    restoreall()
     
     if (na) {
       disabledInput(na,false);            
@@ -1251,7 +1261,54 @@ function preview(faction) {
   }
 }
 
-
+function quicksave() {
+  if (canmodify()) {
+    with (document.modifydoc) {    
+      var editTarget=target;
+      if (isNaN(id.value) ) {
+	alert('[TEXT:quick save not possible]');	
+      } else {
+	enableall();  
+	var na=document.getElementById('newart');
+	if (na) {
+	  disabledInput(na,true);        
+	  var nt=document.getElementById('newtxt');
+	  disabledInput(nt,true);
+	}
+	target='fhsave';
+	document.modifydoc.noredirect.value=1;
+	submit();
+	document.modifydoc.noredirect.value=0;
+	document.isChanged=false;
+	target=editTarget;
+	restoreall()
+    
+	  if (na) {
+	    disabledInput(na,false);            
+	    disabledInput(nt,false);
+	  }    
+	viewwait(true);    
+	return true;
+      }
+    }
+  }
+  return false;
+}
+function viewquick(event,view) {
+  if (! event) event=window.event;
+  if (document.modifydoc.id.value > 0) {
+    var ctrlKey = event.ctrlKey;
+  
+    if (view && ctrlKey) {
+      document.getElementById('iQuicksave').style.display='';
+      document.getElementById('iSubmit').style.display='none';
+    }
+    if (!view) {
+      document.getElementById('iQuicksave').style.display='none';
+      document.getElementById('iSubmit').style.display='';
+    }
+  }
+}
 
 addEvent(document,"keypress",trackKeysStop); // only stop propagation
 addEvent(document,"keydown",trackKeys);
@@ -1277,6 +1334,13 @@ function trackKeys(event,onlystop)
     ctrlKey = window.event.ctrlKey
    }
   window.status=intKeyCode + ':'+altKey+ ':'+ctrlKey;
+  if (!onlystop) {
+    if (((intKeyCode == 83)||(intKeyCode == 22)) && (altKey || ctrlKey)) {
+      // Ctrl-S
+      quicksave(); 
+      stop=true;
+    }
+  }
   if ((!onlystop) && seltr ) {
     if (((intKeyCode == 86)||(intKeyCode == 22)) && (altKey || ctrlKey)) {
       // Ctrl-V
@@ -1308,7 +1372,8 @@ function trackKeys(event,onlystop)
   if (onlystop) {
     if (altKey || ctrlKey) {
       if ((intKeyCode == 100) || 
-	  (intKeyCode == 118)) {
+	  (intKeyCode == 118) || 
+	  (intKeyCode == 115)) {
 	stop=true;
       }
     }
@@ -1427,4 +1492,17 @@ function dragtr(event) {
     // window.status='drag='+Ypos+'x'+Xpos;
   }
   return false;
+}
+
+document.write('<img id="WIMG" src="Images/gyro.gif" style="display:none;position:absolute">');
+function viewwait(view) {
+  var wimgo = document.getElementById('WIMG');
+  if (wimgo) {
+    if (view) {
+      wimgo.style.display='inline';
+      CenterDiv(wimgo.id);
+    } else {
+      wimgo.style.display='none';
+    }
+  }
 }

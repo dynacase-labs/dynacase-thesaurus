@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-15 16:49+0100\n"
-"PO-Revision-Date: 2005-02-15 16:50+0100\n"
+"POT-Creation-Date: 2005-02-16 16:34+0000\n"
+"PO-Revision-Date: 2005-02-16 17:34+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -2090,6 +2090,9 @@ msgstr "Contraintes"
 msgid "override constraints"
 msgstr "outrepasser les contraintes"
 
+msgid "Quick Save"
+msgstr "Sauver vite"
+
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -2798,6 +2801,9 @@ msgstr "entrée vconstraint non trouvé id="
 
 msgid "Choose document before set options"
 msgstr "Choisissez un document avant de choisir les options"
+
+msgid "quick save not possible"
+msgstr "Sauvegarde rapide impossible"
 
 msgid "mini view"
 msgstr "mini vue"

@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.68 2004/12/23 14:16:31 eric Exp $
+ * @version $Id: modcard.php,v 1.69 2005/02/17 07:51:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,6 +33,7 @@ function modcard(&$action, &$ndocid) {
   $classid=GetHttpVars("classid",0);
   $usefor = GetHttpVars("usefor"); // use for default values for a document
   $vid = GetHttpVars("vid"); // special controlled view
+  $noredirect=(GetHttpVars("noredirect")); // true  if return need edition
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $ndocid=$docid;
@@ -137,42 +138,45 @@ function modcard(&$action, &$ndocid) {
     }
     if ($err=="") {$err.=$doc-> Modify();  }
 
+    $ndocid = $doc->id;
     // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
-     $doc->unlock(true); // disabled autolock
+    if (!$noredirect) {
+      $doc->unlock(true); // disabled autolock
   
-    if ($err == "") {
+      if ($err == "") {
     
-      // change state if needed
+	// change state if needed
       
-      $newstate=GetHttpVars("newstate","");
-      $comment=GetHttpVars("comment","");
+	$newstate=GetHttpVars("newstate","");
+	$comment=GetHttpVars("comment","");
     
-      $err="";
+	$err="";
 
 
-      if (($newstate != "") && ($newstate != "-")) {
+	if (($newstate != "") && ($newstate != "-")) {
 
-	if ($doc->wid > 0) {
-	  if ($newstate != "-") {
-	    $wdoc = new Doc($dbaccess,$doc->wid);
+	  if ($doc->wid > 0) {
+	    if ($newstate != "-") {
+	      $wdoc = new Doc($dbaccess,$doc->wid);
 	
-	    $wdoc->Set($doc);
-	    setPostVars($wdoc);
-	    $err=$wdoc->ChangeState($newstate,$comment);
+	      $wdoc->Set($doc);
+	      setPostVars($wdoc);
+	      $err=$wdoc->ChangeState($newstate,$comment);
+	    }
+	  }
+
+	} else {
+	  // test if auto revision
+	  $fdoc = $doc->getFamDoc();
+
+	  if ($fdoc->schar == "R") {
+	    $doc->AddRevision(sprintf("%s : %s",_("auto revision"),$comment));
+	  } else {
+	    if ($comment != "") $doc->AddComment($comment);
 	  }
 	}
-
-      } else {
-	// test if auto revision
-	$fdoc = $doc->getFamDoc();
-
-	if ($fdoc->schar == "R") {
-	  $doc->AddRevision(sprintf("%s : %s",_("auto revision"),$comment));
-	} else {
-	  if ($comment != "") $doc->AddComment($comment);
-	}
+	$ndocid = $doc->id;
       }
-      $ndocid = $doc->id;
     }
   }
 
