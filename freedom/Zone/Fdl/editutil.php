@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.41 2003/06/27 07:40:45 mathieu Exp $
+// $Id: editutil.php,v 1.42 2003/07/07 07:44:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -145,15 +145,15 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="") {
 		      
       //같같같같같같같같같같같같같같같같같같같같
     case "longtext": 
-      $expid="exp".$attrid;
+      $expid="exp".$attridk;
       $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=9;document.getElementById('$expid').style.display='';\"  class=\"autoresize\" rows=2 name=\"".
 	$attrin."\" ";
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " >".
-	htmlentities(stripslashes($value)).
+	htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
 	"</textarea>".
-	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attrid').rows=2;this.style.display='none'\" value=\"&Delta;\">";
+	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attridk').rows=2;this.style.display='none'\" value=\"&Delta;\">";
 
       
     
