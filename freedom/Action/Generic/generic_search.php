@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.23 2005/03/02 15:41:47 eric Exp $
+ * @version $Id: generic_search.php,v 1.24 2005/03/03 17:14:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -77,7 +77,7 @@ function generic_search(&$action) {
 
   $sqlfilter[]= "locked != -1";
   //  $sqlfilter[]= "doctype ='F'";
-  //  $sqlfilter[]= "usefor = 'N'";
+  //  $sqlfilter[]= "usefor != 'D'";
   if ($keyword != "") $sqlfilter[]= "values ~* '$keyword' ";
 
   $query=getSqlSearchDoc($dbaccess, 

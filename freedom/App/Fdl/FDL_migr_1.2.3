@@ -1,3 +1,4 @@
 #!/bin/bash
 pubdir="/home/httpd/what";
 echo "ALTER TABLE docattr ADD COLUMN options text;" | psql freedom anakeen
+echo "UPDATE doc set profid=504 where usefor='D' and profid = 0;" | psql freedom anakeen

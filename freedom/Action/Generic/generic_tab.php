@@ -3,7 +3,7 @@
  * List document of a category
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.20 2005/03/02 15:41:47 eric Exp $
+ * @version $Id: generic_tab.php,v 1.21 2005/03/03 17:14:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -96,7 +96,7 @@ function generic_tab(&$action) {
 
     $sqlfilter[]= "locked != -1";
     $sqlfilter[]= "doctype!='C'";
-    //    $sqlfilter[] = "usefor = 'N'";
+    //    $sqlfilter[] = "usefor != 'D'";
 
     if ($tabletter[$tab]!="") $sqlfilter[]="title ~* '^[".$tabletter[$tab]."].*'";
 

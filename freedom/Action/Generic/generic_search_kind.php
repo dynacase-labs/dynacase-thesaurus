@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search_kind.php,v 1.10 2005/03/02 15:41:47 eric Exp $
+ * @version $Id: generic_search_kind.php,v 1.11 2005/03/03 17:14:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.10 2005/03/02 15:41:47 eric Exp $
+// $Id: generic_search_kind.php,v 1.11 2005/03/03 17:14:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,7 +96,7 @@ function generic_search_kind(&$action) {
 
   $sqlfilter[]= "locked != -1";
   //  $sqlfilter[]= "doctype='F'";
-  //  $sqlfilter[]= "usefor = 'N'";
+  //  $sqlfilter[]= "usefor != 'D'";
 
 
   // searches for all fathers kind
