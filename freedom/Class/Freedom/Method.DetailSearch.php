@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.11 2003/07/03 10:21:06 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.12 2003/07/03 10:41:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,7 +38,7 @@ var $tol=array("and" => "and",              #N_("and")
 	       "or" => "or");               #N_("or")
 
 
-function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$dirid=-1) {
+function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1) {
     
   if ($dirid > 0) {
 
@@ -57,7 +57,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$diri
     else $filters[] = "values ~* '$keyword' ";
   }
  
-  if ($this->getValue("SE_LATEST") == "fixed") $filters[] = "locked = -1";
+  if ($latest == "fixed") $filters[] = "locked = -1";
 
   $tol = $this->getTValue("SE_OLS");
   $tkey = $this->getTValue("SE_KEYS");
@@ -85,7 +85,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$diri
   if ($cond != "") $filters[]=$cond;
 
 
-  $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest);
+  $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes");
 
   return $query;
 }
@@ -97,7 +97,7 @@ function SpecRefresh() {
   if ($this->getValue("se_latest") != "") {
     $query=$this->ComputeQuery($this->getValue("se_key"),
 			       $this->getValue("se_famid"),
-			       $this->getValue("se_latest")=="yes",
+			       $this->getValue("se_latest"),
 			       $this->getValue("se_case")=="yes",
 			       $this->getValue("se_idfld"));
 

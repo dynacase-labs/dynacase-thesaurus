@@ -13,11 +13,7 @@
   <td>&nbsp</td>
   <td class="FREEDOMLabel" align="right">
       [TEXT:only latest revision]&nbsp;: </td>
-  <td   >
-      <input type="checkbox"
-             onclick="document.getElementById('se_latest').value=(this.checked)?'yes':'no';" 
-             name="latest" value="true" checked>
-      <input type="hidden" id="se_latest" name="_se_latest" value="yes" > </td>
+  <td   >[V_SE_LATEST]</td>
 </tr>
 <tr class="FREEDOMBack1">
   <td>&nbsp</td>

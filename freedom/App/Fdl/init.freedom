@@ -7,3 +7,217 @@ ATTR;FR_BASIC;;basique;N;N;frame;0;F;;;;
 ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;O;Y;;;
 ;;;;;;;;;;;;
 END;0;-1;;;;;;;;;;
+// famille dossier;;;id;class;name;;;;;;;;
+BEGIN;1;dossier;2;Dir;DIR;;;;;;;;
+TYPE;C;;;;;;;;;;;;
+ICON;dossier.gif;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
+ATTR;BA_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;
+ATTR;FLD_FR_REST;;Restrictions;N;N;frame;0;F;;;;;
+ATTR;FLD_ALLBUT;FLD_FR_REST;tout ou rien;N;N;enum;1000;W;;;-;0|tout sauf,1|seulement;
+ATTR;FLD_TFAM;FLD_FR_REST;familles filtrées;N;N;array;1005;W;;;;;
+ATTR;FLD_FAM;FLD_TFAM;familles;N;N;text;1010;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_FAMIDS%;fdl.php;lfamilies(D):FLD_FAMIDS,FLD_FAM;
+ATTR;FLD_FAMIDS;FLD_TFAM;id familles;N;N;docid;1020;H;;;;;
+ATTR;FLD_FR_PROF;;Profils par défaut;N;N;frame;0;F;;;;;
+ATTR;FLD_PDOC;FLD_FR_PROF;profil par défaut de document;N;N;text;1030;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDOCID%;fdl.php;lfamilly(D,PDOC,FLD_PDOC):FLD_PDOCID,FLD_PDOC;
+ATTR;FLD_PDOCID;FLD_FR_PROF;id profil par défaut de document;N;N;docid;1040;H;;;;;
+ATTR;FLD_PDIR;FLD_FR_PROF;profil par défaut de dossier;N;N;text;1050;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDIRID%;fdl.php;lfamilly(D,PDIR,FLD_PDIR):FLD_PDIRID,FLD_PDIR;
+ATTR;FLD_PDIRID;FLD_FR_PROF;id profil par défaut de dossier;N;N;docid;1060;H;;;;;
+ATTR;FLD_ROOT;FLD_FR_PROF;nouvelle racine;N;N;text;10;M;;[ffolder]%S%app=FREEDOM&action=FOLDERS&dirid=%I%;;;
+END;1;-1;;;;;;;;;;;
+;;;;;;;;;;;;;
+//DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;;
+DOC;2;9;;racine;;;;;;;;;
+DOC;2;10;9;import;Documents importés lors d'installation;;;;;;;;
+// famille chemise;;;id;class;name;;;;;;;
+BEGIN;2;chemise;17;;PORTFOLIO;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;chemise.gif;;;;;;;;;;;
+METHOD;Method.PortFolio.php;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+;;;;;;;;;;;;
+ATTR;PFL_OPEN;;ouvrir;N;N;text;10;M;;%S%&app=FREEDOM&action=OPENFOLIO&id=%I%;;
+ATTR;PFL_IDDEF;FLD_FR_PROF;id chemise defaut ;N;N;docid;1000;H;N;;;
+ATTR;PFL_DEF;FLD_FR_PROF;chemise defaut;N;Y;text;1010;H;N;%S%&app=FDL&action=FDL_CARD&id=%PFL_IDDEF%;fdl.php;lfamilly(D,{PORTFOLIO},PFL_DEF):PFL_IDDEF,PFL_DEF
+;;;;;;;;;;;;
+END;1;-1;;;;;;;;;;
+// famille cycle;;;id;class;name;;;;;;;
+BEGIN;1;cycle de vie;20;WDoc;WDOC;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;cycle.gif;;;;;;;;;;;
+USEFOR;W;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+ATTR;WF_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;
+ATTR;WF_INIT;;initialisation;N;N;text;30;M;;%S%app=FDL&action=WORKFLOW_INIT&id=%I%;;
+;;;;;;;;;;;;
+END;1;-1;;;;;;;;;;
+;;;;;;;;;;;;
+// famille mask;;;id;class;name;;;;;;;
+BEGIN;1;masque de saisie;21;;MASK;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;masque.gif;;;;;;;;;;;
+METHOD;Method.Mask.php;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+ATTR;MSK_FR_REST;;Famille;N;N;frame;0;F;;;;
+ATTR;MSK_FAM;MSK_FR_REST;familles;N;N;text;10;W;Y;%S%app=FDL&action=FDL_CARD&id=%MSK_FAMID%;fdl.php;lfamilies(D):MSK_FAMID,MSK_FAM
+ATTR;MSK_FAMID;MSK_FR_REST;id familles;N;N;docid;20;H;;;;
+ATTR;MSK_ATTRIDS;MSK_FR_REST;attrid;N;N;textlist;10;H;;;;
+ATTR;MSK_VISIBILITIES;MSK_FR_REST;visibilité;N;N;textlist;20;H;;;;
+ATTR;MSK_NEEDEEDS;MSK_FR_REST;obligatoire;N;N;textlist;30;H;;;;
+;;;;;;;;;;;;
+END;1;-1;;;;;;;;;;
+// famille dossier;inherit;;id;class;name;;;;;;;
+BEGIN;0;mail;15;;MAIL;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;dmail.gif;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+ATTR;MAIL_FR;;Adresses;N;Y;frame;10;F;;;;
+ATTR;MAIL_FROM;MAIL_FR;de;N;Y;text;20;W;;;;
+ATTR;MAIL_TO;MAIL_FR;à;N;Y;text;30;W;Y;;fdl.php;lmail(D,MAIL_TO):MAIL_TO
+ATTR;MAIL_CC;MAIL_FR;copie à;N;Y;text;40;W;;;fdl.php;lmail(D,MAIL_CC):MAIL_CC
+ATTR;MAIL_SUBJECT;MAIL_FR;sujet;N;Y;text;50;W;;;;
+ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;60;F;;;;
+ATTR;MAIL_CM;MAIL_FR_CM;Commentaire;N;Y;longtext;60;W;;;;
+ATTR;MAIL_FORMAT;MAIL_FR_CM;Format;N;Y;enum;70;W;;;;html|HTML,pdf|PDF,htmlpdf|HTML & PDF
+END;0;;;;;;;;;;;
+// famille recherche;;;id;class;name;;;;;;;
+;;;;;;;;;;;;
+BEGIN;BASE;recherche;5;DocSearch;SEARCH;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;search.gif;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+ATTR;SE_CRIT;;critère;N;N;frame;0;F;;;;
+ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;10;W;;;;
+ATTR;SE_LATEST;SE_CRIT;dernière révision;N;N;enum;20;W;;;-;yes|oui,no|non,fixed|figé
+ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;N;text;30;W;;;;
+ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;40;R;;;;
+ATTR;SE_FAMID;SE_CRIT;fid amille;N;N;docid;50;H;;;;
+ATTR;SE_CFLD;SE_CRIT;à partir du dossier;N;N;text;60;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFLD%;;
+ATTR;SE_IDFLD;SE_CRIT;dossier racine;N;N;docid;70;H;;;;
+END;0;;;;;;;;;;;
+;;;;;;;;;;;;
+//SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;;
+;;;;;;;;;;;;
+SEARCH;11;9;les familles;select * from docfam where doctype='C';;;;;;;;
+SEARCH;12;9;les profils;select * from doc where doctype ='P';;;;;;;;
+SEARCH;13;9;les maisons;select * from doc where (owner < 0) and (locked != -1);;;;;;;;
+SEARCH;14;9;la poubelle;select * from doc where doctype ='Z';;;;;;;;
+SEARCH;22;9;les cycles;select * from doc where doctype='W';;;;;;;;
+// recherche détaillée;fromid;;id;class;name;;;;;;;
+;;;;;;;;;;;;
+BEGIN;SEARCH;recherche détaillée;16;;DSEARCH;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;searchd.gif;;;;;;;;;;;
+METHOD;Method.DetailSearch.php;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+ATTR;SE_FR_DETAIL;;Conditions;N;N;frame;0;F;;;;
+ATTR;SE_KEYS;SE_FR_DETAIL;mot-clefs;N;N;textlist;100;W;;;;
+ATTR;SE_ATTRIDS;SE_FR_DETAIL;attributs;N;N;textlist;110;W;;;;
+ATTR;SE_FUNCS;SE_FR_DETAIL;fonctions;N;N;textlist;120;W;;;;
+ATTR;SE_OLS;SE_FR_DETAIL;opérateurs logiques;N;N;textlist;130;W;;;;
+END;0;;;;;;;;;;;
+// recherche détaillée;fromid;;id;class;name;;;;;;;
+;;;;;;;;;;;;
+BEGIN;DSEARCH;rapport;25;;REPORT;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;report.gif;;;;;;;;;;;
+METHOD;Method.Report.php;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+ATTR;REP_FR_PRESENTATION;;Présentation;N;N;frame;0;F;;;;
+ATTR;REP_CAPTION;REP_FR_PRESENTATION;description;N;Y;longtext;100;W;;;;
+ATTR;REP_SORT;REP_FR_PRESENTATION;tri;N;N;text;110;W;;;fdl.php;getSortAttr(D,SE_FAMID,REP_SORT):REP_IDSORT,REP_SORT
+ATTR;REP_IDSORT;REP_FR_PRESENTATION;id tri;N;N;text;120;H;;;;
+ATTR;REP_TCOLS;REP_FR_PRESENTATION;Colonnes;N;N;array;130;W;;;;
+ATTR;REP_LCOLS;REP_TCOLS;label;N;N;text;120;W;;;fdl.php;getDocAttr(D,SE_FAMID,REP_LCOLS):REP_IDCOLS,REP_LCOLS
+ATTR;REP_IDCOLS;REP_TCOLS;id colonnes;N;N;text;130;H;;;;
+ATTR;REP_COLORS;REP_TCOLS;couleur;N;N;color;140;W;;;;
+ATTR;REP_FOOTS;REP_TCOLS;pied de tableau;N;N;enum;130;W;;;-;NONE| ,SUM|Somme,MOY|Moyenne,CARD|Cardinal
+ATTR;REP_STYLE;REP_FR_PRESENTATION;style;N;N;enum;140;W;;;-;reportHBlue|Bleu horizontal,reportVGreen|Vert vertical
+ATTR;REP_EXCEL; ;vers tableur;N;N;menu;10;M;;%S%app=FDL&action=IMPCARD&props=N&id=%I%&ulink=N&ext=xls&mime=application/ms-excel;;
+ATTR;REP_IMP; ;version imprimable;N;N;menu;20;M;;%S%app=FDL&action=IMPCARD&props=N&id=%I%&ulink=N;;
+END;0;;;;;;;;;;;
+// recherche détaillée;fromid;;id;class;name;;;;;;;;
+;;;;;;;;;;;;;
+BEGIN;2;intercalaire;18;;GUIDECARD;;;;;;;;
+TYPE;C;;;;;;;;;;;;
+USEFOR;G;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
+;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+END;0;;;;;;;;;;;;
+;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+// recherche détaillée;fromid;;id;class;name;;;;;;;;
+;;;;;;;;;;;;;
+BEGIN;16;intercalaire dynamique;19;;SGUIDECARD;;;;;;;;
+TYPE;C;;;;;;;;;;;;
+USEFOR;G;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
+;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+END;0;;;;;;;;;;;;
+// famille profile doc;;;id;class;name
+BEGIN;1;profil de document;3;PDoc;PDOC
+USEFORPROF;;;;;
+TYPE;C;;;;
+ICON;profil.gif;;;;
+END;1;9;;;
+;;;;;
+// famille profile dossier;;;;;name
+BEGIN;3;profil de dossier;4;PDir;PDIR
+USEFORPROF;;;;;
+TYPE;C;;;;
+ICON;profil_dossier.gif;;;;
+END;1;9;;;
+;;;;;
+// famille profile recherche;;;;;name
+BEGIN;3;profil de recherche;6;PDocSearch;PSEARCH
+USEFORPROF;;;;;
+TYPE;C;;;;
+ICON;profil_recherche.gif;;;;
+END;1;9;;;
+;;;;;
+// famille profile famille;;;;;name
+BEGIN;3;profil de famille;23;PFam;PFAM
+USEFORPROF;;;;;
+TYPE;C;;;;
+ICON;profil_family.gif;;;;
+END;1;9;;;
+// famille fichier;;;id;class;name;;;;;;;
+BEGIN;0;fichier;7;;FILE;;;;;;;
+METHOD;Method.DocFile.php;;;;;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;fichier.gif;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+;;;;;;;;;;;;
+ATTR;FI_FRFILE;;fichier;N;N;frame;;F;;;;
+ATTR;FI_TITLE;FI_FRFILE;titre;Y;N;text;;R;;;;
+ATTR;FI_FILE;FI_FRFILE;fichier;N;Y;file;;W;Y;;;
+END;-;9;;;;;;;;;;
+;;;;;;;;;;;;
+// famille image;;;id;class;name;;;;;;;
+BEGIN;0;image;8;;IMAGE;;;;;;;
+METHOD;Method.DocImg.php;;;;;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;photo.gif;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+;;;;;;;;;;;;
+ATTR;IMG_FRFILE;;image;N;N;frame;0;F;;;;
+ATTR;IMG_TITLE;IMG_FRFILE;titre;Y;N;text;10;R;;;;
+;;;;;;;;;;;;
+ATTR;IMG_FILE;IMG_FRFILE;image;N;Y;image;20;W;Y;;;
+ATTR;IMG_FR_CHAR;;caractéristiques;N;N;frame;;F;;;;
+ATTR;IMG_CATG;IMG_FR_CHAR;catégorie;N;N;enum;30;W;;;;1|photo,2|dessin,1.1|paysage,1.2|portrait
+END;-;9;;;;;;;;;;
+;;;;;;;;;;;;
+// famille texte;;;id;class;name;;;;;;;
+BEGIN;1;texte;24;;TEXT;;;;;;;
+METHOD;Method.DocText.php;;;;;;;;;;;
+TYPE;C;;;;;;;;;;;
+ICON;text.gif;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
+;;;;;;;;;;;;
+ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;O;Y;;;
+ATTR;TXT_TEXT;FR_BASIC;texte;N;N;htmltext;20;W;;;;
+;;;;;;;;;;;;
+END;-;;;;;;;;;;;

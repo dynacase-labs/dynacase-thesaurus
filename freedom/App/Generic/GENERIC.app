@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.13 2003/06/11 14:37:30 eric Exp $
+// $Id: GENERIC.app,v 1.14 2003/07/03 10:41:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,6 +58,11 @@ $action_desc = array (
    "name"		=>"GENERIC_EDIT",
    "short_name"		=>N_("edition"),
    "acl"		=>"GENERIC"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_ISEARCH",
+   "short_name"		=>N_("inverted search"),
+   "acl"		=>"GENERIC_READ"
   ) ,
   array( 
    "name"		=>"GENERIC_DUPLICATE",

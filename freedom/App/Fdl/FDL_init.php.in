@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.12 2003/04/08 12:44:10 eric Exp $
+// $Id: FDL_init.php.in,v 1.13 2003/07/03 10:41:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,7 +42,22 @@ $app_const= array(
   "FDL_MAX_FGEXPORTDOC"    =>array("val"=>"20",
 				  "descr"=>N_("maximum document can be imported directly"),
 				  "user"=>"N",
-				  "global"=>"Y")
+				  "global"=>"Y"),
+  "SOCIETY_COORD"   =>array("val"=>"SomeOne<BR>12 paradise road<BR>34000 NewYork<BR>Phone:08.789.678<BR>Fax:09.5627.32",
+			    "global"=>"Y",
+			    "descr"=>N_("name and address of our society")),
+  "SOCIETY_LOGO"   =>array("val"=>"Images/logocesam.jpg",
+			   "global"=>"Y",
+			   "descr"=>N_("logo of our society")),
+  "SOCIETY_TOWN"   =>array("val"=>"New York",
+			   "global"=>"Y",
+			   "descr"=>N_("town of our society")),
+  "SOCIETY_NAME"   =>array("val"=>"SomeOne",
+			   "global"=>"Y",
+			   "descr"=>N_("name of our society")),
+  "SOCIETY_PHONE"   =>array("val"=>"00 00 00 00",
+			   "global"=>"Y",
+			   "descr"=>N_("phone of our society")),
 );
 
 

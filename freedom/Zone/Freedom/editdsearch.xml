@@ -26,13 +26,7 @@
   <td>&nbsp</td>
   <td class="FREEDOMLabel" align="right">
       <label for="latest"> [TEXT:only latest revision]&nbsp;:</label></td>
-  <td   >
-     <select name="_se_latest" >  
-      
-           <option VALUE="yes" >[TEXT:yes]</option>  
-           <option VALUE="no" [select_all]>[TEXT:no]</option>   
-        
-    </select>   </td>
+  <td   >[V_SE_LATEST]  </td>
 </tr>
 
 

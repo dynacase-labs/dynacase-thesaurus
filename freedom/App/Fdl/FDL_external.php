@@ -181,11 +181,11 @@ function lmask($dbaccess, $name, $maskfamid="") {
 
 // liste des attributs d'une famille
 function getDocAttr($dbaccess, $famid, $name="") {
-  return getSortAttr($dbaccess, $famid, $name);
+  return getSortAttr($dbaccess, $famid, $name,false);
 }
 
 // liste des attributs triable d'une famille
-function getSortAttr($dbaccess, $famid, $name="") {
+function getSortAttr($dbaccess, $famid, $name="",$sort=true) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   
   $doc = createDoc($dbaccess, $famid);
@@ -202,7 +202,8 @@ function getSortAttr($dbaccess, $famid, $name="") {
     
   }
 
-  $tinter = $doc->GetSortAttributes();
+  if ($sort)  $tinter = $doc->GetSortAttributes();
+  else $tinter = $doc->GetNormalAttributes();
   
 
   while(list($k,$v) = each($tinter)) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.10 2003/02/20 11:34:04 eric Exp $
+// $Id: Class.DocSearch.php,v 1.11 2003/07/03 10:41:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.10 2003/02/20 11:34:04 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.11 2003/07/03 10:41:07 eric Exp $';
 
 
 include_once("FDL/Class.PDocSearch.php");
@@ -70,7 +70,7 @@ Class DocSearch extends PDocSearch {
     return "";
   }
 
-  function ComputeQuery($keyword="",$famid=-1,$latest=false,$sensitive=false,$dirid=-1) {
+  function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1) {
     
     if ($dirid > 0) {
 
@@ -80,7 +80,8 @@ Class DocSearch extends PDocSearch {
     } else $cdirid=0;;
 
     $filters=array();
-    //if ($latest)       $filters[] = "locked != -1";
+
+    if ($latest == "fixed") $filters[] = "locked = -1";
     $filters[] = "usefor = 'N'";
     $keyword= str_replace("^","£",$keyword);
     $keyword= str_replace("$","\0",$keyword);
@@ -90,8 +91,8 @@ Class DocSearch extends PDocSearch {
     }
  
   
-    print $query;
-    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest);
+
+    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes");
     return $query;
   }
 
@@ -102,7 +103,7 @@ Class DocSearch extends PDocSearch {
     if ($this->getValue("se_latest") != "") {
       $query=$this->ComputeQuery($this->getValue("se_key"),
 				 $this->getValue("se_famid"),
-				 $this->getValue("se_latest")=="yes",
+				 $this->getValue("se_latest"),
 				 $this->getValue("se_case")=="yes",
 				 $this->getValue("se_idfld"));
 
