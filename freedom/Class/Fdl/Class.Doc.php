@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.97 2003/03/06 09:27:30 eric Exp $
+// $Id: Class.Doc.php,v 1.98 2003/03/11 17:14:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.97 2003/03/06 09:27:30 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.98 2003/03/11 17:14:05 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1698,7 +1698,7 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
 
     while (list($k,$v) = each($listattr)) {
 
-   
+
       $value = chop($this->GetValue($v->id));
 
       //------------------------------
@@ -1707,8 +1707,8 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
      	
 	// don't see  non abstract if not
       if (($v->mvisibility == "H") || (($abstract) && (! $v->isInAbstract ))) {
-	$this->lay->Set("V_".$v->id,"");
-	$this->lay->Set("L_".$v->id,"");
+	$this->lay->Set("V_".strtoupper($v->id),"");
+	$this->lay->Set("L_".strtoupper($v->id),"");
       } else {
 	$this->lay->Set("V_".strtoupper($v->id),$this->GetHtmlValue($v,$value,$target,$ulink));
 	$this->lay->Set("L_".strtoupper($v->id),$v->labelText);
