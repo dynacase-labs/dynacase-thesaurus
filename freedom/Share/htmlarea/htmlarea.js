@@ -8,7 +8,7 @@
 // Version 3.0 developed by Mihai Bazon for InteractiveTools.
 //           http://students.infoiasi.ro/~mishoo
 //
-// $Id: htmlarea.js,v 1.3 2004/02/03 08:42:00 eric Exp $
+// $Id: htmlarea.js,v 1.4 2004/09/09 12:54:55 eric Exp $
 
 // Creates a new HTMLArea object.  Tries to replace the textarea with the given
 // ID with it.
@@ -552,7 +552,7 @@ HTMLArea.prototype.updateToolbar = function() {
 					fontWeight = doc.queryCommandState("bold") ? "bold" : "normal";
 					fontStyle = doc.queryCommandState("italic") ? "italic" : "normal";
 				}} catch (e) {
-					alert(e + "\n\n" + cmd);
+					//alert(e + "\n\n" + cmd);
 				}
 			}
 			break;
