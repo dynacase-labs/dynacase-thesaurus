@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.6 2002/05/22 13:28:41 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.7 2002/05/22 16:02:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,6 +53,7 @@ Class UsercardVcard
 		      "TEL;PREFER" => "",
 		      "EMAIL;INTERNET" => "US_MAIL",
 		      "EMAIL;INTERNET;WORK" => "US_MAIL",
+		      "EMAIL;PREF;INTERNET" => "US_MAIL",
 		      "EMAIL;INTERNET;HOME" => "",
 			
 		      "ADR;WORK" => "0;0;US_WORKADDR;US_WORKTOWN;0;US_WORKPOSTALCODE",
@@ -72,11 +73,13 @@ Class UsercardVcard
 		      "ADR;HOME;COUNTRYNAME" => "",
 			
 		      "TEL;WORK" => "US_PHONE",
+		      "TEL;WORK;VOICE" => "US_PHONE",
 		      "TEL;HOME" => "",
 		      "TEL;VOICE" => "",
 		      "TEL;FAX" => "US_FAX",
 		      "TEL;MSG" => "",
 		      "TEL;CELL" => "US_MOBILE",
+		      "TEL;CELL;VOICE" => "US_MOBILE",
 		      "TEL;PAGER" => "",
 		      "TEL;BBS" => "",
 		      "TEL;MODEM" => "",
@@ -158,29 +161,28 @@ Class UsercardVcard
 		// if is single value (no regexp)
 		if (ereg("^[0-9A-Z_]*$",$this->import[$k]))
 		  {
-		    
-		    $tattr[$this->import[$k]]=$v;
+		    // suppress http
+		    if ($this->import[$k] == QA_URI) $tattr[$this->import[$k]]=str_replace("http://","",$v);
+		    else $tattr[$this->import[$k]]=$v;
 
 		  }
 		else
 		  {
 		    // regexp case
-		    // example A;B;C;D;E;F
-		    $complxreg="([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)";
-
+		      // example A;B;C;D;E;F
+			$complxreg="([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)";
+		    
 		    if (ereg($complxreg,
 			     $this->import[$k], $reg))
-		    {
-		      if (ereg($complxreg, $v , $regv))
-			{
-			  $tattr[$reg[1]]= $regv[1];
-			  $tattr[$reg[2]]= $regv[2];
-			  $tattr[$reg[3]]= $regv[3];
-			  $tattr[$reg[4]]= $regv[4];
-			  $tattr[$reg[5]]= $regv[5];
-			  $tattr[$reg[6]]= $regv[6];
-			}
-		    }
+		      {
+			if (ereg($complxreg, $v , $regv))
+			  {
+			    for ($ir=1;$ir<7;$ir++) {
+			      if ($reg[$ir] == QA_URI) $tattr[$reg[$ir]]=str_replace("http://","",$regv[$ir]);
+			      else $tattr[$reg[$ir]]= $regv[$ir];
+			    }
+			  }
+		      }
 		  }
 	      }
 	  }
@@ -190,32 +192,32 @@ Class UsercardVcard
   function WriteCard($title,$tattr) 
     {
       // Write a structure in export file
-    
-      fputs($this->fd,"BEGIN:VCARD\n");
+	
+	fputs($this->fd,"BEGIN:VCARD\n");
       fputs($this->fd,"FN:".chop($title)."\n");
       reset($this->import);
       while(list($k,$v) = each($this->import))
-	  {
-	    if ($v != "")
-	      {
-		if (isset($tattr[$v]))
-		  fputs($this->fd,$k.":".str_replace("\n","\\n",$tattr[$v])."\n");
-		  
-		else { // multi fields
-		  $lidattr = explode(";", $v);
-		  if ((is_array($lidattr)) && (count($lidattr) > 1)){
-		    fputs($this->fd,"$k:");
-		    while(list($k2,$idattr) = each($lidattr)) {
-		    
-		      if (isset($tattr[$idattr])) fputs($this->fd,str_replace("\n","\\n",$tattr[$idattr]));
-		      if ($k2 < count($lidattr) - 1) fputs($this->fd,";");
-		    }
-		    fputs($this->fd,"\n");
-		  }
-		}
-
-	      }
-	  }
+	{
+	  if ($v != "")
+	    {
+	      if (isset($tattr[$v]))
+		fputs($this->fd,$k.":".str_replace("\n","\\n",$tattr[$v])."\n");
+	      
+	      else { // multi fields
+		       $lidattr = explode(";", $v);
+		     if ((is_array($lidattr)) && (count($lidattr) > 1)){
+		       fputs($this->fd,"$k:");
+		       while(list($k2,$idattr) = each($lidattr)) {
+			 
+			 if (isset($tattr[$idattr])) fputs($this->fd,str_replace("\n","\\n",$tattr[$idattr]));
+			 if ($k2 < count($lidattr) - 1) fputs($this->fd,";");
+		       }
+		       fputs($this->fd,"\n");
+		     }
+		   }
+	      
+	    }
+	}
       fputs($this->fd,"END:VCARD\n\n");
     }
 }
