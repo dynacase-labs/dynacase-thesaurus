@@ -23,6 +23,15 @@ function imgborder() {
     document.images[i].style.borderStyle='none';
   }
 }
+function sendgeneric(event,th,docid) {
+    th.style.borderStyle='outset';
+    if (parent.faminfo.flist) {      
+      parent.faminfo.flist.location.href='[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_TOGEN&gonlylist=yes&famid='+docid;
+    } else {
+      parent.faminfo.location.href='[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_TOGEN&famid='+docid;
+    }
+}
+
    </script>
 
  </head>
@@ -31,11 +40,12 @@ function imgborder() {
 [BLOCK SELECTCLASS]
 
 <p style="margin:0pt;padding:0pt">
-<a  href="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_TOGEN&famid=[idcdoc]" target="faminfo">
-<img style="border-width:2px;border-style:none" src="[iconsrc]"  width="50px" height="50px" onclick="imgborder();this.style.borderStyle='outset'"
+<img style="cursor:pointer;border-width:2px;border-style:none" 
+     src="[iconsrc]"  width="50px" height="50px" 
+     onclick="sendgeneric(event,this,'[idcdoc]');"
      alt="[classname]"
      title="[classname]">
-</a></p>
+</p>
 [ENDBLOCK SELECTCLASS]
 
 <input type="button" value="[TEXT:families]" 

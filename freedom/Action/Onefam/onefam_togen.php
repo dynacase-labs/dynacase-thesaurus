@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_togen.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Id: onefam_togen.php,v 1.2 2003/01/20 15:08:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_togen.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,17 +30,21 @@ function onefam_togen(&$action)
 {
  
   $famid = GetHttpVars("famid",0); 
+  $gonlylist = GetHttpVars("gonlylist"); 
+  $gaction = ""; 
   
   if ($famid == 0) $action->exitError(_("Family is not instanciate"));
 
-				     
+			
+  if ($gonlylist == "yes") $gaction="GENERIC_TAB&tab=0";
+	     
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc ($dbaccess, $famid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("Family (#%d) is not referenced"),$famid));
   $action->Register("DEFAULT_FAMILY", $famid);
   $action->Register("DEFAULT_FLD", $doc->dfldid);
 
-  redirect($action,"GENERIC", "");
+  redirect($action,"GENERIC", $gaction);
 }
 
 ?>
