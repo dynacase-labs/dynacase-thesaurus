@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.16 2005/01/31 10:55:26 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.17 2005/02/01 14:07:00 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -59,10 +59,12 @@ function wgcal_getRessDisplayed(&$action) {
   
 function wgcal_calendar(&$action) {
 
+
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
   $action->parent->AddJsRef("WHAT/Layout/geometry.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
 
 
@@ -71,6 +73,8 @@ function wgcal_calendar(&$action) {
   if ($swe!="yes") $ndays = $dayperweek - 2;
   else $ndays = $dayperweek;
   $sdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
+  $pafter = $sdate + ($ndays * SEC_PER_DAY);
+  $pbefore = $sdate - ($ndays * SEC_PER_DAY);
   $firstWeekDay = GetFirstDayOfWeek($sdate);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $today = d2s("%d/%m/%Y", time());
@@ -96,7 +100,14 @@ function wgcal_calendar(&$action) {
   $action->lay->set("DIVSTART", "calareastart");
   $action->lay->set("DIVEND", "calareaend");
   
-  $action->lay->set("F_LINE", '<td align="center" class="WGCAL_Period" colspan="'.($ndays+1).'">'
+  $action->lay->set("colspan", $ndays+1 );
+  $action->lay->set("week", $week);
+  $action->lay->set("month", $month);
+  $action->lay->set("year", $year);
+  $action->lay->set("pafter", $pafter);
+  $action->lay->set("pbefore", $pbefore);
+
+  $action->lay->set("F_LINE", '<td align="center" class="WGCAL_Period" colspan="'.($ndays+3).'">'
 		    . N_("week").' '.$week.' - '.$month.' '.$year.'</td>');
   $action->lay->set("WEEKNUMBER", $week);
   $classalt = array ( 0 => "WGCAL_Day1", 1 => "WGCAL_Day2" );
@@ -195,6 +206,7 @@ function wgcal_calendar(&$action) {
 			 d2s($edate, "%Y-%m-%d %H:%M:%S") );
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
+  $action->lay->set("comment",strftime("%x %X", time()));
 }
 
 

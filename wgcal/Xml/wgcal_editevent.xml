@@ -1,6 +1,6 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="eventid" name="eventid" value="[EVENTID]"> </form>
-<form id="viewdispo" name="viewdispo" method="POST" target="wgcal_dispo" action="[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id=1116">
+<form id="viewdispo" name="viewdispo" method="POST" target="wgcal_dispo" action="[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id=[idq]">
 <input id="idres" name="idres" type="hidden" value="">
 <input id="jdstart" name="jdstart" type="hidden" value="">
 <input id="jdend" name="jdend" type="hidden" value="">

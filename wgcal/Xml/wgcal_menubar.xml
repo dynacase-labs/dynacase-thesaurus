@@ -72,18 +72,18 @@ var RCall = 0;
 
 <td align="center" height="40">
 <form id="fsearch" target="wgcal_" name="fsearch" method="POST" 
-       onsubmit="subwindow(300, 500, 'Search Result', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHRESULT'); return false;">
+       onsubmit="subwindow(300, 500, 'Search Result', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH'); return false;">
  <input type="text" size="20" id="searchphrase" name="searchphrase" type="hidden" value="">
  <input type="hidden" id="searchdstart" name="searchdstart" value="-1">
  <input type="hidden" id="searchdend" name="searchdend" value="-1">
  <input type="hidden" id="searchressource" name="searchressource" value="">
+</form>
 </td>
 <td align="center" height="40" width="40" >
   <img id="advsearch" class="WGCalButton" title="[TEXT:advanced search]"
      onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
      onclick="subwindow(300, 500, 'Advanced Search', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ASEARCH');"
      src="WGCAL/Images/wgcal-search+.png" height="15" >
-</form>
 </td>
 <td align="center" height="40" width="40" >
 </td>

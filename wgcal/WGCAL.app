@@ -27,6 +27,9 @@ $action_desc = array (
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_MENUBAR", "short_name" =>N_("menubar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_USETPARAM", "short_name" =>N_("set user param"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCH", "short_name" =>N_("search event"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_ASEARCH", "short_name" =>N_("advanced search event"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_ASEARCHQUERY", "short_name" =>N_("advanced search event"), "toc" => "N", "root" =>"N"),
 
 
   // ---------------------------

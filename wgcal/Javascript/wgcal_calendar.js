@@ -143,7 +143,7 @@ function AddEvent(urlroot,time) {
 
 // --------------------------------------------------------
 function OverCalendarCell(ev, elt, lref, cref) {
-  elt.className = 'WGCAL_DayLineOver';
+  elt.className = 'WGCAL_PeriodSelected'; //WGCAL_DayLineOver';
   document.getElementById(lref).className = 'WGCAL_PeriodSelected';
   document.getElementById(cref).className = 'WGCAL_PeriodSelected';
 }

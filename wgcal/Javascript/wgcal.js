@@ -1,16 +1,4 @@
 // --------------------------------------------------------
-function usetparam(name, value, session) {
-  fset = document.getElementById('usetparam');
-  fpname    = document.getElementById('pname');
-  fpvalue   = document.getElementById('pvalue');
-  fpsession = document.getElementById('psession');
-  fpname.value = name;
-  fpvalue.value = value;
-  fpsession.value = session;
-  fset.submit();
-}
-
-// --------------------------------------------------------
 function Fade(elt, size, css) {
   elt.width += size;  
   elt.height += size;
@@ -84,6 +72,25 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
   } else {
     elt.src = img1;
   }
+}
+
+
+function mytoto(name, value, session)
+ {
+   usetparam(name, value, session);
+}
+
+// --------------------------------------------------------
+function usetparam(name, value, session) 
+{
+  fset = document.getElementById('usetparam');
+  fpname    = document.getElementById('pname');
+  fpvalue   = document.getElementById('pvalue');
+  fpsession = document.getElementById('psession');
+  fpname.value = name;
+  fpvalue.value = value;
+  fpsession.value = session;
+  fset.submit();
 }
 
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.5 2005/01/31 10:55:26 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.6 2005/02/01 14:07:00 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,3 +30,4 @@ function wgcal_resspicker(&$action) {
   $action->lay->SetBlockData("FAMRESS", $t);
   $action->lay->set("updt", $target);
 }
+?>

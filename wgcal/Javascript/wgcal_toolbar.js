@@ -142,6 +142,7 @@ function setRessourceState(rid, setStyle, unsetStyle, memo) {
   }
   document.getElementById(rid).className = rstyle;
   if (memo==1) saveTmpRessources();
+  updateCalendar();	
   return;
 }
    

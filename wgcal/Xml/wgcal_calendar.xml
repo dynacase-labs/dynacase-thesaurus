@@ -1,16 +1,31 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
-<div id="root"><table width="100%" cellspacing="0" border="0" id="week">
-    <tr height="[WGCAL_U_HLINETITLE]px">[F_LINE]</tr>
-    <tr height="[WGCAL_U_HLINETITLE]px">
-       <td class="WGCAL_Period" width="[WGCAL_U_HCOLW]px"></td>
-	    [BLOCK DAYS_LINE]<td id="D[IDD]" align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]
-	</tr>
-	[BLOCK HOURS]
-        <tr height="[HLINEHOURS]px">
-           <td id="L[LID]" width="[WGCAL_U_HCOLW]px" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>
+<div id="root">
+<table width="100%" cellspacing="0" border="0" id="week">
+  <tr height="[WGCAL_U_HLINETITLE]px">
+    <td align="center" colspan="[colspan]">
+      <table width="100%" cellspacing="0" border="0"><tr>
+      <td align="left" style="cursor:pointer;" 
+          title="[TEXT:prev period]" 
+          onclick="mytoto('WGCAL_U_CALCURDATE', [pbefore], 0); window.location.reload();" 
+          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="WGCAL/Images/wm-pperiod.png" height="15"></td>
+      <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
+       <td align="right" style="cursor:pointer;" 
+          title="[TEXT:next period]" 
+          onclick="mytoto('WGCAL_U_CALCURDATE', [pafter], 0); window.location.reload();" 
+          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="WGCAL/Images/wm-nperiod.png" height="15"></td>
+      </tr></table>
+    </td>
+ </tr>    
+ <tr height="[WGCAL_U_HLINETITLE]px">
+    <td class="WGCAL_Period" width="[WGCAL_U_HCOLW]px"></td>
+	 [BLOCK DAYS_LINE]<td id="D[IDD]" align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]
+   </tr>
+   [BLOCK HOURS]
+   <tr height="[HLINEHOURS]px">
+   <td id="L[LID]" width="[WGCAL_U_HCOLW]px" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>
 [ENDBLOCK HOURS]
-</table></div>
+</table>[comment]</div>
 
 <form target="wgcal_calhidden" style="display:none" id="textform" method="POST">
 <input id="Xtext" type="hidden" value="0">

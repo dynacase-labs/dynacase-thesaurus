@@ -111,7 +111,7 @@ function CAL_getRessources($dbaccess, $filterTitle) {
 function CAL_getRessourcesOwner($dbaccess, $filterTitle) {
   global $action;
   $r = array();
-  $fam = CAL_getRessourceFamilies($dbaccess);
+  $fam = WGCalGetRessourceFamilies($dbaccess);
   $doc = new Doc($dbaccess);
   $filter = array( );
   if ($filterTitle!="") $filter[] = "title ~* '".$filterTitle."'";

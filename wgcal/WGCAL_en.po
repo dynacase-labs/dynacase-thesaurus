@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
-"POT-Creation-Date: 2004-12-07 17:59+0100\n"
+"POT-Creation-Date: 2005-02-01 08:06+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -37,6 +37,18 @@ msgstr ""
 msgid "menubar"
 msgstr ""
 
+msgid "set user param"
+msgstr ""
+
+msgid "edit event"
+msgstr ""
+
+msgid "store event"
+msgstr ""
+
+msgid "delete event"
+msgstr ""
+
 msgid "ressource picker main"
 msgstr ""
 
@@ -49,19 +61,49 @@ msgstr ""
 msgid "select ressource for display"
 msgstr ""
 
-msgid "save ressource selection"
-msgstr ""
-
 msgid "init ressource selection"
 msgstr ""
 
-msgid "set color for calendar"
-msgstr ""
-
-msgid "change display/not displayed ress status"
-msgstr ""
-
 msgid "calendar view"
+msgstr ""
+
+msgid "left toolbar width"
+msgstr ""
+
+msgid "title line height"
+msgstr ""
+
+msgid "hour lines height"
+msgstr ""
+
+msgid "hour in day column width"
+msgstr ""
+
+msgid "menu icons height"
+msgstr ""
+
+msgid "display week end"
+msgstr ""
+
+msgid "view count days"
+msgstr ""
+
+msgid "day start hour"
+msgstr ""
+
+msgid "day end hour"
+msgstr ""
+
+msgid "hour division"
+msgstr ""
+
+msgid "tool display state"
+msgstr ""
+
+msgid "WGCAL_U_RESSDISPLAYED"
+msgstr ""
+
+msgid "use displayed ressource for event setting"
 msgstr ""
 
 msgid "freeevent app name"
@@ -106,6 +148,48 @@ msgstr ""
 msgid "freedom groupware calendar"
 msgstr ""
 
+msgid "add new event"
+msgstr ""
+
+msgid "add new call"
+msgstr ""
+
+msgid "add todo"
+msgstr ""
+
+msgid "today"
+msgstr ""
+
+msgid "one week view"
+msgstr ""
+
+msgid "two week view"
+msgstr ""
+
+msgid "advanced search"
+msgstr ""
+
+msgid "print this view"
+msgstr ""
+
+msgid "add a calendar"
+msgstr ""
+
+msgid "change preferences"
+msgstr ""
+
+msgid "waiting rv"
+msgstr ""
+
+msgid " ressource list saved"
+msgstr ""
+
+msgid "change my event color"
+msgstr ""
+
+msgid "use in event..."
+msgstr ""
+
 msgid "found ressources"
 msgstr ""
 
@@ -115,35 +199,167 @@ msgstr ""
 msgid "search"
 msgstr ""
 
-msgid "left toolbar width"
+msgid "save"
 msgstr ""
 
-msgid "title line height"
+msgid "close"
 msgstr ""
 
-msgid "hour in day column width"
+msgid "mail to contacts"
 msgstr ""
 
-msgid "display week end"
+msgid "print"
 msgstr ""
 
-msgid "view count days"
+msgid "delete"
 msgstr ""
 
-msgid "day start hour"
+msgid "set event"
 msgstr ""
 
-msgid "day end hour"
+msgid "manage repeat"
 msgstr ""
 
-msgid "hour division"
+msgid "add attendees"
 msgstr ""
 
-msgid "tool display state"
+msgid "rv title"
 msgstr ""
 
-msgid "displayed ressources"
+msgid "start date"
+msgstr ""
+
+msgid "no hour"
+msgstr ""
+
+msgid "all the day"
+msgstr ""
+
+msgid "end date"
+msgstr ""
+
+msgid "rv note"
+msgstr ""
+
+msgid "confidentiality"
+msgstr ""
+
+msgid "calendar"
+msgstr ""
+
+msgid "status"
+msgstr ""
+
+msgid "alarm"
+msgstr ""
+
+msgid "hour"
+msgstr ""
+
+msgid "before"
+msgstr ""
+
+msgid "every"
+msgstr ""
+
+msgid "none"
+msgstr ""
+
+msgid "day"
 msgstr ""
 
 msgid "week"
+msgstr ""
+
+msgid "month"
+msgstr ""
+
+msgid "year"
+msgstr ""
+
+msgid "frequency"
+msgstr ""
+
+msgid "day repetition"
+msgstr ""
+
+msgid "monday"
+msgstr ""
+
+msgid "tuesday"
+msgstr ""
+
+msgid "wenesday"
+msgstr ""
+
+msgid "thurday"
+msgstr ""
+
+msgid "friday"
+msgstr ""
+
+msgid "saturday"
+msgstr ""
+
+msgid "sunday"
+msgstr ""
+
+msgid "month repetition"
+msgstr ""
+
+msgid "per date"
+msgstr ""
+
+msgid "per day"
+msgstr ""
+
+msgid "repeat until"
+msgstr ""
+
+msgid "forever"
+msgstr ""
+
+msgid "this date"
+msgstr ""
+
+msgid "click to select a date"
+msgstr ""
+
+msgid "exclude days"
+msgstr ""
+
+msgid "add a new day to exclude"
+msgstr ""
+
+msgid "del selected dates"
+msgstr ""
+
+msgid "attendees"
+msgstr ""
+
+msgid "vew disponibility"
+msgstr ""
+
+msgid "delete attendee"
+msgstr ""
+
+msgid "event state "
+msgstr ""
+
+msgid " save before closing"
+msgstr ""
+
+msgid " delete this event"
+msgstr ""
+
+msgid "new"
+msgstr ""
+
+msgid "read"
+msgstr ""
+
+msgid "to be confirmed"
+msgstr ""
+
+msgid "You have waiting events"
 msgstr ""
