@@ -18,6 +18,7 @@
 #include "pam_sql.h"
 
 
+extern char DEBUG; /* global to log debug */
 /*
  * db_connect
  * connect to the auth database, 
@@ -43,7 +44,7 @@ db_conn *db_connect (opt_t *opts)
     
 
   /* connect to the database */
-  syslog (LOG_DEBUG, "Connect string: %s", conn_str);
+  if (DEBUG) syslog (LOG_DEBUG, "Connect string: %s", conn_str);
   conn = PQconnectdb (conn_str);
   if ( PQstatus(conn) != CONNECTION_OK ) {
     syslog (LOG_ERR, "Database connection failed: %s", PQerrorMessage(conn));
@@ -68,7 +69,7 @@ db_result *db_exec (db_conn *conn, char *query)
 {
   db_result *result;
 
-  syslog (LOG_DEBUG, "Executing query: %s", query);
+  if (DEBUG) syslog (LOG_DEBUG, "Executing query: %s", query);
   result = PQexec(conn, query);
   if ( result == NULL ) {
     syslog (LOG_CRIT, "Insufficient memory to allocate query result");
@@ -88,6 +89,10 @@ db_result *db_exec (db_conn *conn, char *query)
 char* db_getvalue (db_result * res)
 {
   return(PQgetvalue(res, 0, 0));
+}
+char* db_getNvalue (db_result * res, int n)
+{
+  return(PQgetvalue(res, 0, n));
 }
 
 inline void db_free_result (db_result *result) 

@@ -37,5 +37,6 @@ inline void    db_free_result (db_result *result);
 
 
 char* db_getvalue (db_result * res);
+char* db_getNvalue (db_result * res, int n);
 
 #endif /* INCLUDE_PAM_SQL_DB */

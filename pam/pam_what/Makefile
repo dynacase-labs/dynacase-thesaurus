@@ -128,7 +128,7 @@ rpm : $(package).spec dist
 	echo "Copying $(package).spec in $$rpmdir/SPECS" ; \
 	cp -f $(package).spec $$rpmdir/SPECS ; \
 	cd $$rpmdir/SPECS ; \
-	rpm -ba $(package).spec
+	rpmbuild -ba $(package).spec
 	@echo "RPM done."
 
 

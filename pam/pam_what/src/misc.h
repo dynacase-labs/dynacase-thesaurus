@@ -22,4 +22,13 @@ static char *  _pam_delete         (register char *xx);
 int            conversation        (pam_handle_t *pamh);
 
 
+#define LDOMAIN 512
+#define LUSER 256
+typedef struct whatuser_t {
+  char login[LUSER];
+  char domain[LDOMAIN];
+  char password[LUSER];
+  int expires;
+} whatuser_t;
+
 #endif /* INCLUDE_PAM_SQL_MISC */

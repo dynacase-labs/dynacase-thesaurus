@@ -21,7 +21,7 @@
 
 #define min(x,y) ((x) < (y)) ? (x) : (y)
 
-
+char DEBUG=0; /* to say if debug mode required */
 
 /*
  * options_parse
@@ -51,9 +51,10 @@ opt_t *options_parse (int argc, const char **argv)
   opts->dbname[0] = '\0';
   opts->dbuser[0] = '\0';
   opts->dbpass[0] = '\0';
-  strncpy (opts->table, "users", OPT_STRLEN-1);
-  strncpy (opts->usercol, "login", OPT_STRLEN-1);
-  strncpy (opts->passcol, "password", OPT_STRLEN-1);
+  strncpy(opts->table, "users", OPT_STRLEN-1);
+  strncpy(opts->usercol, "login", OPT_STRLEN-1);
+  strncpy(opts->passcol, "password", OPT_STRLEN-1);
+  strncpy(opts->expcol, "expires", OPT_STRLEN-1);
 
 
   for (i=0; i<argc; i++) {
@@ -100,7 +101,8 @@ opt_t *options_parse (int argc, const char **argv)
       element = opts->expcol;
     }
     else if ( ! strcmp("debug", optname) ) {
-      /* FIXME: do nothing */
+      element = opts->debug;
+      DEBUG=atoi(optval);
     }
     else {
       syslog (LOG_ERR, "Unknown option type '%s'", optname);

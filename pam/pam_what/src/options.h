@@ -21,6 +21,7 @@ struct _opt_t {
   char usercol[OPT_STRLEN];
   char passcol[OPT_STRLEN];
   char expcol[OPT_STRLEN];
+  char debug[OPT_STRLEN];
 };
 typedef struct _opt_t opt_t;
 

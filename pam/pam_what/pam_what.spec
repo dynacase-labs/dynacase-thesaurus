@@ -1,9 +1,9 @@
-# $Revision: 1.6 $, $Date: 2002/08/06 11:38:11 $
+# $Revision: 1.7 $, $Date: 2003/08/12 13:42:00 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
-Version:	0.1.3
-Release:	2
+Version:	0.2.0
+Release:	1
 License:	GPL or BSD
 Group:		Base
 Source0:	ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -15,7 +15,7 @@ Requires:	pam >= 0.72
 Requires:	postgresql-libs >= 7.2
 Provides:	pam_what.so
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root-%(id -u -n)
-
+Conflicts:	WHAT < 0.3.0
 
 %description
 This PAM module is used to authent user with the WHAT database.
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.7  2003/08/12 13:42:00  eric
+prise en compte de l'expiration dans account
+
 Revision 1.6  2002/08/06 11:38:11  eric
 suppression require WHAT
 
