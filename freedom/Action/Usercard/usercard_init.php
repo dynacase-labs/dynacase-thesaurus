@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_init.php,v 1.3 2002/04/17 12:50:15 eric Exp $
+// $Id: usercard_init.php,v 1.4 2002/06/19 12:32:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_init.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

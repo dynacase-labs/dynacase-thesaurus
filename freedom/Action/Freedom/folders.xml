@@ -175,10 +175,10 @@ USETEXTLINKS = 0  //replace 0 with 1 for hyperlinks
 // Decide if the tree is to start all open or just showing the root folders
 STARTALLOPEN = 0 //replace 0 with 1 to show the whole tree
 
-actionaddfile = "[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE";
-actionviewfile = "[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW";
+actionaddfile = "[CORE_STANDURL]&app=[APPNAME]&action=ADDDIRFILE";
+actionviewfile = "[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_VIEW";
 
-actionexpfld = "[CORE_STANDURL]&app=FREEDOM&action=EXPANDFLD&dirid=";
+actionexpfld = "[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid=";
 
 
 fldtop = gFld("<i>[reptitle]</i>", "#",[dirid],4,true)
@@ -215,20 +215,20 @@ function floatMenu () {
 <div style="position:absolute; top:30px; left:0; "><table border=0><tr><td><font size=-2><a style="font-size:6pt;text-decoration:none;color:gray" href="http://www.mmartins.com" target="_top"></a></font></td></table></div>
 
 <!-- ------------------ BAR MENU ------------------ -->
-[ZONE FDL:BARMENU]
+[ZONE [APPNAME]:BARMENU]
 <br>
 
 <!-- ------------ POPUP DIVISION --------------------- -->
 <div  id="popfld" class="popup">
 
 <a href="#" id="vprop"
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld');return false">[TEXT:Properties] </a>
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld');return false">[TEXT:Properties] </a>
 <a id="export" href="#" onclick="this.href='[CORE_STANDURL]&app=FDL&action=EXPORTFLD&id='+dirid">[TEXT:Export] </a>
 <a href="#" id="mkdir"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'info');closeMenu('popfld');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'info');closeMenu('popfld');return false">
 [TEXT:Create subfolder]</a>
 <a href="fldexp" id="refresh"     
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EXPANDFLD&dirid='+dirid,'fldexp');closeMenu('popfld');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid,'fldexp');closeMenu('popfld');return false">
 [TEXT:Refresh folder]</a>
 <a href="#" id="cancel"  
     onClick="closeMenu('popfld');return false"  >[TEXT:cancel]</a>
@@ -239,10 +239,10 @@ function floatMenu () {
 <div  id="poppaste" class="popup">
 
 <a href="#" id="pastelatest"        
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=ADDDIRFILE&mode=latest&dirid='+dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
    [TEXT:Copy reference]</a>
 <a href="#" id="staticpaste"
-    onClick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=MOVEDIRFILE&todirid='+dirid+'&fromdirid='+parent.info.document.dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=MOVEDIRFILE&todirid='+dirid+'&fromdirid='+parent.info.document.dirid+'&docid='+cdocid,'info');closeMenu('poppaste');return false">
    [TEXT:Move reference] </a>
 <a href="#" id="cancel2"  
     onClick="closeMenu('poppaste');return false">[TEXT:cancel]</a>

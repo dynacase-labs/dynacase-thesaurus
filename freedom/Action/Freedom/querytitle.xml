@@ -38,11 +38,11 @@
 <p>[TEXT: change title]</p>
 <p>[title]</p>
 <img src="[iconsrc]" alt="icon">
-<form  name="edit" method="POST"  action="[CORE_STANDURL]app=FREEDOM&action=CHANGETITLE&id=[docid]">
+<form  name="edit" method="POST"  action="[CORE_STANDURL]app=[APPNAME]&action=CHANGETITLE&id=[docid]">
       
   <input type="text" name="ititle" value="[title]">
   <input type="submit" value="[TEXT:Change title]" >
-  <input type="submit" value="[TEXT:Cancel]" onclick="document.edit.action='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_CARD&id=[docid]'">
+  <input type="submit" value="[TEXT:Cancel]" onclick="document.edit.action='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_CARD&id=[docid]'">
 </form>
 </div>
 

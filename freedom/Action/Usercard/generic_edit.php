@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.1 2002/04/23 07:46:09 eric Exp $
+// $Id: generic_edit.php,v 1.2 2002/06/19 12:32:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,7 +92,7 @@ function generic_edit(&$action) {
     }
     
 
-  if ($action->user->id != $doc->owner) $action->lay->Set("displaypriv", "none");
+  if (($action->user->id != $doc->owner) && ($docid > 0)) $action->lay->Set("displaypriv", "none");
   else $action->lay->Set("displaypriv", "block");
 
   

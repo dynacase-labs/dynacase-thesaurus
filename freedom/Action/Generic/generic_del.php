@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_del.php,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Id: generic_del.php,v 1.2 2002/06/19 12:32:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: generic_del.php,v $
+// Revision 1.2  2002/06/19 12:32:29  eric
+// modif des permissions : intégration de rq sql hasviewpermission
+//
 // Revision 1.1  2002/04/17 09:03:12  eric
 // app GENERIC => PRODUCT CONTRACT SITE
 //

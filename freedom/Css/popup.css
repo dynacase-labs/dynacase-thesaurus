@@ -2,6 +2,7 @@
 /* pop up style */
 
 
+
 .popup {
   background-color: [CORE_FGCOLOR];  
   border-color: [CORE_FGCOLOR];
@@ -23,6 +24,7 @@ a.menuItem {
   padding: 2px 12px 2px 8px;
   text-decoration: none;
 }
+
 
 .separator {
   color: [CORE_BGCOLORALTERN];
@@ -52,12 +54,14 @@ a.menuItemDisabled{
   padding: 2px 12px 2px 8px;
   text-decoration: none;
 }
+
+
 a.menuItemInvisible{ 
   display: none;
   cursor: default;
 
 }
-/* don't use: not supported by IE6 
+/* don't use: not supported by IE6  with hover
 a.menuItem:first-letter, a.menuItemDisabled:first-letter {
   text-transform: uppercase;
 }

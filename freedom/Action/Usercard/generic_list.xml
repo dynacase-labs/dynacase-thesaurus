@@ -192,7 +192,7 @@ function vselect(th) {
         onmouseout="if (this.parentNode.className != 'select') this.parentNode.className='unselect'" 
         href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&abstract=N&id=[id]" >[title]</A>
    <span id="p[id]"></span>
-<script>if ([profid] == 1) document.getElementById('p[id]').innerHTML='[TEXT:(private)]';</script>
+<script>if ([profid] != 0) document.getElementById('p[id]').innerHTML='[TEXT:(private)]';</script>
 
     <ul >
         [BLOCK [blockabstract]]

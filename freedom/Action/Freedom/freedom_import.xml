@@ -36,7 +36,7 @@
 
 
 <!-- Title Table -->
-<form   class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=FREEDOM&action=ADDIMPORTFILE&id=[id]&dirid=[dirid]" >
+<form   class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[APPNAME]&action=ADDIMPORTFILE&id=[id]&dirid=[dirid]" >
 
       
 
@@ -47,7 +47,7 @@
    <span class="FREEDOMTextBigTitle">[TEXT:Import Document]</span>
   </td> 
    <td  class="FREEDOMText" align="right">[TEXT:for]
-   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_IMPORT&dirid=[dirid]&classid='+self.document.modifydoc.classid.options[self.document.modifydoc.classid.selectedIndex].value">  
+   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_IMPORT&dirid=[dirid]&classid='+self.document.modifydoc.classid.options[self.document.modifydoc.classid.selectedIndex].value">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]

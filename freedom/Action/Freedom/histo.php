@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: histo.php,v 1.3 2002/03/26 16:14:00 eric Exp $
+// $Id: histo.php,v 1.4 2002/06/19 12:32:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/histo.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.28 2002/06/18 14:22:36 eric Exp $
+// $Id: Class.Doc.php,v 1.29 2002/06/19 12:32:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.28 2002/06/18 14:22:36 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.29 2002/06/19 12:32:34 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -720,6 +720,7 @@ create sequence seq_id_doc start 1000";
     $this->locked = "0"; // the file is unlocked
     $this->comment = _("current revision"); // change comment
     $this->revision = $this->revision+1;
+    if ($this->profid == -1) $this->profid=$olddocid; // redirect for special control acces
     $this->Add();
 
     // duplicate values
@@ -820,6 +821,7 @@ create sequence seq_id_doc start 1000";
   // recompute all calculated attribut
   function Refresh() {
 
+    if ($this->locked == -1) return; // no refresh revised document
     if ($this->doctype == 'C') return; // no refresh for family  document
 
     $lattr = $this->GetAttributes();
@@ -1080,22 +1082,22 @@ create sequence seq_id_doc start 1000";
   }
 
 
-  function GetSqlViewCond() {
+//   function GetSqlViewCond() {
     
-    global $action; // necessary to see information about user privilege
+//     global $action; // necessary to see information about user privilege
     
 
-      $aclsearch=new Acl();
-      if ( ! $aclsearch->Set('view', $this->classid)) {
-	    $action->log->warning("Acl $method not available for App $idclassapp ");    
-	    $err = "Acl $method not available for App ".$this->classid;
+//       $aclsearch=new Acl();
+//       if ( ! $aclsearch->Set('view', $this->classid)) {
+// 	    $action->log->warning("Acl $method not available for App $idclassapp ");    
+// 	    $err = "Acl $method not available for App ".$this->classid;
 
-	    return $err;
-      }
-       return ("(doc.doctype='".$this->defDoctype."') and ".
-      "hasprivilege(".$action->user->id.",doc.profid,".$this->classid.",".$aclsearch->id.") and ".
-	"hasprivilege(".$action->user->id.",doc.id,".$this->classid.",".$aclsearch->id.") ");
-  }
+// 	    return $err;
+//       }
+//        return ("(doc.doctype='".$this->defDoctype."') and ".
+//       "hasprivilege(".$action->user->id.",doc.profid,".$this->classid.",".$aclsearch->id.") and ".
+// 	"hasprivilege(".$action->user->id.",doc.id,".$this->classid.",".$aclsearch->id.") ");
+//   }
   
 }
 

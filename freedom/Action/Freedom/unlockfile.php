@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: unlockfile.php,v 1.2 2002/04/08 15:12:18 eric Exp $
+// $Id: unlockfile.php,v 1.3 2002/06/19 12:32:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/Attic/unlockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: unlockfile.php,v $
+// Revision 1.3  2002/06/19 12:32:29  eric
+// modif des permissions : intégration de rq sql hasviewpermission
+//
 // Revision 1.2  2002/04/08 15:12:18  eric
 // ajout message de log
 //

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.2 2002/05/27 14:54:14 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.3 2002/06/19 12:32:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,10 +25,11 @@
 global $app_const;
 
 $app_const= array(
-  "INIT" => "yes",
-  "VERSION"			=>"@VERSION@-@RELEASE@",
-  "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
-  "UPLOAD_MAX_FILE_SIZE" => "200000"
+		  "INIT" => "yes",
+		  "VERSION"			=>"@VERSION@-@RELEASE@",
+		  "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
+		  "UPLOAD_MAX_FILE_SIZE" => "200000",
+		  "ROOTFLD" => "9"
 );
 
 

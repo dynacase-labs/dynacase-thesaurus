@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: deldirfile.php,v 1.3 2002/02/22 15:34:54 eric Exp $
+// $Id: deldirfile.php,v 1.4 2002/06/19 12:32:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/deldirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002

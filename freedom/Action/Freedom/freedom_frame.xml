@@ -12,12 +12,12 @@
 
 
 <frameset  frameborder="1" border="5" framespacing="5"  rows="40%,*" >
-  <frame name="ffolder" src="[CORE_STANDURL]&app=FREEDOM&action=FOLDERS" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
-  <frame name="doc_properties" src="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
+  <frame name="ffolder" src="[CORE_STANDURL]&app=[APPNAME]&action=FOLDERS" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
+  <frame name="doc_properties" src="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
 </frameset>
 
 
-  <frame name="info" src="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]" frameborder="1" border="5">
+  <frame name="info" src="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]" frameborder="1" border="5">
 
   <frame name="fldexp" src="about:blank" noresize  scrolling="no" frameborder="0" >
 

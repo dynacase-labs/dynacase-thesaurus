@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: querytitle.php,v 1.1 2002/04/09 14:42:18 eric Exp $
+// $Id: querytitle.php,v 1.2 2002/06/19 12:32:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/querytitle.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

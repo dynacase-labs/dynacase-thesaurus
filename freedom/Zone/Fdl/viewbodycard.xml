@@ -20,7 +20,7 @@
 [BLOCK [TABLEVALUE]]
 
 <tr class="FREEDOMBack1">
-  <td valign="top" ><span class="FREEDOMText">[name]&nbsp;:&nbsp;</span></td>
+  <td valign="top" class="FREEDOMlabel">[name]&nbsp;:&nbsp;</td>
   <td ><span class="FREEDOMText">[value]</span></td>
 </tr>
 

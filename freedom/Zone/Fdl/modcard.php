@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.6 2002/06/14 08:58:34 eric Exp $
+// $Id: modcard.php,v 1.7 2002/06/19 12:32:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,7 +43,7 @@ function modcard(&$action, &$ndocid) {
   // Get all the params      
   $docid=GetHttpVars("id",0); 
   $dirid=GetHttpVars("dirid",10);
-  $sclassid=GetHttpVars("sclassid",0);
+  $classid=GetHttpVars("classid",0);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -53,7 +53,7 @@ function modcard(&$action, &$ndocid) {
     {
       // add new document
 	// search the good class of document
-	  $ofreedom = createDoc($dbaccess, $sclassid);
+	  $ofreedom = createDoc($dbaccess, $classid);
       
       
       $doc->owner = $action->user->id;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.13 2002/06/18 14:29:41 eric Exp $
+// $Id: Lib.Dir.php,v 1.14 2002/06/19 12:32:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,7 +44,7 @@ function getFirstDir($dbaccess) {
   }
 
 
-  function getChildDir($dbaccess, $dirid, $notfldsearch=false, $restype="LIST") {
+  function getChildDir($dbaccess, $userid, $dirid, $notfldsearch=false, $restype="LIST") {
     // query to find child directories (no recursive - only in the specified folder)
 
 
@@ -54,17 +54,19 @@ function getFirstDir($dbaccess) {
 
 
       $docfld = new Dir($dbaccess);
-      $condfld=$docfld->GetSqlViewCond();
+      $condfld="  hasviewprivilege($userid,doc.id) ";
+      $conddoctype="doc.doctype='".$docfld->defDoctype."' ";
 
     if (! $notfldsearch) {
       // include conditions for get search document
       
       $docse = new DocSearch($dbaccess);
-      $condsearch=$docse->GetSqlViewCond();
-      $condfld = "($condfld) OR ($condsearch)";
+      $conddoctype="(doc.doctype='".$docfld->defDoctype."' or doc.doctype='".$docse->defDoctype."')";
+      
 
     }
 
+      $condfld = "($condfld) and ($conddoctype)";
 
 
     $qsql =  "select doc.* from fld, doc where fld.dirid=$dirid ".
@@ -81,13 +83,14 @@ function getFirstDir($dbaccess) {
 
 
 
-  function getChildDoc($dbaccess, $dirid, $start="0", $slice="ALL", $sqlfilters=array()) {
+  function getChildDoc($dbaccess, $dirid, $start="0", $slice="ALL", $sqlfilters=array(), $userid=1) {
 
     // query to find child documents
 
 
     if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
     else $sqlcond = "";
+    if ($userid > 1) $sqlcond .= " and hasviewprivilege($userid,doc.id) ";
 
     $fld = new Dir($dbaccess, $dirid);
 

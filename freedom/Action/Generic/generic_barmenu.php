@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_barmenu.php,v 1.2 2002/04/17 14:45:28 eric Exp $
+// $Id: generic_barmenu.php,v 1.3 2002/06/19 12:32:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -86,11 +86,12 @@ function generic_barmenu(&$action) {
 function getChildCatg($doc, $level) {
   // -----------------------------------
   global $dbaccess;
+  global $action;
 
   $ltree=array();
 
 
-    $ldir = getChildDir($dbaccess, $doc->id, true);
+    $ldir = getChildDir($dbaccess,$action->user->id, $doc->id, true);
   
 
     if (count($ldir) > 0 ) {

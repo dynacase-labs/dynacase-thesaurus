@@ -37,7 +37,7 @@ else displaytable='table-row'
 
 function refreshfld(dirid) {
    if (dirid > 0 )
-   parent.fldexp.document.location.href='[CORE_STANDURL]&app=FREEDOM&action=EXPANDFLD&dirid='+dirid;
+   parent.fldexp.document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid;
 }
   //-->
    </script>   
@@ -54,7 +54,7 @@ function refreshfld(dirid) {
 <!-- Title Table -->
 <form  target="info" class="fborder" name="search" method="POST" 
        onsubmit="if (document.getElementById('isave').checked) setTimeout('refreshfld(parent.ffolder.dirid)',2000)"
-       action="[CORE_STANDURL]&app=FREEDOM&action=SEARCH" >
+       action="[CORE_STANDURL]&app=[APPNAME]&action=SEARCH" >
 
 <table class="tablesimple" cellspacing="0"  width="100%" >
 <thead>

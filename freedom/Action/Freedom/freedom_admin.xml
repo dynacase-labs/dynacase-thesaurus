@@ -3,7 +3,7 @@
 <table border="1" bgcolor="[CORE_BGCOLOR]" width="60%" align="center">
 <tr>
 <td class="FREEDOMTblFrame" align="center" width="40%">
-<form method="post" action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_UPDATETITLE">
+<form method="post" action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_UPDATETITLE">
 <input type="submit" value="[TEXT:updatetitle]" >
 
 </form>
@@ -16,7 +16,7 @@
 </tr>
 <tr>
 <td class="FREEDOMTblFrame" align="center">
-<form method="post" action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_UPDATELDAP">
+<form method="post" action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_UPDATELDAP">
 
 <input type="submit" value="[TEXT:updateldap]" >
 </form>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.4 2002/04/26 15:20:23 eric Exp $
+// $Id: expandfld.php,v 1.5 2002/06/19 12:32:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,7 +52,7 @@ function expandfld(&$action) {
       include_once("FDL/popup_util.php");
   popupInit("popfld", array('vprop','mkdir','export','refresh','cancel'));
   popupInit("poppaste", array('staticpaste','pastelatest','cancel2'));
-  $ldir = getChildDir($dbaccess, $doc->id, false,"TABLE");
+  $ldir = getChildDir($dbaccess,$action->user->id, $doc->id, false,"TABLE");
   $stree = "";
   if (count($ldir) > 0 ) {
     $nbfolders=1;

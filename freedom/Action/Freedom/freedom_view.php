@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_view.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: freedom_view.php,v 1.2 2002/06/19 12:32:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_view.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001

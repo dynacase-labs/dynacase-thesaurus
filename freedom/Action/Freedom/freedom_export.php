@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_export.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: freedom_export.php,v 1.2 2002/06/19 12:32:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/Attic/freedom_export.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_export.php,v $
+// Revision 1.2  2002/06/19 12:32:28  eric
+// modif des permissions : intégration de rq sql hasviewpermission
+//
 // Revision 1.1  2002/02/05 16:34:07  eric
 // decoupage pour FREEDOM-LIB
 //

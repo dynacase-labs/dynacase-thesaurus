@@ -36,7 +36,7 @@
 
 
 <!-- Title Table -->
-<form target="doc_properties" class="fborder" name="modifyfamilly" method="POST"  action="[CORE_STANDURL]&app=FREEDOM&action=MODATTR&docid=[docid]&dirid=[dirid]" >
+<form target="doc_properties" class="fborder" name="modifyfamilly" method="POST"  action="[CORE_STANDURL]&app=[APPNAME]&action=MODATTR&docid=[docid]&dirid=[dirid]" >
 
 
                          
@@ -50,7 +50,7 @@
    <span class="FREEDOMTextTitle">[TITLE]</span>
   </td> 
   <td class="FREEDOMTblTitle" align="right"><span class="FREEDOMTextName">[TEXT:inherit from]</span>
-   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=DEFATTR&id=[docid]&classid='+self.document.modifyfamilly.classid.options[self.document.modifyfamilly.classid.selectedIndex].value">   
+   <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=DEFATTR&id=[docid]&classid='+self.document.modifyfamilly.classid.options[self.document.modifyfamilly.classid.selectedIndex].value">   
            <option VALUE="0">[TEXT:no document family]</option>      
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
@@ -133,7 +133,7 @@
 <tr>
   <td colspan="11" >
  <input type="submit" value="[TEXT:modify]"
-        onclick="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO'"> 
+        onclick="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO'"> 
   </td>
 </tr>
 

@@ -26,7 +26,7 @@
 
 function refreshfld(dirid) {
    if ((dirid > 0) && ('[refreshfld]'=='yes'))
-   parent.fldexp.document.location.href='[CORE_STANDURL]&app=FREEDOM&action=EXPANDFLD&dirid='+dirid;
+   parent.fldexp.document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid;
 }
 
   //-->
@@ -51,9 +51,8 @@ function refreshfld(dirid) {
        class="fborder" 
        name="modifydoc" 
        
-       onsubmit="setTimeout('refreshfld([dirid])',20)"
        method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
+       action="[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
 
    
 <table class="tableborder"  cellspacing="0" width="100%">
@@ -63,7 +62,7 @@ function refreshfld(dirid) {
    <span class="FREEDOMTextBigTitle">[TITLE]</span>
   </td> 
    <td  class="FREEDOMText" align="right">[TEXT:inherit from]
-   <select name="sclassid" onChange="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&id=[id]&dirid=[dirid]&classid='+this.options[this.selectedIndex].value">  
+   <select name="sclassid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=[id]&dirid=[dirid]&classid='+this.options[this.selectedIndex].value">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]
@@ -81,11 +80,11 @@ function refreshfld(dirid) {
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td  >
- <input type="button" value=[editaction] onclick="enableall();document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO';document.modifydoc.submit()"> 
+ <input type="button" value=[editaction] onclick="enableall();document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO';document.modifydoc.submit();setTimeout('refreshfld([dirid])',20)"> 
   </td>
   <td>&nbsp;</td>
   <td  align="right">
- <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_LOGO';"> 
+ <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO';"> 
   </td>
 </tr>
 </tfoot>

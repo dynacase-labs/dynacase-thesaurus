@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_card.php,v 1.2 2002/04/23 07:47:11 eric Exp $
+// $Id: generic_card.php,v 1.3 2002/06/19 12:32:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,6 +29,14 @@
 function generic_card(&$action) {
   // -----------------------------------
     
+    // set title
+  $docid = GetHttpVars("id");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $doc = new Doc($dbaccess, $docid);
+
+  $action->lay->Set("TITLE",$doc->title);
+
+
   $head = GetHttpVars("head","no"); // directory to place doc if new doc
 
     if ($head == "yes") $action->lay->Set("PROPS","Y");

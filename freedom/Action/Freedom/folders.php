@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.7 2002/04/26 15:20:23 eric Exp $
+// $Id: folders.php,v 1.8 2002/06/19 12:32:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,7 +46,7 @@ function folders(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   include_once("FDL/popup_util.php");
-  barmenu($action); // describe bar menu
+  //barmenu($action); // describe bar menu
 
   $homefld = new Dir( $dbaccess);
   $homefld = $homefld->GetHome();
@@ -59,7 +59,7 @@ function folders(&$action) {
 
 
 
-  if ($dirid == 0) $dirid=getFirstDir($dbaccess);
+  if ($dirid == 0) $dirid=$action->getParam("ROOTFLD",getFirstDir($dbaccess));
 
   
   $doc = new Doc($dbaccess, $dirid);
@@ -115,6 +115,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
   global $dbaccess;
   global $tmenuaccess;
   global $nbfolders;
+  global $action;
   
 
   if ($thisfld) {
@@ -152,7 +153,7 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
   if ($doc->doctype == 'D') {
 
     if ($level < 0) {
-    $ldir = getChildDir($dbaccess, $doc->id);
+    $ldir = getChildDir($dbaccess,$action->user->id, $doc->id);
   
 
     if (count($ldir) > 0 ) {
@@ -166,29 +167,4 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
   return $ltree;
 }
 
-// -----------------------------------
-function barmenu(&$action) {
-  // -----------------------------------
-  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','import'));
-  popupInit("searchmenu", array( 'newsearch'));
-
-
-
-  popupInit("viewmenu",	array('vlist','vicon'));
-  popupInit("helpmenu", array('help'));
-
-
-    popupActive("newmenu",1,'newdoc'); 
-    popupActive("newmenu",1,'newfld'); 
-    popupActive("newmenu",1,'newprof');
-    popupActive("newmenu",1,'newfam');
-    popupActive("newmenu",1,'import'); 
-    popupActive("searchmenu",1,'newsearch');
-    popupActive("viewmenu",1,'vlist');
-    popupActive("viewmenu",1,'vicon');
-    popupActive("helpmenu",1,'help');
-
-
-
-}
 ?>
