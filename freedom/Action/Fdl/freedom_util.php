@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.2 2002/02/13 14:31:58 eric Exp $
+// $Id: freedom_util.php,v 1.3 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_util.php,v $
+// Revision 1.3  2002/02/14 18:11:42  eric
+// ajout onglet et autres...
+//
 // Revision 1.2  2002/02/13 14:31:58  eric
 // ajout usercard application
 //
@@ -92,106 +95,9 @@ function GetSqlCond($Table, $column)
 }
 
 
-// ------------------------------------------------------
-function GetTitleF($dbaccess,$docid)
-// ------------------------------------------------------
-{
-  
-  // ------------------------------------------------------
-  // construction of TITLE
-  // ------------------------------------------------------
-  // construction of SQL condition to find title attributes
-
-  
-  
-      $bdattr = new DocAttr($dbaccess);
-      $titleTable = $bdattr->GetTitleIds();
-      $sql_cond_title = $sql_cond_abs = GetSqlCond($titleTable,"attrid");
-  
-
-
-  $query_val = new QueryDb($dbaccess,"DocValue");
-  
 
 
 
-    // search title for freedom item
- $query_val->basic_elem->sup_where=array ("(docid=$docid)",
-					  $sql_cond_title);
-
- $tablevalue = $query_val->Query();
- $title = "";
- for ($i=0; $i < $query_val->nb; $i++)
-   {
-     $title = chop($title.$tablevalue[$i]->value)." ";
-   }
-
- return chop($title);
-}
-
-
-
-
-
-
-// -----------------------------------
-function freedom_get_attr_card($dbaccess, $docid,&$title, &$tattr) {
-  // -----------------------------------
-  //  return the title and array of attribute values for a particular card
-  // -----------------------------------
-  
-
-  // search title for freedom item
-
-  static $query_val,$bdattr;
-  static $first = 1;
-
-  if ($first) {
-    $query_val = new QueryDb($dbaccess,"DocValue");
-    $bdattr = new DocAttr($dbaccess);
-    $first = 0;
-  }
-  $title=GetTitleF($dbaccess,$docid);
-
-
-	  
-      // search values for freedom item
-      $query_val->basic_elem->sup_where[0]="(docid=$docid)";
-
-      $tablevalue = $query_val->Query();
-
-      // Set the table elements
-
-      $tattr=array();
-      for ($i=0; $i < $query_val->nb; $i++)
-	{
-	
-	  $lvalue = chop($tablevalue[$i]->value);
-
-	  if ($lvalue != "")
-	    {
-	      $oattr=$bdattr-> GetAttribute($tablevalue[$i]->attrid);
-	      
-	      switch ($oattr->type)
-		{
-	      
-		case "application": 
-		case "embed": 
-		case "image": 
-		  // not supported in this version
-		  break;
-		default : 
-		  
-		  $tattr[$tablevalue[$i]->attrid]=$lvalue;
- 
-		  
-		  break;
-		
-		}
-
-	    }
-	}
-}
 
 
 // return document object in type concordance

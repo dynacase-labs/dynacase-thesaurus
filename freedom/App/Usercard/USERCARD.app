@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: USERCARD.app,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -118,6 +118,11 @@ $action_desc = array (
    "name"		=>"USERCARD_EDITIMPORT",
    "short_name"		=>N_("edit import vcard"),
    "acl"		=>"USERCARD_MASTER"
+  ) ,
+  array( 
+   "name"		=>"USERCARD_TAB",
+   "short_name"		=>N_("view a part of list"),
+   "acl"		=>"USERCARD_READ"
   ) ,
   array( 
    "name"		=>"USERCARD_IMPORTVCARD",

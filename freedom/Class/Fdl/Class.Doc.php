@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.Doc.php,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.2 2002/02/14 18:11:42 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -204,8 +204,7 @@ create sequence seq_id_doc start 1000";
       $err = $this-> Control("edit");//$this->CanUpdateDoc() ;
       if ($err != "") return ($err); 
       
-      $newtitle = GetTitleF($this->dbaccess,$this->id);
-      if (chop($newtitle) != "") $this->title = $newtitle;
+      $this->RefreshTitle();
       if (chop($this->title) == "") $this->title =_("untitle document");
       if ($this->locked < 0) $this->lmodify='N';
       // set modification date
@@ -324,19 +323,21 @@ create sequence seq_id_doc start 1000";
 	{
 	  while(list($k,$v) = each($table1)) 
 	    {	     
-	      $v->title=GetTitleF($this->dbaccess,$table1[$k]->id);
-	      //$v->Modify();
+	      $v->refreshTitle();
+	      $v->Modify();
 	    }	  
 	}      
     }
 
 
+  // --------------------------------------------------------------------
   function GetDocWithSameTitle() {
+  // --------------------------------------------------------------------
       $query = new QueryDb($this->dbaccess,"Doc");
       $query->AddQuery("title='".$this->title."'");
       $query->AddQuery("locked != -1");  // latest revision
       $query->AddQuery("fromid='".$this->fromid."'"); // same familly
-      $query->AddQuery("id !=".$this->id);
+      $query->AddQuery("id !='".$this->id."'");
 
       $table1 = $query->Query();
 
@@ -348,7 +349,14 @@ create sequence seq_id_doc start 1000";
 
     
   }
+  // --------------------------------------------------------------------
+  function DeleteTemporary() {
+  // --------------------------------------------------------------------
 
+    $result = pg_exec($this->dbid,"delete from doc where doctype='T'");
+
+    
+  }
   
   // --------------------------------------------------------------------
   function PreDelete()    
@@ -364,7 +372,9 @@ create sequence seq_id_doc start 1000";
       
     }
 
+  // --------------------------------------------------------------------
   function PostDelete()    
+  // --------------------------------------------------------------------
     {
 
       // ------------------------------
@@ -567,6 +577,36 @@ create sequence seq_id_doc start 1000";
       return $query->Query();      
     }
 
+  // return all the attributes object for title
+  // the attribute can be defined in fathers
+  function GetTitleAttributes()
+    {
+      $query = new QueryDb($this->dbaccess,"DocAttr");
+      // initialise query with all fathers doc
+      // 
+      $sql_cond_doc = GetSqlCond(array_merge($this->GetFathersDoc(),$this->initid), "docid");
+      $query->AddQuery($sql_cond_doc);
+    
+      $query->AddQuery("type != 'frame'");
+      $query->AddQuery("title = 'Y'");
+      $query->order_by="ordered";
+      return $query->Query();      
+    }
+
+
+  // recompute the title from attribute values
+  function RefreshTitle() {
+    $ltitle = $this->GetTitleAttributes();
+
+    $this->title = "";
+    while(list($k,$v) = each($ltitle)) {
+      if ($this->GetValue($v->id) != "") {
+	$this->title.= $this->GetValue($v->id)." ";
+      }
+    }
+    $this->title = chop($this->title);
+
+  }
   // return all the values
   function GetValues()
     {

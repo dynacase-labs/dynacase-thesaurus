@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.1 2002/02/13 14:31:59 eric Exp $
+// $Id: modcard.php,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -133,8 +133,8 @@ function modcard(&$action, &$ndocid) {
 
 
   
-  // update title     
-  $ofreedom->title =  GetTitleF($dbaccess,$docid);
+
+
   // change class document
   $ofreedom->fromid = $classid; // inherit from
   if ($ofreedom->fromid == 2) {

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: enum_choice.php,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,7 +70,16 @@ function enum_choice(&$action) {
   }
 
   $res = call_user_func_array($reg[1], $arg);
-  
+
+
+  // addslahes for JS array
+  reset($res);
+   while (list($k, $v) = each($res)) {
+     while (list($k2, $v2) = each($v)) {
+       // not for the title
+       if ($k2>0) $res[$k][$k2]=addslashes($v2); // because JS array 
+     }
+   }
 
   reset($res);
   $tselect = array();

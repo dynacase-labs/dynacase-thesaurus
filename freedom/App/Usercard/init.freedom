@@ -5,8 +5,8 @@ TYPE;C;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;link;phpfile;phpfunc
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;
 ATTR;200;;Etat civil;N;N;frame;10;W;;;
-ATTR;201;200;prénom;Y;N;text;11;W;;;
-ATTR;202;200;nom;Y;N;text;12;W;;;
+ATTR;201;200;nom;Y;N;text;11;W;;;
+ATTR;202;200;prénom;Y;N;text;12;W;;;
 ATTR;203;200;photographie;N;Y;image;13;W;;;
 ATTR;204;;Coordonnées;N;N;frame;14;W;;;
 ATTR;205;204;mail;N;Y;text;15;W;mailto:%205;;
@@ -38,18 +38,10 @@ END;1;9;;;;;;;;;;
 // creation dossier personne;;;;
 BEGIN;2;[dossier personne];121;
 TYPE;D;;;
-1;[titre];les personnes;;
+1;[titre];carnet d'adresse;;
 END;2;0;;
 ;;;;
 ;;;;
 // creation requete all incident;;;;
 //SEARCH;<special id>;<special dir id>;titre;requête
 SEARCH;125;0;les personnes;select id from doc where (fromid=120) and (locked != -1) and (not useforprof) and (doctype='F')
-SEARCH;126;0;les personnes ABC;select id from doc where (fromid=120) and (title ~* '^[a-c].*') and (locked != -1) and (not useforprof) and (doctype='F')
-SEARCH;127;0;les personnes DEF;select id from doc where (fromid=120) and (title ~* '^[d-f].*') and (locked != -1) and (not useforprof) and (doctype='F')
-SEARCH;128;0;les personnes GHI;select id from doc where (fromid=120) and (title ~* '^[g-i].*') and (locked != -1) and (not useforprof) and (doctype='F')
-SEARCH;129;0;les personnes JKL;select id from doc where (fromid=120) and (title ~* '^[j-l].*') and (locked != -1) and (not useforprof) and (doctype='F')
-SEARCH;130;0;les personnes MNO;select id from doc where (fromid=120) and (title ~* '^[mno].*') and (locked != -1) and (not useforprof) and (doctype='F')
-SEARCH;131;0;les personnes PQRS;select id from doc where (fromid=120) and (title ~* '^[pqrs].*') and (locked != -1) and (not useforprof) and (doctype='F')
-SEARCH;132;0;les personnes TUV;select id from doc where (fromid=120) and (title ~* '^[tuv].*') and (locked != -1) and (not useforprof) and (doctype='F')
-SEARCH;133;0;les personnes WXYZ;select id from doc where (fromid=120) and (title ~* '^[wxyz].*') and (locked != -1) and (not useforprof) and (doctype='F')

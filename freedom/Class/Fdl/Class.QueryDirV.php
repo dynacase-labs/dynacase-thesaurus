@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.2  2002/02/14 18:11:42  eric
+// ajout onglet et autres...
+//
 // Revision 1.1  2002/02/13 14:31:58  eric
 // ajout usercard application
 //
@@ -65,7 +68,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.2 2002/02/14 18:11:42 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -221,23 +224,6 @@ create table dirv ( dirid      int not null,
   }
 
 
-  function getChildDir($dirid, $notfldsearch=false) {
-    // query to find child directories (no recursive - only in the specified folder)
-
-    if ($notfldsearch) $odoctype='D';
-    else $odoctype='S';
-    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  ((t0.doctype='D') OR (t0.doctype='$odoctype')) and (t2.dirid=$dirid) and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and  (not useforprof);";
-
-
-    $tableid = array();
-    $query = new QueryDb($this->dbaccess,"Doc");
-    $query -> AddQuery("dirid=".$dirid);
-
-    $tableq=$query->Query(0,0,"LIST",$qsql);
-    if ($query->nb == 0) return array();            
-
-    return($tableq);
-  }
 
   function isInDir($dirid, $docid) {
     // return true id docid is in dirid

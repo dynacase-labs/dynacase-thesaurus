@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.QueryDir.php,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDir.php,v $
+// Revision 1.2  2002/02/14 18:11:42  eric
+// ajout onglet et autres...
+//
 // Revision 1.1  2002/02/13 14:31:58  eric
 // ajout usercard application
 //
@@ -50,7 +53,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.2 2002/02/14 18:11:42 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -138,6 +141,8 @@ create sequence seq_id_qdoc start 10";
       $oqdv = new QueryDirV($this->dbaccess,$dir->initid);
       $oqdv-> Delete();
 
+
+      $this->ClearCache(true); // clear cache to not have the same result
       $querydir = new QueryDb($this->dbaccess,"QueryDir");
       $querydir->AddQuery("dirid=$dirid");
       $lqd=$querydir->Query();

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.2 2002/02/13 14:31:58 eric Exp $
+// $Id: import_file.php,v 1.3 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -73,7 +73,6 @@ function add_import_file(&$action, $fimport="") {
       
       $action->log->debug("add ");
       if (($num > 3) && ($data[3] != "")) $doc->doctype = "S";
-      $doc->title =  GetTitleF($dbaccess,$doc->id);
     
       $doc->modify();
 
@@ -119,7 +118,6 @@ function add_import_file(&$action, $fimport="") {
       $iattr++;
     }
     // update title in finish
-    $doc->title =  GetTitleF($dbaccess,$doc->id);
     $doc->modify();
 
     if ($data[3] > 0) { // dirid

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardLdif.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.UsercardLdif.php,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardLdif.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.UsercardLdif.php,v $
+// Revision 1.2  2002/02/14 18:11:42  eric
+// ajout onglet et autres...
+//
 // Revision 1.1  2002/02/13 14:31:58  eric
 // ajout usercard application
 //
@@ -37,9 +40,9 @@ Class UsercardLdif
 {
   var $import = array(
 		      // Person Class
-			"sn"              => "202",
+			"sn"              => "201",
 			"cn"              => "",
-			"userPasswod"     => "",
+			"userPassword"     => "",
 			"telephonenumber" => "206",
 
 			// organizationalPerson
@@ -69,7 +72,7 @@ Class UsercardLdif
 			"displayName"             => "",
 			"employeeNumber"             => "",
 			"employeeType"             => "",
-			"givenName"       => "201",
+			"givenName"       => "202",
 			"homePhone"       => "",
 			"homePostalAddress"             => "",
 			"Initials"             => "",

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.DocUser.php,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.1 2002/02/13 14:31:58 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.2 2002/02/14 18:11:42 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -32,6 +32,9 @@ include_once("FDL/Class.UsercardLdif.php");
 define('TOP_USERDIR', 121); // user top folder
 define('QA_PRIVACITY', 216); // privacity attribute
 define('QA_URI', 215); // URI attribute
+define('QA_MAIL', 205); // MAIL attribute
+define('QA_FNAME', 202); // First name attribute
+define('QA_LNAME', 201); // Last name attribute
 define('FAM_DOCUSER', 120); // URI attribute
 
 Class DocUser extends Doc
@@ -92,6 +95,7 @@ Class DocUser extends Doc
     }
 
     $this->SetPrivacity(); // set doc properties in concordance with its privacity
+    $this->DeleteTemporary(); // delete temporary search
     return ($err);
   }
 
@@ -189,7 +193,9 @@ Class DocUser extends Doc
     
     return $retour;
   }
+  // --------------------------------------------------------------------
   function PostDelete()    
+  // --------------------------------------------------------------------
     {
       Doc::PostDelete();
       $this->SetLdapParam();
@@ -284,8 +290,9 @@ Class DocUser extends Doc
 
     } 
   
-
+  // --------------------------------------------------------------------
   function SetPrivacity() { // priv  {P, R, W}
+  // --------------------------------------------------------------------
     
     $priv=$this->GetValue(QA_PRIVACITY);
     
@@ -314,6 +321,38 @@ Class DocUser extends Doc
     break;
 
     }
+  }
+
+
+// -----------------------------------
+  function _GetCatgId($docid, $title) {
+  // -----------------------------------
+
+    $ldir = $this->oqdv->getChildDir($docid, true);
+  
+    if (count($ldir) > 0 ) {
+     
+      while (list($k,$v) = each($ldir)) {
+	if ($v->title == $title) return $v->id;
+      }
+
+      reset($ldir);
+      while (list($k,$v) = each($ldir)) {
+	$catgid= $this->_GetCatgId($v->id, $title);
+	if ($catgid > 0) return $catgid ;
+      }
+
+    }
+    
+  
+  return 0;
+}
+
+  // --------------------------------------------------------------------
+  function GetCatgId($title) { // return the id for catg named $title
+  // --------------------------------------------------------------------
+    $this->oqdv=new  QueryDirV($this->dbaccess);
+    return $this->_GetCatgId(TOP_USERDIR, $title);
   }
 
   // --------------------------------------------------------------------

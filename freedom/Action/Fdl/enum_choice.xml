@@ -177,9 +177,10 @@ function resizeIFrame() {
 <select id="schoose" [multiple]
         style="align:center" 
 	size="[nselect]" 
-	onChange="completechoices()" >
+	onchange="completechoices()" >
+<option value="0" disabled ></option>  
                     [BLOCK SELECT]
-<option value="[cindex]"   >[choice]</option>        
+<option value="[cindex]" >[choice]</option>        
                     [ENDBLOCK SELECT]
 </select>
 

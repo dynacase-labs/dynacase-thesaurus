@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,21 +21,6 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.UsercardVcard.php,v $
-// Revision 1.1  2002/02/13 14:31:58  eric
-// ajout usercard application
-//
-// Revision 1.3  2001/07/11 15:37:00  eric
-// export pour outlook
-//
-// Revision 1.2  2001/07/05 11:41:31  eric
-// ajout export format vcard
-//
-// Revision 1.1  2001/06/19 16:16:37  eric
-// importation fichier
-//
-//
-// ---------------------------------------------------------------
 
 include_once('./CONTACTS/Class.ContactImport.php');
 
@@ -44,9 +29,9 @@ Class UsercardVcard
   var $import = array(
 		      "FN" => "",
 
-		      "N" => "201;202",
-		      "N;GIVEN" => "201",
-		      "N;FAMILY"=> "202",		
+		      "N" => "202;201",
+		      "N;GIVEN" => "202",
+		      "N;FAMILY"=> "201",		
 		      "N;MIDDLE" => "",
 		      "N;PREFIX" => "",
 		      "N;SUFFIX" => "",
@@ -146,7 +131,7 @@ Class UsercardVcard
 	      //line like TEL;WORK:05.61.15.54.54
 	      if (ereg ("([A-Z;]*):(.*)", $line, $reg)){
 		//		if (isset($this->import[$reg[1]]))
-		  $tattr[$reg[1]]=$reg[2];
+		  $tattr[$reg[1]]=str_replace("\\n","\n",rtrim($reg[2]));
 	      }
 	    }
     
@@ -211,7 +196,8 @@ Class UsercardVcard
 	    if ($v != "")
 	      {
 		if (isset($tattr[$v]))
-		  fputs($this->fd,$k.":".$tattr[$v]."\n");
+		  fputs($this->fd,$k.":".str_replace("\n","\\n",$tattr[$v])."\n");
+		  
 		//		fputs($this->fd,"$k:$v\n");
 	      }
 	  }

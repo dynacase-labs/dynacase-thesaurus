@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD_init.php.in,v 1.1 2002/02/13 14:31:58 eric Exp $
+// $Id: USERCARD_init.php.in,v 1.2 2002/02/14 18:11:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,6 +28,7 @@ $app_const= array(
   "INIT" => "yes",
   "VERSION" => "@VERSION@",
   "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
+  "CARD_SLICE_LIST" => "8",
   "LDAP_SERVEUR" => "localhost",
   "LDAP_PORT" => "389",
   "LDAP_ROOT" => "o=Anakeen,c=fr",
