@@ -2,7 +2,7 @@
 
 <form  target="fspeedlist" class="fborder" name="search" method="POST" 
        onsubmit="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'fspeedlist','')"
-       action="[CORE_STANDURL]&app=[APPNAME]&action=SEARCH" 
+       action="[CORE_STANDURL]&app=[APPNAME]&action=SEARCH&viewone=Y" 
        style="display:inline">
 
 <table class="transparent"  cellspacing="0"  width="100%" >

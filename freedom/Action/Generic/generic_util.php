@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.15 2004/06/28 16:05:26 eric Exp $
+ * @version $Id: generic_util.php,v 1.16 2004/12/28 17:12:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.15 2004/06/28 16:05:26 eric Exp $
+// $Id: generic_util.php,v 1.16 2004/12/28 17:12:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -120,6 +120,7 @@ function getChildCatg($docid, $level,$notfldsearch=false,$maxlevel=2) {
 	$ltree[$v["id"]] = array("level"=>$level*20,
 				 "id"=>$v["id"],
 				 "doctype"=>$v["doctype"],
+				 "fromid"=>$v["fromid"],
 				 "title"=>$v["title"]);
 
 	if ($v["doctype"] == "D") $ltree = $ltree +  getChildCatg($v["id"], $level+1, $notfldsearch,$maxlevel );

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: search.php,v 1.19 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: search.php,v 1.20 2004/12/28 17:13:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.19 2003/08/18 15:47:03 eric Exp $
+// $Id: search.php,v 1.20 2004/12/28 17:13:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,6 +52,7 @@ function search(&$action) {
   $docid = GetHttpVars("id",0);
   $classid=GetHttpVars("classid",0);
   $keyword=GetHttpVars("_se_key",GetHttpVars("keyword")); // keyword to search
+  $viewone=GetHttpVars("viewone"); // direct view if only one Y|N
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -86,7 +87,7 @@ function search(&$action) {
 
 
 
-  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=".$ndoc->id);
+  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&viewone=$viewone&dirid=".$ndoc->id);
   
   
 }
