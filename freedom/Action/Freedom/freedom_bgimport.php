@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_bgimport.php,v 1.7 2004/08/05 09:47:21 eric Exp $
+ * @version $Id: freedom_bgimport.php,v 1.8 2004/09/22 16:07:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_bgimport.php,v 1.7 2004/08/05 09:47:21 eric Exp $
+// $Id: freedom_bgimport.php,v 1.8 2004/09/22 16:07:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_bgimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -71,7 +71,7 @@ function freedom_bgimport(&$action) {
 
   
 
-  $cmd[] = "$wsh --userid={$action->user->id} --api=freedom_import --htmlmode=Y --dirid=$dirid --double=$double --file=$file.1 >$file.2 ";
+  $cmd[] = "$wsh --userid={$action->user->id} --api=freedom_import --htmlmode=Y --dirid=$dirid --double=$double --policy=$policy --file=$file.1 >$file.2 ";
 
   
   $subject=sprintf(_("result of import  %s"), $filename);
