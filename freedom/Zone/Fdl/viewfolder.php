@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.6 2002/03/14 18:13:22 eric Exp $
+// $Id: viewfolder.php,v 1.7 2002/03/28 13:21:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -151,19 +151,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     $nbseedoc=0;
   if (is_array($ldoc)) {
     
-    // skip first start doc
-    // no use psql slice and start due to reuse same query with cache
 
-    
-
-    // get begin page 
-    
-//     if ($startpage>0) {
-//       $pagefolder = $action->Read("pagefolder");
-//       $start = $pagefolder[$startpage];
-//     } else $start=0;
-
-//     while (($nbseedoc < $start) && (list($k,$doc) = each($ldoc))  ) $nbseedoc++;
       
     $nbdoc=0;
     while((list($k,$doc) = each($ldoc)) )
@@ -185,6 +173,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
 	$tdoc[$k]["title"] = $doc->title;
+	if (strlen($doc->title) > 20)	$tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)."... ".substr($doc->title,-5);
+	else $tdoc[$k]["abrvtitle"] = $doc->title;
 	$tdoc[$k]["profid"] = $doc->profid;
       
  
