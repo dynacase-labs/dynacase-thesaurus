@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-09-26 17:40+0200\n"
+	"POT-Creation-Date: 2002-09-30 13:44+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -101,9 +101,13 @@ msgstr	"Update LDAP server"
 msgid	"IN_GRAV"
 msgstr	""
 
+#, c-format
+msgid	"new %s"
+msgstr	""
+
 #, fuzzy
-msgid	"new usercard"
-msgstr	"Start search"
+msgid	"new card"
+msgstr	"Category"
 
 msgid	"no csv import file specified"
 msgstr	""
@@ -511,12 +515,28 @@ msgid	"suspended"
 msgstr	""
 
 #, fuzzy
-msgid	"Tsimple"
-msgstr	"Update Title Cards"
+msgid	"Trecorded"
+msgstr	"Create"
+
+msgid	"Tqualified"
+msgstr	""
+
+msgid	"Tanalyzed"
+msgstr	""
 
 #, fuzzy
-msgid	"Tfinal"
-msgstr	"Update Title Cards"
+msgid	"Ttraited"
+msgstr	"Identity"
+
+msgid	"Trejected"
+msgstr	""
+
+msgid	"Tclosed"
+msgstr	""
+
+#, fuzzy
+msgid	"Tsuspended"
+msgstr	"Delete"
 
 #, c-format
 msgid	"[%s] incident registration"
@@ -837,6 +857,14 @@ msgstr	"Email"
 msgid	"file %d"
 msgstr	"Update Title Cards"
 
+#, fuzzy
+msgid	"society familly id"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"site familly id"
+msgstr	"Start search"
+
 msgid	"User Card"
 msgstr	""
 
@@ -919,11 +947,30 @@ msgstr	""
 msgid	"global balance result"
 msgstr	""
 
-msgid	"category id to find client"
+msgid	"usercard category to find clients"
 msgstr	""
 
-msgid	"category id to find technical"
+msgid	"usercard category id to find technical"
 msgstr	""
+
+msgid	"SOCIETY category id to find constructors"
+msgstr	""
+
+#, fuzzy
+msgid	"incident site familly id"
+msgstr	"Organisation"
+
+#, fuzzy
+msgid	"product familly id"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"contract familly id"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"incident familly id"
+msgstr	"Start search"
 
 msgid	"Generic"
 msgstr	""
@@ -1369,8 +1416,9 @@ msgstr	""
 msgid	"new family"
 msgstr	""
 
-msgid	"import document"
-msgstr	""
+#, fuzzy
+msgid	"Import documents"
+msgstr	"Import"
 
 msgid	"simple"
 msgstr	""
@@ -1786,6 +1834,18 @@ msgstr	"Edit"
 
 msgid	"View headers"
 msgstr	""
+
+#, fuzzy
+#~ msgid	"new usercard"
+#~ msgstr	"Start search"
+
+#, fuzzy
+#~ msgid	"Tsimple"
+#~ msgstr	"Update Title Cards"
+
+#, fuzzy
+#~ msgid	"Tfinal"
+#~ msgstr	"Update Title Cards"
 
 #, fuzzy
 #~ msgid	"delete incident"
