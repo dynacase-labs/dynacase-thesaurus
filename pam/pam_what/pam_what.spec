@@ -1,8 +1,8 @@
-# $Revision: 1.8 $, $Date: 2003/10/21 09:39:28 $
+# $Revision: 1.9 $, $Date: 2004/10/06 16:03:09 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
-Version:	0.3.0
+Version:	0.4.0
 Release:	1
 License:	GPL or BSD
 Group:		Base
@@ -16,6 +16,7 @@ Requires:	postgresql-libs >= 7.2
 Provides:	pam_what.so
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	WHAT < 0.3.0
+BuildArchitectures: i686
 
 %description
 This PAM module is used to authent user with the WHAT database.
@@ -62,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.9  2004/10/06 16:03:09  eric
+Add only [activate|expire] option
+
 Revision 1.8  2003/10/21 09:39:28  eric
 compatible WHAT < 0.3.0 sans expire
 

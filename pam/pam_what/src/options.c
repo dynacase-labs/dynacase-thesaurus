@@ -51,6 +51,7 @@ opt_t *options_parse (int argc, const char **argv)
   opts->dbname[0] = '\0';
   opts->dbuser[0] = '\0';
   opts->dbpass[0] = '\0';
+  opts->only[0] = '\0';
   strncpy(opts->table, "users", OPT_STRLEN-1);
   strncpy(opts->usercol, "login", OPT_STRLEN-1);
   strncpy(opts->passcol, "password", OPT_STRLEN-1);
@@ -103,6 +104,9 @@ opt_t *options_parse (int argc, const char **argv)
     else if ( ! strcmp("debug", optname) ) {
       element = opts->debug;
       DEBUG=atoi(optval);
+    }
+    else if ( ! strcmp("only", optname) ) {
+      element = opts->only;
     }
     else {
       syslog (LOG_ERR, "Unknown option type '%s'", optname);

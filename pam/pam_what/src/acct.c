@@ -35,16 +35,23 @@ PAM_EXTERN int pam_sm_acct_mgmt (pam_handle_t *pamh, int flags,
 {
   int retval=PAM_AUTH_ERR;
   whatuser_t wu;
+  opt_t *opts;
 
   retval = what_getuser(pamh,1,argc,argv,&wu);
 
   if ( retval != PAM_SUCCESS ) return retval;
 
 
-  if (wu.status == 'D') return PAM_AUTH_ERR; /* it is a disabled user */
+  opts = options_parse(argc, argv);
+  if ( ! opts ) {
+    syslog (LOG_ALERT, "Parse error. Exiting");
+    return PAM_AUTHINFO_UNAVAIL;
+  }
+
+  if ((wu.status == 'D') && (strcmp(opts->only,"expire")!=0)) return PAM_AUTH_ERR; /* it is a disabled user */
 
   /* see if password has expired */
-  if ((wu.expires > 0) && (wu.expires < time(NULL))) return PAM_ACCT_EXPIRED;
+  if ((wu.expires > 0) && (wu.expires < time(NULL))&& (strcmp(opts->only,"activate")!=0) ) return PAM_ACCT_EXPIRED;
 
   return retval;
 }
