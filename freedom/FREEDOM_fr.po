@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-07-29 14:58+0200\n"
+	"POT-Creation-Date: 2002-08-01 14:45+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -93,6 +93,9 @@ msgstr	"La date de fin (%s) est antérieure à la date de début (%s)"
 
 msgid	"state"
 msgstr	"état"
+
+msgid	"unreferenced site"
+msgstr "sites non référencés"
 
 msgid	"dayfirstletter"
 msgstr	"j"
@@ -227,11 +230,11 @@ msgstr	"%s a été supprimé dans le dossier %s"
 
 #, c-format
 msgid	"sending %s to %s"
-msgstr "envoi de %s à %s"
+msgstr	"envoi de %s à %s"
 
 #, c-format
 msgid	"%s cannot be sent"
-msgstr "%s n'a pas pu être envoyé"
+msgstr	"%s n'a pas pu être envoyé"
 
 msgid	"no import file specified"
 msgstr	"pas de fichier d'import spécifié"
@@ -244,7 +247,7 @@ msgid	"%s has be sended"
 msgstr	"%s a été envoyé"
 
 msgid	"file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
+msgstr	"la fichier doit être controllé : permission de lire refusé"
 
 #, c-format
 msgid	"unknown attribute %s"
@@ -465,9 +468,6 @@ msgstr	"Freedoms"
 msgid	"Freedoms Management"
 msgstr	"Administration Freedom"
 
-msgid	"Access To All Users"
-msgstr	"Accès à tous les utilisateurs"
-
 msgid	"Access Management Database"
 msgstr	"Accès administration de la base"
 
@@ -631,13 +631,16 @@ msgid	"export first file to consulting"
 msgstr	"exportation du premier fichier pour consultation"
 
 msgid	"send a document"
-msgstr "envoyer un document"
+msgstr	"envoyer un document"
 
 msgid	"edit mail"
-msgstr "éditer un mail"
+msgstr	"éditer un mail"
 
 msgid	"freedom database"
 msgstr	"base de donnée Freedom"
+
+msgid	"send mail copy"
+msgstr	"copie envoi de mail"
 
 #, c-format
 msgid	"file %d"
@@ -1284,16 +1287,16 @@ msgid	"Close"
 msgstr	"Fermer"
 
 msgid	"comment"
-msgstr "commentaire"
+msgstr	"commentaire"
 
 msgid	"mail edition"
-msgstr "édition de mail"
+msgstr	"édition de mail"
 
 msgid	"send mail"
-msgstr "envoyer le mail"
+msgstr	"envoyer le mail"
 
 msgid	"some needed attributes are empty"
-msgstr "certains attributs obligatoires sont vides"
+msgstr	"certains attributs obligatoires sont vides"
 
 msgid	"Edit"
 msgstr	"Éditer"
@@ -1338,7 +1341,7 @@ msgid	"Delete"
 msgstr	"Supprimer"
 
 msgid	"senddoc"
-msgstr "envoyer"
+msgstr	"envoyer"
 
 msgid	"author"
 msgstr	"auteur"
@@ -1396,6 +1399,9 @@ msgstr	" Voir les propriétés"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+#~ msgid	"Access To All Users"
+#~ msgstr	"Accès à tous les utilisateurs"
 
 #~ msgid	"private access of the user card %s. You're not the owner"
 #~ msgstr	"Accès privé de la carte %s. Vous n'en n'êtes pas propriétaire"

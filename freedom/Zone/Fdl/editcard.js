@@ -62,7 +62,7 @@ function resizeInputFields() {
              elements[i].cols=newsize;
          }
      }
-  }
+   }
 }
 
 // close auxillary window if open
@@ -83,4 +83,39 @@ function canmodify() {
 	}
     }
     return true;
+}
+
+// to define which attributes must be disabled
+var tain= new Array();
+var taout= new Array();
+[BLOCK RATTR]
+tain[[jska]]=[jstain];
+taout[[jska]]=[jstaout];
+[ENDBLOCK RATTR]
+
+function disableReadAttribute() {
+    
+    var ndis = true;
+    var i;
+    var vin;
+    for (var c=0; c< tain.length; c++) {
+	ndis = true;
+	for (var i=0; i< tain[c].length; i++) {
+	    if (document.getElementById(tain[c][i])) {
+		vin=document.getElementById(tain[c][i]).value;
+		if ((vin == '') || (vin == ' ')) ndis = false;
+	    }
+	}
+	for (var i=0; i< taout[c].length; i++) {
+	    if (document.getElementById(taout[c][i])) {
+		document.getElementById(taout[c][i]).disabled=ndis;
+	    }
+	}
+	
+    }
+}
+
+function editOnLoad() {
+    resizeInputFields();
+    disableReadAttribute();
 }

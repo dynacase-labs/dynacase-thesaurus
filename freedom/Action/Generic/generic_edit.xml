@@ -33,7 +33,7 @@
  </head>
 
 <body class="freedom" 
-      onLoad="resizeInputFields()"
+      onLoad="editOnLoad()"
       onUnLoad="closechoose()"
       onResize="resizeInputFields()">
 

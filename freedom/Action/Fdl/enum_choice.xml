@@ -102,6 +102,7 @@ function completechoice(index) {
 
       }
     }
+    winfo.disableReadAttribute();
 
 }
 
@@ -134,7 +135,7 @@ function completechoices() {
 	// delete last CR
 	winfo.document.getElementById(tattrid[i]).value = cvalues[i].substring(0,cvalues[i].length-1);
     }
-
+    winfo.disableReadAttribute();
 }
 
 function resizeIFrame() {

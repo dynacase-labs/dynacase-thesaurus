@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.13 2002/07/17 13:35:54 eric Exp $
+// $Id: editcard.php,v 1.14 2002/08/01 12:46:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -86,9 +86,38 @@ function editcard(&$action) {
   $sattrNid = "['".implode("','",$attrNid)."']";
   }
 
+
+
+  //compute constraint for enable/disable input
+    $rattr = $doc->GetSpecialAttributes("(visibility='R' or visibility='H') and (not phpfunc isnull)");
+
+  $ka=0;
+  $tjsa=array();
+    while(list($k,$v) = each($rattr)) {
+      
+      if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {
+	$ain = array_filter(explode(",",$reg[1]),"moreone");
+	if (count($ain) > 0) {
+	  
+	  $aout = explode(",",$reg[2]);
+	  $tjsa[]=array("jstain" => "['".implode("','", $ain)."']",
+			"jstaout" => "['".implode("','", $aout)."']",
+			"jska"=> "$ka");
+	  $ka++;
+	}
+      }
+    }
+
+
+    // contruct js functions
   $jsfile=$action->GetLayoutFile("editcard.js");
   $jslay = new Layout($jsfile,$action);
   $jslay->Set("attrnid",$sattrNid);
+  $jslay->SetBlockData("RATTR",$tjsa);
   $action->parent->AddJsCode($jslay->gen());
+}
+
+function moreone($v) {
+  return (strlen($v) > 1);
 }
 ?>
