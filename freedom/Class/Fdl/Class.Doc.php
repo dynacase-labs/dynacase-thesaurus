@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.176 2004/01/09 09:35:15 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.177 2004/01/15 16:29:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.176 2004/01/09 09:35:15 eric Exp $
+// $Id: Class.Doc.php,v 1.177 2004/01/15 16:29:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -1574,7 +1574,7 @@ create unique index i_docir on doc(initid, revision);";
   function AddComment($comment='') {
     global $action;
     $commentdate = sprintf("%s [%s %s] %s",
-			   date("d/m/Y G:i"),
+			   date("d/m/Y H:i"),
 			   $action->user->firstname,$action->user->lastname,
 			   $comment);
 
@@ -2050,6 +2050,11 @@ create unique index i_docir on doc(initid, revision);";
 	case "array": 
 
 	  $lay = new Layout("FDL/Layout/viewarray.xml", $action);
+	  if (! method_exists($this->attributes,"getArrayElements")) {	    
+	    break;
+	  }
+	   
+	  
 	  $ta = $this->attributes->getArrayElements($oattr->id);
 	  $talabel=array();
 	  $tvattr = array();
