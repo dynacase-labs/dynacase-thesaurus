@@ -55,7 +55,8 @@
          [ENDBLOCK SELECTCLASS]
     </select><BR>
 
-     <input type="text"  size=80 value="[format]"</input>
+    <textarea cols=80>[format]
+</textarea>
      <table border=1 cols=[cols]>
      <tr>
      [BLOCK TFORMAT]
