@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.26 2003/06/03 14:52:35 eric Exp $
+// $Id: Class.WDoc.php,v 1.27 2003/07/11 13:05:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.26 2003/06/03 14:52:35 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.27 2003/07/11 13:05:32 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -281,6 +281,7 @@ Class WDoc extends Doc {
   function GetFollowingStates () {
     // search if following states in concordance with transition array
     if ($this->doc->locked == -1) return array(); // no next state for revised document
+    if (($this->doc->locked > 0)&&($this->doc->locked != $this->doc->userid)) return array(); // no next state if locked by another person
       
     $fstate = array();
     if ($this->doc->state == "") $this->doc->state=$this->firstState;
