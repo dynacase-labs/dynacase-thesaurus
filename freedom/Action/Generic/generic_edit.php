@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.21 2004/02/05 15:49:21 eric Exp $
+ * @version $Id: generic_edit.php,v 1.22 2004/03/01 08:51:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.21 2004/02/05 15:49:21 eric Exp $
+// $Id: generic_edit.php,v 1.22 2004/03/01 08:51:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -124,7 +124,7 @@ function generic_edit(&$action) {
 	$action->lay->Set("bconsdisplay", "");
 	break;
       }
-  }
+    }
   }
 
  

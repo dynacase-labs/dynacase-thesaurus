@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.27 2004/02/17 10:37:43 eric Exp $
+ * @version $Id: enum_choice.php,v 1.28 2004/03/01 08:49:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.27 2004/02/17 10:37:43 eric Exp $
+// $Id: enum_choice.php,v 1.28 2004/03/01 08:49:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,7 +55,6 @@ function enum_choice(&$action) {
   //global $HTTP_POST_VARS;print_r($HTTP_POST_VARS);
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
- 
   $doc= new Doc($dbaccess,$docid);
   $oattr= $doc->GetAttribute($attrid);
   if (! $oattr) 

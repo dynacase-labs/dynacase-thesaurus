@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewfolder.php,v 1.49 2003/11/25 08:28:33 eric Exp $
+ * @version $Id: viewfolder.php,v 1.50 2004/03/01 08:47:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.49 2003/11/25 08:28:33 eric Exp $
+// $Id: viewfolder.php,v 1.50 2004/03/01 08:47:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -154,8 +154,9 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   }
 
   $doc = createDoc($dbaccess,$famid,false);
-  while((list($k,$zdoc) = each($ldoc)) )
-      {
+
+  foreach($ldoc as $k=>$zdoc )  {
+
 	if ($column) $doc->ResetMoreValues();
 	$doc->Affect($zdoc);
 	if ($column) $doc->GetMoreValues();
@@ -196,7 +197,6 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  else if ($doc->control("edit") != "")  $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("read-only"), 20,20);
 	  else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
 	
-      
 
 	$tdoc[$k]["iconsrc"]= $doc->geticon();
 
@@ -231,7 +231,6 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	    popupInvisible("popuplist",$kdiv,'delete');	  
 	  }
 	}
-
 
 	$kdiv++;
 	if ($doc->isRevisable()) $tdoc[$k]["revision"]= $doc->revision;
