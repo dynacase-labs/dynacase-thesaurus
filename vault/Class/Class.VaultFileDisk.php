@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultFileDisk.php,v 1.2 2001/11/16 15:05:23 marc Exp $
+// $Id: Class.VaultFileDisk.php,v 1.3 2002/02/06 17:19:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Attic/Class.VaultFileDisk.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultFileDisk.php,v $
+// Revision 1.3  2002/02/06 17:19:58  eric
+// correction de tous les query : resultat par table
+//
 // Revision 1.2  2001/11/16 15:05:23  marc
 // Release 0.0.2, see CHANGELOG
 //
@@ -65,9 +68,9 @@ Class VaultFileDisk extends DbObj {
   function fStat(&$fc, &$fv) {
   // --------------------------------------------------------------------
     $query = new QueryDb($this->vault, $this->dbtable);
-    $t = $query->Query();
+    $t = $query->Query(0,0,"TABLE");
     $fc = $query->nb;
-    while ($fc>0 && (list($k,$v) = each($t))) $fv += $v->size;
+    while ($fc>0 && (list($k,$v) = each($t))) $fv += $v["size"];
     unset($t);
     return '';
   }
@@ -76,12 +79,12 @@ Class VaultFileDisk extends DbObj {
   function ListFiles(&$list) {
   // --------------------------------------------------------------------
     $query = new QueryDb($this->vault, $this->dbtable);
-    $t = $query->Query();
+    $t = $query->Query(0,0,"TABLE");
     $fc = $query->nb;
     while ($fc>0 && (list($k,$v) = each($t))) {
-      $list[$k]["name"] = $v->name;
-      $list[$k]["size"] = $v->size;
-      $list[$k]["access"] = ($v->public_access?"PUBLIC":"RESTRICTED");
+      $list[$k]["name"] = $v["name"];
+      $list[$k]["size"] = $v["size"];
+      $list[$k]["access"] = ($v["public_access"]?"PUBLIC":"RESTRICTED");
     }
     unset($t);
     return $fc;
@@ -101,6 +104,7 @@ Class VaultFileDisk extends DbObj {
   // --------------------------------------------------------------------
   function Store($infile, $public_access, &$idf) {
   // -------------------------------------------------------------------- 
+
     $this->size = filesize($infile);
     $msg = $this->fs->SetFreeFs($this->size, $id_fs, $id_dir, $f_path);
     if ($msg != '') {
@@ -111,7 +115,9 @@ Class VaultFileDisk extends DbObj {
     $this->id_dir = $id_dir;
     $this->public_access = $public_access;
     $this->name = basename($infile);
+
     $msg = $this->Add();
+
     if ($msg != '') return($msg);
     $idf = $this->id_file;
     $f = $f_path."F-".$this->id_file;

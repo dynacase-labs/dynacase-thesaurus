@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskDir.php,v 1.2 2001/11/16 15:05:23 marc Exp $
+// $Id: Class.VaultDiskDir.php,v 1.3 2002/02/06 17:19:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskDir.php,v $
+// Revision 1.3  2002/02/06 17:19:58  eric
+// correction de tous les query : resultat par table
+//
 // Revision 1.2  2001/11/16 15:05:23  marc
 // Release 0.0.2, see CHANGELOG
 //
@@ -65,9 +68,9 @@ Class VaultDiskDir extends DbObj {
     $query = new QueryDb($this->vault, $this->dbtable);
     $query->basic_elem->sup_where=array("id_fs=".$id_fs, 
 					"free_entries>0");
-    $t = $query->Query();
+    $t = $query->Query(0,0,"TABLE");
     if ($query->nb > 0) {
-      $this->Select($t[0]->id_dir);
+      $this->Select($t[0]["id_dir"]);
       unset($t);
       $this->free_entries--;
       $this->Modify();
@@ -94,7 +97,7 @@ Class VaultDiskDir extends DbObj {
   // --------------------------------------------------------------------
     $query = new QueryDb($this->vault, $this->dbtable);
     $query->basic_elem->sup_where=array("l_path='".$path."'", "id_fs=".$id_fs);
-    $t = $query->Query();
+    $t = $query->Query(0,0,"TABLE");
     return ($query->nb > 0);
   }
 
@@ -111,8 +114,8 @@ Class VaultDiskDir extends DbObj {
     $free_entries = 0;
     $query = new QueryDb($this->vault, $this->dbtable);
     $query->basic_elem->sup_where=array("free_entries>0", "id_fs=".$id_fs);
-    $t = $query->Query();
-    while ($query->nb>0 && (list($k,$v) = each($t))) $free_entries += $v->free_entries;
+    $t = $query->Query(0,0,"TABLE");
+    while ($query->nb>0 && (list($k,$v) = each($t))) $free_entries += $v["free_entries"];
     unset($t);
     return ($free_entries);
   }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.2 2001/11/16 15:05:23 marc Exp $
+// $Id: Class.VaultDiskFs.php,v 1.3 2002/02/06 17:19:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskFs.php,v $
+// Revision 1.3  2002/02/06 17:19:58  eric
+// correction de tous les query : resultat par table
+//
 // Revision 1.2  2001/11/16 15:05:23  marc
 // Release 0.0.2, see CHANGELOG
 //
@@ -133,7 +136,7 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
     $query = new QueryDb($this->vault, $this->dbtable);
     $query->basic_elem->sup_where=array("r_path='".$path."'");
-    $t = $query->Query();
+    $t = $query->Query(0,0,"TABLE");
     return ($query->nb > 0);
   }
 
@@ -144,18 +147,18 @@ Class VaultDiskFs extends DbObj {
     $f_path = "";
     $query = new QueryDb($this->vault, $this->dbtable);
     $query->basic_elem->sup_where=array("free_size>".$f_size);
-    $t = $query->Query();
+    $t = $query->Query(0,0,"TABLE");
     if ($query->nb > 0) {
       $ifs = 0;
       $dirfound = FALSE;
       while(!$dirfound && ($ifs < $query->nb)) {
 	$sd = new VaultDiskDir($this->vault, $this->specific);
-	$msg = $sd->SetFreeDir($t[$ifs]->id_fs);
+	$msg = $sd->SetFreeDir($t[$ifs]["id_fs"]);
 	if ($msg == '') $dirfound = TRUE;
 	else $ifs++;
       }
       if ($dirfound) {
-	$this->Select($t[0]->id_fs);
+	$this->Select($t[0]["id_fs"]);
 	$id_fs = $this->id_fs;
 	$id_dir = $sd->id_dir;
 	$f_path = $this->r_path."/".$sd->l_path;
@@ -174,11 +177,11 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
     $query = new QueryDb($this->vault, $this->dbtable);
     $query->basic_elem->sup_where=array("id_fs=".$id_fs);
-    $t = $query->Query();
+    $t = $query->Query(0,0,"TABLE");
     if ($query->nb > 0) {
       $sd = new VaultDiskDir($this->vault, $this->specific, $id_dir);
       if ($sd->IsAffected()) {
-	$f_path = $t[0]->r_path."/".$sd->l_path;
+	$f_path = $t[0]["r_path"]."/".$sd->l_path;
       } else {
 	return(_("no vault directory found"));
       }
@@ -218,13 +221,13 @@ Class VaultDiskFs extends DbObj {
   function Stats(&$s) {
   // --------------------------------------------------------------------
     $query = new QueryDb($this->vault, $this->dbtable);
-    $t = $query->Query();
+    $t = $query->Query(0,0,"TABLE");
     while ($query->nb>0 && (list($k,$v) = each($t))) {
-      $s["fs$k"]["root_dir"] = $v->r_path;
-      $s["fs$k"]["allowed_size"] = $v->max_size;
-      $s["fs$k"]["free_size"] = $v->free_size;
+      $s["fs$k"]["root_dir"] = $v["r_path"];
+      $s["fs$k"]["allowed_size"] = $v["max_size"];
+      $s["fs$k"]["free_size"] = $v["free_size"];
       $sd = new VaultDiskDir($this->vault, $this->specific);
-      $s["fs$k"]["free_entries"] =  $sd->FreeEntries($v->id_fs);
+      $s["fs$k"]["free_entries"] =  $sd->FreeEntries($v["id_fs"]);
       unset($sd);
     }
     return '';

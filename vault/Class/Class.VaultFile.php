@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultFile.php,v 1.4 2001/12/04 15:48:13 eric Exp $
+// $Id: Class.VaultFile.php,v 1.5 2002/02/06 17:19:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultFile.php,v $
+// Revision 1.5  2002/02/06 17:19:58  eric
+// correction de tous les query : resultat par table
+//
 // Revision 1.4  2001/12/04 15:48:13  eric
 // correction include pour appel multiple
 //
@@ -127,6 +130,7 @@ Class VaultFile {
   // ---------------------------------------------------------
   function Store($infile, $public_access, &$id) {
   // ---------------------------------------------------------
+
     if ($this->chrono) $this->logger->start("Store");
     $id = -1;
     if (!file_exists($infile) || !is_readable($infile) || !is_file($infile)) {
@@ -134,7 +138,7 @@ Class VaultFile {
       $msg = _("can't access file");
     } else {
       if (!is_bool($public_access)) {
-	$public_access = FALSE;
+	$public_access  = FALSE;
 	$this->logger->warning("Access mode forced to RESTRICTED for ".$infile."].");
       }
       $msg = $this->storage->Store($infile, $public_access, $id);
