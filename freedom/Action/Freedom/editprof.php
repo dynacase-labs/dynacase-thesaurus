@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editprof.php,v 1.14 2004/03/01 08:50:24 eric Exp $
+ * @version $Id: editprof.php,v 1.15 2004/05/06 08:04:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editprof.php,v 1.14 2004/03/01 08:50:24 eric Exp $
+// $Id: editprof.php,v 1.15 2004/05/06 08:04:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,13 +70,13 @@ function editprof(&$action)
     if ($createp) {
       // search from profil of the document family (not the family)
       $tdoc= createDoc($dbaccess, $doc->id);
-      $tclassdoc = $doc->GetProfileDoc($tdoc->defProfFamId);
-    } else $tclassdoc = $doc->GetProfileDoc();
+      $tclassdoc = GetProfileDoc($dbaccess,$doc->id,$tdoc->defProfFamId);
+    } else $tclassdoc = GetProfileDoc($dbaccess,$doc->id);
     if (is_array($tclassdoc)) {
       while (list($k,$pdoc)= each ($tclassdoc)) {
-	if ($pdoc->id != $doc->id) {
-	  $selectclass[$k]["idpdoc"]=$pdoc->id;
-	  $selectclass[$k]["profname"]=$pdoc->title;
+	if ($pdoc["id"] != $doc->id) {
+	  $selectclass[$k]["idpdoc"]=$pdoc["id"];
+	  $selectclass[$k]["profname"]=$pdoc["title"];
 	  $selectclass[$k]["selected"]="";
 	}
       }

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.199 2004/04/29 08:41:09 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.200 2004/05/06 08:04:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -861,20 +861,7 @@ create unique index i_docir on doc(initid, revision);";
   }
 
 
-  // --------------------------------------------------------------------
-  function GetProfileDoc($defprof="")
-    // --------------------------------------------------------------------
-    {
-      if ($defprof=="") $defprof=$this->defProfFamId;
-      include_once("FDLGEN/Class.Doc{$defprof}.php");
-      $query = new QueryDb($this->dbaccess, "Doc".$defprof);
-      
-      //  $query->Addquery("fromid=$defprof");
-
-      $query->Query();
-      
-      return $query->Query();
-    }
+ 
   // --------------------------------------------------------------------
   function GetFathersDoc() {
     // -------------------------------------------------------------------- 

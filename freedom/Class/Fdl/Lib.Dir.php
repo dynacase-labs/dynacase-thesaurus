@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.87 2004/04/27 13:24:37 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.88 2004/05/06 08:04:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.87 2004/04/27 13:24:37 eric Exp $
+// $Id: Lib.Dir.php,v 1.88 2004/05/06 08:04:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -289,7 +289,9 @@ function getChildDoc($dbaccess,
 
 
 
-
+/** 
+ * optimization for getChildDoc
+ */
 function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
  
   if (is_array($dirid)) {
@@ -511,6 +513,32 @@ function GetClassesDoc($dbaccess,$userid,$classid=0,$qtype="LIST")
   return $query->Query(0,0,$qtype);
 }
 
+ /**
+ * return array of possible profil for profile type
+ *
+ * @param string $dbaccess database specification
+ * @param int  $famid the id of family document
+ * @return array/Doc
+ * @see getChildDir()
+ */
+  function GetProfileDoc($dbaccess,$docid,$defProfFamId="")
+    // --------------------------------------------------------------------
+    {
+      global $action;
+      $filter=array();
 
+      $doc=new Doc($dbaccess,$docid);
+      $chdoc=$doc->GetFromDoc();
+      if ($defProfFamId=="") $defProfFamId=$doc->defProfFamId;
+     
+      $cond = GetSqlCond($chdoc,"dpdoc_famid");
+      if ($cond != "") $filter[]="dpdoc_famid is null or (".GetSqlCond($chdoc,"dpdoc_famid").")";
+      else $filter[]="dpdoc_famid is null";
+      $filter[]="fromid=".$defProfFamId;
+      $tcv = getChildDoc($dbaccess,
+			 0,0,"ALL",$filter,$action->user->id,"TABLE",$defProfFamId);
+     
+      return $tcv;
+    }
 
 ?>
