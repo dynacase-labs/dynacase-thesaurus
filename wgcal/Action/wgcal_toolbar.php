@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.14 2005/02/09 17:52:45 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.15 2005/02/10 17:14:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -81,7 +81,7 @@ function _seewaitrv(&$action, &$wrv) {
       $wrv[$irv]["wrvcolor"] = WGCalGetColorState($state); 
       $wrv[$irv]["wrvid"] = $v["id"];
       if (strlen($v["calev_evtitle"])>$rvtextl) $wrv[$irv]["wrvtitle"] = addslashes(substr($v["calev_evtitle"],0,$rvtextl)."...");
-      else $wrv[$irv]["wrvtitle"] = $v["calev_evtitle"];
+      else $wrv[$irv]["wrvtitle"] = addslashes($v["calev_evtitle"]);
       $wrv[$irv]["wrvfulldescr"] = "[".$label."] " 
 	. substr($v["calev_start"],0,16)." : ".$v["calev_evtitle"]." (".$v["calev_owner"].")";
       $wrv[$irv]["wrvicon"] = $doc->GetIcon($v["icon"]);

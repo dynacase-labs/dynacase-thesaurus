@@ -283,16 +283,9 @@
 
 <br>
 
-  <div id="d_rweekday" style="left:10%; width:100%; align:center; display:[D_RWEEKDISPLAY]">
+  <div id="d_rweekday" style="left:10%; width:100%; align:center; display:[RWEEKDISPLAY]">
    [TEXT:day repetition] : <br>
-    <span onclick="clickB('rweekday1')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday1')" type="radio" id="rweekday1" name="rweekday" value="1" [repeatdis] [D_RWEEKDISPLAY_1]>[TEXT:monday]</span>
-    <span onclick="clickB('rweekday2')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday2')" type="radio" id="rweekday2" name="rweekday" value="2" [repeatdis] [D_RWEEKDISPLAY_2]>[TEXT:tuesday]</span>
-    <span onclick="clickB('rweekday3')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday3')"  type="radio" id="rweekday3" name="rweekday" value="3" [repeatdis] [D_RWEEKDISPLAY_3]>[TEXT:wenesday]</span>
-    <span onclick="clickB('rweekday4')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday4')"  type="radio" id="rweekday4" name="rweekday" value="4" [repeatdis] [D_RWEEKDISPLAY_4]>[TEXT:thurday]</span>
-    <span onclick="clickB('rweekday5')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday5')"  type="radio" id="rweekday5" name="rweekday" value="5" [repeatdis] [D_RWEEKDISPLAY_5]>[TEXT:friday]</span>
-    <span onclick="clickB('rweekday6')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday6')" type="radio" id="rweekday6" name="rweekday" value="6" [repeatdis] [D_RWEEKDISPLAY_6]>[TEXT:saturday]</span>
-    <span onclick="clickB('rweekday7')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday7')" type="radio" id="rweekday7" name="rweekday" value="7" [repeatdis] [D_RWEEKDISPLAY_7]>[TEXT:sunday]</span>
-    <br>
+[BLOCK D_RWEEKDISPLAY]<span onclick="clickB('rweekday[dayn]')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="rweekday[]" value="[dayn]" [repeatdis]>[tDay]</span>[ENDBLOCK D_RWEEKDISPLAY]
   </div>
 
   <div id="d_rmonth" style="left:10%; display:[D_RMONTH]">

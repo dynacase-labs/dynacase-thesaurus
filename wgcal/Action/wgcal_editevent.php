@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.25 2005/02/09 17:52:45 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.26 2005/02/10 17:14:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -64,7 +64,7 @@ function wgcal_editevent(&$action) {
     $evalarm  = $event->getValue("CALEV_EVALARM", 0);
     $evalarmt = $event->getValue("CALEV_EVALARMTIME", 0);
     $evrepeat = $event->getValue("CALEV_REPEATMODE", 0);
-    $evrweekd = $event->getValue("CALEV_REPEATWEEKDAY", 0);
+    $evrweekd = $event->getTValue("CALEV_REPEATWEEKDAY", 0);
     $evrmonth = $event->getValue("CALEV_REPEATMONTH", 0);
     $evruntil = $event->getValue("CALEV_REPEATUNTIL", 0);
     $evruntild = db2date($event->getValue("CALEV_REPEATUNTILDATE"));
@@ -87,10 +87,11 @@ function wgcal_editevent(&$action) {
       }
     }
     $rwstatus = false;
+    $ro = true;
     // Compute ro mode & rostatus mode
     if ($action->user->fid == $ownerid) {
-      $ro = false;
       $rostatus = false;
+      $ro = false;
     } else {
       $rostatus = true;
       foreach ($attendees as $k => $v) {
@@ -110,7 +111,7 @@ function wgcal_editevent(&$action) {
     $evalarm  = 0;
     $evalarmt = -1;
     $evrepeat = 0;
-    $evrweekd = 0;
+    $evrweekd = array();
     $evrmonth = 0;
     $evruntil = -1;
     $evruntild = $timee + (14*24*3600);
@@ -319,8 +320,15 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
   
   for ($i=0; $i<=4; $i++) $action->lay->set("REPEATTYPE_".$i, ($rmode==$i?"checked":""));
 
-  $action->lay->set("D_RWEEKDISPLAY", ($rmode==2?"":"none"));
-  for ($i=1; $i<=7; $i++)  $action->lay->set("D_RWEEKDISPLAY_".$i, ($rday==$i?"checked":""));
+ $tday = array( _("monday"), _("tuesday"),_("wenesday"),_("thursday"),_("friday"),_("saturday"), _("sunday"));
+  for ($i=0; $i<=6; $i++) {
+    $td[$i]["dayn"] = $i;
+    $td[$i]["repeatdis"] = ($ro?"disabled":"");
+    $td[$i]["tDay"] = $tday[$i];
+  }
+
+  $action->lay->SetBlockData("D_RWEEKDISPLAY", $td);
+  $action->lay->set("RWEEKDISPLAY", ($rmode==2?"":"none"));
 
   $action->lay->set("D_RMONTH", ($rmode==3?"":"none"));
   $action->lay->set("D_RMONTH_DATE_CHECKED", ($rmonthdate==0?"checked":""));

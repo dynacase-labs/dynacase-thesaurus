@@ -1,10 +1,9 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-
 <div id="root">
-<table width="100%" cellspacing="0" border="0" id="week">
+<table style="z-index:2000;" width="100%" cellspacing="0" border="0" id="week">
   <tr height="[WGCAL_U_HLINETITLE]px">
     <td align="center" colspan="[colspan]">
-      <table width="100%" cellspacing="0" border="0"><tr>
+      <table width="100%"  cellspacing="0" border="0"><tr>
       <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:prev period]" 
           onclick="mytoto('WGCAL_U_CALCURDATE', [pbefore], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');" 
@@ -25,10 +24,10 @@
      </td>
  </tr>    
  <tr height="[WGCAL_U_HLINETITLE]px">
-    <td class="WGCAL_Period" width="[WGCAL_U_HCOLW]px"></td>
-	 [BLOCK DAYS_LINE]<td id="D[IDD]" align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]
-   </tr>
-[BLOCK HOURS]<tr height="[HLINEHOURS]px"><td id="L[LID]" width="[WGCAL_U_HCOLW]px" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>[ENDBLOCK HOURS]
+    <td width="6%" class="WGCAL_Period"></td>[BLOCK DAYS_LINE]<td width="14%" id="D[IDD]" align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]</tr>
+</table>
+<table  width="100%" cellspacing="0" border="0" id="week">
+[BLOCK HOURS]<tr height="[HLINEHOURS]px"><td id="L[LID]" width="6%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>[ENDBLOCK HOURS]
 </table>[comment]</div>
 
 <form target="wgcal_calhidden" style="display:none" id="textform" method="POST">

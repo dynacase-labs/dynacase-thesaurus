@@ -235,6 +235,7 @@ function WGCalAddEvent(evtid, dstart, dend)
 {
   if (dstart<Days[0].start) dstart = Days[0].start;
   e = (Days[XDays-1].start + (24*3600)) - 1;
+//alert('XDays = '+XDays+' dend>e='+(dend>e?"T":"F"));
   if (dend>e) dend = e;
 
   istart = GetTimeInfoFromTs(dstart);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-09 11:55+0100\n"
+"POT-Creation-Date: 2005-02-10 15:24+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -68,6 +68,9 @@ msgid "WGCAL_U_TMPLIST"
 msgstr ""
 
 msgid "use displayed ressource for event setting"
+msgstr ""
+
+msgid "ev head color"
 msgstr ""
 
 msgid "workgroup calendar"
@@ -200,6 +203,9 @@ msgid "next period"
 msgstr ""
 
 msgid "week"
+msgstr ""
+
+msgid "change hours division"
 msgstr ""
 
 msgid "view/hide week-end"
@@ -397,13 +403,7 @@ msgstr ""
 msgid "accept event"
 msgstr ""
 
-msgid "accept event "
-msgstr ""
-
 msgid "refuse event"
-msgstr ""
-
-msgid "refuse event "
 msgstr ""
 
 msgid "calendar selector"
