@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.12 2002/06/19 12:32:35 eric Exp $
+// $Id: Class.DocUser.php,v 1.13 2002/06/20 07:29:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.12 2002/06/19 12:32:35 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.13 2002/06/20 07:29:03 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -363,29 +363,7 @@ Class DocUser extends Doc
     return $this->_GetCatgId(TOP_FAMDIR, $title);
   }
 
-//   // --------------------------------------------------------------------
-//     function Control ($aclname) { // redefine Doc::Control
-//     // -------------------------------------------------------------------- 
-//     if ($this->userid == 1) return ""; // admin can do anything
-//     if ($this->IsAffected())
-//       if ($this->profid > 0 ) 
-// 	{
-// 	  if ($this->owner == $this->userid) return "";
-// 	  else return sprintf(_("private access of the user card %s. You're not the owner"),
-// 			      $this->title);
-// 	}
-//       else return "";
 
-//     return "object not initialized : $aclname";
-//   }
-
-
-//   function GetSqlViewCond() {
-    
-//     global $action; // necessary to see information about user privilege
-          
-//       return "(profid = 0 ) or (owner = ".$action->user->id.")";
-//   }
   
 }
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.8 2002/05/27 14:54:14 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.9 2002/06/20 07:29:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -171,7 +171,7 @@ Class UsercardVcard
 		  {
 		    // regexp case
 		      // example A;B;C;D;E;F
-			$complxreg="([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)[;]*([^;]*)";
+			$complxreg="([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)[;]{0,1}([^;]*)";
 		    
 		    if (ereg($complxreg,
 			     $this->import[$k], $reg))
