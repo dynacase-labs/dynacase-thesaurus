@@ -6,9 +6,9 @@
 
    <title>[TEXT:edition: ] [TITLE]</title>
 
-   <style>
-[ZONE CORE:GENCSS]
-   </style>
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=FDL&action=FDL_CSS" >
+   
 
 
 [CSS:REF]
@@ -81,11 +81,13 @@
 </tr>
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 </thead> 
+   </table>
  
 [ZONE FDL:EDITCARD]
 
 
 <input type="hidden" name="xml_initial" id="xml_initial" value="[xml_initial]">
+<table class="tableborder"  cellspacing="0" width="100%">
 <tfoot>
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
