@@ -81,9 +81,8 @@ var catgid=[catg];
 </td>
 <td valign="top">
 
+
                     [BLOCK TABLEBODY]
-
-
 
 <!-- TABLEBODY -->
 <div  id="d[id]"
@@ -92,16 +91,17 @@ var catgid=[catg];
         onmouseout="if (this.className != 'select') this.className='unselect'" 
         onclick="if (document.noselect) document.noselect=false; else {vselect(this);subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&latest=Y&id=[id]');}" 
      class="unselect" >   
-     <img align="right" width="30" id="ic[id]" class="aicon" src="[iconsrc]"><A class="title" id="t[id]">[title]</A> <I>[state]</I>
+     <img   align="right" width="30" id="ic[id]" [IFNOT canedit]class="aiconnoh"[ENDIF canedit][IF canedit]class="aicon" title="[TEXT:toedit]" onclick="document.noselect=true;vselect(this.parentNode);subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo','[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&id=[id]');"[ENDIF canedit]  src="[iconsrc]"><img  align="right" title="[emblemt]" src="[emblem]" width="[emblemw]"><A class="title" id="t[id]">[title]</A> <I>[state]</I>
 [ABSTRACTVALUES]
 </div>
+
+
                     [ENDBLOCK TABLEBODY]
 <BR>
 <!-- /TABLEBODY -->
 </td>
 </tr>
 </table>
-
 <table class="transparent" cellspacing="0" width="100%"><tr>
 <td align="left"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&onglet=[onglet]&famid=[famid][pds]">[previcon]</a></td>
 <td align="right"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]&onglet=[onglet]&famid=[famid][pds]">[nexticon]</a></td>

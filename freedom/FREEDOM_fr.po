@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-01 09:49+0000\n"
-"PO-Revision-Date: 2004-12-01 10:50+0100\n"
+"POT-Creation-Date: 2005-01-14 19:01+0100\n"
+"PO-Revision-Date: 2005-01-14 19:01+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -422,6 +422,107 @@ msgstr "envoi de %s à %s"
 msgid "%s cannot be sent"
 msgstr "%s n'a pas pu être envoyé"
 
+msgid "no file referenced"
+msgstr "pas de fichier référencé"
+
+#, c-format
+msgid "%s has be sended"
+msgstr "%s a été envoyé"
+
+msgid "file must be controlled : read permission needed"
+msgstr "la fichier doit être controllé : permission de lire refusé"
+
+msgid "workflow_init :: id is empty"
+msgstr "workflow_init :: id est vide"
+
+#, c-format
+msgid "workflow_init :: id %s is not a workflow"
+msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
+
+#, c-format
+msgid "workflow_init :: workflow id %s not found"
+msgstr "workflow_init :: cycle id %s pas trouvé"
+
+#, c-format
+msgid "file for %s not found."
+msgstr "fichier pour %s non trouvé"
+
+#, c-format
+msgid "you cannot create this kind [%s] of document"
+msgstr "vous n'avez pas la permission de créer ce type [%s] de document"
+
+#, c-format
+msgid "you cannot create this kind [%s] of folder"
+msgstr "vous n'avez pas la permission de créer ce type [%s] de dossier"
+
+msgid "to be add"
+msgstr "à ajouter"
+
+msgid "not added"
+msgstr "pas ajouté"
+
+msgid "added"
+msgstr "ajouté"
+
+msgid "click to change option"
+msgstr "Cliquez pour changer les options"
+
+#, c-format
+msgid "root for %s"
+msgstr "racine pour %s"
+
+msgid "default folder"
+msgstr "dossier par défaut"
+
+msgid "folder"
+msgstr "dossier"
+
+msgid "search"
+msgstr "recherche"
+
+msgid "no zone specified"
+msgstr "pas de zone spécifiée"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform"
+msgstr "La description de la fonction externe '%s' est incorrecte"
+
+#, c-format
+msgid "modoption: document [%d] is not alive"
+msgstr "modoption: document [%d] n'est pas en vie"
+
+#, c-format
+msgid "reference must be a number not '%s'"
+msgstr "la référence '%s' doit être un nombre"
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr "La méthode '%s' n'existe pas pour ce document"
+
+#, c-format
+msgid "%s has been locked"
+msgstr "%s a été verrouillé"
+
+#, c-format
+msgid "%s has been unlocked"
+msgstr "%s a été déverrouillé"
+
+#, c-format
+msgid "geometry saved : %s"
+msgstr "disposition sauvée : %s"
+
 msgid "no import file specified"
 msgstr "pas de fichier d'import spécifié"
 
@@ -488,6 +589,10 @@ msgid "change special use to '%s'"
 msgstr "affecte l'utilisation spéciale à '%s'"
 
 #, c-format
+msgid "change application tag to '%s'"
+msgstr "change la balise applicative  à '%s'"
+
+#, c-format
 msgid "change default creation profile id  to '%s'"
 msgstr "changer de profil de création par défaut à '%s'"
 
@@ -498,6 +603,10 @@ msgstr "changer de profil à '%s'"
 #, c-format
 msgid "add default value %s %s"
 msgstr "ajout valeurs par défaut pour %s à %s"
+
+#, c-format
+msgid "copy attribute %s from %s"
+msgstr "copie attribut %s à partir de  %s"
 
 #, c-format
 msgid "update %s attribute"
@@ -514,9 +623,6 @@ msgstr "changer de profil %s"
 #, c-format
 msgid "update id [%d] "
 msgstr "mise à jour id [%d] "
-
-msgid "added"
-msgstr "ajouté"
 
 #, c-format
 msgid "add %s id [%d]  "
@@ -558,104 +664,6 @@ msgstr "mise à jour par import"
 #, c-format
 msgid "and add in %s folder "
 msgstr "et ajout dans dossier %s"
-
-#, c-format
-msgid "root for %s"
-msgstr "racine pour %s"
-
-msgid "default folder"
-msgstr "dossier par défaut"
-
-msgid "folder"
-msgstr "dossier"
-
-msgid "search"
-msgstr "recherche"
-
-msgid "no file referenced"
-msgstr "pas de fichier référencé"
-
-#, c-format
-msgid "%s has be sended"
-msgstr "%s a été envoyé"
-
-msgid "file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
-
-msgid "workflow_init :: id is empty"
-msgstr "workflow_init :: id est vide"
-
-#, c-format
-msgid "workflow_init :: id %s is not a workflow"
-msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
-
-#, c-format
-msgid "workflow_init :: workflow id %s not found"
-msgstr "workflow_init :: cycle id %s pas trouvé"
-
-#, c-format
-msgid "file for %s not found."
-msgstr "fichier pour %s non trouvé"
-
-#, c-format
-msgid "you cannot create this kind [%s] of document"
-msgstr "vous n'avez pas la permission de créer ce type [%s] de document"
-
-#, c-format
-msgid "you cannot create this kind [%s] of folder"
-msgstr "vous n'avez pas la permission de créer ce type [%s] de dossier"
-
-msgid "to be add"
-msgstr "à ajouter"
-
-msgid "not added"
-msgstr "pas ajouté"
-
-msgid "click to change option"
-msgstr "Cliquez pour changer les options"
-
-msgid "no zone specified"
-msgstr "pas de zone spécifiée"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform"
-msgstr "La description de la fonction externe '%s' est incorrecte"
-
-#, c-format
-msgid "modoption: document [%d] is not alive"
-msgstr "modoption: document [%d] n'est pas en vie"
-
-#, c-format
-msgid "reference must be a number not '%s'"
-msgstr "la référence '%s' doit être un nombre"
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr "La méthode '%s' n'existe pas pour ce document"
-
-#, c-format
-msgid "%s has been locked"
-msgstr "%s a été verrouillé"
-
-#, c-format
-msgid "%s has been unlocked"
-msgstr "%s a été déverrouillé"
-
-#, c-format
-msgid "geometry saved : %s"
-msgstr "disposition sauvée : %s"
 
 msgid "locked document of "
 msgstr "documents verrouillés par "
@@ -1098,6 +1106,9 @@ msgstr "est vide"
 msgid "is not empty"
 msgstr "n'est pas vide"
 
+msgid "one value equal"
+msgstr "une des valeurs égale"
+
 msgid "and"
 msgstr "et"
 
@@ -1106,6 +1117,9 @@ msgstr "ou"
 
 msgid "id owner"
 msgstr "identifiant propriétaire"
+
+msgid "label"
+msgstr "désignation"
 
 msgid "any values"
 msgstr "une des valeurs"
@@ -1159,7 +1173,6 @@ msgstr ""
 msgid "change"
 msgstr "modification"
 
-#, c-format
 msgid "auto revision"
 msgstr "révision automatique"
 
@@ -2067,6 +2080,9 @@ msgstr "Annuler"
 msgid " folder containt"
 msgstr " contenu du dossier"
 
+msgid "toedit"
+msgstr "éditer"
+
 msgid "Generic Management"
 msgstr "Gestion générique"
 
@@ -2563,39 +2579,6 @@ msgstr "Actualiser LDAP"
 msgid "Refresh LDAP may take long time. Sure ?"
 msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
 
-msgid "Details"
-msgstr "Détails"
-
-msgid "Parameters"
-msgstr "Paramètres"
-
-msgid "send search"
-msgstr "Lancer la recherche"
-
-msgid "fieldset"
-msgstr "cadre"
-
-msgid "attrname"
-msgstr "Nom"
-
-msgid "new visibility"
-msgstr "nouvelle visibilité"
-
-msgid "new needed"
-msgstr "Nouvelle obligation"
-
-msgid "default visibility"
-msgstr "visibilité par défaut"
-
-msgid "Search criteria"
-msgstr "Critères de recherche"
-
-msgid "new guide-card"
-msgstr "Nouvel intercalaire"
-
-msgid "new search guide-card"
-msgstr "Nouveau filtre"
-
 msgid "Conditions"
 msgstr "Conditions"
 
@@ -2628,6 +2611,39 @@ msgstr "attributs"
 
 msgid "addstate"
 msgstr "état"
+
+msgid "Details"
+msgstr "Détails"
+
+msgid "Parameters"
+msgstr "Paramètres"
+
+msgid "send search"
+msgstr "Lancer la recherche"
+
+msgid "fieldset"
+msgstr "cadre"
+
+msgid "attrname"
+msgstr "Nom"
+
+msgid "new visibility"
+msgstr "nouvelle visibilité"
+
+msgid "new needed"
+msgstr "Nouvelle obligation"
+
+msgid "default visibility"
+msgstr "visibilité par défaut"
+
+msgid "Search criteria"
+msgstr "Critères de recherche"
+
+msgid "new guide-card"
+msgstr "Nouvel intercalaire"
+
+msgid "new search guide-card"
+msgstr "Nouveau filtre"
 
 msgid "View"
 msgstr "Affichage"
@@ -2802,6 +2818,63 @@ msgstr "révisé par"
 
 msgid "view abstract card"
 msgstr "Carte résumé"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgid "Friday"
+msgstr "Vendredi"
+
+msgid "Saturday"
+msgstr "Samedi"
+
+msgid "Sunday"
+msgstr "Dimanche"
+
+msgid "January"
+msgstr "Janvier"
+
+msgid "February"
+msgstr "Février"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "Avril"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Juin"
+
+msgid "July"
+msgstr "Juillet"
+
+msgid "August"
+msgstr "Août"
+
+msgid "September"
+msgstr "Septembre"
+
+msgid "October"
+msgstr "Octobre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Décembre"
 
 msgid "select"
 msgstr "sélectionner"
@@ -3564,9 +3637,6 @@ msgstr "Voir les propriétés"
 
 #~ msgid "noappli"
 #~ msgstr "Aucune application"
-
-#~ msgid "noembed"
-#~ msgstr "Aucun document attaché"
 
 #~ msgid "basic documentation family"
 #~ msgstr "Famille de base"
