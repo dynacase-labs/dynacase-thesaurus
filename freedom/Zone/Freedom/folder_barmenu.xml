@@ -1,5 +1,3 @@
-
-
 <!-- ------------------ BAR MENU ------------------ -->
 <div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;z-index:6;" >
 <table  class="tablesimple"  cols="4"  cellspacing="0"  >

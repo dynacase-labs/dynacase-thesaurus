@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.159 2003/10/13 16:10:31 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.160 2003/10/16 09:38:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.159 2003/10/13 16:10:31 eric Exp $
+// $Id: Class.Doc.php,v 1.160 2003/10/16 09:38:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.159 2003/10/13 16:10:31 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.160 2003/10/16 09:38:02 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1768,7 +1768,7 @@ create unique index i_docir on doc(initid, revision);";
     
     $aformat=$oattr->format;
     $atype=$oattr->type;
-    if (($oattr->repeat)&&(!$oattr->inArray())) {
+    if (($oattr->repeat)&&((!$oattr->inArray()))||($index==-1)) {
       $tvalues = explode("\n",$value);
     } else {
       $tvalues[$index]=$value;

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_list.php,v 1.13 2003/10/16 09:38:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_list.php,v 1.13 2003/10/16 09:38:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -53,6 +53,10 @@ function generic_list(&$action) {
   $wonglet=GetHttpVars("onglet","Y")=="Y"; // if you want onglet
   $famid=GetHttpVars("famid"); // family restriction
 
+  if (!($famid > 0)) $famid = getDefFam($action);
+
+  $column=generic_viewmode($action,$famid); // choose the good view mode
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $dir = new Doc($dbaccess,$dirid);
@@ -69,7 +73,6 @@ function generic_list(&$action) {
   $action->lay->Set("previcon",""); 
 
 
-  if (!($famid > 0)) $famid = getDefFam($action);
 
   $aorder = getDefUSort($action);
   if ($aorder != "title") { // test if attribute order exist
@@ -77,7 +80,7 @@ function generic_list(&$action) {
     if ($aorder[0]=="-") $aorder=substr($aorder,1);
     if (in_array($aorder,$ndoc->fields))    setHttpVar("sqlorder",getDefUSqlSort($action) );
   }
-  if (viewfolder($action, true, false,$slice,array(),$famid) == $slice) {
+  if (viewfolder($action, true, false,$column,$slice,array(),$famid) == $slice) {
     // can see next
     $action->lay->Set("nexticon",$action->GetIcon("next.png",N_("next"))); 
   }
@@ -118,5 +121,53 @@ function generic_list(&$action) {
   }
   
   $action->lay->Set("onglet", $wonglet?"Y":"N");
+}
+
+
+
+function generic_viewmode(&$action,$famid) {
+    $prefview = getHttpVars("gview");
+
+  $tmode= explode(",",$action->getParam("GENE_VIEWMODE"));
+
+  // explode parameters
+  while (list($k,$v) = each($tmode)) {
+    list($fid,$vmode)=explode("|",$v);
+    $tview[$fid]=$vmode;
+  }
+  switch ($prefview) {
+  case "column":  
+  case "abstract":
+    $tview[$famid]=$prefview;
+    // implode parameters to change user preferences
+    $tmode=array();
+    while (list($k,$v) = each($tview)) {
+      if ($k>0) $tmode[]="$k|$v";
+    }
+    $pmode=implode(",",$tmode);
+    $action->parent->param->Set("GENE_VIEWMODE",$pmode,PARAM_USER.$action->user->id,$action->parent->id);
+
+    break;
+    
+  }
+
+  switch ($tview[$famid]) {
+  case "column":
+    $action->layout = $action->GetLayoutFile("generic_listv.xml");
+    $action->lay = new Layout($action->layout,$action);
+    $column=true;
+    break;
+  
+  case "abstract":
+
+  default:
+    $action->layout = $action->GetLayoutFile("generic_list.xml");
+    $action->lay = new Layout($action->layout,$action);
+    $column=false;
+ 
+    break;
+    
+  }
+  return $column;
 }
 ?>

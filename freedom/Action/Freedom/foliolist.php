@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: foliolist.php,v 1.6 2003/10/09 12:08:42 eric Exp $
+ * @version $Id: foliolist.php,v 1.7 2003/10/16 09:38:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: foliolist.php,v 1.6 2003/10/09 12:08:42 eric Exp $
+// $Id: foliolist.php,v 1.7 2003/10/16 09:38:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliolist.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,7 +67,7 @@ function foliolist(&$action) {
   
 
   $action->parent->SetVolatileParam("FREEDOM_VIEW", "icon");
-  viewfolder($action, false,true,
+  viewfolder($action, false,true,false,
 	     100,$filter);
   
 

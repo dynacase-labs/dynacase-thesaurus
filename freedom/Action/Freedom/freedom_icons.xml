@@ -25,9 +25,8 @@
  </head>
 
 <body class="freedom" topmargin=1 leftmargin=1
-      onLoad="initmicon();placeicons();" 
-      onResize="placeicons()"
-      onClick="closeMenu('popuplist');" >
+      onload="initmicon();"       
+      onclick="closeMenu('popuplist');" >
 
 
 
@@ -36,10 +35,10 @@
 
 [ZONE FREEDOM:FOLDER_BARMENU?title=[dirtitle]&nbdoc=[nbdoc]&dirid=[dirid]]
 [ZONE FREEDOM:POPUP]
-
+<BR>
 <!-- TABLEBODY -->
                              [BLOCK TABLEBODY]
-<div class="icon" id="d[divid]" >
+<div class="icon" id="d[divid]"  >
 <IMG class="unselect" id="i[divid]" title="[title]"
      onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 

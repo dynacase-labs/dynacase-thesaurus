@@ -81,21 +81,32 @@ var catgid=[catg];
 
                     [BLOCK TABLEBODY]
 
+<table class="tableborder" cellspacing="0" style="margin-top:5pt" width="100%" >
+
+<tr><th><IMG class="iconimg"   align="absmiddle"  src="[iconsrc]"><B>[ftitle]</B></th>
+[BLOCK [blockattr]]
+<th>[aname]</th>
+[ENDBLOCK [blockattr]]</tr>
+[BLOCK [blockvalue]]
+<tr  id="d[divid]"
+     class="unselect" 
+     onmouseover="if (this.className != 'select') this.className='unselecth'"
+     onmouseout="if (this.className != 'select') this.className='unselect'" 
+     onclick="if (document.noselect) document.noselect=false; else {select(this,[id],[divid]);;subwindow(300,400,'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&props=N&id=[id]');}" 
+     >   
+ <td class="tlist">
+<IMG style="display:none" id="i[divid]"      src="[iconsrc]">[title]</td>
+       
+<td class="tlist">[values]</td>
+        
+
+</tr>
+[ENDBLOCK [blockvalue]]
 
 
-<!-- TABLEBODY -->
-<div  id="d[id]"
-      style="width:[ACARD_WIDTH];float:left"
-        onmouseover="if (this.className != 'select') this.className='unselecth'"
-        onmouseout="if (this.className != 'select') this.className='unselect'" 
-        onclick="if (document.noselect) document.noselect=false; else {vselect(this);subwindow(300,400,'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&latest=Y&id=[id]');}" 
-     class="unselect" >   
-     <img align="right" width="30" src="[iconsrc]">
-     <A class="title" id="t[id]">[title]</A> <I>[state]</I>
-   
-[ABSTRACTVALUES]
 
-</div>
+</table>
+
                     [ENDBLOCK TABLEBODY]
 
 <!-- /TABLEBODY -->

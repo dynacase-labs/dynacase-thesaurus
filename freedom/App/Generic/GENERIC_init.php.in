@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC_init.php.in,v 1.4 2003/01/21 15:43:35 eric Exp $
+// $Id: GENERIC_init.php.in,v 1.5 2003/10/16 09:38:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -31,7 +31,27 @@ $app_const= array(
 			     "descr"=>N_("default document family")),
   "CARD_SLICE_LIST" => array("val"=>"8",
 			     "descr"=>N_("number of card by page"),
-			     "user"=>"Y")
+			     "user"=>"Y"),
+  "ACARD_WIDTH" => array("val"=>"350px",
+			 "descr"=>N_("width of the abstract card"),
+			 "global"=>"Y",
+			 "user"=>"Y"),
+  "GENEA_WIDTH" => array("val"=>"420px",
+			 "descr"=>N_("width of the frame for abstract card"),
+			 "global"=>"Y",
+			 "user"=>"Y"),
+  "GENEA_HEIGHT" => array("val"=>"200px",
+			 "descr"=>N_("height of the frame for abstract card"),
+			 "global"=>"Y",
+			 "user"=>"Y"),
+  "GENE_VIEWMODE" => array("val"=>"",
+			 "descr"=>N_("differents view mode by family"),
+			 "global"=>"Y",
+			 "user"=>"Y"),
+  "GENE_SPLITMODE" => array("val"=>"",
+			 "descr"=>N_("split view mode by family"),
+			 "global"=>"Y",
+			 "user"=>"Y")
 );
 
 ?>

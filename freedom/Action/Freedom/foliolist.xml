@@ -25,8 +25,7 @@
  </head>
 
 <body class="freedom" 
-      onLoad="initmicon();placeicons(50);" 
-      onResize="placeicons(50)"
+      onLoad="initmicon()" 
       onclick="closeAllMenu();"
       onContextMenu="openMenu(event,'popupfolio',1);return false" 
        >

@@ -1,4 +1,48 @@
+<script language="JavaScript">
+  <!--
+var isNetscape = navigator.appName=="Netscape";
 
+function invertSplit(ev,sendmod) {
+  var w=parent.document.getElementById('fgtop');
+
+  var cols=w.cols;
+  var rows=w.rows;
+  var split;
+
+  if (cols=='') {
+    cols='[GENEA_WIDTH],*';
+    rows='';
+    split='V';
+  } else {
+    cols='';
+    rows='[GENEA_HEIGHT],*';
+    split='H';
+    
+  }
+  
+
+  w.cols=cols;
+  w.rows=rows;
+  if (isNetscape) {// for mozilla send handler to recalculate geometry
+      window.resizeBy(0,-1);
+      window.resizeBy(0,1);
+  }
+  if (sendmod) {
+    hw=window.open('','fhidden','');
+    hw.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_MEMOSPLIT&famid=[famid]&split='+split;
+  }
+}
+
+function testSplit(event) {
+  var w=parent.document.getElementById('fgtop');
+  var splitmode='[splitmode]';
+  if (((w.cols=='') && (splitmode=='V')) || 
+      ((w.rows=='') && (splitmode=='H')) )  invertSplit(event,false);
+}
+
+testSplit();
+  -->
+   </script>
 
 <!-- ------------------ BAR MENU ------------------ -->
 <div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;" >
@@ -106,6 +150,9 @@ function SendSearch(e) {
 <div  id="helpmenu" class="popup">
   <a id="help" target="helpwhat" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
 <a  id="imvcard" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
+<a  id="aview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=abstract&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Abstract card]</a>
+<a  id="cview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=column&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Column mode]</a>
+<a  id="isplit" href="#" onClick="invertSplit(event,true);closeAllMenu();return false">[TEXT:Invert split]</a>
 <a  id="folders" href="#" onClick="subwindowm(300,400,'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]');closeAllMenu()">[TEXT:Freedom]</a>
 </div>
 

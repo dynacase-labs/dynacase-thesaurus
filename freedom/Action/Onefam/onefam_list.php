@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_list.php,v 1.6 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: onefam_list.php,v 1.7 2003/10/16 09:38:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: onefam_list.php,v 1.6 2003/08/18 15:47:03 eric Exp $
+// $Id: onefam_list.php,v 1.7 2003/10/16 09:38:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,7 +56,7 @@ function onefam_list(&$action)
       if ($cdoc->dfldid > 0) {
 
 	$selectclass[$k]["idcdoc"]=$cdoc->initid;
-	$selectclass[$k]["classname"]=$cdoc->title;
+	$selectclass[$k]["ftitle"]=$cdoc->title;
 	$selectclass[$k]["iconsrc"]=$cdoc->getIcon();
       
       }

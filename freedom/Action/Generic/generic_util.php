@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_util.php,v 1.13 2003/10/16 09:38:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_util.php,v 1.13 2003/10/16 09:38:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -72,6 +72,19 @@ function getDefUSort(&$action) {
   }
   return "title";
 }
+// return attribute split mode
+function getSplitMode(&$action,$famid="") {
+  if ($famid=="") $famid=getDefFam($action);
+  $tmode= explode(",",$action->getParam("GENE_SPLITMODE"));
+
+  // explode parameters
+  while (list($k,$v) = each($tmode)) {
+    list($fid,$vmode)=explode("|",$v);
+    if ($fid == $famid) return $vmode;
+  }
+  return "V";
+}
+
 function getDefUSqlSort(&$action) {
   $famid=getDefFam($action);
   $pu = $action->GetParam("GENERIC_USORT");

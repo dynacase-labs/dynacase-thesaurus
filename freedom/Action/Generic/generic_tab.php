@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_tab.php,v 1.13 2003/10/16 09:38:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.12 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_tab.php,v 1.13 2003/10/16 09:38:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -104,7 +104,7 @@ function generic_tab(&$action) {
 
 
   $sqlfilter[]= "locked != -1";
-   $sqlfilter[]= "doctype!='C'";
+  $sqlfilter[]= "doctype!='C'";
   $sqlfilter[] = "usefor = 'N'";
 
   if ($tabletter[$tab]!="") $sqlfilter[]="title ~* '^[".$tabletter[$tab]."].*'";
@@ -120,6 +120,10 @@ function generic_tab(&$action) {
   setHttpVar("tab", $tab);
   setHttpVar("dirid",$sdoc->id );
   setHttpVar("catg",$dirid );
+  setHttpVar("target","finfo" );
+
+
+
 
   generic_list($action);
   //  redirect($action,GetHttpVars("app"),"GENERIC_LIST&tab=$tab&dirid=".$sdoc->id."&catg=$dirid");

@@ -11,7 +11,7 @@
 <frameset name="ffolio" frameborder="0" framespacing="0" border="0" rows="40pt,*" >
 
   <frame name="ffoliotab" src="[CORE_STANDURL]&app=FREEDOM&action=FOLIOTAB&id=[docid]" marginheight="1" marginwidth="2" style="border-style:none">
-  <frameset  name="ffoliocontent" frameborder="yes" border=3  framespacing="3" cols="150pt,*" 
+  <frameset  name="ffoliocontent" frameborder="yes" border=3  framespacing="3" cols="180pt,*" 
             scrolling="no" frameborder="no" >
      <frame id="ffoliolist" name="ffoliolist"  src="[CORE_STANDURL]&app=FREEDOM&action=FOLIOLIST&dirid=[dirid]" scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
 

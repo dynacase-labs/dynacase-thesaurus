@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewfolder.php,v 1.45 2003/09/22 13:03:18 eric Exp $
+ * @version $Id: viewfolder.php,v 1.46 2003/10/16 09:38:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.45 2003/09/22 13:03:18 eric Exp $
+// $Id: viewfolder.php,v 1.46 2003/10/16 09:38:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,6 +44,7 @@ include_once("FDL/Class.QueryDir.php");
 // -----------------------------------
 // -----------------------------------
 function viewfolder(&$action, $with_abstract=false, $with_popup=true,
+		    $column=false,
 		    $slice="1000",  // view all document (not slice by slice)
 		    $sqlfilters=array(),// more filters to see specials doc
 		    $famid="")       // folder containt special fam id 
@@ -55,10 +56,12 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $dirid=GetHttpVars("dirid"); // directory to see
   $refresh=GetHttpVars("refresh","no"); // force folder refresh
   $startpage=GetHttpVars("page","0"); // page number
+  $target=GetHttpVars("target","fdoc"); // target for hyperlinks
   $sqlorder=GetHttpVars("sqlorder","title"); // order sort attribute
 
 
-  $column = ($with_popup && ($action->getParam("FREEDOM_VIEW")=="column"));
+  // $column = ($with_popup && ($action->getParam("FREEDOM_VIEW")=="column"));
+  
   // Set the globals elements
 
 
@@ -248,6 +251,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  // search abstract attribute for freedom item
 	  $doc->ApplyMask(); // apply mask attribute
 	  $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");
+	  $tdoc[$k]["LOrR"]=($k%2==0)?"left":"right";
 	}
 	
 	  // ----------------------------------------------------------
@@ -286,7 +290,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  $tvalues=array();
 	  while (list($ka,$attr) = each($lattr))  {	
 	    //$tvalues[]=$doc->getValue($attr->id,"-");
-	      $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),"fdoc");
+	      $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target);
 	  }
 	  $tdoc[$k]["values"]=implode('</td><td class="tlist">',$tvalues);
 	}
@@ -310,6 +314,9 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
     // display popup js
     popupGen($kdiv-1);
   
+  }
+
+  if ($with_popup || $column) {
     // js : manage icons
     $licon = new Layout($action->Getparam("CORE_PUBDIR")."/FDL/Layout/manageicon.js", $action);
     $licon->Set("nbdiv",$kdiv-1);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_column.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_column.php,v 1.4 2003/10/16 09:38:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_column.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_column.php,v 1.4 2003/10/16 09:38:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_column.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,7 +47,7 @@ function freedom_column(&$action) {
 
 
   $action->parent->param->Set("FREEDOM_VIEW","column",PARAM_USER.$action->user->id,$action->parent->id);
-  viewfolder($action, false);
+  viewfolder($action, false,true,true);
   
 
 

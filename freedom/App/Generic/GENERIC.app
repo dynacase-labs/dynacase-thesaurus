@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.14 2003/07/03 10:41:07 eric Exp $
+// $Id: GENERIC.app,v 1.15 2003/10/16 09:38:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,6 +53,11 @@ $action_desc = array (
    "short_name"		=>N_("generic home page"),
    "acl"		=>"GENERIC_READ",
    "root"		=>"Y"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_ROOTV",
+   "short_name"		=>N_("generic vertical home page"),
+   "acl"		=>"GENERIC_READ"
   ) ,
   array( 
    "name"		=>"GENERIC_EDIT",
@@ -146,6 +151,14 @@ $action_desc = array (
    "layout"		=>"generic_list.xml"
   ) ,
   array( 
+   "name"		=>"GENERIC_TABV",
+   "short_name"		=>N_("view a part of list"),
+   "acl"		=>"GENERIC_READ",
+   "script"		=>"generic_tab.php",
+   "function"		=>"generic_tabv",
+   "layout"		=>"generic_listv.xml"
+  ) ,
+  array( 
    "name"		=>"GENERIC_IMPORTCSV",
    "short_name"		=>N_("import csv"),
    "layout"		=>"generic_import.xml",
@@ -164,6 +177,11 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_INIT",
    "short_name"		=>N_("initialisation"),
+   "acl"		=>"GENERIC"
+  )  ,
+  array( 
+   "name"		=>"GENERIC_MEMOSPLIT",
+   "short_name"		=>N_("memorisation of split mode"),
    "acl"		=>"GENERIC"
   ) 
                       );

@@ -132,16 +132,16 @@ function setone() {
   if (target == 'folio1') {
     w.rows='';
     w.cols='0pt,*';
-    if (isNetscape) {
-      w.rows='';// for mozilla need to set twice
-      w.cols='0pt,*';
+    if (isNetscape) {// for mozilla send handler to recalculate geometry
+      window.resizeBy(0,-1);
+      window.resizeBy(0,1);
     }
   } else {
     w.rows='';
     w.cols='*,0pt';
-    if (isNetscape) {
-      w.rows='';// for mozilla need to set twice
-      w.cols='*,0pt';
+    if (isNetscape) {// for mozilla send handler to recalculate geometry
+    window.resizeBy(0,-1);
+    window.resizeBy(0,1);
     }
   }
   
@@ -151,21 +151,24 @@ function settwo() {
 
   w.rows='';
   w.cols='50%,50%';
-  if (isNetscape) {
-    w.rows=''; // for mozilla need to set twice
-    w.cols='50%,50%';
+  if (isNetscape) { // for mozilla send handler to recalculate geometry
+    window.resizeBy(0,-1);
+    window.resizeBy(0,1);
   }
 }
+
 function setthree() {
   var w=top.document.getElementById('ffolios'); 
 
   w.cols=''; 
   w.rows='50%,50%';
-  if (isNetscape) {
-    w.cols='';     // for mozilla need to set twice
-    w.rows='50%,50%';
+  if (isNetscape) { // for mozilla send handler to recalculate geometry
+    window.resizeBy(0,-1);
+    window.resizeBy(0,1);
+   
   }
 }
+
 var styleongletsel='ongletvs';
 var styleonglet='ongletvg';
 if (! isNetscape) {

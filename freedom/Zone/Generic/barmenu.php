@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.16 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: barmenu.php,v 1.17 2003/10/16 09:38:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.16 2003/08/18 15:47:04 eric Exp $
+// $Id: barmenu.php,v 1.17 2003/10/16 09:38:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -68,6 +68,7 @@ function barmenu(&$action) {
   $action->lay->Set("ftitle", $fdoc->title);
 
   $action->lay->Set("famid", $famid);
+  $action->lay->Set("splitmode", getSplitMode($action,$famid));
 
 
   include_once("FDL/popup_util.php");
@@ -114,7 +115,7 @@ function barmenu(&$action) {
 
   popupInit("newmenu",  $tnewmenu   );
 
-  popupInit("helpmenu", array('help','imvcard','folders'));
+  popupInit("helpmenu", array('help','imvcard','folders','isplit','cview','aview'));
 
 
   if ($action->HasPermission("GENERIC"))  {
@@ -134,6 +135,10 @@ function barmenu(&$action) {
     popupInvisible("helpmenu",1,'imvcard'); 
   }
 
+
+  popupActive("helpmenu",1,'isplit'); 
+  popupActive("helpmenu",1,'cview'); 
+  popupActive("helpmenu",1,'aview'); 
 
   popupActive("helpmenu",1,'help');
 
