@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.31 2003/10/09 12:08:43 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.32 2003/10/28 16:30:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.31 2003/10/09 12:08:43 eric Exp $
+// $Id: Class.WDoc.php,v 1.32 2003/10/28 16:30:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.31 2003/10/09 12:08:43 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.32 2003/10/28 16:30:49 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -264,7 +264,10 @@ Class WDoc extends Doc {
 	  $err=""; // it is the return of the report	    
 	  SetHttpVar("redirect_app",""); // override the redirect
 	  SetHttpVar("redirect_act","");
-	} else return ""; //it is not a real error, but don't change state (reported)
+	} else {
+	  if ($addcomment != "") $this->doc->AddComment($addcomment); // add comment now because it will be lost 
+	  return ""; //it is not a real error, but don't change state (reported)
+	}
       }
       if ($err != "") return (sprintf(_("ChangeState :: the method '%s' has the following error %s"), $tr["m1"], $err));
 	
