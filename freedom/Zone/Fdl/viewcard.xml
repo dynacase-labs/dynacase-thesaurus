@@ -7,7 +7,7 @@
 </div>
 <form target="fhidden" style="display:inline" action="[CORE_BASEURL]&app=FDL&action=MVIEW_SAVEGEO" method=post name="savegeo" id="savegeo">
 <input type="hidden" name="geometry" id="geometry" value="">
-<form>
+</form>
 <script language="JavaScript">
 <!-- 
 function centerError() {
