@@ -1,3 +1,20 @@
+
+function setDaysViewed(ndays) {
+  usetparam("WGCAL_U_VIEW", "week", '', '');
+   usetparam("WGCAL_U_DAYSVIEWED", ndays, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
+}
+function setTextView(sh) {
+  usetparam("WGCAL_U_VIEW", "text", '', '');
+  p = '';
+  v = '';
+  if (sh>0) {
+    p = "WGCAL_U_CALCURDATE";
+    v = sh;
+  }
+  usetparam(p, v, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TEXTMONTH');
+}
+
+
 // --------------------------------------------------------
 function Fade(elt, size, css) {
   elt.width += size;  

@@ -7,6 +7,7 @@ function wgcal_textmonth(&$action)
 {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
 
   $dayperline  = 7;
   $line = 5;
@@ -18,6 +19,10 @@ function wgcal_textmonth(&$action)
   $month = strftime("%m", $ctime);
   $year  = strftime("%Y", $ctime);
   $lastday =  WGCalDaysInMonth($ctime);
+  $prevmontht = $firstMonthDay-(24*3600);
+  $prevmonth = strftime("%B", $prevmontht);
+  $nextmontht =  (24*3600)+mktime(0,0,0, $month+1, 1, $year);
+  $nextmonth = strftime("%B", $nextmontht);
 
   // Search all event for this month
   $tress[] = $action->user->fid;
@@ -29,21 +34,27 @@ function wgcal_textmonth(&$action)
 
   $tdays = array();
   foreach ($tevents as $ke => $ve) {
-    $day = strftime("%d",$ve["START"]);
-    if (!is_object($tdays[$day])) {
-      $tdays[$day]->ecount = -1;
-      $tdays[$day]->events = array();
-      $tdays[$day]->hcode  = array();
+    $sday = strftime("%d",$ve["START"]);
+    $eday = strftime("%d",$ve["END"]);
+    if (!is_object($tdays[$sday])) {
+      $tdays[$sday]->ecount = -1;
+      $tdays[$sday]->events = array();
+      $tdays[$sday]->hcode  = array();
     }
-    $tdays[$day]->ecount++;
-    $tdays[$day]->events[$tdays[$day]->ecount] = $ve["ID"];
+    $tdays[$sday]->ecount++;
+    $tdays[$sday]->events[$tdays[$sday]->ecount] = $ve["ID"];
   }
 
 
   $start = false;
   $cday = 1;
   $action->lay->set("month",strftime("%B %Y",$ctime));
-  $action->lay->set("dayperline",$dayperline);
+  $action->lay->set("prevmontht",$prevmontht);
+  $action->lay->set("prevmonth",$prevmonth);
+  $action->lay->set("nextmonth",$nextmonth);
+  $action->lay->set("nextmontht",$nextmontht);
+  $action->lay->set("titlespan",($dayperline-2));
+  $action->lay->set("dayperline",$dayperline-1);
   for ($li=0; $li<$line; $li++) {
     $hday[$li]["line"] = "";
     for ($co=0; $co<=$dayperline-1; $co++) {

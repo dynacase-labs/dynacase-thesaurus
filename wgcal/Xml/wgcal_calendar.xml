@@ -1,5 +1,5 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-</div>
+[ZONE WGCAL:WGCAL_MENU]
 <div id="root">
 <table style="z-index:2000;" width="100%" cellspacing="0" border="0" id="week">
   <tr height="[WGCAL_U_HLINETITLE]px">
