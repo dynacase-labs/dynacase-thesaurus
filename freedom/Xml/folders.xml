@@ -16,6 +16,7 @@
 <html>
 
 <head>
+[JS:REF]
    <script language="JavaScript">
   <!--
 var isNetscape = navigator.appName=="Netscape";
@@ -90,7 +91,6 @@ function initmicon() {
     [JS:CODE]
   //-->
    </script>   
-[JS:REF]
 [CSS:REF]
 <!-- if you want black backgound, remove this style block -->
 <style type="text/css">

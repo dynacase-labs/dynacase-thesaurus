@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.2 2001/12/13 17:45:01 eric Exp $
+// $Id: Class.DocFile.php,v 1.3 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,17 +21,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.DocFile.php,v $
-// Revision 1.2  2001/12/13 17:45:01  eric
-// ajout attribut classname sur les doc
-//
-// Revision 1.1  2001/11/21 08:40:34  eric
-// ajout historique
-//
-// Revision 1.2  2001/11/09 18:54:21  eric
-// et un de plus
-// ---------------------------------------------------------------
-$CLASS_CONTACT_PHP = '$Id: Class.DocFile.php,v 1.2 2001/12/13 17:45:01 eric Exp $';
+
+$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.3 2001/12/18 09:18:10 eric Exp $';
 
 
 include_once("FREEDOM/Class.Doc.php");
@@ -41,8 +32,6 @@ include_once("FREEDOM/Class.Doc.php");
 
 Class DocFile extends Doc
 {
-    // --------------------------------------------------------------------
-  //---------------------- OBJECT CONTROL PERMISSION --------------------
     // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
   
@@ -65,6 +54,7 @@ Class DocFile extends Doc
   var $defClassname='DocFile';
 
   function DocFile($dbaccess='', $id='',$res='',$dbid=0) {
+    // don't use Doc constructor because it could call this constructor => infinitive loop
      DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
   }
 }

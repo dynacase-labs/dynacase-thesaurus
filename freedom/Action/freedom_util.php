@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.5 2001/12/13 17:45:01 eric Exp $
+// $Id: freedom_util.php,v 1.6 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_util.php,v $
+// Revision 1.6  2001/12/18 09:18:10  eric
+// first API with ZONE
+//
 // Revision 1.5  2001/12/13 17:45:01  eric
 // ajout attribut classname sur les doc
 //
@@ -236,7 +239,7 @@ function newDoc($dbaccess, $id='',$res='',$dbid=0) {
   }
 
   //    print("doctype:".$res["doctype"]);
-    
+  $classname="";
   if (($id == '') && ($res == "")) {
     include_once("FREEDOM/Class.DocFile.php");
     return new DocFile($dbaccess);
@@ -268,6 +271,15 @@ function newDoc($dbaccess, $id='',$res='',$dbid=0) {
 
 // create a new document object in type concordance
 function createDoc($dbaccess,$fromid) {
+
+  if ($fromid > 0) {
+    $doc = new Doc($dbaccess, $fromid);
+    $classname = $doc->classname;
+    include_once("FREEDOM/Class.$classname.php");
+      return (new $classname($dbaccess));
+    
+  }
+    return new Doc($dbaccess);
   // search the good class of document
   switch ($fromid) {
   case 2: // directory

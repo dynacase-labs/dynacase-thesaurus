@@ -1,6 +1,6 @@
 
 // famille de base
-BEGIN;0;1
+BEGIN;0	;[famille]	;1;DocFile
 TYPE;C
 
 //  ;idattr	;idframe;label			;T;A;type	;ldapname;ord	;vis	;link	;phpfile	;phpfunc
@@ -11,14 +11,16 @@ ATTR;1		;2	;titre			;Y;N;text	;	;1	;W	;	;		;
 END;0;-1
 
 // famille dossier
-BEGIN;1;2
+BEGIN;1;[famille];2;Dir
 TYPE;C
-ATTR;;2;description;N;Y;text;;;W	;	;		;
+//  ;idattr	;idframe;label			;T;A;type	;ldapname;ord	;vis	;link	;phpfile	;phpfunc
+//----------------------------------------------------------------------------------------------------------------------
+ATTR;10		;2	;description		;N;Y;text	;	;	;W	;	;		;
 1;[titre];famille dossier
 END;1;-1
 
 // creation dossier racine
-BEGIN;2;9
+BEGIN;2;[dossier];9
 TYPE;D
 1;[titre];racine
 END;2;-1
@@ -26,7 +28,7 @@ END;2;-1
 
 // famille recherche
 
-BEGIN;1;5
+BEGIN;1;[famille];5;DocSearch
 TYPE;C
 ATTR;29;;critère;N;N;frame;;;W	;	;		;
 ATTR;20;29;mot-clef;N;Y;text;;;W	;	;		;
@@ -37,17 +39,17 @@ ATTR;23;29;dans le dossier;N;Y;text;;;W	;	;		;
 END;1;9
 
 // famille profile doc
-BEGIN;1;3
+BEGIN;1;[famille];3;DocFile
 TYPE;C
 1;[titre];famille profile de document
 END;1;9
 // famille profile dossier
-BEGIN;1;4
+BEGIN;1;[famille];4;Dir
 TYPE;C
 1;[titre];famille profile de dossier
 END;1;9
 // famille profile recherche
-BEGIN;1;6
+BEGIN;1;[famille];6;DocSearch
 TYPE;C
 1;[titre];famille profile de recheche
 END;1;9
@@ -55,15 +57,15 @@ END;1;9
 // requete famille
 BEGIN;5;[recherche]
 1;[titre];les familles
-END;1;9;select id from doc where doctype='C'
+END;5;9;select id from doc where doctype='C'
 
 // requete profile
 BEGIN;5;[recherche]
 1;[titre];les profils
-END;1;9;select id from doc where useforprof
+END;5;9;select id from doc where useforprof
 
 
 // requete home
 BEGIN;5;[recherche]
 1;[titre];les maisons
-END;1;9;select id from doc where owner < 0
+END;5;9;select id from doc where owner < 0

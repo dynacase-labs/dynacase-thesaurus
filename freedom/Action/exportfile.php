@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfile.php,v 1.5 2001/11/21 14:28:19 eric Exp $
+// $Id: exportfile.php,v 1.6 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/exportfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: exportfile.php,v $
+// Revision 1.6  2001/12/18 09:18:10  eric
+// first API with ZONE
+//
 // Revision 1.5  2001/11/21 14:28:19  eric
 // double click : first file export
 //
@@ -115,7 +118,7 @@ function exportfirstfile(&$action)
 function DownloadVault(&$action, $vaultid, $mimetype="") {
   // --------------------------------------------------------------------
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $vf = new VaultFile($dbaccess, $action->parent->name);
+  $vf = new VaultFile($dbaccess, "FREEDOM");
 
   if ($vf -> Retrieve ($vaultid, $info) != "") {    
       Http_DownloadFile("FREEDOM/Images/doc.gif", "unknow", "image/gif");

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.10 2001/12/08 17:16:30 eric Exp $
+// $Id: FREEDOM.app,v 1.11 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.11  2001/12/18 09:18:10  eric
+// first API with ZONE
+//
 // Revision 1.10  2001/12/08 17:16:30  eric
 // evolution des attributs
 //
@@ -275,8 +278,28 @@ $action_desc = array (
    "acl"		=>"FREEDOM"
   ),
   array(
+   "name"		=>"EDITCARD",
+   "short_name"		=>N_("widget edit card"),
+   "acl"		=>"FREEDOM"
+  ),
+  array(
+   "name"		=>"VIEWCARD",
+   "short_name"		=>N_("widget view card"),
+   "acl"		=>"FREEDOM_READ"
+  ),
+  array(
    "name"		=>"HISTO",
    "short_name"		=>N_("view history revision"),
+   "acl"		=>"FREEDOM_READ"
+  ),
+  array(
+   "name"		=>"GENCSS",
+   "short_name"		=>N_("style sheet"),
+   "acl"		=>"FREEDOM_READ"
+  ),
+  array(
+   "name"		=>"POPUPCARD",
+   "short_name"		=>N_("widget display popup for a description card"),
    "acl"		=>"FREEDOM_READ"
   ),
   array(

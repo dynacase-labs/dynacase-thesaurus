@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.7 2001/12/13 17:45:01 eric Exp $
+// $Id: popup_util.php,v 1.8 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,30 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: popup_util.php,v $
-// Revision 1.7  2001/12/13 17:45:01  eric
-// ajout attribut classname sur les doc
-//
-// Revision 1.6  2001/12/08 17:16:30  eric
-// evolution des attributs
-//
-// Revision 1.5  2001/11/28 13:40:10  eric
-// home directory
-//
-// Revision 1.4  2001/11/27 13:09:08  eric
-// barmenu & modif popup
-//
-// Revision 1.3  2001/11/26 18:01:02  eric
-// new popup & no lock for no revisable document
-//
-// Revision 1.2  2001/11/22 17:49:13  eric
-// search doc
-//
-// Revision 1.1  2001/11/22 10:00:59  eric
-// premier pas vers une API pour les popup
-//
 
-// layout javascript for popup
 
 
 
@@ -120,49 +97,63 @@ function popupInvisible($name,$k, $nameid) {
   }
 function popupGen($kdiv) {  
   global $tmenuaccess;
+  global $menuitems;
   global $tmenus;
   global $action;
+  static $first=1;
+  global $tcmenus; // closeAll menu
 
 
-  $lpopup = new Layout($action->Getparam("CORE_PUBDIR")."/FREEDOM/Layout/popup.js");
+  if ($first) {
+    // static part
+    $action->parent->AddJsRef($action->Getparam("CORE_PUBURL")."/FREEDOM/Layout/popupfunc.js");
 
-  // css pour popup
-  $cssfile=$action->Getparam("CORE_PUBDIR")."/FREEDOM/Layout/popup.css";
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
-
-  if (isset($tmenuaccess)) {
-  reset($tmenuaccess);
-  $kv=0; // index for item
-
-  while (list($name, $v2) = each($tmenuaccess)) {
-    $nbdiv=0;
-    while (list($k, $v) = each($v2)) {
-      
-      uksort($v, 'vcompare');
-      
-      $tma[$kv]["vmenuitems"]="[";
-      while (list($ki, $vi) = each($v)) {
-      if ($ki[0] == 'v') // its a value
-	$tma[$kv]["vmenuitems"] .= "".$vi.",";
-      }
-      // replace last comma by ']'
-      $tma[$kv]["vmenuitems"][strlen($tma[$kv]["vmenuitems"])-1]="]";
-      
-      $tma[$kv]["name"]=$name;
-      $tma[$kv]["divid"]=$v["divid"];
-      $kv++;
-      $nbdiv++;
-    }
-    $tmenus[$name]["nbdiv"]=$nbdiv;
+    // css pour popup
+    $cssfile=$action->Getparam("CORE_PUBDIR")."/FREEDOM/Layout/popup.css";
+    $csslay = new Layout($cssfile,$action);
+    $action->parent->AddCssCode($csslay->gen());
+        $first=0;
   }
+  $lpopup = new Layout($action->Getparam("CORE_PUBDIR")."/FREEDOM/Layout/popup.js");
+  if (isset($tmenuaccess)) {
+    reset($tmenuaccess);
+    $kv=0; // index for item
 
-  $lpopup->SetBlockData("MENUACCESS", $tma);
-  $lpopup->SetBlockData("MENUS", $tmenus);
-  $lpopup->SetBlockData("CMENUS", $tmenus);
+    while (list($name, $v2) = each($tmenuaccess)) {
+      $nbdiv=0;
+      while (list($k, $v) = each($v2)) {
+      
+	uksort($v, 'vcompare');
+      
+	$tma[$kv]["vmenuitems"]="[";
+	while (list($ki, $vi) = each($v)) {
+	  if ($ki[0] == 'v') // its a value
+	    $tma[$kv]["vmenuitems"] .= "".$vi.",";
+	}
+	// replace last comma by ']'
+	$tma[$kv]["vmenuitems"][strlen($tma[$kv]["vmenuitems"])-1]="]";
+      
+	$tma[$kv]["name"]=$name;
+	$tma[$kv]["divid"]=$v["divid"];
+	$kv++;
+	$nbdiv++;
+      }
+      $tmenus[$name]["nbdiv"]=$nbdiv;
+    }
+
+    $lpopup->SetBlockData("MENUACCESS", $tma);
+    $lpopup->SetBlockData("MENUS", $tmenus);
+    if (isset($tcmenus)) $tcmenus=array_merge($tcmenus, $tmenus);
+    else $tcmenus= $tmenus;
+    $lpopup->SetBlockData("CMENUS", $tcmenus);
   }
   $action->parent->AddJsCode( $lpopup->gen());
+
   $tmenus = array(); // re-init (for next time)
-  $tmenusaccess = array(); 
+  $tmenuaccess = array(); 
+  $menuitems = array(); 
+  unset($tmenus);
+  unset($tmenusaccess);
+  unset($tmenuitems);
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.5 2001/12/13 17:45:01 eric Exp $
+// $Id: freedom_import.php,v 1.6 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_import.php,v $
+// Revision 1.6  2001/12/18 09:18:10  eric
+// first API with ZONE
+//
 // Revision 1.5  2001/12/13 17:45:01  eric
 // ajout attribut classname sur les doc
 //
@@ -133,10 +136,16 @@ function add_import_file(&$action, $fimport="") {
       $doc = createDoc($dbaccess, $data[1]);
     $doc->fromid = $data[1];
 
-    if ($data[2] > 0) $doc->id= $data[2]; // static id
+    if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
+    if (isset($data[4]) && ($data[3] != "")) $doc->classname = $data[4]; // new classname for familly
 
     $err = $doc->Add();
 
+    if (($err != "") && ($doc->id > 0)) {
+      //print $doc->id."<BR>";
+      //print '-'.$doc -> Select($doc->id).'-';
+      if ($doc -> Select($doc->id)) $err = "";
+    }
     if ($err != "") $action->exitError($err);
     $bdvalue = new DocValue($dbaccess);
     $bdvalue->docid = $doc->id;
@@ -156,6 +165,7 @@ function add_import_file(&$action, $fimport="") {
       $qf->query="select id from doc where id=".$doc->id;
       $qf->qtype='S'; // single user query
       $err = $qf->Add();
+      if ($err != "") $err = $qf->Modify();
       if ($err != "") $action->exitError($err);
 
       
@@ -193,13 +203,14 @@ function add_import_file(&$action, $fimport="") {
     $oattr->phpfunc = $data[12];
 	  
     $err = $oattr ->Add();
+    if ($err != "") $err = $oattr ->Modify();
     if ($err != "") $action->exitError($err);
     break;
     // -----------------------------------
     case ($data[0] > 0):
       $bdvalue->attrid = $data[0];
     $bdvalue->value = $data[2];
-    $bdvalue ->Add();
+    $bdvalue ->Modify();
     break;
 	  
     }

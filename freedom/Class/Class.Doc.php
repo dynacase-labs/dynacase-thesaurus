@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.16 2001/12/13 17:45:01 eric Exp $
+// $Id: Class.Doc.php,v 1.17 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.16 2001/12/13 17:45:01 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.17 2001/12/18 09:18:10 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -32,7 +32,7 @@ include_once("FREEDOM/freedom_util.php");
 include_once("FREEDOM/Class.DocAttr.php");
 
 
-// define constant for search attributes
+// define constant for search attributes in concordance with the file "init.freedom"
 define ("QA_TITLE", 1);
 define ("QA_KEY",  20);
 define ("QA_LAST", 21);
@@ -48,7 +48,7 @@ define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 Class Doc extends DbObjCtrl
 {
-  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment","cprofid","classname");
+  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment","cprofid","classname","state");
 
   var $id_fields = array ("id");
 
@@ -59,7 +59,7 @@ Class Doc extends DbObjCtrl
   var $fulltextfields = array ("title");
 
   var $sqlcreate = "
-create table doc ( id      int not null,
+create table doc ( id int not null,
                    primary key (id),
                    owner int,
                    title varchar(256),
@@ -75,7 +75,8 @@ create table doc ( id      int not null,
                    revdate int,  
                    comment varchar(1024),
                    cprofid int,
-                   classname varchar(64)
+                   classname varchar(64),
+                   state varchar(64)
                    );
 create sequence seq_id_doc start 1000";
 
@@ -159,16 +160,13 @@ create sequence seq_id_doc start 1000";
     // --------------------------------------------------------------------
     {
       $err="";
-      if (! $this->action->HasPermission("FREEDOM")) {
-	$err = _("Cannot Add : need FREEDOM privilege");
-      } else {
 	// compute new id
-	if ($this->id == "") {
-	  $res = pg_exec($this->dbid, "select nextval ('seq_id_doc')");
-	  $arr = pg_fetch_array ($res, 0);
-	  $this->id = $arr[0];
-	}
-      }
+       if ($this->id == "") {
+ 	  $res = pg_exec($this->dbid, "select nextval ('seq_id_doc')");
+ 	  $arr = pg_fetch_array ($res, 0);
+ 	  $this->id = $arr[0];
+ 	}
+      
 
       // set default values
 
@@ -620,7 +618,7 @@ create sequence seq_id_doc start 1000";
     
 
     $efile=$this->action->GetParam("CORE_BASEURL").
-       "app=".$this->action->parent->name.
+       "app=FREEDOM".
        "&action=EXPORTFILE".
        "&vaultid=".$reg[2]; // upload name
     return $efile;

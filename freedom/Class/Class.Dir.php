@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.4 2001/12/13 17:45:01 eric Exp $
+// $Id: Class.Dir.php,v 1.5 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -20,28 +20,14 @@
 // You should have received a copy of the GNU General Public License along
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
 // ---------------------------------------------------------------
-// $Log: Class.Dir.php,v $
-// Revision 1.4  2001/12/13 17:45:01  eric
-// ajout attribut classname sur les doc
-//
-// Revision 1.3  2001/11/30 15:13:39  eric
-// modif pour Css
-//
-// Revision 1.2  2001/11/28 13:40:10  eric
-// home directory
-//
-// Revision 1.1  2001/11/21 08:40:34  eric
-// ajout historique
-//
-// Revision 1.2  2001/11/09 18:54:21  eric
-// et un de plus
-// ---------------------------------------------------------------
-$CLASS_CONTACT_PHP = '$Id: Class.Dir.php,v 1.4 2001/12/13 17:45:01 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.5 2001/12/18 09:18:10 eric Exp $';
 
 
 include_once("FREEDOM/Class.Doc.php");
 
+include_once("FREEDOM/Class.QueryDir.php");
 
 
 
@@ -95,6 +81,32 @@ Class Dir extends Doc
     return $home;
   }
     
+
+  // add a file in this folder
+  function AddFile($docid, $mode="latest") {
+    
+
+  switch ($mode) {
+  case "static":
+    $query="select id from doc where id=".$docid;
+  break;
+  case "latest":
+    $doc= new Doc($this->dbaccess, $docid);
+    $query="select id from doc where initid=".$doc->initid." order by revision DESC LIMIT 1";
+  break;
+  default:
+    $query="select id from doc where id=".$docid;
+  break;
+  }  
+
+  $qf = new QueryDir($this->dbaccess);
+
+  $qf->dirid=$this->initid; // the reference directory is the initial id
+  $qf->query=$query;
+  $qf->qtype='S'; // single user query
+  $err = $qf->Add();
+  return $err;
+  }
 }
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: changeicon.php,v 1.2 2001/11/21 13:12:55 eric Exp $
+// $Id: changeicon.php,v 1.3 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/changeicon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: changeicon.php,v $
+// Revision 1.3  2001/12/18 09:18:10  eric
+// first API with ZONE
+//
 // Revision 1.2  2001/11/21 13:12:55  eric
 // ajout caractéristique creation profil
 //
@@ -80,7 +83,7 @@ function changeicon(&$action)
       move_uploaded_file($fileinfo['tmp_name'], $destfile);
 
 
-      $vf = new VaultFile($dbaccess, $action->parent->name);
+      $vf = new VaultFile($dbaccess, "FREEDOM");
       $vf -> Store($destfile, true , $vid);
 
 

@@ -123,7 +123,7 @@ function openMenuOrProperties(event,menuid,itemid) {
     if (shiftKey ) {
       openMenu(event,menuid, itemid);
      } else {
-       parent.doc_properties.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&abstract=Y&id='+docid;
+       subwindow(300,400,'doc_properties','[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&abstract=Y&id='+docid);
     }
   }
 

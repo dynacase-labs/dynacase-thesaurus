@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_list.php,v 1.2 2001/11/28 13:40:10 eric Exp $
+// $Id: freedom_list.php,v 1.3 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_list.php,v $
+// Revision 1.3  2001/12/18 09:18:10  eric
+// first API with ZONE
+//
 // Revision 1.2  2001/11/28 13:40:10  eric
 // home directory
 //
@@ -42,7 +45,7 @@ function freedom_list(&$action) {
   // Set the globals elements
 
   $action->Register("freedom_view","list");
-  view_folder($action, false);
+  viewfolder($action, false);
   
 
 

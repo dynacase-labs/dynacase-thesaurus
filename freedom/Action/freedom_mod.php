@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.11 2001/12/13 17:45:01 eric Exp $
+// $Id: freedom_mod.php,v 1.12 2001/12/18 09:18:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,245 +21,39 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: freedom_mod.php,v $
-// Revision 1.11  2001/12/13 17:45:01  eric
-// ajout attribut classname sur les doc
-//
-// Revision 1.10  2001/12/08 17:16:30  eric
-// evolution des attributs
-//
-// Revision 1.9  2001/11/30 15:13:39  eric
-// modif pour Css
-//
-// Revision 1.8  2001/11/22 17:49:13  eric
-// search doc
-//
-// Revision 1.7  2001/11/21 17:03:54  eric
-// modif pour création nouvelle famille
-//
-// Revision 1.6  2001/11/21 13:12:55  eric
-// ajout caractéristique creation profil
-//
-// Revision 1.5  2001/11/21 08:38:58  eric
-// ajout historique + modif sur control object
-//
-// Revision 1.4  2001/11/16 18:04:39  eric
-// modif de fin de semaine
-//
-// Revision 1.3  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.2  2001/11/14 15:31:03  eric
-// optimisation & divers...
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-//
-// ---------------------------------------------------------------
 
-include_once("FREEDOM/Class.Doc.php");
-include_once("FREEDOM/Class.DocAttr.php");
-include_once("FREEDOM/Class.DocValue.php");
-include_once("FREEDOM/Class.FreedomLdap.php");
-include_once("FREEDOM/freedom_util.php");  
-include_once("VAULT/Class.VaultFile.php");
 
+include_once("FREEDOM/modcard.php");
+
+include_once("FREEDOM/Class.Dir.php");
 
 
 // -----------------------------------
 function freedom_mod(&$action) {
   // -----------------------------------
-  global $HTTP_POST_VARS;
-  global $HTTP_POST_FILES;
 
   // Get all the params      
-  $docid=GetHttpVars("id",0); 
   $dirid=GetHttpVars("dirid",0);
-  $classid=GetHttpVars("classid",0);
-
+  $docid=GetHttpVars("id",0); 
+  
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  // search the good class of document
-  $ofreedom = createDoc($dbaccess, $classid);
-
-
-  if ( $docid == "" )
-    {
-      // add new document
-      $ofreedom->revision = "0";
-      $ofreedom->owner = $action->user->id;
-      $ofreedom->locked = $action->user->id; // lock for next modification
-      $ofreedom->fileref = "0";
-      $ofreedom->doctype = 'F';// it is a new  document (not a familly)
-      $ofreedom->cprofid = "0"; // NO CREATION PROFILE ACCESS
-      $ofreedom->useforprof = 'f';
-      $ofreedom->fromid = $classid;
-
-      if ($ofreedom->fromid > 0) {
-	$cdoc = new Doc($dbaccess, $ofreedom->fromid);
-	$ofreedom->profid = $cdoc->cprofid; // inherit from its familly	
-      } else
-	$ofreedom->profid = "0"; // NO PROFILE ACCESS
-
-      $ofreedom-> Add();
-      $docid = $ofreedom-> id;
-      $ofreedom->initid = $docid;// it is initial doc
-
-
-
-    } 
-  else 
-    {
-
-      // initialise object
-      $ofreedom -> Select($docid);
-      
-      // test object permission before modify values (no access control on values yet)
-      $err=$ofreedom-> CanUpdateDoc();
-      if ($err != "")
-	  $action-> ExitError($err);
-      
-    }
-
-
-  // ------------------------------
-  // update POSGRES text values
-  $bdvalue = new DocValue($dbaccess);
-  $bdvalue->docid = $docid;
-  while(list($k,$v) = each($HTTP_POST_VARS) )
-    {
-      //print $k.":".$v."<BR>";
-
-      if (is_int($k)) // freedom attributes are identified by a number
-	{
-	  $oattr=new DocAttr($dbaccess, array($docid,$k));
-	  
-
-	  $bdvalue->attrid = $k;
-	  $bdvalue->value = $v;
-	  $bdvalue ->Modify();
-
-	}      
-    }
-
-
-  // ------------------------------
-  // update POSGRES files values
-  while(list($k,$v) = each($HTTP_POST_FILES) )
-    {
-      if (is_int($k)) // freedom attributes are identified by a number
-	{	  
-	  $oattr=new DocAttr($dbaccess, array($docid,$k));
-	  
-	  $filename=insert_file($dbaccess,$docid,$k);
-
-
-	  
-	  if ($filename != "")
-	    {
-	      $bdvalue->value=$filename;
-	      $bdvalue->attrid = $k;
-	      $bdvalue ->Modify();
-	    
-	      
-	    	  
-	    }
-	}
-    }
-
-
-  
-  // update title     
-  $ofreedom->title =  GetTitle($dbaccess,$docid);
-  // change class document
-  $ofreedom->fromid = $classid; // inherit from
-  if ($ofreedom->fromid == 2) {
-    $ofreedom->doctype='D'; // directory
-
-  }
-  if (($ofreedom->fromid == 3) || 
-      ($ofreedom->fromid == 4) || 
-      ($ofreedom->fromid == 6)) { // profile doc
-    if ($ofreedom->fromid == 4) $ofreedom->doctype='D'; // directory profile
-    if ($ofreedom->fromid == 6) $ofreedom->doctype='S'; // search profile
-    $ofreedom->useforprof = true;
-    //$ofreedom->profid = -1;
-    $err=$ofreedom-> Modify();
-    if ($err != "") $action-> ExitError($err);
-    $ofreedom = new Doc($dbaccess, $docid); // change class object (perhaps)
-    //$ofreedom->SetControl();
-  }
-  $ofreedom->lmodify='Y'; // locally modified
-  $err=$ofreedom-> Modify();
-  if ($err != "")
-	  $action-> ExitError($err);
+  $err = modcard($action, $ndocid); // ndocid change if new doc
+  if ($err != "")  $action-> ExitError($err);
       
   
 
-  if ($dirid > 0) {
-    redirect($action,GetHttpVars("app"),"ADDDIRFILE&dirid=$dirid&mode=latest&docid=$docid");
+  if (($dirid > 0) && ($docid == 0)) {
+    $fld = new Dir($dbaccess, $dirid);
+
+    $doc= new Doc($dbaccess, $ndocid);
     
-  } else {    
-    redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$docid");
-  }
+    $fld->AddFile($doc->id);
+    
+  } 
+  redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=$ndocid");
+  
 }
 
-//------------------------------------------------------------
-/* Userland test for uploaded file. */ 
 
-
-//------------------------------------------------------------
-function insert_file($dbaccess,$docid, $attrid)
-//------------------------------------------------------------
-{
-
-  global $HTTP_POST_FILES;
-
-  $destimgdir="./".GetHttpVars("app")."/Upload/";
-
-  $userfile = $HTTP_POST_FILES[$attrid];
-
-      
-  
-  if ($userfile['tmp_name'] == "none")
-    {
-      // if no file specified, keep current file
-
-      return "";
-    }
-
-  ereg ("(.*)\.(.*)$", $userfile['name'], $reg);
-
-  //  print_r($userfile);
-
-  $ext=$reg[2];
-  
-
-
-
-  if (is_uploaded_file($userfile['tmp_name'])) {
-    // move to add extension
-    $doc= new Doc($dbaccess,$docid);
-    $attr= $doc->GetAttribute( $attrid);
-    //$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
-    
-    $destfile=str_replace(" ","_","/tmp/".$userfile['name']);
-    move_uploaded_file($userfile['tmp_name'], $destfile);
-    global $action;
-    if (isset($vf)) unset($vf);
-    $vf = new VaultFile($dbaccess, $action->parent->name);
-    $vf -> Store($destfile, false , $vid);
-
-    unlink($destfile);
-  } else {
-    $err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
-    $action->ExitError($err);
-  }
-  
-      
-  // return file type and upload file name
-  return $userfile['type']."|".$vid;
-    
-}
 ?>

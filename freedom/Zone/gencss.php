@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.16 2001/12/18 09:18:10 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
+// $Id: gencss.php,v 1.1 2001/12/18 09:18:10 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Attic/gencss.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,12 +23,12 @@
 // ---------------------------------------------------------------
 
 
-
 // -----------------------------------
-// -----------------------------------
-function freedom_card(&$action) {
+function gencss(&$action) {
   // -----------------------------------
-  ;
-}
 
-?>
+  // Set Css
+  $cssfile=$action->GetLayoutFile("freedom.css");
+  $csslay = new Layout($cssfile,$action);
+  $action->parent->AddCssCode($csslay->gen());
+}
