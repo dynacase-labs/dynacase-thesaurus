@@ -25,7 +25,6 @@
     [JS:CODE]
 
 
-
   //-->
    </script>   
 
@@ -45,6 +44,7 @@
 <form  id="fedit"  
        class="fborder" 
        name="modifydoc" 
+      onsubmit="if (parent.flist) this.catgid.value=parent.flist.catgid"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD&id=[id]&dirid=[dirid]&classid=[classid]" >
 
@@ -68,7 +68,8 @@
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td colspan="3" >
- <input type="submit" value=[editaction] onClick="enableall();"> 
+<input type="hidden" name="catgid" >
+ <input type="submit" value=[editaction] onclick="if (!canmodify()) return false;enableall();setTimeout('parent.flist.document.location.reload()',200)"> 
   </td>
   
 </tr>

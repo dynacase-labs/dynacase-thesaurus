@@ -24,8 +24,6 @@
   <!--
     [JS:CODE]
 
-
-
   //-->
    </script>   
 
@@ -42,7 +40,9 @@
 
 
 <!-- Title Table -->
-<form  id="fedit"  class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD&id=[id]&dirid=[dirid]&classid=[idfamuser]" >
+<form  id="fedit"  class="fborder" name="modifydoc" 
+      onsubmit="if (parent.flist) this.catgid.value=parent.flist.catgid"
+      method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD&id=[id]&dirid=[dirid]&classid=[idfamuser]" >
 
 
 
@@ -74,9 +74,10 @@
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td colspan="2" >
- <input type="submit" value=[editaction] onClick="enableall();"> 
+ <input type="submit" value=[editaction] onclick="if (!canmodify()) return false;enableall();setTimeout('parent.flist.document.location.reload()',200)"> 
   </td>
   <td  align="right">
+<input type="hidden" name="catgid" onload="alert(catgid);this.value=catgid">
  <input type="button" value=[TEXT:help] onClick="subwindow(300,400,'helpwhat','[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=USERCARD&sectid=usercard.func.creation');"> 
   </td>
 </tr>
