@@ -48,6 +48,10 @@ if ($query->nb > 0)	{
     
     $msg=PgUpdateFamilly($dbaccess, $v["id"]);
     print $msg;
+    if ($v["usefor"] == "W") { // add special attribute for workflow
+      $wdoc= createDoc($dbaccess,$v["id"]);
+      $wdoc->CreateProfileAttribute();
+    }
     
   }	 
   

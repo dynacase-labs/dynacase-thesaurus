@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.21 2003/02/25 09:55:24 eric Exp $
+// $Id: FREEDOM.app,v 1.22 2003/03/20 10:23:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -203,7 +203,7 @@ $action_desc = array (
   array( 
    "name"		=>"MODDFLD",
    "short_name"		=>N_("change default folder"),
-   "acl"		=>"FREEDOM"
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"EDITWDOC",
@@ -213,7 +213,7 @@ $action_desc = array (
   array( 
    "name"		=>"MODWDOC",
    "short_name"		=>N_("modify associated worflow"),
-   "acl"		=>"FREEDOM"
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"CTRLDOC",
@@ -272,7 +272,7 @@ $action_desc = array (
   array(
    "name"		=>"FREEDOM_DEDIT",
    "short_name"		=>N_("edit default document properties"),
-   "acl"		=>"FREEDOM"
+   "acl"		=>"FREEDOM_MASTER"
   ),
   array( 
    "name"		=>"REVCOMMENT",

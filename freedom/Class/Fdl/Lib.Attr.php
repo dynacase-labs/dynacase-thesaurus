@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.10 2003/03/17 12:04:33 eric Exp $
+// $Id: Lib.Attr.php,v 1.11 2003/03/20 10:23:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,7 +30,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 
 
   
-  if ($tdoc["classname"] == "") { // defualt classname
+  if ($tdoc["classname"] == "") { // default classname
     if ($tdoc["fromid"] == 0)  $tdoc["classname"]="DocFile";
     else    $tdoc["classname"]="Doc".$tdoc["fromid"];
   }
@@ -86,6 +86,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 	break;
       case "F": // frame
 	$tfield[] = array("attrid"=>strtolower($v->id),
+			  "visibility"=>$v->visibility,
 			  "label"=>str_replace("\"","\\\"",$v->labeltext));
 	break;
 	
@@ -151,14 +152,12 @@ function PgUpdateFamilly($dbaccess, $docid) {
     
     // step by step
     $cdoc->Create();
-    // activate trigger by trigger
-    $sqlcmds = explode(";",$cdoc->SqlTrigger());
-    while (list($k,$sqlquery)=each($sqlcmds)) {
-      $msg=$doc->exec_query($sqlquery,1);
-    }
 
   } else {
       
+    $cdoc = createDoc($dbaccess, $docid);
+
+
     $row = $doc->fetch_array(0,PGSQL_ASSOC);
     $relid= $row["relfilenode"]; // pg id of the table
     $sqlquery="select attname FROM pg_attribute where attrelid=$relid;";
@@ -171,8 +170,18 @@ function PgUpdateFamilly($dbaccess, $docid) {
       $pgatt[$row["attname"]]=$row["attname"];
 	
     }
+    // -----------------------------
+    // activate trigger by trigger
 
+    $msg=$doc->exec_query($cdoc->sqltcreate,1);
+    $sqlcmds = explode(";",$cdoc->SqlTrigger());
+    
+    while (list($k,$sqlquery)=each($sqlcmds)) {
+      if ($sqlquery != "") $msg=$doc->exec_query($sqlquery,1);
+    }
       
+    // -----------------------------
+    // add column attribute
     $classname="Doc".$docid;
     include_once("FDLGEN/Class.$classname.php");
     $cdoc = new $classname($dbaccess);
@@ -225,7 +234,10 @@ function refreshPhpPgDoc($dbaccess, $docid) {
     $v=$table1[0];
     createDocFile($dbaccess,$v);
     $msg=PgUpdateFamilly($dbaccess, $v["id"]);
-    print $v["id"].$msg;
+    //------------------------------
+    // see if workflow
+   
+
     AddLogMsg($msg);
   }
   

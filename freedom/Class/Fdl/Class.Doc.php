@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.99 2003/03/17 12:04:33 eric Exp $
+// $Id: Class.Doc.php,v 1.100 2003/03/20 10:23:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.99 2003/03/17 12:04:33 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.100 2003/03/20 10:23:09 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -162,7 +162,7 @@ create unique index i_docir on doc(initid, revision);";
 
       if ($this->revision == 0) {
 	// increment family sequence
-	$res = pg_exec($this->init_dbid(), "select nextval ('seq_doc".$this->fromid."')");
+	$this->nextSequence();
       }
       $this->Select($this->id);
       $this->PostCreated(); 
@@ -251,6 +251,16 @@ create unique index i_docir on doc(initid, revision);";
     $res = pg_exec($this->init_dbid(), "select setval ('seq_doc".$this->fromid."',$cur)");
 
     
+    return $cur;
+  }
+  // set next sequence family
+  function nextSequence($fromid=0) {
+    if ($fromid==0) $fromid=$this->fromid;
+
+    // cannot use currval if nextval is not use before
+    $res = pg_exec($this->init_dbid(), "select nextval ('seq_doc".$fromid."')");   
+    $arr = pg_fetch_array ($res, 0);
+    $cur = intval($arr[0]) ;        
     return $cur;
   }
 
@@ -630,11 +640,15 @@ create unique index i_docir on doc(initid, revision);";
   function ApplyMask() {
     
     
-    // copy defalut visibilities
+    // copy default visibilities
     if (isset($this->attributes->attr)) {
 	reset($this->attributes->attr);
 	while (list($k,$v) = each($this->attributes->attr)) {
-	  $this->attributes->attr[$k]->mvisibility=$v->visibility;
+	  if (isset($v->visibility)) $this->attributes->attr[$k]->mvisibility=$v->visibility;
+
+	  // extand visibility from fieldSet
+	  if ((isset($v->fieldSet))&&($v->fieldSet->visibility == "H")) $this->attributes->attr[$k]->mvisibility="H";
+	  else if (($v->fieldSet->visibility == "R") && ($v->visibility != "H")) $this->attributes->attr[$k]->mvisibility="R";
 	}
     }
 
@@ -1421,16 +1435,16 @@ create unique index i_docir on doc(initid, revision);";
       
     $sql = "";
 
-       
+    // delete all relative triggers
+    $sql .= "select droptrigger('doc".$this->fromid."');";
      
     while(list($k,$v) = each($this->attributes->fromids)) {
 
-      $sql .="drop trigger UV{$this->fromid}_$v ON doc$this->fromid;
-create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE upval$v();  
-      ";
+      $sql .="create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE upval$v();";
+     
     }
-    $sql .="drop trigger UVR{$this->fromid} ON doc$this->fromid;
-     create trigger UVR{$this->fromid} BEFORE  UPDATE  ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE resetvalues();   ";
+    // the reset trigger must begin with 'A' letter to be proceed first (pgsql 7.3.2)
+      $sql .="create trigger AUVR{$this->fromid} BEFORE  UPDATE  ON doc$this->fromid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
     return $sql;
   }
 
@@ -1866,7 +1880,7 @@ $value = $this->GetValue($listattr[$i]->id);
 	  $tableframe=array();
 	  $k++;
 	}
-	$v=1;
+	$v=0;
       }
       
       

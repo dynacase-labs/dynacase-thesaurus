@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.4 2003/02/28 19:39:17 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.5 2003/03/20 10:23:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.4 2003/02/28 19:39:17 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.5 2003/03/20 10:23:09 eric Exp $';
 
 
 
@@ -91,6 +91,13 @@ Class NormalAttribute extends BasicAttribute {
 }
 Class FieldSetAttribute extends BasicAttribute {
 
+  var $visibility; // W, R, H, O, M
+  function FieldSetAttribute($id, $docid, $label, $visibility="" ) {
+    $this->id=$id;
+    $this->docid=$docid;
+    $this->labelText=$label;
+    $this->visibility=$visibility;
+  }
 }
 
 Class MenuAttribute extends BasicAttribute {
