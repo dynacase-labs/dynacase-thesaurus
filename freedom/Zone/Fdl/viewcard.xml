@@ -28,9 +28,9 @@
   <td  width="60%"><span class="FREEDOMText">[username]</span></td>
   </td>
 </tr>
-<tr class="FREEDOMBack1">  
-  <td  width="30%"><span class="FREEDOMText">[TEXT:state]</span></td>
-  <td  width="60%"><span class="FREEDOMText">[state]</span></td>
+<tr class="FREEDOMBack1" >  
+  <td   width="30%"><span style="display:[viewstate]" class="FREEDOMText">[TEXT:state]</span></td>
+  <td   width="60%"><span style="display:[viewstate]" class="FREEDOMText">[state]</span></td>
   </td>
 </tr>
 [ENDBLOCK PROP]
@@ -71,7 +71,7 @@
 
 <tr class="FREEDOMBack1">
 
-  <td  width="10%" rowspan="[rowspan]" align="center"><img src="[IMG:1x1.png]" border="0">[BLOCK [IMAGES]]<A href="[imgsrc]" ><IMG border="0" title="[imgalt]" alt="[imgalt]" align="absbottom" width="50" SRC="[imgsrc]"></A><br>[ENDBLOCK [IMAGES]]</td>
+  <td  width="10%" rowspan="[rowspan]" align="center"><img src="[IMG:1x1.png]" border="0">[BLOCK [IMAGES]]<A href="[imgsrc]" target="_blank"><IMG border="0" title="[imgalt]" alt="[imgalt]" align="absbottom" width="50" SRC="[imgsrc]"></A><br>[ENDBLOCK [IMAGES]]</td>
   <td   colspan="2"><img src="[IMG:1x1.png]" border="0"></td>
 
 </tr>

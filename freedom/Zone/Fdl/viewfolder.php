@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.7 2002/03/28 13:21:47 eric Exp $
+// $Id: viewfolder.php,v 1.8 2002/04/08 07:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -176,6 +176,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	if (strlen($doc->title) > 20)	$tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)."... ".substr($doc->title,-5);
 	else $tdoc[$k]["abrvtitle"] = $doc->title;
 	$tdoc[$k]["profid"] = $doc->profid;
+
       
  
 
@@ -250,8 +251,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 		{
 		  $oattr=$doc->GetAttribute($tablevalue[$i]->attrid);
 
-		  $tableabstract[$nbabs]["name"]=$action->text($oattr->labeltext);
+		   $tdoc[$k][$tablevalue[$i]->attrid]= $lvalue;
 
+		  $tableabstract[$nbabs]["name"]=$action->text($oattr->labeltext);
+		  $tableabstract[$nbabs]["valid"]=$tablevalue[$i]->attrid;
 		  switch ($oattr->type)
 		    {
 	      	    case "image": 

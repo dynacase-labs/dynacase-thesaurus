@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.4 2002/03/15 16:02:53 eric Exp $
+// $Id: viewcard.php,v 1.5 2002/04/08 07:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -115,7 +115,13 @@ function viewcard(&$action) {
   else   $action->lay->Set("cid", $doc->id);
   
 
-  $action->lay->Set("state", $action->text($doc->state));
+  if (count($doc->transitions) > 0) { // see only if it is a transitionnal doc
+    $action->lay->Set("state", $action->text($doc->state));
+    $action->lay->Set("viewstate", "inherit");
+  } else {
+    $action->lay->Set("viewstate", "none");
+  }
+    
 
 
 
@@ -142,7 +148,7 @@ function viewcard(&$action) {
   }
     if ($abstract){
       // only 3 properties for abstract mode
-      $listattr = $doc->GetAbstractAttributes();    
+      $listattr = $doc->GetAbstractAttributes();
       $nprop=4;
     } else {
       $listattr = $doc->GetAttributes();
@@ -173,13 +179,12 @@ function viewcard(&$action) {
   for ($i=0; $i < $nattr + 1; $i++)
     {
 
-
       //------------------------------
       // Compute value elements
       if ($i < $nattr)
 	{
 	  
-	  $value = $doc->GetValue($listattr[$i]->id);
+	  $value = chop($doc->GetValue($listattr[$i]->id));
 	 
 
 	  if ($value != "") // to define when change frame

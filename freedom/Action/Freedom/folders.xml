@@ -65,6 +65,7 @@ var micon;
 var cdocid=0;
 function initDrag() {
 
+  if (! parent.info) return;
   if (parent.info.document.drag == 1) {
     drag=1;
     cdocid = parent.info.document.docid;

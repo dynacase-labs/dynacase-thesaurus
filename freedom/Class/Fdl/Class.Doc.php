@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.12 2002/04/05 08:39:30 eric Exp $
+// $Id: Class.Doc.php,v 1.13 2002/04/08 07:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.12 2002/04/05 08:39:30 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.13 2002/04/08 07:30:37 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -565,6 +565,7 @@ create sequence seq_id_doc start 1000";
     
       $query->AddQuery("type != 'frame'");
       $query->AddQuery("abstract = 'Y'");
+      $query->AddQuery("visibility != 'H'");
       $query->order_by="ordered";
       return $query->Query();      
     }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocValue.php,v 1.2 2002/03/14 14:56:55 eric Exp $
+// $Id: Class.DocValue.php,v 1.3 2002/04/08 07:30:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocValue.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,28 +21,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.DocValue.php,v $
-// Revision 1.2  2002/03/14 14:56:55  eric
-// evolution de incident
-//
-// Revision 1.1  2002/02/13 14:31:58  eric
-// ajout usercard application
-//
-// Revision 1.4  2001/12/13 17:45:01  eric
-// ajout attribut classname sur les doc
-//
-// Revision 1.3  2001/11/15 17:51:50  eric
-// structuration des profils
-//
-// Revision 1.2  2001/11/14 15:31:03  eric
-// optimisation & divers...
-//
-// Revision 1.1  2001/11/09 09:41:14  eric
-// gestion documentaire
-//
-//
-// ---------------------------------------------------------------
-$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.2 2002/03/14 14:56:55 eric Exp $';
+
+$CLASS_CONTACTVALUE_PHP = '$Id: Class.DocValue.php,v 1.3 2002/04/08 07:30:37 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -68,7 +48,8 @@ create table docvalue ( docid  int not null,
                         attrid varchar(20) not null,
                         value  varchar(256),
                         zou varchar(1)
-                   ); ";
+                   ); 
+create unique index idx_docvalue on docvalue (docid, attrid);";
 
   // --------------------------------------------------------------------
   function PreUpdate() {
