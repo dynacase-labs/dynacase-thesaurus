@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocPerm.php,v 1.7 2004/02/09 16:46:14 eric Exp $
+ * @version $Id: Class.DocPerm.php,v 1.8 2004/02/17 11:02:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -12,7 +12,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocPerm.php,v 1.7 2004/02/09 16:46:14 eric Exp $
+// $Id: Class.DocPerm.php,v 1.8 2004/02/17 11:02:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocPerm.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.7 2004/02/09 16:46:14 eric Exp $';
+$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.8 2004/02/17 11:02:14 eric Exp $';
 include_once("Class.DbObj.php");
 
 /**
@@ -61,8 +61,8 @@ Class DocPerm extends DbObj
   var $isCacheble= false;
   var $sqlcreate = "
 create table docperm ( 
-                     docid int,
-                     userid int not null,
+                     docid int check (docid > 0),
+                     userid int check (userid > 1),
                      upacl int  not null,
                      unacl int  not null,
                      cacl int not null
@@ -76,6 +76,10 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
       $this->docid=$tid[0];
       $this->userid=$tid[1];
     }
+  }
+
+  function preInsert() {
+    if ($this->userid==1) return _("not perm for admin");    
   }
 
   function getUperm($docid, $userid) {
