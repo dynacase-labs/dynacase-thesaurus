@@ -196,20 +196,28 @@ function closechoose() {
 
 function canmodify() {
     var err='';
-
-    for (var i=0; i< attrNid.length; i++) {	
-	if (document.getElementById(attrNid[i])) {
-	  if (document.getElementById(attrNid[i]).value == '') {
+    var v;
+    for (var i=0; i< attrNid.length; i++) {
+      e=document.getElementById(attrNid[i]);
+	if (e) {
+	  if (getIValue(document.getElementById(attrNid[i])) == false) {
 	    ta = document.getElementsByName('_'+attrNid[i]+'[]');
-	    if (ta.length == 0)	err += attrNid[i]+'\n';
+	    if (ta.length == 0)	err += ' - '+attrNtitle[i]+'\n';
 	    for (var j=0; j< ta.length; j++) {
-	      if (ta[j].value == '') err += attrNid[i]+'/'+(j+1)+'\n';
+	      v=getIValue(ta[j]);
+	      if ((v == '')||(v == ' ')) err +=  ' - '+attrNtitle[i]+'/'+(j+1)+'\n';
 	    }
+	  } else {
+	    if ((v == '')||(v == ' ')) err +=  ' - '+attrNtitle[i]+'\n';
 	  }
-        }
+        } else {
+	  // search in multiple values
+	  v=getInputValues(attrNid[i]);
+	  if ((v == '')||(v == ' ')) err +=  ' - '+attrNtitle[i]+'\n';
+	}
     }
     if (err != '') {
-	    alert(err+'[TEXT:some needed attributes are empty]');
+	    alert('[TEXT:these needed attributes are empty]\n'+err);
 	    return false;
     }
     return true;
@@ -237,6 +245,25 @@ function getInputValue(id,index) {
   return '';
 }
 
+// return values for input multiples 
+function getInputValues(n) {
+ var v='';
+ var ta = document.getElementsByName('_'+n+'[]');
+ if (ta.length==0) ta = document.getElementsByName('_'+n);
+
+  for (var j=0; j< ta.length; j++) {
+    switch (ta[j].type) {
+    case 'radio':
+      if (ta[j].checked) v=ta[j].value;
+      break;
+    case 'checkbox':
+      if (ta[j].checked) v=ta[j].value;
+      break;
+    }
+
+  }
+  return v;
+}
 function getInputLocked() {
   var tlock=new Array();
   if (tain) {
@@ -284,12 +311,14 @@ function getInputsByName(n) {
 
 function getIValue(i) {
   if (i) {
+    if (i.tagName == "TEXTAREA") return i.value;
     if (i.tagName == "INPUT") return i.value;
     if (i.tagName == "SELECT") {
-      return i.options[i.selectedIndex].value;
+      if (i.selectedIndex >= 0)   return i.options[i.selectedIndex].value;
+      else return '';
     } 
   }
-  return 0;
+  return false;
 }
 function setIValue(i,v) {
   if (i) {

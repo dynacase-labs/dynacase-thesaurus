@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.46 2004/07/08 09:14:10 caroline Exp $
+ * @version $Id: editcard.php,v 1.47 2004/09/14 08:50:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.46 2004/07/08 09:14:10 caroline Exp $
+// $Id: editcard.php,v 1.47 2004/09/14 08:50:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -124,12 +124,16 @@ if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) 
   // compute modify condition js
   $attrn = $doc->GetNeededAttributes();
   
-  if (count($attrn) == 0) $sattrNid = "[]";
-  else {
+  if (count($attrn) == 0) {
+    $sattrNid = "[]";
+    $sattrNtitle = "[]";
+  } else {
     while(list($k,$v) = each($attrn)) {
       $attrNid[]=$v->id;
+      $attrNtitle[]=addslashes($v->labelText);
     }
     $sattrNid = "['".implode("','",$attrNid)."']";
+    $sattrNtitle = "['".implode("','",$attrNtitle)."']";
   }
 
 
@@ -161,6 +165,7 @@ if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) 
   $jsfile=$action->GetLayoutFile("editcard.js");
   $jslay = new Layout($jsfile,$action);
   $jslay->Set("attrnid",$sattrNid);
+  $jslay->Set("attrntitle",$sattrNtitle);
   $jslay->SetBlockData("RATTR",$tjsa);
   $action->parent->AddJsCode($jslay->gen());
 }

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-12 14:48+0000\n"
-"PO-Revision-Date: 2004-08-12 17:16+0200\n"
+"POT-Creation-Date: 2004-09-14 08:41+0000\n"
+"PO-Revision-Date: 2004-09-14 10:43+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -435,75 +435,6 @@ msgstr "envoi de %s à %s"
 msgid "%s cannot be sent"
 msgstr "%s n'a pas pu être envoyé"
 
-msgid "no file referenced"
-msgstr "pas de fichier référencé"
-
-#, c-format
-msgid "%s has be sended"
-msgstr "%s a été envoyé"
-
-msgid "file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
-
-msgid "workflow_init :: id is empty"
-msgstr "workflow_init :: id est vide"
-
-#, c-format
-msgid "workflow_init :: id %s is not a workflow"
-msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
-
-#, c-format
-msgid "workflow_init :: workflow id %s not found"
-msgstr "workflow_init :: cycle id %s pas trouvé"
-
-msgid "to be add"
-msgstr "à ajouter"
-
-msgid "not added"
-msgstr "pas ajouté"
-
-msgid "added"
-msgstr "ajouté"
-
-msgid "no zone specified"
-msgstr "pas de zone spécifiée"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform"
-msgstr "La description de la fonction externe '%s' est incorrecte"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "reference must be a number not '%s'"
-msgstr "la référence '%s' doit être un nombre"
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr "La méthode '%s' n'existe pas pour ce document"
-
-#, c-format
-msgid "%s has been locked"
-msgstr "%s a été verrouillé"
-
-#, c-format
-msgid "%s has been unlocked"
-msgstr "%s a été déverrouillé"
-
-#, c-format
-msgid "geometry saved : %s"
-msgstr "disposition sauvée : %s"
-
 msgid "no import file specified"
 msgstr "pas de fichier d'import spécifié"
 
@@ -590,6 +521,9 @@ msgstr "changer de profil %s"
 msgid "update id [%d] "
 msgstr "mise à jour id [%d] "
 
+msgid "added"
+msgstr "ajouté"
+
 #, c-format
 msgid "add %s id [%d]  "
 msgstr "ajout %s id [%d] "
@@ -631,6 +565,76 @@ msgstr "mise à jour par import"
 msgid "and add in %s folder "
 msgstr "et ajout dans dossier %s"
 
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform"
+msgstr "La description de la fonction externe '%s' est incorrecte"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+msgid "no file referenced"
+msgstr "pas de fichier référencé"
+
+#, c-format
+msgid "%s has be sended"
+msgstr "%s a été envoyé"
+
+msgid "file must be controlled : read permission needed"
+msgstr "la fichier doit être controllé : permission de lire refusé"
+
+msgid "workflow_init :: id is empty"
+msgstr "workflow_init :: id est vide"
+
+#, c-format
+msgid "workflow_init :: id %s is not a workflow"
+msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
+
+#, c-format
+msgid "workflow_init :: workflow id %s not found"
+msgstr "workflow_init :: cycle id %s pas trouvé"
+
+#, c-format
+msgid "file for %s not found."
+msgstr "fichier pour %s non trouvé"
+
+msgid "to be add"
+msgstr "à ajouter"
+
+msgid "not added"
+msgstr "pas ajouté"
+
+msgid "no zone specified"
+msgstr "pas de zone spécifiée"
+
+#, c-format
+msgid "reference must be a number not '%s'"
+msgstr "la référence '%s' doit être un nombre"
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr "La méthode '%s' n'existe pas pour ce document"
+
+#, c-format
+msgid "%s has been locked"
+msgstr "%s a été verrouillé"
+
+#, c-format
+msgid "%s has been unlocked"
+msgstr "%s a été déverrouillé"
+
+#, c-format
+msgid "geometry saved : %s"
+msgstr "disposition sauvée : %s"
+
 msgid "locked document of "
 msgstr "documents verrouillés par "
 
@@ -671,89 +675,6 @@ msgstr ""
 #, c-format
 msgid "Delete %d in %s folder"
 msgstr "Suppression n°%d du dossier %s"
-
-msgid "uncomplete request"
-msgstr "requête incomplète"
-
-msgid "request not found"
-msgstr "requête non trouvée"
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
-
-msgid "no filename"
-msgstr "pas de fichier"
-
-#, c-format
-msgid "parameters for %s state"
-msgstr "paramètres pour l'état %s"
-
-#, c-format
-msgid "id %s profile"
-msgstr "profil id %s "
-
-#, c-format
-msgid "%s profile"
-msgstr "Profil %s"
-
-#, c-format
-msgid "id %s mask"
-msgstr "identificateur du masque %s"
-
-#, c-format
-msgid "%s mask"
-msgstr "masque %s"
-
-#, c-format
-msgid "ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr ""
-"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé"
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr "Changement d'état: l'état initial '%s' est inconnu"
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr "La méthode '%s' n'est pas connu de la classe d'objet %s"
-
-#, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr ""
-"Le changement d'état vers %s a échoué.\n"
-"%s"
-
-#, c-format
-msgid "change state : %s to %s"
-msgstr "changement d'état de %s vers %s"
-
-#, c-format
-msgid "%s new state %s"
-msgstr "%s changement d'état vers %s"
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
-"%s "
-
-#, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "ne peux pas changer l'état du document n°%d vers %s"
-
-#, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr ""
-"changement d'état automatique issu du document %s\n"
-"%s"
 
 #, c-format
 msgid "untitle %s %d"
@@ -831,6 +752,9 @@ msgstr "copie à partir du document n°%d -%s-"
 msgid "vault file error"
 msgstr "erreur fichier Vault"
 
+msgid "no filename"
+msgstr "pas de fichier"
+
 #, c-format
 msgid "cannot control : object not initialized : %s"
 msgstr "contrôle impossible : objet non initialisé : %s"
@@ -842,6 +766,86 @@ msgstr "erreur dans la format pzone %s"
 #, c-format
 msgid "new %s"
 msgstr "nouvelle %s"
+
+msgid "uncomplete request"
+msgstr "requête incomplète"
+
+msgid "request not found"
+msgstr "requête non trouvée"
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
+
+#, c-format
+msgid "parameters for %s state"
+msgstr "paramètres pour l'état %s"
+
+#, c-format
+msgid "id %s profile"
+msgstr "profil id %s "
+
+#, c-format
+msgid "%s profile"
+msgstr "Profil %s"
+
+#, c-format
+msgid "id %s mask"
+msgstr "identificateur du masque %s"
+
+#, c-format
+msgid "%s mask"
+msgstr "masque %s"
+
+#, c-format
+msgid "ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr ""
+"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé"
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr "Changement d'état: l'état initial '%s' est inconnu"
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr "La méthode '%s' n'est pas connu de la classe d'objet %s"
+
+#, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr ""
+"Le changement d'état vers %s a échoué.\n"
+"%s"
+
+#, c-format
+msgid "change state : %s to %s"
+msgstr "changement d'état de %s vers %s"
+
+#, c-format
+msgid "%s new state %s"
+msgstr "%s changement d'état vers %s"
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
+"%s "
+
+#, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "ne peux pas changer l'état du document n°%d vers %s"
+
+#, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr ""
+"changement d'état automatique issu du document %s\n"
+"%s"
 
 msgid "not perm for admin"
 msgstr "pas de permission pour admin"
@@ -1189,20 +1193,18 @@ msgstr "pas d'image"
 msgid "add inputs"
 msgstr "ajouter entrée"
 
-msgid "clear inputs"
-msgstr "effacer entrée(s)"
+#, c-format
+msgid "set for %s, unset for %s"
+msgstr "cocher pour %s, décocher pour %s"
 
 msgid "color picker"
 msgstr "choix de couleur"
 
-msgid "date picker"
-msgstr "choix de date"
-
-msgid "manual date"
-msgstr "Date manuelle"
-
 msgid "choose inputs"
 msgstr "choisir une valeur"
+
+msgid "clear inputs"
+msgstr "effacer entrée(s)"
 
 #, c-format
 msgid "elinkEncode::attribute not found %s"
@@ -1536,6 +1538,9 @@ msgstr "envoyer un document"
 
 msgid "edit mail"
 msgstr "éditer un mail"
+
+msgid "help manual for family"
+msgstr "manuel de description de famille"
 
 msgid "confirm mail sended before change state"
 msgstr "confirmation envoi email avant changement d'état"
@@ -2503,7 +2508,8 @@ msgid "Refresh users characteristics from system"
 msgstr "Raffraichir les caractéristiques des utilisateurs depuis le système"
 
 msgid "Refersh users may take long time. Sure ?"
-msgstr "Raffraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
+msgstr ""
+"Raffraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
 
 msgid "Refresh users"
 msgstr "Actualiser les utilisateurs"
@@ -2685,8 +2691,8 @@ msgstr "Supprimer"
 msgid "enumerate input not found"
 msgstr "entrée énumérée non trouvé"
 
-msgid "some needed attributes are empty"
-msgstr "certains attributs obligatoires sont vides"
+msgid "these needed attributes are empty"
+msgstr "Ces attributs obligatoires sont vides :"
 
 msgid "NOT Clear"
 msgstr "Non effacé"
@@ -2718,6 +2724,9 @@ msgstr "édition par traitement de texte"
 msgid "print"
 msgstr "imprimer"
 
+msgid "family manual"
+msgstr "Manuel de description de famille"
+
 msgid "author"
 msgstr "auteur"
 
@@ -2744,6 +2753,12 @@ msgstr "révisé par"
 
 msgid " date"
 msgstr " date"
+
+msgid "view abstract card"
+msgstr "Carte résumé"
+
+msgid "some needed attributes are empty"
+msgstr "certains attributs obligatoires sont vides"
 
 msgid "select"
 msgstr "sélectionner"
@@ -2787,11 +2802,14 @@ msgstr "commentaire de révision"
 msgid "revision comment for autorevision"
 msgstr " commentaire de révision pour révision automatique"
 
-msgid "view abstract card"
-msgstr "Carte résumé"
+msgid "manual date"
+msgstr "Date manuelle"
 
 msgid "(private)"
 msgstr "(privé)"
+
+msgid "confidentiality"
+msgstr "confidentialité"
 
 msgid "view detail"
 msgstr "voir détails"
@@ -2808,14 +2826,14 @@ msgstr "replier tout"
 msgid "loop detected. You must undo this selection"
 msgstr "Boucle détectée. Vous devez annuler votre sélection"
 
-msgid "confidentiality"
-msgstr "confidentialité"
-
 msgid "Change category"
 msgstr "Changer de catégorie"
 
 msgid "View properties"
 msgstr "Voir les propriétés"
+
+#~ msgid "date picker"
+#~ msgstr "choix de date"
 
 #~ msgid "locked files of "
 #~ msgstr "fichiers verrouillés par "

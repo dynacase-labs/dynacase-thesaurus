@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-12 14:48+0000\n"
+"POT-Creation-Date: 2004-09-14 08:41+0000\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -445,76 +445,6 @@ msgstr ""
 msgid "%s cannot be sent"
 msgstr ""
 
-msgid "no file referenced"
-msgstr ""
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-msgid "workflow_init :: id is empty"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: id %s is not a workflow"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: workflow id %s not found"
-msgstr ""
-
-msgid "to be add"
-msgstr ""
-
-msgid "not added"
-msgstr ""
-
-#, fuzzy
-msgid "added"
-msgstr "Add new contact card"
-
-msgid "no zone specified"
-msgstr ""
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "reference must be a number not '%s'"
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, c-format
-msgid "%s has been unlocked"
-msgstr ""
-
-#, c-format
-msgid "geometry saved : %s"
-msgstr ""
-
 msgid "no import file specified"
 msgstr ""
 
@@ -601,6 +531,10 @@ msgstr "Category"
 msgid "update id [%d] "
 msgstr ""
 
+#, fuzzy
+msgid "added"
+msgstr "Add new contact card"
+
 #, c-format
 msgid "add %s id [%d]  "
 msgstr ""
@@ -644,6 +578,76 @@ msgstr "Update LDAP server"
 msgid "and add in %s folder "
 msgstr ""
 
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+msgid "no file referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+msgid "workflow_init :: id is empty"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: id %s is not a workflow"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: workflow id %s not found"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
+
+msgid "to be add"
+msgstr ""
+
+msgid "not added"
+msgstr ""
+
+msgid "no zone specified"
+msgstr ""
+
+#, c-format
+msgid "reference must be a number not '%s'"
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, c-format
+msgid "%s has been unlocked"
+msgstr ""
+
+#, c-format
+msgid "geometry saved : %s"
+msgstr ""
+
 #, fuzzy
 msgid "locked document of "
 msgstr "Import"
@@ -678,83 +682,6 @@ msgstr ""
 #, c-format
 msgid "Delete %d in %s folder"
 msgstr ""
-
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
-#, fuzzy
-msgid "no filename"
-msgstr "Firstname"
-
-#, c-format
-msgid "parameters for %s state"
-msgstr ""
-
-#, c-format
-msgid "id %s profile"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s profile"
-msgstr "Category"
-
-#, c-format
-msgid "id %s mask"
-msgstr ""
-
-#, c-format
-msgid "%s mask"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr ""
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state : %s to %s"
-msgstr "Category"
-
-#, c-format
-msgid "%s new state %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr "Category"
 
 #, fuzzy, c-format
 msgid "untitle %s %d"
@@ -833,6 +760,10 @@ msgstr ""
 msgid "vault file error"
 msgstr ""
 
+#, fuzzy
+msgid "no filename"
+msgstr "Firstname"
+
 #, c-format
 msgid "cannot control : object not initialized : %s"
 msgstr ""
@@ -844,6 +775,79 @@ msgstr ""
 #, c-format
 msgid "new %s"
 msgstr ""
+
+msgid "uncomplete request"
+msgstr ""
+
+msgid "request not found"
+msgstr ""
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+#, c-format
+msgid "parameters for %s state"
+msgstr ""
+
+#, c-format
+msgid "id %s profile"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s profile"
+msgstr "Category"
+
+#, c-format
+msgid "id %s mask"
+msgstr ""
+
+#, c-format
+msgid "%s mask"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr ""
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state : %s to %s"
+msgstr "Category"
+
+#, c-format
+msgid "%s new state %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr "Category"
 
 msgid "not perm for admin"
 msgstr ""
@@ -1211,20 +1215,17 @@ msgstr "Firstname"
 msgid "add inputs"
 msgstr ""
 
-msgid "clear inputs"
+#, c-format
+msgid "set for %s, unset for %s"
 msgstr ""
 
 msgid "color picker"
 msgstr ""
 
-msgid "date picker"
+msgid "choose inputs"
 msgstr ""
 
-#, fuzzy
-msgid "manual date"
-msgstr "Edit"
-
-msgid "choose inputs"
+msgid "clear inputs"
 msgstr ""
 
 #, c-format
@@ -1580,6 +1581,10 @@ msgstr ""
 #, fuzzy
 msgid "edit mail"
 msgstr "Email"
+
+#, fuzzy
+msgid "help manual for family"
+msgstr "Delete"
 
 msgid "confirm mail sended before change state"
 msgstr ""
@@ -2936,8 +2941,9 @@ msgstr "Delete"
 msgid "enumerate input not found"
 msgstr ""
 
-msgid "some needed attributes are empty"
-msgstr ""
+#, fuzzy
+msgid "these needed attributes are empty"
+msgstr "Update Title Cards"
 
 msgid "NOT Clear"
 msgstr ""
@@ -2974,6 +2980,10 @@ msgstr "Modify not possible"
 msgid "print"
 msgstr "Print this page"
 
+#, fuzzy
+msgid "family manual"
+msgstr "Start search"
+
 msgid "author"
 msgstr ""
 
@@ -3008,6 +3018,13 @@ msgstr "Created by"
 #, fuzzy
 msgid " date"
 msgstr "Edit"
+
+#, fuzzy
+msgid "view abstract card"
+msgstr "Start search"
+
+msgid "some needed attributes are empty"
+msgstr ""
 
 #, fuzzy
 msgid "select"
@@ -3063,12 +3080,16 @@ msgid "revision comment for autorevision"
 msgstr "Organisation"
 
 #, fuzzy
-msgid "view abstract card"
-msgstr "Start search"
+msgid "manual date"
+msgstr "Edit"
 
 #, fuzzy
 msgid "(private)"
 msgstr "Create"
+
+#, fuzzy
+msgid "confidentiality"
+msgstr "Delete"
 
 #, fuzzy
 msgid "view detail"
@@ -3085,10 +3106,6 @@ msgstr ""
 
 msgid "loop detected. You must undo this selection"
 msgstr ""
-
-#, fuzzy
-msgid "confidentiality"
-msgstr "Delete"
 
 #, fuzzy
 msgid "Change category"
@@ -3156,10 +3173,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "[%s] incident registration"
 #~ msgstr "Organisation"
-
-#, fuzzy
-#~ msgid "the %s attribute must be set."
-#~ msgstr "Update Title Cards"
 
 #, fuzzy
 #~ msgid "virtual"
