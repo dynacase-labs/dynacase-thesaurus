@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.46 2005/03/04 17:18:47 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.47 2005/04/01 17:21:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -93,6 +93,14 @@ function AttrToPhp($dbaccess, $tdoc) {
 					    "visibility"=>$v->visibility,
 					    "label"=>str_replace("\"","\\\"",$v->labeltext),
 					    "usefor"=>$v->usefor);
+	break;
+      case "action": // action
+	$taction[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
+					    "visibility"=>$v->visibility,
+					    "label"=>str_replace("\"","\\\"",$v->labeltext),
+					     "order"=>intval($v->ordered),
+					     "wapplication"=>$v->phpfile,
+					     "waction"=>$v->phpfunc);
 	break;
 	
       default: // normal
@@ -200,6 +208,7 @@ function AttrToPhp($dbaccess, $tdoc) {
     $phpAdoc->Set("sattr", implode(",",$attrids));
     $phpAdoc->SetBlockData("MATTR", $tmenu);
     $phpAdoc->SetBlockData("FATTR", $tfield);
+    $phpAdoc->SetBlockData("AATTR", $taction);
     $phpAdoc->SetBlockData("NATTR", $tnormal);
     $phpAdoc->SetBlockData("ATTRFIELD2", $tattr);
     reset( $tattr);
@@ -293,6 +302,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
     $qattr->AddQuery("docid=".$docid);
     $qattr->AddQuery("type != 'menu'");
     $qattr->AddQuery("type != 'frame'");
+    $qattr->AddQuery("type != 'action'");
     //$qattr->AddQuery("type != 'array'");
     $qattr->AddQuery("visibility != 'M'");
     $qattr->AddQuery("visibility != 'F'");

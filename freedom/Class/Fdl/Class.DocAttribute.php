@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.22 2005/02/18 17:06:30 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.23 2005/04/01 17:21:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -195,4 +195,18 @@ Class MenuAttribute extends BasicAttribute {
 
 }
 
+Class ActionAttribute extends BasicAttribute {
+
+  var $wapplication; // the what application name
+  var $waction; // the what action name
+  var $ordered;
+  function ActionAttribute($id, $docid, $label, $order,$visibility="",$wapplication="",$waction="" ) {
+    $this->id=$id;
+    $this->docid=$docid;
+    $this->labelText=$label;
+    $this->visibility=$visibility;
+    $this->waction=$waction;
+    $this->wapplication=$wapplication;
+  }
+}
 ?>

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.237 2005/03/31 18:01:23 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.238 2005/04/01 17:21:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1082,7 +1082,7 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   /**
-   * return all the attributes except frame & menu
+   * return all the attributes except frame & menu & action
    * 
    * @return array DocAttribute
    */
@@ -1094,15 +1094,32 @@ create unique index i_docir on doc(initid, revision);";
       else return array();
     } 
 
-  function GetFieldAttributes()
-    {      
+
+  /**
+   * return  frame attributes  
+   * 
+   * @return array FieldSetAttribute
+   */
+  function GetFieldAttributes() {      
       if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
-     
-      
-      reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
+           
+      foreach($this->attributes->attr as $k=>$v) {
 	if (get_class($v) == "fieldsetattribute")  $tsa[$v->id]=$v;
+      }
+      return $tsa;      
+    }
+  /**
+   * return action attributes  
+   * 
+   * @return array ActionAttribute
+   */
+  function GetActionAttributes() {      
+      if (!$this->_maskApplied) $this->ApplyMask();
+      $tsa=array();
+           
+      foreach($this->attributes->attr as $k=>$v) {
+	if (get_class($v) == "actionattribute")  $tsa[$v->id]=$v;
       }
       return $tsa;      
     }
@@ -1117,8 +1134,7 @@ create unique index i_docir on doc(initid, revision);";
       $tsa=array();
 
       if (isset($this->attributes->attr)) {
-	reset($this->attributes->attr);
-	while (list($k,$v) = each($this->attributes->attr)) {
+	foreach($this->attributes->attr as $k=>$v) {
 	  if ((get_class($v) == "normalattribute")&&($v->isInAbstract)) $tsa[$v->id]=$v;
 	}
       }
@@ -1136,8 +1152,7 @@ create unique index i_docir on doc(initid, revision);";
     if (!$this->_maskApplied) $this->ApplyMask();
     $tsa=array();
     if (isset($this->attributes->attr)) {
-      reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
+      foreach($this->attributes->attr as $k=>$v) {
 	if ((get_class($v) == "normalattribute") && ($v->isInTitle)) $tsa[$v->id]=$v;      
       }
     }
@@ -1153,8 +1168,7 @@ create unique index i_docir on doc(initid, revision);";
     if (!$this->_maskApplied) $this->ApplyMask();
     $tsa=array();
     if (isset($this->attributes->attr)) {
-      reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
+      foreach($this->attributes->attr as $k=>$v) {
 	if ((get_class($v) == "normalattribute") && ($v->type=="docid") && (!$v->inArray())) $tsa[$v->id]=$v;      
       }
     }
