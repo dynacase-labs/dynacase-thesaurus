@@ -5,15 +5,21 @@
 
 <td align="left" >
 <img id="menu_edit" style="WGCalButton" title="[TEXT:add new event]"
-     onmouseover="Fade(this, 5);" onmouseout="UnFade('menu_edit', 5);"
+     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
      onclick="subwindow(300, 500, 'EditEvent', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=-1');" 
      src="WGCAL/Images/wgcal-editevent.gif" height="[WGCAL_U_MENUICONS_H]" >
 </td>
+
+<td>&nbsp;|&nbsp;</td>
 
 <td align="center">
 </td>
 
 <td align="right">
+<img id="menu_prefs" style="WGCalButton" title="[TEXT:change preferences]"
+     onmouseover="Fade(this, 5);" onmouseout="UnFade(this, 5);"
+     onclick="subwindow(300, 500, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS');" 
+     src="WGCAL/Images/wgcal-prefs.gif" height="[WGCAL_U_MENUICONS_H]" >
 </td>
 
 </tr></table>

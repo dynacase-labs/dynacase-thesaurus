@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.3 2004/12/15 22:49:43 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.4 2004/12/17 15:46:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -33,12 +33,14 @@ function wgcal_editevent(&$action) {
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
   
-  InitNewRv($action);
+
+  $time = GetHttpVars("time", time());
+  InitNewRv($action, $time);
 
 }
 
 
-function InitNewRv(&$action) {
+function InitNewRv(&$action, $time) {
 
   $action->lay->set("TITLE", "");
   $action->lay->set("DESCR", "");
@@ -63,19 +65,19 @@ function InitNewRv(&$action) {
   $action->lay->SetBlockData("ALARM_HR", $h);
   
   $fdate = "%d/%m/%Y";
-  $now = time();
+  $now = $time;
   $action->lay->set("START", $now);
   $action->lay->set("mSTART", $now*1000);
   $action->lay->set("STARTREAD", strftime($fdate, $now));
   $action->lay->set("H_START", strftime("%H", $now));
-  $action->lay->set("M_START", strftime("%M", $now));
+  $action->lay->set("M_START", "00");
 
   $end = $now + 3600;
   $action->lay->set("END", $end);
   $action->lay->set("mEND", $end*1000);
   $action->lay->set("ENDREAD", strftime($fdate, $end));
   $action->lay->set("H_END", strftime("%H", $end));
-  $action->lay->set("M_END", strftime("%M", $end));
+  $action->lay->set("M_END", "00");
 
 
 

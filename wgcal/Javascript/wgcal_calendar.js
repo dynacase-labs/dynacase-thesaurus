@@ -343,3 +343,26 @@ function WGCUpdateDisplay(ev, calid, formid, color, classSelect, classOver, clas
   ff.submit();
 }
 
+
+
+function AddEvent(urlroot,time) {
+  subwindow(300, 500, 'EditEvent'+time, urlroot+'&app=WGCAL&action=WGCAL_EDITEVENT&time='+time);	
+}
+
+function ClickCalendarCell() {
+  return;
+}
+function DblClickCalendarCell(cell, urlroot, time) {
+  AddEvent(urlroot,time);
+}
+
+function OverCalendarCell(elt, lref, cref) {
+  elt.className = 'WGCAL_DayLineOver';
+  document.getElementById(lref).className = 'WGCAL_PeriodSelected';
+  document.getElementById(cref).className = 'WGCAL_PeriodSelected';
+}
+function OutCalendarCell(elt, lref, cref, cclass, hourclass, dayclass) {
+  elt.className = cclass;
+  document.getElementById(lref).className = dayclass;
+  document.getElementById(cref).className = hourclass;
+}

@@ -3,26 +3,27 @@
 body {
   padding : 0px;
   margin : 1px;
-  font-size: 10px;
+  font-size: 10px; 
+  font-family: [CORE_FONTLIST1];
   background: url('CORE/Images/bg.gif');
-  font-family: Helvetica, Arial, sans-serif ;
+  color: [CORE_TEXTFGCOLOR];
 }
 
-table, td {
-  padding : 0px;
-  margin : 0px;
-  font-size: 10px;
-  font-family: Helvetica, Arial, sans-serif ;
+table {
+	font-size: 10px;
+	font-family: Helvetica, Arial, sans-serif ;
 }
-
-
 
 INPUT, SELECT, TEXTAREA {
-  background: [CORE_BGCOLORALTERN]; 
-  font-size: 10px;
-  font-family: Helvetica, Arial, sans-serif ;
-  border : 0px;
-  border : 1px inset white;
+	background: [CORE_BGCOLORALTERN]; 
+	font-size: 10px;
+	font-family: Helvetica, Arial, sans-serif ;
+	border : 0px;
+	border : 1px inset white;
+}
+TD {
+	empty-cells: show;
+	border-style : inherit;
 }
 
 
@@ -44,62 +45,74 @@ INPUT, SELECT, TEXTAREA {
   font-weight: bold;
 }
 
-
+/* Zone d'affichage des infos mois, semaine et jours */
 .WGCAL_Period {
   background-color : [CORE_BGCOLORALTERN];
   border : 1px outset [CORE_BGCOLORHIGH];
   font-weight: bold;
 }
+/* Periode selectionne : mise en évidence jour / heure */
 .WGCAL_PeriodSelected {
   background-color : [CORE_BGCOLORHIGH];
   border : 1px inset [CORE_BGCOLORALTERN];
   font-weight: bold;
 }
       
-
+/* Journée courante */
 .WGCAL_DayLineCur {
+  border : 1px outset [CORE_BGCOLORALTERN];
   font-weight: bold;
   background-color : [CORE_BGCOLORHIGH];
-  border : 1px outset [CORE_BGCOLORHIGH];
 }
+
 .WGCAL_DayNoHours {
-	background-color : [CORE_BGCOLORALTERN];
+  background-color : [CORE_BGCOLORALTERN];
 }
+
 .WGCAL_DayHours {
-  font-weight: bold;
   background-color : [CORE_BGCOLORALTERN];
   border-top : 2px outset [CORE_BGCOLORHIGH];
   border-left : 1px outset [CORE_BGCOLORHIGH];
   border-right : 1px outset [CORE_BGCOLORHIGH];
 }
 .WGCAL_DayMin {
-  font-decoration: italic;
-  font-size: 7px;
+  font-size: 8px;
   background-color : [CORE_BGCOLORALTERN];
   border-top : 1px solid [CORE_BGCOLORHIGH];
   border-bottom : 1px outset [CORE_BGCOLORHIGH];
   border-left : 1px outset [CORE_BGCOLORHIGH];
   border-right : 1px outset [CORE_BGCOLORHIGH];
 }
+
 .WGCAL_DayLineWE {
-  background-color : #FFFFEF;
-  border : 1px solid [CORE_BGCOLORALTERN];
+ 	border-top: 0px;
+	border-left: 0px;
+	border-bottom: 1px solid [CORE_BGCOLORHIGH];
+ 	border-right: 1px solid [CORE_BGCOLORHIGH];
+	background-color: [CORE_BGCOLORALTERN];
 }
+
 .WGCAL_DayLineOver {
   background-color : [CORE_BGCOLORALTERN];
   border : 1px outset [CORE_BGCOLORHIGH];
 }
 .WGCAL_Day1 {
-	border-bottom : 1px inset [CORE_BGCOLORALTERN];
-	border-right : 1px solid [CORE_BGCOLORALTERN];
+ 	border-top: 0px;
+	border-left: 0px;
+	border-bottom: 1px solid [CORE_BGCOLORHIGH];
+ 	border-right: 1px solid [CORE_BGCOLORHIGH];
 }
+
 .WGCAL_Day2 {
-	border-bottom : 1px inset [CORE_BGCOLORALTERN];
-	border-right : 1px solid [CORE_BGCOLORALTERN];
+ 	border-top: 0px;
+	border-left: 0px;
+	border-bottom: 1px solid [CORE_BGCOLORHIGH];
+ 	border-right: 1px solid [CORE_BGCOLORHIGH];
 }
+
 .WGCAL_DayCur {
+  border : 1px outset black;
   background-color : [CORE_BGCOLORHIGH];
-  border : 1px outset white;
 }
 .WGCAL_DaySelected {
   border-bottom : 1px inset [CORE_BGCOLORALTERN];

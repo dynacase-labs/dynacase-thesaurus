@@ -1,15 +1,16 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
-<div id="wgcalcalendar" width="90%">
-   <table width="100%" cellspacing="0" border="0" id="week">
-	<tr height="[WGCAL_U_HLINETITLE]px">[F_LINE]</tr>
-	<tr height="[WGCAL_U_HLINETITLE]px"><td class="WGCAL_Period" width="[WGCAL_U_HCOLW]px"></td>
-	    [BLOCK DAYS_LINE]<td align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]
+  <table width="100%" cellspacing="0" border="0" id="week">
+    <tr height="[WGCAL_U_HLINETITLE]px">[F_LINE]</tr>
+    <tr height="[WGCAL_U_HLINETITLE]px">
+       <td class="WGCAL_Period" width="[WGCAL_U_HCOLW]px"></td>
+	    [BLOCK DAYS_LINE]<td id="D[IDD]" align="center" class="[CSS]">[LABEL]</td>[ENDBLOCK DAYS_LINE]
 	</tr>
-	[BLOCK HOURS]<tr style="border-bottom : 1px inset black" height="[WGCAL_U_HLINEHOURS]px"><td id="L[LID]" width="[WGCAL_U_HCOLW]px" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>
+	[BLOCK HOURS]
+        <tr height="[HLINEHOURS]px">
+           <td id="L[LID]" width="[WGCAL_U_HCOLW]px" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>
 [ENDBLOCK HOURS]
 </table>
-</div>
 
 <form target="wgcal_calhidden" style="display:none" id="textform" method="POST">
 <input id="Xtext" type="hidden" value="0">

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.6 2004/12/07 18:07:07 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.7 2004/12/17 15:46:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -56,6 +56,7 @@ function SetRegisterDate(&$action, $d) {
 
 function wgcal_calendar(&$action) {
 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
@@ -75,7 +76,7 @@ function wgcal_calendar(&$action) {
   $sdatef = strftime("%d/%m/%Y", $sdate);
   
   $ress = wgcal_getRessDisplayed($action);
-  echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." (".$v->color.") |";
+  //echo "Ressources : ";   foreach ($ress as $k => $v) echo $v->id." (".$v->color.") |";
 
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);
@@ -87,6 +88,9 @@ function wgcal_calendar(&$action) {
   $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
   $hdiv  = $action->GetParam("WGCAL_U_HOURDIV", 1);
 
+  if ($hdiv>1) $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40) / ($hdiv - 1);
+  else $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40);
+  
   $today = strftime("%d/%m/%Y", time());
   $firstWeekDay = GetFirstDayOfWeek($sdate);
   $fday  = strftime("%u",$firstWeekDay);
@@ -94,9 +98,9 @@ function wgcal_calendar(&$action) {
   $action->lay->set("DIVSTART", "calareastart");
   $action->lay->set("DIVEND", "calareaend");
   
-  $action->lay->set("F_LINE", '<td align="center" class="WGCAL_Period" colspan="'.($ndays+1).'">'.N_("week").' '.$week.' - '.$month.' '.$year.'</td>');
+  $action->lay->set("F_LINE", '<td align="center" class="WGCAL_Period" colspan="'.($ndays+1).'">'
+		    . N_("week").' '.$week.' - '.$month.' '.$year.'</td>');
   $action->lay->set("WEEKNUMBER", $week);
-
   $classalt = array ( 0 => "WGCAL_Day1", 1 => "WGCAL_Day2" );
   $curday = -1;
   for ($i=0; $i<$ndays; $i++) 
@@ -118,17 +122,21 @@ function wgcal_calendar(&$action) {
 	$class[$i] = $classalt[$alt];
 }
       }
+      $t[$i]["IDD"] = $i;
       $t[$i]["CSS"] = $classh[$i];
       $t[$i]["LABEL"] = strftime("%a %d",$firstWeekDay+($i*SEC_PER_DAY));
     }
   $action->lay->SetBlockData("DAYS_LINE", $t);
-  
+
+
+  $lcell = new Layout( "WGCAL/Layout/wgcal-cellcalendar.xml", $action );
   $nl = 0;
   for ($h=$hstart-1; $h<=$hstop; $h++) 
     {
       for ($hd=0; $hd<$hdiv&&!($hd>0&&$h==$hstart-1); $hd++) 
         {
           $thr[$nl]["LID"] = $nl;
+          $thr[$nl]["HLINEHOURS"] = $hhight;
           $thr[$nl]["HCLASS"] = "WGCAL_DayNoHours";
 	  if ($h==($hstart-1)) $thr[$nl]["HOURR"] = "";
 	  else {
@@ -140,20 +148,25 @@ function wgcal_calendar(&$action) {
                 $thr[$nl]["HCLASS"] = "WGCAL_DayMin";
 	    }
 	  }
-          $line = "";
+	  $tcell = array();
+	  $itc = 0;
           for ($id=0; $id<$ndays; $id++) 
 	    {
-	      $line .= '<td id="D'.$id.'H'.$nl.'"';
 	      if ($id>6) $mo = $id;
 	      else $mo = $id % 7;
-              $line .= ' title="'.strftime("%a %d",$firstWeekDay+($id*SEC_PER_DAY)).', '.$h.'H'.printhdiv($hdiv,$hd).'" ';
-              $line .= ' class="'.$class[$id].'" ';
-	      $line .= " onmouseover=\"getElementById('D".$id."H".$nl."').className = 'WGCAL_DayLineOver'; getElementById('L".$nl."').className = 'WGCAL_PeriodSelected';\"";
-	      $line .= " onmouseout=\"getElementById('D".$id."H".$nl."').className = '".$class[$id]."' ; getElementById('L".$nl."').className = '".$thr[$nl]["HCLASS"]."';\"";
-	      //$line .= '>D'.$id.'H'.$nl.'</td>';
-	      $line .= '></td>';
+              $tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
+              $tcell[$itc]["urlroot"] = $action->GetParam("CORE_STANDURL");
+              $tcell[$itc]["time"] = strftime("%s",($firstWeekDay+($id*SEC_PER_DAY))+($h*SEC_PER_HOUR));
+              $tcell[$itc]["rtime"] = strftime("%a %d",$firstWeekDay+($id*SEC_PER_DAY)).', '.$h.'H'.printhdiv($hdiv,$hd).'"';
+	      $tcell[$itc]["lref"] = "L".$nl;
+	      $tcell[$itc]["cref"] = "D".$id;
+	      $tcell[$itc]["cclass"] = $class[$id];
+	      $tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
+	      $tcell[$itc]["hourclass"] = $classh[$id];
+              $itc++;
 	    }
-          $thr[$nl]["C_LINE"] =  $line;
+          $lcell->SetBlockData("CELLS", $tcell);
+          $thr[$nl]["C_LINE"] =  $lcell->Gen();
 	  $nl++;
         }
     }
