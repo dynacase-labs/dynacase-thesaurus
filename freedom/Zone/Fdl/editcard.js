@@ -27,21 +27,28 @@ function getRowNumber(el) {
   return nrow;
 }
 
-function sendEnumChoice(event,docid, choiceButton , sorm) {
+function sendEnumChoice(event,docid,  choiceButton , sorm) {
 
 
   var inp  = choiceButton.previousSibling;
   var index='';
   var attrid;
+ 
   var domindex=''; // needed to set values in arrays
-
   // search the input button in previous element
-  while ((inp != null) && (inp.nodeType != 1)) inp = inp.previousSibling;
-  if (! inp) {
+  var fini=false;
+
+
+  while ((inp != null) && 
+	 (!((inp.nodeType == 1)&&(inp.getAttribute('name')!="") && (inp.name.substr(0,1) == '_')))) {      
+     inp = inp.previousSibling;    
+  }
+  if ((! inp)||(inp==null)) {
     alert('[TEXT:enumerate input not found]');
   }
 
 
+  
 
 
   if (inp.name.substr(inp.name.length-2,2) == '[]') {
