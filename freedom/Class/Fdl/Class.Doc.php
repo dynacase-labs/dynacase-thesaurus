@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.224 2004/12/01 08:10:13 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.225 2004/12/28 17:01:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -69,7 +69,8 @@ Class Doc extends DocCtrl
 			"postitid",
 			"cvid",
 			"name",
-			"dprofid");
+			"dprofid",
+			"atags");
 
   /**
    * identificator of the document
@@ -195,6 +196,13 @@ Class Doc extends DocCtrl
    * @var int
    */
   var $dprofid=0;
+  /**
+   * applications tag 
+   * use by specifics applications to search documents by these tags
+   * 
+   * @var string
+   */
+  var $atag;
 
   /**
    * identification of special views
@@ -1673,7 +1681,9 @@ create unique index i_docir on doc(initid, revision);";
     }
     return true;
   }
-  // return the first attribute of type 'file'
+  /** return the first attribute of type 'file'
+   * @return Attribute 
+   */
   function GetFirstFileAttributes()
     {
       $t =  $this->GetFileAttributes();
@@ -1681,6 +1691,11 @@ create unique index i_docir on doc(initid, revision);";
       return false;      
     }
 
+  /**
+   * Add a comment line in history document
+   * note : modify is call automatically
+   * @param string $comment the comment to add
+   */
   function AddComment($comment='') {
     global $action;
     $commentdate = sprintf("%s [%s %s] %s",
@@ -1692,6 +1707,30 @@ create unique index i_docir on doc(initid, revision);";
     else $this->comment = $commentdate;
     $this->modify(false,array("comment"));
   }
+
+  /**
+   * Add a application tag for the document
+   * if it is already set no set twice
+   * @param string $atg the tag to add
+   */
+  function AddATag($tag) {
+    if ($this->atags == "") {
+      $this->atags =  $tag;
+    } else {
+      $this->atags .= "\n$tag";
+      // not twice
+      $tmeth = explode("\n",$tag);
+      $tmeth=array_unique($tmeth);
+      $this->atags =  implode("\n",$tmeth);
+    }    
+  }
+  /**
+   * Create a new revision of a document
+   * the current document is revised (became a fixed document)
+   * a new revision is created
+   * @param string $comment the comment of the revision
+   * @return string error text (empty if no error)
+   */
   function AddRevision($comment='') {
 
     if ($this->locked == -1) return _("document already revised");
@@ -2301,7 +2340,7 @@ create unique index i_docir on doc(initid, revision);";
 	
 	  break;
 	case timestamp:  
-	  $htmlval=substr($avalue,0,-3); // do not display second
+	  $htmlval=substr($avalue,0,16); // do not display second
 	
 	  break;
 

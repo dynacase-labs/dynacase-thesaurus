@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.59 2004/10/08 09:51:36 eric Exp $
+ * @version $Id: freedom_util.php,v 1.60 2004/12/28 16:59:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -175,6 +175,7 @@ function createDoc($dbaccess,$fromid,$control=true) {
     $doc->icon = $cdoc->icon; // inherit from its familly	
     $doc->usefor = $cdoc->usefor; // inherit from its familly
     $doc->wid=$cdoc->wid;
+    $doc->atags=$cdoc->atags;
     
     $doc->setDefaultValues($cdoc->getDefValues());
     $doc->ApplyMask();

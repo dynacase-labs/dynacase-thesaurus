@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.80 2004/12/13 17:15:05 eric Exp $
+ * @version $Id: import_file.php,v 1.81 2004/12/28 16:59:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -281,6 +281,11 @@ function add_import_file(&$action, $fimport="") {
     case "USEFOR":     
       $doc->usefor =   $data[1];
       $tcr[$nline]["msg"]=sprintf(_("change special use to '%s'"),$doc->usefor);
+      break;
+      // -----------------------------------
+    case "TAG":           
+      $doc->AddATag($data[1]);
+      $tcr[$nline]["msg"]=sprintf(_("change application tag to '%s'"),$doc->atags);
       break;
       // -----------------------------------
     case "CPROFID":     
