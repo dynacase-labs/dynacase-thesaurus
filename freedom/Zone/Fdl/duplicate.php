@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.8 2003/03/28 17:52:38 eric Exp $
+// $Id: duplicate.php,v 1.9 2003/04/16 12:15:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,7 +42,7 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
   $doc= new Doc($dbaccess, $docid);
   $cdoc= new Doc($dbaccess, $doc->fromid);
   
-  $err = $cdoc->control('view');
+  $err = $cdoc->control('create');
   if ($err != "") $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$doc->fromid));
 
  

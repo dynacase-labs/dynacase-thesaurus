@@ -2,7 +2,7 @@
 
 
 
-<[ID_FAM] nom_fam="[NOM_FAM]" title="[TITRE]" id_doc="[id_doc]">
+<[ID_FAM] nom_fam="[NOM_FAM]" title="[TITRE]" id_doc="[id_doc]" revision="[revision]" revdate="[revdate]">
 
 
 [BLOCK FIELDSET]

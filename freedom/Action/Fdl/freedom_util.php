@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.34 2003/03/06 09:27:29 eric Exp $
+// $Id: freedom_util.php,v 1.35 2003/04/16 12:15:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -146,7 +146,7 @@ function createDoc($dbaccess,$fromid,$control=true) {
     $cdoc = new DocFam($dbaccess, $fromid);
 
     if ($control) {
-      $err = $cdoc->control('view');
+      $err = $cdoc->control('create');
       if ($err != "") return false;
     }
 

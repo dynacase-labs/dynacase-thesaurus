@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.9 2003/03/17 12:04:33 eric Exp $
+// $Id: Class.DocFam.php,v 1.10 2003/04/16 12:15:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,10 +24,10 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.9 2003/03/17 12:04:33 eric Exp $';
-include_once('FDL/Class.DocFile.php');
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.10 2003/04/16 12:15:58 eric Exp $';
+include_once('FDL/Class.PFam.php');
 
-Class DocFam extends DocFile {
+Class DocFam extends PFam {
  
   var $dbtable="docfam";
 
@@ -54,7 +54,7 @@ create unique index idx_idfam on docfam(id);";
     $this->fields["ddocid"] ="ddocid";
     $this->fields["methods"]="methods";
     $this->fields["name"]="name";
-    DocFile::DocFile($dbaccess, $id, $res, $dbid);
+    PFam::PFam($dbaccess, $id, $res, $dbid);
      
      
     if ($this->id > 0) {

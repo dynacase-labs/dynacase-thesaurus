@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocCtrl.php,v 1.6 2003/01/02 15:37:17 eric Exp $
+// $Id: Class.DocCtrl.php,v 1.7 2003/04/16 12:15:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocCtrl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.6 2003/01/02 15:37:17 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocCtrl.php,v 1.7 2003/04/16 12:15:58 eric Exp $';
 
 
 
@@ -35,11 +35,13 @@ define ("POS_VIEW", 1);
 define ("POS_EDIT", 2);
 define ("POS_DEL",  3);
 define ("POS_SEND", 4);
+// common part are 0-4 and 7-8
 define ("POS_OPEN", 5);
 define ("POS_EXEC", 5); // idem OPEN : alias
 define ("POS_CONT", 6);
 define ("POS_VACL", 7);
 define ("POS_MACL", 8);
+define ("POS_CREATE", 5);
 // 7 up 11 undefined for the moment
 
 define ("POS_WF", 12); // begin of workflow privilege definition 
@@ -76,7 +78,9 @@ Class DocCtrl extends DbObj
 					 "description"        =>"view acl"),#  N_("viewacl")
 
 			"modifyacl" =>array("pos"               =>POS_MACL, # N_("modify acl")
-					 "description"        =>"modify acl") #  N_("modifyacl")
+					 "description"        =>"modify acl"), #  N_("modifyacl")
+			"create" =>array("pos"               =>POS_CREATE, # N_("modify acl")
+					 "description"        =>"create doc") #  N_("create doc")
 			
 			);
 

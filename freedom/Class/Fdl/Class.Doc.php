@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.113 2003/04/14 17:02:04 eric Exp $
+// $Id: Class.Doc.php,v 1.114 2003/04/16 12:15:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.113 2003/04/14 17:02:04 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.114 2003/04/16 12:15:58 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -44,6 +44,7 @@ define ("FAM_ACCESSDOC", 3);
 define ("FAM_ACCESSDIR", 4);
 define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
+define ("FAM_ACCESSFAM", 23);
 
 Class Doc extends DocCtrl {
 
@@ -522,7 +523,7 @@ create unique index i_docir on doc(initid, revision);";
     $this->fields=array();
     while(list($k,$v) = each($array)) {
       if (!is_integer($k)) {
-	$this->fields[]=$k;
+	if ($k != "uperm") $this->fields[]=$k; // special for uperm : it is a function
 	$this->$k = $v;
       }
     }
@@ -2098,6 +2099,8 @@ $value = $this->GetValue($listattr[$i]->id);
     $this->lay->Set("id_doc",$docid);
     $this->lay->Set("TITRE",$title);
     $this->lay->Set("ID_FAM",$fam_doc->name);  
+    $this->lay->Set("revision",$this->revision);
+    $this->lay->Set("revdate",$this->revdate);
 
 
     //$this->lay->Set("IDOBJECT",$docid);
@@ -2277,8 +2280,6 @@ $value = $this->GetValue($listattr[$i]->id);
     $fam_doc=new Doc($this->dbaccess,$this->fromid);
     $name=str_replace(" ","_",$fam_doc->title);
     $this->lay->Set("doctype",$this->doctype);
-    $this->lay->Set("revision",$this->revision);
-    $this->lay->Set("revdate",$this->revdate);
     $this->lay->Set("idfam",$this->fromid);
     $this->lay->Set("nom_fam",$name);
     $this->lay->Set("id_fam",$name);

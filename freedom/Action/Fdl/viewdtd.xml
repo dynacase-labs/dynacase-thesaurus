@@ -3,8 +3,6 @@
 <!ATTLIST [ID_FAM] title CDATA  #REQUIRED>
 <!ATTLIST [ID_FAM] nom_fam CDATA  #FIXED "[nom_fam]">
 <!ATTLIST [ID_FAM] doctype CDATA  #FIXED "[doctype]" >
-<!ATTLIST [ID_FAM] revision CDATA  #FIXED "[revision]" >
-<!ATTLIST [ID_FAM] revdate CDATA  #FIXED "[revdate]" >
 <!ATTLIST [ID_FAM] idfam CDATA  #FIXED "[idfam]" >
 [BLOCK FIELDSET]
 

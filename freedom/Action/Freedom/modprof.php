@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.9 2003/01/20 19:09:28 eric Exp $
+// $Id: modprof.php,v 1.10 2003/04/16 12:15:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,26 +58,23 @@ function modprof(&$action) {
   if ($err != "")    $action-> ExitError($err);
   
 
-
-  if (($doc->profid == $doc->id) && ($profid == 0)) {
-    // unset control
-    $doc->UnsetControl();
-  }  
-
-  $doc->setProfil($profid);// change profile
-
   if ($createp) {
     // change creation profile
     $doc->cprofid = $profid; // new creation profile access
-  } 
+  } else {
+
+    if (($doc->profid == $doc->id) && ($profid == 0)) {
+      // unset control
+      $doc->UnsetControl();
+    }  
+
+    $doc->setProfil($profid);// change profile
   
+    // specific control
+    if ($doc->profid == $doc->id)    $doc->SetControl();
   
-  
-  
-  // specific control
-  if ($doc->profid == $doc->id)    $doc->SetControl();
-  
-  $doc->disableEditControl(); // need because new profil is not enable yet
+    $doc->disableEditControl(); // need because new profil is not enable yet
+  }
   $err= $doc-> Modify();
   
   if ( $err != "" ) $action->exitError($err);
