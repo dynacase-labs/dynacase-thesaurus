@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_insertfld.php,v 1.2 2003/07/22 13:13:45 eric Exp $
+// $Id: freedom_insertfld.php,v 1.3 2003/07/24 13:06:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_insertfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,10 +36,10 @@ function freedom_insertfld(&$action) {
     //    PrintAllHttpVars();
 
   // Get all the params      
-  $dirid=GetHttpVars("dirid");
-  $docid=GetHttpVars("id");
+  $dirid=GetHttpVars("dirid");// source folder
+  $docid=GetHttpVars("id");   // destination folder
   $mode=GetHttpVars("mode","latest");
-  $return=GetHttpVars("return"); // return action may be folio
+  $clean=GetHttpVars("clean","N")=="Y"; // if want to clean source folder
 
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -62,7 +62,11 @@ function freedom_insertfld(&$action) {
   }
   if ($err != "") $action->exitError($err);
   
-  
+  if ($clean) {
+    $sfld = new Doc($dbaccess,$dirid );
+    $sfld->Clear();
+  }
+
   redirect($action,"FREEDOM","FREEDOM_VIEW&dirid=".$doc->initid);
 }
 
