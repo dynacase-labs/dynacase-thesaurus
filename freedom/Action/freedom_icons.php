@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.12 2001/11/26 18:01:01 eric Exp $
+// $Id: freedom_icons.php,v 1.13 2001/11/27 13:09:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.13  2001/11/27 13:09:08  eric
+// barmenu & modif popup
+//
 // Revision 1.12  2001/11/26 18:01:01  eric
 // new popup & no lock for no revisable document
 //
@@ -73,7 +76,7 @@ include_once('FREEDOM/Class.QueryDirV.php');
 
 // -----------------------------------
 // -----------------------------------
-function freedom_icons(&$action, $with_abstract=true) {
+function freedom_icons(&$action, $with_abstract=false) {
 // -----------------------------------
 
 

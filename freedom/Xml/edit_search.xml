@@ -48,6 +48,7 @@ else displaytable='table-row'
 <form  target="info" class="fborder" name="search" method="POST" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=SEARCH" >
 
 <table class="tablesimple" cellspacing="0"  width="100%" >
+<thead>
 <tr><td class="CORETblHeadBold" align="center" colspan="4">[TEXT:search document]</td><tr>
 </thead>
 <tbody>

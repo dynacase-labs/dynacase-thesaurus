@@ -1,51 +1,35 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- HEAD HTML -->
-
-<html>
-  <head>
-
-   <title>[FREEDOM_APP] : menu</title>
-
-   <style>
-[ZONE CORE:GENCSS]
-   </style>
-
-
-[CSS:REF]
-
-
-<style type="text/css">
-[CSS:CODE]
-
-
-</style>
-
-[JS:REF]
-
-   <script language="JavaScript1.2">
-  <!--
-    [JS:CODE]
-  var selid=1; // only one object (no context menu)
-  function closeAllMenu() {
-     closeMenu('newmenu');
-     closeMenu('viewmenu');
-     closeMenu('searchmenu');
-     closeMenu('helpmenu');
-  }
--->
-</script>   
- </head>
-
-<body class="freedom" onMouseUp="closeAllMenu();return false" >
 
 
 
-<!--  Table -->
+<!-- ------------------ BAR MENU ------------------ -->
+<table class="tablesimple" style="position:absolute; top:0; left:0;cursor:default; cols="4"  cellspacing="0"   >
+<thead>
+<tr>
+<td  class="FREEDOMTblFrame"  
+     style="padding: 0px 0pt 0px 10px;" 
+     onClick="closeAllMenu();openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);window.status=this.offsetTop+'.'+this.offsetHeight+'.'+this.style.top;return false" >
+<span class="FREEDOMTextTitle">[TEXT:New]</span>
+</td>
+<td  class="FREEDOMTblFrame"  
+     onClick="closeAllMenu();openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
+<span class="FREEDOMTextTitle">[TEXT:Search]</span>
+</td>
+<td  class="FREEDOMTblFrame"  
+     onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
+<span class="FREEDOMTextTitle">[TEXT:View]</span>
+</td>
+<td  class="FREEDOMTblFrame"  
+     onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
+<span class="FREEDOMTextTitle">[TEXT:Help]</span>
+</td>
+</tr>
+</thead>
+
+</table >
 
 
 
-
-<!-- ------------ POPUP DIVISION --------------------- -->
+<!-- ------------ MENU NEW --------------------- -->
 <div  id="newmenu" class="popup">
 
 <a  id="newdoc" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_EDIT&classid=1&id=&dirid='+parent.list.document.dirid;closeAllMenu();">[TEXT:new doc]</a>
@@ -60,12 +44,12 @@
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 
 
-<!-- ------------ POPUP DIVISION --------------------- -->
+<!-- ------------ MENU SEARCH  --------------------- -->
 <div  id="searchmenu" class="popup">
   <a  id="newsearch" href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=EDIT_SEARCH&keyword=zz&dirid='+parent.list.document.dirid;closeAllMenu();">[TEXT:simple]</a>
 </div>
 
-<!-- ------------ POPUP DIVISION --------------------- -->
+<!-- ------------ MENU VIEW  --------------------- -->
 <div  id="viewmenu" class="popup">
   
 <a  id="vlist" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=FREEDOM_LIST&dirid='+parent.list.document.dirid;closeAllMenu()">[TEXT:list]</a>
@@ -73,32 +57,8 @@
 <a  id="refresh" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=REFRESHDIR&dirid='+parent.list.document.dirid;closeAllMenu()">[TEXT:refresh]</a>
 </div>
 
-<!-- ------------ POPUP DIVISION --------------------- -->
+<!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup">
   <a id="help" target="helpwhat" href="[CORE_STANDURL]app=HELP&action=VIEW&id=freedom.gen" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:help]</a>
 </div>
 
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" valign="top" 
-      >
-
-<tr>
-<td id="1" class="FREEDOMTblTitle" onClick="closeAllMenu();openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
-[TEXT:New]
-</td>
-<td id="1" class="FREEDOMTblTitle" onClick="closeAllMenu();openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
-[TEXT:Search]
-</td>
-<td id="1" class="FREEDOMTblTitle" onClick="closeAllMenu();openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
-[TEXT:View]
-</td>
-<td id="1" class="FREEDOMTblTitle" onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight);return false" >
-[TEXT:Help]
-</td>
-</tr>
-
-
-</table >
-
-</body>
-</html>

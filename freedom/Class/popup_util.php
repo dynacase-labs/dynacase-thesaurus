@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.3 2001/11/26 18:01:02 eric Exp $
+// $Id: popup_util.php,v 1.4 2001/11/27 13:09:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: popup_util.php,v $
+// Revision 1.4  2001/11/27 13:09:08  eric
+// barmenu & modif popup
+//
 // Revision 1.3  2001/11/26 18:01:02  eric
 // new popup & no lock for no revisable document
 //
@@ -35,23 +38,14 @@
 // layout javascript for popup
 
 
+
+
 function popupInit($name, $items) {
-  global $lpopup;
   global $menuitems;
-  global $action;
-  global $tmenuaccess;
   global $tmenus;
-  static  $km=0;
 
-  $tmenuaccess=array();
   
   
-  $lpopup = new Layout($action->GetLayoutFile("popup.js"));
-
-  // css pour popup
-  $cssfile=$action->GetLayoutFile("popup.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
 
   // ------------------------------------------------------
   // definition of popup menu
@@ -66,10 +60,10 @@ function popupInit($name, $items) {
   // replace last comma by ']'
   $jsarray[strlen($jsarray)-1]="]";
 
-  $tmenus[$km]["menuitems"] = $jsarray;
-  $tmenus[$km]["name"] = $name;
-  $tmenus[$km]["nbmitem"] = count($menuitems);
-  $km++;
+  $tmenus[$name]["menuitems"] = $jsarray;
+  $tmenus[$name]["name"] = $name;
+  $tmenus[$name]["nbmitem"] = count($menuitems);
+
 }
 
 function popupInitItem($name, $k) {
@@ -119,15 +113,21 @@ function popupInvisible($name,$k, $nameid) {
 function popupGen($kdiv) {  
   global $tmenuaccess;
   global $tmenus;
-  global $lpopup;
   global $action;
 
 
-  $lpopup->Set("nbdiv",$kdiv-1);
+  $lpopup = new Layout($action->GetLayoutFile("popup.js"));
+
+  // css pour popup
+  $cssfile=$action->GetLayoutFile("popup.css");
+  $csslay = new Layout($cssfile,$action);
+  $action->parent->AddCssCode($csslay->gen());
+
   reset($tmenuaccess);
   $kv=0; // index for item
 
   while (list($name, $v2) = each($tmenuaccess)) {
+    $nbdiv=0;
     while (list($k, $v) = each($v2)) {
       
       uksort($v, 'vcompare');
@@ -143,11 +143,14 @@ function popupGen($kdiv) {
       $tma[$kv]["name"]=$name;
       $tma[$kv]["divid"]=$v["divid"];
       $kv++;
+      $nbdiv++;
     }
+    $tmenus[$name]["nbdiv"]=$nbdiv;
   }
 
   $lpopup->SetBlockData("MENUACCESS", $tma);
   $lpopup->SetBlockData("MENUS", $tmenus);
+  $lpopup->SetBlockData("CMENUS", $tmenus);
   $action->parent->AddJsCode( $lpopup->gen());
   $tmenus = array(); // re-init (for next time)
   $tmenusaccess = array(); 

@@ -191,7 +191,7 @@ function drawFolder(leftSide)
 
   this.blockStart("folder")
 
-  doc.write("<tr><td>") 
+  doc.write("<tr><td class=\"fld\">") 
   doc.write(leftSide) 
   this.outputLink() 
   doc.write("<img id='folderIcon" + this.id + "' name='folderIcon" + this.id + "' src='" + this.iconSrc+"' border=0 style=\"cursor:pointer\"");
@@ -200,9 +200,9 @@ function drawFolder(leftSide)
       doc.write("onMouseOver='if (drag == 1) clickOnFolder("+this.id+")'") 
       doc.write("onContextMenu='openMenu(event,\"popfld\","+this.id+");return false'") 
 
-      doc.write("onMouseUp='if (drag == 1) {endDrag();dirid="+this.refid+";selid="+this.id+";openMenu(event,\"poppaste\")};'") 
+      doc.write("onMouseUp='if (drag == 1) {dirid="+this.refid+";selid="+this.id+";openMenu(event,\"poppaste\","+this.id+")};return false;'") 
   doc.write(">") 
-  doc.write("</td><td valign=middle nowrap>") 
+  doc.write("</td><td class=\"fld\" valign=middle nowrap>") 
   if (USETEXTLINKS) 
   { 
     this.outputLink() 
@@ -331,13 +331,13 @@ function drawItem(leftSide)
 { 
   this.blockStart("item")
 
-  doc.write("<tr><td>") 
+  doc.write("<tr><td class=\"fld\">") 
   doc.write(leftSide) 
   doc.write("<a href=" + this.link + ">") 
   doc.write("<img id='itemIcon"+this.id+"' ") 
   doc.write("src='"+this.iconSrc+"' border=0>") 
   doc.write("</a>") 
-  doc.write("</td><td valign=middle nowrap>") 
+  doc.write("</td><td class=\"fld\" valign=middle nowrap>") 
   if (USETEXTLINKS) 
     doc.write("<a href=" + this.link + ">" + this.desc + "</a>") 
   else 
@@ -559,6 +559,6 @@ function initializeDocument()
 	  } 
 
   if (browserVersion == 0) 
-	doc.write("<table border=0><tr><td><br><br><font size=-1>This tree only expands or contracts with DHTML capable browsers</font></table>")
+	doc.write("<table border=0><tr><td class=\"fld\"><br><br><font size=-1>This tree only expands or contracts with DHTML capable browsers</font></table>")
 } 
  

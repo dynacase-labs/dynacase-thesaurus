@@ -55,6 +55,7 @@ function placeicons() {
 
 	 div.style.left = ((i-1)%nbcol) * (div.offsetWidth);
 	 div.style.top = Math.floor((i-1)/nbcol)*(div.offsetHeight) + 10;
+	 div.style.visibility = 'visible';
 	}
   }
 var diva=document.getElementById('a1');

@@ -47,7 +47,7 @@ if (isNetscape) {
 
 function moveicon(e) {
     
-   window.status="drag="+drag+"->"+parent.info.document.drag;
+   window.status=Xpos+"x"+Ypos;
   if (drag ) {
    if (isNetscape) {
      MoveHandler(e);
@@ -94,11 +94,13 @@ function initmicon() {
 [CSS:REF]
 <!-- if you want black backgound, remove this style block -->
 <style type="text/css">
-   BODY {background: [CORE_BGCOLOR]}
-   TD {font-size: 10pt; 
+[ZONE CORE:GENCSS]
+
+   TD.fld {font-size: 10pt; 
        font-family: verdana,helvetica; 
 	   text-decoration: none;
-	   white-space:nowrap;}
+	   white-space:nowrap;
+       background:transparent;}
    A  {text-decoration: none;
        color: black}
    DIV.folder  {width:100%;
@@ -108,8 +110,7 @@ function initmicon() {
                 position:block;}
    DIV.select  {
        width:100%;
-       /*border-color: violet;
-       border-style: inset;*/
+       /*border-style: inset;*/
        background-color:[CORE_BGCOLORALTERN];
        display:block;
        cursor: default;
@@ -173,14 +174,18 @@ aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]",1)
 <body topmargin=16 marginheight=16
       onLoad="initmicon()" 
       onMouseOver="initDrag()" 
-      onMouseUp="drag=0;if (buttonNumber(event)==1) closeMenu('popfld');" >
+      onMouseUp="if (buttonNumber(event)==1) {if (drag==0) closeAllMenu(); else closeMenu('popfld')};endDrag(); " >
 
 <!-- By making any changes to this code you are violating your user agreement;
      this can be specially troublesome for corporate users. Check the online 
 	 instructions to obtain a version without the link -->
 <!-- Removing this link will make the script stop from working -->
 
-<div style="position:absolute; top:0; left:0; "><table border=0><tr><td><font size=-2><a style="font-size:6pt;text-decoration:none;color:gray" href=http://www.mmartins.com target=_top></a></font></td></table></div>
+<div style="position:absolute; top:30px; left:0; "><table border=0><tr><td><font size=-2><a style="font-size:6pt;text-decoration:none;color:gray" href=http://www.mmartins.com target=_top></a></font></td></table></div>
+
+<!-- ------------------ BAR MENU ------------------ -->
+[ZONE FREEDOM:BARMENU]
+<br>
 
 <!-- ------------ POPUP DIVISION --------------------- -->
 <div  id="popfld" class="popup">
@@ -209,6 +214,13 @@ aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]",1)
 </div>
 
 <!-- ------------------ end POPUP DIVISION ------------------ -->
+
+
+
+
+
+
+
 
 <!-- Build the browser's objects and display default view of the 
      tree. -->

@@ -34,10 +34,10 @@
 */
 .icon{
 
-  font-weight: bold;
+  font-weight: normal;
   font-size: 60%;
   text-align: center;
-  font-variant: small-caps;
+  /*font-variant: small-caps;*/
   width:60;
   height:100;
   position:absolute;
@@ -45,6 +45,7 @@
   top:0;
   border-style:none;
   border-color:[CORE_FGCOLOR];
+  visibility : hidden;
 
 
 }
@@ -77,7 +78,7 @@
  </head>
 
 <body class="freedom" onLoad="initmicon();placeicons();" onResize="placeicons()"
-      onClick="closeMenu('popup');" >
+      onClick="closeAllMenu();" >
 
 
 
@@ -87,33 +88,24 @@
 [ZONE FREEDOM:POPUP]
 
 <!-- TABLEBODY -->
-[BLOCK TABLEBODY]
+                             [BLOCK TABLEBODY]
 <div class="icon" id="d[divid]" >
 <IMG class="iconimg" id="i[divid]" 
-     onMouseDown="select(this,[id],[divid]);openMenuOrAbstract(event);" 
-     onContextMenu="openMenu(event,'popup');return false" 
+     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
+     onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="sendFirstFile([id]);return false"
      align="absbottom"  src="[iconsrc]"><br>
 
   
-  <span class="FREEDOMTextTitle">[title]<sup style="font-size:50%">[revision]</sup></span>
-    
+  [title]
+
 
 
 </div>
-<!-- -------------- ABSTRACT DIVISION --------------------- -->
-<div id="a[divid]" class="abstract">
-<span class="FREEDOMTextAbstractValue">[title]</span>
-
-<ul>
-  [BLOCK [blockabstract]]
-  <li><span  class="FREEDOMTextAbstract">[name]&nbsp;:&nbsp;[value]</span></li>
-  [ENDBLOCK [blockabstract]]
-  </ul>
-</div>
 
 
-[ENDBLOCK TABLEBODY]
+
+                           [ENDBLOCK TABLEBODY]
 <!-- /TABLEBODY -->
 
 

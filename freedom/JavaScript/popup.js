@@ -129,12 +129,17 @@ function sendandreload(th, url) {
 	//  document.location.reload(true);
   }
 }
+
+function closeAllMenu() {
+[BLOCK CMENUS]  closeMenu('[name]');
+[ENDBLOCK CMENUS]
+}
 var tdiv= new Array();
 var tdivid= new Array();
 var nbmitem= new Array();
 [BLOCK MENUS]
 nbmitem['[name]'] =[nbmitem]; 
-tdiv['[name]']= new Array([nbdiv]+1);
+tdiv['[name]']= new Array([nbdiv]);
 tdivid['[name]']=[menuitems];
 [ENDBLOCK MENUS]
 

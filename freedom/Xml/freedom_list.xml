@@ -46,6 +46,7 @@ TD.tlist {
    border-width : 1px;
    border-style : dashed none none none;
    border-color : [CORE_BGCOLOR];
+   font-size: 80%;
 }
 
 TR.tlist {
@@ -96,9 +97,9 @@ TR.tlist {
      align="absmiddle"  src="[iconsrc]">
 </td>
 <td class="tlist" >  
-  <span class="FREEDOMTextTitle">
+  
      [title]
-  </span>
+
 </td>
      <td class="tlist"  width="20"><sup style="font-size:50%">[revision]</sup></td>
      <td class="tlist"  width="20">[locked]</td>
