@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.2 2002/09/16 14:42:10 eric Exp $
+// $Id: Class.WDoc.php,v 1.3 2002/09/18 11:09:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.2 2002/09/16 14:42:10 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.3 2002/09/18 11:09:35 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -59,6 +59,8 @@ Class WDoc extends Doc {
 	$this->obj_acl[$k]=array("name"=>$k,
 				 "description" =>_($k));
       }
+      $this->defProfClassname=$this->defClassname; // it's a profil itself
+
       // don't use Doc constructor because it could call this constructor => infinitive loop
       DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
     }

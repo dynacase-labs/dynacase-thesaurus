@@ -9,3 +9,9 @@ echo "update doc set classname='PDoc' where useforprof and classname='DocFile';"
 echo "update doc set classname='PDir' where useforprof and classname='Dir';" | psql freedom anakeen
 echo "update doc set classname='PDocsearch' where useforprof and classname='Docsearch';" | psql freedom anakeen
 echo "update doc set doctype='P' where useforprof and doctype != 'C';" | psql freedom anakeen
+
+echo "delete from application where (objectclass='Y') and name in ('docfile','docuser','docincident','docsearch','dir','docpropo') ;" | psql anakeen anakeen
+echo "delete from application where (objectclass='Y') and name in ('docfile','docuser','docincident','docsearch','dir','docpropo') ;" | psql freedom anakeen
+echo "delete from operm where id_class not in (select id from application);" | psql freedom anakeen
+echo "delete from octrl where id_class not in (select id from application);" | psql freedom anakeen
+

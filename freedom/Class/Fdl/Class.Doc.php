@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.51 2002/09/17 16:57:58 eric Exp $
+// $Id: Class.Doc.php,v 1.52 2002/09/18 11:09:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.51 2002/09/17 16:57:58 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.52 2002/09/18 11:09:35 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -126,14 +126,14 @@ create unique index i_docir on doc(initid, revision);";
 
   function Doc($dbaccess='', $id='',$res='',$dbid=0) {
 
-         $this= newDoc($dbaccess, $id, $res, $dbid);
+    $this= newDoc($dbaccess, $id, $res, $dbid);
 
 	 
-	 // change the database for object permission 
-	 global $action;
-	 if (isset($action)) {
-	   $action->Register("dboperm", $this->dbaccess); 
-	 }
+    // change the database for object permission 
+    global $action;
+    if (isset($action)) {
+      $action->Register("dboperm", $this->dbaccess); 
+    }
   
   }
 
@@ -153,11 +153,18 @@ create unique index i_docir on doc(initid, revision);";
 
   }
 
-  function Complete()
-    {
-      // --------------------------------
-      // set the object control permission
-      // --------------------------------
+  function getClassId() {
+    // for DbObjCtrl
+    global $action; // necessary to see information about user privilege
+    if (isset($action)) {
+      return $action->parent->GetIdFromName(strtolower($this->defProfClassname)); 
+    }
+    return 0;
+  }
+  function Complete()  {
+    // --------------------------------
+    // set the object control permission
+    // --------------------------------
     global $lprof;
     //print "select $this->id <BR>";
     if ($this->profid == $this->id) { // self control
@@ -1180,11 +1187,13 @@ create unique index i_docir on doc(initid, revision);";
   // --------------------------------------------------------------------
     function Control ($aclname) {
       // -------------------------------------------------------------------- 
-	if (($this->IsAffected()) )
-	  if (isset($this->operm) )
-	    return $this->operm->Control($this, $aclname);
-	  else return "";
-      
+      if (($this->IsAffected()) ) {	
+	  if (isset($this->operm) ) {
+	    global $lprof;
+
+	    return $lprof[$this->profid]->Control( $aclname);
+	  } else return "";
+      }
       return "object not initialized : $aclname";
     }
   
