@@ -29,7 +29,13 @@ function  setEventSpec(&$e) {
   $e->setValue("EVFC_REPEATMONTH", $this->getValue("CALEV_REPEATMONTH"));
   $e->setValue("EVFC_REPEATUNTIL", $this->getValue("CALEV_REPEATUNTIL"));
   $e->setValue("EVFC_REPEATUNTILDATE", $this->getValue("CALEV_REPEATUNTILDATE"));
-  $e->setValue("EVFC_EXCLUDEDATE", $this->getTValue("CALEV_EXCLUDEDATE"));
+  $tv = $this->getTValue("CALEV_EXCLUDEDATE");
+  if (count($tv)>0) {
+    foreach ($tv as $kv => $vv) {
+      $texc[] = $vv;
+    }
+    $e->setValue("EVFC_EXCLUDEDATE", $texc);
+  }
   $e->setValue("EVFC_REPEATFREQ", $this->getValue("CALEV_FREQUENCY"));
 
   $tattid = $this->getTValue("CALEV_ATTID");

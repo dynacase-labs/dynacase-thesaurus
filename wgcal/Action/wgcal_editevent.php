@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.31 2005/03/07 21:41:49 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.32 2005/03/08 10:32:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -398,9 +398,9 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
     foreach ($recxlude as $kd => $vd) {
       if ($vd!="" && $vd>0) {
         $ld = db2date($vd);
-        $rx[]["rDate"] = strftime("%a %d %b %Y", $ld);
-        $rx[]["mDate"] = $ld;
-        $rx[]["iDate"] = $i;
+        $rx[$ide]["rDate"] = strftime("%a %d %b %Y", $ld);
+        $rx[$ide]["mDate"] = $ld;
+        $rx[$ide]["iDate"] = $i;
 	$ide++;
       }
     }

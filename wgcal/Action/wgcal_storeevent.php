@@ -168,6 +168,7 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
   $event->setValue("CALEV_ATTGROUP", $attendeesgroup); 
     
+
   $event->Modify();
   $event->PostModify();
   if ($err!="") AddWarningMsg("$err");
