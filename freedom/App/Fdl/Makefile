@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.3 2002/03/14 14:56:54 eric Exp $
+# $Id: Makefile,v 1.4 2002/04/09 14:45:55 eric Exp $
 # ============================================
 
 # get the new appname (basename in uppercase)
@@ -11,7 +11,8 @@ export appname
 include $(utildir)/PubRule
 
 
-DISTFILES = Makefile  $(appname).app $(appname)_init.php.in $(appname)_init.sh init.freedom 
+DISTFILES = Makefile  $(appname).app $(appname)_init.php.in $(appname)_init.sh init.freedom \
+	$(appname)_external.php
 
 $(pubdir)/$(appname)/$(appname)_init.sh : $(appname)_init.sh
 	cp $< $@
@@ -19,4 +20,10 @@ $(pubdir)/$(appname)/$(appname)_init.sh : $(appname)_init.sh
 $(pubdir)/$(appname)/init.freedom : init.freedom 
 	cp init.freedom $(pubdir)/$(appname)
 
-publish: $(pubdir)/$(appname)/$(appname)_init.sh $(pubdir)/$(appname)/init.freedom
+$(pubdir)/EXTERNALS :
+	mkdir -p $@
+
+$(pubdir)/EXTERNALS/fdl.php: $(pubdir)/EXTERNALS
+	cp $(appname)_external.php $(pubdir)/EXTERNALS/fdl.php
+
+publish: $(pubdir)/$(appname)/$(appname)_init.sh $(pubdir)/$(appname)/init.freedom $(pubdir)/EXTERNALS/fdl.php

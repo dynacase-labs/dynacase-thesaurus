@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.9 2002/03/14 14:56:54 eric Exp $
+# $Id: Makefile.in,v 1.10 2002/04/09 14:45:55 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -8,7 +8,7 @@ appname = @PACKAGE@
 pubdir = @prefix@
 srcdir = @srcdir@
 applib = FDL
-
+rootprefix=$(RPM_BUILD_ROOT)
 export pubdir utildir appname applib
 
 TAR = gtar
@@ -22,13 +22,19 @@ include $(utildir)/PubRule
 
 DISTFILES = $(SUBDIR) \
             $(wildcard *.in) \
-            VERSION RELEASE $(PACKAGE).vault \
+            VERSION RELEASE $(PACKAGE).vault $(PACKAGE).cron \
 	    $(PACKAGE)_en.po $(PACKAGE)_fr.po 
 
 
 $(pubdir)/$(applib) :
 	mkdir -p $@
 
+$(rootprefix)/etc/cron.daily:
+	mkdir -p $@
+
+$(rootprefix)/etc/cron.daily/$(PACKAGE).cron:$(PACKAGE).cron $(rootprefix)/etc/cron.daily
+	cp $(PACKAGE).cron $@
+
 $(pubdir)/$(applib)/FREEDOM.vault : FREEDOM.vault
 	cp $< $(pubdir)/$(applib)/$<
-publish: $(pubdir)/$(applib)  $(pubdir)/$(applib)/FREEDOM.vault
+publish: $(pubdir)/$(applib)  $(pubdir)/$(applib)/FREEDOM.vault $(rootprefix)/etc/cron.daily/$(PACKAGE).cron
