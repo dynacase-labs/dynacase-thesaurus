@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.43 2004/07/19 07:46:28 eric Exp $
+ * @version $Id: popupcard.php,v 1.44 2004/09/08 09:35:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.43 2004/07/19 07:46:28 eric Exp $
+// $Id: popupcard.php,v 1.44 2004/09/08 09:35:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -237,16 +237,19 @@ function popupcard(&$action) {
   if ($doc->postitid > 0) popupInvisible('popupcard',$kdiv,'addpostit');
   else PopupCtrlactive('popupcard',$kdiv,'addpostit');
 
-  if (! $action->parent->exists("FREEDOM")) {
+  if (! $action->parent->Haspermission("FREEDOM","FREEDOM")) {
 
-    // FREEDOM not installed
+    // FREEDOM not available
    
     // actions not available
-    popupInvisible('popupcard',$kdiv,'histo');
     popupInvisible('popupcard',$kdiv,'editstate');
     popupInvisible('popupcard',$kdiv,'revise');
     popupInvisible('popupcard',$kdiv,'editprof');
     popupInvisible('popupcard',$kdiv,'access');
+    popupInvisible('popupcard',$kdiv,'tobasket');
+  }
+  if (! $action->parent->Haspermission("FREEDOM_READ","FREEDOM")) {
+    popupInvisible('popupcard',$kdiv,'histo');
   }
 
   // ------------
