@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_barmenu.php,v 1.3 2002/02/27 08:33:16 eric Exp $
+// $Id: usercard_barmenu.php,v 1.4 2002/03/11 10:26:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,6 +29,8 @@ function usercard_barmenu(&$action) {
   global $dbaccess; // use in getChildCatg function
 
   $dirid=GetHttpVars("dirid", TOP_USERDIR); // folder where search
+
+  $action->lay->Set("idfamuser", $action->GetParam("IDFAMUSER", FAM_DOCUSER));
 
   include_once("FDL/popup_util.php");
   popupInit("newmenu",    array('newdoc','newcatg','imvcard'));

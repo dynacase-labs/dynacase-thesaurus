@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: usercard_edit.php,v 1.2 2002/03/01 09:36:42 eric Exp $
+// $Id: usercard_edit.php,v 1.3 2002/03/11 10:26:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -44,6 +44,7 @@ function usercard_edit(&$action) {
    
 
 
+  $action->lay->Set("idfamuser", $action->GetParam("IDFAMUSER", FAM_DOCUSER));
 
   // information propagation
   $action->lay->Set("classid", $classid);

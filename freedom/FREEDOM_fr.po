@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-05 17:56+0100\n"
+	"POT-Creation-Date: 2002-03-09 18:07+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -50,6 +50,9 @@ msgstr	"%s : catégorie %s"
 msgid	"no vcard file specified"
 msgstr	"pas de fichier vcard spécifié"
 
+msgid	"no cvs import file specified"
+msgstr	"pas de fichier d'import CSV spécifié"
+
 msgid	"new incident"
 msgstr	"Nouveau incident"
 
@@ -90,6 +93,9 @@ msgstr	"Nouveau document"
 msgid	"no comment"
 msgstr	"pas de commentaire"
 
+msgid	"new familly document"
+msgstr	"nouvelle famille de document"
+
 msgid	"the document is not referenced: cannot apply profile access "
 	"modification"
 msgstr	"le document n'est pas référencé : la modification du profil d'accès\n"
@@ -108,11 +114,10 @@ msgid	"root folder"
 msgstr	"Freedom"
 
 msgid	"this kind of document cannot be duplicate"
-msgstr	""
+msgstr	"ce type de document ne peut être dupliqué"
 
-#, fuzzy
 msgid	"duplication of"
-msgstr	"éditer"
+msgstr	"duplication de"
 
 #, c-format
 msgid	"the external pluggin file %s cannot be read"
@@ -128,38 +133,35 @@ msgstr	"pas de fichier d'import spécifié"
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
 
-#, fuzzy
 msgid	"view folder"
-msgstr	"Dossier"
+msgstr	"voir dossier"
 
-#, fuzzy
 msgid	"edit folder"
-msgstr	"Dossier"
+msgstr	"éditer un dossier"
 
-#, fuzzy
 msgid	"delete folder"
-msgstr	"Dossier"
+msgstr	"supprimer un dossier"
 
 msgid	"open folder"
-msgstr "Ouvrir le dossier"
+msgstr	"Ouvrir le dossier"
 
 msgid	"modify folder"
-msgstr "modifier le dossier"
+msgstr	"modifier le dossier"
 
-#, fuzzy, c-format
+#, c-format
 msgid	"cannot delete link : link not found for doc %d in folder %d"
 msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
 
-#, fuzzy, c-format
+#, c-format
 msgid	"cannot delete link : initial query not found for doc %d in folder %d"
 msgstr	"le document %d n'existe plus dans le dossier %d.\n"
 	"mettre à jour la vue."
 
-#, fuzzy, c-format
+#, c-format
 msgid	"cannot delete link for doc %d in folder %d : the document comes from "
 	"a user query. Delete initial query if you want delete this document"
-msgstr	"le lien pour le document %d dans le dossier %d ne peur être détruit :"
-	"\\n\n"
+msgstr	"le lien pour le document %d dans le dossier %d ne peut pas être "
+	"détruit : \n"
 	"le document provient d'une recherche utilisateur. Supprimer la "
 	"requête initiale si vous voulez delier le document"
 
@@ -304,8 +306,8 @@ msgstr	"Nouvelle personne"
 msgid	"New category"
 msgstr	"Nouvelle catégorie"
 
-msgid	"Import vcard"
-msgstr	"Importation Vcard"
+msgid	"Import file"
+msgstr "Importer un fichier"
 
 msgid	"All catg"
 msgstr	"Toutes catg."
@@ -358,11 +360,42 @@ msgstr	"changer de catégorie"
 msgid	"Choose new categories"
 msgstr	"Choisissez de nouvelles catégories"
 
-msgid	"Import from VCard"
-msgstr	"Importation à partir de Vcard"
+msgid	"Import vcard"
+msgstr	"Importation Vcard"
 
-msgid	"The file to be imported must be in VCard format."
-msgstr	"Le fichier à importer doit être au format Vcard"
+msgid	"Import CSV"
+msgstr	"Importation CSV"
+
+msgid	"Import from"
+msgstr	"Importation à partir de"
+
+msgid	"VCARD"
+msgstr	"VCARD"
+
+msgid	"CSV"
+msgstr	"CSV"
+
+msgid	"Vcard example"
+msgstr	"Exemple de Vcard"
+
+msgid	"CSV specification file"
+msgstr	"Spécification fichier CSV"
+
+msgid	"The separator field is the semicolon(;)"
+msgstr	"Le séparateur de colonne est le point-virgule ';'"
+
+msgid	"The first four fields must not be change, they identified the card "
+	"structure"
+msgstr	"Les quatre premiers champs ne doivent pas être modifiés, ils "
+	"identifient la structure de la carte"
+
+msgid	"Only one line by personn is authorized"
+msgstr	"Une seule ligne par personne est autorisée"
+
+msgid	"If an attribut is a multiline string, use the \\ n characters to "
+	"specify the new line"
+msgstr	"Si un attribut est multi-ligne, utilisez les caractères \\n pour "
+	"indiquer le saut de ligne"
 
 msgid	"category"
 msgstr	"catégorie"
@@ -381,9 +414,6 @@ msgstr	"Remplace la carte si permission accordée sinon duplication"
 
 msgid	"Keep address book card"
 msgstr	"Garde la carte originale"
-
-msgid	"import vcard"
-msgstr	"Importation Vcard"
 
 msgid	"Import Results"
 msgstr	"Résultat de l'importation"
@@ -434,7 +464,7 @@ msgid	"inherit from"
 msgstr	"hérite de"
 
 msgid	"no document family"
-msgstr	"Ce n'est pas une famille de document!"
+msgstr	"Aucune famille de document"
 
 msgid	"ID"
 msgstr	"ID"
@@ -514,13 +544,11 @@ msgstr	" Créer un dossier"
 msgid	"cancel"
 msgstr	"Annuler"
 
-#, fuzzy
 msgid	"copy reference"
-msgstr	"référence"
+msgstr	"copier la référence"
 
-#, fuzzy
 msgid	"move reference"
-msgstr	"référence"
+msgstr	"déplacer la référence"
 
 msgid	"updatetitle"
 msgstr	"Mise à jour des titres"
@@ -540,11 +568,8 @@ msgstr	"pour"
 msgid	"Description of the import format:"
 msgstr	"Description du format d'import"
 
-msgid	"The text between brackets are only indication for user readable"
-msgstr	""
-
 msgid	"import file:"
-msgstr	"Importer le fichier"
+msgstr "Importer un fichier"
 
 msgid	"Import document description"
 msgstr	"Importer la description d'un document"
@@ -555,9 +580,8 @@ msgstr	"voir les propriétés"
 msgid	"edit document"
 msgstr	" éditer le document"
 
-#, fuzzy
 msgid	"duplicate document"
-msgstr	" éditer le document"
+msgstr	" dupliquer le document"
 
 msgid	"link document"
 msgstr	"référencer le document"
@@ -765,9 +789,8 @@ msgstr	"popup menu"
 msgid	"add file query into directory"
 msgstr	"ajout d'un document dans un dossier"
 
-#, fuzzy
 msgid	"move file query into directory"
-msgstr	"ajout d'un document dans un dossier"
+msgstr	"déplacement d'un document dans un dossier"
 
 msgid	"delete file query into directory"
 msgstr	"supprimer un document dans un dossier"
@@ -776,37 +799,37 @@ msgid	"folder tree"
 msgstr	"aborescence de dossier"
 
 msgid	"Freedoms icon list"
-msgstr	""
+msgstr	"liste sous forme d'icones"
 
 msgid	"bar menu"
-msgstr	""
+msgstr	"barre de menu"
 
 msgid	"Freedoms card"
-msgstr	""
+msgstr	"fiche Freedom"
 
 msgid	"attributes definitions"
-msgstr	""
+msgstr	"définition des attributs"
 
 msgid	"refresh directory"
-msgstr	""
+msgstr	"rafraichir le dossier"
 
 msgid	"attributes modification"
 msgstr	"Modification d'attributs"
 
 msgid	"lock file to edit"
-msgstr	""
+msgstr	"verrouillez le document pour l'éditer"
 
 msgid	"edit profile access"
-msgstr	""
+msgstr	"édition des profiles d'accès"
 
 msgid	"change profile access"
-msgstr	""
+msgstr	"changement des profiles d'accès"
 
 msgid	"set the document controlled"
-msgstr	""
+msgstr	"Mettre le document sous contrôle"
 
 msgid	"abord edition"
-msgstr	""
+msgstr	"abandon de l'édition"
 
 msgid	"change icon document"
 msgstr	"changer l'icone du document"
@@ -815,16 +838,16 @@ msgid	"search document criteria"
 msgstr	"critères de recherche de document"
 
 msgid	"ask for a new file revision"
-msgstr	""
+msgstr	"demande pour une revision"
 
 msgid	"edit document properties"
 msgstr	"éditer les propriétés du document"
 
 msgid	"add comment before revise document"
-msgstr	""
+msgstr	"ajouter un commentaire avant de réviser un document"
 
 msgid	"make a new document revision"
-msgstr	""
+msgstr	"faire une nouvelle révision de document"
 
 msgid	"view history revision"
 msgstr	"voir l'historique"
@@ -884,7 +907,7 @@ msgid	"Access To Read User Card"
 msgstr	"Accès à la lecture du carnet d'adresses"
 
 msgid	"usercard home page"
-msgstr	""
+msgstr	"page d'accueil du carnet d'adresses"
 
 msgid	"edition"
 msgstr	"édition"
@@ -896,28 +919,26 @@ msgid	"edit to add category"
 msgstr	"éditer pour l'ajout de catégorie"
 
 msgid	"edit to change category"
-msgstr	""
+msgstr	"édition pour changer de catégorie"
 
 msgid	"document history"
 msgstr	"historique du document"
 
 msgid	"modification or creation"
-msgstr	""
+msgstr	"modification ou création"
 
 msgid	"view as vcard"
-msgstr	""
+msgstr	"voir au format Vcard"
 
 msgid	"display logo"
-msgstr	""
+msgstr	"afficher le logo"
 
-#, fuzzy
 msgid	"unlock usercard"
-msgstr	"Nouvelle carte"
+msgstr	"déverrouiller la carte"
 
 msgid	"view list"
 msgstr	"voir la liste"
 
-#, fuzzy
 msgid	"view a usercard"
 msgstr	"voir une carte"
 
@@ -927,18 +948,23 @@ msgstr	""
 msgid	"view a part of list"
 msgstr	""
 
-#, fuzzy
+msgid	"import vcard"
+msgstr	"Importation Vcard"
+
+msgid	"import csv"
+msgstr	"Import csv"
+
 msgid	"search a usercardt"
-msgstr	"rechercher un incident"
+msgstr	"rechercher une personne"
 
 msgid	"initialisation"
 msgstr	"initialisation"
 
 msgid	"Incident"
-msgstr	""
+msgstr	"Incident"
 
 msgid	"Access Incident Master Management"
-msgstr	""
+msgstr	"Accès à l'administration des incidents"
 
 msgid	"Access To Incident Management"
 msgstr	"Accès à la gestion des incidents"
@@ -947,16 +973,19 @@ msgid	"Access To Read Incident"
 msgstr	"Accès en lecture seule aux incidents"
 
 msgid	"incident home page"
-msgstr	""
+msgstr	"Page d'accueil d'incident"
 
 msgid	"unlock incident file"
-msgstr	""
+msgstr	"Déverrouiller un document incident"
 
 msgid	"view an incident"
 msgstr	"voir un incident"
 
 msgid	"search an incident"
 msgstr	"rechercher un incident"
+
+#~ msgid	"The file to be imported must be in VCard format."
+#~ msgstr	"Le fichier à importer doit être au format Vcard"
 
 #~ msgid	" paste this revision"
 #~ msgstr	" référencer cette révision"

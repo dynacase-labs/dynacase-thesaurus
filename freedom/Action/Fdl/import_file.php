@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.3 2002/02/14 18:11:42 eric Exp $
+// $Id: import_file.php,v 1.4 2002/03/11 10:26:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -93,40 +93,7 @@ function add_import_file(&$action, $fimport="") {
     break;
     // -----------------------------------
     case "DOC":
-    $doc = createDoc($dbaccess, $data[1]);
-    $doc->fromid = $data[1];
-    if  ($data[2] > 0) $doc->id= $data[2]; // static id
-    $err = $doc->Add();
-    if (($err != "") && ($doc->id > 0)) { // case only modify
-      if ($doc -> Select($doc->id)) $err = "";
-    }
-    if ($err != "") $action->exitError($err);
-    $lattr = $doc->GetAttributes();
-
-
-    $bdvalue = new DocValue($dbaccess);
-    $bdvalue->docid = $doc->id;
-    $iattr = 4; // begin in 5th column
-    reset($lattr);
-    while (list($k, $attr) = each ($lattr)) {
-
-      if ($data[$iattr] != "") {
-	$bdvalue->attrid = $attr->id;
-	$bdvalue->value = $data[$iattr];
-	$bdvalue->Modify();
-      }
-      $iattr++;
-    }
-    // update title in finish
-    $doc->modify();
-
-    if ($data[3] > 0) { // dirid
-      $dir = new Dir($dbaccess, $data[3]);
-      $dir->AddFile($doc->id);
-    } else if ($data[3] ==  0) {
-      $dir = new Dir($dbaccess, $dirid);
-      $dir->AddFile($doc->id);
-    }
+      csvAddDoc($dbaccess, $data);
     break;    
     // -----------------------------------
     case "SEARCH":
@@ -212,6 +179,46 @@ function add_import_file(&$action, $fimport="") {
 
     
   
+}
+
+function csvAddDoc($dbaccess, $data) {
+  // like : DOC;120;...
+  $doc = createDoc($dbaccess, $data[1]);
+    $doc->fromid = $data[1];
+    if  ($data[2] > 0) $doc->id= $data[2]; // static id
+    $err = $doc->Add();
+    if (($err != "") && ($doc->id > 0)) { // case only modify
+      if ($doc -> Select($doc->id)) $err = "";
+    }
+    if ($err != "") $action->exitError($err);
+    $lattr = $doc->GetAttributes();
+
+
+    $bdvalue = new DocValue($dbaccess);
+    $bdvalue->docid = $doc->id;
+    $iattr = 4; // begin in 5th column
+    reset($lattr);
+    while (list($k, $attr) = each ($lattr)) {
+
+      if ($data[$iattr] != "") {
+	$bdvalue->attrid = $attr->id;
+	$bdvalue->value = $data[$iattr];
+	$bdvalue->Modify();
+      }
+      $iattr++;
+    }
+    // update title in finish
+    $doc->modify();
+
+    if ($data[3] > 0) { // dirid
+      $dir = new Dir($dbaccess, $data[3]);
+      $dir->AddFile($doc->id);
+    } else if ($data[3] ==  0) {
+      $dir = new Dir($dbaccess, $dirid);
+      $dir->AddFile($doc->id);
+    }
+
+    return $doc;
 }
 
 ?>

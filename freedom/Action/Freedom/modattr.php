@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: modattr.php,v 1.2 2002/03/11 10:26:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: modattr.php,v $
+// Revision 1.2  2002/03/11 10:26:48  eric
+// import CSV
+//
 // Revision 1.1  2002/02/05 16:34:07  eric
 // decoupage pour FREEDOM-LIB
 //
@@ -83,14 +86,21 @@ function modattr(&$action) {
   if ( $docid == 0 )
     {
       $ofreedom = new Doc($dbaccess);
-      // add new freedom
-      $ofreedom->title = _("new document");
+      //---------------------------
+      // add new freedom familly
+      //---------------------------
+      $ofreedom->title = _("new familly document");
       $ofreedom->owner = $action->user->id;
       $ofreedom->locked = $action->user->id; // lock for next modification
       $ofreedom->doctype = 'C'; // it is a new class document
       $ofreedom->fromid = GetHttpVars("classid"); // inherit from
       $ofreedom->profid = "0"; // NO PROFILE ACCESS
       $ofreedom->useforprof = false;
+      if (GetHttpVars("classid") >0) {
+	$cdoc = new Doc($dbaccess,GetHttpVars("classid") );
+	$ofreedom->classname = $cdoc->classname;
+	$ofreedom->profid = $cdoc->cprofid; // inherit father profile
+      }
       $ofreedom-> Add();
       $docid = $ofreedom-> id;
       

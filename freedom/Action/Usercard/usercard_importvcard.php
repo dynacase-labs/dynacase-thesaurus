@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_importvcard.php,v 1.1 2002/02/18 13:37:21 eric Exp $
+// $Id: usercard_importvcard.php,v 1.2 2002/03/11 10:26:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_importvcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -69,7 +69,8 @@ function usercard_importvcard(&$action) {
       if (count($tvalue) > 0)
 	{
 	  // Add new contact card
-	  $doc = createDoc($dbaccess, FAM_DOCUSER);
+	  $doc = createDoc($dbaccess, 
+			   $action->GetParam("IDFAMUSER", FAM_DOCUSER));
 
 	      
 

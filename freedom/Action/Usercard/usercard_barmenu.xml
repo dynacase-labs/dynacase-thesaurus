@@ -42,9 +42,9 @@
 <!-- ------------ MENU NEW --------------------- -->
 <div  id="newmenu" class="popup">
 
-<a  id="newdoc" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDIT&classid=120&id=&dirid=121';closeAllMenu()">[TEXT:New personn]</a>
+<a  id="newdoc" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDIT&classid=[idfamuser]&id=&dirid=121';closeAllMenu()">[TEXT:New personn]</a>
 <a  id="newcatg" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDITNEWCATG';closeAllMenu()">[TEXT:New category]</a>
-<a  id="imvcard" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDITIMPORT';closeAllMenu()">[TEXT:Import vcard]</a>
+<a  id="imvcard" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
 
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_editimport.php,v 1.3 2002/03/01 09:36:42 eric Exp $
+// $Id: usercard_editimport.php,v 1.4 2002/03/11 10:26:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_editimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,6 +46,16 @@ function usercard_editimport(&$action) {
   $action->lay->SetBlockData("CATG",$stree);
   $action->lay->Set("topdir",TOP_USERDIR);
   
+
+  // spec for csv file
+  $doc=new DocUser($dbaccess, $action->GetParam("IDFAMUSER", FAM_DOCUSER));
+  $lattr = $doc->GetAttributes();
+  $format = "DOC;".$doc->id.";0;".TOP_USERDIR."; ";
+
+  while (list($k, $attr) = each ($lattr)) {
+    $format .= $attr->labeltext." ;";
+  }
+  $action->lay->Set("format",$format);
 
 }
 
