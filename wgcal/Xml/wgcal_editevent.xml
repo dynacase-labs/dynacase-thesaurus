@@ -53,7 +53,6 @@
       singleClick  : true,
       button       : "lrvstart",
       date         : new Date([mSTART]),
-      flatCallBack : addExDate(),
       firstDay     : 1
     }
   );
@@ -157,20 +156,33 @@ function everyInfo() {
 
 }
 
-var ExcludeDate = new Array();
+var ExcludeDate = 0;
 
-function addExDate() {
-  ndate = getElementById('
+function addExclDate() {
 
+  var list = document.getElementById('listexcldate');
+  var nOpt = new Option();
+  var ndate = document.getElementById('nexcldate').value;
+
+  var jdate = new Date(ndate*1000);
+  var y = jdate.getFullYear();
+  var m = jdate.getMonth();     // integer, 0..11
+  var d = jdate.getDate();
+  var ts = calendar.date.print("%s");
+
+  nOpt.id = 'exdate'+ExcludeDate;
+  nOpt.value = ndate;
+  nOpt.text  = calendar.date.print("%A %d %B %Y");
+  i = list.options.length;
+  list.options[i] = nOpt;
+  ExcludeDate++;
 }
-function searchExDate(date) {
-  id = -1;
-  return id;
-}
-function delExDate(date) {
-  id = searchExDate(date); 
-  if (id!=-1) ExcludeDate[id] = -1;
-//  document.getElementById('exdate'+id).delete();
+
+function delExclDate() {
+  var list = document.getElementById('listexcldate');
+  for (i=(list.options.length-1); i>=0; i--) {
+    if (list.options[i].selected) list.options[i] = null;
+  }
 }
 </script>
 
@@ -222,16 +234,18 @@ function delExDate(date) {
   <input type="radio" id="runtil0" name="runtil" onClick="ViewElement('runtil1', 'vrununtil');" value="0" [D_RUNTIL_0]>[TEXT:forever]
   <input type="radio" id="runtil1" name="runtil" onClick="ViewElement('runtil1', 'vrununtil');" value="1" [D_RUNTIL_1]>[TEXT:this date]&nbsp;:&nbsp;
   <span id="vrununtil" style="display:[RUNUNTIL_DATE_DISPLAY]">
-  <input type="text" value="[uDate]" id="runtildate" name="runtildate" size="8" readonly>  
-  <img style="cursor:pointer" valign="baseline" id="runtilbut" alt="[TEXT:enter date]" title="[TEXT:start date]" src="RENDEZVOUS/Images/cal-other.gif">
+  <input style="cursor:pointer; border: 1px outset [CORE_BGCOLORALTERN]" 
+         type="text" value="[uDate]" id="runtildate" 
+         name="runtildate" size="8" title="[TEXT:click to change the date]" 
+         readonly>  
   <script type="text/javascript">
     Calendar.setup(
       {
         inputField   : "runtildate",        
-        ifFormat     : "%d/%m/%y",   
+        ifFormat     : "%d %B %Y",   
         showsTime    : false,
         singleClick  : true,
-        button       : "runtilbut",
+        button       : "runtildate",
         date         : new Date([umDate]),
         firstDay     : 1
       }
@@ -241,40 +255,30 @@ function delExDate(date) {
 <hr>
 
 <fieldset><legend>[TEXT:exclude days]</legend>
-<table>
-<tr>
-<td rowspan="3">
-<select name="excldate[]" size="5" multiple>
+<select id="listexcldate" name="excldate[]" width="20" size="5" multiple>
 [BLOCK EXCLDATE]<option id="exdate[iDate]" value="[mDate]">[rDate]</option>[ENDBLOCK EXCLDATE]
 </select>
-</td>
-<td>
-<input [disabled] size="14" type="text" name="[name]" value="[value]" id="[id]" />
-<input  type="button" onmousedown="Calendar_Init('[id]','[id]T',true)" id="[id]T" value="&#133;" />
 
-<img title="[TEXT:add day]" style="cursor:pointer" onClick="addExDate()" src="RENDEZVOUS/Images/cal-add.gif">
-<img alt="[TEXT:select a day]" id="nexcldatebut" src="RENDEZVOUS/Images/cal-other.gif">
+<img title="[TEXT:add a new day to exclude]" style="cursor:pointer" 
+     id="nexcldatebut" name="nexcldatebut" src="RENDEZVOUS/Images/cal-add.gif">
+<input onChange="addExclDate();" type="hidden" id="nexcldate" name="nexcldate">
 <script type="text/javascript">
-Calendar.setup({
+Calendar.setup(
+    {
         inputField   : "nexcldate",        
-        ifFormat     : "%d/%m/%y",   
+        ifFormat     : "%s",   
         showsTime    : false,
         singleClick  : true,
         button       : "nexcldatebut",
+        date         : new Date(),
         firstDay     : 1
       }
     );
 </script>
-</td>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td>
-<img alt="[TEXT:del selected dates]" onClick="delSelectedExcDate()" src="RENDEZVOUS/Images/cal-delete.gif">
-</td>
-</tr>
-</table>
+
+<img title="[TEXT:del selected dates]" onClick="delExclDate()" 
+     src="RENDEZVOUS/Images/cal-delete.gif">
+
 </fieldset>
 
 </div>

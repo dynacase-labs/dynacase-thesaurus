@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.2 2004/12/15 21:26:49 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.3 2004/12/15 22:49:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -26,14 +26,14 @@ function wgcal_editevent(&$action) {
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
 
- $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
- $action->parent->AddJsRef("WGCAL/Layout/wgcal_editevent.js");
-
- $cssfile = $action->GetLayoutFile("calendar-default.css");
- $csslay = new Layout($cssfile,$action);
- $action->parent->AddCssCode($csslay->gen());
-
- InitNewRv($action);
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_editevent.js");
+  
+  $cssfile = $action->GetLayoutFile("calendar-default.css");
+  $csslay = new Layout($cssfile,$action);
+  $action->parent->AddCssCode($csslay->gen());
+  
+  InitNewRv($action);
 
 }
 
