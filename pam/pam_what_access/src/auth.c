@@ -208,10 +208,10 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
     return PAM_AUTHINFO_UNAVAIL;
   }
 
-  /* user can be composed : user@zou.com or user_zou.com */
+  /* user can be composed : user@zou.com  */
   strcpy(userdomaintmp, userdomain);
 
-  stok=strtok(userdomaintmp,"@_");  
+  stok=strtok(userdomaintmp,"@");  
 
   if (stok) {
     if (strlen(stok) >= (LUSER)) {
@@ -222,7 +222,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
     strcpy(user,stok);
   }
 
-  stok=strtok(NULL,"@_");
+  stok=strtok(NULL,"@");
   if (stok) {
     if (strlen(stok) >= (LDOMAIN)) {
       syslog (LOG_NOTICE, "user domain name too long");
@@ -267,7 +267,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   
   /* set up the query string */
   snprintf (query, BUFLEN-1, 
-	    "select id from users where login='%s' %s", 
+	    "select id from users where login='%s' %s order by iddomain limit 1", 
 	       user, optdomain);
 
     

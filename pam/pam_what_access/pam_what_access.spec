@@ -1,9 +1,9 @@
-# $Revision: 1.9 $, $Date: 2003/08/12 13:39:06 $
+# $Revision: 1.10 $, $Date: 2004/12/13 11:49:00 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what_access
-Version:	0.3.1
-Release:	1
+Version:	0.3.2
+Release:	2
 License:	GPL or BSD
 Group:		Base
 Source0:	ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -14,6 +14,7 @@ URL:		http://www.anakeen.com
 Requires:	pam >= 0.72
 Requires:	postgresql-libs >= 7.2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root-%(id -u -n)
+BuildArchitectures: i686
 
 
 %description
@@ -60,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what_access.spec,v $
+Revision 1.10  2004/12/13 11:49:00  eric
+correct _ in login
+
 Revision 1.9  2003/08/12 13:39:06  eric
 ajout option debug pour log debug
 

@@ -1,9 +1,9 @@
-# $Revision: 1.9 $, $Date: 2004/10/06 16:03:09 $
+# $Revision: 1.10 $, $Date: 2004/12/13 11:46:15 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
-Version:	0.4.0
-Release:	1
+Version:	0.4.1
+Release:	2
 License:	GPL or BSD
 Group:		Base
 Source0:	ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.10  2004/12/13 11:46:15  eric
+correct _ in login
+
 Revision 1.9  2004/10/06 16:03:09  eric
 Add only [activate|expire] option
 

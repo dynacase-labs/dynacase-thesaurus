@@ -162,9 +162,9 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
     return PAM_AUTHINFO_UNAVAIL;
   }
   
-  /* user can be composed : user@zou.com or user_zou.com */
+  /* user can be composed : user@zou.com  */
   strcpy(userdomaintmp, userdomain);
-  stok=strtok(userdomaintmp,"@_");
+  stok=strtok(userdomaintmp,"@");
   if (stok) {
     if (strlen(stok) >= (LUSER)) {
       syslog (LOG_NOTICE, "user login name too long");
@@ -173,7 +173,7 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
     }
     strcpy(user,stok);
   }
-  stok=strtok(NULL,"@_");
+  stok=strtok(NULL,"@");
   if (stok) {
     if (strlen(stok) >= (LDOMAIN)) {
       syslog (LOG_NOTICE, "user domain name too long");
@@ -215,11 +215,11 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
 
   if (eflag) {
     snprintf (query, BUFLEN-1, 
-	      "select %s, %s, status from %s where %s='%s' %s", 
+	      "select %s, %s, status from %s where %s='%s' %s order by iddomain limit 1", 
 	      opts->passcol, opts->expcol, opts->table, opts->usercol, user, optdomain);
   } else {
     snprintf (query, BUFLEN-1, 
-	      "select %s  from %s where %s='%s' %s", 
+	      "select %s  from %s where %s='%s' %s order by iddomain limit 1", 
 	      opts->passcol,  opts->table, opts->usercol, user, optdomain);
   }
     
@@ -235,7 +235,7 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
   }
 
 
-  /* should be exactly one row */
+  /* could be more than one row but get only the first*/
   if ( db_numrows(result) != 1 ) {
     db_free_result(result);
     db_close(conn);
