@@ -48,7 +48,7 @@ begin
 
   
 
-   select into classid application.id from application, doc where doc.id=profid and lower(doc.classname) = application.name;
+   select into classid id_class from octrl  where id_obj=profid;
    select into aclid id from acl where id_application=classid and name=''view'';
 
    return hasprivilege(arg_user, profid, classid ,aclid );
