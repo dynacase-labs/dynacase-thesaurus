@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.2 2002/03/01 09:36:42 eric Exp $
+// $Id: editcard.php,v 1.3 2002/03/06 17:16:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -254,7 +254,7 @@ function editcard(&$action) {
 	      $tableframe[$v]["inputtype"] .= "\">";
 
 	      // input 
-	      $tableframe[$v]["inputtype"] .="<input size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
+	      $tableframe[$v]["inputtype"] .="<input accept=\"image\" size=15 type=\"file\" name=\"".$listattr[$i]->id."\" value=\"".chop(htmlentities($value))."\"";
 	      $tableframe[$v]["inputtype"] .= " id=\"".$listattr[$i]->id."\" "; 
 	      if ($listattr[$i]->visibility == "R") $tableframe[$v]["inputtype"] .=" disabled ";
 	      $tableframe[$v]["inputtype"] .= " > "; 
