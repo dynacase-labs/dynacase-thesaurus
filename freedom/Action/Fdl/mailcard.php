@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.6 2002/08/09 08:47:28 eric Exp $
+// $Id: mailcard.php,v 1.7 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -137,7 +137,7 @@ function mailcard(&$action) {
     // ---------------------------
     // insert attached files
 
-    $afiles = $doc->GetSpecialAttributes("type='image' or type='file'");
+    $afiles = $doc->GetFileAttributes();
 
     if (count($afiles) > 0) {
     

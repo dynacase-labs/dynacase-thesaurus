@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editchangecatg.php,v 1.4 2002/09/02 16:38:49 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editchangecatg.php,v $
+// $Id: generic_duplicate.php,v 1.1 2002/09/02 16:38:49 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -23,42 +23,38 @@
 // ---------------------------------------------------------------
 
 
+include_once("FDL/duplicate.php");
+
 include_once("FDL/Class.Dir.php");
-include_once("FDL/Class.DocUser.php");
-include_once("GENERIC/generic_util.php");
+include_once("GENERIC/generic_util.php"); 
+
 
 // -----------------------------------
-function generic_editchangecatg(&$action) {
+function generic_duplicate(&$action) {
   // -----------------------------------
-  global $docid;
-  global $dbaccess;
 
-  $docid=GetHttpVars("id"); // the user to change catg
+    // Get all the params      
+  $dirid=GetHttpVars("dirid", getDefFld($action)); // where to duplicate
+  $docid=GetHttpVars("id",0);       // doc to duplicate
+
 
   
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Dir( $dbaccess,getDefFld($action) );
+  $copy=duplicate($action, $dirid, $docid);
 
-  $doc = new Doc($dbaccess,$docid);
-  $action->lay->Set("username",$doc->title);
+  // add to default catg (also)
+  if (getDefFld($action) !=  $dirid) {
 
-
-
-  $stree=getChildCatg($homefld, 1);
-
-  reset($stree);
-  
-  while (list($k,$v) = each($stree)) {
-    if (isInDir($dbaccess, $v["id"], $docid)) $checked="checked";
-    else  $checked="";
-    $stree[$k]["checked"]=$checked;
+    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $fld = new Dir( $dbaccess, getDefFld($action) );
+      
+    $err = $fld->AddFile($copy->id);
+    if ($err != "") {
+      $action->exitError($err);
+    }
   }
+  redirect($action,GetHttpVars("app"),"GENERIC_CARD&id=".$copy->id);
   
-  $action->lay->SetBlockData("CATG",$stree);
-  $action->lay->Set("topdir",getDefFld($action));
-  $action->lay->Set("docid",$docid);
-  
-
 }
+
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_list.php,v 1.4 2002/08/28 09:39:32 eric Exp $
+// $Id: generic_list.php,v 1.5 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -57,9 +57,9 @@ function generic_list(&$action) {
   $famid = getDefFam($action);
 
 
-  $doc = new Doc($dbaccess,$famid);
+
   // add filters like view control see DocUser::Control
-  $sqlfilters=array("fromid = $famid");
+  $sqlfilters[]=getSqlFrom($dbaccess,$famid);
 
 
   if (viewfolder($action, true, false,$slice, $sqlfilters) == $slice) {

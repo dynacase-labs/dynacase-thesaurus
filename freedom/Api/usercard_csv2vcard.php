@@ -21,7 +21,7 @@ if ($dbaccess == "") {
 
   $doc = new DocUser($dbaccess,$action->GetParam("IDFAMUSER", FAM_DOCUSER));
 
-  $lattr = $doc->GetAttributes();
+  $lattr = $doc->GetNormalAttributes();
   $format = "DOC;".$doc->id.";<special id>;<special dirid>; ";
 
   while (list($k, $attr) = each ($lattr)) {

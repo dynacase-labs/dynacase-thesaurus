@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_search.php,v 1.3 2002/08/28 09:39:32 eric Exp $
+// $Id: generic_search.php,v 1.4 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,17 +61,18 @@ function generic_search(&$action) {
     // replace 'select * from' by 'select doc.id from'
       $searchquery=str_replace("select * from","select doc.id from",$searchquery);
   } else { // case of search in folder
-    $searchquery="select childid from fld where dirid=$dirid";
+    $searchquery="select childid from fld where childid=doc.id and dirid=$dirid";
   }
 
   $famid = getDefFam($action);
+  $sqlfrom = getSqlFrom($dbaccess,$famid);
 
   $query = "select doc.* from docvalue, doc where (value ~* '.*$keyword.*') ".
      "and doc.id in ($searchquery) ".
      "and (doc.id = docvalue.docid) ".
      "and (doc.locked != -1)".
      "and (not useforprof)".
-     "and (doc.fromid = $famid)";
+     "and $sqlfrom";
   $sdoc-> AddQuery($query);
 
   redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&catg=$dirid");

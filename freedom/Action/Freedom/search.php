@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.5 2002/07/16 08:25:08 eric Exp $
+// $Id: search.php,v 1.6 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,13 +41,14 @@ function search(&$action) {
   // Get all the params      
   $keyword=GetHttpVars("keyword"); // keyword to search
   $dirid=GetHttpVars("dirid"); // insert search in this folder
-  $title=GetHttpVars("title", _("new search ").$keyword); // title of the search
+  $title=GetHttpVars("title"); // title of the search
   $latest=GetHttpVars("latest", false); // only latest revision
   $save=GetHttpVars("save", false); // the query need to be saved
   $sensitive=GetHttpVars("sensitive", false); // the keyword is case sensitive
   $fromdir=GetHttpVars("fromdir", false); // the keyword is case sensitive
   $famid=GetHttpVars("famid",0); // famid restrictive familly
 
+  if ($title == "") $title=_("new search ").$keyword;
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 

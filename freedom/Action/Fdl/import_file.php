@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.17 2002/08/19 12:18:23 eric Exp $
+// $Id: import_file.php,v 1.18 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -202,7 +202,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10) {
     $gerr="\nline $nline:".$err;
     return false;
   }
-  $lattr = $doc->GetAttributes();
+  $lattr = $doc->GetNormalAttributes();
 
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.3 2002/08/28 09:39:32 eric Exp $
+// $Id: generic_tab.php,v 1.4 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,8 +59,13 @@ function generic_tab(&$action) {
 
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
 
-  if ($dir->id == getDefFld($action))   $sdoc->title = sprintf(_("%s all categories "),$tabletter[$tab] );
-  else  $sdoc->title = sprintf(_("%s %s category "),$tabletter[$tab],$dir->title );
+  if ($dir->id == getDefFld($action))   {
+    $sdoc->title = sprintf(_("%s all categories "),$tabletter[$tab] );
+    $qfld = "";
+  }  else {
+    $sdoc->title = sprintf(_("%s %s category "),$tabletter[$tab],$dir->title );
+    $qfld = "and doc.initid in (select childid from fld where childid=doc.id and dirid=$dirid) ";
+  }
 
 
   $ldoc = $sdoc->GetDocWithSameTitle();
@@ -71,10 +76,11 @@ function generic_tab(&$action) {
   $qtitle = ($tabletter[$tab]=="")?"":"and (title ~* '^[".$tabletter[$tab]."].*') ";
 
   $famid = getDefFam($action);
+  $sqlfrom = getSqlFrom($dbaccess,$famid);
 
-  $query = "select * from doc where (fromid = $famid) ".
+  $query = "select * from doc where $sqlfrom ".
     $qtitle.
-     "and doc.initid in (select childid from fld where dirid=$dirid) ".
+     $qfld.
      "and (locked != -1) ".
      "and (not useforprof) ".
      "and (doctype='F')";

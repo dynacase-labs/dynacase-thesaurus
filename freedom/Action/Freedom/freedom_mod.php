@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.5 2002/08/28 09:39:32 eric Exp $
+// $Id: freedom_mod.php,v 1.6 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,12 +57,14 @@ function freedom_mod(&$action) {
     
   } 
 
+  $doc->Modify();
   $err = $doc->PostModify(); 
   if ($err != "")  $action-> ExitError($err);
 
   $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
   
+  $action->register("reload$ndocid","Y"); // to reload cached client file
   redirect($action,GetHttpVars("redirect_app",GetHttpVars("app")),
 	   GetHttpVars("redirect_act","FREEDOM_CARD&id=$ndocid"));
   

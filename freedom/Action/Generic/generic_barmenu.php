@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_barmenu.php,v 1.4 2002/08/28 09:39:32 eric Exp $
+// $Id: generic_barmenu.php,v 1.5 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,20 +35,45 @@ function generic_barmenu(&$action) {
   $catg=GetHttpVars("catg", 1); // catg where search
 
 
+  $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $famid = getDefFam($action);
+  
+  $fdoc= new Doc( $dbaccess, $famid);
+  $child= $fdoc->GetChildDoc();
 
+  $tchild = array();
+  $tnewmenu= array();
+  while (list($k,$vid) = each($child)) {
+    $cdoc= new Doc( $dbaccess, $vid);
+    $tchild[] = array("stitle" => $cdoc->title,
+		      "subfam" => $vid);
+    $tnewmenu[]="newdoc$vid";
+  }
+
+  $action->lay->SetBlockData("NEWFAM", $tchild);
+  $action->lay->Set("ftitle", $fdoc->title);
 
   $action->lay->Set("idfamuser", $famid);
 
+
   include_once("FDL/popup_util.php");
-  popupInit("newmenu",    array('newdoc','newcatg','imvcard'));
+  popupInit("newmenu",  array_merge($tnewmenu ,array('newdoc','newcatg','imvcard'))  );
   popupInit("searchmenu", array('text' ));
   popupInit("helpmenu", array('help'));
 
 
-  if ($action->HasPermission("GENERIC"))   popupActive("newmenu",1,'newdoc'); 
-  else popupInactive("newmenu",1,'newdoc'); 
+  if ($action->HasPermission("GENERIC"))  {
+    popupActive("newmenu",1,'newdoc'); 
+    while (list($k,$vid) = each($tnewmenu)) {
+      popupActive("newmenu",1,$vid); 
+    }
+  } else {
+    popupInactive("newmenu",1,'newdoc'); 
+    while (list($k,$vid) = each($tnewmenu)) {
+      popupInactive("newmenu",1,$vid); 
+    }
+  }
   if ($action->HasPermission("GENERIC_MASTER"))  {
     popupActive("newmenu",1,'newcatg');
     popupActive("newmenu",1,'imvcard');
@@ -62,7 +87,6 @@ function generic_barmenu(&$action) {
   popupActive("helpmenu",1,'help');
 
 
-  $dbaccess = $action->GetParam("FREEDOM_DB");
   $homefld = new Dir( $dbaccess, getDefFld($action));
 
 

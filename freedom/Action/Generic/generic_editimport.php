@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_editimport.php,v 1.4 2002/08/28 09:39:32 eric Exp $
+// $Id: generic_editimport.php,v 1.5 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,7 +51,7 @@ function generic_editimport(&$action) {
 
   // spec for csv file
   $doc=new DocUser($dbaccess, $famid);
-  $lattr = $doc->GetAttributes();
+  $lattr = $doc->GetNormalAttributes();
   $format = "DOC;".$doc->id.";0;". getDefFld($action)."; ";
 
   while (list($k, $attr) = each ($lattr)) {

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.5 2002/08/28 09:39:32 eric Exp $
+// $Id: generic_edit.php,v 1.6 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,11 +49,6 @@ function generic_edit(&$action) {
  
 
 
-
-  
-  $action->lay->Set("selectp", "");
-  $action->lay->Set("selectw", "");
-  $action->lay->Set("selectr", "");
 
  
 

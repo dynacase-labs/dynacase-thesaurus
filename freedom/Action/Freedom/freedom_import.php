@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_import.php,v 1.3 2002/07/23 13:25:11 eric Exp $
+// $Id: freedom_import.php,v 1.4 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_import.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,7 +65,7 @@ function freedom_import(&$action) {
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);
 
 
-  $lattr = $doc->GetAttributes();
+  $lattr = $doc->GetNormalAttributes();
   $format = "DOC;".$doc->id.";<special id>;<special dirid>; ";
 
   while (list($k, $attr) = each ($lattr)) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: exportfld.php,v 1.5 2002/08/09 08:47:28 eric Exp $
+// $Id: exportfld.php,v 1.6 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/exportfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -67,7 +67,7 @@ function exportfld(&$action, $aflid="0")
   while (list($k,$doc)= each ($ldoc)) {
     
     if ($prevfromid != $doc->fromid) {
-      $lattr=$doc->GetAttributes();
+      $lattr=$doc->GetNormalAttributes();
       fputs($fout,"//DOC;".$doc->fromid.";<specid>;<fldid>;");
       while (list($ka,$attr)= each ($lattr)) {
 	fputs($fout,str_replace(";"," - ",$attr->labeltext).";");
@@ -88,7 +88,7 @@ function exportfld(&$action, $aflid="0")
   }
   }
   fclose($fout);
-  Http_DownloadFile($foutname, $fld->title.".csv", "text/csv");
+  Http_DownloadFile($foutnam, $feld->title.".csv", "text/csv");
   unlink($foutname);
 
   

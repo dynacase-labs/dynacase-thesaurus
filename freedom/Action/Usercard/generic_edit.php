@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.2 2002/06/19 12:32:34 eric Exp $
+// $Id: generic_edit.php,v 1.3 2002/09/02 16:38:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,6 +26,7 @@
 include_once("FDL/Class.Doc.php");
 
 include_once("Class.QueryDb.php");
+include_once("GENERIC/generic_util.php"); 
 
 // -----------------------------------
 function generic_edit(&$action) {
@@ -33,7 +34,8 @@ function generic_edit(&$action) {
 
   // Get All Parameters
   $docid = GetHttpVars("id",0);        // document to edit
-  $classid = GetHttpVars("classid",$action->GetParam("DEFAULT_FAMILY", 1)); // use when new doc or change class
+  $famid = GetHttpVars("classid",getDefFam($action)); // use when new doc or change class
+
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
 
 
@@ -44,12 +46,9 @@ function generic_edit(&$action) {
    
 
 
-  $action->lay->Set("idfamuser", $action->GetParam("DEFAULT_FAMILY", 1));
+ 
 
   // information propagation
-  $action->lay->Set("classid", $classid);
-  $action->lay->Set("dirid", $dirid);
-  $action->lay->Set("id", $docid);
   $action->lay->Set("privacity", QA_PRIVACITY);
 
 
@@ -60,7 +59,7 @@ function generic_edit(&$action) {
     {
       $action->lay->Set("TITLE", _("new user card"));
       $action->lay->Set("editaction", $action->text("create"));
-      $doc= createDoc($dbaccess,$classid);
+      $doc= createDoc($dbaccess,$famid);
     }
   else
     {    
@@ -69,6 +68,7 @@ function generic_edit(&$action) {
       $err = $doc->CanLockFile();
       if ($err != "")   $action->ExitError($err);
 
+      $famid = $doc->fromid;
       if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
   
 
@@ -102,6 +102,10 @@ function generic_edit(&$action) {
 
 
  
+  // information propagation
+  $action->lay->Set("classid", $famid);
+  $action->lay->Set("dirid", $dirid);
+  $action->lay->Set("id", $docid);
     
 
 }
