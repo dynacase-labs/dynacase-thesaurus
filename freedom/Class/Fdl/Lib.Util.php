@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.7 2005/01/27 09:11:18 marc Exp $
+ * @version $Id: Lib.Util.php,v 1.8 2005/01/27 10:21:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -47,15 +47,21 @@ function StringDateToJD($sdate) {
   return $jd;
 }
 
-function FrenchDateToJD($fdate) {
- if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$reg)) {   
+function FrenchDateToJD($fdate) { 
+if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$reg)) {   
    return cal2jd("CE",  $reg[3], $reg[2], $reg[1], $reg[4],$reg[5] , 0 );
   }
  return false;
 }
 
 function FrenchDateToUnixTs($fdate) {
-  return strftime("%s", mktime($fdate));
+  if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$r)) {   
+    $ds = mktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
+    $dt = strftime("%s", $ds);
+  } else {
+    $dt = -1;
+  }
+  return $dt;
 }
 
 function Iso8601ToJD($isodate) {
