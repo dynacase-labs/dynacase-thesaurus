@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_dedit.php,v 1.1 2002/11/25 16:26:30 eric Exp $
+// $Id: freedom_dedit.php,v 1.2 2003/01/17 11:44:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_dedit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,7 +42,7 @@ function freedom_dedit(&$action) {
    if ($docid > 0) {
 
      $doc= new Doc($dbaccess, $docid);
-     if (!$doc->isAffected()) {
+     if (!$doc->isAlive()) {
        // the doesn't exist
        $docid=0; // to recreate a new one
      }

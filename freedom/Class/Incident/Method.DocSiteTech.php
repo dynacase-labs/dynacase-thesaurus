@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocSiteTech.php,v 1.2 2002/11/28 18:19:21 eric Exp $
+// $Id: Method.DocSiteTech.php,v 1.3 2003/01/17 11:44:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocSiteTech.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ function SpecRefresh() {
 
     if ($this->getValue("SI_IDTECH$idt") > 0) {
       $doc = new doc($this->dbaccess,$this->getValue("SI_IDTECH$idt"));
-      if ($doc->isAffected()) {
+      if ($doc->isAlive()) {
 	$this->setValue("SI_TECHNAME$idt",$doc->title);
 	$this->setValue("SI_TECHPHONE$idt",$doc->getValue("US_PHONE"));
 	$this->setValue("SI_TECHMAIL$idt",$doc->getValue("US_MAIL"));

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_modaccess.php,v 1.1 2002/11/25 16:26:30 eric Exp $
+// $Id: freedom_modaccess.php,v 1.2 2003/01/17 11:44:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -56,7 +56,7 @@ function freedom_modaccess(&$action) {
     while (list($k,$pos) = each ($aclon)) { 
       if (intval($pos) > 0)  $perm->SetControlP($pos);
     }
-    if ($perm -> isAffected()) $perm ->modify();
+    if ($perm -> isAlive()) $perm ->modify();
     else $perm->Add();
     
   }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.3 2002/11/04 09:13:17 eric Exp $
+// $Id: Class.DocFile.php,v 1.4 2003/01/17 11:44:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.3 2002/11/04 09:13:17 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.4 2003/01/17 11:44:05 eric Exp $';
 
 
 include_once("FDL/Class.PDoc.php");
@@ -42,7 +42,7 @@ Class DocFile extends PDoc
 
     $this->AddParamRefresh("$nameId","$nameTitle,$nameId");
     $doc=new Doc($this->dbaccess, $this->getValue($nameId));
-    if ($doc->isAffected())  $this->setValue($nameTitle,$doc->title);
+    if ($doc->isAlive())  $this->setValue($nameTitle,$doc->title);
     else {
       // suppress
       $this->deleteValue($nameId);

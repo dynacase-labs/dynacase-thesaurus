@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: generic_edit.php,v 1.11 2002/12/23 09:16:13 eric Exp $
+// $Id: generic_edit.php,v 1.12 2003/01/17 11:44:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -73,7 +73,7 @@ function generic_edit(&$action) {
       if ($err != "")   $action->ExitError($err);
 
       $classid = $doc->fromid;
-      if (! $doc->isAffected()) $action->ExitError(_("document not referenced"));
+      if (! $doc->isAlive()) $action->ExitError(_("document not referenced"));
   
 
       $action->lay->Set("TITLE", $doc->title);

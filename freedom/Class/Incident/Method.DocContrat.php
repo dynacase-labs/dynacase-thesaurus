@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocContrat.php,v 1.1 2002/11/04 09:13:17 eric Exp $
+// $Id: Method.DocContrat.php,v 1.2 2003/01/17 11:44:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Method.DocContrat.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,7 +37,7 @@ function SpecRefresh() {
 
     if ($this->getValue("CO_IDCLT$idt") > 0) {
       $doc = new doc($this->dbaccess,$this->getValue("CO_IDCLT$idt"));
-      if ($doc->isAffected()) {
+      if ($doc->isAlive()) {
 	$this->setValue("CO_CLTNAME$idt",$doc->title);
 	$this->setValue("CO_CLTPHONE$idt",$doc->getValue("US_PHONE"));
 	$this->setValue("CO_CLTMAIL$idt",$doc->getValue("US_MAIL"));

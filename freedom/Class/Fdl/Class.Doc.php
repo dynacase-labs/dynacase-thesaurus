@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.83 2003/01/13 19:00:39 eric Exp $
+// $Id: Class.Doc.php,v 1.84 2003/01/17 11:44:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.83 2003/01/13 19:00:39 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.84 2003/01/17 11:44:05 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -1235,6 +1235,10 @@ create unique index i_docir on doc(initid, revision);";
   }
   
  
+  // if doc is in Trash is considered
+  function isAlive() {
+    return ((DbObj::isAffected()) && ($this->doctype != 'Z'));
+  }
 
   // --------------------------------------------------------------------
   // use triggers to update docvalue table
@@ -1594,7 +1598,7 @@ create trigger UV{$this->fromid}_$v BEFORE INSERT OR UPDATE ON doc$this->fromid 
 	
       // when modification 
 
-      if (! $this->isAffected()) $action->ExitError(_("document not referenced"));
+      if (! $this->isAlive()) $action->ExitError(_("document not referenced"));
 	
 	
       $this->lay->Set("TITLE", $this->title);

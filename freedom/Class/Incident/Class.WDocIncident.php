@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.5 2003/01/13 18:59:03 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.6 2003/01/17 11:44:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.5 2003/01/13 18:59:03 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.6 2003/01/17 11:44:05 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -272,7 +272,7 @@ Class WDocIncident extends WDoc
 	
 	include_once("Class.MailAccount.php");
 	$ma = new MailAccount("",$action->user->id);
-	if ($ma->isAffected()) {
+	if ($ma->isAlive()) {
 	  $dom = new Domain("",$ma->iddomain);
 	  $umail = $ma->login."@".$dom->name;
 
