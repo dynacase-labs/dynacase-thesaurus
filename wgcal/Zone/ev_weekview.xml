@@ -5,16 +5,14 @@
      onmouseout="WGCalEvOnMouseOut(event, '[REF]');" 
     style="cursor:pointer; border:0px; display:none">
 
-<div id="evth[REF]" style="border:0px inset; background-color:grey;"></div>
+<div id="evth[REF]" style="border:0px inset; background-color:[evglobalstate];"></div>
 
 <div id="evta[REF]" style="background-color:[bgresumecolor]; overflow:hidden; cursor:pointer; border:0px">
 <div style="overflow:hidden; cursor:pointer; border-left:3px solid [bgstate];border-right:1px solid grey; filter:alpha(opacity=80); height:100%">
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
-<td align="left">
-    <img style="display:[valert]; border:0px; padding:0px;" src="WGCAL/Images/wm-new.png" width="15" title="[TEXT:event] [vtext]">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]
-</td></tr>
-<tr><td>[TITLE]</td></tr>
+<td align="left"><img style="display:[valert]; border:0px; padding:0px;" src="WGCAL/Images/wm-new.png" width="15" title="[TEXT:event] [vtext]">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]</td><td align="right"><span style="font-size:80%">[RHOURS] - [RHOURE]</span></td></tr>
+<tr><td colspan="2">[TITLE]</td></tr>
 </table>
 </div>
 </div>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.9 2005/02/04 08:03:47 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.10 2005/02/06 20:47:29 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,16 +24,24 @@
 
 global $app_const;
 
-$app_const= array(
-
-  "WGCAL_U_LEFTWIDTH" => array(  "val"=>"200", "descr"=>N_("left toolbar width"), "user"=>"Y"),
-  "WGCAL_U_HLINETITLE" => array(  "val"=>"10", "descr"=>N_("title line height"), "user"=>"Y"),
-  "WGCAL_U_HLINEHOURS" => array(  "val"=>"40", "descr"=>N_("hour lines height"), "user"=>"Y"),
-  "WGCAL_U_HCOLW" => array(  "val"=>"25", "descr"=>N_("hour in day column width"), "user"=>"Y"),
-
-  "WGCAL_U_MENUICONS_H"  => array(  "val"=>"25", "descr"=>N_("menu icons height"), "user"=>"Y"),
-
-  "WGCAL_U_VIEWWEEKEND" => array(  "val"=>"yes", "descr"=>N_("display week end"), "user"=>"Y"),
+$app_const = 
+array(
+  
+      "WGCAL_U_CURDAY" => array( "kind"=>"color", "user"=>"Y", "val"=>"#EAF1FF", 
+				 "descr"=>N_("current day color")),
+      "WGCAL_U_WEDAY" => array( "kind"=>"color", "user"=>"Y", "val"=>"#EAEAEA", 
+				"descr"=>N_("week end days color")),
+      "WGCAL_U_SELDAY" => array( "kind"=>"color", "user"=>"Y", "val"=>"#FFFAEA", 
+				 "descr"=>N_("selected day color")),
+     
+      "WGCAL_U_LEFTWIDTH" => array(  "val"=>"200", "descr"=>N_("left toolbar width"), "user"=>"Y"),
+      "WGCAL_U_HLINETITLE" => array(  "val"=>"10", "descr"=>N_("title line height"), "user"=>"Y"),
+      "WGCAL_U_HLINEHOURS" => array(  "val"=>"40", "descr"=>N_("hour lines height"), "user"=>"Y"),
+      "WGCAL_U_HCOLW" => array(  "val"=>"25", "descr"=>N_("hour in day column width"), "user"=>"Y"),
+      
+      "WGCAL_U_MENUICONS_H"  => array(  "val"=>"25", "descr"=>N_("menu icons height"), "user"=>"Y"),
+      
+      "WGCAL_U_VIEWWEEKEND" => array(  "val"=>"yes", "descr"=>N_("display week end"), "user"=>"Y"),
   "WGCAL_U_DAYSVIEWED" => array(  "val"=>"7", "descr"=>N_("view count days"), "user"=>"Y"),
   "WGCAL_U_STARTHOUR" => array(  "val"=>"8", "descr"=>N_("day start hour"), "user"=>"Y"),
   "WGCAL_U_STOPHOUR" => array(  "val"=>"18", "descr"=>N_("day end hour"), "user"=>"Y"),

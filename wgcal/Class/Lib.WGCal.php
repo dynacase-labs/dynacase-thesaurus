@@ -3,13 +3,21 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.3 2005/02/04 08:03:47 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.4 2005/02/06 20:47:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
  */
  /**
  */
+
+define("SEC_PER_DAY", 24*3600);
+define("SEC_PER_HOUR", 3600);
+define("SEC_PER_MIN", 60);
+
+define(DATE_F_LONG, "%a %d %B %Y %H:%M:%S");
+define(DATE_F_DAY, "%A %d %B %Y");
+define(DATE_F_HM, "%H:%M");
 
 
 // ---------------------------------------------------------------------------------------
@@ -78,5 +86,18 @@ function WGCalGetRessDisplayed(&$action) {
   }
   return $r;
 }
+
+function WGCalGetDayFromTs($ts) 
+{
+  if ($ts<=0) return false;
+  $dd = strftime("%d", $ts);
+  $mm = strftime("%m", $ts);
+  $yy = strftime("%Y", $ts);
+  $fwdt = mktime ( 0, 0, 0, $mm, $dd, $yy);
+  return $fwdt;
+}
   
+function sendEventMail(&$action, $evid) {
+  return;
+}
 ?>

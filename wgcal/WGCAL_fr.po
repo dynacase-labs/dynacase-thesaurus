@@ -2,13 +2,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-04 08:36+0100\n"
+"POT-Creation-Date: 2005-02-06 10:42+0100\n"
 "PO-Revision-Date: 2005-02-02 17:01+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "current day color"
+msgstr ""
+
+msgid "week end days color"
+msgstr ""
+
+#, fuzzy
+msgid "selected day color"
+msgstr "Supprimer les jours sélectionnés"
 
 msgid "left toolbar width"
 msgstr "Largeur de la barre d'outils"
@@ -42,6 +52,10 @@ msgstr "Division de l'heure"
 
 msgid "tool display state"
 msgstr "Etat d'affiche de l'outil"
+
+#, fuzzy
+msgid "alert for new event ?"
+msgstr "Ajout d'un nouveau rendez-vous"
 
 msgid "my event color"
 msgstr "Modifier la couleur de mes évènements"
@@ -81,6 +95,10 @@ msgstr "Barre d'outils"
 
 msgid "set display/undisplay tool state in toolbar"
 msgstr "Afficher/Ne pas afficher dans la barre d'outil"
+
+#, fuzzy
+msgid "set event state"
+msgstr "Etat du rendez-vous"
 
 msgid "menubar"
 msgstr "Barre de menu"
@@ -144,6 +162,9 @@ msgstr "Une semaine"
 msgid "two week view"
 msgstr "Deux semaines"
 
+msgid "search events containing phrase..."
+msgstr ""
+
 msgid "advanced search"
 msgstr "Recherche avancée"
 
@@ -195,13 +216,32 @@ msgstr ""
 msgid "manage repeat"
 msgstr "Gérer les répétitions"
 
-msgid "add attendees"
-msgstr "Convier des personnes"
-
 msgid "rv title"
 msgstr "Titre"
 
+msgid "rv note"
+msgstr "Note"
+
 msgid "start date"
+msgstr "Date de début"
+
+#, fuzzy
+msgid "click here to enter the start date"
+msgstr "cliquer pour choisir une date"
+
+#, fuzzy
+msgid "end time update"
+msgstr "Date de fin"
+
+msgid "end date"
+msgstr "Date de fin"
+
+#, fuzzy
+msgid "click here to enter the end date"
+msgstr "cliquer pour choisir une date"
+
+#, fuzzy
+msgid "start time update"
 msgstr "Date de début"
 
 msgid "no hour"
@@ -210,11 +250,23 @@ msgstr "Pas d'heure"
 msgid "all the day"
 msgstr "Toute la journée"
 
-msgid "end date"
-msgstr "Date de fin"
+msgid "attendees"
+msgstr "Personnes conviées"
 
-msgid "rv note"
-msgstr "Note"
+msgid "add attendees"
+msgstr "Convier des personnes"
+
+msgid "vew disponibility"
+msgstr "Voir les disponibilités"
+
+msgid "delete attendee"
+msgstr "Supprimer une personne conviée"
+
+msgid "event state "
+msgstr "Etat du rendez-vous"
+
+msgid "status"
+msgstr "Etat"
 
 msgid "confidentiality"
 msgstr "Confidentialité"
@@ -223,17 +275,8 @@ msgstr "Confidentialité"
 msgid "calendar"
 msgstr "Mes agendas"
 
-msgid "status"
-msgstr "Etat"
-
 msgid "alarm"
 msgstr "Alarme"
-
-msgid "hour"
-msgstr "heure"
-
-msgid "minutes"
-msgstr "minutes"
 
 msgid "before"
 msgstr "avant"
@@ -310,17 +353,9 @@ msgstr "Ajouter un jour à exclure"
 msgid "del selected dates"
 msgstr "Supprimer les jours sélectionnés"
 
-msgid "attendees"
-msgstr "Personnes conviées"
-
-msgid "vew disponibility"
-msgstr "Voir les disponibilités"
-
-msgid "delete attendee"
-msgstr "Supprimer une personne conviée"
-
-msgid "event state "
-msgstr "Etat du rendez-vous"
+#, fuzzy
+msgid "update time"
+msgstr "Mise à jour de l'agenda"
 
 msgid "search phrase"
 msgstr "Texte recherché"
@@ -337,6 +372,22 @@ msgstr "Toute la journée"
 
 msgid "waiting rv"
 msgstr "Rendez-vous en attente"
+
+#, fuzzy
+msgid "accept event"
+msgstr "Edition d'un rendez-vous"
+
+#, fuzzy
+msgid "accept event "
+msgstr "Edition d'un rendez-vous"
+
+#, fuzzy
+msgid "refuse event"
+msgstr "Stockage d'un rendez-vous"
+
+#, fuzzy
+msgid "refuse event "
+msgstr "Stockage d'un rendez-vous"
 
 msgid "calendar selector"
 msgstr "Sélection du calendrier"
@@ -419,20 +470,26 @@ msgstr ""
 msgid "event search "
 msgstr "Recherche d'évènement"
 
-msgid "new"
-msgstr "nouveau"
-
-msgid "read"
-msgstr "lu"
-
-msgid "to be confirmed"
-msgstr "à confirmer"
-
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
 
 msgid "confidential event"
 msgstr "Evènement confidentiel"
+
+#~ msgid "hour"
+#~ msgstr "heure"
+
+#~ msgid "minutes"
+#~ msgstr "minutes"
+
+#~ msgid "new"
+#~ msgstr "nouveau"
+
+#~ msgid "read"
+#~ msgstr "lu"
+
+#~ msgid "to be confirmed"
+#~ msgstr "à confirmer"
 
 #~ msgid "save ressource selection"
 #~ msgstr "Sauvegarder la liste des ressources"

@@ -1,0 +1,10 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+<fieldset><legend>[TEXT:calendar creation]</legend>
+<form id="newcal" target="wgcal_hidden" name="fnewcal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_NEWCALENDAR">
+[TEXT:Enter new calendar name] :  <input id="cname" name="cname" type="text" width="30"
+  value="([TEXT:enter new calendar name])"   title="[TEXT:enter new calendar name]"
+  onclick="this.value = ''" >
+     <input id="cprivate" name="cprivate" type="hidden" value="1">&nbsp;&nbsp;
+<img class="WGCalAction" src="WGCAL/Images/wm-save.png" height="20" title="[TEXT:create calendar]" onclick="document.getElementById('newcal').submit(); window.close()">
+</form>
+</fieldset>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.23 2005/02/04 15:47:53 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.24 2005/02/06 20:47:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -18,6 +18,9 @@ include_once("WGCAL/Lib.WGCal.php");
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
 define("SEC_PER_MIN", 60);
+
+global $trace;
+$trace = "";
 
 function GetFirstDayOfWeek($ts) {
 	if ($ts<=0) return false;
@@ -45,6 +48,7 @@ function d2s($t, $f="%x %X") {
 
 function wgcal_calendar(&$action) {
 
+  global $trace;
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
@@ -57,17 +61,19 @@ function wgcal_calendar(&$action) {
 
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
   $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
-  if ($swe!="yes") $ndays = $dayperweek - 2;
-  else $ndays = $dayperweek;
-  $sdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
-  $pafter = $sdate + ($ndays * SEC_PER_DAY);
-  $pbefore = $sdate - ($ndays * SEC_PER_DAY);
+  if ($swe!="yes") {
+    $ndays = $dayperweek - 2;
+    $action->lay->set("wedisplayed", "" ); 
+  } else {
+    $ndays = $dayperweek;
+    $action->lay->set("wedisplayed", "checked" );
+  }
+  $sdate = WGCalGetDayFromTs($action->GetParam("WGCAL_U_CALCURDATE", time()));
+  $cdate = WGCalGetDayFromTs(time());
   $firstWeekDay = GetFirstDayOfWeek($sdate);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
-  $today = d2s("%d/%m/%Y", time());
-  $curdate = d2s("%d/%m/%Y", $sdate);
-  $fday  = strftime("%u",$firstWeekDay);
-  // echo "start date : ".d2s($sdate)." end : ".d2s($edate)." first : ".d2s($firstWeekDay)."<br>";
+  $pafter = $sdate + ($ndays * SEC_PER_DAY);
+  $pbefore = $sdate - ($ndays * SEC_PER_DAY);
 
   $year  = strftime("%Y",$sdate);
   $month = strftime("%B",$sdate);
@@ -95,32 +101,27 @@ function wgcal_calendar(&$action) {
   $action->lay->set("pcurrent", time());
 
   $action->lay->set("WEEKNUMBER", $week);
-  $classalt = array ( 0 => "WGCAL_Day1", 1 => "WGCAL_Day2" );
   $curday = -1;
   $tabdays = array(); $itd=0;
   for ($i=0; $i<$ndays; $i++) { 
     $tabdays[$i]["iday"] =  $i;
     $tabdays[$i]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
-    $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstart-1)) -1;
+    $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstart-1));
     $tabdays[$i]["vstartc"] =  strftime("%x %X", $tabdays[$i]["vstart"]);
-    $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstop) -1;
+    $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstop+1)) -1;
     $tabdays[$i]["vendc"] =  strftime("%x %X", $tabdays[$i]["vend"]);
-    $ld = strftime("%d/%m/%Y", $firstWeekDay+($i*SEC_PER_DAY));
-    if (!strcmp($ld,$today)) {
-      $class[$i] = $classh[$i] = "WGCAL_DayLineCur";
+    $trace .= "day $i::".$tabdays[$i]["days"]." start=".$tabdays[$i]["vstartc"]."::".$tabdays[$i]["vstart"]." end=".$tabdays[$i]["vend"]."::".$tabdays[$i]["vendc"]."\n";
+    if ($cdate==$tabdays[$i]["days"]) {
+      $class[$i] = "WGCAL_DayCur";
+      $classh[$i] = "WGCAL_DayLineCur";
       $curday = $i; 
-    } else if (!strcmp($ld, $curdate)) {
+    } else if ($sdate==$tabdays[$i]["days"]) {
       $classh[$i] = "WGCAL_DayLineCur";
       $class[$i] = "WGCAL_DaySelected";
     } else {
       $classh[$i] = "WGCAL_Period"; 
-      $classh[$i] = "WGCAL_Period"; 
-      if ($i==5||$i==6) $class[$i] = "WGCAL_DayLineWE";  
-      else {
-	if ($alt==1) $alt = 0;
-	else $alt = 1;
-	$class[$i] = $classalt[$alt];
-      }
+      if ($i==5||$i==6) $class[$i] = "WGCAL_DayWE";
+      else $class[$i] = "WGCAL_Day";
     }
     $t[$i]["IDD"] = $i;
     $t[$i]["CSS"] = $classh[$i];
@@ -194,16 +195,21 @@ function wgcal_calendar(&$action) {
   $events = array();
   $events = getAgendaEvent( $action, $ress, 
 		 d2s($firstWeekDay, "%Y-%m-%d %H:%M:%S"),
-		 d2s($edate, "%Y-%m-%d %H:%M:%S") );
+		 d2s($edate, "%Y-%m-%d %H:%M:%S"), $firstWeekDay );
   
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);
 
   //$action->lay->set("comment",strftime("%x %X", time())."<hr><pre>".print_r($events, true)."<pre>");
+
+  $action->lay->set("trace", $trace);
 }
 
 
-function getAgendaEvent(&$action,$tress,$d1="",$d2="") {
+function getAgendaEvent(&$action,$tress,$d1="",$d2="", $fday) {
+
+  global $trace;
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $tout=array(); 
@@ -216,10 +222,12 @@ function getAgendaEvent(&$action,$tress,$d1="",$d2="") {
   foreach ($edre as $k=>$v) {
     $item = array("REF" => $v["id"], "ID" => $v["evt_idinitiator"],
 		  "START" => FrenchDateToUnixTs($v["evt_begdate"]),
-		  "END" => FrenchDateToUnixTs($v["evt_enddate"]), "IDC" =>  $v["evt_idcreator"]);
+		  "END" => FrenchDateToUnixTs($v["evt_enddate"]), 
+		  "IDC" =>  $v["evt_idcreator"],
+                  "DAY" =>  floor((FrenchDateToUnixTs($v["evt_begdate"]) - $fday ) / SEC_PER_DAY ));
     $tout[] = $item;
   }
-//   print_r2($tout);
+  $trace .= print_r($tout, true);
   return $tout;
 }
 

@@ -11,7 +11,7 @@ function pickColor(color) {
     saveTmpRessources();
   } else {
     document.getElementById('cpmycolor').style.background = color;
-    usetparam("WGCAL_U_MYCOLOR", color);
+    usetparam("WGCAL_U_MYCOLOR", color, '', '');
  }
 }
    
@@ -142,7 +142,6 @@ function setRessourceState(rid, setStyle, unsetStyle, memo) {
   }
   document.getElementById(rid).className = rstyle;
   saveTmpRessources();
-  updateCalendar();	
   return;
 }
    
@@ -152,7 +151,7 @@ function saveTmpRessources() {
     if (ressourceList[i][0] != -1 ) 
       rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
   }
-  usetparam("WGCAL_U_RESSTMPLIST", rlist);
+  usetparam("WGCAL_U_RESSTMPLIST", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
   ressourcesChange = 1;
   return;
 }
@@ -163,18 +162,9 @@ function saveRessources() {
     if (ressourceList[i][0] != -1 ) 
       rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
   }
-  usetparam("WGCAL_U_RESSDISPLAYED", rlist);
+  usetparam("WGCAL_U_RESSDISPLAYED", rlist, '', '');
   ressourcesChange = 0;
   return;
-}
-
-function updateCalendar() {
-  var rlist= "";
-  for (i=0; i<ressourceList.length;i++) {
-    if (ressourceList[i][0] != -1 ) rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
-  }
-  document.getElementById('rlist').value = rlist;
-  document.getElementById('updatecal').submit();
 }
 
 // --------------------------------------------------------
@@ -205,17 +195,16 @@ function WGCalSaveToolsVisibility() {
  
 
    
-function useressources(frominput) {
+function useressources(updatetarget, updateaction) {
   rf = document.getElementById('useressources');
   rft = document.getElementById('spuseressources');
-  if (!frominput)  {
-    if (rf.checked) rf.checked = false;
-    else rf.checked = true;
-  }
+  if (rf.checked) rf.checked = false;
+  else rf.checked = true;
   use_r = (rf.checked?1:0);
   if (use_r==1) rft.className = 'WGCRessSelected';
   else rft.className = 'WGCRessOver';
-  usetparam("WGCAL_U_USERESSINEVENT", use_r);
+  alert('update target = '+updatetarget+' action='+updateaction);
+  usetparam("WGCAL_U_USERESSINEVENT", use_r, updatetarget, updateaction);
 }
  
 
@@ -223,7 +212,21 @@ function setwrvalert() {
   rf = document.getElementById('alertwrv');
   if (rf.checked) val = 1;
   else val = 0;
-  usetparam("WGCAL_U_WRVALERT", val);
+  usetparam("WGCAL_U_WRVALERT", val, '', '');
 }
  
 
+function SetEventState(event, state) {
+  frm = document.getElementById('eventstate');
+  seeev = document.getElementById('evt'+event);
+  evid = document.getElementById('evid');
+  evst = document.getElementById('evstate');
+  evid.value = event;
+  evst.value = state;
+  frm.submit();
+  seeev.style.display = 'none';
+  return;
+}
+
+  
+  

@@ -7,7 +7,7 @@ function WGCalResetSizes() {
 var  Root = 'root';
 var  IdStart = 0;
 var  IdEnd   = 0;
-var  Xdivision = 0;
+var  XDays = 0;
 var  Ydivision = 0;
 var  Ystart = 0;
 
@@ -55,6 +55,7 @@ function GetCoordFromDate(ts) {
   var evt = new Object();
   var tinf = GetTimeInfoFromTs(ts);
   day = tinf.day;
+  if (day==0) day = 7;
   evt.x = (Wday * (day - 1)) + Xs;
   hmin = ((tinf.hours-Ystart) * 60) + tinf.minutes;
   ypx = GetPxForMin();
@@ -73,9 +74,11 @@ function WGCalRefreshAll() {
   
 // --------------------------------------------------------
 function WGCalCleanAllFullView() {
-  for (i=0; i<=EventCount; i++) {
-    evtc = document.getElementById('evtc'+Event[i][0]);
-    evtc.style.display = 'none';
+  for (id=0; id<XDays; id++) {
+    for (i=0; i<Days[id].ev.length; i++) {
+      evtc = document.getElementById('evtc'+Days[id].ev[i].id);
+      evtc.style.display = 'none';
+    }
   }
 }
   
@@ -107,8 +110,6 @@ function WGCalEvOnMouseOut(ev, id) {
 // --------------------------------------------------------
 function WGCalSetDate(calendar)
 {  
-  var ff = document.getElementById('fdatesel');
-  
   var y = calendar.date.getFullYear();
   var m = calendar.date.getMonth();     // integer, 0..11
   var d = calendar.date.getDate();
@@ -116,8 +117,7 @@ function WGCalSetDate(calendar)
   var ts = calendar.date.print("%s");
   
   if (calendar.dateClicked) {
-    usetparam("WGCAL_U_CALCURDATE", ts);
-    ff.submit();
+    usetparam("WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
   }
 }
 
@@ -181,7 +181,7 @@ function OutCalendarCell(ev, elt, lref, cref, cclass, hourclass, dayclass) {
 function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart) {
   IdStart   = idstart;
   IdEnd     = idend;	
-  Xdivision = xdiv;
+  XDays = xdiv;
   Ydivision = ydiv;
   Ystart    = ystart;
   WGCalComputeCoord();
@@ -200,11 +200,11 @@ function WGCalComputeCoord() {
   Ye = oe.y + h;
 
   Hzone = Ye-Ys;
-  Hhdiv = Math.round(Hzone / Ydivision)
+  Hhdiv = Hzone / Ydivision;
   Wzone = Xe-Xs;
-  Wday = Math.round(Wzone / Xdivision);
+  Wday = Wzone / XDays;
   Wevt = Wday - 4;
-  Wshift = Math.round(Wday / 5);
+  Wshift = Wday / 5;
  
   text = ' W zone = '+Wzone+' W day = '+Wday+' W evt = '+Wevt+' Wshift = '+Wshift;  
   nText = document.createElement('div');
@@ -222,16 +222,6 @@ function WGCalComputeCoord() {
 
 // --------------------------------------------------------
 var Days = new Array();
-function PosToDate(ev) {
-  var posd = new Object();
-  x = getX(ev);
-  y = getY(ev);
-  posd.day = Math.round(x/Wday);
-  y = Math.round(y/Ydivision);
-  sdate = EvTs2String(Days[posd.day-1]);
-  alert('Date = '+sdate+' Ydivision='+Ydivision);
-  return pdate;
-}
 // --------------------------------------------------------
 function WGCalChangeClass(event, id, refclass, nclass)
 {
@@ -282,138 +272,139 @@ function AddNewEvent(ev, c) {
   document.getElementById(Root).appendChild(nText);
   document.getElementById('test').focus();
 
-//   content = document.createElement('input');
-//   nText.style.position = 'absolute';
-//   content.style.width = cell.width+"px";
-//   content.style.height = cell.height+"px";
-//   content.style.border = '0px solid';
-//   content.style.background = 'yellow';
-//   nText.appendChild(content);
-//   nText.style.position = 'absolute';
-//   nText.style.left = cell.x+"px";
-//   nText.style.top = cell.y+"px";
-//   nText.style.width = cell.width+"px";
-//   nText.style.height = cell.height+"px"; 
-//   nText.style.background = 'yellow';
-//   nText.style.border = '1px outset #afafaf';
-//   nText.style.overflow = '';
-//   document.getElementById(Root).appendChild(nText);
-
 }
 
 // --------------------------------------------------------
-function WGCalAddEvent(evtid, dstart, dend) {
-  EventCount++;
-  Event[EventCount] = new Array();
-  for (i=0; i<arguments.length; i++) {
-    Event[EventCount][i] = arguments[i];
-  }
-  WGCalDisplayEvent(EventCount, true);
-}
-  
-// --------------------------------------------------------
-function WGCalDisplayEvent(iev, newEvent) {
-
-  var evo = new Object();
+function WGCalAddEvent(evtid, dstart, dend, day) 
+{
   var dd = new Date();
+  var evt = new Array();
 
-  id     = Event[iev][0];
-  dstart = Event[iev][1] + (dd.getTimezoneOffset() * 60);
-  dend   = Event[iev][2] + (dd.getTimezoneOffset() * 60);
+  var cEv = Days[day].ev.length;
+  Days[day].ev[cEv] = new Object;
+
+  evt.id = evtid;
   if (dend<dstart) {
     t = dend;
     dend = dstart;
     dstart = t;
   }
-  var tinfo = GetTimeInfoFromTs(dstart);
-  root = document.getElementById(Root);
-  evtElt = document.getElementById('evt'+id);
-  evtHeadElt = document.getElementById('evth'+id);
-  evtFootElt = document.getElementById('evtf'+id);
-  evtAbstractElt = document.getElementById('evta'+id);
-  evtcElt = document.getElementById('evtc'+id);
+  evt.start = dstart + (dd.getTimezoneOffset() * 60);
+  evt.end = dend + (dd.getTimezoneOffset() * 60);
 
-  pstart = GetCoordFromDate(dstart);
-  pend   = GetCoordFromDate(dend);
-  dstartt  = GetCoordFromDate(Days[tinfo.day-1].vstart);
-  dendt  = GetCoordFromDate(Days[tinfo.day-1].vend);
+  if (evt.start<Days[day].vstart) evt.start = Days[day].vstart - 3600;
+  if (evt.end>Days[day].vend) evt.end = Days[day].vend + 3600;
 
-  rw = Math.round(Wday/8);
-  wi = Wday - 4;
+  pstart   = GetCoordFromDate(evt.start);
+  pend     = GetCoordFromDate(evt.end);
+  dstartt  = GetCoordFromDate(Days[day].vstart);
+  dendt    = GetCoordFromDate(Days[day].vend);
 
-  evo.x = Math.round(pstart.x);
-
-  evo.y = Math.round(pstart.y) + Ys;
-  evo.h = Math.round(pend.y - pstart.y);
-  if (evo.y<dstartt.y) {
-    evo.y = dstartt.y;
-    evo.h = Math.round(pend.y - dstartt.y + (GetPxForMin()*60));
+  evt.x = pstart.x;
+  evt.y = pstart.y + Ys;
+  evt.h = pend.y - pstart.y;
+  if (evt.y<dstartt.y) {
+    evt.y = dstartt.y;
+    evt.h = Math.round(pend.y - dstartt.y + (GetPxForMin()*60));
   }
-  if ((evo.h+evo.y)>dendt.y) evo.h = dendt.y - pstart.y;
+  if ((evt.h+evt.y)>dendt.y) evt.h = dendt.y - pstart.y;
 
-  evo.w = Math.round(wi);
-  evo.s = 0;
+  evt.w = Wevt;
+  evt.s = 0;
 
+  Days[day].ev[cEv] = evt;
+  return;
+}
+  
 
-  shift = WGCalComputeShift(evo);
-  evo.x = evo.x + (shift*rw);
-  evo.y = evo.y;
-  evo.h = evo.h;
-  evo.w = evo.w - (shift*rw);
-  evo.s = shift;
+function WGCalSortEventInDay( e1, e2) {
+  return e1.y - e2.y;
+}
+  
 
-  EvTObjectCount++;
-  EvTObject[EvTObjectCount] = evo;
+function WGCalComputeDay(day) {
+  dEvent = Days[id].ev.sort(WGCalSortEventInDay);
+  for (i=0; i<dEvent.length; i++) {
+    var rs_x = dEvent[i].x;
+    var rs_y = dEvent[i].y;
+    var re_x = dEvent[i].x + dEvent[i].w;
+    var re_y = dEvent[i].y + dEvent[i].h;
+    for (j=1; j<dEvent.length; j++) {
+      if (dEvent[i].id == dEvent[j].id) continue;
+      var cs_x = dEvent[j].x;
+      var cs_y = dEvent[j].y;
+      var ce_x = dEvent[j].x + dEvent[j].w;
+      var ce_y = dEvent[j].y + dEvent[j].h;
+      if (PtInRect(rs_x,rs_y,re_x,re_y,cs_x,cs_y)) {
+	dEvent[j].s++;
+	if (dEvent[j].s > Days[id].col) {
+	  Days[id].col = dEvent[j].s;
+	}
+      } 
+    }
+  }
+  return dEvent;
+}
 
+function WGCalPrintAnEvent(ev) {
+  s = '';
+  s += ' -- Ev['+ev.id+'] (x1,y1),(x2,y2)=('+ ev.x + ',' + ev.y + '),(' + parseInt(ev.x+ev.w) + ',' + parseInt(ev.y+ev.w) + ') s='+ev.s;
+  return s;
+
+}
+function WGCalPrintAllEvents() {
+  for (id=0; id<XDays; id++) {
+    s = 'Day '+id+'\n';
+    for (i=0; i<Days[id].ev.length; i++) {
+      s += WGCalPrintAnEvent(Days[id].ev[i]);
+    }
+    alert(s)
+  }
+}
+
+      
+
+function WGCalDisplayAllEvents() {
+
+  var  root = document.getElementById(Root);
+  
   foot = 1;
   head = 5;
-  content = evo.h - foot - head;
-	
-  evtHeadElt.style.height = head+"px";
-  evtFootElt.style.height = foot+"px";
-  evtAbstractElt.style.height = content+"px";
-
-
-  evtElt.style.top = evo.y+"px";
-  evtElt.style.left = evo.x+"px";
-  evtElt.style.width = evo.w+"px";
-  evtElt.style.height = evo.h+"px";
-  evtElt.style.position = 'absolute';
-  evtElt.style.display = '';
-
-  root.appendChild(evtElt);
-  root.appendChild(evtcElt);
+  for (id=0; id<XDays; id++) {
+    
+    dEvent = WGCalComputeDay(id);
+    cShift = Days[id].col;
+    cWidth = (Wday/6) / cShift;
+    
+    for (i=0; i<dEvent.length; i++) {
+      
+      eE = document.getElementById('evt'+dEvent[i].id); // Event container
+      eH = document.getElementById('evth'+dEvent[i].id); // Header
+      eF = document.getElementById('evtf'+dEvent[i].id); // Footer
+      eA = document.getElementById('evta'+dEvent[i].id); // Abstract
+      eC = document.getElementById('evtc'+dEvent[i].id); // Comment
+      content = dEvent[i].h - foot - head;
+      
+      eH.style.height = head+"px";
+      eF.style.height = foot+"px";
+      eA.style.height = content+"px";
+      
+      eE.style.top = dEvent[i].y+"px";
+      eE.style.left = ((dEvent[i].s * cWidth) + dEvent[i].x)+"px";
+      eE.style.width = (dEvent[i].w-(cShift*cWidth))+"px";
+      eE.style.height = dEvent[i].h+"px";
+      eE.style.position = 'absolute';
+      eE.style.display = '';
+      
+      root.appendChild(eE);
+      root.appendChild(eC);
+    }
+  }
+  
 }
 
 function PtInRect(rx1, ry1, rx2, ry2, px, py) {
-  s = "OUT";
   st = false;
-  if (px>=rx1 && px<=rx2 && py>=ry1 && py<=ry2) {
-    s = 'IN';
-    st = true;
-  }
-  //alert('Rect[ ('+rx1+','+ry1+') ('+rx2+','+ry2+') ] Pt ('+px+','+py+') => '+s);
+  if (px>=rx1 && px<rx2 && py>=ry1 && py<ry2) st = true;
   return st;
-}
-
-function WGCalComputeShift(evo) {
-  var dsh = 0;
-  for (i=0; i<=EvTObjectCount; i++) {
-    var xs = EvTObject[i].x;
-    var ys = EvTObject[i].y;
-    var xe = EvTObject[i].x + EvTObject[i].w;
-    var ye = EvTObject[i].y + EvTObject[i].h;
-     if (PtInRect(xs,ys,xe,ye,evo.x,evo.y) || PtInRect(xs,ys,xe,ye,(evo.x+evo.w),(evo.y+evo.h))) {
-	dsh++;
-    }
-  }
-  return dsh;
-}
-
-function WGCalPrintObjects() {
-  s = 'Event graphic object : \n';
-  for (i=0; i<=EvTObjectCount; i++) {
-    s += 'o['+i+'] x='+EvTObject[i].x+' y='+EvTObject[i].y+' h='+EvTObject[i].h+' w='+EvTObject[i].w+' s='+EvTObject[i].s+'\n';
-  }
-  //alert(s);
 }

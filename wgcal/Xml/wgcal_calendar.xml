@@ -1,5 +1,4 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-<form id="me" target="wgcal_calendar" name="me" method="POST"  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
 
 <div id="root">
 <table width="100%" cellspacing="0" border="0" id="week">
@@ -8,19 +7,21 @@
       <table width="100%" cellspacing="0" border="0"><tr>
       <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:prev period]" 
-          onclick="mytoto('WGCAL_U_CALCURDATE', [pbefore], 0); document.getElementById('me').submit();" 
+          onclick="mytoto('WGCAL_U_CALCURDATE', [pbefore], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');" 
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="WGCAL/Images/wm-pperiod.png" height="15"></td>
        <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:current period]" 
-          onclick="mytoto('WGCAL_U_CALCURDATE', [pcurrent], 0); document.getElementById('me').submit();"
+          onclick="mytoto('WGCAL_U_CALCURDATE', [pcurrent], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="WGCAL/Images/wm-cperiod.png" height="15"></td>
        <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:next period]" 
-          onclick="mytoto('WGCAL_U_CALCURDATE', [pafter], 0); document.getElementById('me').submit();"
+          onclick="mytoto('WGCAL_U_CALCURDATE', [pafter], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="WGCAL/Images/wm-nperiod.png" height="15"></td>
       <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
+      <td class="WGCAL_Period" align="center" width="30" title="[TEXT:view/hide week-end]">
+          <input type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></td>
       </tr></table>
-    </td>
+     </td>
  </tr>    
  <tr height="[WGCAL_U_HLINETITLE]px">
     <td class="WGCAL_Period" width="[WGCAL_U_HCOLW]px"></td>
@@ -31,6 +32,7 @@
    <td id="L[LID]" width="[WGCAL_U_HCOLW]px" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>
 [ENDBLOCK HOURS]
 </table>[comment]</div>
+<pre>[trace]<pre>
 
 <form target="wgcal_calhidden" style="display:none" id="textform" method="POST">
 <input id="Xtext" type="hidden" value="0">
@@ -38,23 +40,26 @@
 <input id="itext" type="text" style="background:lightblue; border:1px inset;" onsubmit="viewNewText(event);" onBlur="viewNewText(event);">
 </form>
 
+[BLOCK EVENTS][ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&ref=[REF]][ENDBLOCK EVENTS]
+
 
 <script type="text/javascript"> 
 window.onresize = WGCalResetSizes;
 [BLOCK DAYS]
 Days[[iday]] = new Object();
-Days[[iday]].start = [days]; 
+Days[[iday]].start  = [days]; 
 Days[[iday]].vstart = [vstart]; 
-Days[[iday]].vend   = [vend];  [ENDBLOCK DAYS]
+Days[[iday]].vend   = [vend];  
+Days[[iday]].col    = 1;  
+Days[[iday]].ev = new Array();[ENDBLOCK DAYS]
 WGCalViewInit('[IDSTART]', '[IDSTOP]', '[DAYCOUNT]', '[HCOUNT]', '[HSTART]');
-</script>
 
-[BLOCK EVENTS][ZONE WGCAL:EV_WEEKVIEW?ev=[ID]&ref=[REF]][ENDBLOCK EVENTS]
-
-<script type="text/javascript">
-[BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END]);
+[BLOCK EVENTSSC]WGCalAddEvent([REF], [START], [END], [DAY]);
 [ENDBLOCK EVENTSSC]
-WGCalPrintObjects();
+
+// WGCalPrintAllEvents();
+
+WGCalDisplayAllEvents();
 </script>
 
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: ev_weekview.php,v 1.6 2005/02/04 08:03:47 marc Exp $
+ * @version $Id: ev_weekview.php,v 1.7 2005/02/06 20:47:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -19,6 +19,8 @@ function ev_weekview(&$action) {
   $evref = GetHttpVars("ref", -1);
   if ($evid==-1) return;
 
+  $pretitle = "";
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $ev = new Doc($dbaccess, $evid);
 
@@ -33,31 +35,40 @@ function ev_weekview(&$action) {
   $tpriv[0]["ID"] = $ev->id;
   $action->lay->set("START", substr($ev->getValue("CALEV_START"),0,16));
   $action->lay->set("END",   substr($ev->getValue("CALEV_END"),0,16));
+  $action->lay->set("RHOURS", substr($ev->getValue("CALEV_START"),11,5));
+  $action->lay->set("RHOURE", substr($ev->getValue("CALEV_END"),11,5));
   $action->lay->set("iconevent", $ev->getIcon($ev->icon));
 
   $action->lay->set("owner", $ev->getValue("CALEV_OWNER"));
   $action->lay->set("modifdate", strftime("%x %X",$ev->revdate));
 
-  $add = "";
-//   $add = "[$evref::".$ev->id."] ";
-  if ($private) $action->lay->set("TITLE", $add.N_("confidential event"));
-  else $action->lay->set("TITLE", $add.$ev->getValue("CALEV_EVTITLE"));
+  $ress = WGCalGetRessDisplayed($action);
+  //   $pretitle = "[$evref::".$ev->id."] ";
+  if ($private) $action->lay->set("TITLE", $pretitle." ".N_("confidential event"));
+  else $action->lay->set("TITLE", $pretitle." ".$ev->getValue("CALEV_EVTITLE"));
 
   $tress  = $ev->getTValue("CALEV_ATTID");
   $tresse = $ev->getTValue("CALEV_ATTSTATE");
 
-  // Compute color according the owner, participant
-  $o_or_p = false;
-  if ($ownerid == $action->user->fid) $o_or_p = true;
+  // Compute color according the owner, participant, etc,...
+  $o_or_p = 0;
+  if ($action->user->fid == $ownerid) $o_or_p = $ownerid;
   else {
-    foreach ($tress as $k => $v) if ($v==$action->user->fid) $o_or_p = true;
+    foreach ($tress as $k => $v)  {
+      if ($action->user->fid == $v) $o_or_p = $v;
+    }
+    if ($o_or_p == 0) {
+    // see for one displayed ressource is attendee
+      foreach ($ress as $k => $v) {
+	foreach ($tress as $kr => $vr) {
+	  if ($v->id==$vr) $o_or_p = $vr;
+	}
+      }
+    }
   }
-  $bgheadcolor = "#755757";
+  $bgheadcolor = "grey"; //"#755757";
   $bgresumecolor = $bgcolor = "white";
-  $ress = WGCalGetRessDisplayed($action);
-  if ($o_or_p) $cu = $action->user->fid;
-  else $cu = $ownerid;
-  foreach ($ress as $k => $v) if ($v->id==$cu) $bgresumecolor=$bgcolor=$v->color;
+  foreach ($ress as $k => $v) if ($v->id==$o_or_p) $bgresumecolor=$bgcolor=$v->color;
 
   $present = false;
   $cstate = -1;
@@ -132,6 +143,7 @@ function addIcons(&$ia, $icol)
 
 function ev_showattendees(&$action, &$ev, $present) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $globalstate = "grey";
   $d = new Doc($dbaccess);
   $tress = $ev->getTValue("CALEV_ATTID");
   if ($present && count($tress)>1) {
@@ -142,6 +154,7 @@ function ev_showattendees(&$action, &$ev, $present) {
     $tresse = $ev->getTValue("CALEV_ATTSTATE");
     $a = 0;
     foreach ($tress as $k => $v) {
+      if ($tresse[$k] != EVST_ACCEPT) $globalstate = "red";
       $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
       $t[$a]["atticon"] = $d->GetIcon($attru["icon"]);
       $t[$a]["atttitle"] = $tresst[$k];
@@ -152,5 +165,6 @@ function ev_showattendees(&$action, &$ev, $present) {
   } else {
     $action->lay->set("attdisplay","none");
   }
+    $action->lay->set("evglobalstate", $globalstate);
 }
 ?>

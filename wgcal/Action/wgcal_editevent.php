@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.19 2005/02/04 15:47:53 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.20 2005/02/06 20:47:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,7 +15,6 @@ include_once("FDL/Lib.Util.php");
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/WGCAL_external.php");
 
-define("FDATE", "%a %d %B %Y %H:%M:%S");
 
 function wgcal_editevent(&$action) {
 
@@ -121,9 +120,12 @@ function wgcal_editevent(&$action) {
 	foreach ($lress as $k => $v) {
 	  $tt = explode("%", $v);
 	  if ($tt[1] == 1) {
-	    $attendees[$iatt] = $tt[0];
-	    $attendeesState[$iatt] = 0;
-	    $iatt++;
+	    $dd = new Doc($db, $tt[0]);
+	    if ($dd->fromid != getIdFromName($db,"SCALENDAR")) {
+	      $attendees[$iatt] = $tt[0];
+	      $attendeesState[$iatt] = 0;
+	      $iatt++;
+	    }
 	  }
 	}
       }
@@ -152,7 +154,7 @@ function wgcal_editevent(&$action) {
     $action->lay->setBlockData("EMPTY", array( array("nop" => "") ));
     $action->lay->set("mailadd", $mailadd);
   }    
-  $action->lay->set("DFMT", FDATE);
+  $action->lay->set("DFMT", DATE_F_LONG);
 
   EventSetTitle($action, $evtitle, $ro);
   EventSetDescr($action, $evnote, $ro);  
@@ -188,13 +190,13 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   
   $action->lay->set("START", $dstart);
   $action->lay->set("mSTART", $dstart*1000);
-  $action->lay->set("STARTREAD", strftime(FDATE, $dstart));
+  $action->lay->set("STARTREAD", strftime(DATE_F_LONG, $dstart));
   $action->lay->set("H_START", strftime("%H", $dstart));
   $action->lay->set("M_START", strftime("%M", $dstart));
   
   $action->lay->set("END", $dend);
   $action->lay->set("mEND", $dend*1000);
-  $action->lay->set("ENDREAD", strftime(FDATE, $dend));
+  $action->lay->set("ENDREAD", strftime(DATE_F_LONG, $dend));
   $action->lay->set("H_END", strftime("%H", $dend));
   $action->lay->set("M_END", strftime("%M", $dend));
  
@@ -223,13 +225,13 @@ function EventSetVisibility(&$action, $vis, $ro) {
 }
   
 function EventSetCalendar(&$action, $cal, $ro) {
-  $acal = CAL_getCalendars($action->GetParam("FREEDOM_DB"), $action->user->id);
+  $acal = WGCalGetMyCalendars($action, $action->GetParam("FREEDOM_DB"));
   $action->lay->set("evcalendar", $cal);
   $ic = 0;
   foreach ($acal as $k => $v) {
-    $tconf[$ic]["value"] = $k;
-    $tconf[$ic]["descr"] = $v;
-    $tconf[$ic]["selected"] = ($cal==$k?"selected":"");
+    $tconf[$ic]["value"] = $v[0];
+    $tconf[$ic]["descr"] = $v[1];
+    $tconf[$ic]["selected"] = ($cal==$v[0]?"selected":"");
     $ic++;
   }
   $action->lay->SetBlockData("CALS", $tconf);
@@ -300,7 +302,7 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
   $action->lay->set("D_RUNTIL_DATE", ($runtil==1?"checked":""));
   $action->lay->set("RUNUNTIL_DATE_DISPLAY", ($runtil==1?"":"none"));
   
-  $action->lay->set("uDate", strftime(FDATE, $runtildate));
+  $action->lay->set("uDate", strftime(DATE_F_LONG, $runtildate));
   $action->lay->set("umDate", $runtildate*1000);
   
 
@@ -322,7 +324,7 @@ function EventAddAttendees(&$action, $attendees = array(), $attendeesState = arr
   $a = 0;
   $doc = new Doc($action->GetParam("FREEDOM_DB"));
   foreach ($attendees as $k => $v) {
-    if ($v == "" ) continue;
+    if ($v == "" || $v==0) continue;
     $att[$a]["attId"]    = $v;
     if ($v == $action->user->fid) $status = $attendeesState[$k];
     $att[$a]["attState"] = $attendeesState[$k];

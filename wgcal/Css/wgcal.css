@@ -98,41 +98,35 @@ TD {
   border-right : 1px outset [CORE_BGCOLORHIGH];
 }
 
-.WGCAL_DayLineWE {
- 	border-top: 0px;
-	border-left: 0px;
-	border-bottom: 1px solid [CORE_BGCOLORHIGH];
- 	border-right: 1px solid [CORE_BGCOLORHIGH];
-	background-color: [CORE_BGCOLORALTERN];
-}
-
 .WGCAL_DayLineOver {
   background-color : [CORE_BGCOLORALTERN];
   border : 1px outset [CORE_BGCOLORHIGH];
 }
-.WGCAL_Day1 {
- 	border-top: 0px;
+
+.WGCAL_Day {
 	border-left: 0px;
 	border-bottom: 1px solid [CORE_BGCOLORHIGH];
  	border-right: 1px solid [CORE_BGCOLORHIGH];
 }
-
-.WGCAL_Day2 {
- 	border-top: 0px;
+.WGCAL_DayWE {
 	border-left: 0px;
 	border-bottom: 1px solid [CORE_BGCOLORHIGH];
  	border-right: 1px solid [CORE_BGCOLORHIGH];
+        background-color : [WGCAL_U_WEDAY];
 }
-
 .WGCAL_DayCur {
-  border : 1px outset black;
-  background-color : [CORE_BGCOLORHIGH];
+	border-left: 0px;
+	border-bottom: 1px solid [CORE_BGCOLORHIGH];
+ 	border-right: 1px solid [CORE_BGCOLORHIGH];
+        background-color : [WGCAL_U_CURDAY];
 }
 .WGCAL_DaySelected {
-  border-bottom : 1px inset [CORE_BGCOLORALTERN];
-  border-right : 1px solid [CORE_BGCOLORALTERN];
-  background-color : [CORE_BGCOLORALTERN];
+	border-left: 0px;
+	border-bottom: 1px solid [CORE_BGCOLORHIGH];
+ 	border-right: 1px solid [CORE_BGCOLORHIGH];
+        background-color : [WGCAL_U_SELDAY];
 }
+
 
 .WGCWaitingRv {
   border : 2px outset red;

@@ -3,19 +3,11 @@
 <script type="text/javascript">
 
 function setDaysViewed(ndays) {
-   usetparam("WGCAL_U_DAYSVIEWED", ndays);
-   document.getElementById('fdatesel').submit();
-}
-function gotoToday() {
-   ccd = new Date();
-   usetparam("WGCAL_U_CALCURDATE", (ccd.getTime()/1000));
-   document.getElementById('fdatesel').submit();
+   usetparam("WGCAL_U_DAYSVIEWED", ndays, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
 }
 var REvent = 0;
 var RCall = 0;
 </script>
-
-<form id="fdatesel" target="wgcal_calendar" name="datesel" method="POST"  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
 
 <table width="100%" style="border:1px solid grey" cellborder="0" cellspacing="0" cellpadding="0" align="right"><tr>
 
@@ -44,10 +36,6 @@ var RCall = 0;
 </td>
 
 <td align="center" height="40" width="40" >
-<img id="menu_oneday" class="WGCalButton" title="[TEXT:today]"
-     onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
-     onclick="gotoToday();"
-     src="WGCAL/Images/wgcal-oneday.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
 
 <td align="center" height="40" width="40" >
@@ -73,7 +61,7 @@ var RCall = 0;
 <td align="center" height="40">
 <form id="fsearch" target="wgcal_" name="fsearch" method="POST" 
        onsubmit="subwindow(300, 500, 'Search Result', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH'); return false;">
- <input type="text" size="20" id="searchphrase" name="searchphrase" type="hidden" value="">
+ <input type="text" title="[TEXT:search events containing phrase...]" size="20" id="searchphrase" name="searchphrase" type="hidden" value="">
  <input type="hidden" id="searchdstart" name="searchdstart" value="-1">
  <input type="hidden" id="searchdend" name="searchdend" value="-1">
  <input type="hidden" id="searchressource" name="searchressource" value="">
@@ -96,7 +84,7 @@ var RCall = 0;
 <td align="center" height="40" width="40" >
 <img id="menu_addcalendar" class="WGCalButton" title="[TEXT:add a calendar]"
      onmouseover="Fade(this, 10, 'WGCalButtonOver');" onmouseout="UnFade(this, 10, 'WGCalButton');"
-     onclick="subwindow(300, 500, 'Add a Calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ADDCALENDAR');" 
+     onclick="subwindow(60, 400, 'Add a Calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CREATECALENDAR');" 
      src="WGCAL/Images/wgcal-addcalendar.png" height="[WGCAL_U_MENUICONS_H]" >
 </td>
 <td align="center" height="40" width="40" >

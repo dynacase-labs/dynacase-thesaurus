@@ -75,21 +75,25 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
 }
 
 
-function mytoto(name, value, session)
+function mytoto(name, value, target, taction)
  {
-   usetparam(name, value, session);
+   usetparam(name, value, target, taction);
 }
 
 // --------------------------------------------------------
-function usetparam(name, value, session) 
+function usetparam(name, value, updatetarget, updateaction) 
 {
   fset = document.getElementById('usetparam');
   fpname    = document.getElementById('pname');
   fpvalue   = document.getElementById('pvalue');
-  fpsession = document.getElementById('psession');
+  taction = document.getElementById('taction');
   fpname.value = name;
   fpvalue.value = value;
-  fpsession.value = session;
+  if (updatetarget!='') {
+    // alert('update target = '+updatetarget+' action='+updateaction);
+    taction.value = updateaction;
+    fset.target = updatetarget;
+  }
   fset.submit();
 }
 

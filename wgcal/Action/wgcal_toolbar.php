@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.12 2005/02/04 12:01:11 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.13 2005/02/06 20:47:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -13,6 +13,8 @@
 
 include_once("FDL/Class.Doc.php");
 include_once('FDL/Lib.Dir.php');
+include_once("WGCAL/Lib.WGCal.php");
+include_once("WGCAL/WGCAL_external.php");
 
 function wgcal_toolbar(&$action) {
 
@@ -31,6 +33,7 @@ function wgcal_toolbar(&$action) {
 
 
   $action->lay->set("owner", $action->user->lastname." ".$action->user->firstname);
+  $action->lay->set("today", strftime(DATE_F_DAY, time()));
 
   $cssfile = $action->GetLayoutFile("calendar-default.css");
   $csslay = new Layout($cssfile,$action);
@@ -56,49 +59,30 @@ function wgcal_toolbar(&$action) {
 }
 
 
-function _seewaitrv(&$action, $state, &$wrv) {
+function _seewaitrv(&$action, &$wrv) {
 
+  $dbaccess = $action->GetParam("FREEDOM_DB");
   $rvtextl =  20;
 
-  $rd = ($rd==0?1107:$rd);
   $irv = count($wrv);
-  SetHttpVar("accstate","$state");
-  $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), $rd , 0, "ALL", array(), 
-		      $action->user->fid, "TABLE", 0);
+  $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", array(), 
+		      $action->user->fid, "TABLE", getIdFromName($dbaccess,"CALEVENT"));
   foreach ($rdoc as $k => $v)  {
     $doc = new Doc($action->GetParam("FREEDOM_DB"), $v["id"]);
     $attid = $doc->getTValue("CALEV_ATTID");
     $attst = $doc->getTValue("CALEV_ATTSTATE");
-    $show = false;
+    $state = -1;
     foreach ($attid as $ka => $va) {
-      if ($va==$action->user->fid && $attst[$ka]<2) $show = true;
+      if ($va==$action->user->fid && ($attst[$ka]==EVST_NEW||$attst[$ka]==EVST_READ)) $state = $attst[$ka]; 
     }
-    if ($show) {
-      switch ($state) {
-      case 0 : 
-	$wrv[$irv]["wrvcolor"] = "black"; 
-	$wrv[$irv]["wrvbgcolor"] = "red"; 
-	$wrv[$irv]["wrvfontstyle"] = "font-weight:bold;"; 
-      $state = _("new"); 
-      break; 
-      case 1 : 
-	$wrv[$irv]["wrvcolor"] = "red"; 
-	$wrv[$irv]["wrvbgcolor"] = "white"; 
-	$wrv[$irv]["wrvfontstyle"] = "font-style:italic;"; 
-	$state = _("read"); 
-	break; 
-      default : 
-	$wrv[$irv]["wrvcolor"] = "orange";
-	$wrv[$irv]["wrvbgcolor"] = "white"; 
-	$wrv[$irv]["wrvfontstyle"] = ""; 
-	$state = _("to be confirmed"); 
-      }
+    if ($state != -1) {
+      $label = WGCalGetLabelState($state); 
+      $wrv[$irv]["wrvfontstyle"] = "font-style:italic;"; 
+      $wrv[$irv]["wrvcolor"] = WGCalGetColorState($state); 
       $wrv[$irv]["wrvid"] = $v["id"];
-      if (strlen($v["calev_evtitle"])>$rvtextl) 
-	$wrv[$irv]["wrvtitle"] = substr($v["calev_evtitle"],0,$rvtextl)."...";
-      else
-	$wrv[$irv]["wrvtitle"] = $v["calev_evtitle"];
-      $wrv[$irv]["wrvfulldescr"] = "[".$state."] " 
+      if (strlen($v["calev_evtitle"])>$rvtextl) $wrv[$irv]["wrvtitle"] = substr($v["calev_evtitle"],0,$rvtextl)."...";
+      else $wrv[$irv]["wrvtitle"] = $v["calev_evtitle"];
+      $wrv[$irv]["wrvfulldescr"] = "[".$label."] " 
 	. substr($v["calev_start"],0,16)." : ".$v["calev_evtitle"]." (".$v["calev_owner"].")";
       $wrv[$irv]["wrvicon"] = $doc->GetIcon($v["icon"]);
       $irv++;
@@ -111,13 +95,7 @@ function _waitrv(&$action) {
   $trv = array();
 
   // search NEW rv
-  _seewaitrv($action, 0, $trv);
-
-//   // search READ rv
-//   _seewaitrv($action, 1, $trv);
-
-//   // search TO BE CONFIRMED rv
-//    _seewaitrv($action, 4, $trv);
+  _seewaitrv($action, $trv);
 
 
   $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);

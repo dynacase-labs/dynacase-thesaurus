@@ -28,11 +28,16 @@ function WGCalGetRessourceFamilies($dbaccess) {
  ** Return event states in attribute value format
  */
 global $EventStateDescr;
-$EventStateDescr = array( array( N_('new'), "red" ),
-				 array( N_('read'), "orange" ),
-				 array( N_('accept'), "#0dff00" ),
-				 array( N_('reject'), "black" ),
-				 array( N_('to be confirmed'), "yellow" ) );
+define(EVST_NEW, 0);
+define(EVST_READ, 1);
+define(EVST_ACCEPT, 2);
+define(EVST_REJECT, 3);
+define(EVST_TBC, 4);
+$EventStateDescr = array( EVST_NEW => array( N_('new'), "red" ),
+			  EVST_READ => array( N_('read'), "orange" ),
+			  EVST_ACCEPT => array( N_('accept'), "#0dff00" ),
+			  EVST_REJECT => array( N_('reject'), "black" ),
+			  EVST_TBC => array( N_('to be confirmed'), "yellow" ) );
 
 function CAL_getEventStates($dbaccess, $fmt="A") {
   return WGCalGetState($dbaccess, $fmt);
@@ -69,9 +74,16 @@ function CAL_getEventVisibilities($dbaccess, $fmt="A") {
 /*
  ** Return user calendars
  */
-function CAL_getCalendars($dbaccess, $user) {
-  $cal = array( "mon agenda", "société", "scolaire");
-  return $cal;
+function WGCalGetMyCalendars(&$action, $dbaccess) {
+  $tcals = array();
+  $tcals[] = array( 0, N_("My public calendar"));
+  $cals = array();
+  $cals = GetChildDoc($dbaccess, 0, 0, "ALL", array(), 
+		      $action->user->fid, "TABLE", getIdFromName($dbaccess,"SCALENDAR"));
+  foreach ($cals as $k => $v) {
+    $tcals[] = array( $v["id"], $v["ba_title"]);
+  }
+  return $tcals;
 }
 
 /*

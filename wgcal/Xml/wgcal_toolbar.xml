@@ -1,26 +1,27 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
-
-
-<form id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST"
-      action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE">
-     <input id="toolsvis" name="toolsvis" type="hidden" value="">
+<form id="eventstate" target="wgcal_hidden" name="feventstate" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE">
+     <input id="evid" name="evid" type="hidden" value="-1">
+     <input id="evstate" name="evstate" type="hidden" value="-1">
 </form>
 
+<form id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE">
+<input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
+
+<form id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
+
 <div onclick="document.location.reload(true)" 
-    style="cursor:pointer; background-color:white; padding:3px; font-weight:bold; text-align:center; border: 1px solid grey" class="WGCToolTitle">[owner]</div>
+    style="cursor:pointer; background-color:white; padding:3px; font-weight:bold; text-align:center; border: 1px solid grey" class="WGCToolTitle">[owner]<br>[today]</div>
 <br>
 
 <!-- Rendez-vous en attente -->
 <fieldset id='waitrv' class="WGCWaitingRv">
-<legend class="WGCToolTitle">[TEXT:waiting rv] ([RVCOUNT])&nbsp;
-<input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></legend>
+<legend class="WGCToolTitle">[TEXT:waiting rv]<input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></legend>
 [BLOCK WAITRV]
-<div id="wrv[wrvid]" style="[wrvfontstyle] color:[wrvcolor]" title="[wrvfulldescr]"
+<div id="evt[wrvid]"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="iacceptrv" title="[TEXT:accept event] [wrvtitle]" src="WGCAL/Images/wm-evaccept.png" height="10" onclick="if (confirm('[TEXT:accept event ][wrvtitle]')) SetEventState([wrvid], 1)"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="irefuserv" title="[TEXT:refuse event] [wrvtitle]" src="WGCAL/Images/wm-evrefuse.png" height="10" onclick="if (confirm('[TEXT:refuse event ][wrvtitle]')) SetEventState([wrvid], 0)"><span id="wrv[wrvid]" style="[wrvfontstyle] color:[wrvcolor]; background-color:white" title="[wrvfulldescr]"
      onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'"
      class="WGCwrvdefault"
-     onclick="subwindow(300, 500, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[wrvid]');"  >
- <img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
+     onclick="subwindow(400, 650, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[wrvid]');"  ><img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</span></div>[ENDBLOCK WAITRV]
 </fieldset>
 
 <br>
@@ -51,7 +52,6 @@
 </div>
 </fieldset>
 
-<form id="fdatesel" target="wgcal_calendar" name="datesel" method="POST"  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
 
 
 <!-- [ ZONE WGCAL:WGCAL_LISTRESS ] -->
@@ -59,10 +59,6 @@
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SELECTRESS">
       <input type="hidden" value="-1" name="rid">
       <input type="hidden" value="-1" name="sid">
-</form>
-
-<form id="updatecal" target="wgcal_calendar" name="updatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR">
-<input type="hidden" value="" id="rlist" name="rlist">
 </form>
 
 
@@ -76,7 +72,7 @@
     <span onClick="WGCalImgAltern(event, 'idimgical', 'WGCAL/Images/wgcal-arrowup.gif', 'WGCAL/Images/wgcal-arrowdown.gif'); resslistVisible = WGCalChangeVisibility(resslistVisible,'vvical');">[TEXT:my calendars]</span>
 <img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15"
      src="WGCAL/Images/wm-attendees.png" title="[TEXT:modify the list]">
-<img id="resssel" style="cursor:pointer;" onclick="updateCalendar();" height="15"
+<img id="resssel" style="cursor:pointer;" onclick="document.getElementById('updatecal').submit();" height="15"
      src="WGCAL/Images/calendar.gif" title="[TEXT:update calendar]">
 <img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" 
      src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]">
@@ -123,7 +119,7 @@
 </tbody>
 </table>
 
-<span id="spuseressources" title="[TEXT:use ressource for event creation]" onclick="useressources();" class="[urclass]">[TEXT:use in event...]<input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources();" [urchecked]>
+<span id="spuseressources" title="[TEXT:use ressource for event creation]" onclick="useressources('wgcal_calendar','WGCAL_CALENDAR');" class="[urclass]">[TEXT:use in event...]<input valign="absbottom"  type="checkbox" id="useressources" onchange="useressources('wgcal_calendar','WGCAL_CALENDAR');" [urchecked]>
 </span>
 </div>
 
