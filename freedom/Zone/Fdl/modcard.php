@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.33 2003/04/30 13:46:44 eric Exp $
+// $Id: modcard.php,v 1.34 2003/05/12 11:59:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -211,7 +211,7 @@ function insert_file($dbaccess,$docid, $attrid)
   }
 
   $rt=array(); // array of file to be returned
-  
+
   while(list($k,$userfile) = each($tuserfiles) )    {
     $rt[$k]="";
     if (($userfile['tmp_name'] == "none") || ($userfile['tmp_name'] == ""))
@@ -227,8 +227,8 @@ function insert_file($dbaccess,$docid, $attrid)
 	if (substr($attrid,0,3) == "UPL") {
 	  $oldfile = getHttpVars(substr($attrid,3));
 	 
-
-	  if (isset($oldfile[$k])) $rt[$k]=$oldfile[$k];
+	  if (! is_array($oldfile))  $rt[$k]=$oldfile;
+	  else if (isset($oldfile[$k])) $rt[$k]=$oldfile[$k];
 
 	}
 	
@@ -270,6 +270,7 @@ function insert_file($dbaccess,$docid, $attrid)
   }
 
 
+  if (count($rt) == 0) return "";
   // return file type and upload file name
   return implode("\n",$rt);
   
