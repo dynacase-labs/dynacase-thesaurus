@@ -3,5 +3,5 @@
 <li id="[aid][ID]"><span class="FREEDOMText">[name]&nbsp;:&nbsp;[value]</span></li>
 [ENDBLOCK TABLEVALUE]
 </ul>
-<script>hilightPriority('[IN_PRIORITY]','[ID]');</script>
 <script>hilightGravity('[IN_GRAV]','[ID]');</script>
+<script>hilightPriority('[IN_PRIORITY]','[ID]');</script>

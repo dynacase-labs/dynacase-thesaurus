@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: FREEDOM\n"
-	"POT-Creation-Date: 2004-01-15 11:36+0100\n"
+	"POT-Creation-Date: 2004-01-21 14:37+0100\n"
 	"PO-Revision-Date: 2003-06-23 11:01+0200\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: French <distrib@anakeen.com>\n"
@@ -540,9 +540,8 @@ msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
 #, c-format
 msgid	"The change state to %s has been aborded.\n"
 	"%s"
-msgstr ""
-"Le changement d'état vers %s a échoué.\n"
-"%s"
+msgstr	"Le changement d'état vers %s a échoué.\n"
+	"%s"
 
 #, c-format
 msgid	"change state : %s to %s"
@@ -556,9 +555,8 @@ msgstr	"%s changement d'état vers %s"
 msgid	"The change state to %s has been realized. But the following warning "
 	"is appeared.\n"
 	"%s"
-msgstr ""
-"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
-"%s "
+msgstr	"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
+	"%s "
 
 #, c-format
 msgid	"cannot change state of document #%d to %s"
@@ -855,8 +853,8 @@ msgid	"[%s] incident registration"
 msgstr	"[%s] enregistrement de l'incident"
 
 #, c-format
-msgid	"Incident : ask for analyze %s"
-msgstr	"Incident : Demande d'analyse %s"
+msgid	"Incident : ask for level 2 %s"
+msgstr "Incident : Demande d'analyse niveau 2 %s"
 
 #, c-format
 msgid	"Incident : ask for perform %s"
@@ -1491,6 +1489,9 @@ msgstr	"Requête de bilan général"
 
 msgid	"global balance result"
 msgstr	"résultat du bilan général"
+
+msgid	"relance"
+msgstr "relance"
 
 msgid	"bcc mail to control each opened incident"
 msgstr	"mail caché pour controler chaque nouvel incident"
@@ -2491,14 +2492,14 @@ msgstr	" profil d'accès"
 msgid	"control view"
 msgstr	"contrôle de vues"
 
-msgid	" rev"
-msgstr	" rév."
+msgid	"rev"
+msgstr "rev"
 
-msgid	" comment"
+msgid	"comment"
 msgstr	" commentaire"
 
-msgid	" revised by"
-msgstr	" révisé par"
+msgid	"revised by"
+msgstr "révisé par"
 
 msgid	" date"
 msgstr	" date"
@@ -2547,6 +2548,9 @@ msgstr	"Changer de catégorie"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+#~ msgid	" rev"
+#~ msgstr	" rév."
 
 #~ msgid	"ChangeState :: the method '%s' has the following error %s"
 #~ msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur "
