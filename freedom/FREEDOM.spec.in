@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.30 2003/03/11 17:14:35 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.31 2003/03/24 16:17:48 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -145,7 +145,7 @@ ln -sf %{destdir}/FDL/include.php %{destdir}/GENERIC/include.php
 %{destdir}/EXTERNALS/*
 
 %files LIB
-%defattr(-,nobody,nobody)
+%defattr(-,httpd,httpd)
 %dir %{destdir}/FDLGEN
 %defattr(-,root,root)
 %dir %{destdir}/FDL

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttribute.php,v 1.5 2003/03/20 10:23:09 eric Exp $
+// $Id: Class.DocAttribute.php,v 1.6 2003/03/24 16:17:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttribute.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.5 2003/03/20 10:23:09 eric Exp $';
+$CLASS_DOCATTRIBUTE_PHP = '$Id: Class.DocAttribute.php,v 1.6 2003/03/24 16:17:48 eric Exp $';
 
 
 
@@ -75,13 +75,21 @@ Class NormalAttribute extends BasicAttribute {
       // set the enum array
       $this->enum=array();
 
-    
-      $tenum = explode(",",$this->phpfunc);
-
+      $sphpfunc = str_replace("\\.", "-dot-",$this->phpfunc); // to replace dot & comma separators
+      $sphpfunc  = str_replace("\\,", "-comma-",$sphpfunc);
       
+      $tenum = explode(",",$sphpfunc);
+
       while (list($k, $v) = each($tenum)) {
 	list($n,$text) = explode("|",$v);
 	list($n1,$n2) = explode(".",$n);
+
+	$text=str_replace( "-dot-",".",$text);
+	$text=str_replace( "-comma-",",",$text);
+	$n=str_replace( "-dot-",".",$n);
+	$n=str_replace( "-comma-",",",$n);
+	$n1=str_replace( "-dot-",".",$n1);
+	$n1=str_replace( "-comma-",",",$n1);
 
 	if ($n2 != "") $this->enum[$n]=$this->enum[$n1]."/".$text;
 	else $this->enum[$n]=$text;

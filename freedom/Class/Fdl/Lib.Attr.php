@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.11 2003/03/20 10:23:09 eric Exp $
+// $Id: Lib.Attr.php,v 1.12 2003/03/24 16:17:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -150,12 +150,15 @@ function PgUpdateFamilly($dbaccess, $docid) {
     // create postgres table if new familly
     $cdoc = createDoc($dbaccess, $docid);
     
+    $cdoc->exec_query($cdoc->sqltcreate,1);
     // step by step
     $cdoc->Create();
 
+
+
+
   } else {
       
-    $cdoc = createDoc($dbaccess, $docid);
 
 
     $row = $doc->fetch_array(0,PGSQL_ASSOC);
@@ -169,15 +172,6 @@ function PgUpdateFamilly($dbaccess, $docid) {
       $row = $doc->fetch_array($c,PGSQL_ASSOC);
       $pgatt[$row["attname"]]=$row["attname"];
 	
-    }
-    // -----------------------------
-    // activate trigger by trigger
-
-    $msg=$doc->exec_query($cdoc->sqltcreate,1);
-    $sqlcmds = explode(";",$cdoc->SqlTrigger());
-    
-    while (list($k,$sqlquery)=each($sqlcmds)) {
-      if ($sqlquery != "") $msg=$doc->exec_query($sqlquery,1);
     }
       
     // -----------------------------
@@ -222,6 +216,17 @@ function createDocFile($dbaccess, $tdoc) {
 }
 
 
+function activateTrigger($dbaccess, $docid) {
+    $cdoc = new Doc($dbaccess, $docid);
+    $msg=$cdoc->exec_query($cdoc->sqltcreate,1);
+    print $cdoc->sqltcreate;
+    $sqlcmds = explode(";",$cdoc->SqlTrigger());
+    
+    while (list($k,$sqlquery)=each($sqlcmds)) {
+      if ($sqlquery != "") $msg=$cdoc->exec_query($sqlquery,1);
+    }
+}
+
 // refresh PHP Class & Postgres Table Definition
 function refreshPhpPgDoc($dbaccess, $docid) {
   
@@ -239,6 +244,11 @@ function refreshPhpPgDoc($dbaccess, $docid) {
    
 
     AddLogMsg($msg);
+
+    // -----------------------------
+    // activate trigger by trigger
+    activateTrigger($dbaccess, $docid);
+
   }
   
 }

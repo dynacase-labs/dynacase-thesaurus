@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.13 2003/02/05 17:04:21 eric Exp $
+// $Id: modattr.php,v 1.14 2003/03/24 16:17:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,6 +25,7 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
+include_once("FDL/Lib.Attr.php");
 include_once("FDL/Class.DocFam.php");
 include_once("FDL/freedom_util.php");  
 
@@ -81,7 +82,8 @@ function modattr(&$action) {
 	$doc->classname = "";
 	$doc->profid = $cdoc->cprofid; // inherit father profile
       }
-      $doc-> Add();
+      $err=$doc-> Add();
+      if ($err != "") $action->exitError($err);
       
       
 

@@ -52,6 +52,7 @@ if ($query->nb > 0)	{
       $wdoc= createDoc($dbaccess,$v["id"]);
             $wdoc->CreateProfileAttribute();
     }
+    activateTrigger($dbaccess, $v["id"]);
     
   }	 
   

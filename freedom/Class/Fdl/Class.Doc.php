@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.101 2003/03/21 17:57:58 eric Exp $
+// $Id: Class.Doc.php,v 1.102 2003/03/24 16:17:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.101 2003/03/21 17:57:58 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.102 2003/03/24 16:17:48 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -131,6 +131,7 @@ create unique index i_docir on doc(initid, revision);";
 
     newDoc($this,$dbaccess, $id, $res, $dbid);
 	   
+    if (! isset($this->attributes->attr)) $this->attributes->attr=array();
   }
 
 
@@ -1428,6 +1429,7 @@ create unique index i_docir on doc(initid, revision);";
   // use triggers to update docvalue table
   // --------------------------------------------------------------------
   function SqlTrigger() {
+    if (intval($this->fromid) == 0) return;
     reset($this->attributes->fromids);
       
     $sql = "";
