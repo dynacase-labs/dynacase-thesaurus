@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-26 16:29+0100\n"
+	"POT-Creation-Date: 2002-03-26 17:16+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -78,6 +78,10 @@ msgstr	""
 
 msgid	"minfirstletter"
 msgstr	""
+
+#, fuzzy
+msgid	"untitle"
+msgstr	"Update Title Cards"
 
 msgid	"undefined gravity"
 msgstr	""
@@ -508,16 +512,6 @@ msgstr	""
 msgid	"the from date is before the end date"
 msgstr	""
 
-msgid	"SUPPORT Service"
-msgstr	""
-
-msgid	"incident historical"
-msgstr	""
-
-#, fuzzy
-msgid	"edited the"
-msgstr	"Create"
-
 #, fuzzy
 msgid	"fromdate"
 msgstr	"Edit"
@@ -531,6 +525,16 @@ msgstr	""
 
 msgid	"new bilan"
 msgstr	""
+
+msgid	"SUPPORT Service"
+msgstr	""
+
+msgid	"incident historical"
+msgstr	""
+
+#, fuzzy
+msgid	"edited the"
+msgstr	"Create"
 
 msgid	"General Synthesis"
 msgstr	""

@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-26 16:29+0100\n"
+	"POT-Creation-Date: 2002-03-26 17:16+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -76,6 +76,9 @@ msgstr	"h"
 
 msgid	"minfirstletter"
 msgstr	"min"
+
+msgid	"untitle"
+msgstr "sans titre"
 
 msgid	"undefined gravity"
 msgstr	"indéfinie"
@@ -492,15 +495,6 @@ msgstr	"la date de fin est dans le futur"
 msgid	"the from date is before the end date"
 msgstr	"La date de fin (%s) est antérieure à la date de début (%s)"
 
-msgid	"SUPPORT Service"
-msgstr "Service SUPPORT"
-
-msgid	"incident historical"
-msgstr	"Suivis des incidents"
-
-msgid	"edited the"
-msgstr	"Édition du"
-
 msgid	"fromdate"
 msgstr	"date de début"
 
@@ -512,6 +506,15 @@ msgstr	"aujourd'hui"
 
 msgid	"new bilan"
 msgstr	"nouveau bilan"
+
+msgid	"SUPPORT Service"
+msgstr	"Service SUPPORT"
+
+msgid	"incident historical"
+msgstr	"Suivis des incidents"
+
+msgid	"edited the"
+msgstr	"Édition du"
 
 msgid	"General Synthesis"
 msgstr	"Synthèse générale"
