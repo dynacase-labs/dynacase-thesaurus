@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIGroup.php,v 1.4 2003/08/01 14:53:58 eric Exp $
+// $Id: Method.DocIGroup.php,v 1.5 2003/08/05 09:12:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,13 +34,20 @@
 // Date            jun, 04 2003 - 09:39:09
 // Author          Eric Brison	(Anakeen)
 // --------------------------------------------------------------------------
-function PostModify() {
+
+function specRefresh() {
   $err=$this->ComputeGroup();
-  $err.=_GROUP::PostModify();
   return $err;
 }
 
+ 
 
+function PostModify() {
+
+  $err=_GROUP::PostModify(); 
+  $err.=$this->ComputeGroup();
+  return $err;
+}
  
 function ComputeGroup() {
   $err="";
@@ -76,26 +83,36 @@ function ComputeGroup() {
 	}
       }
     }
-    $this->SetValue("GRP_USER", implode("\n",$tulogin));
-    $this->SetValue("GRP_IDUSER", implode("\n",$tuid));
-    $this->SetValue("GRP_GROUP", implode("\n",$tglogin));
-    $this->SetValue("GRP_IDGROUP", implode("\n",$tgid));
 
-    // get parent members group
-    $tu  = $user->GetGroupsId();
-    $tgid=array();
-    $tglogin=array();
-    if (is_array($tu)) {
-      while (list($k,$v) = each($tu)) {
-	$udoc = getDocFromUserId($this->dbaccess,$v);
-	if ($udoc) {	 
-	  $tgid[]=$udoc->id;
-	  $tglogin[]=$udoc->title;	  
-	}
-      }
-      $this->SetValue("GRP_PGROUP", implode("\n",$tglogin));
-      $this->SetValue("GRP_IDPGROUP", implode("\n",$tgid));
+    if (count($tulogin)==0) {
+      $this->SetValue("GRP_USER", " ");
+      $this->SetValue("GRP_IDUSER"," ");
+    } else {
+      $this->SetValue("GRP_USER", implode("\n",$tulogin));
+      $this->SetValue("GRP_IDUSER", implode("\n",$tuid));
     }
+    if (count($tglogin)==0) {
+      $this->SetValue("GRP_GROUP", " ");
+      $this->SetValue("GRP_IDGROUP", " ");
+    } else {
+      $this->SetValue("GRP_GROUP", implode("\n",$tglogin));
+      $this->SetValue("GRP_IDGROUP", implode("\n",$tgid));
+    }
+    // get parent members group
+//     $tu  = $user->GetGroupsId();
+//     $tgid=array();
+//     $tglogin=array();
+//     if (is_array($tu)) {
+//       while (list($k,$v) = each($tu)) {
+// 	$udoc = getDocFromUserId($this->dbaccess,$v);
+// 	if ($udoc) {	 
+// 	  $tgid[]=$udoc->id;
+// 	  $tglogin[]=$udoc->title;	  
+// 	}
+//       }
+//       $this->SetValue("GRP_PGROUP", implode("\n",$tglogin));
+//       $this->SetValue("GRP_IDPGROUP", implode("\n",$tgid));
+//     }
   
   } 
 

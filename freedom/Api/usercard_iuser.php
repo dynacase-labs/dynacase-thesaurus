@@ -55,6 +55,7 @@ if ($query->nb > 0)	{
     if (count($tdoc) > 0) {
       
       $tdoc[0]->refresh();
+      $tdoc[0]->postModify();
       $err=$tdoc[0]->modify();
       if ($err != "") print "$err\n";
       else printf( _("%s updated\n"),$tdoc[0]->title);
@@ -76,6 +77,7 @@ if ($query->nb > 0)	{
 	    $udoc= new Doc($dbaccess,$tdoc[0]->id);
 	    $udoc->setValue("US_WHATID",$v["id"]);
 	    $udoc->refresh();
+	    $udoc->postmodify();
 	    $udoc->modify();
 	    printf( _("%s updated\n"),$title);
 	  }
@@ -88,6 +90,7 @@ if ($query->nb > 0)	{
 	  $iuser->setValue("GRP_WHATID",$v["id"]);
 	  $iuser->Add();
 	  $iuser->refresh();
+	  $iuser->postmodify();
 	  $iuser->modify();
 	  printf( _("%s igroup created\n"),$title);
 	} else {
@@ -95,6 +98,7 @@ if ($query->nb > 0)	{
 	  $iuser->setValue("US_WHATID",$v["id"]);
 	  $iuser->Add();
 	  $iuser->refresh();
+	  $iuser->postmodify();
 	  $iuser->modify();
 	  printf( _("%s iuser created\n"),$title);
 	}

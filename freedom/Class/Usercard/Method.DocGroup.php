@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocGroup.php,v 1.3 2003/08/01 14:53:58 eric Exp $
+// $Id: Method.DocGroup.php,v 1.4 2003/08/05 09:12:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocGroup.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,14 +35,26 @@
 // Author          Eric Brison	(Anakeen)
 // --------------------------------------------------------------------------
 
+  
+
+
 function PostModify() {
-  $err=$this->SetGroupMail();
+
+  $err=$this->SetGroupMail(); 
+   $this->refreshParentGroup();
   return $err;
 }
  
 function RefreshGroup() {
-  $err=$this->PostModify();
-  $err.=$this->modify();
+  global $refreshedGrpId; // to avoid inifinitive loop recursion
+  
+  $err="";
+  if (!isset($refreshedGrpId[$this->id])) {
+    $err=$this->SetGroupMail();
+    $err.=$this->modify();
+    $refreshedGrpId[$this->id]=true;
+    
+  }
   return $err;
 }
 
@@ -62,7 +74,7 @@ function SetGroupMail() {
 	$mail = $udoc->getValue("US_MAIL");
 	if ($mail != "") $tmail[]=$mail;
       } else {
-	$err .= sprintf("%s does not exist",$tuser[$k]);
+	if ($tuser[$k]!="") $err .= sprintf("%s does not exist",$tuser[$k]);
       }
     }
 
@@ -91,7 +103,9 @@ function SetGroupMail() {
 
     $gmail=implode(", ",array_unique($tmail));
   }
+
   $tgmembers=array();
+  reset($tgmemberid);
   while (list($k,$v) = each($tgmemberid)) {
     $tgmembers[$v]=$tgmember[$k];
   }
@@ -102,3 +116,30 @@ function SetGroupMail() {
   return $err;
 }
   
+
+function refreshParentGroup() {
+  include_once("FDL/freedom_util.php");  
+  include_once("FDL/Lib.Dir.php");  
+
+  $sqlfilters[]="in_textlist(grp_idgroup,{$this->id})";
+  // $sqlfilters[]="fromid !=".getFamIdFromName($this->dbaccess,"IGROUP");
+  $tgroup=getChildDoc($this->dbaccess, 
+		      0, 
+		      "0", "ALL", $sqlfilters, 
+		      1, 
+		      "LIST", getFamIdFromName($this->dbaccess,"GROUP"));
+
+  $tpgroup=array();
+  $tidpgroup=array();
+  while (list($k,$v) = each($tgroup)) {
+    $v->RefreshGroup();
+    $tpgroup[]=$v->title; 
+    $tidpgroup[]=$v->id;
+    
+  }
+  
+  $this->SetValue("GRP_PGROUP", implode("\n",$tpgroup));
+  $this->SetValue("GRP_IDPGROUP", implode("\n",$tidpgroup));
+  return $tgroup;
+  
+}
