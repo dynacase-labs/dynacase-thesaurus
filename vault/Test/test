@@ -1,3 +1,4 @@
+#!/bin/php
 <?php
 include_once("VAULT/Class.VaultFile.php");
 

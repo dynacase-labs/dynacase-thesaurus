@@ -1,6 +1,6 @@
 #
 #  File: libwhat.spec
-#  $Id: VAULT.spec.in,v 1.1 2001/11/16 09:57:01 marc Exp $
+#  $Id: VAULT.spec.in,v 1.2 2001/11/16 11:14:26 marc Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -49,9 +49,16 @@ make pubdir=$RPM_BUILD_ROOT%{destdir}
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ "$1" = 1 ] ; then
-else
-fi
+  mkdir -p /var/log/what-vault
+  chown nobody:nobody /var/log/what-vault
+  cat <<EOF > /etc/logrotate.d/what-vault
+/var/log/vault/* {
+  weekly
+  rotate 4
+  errors root
+  compress
+}
+EOF
 # merge @PACKAGE@ translation for i18n
 for lang in en fr ; do
     pushd /home/httpd/what/locale/$lang/LC_MESSAGES >/dev/null
@@ -63,8 +70,6 @@ for lang in en fr ; do
 done
 
 %preun
-if [ "$1" = 0 ] ; then
-fi
 
 %files
 %defattr(-,root,root)

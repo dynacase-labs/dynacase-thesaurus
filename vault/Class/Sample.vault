@@ -1,10 +1,7 @@
 <?php
 // Vault Sample definition
 
-$logfiledir  = "/tmp/freedom";
 $chrono = TRUE;
-
-
 
 // Vault username and group 
 $u_owner = "marc";
