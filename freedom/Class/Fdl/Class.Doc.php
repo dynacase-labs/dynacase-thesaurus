@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.235 2005/03/15 17:23:46 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.236 2005/03/23 17:03:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2176,7 +2176,8 @@ create unique index i_docir on doc(initid, revision);";
 	    $htmlval.=  "\">".$fname."</A>";
 	  } else {
 	    $umime = trim(`file -ib $info->path`);
-	    $htmlval="<A onmousedown=\"document.noselect=true;\" target=\"_blank\" type=\"$mime\" href=\"".
+	    $utarget= ($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
+	    $htmlval="<A onmousedown=\"document.noselect=true;\" target=\"$utarget\" type=\"$mime\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
 	      "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
 	      ."\">".$fname.
@@ -2215,7 +2216,7 @@ create unique index i_docir on doc(initid, revision);";
 	  break;    
 	case "array": 
 
-	  $lay = new Layout("FDL/Layout/viewarray.xml", $action);
+	  $lay = new Layout("FDL/Layout/viewdocarray.xml", $action);
 	  if (! method_exists($this->attributes,"getArrayElements")) {	    
 	    break;
 	  }
@@ -2379,7 +2380,7 @@ create unique index i_docir on doc(initid, revision);";
     return implode("<BR>",$thtmlval);
   }
   
-  function GetHtmlAttrValue($attrid, $target="_self",$htmllink=true) {
+  function GetHtmlAttrValue($attrid, $target="_self",$htmllink=2) {
     return $this->GetHtmlValue($this->getAttribute($attrid),
 			       $this->getValue($attrid),$target,$htmllink);
   }

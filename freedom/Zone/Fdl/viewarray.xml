@@ -1,15 +1,1 @@
-<fieldset ><legend>[caption]</legend>
-<table width="100%" class="tarray">
-   <thead><tr >
-    [BLOCK TATTR]<th>[alabel]</th> [ENDBLOCK TATTR]
-   </tr></thead>
- <tbody  >
-  
-     [BLOCK EATTR]<tr >
-    [BLOCK [bevalue]]<td>[evalue]</td>[ENDBLOCK [bevalue]]
- </tr>[ENDBLOCK EATTR]
-
-  </tbody>
-  
-</table>
-</fieldset>
+[array]
