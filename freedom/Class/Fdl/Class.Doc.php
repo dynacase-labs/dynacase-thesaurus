@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.142 2003/07/07 07:45:05 eric Exp $
+// $Id: Class.Doc.php,v 1.143 2003/07/07 14:44:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.142 2003/07/07 07:45:05 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.143 2003/07/07 14:44:07 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -50,8 +50,8 @@ define ("FAM_ACCESSFAM", 23);
 
 // Author          Eric Brison	(Anakeen)
 // Date            May, 14 2003 - 11:40:13
-// Last Update     $Date: 2003/07/07 07:45:05 $
-// Version         $Revision: 1.142 $
+// Last Update     $Date: 2003/07/07 14:44:07 $
+// Version         $Revision: 1.143 $
 // ==========================================================================
 
 Class Doc extends DocCtrl {
@@ -884,8 +884,9 @@ create unique index i_docir on doc(initid, revision);";
       
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
-	if ((get_class($v) == "normalattribute") && ($v->visibility == "W") 	    
-	    && (($v->type != "image") &&($v->type != "file")) ) {
+	if ((get_class($v) == "normalattribute") && 
+	    (($v->visibility == "W") || ($v->visibility == "O") || ($v->type == "docid")) &&
+	    (($v->type != "image") &&($v->type != "file")) ) {
 	  
 	  
 	  if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {
