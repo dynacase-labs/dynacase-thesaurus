@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.41 2004/08/05 09:47:21 eric Exp $
+ * @version $Id: mailcard.php,v 1.42 2005/03/21 09:50:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.41 2004/08/05 09:47:21 eric Exp $
+// $Id: mailcard.php,v 1.42 2005/03/21 09:50:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -341,7 +341,6 @@ function sendCard(&$action,
     $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $phtml > $fps && ps2pdf $fps $fpdf";
 
     system ($cmdpdf, $status);
-
     if ($status == 0)  {
       $cmd .= " -n -e 'base64' -m 'application/pdf;\\n\\tname=\"".$ftitle.".pdf\"' ".
 	 "-i '<pdf>'  -f '$fpdf'";
