@@ -1,4 +1,4 @@
-<div class="EventCalView">
+<div class="EventCalView" style="background-color:[COLOR]; border: 1px outset">
 <span class="EventCalViewTitle">[TITLE]</span><br/>
 <span class="EventCalViewDate">[BEGIN_DATE]</span> - <span class="EventCalViewDate">[END_DATE]</span><br/>
 <span class="EventCalViewOwner">[OWNER]</span><br/>

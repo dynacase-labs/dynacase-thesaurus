@@ -74,8 +74,6 @@ function postModify() {
 
 function eventplanview() {
   $this->eventViewCommonAttr();
-  $this->lay->Set("ID", $this->GetValue("ID"));
-  $this->lay->Set("COLOR", "red");
 }
 
 function eventCalView() {
@@ -84,6 +82,9 @@ function eventCalView() {
 
 function eventViewCommonAttr() {
   
+  $color = GetHttpVars("evcolor", "green");
+  
+  $this->lay->Set("COLOR", $color);
   $this->lay->Set("TITLE", $this->GetValue("EVT_TITLE"));
   $dfmt = $this->eventGetDateTimeString("FCAL_DFMT_1", $this->GetValue("EVT_BEGDATE"));
   $this->lay->Set("BEGIN_DATE", $dfmt);
