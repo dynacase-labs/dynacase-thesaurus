@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: folders.php,v 1.15 2004/06/29 09:00:10 eric Exp $
+ * @version $Id: folders.php,v 1.16 2004/08/10 07:55:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.15 2004/06/29 09:00:10 eric Exp $
+// $Id: folders.php,v 1.16 2004/08/10 07:55:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -160,10 +160,10 @@ function addfolder($doc, $level, $treename, $thisfld=true) {
     else if ($doc->doctype == 'S') $ftype=2;
 
     $hasChild='false';
-    if ($doc->doctype != 'S') {
+    // if ($doc->doctype != 'S') {
       // no child for a search
-	if (hasChildFld($dbaccess,$doc->initid))  $hasChild='true';
-    }
+	if (hasChildFld($dbaccess,$doc->initid,($doc->doctype == 'S') ))  $hasChild='true';
+	//}
 
     $ftype=$doc->getIcon();
     $ltree = "$treename$level = insFld(".$treename.$levelp.", gFld(\"".str_replace('"','\"',$doc->title)."\", \"#\",".$doc->initid.",\"$ftype\", $hasChild))\n";

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: expandfld.php,v 1.14 2004/06/29 09:00:10 eric Exp $
+ * @version $Id: expandfld.php,v 1.15 2004/08/10 07:55:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.14 2004/06/29 09:00:10 eric Exp $
+// $Id: expandfld.php,v 1.15 2004/08/10 07:55:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -100,11 +100,11 @@ function expandfld(&$action) {
       else if ($doc["doctype"] == 'S') $ftype=2;
       else continue; // it 'is not a folder
       $hasChild='false';
-      if ($doc["doctype"] != 'S') {
+     
 	// no child for a search
 
-	  if (hasChildFld($dbaccess,$doc["initid"]))  $hasChild='true';
-      }
+	  if (hasChildFld($dbaccess,$doc["initid"],($doc["doctype"] == 'S')))  $hasChild='true';
+      
       
       $ftype=$dir->getIcon($doc["icon"]);
       $stree .= "ffolder.insFld(fldtop, ffolder.gFld(\"".str_replace('"','\"',$doc["title"])."\", \"#\",".$doc["initid"].",\"$ftype\",$hasChild))\n";
