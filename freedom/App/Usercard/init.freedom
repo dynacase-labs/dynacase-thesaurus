@@ -8,6 +8,7 @@ METHOD;Method.DocUser.php;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
 ATTR;US_FR_IDENT;;Etat civil;N;N;frame;10;W;;;;;
+ATTR;US_CIVILITY;US_FR_IDENT;civilité;N;N;enum;10;W;;;-;Monsieur|Monsieur,Madame|Madame,Mademoiselle|Mademoiselle,Docteur|Docteur,Professeur|Professeur;
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;W;Y;;;;
 ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;W;Y;;;;
 ATTR;US_PHOTO;US_FR_IDENT;photographie;N;N;image;40;W;;;;;
@@ -150,7 +151,7 @@ METHOD;+Method.DocSociety.php;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint
 ;;;;;;;;;;;;;;
 ATTR;SI_FR_IDENT;;Identification;N;N;frame;10;W;;;;;;
-ATTR;SI_SOCIETY;SI_FR_IDENT;nom;Y;N;text;20;W;Y;;;;;
+ATTR;SI_SOCIETY;SI_FR_IDENT;raison sociale;Y;N;text;20;W;Y;;;;;
 ATTR;SI_CATG;SI_FR_IDENT;activité;N;N;enumlist;30;W;;;;constructor|Constructeur,client|Client,furnisher|Fournisseur;;
 ATTR;SI_JOB;SI_FR_IDENT;métier;N;N;longtext;40;W;;;;;;
 ATTR;SI_DESCR;SI_FR_IDENT;description;N;N;longtext;50;W;;;;;;
