@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.202 2004/06/03 14:42:04 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.203 2004/06/07 16:01:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -3354,6 +3354,7 @@ create unique index i_docir on doc(initid, revision);";
   function userName() {
     global $action;
 
+    return $action->user->lastname;
     return $action->user->lastname." ".$action->user->firstname;
   }
 
