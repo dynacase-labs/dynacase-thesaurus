@@ -4,7 +4,7 @@
 ]
 >
 
-<article id="usercard" lang="fr" revision="$Id: usercard.sgml,v 1.1 2002/03/01 09:36:42 eric Exp $">
+<article id="usercard" lang="fr" revision="$Id: usercard.sgml,v 1.2 2002/03/08 14:45:22 eric Exp $">
   <title>
   <inlinemediaobject>
     <imageobject>
@@ -34,7 +34,7 @@
   <sect1 id="usercard.gen">
     <title>Utilisation</title>
 
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   -->
 <!--			CREATE					   -->
 
     <sect2 id="usercard.func.creation">
@@ -108,7 +108,7 @@
 
 	<mediaobject>
 	  <imageobject>
-	    <imagedata scale="40" align="center" fileref="./images/vcardie.jpg">
+	    <imagedata scale="34" align="center" fileref="./images/vcardie.jpg">
 	  </imageobject>
 	  <textobject>
 	    <phrase>capture d'écran pour le choix de catégorie</phrase>
