@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.53 2002/09/19 13:45:10 eric Exp $
+// $Id: Class.Doc.php,v 1.54 2002/09/24 15:30:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.53 2002/09/19 13:45:10 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.54 2002/09/24 15:30:09 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -48,8 +48,9 @@ define ("FAM_ACCESSDOC", 3);
 define ("FAM_ACCESSDIR", 4);
 define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
-Class Doc extends DbObjCtrl
-{
+
+Class Doc extends DbObjCtrl {
+
   var $fields = array ( "id",
 		       "owner",
 		       "title",
@@ -161,40 +162,35 @@ create unique index i_docir on doc(initid, revision);";
     }
     return 0;
   }
+
   function Complete()  {
+    $this->SetOPerm();
+  }
+
+  function SetOPerm()  {
     // --------------------------------
     // set the object control permission
     // --------------------------------
     global $lprof;
-    //print "select $this->id <BR>";
-    if ($this->profid == $this->id) { // self control
 
-	if (! isset($lprof[$this->id])) {
-	$lprof[$this->id] =  new ObjectPermission($this->dbaccess, 
-						  array($this->userid,
-							$this->id, 
-							$this->classid));
-	//	print "SET $this->id : controlled  <BR>";
-	}
-	$this->operm= $lprof[$this->id];
-
-	//	print "$this->id : controlled <BR>";
-      } else if ($this->profid > 0) {// indirect profil control
+    if ($this->profid > 0) { // self control or profil control
 
 	if (! isset($lprof[$this->profid])) {
-	  $pdoc = new Doc($this->dbaccess, $this->profid);
-	  if (isset($pdoc ->operm))
-	    $lprof[$this->profid] = $pdoc ->operm;
-	  //	print "SET $this->id : controlled by $this->profid <BR>";
-	} 
-	if (isset($lprof[$this->profid]))
-	  $this ->operm= $lprof[$this->profid];
-	//	print "$this->id : controlled by $this->profid <BR>";
-      }
 
-
+	  $octrl = new ControlObject($this->dbaccess,array($this->profid,$this->classid));
+	  if ($octrl->isAffected()) {
+	    $lprof[$this->profid] =  new ObjectPermission($this->dbaccess, 
+							  array($this->userid,
+								$this->profid, 
+								$this->classid));
+	    $this->operm= $lprof[$this->profid];
+	  } else {
+	    $lprof[$this->profid] = false;
+	  }
+      } 
 
     }
+  }
 
 
   // --------------------------------------------------------------------
@@ -760,6 +756,7 @@ create unique index i_docir on doc(initid, revision);";
 
   }
 
+ 
   // return all the values
   function GetValues()
     {
@@ -895,7 +892,7 @@ create unique index i_docir on doc(initid, revision);";
       
     // test if is not already locked
     if ($auto) {
-      if ($this->locked == 0) {
+      if (($this->userid != 1) && ($this->locked == 0)) {
 	$this->locked = -$this->userid;     
 	$err=$this->modify();
       }
@@ -915,7 +912,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($err != "") return $err;
       
     if ($auto) {
-      if ($this->locked < 0) {
+      if ($this->locked < -1) {
 	$this->locked = "0";      
 	$this->modify();
       }
@@ -938,11 +935,7 @@ create unique index i_docir on doc(initid, revision);";
     
       ereg ("(.*)\|(.*)", $this->icon, $reg); 
     
-
-      $efile=$action->GetParam("CORE_BASEURL").
-	 "app=FDL".
-	 "&action=EXPORTFILE".
-	 "&vaultid=".$reg[2]; // upload name
+      $efile="FDL/geticon.php?vaultid=".$reg[2]."&mimetype=".$reg[1];
       return $efile;
 
     } else {
@@ -1204,18 +1197,24 @@ create unique index i_docir on doc(initid, revision);";
     return $this->GetHtmlValue($this->getAttribute($attrid),
 			       $this->getValue($attrid),$target,$htmllink);
   }
-  // --------------------------------------------------------------------
-    function Control ($aclname) {
-      // -------------------------------------------------------------------- 
-      if (($this->IsAffected()) ) {	
-	global $lprof;
-	  if (isset($lprof[$this->profid]) ) {
 
-	    return $lprof[$this->profid]->Control( $aclname);
-	  } else return "";
-      }
-      return "object not initialized : $aclname";
+
+  // --------------------------------------------------------------------
+  function Control ($aclname) {
+    // -------------------------------------------------------------------- 
+    if (($this->IsAffected()) ) {	
+      if ($this->profid == 0) return ""; // no profil
+      global $lprof;
+      if (! isset($lprof[$this->profid]) ) $this->SetOPerm();
+
+      if (isset($lprof[$this->profid]) ) {
+	//	print $this->title." $aclname ". $lprof[$this->profid]->Control( $aclname)."<HR>";
+	if ($lprof[$this->profid]) return $lprof[$this->profid]->Control( $aclname);
+	else return "";
+      } else return "";
     }
+    return "object not initialized : $aclname";
+  }
   
   
  

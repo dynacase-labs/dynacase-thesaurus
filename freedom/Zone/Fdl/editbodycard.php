@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editbodycard.php,v 1.8 2002/09/02 16:32:25 eric Exp $
+// $Id: editbodycard.php,v 1.9 2002/09/24 15:30:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/Attic/editbodycard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -196,8 +196,16 @@ function editbodycard(&$action) {
 	  // special case for hidden values
 	  $thidden[$ih]["hname"]= "_".$listattr[$i]->id;
 	  $thidden[$ih]["hid"]= $listattr[$i]->id;
-	  $thidden[$ih]["hvalue"]=chop(htmlentities($value));
+	  if ($value == "") $thidden[$ih]["hvalue"] = GetHttpVars($listattr[$i]->id);
+	  else $thidden[$ih]["hvalue"]=chop(htmlentities($value));
+	  
+	  
+	  $thidden[$ih]["inputtype"]=getHtmlInput($action, 
+						  $doc->id,
+						  $listattr[$i],
+						  $value);
 	  $ih++;
+
 	} else {
 	  $tableframe[$v]["value"]=chop(htmlentities($value));
 	  $label = $listattr[$i]->labeltext;

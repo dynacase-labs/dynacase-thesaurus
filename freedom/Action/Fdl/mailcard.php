@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.7 2002/09/02 16:38:49 eric Exp $
+// $Id: mailcard.php,v 1.8 2002/09/24 15:30:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -202,7 +202,7 @@ function mailcard(&$action) {
     }
   }  
 
-  //print ($cmd);
+  // print ($cmd);
   system ($cmd, $status);
 
   if ($status == 0)  {

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.8 2002/09/19 13:45:10 eric Exp $
+// $Id: freedom_edit.php,v 1.9 2002/09/24 15:30:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,6 +27,7 @@ include_once("FDL/Class.WDoc.php");
 
 include_once("Class.QueryDb.php");
 include_once("FDL/freedom_util.php");
+include_once("FDL/Lib.Dir.php");
 include_once("VAULT/Class.VaultFile.php");
 
 // -----------------------------------

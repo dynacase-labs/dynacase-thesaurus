@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.3 2002/09/24 15:30:09 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_card.php,v $
+// $Id: freedom_preview.php,v 1.1 2002/09/24 15:30:09 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_preview.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -22,19 +22,41 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FDL/Class.Dir.php");
+include_once("FDL/duplicate.php");
+include_once("FDL/modcard.php");
 
 
 // -----------------------------------
 // -----------------------------------
-function freedom_card(&$action) {
+function freedom_preview(&$action) {
   // -----------------------------------
   
-  $docid = GetHttpVars("id");
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc($dbaccess, $docid);
+  $docid = GetHttpVars("id",0);
+  $classid=GetHttpVars("classid",0);
 
-  $action->lay->Set("TITLE",$doc->title);
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  if ($docid > 0) {
+    $doc = new Doc($dbaccess, $docid);
+
+    $action->lay->Set("TITLE",$doc->title);
+    $ndoc= duplicate($action, 0, $docid);
+    $ndoc->doctype='T';
+    $ndoc->modify();
+  } else {
+    // new doc
+    $ndoc = createDoc($dbaccess, $classid);
+    $ndoc->doctype='T';
+    $err = $ndoc-> Add();
+    if ($err != "")  $action->ExitError($err);
+    
+  }
+  SetHttpVar("id", $ndoc->id);
+
+  $err = modcard($action, $ndocid); // ndocid change if new doc
+  //if ($err != "")  $action-> ExitError($err);
+
 }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.13 2002/09/16 14:42:09 eric Exp $
+// $Id: freedom_util.php,v 1.14 2002/09/24 15:30:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,9 +24,6 @@
 // ---------------------------------------------------------------
 
 
-include_once("FDL/Class.Doc.php");
-include_once("FDL/Class.DocAttr.php");
-include_once("FDL/Class.DocValue.php");
 
 // ------------------------------------------------------
 // construction of a sql disjonction

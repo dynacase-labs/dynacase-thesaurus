@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.3 2002/09/24 15:30:09 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_card.php,v $
+// $Id: geticon.php,v 1.1 2002/09/24 15:30:09 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Share/geticon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -22,19 +22,26 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FDL/Class.Dir.php");
+
+include_once("FDL/exportfile.php");
 
 
-// -----------------------------------
-// -----------------------------------
-function freedom_card(&$action) {
-  // -----------------------------------
-  
-  $docid = GetHttpVars("id");
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc($dbaccess, $docid);
+$vaultid = GetHttpVars("vaultid",0);
+$$mimetype = GetHttpVars("$$mimetype","image");
 
-  $action->lay->Set("TITLE",$doc->title);
-}
+$dbaccess = "host=localhost user=anakeen port=5432 dbname=freedom";
+$vf = new VaultFile($dbaccess, "FREEDOM");
+
+  if ($vf -> Retrieve ($vaultid, $info) != "") {    
+  } else
+    {
+      //Header("Location: $url");
+      if (( $info->public_access)) {
+	Http_DownloadFile($info->path, $info->name, $mimetype);
+	
+      } else {
+	Http_DownloadFile("FREEDOM/Images/doc.gif", "unknow", "image/gif");
+      }
+    }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.17 2002/09/13 15:06:07 eric Exp $
+// $Id: editcard.php,v 1.18 2002/09/24 15:30:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,67 +53,66 @@ function editcard(&$action) {
   $csslay = new Layout($cssfile,$action);
   $action->parent->AddCssCode($csslay->gen());
 
-  if ($zonebodycard == "") {
+   
     
-    if ($docid == 0) { // new document
-      if ($classid > 0) {
-	$doc= new Doc($dbaccess,$classid);
-	$zonebodycard=$doc->deditzone;
-      }
-    } else { // modify document
-      if ($classid == 0) {
-	$doc= new Doc($dbaccess,$docid);
-	$zonebodycard=$doc->deditzone;
-      } else {
-	$doc= new Doc($dbaccess,$classid);
-	$zonebodycard=$doc->deditzone;
-      }
+  if ($docid == 0) { // new document
+    if ($classid > 0) {
+      $doc= new Doc($dbaccess,$classid);
+      if ($zonebodycard == "") $zonebodycard=$doc->deditzone;
+    }
+  } else { // modify document
+    if ($classid == 0) {
+      $doc= new Doc($dbaccess,$docid);
+      if ($zonebodycard == "") $zonebodycard=$doc->deditzone;
+    } else {
+      $doc= new Doc($dbaccess,$classid);
+      if ($zonebodycard == "") $zonebodycard=$doc->deditzone;
     }
   }
+  
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
 
 
   $action->lay->Set("classid", $classid);
   $action->lay->Set("ZONEBODYCARD", $zonebodycard);
 
-
   // compute modify condition js
-    $attrn = $doc->GetNeededAttributes();
+  $attrn = $doc->GetNeededAttributes();
   
   if (count($attrn) == 0) $sattrNid = "[]";
   else {
     while(list($k,$v) = each($attrn)) {
       $attrNid[]=$v->id;
     }
-  $sattrNid = "['".implode("','",$attrNid)."']";
+    $sattrNid = "['".implode("','",$attrNid)."']";
   }
 
 
 
   //compute constraint for enable/disable input
-    $rattr = $doc->GetComputedAttributes();
-
+  $rattr = $doc->GetComputedAttributes();
+    
   $ka=0;
   $tjsa=array();
-    while(list($k,$v) = each($rattr)) {
+  while(list($k,$v) = each($rattr)) {
       
-      if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {
-	$ain = array_filter(explode(",",$reg[1]),"moreone");
+    if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {
+      $ain = array_filter(explode(",",$reg[1]),"moreone");
 
-	if (count($ain) > 0) {
+      if (count($ain) > 0) {
 	  
-	  $aout = explode(",",$reg[2]);
-	  $tjsa[]=array("jstain" => "['".implode("','", $ain)."']",
-			"jstaout" => "['".implode("','", $aout)."']",
-			"jska"=> "$ka");
-	  $ka++;
+	$aout = explode(",",$reg[2]);
+	$tjsa[]=array("jstain" => "['".implode("','", $ain)."']",
+		      "jstaout" => "['".implode("','", $aout)."']",
+		      "jska"=> "$ka");
+	$ka++;
 	
-	}
       }
     }
+  }
 
 
-    // contruct js functions
+  // contruct js functions
   $jsfile=$action->GetLayoutFile("editcard.js");
   $jslay = new Layout($jsfile,$action);
   $jslay->Set("attrnid",$sattrNid);

@@ -32,10 +32,10 @@
 [ZONE FDL:EDITSTATE]
 
 
-<tr style="visibility:hidden">
-<td style="visibility:hidden">
+<tr style="display:none">
+<td >
 [BLOCK HIDDENS]
-<input type="hidden" id="[hid]" name="[hname]" value="[hvalue]">
+[inputtype]
 [ENDBLOCK HIDDENS]
 </td>
 </tr>

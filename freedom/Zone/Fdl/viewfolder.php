@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.21 2002/09/19 13:45:10 eric Exp $
+// $Id: viewfolder.php,v 1.22 2002/09/24 15:30:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -167,7 +167,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  if ($doc->locked == -1) $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("fixed"), 20,20);
 	  else if ((abs($doc->locked) == $action->parent->user->id)) $tdoc[$k]["locked"] = $action->GetIcon("clef1.gif",N_("locked"), 20,20);
 	  else if ($doc->locked != 0) $tdoc[$k]["locked"] = $action->GetIcon("clef2.gif",N_("locked"), 20,20);
-	   
+	  else if ($doc->control("edit") != "")  $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("read-only"), 20,20);
 	  else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
 	}
       

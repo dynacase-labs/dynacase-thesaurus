@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.11 2002/09/16 14:42:09 eric Exp $
+// $Id: FREEDOM.app,v 1.12 2002/09/24 15:30:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -87,6 +87,11 @@ $action_desc = array (
    "short_name"		=>N_("Freedoms view folder"),
    "layout"		=>"freedom_list.xml",
    "acl"		=>"FREEDOM_READ",
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_PREVIEW",
+   "short_name"		=>N_("Freedoms preview document"),
+   "acl"		=>"FREEDOM",
   ) ,
   array( 
    "name"		=>"POPUP",

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.8 2002/09/11 14:12:44 eric Exp $
+// $Id: editutil.php,v 1.9 2002/09/24 15:30:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,20 +56,38 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
 		      
       //같같같같같같같같같같같같같같같같같같같같
     case "image": 
-      $input="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
-    if ($value != "")				  {
-			
-      $efile = $action->GetParam("CORE_BASEURL").
+      if (ereg ("(.*)\|(.*)", $value, $reg)) {
+			  
+	$dbaccess = $action->GetParam("FREEDOM_DB");
+	$vf = new VaultFile($dbaccess, "FREEDOM");
+	if ($vf -> Show ($reg[2], $info) == "") {
+	  $fname = "<A target=\"$attrid\" href=\"".
+	    $action->GetParam("CORE_BASEURL").
+	    "app=FDL&action=EXPORTFILE&docid=$docid&attrid=$attrid\" title=\"{$info->name}\">";
+	  // put image
+	  
+	  $fname.="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
+	  $fname .= $action->GetParam("CORE_BASEURL").
 	 "app=".$action->parent->name."&action=EXPORTFILE&docid=".$docid."&attrid=".$attrid;
-      $input .=$efile;
-    }
-    else	  // if no image force default image
-      $input .= 
-	$action-> GetParam("FREEDOM_DEFAULT_IMAGE");		
-    $input .= "\">";
+	  $fname .= "\">";
+
+	  $fname .= "</A>";
+	}
+	else $fname=_("error in filename");
+      }
+      else {
+	
+	  
+	$fname = $action->GetIcon("noimage.gif",_("no image"),30);
+	 
+	
+      }
+
+      $input =$fname;
+   
 		      
     // input 
-    $input .="<input class=\"autoresize\" accept=\"image\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
+    $input .="<input class=\"autoresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
     $input .= " id=\"".$attrid."\" "; 
     if ($visibility == "R") $input .=" disabled ";
     $input .= " > "; 
@@ -81,7 +99,13 @@ function getHtmlInput(&$action, $docid, &$oattr, $value) {
 			  
 	$dbaccess = $action->GetParam("FREEDOM_DB");
 	$vf = new VaultFile($dbaccess, "FREEDOM");
-	if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+	if ($vf -> Show ($reg[2], $info) == "") {
+	  $fname = "<A target=\"$attrid\" href=\"".
+	    $action->GetParam("CORE_BASEURL").
+	    "app=FDL&action=EXPORTFILE&docid=$docid&attrid=$attrid\">";
+	  $fname .= $info->name;
+	  $fname .= "</A>";
+	}
 	else $fname=_("error in filename");
       }
       else $fname=_("no filename");
