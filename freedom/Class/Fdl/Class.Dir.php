@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.30 2004/06/17 14:51:55 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.31 2004/07/08 09:14:29 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -37,6 +37,7 @@ Class Dir extends PDir
 
   // get the home and basket folder
   function GetHome() {
+    global $action;
     
     include_once("FDL/freedom_util.php");
     include_once("FDL/Lib.Dir.php");
@@ -47,6 +48,9 @@ Class Dir extends PDir
     if (count($rq) > 0)      $home = $rq[0];
     else {
       $home = createDoc($this->dbaccess,"DIR");
+
+      if (! $home) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),getFamIdFromName($dbaccess,"DIR")));
+
       $home ->owner = -$this->userid;
       include_once("Class.User.php");
       $user = new User("", $this->userid);
@@ -55,6 +59,8 @@ Class Dir extends PDir
       $home -> Add(); 
 
       $privlocked = createDoc($this->dbaccess,"SEARCH");
+      if (! $privlocked) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),getFamIdFromName($dbaccess,"SEARCH")));
+
       $privlocked->title=(_("locked files of ").$home ->title);
       $privlocked->Add();
       $privlocked->AddQuery("select * from doc where (doctype='F') ".
@@ -68,6 +74,8 @@ Class Dir extends PDir
     if (getParam("FREEDOM_IDBASKET") == "") {
 
       $bas = createDoc($this->dbaccess,"BASKET");
+      if (! $bas) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),getFamIdFromName($dbaccess,"BASKET")));
+
       $query = new QueryDb($this->dbaccess, "_BASKET");
       $query->AddQuery("owner = ". $this->userid);
       $rq = $query->Query();

@@ -3,7 +3,7 @@
  *  Control view Class Document
  *
  * @author Anakeen 2003
- * @version $Id: Class.CVDoc.php,v 1.2 2004/02/12 10:32:09 eric Exp $
+ * @version $Id: Class.CVDoc.php,v 1.3 2004/07/08 09:14:39 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.CVDoc.php,v 1.2 2004/02/12 10:32:09 eric Exp $
+// $Id: Class.CVDoc.php,v 1.3 2004/07/08 09:14:39 caroline Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.CVDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -143,7 +143,7 @@ Class CVDoc extends Doc {
     if ($this->getValue("DPDOC_FAMID") > 0) {
       // special control for dynamic users
       if (! isset($this->pdoc)) {
-	$pdoc = createDoc($this->dbaccess,$this->fromid);
+	$pdoc = createDoc($this->dbaccess,$this->fromid,false);
 	$pdoc->doctype="T"; // temporary
 	//	$pdoc->setValue("DPDOC_FAMID",$this->getValue("DPDOC_FAMID"));
 	$err=$pdoc->Add();
