@@ -22,7 +22,7 @@
 // Definition of class Folder 
 // ***************************************************************** 
  
-function Folder(folderDescription, hreference, refid) //constructor 
+function Folder(folderDescription, hreference, refid, ftype) //constructor 
 { 
   //constant data 
   this.desc = folderDescription 
@@ -33,6 +33,7 @@ function Folder(folderDescription, hreference, refid) //constructor
   this.nodeImg = 0  
   this.isLastNode = 0 
   this.refid =  refid; // external reference
+  this.ftype =  ftype; // external reference
  
   //dynamic data 
   this.isOpen = true 
@@ -148,7 +149,8 @@ function propagateChangesInState(folder)
         folder.nodeImg.src = "FREEDOM/Images/ftv2mlastnode.gif" 
       else 
 	    folder.nodeImg.src = "FREEDOM/Images/ftv2mnode.gif" 
-    folder.iconImg.src = "FREEDOM/Images/ftv2folderopen.gif" 
+    if (folder.ftype == 2)    folder.iconImg.src = "FREEDOM/Images/ftv2folderopen2.gif" 
+    else  folder.iconImg.src = "FREEDOM/Images/ftv2folderopen.gif"
     for (i=0; i<folder.nChildren; i++) 
       folder.children[i].mostra() 
   } 
@@ -164,7 +166,8 @@ function propagateChangesInState(folder)
 	    folder.nodeImg.src = "FREEDOM/Images/ftv2pnode.gif" 
         else 
 	    folder.nodeImg.src = "FREEDOM/Images/ftv2node.gif" 
-    folder.iconImg.src = "FREEDOM/Images/ftv2folderclosed.gif"
+      if (folder.ftype == 2)    folder.iconImg.src = "FREEDOM/Images/ftv2folderclosed2.gif" 
+      else folder.iconImg.src = "FREEDOM/Images/ftv2folderclosed.gif"
     for (i=0; i<folder.nChildren; i++) 
       folder.children[i].esconde() 
   }  
@@ -474,9 +477,9 @@ function clickOnNode(folderId)
 // Auxiliary Functions for Folder-Tree backward compatibility 
 // *********************************************************** 
  
-function gFld(description, hreference, refid) 
+function gFld(description, hreference, refid, ftype) 
 { 
-  folder = new Folder(description, hreference, refid) 
+  folder = new Folder(description, hreference, refid, ftype) 
   return folder 
 } 
  
