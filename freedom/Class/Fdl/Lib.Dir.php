@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.89 2004/06/07 15:55:52 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.90 2004/06/11 16:10:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.89 2004/06/07 15:55:52 eric Exp $
+// $Id: Lib.Dir.php,v 1.90 2004/06/11 16:10:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -189,18 +189,18 @@ function getSqlSearchDoc($dbaccess,
 	  $sqlM=$ldocsearch[0]["query"];
 
 	  $sdoc=new Doc($dbaccess,$dirid);
-	  $sqlM=$sdoc->getQuery();
+	  $tsqlM=$sdoc->getQuery();
+	  foreach ($tsqlM as $sqlM) {
 
-
-	  if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
-	    $sqlfilters[-3] = "doctype != 'Z'";	   
-	    ksort($sqlfilters);
-	    if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
-	  }
-	  if ($fromid > 0) $sqlM=str_replace("from doc ","from $only $table ",$sqlM);
+	    if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
+	      $sqlfilters[-3] = "doctype != 'Z'";	   
+	      ksort($sqlfilters);
+	      if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
+	    }
+	    if ($fromid > 0) $sqlM=str_replace("from doc ","from $only $table ",$sqlM);
 	    
-	  $qsql= $sqlM ." and " . $sqlcond;
-	
+	    $qsql[]= $sqlM ." and " . $sqlcond;
+	  }
 	  break;
 	}
       } else {
@@ -209,7 +209,8 @@ function getSqlSearchDoc($dbaccess,
     }
 
   }
-  return $qsql;
+  if (is_array($qsql)) return $qsql;
+  return array($qsql);
 }
 /**
  * return array of documents
@@ -234,7 +235,6 @@ function getChildDoc($dbaccess,
 		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
   
 
-
   // query to find child documents          
   if (($fromid!="") && (! is_numeric($fromid))) $fromid=getFamIdFromName($dbaccess,$fromid);
 
@@ -244,9 +244,13 @@ function getChildDoc($dbaccess,
       // try optimize containt of folder
       $td=getFldDoc($dbaccess,$dirid,$sqlfilters);
       if (is_array($td)) return $td;
-    }
+    } 
   }
-  $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest);
+  $tqsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest);
+
+
+  $tretdocs=array();
+  foreach ($tqsql as $qsql) {
 
   if ($userid > 1) { // control view privilege
      $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
@@ -273,20 +277,20 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-  //   print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
-
-
-
-  if ($query->nb == 0)
+  if ($query->nb > 0)
     {
-      return array();
+      $tretdocs=array_merge($tretdocs,$tableq);
     }
+  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+
+  }
+
   
 
   
-  reset($tableq);
+  reset($tretdocs);
   
-  return($tableq);
+  return($tretdocs);
 }
 
 
@@ -325,11 +329,32 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
       }
     }
   }
-  //  print "<HR>"; print " - getFldDoc<B>".microtime_diff(microtime(),$mc)."</B>";
+  //  print "<HR>"; print " - getFldDoc $dirid<B>".microtime_diff(microtime(),$mc)."</B>";
   return $t;
 }
 
+/** 
+ * optimization for getChildDoc in case of grouped searches
+ */
+function getMSearchDoc($dbaccess,$dirid,
+		       $start="0", $slice="ALL",$sqlfilters=array(), 
+		       $userid=1, 
+		       $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
+ 
+  $sdoc= new Doc($dbaccess, $dirid);
 
+  $tidsearch=$sdoc->getTValue("SEG_IDCOND");
+  $tdoc=array();
+  foreach ($tidsearch as $k=>$v) {
+    $tdoc=array_merge(getChildDoc($dbaccess,$v,
+				  $start, $slice,$sqlfilters, 
+				  $userid, 
+				  $qtype, $fromid,$distinct, $orderby,$latest),
+		      $tdoc);
+  }
+  return $tdoc;
+    
+}
 
 
 

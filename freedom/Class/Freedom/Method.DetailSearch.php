@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.20 2004/06/07 15:55:52 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.21 2004/06/11 16:10:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.20 2004/06/07 15:55:52 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 
 var $defaultedit= "FREEDOM:EDITDSEARCH";
@@ -124,13 +103,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
 
 
 
-function SpecRefresh() {
-  if ($this->getValue("se_latest") != "") {
-    $query=$this->getQuery();
 
-    $this->AddQuery($query);
-  }
-}
 
 function viewdsearch($target="_self",$ulink=true,$abstract=false) {
   // Compute value to be inserted in a  layout
@@ -167,6 +140,7 @@ function editdsearch() {
 
   $famid = GetHttpVars("sfamid",$this->getValue("SE_FAMID",1));
   $dirid = GetHttpVars("dirid");
+  $this->lay->set("ACTION",$action->name);
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/edittable.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
@@ -191,7 +165,8 @@ function editdsearch() {
   // display attributes
   $tattr=array();
   $internals=array("title" => _("doctitle"),
-	       "revdate" => _("revdate"));
+		   "revdate" => _("revdate"),
+		   "values"=> ("any values"));
   
   while (list($k,$v) = each($internals)) {
     $tattr[]=array("attrid"=> $k,

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.17 2004/06/07 15:55:52 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.18 2004/06/11 16:10:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.17 2004/06/07 15:55:52 eric Exp $
+// $Id: Class.DocSearch.php,v 1.18 2004/06/11 16:10:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.17 2004/06/07 15:55:52 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.18 2004/06/11 16:10:44 eric Exp $';
 
 
 include_once("FDL/Class.PDocSearch.php");
@@ -54,9 +54,13 @@ Class DocSearch extends PDocSearch {
     if (((! isset($this->fromid))) || ($this->fromid == "")) $this->fromid = FAM_SEARCH;
   }
 
-  function AddQuery($query) {
+  function AddQuery($tquery) {
     //print "AddQuery($query)";
     // insert query in search document
+    if (is_array($tquery)) $query=implode(";\n",$tquery);
+    else $query=$tquery;
+
+
     $oqd = new QueryDir($this->dbaccess);
     $oqd->dirid = $this->id;
     $oqd->qtype="M"; // multiple
@@ -96,7 +100,7 @@ Class DocSearch extends PDocSearch {
 				 $this->getValue("se_sublevel") === "") ;
     // print "<HR>getQuery1:[$query]";
     } else {
-      $query=$this->getValue("SE_SQLSELECT");
+      $query[]=$this->getValue("SE_SQLSELECT");
       // print "<BR><HR>".$this->getValue("se_latest")."/".$this->getValue("se_case")."/".$this->getValue("se_key");
       //  print "getQuery2:[$query]";
     }
@@ -123,6 +127,11 @@ Class DocSearch extends PDocSearch {
     $keyword= pg_escape_string($keyword);
     $keyword= str_replace("^","£",$keyword);
     $keyword= str_replace("$","\0",$keyword);
+    if (substr($keyword,0,2)=="::") {
+	// it's method call
+	$keyword = $this->ApplyMethod($keyword);
+      }
+
     if ($keyword != "") {
       if ($sensitive) $filters[] = "values ~ '$keyword' ";
       else $filters[] = "values ~* '$keyword' ";
