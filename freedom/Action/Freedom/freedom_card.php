@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: freedom_card.php,v 1.2 2002/06/18 14:27:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,7 +28,12 @@
 // -----------------------------------
 function freedom_card(&$action) {
   // -----------------------------------
-  ;
+  
+  $docid = GetHttpVars("id");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $doc = new Doc($dbaccess, $docid);
+
+  $action->lay->Set("TITLE",$doc->title);
 }
 
 ?>
