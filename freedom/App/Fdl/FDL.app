@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.3 2002/05/28 16:33:12 eric Exp $
+// $Id: FDL.app,v 1.4 2002/06/05 07:47:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -35,7 +35,11 @@ $app_acl = array (
   array(
    "name"		=>"NORMAL",
    "description"	=>N_("Access Action Library"),
-   "group_default"       =>"Y")
+   "group_default"       =>"Y"),
+  array(
+   "name"		=>"EXPORT",
+   "description"	=>N_("For export functions"),
+   "group_default"       =>"N")
 );
 
 $action_desc = array (
@@ -59,7 +63,7 @@ $action_desc = array (
   array( 
    "name"		=>"EXPORTFLD",
    "short_name"		=>N_("export folder"),
-   "acl"		=>"NORMAL"
+   "acl"		=>"EXPORT"
   ) ,
   array( 
    "name"		=>"EXPORTFILE",
