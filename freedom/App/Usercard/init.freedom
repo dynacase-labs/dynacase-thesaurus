@@ -193,7 +193,7 @@ METHOD;+Method.DocSociety.php;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
 ATTR;SI_FR_IDENT;;Identification;N;N;frame;10;W;;;;;;
 ATTR;SI_SOCIETY;SI_FR_IDENT;raison sociale;Y;N;text;20;W;Y;;;;;
-ATTR;SI_CATG;SI_FR_IDENT;activité;N;N;enumlist;30;W;;;;constructor|Constructeur,client|Client,furnisher|Fournisseur;;
+ATTR;SI_CATG;SI_FR_IDENT;catégorie;N;N;enumlist;30;W;;;;constructor|Constructeur,client|Client,furnisher|Fournisseur;;
 ATTR;SI_JOB;SI_FR_IDENT;métier;N;N;longtext;40;W;;;;;;
 ATTR;SI_DESCR;SI_FR_IDENT;description;N;N;longtext;50;W;;;;;;
 ATTR;SI_FR_COORD;;Coordonnées;N;N;frame;60;W;;;;;;
