@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.7 2002/02/14 18:11:42 eric Exp $
+ * $Id: freedom.css,v 1.8 2002/05/27 14:54:14 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -16,7 +16,7 @@
 }
 
 .FREEDOMTextTitle{
-  font-size: 80%;
+  font-size: 100%;
   font-weight: bold;
   color: [CORE_TEXTFGCOLOR];
 }
@@ -32,7 +32,7 @@ TR.FREEDOMBack2{
 }
 
 .FREEDOMText{
-  font-size: 80%;
+  font-size: 100%;
   color: [CORE_TEXTFGCOLOR];
 }
 

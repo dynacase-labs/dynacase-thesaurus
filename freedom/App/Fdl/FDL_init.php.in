@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.1 2002/02/05 16:34:07 eric Exp $
+// $Id: FDL_init.php.in,v 1.2 2002/05/27 14:54:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,7 +27,8 @@ global $app_const;
 $app_const= array(
   "INIT" => "yes",
   "VERSION" => "@VERSION@",
-  "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
+  "FREEDOM_DB" => array("val"=>"host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
+			"descr"=>N_("freedom database")),
   "UPLOAD_MAX_FILE_SIZE" => "200000"
 );
 
@@ -37,11 +38,11 @@ include_once("FDL/Class.DocSearch.php");
 
 
 
-$doc = new DocFile($app_const["FREEDOM_DB"]);
+$doc = new DocFile($app_const["FREEDOM_DB"]["val"]);
 $doc->InitObjectAcl();
-$doc = new Dir($app_const["FREEDOM_DB"]);
+$doc = new Dir($app_const["FREEDOM_DB"]["val"]);
 $doc->InitObjectAcl();
-$doc = new DocSearch($app_const["FREEDOM_DB"]);
+$doc = new DocSearch($app_const["FREEDOM_DB"]["val"]);
 $doc->InitObjectAcl();
 
 

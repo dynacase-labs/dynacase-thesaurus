@@ -39,7 +39,7 @@ TD.tlist {
    border-width : 1px;
    border-style : dashed none none none;
    border-color : [CORE_BGCOLOR];
-   font-size: 80%;
+   font-size: 100%;
 }
 
 TR.unselect {

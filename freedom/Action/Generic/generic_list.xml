@@ -39,7 +39,7 @@ TD.tlist {
    border-width : 1px;
    border-style : dashed none none none;
    border-color : [CORE_BGCOLOR];
-   font-size: 80%;
+   font-size: 100%;
 }
 
 DIV.unselect {
@@ -48,7 +48,7 @@ DIV.unselect {
   color:[CORE_TEXTFGCOLOR];
    border-color : [CORE_BGCOLOR];
    border-width : 1px;
-   font-size: 80%;
+   font-size: 100%;
   margin: 2px 0px 0px 0px;
 
 }
@@ -59,7 +59,7 @@ DIV.unselecth {
   color:[CORE_TEXTFGCOLOR];
    border-color : [CORE_BGCOLOR];
    border-width : 1px;
-   font-size: 80%;
+   font-size: 100%;
   margin: 2px 0px 0px 0px;
 
 }
@@ -69,7 +69,7 @@ DIV.select {
   color:[CORE_TEXTFGCOLOR];
   border-style : outset;
    border-width : 1px;
-   font-size: 80%;
+   font-size: 100%;
   margin: 2px 0px 0px 0px;
 } 
 
@@ -90,8 +90,7 @@ A.title:hover {
 
 .onglet {
    font-size: 50%;
-  /*background-color:[CORE_BGCOLORALTERN];*/
-  background-image:url('GENERIC/Images/tab.png');
+  background-image:url('[IMG:tab.png]');
   color:[CORE_TEXTFGCOLOR];
   cursor: pointer;
   border-style: none;
@@ -100,8 +99,7 @@ A.title:hover {
 
 .ongleth {
    font-size: 50%;
-  /*background-color:[CORE_BGCOLORHIGH];*/
-  background-image:url('GENERIC/Images/tabh.png');
+  background-image:url('[IMG:tabh.png]');
   color:[CORE_TEXTFGCOLOR];
   cursor: pointer;
   border-style: none;
@@ -110,8 +108,7 @@ A.title:hover {
 .onglets {
    font-size: 50%;
   cursor: pointer;
-/*  background-color:[CORE_FGCOLOR];*/
-  background-image:url('GENERIC/Images/tabh.png');
+  background-image:url('[IMG:tabh.png]');
   color:[CORE_TEXTBGCOLOR];
   border-style: none;
 }

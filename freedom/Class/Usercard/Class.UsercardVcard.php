@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.7 2002/05/22 16:02:36 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.8 2002/05/27 14:54:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,7 +46,7 @@ Class UsercardVcard
 		      "ORG" => "US_SOCIETY",
 		      "ORG;NAME" => "US_SOCIETY",
 		      "ORG;UNIT" => "",
-		      "TITLE" => "",
+		      "TITLE" => "US_TYPE",
 			
 		      "ADR;TYPE;WORK" => "",
 		      "ADR;TYPE;HOME" => "",
@@ -77,6 +77,7 @@ Class UsercardVcard
 		      "TEL;HOME" => "",
 		      "TEL;VOICE" => "",
 		      "TEL;FAX" => "US_FAX",
+		      "TEL;WORK;FAX" => "US_FAX",
 		      "TEL;MSG" => "",
 		      "TEL;CELL" => "US_MOBILE",
 		      "TEL;CELL;VOICE" => "US_MOBILE",

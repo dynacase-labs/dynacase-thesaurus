@@ -23,7 +23,7 @@ TD.tlist {
    border-style : dashed solid none none;
    border-color : [CORE_BGCOLOR];
   font-family: [CORE_FONTLIST1];
-  font-size: 80%;
+  font-size: 100%;
 }
 
 TD.select {
@@ -31,7 +31,7 @@ TD.select {
    border-style : dashed solid none none;
    border-color : [CORE_BGCOLOR];
   font-family: [CORE_FONTLIST1];
-  font-size: 80%;
+  font-size: 100%;
 }
 
 TR.unselect {

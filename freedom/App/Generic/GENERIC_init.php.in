@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC_init.php.in,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Id: GENERIC_init.php.in,v 1.2 2002/05/27 14:54:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,11 +26,15 @@ global $app_const;
 
 $app_const= array(
   "INIT" => "yes",
-  "VERSION" => "@VERSION@",
+  "VERSION"			=>"@VERSION@-@RELEASE@",
   "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
-  "DEFAULT_FAMILY" => "1",
-  "DEFAULT_FLD" => "10",
-  "CARD_SLICE_LIST" => "8",
+  "DEFAULT_FAMILY" => array("val"=>"1",
+			     "descr"=>N_("default document family")),
+  "DEFAULT_FLD" =>     array("val"=>"10",
+			     "descr"=>N_("default folder to place document")),
+  "CARD_SLICE_LIST" => array("val"=>"8",
+			     "descr"=>N_("number of card by page"),
+			     "user"=>"Y")
 );
 
 ?>
