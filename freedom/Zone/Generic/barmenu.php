@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.4 2003/01/30 09:38:36 eric Exp $
+// $Id: barmenu.php,v 1.5 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -74,7 +74,7 @@ function barmenu(&$action) {
       $tmkind=array($a->id."00");
       while (list($kk,$ki) = each($a->enum)) {
 	$tvkind[]=array("ktitle" => strstr($ki, '/')?strstr($ki, '/'):$ki,
-			"level" =>  strstr($ki, '/')?20:0,
+			"level" =>  substr_count($kk, '.')*20,
 			"kid" => $kk);
 	$tmkind[]=$a->id.$kk;
       }

@@ -127,6 +127,8 @@ function lenum($val, $enum) {
 
   $tenum=explode("|",$enum);
 
+  $tr=array();
+
   while(list($k,$v) = each($tenum)) {
             
     if (($val == "") || (ereg("$val", $v , $reg)))

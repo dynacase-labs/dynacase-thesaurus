@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.15 2003/01/30 10:24:59 eric Exp $
+// $Id: Class.WDoc.php,v 1.16 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.15 2003/01/30 10:24:59 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.16 2003/02/20 11:34:04 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -72,6 +72,10 @@ Class WDoc extends Doc {
     }
   
 
+    function postModify() {
+      $this->CreateProfileAttribute();
+    }
+
   function changeProfil($newstate) {
 
     if ($newstate != "") {
@@ -99,7 +103,7 @@ Class WDoc extends Doc {
       $oattr->visibility="F";
       $oattr->ordered=100;
       $oattr->labeltext=_("state profile");
-    $oattr->Add();
+     if (! $this->getAttribute($oattr->id)) $oattr->Add();
       $oattr->frameid=$oattr->id;
       
     $this->getStates();
@@ -116,7 +120,7 @@ Class WDoc extends Doc {
       $oattr->link="";
       //      $oattr->phpfile="fdl.php";
       // $oattr->phpfunc="gettitle(D,$aidprofilid):$aprofilid";
-      $oattr->Add();
+      if (! $this->getAttribute($oattr->id))  $oattr->Add();
 
       $oattr->ordered++;
 
@@ -125,10 +129,10 @@ Class WDoc extends Doc {
       $oattr->type="text";
       $oattr->link="%S%app=FDL&action=FDL_CARD&id=%".$aidprofilid."%";
       $oattr->phpfile="fdl.php";
-      $oattr->id=$aprofilid;
+      $oattr->id=strtolower($aprofilid);
       $oattr->phpfunc="lprofil(D,{$oattr->id}):$aidprofilid,{$oattr->id}";
       $oattr->labeltext=sprintf(_("%s profile"),_($state));
-      $oattr->Add();
+       if (! $this->getAttribute($oattr->id)) $oattr->Add();
 
       $oattr->ordered++;
 

@@ -128,7 +128,9 @@ function closeMenu(menuid) {
 function activate(th, url, wname) {
   if ((th.className == 'menuItem') || (th.className == 'menuItemCtrl')) {
     // add referer url for client doesn't not support it
-    var urlref=url+'&http_referer='+escape(window.location.href);
+    var urlref;
+    if (isNetscape) urlref=url;
+    else urlref= url+'&http_referer='+escape(window.location.href);
     
     subwindowm(300,400,wname,urlref);
    

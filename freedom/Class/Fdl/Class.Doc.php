@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.92 2003/02/07 17:31:49 eric Exp $
+// $Id: Class.Doc.php,v 1.93 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.92 2003/02/07 17:31:49 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.93 2003/02/20 11:34:04 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -141,7 +141,6 @@ create unique index i_docir on doc(initid, revision);";
 
     $sqlquery=$this->SqlTrigger();
     $msg=$this->exec_query($sqlquery,1);
-    
 
     return $msg;
     
@@ -162,6 +161,7 @@ create unique index i_docir on doc(initid, revision);";
       //$this->SetControl();
 
       $this->Select($this->id);
+      $this->PostCreated(); 
     }
   
   // --------------------------------------------------------------------
@@ -837,8 +837,10 @@ create unique index i_docir on doc(initid, revision);";
     // control edit before set values
 	  
     if (! isset($this->withoutControl)) {
-      $err = $this-> Control("edit");
-      if ($err != "") return ($err); 
+      if ($this->id > 0) { // no control yet if no effective doc
+	$err = $this-> Control("edit");
+	if ($err != "") return ($err); 
+      }
     }
       
 
@@ -979,6 +981,16 @@ create unique index i_docir on doc(initid, revision);";
     return $copy;
   }
 
+
+  function translate($docid, $translate) {
+    $doc = new Doc($this->dbaccess, $docid);
+    if ($doc->isAlive()) {      
+      while(list($afrom,$ato) = each($translate)) {
+	$this->setValue($ato, $doc->getValue($afrom));
+      }
+    }
+  }
+
   function lock($auto=false) {
     
     $err=$this->CanLockFile();
@@ -1102,7 +1114,7 @@ create unique index i_docir on doc(initid, revision);";
   }
   
   
-  function urlWhatEncode( $link) {
+  function urlWhatEncode( $link, $k=-1) {
     // -----------------------------------
     global $action;
     
@@ -1142,8 +1154,12 @@ create unique index i_docir on doc(initid, revision);";
 	    $i++;
 	  }
 	  //	  print "attr=$sattrid";
-	  
-	  $ovalue = $this->GetValue($sattrid);
+	  if ($k >= 0) {
+	    $tval= explode("\n",$this->GetValue($sattrid));
+	    $ovalue = $tval[$k];
+	  } else {
+	    $ovalue = $this->GetValue($sattrid);
+	  }
 	  if ($ovalue == "") return false;
 	  $urllink.=$ovalue;
 	  
@@ -1236,17 +1252,32 @@ create unique index i_docir on doc(initid, revision);";
 	
 	break;
       case "textlist": 
-	if (strstr($value,"\n")) $oattr->link="";
+	$ta = explode("\n",$value);
 	if ($aformat != "") {
-	  $ta = explode("\n",$value);
+	  reset($ta);
 	  while (list($k, $a) = each($ta)) {
 	    $ta[$k]=stripslashes(sprintf($aformat,$a));
 	  }
 	  $htmlval=implode("<BR>",$ta);
 	  
-	} else {
-	  $htmlval=nl2br(htmlentities(stripslashes($value)));
-	}
+	} 
+	if ($oattr->link != "") {
+	  // set a link for each  element of the list
+	  reset($ta);
+	  while (list($k, $a) = each($ta)) {
+	    $abegin="<A target=\"$target\" onclick=\"document.noselect=true;\" href=\"";
+	    $abegin.= $this->urlWhatEncode($oattr->link,$k);
+	    $abegin.="\">";
+	    $aend="</A>";
+	    $ta[$k]=$abegin.$a.$aend;
+	  }
+	  $htmlval=implode("<BR>",$ta);
+	  
+	} 
+	 $oattr->link="";
+
+	
+	$htmlval=implode("<BR>",$ta);//$htmlval=nl2br(htmlentities(stripslashes($value)));
 	break;
       case "enumlist": 
 	if (strstr($value,"\n")) $oattr->link="";

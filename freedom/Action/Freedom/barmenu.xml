@@ -16,8 +16,8 @@ function SendSearchId(e,id) {
 </script>   
 
 <!-- ------------------ BAR MENU ------------------ -->
-<div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;">
-<table  class="tablesimple"  cols="4"  cellspacing="0"   >
+<div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;" >
+<table  class="tablesimple"  cols="4"  cellspacing="0"  >
 <thead>
 <tr>
 <td  class="MenuInactive"  

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.24 2003/02/07 17:31:50 eric Exp $
+// $Id: modcard.php,v 1.25 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -141,7 +141,7 @@ function modcard(&$action, &$ndocid) {
 
   $err=$doc-> PostModify(); 
   $err.=$doc-> Modify(); 
-  if ( $docid == 0 ) $err=$doc-> PostCreated(); 
+  // if ( $docid == 0 ) $err=$doc-> PostCreated(); 
   $doc->unlock(true); // disabled autolock
   
 

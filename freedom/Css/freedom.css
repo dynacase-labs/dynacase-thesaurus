@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.23 2003/02/07 17:31:50 eric Exp $
+ * $Id: freedom.css,v 1.24 2003/02/20 11:34:04 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -157,7 +157,11 @@ A.title:hover {
   background-color:[CORE_BGCELLCOLOR];
    
 }
-
+TABLE.rows TBODY TR TD {  
+  border-width:1px 0px 0px 0px;	 
+  border-color:[CORE_BGCOLORALTERN];
+  border-style:solid;
+}
 .onglet {
    font-size: 50%;
   background-image:url('[IMG:tab.png]');
@@ -243,6 +247,32 @@ DIV.icon{
   overflow : hidden;
 }
 
+.onlyprint {
+    display:none;
+}
+
+P { 
+    font-size:10pt;
+    font-family:arial, helvetica;
+  }
+H1 { 
+    font-size:12pt;
+    font-family:arial, helvetica;
+  }
+  
+H2 { 
+    font-size:10pt;
+    font-family:arial;
+  }
+H3 { 
+    font-size:9pt;
+    font-family:arial;
+  }
+TH {
+     border-width: 1px 0px 0px 0px;
+    font-size:9pt;
+    font-family:arial;
+  }
 @media print {
   .noprint {
     display:none;
@@ -253,4 +283,7 @@ DIV.icon{
   A, TD, TH {
     color:black;
   }
+  .onlyprint { 
+    display:block;
+    }
 }

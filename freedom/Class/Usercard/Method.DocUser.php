@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocUser.php,v 1.7 2003/01/20 14:00:02 eric Exp $
+// $Id: Method.DocUser.php,v 1.8 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,14 +96,15 @@ function SpecRefresh() {
   $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX");
 
   $doc=new Doc($this->dbaccess, $this->getValue("US_IDSOCIETY"));
-  if ($this->getValue("US_SOCADDR") != "") {
-    $this->setValue("US_WORKADDR",$doc->getValue("SI_ADDR"," "));
-    $this->setValue("US_WORKTOWN",$doc->getValue("SI_TOWN"," "));
-    $this->setValue("US_WORKPOSTALCODE",$doc->getValue("SI_POSTCODE"," "));
-    $this->setValue("US_WORKWEB",$doc->getValue("SI_WEB"," "));
-    $this->setValue("US_WORKCEDEX",$doc->getValue("SI_CEDEX"," "));
+  if ($doc->isAlive()) {
+    if ($this->getValue("US_SOCADDR") != "") {
+      $this->setValue("US_WORKADDR",$doc->getValue("SI_ADDR"," "));
+      $this->setValue("US_WORKTOWN",$doc->getValue("SI_TOWN"," "));
+      $this->setValue("US_WORKPOSTALCODE",$doc->getValue("SI_POSTCODE"," "));
+      $this->setValue("US_WORKWEB",$doc->getValue("SI_WEB"," "));
+      $this->setValue("US_WORKCEDEX",$doc->getValue("SI_CEDEX"," "));
+    }
   }
-
   
 }
   // --------------------------------------------------------------------

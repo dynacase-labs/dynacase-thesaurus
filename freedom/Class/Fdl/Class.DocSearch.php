@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.9 2003/01/24 14:10:46 eric Exp $
+// $Id: Class.DocSearch.php,v 1.10 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.9 2003/01/24 14:10:46 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.10 2003/02/20 11:34:04 eric Exp $';
 
 
 include_once("FDL/Class.PDocSearch.php");
@@ -90,7 +90,7 @@ Class DocSearch extends PDocSearch {
     }
  
   
-
+    print $query;
     $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest);
     return $query;
   }

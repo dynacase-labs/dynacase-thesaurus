@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.17 2003/01/24 16:40:26 eric Exp $
+// $Id: search.php,v 1.18 2003/02/20 11:34:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,7 +39,7 @@ function search(&$action) {
 
   $docid = GetHttpVars("id",0);
   $classid=GetHttpVars("classid",0);
-  $keyword=GetHttpVars("_se_key"); // keyword to search
+  $keyword=GetHttpVars("_se_key",GetHttpVars("keyword")); // keyword to search
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -49,7 +49,8 @@ function search(&$action) {
       $classid=$doc->fromid;
     }
     else {
-      $action->exitError(_("kind of search is not defined"));
+      $classid=5;
+      //      $action->exitError(_("kind of search is not defined"));
     }
   }
   // new doc
@@ -59,7 +60,11 @@ function search(&$action) {
   if ($keyword != "") $ndoc->title=_("new search ").$keyword;
   else $ndoc->title=sprintf(_("detailled search result"));
   $ndoc->doctype='T';
+  $ndoc->setValue("se_key",$keyword);
+  $ndoc->setValue("se_latest","yes");
+  $ndoc->setValue("se_famid",GetHttpVars("famid"));
   $err = $ndoc-> Add();
+ 
   if ($err != "")  $action->ExitError($err);
 
   SetHttpVar("id", $ndoc->id);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.6 2003/01/31 14:31:30 eric Exp $
+// $Id: Class.DocFile.php,v 1.7 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.6 2003/01/31 14:31:30 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.7 2003/02/20 11:34:04 eric Exp $';
 
 
 include_once("FDL/Class.PDoc.php");
@@ -76,6 +76,10 @@ Class DocFile extends PDoc
       return $doc->title;
     }
     return " "; // delete title
+  }
+
+  function getDate() {
+    return date("d/m/Y");
   }
 }
 

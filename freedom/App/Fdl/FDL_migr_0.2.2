@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ 
+pubdir="/home/httpd/what";
+# ajout sequence doc temporaire
+
+
+echo "update docattr set type='text' where type='enum' and (phpfile is not null or phpfile != '');" | psql freedom anakeen

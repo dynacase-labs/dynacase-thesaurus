@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: duplicate.php,v 1.5 2003/02/07 17:31:50 eric Exp $
+// $Id: duplicate.php,v 1.6 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,31 +45,24 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
   $err = $cdoc->control('view');
   if ($err != "") $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$doc->fromid));
 
-
-  $copy= new Doc($dbaccess, $docid);
+ 
 
   $values = $doc->getValues();
   if (! is_array($values)) $action->exitError(_("this kind of document cannot be duplicate"));
 
 
   // initiate a copy of the doc
-  $copy->id = "";
-  $copy->initid = "";
-  $copy->revision = "0";
-  $copy->locked = "0";
-  $copy->state = "";
-  if ($temporary) $copy->doctype = "T";
-  $copy->profid = $cdoc->cprofid;;
+
+  $copy= $doc->copy($temporary);
   $copy->title = _("duplication of")." ".$copy->title;
-  $err = $copy->Add();
 
   
   if ($err != "") $action->exitError($err);
   
 
-
-
   $copy->SetTitle($copy->title);
+
+  $copy->modify();
   // add to the same folder
   
   if (($dirid > 0) && ($copy->id > 0)) {

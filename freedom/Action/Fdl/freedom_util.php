@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.31 2003/02/07 17:31:49 eric Exp $
+// $Id: freedom_util.php,v 1.32 2003/02/20 11:34:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-
+//
 
 // ------------------------------------------------------
 // construction of a sql disjonction
@@ -196,6 +196,7 @@ function tordered($a, $b) {
 
 
 function getFamIdFromName($dbaccess, $name) {
+  include_once("FDL/Class.DocFam.php");
   global $tFamIdName;
 
   if (! isset($tFamIdName)) {

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.12 2002/10/31 08:09:23 eric Exp $
+// $Id: Class.DocAttr.php,v 1.13 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.12 2002/10/31 08:09:23 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.13 2003/02/20 11:34:04 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -98,7 +98,7 @@ create unique index idx_iddocid on docattr(id, docid)";
       if ($this->id == "") {
 	$res = pg_exec($this->dbid, "select nextval ('seq_id_docattr')");
 	$arr = pg_fetch_array ($res, 0);
-	$this->id = $arr[0];  
+	$this->id = "auto_".$arr[0];  // not a number must be alphanumeric begin with letter
       }
 
       if ($this->type=="") $this->type="text";

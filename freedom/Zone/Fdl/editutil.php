@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editutil.php,v 1.16 2003/01/30 09:38:36 eric Exp $
+// $Id: editutil.php,v 1.17 2003/02/20 11:34:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editutil.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -199,7 +199,7 @@ function getHtmlInput(&$doc, &$oattr, $value) {
     case "date": 
       $input="<input class=\"autoresize\" type=\"text\"  name=\"_".$attrid."\" value=\"".chop(htmlentities($value))."\"";
     $input .= " id=\"".$attrid."\" "; 
-    $input .=" disabled "; // always
+    if ($doc->usefor != 'D') $input .=" disabled "; // always but default
     $input .= " >&nbsp;"; 
     $input.="<input type=\"button\" value=\"&#133;\"".
        " title=\""._("date picker")."\" onclick=\"show_calendar(event,'".$attrid."')\"".
