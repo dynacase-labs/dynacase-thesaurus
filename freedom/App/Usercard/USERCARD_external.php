@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.11 2004/01/28 10:23:39 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.12 2004/02/02 10:38:09 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -202,5 +202,27 @@ function members($dbaccess, $groupid, $name="") {
 
 }
 
+//get domain of IUSER
+function getdomainiuser()
+{
+$dbaccess=GetParam("CORE_USERDB");
+$tab=array();
+                                                                                                                                                             
+                                                                                                                                                             
+$domain=new Domain($dbaccess);
+                                                                                                                                                             
+$domain->ListAll(0);
+                                                                                                                                                             
+                                                                                                                                                             
+while (list($k, $v) = each($domain->qlist)) {
+
+if ($v->iddomain==1) $v->name="Pas de compte mail";                                                                                                                                                             
+        $tab[$k] = array($v->name,$v->iddomain,$v->name);
+                                                                                                                                                             
+                                                                                                                                                             
+}                                                                                                                                                        
+                                                                                                                                                             
+return $tab;
+}
 
 ?>
