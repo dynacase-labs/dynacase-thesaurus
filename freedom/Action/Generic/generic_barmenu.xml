@@ -97,7 +97,7 @@ testSplit();
 <div  id="newmenu" class="popup" style="position:[positionstyle];">
 
 
-[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]';closeAllMenu()">[stitle]</a>
+[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="javascript:void(0)" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]';closeAllMenu()">[stitle]</a>
 [ENDBLOCK NEWFAM]
 
 
@@ -122,8 +122,8 @@ function SendSearch(e) {
 </script>   
 <!-- ------------ MENU SEARCH  --------------------- -->
 <div  id="searchmenu" class="popup" style="position:[positionstyle];">
-<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All document]</a>[BLOCK SEARCH]
-<a  id="search[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
+<a  id="catg0" href="javascript:void(0)" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All document]</a>[BLOCK SEARCH]
+<a  id="search[id]" href="javascript:void(0)" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
 [ENDBLOCK SEARCH]
 <a id="text"></a>
   <input   onMouseUp="return true" onKeyPress="SendSearch(event)" type="text" id="keyword">
@@ -151,11 +151,11 @@ function SendSearch(e) {
 <!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup" style="position:[positionstyle];">
   <a id="help" target="fhidden" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
-<a  id="imvcard" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
-<a  id="aview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=abstract&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Abstract card]</a>
-<a  id="cview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=column&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Column mode]</a>
-<a  id="isplit" href="#" onClick="invertSplit(event,true);closeAllMenu();return false">[TEXT:Invert split]</a>
-<a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]');closeAllMenu()">[TEXT:Freedom]</a>
+<a  id="imvcard" href="javascript:void(0)" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
+<a  id="aview" href="javascript:void(0)" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=abstract&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Abstract card]</a>
+<a  id="cview" href="javascript:void(0)" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=column&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Column mode]</a>
+<a  id="isplit" href="javascript:void(0)" onClick="invertSplit(event,true);closeAllMenu();return false">[TEXT:Invert split]</a>
+<a  id="folders" href="javascript:void(0)" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]');closeAllMenu()">[TEXT:Freedom]</a>
 </div>
 
 
