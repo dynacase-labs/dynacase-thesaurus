@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.41 2004/03/04 13:48:19 eric Exp $
+ * $Id: freedom.css,v 1.42 2004/03/16 15:37:25 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -379,6 +379,13 @@ input[type="file"] {
   .onlyprint { 
     display:block;
     }
+}
+TABLE.huge {
+  width:100%;
+}
+TABLE.huge TBODY {
+   overflow:auto;
+   height:200px;	
 }
 /*--------------------------*/
 /* report CSS */
