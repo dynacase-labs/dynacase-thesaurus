@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.6 2002/04/17 09:03:12 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
+// $Id: generic_addcatg.php,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_addcatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -21,26 +21,48 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-$app_desc = array (
-"name"		=>"USERCARD",		//Name
-"short_name"	=>N_("User Card"),		//Short name
-"description"	=>N_("User Card Management"),//long description
-"access_free"	=>"N",			//Access free ? (Y,N)
-"icon"		=>"usercard.gif",	//Icon
-"displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
-"with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"childof"	=>"GENERIC"			//
-);
 
 
+include_once("FDL/modcard.php");
 
-$action_desc = array (
+include_once("FDL/Class.Dir.php");
+include_once("FDL/Class.DocUser.php");
+
+
+// -----------------------------------
+function generic_addcatg(&$action) {
+  // -----------------------------------
+
+  // Get all the params      
+   $dirid=GetHttpVars("dirid",$action->GetParam("DEFAULT_FLD"));
+//   $newcatg=GetHttpVars("newcatg"); 
+
+//   if ($newcatg == "") $action->exitError(_("the title of the new category cannot be empty"));
   
-  array( 
-   "name"		=>"USERCARD_VCARD",
-   "short_name"		=>N_("view as vcard"),
-   "acl"		=>"GENERIC_READ"
-  ) 
-                      );
-   
+
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  
+      
+  $err = modcard($action, $ndocid); // ndocid change if new doc
+
+  if ($err != "")  $action-> ExitError($err);
+  
+
+  
+
+  if ($dirid > 0)  {
+    $fld = new Dir($dbaccess, $dirid);
+
+    $doc= new Doc($dbaccess, $ndocid);
+    
+    $fld->AddFile($doc->id);
+    
+  } 
+  redirect($action,GetHttpVars("app"),"GENERIC_CARD&id=$ndocid");
+  
+}
+
+
 ?>

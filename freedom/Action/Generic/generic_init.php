@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.6 2002/04/17 09:03:12 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
+// $Id: generic_init.php,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_init.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -21,26 +21,15 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-$app_desc = array (
-"name"		=>"USERCARD",		//Name
-"short_name"	=>N_("User Card"),		//Short name
-"description"	=>N_("User Card Management"),//long description
-"access_free"	=>"N",			//Access free ? (Y,N)
-"icon"		=>"usercard.gif",	//Icon
-"displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
-"with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"childof"	=>"GENERIC"			//
-);
+include_once("FDL/import_file.php");
+// -----------------------------------
+function generic_init(&$action) {
+  // -----------------------------------
 
-
-
-$action_desc = array (
   
-  array( 
-   "name"		=>"USERCARD_VCARD",
-   "short_name"		=>N_("view as vcard"),
-   "acl"		=>"GENERIC_READ"
-  ) 
-                      );
-   
+
+  add_import_file($action, 
+    		    $action->GetParam("CORE_PUBDIR")."/GENERIC/init.freedom");
+    
+}
 ?>

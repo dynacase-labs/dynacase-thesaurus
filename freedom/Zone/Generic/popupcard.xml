@@ -2,6 +2,8 @@
 <div  id="popupcard" class="popup">
 
 
+
+
 <a href="#" id="editdoc"     
     onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_EDIT&id=[id]','info');closeMenu('popupcard')"  >[TEXT:Edit]</a>
 
@@ -16,8 +18,6 @@
 
 <a href="#" id="chgcatg"
     onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_EDITCHANGECATG&id=[id]','info');closeMenu('popupcard')" >[TEXT:Change category]</a>
-
-<a id="vcard" href="[CORE_STANDURL]&app=USERCARD&action=USERCARD_VCARD&id=[id]" >[TEXT:Vcard]</a>
 
 <a href="#" id="properties"     
     onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&id=[id]','info');closeMenu('popupcard');">[TEXT:View properties]</a>

@@ -1,0 +1,17 @@
+
+<html>
+<head>
+
+<title>[WHAT] [TEXT:Incident Management]</title>
+
+</head>
+
+
+<frameset frameborder="1" framespacing="5" border="5" cols="40%,*" >
+
+
+  <frame name="list" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&tab=0&dirid=[DEFAULT_FLD]&viewfld=no&refresh=no" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="info" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+
+</frameset>
+</html>

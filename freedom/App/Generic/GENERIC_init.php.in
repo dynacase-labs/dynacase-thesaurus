@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.6 2002/04/17 09:03:12 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
+// $Id: GENERIC_init.php.in,v 1.1 2002/04/17 09:03:12 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team
@@ -21,26 +21,16 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-$app_desc = array (
-"name"		=>"USERCARD",		//Name
-"short_name"	=>N_("User Card"),		//Short name
-"description"	=>N_("User Card Management"),//long description
-"access_free"	=>"N",			//Access free ? (Y,N)
-"icon"		=>"usercard.gif",	//Icon
-"displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
-"with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"childof"	=>"GENERIC"			//
+
+global $app_const;
+
+$app_const= array(
+  "INIT" => "yes",
+  "VERSION" => "@VERSION@",
+  "FREEDOM_DB" => "host=@DBHOST@ user=@DBUSER@ port=@DBPORT@ dbname=@DBNAME@",
+  "DEFAULT_FAMILY" => "1",
+  "DEFAULT_FLD" => "10",
+  "CARD_SLICE_LIST" => "8",
 );
 
-
-
-$action_desc = array (
-  
-  array( 
-   "name"		=>"USERCARD_VCARD",
-   "short_name"		=>N_("view as vcard"),
-   "acl"		=>"GENERIC_READ"
-  ) 
-                      );
-   
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocUser.php,v 1.5 2002/03/14 14:56:55 eric Exp $
+// $Id: Class.DocUser.php,v 1.6 2002/04/17 09:03:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Attic/Class.DocUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,14 +22,13 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.5 2002/03/14 14:56:55 eric Exp $';
+$CLASS_USERCARD_PHP = '$Id: Class.DocUser.php,v 1.6 2002/04/17 09:03:12 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.UsercardLdif.php");
 
 
-define('TOP_USERDIR', 121); // user top folder
 define('QA_PRIVACITY', "US_PRIVCARD"); // privacity attribute
 define('QA_URI', "US_WORKWEB"); // URI attribute
 define('QA_MAIL', "US_MAIL"); // MAIL attribute
