@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.78 2003/11/04 14:22:33 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.79 2004/01/15 10:13:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.78 2003/11/04 14:22:33 eric Exp $
+// $Id: Lib.Dir.php,v 1.79 2004/01/15 10:13:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,7 +39,7 @@ include_once('FDL/Class.DocFam.php');
 
 function getFirstDir($dbaccess) {
   // query to find first directories
-    $qsql= "select id from doc  where  (doctype='D') order by id LIMIT 1;";
+    $qsql= "select id from only doc2  where  (doctype='D') order by id LIMIT 1;";
   
   
   
@@ -146,9 +146,9 @@ function getSqlSearchDoc($dbaccess,
       
 
 
-//         $qsql_litte= "select $selectfields ".
-//   	"from  $table  ".
-//   	"where initid in (select childid from fld where $sqlfld) and   $sqlcond ";
+//          $qsql= "select $selectfields ".
+//    	"from  $table  ".
+//    	"where initid in (select childid from fld where $sqlfld) and   $sqlcond ";
 
 //       $qsql= "select $selectfields ".
 // 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
@@ -232,7 +232,7 @@ function getChildDoc($dbaccess,
 
   if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
   else  {
- 
+    if ($fromid == "") $orderby="title";
     $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
   }
    
@@ -246,7 +246,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
 
