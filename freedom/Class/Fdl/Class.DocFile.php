@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocFile.php,v 1.8 2003/02/28 19:39:17 eric Exp $
+// $Id: Class.DocFile.php,v 1.9 2003/03/11 17:11:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.8 2003/02/28 19:39:17 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.DocFile.php,v 1.9 2003/03/11 17:11:32 eric Exp $';
 
 
 include_once("FDL/Class.PDoc.php");
@@ -37,6 +37,12 @@ Class DocFile extends PDoc
   var $defClassname='DocFile';
 
 
+  // suppress no numeric characters
+  function suppressNotNum($s) {  
+    $i=0;
+    while ( ($i<strlen($s)) && ($s[$i]>='0') && ($s[$i]<='9'))  $i++;
+    return substr($s,0,$i);
+  }
 
 
 }
