@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_dedit.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_dedit.php,v 1.6 2004/01/27 13:19:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_dedit.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_dedit.php,v 1.6 2004/01/27 13:19:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_dedit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,7 +69,7 @@ function freedom_dedit(&$action) {
     $doc->usefor='D'; // default document
     $doc->profid=$fdoc->profid; // same profil as familly doc
     $doc->title=sprintf(_("default values for %s"),$fdoc->title);
-    $doc->setDefaultValues($fdoc->defval);
+    $doc->setDefaultValues($fdoc->getDefValues());
     $err=$doc->Add();
 
     if ($err != "") $action->exitError($err);

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.178 2004/01/21 13:25:27 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.179 2004/01/27 13:19:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.178 2004/01/21 13:25:27 eric Exp $
+// $Id: Class.Doc.php,v 1.179 2004/01/27 13:19:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -2252,16 +2252,13 @@ create unique index i_docir on doc(initid, revision);";
    * @param string $defval the default values
    * @access private
    */
-  function setDefaultValues($defval) {
-    if ($defval != "") {
+  function setDefaultValues($tdefval) {
+    if (is_array($tdefval)) {
 
-      $tdefval = explode("][",substr($defval,1,strlen($defval)-2));
+      foreach ($tdefval as $aid=>$dval) {
 
-      
-      while (list($k,$v) = each($tdefval)) {
-
-	$aid=substr($v, 0, strpos($v,'|'));
-	$dval=substr(strstr($v,'|'),1);
+// 	$aid=substr($v, 0, strpos($v,'|'));
+// 	$dval=substr(strstr($v,'|'),1);
 
 
 	$this->setValue($aid, $this->GetValueMethod($dval));

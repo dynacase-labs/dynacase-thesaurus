@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.52 2004/01/14 15:56:44 eric Exp $
+ * @version $Id: modcard.php,v 1.53 2004/01/27 13:19:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.52 2004/01/14 15:56:44 eric Exp $
+// $Id: modcard.php,v 1.53 2004/01/27 13:19:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -356,8 +356,11 @@ function moddefcard(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $classid=GetHttpVars("classid",0);
   
-  $tdefattr=array();
-  while(list($k,$v) = each($HTTP_POST_VARS) )    {
+  $cdoc = new Doc($dbaccess, $classid); // family doc
+
+ 
+
+  foreach ($HTTP_POST_VARS as $k=>$v)    {
       //print $k.":".$v."<BR>";
       
       if ($k[0] == "_") // freedom attributes  begin with  _
@@ -370,7 +373,7 @@ function moddefcard(&$action) {
 	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
 	  }
 	  else $value = stripslashes($v);
-	  if ($value != "")	  $tdefattr[]="$attrid|$value";	      
+	  if ($value != "") $cdoc->setDefValue($attrid,$value);
 	      
 	      
 	}      
@@ -379,7 +382,7 @@ function moddefcard(&$action) {
   
   // ------------------------------
   // update POSGRES files values
-  while(list($k,$v) = each($HTTP_POST_FILES) )    {
+  foreach ($HTTP_POST_FILES as $k=>$v)    {
       if ($k[0] == "_") // freedom attributes  begin with  _
 	{	  
 	  $k=substr($k,1);
@@ -388,23 +391,20 @@ function moddefcard(&$action) {
 	  $filename=insert_file($dbaccess,$doc->id,$k);
 	
 	      
-	      
 	  if ($filename != "")
 	    {
 	      if (substr($k,0,4) == "UPL_") $k=substr($k,4);
-	      $tdefattr[]="$k|$filename";		  	    	  
+	      $cdoc->setDefValue($k,$filename);
 	    }
 	}
     }
   
 
-  $cdoc = new Doc($dbaccess, $classid);
-  $cdoc->defval = "[".implode("][",$tdefattr)."]";
   $cdoc->modify();
 
   
   redirect($action,GetHttpVars("redirect_app","FDL"),
-	   GetHttpVars("redirect_act","FDL_CARD&refreshfld=Y&id=$classid"),
+	   GetHttpVars("redirect_act","FDL_CARD&refreshfld=N&id=$classid"),
 	   $action->GetParam("CORE_STANDURL"));
 }
 ?>

@@ -3,40 +3,13 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.17 2004/01/14 14:45:19 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.18 2004/01/27 13:19:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
  */
  /**
  */
-
-
-// ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.17 2004/01/14 14:45:19 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
-
-
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.17 2004/01/14 14:45:19 eric Exp $';
 include_once('FDL/Class.PFam.php');
 
 Class DocFam extends PFam {
@@ -51,7 +24,8 @@ create table docfam (cprofid int ,
                      ddocid int,
                      methods text,
                      defval text,
-                     schar char) inherits (doc);
+                     schar char,
+                     param text) inherits (doc);
 create unique index idx_idfam on docfam(id);";
 
 
@@ -152,6 +126,87 @@ create unique index idx_idfam on docfam(id);";
 
 
   }
+
+  //~~~~~~~~~~~~~~~~~~~~~~~~~ PARAMETERS ~~~~~~~~~~~~~~~~~~~~~~~~
+
+ /**
+   * return family parameter
+   * 
+   * @param string $idp parameter identificator
+   * @param string $def default value if parameter not found or if it is null
+   * @return string parameter value
+   */
+  function getParam($idp, $def="") {
+    return $def;
+  }
+
+ /**
+   * return all family parameter
+   * 
+   * @return array string parameter value
+   */
+  function getParams() {
+    return $def;
+  }
+
+ /**
+   * set family parameter value
+   * 
+   * @param string $idp parameter identificator
+   * @param string $val value of the parameter
+   */
+  function setParam($idp, $val) {
+    
+  }
+
+  //~~~~~~~~~~~~~~~~~~~~~~~~~ DEFAULT VALUES  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+ /**
+   * return family default value
+   * 
+   * @param string $idp parameter identificator
+   * @param string $def default value if parameter not found or if it is null
+   * @return string default value
+   */
+  function getDefValue($idp, $def="") {
+    return $def;
+  }
+
+ /**
+   * return all family default values
+   * 
+   * @return array string default value
+   */
+  function getDefValues() {
+    $defval=$this->defval;
+    $tdefattr = explode("][",substr($defval,1,strlen($defval)-2));
+    $this->tdefval=array();
+    foreach ($tdefattr as $k=>$v) {
+
+	$aid=substr($v, 0, strpos($v,'|'));
+	$dval=substr(strstr($v,'|'),1);
+
+	$this->tdefval[$aid]=$dval;
+      }    
+    return $this->tdefval;
+  }
+
+ /**
+   * set family default value
+   * 
+   * @param string $idp parameter identificator
+   * @param string $val value of the default
+   */
+  function setDefValue($idp, $val) {
+    if (! isset($this->tdefval)) $this->getDefValues();
+    $this->tdefval[strtolower($idp)]=$val;
+    foreach ($this->tdefval as $k=>$v) {
+      $tdefattr[]="$k|$v";
+    }
+
+    $this->defval = "[".implode("][",$tdefattr)."]";
+  }
+
 }
 
 ?>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.45 2004/01/14 14:20:47 eric Exp $
+ * @version $Id: freedom_util.php,v 1.46 2004/01/27 13:19:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.45 2004/01/14 14:20:47 eric Exp $
+// $Id: freedom_util.php,v 1.46 2004/01/27 13:19:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -198,7 +198,7 @@ function createDoc($dbaccess,$fromid,$control=true) {
     $doc->usefor = $cdoc->usefor; // inherit from its familly
     $doc->wid=$cdoc->wid;
     
-    $doc->setDefaultValues($cdoc->defval);
+    $doc->setDefaultValues($cdoc->getDefValues());
     $doc->ApplyMask();
     return ($doc);
     
