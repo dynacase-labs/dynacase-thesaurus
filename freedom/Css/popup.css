@@ -13,7 +13,11 @@
   visibility: hidden;
   z-index:10;
 }
-
+@media print {
+  .popup {
+    display:none;
+  }
+}
 a.menuItem, a:visited.menuItem {
   color: [CORE_TEXTBGCOLOR];
   cursor: default;
