@@ -68,4 +68,10 @@ end;
    [METHODS]
 
 }
+
+     [BLOCK CLASSALIAS]
+// alias name for the class
+Class _[docName] extends Doc[docid] {
+}
+     [ENDBLOCK CLASSALIAS]
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Attr.php,v 1.17 2003/05/27 12:30:37 eric Exp $
+// $Id: Lib.Attr.php,v 1.18 2003/05/28 14:36:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Attr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -153,9 +153,16 @@ function AttrToPhp($dbaccess, $tdoc) {
     reset( $tattr);
     $phpAdoc->SetBlockData("ATTRFIELD", $tattr);
 
+
+    
       
   }      
-    
+
+
+  if ($tdoc["name"] != "") { // create name alias classes
+    $phpAdoc->SetBlockData("CLASSALIAS", array(array("zou")));
+    $phpAdoc->Set("docName",$tdoc["name"]);
+  }
 
   //----------------------------------
   // Add specials methods
