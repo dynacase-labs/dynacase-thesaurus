@@ -498,7 +498,7 @@ function pleaseSave(event) {
     if (confirm('[TEXT:Save changes ?]')) {
       var bsubmit= document.getElementById('iSubmit');
 
-      var can=bsubmit.onclick.apply(null,[event]);
+      var can=canmodify();//bsubmit.onclick.apply(null,[event]);
 
       if (can) {
 	var fedit= document.getElementById('fedit');

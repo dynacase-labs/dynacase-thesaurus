@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-10 15:18+0000\n"
+"POT-Creation-Date: 2004-11-22 09:29+0000\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -155,13 +155,6 @@ msgstr ""
 msgid "related search of %s"
 msgstr "Start search"
 
-msgid "create"
-msgstr "Create"
-
-#, fuzzy
-msgid "Validate"
-msgstr "Edit"
-
 #, c-format
 msgid "definition of enumerate attribute %s of %s family"
 msgstr ""
@@ -185,6 +178,10 @@ msgid "new profile document"
 msgstr ""
 
 #, c-format
+msgid "%s has been deleted"
+msgstr ""
+
+#, c-format
 msgid "document id %d not found"
 msgstr ""
 
@@ -198,10 +195,6 @@ msgid "new profile"
 msgstr ""
 
 msgid "new document"
-msgstr ""
-
-#, c-format
-msgid "%s has been deleted"
 msgstr ""
 
 msgid "new familly document"
@@ -437,104 +430,6 @@ msgstr ""
 msgid "%s cannot be sent"
 msgstr ""
 
-msgid "no file referenced"
-msgstr ""
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-msgid "workflow_init :: id is empty"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: id %s is not a workflow"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: workflow id %s not found"
-msgstr ""
-
-#, c-format
-msgid "file for %s not found."
-msgstr ""
-
-#, c-format
-msgid "you cannot create this kind [%s] of document"
-msgstr ""
-
-#, c-format
-msgid "you cannot create this kind [%s] of folder"
-msgstr ""
-
-msgid "to be add"
-msgstr ""
-
-msgid "not added"
-msgstr ""
-
-#, fuzzy
-msgid "added"
-msgstr "Add new contact card"
-
-#, fuzzy, c-format
-msgid "root for %s"
-msgstr "Modify"
-
-#, fuzzy
-msgid "default folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "search"
-msgstr "Start search"
-
-msgid "no zone specified"
-msgstr ""
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform"
-msgstr ""
-
-#, c-format
-msgid "reference must be a number not '%s'"
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, c-format
-msgid "%s has been unlocked"
-msgstr ""
-
-#, c-format
-msgid "geometry saved : %s"
-msgstr ""
-
 msgid "no import file specified"
 msgstr ""
 
@@ -628,6 +523,10 @@ msgstr "Category"
 msgid "update id [%d] "
 msgstr ""
 
+#, fuzzy
+msgid "added"
+msgstr "Add new contact card"
+
 #, c-format
 msgid "add %s id [%d]  "
 msgstr ""
@@ -669,6 +568,108 @@ msgstr "Update LDAP server"
 
 #, c-format
 msgid "and add in %s folder "
+msgstr ""
+
+#, fuzzy, c-format
+msgid "root for %s"
+msgstr "Modify"
+
+#, fuzzy
+msgid "default folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "search"
+msgstr "Start search"
+
+msgid "no file referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+msgid "workflow_init :: id is empty"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: id %s is not a workflow"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: workflow id %s not found"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
+
+#, c-format
+msgid "you cannot create this kind [%s] of document"
+msgstr ""
+
+#, c-format
+msgid "you cannot create this kind [%s] of folder"
+msgstr ""
+
+msgid "to be add"
+msgstr ""
+
+msgid "not added"
+msgstr ""
+
+#, fuzzy
+msgid "click to change option"
+msgstr "Start search"
+
+msgid "no zone specified"
+msgstr ""
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform"
+msgstr ""
+
+#, c-format
+msgid "modoption: document [%d] is not alive"
+msgstr ""
+
+#, c-format
+msgid "reference must be a number not '%s'"
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, c-format
+msgid "%s has been unlocked"
+msgstr ""
+
+#, c-format
+msgid "geometry saved : %s"
 msgstr ""
 
 #, fuzzy
@@ -1004,6 +1005,21 @@ msgstr ""
 msgid "user has not identificator"
 msgstr ""
 
+#, fuzzy
+msgid "direct"
+msgstr "Edit"
+
+msgid "errldapadd"
+msgstr ""
+"Card is not modify in LDAP server : one of this attribute is not appropriate"
+
+msgid "errldapconnect"
+msgstr "LDAP server cannot be contacted"
+
+#, fuzzy
+msgid "errldaporginit"
+msgstr "LDAP server cannot be contacted"
+
 msgid "user is desactivated"
 msgstr ""
 
@@ -1019,21 +1035,6 @@ msgstr ""
 
 msgid "Expiration delay must not be 0 to keep expiration date"
 msgstr ""
-
-#, fuzzy
-msgid "direct"
-msgstr "Edit"
-
-msgid "errldapadd"
-msgstr ""
-"Card is not modify in LDAP server : one of this attribute is not appropriate"
-
-msgid "errldapconnect"
-msgstr "LDAP server cannot be contacted"
-
-#, fuzzy
-msgid "errldaporginit"
-msgstr "LDAP server cannot be contacted"
 
 #, c-format
 msgid "group #%d does not exist"
@@ -1617,6 +1618,18 @@ msgid "lock file to edit"
 msgstr ""
 
 #, fuzzy
+msgid "interface to change document option"
+msgstr "Category"
+
+#, fuzzy
+msgid "modify document option"
+msgstr "Import"
+
+#, fuzzy
+msgid "view document option"
+msgstr "Organisation"
+
+#, fuzzy
 msgid "view xml"
 msgstr "Start search"
 
@@ -2130,6 +2143,9 @@ msgstr ""
 msgid "edition: "
 msgstr "Edit"
 
+msgid "Changes will be loosed if you continue"
+msgstr ""
+
 #, fuzzy
 msgid "view constraints"
 msgstr "Edit"
@@ -2178,6 +2194,10 @@ msgstr ""
 #, fuzzy
 msgid "add"
 msgstr "Add new contact card"
+
+#, fuzzy
+msgid "Validate"
+msgstr "Edit"
 
 #, fuzzy
 msgid "Choose new categories"
@@ -2706,20 +2726,23 @@ msgstr "Start search"
 msgid " choose value"
 msgstr "Start search"
 
-msgid "Attribute not found"
-msgstr ""
-
 #, fuzzy
 msgid "mail edition"
 msgstr "Edit"
 
 #, fuzzy
-msgid "Send the email and change document state to"
-msgstr "Category"
-
-#, fuzzy
 msgid "send mail"
 msgstr "Email"
+
+msgid "Attribute not found"
+msgstr ""
+
+msgid "Ok"
+msgstr ""
+
+#, fuzzy
+msgid "Send the email and change document state to"
+msgstr "Category"
 
 #, fuzzy
 msgid "Change the document state to"
@@ -2730,6 +2753,10 @@ msgstr ""
 
 msgid "workflow has been recomposed"
 msgstr ""
+
+#, fuzzy
+msgid "option: "
+msgstr "Edit"
 
 #, fuzzy
 msgid "Constraint test"
@@ -2981,6 +3008,9 @@ msgstr ""
 msgid "vconstraint input not found id="
 msgstr ""
 
+msgid "Choose document before set options"
+msgstr ""
+
 msgid "mini view"
 msgstr ""
 
@@ -3042,6 +3072,32 @@ msgstr "Created by"
 msgid "view abstract card"
 msgstr "Start search"
 
+msgid "to"
+msgstr ""
+
+#, fuzzy
+msgid "unchanged"
+msgstr "Start search"
+
+#, fuzzy
+msgid "revision comment"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Tounchanged"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "revision comment for autorevision"
+msgstr "Organisation"
+
+msgid "Transition parameters"
+msgstr ""
+
 #, fuzzy
 msgid "select"
 msgstr "Delete"
@@ -3080,32 +3136,6 @@ msgstr "Category"
 msgid "current folder"
 msgstr "Modify"
 
-msgid "to"
-msgstr ""
-
-#, fuzzy
-msgid "unchanged"
-msgstr "Start search"
-
-#, fuzzy
-msgid "revision comment"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Tounchanged"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "revision comment for autorevision"
-msgstr "Organisation"
-
-msgid "Transition parameters"
-msgstr ""
-
 #, fuzzy
 msgid "manual date"
 msgstr "Edit"
@@ -3140,6 +3170,9 @@ msgstr "Category"
 
 msgid "View properties"
 msgstr ""
+
+#~ msgid "create"
+#~ msgstr "Create"
 
 #, fuzzy
 #~ msgid "full text search"

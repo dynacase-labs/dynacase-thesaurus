@@ -36,8 +36,8 @@
 
 <body class="freedom" 
       onLoad="editOnLoad();autoHresize()"
-      onsubmit="selectall()"
-      onUnLoad="closechoose();pleaseSave(event) ;if (! document.isCancelled) autoUnlock('[id]')"
+      onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[TITLE]:[TEXT:Changes will be loosed if you continue]'";
+      onUnLoad="closechoose();if (! document.isCancelled) autoUnlock('[id]')"
      >
 
 <!-- for idoc -->

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-10 15:18+0000\n"
-"PO-Revision-Date: 2004-11-10 16:19+0100\n"
+"POT-Creation-Date: 2004-11-22 09:29+0000\n"
+"PO-Revision-Date: 2004-11-22 10:34+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -144,12 +144,6 @@ msgstr "recherche relative abondonnée ; pas de paramètres"
 msgid "related search of %s"
 msgstr "recherche relative de %s"
 
-msgid "create"
-msgstr "Créer"
-
-msgid "Validate"
-msgstr "Valider"
-
 #, c-format
 msgid "definition of enumerate attribute %s of %s family"
 msgstr "définition de l'attribut énuméré %s de la famille %s"
@@ -173,6 +167,10 @@ msgid "new profile document"
 msgstr "nouveau profil de document"
 
 #, c-format
+msgid "%s has been deleted"
+msgstr "%s a été supprimé"
+
+#, c-format
 msgid "document id %d not found"
 msgstr "identificateur %d du document non trouvé"
 
@@ -187,10 +185,6 @@ msgstr "Profil"
 
 msgid "new document"
 msgstr "Nouveau document"
-
-#, c-format
-msgid "%s has been deleted"
-msgstr "%s a été supprimé"
 
 msgid "new familly document"
 msgstr "nouvelle famille de document"
@@ -428,100 +422,6 @@ msgstr "envoi de %s à %s"
 msgid "%s cannot be sent"
 msgstr "%s n'a pas pu être envoyé"
 
-msgid "no file referenced"
-msgstr "pas de fichier référencé"
-
-#, c-format
-msgid "%s has be sended"
-msgstr "%s a été envoyé"
-
-msgid "file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
-
-msgid "workflow_init :: id is empty"
-msgstr "workflow_init :: id est vide"
-
-#, c-format
-msgid "workflow_init :: id %s is not a workflow"
-msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
-
-#, c-format
-msgid "workflow_init :: workflow id %s not found"
-msgstr "workflow_init :: cycle id %s pas trouvé"
-
-#, c-format
-msgid "file for %s not found."
-msgstr "fichier pour %s non trouvé"
-
-#, c-format
-msgid "you cannot create this kind [%s] of document"
-msgstr "vous n'avez pas la permission de créer ce type [%s] de document"
-
-#, c-format
-msgid "you cannot create this kind [%s] of folder"
-msgstr "vous n'avez pas la permission de créer ce type [%s] de dossier"
-
-msgid "to be add"
-msgstr "à ajouter"
-
-msgid "not added"
-msgstr "pas ajouté"
-
-msgid "added"
-msgstr "ajouté"
-
-#, c-format
-msgid "root for %s"
-msgstr "racine pour %s"
-
-msgid "default folder"
-msgstr "dossier par défaut"
-
-msgid "folder"
-msgstr "dossier"
-
-msgid "search"
-msgstr "recherche"
-
-msgid "no zone specified"
-msgstr "pas de zone spécifiée"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform"
-msgstr "La description de la fonction externe '%s' est incorrecte"
-
-#, c-format
-msgid "reference must be a number not '%s'"
-msgstr "la référence '%s' doit être un nombre"
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr "La méthode '%s' n'existe pas pour ce document"
-
-#, c-format
-msgid "%s has been locked"
-msgstr "%s a été verrouillé"
-
-#, c-format
-msgid "%s has been unlocked"
-msgstr "%s a été déverrouillé"
-
-#, c-format
-msgid "geometry saved : %s"
-msgstr "disposition sauvée : %s"
-
 msgid "no import file specified"
 msgstr "pas de fichier d'import spécifié"
 
@@ -615,6 +515,9 @@ msgstr "changer de profil %s"
 msgid "update id [%d] "
 msgstr "mise à jour id [%d] "
 
+msgid "added"
+msgstr "ajouté"
+
 #, c-format
 msgid "add %s id [%d]  "
 msgstr "ajout %s id [%d] "
@@ -655,6 +558,104 @@ msgstr "mise à jour par import"
 #, c-format
 msgid "and add in %s folder "
 msgstr "et ajout dans dossier %s"
+
+#, c-format
+msgid "root for %s"
+msgstr "racine pour %s"
+
+msgid "default folder"
+msgstr "dossier par défaut"
+
+msgid "folder"
+msgstr "dossier"
+
+msgid "search"
+msgstr "recherche"
+
+msgid "no file referenced"
+msgstr "pas de fichier référencé"
+
+#, c-format
+msgid "%s has be sended"
+msgstr "%s a été envoyé"
+
+msgid "file must be controlled : read permission needed"
+msgstr "la fichier doit être controllé : permission de lire refusé"
+
+msgid "workflow_init :: id is empty"
+msgstr "workflow_init :: id est vide"
+
+#, c-format
+msgid "workflow_init :: id %s is not a workflow"
+msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
+
+#, c-format
+msgid "workflow_init :: workflow id %s not found"
+msgstr "workflow_init :: cycle id %s pas trouvé"
+
+#, c-format
+msgid "file for %s not found."
+msgstr "fichier pour %s non trouvé"
+
+#, c-format
+msgid "you cannot create this kind [%s] of document"
+msgstr "vous n'avez pas la permission de créer ce type [%s] de document"
+
+#, c-format
+msgid "you cannot create this kind [%s] of folder"
+msgstr "vous n'avez pas la permission de créer ce type [%s] de dossier"
+
+msgid "to be add"
+msgstr "à ajouter"
+
+msgid "not added"
+msgstr "pas ajouté"
+
+msgid "click to change option"
+msgstr "Cliquez pour changer les options"
+
+msgid "no zone specified"
+msgstr "pas de zone spécifiée"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform"
+msgstr "La description de la fonction externe '%s' est incorrecte"
+
+#, c-format
+msgid "modoption: document [%d] is not alive"
+msgstr "modoption: document [%d] n'est pas en vie"
+
+#, c-format
+msgid "reference must be a number not '%s'"
+msgstr "la référence '%s' doit être un nombre"
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr "La méthode '%s' n'existe pas pour ce document"
+
+#, c-format
+msgid "%s has been locked"
+msgstr "%s a été verrouillé"
+
+#, c-format
+msgid "%s has been unlocked"
+msgstr "%s a été déverrouillé"
+
+#, c-format
+msgid "geometry saved : %s"
+msgstr "disposition sauvée : %s"
 
 msgid "locked document of "
 msgstr "documents verrouillés par "
@@ -986,6 +987,20 @@ msgstr "l'utilisateur n°%d n'existe pas"
 msgid "user has not identificator"
 msgstr "L'utilisateur n'a pas d'identificateur"
 
+msgid "direct"
+msgstr "direct"
+
+msgid "errldapadd"
+msgstr ""
+"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces attributs "
+"n'est pas conforme"
+
+msgid "errldapconnect"
+msgstr "Le server LDAP n'a pas pu être contacté"
+
+msgid "errldaporginit"
+msgstr "Le server LDAP n'a pas pu être contacté"
+
 msgid "user is desactivated"
 msgstr "l'utilisateur est désactivé"
 
@@ -1003,20 +1018,6 @@ msgid "Expiration delay must not be 0 to keep expiration date"
 msgstr ""
 "Le délai d'expiration doit être supérieur à zéro pour avoir une date "
 "d'expiration"
-
-msgid "direct"
-msgstr "direct"
-
-msgid "errldapadd"
-msgstr ""
-"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces attributs "
-"n'est pas conforme"
-
-msgid "errldapconnect"
-msgstr "Le server LDAP n'a pas pu être contacté"
-
-msgid "errldaporginit"
-msgstr "Le server LDAP n'a pas pu être contacté"
 
 #, c-format
 msgid "group #%d does not exist"
@@ -1565,6 +1566,15 @@ msgstr "voir une carte"
 msgid "lock file to edit"
 msgstr "verrouillez le document pour l'éditer"
 
+msgid "interface to change document option"
+msgstr "interface pour changer les options d'un document"
+
+msgid "modify document option"
+msgstr "modifier les options d'un document"
+
+msgid "view document option"
+msgstr "voir les options d'un document"
+
 msgid "view xml"
 msgstr "voir XML"
 
@@ -2032,6 +2042,9 @@ msgstr "Aide"
 msgid "edition: "
 msgstr "éditer"
 
+msgid "Changes will be loosed if you continue"
+msgstr "Les modifications seront perdues si vous continuez"
+
 msgid "view constraints"
 msgstr "voir les contraintes"
 
@@ -2073,6 +2086,9 @@ msgstr "niveau supérieur"
 
 msgid "add"
 msgstr "ajout"
+
+msgid "Validate"
+msgstr "Valider"
 
 msgid "Choose new categories"
 msgstr "Choisissez de nouvelles catégories"
@@ -2491,17 +2507,20 @@ msgstr "Choix des familles personnelles"
 msgid " choose value"
 msgstr " choisir une valeur"
 
-msgid "Attribute not found"
-msgstr "Attribut non trouvé"
-
 msgid "mail edition"
 msgstr "édition de mail"
 
-msgid "Send the email and change document state to"
-msgstr "Envoi du email et changement d'état vers"
-
 msgid "send mail"
 msgstr "envoyer le mail"
+
+msgid "Attribute not found"
+msgstr "Attribut non trouvé"
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "Send the email and change document state to"
+msgstr "Envoi du email et changement d'état vers"
 
 msgid "Change the document state to"
 msgstr "changer l'état du document en"
@@ -2512,6 +2531,9 @@ msgstr "Envoi manuel"
 msgid "workflow has been recomposed"
 msgstr "le cycle de vie a été regénéré"
 
+msgid "option: "
+msgstr "option: "
+
 msgid "Constraint test"
 msgstr "test des contraintes"
 
@@ -2519,11 +2541,10 @@ msgid "suggestions"
 msgstr "suggestions"
 
 msgid "Refresh users characteristics from system"
-msgstr "Raffraichir les caractéristiques des utilisateurs depuis le système"
+msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
 
 msgid "Refersh users may take long time. Sure ?"
-msgstr ""
-"Raffraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
+msgstr "Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
 
 msgid "Refresh users"
 msgstr "Actualiser les utilisateurs"
@@ -2723,6 +2744,9 @@ msgstr "Erreur changeCheckBoolClasses"
 msgid "vconstraint input not found id="
 msgstr "entrée vconstraint non trouvé id="
 
+msgid "Choose document before set options"
+msgstr "Choisissez un document avant de choisir les options"
+
 msgid "mini view"
 msgstr "mini vue"
 
@@ -2771,6 +2795,27 @@ msgstr "révisé par"
 msgid "view abstract card"
 msgstr "Carte résumé"
 
+msgid "to"
+msgstr "vers"
+
+msgid "unchanged"
+msgstr "inchangé"
+
+msgid "revision comment"
+msgstr "commentaire de révision"
+
+msgid "Tounchanged"
+msgstr "Sauver"
+
+msgid "no change state"
+msgstr "Pas de changement d'état"
+
+msgid "revision comment for autorevision"
+msgstr " commentaire de révision pour révision automatique"
+
+msgid "Transition parameters"
+msgstr "Paramètres pour le changement d'état"
+
 msgid "select"
 msgstr "sélectionner"
 
@@ -2801,27 +2846,6 @@ msgstr "contrôle de vue de création"
 msgid "current folder"
 msgstr "dossier courant"
 
-msgid "to"
-msgstr "vers"
-
-msgid "unchanged"
-msgstr "inchangé"
-
-msgid "revision comment"
-msgstr "commentaire de révision"
-
-msgid "Tounchanged"
-msgstr "Sauver"
-
-msgid "no change state"
-msgstr "Pas de changement d'état"
-
-msgid "revision comment for autorevision"
-msgstr " commentaire de révision pour révision automatique"
-
-msgid "Transition parameters"
-msgstr "Paramètres pour le changement d'état"
-
 msgid "manual date"
 msgstr "Date manuelle"
 
@@ -2851,6 +2875,9 @@ msgstr "Changer de catégorie"
 
 msgid "View properties"
 msgstr "Voir les propriétés"
+
+#~ msgid "create"
+#~ msgstr "Créer"
 
 #~ msgid "mnoGoSearch: indexer database access specification"
 #~ msgstr ""
