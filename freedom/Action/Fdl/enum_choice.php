@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.35 2004/10/08 07:43:32 eric Exp $
+ * @version $Id: enum_choice.php,v 1.36 2004/10/19 16:05:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -141,7 +141,8 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
       if ($index === "") {
 
 	$ta=getFuncVar($v,$v,$whttpvars,$doc,$a);
-	//	if ((!$whttpvars) && ($ta
+	if ($ta === false) return false;
+	
 	if (is_array($ta)) {
 	  unset($ta["-1"]); // suppress hidden row because not set yet
 	  $arg[$k]=$ta;
