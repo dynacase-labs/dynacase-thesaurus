@@ -5,4 +5,6 @@
 pubdir="/home/httpd/what";
 echo "update paramdef set isglob='N' where name ~'ONEFAM_*IDS';;" | psql anakeen anakeen
 echo "delete from docattr where id like '% ' and str_replace(id,' ','') in (select id from docattr);" | psql freedom anakeen
-echo "select * from docattr where id like '% ' and str_replace(id,' ','') in (select id from docattr);" | psql freedom anakeen
+echo "update  docattr set id=str_replace(id,' ','') where id like '% ' ;" | psql freedom anakeen
+$pubdir/FDL/FDL_post U
+echo "UPDATE doc5 set se_sqlselect = fld.query, ba_title=title from fld where doc5.initid = fld.dirid and ba_title is null and doctype != 'Z' and doctype != 'T' and query is not null;" | psql freedom anakeen
