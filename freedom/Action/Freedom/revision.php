@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: revision.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: revision.php,v 1.8 2005/01/14 17:58:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+// $Id: revision.php,v 1.8 2005/01/14 17:58:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,7 +54,8 @@ function revision(&$action)
     
   $action->AddLogMsg(sprintf(_("%s new revision %d"),$doc->title, $doc->revision));
   
-  redirect($action,"FDL","FDL_CARD&id=".$doc->id);
+  redirect($action,"FDL","FDL_CARD&refreshfld=Y&id=".$doc->id,
+	   $action->GetParam("CORE_STANDURL"));
 
 }
 
