@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.225 2004/12/28 17:01:51 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.226 2004/12/29 08:35:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1705,7 +1705,7 @@ create unique index i_docir on doc(initid, revision);";
 
     if ($this->comment != '') $this->comment = $commentdate."\n".$this->comment;
     else $this->comment = $commentdate;
-    $this->modify(false,array("comment"));
+    $this->modify(true,array("comment"));
   }
 
   /**
