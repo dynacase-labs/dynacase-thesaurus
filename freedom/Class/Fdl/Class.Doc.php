@@ -3,35 +3,13 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.187 2004/02/17 10:59:23 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.188 2004/02/25 13:25:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
  */
 /**
  */
-// ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.187 2004/02/17 10:59:23 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 
 
@@ -58,6 +36,10 @@ define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 define ("FAM_ACCESSFAM", 23);
 /**#@-*/
+/**
+ * max cache document
+ */
+define ("MAXGDOCS", 20);
 /**
  * Document Class
  *
@@ -339,26 +321,13 @@ create unique index i_docir on doc(initid, revision);";
 
 
 
-  function PostInit() {
 
-//     include_once("FDL/Class.QueryDir.php");
-//     $oqdv = new QueryDir($this->dbaccess,"2"); // just to create table if needed
-
-//     $sqlquery=$this->SqlTrigger();
-//     $msg=$this->exec_query($sqlquery,1);
-
-//     return $msg;
-    
-
-  }
-
-
- 
-
- 
-
-
-  // --------------------------------------------------------------------
+  /**
+   * Increment sequence of family and call to {@see PostCreated()}
+   * 
+   * 
+   * @return void
+   */
   function PostInsert()
     // --------------------------------------------------------------------    
     {
@@ -372,7 +341,6 @@ create unique index i_docir on doc(initid, revision);";
       $this->Select($this->id);
       if ($this->doctype != "T") $this->PostCreated(); 
     }  
-  // --------------------------------------------------------------------
 
   /**
    * set default values and creation date
@@ -424,10 +392,7 @@ create unique index i_docir on doc(initid, revision);";
 	$wdoc->Set($this); // set first state
       }
       return $err;
-    } 
-    // --------------------------------------------------------------------
-
-  
+    }   
 
 
     /** 
@@ -454,7 +419,6 @@ create unique index i_docir on doc(initid, revision);";
       }
       
     }
-  // --------------------------------------------------------------------
 
   /**
    * optimize for speed : memorize object for future use
@@ -462,13 +426,12 @@ create unique index i_docir on doc(initid, revision);";
    */
   function PostUpdate() {
     global $gdocs;// optimize for speed :: reference is not a pointer !!
-    $gdocs[$this->id]=&$this;    
+    if (count($gdocs) < MAXGDOCS)    $gdocs[$this->id]=&$this;    
     if ($this->hasChanged) {
       $this->computeDProfil();
     }
     $this->hasChanged=false;
   }
-  // --------------------------------------------------------------------
 
   /**
    * get current sequence number :: number of doc for this family
@@ -482,7 +445,6 @@ create unique index i_docir on doc(initid, revision);";
     $arr = pg_fetch_array ($res, 0);
     $cur = intval($arr[0]) - 1;
     $res = pg_exec($this->init_dbid(), "select setval ('seq_doc".$this->fromid."',$cur)");
-
     
     return $cur;
   }
@@ -510,7 +472,11 @@ create unique index i_docir on doc(initid, revision);";
   function enableEditControl() {
     unset($this->withoutControl);
   }
-
+  /**
+   * to know if the document can be revised
+   *
+   * @return bool true is revisable
+   */
   function isRevisable() {
     if (($this->doctype == 'F') && ($this->usefor != 'P')) {
       $fdoc = $this->getFamDoc();
@@ -534,7 +500,12 @@ create unique index i_docir on doc(initid, revision);";
       $this->setValue($k,$v);
     }
   }
-  // convert to another family
+  /**
+   * convert to another family
+   * @param int $fromid family identificator where the document will be converted
+   * @param array $prevalues values which will be added before conversion
+   * @return doc the document converted (don't reuse $this) if error return string message
+   */
   function convert($fromid, $prevalues=array()) {
     
     if ($this->fromid  == $fromid) return false; // no convert if not needed
@@ -575,7 +546,6 @@ create unique index i_docir on doc(initid, revision);";
    * @return bool
    */
   function CanUpdateDoc() {
-    // --------------------------------------------------------------------
 
     if ($this->locked == -1) {
       $err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);      
@@ -597,7 +567,6 @@ create unique index i_docir on doc(initid, revision);";
     
     return($err);
   }
-  // --------------------------------------------------------------------
 
   /**
    * test if the document can be locked
@@ -629,7 +598,6 @@ create unique index i_docir on doc(initid, revision);";
 
     return($err);  
   } 
-  // --------------------------------------------------------------------
 
  
   /** 
@@ -649,7 +617,6 @@ create unique index i_docir on doc(initid, revision);";
     return($err);
   
   }
-  // --------------------------------------------------------------------
 
   /** 
    * test if the document is locked
@@ -660,7 +627,6 @@ create unique index i_docir on doc(initid, revision);";
   function isLocked() {
     return (($this->locked > 0) || ($this->locked < -1));
   }
-  // --------------------------------------------------------------------
 
   /** 
    * return the family document where the document comes from
@@ -672,9 +638,13 @@ create unique index i_docir on doc(initid, revision);";
     return $this->famdoc;
   }
 
-  // ----------------------------------------------------------------------
+  /**
+   * search the first document from its title
+   * @param string $title the title to search (must be exactly the same title)
+   * @return int document identificator
+   */
   function GetFreedomFromTitle($title) {
-    // --------------------------------------------------------------------
+
     $query = new QueryDb($this->dbaccess,"Doc");
     $query->basic_elem->sup_where=array ("title='".$title."'");
 
@@ -755,7 +725,6 @@ create unique index i_docir on doc(initid, revision);";
     
   }
   
-  // --------------------------------------------------------------------
   /** 
    * Control if the doc can be deleted
    * @access private
@@ -770,7 +739,6 @@ create unique index i_docir on doc(initid, revision);";
                         
       return $err;      
     }
-  // --------------------------------------------------------------------
 
   /** 
    * Really delete document from database
@@ -779,7 +747,6 @@ create unique index i_docir on doc(initid, revision);";
   function ReallyDelete() {
     return DbObj::delete();
   }
-  // --------------------------------------------------------------------
 
   /** 
    * Set the document to zombie state
@@ -850,9 +817,7 @@ create unique index i_docir on doc(initid, revision);";
    * this function is call from QueryDb and all fields can not be instanciate
    * @return void
    */
-  function Affect($array) {
-    // --------------------------------------------------------------------
-  
+  function Affect($array) {  
     reset($array);
     $this->ofields = $this->fields;
     $this->fields=array();
@@ -977,8 +942,12 @@ create unique index i_docir on doc(initid, revision);";
     }
 
   
-  // return the attribute object for a id
-  // the attribute can be defined in fathers
+  /** 
+   * return the attribute object for a id
+   * the attribute can be defined in fathers
+   * @param string $idAttr attribute identificator
+   * @return DocAttribute
+   */
   function GetAttribute($idAttr)
     {      
       if (!$this->_maskApplied) $this->ApplyMask();
@@ -990,9 +959,11 @@ create unique index i_docir on doc(initid, revision);";
 
     }
 
-  // return all the attributes object 
-  // the attribute can be defined in fathers
-
+  /**
+   * return all the attributes object 
+   * the attribute can be defined in fathers
+   * @return array DocAttribute
+   */
   function GetAttributes() 
     {     
       if (!$this->_maskApplied) $this->ApplyMask();
@@ -1065,8 +1036,11 @@ create unique index i_docir on doc(initid, revision);";
     }
   }
 
-  // return all the attributes object for abstract
-  // the attribute can be defined in fathers
+  /**
+   * return all the attributes except frame & menu
+   * 
+   * @return array DocAttribute
+   */
   function GetNormalAttributes()
     {      
       if (!$this->_maskApplied) $this->ApplyMask();
@@ -1087,8 +1061,11 @@ create unique index i_docir on doc(initid, revision);";
       }
       return $tsa;      
     }
-  // return all the attributes object for abstract
-  // the attribute can be defined in fathers
+  /**
+   * return all the attributes object for abstract
+   * the attribute can be defined in fathers
+   * @return array DocAttribute
+   */
   function GetAbstractAttributes()
     {      
       if (!$this->_maskApplied) $this->ApplyMask();
@@ -1178,8 +1155,11 @@ create unique index i_docir on doc(initid, revision);";
       }
       return $tsa;      
     }
-  // return all the attributes object for popup menu
-  // the attribute can be defined in fathers
+
+  /** return all the attributes object for popup menu
+   * the attribute can be defined in fathers
+   * @return array DocAttribute
+   */
   function GetMenuAttributes()
     {      
       if (!$this->_maskApplied) $this->ApplyMask();
@@ -1194,8 +1174,10 @@ create unique index i_docir on doc(initid, revision);";
       return $tsa;
     }
 
-  // return all the necessary attributes 
-  // the attribute can be defined in fathers
+  /**
+   * return all the necessary attributes 
+   * @return array DocAttribute
+   */
   function GetNeededAttributes()
     {         
       if (!$this->_maskApplied) $this->ApplyMask();   
@@ -1238,8 +1220,10 @@ create unique index i_docir on doc(initid, revision);";
       return $tsa;      
     } 
 
-  // return all the attributes object for import
-  // the attribute can be defined in fathers
+  /**
+   * return all the attributes object for import
+   * @return array DocAttribute
+   */
   function GetImportAttributes()
     {      
 
@@ -1271,7 +1255,10 @@ create unique index i_docir on doc(initid, revision);";
     }
 
 
-  // attributes can be sorted
+  /**
+   * return all the attributes which can be sorted
+   * @return array DocAttribute
+   */
   function GetSortAttributes()  {      
     $tsa = array();
     $nattr = $this->GetNormalAttributes();
@@ -1323,7 +1310,11 @@ create unique index i_docir on doc(initid, revision);";
   }
 
 
-  // recompute the title from attribute values
+  /**
+   * recompute values from title
+   * the first value use for title will be modify to have the new title
+   * @param string $title new title
+   */
   function SetTitle($title) {
     $ltitle = $this->GetTitleAttributes();
     reset($ltitle);
@@ -1406,7 +1397,7 @@ create unique index i_docir on doc(initid, revision);";
     if (is_array($value)) {
       $value = $this->_array2val($value);
     }
-    if (($value != ""))  {
+    if (($value !== ""))  {
       // change only if different
       $attrid = strtolower($attrid);
 
@@ -1476,7 +1467,9 @@ create unique index i_docir on doc(initid, revision);";
     }
   }
 
-  // return the related value by linked attributes
+  /**
+   * return the related value by linked attributes
+   */
   function GetRValue($RidAttr, $def="",$latest=true)  {      
     
     $tattrid = explode(":",$RidAttr);
@@ -1828,7 +1821,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($this->doctype == "C") { //  a class
       $query = new QueryDb($this->dbaccess,"Doc");
       $tableq=$query->Query(0,0,"LIST",
-			    "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != 'C') ");
+			    "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != 'C') and (icon='".$this->icon."')");
     
 
 
@@ -3334,13 +3327,13 @@ create unique index i_docir on doc(initid, revision);";
     return $action->user->lastname." ".$action->user->firstname;
   }
 
+
   function getTitle($id) {
-    if (! is_numeric($id)) return ""; // direct SQL to optimize
-    $this->exec_query("select title from doc where id=$id and doctype!='Z'");
-    if (pg_numrows ($this->res) > 0) {
-      $arr = pg_fetch_array ($this->res, 0);
-      return $arr[0];
-    }
+    if (! is_numeric($id)) return ""; 
+    
+    $t = getTDoc($this->dbaccess,$id);
+    if ($t)    return $t["title"];
+
     return " "; // delete title
   }
 
@@ -3348,7 +3341,6 @@ create unique index i_docir on doc(initid, revision);";
     return date("d/m/Y");
   }
   function getDocValue($docid, $attrid) {
-
     if (intval($docid) > 0) {
       $doc = new Doc($this->dbaccess, $docid);
       if ($doc->isAlive()) {
