@@ -12,6 +12,10 @@ function txml(attrid){
 
 
 
+
+
+  if ('[close]' != 'no') {
+
     frame_edit.popdoc(null, '');
     parametre.target="POPDOC_ifrm";
 
@@ -20,14 +24,10 @@ function txml(attrid){
 
     var itxt=frame_edit.document.getElementById("iti"+attrid);
     if (itxt)  itxt.innerHTML="[title]";
-
-
-
-    if ('[close]' != 'no') {
-      window.top.close();
-    } else {
-      window.top.viewwait(false);
-    }
+    window.top.close();
+  } else {
+    window.top.viewwait(false);
+  }
   
 }
 
