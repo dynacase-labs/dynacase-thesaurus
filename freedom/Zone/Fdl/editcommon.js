@@ -506,8 +506,8 @@ function unselectInput(id) {
 function autoUnlock(docid) {
   if (parseInt(docid) > 0) {
     if (! document.isSubmitted) {
-      var fhidden = window.open('','fhsave','');
-      fhidden.document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id='+docid;
+      var fhidden = window.open('','fhsave','resizable=yes,height=10,width=10');
+      fhidden.document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&autoclose=Y&id='+docid;
     }
   }
 }
