@@ -30,6 +30,7 @@ if ($dbaccess == "") {
 	
   
 $query = new QueryDb($dbaccess,"Doc");
+$query->AddQuery("locked != -1");
 $query->AddQuery("classname ~* '$className'");
 if ($famId > 0) $query->AddQuery("fromid = $famId");
       

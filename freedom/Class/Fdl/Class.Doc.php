@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.41 2002/08/09 08:46:44 eric Exp $
+// $Id: Class.Doc.php,v 1.42 2002/08/09 16:51:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.41 2002/08/09 08:46:44 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.42 2002/08/09 16:51:46 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -95,7 +95,7 @@ create sequence seq_id_doc start 1000";
   // --------------------------------------------------------------------
   //----------------------  TRANSITION DEFINITION --------------------
   var $transitions = array();// set by childs classes
-
+  var $firstState=""; // first state in workflow
 
   var $defDoctype='F';
 
@@ -202,7 +202,7 @@ create sequence seq_id_doc start 1000";
       if ($this->locked == "") $this->locked = "0";
       if ($this->owner == "") $this->owner = $this->userid;
       if ($this->classname == "") $this->classname= $this->defClassname; //get_class($this);// dont use this because lost of uppercase letters
-	if (($this->state == "") && isset($this->firstState)) $this->state=$this->firstState;
+      if ($this->state == "") $this->state=$this->firstState;
       // set creation date
       $date = gettimeofday();
       $this->revdate = $date['sec'];
@@ -636,8 +636,7 @@ create sequence seq_id_doc start 1000";
     }
 
   // return the value of an attribute object 
-  function GetValue($idAttr, $def="")
-    {      
+  function GetValue($idAttr, $def="")  {      
 
       if (!isset($this->values)) $this->GetValues();
 
@@ -646,6 +645,26 @@ create sequence seq_id_doc start 1000";
       return $def;
 
     }
+
+
+  function SetValue($attrid, $value) {
+      if (!isset($this->ovalue)) {
+	$this->ovalue = new DocValue($this->dbaccess);
+	$this->ovalue->docid=$this->id;	
+      }
+      $oldv=$this->getValue($attrid);
+      if ($oldv != "$value") {
+	// change only if different
+	$this->ovalue->attrid=$attrid;
+	$this->ovalue->value=$value;
+
+	if ($value == " ") $this->ovalue->delete();
+	else if ($oldv == "") $this->ovalue->add();
+	else $this->ovalue->modify(); // modify in DB 
+	$this->values[$attrid]=$value; // modify in object
+      }      
+    }
+
   // return the first attribute of type 'file'
   function GetFirstFileAttributes()
     {
@@ -687,16 +706,12 @@ create sequence seq_id_doc start 1000";
     // duplicate values
     
     
-    $value = new DocValue($this->dbaccess);
-    $value->docid = $this->id;
     $listvalue = $this->GetValues();
-    
+    $this->values=array();
+    if (isset($this->ovalue)) $this->ovalue->docid=$this->id;
     
     while(list($k,$v) = each($listvalue)) {
-      $value->attrid = $k;
-      $value->value = $v;
-      $value->Add();
-      
+      $this->Setvalue( $k, $v);      
     }
 
     return $this->id;
@@ -787,8 +802,6 @@ create sequence seq_id_doc start 1000";
 	  
 	  $lattr = $this->GetAttributes();
       
-      $ovalue = new DocValue($this->dbaccess);
-      $ovalue->docid=$this->id;
       while(list($k,$v) = each($lattr)) {
 	if ((($v->visibility == "R") || ($v->visibility == "H")) &&
 	    (chop($v->phpfile) != "") && 
@@ -829,19 +842,13 @@ create sequence seq_id_doc start 1000";
 	    reset($res);
 	    while (list($k, $v) = each($res)) {
 	      if ($v != "?") {
-		if ($this->getValue($rargids[$k]) != "$v") {
-		  // change only if different
-		    $ovalue->attrid=$rargids[$k];
-		  $ovalue->value=$v;
-		  $ovalue->modify();
-		}
+		$this->SetValue($rargids[$k],$v);
 	      }
 	    }
 	  }
 	  
 	}
       }
-      unset($this->values); // in case of modified values
 	
 	
 	
@@ -1083,7 +1090,7 @@ create sequence seq_id_doc start 1000";
       // search if following states in concordance with transition array
 	
 	$fstate = array();
-      if (($this->state == "") && isset($this->firstState)) $this->state=$this->firstState;
+      if ($this->state == "") $this->state=$this->firstState;
       reset($this->transitions);
       while (list($k, $tr) = each($this->transitions)) {
 	if ($this->state == $tr["e1"]) {

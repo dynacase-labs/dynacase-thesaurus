@@ -70,3 +70,19 @@ end loop;
 return values;
 end;
 ' language 'plpgsql';
+
+
+create or replace function getdocavalues(int) 
+returns varchar as '
+declare 
+  arg_doc alias for $1;
+  rvalue docvalue%ROWTYPE;
+  values text;
+begin
+values := '''';
+for rvalue in select  docvalue.* from docvalue, docattr where  (docvalue.docid=arg_doc) and docvalue.attrid=docattr.id and docattr.abstract=''Y'' loop
+	values := values || ''['' || rvalue.attrid || '';;'' || rvalue.value || '']'';
+end loop;
+return values;
+end;
+' language 'plpgsql';

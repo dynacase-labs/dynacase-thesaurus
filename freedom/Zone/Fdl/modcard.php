@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.9 2002/08/06 16:52:34 eric Exp $
+// $Id: modcard.php,v 1.10 2002/08/09 16:51:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,20 +52,20 @@ function modcard(&$action, &$ndocid) {
   if ( $docid == 0 )
     {
       // add new document
-	// search the good class of document
-	  $ofreedom = createDoc($dbaccess, $classid);
+      // search the good class of document
+      $doc = createDoc($dbaccess, $classid);
       
       
       $doc->owner = $action->user->id;
       $doc->locked = $action->user->id; // lock for next modification
-	if ($ofreedom->fromid <= 0) {
-	  $ofreedom->profid = "0"; // NO PROFILE ACCESS
-	}
-      $err = $ofreedom-> Add();
+      if ($doc->fromid <= 0) {
+	$doc->profid = "0"; // NO PROFILE ACCESS
+      }
+      $err = $doc-> Add();
       if ($err != "")  $action->ExitError($err);
       
-      $docid = $ofreedom-> id;
-      $ofreedom->initid = $docid;// it is initial doc
+      $docid = $doc-> id;
+      $doc->initid = $docid;// it is initial doc
 	    
 	    
 	    
@@ -74,19 +74,18 @@ function modcard(&$action, &$ndocid) {
     {
       
       // initialise object
-	$ofreedom = new Doc($dbaccess, $docid);
+      $doc = new Doc($dbaccess, $docid);
       
       // test object permission before modify values (no access control on values yet)
-	$err=$ofreedom-> CanUpdateDoc();
+      $err=$doc-> CanUpdateDoc();
       if ($err != "")  $action-> ExitError($err);
       
     }
   
   
   // ------------------------------
-    // update POSGRES text values
-      $bdvalue = new DocValue($dbaccess);
-  $bdvalue->docid = $docid;
+  // update POSGRES text values
+
   while(list($k,$v) = each($HTTP_POST_VARS) )
     {
       //print $k.":".$v."<BR>";
@@ -95,12 +94,10 @@ function modcard(&$action, &$ndocid) {
 	{
 	  $oattr=new DocAttr($dbaccess, array($docid,$k));
 	  
-	  $bdvalue->attrid = substr($k,1);
-	  if (is_array($v)) $bdvalue->value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));
-	  else $bdvalue->value = stripslashes($v);
-	  if ($v != "") $bdvalue ->Modify(); // only affected value
-	    if ($v == " ") $bdvalue ->Delete();	//($bdvalue->value != "")) { // or reset value
-	      
+	  $attrid = substr($k,1);
+	  if (is_array($v)) $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));
+	  else $value = stripslashes($v);
+	  $doc->SetValue($attrid, $value);	      
 	      
 	      
 	}      
@@ -108,65 +105,63 @@ function modcard(&$action, &$ndocid) {
   
   
   // ------------------------------
-    // update POSGRES files values
-      while(list($k,$v) = each($HTTP_POST_FILES) )
-	{
-	  if ($k[0] == "_") // freedom attributes  begin with  _
-	    {	  
-	      $k=substr($k,1);
-	      $oattr=new DocAttr($dbaccess, array($docid,$k));
+  // update POSGRES files values
+  while(list($k,$v) = each($HTTP_POST_FILES) )
+    {
+      if ($k[0] == "_") // freedom attributes  begin with  _
+	{	  
+	  $k=substr($k,1);
+	  $oattr=new DocAttr($dbaccess, array($docid,$k));
 	      
-	      $filename=insert_file($dbaccess,$docid,$k);
+	  $filename=insert_file($dbaccess,$docid,$k);
 	      
 	      
 	      
-	      if ($filename != "")
-		{
-		  $bdvalue->attrid = $k;
-		  $bdvalue->value=$filename;
-		  $bdvalue ->Modify();
+	  if ($filename != "")
+	    {
+	      $doc->SetValue($k, $filename);
 		  
 		  
 	    	  
-		}
 	    }
 	}
+    }
   
   
   
   
   
-  if ($ofreedom->fromid == 2) {
-    $ofreedom->doctype='D'; // directory
+  if ($doc->fromid == 2) {
+    $doc->doctype='D'; // directory
       
   }
-  if (($ofreedom->fromid == 3) || 
-      ($ofreedom->fromid == 4) || 
-      ($ofreedom->fromid == 6)) { // profile doc
-				    if ($ofreedom->fromid == 4) $ofreedom->doctype='D'; // directory profile
-				      if ($ofreedom->fromid == 6) $ofreedom->doctype='S'; // search profile
+  if (($doc->fromid == 3) || 
+      ($doc->fromid == 4) || 
+      ($doc->fromid == 6)) { // profile doc
+    if ($doc->fromid == 4) $doc->doctype='D'; // directory profile
+    if ($doc->fromid == 6) $doc->doctype='S'; // search profile
 					
-					//$ofreedom->profid = -1;
-				  $err=$ofreedom-> Modify();
-				  if ($err != "") $action-> ExitError($err);
-				  $ofreedom = new Doc($dbaccess, $docid); // change class object (perhaps)
-				    //$ofreedom->SetControl();
-				}
-  $ofreedom->lmodify='Y'; // locally modified
-    $err=$ofreedom-> Modify();
-  $ofreedom->refresh();
+    //$doc->profid = -1;
+    $err=$doc-> Modify();
+    if ($err != "") $action-> ExitError($err);
+    $doc = new Doc($dbaccess, $docid); // change class object (perhaps)
+    //$doc->SetControl();
+  }
+  $doc->lmodify='Y'; // locally modified
+  $err=$doc-> Modify();
+  $doc->refresh();
   
   
   if ($err == "") {
     
     // change state if needed
-      $newstate=GetHttpVars("newstate","");
+    $newstate=GetHttpVars("newstate","");
     $comment=GetHttpVars("comment","");
     
     
-    if (($newstate != "") && ($ofreedom->state != $newstate)) $err = $ofreedom->ChangeState($newstate,$comment );
-    else   $err=$ofreedom-> Modify(); // new modify in case of the title reference a calculated value
-      $ndocid = $ofreedom->id;
+    if (($newstate != "") && ($doc->state != $newstate)) $err = $doc->ChangeState($newstate,$comment );
+    else   $err=$doc-> Modify(); // new modify in case of the title reference a calculated value
+    $ndocid = $doc->id;
   }
   return $err;
 }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.23 2002/08/05 16:09:03 marc Exp $
+// $Id: Lib.Dir.php,v 1.24 2002/08/09 16:51:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,51 +92,51 @@ function getChildDoc($dbaccess,
   // query to find child documents
     
     
-    if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
-    else $sqlcond = "";
+  if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
+  else $sqlcond = "";
   if ($userid > 1) $sqlcondpriv = " and hasviewprivilege($userid,doc.profid) ";
   else $sqlcondpriv ="";
   
-  if ($wvalue) $sqlwvalue="";
-  $sqlwvalue=", getdocvalues(doc.id) as sqlvalues ";
+  if ($wvalue) $sqlwvalue=", getdocvalues(doc.id) as sqlvalues ";
+  else $sqlwvalue="";
   
   
   if ($dirid == 0) {
     // search in all Db
     $qsql= "select doc.* $sqlwvalue".
-      "from doc  ".
-	"where (doc.doctype != 'T')  ".
-	    $sqlcond.
-	      $sqlcondpriv.
-		" order by title LIMIT $slice OFFSET $start;";
+       "from doc  ".
+       "where (doc.doctype != 'T')  ".
+       $sqlcond.
+       $sqlcondpriv.
+       " order by title LIMIT $slice OFFSET $start;";
   } else {
     $fld = new Dir($dbaccess, $dirid);
     
     if ( $fld->classname != 'DocSearch') {
       
       $qsql= "select distinct doc.* $sqlwvalue".
-	"from doc   ".
-	  "where (doc.doctype != 'T')  ".
-	    $sqlcond.
-	      "and ((doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) and doc.locked != -1)".
-		"   or (doc.id in (select childid from fld where (qtype='F') and (dirid=$dirid))))".
-		  $sqlcondpriv.
-		    " order by doc.title LIMIT $slice OFFSET $start;";
+	 "from doc   ".
+	 "where (doc.doctype != 'T')  ".
+	 $sqlcond.
+	 "and ((doc.initid in (select childid from fld where (qtype='S') and (dirid=$dirid)) and doc.locked != -1)".
+	 "   or (doc.id in (select childid from fld where (qtype='F') and (dirid=$dirid))))".
+	 $sqlcondpriv.
+	 " order by doc.title LIMIT $slice OFFSET $start;";
       
       //     $qsql2= "select  doc.* ".
-	//       "from doc, fld  ".
-	  // 	"where (doc.doctype != 'T')  ".
-	    // 	  "and fld.dirid=$dirid ".
-	      // 	    "and ((fld.qtype='S' and fld.childid=doc.initid and doc.locked != -1) ) ".
-		// 	      // or (fld.qtype='F' and fld.childid=doc.id)) ".
+      //       "from doc, fld  ".
+      // 	"where (doc.doctype != 'T')  ".
+      // 	  "and fld.dirid=$dirid ".
+      // 	    "and ((fld.qtype='S' and fld.childid=doc.initid and doc.locked != -1) ) ".
+      // 	      // or (fld.qtype='F' and fld.childid=doc.id)) ".
 		  
-		  // 		$sqlcond.
-		    // 		  " order by doc.title LIMIT $slice OFFSET $start;";
+      // 		$sqlcond.
+      // 		  " order by doc.title LIMIT $slice OFFSET $start;";
       
       
     } else {
       // search familly
-	$docsearch = new QueryDb($dbaccess,"QueryDir");
+      $docsearch = new QueryDb($dbaccess,"QueryDir");
       $docsearch ->AddQuery("dirid=$dirid");
       $docsearch ->AddQuery("qtype!='S'");
       $ldocsearch = $docsearch ->Query();
@@ -144,32 +144,32 @@ function getChildDoc($dbaccess,
       
       
       // for the moment only one query search
-	if (($docsearch ->nb) > 0) {
-	  switch ($ldocsearch[0]->qtype) {
-	    // 	  case "C":  // just condition
-	      // 	  $qsql= "select * ".
-		// 	    "from doc  ".
-		  // 	      "where (doc.doctype != 'T')  ".
-		    // 		"and ({$ldocsearch[0]->query}) ".
-		      // 		    $sqlcond.
-			// 		      " order by title LIMIT $slice OFFSET $start;";
-	    //	  break;
-	  case "M": // complex query
+      if (($docsearch ->nb) > 0) {
+	switch ($ldocsearch[0]->qtype) {
+	  // 	  case "C":  // just condition
+	  // 	  $qsql= "select * ".
+	  // 	    "from doc  ".
+	  // 	      "where (doc.doctype != 'T')  ".
+	  // 		"and ({$ldocsearch[0]->query}) ".
+	  // 		    $sqlcond.
+	  // 		      " order by title LIMIT $slice OFFSET $start;";
+	  //	  break;
+	case "M": // complex query
 	    
 	    
-	    $qsql= "{$ldocsearch[0]->query} ".
-	      $sqlcond.$sqlcondpriv.
-		" order by doc.title LIMIT $slice OFFSET $start;";
-	    $qsql= str_replace("select ", "select distinct  ", $qsql);
-	    break;
-	  }
-	} else {
-	  return array(); // no query avalaible
+	  $qsql= "{$ldocsearch[0]->query} ".
+	     $sqlcond.$sqlcondpriv.
+	     " order by doc.title LIMIT $slice OFFSET $start;";
+	$qsql= str_replace("select *", "select distinct doc.* $sqlwvalue ", $qsql);
+	break;
 	}
+      } else {
+	return array(); // no query avalaible
+      }
     }
   }
   
-  //   print "<HR>".$qsql;
+  //     print "<HR>".$qsql;
   $query = new QueryDb($dbaccess,"Doc");
   
   
@@ -181,11 +181,17 @@ function getChildDoc($dbaccess,
     }
   
   // add values in comprehensive structure
-    if ($wvalue) {
+  if ($wvalue) {
+    if ($qtype=="TABLE") {
       while(list($k,$v) = each($tableq)) {
 	$tableq[$k] += sqlval2array($v["sqlvalues"]);
-      }
+      } 
+    } else {
+      while(list($k,$v) = each($tableq)) {
+	$tableq[$k]->values= sqlval2array($v->sqlvalues);
+      } 
     }
+  }
   
   reset($tableq);
   

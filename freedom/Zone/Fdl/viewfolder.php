@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewfolder.php,v 1.15 2002/07/16 08:35:01 eric Exp $
+// $Id: viewfolder.php,v 1.16 2002/08/09 16:51:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewfolder.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -206,7 +206,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
 	$kdiv++;
-	if ($doc->doctype == 'F') $tdoc[$k]["revision"]= $doc->revision;
+	if ($doc->isRevisable()) $tdoc[$k]["revision"]= $doc->revision;
 	else $tdoc[$k]["revision"]="";
 	$tdoc[$k]["state"]= $action->Text($doc->state);
       
