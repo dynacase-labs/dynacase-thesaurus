@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-02-14 18:50+0100\n"
+	"POT-Creation-Date: 2002-02-26 16:44+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -27,7 +27,7 @@ msgstr	"Modifier"
 
 #, c-format
 msgid	"search usercard contains %s in all categories"
-msgstr "recherche des cartes contenant %s toutes catégories"
+msgstr	"recherche des cartes contenant %s toutes catégories"
 
 #, c-format
 msgid	"search usercard contains %s in %s category"
@@ -41,11 +41,11 @@ msgstr	"suivant"
 
 #, c-format
 msgid	"%s : all categories "
-msgstr "%s : toutes catégories"
+msgstr	"%s : toutes catégories"
 
 #, c-format
 msgid	"%s : %s category "
-msgstr "%s : catégorie %s"
+msgstr	"%s : catégorie %s"
 
 msgid	"no vcard file specified"
 msgstr	"pas de fichier vcard spécifié"
@@ -121,6 +121,148 @@ msgstr	"pas de fichier d'import spécifié"
 msgid	"no file referenced"
 msgstr	"pas de fichier référencé"
 
+#, c-format
+msgid	"cannot delete link : link not found for doc %d in directory %d"
+msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
+
+#, c-format
+msgid	"cannot delete link : initial query not found for doc %d in directory "
+	"%d"
+msgstr	"le document %d n'existe plus dans le dossier %d.\n"
+	"mettre à jour la vue."
+
+#, c-format
+msgid	"cannot delete link for doc %d in directory %d : the document comes "
+	"from a user query. Delete initial query if you want delete this "
+	"document"
+msgstr	"le lien pour le document %d dans le dossier %d ne peur être détruit :"
+	"\\n\n"
+	"le document provient d'une recherche utilisateur. Supprimer la "
+	"requête initiale si vous voulez delier le document"
+
+msgid	"untitle document"
+msgstr	"document sans titre"
+
+#, c-format
+msgid	"the file %s (rev %d) must be locked before"
+msgstr	"le fichier %s (rév %d) doit être verrouillé au préalable"
+
+#, c-format
+msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr	"le fichier %s (rév. %d) est verrouillé par %s."
+
+#, c-format
+msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+msgid	"this document cannot be locked : it is not a revisable document"
+msgstr	"ce document n'est pas verrouillable, il ne peut pas être révisé"
+
+#, c-format
+msgid	"cannot lock file %s (rev %d): already locked by %s."
+msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
+
+#, c-format
+msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
+msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+msgid	"current revision"
+msgstr	"dernière révision"
+
+msgid	"no filename"
+msgstr	"pas de fichier"
+
+#, c-format
+msgid	"ChangeState :: the initial state '%s' is not known"
+msgstr	"Changement d'état: l'état initial '%s' est inconnu"
+
+#, c-format
+msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
+msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
+	"autorisé"
+
+#, c-format
+msgid	"the method '%s' is not known for the object class %s"
+msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
+
+#, c-format
+msgid	"ChangeState :: the method '%s' has the following error %s"
+msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
+
+#, c-format
+msgid	"change state to %s"
+msgstr	"changement d'état vers %s"
+
+#, c-format
+msgid	"ChangeState :: the state has been realized but the post method '%s' "
+	"has the following error %s"
+msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
+	"méthode '%s' a retourné l'erreur suivante : %s "
+
+msgid	"already exist : not added"
+msgstr	"déjà existant : pas ajouté"
+
+msgid	"view usercard"
+msgstr	"voir une carte"
+
+msgid	"edit usercard"
+msgstr	"éditer une carte"
+
+msgid	"delete usercard"
+msgstr	"supprimer une carte"
+
+msgid	"errldapadd"
+msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
+	"attributs n'est pas conforme"
+
+msgid	"errldapconnect"
+msgstr	"Le server LDAP n'a pas pu être contacté"
+
+#, c-format
+msgid	"private access of the user card %s. You're not the owner"
+msgstr	"Accès privé de la carte %s. Vous n'en n'êtes pas propriétaire"
+
+msgid	"recorded"
+msgstr	"enregistré"
+
+msgid	"qualified"
+msgstr	"qualifié"
+
+msgid	"analyzed"
+msgstr	"analysé"
+
+msgid	"traited"
+msgstr	"traité"
+
+msgid	"rejected"
+msgstr	"rejeté"
+
+msgid	"closed"
+msgstr	"clôt"
+
+msgid	"view incident"
+msgstr	"voir un incident"
+
+msgid	"edit incident"
+msgstr	" éditer un incident"
+
+msgid	"delete incident"
+msgstr	"supprimer un incident"
+
+#, c-format
+msgid	"receipt call %s"
+msgstr	"appel reçu %s"
+
+#, c-format
+msgid	"The incident call '%s' has been recorded on %s.\n"
+	"Its reference is %s"
+msgstr	"L'incident intitulé %s a bien été enregistré le %s.\n"
+	"Sa référence est %s"
+
+#, c-format
+msgid	"Freedom : incident %s : transition to %s"
+msgstr	"Incident %s : transition vers %s"
+
 msgid	"New"
 msgstr	"Nouveau"
 
@@ -133,20 +275,17 @@ msgstr	"Catg"
 msgid	"Help"
 msgstr	"Aide"
 
-msgid	"new personn"
+msgid	"New personn"
 msgstr	"Nouvelle personne"
 
-msgid	"new category"
+msgid	"New category"
 msgstr	"Nouvelle catégorie"
 
-msgid	"import vcard"
+msgid	"Import vcard"
 msgstr	"Importation Vcard"
 
-msgid	"all catg"
+msgid	"All catg"
 msgstr	"Toutes catg."
-
-msgid	"help"
-msgstr	"Aide"
 
 msgid	"Properties:"
 msgstr	"Propriétés:"
@@ -181,6 +320,9 @@ msgstr	"Choisissez une catégorie père"
 msgid	"no father category (its a top category)"
 msgstr	"pas de catégorie père (catégorie primaire)"
 
+msgid	"new category"
+msgstr	"Nouvelle catégorie"
+
 msgid	"add new category"
 msgstr	"ajout nouvelle catégorie"
 
@@ -214,11 +356,14 @@ msgstr	"Remplace la carte si permission accordée sinon duplication"
 msgid	"Keep address book card"
 msgstr	"Garde la carte originale"
 
+msgid	"import vcard"
+msgstr	"Importation Vcard"
+
 msgid	"Import Results"
 msgstr	"Résultat de l'importation"
 
 msgid	"personn added"
-msgstr "Personnes ajoutées"
+msgstr	"Personnes ajoutées"
 
 msgid	"personn deleted"
 msgstr	"Personnes supprimées"
@@ -234,6 +379,9 @@ msgstr	"incidents traités"
 
 msgid	"all incident"
 msgstr	"tous les incidents"
+
+msgid	"help"
+msgstr	"Aide"
 
 msgid	"View"
 msgstr	"Affichage"
@@ -259,9 +407,6 @@ msgstr	"Liste"
 msgid	"icon"
 msgstr	"Icone"
 
-msgid	"refresh"
-msgstr	"Raffraichir"
-
 msgid	"inherit from"
 msgstr	"hérite de"
 
@@ -274,16 +419,14 @@ msgstr	"ID"
 msgid	"order"
 msgstr	"ordre"
 
-#, fuzzy
 msgid	"name"
 msgstr	"Nom"
 
 msgid	"type"
 msgstr	"type"
 
-#, fuzzy
 msgid	"frame"
-msgstr	"Prénom"
+msgstr	"fenêtre"
 
 msgid	"A?"
 msgstr	"R?"
@@ -318,13 +461,11 @@ msgstr	"Nouveau document"
 msgid	" keyword"
 msgstr	" mot-clef"
 
-#, fuzzy
 msgid	" only latest revision"
-msgstr	" référencer la dernière révision"
+msgstr	" seulement la dernière révision"
 
-#, fuzzy
 msgid	" from current folder"
-msgstr	" Créer un dossier"
+msgstr	"à partir du dossier courant"
 
 msgid	" case sensitive"
 msgstr	" casse sensible"
@@ -332,11 +473,9 @@ msgstr	" casse sensible"
 msgid	" save query in current folder"
 msgstr	" sauver la requête dans le dossier courant"
 
-#, fuzzy
 msgid	" search title"
-msgstr	"Lancer la recherche"
+msgstr	"titre de la recherche"
 
-#, fuzzy
 msgid	" send search"
 msgstr	"Lancer la recherche"
 
@@ -367,9 +506,8 @@ msgstr	"Mise à jour du serveur LDAP"
 msgid	"document(s) found"
 msgstr	"document(s) trouvé(s)"
 
-#, fuzzy
 msgid	"Import Document"
-msgstr	" éditer le document"
+msgstr	" Importer le document"
 
 msgid	"for"
 msgstr	"pour"
@@ -437,7 +575,6 @@ msgstr	" réviser"
 msgid	" unlock"
 msgstr	" deverrouiller"
 
-#, fuzzy
 msgid	" change profile"
 msgstr	" Changer de profil"
 
@@ -447,11 +584,17 @@ msgstr	" changer de profil par défaut"
 msgid	" view properties"
 msgstr	" Voir les propriétés"
 
-msgid	"print"
-msgstr	"imprimer"
+msgid	"goaccess"
+msgstr	"accessibilités..."
 
 msgid	"delconfirm"
 msgstr	"Voulez-vous supprimer"
+
+msgid	" delete"
+msgstr	" supprimer"
+
+msgid	"print"
+msgstr	"imprimer"
 
 msgid	"author"
 msgstr	"auteur"
@@ -486,156 +629,26 @@ msgstr	" révisé par"
 msgid	" date"
 msgstr	" date"
 
-msgid	" vcard"
-msgstr	"vcard"
+msgid	"Edit"
+msgstr	"Éditer"
 
-msgid	" change category"
-msgstr	" changer de catégorie"
+msgid	"Unlock"
+msgstr	"Déverrouiller"
 
-#, c-format
-msgid	"cannot delete link : link not found for doc %d in directory %d"
-msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
+msgid	"Vcard"
+msgstr "Vcard"
 
-#, c-format
-msgid	"cannot delete link : initial query not found for doc %d in directory "
-	"%d"
-msgstr	"le document %d n'existe plus dans le dossier %d.\n"
-	"mettre à jour la vue."
+msgid	"Change category"
+msgstr	"Changer de catégorie"
 
-#, c-format
-msgid	"cannot delete link for doc %d in directory %d : the document comes "
-	"from a user query. Delete initial query if you want delete this "
-	"document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peur être détruit :\\n\n"
-"le document provient d'une recherche utilisateur. Supprimer la requête initiale si vous voulez delier le document"
+msgid	"View properties"
+msgstr	"Voir les propriétés"
 
-msgid	"untitle document"
-msgstr "document sans titre"
+msgid	"Delete"
+msgstr	"Supprimer"
 
-#, c-format
-msgid	"the file %s (rev %d) must be locked before"
-msgstr	"le fichier %s (rév %d) doit être verrouillé au préalable"
-
-#, c-format
-msgid	"you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr	"le fichier %s (rév. %d) est verrouillé par %s."
-
-#, c-format
-msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-msgid	"this document cannot be locked : it is not a revisable document"
-msgstr	"ce document n'est pas verrouillable, il ne peut pas être révisé"
-
-#, c-format
-msgid	"cannot lock file %s (rev %d): already locked by %s."
-msgstr	"le fichier %s (rév. %d) est déjà verrouillé par %s."
-
-#, c-format
-msgid	"cannot lock file %s (rev %d) : fixed. Get the latest version"
-msgstr	"le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-msgid	"current revision"
-msgstr	"dernière révision"
-
-msgid	"no filename"
-msgstr	"pas de fichier"
-
-#, c-format
-msgid	"ChangeState :: the initial state '%s' is not known"
-msgstr	"Changement d'état: l'état initial '%s' est inconnu"
-
-#, c-format
-msgid	"ChangeState :: the new state '%s' is not known or is not allowed"
-msgstr	"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas "
-	"autorisé"
-
-#, c-format
-msgid	"the method '%s' is not known for the object class %s"
-msgstr	"La méthode '%s' n'est pas connu de la classe d'objet %s"
-
-#, fuzzy, c-format
-msgid	"ChangeState :: the method '%s' has the following error %s"
-msgstr	"Changement d'état : la méthode '%s' a retourné l'erreur suivante : %s"
-
-#, fuzzy, c-format
-msgid	"change state to %s"
-msgstr	" changer d'état"
-
-#, fuzzy, c-format
-msgid	"ChangeState :: the state has been realized but the post method '%s' "
-	"has the following error %s"
-msgstr	"Changement d'état : le changement d'état a été réalisé mais la post-"
-	"méthode '%s' a retourné l'erreur suivante : %s "
-
-msgid	"already exist : not added"
-msgstr	"déjà existant : pas ajouté"
-
-#, c-format
-msgid	"cannot add folder : '%s'. It will be ancestor of itself"
-msgstr	"ajout du dossier %s impossible, il est son propre ancêtre"
-
-msgid	"view usercard"
-msgstr	"voir une carte"
-
-msgid	"edit usercard"
-msgstr	"éditer une carte"
-
-msgid	"delete usercard"
-msgstr	"supprimer une carte"
-
-msgid	"errldapadd"
-msgstr	"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces "
-	"attributs n'est pas conforme"
-
-msgid	"errldapconnect"
-msgstr	"Le server LDAP n'a pas pu être contacté"
-
-#, c-format
-msgid	"private access of the user card %s. You're not the owner"
-msgstr	"Accès privé de la carte %s. Vous n'en n'êtes pas propriétaire"
-
-msgid	"recorded"
-msgstr	"enregistré"
-
-msgid	"qualified"
-msgstr	"qualifié"
-
-msgid	"analyzed"
-msgstr	"analysé"
-
-msgid	"traited"
-msgstr	"traité"
-
-msgid	"rejected"
-msgstr	"rejeté"
-
-msgid	"closed"
-msgstr	"clôt"
-
-msgid	"view incident"
-msgstr	"voir un incident"
-
-msgid	"edit incident"
-msgstr	" éditer un incident"
-
-msgid	"delete incident"
-msgstr	"supprimer un incident"
-
-#, c-format
-msgid	"receipt call %s"
-msgstr	"appel reçu %s"
-
-#, c-format
-msgid	"The incident call '%s' has been recorded on %s.\n"
-	"Its reference is %s"
-msgstr	"L'incident intitulé %s a bien été enregistré le %s.\n"
-	"Sa référence est %s"
-
-#, c-format
-msgid	"Freedom : incident %s : transition to %s"
-msgstr	"Incident %s : transition vers %s"
+msgid	"Cancel"
+msgstr	"Annuler"
 
 msgid	"error in filename"
 msgstr	"erreur dans le nom de fichier"
@@ -658,15 +671,6 @@ msgstr	"pas de famille"
 
 msgid	"no access control"
 msgstr	"pas de contrôle d'accès"
-
-msgid	"edit"
-msgstr	"éditer"
-
-msgid	"delete"
-msgstr	"supprimer"
-
-msgid	"goaccess"
-msgstr	"accessibilités..."
 
 msgid	"admin"
 msgstr	"administration"
@@ -717,17 +721,14 @@ msgstr	"liste freedom"
 msgid	"to choose value from set"
 msgstr	"pour choisir une valeur à partir d'un ensemble"
 
-#, fuzzy
 msgid	"query document import"
-msgstr	" éditer le document"
+msgstr	"demande d'import de document"
 
-#, fuzzy
 msgid	"add document import"
-msgstr	" éditer le document"
+msgstr	"ajouter un document importé"
 
-#, fuzzy
 msgid	"Freedoms view folder"
-msgstr	"Suppression de cartes"
+msgstr	"visualisation de contenu de dossier"
 
 msgid	"popup menu"
 msgstr	"popup menu"
@@ -756,9 +757,8 @@ msgstr	""
 msgid	"refresh directory"
 msgstr	""
 
-#, fuzzy
 msgid	"attributes modification"
-msgstr	"Modification de cartes"
+msgstr	"Modification d'attributs"
 
 msgid	"lock file to edit"
 msgstr	""
@@ -775,7 +775,6 @@ msgstr	""
 msgid	"abord edition"
 msgstr	""
 
-#, fuzzy
 msgid	"change icon document"
 msgstr	"changer l'icone du document"
 
@@ -785,9 +784,8 @@ msgstr	"critères de recherche de document"
 msgid	"ask for a new file revision"
 msgstr	""
 
-#, fuzzy
 msgid	"edit document properties"
-msgstr	" éditer le document"
+msgstr	"éditer les propriétés du document"
 
 msgid	"add comment before revise document"
 msgstr	""
@@ -795,9 +793,8 @@ msgstr	""
 msgid	"make a new document revision"
 msgstr	""
 
-#, fuzzy
 msgid	"view history revision"
-msgstr	" référencer cette révision"
+msgstr	"voir l'historique"
 
 msgid	"style sheet"
 msgstr	"feuille de style"
@@ -805,13 +802,11 @@ msgstr	"feuille de style"
 msgid	"widget display popup for a description card"
 msgstr	""
 
-#, fuzzy
 msgid	"Freedom modification"
-msgstr	"Modification de cartes"
+msgstr	"Modification de documents"
 
-#, fuzzy
 msgid	"Freedom deletion"
-msgstr	"Suppression de cartes"
+msgstr	"Suppression de documents"
 
 msgid	"Administration"
 msgstr	"Administration"
@@ -822,17 +817,14 @@ msgstr	""
 msgid	"Freedom accessibilities"
 msgstr	""
 
-#, fuzzy
 msgid	"Freedom initialisation"
-msgstr	"Importation de cartes"
+msgstr	"Initialisation Freedom"
 
-#, fuzzy
 msgid	"Freedoms lib"
-msgstr	"liste freedom"
+msgstr	"bibliothèque freedom"
 
-#, fuzzy
 msgid	"Freedoms library"
-msgstr	"liste freedom"
+msgstr	"bibliothèque freedom"
 
 msgid	"Access Action Library"
 msgstr	""
@@ -844,39 +836,37 @@ msgid	"export first file to consulting"
 msgstr	""
 
 msgid	"User Card"
-msgstr	""
+msgstr "Carnet d'adresses"
 
 msgid	"User Card Management"
 msgstr	"Carnet d'adresses"
 
 msgid	"Access Usercard Master Management"
-msgstr	""
+msgstr "Accès à l'administration du carnet d'adresses"
 
-#, fuzzy
 msgid	"Access To Usercard Management"
-msgstr	"Accès en lecture seule"
+msgstr "Accès à l'utilisation du carnet d'adresses"
 
-#, fuzzy
 msgid	"Access To Read User Card"
-msgstr	"Accès à tous les utilisateurs"
+msgstr	"Accès à la lecture du carnet d'adresses"
 
 msgid	"incident home page"
 msgstr	""
 
-#, fuzzy
 msgid	"edition"
-msgstr	"éditer"
+msgstr	"édition"
 
-#, fuzzy
+msgid	"delete"
+msgstr	"supprimer"
+
 msgid	"edit to add category"
-msgstr	"éditer le dossier"
+msgstr	"éditer pour l'ajout de catégorie"
 
 msgid	"edit to change category"
 msgstr	""
 
-#, fuzzy
 msgid	"document history"
-msgstr	"pas de famille de document"
+msgstr	"historique du document"
 
 msgid	"modification or creation"
 msgstr	""
@@ -890,13 +880,11 @@ msgstr	""
 msgid	"unlock incident file"
 msgstr	""
 
-#, fuzzy
 msgid	"view list"
-msgstr	"Liste"
+msgstr	"voir la liste"
 
-#, fuzzy
 msgid	"view an incident"
-msgstr	"voir le document"
+msgstr	"voir un incident"
 
 msgid	"edit import vcard"
 msgstr	""
@@ -904,13 +892,11 @@ msgstr	""
 msgid	"view a part of list"
 msgstr	""
 
-#, fuzzy
 msgid	"search an incident"
-msgstr	"Nouveau document"
+msgstr	"rechercher un incident"
 
-#, fuzzy
 msgid	"initialisation"
-msgstr	"Importation de cartes"
+msgstr	"initialisation"
 
 msgid	"Incident"
 msgstr	""
@@ -918,13 +904,20 @@ msgstr	""
 msgid	"Access Incident Master Management"
 msgstr	""
 
-#, fuzzy
 msgid	"Access To Incident Management"
-msgstr	"Accès administration de la base"
+msgstr	"Accès à la gestion des incidents"
 
-#, fuzzy
 msgid	"Access To Read Incident"
-msgstr	"Accès en lecture seule"
+msgstr	"Accès en lecture seule aux incidents"
+
+#~ msgid	" change category"
+#~ msgstr	" changer de catégorie"
+
+#~ msgid	"refresh"
+#~ msgstr	"Raffraichir"
+
+#~ msgid	"cannot add folder : '%s'. It will be ancestor of itself"
+#~ msgstr	"ajout du dossier %s impossible, il est son propre ancêtre"
 
 #~ msgid	"updateldapok"
 #~ msgstr	"mise à jour du serveur LDAP"

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD_init.php.in,v 1.2 2002/02/14 18:11:42 eric Exp $
+// $Id: USERCARD_init.php.in,v 1.3 2002/02/27 08:33:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@ $app_const= array(
   "LDAP_ROOT" => "o=Anakeen,c=fr",
   "LDAP_ROOTDN" => "cn=Manager,o=Anakeen,c=fr",
   "LDAP_ROOTPW" => "secret",
-  "LDAP_ENABLED" => "yes"
+  "LDAP_ENABLED" => "no"
 );
 
 

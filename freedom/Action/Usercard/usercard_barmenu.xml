@@ -42,9 +42,9 @@
 <!-- ------------ MENU NEW --------------------- -->
 <div  id="newmenu" class="popup">
 
-<a  id="newdoc" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDIT&classid=120&id=&dirid=121';closeAllMenu()">[TEXT:new personn]</a>
-<a  id="newcatg" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDITNEWCATG';closeAllMenu()">[TEXT:new category]</a>
-<a  id="imvcard" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDITIMPORT';closeAllMenu()">[TEXT:import vcard]</a>
+<a  id="newdoc" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDIT&classid=120&id=&dirid=121';closeAllMenu()">[TEXT:New personn]</a>
+<a  id="newcatg" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDITNEWCATG';closeAllMenu()">[TEXT:New category]</a>
+<a  id="imvcard" href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_EDITIMPORT';closeAllMenu()">[TEXT:Import vcard]</a>
 
 
 
@@ -74,7 +74,7 @@ function SendSearch(e) {
 
 <!-- ------------ MENU CATG  --------------------- -->
 <div  id="catgmenu" class="popup">
-<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_TAB&catg=[topid]&tab=1';closeAllMenu()">[TEXT:all catg]</a>
+<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_TAB&catg=[topid]&tab=1';closeAllMenu()">[TEXT:All catg]</a>
 [BLOCK CATG]
 <a  id="catg[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=USERCARD&action=USERCARD_TAB&catg=[id]&tab=1';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[title]</span></a>
 [ENDBLOCK CATG]
@@ -83,7 +83,7 @@ function SendSearch(e) {
 
 <!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup">
-  <a id="help" target="helpwhat" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&id=contacts.gen" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:help]</a>
+  <a id="help" target="helpwhat" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=USERCARD&sectid=usercard.gen" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
 </div>
 
 

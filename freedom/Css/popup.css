@@ -57,3 +57,8 @@ a.menuItemInvisible{
   cursor: default;
 
 }
+/* don't use: not supported by IE6 
+a.menuItem:first-letter, a.menuItemDisabled:first-letter {
+  text-transform: uppercase;
+}
+*/

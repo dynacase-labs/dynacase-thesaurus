@@ -46,6 +46,8 @@
 <form  name="addcatg"  method="POST" 
        action="[CORE_STANDURL]&app=USERCARD&action=USERCARD_CHANGECATG" >
 <div  class="ZOU">
+<p><span class="FREEDOMTextBigTitle">[username]</span></p>
+<hr>
 <p>[TEXT:Choose new categories]</p>
 
                     [BLOCK CATG]
@@ -53,29 +55,10 @@
 <input style="visibility:hidden" id="cneg[id]" type="checkbox" name="ndirid[]" value="[id]" ></input>
 <br>
                     [ENDBLOCK CATG]
-<input type="hidden" name="docid" value="[docid]"></input>
-</div>
-<table class="tableborder"  cellspacing="0" width="100%">
-<thead>
-<tr class="FREEDOMBack1">
- <td  colspan="3">
-   <span class="FREEDOMTextBigTitle">[TEXT:change category]</span>
-  </td> 
-</tr>
-
-<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
-</thead>
-
-
-<tfoot>
-<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
-<tr class="FREEDOMBack1">
-  <td colspan="3" >
+<input type="hidden" name="docid" value="[docid]"></input><BR>
  <input type="submit" value="[TEXT:change category]"> 
-  </td>
-</tr>
-</tfoot>
-</table>
+</div>
+
 </form>
 
 

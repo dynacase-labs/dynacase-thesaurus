@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.3 2002/02/19 11:11:02 eric Exp $
+// $Id: USERCARD.app,v 1.4 2002/02/27 08:33:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,8 +50,8 @@ $app_acl = array (
 $action_desc = array (
   array( 
    "name"		=>"USERCARD_ROOT",
-   "short_name"		=>N_("incident home page"),
-   "acl"		=>"USERCARD",
+   "short_name"		=>N_("usercard home page"),
+   "acl"		=>"USERCARD_READ",
    "root"		=>"Y"
   ) ,
   array( 
@@ -106,7 +106,7 @@ $action_desc = array (
   ) ,
   array( 
    "name"		=>"UNLOCKFILE",
-   "short_name"		=>N_("unlock incident file"),
+   "short_name"		=>N_("unlock usercard"),
    "acl"		=>"USERCARD"
   ) ,
   array( 
@@ -116,7 +116,7 @@ $action_desc = array (
   ) ,
   array( 
    "name"		=>"USERCARD_CARD",
-   "short_name"		=>N_("view an incident"),
+   "short_name"		=>N_("view a usercard"),
    "acl"		=>"USERCARD_READ"
   ) ,
   array( 
@@ -136,13 +136,8 @@ $action_desc = array (
   ) ,
   array( 
    "name"		=>"USERCARD_SEARCH",
-   "short_name"		=>N_("search an incident"),
+   "short_name"		=>N_("search a usercardt"),
    "acl"		=>"USERCARD_READ"
-  ) ,
-  array( 
-   "name"		=>"USERCARD_BARMENU",
-   "short_name"		=>N_("bar menu"),
-   "acl"		=>"USERCARD"
   ) ,
   array( 
    "name"		=>"USERCARD_INIT",

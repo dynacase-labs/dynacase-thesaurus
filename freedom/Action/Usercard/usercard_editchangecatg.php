@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_editchangecatg.php,v 1.2 2002/02/22 15:34:54 eric Exp $
+// $Id: usercard_editchangecatg.php,v 1.3 2002/02/27 08:33:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_editchangecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,7 +38,8 @@ function usercard_editchangecatg(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $homefld = new Dir( $dbaccess, TOP_USERDIR);
 
-  
+  $doc = new Doc($dbaccess,$docid);
+  $action->lay->Set("username",$doc->title);
 
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: usercard_barmenu.php,v 1.2 2002/02/22 15:34:54 eric Exp $
+// $Id: usercard_barmenu.php,v 1.3 2002/02/27 08:33:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/Attic/usercard_barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,8 @@ function usercard_barmenu(&$action) {
   popupInit("helpmenu", array('help'));
 
 
-  popupActive("newmenu",1,'newdoc'); 
+  if ($action->HasPermission("USERCARD"))   popupActive("newmenu",1,'newdoc'); 
+  else popupInactive("newmenu",1,'newdoc'); 
   if ($action->HasPermission("USERCARD_MASTER"))  {
     popupActive("newmenu",1,'newcatg');
     popupActive("newmenu",1,'imvcard');

@@ -22,6 +22,11 @@ if (!$res) pg_errormessage($dbid);
 $res= pg_exec($dbid,"delete from docattr where docid not in (select id from doc); ");
 if (!$res) pg_errormessage($dbid);
 
+$res= pg_exec($dbid,"delete from fld where dirid not in (select id from doc); ");
+if (!$res) pg_errormessage($dbid);
+
+$res= pg_exec($dbid,"delete from fld where childid not in (select id from doc); ");
+if (!$res) pg_errormessage($dbid);
 
 pg_close($dbid);
     

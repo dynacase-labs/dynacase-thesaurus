@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.4 2002/02/22 15:34:54 eric Exp $
+// $Id: Class.QueryDir.php,v 1.5 2002/02/27 08:33:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.4 2002/02/22 15:34:54 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.5 2002/02/27 08:33:16 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -43,7 +43,7 @@ Class QueryDir extends DbObj
   var $fulltextfields = array ("");
 
   var $sqlcreate = "
-create table fld ( id      int not null,
+create table fld ( id      int PRIMARY KEY,
                     dirid   int not null,
                     query   varchar(1024),
                     childid   int,
