@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_modaccess.php,v 1.3 2003/01/17 16:54:24 eric Exp $
+// $Id: freedom_modaccess.php,v 1.4 2003/04/11 11:48:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -47,7 +47,6 @@ function freedom_modaccess(&$action) {
   if ($err != "") $action->exitError($err);
 
 
-  //  print_r2($acls);
   while (list($userid,$aclon) = each ($acls)) {     
   
     // modif permission for a particular user

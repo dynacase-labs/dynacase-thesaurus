@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_gaccess.php,v 1.1 2002/11/25 16:26:30 eric Exp $
+// $Id: freedom_gaccess.php,v 1.2 2003/04/11 11:48:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_gaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -73,7 +73,6 @@ function freedom_gaccess(&$action) {
     // contruct grouplist
     $ouser = new User();
     $tiduser = $ouser->GetGroupList("TABLE");
-
     $hg= array();
     $userids= array();
     $sgroup=array(); // all group which are in a group i.e. not the root group

@@ -2,8 +2,8 @@
 <script>
 function enablefrom(th) {
   var checkboxes = th.getElementsByTagName("input");
-
-  for (var i=1; i < checkboxes.length; i++)  {
+ 
+  for (var i=0; i < checkboxes.length; i++)  {
     checkboxes[i].disabled=false;
     checkboxes[i].style.display='inline';
   }
@@ -38,7 +38,7 @@ function enablefrom(th) {
       <img style="display:[displayuser]" src="[IMG:bgreen.gif]" width="10" height="10"  >
       <A  href="#" onclick="subwindow(300,500,'uaccess','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ACCESS&id=[docid]&userid=[gid]')"
            >[gname]</A></span>
-    <input type="hidden" disabled name="acls[[gid]][0]" value="nc"></TD>
+    <input type="hidden" disabled name="acls[[gid]][500]" value="nc"></TD>
 
    <TD align="right" style="border:none;border-top-style:ridge;border-top-width:1px;" >
      <button onclick="enablefrom(this.parentNode.parentNode);"  type="button" ></button></TD>
