@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.177 2004/01/15 16:29:59 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.178 2004/01/21 13:25:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
 /**
  */
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.177 2004/01/15 16:29:59 eric Exp $
+// $Id: Class.Doc.php,v 1.178 2004/01/21 13:25:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -1461,8 +1461,8 @@ create unique index i_docir on doc(initid, revision);";
       while(list($k,$v) = each($tvalues)) {
 	$attrid = $tattrids[$k];
 	if (! isset($tattrids[$k])) {
-	  print_r2($tattrids);
-	  print_r2($tvalues);
+	  //print_r2($tattrids);
+	  //print_r2($tvalues);
 	}
 	if ($attrid != "") 	$this->$attrid=$v;
       }
