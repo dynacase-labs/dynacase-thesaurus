@@ -3,15 +3,19 @@
  * Event Class
  *
  * @author Anakeen 2005
- * @version $Id: Method.Event.php,v 1.6 2005/01/18 08:45:48 eric Exp $
+ * @version $Id: Method.Event.php,v 1.7 2005/03/18 09:21:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
  /**
  */
 
+var $calVResume     = "FREEEVENT:CALVRESUME";
+var $calVCard       = "FREEEVENT:CALVCARD";
+var $calVLongText   = "FREEEVENT:CALVLONGTEXT";
+var $calVShortText  = "FREEEVENT:CALVSHORTTEXT";
 
-
+var $calPopupMenu = array();
 
 /**
  * return all atomic event found in period between $d1 and $d2 for this event
@@ -31,5 +35,5 @@ function explodeEvtTest($d1,$d2) {
   $t1[]=get_object_vars($this);
   return $t1;;
 }
-  
+
 ?>

@@ -1,0 +1,14 @@
+<div style="background-color:lightgrey; overflow:hidden; cursor:pointer;  height:100%; border:1px outset lightgrey">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left"><img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title=""></td>
+<td align="right"><span style="font-size:80%">[sdatehour]&nbsp;<br>[edatehour]&nbsp;</span></td>
+</tr>
+<tr><td colspan="2">[title]</td></tr>
+
+<tr><td colspan="2">[description]</td></tr>
+
+[IF RESSOURCES]<tr><td colspan="2">[TEXT:ressources]</td></tr>[ENDIF RESSOURCES]
+[BLOCK RESSLIST]<tr><td></td><td>[rtitle]</td></tr>[ENDBLOCK RESSLIST]
+
+</table>
+</div>
