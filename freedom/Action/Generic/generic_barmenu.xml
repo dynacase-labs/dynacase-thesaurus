@@ -29,6 +29,12 @@
 </td>
 [ENDBLOCK KIND]
 <td  class="MenuInactive"  
+     onClick="closeAllMenu();openMenuXY(event,'sortmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onMouseOver="this.className='MenuActive'"
+     onMouseOut="this.className='MenuInactive'">
+<span class="FREEDOMTextTitle">[TEXT:Sort]</span>
+</td>
+<td  class="MenuInactive"  
      onClick="closeAllMenu();openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="this.className='MenuActive'"
      onMouseOut="this.className='MenuInactive'">
@@ -88,6 +94,14 @@ function SendSearch(e) {
 <a  id="[kindid]kedit" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITCATG&fid=[famid]&aid=[kindid]';closeAllMenu()"><I>[TEXT:Edit kind]</I></a>
 </div>
 [ENDBLOCK MKIND]
+
+<!-- ------------ MENU SORT --------------------- -->
+<div  id="sortmenu" class="popup">
+<a  id="sortdesc" href="#" onClick="document.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_USORT&aorder=-';closeAllMenu()">[TEXT:invert order]</a>
+<a class="separator">____________</a>
+[BLOCK USORT]<a  id="sortdoc[said]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&aorder=[said]';closeAllMenu()">[dsort]&nbsp;[satitle]</a>
+[ENDBLOCK USORT]
+</div>
 
 <!-- ------------ MENU HELP --------------------- -->
 <div  id="helpmenu" class="popup">

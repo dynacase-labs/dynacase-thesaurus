@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.12 2003/03/28 17:52:38 eric Exp $
+// $Id: GENERIC.app,v 1.13 2003/06/11 14:37:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -117,6 +117,11 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_LIST",
    "short_name"		=>N_("view list"),
+   "acl"		=>"GENERIC_READ"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_USORT",
+   "short_name"		=>N_("define sort attribute"),
    "acl"		=>"GENERIC_READ"
   ) ,
   array( 

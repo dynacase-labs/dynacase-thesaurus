@@ -258,4 +258,3 @@ begin
 end;
 ' language 'plpgsql' ;
 
-

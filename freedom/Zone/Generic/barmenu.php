@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: barmenu.php,v 1.11 2003/05/22 16:24:57 eric Exp $
+// $Id: barmenu.php,v 1.12 2003/06/11 14:37:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/barmenu.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,7 +42,7 @@ function barmenu(&$action) {
   
   $fdoc= new Doc( $dbaccess, $famid);
   $child[$famid] = array("title"=> $fdoc->title,
-		     "id" => $famid);
+			 "id" => $famid);
   $child += $fdoc->GetChildFam();
 
   $tchild = array();
@@ -97,7 +97,7 @@ function barmenu(&$action) {
   $action->lay->SetBlockData("KIND", $tkind);
   $action->lay->SetBlockData("MKIND", $tkind);
 
-  $action->lay->Set("nbcol", 3+count($tkind));
+  $action->lay->Set("nbcol", 4+count($tkind));
   //--------------------- construction of  menu -----------------------
 
   popupInit("newmenu",  $tnewmenu   );
@@ -166,6 +166,51 @@ function barmenu(&$action) {
   $action->lay->Set("topid",getDefFld($action));
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("catg",$catg);
+
+  //----------------------------
+  // sort menu
+
+  
+  $tsort = array("title"=>array("said"=>"title",
+				"satitle"=>_("doctitle")),
+		 "revdate"=>array("said"=>"revdate",
+		       "satitle"=>_("revdate")));
+  if ($fdoc->wid > 0) {
+    $tsort["state"]= array("said"=>"state",
+			   "satitle"=>_("state"));
+  }
+  $tmsort[]="sortdesc";
+  while (list($k,$v) = each($tsort)) {
+    $tmsort[$v["said"]]="sortdoc".$v["said"];
+  }
+  reset($lattr);
+  while (list($k,$a) = each($lattr)) {
+    if ($a->repeat || ($a->visibility == "H")|| ($a->visibility == "O") || ($a->type == "longtext") || 
+	($a->type == "docid")||  ($a->type == "htmltext")||
+	($a->type == "image" )|| ($a->type == "file" )) continue;
+    $tsort[$a->id] = array("said"=>$a->id,
+			   "satitle"=>$a->labelText);
+    $tmsort[$a->id] = "sortdoc".$a->id;
+    
+  }
+  // select the current sort
+  $csort=getDefUSort($action);
+  if ($csort[0]=='-') {
+    $csort=substr($csort,1);
+    $cselect = "&uarr;";
+  } else {
+    $cselect = "&darr;";
+  }
+  reset ($tsort);
+  while (list($k,$v) = each($tsort)) {
+    $tsort[$k]["dsort"]=($csort==$k)?$cselect:"&nbsp;"; // use puce
+  }
+  popupInit("sortmenu",$tmsort);
+  reset ($tmsort);
+  while (list($k,$v) = each($tmsort)) {
+    popupActive("sortmenu",1,$v);
+  }
+  $action->lay->SetBlockData("USORT",$tsort);
 
   popupGen(1);
 

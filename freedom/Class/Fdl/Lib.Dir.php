@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.71 2003/06/10 13:56:58 eric Exp $
+// $Id: Lib.Dir.php,v 1.72 2003/06/11 14:37:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -190,7 +190,7 @@ function getChildDoc($dbaccess,
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
 		     $userid=1, 
-		     $qtype="LIST", $fromid="",$distinct=false, $aorder="title") {
+		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title") {
   
   // query to find child documents            
   
@@ -204,7 +204,10 @@ function getChildDoc($dbaccess,
 
 
   if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
-  else  $qsql .= " ORDER BY $aorder LIMIT $slice OFFSET $start;";
+  else  {
+ 
+    $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
+  }
    
    if ($fromid > 0) include_once "FDLGEN/Class.Doc$fromid.php";
 
@@ -216,7 +219,7 @@ function getChildDoc($dbaccess,
   $tableq=$query->Query(0,0,$qtype,$qsql);
  
   
-  //  print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+  // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
 
 
 

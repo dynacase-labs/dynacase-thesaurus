@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.10 2003/04/02 07:35:29 eric Exp $
+// $Id: generic_util.php,v 1.11 2003/06/11 14:37:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,6 +45,33 @@ function getDefFld(&$action) {
   
 
   return 10;
+}
+// return attribute sort default
+function getDefUSort(&$action) {
+  $famid=getDefFam($action);
+  $pu = $action->GetParam("GENERIC_USORT");
+  if ($pu) {
+    $tu = explode("|",$pu);
+    
+    while (list($k,$v) = each($tu)) {
+      list($afamid,$aorder,$sqlorder) = explode(":",$v);
+      if ($afamid == $famid) return $aorder;
+    }
+  }
+  return "title";
+}
+function getDefUSqlSort(&$action) {
+  $famid=getDefFam($action);
+  $pu = $action->GetParam("GENERIC_USORT");
+  if ($pu) {
+    $tu = explode("|",$pu);
+    
+    while (list($k,$v) = each($tu)) {
+      list($afamid,$aorder,$sqlorder) = explode(":",$v);
+      if ($afamid == $famid) return $sqlorder;
+    }
+  }
+  return "title";
 }
 // -----------------------------------
 function getChildCatg($docid, $level,$notfldsearch=false,$maxlevel=2) {

@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-06-06 11:19+0200\n"
+	"POT-Creation-Date: 2003-06-11 16:04+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -513,9 +513,6 @@ msgstr	""
 msgid	"no filename"
 msgstr	"Firstname"
 
-msgid	"see contents"
-msgstr	""
-
 #, c-format
 msgid	"cannot control : object not initialized : %s"
 msgstr	""
@@ -799,13 +796,13 @@ msgstr	""
 msgid	"%s iuser created\n"
 msgstr	""
 
-#, fuzzy, c-format
-msgid	"created by %s"
+#, fuzzy
+msgid	"creation"
 msgstr	"Edit"
 
-#, c-format
-msgid	"change by %s"
-msgstr	""
+#, fuzzy
+msgid	"change"
+msgstr	"Start search"
 
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
@@ -869,6 +866,14 @@ msgstr	"Edit"
 #, c-format
 msgid	"new duplicate document is named : %s"
 msgstr	""
+
+#, fuzzy
+msgid	"doctitle"
+msgstr	"Update Title Cards"
+
+#, fuzzy
+msgid	"revdate"
+msgstr	"Create"
 
 msgid	"Freedoms"
 msgstr	""
@@ -1338,6 +1343,9 @@ msgstr	""
 msgid	"change category"
 msgstr	"Category"
 
+msgid	"define sort attribute"
+msgstr	""
+
 #, fuzzy
 msgid	"view a generic"
 msgstr	"Start search"
@@ -1509,6 +1517,10 @@ msgstr	""
 msgid	"Search"
 msgstr	"Start search"
 
+#, fuzzy
+msgid	"Sort"
+msgstr	"Export selected cards"
+
 msgid	"Bilan"
 msgstr	""
 
@@ -1525,6 +1537,10 @@ msgstr	""
 #, fuzzy
 msgid	"Edit kind"
 msgstr	"Edit"
+
+#, fuzzy
+msgid	"invert order"
+msgstr	"Delete"
 
 msgid	"client bilan"
 msgstr	""
@@ -2352,6 +2368,10 @@ msgid	"View properties"
 msgstr	""
 
 #, fuzzy
+#~ msgid	"created by %s"
+#~ msgstr	"Edit"
+
+#, fuzzy
 #~ msgid	"not include"
 #~ msgstr	"Modify"
 
@@ -2437,9 +2457,6 @@ msgstr	""
 
 #~ msgid	"admin"
 #~ msgstr	"Admnistration functions"
-
-#~ msgid	"export"
-#~ msgstr	"Export selected cards"
 
 #, fuzzy
 #~ msgid	" change category"

@@ -1,6 +1,6 @@
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-06-06 11:19+0200\n"
+	"POT-Creation-Date: 2003-06-11 16:04+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -452,7 +452,7 @@ msgid	"untitle document"
 msgstr	"document sans titre"
 
 msgid	"cannot update no initialized document"
-msgstr "mise à jour impossible : document non initialisé"
+msgstr	"mise à jour impossible : document non initialisé"
 
 #, c-format
 msgid	"cannot update file %s (rev %d) : fixed. Get the latest version"
@@ -496,9 +496,6 @@ msgstr	"erreur fichier Vault"
 
 msgid	"no filename"
 msgstr	"pas de fichier"
-
-msgid	"see contents"
-msgstr "voir le contenu"
 
 #, c-format
 msgid	"cannot control : object not initialized : %s"
@@ -640,7 +637,7 @@ msgstr	"Le server LDAP n'a pas pu être contacté"
 
 #, c-format
 msgid	"user #%d does not exist"
-msgstr "l'utilisateur n°%d n'existe pas"
+msgstr	"l'utilisateur n°%d n'existe pas"
 
 msgid	"recorded"
 msgstr	"enregistré"
@@ -748,31 +745,29 @@ msgstr	"N"
 
 #, c-format
 msgid	"%s updated\n"
-msgstr "%s mis à jour\n"
+msgstr	"%s mis à jour\n"
 
 #, c-format
 msgid	"find %s more than one, created aborded\n"
-msgstr "%s trouvé plus d'une fois, création abandonnée\n"
+msgstr	"%s trouvé plus d'une fois, création abandonnée\n"
 
 #, c-format
 msgid	"%s migrated\n"
-msgstr "%s migré\n"
+msgstr	"%s migré\n"
 
 #, c-format
 msgid	"%s igroup created\n"
-msgstr "%s intranet group créé\n"
+msgstr	"%s intranet group créé\n"
 
 #, c-format
 msgid	"%s iuser created\n"
-msgstr "%s intranet personne a été créé\n"
+msgstr	"%s intranet personne a été créé\n"
 
-#, c-format
-msgid	"created by %s"
-msgstr	"créé par %s"
+msgid	"creation"
+msgstr "création"
 
-#, c-format
-msgid	"change by %s"
-msgstr	"modifié par %s"
+msgid	"change"
+msgstr "modification"
 
 #, c-format
 msgid	"Filename '%s' cannot be transmitted.\n"
@@ -833,6 +828,12 @@ msgstr	"duplication de"
 #, c-format
 msgid	"new duplicate document is named : %s"
 msgstr	"la duplication est nommée : %s"
+
+msgid	"doctitle"
+msgstr "titre"
+
+msgid	"revdate"
+msgstr "date de modification"
 
 msgid	"Freedoms"
 msgstr	"Freedoms"
@@ -1274,6 +1275,9 @@ msgstr	"édition pour changer de catégorie"
 msgid	"change category"
 msgstr	"changer de catégorie"
 
+msgid	"define sort attribute"
+msgstr "Définir les attributs de tri"
+
 msgid	"view a generic"
 msgstr	"voir une carte"
 
@@ -1431,6 +1435,9 @@ msgstr	"Nouveau"
 msgid	"Search"
 msgstr	"Recherche"
 
+msgid	"Sort"
+msgstr "Tri"
+
 msgid	"Bilan"
 msgstr	"Bilan"
 
@@ -1445,6 +1452,9 @@ msgstr	"tout type"
 
 msgid	"Edit kind"
 msgstr	" éditer une catégorie"
+
+msgid	"invert order"
+msgstr "ordre inverse"
 
 msgid	"client bilan"
 msgstr	"bilan client"
@@ -2101,7 +2111,7 @@ msgid	"Delete"
 msgstr	"Supprimer"
 
 msgid	"mini view"
-msgstr "mini vue"
+msgstr	"mini vue"
 
 msgid	"senddoc"
 msgstr	"envoyer"
@@ -2171,6 +2181,15 @@ msgstr	"Changer de catégorie"
 
 msgid	"View properties"
 msgstr	"Voir les propriétés"
+
+#~ msgid	"see contents"
+#~ msgstr	"voir le contenu"
+
+#~ msgid	"created by %s"
+#~ msgstr	"créé par %s"
+
+#~ msgid	"change by %s"
+#~ msgstr	"modifié par %s"
 
 #~ msgid	"not include"
 #~ msgstr	"ne contient pas"
