@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: movedirfile.php,v 1.4 2003/02/07 17:31:49 eric Exp $
+// $Id: movedirfile.php,v 1.5 2003/03/27 09:42:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/movedirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,7 +48,7 @@ function movedirfile(&$action) {
   $doc = new Doc($dbaccess, $docid);
 
   // add before suppress
-  $dir= new Dir($dbaccess, $todirid);
+  $dir= new Doc($dbaccess, $todirid);
   $err = $dir->AddFile($docid);
   if ($err != "") $action->exitError($err);
 
@@ -56,7 +56,7 @@ function movedirfile(&$action) {
 			     $doc->title,
 			     $dir->title));
 
-  $dir= new Dir($dbaccess, $fromdirid);
+  $dir= new Doc($dbaccess, $fromdirid);
   $err = $dir->DelFile($docid);
   if ($err != "") $action->exitError($err);
   $action->AddLogMsg(sprintf(_("%s has been removed in %s folder"),

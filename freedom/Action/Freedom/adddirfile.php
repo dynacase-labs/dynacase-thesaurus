@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.9 2003/02/05 17:04:21 eric Exp $
+// $Id: adddirfile.php,v 1.10 2003/03/27 09:42:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/adddirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,7 @@ function adddirfile(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $doc= new Doc($dbaccess, $docid);
-  $dir= new Dir($dbaccess, $dirid);
+  $dir= new Doc($dbaccess, $dirid);
 
   $err = $dir->AddFile($docid, $mode);
   
