@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package FREEDOM
+ */
 $lang = $_GET['lang'];
 if (!$lang) {
     $lang = $_REQUEST['lang'];
