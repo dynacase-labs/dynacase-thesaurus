@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.16 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: modattr.php,v 1.17 2003/10/28 16:36:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modattr.php,v 1.16 2003/08/18 15:47:03 eric Exp $
+// $Id: modattr.php,v 1.17 2003/10/28 16:36:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -138,10 +138,10 @@ function modattr(&$action) {
 	    $oattr->frameid=isset($frameids[$k])?$frameids[$k]:"0";
 	    $oattr->ordered=isset($orders[$k])?$orders[$k]:"999";
 	    $oattr->visibility=$visibilities[$k];
-	    $oattr->link=$links[$k];
+	    $oattr->link=stripslashes($links[$k]);
 	    $oattr->phpfile=$phpfiles[$k];
 	    $oattr->phpfunc=$phpfuncs[$k];
-	    $oattr->elink=$elinks[$k];
+	    $oattr->elink=stripslashes($elinks[$k]);
 
 	    if ($attrids[$k]=="") {
 	      //print $oattr->id;
