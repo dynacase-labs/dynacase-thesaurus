@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.28 2003/07/22 13:13:08 eric Exp $
+// $Id: Class.WDoc.php,v 1.29 2003/07/29 13:09:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.28 2003/07/22 13:13:08 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.29 2003/07/29 13:09:33 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
@@ -323,7 +323,10 @@ Class WDoc extends Doc {
     $cmd= new Doc($this->dbaccess,$cmdid );
     
     if ($cmd->wid > 0) {
-      $wdoc = new Doc($dbaccess,$cmd->wid);
+      $wdoc = new Doc($this->dbaccess,$cmd->wid);
+
+      if (!$wdoc) $err=sprintf(_("cannot change state of document #%d to %s"),$cmd->wid,$newstate);
+      if ($err != "")  return $err;
       $wdoc->Set($cmd);      
       $err=$wdoc->ChangeState($newstate,sprintf(_("automaticaly by change state of %s\n%s"),
 						$this->doc->title, $comment ));
