@@ -252,7 +252,9 @@ ICON;fichier.gif;;;;;;;;;;;
 ;;;;;;;;;;;;
 ATTR;FI_FRFILE;;fichier;N;N;frame;;F;;;;
 ATTR;FI_TITLE;FI_FRFILE;titre;Y;N;text;10;R;;;;
-ATTR;FI_FILE;FI_FRFILE;fichier;N;Y;file;20;W;Y;;;
+;;;;;;;;;;;;
+ATTR;FI_FILE;FI_FRFILE;fichier;N;Y;file;20;W;;;;
+ATTR;FI_DESCRIPTION;FI_FRFILE;description;N;Y;longtext;30;W;;;;
 ATTR;FI_FR_OFORMAT;;Autres formats;;;frame;;F;;;;
 ATTR;FT_T_OFORMAT;FI_FR_OFORMAT;Colonnes;N;N;array;500;W;;;;
 ATTR;FI_OFILE;FT_T_OFORMAT;fichier;N;N;file;510;W;;;;
@@ -271,6 +273,7 @@ ATTR;IMG_FRFILE;;image;N;N;frame;0;F;;;;
 ATTR;IMG_TITLE;IMG_FRFILE;titre;Y;N;text;10;R;;;;
 ;;;;;;;;;;;;
 ATTR;IMG_FILE;IMG_FRFILE;image;N;Y;image;20;W;Y;;;
+ATTR;IMG_DESCRIPTION;IMG_FRFILE;description;N;Y;longtext;30;W;;;;
 ATTR;IMG_FR_CHAR;;caractéristiques;N;N;frame;;F;;;;
 ATTR;IMG_CATG;IMG_FR_CHAR;catégorie;N;N;enum;30;W;;;;1|photo,2|dessin,1.1|paysage,1.2|portrait
 END;-;9;;;;;;;;;;
