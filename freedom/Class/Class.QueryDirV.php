@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.4 2001/11/15 17:51:50 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.5 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.5  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.4  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -38,7 +41,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.4 2001/11/15 17:51:50 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.5 2001/11/21 08:38:58 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -156,45 +159,21 @@ create table dirv ( dirid      int not null,
   function getChildDoc($dirid) {
     global $lprof;
     // query to find child directories
-    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid)  and (t2.dirid=$dirid);";
+    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid)  and (t2.dirid=$dirid) order by id desc;";
 
-    $tableid = array();
+
     $query = new QueryDb($this->dbaccess,"Doc");
-    $lprof = array(); // list of profile doc
+
 
     $tableq=$query->Query(0,0,"LIST",$qsql);
-    if ($query->nb > 0)
+
+    if ($query->nb == 0)
       {
-	while(list($k,$v) = each($tableq)) 
-	  {	   
-	      $tableid[] = $v;
-	      if ($v->profid > 0) {
-		if (isset($lprof[$v->profid])) {
-
-		  $v->operm = $lprof[$v->profid];
-		  //print_r($v->operm->coid);
-
-
-		} else {
-		  //print ("set profile :".$v->profid);
-		  $pdoc = newDoc($this->dbaccess, $v->profid);
-		  //		  $pdoc ->operm-> GetPrivileges();
-		  $pdoc->Control("view");
-		  $pdoc->Control("edit");
-
-		  $lprof[$v->profid] = $pdoc ->operm;
-		  $v->operm = &$lprof[$v->profid];
-		  //		  print($v->oid.":".$v->profid.":".$pdoc ->operm->oid);
-
-
-		}
-	      }
-	  }
-	unset ($tableq);
+	return array();
       }
 
 
-    return($tableid);
+    return($tableq);
   }
 
   function getAllDoc() {

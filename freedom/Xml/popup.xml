@@ -4,11 +4,9 @@
 <a href="#" id="vprop"
     onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+docid,'doc_properties');closeMenu('popup');">[TEXT: view properties] </a>
 
-<a href="#" id="chicon"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=QUERYFILE&id='+docid,'doc_properties');closeMenu('popup');">
-[TEXT: change icon]</a>
 
-<a href="#" id="chstate">[TEXT: change state]</a>
+
+
 
 <a href="#" id="editdoc"     
     onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id='+docid,'doc_properties');closeMenu('popup')"  >[TEXT: edit document]</a>

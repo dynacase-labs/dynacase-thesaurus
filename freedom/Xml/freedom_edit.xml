@@ -36,20 +36,17 @@
 
 
 <!-- Title Table -->
-<form  class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
+<form  target="doc_properties" class="fborder" name="modifydoc" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_MOD&id=[id]&dirid=[dirid]" >
 
-      <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
-                         
+      
 
-<input type="hidden" name="title" value="[TITLE]"> 
 
-<div class="TITLE">
-<table width="100%"  cellspacing="0" cellpadding="0" >
+<table class="tableborder"  cellspacing="0" width="100%">
 <tr>
- <td class="FREEDOMTblTitle">
+ <td class="FREEDOMTblTitle" colspan="2">
    <span class="FREEDOMTextBigTitle">[TITLE]</span>
   </td> 
-   <td align="right">[TEXT:inherit from]
+   <td class="FREEDOMTblTitle" align="right">[TEXT:inherit from]
    <select name="classid" onChange="document.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id=[id]&dirid=[dirid]&classid='+self.document.modifydoc.classid.options[self.document.modifydoc.classid.selectedIndex].value">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
@@ -57,12 +54,6 @@
     </select>
    </td>
 </tr>
-</table>
-</div>
-<!-- Frame Table -->
-
-
-<table border="0" width="100%" border="0" cellspacing="0" cellpadding="0" >
 
 
 <!-- TABLEBODY -->
@@ -92,13 +83,15 @@
 <tr>
   <tr>
   <td colspan="3" class = "tdstyle">
- <input type="submit" value=[editaction] > 
+ <input type="submit" value=[editaction] onClick="document.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LOGO'"> 
   </td>
   </tr>
 
 </table>
 
 
+<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]"></input>
+<input type="hidden" name="title" value="[TITLE]"></input>
 </form>
 <!--  FOOT HTML -->
 

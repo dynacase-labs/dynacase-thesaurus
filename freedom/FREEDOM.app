@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.5 2001/11/19 18:04:22 eric Exp $
+// $Id: FREEDOM.app,v 1.6 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.6  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.5  2001/11/19 18:04:22  eric
 // aspect change
 //
@@ -206,6 +209,7 @@ $action_desc = array (
   ),
   array(
    "name"		=>"FREEDOM_EDIT",
+   "short_name"		=>N_("edit document properties"),
    "acl"		=>"FREEDOM"
   ),
   array( 
@@ -217,6 +221,11 @@ $action_desc = array (
    "name"		=>"REVISION",
    "short_name"		=>N_("make a new document revision"),
    "acl"		=>"FREEDOM"
+  ),
+  array(
+   "name"		=>"HISTO",
+   "short_name"		=>N_("view history revision"),
+   "acl"		=>"FREEDOM_READ"
   ),
   array(
    "name"		=>"FREEDOM_LOGO",

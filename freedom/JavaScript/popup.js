@@ -30,6 +30,13 @@ function shiftKeyPushed(event) {
   return shiftKey;
 }
 
+
+// 1 for first : 1 | 2 | 3
+function buttonNumber(event) {
+  if (window.event) return button=window.event.button;
+  else return button= event.button +1;
+}
+
 function openMenu(event, menuid) {
 
   var el, x, y;

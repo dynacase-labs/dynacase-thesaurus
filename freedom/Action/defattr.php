@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: defattr.php,v 1.3 2001/11/15 17:51:50 eric Exp $
+// $Id: defattr.php,v 1.4 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/defattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: defattr.php,v $
+// Revision 1.4  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.3  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -59,7 +62,7 @@ function defattr(&$action)
 
 
   $selectclass=array();
-  $tclassdoc = $doc->GetClassesDoc();
+  $tclassdoc = $doc->GetClassesDoc($doc->fromid);
   while (list($k,$cdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$cdoc->id;
     $selectclass[$k]["classname"]=$cdoc->title;

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.5 2001/11/16 18:04:39 eric Exp $
+// $Id: freedom_edit.php,v 1.6 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_edit.php,v $
+// Revision 1.6  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.5  2001/11/16 18:04:39  eric
 // modif de fin de semaine
 //
@@ -86,15 +89,7 @@ function freedom_edit(&$action) {
   $query->AddQuery("doctype='C'");
 
   $selectclass=array();
-  if ($classid == 2) { // new directory
-    $query->AddQuery("id = 2");
-  } else
-  if (($classid == 3) || ($classid == 4)) { // new profile
-    $query->AddQuery("(id = 3) OR (id = 4)");
-  } else {
-    $query->AddQuery("(id = 1) OR (id > 9)");
-  }
-  $tclassdoc = $query->Query();
+  $tclassdoc = $doc->GetClassesDoc($classid);
   while (list($k,$cdoc)= each ($tclassdoc)) {
     $selectclass[$k]["idcdoc"]=$cdoc->initid;
     $selectclass[$k]["classname"]=$cdoc->title;

@@ -223,6 +223,7 @@ function drawFolder(leftSide)
 var selObj=0;
 var dirid=0; 
 function selectFolder(id, refid) {
+  closeMenu('popfld');
   if (selObj)  {
     selObj.className='';
   }

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.4 2001/11/16 18:04:39 eric Exp $
+// $Id: freedom_mod.php,v 1.5 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_mod.php,v $
+// Revision 1.5  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.4  2001/11/16 18:04:39  eric
 // modif de fin de semaine
 //
@@ -68,7 +71,8 @@ function freedom_mod(&$action) {
     $ofreedom = new Dir($dbaccess);
   break;
   default:
-    $ofreedom = new Doc($dbaccess);
+    include_once("FREEDOM/Class.DocFile.php");
+    $ofreedom = new DocFile($dbaccess);
   }
 
 

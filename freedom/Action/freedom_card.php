@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.5 2001/11/19 18:04:22 eric Exp $
+// $Id: freedom_card.php,v 1.6 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.6  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.5  2001/11/19 18:04:22  eric
 // aspect change
 //
@@ -112,7 +115,7 @@ function freedom_card(&$action) {
   
   if ($action->GetParam("CORE_LANG") == "fr") { // date format depend of locale
     setlocale (LC_TIME, "fr_FR");
-    $action->lay->Set("revdate", strftime ("%a %d %b %Y %T",$doc->revdate));
+    $action->lay->Set("revdate", strftime ("%a %d %b %H:%M",$doc->revdate));
   } else {
     $action->lay->Set("revdate", strftime ("%x %T",$doc->revdate));
 
@@ -209,7 +212,7 @@ function freedom_card(&$action) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  $menuitems= array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','ctrldoc','editprof','cancel');
+  $menuitems= array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','cancel');
   while (list($ki, $imenu) = each($menuitems)) {
     $lpopup->Set("menuitem$ki",$imenu);
     ${$imenu} = "vmenuitem$ki";
@@ -397,15 +400,15 @@ function freedom_card(&$action) {
 	  ($doc->CanUnLockFile() == "")) {
 	$tmenuaccess[$kdiv][$editdoc]=1; 
 	$tmenuaccess[$kdiv][$editattr]=1; 
-	$tmenuaccess[$kdiv][$ctrldoc]=1; 
       } else {
 	$tmenuaccess[$kdiv][$editdoc]=0;
 	$tmenuaccess[$kdiv][$editattr]=0; 
-	$tmenuaccess[$kdiv][$ctrldoc]=0; 
       }
+      if ($doc->doctype=="F") $tmenuaccess[$kdiv][$histo]=1; 
+      else $tmenuaccess[$kdiv][$histo]=0; 
     $tmenuaccess[$kdiv][$editprof]=1;
       // unused menu items
-    $tmenuaccess[$kdiv]["vmenuitem9"]=0;
+      $tmenuaccess[$kdiv]["vmenuitem9"]=0;
 
   $action->lay->SetBlockData("TABLEBODY",$frames);
   

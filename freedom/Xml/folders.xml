@@ -166,8 +166,7 @@ aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]")
 <body topmargin=16 marginheight=16
       onLoad="initmicon()" 
       onMouseOver="initDrag()" 
-      onMouseUp="drag=0;"
-      onMouseDown="closeMenu('popfld');">
+      onMouseUp="drag=0;if (buttonNumber(event)==1) closeMenu('popfld');" >
 
 <!-- By making any changes to this code you are violating your user agreement;
      this can be specially troublesome for corporate users. Check the online 

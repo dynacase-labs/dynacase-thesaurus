@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.6 2001/11/19 18:04:22 eric Exp $
+// $Id: freedom_icons.php,v 1.7 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.7  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.6  2001/11/19 18:04:22  eric
 // aspect change
 //
@@ -58,7 +61,7 @@ include_once('FREEDOM/Class.QueryDirV.php');
 function freedom_icons(&$action, $with_abstract=true) {
 // -----------------------------------
 
-  $action->log->start();
+  $action->log->start("freedom_icons");
   // Set the globals elements
 
 
@@ -148,7 +151,7 @@ function freedom_icons(&$action, $with_abstract=true) {
 
   // ------------------------------------------------------
   // definition of popup menu
-  $menuitems= array('vprop','chicon','chstate','editdoc','cancel','copy','delete');
+  $menuitems= array('vprop','editdoc','cancel','copy','delete');
   while (list($ki, $imenu) = each($menuitems)) {
     $lpopup->Set("menuitem$ki",$imenu);
     ${$imenu} = "vmenuitem$ki";
@@ -164,6 +167,7 @@ function freedom_icons(&$action, $with_abstract=true) {
   while(list($k,$doc) = each($ldoc)) 
     {
       // view control
+      //      print "$doc->title :".$doc-> Control("view")."<BR>";
       if ($doc-> Control("view") != "") continue;
 
 
@@ -197,7 +201,7 @@ function freedom_icons(&$action, $with_abstract=true) {
       $tmenuaccess[$kdiv][$vprop]=1;
       $tmenuaccess[$kdiv][$cancel]=1;
       $tmenuaccess[$kdiv][$copy]=1;
-      $tmenuaccess[$kdiv][$chstate]=0;
+
       if ($dirid > 0) $tmenuaccess[$kdiv][$delete]=1;
       else $tmenuaccess[$kdiv][$delete]=0;
 
@@ -205,12 +209,12 @@ function freedom_icons(&$action, $with_abstract=true) {
       $cuf = ($doc->CanUnLockFile() == "");
       $cud = ($doc->CanUpdateDoc() == "");
       if ($clf || $cuf) {
-	$tmenuaccess[$kdiv][$chicon]=1; 
 	$tmenuaccess[$kdiv][$editdoc]=1;
       } else {
-	$tmenuaccess[$kdiv][$chicon]=0; 
 	$tmenuaccess[$kdiv][$editdoc]=0;
       }
+      $tmenuaccess[$kdiv]["vmenuitem5"]=0;
+      $tmenuaccess[$kdiv]["vmenuitem6"]=0;
       $tmenuaccess[$kdiv]["vmenuitem7"]=0;
       
       $tmenuaccess[$kdiv]["vmenuitem8"]=0;

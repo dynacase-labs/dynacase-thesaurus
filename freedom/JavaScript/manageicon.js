@@ -66,7 +66,7 @@ function select(th, id, divid) {
   if (diva) {
       diva.style.visibility='hidden';
   }
-  closeMenu('popup');
+
   if (selobjid)  unhighlight(document.getElementById(selobjid));
   highlight(th);
   docid=id;

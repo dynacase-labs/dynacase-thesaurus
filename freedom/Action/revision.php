@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.4 2001/11/19 18:04:22 eric Exp $
+// $Id: revision.php,v 1.5 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: revision.php,v $
+// Revision 1.5  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.4  2001/11/19 18:04:22  eric
 // aspect change
 //
@@ -45,18 +48,15 @@ function revision(&$action)
   $docid = GetHttpVars("id",0);
   $comment = GetHttpVars("comment",_("no comment"));
 
-
   $doc= newDoc($dbaccess,$docid);
 
   $err = $doc->CanUpdateDoc();
   if ($err != "") $action->ExitError($err);
   
 
-  print ("comment:$comment");
-
   $doc->Addrevision($comment);
     
-
+  
   redirect($action,GetHttpVars("app"),"FREEDOM_CARD&id=".$doc->id);
 
 }

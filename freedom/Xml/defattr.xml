@@ -36,7 +36,7 @@
 
 
 <!-- Title Table -->
-<form  class="fborder" name="modifyfreedom" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=MODATTR&docid=[docid]" >
+<form target="doc_properties" class="fborder" name="modifyfreedom" method="POST" ENCTYPE="multipart/form-data" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=MODATTR&docid=[docid]" >
 
       <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="[UPLOAD_MAX_FILE_SIZE]">
                          
@@ -111,7 +111,8 @@
 [ENDBLOCK NEWELEM]
 <tr>
   <td colspan="3" class = "tdstyle">
- <input type="submit" value="[TEXT:modify]"> 
+ <input type="submit" value="[TEXT:modify]"
+        onClick="document.location.href='[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_LOGO'"> 
   </td>
 </tr>
 

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.2 2001/11/15 17:51:50 eric Exp $
+// $Id: freedom_util.php,v 1.3 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_util.php,v $
+// Revision 1.3  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.2  2001/11/15 17:51:50  eric
 // structuration des profils
 //
@@ -220,38 +223,46 @@ function freedom_get_attr_card($dbaccess, $docid,&$title, &$tattr) {
 
 
 // return document object in type concordance
-function newDoc($dbaccess, $docid=0) {
+function newDoc($dbaccess, $id='',$res='',$dbid=0) {
 
-  if ($docid==0) return new Doc($dbaccess);
-
-        if ($dbaccess=="") {
-          // don't test if file exist or must be searched in include_path 
-             include("dbaccess.php");
+  if ($dbaccess=="") {
+    // don't test if file exist or must be searched in include_path 
+    include("dbaccess.php");
            
-        }
-        global $CORE_DBID;
-	$dbid=$CORE_DBID["$dbaccess"];
+  }
 
-	$result = pg_exec($dbid,"select doctype from doc where id=$docid;");
-	if (pg_numrows ($result) > 0) {
-	  $arr = pg_fetch_array ($result, 0);
+  //    print("doctype:".$res["doctype"]);
+    
+  if (($id == '') && ($res == "")) {
+    include_once("FREEDOM/Class.DocFile.php");
+    return new DocFile($dbaccess);
+  }
+  $doctype="";
+  if ($id != '') {
+    global $CORE_DBID;
+    $dbid=$CORE_DBID["$dbaccess"];
 
+    $result = pg_exec($dbid,"select doctype from doc where id=$id;");
+    if (pg_numrows ($result) > 0) {
+      $arr = pg_fetch_array ($result, 0);
+      $doctype= $arr[0];
+    }
+  } else if ($res != '') $doctype=$res["doctype"];
 	    
-	  switch ($arr[0]) {
-	  case "D":
-	    include_once("FREEDOM/Class.Dir.php");
-	    return (new Dir($dbaccess, $docid));
-	    //	  case "P":
-	    //include_once("FREEDOM/Class.Profil.php");
-	    // return (new Profil($dbaccess, $docid));
-	  default:
-	    return (new Doc($dbaccess, $docid));
+  switch ($doctype) {
+    case "D":
+      include_once("FREEDOM/Class.Dir.php");
+      return (new Dir($dbaccess, $id, $res, $dbid));
+      //	  case "P":
+      //include_once("FREEDOM/Class.Profil.php");
+      // return (new Profil($dbaccess, $id));
+    default:
+      include_once("FREEDOM/Class.DocFile.php");
+      return (new DocFile($dbaccess, $id, $res, $dbid));
 	  
-	  }
-	} else {
-	  return new Doc($dbaccess);
-	}
-}
+    }
+} 
+
 
 
 

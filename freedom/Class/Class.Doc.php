@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.6 2001/11/19 18:04:22 eric Exp $
+// $Id: Class.Doc.php,v 1.7 2001/11/21 08:38:58 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.7  2001/11/21 08:38:58  eric
+// ajout historique + modif sur control object
+//
 // Revision 1.6  2001/11/19 18:04:22  eric
 // aspect change
 //
@@ -44,7 +47,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.6 2001/11/19 18:04:22 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.7 2001/11/21 08:38:58 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -64,7 +67,7 @@ Class Doc extends DbObjCtrl
 
   var $dbtable = "doc";
 
-  var $order_by="title, revision";
+  var $order_by="title, revision desc";
 
   var $fulltextfields = array ("title");
 
@@ -90,24 +93,20 @@ create sequence seq_id_doc start 10";
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
   
-  var $obj_acl = array (
-			array(
-			      "name"		=>"view",
-			      "description"	=>"view document", // N_("view document")
-			      "group_default"       =>"Y"),
-			array(
-			      "name"               =>"edit",
-			      "description"        =>"edit document"),// N_("edit document")
-			array(
-			      "name"               =>"delete",
-			      "description"        =>"delete document",// N_("delete document")
-			      "group_default"       =>"N")
-			);
+  var $obj_acl = array ();
 
   // --------------------------------------------------------------------
 
 
   var $defDoctype='F';
+
+
+  function Doc($dbaccess='', $id='',$res='',$dbid=0) {
+
+         $this= newDoc($dbaccess, $id, $res, $dbid);
+  }
+
+
 
   function PostInit() {
     $this->id=1;
@@ -177,6 +176,36 @@ create sequence seq_id_doc start 10";
 
   }
 
+  function Complete()
+    {
+    global $lprof;
+    //print "select $this->id <BR>";
+      if ($this->profid < 0) {
+
+	if (! isset($lprof[$this->id])) {
+	$lprof[$this->id] =  new ObjectPermission($this->dbaccess, 
+                                       array($this->action->parent->user->id,
+				             $this->oid ));
+	//	print "SET $this->id : controlled  <BR>";
+	}
+	$this->operm= $lprof[$this->id];
+
+	//	print "$this->id : controlled <BR>";
+      } else if ($this->profid > 0) {
+
+	if (! isset($lprof[$this->profid])) {
+	$pdoc = newDoc($this->dbaccess, $this->profid);
+	$lprof[$this->profid] = $pdoc ->operm;
+	//	print "SET $this->id : controlled by $this->profid <BR>";
+	} 
+	$pdoc ->operm= $lprof[$this->profid];
+	//	print "$this->id : controlled by $this->profid <BR>";
+      }
+
+
+
+    }
+
   // --------------------------------------------------------------------
   function PostInsert()
     // --------------------------------------------------------------------    
@@ -228,6 +257,7 @@ create sequence seq_id_doc start 10";
   // ie must be locked by the current user
   function CanUpdateDoc() {
   // --------------------------------------------------------------------
+    if ($this->action->parent->user->id == 1) return "";// admin can do anything
     $err="";
     if ($this->locked == 0) {     
       $err = sprintf(_("the file %s (rev %d) must be locked before"), $this->title,$this->revision);      
@@ -250,6 +280,7 @@ create sequence seq_id_doc start 10";
   // ie not locked before, and latest revision (the old revision are locked
   function CanLockFile() {
   // --------------------------------------------------------------------
+    if ($this->action->parent->user->id == 1) return ""; // admin can do anything
     $err="";
     if ($this->locked > 0) {
       // test if is not already locked
@@ -271,6 +302,7 @@ create sequence seq_id_doc start 10";
   // ie like UpdateDoc
   function CanUnLockFile() {
   // --------------------------------------------------------------------
+    if ($this->action->parent->user->id == 1) return "";// admin can do anything
     $err="";
     if ($this->locked != 0) // if is already unlocked
       $err=$this->CanUpdateDoc();
@@ -374,14 +406,26 @@ create sequence seq_id_doc start 10";
   }
 
  // --------------------------------------------------------------------
-  function GetClassesDoc()
+  function GetClassesDoc($classid=1)
     // --------------------------------------------------------------------
     {
       $query = new QueryDb($this->dbaccess,"Doc");
 
       
       $query->AddQuery("doctype='C'");
-      $query->AddQuery("(id = 1) OR (id > 9)");
+
+      switch ($classid) {
+      case 3:
+      case 4:
+	$query->AddQuery("(id = 3) OR (id = 4)");
+      break;
+      case 2:
+	$query->AddQuery("(id = 2)");
+      break;
+      default:
+	
+	$query->AddQuery("(id = 1) OR (id > 9)");
+      }
       //      $query->AddQuery("initid=id");
     
       
@@ -417,6 +461,19 @@ create sequence seq_id_doc start 10";
   }
   
 
+  // --------------------------------------------------------------------
+  function GetRevisions() {
+    // -------------------------------------------------------------------- 
+    // Return the document revision 
+      $query = new QueryDb($this->dbaccess, get_class($this));
+
+      
+      $query->AddQuery("revision <= ".$this->revision);
+      $query->AddQuery("initid = ".$this->initid);
+      $query->order_by="revision DESC";
+      
+      return $query->Query();
+  }
 
   // return the string label text for a id
   function GetLabel($idAttr)
@@ -476,8 +533,9 @@ create sequence seq_id_doc start 10";
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
+    $this->owner = $this->action->parent->user->id; // rev user
     $this->comment = $comment;
-    $date =  gettimeofday();
+    $date = gettimeofday();
     $this->revdate = $date['sec'];
     $this->modify();
 
@@ -485,6 +543,7 @@ create sequence seq_id_doc start 10";
     $olddocid = $this->id;
     $this->id="";
     $this->locked = "0"; // the file is unlocked
+    $this->comment = _("current revision"); // change comment
     $this->revision = $this->revision+1;
     $this->Add();
 
@@ -578,8 +637,8 @@ create sequence seq_id_doc start 10";
   // --------------------------------------------------------------------
   function Control ($aclname) {
     // -------------------------------------------------------------------- 
-    if ($this->IsAffected())
-      if ($this->profid != 0) 
+    if (($this->IsAffected()) )
+      if (isset($this->operm) )
 	return $this->operm->Control($this, $aclname);
       else return "";
 
