@@ -30,28 +30,81 @@ begin
 end;
 ' language 'plpgsql';
 
+create or replace function computegperm(int, int) 
+returns int as '
+declare 
+  a_userid alias for $1;
+  profid alias for $2;
+  uperm int;
+  group RECORD;
+  gperm int;
+  
+begin
+   if (a_userid = 1) or (profid = 0) then 
+     return -1; -- it is admin user or no controlled object
+   end if;
+  
+   uperm := 0;
+   for group in select idgroup from groups where iduser=a_userid loop
+     gperm := getuperm(group.idgroup, profid);
+  
+     uperm := gperm | uperm;
+    
+   end loop;
+
+
+   return uperm;
+end;
+' language 'plpgsql';
+
+
+create or replace function getuperm(int, int) 
+returns int as '
+declare 
+  a_userid alias for $1;
+  profid alias for $2;
+  uperm int;
+  gperm int;
+  upperm int;
+  unperm int;
+begin
+   if (a_userid = 1) or (profid = 0) then 
+     return -1; -- it is admin user or no controlled object
+   end if;
+  
+   select into uperm, upperm, unperm cacl, upacl, unacl from docperm where docid=profid and userid=a_userid;
+
+   if (uperm is null) then
+     uperm := computegperm(a_userid,profid);
+     if (uperm = 0) then -- not group set
+      return -1;
+     end if;
+   end if;
+
+   if (uperm = 0) then
+     gperm := computegperm(a_userid,profid);
+    
+     uperm := ((gperm | upperm) & (~ unperm)) | 1;
+    
+     update docperm set cacl=uperm where docid=profid and userid=a_userid;
+   end if;
+
+   return uperm;
+end;
+' language 'plpgsql';
+
 create or replace function hasviewprivilege(int, int) 
 returns bool as '
 declare 
-  arg_user alias for $1;
+  a_userid alias for $1;
   profid alias for $2;
-  classid int;
-  aclid int;
+  uperm int;
 begin
-   if (arg_user = 1) then 
-     return true; -- it is admin user
-   end if;
+ 
+   uperm := getuperm(a_userid, profid);
 
-   if (profid = 0) then
-	return true; -- no controlled object
-   end if;
 
-  
-
-   select into classid id_class from octrl  where id_obj=profid;
-   select into aclid id from acl where id_application=classid and name=''view'';
-
-   return hasprivilege(arg_user, profid, classid ,aclid );
+   return ((uperm & 2) != 0);
 end;
 ' language 'plpgsql';
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.PDocSearch.php,v 1.2 2002/10/31 08:09:23 eric Exp $
+// $Id: Class.PDocSearch.php,v 1.3 2002/11/07 16:00:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.PDocSearch.php,v 1.2 2002/10/31 08:09:23 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.PDocSearch.php,v 1.3 2002/11/07 16:00:01 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -32,32 +32,21 @@ include_once("FDL/Class.Doc.php");
 
 Class PDocSearch extends Doc
 {
-    // --------------------------------------------------------------------
+  // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
   
-  var $obj_acl = array (
-			array(
-			      "name"		=>"view",
-			      "description"	=>"view search", // N_("view directory")
-			      "group_default"       =>"Y"),
-			array(
-			      "name"               =>"edit",
-			      "description"        =>"edit search"),// N_("edit directory")
-			array(
-			      "name"               =>"delete",
-			      "description"        =>"delete search",// N_("delete directory")
-			      "group_default"       =>"N"),
-			array(
-			      "name"               =>"execute",
-			      "description"        =>"execute search",// N_("open directory")
-			      "group_default"       =>"N")
-			);
+  var $acls = array(POS_VIEW,POS_EDIT,POS_DEL,POS_EXEC);
+  // --------------------------------------------------------------------
+
   var $defDoctype='P';
   var $defProfFamId=FAM_ACCESSSEARCH;
+  
+  
 
   function PDocSearch($dbaccess='', $id='',$res='',$dbid=0) {
 
-     DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
+    // don't use Doc constructor because it could call this constructor => infinitive loop
+     DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);
   }
 
 }

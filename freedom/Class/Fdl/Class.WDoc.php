@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDoc.php,v 1.5 2002/10/22 09:44:18 eric Exp $
+// $Id: Class.WDoc.php,v 1.6 2002/11/07 16:00:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.WDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,24 +23,16 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.5 2002/10/22 09:44:18 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.WDoc.php,v 1.6 2002/11/07 16:00:01 eric Exp $';
 
 include_once('FDL/Class.Doc.php');
 
 // Work Flow Classe
 Class WDoc extends Doc {
 
-  var $obj_acl = array (
-			array(
-			      "name"		   =>"view",
-			      "description"	   =>"view workflow"), # N_("view workflow")
-			array(
-			      "name"               =>"edit",
-			      "description"        =>"edit workflow"),# N_("edit workflow")
-			array(
-			      "name"               =>"delete",
-			      "description"        =>"delete workflow"));# N_("delete workflow")
+  
 
+  var $acls = array(POS_VIEW,POS_EDIT,POS_DEL);
 
 	
 
@@ -55,14 +47,17 @@ Class WDoc extends Doc {
 
     function WDoc($dbaccess='', $id='',$res='',$dbid=0) {
       // first construct acl array
+
+      $ka = POS_WF;
       while (list($k, $trans) = each($this->transitions)) {
-	$this->obj_acl[$k]=array("name"=>$k,
-				 "description" =>_($k));
+	$this->obj_acl[$ka]=array("name"=>$k,
+				  "description" =>_($k));
+	$ka++;
       }
       $this->defProfClassname=$this->defClassname; // it's a profil itself
 
       // don't use Doc constructor because it could call this constructor => infinitive loop
-      DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
+     DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);
     }
 
     function Set(&$doc) {

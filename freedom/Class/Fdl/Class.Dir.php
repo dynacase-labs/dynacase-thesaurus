@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.8 2002/10/31 08:09:22 eric Exp $
+// $Id: Class.Dir.php,v 1.9 2002/11/07 16:00:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.8 2002/10/31 08:09:22 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.9 2002/11/07 16:00:00 eric Exp $';
 
 
 include_once("FDL/Class.PDir.php");
@@ -52,14 +52,14 @@ Class Dir extends PDir
     $rq = $query->Query();
     if ($query->nb > 0)      $home = $rq[0];
     else {
-      $home = new Dir($this->dbaccess);
+      $home = createDoc($this->dbaccess,2);
       $home ->owner = -$this->userid;
       include_once("Class.User.php");
       $user = new User("", $this->userid);
       $home ->title = $user->firstname." ".$user->lastname;
       $home -> Add(); 
 
-      $privlocked = new DocSearch($this->dbaccess);
+      $privlocked = createDoc($this->dbaccess,5);
       $privlocked->title=(_("locked files of ").$home ->title);
       $privlocked->Add();
       $privlocked->AddQuery("select * from doc where (doctype='F') ".

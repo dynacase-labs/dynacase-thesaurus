@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.Dir.php,v 1.32 2002/11/06 15:59:28 eric Exp $
+// $Id: Lib.Dir.php,v 1.33 2002/11/07 16:00:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Lib.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -72,8 +72,8 @@ function getSqlSearchDoc($dbaccess,
 			 $sqlfilters=array(),
 			 $distinct=false) {// if want distinct without locked
 
-  if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
-  else $sqlcond="";
+ 
+
 
   $table="doc";$only="";
   if ($fromid != 0) $table="doc$fromid";
@@ -82,9 +82,17 @@ function getSqlSearchDoc($dbaccess,
   if ($distinct) {
     $selectfields =  "distinct on (initid) $table.*";
   } else {
-    $selectfields =  "$table.*";
-    $sqlcond = "and (locked != -1) " . $sqlcond ;
+    $selectfields =  "$table.*"; 
+    $sqlfilters[-1] = "locked != -1";
+    $sqlfilters[-2] = "doctype != 'T'";
+    ksort($sqlfilters);
+
   }
+
+  $sqlcond="";
+  if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
+
+
 
   if ($dirid == 0) {
     //-------------------------------------------
@@ -92,7 +100,7 @@ function getSqlSearchDoc($dbaccess,
     //-------------------------------------------
     $qsql= "select $selectfields ".
       "from $only $table  ".
-      "where (doctype != 'T') ".
+      "where  ".
       $sqlcond;
   } else {
 
@@ -113,7 +121,7 @@ function getSqlSearchDoc($dbaccess,
       
       $qsql= "select $selectfields ".
 	"from $only $table, fld  ".
-	"where (doctype != 'T') $sqlcond ".
+	"where $sqlcond ".
 	"and $sqlfld ".
 	"and (fld.qtype='S' and fld.childid=initid )  ";
       
@@ -138,7 +146,7 @@ function getSqlSearchDoc($dbaccess,
 	  $sqlM=$ldocsearch[0]["query"];
 	  if ($fromid > 0) $sqlM=str_replace("from doc ","from $only $table ",$sqlM);
 	    
-	  $qsql= $sqlM . $sqlcond;
+	  $qsql= $sqlM ." and " . $sqlcond;
 	  break;
 	}
       } else {
@@ -158,6 +166,14 @@ function getChildDoc($dbaccess,
   // query to find child documents            
   
   $qsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct);
+
+  if ($userid > 1) { // control view privilege
+    $qsql .= " and hasviewprivilege($userid, profid)";
+    // and get permission
+    if ($qtype == "LIST") $qsql = str_replace(" from "," ,getuperm($userid,profid) as uperm from ",$qsql);
+  }
+
+
   if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
   else  $qsql .= " ORDER BY title LIMIT $slice OFFSET $start;";
    

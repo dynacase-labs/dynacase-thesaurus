@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.PDoc.php,v 1.3 2002/10/31 08:09:23 eric Exp $
+// $Id: Class.PDoc.php,v 1.4 2002/11/07 16:00:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.3 2002/10/31 08:09:23 eric Exp $';
+$CLASS_DOCFILE_PHP = '$Id: Class.PDoc.php,v 1.4 2002/11/07 16:00:01 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -34,31 +34,17 @@ Class PDoc extends Doc
 {
     // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
+  var $acls = array(POS_VIEW,POS_EDIT,POS_DEL,POS_SEND);
+  // --------------------------------------------------------------------
   
-  var $obj_acl = array (
-			array(
-			      "name"		=>"view",
-			      "description"	=>"view document", // N_("view document")
-			      "group_default"       =>"Y"),
-			array(
-			      "name"               =>"send",
-			      "description"        =>"send document"),// N_("send document")
-			array(
-			      "name"               =>"edit",
-			      "description"        =>"edit document"),// N_("edit document")
-			array(
-			      "name"               =>"delete",
-			      "description"        =>"delete document",// N_("delete document")
-			      "group_default"       =>"N")
-			);
-
+ 
   // ------------
   var $defDoctype='P';
   var $defProfFamId=FAM_ACCESSDOC;
 
   function PDoc($dbaccess='', $id='',$res='',$dbid=0) {
     // don't use Doc constructor because it could call this constructor => infinitive loop
-     DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
+     DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);
   }
 }
 

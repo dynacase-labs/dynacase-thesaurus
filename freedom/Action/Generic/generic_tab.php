@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: generic_tab.php,v 1.5 2002/10/31 08:09:22 eric Exp $
+// $Id: generic_tab.php,v 1.6 2002/11/07 16:00:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_tab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,11 +65,9 @@ function generic_tab(&$action) {
 
   if ($dir->id == getDefFld($action))   {
     $sdoc->title = sprintf(_("%s all categories "),$tabletter[$tab] );
-    $qfld = "";
     $sdirid=0; // search in all DB
   }  else {
     $sdoc->title = sprintf(_("%s %s category "),$tabletter[$tab],$dir->title );
-    $qfld = "and initid in (select childid from fld where childid=doc$famid.id and dirid=$dirid) ";
     $sdirid=$dir->id;
   }
 
@@ -79,7 +77,7 @@ function generic_tab(&$action) {
 
   $sdoc->Add();
 
-  $sqlfilter[]= "locked != -1";
+
   $sqlfilter[]= "doctype='F'";
 
   if ($tabletter[$tab]!="") $sqlfilter[]="title ~* '^[".$tabletter[$tab]."].*'";

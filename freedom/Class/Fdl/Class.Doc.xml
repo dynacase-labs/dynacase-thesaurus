@@ -53,7 +53,7 @@ end;
     
     if (isset($this->attributes->fields))  $this->fields += $this->attributes->fields;
 
-      DbObjCtrl::DbObjCtrl($dbaccess, $id, $res, $dbid);
+      DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);
 
     
 
