@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.16 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.17 2004/01/14 14:45:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: Class.DocFam.php,v 1.16 2003/12/12 15:45:25 eric Exp $
+// $Id: Class.DocFam.php,v 1.17 2004/01/14 14:45:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocFam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.16 2003/12/12 15:45:25 eric Exp $';
+$CLASS_DOCFAM_PHP = '$Id: Class.DocFam.php,v 1.17 2004/01/14 14:45:19 eric Exp $';
 include_once('FDL/Class.PFam.php');
 
 Class DocFam extends PFam {
@@ -49,7 +49,6 @@ create table docfam (cprofid int ,
                      cfldid int, 
                      ccvid int, 
                      ddocid int,
-                     name text,
                      methods text,
                      defval text,
                      schar char) inherits (doc);
@@ -70,7 +69,6 @@ create unique index idx_idfam on docfam(id);";
     $this->fields["cprofid"]="cprofid";
     $this->fields["ddocid"] ="ddocid";
     $this->fields["methods"]="methods";
-    $this->fields["name"]="name";
     $this->fields["defval"]="defval";
     $this->fields["schar"]="schar"; // specials characteristics R : revised on each modification
     PFam::PFam($dbaccess, $id, $res, $dbid);
