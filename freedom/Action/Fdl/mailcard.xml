@@ -27,7 +27,7 @@
    </script>   
  </head>
 
-<body class="freedom" onload2="self.close()" >
+<body class="freedom" onload="self.close()" >
 
 
 

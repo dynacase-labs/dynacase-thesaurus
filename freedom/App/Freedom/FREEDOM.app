@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.17 2002/11/22 18:08:22 eric Exp $
+// $Id: FREEDOM.app,v 1.18 2003/01/08 09:08:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -302,12 +302,6 @@ $action_desc = array (
    "name"		=>"FREEDOM_DEL",
    "short_name"		=>N_("Freedom deletion"),
    "acl"		=>"FREEDOM"
-  ),
-  array(
-   "name"		=>"FREEDOM_ADMIN",
-   "acl"		=>"FREEDOM_MASTER",
-   "layout"		=>"freedom_admin.xml",
-   "short_name"		=>N_("Administration")
   ),
   array(
    "name"		=>"FREEDOM_UPDATETITLE",

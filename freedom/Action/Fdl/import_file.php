@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.34 2003/01/02 15:37:17 eric Exp $
+// $Id: import_file.php,v 1.35 2003/01/08 09:08:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,7 +37,7 @@ function add_import_file(&$action, $fimport="") {
   $dirid = GetHttpVars("dirid",10); // directory to place imported doc 
   $analyze = (GetHttpVars("analyze","N")=="Y"); // just analyze
 
-
+  $nbdoc=0; // number of imported document
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if (isset($HTTP_POST_FILES["file"]))    
@@ -110,12 +110,13 @@ function add_import_file(&$action, $fimport="") {
 	$msg=PgUpdateFamilly($dbaccess, $doc->id);
       }
       
+      $nbdoc++;
     
     break;
     // -----------------------------------
     case "DOC":
       $ndoc=csvAddDoc($action,$dbaccess, $data, $dirid);
-      
+      $nbdoc++;
     break;    
     // -----------------------------------
     case "SEARCH":
@@ -144,6 +145,7 @@ function add_import_file(&$action, $fimport="") {
       $dir = new Dir($dbaccess, $dirid);
       $dir->AddFile($doc->id);
     }
+    $nbdoc++;
     break;
     // -----------------------------------
     case "TYPE":
@@ -220,7 +222,7 @@ function add_import_file(&$action, $fimport="") {
     print $gerr;
   }
     
-  
+  return $nbdoc;
 }
 
 function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
@@ -276,7 +278,7 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
 
       if (count($lsdoc) > 0) {
 	$msg .= $err.sprintf(_("double title %s <B>ignored</B> "),$doc->title); 
-	$doc->delete(true); // no post delete it's not a really doc yet
+	$doc->delete(true); // really delete it's not a really doc yet
 	$doc=false; 
       } else {
 	// no double title found
@@ -295,13 +297,17 @@ function csvAddDoc(&$action,$dbaccess, $data, $dirid=10) {
     $msg .= $doc->title;
     if ($data[3] > 0) { // dirid
       $dir = new Doc($dbaccess, $data[3]);
-      if (! $analyze) $dir->AddFile($doc->id);
-      $msg .= $err.sprintf(_("and add in %s folder "),$dir->title); 
+      if ($dir->isAffected()) {
+	if (! $analyze) $dir->AddFile($doc->id);
+	$msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
+      }
     } else if ($data[3] ==  0) {
       if ($dirid > 0) {
 	$dir = new Dir($dbaccess, $dirid);
-	if (! $analyze) $dir->AddFile($doc->id);
-	$msg .= $err.sprintf(_("and add  in %s folder "),$dir->title); 
+	if ($dir->isAffected()) {
+	  if (! $analyze) $dir->AddFile($doc->id);
+	  $msg .= $err." ".sprintf(_("and add  in %s folder "),$dir->title); 
+	}
       }
     }
   }

@@ -1,10 +1,6 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2003-01-02 11:56+0100\n"
+	"POT-Creation-Date: 2003-01-07 12:06+0100\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -406,7 +402,7 @@ msgstr	"déjà supprimé"
 
 #, c-format
 msgid	"delete by %s by action %s on %s from %s"
-msgstr "supprimé par %s avec l'action %s sur %s par %s"
+msgstr	"supprimé par %s avec l'action %s sur %s par %s"
 
 msgid	"unknow attribute"
 msgstr	"attribut inconnu"
@@ -813,9 +809,6 @@ msgstr	"Modification de documents"
 msgid	"Freedom deletion"
 msgstr	"Suppression de documents"
 
-msgid	"Administration"
-msgstr	"Administration"
-
 msgid	"Freedom update title fields"
 msgstr	"mise à jour des champs titre"
 
@@ -832,12 +825,11 @@ msgid	"Freedom initialisation"
 msgstr	"Initialisation Freedom"
 
 msgid	"root folder id"
-msgstr "Identificateur du dossier racine"
+msgstr	"Identificateur du dossier racine"
 
 msgid	"enabled/disabled full text search"
 msgstr	"autoriser la recherche plein texte"
 
-#, fuzzy
 msgid	"mnoGoSearch: indexer database access specification"
 msgstr	"mnoGoSearch: spécification d'accès à la base de l'indexation plein "
 	"texte"
@@ -904,6 +896,9 @@ msgstr	"taille maximum de chaines de caractère pour les choix"
 
 msgid	"send mail copy"
 msgstr	"copie envoi de mail"
+
+msgid	"maximum document can be imported directly"
+msgstr "nombre maximum de documents pouvant être importé en direct"
 
 #, c-format
 msgid	"file %d"
@@ -1549,6 +1544,9 @@ msgstr	"Changer de titre"
 msgid	"Import Documents"
 msgstr	" Importer des documents"
 
+msgid	"Description of the import format"
+msgstr	"Description du format d'import"
+
 msgid	"for"
 msgstr	"pour"
 
@@ -1765,6 +1763,9 @@ msgstr	"Dupliquer"
 msgid	"View headers"
 msgstr	"Voir entête"
 
+#~ msgid	"Administration"
+#~ msgstr	"Administration"
+
 #~ msgid	"no"
 #~ msgstr	"non"
 
@@ -1871,9 +1872,6 @@ msgstr	"Voir entête"
 
 #~ msgid	"delete usercard"
 #~ msgstr	"supprimer une carte"
-
-#~ msgid	"Description of the import format:"
-#~ msgstr	"Description du format d'import"
 
 #~ msgid	"view incident"
 #~ msgstr	"voir un incident"

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: enum_choice.php,v 1.11 2003/01/03 17:45:57 eric Exp $
+// $Id: enum_choice.php,v 1.12 2003/01/08 09:08:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/enum_choice.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -79,7 +79,7 @@ function enum_choice(&$action) {
     else $arg[$k]= trim(GetHttpVars("_".strtolower($v),$v));
   }
 
-  print_r2($arg);
+
   $res = call_user_func_array($reg[1], $arg);
 
   // addslahes for JS array

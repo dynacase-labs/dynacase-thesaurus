@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.26 2003/01/02 15:37:17 eric Exp $
+// $Id: freedom_util.php,v 1.27 2003/01/08 09:08:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -154,7 +154,7 @@ function createDoc($dbaccess,$fromid) {
     
     $doc->revision = "0";
     $doc->fileref = "0";
-    //$doc->doctype = 'F';// it is a new  document (not a familly)
+    $doc->doctype = $cdoc->defDoctype;// it is a new  document (not a familly)
     $doc->cprofid = "0"; // NO CREATION PROFILE ACCESS
 
     $doc->fromid = $fromid;

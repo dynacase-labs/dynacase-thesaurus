@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.WDocIncident.php,v 1.3 2002/09/30 11:46:44 eric Exp $
+// $Id: Class.WDocIncident.php,v 1.4 2003/01/08 09:08:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Incident/Attic/Class.WDocIncident.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.3 2002/09/30 11:46:44 eric Exp $';
+$CLASS_DOCINCIDENT_PHP = '$Id: Class.WDocIncident.php,v 1.4 2003/01/08 09:08:21 eric Exp $';
 
 
 include_once("FDL/Class.WDoc.php");
@@ -200,16 +200,15 @@ Class WDocIncident extends WDoc
 
 
       global $action;
-
       if ($action->getParam("INCIDENT_SENDMAIL") != "yes") return;
 
      
       $mailok=mail($addr,
-		$object,
-		$body,
-		"From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
-		"Bcc: ".$action->GetParam("BCC_MAIL_INCIDENT")."\r\n".
-		"X-Mailer: PHP/" . phpversion());
+		   $object,
+		   $body,
+		   "From: ".$action->GetParam("FROM_MAIL_INCIDENT")."\r\n".
+		   "Bcc: ".$action->GetParam("BCC_MAIL_INCIDENT")."\r\n".
+		   "X-Mailer: PHP/" . phpversion());
       if (! $mailok) $action->exitError("mail cannot be sent");
       AddLogMsg(sprintf(_("send internal mail to %s (bcc:%s)"),$addr,$action->GetParam("BCC_MAIL_INCIDENT")));
     }

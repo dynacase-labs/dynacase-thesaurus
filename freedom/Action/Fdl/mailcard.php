@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.17 2003/01/02 14:55:12 eric Exp $
+// $Id: mailcard.php,v 1.18 2003/01/08 09:08:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -242,8 +242,7 @@ function sendmailcard(&$action) {
 
   if ($status == 0)  {
     $doc->addcomment(sprintf(_("sended to %s"), $to));
-    $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to));
-    print ($cmd);
+    $action->addlogmsg(sprintf(_("sending %s to %s"),$title, $to));   
   } else {
     print ($cmd);
     $action->addlogmsg(sprintf(_("%s cannot be sent"),$title));

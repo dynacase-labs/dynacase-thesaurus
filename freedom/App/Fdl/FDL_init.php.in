@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.10 2003/01/03 09:10:58 eric Exp $
+// $Id: FDL_init.php.in,v 1.11 2003/01/08 09:08:21 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,7 +38,11 @@ $app_const= array(
 		       "descr"=>N_("send mail copy"),
 		       "user"=>"Y",
 		       "global"=>"Y",
-		       "kind"=>"enum(yes|no)")
+		       "kind"=>"enum(yes|no)"),
+  "FDL_MAX_FGEXPORTDOC"    =>array("val"=>"20",
+				  "descr"=>N_("maximum document can be imported directly"),
+				  "user"=>"N",
+				  "global"=>"Y")
 );
 
 
