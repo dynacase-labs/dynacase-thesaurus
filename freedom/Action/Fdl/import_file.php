@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.70 2004/07/01 13:50:58 eric Exp $
+ * @version $Id: import_file.php,v 1.71 2004/07/05 13:01:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -214,13 +214,24 @@ function add_import_file(&$action, $fimport="") {
       break;
       // -----------------------------------
     case "DFLDID":
-      $doc->dfldid =  $data[1];
+      if (is_numeric($data[1]))   $fldid = $data[1];
+      else $fldid =  getIdFromName($dbaccess,$data[1],2);
+      $doc->dfldid =  $fldid;
       $tcr[$nline]["msg"]=sprintf(_("set default folder to '%s'"),$data[1]);
       break;
       // -----------------------------------
     case "WID":
-      $doc->wid =  $data[1];
+      if (is_numeric($data[1]))   $wid = $data[1];
+      else $wid =  getIdFromName($dbaccess,$data[1],20);
+      $doc->wid =  $wid;
       $tcr[$nline]["msg"]=sprintf(_("set default workflow to '%s'"),$data[1]);
+      break;
+      // -----------------------------------
+    case "CVID":
+      if (is_numeric($data[1]))   $cvid = $data[1];
+      else $cvid =  getIdFromName($dbaccess,$data[1],28);
+      $doc->ccvid =  $cvid;
+      $tcr[$nline]["msg"]=sprintf(_("set view control to '%s'"),$data[1]);
       break;
       // -----------------------------------
     case "SCHAR":
@@ -257,12 +268,16 @@ function add_import_file(&$action, $fimport="") {
       break;
       // -----------------------------------
     case "CPROFID":     
-      $doc->cprofid =  $data[1];
+      if (is_numeric($data[1]))   $pid = $data[1];
+      else $pid =  getIdFromName($dbaccess,$data[1],3);
+      $doc->cprofid =  $pid;
       $tcr[$nline]["msg"]=sprintf(_("change default creation profile id  to '%s'"),$data[1]);
       break;
       // -----------------------------------
     case "PROFID":     
-      $doc->setProfil($data[1]);// change profile
+      if (is_numeric($data[1]))   $pid = $data[1];
+      else $pid =  getIdFromName($dbaccess,$data[1],3);
+      $doc->setProfil($pid);// change profile
       $tcr[$nline]["msg"]=sprintf(_("change profile id  to '%s'"),$data[1]);
       break;
     case "DEFAULT":     
@@ -319,6 +334,41 @@ function add_import_file(&$action, $fimport="") {
       
       $tcolorder[$orfromid]=getOrder($data);
       $tcr[$nline]["msg"]=sprintf(_("new column order %s"),implode(";",$tcolorder));
+      
+      break;
+    case "PROFIL":  
+      if (is_numeric($data[1]))   $pid = $data[1];
+      else $pid =  getIdFromName($dbaccess,$data[1],3);
+      
+      if (! ($pid>0)) $tcr[$nline]["err"]=sprintf(_("profil id unkonow %s"),$data[1]);
+      else {
+	$pdoc = new Doc($dbaccess, $pid);
+	if ($pdoc->isAlive()) {
+	  $tcr[$nline]["msg"]=sprintf(_("change profil %s"),$data[1]);	  
+	  if ($analyze) continue;
+	  if ($pdoc->profid != $pid) {
+	    $pdoc->setProfil($pid);
+	    $pdoc->SetControl(false);
+	    $pdoc->disableEditControl(); // need because new profil is not enable yet
+	    $tcr[$nline]["err"]= $pdoc-> Modify();  
+	  }
+	  $tacls=array_slice($data, 2); 
+	  foreach ($tacls as $acl) {
+	    if (ereg("([a-z]+)=(.*)",$acl, $reg)) {
+	      $tuid= explode(",",$reg[2]);
+	      $perr="";
+	      foreach ($tuid as $uid) {
+		$perr.=$pdoc->AddControl($uid,$reg[1]);
+	      }
+	      $tcr[$nline]["err"]=$perr;
+	    }
+	  }
+	  
+	  
+	} else {
+	  $tcr[$nline]["err"]=sprintf(_("profil id unkonow %s"),$data[1]);
+	}
+      }
       
       break;
     default:
@@ -380,6 +430,12 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   $doc->fromid = $fromid;
   $tcr["familyid"]=$doc->fromid;
   if  ($data[2] > 0) $doc->id= $data[2]; // static id
+  elseif (trim($data[2]) != "") {
+    $doc->name=trim($data[2]); // logical name
+    $docid=getIdFromName($dbaccess,$doc->name,$fromid);
+    if ($docid > 0) $doc->id=$docid;
+  }
+
   if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) {
     $tcr["action"]="added";
     
