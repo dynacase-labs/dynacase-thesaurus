@@ -35,16 +35,16 @@ function wgcal_storeevent(&$action) {
   $err .= $event->setValue("CALEV_TIMETYPE", 0);
   $err .= $event->setValue("CALEV_START", date2db($ds));
   $err .= $event->setValue("CALEV_END", date2db($de));
-  if (GetHttpVars("allday", "") == "on") {
-    $err .= $event->setValue("CALEV_TIMETYPE", 2);
-    $err .= $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
-    $err .= $event->setValue("CALEV_END", date2db($ds, false)." 23:59");
   }
   if (GetHttpVars("nohour", "") == "on") {
     $err .= $event->setValue("CALEV_TIMETYPE", 1);
     $err .= $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
     $err .= $event->setValue("CALEV_END", date2db($ds, false)." 00:00");
   }
+  if (GetHttpVars("allday", "") == "on") {
+    $err .= $event->setValue("CALEV_TIMETYPE", 2);
+    $err .= $event->setValue("CALEV_START", date2db($ds, false)." 00:00");
+    $err .= $event->setValue("CALEV_END", date2db($ds, false)." 23:59");
   
   $err .= $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
   

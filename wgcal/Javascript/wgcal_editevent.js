@@ -3,6 +3,10 @@
  **
  **
 */
+/*
+ * Global mode 
+ */
+var ROMode = false;
 
 function swstate(s) {
   if (s==1) return 0;
@@ -68,6 +72,7 @@ function CheckIfUpdate(id, dalert) {
 }
 
 function ChangeAlarm() {
+  if (ROMode) return;
   chk = document.getElementById('AlarmCheck');
   alrm = document.getElementById('AlarmVis');
   chk.checked =  (chk.checked ? "" : "checked" );
@@ -77,7 +82,7 @@ function ChangeAlarm() {
 
 
 
-function ChangeNoHour(init, cstate) {
+function ChangeNoHour() {
 
   nohour = document.getElementById('nohour');
   allday = document.getElementById('allday');
@@ -87,9 +92,7 @@ function ChangeNoHour(init, cstate) {
   hend2 = document.getElementById('end_hour2');
   hend3 = document.getElementById('end_hour3');
 
-  if (!init) cstate =  (nohour.checked ? 0 : 1 );
-  if (cstate == 1) {
-    nohour.checked = true; 
+  if (nohour.checked) {
     allday.checked = false;
     tallday.style.visibility = 'hidden';
     hend1.style.visibility = 'hidden';
@@ -97,7 +100,6 @@ function ChangeNoHour(init, cstate) {
     hend3.style.visibility = 'hidden';
     hstart.style.visibility = 'hidden';
   } else {
-    nohour.checked = false;
     tallday.style.visibility = 'visible';
     hend1.style.visibility = 'visible';
     hend2.style.visibility = 'visible';
@@ -115,7 +117,7 @@ function SetSelectedItem(from, to) {
    }
 }
 
-function ChangeAllDay(init, cstate) {
+function ChangeAllDay() {
 
   nohour = document.getElementById('nohour');
   tnohour = document.getElementById('tnohour');
@@ -125,9 +127,7 @@ function ChangeAllDay(init, cstate) {
   hend2 = document.getElementById('end_hour2');
   hend3 = document.getElementById('end_hour3');
 
-  if (!init) cstate =  (allday.checked ? 0 : 1 );
-  if (cstate == 1) {
-    allday.checked = true; 
+  if (allday.checked) {
     nohour.checked = false;
     tnohour.style.visibility = 'hidden';
     hend1.style.visibility = 'hidden';
@@ -135,7 +135,6 @@ function ChangeAllDay(init, cstate) {
     hend3.style.visibility = 'hidden';
     hstart.style.visibility = 'hidden';
   } else {
-    allday.checked = false;
     tnohour.style.visibility = 'visible';
     hend1.style.visibility = 'visible';
     hend2.style.visibility = 'visible';
@@ -205,8 +204,10 @@ function refreshAttendees() {
   }
   if (showtab) {
     vress.style.display = '';
-    vdispo.style.display = '';
-    vdelall.style.display = '';
+    if (!ROMode) {
+      vdispo.style.display = '';
+      vdelall.style.display = '';
+    }
   }  else {
     vress.style.display = 'none';
     vdispo.style.display = 'none';
@@ -223,6 +224,8 @@ function getAttendeeIdx(aid) {
   return idx;
 }
       
+function SetModeRo(b) { ROMode = b; }
+
 function addRessource(rid, rtitle, ricon, rstate) {
   if (getAttendeeIdx(rid)!=-1) {
     return;
@@ -334,6 +337,7 @@ function delExclDate() {
 
 
 
+
 function ViewElement(eCheck, eDisplay) {
   chk = document.getElementById(eCheck);
   zon = document.getElementById(eDisplay);
@@ -409,4 +413,24 @@ function viewattdispo() {
   js.value = cal_to_jd( "CE", td.getFullYear(), td.getMonth()+1, td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
   je.value = parseFloat(js.value) + 14.0;
   f.submit();
+}
+
+function clickB2(idb) {
+  var eb = document.getElementById(idb);
+  if (!eb) return false;
+  eb.checked = (eb.checked ? "" : "checked" );
+  return true;
+}
+function clickB(idb) {
+  if (!ROMode) {
+    return clickB2(idb);
+  }
+  return false;
+}
+
+  
+function setStatus(st, cst) {
+  evst = document.getElementById('evstatus');
+  evst.value = status;
+  document.getElementById('spall').style.border = '1px solid '+cst;
 }

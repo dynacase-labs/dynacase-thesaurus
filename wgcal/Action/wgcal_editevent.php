@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.23 2005/02/08 11:32:24 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.24 2005/02/08 18:04:23 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -74,7 +74,7 @@ function wgcal_editevent(&$action) {
     $withme = false;
     foreach ($attendees as $k => $v) {
       if ($v == $action->user->fid) {
-	$ecstatus = ($evstatus == EVST_NEW ? EVST_READ : $evstatus);
+	$evstatus = ($evstatus == EVST_NEW ? EVST_READ : $evstatus);
 	$withme = true;
       } else {
 	$u = new Doc($action->GetParam("FREEDOM_DB"), $v);
@@ -134,6 +134,7 @@ function wgcal_editevent(&$action) {
   // Compute ro mode & rostatus mode
   $ro = true;
   if ($action->user->fid == $ownerid) $ro = false;
+  $action->lay->set("ROMode", ($ro?"true":"false"));
   $rostatus = true;
   if ($evid!=-1) {
     foreach ($attendees as $k => $v) {
@@ -177,11 +178,14 @@ function EventSetDescr(&$action, $text, $ro) {
 
 function EventSetDate(&$action,  $dstart, $dend, $type, $ro) 
 {
-
-  $action->lay->set("ALLDAY", ($type==1?1:0));
-  $action->lay->set("ALLDAYRO", ($ro?"disabled":""));
-  $action->lay->set("NOHOUR", ($type==2?1:0));
+  $action->lay->set("NOHOURINIT", ($type==1?"checked":""));
   $action->lay->set("NOHOURRO", ($ro?"disabled":""));
+  $action->lay->set("NOHOURDISP", ($type==2?"hidden":"visible"));
+  $action->lay->set("ALLDAYINIT", ($type==2?"checked":""));
+  $action->lay->set("ALLDAYRO", ($ro?"disabled":""));
+  $action->lay->set("ALLDAYDISP", ($type==1?"hidden":"visible"));
+  if ($type==1 || $type==2) $action->lay->set("HVISIBLE", "hidden");
+  else $action->lay->set("HVISIBLE", "visible");
   
   
   $start_y = strftime("%Y", $dstart);
@@ -245,18 +249,29 @@ function EventSetCalendar(&$action, $cal, $ro) {
 }
 
 function EventSetStatus(&$action, $status, $ro) {
-  $acal = CAL_getEventStates($action->GetParam("FREEDOM_DB"), "");
+  $acal = WGCalGetState($action->GetParam("FREEDOM_DB"), "");
   $action->lay->set("evstatus", $status);
   $ic = 0;
-  foreach ($acal as $k => $v) {
-    if ($status!=0 && $k==0) continue;
-    $tconf[$ic]["value"] = $k;
-    $tconf[$ic]["descr"] = $v;
-    $tconf[$ic]["selected"] = ($status==$k?"selected":"");
-    $ic++;
+  if ($ro) {
+    $tconf[$ic]["iState"] = $ic;
+    $tconf[$ic]["vState"] = $status;
+    $tconf[$ic]["rState"] = "disabled";
+    $tconf[$ic]["tState"] = WGCalGetLabelState($status);
+    $tconf[$ic]["cState"] = WGCalGetColorState($status);
+    $tconf[$ic]["sState"] = "checked";
+  } else {
+    foreach ($acal as $k => $v) {
+      if ($k==EVST_NEW || $k==EVST_READ) continue;
+      $tconf[$ic]["iState"] = $k;
+      $tconf[$ic]["vState"] = $k;
+      $tconf[$ic]["rState"] = "";
+      $tconf[$ic]["tState"] = WGCalGetLabelState($k);
+      $tconf[$ic]["cState"] = WGCalGetColorState($k);
+      $tconf[$ic]["sState"] = ($k==$status ? "checked" : "");
+      $ic++;
+    }
   }
-  $action->lay->SetBlockData("RVSTATUS", $tconf);
-  $action->lay->set("rvstaro", ($ro?"disabled":""));
+  $action->lay->SetBlockData("STATUSZ", $tconf);
 }
   
 function EventSetAlarm(&$action, $alarm, $alarmt, $ro) {
@@ -355,10 +370,11 @@ function EventAddAttendees(&$action, $attendees = array(), $attendeesState = arr
     $action->lay->set("voneatt", "");
     $action->lay->set("vnatt", "");
   }
+  if ($ro) $action->lay->set("voneatt", "none");
   $action->lay->setBlockData("ADD_RESS", $att);
   $action->lay->set("attendeesro", ($ro?"none":""));
   $action->lay->set("WITHME", ($withme?"checked":""));
-  $action->lay->set("WITHMERO", ($ro?"readonly":""));
+  $action->lay->set("WITHMERO", ($ro?"disabled":""));
 }
 
 

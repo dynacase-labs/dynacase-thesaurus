@@ -36,7 +36,7 @@ define(EVST_TBC, 4);
 $EventStateDescr = array( EVST_NEW => array( _('new'), "red" ),
 			  EVST_READ => array( _('read'), "orange" ),
 			  EVST_ACCEPT => array( _('accept'), "#0dff00" ),
-			  EVST_REJECT => array( _('reject'), "black" ),
+			  EVST_REJECT => array( _('reject'), "grey" ),
 			  EVST_TBC => array( _('to be confirmed'), "yellow" ) );
 
 function CAL_getEventStates($dbaccess, $fmt="A") {
