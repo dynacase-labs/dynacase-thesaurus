@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.7 2002/06/19 12:32:35 eric Exp $
+// $Id: modcard.php,v 1.8 2002/07/23 07:29:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,7 +96,8 @@ function modcard(&$action, &$ndocid) {
 	  $oattr=new DocAttr($dbaccess, array($docid,$k));
 	  
 	  $bdvalue->attrid = substr($k,1);
-	  $bdvalue->value = stripslashes($v);
+	  if (is_array($v)) $bdvalue->value = stripslashes(implode("\n",$v));
+	  else $bdvalue->value = stripslashes($v);
 	  if ($v != "") $bdvalue ->Modify(); // only affected value
 	    if ($v == " ") $bdvalue ->Delete();	//($bdvalue->value != "")) { // or reset value
 	      
