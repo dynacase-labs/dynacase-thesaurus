@@ -1,0 +1,29 @@
+#   Autoconf script for authent
+#
+#   Copyright 2000 Yannick Le Briquer <yannick.lebriquer@anakeen.com>
+#
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License
+#   as published by the Free Software Foundation; either version
+#   2 of the License, or (at your option) any later version.
+#
+AC_REVISION($Id: configure.in,v 1.1 2002/03/19 16:00:47 marc Exp $)
+dnl
+dnl Process this file with autoconf to produce a configure script.
+dnl
+AC_PREREQ(2.13)
+AC_INIT(./pam_authent.c)
+AC_SUBST(PACKAGE_VERSION)
+PACKAGE_VERSION=`cat VERSION`
+AC_SUBST(PACKAGE_RELEASE)
+PACKAGE_RELEASE=`cat RELEASE`
+AC_SUBST(PACKAGE_NAME)
+PACKAGE_NAME=pam-authent
+
+AC_PROG_CC
+AC_PROG_CPP
+AC_CHECK_PROG(AR, ar, /usr/bin/ar)
+
+CFLAGS=-O2
+
+AC_OUTPUT(Makefile:Makefile.in pam-authent.spec:pam-authent.spec.in)

@@ -1,0 +1,48 @@
+Summary:            PAM Authentication program
+Name:               @PACKAGE_NAME@
+Version:            @PACKAGE_VERSION@
+Release:            @PACKAGE_RELEASE@
+Group:              Applications/System
+Copyright:          GPL2
+Source0:            %{name}-%{version}.tar.gz
+Vendor:             Anakeen
+Buildroot:          /var/tmp/pam-authent
+BuildArchitectures: i386
+Requires:	    pam_what pam_what_access
+%description
+PAM Authentication program
+
+%package lids
+Summary:        Lids configuration for pam-authent
+Group:          Applications/System
+Requires:       lidsadm >= 0.10
+
+%description lids
+Lids configuration for pam-authent
+
+%prep
+
+%setup -q -n %{name}-%{version}
+
+
+%build
+
+%install
+rm -rf $RPM_BUILD_ROOT
+autoconf ; ./configure 
+make prefix=$RPM_BUILD_ROOT/
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(755,root,root)
+/usr/sbin/pam_authent
+/etc/pam.d/pam-authent
+
+%files lids
+%attr(700,root,root) /etc/lids/lids.init.pam_authent
+
+%changelog
+* Sat Mar 16 2002 Marc Claverie <marc.claverie@anakeen.com>
+- Initial Build

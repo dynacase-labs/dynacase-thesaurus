@@ -1,0 +1,100 @@
+# ------------------------------------------------------------------
+# $Id: Makefile.in,v 1.1 2002/03/19 16:00:47 marc Exp $
+# anakeen 1999   -   marc.claverie@anakeen.com
+# ------------------------------------------------------------------
+# $Log: Makefile.in,v $
+# Revision 1.1  2002/03/19 16:00:47  marc
+# 0.1-1
+#
+#
+
+#OPT=-g -DDEBUG
+CC=@CC@ -Wall
+
+INSTALL_DIR=@exec_prefix@/usr/sbin
+PAM_DIR=@exec_prefix@/etc/pam.d
+LIDS_DIR=@exec_prefix@/etc/lids
+
+PACKAGE_NAME=@PACKAGE_NAME@
+PACKAGE_VERSION=@PACKAGE_VERSION@
+srcdir=@srcdir@
+
+TAR=gtar
+GZIPENV="--best"
+
+TARGETS = $(PAM_DIR)/pam-authent $(LIDS_DIR)/lids.init.pam_authent $(INSTALL_DIR)/pam_authent
+
+DISTFILES=\
+	VERSION RELEASE \
+	pam-authent.spec.in \
+	Makefile.in \
+	configure.in \
+	pam-authent \
+	pam_authent.c \
+	lids.init.pam_authent 
+
+all: $(TARGETS) 
+
+LIBS=-lpam
+INCS=
+
+$(INSTALL_DIR)/pam_authent: pam_authent
+	mkdir -p $(INSTALL_DIR) 
+	install --strip $< $@
+
+pam_authent : pam_authent.c
+	gcc $(CFLAGS) -o $@  $(INCS) $(LIBS) $<
+
+$(PAM_DIR)/pam-authent: pam-authent
+	mkdir -p $(PAM_DIR) 
+	install --mode=644 $< $@
+
+$(LIDS_DIR)/lids.init.pam_authent: lids.init.pam_authent
+	mkdir -p $(LIDS_DIR) 
+	install --mode=600 $< $@
+
+clean:
+	rm -f *~ core *.o *.a Makefile $(EXEC)
+
+distdir = $(PACKAGE_NAME)-$(PACKAGE_VERSION)
+
+distclean: clean
+	rm -f config.log configure Makefile config.cache config.status
+
+dist: $(EXEC) distclean distdir
+	-chmod -R a+r $(distdir)
+	GZIP=$(GZIP_ENV) $(TAR) chozf $(distdir).tar.gz $(distdir)
+	-rm -rf $(distdir)
+
+distdir: $(DISTFILES)
+	-rm -rf $(distdir)
+	mkdir $(distdir)
+	-chmod 777 $(distdir)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	  cp -pr $$d/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+
+rpm : $(PACKAGE_NAME).spec dist
+	@if [ -f ~/.rpmmacros ]; then \
+	  rpmdir=`cat ~/.rpmmacros | grep "%_topdir" | awk '{print $$2}'` ; \
+	else \
+	  echo "%_topdir $$HOME/rpmbuild" > ~/.rpmmacros ; \
+	  rpmdir=$$HOME/rpmbuild ; \
+	fi ; \
+	[ ! -d $$rpmdir/SOURCES ] && mkdir $$rpmdir/SOURCES ; \
+	[ ! -d $$rpmdir/SPECS ] && mkdir $$rpmdir/SPECS ; \
+	echo "Copying $(distdir).tar.gz in $$rpmdir/SOURCES" ; \
+	cp -f $(distdir).tar.gz $$rpmdir/SOURCES ; \
+	echo "Copying $(PACKAGE_NAME).spec in $$rpmdir/SPECS" ; \
+	cp -f $(PACKAGE_NAME).spec $$rpmdir/SPECS ; \
+	cd $$rpmdir/SPECS ; \
+	rpm -ba $(PACKAGE_NAME).spec
+	@echo "RPM done."
