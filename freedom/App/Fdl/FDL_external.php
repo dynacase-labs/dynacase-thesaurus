@@ -24,8 +24,8 @@ function vault_filename($th, $fileid) {
 function gettitle($dbaccess, $docid) {
 
   $doc=new Doc($dbaccess, $docid);
-
-  return array($doc->title);
+  if ($doc->isAffected())  return array($doc->title);
+  return array(" "," "); // suppress
 }
 
 // liste de personnes

@@ -8,4 +8,5 @@ include_once("VAULT/Class.VaultDiskFsStorage.php");
 @include_once("FDL/Class.WDocIncident.php");
 @include_once("FDL/Class.DocUser.php");
 @include_once("FDL/Class.WDocPropo.php");
+@include_once("FDL/Class.DocArticle.php");
 ?>

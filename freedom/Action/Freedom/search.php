@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.8 2002/09/25 08:36:06 eric Exp $
+// $Id: search.php,v 1.9 2002/09/26 08:30:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,7 @@ function search(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $classid=5;
   $sdoc = createDoc($dbaccess,$classid);
-  if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+  if (! $sdoc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
   $sdoc->revision = "0";
   $sdoc->owner = $action->user->id;
   $sdoc->locked = $action->user->id; // lock for next modification

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.8 2002/09/24 15:30:09 eric Exp $
+// $Id: mailcard.php,v 1.9 2002/09/26 08:30:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -89,7 +89,7 @@ function mailcard(&$action) {
 			 "srcfile('\\1')",
 			 $sgen);
 
-    $pfout = "/tmp/$title";
+    $pfout = uniqid("/tmp/$title");
     $fout = fopen($pfout,"w");
     fwrite($fout,$sgen);
     fclose($fout);
@@ -110,7 +110,7 @@ function mailcard(&$action) {
 			 "realfile('\\1')",
 			 $sgen);
 
-    $phtml = "/tmp/$title".".html";
+    $phtml = uniqid("/tmp/$title").".html";
     $fout = fopen($phtml,"w");
     fwrite($fout,$sgen);
     fclose($fout);
@@ -127,7 +127,7 @@ function mailcard(&$action) {
     $cmd .= " -m 'text/html' -e 'quoted-printable' -i mailcard -f '$pfout' ";
   } else if ($format == "pdf") {
     $cmd .= " -/ mixed ";
-    $ftxt = "/tmp/".str_replace(array(" ","/"), "_",$title.".txt");
+    $ftxt = "/tmp/".str_replace(array(" ","/"), "_",uniqid($title).".txt");
     system("echo '$comment' > $ftxt");
     $cmd .= " -m 'text/plain' -e 'quoted-printable' -i comment -f '$ftxt' ";
   }
@@ -187,10 +187,10 @@ function mailcard(&$action) {
 
   if (ereg("pdf",$format, $reg)) {
     // try PDF 
-    $fps= "/tmp/$title.ps";
-    $fpdf= "/tmp/$title.pdf";
+    $fps= uniqid("/tmp/$title")."ps";
+    $fpdf= uniqid("/tmp/$title")."pdf";
     $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $phtml > $fps && ps2pdf $fps $fpdf";
-
+print ($cmdpdf);
     system ($cmdpdf, $status);
 
     if ($status == 0)  {
@@ -202,7 +202,7 @@ function mailcard(&$action) {
     }
   }  
 
-  // print ($cmd);
+   print ($cmd);
   system ($cmd, $status);
 
   if ($status == 0)  {

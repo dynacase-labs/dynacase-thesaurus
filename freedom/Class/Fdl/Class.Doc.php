@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.55 2002/09/25 08:36:06 eric Exp $
+// $Id: Class.Doc.php,v 1.56 2002/09/26 08:30:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.55 2002/09/25 08:36:06 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.56 2002/09/26 08:30:51 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -96,7 +96,7 @@ create table doc ( id int not null,
                    profid int DEFAULT 0,
                    useforprof bool DEFAULT 'f',
                    revdate int,  
-                   comment varchar(1024),
+                   comment text,
                    cprofid int DEFAULT 0,
                    classname varchar(64),
                    state varchar(64),
@@ -1015,6 +1015,7 @@ create unique index i_docir on doc(initid, revision);";
 	// activate plug	
 	$res = call_user_func_array($reg[1], $arg);
 	  
+	//	print $reg[1];print_r2($arg);
 	  
 	if (is_array($res)) {
 	  reset($res);
