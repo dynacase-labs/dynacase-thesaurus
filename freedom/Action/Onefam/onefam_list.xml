@@ -10,6 +10,7 @@
 
 
 [CSS:REF]
+[JS:REF]
 
 
    <style type="text/css">
@@ -19,16 +20,17 @@
  </head>
 
 <body >
-
 [BLOCK SELECTCLASS]
 
- 
-<a href="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_TOGEN&famid=[idcdoc]" target="faminfo">
-<img src="[iconsrc]"  width="50px" height="50px" 
+<p style="margin:0pt;padding:0pt">
+<a  href="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_TOGEN&famid=[idcdoc]" target="faminfo">
+<img border=0 src="[iconsrc]"  width="50px" height="50px" 
      title="[classname]">
-</a><BR>
+</a></p>
 [ENDBLOCK SELECTCLASS]
 
+<input type="button" value="[TEXT:pref...]" title="[TEXT:manage visible families]" 
+       onclick="subwindowm(100,300,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITPREF')">
 
 </body>
 </html>

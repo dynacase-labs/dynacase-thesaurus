@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: onefam_list.php,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Id: onefam_list.php,v 1.2 2002/10/01 14:47:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Onefam/onefam_list.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,13 +30,20 @@ function onefam_list(&$action)
 {
  
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+ 
+  $idsfam = $action->GetParam("ONEFAM_IDS");
 
-  $tclassdoc = GetClassesDoc($dbaccess, $action->user->id);
-  while (list($k,$cdoc)= each ($tclassdoc)) {
+
+  $tidsfam = explode(",",$idsfam);
+
+  $selectclass=array();
+  while (list($k,$cid)= each ($tidsfam)) {
+    $cdoc= new Doc($dbaccess, $cid);
     if ($cdoc->dfldid > 0) {
-    $selectclass[$k]["idcdoc"]=$cdoc->initid;
-    $selectclass[$k]["classname"]=$cdoc->title;
-    $selectclass[$k]["iconsrc"]=$cdoc->getIcon();
+      $selectclass[$k]["idcdoc"]=$cdoc->initid;
+      $selectclass[$k]["classname"]=$cdoc->title;
+      $selectclass[$k]["iconsrc"]=$cdoc->getIcon();
     }
   }
   $action->lay->SetBlockData("SELECTCLASS", $selectclass);

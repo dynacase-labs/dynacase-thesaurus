@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: ONEFAM.app,v 1.1 2002/08/28 09:39:32 eric Exp $
+// $Id: ONEFAM.app,v 1.2 2002/10/01 14:47:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Onefam/ONEFAM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,14 +53,21 @@ $action_desc = array (
    "name"		=>"ONEFAM_LOGO",
    "short_name"		=>N_("familly result"),
    "acl"		=>"ONEFAM_READ"
+  )  ,
+  array( 
+   "name"		=>"ONEFAM_EDITPREF",
+   "short_name"		=>N_("edit preferences"),
+   "acl"		=>"ONEFAM"
+  )  ,
+  array( 
+   "name"		=>"ONEFAM_MODPREF",
+   "short_name"		=>N_("modify preferences"),
+   "acl"		=>"ONEFAM"
   ) 
 );
 
 $app_acl = array (
   
-  array(
-   "name"               =>"ONEFAM_MASTER",
-   "description"        =>N_("Access Onefam Master Management")),
   array(
    "name"               =>"ONEFAM",
    "description"        =>N_("Access To Onefam Management"),
