@@ -8,7 +8,7 @@
 // Version 3.0 developed by Mihai Bazon for InteractiveTools.
 //           http://students.infoiasi.ro/~mishoo
 //
-// $Id: htmlarea.js,v 1.5 2005/01/21 17:42:49 eric Exp $
+// $Id: htmlarea.js,v 1.6 2005/03/18 16:26:54 eric Exp $
 
 // Creates a new HTMLArea object.  Tries to replace the textarea with the given
 // ID with it.
@@ -339,12 +339,14 @@ HTMLArea.prototype._createToolbar = function () {
 
 	this._htmlArea.appendChild(toolbar);
 };
-
+var editors= new Array();
 // Creates the HTMLArea object and replaces the textarea with it.
 HTMLArea.prototype.generate = function () {
 	var editor = this;	// we'll need "this" in some nested functions
 	// get the textarea
 	var textarea = this._textArea;
+
+	editors.push(editor);
 	if (typeof textarea == "string") {
 		// it's not element but ID
 		this._textArea = textarea = document.getElementById(textarea);
@@ -367,7 +369,8 @@ HTMLArea.prototype.generate = function () {
 	// retrieve the HTML on submit
 	HTMLArea._addEvent(textarea.form, "submit", function (event) {
 		editor._formSubmit(HTMLArea.is_ie ? window.event : event);
-	});
+	})
+
 
 	// creates & appends the toolbar
 	this._createToolbar();
