@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_icons.php,v 1.10 2001/11/22 10:00:59 eric Exp $
+// $Id: freedom_icons.php,v 1.11 2001/11/22 17:49:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_icons.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_icons.php,v $
+// Revision 1.11  2001/11/22 17:49:13  eric
+// search doc
+//
 // Revision 1.10  2001/11/22 10:00:59  eric
 // premier pas vers une API pour les popup
 //
@@ -69,6 +72,11 @@ include_once('FREEDOM/Class.QueryDirV.php');
 // -----------------------------------
 function freedom_icons(&$action, $with_abstract=true) {
 // -----------------------------------
+
+
+  // Get all the params      
+  $dirid=GetHttpVars("dirid"); // directory to see
+
 
   $action->log->start("freedom_icons");
   // Set the globals elements
@@ -187,11 +195,12 @@ function freedom_icons(&$action, $with_abstract=true) {
   
       $tdoc[$k]["divid"] = $kdiv;
 
+      $tdoc[$k]["locked"] ="";
       if (($doc->locked > 0) && ($doc->locked == $action->parent->user->id)) $tdoc[$k]["locked"] = $action->GetIcon("clef1.gif",N_("locked"), 20,20);
       else if ($doc->locked > 0) $tdoc[$k]["locked"] = $action->GetIcon("clef2.gif",N_("locked"), 20,20);
       else if ($doc->locked < 0) $tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("fixed"), 20,20);
       else if ($doc->lmodify == "Y") if ($doc->doctype == 'F') $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);
-      else $tdoc[$k]["locked"] ="";
+      
 
       $tdoc[$k]["iconsrc"]= $doc->geticon();
 
@@ -301,7 +310,6 @@ function freedom_icons(&$action, $with_abstract=true) {
   // display popup action
   $tboo[0]["boo"]="";
   $action->lay->SetBlockData("VIEWPROP",$tboo);
-
 
   $action->lay->Set("nbdiv",$kdiv-1);
   $action->lay->SetBlockData("TABLEBODY", $tdoc);

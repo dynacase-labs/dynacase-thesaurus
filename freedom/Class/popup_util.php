@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.1 2001/11/22 10:00:59 eric Exp $
+// $Id: popup_util.php,v 1.2 2001/11/22 17:49:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/popup_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,23 +22,31 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: popup_util.php,v $
+// Revision 1.2  2001/11/22 17:49:13  eric
+// search doc
+//
 // Revision 1.1  2001/11/22 10:00:59  eric
 // premier pas vers une API pour les popup
 //
 
 // layout javascript for popup
-global $lpopup;
-$lpopup = new Layout($action->GetLayoutFile("popup.js"));
-
-  // css pour popup
-  $cssfile=$action->GetLayoutFile("popup.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
 
 
 function popupInit($items) {
   global $lpopup;
   global $menuitems;
+  global $action;
+  global $tmenuaccess;
+
+  $tmenuaccess=array();
+  
+  
+  $lpopup = new Layout($action->GetLayoutFile("popup.js"));
+
+  // css pour popup
+  $cssfile=$action->GetLayoutFile("popup.css");
+  $csslay = new Layout($cssfile,$action);
+  $action->parent->AddCssCode($csslay->gen());
 
   // ------------------------------------------------------
   // definition of popup menu
@@ -48,7 +56,7 @@ function popupInit($items) {
 
     $jsarray .= "'".$imenu."',";
     global ${$imenu} ;
-    ${$imenu} = "v$ki";
+    ${$imenu} = 'v'.$ki;
   }
   // replace last comma by ']'
   $jsarray[strlen($jsarray)-1]="]";
@@ -93,16 +101,24 @@ function popupInvisible($k, $nameid) {
   $tmenuaccess[$k][$$nameid]=2;
 }
 
-
 function popupGen($kdiv) {  
   global $tmenuaccess;
   global $lpopup;
   global $action;
 
+  function vcompare($a, $b) {
+    $na = intval(substr($a,1));
+    $nb = intval(substr($b,1));
+
+    if ($na == $nb) return 0;
+    return ($na < $nb) ? -1 : 1;
+  }
+
   $lpopup->Set("nbdiv",$kdiv-1);
   reset($tmenuaccess);
   while (list($k, $v) = each($tmenuaccess)) {
-    ksort($v);
+    uksort($v, 'vcompare');
+
     $tmenuaccess[$k]["vmenuitems"]="[";
     while (list($ki, $vi) = each($v)) {
       if ($ki[0] == 'v') // its a value

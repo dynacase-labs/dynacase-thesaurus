@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: folders.php,v 1.6 2001/11/22 10:00:59 eric Exp $
+// $Id: folders.php,v 1.7 2001/11/22 17:49:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/folders.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: folders.php,v $
+// Revision 1.7  2001/11/22 17:49:13  eric
+// search doc
+//
 // Revision 1.6  2001/11/22 10:00:59  eric
 // premier pas vers une API pour les popup
 //
@@ -137,6 +140,7 @@ function addfolder($doc, $level) {
 
   $nbfolders++;
 
+  if ($doc->doctype == 'D') {
 
   $ldir = $oqdv->getChildDir($doc->id);
   
@@ -144,9 +148,10 @@ function addfolder($doc, $level) {
   if (count($ldir) > 0 ) {
      
        while (list($k,$v) = each($ldir)) {
-      $ltree .= addfolder($v, $level+1);
+	   $ltree .= addfolder($v, $level+1);
      }
   } 
+  }
   return $ltree;
 }
 

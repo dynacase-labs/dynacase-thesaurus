@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_card.php,v 1.9 2001/11/22 10:00:59 eric Exp $
+// $Id: freedom_card.php,v 1.10 2001/11/22 17:49:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_card.php,v $
+// Revision 1.10  2001/11/22 17:49:13  eric
+// search doc
+//
 // Revision 1.9  2001/11/22 10:00:59  eric
 // premier pas vers une API pour les popup
 //
@@ -208,16 +211,20 @@ function freedom_card(&$action) {
 
 
 
-  // ------------------------------------------------------
-  // definition of popup menu
-  popupInit( array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','cancel'));
 
   $frames= array();
   
 
   
-  if ($abstract) $listattr = $doc->GetAbstractAttributes();
-  else           $listattr = $doc->GetAttributes();
+  if ($abstract){
+    $listattr = $doc->GetAbstractAttributes();    
+    $action->lay->Set("nprop",3);
+  } else {
+    $listattr = $doc->GetAttributes();
+    $action->lay->SetBlockData("ALLPROP",array(array("boo"=>1)));
+    $action->lay->Set("nprop",6);
+    
+  }
   $nattr = count($listattr);
 
 
@@ -371,6 +378,9 @@ function freedom_card(&$action) {
   // define accessibility
   $kdiv=1; // only one division
 
+  // ------------------------------------------------------
+  // definition of popup menu
+  popupInit( array('chicon','editdoc','lockdoc','revise','unlockdoc','editattr','histo','editprof','editcprof','properties','cancel'));
 
 
   $clf = ($doc->CanLockFile() == "");
@@ -411,8 +421,10 @@ function freedom_card(&$action) {
     popupInactive($kdiv,'editprof');
   }
   if ($doc->doctype=="F") popupActive($kdiv,'histo'); 
-  else popupInvisible($kdiv,'histo'); 
+  else popupInvisible($kdiv,'histo');
 
+  if ($abstract) popupActive($kdiv,'properties'); 
+  else popupInvisible($kdiv,'properties'); 
 
 
   if ($doc->doctype!="C") popupInvisible($kdiv,'editcprof'); 

@@ -38,6 +38,8 @@
 <div  id="popupcard" class="popup">
 
 
+
+
 <a href="#" id="chicon"     
     onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=QUERYFILE&id='+docid,'doc_properties');closeMenu('popupcard');">
 [TEXT: change icon]</a>
@@ -67,6 +69,9 @@
 <a href="#" id="editcprof"
     onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=EDITPROF&create=1&id='+docid,'doc_properties');closeMenu('popupcard')" >[TEXT: change creation profile]</a>
 
+<a href="#" id="properties"     
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+docid,'doc_properties');closeMenu('popupcard');">
+[TEXT: view properties]</a>
 
 <a href="#" id="cancel"  
     onClick="closeMenu('popupcard')"  >cancel</a>
@@ -101,34 +106,36 @@
 
 <tr><td class="FREEDOMTblFrame" colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr>
-  <td class = "tdstyle" width="10%" align="center" rowspan="6">
+  <td class = "tdstyle" width="10%" align="center" rowspan="[nprop]">
     <a href="[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id=[cid]"><IMG id="1"  border="0" title="[iconalt]" alt="[iconalt]" align="absbottom" width="50" SRC="[iconsrc]"><br>
      <span class="FREEDOMTextValue" style="font-size:50%">[classtitle]</span></a>
-  </td>
-  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:reference]</span></td>
-  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[reference]</span></td>
-</tr>
-<tr>
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:author]</span></td>
   <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[username]</span></td>
+  </td>
 </tr>
 <tr>
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:revision]</span></td>
   <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[revision]</span></td>
 </tr>
 <tr>
+  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:locked by]</span></td>
+  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[locked]</span></td>
+</tr>
+[BLOCK ALLPROP]
+<tr>
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:revision date]</span></td>
   <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[revdate]</span></td>
 </tr>
 
 <tr>
-  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:locked by]</span></td>
-  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[locked]</span></td>
-</tr>
-<tr>
   <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT: profile access]</span></td>
   <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[profile]</span></td>
 </tr>
+<tr>
+  <td class = "tdstyle" width="30%"><span class="FREEDOMTextName">[TEXT:reference]</span></td>
+  <td class = "tdstyle" width="60%"><span class="FREEDOMTextValue">[reference]</span></td>
+</tr>
+[ENDBLOCK ALLPROP]
 
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]

@@ -181,7 +181,7 @@ aux0 = gFld("<i>[reptitle]</i>", "#","[dirid]")
 <a href="#" id="vprop"
     onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_CARD&id='+dirid,'doc_properties');closeMenu('popfld')">[TEXT: properties] </a>
 <a href="#" id="mkdir"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&classid=2&dirid='+dirid,'doc_properties');closeMenu('popfld')">
+    onClick="activate(this,'[CORE_STANDURL]&app=[FREEDOM_APP]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'doc_properties');closeMenu('popfld')">
 [TEXT: create subfolder]</a>
 <a href="#" id="cancel"  
     onClick="closeMenu('popfld')"  >cancel</a>

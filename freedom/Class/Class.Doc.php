@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.10 2001/11/22 10:00:59 eric Exp $
+// $Id: Class.Doc.php,v 1.11 2001/11/22 17:49:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.Doc.php,v $
+// Revision 1.11  2001/11/22 17:49:13  eric
+// search doc
+//
 // Revision 1.10  2001/11/22 10:00:59  eric
 // premier pas vers une API pour les popup
 //
@@ -56,7 +59,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.10 2001/11/22 10:00:59 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.Doc.php,v 1.11 2001/11/22 17:49:13 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -138,7 +141,7 @@ create sequence seq_id_doc start 10";
     $this->id=2;
     $this->initid=$this->id;
     $this->owner=1; //admin
-    $this->title=N_("directory class");
+    $this->title=N_("directory familly");
     $this->revision="0";
     $this->doctype='C'; //  class type        
     $this->Add();
@@ -155,7 +158,7 @@ create sequence seq_id_doc start 10";
     $this->fromid=1; // from basic doc
     $this->initid=$this->id;
     $this->owner=1; //admin
-    $this->title=N_("profile documentation access class");
+    $this->title=N_("profile documentation access familly");
     $this->revision="0";
     $this->doctype='C'; //  class type        
     $this->Add();
@@ -172,7 +175,41 @@ create sequence seq_id_doc start 10";
     $this->initid=$this->id;
     $this->fromid=2; // from directory
     $this->owner=1; //admin
-    $this->title=N_("profile directory access class");
+    $this->title=N_("profile directory access familly");
+    $this->revision="0";
+    $this->doctype='C'; //  class type        
+    $this->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->labeltext=_("title");
+    $oattr->title = "Y";
+    $oattr->abstract = "N";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+    // 같같같같같같같같같같같같같같같같같같같같
+    $this->id=5;
+    $this->initid=$this->id;    
+    $this->fromid=0; // from nothing
+    $this->owner=1; //admin
+    $this->title=N_("search familly");
+    $this->revision="0";
+    $this->doctype='C'; //  class type        
+    $this->Add();
+
+    $oattr=new DocAttr($this->dbaccess);
+    $oattr->labeltext=_("title");
+    $oattr->title = "Y";
+    $oattr->abstract = "N";
+    $oattr->docid = $this->initid;
+    $oattr ->Add();
+
+    // 같같같같같같같같같같같같같같같같같같같같
+    $this->id=6;
+    $this->initid=$this->id;    
+    $this->fromid=5; // from search
+    $this->owner=1; //admin
+    $this->title=N_("profile search familly");
     $this->revision="0";
     $this->doctype='C'; //  class type        
     $this->Add();
@@ -430,7 +467,11 @@ create sequence seq_id_doc start 10";
       switch ($classid) {
       case 3:
       case 4:
-	$query->AddQuery("(id = 3) OR (id = 4)");
+      case 6:
+	$query->AddQuery("(id = 3) OR (id = 4) OR (id = 6)");
+      break;
+      case 5:
+	$query->AddQuery("(id = 5)");
       break;
       case 2:
 	$query->AddQuery("(id = 2)");

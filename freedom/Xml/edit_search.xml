@@ -1,0 +1,51 @@
+
+<!-- HEAD HTML -->
+
+<html>
+  <head>
+
+   <title>[TEXT:edition: ] [TITLE]</title>
+
+   <style>
+[ZONE CORE:GENCSS]
+   </style>
+
+
+[CSS:REF]
+
+
+   <style type="text/css">
+[CSS:CODE]
+   </style>
+
+[JS:REF]
+
+   <script language="JavaScript">
+  <!--
+    [JS:CODE]
+  //-->
+   </script>   
+
+
+
+ </head>
+
+<body class="freedom">
+
+                         
+
+
+<!-- Title Table -->
+<form  target="info" class="fborder" name="search" method="POST" action="[CORE_STANDURL]&app=[FREEDOM_APP]&action=SEARCH" >
+
+      <input type="text" name="keyword"></input>
+
+ <input type="hidden" name="dirid" value="[dirid]" > 
+
+ <input type="submit" value="[TEXT: send search]" > 
+ 
+</form>
+<!--  FOOT HTML -->
+
+</body>
+</html>

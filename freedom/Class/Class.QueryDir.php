@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDir.php,v 1.4 2001/11/21 17:03:54 eric Exp $
+// $Id: Class.QueryDir.php,v 1.5 2001/11/22 17:49:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDir.php,v $
+// Revision 1.5  2001/11/22 17:49:13  eric
+// search doc
+//
 // Revision 1.4  2001/11/21 17:03:54  eric
 // modif pour création nouvelle famille
 //
@@ -38,7 +41,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.4 2001/11/21 17:03:54 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.5 2001/11/22 17:49:13 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -89,7 +92,7 @@ create sequence seq_id_qdoc start 10";
       $tableid = array();
       $query = new QueryDb($this->dbaccess,"QueryDir");
       
-      $tableq=$query->Query(0,0,"LIST",$this->query);
+      $tableq=$query->Query(0,0,"TABLE",$this->query);
       if ($query->nb > 0)
       {
 	$oqdv = new QueryDirV($this->dbaccess);
@@ -97,7 +100,7 @@ create sequence seq_id_qdoc start 10";
 	$oqdv->dirid = $dir->initid;
 	while(list($k,$v) = each($tableq)) 
 	  {
-	    $oqdv->childid = $v->id;
+	    $oqdv->childid = $v["id"];
 	    $oqdv->qid = $this->id;
 	    $err = $oqdv->Add();
 	    if ($err != "") return $err;
@@ -127,23 +130,50 @@ create sequence seq_id_qdoc start 10";
       if (is_array($lqd)) {
       while(list($k,$dq) = each($lqd)) {
 
-	$tableq=$query->Query(0,0,"LIST",$dq->query);
+	$tableq=$query->Query(0,0,"TABLE",$dq->query);
 	if ($query->nb > 0)
 	  {
 	    $oqdv->dirid = $dir->initid;
 	    while(list($k,$v) = each($tableq)) 
 	      {
 	
-		$oqdv->childid = $v->id;
+		$oqdv->childid = $v["id"];
 		$oqdv->qid = $dq->id;
 		$oqdv->Add();
 	      }
+	  
 	  }
       }
 
       }
     }
   
+
+
+  // --------------------------------------------------------------------
+  function DeleteDir($dirid)
+    // --------------------------------------------------------------------    
+    {
+      // refresh values of QueryDirV table
+      $dir = new Doc($this->dbaccess,$dirid);// use initial id for directories
+      $oqdv = new QueryDirV($this->dbaccess,$dir->initid);
+      $oqdv-> Delete();
+
+      $querydir = new QueryDb($this->dbaccess,"QueryDir");
+      $querydir->AddQuery("dirid=$dirid");
+      $lqd=$querydir->Query();
+      
+
+      $query = new QueryDb($this->dbaccess,"QueryDir");
+      $oqdv = new QueryDirV($this->dbaccess);
+
+      if (is_array($lqd)) {
+	while(list($k,$dq) = each($lqd)) {
+	  $dq->delete();
+	}      
+      }
+    }
+
 
 }
 ?>

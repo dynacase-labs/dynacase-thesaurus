@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.7 2001/11/21 14:28:19 eric Exp $
+// $Id: FREEDOM.app,v 1.8 2001/11/22 17:49:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Attic/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEDOM.app,v $
+// Revision 1.8  2001/11/22 17:49:12  eric
+// search doc
+//
 // Revision 1.7  2001/11/21 14:28:19  eric
 // double click : first file export
 //
@@ -205,8 +208,18 @@ $action_desc = array (
   ) ,
   array( 
    "name"		=>"CHANGEICON",
-   "short_name"		=>N_("change icon file"),
+   "short_name"		=>N_("change icon document"),
    "acl"		=>"FREEDOM"
+  ) ,
+  array( 
+   "name"		=>"SEARCH",
+   "short_name"		=>N_("search document"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"EDIT_SEARCH",
+   "short_name"		=>N_("search document criteria"),
+   "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
    "name"		=>"QUERYFILE",

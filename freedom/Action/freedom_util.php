@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_util.php,v 1.3 2001/11/21 08:38:58 eric Exp $
+// $Id: freedom_util.php,v 1.4 2001/11/22 17:49:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Attic/freedom_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,6 +23,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: freedom_util.php,v $
+// Revision 1.4  2001/11/22 17:49:13  eric
+// search doc
+//
 // Revision 1.3  2001/11/21 08:38:58  eric
 // ajout historique + modif sur control object
 //
@@ -250,17 +253,16 @@ function newDoc($dbaccess, $id='',$res='',$dbid=0) {
   } else if ($res != '') $doctype=$res["doctype"];
 	    
   switch ($doctype) {
-    case "D":
-      include_once("FREEDOM/Class.Dir.php");
+  case "D":
+    include_once("FREEDOM/Class.Dir.php");
       return (new Dir($dbaccess, $id, $res, $dbid));
-      //	  case "P":
-      //include_once("FREEDOM/Class.Profil.php");
-      // return (new Profil($dbaccess, $id));
-    default:
-      include_once("FREEDOM/Class.DocFile.php");
-      return (new DocFile($dbaccess, $id, $res, $dbid));
-	  
-    }
+  case "S":
+    include_once("FREEDOM/Class.DocSearch.php");
+    return (new DocSearch($dbaccess, $id, $res, $dbid));
+  default:
+    include_once("FREEDOM/Class.DocFile.php");
+    return (new DocFile($dbaccess, $id, $res, $dbid));	  
+  }
 } 
 
 

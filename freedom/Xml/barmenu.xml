@@ -58,7 +58,7 @@
 <a  href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=REFRESHDIR&dirid='+parent.list.document.dirid">[refresh]</a>
      
      <a target="helpwhat" href="[CORE_STANDURL]app=HELP&action=VIEW&id=freedom.gen"><img alt="[TEXT:help]" title="[TEXT:help]" border="0" src="[IMG:help.gif]"></a>
-     <a  href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=DEFATTR&classid=1&id=0&dirid='+parent.list.document.dirid">[new family]</a>
+     <a  href="#" onClick="parent.info.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=DEFATTR&classid=1&id=0&dirid='+parent.list.document.dirid">[new family]</a>  <a  href="#" onClick="parent.doc_properties.location.href='[CORE_STANDURL]app=[FREEDOM_APP]&action=EDIT_SEARCH&keyword=zz&dirid='+parent.list.document.dirid">[new search]</a>
 </td>
 </tr>
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.QueryDirV.php,v 1.6 2001/11/21 17:03:54 eric Exp $
+// $Id: Class.QueryDirV.php,v 1.7 2001/11/22 17:49:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Attic/Class.QueryDirV.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.QueryDirV.php,v $
+// Revision 1.7  2001/11/22 17:49:13  eric
+// search doc
+//
 // Revision 1.6  2001/11/21 17:03:54  eric
 // modif pour création nouvelle famille
 //
@@ -44,7 +47,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.6 2001/11/21 17:03:54 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.QueryDirV.php,v 1.7 2001/11/22 17:49:13 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -176,7 +179,7 @@ create table dirv ( dirid      int not null,
 
   function getChildDir($dirid) {
     // query to find child directories (no recursive - only in the specified folder)
-    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  (t0.doctype='D') and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and  (t2.dirid=$dirid) and (not useforprof);";
+    $qsql= "select distinct on (t0.id) t0.*, t0.oid from doc t0,dirv t1,dirq t2  where  ((t0.doctype='D') OR (t0.doctype='S')) and (t2.id=t1.qid) and  (t2.dirid=t1.dirid) and  (t0.id=t1.childid) and  (t2.dirid=$dirid) and (not useforprof);";
 
 
     $tableid = array();
@@ -188,7 +191,6 @@ create table dirv ( dirid      int not null,
       {
 	while(list($k,$v) = each($tableq)) 
 	  {
-	   
 	      $tableid[] = $v;
 	  }
 	unset ($tableq);
