@@ -3,7 +3,10 @@
 [JS:REF]
 <script>
 if (window.parent) {
-  if (parseInt('[id]')>0) window.parent.document.modifydoc.id.value=[id];
+  if (parseInt('[id]')>0) {
+    window.parent.document.modifydoc.id.value=[id];
+    window.parent.document.getElementById('iSubmit').value='[TEXT:Save]';
+  }
   window.parent.viewwait(false);
 }
     [JS:CODE] 
