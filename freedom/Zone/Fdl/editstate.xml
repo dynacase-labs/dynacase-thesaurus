@@ -12,14 +12,16 @@ var WattrNtitle=new Array([Wattrntitle]);
 <tr class="FREEDOMBack2" onmouseover="askForTransition(event);">
   <td style="width:50%" align="right">
  <label class="FREEDOMTextTitle" for="newstate">[TEXT:state] <i>[initstatename]</i> [TEXT:to]</label>
- <select id="seltrans" name="newstate" onchange="askForTransition(event);if (this.selectedIndex > 0) {document.getElementById('comment').style.visibility='';} else document.getElementById('comment').style.visibility='hidden';"> 
+ <select id="seltrans" name="newstate" onchange="askForTransition(event);"> 
+[BLOCK UNCHANGE]
  <option VALUE="-" >[TEXT:unchanged]</option> 
+[ENDBLOCK UNCHANGE]
 [BLOCK NEWSTATE]
  <option VALUE="[statevalue]" [checked]>[statename]</option>  
 [ENDBLOCK NEWSTATE]
   </select>
   </td><td colspan="2">
-  <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:hidden"></textarea>
+  <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:[dcomment]"></textarea>
   </td>
 </tr>
 [ENDBLOCK LISTSTATE]
@@ -30,11 +32,11 @@ var WattrNtitle=new Array([Wattrntitle]);
  <input id="seltrans" name="newstate" value="[dstate]" type="hidden"> 
 
 [BLOCK NEWSTATE]
-<input type="submit" class="[dsubmit]" title="[TEXT:to] [statename]" value="[tostatename]" onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event);document.getElementById('comment').style.visibility=''">
+<input type="submit" class="[dsubmit]" title="[TEXT:to] [statename]" value="[tostatename]" onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event);">
 [ENDBLOCK NEWSTATE]
-<input type="submit" value="[TEXT:Tounchanged]" title="[TEXT:no change state]" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);document.getElementById('comment').style.visibility='hidden'">
+<input type="submit" value="[TEXT:Tounchanged]" style="display:[dvalidate]" title="[TEXT:no change state]" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);">
   </td><td colspan="2">
-  <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:hidden"></textarea>
+  <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:[dcomment]"></textarea>
   </td>
 </tr>
 <script>addEvent(window,"load",mvbuttonsState);</script>
@@ -52,7 +54,7 @@ var WattrNtitle=new Array([Wattrntitle]);
 <tr >
   <td  colspan="3" ><fieldset style="display:none" id="hwfask"><legend style="cursor:pointer" onclick="viewornot('T[key]')">hidden parameters</legend>
 [BLOCK FINPUTS]
-<table style="display:[idisplay]"  id="TWF[aid]">
+<table style="display:[idisplay];"  id="TWF[aid]">
 <tr class="FREEDOMBack1">
   <td width="30%" valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</td>
   <td>[avalue]</td>
@@ -60,9 +62,9 @@ var WattrNtitle=new Array([Wattrntitle]);
 </table>
 [ENDBLOCK FINPUTS]
 </fieldset>
-<fieldset style="position:absolute;top:100px;left:300px;display:none" id="wfask"><legend>[TEXT:Transition parameters]</legend>
-
-</fieldset>
+<div id="dfask" class="contour" style="position:absolute;top:100px;left:300px;display:none">
+<fieldset style="width:auto;display:inline"  id="wfask"><legend>[TEXT:Transition parameters]</legend>
+</fieldset></div>
 
 </td></tr>
 

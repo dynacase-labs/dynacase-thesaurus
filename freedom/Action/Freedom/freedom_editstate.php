@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_editstate.php,v 1.3 2004/10/19 16:09:45 eric Exp $
+ * @version $Id: freedom_editstate.php,v 1.4 2004/10/27 15:36:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -36,6 +36,7 @@ function freedom_editstate(&$action)
     }
     
   } 
+  
 
 }
 

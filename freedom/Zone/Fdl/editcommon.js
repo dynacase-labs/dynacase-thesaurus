@@ -526,6 +526,7 @@ function askForTransition(event) {
   
   var wf=document.getElementById('hwfask');
   var nf=document.getElementById('wfask');
+  var nfd=document.getElementById('dfask');
   var i;
   var ask=new Array();
   var tnf=new Array();
@@ -551,7 +552,10 @@ function askForTransition(event) {
   
 
   if (askState) {
+    // display or not comment area
+    if (state != '-') {document.getElementById('comment').style.visibility='';} else document.getElementById('comment').style.visibility='hidden';
 
+    // move button nodes
     for (i=0;i<nf.childNodes.length;i++) {
       if (nf.childNodes[i].id && (nf.childNodes[i].id.substring(0,3)=="TWF")) tnf.push(nf.childNodes[i]);
     }
@@ -574,37 +578,40 @@ function askForTransition(event) {
       }
     }
     if (ask.length > 0) {
-      xy=getAnchorPosition(th.id);
+      // search table
+      ftable=th.parentNode;
+      while (ftable && ((ftable.tagName!='TABLE')&&(ftable.tagName!='TBODY'))) ftable=ftable.parentNode;
+      if (! ftable) {alert('button edit state not in table');return;}
+      yfoot=AnchorPosition_getPageOffsetTop(ftable);
       GetXY(event);
-      xy.x=Xpos;
-      xy.y=Ypos;
       
-      nf.style.display='none';	
-      nf.style.display='';	// to refresh div
+      nfd.style.display='none';	
+      nfd.style.display='';	// to refresh div
       	
-      nf.style.top='160px';
+      nfd.style.top='160px';
       //nf.style.top='300px';
-      w=getObjectWidth(nf);
-      nx=xy.x-w+40;
+      w=getObjectWidth(nfd);
+      nx=Xpos-w+40;
       if (nx < 0) nx=0;
-      nf.style.left=nx+'px';
-      if (xy.y < 100)  nf.style.top=(xy.y+10)+'px';
-      else {
-
-	h=getObjectHeight(nf);
+      nfd.style.left=nx+'px';
+      if (yfoot < 100) {
+	h=getObjectHeight(ftable);
+	nfd.style.top=(yfoot+10+h)+'px';
+      } else {
 	
 	//	alert(xy.y+'/'+h+'/'+(xy.y-h));
-	nf.style.top=(xy.y-h-10)+'px';
+	hnf=getObjectHeight(nfd);
+	nfd.style.top=(yfoot-hnf)+'px';
 
       }
       if (isNetscape) { // more beautifull
-	  nf.style.position='fixed';//h-=document.body.scrollTop; // fixed position
-	  nf.style.MozOpacity=0.02;
-	  moz_unfade(nf.id);
+	  nfd.style.position='fixed';//h-=document.body.scrollTop; // fixed position
+	  nfd.style.MozOpacity=0.02;
+	  moz_unfade(nfd.id);
 	}
-      nf.style.display='none';	
-      nf.style.display='';	// to refresh div
-    } else nf.style.display='none';
+      nfd.style.display='none';	
+      nfd.style.display='';	// to refresh div
+    } else nfd.style.display='none';
   }
 
 }

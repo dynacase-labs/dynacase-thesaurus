@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.13 2004/10/19 16:09:00 eric Exp $
+ * @version $Id: editstate.php,v 1.14 2004/10/27 15:36:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -53,6 +53,8 @@ function editstate(&$action) {
   $action->lay->set("askes","");
   $action->lay->Set("Wattrnid","");
   $action->lay->Set("Wattrntitle","");
+  $action->lay->Set("dcomment","hidden");
+  $action->lay->set("dvalidate","");
   if (($usefor!="D")&&($usefor!="Q")) {
   
     if ($doc->wid > 0) {
@@ -60,6 +62,12 @@ function editstate(&$action) {
       $wdoc = new Doc($dbaccess,$doc->wid);
       $wdoc->Set($doc);
 
+
+      if (in_array($doc->state,$wdoc->nosave)) {
+	$action->lay->set("dvalidate","none"); // don't see validate button if we want force change state
+      } else {
+	$action->lay->setBlockData("UNCHANGE",array(array("zou")));
+      }
       $fstate = $wdoc->GetFollowingStates();
       $tjsstate=array();
       $tjstransid=array();
@@ -77,6 +85,7 @@ function editstate(&$action) {
 	if ($v==$dstate) {
 	  $tstate[$k]["checked"]="selected";
 	  $action->lay->Set("dstate",$dstate);
+	  $action->lay->Set("dcomment","visible");
 	  $tstate[$k]["dsubmit"]="dsubmit";
 	} else {
 	  $tstate[$k]["checked"]="";
@@ -96,8 +105,11 @@ function editstate(&$action) {
       $action->lay->set("ttransid","'".implode("','",$tjstransid)."'");
       $action->lay->set("askes","".strtolower(implode(",",$tjsaskes))."");
       $action->lay->SetBlockData("NEWSTATE", $tstate);
-      if ($wdoc->viewlist=="button")$action->lay->SetBlockData("BUTTONSTATE", array(0=>array("boo")));
-      else $action->lay->SetBlockData("LISTSTATE", array(0=>array("boo")));
+      if ($wdoc->viewlist=="button") {
+	$action->lay->SetBlockData("BUTTONSTATE", array(0=>array("boo")));
+      } else {
+	$action->lay->SetBlockData("LISTSTATE", array(0=>array("boo")));
+      }
       $task=array();
       $tneed=array();
       $tinputs=array();
@@ -125,7 +137,12 @@ function editstate(&$action) {
       }
     
     }
-    if ($wneed) setNeededAttributes($action,$doc);
+    if ($wneed) {      
+      setNeededAttributes($action,$doc);
+      if ($wdoc->viewlist=="button") {	
+	$action->lay->set("dvalidate","none");
+      }
+    }
   }
         
 }

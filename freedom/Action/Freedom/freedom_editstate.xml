@@ -42,16 +42,20 @@
 
 
 <table id="fixtablehead" class="[tablehead]"   cellspacing="0" width="100%">
-     
+<thead>     
 <tr class="FREEDOMBack1">
   <td colspan="3"><span class="FREEDOMTextBigTitle">[title]</span>  </td>
-</tr>       
+</tr></thead>
+<tbody>
 [ZONE FDL:EDITSTATE?wneed=Y]  
+</tbody>
+<tfoot>
 <tr >
-  <td  colspan="3" align="right" id="editbutton"><input id="iSubmit" type="submit" value="[TEXT:Change State]" onmousedown="multiple_for_select();" >
+  <td  colspan="3" align="right" id="editbutton"><input id="iSubmit" type="submit" value="[TEXT:Change State]"  onmousedown="multiple_for_select();" >
     <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[docid]';"> 
   </td>
 </tr>
+</tfoot>
 </table> 
 <div id="fixspanhead" style="visibility:hidden;padding:0px;margin:0px;"></div>
 
