@@ -143,6 +143,8 @@ ATTR;GRP_GROUPS;GRP_FR;sous groupes;N;N;array;540;H;;;;;;
 DEFAULT;FLD_ALLBUT;1;;;;;;;;;;;;
 DEFAULT;FLD_FAMIDS;127\n128;;;;;;;;;;;;
 DEFAULT;FLD_FAM;groupe intranet\npersonne intranet;;;;;;;;;;;;
+DEFAULT;US_IDDOMAIN;1;;;;;;;;;;;;
+DEFAULT;US_DOMAIN;local;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
 END;0;;;;;;;;;;;;;
 // ;fromid;titre;id;class;name;;;;;;;;;
