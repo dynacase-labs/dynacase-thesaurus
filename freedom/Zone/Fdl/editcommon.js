@@ -3,6 +3,7 @@ var isNetscape = navigator.appName=="Netscape";
 // auxilarry window to select choice
 var wichoose= false;
 
+// current instance
 var colorPick = new ColorPicker();
 initDHTMLAPI();
 
@@ -507,11 +508,15 @@ function checkinput(cid,check) {
 function changeCheckClasses(th) {
   if (th) {
     var icheck=document.getElementsByName(th.name);
-
+    var  needuncheck=false;
     for (var i=0;i<icheck.length;i++) {
       if (icheck[i].checked) icheck[i].parentNode.parentNode.className='checked';
       else icheck[i].parentNode.parentNode.className='';
     }
+    for (var i=0;i<icheck.length-1;i++) {
+      if (icheck[i].checked) needuncheck=true;
+    }
+    icheck[icheck.length-1].checked=(!needuncheck);
   }
 }// change style classes for check bool input
 function changeCheckBoolClasses(th,name) {
@@ -778,6 +783,9 @@ function movetr(tr) {
   }
   return;  
 }
+
+
+
 
 //-----------------------------------------
 function submitinputs(faction, itarget) {
