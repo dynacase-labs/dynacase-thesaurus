@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.PDir.php,v 1.4 2002/11/13 15:49:36 eric Exp $
+// $Id: Class.PDir.php,v 1.5 2003/04/29 16:29:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.PDir.php,v 1.4 2002/11/13 15:49:36 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.PDir.php,v 1.5 2003/04/29 16:29:39 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -32,7 +32,7 @@ Class PDir extends Doc
 {
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
-  var $acls = array("view","edit","delete","open","modify");
+  var $acls = array("view","edit","delete","open","modify","send");
   // --------------------------------------------------------------------
   
   

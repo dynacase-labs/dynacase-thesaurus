@@ -7,13 +7,13 @@
 
 
 <tr >
-  <td  colspan="3"><fieldset style="cursor:[cursor];"><legend>[frametext]</legend>
+  <td ><fieldset style="cursor:[cursor];"><legend>[frametext]</legend>
 <table width="100%"  >
 
 <tr class="FREEDOMBack1">
 
   <td  width="0%" rowspan="[rowspan]" align="center" >[BLOCK [IMAGES]]<A href="[imgsrc]" target="_blank"><IMG border="0" title="[imgalt]" alt="[imgalt]" align="absbottom" width="50" SRC="[imgsrc]"></A><br>[ENDBLOCK [IMAGES]]</td>
-  <td   colspan="2" height="1px"></td>
+  <td   height="1px"></td>
 
 </tr>
 [BLOCK [TABLEVALUE]]

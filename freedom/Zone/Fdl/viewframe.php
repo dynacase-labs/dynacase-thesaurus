@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.11 2003/04/25 14:51:32 eric Exp $
+// $Id: viewframe.php,v 1.12 2003/04/29 16:29:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,7 +76,7 @@ function viewframe(&$action) {
 	if ($v->mvisibility != "H")	{	
 	  // don't see  non abstract if not
 	    if (( !$abstract) || ($v->isInAbstract)) {
-	      $tval[$k]["wvalue"]=($v->type=="array")?"90%":"50%";  // width
+	      $tval[$k]["wvalue"]=($v->type=="array")?"1%":"30%";  // width
 	      $tval[$k]["ndisplay"]=($v->type=="array")?"none":"";  // display alabel ?
 	     
 	      $tval[$k]["alabel"]=  $v->labelText;;

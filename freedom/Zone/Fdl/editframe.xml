@@ -2,13 +2,12 @@
 [BLOCK FRAME]
 
 <tr >
-  <td  colspan="3" ><fieldset><legend>[flabel]</legend>
+  <td  colspan="2" ><fieldset><legend>[flabel]</legend>
 <table width="100%">
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1">
-  <td width="10%">&nbsp;</td>
-  <td width="25%" valign="top" class="[labelclass]">[alabel]</td>
-  <td width="65%" >[avalue]</td>
+  <td width="[winput]" valign="top" class="[labelclass]">[alabel]</td>
+  <td  >[avalue]</td>
 </tr>
 [ENDBLOCK FVALUES]
 </table>

@@ -7,8 +7,8 @@
 <table width="100%" >
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1"><td valign="top" width="10%"&nbsp;</td>
-  <td valign="top"  class="FREEDOMlabel"><span style="display:[ndisplay]">[alabel]&nbsp;:&nbsp;</span></td>
-  <td valign="top" width="[wvalue]" class="FREEDOMText">[avalue]</td>
+  <td valign="top" width="[wvalue]" class="FREEDOMlabel"><span style="display:[ndisplay]">[alabel]&nbsp;:&nbsp;</span></td>
+  <td valign="top"  class="FREEDOMText">[avalue]</td>
 </tr>
 [ENDBLOCK FVALUES]
 </table>

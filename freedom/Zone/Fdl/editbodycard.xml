@@ -16,8 +16,8 @@
             [BLOCK [TABLEVALUE]]
 
 <tr >
-  <td class="[labelclass]" ><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
-  <td  width="[winput]">[inputtype]</td>
+  <td class="[labelclass]"  width="[winput]"><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
+  <td >[inputtype]</td>
 </tr>
            [ENDBLOCK [TABLEVALUE]]
 </table>

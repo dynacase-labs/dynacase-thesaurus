@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: editframe.php,v 1.12 2003/04/25 14:51:32 eric Exp $
+// $Id: editframe.php,v 1.13 2003/04/29 16:29:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -86,6 +86,8 @@ function editframe(&$action) {
       $tval[$k]["avalue"]=  getHtmlInput($doc,
 					 $v, 
 					 $value);
+
+      $tval[$k]["winput"]=($v->type=="array")?"1%":"30%";  // width
       
     }
 	

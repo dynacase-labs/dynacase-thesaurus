@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.119 2003/04/28 12:21:58 eric Exp $
+// $Id: Class.Doc.php,v 1.120 2003/04/29 16:29:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.119 2003/04/28 12:21:58 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.120 2003/04/29 16:29:39 eric Exp $';
 
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
@@ -175,7 +175,10 @@ create unique index i_docir on doc(initid, revision);";
   function PreInsert()
     // --------------------------------------------------------------------
     {
-      $err="";
+
+      $err=$this->PreCreated(); 
+      if ($err != "") return $err;
+      
       // compute new id
       if ($this->id == "") {
 	if ($this->doctype=='T') $res = pg_exec($this->init_dbid(), "select nextval ('seq_id_tdoc')");
@@ -261,6 +264,7 @@ create unique index i_docir on doc(initid, revision);";
   // set next sequence family
   function nextSequence($fromid=0) {
     if ($fromid==0) $fromid=$this->fromid;
+    if ($this->fromid==0)    return 0;
     if ($this->doctype=='C') return 0;
     // cannot use currval if nextval is not use before
     $res = pg_exec($this->init_dbid(), "select nextval ('seq_doc".$fromid."')");   
@@ -293,10 +297,9 @@ create unique index i_docir on doc(initid, revision);";
     }
   }
   // convert to another family
-  function convert($fromid) {
+  function convert($fromid, $prevalues=array()) {
     
     $cdoc = createDoc($this->dbaccess, $fromid);
-    
     if (! $cdoc) return false;
     
     $cdoc->id = $this->id;
@@ -305,9 +308,14 @@ create unique index i_docir on doc(initid, revision);";
     $cdoc->locked=$this->locked;
     $cdoc->comment=$this->comment;
     $values = $this->getValues();
+
     $err=$this->delete(true); // delete before add to avoid double id (it is not authorized)
     if ($err != "") return $err;
 
+    reset($prevalues);
+    while(list($k,$v) = each($prevalues)) {
+      print $cdoc->setValue($k,$v);
+    }
     $err=$cdoc->Add();
     if ($err != "") return $err;
 
@@ -462,6 +470,23 @@ create unique index i_docir on doc(initid, revision);";
 
     
   }
+
+  // --------------------------------------------------------------------
+  // return the latest revision with the indicated state 
+  function getRevisionState($state) {
+  // --------------------------------------------------------------------
+    
+    $ldoc = $this->GetRevisions("TABLE");
+    $vdocid=0;
+    while (list($k,$v) = each($ldoc)) {
+      if (strpos($v["state"], $state)===0) {
+	$vdocid = $v["id"];
+	break;
+      }	  	  
+    }
+    return $vdocid;
+  }    
+
   // --------------------------------------------------------------------
   function DeleteTemporary() {
     // --------------------------------------------------------------------
@@ -489,7 +514,7 @@ create unique index i_docir on doc(initid, revision);";
   function Delete($really=false) {
 
     if ($really) {
-      return(DbObj::delete());
+      if ($this->id != "")  return(DbObj::delete());
     } else {
     $msg=$this->PreDocDelete();
     if ($msg!='') return $msg;
@@ -620,6 +645,7 @@ create unique index i_docir on doc(initid, revision);";
 
   // get LatestId
   function latestId() {
+    if ($this->id == "") return false;
     $rev = $this->GetRevisions("TABLE");
     
     return $rev[0]["id"];
@@ -886,6 +912,11 @@ create unique index i_docir on doc(initid, revision);";
     return "";
   }
 
+  function PreCreated() {
+    // to be defined in child class
+    return "";
+  }
+
 
   // recompute the title from attribute values
   function SetTitle($title) {
@@ -953,12 +984,12 @@ create unique index i_docir on doc(initid, revision);";
       if (!isset($this->$attrid)) $this->$attrid="";
 
       if  ($this->$attrid != $value) 	  {
-	
-	  $this->hasChanged=true;
-	  //   print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
+	$this->hasChanged=true;
+	//   print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
 	
       }
       $this->$attrid=($value); 
+
 	
     }      
   }
@@ -1504,7 +1535,7 @@ create unique index i_docir on doc(initid, revision);";
 
       return $this->controlId($this->profid,$aclname);
     }
-
+    return "";
     return sprintf(_("cannot control : object not initialized : %s"),$aclname);
   }
   
@@ -1566,6 +1597,8 @@ create unique index i_docir on doc(initid, revision);";
     $this->lay = new Layout($reg[1]."/Layout/".strtolower($reg[2]).".xml", $action);
 
     $method = strtolower($reg[2]);
+
+   
     if (method_exists ( $this, $method)) {
       $this->$method($target,$ulink,$abstract);
     } else {
@@ -2011,7 +2044,7 @@ create unique index i_docir on doc(initid, revision);";
 	$label = $listattr[$i]->labelText;
 	$tableframe[$v]["attrid"]=$listattr[$i]->id;
 	$tableframe[$v]["name"]=chop("[TEXT:".$label."]");
-	$tableframe[$v]["winput"]=($listattr[$i]->type=="array")?"100%":"65%";  // width
+	$tableframe[$v]["winput"]=($listattr[$i]->type=="array")?"1%":"30%";  // width
 	$tableframe[$v]["ndisplay"]=($listattr[$i]->type=="array")?"none":"";  // display label
 	if ($listattr[$i]->needed ) $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
 	else $tableframe[$v]["labelclass"]="FREEDOMLabel";
