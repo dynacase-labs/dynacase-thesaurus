@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DocIUser.php,v 1.4 2003/08/01 14:53:58 eric Exp $
+// $Id: Method.DocIUser.php,v 1.5 2003/08/12 16:31:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocIUser.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,7 +35,7 @@
 // Author          Eric Brison	(Anakeen)
 // --------------------------------------------------------------------------
 function SpecRefresh() {
-  _USER::SpecRefresh();
+  $err=_USER::SpecRefresh();
   $this->AddParamRefresh("US_WHATID","US_FNAME,US_LNAME,US_MAIL,US_PASSWD,US_LOGIN,US_GROUP");
 
 
@@ -51,7 +51,7 @@ function SpecRefresh() {
     $this->SetValue("US_PASSWD", $user->password);
     $this->SetValue("US_LOGIN", $user->login);
     $this->SetValue("US_MAIL",getMailAddr($iduser) );
-
+    if ($user->status=='D') $err .= ($err==""?"":"\n")._("user is desactivated");
     // get parent members group
     $tu  = $user->GetGroupsId();
 
@@ -75,6 +75,8 @@ function SpecRefresh() {
   }
   $this->SetValue("US_GROUP", implode("\n",$tglogin));
   $this->SetValue("US_IDGROUP", implode("\n",$tgid));
+
+  return $err;
 }
   
 function GetOtherGroups() {
