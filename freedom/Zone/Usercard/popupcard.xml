@@ -20,7 +20,7 @@
 <a id="vcard" href="[CORE_STANDURL]&app=USERCARD&action=USERCARD_VCARD&id=[id]" >[TEXT:Vcard]</a>
 
 <a href="#" id="properties"     
-    onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View properties]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View all properties]</a>
 
 <a href="#" id="headers"     
     onclick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_CARD&head=yes&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View headers]</a>
