@@ -1,6 +1,6 @@
 
 // ---------------------------------------------------------------
-// $Id: Method.DetailSearch.php,v 1.3 2003/02/07 17:31:49 eric Exp $
+// $Id: Method.DetailSearch.php,v 1.4 2003/04/02 07:34:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.DetailSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -212,14 +212,34 @@ function editdsearch() {
       $tcond[$k]= array("OLCOND"   => "olcond$k",
 			"ATTRCOND" => "attrcond$k",
 			"FUNCCOND" => "funccond$k",
+			"KEYCOND" => "keycond$k",
+			"STATECOND" => "statecond$k",
+			"SSTATE" => "sstate$k",
 			"key" => $v);
     
-      reset($zpi);
       $tattr=array();
-      while (list($ki,$vi) = each($zpi)) {
-	$tattr[]=array("attr_id"=> $vi->id,
-		       "attr_selected" => ($taid[$k]==$vi->id)?"selected":"",
-		       "attr_name" => $vi->labelText);
+      if ($taid[$k]=="state") {
+	$this->lay->SetBlockData("statecond$k", array(array("boo")));
+	reset($states);
+	$tstates=array();
+	while(list($ks,$vs) = each($states)) {
+	  $tstates[] = array("sstateid"=>$vs,
+			     "sstate_selected" => ($vs==$v)?"selected":"",
+			     "sstatename"=>_($vs));
+	}
+	$this->lay->SetBlockData("sstate$k",$tstates );
+	$tattr[]=array("attr_id"=> $taid[$k],
+		       "attr_selected" => "selected",
+		       "attr_name" => _("state"));
+      } else {
+	$this->lay->SetBlockData("keycond$k", array(array("boo")));
+	reset($zpi);
+
+	while (list($ki,$vi) = each($zpi)) {
+	  $tattr[]=array("attr_id"=> $vi->id,
+			 "attr_selected" => ($taid[$k]==$vi->id)?"selected":"",
+			 "attr_name" => $vi->labelText);
+	}
       }
       $this->lay->SetBlockData("attrcond$k", $tattr);
 

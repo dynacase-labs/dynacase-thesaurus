@@ -139,7 +139,17 @@
   [ENDBLOCK [FUNCCOND]]
   </select></td>
 <td class="und"  >
-   <input  type="text"  size=10 name="_se_keys[]" value="[key]"></td>
+  [BLOCK [KEYCOND]]
+   <input  type="text"  size=10 name="_se_keys[]" value="[key]">
+  [ENDBLOCK [KEYCOND]]
+  [BLOCK [STATECOND]]
+
+  <select  name="_se_keys[]" >
+  [BLOCK [SSTATE]]
+     <option  value="[sstateid]" [sstate_selected]>[sstatename]</option>
+  [ENDBLOCK [SSTATE]]
+  </select>
+  [ENDBLOCK [STATECOND]]</td>
 
 </tr>
 [ENDBLOCK CONDITIONS]
