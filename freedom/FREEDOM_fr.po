@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-27 15:49+0100\n"
+	"POT-Creation-Date: 2002-04-03 16:45+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -182,6 +182,9 @@ msgstr	"Ouvrir le dossier"
 msgid	"modify folder"
 msgstr	"modifier le dossier"
 
+msgid	"locked files of "
+msgstr "fichiers verrouillés par "
+
 #, c-format
 msgid	"cannot delete link : link not found for doc %d in folder %d"
 msgstr	"échec de la suppression de la référence (document %d, dossier %d)"
@@ -323,6 +326,324 @@ msgstr	"Incident %s : transition vers %s"
 msgid	"[%s] incident traited"
 msgstr	"[%s] incident traité"
 
+msgid	"error in filename"
+msgstr	"erreur dans le nom de fichier"
+
+msgid	"..."
+msgstr	"..."
+
+#, c-format
+msgid	"Possible file upload attack: filename '%s'."
+msgstr	"Possibilité d'atttaque 'upload' : fichier %s"
+
+msgid	"fixed"
+msgstr	"figé"
+
+msgid	"nobody"
+msgstr	"personne"
+
+msgid	"no family"
+msgstr	"pas de famille"
+
+msgid	"no access control"
+msgstr	"pas de contrôle d'accès"
+
+msgid	"specific control"
+msgstr	"Contrôle dédié"
+
+msgid	"admin"
+msgstr	"administration"
+
+msgid	"import"
+msgstr	"Importer"
+
+msgid	"add"
+msgstr	"Ajouter un nouveau contact"
+
+msgid	"export"
+msgstr	"Exporter les cartes \n"
+	"selon les critères courants"
+
+msgid	"cannot see unknow folder"
+msgstr	"dossier inconnu, ne peut être consulté"
+
+msgid	"locked"
+msgstr	"verrouillé"
+
+msgid	"changed"
+msgstr	"modifié"
+
+msgid	"Freedoms"
+msgstr	"Freedoms"
+
+msgid	"Freedoms Management"
+msgstr	"Administration Freedom"
+
+msgid	"Access To All Users"
+msgstr	"Accès à tous les utilisateurs"
+
+msgid	"Access Management Database"
+msgstr	"Accès administration de la base"
+
+msgid	"Access To My Own account"
+msgstr	"Accès à mon compte"
+
+msgid	"Access To Read Only"
+msgstr	"Accès en lecture seule"
+
+msgid	"Freedoms frame"
+msgstr	"fenêtres freedom"
+
+msgid	"Freedoms list"
+msgstr	"liste freedom"
+
+msgid	"to choose value from set"
+msgstr	"pour choisir une valeur à partir d'un ensemble"
+
+msgid	"query document import"
+msgstr	"demande d'import de document"
+
+msgid	"add document import"
+msgstr	"ajouter un document importé"
+
+msgid	"Freedoms view folder"
+msgstr	"visualisation de contenu de dossier"
+
+msgid	"popup menu"
+msgstr	"popup menu"
+
+msgid	"add file query into directory"
+msgstr	"ajout d'un document dans un dossier"
+
+msgid	"move file query into directory"
+msgstr	"déplacement d'un document dans un dossier"
+
+msgid	"delete file query into directory"
+msgstr	"supprimer un document dans un dossier"
+
+msgid	"folder tree"
+msgstr "arborescence de dossier"
+
+msgid	"expand folder tree"
+msgstr "développer une branche"
+
+msgid	"Freedoms icon list"
+msgstr	"liste sous forme d'icones"
+
+msgid	"bar menu"
+msgstr	"barre de menu"
+
+msgid	"Freedoms card"
+msgstr	"fiche Freedom"
+
+msgid	"duplicate document"
+msgstr	" dupliquer le document"
+
+msgid	"attributes definitions"
+msgstr	"définition des attributs"
+
+msgid	"refresh directory"
+msgstr	"rafraichir le dossier"
+
+msgid	"attributes modification"
+msgstr	"Modification d'attributs"
+
+msgid	"lock file to edit"
+msgstr	"verrouillez le document pour l'éditer"
+
+msgid	"edit profile access"
+msgstr	"édition des profiles d'accès"
+
+msgid	"change profile access"
+msgstr	"changement des profiles d'accès"
+
+msgid	"set the document controlled"
+msgstr	"Mettre le document sous contrôle"
+
+msgid	"abord edition"
+msgstr	"abandon de l'édition"
+
+msgid	"change icon document"
+msgstr	"changer l'icone du document"
+
+msgid	"search document"
+msgstr	"Nouveau document"
+
+msgid	"search document criteria"
+msgstr	"critères de recherche de document"
+
+msgid	"ask for a new file revision"
+msgstr	"demande pour une revision"
+
+msgid	"edit document properties"
+msgstr	"éditer les propriétés du document"
+
+msgid	"add comment before revise document"
+msgstr	"ajouter un commentaire avant de réviser un document"
+
+msgid	"make a new document revision"
+msgstr	"faire une nouvelle révision de document"
+
+msgid	"view history revision"
+msgstr	"voir l'historique"
+
+msgid	"style sheet"
+msgstr	"feuille de style"
+
+msgid	"widget display popup for a description card"
+msgstr	"widget popup pour affichage d'une carte"
+
+msgid	"Freedom modification"
+msgstr	"Modification de documents"
+
+msgid	"Freedom deletion"
+msgstr	"Suppression de documents"
+
+msgid	"Administration"
+msgstr	"Administration"
+
+msgid	"Freedom update title fields"
+msgstr	"mise à jour des champs titre"
+
+msgid	"Freedom accessibilities"
+msgstr	"Droits Freedom"
+
+msgid	"Freedom initialisation"
+msgstr	"Initialisation Freedom"
+
+msgid	"Freedoms lib"
+msgstr	"bibliothèque freedom"
+
+msgid	"Freedoms library"
+msgstr	"bibliothèque freedom"
+
+msgid	"Access Action Library"
+msgstr	"Bibliothèque pour les droits"
+
+msgid	"export folder"
+msgstr	"exportation de dossier"
+
+msgid	"export file to consulting"
+msgstr	"exportation d'un fichier pour consultation"
+
+msgid	"export first file to consulting"
+msgstr	"exportation du premier fichier pour consultation"
+
+msgid	"User Card"
+msgstr	"Carnet d'adresses"
+
+msgid	"User Card Management"
+msgstr	"Carnet d'adresses"
+
+msgid	"Access Usercard Master Management"
+msgstr	"Accès à l'administration du carnet d'adresses"
+
+msgid	"Access To Usercard Management"
+msgstr	"Accès à l'utilisation du carnet d'adresses"
+
+msgid	"Access To Read User Card"
+msgstr	"Accès à la lecture du carnet d'adresses"
+
+msgid	"usercard home page"
+msgstr	"page d'accueil du carnet d'adresses"
+
+msgid	"edition"
+msgstr	"édition"
+
+msgid	"delete"
+msgstr	"supprimer"
+
+msgid	"add category"
+msgstr	"ajout de catégorie"
+
+msgid	"edit to add category"
+msgstr	"éditer pour l'ajout de catégorie"
+
+msgid	"edit to change category"
+msgstr	"édition pour changer de catégorie"
+
+msgid	"change category"
+msgstr	"changer de catégorie"
+
+msgid	"document history"
+msgstr	"historique du document"
+
+msgid	"modification or creation"
+msgstr	"modification ou création"
+
+msgid	"view as vcard"
+msgstr	"voir au format Vcard"
+
+msgid	"display logo"
+msgstr	"afficher le logo"
+
+msgid	"unlock usercard"
+msgstr	"déverrouiller la carte"
+
+msgid	"view list"
+msgstr	"voir la liste"
+
+msgid	"view a usercard"
+msgstr	"voir une carte"
+
+msgid	"edit import vcard"
+msgstr	"importation format Vcard"
+
+msgid	"view a part of list"
+msgstr	"voir une partie d'une liste"
+
+msgid	"import vcard"
+msgstr	"Importation Vcard"
+
+msgid	"import csv"
+msgstr	"Import csv"
+
+msgid	"search a usercardt"
+msgstr	"rechercher une personne"
+
+msgid	"initialisation"
+msgstr	"initialisation"
+
+msgid	"Incident"
+msgstr	"Incident"
+
+msgid	"Incident Management"
+msgstr	"Gestion des incidents"
+
+msgid	"Access Incident Master Management"
+msgstr	"Accès à l'administration des incidents"
+
+msgid	"Access To Incident Management"
+msgstr	"Accès à la gestion des incidents"
+
+msgid	"Access To Read Incident"
+msgstr	"Accès en lecture seule aux incidents"
+
+msgid	"incident home page"
+msgstr	"Page d'accueil d'incident"
+
+msgid	"unlock incident file"
+msgstr	"Déverrouiller un document incident"
+
+msgid	"view an incident"
+msgstr	"voir un incident"
+
+msgid	"search an incident"
+msgstr	"rechercher un incident"
+
+msgid	"bilan"
+msgstr	"bilan"
+
+#, c-format
+msgid	"receipt call %s"
+msgstr	"appel reçu %s"
+
+#, c-format
+msgid	"The incident call '%s' has been recorded on %s.\n"
+	"Its reference is %s"
+msgstr	"L'incident intitulé %s a bien été enregistré le %s.\n"
+	"Sa référence est %s"
+
 msgid	"New"
 msgstr	"Nouveau"
 
@@ -353,14 +674,14 @@ msgstr	"Propriétés:"
 msgid	"edition: "
 msgstr	"éditer"
 
-msgid	"private card"
-msgstr	"carte privée"
-
 msgid	"public card - read access"
 msgstr	"carte publique - accès lecture"
 
 msgid	"public card - write access"
 msgstr	"carte publique - accès écriture"
+
+msgid	"private card"
+msgstr	"carte privée"
 
 msgid	"help"
 msgstr	"Aide"
@@ -370,12 +691,6 @@ msgstr	" contenu du dossier"
 
 msgid	"(private)"
 msgstr	"(privé)"
-
-msgid	"Incident Management"
-msgstr	"Gestion des incidents"
-
-msgid	"add category"
-msgstr	"ajout de catégorie"
 
 msgid	"Choose a father category"
 msgstr	"Choisissez une catégorie père"
@@ -388,9 +703,6 @@ msgstr	"Nouvelle catégorie"
 
 msgid	"add new category"
 msgstr	"ajout nouvelle catégorie"
-
-msgid	"change category"
-msgstr	"changer de catégorie"
 
 msgid	"Choose new categories"
 msgstr	"Choisissez de nouvelles catégories"
@@ -477,17 +789,14 @@ msgstr	"incidents suspendus"
 msgid	"all incident"
 msgstr	"tous les incidents"
 
-msgid	"bilan"
-msgstr	"bilan"
-
 msgid	"state"
 msgstr	"état"
 
 msgid	"Incident Report"
-msgstr "Rapport d'incident"
+msgstr	"Rapport d'incident"
 
 msgid	"Bilan Query"
-msgstr "Requête de bilan"
+msgstr	"Requête de bilan"
 
 msgid	"the from date is in the future"
 msgstr	"la date de début est dans le futur"
@@ -627,12 +936,6 @@ msgstr	"Profil d'accès"
 msgid	"no profile"
 msgstr	"Pas de profil"
 
-msgid	"specific control"
-msgstr	"Contrôle dédié"
-
-msgid	"search document"
-msgstr	"Nouveau document"
-
 msgid	" keyword"
 msgstr	" mot-clef"
 
@@ -658,22 +961,22 @@ msgid	" cancel"
 msgstr	" annuler"
 
 msgid	"Properties"
-msgstr "Propriétés"
+msgstr	"Propriétés"
 
 msgid	"Export"
-msgstr "Exporter"
+msgstr	"Exporter"
 
 msgid	"Create subfolder"
-msgstr "Créer un dossier"
+msgstr	"Créer un dossier"
 
 msgid	"cancel"
 msgstr	"Annuler"
 
 msgid	"Copy reference"
-msgstr "Copier la référence"
+msgstr	"Copier la référence"
 
 msgid	"Move reference"
-msgstr "Déplacer la référence"
+msgstr	"Déplacer la référence"
 
 msgid	"updatetitle"
 msgstr	"Mise à jour des titres"
@@ -704,9 +1007,6 @@ msgstr	"voir les propriétés"
 
 msgid	"edit document"
 msgstr	" éditer le document"
-
-msgid	"duplicate document"
-msgstr	" dupliquer le document"
 
 msgid	"link document"
 msgstr	"référencer le document"
@@ -821,300 +1121,6 @@ msgstr	"Supprimer"
 
 msgid	"Cancel"
 msgstr	"Annuler"
-
-msgid	"error in filename"
-msgstr	"erreur dans le nom de fichier"
-
-msgid	"..."
-msgstr	"..."
-
-#, c-format
-msgid	"Possible file upload attack: filename '%s'."
-msgstr	"Possibilité d'atttaque 'upload' : fichier %s"
-
-msgid	"fixed"
-msgstr	"figé"
-
-msgid	"nobody"
-msgstr	"personne"
-
-msgid	"no family"
-msgstr	"pas de famille"
-
-msgid	"no access control"
-msgstr	"pas de contrôle d'accès"
-
-msgid	"admin"
-msgstr	"administration"
-
-msgid	"import"
-msgstr	"Importer"
-
-msgid	"add"
-msgstr	"Ajouter un nouveau contact"
-
-msgid	"export"
-msgstr	"Exporter les cartes \n"
-	"selon les critères courants"
-
-msgid	"cannot see unknow folder"
-msgstr	"dossier inconnu, ne peut être consulté"
-
-msgid	"locked"
-msgstr	"verrouillé"
-
-msgid	"changed"
-msgstr	"modifié"
-
-msgid	"Freedoms"
-msgstr	"Freedoms"
-
-msgid	"Freedoms Management"
-msgstr	"Administration Freedom"
-
-msgid	"Access To All Users"
-msgstr	"Accès à tous les utilisateurs"
-
-msgid	"Access Management Database"
-msgstr	"Accès administration de la base"
-
-msgid	"Access To My Own account"
-msgstr	"Accès à mon compte"
-
-msgid	"Access To Read Only"
-msgstr	"Accès en lecture seule"
-
-msgid	"Freedoms frame"
-msgstr	"fenêtres freedom"
-
-msgid	"Freedoms list"
-msgstr	"liste freedom"
-
-msgid	"to choose value from set"
-msgstr	"pour choisir une valeur à partir d'un ensemble"
-
-msgid	"query document import"
-msgstr	"demande d'import de document"
-
-msgid	"add document import"
-msgstr	"ajouter un document importé"
-
-msgid	"Freedoms view folder"
-msgstr	"visualisation de contenu de dossier"
-
-msgid	"popup menu"
-msgstr	"popup menu"
-
-msgid	"add file query into directory"
-msgstr	"ajout d'un document dans un dossier"
-
-msgid	"move file query into directory"
-msgstr	"déplacement d'un document dans un dossier"
-
-msgid	"delete file query into directory"
-msgstr	"supprimer un document dans un dossier"
-
-msgid	"folder tree"
-msgstr	"aborescence de dossier"
-
-msgid	"Freedoms icon list"
-msgstr	"liste sous forme d'icones"
-
-msgid	"bar menu"
-msgstr	"barre de menu"
-
-msgid	"Freedoms card"
-msgstr	"fiche Freedom"
-
-msgid	"attributes definitions"
-msgstr	"définition des attributs"
-
-msgid	"refresh directory"
-msgstr	"rafraichir le dossier"
-
-msgid	"attributes modification"
-msgstr	"Modification d'attributs"
-
-msgid	"lock file to edit"
-msgstr	"verrouillez le document pour l'éditer"
-
-msgid	"edit profile access"
-msgstr	"édition des profiles d'accès"
-
-msgid	"change profile access"
-msgstr	"changement des profiles d'accès"
-
-msgid	"set the document controlled"
-msgstr	"Mettre le document sous contrôle"
-
-msgid	"abord edition"
-msgstr	"abandon de l'édition"
-
-msgid	"change icon document"
-msgstr	"changer l'icone du document"
-
-msgid	"search document criteria"
-msgstr	"critères de recherche de document"
-
-msgid	"ask for a new file revision"
-msgstr	"demande pour une revision"
-
-msgid	"edit document properties"
-msgstr	"éditer les propriétés du document"
-
-msgid	"add comment before revise document"
-msgstr	"ajouter un commentaire avant de réviser un document"
-
-msgid	"make a new document revision"
-msgstr	"faire une nouvelle révision de document"
-
-msgid	"view history revision"
-msgstr	"voir l'historique"
-
-msgid	"style sheet"
-msgstr	"feuille de style"
-
-msgid	"widget display popup for a description card"
-msgstr	"widget popup pour affichage d'une carte"
-
-msgid	"Freedom modification"
-msgstr	"Modification de documents"
-
-msgid	"Freedom deletion"
-msgstr	"Suppression de documents"
-
-msgid	"Administration"
-msgstr	"Administration"
-
-msgid	"Freedom update title fields"
-msgstr	"mise à jour des champs titre"
-
-msgid	"Freedom accessibilities"
-msgstr	"Droits Freedom"
-
-msgid	"Freedom initialisation"
-msgstr	"Initialisation Freedom"
-
-msgid	"Freedoms lib"
-msgstr	"bibliothèque freedom"
-
-msgid	"Freedoms library"
-msgstr	"bibliothèque freedom"
-
-msgid	"Access Action Library"
-msgstr	"Bibliothèque pour les droits"
-
-msgid	"export folder"
-msgstr "exportation de dossier"
-
-msgid	"export file to consulting"
-msgstr	"exportation d'un fichier pour consultation"
-
-msgid	"export first file to consulting"
-msgstr	"exportation du premier fichier pour consultation"
-
-msgid	"User Card"
-msgstr	"Carnet d'adresses"
-
-msgid	"User Card Management"
-msgstr	"Carnet d'adresses"
-
-msgid	"Access Usercard Master Management"
-msgstr	"Accès à l'administration du carnet d'adresses"
-
-msgid	"Access To Usercard Management"
-msgstr	"Accès à l'utilisation du carnet d'adresses"
-
-msgid	"Access To Read User Card"
-msgstr	"Accès à la lecture du carnet d'adresses"
-
-msgid	"usercard home page"
-msgstr	"page d'accueil du carnet d'adresses"
-
-msgid	"edition"
-msgstr	"édition"
-
-msgid	"delete"
-msgstr	"supprimer"
-
-msgid	"edit to add category"
-msgstr	"éditer pour l'ajout de catégorie"
-
-msgid	"edit to change category"
-msgstr	"édition pour changer de catégorie"
-
-msgid	"document history"
-msgstr	"historique du document"
-
-msgid	"modification or creation"
-msgstr	"modification ou création"
-
-msgid	"view as vcard"
-msgstr	"voir au format Vcard"
-
-msgid	"display logo"
-msgstr	"afficher le logo"
-
-msgid	"unlock usercard"
-msgstr	"déverrouiller la carte"
-
-msgid	"view list"
-msgstr	"voir la liste"
-
-msgid	"view a usercard"
-msgstr	"voir une carte"
-
-msgid	"edit import vcard"
-msgstr	"importation format Vcard"
-
-msgid	"view a part of list"
-msgstr	"voir une partie d'une liste"
-
-msgid	"import vcard"
-msgstr	"Importation Vcard"
-
-msgid	"import csv"
-msgstr	"Import csv"
-
-msgid	"search a usercardt"
-msgstr	"rechercher une personne"
-
-msgid	"initialisation"
-msgstr	"initialisation"
-
-msgid	"Incident"
-msgstr	"Incident"
-
-msgid	"Access Incident Master Management"
-msgstr	"Accès à l'administration des incidents"
-
-msgid	"Access To Incident Management"
-msgstr	"Accès à la gestion des incidents"
-
-msgid	"Access To Read Incident"
-msgstr	"Accès en lecture seule aux incidents"
-
-msgid	"incident home page"
-msgstr	"Page d'accueil d'incident"
-
-msgid	"unlock incident file"
-msgstr	"Déverrouiller un document incident"
-
-msgid	"view an incident"
-msgstr	"voir un incident"
-
-msgid	"search an incident"
-msgstr	"rechercher un incident"
-
-#, c-format
-msgid	"receipt call %s"
-msgstr	"appel reçu %s"
-
-#, c-format
-msgid	"The incident call '%s' has been recorded on %s.\n"
-	"Its reference is %s"
-msgstr	"L'incident intitulé %s a bien été enregistré le %s.\n"
-	"Sa référence est %s"
 
 #~ msgid	" properties"
 #~ msgstr	" Propriétés"

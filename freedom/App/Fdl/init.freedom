@@ -36,6 +36,7 @@ END;1;9;;;;;;;;;
 SEARCH;11;9;les familles;select * from doc where doctype='C';;;;;;;
 SEARCH;12;9;les profils;select * from doc where useforprof;;;;;;;
 SEARCH;13;9;les maisons;select * from doc where (owner < 0) and (locked != -1);;;;;;;
+SEARCH;14;9;orphelinat;select * from doc where (doctype != 'T') and (locked != -1) and (initid not in (select childid from fld where qtype='S'));;;;;;;;
 // famille profile doc;;;id;class
 BEGIN;1;[famille];3;DocFile
 USEFORPROF;;;;

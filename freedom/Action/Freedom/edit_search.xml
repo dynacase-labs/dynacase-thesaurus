@@ -96,7 +96,7 @@ else displaytable='table-row'
 <tr class="tlist">
   <td class="tlist" align="right" >
  <input type="hidden" name="dirid" value="[dirid]" > 
- <input type="submit" value="[TEXT: send search]" onClick="document.search.dirid.value=parent.list.document.dirid"> </td>
+ <input type="submit" value="[TEXT: send search]" onClick="document.search.dirid.value=parent.list.dirid"> </td>
   <td class="tlist" align="right">
 <input type="reset" value="[TEXT: cancel]" onClick="history.back()"></td>
 </tr>

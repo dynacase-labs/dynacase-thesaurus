@@ -4,7 +4,7 @@
 #
 msgid	""
 msgstr	"Project-Id-Version: WHAT 1.3\n"
-	"POT-Creation-Date: 2002-03-27 15:49+0100\n"
+	"POT-Creation-Date: 2002-04-03 16:45+0200\n"
 	"PO-Revision-Date: 2001-03-14 00:54-0500\n"
 	"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 	"Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -189,6 +189,9 @@ msgstr	""
 msgid	"modify folder"
 msgstr	"Modify"
 
+msgid	"locked files of "
+msgstr	""
+
 #, c-format
 msgid	"cannot delete link : link not found for doc %d in folder %d"
 msgstr	""
@@ -328,6 +331,337 @@ msgstr	""
 msgid	"[%s] incident traited"
 msgstr	""
 
+#, fuzzy
+msgid	"error in filename"
+msgstr	"Firstname"
+
+msgid	"..."
+msgstr	""
+
+#, c-format
+msgid	"Possible file upload attack: filename '%s'."
+msgstr	""
+
+msgid	"fixed"
+msgstr	""
+
+#, fuzzy
+msgid	"nobody"
+msgstr	"No embed file"
+
+msgid	"no family"
+msgstr	""
+
+msgid	"no access control"
+msgstr	""
+
+msgid	"specific control"
+msgstr	""
+
+msgid	"admin"
+msgstr	"Admnistration functions"
+
+msgid	"import"
+msgstr	"Import"
+
+msgid	"add"
+msgstr	"Add new contact card"
+
+msgid	"export"
+msgstr	"Export selected cards"
+
+msgid	"cannot see unknow folder"
+msgstr	""
+
+msgid	"locked"
+msgstr	""
+
+msgid	"changed"
+msgstr	""
+
+msgid	"Freedoms"
+msgstr	""
+
+msgid	"Freedoms Management"
+msgstr	""
+
+msgid	"Access To All Users"
+msgstr	""
+
+msgid	"Access Management Database"
+msgstr	""
+
+msgid	"Access To My Own account"
+msgstr	""
+
+msgid	"Access To Read Only"
+msgstr	""
+
+msgid	"Freedoms frame"
+msgstr	""
+
+msgid	"Freedoms list"
+msgstr	""
+
+msgid	"to choose value from set"
+msgstr	""
+
+msgid	"query document import"
+msgstr	""
+
+msgid	"add document import"
+msgstr	""
+
+msgid	"Freedoms view folder"
+msgstr	""
+
+msgid	"popup menu"
+msgstr	""
+
+msgid	"add file query into directory"
+msgstr	""
+
+msgid	"move file query into directory"
+msgstr	""
+
+msgid	"delete file query into directory"
+msgstr	""
+
+msgid	"folder tree"
+msgstr	""
+
+#, fuzzy
+msgid	"expand folder tree"
+msgstr	"Delete"
+
+msgid	"Freedoms icon list"
+msgstr	""
+
+msgid	"bar menu"
+msgstr	""
+
+msgid	"Freedoms card"
+msgstr	""
+
+msgid	"duplicate document"
+msgstr	""
+
+msgid	"attributes definitions"
+msgstr	""
+
+msgid	"refresh directory"
+msgstr	""
+
+msgid	"attributes modification"
+msgstr	""
+
+msgid	"lock file to edit"
+msgstr	""
+
+msgid	"edit profile access"
+msgstr	""
+
+msgid	"change profile access"
+msgstr	""
+
+msgid	"set the document controlled"
+msgstr	""
+
+msgid	"abord edition"
+msgstr	""
+
+msgid	"change icon document"
+msgstr	""
+
+msgid	"search document"
+msgstr	""
+
+msgid	"search document criteria"
+msgstr	""
+
+msgid	"ask for a new file revision"
+msgstr	""
+
+msgid	"edit document properties"
+msgstr	""
+
+msgid	"add comment before revise document"
+msgstr	""
+
+msgid	"make a new document revision"
+msgstr	""
+
+msgid	"view history revision"
+msgstr	""
+
+msgid	"style sheet"
+msgstr	""
+
+msgid	"widget display popup for a description card"
+msgstr	""
+
+msgid	"Freedom modification"
+msgstr	""
+
+msgid	"Freedom deletion"
+msgstr	""
+
+#, fuzzy
+msgid	"Administration"
+msgstr	"Organisation"
+
+msgid	"Freedom update title fields"
+msgstr	""
+
+msgid	"Freedom accessibilities"
+msgstr	""
+
+#, fuzzy
+msgid	"Freedom initialisation"
+msgstr	"Organisation"
+
+msgid	"Freedoms lib"
+msgstr	""
+
+msgid	"Freedoms library"
+msgstr	""
+
+msgid	"Access Action Library"
+msgstr	""
+
+#, fuzzy
+msgid	"export folder"
+msgstr	"Delete"
+
+msgid	"export file to consulting"
+msgstr	""
+
+msgid	"export first file to consulting"
+msgstr	""
+
+msgid	"User Card"
+msgstr	""
+
+msgid	"User Card Management"
+msgstr	""
+
+msgid	"Access Usercard Master Management"
+msgstr	""
+
+msgid	"Access To Usercard Management"
+msgstr	""
+
+msgid	"Access To Read User Card"
+msgstr	""
+
+msgid	"usercard home page"
+msgstr	""
+
+#, fuzzy
+msgid	"edition"
+msgstr	"Edit"
+
+msgid	"delete"
+msgstr	"Delete"
+
+#, fuzzy
+msgid	"add category"
+msgstr	"Category"
+
+msgid	"edit to add category"
+msgstr	""
+
+msgid	"edit to change category"
+msgstr	""
+
+#, fuzzy
+msgid	"change category"
+msgstr	"Category"
+
+msgid	"document history"
+msgstr	""
+
+msgid	"modification or creation"
+msgstr	""
+
+msgid	"view as vcard"
+msgstr	""
+
+msgid	"display logo"
+msgstr	""
+
+#, fuzzy
+msgid	"unlock usercard"
+msgstr	"Start search"
+
+msgid	"view list"
+msgstr	""
+
+#, fuzzy
+msgid	"view a usercard"
+msgstr	"Start search"
+
+msgid	"edit import vcard"
+msgstr	""
+
+msgid	"view a part of list"
+msgstr	""
+
+#, fuzzy
+msgid	"import vcard"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"import csv"
+msgstr	"Import"
+
+#, fuzzy
+msgid	"search a usercardt"
+msgstr	"Start search"
+
+#, fuzzy
+msgid	"initialisation"
+msgstr	"Organisation"
+
+msgid	"Incident"
+msgstr	""
+
+msgid	"Incident Management"
+msgstr	""
+
+msgid	"Access Incident Master Management"
+msgstr	""
+
+msgid	"Access To Incident Management"
+msgstr	""
+
+msgid	"Access To Read Incident"
+msgstr	""
+
+msgid	"incident home page"
+msgstr	""
+
+msgid	"unlock incident file"
+msgstr	""
+
+msgid	"view an incident"
+msgstr	""
+
+msgid	"search an incident"
+msgstr	""
+
+msgid	"bilan"
+msgstr	""
+
+#, c-format
+msgid	"receipt call %s"
+msgstr	""
+
+#, c-format
+msgid	"The incident call '%s' has been recorded on %s.\n"
+	"Its reference is %s"
+msgstr	""
+
 msgid	"New"
 msgstr	""
 
@@ -363,13 +697,13 @@ msgstr	""
 msgid	"edition: "
 msgstr	"Edit"
 
-msgid	"private card"
-msgstr	""
-
 msgid	"public card - read access"
 msgstr	""
 
 msgid	"public card - write access"
+msgstr	""
+
+msgid	"private card"
 msgstr	""
 
 msgid	"help"
@@ -380,13 +714,6 @@ msgstr	""
 
 msgid	"(private)"
 msgstr	""
-
-msgid	"Incident Management"
-msgstr	""
-
-#, fuzzy
-msgid	"add category"
-msgstr	"Category"
 
 msgid	"Choose a father category"
 msgstr	""
@@ -400,10 +727,6 @@ msgstr	"Category"
 
 #, fuzzy
 msgid	"add new category"
-msgstr	"Category"
-
-#, fuzzy
-msgid	"change category"
 msgstr	"Category"
 
 msgid	"Choose new categories"
@@ -491,9 +814,6 @@ msgid	"suspended incident"
 msgstr	"Delete"
 
 msgid	"all incident"
-msgstr	""
-
-msgid	"bilan"
 msgstr	""
 
 #, fuzzy
@@ -655,12 +975,6 @@ msgstr	"Control access"
 msgid	"no profile"
 msgstr	""
 
-msgid	"specific control"
-msgstr	""
-
-msgid	"search document"
-msgstr	""
-
 msgid	" keyword"
 msgstr	""
 
@@ -736,9 +1050,6 @@ msgid	"view properties"
 msgstr	""
 
 msgid	"edit document"
-msgstr	""
-
-msgid	"duplicate document"
 msgstr	""
 
 msgid	"link document"
@@ -864,310 +1175,6 @@ msgid	"Delete"
 msgstr	"Delete"
 
 msgid	"Cancel"
-msgstr	""
-
-#, fuzzy
-msgid	"error in filename"
-msgstr	"Firstname"
-
-msgid	"..."
-msgstr	""
-
-#, c-format
-msgid	"Possible file upload attack: filename '%s'."
-msgstr	""
-
-msgid	"fixed"
-msgstr	""
-
-#, fuzzy
-msgid	"nobody"
-msgstr	"No embed file"
-
-msgid	"no family"
-msgstr	""
-
-msgid	"no access control"
-msgstr	""
-
-msgid	"admin"
-msgstr	"Admnistration functions"
-
-msgid	"import"
-msgstr	"Import"
-
-msgid	"add"
-msgstr	"Add new contact card"
-
-msgid	"export"
-msgstr	"Export selected cards"
-
-msgid	"cannot see unknow folder"
-msgstr	""
-
-msgid	"locked"
-msgstr	""
-
-msgid	"changed"
-msgstr	""
-
-msgid	"Freedoms"
-msgstr	""
-
-msgid	"Freedoms Management"
-msgstr	""
-
-msgid	"Access To All Users"
-msgstr	""
-
-msgid	"Access Management Database"
-msgstr	""
-
-msgid	"Access To My Own account"
-msgstr	""
-
-msgid	"Access To Read Only"
-msgstr	""
-
-msgid	"Freedoms frame"
-msgstr	""
-
-msgid	"Freedoms list"
-msgstr	""
-
-msgid	"to choose value from set"
-msgstr	""
-
-msgid	"query document import"
-msgstr	""
-
-msgid	"add document import"
-msgstr	""
-
-msgid	"Freedoms view folder"
-msgstr	""
-
-msgid	"popup menu"
-msgstr	""
-
-msgid	"add file query into directory"
-msgstr	""
-
-msgid	"move file query into directory"
-msgstr	""
-
-msgid	"delete file query into directory"
-msgstr	""
-
-msgid	"folder tree"
-msgstr	""
-
-msgid	"Freedoms icon list"
-msgstr	""
-
-msgid	"bar menu"
-msgstr	""
-
-msgid	"Freedoms card"
-msgstr	""
-
-msgid	"attributes definitions"
-msgstr	""
-
-msgid	"refresh directory"
-msgstr	""
-
-msgid	"attributes modification"
-msgstr	""
-
-msgid	"lock file to edit"
-msgstr	""
-
-msgid	"edit profile access"
-msgstr	""
-
-msgid	"change profile access"
-msgstr	""
-
-msgid	"set the document controlled"
-msgstr	""
-
-msgid	"abord edition"
-msgstr	""
-
-msgid	"change icon document"
-msgstr	""
-
-msgid	"search document criteria"
-msgstr	""
-
-msgid	"ask for a new file revision"
-msgstr	""
-
-msgid	"edit document properties"
-msgstr	""
-
-msgid	"add comment before revise document"
-msgstr	""
-
-msgid	"make a new document revision"
-msgstr	""
-
-msgid	"view history revision"
-msgstr	""
-
-msgid	"style sheet"
-msgstr	""
-
-msgid	"widget display popup for a description card"
-msgstr	""
-
-msgid	"Freedom modification"
-msgstr	""
-
-msgid	"Freedom deletion"
-msgstr	""
-
-#, fuzzy
-msgid	"Administration"
-msgstr	"Organisation"
-
-msgid	"Freedom update title fields"
-msgstr	""
-
-msgid	"Freedom accessibilities"
-msgstr	""
-
-#, fuzzy
-msgid	"Freedom initialisation"
-msgstr	"Organisation"
-
-msgid	"Freedoms lib"
-msgstr	""
-
-msgid	"Freedoms library"
-msgstr	""
-
-msgid	"Access Action Library"
-msgstr	""
-
-#, fuzzy
-msgid	"export folder"
-msgstr	"Delete"
-
-msgid	"export file to consulting"
-msgstr	""
-
-msgid	"export first file to consulting"
-msgstr	""
-
-msgid	"User Card"
-msgstr	""
-
-msgid	"User Card Management"
-msgstr	""
-
-msgid	"Access Usercard Master Management"
-msgstr	""
-
-msgid	"Access To Usercard Management"
-msgstr	""
-
-msgid	"Access To Read User Card"
-msgstr	""
-
-msgid	"usercard home page"
-msgstr	""
-
-#, fuzzy
-msgid	"edition"
-msgstr	"Edit"
-
-msgid	"delete"
-msgstr	"Delete"
-
-msgid	"edit to add category"
-msgstr	""
-
-msgid	"edit to change category"
-msgstr	""
-
-msgid	"document history"
-msgstr	""
-
-msgid	"modification or creation"
-msgstr	""
-
-msgid	"view as vcard"
-msgstr	""
-
-msgid	"display logo"
-msgstr	""
-
-#, fuzzy
-msgid	"unlock usercard"
-msgstr	"Start search"
-
-msgid	"view list"
-msgstr	""
-
-#, fuzzy
-msgid	"view a usercard"
-msgstr	"Start search"
-
-msgid	"edit import vcard"
-msgstr	""
-
-msgid	"view a part of list"
-msgstr	""
-
-#, fuzzy
-msgid	"import vcard"
-msgstr	"Import"
-
-#, fuzzy
-msgid	"import csv"
-msgstr	"Import"
-
-#, fuzzy
-msgid	"search a usercardt"
-msgstr	"Start search"
-
-#, fuzzy
-msgid	"initialisation"
-msgstr	"Organisation"
-
-msgid	"Incident"
-msgstr	""
-
-msgid	"Access Incident Master Management"
-msgstr	""
-
-msgid	"Access To Incident Management"
-msgstr	""
-
-msgid	"Access To Read Incident"
-msgstr	""
-
-msgid	"incident home page"
-msgstr	""
-
-msgid	"unlock incident file"
-msgstr	""
-
-msgid	"view an incident"
-msgstr	""
-
-msgid	"search an incident"
-msgstr	""
-
-#, c-format
-msgid	"receipt call %s"
-msgstr	""
-
-#, c-format
-msgid	"The incident call '%s' has been recorded on %s.\n"
-	"Its reference is %s"
 msgstr	""
 
 #, fuzzy

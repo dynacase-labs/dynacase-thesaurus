@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.DocSearch.php,v 1.3 2002/03/27 11:32:39 eric Exp $
+// $Id: Class.DocSearch.php,v 1.4 2002/04/03 15:47:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,32 +21,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.DocSearch.php,v $
-// Revision 1.3  2002/03/27 11:32:39  eric
-// correction pour recherche incident
-//
-// Revision 1.2  2002/03/18 13:57:43  eric
-// modif des recherches et ajout recherche incident en cours
-//
-// Revision 1.1  2002/02/13 14:31:58  eric
-// ajout usercard application
-//
-// Revision 1.3  2002/02/05 16:34:07  eric
-// decoupage pour FREEDOM-LIB
-//
-// Revision 1.2  2002/01/04 15:45:54  eric
-// correction pour init DocSerach
-//
-// Revision 1.1  2001/12/21 13:59:45  eric
-// modif pour incident
-//
-// Revision 1.1  2001/11/21 08:40:34  eric
-// ajout historique
-//
-// Revision 1.2  2001/11/09 18:54:21  eric
-// et un de plus
-// ---------------------------------------------------------------
-$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.3 2002/03/27 11:32:39 eric Exp $';
+
+$CLASS_CONTACT_PHP = '$Id: Class.DocSearch.php,v 1.4 2002/04/03 15:47:31 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -92,7 +68,7 @@ Class DocSearch extends Doc
     $oqd->dirid = $this->id;
     $oqd->qtype="M"; // multiple
     $oqd->query = $query;
-    $oqd-> Add();
+    return $oqd-> Add();
     
   }
 

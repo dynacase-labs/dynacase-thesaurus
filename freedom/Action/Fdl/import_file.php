@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: import_file.php,v 1.6 2002/03/18 13:57:43 eric Exp $
+// $Id: import_file.php,v 1.7 2002/04/03 15:47:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/import_file.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -112,11 +112,7 @@ function add_import_file(&$action, $fimport="") {
     $doc->modify();
 
     if (($data[4] != "")) { // specific search 
-      $qf = new QueryDir($dbaccess);
-	$qf->dirid=$doc->id;
-	$qf->qtype='M'; // complex query
-	$qf->query=$data[4];
-	$err = $qf->Add();
+	$err = $doc->AddQuery($data[4]);
 	if ($err != "") $gerr="\nline $nline:".$err;
       }
 

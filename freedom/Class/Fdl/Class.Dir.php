@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Dir.php,v 1.4 2002/03/06 17:22:05 eric Exp $
+// $Id: Class.Dir.php,v 1.5 2002/04/03 15:47:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Dir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,7 +22,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 // ---------------------------------------------------------------
-$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.4 2002/03/06 17:22:05 eric Exp $';
+$CLASS_DIR_PHP = '$Id: Class.Dir.php,v 1.5 2002/04/03 15:47:31 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -81,7 +81,15 @@ Class Dir extends Doc
       include_once("Class.User.php");
       $user = new User("", $this->userid);
       $home ->title = $user->firstname." ".$user->lastname;
-      $home -> Add();    
+      $home -> Add(); 
+
+      $privlocked = new DocSearch($this->dbaccess);
+      $privlocked->title=(_("locked files of ").$home ->title);
+      $privlocked->Add();
+      $privlocked->AddQuery("select * from doc where (doctype='F') ".
+			    "and (locked=".$this->userid.") ".
+			    "and (not useforprof)");
+      $home -> AddFile($privlocked->id); 
     }
     return $home;
   }
