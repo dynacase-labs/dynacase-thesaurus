@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: freedom_edit.php,v 1.6 2002/07/25 16:41:38 eric Exp $
+// $Id: freedom_edit.php,v 1.7 2002/09/13 15:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_edit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,9 +23,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-include_once("FDL/Class.Doc.php");
-include_once("FDL/Class.DocAttr.php");
-include_once("FDL/Class.DocValue.php");
+include_once("FDL/Class.WDoc.php");
 
 include_once("Class.QueryDb.php");
 include_once("FDL/freedom_util.php");
@@ -120,12 +118,16 @@ function freedom_edit(&$action) {
 
  
   // compute the changed state
-  $fstate = $doc->GetFollowingStates();
   $tstate= array();
-      $action->lay->Set("initstatevalue",$doc->state );
-  while (list($k, $v) = each($fstate)) {
-    $tstate[$k]["statevalue"] = $v;
-    $tstate[$k]["statename"] = _($v);
+  if ($doc->wid > 0) {
+    $wdoc = new Doc($dbaccess,$doc->wid);
+    $wdoc->Set($doc);
+    $fstate = $wdoc->GetFollowingStates();
+    $action->lay->Set("initstatevalue",$doc->state );
+    while (list($k, $v) = each($fstate)) {
+      $tstate[$k]["statevalue"] = $v;
+      $tstate[$k]["statename"] = _($v);
+    }
   }
   $action->lay->SetBlockData("NEWSTATE", $tstate);
 

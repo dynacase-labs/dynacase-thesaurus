@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: viewcard.php,v 1.16 2002/09/11 14:12:44 eric Exp $
+// $Id: viewcard.php,v 1.17 2002/09/13 15:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -141,9 +141,10 @@ function viewcard(&$action) {
   else   $action->lay->Set("cid", $doc->id);
   
 
-  if (count($doc->transitions) > 0) { // see only if it is a transitionnal doc
+  if ($doc->wid > 0) { // see only if it is a transitionnal doc
     $action->lay->Set("state", $action->text($doc->state));
     $action->lay->Set("viewstate", "inherit");
+    $action->lay->Set("wid", $doc->wid);
   } else {
     $action->lay->Set("viewstate", "none");
   }

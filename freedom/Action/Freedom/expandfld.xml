@@ -26,12 +26,15 @@
 <script language="JavaScript">
   <!--
 
-     var fldtop =parent.ffolder.indexOfEntries[parent.ffolder.fldidtoexpand];
+   var ffolder = window.open('','ffolder','');
+
+
+     var fldtop =ffolder.indexOfEntries[ffolder.fldidtoexpand];
 
   //   var nch=fldtop.nChildren;
   //   for (i=0; i < nch; i++){ 
   //     if (fldtop.children[i].navObj) //is a folder 
-  //        parent.ffolder.document.getElementById('bodyid').removeChild(fldtop.children[i].navObj);
+  //        ffolder.document.getElementById('bodyid').removeChild(fldtop.children[i].navObj);
   //   } 
 
   
@@ -43,7 +46,7 @@
   }
 
    var BeginnEntries;
-   BeginnEntries=parent.ffolder.indexOfEntries.length;
+   BeginnEntries=ffolder.indexOfEntries.length;
      
      
      [subtree]

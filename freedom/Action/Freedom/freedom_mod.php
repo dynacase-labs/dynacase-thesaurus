@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: freedom_mod.php,v 1.7 2002/09/10 13:30:27 eric Exp $
+// $Id: freedom_mod.php,v 1.8 2002/09/13 15:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_mod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,10 +53,10 @@ function freedom_mod(&$action) {
   if ($dirid == 0) {
     if ($doc->dfldid>0)  $fld = new Dir($dbaccess,$doc->dfldid);
     else {
+      $fld = new Dir($dbaccess,UNCLASS_FLD);
       $home = $fld->getHome();
       
       if ($home->id > 0) $fld = $home;
-      else $fld = new Dir($dbaccess,UNCLASS_FLD);
     }
   }
   

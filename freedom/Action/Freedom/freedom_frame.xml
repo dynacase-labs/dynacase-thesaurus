@@ -8,8 +8,6 @@
 </head>
 
 
-<frameset  frameborder="no"  framespacing="0" rows="0pt,*" >
-  <frame name="fldexp" src="about:blank"   style="border-style:none">
 
   <frameset  frameborder="yes" border=3  framespacing="3" cols="40%,*" 
             scrolling="no" frameborder="no" >
@@ -23,5 +21,4 @@
              scrolling="needed" bordercolor="[CORE_FGCOLOR]" >
     </frameset>
   </frameset>
-</frameset>
 </html>

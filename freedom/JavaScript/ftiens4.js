@@ -433,7 +433,7 @@ function clickOnNode(folderId)
 
     if (allinitialized && (! clickedFolder.isLoaded) ) {
       fldidtoexpand=folderId;
-      parent.fldexp.document.location.href=actionexpfld+clickedFolder.refid;
+      top.fhidden.document.location.href=actionexpfld+clickedFolder.refid;
            
       
       clickedFolder.isLoaded=true;

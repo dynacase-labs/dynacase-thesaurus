@@ -26,7 +26,7 @@
 
 function refreshfld(dirid) {
    if ((dirid > 0) && ('[refreshfld]'=='yes'))
-   parent.fldexp.document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid;
+   top.fhidden.document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid;
 }
 
   //-->

@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.16 2002/09/11 14:12:44 eric Exp $
+// $Id: editcard.php,v 1.17 2002/09/13 15:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -99,6 +99,7 @@ function editcard(&$action) {
       
       if (ereg("\(([^\)]+)\):(.+)", $v->phpfunc, $reg)) {
 	$ain = array_filter(explode(",",$reg[1]),"moreone");
+
 	if (count($ain) > 0) {
 	  
 	  $aout = explode(",",$reg[2]);
@@ -106,6 +107,7 @@ function editcard(&$action) {
 			"jstaout" => "['".implode("','", $aout)."']",
 			"jska"=> "$ka");
 	  $ka++;
+	
 	}
       }
     }

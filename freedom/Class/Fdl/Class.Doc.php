@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.Doc.php,v 1.48 2002/09/11 14:13:54 eric Exp $
+// $Id: Class.Doc.php,v 1.49 2002/09/13 15:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.Doc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.48 2002/09/11 14:13:54 eric Exp $';
+$CLASS_DOC_PHP = '$Id: Class.Doc.php,v 1.49 2002/09/13 15:06:07 eric Exp $';
 
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -50,7 +50,27 @@ define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 Class Doc extends DbObjCtrl
 {
-  var $fields = array ( "id","owner","title","revision","initid","fromid","doctype","locked","icon","lmodify","profid","useforprof","revdate","comment","cprofid","classname","state","dviewzone", "deditzone","dfldid");
+  var $fields = array ( "id",
+		       "owner",
+		       "title",
+		       "revision",
+		       "initid",
+		       "fromid",
+		       "doctype",
+		       "locked",
+		       "icon",
+		       "lmodify",
+		       "profid",
+		       "useforprof",
+		       "revdate",
+		       "comment",
+		       "cprofid",
+		       "classname",
+		       "state",
+		       "dviewzone",
+		       "deditzone",
+		       "dfldid",
+		       "wid");
 
   var $id_fields = array ("id");
 
@@ -81,7 +101,8 @@ create table doc ( id int not null,
                    state varchar(64),
                    dviewzone varchar(64),
                    deditzone varchar(64),
-                   dfldid int DEFAULT 0
+                   dfldid int DEFAULT 0,
+                   wid int DEFAULT 0
                    );
 create sequence seq_id_doc start 1000;
 create unique index i_docir on doc(initid, revision);";
@@ -96,8 +117,7 @@ create unique index i_docir on doc(initid, revision);";
 
   // --------------------------------------------------------------------
   //----------------------  TRANSITION DEFINITION --------------------
-  var $transitions = array();// set by childs classes
-  var $firstState=""; // first state in workflow
+ 
 
   var $defDoctype='F';
 
@@ -206,7 +226,7 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->locked == "") $this->locked = "0";
       if ($this->owner == "") $this->owner = $this->userid;
       if ($this->classname == "") $this->classname= $this->defClassname; //get_class($this);// dont use this because lost of uppercase letters
-      if ($this->state == "") $this->state=$this->firstState;
+	//      if ($this->state == "") $this->state=$this->firstState;
       // set creation date
       $date = gettimeofday();
       $this->revdate = $date['sec'];
@@ -1144,84 +1164,11 @@ create unique index i_docir on doc(initid, revision);";
     }
   
   
-  // --------------------------------------------------------------------
-    function ChangeState ($newstate, $addcomment="", $force=false) {
-      
-      if ($this->state == $newstate) return ""; // no change => no action
-	// search if possible change in concordance with transition array
-	  $foundFrom = false;
-      $foundTo = false;
-      reset($this->transitions);
-      while (list($k, $trans) = each($this->transitions)) {
-	if ($this->state == $trans["e1"]) {
-	  // from state OK
-	    $foundFrom = true;
-	  if ($newstate == $trans["e2"]) {
-	    $foundTo = true;
-	    $tr = $trans;
-	  }
-	  
-	}
-      }
-      
-      if (! $foundFrom) return (sprintf(_("ChangeState :: the initial state '%s' is not known"), $this->state));
-      if (! $foundTo) return (sprintf(_("ChangeState :: the new state '%s' is not known or is not allowed"), $newstate));
-      
-      if (($tr["m1"] != "") && (!$force)) {
-	// apply first method (condition for the change)
-	  
-	  if (! method_exists($this, $tr["m1"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m1"], get_class($this)));
-	
-	$err = call_user_method ($tr["m1"], $this, $newstate);
-	
-	if ($err == "->") return ""; //it is not a real error, but don't change state (reported)
-	if ($err != "") return (sprintf(_("ChangeState :: the method '%s' has the following error %s"), $tr["m1"], $err));
-	
-	
-      }
-      
-      // change the state
-	$this->state = $newstate;
-      $err = $this->modify();
-      if ($err != "") return $err;
-      
-      $revcomment = sprintf(_("change state to %s"), _($newstate));
-      if ($addcomment != "") $revcomment.= "\n".$addcomment;
-      
-      $this->AddRevision($revcomment);
-      AddLogMsg(sprintf(_("%s new state %s"),$this->title, _($newstate)));
-      
-      // post action
-	if ($tr["m2"] != "") {
-	  if (! method_exists($this, $tr["m2"])) return (sprintf(_("the method '%s' is not known for the object class %s"), $tr["m2"], get_class($this)));
-	  $err = call_user_method ($tr["m2"], $this, $newstate);
+ 
+    function firstState () {
+      return "";
+    }
 
-	  
-	  if ($err == "->") $err=""; //it is not a real error
-	  if ($err != "") return (sprintf(_("ChangeState :: the state has been realized but the post method '%s' has the following error %s"), $tr["m2"], $err));
-	  
-	}
-      return ""; // its OK 
-    }
-  
-  
-  // --------------------------------------------------------------------
-    function GetFollowingStates () {
-      // search if following states in concordance with transition array
-	
-	$fstate = array();
-      if ($this->state == "") $this->state=$this->firstState;
-      reset($this->transitions);
-      while (list($k, $tr) = each($this->transitions)) {
-	if ($this->state == $tr["e1"]) {
-	  // from state OK
-	    $fstate[] = $tr["e2"];
-	}
-      }
-      return $fstate;
-    }
-  
-  
   
   
 }

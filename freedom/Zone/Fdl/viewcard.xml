@@ -35,7 +35,7 @@
 </tr>
 <tr class="FREEDOMBack1" >  
   <td    class="FREEDOMText"><span style="display:[viewstate]" >[TEXT:state]</span></td>
-  <td   ><span style="display:[viewstate]" class="FREEDOMText">[state]</span></td>
+  <td   ><span style="display:[viewstate]" class="FREEDOMText"><A href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_CARD&id=[wid]">[state]</a></span></td>
   </td>
 </tr>
 [ENDBLOCK PROP]

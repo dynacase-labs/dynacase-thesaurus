@@ -86,4 +86,16 @@ function lfamilly($dbaccess, $famid, $name, $catgid=0) {
   
 }
 
+
+// liste des profils
+function lprofil($dbaccess, $name) {
+  //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
+  global $action;
+  $catgid= 0;
+  
+  
+  return lfamilly($dbaccess, 3, $name, $catgid);
+  
+}
+
 ?>

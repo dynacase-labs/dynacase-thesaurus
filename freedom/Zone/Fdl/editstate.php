@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: editstate.php,v 1.1 2002/07/30 12:32:29 eric Exp $
+// $Id: editstate.php,v 1.2 2002/09/13 15:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editstate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,8 +25,7 @@
 
 //
 // ---------------------------------------------------------------
-include_once("FDL/Class.Doc.php");
-include_once("FDL/Class.DocAttr.php");
+include_once("FDL/Class.WDoc.php");
 
 include_once("Class.QueryDb.php");
 include_once("FDL/freedom_util.php");
@@ -64,9 +63,11 @@ function editstate(&$action) {
 
   
   
-  if (count( $doc->transitions) > 0) {
+  if ($doc->wid > 0) {
     // compute the changed state
-      $fstate = $doc->GetFollowingStates();
+      $wdoc = new Doc($dbaccess,$doc->wid);
+    $wdoc->Set($doc);
+      $fstate = $wdoc->GetFollowingStates();
     $action->lay->Set("initstatevalue",$doc->state );
     $action->lay->Set("initstatename", $action->text($doc->state) );
     $tstate= array();

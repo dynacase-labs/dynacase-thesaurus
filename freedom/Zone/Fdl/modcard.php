@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: modcard.php,v 1.12 2002/09/11 14:12:44 eric Exp $
+// $Id: modcard.php,v 1.13 2002/09/13 15:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/modcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -158,7 +158,12 @@ function modcard(&$action, &$ndocid) {
     
     
     if (($newstate != "") && ($doc->state != $newstate)) {
-      $err = $doc->ChangeState($newstate,$comment );
+
+      if ($doc->wid > 0) {
+	$wdoc = new Doc($dbaccess,$doc->wid);
+	$wdoc->Set($doc);
+	$err=$wdoc->ChangeState($newstate,$comment);
+      }
 
     }
 

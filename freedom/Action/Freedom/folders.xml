@@ -230,8 +230,8 @@ function floatMenu () {
 <a href="#" id="mkdir"     
     onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'fdoc');closeMenu('popfld');return false">
 [TEXT:Create subfolder]</a>
-<a href="fldexp" id="refresh"     
-    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid,'fldexp');closeMenu('popfld');return false">
+<a href="fhidden" id="refresh"     
+    onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=EXPANDFLD&dirid='+dirid,'fhidden');closeMenu('popfld');return false">
 [TEXT:Refresh folder]</a>
 <a href="#" id="cancel"  
     onClick="closeMenu('popfld');return false"  >[TEXT:cancel]</a>

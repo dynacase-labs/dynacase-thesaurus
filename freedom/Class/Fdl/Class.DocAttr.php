@@ -1,7 +1,7 @@
 <?php
 
 // ---------------------------------------------------------------
-// $Id: Class.DocAttr.php,v 1.10 2002/09/10 13:30:28 eric Exp $
+// $Id: Class.DocAttr.php,v 1.11 2002/09/13 15:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.DocAttr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,7 +24,7 @@
 // ---------------------------------------------------------------
 
 
-$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.10 2002/09/10 13:30:28 eric Exp $';
+$CLASS_CONTACTATTR_PHP = '$Id: Class.DocAttr.php,v 1.11 2002/09/13 15:06:07 eric Exp $';
 include_once('Class.DbObj.php');
 include_once('Class.QueryDb.php');
 include_once('Class.Log.php');
@@ -89,6 +89,7 @@ create unique index idx_iddocid on docattr(id, docid)";
 	$this->id = $arr[0];  
       }
 
+      if ($this->type=="") $this->type="text";
       if ($this->abstract=="") $this->abstract='N';
       if ($this->title=="") $this->title='N';
       if ($this->visibility=="") $this->visibility='W';
