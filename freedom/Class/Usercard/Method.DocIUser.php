@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.17 2004/08/09 16:23:28 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.18 2004/08/11 16:16:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -116,7 +116,7 @@ function RefreshDocUser() {
       $err.=$this->RefreshLdapCard();
 
     } else     {
-      $err= sprintf(_("user %d does not exist",$wid));
+      $err= sprintf(_("user %d does not exist"),$wid);
     }
   }
   
