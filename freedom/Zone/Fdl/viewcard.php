@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.56 2005/03/07 16:41:09 eric Exp $
+ * @version $Id: viewcard.php,v 1.57 2005/04/05 09:43:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -137,7 +137,7 @@ function viewcard(&$action) {
 
   //------------------------------
   // display document attributes
-  $action->lay->Set("reference", $doc->initid);
+  $action->lay->Set("reference", $doc->initid.(( $doc->name=="")?"":" ({$doc->name})"));
 
   $action->lay->Set("revision", $doc->revision);
   
