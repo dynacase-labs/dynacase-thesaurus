@@ -1,0 +1,17 @@
+
+
+<tr class="FREEDOMBack2">
+  <td  colspan="3" class="FREEDOMTextTitle">[flabel]</td>
+</tr>
+[BLOCK FVALUES]
+<tr class="FREEDOMBack1">
+  <td width="10%">&nbsp;</td>
+  <td width="30%" valign="top" class="FREEDOMlabel">[alabel]</td>
+  <td width="60%" >[avalue]</td>
+</tr>
+[ENDBLOCK FVALUES]
+<tr style="display:none"><td>
+[BLOCK FHIDDENS]
+[avalue]
+[ENDBLOCK FHIDDENS]
+</td></tr>
