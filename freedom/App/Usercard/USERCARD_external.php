@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.6 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.7 2003/09/16 07:37:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -118,14 +118,14 @@ function lpersonnesociety( $dbaccess, $idsociety, $name="" ) {
 
   while(list($k,$v) = each($tinter)) {
             
-    $sidfur= setv($v,"us_idsociety");
+    $sidfur= getv($v,"us_idsociety");
     
-    $sfur= setv($v,"us_society");
-    $afur= setv($v,"us_workaddr")."\n".setv($v,"us_workpostalcode")." ".setv($v,"us_worktown")." ".setv($v,"us_workcedex");
-    if (setv($v,"us_country") != "") $afur.="\n".setv($v,"us_country");
-    $tfur= setv($v,"us_phone");
-    $ffur= setv($v,"us_fax");
-    $mfur= setv($v,"us_mail");
+    $sfur= getv($v,"us_society");
+    $afur= getv($v,"us_workaddr")."\n".getv($v,"us_workpostalcode")." ".getv($v,"us_worktown")." ".getv($v,"us_workcedex");
+    if (getv($v,"us_country") != "") $afur.="\n".getv($v,"us_country");
+    $tfur= getv($v,"us_phone");
+    $ffur= getv($v,"us_fax");
+    $mfur= getv($v,"us_mail");
 
     $tr[] = array($v["title"] ,$v["id"],$v["title"], $afur, $mfur, $tfur,$ffur, $sfur, $sidfur);
     
