@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.17 2004/09/20 14:41:55 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.18 2004/10/04 09:17:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -41,7 +41,6 @@ function specRefresh() {
  * @return string error message, if no error empty string
  */
 function RefreshGroup() {
-  
   //  $err=_GROUP::RefreshGroup(); 
   $err.=$this->RefreshDocUser();
    $err.=$this->refreshMembers();
@@ -238,7 +237,7 @@ function RefreshDocUser() {
   $err="";
   $wid=$this->getValue("us_whatid");
   if ($wid > 0) { 
-    $wuser=$this->getWUser();
+    $wuser=$this->getWUser(true);
     if ($wuser->isAffected()) {
       $this->SetValue("US_WHATID",$wuser->id);
       $this->SetValue("GRP_NAME",$wuser->lastname);

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-29 11:20+0200\n"
-"PO-Revision-Date: 2004-09-29 10:18+0200\n"
+"POT-Creation-Date: 2004-10-04 08:19+0000\n"
+"PO-Revision-Date: 2004-10-04 10:24+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -352,19 +352,6 @@ msgstr ""
 "le document n'est pas référencé : la modification dossier par défaut "
 "abandonné"
 
-#, c-format
-msgid "root for %s"
-msgstr "racine pour %s"
-
-msgid "default folder"
-msgstr "dossier par défaut"
-
-msgid "folder"
-msgstr "dossier"
-
-msgid "search"
-msgstr "recherche"
-
 msgid "all"
 msgstr "tous les mots"
 
@@ -477,6 +464,19 @@ msgstr "pas ajouté"
 msgid "added"
 msgstr "ajouté"
 
+#, c-format
+msgid "root for %s"
+msgstr "racine pour %s"
+
+msgid "default folder"
+msgstr "dossier par défaut"
+
+msgid "folder"
+msgstr "dossier"
+
+msgid "search"
+msgstr "recherche"
+
 msgid "no zone specified"
 msgstr "pas de zone spécifiée"
 
@@ -549,6 +549,13 @@ msgstr "affecte l'icone à '%s'"
 
 msgid "icon already set. No update allowed"
 msgstr "icone déjà affectée. Pas de mise à jour possible."
+
+#, c-format
+msgid "create default folder (id [%d])\n"
+msgstr "Création du dossier par défaut (id [%d])\n"
+
+msgid "default folder already set. Auto ignored"
+msgstr "dossier par défaut déjà présent. paramètre \"auto\" ignoré."
 
 #, c-format
 msgid "set default folder to '%s'"
@@ -936,6 +943,9 @@ msgstr "identificateur [%s] inconnu comme utilisateur virtuel"
 msgid "no privilege %s"
 msgstr "Pas de profil %s"
 
+msgid "<it's a message>"
+msgstr "<c'est un message>"
+
 msgid "the email syntax  is like : john.doe@anywhere.org"
 msgstr "La syntaxe d'un email est de la forme : jean.martin@quelquepart.org"
 
@@ -970,20 +980,6 @@ msgstr "l'utilisateur n°%d n'existe pas"
 msgid "user has not identificator"
 msgstr "L'utilisateur n'a pas d'identificateur"
 
-msgid "direct"
-msgstr "direct"
-
-msgid "errldapadd"
-msgstr ""
-"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces attributs "
-"n'est pas conforme"
-
-msgid "errldapconnect"
-msgstr "Le server LDAP n'a pas pu être contacté"
-
-msgid "errldaporginit"
-msgstr "Le server LDAP n'a pas pu être contacté"
-
 msgid "user is desactivated"
 msgstr "l'utilisateur est désactivé"
 
@@ -1001,6 +997,20 @@ msgid "Expiration delay must not be 0 to keep expiration date"
 msgstr ""
 "Le délai d'expiration doit être supérieur à zéro pour avoir une date "
 "d'expiration"
+
+msgid "direct"
+msgstr "direct"
+
+msgid "errldapadd"
+msgstr ""
+"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces attributs "
+"n'est pas conforme"
+
+msgid "errldapconnect"
+msgstr "Le server LDAP n'a pas pu être contacté"
+
+msgid "errldaporginit"
+msgstr "Le server LDAP n'a pas pu être contacté"
 
 #, c-format
 msgid "group #%d does not exist"
@@ -1135,6 +1145,7 @@ msgstr ""
 msgid "change"
 msgstr "modification"
 
+#, c-format
 msgid "auto revision"
 msgstr "révision automatique"
 
@@ -1625,27 +1636,6 @@ msgstr "géométrie de la mini vue       "
 msgid "file %d"
 msgstr "fichier %d"
 
-msgid "default confidential"
-msgstr "confidentialité par défaut"
-
-msgid "LDAP server name"
-msgstr "nom du serveur LDAP"
-
-msgid "LDAP server port"
-msgstr "n° de port du serveur LDAP"
-
-msgid "LDAP server root"
-msgstr "racine du serveur LDAP"
-
-msgid "LDAP admin identificatot"
-msgstr "identification de l'administrateur LDAP"
-
-msgid "LDAP admin passord"
-msgstr "mot de passe administrateur LDAP"
-
-msgid "LDAP activated"
-msgstr "Activation LDAP"
-
 msgid "User Card"
 msgstr "Carnet d'adresses"
 
@@ -1660,6 +1650,12 @@ msgstr "initialisation"
 
 msgid "import vcard"
 msgstr "Importation Vcard"
+
+msgid "mail will be calculated from domain"
+msgstr "l'adresse email sera calculée à partir du domaine"
+
+msgid "no mail"
+msgstr "pas d'email"
 
 msgid "Generic"
 msgstr "Générique"
@@ -2847,6 +2843,27 @@ msgstr "Changer de catégorie"
 
 msgid "View properties"
 msgstr "Voir les propriétés"
+
+#~ msgid "default confidential"
+#~ msgstr "confidentialité par défaut"
+
+#~ msgid "LDAP server name"
+#~ msgstr "nom du serveur LDAP"
+
+#~ msgid "LDAP server port"
+#~ msgstr "n° de port du serveur LDAP"
+
+#~ msgid "LDAP server root"
+#~ msgstr "racine du serveur LDAP"
+
+#~ msgid "LDAP admin identificatot"
+#~ msgstr "identification de l'administrateur LDAP"
+
+#~ msgid "LDAP admin passord"
+#~ msgstr "mot de passe administrateur LDAP"
+
+#~ msgid "LDAP activated"
+#~ msgstr "Activation LDAP"
 
 #~ msgid "some needed attributes are empty"
 #~ msgstr "certains attributs obligatoires sont vides"

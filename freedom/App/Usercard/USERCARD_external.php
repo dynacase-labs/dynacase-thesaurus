@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.14 2004/03/01 09:32:43 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.15 2004/10/04 09:17:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -210,12 +210,38 @@ function getdomainiuser()
   $dbaccess=GetParam("CORE_USERDB");
   $tab=array();                                                 
   $domain=new Domain($dbaccess);                  
-  $domain->ListAll(0);                          
-  while (list($k, $v) = each($domain->qlist)) {    
-    if ($v->iddomain==1) $v->name="local";                                                  
-    $tab[$k] = array($v->name,$v->iddomain,$v->name);  
+  $domain->ListAll(-1);                          
+  while (list($k, $v) = each($domain->qlist)) {  
+    $extmail="<"._("mail will be calculated from domain").">";
+    $automail="1";
+    if ($v->iddomain==1) {
+      $v->name="local";
+      $v->iddomain="1";
+      $extmail="<"._("no mail").">";
+     }
+    if ($v->iddomain==0) {
+      $v->name="externe";
+      $v->iddomain="0";
+      $extmail="";
+      $automail="";
+     } 
+    $tab[$k] = array($v->name,$v->iddomain,$v->name,$extmail,$automail);  
   }                                                
   return $tab;
 }
 
+//get domain for group
+function getdomainigroup()
+{
+  $dbaccess=GetParam("CORE_USERDB");
+  $tab=array();                                                 
+  $domain=new Domain($dbaccess);                  
+  $domain->ListAll(0);                          
+  while (list($k, $v) = each($domain->qlist)) {  
+    
+    
+    $tab[$k] = array($v->name,$v->iddomain,$v->name);  
+  }                                                
+  return $tab;
+}
 ?>

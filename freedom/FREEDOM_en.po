@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-29 11:20+0200\n"
+"POT-Creation-Date: 2004-10-04 08:19+0000\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -358,22 +358,6 @@ msgstr "Delete"
 msgid "the document is not referenced: cannot apply defaut folder"
 msgstr ""
 
-#, fuzzy, c-format
-msgid "root for %s"
-msgstr "Modify"
-
-#, fuzzy
-msgid "default folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "search"
-msgstr "Start search"
-
 #, fuzzy
 msgid "all"
 msgstr "readall"
@@ -488,6 +472,22 @@ msgstr ""
 msgid "added"
 msgstr "Add new contact card"
 
+#, fuzzy, c-format
+msgid "root for %s"
+msgstr "Modify"
+
+#, fuzzy
+msgid "default folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "search"
+msgstr "Start search"
+
 msgid "no zone specified"
 msgstr ""
 
@@ -559,6 +559,13 @@ msgid "set icon to '%s'"
 msgstr ""
 
 msgid "icon already set. No update allowed"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "create default folder (id [%d])\n"
+msgstr "Delete"
+
+msgid "default folder already set. Auto ignored"
 msgstr ""
 
 #, fuzzy, c-format
@@ -952,6 +959,9 @@ msgstr ""
 msgid "no privilege %s"
 msgstr ""
 
+msgid "<it's a message>"
+msgstr ""
+
 msgid "the email syntax  is like : john.doe@anywhere.org"
 msgstr ""
 
@@ -986,21 +996,6 @@ msgstr ""
 msgid "user has not identificator"
 msgstr ""
 
-#, fuzzy
-msgid "direct"
-msgstr "Edit"
-
-msgid "errldapadd"
-msgstr ""
-"Card is not modify in LDAP server : one of this attribute is not appropriate"
-
-msgid "errldapconnect"
-msgstr "LDAP server cannot be contacted"
-
-#, fuzzy
-msgid "errldaporginit"
-msgstr "LDAP server cannot be contacted"
-
 msgid "user is desactivated"
 msgstr ""
 
@@ -1016,6 +1011,21 @@ msgstr ""
 
 msgid "Expiration delay must not be 0 to keep expiration date"
 msgstr ""
+
+#, fuzzy
+msgid "direct"
+msgstr "Edit"
+
+msgid "errldapadd"
+msgstr ""
+"Card is not modify in LDAP server : one of this attribute is not appropriate"
+
+msgid "errldapconnect"
+msgstr "LDAP server cannot be contacted"
+
+#, fuzzy
+msgid "errldaporginit"
+msgstr "LDAP server cannot be contacted"
 
 #, c-format
 msgid "group #%d does not exist"
@@ -1159,7 +1169,7 @@ msgstr ""
 msgid "change"
 msgstr "Start search"
 
-#, fuzzy
+#, fuzzy, c-format
 msgid "auto revision"
 msgstr "Organisation"
 
@@ -1677,28 +1687,6 @@ msgstr ""
 msgid "file %d"
 msgstr "Update Title Cards"
 
-#, fuzzy
-msgid "default confidential"
-msgstr "Delete"
-
-msgid "LDAP server name"
-msgstr ""
-
-msgid "LDAP server port"
-msgstr ""
-
-msgid "LDAP server root"
-msgstr ""
-
-msgid "LDAP admin identificatot"
-msgstr ""
-
-msgid "LDAP admin passord"
-msgstr ""
-
-msgid "LDAP activated"
-msgstr ""
-
 msgid "User Card"
 msgstr ""
 
@@ -1715,6 +1703,13 @@ msgstr "Organisation"
 #, fuzzy
 msgid "import vcard"
 msgstr "Import"
+
+msgid "mail will be calculated from domain"
+msgstr ""
+
+#, fuzzy
+msgid "no mail"
+msgstr "Email"
 
 msgid "Generic"
 msgstr ""
@@ -3132,6 +3127,10 @@ msgstr "Category"
 
 msgid "View properties"
 msgstr ""
+
+#, fuzzy
+#~ msgid "default confidential"
+#~ msgstr "Delete"
 
 #, fuzzy
 #~ msgid "update"

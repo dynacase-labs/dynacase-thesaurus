@@ -103,10 +103,12 @@ ATTR;US_EXPIRESD;US_FR_INTRANET;date d'expiration;N;N;date;310;R;;;;;;::Constrai
 ATTR;US_EXPIREST;US_FR_INTRANET;heure d'expiration;N;N;time;320;R;;;;;;
 ATTR;US_PASSDELAY;US_FR_INTRANET;délai d'expiration epoch;N;N;int;330;H;;;;;;
 ATTR;US_IDDOMAIN;US_FR_INTRANET;id domaine;N;N;int;340;H;;;;;;
-ATTR;US_DOMAIN;US_FR_INTRANET;domaine;N;N;text;350;R;;;usercard.php;[list]getdomainiuser():US_IDDOMAIN,US_DOMAIN;;
+ATTR;US_DOMAIN;US_FR_INTRANET;domaine;N;N;text;350;R;;;usercard.php;[list]getdomainiuser():US_IDDOMAIN,US_DOMAIN,US_EXTMAIL,US_AUTOMAIL;;
+ATTR;US_AUTOMAIL;US_FR_INTRANET;mail auto ?;N;N;text;350;H;;;;;;
+ATTR;US_EXTMAIL;US_FR_INTRANET;mail externe;N;N;text;360;O;;;;;;::parseMail(US_EXTMAIL)
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;R;Y;;;;;
 ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;R;Y;;;;;
-ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;
+ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;::parseMail(US_MAIL)
 ;;;;;;;;;;;;;;
 ATTR;US_SERVICE;US_FR_SOC;service;N;N;text;1042;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDSERVICE%;fdl.php;lkfamily(D,IGROUP,grp_type,service,US_SERVICE):US_IDSERVICE,US_SERVICE;;
 ATTR;US_IDSERVICE;US_FR_SOC;service id;N;N;docid;1041;H;;;;;;
@@ -133,7 +135,7 @@ ATTR;US_LOGIN;GRP_FR_INTRANET;login;N;N;text;200;R;Y;;;;;::ConstraintLogin(US_LO
 ATTR;US_WHATID;GRP_FR_INTRANET;identifiant;N;N;int;210;R;;;;;;
 ATTR;US_MEID;GRP_FR_INTRANET;groupe id;N;N;docid;220;H;;;;;;
 ATTR;US_IDDOMAIN;GRP_FR_INTRANET;id domaine;N;N;int;230;H;;;;;;
-ATTR;US_DOMAIN;GRP_FR_INTRANET;domaine;N;N;text;240;R;;;usercard.php;getdomainiuser():US_IDDOMAIN,US_DOMAIN;;
+ATTR;US_DOMAIN;GRP_FR_INTRANET;domaine;N;N;text;240;R;;;usercard.php;[list]getdomainigroup():US_IDDOMAIN,US_DOMAIN;;
 ;;;;;;;;;;;;;;
 ATTR;GRP_USERS;GRP_FR;personnes du groupe;N;N;array;510;H;;;;;;
 ATTR;GRP_RUSERS;GRP_FR;tous les membres;N;N;array;570;H;;;;;;

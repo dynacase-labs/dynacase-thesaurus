@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.20 2004/09/20 14:41:55 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.21 2004/10/04 09:17:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -14,7 +14,8 @@ var $eviews=array("USERCARD:CHOOSEGROUP");
 
 function SpecRefresh() {
   $err=_USER::SpecRefresh();
-    $this->AddParamRefresh("US_WHATID","US_MAIL,US_LOGIN,US_GROUP");
+    $this->AddParamRefresh("US_WHATID","US_LOGIN,US_GROUP");
+    $this->AddParamRefresh("US_AUTOMAIL","US_EXTMAIL");
     if ($this->getValue("US_IDDOMAIN",1) > 1) $this->AddParamRefresh("US_WHATID","US_DOMAIN");
     $this->AddParamRefresh("US_IDDOMAIN","US_DOMAIN");
     
@@ -95,8 +96,9 @@ function RefreshDocUser() {
       include_once("Class.Domain.php");
       $dom = new Domain("",$wuser->iddomain);
       $this->SetValue("US_DOMAIN",$dom->name);
-      $this->SetValue("US_MAIL",getMailAddr($wid) );
-   
+      $mail=$wuser->getMail();
+      if (! $mail) $this->DeleteValue("US_MAIL");
+      else $this->SetValue("US_MAIL", $mail);
       if ($wuser->passdelay<>0) { 
 	$this->SetValue("US_EXPIRESD",strftime("%d/%m/%Y",$wuser->expires));
 	$this->SetValue("US_EXPIREST",strftime("%H:%M",$wuser->expires));
@@ -155,6 +157,7 @@ function PostModify() {
   $passdelay=intval($daydelay)*3600*24;
   $status=$this->GetValue("US_STATUS");
   $login=$this->GetValue("US_LOGIN");
+  $extmail=$this->GetValue("US_EXTMAIL");
 
   // compute expire for epoch
   
@@ -181,7 +184,7 @@ function PostModify() {
   else $user=new User(""); // create new user
   $err.=$user->SetUsers($fid,$lname,$fname,$expires,$passdelay,
 		       $login,$status,$pwd1,$pwd2,
-		       $iddomain);  
+		       $iddomain,$extmail);  
   if ($err=="") { 
     if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {
       if (($pwd != $user->password) && (strlen($pwd>12))) {
