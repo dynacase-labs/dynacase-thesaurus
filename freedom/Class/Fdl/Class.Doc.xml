@@ -1,7 +1,7 @@
 <?php
 
 
-include_once("FDL[GEN]/Class.[DocParent].php");
+include_once("FDL[GEN]/Class.[DocParent1].php");
 [include]
 Class ADoc[docid] extends [AParent] {
     // for familly : [title]
@@ -29,6 +29,12 @@ Class ADoc[docid] extends [AParent] {
    }
 }
 
+     [BLOCK INDIRECT]
+// redirect class : to simulate double inherit
+Class [docNameIndirect] extends [RedirectDocParent] {
+   [METHODS2]
+}
+     [ENDBLOCK INDIRECT]
 Class Doc[docid] extends [DocParent] {
    //  family : [title]
 
@@ -121,4 +127,5 @@ end;
 Class _[docName] extends Doc[docid] {
 }
      [ENDBLOCK CLASSALIAS]
+
 ?>

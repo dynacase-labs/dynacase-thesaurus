@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.40 2004/09/09 12:56:59 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.41 2004/12/13 17:14:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -175,7 +175,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 	    $attrids[$v->id] = ($v->id)." date";  
 	    break;
 	  case timestamp:
-	    $attrids[$v->id] = ($v->id)." timestamp";  
+	    $attrids[$v->id] = ($v->id)." timestamp with time zone";  
 	    break;
 	  case time:
 	    $attrids[$v->id] = ($v->id)." time";  
@@ -212,19 +212,36 @@ function AttrToPhp($dbaccess, $tdoc) {
 
   //----------------------------------
   // Add specials methods
+  $cmethod=""; // method file which is use as inherit virtual class
   if (isset($tdoc["methods"]) && ($tdoc["methods"] != "")) {
     $tfmethods=explode("\n",$tdoc["methods"]);
     $contents="";
     foreach ($tfmethods as $fmethods) {
-
-      $filename=GetParam("CORE_PUBDIR")."/FDL/".$fmethods;
-      $fd = fopen ($filename, "rb");
-      $contents .= fread ($fd, filesize ($filename));
-      fclose ($fd);
+      if ($fmethods[0]=="*") {
+	$cmethod=substr($fmethods,1);
+	$filename=GetParam("CORE_PUBDIR")."/FDL/".$cmethod;
+	$fd = fopen ($filename, "rb");
+	$contents2 = fread ($fd, filesize ($filename)); // only one
+	fclose ($fd);
+      } else {
+	$filename=GetParam("CORE_PUBDIR")."/FDL/".$fmethods;
+	$fd = fopen ($filename, "rb");
+	$contents .= fread ($fd, filesize ($filename));
+	fclose ($fd);
+      }
     }
     $phpAdoc->Set("METHODS",str_replace(array( "<?php\n","\n?>"),"",$contents)  );
   } else $phpAdoc->Set("METHODS","");
-  
+
+  $phpAdoc->Set("DocParent1",$phpAdoc->Get("DocParent"));
+  if ($cmethod != "") {
+    $phpAdoc->Set("METHODS2",str_replace(array( "<?php\n","\n?>"),"",$contents2)  );
+    $phpAdoc->SetBlockData("INDIRECT", array(array("zou")));
+    $phpAdoc->Set("docNameIndirect","Doc".$tdoc["id"]."__");
+    $phpAdoc->Set("RedirectDocParent",$phpAdoc->Get("DocParent"));
+    $phpAdoc->Set("DocParent",$phpAdoc->Get("docNameIndirect"));
+    
+  }
 
   return $phpAdoc->gen();
     
@@ -245,13 +262,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
     // step by step
     $cdoc->Create();
 
-
-
-
-  } else {
-      
-
-
+  } else {      
     $row = $doc->fetch_array(0,PGSQL_ASSOC);
     $relid= $row["relfilenode"]; // pg id of the table
     $sqlquery="select attname FROM pg_attribute where attrelid=$relid;";
@@ -310,7 +321,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
 		$sqltype = strtolower($v->id)." date"; 
 		break;
 	      case timestamp:
-		$sqltype = strtolower($v->id)." timestamp"; 
+		$sqltype = strtolower($v->id)." timestamp with time zone"; 
 		break;
 	      case time:
 		$sqltype = strtolower($v->id)." time";  
