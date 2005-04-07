@@ -5,13 +5,13 @@
 <table width="100%" id="T[frameid]">
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1">
-            [BLOCK [NORMALROW]]
+            [IFNOT TESTARRAY]
   <td width="30%" valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</td>
   <td  >[avalue]</td>
-            [ENDBLOCK [NORMALROW]]
-            [BLOCK [ARRAYROW]]  
+            [ENDIF TESTARRAY]
+            [IF TESTARRAY]
   <td colspan="3">[avalue]</td>
-            [ENDBLOCK [ARRAYROW]]
+            [ENDIF TESTARRAY]
 </tr>
 [ENDBLOCK FVALUES]
 </table>

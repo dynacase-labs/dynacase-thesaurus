@@ -3,7 +3,7 @@
  * Generate Layout to edit frame (fieldset)
  *
  * @author Anakeen 2000 
- * @version $Id: editframe.php,v 1.20 2005/02/18 15:42:56 eric Exp $
+ * @version $Id: editframe.php,v 1.21 2005/04/07 12:09:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -87,11 +87,8 @@ function editframe(&$action) {
 					 $value);
 
       $tval[$k]["winput"]=($v->type=="array")?"1%":"30%";  // width
-      $tval[$k]["NORMALROW"]="NORMALROW$k";		
-      $tval[$k]["ARRAYROW"]="ARRAYROW$k";
-      if ($v->type=="array") $action->lay->SetBlockData("ARRAYROW$k",array(array("zou")));
-      else $action->lay->SetBlockData("NORMALROW$k",array(array("zou")));
-      
+      $tval[$k]["TESTARRAY"]=($v->type=="array");
+         
     }
 	
       
