@@ -159,15 +159,13 @@ function saveRessources() {
 }
 
 // --------------------------------------------------------
- 
-function WGCalChangeVisibility(tool, eid) {
-  el = document.getElementById(eid);
+
+function WGCalChangeVisibility(tool) {
+  el = document.getElementById(tool);
   if (el.style.display=='') {
     el.style.display = 'none';
-    toolIsVisible[tool] = 0;
   } else {
     el.style.display = '';
-    toolIsVisible[tool] = 1;
   }
   WGCalSaveToolsVisibility();
   return;
@@ -175,9 +173,12 @@ function WGCalChangeVisibility(tool, eid) {
 
 function WGCalSaveToolsVisibility() {
   var s='';
-  for (i=0; i<countTools; i++) {
+  var i=0;
+  for (i=0; i<toolList.length; i++) {
+    el = document.getElementById(toolList[i]);
+    v = (el.style.display == '' ? 1 : 0 );
     s += (s==''?'':'|');
-    s +=  i+'%'+toolIsVisible[i];
+    s +=  toolList[i]+'%'+v;
   }
   usetparam('WGCAL_U_TOOLSSTATE', s, 'wgcal_hidden', 'WGCAL_HIDDEN');
 }
@@ -202,7 +203,8 @@ function SetEventState(cevent, state) {
   evst = document.getElementById('st');
   evst.value = state;
   frm.submit();
-  seeev.style.display = 'none';
+//   seeev.style.display = 'none';
+  document.location.reload(true);
   return;
 }
 

@@ -1,6 +1,6 @@
 <!-- Start abstract [ID] -->
 <div id="evth[ID]" style="height:[headsize]px; border:0px; background-color:[evglobalstate];"></div>
-<div id="evta[ID]" style="background-color:[bgresumecolor]; overflow:hidden; cursor:pointer;  height:[cardheight]; border:0px">
+<div id="evta[ID]" style="background-color:[bgresumecolor]; overflow:hidden; cursor:pointer;  border:0px; height:[cardheight];">
 <div style="overflow:hidden; cursor:pointer; border-left:0px solid [bgstate];border:1px outset [bgresumecolor]; filter:alpha(opacity=80); height:100%">
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 [BLOCK showicons][zou]
@@ -8,5 +8,6 @@
 <tr><td colspan="2">[TITLE]</td></tr>
 <tr>
 </table>
+</div>
 </div>
 <div id="evtf[ID]" style="border:0px outset; background-color:grey;"></div>

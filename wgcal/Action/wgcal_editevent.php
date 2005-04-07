@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.40 2005/04/01 11:45:33 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.41 2005/04/07 12:17:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -50,7 +50,7 @@ function wgcal_editevent(&$action) {
 
   $nh = GetHttpVars("nh", 0);
   $times = GetHttpVars("ts", time());
-  $timee = GetHttpVars("te", time()+3600);
+  $timee = GetHttpVars("te", $times + ($action->getParam("WGCAL_U_RVDEFDUR", 60) * 60));
   // This is the event id NOT THE RV id
   $ev = GetHttpVars("ev", -1);
   
@@ -65,11 +65,11 @@ function wgcal_editevent(&$action) {
     $ownertitle = $event->getValue("CALEV_OWNER", "");
     $evtitle  = $event->getValue("CALEV_EVTITLE", "");
     $evnote   = $event->getValue("CALEV_EVNOTE", "");
-    $evstart  = db2date($event->getValue("CALEV_START", ""));
-    $evend    = db2date($event->getValue("CALEV_END", ""));
+    $evstart  = dbdate2ts($event->getValue("CALEV_START", ""));
+    $evend    = dbdate2ts($event->getValue("CALEV_END", ""));
     $evtype   = $event->getValue("CALEV_TIMETYPE", "");
     $evfreq   = $event->getValue("CALEV_FREQUENCY", 1);
-    $evcal    = $event->getValue("CALEV_CALENDAR", -1);
+    $evcal    = $event->getValue("CALEV_EVCALENDARID", -1);
     $evvis    = $event->getValue("CALEV_VISIBILITY", -1);
     $evalarm  = $event->getValue("CALEV_EVALARM", 0);
     $evalarmt = $event->getValue("CALEV_EVALARMTIME", 0);
@@ -77,7 +77,7 @@ function wgcal_editevent(&$action) {
     $evrweekd = $event->getTValue("CALEV_REPEATWEEKDAY", 0);
     $evrmonth = $event->getValue("CALEV_REPEATMONTH", 0);
     $evruntil = $event->getValue("CALEV_REPEATUNTIL", 0);
-    $evruntild = db2date($event->getValue("CALEV_REPEATUNTILDATE"));
+    $evruntild = dbdate2ts($event->getValue("CALEV_REPEATUNTILDATE"));
     $evrexcld  = $event->getTValue("CALEV_EXCLUDEDATE", array());
     $attendees = $event->getTValue("CALEV_ATTID", array());
     $attendeesState = $event->getTValue("CALEV_ATTSTATE", array());
@@ -187,53 +187,55 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   else $action->lay->set("HVISIBLE", "visible");
   
   
-  $start_y = strftime("%Y", $dstart);
-  $start_m = strftime("%m", $dstart);
-  $start_d = strftime("%d", $dstart);
-  $lstart = mktime(0,0,0,$start_m,$start_d,$start_y);
+  $start_y = gmdate("Y", $dstart);
+  $start_m = gmdate("m", $dstart);
+  $start_d = gmdate("d", $dstart);
+  $lstart = gmmktime(0,0,0,$start_m,$start_d,$start_y);
   $action->lay->set("START", $lstart);
   $action->lay->set("mSTART", $lstart*1000);
-  $action->lay->set("STARTREAD", strftime("%a %d %b %Y", $lstart));
-  $action->lay->set("H_START", strftime("%H", $dstart));
+  $action->lay->set("STARTREAD", gmdate("D d F Y", $lstart));
+  $action->lay->set("H_START", gmdate("H", $dstart));
   $th = array();
   for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h)."h";
-    $th[$h]["optselect"] = ($h==strftime("%H", $dstart)?"selected":"");
+    $th[$h]["optselect"] = ($h==gmdate("H", $dstart)?"selected":"");
   }
   $action->lay->setBlockData("SHSEL", $th);
   $th = array();
-  for ($h=0; $h<60; $h+=$action->getParam("WGCAL_U_MINCUSED",15)) {
+  $incm = $action->getParam("WGCAL_U_MINCUSED",15);
+  for ($h=0; $h<60; $h+=$incm) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
-    $th[$h]["optselect"] = ($h>=strftime("%M", $dend-60) && $h<=strftime("%M", $dend+240)?"selected":"");
+    $minu = gmdate("i", $dstart);
+    $th[$h]["optselect"] = ( $h >= $minu && $minu < $h+$incm ? "" :  "selected");
   }
   $action->lay->setBlockData("SHMSEL", $th);
-  $action->lay->set("M_START", strftime("%M", $dstart));
+  $action->lay->set("M_START", gmdate("i", $dstart));
   $action->lay->set("FSTART", $dstart);
   
-  $end_y = strftime("%Y", $dend);
-  $end_m = strftime("%m", $dend);
-  $end_d = strftime("%d", $dend);
-  $lend = mktime(0,0,0,$end_m,$end_d,$end_y);
+  $end_y = gmdate("Y", $dend);
+  $end_m = gmdate("m", $dend);
+  $end_d = gmdate("d", $dend);
+  $lend = gmmktime(0,0,0,$end_m,$end_d,$end_y);
   $action->lay->set("END", $lend);
   $action->lay->set("mEND", $lend*1000);
-  $action->lay->set("ENDREAD", strftime("%a %d %b %Y", $lend));
-  $action->lay->set("H_END", strftime("%H", $dend));
-  $action->lay->set("M_END", strftime("%M", $dend));
+  $action->lay->set("ENDREAD", gmdate("D d F Y", $lend));
+  $action->lay->set("H_END", gmdate("H", $dend));
+  $action->lay->set("M_END", gmdate("i", $dend));
   $action->lay->set("FEND", $dend);
   $th = array();
   for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h)."h";
-    $th[$h]["optselect"] = ($h==strftime("%H", $dend)?"selected":"");
+    $th[$h]["optselect"] = ($h==gmdate("H", $dend)?"selected":"");
   }
   $action->lay->setBlockData("EHSEL", $th);
   $th = array();
   for ($h=0; $h<60; $h+=$action->getParam("WGCAL_U_MINCUSED",15)) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
-    $th[$h]["optselect"] = ($h>=strftime("%M", $dend-60) && $h<=strftime("%M", $dend+240)?"selected":"");
+    $th[$h]["optselect"] = ($h>=gmdate("i", $dend-60) && $h<=gmdate("i", $dend+240)?"selected":"");
   }
   $action->lay->setBlockData("EHMSEL", $th);
  
@@ -273,6 +275,7 @@ function EventSetCalendar(&$action, $cal, $ro) {
   }
   $action->lay->SetBlockData("CALS", $tconf);
   $action->lay->set("rvcalro", ($ro?"disabled":""));
+  $action->lay->set("fullattendees", ($cal==-1?"":"none"));
 }
 
 function EventSetStatus(&$action, $status, $withme, $onlyme, $ro) {
@@ -364,7 +367,7 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
   $action->lay->set("D_RUNTIL_DATE", ($runtil==1?"checked":""));
   $action->lay->set("RUNUNTIL_DATE_DISPLAY", ($runtil==1?"":"none"));
   
-  $action->lay->set("uDate", strftime("%A %d %b %Y", $runtildate));
+  $action->lay->set("uDate", gmdate("D d F Y", $runtildate));
   $action->lay->set("umDate", $runtildate*1000);
   
 
@@ -373,8 +376,8 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
     $ide = 0;
     foreach ($recxlude as $kd => $vd) {
       if ($vd!="" && $vd>0) {
-        $ld = db2date($vd);
-        $rx[$ide]["rDate"] = strftime("%a %d %b %Y", $ld);
+        $ld = dbdate2ts($vd);
+        $rx[$ide]["rDate"] = gmdate("D d F Y", $ld);
         $rx[$ide]["mDate"] = $ld;
         $rx[$ide]["iDate"] = $i;
 	$ide++;

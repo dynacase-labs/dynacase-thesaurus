@@ -76,7 +76,7 @@ function CAL_getEventVisibilities($dbaccess, $fmt="A") {
  */
 function WGCalGetMyCalendars(&$action, $dbaccess) {
   $tcals = array();
-  $tcals[] = array( 0, _("My public calendar"));
+  $tcals[] = array( -1, _("My public calendar"));
   $cals = array();
   $cals = GetChildDoc($dbaccess, 0, 0, "ALL", array(), 
 		      $action->user->fid, "TABLE", getIdFromName($dbaccess,"SCALENDAR"));

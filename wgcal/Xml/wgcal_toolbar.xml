@@ -18,30 +18,41 @@
 [ZONE WGCAL:SEARCH]
 
 <!-- Rendez-vous en attente -->
+<!-- POPUP DIVISION -->
+<script type="text/javascript"> 
+var CEventId = -1;
+var CEventText = '';
+</script>
+<div  style="display:none" id="waitpopup" class="wgcalpopup">
+<a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 2); closeMenu('waitpopup')">[TEXT:accept this]</a>
+<a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 3); closeMenu('waitpopup')">[TEXT:reject this]</a>
+<a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[TEXT:Cancel]</a>
+</div> <!-- end POPUP DIVISION -->
+
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
 <tr>
-<td onclick="WGCalChangeVisibility(0, 'waitrv');" align="left">[TEXT:waiting rv]</td>
+<td onclick="WGCalChangeVisibility('waitrv');" align="left">[TEXT:waiting rv] ([RVCOUNT])</td>
 <td align="right"><input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></td>
 </tr>
 </table>
 
-<div id='waitrv' class="wToolArea" style="height:[zonealertsize]px; overflow:auto; display:[vTool0]">
+<div id='waitrv' class="wToolArea" style="height:[zonealertsize]px; overflow:auto; display:[vwaitrv]">
 [BLOCK WAITRV]
-<div id="evt[wrvid]"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="iacceptrv" title="[TEXT:accept event] [wrvtitle]" src="WGCAL/Images/wm-evaccept.png" height="10" onclick="ok=confirm('[TEXT:accept event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 2);"><img class="WGCwrvdefault" onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'" id="irefuserv" title="[TEXT:refuse event] [wrvtitle]" src="WGCAL/Images/wm-evrefuse.png" height="10" onclick="ok=confirm('[TEXT:refuse event] [wrvtitle] ?'); if (ok) SetEventState([wrvid], 3);"><span id="wrv[wrvid]" style="[wrvfontstyle] color:[wrvcolor]; background-color:white" title="[wrvfulldescr]"
-     onmouseover="this.className = 'WGCwrvover'" onmouseout="this.className = 'WGCwrvdefault'"
-     class="WGCwrvdefault"
-     onclick="subwindow(400, 650, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&cev=[wrvid]');"  ><img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</span></div>[ENDBLOCK WAITRV]
-<div height="10px"></div>
+<div id="evt[wrvid]" class="WGCwrvdefault" style="border-left:5px solid [wrvcolor]" 
+     onmouseover="this.className = 'WGCwrvover'; " 
+     onmouseout="this.className = 'WGCwrvdefault'"
+     onContextMenu="CEventId=[wrvid]; CEventText='[wrvtitle]'; openMenu(event,'waitpopup',[waitrg]);return false" 
+     onclick="subwindow(400, 650, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&cev=[wrvid]');" >&nbsp;<img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
 </div>
  
 <!-- [ ZONE WGCAL:WGCAL_NAVIGATOR ]  -->
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'"    width="100%" cellspacing="0" cellpadding="0">
 <tr>
-<td onclick="WGCalChangeVisibility(1, 'inav');" align="left">[TEXT:date selector]</td>
+<td onclick="WGCalChangeVisibility('inav');" align="left">[TEXT:date selector]</td>
 <td align="right"><input type="checkbox" onchange="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v" title="[TEXT:display two months]"></td>
 </tr>
 </table>
-<div align="center" class="wToolArea" width="100%" id="inav" style="overflow:auto; display:[vTool1]">
+<div align="center" class="wToolArea" width="100%" id="inav" style="overflow:auto; display:[vinav]">
 <script type="text/javascript">Calendar.setup({
         ifFormat       :    '%s',       // format of the input field
         showsTime      :    false,            // will display a time selector
@@ -71,7 +82,7 @@
 
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
 <tr>
-<td onclick="WGCalChangeVisibility(2, 'vvical');" align="left">[TEXT:calendar selector]</td>
+<td onclick="WGCalChangeVisibility('vvical');" align="left">[TEXT:calendar selector]</td>
 <td align="right">
 <img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15" src="WGCAL/Images/wm-attendees.png" title="[TEXT:modify the list]">
 <img id="resssel" style="cursor:pointer;" onclick="document.getElementById('updatecal').submit();" height="15" src="WGCAL/Images/wm-refreshcal.gif" title="[TEXT:update calendar]">
@@ -80,7 +91,7 @@
 </table>
 
 
-<div id="vvical" style="display:[vTool2]" width="100%" class="wToolArea" >
+<div id="vvical" style="display:[vvvical]" width="100%" class="wToolArea" >
 <table width="100%" cellspacing="0" cellpadding="0">
 <thead></thead>
 <tbody id="tabress">
@@ -130,9 +141,8 @@
 
 <script type="text/javascript">
 
-var toolIsVisible = new Array();
-countTools = [countTools]; [BLOCK InitTools]
-toolIsVisible[[iTool]] = [sTool];[ENDBLOCK InitTools]
+var  toolList = new Array( 'inav', 'vvical', 'waitrv', 'todo');
+
 storeRessource('[myrid]', '[myrcolor]', '1', '[myricon]', '[myrdesc]', 'WGCRessSelected');
 [BLOCK L_RESS]
 InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]');[ENDBLOCK L_RESS]

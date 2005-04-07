@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.24 2005/04/01 11:45:33 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.25 2005/04/07 12:17:28 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -66,6 +66,7 @@ array(
 	
 "WGCAL_U_HSUSED" => array("kind"=>"static", "val"=>"0", "descr"=>N_("start hour used for event setting"),"user"=>"Y"),
 "WGCAL_U_HEUSED" => array("kind"=>"static", "val"=>"23", "descr"=>N_("end hour used for event setting"),"user"=>"Y"),
+"WGCAL_U_RVDEFDUR" => array("kind"=>"static", "val"=>"60", "descr"=>N_("meeting default duration"),"user"=>"Y"),
 "WGCAL_U_MINCUSED" => array("kind"=>"static", "val"=>"15", "descr"=>N_("minutes increment used for event setting"),"user"=>"Y"),
 
 "WGCAL_U_REFRESH_T" => array("kind"=>"static", "val"=>"0", "descr"=>N_("refresh toolbar"),"user"=>"Y"),

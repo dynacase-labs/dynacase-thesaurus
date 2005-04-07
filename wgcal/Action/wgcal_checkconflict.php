@@ -19,7 +19,6 @@ function wgcal_checkconflict(&$action) {
   $checkForConflict = ($action->getParam("WGCAL_U_CHECKCONFLICT", 1)==1?true:false);
   $alreadyChecked = (GetHttpVars("cfchecked",0)==1?true:false);
   $event = (GetHttpVars("eventid",-1));
-  echo "event = $event <br>";
 
   if ($alreadyChecked || !$checkForConflict) {
     $action->lay->set("NOCF", true);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.4 2005/03/10 18:06:49 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.5 2005/04/07 12:17:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -138,6 +138,17 @@ function wgcal_prefs_look(&$action) {
     $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_HEUSED",23) ? "selected" : "");
   }
   $action->lay->SetBlockData("HEUSED", $opt);
+
+  $opt = array(); $i = 0;
+  $minc = array( "1/4 h" => 15, "1/2 h" => 30, "1 h" => 60);
+  foreach ($minc as $k => $v) { 
+    $opt[$i]["optvalue"] = $v;
+    $opt[$i]["optdescr"] = $k;
+    $opt[$i]["optselect"] = ($v==$action->GetParam("WGCAL_U_RVDEFDUR",60) ? "selected" : "");
+    $i++;
+  }
+  $action->lay->SetBlockData("RVDEFDUR", $opt);
+
   $opt = array(); $i = 0;
   $minc = array( "2","5","10","15","20","25","30","40","45"); 
   foreach ($minc as $k => $v) {

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.9 2005/03/10 18:06:49 marc Exp $
+ * @version $Id: calev_card.php,v 1.10 2005/04/07 12:17:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -187,6 +187,7 @@ function showIcons(&$action, &$ev, $private, $present) {
   if ($private) {
     addIcons($icons, "CONFID");
   } else {
+    if ($ev->getValue("CALEV_EVCALENDARID") > -1)  addIcons($icons, "CAL_PRIVATE");
     if ($ev->getValue("CALEV_VISIBILITY") == 1)  addIcons($icons, "VIS_PRIV");
     if ($ev->getValue("CALEV_VISIBILITY") == 2)  addIcons($icons, "VIS_GRP");
     if ($ev->getValue("CALEV_REPEATMODE") != 0)  addIcons($icons, "REPEAT");
@@ -205,6 +206,7 @@ function addIcons(&$ia, $icol)
      "VIS_PRIV" => array( "iconsrc" => "WGCAL/Images/wm-private.png", "icontitle" => "[TEXT:visibility private]" ),
      "VIS_GRP" => array( "iconsrc" => "WGCAL/Images/wm-privgroup.png", "icontitle" => "[TEXT:visibility group]" ),
      "REPEAT" => array( "iconsrc" => "WGCAL/Images/wm-repeat.png", "icontitle" => "[TEXT:repeat event]" ),
+     "CAL_PRIVATE" => array( "iconsrc" => "WGCAL/Images/wm-privatecalendar.png", "icontitle" => "[TEXT:private calendar]" ),
      "GROUP" => array( "iconsrc" => "WGCAL/Images/wm-attendees.png", "icontitle" => "[TEXT:with attendees]" )
   );
 

@@ -14,16 +14,18 @@ function wgcal_storeevent(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
 
-//   PrintAllHttpVars();
-
-  $db = $action->getParam("FREEDOM_DB");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $err = "";
+  $newevent = false;
+  $comment = "";
   $id  = GetHttpVars("eventid", -1);
   if ($id==-1) {
-    $event = createDoc($db, "CALEVENT");
+    $event = createDoc($dbaccess, "CALEVENT");
+    $newevent = true;
+    $comment = _("event creation");
   } else {
-    $event = new Doc($db, $id);
+    $event = new Doc($dbaccess, $id);
   }
   
   $owner = GetHttpVars("ownerid", -1);
@@ -51,6 +53,18 @@ function wgcal_storeevent(&$action) {
     $start = date2db($ds, false)." 00:00";
     $end = date2db($ds, false)." 23:59";
   }
+  $start .= ":00";
+  $end .= ":00";
+  if (!$newevent) {
+    $ott = $event->getValue("CALEV_TIMETYPE"); 
+    $ott = ($ott==""?0:$ott);
+    $ostart = $event->getValue("CALEV_START");
+    $oend = $event->getValue("CALEV_END");
+//     echo "old type = [".$ott."] new type = [".$htype."]<br>";
+//     echo "old start = [".$ostart."] new start = [".$start."]<br>";
+//     echo "old end = [".$oend."] new end = [".$end."]<br>";
+    if ($ott!=$htype || $ostart!=$start || $oend!=$end) $comment = _("date modification");
+  }
   $event->setValue("CALEV_TIMETYPE", $htype);
   $event->setValue("CALEV_START", $start);
   $event->setValue("CALEV_END", $end);
@@ -58,10 +72,12 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
   
   $calid = GetHttpVars("evcalendar", -1);
-  $event->setValue("CALEV_EVCALENDARID", $calid);
   $caltitle = _("main calendar");
-  if ($calid>0) {
-    $cal = new Doc($db, $calid);
+  if (!$newevent) $oldcal = $event->getValue("CALEV_EVCALENDARID");
+  else $oldcal = -1;
+  $event->setValue("CALEV_EVCALENDARID", $calid);
+  if ($calid != -1) {
+    $cal = new Doc($dbaccess, $calid);
     $caltitle = $cal->title;
   }
   $event->setValue("CALEV_EVCALENDAR", $caltitle);
@@ -98,7 +114,6 @@ function wgcal_storeevent(&$action) {
   // Attendees
   $udbaccess = $action->GetParam("COREUSER_DB");
   $ugrp = new User($udbaccess);
-  $dbaccess = $action->GetParam("FREEDOM_DB");
   $groupfid = getIdFromName($dbaccess, "GROUP");
   $igroupfid = getIdFromName($dbaccess, "IGROUP");
 
@@ -117,7 +132,7 @@ function wgcal_storeevent(&$action) {
   if ($attl!="") {
     $attendees = explode("|", $attl);
     foreach ($attendees as $ka => $va) {
-      $att = new Doc($db, $va);
+      $att = new Doc($dbaccess, $va);
       if ($att->fromid==$groupfid || $att->fromid==$igroupfid) {
 	$nattl[$iatt]["fid"] = $att->id;
 	$nattl[$iatt]["fgid"] = -1;
@@ -132,7 +147,7 @@ function wgcal_storeevent(&$action) {
     }
     // Look at others attendees
     foreach ($attendees as $ka => $va) {
-      $att = new Doc($db, $va);
+      $att = new Doc($dbaccess, $va);
       if ($att->fromid!=$groupfid && $att->fromid!=$igroupfid) {
 	$nattl[$iatt]["fid"] = $att->id;
 	$nattl[$iatt]["fgid"] = -1;
@@ -143,7 +158,7 @@ function wgcal_storeevent(&$action) {
   
    foreach ($nattl as $ka => $va) {
       if ($va<=0||$va=="") continue;
-      $att = new Doc($db, $va["fid"]);
+      $att = new Doc($dbaccess, $va["fid"]);
       $attendeesid[$attcnt]  = $att->id;
       $attendeesname[$attcnt]  = $att->title;
       $attendeesgroup[$attcnt] = $va["fgid"];
@@ -184,9 +199,21 @@ function wgcal_storeevent(&$action) {
         if ($err!="") AddWarningMsg("$err");
      }
   }
-  $event->AddComment(_("change content "));
+  if ($oldcal != $calid && !$newevent) {
+    if ($oldcal!=-1) {
+      $cal = new Doc($dbaccess, $oldcal);
+      $cal->DelFile($event->id);
+      $event->AddComment(_("remove event from calendar ".$cal->title));
+    }
+    $cal = new Doc($dbaccess, $calid);
+    if ($cal->isAlive()) {
+      $cal->AddFile($event->id);
+      $event->AddComment(_("insert event in calendar $caltitle"));
+    }
+  }
+  $event->AddComment(($comment==""?_("change content "):$comment));
   $changed = true;
-  //if ($changed) sendRv($action, $event);
+
   sendRv($action, $event);
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }

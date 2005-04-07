@@ -60,6 +60,8 @@ function  setEventSpec(&$e) {
  if (count($rejattid)==0)  $e->deleteValue("EVFC_REJECTATTID");  
  else $e->setValue("EVFC_REJECTATTID", $rejattid);  
 
+  $e->setValue("EVFC_CALENDARID", $this->getValue("CALEV_EVCALENDARID"));
+
   // Propagate RV profil to events
   //$e->setProfil($this->dprofid );
 }

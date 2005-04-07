@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.24 2005/04/01 11:45:33 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.25 2005/04/07 12:17:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -93,26 +93,26 @@ function WGCalGetDayFromTs($ts)
   $dd = strftime("%d", $ts);
   $mm = strftime("%m", $ts);
   $yy = strftime("%Y", $ts);
-  $fwdt = mktime ( 0, 0, 0, $mm, $dd, $yy);
+  $fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
   return $fwdt;
 }
 
 function WGCalGetFirstDayOfWeek($ts) {
 	if ($ts<=0) return false;
-	$iday  = strftime("%u",$ts);
+ 	$iday  = strftime("%u",$ts);
 	$dt = 1-$iday;
         $tsfwd = $ts - (($iday-1) * SEC_PER_DAY);
 	$dd = strftime("%d", $tsfwd);
  	$mm = strftime("%m", $tsfwd);
  	$yy = strftime("%Y", $tsfwd);
-	$fwdt = mktime ( 0, 0, 0, $mm, $dd, $yy);
+	$fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
 	return $fwdt;
 }
 function WGCalGetFirstDayOfMonth($ts) {
 	if ($ts<=0) return false;
  	$mm = strftime("%m", $ts);
  	$yy = strftime("%Y", $ts);
-	$fwdt = mktime ( 0, 0, 0, $mm, 1, $yy);
+	$fwdt = gmmktime ( 0, 0, 0, $mm, 1, $yy);
 	return $fwdt;
 }
  function WGCalGetFirstDayOfMonthN($ts) {
@@ -124,8 +124,8 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
 
   include_once('FDL/popup_util.php');
 
-//   $debug = true;
   $debug = false;
+//      $debug = true;
 
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
 
@@ -164,12 +164,12 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
     $item = array( "ID" => $v["id"], 
 		   "IDP" => $v["evt_idinitiator"], 
- 		   "START" => FrenchDateToUnixTs($v["evt_begdate"]),
+ 		   "START" => localFrenchDateToUnixTs($v["evt_begdate"]),
   		   "TSSTART" => $v["evt_begdate"],
  		   "TSEND" => $end, 
-		   "END" => FrenchDateToUnixTs($end), 
+		   "END" => localFrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
-    if ($debug) print_r2($item);
+//     if ($debug) print_r2($item);
     $ref = false;
     if ($showrefused!=1 && $v["evt_frominitiatorid"] == $rvfamid) {
       $attr = array();
@@ -250,7 +250,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   }
   popupGen(count($tout));
   $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
-  if ($debug) print_r2($tout);
+//   if ($debug) print_r2($tout);
   return $tout;
 }
        	
@@ -263,14 +263,9 @@ function WGCalDaysInMonth($ts)
   return ($thisDay-1);
 } 
 
-function db2date($i) {
-  $i = preg_replace( '/(\d{2})\W(\d{2})\W(\d{4}|\d{4})\W(\d{2}:\d{2})/', '$2/$1/$3 $4', $i);
-  $d = strtotime($i);
-  return $d;
-}
 function date2db($d, $hm = true) {
-  $fmt = ($hm ? "%d/%m/%Y %H:%M" : "%d/%m/%Y" );
-  $s = strftime($fmt, $d);
+  $fmt = ($hm ? "d/m/Y H:i" : "d/m/Y" );
+  $s = gmdate($fmt, $d);
   return $s;
 }
 
@@ -281,8 +276,17 @@ function dbdate2ts($dbtime) {
   $day = substr($dbtime,0,2);
   $mon = substr($dbtime,3,2);
   $yea = substr($dbtime,6,4);
-  return mktime($hou, $min, $sec, $mon, $day, $yea);
+  return gmmktime($hou, $min, $sec, $mon, $day, $yea);
 }
+function localFrenchDateToUnixTs($fdate) {
+  if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$r)) {   
+    $ds = gmmktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
+  } else {
+    $ds = -1;
+  }
+  return $ds;
+}
+
 
 
 function WGCalGetRGroups(&$action, $uid) {

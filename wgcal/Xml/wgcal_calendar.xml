@@ -1,5 +1,12 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 [ZONE WGCAL:WGCAL_MENU]
+<!-- POPUP DIVISION -->
+<script type="text/javascript"> var CurrentTime = -1; </script>
+<div  style="display:none" id="cellpopup" class="wgcalpopup">
+<a href="#" id="addrv" onclick=" closeMenu('cellpopup')">[TEXT:new rendez-vous]</a>
+<a href="#" id="cancelevent" onclick="closeMenu('cellpopup')"  >[TEXT:Cancel]</a>
+</div> <!-- end POPUP DIVISION -->
+
 <div id="root">
 <table style="z-index:2000;" width="100%" cellspacing="0" border="0" id="week">
   <tr height="[WGCAL_U_HLINETITLE]px">
@@ -25,7 +32,7 @@
      </td>
  </tr>    
  <tr height="[WGCAL_U_HLINETITLE]px">
-    <td width="[hcolsize]%" class="WGCAL_Period"></td>[BLOCK DAYS_LINE]<td id="D[IDD]" width="[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times],[timee]);">[LABEL]</td>[ENDBLOCK DAYS_LINE]</tr>
+    <td width="[hcolsize]%" class="WGCAL_Period"></td>[BLOCK DAYS_LINE]<td id="D[IDD]" width="[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times]);">[LABEL]</td>[ENDBLOCK DAYS_LINE]</tr>
 [BLOCK HOURS]<tr height="[HLINEHOURS]px"><td id="L[LID]" width="[hcolsize]%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>[ENDBLOCK HOURS]
 </table>[ZONE WGCAL:WGCAL_INFOS]</div>
 
@@ -37,10 +44,10 @@
   onmouseout="WGCalEvOnMouseOut(event, '[RG]');" 
   onContextMenu="SetCurrentEvent([ID]); openMenu(event,'calpopup',[RG]);return false" 
   onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([ID]);openMenu(event,'calpopup',[RG])}"
-  style="cursor:pointer; border:0px; display:none;overflow:hidden;">[ZONE [RESUME]?ev=[ID]]</div>
+  style="cursor:pointer; border:0px; border-left:1px solid grey; display:none;overflow:hidden;">[ZONE [RESUME]?ev=[ID]]</div>
+
 <div id="evtc[RG]" style="display:none; border:1px outset; background-color:white');">
-[ZONE [VIEW]?ev=[ID]]
-</div>
+[ZONE [VIEW]?ev=[ID]]</div>
 [ENDBLOCK EVENTS]
 
 
@@ -55,7 +62,6 @@ WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [
 
 [BLOCK EVENTSSC]WGCalAddEvent([RG], [START], [END]);
 [ENDBLOCK EVENTSSC]
-
 WGCalDisplayAllEvents();
 </script>
 

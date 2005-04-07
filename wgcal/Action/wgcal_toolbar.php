@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.22 2005/03/30 10:04:40 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.23 2005/04/07 12:17:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -44,24 +44,18 @@ function wgcal_toolbar(&$action) {
   _listress($action);
 
   // Set initial visibility
-  $nbTools = 4;
   $all =  explode("|", $action->GetParam("WGCAL_U_TOOLSSTATE", ""));
   $state = array();
-  $td = array();
   foreach ($all as $k => $v) {
     $t = explode("%",$v);
-    $state[$t[0]] = $t[1];
+    $state[$t[0]] = ($t[1]==0?"none":"");
   }
-  for ($i=0; $i<$nbTools; $i++) {
-    if (isset($state[$i])) $s = $state[$i];
-    else $s = 1;
-    $action->lay->set("vTool".$i, ($s==1?"":"none"));
-    $td[$i]["iTool"] = $i;
-    $td[$i]["sTool"] = $s;
+  $toolList = array( 'inav', 'vvical', 'waitrv', 'todo');
+  foreach ($toolList as $k => $v ) {
+    if (isset($state[$v])) $vis = $state[$v];
+    else $vis = 1;
+    $action->lay->set("v".$v, $vis);
   }
-  $action->lay->SetBlockData("InitTools", $td);
-  $action->lay->set("countTools", $nbTools);
-
 
   $todoviewday = $action->getParam("WGCAL_U_TODODAYS", 7);
   $action->lay->set("tododays", $todoviewday);
@@ -106,11 +100,23 @@ function _waitrv(&$action) {
   // search NEW rv
   _seewaitrv($action, $trv);
 
-
   $action->lay->set("zonealertsize", $action->GetParam("WGCAL_U_ZWRVALERTSIZE", 100));
   $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
   $action->lay->set("alertwrv", "checked");
   if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");
+
+  // Init popup
+  include_once("FDL/popup_util.php");
+  popupInit('waitpopup',  array('acceptevent',  'refuseevent', 'cancelevent'));
+  foreach ($trv as $k => $v) {
+    PopupActive('waitpopup', $k, 'acceptevent');
+    PopupActive('waitpopup', $k, 'refuseevent');
+    PopupActive('waitpopup', $k, 'cancelevent');
+    $trv[$k]["waitrg"] = $k;
+  }
+  popupGen(count($trv));
+    
+
 
   $rd=getIdFromName($dbaccess,"WG_WAITRV");
   $action->lay->SetBlockData("WAITRV", null);

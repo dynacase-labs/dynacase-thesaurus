@@ -3,27 +3,30 @@
 <script type="text/javascript">
 
 var families = new Array();
+[BLOCK FAMRESSJS]
+families[[FAMID]] =  [FAMSEL];[ENDBLOCK FAMRESSJS]
+
 var nfam = 0;
+
 function SetFamily(fid, classSet, classUnset) {
-  elt = document.getElementById(fid);
-  var idx = -1;
-  families.sort();
-  for (i=0; i<families.length && idx==-1; i++) {
-    if (families[i] == fid) idx = i;
-  }
-  if (idx!=-1) {
-    families[idx] = -1;    
+  var idl = 0;
+  var elt = document.getElementById(fid);
+
+  if (families[fid] == undefined) return;
+
+  if (families[fid]) {
     css = classUnset;
+    families[fid] = false;
   } else {
-    for (i=0; i<families.length && families[i]!=-1; i++);
-    families[i] = fid;
     css = classSet;
+    families[fid] = true;
   }
+
   document.getElementById('sfam').value = '';
   nfam = 0;
-  for (i=0; i<families.length; i++) {
-    if (families[i]!=-1) {
-      document.getElementById('sfam').value += families[i]+'|';
+  for (var idl in families) {
+    if (families[idl]) {
+      document.getElementById('sfam').value += idl+'|';
       nfam++;
     }
   }
@@ -45,8 +48,7 @@ function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
 </script>
 
 <form id="fgettext" target="wgcal_mresspicker_list" name="fgettext" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKERLIST&updt=[updt]">
-<fieldset><legend>[TEXT:searched families]&nbsp;
-<img style="cursor:pointer;" title=[TEXT:close window]" height="12" src="WGCAL/Images/wm-close-small.png" onclick="parent.window.close();">&nbsp;</legend>
+<fieldset><legend>[TEXT:searched families]</legend>
 [BLOCK FAMRESS]
 <div id="[FAMID]"  class="WGCRessDefault" style="height:50%; overflow:auto"
      onmouseover="WGCalChangeClass(event, '[FAMID]', 'WGCFamSelected', 'WGCRessOver');" 

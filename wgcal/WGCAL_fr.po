@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-01 10:21+0200\n"
+"POT-Creation-Date: 2005-04-07 10:28+0200\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -100,23 +100,29 @@ msgstr "Heure de début utilsée pour la saisie de RV"
 msgid "end hour used for event setting"
 msgstr "Heure de fin utilsée pour la saisie de RV"
 
+msgid "meeting default duration"
+msgstr "Durée par défaut des rendez-vous"
+
 msgid "minutes increment used for event setting"
 msgstr "Incrément pour les minutes en saisie de RV"
 
 msgid "refresh toolbar"
 msgstr "Raffraichir la barre d'outil"
 
-#, fuzzy
 msgid "view todos for ... days"
-msgstr "Afficher"
+msgstr "Afficher les tâches pour ... jours"
 
-#, fuzzy
 msgid "warn for todo having a date in the ... days"
-msgstr "M'avertir pour les tâches dans "
+msgstr "M'avertir pour les tâches à faire durant les ... jours "
 
-#, fuzzy
 msgid "set todo date to today + ... days"
-msgstr "Position la date par défaut à aujourd'hui plus "
+msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
+
+msgid "last sync date for Outlook"
+msgstr ""
+
+msgid "last sync date for WGCal"
+msgstr ""
 
 msgid "mails send"
 msgstr "Envoi des mails"
@@ -289,9 +295,6 @@ msgstr "Afficher / cacher les week-end"
 msgid "searched families"
 msgstr "Rechercher dans les familles..."
 
-msgid "close window"
-msgstr "Fermer la fenêtre"
-
 msgid "search"
 msgstr "Rechercher"
 
@@ -393,9 +396,6 @@ msgstr "ressources affichées"
 
 msgid "ressources advanced search"
 msgstr "Recherche avancée de contact"
-
-msgid "advanced search"
-msgstr "Recherche avancée"
 
 msgid "vew disponibility"
 msgstr "Voir les disponibilités"
@@ -550,11 +550,11 @@ msgstr "à confirmer"
 msgid "edit"
 msgstr "Editer"
 
-msgid "delconfirm"
-msgstr "à confirmer"
-
 msgid "history"
 msgstr "Historique"
+
+msgid "delconfirm"
+msgstr "à confirmer"
 
 msgid "Cancel"
 msgstr "Annuler"
@@ -646,6 +646,9 @@ msgstr "rechercher les évènements contenant"
 msgid "enter words here"
 msgstr "entrer les mots recherchés"
 
+msgid "advanced search"
+msgstr "Recherche avancée"
+
 msgid "my todo"
 msgstr "Mes tâches"
 
@@ -694,12 +697,6 @@ msgstr "Position d'affichage"
 msgid "timeout before displaying popup"
 msgstr "Temporisation avec l'affichage"
 
-msgid "start hour"
-msgstr "heure de début"
-
-msgid "end hour"
-msgstr "heure de fin"
-
 msgid "hours division size"
 msgstr "Division de l'heure"
 
@@ -708,6 +705,12 @@ msgstr "Edition des rendez-vous"
 
 msgid "meeting hours interval"
 msgstr "Intervalle de choix des heures"
+
+msgid "start hour"
+msgstr "heure de début"
+
+msgid "end hour"
+msgstr "heure de fin"
 
 msgid "meeting minute increase"
 msgstr "Tranches de minutes selectionnables"
@@ -755,8 +758,20 @@ msgstr ""
 msgid "event search "
 msgstr "Recherche d'évènement"
 
+msgid "event creation"
+msgstr "Création de l'évènement"
+
+msgid "date modification"
+msgstr "Modification de la date"
+
 msgid "main calendar"
 msgstr "Calendrier public"
+
+msgid "remove event from calendar "
+msgstr "Suppression de l'évènement du calendrier "
+
+msgid "insert event in calendar $caltitle"
+msgstr "Ajout de l'évènement dans le calendrier "
 
 msgid "change content "
 msgstr "Modification du contenu"
@@ -865,6 +880,9 @@ msgstr "à confirmer"
 
 msgid "My public calendar"
 msgstr "mon calendrier public"
+
+#~ msgid "close window"
+#~ msgstr "Fermer la fenêtre"
 
 #~ msgid "day(s)"
 #~ msgstr "Jour(s)"

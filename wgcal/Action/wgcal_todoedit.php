@@ -22,7 +22,7 @@ function wgcal_todoedit(&$action) {
     if ($todo->isAlive()) {
       $id = $todo->id;
       $title = $todo->getValue("todo_title");
-      $date_ts = db2date($todo->getValue("todo_date"));
+      $date_ts = date2db($todo->getValue("todo_date"));
       $note = $todo->getValue("todo_note");
     } else {
       $id = -1;

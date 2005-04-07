@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.35 2005/03/10 10:30:59 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.36 2005/04/07 12:17:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -27,8 +27,11 @@ function printhdiv($h, $hdiv, $hd) {
   return $sd.$sh;
 }
 
-function d2s($t, $f="%x %X") {
-  return strftime($f, $t);
+// function d2s($t, $f="%x %X") {
+//   return strftime($f, $t - 7200);
+// }
+function d2s($t, $f="H:i d/m/Y") {
+  return gmdate($f, $t);
 }
 
 function wgcal_calendar(&$action) {
@@ -114,7 +117,7 @@ function wgcal_calendar(&$action) {
     $t[$i]["IDD"] = $i;
     $t[$i]["colsize"] = $colsize;
     $t[$i]["CSS"] = $classh[$i];
-    $t[$i]["LABEL"] = d2s($firstWeekDay+($i*SEC_PER_DAY), "%a %d %b");
+    $t[$i]["LABEL"] = d2s($firstWeekDay+($i*SEC_PER_DAY), "D d F");
     $t[$i]["times"] =  $tabdays[$i]["vstart"] ;
     $t[$i]["timee"] =   $t[$i]["times"] +  SEC_PER_HOUR;
   }
@@ -148,16 +151,16 @@ function wgcal_calendar(&$action) {
 	$tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
 	$tcell[$itc]["colsize"] = $colsize;
 	$tcell[$itc]["urlroot"] = $urlroot;
-	$tcell[$itc]["times"] = d2s($firstWeekDay+($id*SEC_PER_DAY)+($h*SEC_PER_HOUR)+ ($hd*$mdiv), "%s");
+	$tcell[$itc]["times"] = $firstWeekDay + ($id*SEC_PER_DAY)+($h*SEC_PER_HOUR) + ($hd*$mdiv);
 	$tcell[$itc]["timee"] = $tcell[$itc]["times"] + (($hd==0?1:$hd) * $mdiv);
-	$tcell[$itc]["rtime"] = d2s($firstWeekDay+($id*SEC_PER_DAY), "%a %d %B %Y, ");
+	$tcell[$itc]["rtime"] = d2s($firstWeekDay+($id*SEC_PER_DAY), "D d F Y, ");
 	if ($h==($hstart-1) || $h==($hstop+1)) {
 	  $tcell[$itc]["nh"] = 1;
 	  $tcell[$itc]["rtime"] .= _("no hour");
 	} else {
 	  $tcell[$itc]["nh"] = 0;
-	  $tcell[$itc]["rtime"] .= d2s($tcell[$itc]["times"],"%H:%M")." - ";
-	  $tcell[$itc]["rtime"] .= d2s($tcell[$itc]["timee"],"%H:%M");
+	  $tcell[$itc]["rtime"] .= d2s($tcell[$itc]["times"],"H:i")." - ";
+	  $tcell[$itc]["rtime"] .= d2s($tcell[$itc]["timee"],"H:i");
 	}
 	$tcell[$itc]["lref"] = "L".$nl;
 	$tcell[$itc]["cref"] = "D".$id;
@@ -166,7 +169,6 @@ function wgcal_calendar(&$action) {
 	$tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
 	$tcell[$itc]["hourclass"] = $classh[$id];
 	$tcell[$itc]["cellcontent"] = "";
-	//$tcell[$itc]["cellcontent"] = $h."/".$hd." ".strftime("%H:%M:%S",$tcell[$itc]["times"])." " . strftime("%H:%M:%S",$tcell[$itc]["timee"]);
 	$itc++;
       }
       $lcell->SetBlockData("CELLS", $tcell);
@@ -207,8 +209,8 @@ function wgcal_calendar(&$action) {
   }
   $events = WGCalGetAgendaEvents( $action,
 				  $tr, 
-				  d2s($firstWeekDay, "%Y-%m-%d %H:%M:%S"),
-				  d2s($edate, "%Y-%m-%d %H:%M:%S") );
+				  d2s($firstWeekDay, "Y-m-d H:i:s"),
+				  d2s($edate, "Y-m-d H:i:s") );
   
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: todo.php,v 1.2 2005/04/01 11:45:33 marc Exp $
+ * @version $Id: todo.php,v 1.3 2005/04/07 12:17:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -22,6 +22,16 @@ function todo(&$action) {
   $standalone = GetHttpVars("S", 0);
   $todoviewday = GetHttpVars("dtodo", -1);
   $todowarn = $action->getParam("WGCAL_U_TODOWARN", 2);
+
+  $all =  explode("|", $action->GetParam("WGCAL_U_TOOLSSTATE", ""));
+  $state = array();
+  $td = array();
+  $action->lay->set("vtodo", "");
+  foreach ($all as $k => $v) {
+    $t = explode("%",$v);
+    $state[$t[0]] = $t[1];
+    if ($t[0] == 'todo') $action->lay->set("vtodo", ($t[1]==0?"none":""));
+  }
 
   $today = time();
 

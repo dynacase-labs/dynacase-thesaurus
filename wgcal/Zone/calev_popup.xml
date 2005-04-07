@@ -8,16 +8,15 @@
     onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_TBC','');closeMenu('calevcard')" >[TEXT:to be confirm]</a>
 <a class="separator"><hr></a>
 
+<a class="separator"><hr></a>
+
 <a href="#" id="editrv"
     onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[id]','wgcal_edit');closeMenu('calevcard')" >[TEXT:edit]</a>
+<a href="#" id="historyrv"
+    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_HISTORY&evt=[id]','wgcal_history');closeMenu('calevcard')" >[TEXT:history]</a>
 <a href="#" id="deleterv"
     onclick="ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT&evt=[id]','');closeMenu('calevcard')" >[TEXT:delete]</a>
 
-
-<a class="separator"><hr></a>
-
-<a href="#" id="historyrv"
-    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_HISTORY&evt=[id]','wgcal_history');closeMenu('calevcard')" >[TEXT:history]</a>
 
 <a class="separator"><hr></a>
 

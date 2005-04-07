@@ -1,8 +1,8 @@
 <?php
 include_once("WGCAL/Themes/default.thm");
 
-$theme->Name   = _("blue");
-$theme->Descr  = _("blue theme");
+$theme->Name   = "default";
+$theme->Descr  = "Blue Theme (default)";
 
 $theme->WTH_BGIMG                 =  "url('WGCAL/Images/bg-blue.gif')";
 
@@ -19,10 +19,11 @@ $theme->WTH_CALWEEKEND            =  "#F0E8FF";
 $theme->WTH_CALTODAY              =  "#eef4f9";
 
 
-$theme->WTH_FONTLIST              =  "Arial, Tahoma, Helvetica, sans-serif";
-$theme->WTH_FONTSIZE_NORMAL       =  "10";
+$theme->WTH_FONTLIST              =  "Tahoma, Helvetica, sans-serif";
+$theme->WTH_FONTSIZE_NORMAL       =  "9";
 $theme->WTH_FONTSIZE_BIG          =  "10";
 $theme->WTH_FONTSIZE_SMALL        =  "7";
+$theme->WTH_FONTSIZE_POPUP        =  "8";
 
 $theme->WTH_TOOLBARW              =  "200";
 ?>

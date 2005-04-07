@@ -15,8 +15,9 @@ function swstate(s) {
 
 
 function ShowDate(ts) {
-  var d = new Date((parseInt(ts) * 1000));
-  t = d.getHours()+':'+d.getMinutes()+' '+d.getDate()+'/'+parseInt(d.getMonth()+1)+'/'+d.getFullYear();
+  var d = new Date();
+  d.setTime((parseInt(ts) * 1000));
+  t = d.getUTCHours()+':'+d.getUTCMinutes()+' '+d.getUTCDate()+'/'+parseInt(d.getUTCMonth()+1)+'/'+d.getUTCFullYear();
   return 'TS : '+ts+' : '+t;
 }
 
@@ -41,6 +42,13 @@ function ComputeTime(id) {
   return;
 }
 
+
+function showtimes() {
+  var start = document.getElementById('Fstart').value;
+  var end = document.getElementById('Fend').value;
+  alert('start='+start+' end='+end);
+}
+
 function CheckIfUpdate(id, dalert) {
 
   var start = document.getElementById('Fstart');
@@ -55,17 +63,18 @@ function CheckIfUpdate(id, dalert) {
 
   if (parseInt(start.value)<=parseInt(end.value)) return true;
 
-  if (id=='start') uTime = parseInt(start.value) + 3600;
-  else uTime = parseInt(end.value) - 3600;
+  if (id=='start') uTime = parseInt(start.value);
+  else uTime = parseInt(end.value);
     
-  var d = new Date(uTime*1000);
+  var d = new Date();
+  d.setTime(uTime*1000);
 
-  minuTime.value = d.getMinutes();
-  hourTime.value = d.getHours();
-  fullTime.value = uTime;
-  var ctd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
-  daysTime.value = d.getSeconds();
-  textTime.innerHTML = Calendar._DN[ctd.getDay()]+' '+ctd.getDate()+' '+Calendar._SMN[ctd.getMonth()]+' '+ctd.getFullYear();
+  minuTime.value = d.getUTCMinutes();
+  hourTime.value = d.getUTCHours();
+  fullTime.value = d.getTime();
+  var ctd = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 0, 0, 0, 0);
+  daysTime.value = d.getUTCSeconds();
+  textTime.innerHTML = Calendar._DN[ctd.getUTCDay()]+' '+ctd.getUTCDate()+' '+Calendar._SMN[ctd.getUTCMonth()]+' '+ctd.getUTCFullYear();
   
   if (dalert) {
     var malert = document.getElementById('tU'+idn);
@@ -115,7 +124,24 @@ function SetSelectedItem(from, to) {
    var f = document.getElementById(from);
    var to = document.getElementById(to);
    for (i=0; i<f.options.length; i++) {
-    if (f.options[i].selected) to.value = f.options[i].value;
+     if (f.options[i].selected) {
+       to.value = f.options[i].value;
+       if (to.value>0) {
+	 deleteAttendee(-1);
+	 document.getElementById('fullattendees').style.display = 'none';
+       } else {
+	 document.getElementById('fullattendees').style.display = '';
+	 showt = false;
+	 for (i=0; i<attendeesList.length; i++) {
+	   if (attendeesList[i].id != -1) showt = true;
+	 }
+	 if (showt) {
+	   document.getElementById('attlist').style.display = '';
+	   document.getElementById('viewplan').style.display = '';
+	   document.getElementById('delall').style.display = '';
+	 }
+       }
+     }
    }
 }
 
@@ -209,13 +235,11 @@ function refreshAttendees() {
       vdelall.style.display = '';
     }
     document.getElementById('vnatt').style.display = '';
-//     document.getElementById('spall').style.visibility = 'visible';
   }  else {
     vress.style.display = 'none';
     vdispo.style.display = 'none';
     vdelall.style.display = 'none';
     document.getElementById('vnatt').style.display = 'none';
-//     document.getElementById('spall').style.visibility = 'hidden';
   }
   return; 
 }
@@ -246,6 +270,8 @@ function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor, rselect) {
 }
 
 function  deleteAttendee(aid) {
+  var i = 0;
+
   for (i=(attendeesList.length-1); i>=0; i--) {
     if (aid==-1 || aid == attendeesList[i].id) {
       eltA = document.getElementById('tr'+ attendeesList[i].id);
@@ -254,15 +280,22 @@ function  deleteAttendee(aid) {
       attendeesList[i].id = -1;
     }
   }
+
   showt = false;
   for (i=0; i<attendeesList.length; i++) {
     if (attendeesList[i].id != -1) showt = true;
   }
   var vress = document.getElementById('attlist');
-  if (showt) {
+  var viewplan = document.getElementById('viewplan');
+  var delall = document.getElementById('delall');
+ if (showt) {
     vress.style.display = '';
+    viewplan.style.display = '';
+    delall.style.display = '';
   } else {
     vress.style.display = 'none';
+    viewplan.style.display = 'none';
+    delall.style.display = 'none';
     document.getElementById('withMe').checked = true;
   }
 }
@@ -283,6 +316,7 @@ function saveEvent() {
     return false;
   }
   if (EventSelectAll(fs)) { 
+//     showtimes()
     fs.submit();
   }
   return false;
@@ -309,10 +343,11 @@ function addExclDate() {
   var nOpt = new Option();
   var ndate = document.getElementById('nexcldate').value;
 
-  var jdate = new Date(ndate*1000);
-  var y = jdate.getFullYear();
-  var m = jdate.getMonth();     // integer, 0..11
-  var d = jdate.getDate();
+  var jdate = new Date();
+  jdate.setTime(ndate*1000);
+  var y = jdate.getUTCFullYear();
+  var m = jdate.getUTCMonth();     // integer, 0..11
+  var d = jdate.getUTCDate();
   var ts = calendar.date.print("%s");
 
   nOpt.id = 'exdate'+ExcludeDate;
@@ -407,7 +442,8 @@ function viewattdispo(url) {
     rll += me;
   }
   
-  var td = new Date(rvs*1000);
+  var td = new Date();
+  td.setTime(rvs*1000);
   js = cal_to_jd( "CE", td.getFullYear(), td.getMonth()+1, td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
   je = parseFloat(js) + 14.0;
   alert('ViewDispo '+url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
@@ -485,19 +521,14 @@ function RessourceSelect(idr) {
 }
 
 
-var RessourceHelperOpened = false;
-function CloseAttSelect(idh) {
-  if (RessourceHelperOpened) document.getElementById(idh).style.display = 'none';
-} 
-
-
-function ViewRessourceHelper(idh, url) {
-  var pst = document.getElementById(idh).style.display; 
-  if (pst=='none') {
+function ViewRessourceHelper(url) {
+  var pst = document.getElementById('_addatt'); 
+  if (pst.style.display=='none') {
     parent.wgcal_addatt.location.href=url; 
-    document.getElementById(idh).style.display  = ''; 
-    RessourceHelperOpened = 'true';
-  }
+    pst.style.display  = ''; 
+  } else {
+    pst.style.display  = 'none';
+  }		
 }
   
 

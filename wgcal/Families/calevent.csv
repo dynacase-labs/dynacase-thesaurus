@@ -71,5 +71,6 @@ ATTR;EVFC_LISTATT;EVFC_OTHERS;Conviés;N;N;array;1140;W;;;;;
 ATTR;EVFC_LISTATTID;EVFC_LISTATT;Ressource Id;N;N;docid;1150;W;;;;;
 ATTR;EVFC_LISTATTST;EVFC_LISTATT;Ressource status;N;N;int;1160;W;;;;;
 ATTR;EVFC_VISIBILITY;EVFC_OTHERS;Visibilité;N;N;boolean;1170;W;;;;;
+ATTR;EVFC_CALENDARID;EVFC_OTHERS;Calendrier;N;N;docid;1180;W;;;;;
 END;;;;;;;;;;;;;
 ;;;;;;;;;;;;;

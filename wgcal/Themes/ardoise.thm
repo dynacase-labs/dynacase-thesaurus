@@ -1,7 +1,7 @@
 <?php
 
-$theme->Name   = _("ardoise");
-$theme->Descr  = _("the ardoise theme");
+$theme->Name   = "ardoise";
+$theme->Descr  = "The ardoise theme";
 
 $theme->WTH_BGIMG = "url('WGCAL/Images/bg-default.gif')";
 

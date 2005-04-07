@@ -2,8 +2,8 @@
 
 include_once("WGCAL/Themes/default.thm");
 
-$theme->Name   = _("numbers");
-$theme->Descr  = _("numbers theme");
+$theme->Name   = "numbers";
+$theme->Descr  = "Numbers theme";
 
 $theme->WTH_BGIMG                 =  "url('WGCAL/Images/bg-numbers.png')";
 

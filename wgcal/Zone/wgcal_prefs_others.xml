@@ -3,7 +3,7 @@
 
 <tr class="wTextActive"><td colspan="3">[TEXT:options]</td></tr>
 
-[BLOCK MAILOPTCHK]<tr><td width="10%"></td><td align="center" colspan="2"><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" title="[textoption]">[textoption] : <input id="[idoption]" name="[idoption]" type="checkbox" style="cursor:pointer;" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" [stateoption]></span></td></tr>[ENDBLOCK MAILOPTCHK]
+[BLOCK MAILOPTCHK]<tr><td width="10%"></td><td align="left" colspan="2"><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" title="[textoption]"><input id="[idoption]" name="[idoption]" type="checkbox" style="cursor:pointer;" onclick="SetChkPref('[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" [stateoption]> [textoption]</span></td></tr>[ENDBLOCK MAILOPTCHK]
 
 
 </table>

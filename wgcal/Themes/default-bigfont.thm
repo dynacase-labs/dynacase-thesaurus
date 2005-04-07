@@ -2,8 +2,8 @@
 
 include_once("WGCAL/Themes/default.thm");
 
-$theme->Name   = _("big-fonts");
-$theme->Descr  = _("the default theme with bigger fonts");
+$theme->Name   = "big-fonts";
+$theme->Descr  = "the default theme with bigger fonts";
 
 
 $theme->WTH_FONTLIST              =  "Arial, sans-serif";
