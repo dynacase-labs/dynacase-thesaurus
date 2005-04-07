@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-05 07:48+0000\n"
+"POT-Creation-Date: 2005-04-07 12:17+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -215,8 +215,9 @@ msgstr "Organisation"
 msgid "new search "
 msgstr "Start search"
 
-msgid "detailled search result"
-msgstr ""
+#, fuzzy
+msgid "search result"
+msgstr "Start search"
 
 #, c-format
 msgid "new title for %s"
@@ -236,6 +237,14 @@ msgstr ""
 
 msgid "Possible file upload attack!  Here's some debugging info:\n"
 msgstr ""
+
+#, fuzzy
+msgid "documents"
+msgstr "Import"
+
+#, fuzzy
+msgid "document"
+msgstr "Import"
 
 #, c-format
 msgid "result of archive import  %s"
@@ -437,6 +446,22 @@ msgstr ""
 msgid "%s cannot be sent"
 msgstr ""
 
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform"
+msgstr ""
+
 msgid "no file referenced"
 msgstr ""
 
@@ -501,22 +526,6 @@ msgid "search"
 msgstr "Start search"
 
 msgid "no zone specified"
-msgstr ""
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform"
 msgstr ""
 
 #, c-format
@@ -2613,8 +2622,8 @@ msgid "proceed background import"
 msgstr ""
 
 #, fuzzy
-msgid "document(s) found"
-msgstr "Import"
+msgid "PortFolio search"
+msgstr "Modify"
 
 msgid "Ok"
 msgstr ""
@@ -2968,6 +2977,13 @@ msgstr "Start search"
 msgid "new search guide-card"
 msgstr "Start search"
 
+#, fuzzy
+msgid "Search to insert"
+msgstr "Start search"
+
+msgid "Basket to here"
+msgstr ""
+
 msgid "View"
 msgstr ""
 
@@ -2983,9 +2999,6 @@ msgid "column"
 msgstr "Add new contact card"
 
 msgid "All To basket"
-msgstr ""
-
-msgid "Basket to here"
 msgstr ""
 
 #, fuzzy
@@ -3180,6 +3193,13 @@ msgstr "Created by"
 msgid "view abstract card"
 msgstr "Start search"
 
+msgid "mini view"
+msgstr ""
+
+#, fuzzy
+msgid "post it"
+msgstr "Import"
+
 msgid ""
 "Master document has been closed.\n"
 "Close window ?"
@@ -3262,13 +3282,6 @@ msgstr ""
 #, fuzzy
 msgid "duplicate"
 msgstr "Edit"
-
-msgid "mini view"
-msgstr ""
-
-#, fuzzy
-msgid "post it"
-msgstr "Import"
 
 #, fuzzy
 msgid "fromdate"
@@ -3354,6 +3367,10 @@ msgstr "Category"
 
 msgid "View properties"
 msgstr ""
+
+#, fuzzy
+#~ msgid "document(s) found"
+#~ msgstr "Import"
 
 #, fuzzy
 #~ msgid "%d documents found"

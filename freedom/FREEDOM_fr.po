@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-05 07:48+0000\n"
-"PO-Revision-Date: 2005-04-05 09:49+0200\n"
+"POT-Creation-Date: 2005-04-07 12:17+0200\n"
+"PO-Revision-Date: 2005-04-07 12:18+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -205,8 +205,8 @@ msgstr "%s nouvelle révision %d"
 msgid "new search "
 msgstr "Recherche "
 
-msgid "detailled search result"
-msgstr "résultat de la recherche détaillée"
+msgid "search result"
+msgstr "résultat de la recherche"
 
 #, c-format
 msgid "new title for %s"
@@ -226,6 +226,12 @@ msgstr "L'archive %s n'a pas pue être extraite"
 
 msgid "Possible file upload attack!  Here's some debugging info:\n"
 msgstr "Possibilité d'attaque 'upload' : voir infos suivantes\n"
+
+msgid "documents"
+msgstr "documents"
+
+msgid "document"
+msgstr "document"
 
 #, c-format
 msgid "result of archive import  %s"
@@ -429,6 +435,22 @@ msgstr "envoi de %s à %s"
 msgid "%s cannot be sent"
 msgstr "%s n'a pas pu être envoyé"
 
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform"
+msgstr "La description de la fonction externe '%s' est incorrecte"
+
 msgid "no file referenced"
 msgstr "pas de fichier référencé"
 
@@ -489,22 +511,6 @@ msgstr "recherche"
 
 msgid "no zone specified"
 msgstr "pas de zone spécifiée"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform"
-msgstr "La description de la fonction externe '%s' est incorrecte"
 
 #, c-format
 msgid "modoption: document [%d] is not alive"
@@ -2427,8 +2433,8 @@ msgstr "rapport à (email)"
 msgid "proceed background import"
 msgstr "Effectuer l'import en tache de fond"
 
-msgid "document(s) found"
-msgstr "document(s) trouvé(s)"
+msgid "PortFolio search"
+msgstr "Recherche dans la chemise"
 
 msgid "Ok"
 msgstr "Ok"
@@ -2713,6 +2719,12 @@ msgstr "Nouvel intercalaire"
 msgid "new search guide-card"
 msgstr "Nouveau filtre"
 
+msgid "Search to insert"
+msgstr "Recherche pour l'insertion"
+
+msgid "Basket to here"
+msgstr "Insérer le porte-documents"
+
 msgid "View"
 msgstr "Affichage"
 
@@ -2727,9 +2739,6 @@ msgstr "colonne"
 
 msgid "All To basket"
 msgstr "Tout insérer dans le porte-documents"
-
-msgid "Basket to here"
-msgstr "Insérer le porte-documents"
 
 msgid "Clear Folder"
 msgstr "Vider le dossier"
@@ -2890,6 +2899,12 @@ msgstr "révisé par"
 msgid "view abstract card"
 msgstr "Carte résumé"
 
+msgid "mini view"
+msgstr "mini vue"
+
+msgid "post it"
+msgstr "post-it"
+
 msgid ""
 "Master document has been closed.\n"
 "Close window ?"
@@ -2966,12 +2981,6 @@ msgstr "déselectionner"
 msgid "duplicate"
 msgstr "Dupliquer"
 
-msgid "mini view"
-msgstr "mini vue"
-
-msgid "post it"
-msgstr "post-it"
-
 msgid "fromdate"
 msgstr "date de début"
 
@@ -3040,6 +3049,12 @@ msgstr "Changer de catégorie"
 
 msgid "View properties"
 msgstr "Voir les propriétés"
+
+#~ msgid "detailled search result"
+#~ msgstr "résultat de la recherche détaillée"
+
+#~ msgid "document(s) found"
+#~ msgstr "document(s) trouvé(s)"
 
 #~ msgid "Freedoms"
 #~ msgstr "Freedoms"
