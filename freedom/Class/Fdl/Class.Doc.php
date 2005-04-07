@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.238 2005/04/01 17:21:56 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.239 2005/04/07 10:06:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2046,7 +2046,10 @@ create unique index i_docir on doc(initid, revision);";
 	  }
 	  if ($ovalue == "") return false;
 	  //$urllink.=urlencode($ovalue); // encode because url values must be encoded
-	  $urllink.=urlencode($ovalue); // not encode cause url will became invalid
+	  //$urllink.=urlencode($ovalue); // not encode cause url will became invalid
+	  if ($ovalue[0]=='[') $urllink.=urlencode($ovalue);
+	  else $urllink.=($ovalue); // not encode cause url will became invalid
+
 	  
 	  
 	}
