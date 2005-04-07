@@ -20,7 +20,9 @@
   <!--
     [JS:CODE]
     document.dirid='[dirid]';
+  [IF refreshtab]
     if (parent.ffoliotab) parent.ffoliotab.location.reload();
+  [ENDIF refreshtab]
 -->
 </script>   
  </head>

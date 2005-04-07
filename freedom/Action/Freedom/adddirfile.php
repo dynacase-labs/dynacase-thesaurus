@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: adddirfile.php,v 1.13 2005/04/06 16:38:58 eric Exp $
+ * @version $Id: adddirfile.php,v 1.14 2005/04/07 12:43:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.13 2005/04/06 16:38:58 eric Exp $
+// $Id: adddirfile.php,v 1.14 2005/04/07 12:43:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/adddirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -68,8 +68,10 @@ function adddirfile(&$action) {
   
 
   
-  if ($folio)  redirect($action,GetHttpVars("app"),"FOLIOLIST&dirid=$dirid");
-  else redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");
+  if ($folio) {
+    $refreshtab=(($doc->doctype == "F")?"N":"Y");
+    redirect($action,GetHttpVars("app"),"FOLIOLIST&refreshtab=$refreshtab&dirid=$dirid");
+  } else redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&dirid=$dirid");
 }
 
 

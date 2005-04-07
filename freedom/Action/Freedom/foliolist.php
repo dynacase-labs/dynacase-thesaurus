@@ -3,7 +3,7 @@
  * Folio List Containt
  *
  * @author Anakeen 2003
- * @version $Id: foliolist.php,v 1.10 2005/04/06 16:38:58 eric Exp $
+ * @version $Id: foliolist.php,v 1.11 2005/04/07 12:43:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -27,6 +27,7 @@ function foliolist(&$action) {
   $dirid=GetHttpVars("dirid"); // directory to see
   $folioid=GetHttpVars("folioid"); // portfolio id
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $refreshtab=(GetHttpVars("refreshtab","N")=="Y"); // need refresh tabs
 
   $filter=array();
   $filter[]="doctype = 'F'";
@@ -70,6 +71,7 @@ function foliolist(&$action) {
   else $action->lay->set("docs",_("document"));
   
 
+  $action->lay->set("refreshtab",$refreshtab);
 
 }
 ?>
