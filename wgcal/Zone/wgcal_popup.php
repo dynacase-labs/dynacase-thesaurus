@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_popup.php,v 1.2 2005/03/18 18:58:36 marc Exp $
+ * @version $Id: wgcal_popup.php,v 1.3 2005/04/08 08:18:53 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -15,6 +15,7 @@ include_once("WGCAL/WGCAL_external.php");
 
 function wgcal_popup(&$action) {
   include_once("FDL/popup_util.php");
+  $action->lay->Set("ISPOPUPITEMS", false);
   $ev = GetHttpVars("ev", -1);
   if ($ev>0) {
     $action->lay->set("id", $ev);
@@ -34,8 +35,10 @@ function wgcal_popup(&$action) {
 	$t[][""] = $v[""];
       }
       $action->lay->SetBlockData("POPUPITEMS", $t);
-    }
+      $action->lay->Set("ISPOPUPITEMS", true);
+    } 
   }
+  $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
 }
 
 

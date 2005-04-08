@@ -534,8 +534,8 @@ TD {
 
 
 .wgcalpopup {
-  background: [WTH_BGIMG]; 
-  background-color: [WTH_COLOR_1];  
+  /* background: [WTH_BGIMG];   */ 
+  background-color: [WTH_COLOR_POPUP];  
   color: [WTH_TEXTCOLOR_1];
   border-color: [WTH_COLOR_3];
   border-style: outset;
@@ -546,6 +546,8 @@ TD {
   text-decoration: none;
   font-size: [WTH_FONTSIZE_POPUP]px;
   z-index:10;
+  font-family: [WTH_FONTLIST_POPUP];
+  font-weight: none;
 }
 @media print {
   .wgcalpopup {
@@ -563,6 +565,8 @@ TD {
   padding: 2px 12px 2px 8px;
   text-decoration: none;
   text-transform:capitalize;
+  font-family: [WTH_FONTLIST_POPUP];
+  font-weight: none;
 }
 
 .wgcalpopup a.menuItemInvisible { 
@@ -575,11 +579,11 @@ TD {
   color: [WTH_COLOR_3];
   cursor: default;
   display: block;
-  font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
   font-size: [WTH_FONTSIZE_POPUP]px;
   font-style: italic;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
+  font-family: [WTH_FONTLIST];
 }
 .wgcalpopup a.menuItem:hover,
 .wgcalpopup a.menuItemCtrl:hover,

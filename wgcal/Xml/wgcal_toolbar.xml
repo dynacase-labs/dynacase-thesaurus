@@ -24,9 +24,12 @@ var CEventId = -1;
 var CEventText = '';
 </script>
 <div  style="display:none" id="waitpopup" class="wgcalpopup">
-<a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 2); closeMenu('waitpopup')">[TEXT:accept this]</a>
-<a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 3); closeMenu('waitpopup')">[TEXT:reject this]</a>
-<a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[TEXT:Cancel]</a>
+<a href="#" id="viewevent" onclick="ViewEvent('[CORE_STANDURL]',CEventId); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:view this]</a>
+<a class="separator"></a>
+<a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 2); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evaccept.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
+<a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 3); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evrefuse.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
+<a class="separator"></a>
+<a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> <!-- end POPUP DIVISION -->
 
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
@@ -42,7 +45,7 @@ var CEventText = '';
      onmouseover="this.className = 'WGCwrvover'; " 
      onmouseout="this.className = 'WGCwrvdefault'"
      onContextMenu="CEventId=[wrvid]; CEventText='[wrvtitle]'; openMenu(event,'waitpopup',[waitrg]);return false" 
-     onclick="subwindow(400, 650, 'EditEvent[wrvid]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&cev=[wrvid]');" >&nbsp;<img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
+     onclick="CEventId=[wrvid]; CEventText='[wrvtitle]';ViewEvent('[CORE_STANDURL]',[wrvid]);" >&nbsp;<img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
 </div>
  
 <!-- [ ZONE WGCAL:WGCAL_NAVIGATOR ]  -->
@@ -79,6 +82,18 @@ var CEventText = '';
 </div>
 
 <!-- [ ZONE WGCAL:WGCAL_LISTRESS ] -->
+<script type="text/javascript"> 
+var CRessId = -1;
+var CRessText = '';
+</script>
+<div  style="display:none" id="resspopup" class="wgcalpopup">
+<a href="#" id="displayress" onclick="; closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display this]</a>
+<a href="#" id="hideress" onclick="; closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:hide this]</a>
+<a href="#" id="colorress" onclick="; closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:change color]</a>
+<a href="#" id="deleteress" onclick="; closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:delete this]</a>
+<a class="separator"></a>
+<a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+</div> <!-- end POPUP DIVISION -->
 
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
 <tr>
@@ -95,41 +110,34 @@ var CEventText = '';
 <table width="100%" cellspacing="0" cellpadding="0">
 <thead></thead>
 <tbody id="tabress">
-<tr style="" id="trressme">
-<td></td>
-<td>&nbsp;&nbsp;</td>
-<td nowrap>
-<span id="[myrid]" width="90%" class="WGCRessSelected"
-    onclick="setRessourceState('[myrid]', 'WGCRessSelected', 'WGCRessDefault', 0);"
+
+<tr style="border:0px;" id="trressme">
+<td width="10px" id="cp[myrid]" style="cursor:pointer; border: 1px outset"
+    onClick="showColorPicker(event, 'cp[myrid]', [myrid]);" title="[TEXT:change my event color]">&nbsp;</td>
+<td nowrap id="[myrid]"  
+    onclick="setRessourceState('[myrid]', 'WGCRessSelected', 'WGCRessDefault', 1);"
     onmouseover="WGCalChangeClass(event, '[myrid]', 'WGCRessSelected', 'WGCRessOver');" 
     onmouseout="WGCalChangeClass(event, '[myrid]', 'WGCRessSelected', 'WGCRessDefault');">
-    <img id="im[myrid]" width="20px" height="20px" align="absbottom" src="[myricon]">&nbsp;[myrdesc]</span>
+&nbsp;<img id="im[myrid]" height="15px" align="absbottom" src="[myricon]">&nbsp;[myrdesc]
 </td>
-<td>&nbsp;</td>
-<td><span id="cpmycolor" name="cpmycolor" style="background:[myrcolor]; cursor:pointer;border:1px outset grey;" onClick="showColorPicker(event, 'cpmycolor', -1);" title="[TEXT:change my event color]">&nbsp;&nbsp;</span></td>
 </tr>
 
-<tr style="display:none" id="trsample">
-<td> <img style="cursor:pointer;border:0px" height="15"  src="WGCAL/Images/wm-delete.png" 
-          onclick="suppress = confirm('[TEXT:supress ressource] %RDESCR%'); if (suppress) deleteRessource('%RID%');" 
-          title="[TEXT:suppress ressource] %RDESCR%">
-</td>
-<td>&nbsp;&nbsp;</td>
-<td nowrap>
-<span id="%RID%" width="90%" 
+<tr style="display:none; border:0px;" id="trsample">
+<td width="6px" id="cp%RID%" style="cursor:pointer; border: 1px outset"
+    onClick="showColorPicker(event, this.id, %RID%);" title="[TEXT:change my event color]">&nbsp;</td>
+<td nowrap id="%RID%" 
     onclick="setRessourceState('%RID%', 'WGCRessSelected', 'WGCRessDefault', 1);"
+    onContextMenu="CRessId=this.id; openMenu(event,'resspopup', %RGRESS%); return false" 
     onmouseover="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessOver');" 
     onmouseout="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessDefault');">
-    <img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%</span>
+&nbsp;<img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
 </td>
-<td>&nbsp;</td>
-<td><span id="cp%RID%" name="cp%RID%" style="cursor:pointer;border:1px outset grey;" onClick="showColorPicker(event, 'cp%RID%', '%RID%');" title="[TEXT:change color for ressource] %RDESCR%">&nbsp;&nbsp;</span></td>
 </tr>
 </tbody>
 
 <tfoot>
-<tr><td colspan="5" height="5"></td></tr>
-<tr><td colspan="3" align="left"></td>
+<tr><td colspan="2"></td></tr>
+<tr>
 <td colspan="2" align="right">
 <!-- img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]"-->&nbsp;<img id="resssav" style="cursor:pointer;" onclick="saveRessources(); alert('[TEXT: ressource list saved]');" height="15" src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
 </td>

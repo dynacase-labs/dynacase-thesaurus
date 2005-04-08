@@ -3,19 +3,29 @@
 [BLOCK POPUPITEMS]
 <a href="#" id="[item]" onclick="activate(this,'[CORE_STANDURL]&app=[app]&action=[action]&ev='+EvSelected+'[params]','');
 closeMenu('calpopup')">[label]</a>[ENDBLOCK POPUPITEMS]
+[IF ISPOPUPITEMS]<a class="separator"></a>[ENDIF ISPOPUPITEMS]
 
 
-<a href="#" id="acceptrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=2','');closeMenu('calpopup')" >[TEXT:accept this]</a>
-<a href="#" id="rejectrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=3','');closeMenu('calpopup')" >[TEXT:reject this]</a>
-<a href="#" id="tbcrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=4','');closeMenu('calpopup')" >[TEXT:to be confirm this]</a>
+<a href="#" id="acceptrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=2','');closeMenu('calpopup')" >
+[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evaccept.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
+<a href="#" id="rejectrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=3','');closeMenu('calpopup')" >
+[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evrefuse.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
+<a href="#" id="tbcrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=4','');closeMenu('calpopup')" >
+[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evconfirm.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:to be confirm this]</a>
+<a class="separator"></a>
 
-<a href="#" id="editrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&ev='+EvSelected,'wgcal_edit');closeMenu('calpopup')" >[TEXT:edit this]</a>
-<a href="#" id="viewrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&ev='+EvSelected,'wgcal_view');closeMenu('calpopup')" >[TEXT:view this]</a>
-<a href="#" id="deleterv" onclick="ok =confirm('[TEXT:confirm delete for this event] ?'); if (ok) activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT&ev='+EvSelected,'');closeMenu('calpopup')" >[TEXT:delete this]</a>
+<a href="#" id="editrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&ev='+EvSelected,'wgcal_edit');closeMenu('calpopup')" >
+[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evedit.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:edit this]</a>
+<a href="#" id="viewrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&ev='+EvSelected,'wgcal_view');closeMenu('calpopup')" >
+[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:view this]</a>
+<a href="#" id="deleterv" onclick="ok =confirm('[TEXT:confirm delete for this event] ?'); if (ok) activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT&ev='+EvSelected,'');closeMenu('calpopup')" >
+[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evdelete.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:delete this]</a>
 
-<a href="#" id="historyrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_HISTO&ev='+EvSelected,'wgcal_history');closeMenu('calpopup')" >[TEXT:history]</a>
+<a href="#" id="historyrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_HISTO&ev='+EvSelected,'wgcal_history');closeMenu('calpopup')" >
+[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evhistory.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:history]</a>
 
-<a href="#" id="cancelrv" onclick="closeMenu('calpopup')"  >[TEXT:Cancel]</a>
+<a class="separator"></a>
+<a href="#" id="cancelrv" onclick="closeMenu('calpopup')"  >[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 
 </div> <!-- end POPUP DIVISION -->
 

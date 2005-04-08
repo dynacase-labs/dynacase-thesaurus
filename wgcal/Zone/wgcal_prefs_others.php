@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.1 2005/03/22 13:29:38 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.2 2005/04/08 08:18:53 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,7 +20,8 @@ function wgcal_prefs_others(&$action) {
 		  "mailcc" => array(_("send me event mail copy"), "WGCAL_U_RVMAILCC", "wgcal_hidden", "WGCAL_HIDDEN"),
 		  "conflict" => array(_("check for conflicts"), "WGCAL_U_CHECKCONFLICT", "wgcal_hidden", "WGCAL_HIDDEN"),
 		  "dispref" => array(_("display refused meetings"), "WGCAL_U_DISPLAYREFUSED", "wgcal_calendar", "WGCAL_CALENDAR"),
-		  "refresh" => array(_("refresh toolbar"), "WGCAL_U_REFRESH_T", "wgcal_toolbar", "WGCAL_TOOLBAR&f=1")
+		  "refresh" => array(_("refresh toolbar"), "WGCAL_U_REFRESH_T", "wgcal_toolbar", "WGCAL_TOOLBAR&f=1"),
+		  "iconpopup" => array(_("show icons in popup menus"), "WGCAL_U_ICONPOPUP", "wgcal_hidden", "WGCAL_HIDDEN")
 		  );
   
   $dbaccess = $action->GetParam("FREEDOM_DB");

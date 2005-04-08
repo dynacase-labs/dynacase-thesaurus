@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.25 2005/04/07 12:17:28 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.26 2005/04/08 08:18:52 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -169,7 +169,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
  		   "TSEND" => $end, 
 		   "END" => localFrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
-//     if ($debug) print_r2($item);
+    //     if ($debug) print_r2($item);
     $ref = false;
     if ($showrefused!=1 && $v["evt_frominitiatorid"] == $rvfamid) {
       $attr = array();
@@ -178,29 +178,37 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
         if ($action->user->fid == $vat) $ref = true;
       } 
     }
-   
+    
     if (!$ref) { 
-//     if (1==1) { 
+      //     if (1==1) { 
       $n = new Doc($dbaccess, $v["id"]);  
       $item["RESUME"] = $n->calVResume;
       $item["VIEW"] = $n->calVCard;
       $item["VIEWLTEXT"] = $n->calVLongText;
       $item["VIEWSTEXT"] = $n->calVShortText;
       $item["RG"] = count($tout);
-
+      
       // Determine color according ressource identification
       $item["__color"] = WGCalEvSetColor($action, $v);
+      
+      PopupInvisible('calpopup',$item["RG"], 'acceptrv');
+      PopupInvisible('calpopup',$item["RG"], 'rejectrv');
+      PopupInvisible('calpopup',$item["RG"], 'tbcrv');
+      PopupInactive('calpopup',$item["RG"], 'historyrv');
+      PopupActive('calpopup',$item["RG"], 'viewrv');
+      PopupActive('calpopup',$item["RG"], 'cancelrv');
+      PopupInactive('calpopup',$item["RG"], 'editrv');
+      PopupInactive('calpopup',$item["RG"], 'deleterv');
+      $action->lay->set("POPUPSTATE",false);
       
       if ($action->user->fid == $v["evt_idcreator"]) {
 	PopupActive('calpopup',$item["RG"], 'editrv');
 	PopupActive('calpopup',$item["RG"], 'deleterv');
 	$item["action"] = "EDITEVENT";
       }	else {
-	PopupInvisible('calpopup',$item["RG"], 'editrv');
-	PopupInvisible('calpopup',$item["RG"], 'deleterv');
  	$item["action"] = "VIEWEVENT";
-     }
-
+      }
+      
       $withme = false;
       $attr = $dre->_val2array($v["evfc_listattid"]);
       $attrst = $dre->_val2array($v["evfc_listattst"]);
@@ -212,39 +220,20 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
 	  }
 	}
       }
-
+      
       $conf = $v["evfc_visibility"];
       $private = ((($v["evt_idcreator"] != $action->user->fid) && ($conf!=0)) ? true : false );
-      if (!$private) 
-	PopupActive('calpopup',$item["RG"], 'historyrv');
-      else
-	PopupInactive('calpopup',$item["RG"], 'historyrv');
-	
+      if (!$private) PopupActive('calpopup',$item["RG"], 'historyrv');
+      else PopupInactive('calpopup',$item["RG"], 'viewrv');
       
-      if ($withme) {
-	PopupActive('calpopup',$item["RG"], 'viewrv');
-      } else {
-	PopupInvisible('calpopup',$item["RG"], 'viewrv');
+      if ($withme && ($mystate>=1 || $mystate<=4)) {
+	$action->lay->set("POPUPSTATE",true);
+	PopupActive('calpopup',$item["RG"], 'tbcrv');
+	if ($mystate!=2) PopupActive('calpopup',$item["RG"], 'acceptrv');
+	else if ($mystate!=3) PopupActive('calpopup',$item["RG"], 'rejectrv');
+	else if ($mystate!=4) PopupActive('calpopup',$item["RG"], 'tbcrv');
       }
       
-      if ($withme && $mystate!=2) 
- 	PopupActive('calpopup',$item["RG"], 'acceptrv');
-      else
-	PopupInvisible('calpopup',$item["RG"], 'acceptrv');
-
-      if ($withme && $mystate!=3) 
- 	PopupActive('calpopup',$item["RG"], 'rejectrv');
-      else
-	PopupInvisible('calpopup',$item["RG"], 'rejectrv');
-
-      if ($withme && $mystate!=4) 
-	PopupActive('calpopup',$item["RG"], 'tbcrv');
-      else
-	PopupInvisible('calpopup',$item["RG"], 'tbcrv');
-	
-
-      PopupActive('calpopup',$item["RG"], 'cancelrv');
-
       $tout[] = $item;
     }
   }

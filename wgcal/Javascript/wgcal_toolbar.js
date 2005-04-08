@@ -112,11 +112,12 @@ function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate ) {
   mynodereplacestr(nTr, '%RID%', rid);
   mynodereplacestr(nTr, '%RICON%', ricon);
   mynodereplacestr(nTr, '%RDESCR%', rdescr);
+  mynodereplacestr(nTr, '%RGRESS%', idx);
   nTr.style.display = '';
   tab.appendChild(nTr);
-  storeRessource(rid, rcolor, rstate, ricon, rdescr, rstyle);
-  document.getElementById(rid).className = rstyle;
   document.getElementById('cp'+rid).style.background = rcolor;
+  document.getElementById(rid).className = rstyle;
+  storeRessource(rid, rcolor, rstate, ricon, rdescr, rstyle);
 }
 
 function setRessourceState(rid, setStyle, unsetStyle, memo) {
@@ -194,6 +195,11 @@ function setwrvalert() {
   usetparam("WGCAL_U_WRVALERT", val, '', '');
 }
  
+
+function ViewEvent(urlroot, cevent) {
+  subwindow(250, 350,'ViewEvent', urlroot+'&app=WGCAL&action=WGCAL_VIEWEVENT&cev='+cevent)
+  return;
+}
 
 function SetEventState(cevent, state) {
   frm = document.getElementById('eventstate');

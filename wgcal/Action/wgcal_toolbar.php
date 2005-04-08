@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.23 2005/04/07 12:17:28 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.24 2005/04/08 08:18:52 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -69,7 +69,7 @@ function _seewaitrv(&$action, &$wrv) {
 
   $irv = count($wrv);
   $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", array(), 
-		      $action->user->fid, "TABLE", getIdFromName($dbaccess,"CALEVENT"));
+		      $action->user->id, "TABLE", getIdFromName($dbaccess,"CALEVENT"));
   foreach ($rdoc as $k => $v)  {
     $doc = new Doc($action->GetParam("FREEDOM_DB"), $v["id"]);
     $attid = $doc->getTValue("CALEV_ATTID");
@@ -107,14 +107,16 @@ function _waitrv(&$action) {
 
   // Init popup
   include_once("FDL/popup_util.php");
-  popupInit('waitpopup',  array('acceptevent',  'refuseevent', 'cancelevent'));
+  popupInit('waitpopup',  array('acceptevent',  'refuseevent', 'viewevent', 'cancelevent'));
   foreach ($trv as $k => $v) {
     PopupActive('waitpopup', $k, 'acceptevent');
     PopupActive('waitpopup', $k, 'refuseevent');
+    PopupActive('waitpopup', $k, 'viewevent');
     PopupActive('waitpopup', $k, 'cancelevent');
     $trv[$k]["waitrg"] = $k;
   }
   popupGen(count($trv));
+  $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
     
 
 

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.25 2005/04/07 12:17:28 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.26 2005/04/08 08:18:52 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,6 +36,7 @@ array(
 "WGCAL_U_HCOLW" => array("kind"=>"static",  "val"=>"25", "descr"=>N_("hour in day column width"), "user"=>"Y"),
       
 "WGCAL_U_MENUICONS_H"  => array(  "val"=>"25", "descr"=>N_("menu icons height"), "user"=>"Y"),
+"WGCAL_U_ICONPOPUP"  => array(  "val"=>true, "descr"=>N_("show icons in popup menus"), "user"=>"Y"),
       
 "WGCAL_U_VIEWWEEKEND" => array("kind"=>"static",  "val"=>"yes", "descr"=>N_("display week end"), "user"=>"Y"),
 "WGCAL_U_DAYSVIEWED" => array( "kind"=>"static",  "val"=>"7", "descr"=>N_("view count days"), "user"=>"Y"),

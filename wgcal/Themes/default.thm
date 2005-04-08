@@ -23,7 +23,10 @@ $theme->WTH_FONTLIST              =  "Tahoma, Helvetica, sans-serif";
 $theme->WTH_FONTSIZE_NORMAL       =  "9";
 $theme->WTH_FONTSIZE_BIG          =  "10";
 $theme->WTH_FONTSIZE_SMALL        =  "7";
+
 $theme->WTH_FONTSIZE_POPUP        =  "8";
+$theme->WTH_COLOR_POPUP           =  "white";
+$theme->WTH_FONTLIST_POPUP        =  "Tahoma, Helvetica, sans-serif";
 
 $theme->WTH_TOOLBARW              =  "200";
 ?>
