@@ -1,0 +1,90 @@
+<?php
+/**
+ * Generated Header (not documented yet)
+ *
+ * @author Anakeen 2005 
+ * @version $Id: Lib.WgcalSync.php,v 1.1 2005/04/11 19:05:42 marc Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package WGCAL
+ * @subpackage SYNC
+ */
+ /**
+ */
+
+include_once('WHAT/Class.Log.php');
+include_once('WHAT/Lib.Http.php');
+include_once('WHAT/Class.Session.php');
+include_once('WHAT/Class.User.php');
+
+function WSyncAuthent() {
+
+  global $_GET;
+  global $CORE_LOGLEVEL;
+  $CoreNull = "";
+  
+  if (isset($_COOKIE['session'])) $sess_num= $_COOKIE['session'];
+  else $sess_num=GetHttpVars("session");//$_GET["session"];
+
+  $session=new Session();
+  if (!  $session->Set($sess_num))  {
+    print("<H4>Authentification failed</H4>");
+    exit;
+  };
+
+  $core = new Application();
+  $core->Set("CORE",$CoreNull,$session);
+  if ($core->user->login != $_SERVER['PHP_AUTH_USER']) {
+    $session->Set("");
+    $core->SetSession($session);
+  }
+  return $core;
+}
+   
+
+function WSyncGetDataDb(&$ctx) {
+  $dbaccess = $ctx->getParam("FREEDOM_DB", "");
+  if ($dbaccess=="") {
+    $ctx->log->error("**ERR** Database specification error");
+    exit;
+  }
+  return $dbaccess;
+}
+
+function WSyncGetAdminDb(&$ctx) {
+  $dbaccess = $ctx->getParam("FREEDOM_DB", "");
+  if ($dbaccess=="") {
+    $ctx->log->error("**ERR** Database specification error");
+    exit;
+  }
+  return $dbaccess;
+}
+
+function WSyncMSdate2Timestamp($date,$time) {
+ 
+  if (ereg("([0-9]{2})/([0-9]{2})/([0-9]{4})", $date, $regs)) {
+    $y = $regs[3];
+    $mo = $regs[2];
+    $d = $regs[1];
+  } else {
+    return false;
+  }
+  
+  if (ereg("([0-9]{1,2}):([0-9]{2}):([0-9]{2})", $time, $regs)) {
+    $h = $regs[1];
+    $mi = $regs[2];
+    $s = $regs[3];
+  } else {
+    return false;
+  }
+  
+  $timestamp = mktime( $h, $mi, $s, $mo, $d, $y );
+  return $timestamp;
+}
+
+function WSyncError(&$c, $s) {
+  print "<pre>WSyncError : $s</pre>";
+  if (is_object($c)) $c->log->error($s);
+}
+  
+
+?>
