@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.19 2005/03/15 08:21:36 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.20 2005/04/11 12:25:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -203,10 +203,10 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 		      "res"=>$tresname[$ki],
 		      "subtype"=>getv($v,"evt_code"),
 		      "divtitle"=>((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"],
-		      "desc"=>str_replace("\n","<br/>",(addslashes(sprintf("<b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",$v["title"],
+		      "desc"=>str_replace(array("\n","\r"),array("<br/>",""),(addslashes(sprintf("<b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",$v["title"],
 						 getv($v,"evt_frominitiator"),
 						 substr(getv($v,"evt_begdate"),0,10),
-						 substr(getv($v,"evt_enddate"),0,10),
+						 (substr(getv($v,"evt_enddate"),0,10)!=substr(getv($v,"evt_begdate"),0,10))?substr(getv($v,"evt_enddate"),0,10):substr(getv($v,"evt_begdate"),11,5)."/".substr(getv($v,"evt_enddate"),11,5),
 						 getv($v,"evt_desc"))))));
       
     
