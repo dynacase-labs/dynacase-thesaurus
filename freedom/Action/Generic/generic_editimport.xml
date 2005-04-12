@@ -90,7 +90,7 @@ function rewriteOrder() {
 
 <H2 id="title">[dtitle]
 
-<select style="font-size:18pt" name="saction" onchange="changeFormat(this.options[this.selectedIndex].value)">
+<select  name="saction" onchange="changeFormat(this.options[this.selectedIndex].value)">
     <option   value="csv">[TEXT:CSV]</option>
 </select>
 
