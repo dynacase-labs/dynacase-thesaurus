@@ -3,7 +3,7 @@
  * Definition of bar menu for folder navigation
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.12 2005/04/01 17:20:09 eric Exp $
+ * @version $Id: barmenu.php,v 1.13 2005/04/12 14:32:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -64,12 +64,14 @@ function barmenu(&$action) {
   if ($action->HasPermission("FREEDOM_MASTER")) {
     popupActive("helpmenu",1,'import'); 
     popupActive("helpmenu",1,'importtar'); 
+    popupActive("newmenu",1,'newact'); 
     popupActive("newmenu",1,'newfam');
     popupActive("newmenu",1,'newwf'); 
   } else {
     popupInvisible("helpmenu",1,'import');
     popupInvisible("helpmenu",1,'importtar');
     popupInvisible("newmenu",1,'newfam');
+    popupnvisible("newmenu",1,'newact'); 
     popupInvisible("newmenu",1,'newwf'); 
   }
   popupActive("searchmenu",1,'newsearch');
