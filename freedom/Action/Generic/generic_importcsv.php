@@ -3,7 +3,7 @@
  * Import CSV
  *
  * @author Anakeen 2004
- * @version $Id: generic_importcsv.php,v 1.13 2004/08/24 15:13:04 eric Exp $
+ * @version $Id: generic_importcsv.php,v 1.14 2005/04/12 14:28:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,7 +46,7 @@ function generic_importcsv(&$action) {
   $key1 = GetHttpVars("key1","title"); // primary key for double
   $key2 = GetHttpVars("key2",""); // secondary key for double
   $classid = GetHttpVars("classid",getDefFam($action)); // document family to import
-  $tcolorder = GetHttpVars("colorder"); // column order
+  $tcolorder[$classid] = GetHttpVars("colorder"); // column order
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   if (ini_get("max_execution_time") < 180) ini_set("max_execution_time",180); // 3 minutes
@@ -83,12 +83,14 @@ function generic_importcsv(&$action) {
     $line++;
     $num = count ($data);
     if ($num < 1) continue;
+    if (is_numeric($data[1]))   $fromid = $data[1];
+    else $fromid = getFamIdFromName($dbaccess,$data[1]);
     switch ($data[0]) {
 	
     case "DOC":
       $cr[$line] =csvAddDoc($dbaccess, $data,getDefFld($action),
 			    $analyze,'',$policy, array($key1,$key2),
-			    $ddoc->getValues(),$tcolorder);
+			    $ddoc->getValues(),$tcolorder[$fromid]);
       if ($cr[$line]["err"]!="") {
       } else {
 	
@@ -123,12 +125,9 @@ function generic_importcsv(&$action) {
 	     "familyid"=>0,
 	     "familyname"=>"",
 	     "action"=>" ");
-      if (is_numeric($data[1]))   $fromid = $data[1];
-      else $fromid = getFamIdFromName($dbaccess,$data[1]);
-      if ($fromid == $classid)   {
-	$tcolorder=getOrder($data);
-	$cr[$line]["msg"]=sprintf(_("new column order %s"),implode(" - ",$tcolorder));
-      }
+      $tcolorder[$fromid]=getOrder($data);
+      $cr[$line]["msg"]=sprintf(_("new column order %s"),implode(" - ",$tcolorder[$fromid]));
+      
  
       
       break;
