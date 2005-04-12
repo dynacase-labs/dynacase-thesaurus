@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.87 2005/04/05 09:46:00 eric Exp $
+ * @version $Id: import_file.php,v 1.88 2005/04/12 14:26:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -606,7 +606,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	  if ($doc->id == "") {
 	    // insert default values
 	    foreach($prevalues as $k=>$v) {
-	      $doc->setValue($k,$v);
+	      if ($doc->getValue($k) == "")  $doc->setValue($k,$v);
 	    }
 	    $err = $doc->Add(); 
 	  }
@@ -700,26 +700,29 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     
 
     if ($doc->isAffected()) {
-      $err=$doc->Refresh(); // compute read attribute
+      $msg.=$doc->Refresh(); // compute read attribute
       $err=$doc->PostModify(); // compute read attribute
       if ($err=="") $doc->modify();
+      if ($err=="-") $err=""; // not really an error add addfile must be tested after
       if ($err=="") $doc->AddComment(sprintf(_("updated by import")));
       $tcr["err"].=$err;
-
+      $tcr["msg"].=$msg;
     }
   }
   //------------------
   // add in folder
+
   if ($err=="") {
     $msg .= $doc->title;
     if (is_numeric($data[3])) $ndirid=$data[3];
     else $ndirid=getIdFromName($dbaccess,$data[3],2);
+
     if ($ndirid > 0) { // dirid
       $dir = new Doc($dbaccess, $ndirid);
       if ($dir->isAffected()) {
 	$tcr["folderid"]=$dir->id;
 	$tcr["foldername"]=dirname($ldir)."/".$dir->title;
-	if (! $analyze) $dir->AddFile($doc->id);
+	if (! $analyze) $tcr["err"].=$dir->AddFile($doc->id);
 	$msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
       }
     } else if ($ndirid ==  0) {
@@ -728,11 +731,12 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	if ($dir->isAlive() && method_exists($dir,"AddFile")) {
 	  $tcr["folderid"]=$dir->id;
 	  $tcr["foldername"]=dirname($ldir)."/".$dir->title;
-	  if (! $analyze) $dir->AddFile($doc->id);
+	  if (! $analyze) $tcr["err"].=$dir->AddFile($doc->id);
 	  $msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
 	}
       }
     }
+    $tcr["msg"]=$msg;
   }
   
   
