@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.239 2005/04/07 10:06:49 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.240 2005/04/12 14:29:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1966,15 +1966,22 @@ create unique index i_docir on doc(initid, revision);";
     $this->paramRefresh[]=array("in"=>explode(",",strtolower($in)),
 				"out"=>explode(",",strtolower($out)));
   }
-  function SpecRefresh() {
-    // Special Refresh
-    // to define in child classes
-  }  
-  function SpecRefreshGen() {
-    // Special Refresh Generated automatically
-    // is define in generated child classes
-  }
-  // recompute all calculated attribut
+
+  /**
+   * Special Refresh
+   * to define in child classes
+   */
+  function SpecRefresh() {}  
+  /**
+   * Special Refresh Generated automatically
+   * is defined in generated child classes
+   */
+  function SpecRefreshGen() {}
+
+  /**
+   * recompute all calculated attribut
+   * and save the document in database if changes occurred
+   */
   function Refresh() {	
     
     if ($this->locked == -1) return; // no refresh revised document

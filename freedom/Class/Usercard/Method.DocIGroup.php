@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.21 2005/04/05 18:55:21 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.22 2005/04/12 14:25:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -101,9 +101,8 @@ function PostModify() {
   if (!$user) $user=new User(""); // create new user
   $err=$this->setGroups();
   $err.=$user->SetGroups($fid,$gname,
-		       $login,
-		       $iddomain);   
- 
+			 $login,
+			 $iddomain);   
   if ($err=="") {
     $this->setValue("US_WHATID",$user->id);
     $this->modify(true,array("us_whatid"));
@@ -116,7 +115,7 @@ function PostModify() {
 
 
 
-  if ($err=="") $err="-";
+  if ($err=="") $err="-"; // don't do modify after because it is must be set by USER::setGroups
   return $err;
 } 
 
