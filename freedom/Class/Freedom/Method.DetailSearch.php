@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.33 2005/02/08 11:34:37 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.34 2005/04/13 11:40:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -249,7 +249,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
     global $action;
     editmode($action);
 
-    $doc= createDoc($this->dbaccess,$this->getValue("SE_FAMID",1));
+    $doc= createDoc($this->dbaccess,$this->getValue("SE_FAMID",1),false);
     foreach ($tparm as $k=>$v) {
        
      $ttransfert[]=array("idi"=>$v,
