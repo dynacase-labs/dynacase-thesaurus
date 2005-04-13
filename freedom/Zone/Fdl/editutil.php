@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.92 2005/03/23 17:04:07 eric Exp $
+ * @version $Id: editutil.php,v 1.93 2005/04/13 11:12:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -65,9 +65,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
   $oc = "$jsevent onchange=\"document.isChanged=true\" "; // use in "pleaseSave" js function
 
   // output change with type
-  switch ($attrtype)
-    {
-		      
+  switch ($attrtype)  {		      
       //같같같같같같같같같같같같같같같같같같같같
     case "image": 
       if (ereg ("(.*)\|(.*)", $value, $reg)) {

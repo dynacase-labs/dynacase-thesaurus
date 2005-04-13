@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.62 2005/03/23 10:31:28 eric Exp $
+ * @version $Id: viewfolder.php,v 1.63 2005/04/13 11:12:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -141,9 +141,17 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
     $doc = createDoc($dbaccess,$famid,false);
 
-
     foreach($ldoc as $k=>$zdoc )  {
 
+      if ($with_abstract ) {
+	if ($zdoc["fromid"]!=$doc->fromid) {
+	  if (!isset($tcdoc[$zdoc["fromid"]]))  {
+	    $tcdoc[$zdoc["fromid"]]=createDoc($dbaccess,$zdoc["fromid"],false);	 
+	  }
+	  $doc=&$tcdoc[$zdoc["fromid"]];
+	  $doc->ResetMoreValues();$doc->GetMoreValues();
+	}
+      }
       if ($column==1) $doc->ResetMoreValues();
       $doc->Affect($zdoc);
       if ($column==1) $doc->GetMoreValues();
@@ -267,8 +275,12 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       if ($with_abstract ) {
 	// search abstract attribute for freedom item
 	$doc->ApplyMask(); // apply mask attribute
-	$tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");
-	$tdoc[$k]["LOrR"]=($k%2==0)?"left":"right";
+	if ($with_abstract === 2 ){    
+	  $tdoc[$k]["ABSTRACTVALUES"]=getAbstractDetail($doc);	  
+	} else {
+	  $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");	
+	  $tdoc[$k]["LOrR"]=($k%2==0)?"left":"right";  
+	}
       }
 	
       // ----------------------------------------------------------
@@ -324,8 +336,6 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $tboo[0]["boo"]="";
   $action->lay->SetBlockData("VIEWPROP",$tboo);
 
-  $action->lay->Set("TEST1",true);
-  $action->lay->Set("TEST2",true);
   $action->lay->Set("nbdiv",$kdiv-1);
   if ($column){
     $action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
@@ -373,5 +383,20 @@ function orderbyfromid($a, $b) {
 
 function orderbytitle($a, $b) {  
    return strcasecmp($a["title"],$b["title"]);
+}
+
+function getAbstractDetail(&$doc) {
+  $tout=array();
+  $lattr=$doc->GetAbstractAttributes();
+  $emptytableabstract=array();
+
+  foreach($lattr as $ka=>$attr)  {	
+    $val = $doc->GetHtmlAttrValue($ka,"fdoc");
+
+    //$taname[$attr->id]["aname"]=_($attr->labelText);
+    if ($val) $tout[] = $val;
+  }
+  return implode(" - ",$tout);
+
 }
 ?>

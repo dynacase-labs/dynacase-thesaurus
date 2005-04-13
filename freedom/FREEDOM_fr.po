@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-07 12:17+0200\n"
+"POT-Creation-Date: 2005-04-13 11:11+0200\n"
 "PO-Revision-Date: 2005-04-07 12:18+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -451,6 +451,19 @@ msgstr "le fichier externe %s ne peut être lu"
 msgid "the pluggins function description '%s' is not conform"
 msgstr "La description de la fonction externe '%s' est incorrecte"
 
+#, c-format
+msgid "root for %s"
+msgstr "racine pour %s"
+
+msgid "default folder"
+msgstr "dossier par défaut"
+
+msgid "folder"
+msgstr "dossier"
+
+msgid "search"
+msgstr "recherche"
+
 msgid "no file referenced"
 msgstr "pas de fichier référencé"
 
@@ -495,19 +508,6 @@ msgstr "ajouté"
 
 msgid "click to change option"
 msgstr "Cliquez pour changer les options"
-
-#, c-format
-msgid "root for %s"
-msgstr "racine pour %s"
-
-msgid "default folder"
-msgstr "dossier par défaut"
-
-msgid "folder"
-msgstr "dossier"
-
-msgid "search"
-msgstr "recherche"
 
 msgid "no zone specified"
 msgstr "pas de zone spécifiée"
@@ -1173,738 +1173,6 @@ msgstr "%s intranet personne a été créé\n"
 msgid "%s iuser aborded\n"
 msgstr "%s utilisateur abandonné\n"
 
-#, c-format
-msgid "%d documents"
-msgstr "%d documents"
-
-#, c-format
-msgid "%d document"
-msgstr "%d document"
-
-msgid ""
-"Some constraint attribute are not respected.\n"
-"You must correct these values before save document."
-msgstr ""
-"Certaines contraintes d'attributs ne sont pas respectées\n"
-"Vous devez corriger ces valeurs avant de sauver le document"
-
-msgid "change"
-msgstr "modification"
-
-#, c-format
-msgid "auto revision"
-msgstr "révision automatique"
-
-#, c-format
-msgid ""
-"Filename '%s' cannot be transmitted.\n"
-"The Size Limit is %s bytes."
-msgstr ""
-"Le fichier '%s' n'a pu être transmis.\n"
-"La taille limite est de %s octets."
-
-#, c-format
-msgid ""
-"Filename '%s' cannot be transmitted.\n"
-"The Size Limit was specified in the HTML form."
-msgstr ""
-"Le fichier '%s' n'a pu être transmis.\n"
-"La taille limite a était spécifiée dans le questionnaire HTML"
-
-#, c-format
-msgid ""
-"Filename '%s' cannot be transmitted completly.\n"
-"May be saturation of server disk."
-msgstr ""
-"Le fichier '%s' n'a pu être transmis.\n"
-"Le disque du serveur est peut être saturé"
-
-#, c-format
-msgid "Filename '%s' cannot be transmitted."
-msgstr "Le fichier '%s' n'a pu être transmis."
-
-#, c-format
-msgid "Possible file upload attack: filename '%s'."
-msgstr "Possibilité d'atttaque 'upload' : fichier %s"
-
-msgid "This document has been deleted"
-msgstr "Ce document a été supprimé"
-
-msgid "nobody"
-msgstr "personne"
-
-msgid "no access control"
-msgstr "pas de contrôle d'accès"
-
-msgid "specific control"
-msgstr "Contrôle dédié"
-
-msgid "dynamic control"
-msgstr "contrôle dynamique"
-
-msgid "no view control"
-msgstr "pas de contrôle de vues"
-
-msgid "cannot see unknow folder"
-msgstr "dossier inconnu, ne peut être consulté"
-
-msgid "read-only"
-msgstr "lecture seule"
-
-msgid "current"
-msgstr "courant"
-
-msgid "error in filename"
-msgstr "erreur dans le nom de fichier"
-
-msgid "no image"
-msgstr "pas d'image"
-
-#, c-format
-msgid "set for %s, unset for %s"
-msgstr "cocher pour %s, décocher pour %s"
-
-msgid "color picker"
-msgstr "choix de couleur"
-
-msgid "choose inputs"
-msgstr "choisir une valeur"
-
-msgid "clear inputs"
-msgstr "effacer entrée(s)"
-
-msgid "add inputs"
-msgstr "ajouter entrée"
-
-#, c-format
-msgid "elinkEncode::attribute not found %s"
-msgstr "elinkEncode :  attribut non trouvé %s"
-
-#, c-format
-msgid "create new %s"
-msgstr "créé par %s"
-
-#, c-format
-msgid "Sure %s ?"
-msgstr "Confirmation : %s ?"
-
-msgid "To"
-msgstr "Vers"
-
-msgid "this kind of document cannot be duplicate"
-msgstr "ce type de document ne peut être dupliqué"
-
-msgid "duplication of"
-msgstr "duplication de"
-
-#, c-format
-msgid "new duplicate document is named : %s"
-msgstr "la duplication est nommée : %s"
-
-#, c-format
-msgid "period from %s to %s"
-msgstr "période du %s au %s"
-
-#, c-format
-msgid "the end date (%s) is before the begin date (%s)"
-msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
-
-msgid "Documents management"
-msgstr "Gestion documentaire"
-
-msgid "Access Management Database"
-msgstr "Accès administration de la base"
-
-msgid "Access To My Own account"
-msgstr "Accès à mon compte"
-
-msgid "Access To Read Only"
-msgstr "Accès en lecture seule"
-
-msgid "Access To Main Interface"
-msgstr "Accès en l'interface principale"
-
-msgid "Freedoms frame"
-msgstr "fenêtres freedom"
-
-msgid "Freedoms list"
-msgstr "liste freedom"
-
-msgid "Freedoms list by column"
-msgstr "liste freedom par colonne"
-
-msgid "to choose value from set"
-msgstr "pour choisir une valeur à partir d'un ensemble"
-
-msgid "query document import"
-msgstr "demande d'import de document"
-
-msgid "query tar document import"
-msgstr "demande d'import d'archive"
-
-msgid "background document import"
-msgstr "import en tache de fond"
-
-msgid "add document import"
-msgstr "ajouter un document importé"
-
-msgid "import archive file"
-msgstr "Importer un fichier archive"
-
-msgid "analyze archive file"
-msgstr "analyse de fichier archive"
-
-msgid "add document from directories file import"
-msgstr "ajouter de documents à partir d'un répertoire"
-
-msgid "view imported tar"
-msgstr "voir les archives importées"
-
-msgid "delete imported tar"
-msgstr "supression des archives"
-
-msgid "Freedoms view folder"
-msgstr "visualisation de contenu de dossier"
-
-msgid "Freedoms preview document"
-msgstr "prévisualisation de document"
-
-msgid "popup menu"
-msgstr "popup menu"
-
-msgid "add file query into directory"
-msgstr "ajout d'un document dans un dossier"
-
-msgid "insert containt of a folder into another"
-msgstr "insérer le contenu d'un dossier dans un autre"
-
-msgid "clear containt of a folder"
-msgstr "effacer le contenu d'un dossier"
-
-msgid "move file query into directory"
-msgstr "déplacement d'un document dans un dossier"
-
-msgid "delete file query into directory"
-msgstr "supprimer un document dans un dossier"
-
-msgid "folder tree"
-msgstr "arborescence de dossier"
-
-msgid "expand folder tree"
-msgstr "développer une branche"
-
-msgid "Freedoms icon list"
-msgstr "liste sous forme d'icones"
-
-msgid "folio icon list"
-msgstr "liste icones pour chemise"
-
-msgid "folio select doc"
-msgstr "sélection de chemise"
-
-msgid "access path folder list"
-msgstr "liste des chemin d'accès"
-
-msgid "bar menu"
-msgstr "barre de menu"
-
-msgid "Freedoms card"
-msgstr "fiche Freedom"
-
-msgid "duplicate document"
-msgstr " dupliquer le document"
-
-msgid "attributes definitions"
-msgstr "définition des attributs"
-
-msgid "refresh directory"
-msgstr "rafraichir le dossier"
-
-msgid "attributes modification"
-msgstr "Modification d'attributs"
-
-msgid "edit state "
-msgstr "Édition état"
-
-msgid "edit icard "
-msgstr "éditer une carte virtuelle"
-
-msgid "edit icard 2 "
-msgstr "éditer une carte virtuelle 2"
-
-msgid "edit workflow transitions "
-msgstr "édition des transitions des cycles"
-
-msgid "edit args of actions in workflow edition "
-msgstr "édition des arguments des actions dans l'édition des cycles"
-
-msgid "edit profile access"
-msgstr "édition des profiles d'accès"
-
-msgid "change profile access"
-msgstr "changement des profiles d'accès"
-
-msgid "change state transition"
-msgstr "changement d'état"
-
-msgid "edit default folder"
-msgstr "éditer dossier par défaut"
-
-msgid "choose workflow"
-msgstr "choisir un cycle"
-
-msgid "modify associated worflow"
-msgstr "modification cycle de vie associé"
-
-msgid "set the document controlled"
-msgstr "Mettre le document sous contrôle"
-
-msgid "change icon document"
-msgstr "changer l'icone du document"
-
-msgid "change title family"
-msgstr "changement du titre de famille"
-
-msgid "query icon"
-msgstr "requête icone"
-
-msgid "search document"
-msgstr "Recherche de documents"
-
-msgid "search document criteria"
-msgstr "critères de recherche de document"
-
-msgid "full text search document criteria"
-msgstr "critères de recherche plein texte"
-
-msgid "ask for a new file revision"
-msgstr "demande pour une revision"
-
-msgid "edit document properties"
-msgstr "éditer les propriétés du document"
-
-msgid "edit default document properties"
-msgstr "éditer les propriétés par défaut du document"
-
-msgid "add comment before revise document"
-msgstr "ajouter un commentaire avant de réviser un document"
-
-msgid "make a new document revision"
-msgstr "faire une nouvelle révision de document"
-
-msgid "view history revision"
-msgstr "voir l'historique"
-
-msgid "style sheet"
-msgstr "feuille de style"
-
-msgid "widget display popup for a description card"
-msgstr "widget popup pour affichage d'une carte"
-
-msgid "Freedom modification"
-msgstr "Modification de documents"
-
-msgid "Freedom imodification"
-msgstr "Modification de documents virtuels"
-
-msgid "view idoc attribute card"
-msgstr "Visualisation des attributs d'un document virtuel"
-
-msgid "Freedom deletion"
-msgstr "Suppression de documents"
-
-msgid "Freedom update title fields"
-msgstr "mise à jour des champs titre"
-
-msgid "Freedom accessibilities"
-msgstr "Droits Freedom"
-
-msgid "Freedom group accessibilities"
-msgstr "Droits des groupes Freedom"
-
-msgid "Freedom modify accessibilities"
-msgstr "Modification des Droits"
-
-msgid "Freedom initialisation"
-msgstr "Initialisation Freedom"
-
-msgid "open portfolio"
-msgstr "Ouvrir la chemise"
-
-msgid "portfolio tab"
-msgstr "onglets chemise"
-
-msgid "choose preferred families"
-msgstr "Choix des familles préférées"
-
-msgid "modify preferred families"
-msgstr "modifier les familles préférées"
-
-msgid "add folder in bookmark"
-msgstr "Marquer ce dossier"
-
-msgid "root folder id"
-msgstr "Identificateur du dossier racine"
-
-msgid "enabled/disabled full text search"
-msgstr "autoriser la recherche plein texte"
-
-msgid "id of the basket folder"
-msgstr "identifiant du porte-documents"
-
-msgid "directory to upload archive"
-msgstr "Répertoire de stockage de l'archive"
-
-msgid "mode to navigate in folders"
-msgstr "mode de navigation pour les dossiers"
-
-msgid "bookmark folders"
-msgstr "signets des dossiers"
-
-msgid "Freedoms lib"
-msgstr "bibliothèque freedom"
-
-msgid "Freedoms library"
-msgstr "bibliothèque freedom"
-
-msgid "Access Action Library"
-msgstr "Bibliothèque pour les droits"
-
-msgid "Access to edit action"
-msgstr "Accès aux actions d'édition"
-
-msgid "For export functions"
-msgstr "Pour les fonctions d'export"
-
-msgid "Manage families"
-msgstr "gestion des familles"
-
-msgid "nothing action"
-msgstr "action nulle"
-
-msgid "export folder"
-msgstr "exportation de dossier"
-
-msgid "export file to consulting"
-msgstr "exportation d'un fichier pour consultation"
-
-msgid "export first file to consulting"
-msgstr "exportation du premier fichier pour consultation"
-
-msgid "send a document"
-msgstr "envoyer un document"
-
-msgid "edit mail"
-msgstr "éditer un mail"
-
-msgid "help manual for family"
-msgstr "manuel de description de famille"
-
-msgid "confirm mail sended before change state"
-msgstr "confirmation envoi email avant changement d'état"
-
-msgid "view standalone card"
-msgstr "voir une carte autonome"
-
-msgid "printed view card"
-msgstr "voir une carte imprimable"
-
-msgid "view card"
-msgstr "voir une carte"
-
-msgid "lock file to edit"
-msgstr "verrouillez le document pour l'éditer"
-
-msgid "interface to change document option"
-msgstr "interface pour changer les options d'un document"
-
-msgid "modify document option"
-msgstr "modifier les options d'un document"
-
-msgid "view document option"
-msgstr "voir les options d'un document"
-
-msgid "view xml"
-msgstr "voir XML"
-
-msgid "unlock file to discard edit"
-msgstr "déverrouillez le document pour l'éditer"
-
-msgid "apply a method to a document"
-msgstr "appliquer une méthode sur un document"
-
-msgid "init workflow profile attributes"
-msgstr "initialisation des attributs profil"
-
-msgid "save geometry of mini view"
-msgstr "sauve la disposition de la mini vue"
-
-msgid "verify constraint attribute"
-msgstr "vérifie les contraintes d'attributs"
-
-msgid "freedom database"
-msgstr "base de donnée Freedom"
-
-msgid "string limit for popup enum"
-msgstr "taille maximum de chaines de caractère pour les choix"
-
-msgid "send mail copy"
-msgstr "copie envoi de mail"
-
-msgid "horizontal size for secondary windows"
-msgstr "taille horizontale lors de l'ouverture de fenêtre secondaire"
-
-msgid "vertical size for secondary windows"
-msgstr "taille verticale lors de l'ouverture de fenêtre secondaire"
-
-msgid "max items return when open a folder"
-msgstr "nombre d'éléments maximum visibles dans un dossier"
-
-msgid "maximum document can be imported directly"
-msgstr "nombre maximum de documents pouvant être importé en direct"
-
-msgid "name and address of our society"
-msgstr "nom et adresse de votre société"
-
-msgid "logo of our society"
-msgstr "logo de votre société"
-
-msgid "town of our society"
-msgstr "ville de votre société"
-
-msgid "name of our society"
-msgstr "nom de votre société"
-
-msgid "phone of our society"
-msgstr "téléphone de votre société"
-
-msgid "geometry of mini view"
-msgstr "géométrie de la mini vue       "
-
-#, c-format
-msgid "file %d"
-msgstr "fichier %d"
-
-msgid "LDAP server name"
-msgstr "nom du serveur LDAP"
-
-msgid "LDAP server port"
-msgstr "n° de port du serveur LDAP"
-
-msgid "LDAP server root"
-msgstr "racine du serveur LDAP"
-
-msgid "LDAP admin identificatot"
-msgstr "identification de l'administrateur LDAP"
-
-msgid "LDAP admin passord"
-msgstr "mot de passe administrateur LDAP"
-
-msgid "LDAP activated"
-msgstr "Activation LDAP"
-
-msgid "User Card"
-msgstr "Carnet d'adresses"
-
-msgid "User Card Management"
-msgstr "Carnet d'adresses"
-
-msgid "view as vcard"
-msgstr "voir au format Vcard"
-
-msgid "initialisation"
-msgstr "initialisation"
-
-msgid "import vcard"
-msgstr "Importation Vcard"
-
-msgid "mail will be calculated from domain"
-msgstr "l'adresse email sera calculée à partir du domaine"
-
-msgid "no mail"
-msgstr "pas d'email"
-
-msgid "Generic"
-msgstr "Générique"
-
-msgid "generic Management"
-msgstr "Gestion générique"
-
-msgid "Access Generic Master Management"
-msgstr "Accès à l'administration générique"
-
-msgid "Access To Generic Management"
-msgstr "Accès à la gestion générique"
-
-msgid "Access To Read Card"
-msgstr "Accès à la lecture"
-
-msgid "generic home page"
-msgstr "page d'accueil générique"
-
-msgid "generic vertical home page"
-msgstr "page d'accueil découpage vertical"
-
-msgid "edition"
-msgstr "édition"
-
-msgid "inverted search"
-msgstr "Recherche inversée"
-
-msgid "duplication"
-msgstr "duplication"
-
-msgid "add category"
-msgstr "ajout de catégorie"
-
-msgid "change king in enum attribute"
-msgstr "changer la catégorie d'un attribut énuméré"
-
-msgid "edit to add category"
-msgstr "éditer pour l'ajout de catégorie"
-
-msgid "edit to add or modify category"
-msgstr "éditer pour l'ajout ou modification de catégorie"
-
-msgid "edit to change category"
-msgstr "édition pour changer de catégorie"
-
-msgid "change category"
-msgstr "changer de catégorie"
-
-msgid "modification or creation"
-msgstr "modification ou création"
-
-msgid "display logo"
-msgstr "afficher le logo"
-
-msgid "view list"
-msgstr "voir la liste"
-
-msgid "define sort attribute"
-msgstr "Définir les attributs de tri"
-
-msgid "view a generic"
-msgstr "voir une carte"
-
-msgid "edit import vcard"
-msgstr "importation format Vcard"
-
-msgid "view a part of list"
-msgstr "voir une partie d'une liste"
-
-msgid "import csv"
-msgstr "Import csv"
-
-msgid "search a generict"
-msgstr "rechercher une carte"
-
-msgid "search with kind criteria"
-msgstr "recherche avec des critères de catégories"
-
-msgid "memorisation of split mode"
-msgstr "mémorisation du mode de découpage de la fenêtre"
-
-msgid "memorisation of pref search"
-msgstr "mémorisation de la recherche"
-
-msgid "default document family"
-msgstr "famille de document par défaut"
-
-msgid "number of card by page"
-msgstr "nombre de cartes par page"
-
-msgid "width of the abstract card"
-msgstr "largeur de la carte résumé (en px ou en %)"
-
-msgid "width of the frame for abstract card"
-msgstr ""
-"largeur de la fenêtre pour l'affichage des listes de documents (découpage "
-"vertical)"
-
-msgid "height of the frame for abstract card"
-msgstr ""
-"hauteur de la fenêtre pour l'affichage des listes de documents (découpage "
-"horizontal)"
-
-msgid "differents view mode by family"
-msgstr "mode de vues par familles"
-
-msgid "split view mode by family"
-msgstr "mode de découpage par famille"
-
-msgid "prefered search"
-msgstr "Recherche préférée"
-
-msgid "last search text typed"
-msgstr "dernier texte tapé pour la recherche"
-
-msgid "visible user families"
-msgstr "familles personnelles visibles"
-
-msgid "visible master families"
-msgstr "familles administratives visibles"
-
-msgid "icon column number"
-msgstr "nombre de colonne d'icones"
-
-msgid "default opened family"
-msgstr "famille ouverte par défaut"
-
-msgid "Onefam"
-msgstr "Une famille"
-
-msgid "One Familly Management"
-msgstr "Gestion par famille"
-
-msgid "one familly root"
-msgstr "racine gestion par famille"
-
-msgid "one family generic root"
-msgstr "racine generic gestion par famille"
-
-msgid "familly list"
-msgstr "liste des familles"
-
-msgid "redirect to generic"
-msgstr "rediriger vers generic"
-
-msgid "familly result"
-msgstr "résultat des familles"
-
-msgid "edit preferences"
-msgstr "editer les préférences"
-
-msgid "modify preferences"
-msgstr "modifier les préférences"
-
-msgid "edit master preferences"
-msgstr "editer les préférences administratives"
-
-msgid "modify master preferences"
-msgstr "modifier les préférences administratives"
-
-msgid "To choose other families"
-msgstr "Pour choisir d'autres familles"
-
-msgid "Access choose masters families"
-msgstr "Accès au choix des familles visibles administratives"
-
-msgid "Users"
-msgstr "Utilisateurs"
-
-msgid "Users Management"
-msgstr "Gestion des utilisateurs"
-
-msgid "administrative tools"
-msgstr "outils d'administration"
-
-msgid "refresh users intranet attributes"
-msgstr "actualisation des attributs intranet des utilisateurs"
-
-msgid "refresh ldap entries"
-msgstr "actualiser les entrées du LDAP"
-
 msgid "Import vcard"
 msgstr "Importation Vcard"
 
@@ -2088,6 +1356,9 @@ msgstr "Fichier de description de l'import"
 msgid "Analyze only"
 msgstr "Analyse seulement"
 
+msgid "add category"
+msgstr "ajout de catégorie"
+
 msgid "Choose a father category"
 msgstr "Choisissez une catégorie père"
 
@@ -2156,6 +1427,9 @@ msgstr "ajout"
 
 msgid "Validate"
 msgstr "Valider"
+
+msgid "change category"
+msgstr "changer de catégorie"
 
 msgid "Choose new categories"
 msgstr "Choisissez de nouvelles catégories"
@@ -2295,11 +1569,17 @@ msgstr "Profil d'accès"
 msgid "no profile"
 msgstr "Pas de profil"
 
+msgid "specific control"
+msgstr "Contrôle dédié"
+
 msgid "view control"
 msgstr "contrôle de vue"
 
 msgid "no control"
 msgstr "pas de contrôle"
+
+msgid "search document"
+msgstr "Recherche de documents"
 
 msgid "keyword"
 msgstr "mot-clef"
@@ -2369,6 +1649,9 @@ msgstr " historique"
 
 msgid "view properties"
 msgstr "voir les propriétés"
+
+msgid "duplicate document"
+msgstr " dupliquer le document"
 
 msgid "link document"
 msgstr "référencer le document"
@@ -2456,6 +1739,9 @@ msgstr "toutes les familles"
 
 msgid "restrict to preferred families"
 msgstr "restriction aux familles préférées"
+
+msgid "choose preferred families"
+msgstr "Choix des familles préférées"
 
 msgid "Result Import TAR Documents"
 msgstr "Résultat de l'importation d'archives"
@@ -2689,6 +1975,27 @@ msgstr "attributs"
 msgid "addstate"
 msgstr "état"
 
+msgid "View"
+msgstr "Affichage"
+
+msgid "list"
+msgstr "Liste"
+
+msgid "icon"
+msgstr "Icone"
+
+msgid "column"
+msgstr "colonne"
+
+msgid "All To basket"
+msgstr "Tout insérer dans le porte-documents"
+
+msgid "Basket to here"
+msgstr "Insérer le porte-documents"
+
+msgid "Clear Folder"
+msgstr "Vider le dossier"
+
 msgid "Details"
 msgstr "Détails"
 
@@ -2722,26 +2029,9 @@ msgstr "Nouveau filtre"
 msgid "Search to insert"
 msgstr "Recherche pour l'insertion"
 
-msgid "Basket to here"
-msgstr "Insérer le porte-documents"
-
-msgid "View"
-msgstr "Affichage"
-
-msgid "list"
-msgstr "Liste"
-
-msgid "icon"
-msgstr "Icone"
-
-msgid "column"
-msgstr "colonne"
-
-msgid "All To basket"
-msgstr "Tout insérer dans le porte-documents"
-
-msgid "Clear Folder"
-msgstr "Vider le dossier"
+#, fuzzy
+msgid "detail"
+msgstr "détaillée"
 
 msgid "View headers"
 msgstr "Voir entête"
@@ -2899,6 +2189,9 @@ msgstr "révisé par"
 msgid "view abstract card"
 msgstr "Carte résumé"
 
+msgid "clear inputs"
+msgstr "effacer entrée(s)"
+
 msgid "mini view"
 msgstr "mini vue"
 
@@ -3049,6 +2342,721 @@ msgstr "Changer de catégorie"
 
 msgid "View properties"
 msgstr "Voir les propriétés"
+
+#, c-format
+msgid "%d documents"
+msgstr "%d documents"
+
+#, c-format
+msgid "%d document"
+msgstr "%d document"
+
+msgid ""
+"Some constraint attribute are not respected.\n"
+"You must correct these values before save document."
+msgstr ""
+"Certaines contraintes d'attributs ne sont pas respectées\n"
+"Vous devez corriger ces valeurs avant de sauver le document"
+
+msgid "change"
+msgstr "modification"
+
+#, c-format
+msgid "auto revision"
+msgstr "révision automatique"
+
+#, c-format
+msgid ""
+"Filename '%s' cannot be transmitted.\n"
+"The Size Limit is %s bytes."
+msgstr ""
+"Le fichier '%s' n'a pu être transmis.\n"
+"La taille limite est de %s octets."
+
+#, c-format
+msgid ""
+"Filename '%s' cannot be transmitted.\n"
+"The Size Limit was specified in the HTML form."
+msgstr ""
+"Le fichier '%s' n'a pu être transmis.\n"
+"La taille limite a était spécifiée dans le questionnaire HTML"
+
+#, c-format
+msgid ""
+"Filename '%s' cannot be transmitted completly.\n"
+"May be saturation of server disk."
+msgstr ""
+"Le fichier '%s' n'a pu être transmis.\n"
+"Le disque du serveur est peut être saturé"
+
+#, c-format
+msgid "Filename '%s' cannot be transmitted."
+msgstr "Le fichier '%s' n'a pu être transmis."
+
+#, c-format
+msgid "Possible file upload attack: filename '%s'."
+msgstr "Possibilité d'atttaque 'upload' : fichier %s"
+
+msgid "This document has been deleted"
+msgstr "Ce document a été supprimé"
+
+msgid "nobody"
+msgstr "personne"
+
+msgid "no access control"
+msgstr "pas de contrôle d'accès"
+
+msgid "dynamic control"
+msgstr "contrôle dynamique"
+
+msgid "no view control"
+msgstr "pas de contrôle de vues"
+
+msgid "cannot see unknow folder"
+msgstr "dossier inconnu, ne peut être consulté"
+
+msgid "read-only"
+msgstr "lecture seule"
+
+msgid "current"
+msgstr "courant"
+
+msgid "error in filename"
+msgstr "erreur dans le nom de fichier"
+
+msgid "no image"
+msgstr "pas d'image"
+
+#, c-format
+msgid "set for %s, unset for %s"
+msgstr "cocher pour %s, décocher pour %s"
+
+msgid "color picker"
+msgstr "choix de couleur"
+
+msgid "choose inputs"
+msgstr "choisir une valeur"
+
+msgid "add inputs"
+msgstr "ajouter entrée"
+
+#, c-format
+msgid "elinkEncode::attribute not found %s"
+msgstr "elinkEncode :  attribut non trouvé %s"
+
+#, c-format
+msgid "create new %s"
+msgstr "créé par %s"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr "Confirmation : %s ?"
+
+msgid "To"
+msgstr "Vers"
+
+msgid "this kind of document cannot be duplicate"
+msgstr "ce type de document ne peut être dupliqué"
+
+msgid "duplication of"
+msgstr "duplication de"
+
+#, c-format
+msgid "new duplicate document is named : %s"
+msgstr "la duplication est nommée : %s"
+
+#, c-format
+msgid "period from %s to %s"
+msgstr "période du %s au %s"
+
+#, c-format
+msgid "the end date (%s) is before the begin date (%s)"
+msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
+
+msgid "Documents management"
+msgstr "Gestion documentaire"
+
+msgid "Access Management Database"
+msgstr "Accès administration de la base"
+
+msgid "Access To My Own account"
+msgstr "Accès à mon compte"
+
+msgid "Access To Read Only"
+msgstr "Accès en lecture seule"
+
+msgid "Access To Main Interface"
+msgstr "Accès en l'interface principale"
+
+msgid "Freedoms frame"
+msgstr "fenêtres freedom"
+
+msgid "Freedoms list"
+msgstr "liste freedom"
+
+msgid "Freedoms list by column"
+msgstr "liste freedom par colonne"
+
+msgid "to choose value from set"
+msgstr "pour choisir une valeur à partir d'un ensemble"
+
+msgid "query document import"
+msgstr "demande d'import de document"
+
+msgid "query tar document import"
+msgstr "demande d'import d'archive"
+
+msgid "background document import"
+msgstr "import en tache de fond"
+
+msgid "add document import"
+msgstr "ajouter un document importé"
+
+msgid "import archive file"
+msgstr "Importer un fichier archive"
+
+msgid "analyze archive file"
+msgstr "analyse de fichier archive"
+
+msgid "add document from directories file import"
+msgstr "ajouter de documents à partir d'un répertoire"
+
+msgid "view imported tar"
+msgstr "voir les archives importées"
+
+msgid "delete imported tar"
+msgstr "supression des archives"
+
+msgid "Freedoms view folder"
+msgstr "visualisation de contenu de dossier"
+
+msgid "Freedoms preview document"
+msgstr "prévisualisation de document"
+
+msgid "popup menu"
+msgstr "popup menu"
+
+msgid "add file query into directory"
+msgstr "ajout d'un document dans un dossier"
+
+msgid "insert containt of a folder into another"
+msgstr "insérer le contenu d'un dossier dans un autre"
+
+msgid "clear containt of a folder"
+msgstr "effacer le contenu d'un dossier"
+
+msgid "move file query into directory"
+msgstr "déplacement d'un document dans un dossier"
+
+msgid "delete file query into directory"
+msgstr "supprimer un document dans un dossier"
+
+msgid "folder tree"
+msgstr "arborescence de dossier"
+
+msgid "expand folder tree"
+msgstr "développer une branche"
+
+msgid "Freedoms icon list"
+msgstr "liste sous forme d'icones"
+
+#, fuzzy
+msgid "Freedoms detail list"
+msgstr "liste sous forme d'icones"
+
+msgid "folio icon list"
+msgstr "liste icones pour chemise"
+
+msgid "folio select doc"
+msgstr "sélection de chemise"
+
+msgid "access path folder list"
+msgstr "liste des chemin d'accès"
+
+msgid "bar menu"
+msgstr "barre de menu"
+
+msgid "Freedoms card"
+msgstr "fiche Freedom"
+
+msgid "attributes definitions"
+msgstr "définition des attributs"
+
+msgid "refresh directory"
+msgstr "rafraichir le dossier"
+
+msgid "attributes modification"
+msgstr "Modification d'attributs"
+
+msgid "edit state "
+msgstr "Édition état"
+
+msgid "edit icard "
+msgstr "éditer une carte virtuelle"
+
+msgid "edit icard 2 "
+msgstr "éditer une carte virtuelle 2"
+
+msgid "edit workflow transitions "
+msgstr "édition des transitions des cycles"
+
+msgid "edit args of actions in workflow edition "
+msgstr "édition des arguments des actions dans l'édition des cycles"
+
+msgid "edit profile access"
+msgstr "édition des profiles d'accès"
+
+msgid "change profile access"
+msgstr "changement des profiles d'accès"
+
+msgid "change state transition"
+msgstr "changement d'état"
+
+msgid "edit default folder"
+msgstr "éditer dossier par défaut"
+
+msgid "choose workflow"
+msgstr "choisir un cycle"
+
+msgid "modify associated worflow"
+msgstr "modification cycle de vie associé"
+
+msgid "set the document controlled"
+msgstr "Mettre le document sous contrôle"
+
+msgid "change icon document"
+msgstr "changer l'icone du document"
+
+msgid "change title family"
+msgstr "changement du titre de famille"
+
+msgid "query icon"
+msgstr "requête icone"
+
+msgid "search document criteria"
+msgstr "critères de recherche de document"
+
+msgid "full text search document criteria"
+msgstr "critères de recherche plein texte"
+
+msgid "ask for a new file revision"
+msgstr "demande pour une revision"
+
+msgid "edit document properties"
+msgstr "éditer les propriétés du document"
+
+msgid "edit default document properties"
+msgstr "éditer les propriétés par défaut du document"
+
+msgid "add comment before revise document"
+msgstr "ajouter un commentaire avant de réviser un document"
+
+msgid "make a new document revision"
+msgstr "faire une nouvelle révision de document"
+
+msgid "view history revision"
+msgstr "voir l'historique"
+
+msgid "style sheet"
+msgstr "feuille de style"
+
+msgid "widget display popup for a description card"
+msgstr "widget popup pour affichage d'une carte"
+
+msgid "Freedom modification"
+msgstr "Modification de documents"
+
+msgid "Freedom imodification"
+msgstr "Modification de documents virtuels"
+
+msgid "view idoc attribute card"
+msgstr "Visualisation des attributs d'un document virtuel"
+
+msgid "Freedom deletion"
+msgstr "Suppression de documents"
+
+msgid "Freedom update title fields"
+msgstr "mise à jour des champs titre"
+
+msgid "Freedom accessibilities"
+msgstr "Droits Freedom"
+
+msgid "Freedom group accessibilities"
+msgstr "Droits des groupes Freedom"
+
+msgid "Freedom modify accessibilities"
+msgstr "Modification des Droits"
+
+msgid "Freedom initialisation"
+msgstr "Initialisation Freedom"
+
+msgid "open portfolio"
+msgstr "Ouvrir la chemise"
+
+msgid "portfolio tab"
+msgstr "onglets chemise"
+
+msgid "modify preferred families"
+msgstr "modifier les familles préférées"
+
+msgid "add folder in bookmark"
+msgstr "Marquer ce dossier"
+
+msgid "root folder id"
+msgstr "Identificateur du dossier racine"
+
+msgid "enabled/disabled full text search"
+msgstr "autoriser la recherche plein texte"
+
+msgid "id of the basket folder"
+msgstr "identifiant du porte-documents"
+
+msgid "directory to upload archive"
+msgstr "Répertoire de stockage de l'archive"
+
+msgid "mode to navigate in folders"
+msgstr "mode de navigation pour les dossiers"
+
+msgid "bookmark folders"
+msgstr "signets des dossiers"
+
+msgid "Freedoms lib"
+msgstr "bibliothèque freedom"
+
+msgid "Freedoms library"
+msgstr "bibliothèque freedom"
+
+msgid "Access Action Library"
+msgstr "Bibliothèque pour les droits"
+
+msgid "Access to edit action"
+msgstr "Accès aux actions d'édition"
+
+msgid "For export functions"
+msgstr "Pour les fonctions d'export"
+
+msgid "Manage families"
+msgstr "gestion des familles"
+
+msgid "nothing action"
+msgstr "action nulle"
+
+msgid "export folder"
+msgstr "exportation de dossier"
+
+msgid "export file to consulting"
+msgstr "exportation d'un fichier pour consultation"
+
+msgid "export first file to consulting"
+msgstr "exportation du premier fichier pour consultation"
+
+msgid "send a document"
+msgstr "envoyer un document"
+
+msgid "edit mail"
+msgstr "éditer un mail"
+
+msgid "help manual for family"
+msgstr "manuel de description de famille"
+
+msgid "confirm mail sended before change state"
+msgstr "confirmation envoi email avant changement d'état"
+
+msgid "view standalone card"
+msgstr "voir une carte autonome"
+
+msgid "printed view card"
+msgstr "voir une carte imprimable"
+
+msgid "view card"
+msgstr "voir une carte"
+
+msgid "lock file to edit"
+msgstr "verrouillez le document pour l'éditer"
+
+msgid "interface to change document option"
+msgstr "interface pour changer les options d'un document"
+
+msgid "modify document option"
+msgstr "modifier les options d'un document"
+
+msgid "view document option"
+msgstr "voir les options d'un document"
+
+msgid "view xml"
+msgstr "voir XML"
+
+msgid "unlock file to discard edit"
+msgstr "déverrouillez le document pour l'éditer"
+
+msgid "apply a method to a document"
+msgstr "appliquer une méthode sur un document"
+
+msgid "init workflow profile attributes"
+msgstr "initialisation des attributs profil"
+
+msgid "save geometry of mini view"
+msgstr "sauve la disposition de la mini vue"
+
+msgid "verify constraint attribute"
+msgstr "vérifie les contraintes d'attributs"
+
+msgid "freedom database"
+msgstr "base de donnée Freedom"
+
+msgid "string limit for popup enum"
+msgstr "taille maximum de chaines de caractère pour les choix"
+
+msgid "send mail copy"
+msgstr "copie envoi de mail"
+
+msgid "horizontal size for secondary windows"
+msgstr "taille horizontale lors de l'ouverture de fenêtre secondaire"
+
+msgid "vertical size for secondary windows"
+msgstr "taille verticale lors de l'ouverture de fenêtre secondaire"
+
+msgid "max items return when open a folder"
+msgstr "nombre d'éléments maximum visibles dans un dossier"
+
+msgid "maximum document can be imported directly"
+msgstr "nombre maximum de documents pouvant être importé en direct"
+
+msgid "name and address of our society"
+msgstr "nom et adresse de votre société"
+
+msgid "logo of our society"
+msgstr "logo de votre société"
+
+msgid "town of our society"
+msgstr "ville de votre société"
+
+msgid "name of our society"
+msgstr "nom de votre société"
+
+msgid "phone of our society"
+msgstr "téléphone de votre société"
+
+msgid "geometry of mini view"
+msgstr "géométrie de la mini vue       "
+
+#, c-format
+msgid "file %d"
+msgstr "fichier %d"
+
+msgid "LDAP server name"
+msgstr "nom du serveur LDAP"
+
+msgid "LDAP server port"
+msgstr "n° de port du serveur LDAP"
+
+msgid "LDAP server root"
+msgstr "racine du serveur LDAP"
+
+msgid "LDAP admin identificatot"
+msgstr "identification de l'administrateur LDAP"
+
+msgid "LDAP admin passord"
+msgstr "mot de passe administrateur LDAP"
+
+msgid "LDAP activated"
+msgstr "Activation LDAP"
+
+msgid "User Card"
+msgstr "Carnet d'adresses"
+
+msgid "User Card Management"
+msgstr "Carnet d'adresses"
+
+msgid "view as vcard"
+msgstr "voir au format Vcard"
+
+msgid "initialisation"
+msgstr "initialisation"
+
+msgid "import vcard"
+msgstr "Importation Vcard"
+
+msgid "mail will be calculated from domain"
+msgstr "l'adresse email sera calculée à partir du domaine"
+
+msgid "no mail"
+msgstr "pas d'email"
+
+msgid "Generic"
+msgstr "Générique"
+
+msgid "generic Management"
+msgstr "Gestion générique"
+
+msgid "Access Generic Master Management"
+msgstr "Accès à l'administration générique"
+
+msgid "Access To Generic Management"
+msgstr "Accès à la gestion générique"
+
+msgid "Access To Read Card"
+msgstr "Accès à la lecture"
+
+msgid "generic home page"
+msgstr "page d'accueil générique"
+
+msgid "generic vertical home page"
+msgstr "page d'accueil découpage vertical"
+
+msgid "edition"
+msgstr "édition"
+
+msgid "inverted search"
+msgstr "Recherche inversée"
+
+msgid "duplication"
+msgstr "duplication"
+
+msgid "change king in enum attribute"
+msgstr "changer la catégorie d'un attribut énuméré"
+
+msgid "edit to add category"
+msgstr "éditer pour l'ajout de catégorie"
+
+msgid "edit to add or modify category"
+msgstr "éditer pour l'ajout ou modification de catégorie"
+
+msgid "edit to change category"
+msgstr "édition pour changer de catégorie"
+
+msgid "modification or creation"
+msgstr "modification ou création"
+
+msgid "display logo"
+msgstr "afficher le logo"
+
+msgid "view list"
+msgstr "voir la liste"
+
+msgid "define sort attribute"
+msgstr "Définir les attributs de tri"
+
+msgid "view a generic"
+msgstr "voir une carte"
+
+msgid "edit import vcard"
+msgstr "importation format Vcard"
+
+msgid "view a part of list"
+msgstr "voir une partie d'une liste"
+
+msgid "import csv"
+msgstr "Import csv"
+
+msgid "search a generict"
+msgstr "rechercher une carte"
+
+msgid "search with kind criteria"
+msgstr "recherche avec des critères de catégories"
+
+msgid "memorisation of split mode"
+msgstr "mémorisation du mode de découpage de la fenêtre"
+
+msgid "memorisation of pref search"
+msgstr "mémorisation de la recherche"
+
+msgid "default document family"
+msgstr "famille de document par défaut"
+
+msgid "number of card by page"
+msgstr "nombre de cartes par page"
+
+msgid "width of the abstract card"
+msgstr "largeur de la carte résumé (en px ou en %)"
+
+msgid "width of the frame for abstract card"
+msgstr ""
+"largeur de la fenêtre pour l'affichage des listes de documents (découpage "
+"vertical)"
+
+msgid "height of the frame for abstract card"
+msgstr ""
+"hauteur de la fenêtre pour l'affichage des listes de documents (découpage "
+"horizontal)"
+
+msgid "differents view mode by family"
+msgstr "mode de vues par familles"
+
+msgid "split view mode by family"
+msgstr "mode de découpage par famille"
+
+msgid "prefered search"
+msgstr "Recherche préférée"
+
+msgid "last search text typed"
+msgstr "dernier texte tapé pour la recherche"
+
+msgid "visible user families"
+msgstr "familles personnelles visibles"
+
+msgid "visible master families"
+msgstr "familles administratives visibles"
+
+msgid "icon column number"
+msgstr "nombre de colonne d'icones"
+
+msgid "default opened family"
+msgstr "famille ouverte par défaut"
+
+msgid "Onefam"
+msgstr "Une famille"
+
+msgid "One Familly Management"
+msgstr "Gestion par famille"
+
+msgid "one familly root"
+msgstr "racine gestion par famille"
+
+msgid "one family generic root"
+msgstr "racine generic gestion par famille"
+
+msgid "familly list"
+msgstr "liste des familles"
+
+msgid "redirect to generic"
+msgstr "rediriger vers generic"
+
+msgid "familly result"
+msgstr "résultat des familles"
+
+msgid "edit preferences"
+msgstr "editer les préférences"
+
+msgid "modify preferences"
+msgstr "modifier les préférences"
+
+msgid "edit master preferences"
+msgstr "editer les préférences administratives"
+
+msgid "modify master preferences"
+msgstr "modifier les préférences administratives"
+
+msgid "To choose other families"
+msgstr "Pour choisir d'autres familles"
+
+msgid "Access choose masters families"
+msgstr "Accès au choix des familles visibles administratives"
+
+msgid "Users"
+msgstr "Utilisateurs"
+
+msgid "Users Management"
+msgstr "Gestion des utilisateurs"
+
+msgid "administrative tools"
+msgstr "outils d'administration"
+
+msgid "refresh users intranet attributes"
+msgstr "actualisation des attributs intranet des utilisateurs"
+
+msgid "refresh ldap entries"
+msgstr "actualiser les entrées du LDAP"
 
 #~ msgid "detailled search result"
 #~ msgstr "résultat de la recherche détaillée"

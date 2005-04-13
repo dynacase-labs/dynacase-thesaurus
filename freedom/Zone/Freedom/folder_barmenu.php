@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Folder barmenu
  *
  * @author Anakeen 2000 
- * @version $Id: folder_barmenu.php,v 1.6 2005/04/06 16:38:59 eric Exp $
+ * @version $Id: folder_barmenu.php,v 1.7 2005/04/13 11:12:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: folder_barmenu.php,v 1.6 2005/04/06 16:38:59 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Freedom/folder_barmenu.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 
 
@@ -62,7 +41,7 @@ function folder_barmenu(&$action) {
 
   $action->lay->set("dirid",$dirid);
 
-  popupInit("viewmenu",	array('vlist','vicon','vcol'));
+  popupInit("viewmenu",	array('vlist','vicon','vcol','vdetail'));
   popupInit("toolmenu", array('tobasket','insertbasket','clear','props'));
 
 
@@ -70,6 +49,7 @@ function folder_barmenu(&$action) {
   popupActive("viewmenu",1,'vlist');
   popupActive("viewmenu",1,'vicon');
   popupActive("viewmenu",1,'vcol');
+  popupActive("viewmenu",1,'vdetail');
 
   // clear only for basket :: too dangerous
   if ($dir->fromid == getFamIdFromName($dbaccess,"BASKET")) {
