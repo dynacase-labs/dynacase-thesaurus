@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.63 2005/04/13 11:12:06 eric Exp $
+ * @version $Id: viewfolder.php,v 1.64 2005/04/14 14:33:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -196,27 +196,27 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	
       if ($doc->locked == -1) {
 	$tdoc[$k]["emblem"] = $action->GetImageUrl("revised.gif");
-	$tdoc[$k]["emblemt"] = N_("fixed");
+	$tdoc[$k]["emblemt"] = _("fixed");
 	$tdoc[$k]["emblemw"] ="12";
 	$tdoc[$k]["canedit"] =false;
 	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
       } else if ((abs($doc->locked) == $action->parent->user->id)) {
 
 	$tdoc[$k]["emblem"] = $action->GetImageUrl("clef1.gif");
-	$tdoc[$k]["emblemt"] = N_("locked");
+	$tdoc[$k]["emblemt"] = _("locked");
 	$tdoc[$k]["emblemw"] ="12";
 	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
 
       } else if ($doc->locked != 0) {
 	$tdoc[$k]["emblem"] = $action->GetImageUrl("clef2.gif");
-	$tdoc[$k]["emblemt"] = N_("locked");
+	$tdoc[$k]["emblemt"] = _("locked");
 	$tdoc[$k]["emblemw"] ="12";
 	$tdoc[$k]["canedit"] =false;
 	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
 
       } else if ($doc->control("edit") != "")  {
 	$tdoc[$k]["emblem"] = $action->GetImageUrl("nowrite.gif");
-	$tdoc[$k]["emblemt"] = N_("read-only");
+	$tdoc[$k]["emblemt"] = _("read-only");
 	$tdoc[$k]["emblemw"] ="12";
 	$tdoc[$k]["canedit"] =false;
 	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
