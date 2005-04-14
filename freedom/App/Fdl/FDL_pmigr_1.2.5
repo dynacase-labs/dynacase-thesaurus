@@ -1,4 +1,4 @@
 #!/bin/bash
 pubdir="/home/httpd/what";
-echo "update doc2 set cvid=(SELECT ccvid from docfam where id=2);" | psql freedom anakeen
+echo "update doc2 set cvid=(SELECT ccvid from docfam where id=2) where cvid is null;" | psql freedom anakeen
 
