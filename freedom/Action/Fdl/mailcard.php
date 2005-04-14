@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.42 2005/03/21 09:50:54 eric Exp $
+ * @version $Id: mailcard.php,v 1.43 2005/04/14 14:31:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.42 2005/03/21 09:50:54 eric Exp $
+// $Id: mailcard.php,v 1.43 2005/04/14 14:31:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -119,10 +119,13 @@ function sendCard(&$action,
   $viewonly=  (GetHttpVars("viewonly","N")=="Y");
   // -----------------------------------
   global $ifiles;
+  global $tfiles;
   global $vf; 
   global $doc;
 
+  $mixed=true; // to see file as attachement
   $ifiles=array();
+  $tfiles=array();
   // set title
   
   
@@ -201,13 +204,20 @@ function sendCard(&$action,
       $sgen = $docmail->gen();
     }
     if ($viewonly) {echo $sgen;exit;}
-    $sgen = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
-			 "srcfile('\\1')",
+    $sgen1 = preg_replace("/src=\"(index[^\"]+)\"/ei",
+			 "imgvaultfile('\\1')",
 			 $sgen);
+    $sgen1 = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
+			 "srcfile('\\1')",
+			 $sgen1);
 
     $pfout = uniqid("/tmp/".$doc->id);
     $fout = fopen($pfout,"w");
-    fwrite($fout,$sgen);
+    if ($mixed) {
+      fwrite($fout, preg_replace("/href=\"[^\"]*\"/i", "title=\""._("see attachement files")."\"", $sgen1));
+    } else {
+      fwrite($fout,$sgen1);
+    }
     fclose($fout);
   }
 
@@ -231,8 +241,8 @@ function sendCard(&$action,
 			   "realfile('\\1')",
 			   $sgen);
 
-      $phtml = uniqid("/tmp/".$doc->id).".html";
-      $fout = fopen($phtml,"w");
+      $ppdf = uniqid("/tmp/".$doc->id).".html";
+      $fout = fopen($ppdf,"w");
       fwrite($fout,$sgen2);
       fclose($fout);
   }
@@ -261,7 +271,6 @@ function sendCard(&$action,
 
     // ---------------------------
     // insert attached files
-
   if (preg_match_all("/href=\"cid:([^\"+]*)[+|\"]/i",$sgen,$match)) {
     $tcids = $match[1]; // list of file references inserted in mail
 
@@ -285,6 +294,7 @@ function sendCard(&$action,
 		if ($vf -> Retrieve ($vid, $info) == "") {  
 		
 		  $cidindex= ($v->repeat)?"+$ka":"";
+		  if ($mixed)    $cidindex.="zou";
 		  $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
 		    "-i '<".$v->id.$cidindex.">'  -f '".$info->path."'";
 	  
@@ -296,7 +306,6 @@ function sendCard(&$action,
       }
     }
   }
-
     // ---------------------------
     // add icon image
     if (ereg("html",$format, $reg)) {
@@ -332,13 +341,21 @@ function sendCard(&$action,
 	  "-i '<".$v.">'  -f '".$pubdir."/$v"."'";
     
     }
+
+    foreach($tfiles as $k=>$v) {
+
+      if (file_exists($v))
+	$cmd .= " -n -e 'base64' -m '".trim(`file -ib "$v"`)."' ".
+	  "-i '<".$k.">'  -f '".$v."'";
+    
+    }
   
 
   if (ereg("pdf",$format, $reg)) {
     // try PDF 
     $fps= uniqid("/tmp/".$doc->id)."ps";
     $fpdf= uniqid("/tmp/".$doc->id)."pdf";
-    $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $phtml > $fps && ps2pdf $fps $fpdf";
+    $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $ppdf > $fps && ps2pdf $fps $fpdf";
 
     system ($cmdpdf, $status);
     if ($status == 0)  {
@@ -350,7 +367,7 @@ function sendCard(&$action,
     }
   }  
   $cmd = "export LANG=C;".$cmd;
-  
+
   system ($cmd, $status);
 
   $err="";
@@ -372,6 +389,10 @@ function sendCard(&$action,
   if (isset($fpdf))  unlink($fpdf);
   if (isset($fps))   unlink($fps);
   if (isset($pfout)) unlink($pfout);
+  foreach($tfiles as $k=>$v) {
+    if (file_exists($v) && (substr($v,0,5)=="/tmp/"))
+      unlink($v);    
+  }
  
 
   return $err;
@@ -385,11 +406,24 @@ function srcfile($src) {
 
 
   if (substr($src,0,3) == "cid")   return "src=\"$src\"";
-  if   (substr($src,0,4) == "http")  return "src=\"$src\"";
+  if (substr($src,0,4) == "http")  return "src=\"$src\"";
 
   if ( ! in_array(fileextension($src),$vext)) return "";
 
   $ifiles[$src] = $src;
+  return "src=\"cid:$src\"";
+}
+function imgvaultfile($src) {
+  global $tfiles;
+  global $_SERVER;
+
+  $url="http://".$_SERVER['PHP_AUTH_USER'].":".$_SERVER['PHP_AUTH_PW'].'@'.$_SERVER['SERVER_NAME']."/what/".$src;
+  $newfile=uniqid("/tmp/img");
+  if (!copy($url, $newfile)) {
+    return "";
+  }
+  $src="img".count($tfiles);
+  $tfiles[$src] = $newfile;
   return "src=\"cid:$src\"";
 }
 
