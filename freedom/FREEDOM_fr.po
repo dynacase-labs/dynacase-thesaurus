@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-04-13 11:11+0200\n"
-"PO-Revision-Date: 2005-04-07 12:18+0200\n"
+"PO-Revision-Date: 2005-04-13 11:43+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -2029,9 +2029,8 @@ msgstr "Nouveau filtre"
 msgid "Search to insert"
 msgstr "Recherche pour l'insertion"
 
-#, fuzzy
 msgid "detail"
-msgstr "détaillée"
+msgstr "détaillé"
 
 msgid "View headers"
 msgstr "Voir entête"
@@ -2560,9 +2559,8 @@ msgstr "développer une branche"
 msgid "Freedoms icon list"
 msgstr "liste sous forme d'icones"
 
-#, fuzzy
 msgid "Freedoms detail list"
-msgstr "liste sous forme d'icones"
+msgstr "liste détaillé"
 
 msgid "folio icon list"
 msgstr "liste icones pour chemise"

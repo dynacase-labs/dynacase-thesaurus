@@ -50,8 +50,13 @@
      onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard',1)"      >
 
 [ZONE FDL:VIEWCARD]
+<div class="noprint" align="right">
+[BLOCK WACTION]
+<input  type="button" title="[wadesc]" 
+        value="[walabel]" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[wtarget]','[CORE_STANDURL]&app=[wapplication]&action=[waction]&id=[id]')"> 
+ [ENDBLOCK WACTION]
 </div>
-
+</div>
 
 
 </body>

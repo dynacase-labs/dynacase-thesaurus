@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.5 2004/05/06 09:34:56 eric Exp $
+ * @version $Id: fdl_card.php,v 1.6 2005/04/14 14:29:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -48,6 +48,20 @@ function fdl_card(&$action) {
 
 
   $action->lay->Set("TITLE",$doc->title);
+  $action->lay->Set("id",$docid);
+
+  $listattr = $doc->GetActionAttributes();
+  $taction=array();
+  foreach ($listattr as $k => $v) {
+    if ($v["visibility"] != "H") {
+      $taction[$k]=array("wadesc"=>$v->labelText,
+			 "walabel"=>ucfirst($v->labelText),
+			 "waction"=>$v->waction,
+			 "wtarget"=>$v->wtarget,
+			 "wapplication"=>$v->wapplication);
+    }
+  }
+  $action->lay->setBlockData("WACTION",$taction);
 }
 
 ?>
