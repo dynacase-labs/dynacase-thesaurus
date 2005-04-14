@@ -1325,9 +1325,7 @@ function quicksave() {
 	target='fhsave';
 	document.modifydoc.noredirect.value=1;
 	// for htmlarea
-	for (i=0;i< editors.length; i++) {
-	  editors[i]._formSubmit();
-	}
+	submittextarea();	
     
 
 	submit();
@@ -1346,6 +1344,13 @@ function quicksave() {
     }
   }
   return false;
+}
+
+function submittextarea() {
+  // for htmlarea
+  for (var i=0;i< editors.length; i++) {
+    editors[i]._formSubmit();
+  }
 }
 function viewquick(event,view) {
   if (! event) event=window.event;

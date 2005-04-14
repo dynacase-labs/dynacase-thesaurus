@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.241 2005/04/13 11:12:06 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.242 2005/04/14 14:32:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2188,7 +2188,7 @@ create unique index i_docir on doc(initid, revision);";
 	    $mime=$reg[1];
 	    include_once("FDL/Lib.Dir.php");
 	    $vf = newFreeVaultFile($this->dbaccess);
-	    if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+	    if ($vf->Show ($reg[2], $info) == "") $fname = $info->name;
 	    else $fname=_("vault file error");
 	  } else $fname=_("no filename");
 	

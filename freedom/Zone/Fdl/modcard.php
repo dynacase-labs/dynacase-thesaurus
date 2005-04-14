@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.74 2005/04/05 13:57:50 eric Exp $
+ * @version $Id: modcard.php,v 1.75 2005/04/14 14:32:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -95,9 +95,6 @@ function modcard(&$action, &$ndocid) {
   if ($err != "") $action->Addwarningmsg($err);
   
   
-  
-  
-
 
   // verify attribute constraint
 
@@ -123,7 +120,7 @@ function modcard(&$action, &$ndocid) {
   } else {
     if ($docid==0) {
       // now can create new doc
-      $err = $doc-> Add();
+      $err = $doc->Add();
       if ($err != "")  $action->ExitError($err);
       
       $doc->initid = $doc->id;// it is initial doc	    
