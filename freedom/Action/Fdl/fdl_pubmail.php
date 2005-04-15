@@ -3,7 +3,7 @@
  * Emailing
  *
  * @author Anakeen 2005
- * @version $Id: fdl_pubmail.php,v 1.1 2005/04/14 14:30:40 eric Exp $
+ * @version $Id: fdl_pubmail.php,v 1.2 2005/04/15 16:21:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,10 +18,7 @@ include_once("FDL/mailcard.php");
 include_once("FDL/modcard.php");
 
 
-// -----------------------------------
-// -----------------------------------
 function fdl_pubmail(&$action) {
-  // -----------------------------------
 
   // GetAllParameters
 
@@ -37,24 +34,40 @@ function fdl_pubmail(&$action) {
     $doc = $doc->copy(true,false);
     $err=setPostVars($doc);
     $doc->modify();
-  }
-  $tmail=array();
-  foreach ($t as $k=>$v) {
-    $mail=getv($v,"us_mail");
-    if ($mail != "") $tmail[]=$mail;
-  }
+  };
 
-
-  print_r2($tmail);
-  $to=implode(",",$tmail);
   $zonebodycard="FDL:FDL_PUBSENDMAIL:S";
-  $cc="";
   $subject=$doc->getValue("pubm_title");
-  $err=sendCard(&$action,
-		$doc->id,
-		$to,$cc,$subject,
-		$zonebodycard);
-  print "err=$err";
+  $body=$doc->getValue("pubm_body");
+  if (preg_match("/\[us_[a-z0-9_]+\]/i",$body)) {
+    foreach ($t as $k=>$v) {
+      $mail=getv($v,"us_mail");
+      if ($mail != "") {
+	$zoneu=$zonebodycard."?uid=".$v["id"];
+	$to=$mail;	
+	$cc="";
+	$err=sendCard(&$action,
+		      $doc->id,
+		      $to,$cc,$subject,
+		      $zoneu);
+      }
+    }
+  } else {
+    $tmail=array();
+    foreach ($t as $k=>$v) {
+      $mail=getv($v,"us_mail");
+      if ($mail != "") $tmail[]=$mail;
+    }
+    $to="";
+    $bcc=implode(",",$tmail);
+    $cc="";
+    $err=sendCard(&$action,
+		  $doc->id,
+		  $to,$cc,$subject,
+		  $zonebodycard,false,"","",$bcc);
+  }
+  if ($err) $action->AddWarningMsg($err);
+
 
   
 }

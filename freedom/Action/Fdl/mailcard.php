@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.43 2005/04/14 14:31:51 eric Exp $
+ * @version $Id: mailcard.php,v 1.44 2005/04/15 16:21:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.43 2005/04/14 14:31:51 eric Exp $
+// $Id: mailcard.php,v 1.44 2005/04/15 16:21:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -107,25 +107,28 @@ function sendCard(&$action,
 		  $docid,
 		  $to,$cc,$subject,
 		  $zonebodycard, // define mail layout
-		  $ulink=false,// the zonebodycard is a standalone zone ?
+		  $ulink=false,// don't see hyperlink
 		  $comment="",
 		  $from="",
 		  $bcc="",
 		  $format="html"// define view action
 		  ) {
 
-  if ($to == "") return _("mail dest is empty");
+  if (($to == "")&&($bcc=="")) return _("mail dest is empty");
   // -----------------------------------
   $viewonly=  (GetHttpVars("viewonly","N")=="Y");
   // -----------------------------------
   global $ifiles;
   global $tfiles;
+  global $tmpfile;
   global $vf; 
   global $doc;
+  global $pubdir;
 
-  $mixed=true; // to see file as attachement
   $ifiles=array();
-  $tfiles=array();
+   $tfiles=array();
+   $tmpfile=array();
+  $mixed=true; // to see file as attachement
   // set title
   
   
@@ -204,6 +207,8 @@ function sendCard(&$action,
       $sgen = $docmail->gen();
     }
     if ($viewonly) {echo $sgen;exit;}
+
+
     $sgen1 = preg_replace("/src=\"(index[^\"]+)\"/ei",
 			 "imgvaultfile('\\1')",
 			 $sgen);
@@ -237,11 +242,11 @@ function sendCard(&$action,
   
 	$sgen = $docmail2->gen();
       }
-      $sgen2 = preg_replace("/cid:([^\"]+)\"/e",
+      $sgen2 = preg_replace("/src=\"([^\"]+)\"/ei",
 			   "realfile('\\1')",
 			   $sgen);
 
-      $ppdf = uniqid("/tmp/".$doc->id).".html";
+      $ppdf = uniqid("/tmp/".$doc->id).".pdf.html";
       $fout = fopen($ppdf,"w");
       fwrite($fout,$sgen2);
       fclose($fout);
@@ -389,7 +394,11 @@ function sendCard(&$action,
   if (isset($fpdf))  unlink($fpdf);
   if (isset($fps))   unlink($fps);
   if (isset($pfout)) unlink($pfout);
-  foreach($tfiles as $k=>$v) {
+  if (isset($ppdf)) unlink($ppdf);
+
+  
+  $tmpfile=array_merge($tmpfile,$tfiles);
+  foreach($tmpfile as $k=>$v) {
     if (file_exists($v) && (substr($v,0,5)=="/tmp/"))
       unlink($v);    
   }
@@ -415,42 +424,69 @@ function srcfile($src) {
 }
 function imgvaultfile($src) {
   global $tfiles;
+  $newfile=copyvault($src);
+  if ($newfile) {
+    $src="img".count($tfiles);
+    $tfiles[$src] = $newfile;
+    return "src=\"cid:$src\"";
+  }
+  return "";
+}
+function copyvault($src) {
   global $_SERVER;
 
   $url="http://".$_SERVER['PHP_AUTH_USER'].":".$_SERVER['PHP_AUTH_PW'].'@'.$_SERVER['SERVER_NAME']."/what/".$src;
   $newfile=uniqid("/tmp/img");
+ 
+
   if (!copy($url, $newfile)) {
     return "";
   }
-  $src="img".count($tfiles);
-  $tfiles[$src] = $newfile;
-  return "src=\"cid:$src\"";
+  return $newfile;
 }
+
 
 function realfile($src) {
   global $vf; 
   global $doc; 
+  global $pubdir;
+  global $tmpfile;
 
-  if ($src == "icon") {
+  $f=false;
+  if ($src == "cid:icon") {
     $va=$doc->icon;
-  } else {
-    $va=$doc->getValue($src);
+  } else { 
+    if (substr($src,0,4) == "cid:") $va=$doc->getValue(substr($src,4));
+    elseif (substr($src,0,5) == "index") {
+      $va= copyvault($src);
+      $tmpfile[]=$va;
+    } else $va=$src;
   }
-    if ($va != "") {
-      list($mime,$vid)=explode("|",$va);
 
+  if ($va != "") {
+    list($mime,$vid)=explode("|",$va);
 
-      if ($vid != "") {
-	if ($vf -> Retrieve ($vid, $info) == "") {  
-	  return $info->path."\"";
-	}
+    if ($vid != "") {
+      if ($vf -> Retrieve ($vid, $info) == "") {  
+	$f= $info->path;
+      }
+
+    } else {
+      if (file_exists($pubdir."/$va")) $f=$pubdir."/$va";
+      elseif (file_exists($pubdir."/Images/$va")) $f=$pubdir."/Images/$va";
+      elseif ((substr($va,0,8)=='/tmp/img') && file_exists($va)) $f=$va;
 
     }
   }
   
-  return "\"";
+    
+//   $mime=trim(`file -ib "$f"`);
+//   print "<br>[$mime][$f][$va]";
+//   if (substr($mime,0,5) != "image") $f="";
+
+  if ($f) return "src=\"$f\"";
+  return "";
 
 }
-
 
 ?>
