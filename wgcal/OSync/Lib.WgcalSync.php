@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005 
- * @version $Id: Lib.WgcalSync.php,v 1.1 2005/04/11 19:05:42 marc Exp $
+ * @version $Id: Lib.WgcalSync.php,v 1.2 2005/04/18 15:39:30 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -59,16 +59,33 @@ function WSyncGetAdminDb(&$ctx) {
   return $dbaccess;
 }
 
+function WSyncMSdate2Db( $day, $time=-1 )   {
+  if (ereg("([0-9]{2})/([0-9]{2})/([0-9]{4})",$day, $regs))     {
+    if(strlen($regs[1]) <2) $regs[1] = "0$regs[1]";
+    if(strlen($regs[2]) <2) $regs[2] = "0$regs[2]";
+    return "$regs[1]/$regs[2]/$regs[3]";
+  } else {
+    return false;
+  }
+}
+
+function WSyncDbDate2Outlook($date, $withtime=true) {
+  return substr($date,0, ($withtime?19:10));
+}
+
+function WSyncTs2Outlook($date) {
+  return strftime("%d/%m/%Y %H:%M:%S", $date);
+}
+
 function WSyncMSdate2Timestamp($date,$time) {
- 
   if (ereg("([0-9]{2})/([0-9]{2})/([0-9]{4})", $date, $regs)) {
+print
     $y = $regs[3];
     $mo = $regs[2];
     $d = $regs[1];
   } else {
     return false;
   }
-  
   if (ereg("([0-9]{1,2}):([0-9]{2}):([0-9]{2})", $time, $regs)) {
     $h = $regs[1];
     $mi = $regs[2];
@@ -76,7 +93,6 @@ function WSyncMSdate2Timestamp($date,$time) {
   } else {
     return false;
   }
-  
   $timestamp = mktime( $h, $mi, $s, $mo, $d, $y );
   return $timestamp;
 }
@@ -85,6 +101,14 @@ function WSyncError(&$c, $s) {
   print "<pre>WSyncError : $s</pre>";
   if (is_object($c)) $c->log->error($s);
 }
+
+
+
+function WSyncSend($debug=false, $s, $cr=true) {
+  if ($debug) syslog(LOG_INFO, "WSyncSend: [$s]");
+  print $s. ($cr?"\n":"");
+}
+
   
 
 ?>

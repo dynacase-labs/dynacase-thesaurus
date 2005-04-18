@@ -3,7 +3,7 @@
 [__] event_insert_sync.php
 [__] event_update_outlookid_sync.php
 [__] event_update_sync.php
-[__] get_event_data_sync.php
+[OK] get_event_data_sync.php
 [OK] get_lastsyncdate_sync.php
 [__] set_exceptions_sync.php
 [__] set_recpattern_sync.php
