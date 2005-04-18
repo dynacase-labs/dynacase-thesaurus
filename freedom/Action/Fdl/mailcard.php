@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.44 2005/04/15 16:21:17 eric Exp $
+ * @version $Id: mailcard.php,v 1.45 2005/04/18 14:54:25 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.44 2005/04/15 16:21:17 eric Exp $
+// $Id: mailcard.php,v 1.45 2005/04/18 14:54:25 caroline Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -276,36 +276,43 @@ function sendCard(&$action,
 
     // ---------------------------
     // insert attached files
-  if (preg_match_all("/href=\"cid:([^\"+]*)[+|\"]/i",$sgen,$match)) {
+  if (preg_match_all("/href=\"cid:([^\"]*)\"/i",$sgen,$match)) {
     $tcids = $match[1]; // list of file references inserted in mail
 
     $afiles = $doc->GetFileAttributes();
-
+    $taids = array_keys($afiles);
     if (count($afiles) > 0) {
-      while(list($k,$v) = each($afiles)) {
-	if (in_array($v->id, $tcids)) {
+      foreach($tcids as $kf=>$vaf) {
+	$tf=explode("+",$vaf);
+	if (count($tf)==1) {
+	  $aid=$tf[0];
+	  $index=-1;
+	} else {
+	  $aid=$tf[0];
+	  $index=$tf[1];	  
+	}
+	if (in_array($aid, $taids)) {	
 	  $tva=array();
 	  $cidindex="";
-	  if ($v->repeat) $tva=$doc->getTValue($v->id);
-	  else $tva[]=$doc->getValue($v->id);
+	  if ($afiles[$aid]->repeat) $va=$doc->getTValue($aid,"",$index);
+	  else $va=$doc->getValue($aid);
 
-	  while(list($ka,$va) = each($tva)) {
-	    if ($va != "") {
+
+	  if ($va != "") {
 
 	      list($mime,$vid)=explode("|",$va);
 	      //      ereg ("(.*)\|(.*)", $va, list($mime,$vid)$reg);
 
 	      if ($vid != "") {
-		if ($vf -> Retrieve ($vid, $info) == "") {  
+		if ($vf->Retrieve ($vid, $info) == "") {  
 		
-		  $cidindex= ($v->repeat)?"+$ka":"";
-		  if ($mixed)    $cidindex.="zou";
+		  $cidindex= $vaf;
+		  if (($mixed) && ($afiles[$aid]->type != "image"))  $cidindex.="zou".$vaf;
 		  $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
-		    "-i '<".$v->id.$cidindex.">'  -f '".$info->path."'";
+		    "-i '<".$cidindex.">'  -f '".$info->path."'";
 	  
 		}
-	      }
-	    }
+	      }	    
 	  }
 	}
       }
@@ -338,7 +345,6 @@ function sendCard(&$action,
     
     // ---------------------------
     // add inserted image
-
     foreach($ifiles as $v) {
 
       if (file_exists($pubdir."/$v"))
@@ -372,7 +378,6 @@ function sendCard(&$action,
     }
   }  
   $cmd = "export LANG=C;".$cmd;
-
   system ($cmd, $status);
 
   $err="";
