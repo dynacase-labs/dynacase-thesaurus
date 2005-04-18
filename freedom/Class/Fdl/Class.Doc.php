@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.242 2005/04/14 14:32:04 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.243 2005/04/18 12:01:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1806,6 +1806,7 @@ create unique index i_docir on doc(initid, revision);";
    * @return Doc in case of error return a string that indicate the error
    */
   function Copy($temporary=false,$control=true) {
+
     $copy=createDoc($this->dbaccess, $this->fromid, $control);
     if (! is_object($copy)) return false;
     
@@ -1822,12 +1823,29 @@ create unique index i_docir on doc(initid, revision);";
     $cdoc= $this->getFamDoc();
     $copy->setProfil($cdoc->cprofid);
     $copy->addComment(sprintf(_("copy from document #%d -%s-"),$this->id, $this->title));
-    $err = $copy->Add();
 
+    $err = $copy->PreCopy();
+    if ($err != "") return false;
+
+    $err = $copy->Add();
     if ($err != "") return $err;
+
+    $copy->PostCopy();
+    if ($err != "") AddWarningMsg($err);
+
     $copy->Modify();
 
     return $copy;
+  }
+
+  function PreCopy() {
+    // to be defined in child class
+    return "";
+  }
+
+  function PostCopy() {
+    // to be defined in child class
+    return "";
   }
 
 
