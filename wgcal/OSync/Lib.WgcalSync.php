@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005 
- * @version $Id: Lib.WgcalSync.php,v 1.2 2005/04/18 15:39:30 marc Exp $
+ * @version $Id: Lib.WgcalSync.php,v 1.3 2005/04/19 06:49:51 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -79,7 +79,6 @@ function WSyncTs2Outlook($date) {
 
 function WSyncMSdate2Timestamp($date,$time) {
   if (ereg("([0-9]{2})/([0-9]{2})/([0-9]{4})", $date, $regs)) {
-print
     $y = $regs[3];
     $mo = $regs[2];
     $d = $regs[1];
@@ -109,6 +108,25 @@ function WSyncSend($debug=false, $s, $cr=true) {
   print $s. ($cr?"\n":"");
 }
 
+
+function WSyncUpdateIds(&$ctx="", $uid=-1, $eid=-1, $oid=-1) {
+  if ($uid<0 || $eid<0 || $oid<0 || $ctx=="") return false;
+  $db = WSyncGetAdminDb($ctx);
+  $evids = new WSyncIds($db, array($uid, $eid));
+  if ($evids->IsAffected()) {
+    $evids->outlook_id = $oid;
+    $evids->Modify();
+    $ctx->log->debug("Update oid for event($uid,$eid)");
+  } else {
+    $evids->user_id = $uid;
+    $evids->event_id = $eid;
+    $evids->outlook_id = $oid;
+    $evids->Add();
+    $ctx->log->debug("Add ids for event($uid,$eid,$oid)");
+  }
+  return true;
+}
+  
   
 
 ?>
