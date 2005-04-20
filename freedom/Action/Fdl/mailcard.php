@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.45 2005/04/18 14:54:25 caroline Exp $
+ * @version $Id: mailcard.php,v 1.46 2005/04/20 16:14:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.45 2005/04/18 14:54:25 caroline Exp $
+// $Id: mailcard.php,v 1.46 2005/04/20 16:14:20 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -209,16 +209,19 @@ function sendCard(&$action,
     if ($viewonly) {echo $sgen;exit;}
 
 
+   
     $sgen1 = preg_replace("/src=\"(index[^\"]+)\"/ei",
-			 "imgvaultfile('\\1')",
-			 $sgen);
+			    "imgvaultfile('\\1')",
+			    $sgen);
+    
     $sgen1 = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
 			 "srcfile('\\1')",
 			 $sgen1);
 
     $pfout = uniqid("/tmp/".$doc->id);
     $fout = fopen($pfout,"w");
-    if ($mixed) {
+    if ($mixed && (!$ulink)) {
+
       fwrite($fout, preg_replace("/href=\"[^\"]*\"/i", "title=\""._("see attachement files")."\"", $sgen1));
     } else {
       fwrite($fout,$sgen1);
