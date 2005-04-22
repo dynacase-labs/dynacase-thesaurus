@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005 
- * @version $Id: Lib.WgcalSync.php,v 1.3 2005/04/19 06:49:51 marc Exp $
+ * @version $Id: Lib.WgcalSync.php,v 1.4 2005/04/22 16:03:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -31,13 +31,13 @@ function WSyncAuthent() {
     exit;
   };
 
-  $core = new Application();
-  $core->Set("CORE",$CoreNull,$session);
-  if ($core->user->login != $_SERVER['PHP_AUTH_USER']) {
+  $app = new Application();
+  $app->Set("WGCAL",$CoreNull,$session);
+  if ($app->user->login != $_SERVER['PHP_AUTH_USER']) {
     $session->Set("");
-    $core->SetSession($session);
+    $app->SetSession($session);
   }
-  return $core;
+  return $app;
 }
    
 
@@ -92,7 +92,7 @@ function WSyncMSdate2Timestamp($date,$time) {
   } else {
     return false;
   }
-  $timestamp = mktime( $h, $mi, $s, $mo, $d, $y );
+  $timestamp = gmmktime( $h, $mi, $s, $mo, $d, $y );
   return $timestamp;
 }
 
@@ -103,14 +103,15 @@ function WSyncError(&$c, $s) {
 
 
 
-function WSyncSend($debug=false, $s, $cr=true) {
-  if ($debug) syslog(LOG_INFO, "WSyncSend: [$s]");
-  print $s. ($cr?"\n":"");
+function WSyncSend($debug=false, $text="", $s="", $cr=true) {
+  if ($debug) syslog(LOG_INFO, "WSyncSend: $text=[$s]");
+  print ($debug?"$text=":"").$s. ($cr?"\n":"");
 }
 
 
-function WSyncUpdateIds(&$ctx="", $uid=-1, $eid=-1, $oid=-1) {
-  if ($uid<0 || $eid<0 || $oid<0 || $ctx=="") return false;
+function WSyncUpdateIds(&$ctx, $uid=-1, $eid=-1, $oid="") {
+//   echo "uid=[$uid] eid=[$eid] oid=[$oid]<br>";
+  if ($uid<0 || $eid<0 || $ctx=="") return false;
   $db = WSyncGetAdminDb($ctx);
   $evids = new WSyncIds($db, array($uid, $eid));
   if ($evids->IsAffected()) {

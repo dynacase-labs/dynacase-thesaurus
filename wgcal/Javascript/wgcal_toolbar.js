@@ -8,7 +8,7 @@ function pickColor(color) {
     ressourceList[idx][1] = color;
     document.getElementById('cp'+curRessource).style.background = color;
     document.getElementById('cp'+curRessource).style.background = color;
-    saveTmpRessources();
+    saveRessources();
   } else {
     document.getElementById('cpmycolor').style.background = color;
     usetparam("WGCAL_U_MYCOLOR", color, '', '');
@@ -46,7 +46,7 @@ function addRessource(rid, rtitle, ricon, rstate) {
   idx = getRessourcePos(rid);
   if (idx!=-1) return;
   InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', 0 );
-  saveTmpRessources();
+  saveRessources();
 }
 
 function storeRessource(id, color, display, icon, descr, style) {
@@ -70,7 +70,7 @@ function deleteRessource(rid) {
   eltRess = document.getElementById('tr'+rid);
   if (!eltRess) return;
   eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
-  saveTmpRessources();
+  saveRessources();
 }
 
 function showAllRessource() {
@@ -112,7 +112,6 @@ function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate ) {
   mynodereplacestr(nTr, '%RID%', rid);
   mynodereplacestr(nTr, '%RICON%', ricon);
   mynodereplacestr(nTr, '%RDESCR%', rdescr);
-  mynodereplacestr(nTr, '%RGRESS%', idx);
   nTr.style.display = '';
   tab.appendChild(nTr);
   document.getElementById('cp'+rid).style.background = rcolor;
@@ -134,20 +133,50 @@ function setRessourceState(rid, setStyle, unsetStyle, memo) {
     rstyle = setStyle;
   }
   document.getElementById(rid).className = rstyle;
-  saveTmpRessources();
+  saveRessources();
   return;
 }
    
+var CRessId = -1;
+var CRessText = '';
 
-function saveTmpRessources() {
-  var rlist= "";
-  for (i=0; i<ressourceList.length;i++) {
-    if (ressourceList[i][0] != -1 ) 
-      rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
+function vuvRessource() {
+  if (CRessId==-1) {
+    alert('[TEXT: invalid ressource id]');
+    return;
   }
-  usetparam("WGCAL_U_RESSTMPLIST", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
+  idx = getRessourcePos(CRessId);
+  if (idx==-1) return;
+  if (ressourceList[idx][2] == 1) {
+    ressourceList[idx][2] = 0;
+    rstyle = 'WGCRessDefault';
+  } else {
+    ressourceList[idx][2] = 1;
+    rstyle = 'WGCRessSelected';
+  }
+  document.getElementById(CRessId).className = rstyle;
+  saveRessources();
   return;
 }
+function removeRessource() {
+  var eltRess;
+  if (CRessId==-1) {
+    alert('[TEXT: invalid ressource id]');
+    return;
+  }
+  idx = getRessourcePos(CRessId);
+  if (idx==-1) return;
+  idx = getRessourcePos(rid);
+  if (idx!=-1) {
+    ressourceList[idx][0] = -1;
+    eltRess = document.getElementById('tr'+rid);
+    if (!eltRess) return;
+    eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
+    saveRessources();
+  }
+}
+
+   
 
 function saveRessources() {
   var rlist= "";
@@ -155,9 +184,10 @@ function saveRessources() {
     if (ressourceList[i][0] != -1 ) 
       rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
   }
-  usetparam("WGCAL_U_RESSDISPLAYED", rlist, '', '');
+  usetparam("WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
   return;
 }
+
 
 // --------------------------------------------------------
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: get_event_data_sync.php,v 1.2 2005/04/19 06:49:51 marc Exp $
+ * @version $Id: get_event_data_sync.php,v 1.3 2005/04/22 16:03:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -11,6 +11,7 @@
  /**
  */
 include_once("FDL/Lib.Dir.php");
+include_once("FDL/Class.Doc.php");
 include_once("FDL/freedom_util.php");
 include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/Lib.WgcalSync.php");
@@ -19,10 +20,10 @@ include_once("WGCAL/Class.WSyncIds.php");
 
 $ctx = WSyncAuthent();
 
-$debug = (GetHttpVars("debug", 0)==1?true:false);
+$SyncDebug = (GetHttpVars("debug", 0)==1?true:false);
 $fd = GetHttpVars("fd", 0);
 
-if (!$debug) header ("Content-Type: text/plain");
+if (!$SyncDebug) header ("Content-Type: text/plain");
 else {
   echo '<html><head><style type="text/css">.out { color:white; border:1px solid grey; background:black } pre { color:red; border:1px solid grey; background:#efefef }</style><body>';
   echo "<h4>Debug mode on</h4>";
@@ -43,7 +44,7 @@ $filter = array();
 $filter[] = "(calev_ownerid = $user) OR (calev_attid ~* '$user')";
 if ($fd==0) $filter[] = "calev_start >= '".$start_date." 00:00:00'";
 
-if ($debug)  {
+if ($SyncDebug)  {
  print "<pre>";
  echo "Db data is [$db]</br>";
  echo "Db admin is [$dbadmin]</br>";
@@ -55,58 +56,72 @@ if ($debug)  {
 $trv = GetChildDoc($db, 0, 0, "ALL", $filter, $ctx->user->id, 
 		  "TABLE", $famev, false, "calev_start", true);
 
-if ($debug) print "<pre>";
-  WSyncSend($debug, count($trv));
-  WSyncSend($debug, "NOERROR");
-if ($debug) print "</pre>";
+if ($SyncDebug) print "<pre>";
+  WSyncSend($SyncDebug, "RV Count", count($trv));
+  WSyncSend($SyncDebug, "Op. Status", "NOERROR");
+if ($SyncDebug) print "</pre>";
 
 foreach ($trv as $krv => $vrv) {
-  if ($debug) print '<pre class="out">';
-  WSyncSend($debug, $vrv["id"]);
-  WSyncSend($debug, ($vrv["calev_ownerid"]==$user?"1":"0"));
-  WSyncSend($debug, $vrv["calev_owner"]);
-  WSyncSend($debug,  "<I>\n".utf8_encode($vrv["calev_evtitle"])."\n</I>");
-  WSyncSend($debug, WSyncDbDate2Outlook($vrv["calev_start"], ($vrv["calev_timetype"]==1?false:true)));
+  if ($SyncDebug) print '<pre class="out">';
+  WSyncSend($SyncDebug, "RV id", $vrv["id"]);
+  WSyncSend($SyncDebug, "Owner is connected", ($vrv["calev_ownerid"]==$user?"0":"1"));
+  WSyncSend($SyncDebug, "User login", $ctx->user->login);
+  WSyncSend($SyncDebug, "Title", "<I>\n".utf8_encode($vrv["calev_evtitle"])."\n</I>");
+  WSyncSend($SyncDebug, "Start", WSyncDbDate2Outlook($vrv["calev_start"], ($vrv["calev_timetype"]==1?false:true)));
 
-  WSyncSend($debug, WSyncTs2Outlook($vrv["revdate"]));
+  WSyncSend($SyncDebug, "Rev date", WSyncTs2Outlook($vrv["revdate"]));
   $dur = (dbdate2ts($vrv["calev_end"]) - dbdate2ts($vrv["calev_start"])) / 60;
-  WSyncSend($debug, $dur);
-  WSyncSend($debug, "0"); // Priority !!!
-  WSyncSend($debug, ($vrv["calev_repeatmode"]==0?"E":"M"));
-  WSyncSend($debug,($vrv["calev_visibility"]==0 && $vrv["calev_evcalendarid"]==-1?"P":"R"));
-  WSyncSend($debug, "<!!DESCDEB>\n". utf8_encode($vrv["calev_note"]) . "\n<!!DESCFIN>");
+  WSyncSend($SyncDebug, "Duration", $dur);
+  WSyncSend($SyncDebug, "Priority", "0"); // Priority !!!
+  WSyncSend($SyncDebug, "Repeat mode", ($vrv["calev_repeatmode"]==0?"E":"M"));
+  WSyncSend($SyncDebug, "Public(P)/Private(R)", ($vrv["calev_visibility"]==0 && $vrv["calev_evcalendarid"]==-1?"P":"R"));
+  WSyncSend($SyncDebug, "Description", "<!!DESCDEB>\n". utf8_encode($vrv["calev_evnote"]) . "\n<!!DESCFIN>");
   
   $ids = new WSyncIds($dbadm, array($user, $vrv["id"]));
-  if (!$ids->isAffected() || !isset($ids->outlook_id) || $ids->outlook_id=="") WSyncSend($ctx, "SANS ");
-  else WSyncSend($debug, $ids->outlook_id);
+  if (!$ids->isAffected() || !isset($ids->outlook_id) || $ids->outlook_id=="") WSyncSend($SyncDebug, "Outlooke id", "SANS ");
+  else WSyncSend($SyncDebug, "Outlook id", $ids->outlook_id);
   
   if ($vrv["calev_repeatmode"]>0) {
     $untildate = "";
-    $daysl = "nnnnnnn";
+    $dayls = array( "n", "n", "n", "n", "n", "n", "n");
     switch ($vrv["calev_repeatmode"]) {
     case 2: // Weekly  
-      WSyncSend($debug, "weekly");  
-      $day = $vrv["calev_repeatweekday"];
+      WSyncSend($SyncDebug, "Repeat period", "weekly");  
+      $days = Doc::_val2array($vrv["calev_repeatweekday"]);
       $daysl = "";
-      for ($id=0; $id<7; $id++) $daysl .= ($id==$day?"y":"n");
+      foreach ($days as $kd => $vd) $dayls[$vd] = "y";
       break;
     case 3: // Monthly
       if ($vrv["calev_repeatmonth"]==1) $mrep = "monthlyByDay";
       else $mrep = "monthlyByDate";
-      WSyncSend($debug, $mrep); 
+      WSyncSend($SyncDebug, "Repeat period", $mrep); 
       break;
-    case 4:  WSyncSend($debug, "yearly"); break;
-    default: WSyncSend($debug, "daily");
+    case 4:  WSyncSend($SyncDebug, "Repeat period", "yearly"); break;
+    default: WSyncSend($SyncDebug, "Repeat period", "daily");
     }
-    if ($vrv["calev_repeatuntil"]>0 && $vrv["calev_repeatuntildate"]!="") $untildate = WSyncDbDate2Outlook($vrv["calev_repeatuntildate"], false);
-    WSyncSend($debug, $untildate);
-    WSyncSend($debug, $vrv["calev_frequency"]);
-    WSyncSend($debug, $daysl);
-    $td = explode("\n", $vrv["calev_excludedate"]);
-      if (count($td)>0) foreach ($td as $kd => $vd) WSyncSend($debug, $vd);
+    if ($vrv["calev_repeatuntil"]>0 && $vrv["calev_repeatuntildate"]!="") $untildate = WSyncDbDate2Outlook($vrv["calev_repeatuntildate"], false)." 23:59:59";
+    WSyncSend($SyncDebug, "Repeat until", $untildate);
+    WSyncSend($SyncDebug, "Repeat frequency", ($vrv["calev_frequency"]==""?1:$vrv["calev_frequency"]));
+    $dlt = "";
+    foreach ($dayls as $kdl => $vdl) $dlt .= $vdl;
+    WSyncSend($SyncDebug, "Repeat days", $dlt);
+    $td = Doc::_val2array($vrv["calev_excludedate"]);
+    $ied=0;
+    $tied = array();
+    if (count($td)>0) foreach ($td as $kd => $vd) {
+      if ($vd!="") {
+	$tied[$ied++] = substr($vd,0,10);
+      }
+    }
+    if ($ied>0) {
+      WSyncSend($SyncDebug, "Repeat exlude days count", $ied);
+      foreach ($tied as $ked => $ved) {
+	WSyncSend($SyncDebug, "Repeat exlude day [$ked]", $ved);
+      }
+    }
   }
-  if ($debug) print "</pre>";
+  if ($SyncDebug) print "</pre>";
 }
-if ($debug)  echo "</body></html>";
+if ($SyncDebug)  echo "</body></html>";
 
 ?>

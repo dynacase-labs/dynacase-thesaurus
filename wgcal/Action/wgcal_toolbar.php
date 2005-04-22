@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.24 2005/04/08 08:18:52 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.25 2005/04/22 16:03:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -155,33 +155,59 @@ function _listress(&$action)
   $i = 0;
   $j = 0;
 
-  $rd = new Doc($dbaccess, $action->user->fid);
-  $action->lay->set("myrid", $rd->id);
-  $action->lay->set("myricon", $rd->getIcon());
-  $action->lay->set("myrdesc", $rd->title);
-  $action->lay->set("myrcolor", $action->GetParam("WGCAL_U_MYCOLOR", "white"));
 
   $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
 
   $lress = explode("|", $curress);
+  $cuser = false;
   if (count($lress)>0) {
+    // Init popup
+    include_once("FDL/popup_util.php");
+    popupInit('resspopup',  array('displayress',  'hideress', 'changeresscolor', 'removeress', 'cancelress'));
     foreach ($lress as $k => $v) {
       $tt = explode("%", $v);
       $rid = $tt[0];
       $sid = ($tt[1]!="" ? $tt[1] : 0);
       $cid = ($tt[2]!="" ? $tt[2] : "blue");
       $rd = new Doc($dbaccess, $rid);
-      if ($rd->IsAffected() && $rd->id != $action->user->fid) {
-	$t[$i]["RID"] = $rd->id;
-	$t[$i]["RDESCR"] = $rd->title;
-	$t[$i]["RICON"] =  $rd->getIcon();
-	$t[$i]["RCOLOR"] = $cid;
-	$t[$i]["RSTATE"] = $sid;
-	if ($sid==1) $t[$i]["RSTYLE"] = "WGCRessSelected";
-	else $t[$i]["RSTYLE"] = "WGCRessDefault";
-	$i++;
+      if ($rd->IsAffected()) {
+        if ($rd->id == $action->user->fid) {
+	  $action->lay->set("myrid", $rd->id);
+	  $action->lay->set("myricon", $rd->getIcon());
+	  $action->lay->set("myrdesc",  $rd->title);
+	  $action->lay->set("myrcolor", $action->GetParam("WGCAL_U_MYCOLOR", "white"));
+	  if ($sid==1) $action->lay->set("myclass", "WGCRessSelected");
+	  else $action->lay->set("myclass", "WGCRessDefault");
+	  $cuser = true;
+        } else {
+	  $t[$i]["RG"] = $i;
+	  $t[$i]["RID"] = $rd->id;
+	  $t[$i]["RDESCR"] = $rd->title;
+	  $t[$i]["RICON"] =  $rd->getIcon();
+	  $t[$i]["RCOLOR"] = $cid;
+	  $t[$i]["RSTATE"] = $sid;
+	  if ($sid==1) $t[$i]["RSTYLE"] = "WGCRessSelected";
+	  else $t[$i]["RSTYLE"] = "WGCRessDefault";
+	  
+	  PopupActive('resspopup', $rd->id, 'displayress');
+	  PopupActive('resspopup', $rd->id, 'hideress');
+	  PopupActive('resspopup', $rd->id, 'changeresscolor');
+	  PopupActive('resspopup', $rd->id, 'removeress');
+	  PopupActive('resspopup', $rd->id, 'cancelress');
+
+	  $i++;
+	}
       }
     }
+    popupGen(count($t));
+  }
+  if (!$cuser) {
+    $rd = new Doc($dbaccess, $action->user->fid);
+    $action->lay->set("myrid", $rd->id);
+    $action->lay->set("myricon", $rd->getIcon());
+    $action->lay->set("myrdesc", $rd->title);
+    $action->lay->set("myrcolor", $action->GetParam("WGCAL_U_MYCOLOR", "white"));
+    $action->lay->set("myclass", "WGCRessDefault");
   }
   $action->lay->SetBlockData("L_RESS", $t);
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.26 2005/04/08 08:18:52 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.27 2005/04/22 16:03:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -72,7 +72,7 @@ function WGCalToolIsVisible( &$action,  $tool ) {
 function WGCalGetRessDisplayed(&$action) {
   $r = array();
   $ir = 0;
-  $cals = explode("|", $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id)));
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
   while (list($k,$v) = each($cals)) {
     if ($v!="") {
       $tc = explode("%", $v);

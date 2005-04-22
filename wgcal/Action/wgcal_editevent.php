@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.41 2005/04/07 12:17:28 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.42 2005/04/22 16:03:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -463,7 +463,7 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
   $action->lay->setBlockData("ADD_RESS", $att);
   $action->lay->set("attendeesro", ($ro?"none":""));
 
-  $dress = $action->GetParam("WGCAL_U_RESSTMPLIST", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+  $dress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
   $tdress = explode("|", $dress);
   $to = array(); $ito = 0;
   foreach ($tdress as $k => $v) {

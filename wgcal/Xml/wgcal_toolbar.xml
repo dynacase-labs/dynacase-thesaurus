@@ -82,18 +82,6 @@ var CEventText = '';
 </div>
 
 <!-- [ ZONE WGCAL:WGCAL_LISTRESS ] -->
-<script type="text/javascript"> 
-var CRessId = -1;
-var CRessText = '';
-</script>
-<div  style="display:none" id="resspopup" class="wgcalpopup">
-<a href="#" id="displayress" onclick="; closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display this]</a>
-<a href="#" id="hideress" onclick="; closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:hide this]</a>
-<a href="#" id="colorress" onclick="; closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:change color]</a>
-<a href="#" id="deleteress" onclick="; closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:delete this]</a>
-<a class="separator"></a>
-<a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
-</div> <!-- end POPUP DIVISION -->
 
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
 <tr>
@@ -106,15 +94,32 @@ var CRessText = '';
 </table>
 
 
+<!-- POPUP DIVISION -->
+
+<div  style="display:none" id="resspopup" class="wgcalpopup">
+<a href="#" id="displayress" onclick="vuvRessource(1); closeMenu('resspopup')">
+[TEXT:display this ressource]</a>
+<a href="#" id="hideress" onclick="vuvRessource(0); closeMenu('resspopup')">
+[TEXT:hide this ressource]</a>
+<a class="separator"></a>
+<a href="#" id="changeresscolor" onclick="showColorPicker(event, 'cpmycolor', CRessId); closeMenu('resspopup')">
+[TEXT:change color for this ressource]</a>
+<a href="#" id="removeress" onclick="removeRessource(); closeMenu('resspopup')">
+[TEXT:remove this ressource]</a>
+<a class="separator"></a>
+<a href="#" id="cancelress" onclick="closeMenu('resspopup')">
+[TEXT:close menu]</a>
+</div> <!-- end POPUP DIVISION -->
+
 <div id="vvical" style="display:[vvvical]" width="100%" class="wToolArea" >
 <table width="100%" cellspacing="0" cellpadding="0">
 <thead></thead>
 <tbody id="tabress">
 
 <tr style="border:0px;" id="trressme">
-<td width="10px" id="cp[myrid]" style="cursor:pointer; border: 1px outset"
-    onClick="showColorPicker(event, 'cp[myrid]', [myrid]);" title="[TEXT:change my event color]">&nbsp;</td>
-<td nowrap id="[myrid]"  
+<td width="10px" id="cpmycolor" style="cursor:pointer; border: 1px outset; background-color:[myrcolor]"
+    onClick="showColorPicker(event, cpmycolor, -1);" title="[TEXT:change my event color]">&nbsp;</td>
+<td nowrap id="[myrid]"  class="[myclass]"
     onclick="setRessourceState('[myrid]', 'WGCRessSelected', 'WGCRessDefault', 1);"
     onmouseover="WGCalChangeClass(event, '[myrid]', 'WGCRessSelected', 'WGCRessOver');" 
     onmouseout="WGCalChangeClass(event, '[myrid]', 'WGCRessSelected', 'WGCRessDefault');">
@@ -123,13 +128,8 @@ var CRessText = '';
 </tr>
 
 <tr style="display:none; border:0px;" id="trsample">
-<td width="6px" id="cp%RID%" style="cursor:pointer; border: 1px outset"
-    onClick="showColorPicker(event, this.id, %RID%);" title="[TEXT:change my event color]">&nbsp;</td>
-<td nowrap id="%RID%" 
-    onclick="setRessourceState('%RID%', 'WGCRessSelected', 'WGCRessDefault', 1);"
-    onContextMenu="CRessId=this.id; openMenu(event,'resspopup', %RGRESS%); return false" 
-    onmouseover="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessOver');" 
-    onmouseout="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessDefault');">
+<td width="6px" id="cp%RID%" style="cursor:pointer; border: 1px outset">&nbsp;</td>
+<td nowrap id="%RID%" onContextMenu="CRessId=this.id; openMenu(event,'resspopup', CRessId); return false">
 &nbsp;<img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
 </td>
 </tr>
@@ -138,9 +138,6 @@ var CRessText = '';
 <tfoot>
 <tr><td colspan="2"></td></tr>
 <tr>
-<td colspan="2" align="right">
-<!-- img id="ressres" style="cursor:pointer;" onclick="getElementById('f_initress').submit();" height="15" src="WGCAL/Images/wgcal-reset.gif" title="[TEXT:reinit the list]"-->&nbsp;<img id="resssav" style="cursor:pointer;" onclick="saveRessources(); alert('[TEXT: ressource list saved]');" height="15" src="WGCAL/Images/ress-save.gif" title="[TEXT:save the list]">
-</td>
 </tfoot>
 </table>
 </div>

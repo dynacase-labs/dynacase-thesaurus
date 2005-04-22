@@ -1,10 +1,10 @@
 [OK] check_version.php
 [OK] delete_event_sync.php
-[__] event_insert_sync.php
+[OK] event_insert_sync.php
 [__] event_update_outlookid_sync.php
 [__] event_update_sync.php
 [OK] get_event_data_sync.php
 [OK] get_lastsyncdate_sync.php
 [__] set_exceptions_sync.php
-[__] set_recpattern_sync.php
+[OK] set_recpattern_sync.php
 [OK] update_lastsyncdate_sync.php
