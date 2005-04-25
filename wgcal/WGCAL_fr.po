@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-07 10:28+0200\n"
+"POT-Creation-Date: 2005-04-25 11:35+0200\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -30,6 +30,9 @@ msgstr "Largeur des colonne des jours"
 
 msgid "menu icons height"
 msgstr "Hauteur des icones"
+
+msgid "show icons in popup menus"
+msgstr "Afficher les icones dans les menus popup"
 
 msgid "display week end"
 msgstr "Affichage des week-end"
@@ -130,6 +133,9 @@ msgstr "Envoi des mails"
 msgid "viewed events (from producters)"
 msgstr "Famille des producteurs des évènements affichés"
 
+msgid "created from outlook, oid="
+msgstr "Créé à partir d'outlook oid="
+
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
 
@@ -178,6 +184,9 @@ msgstr "Recherche avancée"
 msgid "search iuser"
 msgstr "Rechercher un utilisateur"
 
+msgid "search contact"
+msgstr "Recherche un contact..."
+
 msgid "view event"
 msgstr "Aficher"
 
@@ -189,6 +198,9 @@ msgstr "Stockage d'un rendez-vous"
 
 msgid "delete event"
 msgstr "Supression d'un rendez-vous"
+
+msgid "delete occurence"
+msgstr "Retirer cette date"
 
 msgid "event history"
 msgstr "Historique"
@@ -273,6 +285,12 @@ msgstr "Création d'un calendrier"
 
 msgid "freedom groupware calendar"
 msgstr "Agenda de groupe Freedom"
+
+msgid "new rendez-vous"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Annuler"
 
 msgid "prev period"
 msgstr "Période précédente"
@@ -454,9 +472,6 @@ msgstr "Fréquence"
 msgid "exclude days"
 msgstr "Jours exclus"
 
-msgid "add a new day to exclude"
-msgstr "Ajouter un jour à exclure"
-
 msgid "del selected dates"
 msgstr "Supprimer les jours sélectionnés"
 
@@ -478,14 +493,26 @@ msgstr "tout état"
 msgid "click here to refresh toolbar"
 msgstr "cliquer pour raffraichir la barre d'outil"
 
-msgid "waiting rv"
-msgstr "Rendez-vous en attente"
+msgid "view this"
+msgstr "Afficher"
 
 msgid "accept event"
 msgstr "accepter cet évènement"
 
+msgid "accept this"
+msgstr "Accepter"
+
 msgid "refuse event"
 msgstr "refuser cet évènement :"
+
+msgid "reject this"
+msgstr "Refuser"
+
+msgid "close menu"
+msgstr "Fermer"
+
+msgid "waiting rv"
+msgstr "Rendez-vous en attente"
 
 msgid "date selector"
 msgstr "Selecteur de date"
@@ -502,32 +529,14 @@ msgstr "Modifier la liste des calendriers"
 msgid "update calendar"
 msgstr "Mise à jour de l'agenda"
 
-msgid "change my event color"
-msgstr "Modifier la couleur de mes évènements"
+msgid "show/hide this ressource"
+msgstr "Afficher/Masquer"
 
-msgid "supress ressource"
-msgstr "Supprimer le ressource"
+msgid "change color for this ressource"
+msgstr "Couleur"
 
-msgid "suppress ressource"
-msgstr "Enlever la ressource"
-
-msgid "change color for ressource"
-msgstr "Modifier la couleur du calendrier"
-
-msgid "reinit the list"
-msgstr "Réinitialiser la liste des calendriers"
-
-msgid " ressource list saved"
-msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
-
-msgid "save the list"
-msgstr "Sauvegarder la liste des calendriers"
-
-msgid "found ressources"
-msgstr "Ressources trouvées"
-
-msgid " invalid ressource id"
-msgstr "Identifiant de ressource invalide"
+msgid "remove this ressource"
+msgstr "Enlever"
 
 msgid "phone"
 msgstr "Téléphone"
@@ -537,6 +546,12 @@ msgstr "Téléphone mobile"
 
 msgid "mail"
 msgstr "Adresse mail"
+
+msgid "found ressources"
+msgstr "Ressources trouvées"
+
+msgid " invalid ressource id"
+msgstr "Identifiant de ressource invalide"
 
 msgid "accept"
 msgstr "accepté"
@@ -556,9 +571,6 @@ msgstr "Historique"
 msgid "delconfirm"
 msgstr "à confirmer"
 
-msgid "Cancel"
-msgstr "Annuler"
-
 msgid "todos..."
 msgstr "Tâches..."
 
@@ -568,14 +580,14 @@ msgstr "Options des tâches"
 msgid "add prefered contact"
 msgstr "Ajout d'un contact préféré"
 
+msgid "supress ressource"
+msgstr "Supprimer le ressource"
+
+msgid "suppress ressource"
+msgstr "Enlever la ressource"
+
 msgid "use for event creation"
 msgstr "Utiliser les ressources pour les rendez-vous"
-
-msgid "accept this"
-msgstr "Accepter"
-
-msgid "reject this"
-msgstr "Refuser"
 
 msgid "to be confirm this"
 msgstr "A Confirmer"
@@ -583,8 +595,8 @@ msgstr "A Confirmer"
 msgid "edit this"
 msgstr "Editer"
 
-msgid "view this"
-msgstr "Afficher"
+msgid "delete this occurence"
+msgstr "Retirer cette date"
 
 msgid "confirm delete for this event"
 msgstr "Confirmez-vous la suppression de cet évènement"
@@ -615,6 +627,18 @@ msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 
 msgid "my calendars"
 msgstr "Mes calendriers"
+
+msgid "reinit the list"
+msgstr "Réinitialiser la liste des calendriers"
+
+msgid "save the list"
+msgstr "Sauvegarder la liste des calendriers"
+
+msgid "change color for ressource"
+msgstr "Modifier la couleur du calendrier"
+
+msgid "see contacts"
+msgstr "Contacts"
 
 msgid "others"
 msgstr "Autres préférences"
@@ -758,6 +782,9 @@ msgstr ""
 msgid "event search "
 msgstr "Recherche d'évènement"
 
+msgid "delete repeat occurrence for "
+msgstr ""
+
 msgid "event creation"
 msgstr "Création de l'évènement"
 
@@ -881,6 +908,19 @@ msgstr "à confirmer"
 msgid "My public calendar"
 msgstr "mon calendrier public"
 
+#~ msgid "add a new day to exclude"
+#~ msgstr "Ajouter un jour à exclure"
+
+#~ msgid "change my event color"
+#~ msgstr "Modifier la couleur de mes évènements"
+
+#~ msgid "display this ressource"
+#~ msgstr "Afficher"
+
+#~ msgid " ressource list saved"
+#~ msgstr ""
+#~ "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
+
 #~ msgid "close window"
 #~ msgstr "Fermer la fenêtre"
 
@@ -925,9 +965,6 @@ msgstr "mon calendrier public"
 
 #~ msgid "alt display timer"
 #~ msgstr "Délai avant affichage du popup"
-
-#~ msgid "close"
-#~ msgstr "Fermer"
 
 #~ msgid " save before closing"
 #~ msgstr "Sauver"

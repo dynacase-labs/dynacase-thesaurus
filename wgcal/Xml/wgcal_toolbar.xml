@@ -97,18 +97,11 @@ var CEventText = '';
 <!-- POPUP DIVISION -->
 
 <div  style="display:none" id="resspopup" class="wgcalpopup">
-<a href="#" id="displayress" onclick="vuvRessource(1); closeMenu('resspopup')">
-[TEXT:display this ressource]</a>
-<a href="#" id="hideress" onclick="vuvRessource(0); closeMenu('resspopup')">
-[TEXT:hide this ressource]</a>
+<a href="#" id="displayress" onclick="vuvRessource(); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-ressshowhide.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:show/hide this ressource]</a>
+<a href="#" id="changeresscolor" onclick="showColorPicker(event, CRessId); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-resscolor.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:change color for this ressource]</a>
+<a href="#" id="removeress" onclick="removeRessource(CRessId); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-ressdelete.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
 <a class="separator"></a>
-<a href="#" id="changeresscolor" onclick="showColorPicker(event, 'cpmycolor', CRessId); closeMenu('resspopup')">
-[TEXT:change color for this ressource]</a>
-<a href="#" id="removeress" onclick="removeRessource(); closeMenu('resspopup')">
-[TEXT:remove this ressource]</a>
-<a class="separator"></a>
-<a href="#" id="cancelress" onclick="closeMenu('resspopup')">
-[TEXT:close menu]</a>
+<a href="#" id="cancelress" onclick="closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> <!-- end POPUP DIVISION -->
 
 <div id="vvical" style="display:[vvvical]" width="100%" class="wToolArea" >
@@ -116,20 +109,13 @@ var CEventText = '';
 <thead></thead>
 <tbody id="tabress">
 
-<tr style="border:0px;" id="trressme">
-<td width="10px" id="cpmycolor" style="cursor:pointer; border: 1px outset; background-color:[myrcolor]"
-    onClick="showColorPicker(event, cpmycolor, -1);" title="[TEXT:change my event color]">&nbsp;</td>
-<td nowrap id="[myrid]"  class="[myclass]"
-    onclick="setRessourceState('[myrid]', 'WGCRessSelected', 'WGCRessDefault', 1);"
-    onmouseover="WGCalChangeClass(event, '[myrid]', 'WGCRessSelected', 'WGCRessOver');" 
-    onmouseout="WGCalChangeClass(event, '[myrid]', 'WGCRessSelected', 'WGCRessDefault');">
-&nbsp;<img id="im[myrid]" height="15px" align="absbottom" src="[myricon]">&nbsp;[myrdesc]
-</td>
-</tr>
-
 <tr style="display:none; border:0px;" id="trsample">
 <td width="6px" id="cp%RID%" style="cursor:pointer; border: 1px outset">&nbsp;</td>
-<td nowrap id="%RID%" onContextMenu="CRessId=this.id; openMenu(event,'resspopup', CRessId); return false">
+<td nowrap id="%RID%" 
+    onmouseover="if (this.className=='WGCRessSelected') return; this.className='WGCRessOver'" 
+    onmouseout="if (this.className=='WGCRessSelected') return; this.className='WGCRessDefault'"
+    onclick="CRessId=this.id; vuvRessource();"
+    onContextMenu="CRessId=this.id; openMenu(event,'resspopup', CRessId); return false">
 &nbsp;<img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
 </td>
 </tr>
@@ -142,13 +128,16 @@ var CEventText = '';
 </table>
 </div>
 
+
 [ZONE WGCAL:TODO?dtodo=[tododays]]
+
+[ZONE WGCAL:CONTACTS]
+
 
 <script type="text/javascript">
 
-var  toolList = new Array( 'inav', 'vvical', 'waitrv', 'todo');
+var  toolList = new Array( 'inav', 'vvical', 'waitrv', 'todo', 'contacts');
 
-storeRessource('[myrid]', '[myrcolor]', '1', '[myricon]', '[myrdesc]', 'WGCRessSelected');
 [BLOCK L_RESS]
 InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]');[ENDBLOCK L_RESS]
 </script>

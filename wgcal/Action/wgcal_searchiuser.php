@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.1 2005/03/22 18:30:05 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.2 2005/04/25 19:02:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -24,6 +24,7 @@ function wgcal_searchiuser(&$action) {
   $filter[] = "title ~* '".GetHttpVars("iusertext", "")."'";
   $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, $action->user->id, "TABLE", $families);
   $t = array(); $i = 0;
+  print_r2($t);
   foreach ($rdoc as $k => $v) {
     if ($action->user->id != $v["id"]) {
       $t[$i]["attId"] = $v["id"];

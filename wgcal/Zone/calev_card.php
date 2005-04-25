@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.10 2005/04/07 12:17:28 marc Exp $
+ * @version $Id: calev_card.php,v 1.11 2005/04/25 19:02:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -191,7 +191,7 @@ function showIcons(&$action, &$ev, $private, $present) {
     if ($ev->getValue("CALEV_VISIBILITY") == 1)  addIcons($icons, "VIS_PRIV");
     if ($ev->getValue("CALEV_VISIBILITY") == 2)  addIcons($icons, "VIS_GRP");
     if ($ev->getValue("CALEV_REPEATMODE") != 0)  addIcons($icons, "REPEAT");
-    if ((count($ev->getTValue("CALEV_ATTID"))>1 && $present) ||  (count($ev->getTValue("CALEV_ATTID"))>0 && !$present))  addIcons($icons, "GROUP");
+    if ((count($ev->getTValue("CALEV_ATTID"))>1))  addIcons($icons, "GROUP");
     if ($present && ($ev->getValue("CALEV_OWNERID") != $action->user->fid)) addIcons($icons, "INVIT");
   }
   $action->lay->SetBlockData("icons", $icons);
@@ -219,7 +219,7 @@ function ev_showattendees(&$action, &$ev, $present, $dcolor) {
   $globalstatesize = "0";
   $d = new Doc($dbaccess);
   $tress = $ev->getTValue("CALEV_ATTID");
-  if ((count($tress)>1 && $present) ||  (count($tress)>0 && !$present)) {
+  if (count($tress)>1) {
     $states = CAL_getEventStates($dbaccess,"");
     $action->lay->set("attdisplay","");
     $t = array();

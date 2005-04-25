@@ -354,10 +354,6 @@ PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBL
 <fieldset><legend>[TEXT:exclude days]</legend>
 
 <span style="display:[repeatvie]">
-<img id="nexcldatebut" name="nexcldatebut"
-     title="[TEXT:add a new day to exclude]" style="cursor:pointer" 
-     height="12" src="WGCAL/Images/wgcal-plus.gif">
-<br>
 <img title="[TEXT:del selected dates]" onClick="delExclDate()" 
      height="12" src="WGCAL/Images/wgcal-minus.gif">
 </span>

@@ -5,19 +5,16 @@ var curRessource = -1;
 function pickColor(color) {
   if (curRessource!=-1) {
     idx = getRessourcePos(curRessource);
+    if (idx==-1) return;
     ressourceList[idx][1] = color;
     document.getElementById('cp'+curRessource).style.background = color;
-    document.getElementById('cp'+curRessource).style.background = color;
     saveRessources();
-  } else {
-    document.getElementById('cpmycolor').style.background = color;
-    usetparam("WGCAL_U_MYCOLOR", color, '', '');
- }
+  }
 }
    
-function showColorPicker(event, id, idress) {
+function showColorPicker(event, idress) {
   curRessource = idress;
-  cp.show(id);
+  cp.show('cp'+idress);
 }
 
 
@@ -46,6 +43,7 @@ function addRessource(rid, rtitle, ricon, rstate) {
   idx = getRessourcePos(rid);
   if (idx!=-1) return;
   InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', 0 );
+  tdiv['resspopup'][rid]=[1,1,1,1];
   saveRessources();
 }
 
@@ -61,16 +59,6 @@ function storeRessource(id, color, display, icon, descr, style) {
   ressourceList[idx][3] = icon;
   ressourceList[idx][4] = descr;
   ressourceList[idx][5] = style;
-}
-
-function deleteRessource(rid) {
-  var eltRess;
-  idx = getRessourcePos(rid);
-  if (idx!=-1) ressourceList[idx][0] = -1;
-  eltRess = document.getElementById('tr'+rid);
-  if (!eltRess) return;
-  eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
-  saveRessources();
 }
 
 function showAllRessource() {
@@ -96,7 +84,7 @@ function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate ) {
 
   idx = getRessourcePos(rid);
   if (idx!=-1) {
-    deleteRessource(rid);
+    removeRessource(rid);
   }
   tab = document.getElementById('tabress');
   if (!tab) {
@@ -119,24 +107,6 @@ function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate ) {
   storeRessource(rid, rcolor, rstate, ricon, rdescr, rstyle);
 }
 
-function setRessourceState(rid, setStyle, unsetStyle, memo) {
-  if (rid==-1) {
-    alert('[TEXT: invalid ressource id]');
-    return;
-  }
-  idx = getRessourcePos(rid);
-  if (ressourceList[idx][2] == 1) {
-    ressourceList[idx][2] = 0;
-    rstyle = unsetStyle;
-  } else {
-    ressourceList[idx][2] = 1;
-    rstyle = setStyle;
-  }
-  document.getElementById(rid).className = rstyle;
-  saveRessources();
-  return;
-}
-   
 var CRessId = -1;
 var CRessText = '';
 
@@ -165,11 +135,10 @@ function removeRessource() {
     return;
   }
   idx = getRessourcePos(CRessId);
-  if (idx==-1) return;
-  idx = getRessourcePos(rid);
+//   alert ('ress '+CRessId+' id='+idx);
   if (idx!=-1) {
     ressourceList[idx][0] = -1;
-    eltRess = document.getElementById('tr'+rid);
+    eltRess = document.getElementById('tr'+CRessId);
     if (!eltRess) return;
     eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
     saveRessources();

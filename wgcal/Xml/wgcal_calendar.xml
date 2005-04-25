@@ -42,8 +42,8 @@
   onclick="subwindow(400, 650, 'ViewEvent[ID]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_[action]&ev=[ID]');"
   onmouseover="WGCalEvOnMouseOver(event, '[RG]');" 
   onmouseout="WGCalEvOnMouseOut(event, '[RG]');" 
-  onContextMenu="SetCurrentEvent([ID]); openMenu(event,'calpopup',[RG]);return false" 
-  onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([ID]);openMenu(event,'calpopup',[RG])}"
+  onContextMenu="SetCurrentEvent([ID], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
+  onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([ID], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
   style="cursor:pointer; border:0px; border-left:1px solid grey; display:none;overflow:hidden;">[ZONE [RESUME]?ev=[ID]]</div>
 
 <div id="evtc[RG]" style="display:none; border:1px outset; background-color:white');">

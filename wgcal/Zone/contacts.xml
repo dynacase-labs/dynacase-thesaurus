@@ -1,0 +1,16 @@
+<table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td onclick="WGCalChangeVisibility('contacts');" align="left">[TEXT:see contacts]</td>
+<td align="right" width="50">
+ <form id="fsearch" target="wgcal_icontact" name="fcontactsearch" method="POST" 
+  action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHCONTACT">
+<input type="text" title="[TEXT:search for a contact...]" size="20" id="contacttext" name="contacttext" value="" >
+</form>
+</td></tr>
+</table>
+<div id="contacts" style="display:[vcontacts]" class="wToolArea">
+<iframe name="wgcal_icontact" id="wgcal_icontact" 
+        style="left:0%;top:0%;width:[toolbarwidth]pt;border:0px;" marginwidth="0" marginheight="0">
+<p>toto
+</iframe>
+</div>

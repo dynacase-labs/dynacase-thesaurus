@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.27 2005/04/22 16:03:29 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.28 2005/04/25 19:02:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -78,8 +78,7 @@ function WGCalGetRessDisplayed(&$action) {
       $tc = explode("%", $v);
       if ($tc[0] != "" && $tc[1] == 1) {
 	$r[$ir]->id = $tc[0];
-	if ($tc[0] == $action->user->fid) $r[$ir]->color = $action->GetParam("WGCAL_U_MYCOLOR", "black");
-	else $r[$ir]->color = $tc[2]; 
+	$r[$ir]->color = $tc[2]; 
 	$ir++;
       }
     }
@@ -125,7 +124,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   include_once('FDL/popup_util.php');
 
   $debug = false;
-//      $debug = true;
+//       $debug = true;
 
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
 
@@ -150,13 +149,8 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
 
   $first = false;
 
-  popupInit('calpopup',  array('editrv',  
-			       'viewrv',
-                               'deleterv',
-                               'acceptrv',
-                               'rejectrv',
-                               'tbcrv',
-                               'historyrv',
+  popupInit('calpopup',  array('editrv', 'deloccur', 'viewrv', 'deleterv',
+                               'acceptrv', 'rejectrv', 'tbcrv', 'historyrv',
                                'cancelrv'));
 
 
@@ -169,7 +163,6 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
  		   "TSEND" => $end, 
 		   "END" => localFrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
-    //     if ($debug) print_r2($item);
     $ref = false;
     if ($showrefused!=1 && $v["evt_frominitiatorid"] == $rvfamid) {
       $attr = array();
@@ -180,7 +173,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     }
     
     if (!$ref) { 
-      //     if (1==1) { 
+      $vo = new Doc($dbaccess, $v["evt_idinitiator"]);  
       $n = new Doc($dbaccess, $v["id"]);  
       $item["RESUME"] = $n->calVResume;
       $item["VIEW"] = $n->calVCard;
@@ -196,12 +189,14 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
       PopupInvisible('calpopup',$item["RG"], 'tbcrv');
       PopupInactive('calpopup',$item["RG"], 'historyrv');
       PopupActive('calpopup',$item["RG"], 'viewrv');
+      PopupInvisible('calpopup',$item["RG"], 'deloccur');
       PopupActive('calpopup',$item["RG"], 'cancelrv');
       PopupInactive('calpopup',$item["RG"], 'editrv');
       PopupInactive('calpopup',$item["RG"], 'deleterv');
       $action->lay->set("POPUPSTATE",false);
       
       if ($action->user->fid == $v["evt_idcreator"]) {
+	if ($v["evfc_repeatmode"] > 0) PopupActive('calpopup',$item["RG"], 'deloccur');
 	PopupActive('calpopup',$item["RG"], 'editrv');
 	PopupActive('calpopup',$item["RG"], 'deleterv');
 	$item["action"] = "EDITEVENT";
@@ -239,7 +234,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   }
   popupGen(count($tout));
   $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
-//   if ($debug) print_r2($tout);
+  if ($debug) print_r2($tout);
   return $tout;
 }
        	

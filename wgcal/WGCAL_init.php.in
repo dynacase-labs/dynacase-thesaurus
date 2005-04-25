@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.27 2005/04/22 16:03:29 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.28 2005/04/25 19:02:20 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,6 @@ array(
 "WGCAL_U_WRVALERT" => array("kind"=>"static", "val"=>"1", "descr"=>N_("alert for new event ?"), "user"=>"Y"),
 "WGCAL_U_ZWRVALERTSIZE" => array("kind"=>"static", "val"=>"100", "descr"=>N_("new event zone size"), "user"=>"Y"),
 
-"WGCAL_U_MYCOLOR" => array( "kind"=>"static", "descr"=>N_("my event color"), "user"=>"Y"),
 "WGCAL_U_CALCURDATE" => array("kind"=>"static", "val" => "", "descr"=>N_("Current displayed date"), "user"=>"Y"),
 "WGCAL_U_RESSDISPLAYED" => array("kind"=>"static",  "val" => "", "descr"=>N_("WGCAL_U_RESSDISPLAYED"), "user"=>"Y"),
 

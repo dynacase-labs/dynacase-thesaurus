@@ -180,9 +180,11 @@ function WGCalSetDate(calendar)
 // ----------------------------------------------------------
 
 var  EvSelected = -1;
+var  EvCurDay = 0;
 
-function SetCurrentEvent(id) {
+function SetCurrentEvent(id, cd) {
     EvSelected = id;
+    EvCurDay = cd;
 }
   
 

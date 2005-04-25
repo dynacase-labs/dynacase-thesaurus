@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-07 10:28+0200\n"
+"POT-Creation-Date: 2005-04-25 11:35+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -29,6 +29,9 @@ msgid "hour in day column width"
 msgstr ""
 
 msgid "menu icons height"
+msgstr ""
+
+msgid "show icons in popup menus"
 msgstr ""
 
 msgid "display week end"
@@ -130,6 +133,9 @@ msgstr ""
 msgid "viewed events (from producters)"
 msgstr ""
 
+msgid "created from outlook, oid="
+msgstr ""
+
 msgid "workgroup calendar"
 msgstr ""
 
@@ -178,6 +184,9 @@ msgstr ""
 msgid "search iuser"
 msgstr ""
 
+msgid "search contact"
+msgstr ""
+
 msgid "view event"
 msgstr ""
 
@@ -188,6 +197,9 @@ msgid "store event"
 msgstr ""
 
 msgid "delete event"
+msgstr ""
+
+msgid "delete occurence"
 msgstr ""
 
 msgid "event history"
@@ -272,6 +284,12 @@ msgid "create calendar"
 msgstr ""
 
 msgid "freedom groupware calendar"
+msgstr ""
+
+msgid "new rendez-vous"
+msgstr ""
+
+msgid "Cancel"
 msgstr ""
 
 msgid "prev period"
@@ -454,9 +472,6 @@ msgstr ""
 msgid "exclude days"
 msgstr ""
 
-msgid "add a new day to exclude"
-msgstr ""
-
 msgid "del selected dates"
 msgstr ""
 
@@ -478,13 +493,25 @@ msgstr ""
 msgid "click here to refresh toolbar"
 msgstr ""
 
-msgid "waiting rv"
+msgid "view this"
 msgstr ""
 
 msgid "accept event"
 msgstr ""
 
+msgid "accept this"
+msgstr ""
+
 msgid "refuse event"
+msgstr ""
+
+msgid "reject this"
+msgstr ""
+
+msgid "close menu"
+msgstr ""
+
+msgid "waiting rv"
 msgstr ""
 
 msgid "date selector"
@@ -502,31 +529,13 @@ msgstr ""
 msgid "update calendar"
 msgstr ""
 
-msgid "change my event color"
+msgid "show/hide this ressource"
 msgstr ""
 
-msgid "supress ressource"
+msgid "change color for this ressource"
 msgstr ""
 
-msgid "suppress ressource"
-msgstr ""
-
-msgid "change color for ressource"
-msgstr ""
-
-msgid "reinit the list"
-msgstr ""
-
-msgid " ressource list saved"
-msgstr ""
-
-msgid "save the list"
-msgstr ""
-
-msgid "found ressources"
-msgstr ""
-
-msgid " invalid ressource id"
+msgid "remove this ressource"
 msgstr ""
 
 msgid "phone"
@@ -536,6 +545,12 @@ msgid "mobile"
 msgstr ""
 
 msgid "mail"
+msgstr ""
+
+msgid "found ressources"
+msgstr ""
+
+msgid " invalid ressource id"
 msgstr ""
 
 msgid "accept"
@@ -556,9 +571,6 @@ msgstr ""
 msgid "delconfirm"
 msgstr ""
 
-msgid "Cancel"
-msgstr ""
-
 msgid "todos..."
 msgstr ""
 
@@ -568,13 +580,13 @@ msgstr ""
 msgid "add prefered contact"
 msgstr ""
 
+msgid "supress ressource"
+msgstr ""
+
+msgid "suppress ressource"
+msgstr ""
+
 msgid "use for event creation"
-msgstr ""
-
-msgid "accept this"
-msgstr ""
-
-msgid "reject this"
 msgstr ""
 
 msgid "to be confirm this"
@@ -583,7 +595,7 @@ msgstr ""
 msgid "edit this"
 msgstr ""
 
-msgid "view this"
+msgid "delete this occurence"
 msgstr ""
 
 msgid "confirm delete for this event"
@@ -614,6 +626,18 @@ msgid " ressource list changed, save it ?"
 msgstr ""
 
 msgid "my calendars"
+msgstr ""
+
+msgid "reinit the list"
+msgstr ""
+
+msgid "save the list"
+msgstr ""
+
+msgid "change color for ressource"
+msgstr ""
+
+msgid "see contacts"
 msgstr ""
 
 msgid "others"
@@ -756,6 +780,9 @@ msgid "no privilege to create this kind (%d) of document"
 msgstr ""
 
 msgid "event search "
+msgstr ""
+
+msgid "delete repeat occurrence for "
 msgstr ""
 
 msgid "event creation"

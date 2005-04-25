@@ -35,6 +35,7 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_ASEARCHQUERY", "short_name" =>N_("advanced search event"), "toc" => "N", "root" =>"N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCHIUSER", "short_name" =>N_("search iuser"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCHCONTACT", "short_name" =>N_("search contact"), "toc" => "N", "root" =>"N"),
 
   // ---------------------------
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_VIEWEVENT", 
@@ -47,6 +48,8 @@ $action_desc = array (
          "short_name" =>N_("store event"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_DELETEEVENT", 
          "short_name" =>N_("delete event"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_DELOCCUR", 
+         "short_name" =>N_("delete occurence"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_HISTO", 
          "short_name" =>N_("event history"), "toc" => "N", "root" =>"N"),
 

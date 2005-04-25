@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.CalEvent.php,v 1.14 2005/03/18 18:58:36 marc Exp $
+ * @version $Id: Method.CalEvent.php,v 1.15 2005/04/25 19:02:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -153,8 +153,6 @@ function CalEvDupEvent($ref, $start, $end) {
   $e = $ref;
   $e["evt_begdate"] = $start;
   $e["evt_enddate"] = $e["evfc_realenddate"] = $end;
-  $e["evfc_repeatmode"] = 0;
-//     echo "Event start=".$e["evt_begdate"]." end=".$e["evt_enddate"]."<br>";
   return $e;
 }
 

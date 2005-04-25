@@ -1,0 +1,24 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+<script type="text/javascript">
+function showhide(id) {
+  if (document.getElementById('p'+id).style.display == '') {
+	document.getElementById(id).className = 'WGCRessDefault';
+	document.getElementById('p'+id).style.display = 'none';
+	document.getElementById('pp'+id).style.display = 'none';
+	document.getElementById('m'+id).style.display = 'none';
+  } else {
+	document.getElementById(id).className = 'WGCRessSelected';
+	document.getElementById('p'+id).style.display = '';
+	document.getElementById('pp'+id).style.display = '';
+	document.getElementById('m'+id).style.display = '';
+  }
+}
+</script>
+<table>
+[BLOCK CONTACTS]<tr  id="[icontact]" title="T:[phone] M:[pphone]"><td class="WGCRessDefault" colspan="2" ><img onmouseover="showhide([icontact])" onmouseout="showhide([icontact])" src="[icon]" height="15">[title]</td></tr>
+[IF havephone]<tr style="display:none" id="p[icontact]"><td class="WGCRessDefault" align="right">[TEXT:phone] : </td><td class="WGCRessDefault" >[phone]</td></tr>[ENDIF havephone]
+[IF havepphone]<tr style="display:none" id="pp[icontact]"><td class="WGCRessDefault" align="right">[TEXT:mobile] : </td><td class="WGCRessDefault" >[pphone]</td></tr>[ENDIF havepphone]
+[IF havemail]<tr style="display:none" id="m[icontact]"><td class="WGCRessDefault" align="right" >[TEXT:mail] : </td><td class="WGCRessDefault" >[mail]</td></tr>[ENDIF havemail]
+[ENDBLOCK CONTACTS]
+</table>
+[ZONE WGCAL:WGCAL_HTMLFOOT]
