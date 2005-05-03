@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_adoc.php,v 1.12 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: fdl_adoc.php,v 1.13 2005/05/03 16:55:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -62,7 +62,7 @@ if ($query->nb > 0)	{
     //    print AttrtoPhp($dbaccess,$v->id);
 
     $phpfile=createDocFile($dbaccess,$v);
-    print "$phpfile\n";
+    print "$phpfile [".$v["title"]."(".$v["name"].")]\n";
 
     $msg=PgUpdateFamilly($dbaccess, $v["id"]);
     print $msg;

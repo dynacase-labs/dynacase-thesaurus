@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.243 2005/04/18 12:01:36 marc Exp $
+ * @version $Id: Class.Doc.php,v 1.244 2005/05/03 16:55:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2566,7 +2566,7 @@ create unique index i_docir on doc(initid, revision);";
 
     if (! $ulink) {
       // suppress href attributes
-      return preg_replace(array("/href=\"([^c]|c[^i]|ci[^d])[^\"]*\"/i", "/onclick=\"[^\"]*\"/i","/ondblclick=\"[^\"]*\"/i"), 
+      return preg_replace(array("/href=\"index\.php[^\"]*\"/i", "/onclick=\"[^\"]*\"/i","/ondblclick=\"[^\"]*\"/i"), 
 			  array("","","") ,$this->lay->gen() );
     }
     if ($target=="mail") {

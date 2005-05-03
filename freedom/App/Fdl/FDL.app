@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.25 2005/04/14 14:30:18 eric Exp $
+// $Id: FDL.app,v 1.26 2005/05/03 16:55:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -212,6 +212,21 @@ $action_desc = array (
   array( 
    "name"		=>"FDL_PUBMAIL",
    "short_name"		=>N_("emailing"),
+   "acl"		=>"NORMAL"
+  )  ,
+  array( 
+   "name"		=>"FDL_PUBPRINT",
+   "short_name"		=>N_("eprinting"),
+   "acl"		=>"NORMAL"
+  )  ,
+  array( 
+   "name"		=>"FDL_PUBPREVIEW",
+   "short_name"		=>N_("epreview"),
+   "acl"		=>"NORMAL"
+  )  ,
+  array( 
+   "name"		=>"FDL_PUBNAVPREVIEW",
+   "short_name"		=>N_("enavpreview"),
    "acl"		=>"NORMAL"
   ) 
                       );	

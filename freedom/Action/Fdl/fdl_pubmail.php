@@ -3,7 +3,7 @@
  * Emailing
  *
  * @author Anakeen 2005
- * @version $Id: fdl_pubmail.php,v 1.2 2005/04/15 16:21:17 eric Exp $
+ * @version $Id: fdl_pubmail.php,v 1.3 2005/05/03 16:55:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,7 +29,7 @@ function fdl_pubmail(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $doc = new Doc($dbaccess, $docid);
-  $t=$doc->getContent();
+  $t=$doc->getContent(true,array(),true);
   if ($fromedit) {
     $doc = $doc->copy(true,false);
     $err=setPostVars($doc);

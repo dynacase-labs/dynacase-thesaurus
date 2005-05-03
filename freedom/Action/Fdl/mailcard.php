@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.46 2005/04/20 16:14:20 eric Exp $
+ * @version $Id: mailcard.php,v 1.47 2005/05/03 16:55:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.46 2005/04/20 16:14:20 eric Exp $
+// $Id: mailcard.php,v 1.47 2005/05/03 16:55:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -222,7 +222,7 @@ function sendCard(&$action,
     $fout = fopen($pfout,"w");
     if ($mixed && (!$ulink)) {
 
-      fwrite($fout, preg_replace("/href=\"[^\"]*\"/i", "title=\""._("see attachement files")."\"", $sgen1));
+      fwrite($fout, preg_replace("/href=\"index[^\"]*\"/i", "title=\""._("see attachement files")."\"", $sgen1));
     } else {
       fwrite($fout,$sgen1);
     }
@@ -279,8 +279,8 @@ function sendCard(&$action,
 
     // ---------------------------
     // insert attached files
-  if (preg_match_all("/href=\"cid:([^\"]*)\"/i",$sgen,$match)) {
-    $tcids = $match[1]; // list of file references inserted in mail
+  if (preg_match_all("/(href|src)=\"cid:([^\"]*)\"/i",$sgen,$match)) {
+    $tcids = $match[2]; // list of file references inserted in mail
 
     $afiles = $doc->GetFileAttributes();
     $taids = array_keys($afiles);

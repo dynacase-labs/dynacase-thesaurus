@@ -14,8 +14,11 @@ function fdl_pubsendmail($target="_self",$ulink=true,$abstract=false) {
 
 	if ($value) $this->lay->Set(strtoupper($v->id),$udoc->GetHtmlValue($v,$value,$atarget,$ulink));
 	else $this->lay->Set(strtoupper($v->id),false);
-      }          
+      }  
     }
   }
+}
+function fdl_pubprintone($target="_self",$ulink=true,$abstract=false) {
+  return $this->fdl_pubsendmail($target,$ulink,$abstract); 
 }
 ?>

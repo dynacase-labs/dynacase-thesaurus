@@ -3,7 +3,7 @@
  * PortFolio Methods
  *
  * @author Anakeen 2003
- * @version $Id: Method.PortFolio.php,v 1.9 2004/09/10 15:27:10 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.10 2005/05/03 16:55:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -53,5 +53,37 @@ function postInsertDoc($docid,$multiple=false) {
 	$doc->refresh();
 	$doc->modify();
   }
+}  
+
+/**
+   * return document includes in portfolio an in each of its guide or searched inside portfolio
+   * @param bool $controlview if false all document are returned else only visible for current user  document are return
+   * @param array $filter to add list sql filter for selected document
+   * @param bool $insertguide if true merge each content of guide else same as a normal folder
+   * @return array array of document array
+   */
+function getContent($controlview=true,$filter=array(),$insertguide=false) {
+  $tdoc=Dir::getContent($controlview,$filter);
+  if ($insertguide) {
+    $todoc=array();
+    foreach ($tdoc as $k=>$v) {
+      if (($v["doctype"] == "D")||($v["doctype"] == "S")) {
+	$dir=new Doc($this->dbaccess,$v["id"]);
+	$todoc=array_merge($todoc,$dir->getContent($controlview,$filter));
+	unset($tdoc[$k]);
+      }
+    }
+    if (count($todoc)) {
+      // array unique
+      $todoc=array_merge($tdoc,$todoc);
+      $tdoc=array();
+      foreach ($todoc as $k=>$v) {
+	$tdoc[$v["id"]]=$v;
+      }      
+    }
+
+  }
+  return $tdoc;
+    
 }
 ?>
