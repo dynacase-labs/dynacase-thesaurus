@@ -8,9 +8,7 @@
 </form>
 </td></tr>
 </table>
-<div id="contacts" style="display:[vcontacts]" class="wToolArea">
+<div id="contacts" style="width:[toolbarwidth]px;border:0px; display:[vcontacts]" class="wToolArea">
 <iframe name="wgcal_icontact" id="wgcal_icontact" 
-        style="left:0%;top:0%;width:[toolbarwidth]pt;border:0px;" marginwidth="0" marginheight="0">
-<p>toto
-</iframe>
+        style="width:100%;border:0px;" marginwidth="0" marginheight="0"></iframe>
 </div>

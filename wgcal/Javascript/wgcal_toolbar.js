@@ -28,6 +28,11 @@ function killwins() {
 
 
 
+function loadPeriod(urlroot, ts) {
+    usetparam("WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', urlroot+'&app=WGCAL&action=WGCAL_CALENDAR');
+}
+
+
 // ----------------------------------------------
 var ressourceList = new Array();
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.26 2005/04/25 19:02:20 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.27 2005/05/03 15:15:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -88,6 +88,7 @@ function _seewaitrv(&$action, &$wrv) {
       $wrv[$irv]["wrvfulldescr"] = "[".$label."] " 
 	. substr($v["calev_start"],0,16)." : ".$v["calev_evtitle"]." (".$v["calev_owner"].")";
       $wrv[$irv]["wrvicon"] = $doc->GetIcon($v["icon"]);
+      $wrv[$irv]["tsdate"] = dbdate2ts($v["calev_start"]);
       $irv++;
     }
   }
@@ -107,11 +108,12 @@ function _waitrv(&$action) {
 
   // Init popup
   include_once("FDL/popup_util.php");
-  popupInit('waitpopup',  array('acceptevent',  'refuseevent', 'viewevent', 'cancelevent'));
+  popupInit('waitpopup',  array('acceptevent',  'refuseevent', 'viewevent', 'gotoperiod', 'cancelevent'));
   foreach ($trv as $k => $v) {
     PopupActive('waitpopup', $k, 'acceptevent');
     PopupActive('waitpopup', $k, 'refuseevent');
     PopupActive('waitpopup', $k, 'viewevent');
+    PopupActive('waitpopup', $k, 'gotoperiod');
     PopupActive('waitpopup', $k, 'cancelevent');
     $trv[$k]["waitrg"] = $k;
   }

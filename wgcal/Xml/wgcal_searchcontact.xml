@@ -15,7 +15,7 @@ function showhide(id) {
 }
 </script>
 <table>
-[BLOCK CONTACTS]<tr  id="[icontact]" title="T:[phone] M:[pphone]"><td class="WGCRessDefault" colspan="2" ><img onmouseover="showhide([icontact])" onmouseout="showhide([icontact])" src="[icon]" height="15">[title]</td></tr>
+[BLOCK CONTACTS]<tr  id="[icontact]"><td class="WGCRessDefault"><img onclick="showhide([icontact])" src="[icon]" height="15"></td><td class="WGCRessDefault" title="T:[phone] M:[pphone]">[title]</td></tr>
 [IF havephone]<tr style="display:none" id="p[icontact]"><td class="WGCRessDefault" align="right">[TEXT:phone] : </td><td class="WGCRessDefault" >[phone]</td></tr>[ENDIF havephone]
 [IF havepphone]<tr style="display:none" id="pp[icontact]"><td class="WGCRessDefault" align="right">[TEXT:mobile] : </td><td class="WGCRessDefault" >[pphone]</td></tr>[ENDIF havepphone]
 [IF havemail]<tr style="display:none" id="m[icontact]"><td class="WGCRessDefault" align="right" >[TEXT:mail] : </td><td class="WGCRessDefault" >[mail]</td></tr>[ENDIF havemail]

@@ -36,7 +36,7 @@ var AltIsFixed = 'Float';
 var AltCoord = new Object();
 
 var  P_DURATION = 10;
-var  P_DEB = 1000;
+var  P_DEB = 100;
 var  P_FIN = 1;
 
 
@@ -281,7 +281,7 @@ function WGCalChangeClass(event, id, refclass, nclass)
 
 // --------------------------------------------------------
 function WGCalSortEventInDay( e1, e2) {
-  if (e1.y == e2.y) return e2.h - e1.h;
+  if (e1.y <= e2.y) return e2.h - e1.h;
   return e1.y - e2.y;
 }
 
@@ -292,10 +292,10 @@ function WGCalSortEventInDay( e1, e2) {
 // --------------------------------------------------------
 function WGCalIntersect(asy,aey,bsy,bey) {
   var IsInt = false;
-  if ((bsy>=asy && bsy<=aey)) IsInt = true;
-  if ((bey>=asy && bey<=aey)) IsInt = true;
-  if (bsy==asy || bey==aey) IsInt = true;
-  //   alert('a(s,e) b(s,e) = a('+asy+','+aey+')  b('+bsy+','+bey+') Intersect='+IsInt); 
+  if ((bsy>asy && bsy<aey)) IsInt = true;
+  if ((bey>asy && bey<aey)) IsInt = true;
+  if (bsy==asy && bey==aey) IsInt = true;
+     //alert('a(s,e) b(s,e) = a('+asy+','+aey+')  b('+bsy+','+bey+') Intersect='+IsInt); 
   return IsInt;
 }
 
@@ -419,13 +419,12 @@ function WGCalDisplayDailyEvents(dEv) {
   evts = dEv.sort(WGCalSortByWeight);
 
   // Compute column to place events
-  maxcol = 0;
   col = 0;
   base = 0;
-  //     s = '';
+  s = '';
   for (ie=0; ie<evts.length; ie++) {
     if (ie==0) {
-      col = 1; maxcol = 1;
+      col = 1; 
       base = evts[ie].vstart;
     } else {
       iprev = -1;
@@ -435,7 +434,6 @@ function WGCalDisplayDailyEvents(dEv) {
 	}
       }
       if (iprev!=-1) {
- 	if (WGCalEmptyColBase(evts, base, ie)) maxcol++;
 	col = evts[iprev].col + 1;
 	base = evts[iprev].base;
       } else {
@@ -445,15 +443,13 @@ function WGCalDisplayDailyEvents(dEv) {
     }
     evts[ie].base = base;
     evts[ie].col = col;
-    evts[ie].ncol = maxcol;
     evts[ie].rwidth = 1;
   }
-  
   
   // Optimize event width according column count
   s='';
   for (it=0; it<evts.length; it++) {
-    ncol = WGCalGetColForBase(evts, evts[it].base, it);
+    ncol = WGCalGetColForBase(evts, evts[it].base);
     haveR = WGCalGetRightEvForBase(it, evts, evts[it].base);
      if (haveR) {
        evts[it].rwidth = 1 / ncol;
@@ -481,11 +477,11 @@ function WGCalCountColsForBase(icur, iprev, evts,  b) {
   return icol;
 }
 
-function WGCalGetColForBase(evts, b, icur) {
-  var ncol = 1;
+function WGCalGetColForBase(evts, b) {
+  var ncol = 0;
   var ix;
-  for (ix=icur; ix<evts.length; ix++) {
-    if (evts[ix].base==b && evts[ix].ncol>ncol) ncol = evts[ix].ncol;
+  for (ix=0; ix<evts.length; ix++) {
+    if (evts[ix].base==b) ncol++;
   }
   return ncol;
 }

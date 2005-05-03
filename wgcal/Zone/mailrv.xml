@@ -1,18 +1,20 @@
 <html>
 <head>
-<title>[rvtitle]</title>
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS&theme=default" >
+   <style type="text/css">
+[ZONE CORE:GENCSS?layout=WGCAL:WGCAL_CSS?theme=[theme]]
+   </style>
+
 </head>
 <body>
+
 <div>Bonjour,<br/><br/>
 Le rendez-vous "[rvtitle]" vous est propos&eacute; par [rvowner].<br/>
-Il est planifi&eacute; du [dstart] au [dend].<br/>
 </div>
 <br/>
 <div style="width:auto;height:auto;">
-[ZONE WGCAL:CALEV_CARD?ev=[rvid]&mode=v]
+[ZONE WGCAL:CALEV_CARD?ev=-1&cev=[rvid]&mode=v]
 </div>
 <hr>
-<a target="_blank" href="[CORE_STANDURL]app=WGCAL">Vous pouvez l'accepter ou le refuser via l'agenda de groupe.</a>
+<a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">Vous pouvez l'accepter ou le refuser via l'agenda de groupe.</a>
 </body>
 </html>

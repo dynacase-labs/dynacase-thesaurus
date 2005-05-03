@@ -20,6 +20,7 @@
 <!-- Rendez-vous en attente -->
 <!-- POPUP DIVISION -->
 <script type="text/javascript"> 
+var CEventTime = 0;
 var CEventId = -1;
 var CEventText = '';
 </script>
@@ -28,6 +29,8 @@ var CEventText = '';
 <a class="separator"></a>
 <a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 2); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evaccept.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
 <a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 3); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evrefuse.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
+<a class="separator"></a>
+<a href="#" id="gotoperiod" onclick="loadPeriod('[CORE_STANDURL]', CEventTime); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evdate.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:goto this period]</a>
 <a class="separator"></a>
 <a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> <!-- end POPUP DIVISION -->
@@ -44,7 +47,7 @@ var CEventText = '';
 <div id="evt[wrvid]" class="WGCwrvdefault" style="border-left:5px solid [wrvcolor]" 
      onmouseover="this.className = 'WGCwrvover'; " 
      onmouseout="this.className = 'WGCwrvdefault'"
-     onContextMenu="CEventId=[wrvid]; CEventText='[wrvtitle]'; openMenu(event,'waitpopup',[waitrg]);return false" 
+     onContextMenu="CEventTime=[tsdate]; CEventId=[wrvid]; CEventText='[wrvtitle]'; openMenu(event,'waitpopup',[waitrg]);return false" 
      onclick="CEventId=[wrvid]; CEventText='[wrvtitle]';ViewEvent('[CORE_STANDURL]',[wrvid]);" >&nbsp;<img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
 </div>
  

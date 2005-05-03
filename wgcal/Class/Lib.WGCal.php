@@ -3,13 +3,14 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.28 2005/04/25 19:02:20 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.29 2005/05/03 15:15:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
  */
  /**
  */
+include_once("FDL/mailcard.php");
 
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
@@ -331,10 +332,10 @@ function sendRv(&$action, &$event) {
  }
 
  // Compute Cc: field
- if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) {
-     $u = new Doc($action->GetParam("FREEDOM_DB"), $action->user->fid);
-     $cc =  $u->getValue("TITLE")." <".getMailAddr($u->getValue("US_WHATID")).">";
- }
+//  if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) {
+//      $u = new Doc($action->GetParam("FREEDOM_DB"), $action->user->fid);
+//      $cc =  $u->getValue("TITLE")." <".getMailAddr($u->getValue("US_WHATID")).">";
+//  }
      
  if ($to!="") {
    sendCard($action, $event->id, $to, $cc,

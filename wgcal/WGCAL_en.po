@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-02 18:57+0200\n"
+"POT-Creation-Date: 2005-05-03 10:05+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -10,130 +10,80 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-msgid "current day color"
+msgid "no hour"
 msgstr ""
 
-msgid "week end days color"
+msgid "monday"
 msgstr ""
 
-msgid "selected day color"
+msgid "tuesday"
 msgstr ""
 
-msgid "title line height"
+msgid "wenesday"
 msgstr ""
 
-msgid "hour lines height"
+msgid "thursday"
 msgstr ""
 
-msgid "hour in day column width"
+msgid "friday"
 msgstr ""
 
-msgid "menu icons height"
+msgid "saturday"
 msgstr ""
 
-msgid "show icons in popup menus"
+msgid "sunday"
 msgstr ""
 
-msgid "display week end"
-msgstr ""
-
-msgid "view count days"
-msgstr ""
-
-msgid "day start hour"
-msgstr ""
-
-msgid "day end hour"
-msgstr ""
-
-msgid "hour division"
-msgstr ""
-
-msgid "calendar view"
-msgstr ""
-
-msgid "tool display state"
-msgstr ""
-
-msgid "alert for new event ?"
-msgstr ""
-
-msgid "new event zone size"
-msgstr ""
-
-msgid "my event color"
-msgstr ""
-
-msgid "Current displayed date"
-msgstr ""
-
-msgid "WGCAL_U_RESSDISPLAYED"
-msgstr ""
-
-msgid "WGCAL_U_TMPLIST"
-msgstr ""
-
-msgid "use prefered ressource for event setting"
+msgid "look preferences"
 msgstr ""
 
 msgid "my prefered contacts"
 msgstr ""
 
-msgid "send me event mail copy"
+msgid "todo preferences"
 msgstr ""
 
-msgid "displayed refused events"
+msgid "other preferences"
 msgstr ""
 
-msgid "check for conflicts"
+msgid "my calendars"
 msgstr ""
 
-msgid "show icons in resume"
+#, c-format
+msgid "no privilege to create this kind (%d) of document"
 msgstr ""
 
-msgid "alt postion is fixed"
+msgid "event search "
 msgstr ""
 
-msgid "general theme"
+msgid "state set to "
 msgstr ""
 
-msgid "start hour used for event setting"
+msgid "event creation"
 msgstr ""
 
-msgid "end hour used for event setting"
+msgid "date modification"
 msgstr ""
 
-msgid "meeting default duration"
+msgid "main calendar"
 msgstr ""
 
-msgid "minutes increment used for event setting"
+msgid "remove event from calendar "
 msgstr ""
 
-msgid "refresh toolbar"
+msgid "insert event in calendar $caltitle"
 msgstr ""
 
-msgid "view todos for ... days"
+msgid "change content "
 msgstr ""
 
-msgid "warn for todo having a date in the ... days"
+msgid "all the day"
 msgstr ""
 
-msgid "set todo date to today + ... days"
+msgid "You have waiting events"
 msgstr ""
 
-msgid "last sync date for Outlook"
-msgstr ""
-
-msgid "last sync date for WGCal"
-msgstr ""
-
-msgid "mails send"
-msgstr ""
-
-msgid "viewed events (from producters)"
-msgstr ""
-
-msgid "created from outlook, oid="
+msgid "delete repeat occurrence for "
 msgstr ""
 
 msgid "workgroup calendar"
@@ -232,58 +182,172 @@ msgstr ""
 msgid "init ressource selection"
 msgstr ""
 
+msgid "calendar view"
+msgstr ""
+
 msgid "month text"
 msgstr ""
 
 msgid "user preferences"
 msgstr ""
 
-msgid "enter todo title"
+msgid "event proposal"
 msgstr ""
 
-msgid "give a title"
+msgid "new"
 msgstr ""
 
-msgid "todo date limit"
+msgid "read"
 msgstr ""
 
-msgid "click here to set the todo limit date"
+msgid "accept"
 msgstr ""
 
-msgid "todo note"
+msgid "reject"
 msgstr ""
 
-msgid "save todo"
+msgid "to be confirmed"
 msgstr ""
 
-msgid "cancel"
+msgid "My public calendar"
 msgstr ""
 
-msgid " cancel modifications"
+msgid "confidential event"
 msgstr ""
 
-msgid "there are conflicts with events (see after)"
+msgid "dayly"
 msgstr ""
 
-msgid "ignore conflict"
+msgid "weekly"
 msgstr ""
 
-msgid "modify event"
+msgid "monthly"
 msgstr ""
 
-msgid "calendar creation"
+msgid "by date"
 msgstr ""
 
-msgid "Enter new calendar name"
+msgid "by day"
 msgstr ""
 
-msgid "enter new calendar name"
+msgid "yearly"
 msgstr ""
 
-msgid "create calendar"
+msgid "until"
+msgstr ""
+
+msgid "there is excluded days"
+msgstr ""
+
+msgid "small"
+msgstr ""
+
+msgid "medium"
+msgstr ""
+
+msgid "large"
+msgstr ""
+
+msgid "the default theme"
+msgstr ""
+
+msgid "view icon in event"
+msgstr ""
+
+msgid "floating, follows the pointer"
+msgstr ""
+
+msgid "on the left top"
+msgstr ""
+
+msgid "on the left bottom"
+msgstr ""
+
+msgid "on the right top"
+msgstr ""
+
+msgid "on the right bottom"
+msgstr ""
+
+msgid "200 milli second"
+msgstr ""
+
+msgid "1/2 second"
+msgstr ""
+
+msgid "1 second"
+msgstr ""
+
+msgid "1,5 second"
+msgstr ""
+
+msgid "send me event mail copy"
+msgstr ""
+
+msgid "check for conflicts"
+msgstr ""
+
+msgid "display refused meetings"
+msgstr ""
+
+msgid "refresh toolbar"
+msgstr ""
+
+msgid "show icons in popup menus"
+msgstr ""
+
+msgid "display todos for "
+msgstr ""
+
+msgid "days"
+msgstr ""
+
+msgid "week"
+msgstr ""
+
+msgid "weeks"
+msgstr ""
+
+msgid "all todo"
+msgstr ""
+
+msgid "warn for todo in the next "
+msgstr ""
+
+msgid "set todo default date to today more "
+msgstr ""
+
+msgid "created from outlook, oid="
+msgstr ""
+
+msgid " invalid ressource id"
 msgstr ""
 
 msgid "freedom groupware calendar"
+msgstr ""
+
+msgid "search phrase"
+msgstr ""
+
+msgid "between"
+msgstr ""
+
+msgid "start date"
+msgstr ""
+
+msgid "and"
+msgstr ""
+
+msgid "end date"
+msgstr ""
+
+msgid "status"
+msgstr ""
+
+msgid "all state"
+msgstr ""
+
+msgid "search"
 msgstr ""
 
 msgid "new rendez-vous"
@@ -301,22 +365,31 @@ msgstr ""
 msgid "next period"
 msgstr ""
 
-msgid "week"
-msgstr ""
-
 msgid "change hours division"
 msgstr ""
 
 msgid "view/hide week-end"
 msgstr ""
 
-msgid "searched families"
+msgid "there are conflicts with events (see after)"
 msgstr ""
 
-msgid "search"
+msgid "modify event"
 msgstr ""
 
-msgid "my todos..."
+msgid "ignore conflict"
+msgstr ""
+
+msgid "calendar creation"
+msgstr ""
+
+msgid "Enter new calendar name"
+msgstr ""
+
+msgid "enter new calendar name"
+msgstr ""
+
+msgid "create calendar"
 msgstr ""
 
 msgid "event description"
@@ -325,7 +398,7 @@ msgstr ""
 msgid "rv title"
 msgstr ""
 
-msgid "start date"
+msgid "give a title"
 msgstr ""
 
 msgid "start time update according end time"
@@ -334,19 +407,10 @@ msgstr ""
 msgid "click here to enter the start date"
 msgstr ""
 
-msgid "end date"
-msgstr ""
-
 msgid "end time update according start time"
 msgstr ""
 
 msgid "click here to enter the end date"
-msgstr ""
-
-msgid "no hour"
-msgstr ""
-
-msgid "all the day"
 msgstr ""
 
 msgid "rv note"
@@ -377,6 +441,12 @@ msgid " delete this event"
 msgstr ""
 
 msgid "save"
+msgstr ""
+
+msgid "cancel"
+msgstr ""
+
+msgid " cancel modifications"
 msgstr ""
 
 msgid "meeting"
@@ -475,19 +545,10 @@ msgstr ""
 msgid "del selected dates"
 msgstr ""
 
-msgid "search phrase"
+msgid "searched families"
 msgstr ""
 
-msgid "between"
-msgstr ""
-
-msgid "and"
-msgstr ""
-
-msgid "status"
-msgstr ""
-
-msgid "all state"
+msgid "found ressources"
 msgstr ""
 
 msgid "click here to refresh toolbar"
@@ -508,10 +569,16 @@ msgstr ""
 msgid "reject this"
 msgstr ""
 
+msgid "goto this period"
+msgstr ""
+
 msgid "close menu"
 msgstr ""
 
 msgid "waiting rv"
+msgstr ""
+
+msgid "alert for new event ?"
 msgstr ""
 
 msgid "date selector"
@@ -538,6 +605,24 @@ msgstr ""
 msgid "remove this ressource"
 msgstr ""
 
+msgid "my todos..."
+msgstr ""
+
+msgid "enter todo title"
+msgstr ""
+
+msgid "todo date limit"
+msgstr ""
+
+msgid "click here to set the todo limit date"
+msgstr ""
+
+msgid "todo note"
+msgstr ""
+
+msgid "save todo"
+msgstr ""
+
 msgid "phone"
 msgstr ""
 
@@ -545,105 +630,6 @@ msgid "mobile"
 msgstr ""
 
 msgid "mail"
-msgstr ""
-
-msgid "found ressources"
-msgstr ""
-
-msgid " invalid ressource id"
-msgstr ""
-
-msgid "accept"
-msgstr ""
-
-msgid "reject"
-msgstr ""
-
-msgid "to be confirm"
-msgstr ""
-
-msgid "edit"
-msgstr ""
-
-msgid "history"
-msgstr ""
-
-msgid "delconfirm"
-msgstr ""
-
-msgid "todos..."
-msgstr ""
-
-msgid "todos options"
-msgstr ""
-
-msgid "add prefered contact"
-msgstr ""
-
-msgid "supress ressource"
-msgstr ""
-
-msgid "suppress ressource"
-msgstr ""
-
-msgid "use for event creation"
-msgstr ""
-
-msgid "to be confirm this"
-msgstr ""
-
-msgid "edit this"
-msgstr ""
-
-msgid "delete this occurence"
-msgstr ""
-
-msgid "confirm delete for this event"
-msgstr ""
-
-msgid "delete this"
-msgstr ""
-
-msgid "add a calendar"
-msgstr ""
-
-msgid "week view"
-msgstr ""
-
-msgid "two week view"
-msgstr ""
-
-msgid "month text view"
-msgstr ""
-
-msgid "print view"
-msgstr ""
-
-msgid "change preferences"
-msgstr ""
-
-msgid " ressource list changed, save it ?"
-msgstr ""
-
-msgid "my calendars"
-msgstr ""
-
-msgid "reinit the list"
-msgstr ""
-
-msgid "save the list"
-msgstr ""
-
-msgid "change color for ressource"
-msgstr ""
-
-msgid "see contacts"
-msgstr ""
-
-msgid "others"
-msgstr ""
-
-msgid "options"
 msgstr ""
 
 msgid "note"
@@ -664,6 +650,18 @@ msgstr ""
 msgid "attendees"
 msgstr ""
 
+msgid "to be confirm"
+msgstr ""
+
+msgid "edit"
+msgstr ""
+
+msgid "history"
+msgstr ""
+
+msgid "delconfirm"
+msgstr ""
+
 msgid "search events containing phrase..."
 msgstr ""
 
@@ -671,6 +669,117 @@ msgid "enter words here"
 msgstr ""
 
 msgid "advanced search"
+msgstr ""
+
+msgid " ressource list changed, save it ?"
+msgstr ""
+
+msgid "reinit the list"
+msgstr ""
+
+msgid "save the list"
+msgstr ""
+
+msgid "supress ressource"
+msgstr ""
+
+msgid "suppress ressource"
+msgstr ""
+
+msgid "change color for ressource"
+msgstr ""
+
+msgid "add a calendar"
+msgstr ""
+
+msgid "week view"
+msgstr ""
+
+msgid "two week view"
+msgstr ""
+
+msgid "month text view"
+msgstr ""
+
+msgid "print view"
+msgstr ""
+
+msgid "change preferences"
+msgstr ""
+
+msgid "to be confirm this"
+msgstr ""
+
+msgid "edit this"
+msgstr ""
+
+msgid "delete this occurence"
+msgstr ""
+
+msgid "confirm delete for this event"
+msgstr ""
+
+msgid "delete this"
+msgstr ""
+
+msgid "add prefered contact"
+msgstr ""
+
+msgid "use for event creation"
+msgstr ""
+
+msgid " interface look"
+msgstr ""
+
+msgid "general options"
+msgstr ""
+
+msgid "theme caracteristics"
+msgstr ""
+
+msgid "waiting rv window size"
+msgstr ""
+
+msgid "information popup management"
+msgstr ""
+
+msgid "display popup position"
+msgstr ""
+
+msgid "timeout before displaying popup"
+msgstr ""
+
+msgid "day start hour"
+msgstr ""
+
+msgid "day end hour"
+msgstr ""
+
+msgid "hours division size"
+msgstr ""
+
+msgid "meetings edition"
+msgstr ""
+
+msgid "meeting hours interval"
+msgstr ""
+
+msgid "start hour"
+msgstr ""
+
+msgid "end hour"
+msgstr ""
+
+msgid "meeting default duration"
+msgstr ""
+
+msgid "meeting minute increase"
+msgstr ""
+
+msgid "others"
+msgstr ""
+
+msgid "options"
 msgstr ""
 
 msgid "my todo"
@@ -700,210 +809,101 @@ msgstr ""
 msgid "todo alert"
 msgstr ""
 
-msgid " interface look"
+msgid "todos..."
 msgstr ""
 
-msgid "general options"
+msgid "todos options"
 msgstr ""
 
-msgid "theme caracteristics"
+msgid "see contacts"
 msgstr ""
 
-msgid "waiting rv window size"
+msgid "current day color"
 msgstr ""
 
-msgid "information popup management"
+msgid "week end days color"
 msgstr ""
 
-msgid "display popup position"
+msgid "selected day color"
 msgstr ""
 
-msgid "timeout before displaying popup"
+msgid "title line height"
 msgstr ""
 
-msgid "hours division size"
+msgid "hour lines height"
 msgstr ""
 
-msgid "meetings edition"
+msgid "hour in day column width"
 msgstr ""
 
-msgid "meeting hours interval"
+msgid "menu icons height"
 msgstr ""
 
-msgid "start hour"
+msgid "display week end"
 msgstr ""
 
-msgid "end hour"
+msgid "view count days"
 msgstr ""
 
-msgid "meeting minute increase"
+msgid "hour division"
 msgstr ""
 
-msgid "event proposal"
+msgid "tool display state"
 msgstr ""
 
-msgid "look preferences"
+msgid "new event zone size"
 msgstr ""
 
-msgid "todo preferences"
+msgid "Current displayed date"
 msgstr ""
 
-msgid "other preferences"
+msgid "WGCAL_U_RESSDISPLAYED"
 msgstr ""
 
-msgid "state set to "
+msgid "use prefered ressource for event setting"
 msgstr ""
 
-msgid "monday"
+msgid "displayed refused events"
 msgstr ""
 
-msgid "tuesday"
+msgid "show icons in resume"
 msgstr ""
 
-msgid "wenesday"
+msgid "alt postion is fixed"
 msgstr ""
 
-msgid "thursday"
+msgid "general theme"
 msgstr ""
 
-msgid "friday"
+msgid "start hour used for event setting"
 msgstr ""
 
-msgid "saturday"
+msgid "end hour used for event setting"
 msgstr ""
 
-msgid "sunday"
+msgid "minutes increment used for event setting"
 msgstr ""
 
-#, c-format
-msgid "no privilege to create this kind (%d) of document"
+msgid "view todos for ... days"
 msgstr ""
 
-msgid "event search "
+msgid "warn for todo having a date in the ... days"
 msgstr ""
 
-msgid "delete repeat occurrence for "
+msgid "set todo date to today + ... days"
 msgstr ""
 
-msgid "event creation"
+msgid "last sync date for Outlook"
 msgstr ""
 
-msgid "date modification"
+msgid "last sync date for WGCal"
 msgstr ""
 
-msgid "main calendar"
+msgid "mails send"
 msgstr ""
 
-msgid "remove event from calendar "
+msgid "viewed events (from producters)"
 msgstr ""
 
-msgid "insert event in calendar $caltitle"
-msgstr ""
-
-msgid "change content "
-msgstr ""
-
-msgid "You have waiting events"
-msgstr ""
-
-msgid "confidential event"
-msgstr ""
-
-msgid "dayly"
-msgstr ""
-
-msgid "weekly"
-msgstr ""
-
-msgid "monthly"
-msgstr ""
-
-msgid "by date"
-msgstr ""
-
-msgid "by day"
-msgstr ""
-
-msgid "yearly"
-msgstr ""
-
-msgid "until"
-msgstr ""
-
-msgid "there is excluded days"
-msgstr ""
-
-msgid "small"
-msgstr ""
-
-msgid "medium"
-msgstr ""
-
-msgid "large"
-msgstr ""
-
-msgid "the default theme"
-msgstr ""
-
-msgid "view icon in event"
-msgstr ""
-
-msgid "floating, follows the pointer"
-msgstr ""
-
-msgid "on the left top"
-msgstr ""
-
-msgid "on the left bottom"
-msgstr ""
-
-msgid "on the right top"
-msgstr ""
-
-msgid "on the right bottom"
-msgstr ""
-
-msgid "200 milli second"
-msgstr ""
-
-msgid "1/2 second"
-msgstr ""
-
-msgid "1 second"
-msgstr ""
-
-msgid "1,5 second"
-msgstr ""
-
-msgid "display refused meetings"
-msgstr ""
-
-msgid "display todos for "
-msgstr ""
-
-msgid "days"
-msgstr ""
-
-msgid "weeks"
-msgstr ""
-
-msgid "all todo"
-msgstr ""
-
-msgid "warn for todo in the next "
-msgstr ""
-
-msgid "set todo default date to today more "
-msgstr ""
-
-msgid "new"
-msgstr ""
-
-msgid "read"
-msgstr ""
-
-msgid "to be confirmed"
-msgstr ""
-
-msgid "My public calendar"
+msgid "Sync Version Needed"
 msgstr ""
