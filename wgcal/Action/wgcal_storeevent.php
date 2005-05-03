@@ -104,6 +104,7 @@ function wgcal_storeevent(&$action) {
   $date = GetHttpVars("Vruntildate");
   if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", date2db($date));
   $excl = GetHttpVars("excludedate", "");
+  $event->deleteValue("CALEV_EXCLUDEDATE");
   if ($excl != "") {
     $excludedate = explode("|",$excl);
     foreach ($excludedate as $kd => $vd) if ($vd>0 && $vd!="") $tex[] = date2db($vd);

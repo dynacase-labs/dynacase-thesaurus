@@ -294,8 +294,8 @@ function WGCalIntersect(asy,aey,bsy,bey) {
   var IsInt = false;
   if ((bsy>=asy && bsy<=aey)) IsInt = true;
   if ((bey>=asy && bey<=aey)) IsInt = true;
-  if (bsy==asy && bey==aey) IsInt = true;
-//   alert('a(s,e) b(s,e) = a('+asy+','+aey+')  b('+bsy+','+bey+') Intersect='+IsInt); 
+  if (bsy==asy || bey==aey) IsInt = true;
+  //   alert('a(s,e) b(s,e) = a('+asy+','+aey+')  b('+bsy+','+bey+') Intersect='+IsInt); 
   return IsInt;
 }
 

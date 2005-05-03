@@ -30,6 +30,7 @@ function  setEventSpec(&$e) {
   $e->setValue("EVFC_REPEATUNTIL", $this->getValue("CALEV_REPEATUNTIL"));
   $e->setValue("EVFC_REPEATUNTILDATE", $this->getValue("CALEV_REPEATUNTILDATE"));
   $tv = $this->getTValue("CALEV_EXCLUDEDATE");
+  $e->deleteValue("EVFC_EXCLUDEDATE");
   if (count($tv)>0) {
     foreach ($tv as $kv => $vv) {
       $texc[] = $vv;

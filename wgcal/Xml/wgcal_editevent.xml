@@ -353,16 +353,15 @@ PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBL
 
 <fieldset><legend>[TEXT:exclude days]</legend>
 
-<span style="display:[repeatvie]">
-<img title="[TEXT:del selected dates]" onClick="delExclDate()" 
-     height="12" src="WGCAL/Images/wgcal-minus.gif">
-</span>
-
-<span>
+<div>
 <select id="listexcldate" name="listexcldate[]" width="20" size="5" multiple>
 [BLOCK EXCLDATE]<option id="exdate[iDate]" value="[mDate]">[rDate]</option>[ENDBLOCK EXCLDATE]
 </select>
-</span>
+</div>
+
+<div style="display:[repeatvie]; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onClick="delExclDate()" ">
+<img title="[TEXT:del selected dates]" height="12" src="WGCAL/Images/wgcal-minus.gif">
+[TEXT:del selected dates]</div>
 
 <input onChange="addExclDate();" type="hidden" id="nexcldate" >
 <script type="text/javascript">
