@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Generate Php Document Classes
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_adoc.php,v 1.13 2005/05/03 16:55:22 eric Exp $
+ * @version $Id: fdl_adoc.php,v 1.14 2005/05/06 16:26:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,6 +35,7 @@ if ($dbaccess == "") {
 
 
 $docid = GetHttpVars("docid",0); // special docid
+if (($docid==0) && (! is_numeric($docid)))  $docid   =  getFamIdFromName($dbaccess,$docid);
 
 
 	

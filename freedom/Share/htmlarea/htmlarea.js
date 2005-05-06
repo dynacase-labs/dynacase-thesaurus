@@ -8,7 +8,7 @@
 // Version 3.0 developed by Mihai Bazon for InteractiveTools.
 //           http://students.infoiasi.ro/~mishoo
 //
-// $Id: htmlarea.js,v 1.6 2005/03/18 16:26:54 eric Exp $
+// $Id: htmlarea.js,v 1.7 2005/05/06 16:26:19 eric Exp $
 
 // Creates a new HTMLArea object.  Tries to replace the textarea with the given
 // ID with it.
@@ -59,7 +59,8 @@ HTMLArea.Config = function () {
 			 [ "orderedlist", "unorderedlist", "outdent", "indent", "separator" ],
 			 [ "forecolor", "backcolor", "textindicator", "separator" ],
 			 [ "horizontalrule", "createlink", "insertimage", "inserttable", "htmlmode", "separator" ],
-			 [ "popupeditor", "about" ]
+			 [ "popupeditor", "about" ],
+			 [  "linebreak","iuserattribute" ]
 		];
 
 	this.fontname = {
@@ -130,8 +131,12 @@ HTMLArea.Config = function () {
 			btn[1] = HTMLArea.I18N.tooltips[i];
 		}
 	}
+	this.ConfigIuser();
 };
 
+HTMLArea.Config.prototype.ConfigIuser = function () {
+		this.iuserattribute = {	};
+}
 /** Helper function: replace all TEXTAREA-s in the document with HTMLArea-s. */
 HTMLArea.replaceAll = function() {
 	var tas = document.getElementsByTagName("textarea");
@@ -145,6 +150,7 @@ HTMLArea.prototype._createToolbar = function () {
 	var toolbar = document.createElement("div");
 	this._toolbar = toolbar;
 	toolbar.className = "toolbar";
+	toolbar.align = "left";
 	toolbar.unselectable = "1";
 	if (editor.config.debug) {
 		toolbar.style.border = "1px solid red";
@@ -204,6 +210,7 @@ HTMLArea.prototype._createToolbar = function () {
 			var el = null;
 			var cmd = null;
 			switch (txt) {
+			case "iuserattribute":
 			    case "fontsize":
 			    case "fontname":
 			    case "formatblock":
@@ -321,9 +328,11 @@ HTMLArea.prototype._createToolbar = function () {
 			el = createSelect();
 		}
 		if (el) {
+			if ((el.type!='select-one') || (el.options.length > 0)) {
 			var tb_cell = document.createElement("td");
 			tb_row.appendChild(tb_cell);
 			tb_cell.appendChild(el);
+			}
 		} else {
 			alert("FIXME: Unknown toolbar item: " + txt);
 		}
@@ -523,6 +532,7 @@ HTMLArea.prototype.updateToolbar = function() {
 		cmd = cmd.toLowerCase();
 		btn.state("enabled", !text || btn.text);
 		switch (cmd) {
+			//  case "iuserattribute":
 		    case "fontname":
 		    case "fontsize":
 		    case "formatblock":
@@ -843,6 +853,9 @@ HTMLArea.prototype._comboSelected = function(el, txt) {
 		}
 		this._execCommand(txt, false, value);
 		break;
+	    case "iuserattribute":
+		this.insertHTML(value);
+		break;
 	    default:
 		alert("FIXME: combo box " + txt + " not implemented");
 		break;
@@ -969,8 +982,11 @@ HTMLArea.prototype._editorEvent = function(ev) {
 
 // gets called before the form is submitted
 HTMLArea.prototype._formSubmit = function(ev) {
+	var s=this.getHTML();
+	s=s.replace(/\"%5B/g, "\"["); // correct mime encode not wanted when element are moved
+	s=s.replace(/%5D\"/g, "]\"");
 	// retrieve the HTML
-	this._textArea.value = this.getHTML();
+	this._textArea.value = s;
 };
 
 // retrieve the HTML
