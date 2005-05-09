@@ -89,11 +89,12 @@ var catgid=[catg];
                     [BLOCK TABLEBODY]
 
 <table class="tableborder" cellspacing="0" style="margin-top:5pt" width="100%" >
-
+<thead>
 <tr><th><IMG class="iconimg20"  align="absmiddle"  src="[iconfamsrc]"><B>[ftitle]</B></th>
 [BLOCK [blockattr]]
 <th>[aname]</th>
-[ENDBLOCK [blockattr]]</tr>
+[ENDBLOCK [blockattr]]</tr></thead>
+<tbody id="tbody[fid]">
 [BLOCK [blockvalue]]
 <tr  id="d[divid]"
      class="unselect" 
@@ -109,6 +110,8 @@ var catgid=[catg];
 
 </tr>
 [ENDBLOCK [blockvalue]]
+</tbody>
+<script>alterrow('tbody[fid]','[CORE_BGCOLORALTERN]');</script>
 
 
 

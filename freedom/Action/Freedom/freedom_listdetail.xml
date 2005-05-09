@@ -14,44 +14,6 @@
 
 <style type="text/css">
 [CSS:CODE]
-.iconimg {
-  border-style: hidden;
-  border-width: 1;
-  border-color: [CORE_FGCOLOR];
-  width:20;
-  height:20;
-  
-}
-.iconline {
-  border-color: [CORE_FGCOLOR];
-  margin:1px;
-  padding:0px;
-  border-width:3px;
-  border-style: hidden;
-  /*background-color: palegoldenrod;*/
-  
-}
-
-TD.tlist {
-   border-width : 1px;
-   border-style : dashed none none none;
-   border-color : [CORE_BGCOLOR];
-   font-size: [CORE_FONTBASESIZE];
-}
-
-TR.unselect {
-  cursor: crosshair;
-
-}
-
-
-TR.select {
-  background-color:[CORE_BGCOLORALTERN];
-  border-style : solid;
-  cursor: crosshair;
-} 
-
-
 </style>
 
 [JS:REF]
@@ -60,6 +22,7 @@ TR.select {
   <!--
     [JS:CODE]
     document.dirid='[dirid]';
+addEvent(window,"load",function al1() {alterrow('terrible','[CORE_BGCOLORALTERN]',2);});
 
 -->
 </script>   
@@ -80,7 +43,7 @@ TR.select {
 [ZONE FREEDOM:FOLDER_BARMENU?nbdoc=[nbdoc]&dirid=[dirid]]
 [ZONE FREEDOM:POPUP]
 <br>
-<table class="tablesimple" cellspacing="0" width="100%" >
+<table class="tablesimple" id="terrible" cellspacing="0" width="100%" >
 <!-- TABLEBODY -->
                     [BLOCK TABLEBODY]
 <tbody id="d[divid]"
@@ -99,7 +62,7 @@ TR.select {
 <td class="tlist" width="40"><I style="font-size:80%">[revdate]</I></td>
 <td class="tlist" width="20">[locked]</td>
 <td class="tlist" width="20"><span style="font-size:80%">[revision]&nbsp;</span></td></tr>
-<tr><td colspan="5">[ABSTRACTVALUES]</td>
+<tr><td colspan="5">[ABSTRACTVALUES]</td></tr>
                     [ENDBLOCK TABLEBODY]
 </tbody>
 </table>

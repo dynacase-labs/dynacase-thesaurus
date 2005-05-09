@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.71 2005/04/13 11:12:06 eric Exp $
+ * $Id: freedom.css,v 1.72 2005/05/09 16:22:14 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -403,7 +403,7 @@ TBODY.unselect, TR.unselect {
 }
 TR.unselect:hover {
   cursor: crosshair;
-  background-color:[CORE_BGCOLORHIGH];
+  background-color:[CORE_BGCOLORHIGH]!important;
 }
 
 TBODY.unselect:hover TR {
@@ -425,12 +425,12 @@ TR.dash TD {
 
 
 TR.select {
-  background:[CORE_BGCOLORALTERN];
+  background:[CORE_BGCOLORALTERN]!important;
   border-style : solid;
   cursor: crosshair;
 } 
 TBODY.select TR {
-  background:[CORE_BGCOLORALTERN];  
+  background:[CORE_BGCOLORALTERN]!important;;  
   cursor: crosshair;
 } 
  

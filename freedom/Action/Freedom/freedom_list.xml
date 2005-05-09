@@ -14,42 +14,6 @@
 
 <style type="text/css">
 [CSS:CODE]
-.iconimg {
-  border-style: hidden;
-  border-width: 1;
-  border-color: [CORE_FGCOLOR];
-  width:20;
-  height:20;
-  
-}
-.iconline {
-  border-color: [CORE_FGCOLOR];
-  margin:1px;
-  padding:0px;
-  border-width:3px;
-  border-style: hidden;
-  /*background-color: palegoldenrod;*/
-  
-}
-
-TD.tlist {
-   border-width : 1px;
-   border-style : dashed none none none;
-   border-color : [CORE_BGCOLOR];
-   font-size: [CORE_FONTBASESIZE];
-}
-
-TR.unselect {
-  cursor: crosshair;
-
-}
-
-
-TR.select {
-  background-color:[CORE_BGCOLORALTERN];
-  border-style : solid;
-  cursor: crosshair;
-} 
 
 
 </style>
@@ -60,6 +24,8 @@ TR.select {
   <!--
     [JS:CODE]
     document.dirid='[dirid]';
+addEvent(window,"load",function al1() {alterrow('terrible','[CORE_BGCOLORALTERN]');});
+
 
 -->
 </script>   
@@ -80,7 +46,7 @@ TR.select {
 [ZONE FREEDOM:FOLDER_BARMENU?nbdoc=[nbdoc]&dirid=[dirid]]
 [ZONE FREEDOM:POPUP]
 <br>
-<table class="tablesimple" cellspacing="0" width="100%" >
+<table class="tablesimple" id="terrible" cellspacing="0" width="100%" >
 <!-- TABLEBODY -->
                     [BLOCK TABLEBODY]
 <tr  id="d[divid]"
@@ -91,7 +57,7 @@ TR.select {
      onmouseover="oselect([id])"  onmouseout="ounselect()"
      title="[highlight]">
 <td class="tlist" width="30" >
-<IMG class="iconimg" id="i[divid]" 
+<IMG class="iconimg20" id="i[divid]" 
      align="absmiddle"  src="[iconsrc]">
 </td>
 <td class="tlist" >[title] <i>[state]</i></td>

@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.64 2005/04/14 14:33:11 eric Exp $
+ * @version $Id: viewfolder.php,v 1.65 2005/05/09 16:22:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -301,6 +301,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  $prevFromId=$doc->fromid;
 	  $tfamdoc[] = array("iconfamsrc"=>$tdoc[$k]["iconsrc"],
 			     "ftitle"=>$adoc->title,
+			     "fid"=>$doc->fromid,
 			     "blockattr" => "BATT".$doc->fromid,
 			     "blockvalue" => "BVAL".$doc->fromid);
 	      
