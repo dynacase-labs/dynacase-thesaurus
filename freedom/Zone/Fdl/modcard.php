@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.75 2005/04/14 14:32:37 eric Exp $
+ * @version $Id: modcard.php,v 1.76 2005/05/09 16:22:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -128,7 +128,7 @@ function modcard(&$action, &$ndocid) {
     }
     $doc->lmodify='Y'; // locally modified
     $ndocid = $doc->id;
-    if (!$noredirect) { // else quick save
+    if (($doc->doctype != 'T') && (!$noredirect)) { // else quick save
       $doc->refresh();
       $err=$doc-> PostModify(); 
       // add trace to know when and who modify the document
