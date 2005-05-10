@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.64 2005/05/10 14:01:58 eric Exp $
+ * @version $Id: freedom_util.php,v 1.65 2005/05/10 16:16:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -326,19 +326,15 @@ function getFamIdFromName($dbaccess, $name) {
  * @return int 0 if not found, return negative first id found if multiple (name must be unique)
  */
 function getIdFromName($dbaccess, $name, $famid="") {
-  
   $dbid=getDbid($dbaccess);   
   $id=false;
-  $result = pg_query($dbid,"select  id from docfrom where name='$name';");
-
-  if (pg_numrows ($result) > 0) {
-    $arr = pg_fetch_array ($result, 0,PGSQL_ASSOC);
-
+  $result = pg_query($dbid,"select id from docfrom where name='$name';");
+  $n=pg_numrows ($result);
+  if ($n > 0) {
+    $arr = pg_fetch_array ($result,($n-1),PGSQL_ASSOC);
     $id= $arr["id"];
-  }
-    
-  return $id; 
-  
+  }    
+  return $id;  
 }
 function setFamidInLayout(&$action) {
   

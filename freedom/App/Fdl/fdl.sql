@@ -248,9 +248,9 @@ if (TG_OP = ''INSERT'') then
      end if;
      select into lid id from docfrom where id= NEW.id;
      if (lid = NEW.id) then 
-	update docfrom set fromid=cfromid where id=NEW.id;
+	update docfrom set fromid=cfromid,name=NEW.name where id=NEW.id;	
      else 
-	insert into docfrom (id,fromid) values (NEW.id, cfromid);
+	insert into docfrom (id,fromid,name) values (NEW.id, cfromid, NEW.name);
      end if;
 end if;
  

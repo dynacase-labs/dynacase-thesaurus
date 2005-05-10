@@ -1,0 +1,5 @@
+#!/bin/bash
+pubdir="/home/httpd/what";
+echo "ALTER TABLE docfrom ADD COLUMN name text;create index i_docfromname on docfrom(name);" | psql freedom anakeen
+
+echo "drop INDEX i_docname;create index i_docname on doc(name);UPDATE doc set name = null where name = '';delete from docfrom;insert INTO docfrom (id, fromid,name) select id, fromid,name from doc;update docfrom set fromid=-1 where id in (select id from docfam);" | psql freedom anakeen
