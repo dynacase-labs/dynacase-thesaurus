@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.9 2004/05/13 16:17:15 eric Exp $
+// $Id: USERCARD.app,v 1.10 2005/05/12 12:06:26 caroline Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,7 +51,28 @@ $action_desc = array (
    "short_name"		=>N_("import vcard"),
    "layout"		=>"generic_import.xml",
    "acl"		=>"GENERIC_MASTER"
+  ),
+                                                                                                                                                         
+                                                                                                                                                             
+ array(
+   "name"               =>"USERCARD_SEARCH",
+   "short_name"         =>N_("search usercard"),
+   "acl"                =>"GENERIC_READ"
+  ),
+
+  array(
+   "name"               =>"USERCARD_TAB",
+   "short_name"         =>N_("tab usercard"),
+   "acl"                =>"GENERIC_READ"
+  ),
+
+  array(
+   "name"               =>"USERCARD_ROOT",
+   "short_name"         =>N_("usercard home page"),
+   "acl"                =>"GENERIC_READ",
+   "root"		=>"Y"
   )
-                      );
+
+);
    
 ?>
