@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000
- * @version $Id: usercard_tab.php,v 1.5 2005/05/12 12:05:36 caroline Exp $
+ * @version $Id: usercard_tab.php,v 1.6 2005/05/12 14:01:56 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -47,18 +47,23 @@ function usercard_tab(&$action) {
        {if ($ch<>"") $ch.=" and ";
        $ch.=" title ~* '$Tcontact[$k]'";
        }
-
+     if ($contact<>"" ) $sqlfilter[]= "$ch or us_mail ~* '$contact' ";
 
      $society=GetHttpVars("society");
-     $private=GetHttpVars("private");
-   
-     if ($contact<>"" ) $sqlfilter[]= "$ch or us_mail ~* '$contact' ";
-     if ($society<>"" ) $sqlfilter[]= "us_society ~* '$society' ";
+     $Tsoc=explode(" ",$society);
+     $ch="";
+     foreach ($Tsoc as $k=>$v)
+       {if ($ch<>"") $ch.=" and ";
+       $ch.=" us_society ~* '$Tsoc[$k]'";
+       }
+     if ($society<>"" ) $sqlfilter[]= "$ch";
+     
+
+     $private=GetHttpVars("private");      
      if ($private==1) $sqlfilter[]= "us_privcard='P' ";
 
 
      //details
-
      $allcond=GetHttpVars("allcond");
      if ($allcond==1) $op="and";
      else $op="or"; 	
@@ -83,6 +88,8 @@ function usercard_tab(&$action) {
      if ($postalcode<>"") $sql[]=" us_workpostalcode ~* '$postalcode'";
      if ($town<>"") $sql[]=" us_worktown ~* '$town'";
      if ($country<>"" ) $sql[]= "us_country ~* '$country'";
+     if ($function<>"" ) $sql[]="us_type ~* '$function'";
+     if ($catg<>"" ) $sql[]="us_scatg ~* '$catg'";
 
      $ch="";
      foreach ($sql as $k=>$v){
@@ -90,10 +97,7 @@ function usercard_tab(&$action) {
        $ch.=$sql[$k];
      }
 
-     if ($ch<>"") $sqlfilter[]=$ch;
-
-
-    // $op us_function ~* '$function' $op us_catg ~* '$catg'
+     if ($ch<>"") $sqlfilter[]=$ch;   
    }
 
  
@@ -101,9 +105,14 @@ function usercard_tab(&$action) {
    //filters for SOCIETY 
    if ($fam=="SOCIETY" and $default=="N"){
      //criteres
-     $society=GetHttpVars("society");  
-   
-     if ($society<>"" ) $sqlfilter[]= "si_society ~* '$society' ";
+     $society=GetHttpVars("society");   
+     $Tsoc=explode(" ",$society);
+     $ch="";
+     foreach ($Tsoc as $k=>$v)
+       {if ($ch<>"") $ch.=" and ";
+       $ch.=" si_society ~* '$Tsoc[$k]'";
+       }
+     if ($society<>"" ) $sqlfilter[]= "$ch";
 
 
      //details
@@ -119,12 +128,14 @@ function usercard_tab(&$action) {
      $country=GetHttpVars("country");
 
 
+
      $sql=array();     
      if ($phone<>"") $sql[]=" si_phone ~* '$phone'";
      if ($adr<>"") $sql[]=" si_addr ~* '$adr'";
      if ($postalcode<>"") $sql[]=" si_postalcode ~* '$postalcode'";
      if ($town<>"") $sql[]=" si_town ~* '$town'";
      if ($country<>"" ) $sql[]= " si_country ~* '$country'";
+     if ($catg<>"" ) $sql[]="si_catg ~* '$catg'";
 
      $ch="";
      foreach ($sql as $k=>$v){
@@ -133,7 +144,7 @@ function usercard_tab(&$action) {
      }
 
      if ($ch<>"") $sqlfilter[]=$ch;
-    
+  
     
      }
 

@@ -68,8 +68,7 @@
 <td><input type="text" name="mobile"></td>
 </tr>
 <tr><td>Fonction</td>
-<td><input type="text" name="function">
-</td>
+<td><select name="function">[BLOCK FUNC]<option value="[idfunction]">[function][ENDBLOCK FUNC]</select></td>
 </tr>
 <tr><td>Adresse</td>
 <td><input type="text" name="adr"></td>
@@ -84,11 +83,11 @@
 <td><input type="text" name="country"></td>
 </tr>
 <tr><td>Catégorie</td>
-<td><input type="text" name="catg"></td>
+<td><select name="catg">[BLOCK CATG]<option value="[idcatg]">[catg][ENDBLOCK CATG]</select></td>
 </tr>                                                                                                                                   
 </table>
 Toutes les conditions <input type="checkbox"  title="[TEXT:all condition]"  value="1" name="allcond"> 
-</span>                                                                                                                                  
+</span>                           
     
 <BR>
 <input type="hidden" name="family" value="USER">   
@@ -132,7 +131,7 @@ Toutes les conditions <input type="checkbox"  title="[TEXT:all condition]"  valu
 <span id="detailsocietyzone" style="display:none">
 <table>
 <tr><td  >Catégorie</td>
-<td><input type="text" name="catg"></td>
+<td><select name="catg">[BLOCK CATG]<option value="[idcatg]">[catg][ENDBLOCK CATG]</select></td>
 </tr>
 <tr><td>Tél.</td>
 <td><input type="text" name="phone"></td>
@@ -214,7 +213,7 @@ Toutes les conditions <input type="checkbox"  title="[TEXT:all condition]"  valu
 <td><input type="text" name="mobile"></td>
 </tr>
 <tr><td>Fonction</td>
-<td><input type="text" name="function">
+<td><select name="function">[BLOCK FUNC]<option value="[idfunction]">[function][ENDBLOCK FUNC]</select></td>
 </td>
 </tr>
 <tr><td>Adresse</td>
@@ -230,7 +229,7 @@ Toutes les conditions <input type="checkbox"  title="[TEXT:all condition]"  valu
 <td><input type="text" name="country"></td>
 </tr>
 <tr><td>Catégorie</td>
-<td><input type="text" name="catg"></td>
+<td><select name="catg">[BLOCK CATG]<option value="[idcatg]">[catg][ENDBLOCK CATG]</select></td>
 </tr>                                                                                                                                   
 </table>
 Toutes les conditions <input type="checkbox"  title="[TEXT:all condition]"  value="1" name="allcond"> 

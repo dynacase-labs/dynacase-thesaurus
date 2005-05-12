@@ -3,16 +3,50 @@
  * progress bar tool
  *
  * @author Anakeen 2000
- * @version $Id: usercard_search.php,v 1.5 2005/05/12 12:05:36 caroline Exp $
+ * @version $Id: usercard_search.php,v 1.6 2005/05/12 14:01:43 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
  */
  /**
  */
+                                                             
+
+include_once("FDL/Class.WDoc.php"); 
+include_once("FDL/freedom_util.php");
+include_once("FDL/Class.DocAttribute.php");            
                                                                                 
-                                                                                
-function usercard_search(&$action) {
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");                                                                               
-  $action->lay->set("DETAILZONE", ($detailzone?"none":""));
+function usercard_search(&$action) { 
+ $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");    
+
+ $dbaccess = $action->GetParam("FREEDOM_DB");
+
+ //enum function
+ $user=createDoc ($dbaccess,getFamIdFromName($dbaccess,"USER"),false); 
+ $auser = $user->getAttribute("US_TYPE");
+ $function = $auser->getEnum();
+ $func=array();
+ $func[]=array("function"=>" ","idfunction"=>"");
+ foreach ($function as $k=>$v){
+   $func[]=array("function"=>$function[$k],
+		 "idfunction"=>$k);
+
+ }
+ $action->lay->setBlockData("FUNC",$func);
+
+
+ //enum catg
+ $soc=createDoc ($dbaccess,getFamIdFromName($dbaccess,"SOCIETY"),false);
+ $asoc = $soc->getAttribute("SI_CATG");
+ $categorie = $asoc->getEnum();
+ $catg=array();
+ $catg[]=array("catg"=>" ","idcatg"=>"");
+ foreach ($categorie as $k=>$v){
+   $catg[]=array("catg"=>$function[$k],
+		 "idcatg"=>$k);
+ }
+
+ $action->lay->setBlockData("CATG",$catg);
+
 }
+?>
