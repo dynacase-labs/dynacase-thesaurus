@@ -38,7 +38,7 @@
 <div id="userzone" style="display:">
 <table>
 <tr><td>Contact</td>
-<td ><input type="text" name="contact"></td>
+<td ><input type="text" name="contact" ></td>
 <td><input type="checkbox"   title="[TEXT:voir ses contacts]"  value="1" name="private" ></td>
 </tr>
 <tr><td>Société</td>
@@ -95,6 +95,9 @@ Toutes les conditions <input type="checkbox"  title="[TEXT:all condition]"  valu
 <tr><td><input type="submit"  value="[TEXT:ToSearch]"></td>
 <td><input type="reset"  value="[TEXT:Init]"></td>
 <td><input type="button"  value="[TEXT:Add]" onClick="subwindow(500, 600, 'Add', '[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&classid=120&onlysubfam=USER');"></td>
+<td><input type="button"  value="[TEXT:Pages blanches]" onClick="subwindow(500, 600, 'pages blanches', 'http://www.pagesblanches.fr?cgi.php' );"></td>
+
+
 </tr>
 </table>
 
@@ -158,7 +161,7 @@ Toutes les conditions <input type="checkbox"  title="[TEXT:all condition]"  valu
 <tr><td><input type="submit"  value="[TEXT:ToSearch]"></td>
 <td><input type="reset"  value="[TEXT:Init]"></td>
 <td><input type="button"  value="[TEXT:Add]" onClick="subwindow(500, 600, 'Add', '[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_EDIT&classid=124&onlysubfam=SOCIETY');"></td>
-
+<td><input type="button"  value="[TEXT:Pages Jaunes]" onClick="subwindow(500, 600, 'pages jaunes', 'http://www.pagesjaunes.fr?cgi.php' );"></td>
 </tr>
 </table>
 
