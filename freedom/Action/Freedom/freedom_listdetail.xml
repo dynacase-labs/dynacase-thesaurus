@@ -63,8 +63,8 @@ addEvent(window,"load",function al1() {alterrow('terrible','[CORE_BGCOLORALTERN]
 <td class="tlist" width="20">[locked]</td>
 <td class="tlist" width="20"><span style="font-size:80%">[revision]&nbsp;</span></td></tr>
 <tr><td colspan="5">[ABSTRACTVALUES]</td></tr>
-                    [ENDBLOCK TABLEBODY]
 </tbody>
+                    [ENDBLOCK TABLEBODY]
 </table>
 <!-- /TABLEBODY -->
 

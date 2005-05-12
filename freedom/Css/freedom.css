@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.72 2005/05/09 16:22:14 eric Exp $
+ * $Id: freedom.css,v 1.73 2005/05/12 08:35:15 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -401,7 +401,7 @@ IMG.select {
 TBODY.unselect, TR.unselect {
   cursor: crosshair;
 }
-TR.unselect:hover {
+TR.unselect:hover, TBODY.unselect:hover TR{
   cursor: crosshair;
   background-color:[CORE_BGCOLORHIGH]!important;
 }
