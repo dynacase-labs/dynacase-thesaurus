@@ -232,6 +232,7 @@ create or replace function fixeddoc()
 returns trigger as '
 declare 
    lid int;
+   lname text;
    cfromid int;
 begin
 
@@ -248,9 +249,15 @@ if (TG_OP = ''INSERT'') then
      end if;
      select into lid id from docfrom where id= NEW.id;
      if (lid = NEW.id) then 
-	update docfrom set fromid=cfromid,name=NEW.name where id=NEW.id;	
+	update docfrom set fromid=cfromid where id=NEW.id;
      else 
-	insert into docfrom (id,fromid,name) values (NEW.id, cfromid, NEW.name);
+	insert into docfrom (id,fromid) values (NEW.id, cfromid);
+     end if;
+     select into lname name from docname where name= NEW.name;
+     if (lname = NEW.name) then 
+	update docname set fromid=cfromid,id=NEW.id where name=NEW.name;	
+     else 
+	insert into docname (id,fromid,name) values (NEW.id, cfromid, NEW.name);
      end if;
 end if;
  

@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.65 2005/05/10 16:16:09 eric Exp $
+ * @version $Id: freedom_util.php,v 1.66 2005/05/12 08:34:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -328,7 +328,7 @@ function getFamIdFromName($dbaccess, $name) {
 function getIdFromName($dbaccess, $name, $famid="") {
   $dbid=getDbid($dbaccess);   
   $id=false;
-  $result = pg_query($dbid,"select id from docfrom where name='$name';");
+  $result = pg_query($dbid,"select id from docname where name='$name';");
   $n=pg_numrows ($result);
   if ($n > 0) {
     $arr = pg_fetch_array ($result,($n-1),PGSQL_ASSOC);

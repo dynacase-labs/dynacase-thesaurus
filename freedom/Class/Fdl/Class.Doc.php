@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.246 2005/05/10 16:16:09 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.247 2005/05/12 08:34:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -258,12 +258,14 @@ create table doc ( id int not null,
                    );
 create table docfrom ( id int not null,
                    primary key (id),
-                   fromid int,
-                   name text);
+                   fromid int);
+create table docname ( name text not null,
+                   primary key (name),
+                   id int,
+                   fromid int);
 create sequence seq_id_doc start 1000;
 create sequence seq_id_tdoc start 1000000000;
 create index i_docname on doc(name);
-create index i_docfromname on docfrom(name);
 create unique index i_docir on doc(initid, revision);";
 
   // --------------------------------------------------------------------
