@@ -253,11 +253,13 @@ if (TG_OP = ''INSERT'') then
      else 
 	insert into docfrom (id,fromid) values (NEW.id, cfromid);
      end if;
-     select into lname name from docname where name= NEW.name;
-     if (lname = NEW.name) then 
-	update docname set fromid=cfromid,id=NEW.id where name=NEW.name;	
-     else 
-	insert into docname (id,fromid,name) values (NEW.id, cfromid, NEW.name);
+     if (NEW.name is not null) then
+       select into lname name from docname where name= NEW.name;
+       if (lname = NEW.name) then 
+ 	 update docname set fromid=cfromid,id=NEW.id where name=NEW.name;	
+       else 
+	 insert into docname (id,fromid,name) values (NEW.id, cfromid, NEW.name);
+       end if;
      end if;
 end if;
  
