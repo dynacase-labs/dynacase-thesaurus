@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.15 2005/03/25 17:09:41 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.16 2005/05/13 16:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,52 +25,53 @@
 global $app_const;
 
 $app_const= 
-       array(
-	     "INIT" => "yes",
-	     "VERSION"			=>"@VERSION@-@RELEASE@",	    
-	     "ROOTFLD" => array(		
-				"val"=>"9",
-				"descr"=> N_("root folder id")),
+array(
+      "INIT" => "yes",
+      "VERSION"			=>"@VERSION@-@RELEASE@",	    
+      "ROOTFLD" => array(		
+			 "val"=>"9",
+			 "descr"=> N_("root folder id")),
 
-	     "FULLTEXT_SEARCH" => array(		
-					"val"=>"no",
-					"descr"=> N_("enabled/disabled full text search"),
-					"global"=>"Y",
-					"kind"=>"enum(yes|no)"
-					),
-             "FREEDOM_FULLTEXT_RESULT" => array(
-						"val" => 100,
-						"descr" => N_(""),
-						"global" => "Y",
-						"user" => "N"
-						),
-	     "FREEDOM_IDBASKET" => array(		
-					"val"=>"",
-					"descr"=> N_("id of the basket folder"),
-					"global"=>"Y",
-					"user"=>"Y"
-					),
-	     "FREEDOM_UPLOADDIR" => array(		
-					"val"=>"/tmp/upload",
-					"descr"=> N_("directory to upload archive"),
-					"global"=>"Y",
-					"user"=>"N"
-					),
-	     "FREEDOM_VIEWFRAME" => array(		
-					"val"=>"navigator",
-					"descr"=> N_("mode to navigate in folders"),
-					"global"=>"Y",
-					"user"=>"Y",
-					"kind"=>"enum(navigator|folder)"
-					),
-	     "FREEDOM_UBOOK" => array(		
-					"val"=>"",
-					"descr"=> N_("bookmark folders"),
-					"global"=>"Y",
-					"user"=>"Y"
-					)
+      "FULLTEXT_SEARCH" => array(		
+				 "val"=>"no",
+				 "descr"=> N_("enabled/disabled full text search"),
+				 "global"=>"Y",
+				 "kind"=>"enum(yes|no)"
+				 ),
+      "FREEDOM_FULLTEXT_RESULT" => array(
+					 "val" => 100,
+					 "descr" => N_(""),
+					 "global" => "Y",
+					 "user" => "N"
+					 ),
+      "FREEDOM_IDBASKET" => array(		
+				  "val"=>"",
+				  "descr"=> N_("id of the basket folder"),
+				  "global"=>"Y",
+				  "kind"=>"static",
+				  "user"=>"Y"
+				  ),
+      "FREEDOM_UPLOADDIR" => array(		
+				   "val"=>"/tmp/upload",
+				   "descr"=> N_("directory to upload archive"),
+				   "global"=>"Y",
+				   "user"=>"N"
+				   ),
+      "FREEDOM_VIEWFRAME" => array(		
+				   "val"=>"navigator",
+				   "descr"=> N_("mode to navigate in folders"),
+				   "global"=>"Y",
+				   "user"=>"Y",
+				   "kind"=>"enum(navigator|folder)"
+				   ),
+      "FREEDOM_UBOOK" => array(		
+			       "val"=>"",
+			       "descr"=> N_("bookmark folders"),
+			       "global"=>"Y",
+			       "user"=>"Y"
+			       )
 	     
-	     );
+      );
 	     
 	     
 	     

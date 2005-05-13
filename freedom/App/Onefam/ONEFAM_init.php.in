@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: ONEFAM_init.php.in,v 1.7 2005/01/28 17:08:23 eric Exp $
+// $Id: ONEFAM_init.php.in,v 1.8 2005/05/13 16:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Onefam/ONEFAM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -25,27 +25,30 @@
 global $app_const;
 
 
-$app_const= array(
-		  "VERSION"			=>"@VERSION@-@RELEASE@",
-		  "ONEFAM_IDS" => array("val"=>"",
-					"global"=>"N",
-					"user"=>"Y",
-					"descr"=>_("visible user families")),
-		  "ONEFAM_MIDS" => array("val"=>"",
-					"global"=>"N",
-					"user"=>"N",
-					"descr"=>_("visible master families")),
+$app_const= 
+array(
+      "VERSION"	   =>"@VERSION@-@RELEASE@",
+      "ONEFAM_IDS" => array("val"=>"",
+			    "global"=>"N",
+			    "user"=>"Y",
+			    "kind"=>"static",
+			    "descr"=>_("visible user families")),
+      "ONEFAM_MIDS" => array("val"=>"",
+			     "global"=>"N",
+			     "user"=>"N",
+			     "descr"=>_("visible master families")),
 		 
-		  "ONEFAM_LWIDTH" => array("val"=>"1",
-					   "user"=>"Y",
-					"global"=>"N",
-					   "descr"=>_("icon column number")),
+      "ONEFAM_LWIDTH" => array("val"=>"1",
+			       "user"=>"Y",
+			       "global"=>"N",
+			       "descr"=>_("icon column number")),
 		 
-		  "ONEFAM_FAMOPEN" => array("val"=>"",
-					    "user"=>"Y",
-					    "global"=>"N",
-					    "descr"=>_("default opened family"))
-);
+      "ONEFAM_FAMOPEN" => array("val"=>"",
+				"user"=>"Y",
+				"kind"=>"static",
+				"global"=>"N",
+				"descr"=>_("default opened family"))
+      );
 
 
 ?>

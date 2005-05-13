@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC_init.php.in,v 1.6 2005/01/27 13:07:48 eric Exp $
+// $Id: GENERIC_init.php.in,v 1.7 2005/05/13 16:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -24,42 +24,47 @@
 
 global $app_const;
 
-$app_const= array(
-  "INIT" => "yes",
-  "VERSION"			=>"@VERSION@-@RELEASE@",
-  "DEFAULT_FAMILY" => array("val"=>"1",
-			     "descr"=>N_("default document family")),
-  "CARD_SLICE_LIST" => array("val"=>"8",
-			     "descr"=>N_("number of card by page"),
+
+$app_const= 
+array("INIT" => "yes",
+      "VERSION"			=>"@VERSION@-@RELEASE@",
+      "DEFAULT_FAMILY" => array("val"=>"1",
+				"descr"=>N_("default document family")),
+      "CARD_SLICE_LIST" => array("val"=>"8",
+				 "descr"=>N_("number of card by page"),
+				 "user"=>"Y"),
+      "ACARD_WIDTH" => array("val"=>"350px",
+			     "descr"=>N_("width of the abstract card"),
+			     "global"=>"Y",
 			     "user"=>"Y"),
-  "ACARD_WIDTH" => array("val"=>"350px",
-			 "descr"=>N_("width of the abstract card"),
-			 "global"=>"Y",
-			 "user"=>"Y"),
-  "GENEA_WIDTH" => array("val"=>"420px",
-			 "descr"=>N_("width of the frame for abstract card"),
-			 "global"=>"Y",
-			 "user"=>"Y"),
-  "GENEA_HEIGHT" => array("val"=>"200px",
-			 "descr"=>N_("height of the frame for abstract card"),
-			 "global"=>"Y",
-			 "user"=>"Y"),
-  "GENE_VIEWMODE" => array("val"=>"",
-			 "descr"=>N_("differents view mode by family"),
-			 "global"=>"Y",
-			 "user"=>"Y"),
-  "GENE_SPLITMODE" => array("val"=>"",
-			 "descr"=>N_("split view mode by family"),
-			 "global"=>"Y",
-			 "user"=>"Y"),
-  "GENE_PREFSEARCH" => array("val"=>"",
-			 "descr"=>N_("prefered search"),
-			 "global"=>"Y",
-			 "user"=>"Y"),
-  "GENE_LATESTTXTSEARCH" => array("val"=>"",
-			 "descr"=>N_("last search text typed"),
-			 "global"=>"Y",
-			 "user"=>"Y")
-);
+      "GENEA_WIDTH" => array("val"=>"420px",
+			     "descr"=>N_("width of the frame for abstract card"),
+			     "global"=>"Y",
+			     "user"=>"Y"),
+      "GENEA_HEIGHT" => array("val"=>"200px",
+			      "descr"=>N_("height of the frame for abstract card"),
+			      "global"=>"Y",
+			      "user"=>"Y"),
+      "GENE_VIEWMODE" => array("val"=>"",
+			       "descr"=>N_("differents view mode by family"),
+			       "global"=>"Y",
+			       "kind"=>"static",
+			       "user"=>"Y"),
+      "GENE_SPLITMODE" => array("val"=>"",
+				"descr"=>N_("split view mode by family"),
+				"global"=>"Y",
+				"kind"=>"static",
+				"user"=>"Y"),
+      "GENE_PREFSEARCH" => array("val"=>"",
+				 "descr"=>N_("prefered search"),
+				 "global"=>"Y",
+				 "kind"=>"static",
+				 "user"=>"Y"),
+      "GENE_LATESTTXTSEARCH" => array("val"=>"",
+				      "descr"=>N_("last search text typed"),
+				      "global"=>"Y",
+				      "kind"=>"static",
+				      "user"=>"Y")
+      );
 
 ?>

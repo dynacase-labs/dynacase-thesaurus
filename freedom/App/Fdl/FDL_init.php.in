@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.17 2005/03/23 10:31:28 eric Exp $
+// $Id: FDL_init.php.in,v 1.18 2005/05/13 16:06:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -71,8 +71,10 @@ $app_const= array(
 			   "global"=>"Y",
 			   "descr"=>N_("phone of our society")),
   "MVIEW_GEO"   =>array("val"=>"",
-			   "global"=>"Y",
-			   "descr"=>N_("geometry of mini view"))
+			"global"=>"Y",
+			"user"=>"Y",
+			"kind"=>"static",
+			"descr"=>N_("geometry of mini view"))
 );
 
 
