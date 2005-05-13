@@ -1,17 +1,17 @@
 <!-- ------------------ BAR MENU ------------------ -->
 <div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;z-index:6;" >
-<table  class="barmenu"  cols="4"  cellspacing="0"  >
+<table  class="barmenu"    cellspacing="0"  >
 <thead>
 <tr>
 
-<td class="CORETblHead" onClick="closeAllMenu();" colspan="2" ><div style="max-height:30px;overflow:hidden"><B>[title]</B> [nbdoc]</div></td>
-<td  class="MenuInactive"  
+<td class="CORETblHead" onClick="closeAllMenu();" width="50%" ><div style="max-height:30px;overflow:hidden"><B>[title]</B> [nbdoc]</div></td>
+<td  class="MenuInactive"  width="25%" 
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:View]
 </td>
-<td  class="MenuInactive"  
+<td  class="MenuInactive"  width="25%" 
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'toolmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
