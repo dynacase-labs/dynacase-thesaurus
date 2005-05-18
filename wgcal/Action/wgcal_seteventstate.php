@@ -32,7 +32,7 @@ function wgcal_seteventstate(&$action) {
      $err = $event->PostModify();
      if ($err!="") AddWarningMsg("$err");
    }
-   sendRv($action, $event);
+   sendRv($action, $event, 0, _("event acceptation state information message"));
    $event->AddComment(_("state set to ").WGCalGetLabelState($evstate));
    redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }

@@ -1,10 +1,10 @@
 <!-- Start abstract [ID] -->
 <div id="evth[ID]" style="height:[headsize]px; border:0px; background-color:[evglobalstate];"></div>
-<div id="evta[ID]" style="background-color:[bgresumecolor]; overflow:hidden; cursor:pointer;  border:0px; height:[cardheight];">
-<div style="overflow:hidden; cursor:pointer; border-left:0px solid [bgstate];border:1px outset [bgresumecolor]; filter:alpha(opacity=80); height:100%">
+<div id="evta[ID]" style="background-color:[bgresumecolor]; overflow:hidden; border:0px; height:[cardheight];">
+<div style="overflow:hidden; border-left:0px solid [bgstate];border:1px outset [bgresumecolor]; filter:alpha(opacity=80); height:100%">
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 [BLOCK showicons][zou]
-<td align="left">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]</td><td align="right"><span style="font-size:80%">[RHOURS]&nbsp;<br>[RHOURE]&nbsp;</span></td></tr>[ENDBLOCK showicons]
+<td align="left">[BLOCK icons]<img style="border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]</td><td align="right"><span style="font-size:80%">[RHOURS]&nbsp;<br>[RHOURE]&nbsp;</span></td></tr>[ENDBLOCK showicons]
 <tr><td colspan="2">[TITLE]</td></tr>
 <tr>
 </table>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-03 10:05+0200\n"
+"POT-Creation-Date: 2005-05-18 17:19+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -11,6 +11,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 msgid "no hour"
+msgstr ""
+
+msgid "event deleted information message"
 msgstr ""
 
 msgid "monday"
@@ -56,6 +59,9 @@ msgstr ""
 msgid "event search "
 msgstr ""
 
+msgid "event acceptation state information message"
+msgstr ""
+
 msgid "state set to "
 msgstr ""
 
@@ -75,6 +81,9 @@ msgid "insert event in calendar $caltitle"
 msgstr ""
 
 msgid "change content "
+msgstr ""
+
+msgid "event content modification information message"
 msgstr ""
 
 msgid "all the day"
@@ -189,9 +198,6 @@ msgid "month text"
 msgstr ""
 
 msgid "user preferences"
-msgstr ""
-
-msgid "event proposal"
 msgstr ""
 
 msgid "new"

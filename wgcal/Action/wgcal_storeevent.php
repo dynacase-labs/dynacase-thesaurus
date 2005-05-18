@@ -216,7 +216,7 @@ function wgcal_storeevent(&$action) {
   $event->AddComment(($comment==""?_("change content "):$comment));
   $changed = true;
 
-  sendRv($action, $event);
+  sendRv($action, $event, 1, _("event content modification information message"));
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 

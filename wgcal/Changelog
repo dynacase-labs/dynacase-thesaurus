@@ -1,4 +1,12 @@
 --------------------------------------------------------------------------
+0.1.0 (Anakeen)
+--------------------------------------------------------------------------
+- Apache configuration
+- Suppression du retaillage auto de la fenetre lors de l'ouverture de l'Agenda
+- Stratégie d'émission des mails : modif contenu/ suppression => tout le monde, changement acceptation => propirétaire.
+- Curseur si menu popup => mis en conformité Freedom (+)
+
+--------------------------------------------------------------------------
 0.0.9 (Rico)
 --------------------------------------------------------------------------
 - Synchronisation Outlook (synchronizer V2.0)

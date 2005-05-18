@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: event_update_outlookid_sync.php,v 1.2 2005/04/19 06:49:51 marc Exp $
+ * @version $Id: event_update_outlookid_sync.php,v 1.3 2005/05/18 16:47:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -20,6 +20,6 @@ if ($oid == -1 || $eid==-1) {
   WSyncError("Invalid outlook id ($oid) or event id ($eid)");
   return;
 }
-WSyncUpdateIds($ctx, $uid, $eid, $oid);
+WSyncUpdateIds($ctx, $ctx->user->fid, $eid, $oid);
 return;
 ?>

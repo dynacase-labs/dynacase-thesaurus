@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.27 2005/05/03 15:15:11 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.28 2005/05/18 16:47:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -100,6 +100,8 @@ function _waitrv(&$action) {
 
   // search NEW rv
   _seewaitrv($action, $trv);
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $action->lay->set("zonealertsize", $action->GetParam("WGCAL_U_ZWRVALERTSIZE", 100));
   $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);

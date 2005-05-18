@@ -1,9 +1,9 @@
 <!-- POPUP DIVISION --><div  style="display:none" id="calevcard[id]" class="wgcalpopup">
 
 <a href="#" id="acceptrv"
-    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_ACCEPT','');closeMenu('calevcard')" >[TEXT:accept]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_ACCEPT','');closeMenu('calevcard')" >[TEXT:accept this]</a>
 <a href="#" id="rejectrv"
-    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_REJECT','');closeMenu('calevcard')" >[TEXT:reject]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_REJECT','');closeMenu('calevcard')" >[TEXT:reject this]</a>
 <a href="#" id="tbcrv"
     onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_TBC','');closeMenu('calevcard')" >[TEXT:to be confirm]</a>
 <a class="separator"><hr></a>

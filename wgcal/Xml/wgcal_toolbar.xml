@@ -44,7 +44,7 @@ var CEventText = '';
 
 <div id='waitrv' class="wToolArea" style="height:[zonealertsize]px; overflow:auto; display:[vwaitrv]">
 [BLOCK WAITRV]
-<div id="evt[wrvid]" class="WGCwrvdefault" style="border-left:5px solid [wrvcolor]" 
+<div id="evt[wrvid]" class="WGCwrvdefault" style="cursor:crosshair; border-left:5px solid [wrvcolor]" 
      onmouseover="this.className = 'WGCwrvover'; " 
      onmouseout="this.className = 'WGCwrvdefault'"
      onContextMenu="CEventTime=[tsdate]; CEventId=[wrvid]; CEventText='[wrvtitle]'; openMenu(event,'waitpopup',[waitrg]);return false" 
@@ -113,8 +113,8 @@ var CEventText = '';
 <tbody id="tabress">
 
 <tr style="display:none; border:0px;" id="trsample">
-<td width="6px" id="cp%RID%" style="cursor:pointer; border: 1px outset">&nbsp;</td>
-<td nowrap id="%RID%" 
+<td width="6px" id="cp%RID%" style="border: 1px outset">&nbsp;</td>
+<td nowrap id="%RID%" style="cursor:crosshair" 
     onmouseover="if (this.className=='WGCRessSelected') return; this.className='WGCRessOver'" 
     onmouseout="if (this.className=='WGCRessSelected') return; this.className='WGCRessDefault'"
     onclick="CRessId=this.id; vuvRessource();"

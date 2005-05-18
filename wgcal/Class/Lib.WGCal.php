@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.29 2005/05/03 15:15:11 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.30 2005/05/18 16:47:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -306,8 +306,12 @@ function WGCalGetRGroups(&$action, $uid) {
 //   function getParentsGroupId($pgid="", $level=0) {
 
 
-
-function sendRv(&$action, &$event) {
+/*
+ * $sendto = 0: mail is send to the rv owner
+ *         = 1: mail is send to all attendees
+ *         = 2: mail is send to all attendees except to the owner
+ */
+function sendRv(&$action, &$event, $sendto=0, $reason="") {
  
  if ($action->getParam("WGCAL_G_SENDMAILS", 0)==0) return;
 
@@ -321,32 +325,37 @@ function sendRv(&$action, &$event) {
 
  // Compute To: field
  $to = "";
- $attid = $event->getTValue("CALEV_ATTID", array()); 
- foreach ($attid as $k => $v) {
-   if ($v != $action->user->fid ) {
-     $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
-     $fullname = $u->getValue("TITLE");
-     $mail = getMailAddr($u->getValue("US_WHATID"));
-     $to .= ($to==""?"":", ").$fullname." <".$mail.">";
+ if ($sendto==1 || $sendto==2) {
+   $attid = $event->getTValue("CALEV_ATTID", array()); 
+   foreach ($attid as $k => $v) {
+     if ($v != $action->user->fid ) {
+       $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
+       $fullname = $u->getValue("TITLE");
+       $mail = getMailAddr($u->getValue("US_WHATID"));
+       $to .= ($to==""?"":", ").$fullname." <".$mail.">";
+     }
    }
  }
+ if ($sendto==0 || $sendto==1) {
+   $to .= ($to==""?"":", ").$uid->getValue("TITLE")." <".getMailAddr($uid->getValue("US_WHATID")).">";
+ }
 
- // Compute Cc: field
-//  if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) {
-//      $u = new Doc($action->GetParam("FREEDOM_DB"), $action->user->fid);
-//      $cc =  $u->getValue("TITLE")." <".getMailAddr($u->getValue("US_WHATID")).">";
-//  }
+ //   Compute Cc: field
+ //  if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) {
+ //      $u = new Doc($action->GetParam("FREEDOM_DB"), $action->user->fid);
+ //      $cc =  $u->getValue("TITLE")." <".getMailAddr($u->getValue("US_WHATID")).">";
+ //  }
      
  if ($to!="") {
    sendCard($action, $event->id, $to, $cc,
-          "["._("event proposal")."] ".$event->title,
-          "WGCAL:MAILRV?ev=$event->id:S",
-          true, "", $from, $bcc, $format="html" );
-  }
+	    $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." : ".$event->title,
+	    "WGCAL:MAILRV?ev=$event->id:S&msg=$reason",
+	    true, "", $from, $bcc, $format="html" );
+ }
 }
 
 function GetCalEvent($dbaccess, $ev, $cev) {
-
+  
   if ($ev<1 && $cev<1) return false;
   if ($ev==-1) {
     $evid = $cev;

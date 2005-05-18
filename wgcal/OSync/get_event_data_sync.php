@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: get_event_data_sync.php,v 1.3 2005/04/22 16:03:29 marc Exp $
+ * @version $Id: get_event_data_sync.php,v 1.4 2005/05/18 16:47:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -61,9 +61,10 @@ if ($SyncDebug) print "<pre>";
   WSyncSend($SyncDebug, "Op. Status", "NOERROR");
 if ($SyncDebug) print "</pre>";
 
+$irv = 0;
 foreach ($trv as $krv => $vrv) {
   if ($SyncDebug) print '<pre class="out">';
-  WSyncSend($SyncDebug, "RV id", $vrv["id"]);
+  WSyncSend($SyncDebug, "RV[".$irv++."] id", $vrv["id"]);
   WSyncSend($SyncDebug, "Owner is connected", ($vrv["calev_ownerid"]==$user?"0":"1"));
   WSyncSend($SyncDebug, "User login", $ctx->user->login);
   WSyncSend($SyncDebug, "Title", "<I>\n".utf8_encode($vrv["calev_evtitle"])."\n</I>");

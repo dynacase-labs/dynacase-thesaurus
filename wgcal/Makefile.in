@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.8 2005/04/11 19:05:42 marc Exp $
+# $Id: Makefile.in,v 1.9 2005/05/18 16:47:10 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -23,7 +23,11 @@ include $(utildir)/PubRule
 DISTFILES += $(SUBDIR) \
 	$(PACKAGE).app \
         RELEASE VERSION \
-	Families/calevent.csv
+	Families/calevent.csv \
+	73_mod_wgcalosync.conf
+
+$(pubdir)/73_mod_wgcalosync.conf : 73_mod_wgcalosync.conf
+	cp $< $@
 
 $(pubdir)/EXTERNALS :
 	mkdir -p $@

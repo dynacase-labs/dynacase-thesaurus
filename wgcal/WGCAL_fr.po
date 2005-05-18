@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-03 10:05+0200\n"
+"POT-Creation-Date: 2005-05-18 17:19+0200\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -12,6 +12,9 @@ msgstr ""
 
 msgid "no hour"
 msgstr "Pas d'heure"
+
+msgid "event deleted information message"
+msgstr "Le rendez-vous suivent a été supprimé."
 
 msgid "monday"
 msgstr "Lundi"
@@ -56,6 +59,9 @@ msgstr ""
 msgid "event search "
 msgstr "Recherche d'évènement"
 
+msgid "event acceptation state information message"
+msgstr "Une personne conviée a modifié l'état d'acception du rendez-vous ci-dessous."
+
 msgid "state set to "
 msgstr "Rendez-vous "
 
@@ -76,6 +82,9 @@ msgstr "Ajout de l'évènement dans le calendrier "
 
 msgid "change content "
 msgstr "Modification du contenu"
+
+msgid "event content modification information message"
+msgstr "Le rendez-vous ci-dessous a été modifié."
 
 msgid "all the day"
 msgstr "Toute la journée"
@@ -190,9 +199,6 @@ msgstr "Vue mensuelle texte"
 
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
-
-msgid "event proposal"
-msgstr "Proposition de rendez-vous"
 
 msgid "new"
 msgstr "nouveau"
@@ -351,7 +357,7 @@ msgid "search"
 msgstr "Rechercher"
 
 msgid "new rendez-vous"
-msgstr ""
+msgstr "Nouveau rendez-vous"
 
 msgid "Cancel"
 msgstr "Annuler"
@@ -907,6 +913,9 @@ msgstr "Famille des producteurs des évènements affichés"
 
 msgid "Sync Version Needed"
 msgstr ""
+
+#~ msgid "event proposal"
+#~ msgstr "Proposition de rendez-vous"
 
 #~ msgid "my event color"
 #~ msgstr "Modifier la couleur de mes évènements"
