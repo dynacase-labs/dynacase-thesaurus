@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000
- * @version $Id: usercard_tab.php,v 1.6 2005/05/12 14:01:56 caroline Exp $
+ * @version $Id: usercard_tab.php,v 1.7 2005/05/19 14:38:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -33,7 +33,7 @@ function usercard_tab(&$action) {
   
    $famid = getFamIdFromName($dbaccess,$fam);
    // $sdoc->title=sprintf(_("%s"),getTitle($famid));
-   $sdoc->title=sprintf(_("%s"),$fam);
+   $sdoc->title=_($fam);
    $sqlfilter[]= "(fromid=$famid)";
    
 

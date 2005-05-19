@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM_init.php.in,v 1.16 2005/05/13 16:06:07 eric Exp $
+// $Id: FREEDOM_init.php.in,v 1.17 2005/05/19 14:40:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,7 @@ array(
 				 ),
       "FREEDOM_FULLTEXT_RESULT" => array(
 					 "val" => 100,
-					 "descr" => N_(""),
+					 "descr" => "",
 					 "global" => "Y",
 					 "user" => "N"
 					 ),

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-13 11:11+0200\n"
-"PO-Revision-Date: 2005-04-13 11:43+0200\n"
+"POT-Creation-Date: 2005-05-19 16:39+0200\n"
+"PO-Revision-Date: 2005-05-19 16:40+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -451,19 +451,6 @@ msgstr "le fichier externe %s ne peut être lu"
 msgid "the pluggins function description '%s' is not conform"
 msgstr "La description de la fonction externe '%s' est incorrecte"
 
-#, c-format
-msgid "root for %s"
-msgstr "racine pour %s"
-
-msgid "default folder"
-msgstr "dossier par défaut"
-
-msgid "folder"
-msgstr "dossier"
-
-msgid "search"
-msgstr "recherche"
-
 msgid "no file referenced"
 msgstr "pas de fichier référencé"
 
@@ -509,6 +496,19 @@ msgstr "ajouté"
 msgid "click to change option"
 msgstr "Cliquez pour changer les options"
 
+#, c-format
+msgid "root for %s"
+msgstr "racine pour %s"
+
+msgid "default folder"
+msgstr "dossier par défaut"
+
+msgid "folder"
+msgstr "dossier"
+
+msgid "search"
+msgstr "recherche"
+
 msgid "no zone specified"
 msgstr "pas de zone spécifiée"
 
@@ -519,6 +519,12 @@ msgstr "modoption: document [%d] n'est pas en vie"
 #, c-format
 msgid "reference must be a number not '%s'"
 msgstr "la référence '%s' doit être un nombre"
+
+msgid "no email address found"
+msgstr "absence d'adresse couriel"
+
+msgid "no avalaible persons found"
+msgstr "pas de personnes valides trouvées"
 
 #, c-format
 msgid "the method %s does not exist for this document"
@@ -724,6 +730,21 @@ msgstr "requête incomplète"
 
 msgid "request not found"
 msgstr "requête non trouvée"
+
+msgid "no available persons found"
+msgstr "pas de personnes valides trouvées"
+
+msgid "wprocess_private"
+msgstr "privé"
+
+msgid "wprocess_qualified"
+msgstr "qualifié"
+
+msgid "Twprocess_private"
+msgstr "vers privé"
+
+msgid "Twprocess_public"
+msgstr "vers public"
 
 #, c-format
 msgid "untitle %s %d"
@@ -1133,14 +1154,14 @@ msgstr "ou"
 msgid "id owner"
 msgstr "identifiant propriétaire"
 
+msgid "any values"
+msgstr "une des valeurs"
+
 msgid "label"
 msgstr "désignation"
 
 msgid "send search"
 msgstr "Lancer la recherche"
-
-msgid "any values"
-msgstr "une des valeurs"
 
 #, c-format
 msgid "delete %s on server %s...\n"
@@ -1242,6 +1263,43 @@ msgid ""
 msgstr ""
 "Si un attribut est multi-ligne, utilisez les caractères \\n pour indiquer le "
 "saut de ligne"
+
+msgid "Generic Management"
+msgstr "Gestion générique"
+
+msgid "user"
+msgstr "personne"
+
+msgid "society"
+msgstr "société"
+
+msgid "iuser"
+msgstr "utilisateur"
+
+#, fuzzy
+msgid "voir ses contacts"
+msgstr "voir les contraintes"
+
+#, fuzzy
+msgid "all condition"
+msgstr "édition de mail"
+
+msgid "ToSearch"
+msgstr "Rechercher"
+
+#, fuzzy
+msgid "Init"
+msgstr "Incident"
+
+msgid "Add"
+msgstr "Ajout"
+
+msgid "Pages blanches"
+msgstr ""
+
+#, fuzzy
+msgid "Pages Jaunes"
+msgstr "Valeurs des paramètres"
 
 msgid "Creation"
 msgstr "Création"
@@ -1890,9 +1948,6 @@ msgstr " Ouverte en premier"
 msgid "No family first"
 msgstr "Pas de famille ouverte par défaut"
 
-msgid "Generic Management"
-msgstr "Gestion générique"
-
 msgid " choose value"
 msgstr " choisir une valeur"
 
@@ -1919,6 +1974,18 @@ msgstr "le cycle de vie a été regénéré"
 
 msgid "option: "
 msgstr "option: "
+
+msgid "PubliPreview"
+msgstr "prévisualisation"
+
+msgid "it is the last"
+msgstr "dernier"
+
+msgid "it is the first"
+msgstr "premier"
+
+msgid "User Attribute"
+msgstr "Attribut de personne"
 
 msgid "Constraint test"
 msgstr "test des contraintes"
@@ -1975,27 +2042,6 @@ msgstr "attributs"
 msgid "addstate"
 msgstr "état"
 
-msgid "View"
-msgstr "Affichage"
-
-msgid "list"
-msgstr "Liste"
-
-msgid "icon"
-msgstr "Icone"
-
-msgid "column"
-msgstr "colonne"
-
-msgid "All To basket"
-msgstr "Tout insérer dans le porte-documents"
-
-msgid "Basket to here"
-msgstr "Insérer le porte-documents"
-
-msgid "Clear Folder"
-msgstr "Vider le dossier"
-
 msgid "Details"
 msgstr "Détails"
 
@@ -2029,8 +2075,29 @@ msgstr "Nouveau filtre"
 msgid "Search to insert"
 msgstr "Recherche pour l'insertion"
 
+msgid "Basket to here"
+msgstr "Insérer le porte-documents"
+
+msgid "View"
+msgstr "Affichage"
+
+msgid "list"
+msgstr "Liste"
+
 msgid "detail"
 msgstr "détaillé"
+
+msgid "icon"
+msgstr "Icone"
+
+msgid "column"
+msgstr "colonne"
+
+msgid "All To basket"
+msgstr "Tout insérer dans le porte-documents"
+
+msgid "Clear Folder"
+msgstr "Vider le dossier"
 
 msgid "View headers"
 msgstr "Voir entête"
@@ -2472,6 +2539,9 @@ msgstr "période du %s au %s"
 msgid "the end date (%s) is before the begin date (%s)"
 msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
 
+msgid "createdate"
+msgstr "date de création"
+
 msgid "Documents management"
 msgstr "Gestion documentaire"
 
@@ -2799,6 +2869,18 @@ msgstr "sauve la disposition de la mini vue"
 msgid "verify constraint attribute"
 msgstr "vérifie les contraintes d'attributs"
 
+msgid "emailing"
+msgstr "publipostage"
+
+msgid "eprinting"
+msgstr "publiimpression"
+
+msgid "epreview"
+msgstr "publi-prévisualisation"
+
+msgid "enavpreview"
+msgstr ""
+
 msgid "freedom database"
 msgstr "base de donnée Freedom"
 
@@ -2874,6 +2956,15 @@ msgstr "initialisation"
 
 msgid "import vcard"
 msgstr "Importation Vcard"
+
+msgid "search usercard"
+msgstr "recherche de personne"
+
+msgid "tab usercard"
+msgstr ""
+
+msgid "usercard home page"
+msgstr "Annuaire"
 
 msgid "mail will be calculated from domain"
 msgstr "l'adresse email sera calculée à partir du domaine"
@@ -2983,6 +3074,9 @@ msgstr "mode de vues par familles"
 
 msgid "split view mode by family"
 msgstr "mode de découpage par famille"
+
+msgid "default sort by family"
+msgstr "tri par défaut par famille"
 
 msgid "prefered search"
 msgstr "Recherche préférée"
@@ -3141,9 +3235,6 @@ msgstr "actualiser les entrées du LDAP"
 #~ msgid "update"
 #~ msgstr "mis à jour"
 
-#~ msgid "created"
-#~ msgstr "Créé"
-
 #~ msgid "progressing"
 #~ msgstr "en cours"
 
@@ -3158,9 +3249,6 @@ msgstr "actualiser les entrées du LDAP"
 
 #~ msgid "recorded"
 #~ msgstr "enregistré"
-
-#~ msgid "qualified"
-#~ msgstr "qualifié"
 
 #~ msgid "analyzed"
 #~ msgstr "analysé"
@@ -3431,9 +3519,6 @@ msgstr "actualiser les entrées du LDAP"
 
 #~ msgid "already exist : not added"
 #~ msgstr "déjà existant : pas ajouté"
-
-#~ msgid "Incident"
-#~ msgstr "Incident"
 
 #~ msgid "Access Incident Master Management"
 #~ msgstr "Accès à l'administration des incidents"
@@ -3788,9 +3873,6 @@ msgstr "actualiser les entrées du LDAP"
 
 #~ msgid "postalcode"
 #~ msgstr "Code Postal"
-
-#~ msgid "locality"
-#~ msgstr "Ville"
 
 #~ msgid "url"
 #~ msgstr "Page Web (URL)"
