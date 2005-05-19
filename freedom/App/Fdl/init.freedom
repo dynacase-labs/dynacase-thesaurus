@@ -137,6 +137,7 @@ TYPE;C;;;;;;;;;;;
 ICON;search.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;GUI_COLOR;FR_BASIC;couleur intercalaire;N;N;color;30;O;;;;
+ATTR;SE_MEMO;FR_BASIC;à utiliser dans les menus;N;N;enum;40;W;;;-;[bool]no|non,yes|oui
 ATTR;SE_CRIT;;critère;N;N;frame;0;W;;;;
 ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;100;W;;;;
 ATTR;SE_LATEST;SE_CRIT;dernière révision;N;N;enum;110;W;;;-;yes|oui,no|non,fixed|figé
@@ -371,5 +372,13 @@ ORDER;CVDOC;;;ba_title;cv_desc;cv_famid;cv_fam;cv_t_views;cv_idcview;cv_idview;c
 DOC;CVDOC;cvfld;;Restrictions;;2;dossier;;;RESTRICT;Restriction;;VEDIT;FDL:EDITBODYCARD;mskfld;;;
 ;;;;;;;;;;;;;;;;;;
 BEGIN;1;dossier;2;Dir;DIR;;;;;;;;;;;;;
+CVID;cvfld;;;;;;;;;;;;;;;;;
+END;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;
+BEGIN;2;chemise;17;;PORTFOLIO;;;;;;;;;;;;;
+CVID;cvfld;;;;;;;;;;;;;;;;;
+END;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;
+BEGIN;2;intercalaire;18;;GUIDECARD;;;;;;;;;;;;;
 CVID;cvfld;;;;;;;;;;;;;;;;;
 END;;;;;;;;;;;;;;;;;;

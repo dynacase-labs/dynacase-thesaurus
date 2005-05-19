@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.31 2005/03/18 13:44:27 eric Exp $
+ * @version $Id: barmenu.php,v 1.32 2005/05/19 13:29:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -179,6 +179,7 @@ function barmenu(&$action) {
   $filter[]="owner=".$action->user->id;
   $filter[]="se_famid='$famid'";
   $filter[]="usefor!='G'";
+  $filter[]="se_memo='yes'";
   $action->lay->set("MSEARCH",false);
   $stree=getChildDoc($dbaccess,"0","0","10",$filter,$action->user->id,"TABLE",5);
   foreach ($stree as $k=>$v) {
@@ -208,8 +209,10 @@ function barmenu(&$action) {
   
   $tsort = array("title"=>array("said"=>"title",
 				"satitle"=>_("doctitle")),
+		 "initid"=>array("said"=>"initid",
+				 "satitle"=>_("createdate")),
 		 "revdate"=>array("said"=>"revdate",
-		       "satitle"=>_("revdate")));
+				  "satitle"=>_("revdate")));
   if ($fdoc->wid > 0) {
     $tsort["state"]= array("said"=>"state",
 			   "satitle"=>_("state"));
