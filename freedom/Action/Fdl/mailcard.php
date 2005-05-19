@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.47 2005/05/03 16:55:22 eric Exp $
+ * @version $Id: mailcard.php,v 1.48 2005/05/19 13:26:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.47 2005/05/03 16:55:22 eric Exp $
+// $Id: mailcard.php,v 1.48 2005/05/19 13:26:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -114,9 +114,10 @@ function sendCard(&$action,
 		  $format="html"// define view action
 		  ) {
 
-  if (($to == "")&&($bcc=="")) return _("mail dest is empty");
   // -----------------------------------
   $viewonly=  (GetHttpVars("viewonly","N")=="Y");
+  if ((!$viewonly) &&($to == "")&&($bcc=="")) return _("mail dest is empty");
+
   // -----------------------------------
   global $ifiles;
   global $tfiles;
@@ -220,12 +221,9 @@ function sendCard(&$action,
 
     $pfout = uniqid("/tmp/".$doc->id);
     $fout = fopen($pfout,"w");
-    if ($mixed && (!$ulink)) {
-
-      fwrite($fout, preg_replace("/href=\"index[^\"]*\"/i", "title=\""._("see attachement files")."\"", $sgen1));
-    } else {
-      fwrite($fout,$sgen1);
-    }
+   
+    fwrite($fout,$sgen1);
+    
     fclose($fout);
   }
 
@@ -436,7 +434,7 @@ function imgvaultfile($src) {
   if ($newfile) {
     $src="img".count($tfiles);
     $tfiles[$src] = $newfile;
-    return "src=\"cid:$src\"";
+    return "src=\"cid:$src\" ";
   }
   return "";
 }
