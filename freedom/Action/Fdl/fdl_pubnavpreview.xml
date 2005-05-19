@@ -25,7 +25,7 @@
 function changeone(uid) {
   var wone=windowExist('onepreview');
   if (wone) {
-    wone.location.href="[CORE_STANDURL]app=FDL&action=FDL_PUBPRINT&id=[dirid]&uid="+uid;
+    wone.location.href="[CORE_STANDURL]app=FDL&action=VIEWSCARD&zone=FDL:FDL_PUBPRINT&id=[dirid]&uid="+uid;
   }
 }
 function nextone() {
