@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.65 2005/05/09 16:22:29 eric Exp $
+ * @version $Id: viewfolder.php,v 1.66 2005/05/19 13:30:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -321,7 +321,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	$tvalues=array();
 	foreach($lattr as $ka=>$attr)  {	
 	  //$tvalues[]=$doc->getValue($attr->id,"-");
-	  if ($attr->type=="image") $tvalues[]='<img src="'.$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target).'"  height="30">';
+	  if ($attr->type=="image") $tvalues[]='<img src="'.$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target).'&height=30"  height="30">';
 	  else  $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target);
 	}
 	$tdoc[$k]["values"]=implode('</td><td class="tlist">',$tvalues);
