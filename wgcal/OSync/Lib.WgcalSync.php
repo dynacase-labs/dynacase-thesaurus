@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005 
- * @version $Id: Lib.WgcalSync.php,v 1.4 2005/04/22 16:03:29 marc Exp $
+ * @version $Id: Lib.WgcalSync.php,v 1.5 2005/05/19 16:01:22 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -37,23 +37,27 @@ function WSyncAuthent() {
     $session->Set("");
     $app->SetSession($session);
   }
-  return $app;
+  $action = new Action();
+  $action->Set("",$app);
+  return $action;
 }
    
 
-function WSyncGetDataDb(&$ctx) {
-  $dbaccess = $ctx->getParam("FREEDOM_DB", "");
+function WSyncGetDataDb() {
+  global $action;
+  $dbaccess = $action->getParam("FREEDOM_DB", "");
   if ($dbaccess=="") {
-    $ctx->log->error("**ERR** Database specification error");
+    $action->log->error("**ERR** Database specification error");
     exit;
   }
   return $dbaccess;
 }
 
-function WSyncGetAdminDb(&$ctx) {
-  $dbaccess = $ctx->getParam("FREEDOM_DB", "");
+function WSyncGetAdminDb() {
+  global $action;
+  $dbaccess = $action->getParam("FREEDOM_DB", "");
   if ($dbaccess=="") {
-    $ctx->log->error("**ERR** Database specification error");
+    $action->log->error("**ERR** Database specification error");
     exit;
   }
   return $dbaccess;
@@ -77,7 +81,7 @@ function WSyncTs2Outlook($date) {
   return strftime("%d/%m/%Y %H:%M:%S", $date);
 }
 
-function WSyncMSdate2Timestamp($date,$time) {
+function WSyncMSdate2Timestamp($date,$time, $tz=false) {
   if (ereg("([0-9]{2})/([0-9]{2})/([0-9]{4})", $date, $regs)) {
     $y = $regs[3];
     $mo = $regs[2];
@@ -92,13 +96,16 @@ function WSyncMSdate2Timestamp($date,$time) {
   } else {
     return false;
   }
-  $timestamp = gmmktime( $h, $mi, $s, $mo, $d, $y );
-  return $timestamp;
+
+  if (!$tz) $timestamp = gmmktime( $h, $mi, $s, $mo, $d, $y );
+  else $timestamp = mktime( $h, $mi, $s, $mo, $d, $y );
+ return $timestamp;
 }
 
-function WSyncError(&$c, $s) {
+function WSyncError($s) {
+  global $action;
   print "<pre>WSyncError : $s</pre>";
-  if (is_object($c)) $c->log->error($s);
+  if (is_object($action)) $action->log->error($s);
 }
 
 
@@ -109,25 +116,73 @@ function WSyncSend($debug=false, $text="", $s="", $cr=true) {
 }
 
 
-function WSyncUpdateIds(&$ctx, $uid=-1, $eid=-1, $oid="") {
-//   echo "uid=[$uid] eid=[$eid] oid=[$oid]<br>";
-  if ($uid<0 || $eid<0 || $ctx=="") return false;
-  $db = WSyncGetAdminDb($ctx);
+function WSyncUpdateIds($eid=-1, $oid="") {
+  global $action;
+  $uid = $action->parent->user->fid;
+  if ($eid<0) return false;
+  $db = WSyncGetAdminDb($action);
   $evids = new WSyncIds($db, array($uid, $eid));
   if ($evids->IsAffected()) {
     $evids->outlook_id = $oid;
     $evids->Modify();
-    $ctx->log->debug("Update oid for event($uid,$eid)");
+    $action->log->debug("Update oid for event($uid,$eid)");
   } else {
     $evids->user_id = $uid;
     $evids->event_id = $eid;
     $evids->outlook_id = $oid;
     $evids->Add();
-    $ctx->log->debug("Add ids for event($uid,$eid,$oid)");
+    $action->log->debug("Add ids for event($uid,$eid,$oid)");
   }
   return true;
 }
   
   
+function WSyncInitEvent(&$dbdata,
+			&$event, 
+			$title = "(untitled)",
+			$descr = "",
+			$s_date = "",
+			$s_time = "",
+			$dur = 0,
+			$access = "",
+			$prio = "") {
 
+  global $action;
+
+  $debug = ($debug!=true?false:true); 
+  
+  $event->setValue("CALEV_OWNERID", $action->parent->user->fid);
+  $u = new Doc($dbdata, $action->parent->user->fid);
+  $event->setValue("CALEV_OWNER", $u->getTitle());
+  $event->setValue("CALEV_ATTID", array($action->parent->user->fid));
+  $event->setValue("CALEV_ATTTITLE", array($u->getTitle()));
+  $event->setValue("CALEV_ATTGROUP", array(-1));
+  $event->setValue("CALEV_EVTITLE", utf8_decode($title));
+  $event->setValue("CALEV_EVNOTE", utf8_decode($descr));
+  $event->setValue("CALEV_VISIBILITY", ($access=="P"?0:1));
+  
+  if ($s_date=="" || $s_time=="") return;
+
+  $event->setValue("CALEV_START", $s_date." ".$s_time);
+  if ($s_time == "00:00:00" && $dur == 1440) {
+    $event->setValue("CALEV_END", $s_date." 23:59:59");
+    $event->setValue("CALEV_TIMETYPE", 2);
+  } else {
+    $sfin = WSyncMSdate2Timestamp($s_date, $s_time) + ($dur * 60);
+    $event->setValue("CALEV_END", date2db($sfin));
+    $event->setValue("CALEV_TIMETYPE", 0);
+  }
+
+  $event->setValue("CALEV_EVCALENDARID", -1);
+  $event->setValue("CALEV_EVCALENDAR", _("main calendar"));
+  $event->setValue("CALEV_EVALARM", 0);
+
+  $event->setValue("CALEV_REPEATMODE", 0);
+  $event->setValue("CALEV_REPEATWEEKDAY", -1);
+  $event->setValue("CALEV_REPEATMONTH", 0);
+  $event->setValue("CALEV_REPEATUNTIL", 0);
+
+  return;
+}
+			
 ?>

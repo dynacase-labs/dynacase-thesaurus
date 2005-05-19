@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: get_event_data_sync.php,v 1.4 2005/05/18 16:47:10 marc Exp $
+ * @version $Id: get_event_data_sync.php,v 1.5 2005/05/19 16:01:22 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -18,7 +18,7 @@ include_once("WGCAL/Lib.WgcalSync.php");
 include_once("WGCAL/Class.WSyncDate.php");
 include_once("WGCAL/Class.WSyncIds.php");
 
-$ctx = WSyncAuthent();
+$action = WSyncAuthent();
 
 $SyncDebug = (GetHttpVars("debug", 0)==1?true:false);
 $fd = GetHttpVars("fd", 0);
@@ -33,12 +33,12 @@ $ds = GetHttpVars("debut_sync_date", date2db(time(), true));
 if ($ds=="") return;
 $start_date = WSyncMSdate2Db($ds);
 
-$db = WSyncGetDataDb($ctx);
-$dbadm = WSyncGetAdminDb($ctx);
+$db = WSyncGetDataDb();
+$dbadm = WSyncGetAdminDb();
 
 
 $famev = getIdFromName($db, "CALEVENT");
-$user = $ctx->user->fid;
+$user = $action->parent->user->fid;
 
 $filter = array();
 $filter[] = "(calev_ownerid = $user) OR (calev_attid ~* '$user')";
@@ -48,12 +48,12 @@ if ($SyncDebug)  {
  print "<pre>";
  echo "Db data is [$db]</br>";
  echo "Db admin is [$dbadmin]</br>";
- echo "User   : w:".$ctx->user->id."/f:".$user."<br>";
+ echo "User   : w:".$action->parent->user->id."/f:".$user."<br>";
  echo "Filter : "; print_r2($filter);
  print "</pre>";
 }
 
-$trv = GetChildDoc($db, 0, 0, "ALL", $filter, $ctx->user->id, 
+$trv = GetChildDoc($db, 0, 0, "ALL", $filter, -1, 
 		  "TABLE", $famev, false, "calev_start", true);
 
 if ($SyncDebug) print "<pre>";
@@ -66,16 +66,20 @@ foreach ($trv as $krv => $vrv) {
   if ($SyncDebug) print '<pre class="out">';
   WSyncSend($SyncDebug, "RV[".$irv++."] id", $vrv["id"]);
   WSyncSend($SyncDebug, "Owner is connected", ($vrv["calev_ownerid"]==$user?"0":"1"));
-  WSyncSend($SyncDebug, "User login", $ctx->user->login);
+  WSyncSend($SyncDebug, "User login", $action->parent->user->login);
   WSyncSend($SyncDebug, "Title", "<I>\n".utf8_encode($vrv["calev_evtitle"])."\n</I>");
-  WSyncSend($SyncDebug, "Start", WSyncDbDate2Outlook($vrv["calev_start"], ($vrv["calev_timetype"]==1?false:true)));
+//   WSyncSend($SyncDebug, "Start", WSyncDbDate2Outlook($vrv["calev_start"], ($vrv["calev_timetype"]==1?false:true)));
+  WSyncSend($SyncDebug, "Start", WSyncDbDate2Outlook($vrv["calev_start"]));
 
   WSyncSend($SyncDebug, "Rev date", WSyncTs2Outlook($vrv["revdate"]));
+
   $dur = (dbdate2ts($vrv["calev_end"]) - dbdate2ts($vrv["calev_start"])) / 60;
+  if ($vrv["calev_timetype"]==1 || $vrv["calev_timetype"]==2) $dur = 1440;
+
   WSyncSend($SyncDebug, "Duration", $dur);
   WSyncSend($SyncDebug, "Priority", "0"); // Priority !!!
   WSyncSend($SyncDebug, "Repeat mode", ($vrv["calev_repeatmode"]==0?"E":"M"));
-  WSyncSend($SyncDebug, "Public(P)/Private(R)", ($vrv["calev_visibility"]==0 && $vrv["calev_evcalendarid"]==-1?"P":"R"));
+  WSyncSend($SyncDebug, "Public(P)/Private(R)", ($vrv["calev_visibility"]==0?"P":"R"));
   WSyncSend($SyncDebug, "Description", "<!!DESCDEB>\n". utf8_encode($vrv["calev_evnote"]) . "\n<!!DESCFIN>");
   
   $ids = new WSyncIds($dbadm, array($user, $vrv["id"]));

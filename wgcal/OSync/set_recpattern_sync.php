@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: set_recpattern_sync.php,v 1.1 2005/04/22 16:03:46 marc Exp $
+ * @version $Id: set_recpattern_sync.php,v 1.2 2005/05/19 16:01:22 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -21,8 +21,8 @@ $end  = GetHttpVars("end", "");
 
 if ($evid==-1) return;
 
-$ctx = WSyncAuthent();
-$db = WSyncGetDataDb($ctx);
+$action = WSyncAuthent();
+$db = WSyncGetDataDb();
 
 $event = new Doc($db, $evid);
 if (!$event->IsAffected()) exit;
