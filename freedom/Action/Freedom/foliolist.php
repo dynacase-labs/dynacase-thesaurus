@@ -3,7 +3,7 @@
  * Folio List Containt
  *
  * @author Anakeen 2003
- * @version $Id: foliolist.php,v 1.11 2005/04/07 12:43:07 eric Exp $
+ * @version $Id: foliolist.php,v 1.12 2005/05/19 13:27:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -30,7 +30,7 @@ function foliolist(&$action) {
   $refreshtab=(GetHttpVars("refreshtab","N")=="Y"); // need refresh tabs
 
   $filter=array();
-  $filter[]="doctype = 'F'";
+  if (($dirid==$folioid) || ($folioid==0))  $filter[]="doctype = 'F'";
   $dir = new Doc($dbaccess,$dirid);
   if (($dir->doctype == 'S')) {
     if ($dir->usefor == 'G'){
