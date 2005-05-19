@@ -25,7 +25,7 @@
 <HR>
 [ENDBLOCK COMMENT]
 <div width="100%" class="tablesimple">
-[ZONE FDL:VIEWCARD?target=mail]
+[ZONE FDL:VIEWCARD?target=mail&zone=[zone]]
 </div>
 </body>
 </html>
