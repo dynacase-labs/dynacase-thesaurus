@@ -1,6 +1,7 @@
 <?php
 
 var $defaultedit= "FDL:FDL_PUBEDIT";
+var $defaultmview= "FDL:FDL_PUBVIEWMAIL:T";
 function fdl_pubsendmail($target="_self",$ulink=true,$abstract=false) {
   $this->viewdefaultcard($target,$ulink,$abstract);
 
@@ -47,4 +48,113 @@ function fdl_pubedit() {
   
 
 }
+/**
+ * Fusion all document to be printed
+ * @param Action &$action current action
+ * @global uid Http var : user document id (if not all use rpresent in folder)
+ */
+function fdl_pubprint($target="_self",$ulink=true,$abstract=false) {
+  global $action;
+  // GetAllParameters
+
+  $udocid = GetHttpVars("uid");
+  $subject=$this->getValue("pubm_title");
+  $body=$this->getValue("pubm_body");
+  $zonebodycard = "FDL:FDL_PUBPRINTONE:S"; // define view zone
+
+  
+  if ($udocid > 0) {
+    $t[]=getTDoc($this->dbaccess,$udocid);
+  } else {
+    $t=$this->getBatchDocs();
+  }
+  
+  if (preg_match("/\[us_[a-z0-9_]+\]/i",$body)) {
+    foreach ($t as $k=>$v) {
+      $zoneu=$zonebodycard."?uid=".$v["id"];
+      $tlay[]=array("doc"=>$this->viewDoc($zoneu,"",true),
+		    "subject"=>$v["title"]);	      
+    }
+  } else {
+    $laydoc=$this->viewDoc($zonebodycard,"",true);
+    
+    foreach ($t as $k=>$v) {
+      $tlay[]=array("doc"=>$laydoc,
+		    "subject"=>$v["title"]);      
+    }
+  }
+  if ($err) $action->AddWarningMsg($err);
+  if (count($t)==0) $action->AddWarningMsg(_("no available persons found"));
+
+  $this->lay->setBlockData("DOCS",$tlay);
+  $this->lay->set("BGIMG",$this->getHtmlAttrValue("pubm_bgimg"));
+}
+
+function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
+  include_once("FDL/mailcard.php");
+  global $action;
+  $subject=$this->getValue("pubm_title");
+  $body=$this->getValue("pubm_body");
+
+  $t=$this->getBatchDocs();
+
+  $zonebodycard="FDL:FDL_PUBSENDMAIL:S";
+  if (preg_match("/\[us_[a-z0-9_]+\]/i",$body)) {
+    foreach ($t as $k=>$v) {
+      $mail=getv($v,"us_mail");
+      if ($mail != "") {
+	$zoneu=$zonebodycard."?uid=".$v["id"];
+	$to=$mail;	
+	$cc="";
+	$err=sendCard(&$action,
+		      $this->id,
+		      $to,$cc,$subject,
+		      $zoneu);
+      }
+    }
+  } else {
+    $tmail=array();
+    foreach ($t as $k=>$v) {
+      $mail=getv($v,"us_mail");
+      if ($mail != "") $tmail[]=$mail;
+    }
+    $to="";
+    $bcc=implode(",",$tmail);
+    $cc="";
+    $err=sendCard(&$action,
+		  $this->id,
+		  $to,$cc,$subject,
+		  $zonebodycard,false,"","",$bcc);
+  }
+  if ($err) $action->AddWarningMsg($err);
+}
+/**
+ * Preview of each document to be printed
+ *
+ */
+function fdl_pubpreview($target="_self",$ulink=true,$abstract=false) {
+
+  $this->lay->set("dirid",$this->id);
+  
+}
+/**
+ * Preview of each document to be printed
+ */
+function fdl_pubnavpreview($target="_self",$ulink=true,$abstract=false) {
+
+  $t=$this->getBatchDocs();
+    
+  foreach ($t as $k=>$v) {
+    $tlay[]=array("udocid"=>$v["id"],
+		  "utitle"=>$v["title"]);      
+  }
+  
+  if ($err) $action->AddWarningMsg($err);
+
+  $this->lay->setBlockData("DOCS",$tlay);
+  $this->lay->set("dirid",$this->id);
+    
+}
+
+
 ?>
