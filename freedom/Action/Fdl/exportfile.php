@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.10 2004/08/05 09:47:21 eric Exp $
+ * @version $Id: exportfile.php,v 1.11 2005/05/19 12:22:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,9 +27,9 @@ function exportfile(&$action)
   $attrid = GetHttpVars("attrid",0);
   $vaultid = GetHttpVars("vaultid",0);
   $index = GetHttpVars("index");
+  $imgheight = GetHttpVars("height");
 
   $isControled=false;
-
 
   if ($vaultid == 0) {
 
@@ -54,7 +54,7 @@ function exportfile(&$action)
     $mimetype = "";
   }
 
-  DownloadVault($action, $vaultid, $isControled, $mimetype);
+  DownloadVault($action, $vaultid, $isControled, $mimetype,$imgheight);
 
     
   exit;
@@ -99,7 +99,7 @@ function exportfirstfile(&$action)
 
 
   // --------------------------------------------------------------------
-function DownloadVault(&$action, $vaultid, $isControled, $mimetype="") {
+function DownloadVault(&$action, $vaultid, $isControled, $mimetype="",$height="") {
   // --------------------------------------------------------------------
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $vf = newFreeVaultFile($dbaccess);
@@ -110,7 +110,35 @@ function DownloadVault(&$action, $vaultid, $isControled, $mimetype="") {
     {
       //Header("Location: $url");
       if ($isControled || ( $info->public_access)) {
-	Http_DownloadFile($info->path, $info->name, $mimetype);
+	if (($mimetype != "image/jpeg") || ($height == 0)) {
+	  Http_DownloadFile($info->path, $info->name, $mimetype);
+	} else {
+	  $filename=$info->path; 
+	  $name=$info->name;
+	  header("Content-Disposition: form-data;filename=$name");   
+	  //	  header("Cache-Control: private, max-age=3600"); // use cache client (one hour) for speed optimsation
+	  // header("Expires: ".gmdate ("D, d M Y H:i:s T\n",time()+3600));  // for mozilla
+	  // header("Pragma: "); // HTTP 1.0
+	  header('Content-type: image/jpeg');
+
+	  $mb=microtime();
+	  // Calcul des nouvelles dimensions
+	  list($owidth, $oheight) = getimagesize($filename);
+	  $newwidth = $owidth * ($height/$oheight);
+	  $newheight = $height;
+
+	  // chargement
+	  $thumb = imagecreatetruecolor($newwidth, $newheight);
+	  $source = imagecreatefromjpeg($filename);
+
+	  // Redimensionnement
+	  imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $owidth, $oheight);
+
+	  // Affichage
+	  imagejpeg($thumb);
+	  exit;
+	  
+	}
 	if (! $info->public_access)   AddlogMsg(sprintf(_("%s has be sended"),$info->name));
       } else {
 	$action->exiterror(_("file must be controlled : read permission needed"));

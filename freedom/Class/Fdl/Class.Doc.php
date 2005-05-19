@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.247 2005/05/12 08:34:27 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.248 2005/05/19 12:22:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -354,6 +354,7 @@ create unique index i_docir on doc(initid, revision);";
 	$this->nextSequence();
       }
       $this->Select($this->id);
+      $this->modify(true,array("lmodify"),true); // to force execute sql trigger
       if ($this->doctype != "T") {
 	$this->PostCreated(); 
 	if ($this->dprofid >0) {
@@ -1734,7 +1735,7 @@ create unique index i_docir on doc(initid, revision);";
 
     if ($this->comment != '') $this->comment = $commentdate."\n".$this->comment;
     else $this->comment = $commentdate;
-    $this->modify(true,array("comment"));
+    $this->modify(true,array("comment"),true);
   }
 
   /**
@@ -2555,6 +2556,7 @@ create unique index i_docir on doc(initid, revision);";
      
     
     $this->SetDefaultAttributes();
+    $play=$this->lay;
 
     $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
 
@@ -2568,16 +2570,18 @@ create unique index i_docir on doc(initid, revision);";
     }
 
 
+    $laygen=$this->lay->gen();
+    $this->lay=$play;
     if (! $ulink) {
       // suppress href attributes
       return preg_replace(array("/href=\"index\.php[^\"]*\"/i", "/onclick=\"[^\"]*\"/i","/ondblclick=\"[^\"]*\"/i"), 
-			  array("","","") ,$this->lay->gen() );
+			  array("","","") ,$laygen );
     }
     if ($target=="mail") {
       // suppress session id
-      return preg_replace("/\?session=[^&]*&/", "?" ,$this->lay->gen() );
+      return preg_replace("/\?session=[^&]*&/", "?" ,$laygen );
     }
-    return $this->lay->gen();
+    return $laygen;
   }
   // --------------------------------------------------------------------
 
@@ -2695,6 +2699,7 @@ create unique index i_docir on doc(initid, revision);";
 	  {	      
 	  case "image": 		  
 	    $tableimage[$nbimg]["imgsrc"]=$htmlvalue;
+	    $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue."&height!=80";
 	    break;
 	  default : 
 	    $tableframe[$v]["value"]=$htmlvalue;
@@ -2792,7 +2797,7 @@ create unique index i_docir on doc(initid, revision);";
 		  
 	    $img = "<IMG align=\"absbottom\" height=\"30px\" SRC=\"".
 	      $this->GetHtmlValue($listattr[$i],$value,$target,$ulink).
-	      "\">";
+	      "&height=30\">";
 	    $tableframe[]=array("name"=>$attr->labelText,
 				"aid"=>$attr->id,
 				"value"=>$img);
