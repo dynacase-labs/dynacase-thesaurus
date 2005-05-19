@@ -29,9 +29,9 @@
 
 <body class="freedom" 
       onLoad="initmicon()" 
-      onclick="closeAllMenu();"
+      onclick="closeAllMenu();"      
       onContextMenu="openMenu(event,'popupfolio',1);return false" 
-       >
+      style="cursor:crosshair" >
 
 
 
@@ -49,11 +49,7 @@
      onContextMenu="closeAllMenu();openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
      align="absbottom"  src="[iconsrc]"><br>
-
   [abrvtitle]
-
-
-
 </div>
 
 
