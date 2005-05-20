@@ -11,11 +11,15 @@
 
 <form id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
 </div>
-<div title="[TEXT:click here to refresh toolbar]" onclick="document.location.reload(true)" class="wWhoAmI">[owner], [today]</div>
-<br>
+<div title="[TEXT:click here to refresh toolbar]" onclick="document.location.reload(true)" class="wWhoAmI">
+<table cellspacing="0">
+<tr><td rowspan="2"><img src="[IMG:logofreedom.gif]" height="25"><td><span style="font-weight:bold">[owner], [today]</span></td></tr>
+<tr><td>[IF LSYNC]<span style="[lsyncstyle];font-size:90%">[TEXT:last sync] [lastsync]</span>[ENDIF LSYNC]</td></tr>
+</table>
+</div>
 
 <!-- search zone -->
-[ZONE WGCAL:SEARCH]
+[IF SHOWSEARCH] [ZONE WGCAL:SEARCH] [ENDIF SHOWSEARCH]
 
 <!-- Rendez-vous en attente -->
 <!-- POPUP DIVISION -->
@@ -134,12 +138,12 @@ var CEventText = '';
 
 [ZONE WGCAL:TODO?dtodo=[tododays]]
 
-[ZONE WGCAL:CONTACTS]
+[IF SHOWCONTACTS] [ZONE WGCAL:CONTACTS] [ENDIF SHOWCONTACTS]
 
 
 <script type="text/javascript">
 
-var  toolList = new Array( 'inav', 'vvical', 'waitrv', 'todo', 'contacts');
+var  toolList = new Array( 'inav', 'vvical', 'waitrv', 'todo' [IF SHOWCONTACTS],'contacts'[ENDIF SHOWCONTACTS]);
 
 [BLOCK L_RESS]
 InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]');[ENDBLOCK L_RESS]

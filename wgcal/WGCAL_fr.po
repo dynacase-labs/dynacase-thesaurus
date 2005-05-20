@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-18 17:19+0200\n"
+"POT-Creation-Date: 2005-05-20 14:13+0200\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -323,8 +323,13 @@ msgstr "M'avertir pour les tâches dans "
 msgid "set todo default date to today more "
 msgstr "Position la date par défaut à aujourd'hui plus "
 
-msgid "created from outlook, oid="
+#, fuzzy
+msgid "created from outlook"
 msgstr "Créé à partir d'outlook oid="
+
+#, fuzzy
+msgid "outlook modification"
+msgstr "Modification de la date"
 
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
@@ -559,6 +564,9 @@ msgstr "Ressources trouvées"
 
 msgid "click here to refresh toolbar"
 msgstr "cliquer pour raffraichir la barre d'outil"
+
+msgid "last sync"
+msgstr "Dernière synchro outlook"
 
 msgid "view this"
 msgstr "Afficher"

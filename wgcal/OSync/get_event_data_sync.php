@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: get_event_data_sync.php,v 1.5 2005/05/19 16:01:22 marc Exp $
+ * @version $Id: get_event_data_sync.php,v 1.6 2005/05/20 16:07:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -17,6 +17,7 @@ include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/Lib.WgcalSync.php");
 include_once("WGCAL/Class.WSyncDate.php");
 include_once("WGCAL/Class.WSyncIds.php");
+include_once("WGCAL/WGCAL_external.php");
 
 $action = WSyncAuthent();
 
@@ -80,7 +81,18 @@ foreach ($trv as $krv => $vrv) {
   WSyncSend($SyncDebug, "Priority", "0"); // Priority !!!
   WSyncSend($SyncDebug, "Repeat mode", ($vrv["calev_repeatmode"]==0?"E":"M"));
   WSyncSend($SyncDebug, "Public(P)/Private(R)", ($vrv["calev_visibility"]==0?"P":"R"));
-  WSyncSend($SyncDebug, "Description", "<!!DESCDEB>\n". utf8_encode($vrv["calev_evnote"]) . "\n<!!DESCFIN>");
+
+  $astate = Doc::_val2array($vrv["calev_attstate"]);
+  $atitle = Doc::_val2array($vrv["calev_atttitle"]);
+  $aid = Doc::_val2array($vrv["calev_attid"]);
+  $agrp = Doc::_val2array($vrv["calev_attgroup"]);
+  $attlist = "";
+  foreach ($aid as $kai => $vai) {
+//     echo "$vai ".$action->parent->user->fid." ".$agrp[$kai]." ".$atitle[$kai]."\n";
+    if ($vai!=$action->parent->user->fid && $agrp[$kai]==-1) $attlist .= "   | ".$atitle[$kai]." (".WGCalGetLabelState($astate[$kai]).")\n";
+  }
+  if ($attlist!="") $attlist = _("Attendees list")." : \n".$attlist;
+  WSyncSend($SyncDebug, "Description", "<!!DESCDEB>\n". utf8_encode($vrv["calev_evnote"]) . "\n".$attlist."<!!DESCFIN>");
   
   $ids = new WSyncIds($dbadm, array($user, $vrv["id"]));
   if (!$ids->isAffected() || !isset($ids->outlook_id) || $ids->outlook_id=="") WSyncSend($SyncDebug, "Outlooke id", "SANS ");
@@ -94,7 +106,9 @@ foreach ($trv as $krv => $vrv) {
       WSyncSend($SyncDebug, "Repeat period", "weekly");  
       $days = Doc::_val2array($vrv["calev_repeatweekday"]);
       $daysl = "";
-      foreach ($days as $kd => $vd) $dayls[$vd] = "y";
+      foreach ($days as $kd => $vd) {
+	$dayls[($vd==6?0:$vd+1)] = "y";
+      }
       break;
     case 3: // Monthly
       if ($vrv["calev_repeatmonth"]==1) $mrep = "monthlyByDay";
@@ -104,7 +118,7 @@ foreach ($trv as $krv => $vrv) {
     case 4:  WSyncSend($SyncDebug, "Repeat period", "yearly"); break;
     default: WSyncSend($SyncDebug, "Repeat period", "daily");
     }
-    if ($vrv["calev_repeatuntil"]>0 && $vrv["calev_repeatuntildate"]!="") $untildate = WSyncDbDate2Outlook($vrv["calev_repeatuntildate"], false)." 23:59:59";
+    if ($vrv["calev_repeatuntil"]>0 && $vrv["calev_repeatuntildate"]!="") $untildate = WSyncDbDate2Outlook($vrv["calev_repeatuntildate"], false);
     WSyncSend($SyncDebug, "Repeat until", $untildate);
     WSyncSend($SyncDebug, "Repeat frequency", ($vrv["calev_frequency"]==""?1:$vrv["calev_frequency"]));
     $dlt = "";
@@ -118,8 +132,8 @@ foreach ($trv as $krv => $vrv) {
 	$tied[$ied++] = substr($vd,0,10);
       }
     }
+    WSyncSend($SyncDebug, "Repeat exlude days count", $ied);
     if ($ied>0) {
-      WSyncSend($SyncDebug, "Repeat exlude days count", $ied);
       foreach ($tied as $ked => $ved) {
 	WSyncSend($SyncDebug, "Repeat exlude day [$ked]", $ved);
       }

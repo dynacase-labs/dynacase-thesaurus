@@ -10,11 +10,11 @@
 <div>Bonjour,<br/><br/>
 [rvtitle]<br/>
 </div>
-<br/>
+<hr>
+<a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">Vous pouvez l'accepter ou le refuser via l'agenda de groupe.</a>
+<hr>
 <div style="width:auto;height:auto;">
 [ZONE WGCAL:CALEV_CARD?ev=-1&cev=[rvid]&mode=v]
 </div>
-<hr>
-<a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">Vous pouvez l'accepter ou le refuser via l'agenda de groupe.</a>
 </body>
 </html>

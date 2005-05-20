@@ -189,7 +189,12 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_ATTGROUP", $attendeesgroup); 
     
 
-  if (!$event->IsAffected()) $err = $event->Add();
+  if (!$event->IsAffected()) {
+    $err = $event->Add();
+    $msg = _("event creation information message");
+  } else {
+    $msg = _("event modification information message");
+  }
   if ($err!="") {
      AddWarningMsg("$err");
   } else {
@@ -215,8 +220,8 @@ function wgcal_storeevent(&$action) {
   }
   $event->AddComment(($comment==""?_("change content "):$comment));
   $changed = true;
+  sendRv($action, $event, 2, $msg);
 
-  sendRv($action, $event, 1, _("event content modification information message"));
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 

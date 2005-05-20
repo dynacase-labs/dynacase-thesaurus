@@ -5,6 +5,10 @@
 - Suppression du retaillage auto de la fenetre lors de l'ouverture de l'Agenda
 - Stratégie d'émission des mails : modif contenu/ suppression => tout le monde, changement acceptation => propirétaire.
 - Curseur si menu popup => mis en conformité Freedom (+)
+- Réglage de la synchronisation outlook
+- Ajout de la date de dernière synchro dans l'ihm Web
+- Modification du contenu des mails.
+
 
 --------------------------------------------------------------------------
 0.0.9 (Rico)

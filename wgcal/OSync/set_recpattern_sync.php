@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: set_recpattern_sync.php,v 1.2 2005/05/19 16:01:22 marc Exp $
+ * @version $Id: set_recpattern_sync.php,v 1.3 2005/05/20 16:07:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -61,7 +61,6 @@ if ($end=="") {
 }
 
 $err = $event->Modify();
-
-
+$err = $event->PostModify();
 
 ?>

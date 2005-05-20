@@ -446,7 +446,7 @@ function viewattdispo(url) {
   td.setTime(rvs*1000);
   js = cal_to_jd( "CE", td.getFullYear(), td.getMonth()+1, td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
   je = parseFloat(js) + 14.0;
-  alert('ViewDispo '+url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
+//   alert('ViewDispo '+url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
   subwindow(300, 700, 'ViewDispo', url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
 }
 

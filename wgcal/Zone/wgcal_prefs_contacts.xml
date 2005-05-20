@@ -15,8 +15,10 @@
 </tr>
 </table>
 </fielset></td>
+<!--
 <td><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="UseContactInRv();" title="[TEXT:use for event creation]"><input id="usecontact" name="usecontact" type="checkbox" style="cursor:pointer;" onclick="UseContactInRv();" [usecontactstate]>[TEXT:use for event creation]</span>
 </td>
+ -->
 </tr><tfoot></tfoot></table>
 
 <script type="text/javascript">

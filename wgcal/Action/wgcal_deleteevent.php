@@ -21,7 +21,7 @@ function wgcal_deleteevent(&$action, $optev=-1) {
       $err = $event->postDelete();
       if ($err!="") AddWarningMsg("$err");
     }
-    sendRv($action, $event, 2, _("event deleted information message"));
+    sendRv($action, $event, 2, _("event deletion information message"));
   }
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }

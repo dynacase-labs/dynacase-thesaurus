@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.42 2005/04/22 16:03:29 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.43 2005/05/20 16:07:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -70,7 +70,7 @@ function wgcal_editevent(&$action) {
     $evtype   = $event->getValue("CALEV_TIMETYPE", "");
     $evfreq   = $event->getValue("CALEV_FREQUENCY", 1);
     $evcal    = $event->getValue("CALEV_EVCALENDARID", -1);
-    $evvis    = $event->getValue("CALEV_VISIBILITY", -1);
+    $evvis    = $event->getValue("CALEV_VISIBILITY", 0);
     $evalarm  = $event->getValue("CALEV_EVALARM", 0);
     $evalarmt = $event->getValue("CALEV_EVALARMTIME", 0);
     $evrepeat = $event->getValue("CALEV_REPEATMODE", 0);
@@ -196,7 +196,8 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   $action->lay->set("STARTREAD", gmdate("D d F Y", $lstart));
   $action->lay->set("H_START", gmdate("H", $dstart));
   $th = array();
-  for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
+//   for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
+   for ($h=0; $h<24; $h++) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h)."h";
     $th[$h]["optselect"] = ($h==gmdate("H", $dstart)?"selected":"");
@@ -225,7 +226,8 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   $action->lay->set("M_END", gmdate("i", $dend));
   $action->lay->set("FEND", $dend);
   $th = array();
-  for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
+//   for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
+   for ($h=0; $h<24; $h++) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h)."h";
     $th[$h]["optselect"] = ($h==gmdate("H", $dend)?"selected":"");
@@ -264,7 +266,7 @@ function EventSetVisibility(&$action, $vis, $ro) {
 }
   
 function EventSetCalendar(&$action, $cal, $ro) {
-  $acal = WGCalGetMyCalendars($action, $action->GetParam("FREEDOM_DB"));
+  $acal = WGCalGetMyCalendars($action->GetParam("FREEDOM_DB"));
   $action->lay->set("evcalendar", $cal);
   $ic = 0;
   foreach ($acal as $k => $v) {

@@ -74,12 +74,13 @@ function CAL_getEventVisibilities($dbaccess, $fmt="A") {
 /*
  ** Return user calendars
  */
-function WGCalGetMyCalendars(&$action, $dbaccess) {
+function WGCalGetMyCalendars($dbaccess) {
+  global $action;
   $tcals = array();
   $tcals[] = array( -1, _("My public calendar"));
   $cals = array();
-  $cals = GetChildDoc($dbaccess, 0, 0, "ALL", array(), 
-		      $action->user->fid, "TABLE", getIdFromName($dbaccess,"SCALENDAR"));
+  $cals = GetChildDoc($dbaccess, 0, 0, "ALL", array("owner = ".$action->parent->user->fid ),
+		      $action->parent->user->fid, "TABLE", getIdFromName($dbaccess,"SCALENDAR"));
   foreach ($cals as $k => $v) {
     $tcals[] = array( $v["id"], $v["ba_title"]);
   }

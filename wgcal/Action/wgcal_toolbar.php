@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.28 2005/05/18 16:47:10 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.29 2005/05/20 16:07:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -14,9 +14,14 @@
 include_once("FDL/Class.Doc.php");
 include_once('FDL/Lib.Dir.php');
 include_once("WGCAL/Lib.WGCal.php");
+include_once("WGCAL/Lib.WgcalSync.php");
 include_once("WGCAL/WGCAL_external.php");
 
 function wgcal_toolbar(&$action) {
+
+
+  $action->lay->set("SHOWCONTACTS", false);
+  $action->lay->set("SHOWSEARCH", false);
 
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
@@ -34,7 +39,15 @@ function wgcal_toolbar(&$action) {
 
   $action->lay->set("owner", $action->user->lastname." ".$action->user->firstname);
   $action->lay->set("today", strftime("%d/%m/%Y", time()));
-
+  $db = WSyncGetAdminDb();
+  $lsync = GetLastSyncDate($db);
+  if ($lsync=="") $action->lay->set("LSYNC", false);
+  else {
+    $action->lay->set("LSYNC", true);
+    $action->lay->set("lastsync", substr(WSyncTs2Outlook($lsync),0,16));
+    $action->lay->set("lsyncstyle", ((time()-$lsync)>(24*3600*7)?"color:red":""));
+  }
+    
 //   $cssfile = $action->GetLayoutFile("calendar-default.css");
 //   $csslay = new Layout($cssfile,$action);
 //   $action->parent->AddCssCode($csslay->gen());

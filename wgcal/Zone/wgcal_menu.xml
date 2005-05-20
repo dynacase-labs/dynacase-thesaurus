@@ -1,11 +1,15 @@
 <table cellspacing="0" border="0" width="100%" style="position:fixed;  z-index:500;">
 <tr>
+<!-- 
 <td align="left" width="50" class="wMainMenu">&nbsp;File</td>
 <td align="left" width="50" class="wMainMenu">&nbsp;Options&nbsp;</td>
+-->
 <td class="wMainMenu"></td>
+<!-- 
 <td align="center" class="wMainMenu" width="50" >
 <img height="16" style="cursor:pointer" title="[TEXT:add a calendar]" onclick="subwindow(60, 400, 'Add a Calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CREATECALENDAR');" src="WGCAL/Images/wgcal-addcalendar.png" 
 ></td>
+-->
 <td align="center" class="wMainMenu" width="80">
 <img height="16" style="cursor:pointer" title="[TEXT:week view]"  onclick="setDaysViewed(7);" src="WGCAL/Images/oneweek.png">
 <img height="16" style="cursor:pointer" title="[TEXT:two week view]"  onclick="setDaysViewed(14);" src="WGCAL/Images/twoweek.png">

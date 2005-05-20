@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.30 2005/05/18 16:47:10 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.31 2005/05/20 16:07:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -11,6 +11,7 @@
  /**
  */
 include_once("FDL/mailcard.php");
+include_once("WGCAL/Class.WSyncDate.php");
 
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
@@ -412,6 +413,12 @@ function WGCalEvSetColor(&$action, &$event) {
     }
   }
   return "lightgrey";  
+}
+
+function GetLastSyncDate($db) {
+  global $action;
+  $syncdate = new WSyncDate($db, $action->parent->user->fid);
+  return ($syncdate->outlook_date);
 }
 
 ?>

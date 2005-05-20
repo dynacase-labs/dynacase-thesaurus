@@ -74,8 +74,7 @@ function mailrv() {
   $uo = new Doc($dbaccess, $this->getValue("CALEV_OWNERID"));
   $this->lay->set("rvowner", $uo->title);
 
-  $title
-//   $this->lay->set("rvtitle", $this->getValue("CALEV_EVTITLE"));
+  $this->lay->set("rvtitle", GetHttpVars("msg", ""));
 //   $this->lay->set("rvtitle", $this->getValue("CALEV_EVTITLE"));
   $this->lay->set("dstart", $this->getValue("CALEV_START"));
   $this->lay->set("dend", $this->getValue("CALEV_END"));
