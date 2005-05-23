@@ -1,4 +1,4 @@
-<!-- POPUP DIVISION --><div  style="display:none" id="calevcard[id]" class="wgcalpopup">
+<!-- POPUP DIVISION --><div  style="z-index:2000; display:none" id="calevcard[id]" class="wgcalpopup">
 
 <a href="#" id="acceptrv"
     onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_ACCEPT','');closeMenu('calevcard')" >[TEXT:accept this]</a>

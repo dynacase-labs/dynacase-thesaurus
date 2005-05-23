@@ -354,14 +354,14 @@ function WGCalAddEvent(n, tstart, tend)
       vend   = Days[id].vstart;
     } else {
       if (tstart<Days[id].vstart || ((id==dend) && mdays) ) {
-	vstart = Days[id].vstart;
+	vstart = Days[id].vstart - (YDivMinute * 60);
       }
       if (tstart>Days[id].vend) vstart = Days[id].vend;  
       if (tend>Days[id].vend || ((id>dstart && id<dend) && mdays)) {
-	vend = Days[id].vend;  
+        vend = Days[id].vend +  (YDivMinute * 60);
       }
     }
-    if (vstart<Days[id].vend && vstart>Days[id].vstart) vstart += Tz;
+    if (vstart<=Days[id].vend && vstart>Days[id].vstart) vstart += Tz;
     if (vend<Days[id].vend && vend>Days[id].vstart) vend += Tz;
     cEv = Days[id].ev.length; 
     Days[id].ev[cEv] = new Object();

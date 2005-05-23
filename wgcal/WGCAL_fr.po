@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-20 14:13+0200\n"
+"POT-Creation-Date: 2005-05-23 08:28+0200\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -13,8 +13,8 @@ msgstr ""
 msgid "no hour"
 msgstr "Pas d'heure"
 
-msgid "event deleted information message"
-msgstr "Le rendez-vous suivent a été supprimé."
+msgid "event deletion information message"
+msgstr "Le rendez-vous suivant a été supprimé."
 
 msgid "monday"
 msgstr "Lundi"
@@ -74,6 +74,12 @@ msgstr "Modification de la date"
 msgid "main calendar"
 msgstr "Calendrier public"
 
+msgid "event creation information message"
+msgstr "Une personne conviée a modifié l'état d'acception du rendez-vous ci-dessous."
+
+msgid "event modification information message"
+msgstr "Le rendez-vous ci-dessous a été modifié."
+
 msgid "remove event from calendar "
 msgstr "Suppression de l'évènement du calendrier "
 
@@ -82,9 +88,6 @@ msgstr "Ajout de l'évènement dans le calendrier "
 
 msgid "change content "
 msgstr "Modification du contenu"
-
-msgid "event content modification information message"
-msgstr "Le rendez-vous ci-dessous a été modifié."
 
 msgid "all the day"
 msgstr "Toute la journée"
@@ -323,13 +326,14 @@ msgstr "M'avertir pour les tâches dans "
 msgid "set todo default date to today more "
 msgstr "Position la date par défaut à aujourd'hui plus "
 
-#, fuzzy
-msgid "created from outlook"
-msgstr "Créé à partir d'outlook oid="
+msgid "Attendees list"
+msgstr "Personnes conviées"
 
-#, fuzzy
+msgid "created from outlook"
+msgstr "Créé à partir d'Outlook oid="
+
 msgid "outlook modification"
-msgstr "Modification de la date"
+msgstr "Modification depuis Outlook"
 
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
@@ -411,6 +415,9 @@ msgstr "Titre"
 
 msgid "give a title"
 msgstr "saississez un titre"
+
+msgid "start time after end time, please correct this"
+msgstr "La date de début est postérieure à celle de fin.<br>Merci de le corriger."
 
 msgid "start time update according end time"
 msgstr "mise à jour de la date de début"
@@ -916,11 +923,14 @@ msgstr ""
 msgid "mails send"
 msgstr "Envoi des mails"
 
+msgid "mail title mark"
+msgstr "Marquage (Sujet) des mails émis"
+
 msgid "viewed events (from producters)"
 msgstr "Famille des producteurs des évènements affichés"
 
 msgid "Sync Version Needed"
-msgstr ""
+msgstr "Version du synchroniseur attendue"
 
 #~ msgid "event proposal"
 #~ msgstr "Proposition de rendez-vous"

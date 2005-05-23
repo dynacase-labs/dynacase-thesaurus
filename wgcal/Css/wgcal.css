@@ -68,10 +68,11 @@ TD {
   background-color : [WTH_COLOR_2];
   border : 1px outset [WTH_COLOR_2];
   font-weight: bold;
-  font-size: [WTH_FONTSIZE_BIG]pt;
+  font-size: [WTH_FONTSIZE_NORMAL]pt;
 }
 /* Periode selectionne : mise en évidence jour / heure */
 .WGCAL_PeriodSelected {
+  font-size: [WTH_FONTSIZE_SMALL]px;
   background-color : [WTH_COLOR_3];
   color : [WTH_COLOR_1];
   border : 1px inset [WTH_COLOR_1];
@@ -80,12 +81,14 @@ TD {
       
 /* Journée courante */
 .WGCAL_DayLine {
+  font-size: [WTH_FONTSIZE_SMALL]px;
   cursor:pointer;
   background-color : [WTH_COLOR_2];
   border : 1px outset [WTH_COLOR_2];
   font-weight: bold;
 }
 .WGCAL_DayLineCur {
+  font-size: [WTH_FONTSIZE_SMALL]px;
   cursor:pointer;
   border : 1px outset [WTH_COLOR_1];
   font-weight: bold;
@@ -93,6 +96,7 @@ TD {
 }
 
 .WGCAL_DayNoHours {
+  font-size: [WTH_FONTSIZE_SMALL]px;
   border-top: 0px inset;
   border-left: 0px inset;
   border-bottom: 1px dotted [WTH_COLOR_3];
@@ -101,6 +105,7 @@ TD {
 }
 
 .WGCAL_DayHours {
+  font-size: [WTH_FONTSIZE_SMALL]px;
   background-color : [WTH_COLOR_2];
   font-weight: bold;
   border-top : 0px outset [WTH_COLOR_2];
@@ -294,6 +299,7 @@ TD {
   border-right: 1px solid [WTH_COLOR_1];
   border-bottom: 1px solid [WTH_COLOR_1];
   border-left: 1px solid [WTH_COLOR_1];
+  background-color : white;
 }
 
 /* Header part -- contains navigation buttons and day names. */

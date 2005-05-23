@@ -1,6 +1,4 @@
 <?php
-include_once("WGCAL/Themes/default.thm");
-
 $theme->Name   = "default";
 $theme->Descr  = "Blue Theme (default)";
 

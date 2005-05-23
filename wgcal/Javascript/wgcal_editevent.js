@@ -34,6 +34,7 @@ function ComputeTime(id) {
   mtval = minuTime.options[minuTime.selectedIndex].value;
   var fullTime = document.getElementById('F'+id);
 
+  oldtime = fullTime.value;
   ftime = parseInt(daysTime.value) + (parseInt(htval) * 3600) + (parseInt(mtval) * 60);
   fullTime.value = ftime;
  
@@ -63,23 +64,33 @@ function CheckIfUpdate(id, dalert) {
 
   if (parseInt(start.value)<=parseInt(end.value)) return true;
 
-  if (id=='start') uTime = parseInt(start.value);
-  else uTime = parseInt(end.value);
-    
-  var d = new Date();
-  d.setTime(uTime*1000);
-
-  minuTime.value = d.getUTCMinutes();
-  hourTime.value = d.getUTCHours();
-  fullTime.value = d.getTime();
-  var ctd = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 0, 0, 0, 0);
-  daysTime.value = d.getUTCSeconds();
-  textTime.innerHTML = Calendar._DN[ctd.getUTCDay()]+' '+ctd.getUTCDate()+' '+Calendar._SMN[ctd.getUTCMonth()]+' '+ctd.getUTCFullYear();
-  
   if (dalert) {
-    var malert = document.getElementById('tU'+idn);
+    var malert = document.getElementById('tUtime');
     malert.style.display='';
   }
+  return false;
+
+//   var d = new Date();
+//   if (id=='start') {
+//     uTime = parseInt(start.value);
+//     d.setTime((uTime+3600)*1000);
+//   } else {
+//     uTime = parseInt(end.value);
+//     d.setTime((uTime-3600)*1000);
+//   }
+    
+
+//   minuTime.value = d.getUTCMinutes();
+//   hourTime.value = d.getUTCHours();
+//   fullTime.value = d.getTime();
+//   var ctd = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 0, 0, 0, 0);
+//   daysTime.value = d.getUTCSeconds();
+//   textTime.innerHTML = Calendar._DN[ctd.getUTCDay()]+' '+ctd.getUTCDate()+' '+Calendar._SMN[ctd.getUTCMonth()]+' '+ctd.getUTCFullYear();
+  
+//   if (dalert) {
+//     var malert = document.getElementById('tU'+idn);
+//     malert.style.display='';
+//   }
 }
 
 function ChangeAlarm() {
@@ -317,7 +328,7 @@ function saveEvent() {
   }
   if (EventSelectAll(fs)) { 
 //     showtimes()
-    fs.submit();
+    if (CheckIfUpdate('start', true)) fs.submit();
   }
   return false;
 }
