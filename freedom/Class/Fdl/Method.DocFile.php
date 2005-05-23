@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocFile.php,v 1.7 2004/09/28 13:25:07 eric Exp $
+ * @version $Id: Method.DocFile.php,v 1.8 2005/05/23 15:47:31 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -93,7 +93,8 @@ function PostModify() {
     $filename=substr($filename,0,$pos);
   }
   */
+  if ($this->getValue("FI_TITLEW")=="")  $this->SetValue("FI_TITLE",$filename);
+      else $this->SetValue("FI_TITLE",$this->getValue("FI_TITLEW"));
 
-  $this->SetValue("FI_TITLE",$filename);
 }
 ?>
