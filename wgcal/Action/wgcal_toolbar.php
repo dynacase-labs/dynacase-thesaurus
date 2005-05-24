@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.29 2005/05/20 16:07:08 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.30 2005/05/24 05:28:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -14,7 +14,7 @@
 include_once("FDL/Class.Doc.php");
 include_once('FDL/Lib.Dir.php');
 include_once("WGCAL/Lib.WGCal.php");
-include_once("WGCAL/Lib.WgcalSync.php");
+include_once("osync/Lib.WgcalSync.php");
 include_once("WGCAL/WGCAL_external.php");
 
 function wgcal_toolbar(&$action) {

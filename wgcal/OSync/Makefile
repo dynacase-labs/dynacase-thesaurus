@@ -1,6 +1,6 @@
 # ============================================
-# $Id: Makefile,v 1.3 2005/05/23 16:18:06 marc Exp $
+# $Id: Makefile,v 1.4 2005/05/24 05:28:46 marc Exp $
 # ============================================
-include $(utildir)/PubRule
 appname=osync
+include $(utildir)/PubRule
 DISTFILES=  $(wildcard *.php) Makefile

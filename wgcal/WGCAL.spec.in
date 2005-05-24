@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.7 2005/05/18 16:47:10 marc Exp $
+#  $Id: WGCAL.spec.in,v 1.8 2005/05/24 05:28:46 marc Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -64,6 +64,8 @@ cd -
 %defattr(-,root,root)
 %dir %{destdir}/%{name}
 %{destdir}/%{name}/*
+%dir %{destdir}/osync
+%{destdir}/osync/*
 %{destdir}/EXTERNALS/*
 %{destdir}/locale/*
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/httpd/httpd.conf/73_mod_wgcalosync.conf
