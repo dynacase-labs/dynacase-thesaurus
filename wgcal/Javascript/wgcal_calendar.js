@@ -1,3 +1,8 @@
+function WGCalShowR() { 
+//   alert('12'); 
+}
+
+
 function WGCalResetSizes() {
 //  alert("resize");
 //  WGCalComputeCoord();
@@ -349,25 +354,46 @@ function WGCalAddEvent(n, tstart, tend)
   for (id=dstart ; id<=dend; id++) {
     vstart = tstart;
     vend   = tend;
-    if (tend==tstart && tstart<Days[id].vstart) {
+
+    if (tend==tstart) {
       vstart = Days[id].vstart - (YDivMinute * 60);
       vend   = Days[id].vstart;
     } else {
-      if (tstart<Days[id].vstart || ((id==dend) && mdays) ) {
-	vstart = Days[id].vstart - (YDivMinute * 60);
+      
+      // Heure de début antérieure à l'heure de début de la journée....
+      if (tstart<Days[id].vstart) {
+	vstart = Days[id].vstart - (YDivMinute * 60);;
+// 	if (tend<Days[id].vstart) vstart = Days[id].vstart - (YDivMinute * 60);
+//         else vstart = Days[id].vstart;
+	
+	// Heure de début postérieure à l'heure de fin de la journée....
+      } else if (tstart>(Days[id].vend + (YDivMinute * 60))) {
+	vstart = Days[id].vend + (YDivMinute * 60);
+	
+      } else {
+ 	vstart += Tz;
       }
-      if (tstart>Days[id].vend) vstart = Days[id].vend;  
-      if (tend>Days[id].vend || ((id>dstart && id<dend) && mdays)) {
-        vend = Days[id].vend +  (YDivMinute * 60);
+      
+      
+      // Heure de fin supérieure à la fin de la journée....
+      if (tend>Days[id].vend) {
+	vend = Days[id].vend + (2*(YDivMinute * 60));
+// 	if (tstart>Days[id].vend) vend = Days[id].vend + (2*(YDivMinute * 60));
+// 	else vend = Days[id].vend + (YDivMinute * 60);
+
+	// Heure de fin antérieur au début de la journée....
+      } else if (tend<Days[id].vstart) {
+      	vend = Days[id].vstart;
+	
+      } else {
+	vend += Tz;
       }
     }
-    if (vstart<=Days[id].vend && vstart>Days[id].vstart) vstart += Tz;
-    if (vend<Days[id].vend && vend>Days[id].vstart) vend += Tz;
+
+    // Add event
     cEv = Days[id].ev.length; 
     Days[id].ev[cEv] = new Object();
     Days[id].ev[cEv].n = n;
-    Days[id].ev[cEv].tstart = tstart;
-    Days[id].ev[cEv].tend = tend;
     Days[id].ev[cEv].curday = id;
     Days[id].ev[cEv].dstart = dstart;
     Days[id].ev[cEv].dend = dend;
@@ -378,6 +404,7 @@ function WGCalAddEvent(n, tstart, tend)
     Days[id].ev[cEv].base = -1;
     Days[id].ev[cEv].col = 0;
     Days[id].ev[cEv].ncol = 0;
+
   }
 }
 

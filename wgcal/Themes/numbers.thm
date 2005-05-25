@@ -1,8 +1,4 @@
 <?php
-
-include_once("WGCAL/Themes/default.thm");
-
-$theme->Name   = "numbers";
 $theme->Descr  = "Numbers theme";
 
 $theme->WTH_BGIMG                 =  "url('WGCAL/Images/bg-numbers.png')";
@@ -22,8 +18,8 @@ $theme->WTH_CALTODAY              =  "#eef4f9";
 
 $theme->WTH_FONTLIST              =  "Arial, Tahoma, Helvetica, sans-serif";
 $theme->WTH_FONTSIZE_NORMAL       =  "10";
-$theme->WTH_FONTSIZE_BIG          =  "10";
-$theme->WTH_FONTSIZE_SMALL        =  "7";
+$theme->WTH_FONTSIZE_BIG          =  "11";
+$theme->WTH_FONTSIZE_SMALL        =  "8";
 
 $theme->WTH_TOOLBARW              =  "200";
 ?>

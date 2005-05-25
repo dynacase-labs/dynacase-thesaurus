@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.5 2005/04/07 12:17:28 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.6 2005/05/25 15:28:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -44,7 +44,7 @@ function wgcal_prefs_look(&$action) {
       $the = basename($file, ".thm");
       if ($the!="." && $the!="..") {
         include_once($themedir."/".$file);
-        $themes[$ith]["name"] = $theme->Name;
+        $themes[$ith]["name"] = $the;
         $themes[$ith++]["descr"] = $theme->Descr;
       }
     }

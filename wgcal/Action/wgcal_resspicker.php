@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.10 2005/04/07 12:17:28 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.11 2005/05/25 15:28:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -47,11 +47,11 @@ function wgcal_resspicker(&$action) {
   }
 
   // Add statics calendars 
-  $t[$i]["FAMID"] = getIdFromName($dbaccess,"SCALENDAR");
-  $df = new Doc($dbaccess, $t[$i]["FAMID"]);
-  $t[$i]["FAMICON"] = $df->GetIcon();
-  $t[$i]["FAMTITLE"] = _("my calendars");
-  $t[$i]["FAMSEL"] = "false";
+  //   $t[$i]["FAMID"] = getIdFromName($dbaccess,"SCALENDAR");
+  //   $df = new Doc($dbaccess, $t[$i]["FAMID"]);
+  //   $t[$i]["FAMICON"] = $df->GetIcon();
+  //   $t[$i]["FAMTITLE"] = _("my calendars");
+  //   $t[$i]["FAMSEL"] = "false";
 
   $action->lay->SetBlockData("FAMRESS", $t);
   $action->lay->SetBlockData("FAMRESSJS", $t);

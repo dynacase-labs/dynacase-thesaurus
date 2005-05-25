@@ -1,5 +1,4 @@
 <?php
-$theme->Name   = "default";
 $theme->Descr  = "Blue Theme (default)";
 
 $theme->WTH_BGIMG                 =  "url('WGCAL/Images/bg-blue.gif')";

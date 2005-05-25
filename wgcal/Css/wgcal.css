@@ -1,5 +1,4 @@
-/* This is the default CSS for WGCal application */
-
+/* This is the default CSS for WGCal application, with theme [THEME] */
 body {
   padding : 0px;
   margin : 0px;
@@ -191,6 +190,21 @@ TD {
   cursor:pointer;
 }
 
+
+.WEvDays {
+  cursor:pointer;
+  border : 1px outset;
+  background-color : [WTH_COLOR_2];
+}
+.WEvDefault {
+  cursor:pointer;
+  border : 0px;
+}
+.WEvOver {
+  border : 0px;
+  cursor:crosshair;
+  background: [WTH_COLOR_3];  
+}
 /*
  * Really use in final product !
  */

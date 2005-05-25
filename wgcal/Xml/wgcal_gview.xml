@@ -1,10 +1,9 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <table width="100%" cellspacing="0">
 [BLOCK btime]
-<tr><td colspan="2" style="font-weight:bold;border: 1px outset">[date]</td></tr>
-  [BLOCK devents]
-  <tr><td>[start] -  [end]</td><td>[title]</td></tr>[ENDBLOCK devents]
-<!-- -->
+<tr><td colspan="2" class="WEvDays">[date]</td></tr>[BLOCK devents[date]]
+<tr class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'" 
+title="[date] [start]-[end], [title]"><td nowrap>[start] -  [end]</td><td nowrap>[title]</td></tr>[ENDBLOCK devents[date]]
 [ENDBLOCK btime]
 </table>
 [ZONE WGCAL:WGCAL_HTMLFOOT]

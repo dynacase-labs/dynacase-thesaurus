@@ -1,7 +1,4 @@
 <?php
-include_once("WGCAL/Themes/default.thm");
-
-$theme->Name   = "caroline";
 $theme->Descr  = "For the girls (a little pink)";
 
 $theme->WTH_BGIMG                 =  "url('WGCAL/Images/cbg.png')";
@@ -17,5 +14,7 @@ $theme->WTH_ALERT                 =  "red";
 // Calendar specific colors
 $theme->WTH_CALWEEKEND            =  "#EFE2FF";
 $theme->WTH_CALTODAY              =  "white";
+
+$theme->WTH_TOOLBARW               =  "200";
 
 ?>

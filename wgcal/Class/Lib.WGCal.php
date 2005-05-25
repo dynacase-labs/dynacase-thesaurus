@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.31 2005/05/20 16:07:08 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.32 2005/05/25 15:28:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -11,7 +11,7 @@
  /**
  */
 include_once("FDL/mailcard.php");
-include_once("WGCAL/Class.WSyncDate.php");
+include_once("osync/Class.WSyncDate.php");
 
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
@@ -333,7 +333,7 @@ function sendRv(&$action, &$event, $sendto=0, $reason="") {
        $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
        $fullname = $u->getValue("TITLE");
        $mail = getMailAddr($u->getValue("US_WHATID"));
-       $to .= ($to==""?"":", ").$fullname." <".$mail.">";
+       if ($mail!="") $to .= ($to==""?"":", ").$fullname." <".$mail.">";
      }
    }
  }
@@ -349,7 +349,7 @@ function sendRv(&$action, &$event, $sendto=0, $reason="") {
      
  if ($to!="") {
    sendCard($action, $event->id, $to, $cc,
-	    $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." : ".$event->title,
+	    $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->title,
 	    "WGCAL:MAILRV?ev=$event->id:S&msg=$reason",
 	    true, "", $from, $bcc, $format="html" );
  }

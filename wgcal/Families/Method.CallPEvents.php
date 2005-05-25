@@ -11,6 +11,9 @@ function postModify() {
   if ($err!="") print_r2($err);
 }
 
+function getEventOwner() {
+  return $this->getValue("CALL_OWNERID");
+}
 
 function  setEventSpec(&$e) {
   $e->setValue("EVT_TITLE", $this->getValue("CALL_CONTACT")." : ".substr($this->getValue("CALL_LABEL"),0,20)."...");
