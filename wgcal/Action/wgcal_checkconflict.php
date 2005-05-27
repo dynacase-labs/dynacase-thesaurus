@@ -22,6 +22,7 @@ function wgcal_checkconflict(&$action) {
 
   if ($alreadyChecked || !$checkForConflict) {
     $action->lay->set("NOCF", true);
+    $action->lay->set("CF", false);
     return;
   }
 

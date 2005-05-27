@@ -1,5 +1,6 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 [ZONE WGCAL:WGCAL_MENU]
+
 <!-- POPUP DIVISION -->
 <script type="text/javascript"> var CurrentTime = -1; </script>
 <div  style="z-index:2000; display:none" id="cellpopup" class="wgcalpopup">

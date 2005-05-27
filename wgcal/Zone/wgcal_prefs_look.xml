@@ -30,8 +30,10 @@
 
 <tr class="wTextActive"><td colspan="3">[TEXT:meetings edition]</td></tr>
 
+<!--
 <tr><td width="10%"></td><td align="right">[TEXT:meeting hours interval], [TEXT:start hour] : </td><td><select style="cursor:pointer" onchange="mytoto('WGCAL_U_HSUSED', this.options[this.selectedIndex].value, '', '')">[BLOCK HSUSED]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HSUSED]</select></td></tr>
 <tr><td width="10%"></td><td align="right">[TEXT:end hour] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="mytoto('WGCAL_U_HEUSED', this.options[this.selectedIndex].value, '', '')">[BLOCK HEUSED]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HEUSED]</select></td></tr>
+-->
 
 <tr><td width="10%"></td><td align="right">[TEXT:meeting default duration] : </td><td><select style="cursor:pointer" onchange="mytoto('WGCAL_U_RVDEFDUR', this.options[this.selectedIndex].value, '', '')">[BLOCK RVDEFDUR]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK RVDEFDUR]</select></td></tr>
 

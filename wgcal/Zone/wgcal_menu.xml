@@ -1,12 +1,11 @@
-
 <!-- Popup Options -->
 <div  style="z-index:3000; display:none" id="wgcal_m_options" class="wgcalpopup">
-[BLOCK OPTIONS_MENU]
-<a href="#" id="[item_id]" onclick="activate(this,'[item_onclick]'); closeMenu('wgcal_m_options')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/[item_icon]" height="12px">&nbsp;[ENDIF POPUPICONS][item_label]</a>
-[ENDBLOCK OPTIONS_MENU]
+<a href="#" id="download_sync" onclick="activate(this,'[CORE_ABSURL]/WGCAL/synchronizer.zip'); closeMenu('wgcal_m_options')">[IF POPUPICONS]<img style="border:0px" src="[IMG:synchro.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:Outlook synchronizer]</a>
 <a class="separator"></a>
 <a href="#" id="close_wgcal_m_options" onclick="closeMenu('wgcal_m_options')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.png]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div>
+<!-- End of Popup Options -->
+
 
 <table cellspacing="0" border="0" width="100%" style="position:fixed;  z-index:500;">
 <tr>
