@@ -17,7 +17,16 @@
       title="[TEXT:click here to set the todo limit date]">
       <img src="WGCAL/Images/wm-refreshcal.gif" height="15" >&nbsp;<span id="Tstart">[todoDateT]</span></span>
       <input type="hidden" value="[todoDateV]" id="Dstart" name="Dstart">
-      <script type="text/javascript"> Calendar.setup( { inputField:"Dstart", displayArea:"Tstart", ifFormat:"%s", daFormat:"%A %d %B %Y", showsTime:false, button:"todoDate", date:new Date([todoDateMs]), weekNumbers:false, firstDay:1 }  );
+      <script type="text/javascript"> 
+Calendar.setup( { 
+inputField:"Dstart", 
+displayArea:"Tstart", 
+ifFormat:"%s", 
+daFormat:"%A %d %B %Y", 
+showsTime:false, button:"todoDate", 
+date:new Date([todoDateMs]), 
+weekNumbers:false, 
+firstDay:1 }  );
 </script></td>
 </tr>
 <tr><td colspan="2">&nbsp;</td></tr>

@@ -133,6 +133,32 @@ function vuvRessource() {
   saveRessources();
   return;
 }
+
+function showHideAllRess(show) {
+  var ir;
+  for (ir=0; ir<ressourceList.length; ir++) {
+    if (ressourceList[ir][0]>1) {
+      if (show==2) {
+	if (ressourceList[ir][2] == 1) {
+	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
+	  ressourceList[ir][2] = 0;
+	} else {
+	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
+	  ressourceList[ir][2] = 1;
+	}
+      } else if (show==1) {
+	document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
+	ressourceList[ir][2] = 0;
+      } else {
+	document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
+	ressourceList[ir][2] = 1;
+      } 
+    }
+  }
+  saveRessources();
+  return;
+}
+
 function removeRessource() {
   var eltRess;
   if (CRessId==-1) {
@@ -151,7 +177,6 @@ function removeRessource() {
 }
 
    
-
 function saveRessources() {
   var rlist= "";
   for (i=0; i<ressourceList.length;i++) {

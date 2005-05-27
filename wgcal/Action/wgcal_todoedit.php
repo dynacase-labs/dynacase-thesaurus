@@ -13,7 +13,7 @@ function wgcal_todoedit(&$action) {
   $db = $action->getParam("FREEDOM_DB");
 
   $title = "";
-  $date_ts = time() + ($action->getParam("WGCAL_U_TODODEFLIMIT", 7) * (24*3600));
+  $date  = date2db(time() + ($action->getParam("WGCAL_U_TODODEFLIMIT", 7) * (24*3600)));
   $note = "";
 
   $id = GetHttpVars("idtodo", -1);
@@ -22,7 +22,7 @@ function wgcal_todoedit(&$action) {
     if ($todo->isAlive()) {
       $id = $todo->id;
       $title = $todo->getValue("todo_title");
-      $date_ts = date2db($todo->getValue("todo_date"));
+      $date = $todo->getValue("todo_date");
       $note = $todo->getValue("todo_note");
     } else {
       $id = -1;
@@ -33,9 +33,9 @@ function wgcal_todoedit(&$action) {
   $action->lay->set("todoTitle", $title);
   $action->lay->set("todoNote", $note);
   
-  $action->lay->set("todoDateV", $date_ts);
-  $action->lay->set("todoDateMs", ($date_ts*1000));
-  $action->lay->set("todoDateT", strftime("%A %d %B %Y", $date_ts));
+  $action->lay->set("todoDateV", dbdate2ts($date));
+  $action->lay->set("todoDateMs", (dbdate2ts($date)*1000));
+  $action->lay->set("todoDateT", substr($date,0,11));
 }
 
 

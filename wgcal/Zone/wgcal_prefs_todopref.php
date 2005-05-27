@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_todopref.php,v 1.2 2005/04/01 11:45:33 marc Exp $
+ * @version $Id: wgcal_prefs_todopref.php,v 1.3 2005/05/27 15:03:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -17,6 +17,12 @@ include_once("WGCAL/WGCAL_external.php");
 function wgcal_prefs_todopref(&$action) {
   
   $optchk = array(
+		  "ordertodo" => array(_("order todo "), 
+					"WGCAL_U_TODOORDER", 
+					"wgcal_toolbar", 
+					"WGCAL_TOOLBAR", 
+					array( "desc"  => _("todo desc"),
+					       "asc"   => _("todo asc"))),
 		  "seetodofor" => array(_("display todos for "), 
 					"WGCAL_U_TODODAYS", 
 					"wgcal_toolbar", 

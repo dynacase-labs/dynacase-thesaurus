@@ -4,7 +4,7 @@
 <legend>
 <span onmouseover="this.className='wTextActive'" 
       onmouseout="this.className='wTextNormal'" 
-      onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN')">[TEXT:add prefered contact]</span></legend>
+      onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN')"><img height="22" src="WGCAL/Images/wm-newcontact.png"> [TEXT:add prefered contact]</span></legend>
 
 <table width="100%" style="margin:0px;"><tr>
 <thead></thead>

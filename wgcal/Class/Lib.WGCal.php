@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.32 2005/05/25 15:28:28 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.33 2005/05/27 15:03:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -175,6 +175,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
     }
     
     if (!$ref) { 
+
       $vo = new Doc($dbaccess, $v["evt_idinitiator"]);  
       $n = new Doc($dbaccess, $v["id"]);  
       $item["RESUME"] = $n->calVResume;
@@ -195,7 +196,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
       PopupActive('calpopup',$item["RG"], 'cancelrv');
       PopupInactive('calpopup',$item["RG"], 'editrv');
       PopupInactive('calpopup',$item["RG"], 'deleterv');
-      $action->lay->set("POPUPSTATE",false);
+      $action->lay->set("popupState",false);
       
       if ($action->user->fid == $v["evt_idcreator"]) {
 	if ($v["evfc_repeatmode"] > 0) PopupActive('calpopup',$item["RG"], 'deloccur');
@@ -224,7 +225,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
       else PopupInactive('calpopup',$item["RG"], 'viewrv');
       
       if ($withme && ($mystate>=1 || $mystate<=4)) {
-	$action->lay->set("POPUPSTATE",true);
+	$action->lay->set("popupState",true);
 	PopupActive('calpopup',$item["RG"], 'tbcrv');
 	if ($mystate!=2) PopupActive('calpopup',$item["RG"], 'acceptrv');
 	else if ($mystate!=3) PopupActive('calpopup',$item["RG"], 'rejectrv');

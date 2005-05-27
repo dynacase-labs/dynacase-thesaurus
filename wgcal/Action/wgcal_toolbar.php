@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.30 2005/05/24 05:28:46 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.31 2005/05/27 15:03:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -187,7 +187,7 @@ function _listress(&$action)
 
   // Init popup
   include_once("FDL/popup_util.php");
-  popupInit('resspopup',  array('displayress',  'changeresscolor', 'removeress', 'cancelress'));
+  popupInit('resspopup',  array('displayress',  'changeresscolor', 'removeress', 'invertress', 'displayallr', 'hideallr', 'cancelress'));
   foreach ($lress as $k => $v) {
     $tt = explode("%", $v);
     $rid = $tt[0];
@@ -207,6 +207,9 @@ function _listress(&$action)
       else $t[$i]["RSTYLE"] = "WGCRessDefault";
       PopupActive('resspopup', $rd->id, 'displayress');
       PopupActive('resspopup', $rd->id, 'changeresscolor');
+      PopupActive('resspopup', $rd->id, 'hideallr');
+      PopupActive('resspopup', $rd->id, 'displayallr');
+      PopupActive('resspopup', $rd->id, 'invertress');
       PopupActive('resspopup', $rd->id, 'cancelress');
       
       $i++;

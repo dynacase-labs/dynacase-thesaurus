@@ -1,0 +1,11 @@
+<?php
+$theme->Descr  = "Default theme with smaller fonts";
+
+$theme->WTH_FONTLIST              =  "Verdana, Arial, sans-serif";
+$theme->WTH_FONTSIZE_NORMAL       =  "7";
+$theme->WTH_FONTSIZE_BIG          =  "9";
+$theme->WTH_FONTSIZE_SMALL        =  "6";
+
+$theme->WTH_TOOLBARW               =  "200";
+
+?>

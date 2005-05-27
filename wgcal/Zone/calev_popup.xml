@@ -8,7 +8,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&evt=[id]&st=EVT_TBC','');closeMenu('calevcard')" >[TEXT:to be confirm]</a>
 <a class="separator"><hr></a>
 
-<a class="separator"><hr></a>
+[IF HaveState]<a class="separator"><hr></a>[ENDIF HaveState]
 
 <a href="#" id="editrv"
     onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&evt=[id]','wgcal_edit');closeMenu('calevcard')" >[TEXT:edit]</a>

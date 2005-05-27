@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: todo.php,v 1.3 2005/04/07 12:17:28 marc Exp $
+ * @version $Id: todo.php,v 1.4 2005/05/27 15:03:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -43,7 +43,8 @@ function todo(&$action) {
     $filter[] = "todo_date < '".$stop."'";
   } 
 
-  $todos = getChildDoc($dbaccess, 0, 0, "ALL", $filter, $action->user->id, "TABLE", "TODO", false, "todo_date", true);
+  $orderby = $action->GetParam("WGCAL_U_TODOORDER", "desc");
+  $todos = getChildDoc($dbaccess, 0, 0, "ALL", $filter, $action->user->id, "TABLE", "TODO", false, "todo_date ".$orderby, true);
 
   $td = array(); $itd = 0;
   foreach ($todos as $k => $v) {

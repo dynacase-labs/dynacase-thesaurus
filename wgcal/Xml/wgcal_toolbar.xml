@@ -13,8 +13,7 @@
 </div>
 <div title="[TEXT:click here to refresh toolbar]" onclick="document.location.reload(true)" class="wWhoAmI">
 <table cellspacing="0">
-<tr><td rowspan="2"><img src="[IMG:logofreedom.gif]" height="25"><td><span style="font-weight:bold">[owner], [today]</span></td></tr>
-<tr><td>[IF LSYNC]<span style="[lsyncstyle];font-size:90%">[TEXT:last sync] [lastsync]</span>[ENDIF LSYNC]</td></tr>
+<tr><td><img src="WGCAL/Images/wm-reloadsync.png" height="25"><td><span style="font-weight:bold">[owner], [today]</span>[IF LSYNC]<span style="[lsyncstyle];font-size:90%"> ([TEXT:last sync] [lastsync]</span>[ENDIF LSYNC])</td></tr>
 </table>
 </div>
 
@@ -104,11 +103,22 @@ var CEventText = '';
 <!-- POPUP DIVISION -->
 
 <div  style="display:none" id="resspopup" class="wgcalpopup">
-<a href="#" id="displayress" onclick="vuvRessource(); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-ressshowhide.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:show/hide this ressource]</a>
-<a href="#" id="changeresscolor" onclick="showColorPicker(event, CRessId); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-resscolor.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:change color for this ressource]</a>
-<a href="#" id="removeress" onclick="removeRessource(CRessId); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-ressdelete.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
+<a href="#" id="displayress" onclick="vuvRessource(); closeMenu('resspopup')">[IF POPUPICONS]
+<img style="border:0px" src="WGCAL/Images/wm-ressshowhide.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:show/hide this ressource]</a>
+<a href="#" id="changeresscolor" onclick="showColorPicker(event, CRessId); closeMenu('resspopup')">[IF POPUPICONS]
+<img style="border:0px" src="WGCAL/Images/wm-resscolor.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:change color for this ressource]</a>
+<a href="#" id="removeress" onclick="removeRessource(CRessId); closeMenu('resspopup')">[IF POPUPICONS]
+<img style="border:0px" src="WGCAL/Images/wm-ressdelete.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
 <a class="separator"></a>
-<a href="#" id="cancelress" onclick="closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+<a href="#" id="invertress" onclick="showHideAllRess(2); closeMenu('resspopup')">[IF POPUPICONS]
+<img style="border:0px" src="WGCAL/Images/wm-ressinvert.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:invert selection]</a>
+<a href="#" id="displayallr" onclick="showHideAllRess(0); closeMenu('resspopup')">[IF POPUPICONS]
+<img style="border:0px" src="WGCAL/Images/wm-ressdisplayall.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display all ressources]</a>
+<a href="#" id="hideallr" onclick="showHideAllRess(1); closeMenu('resspopup')">[IF POPUPICONS]
+<img style="border:0px" src="WGCAL/Images/wm-resshideall.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:hide all ressources]</a>
+<a class="separator"></a>
+<a href="#" id="cancelress" onclick="closeMenu('resspopup')">[IF POPUPICONS]
+<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> <!-- end POPUP DIVISION -->
 
 <div id="vvical" style="display:[vvvical]" width="100%" class="wToolArea" >

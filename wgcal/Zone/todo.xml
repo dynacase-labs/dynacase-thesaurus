@@ -19,14 +19,14 @@
 
 [BLOCK TodoList]
 <tr title="[lTextTodo]">
-  <td><img src="WGCAL/Images/todo-done.png" style="cursor:pointer;border:0px"
+  <td width="15"><img src="WGCAL/Images/todo-done.png" style="cursor:pointer;border:0px"
            title="[TEXT:todo done]" height="12" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();"></td>
-  <td id="[idTodo]" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" class="WGCRessDefault" 
-      onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=[idTodo]');">[dateTodo] : [sTextTodo]</td>
-  <td>
+  <td width="15">
       [IF warning]<img src="WGCAL/Images/todo-warning.png" style="cursor:pointer;border:0px" title="[TEXT:todo warning] [dateTodo]" height="12" >[ENDIF warning]
       [IF alert]<img src="WGCAL/Images/todo-alert.png" style="cursor:pointer;border:0px" title="[TEXT:todo alert]" height="12" >[ENDIF alert]
   </td>
+  <td id="[idTodo]" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" class="WGCRessDefault" 
+      onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=[idTodo]');">[dateTodo] : [sTextTodo]</td>
 </tr>
 [ENDBLOCK TodoList]
 
