@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.11 2005/04/25 19:02:20 marc Exp $
+ * @version $Id: calev_card.php,v 1.12 2005/05/29 17:57:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -80,7 +80,6 @@ function calev_card(&$action) {
   $action->lay->set("modifdate", strftime("%x %X",$ev->revdate));
   $action->lay->set("incalendar", $ev->getValue("CALEV_EVCALENDAR"));
 
-  $ress = WGCalGetRessDisplayed($action);
   if ($private) $action->lay->set("TITLE", $pretitle." "._("confidential event"));
   else $action->lay->set("TITLE", $pretitle." ".$ev->getValue("CALEV_EVTITLE"));
 
@@ -89,46 +88,42 @@ function calev_card(&$action) {
   $tressg = $ev->getTValue("CALEV_ATTGROUP");
 
 
-  // Compute color according the owner, participant, etc,...
-  $o_or_p = 0;
-  $v_proprio = false;
-  foreach ($ress as $k => $v) {
-    if ($action->user->fid == $v) $v_proprio = true;
-  }
-  
-  if ($v_proprio) {
-    if ($action->user->fid == $ownerid) $o_or_p = $ownerid;
-    else {
-       foreach ($tress as $k => $v) if ($action->user->fid == $v) $o_or_p = $action->user->fid;
-    }
-  } else {
-    foreach ($ress as $k => $v) if ($v->id == $ownerid) $o_or_p = $ownerid;
-    if ($o_or_p==0) {
-      foreach ($ress as $k => $v) {
-        foreach ($tress as $kr => $vr) {
-          if ($v->id==$vr && $tressg[$kr]==-1) $o_or_p = $vr;
-        }
-      }
-    }
-  }
-  $bgresumecolor = $bgcolor = "white";
-  foreach ($ress as $k => $v) if ($v->id==$o_or_p) $bgresumecolor=$bgcolor=$v->color;
-
-  $present = false;
+// Si je suis convié et affichable => Ma couleur
+// Si le propriétaire est dans les affichables => Couleur du propriétaire
+// Si le propriétaire n'est pas affichable => Couleur du premier convié qui est affichable. 
+  $me_attendee = false;
   $cstate = -1;
   foreach ($tress as $k => $v) {
     if ($v == $action->user->fid) {
-      $present = true;
+      $me_attendee = true;
       $cstate = $tresse[$k];
     }
   }
-  if ($present) $bgnew = WGCalGetColorState($cstate);
+  $display_me = false;
+  $ress = WGCalGetRessDisplayed($action);
+  foreach ($ress as $k => $v ) if ($v->id == $action->user->fid) $display_me = true;
+
+  $ress_color = -1;
+  if ($display_me && $me_attendee) $ress_color = $action->user->fid;
+  else  {
+    foreach ($ress as $k => $v ) if ($v->id ==  $ownerid) $ress_color = $ownerid;
+    if ( $ress_color == -1) {
+       foreach ($tress as $k => $v ) {
+         foreach ($ress as $kv => $vv) if ($v == $vv->id) $ress_color = $vv->id;
+       }
+    }
+  }
+  $bgresumecolor = $bgcolor = "white";
+  foreach ($ress as $k => $v) if ($v->id==$ress_color) $bgresumecolor=$bgcolor=$v->color;
+//echo "[".$ev->getValue("CALEV_EVTITLE")."] display_me=$display_me me_attendee=$me_attendee ress_color=$ress_color<br>";
+
+  if ($display_me) $bgnew = WGCalGetColorState($cstate);
   else $bgnew = "transparent";
   $action->lay->set("bgstate", $bgnew);
   $action->lay->set("bgcolor", $bgcolor);
   $action->lay->set("bgresumecolor", $bgresumecolor);
 
-  if ($private && !$present) $action->lay->SetBlockData("ISCONF", null);
+  if ($private && !$display_me) $action->lay->SetBlockData("ISCONF", null);
   else $action->lay->SetBlockData("ISCONF", $tpriv);
 
   // repeat informations
@@ -169,9 +164,9 @@ function calev_card(&$action) {
   }
       
 
-  showIcons($action, $ev, $private, $present);
+  showIcons($action, $ev, $private, $me_attendee);
 
-  ev_showattendees($action, $ev, $present, "lightgrey");
+  ev_showattendees($action, $ev, $display_me, "lightgrey");
 
   $nota = str_replace("\n", "<br>", $ev->getValue("CALEV_EVNOTE"));
   if ($nota!="" && !$private) {
@@ -182,7 +177,7 @@ function calev_card(&$action) {
   }    
 }
 
-function showIcons(&$action, &$ev, $private, $present) {
+function showIcons(&$action, &$ev, $private, $withme) {
   $icons = array();
   if ($private) {
     addIcons($icons, "CONFID");
@@ -192,7 +187,7 @@ function showIcons(&$action, &$ev, $private, $present) {
     if ($ev->getValue("CALEV_VISIBILITY") == 2)  addIcons($icons, "VIS_GRP");
     if ($ev->getValue("CALEV_REPEATMODE") != 0)  addIcons($icons, "REPEAT");
     if ((count($ev->getTValue("CALEV_ATTID"))>1))  addIcons($icons, "GROUP");
-    if ($present && ($ev->getValue("CALEV_OWNERID") != $action->user->fid)) addIcons($icons, "INVIT");
+    if ($withme && ($ev->getValue("CALEV_OWNERID") != $action->user->fid)) addIcons($icons, "INVIT");
   }
   $action->lay->SetBlockData("icons", $icons);
 }
@@ -213,7 +208,7 @@ function addIcons(&$ia, $icol)
   $ia[count($ia)] = $ricons[$icol];
 }
 
-function ev_showattendees(&$action, &$ev, $present, $dcolor) {
+function ev_showattendees(&$action, &$ev, $display_me, $dcolor) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $globalstate = $dcolor;
   $globalstatesize = "0";
