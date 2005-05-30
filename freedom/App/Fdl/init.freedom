@@ -296,7 +296,7 @@ ATTR;FI_DESCRIPTION;FI_FRDESC;résumé;N;N;longtext;40;W;;;;
 ;;;;;;;;;;;;
 ;;;;;;;;;;;;
 ATTR;FI_FR_OFORMAT;;Fichiers;;;frame;;F;;;;
-ATTR;FI_FILE;FI_FR_OFORMAT;principal;N;Y;file;50;W;;;;
+ATTR;FI_FILE;FI_FR_OFORMAT;principal;N;Y;file;50;W;Y;;;
 ATTR;FT_T_OFORMAT;FI_FR_OFORMAT;autres;N;N;array;500;W;;;;
 ATTR;FI_OFILE;FT_T_OFORMAT;fichier;N;N;file;510;W;;;;
 ;;;;;;;;;;;;
