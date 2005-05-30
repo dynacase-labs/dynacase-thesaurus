@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.88 2005/04/12 14:26:52 eric Exp $
+ * @version $Id: import_file.php,v 1.89 2005/05/30 15:54:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -584,10 +584,15 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	    $doc->setValue($k,$v);
 	  }
 	  $err = $doc->Add(); 
+	  $tcr["err"]=$err;
 	}
-	$tcr["id"]=$doc->id;
-	$msg .= $err . sprintf(_("add %s id [%d]  "),$doc->title,$doc->id); 
-	$tcr["msg"]=sprintf(_("add %s id [%d]  "),$doc->title,$doc->id); 
+	if ($err=="") {
+	  $tcr["id"]=$doc->id;
+	  $msg .= $err . sprintf(_("add %s id [%d]  "),$doc->title,$doc->id); 
+	  $tcr["msg"]=sprintf(_("add %s id [%d]  "),$doc->title,$doc->id); 
+	}else {
+	  $tcr["action"]="ignored";
+	}
       } else {
 	$doc->RefreshTitle();
 	$tcr["msg"]=sprintf(_("%s to be add"),$doc->title);
@@ -609,10 +614,15 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	      if ($doc->getValue($k) == "")  $doc->setValue($k,$v);
 	    }
 	    $err = $doc->Add(); 
+	    $tcr["err"]=$err;
 	  }
-	  $tcr["id"]=$doc->id;
-	  $tcr["action"]="added";
-	  $tcr["msg"]=sprintf(_("add id [%d] "),$doc->id); 
+	  if ($err=="") {
+	    $tcr["id"]=$doc->id;
+	    $tcr["action"]="added";
+	    $tcr["msg"]=sprintf(_("add id [%d] "),$doc->id); 
+	  } else {
+	    $tcr["action"]="ignored";
+	  }
 	} else {	    
 	  $tcr["msg"]=sprintf(_("%s to be add"),$doc->title);
 	}
