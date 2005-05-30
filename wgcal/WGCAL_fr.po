@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-27 16:52+0200\n"
+"POT-Creation-Date: 2005-05-30 07:40+0200\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -420,9 +420,8 @@ msgstr "Durée par défaut des rendez-vous"
 msgid "minutes increment used for event setting"
 msgstr "Incrément pour les minutes en saisie de RV"
 
-#, fuzzy
 msgid "order todos"
-msgstr "Afficher"
+msgstr "Tri des tâches"
 
 msgid "view todos for ... days"
 msgstr "Afficher les tâches pour ... jours"
@@ -533,7 +532,8 @@ msgid "give a title"
 msgstr "saississez un titre"
 
 msgid "start time after end time, please correct this"
-msgstr "La date de début est postérieure à celle de fin.<br>Merci de le corriger."
+msgstr ""
+"La date de début est postérieure à celle de fin.<br>Merci de le corriger."
 
 msgid "start time update according end time"
 msgstr "mise à jour de la date de début"
@@ -738,6 +738,9 @@ msgstr "Couleur"
 
 msgid "remove this ressource"
 msgstr "Enlever"
+
+msgid "display only me"
+msgstr "N'afficher que moi"
 
 msgid "invert selection"
 msgstr "Inverser la sélection"

@@ -138,7 +138,15 @@ function showHideAllRess(show) {
   var ir;
   for (ir=0; ir<ressourceList.length; ir++) {
     if (ressourceList[ir][0]>1) {
-      if (show==2) {
+      if (show==3) {
+	if (ressourceList[ir][0] == MyFreedomId) {
+	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
+	  ressourceList[ir][2] = 1;
+	} else {
+	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
+	  ressourceList[ir][2] = 0;
+	}
+      } else if (show==2) {
 	if (ressourceList[ir][2] == 1) {
 	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
 	  ressourceList[ir][2] = 0;
@@ -238,8 +246,6 @@ function SetEventState(cevent, state) {
   evst = document.getElementById('st');
   evst.value = state;
   frm.submit();
-//   seeev.style.display = 'none';
-  document.location.reload(true);
   return;
 }
 

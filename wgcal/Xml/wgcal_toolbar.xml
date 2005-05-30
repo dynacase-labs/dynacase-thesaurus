@@ -1,8 +1,9 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <div style="display:none">
-<form id="eventstate" target="wgcal_calendar" name="feventstate" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE">
+<form id="eventstate" target="wgcal_toolbar" name="feventstate" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE">
      <input id="cev" name="cev" type="hidden" value="-1">
      <input id="st" name="st" type="hidden" value="-1">
+     <input id="st" name="ra" type="hidden" value="WGCAL_TOOLBAR">
 </form>
 <form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 
@@ -13,7 +14,7 @@
 </div>
 <div title="[TEXT:click here to refresh toolbar]" onclick="document.location.reload(true)" class="wWhoAmI">
 <table cellspacing="0">
-<tr><td><img src="WGCAL/Images/wm-reloadsync.png" height="25"><td><span style="font-weight:bold">[owner], [today]</span>[IF LSYNC]<span style="[lsyncstyle];font-size:90%"> ([TEXT:last sync] [lastsync]</span>[ENDIF LSYNC])</td></tr>
+<tr><td><img src="WGCAL/Images/wm-reloadsync.png" height="25"><td><span style="font-weight:bold">[owner], [today]</span>[IF LSYNC]<span style="[lsyncstyle];font-size:90%"> ([TEXT:last sync] [lastsync])</span>[ENDIF LSYNC]</td></tr>
 </table>
 </div>
 
@@ -110,6 +111,8 @@ var CEventText = '';
 <a href="#" id="removeress" onclick="removeRessource(CRessId); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="WGCAL/Images/wm-ressdelete.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
 <a class="separator"></a>
+<a href="#" id="onlyme" onclick="showHideAllRess(3); closeMenu('resspopup')">[IF POPUPICONS]
+<img style="border:0px" src="WGCAL/Images/wm-onlyme.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display only me]</a>
 <a href="#" id="invertress" onclick="showHideAllRess(2); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="WGCAL/Images/wm-ressinvert.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:invert selection]</a>
 <a href="#" id="displayallr" onclick="showHideAllRess(0); closeMenu('resspopup')">[IF POPUPICONS]
@@ -157,6 +160,10 @@ var  toolList = new Array( 'inav', 'vvical', 'waitrv', 'todo' [IF SHOWCONTACTS],
 
 [BLOCK L_RESS]
 InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]');[ENDBLOCK L_RESS]
+
+var MyFreedomId = [MyFreedomId];
+document.getElementById('updatecal').submit();
+
 </script>
 
 

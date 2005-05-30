@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.31 2005/05/27 15:03:28 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.32 2005/05/30 07:18:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -37,6 +37,7 @@ function wgcal_toolbar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_toolbar.js");
 
 
+  $action->lay->set("MyFreedomId", $action->user->fid);
   $action->lay->set("owner", $action->user->lastname." ".$action->user->firstname);
   $action->lay->set("today", strftime("%d/%m/%Y", time()));
   $db = WSyncGetAdminDb();
@@ -52,7 +53,7 @@ function wgcal_toolbar(&$action) {
 //   $csslay = new Layout($cssfile,$action);
 //   $action->parent->AddCssCode($csslay->gen());
 
-  _waitrv($action);
+  _waitrv();
   _navigator($action);
   _listress($action);
 
@@ -75,14 +76,17 @@ function wgcal_toolbar(&$action) {
 }
 
 
-function _seewaitrv(&$action, &$wrv) {
+function _seewaitrv(&$wrv) {
+  global $action;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $rvtextl =  20;
 
+  $filter[] = "(calev_ownerid = ".$action->user->fid.") OR (calev_attid ~* '".$action->user->fid."')";
   $irv = count($wrv);
-  $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", array(), 
+  $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, 
 		      $action->user->id, "TABLE", getIdFromName($dbaccess,"CALEVENT"));
+
   foreach ($rdoc as $k => $v)  {
     $doc = new Doc($action->GetParam("FREEDOM_DB"), $v["id"]);
     $attid = $doc->getTValue("CALEV_ATTID");
@@ -107,12 +111,12 @@ function _seewaitrv(&$action, &$wrv) {
   }
 }
 
-function _waitrv(&$action) {
-
+function _waitrv() {
+  global $action;
   $trv = array();
 
   // search NEW rv
-  _seewaitrv($action, $trv);
+  _seewaitrv($trv);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -187,7 +191,7 @@ function _listress(&$action)
 
   // Init popup
   include_once("FDL/popup_util.php");
-  popupInit('resspopup',  array('displayress',  'changeresscolor', 'removeress', 'invertress', 'displayallr', 'hideallr', 'cancelress'));
+  popupInit('resspopup',  array('displayress',  'changeresscolor', 'removeress', 'onlyme', 'invertress', 'displayallr', 'hideallr', 'cancelress'));
   foreach ($lress as $k => $v) {
     $tt = explode("%", $v);
     $rid = $tt[0];
@@ -209,6 +213,7 @@ function _listress(&$action)
       PopupActive('resspopup', $rd->id, 'changeresscolor');
       PopupActive('resspopup', $rd->id, 'hideallr');
       PopupActive('resspopup', $rd->id, 'displayallr');
+      PopupActive('resspopup', $rd->id, 'onlyme');
       PopupActive('resspopup', $rd->id, 'invertress');
       PopupActive('resspopup', $rd->id, 'cancelress');
       

@@ -8,6 +8,9 @@
 - Réglage de la synchronisation outlook
 - Ajout de la date de dernière synchro dans l'ihm Web
 - Modification du contenu des mails.
+- Optimisation de la recherche des rv en attente
+- Reprise de l'algo de choix de la couleur d'affichage des rv
+- Modification des menus de gestion des ressources affichées.
 
 
 --------------------------------------------------------------------------

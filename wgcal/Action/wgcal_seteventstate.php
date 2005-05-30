@@ -10,6 +10,7 @@ function wgcal_seteventstate(&$action) {
   $db = $action->getParam("FREEDOM_DB");
   $evi = GetHttpVars("ev", -1);
   $cev = GetHttpVars("cev", -1);
+  $raction = GetHttpVars("ra", "WGCAL_CALENDAR");
   $event = GetCalEvent($db, $evi, $cev);
   $evstate  = GetHttpVars("st", -1);
   if (!$event || $evstate==-1) return;
@@ -34,7 +35,7 @@ function wgcal_seteventstate(&$action) {
    }
    sendRv($action, $event, 0, ucfirst($action->user->lastname)." ".ucfirst($action->user->firstname)." : "._("state set to ").WGCalGetLabelState($evstate));
    $event->AddComment(_("state set to ").WGCalGetLabelState($evstate));
-   redirect($action, "WGCAL", "WGCAL_CALENDAR");
+   redirect($action, "WGCAL", $raction);
 }
 
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: todo.php,v 1.4 2005/05/27 15:03:28 marc Exp $
+ * @version $Id: todo.php,v 1.5 2005/05/30 07:18:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -50,6 +50,7 @@ function todo(&$action) {
   foreach ($todos as $k => $v) {
     $td[$itd]["rgTodo"] = $k;
     $td[$itd]["idTodo"] = $v["id"];
+    $td[$itd]["colorTodo"] = "transparent";
     $td[$itd]["sTextTodo"] = (strlen($v["todo_title"])>$todoshort ? substr($v["todo_title"],0,$todoshort)."..." : $v["todo_title"]);
     $td[$itd]["jsTextTodo"] = str_replace("'", "\'", $td[$itd]["sTextTodo"]);
     $td[$itd]["lTextTodo"] = substr($v["todo_date"],0,11)." : ".$v["todo_title"];
@@ -59,9 +60,13 @@ function todo(&$action) {
     $td[$itd]["warning"] = false;
     $td[$itd]["alert"] = false;
     
-    if ($cdate<$today) $td[$itd]["alert"] = true;
-    else if ($cdate<($today+($todowarn*24*3600))) $td[$itd]["warning"] = true;
-
+    if ($cdate<$today) {
+      $td[$itd]["alert"] = true;
+      $td[$itd]["colorTodo"] = "red";
+    } else if ($cdate<($today+($todowarn*24*3600))) {
+      $td[$itd]["warning"] = true;
+      $td[$itd]["colorTodo"] = "orange";
+    }
     $itd++;
   }
   $action->lay->setBlockData("TodoList", $td);
