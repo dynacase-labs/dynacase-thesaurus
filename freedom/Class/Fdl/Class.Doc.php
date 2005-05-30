@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.249 2005/05/27 13:50:55 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.250 2005/05/30 15:54:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2700,7 +2700,8 @@ create unique index i_docir on doc(initid, revision);";
 	  {	      
 	  case "image": 		  
 	    $tableimage[$nbimg]["imgsrc"]=$htmlvalue;
-	    $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue."&height!=80";
+	    if (strstr($htmlvalue,'index.php'))   $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue."&height=80";
+	    else $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue;
 	    break;
 	  default : 
 	    $tableframe[$v]["value"]=$htmlvalue;
