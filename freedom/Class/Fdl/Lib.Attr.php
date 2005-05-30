@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.47 2005/04/01 17:21:56 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.48 2005/05/30 15:55:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -183,6 +183,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  case money:
 	    $attrids[$v->id] = ($v->id)." float8";  
 	    break;
+	  case int:
 	  case integer:
 	    $attrids[$v->id] = ($v->id)." int4";  
 	    break;
@@ -331,6 +332,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
 	      case money:
 		$sqltype = strtolower($v->id)." float8";  
 		break;
+	      case int:
 	      case integer:
 		$sqltype = strtolower($v->id)." int4";  
 		break;
