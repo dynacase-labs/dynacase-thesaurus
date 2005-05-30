@@ -1,7 +1,14 @@
+//FAM;contrôle de vues(CVDOC);<specid>;<fldid>;titre;description;family id;famille;vues;id création vues par défaut;id vues;label;création vue;type;zone;id masque;masque;family id;famille
+ORDER;CVDOC;;;ba_title;cv_desc;cv_famid;cv_fam;cv_t_views;cv_idcview;cv_idview;cv_lview;cv_lcview;cv_kview;cv_zview;cv_mskid;cv_msk;dpdoc_famid;dpdoc_fam
+DOC;CVDOC;CVDENVENT;;Détail des recherches évènement;;33;recherche événement;;;detail\nres;Détails\nPar ressources;;VEDIT\nVCONS;FREEDOM:EDITDSEARCH\nFREEEVENT:PLANNER?byres=Y;\n;\n;;
+;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;
+DOC;PDOC;EVENT_PROFILE;;Evénement généré;;;;;;;;;;;;;;
+PROFIL;EVENT_PROFILE;;;view=2;view=82;;;;;;;;;;;;;
 // famille portail;;;id;class;name;;;;;;;
 BEGIN;0;événement;34;;EVENT;;;;;;;
 TYPE;C;;;;;;;;;;;
-;;;;;;;;;;;;
+CPROFID;EVENT_PROFILE;;;;;;;;;;;
 ICON;event.gif;;;;;;;;;;;
 METHOD;Method.Event.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
@@ -31,7 +38,7 @@ END;0;;;;;;;;;;;
 // famille portail;;;id;class;name;;;;;;;
 BEGIN;DSEARCH;recherche événement;33;;DCALENDAR;;;;;;;
 TYPE;C;;;;;;;;;;;
-;;;;;;;;;;;;
+CVID;CVDENVENT;;;;;;;;;;;
 ICON;dcal.gif;;;;;;;;;;;
 METHOD;Method.DCalendar.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
@@ -89,6 +96,3 @@ IATTR;DCAL_FR_PRESENT;;DCALENDAR;;;;;;;;;
 ;;;;;;;;;;;;
 ;;;;;;;;;;;;
 END;;;;;;;;;;;;
-//FAM;contrôle de vues(CVDOC);<specid>;<fldid>;titre;description;family id;famille;vues;id création vues par défaut;id vues;label;création vue;type;zone;id masque;masque;family id;famille
-ORDER;CVDOC;;;ba_title;cv_desc;cv_famid;cv_fam;cv_t_views;cv_idcview;cv_idview;cv_lview;cv_lcview;cv_kview;cv_zview;cv_mskid;cv_msk;dpdoc_famid;dpdoc_fam
-DOC;CVDOC;CVDENVENT;;Détail des recherches évènement;;33;recherche événement;;;detail\nres;Détails\nPar ressources;;VEDIT\nVCONS;FREEDOM:EDITDSEARCH\nFREEEVENT:PLANNER?byres=Y;\n;\n;;
