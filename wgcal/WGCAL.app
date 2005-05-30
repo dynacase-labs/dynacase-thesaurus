@@ -22,6 +22,10 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_CSS", "layout" => "wgcal.css", "short_name" =>N_("css manager"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_MAIN", "short_name" =>N_("main view"), "toc" => "N", "root" =>"Y"),
 
+
+  array( "acl" => "WGCAL_USER", "name" => "RENDEZVOUS_READ", "short_name" =>N_("Rendez-vous default view"), "toc" => "N", "root" =>"N"),
+
+
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_TOOLBAR", "short_name" =>N_("toolbar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETTOOLSTATE", "short_name" =>N_("set display/undisplay tool state in toolbar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETEVENTSTATE", "short_name" =>N_("set event state"), "toc" => "N", "root" =>"N"),

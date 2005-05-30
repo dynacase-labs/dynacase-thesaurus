@@ -6,6 +6,8 @@ var $eventAttDesc      = "CALEV_TITLE";
 var $eventAttCode      = "RV";
 var $eventFamily       = "EVENT_FROM_CAL";
 
+var $defaultview= "WGCAL:RENDEZVOUS_READ:T";
+
 function postModify() {
   $err = $this->setEvent(); 
   if ($err!="") print_r2($err);

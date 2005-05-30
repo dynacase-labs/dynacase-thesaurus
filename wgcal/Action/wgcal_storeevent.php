@@ -83,7 +83,7 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_EVCALENDAR", $caltitle);
 
   $event->setValue("CALEV_VISIBILITY", GetHttpVars("evconfidentiality", 0));
-  if (GetHttpVars("evconfidentiality", 0)==1) $event->setprofil(getIdFromName("RV_PRIVATE"));
+  if (GetHttpVars("evconfidentiality", 0)==1) $event->setprofil(getIdFromName($dbaccess, "RV_PRIVATE"));
   
   $event->setValue("CALEV_EVALARM", (GetHttpVars("AlarmCheck", "")=="on"?1:0));
   if (GetHttpVars("AlarmCheck", "")=="on") {

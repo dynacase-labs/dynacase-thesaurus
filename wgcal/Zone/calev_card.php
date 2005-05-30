@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.12 2005/05/29 17:57:29 marc Exp $
+ * @version $Id: calev_card.php,v 1.13 2005/05/30 17:17:23 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -11,7 +11,7 @@
  /**
  */
 include_once("WGCAL/Lib.WGCal.php");
-include_once("WGCAL/WGCAL_external.php");
+// include_once("WGCAL/WGCAL_external.php");
 
 function calev_card(&$action) {
 
