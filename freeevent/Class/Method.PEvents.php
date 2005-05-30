@@ -3,7 +3,7 @@
  * Produce events methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.PEvents.php,v 1.11 2005/05/30 15:38:55 eric Exp $
+ * @version $Id: Method.PEvents.php,v 1.12 2005/05/30 15:52:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -85,44 +85,44 @@ function pEventDefault() {
       $evt=new Doc($this->dbaccess,$tevt[0]["id"]);
     }    
   }
-  if (($this->control("edit")=="")||(isset($this->withoutControl))) { // can modify only if can modify productor
-    $evt->disableEditControl();
-    if ($evt->isAlive()) {
-      if (($evt->getValue("evt_begdate") != $this->getEventBeginDate()) ||
-	  ($evt->getValue("evt_enddate") != $this->getEventEndDate())) {
-	$evt->AddComment(sprintf(_("Change period from [%s %s] to [%s %s]"),
-				 $evt->getValue("evt_begdate"),
-				 $evt->getValue("evt_enddate"),
-				 $this->getEventBeginDate(),
-				 $this->getEventEndDate()));
-      } else {
-	$evt->AddComment(sprintf(_("Changes from document \"%s\" [%d]"),
-				 $this->title,
-				 $this->id));
-      }
+  //  if (($this->control("edit")=="")||(isset($this->withoutControl))) { // can modify only if can modify productor
+  $evt->disableEditControl();
+  if ($evt->isAlive()) {
+    if (($evt->getValue("evt_begdate") != $this->getEventBeginDate()) ||
+	($evt->getValue("evt_enddate") != $this->getEventEndDate())) {
+      $evt->AddComment(sprintf(_("Change period from [%s %s] to [%s %s]"),
+			       $evt->getValue("evt_begdate"),
+			       $evt->getValue("evt_enddate"),
+			       $this->getEventBeginDate(),
+			       $this->getEventEndDate()));
+    } else {
+      $evt->AddComment(sprintf(_("Changes from document \"%s\" [%d]"),
+			       $this->title,
+			       $this->id));
     }
-    $evt->setValue("evt_begdate",$this->getEventBeginDate());
-    $evt->setValue("evt_enddate",$this->getEventEndDate());
-    $evt->setValue("evt_desc",$this->getEventDesc());
-    $evt->setValue("evt_code",$this->getEventCode());
-
-    $evt->setValue("evt_idcreator",$this->getEventOwner());
-    $evt->setValue("evt_transft", 'pEventDefault');
-    $evt->setValue("evt_itransft",'mEventDefault');
-    $evt->setValue("evt_idinitiator",$this->initid);
-    $evt->setValue("evt_title",$this->getEventTitle());
-    $evt->setValue("evt_idres",$this->getEventRessources());
-
-    $this->setEventSpec(&$evt);
-    if (!$evt->isAlive())    {
-      $err=$evt->Add();
-    } 
-    if ($err=="") $err=$evt->refresh();
-    if ($err=="") {
-      $err=$evt->modify();
-    }
-    $evt->enableEditControl();
   }
+  $evt->setValue("evt_begdate",$this->getEventBeginDate());
+  $evt->setValue("evt_enddate",$this->getEventEndDate());
+  $evt->setValue("evt_desc",$this->getEventDesc());
+  $evt->setValue("evt_code",$this->getEventCode());
+
+  $evt->setValue("evt_idcreator",$this->getEventOwner());
+  $evt->setValue("evt_transft", 'pEventDefault');
+  $evt->setValue("evt_itransft",'mEventDefault');
+  $evt->setValue("evt_idinitiator",$this->initid);
+  $evt->setValue("evt_title",$this->getEventTitle());
+  $evt->setValue("evt_idres",$this->getEventRessources());
+
+  $this->setEventSpec(&$evt);
+  if (!$evt->isAlive())    {
+    $err=$evt->Add();
+  } 
+  if ($err=="") $err=$evt->refresh();
+  if ($err=="") {
+    $err=$evt->modify();
+  }
+  $evt->enableEditControl();
+  
   
 
   return $err;
