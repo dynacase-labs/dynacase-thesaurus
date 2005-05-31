@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: call_card.php,v 1.1 2005/04/01 11:47:20 marc Exp $
+ * @version $Id: call_card.php,v 1.2 2005/05/31 10:27:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -11,7 +11,7 @@
  /**
  */
 include_once("WGCAL/Lib.WGCal.php");
-include_once("WGCAL/WGCAL_external.php");
+include_once("EXTERNALS/WGCAL_external.php");
 
 function call_card(&$action) {
 

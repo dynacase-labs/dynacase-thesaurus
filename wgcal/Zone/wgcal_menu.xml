@@ -1,19 +1,19 @@
-<!-- Popup Options -->
+<!-- Popup Options 
 <div  style="z-index:3000; display:none" id="wgcal_m_options" class="wgcalpopup">
 <a href="#" id="download_sync" onclick="activate(this,'[CORE_ABSURL]/WGCAL/synchronizer.zip'); closeMenu('wgcal_m_options')">[IF POPUPICONS]<img style="border:0px" src="[IMG:synchro.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:Outlook synchronizer]</a>
 <a class="separator"></a>
 <a href="#" id="close_wgcal_m_options" onclick="closeMenu('wgcal_m_options')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.png]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div>
-<!-- End of Popup Options -->
+ End of Popup Options -->
 
 
 <table cellspacing="0" border="0" width="100%" style="position:fixed;  z-index:500;">
 <tr>
 <!-- 
 <td align="left" width="50" class="wMainMenu">&nbsp;File</td>
--->
 <td align="left" width="50" class="wMainMenu"
   onClick="openMenu(event,'wgcal_m_options', 1); return false" >&nbsp;Options&nbsp;</td>
+-->
 <td class="wMainMenu"></td>
 <!-- 
 <td align="center" class="wMainMenu" width="50" >

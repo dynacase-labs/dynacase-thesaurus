@@ -2,7 +2,7 @@
 
 include_once("WHAT/Lib.Common.php");
 include_once("FDL/Class.Doc.php");
-include_once("WGCAL/WGCAL_external.php");
+include_once("EXTERNALS/WGCAL_external.php");
 include_once("WGCAL/Lib.WGCal.php");
 
 function wgcal_deloccur(&$action) {

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.32 2005/05/30 07:18:28 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.33 2005/05/31 10:27:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,7 +15,7 @@ include_once("FDL/Class.Doc.php");
 include_once('FDL/Lib.Dir.php');
 include_once("WGCAL/Lib.WGCal.php");
 include_once("osync/Lib.WgcalSync.php");
-include_once("WGCAL/WGCAL_external.php");
+include_once("EXTERNALS/WGCAL_external.php");
 
 function wgcal_toolbar(&$action) {
 
@@ -81,8 +81,8 @@ function _seewaitrv(&$wrv) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $rvtextl =  20;
-
-  $filter[] = "(calev_ownerid = ".$action->user->fid.") OR (calev_attid ~* '".$action->user->fid."')";
+  $today = date2db(time()-(24*3600*7), false)." 00:00:00";
+  $filter[] = "(calev_start > '".$today."' ) AND (calev_attid ~* '".$action->user->fid."')";
   $irv = count($wrv);
   $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, 
 		      $action->user->id, "TABLE", getIdFromName($dbaccess,"CALEVENT"));

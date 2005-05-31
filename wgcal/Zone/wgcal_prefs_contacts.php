@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_contacts.php,v 1.1 2005/02/17 07:11:46 marc Exp $
+ * @version $Id: wgcal_prefs_contacts.php,v 1.2 2005/05/31 10:27:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -11,7 +11,7 @@
  /**
  */
 include_once('FDL/Lib.Dir.php');
-include_once("WGCAL/WGCAL_external.php");
+include_once("EXTERNALS/WGCAL_external.php");
 
 
 function wgcal_prefs_contacts(&$action) {

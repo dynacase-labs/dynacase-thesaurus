@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.9 2005/05/18 16:47:10 marc Exp $
+# $Id: Makefile.in,v 1.10 2005/05/31 10:27:06 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -23,10 +23,10 @@ include $(utildir)/PubRule
 DISTFILES += $(SUBDIR) \
 	$(PACKAGE).app \
         RELEASE VERSION \
-	Families/calevent.csv \
+	Families/wgcal.csv \
 	73_mod_wgcalosync.conf
 
-$(pubdir)/73_mod_wgcalosync.conf : 73_mod_wgcalosync.conf
+$(pubdir)/$(appname)/73_mod_wgcalosync.conf : 73_mod_wgcalosync.conf
 	cp $< $@
 
 $(pubdir)/EXTERNALS :
@@ -35,10 +35,12 @@ $(pubdir)/EXTERNALS :
 $(pubdir)/EXTERNALS/WGCAL_external.php: $(pubdir)/EXTERNALS 
 	cp Families/$(appname)_external.php $(pubdir)/EXTERNALS/WGCAL_external.php
 
-$(pubdir)/$(appname)/calevent.csv : Families/calevent.csv 
-	cp Families/calevent.csv $(pubdir)/$(appname)
+$(pubdir)/$(appname)/wgcal.csv : Families/wgcal.csv 
+	cp Families/wgcal.csv $(pubdir)/$(appname)
 
-publish: $(pubdir)/$(appname)/calevent.csv $(pubdir)/EXTERNALS/WGCAL_external.php
+publish: $(pubdir)/$(appname)/wgcal.csv \
+	$(pubdir)/EXTERNALS/WGCAL_external.php \
+	$(pubdir)/$(appname)/73_mod_wgcalosync.conf 
 
 clean:
 	rm -f config.log config.status configure WGCAL-*.tar.gz WGCAL_init.php WGCAL.spec 
