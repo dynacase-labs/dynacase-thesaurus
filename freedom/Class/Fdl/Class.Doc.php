@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.250 2005/05/30 15:54:49 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.251 2005/05/31 14:53:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2069,7 +2069,7 @@ create unique index i_docir on doc(initid, revision);";
 	    $i++;
 	  }
 	  $oa=$this->GetAttribute($sattrid);
-	  if (($k >= 0)&&($oa->inArray())) {
+	  if (($k >= 0)&&($oa && $oa->inArray())) {
 	    $tval= $this->GetTValue($sattrid);
 	    $ovalue = chop($tval[$k]);
 	  } else {
