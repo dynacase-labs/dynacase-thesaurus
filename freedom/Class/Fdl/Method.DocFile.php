@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocFile.php,v 1.8 2005/05/23 15:47:31 caroline Exp $
+ * @version $Id: Method.DocFile.php,v 1.9 2005/06/01 08:47:06 caroline Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -17,7 +17,7 @@
 
   
   
-var $defaultview= "FDL:VIEWFILECARD";
+//var $defaultview= "FDL:VIEWFILECARD";
 		     
 
 // -----------------------------------
