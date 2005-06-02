@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.48 2005/05/19 13:26:25 eric Exp $
+ * @version $Id: mailcard.php,v 1.49 2005/06/02 14:24:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.48 2005/05/19 13:26:25 eric Exp $
+// $Id: mailcard.php,v 1.49 2005/06/02 14:24:56 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -111,7 +111,8 @@ function sendCard(&$action,
 		  $comment="",
 		  $from="",
 		  $bcc="",
-		  $format="html"// define view action
+		  $format="html", // define view action
+		  $sendercopy=true // true : a copy is send to the sender according to the Freedom user parameter 
 		  ) {
 
   // -----------------------------------
@@ -127,8 +128,8 @@ function sendCard(&$action,
   global $pubdir;
 
   $ifiles=array();
-   $tfiles=array();
-   $tmpfile=array();
+  $tfiles=array();
+  $tmpfile=array();
   $mixed=true; // to see file as attachement
   // set title
   
@@ -151,7 +152,7 @@ function sendCard(&$action,
 
   if ($bcc != "") $bcc = "\\nBcc:$bcc";
   
-  if ($action->getParam("FDL_BCC") == "yes") {    
+  if ($sendercopy && $action->getParam("FDL_BCC") == "yes") {    
     $umail=getMailAddr($action->user->id);
     if ($umail != "") {      
       if ($bcc != "") $bcc = "$bcc,$umail";
