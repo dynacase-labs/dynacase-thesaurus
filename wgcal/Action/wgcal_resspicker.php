@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.12 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.13 2005/06/02 04:13:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -26,7 +26,7 @@ function wgcal_resspicker(&$action) {
       $rd = new Doc($dbaccess, $vc);
       $tc[$kc]["ID"] = $rd->id;
       $tc[$kc]["ICON"] = $rd->GetIcon();
-      $tc[$kc]["TITLE"] = $rd->title;
+      $tc[$kc]["TITLE"] = addslashes($rd->title);
       $tc[$kc]["STATE"] = EVST_NEW;
       $tc[$kc]["TSTATE"] = WGCalGetLabelState(EVST_NEW);
       $tc[$kc]["CSTATE"] = WGCalGetColorState(EVST_NEW);
@@ -41,7 +41,7 @@ function wgcal_resspicker(&$action) {
   foreach ($rclass as $k => $v) {
     $t[$i]["FAMID"] = $v["id"];
     $t[$i]["FAMICON"] = $df->GetIcon($v["icon"]);
-    $t[$i]["FAMTITLE"] = $v["title"];
+    $t[$i]["FAMTITLE"] = addslashes($v["title"]);
     $t[$i]["FAMSEL"] = "false";
     $i++;
   }

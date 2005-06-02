@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.7 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.8 2005/06/02 04:13:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -36,6 +36,7 @@ function wgcal_prefs_look(&$action) {
   }
   $action->lay->SetBlockData("HDIVSZ", $opt);
 
+  // Themes ----------------------------------------------------------
   $themes = array();
   $themedir = "WGCAL/Themes";
   $ith=0;
@@ -61,7 +62,34 @@ function wgcal_prefs_look(&$action) {
     $i++;
   }
   $action->lay->SetBlockData("THEME", $opt);
+ 
+  // Font sizing ----------------------------------------------------------
+  $fontsz = array();
+  $fontszdir = "WGCAL/Themes";
+  $ith=0;
+  if ($dh = opendir($fontszdir)) {
+    while (($file = readdir($dh)) !== false) {
+      $the = basename($file, ".fsz");
+      if ($the!="." && $the!="..") {
+        include_once($fontszdir."/".$file);
+        $fontsz[$ith]["name"] = $the;
+        $fontsz[$ith++]["descr"] = _($the);
+      }
+    }
+    closedir($dh);
+  }
+  if (count($fontsz)<1) $fontsz[0] = array("name" => "normal", "descr" => "normal size"));
 
+  $opt = array(); $i = 0;
+  foreach ($fontsz as $k => $v) {
+    $opt[$i]["optvalue"] = $v["name"];
+    $opt[$i]["optdescr"] = $v["descr"];
+    $opt[$i]["optselect"] = ($v["name"]==$action->GetParam("WGCAL_U_FONTSZ") ? "selected" : "");
+    $i++;
+  }
+  $action->lay->SetBlockData("FONTSZ", $opt);
+
+  // Display icons in events ----------------------------------------------------------
   $optchk = array(
 		  "useicon" => array(_("view icon in event"),"WGCAL_U_RESUMEICON", "wgcal_calendar", "WGCAL_CALENDAR")
 		  );

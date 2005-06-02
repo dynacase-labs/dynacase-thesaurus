@@ -30,9 +30,6 @@ function  setEventSpec(&$e) {
   $e->setValue("EVFC_VISIBILITY", $this->getValue("CALEV_VISIBILITY"));
   $e->setValue("EVFC_REALENDDATE", $this->getValue("CALEV_END"));
   $e->setValue("EVFC_REPEATMODE", $this->getValue("CALEV_REPEATMODE"));
-  if ($this->getValue("CALEV_REPEATMODE") > 0) {
-    $e->setValue("evt_enddate", $this->getValue("evfc_repeatuntil")==0 ? jd2cal((5000001), 'FrenchLong') :  $this->getValue("evfc_repeatuntildate"));
-  }
   $e->setValue("EVFC_REPEATWEEKDAY", $this->getValue("CALEV_REPEATWEEKDAY"));
   $e->setValue("EVFC_REPEATMONTH", $this->getValue("CALEV_REPEATMONTH"));
   $e->setValue("EVFC_REPEATUNTIL", $this->getValue("CALEV_REPEATUNTIL"));
@@ -46,6 +43,11 @@ function  setEventSpec(&$e) {
     $e->setValue("EVFC_EXCLUDEDATE", $texc);
   }
   $e->setValue("EVFC_REPEATFREQ", $this->getValue("CALEV_FREQUENCY"));
+  if ($this->getValue("CALEV_REPEATMODE") > 0) {
+    $renddate = ($this->getValue("CALEV_REPEATUNTIL")==1 ? $this->getValue("CALEV_REPEATUNTILDATE") : jd2cal((5000001), 'FrenchLong') );
+    $e->setValue("evt_enddate", $renddate);
+  }
+
 
   $tattid = $this->getTValue("CALEV_ATTID");
   $tattst = $this->getTValue("CALEV_ATTSTATE");

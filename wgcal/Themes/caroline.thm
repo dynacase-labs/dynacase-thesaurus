@@ -15,6 +15,4 @@ $theme->WTH_ALERT                 =  "red";
 $theme->WTH_CALWEEKEND            =  "#EFE2FF";
 $theme->WTH_CALTODAY              =  "white";
 
-$theme->WTH_TOOLBARW               =  "200";
-
 ?>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.37 2005/05/25 15:28:28 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.38 2005/06/02 04:13:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -101,7 +101,7 @@ function wgcal_calendar(&$action) {
     $tabdays[$i]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
     $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstart-1));
     $tabdays[$i]["vstartc"] =  strftime("%x %X", $tabdays[$i]["vstart"]);
-    $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstop-1)); //+ (SEC_PER_HOUR*$hstop) -1;
+    $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstop)); //+ (SEC_PER_HOUR*$hstop) -1;
     if ($cdate==$tabdays[$i]["days"]) {
       $class[$i] = "WGCAL_DayCur";
       $classh[$i] = "WGCAL_DayLineCur";

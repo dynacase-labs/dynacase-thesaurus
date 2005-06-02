@@ -15,15 +15,10 @@ $theme->WTH_ALERT                 =  "red";
 $theme->WTH_CALWEEKEND            =  "#F0E8FF";
 $theme->WTH_CALTODAY              =  "#eef4f9";
 
-
 $theme->WTH_FONTLIST              =  "Tahoma,Verdana,Helvetica, Arial, sans-serif";
-$theme->WTH_FONTSIZE_NORMAL       =  "9";
-$theme->WTH_FONTSIZE_BIG          =  "10";
-$theme->WTH_FONTSIZE_SMALL        =  "7";
 
 $theme->WTH_FONTSIZE_POPUP        =  $theme->WTH_FONTSIZE_SMALL;
 $theme->WTH_COLOR_POPUP           =  $theme->WTH_COLOR_1;
 $theme->WTH_FONTLIST_POPUP        =  $theme->WTH_FONTLIST;
 
-$theme->WTH_TOOLBARW              =  "200";
 ?>

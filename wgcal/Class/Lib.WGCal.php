@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.33 2005/05/27 15:03:28 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.34 2005/06/02 04:13:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -136,15 +136,18 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   $tout=array(); 
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
+
   $fref = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
   $ft = explode("|", $fref);
   $fti = array();
   foreach ($ft as $k => $v) {
-    $fti[] = getIdFromName($dbaccess, $v);
+    $fti[] = (is_numeric($v) ? $v : getIdFromName($dbaccess, $v));
   }
   $idfamref = implode("|", $fti);
-  setHttpVar("idfamref", $idfamref);
+
   if ($debug) echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
+
+  setHttpVar("idfamref", $idfamref);
   $dre=new Doc($dbaccess,$reid);
   $edre = array();
   $edre=$dre->getEvents($d1,$d2);
@@ -224,12 +227,11 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
       if (!$private) PopupActive('calpopup',$item["RG"], 'historyrv');
       else PopupInactive('calpopup',$item["RG"], 'viewrv');
       
-      if ($withme && ($mystate>=1 || $mystate<=4)) {
-	$action->lay->set("popupState",true);
-	PopupActive('calpopup',$item["RG"], 'tbcrv');
-	if ($mystate!=2) PopupActive('calpopup',$item["RG"], 'acceptrv');
-	else if ($mystate!=3) PopupActive('calpopup',$item["RG"], 'rejectrv');
-	else if ($mystate!=4) PopupActive('calpopup',$item["RG"], 'tbcrv');
+      if ($withme) {
+        $action->lay->set("popupState",true);
+        if ($mystate!=2) PopupActive('calpopup',$item["RG"], 'acceptrv');
+        if ($mystate!=3) PopupActive('calpopup',$item["RG"], 'rejectrv');
+        if ($mystate!=4) PopupActive('calpopup',$item["RG"], 'tbcrv');
       }
       
       $tout[] = $item;
@@ -323,6 +325,7 @@ function sendRv(&$action, &$event, $sendto=0, $reason="") {
  $fid = $event->getValue("CALEV_OWNERID");
  $uid = new Doc($action->GetParam("FREEDOM_DB"), $fid);
  $from = $uid->getValue("TITLE")." <".getMailAddr($uid->getValue("US_WHATID")).">";
+ if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) $bcc = $from;
 
 
  // Compute To: field
@@ -342,17 +345,12 @@ function sendRv(&$action, &$event, $sendto=0, $reason="") {
    $to .= ($to==""?"":", ").$uid->getValue("TITLE")." <".getMailAddr($uid->getValue("US_WHATID")).">";
  }
 
- //   Compute Cc: field
- //  if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) {
- //      $u = new Doc($action->GetParam("FREEDOM_DB"), $action->user->fid);
- //      $cc =  $u->getValue("TITLE")." <".getMailAddr($u->getValue("US_WHATID")).">";
- //  }
      
  if ($to!="") {
    sendCard($action, $event->id, $to, $cc,
 	    $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->title,
 	    "WGCAL:MAILRV?ev=$event->id:S&msg=$reason",
-	    true, "", $from, $bcc, $format="html" );
+	    true, "", $from, $bcc, $format="html", false );
  }
 }
 

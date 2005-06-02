@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspickerlist.php,v 1.5 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: wgcal_resspickerlist.php,v 1.6 2005/06/02 04:13:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -37,7 +37,7 @@ function wgcal_resspickerlist(&$action) {
       if ($action->user->id != $v["id"]) {
 	$t[$v["id"]]["RESSID"] = $v["id"];
 	$t[$v["id"]]["RESSICON"] = $doc->GetIcon($v["icon"]);
-	$t[$v["id"]]["RESSTITLE"] = $v["title"];
+	$t[$v["id"]]["RESSTITLE"] = addslashes($v["title"]);
 	$t[$v["id"]]["STATE"] = EVST_NEW;
 	$t[$v["id"]]["TSTATE"] = WGCalGetLabelState(EVST_NEW);
 	$t[$v["id"]]["CSTATE"] = WGCalGetColorState(EVST_NEW);

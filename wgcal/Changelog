@@ -1,5 +1,16 @@
 --------------------------------------------------------------------------
-0.1.0 (Anakeen)
+0.1.0.RC5
+--------------------------------------------------------------------------
+- generation des evt calendar : bug sur le calcul de la date de fin
+- modification du contenu (lien) des mails
+- modification de la gestion des mails en copie à l'émetteur (cf. FDL)
+- choix de la taille des fontes indépendant du style
+- suppression des heures dans les resumés des rv affichés (gain de place)
+- correction bug de calcul de la date réelle de fin pour les répetitifs
+- correction bug d'affichage des rv terminant sur l'heure de fin de journée
+
+--------------------------------------------------------------------------
+-> 0.1.0.RC4 (Anakeen)
 --------------------------------------------------------------------------
 - Apache configuration
 - Suppression du retaillage auto de la fenetre lors de l'ouverture de l'Agenda

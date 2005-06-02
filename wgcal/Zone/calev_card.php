@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.14 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: calev_card.php,v 1.15 2005/06/02 04:13:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -123,6 +123,13 @@ function calev_card(&$action) {
   $action->lay->set("bgcolor", $bgcolor);
   $action->lay->set("bgresumecolor", $bgresumecolor);
 
+  $textcolor = "black";
+  $bghex = "0x".substr($bgcolor, 1, 6);
+  $bgdec = hexdec($bghex);
+  $textcolorhex = ~ $bgdec;
+  $textcolor = substr(dechex($textcolorhex),2,6);
+  $action->lay->set("textcolor", $textcolor);
+
   if ($private && !$display_me) $action->lay->SetBlockData("ISCONF", null);
   else $action->lay->SetBlockData("ISCONF", $tpriv);
 
@@ -179,6 +186,8 @@ function calev_card(&$action) {
 
 function showIcons(&$action, &$ev, $private, $withme) {
   $icons = array();
+  $sico = $action->GetParam("WGCAL_U_RESUMEICON", 0);
+  if ($sico == 1) {
   if ($private) {
     addIcons($icons, "CONFID");
   } else {
@@ -188,6 +197,7 @@ function showIcons(&$action, &$ev, $private, $withme) {
     if ($ev->getValue("CALEV_REPEATMODE") != 0)  addIcons($icons, "REPEAT");
     if ((count($ev->getTValue("CALEV_ATTID"))>1))  addIcons($icons, "GROUP");
     if ($withme && ($ev->getValue("CALEV_OWNERID") != $action->user->fid)) addIcons($icons, "INVIT");
+  }
   }
   $action->lay->SetBlockData("icons", $icons);
 }
