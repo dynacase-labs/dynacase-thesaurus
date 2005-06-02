@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.8 2005/06/02 04:13:32 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.9 2005/06/02 05:06:15 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -13,6 +13,20 @@
 include_once('FDL/Lib.Dir.php');
 include_once("EXTERNALS/WGCAL_external.php");
 
+function GetFilesByExt($dir=".", $ext="") {
+  $flist = array();
+  if ($dh = opendir($dir)) {
+    while (($file = readdir($dh)) !== false) {
+      $fn  = basename($file); 
+      $fne = basename($file, $ext); 
+      if ($fne!="." && $fne!=".." && $fn == $fne.$ext) {
+        $flist[] = $fne;
+      }
+    }
+    closedir($dh);
+  }
+  return $flist;
+}
 
 function wgcal_prefs_look(&$action) {
   
@@ -40,16 +54,11 @@ function wgcal_prefs_look(&$action) {
   $themes = array();
   $themedir = "WGCAL/Themes";
   $ith=0;
-  if ($dh = opendir($themedir)) {
-    while (($file = readdir($dh)) !== false) {
-      $the = basename($file, ".thm");
-      if ($the!="." && $the!="..") {
-        include_once($themedir."/".$file);
-        $themes[$ith]["name"] = $the;
-        $themes[$ith++]["descr"] = $theme->Descr;
-      }
-    }
-    closedir($dh);
+  $list = GetFilesByExt($themedir, ".thm"); 
+  foreach ($list as $k => $v) {
+    include_once($themedir."/".$v.".thm");
+    $themes[$ith]["name"] = $v;
+    $themes[$ith++]["descr"] = $theme->Descr;
   }
   if (count($themes)<1) $themes[0] = array("name" => "default", "descr" => _("the default theme"));
 
@@ -67,18 +76,13 @@ function wgcal_prefs_look(&$action) {
   $fontsz = array();
   $fontszdir = "WGCAL/Themes";
   $ith=0;
-  if ($dh = opendir($fontszdir)) {
-    while (($file = readdir($dh)) !== false) {
-      $the = basename($file, ".fsz");
-      if ($the!="." && $the!="..") {
-        include_once($fontszdir."/".$file);
-        $fontsz[$ith]["name"] = $the;
-        $fontsz[$ith++]["descr"] = _($the);
-      }
-    }
-    closedir($dh);
+  $list = GetFilesByExt($themedir, ".fsz");
+  foreach ($list as $k => $v) {
+    include_once($fontszdir."/".$v.".fsz");
+    $fontsz[$ith]["name"] = $v;
+    $fontsz[$ith++]["descr"] = _($v);
   }
-  if (count($fontsz)<1) $fontsz[0] = array("name" => "normal", "descr" => "normal size"));
+  if (count($fontsz)<1) $fontsz[0] = array("name" => "normal", "descr" => "normal size");
 
   $opt = array(); $i = 0;
   foreach ($fontsz as $k => $v) {

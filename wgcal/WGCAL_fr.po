@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-30 07:40+0200\n"
+"POT-Creation-Date: 2005-06-02 06:55+0200\n"
 "PO-Revision-Date: 2005-02-08 06:38+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -110,6 +110,9 @@ msgstr "Gestion des CSS"
 
 msgid "main view"
 msgstr "Vue principale"
+
+msgid "Rendez-vous default view"
+msgstr ""
 
 msgid "toolbar"
 msgstr "Barre d'outils"
@@ -532,8 +535,7 @@ msgid "give a title"
 msgstr "saississez un titre"
 
 msgid "start time after end time, please correct this"
-msgstr ""
-"La date de début est postérieure à celle de fin.<br>Merci de le corriger."
+msgstr "La date de début est postérieure à celle de fin.<br>Merci de le corriger."
 
 msgid "start time update according end time"
 msgstr "mise à jour de la date de début"
@@ -889,6 +891,9 @@ msgstr "Options générales"
 msgid "theme caracteristics"
 msgstr "Thème utilisé"
 
+msgid "fonts size"
+msgstr "Taille de la police"
+
 msgid "waiting rv window size"
 msgstr "Taille de la zone d'affichage de évènement en attente"
 
@@ -937,6 +942,12 @@ msgstr "Ajout d'une nouvelle tâche"
 msgid " no todo"
 msgstr "Pas de tâches"
 
+msgid "todo warning"
+msgstr "Attention date butée"
+
+msgid "todo alert"
+msgstr "La date butée est dépassée"
+
 msgid "todo done"
 msgstr "Tâche terminée"
 
@@ -945,12 +956,6 @@ msgstr "Tâche"
 
 msgid "set to done"
 msgstr "Marquer la tâche comme terminée"
-
-msgid "todo warning"
-msgstr "Attention date butée"
-
-msgid "todo alert"
-msgstr "La date butée est dépassée"
 
 msgid "todos..."
 msgstr "Tâches..."
@@ -1042,9 +1047,6 @@ msgstr "Contacts"
 
 #~ msgid "print this view"
 #~ msgstr "Imprimer l'agenda"
-
-#~ msgid "month view"
-#~ msgstr "vue mensuelle"
 
 #~ msgid "event"
 #~ msgstr "Evènement"

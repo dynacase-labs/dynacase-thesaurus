@@ -8,6 +8,7 @@
 - suppression des heures dans les resumés des rv affichés (gain de place)
 - correction bug de calcul de la date réelle de fin pour les répetitifs
 - correction bug d'affichage des rv terminant sur l'heure de fin de journée
+- choix du theme et de la taille de fonte dissociés
 
 --------------------------------------------------------------------------
 -> 0.1.0.RC4 (Anakeen)

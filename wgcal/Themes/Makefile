@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.3 2005/06/02 04:13:32 marc Exp $
+# $Id: Makefile,v 1.4 2005/06/02 05:03:44 marc Exp $
 # ============================================
 
 include $(utildir)/PubRule
@@ -10,10 +10,13 @@ fontsz = $(patsubst %.fsz,$(pubdir)/$(appname)/Themes/%.fsz,$(wildcard *.fsz))
 $(pubdir)/$(appname)/Themes:
 	mkdir -p $@
 
+$(pubdir)/$(appname)/Themes/%.fsz: %.fsz $(pubdir)/$(appname)/Themes
+	cp $< $@
+
 $(pubdir)/$(appname)/Themes/%.thm: %.thm $(pubdir)/$(appname)/Themes
 	cp $< $@
 
 DISTFILES += $(wildcard *.thm) $(wildcard *.fsz)
 
-publish: $(pubdir)/$(appname)/Themes $(themes)
+publish: $(pubdir)/$(appname)/Themes $(themes) $(fontsz)
 
