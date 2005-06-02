@@ -3,13 +3,14 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.15 2005/06/02 04:13:32 marc Exp $
+ * @version $Id: calev_card.php,v 1.16 2005/06/02 16:51:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
  */
  /**
  */
+include_once("FDL/Lib.Color.php");
 include_once("WGCAL/Lib.WGCal.php");
 include_once("EXTERNALS/WGCAL_external.php");
 
@@ -41,7 +42,6 @@ function calev_card(&$action) {
 //   $pretitle = $evref.":".$ev->id."::";
 
   $ldstart = $ldend = $lstart = $lend = $lrhs = $lrhe = ""; 
-  $cardheight = "100%";
   switch($ev->getValue("CALEV_TIMETYPE",0)) {
   case 1: 
     $ldstart = $lrhs = _("no hour"); 
@@ -49,7 +49,6 @@ function calev_card(&$action) {
     break;
   case 2: 
     $ldstart = $lrhs = _("all the day"); 
-    $cardheight = "100%";
     $ldend = substr($ev->getValue("CALEV_END"),0,10);
     break;
   default:
@@ -65,6 +64,7 @@ function calev_card(&$action) {
     $lrhs .= substr($ev->getValue("CALEV_START"),11,5);
     $lrhe .= substr($ev->getValue("CALEV_END"),11,5);
   }
+  $cardheight = "100%";
   $action->lay->set("cardheight", $cardheight);
   $action->lay->set("DSTART", $ldstart);
   $action->lay->set("START", $lstart);
@@ -124,11 +124,28 @@ function calev_card(&$action) {
   $action->lay->set("bgresumecolor", $bgresumecolor);
 
   $textcolor = "black";
-  $bghex = "0x".substr($bgcolor, 1, 6);
+
+  $bghex = "0x00".substr($bgcolor, 1, 6);
   $bgdec = hexdec($bghex);
   $textcolorhex = ~ $bgdec;
   $textcolor = substr(dechex($textcolorhex),2,6);
   $action->lay->set("textcolor", $textcolor);
+
+//   $hred = "0x0000".substr($bgcolor, 1, 2);
+//   $hgreen = "0x0000".substr($bgcolor, 3, 2);
+//   $hblue = "0x0000".substr($bgcolor, 5, 2);
+//   $red = hexdec($hred);
+//   $green = hexdec($hgreen);
+//   $blue = hexdec($hblue);
+//   $hsv = RGB2HSL($red, $green, $blue);
+//   echo "[BG $bgcolor] RGB2HSL($red, $green, $blue) -- HSL2RGB(".$hsv[0].",".$hsv[1].",".$hsv[2].")";
+//   $textcolor = HSL2RGB($hsv[0], $hsv[1], $hsv[2]);
+//   echo " [FG $textcolor] <br>"; 
+  
+//   $hred = substr($bgcolor, 1, 2);
+//   $hgreen = substr($bgcolor, 3, 2);
+//   $hblue = substr($bgcolor, 5, 2);
+//   $action->lay->set("textcolor", "#".$hred.$hblue.$hgreen);
 
   if ($private && !$display_me) $action->lay->SetBlockData("ISCONF", null);
   else $action->lay->SetBlockData("ISCONF", $tpriv);
@@ -258,5 +275,75 @@ function ev_showattendees(&$action, &$ev, $display_me, $dcolor) {
     $action->lay->set("headsize", $globalstatesize);
 }
 
+function RGB_TO_HSV ($R, $G, $B) {
+  // RGB Values:Number 0-255
+  // HSV Results:Number 0-1
+  $HSL = array();
+  
+  $var_R = ($R / 255);
+  $var_G = ($G / 255);
+  $var_B = ($B / 255);
+  
+  $var_Min = min($var_R, $var_G, $var_B);
+  $var_Max = max($var_R, $var_G, $var_B);
+  $del_Max = $var_Max - $var_Min;
+  
+  $V = $var_Max;
+  
+  if ($del_Max == 0) {
+    $H = 0;
+    $S = 0;
+  } else {
+    $S = $del_Max / $var_Max;
+    $del_R = ( ( ( $max - $var_R ) / 6 ) + ( $del_Max / 2 ) ) / $del_Max;
+    $del_G = ( ( ( $max - $var_G ) / 6 ) + ( $del_Max / 2 ) ) / $del_Max;
+    $del_B = ( ( ( $max - $var_B ) / 6 ) + ( $del_Max / 2 ) ) / $del_Max;
+    
+    if ($var_R == $var_Max) $H = $del_B - $del_G;
+    else if ($var_G == $var_Max) $H = ( 1 / 3 ) + $del_R - $del_B;
+    else if ($var_B == $var_Max) $H = ( 2 / 3 ) + $del_G - $del_R;
+    
+    if (H<0) $H++;
+    if (H>1) $H--;
+  }
+  
+  $HSL['H'] = $H;
+  $HSL['S'] = $S;
+  $HSL['V'] = $V;
+  
+  return $HSL;
+}
 
+function HSV_TO_RGB ($H, $S, $V) {
+  // HSV Values:Number 0-1
+  // RGB Results:Number 0-255
+  $RGB = array();
+  
+  if($S == 0) {
+    $R = $G = $B = $V * 255;
+  } else {
+    $var_H = $H * 6;
+    $var_i = floor( $var_H );
+    $var_1 = $V * ( 1 - $S );
+    $var_2 = $V * ( 1 - $S * ( $var_H - $var_i ) );
+    $var_3 = $V * ( 1 - $S * (1 - ( $var_H - $var_i ) ) );
+    
+    if ($var_i == 0) { $var_R = $V ; $var_G = $var_3 ; $var_B = $var_1 ; }
+    else if ($var_i == 1) { $var_R = $var_2 ; $var_G = $V ; $var_B = $var_1 ; }
+    else if ($var_i == 2) { $var_R = $var_1 ; $var_G = $V ; $var_B = $var_3 ; }
+    else if ($var_i == 3) { $var_R = $var_1 ; $var_G = $var_2 ; $var_B = $V ; }
+    else if ($var_i == 4) { $var_R = $var_3 ; $var_G = $var_1 ; $var_B = $V ; }
+    else { $var_R = $V ; $var_G = $var_1 ; $var_B = $var_2 ; }
+    
+    $R = $var_R * 255;
+    $G = $var_G * 255;
+    $B = $var_B * 255;
+  }
+  
+  $RGB['R'] = $R;
+  $RGB['G'] = $G;
+  $RGB['B'] = $B;
+  
+  return $RGB;
+}
 ?>
