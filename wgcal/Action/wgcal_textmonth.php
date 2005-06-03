@@ -29,7 +29,10 @@ function wgcal_textmonth(&$action)
   $nextmonth = strftime("%B", $nextmontht);
 
   // Search all event for this month
-  $tress[] = $action->user->fid;
+  $iress = 0;
+  $tress[$iress++] = $action->user->fid;
+  $grp = WGCalGetRGroups($action, $action->user->id);
+  foreach ($grp as $kr=>$vr) $tress[$iress++] = $vr;
   $d1 = "".$year."-".$month."-01 00:00:00";
   $d2 = "".$year."-".$month."-".$lastday." 23:59:59";
   $tevents = WGCalGetAgendaEvents($action, $tress, $d1, $d2);

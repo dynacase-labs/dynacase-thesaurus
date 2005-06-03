@@ -374,7 +374,7 @@ function WGCalAddEvent(n, tstart, tend)
       
       
       // Heure de fin supérieure à la fin de la journée....
-      if (tend>Days[id].vend) {
+      if (tend>Days[id].vend + (2 * (YDivMinute * 60))) {
 	vend = Days[id].vend + (YDivMinute * 60);
 
 	// Heure de fin antérieur au début de la journée....
