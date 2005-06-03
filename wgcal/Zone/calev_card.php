@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.16 2005/06/02 16:51:10 marc Exp $
+ * @version $Id: calev_card.php,v 1.17 2005/06/03 15:16:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -18,7 +18,7 @@ function calev_card(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $evi = GetHttpVars("ev", -1);
+  $evi = GetHttpVars("id", -1);
   $cev = GetHttpVars("cev", -1);
   $ev = GetCalEvent($dbaccess, $evi, $cev);
   if (!$ev) {

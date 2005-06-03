@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_asearchquery.php,v 1.2 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: wgcal_asearchquery.php,v 1.3 2005/06/03 15:16:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -49,13 +49,10 @@ function wgcal_asearchquery(&$action) {
   $action->lay->set("mdend", $dend*1000);
   $action->lay->set("rdend", strftime("%A %d %b %Y", $dend));
 
-  $acal = CAL_getEventStates($action->GetParam("FREEDOM_DB"), "");
-  foreach ($acal as $k => $v) {
-    if ($status!=0 && $k==0) continue;
-    $tconf[$ic]["value"] = $k;
-    $tconf[$ic]["descr"] = $v;
-    $ic++;
-  }
-  $action->lay->SetBlockData("RVSTATUS", $tconf);
+  $from = GetHttpVars("from", "");
+  $action->lay->set("SetResult", ($from=="search" ? true : false ));
+  setHttpVar("filter", GetHttpVars("filter", ""));
+    
+  return;
 }
 ?>

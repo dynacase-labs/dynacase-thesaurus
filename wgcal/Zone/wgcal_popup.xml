@@ -16,7 +16,7 @@ closeMenu('calpopup')">[label]</a>[ENDBLOCK POPUPITEMS]
 
 <a class="separator"></a>
 
-<a href="#" id="editrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&ev='+EvSelected,'wgcal_edit');closeMenu('calpopup')" >
+<a href="#" id="editrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&id='+EvSelected,'wgcal_edit');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evedit.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:edit this]</a>
 <a href="#" id="deloccur" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELOCCUR&ev='+EvSelected+'&evocc='+EvCurDay,'wgcal_calendar');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-deloccur.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:delete this occurence]</a>

@@ -1,9 +1,10 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <table width="100%" cellspacing="0">
+[IF noresult]<td><td colspan="3" class="WEvDays">[TEXT:no event]</td></tr>[ENDIF noresult]
 [BLOCK btime]
-<tr><td colspan="2" class="WEvDays">[date]</td></tr>[BLOCK devents[date]]
-<tr class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'" 
-title="[date] [start]-[end], [title]"><td nowrap>[start] -  [end]</td><td nowrap>[title]</td></tr>[ENDBLOCK devents[date]]
+<tr><td colspan="3" class="WEvDays">[date]</td></tr>[BLOCK devents[date]]
+<tr class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'" title="[date] [start]-[end], [title]">
+<td nowrap>[start] -  [end]</td><td nowrap>[title] ([owner])</td><td>[desc]</td></tr>[ENDBLOCK devents[date]]
 [ENDBLOCK btime]
 </table>
 [ZONE WGCAL:WGCAL_HTMLFOOT]

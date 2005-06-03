@@ -1,5 +1,5 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-<form id="asearch" name="asearch" target="wgcal_asearchresult"  method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH">
+<form id="asearch" name="asearch" target="wgcal_asearchresult"  method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_GVIEW">
 <table width="100%" style="margin: 0em;" cellspacing="0" cellpadding="0">
 <tr><td>
 <input type="hidden" id="searchdstart" name="searchdstart" value="[dstart]">
@@ -39,7 +39,6 @@
 <img style="cursor:pointer" id="Brvstart"  title="[TEXT:start date]" src="WGCAL/Images/cal-other.gif" height="15" >
  [TEXT:and] <span id="Trvend">[rdend]</span>
 <img style="cursor:pointer" id="Brvend"  title="[TEXT:end date]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;
-[TEXT:status] : <select id="rvstatus" name="rvstatus"><option value="-1" selected>[TEXT:all state][BLOCK RVSTATUS]<option value="[value]">[descr][ENDBLOCK RVSTATUS]</select>
 </td>
 <td>
 <img src="WGCAL/Images/wgcal-search+.png" 
@@ -48,5 +47,7 @@
 </table>
 </form>
 
+[IF SetResult]
+[ZONE WGCAL:GVIEW][ENDIF SetResult]
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

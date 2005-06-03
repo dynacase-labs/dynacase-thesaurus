@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.44 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.45 2005/06/03 15:16:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -52,7 +52,7 @@ function wgcal_editevent(&$action) {
   $times = GetHttpVars("ts", time());
   $timee = GetHttpVars("te", $times + ($action->getParam("WGCAL_U_RVDEFDUR", 60) * 60));
   // This is the event id NOT THE RV id
-  $ev = GetHttpVars("ev", -1);
+  $ev = GetHttpVars("id", -1);
   
   if ($ev==-1) $evid = -1;
   else {
