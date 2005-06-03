@@ -1,10 +1,12 @@
 <table class="wToolButton" width="100%" cellspacing="0" cellpadding="0">
 <tr><td>
-<form id="fsearch" target="wgcal_" name="fsearch" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH">
+<form id="fsearch" target="wgcal_search" name="fsearch" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCH">
  <input type="text" title="[TEXT:search events containing phrase...]" size="20" id="searchphrase" name="searchphrase" value="([TEXT:enter words here])" style="background:white;color:orange" onfocus="this.value = ''; this.style.color='black';">
- <input type="hidden" id="searchdstart" name="searchdstart" value="-1">
- <input type="hidden" id="searchdend" name="searchdend" value="-1">
- <input type="hidden" id="searchressource" name="searchressource" value="">
+ <input type="hidden" id="ds" value="">
+ <input type="hidden" id="de" value="">
+ <input type="hidden" id="rlist" value="[rlist]">
+ <input type="hidden" id="filter" value="[filter]">
+ <input type="hidden" id="o" value="C">
 </form>
 </td>
 <td align="right">

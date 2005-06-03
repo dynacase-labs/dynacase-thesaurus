@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.33 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.34 2005/06/03 05:15:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,8 +20,14 @@ include_once("EXTERNALS/WGCAL_external.php");
 function wgcal_toolbar(&$action) {
 
 
-  $action->lay->set("SHOWCONTACTS", false);
-  $action->lay->set("SHOWSEARCH", false);
+  if ($action->getParam("WGCAL_U_TBCONTACTS",0)) $action->lay->set("SHOWCONTACTS", true);
+  else $action->lay->set("SHOWCONTACTS", false);
+
+  if ($action->getParam("WGCAL_U_TBSEARCH",0)) $action->lay->set("SHOWSEARCH", true);
+  else $action->lay->set("SHOWSEARCH", false);
+
+  if ($action->getParam("WGCAL_U_TBTODOS",1)) $action->lay->set("SHOWTODOS", true);
+  else $action->lay->set("SHOWTODOS", false);
 
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");

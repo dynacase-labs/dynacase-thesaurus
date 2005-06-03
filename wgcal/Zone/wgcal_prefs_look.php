@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.9 2005/06/02 05:06:15 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.10 2005/06/03 05:15:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -151,7 +151,7 @@ function wgcal_prefs_look(&$action) {
   for ($i=13; $i<24; $i++) {
     $opt[$i]["optvalue"] = $i;
     $opt[$i]["optdescr"] = $i."H00";
-    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_ENDHOUR") ? "selected" : "");
+    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_STOPHOUR") ? "selected" : "");
   }
   $action->lay->SetBlockData("EH", $opt);
  

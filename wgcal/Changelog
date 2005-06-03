@@ -9,6 +9,9 @@
 - correction bug de calcul de la date réelle de fin pour les répetitifs
 - correction bug d'affichage des rv terminant sur l'heure de fin de journée
 - choix du theme et de la taille de fonte dissociés
+- reprise de l'affichage des rv sur le calendrier
+- ajout dans les prefs. de la configuration de la barre d'outil
+- calcul de la couleur du texte des rv (fonction du fond)
 
 --------------------------------------------------------------------------
 -> 0.1.0.RC4 (Anakeen)

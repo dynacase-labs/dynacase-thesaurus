@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.2 2005/05/25 15:28:28 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.3 2005/06/03 05:15:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,21 +20,54 @@ function wgcal_gview(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $ds     = GetHttpVars("ts","");
-  $de     = GetHttpVars("te","");
-  $rlist  = GetHttpVars("r", $action->parent->user->fid);
-  setHttpVar("idres", $rlist);
-  $order  = GetHttpVars("o", "C"); // C chocolatine D Decroissant
-  $menu   = GetHttpVars("m", 1); 
-  
-  $fref = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
-  $ft = explode("|", $fref);
+  $ds      = GetHttpVars("ds","");
+  $de      = GetHttpVars("de","");
+  $order   = GetHttpVars("order", "C"); // C chocolatine D Decroissant
+  $filter  = GetHttpVars("filter" , ""); // "att=val[|att=val]"
+  $menu    = GetHttpVars("menu", 1); 
+  $famids  = GetHttpVars("famids", ""); 
+  $ressids = GetHttpVars("ressids", $action->user->fid); 
+  $explode = (GetHttpVars("explode", "") == 1 || GetHttpVars("explode", "") == true ? true : false);
+  $debug   = GetHttpVars("debug", false);
+
+  if ($debug) echo "GVIEW:";
+  // Set producer families
+  if ($famids=="") {
+    $famids = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
+  }
+  $ft = explode("|", $famids);
   $fti = array();
   foreach ($ft as $k => $v) $fti[] = getIdFromName($dbaccess, $v);
   $idfamref = implode("|", $fti);
+  if ($debug) echo " idfamref=[$idfamref]";
   setHttpVar("idfamref", $idfamref);
 
-  $reid=getIdFromName($dbaccess,"WG_AGENDA");
+  // Set event ressources
+  if ($ressids == "") {
+    $viewme=false;
+    $ress = WGCalGetRessDisplayed($action);
+    $tr=array(); 
+    $ire=0;
+    foreach ($ress as $kr=>$vr) {
+      if ($vr->id>0) $tr[$ire++] = $vr->id;
+      if ($vr->id==$action->user->fid) $viewme=true;
+    }
+    if ($viewme) {
+      $grp = WGCalGetRGroups($action, $action->user->id);
+      foreach ($grp as $kr=>$vr) $tr[$ire++] = $vr;
+    }
+    $ressids = implode("|", $tr);
+  }
+  if ($debug) echo " idres=[$ressids]";
+  setHttpVar("idres", $ressids);
+
+  // Set a filter
+  $evfilter = array();
+  if ($filter!="") $evfilter = explode("|",$filter);
+  if ($debug) echo " filter=[$filter]";
+  print_r2($evfilter);
+  
+  $reid=getIdFromName($dbaccess,"WG_AGENDA", $explode, $evfilter);
   $dre = new Doc($dbaccess,$reid);
   $edre = array();
   $edre = $dre->getEvents($ds,$de);

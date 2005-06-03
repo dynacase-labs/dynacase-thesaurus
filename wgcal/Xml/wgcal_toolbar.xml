@@ -149,7 +149,7 @@ var CEventText = '';
 </div>
 
 
-[ZONE WGCAL:TODO?dtodo=[tododays]]
+[IF SHOWTODOS] [ZONE WGCAL:TODO?dtodo=[tododays]] [ENDIF SHOWTODOS]
 
 [IF SHOWCONTACTS] [ZONE WGCAL:CONTACTS] [ENDIF SHOWCONTACTS]
 

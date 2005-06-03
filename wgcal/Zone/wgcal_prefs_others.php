@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.4 2005/06/03 03:56:53 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.5 2005/06/03 05:15:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -23,6 +23,12 @@ function wgcal_prefs_others(&$action) {
 		  //"refresh" => array(_("refresh toolbar"), "WGCAL_U_REFRESH_T", "wgcal_toolbar", "WGCAL_TOOLBAR&f=1"),
 		  "iconpopup" => array(_("show icons in popup menus"), "WGCAL_U_ICONPOPUP", "wgcal_toolbar", "WGCAL_TOOLBAR")
 		  );
+  $toolbar = 
+    array(
+	  //"contacts" => array(_("display contacts"), "WGCAL_U_TBCONTACTS", "wgcal_toolbar", "WGCAL_TOOLBAR"),
+	  //"search" => array(_("display search"), "WGCAL_U_TBSEARCH", "wgcal_toolbar", "WGCAL_TOOLBAR"),
+	  "todo" => array(_("display todos"), "WGCAL_U_TBTODOS", "wgcal_toolbar", "WGCAL_TOOLBAR")
+	  );
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $toptchk = array(); 
@@ -38,6 +44,18 @@ function wgcal_prefs_others(&$action) {
   }
   $action->lay->SetBlockData("MAILOPTCHK", $toptchk);
 
+  $tb = array(); 
+  $io = 0;
+  foreach ($toolbar as $ko => $vo) {
+    $tb[$io]["idoption"] = $ko;
+    $tb[$io]["textoption"] = $vo[0];
+    $tb[$io]["paramoption"] = $vo[1];
+    $tb[$io]["trefresh"] = $vo[2];
+    $tb[$io]["arefresh"] = $vo[3];
+    $tb[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
+    $io++;
+  }
+  $action->lay->SetBlockData("TOOLBARTOOLS", $tb);
   return;
 }
 ?>

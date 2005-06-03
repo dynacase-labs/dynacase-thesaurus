@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_search.php,v 1.2 2005/02/16 09:11:38 marc Exp $
+ * @version $Id: wgcal_search.php,v 1.3 2005/06/03 05:15:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -17,10 +17,10 @@ function wgcal_search(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $sphrase = GetHttpVars("searchphrase", "");
-  $sdstart = GetHttpVars("searchdstart", "");
-  $sdend   = GetHttpVars("searchdend", "");
-  $sress   = GetHttpVars("searchressource", "");
+  $df = GetHttpVars("ds", "");
+  $de = GetHttpVars("de", "");
+  $rlist  = GetHttpVars("rlist", "");
+  $filter = GetHttpVars("filter", "");
 
 
   $rvfam = getFamIdFromName($dbaccess, "CALEVENT");
