@@ -12,6 +12,16 @@ END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //BEGIN;129;groupe intranet;127;;IGROUP;;;;;;;;;;;;;;;;;;;;;;;
 //TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//CONTROLE DE VUE;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//FAM;masque de saisie(MASK);<specid>;<fldid>;titre;id familles;familles;attrid;visibilité;obligatoire;;;;;;;;;;;;;;;;;;;
+ORDER;MASK;;;ba_title;msk_famid;msk_fam;msk_attrids;msk_visibilities;msk_needeeds;;;;;;;;;;;;;;;;;;;
+DOC;MASK;MASKADMIN;;masque admin;CALEVENT;Rendez-vous;calev_event\ncalev_repeat\ncalev_attendees\ncalev_ownerid\ncalev_owner\ncalev_evtitle\ncalev_evnote\ncalev_evcalendarid\ncalev_evcalendar\ncalev_visibility\ncalev_evstatus\ncalev_evalarm\ncalev_evalarmtime\ncalev_start\ncalev_end\ncalev_timetype\ncalev_frequency\ncalev_repeatmode\ncalev_repeatweekday\ncalev_repeatmonth\ncalev_repeatuntil\ncalev_repeatuntildate\ncalev_t_excludedate\ncalev_excludedate\ncalev_t_attendees\ncalev_attid\ncalev_atttitle\ncalev_attstate\ncalev_attgroup;W\nW\nW\n-\nW\nW\nW\n-\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\n-\nW\nW\nW;-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//FAM;contrôle de vues(CVDOC);<specid>;<fldid>;titre;description;family id;famille;vues;id création vues par défaut;id vues;label;création vue;type;zone;id masque;masque;family id;famille;;;;;;;;;;
+ORDER;CVDOC;;;ba_title;cv_desc;cv_famid;cv_fam;cv_t_views;cv_idcview;cv_idview;cv_lview;cv_lcview;cv_kview;cv_zview;cv_mskid;cv_msk;dpdoc_famid;dpdoc_fam;;;;;;;;;;
+DOC;CVDOC;CVRDVADMIN;;Contrôle de vue pour les rendez-vous;Admin peut voir tous les attributs;CALEVENT;Rendez-vous;;;ADMIN;administration;;VEDIT;FDL:EDITBODYCARD;MASKADMIN;masque admin Rendez-vous;;;;;;;;;;;;
 // ;fromid;titre;id;class;name;;;;;;;;
 BEGIN;0;Rendez-vous;;;CALEVENT;;;;;;;;
 TYPE;C;;;;;;;;;;;;
@@ -22,7 +32,7 @@ TAG;P;;;;;;;;;;;;
 METHOD;;;;;;;;;;;;;
 METHOD;*Method.PEvents.php;;;;;;;;;;;;
 METHOD;+Method.CalPEvents.php;;;;;;;;;;;;
-// CVID;CTRLV_CALEVENT;;;;;;;;;;;;
+CVID;CVRDVADMIN;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 ATTR;CALEV_EVENT;;Description;N;N;frame;10;;;;;;
 ATTR;CALEV_OWNERID;CALEV_EVENT;Propriétaire Id;N;N;docid;20;H;;;;;
@@ -171,57 +181,3 @@ ATTR;VEHICLE_RESPONSABLEID;VEHICLE_AFFECTATION;Resp Id;N;N;docid;220;H;;;;::getT
 DEFAULT;VEHICLE_RESPONSABLEID;::userDocId();;;;;;;;;;;
 DEFAULT;VEHICLE_RESPONSABLE;::getTitle(VEHICLE_RESPONSABLEID);;;;;;;;;;;
 END;;;;;;;;;;;;;
-//FAM;profil de document(PDOC);<specid>;<fldid>;titre;description;family id;famille;;;;;;;;;;;
-ORDER;PDOC;;;ba_title;prf_desc;dpdoc_famid;dpdoc_fam;;;;;;;;;;;
-DOC;PDOC;RV_PRIVATE;;Rendez-vous privés;;CALEVENT;Rendez-vous;;;;;;;;;;;
-DOC;PDOC;EVENTFROMCAL_PROFILE;;Evènements Générés;;;;;;;;;;;;;;
-PROFIL;EVENTFROMCAL_PROFILE;;;view=2;view=82;;;;;;;;;;;;;
-//FAM;masque de saisie(MASK);<specid>;<fldid>;titre;id familles;familles;attrid;visibilité;obligatoire;;;;;;;;;
-ORDER;MASK;;;ba_title;msk_famid;msk_fam;msk_attrids;msk_visibilities;msk_needeeds;;;;;;;;;
-DOC;MASK;MASK_CALEVENT_OWNER;;Masque propriétaire;CALEVENT;Rendez-vous;calev_repeat\ncalev_event\ncalev_attendees\ncalev_owner\ncalev_ownerid\ncalev_evtitle\ncalev_evnote\ncalev_evcalendarid\ncalev_evcalendar\ncalev_visibility\ncalev_evstatus\ncalev_evalarm\ncalev_evalarmtime\ncalev_start\ncalev_end\ncalev_timetype\ncalev_frequency\ncalev_repeatmode\ncalev_repeatweekday\ncalev_repeatmonth\ncalev_repeatuntil\ncalev_repeatuntildate\ncalev_t_excludedate\ncalev_excludedate\ncalev_t_attendees\ncalev_attid\ncalev_atttitle\ncalev_attstate\ncalev_attgroup;W\nW\nO\nW\n-\nW\nW\n-\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\n-\nW\nW\nW;-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-;;;;;;;;;
-//FAM;contrôle de vues(CVDOC);<specid>;<fldid>;titre;description;family id;famille;vues;id création vues par défaut;id vues;label;création vue;type;zone;id masque;masque;family id;famille
-ORDER;CVDOC;;;ba_title;cv_desc;cv_famid;cv_fam;cv_t_views;cv_idcview;cv_idview;cv_lview;cv_lcview;cv_kview;cv_zview;cv_mskid;cv_msk;dpdoc_famid;dpdoc_fam
-DOC;CVDOC;CTRLV_CALEVENT;;CtrlV Rendez-vous;;CALEVENT;Rendez-vous;;;RVPROPRIO;Modifier le RV;;VEDIT;FDL:EDITBODYCARD;MASK_CALEVENT_OWNER;Masque propriétaire Rendez-vous;CALEVENT;Rendez-vous
-PROFIL;CTRLV_CALEVENT;;;RVPROPRIO=calev_ownerid;;;;;;;;;;;;;;
-// ;fromid;titre;id;class;name;;;;;;;;
-BEGIN;0;Appel;;;CALL;;;;;;;;
-TYPE;C;;;;;;;;;;;;
-DFLDID;;;;;;;;;;;;;
-WID;;;;;;;;;;;;;
-ICON;call.png;;;;;;;;;;;;
-TAG;P;;;;;;;;;;;;
-METHOD;;;;;;;;;;;;;
-METHOD;*Method.PEvents.php;;;;;;;;;;;;
-METHOD;+Method.CallPEvents.php;;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
-ATTR;CALL_DESCRIPTION;;Description;N;N;frame;10;;;;;;
-ATTR;CALL_IDOWNER;CALL_DESCRIPTION;Id Propriétaire;Y;Y;docid;10;H;;;;;
-ATTR;CALL_OWNER;CALL_DESCRIPTION;Propriétaire;Y;Y;text;20;R;;%S%app=FDL&action=FDL_CARD&id=%CALL_IDOWNER%;;;
-ATTR;CALL_LABEL;CALL_DESCRIPTION;Raison;Y;Y;text;30;W;Y;;;;
-ATTR;CALL_DATE;CALL_DESCRIPTION;Date & Heure;Y;Y;timestamp;40;W;Y;;;;
-ATTR;CALL_DURATION;CALL_DESCRIPTION;Durée;Y;Y;enum;50;W;Y;;-;5| 5 mn,10|10 mn,15|15 mn,20|20 mn,30|30 mn,45|45 mn,60|1h,75|1h15,90|1h30,120|2h;
-ATTR;CALL_CONTACT;;Repeat;N;N;frame;300;;;;;;
-ATTR;CALL_IDCONTACT;CALL_CONTACT;Id Personne;N;N;docid;310;H;;;;::getTitle(CALL_IDCONTACT):CALL_CONTACT;
-ATTR;CALL_CONTACT;CALL_CONTACT;Personne;Y;Y;text;320;W;;%S%app=FDL&action=FDL_CARD&id=%CALL_IDCONTACT%;CALL_external.php;lcall(D,{USER},CALL_CONTACT):CALL_IDCONTACT,CALL_CONTACT,CALL_CONTACTMAIL,CALL_CONTACTPHONE,CALL_CONTACTMOB;
-ATTR;CALL_CONTACTMAIL;CALL_CONTACT;Mail;N;N;text;330;W;;mailto:%CALL_CONTACTMAIL%;;;
-ATTR;CALL_CONTACTPHONE;CALL_CONTACT;Téléphone;N;N;text;340;W;;;;;
-ATTR;CALL_CONTACTMOB;CALL_CONTACT;Mobile;N;N;text;350;W;;;;;
-DEFAULT;CALL_IDOWNER;::userDocid();;;;;;;;;;;
-DEFAULT;CALL_OWNER;::getTitle(CALL_IDOWNER);;;;;;;;;;;
-END;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-// ;fromid;titre;id;class;name;;;;;;;;
-BEGIN;EVENT;Evènements appels;;;EVENT_CALL;;;;;;;;
-ICON;event_call.png;;;;;;;;;;;;
-METHOD;Method.CallEvent.php;;;;;;;;;;;;
-ATTR;EVFC_OTHERS;;Autre;N;N;frame;1000;W;;;;;
-ATTR;EVCALL_CALENDARID;EVFC_OTHERS;Calendrier;N;N;docid;1010;W;;;;;
-END;;;;;;;;;;;;;
-//FAM;masque de saisie(MASK);<specid>;<fldid>;titre;id familles;familles;attrid;visibilité;obligatoire;;;;;;;;;
-ORDER;MASK;;;ba_title;msk_famid;msk_fam;msk_attrids;msk_visibilities;msk_needeeds;;;;;;;;;
-DOC;MASK;MASKADMIN;;masque admin;CALEVENT;Rendez-vous;calev_event\ncalev_repeat\ncalev_attendees\ncalev_ownerid\ncalev_owner\ncalev_evtitle\ncalev_evnote\ncalev_evcalendarid\ncalev_evcalendar\ncalev_visibility\ncalev_evstatus\ncalev_evalarm\ncalev_evalarmtime\ncalev_start\ncalev_end\ncalev_timetype\ncalev_frequency\ncalev_repeatmode\ncalev_repeatweekday\ncalev_repeatmonth\ncalev_repeatuntil\ncalev_repeatuntildate\ncalev_t_excludedate\ncalev_excludedate\ncalev_t_attendees\ncalev_attid\ncalev_atttitle\ncalev_attstate\ncalev_attgroup;W\nW\nW\n-\nW\nW\nW\n-\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\n-\nW\nW\nW;-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-;;;;;;;;;
-;;;;;;;;;;;;;;;;;;
-//FAM;contrôle de vues(CVDOC);<specid>;<fldid>;titre;description;family id;famille;vues;id création vues par défaut;id vues;label;création vue;type;zone;id masque;masque;family id;famille
-ORDER;CVDOC;;;ba_title;cv_desc;cv_famid;cv_fam;cv_t_views;cv_idcview;cv_idview;cv_lview;cv_lcview;cv_kview;cv_zview;cv_mskid;cv_msk;dpdoc_famid;dpdoc_fam
-DOC;CVDOC;CVRDVADMIN;;Contrôle de vue pour les rendez-vous;Admin peut voir tous les attributs;CALEVENT;Rendez-vous;;;ADMIN;administration;;VEDIT;FDL:EDITBODYCARD;MASKADMIN;masque admin Rendez-vous;;
