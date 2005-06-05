@@ -15,11 +15,4 @@ $theme->WTH_ALERT                 =  "red";
 $theme->WTH_CALWEEKEND            =  "#F0E8FF";
 $theme->WTH_CALTODAY              =  "#eef4f9";
 
-
-$theme->WTH_FONTLIST              =  "Arial, Tahoma, Helvetica, sans-serif";
-$theme->WTH_FONTSIZE_NORMAL       =  "10";
-$theme->WTH_FONTSIZE_BIG          =  "11";
-$theme->WTH_FONTSIZE_SMALL        =  "8";
-
-$theme->WTH_TOOLBARW              =  "200";
 ?>

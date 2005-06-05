@@ -28,6 +28,7 @@ function  setEventSpec(&$e) {
   $e->setValue("EVT_TITLE", $this->getValue("CALEV_EVTITLE"));
   $e->setValue("EVT_IDCREATOR", $this->getValue("CALEV_OWNERID"));
   $e->setValue("EVT_CREATOR", $this->getValue("CALEV_OWNER"));
+  $e->setValue("EVT_DESC", $this->getValue("CALEV_EVNOTE"));
   $e->setValue("EVFC_VISIBILITY", $this->getValue("CALEV_VISIBILITY"));
   $e->setValue("EVFC_REALENDDATE", $this->getValue("CALEV_END"));
   $e->setValue("EVFC_REPEATMODE", $this->getValue("CALEV_REPEATMODE"));

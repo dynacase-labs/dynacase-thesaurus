@@ -191,6 +191,13 @@ TD {
 }
 
 
+.WEvTitle {
+  cursor:pointer;
+  border : 1px outset;
+  background-color : [WTH_COLOR_3];
+  color : white;
+  font-weight : bold;
+}
 .WEvDays {
   cursor:pointer;
   border : 1px outset;
@@ -203,7 +210,7 @@ TD {
 .WEvOver {
   border : 0px;
   cursor:crosshair;
-  background: [WTH_COLOR_3];  
+  background-color : [WTH_COLOR_2];
 }
 /*
  * Really use in final product !

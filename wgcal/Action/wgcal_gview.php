@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.4 2005/06/03 15:16:21 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.5 2005/06/05 09:02:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -18,11 +18,21 @@ include_once("WGCAL/Lib.WGCal.php");
 function wgcal_gview(&$action) {
   global $order;
 
+  $themef = GetHttpVars("theme", $action->getParam("WGCAL_U_THEME", "default"));
+  @include_once("WGCAL/Themes/default.thm");
+  @include_once("WGCAL/Themes/".$themef.".thm");
+
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $action->lay->set("bcolor", $theme->WTH_COLOR_2);
+  $action->lay->set("styleFIELDSET", false);
+  $action->lay->set("styleTABLE", false);
+  $action->lay->set("style".$action->GetParam("WGCAL_U_PORTALSTYLE", "TABLE"), true);
 
   $ds      = GetHttpVars("ds","");
   $de      = GetHttpVars("de","");
-  $order   = GetHttpVars("order", "C"); // C chocolatine D Decroissant
+  $order   = GetHttpVars("order", "D"); // C chocolatine D Decroissant
   $title   = GetHttpVars("title" , ""); 
   $filteron  = GetHttpVars("filteron" , ""); 
   $menu    = GetHttpVars("menu", 1); 
@@ -58,37 +68,65 @@ function wgcal_gview(&$action) {
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $dre = new Doc($dbaccess,$reid);
   $edre = array();
-  $edre = $dre->getEvents($ds,$de, $explode, $evfilter);
+  $edre = $dre->getEvents($ds,$de);
+//   $edre = $dre->getEvents($ds,$de, $explode, $evfilter);
+
+
+  $calevent = getIdFromName($dbaccess,"CALEVENT");
 
   if (count($edre)>0) {
 
     foreach ($edre as $k => $v) {
       
-      $day = substr($v["evt_begdate"],0,10);
-      
-      if (!isset($btime[$day]["cnt"])) {
-	$btime[$day]["date"] = $day;
-	$btime[$day]["cnt"] = 0;
-	$devents[$day] = array();
+      $refused = false;
+      if ($v["evt_frominitiatorid"] == $calevent ) {
+	$attr = Doc::_val2array($v["evfc_rejectattid"]);
+	foreach ($attr as $kat => $vat) {
+	  if ($action->user->fid == $vat) $refused = true;
+	}
       }
-      $i = $btime[$day]["cnt"];
       
-      
-      $j = count($devents[$day]);
-      $hs = substr($v["evt_begdate"],11,5);
-      $he = substr(($v["evfc_realenddate"]==""?$v["evt_enddate"]:$v["evfc_realenddate"]),11,5);
-      $devents[$day][$j]["id"] = $v["id"];
-      $devents[$day][$j]["fid"] = $v["evfc_idinitiator"];
-      $devents[$day][$j]["date"] = $day;
-      $devents[$day][$j]["start"] = $hs;
-      $devents[$day][$j]["end"] = $he;
-      $devents[$day][$j]["title"] = $v["title"];
-      $devents[$day][$j]["desc"] = $v["evt_desc"];
-      $devents[$day][$j]["owner"] = $v["evt_creator"];
-     
-      $btime[$day]["cnt"]++;
-    }
 
+      if (!$refused) {
+
+	$day = substr($v["evt_begdate"],0,10);
+      
+	if (!isset($btime[$day]["cnt"])) {
+	  $btime[$day]["date"] = $day;
+	  $btime[$day]["cnt"] = 0;
+	  $devents[$day] = array();
+	}
+	$i = $btime[$day]["cnt"];
+      
+      
+	$j = count($devents[$day]);
+	$hs = substr($v["evt_begdate"],11,5);
+	$he = substr(($v["evfc_realenddate"]==""?$v["evt_enddate"]:$v["evfc_realenddate"]),11,5);
+	if ($hs == $he) {
+	  $devents[$day][$j]["start"] = _("no hour");
+	  $devents[$day][$j]["end"] = "";
+	  $devents[$day][$j]["isHour"] = false;
+	} else if ($hs == "00:00" && $he == "23:59") {
+	  $devents[$day][$j]["start"] = _("all the day");
+	  $devents[$day][$j]["end"] = "";
+	  $devents[$day][$j]["isHour"] = false;
+	} else {
+	  $devents[$day][$j]["isHour"] = true;
+	  $devents[$day][$j]["start"] = $hs;
+	  $devents[$day][$j]["end"] = $he;
+	}
+	$devents[$day][$j]["id"] = $v["id"];
+	$devents[$day][$j]["fid"] = $v["evfc_idinitiator"];
+	$devents[$day][$j]["date"] = $day;
+	$devents[$day][$j]["title"] = $v["title"];
+	$devents[$day][$j]["desc"] = $v["evt_desc"];
+	if ($v["evt_desc"]=!"") $devents[$day][$j]["HaveDesc"] = true;
+	else $devents[$day][$j]["HaveDesc"] = false;
+	$devents[$day][$j]["owner"] = $v["evt_creator"];
+     
+	$btime[$day]["cnt"]++;
+      }
+    }
     uasort($btime, "daySort");
 
     $action->lay->setBlockData("btime", $btime);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.38 2005/06/02 04:13:32 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.39 2005/06/05 09:02:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,10 +30,6 @@ function printhdiv($h, $hdiv, $hd) {
 // function d2s($t, $f="%x %X") {
 //   return strftime($f, $t - 7200);
 // }
-function d2s($t, $f="H:i d/m/Y") {
-  return gmdate($f, $t);
-}
-
 function wgcal_calendar(&$action) {
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -117,7 +113,7 @@ function wgcal_calendar(&$action) {
     $t[$i]["IDD"] = $i;
     $t[$i]["colsize"] = $colsize;
     $t[$i]["CSS"] = $classh[$i];
-    $t[$i]["LABEL"] = d2s($firstWeekDay+($i*SEC_PER_DAY), "D d F");
+    $t[$i]["LABEL"] = ts2db($firstWeekDay+($i*SEC_PER_DAY), "D d F");
     $t[$i]["times"] =  $tabdays[$i]["vstart"] ;
     $t[$i]["timee"] =   $t[$i]["times"] +  SEC_PER_HOUR;
   }
@@ -153,14 +149,14 @@ function wgcal_calendar(&$action) {
 	$tcell[$itc]["urlroot"] = $urlroot;
 	$tcell[$itc]["times"] = $firstWeekDay + ($id*SEC_PER_DAY)+($h*SEC_PER_HOUR) + ($hd*$mdiv);
 	$tcell[$itc]["timee"] = $tcell[$itc]["times"] + (($hd==0?1:$hd) * $mdiv);
-	$tcell[$itc]["rtime"] = d2s($firstWeekDay+($id*SEC_PER_DAY), "D d F Y, ");
+	$tcell[$itc]["rtime"] = ts2db($firstWeekDay+($id*SEC_PER_DAY), "D d F Y, ");
 	if ($h==($hstart-1) || $h==($hstop+1)) {
 	  $tcell[$itc]["nh"] = 1;
 	  $tcell[$itc]["rtime"] .= _("no hour");
 	} else {
 	  $tcell[$itc]["nh"] = 0;
-	  $tcell[$itc]["rtime"] .= d2s($tcell[$itc]["times"],"H:i")." - ";
-	  $tcell[$itc]["rtime"] .= d2s($tcell[$itc]["timee"],"H:i");
+	  $tcell[$itc]["rtime"] .= ts2db($tcell[$itc]["times"],"H:i")." - ";
+	  $tcell[$itc]["rtime"] .= ts2db($tcell[$itc]["timee"],"H:i");
 	}
 	$tcell[$itc]["lref"] = "L".$nl;
 	$tcell[$itc]["cref"] = "D".$id;
@@ -209,8 +205,8 @@ function wgcal_calendar(&$action) {
   }
   $events = WGCalGetAgendaEvents( $action,
 				  $tr, 
-				  d2s($firstWeekDay, "Y-m-d H:i:s"),
-				  d2s($edate, "Y-m-d H:i:s") );
+				  ts2db($firstWeekDay, "Y-m-d H:i:s"),
+				  ts2db($edate, "Y-m-d H:i:s") );
   
   $action->lay->SetBlockData("EVENTS", $events);
   $action->lay->SetBlockData("EVENTSSC", $events);

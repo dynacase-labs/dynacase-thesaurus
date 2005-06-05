@@ -2,7 +2,8 @@
 0.1.0.RC6
 --------------------------------------------------------------------------
 - introduction de la recherche
-- :
+- ajout d'un service portail
+- correction des chevauchement lors des vérifications de conflits
 
 --------------------------------------------------------------------------
 0.1.0.RC5

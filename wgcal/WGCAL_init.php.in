@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.32 2005/06/03 05:15:05 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.33 2005/06/05 09:02:09 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -85,6 +85,10 @@ array(
 // Synchro 
 "WGCAL_S_LASTSYNC_OUTLOOK" => array("kind"=>"static", "val"=>0, "descr"=>N_("last sync date for Outlook"), "user"=>"Y"),
 "WGCAL_S_LASTSYNC" => array("kind"=>"static", "val"=>0, "descr"=>N_("last sync date for WGCal"), "user"=>"Y"),
+
+// Portal
+"WGCAL_U_PORTALPERIOD" => array("kind"=>"static", "val"=>"week", "descr"=>N_("displayed period"), "user"=>"Y"),
+"WGCAL_U_PORTALSTYLE" => array("kind"=>"static", "val"=>"FIELDSET", "descr"=>N_("normal"), "user"=>"Y"),
 
 
 // Globals

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.6 2005/06/03 15:16:21 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.7 2005/06/05 09:02:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,6 +30,25 @@ function wgcal_prefs_others(&$action) {
 	  "todo" => array(_("display todos"), "WGCAL_U_TBTODOS", "wgcal_toolbar", "WGCAL_TOOLBAR")
 	  );
   
+  $portal =     array(
+		      "look" => array(_("portal look"), 
+				      "WGCAL_U_PORTALSTYLE", 
+				      "wgcal_hidden", 
+				      "WGCAL_HIDDEN", 
+				      array( "FIELDSET"  => _("normal"),
+					     "TABLE"   => _("condensed"))
+				      ),
+		      "period" => array(_("displayed period"), 
+					"WGCAL_U_PORTALPERIOD", 
+					"wgcal_hidden", 
+					"WGCAL_HIDDEN", 
+					array( "3days"  => _("3days"),
+					       "week"   => _("week"),
+					       "2weeks"   => _("2weeks"),
+					       "month"   => _("month"))
+					)
+		      );
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $toptchk = array(); 
   $io = 0;
@@ -56,6 +75,30 @@ function wgcal_prefs_others(&$action) {
     $io++;
   }
   $action->lay->SetBlockData("TOOLBARTOOLS", $tb);
+
+  // Portal
+  $toptchk = array(); 
+  $io = 0;
+  foreach ($portal as $ko => $vo) {
+    $cVal = $action->GetParam($vo[1]);
+    $toptchk[$io]["iSel"] = $ko;
+    $toptchk[$io]["iText"] = $vo[0];
+    $toptchk[$io]["iVar"] = $vo[1];
+    $toptchk[$io]["iVal"] = $cVal;
+    $toptchk[$io]["iFrame"] = $vo[2];
+    $toptchk[$io]["iAction"] = $vo[3];
+    $opt = array();
+    foreach ($vo[4] as $k => $v) {
+      $opt[] = array( "iOptText" => $v,
+		      "iOptVal" => $k,
+		      "iOptSel" => ($cVal==$k ? "selected" : ""));
+    }
+    $action->lay->SetBlockData("OPT".$ko, $opt);
+    $io++;
+  }
+  $action->lay->SetBlockData("PORTAL", $toptchk);
+
+
   return;
 }
 ?>

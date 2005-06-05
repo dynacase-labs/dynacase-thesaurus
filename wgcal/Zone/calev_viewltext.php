@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_viewltext.php,v 1.2 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: calev_viewltext.php,v 1.3 2005/06/05 09:02:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -17,7 +17,7 @@ function calev_viewltext(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $evi = GetHttpVars("ev", -1);
+  $evi = GetHttpVars("id", -1);
   $cev = GetHttpVars("cev", -1);
   $ev = GetCalEvent($dbaccess, $evi, $cev);
 

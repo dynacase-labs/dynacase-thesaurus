@@ -28,8 +28,8 @@ function wgcal_checkconflict(&$action) {
 
   $ds = GetHttpVars("Fstart", 0);
   $de = GetHttpVars("Fend", 0);
-  $start = date2db($ds);
-  $end = date2db($de);
+  $start = date2db(($ds+60));
+  $end = date2db(($de-60));
   $htype = 0;
   if (GetHttpVars("nohour", "") == "on") {
     $htype = 1;
@@ -38,7 +38,7 @@ function wgcal_checkconflict(&$action) {
   }
   if (GetHttpVars("allday", "") == "on") {
     $htype = 2;
-    $start = date2db($ds, false)." 00:00";
+    $start = date2db($ds, false)." 00:01";
     $end = date2db($ds, false)." 23:59";
   }
   $withme = GetHttpVars("withMe", "off");
@@ -54,7 +54,6 @@ function wgcal_checkconflict(&$action) {
     $trl = GroupExplode($action, $v);
     $nrl = array_merge($nrl, $trl);
   }
-  
   $tevtmp = WGCalGetAgendaEvents($action, $nrl, $start, $end);
     
   $tev = array();
