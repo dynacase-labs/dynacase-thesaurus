@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.39 2005/06/05 09:02:09 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.40 2005/06/06 05:41:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -44,10 +44,8 @@ function wgcal_calendar(&$action) {
   $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   if ($swe!="yes") {
     $ndays = $dayperweek - 2;
-    $action->lay->set("wedisplayed", "" ); 
   } else {
     $ndays = $dayperweek;
-    $action->lay->set("wedisplayed", "checked" );
   }
   $hcolsize = 5;
   $colsize = round((100 - $hcolsize) / $ndays);

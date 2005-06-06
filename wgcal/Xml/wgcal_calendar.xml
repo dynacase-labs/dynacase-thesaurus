@@ -27,8 +27,6 @@
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="WGCAL/Images/wm-nperiod.png" height="15"></td>
       <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
       <td align="center" class="WGCAL_Period" width="50" title="[TEXT:change hours division]"><select style="cursor:pointer" id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select></td>
-      <td class="WGCAL_Period" align="center" width="30" title="[TEXT:view/hide week-end]">
-          <input style="cursor:pointer"  type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></td>
       </tr></table>
      </td>
  </tr>    
