@@ -1,6 +1,6 @@
 <!-- Start abstract [ID] -->
 <div id="evth[ID]" style="height:[headsize]px; border:0px; background-color:[evglobalstate];"></div>
 <div id="evta[ID]" style="background-color:[bgresumecolor]; border:1px inset [bgresumecolor];">
-<div style="border:1px outset [bgresumecolor]; height:100%; color:[textcolor]; font-weight:bold; text-transform:lowercase;">[BLOCK icons]<img style="border:0px" src="[iconsrc]" width="15">[ENDBLOCK icons][TITLE]</div>
+<div style="border:1px outset [bgresumecolor]; height:100%; color:[textcolor]; text-transform:lowercase;">[BLOCK icons]<img style="border:0px" src="[iconsrc]" width="15">[ENDBLOCK icons][TITLE]</div>
 </div>
 <div id="evtf[ID]" style="border:0px outset; background-color:grey;"></div>

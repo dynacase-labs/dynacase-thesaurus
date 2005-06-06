@@ -2,6 +2,7 @@
 0.1.0.RC6
 --------------------------------------------------------------------------
 - introduction de la recherche
+- ajout d'un controle/masque (CALEVENT) admin (edition speciale) 
 - ajout d'un service portail
 - correction des chevauchement lors des vérifications de conflits
 
