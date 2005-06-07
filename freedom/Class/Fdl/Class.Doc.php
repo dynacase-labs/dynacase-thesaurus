@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.251 2005/05/31 14:53:56 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.252 2005/06/07 09:38:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -791,7 +791,7 @@ create unique index i_docir on doc(initid, revision);";
   function Delete($really=false,$control=true,$nopost=false) {
 
     if ($control) {
-    // Control if the doc can be deleted
+      // Control if the doc can be deleted
       $msg = $this->Control("delete");
       if ($msg!='') return $msg;
     }
@@ -812,35 +812,34 @@ create unique index i_docir on doc(initid, revision);";
       if (!$nopost) $msg=$this->PreDelete();
       if ($msg!='') return $msg;
 
-      $this->doctype='Z'; // Zombie Doc
-      $this->locked= -1; 
-      $date = gettimeofday();
-      $this->revdate = $date['sec']; // Delete date
+      if ($this->doctype != 'Z') {
+	$this->doctype='Z'; // Zombie Doc
+	$this->locked= -1; 
+	$date = gettimeofday();
+	$this->revdate = $date['sec']; // Delete date
 
-      global $action;
-      global $_SERVER;
-      $this->AddComment(sprintf(_("delete by %s by action %s on %s from %s"),
-				$action->user->firstname." ".$action->user->lastname,
-				$_SERVER["REQUEST_URI"],
-				$_SERVER["HTTP_HOST"],
-				$_SERVER["REMOTE_ADDR"]));
-
-
-      if (!$nopost) $msg=$this->PostDelete();
+	global $action;
+	global $_SERVER;
+	$this->AddComment(sprintf(_("delete by %s by action %s on %s from %s"),
+				  $action->user->firstname." ".$action->user->lastname,
+				  $_SERVER["REQUEST_URI"],
+				  $_SERVER["HTTP_HOST"],
+				  $_SERVER["REMOTE_ADDR"]));
 
 
-      // delete all revision also
-      $rev=$this->GetRevisions();
-      while (list($k,$v) = each($rev)) {
-	
-	if ($v->doctype != 'Z') {
-	  $v->doctype='Z'; // Zombie Doc
-	  $v->locked= -1; 
-	  $v->modify();
+	if (!$nopost) $msg=$this->PostDelete();
+
+
+	// delete all revision also
+	$rev=$this->GetRevisions();
+	foreach($rev as $k=>$v) {	
+	  if ($v->doctype != 'Z') {
+	    $v->doctype='Z'; // Zombie Doc
+	    $v->locked= -1; 
+	    $v->modify();
+	  }	    
 	}
-	    
       }
-    
       return $msg;
     }
   }
@@ -941,9 +940,10 @@ create unique index i_docir on doc(initid, revision);";
     return $this->childs;
   }
 
-  // --------------------------------------------------------------------
+  /**
+   * return all revision documents
+   */
   function GetRevisions($type="LIST") {
-    // -------------------------------------------------------------------- 
     // Return the document revision 
     $query = new QueryDb($this->dbaccess, get_class($this));
 
@@ -952,7 +952,9 @@ create unique index i_docir on doc(initid, revision);";
     $query->AddQuery("initid = ".$this->initid);
     $query->order_by="revision DESC";
       
-    return $query->Query(0,0,$type);
+    $rev= $query->Query(0,0,$type);
+    if ($query->nb == 0) return array();
+    return $rev;
   }
 
   // get Latest Id
@@ -2224,8 +2226,9 @@ create unique index i_docir on doc(initid, revision);";
 	    $htmlval.=  "\">".$fname."</A>";
 	  } else {
 	    $umime = trim(`file -ib $info->path`);
+	    $size=round($info->size/1024)._("AbbrKbyte");
 	    $utarget= ($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
-	    $htmlval="<A onmousedown=\"document.noselect=true;\" target=\"$utarget\" type=\"$mime\" href=\"".
+	    $htmlval="<A onmousedown=\"document.noselect=true;\" title=\"$size\" target=\"$utarget\" type=\"$mime\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
 	      "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
 	      ."\">".$fname.
@@ -2536,7 +2539,7 @@ create unique index i_docir on doc(initid, revision);";
   // --------------------------------------------------------------------
   // generate HTML code for view doc
   // --------------------------------------------------------------------
-  function viewDoc($layout="FDL:VIEWBODYCARD",$target="_self",$ulink=true,$abstract=false) {
+  function viewDoc($layout="FDL:VIEWBODYCARD",$target="_self",$ulink=true,$abstract=false,$changelayout=false) {
     global $action;
 
     if (ereg("(.*)\?(.*)",$layout, $reg)) {
@@ -2557,9 +2560,11 @@ create unique index i_docir on doc(initid, revision);";
      
     
     $this->SetDefaultAttributes();
-    $play=$this->lay;
-
+    if (!$changelayout) {
+      $play=$this->lay;
+    }
     $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
+    
 
     $method = strtolower($reg[2]);
 
@@ -2572,7 +2577,9 @@ create unique index i_docir on doc(initid, revision);";
 
 
     $laygen=$this->lay->gen();
-    $this->lay=$play;
+    
+    if (!$changelayout)       $this->lay=$play;
+    
     if (! $ulink) {
       // suppress href attributes
       return preg_replace(array("/href=\"index\.php[^\"]*\"/i", "/onclick=\"[^\"]*\"/i","/ondblclick=\"[^\"]*\"/i"), 
