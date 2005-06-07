@@ -32,7 +32,7 @@ var WattrNtitle=new Array([Wattrntitle]);
  <input id="seltrans" name="newstate" value="[dstate]" type="hidden"> 
 
 [BLOCK NEWSTATE]
-<input type="submit" class="[dsubmit]" title="[TEXT:to] [statename]" value="[tostatename]" onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event);" onmouseout="document.getElementById('seltrans').value='-'">
+<input type="submit" class="[dsubmit]" title="[TEXT:to] [statename]" value="[tostatename]" onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event);" >
 [ENDBLOCK NEWSTATE]
 <input type="submit" id="iSubmit2" value="[TEXT:Tounchanged]" style="margin-left:30px;margin-right:0px;display:[dvalidate]" title="[TEXT:no change state]" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);">
   </td><td colspan="2">
