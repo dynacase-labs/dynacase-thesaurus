@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-03 11:58+0200\n"
-"PO-Revision-Date: 2005-06-03 12:00+0200\n"
+"POT-Creation-Date: 2005-06-07 15:28+0200\n"
+"PO-Revision-Date: 2005-06-07 15:28+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -62,6 +62,15 @@ msgstr "impossible de voir : la référence %s est inconnue"
 #, c-format
 msgid "import <I>%s</I> documents from"
 msgstr " Importation de documents <I>%s</I> à partir de"
+
+#, c-format
+msgid "no privilege to create this kind (%s) of document"
+msgstr "vous n'avez pas la permission de créer ce type (%s) de document "
+
+#, c-format
+msgid "no privilege to create interactivaly this kind (%s) of document"
+msgstr ""
+"vous n'avez pas la permission de créer manuellement ce type (%s) de document "
 
 #, c-format
 msgid "creation %s"
@@ -810,6 +819,9 @@ msgstr "erreur fichier Vault"
 msgid "no filename"
 msgstr "pas de fichier"
 
+msgid "AbbrKbyte"
+msgstr "Ko"
+
 #, c-format
 msgid "cannot control : object not initialized : %s"
 msgstr "contrôle impossible : objet non initialisé : %s"
@@ -821,110 +833,6 @@ msgstr "erreur dans la format pzone %s"
 #, c-format
 msgid "new %s"
 msgstr "nouvelle %s"
-
-msgid "no available persons found"
-msgstr "pas de personnes valides trouvées"
-
-msgid "wprocess_private"
-msgstr "privé"
-
-msgid "wprocess_qualified"
-msgstr "qualifié"
-
-msgid "Twprocess_private"
-msgstr "vers privé"
-
-msgid "Twprocess_public"
-msgstr "vers public"
-
-msgid "AbbrKbyte"
-msgstr "Ko"
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
-
-#, c-format
-msgid "query [%s] not valid for select document"
-msgstr "la requête [%s] n'est pas valide pour une sélection de documents"
-
-#, c-format
-msgid "parameters for %s state"
-msgstr "paramètres pour l'état %s"
-
-#, c-format
-msgid "id %s profile"
-msgstr "profil id %s "
-
-#, c-format
-msgid "%s profile"
-msgstr "Profil %s"
-
-#, c-format
-msgid "id %s mask"
-msgstr "identificateur du masque %s"
-
-#, c-format
-msgid "%s mask"
-msgstr "masque %s"
-
-#, c-format
-msgid ""
-"ChangeState :: the new state '%s' is not known or is not allowed from %s"
-msgstr ""
-"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé "
-"depuis %s"
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr "Changement d'état: l'état initial '%s' est inconnu"
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr "La méthode '%s' n'est pas connu de la classe d'objet %s"
-
-#, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr ""
-"Le changement d'état vers %s a échoué.\n"
-"%s"
-
-#, c-format
-msgid "change state : %s to %s"
-msgstr "changement d'état de %s vers %s"
-
-#, c-format
-msgid "%s new state %s"
-msgstr "%s changement d'état vers %s"
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
-"%s "
-
-#, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "ne peux pas changer l'état du document n°%d vers %s"
-
-#, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr ""
-"changement d'état automatique issu du document %s\n"
-"%s"
-
-msgid "not perm for admin"
-msgstr "pas de permission pour admin"
-
-msgid "not pertinent"
-msgstr "Pas pertinent"
 
 msgid "view document"
 msgstr "voir le document"
@@ -1016,6 +924,119 @@ msgstr "la date doit être de la forme JJ/MM/AAAA"
 #, c-format
 msgid "the date %s is in the past: today is %s"
 msgstr "La date %s est dans le passé. La date d'aujourd'hui est %s"
+
+msgid "no available persons found"
+msgstr "pas de personnes valides trouvées"
+
+msgid "wprocess_private"
+msgstr "privé"
+
+msgid "wprocess_qualified"
+msgstr "qualifié"
+
+msgid "Twprocess_private"
+msgstr "vers privé"
+
+msgid "Twprocess_public"
+msgstr "vers public"
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
+
+#, c-format
+msgid "query [%s] not valid for select document"
+msgstr "la requête [%s] n'est pas valide pour une sélection de documents"
+
+#, c-format
+msgid "parameters for %s state"
+msgstr "paramètres pour l'état %s"
+
+#, c-format
+msgid "id %s profile"
+msgstr "profil id %s "
+
+#, c-format
+msgid "%s profile"
+msgstr "Profil %s"
+
+#, c-format
+msgid "id %s mask"
+msgstr "identificateur du masque %s"
+
+#, c-format
+msgid "%s mask"
+msgstr "masque %s"
+
+#, c-format
+msgid ""
+"ChangeState :: the new state '%s' is not known or is not allowed from %s"
+msgstr ""
+"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé "
+"depuis %s"
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr "Changement d'état: l'état initial '%s' est inconnu"
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr "La méthode '%s' n'est pas connu de la classe d'objet %s"
+
+#, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr ""
+"Le changement d'état vers %s a échoué.\n"
+"%s"
+
+#, c-format
+msgid "change state : %s to %s"
+msgstr "changement d'état de %s vers %s"
+
+#, c-format
+msgid "%s new state %s"
+msgstr "%s changement d'état vers %s"
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
+"%s "
+
+#, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "ne peux pas changer l'état du document n°%d vers %s"
+
+#, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr ""
+"changement d'état automatique issu du document %s\n"
+"%s"
+
+msgid "not perm for admin"
+msgstr "pas de permission pour admin"
+
+msgid "not pertinent"
+msgstr "Pas pertinent"
+
+msgid "icreate"
+msgstr "Créer manuellement"
+
+msgid "create doc manually"
+msgstr "Créer des documents manuellement"
+
+msgid "confidential"
+msgstr "confidentiel"
+
+msgid "view confidential"
+msgstr "voir document confidentiel"
 
 msgid "direct"
 msgstr "direct"
@@ -3152,6 +3173,9 @@ msgstr "actualisation des attributs intranet des utilisateurs"
 msgid "refresh ldap entries"
 msgstr "actualiser les entrées du LDAP"
 
+#~ msgid "icreation"
+#~ msgstr "création interactive"
+
 #~ msgid "detailled search result"
 #~ msgstr "résultat de la recherche détaillée"
 
@@ -3175,9 +3199,6 @@ msgstr "actualiser les entrées du LDAP"
 
 #~ msgid "insert up"
 #~ msgstr "ajout dessus"
-
-#~ msgid "create"
-#~ msgstr "Créer"
 
 #~ msgid "mnoGoSearch: indexer database access specification"
 #~ msgstr ""

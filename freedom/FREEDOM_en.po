@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-03 11:58+0200\n"
+"POT-Creation-Date: 2005-06-07 15:28+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -65,6 +65,14 @@ msgstr ""
 #, fuzzy, c-format
 msgid "import <I>%s</I> documents from"
 msgstr "Import"
+
+#, c-format
+msgid "no privilege to create this kind (%s) of document"
+msgstr ""
+
+#, c-format
+msgid "no privilege to create interactivaly this kind (%s) of document"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "creation %s"
@@ -825,6 +833,9 @@ msgstr ""
 msgid "no filename"
 msgstr "Firstname"
 
+msgid "AbbrKbyte"
+msgstr ""
+
 #, c-format
 msgid "cannot control : object not initialized : %s"
 msgstr ""
@@ -835,102 +846,6 @@ msgstr ""
 
 #, c-format
 msgid "new %s"
-msgstr ""
-
-msgid "no available persons found"
-msgstr ""
-
-msgid "wprocess_private"
-msgstr ""
-
-msgid "wprocess_qualified"
-msgstr ""
-
-msgid "Twprocess_private"
-msgstr ""
-
-msgid "Twprocess_public"
-msgstr ""
-
-msgid "AbbrKbyte"
-msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
-#, c-format
-msgid "query [%s] not valid for select document"
-msgstr ""
-
-#, c-format
-msgid "parameters for %s state"
-msgstr ""
-
-#, c-format
-msgid "id %s profile"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s profile"
-msgstr "Category"
-
-#, c-format
-msgid "id %s mask"
-msgstr ""
-
-#, c-format
-msgid "%s mask"
-msgstr ""
-
-#, c-format
-msgid ""
-"ChangeState :: the new state '%s' is not known or is not allowed from %s"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr ""
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state : %s to %s"
-msgstr "Category"
-
-#, c-format
-msgid "%s new state %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr "Category"
-
-msgid "not perm for admin"
-msgstr ""
-
-msgid "not pertinent"
 msgstr ""
 
 #, fuzzy
@@ -1037,6 +952,115 @@ msgstr ""
 #, c-format
 msgid "the date %s is in the past: today is %s"
 msgstr ""
+
+msgid "no available persons found"
+msgstr ""
+
+msgid "wprocess_private"
+msgstr ""
+
+msgid "wprocess_qualified"
+msgstr ""
+
+msgid "Twprocess_private"
+msgstr ""
+
+msgid "Twprocess_public"
+msgstr ""
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+#, c-format
+msgid "query [%s] not valid for select document"
+msgstr ""
+
+#, c-format
+msgid "parameters for %s state"
+msgstr ""
+
+#, c-format
+msgid "id %s profile"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s profile"
+msgstr "Category"
+
+#, c-format
+msgid "id %s mask"
+msgstr ""
+
+#, c-format
+msgid "%s mask"
+msgstr ""
+
+#, c-format
+msgid ""
+"ChangeState :: the new state '%s' is not known or is not allowed from %s"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr ""
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state : %s to %s"
+msgstr "Category"
+
+#, c-format
+msgid "%s new state %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr "Category"
+
+msgid "not perm for admin"
+msgstr ""
+
+msgid "not pertinent"
+msgstr ""
+
+#, fuzzy
+msgid "icreate"
+msgstr "Create"
+
+#, fuzzy
+msgid "create doc manually"
+msgstr "Create"
+
+#, fuzzy
+msgid "confidential"
+msgstr "Delete"
+
+#, fuzzy
+msgid "view confidential"
+msgstr "Delete"
 
 #, fuzzy
 msgid "direct"
@@ -3483,6 +3507,10 @@ msgid "refresh ldap entries"
 msgstr "Delete"
 
 #, fuzzy
+#~ msgid "icreation"
+#~ msgstr "Edit"
+
+#, fuzzy
 #~ msgid "document(s) found"
 #~ msgstr "Import"
 
@@ -3497,9 +3525,6 @@ msgstr "Delete"
 #, fuzzy
 #~ msgid "default confidential"
 #~ msgstr "Delete"
-
-#~ msgid "create"
-#~ msgstr "Create"
 
 #, fuzzy
 #~ msgid "full text search"

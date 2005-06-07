@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.32 2005/05/19 13:29:29 eric Exp $
+ * @version $Id: barmenu.php,v 1.33 2005/06/07 13:33:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -49,7 +49,7 @@ function barmenu(&$action) {
 
   $action->lay->set("pds",$fld->urlWhatEncodeSpec("")); // parameters for searches
 
-  if ($fdoc->control("create") == "") {
+  if (($fdoc->control("create") == "")&&($fdoc->control("icreate") == "")) {
     $child[$famid] = array("title"=> $fdoc->title,
 			   "id" => $famid);
   } else $child=array();
@@ -64,6 +64,9 @@ function barmenu(&$action) {
     $tnewmenu[]="newdoc".$k;
   }
   $action->lay->SetBlockData("NEWFAM", $tchild);
+
+  $action->lay->Set("dcreate", (count($tchild)>0)?"":"none");
+
   $action->lay->Set("ftitle", $fdoc->title);
 
   $action->lay->Set("famid", $famid);

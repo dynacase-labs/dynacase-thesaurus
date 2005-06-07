@@ -162,7 +162,7 @@ begin
    uperm := getuperm(a_userid, a_profid);
 
 
-   return ((uperm & a_pos) != 0);
+   return ((uperm & a_pos) = a_pos);
 end;
 ' language 'plpgsql' with (iscachable);
 

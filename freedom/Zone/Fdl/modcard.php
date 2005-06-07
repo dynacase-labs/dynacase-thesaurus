@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.77 2005/05/10 14:01:57 eric Exp $
+ * @version $Id: modcard.php,v 1.78 2005/06/07 13:33:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -53,6 +53,8 @@ function modcard(&$action, &$ndocid) {
       if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
       
       
+      $fdoc = $doc->getFamDoc();
+      if ($fdoc->control('icreate') != "") $action->exitError(sprintf(_("no privilege to create interactivaly this kind (%s) of document"),$fdoc->title));
       $doc->owner = $action->user->id;
       $doc->locked = 0;
       if ($doc->fromid <= 0) {

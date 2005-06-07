@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.99 2005/02/08 11:34:37 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.100 2005/06/07 13:33:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -664,6 +664,33 @@ function GetProfileDoc($dbaccess,$docid,$defProfFamId="")
   return $tcv;
 }
 
+/**
+ * get array of family id that the user can create interactivaly
+ *
+ * @param string $dbaccess database specification
+ * @param int $uid user identificator
+ * @param array restriction of this set of family id
+ * @return array of family identificators
+ */
+function getFamilyCreationIds($dbaccess,$uid,$tfid=array()) {
+  
+  $query = new QueryDb($dbaccess,"DocFam");
+  if (count($tfid) > 0) {    
+    $query->AddQuery(GetSqlCond($tfid,"id"));  
+  }
+  $perm=(2<<(POS_CREATE-1))+(2<<(POS_ICREATE-1));
 
+  $query->AddQuery("((profid = 0) OR hasdocprivilege($uid, profid, $perm))");
+  
+  $l= $query->Query(0,0,"TABLE");
 
+  $lid=array();
+  if ($query->nb > 0) {
+    foreach ($l as $k=>$v) {
+      $lid[]=$v["id"];
+    }
+  }
+  return $lid;
+
+}
 ?>

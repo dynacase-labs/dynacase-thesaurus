@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.252 2005/06/07 09:38:49 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.253 2005/06/07 13:33:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -70,7 +70,8 @@ Class Doc extends DocCtrl
 			"cvid",
 			"name",
 			"dprofid",
-			"atags");
+			"atags",
+			"confidential");
 
   /**
    * identificator of the document
@@ -203,6 +204,13 @@ Class Doc extends DocCtrl
    * @var string
    */
   var $atag;
+  /**
+   * confidential level
+   * if not 0 this document is confidential, only user with the permission 'confidential' can read this
+   * 
+   * @var int
+   */
+  var $confidential;
 
   /**
    * identification of special views
@@ -254,7 +262,8 @@ create table doc ( id int not null,
                    cvid int,
                    name text,
                    dprofid int DEFAULT 0,
-                   atags text
+                   atags text,
+                   confidential int DEFAULT 0
                    );
 create table docfrom ( id int not null,
                    primary key (id),

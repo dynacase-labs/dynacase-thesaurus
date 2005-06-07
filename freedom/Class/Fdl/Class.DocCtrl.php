@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.20 2004/10/04 07:42:25 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.21 2005/06/07 13:33:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -26,12 +26,16 @@ define ("POS_SEND", 4);
 // common part are 0-4 and 7-8
 define ("POS_OPEN", 5);
 define ("POS_EXEC", 5); // idem OPEN : alias
-define ("POS_CONT", 6);
+define ("POS_CONT", 6); // view containt
 define ("POS_VACL", 7);
 define ("POS_MACL", 8);
 define ("POS_ULCK", 9);
+define ("POS_CONF", 10); // confidential
+
+// family profil
 define ("POS_CREATE", 5);
-// 10 up 11 undefined for the moment
+define ("POS_ICREATE", 6);
+//  11 undefined for the moment
 
 define ("POS_WF", 12); // begin of workflow privilege definition 
 // end of privilege is 31 : (coded on 32bits)
@@ -75,7 +79,11 @@ Class DocCtrl extends DbObj
 			"create" =>array("pos"               =>POS_CREATE, # N_("modify acl")
 					 "description"        =>"create doc"), #  N_("create doc")
 			"unlock" =>array("pos"               =>POS_ULCK, # N_("unlock")
-					 "description"        =>"unlock unowner locked doc") #  N_("unlock unowner locked doc")
+					 "description"        =>"unlock unowner locked doc"), #  N_("unlock unowner locked doc")
+			"icreate" =>array("pos"               =>POS_ICREATE, # N_("icreate")
+					 "description"        =>"create doc manually"), #  N_("create doc manually")
+			"confidential" =>array("pos"               =>POS_CONF, # N_("confidential")
+					 "description"        =>"view confidential") #  N_("view confidential")
 			
 			);
 

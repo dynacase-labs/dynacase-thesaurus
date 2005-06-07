@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.30 2005/04/06 16:38:58 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.31 2005/06/07 13:33:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -45,9 +45,9 @@ function freedom_edit(&$action) {
   if ($docid > 0) {
     $doc= new Doc($dbaccess,$docid);
     if (! $doc->isAlive()) $action->exitError(sprintf(_("document id %d not found"),$docid));
-    $cdoc =  $doc->getFamDoc();
-    $tclassdoc[$doc->fromid] = array("id"=> $cdoc->id,
-				     "title"=>$cdoc->title);
+    $fdoc =  $doc->getFamDoc();
+    $tclassdoc[$doc->fromid] = array("id"=> $fdoc->id,
+				     "title"=>$fdoc->title);
   } else {
     // new document select special classes
     if ($dirid > 0) {
@@ -86,14 +86,12 @@ function freedom_edit(&$action) {
   if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
 
   
-    
-
   // build list of class document
 
   $selectclass=array();
   
  
-  while (list($k,$cdoc)= each ($tclassdoc)) {
+  foreach ($tclassdoc as $k=>$cdoc) {
     $selectclass[$k]["idcdoc"]=$cdoc["id"];
     $selectclass[$k]["classname"]=$cdoc["title"];
     $selectclass[$k]["selected"]="";
@@ -124,10 +122,20 @@ function freedom_edit(&$action) {
       if ($classid > 0) {
 	$doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class
 	if ($doc === false) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+      
+	// restrict to possible family creation permission
+	foreach ($selectclass as $k=>$cdoc) {
+	  $tfid[]=$cdoc["idcdoc"]; 
+	}
+	$tfid=getFamilyCreationIds($dbaccess,$action->user->id,$tfid);
+	foreach ($selectclass as $k=>$cdoc) {
+	  if (! in_array($cdoc["idcdoc"],$tfid)) unset($selectclass[$k]);
+	}
+
       }
       // selected the current class document
-      while (list($k,$cdoc)= each ($selectclass)) {	
-	if ($classid == $selectclass[$k]["idcdoc"]) {	  
+      foreach ($selectclass as $k=>$cdoc) {	
+	if ($classid == $cdoc["idcdoc"]) {	  
 	  $selectclass[$k]["selected"]="selected";
 	}
       }

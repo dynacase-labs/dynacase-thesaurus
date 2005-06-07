@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.34 2005/04/04 15:56:22 eric Exp $
+ * @version $Id: generic_edit.php,v 1.35 2005/06/07 13:33:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,6 +43,8 @@ function generic_edit(&$action) {
     {
     if ($classid > 0) {
       $cdoc= new Doc($dbaccess,$classid);
+      if ($cdoc->control('create') != "") $action->exitError(sprintf(_("no privilege to create this kind (%s) of document"),$cdoc->title));
+      if ($cdoc->control('icreate') != "") $action->exitError(sprintf(_("no privilege to create interactivaly this kind (%s) of document"),$cdoc->title));
       $action->lay->Set("TITLE", sprintf(_("creation %s"),$cdoc->title));
     } else {
       $action->lay->Set("TITLE",_("new card"));

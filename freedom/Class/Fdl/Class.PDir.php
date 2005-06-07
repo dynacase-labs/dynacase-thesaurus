@@ -3,7 +3,7 @@
  * Profile for folders
  *
  * @author Anakeen 2000 
- * @version $Id: Class.PDir.php,v 1.8 2004/04/27 09:21:16 eric Exp $
+ * @version $Id: Class.PDir.php,v 1.9 2005/06/07 13:33:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,7 +20,7 @@ Class PDir extends Doc
 {
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
-  var $acls = array("view","edit","delete","open","modify","send","unlock");
+  var $acls = array("view","edit","delete","open","modify","send","unlock","confidential");
   // --------------------------------------------------------------------
   
   
