@@ -1,10 +1,10 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD?W=300&H=220]
+[ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
 <form id="storetodo" name="storetodo" method="POST" target="wgcal_toolbar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOSTORE"> 
 <input type="hidden" id="idtodo" name="idtodo" value="[todoId]">
 <table id="vnatt" cellspacing="0" cellpadding="0" width="100%">
 <tr><td colspan="2">&nbsp;</td></tr>
 <tr>
-  <td align="center" rowspan="2" width="40px"><img heigth="30px" src="WGCAL/Images/todo.png"></td>
+  <td align="center" rowspan="2" width="40px"><img heigth="30px" src="[IMG:todo.gif]"></td>
   <td align="center" >
         <input onfocus="document.getElementById('errTitle').style.display='none'; this.style.background='';" 
                class="Mandatory" id="title" name="title" size="40" type="text" title="[TEXT:enter todo title]" 
@@ -32,8 +32,8 @@ firstDay:1 }  );
 <tr><td colspan="2">&nbsp;</td></tr>
 <tr><td align="center" colspan="2"><textarea cols="40" title="[TEXT:todo note]" rows="3" id="note" name="note">[todoNote]</textarea></td></tr>
 <tr><td colspan="2">&nbsp;</td></tr>
-<tr><td colspan="2" align="right"><img src="WGCAL/Images/wm-save.png" id="btnSave"
-  height="20" title="[TEXT:save todo]" class="WGCalAction" onclick="TodoSave();"><img src="WGCAL/Images/wm-close.png" id="btnCancel"
+<tr><td colspan="2" align="right"><img src="[IMG:wm-save.gif]" id="btnSave"
+  height="20" title="[TEXT:save todo]" class="WGCalAction" onclick="TodoSave();"><img src="[IMG:wm-close.gif]" id="btnCancel"
   height="20" title="[TEXT:cancel]" class="WGCalAction" onclick="if (confirm('[TEXT: cancel modifications]')) window.close();">
 </td></tr>
 </table>

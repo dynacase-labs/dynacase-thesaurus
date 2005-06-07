@@ -15,13 +15,16 @@
    <script language="JavaScript" src="WHAT/Layout/subwindow.js"></script>
    [JS:REF]
 
-   <script language="JavaScript"><!--
+   <script language="JavaScript">
     [IF resize]window.resizeTo([winW],[winH]);[ENDIF resize]
     [JS:CODE]
-   //--></script>
+    [IF Hresize] addEvent(window,"load",autoHresize);[ENDIF Hresize]
+    [IF Vresize] addEvent(window,"load",autoVresize);[ENDIF Vresize]
+
+</script>
 </head>
 
-<body>
+<body on>
 <div style="display:none">
 <form id="usetparam" target="wgcal_hidden" name="usetparam" method="POST"
       action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_USETPARAM">

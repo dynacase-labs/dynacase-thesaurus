@@ -1,4 +1,4 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD?W=700&H=400]
+[ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="cev" name="cev" value="[EVENTID]"> </form>
 
 <form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER">
@@ -30,7 +30,7 @@
 
 <fieldset width="100%">
 <legend>
-<img src="WGCAL/Images/wgcal-small.png"  height="22" title="[TEXT:event description]" style="border:0px" >
+<img src="[IMG:wgcal-small.gif]"  height="22" title="[TEXT:event description]" style="border:0px" >
 </legend>
 
 <table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
@@ -43,10 +43,8 @@
 </tr>
 
 <tr>
-<td align="right">[TEXT:start date] : </td>
-<td align="center">
-<div id="tUtime" name="tUtime" style="display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:start time after end time, please correct this]</div>
-<div id="tUstart" name="tUstart" style="display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:start time update according end time]</div>
+<td align="right" nowrap>[TEXT:start date] : </td>
+<td align="center" nowrap>
 <span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="Bstart" style="cursor:pointer;"
       title="[TEXT:click here to enter the start date]">
 <img style="display:[DATEBUTVIS]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;<span id="Tstart">[STARTREAD]</span></span>
@@ -68,17 +66,15 @@
   );
 </script>
 </td>
-
-<td id="start_hour" align="left" style="visibility:[HVISIBLE]">
-<select [DATERO] id="Hstart" name="Hstart" onchange="ComputeTime('start');">[BLOCK SHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHSEL]</select>: <select [DATERO] id="Mstart" name="Mstart" onchange="ComputeTime('start');">[BLOCK SHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHMSEL]</select>
+<td id="start_hour" align="left" style="visibility:[HVISIBLE]" nowrap>
+&nbsp;<select [DATERO] id="Hstart" name="Hstart" onchange="ComputeTime('start');">[BLOCK SHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHSEL]</select>: <select [DATERO] id="Mstart" name="Mstart" onchange="ComputeTime('start');">[BLOCK SHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHMSEL]</select>
 </td>
 
 </tr>
 
 <tr>
-<td align="right" id="end_hour1" style="visibility:[HVISIBLE]">[TEXT:end date] : </td>
-<td align="center" id="end_hour2" style="visibility:[HVISIBLE]">
-<div id="tUend" name="tUend" style="display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:end time update according start time]</div>
+<td align="right" id="end_hour1" style="visibility:[HVISIBLE]" nowrap>[TEXT:end date] : </td>
+<td align="center" id="end_hour2" style="visibility:[HVISIBLE]" nowrap>
 <span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="Bend" style="cursor:pointer;"
       title="[TEXT:click here to enter the end date]">
 <img style="display:[DATEBUTVIS];" src="WGCAL/Images/cal-other.gif" height="15">&nbsp;<span id="Tend">[ENDREAD]</span></span>
@@ -100,26 +96,32 @@
   );
 </script>
 </td>
-
-<td align="left" id="end_hour3" style="visibility:[HVISIBLE]">
-<select [DATERO] id="Hend" name="Hend" onchange="ComputeTime('end');">[BLOCK EHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHSEL]</select>: <select [DATERO] id="Mend" name="Mend" onchange="ComputeTime('end');">[BLOCK EHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHMSEL]</select>
+<td align="left" id="end_hour3" style="visibility:[HVISIBLE]" nowrap>
+&nbsp;<select [DATERO] id="Hend" name="Hend" onchange="ComputeTime('end');">[BLOCK EHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHSEL]</select>: <select [DATERO] id="Mend" name="Mend" onchange="ComputeTime('end');">[BLOCK EHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHMSEL]</select>
 </td>
 </tr>
+
+<tr><td colspan="3">
+<div id="tUtime" name="tUtime" style="display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:start time after end time, please correct this]</div>
+<div id="tUstart" name="tUstart" style="z-index:2000; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:start time update according end time]</div>
+<div id="tUend" name="tUend" style="z-index:2000; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:end time update according start time]</div>
+</td></tr>
 
 <tr>
 <td colspan="3" align="center">
 <span id="tnohour" style="cursor:pointer; visibility:[NOHOURDISP]"
-      onclick="if (clickB('nohour')) ChangeNoHour(false,0);"
+      onclick="clickB('nohour'); ChangeNoHour(false,0);"
       onmouseover="this.style.background='[CORE_BGCOLORALTERN]'"
       onmouseout="this.style.background=''">
-<input [NOHOURINIT] [NOHOURRO] id="nohour" style="cursor:pointer;" name="nohour" type="checkbox" onclick="if (clickB('nohour')) ChangeNoHour(false,0);">
+<input [NOHOURINIT]  id="nohour" style="cursor:pointer;" name="nohour" type="checkbox" 
+onclick="clickB('nohour'); ChangeNoHour(false,0);">
 [TEXT:no hour]
 </span>
 <span id="tallday" style="cursor:pointer; visibility:[ALLDAYDISP]" 
-      onclick="if (clickB('allday')) ChangeAllDay(false,0);" 
+      onclick="clickB('allday'); ChangeAllDay(false,0);" 
       onmouseover="this.style.background='[CORE_BGCOLORALTERN]'"
       onmouseout="this.style.background=''">
-<input [ALLDAYINIT] [ALLDAYRO] id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="if (clickB('allday')) ChangeAllDay(false,0);"></input>
+<input [ALLDAYINIT]  id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="clickB('allday'); ChangeAllDay(false,0);"></input>
 [TEXT:all the day]
 </span>
 </td>
@@ -164,18 +166,18 @@
 <tr>
 <td align="left">
 [BLOCK EMPTY][nop]&nbsp;&nbsp;
-<a href="mailto:[mailadd]"><img src="WGCAL/Images/wm-mail.png" 
+<a href="mailto:[mailadd]"><img src="[IMG:wm-mail.gif]" 
   height="20" title="[TEXT:mail to contacts]" class="WGCalAction" style="border:0px"></a>
-<img src="WGCAL/Images/wm-print.png" 
+<img src="[IMG:wm-print.gif]" 
   height="20" title="[TEXT:print]" class="WGCalAction" onclick="window.print();">
-<img src="WGCAL/Images/wm-delete.png" 
+<img src="[IMG:wm-delete.gif]" 
   height="20" title="[TEXT:delete]" class="WGCalAction" onclick="deleteEvent('[TEXT: delete this event]');">
 [ENDBLOCK EMPTY]
 </td>
 <td align="right">
-<img src="WGCAL/Images/wm-save.png" id="btnSave"
+<img src="[IMG:wm-save.gif]" id="btnSave"
   height="20" title="[TEXT:save]" class="WGCalAction" onclick="saveEvent();">
-<img src="WGCAL/Images/wm-close.png" id="btnCancel"
+<img src="[IMG:wm-close.gif]" id="btnCancel"
   height="20" title="[TEXT:cancel]" class="WGCalAction" onclick="cancelEvent('[TEXT: cancel modifications]');">
 </td></tr></table>
 
@@ -187,16 +189,14 @@
 
 <fieldset>
 <legend>
-<img id="butevattendees" src="WGCAL/Images/wm-attendees.png" class="WGCalZoneSelected"
+<img id="butevattendees" src="[IMG:wm-attendees.gif]" class="WGCalZoneSelected"
     height="22" title="[TEXT:meeting]" style="border:0px" 
     onClick="SwitchZone('evattendees'); autoHresize(); autoVresize();" >
-<img id="butevrepeatzone" src="WGCAL/Images/wm-repeat.png" class="WGCalZoneDefault"
+<img id="butevrepeatzone" src="[IMG:wm-repeat.gif]" class="WGCalZoneDefault"
     height="22"  title="[TEXT:manage repeat]" style="border:0px" 
     onClick="SwitchZone('evrepeatzone'); autoHresize(); autoVresize();" >
 </legend>
 
-
-<div id="errAtt" name="errAtt" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:one ressource or you in event]</div>
 
 <div width="100%" height="100%" style="display:[fullattendees]" id="fullattendees">
 
@@ -206,24 +206,24 @@
 
 <table id="vnatt" cellspacing="0" cellpadding="0" width="100%">
 
-<tr><td><input id="stmptext" onkeypress="return SearchIUser(event);" type="text" size="15" value="" title="[TEXT:search for a contact...]"></input>
-<img id="stmpbutton" style="cursor:pointer;" onclick="SearchIUser(document.getElementById('stmptext').value)" height="10" src="WGCAL/Images/wm-searchiuser.png" title="[TEXT:search]">
+<tr><td><input class="textBorder" id="stmptext" onkeypress="return SearchIUser(event);" type="text" size="15" value="" title="[TEXT:search for a contact...]"></input>
+<img id="stmpbutton" style="cursor:pointer;" onclick="SearchIUser(document.getElementById('stmptext').value)" height="10" src="[IMG:wm-searchiuser.gif]" title="[TEXT:search]">
 </td></tr>
 
 <tr><td>&nbsp;</td></tr>
 
-<tr><td>
+<tr><td nowrap>
 <span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus();" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus();" [WITHME] [WITHMERO]>[TEXT:I participe...]</span>
 </td></tr>
 
 <tr><td>&nbsp;</td></tr>
 
-<tr><td>
+<tr><td nowrap>
 <span id="press" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add my prefered ressource]">&nbsp;[TEXT:use my prefered ressource]</span>
 </td></tr>
 
 
-<tr><td>
+<tr><td nowrap>
 <span id="dress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add displayed ressources]">&nbsp;[TEXT:use displayed ressources]</span>
 </td></tr>
 
@@ -238,39 +238,34 @@
 <table cellspacing="0" cellpadding="0" width="100%">
 <tr><td width="100%" align="left">
 
-   <img id="address" style="cursor:pointer;" height="20" onclick="ViewRessourceHelper('[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');"; title="[TEXT:ressources advanced search]" src="WGCAL/Images/wm-moreressources.png">
+   <img id="address" style="cursor:pointer;" height="20" onclick="ViewRessourceHelper('[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');"; title="[TEXT:ressources advanced search]" src="[IMG:wm-moreressources.gif]">
 
    <img id="viewplan" style="display:[voneatt]; cursor:pointer;" height="20"
           onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T?idfamref=[idfamref]&byres=Y&id=[planid]');";
-          src="WGCAL/Images/wm-planner.png" title="[TEXT:vew disponibility]">
+          src="[IMG:wm-planner.gif]" title="[TEXT:vew disponibility]">
 
    <img id="delall" style="display:[voneatt]; cursor:pointer;" height="20"
           onclick="ok=confirm('[TEXT:confirm delete all attendees]'); if (ok) deleteAttendee(-1);";
-          src="WGCAL/Images/wm-delete.png" title="[TEXT:delete all attendees]">
+          src="[IMG:wm-delete.gif]" title="[TEXT:delete all attendees]">
 </td></tr>
 </table>
 
 <div style="height:100%; width:100%; overflow:auto" id="attlist">
+
+<div id="errAtt" name="errAtt" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:one ressource or you in event]</div>
+
  
-<table cellspacing="0" cellpadding="0" width="100%">
+<table cellspacing="0" style="border:1px outset grey" cellpadding="0" width="100%">
+<thead><td colspan="2" nowrap>[TEXT:list of attendees]</td></thead>
 <tbody id="tabress">
 <tr style="display:none" id="trsample">
-<!--
-<td> <img style="display:[attendeesro];cursor:pointer;border:1px outset grey" height="12"  
-          onmouseover="this.style.border='1px inset grey'" onmouseout="this.style.border='1px outset grey'"
-          src="WGCAL/Images/wm-delete.png" onclick="deleteAttendee('%RID%');" title="[TEXT:delete attendee] %RDESCR%" >
-</td>
-<td>&nbsp;</td>
--->
-<td style="overflow:hidden;"><span id="cp%RID%" name="cp%RID%" title="">&nbsp;</span>&nbsp;
-  <span style="cursor:pointer" id="%RID%" width="90%" title="%RDESCR%"
+<td id="cp%RID%" style="border: 1px outset" width="3px"></td>
+<td nowrap style="cursor:pointer" id="%RID%" title="%RDESCR%, [TEXT:click on ressource to select/unselect]"
     onmouseover="ViewGroup(this,true);"  onmouseout="ViewGroup(this,false);"
-    onclick="RessourceSelect(%RID%);">
-    <img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
-  </span>
-</td>
+    onclick="RessourceSelect('%RID%');">
+    <img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
+  </td>
 </tr>
-
 </tbody>
 </table>
 
@@ -349,7 +344,7 @@ PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBL
       }
     );
    </script></span>
-<div>[TEXT:frequency] <input id="rfrequency" name="rfrequency" size="1" type="text" value="[FREQVALUE]" [repeatdis]></div>
+<div>[TEXT:frequency] <input id="rfrequency" class="textBorder" name="rfrequency" size="1" type="text" value="[FREQVALUE]" readonly [repeatdis]></div>
 <hr>
 
 <fieldset><legend>[TEXT:exclude days]</legend>
@@ -394,11 +389,8 @@ Calendar.setup(
 
 
 <script type="text/javascript">
-SetModeRo([ROMode]);
-SetRessDeco('WGCRessSelected', 'WGCRessDefault');
 [BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attLabel]', '[attColor]', [attSelect]);
 [ENDBLOCK ADD_RESS] 
-//window.onunload = cancelEvent;
 document.getElementById('rvtitle').focus();
 </script>
 

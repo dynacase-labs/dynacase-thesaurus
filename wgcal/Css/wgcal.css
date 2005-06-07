@@ -14,13 +14,30 @@ table {
   color: [WTH_TEXTCOLOR_1];
 }
 
-INPUT, SELECT, TEXTAREA {
+INPUT {
+	font-size: [WTH_FONTSIZE_NORMAL]pt;
+	font-family: [WTH_FONTLIST];
+	border : 0px;
+}
+
+INPUT.textBorder, TEXTAREA {
 	background: [WTH_COLOR_1]; 
 	font-size: [WTH_FONTSIZE_NORMAL]pt;
 	font-family: [WTH_FONTLIST];
-	border : thin inset white;
+	border : 1px inset [WTH_COLOR_3];
 }
+
+ 
+SELECT {
+	background: [WTH_COLOR_1]; 
+	font-size: [WTH_FONTSIZE_NORMAL]pt;
+	font-family: [WTH_FONTLIST];
+	border : 0px;
+}
+
+
 INPUT.Mandatory {
+	background: [WTH_COLOR_1]; 
 	font-weight: bold;
 	border : 2px inset [WTH_ALERT];
 }
@@ -60,12 +77,12 @@ TD {
 .wMainMenu {
   cursor:pointer;
   background-color : [WTH_COLOR_2];
-  border : 1px outset [WTH_COLOR_2];
+  border : 1px outset [WTH_COLOR_1];
   font-size: [WTH_FONTSIZE_SMALL]pt;
 }
 .WGCAL_Period {
   background-color : [WTH_COLOR_2];
-  border : 1px outset [WTH_COLOR_2];
+  border : 1px outset [WTH_COLOR_1];
   font-weight: bold;
   font-size: [WTH_FONTSIZE_NORMAL]pt;
 }
@@ -74,7 +91,7 @@ TD {
   font-size: [WTH_FONTSIZE_SMALL]pt;
   background-color : [WTH_COLOR_3];
   color : [WTH_COLOR_1];
-  border : 1px inset [WTH_COLOR_1];
+  border : 1px outset [WTH_COLOR_1];
   font-weight: bold;
 }
       
@@ -135,8 +152,12 @@ TD {
 .WGCAL_DayWE {
 	border-top: 0px;
 	border-left: 0px;
-	border-bottom: 1px dotted [WTH_COLOR_3];
- 	border-right: 1px dotted [WTH_COLOR_3];
+	border-bottom-color: [WTH_COLOR_3];
+	border-bottom-style: dotted;
+	border-bottom-width: 1px;
+	border-right-color: [WTH_COLOR_3];
+	border-right-style: dotted;
+	border-right-width: 1px;
         background-color : [WTH_COLOR_1];
 }
 .WGCAL_DayCur {
@@ -206,11 +227,20 @@ TD {
 .WEvDefault {
   cursor:pointer;
   border : 0px;
+  background-color : white;
+  color : [WTH_TEXTCOLOR_1];
+  border-bottom-color : [WTH_COLOR_2];
+  border-bottom-width : 1px;
+  border-bottom-style : solid;
 }
 .WEvOver {
   border : 0px;
   cursor:crosshair;
   background-color : [WTH_COLOR_2];
+  color : [WTH_TEXTCOLOR_1];
+  border-bottom-color : [WTH_COLOR_2];
+  border-bottom-width : 1px;
+  border-bottom-style : solid;
 }
 /*
  * Really use in final product !
@@ -265,21 +295,21 @@ TD {
 .wMonthTextDayTitle {
   font-weight : bold;
   border-bottom : 1px solid [WTH_COLOR_3];
-  background-color : [WTH_TEXTCOLOR_1];
-  color : [WTH_TEXTCOLOR_2];
+  background-color : [WTH_COLOR_1];
+  color : [WTH_TEXTCOLOR_1];
 }
 .wMonthTextTD {
   border-right : thin solid [WTH_TEXTCOLOR_1];
   border-bottom : thin solid [WTH_TEXTCOLOR_1];
   width : 14%;
-  background-color : [WTH_COLOR_1];
+  background-color : white;
   color : [WTH_COLOR_3];
 }
 .wMonthTextTDUnused {
-  border-right : thin solid [WTH_TEXTCOLOR_1];
-  border-bottom : thin solid [WTH_TEXTCOLOR_1];
+  border-right : thin solid [WTH_COLOR_1];
+  border-bottom : thin solid [WTH_COLOR_1];
   width : 14%;
-  background-color : [WTH_COLOR_2];
+  background-color : [WTH_COLOR_1];
   color : [WTH_COLOR_3];
 }
 .wTextActive {
@@ -561,7 +591,6 @@ TD {
 
 
 .wgcalpopup {
-  /* background: [WTH_BGIMG];   */ 
   background-color: [WTH_COLOR_POPUP];  
   color: [WTH_TEXTCOLOR_1];
   border-color: [WTH_COLOR_3];

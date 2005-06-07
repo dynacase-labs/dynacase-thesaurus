@@ -537,11 +537,9 @@ function WGCalDisplayEvent(cEv, ncol) {
   h = endY - startY;
   if (!cEv.mdays) {
     eE = document.getElementById('evt'+cEv.n); // Event abstract container
-    eA = document.getElementById('evta'+cEv.n); // Abstract
     eC = document.getElementById('evtc'+cEv.n); // Card
     content = h - foot - head;
     root.appendChild(eC);
-    //eA.style.height = content+"px";
   } else {
     etmp = document.getElementById('evt'+cEv.n); 
     eE = etmp.cloneNode(true);

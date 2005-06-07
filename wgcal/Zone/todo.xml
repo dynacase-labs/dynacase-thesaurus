@@ -3,8 +3,8 @@
 <tr>
 <td onclick="WGCalChangeVisibility('todo');" align="left">[TEXT:my todo] ([todocount])</td>
 <td align="right" width="50">
-<img id="allTodo" style="cursor:pointer;" onclick="subwindow(300, 400, 'AllTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ALLTODO');" height="15" src="WGCAL/Images/todo-all.png" title="[TEXT:view all todo]">
-<img id="addTodo" style="cursor:pointer;" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT');" height="15" src="WGCAL/Images/todo-new.png" title="[TEXT:add a todo]">
+<img id="allTodo" style="cursor:pointer;" onclick="subwindow(300, 400, 'AllTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ALLTODO');" height="15" src="[IMG:todo-all.gif]" title="[TEXT:view all todo]">
+<img id="addTodo" style="cursor:pointer;" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT');" height="15" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">
 </td></tr>
 </table>
 <div id="todo" style="display:[vtodo]" class="wToolArea">[ENDIF standalone]
@@ -19,11 +19,11 @@
 
 [BLOCK TodoList]
 <tr title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
-  <td width="15"><img src="WGCAL/Images/todo-done.png" style="cursor:pointer;border:0px"
+  <td width="15"><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px"
            title="[TEXT:todo done]" height="12" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();"></td>
   <!-- td width="15">
-      [IF warning]<img src="WGCAL/Images/todo-warning.png" style="cursor:pointer;border:0px" title="[TEXT:todo warning] [dateTodo]" height="12" >[ENDIF warning]
-      [IF alert]<img src="WGCAL/Images/todo-alert.png" style="cursor:pointer;border:0px" title="[TEXT:todo alert]" height="12" >[ENDIF alert]
+      [IF warning]<img src="[IMG:todo-warning.gif]" style="cursor:pointer;border:0px" title="[TEXT:todo warning] [dateTodo]" height="12" >[ENDIF warning]
+      [IF alert]<img src="[IMG:todo-alert.gif]" style="cursor:pointer;border:0px" title="[TEXT:todo alert]" height="12" >[ENDIF alert]
   </td -->
   <td id="[idTodo]" style="border-left:3px solid [colorTodo]; border-bottom:1px solid [colorTodo]" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" class="WGCRessDefault" 
       onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=[idTodo]');">&nbsp;[dateTodo] : [sTextTodo]</td>

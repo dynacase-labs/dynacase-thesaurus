@@ -1,14 +1,14 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 [ZONE WGCAL:WGCAL_MENU]
 <br>
-<table  style="border:thin outset grey;" align="center" width="95%" cellspacing="0" cellpadding="2px">
+<table  style="border:thin outset grey;" align="center" width="100%" cellspacing="0" cellpadding="2px">
 <tr>
 <td class="wMonthTextTitlePrevNext" align="left" width="10%" 
 onclick="setTextView([prevmontht]);">[prevmonth]</td>
 <td class="wMonthTextTitle" align="center" colspan="[titlespan]">[month]</td>
 <td class="wMonthTextTitlePrevNext" align="left" width="10%" onclick="setTextView([nextmontht]);">[nextmonth]</td></tr>
 </table>
-<table  style="border:thin outset grey;" align="center" width="95%" cellspacing="0" cellpadding="2px">
+<table  style="border:thin outset grey;" align="center" width="100%" cellspacing="0" cellpadding="2px">
 [BLOCK DLINE]<tr valign="top">[line]</tr>[ENDBLOCK DLINE]
 <tr><td colspan="[dayperline]">[ZONE WGCAL:WGCAL_INFOS]</td></tr>
 </table>

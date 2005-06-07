@@ -1,6 +1,9 @@
-<div  width="100%" class="wMonthTextDayTitle">[daytitle]</div><br>
-[BLOCK HLine]<span class="WEvDefault"  
+<div  width="100%" class="wMonthTextDayTitle">
+<span width="30%" class="wMonthTextTitlePrevNext" align="left">&nbsp;[daynum]&nbsp;</span>
+<span width="70%" style="font-size:80%; text-align:right">[daylabel]</span>
+</div>
+[BLOCK HLine]<div class="WEvDefault"  
 onclick="subwindow(400, 650, 'EditEvent[id]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_[action]&ev=[id]');" 
   onmouseover="this.className='WEvOver'; WGCalEvOnMouseOver(event, '[id]');" 
   onmouseout="this.className='WEvDefault';document.getElementById('evtc'+[id]).style.display='none';" 
->[hours] [title]</span><br>[ENDBLOCK HLine]<br>
+><span style="font-size:90%; text-decoration:underline">[hours]</span> <span style="font-weight:bold;">[title]</span></div>[ENDBLOCK HLine]<br>

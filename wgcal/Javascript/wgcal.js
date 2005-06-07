@@ -19,7 +19,7 @@ function getY(e) {
 
 function setDaysViewed(ndays) {
   usetparam("WGCAL_U_VIEW", "week", '', '');
-   usetparam("WGCAL_U_DAYSVIEWED", ndays, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
+  usetparam("WGCAL_U_DAYSVIEWED", ndays, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
 }
 function setTextView(sh) {
   usetparam("WGCAL_U_VIEW", "text", '', '');

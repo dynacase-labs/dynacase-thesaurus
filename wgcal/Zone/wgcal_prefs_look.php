@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.11 2005/06/03 15:16:21 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.12 2005/06/07 16:05:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -88,7 +88,7 @@ function wgcal_prefs_look(&$action) {
   foreach ($fontsz as $k => $v) {
     $opt[$i]["optvalue"] = $v["name"];
     $opt[$i]["optdescr"] = $v["descr"];
-    $opt[$i]["optselect"] = ($v["name"]==_($action->GetParam("WGCAL_U_FONTSZ")) ? "selected" : "");
+    $opt[$i]["optselect"] = ($v["name"]==$action->GetParam("WGCAL_U_FONTSZ") ? "selected" : "");
     $i++;
   }
   $action->lay->SetBlockData("FONTSZ", $opt);

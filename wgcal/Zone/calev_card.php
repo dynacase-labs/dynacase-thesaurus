@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.17 2005/06/03 15:16:21 marc Exp $
+ * @version $Id: calev_card.php,v 1.18 2005/06/07 16:05:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -124,28 +124,7 @@ function calev_card(&$action) {
   $action->lay->set("bgresumecolor", $bgresumecolor);
 
   $textcolor = "black";
-
-  $bghex = "0x00".substr($bgcolor, 1, 6);
-  $bgdec = hexdec($bghex);
-  $textcolorhex = ~ $bgdec;
-  $textcolor = substr(dechex($textcolorhex),2,6);
   $action->lay->set("textcolor", $textcolor);
-
-//   $hred = "0x0000".substr($bgcolor, 1, 2);
-//   $hgreen = "0x0000".substr($bgcolor, 3, 2);
-//   $hblue = "0x0000".substr($bgcolor, 5, 2);
-//   $red = hexdec($hred);
-//   $green = hexdec($hgreen);
-//   $blue = hexdec($hblue);
-//   $hsv = RGB2HSL($red, $green, $blue);
-//   echo "[BG $bgcolor] RGB2HSL($red, $green, $blue) -- HSL2RGB(".$hsv[0].",".$hsv[1].",".$hsv[2].")";
-//   $textcolor = HSL2RGB($hsv[0], $hsv[1], $hsv[2]);
-//   echo " [FG $textcolor] <br>"; 
-  
-//   $hred = substr($bgcolor, 1, 2);
-//   $hgreen = substr($bgcolor, 3, 2);
-//   $hblue = substr($bgcolor, 5, 2);
-//   $action->lay->set("textcolor", "#".$hred.$hblue.$hgreen);
 
   if ($private && !$display_me) $action->lay->SetBlockData("ISCONF", null);
   else $action->lay->SetBlockData("ISCONF", $tpriv);
@@ -221,15 +200,16 @@ function showIcons(&$action, &$ev, $private, $withme) {
 
 function addIcons(&$ia, $icol)
 {
+  global $action;
 
   $ricons = array(
-     "CONFID" => array( "iconsrc" => "WGCAL/Images/wm-confidential.png", "icontitle" => "[TEXT:confidential event]" ),
-     "INVIT" => array( "iconsrc" => "WGCAL/Images/wm-invitation.png", "icontitle" => "[TEXT:invitation]" ),
-     "VIS_PRIV" => array( "iconsrc" => "WGCAL/Images/wm-private.png", "icontitle" => "[TEXT:visibility private]" ),
-     "VIS_GRP" => array( "iconsrc" => "WGCAL/Images/wm-privgroup.png", "icontitle" => "[TEXT:visibility group]" ),
-     "REPEAT" => array( "iconsrc" => "WGCAL/Images/wm-repeat.png", "icontitle" => "[TEXT:repeat event]" ),
-     "CAL_PRIVATE" => array( "iconsrc" => "WGCAL/Images/wm-privatecalendar.png", "icontitle" => "[TEXT:private calendar]" ),
-     "GROUP" => array( "iconsrc" => "WGCAL/Images/wm-attendees.png", "icontitle" => "[TEXT:with attendees]" )
+     "CONFID" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), "icontitle" => "[TEXT:confidential event]" ),
+     "INVIT" => array( "iconsrc" => $action->getImageUrl("wm-invitation.gif"), "icontitle" => "[TEXT:invitation]" ),
+     "VIS_PRIV" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), "icontitle" => "[TEXT:visibility private]" ),
+     "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), "icontitle" => "[TEXT:visibility group]" ),
+     "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-repeat.gif"), "icontitle" => "[TEXT:repeat event]" ),
+     "CAL_PRIVATE" => array( "iconsrc" => $action->getImageUrl("wm-privatecalendar.gif"), "icontitle" => "[TEXT:private calendar]" ),
+     "GROUP" => array( "iconsrc" => $action->getImageUrl("wm-attendees.gif"), "icontitle" => "[TEXT:with attendees]" )
   );
 
   $ia[count($ia)] = $ricons[$icol];
@@ -238,7 +218,7 @@ function addIcons(&$ia, $icol)
 function ev_showattendees(&$action, &$ev, $display_me, $dcolor) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $globalstate = $dcolor;
-  $globalstatesize = "0";
+  $headSet = false;
   $d = new Doc($dbaccess);
   $tress = $ev->getTValue("CALEV_ATTID");
   if (count($tress)>1) {
@@ -253,11 +233,11 @@ function ev_showattendees(&$action, &$ev, $display_me, $dcolor) {
       if ($tressg[$k] == -1) {
 	if ($v == $action->user->fid && $tresse[$k] == EVST_REJECT)  {
 	  $globalstate = "black";
-	  $globalstatesize = "3";
+	  $headSet = true;
 	} else if ($tresse[$k] != EVST_ACCEPT && $tresse[$k] != EVST_REJECT) {
 	  if ($v == $action->user->fid) $globalstate = "red";
 	  else if ($globalstate != "red") $globalstate = "orange";
-	  $globalstatesize = "3";
+	  $headSet = true;
 	}
 	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
 	$t[$a]["atticon"] = $d->GetIcon($attru["icon"]);
@@ -272,78 +252,8 @@ function ev_showattendees(&$action, &$ev, $display_me, $dcolor) {
     $action->lay->set("attdisplay","none");
   }
     $action->lay->set("evglobalstate", $globalstate);
-    $action->lay->set("headsize", $globalstatesize);
+    $action->lay->set("headSet", $headSet);
+    $action->lay->set("borderColor", "grey");
 }
 
-function RGB_TO_HSV ($R, $G, $B) {
-  // RGB Values:Number 0-255
-  // HSV Results:Number 0-1
-  $HSL = array();
-  
-  $var_R = ($R / 255);
-  $var_G = ($G / 255);
-  $var_B = ($B / 255);
-  
-  $var_Min = min($var_R, $var_G, $var_B);
-  $var_Max = max($var_R, $var_G, $var_B);
-  $del_Max = $var_Max - $var_Min;
-  
-  $V = $var_Max;
-  
-  if ($del_Max == 0) {
-    $H = 0;
-    $S = 0;
-  } else {
-    $S = $del_Max / $var_Max;
-    $del_R = ( ( ( $max - $var_R ) / 6 ) + ( $del_Max / 2 ) ) / $del_Max;
-    $del_G = ( ( ( $max - $var_G ) / 6 ) + ( $del_Max / 2 ) ) / $del_Max;
-    $del_B = ( ( ( $max - $var_B ) / 6 ) + ( $del_Max / 2 ) ) / $del_Max;
-    
-    if ($var_R == $var_Max) $H = $del_B - $del_G;
-    else if ($var_G == $var_Max) $H = ( 1 / 3 ) + $del_R - $del_B;
-    else if ($var_B == $var_Max) $H = ( 2 / 3 ) + $del_G - $del_R;
-    
-    if (H<0) $H++;
-    if (H>1) $H--;
-  }
-  
-  $HSL['H'] = $H;
-  $HSL['S'] = $S;
-  $HSL['V'] = $V;
-  
-  return $HSL;
-}
-
-function HSV_TO_RGB ($H, $S, $V) {
-  // HSV Values:Number 0-1
-  // RGB Results:Number 0-255
-  $RGB = array();
-  
-  if($S == 0) {
-    $R = $G = $B = $V * 255;
-  } else {
-    $var_H = $H * 6;
-    $var_i = floor( $var_H );
-    $var_1 = $V * ( 1 - $S );
-    $var_2 = $V * ( 1 - $S * ( $var_H - $var_i ) );
-    $var_3 = $V * ( 1 - $S * (1 - ( $var_H - $var_i ) ) );
-    
-    if ($var_i == 0) { $var_R = $V ; $var_G = $var_3 ; $var_B = $var_1 ; }
-    else if ($var_i == 1) { $var_R = $var_2 ; $var_G = $V ; $var_B = $var_1 ; }
-    else if ($var_i == 2) { $var_R = $var_1 ; $var_G = $V ; $var_B = $var_3 ; }
-    else if ($var_i == 3) { $var_R = $var_1 ; $var_G = $var_2 ; $var_B = $V ; }
-    else if ($var_i == 4) { $var_R = $var_3 ; $var_G = $var_1 ; $var_B = $V ; }
-    else { $var_R = $V ; $var_G = $var_1 ; $var_B = $var_2 ; }
-    
-    $R = $var_R * 255;
-    $G = $var_G * 255;
-    $B = $var_B * 255;
-  }
-  
-  $RGB['R'] = $R;
-  $RGB['G'] = $G;
-  $RGB['B'] = $B;
-  
-  return $RGB;
-}
 ?>

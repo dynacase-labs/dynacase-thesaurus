@@ -16,7 +16,6 @@ function wgcal_textmonth(&$action)
   $ctime = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $firstMonthDay  = WGCalGetFirstDayOfMonth($ctime);
   $firstDay = strftime("%u", $firstMonthDay);
-  $firstMonthDayN = WGCalGetFirstDayOfMonthN($firstMonthDay);
   $month = strftime("%m", $ctime);
   $year  = strftime("%Y", $ctime);
   $lastday =  WGCalDaysInMonth($ctime);
@@ -62,9 +61,9 @@ function wgcal_textmonth(&$action)
 
   $displayWE = ($action->GetParam("WGCAL_U_VIEWWEEKEND", "yes") == "yes" ? true : false);
   $dayperline  = ($displayWE ? 7 : 5);
-  $line = 5;
 
 
+  $h = new Layout("WGCAL/Layout/textevent.xml", $action );
   $startdisplay = false;
   $cday = 1;
   $action->lay->set("month",strftime("%B %Y",$ctime));
@@ -74,10 +73,14 @@ function wgcal_textmonth(&$action)
   $action->lay->set("nextmontht",$nextmontht);
   $action->lay->set("titlespan",($dayperline-2));
   $action->lay->set("dayperline",$dayperline-1);
-  for ($li=0; $li<$line; $li++) {
+  $li = 0;
+  $alldays = false;
+  while (!$alldaysdone) {
     $hday[$li]["line"] = "";
     for ($co=0; $co<=$dayperline-1; $co++) {
-      if ($firstDay-1==$co) $startdisplay = true;
+
+      if ($firstDay-1==$co || ($li>0 && $firstDay>$co)) $startdisplay = true;
+
       if ($startdisplay && $cday<=$lastday) {
 	
 	$tscday = $firstMonthDay+(($cday-1)*24*3600);
@@ -87,10 +90,11 @@ function wgcal_textmonth(&$action)
 	  $tscday = $firstMonthDay+(($cday-1)*24*3600);
 	  $dayinweek = strftime("%u",$tscday);
 	}
-	$daylabel = strftime("%A %d",$tscday);
-	$h = new Layout("WGCAL/Layout/textevent.xml", $action );
+	$daynum = strftime("%d",$tscday);
+	$daylabel = strftime("%A",$tscday);
 	$d = array();
-	$h->set("daytitle",$daylabel);
+	$h->set("daynum",$daynum);
+	$h->set("daylabel",$daylabel);
 	if ($tdays[$cday]->ecount > 0) {
 	  usort($tdays[$cday]->events, cmpEvents);
 	  for ($ie=0; $ie<count($tdays[$cday]->events); $ie++) {
@@ -100,10 +104,10 @@ function wgcal_textmonth(&$action)
 	    else $s = $hstart.":00";
 	    if ($tdays[$cday]->events[$ie]["END"]>0) $e = strftime("%H:%M",$tdays[$cday]->events[$ie]["END"]);
 	    else $e = $hstop.":00";
-	    $d[$ie]["hours"] = "[".$s."-".$e."]";
+	    $d[$ie]["hours"] = $s."-".$e;
 
-	    if ($tdays[$cday]->events[$ie]["H"]==1) $d[$ie]["hours"] = "["._("no hour")."]";
-	    if ($tdays[$cday]->events[$ie]["H"]==2) $d[$ie]["hours"] = "["._("all the day")."]";
+	    if ($tdays[$cday]->events[$ie]["H"]==1) $d[$ie]["hours"] = "("._("no hour").")";
+	    if ($tdays[$cday]->events[$ie]["H"]==2) $d[$ie]["hours"] = "("._("all the day").")";
 
 	    $d[$ie]["title"] = $st.$tdays[$cday]->events[$ie]["TITLE"];
 	    $d[$ie]["id"] = $tdays[$cday]->events[$ie]["ID"];
@@ -114,8 +118,10 @@ function wgcal_textmonth(&$action)
 	$cday++; 
       } else {
 	$hday[$li]["line"] .= "<td class=\"wMonthTextTDUnused\">&nbsp;</td>";
+	if ($cday>$lastday) $alldaysdone = true;
       }
     }
+    $li++;
   }
   $action->lay->SetBlockData("DLINE", $hday);
     

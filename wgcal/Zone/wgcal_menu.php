@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.4 2005/06/06 05:41:14 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.5 2005/06/07 16:05:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -27,7 +27,8 @@ function wgcal_menu(&$action) {
   PopupActive("wgcal_m_options", 0, "download_sync");
   PopupActive("wgcal_m_options", 0, "close_wgcal_m_options");
   popupGen(1);
-    
+
+  $action->lay->set("PasIE", ( $action->Read("navigator","")!="EXPLORER" ? true : false )); 
 }
 
 ?>      

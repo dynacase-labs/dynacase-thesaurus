@@ -14,7 +14,7 @@
 </div>
 <div title="[TEXT:click here to refresh toolbar]" onclick="document.location.reload(true)" class="wWhoAmI">
 <table cellspacing="0">
-<tr><td><img src="WGCAL/Images/wm-reloadsync.png" height="25"><td><span style="font-weight:bold">[owner], [today]</span>[IF LSYNC]<span style="[lsyncstyle];font-size:90%"> ([TEXT:last sync] [lastsync])</span>[ENDIF LSYNC]</td></tr>
+<tr><td><img src="[IMG:wm-reloadsync.gif]" height="25"><td><span style="font-weight:bold">[owner], [today]</span>[IF LSYNC]<span style="[lsyncstyle];font-size:90%"> ([TEXT:last sync] [lastsync])</span>[ENDIF LSYNC]</td></tr>
 </table>
 </div>
 
@@ -26,14 +26,14 @@ var CEventId = -1;
 var CEventText = '';
 </script>
 <div  style="display:none" id="waitpopup" class="wgcalpopup">
-<a href="#" id="viewevent" onclick="ViewEvent('[CORE_STANDURL]',CEventId); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evview.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:view this]</a>
+<a href="#" id="viewevent" onclick="ViewEvent('[CORE_STANDURL]',CEventId); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evview.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:view this]</a>
 <a class="separator"></a>
-<a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 2); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evaccept.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
-<a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 3); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evrefuse.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
+<a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 2); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evaccept.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
+<a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 3); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evrefuse.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
 <a class="separator"></a>
 <a href="#" id="gotoperiod" onclick="loadPeriod('[CORE_STANDURL]', CEventTime); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evdate.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:goto this period]</a>
 <a class="separator"></a>
-<a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+<a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> <!-- end POPUP DIVISION -->
 
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
@@ -52,11 +52,11 @@ var CEventText = '';
      onclick="CEventId=[wrvid]; CEventText='[wrvtitle]';ViewEvent('[CORE_STANDURL]',[wrvid]);" >&nbsp;<img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
 </div>
  
-<!-- [ ZONE WGCAL:WGCAL_NAVIGATOR ]  -->
+<!-- NAVIGATOR  -->
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'"    width="100%" cellspacing="0" cellpadding="0">
 <tr>
 <td onclick="WGCalChangeVisibility('inav');" align="left">[TEXT:date selector]</td>
-<td align="right"><input type="checkbox" onchange="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v" title="[TEXT:display two months]"></td>
+<td align="right"><input id="chk2cal" type="checkbox" onclick="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v;" title="[TEXT:display two months]"></td>
 </tr>
 </table>
 <div align="center" class="wToolArea" width="100%" id="inav" style="overflow:auto; display:[vinav]">
@@ -85,14 +85,14 @@ var CEventText = '';
     });</script></div>
 </div>
 
-<!-- [ ZONE WGCAL:WGCAL_LISTRESS ] -->
+<!-- LISTE DES AGENDAS -->
 
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
 <tr>
 <td onclick="WGCalChangeVisibility('vvical');" align="left">[TEXT:calendar selector]</td>
 <td align="right">
-<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15" src="WGCAL/Images/wm-attendees.png" title="[TEXT:modify the list]">
-<img id="resssel" style="cursor:pointer;" onclick="document.getElementById('updatecal').submit();" height="15" src="WGCAL/Images/wm-refreshcal.gif" title="[TEXT:update calendar]">
+<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15" src="[IMG:wm-attendees.gif]" title="[TEXT:modify the list]">
+<img id="resssel" style="cursor:pointer;" onclick="document.getElementById('updatecal').submit();" height="15" src="[IMG:wm-refreshcal.gif]" title="[TEXT:update calendar]">
 </td>
 </tr>
 </table>
@@ -102,23 +102,23 @@ var CEventText = '';
 
 <div  style="display:none" id="resspopup" class="wgcalpopup">
 <a href="#" id="displayress" onclick="vuvRessource(); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="WGCAL/Images/wm-ressshowhide.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:show/hide this ressource]</a>
+<img style="border:0px" src="[IMG:wm-ressshowhide.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:show/hide this ressource]</a>
 <a href="#" id="changeresscolor" onclick="showColorPicker(event, CRessId); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="WGCAL/Images/wm-resscolor.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:change color for this ressource]</a>
+<img style="border:0px" src="[IMG:wm-resscolor.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:change color for this ressource]</a>
 <a href="#" id="removeress" onclick="removeRessource(CRessId); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="WGCAL/Images/wm-ressdelete.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
+<img style="border:0px" src="[IMG:wm-ressdelete.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
 <a class="separator"></a>
 <a href="#" id="onlyme" onclick="showHideAllRess(3); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="WGCAL/Images/wm-onlyme.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display only me]</a>
+<img style="border:0px" src="[IMG:wm-onlyme.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display only me]</a>
 <a href="#" id="invertress" onclick="showHideAllRess(2); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="WGCAL/Images/wm-ressinvert.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:invert selection]</a>
+<img style="border:0px" src="[IMG:wm-ressinvert.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:invert selection]</a>
 <a href="#" id="displayallr" onclick="showHideAllRess(0); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="WGCAL/Images/wm-ressdisplayall.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display all ressources]</a>
+<img style="border:0px" src="[IMG:wm-ressdisplayall.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display all ressources]</a>
 <a href="#" id="hideallr" onclick="showHideAllRess(1); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="WGCAL/Images/wm-resshideall.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:hide all ressources]</a>
+<img style="border:0px" src="[IMG:wm-resshideall.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:hide all ressources]</a>
 <a class="separator"></a>
 <a href="#" id="cancelress" onclick="closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="WGCAL/Images/wm-closepopup.png" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> <!-- end POPUP DIVISION -->
 
 <div id="vvical" style="display:[vvvical]" width="100%" class="wToolArea" >
@@ -149,6 +149,7 @@ var CEventText = '';
 [IF SHOWSEARCH] [ZONE WGCAL:SEARCH] [ENDIF SHOWSEARCH]
 
 
+<!-- todo zone -->
 [IF SHOWTODOS] [ZONE WGCAL:TODO?dtodo=[tododays]] [ENDIF SHOWTODOS]
 
 [IF SHOWCONTACTS] [ZONE WGCAL:CONTACTS] [ENDIF SHOWCONTACTS]

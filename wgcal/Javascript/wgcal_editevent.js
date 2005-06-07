@@ -106,13 +106,13 @@ function ChangeAlarm() {
 
 function ChangeNoHour() {
 
-  nohour = document.getElementById('nohour');
-  allday = document.getElementById('allday');
-  tallday = document.getElementById('tallday');
-  hstart = document.getElementById('start_hour');
-  hend1 = document.getElementById('end_hour1');
-  hend2 = document.getElementById('end_hour2');
-  hend3 = document.getElementById('end_hour3');
+  var nohour = document.getElementById('nohour');
+  var allday = document.getElementById('allday');
+  var tallday = document.getElementById('tallday');
+  var hstart = document.getElementById('start_hour');
+  var hend1 = document.getElementById('end_hour1');
+  var hend2 = document.getElementById('end_hour2');
+  var hend3 = document.getElementById('end_hour3');
 
   if (nohour.checked) {
     allday.checked = false;
@@ -147,7 +147,7 @@ function SetSelectedItem(from, to) {
 	   if (attendeesList[i].id != -1) showt = true;
 	 }
 	 if (showt) {
-	   document.getElementById('attlist').style.display = '';
+	   document.getElementById('tabress').style.display = '';
 	   document.getElementById('viewplan').style.display = '';
 	   document.getElementById('delall').style.display = '';
 	 }
@@ -158,13 +158,13 @@ function SetSelectedItem(from, to) {
 
 function ChangeAllDay() {
 
-  nohour = document.getElementById('nohour');
-  tnohour = document.getElementById('tnohour');
-  allday = document.getElementById('allday');
-  hstart = document.getElementById('start_hour');
-  hend1 = document.getElementById('end_hour1');
-  hend2 = document.getElementById('end_hour2');
-  hend3 = document.getElementById('end_hour3');
+  var nohour = document.getElementById('nohour');
+  var tnohour = document.getElementById('tnohour');
+  var allday = document.getElementById('allday');
+  var hstart = document.getElementById('start_hour');
+  var hend1 = document.getElementById('end_hour1');
+  var hend2 = document.getElementById('end_hour2');
+  var hend3 = document.getElementById('end_hour3');
 
   if (allday.checked) {
     nohour.checked = false;
@@ -210,7 +210,7 @@ function refreshAttendees() {
 
   var nTr;
   var tab = document.getElementById('tabress');
-  var vress = document.getElementById('attlist');
+  var vress = document.getElementById('tabress');
   var vdispo = document.getElementById('viewplan');
   var vdelall = document.getElementById('delall');
 
@@ -267,7 +267,7 @@ function SetModeRo(b) { ROMode = b; }
 
 function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor, rselect) {
   if (getAttendeeIdx(rid)!=-1) return;
-  idx = attendeesList.length;
+  var idx = attendeesList.length;
   attendeesList[idx] = new Object();
   attendeesList[idx].id = rid;
   attendeesList[idx].title = rtitle;
@@ -296,7 +296,7 @@ function  deleteAttendee(aid) {
   for (i=0; i<attendeesList.length; i++) {
     if (attendeesList[i].id != -1) showt = true;
   }
-  var vress = document.getElementById('attlist');
+  var vress = document.getElementById('tabress');
   var viewplan = document.getElementById('viewplan');
   var delall = document.getElementById('delall');
  if (showt) {
@@ -461,17 +461,11 @@ function viewattdispo(url) {
   subwindow(300, 700, 'ViewDispo', url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
 }
 
-function clickB2(idb) {
+function clickB(idb) {
   var eb = document.getElementById(idb);
   if (!eb) return false;
   eb.checked = (eb.checked ? "" : "checked" );
   return true;
-}
-function clickB(idb) {
-  if (!ROMode) {
-    return clickB2(idb);
-  }
-  return false;
 }
 
 function ShowHideStatus() {
@@ -510,12 +504,8 @@ function ImportRessources(elt, tress) {
   }
 }
 
-var classSelected = '';
-var classUnSelected = '';
-function SetRessDeco(cSel, cUSel) {
-  classSelected = cSel;
-  classUnSelected = cUSel;
-}
+var classSelected = 'WGCRessSelected';
+var classUnSelected = 'WGCRessDefault';
 
 function RessourceSelect(idr) {
   var idx = -1;

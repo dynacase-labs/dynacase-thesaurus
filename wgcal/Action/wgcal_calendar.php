@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.40 2005/06/06 05:41:14 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.41 2005/06/07 16:05:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -32,6 +32,9 @@ function printhdiv($h, $hdiv, $hd) {
 // }
 function wgcal_calendar(&$action) {
 
+  $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
+  if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
+
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
@@ -41,7 +44,6 @@ function wgcal_calendar(&$action) {
 
 
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
-  $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   if ($swe!="yes") {
     $ndays = $dayperweek - 2;
   } else {
