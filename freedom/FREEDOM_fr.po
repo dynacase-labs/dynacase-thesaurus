@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-19 16:39+0200\n"
-"PO-Revision-Date: 2005-05-19 16:40+0200\n"
+"POT-Creation-Date: 2005-06-03 11:58+0200\n"
+"PO-Revision-Date: 2005-06-03 12:00+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -731,21 +731,6 @@ msgstr "requête incomplète"
 msgid "request not found"
 msgstr "requête non trouvée"
 
-msgid "no available persons found"
-msgstr "pas de personnes valides trouvées"
-
-msgid "wprocess_private"
-msgstr "privé"
-
-msgid "wprocess_qualified"
-msgstr "qualifié"
-
-msgid "Twprocess_private"
-msgstr "vers privé"
-
-msgid "Twprocess_public"
-msgstr "vers public"
-
 #, c-format
 msgid "untitle %s %d"
 msgstr "%s sans titre %d"
@@ -836,6 +821,24 @@ msgstr "erreur dans la format pzone %s"
 #, c-format
 msgid "new %s"
 msgstr "nouvelle %s"
+
+msgid "no available persons found"
+msgstr "pas de personnes valides trouvées"
+
+msgid "wprocess_private"
+msgstr "privé"
+
+msgid "wprocess_qualified"
+msgstr "qualifié"
+
+msgid "Twprocess_private"
+msgstr "vers privé"
+
+msgid "Twprocess_public"
+msgstr "vers public"
+
+msgid "AbbrKbyte"
+msgstr "Ko"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -1280,9 +1283,8 @@ msgstr "utilisateur"
 msgid "voir ses contacts"
 msgstr "voir les contraintes"
 
-#, fuzzy
 msgid "all condition"
-msgstr "édition de mail"
+msgstr "toutes conditions"
 
 msgid "ToSearch"
 msgstr "Rechercher"
@@ -2879,7 +2881,7 @@ msgid "epreview"
 msgstr "publi-prévisualisation"
 
 msgid "enavpreview"
-msgstr ""
+msgstr "publi-pévisualisation"
 
 msgid "freedom database"
 msgstr "base de donnée Freedom"
