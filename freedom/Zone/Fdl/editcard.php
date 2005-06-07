@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.50 2005/06/07 13:33:03 eric Exp $
+ * @version $Id: editcard.php,v 1.51 2005/06/07 16:07:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.50 2005/06/07 13:33:03 eric Exp $
+// $Id: editcard.php,v 1.51 2005/06/07 16:07:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,7 +43,6 @@ include_once("FDL/editutil.php");
 
 // -----------------------------------
 function editcard(&$action) {
-  // -----------------------------------
   
   $docid = GetHttpVars("id",0);        // document to edit
   $classid = GetHttpVars("classid",0); // use when new doc or change class
@@ -65,7 +64,11 @@ function editcard(&$action) {
     }
   } else { // modify document
     
-      $doc= new Doc($dbaccess,$docid);
+    $doc= new Doc($dbaccess,$docid);
+    if ($doc->isConfidential()) {      
+      redirect($action,"FDL",
+	       "FDL_CONFIDENTIAL&&id=".$doc->id);
+    }
   }
   
 

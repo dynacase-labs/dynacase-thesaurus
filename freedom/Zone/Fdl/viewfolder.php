@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.66 2005/05/19 13:30:15 eric Exp $
+ * @version $Id: viewfolder.php,v 1.67 2005/06/07 16:07:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -169,16 +169,17 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       // search title for freedom item
 
 
-      $tdoc[$k]["title"] = $doc->title;
+      $title=$doc->getTitle();
+      $tdoc[$k]["title"] = $title;
 
-      if ($doc->doctype =="C") 	$tdoc[$k]["title"] = "<B>". $doc->title ."</B>";
+      if ($doc->doctype =="C") 	$tdoc[$k]["title"] = "<B>". $title ."</B>";
 
-      if (strlen($doc->title) > 20) $tdoc[$k]["abrvtitle"] = substr($doc->title,0,12)." ... ".substr($doc->title,-5);
-      else $tdoc[$k]["abrvtitle"] =  $doc->title;
+      if (strlen($title) > 20) $tdoc[$k]["abrvtitle"] = substr($title,0,12)." ... ".substr($title,-5);
+      else $tdoc[$k]["abrvtitle"] =  $title;
 
       if (isset($doc->_highlight) && $doc->_highlight!="")  {
 	$tdoc[$k]["highlight"] = $doc->_highlight;
-      } else $tdoc[$k]["highlight"] = $doc->title;
+      } else $tdoc[$k]["highlight"] = $title;
       $tdoc[$k]["icontitle"] = $tdoc[$k]["highlight"];
 
       $tdoc[$k]["profid"] = $doc->profid;
@@ -194,7 +195,14 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       $tdoc[$k]["emblemw"] ="0";
       $tdoc[$k]["canedit"] =1;
 	
-      if ($doc->locked == -1) {
+      
+      if ($doc->confidential > 0) {
+	$tdoc[$k]["emblem"] = $action->GetImageUrl("confidential.gif");
+	$tdoc[$k]["emblemt"] = _("confidential");
+	$tdoc[$k]["emblemw"] ="12";
+	$tdoc[$k]["canedit"] =false;
+	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
+      } else if ($doc->locked == -1) {
 	$tdoc[$k]["emblem"] = $action->GetImageUrl("revised.gif");
 	$tdoc[$k]["emblemt"] = _("fixed");
 	$tdoc[$k]["emblemw"] ="12";
@@ -273,14 +281,16 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       //                 ABSTRACT MODE
       // ----------------------------------------------------------
       if ($with_abstract ) {
-	// search abstract attribute for freedom item
-	$doc->ApplyMask(); // apply mask attribute
-	if ($with_abstract === 2 ){    
-	  $tdoc[$k]["ABSTRACTVALUES"]=getAbstractDetail($doc);	  
-	} else {
-	  $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");	
-	  $tdoc[$k]["LOrR"]=($k%2==0)?"left":"right";  
-	}
+	if (!$doc->isConfidential()) {
+	  // search abstract attribute for freedom item
+	  $doc->ApplyMask(); // apply mask attribute
+	  if ($with_abstract === 2 ){    
+	    $tdoc[$k]["ABSTRACTVALUES"]=getAbstractDetail($doc);	  
+	  } else {
+	    $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");	
+	    $tdoc[$k]["LOrR"]=($k%2==0)?"left":"right";  
+	  }
+	} else $tdoc[$k]["ABSTRACTVALUES"]="";
       }
 	
       // ----------------------------------------------------------
@@ -289,40 +299,47 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       if ($column) {
 	if ($doc->fromid != $prevFromId) {
 	  if (($column==1) || (count($tfamdoc)==0)) {
-	  $adoc = $doc->getFamDoc();
-	  if (count($tdoc) > 1) {
-	    $doct = $tdoc[$k];
-	    array_pop($tdoc);
-	    $action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
-	    $tdoc=array();
+	    $adoc = $doc->getFamDoc();
+	    if (count($tdoc) > 1) {
+	      $doct = $tdoc[$k];
+	      array_pop($tdoc);
+	      $action->lay->SetBlockData("BVAL".$prevFromId, $tdoc);
+	      $tdoc=array();
 
-	    $tdoc[$k]=$doct;
-	  }
-	  $prevFromId=$doc->fromid;
-	  $tfamdoc[] = array("iconfamsrc"=>$tdoc[$k]["iconsrc"],
-			     "ftitle"=>$adoc->title,
-			     "fid"=>$doc->fromid,
-			     "blockattr" => "BATT".$doc->fromid,
-			     "blockvalue" => "BVAL".$doc->fromid);
+	      $tdoc[$k]=$doct;
+	    }
+	    $prevFromId=$doc->fromid;
+	    $tfamdoc[] = array("iconfamsrc"=>$tdoc[$k]["iconsrc"],
+			       "ftitle"=>$adoc->title,
+			       "fid"=>$doc->fromid,
+			       "blockattr" => "BATT".$doc->fromid,
+			       "blockvalue" => "BVAL".$doc->fromid);
 	      
-	  // create the TR head 
-	  $lattr=$adoc->GetAbstractAttributes();
-	  $taname=array();
-	  $emptytableabstract=array();
-	  while (list($ka,$attr) = each($lattr))  {	
-	    $emptytableabstract[$attr->id]["value"]="-";
-	    $taname[$attr->id]["aname"]=_($attr->labelText);
-	  }
-	  $action->lay->SetBlockData("BATT".$doc->fromid,$taname);
+	    // create the TR head 
+	    $lattr=$adoc->GetAbstractAttributes();
+	    $taname=array();
+	    $emptytableabstract=array();
+	    while (list($ka,$attr) = each($lattr))  {	
+	      $emptytableabstract[$attr->id]["value"]="-";
+	      $taname[$attr->id]["aname"]=_($attr->labelText);
+	    }
+	    $action->lay->SetBlockData("BATT".$doc->fromid,$taname);
 	  }
 	}
 	  
 
 	$tvalues=array();
-	foreach($lattr as $ka=>$attr)  {	
-	  //$tvalues[]=$doc->getValue($attr->id,"-");
-	  if ($attr->type=="image") $tvalues[]='<img src="'.$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target).'&height=30"  height="30">';
-	  else  $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target);
+
+	if ($doc->isConfidential()) {
+	  foreach($lattr as $ka=>$attr)  {	
+	    $tvalues[]="x";	    
+	  }
+	} else {
+	  foreach($lattr as $ka=>$attr)  {	
+	    //$tvalues[]=$doc->getValue($attr->id,"-");
+	    if ($attr->type=="image") $tvalues[]='<img src="'.$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target).'&height=30"  height="30">';
+	    else  $tvalues[]=$doc->getHtmlValue($attr,$doc->getValue($attr->id,"-"),$target);
+	  }
 	}
 	$tdoc[$k]["values"]=implode('</td><td class="tlist">',$tvalues);
 	

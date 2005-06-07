@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.57 2005/04/05 09:43:41 eric Exp $
+ * @version $Id: viewcard.php,v 1.58 2005/06/07 16:07:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -76,6 +76,11 @@ function viewcard(&$action) {
   $err = $doc->control("view");
   if ($err != "") $action->exitError($err);
   
+  if ($doc->isConfidential()) {      
+    redirect($action,"FDL",
+	     "FDL_CONFIDENTIAL&id=".$doc->id);
+  }
+
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
     $cvdoc= new Doc($dbaccess, $doc->cvid);
@@ -91,7 +96,8 @@ function viewcard(&$action) {
   }
 
   // set emblem
-  if ($doc->locked == -1) $action->lay->set("emblem", $action->getImageUrl("revised.gif"));
+  if ($doc->confidential >0) $action->lay->set("emblem", $action->getImageUrl("confidential.gif"));
+  else if ($doc->locked == -1) $action->lay->set("emblem", $action->getImageUrl("revised.gif"));
   else if ((abs($doc->locked) == $action->parent->user->id)) $action->lay->set("emblem",$action->getImageUrl("clef1.gif"));
   else if ($doc->locked != 0) $action->lay->set("emblem",$action->getImageUrl("clef2.gif"));
   else if ($doc->control("edit") != "") $action->lay->set("emblem",$action->getImageUrl("nowrite.gif"));

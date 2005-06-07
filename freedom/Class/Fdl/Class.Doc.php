@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.253 2005/06/07 13:33:03 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.254 2005/06/07 16:07:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -666,6 +666,14 @@ create unique index i_docir on doc(initid, revision);";
     return (($this->locked > 0) || ($this->locked < -1));
   }
 
+  /** 
+   * test if the document is confidential
+   * 
+   * @return bool true if confidential and current user is not authorized
+   */
+  function isConfidential() {
+    return (($this->confidential > 0) && ($this->control('confidential')!=""));
+  }
   /** 
    * return the family document where the document comes from
    * 
@@ -3592,7 +3600,10 @@ create unique index i_docir on doc(initid, revision);";
    * @see Doc::getSpecTitle()
    */
   function getTitle($id="-1") {
-    if ($id=="-1") return $this->getSpecTitle();
+    if ($id=="-1") {
+      if ($this->isConfidential())  return _("confidential document");      
+      return $this->getSpecTitle();
+    }
     if (! is_numeric($id)) return ""; 
     
     $t = getTDoc($this->dbaccess,$id);
