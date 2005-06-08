@@ -48,12 +48,14 @@ var  P_FIN = 1;
 
 function SetAltCoord(alt) {
   
-  delta = 50;
+  var delta = 50;
   
-  ww = getFrameWidth();
-  wh = getFrameHeight();
+  var ww = getFrameWidth();
+  var wh = getFrameHeight();
   var h = getObjectHeight(alt);
   var w = getObjectWidth(alt);
+
+//   alert('(ww,wh)=('+ww+','+wh+') \n object='+alt+'(h,w)=('+h+','+w+')');
   
   var recompute = false;
 
@@ -147,8 +149,8 @@ function ShowEvInfos() {
     evtc = document.getElementById(TimerOnElt);
     evtc.style.position = 'absolute';
     evtc.style.zIndex = 1001;
-    SetAltCoord(evtc);
     evtc.style.display = 'inline'; 
+    SetAltCoord(evtc);
     evtc.style.left = AltCoord.x+'px';
     evtc.style.top = AltCoord.y+'px';
   }
