@@ -16,7 +16,7 @@ function SetZone(iz) {
 }
 </script>
 <fieldset><legend>[BLOCK ZoneIcons]
-<img id="b[tzone]" src="WGCAL/Images/wm-[tzone].png" height="22" title="[dzone]" style="border:0px; cursor:pointer;" onClick="SetZone('[tzone]');" >[ENDBLOCK ZoneIcons]
+<img id="b[tzone]" src="WGCAL/Images/wm-[tzone].gif" height="22" title="[dzone]" style="border:0px; cursor:pointer;" onClick="SetZone('[tzone]');" >[ENDBLOCK ZoneIcons]
 
 
 [BLOCK ZoneXml]<div id="p[tzone]" style="display:[vzone]">[ZONE WGCAL:WGCAL_PREFS_[azone]]</div>[ENDBLOCK ZoneXml]

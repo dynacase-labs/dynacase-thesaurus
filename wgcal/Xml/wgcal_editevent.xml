@@ -168,8 +168,6 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 [BLOCK EMPTY][nop]&nbsp;&nbsp;
 <a href="mailto:[mailadd]"><img src="[IMG:wm-mail.gif]" 
   height="20" title="[TEXT:mail to contacts]" class="WGCalAction" style="border:0px"></a>
-<img src="[IMG:wm-print.gif]" 
-  height="20" title="[TEXT:print]" class="WGCalAction" onclick="window.print();">
 <img src="[IMG:wm-delete.gif]" 
   height="20" title="[TEXT:delete]" class="WGCalAction" onclick="deleteEvent('[TEXT: delete this event]');">
 [ENDBLOCK EMPTY]
