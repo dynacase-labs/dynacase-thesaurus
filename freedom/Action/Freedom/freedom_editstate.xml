@@ -51,7 +51,7 @@
 </tbody>
 <tfoot>
 <tr >
-  <td  colspan="3" align="right" id="editbutton"><input id="iSubmit" type="submit" value="[TEXT:Change State]"  onmousedown="multiple_for_select();" >
+  <td  colspan="3" align="right" id="editbutton"><input id="iSubmit" type="submit" value="[TEXT:Change State]"   >
     <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[docid]';"> 
   </td>
 </tr>
