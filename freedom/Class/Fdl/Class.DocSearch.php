@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.27 2005/04/06 16:38:59 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.28 2005/06/08 08:37:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -97,6 +97,7 @@ Class DocSearch extends PDocSearch {
       $filters[] = "locked = -1";
       $filters[] = "lmodify = 'L'";       
     }
+    $op= ($sensitive)?'~':'~*';
     //    $filters[] = "usefor != 'D'";
     $keyword= pg_escape_string($keyword);
     $keyword= str_replace("^","£",$keyword);
@@ -104,12 +105,36 @@ Class DocSearch extends PDocSearch {
     if (strtolower(substr($keyword,0,5))=="::get") { // only get method allowed
       // it's method call
       $keyword = $this->ApplyMethod($keyword);
+      $filters[] = "values $op '$keyword' ";
+    } else if ($keyword != "") {
+      // transform conjonction
+      $tkey=explode(" ",$keyword);
+	  $ing=false;
+      foreach ($tkey as $k=>$v) {
+	if ($ing) {
+	  if ($v[strlen($v)-1]=='"') {
+	    $ing=false;
+	    $ckey.=" ".substr($v,0,-1);
+	    $filters[] = "values $op '$ckey' ";	    
+	  } else {
+	    $ckey.=" ".$v;
+	  }
+	} else if ($v[0]=='"') {
+	  if ($v[strlen($v)-1]=='"') {	    
+	    $ckey=substr($v,1,-1);
+	    $filters[] = "values $op '$ckey' ";	  
+	  } else {
+	    $ing=true;
+	    $ckey=substr($v,1);
+	  }
+	} else {
+	  $filters[] = "values $op '$v' ";	  
+	}
+      }
     }
 
-    if ($keyword != "") {
-      if ($sensitive) $filters[] = "values ~ '$keyword' ";
-      else $filters[] = "values ~* '$keyword' ";
-    }
+
+   
     return $filters;
   }
 

@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.24 2005/03/03 17:14:13 eric Exp $
+ * @version $Id: generic_search.php,v 1.25 2005/06/08 08:37:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -70,16 +70,10 @@ function generic_search(&$action) {
 
   $famid = getDefFam($action);
 
-
-  $keyword= str_replace("^","£",$keyword);
-  $keyword= str_replace("$","£",$keyword);
-  $keyword= addslashes($keyword);
-
-  $sqlfilter[]= "locked != -1";
-  //  $sqlfilter[]= "doctype ='F'";
-  //  $sqlfilter[]= "usefor != 'D'";
   if ($keyword != "") $sqlfilter[]= "values ~* '$keyword' ";
 
+  $sqlfilter=$sdoc->getSqlGeneralFilters($keyword,"yes",false);
+  
   $query=getSqlSearchDoc($dbaccess, 
 			 $sdirid,  
 			 $famid, 
