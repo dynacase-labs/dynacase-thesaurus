@@ -7,6 +7,9 @@ function wgcal_textmonth(&$action)
 {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
+  $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
+  $action->parent->AddJsRef("WHAT/Layout/geometry.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
 
@@ -51,6 +54,8 @@ function wgcal_textmonth(&$action)
       if ($id>$dstart) $s = 0;
       if ($id<$dend) $e = 0;
       $tdays[$id]->events[$tdays[$id]->ecount]["ID"] = $ve["ID"];
+      $tdays[$id]->events[$tdays[$id]->ecount]["RG"] = $ve["RG"]; 
+      $tdays[$id]->events[$tdays[$id]->ecount]["action"] = $ve["action"];
       $tdays[$id]->events[$tdays[$id]->ecount]["START"] = $s;
       $tdays[$id]->events[$tdays[$id]->ecount]["END"] = $e;
       $tdays[$id]->events[$tdays[$id]->ecount]["H"] = $htype;
@@ -111,6 +116,8 @@ function wgcal_textmonth(&$action)
 
 	    $d[$ie]["title"] = $st.$tdays[$cday]->events[$ie]["TITLE"];
 	    $d[$ie]["id"] = $tdays[$cday]->events[$ie]["ID"];
+	    $d[$ie]["RG"] = $tdays[$cday]->events[$ie]["RG"];
+	    $d[$ie]["action"] = $tdays[$cday]->events[$ie]["action"];
 	  }
 	}
 	$h->SetBlockData("HLine", $d);

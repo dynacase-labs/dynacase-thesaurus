@@ -1,47 +1,51 @@
 <!-- Start CARD [ID] -->
-<div class="wEvBack">
+<div style="width:auto;height:auto;" class="wEvBack">
 <table cellpadding="2px" cellspacing="0" border="0">
-<thead><tr><th></th><th></th></tr></thead>
-<tbody>
-
 <tr>
-  <td width="15" style="border: 1px inset; background-color:[bgstate]" valign="top" rowspan="5">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]"><br>[ENDBLOCK icons]</td>
-   <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white">
-   <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-    <td align="left"><span style="color:[textcolor];font-size:120%; font-weight:bold">[TITLE]</span></td>
-    <td align="right"><img src="[iconevent]" height="20"></td>
+  <td width="15" style="border: 1px inset; background-color:[bgstate]" valign="top" rowspan="4">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]</td>
+  <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td align="left"><span style="color:[textcolor];font-size:120%; font-weight:bold">[TITLE]</span></td>
+      <td align="right"><img src="[iconevent]" height="20"></td>
     </tr></table>
  </td>
 </tr>
 
 <tr>
-  <td valign="top">
-  <table cellpadding="0px" cellspacing="0" border="0">
+  <td valign="top"> 
+  <table cellpadding="0" cellspacing="0" border="0" width="auto">
+    <tr><td colspan="2">&nbsp;</td></tr>
     <tr><td style="font-weight:bold">[DSTART]&nbsp;</td><td style="font-weight:bold">[START]</td></tr>
-    <tr><td style="font-weight:bold">[DEND]</td>&nbsp;<td style="font-weight:bold">[END]</td></tr>
+    <tr><td style="font-weight:bold">[DEND]&nbsp;</td><td style="font-weight:bold">[END]</td></tr>
   </table>
-</tr>
-
-<tr style="display:[displaynote]">
- <td colspan="2" valign="top"><div>
-<fieldset ><legend>[TEXT:note]</legend>[NOTE]</fieldset></div></td>
-</tr>
-
-<tr>
- <td valign="top">
-  <span style="display:[repeatdisplay]">[TEXT:repeat] [repeatinfos]</span><br>
-  <span style="font-style:italic; display:[repeatdisplay]">[repeatuntil]</span><br><br>
-[TEXT:owner] : <span style="font-style:italic">[owner]</span><br>
-[TEXT:incalendar] : <span style="font-style:italic">[incalendar]</span><br>
-[TEXT:modified] : <span style="font-style:italic">[modifdate]</span><br>
+  <table style="display:[repeatdisplay]" cellpadding="0" cellspacing="0" border="0" width="auto">
+    <tr><td></td></tr>
+    <tr><td>[repeatinfos]</td></tr>
+    <tr><td>[repeatuntil]</td></tr>
+  </table>
   </td>
-  <td valign="top">
+  <td valign="top" rowspan="2">
   <fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend><div><!--  style="height:100px; overflow:hidden;"-->
 [BLOCK attlist]<div><img height="15" src="[atticon]"><span style="text-decoration:[attnamestyle]">[atttitle]</span>&nbsp;<span style="font-style:italic">([attstate])</span></div>
 [ENDBLOCK attlist]</div>
   </fieldset></td>
 </tr>
-</tbody>
+
+<tr>
+ <td valign="top">
+<!-- <span style="font-style:italic">[TEXT:owner]</span> : [owner]<br>
+<span style="font-style:italic">[TEXT:incalendar]</span> : [incalendar]<br>
+<span style="font-size:80% font-style:italic">[TEXT:modified]</span>: [modifdate]<br> -->
+<span style="font-size:80%; font-style:italic">[owner] [modifdate]</span>
+  </td>
+</tr>
+
+<tr style="display:[displaynote]">
+ <td colspan="2" valign="top">
+ [TEXT:note] : <div style="width:auto">[NOTE]</div>
+ </td>
+</tr>
+
 </table>
 </div>
 <!-- End CARD [ID] -->

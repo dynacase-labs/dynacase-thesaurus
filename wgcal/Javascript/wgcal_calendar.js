@@ -146,10 +146,9 @@ function ShowEvInfos() {
     WGCalCleanAllFullView();
     evtc = document.getElementById(TimerOnElt);
     evtc.style.position = 'absolute';
-    evtc.style.width = 'auto';
     evtc.style.zIndex = 1001;
-    evtc.style.display = '';
     SetAltCoord(evtc);
+    evtc.style.display = 'inline'; 
     evtc.style.left = AltCoord.x+'px';
     evtc.style.top = AltCoord.y+'px';
   }
@@ -163,6 +162,8 @@ function WGCalEvOnMouseOver(ev, id) {
 }
 
 function WGCalEvOnMouseOut(ev, id) {
+  evtc = document.getElementById('evtc'+id);
+  evtc.style.display ='none';
   ResetSetTimerOnMO();
   WGCalCleanAllFullView();
 }

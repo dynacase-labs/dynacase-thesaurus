@@ -41,9 +41,10 @@ INPUT.Mandatory {
 	font-weight: bold;
 	border : 2px inset [WTH_ALERT];
 }
+TR {
+}
 TD {
 	empty-cells: show;
-	border-style : inherit;
 }
 
 
@@ -295,12 +296,11 @@ TD {
 .wMonthTextDayTitle {
   font-weight : bold;
   border-bottom : 1px solid [WTH_COLOR_3];
-  background-color : [WTH_COLOR_1];
+  background-color : [WTH_COLOR_2];
   color : [WTH_TEXTCOLOR_1];
 }
 .wMonthTextTD {
-  border-right : thin solid [WTH_TEXTCOLOR_1];
-  border-bottom : thin solid [WTH_TEXTCOLOR_1];
+  border : thin solid [WTH_TEXTCOLOR_1];
   width : 14%;
   background-color : white;
   color : [WTH_COLOR_3];
@@ -331,7 +331,7 @@ TD {
 .wEvBack {
   background : url('CORE/Images/bg.gif'); 
   border : 4px solid white; 
-  height:100%;
+  height:auto;
 }
 
 

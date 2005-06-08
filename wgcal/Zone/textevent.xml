@@ -3,7 +3,9 @@
 <span width="70%" style="font-size:80%; text-align:right">[daylabel]</span>
 </div>
 [BLOCK HLine]<div class="WEvDefault"  
-onclick="subwindow(400, 650, 'EditEvent[id]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_[action]&ev=[id]');" 
+onclick="subwindow(400, 650, 'EditEvent[id]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_[action]&id=[id]');" 
   onmouseover="this.className='WEvOver'; WGCalEvOnMouseOver(event, '[id]');" 
-  onmouseout="this.className='WEvDefault';document.getElementById('evtc'+[id]).style.display='none';" 
-><span style="font-size:90%; text-decoration:underline">[hours]</span> <span style="font-weight:bold;">[title]</span></div>[ENDBLOCK HLine]<br>
+  onmouseout="this.className='WEvDefault';WGCalEvOnMouseOut(event, '[id]');" 
+  onContextMenu="SetCurrentEvent([id], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
+  onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([id], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
+  style="cursor:crosshair" ><span style="font-size:90%; text-decoration:underline">[hours]</span> <span style="font-weight:bold;">[title]</span></div>[ENDBLOCK HLine]<br>

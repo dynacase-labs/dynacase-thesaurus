@@ -2,7 +2,6 @@
 [ZONE WGCAL:WGCAL_MENU]
 
 <!-- POPUP DIVISION -->
-<script type="text/javascript"> var CurrentTime = -1; </script>
 <div  style="z-index:2000; display:none" id="cellpopup" class="wgcalpopup">
 <a href="#" id="addrv" onclick=" closeMenu('cellpopup')">[TEXT:new rendez-vous]</a>
 <a href="#" id="cancelevent" onclick="closeMenu('cellpopup')"  >[TEXT:Cancel]</a>
@@ -45,12 +44,13 @@
   onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([ID], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
   style="cursor:crosshair; margin:0px; border:0px; display:none;overflow:hidden;">[ZONE [RESUME]?id=[ID]]</div>
 
-<div id="evtc[RG]" style="display:none; border:1px outset; background-color:white');">
+<div id="evtc[RG]" style="overflow:hidden; display:none; border:1px outset; background-color:white');">
 [ZONE [VIEW]?id=[ID]]</div>
 [ENDBLOCK EVENTS]
 
 
 <script type="text/javascript"> 
+var CurrentTime = -1;
 var Days = new Array();
 [BLOCK DAYS]
 Days[[iday]] = new Object(); Days[[iday]].start  = [days]; Days[[iday]].vstart = [vstart]; Days[[iday]].vend   = [vend]; Days[[iday]].ev = new Array();[ENDBLOCK DAYS]

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.18 2005/06/07 16:05:36 marc Exp $
+ * @version $Id: calev_card.php,v 1.19 2005/06/08 15:00:42 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -77,7 +77,7 @@ function calev_card(&$action) {
   $action->lay->set("iconevent", $ev->getIcon($ev->icon));
 
   $action->lay->set("owner", $ev->getValue("CALEV_OWNER"));
-  $action->lay->set("modifdate", strftime("%x %X",$ev->revdate));
+  $action->lay->set("modifdate", strftime("%d/%m/%y %H:%M",$ev->revdate));
   $action->lay->set("incalendar", $ev->getValue("CALEV_EVCALENDAR"));
 
   if ($private) $action->lay->set("TITLE", $pretitle." "._("confidential event"));
@@ -223,7 +223,7 @@ function ev_showattendees(&$action, &$ev, $display_me, $dcolor) {
   $tress = $ev->getTValue("CALEV_ATTID");
   if (count($tress)>1) {
     $states = CAL_getEventStates($dbaccess,"");
-    $action->lay->set("attdisplay","");
+    $action->lay->set("attdisplay","inline");
     $t = array();
     $tresst = $ev->getTValue("CALEV_ATTTITLE");
     $tresse = $ev->getTValue("CALEV_ATTSTATE");

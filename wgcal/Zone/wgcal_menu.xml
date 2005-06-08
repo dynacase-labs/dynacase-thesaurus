@@ -33,7 +33,7 @@
 <td align="right" width="50" class="wMainMenu">
 <img height="12" title="[TEXT:print view]"  style="cursor:pointer" onclick="parent.wgcal_calendar.print()" src="[IMG:wm-print.gif]">
 <img id="menu_prefs" title="[TEXT:change preferences]" style="cursor:pointer" onclick="subwindow(300, 500, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS');" src="[IMG:wgcal-prefs.gif]" height="12" >
-</td>
+&nbsp;</td>
 </tr>
 </table>
 [IF PasIE]<div style="height:20px"></div>[ENDIF PasIE]
