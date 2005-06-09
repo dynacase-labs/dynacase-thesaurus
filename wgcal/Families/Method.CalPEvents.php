@@ -36,6 +36,7 @@ function  setEventSpec(&$e) {
   $e->setValue("EVFC_REPEATMONTH", $this->getValue("CALEV_REPEATMONTH"));
   $e->setValue("EVFC_REPEATUNTIL", $this->getValue("CALEV_REPEATUNTIL"));
   $e->setValue("EVFC_REPEATUNTILDATE", $this->getValue("CALEV_REPEATUNTILDATE"));
+  $e->setValue("EVFC_ALARMTIME", $this->getValue("CALEV_ALARMTIME"));
   $tv = $this->getTValue("CALEV_EXCLUDEDATE");
   $e->deleteValue("EVFC_EXCLUDEDATE");
   if (count($tv)>0) {

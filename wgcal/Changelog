@@ -1,13 +1,13 @@
 --------------------------------------------------------------------------
 0.1.0.RC6
 --------------------------------------------------------------------------
-- introduction de la recherche
 - ajout d'un controle/masque (CALEVENT) admin (edition speciale) 
 - ajout d'un service portail
 - correction des chevauchement lors des vérifications de conflits
 - travaux d'Hercule : passage à Internet Explorer
-- vue mensuelle : popup / affichage ou pas des week-end...
+- vue mensuelle, finalisation, popup / affichage ou pas des week-end...
 - repositionnement sur le jour courant.
+- prise en compte de l'alarm 
 
 --------------------------------------------------------------------------
 0.1.0.RC5

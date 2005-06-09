@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.19 2005/06/08 15:00:42 marc Exp $
+ * @version $Id: calev_card.php,v 1.20 2005/06/09 05:22:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -193,6 +193,7 @@ function showIcons(&$action, &$ev, $private, $withme) {
     if ($ev->getValue("CALEV_REPEATMODE") != 0)  addIcons($icons, "REPEAT");
     if ((count($ev->getTValue("CALEV_ATTID"))>1))  addIcons($icons, "GROUP");
     if ($withme && ($ev->getValue("CALEV_OWNERID") != $action->user->fid)) addIcons($icons, "INVIT");
+    if ($ev->getValue("CALEV_EVALARMTIME") > 0) addIcons($icons, "ALARM");
   }
   }
   $action->lay->SetBlockData("icons", $icons);
@@ -209,6 +210,7 @@ function addIcons(&$ia, $icol)
      "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), "icontitle" => "[TEXT:visibility group]" ),
      "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-repeat.gif"), "icontitle" => "[TEXT:repeat event]" ),
      "CAL_PRIVATE" => array( "iconsrc" => $action->getImageUrl("wm-privatecalendar.gif"), "icontitle" => "[TEXT:private calendar]" ),
+     "ALARM" => array( "iconsrc" => $action->getImageUrl("wm-alarm.gif"), "icontitle" => "[TEXT:alarm]" ),
      "GROUP" => array( "iconsrc" => $action->getImageUrl("wm-attendees.gif"), "icontitle" => "[TEXT:with attendees]" )
   );
 

@@ -55,6 +55,7 @@ function wgcal_textmonth(&$action)
       if ($id<$dend) $e = 0;
       $tdays[$id]->events[$tdays[$id]->ecount]["ID"] = $ve["ID"];
       $tdays[$id]->events[$tdays[$id]->ecount]["RG"] = $ve["RG"]; 
+      $tdays[$id]->events[$tdays[$id]->ecount]["TSSTART"] = $ve["TSSTART"]; 
       $tdays[$id]->events[$tdays[$id]->ecount]["action"] = $ve["action"];
       $tdays[$id]->events[$tdays[$id]->ecount]["START"] = $s;
       $tdays[$id]->events[$tdays[$id]->ecount]["END"] = $e;
@@ -116,6 +117,7 @@ function wgcal_textmonth(&$action)
 
 	    $d[$ie]["title"] = $st.$tdays[$cday]->events[$ie]["TITLE"];
 	    $d[$ie]["id"] = $tdays[$cday]->events[$ie]["ID"];
+	    $d[$ie]["TSSTART"] = $tdays[$cday]->events[$ie]["TSSTART"];
 	    $d[$ie]["RG"] = $tdays[$cday]->events[$ie]["RG"];
 	    $d[$ie]["action"] = $tdays[$cday]->events[$ie]["action"];
 	  }

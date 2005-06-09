@@ -60,9 +60,6 @@ function wgcal_storeevent(&$action) {
     $ott = ($ott==""?0:$ott);
     $ostart = $event->getValue("CALEV_START");
     $oend = $event->getValue("CALEV_END");
-//     echo "old type = [".$ott."] new type = [".$htype."]<br>";
-//     echo "old start = [".$ostart."] new start = [".$start."]<br>";
-//     echo "old end = [".$oend."] new end = [".$end."]<br>";
     if ($ott!=$htype || $ostart!=$start || $oend!=$end) $comment = _("date modification");
   }
   $event->setValue("CALEV_TIMETYPE", $htype);
