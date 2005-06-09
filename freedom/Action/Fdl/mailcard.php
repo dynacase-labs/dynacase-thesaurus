@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.50 2005/06/09 12:17:04 eric Exp $
+ * @version $Id: mailcard.php,v 1.51 2005/06/09 14:10:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.50 2005/06/09 12:17:04 eric Exp $
+// $Id: mailcard.php,v 1.51 2005/06/09 14:10:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -145,11 +145,15 @@ function sendCard(&$action,
   $ftitle = str_replace("'", "",$ftitle);
   $ftitle = str_replace("&", "",$ftitle);
 
+  $to=   str_replace("\"","'",$to);
+  $from= str_replace("\"","'",$from);
+  $cc=   str_replace("\"","'",$cc);
+  $bcc=  str_replace("\"","'",$bcc);
+
   $vf = newFreeVaultFile($dbaccess);
   $pubdir = $action->getParam("CORE_PUBDIR");
   $szone=false;
   
-
   if ($bcc != "") $bcc = "\\nBcc:$bcc";
   
   if ($sendercopy && $action->getParam("FDL_BCC") == "yes") {    
@@ -259,7 +263,9 @@ function sendCard(&$action,
   // contruct metasend command
   if ($subject == "") $subject = $ftitle;
   $subject = str_replace("\"","'",$subject);
-  $cmd = "metasend  -b -S 4000000 -c '$cc' -F '$from' -t '".addslashes("$to$bcc")."' -s \"$subject\"  ";
+  
+
+  $cmd = "metasend  -b -S 4000000 -c \"$cc\" -F \"$from\" -t \"$to$bcc\" -s \"$subject\"  ";
 
 
   if (ereg("html",$format, $reg)) {
