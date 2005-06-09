@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.48 2005/05/30 15:55:14 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.49 2005/06/09 12:18:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -82,11 +82,12 @@ function AttrToPhp($dbaccess, $tdoc) {
       case "menu": // menu
 	
 	  $tmenu[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
-			   "label"=>str_replace("\"","\\\"",$v->labeltext),
-			   "order"=>intval($v->ordered),
-			   "link"=>str_replace("\"","\\\"",$v->link),
-			   "visibility"=>$v->visibility,
-			   "precond"=>$v->phpfunc);
+					     "label"=>str_replace("\"","\\\"",$v->labeltext),
+					     "order"=>intval($v->ordered),
+					     "link"=>str_replace("\"","\\\"",$v->link),
+					     "visibility"=>$v->visibility,
+					     "options"=>str_replace("\"","\\\"",$v->options),
+					     "precond"=>$v->phpfunc);
 	break;
       case "frame": // frame
 	$tfield[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
@@ -269,7 +270,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
   $msg="";
   $GEN=getGen($dbaccess);
   $doc = new Doc($dbaccess);
-  $err = $doc->exec_query("SELECT * FROM pg_class where relname='doc".$docid."';");
+  $err = $doc->exec_query("SELECT oid FROM pg_class where relname='doc".$docid."';");
   if ($doc->numrows() == 0) {
     $msg .= "Create table doc".$docid."\n";
     // create postgres table if new familly
@@ -281,14 +282,14 @@ function PgUpdateFamilly($dbaccess, $docid) {
 
   } else {      
     $row = $doc->fetch_array(0,PGSQL_ASSOC);
-    $relid= $row["relfilenode"]; // pg id of the table
-    $sqlquery="select attname FROM pg_attribute where attrelid=$relid;";
+    $relid= $row["oid"]; // pg id of the table
+    $sqlquery="select attname FROM pg_attribute where attrelid=$relid;";  
     $doc->exec_query($sqlquery,1); // search existed attribute of the table
       
     $nbidx = $doc->numrows();
     $pgatt = array();
     for ($c=0; $c < $nbidx; $c++) {
-      $row = $doc->fetch_array($c,PGSQL_ASSOC);
+      $row = $doc->fetch_array($c,PGSQL_ASSOC);      
       $pgatt[$row["attname"]]=$row["attname"];
 	
     }

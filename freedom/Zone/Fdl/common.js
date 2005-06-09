@@ -277,8 +277,8 @@ function getAltern(c,l) {
 
 // altern color in a table between rows
 function alterrow(tid,co,by) {
-  c1=getAltern(co,240);
-  c2=getAltern(co,250);
+  var c1=getAltern(co,240);
+  var c2=getAltern(co,250);
   var c=[c1,c2];
   var t=document.getElementById(tid);
   if (t) {
@@ -287,6 +287,33 @@ function alterrow(tid,co,by) {
     for (var i=0;i<ttr.length;i++) {
       if (!by) ttr[i].style.backgroundColor=c[(i%2)];
       else ttr[i].style.backgroundColor=c[parseInt((i % by2)/by)];
+    }
+  }
+}
+
+function alterfieldset(tid,co,by) {
+  if (!isNetscape) return; // not nice on IE
+  var c1=getAltern(co,240);
+  var c2=getAltern(co,250);
+  var c=[c1,c2];
+  var ci=0;
+  var t=document.getElementById(tid);
+  var tds;
+  if (t) {
+    var ttr=t.getElementsByTagName('fieldset');  
+    if (by) by2=2*by;
+    for (var i=0;i<ttr.length;i++) {
+      if (ttr[i].className=='mfield') {
+	if (!by) ttr[i].style.backgroundColor=c[(ci%2)];
+	else ttr[i].style.backgroundColor=c[parseInt((ci % by2)/by)];
+	tds=ttr[i].getElementsByTagName('td');
+	//      alert(tds.lenght);
+	for (var j=0;j<tds.length;j++) {
+	  if (!by) tds[j].style.backgroundColor=c[(ci%2)];
+	  else tds[j].style.backgroundColor=c[parseInt((ci % by2)/by)]; 
+	}
+	ci++;
+      }
     }
   }
 }

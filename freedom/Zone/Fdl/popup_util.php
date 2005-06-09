@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Utilities functions to generate popup menu
  *
  * @author Anakeen 2000 
- * @version $Id: popup_util.php,v 1.12 2005/03/01 17:19:07 eric Exp $
+ * @version $Id: popup_util.php,v 1.13 2005/06/09 12:18:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: popup_util.php,v 1.12 2005/03/01 17:19:07 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popup_util.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 
 
@@ -41,65 +20,118 @@
 function popupInit($name, $items) {
   global $menuitems;
   global $tmenus;
+  global $tsubmenu;
   
   // ------------------------------------------------------
   // definition of popup menu
-  $menuitems= $items;
-  if (count($menuitems) == 0) {
+  $menuitems[$name]= $items;
+  $tsubmenu[$name]=array();
+  if (count($menuitems[$name]) == 0) {
     $jsarray = "[]";
   } else {
     $jsarray = "[";
-    foreach($menuitems as $ki=>$imenu) {
+    foreach($menuitems[$name] as $ki=>$imenu) {
 
       $jsarray .= "'".$imenu."',";
       global ${$imenu} ;
       ${$imenu} = 'v'.$ki;
+      $tsubmenu[$name]['v'.$ki]="";
     }
     // replace last comma by ']'
     $jsarray[strlen($jsarray)-1]="]";
   }
   $tmenus[$name]["menuitems"] = $jsarray;
   $tmenus[$name]["name"] = $name;
-  $tmenus[$name]["nbmitem"] = count($menuitems);
+  $tmenus[$name]["nbmitem"] = count($menuitems[$name]);
+  $tmenus[$name]["menulabel"]="['".implode("','",$tsubmenu[$name])."']";
 
 }
 
+function popupAddItem($name, $imenu) {
+  global $menuitems;
+  global $tmenus;
+  global $tsubmenu;
+  
+  // ------------------------------------------------------
+  // definition of popup menu
+  $menuitems[$name][]=$imenu;
+  
+  
+  $ki=count($menuitems[$name])-1;
+
+  global ${$imenu} ;
+  ${$imenu} = 'v'.$ki;
+  $tsubmenu[$name]['v'.$ki]="";
+    
+
+  $tmenus[$name]["menuitems"] = "['".implode("','",$menuitems[$name])."']";
+  $tmenus[$name]["nbmitem"] = count($menuitems[$name]);
+  $tmenus[$name]["menulabel"]="['".implode("','",$tsubmenu[$name])."']";
+
+}
 function popupInitItem($name, $k) {
   global $tmenuaccess;
   global $menuitems;
 
   if (! isset($tmenuaccess[$name][$k]["divid"])) {
     $tmenuaccess[$name][$k]["divid"] = $k;
-    reset($menuitems);
-    while (list($ki, $v) = each($menuitems)) {
+    reset($menuitems[$name]);
+    while (list($ki, $v) = each($menuitems[$name])) {
       $tmenuaccess[$name][$k]['v'.$ki] = 2; // invisible
-
     }
-
   }
 }
 
+
+function popupSubMenu($name, $nameid,$mlabel) {
+  global $tsubmenu;
+  global $$nameid;
+  $tsubmenu[$name][$$nameid]=$mlabel;
+}
+
+
+function popupGetSubItems($name,$mlabel) {
+  global $menuitems;
+  global $tmenus;
+  global $tsubmenu;
+  
+  $ti=array();
+  $ki=0;
+  foreach($tsubmenu[$name] as $k=>$v) {
+    if ($v==$mlabel) {
+      $ti[]=$menuitems[$name][$ki];
+    }
+    $ki++;
+    
+  }
+  return $ti;
+}
+
+define('POPUP_INACTIVE',0);
+define('POPUP_ACTIVE',1);
+define('POPUP_CTRLACTIVE',3);
+define('POPUP_CTRLINACTIVE',4);
+define('POPUP_INVISIBLE',2);
 function popupActive($name,$k, $nameid) {
   global $tmenuaccess;
   global $$nameid;
   popupInitItem($name,$k);
-  $tmenuaccess[$name][$k][$$nameid]=1;
+  $tmenuaccess[$name][$k][$$nameid]=POPUP_ACTIVE;
 }
-
 
 function popupInactive($name,$k, $nameid) {
   global $tmenuaccess;
   global $$nameid;
 
   popupInitItem($name,$k);
-  $tmenuaccess[$name][$k][$$nameid]=0;
+  $tmenuaccess[$name][$k][$$nameid]=POPUP_INACTIVE;
 }
 function popupInvisible($name,$k, $nameid) {
   global $tmenuaccess;
   global $$nameid;
 
   popupInitItem($name,$k);
-  $tmenuaccess[$name][$k][$$nameid]=2;
+  $tmenuaccess[$name][$k][$$nameid]=POPUP_INVISIBLE;
 }
 
 // active if Ctrl Key Pushed
@@ -108,7 +140,7 @@ function popupCtrlActive($name,$k, $nameid) {
   global $$nameid;
 
   popupInitItem($name,$k);
-  $tmenuaccess[$name][$k][$$nameid]=3;
+  $tmenuaccess[$name][$k][$$nameid]=POPUP_CTRLACTIVE;
 }
 
 // inactive if Ctrl Key Pushed
@@ -117,9 +149,14 @@ function popupCtrlInactive($name,$k, $nameid) {
   global $$nameid;
 
   popupInitItem($name,$k);
-  $tmenuaccess[$name][$k][$$nameid]=4;
+  $tmenuaccess[$name][$k][$$nameid]=POPUP_CTRLINACTIVE;
 }
-
+function popupGetAccessItem($name,$k, $nameid) {
+  global $tmenuaccess;
+  global $$nameid;
+  return ($tmenuaccess[$name][$k][$$nameid]);
+  
+}
   function vcompare($a, $b) {
     $na = intval(substr($a,1));
     $nb = intval(substr($b,1));
@@ -127,13 +164,29 @@ function popupCtrlInactive($name,$k, $nameid) {
     if ($na == $nb) return 0;
     return ($na < $nb) ? -1 : 1;
   }
-function popupGen($kdiv) {  
+function popupNoCtrlKey() {
+  global $tmenuaccess;
+  global $tsubmenu; 
+  if (isset($tmenuaccess)) {
+    $kv=0; // index for item
+    foreach ($tmenuaccess as $name=>$v)  foreach ($v as $ki=>$vi) foreach ($vi as $kj=>$vj){
+      if ($vj==3) {
+	$tmenuaccess[$name][$ki][$kj]=1;	
+	if ($tsubmenu[$name][$kj]=="") $tsubmenu[$name][$kj]="ctrlkey";
+
+      }
+    }
+  }
+  
+}
+function popupGen($kdiv="nothing") {  
   global $tmenuaccess;
   global $menuitems;
   global $tmenus;
   global $action;
   static $first=1;
   global $tcmenus; // closeAll menu
+  global $tsubmenu;
 
 
   if ($first) {
@@ -152,17 +205,15 @@ function popupGen($kdiv) {
   }
   $lpopup = new Layout($action->Getparam("CORE_PUBDIR")."/FDL/Layout/popup.js",$action);
   if (isset($tmenuaccess)) {
-    reset($tmenuaccess);
     $kv=0; // index for item
-
-    while (list($name, $v2) = each($tmenuaccess)) {
+    foreach ($tmenuaccess as $name=>$v2) {
       $nbdiv=0;
       while (list($k, $v) = each($v2)) {
       
 	uksort($v, 'vcompare');
       
 	$tma[$kv]["vmenuitems"]="[";
-	while (list($ki, $vi) = each($v)) {
+	foreach($v as $ki=>$vi) {
 	  if ($ki[0] == 'v') // its a value
 	    $tma[$kv]["vmenuitems"] .= "".$vi.",";
 	}
@@ -175,12 +226,14 @@ function popupGen($kdiv) {
 	$nbdiv++;
       }
       $tmenus[$name]["nbdiv"]=$nbdiv;
+      $tmenus[$name]["menulabel"]="['".implode("','",$tsubmenu[$name])."']";
     }
 
     $lpopup->SetBlockData("MENUACCESS", $tma);
     $lpopup->SetBlockData("MENUS", $tmenus);
     if (isset($tcmenus)) $tcmenus=array_merge($tcmenus, $tmenus);
     else $tcmenus= $tmenus;
+    foreach ($tsubmenu as $kl=>$vl)  foreach ($vl as $sm) if ($sm!="") $tcmenus[$sm]["name"]=$sm;
     $lpopup->SetBlockData("CMENUS", $tcmenus);
   }
   $action->parent->AddJsCode( $lpopup->gen());
@@ -190,17 +243,19 @@ function popupGen($kdiv) {
 
   $tmenus = array(); // re-init (for next time)
   $tmenuaccess = array(); 
-  $menuitems = array(); 
+  $menuitems[$name] = array(); 
   unset($tmenus);
   unset($tmenusaccess);
+  unset($tsubmenu);
   unset($tmenuitems);
 }
 
-function popupAddGen($kdiv) {  
+function popupAddGen($kdiv="nothing") {  
   global $tmenuaccess;
   global $menuitems;
   global $tmenus;
   global $action;
+  global $tsubmenu;
 
 
   
@@ -228,6 +283,7 @@ function popupAddGen($kdiv) {
 	$nbdiv++;
       }
       $tmenus[$name]["nbdiv"]=$nbdiv;
+      $tmenus[$name]["menulabel"]="['".implode("','",$tsubmenu[$name])."']";
     }
 
     $lpopup->SetBlockData("ADDMENUACCESS", $tma);
@@ -239,9 +295,10 @@ function popupAddGen($kdiv) {
 
   $tmenus = array(); // re-init (for next time)
   $tmenuaccess = array(); 
-  $menuitems = array(); 
+  $menuitems[$name] = array(); 
   unset($tmenus);
   unset($tmenusaccess);
+  unset($tsubmenu);
   unset($tmenuitems);
 }
 ?>

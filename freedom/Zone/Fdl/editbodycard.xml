@@ -4,7 +4,7 @@
 
 <input type="hidden" name="title" value="[TITLE]"></input>
 
-<fieldset ><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
+<fieldset class="mfield" ><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
 
 <div id="T[frameid]" >
             [BLOCK [TABLEVALUE]]

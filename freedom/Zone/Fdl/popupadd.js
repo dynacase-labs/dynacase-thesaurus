@@ -1,6 +1,7 @@
 [BLOCK ADDMENUS]
 nbmitem['[name]'] += [nbmitem]; 
 tdivid['[name]']=tdivid['[name]'].concat([menuitems]);
+tdivsmenu['[name]']=tdivsmenu['[name]'].concat([menulabel]);
 [ENDBLOCK ADDMENUS]
 
 [BLOCK ADDMENUACCESS]

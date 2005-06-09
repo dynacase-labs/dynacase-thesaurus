@@ -14,6 +14,7 @@ function closeAllMenu() {
 nbmitem['[name]'] =[nbmitem]; 
 tdiv['[name]']= new Array([nbdiv]);
 tdivid['[name]']=[menuitems];
+tdivsmenu['[name]']=[menulabel];
 [ENDBLOCK MENUS]
 
 [BLOCK MENUACCESS]

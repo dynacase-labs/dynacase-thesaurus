@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.47 2005/03/25 17:09:41 eric Exp $
+ * @version $Id: popupcard.php,v 1.48 2005/06/09 12:18:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,6 +13,7 @@
 
 
 include_once("FDL/Class.Doc.php");
+include_once("FDL/popupfam.php");
 // -----------------------------------
 function popupcard(&$action) {
   // -----------------------------------
@@ -83,6 +84,10 @@ function popupcard(&$action) {
     popupInvisible('popupcard',$kdiv,'chicon');
   }
 
+  popupSubMenu('popupcard','lockdoc','security');
+  popupSubMenu('popupcard','unlockdoc','security');
+  popupSubMenu('popupcard','editprof','security');
+  popupSubMenu('popupcard','access','security');
   if ($doc->locked == $action->user->id) popupInvisible('popupcard',$kdiv,'lockdoc');
   else if (($doc->locked != $action->user->id) && 
 	   $clf) popupCtrlActive('popupcard',$kdiv,'lockdoc');
@@ -167,14 +172,14 @@ function popupcard(&$action) {
   popupCtrlActive('popupcard',$kdiv,'duplicate'); 
 
   if ($doc->locked != -1) {
-      if ($doc->wid > 0) {
-	$wdoc=new Doc($doc->dbaccess, $doc->wid);
-	if ($wdoc->isAlive()) {
-	  $wdoc->Set($doc);
-	  if (count($wdoc->GetFollowingStates()) > 0)  popupActive('popupcard',$kdiv,'editstate');
-	  else popupInactive('popupcard',$kdiv,'editstate');
-	}
+    if ($doc->wid > 0) {
+      $wdoc=new Doc($doc->dbaccess, $doc->wid);
+      if ($wdoc->isAlive()) {
+	$wdoc->Set($doc);
+	if (count($wdoc->GetFollowingStates()) > 0)  popupActive('popupcard',$kdiv,'editstate');
+	else popupInactive('popupcard',$kdiv,'editstate');
       }
+    }
   }
 
   if (($doc->wid > 0)|| ($doc->revision > 0))  popupActive('popupcard',$kdiv,'histo'); 
@@ -246,53 +251,94 @@ function popupcard(&$action) {
     $tm = $cvdoc->getTValue("CV_MSKID");
 
 
-  $tv=array(); // consult array views
-  $te=array(); // edit array views
-  if (count($tk) > 0)  {
-    foreach ($tk as $k=>$v) {
-      if ($tz[$k] != "") {
+    $tv=array(); // consult array views
+    $te=array(); // edit array views
+    if (count($tk) > 0)  {
+      foreach ($tk as $k=>$v) {
+	if ($tz[$k] != "") {
       
-	if ($ti[$k]=="") $cvk="CV$k";
-	else $cvk=$ti[$k];
-	if ($v == "VEDIT") {
-	  if (($clf)||($cud)) {	    
+	  if ($ti[$k]=="") $cvk="CV$k";
+	  else $cvk=$ti[$k];
+	  if ($v == "VEDIT") {
+	    if (($clf)||($cud)) {	    
+	      if ($cvdoc->control($cvk) == "") {
+		$te[$cvk] = array("idview"   => $cvk,
+				  "zoneview" => $tz[$k],
+				  "txtview"  => $tl[$k]);
+	      }
+	    }
+	  } else {      
 	    if ($cvdoc->control($cvk) == "") {
-	      $te[$cvk] = array("idview"   => $cvk,
+	      $tv[$cvk] = array("idview"   => $cvk,
 				"zoneview" => $tz[$k],
 				"txtview"  => $tl[$k]);
 	    }
 	  }
-	} else {      
-	  if ($cvdoc->control($cvk) == "") {
-	    $tv[$cvk] = array("idview"   => $cvk,
-			      "zoneview" => $tz[$k],
-			      "txtview"  => $tl[$k]);
-	  }
 	}
       }
-    }
-    $action->lay->SetBlockData("SVIEW",$tv);
-    $action->lay->SetBlockData("SEDIT",$te);
-  } 
+      $action->lay->SetBlockData("SVIEW",$tv);
+      $action->lay->SetBlockData("SEDIT",$te);
+    } 
   
-  if (count($tv) > 0)  {
-    popupInit('popupview',  array_keys($tv));
-    foreach ($tv as $k=>$v)  popupActive('popupview',$kdiv,$k); 
-    popupActive('popupcard',$kdiv,'sview');
-  } else {
-    popupInit('popupview',  array('z'));
-  }
-  if (count($te) > 0)  {
-    popupInit('popupedit',  array_keys($te));
-    foreach ($te as $k=>$v)  popupActive('popupedit',$kdiv,$k);  
-    popupActive('popupcard',$kdiv,'sedit');
-  } else {
-    popupInit('popupedit',  array('z'));
-  }
+    if (count($tv) > 0)  {
+      popupInit('popupview',  array_keys($tv));
+      foreach ($tv as $k=>$v)  popupActive('popupview',$kdiv,$k); 
+      popupActive('popupcard',$kdiv,'sview');
+    } else {
+      popupInit('popupview',  array('z'));
+    }
+    if (count($te) > 0)  {
+      popupInit('popupedit',  array_keys($te));
+      foreach ($te as $k=>$v)  popupActive('popupedit',$kdiv,$k);  
+      popupActive('popupcard',$kdiv,'sedit');
+    } else {
+      popupInit('popupedit',  array('z'));
+    }
   }  
 
+  $tsubmenu["security"]=array("idmenu"=>"security",
+			      "labelmenu"=>_("Security"));
+  $noctrlkey=($action->getParam("FDL_CTRLKEY","yes")=="no");
+  if ($noctrlkey) {
+    popupNoCtrlKey();
+    $tsubmenu["ctrlkey"]=array("idmenu"=>"ctrlkey",
+				"labelmenu"=>_("more..."));
+  }
+
+  popupfam($action,$tsubmenu);
+  $addidmenu=array();
+  foreach ($tsubmenu as $v) {
+    $addidmenu[]=$v["idmenu"];
+  }
+  if (count($addidmenu)>0) {
+    foreach ($addidmenu as $v)  {
+      popupAddItem('popupcard',  $v);
+      $ti=popupGetSubItems('popupcard',$v);
+      Popupinvisible('popupcard',$kdiv,$v);
+
+      //compute the access of submenu
+      // if all items are invisibles then sub menu is invisble
+      $mctrl=false;
+      foreach ($ti as $ki=>$vi) {
+	$a=popupGetAccessItem('popupcard',$kdiv,$vi);
+	if (($a == POPUP_ACTIVE) ||($a == POPUP_INACTIVE)) {
+	  PopupActive('popupcard',$kdiv,$v);
+	  $mctrl=false;
+	  break;
+	}
+	if (($a == POPUP_CTRLACTIVE) ||($a == POPUP_CTRLINACTIVE)) {
+	  $mctrl=true;
+	}
+      }
+      if ($mctrl) PopupCtrlActive('popupcard',$kdiv,$v);
+    }
+    
+  }
+  $action->lay->SetBlockData("SUBMENU",$tsubmenu);
+  $action->lay->SetBlockData("SUBDIVMENU",$tsubmenu);
 
 
 
-  popupGen($kdiv);
+  popupGen();
+
 }

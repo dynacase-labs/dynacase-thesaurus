@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.23 2005/04/01 17:21:56 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.24 2005/06/09 12:18:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,22 +18,39 @@ Class BasicAttribute {
   var $docid;
   var $labelText;
   var $visibility; // W, R, H, O, M, I
+  var $options;
 
   function BasicAttribute($id, $docid, $label ) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
   }
+  /**
+   * return value of option $x
+   */
+  function getOption($x) {
+    if (!isset($this->_topt)) {
+      $topt=explode("|",$this->options);
+      $this->_topt=array();
+      foreach ($topt as $k=>$v) {
+	list($vn,$vv)=explode("=",$v);
+	$this->_topt[$vn]=$vv;
+      }
+    }
+    
+    return $this->_topt[$x];
+  
+  }
 
   
   /**
    * to see if an attribute is n item of an array
    */
-   function inArray() {
-     if (get_class($this) == "normalattribute") {
-       if ($this->fieldSet->type=="array") return true;
-     }
-     return false;
+  function inArray() {
+    if (get_class($this) == "normalattribute") {
+      if ($this->fieldSet->type=="array") return true;
+    }
+    return false;
    }
   
 }
@@ -81,21 +98,6 @@ Class NormalAttribute extends BasicAttribute {
 
   }
 
-  /**
-   * return value of option $x
-   */
-  function getOption($x) {
-    if (!isset($this->_topt)) {
-      $topt=explode("|",$this->options);
-      $this->_topt=array();
-      foreach ($topt as $k=>$v) {
-	list($vn,$vv)=explode("=",$v);
-	$this->_topt[$vn]=$vv;
-      }
-    }
-    
-    return $this->_topt[$x];
-  }
   
   function getEnum() {   
     global $__tenum; // for speed optimization
@@ -183,13 +185,14 @@ Class MenuAttribute extends BasicAttribute {
   var $ordered;
   var $precond; // pre-condition to activate menu
 
-  function MenuAttribute($id, $docid, $label, $order, $link, $visibility="", $precond="" ) {
+  function MenuAttribute($id, $docid, $label, $order, $link, $visibility="", $precond="",$options="") {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
     $this->ordered=$order;
     $this->link=$link;
     $this->visibility=$visibility;
+    $this->options=$options;
 
   }
 

@@ -14,7 +14,7 @@ Class ADoc[docid] extends [AParent] {
     
      [ENDBLOCK AATTR]
      [BLOCK MATTR]
-     $this->attr["[attrid]"]=new MenuAttribute("[attrid]", "[docid]","[label]",[order],"[link]","[visibility]","[precond]");
+     $this->attr["[attrid]"]=new MenuAttribute("[attrid]", "[docid]","[label]",[order],"[link]","[visibility]","[precond]","[options]");
     
      [ENDBLOCK MATTR]
      [BLOCK FATTR]

@@ -41,13 +41,24 @@ function getScrollYOffset() {
 function openSubMenu(event, th, menuid) {
   var xy=getAnchorPosition(th.id);
   var dx=th.parentNode.offsetWidth;
-
+  var el;
+  var x1,x2,w1,w2,dw;
+  var x=xy.x;
   // close sub menu before
   closeSubMenu(th.parentNode.id);
+  activeMenuItem(event,menuid, 1);
 
-  
+  el = document.getElementById(menuid);
+  w1=getObjectWidth(el);
+  w2=getObjectWidth(document.body);
+  x2=x+dx;
+  if (x+w1+dx > w2) {
+	if (w1<w2) {
+	  x2=x-w1;
+	} 
+  } 
 
-  openMenuXY(event,menuid,xy.x+dx,+xy.y);
+  openMenuXY(event,menuid,x2,+xy.y);
 }
 
 function closeSubMenu(menuid) {  
@@ -80,12 +91,34 @@ function openMenu(event, menuid, itemid) {
 
 
   el = document.getElementById(menuid);
-  el.style.left = x + "px";
+  el.style.left = "0px";
   el.style.top  = y + "px";
-  el.style.visibility = "visible";
+  el.style.visibility = "hidden";
   el.style.display = "";
+
   closeSubMenu(menuid);
   activeMenuItem(event,menuid, itemid);
+  // test if it is on right of the window
+  w2=getObjectWidth(document.body);
+      // display right or left to maximize width
+  w1=getObjectWidth(el);
+
+      x2=x;
+      if (x+w1 > w2) {
+	if (w1<w2) {
+	  x2=w2-w1;
+	} else {
+	  x2=0;
+	}
+      } 
+
+    
+    el.style.left = x2 + "px";
+    el.style.display = "none";
+    el.style.display = "";
+    el.style.visibility = "visible";
+
+
  // event.stopPropagation();
   return false; // no navigator context menu
 }
@@ -230,7 +263,22 @@ function sendandreload(th, url) {
   }
 }
 
+function addSubMenuItems(mname,smname,divid) {
+  var od=document.getElementById(divid);
+  var e;
+  if (od) {
+    for (var i=0;i<tdivsmenu[mname].length;i++) {
+
+      if (tdivsmenu[mname][i]==smname) {
+	e=document.getElementById(tdivid[mname][i]);
+	if (e) 	  od.appendChild(e);	
+      }
+    }
+  }
+}
+
 var tdiv= new Array();
 var tdivid= new Array();
+var tdivsmenu= new Array();
 var nbmitem= new Array();
 

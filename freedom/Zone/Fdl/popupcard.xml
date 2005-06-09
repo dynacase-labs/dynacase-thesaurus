@@ -95,10 +95,23 @@
     onclick="if ((this.className == 'menuItem') || (this.className == 'menuItemCtrl'))  {ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_DEL&id=[id]','');}closeMenu('popupcard');">
 [TEXT:Delete]</a>
 
-<a href="#" id="cancel"  
-    onclick="closeMenu('popupcard')"  >[TEXT:Cancel]</a>
 
-[ZONE FDL:POPUPFAM]
+[BLOCK SUBMENU]
+<a  href="#" id="[idmenu]"       
+    onmouseover="openSubMenu(event,this,'popup[idmenu]');">[labelmenu] &gt;</a>
+[ENDBLOCK SUBMENU]
+<a href="#" id="cancel"  onclick="closeMenu('popupcard')"  >[TEXT:Cancel]</a>
+[IF SEP]
+<a class="separator"></a>
+[ENDIF SEP]
+
+[BLOCK ADDLINK]
+<a href="#" id="[idlink]"  
+    onclick="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) activate(this,'[url]','[target]');closeMenu('popupcard');">
+[descr]</a>
+
+[ENDBLOCK ADDLINK]
+
 </div>
 <div  id="popupview" name="popupcard" class="popup">
 [BLOCK SVIEW]
@@ -112,6 +125,10 @@
     onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&vid=[idview]&id=[id]','',true);closeMenu('popupcard');">[txtview]</a>
 [ENDBLOCK SEDIT]
 </div>
+[BLOCK SUBDIVMENU]
+<div  id="popup[idmenu]" name="popupcard" class="popup"></div>
+    <script>addSubMenuItems('popupcard','[idmenu]','popup[idmenu]');</script>
+[ENDBLOCK SUBDIVMENU]
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 
 

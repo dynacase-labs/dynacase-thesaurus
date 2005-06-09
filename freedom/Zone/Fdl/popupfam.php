@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.11 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: popupfam.php,v 1.12 2005/06/09 12:18:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.11 2003/08/18 15:47:04 eric Exp $
+// $Id: popupfam.php,v 1.12 2005/06/09 12:18:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,13 +36,14 @@
 
 include_once("FDL/Class.Doc.php");
 // -----------------------------------
-function popupfam(&$action) {
+function popupfam(&$action,&$tsubmenu) {
   // -----------------------------------
   // ------------------------------
   // define accessibility
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");
 
+  $action->lay->Set("SEP",false);
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new Doc($dbaccess, $docid);
 
@@ -63,11 +64,11 @@ function popupfam(&$action) {
   $tmenu = array();
   $km=0;
 
-
-  while(list($k,$v) = each($lmenu)) {
+  foreach($lmenu as $k=>$v) {
     
     $confirm=false;
     $control=false;
+
 
     if ($v->link[0] == '?') { 
       $v->link=substr($v->link,1);
@@ -90,13 +91,25 @@ function popupfam(&$action) {
     $tlink[$k]["control"]=$control;
     $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
     $tmenu[$km++] = $v->id;
+    popupAddItem('popupcard',  $v->id); 
+  }
+  if (count($tmenu) ==  0) return;
+  // ---------------------------
+  // definition of popup menu
+
+  // ---------------------------
+  // definition of sub popup menu);  
+  foreach($lmenu as $k=>$v) {   
+    $sm=$v->getOption("submenu");
+    if ($sm != "") {
+      $smid=base64_encode($sm);
+      $tsubmenu[$smid]=array("idmenu"=>$smid,
+			   "labelmenu"=>$sm);
+      popupSubMenu('popupcard',$v->id,$smid);
+    }
   }
 
-  if (count($tmenu) ==  0) return;
-  // ------------------------------------------------------
-  // definition of popup menu
-  popupInit('popupcard',  $tmenu);
-  
+
 
   while(list($k,$v) = each($tmenu)) {
     if ($tlink[$v]["url"] != "") {
@@ -105,10 +118,10 @@ function popupfam(&$action) {
     } else PopupInactive('popupcard',$kdiv,$v);
   }
 
+  
+  $noctrlkey=($action->getParam("FDL_CTRLKEY","yes")=="no");
+  if ($noctrlkey) popupNoCtrlKey();            
 
-
-
-  popupAddGen($kdiv);
   $action->lay->SetBlockData("ADDLINK",$tlink);
-  $action->lay->SetBlockData("SEP",array(array("zou")));// to see separatot
+  $action->lay->Set("SEP",true);// to see separatot
 }

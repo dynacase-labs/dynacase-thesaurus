@@ -3,7 +3,7 @@
 [BLOCK FIELDSET]
 <tr >
   <td  colspan="3" >
- <fieldset style="cursor:[cursor];"><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[flabel]</legend>
+ <fieldset class="mfield" style="cursor:[cursor];"><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[flabel]</legend>
 <table id="T[frameid]" width="100%" >
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1"><td valign="top" width="10%"&nbsp;</td>
