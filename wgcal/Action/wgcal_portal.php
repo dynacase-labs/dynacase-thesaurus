@@ -32,6 +32,8 @@ function wgcal_portal(&$action) {
   setHttpVar("ds", $start);
   setHttpVar("de", $end);
   setHttpVar("rlist", implode("|",$ress));
-  setHttpVar("explode", 1);
+  setHttpVar("explode", true);
+  setHttpVar("mode", $action->GetParam("WGCAL_U_PORTALSTYLE", "TABLE"));
+  
 }
 ?>

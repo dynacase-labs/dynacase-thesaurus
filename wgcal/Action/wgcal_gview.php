@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.5 2005/06/05 09:02:09 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.6 2005/06/09 15:21:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -26,9 +26,6 @@ function wgcal_gview(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $action->lay->set("bcolor", $theme->WTH_COLOR_2);
-  $action->lay->set("styleFIELDSET", false);
-  $action->lay->set("styleTABLE", false);
-  $action->lay->set("style".$action->GetParam("WGCAL_U_PORTALSTYLE", "TABLE"), true);
 
   $ds      = GetHttpVars("ds","");
   $de      = GetHttpVars("de","");
@@ -38,7 +35,15 @@ function wgcal_gview(&$action) {
   $menu    = GetHttpVars("menu", 1); 
   $famids  = GetHttpVars("famids", ""); 
   $ressids = GetHttpVars("rlist", $action->user->fid); 
-  $explode = (GetHttpVars("explode", "") == 1 || GetHttpVars("explode", "") == true ? true : false);
+  $explode = ((GetHttpVars("explode", "") == 1)? true : false);
+  $standalone = (strtoupper(GetHttpVars("sole", "N")) == "Y" ? true : false);
+  
+  $action->lay->set("styleFIELDSET", false);
+  $action->lay->set("styleTABLE", false);
+  if (GetHttpVars("mode","") == "FIELDSET") $action->lay->set("styleFIELDSET", true);
+  else $action->lay->set("styleTABLE", true);
+
+//     echo "search ds=$ds de=$de order=$order explode=".($explode?"true":"false")." title=$title filteron=$filteron famids=$famids ressids=$ressids<br>";
 
   // Set producer families
   if ($famids=="") {
@@ -64,12 +69,10 @@ function wgcal_gview(&$action) {
     }
     $evfilter[] = $ff;
   }
-  
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $dre = new Doc($dbaccess,$reid);
   $edre = array();
-  $edre = $dre->getEvents($ds,$de);
-//   $edre = $dre->getEvents($ds,$de, $explode, $evfilter);
+  $edre = $dre->getEvents($ds,$de, true, $evfilter);
 
 
   $calevent = getIdFromName($dbaccess,"CALEVENT");
@@ -88,6 +91,8 @@ function wgcal_gview(&$action) {
       
 
       if (!$refused) {
+
+	$doctmp = new Doc($dbaccess, $v["evt_idinitiator"]);
 
 	$day = substr($v["evt_begdate"],0,10);
       
@@ -123,23 +128,32 @@ function wgcal_gview(&$action) {
 	if ($v["evt_desc"]=!"") $devents[$day][$j]["HaveDesc"] = true;
 	else $devents[$day][$j]["HaveDesc"] = false;
 	$devents[$day][$j]["owner"] = $v["evt_creator"];
-     
+	$devents[$day][$j]["icon"] = $doctmp->GetIcon($v["icon"]);     
 	$btime[$day]["cnt"]++;
       }
     }
-    uasort($btime, "daySort");
-
-    $action->lay->setBlockData("btime", $btime);
-    foreach ($devents as $k => $v) { 
-      uasort($devents[$k], "evSort");
-      $action->lay->setBlockData("devents$k", $devents[$k]);
+    if (count($btime)>0) {
+      uasort($btime, "daySort");
+      $action->lay->setBlockData("btime", $btime);
+      if (count($devents)>0) {
+	foreach ($devents as $k => $v) { 
+	  uasort($devents[$k], "evSort");
+	  $action->lay->setBlockData("devents$k", $devents[$k]);
+	}
+	$action->lay->set("noresult", false);
+      } else {
+	$action->lay->set("noresult", true);
+      }
+    } else {
+	$action->lay->set("noresult", true);
     }
-    $action->lay->set("noresult", false);
   } else {
     $action->lay->set("noresult", true);
     $action->lay->setBlockData("btime", null);
     $btime = array();
   }
+  $action->lay->set("standalone", $standalone);
+  $action->lay->set("title", $title);
   
 }
 

@@ -1,22 +1,8 @@
-<table class="wToolButton" width="100%" cellspacing="0" cellpadding="0">
-<tr><td>
-<form id="fsearch" target="wgcal_search" method="POST" action="[CORE_STANDURL]&sole=Y&app=WGCAL&action=WGCAL_GVIEW"
-  onsubmit="subwindow(400, 400, '[TEXT:search result]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_GVIEW&filteron='+this.filteron.value+'&title='+this.title.value+'&ds='+this.ds.value+'&de='+this.de.value+'&rlist='+this.rlist.value); return false;" >
- <!--select name="filteron">
-<option value="title" selected>[TEXT:evt title]</option> 
-<option value="desc">[TEXT:evt desc]</option> 
-<option value="">[TEXT:evt all]</option> 
-</select--> 
-<input type="text" title="[TEXT:containing phrase...]" size="20" id="title" name="title" value="([TEXT:containing phrase...])" style="background:white;color:orange" onfocus="this.value = ''; this.style.color='black';">
- <input type="hidden" name="filteron" value="">
- <input type="hidden" name="ds" value="">
- <input type="hidden" name="de" value="">
- <input type="hidden" name="rlist" value="[rlist]">
- <input type="hidden" name="o" value="C">
+<div class="wToolButton" width="100%">
+<form style="display:inline" id="fsearch" name="fsearch"target="wgcal_search" method="POST" action="[CORE_STANDURL]&sole=Y&app=WGCAL&action=WGCAL_GVIEW" 
+      onsubmit="subwindow(400, 400, 'searchresult', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_GVIEW&title='+this.title.value+'&rlist='+(document.getElementById('mineonly').checked ? rsList : MyFreedomId )+'&explode=1&order=C'); return false;" >
+[TEXT:Search] : 
+<input width="90%" type="text" title="[TEXT:search event containing...]" class="textBorder" id="title" name="title" value="([TEXT:search phrase...])" style="background:white;color:orange" onfocus="if (this.value=='([TEXT:search phrase...])') this.value = ''; this.style.color='black';">
+<input type="checkbox" id="mineonly" name="mineonly" title="[TEXT:search in display ressources events]">
 </form>
-</td>
-<!-- td align="right">
-<img id="advsearch" title="[TEXT:advanced search]" onclick="subwindow(300, 500, '[TEXT:advanced search]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ASEARCH');" src="WGCAL/Images/wgcal-search+.png" height="15">
-</td -->
-</tr>
-</table>
+</div>

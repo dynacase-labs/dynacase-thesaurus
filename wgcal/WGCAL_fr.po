@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-07 11:37+0200\n"
+"POT-Creation-Date: 2005-06-09 16:15+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -595,9 +595,6 @@ msgstr "avant"
 msgid "mail to contacts"
 msgstr "Envoyer un mail aux personnes conviées"
 
-msgid "print"
-msgstr "Imprimer"
-
 msgid "delete"
 msgstr "Supprimer"
 
@@ -769,8 +766,8 @@ msgstr "Couleur"
 msgid "remove this ressource"
 msgstr "Enlever"
 
-msgid "display only me"
-msgstr "N'afficher que moi"
+msgid "display only this"
+msgstr "Afficher seul"
 
 msgid "invert selection"
 msgstr "Inverser la sélection"
@@ -799,6 +796,9 @@ msgstr "Note"
 msgid "save todo"
 msgstr "Sauvegarder la tâche"
 
+msgid "search result for"
+msgstr "Résultat de la recherche pour "
+
 msgid "no event"
 msgstr "Pas d'évènement."
 
@@ -811,11 +811,8 @@ msgstr "Téléphone mobile"
 msgid "mail"
 msgstr "Adresse mail"
 
-msgid "note"
-msgstr "Note"
-
-msgid "repeat"
-msgstr "répétition"
+msgid "attendees"
+msgstr "Personnes conviées"
 
 msgid "owner"
 msgstr "Propriétaire"
@@ -826,8 +823,8 @@ msgstr "Calendrier"
 msgid "modified"
 msgstr "modifié le"
 
-msgid "attendees"
-msgstr "Personnes conviées"
+msgid "note"
+msgstr "Note"
 
 msgid "to be confirm"
 msgstr "à confirmer"
@@ -841,23 +838,17 @@ msgstr "Historique"
 msgid "delconfirm"
 msgstr "à confirmer"
 
-msgid "search result"
-msgstr "Résultat..."
+msgid "Search"
+msgstr "Rechercher"
 
-msgid "evt title"
-msgstr "Titre"
+msgid "search event containing..."
+msgstr "Rechercher un évènement contenant..."
 
-msgid "evt desc"
-msgstr "Note"
+msgid "search phrase..."
+msgstr "Texte recherché"
 
-msgid "evt all"
-msgstr "Les 2"
-
-msgid "containing phrase..."
-msgstr "...contient..."
-
-msgid "advanced search"
-msgstr "Recherche avancée"
+msgid "search in display ressources events"
+msgstr "Rechercher dans les agendas affichés"
 
 msgid " ressource list changed, save it ?"
 msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
@@ -1011,6 +1002,27 @@ msgstr "Options des tâches"
 
 msgid "see contacts"
 msgstr "Contacts"
+
+#~ msgid "advanced search"
+#~ msgstr "Recherche avancée"
+
+#~ msgid "print"
+#~ msgstr "Imprimer"
+
+#~ msgid "repeat"
+#~ msgstr "répétition"
+
+#~ msgid "evt title"
+#~ msgstr "Titre"
+
+#~ msgid "evt desc"
+#~ msgstr "Note"
+
+#~ msgid "evt all"
+#~ msgstr "Les 2"
+
+#~ msgid "containing phrase..."
+#~ msgstr "...contient..."
 
 #~ msgid "delete attendee"
 #~ msgstr "Supprimer une personne conviée"

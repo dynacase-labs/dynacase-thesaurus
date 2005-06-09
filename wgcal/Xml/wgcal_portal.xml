@@ -1,9 +1,9 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <div  width="100%" >
 <table width="100%" class="WEvTitle" cellspacing="0" cellpadding="0"><tr valign="center">
-<td><img border="0" src="[IMG:wm-gotocalendar.png]" onclick="subwindow(400, 800, '[TEXT:workgroup calendar]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_MAIN');"></td>
+<td><img border="0" src="[IMG:wm-gotocalendar.gif]" onclick="subwindow(400, 800, '[TEXT:workgroup calendar]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_MAIN');"></td>
 <td align="center">Du [tds] au [tde]</td>
-<td align="right"><img border="0" src="[IMG:wm-reloadportal.png]" onclick="document.location.reload(true);"></td>
+<td align="right"><img border="0" src="[IMG:wm-reloadportal.gif]" onclick="document.location.reload(true);"></td>
 </tr></table>
 </div>
 

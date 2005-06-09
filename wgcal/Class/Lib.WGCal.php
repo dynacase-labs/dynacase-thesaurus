@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.35 2005/06/05 09:02:09 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.36 2005/06/09 15:21:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -145,7 +145,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   }
   $idfamref = implode("|", $fti);
 
-  if ($debug) echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
+  //echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
 
   setHttpVar("idfamref", $idfamref);
   $dre=new Doc($dbaccess,$reid);

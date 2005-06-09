@@ -10,7 +10,7 @@
 <thead></thead>
 <tbody id="tabress">
 <tr style="display:none" id="trsample">
-  <td><img style="cursor:pointer;border:0px" height="15"  src="WGCAL/Images/wm-delete.png" onclick="suppress = confirm('[TEXT:supress ressource] %RDESCR%'); if (suppress) deleteContact('%RID%');" title="[TEXT:suppress ressource] %RDESCR%"></td>
+  <td><img style="cursor:pointer;border:0px" height="15"  src="WGCAL/Images/wm-delete.png" onclick="suppress = confirm('[TEXT:supress ressource]'); if (suppress) deleteContact('%RID%');" title="[TEXT:suppress ressource] %RDESCR%"></td>
   <td id="%RID%" name="%RID%" ><img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%<span id="cp%RID%" style="display:none"></span></td>
 </tr>
 </table>

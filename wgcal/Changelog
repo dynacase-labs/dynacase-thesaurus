@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
-0.1.0.RC6
+1.0-0
 --------------------------------------------------------------------------
 - ajout d'un controle/masque (CALEVENT) admin (edition speciale) 
 - ajout d'un service portail
@@ -7,7 +7,7 @@
 - travaux d'Hercule : passage à Internet Explorer
 - vue mensuelle, finalisation, popup / affichage ou pas des week-end...
 - repositionnement sur le jour courant.
-- prise en compte de l'alarm 
+- gestion de l'alarme (interface)
 
 --------------------------------------------------------------------------
 0.1.0.RC5

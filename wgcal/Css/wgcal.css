@@ -14,6 +14,10 @@ table {
   color: [WTH_TEXTCOLOR_1];
 }
 
+IMG {
+ 	border : 0px;
+} 
+
 INPUT {
 	font-size: [WTH_FONTSIZE_NORMAL]pt;
 	font-family: [WTH_FONTLIST];
@@ -147,8 +151,12 @@ TD {
 .WGCAL_Day {
 	border-top: 0px;
 	border-left: 0px;
-	border-bottom: 1px dotted [WTH_COLOR_3];
- 	border-right: 1px dotted [WTH_COLOR_3];
+	border-bottom-color: [WTH_COLOR_3];
+	border-bottom-style: dotted;
+	border-bottom-width: 1px;
+	border-right-color: [WTH_COLOR_3];
+	border-right-style: dotted;
+	border-right-width: 1px;
 }
 .WGCAL_DayWE {
 	border-top: 0px;

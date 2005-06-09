@@ -28,21 +28,30 @@ function wgcal_textmonth(&$action)
   $nextmonth = strftime("%B", $nextmontht);
 
   // Search all event for this month
-  $iress = 0;
-  $tress[$iress++] = $action->user->fid;
-  $grp = WGCalGetRGroups($action, $action->user->id);
-  foreach ($grp as $kr=>$vr) $tress[$iress++] = $vr;
+  $viewme=false;
+  $ress = WGCalGetRessDisplayed($action);
+  $events = array();
+  $tr=array(); 
+  $ire=0;
+  foreach ($ress as $kr=>$vr) {
+    if ($vr->id>0) $tr[$ire++] = $vr->id;
+    if ($vr->id==$action->user->fid) $viewme=true;
+  }
+  if ($viewme) {
+    $grp = WGCalGetRGroups($action, $action->user->id);
+    foreach ($grp as $kr=>$vr) $tr[$ire++] = $vr;
+  }
   $d1 = "".$year."-".$month."-01 00:00:00";
   $d2 = "".$year."-".$month."-".$lastday." 23:59:59";
-  $tevents = WGCalGetAgendaEvents($action, $tress, $d1, $d2);
+  $tevents = WGCalGetAgendaEvents($action, $tr, $d1, $d2);
 
   $action->lay->setBlockData("CARDS", $tevents);
 
   $tdays = array();
   foreach ($tevents as $ke => $ve) {
     $ev = new Doc($dbaccess, $ve["IDP"]);
-    $dstart = strftime("%d", $ve["START"]);
-    $dend = strftime("%d", $ve["END"]);
+    $dstart = substr($ve["TSSTART"], 0, 2);
+    $dend = substr($ve["TSEND"], 0, 2);
     $htype = $ev->getValue("CALEV_TIMETYPE",0);
     for ($id=intval($dstart); $id<=intval($dend); $id++) {
       if (!is_array($tdays[$id]->events)) {
@@ -53,10 +62,7 @@ function wgcal_textmonth(&$action)
       $e = $ve["END"];
       if ($id>$dstart) $s = 0;
       if ($id<$dend) $e = 0;
-      $tdays[$id]->events[$tdays[$id]->ecount]["ID"] = $ve["ID"];
-      $tdays[$id]->events[$tdays[$id]->ecount]["RG"] = $ve["RG"]; 
-      $tdays[$id]->events[$tdays[$id]->ecount]["TSSTART"] = $ve["TSSTART"]; 
-      $tdays[$id]->events[$tdays[$id]->ecount]["action"] = $ve["action"];
+      $tdays[$id]->events[$tdays[$id]->ecount] = $ve;
       $tdays[$id]->events[$tdays[$id]->ecount]["START"] = $s;
       $tdays[$id]->events[$tdays[$id]->ecount]["END"] = $e;
       $tdays[$id]->events[$tdays[$id]->ecount]["H"] = $htype;
@@ -106,9 +112,9 @@ function wgcal_textmonth(&$action)
 	  for ($ie=0; $ie<count($tdays[$cday]->events); $ie++) {
 	    $ievent = $tdays[$cday]->events[$ie]["ID"];
 	    $d[$ie]["hours"] = "";
-	    if ($tdays[$cday]->events[$ie]["START"]>0) $s = strftime("%H:%M",$tdays[$cday]->events[$ie]["START"]);
+	    if ($tdays[$cday]->events[$ie]["START"]>0) $s = substr($tdays[$cday]->events[$ie]["TSSTART"],11,5);
 	    else $s = $hstart.":00";
-	    if ($tdays[$cday]->events[$ie]["END"]>0) $e = strftime("%H:%M",$tdays[$cday]->events[$ie]["END"]);
+	    if ($tdays[$cday]->events[$ie]["END"]>0) $e = substr($tdays[$cday]->events[$ie]["TSEND"],11,5);
 	    else $e = $hstop.":00";
 	    $d[$ie]["hours"] = $s."-".$e;
 

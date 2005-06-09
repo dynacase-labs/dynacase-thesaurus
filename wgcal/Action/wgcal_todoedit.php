@@ -6,6 +6,9 @@ include_once('WGCAL/Lib.WGCal.php');
 
 function wgcal_todoedit(&$action) {
 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");

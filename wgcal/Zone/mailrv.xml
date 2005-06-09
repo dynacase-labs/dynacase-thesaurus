@@ -11,7 +11,7 @@
 [rvtitle]<br/>
 </div>
 <a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">
-<div style="width:auto;height:auto;">[ZONE WGCAL:CALEV_CARD?ev=-1&cev=[rvid]&mode=v]</div></a>
+<div style="width:auto;height:auto;">[ZONE WGCAL:CALEV_CARD?id=-1&cev=[rvid]&mode=v]</div></a>
 <hr> <a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">Il est accessible depuis l'agenda de groupe.</a>
 </body>
 </html>

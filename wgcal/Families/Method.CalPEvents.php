@@ -88,9 +88,8 @@ function mailrv() {
   $this->lay->set("rvowner", $uo->title);
 
   $this->lay->set("rvtitle", GetHttpVars("msg", ""));
-//   $this->lay->set("rvtitle", $this->getValue("CALEV_EVTITLE"));
-  $this->lay->set("dstart", $this->getValue("CALEV_START"));
-  $this->lay->set("dend", $this->getValue("CALEV_END"));
+  $this->lay->set("dstart", substr($this->getValue("CALEV_START"),0,16));
+  $this->lay->set("dend", substr($this->getValue("CALEV_END"),0,16));
 
 }
 

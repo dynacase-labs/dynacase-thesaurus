@@ -108,13 +108,13 @@ var CEventText = '';
 <a href="#" id="removeress" onclick="removeRessource(CRessId); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="[IMG:wm-ressdelete.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
 <a class="separator"></a>
-<a href="#" id="onlyme" onclick="showHideAllRess(3); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="[IMG:wm-onlyme.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display only me]</a>
-<a href="#" id="invertress" onclick="showHideAllRess(2); closeMenu('resspopup')">[IF POPUPICONS]
+<a href="#" id="onlyme" onclick="showHideAllRess(CRessId); closeMenu('resspopup')">[IF POPUPICONS]
+<img style="border:0px" src="[IMG:wm-onlyme.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display only this]</a>
+<a href="#" id="invertress" onclick="showHideAllRess(-2); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="[IMG:wm-ressinvert.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:invert selection]</a>
 <a href="#" id="displayallr" onclick="showHideAllRess(0); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="[IMG:wm-ressdisplayall.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display all ressources]</a>
-<a href="#" id="hideallr" onclick="showHideAllRess(1); closeMenu('resspopup')">[IF POPUPICONS]
+<a href="#" id="hideallr" onclick="showHideAllRess(-1); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="[IMG:wm-resshideall.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:hide all ressources]</a>
 <a class="separator"></a>
 <a href="#" id="cancelress" onclick="closeMenu('resspopup')">[IF POPUPICONS]
@@ -161,9 +161,8 @@ var  toolList = new Array( 'inav', 'vvical', 'waitrv', 'todo' [IF SHOWCONTACTS],
 
 [BLOCK L_RESS]
 InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]');[ENDBLOCK L_RESS]
-
 var MyFreedomId = [MyFreedomId];
-document.getElementById('updatecal').submit();
+saveRessources();
 
 </script>
 

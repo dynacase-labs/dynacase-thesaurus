@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.20 2005/06/09 05:22:29 marc Exp $
+ * @version $Id: calev_card.php,v 1.21 2005/06/09 15:21:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -115,7 +115,6 @@ function calev_card(&$action) {
   }
   $bgresumecolor = $bgcolor = "white";
   foreach ($ress as $k => $v) if ($v->id==$ress_color) $bgresumecolor=$bgcolor=$v->color;
-//echo "[".$ev->getValue("CALEV_EVTITLE")."] display_me=$display_me me_attendee=$me_attendee ress_color=$ress_color<br>";
 
   if ($display_me) $bgnew = WGCalGetColorState($cstate);
   else $bgnew = "transparent";

@@ -35,6 +35,7 @@ function loadPeriod(urlroot, ts) {
 
 // ----------------------------------------------
 var ressourceList = new Array();
+var rsList = ""; // Idem ressourceList, but in "xxx|yyy|aaa" form (just ids for selected ressources)
 
 function getRessourcePos(rid) {
   var idx = -1;
@@ -64,6 +65,7 @@ function storeRessource(id, color, display, icon, descr, style) {
   ressourceList[idx][3] = icon;
   ressourceList[idx][4] = descr;
   ressourceList[idx][5] = style;
+  if (ressourceList[idx][2] == 1) rsList += ressourceList[idx][0]+'|';
 }
 
 function showAllRessource() {
@@ -138,15 +140,7 @@ function showHideAllRess(show) {
   var ir;
   for (ir=0; ir<ressourceList.length; ir++) {
     if (ressourceList[ir][0]>1) {
-      if (show==3) {
-	if (ressourceList[ir][0] == MyFreedomId) {
-	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
-	  ressourceList[ir][2] = 1;
-	} else {
-	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
-	  ressourceList[ir][2] = 0;
-	}
-      } else if (show==2) {
+      if (show==-2) {
 	if (ressourceList[ir][2] == 1) {
 	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
 	  ressourceList[ir][2] = 0;
@@ -154,13 +148,21 @@ function showHideAllRess(show) {
 	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
 	  ressourceList[ir][2] = 1;
 	}
-      } else if (show==1) {
+      } else if (show==-1) {
 	document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
 	ressourceList[ir][2] = 0;
-      } else {
+      } else if (show==0) {
 	document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
 	ressourceList[ir][2] = 1;
-      } 
+      } else if (show>0) {
+	if (ressourceList[ir][0] == show) {
+	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
+	  ressourceList[ir][2] = 1;
+	} else {
+	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
+	  ressourceList[ir][2] = 0;
+	}
+      }
     }
   }
   saveRessources();
@@ -173,8 +175,7 @@ function removeRessource() {
     alert('[TEXT: invalid ressource id]');
     return;
   }
-  idx = getRessourcePos(CRessId);
-//   alert ('ress '+CRessId+' id='+idx);
+  var idx = getRessourcePos(CRessId);
   if (idx!=-1) {
     ressourceList[idx][0] = -1;
     eltRess = document.getElementById('tr'+CRessId);
@@ -187,9 +188,12 @@ function removeRessource() {
    
 function saveRessources() {
   var rlist= "";
+  rsList = "";
   for (i=0; i<ressourceList.length;i++) {
-    if (ressourceList[i][0] != -1 ) 
+    if (ressourceList[i][0] != -1 ) {
       rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
+      if (ressourceList[i][2] == 1) rsList += ressourceList[i][0]+'|';
+    }
   }
   usetparam("WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
   return;
