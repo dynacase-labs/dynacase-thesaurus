@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.6 2005/04/14 14:29:30 eric Exp $
+ * @version $Id: fdl_card.php,v 1.7 2005/06/09 12:17:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -62,6 +62,7 @@ function fdl_card(&$action) {
     }
   }
   $action->lay->setBlockData("WACTION",$taction);
+  $action->lay->set("VALTERN",($action->GetParam("FDL_VIEWALTERN","yes")=="yes"));
 }
 
 ?>

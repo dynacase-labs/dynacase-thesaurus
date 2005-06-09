@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.35 2005/06/07 13:33:03 eric Exp $
+ * @version $Id: generic_edit.php,v 1.36 2005/06/09 12:17:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -157,6 +157,7 @@ function generic_edit(&$action) {
 
   $action->lay->setBlockData("WACTION",$taction);
 
+  $action->lay->set("VALTERN",($action->GetParam("FDL_VIEWALTERN","yes")=="yes"));
   // information propagation
   $action->lay->Set("classid", $classid);
   $action->lay->Set("dirid", $dirid);

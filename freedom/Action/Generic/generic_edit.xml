@@ -27,6 +27,7 @@
 addEvent(window,"load",editOnLoad);
 addEvent(window,"load",autoHresize);
 addEvent(window,"load",focusFirst);
+[IF VALTERN]addEvent(window,"load",function al1() {alterfieldset('terrible','[CORE_BGCOLORALTERN]');});[ENDIF VALTERN]
   //-->
    </script>   
 
@@ -34,7 +35,7 @@ addEvent(window,"load",focusFirst);
 
  </head>
 
-<body class="freedom" 
+<body class="freedom" id="terrible"
       onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[STITLE]:[TEXT:Changes will be loosed if you continue]'";
       onUnLoad="closechoose();if (! document.isCancelled) autoUnlock('[id]')"
      >

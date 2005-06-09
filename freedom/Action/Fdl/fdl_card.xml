@@ -22,6 +22,7 @@
    <script language="JavaScript">
   <!--
     [JS:CODE]
+[IF VALTERN]addEvent(window,"load",function al1() {alterfieldset('terrible','[CORE_BGCOLORALTERN]');});[ENDIF VALTERN]
   //-->
    </script>
  </head>
@@ -44,7 +45,7 @@
 
 [ZONE FDL:POPUPCARD]
 
-<div width="100%" class="tableborder" 
+<div width="100%" class="tableborder" id="terrible"
      style="cursor:crosshair;"
      onContextMenu="openMenu(event,'popupcard',1);return false" 
      onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard',1)"      >
