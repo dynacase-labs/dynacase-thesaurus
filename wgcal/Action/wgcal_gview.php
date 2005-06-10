@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.6 2005/06/09 15:21:48 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.7 2005/06/10 05:51:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -127,7 +127,9 @@ function wgcal_gview(&$action) {
 	$devents[$day][$j]["desc"] = $v["evt_desc"];
 	if ($v["evt_desc"]=!"") $devents[$day][$j]["HaveDesc"] = true;
 	else $devents[$day][$j]["HaveDesc"] = false;
-	$devents[$day][$j]["owner"] = $v["evt_creator"];
+	  $devents[$day][$j]["owner"] = $v["evt_creator"];
+	if ($v["evt_idcreator"] == $action->user->fid) $devents[$day][$j]["showowner"] = false;
+	else $devents[$day][$j]["showowner"] = true;
 	$devents[$day][$j]["icon"] = $doctmp->GetIcon($v["icon"]);     
 	$btime[$day]["cnt"]++;
       }

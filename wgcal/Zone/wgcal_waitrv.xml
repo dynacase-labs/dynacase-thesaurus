@@ -1,0 +1,12 @@
+[IF WAITRV]
+<br>
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr class="WEvTitle"><td colspan="3">[TEXT:waiting rv] ([RVCOUNT])</td></tr>
+[BLOCK RVLIST]
+<tr  valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'"  title="[wrvfulldescr]">
+<td>[calev_start]</td>
+<td>[calev_owner]</td>
+<td>[calev_evtitle]</td>
+</tr>
+[ENDBLOCK RVLIST]</table>
+<br>[ENDIF WAITRV]

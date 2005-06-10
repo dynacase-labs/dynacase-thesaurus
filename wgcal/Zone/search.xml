@@ -1,14 +1,8 @@
+<div class="wToolButton" width="100%">
 <form style="display:inline" id="fsearch" name="fsearch"target="wgcal_search" method="POST" action="[CORE_STANDURL]&sole=Y&app=WGCAL&action=WGCAL_GVIEW" 
       onsubmit="subwindow(400, 400, 'searchresult', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_GVIEW&title='+this.title.value+'&rlist='+(document.getElementById('mineonly').checked ? rsList : MyFreedomId )+'&explode=1&order=C'); return false;" >
-<table cellspacing="0" cellpadding="0" border="0" class="wToolButton" width="100%">
-<tr>
-<td width="80%">
 [TEXT:Search] : 
 <input size="15" type="text" title="[TEXT:search event containing...]" class="textBorder" id="title" name="title" value="([TEXT:search phrase...])" style="background:white;color:orange" onfocus="if (this.value=='([TEXT:search phrase...])') this.value = ''; this.style.color='black';">
-</td>
-<td width="20%" align="right">
 <input type="checkbox" id="mineonly" name="mineonly" title="[TEXT:search in display ressources events]">
-</td>
-</tr>
-</table>
 </form>
+</div>

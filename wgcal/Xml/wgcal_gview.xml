@@ -6,7 +6,9 @@
 <table width="100%" cellspacing="0">
 [BLOCK devents[date]]<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'" title="[date] [start][IF isHour]-[ENDIF isHour][end], [title]">
 <td width="25px"><img width="25px" border="0" src="[icon]"></td>
-<td  style="border-bottom:1px solid [bcolor]" nowrap><span>[start][IF isHour] -  [ENDIF isHour][end]</span><br><span style="font-size:80%; font-style:italic">([owner])</span></td>
+<td  style="border-bottom:1px solid [bcolor]" nowrap><span>[start][IF isHour] -  [ENDIF isHour][end]</span>
+[IF showowner]<br><span style="font-size:80%; font-style:italic">([owner])</span>[ENDIF showowner]
+</td>
 <td style="border-bottom:1px inset [bcolor];" align="right"><span style="font-weight:bold">[title]</span>[IF HaveDesc]<br><span style="font-size:80%;">[desc]</span>[ENDIF HaveDesc]</td>
 </tr>[ENDBLOCK devents[date]]</table>
 </fieldset>[ENDBLOCK btime]
@@ -18,7 +20,9 @@
 <tr><td colspan="3" class="WEvDays">[date]</td></tr>[BLOCK devents[date]]
 <tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'" title="[date] [start][IF isHour]-[ENDIF isHour][end], [title]">
 <td width="25px"><img width="25px" border="0" src="[icon]"></td>
-<td width="1%"  nowrap><span style="font-size:80%;">[start][IF isHour] -  [ENDIF isHour][end]</span><br><span style="font-size:80%; font-style:italic">([owner])</span></td>
+<td width="1%"  nowrap><span style="font-size:80%;">[start][IF isHour] -  [ENDIF isHour][end]</span>
+[IF showowner]<br><span style="font-size:80%; font-style:italic">([owner])</span>[ENDIF showowner]
+</td>
 <td ><span style="font-weight:bold">[title]</span>[IF HaveDesc]<br><span style="font-size:80%;">[desc]</span>[ENDIF HaveDesc]</td>
 </tr>
 [ENDBLOCK devents[date]]

@@ -8,4 +8,7 @@ onclick="subwindow(400, 650, 'EditEvent[id]', '[CORE_STANDURL]&app=WGCAL&action=
   onmouseout="this.className='WEvDefault';WGCalEvOnMouseOut(event, '[id]');" 
   onContextMenu="SetCurrentEvent([id], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
   onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([id], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
-  style="cursor:crosshair" ><span style="font-size:90%; text-decoration:underline">[hours]</span> <span style="font-weight:bold;">[title]</span></div>[ENDBLOCK HLine]<br>
+  style="cursor:crosshair" >
+<span style="font-size:90%; text-decoration:underline">[hours]</span>&nbsp;
+<span style="font-weight:bold;">[title]</span>
+[IF showOwner]&nbsp;<span style="font-size:80%; font-decoration:italic;">([owner])</span>[ENDIF showOwner]</div>[ENDBLOCK HLine]<br>

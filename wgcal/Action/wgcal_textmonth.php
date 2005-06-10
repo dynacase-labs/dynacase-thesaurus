@@ -67,6 +67,9 @@ function wgcal_textmonth(&$action)
       $tdays[$id]->events[$tdays[$id]->ecount]["END"] = $e;
       $tdays[$id]->events[$tdays[$id]->ecount]["H"] = $htype;
       $tdays[$id]->events[$tdays[$id]->ecount]["TITLE"] = $ev->getValue("CALEV_EVTITLE");
+      if ($ev->getValue("CALEV_OWNERID") == $action->user->fid) $tdays[$id]->events[$tdays[$id]->ecount]["showOwner"] = false;
+      else $tdays[$id]->events[$tdays[$id]->ecount]["showOwner"] = true;
+      $tdays[$id]->events[$tdays[$id]->ecount]["owner"] = $ev->getValue("CALEV_OWNER");
       $tdays[$id]->ecount++;
     }
   }
@@ -126,6 +129,8 @@ function wgcal_textmonth(&$action)
 	    $d[$ie]["TSSTART"] = $tdays[$cday]->events[$ie]["TSSTART"];
 	    $d[$ie]["RG"] = $tdays[$cday]->events[$ie]["RG"];
 	    $d[$ie]["action"] = $tdays[$cday]->events[$ie]["action"];
+	    $d[$ie]["showOwner"] = $tdays[$cday]->events[$ie]["showOwner"];
+	    $d[$ie]["owner"] = $tdays[$cday]->events[$ie]["owner"];
 	  }
 	}
 	$h->SetBlockData("HLine", $d);
