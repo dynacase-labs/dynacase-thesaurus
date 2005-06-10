@@ -1,6 +1,6 @@
 #!/bin/bash
 pubdir="/home/httpd/what";
 
-echo "alter table doc add column confidential int default 0;" | psql freedom anakeen
+echo "alter table doc add column confidential int" | psql freedom anakeen
 # icreate = create
 echo "update docperm set upacl = upacl | 64 where docid in (SELECT distinct(profid) from docfam where profid > 0) and (upacl & 32)=32;" | psql freedom anakeen
