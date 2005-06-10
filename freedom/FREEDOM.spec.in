@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.72 2005/06/07 16:07:53 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.73 2005/06/10 13:03:51 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -33,6 +33,7 @@ The FREEDOM (Free Document Object Model) module is use to manage document in int
 Summary: libraries of FREEDOM module
 Group: Applications/Web
 Requires: php >= 4.1
+Requires: php-gd
 Requires: postgresql >= 7.3
 Requires: html2ps
 Requires: ghostscript
