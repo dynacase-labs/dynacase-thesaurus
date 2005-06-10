@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.45 2005/06/03 15:16:21 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.46 2005/06/10 09:46:55 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -125,7 +125,7 @@ function wgcal_editevent(&$action) {
     $evrweekd = array();
     $evrmonth = 0;
     $evruntil = -1;
-    $evruntild = $timee + (14*24*3600);
+    $evruntild = $timee + (7*24*3600);
     $evrexcld  = array();
     $evstatus = EVST_ACCEPT;
     $withme = true;

@@ -1,5 +1,5 @@
 [IF standalone][ZONE WGCAL:WGCAL_HTMLHEAD][ENDIF standalone]
-[IFNOT standalone]<div width="100%" class="WEvTitle">[TEXT:search result for] "[title]"</div>[ENDIF standalone]
+[IF standalone]<div width="100%" class="WEvTitle">[TEXT:search result for] "[title]"</div>[ENDIF standalone]
 [IF noresult]<div width="100%" class="WEvDays">[TEXT:no event]</div>[ENDIF noresult]
 
 [IF styleFIELDSET][BLOCK btime]<fieldset><legend class="WEvDays">[date]</legend>

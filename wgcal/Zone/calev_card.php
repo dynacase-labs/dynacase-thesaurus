@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.21 2005/06/09 15:21:48 marc Exp $
+ * @version $Id: calev_card.php,v 1.22 2005/06/10 09:46:55 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -80,8 +80,11 @@ function calev_card(&$action) {
   $action->lay->set("modifdate", strftime("%d/%m/%y %H:%M",$ev->revdate));
   $action->lay->set("incalendar", $ev->getValue("CALEV_EVCALENDAR"));
 
-  if ($private) $action->lay->set("TITLE", $pretitle." "._("confidential event"));
-  else $action->lay->set("TITLE", $pretitle." ".$ev->getValue("CALEV_EVTITLE"));
+  if ($private) $title = $pretitle." "._("confidential event");
+  else $title = $pretitle." ".$ev->getValue("CALEV_EVTITLE");
+  //if (strlen($title)>40) $rtitle = substr($title,0,39)."<br>".substr($title,40,79);
+  $action->lay->set("TITLE", $title);
+  
 
   $tress  = $ev->getTValue("CALEV_ATTID");
   $tresse = $ev->getTValue("CALEV_ATTSTATE");

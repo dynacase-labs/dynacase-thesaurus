@@ -24,11 +24,17 @@
     <tr><td>[repeatuntil]</td></tr>
   </table>
   </td>
-  <td valign="top" rowspan="2">
+  <td valign="top">
   <fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend><div><!--  style="height:100px; overflow:hidden;"-->
 [BLOCK attlist]<div><img height="15" src="[atticon]"><span style="text-decoration:[attnamestyle]">[atttitle]</span>&nbsp;<span style="font-style:italic">([attstate])</span></div>
 [ENDBLOCK attlist]</div>
   </fieldset></td>
+</tr>
+
+<tr style="display:[displaynote]">
+ <td colspan="2" valign="top">
+ <span style="font-weight:bold">[TEXT:note] : </span><div class="WGCwrvdefault" style="padding:2px, margin:2px; width:auto">[NOTE]</div>
+ </td>
 </tr>
 
 <tr>
@@ -38,12 +44,6 @@
 <span style="font-size:80% font-style:italic">[TEXT:modified]</span>: [modifdate]<br> -->
 <span style="font-size:80%; font-style:italic">[owner] [modifdate]</span>
   </td>
-</tr>
-
-<tr style="display:[displaynote]">
- <td colspan="2" valign="top">
- [TEXT:note] : <div style="width:auto">[NOTE]</div>
- </td>
 </tr>
 
 </table>
