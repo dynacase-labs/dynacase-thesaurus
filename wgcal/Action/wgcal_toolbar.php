@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.34 2005/06/03 05:15:05 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.35 2005/06/13 09:33:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -209,7 +209,7 @@ function _listress(&$action)
       else PopupActive('resspopup', $rd->id, 'removeress');
       $t[$i]["RG"] = $i;
       $t[$i]["RID"] = $rd->id;
-      $t[$i]["RDESCR"] = $rd->title;
+      $t[$i]["RDESCR"] = addslashes($rd->getTitle());
       $t[$i]["RICON"] =  $rd->getIcon();
       $t[$i]["RCOLOR"] = $cid;
       $t[$i]["RSTATE"] = $sid;
