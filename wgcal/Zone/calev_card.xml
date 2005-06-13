@@ -33,7 +33,7 @@
 
 <tr style="display:[displaynote]">
  <td colspan="2" valign="top">
- <span style="font-weight:bold">[TEXT:note] : </span><div class="WGCwrvdefault" style="padding:2px, margin:2px; width:auto">[NOTE]</div>
+ <span style="font-weight:bold">[TEXT:note] : </span><div style="border: 1px inset; padding:5px; margin:5px; width:auto">[NOTE]</div>
  </td>
 </tr>
 

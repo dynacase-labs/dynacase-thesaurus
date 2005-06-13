@@ -1,6 +1,11 @@
 --------------------------------------------------------------------------
-0.1.0-0
+0.1.0
 --------------------------------------------------------------------------
+Release 2
+- dysfonctionnement menu contextuel sur les rv (visualisation)
+- affichage des évents avec note longue
+
+Release 1
 - ajout d'un controle/masque (CALEVENT) admin (edition speciale) 
 - ajout d'un service portail
 - correction des chevauchement lors des vérifications de conflits

@@ -144,6 +144,7 @@ function  ResetSetTimerOnMO() {
 }
 
 function ShowEvInfos() {
+  var ww = getFrameWidth();
   if (TimerOnElt!='') {
     WGCalCleanAllFullView();
     evtc = document.getElementById(TimerOnElt);
@@ -153,6 +154,10 @@ function ShowEvInfos() {
     SetAltCoord(evtc);
     evtc.style.left = AltCoord.x+'px';
     evtc.style.top = AltCoord.y+'px';
+    var w = getObjectWidth(evtc);
+    if (w>(ww/2)) {
+      evtc.style.width = (ww/2)+'px';
+    }
   }
   ResetSetTimerOnMO();
 }

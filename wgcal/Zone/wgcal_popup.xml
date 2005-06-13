@@ -20,7 +20,7 @@ closeMenu('calpopup')">[label]</a>[ENDBLOCK POPUPITEMS]
 [IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evedit.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:edit this]</a>
 <a href="#" id="deloccur" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELOCCUR&ev='+EvSelected+'&evocc='+EvCurDay,'wgcal_calendar');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="[IMG:wm-deloccur.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:delete this occurence]</a>
-<a href="#" id="viewrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&ev='+EvSelected,'wgcal_view');closeMenu('calpopup')" >
+<a href="#" id="viewrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&id='+EvSelected,'wgcal_view');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evview.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:view this]</a>
 <a href="#" id="deleterv" onclick="ok =confirm('[TEXT:confirm delete for this event] ?'); if (ok) activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT&ev='+EvSelected,'');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evdelete.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:delete this]</a>
