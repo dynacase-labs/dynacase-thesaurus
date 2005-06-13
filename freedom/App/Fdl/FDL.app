@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.27 2005/06/07 16:07:13 eric Exp $
+// $Id: FDL.app,v 1.28 2005/06/13 09:15:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -27,6 +27,7 @@ $app_desc = array (
 "short_name"	=>N_("Freedoms lib"),		//Short name
 "description"	=>N_("Freedoms library"),//long description
 "access_free"	=>"N",			//Access free ? (Y,N)
+"icon" 		=>"fdl.gif",
 "displayable"	=>"N"			//Should be displayed on an app list (Y,N)
 
 );
