@@ -3,7 +3,7 @@
  * Edition to send mail
  *
  * @author Anakeen 2000 
- * @version $Id: editmail.php,v 1.9 2005/05/13 16:05:26 eric Exp $
+ * @version $Id: editmail.php,v 1.10 2005/06/13 16:24:50 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -25,7 +25,7 @@ function editmail(&$action) {
   $from = GetHttpVars("_mail_from","");
   
   if ($from == "") {
-    $from=getMailAddr($action->user->id);    
+    $from=getMailAddr($action->user->id, true);    
   }
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
