@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.52 2005/06/13 16:26:34 marc Exp $
+ * @version $Id: mailcard.php,v 1.53 2005/06/13 16:32:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.52 2005/06/13 16:26:34 marc Exp $
+// $Id: mailcard.php,v 1.53 2005/06/13 16:32:58 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -68,10 +68,12 @@ function mailcard(&$action) {
     $raddr = GetHttpVars("_mail_recip", "");
     if (count($raddr)>0) {
       foreach ($raddr as $k => $v) {
-        switch ($rtype[$k]) {
-        case "cc": $mailcc .= ($mailcc==""?"":",").$v; break;
-        case "bcc": $mailbcc .= ($mailbcc==""?"":",").$v; break;
-        default : $mailto .= ($mailto==""?"":",").$v; break;
+        if ($v!="") { 
+          switch ($rtype[$k]) {
+          case "cc": $mailcc .= ($mailcc==""?"":",").$v; break;
+          case "bcc": $mailbcc .= ($mailbcc==""?"":",").$v; break;
+          default : $mailto .= ($mailto==""?"":",").$v; break;
+          }
         }
       }
     }
