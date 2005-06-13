@@ -41,9 +41,11 @@ function getScrollYOffset() {
 function openSubMenu(event, th, menuid) {
   var xy=getAnchorPosition(th.id);
   var dx=th.parentNode.offsetWidth;
-  var el;
+  var el,cy,hf,hh;
   var x1,x2,w1,w2,dw;
   var x=xy.x;
+  var y=xy.y;
+
   // close sub menu before
   closeSubMenu(th.parentNode.id);
   activeMenuItem(event,menuid, 1);
@@ -58,7 +60,14 @@ function openSubMenu(event, th, menuid) {
 	} 
   } 
 
-  openMenuXY(event,menuid,x2,+xy.y);
+  cy=(window.event)?window.event.clientY:event.clientY;
+  hf=getFrameHeight();
+  h1=getObjectHeight(el);
+  hh=getObjectHeight(th);
+  //  alert(h1+'-'+cy+'-'+hf+'-'+xy.y);
+  if (cy+h1>hf) y=y-h1+hh;
+
+  openMenuXY(event,menuid,x2,y);
 }
 
 function closeSubMenu(menuid) {  
@@ -74,7 +83,7 @@ var Xold; // for short cut key
 var Yold;
 function openMenu(event, menuid, itemid) {
   var el, x, y;
-
+  var cy,h1,hf;
   GetXY(event);
   if ((Xpos>0) && (Ypos>0)) {
    Xold=Xpos;
@@ -112,8 +121,13 @@ function openMenu(event, menuid, itemid) {
 	}
       } 
 
+  cy=(window.event)?window.event.clientY:event.clientY;
+  h1=getObjectHeight(el);
+  hf=getFrameHeight();
+  if (cy+h1 > hf) y=y-h1+4;
     
     el.style.left = x2 + "px";
+    el.style.top  = y + "px";
     el.style.display = "none";
     el.style.display = "";
     el.style.visibility = "visible";

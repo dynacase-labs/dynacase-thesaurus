@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.58 2005/06/07 16:07:13 eric Exp $
+ * @version $Id: viewcard.php,v 1.59 2005/06/13 09:14:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -156,8 +156,9 @@ function viewcard(&$action) {
 
   $action->lay->Set("comment", $doc->comment);
 
-
-  if ($doc->locked == 0) {
+  if ($doc->confidential >0) $action->lay->Set("locked", _("confidential"));
+  else if ($doc->control("edit") != "") $action->lay->Set("locked", _("read only"));
+  else if ($doc->locked == 0) {
       $action->lay->Set("locked", _("nobody"));
   } else {
     if ($doc->locked == -1) {
