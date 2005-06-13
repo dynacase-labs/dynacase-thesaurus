@@ -2,7 +2,8 @@
 0.1.0
 --------------------------------------------------------------------------
 Release 2
-- affichage des ressources (toolbar) : addslashes()
+- taille de la zone de recherche avec police moyenne/grande
+- affichage des ressources (toolbar, editevent) : addslashes()
 - dysfonctionnement menu contextuel sur les rv (visualisation)
 - affichage des évents avec note longue
 

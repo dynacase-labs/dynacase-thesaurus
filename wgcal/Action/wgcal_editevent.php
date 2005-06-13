@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.46 2005/06/10 09:46:55 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.47 2005/06/13 10:39:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -414,7 +414,7 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
     $att[$a]["attId"]    = $v;
     $att[$a]["attSelect"]    = "true";
     $att[$a]["attState"] = $attendeesState[$k];
-    $att[$a]["attTitle"] = $res->title;
+    $att[$a]["attTitle"] = $res->getTitle();
     $att[$a]["attIcon"]  = $res->GetIcon();
     if ($res->fromid==$groupfid || $res->fromid==$igroupfid) {
       $ulist = $ugrp->GetUsersGroupList($res->getValue("US_WHATID"));
@@ -423,7 +423,7 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
 	$rg = new Doc($dbaccess, $vu["fid"]);
         if ($rg->fromid==$groupfid || $rg->fromid==$igroupfid) continue;
 	$tugrp[$rgrp]["atticon"] = $rg->GetIcon();;
-	$tugrp[$rgrp]["atttitle"] = $rg->title;
+	$tugrp[$rgrp]["atttitle"] = $rg->getTitle();
 	$cstate = "?";
 	foreach ($attendees as $katt => $vatt) {
 	  if ($vatt==$rg->id) $cstate = WGCalGetLabelState($attendeesState[$katt]);
@@ -435,7 +435,7 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
       $action->lay->SetBlockData($tallgrp[$grp]["GROUPCONTENT"], $tugrp);
       $tallgrp[$grp]["RID"] = $v;
       $tallgrp[$grp]["groupicon"] = $res->getIcon();
-      $tallgrp[$grp]["grouptitle"] = $res->title;
+      $tallgrp[$grp]["grouptitle"] = $res->getTitle();
       $grp++;
       $att[$a]["attLabel"] = "";
       $att[$a]["attColor"] = "transparent";
@@ -474,7 +474,7 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
     if ($tx[0]=="" || $tx[0]==$action->user->fid) continue;
     $res = new Doc($dbaccess, $tx[0]);
     $to[$ito]["idress"] = $ito;
-    $to[$ito]["resstitle"] = $res->title;
+    $to[$ito]["resstitle"] = addslashes($res->getTitle());
     $to[$ito]["ressid"] = $tx[0];
     $to[$ito]["ressico"] = $res->getIcon();
     $ito++;
@@ -490,7 +490,7 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
     if ($v=="" || $v==$action->user->fid) continue;
     $res = new Doc($dbaccess, $v);
     $to[$ito]["idress"] = $ito;
-    $to[$ito]["resstitle"] = $res->title;
+    $to[$ito]["resstitle"] = addslashes($res->getTitle());
     $to[$ito]["ressid"] = $v;
     $to[$ito]["ressico"] = $res->getIcon();
     $ito++;

@@ -20,7 +20,7 @@ function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
 <div id="[RESSID]"  class="WGCRessDefault" title="[RESSTITLE]"
      onmouseover="WGCalChangeClass(event, '[RESSID]', 'WGCFamSelected', 'WGCRessOver');" 
      onmouseout="WGCalChangeClass(event, '[RESSID]', 'WGCFamSelected', 'WGCRessDefault');"
-     onclick="SelectRessource('[RESSID]', '[RESSTITLE]', '[RESSICON]', '[STATE]', '[TSTATE]', '[CSTATE]');" >
+     onclick="SelectRessource('[RESSID]', '[RESSTITLEJS]', '[RESSICON]', '[STATE]', '[TSTATE]', '[CSTATE]');" >
   <img height="15"  src="[RESSICON]" title="[RESSTITLE]"/>[RESSTITLE]
 </div>[ENDBLOCK RESSOURCES]
 </fieldset>
