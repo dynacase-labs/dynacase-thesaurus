@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.51 2005/06/09 14:10:18 eric Exp $
+ * @version $Id: mailcard.php,v 1.52 2005/06/13 16:26:34 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.51 2005/06/09 14:10:18 eric Exp $
+// $Id: mailcard.php,v 1.52 2005/06/13 16:26:34 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,6 +51,35 @@ function mailcard(&$action) {
   // control sending
   $err=$doc->control('send');
   if ($err != "") $action->exitError($err);
+
+  $mailto = "";
+  $mailcc = "";
+  $mailbcc = "";
+  $mailfrom = GetHttpVars("_mail_from", "freedom");
+
+  $mailto = "";
+  $mailcc = "";
+  $mailbcc = "";
+  $mailfrom = GetHttpVars("_mail_from", "freedom");
+
+  $mt = GetHttpVars("_mail_to","");
+  if ($mt == "") {
+    $rtype = GetHttpVars("_mail_copymode", "");
+    $raddr = GetHttpVars("_mail_recip", "");
+    if (count($raddr)>0) {
+      foreach ($raddr as $k => $v) {
+        switch ($rtype[$k]) {
+        case "cc": $mailcc .= ($mailcc==""?"":",").$v; break;
+        case "bcc": $mailbcc .= ($mailbcc==""?"":",").$v; break;
+        default : $mailto .= ($mailto==""?"":",").$v; break;
+        }
+      }
+    }
+  }
+  setHttpVar("_mail_to", $mailto);
+  setHttpVar("_mail_cc", $mailcc);
+  setHttpVar("_mail_bcc", $mailbcc);
+  setHttpVar("_mail_from", $mailfrom);
 
   $err=sendmailcard($action);  
 
