@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.22 2005/06/10 09:46:55 marc Exp $
+ * @version $Id: calev_card.php,v 1.23 2005/06/14 03:41:04 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -90,20 +90,34 @@ function calev_card(&$action) {
   $tresse = $ev->getTValue("CALEV_ATTSTATE");
   $tressg = $ev->getTValue("CALEV_ATTGROUP");
 
+  $ress = WGCalGetRessDisplayed($action);
 
-// Si je suis convié et affichable => Ma couleur
-// Si le propriétaire est dans les affichables => Couleur du propriétaire
-// Si le propriétaire n'est pas affichable => Couleur du premier convié qui est affichable. 
+  $ressd = array();
+  foreach ($tress as $k => $v) {
+    $ressd[$v]["state"] = $v;
+    $ressd[$v]["color"] = "white";
+    $ressd[$v]["displayed"] = false;
+    foreach ($ress as $kd => $vd ) {
+      if ($vd->id == $v) {
+	$ressd[$v]["color"] = $vd->color;
+	$ressd[$v]["displayed"] = true;
+      }
+    }
+  }
+
+
+// Si je suis convié / j'ai refusé / affichable => Ma couleur
+// Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
+// Si le propriétaire n'est pas affichable => Couleur du premier convié qui est affichable et pas refusé.... 
   $me_attendee = false;
   $cstate = -1;
   foreach ($tress as $k => $v) {
-    if ($v == $action->user->fid) {
+    if ($v == $action->user->fid && $tresse[$k]!=EVST_REJECT) {
       $me_attendee = true;
       $cstate = $tresse[$k];
     }
   }
   $display_me = false;
-  $ress = WGCalGetRessDisplayed($action);
   foreach ($ress as $k => $v ) if ($v->id == $action->user->fid) $display_me = true;
 
   $ress_color = -1;

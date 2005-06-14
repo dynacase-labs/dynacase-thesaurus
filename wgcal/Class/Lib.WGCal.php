@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.36 2005/06/09 15:21:48 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.37 2005/06/14 03:41:04 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -168,18 +168,24 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
  		   "TSEND" => $end, 
 		   "END" => localFrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
-    $ref = false;
+    $refused = false;
     if ($showrefused!=1 && $v["evt_frominitiatorid"] == $rvfamid) {
       $attr = array();
       $attr = $dre->_val2array($v["evfc_rejectattid"]);
       foreach ($attr as $kat => $vat) {
-        if ($action->user->fid == $vat) $ref = true;
+        if ($action->user->fid == $vat) $refused = true;
       } 
     }
-    
-    if (!$ref) { 
+    $att = $dre->_val2array($v["evfc_listattid"]);
+    $displayedRess = WGCalGetRessDisplayed($action);
+    foreach ($att as $kat => $vat) {
+      foreach ($displayedRess as $kr => $vr) {
+	if ($vr->id == $vat) $refused = false;
+      }
+    }
+      
+    if (!$refused) { 
 
-      $vo = new Doc($dbaccess, $v["evt_idinitiator"]);  
       $n = new Doc($dbaccess, $v["id"]);  
       $item["RESUME"] = $n->calVResume;
       $item["VIEW"] = $n->calVCard;
