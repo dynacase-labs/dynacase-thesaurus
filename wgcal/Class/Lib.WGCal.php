@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.38 2005/06/14 04:58:21 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.39 2005/06/14 15:47:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -93,7 +93,7 @@ function wgcalGetRessourcesMatrix($id=-1) {
   while (list($k,$v) = each($cals)) {
     if ($v!="") {
       $tc = explode("%", $v);
-      if ($tc[0] != "") {
+      if ($tc[0] != "" && isset($ressd[$tc[0]])) {
 	$ressd[$tc[0]]["displayed"] = ($tc[1] == 1 ? true : false );
 	$ressd[$tc[0]]["color"] = $tc[2];
       }
@@ -151,7 +151,7 @@ function WGCalGetFirstDayOfMonth($ts) {
  	return strftime("%u", $ts);
 }
       	
-function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="") 
+function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="") 
 {
 
   include_once('FDL/popup_util.php');
@@ -159,13 +159,11 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   $debug = false;
 //       $debug = true;
 
-  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $rvfamid = getIdFromName($dbaccess, "CALEVENT");
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $tout=array(); 
-  $idres = implode("|", $tr);
+  $idres = implode("|", $displress);
   setHttpVar("idres",$idres);
 
   $fref = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
@@ -176,7 +174,7 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
   }
   $idfamref = implode("|", $fti);
 
-  //echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
+  echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
 
   setHttpVar("idfamref", $idfamref);
   $dre=new Doc($dbaccess,$reid);
@@ -189,7 +187,11 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
                                'acceptrv', 'rejectrv', 'tbcrv', 'historyrv',
                                'cancelrv'));
 
-
+  
+  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
+  echo "showrefused = $showrefused<br>";
+  $rvfamid = getIdFromName($dbaccess, "CALEVENT");
+  
   foreach ($edre as $k=>$v) {
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
     $item = array( "ID" => $v["id"], 
@@ -199,23 +201,38 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
  		   "TSEND" => $end, 
 		   "END" => localFrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
-    $refused = false;
-    if ($showrefused!=1 && $v["evt_frominitiatorid"] == $rvfamid) {
-      $attr = array();
-      $attr = $dre->_val2array($v["evfc_rejectattid"]);
-      foreach ($attr as $kat => $vat) {
-        if ($action->user->fid == $vat) $refused = true;
-      } 
-    }
-    $att = $dre->_val2array($v["evfc_listattid"]);
-    $displayedRess = WGCalGetRessDisplayed($action);
-    foreach ($att as $kat => $vat) {
-      foreach ($displayedRess as $kr => $vr) {
-	if ($vr->id == $vat) $refused = false;
+
+    $displayEvent = true;
+
+    // Traitement de refus => spécifique à CALEVENT
+    if ($v["evt_frominitiatorid"] == $rvfamid) {
+
+      $displayEvent = false;
+      
+      // Affichage
+      // - si une ressource affiché est dedans et pas refusé
+      // - si une ressource affiché est dedans et pas refusé
+      $attlist  = $dre->_val2array($v["evfc_listattid"]);
+      $attrstat = $dre->_val2array($v["evfc_listattst"]);
+      $attstatus = array();
+      foreach ($attlist as $kat => $vat) $attstatus[$vat] = $attrstat[$kat];
+      
+      foreach ($displress as $kad => $vad) {
+	if ($action->user->fid!=$kad && isset($attstatus[$kad]) &&  $attstatus[$vad]!=EVST_REJECT) {
+	  echo "Ressource #$kad affichée, status[$vad]:".$attstatus[$vad]."!=EVST_REJECT<br>";
+	  $displayEvent = true;
+	}
+      }
+
+      if (!$displayEvent && isset($attstatus[$action->user->fid])) {
+	if ($attstatus[$action->user->fid]!=EVST_REJECT && $showrefused==1) {
+	  echo "Moi (#".$action->user->fid.") affiché, status ".$attstatus[$action->user->fid]."!=EVST_REJECT<br>";
+	  $displayEvent = true;
+	}
       }
     }
-      
-    if (!$refused) { 
+
+    if ($displayEvent) { 
 
       $n = new Doc($dbaccess, $v["id"]);  
       $item["RESUME"] = $n->calVResume;
@@ -223,9 +240,6 @@ function WGCalGetAgendaEvents(&$action,$tr,$d1="",$d2="")
       $item["VIEWLTEXT"] = $n->calVLongText;
       $item["VIEWSTEXT"] = $n->calVShortText;
       $item["RG"] = count($tout);
-      
-      // Determine color according ressource identification
-      $item["__color"] = WGCalEvSetColor($action, $v);
       
       PopupInvisible('calpopup',$item["RG"], 'acceptrv');
       PopupInvisible('calpopup',$item["RG"], 'rejectrv');

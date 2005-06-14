@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.24 2005/06/14 04:58:21 marc Exp $
+ * @version $Id: calev_card.php,v 1.25 2005/06/14 15:47:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -90,19 +90,22 @@ function calev_card(&$action) {
   $tresse = $ev->getTValue("CALEV_ATTSTATE");
   $tressg = $ev->getTValue("CALEV_ATTGROUP");
 
+  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
   $ressd = wgcalGetRessourcesMatrix($ev->id);
 
 // Si je suis convié / j'ai refusé / affichable => Ma couleur
 // Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
 // Si le propriétaire n'est pas affichable => Couleur du premier convié qui est affichable et pas refusé.... 
   $event_color = "";
-  if (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT &&  $ressd[$myid]["displayed"]) 
+  if (isset($ressd[$myid]) 
+      && (($ressd[$myid]["state"]==EVST_REJECT && $showrefused==1) || $ressd[$myid]["state"]!=EVST_REJECT )
+      && $ressd[$myid]["displayed"]) 
     $event_color = $ressd[$myid]["color"];
   else {
-    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT &&  ressd[$ownerid]["displayed"]) 
+    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT &&  $ressd[$ownerid]["displayed"]) 
       $event_color = $ressd[$myid]["color"];
     else {
-      while ((list($k,$v) => $ressd) && $event_color=="") {
+      while ((list($k,$v) = each($ressd)) && $event_color=="") {
 	if ($v["state"]!=EVST_REJECT) $event_color = $v["color"];
       }
     }
