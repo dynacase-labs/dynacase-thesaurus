@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.37 2005/06/14 03:41:04 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.38 2005/06/14 04:58:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -69,6 +69,37 @@ function WGCalToolIsVisible( &$action,  $tool ) {
   }
   if ($state==1) $state = true;
   return $state;
+}
+
+function wgcalGetRessourcesMatrix($id=-1) {
+  global $action;
+
+  $event = new Doc($action->getParam("FREEDOM_DB"), $id);
+  $tress  = $event->getTValue("CALEV_ATTID");
+  $tresse = $event->getTValue("CALEV_ATTSTATE");
+  $tressg = $event->getTValue("CALEV_ATTGROUP");
+
+  $ressd = array();
+  foreach ($tress as $k => $v) {
+    if (!(isset($ressd[$v]) && $tressg[$k]==-1)) {
+      $ressd[$v]["state"] = $tresse[$k];
+      $ressd[$v]["color"] = "white";
+      $ressd[$v]["displayed"] = false;
+      $ressd[$v]["group"] = $tressg[$k];
+    }
+  }
+
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+  while (list($k,$v) = each($cals)) {
+    if ($v!="") {
+      $tc = explode("%", $v);
+      if ($tc[0] != "") {
+	$ressd[$tc[0]]["displayed"] = ($tc[1] == 1 ? true : false );
+	$ressd[$tc[0]]["color"] = $tc[2];
+      }
+    }
+  }
+  return $ressd;
 }
 
 function WGCalGetRessDisplayed(&$action) {

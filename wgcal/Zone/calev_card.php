@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.23 2005/06/14 03:41:04 marc Exp $
+ * @version $Id: calev_card.php,v 1.24 2005/06/14 04:58:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -30,10 +30,10 @@ function calev_card(&$action) {
   $action->lay->set("mode", ($mode=="v"?"":"none"));
 
 //   $pretitle = "";
-
+  $myid = $action->user->fid;
   $ownerid = $ev->getValue("CALEV_OWNERID");
   $conf    = $ev->getValue("CALEV_VISIBILITY");
-  $private = ((($ownerid != $action->user->fid) && ($conf!=0)) ? true : false );
+  $private = ((($ownerid != $myid) && ($conf!=0)) ? true : false );
   $tpriv = array();
 
   $action->lay->set("ID",    $ev->id);
@@ -90,51 +90,30 @@ function calev_card(&$action) {
   $tresse = $ev->getTValue("CALEV_ATTSTATE");
   $tressg = $ev->getTValue("CALEV_ATTGROUP");
 
-  $ress = WGCalGetRessDisplayed($action);
-
-  $ressd = array();
-  foreach ($tress as $k => $v) {
-    $ressd[$v]["state"] = $v;
-    $ressd[$v]["color"] = "white";
-    $ressd[$v]["displayed"] = false;
-    foreach ($ress as $kd => $vd ) {
-      if ($vd->id == $v) {
-	$ressd[$v]["color"] = $vd->color;
-	$ressd[$v]["displayed"] = true;
-      }
-    }
-  }
-
+  $ressd = wgcalGetRessourcesMatrix($ev->id);
 
 // Si je suis convié / j'ai refusé / affichable => Ma couleur
 // Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
 // Si le propriétaire n'est pas affichable => Couleur du premier convié qui est affichable et pas refusé.... 
-  $me_attendee = false;
-  $cstate = -1;
-  foreach ($tress as $k => $v) {
-    if ($v == $action->user->fid && $tresse[$k]!=EVST_REJECT) {
-      $me_attendee = true;
-      $cstate = $tresse[$k];
+  $event_color = "";
+  if (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT &&  $ressd[$myid]["displayed"]) 
+    $event_color = $ressd[$myid]["color"];
+  else {
+    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT &&  ressd[$ownerid]["displayed"]) 
+      $event_color = $ressd[$myid]["color"];
+    else {
+      while ((list($k,$v) => $ressd) && $event_color=="") {
+	if ($v["state"]!=EVST_REJECT) $event_color = $v["color"];
+      }
     }
   }
-  $display_me = false;
-  foreach ($ress as $k => $v ) if ($v->id == $action->user->fid) $display_me = true;
+    
+  $me_attendee = (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT &&  $ressd[$myid]["displayed"]);
 
-  $ress_color = -1;
-  if ($display_me && $me_attendee) $ress_color = $action->user->fid;
-  else  {
-    foreach ($ress as $k => $v ) if ($v->id ==  $ownerid) $ress_color = $ownerid;
-    if ( $ress_color == -1) {
-       foreach ($tress as $k => $v ) {
-         foreach ($ress as $kv => $vv) if ($v == $vv->id) $ress_color = $vv->id;
-       }
-    }
-  }
-  $bgresumecolor = $bgcolor = "white";
-  foreach ($ress as $k => $v) if ($v->id==$ress_color) $bgresumecolor=$bgcolor=$v->color;
+  $bgnew = "white";
+  $bgresumecolor = $bgcolor = $event_color;
+  if (isset($ressd[$myid]) && $ressd[$myid]["displayed"]) $bgnew = WGCalGetColorState($ressd[$myid]["state"]);
 
-  if ($display_me) $bgnew = WGCalGetColorState($cstate);
-  else $bgnew = "transparent";
   $action->lay->set("bgstate", $bgnew);
   $action->lay->set("bgcolor", $bgcolor);
   $action->lay->set("bgresumecolor", $bgresumecolor);
