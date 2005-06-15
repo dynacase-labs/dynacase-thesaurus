@@ -3,7 +3,7 @@
  * Event Class
  *
  * @author Anakeen 2005
- * @version $Id: Method.Event.php,v 1.7 2005/03/18 09:21:38 marc Exp $
+ * @version $Id: Method.Event.php,v 1.8 2005/06/15 16:25:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -34,6 +34,12 @@ function explodeEvtTest($d1,$d2) {
   $this->evt_enddate="20/12/2003";
   $t1[]=get_object_vars($this);
   return $t1;;
+}
+
+function getEventIcon() {  
+  $eicon=$this->getValue("EVT_ICON");
+  if ($eicon=="")  return $this->getValue("EVT_FROMINITIATORICON");
+  return "";
 }
 
 ?>

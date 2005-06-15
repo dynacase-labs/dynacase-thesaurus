@@ -98,7 +98,7 @@ DIV.year {
 }
 
 DIV.event {
-	-moz-border-radius:9px;
+	/*-moz-border-radius:9px;*/
 	overflow:hidden;
 	border:solid  1px;
 	cursor:pointer;
@@ -116,7 +116,7 @@ DIV.event {
 	font-size:7pt;
   	[IFNOT ISIE]background-image:url('[IMG:7hi.png]');[ENDIF ISIE]
   [IF ISIE]filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:7hi.png]',sizingMethod='scale');[ENDIF ISIE]
-	-moz-border-radius:9px 9px 0px 0px;
+	/*-moz-border-radius:9px 9px 0px 0px;*/
 }
 DIV.xgrid {
 	overflow:hidden;

@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.21 2005/06/01 15:36:05 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.22 2005/06/15 16:25:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -92,7 +92,9 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   $action->parent->AddJsRef("FREEEVENT:PLANNER.JS",true);
   $action->parent->AddCssRef("FREEEVENT:PLANNER.CSS",true);
   //  $action->parent->AddCssRef($action->GetParam("CORE_PUBURL")."/FREEEVENT/Layout/planner.css",true);
-  $byres= (getHttpVars("byres","N")=="Y");
+  if (getHttpVars("byres")!="")  $byres= (getHttpVars("byres","N")=="Y");
+  else $byres=(($this->getValue("DCAL_GROUPBY","BYRES"))=="BYRES");
+  $this->lay->set("byres",$byres);
 
   $idxc=$this->getValue("DCAL_COLORIDX","ir");// color index (by ressource by default)
   $korder1=$this->getValue("DCAL_ORDERIDX1","absx"); ; // begin date by default
@@ -171,8 +173,13 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
     
   }
 
+  $tidres=$this->getTValue("DCAL_IDRES");
+  $onlyres=($this->getValue("dcal_viewonlyres","all")=="only");
   $ridx=0;
   $delta=$mend-$mstart;
+  $titleinline=($this->getValue("dcal_prestitle","INLINE")=="INLINE");
+  $titleinleft=($this->getValue("dcal_prestitle","INLINE")=="LEFT");
+  $this->lay->set("inleft",$titleinleft);
   $this->lay->set("dday100",round($delta));
   $this->lay->set("dday50",round($delta*0.5));
   $this->lay->set("dday10",round($delta*0.1));
@@ -188,6 +195,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
     $x=floor(100*($v["m1"]-$mstart)/$delta);
     $w=floor(100*($v["m2"]-$v["m1"])/$delta);
     foreach ($tr as $ki=>$ir) {
+      if ($onlyres && (!in_array($ir,$tidres))) continue;
       if (! isset($residx[$ir])) $residx[$ir]=count($residx)+1;
       $RN[$sub]=array("w"=>sprintf("%d",($w<1)?1:$w),
 		      "absx"=>$v["m1"],
@@ -197,14 +205,18 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 		      //"subline"=>$colorredid[$ir],
 		      "ir"=>"$ir",
 		      "idx"=>$sub,		      
-		      "evticon"=>$this->getIcon($v["evt_frominitiatoricon"]),
+		      "evticon"=>$this->getIcon($v["evt_icon"]),
 		      "rid"=>getv($v,"evt_idinitiator"),
 		      "fid"=>getv($v,"evt_frominitiatorid"),
 		      "eid"=>getv($v,"id"),
 		      "res"=>$tresname[$ki],
 		      "subtype"=>getv($v,"evt_code"),
-		      "divtitle"=>((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"],
-		      "desc"=>str_replace(array("\n","\r"),array("<br/>",""),(addslashes(sprintf("<b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",$v["title"],
+		      "divtitle"=>($titleinline)?(((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"]):'',
+		      "divtitle2"=>($titleinleft)?(((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"]):'',
+		      "desc"=>str_replace(array("\n","\r","'"),array("<br/>","","&quot;"),((sprintf("<img src=\"%s\" style=\"float:left\"><b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",
+												 $this->getIcon(getv($v,"evt_icon")),
+												 $v["title"],
+												 
 						 getv($v,"evt_frominitiator"),
 						 substr(getv($v,"evt_begdate"),0,10),
 						 (substr(getv($v,"evt_enddate"),0,10)!=substr(getv($v,"evt_begdate"),0,10))?substr(getv($v,"evt_enddate"),0,10):substr(getv($v,"evt_begdate"),11,5)."/".substr(getv($v,"evt_enddate"),11,5),
@@ -217,7 +229,6 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 		       "res"=>$tresname[$ki]);
       
     }
-    
   }
   if (count($tres) > 0) {
   $dcol=360/count($colorredid);

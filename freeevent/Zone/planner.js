@@ -471,6 +471,7 @@ function eventoffset() {
   var px=0,pk=0;
   var k,kk,li;
   var line=1;
+  var ts=new Array();
   
   tevents.sort(eventsort);
 
@@ -505,12 +506,19 @@ function eventoffset() {
     if (sl) {      
 	kk=0;
 	fk=false;
-	for (ki=pk;ki<k;ki++) {	  
+	ts=[];
+	tevents[k][6]=po+1;
+	for (ki=k-1;ki>=pk;ki--) {
+	  if (! in_array(tevents[ki][6],ts) ) {
 	  if (xi >= (tevents[ki][3]+tevents[ki][4])) {
 	    // try to place in highter subline
-	    tevents[k][6]=kk+0.001;	    
+	    tevents[k][6]=tevents[ki][6];//+0.001;
 	    fk=true;
+	    //	    alert(ki);alert(ts);
 	    break;
+	  }
+	  ts.push(tevents[ki][6]);
+	  
 	  }
 	  kk++;
 	}
@@ -529,15 +537,14 @@ function eventoffset() {
     initpo(pk,k,po);
 
   }
-  
 }
 
 function initpo(p1,p2,po) {
-  var kk=0;
+
   for (var ki=p1;ki<p2;ki++) {
-    if (tevents[ki][6]==0) tevents[ki][6]=kk;
-    kk++;
     tevents[ki][7]=po;
+    //     tevents[ki][5]=tevents[ki][5]+'<h1>'+ki+')PO:'+tevents[ki][6]+'-'+tevents[ki][7]+'['+p1+','+p2+']'+'</h1>';
+
   }
 
 }
@@ -550,4 +557,42 @@ function initoffset() {
     tevents[k][6]=0;
     tevents[k][7]=0;
   }
+}
+var tevtrot=['evtres','evttitle',''];
+var ievtrot=0;
+function showrot() {
+  var n=tevtrot[ievtrot];
+
+  if (ievtrot == 2) {
+    // showall
+    displaybyname(tevtrot[0],'');   
+    displaybyname(tevtrot[1],'');
+  } else if (ievtrot == 1) {
+    // showall
+    displaybyname(tevtrot[1],'');
+    displaybyname(tevtrot[0],'none');
+  } else if (ievtrot == 0) {
+    // showall
+    displaybyname(tevtrot[0],'');
+    displaybyname(tevtrot[1],'none');
+  }
+
+  ievtrot = (ievtrot +1)%3;    
+  
+}
+
+function displaybyname(n,d) {
+  var le = document.getElementsByName(n);
+
+  for (var i=0;i<le.length;i++) {
+    le[i].style.display=d;
+  }
+
+}
+
+function in_array(e,t) {  
+  for (var i=0;i<t.length;i++) {
+    if (t[i]==e) return true;
+  }
+  return false;
 }

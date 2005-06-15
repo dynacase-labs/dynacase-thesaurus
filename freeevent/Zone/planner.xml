@@ -6,7 +6,9 @@ document.vid='[vid]';
 document.zone='[zone]';
 document.needreload=true;
 document.moreurl='[ppar]';
+rw=140;
 addEvent(window,"load",placeEvents);
+
 </script>
 
 
@@ -39,7 +41,7 @@ addEvent(window,"load",placeEvents);
 </table>
 <div id="bgmilli"   class="fond">
 [BLOCK BAR]
-<b id="res[idx]" class="ressource" style="display:none;background-color:[color];">[res]</b>
+<div id="res[idx]" class="ressource" style="display:none;background-color:[color];" [IFNOT byres][IF inleft] onclick="showrot()"[ENDIF inleft]onmouseout="unviewdesc(event)" onmouseover="viewdesc(event,[idx])"[ENDIF byres]><span name="evtres"><b>[res]</b></span>[IFNOT byres]<span name="evttitle"> <i>[divtitle2]</i></span>[ENDIF byres]</div>
 <div id="bar[idx]" class="event" style="display:none;background-color:[color];"     onclick="subwinevt([FDL_VD2SIZE],[FDL_HD2SIZE],'detailevt','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')" onmouseout="unviewdesc(event)" onmouseover="viewdesc(event,[idx])"><img  align="right" src="[evticon]" height="100%"><span style="font-size:7pt">[divtitle]</span></div>
 <script>
 tevents[[idx]]=['[idx]',[line],[subline],[absx],[absw],'[desc]'];
