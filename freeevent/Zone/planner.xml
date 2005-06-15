@@ -25,16 +25,16 @@ addEvent(window,"load",placeEvents);
 
 <table id="tcalhead" width="100%" border="1" style="background-color:transparent">
 <thead>
-<tr><td  align="left">[begdate]<button onclick="movecal(-100)" >&lt;[dday100]</button><button onclick="movecal(-50)" >&lt;[dday50]</button><button onclick="movecal(-10)">&lt;[dday10]</button></td>
+<tr><td  align="left">[begdate]<button onclick="movecal(-100)" title="[dday100] [TEXT:days]">&lt;&lt;&lt;</button><button onclick="movecal(-50)" title="[dday50] [TEXT:days]">&lt;&lt;</button><button onclick="movecal(-10)" title="[dday10] [TEXT:days]">&lt;</button></td>
 <td><button onclick="zoomx=zoomx*2;placeEvents();" title="[TEXT:zoom x2]">&rarr;</button>
 <button onclick="zoomy=zoomy*1.5;placeEvents();" title="[TEXT:zoom x1.5]">&darr;</button>
 <button onclick="zoomx=1;zoomy=1;placeEvents();"title="[TEXT:zoom 0]" >0</button>
 <button onclick="zoomx=zoomx/2;placeEvents();" title="[TEXT:zoom /2]">&larr;</button>
 <button onclick="zoomy=zoomy/1.5;placeEvents();" title="[TEXT:zoom /1.5]">&uarr;</button></td>
 <td align="right">
-<button onclick="movecal(10)">&gt;[dday10]</button>
-<button onclick="movecal(50)">&gt;[dday50]</button>
-<button onclick="movecal(100)">&gt;[dday100]</button>[enddate]</td></tr>
+<button onclick="movecal(10)" title="[dday10] [TEXT:days]">&gt;</button>
+<button onclick="movecal(50)" title="[dday50] [TEXT:days]">&gt;&gt;</button>
+<button onclick="movecal(100)" title="[dday100] [TEXT:days]">&gt;&gt;&gt;</button>[enddate]</td></tr>
 </thead>
 </table>
 <div id="bgmilli"   class="fond">
@@ -52,3 +52,9 @@ tevents[[idx]]=['[idx]',[line],[subline],[absx],[absw],'[desc]'];
 <div id="cdday"  style="position:absolute;left:0px;top:0px;"></div>
 <div id="xgrid"  class="xgrid" ></div>
 <div id="ygrid"  class="ygrid" ></div>
+
+<script>
+[IF byres]eventoffset();[ENDIF byres]
+[IFNOT byres]initoffset();[ENDIF byres]
+
+</script>

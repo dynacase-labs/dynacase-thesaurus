@@ -467,86 +467,79 @@ function eventsort(a,b) {
 var toffset=new Array();
 var tidx=new Array(); // new index for event
 function eventoffset() {
-  var po=0,pr=0;
-  var px=0;
-  var k,kk;
+  var po=0;
+  var px=0,pk=0;
+  var k,kk,li;
   var line=1;
   
   tevents.sort(eventsort);
 
   for (k=0;k<tevents.length;k++) {
     tidx[parseInt(tevents[k][0])]=k;
-    tevents[k][5]=tevents[k][5]+'<h1>'+k+'</h1>';
     
     xi=tevents[k][3];
     wi=tevents[k][4];
     li=tevents[k][2];
     tevents[k][6]=0;
     tevents[k][7]=0;
-    if (li > line) { // change reinit : lien
+    if (li > line) { // change line : reinit
       if (po > 0) {
-	kk=0;
-	for (ki=(k-pr-1);ki<k;ki++) {
-	  if (tevents[ki][6]==0) tevents[ki][6]=kk;
-	  kk++;
-	  tevents[ki][7]=po;
-	}
+	initpo(pk,k,po);
       }
       po=0;
-      pr=0;
       px=0;
+      pk=k;
     }
 
     line=li;
 
-    //    alert(xi+','+wi+','+px+','+(xi+wi));
-    if (xi < px) {
-      
+
+    sl=false; // same event group ?
+    for (ki=pk;ki<k;ki++) {
+      if (xi < (tevents[ki][3]+tevents[ki][4])) {
+	sl=true;
+	break;
+      }
+    }
+
+    if (sl) {      
 	kk=0;
 	fk=false;
-	for (ki=(k-po-1);ki<k;ki++) {	  
+	for (ki=pk;ki<k;ki++) {	  
 	  if (xi >= (tevents[ki][3]+tevents[ki][4])) {
+	    // try to place in highter subline
 	    tevents[k][6]=kk+0.001;	    
 	    fk=true;
-	    //alert (k+' for '+kk);
 	    break;
 	  }
 	  kk++;
 	}
+
 	if (!fk) po++;
-	pr++;
     } else {
-      if (pr > 0) {
-	kk=0;
-	//alert((k-pr)+'--'+(k)+'--po='+po);
-	for (ki=(k-pr-1);ki<k;ki++) {
-	  if (tevents[ki][6]==0) tevents[ki][6]=kk;
-	  kk++;
-	  tevents[ki][7]=po;
-	}
-      }
+      // new subline
+      initpo(pk,k,po);
       po=0; 
-      pr=0;      
-      
+      pk=k;
     }
     px=xi+wi;
 
-    //tevents[k][2]=po;
   }
   if (po > 0) {
-	kk=0;
-	//	alert((k-po-1)+'--'+(k));
-	for (ki=(k-po-1);ki<k;ki++) {
-	  if (tevents[ki][6]==0) tevents[ki][6]=kk;
-	  kk++;
-	  tevents[ki][7]=po;
-	}
-      }
-  
+    initpo(pk,k,po);
 
-    for (k=0;k<tevents.length;k++) {
-       tevents[k][5]=tevents[k][5]+'<h1>PO:'+tevents[k][6]+'-'+tevents[k][7]+'</h1>';
-    }
+  }
+  
+}
+
+function initpo(p1,p2,po) {
+  var kk=0;
+  for (var ki=p1;ki<p2;ki++) {
+    if (tevents[ki][6]==0) tevents[ki][6]=kk;
+    kk++;
+    tevents[ki][7]=po;
+  }
+
 }
 function initoffset() {
   var k;
