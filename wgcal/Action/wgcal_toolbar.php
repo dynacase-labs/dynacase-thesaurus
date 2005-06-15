@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.35 2005/06/13 09:33:12 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.36 2005/06/15 17:32:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -18,7 +18,6 @@ include_once("osync/Lib.WgcalSync.php");
 include_once("EXTERNALS/WGCAL_external.php");
 
 function wgcal_toolbar(&$action) {
-
 
   if ($action->getParam("WGCAL_U_TBCONTACTS",0)) $action->lay->set("SHOWCONTACTS", true);
   else $action->lay->set("SHOWCONTACTS", false);
