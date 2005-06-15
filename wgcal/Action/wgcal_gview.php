@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.7 2005/06/10 05:51:17 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.8 2005/06/15 17:32:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -36,7 +36,7 @@ function wgcal_gview(&$action) {
   $famids  = GetHttpVars("famids", ""); 
   $ressids = GetHttpVars("rlist", $action->user->fid); 
   $explode = ((GetHttpVars("explode", "") == 1)? true : false);
-  $standalone = (strtoupper(GetHttpVars("sole", "N")) == "Y" ? true : false);
+  $standalone = (GetHttpVars("standalone", "Y")=="Y" ? true : false);
   
   $action->lay->set("styleFIELDSET", false);
   $action->lay->set("styleTABLE", false);

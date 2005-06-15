@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.39 2005/06/14 15:47:14 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.40 2005/06/15 17:32:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,6 +12,7 @@
  */
 include_once("FDL/mailcard.php");
 include_once("osync/Class.WSyncDate.php");
+include_once("EXTERNALS/WGCAL_external.php");
 
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
@@ -174,7 +175,7 @@ function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="")
   }
   $idfamref = implode("|", $fti);
 
-  echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
+//   echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
 
   setHttpVar("idfamref", $idfamref);
   $dre=new Doc($dbaccess,$reid);
@@ -189,7 +190,6 @@ function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="")
 
   
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
-  echo "showrefused = $showrefused<br>";
   $rvfamid = getIdFromName($dbaccess, "CALEVENT");
   
   foreach ($edre as $k=>$v) {
@@ -214,21 +214,31 @@ function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="")
       // - si une ressource affiché est dedans et pas refusé
       $attlist  = $dre->_val2array($v["evfc_listattid"]);
       $attrstat = $dre->_val2array($v["evfc_listattst"]);
-      $attstatus = array();
-      foreach ($attlist as $kat => $vat) $attstatus[$vat] = $attrstat[$kat];
-      
-      foreach ($displress as $kad => $vad) {
-	if ($action->user->fid!=$kad && isset($attstatus[$kad]) &&  $attstatus[$vad]!=EVST_REJECT) {
-	  echo "Ressource #$kad affichée, status[$vad]:".$attstatus[$vad]."!=EVST_REJECT<br>";
-	  $displayEvent = true;
-	}
+      $attinfo = array();
+      foreach ($attlist as $kat => $vat) {
+	$attinfo[$vat]["status"] = $attrstat[$kat];
+	$attinfo[$vat]["display"] = isset($displress[$vat]);
       }
+      
+      foreach ($attinfo as $kat => $vat) {
+	
+// 	echo "(me:".$action->user->fid.") [".$v["id"]."] Ressource #$kat affichée:".($vat["display"]?"oui":"non");
+	if ($vat["display"]) {
 
-      if (!$displayEvent && isset($attstatus[$action->user->fid])) {
-	if ($attstatus[$action->user->fid]!=EVST_REJECT && $showrefused==1) {
-	  echo "Moi (#".$action->user->fid.") affiché, status ".$attstatus[$action->user->fid]."!=EVST_REJECT<br>";
-	  $displayEvent = true;
+	  if ($action->user->fid!=$kat) {
+	    if ($vat["status"]!=EVST_REJECT) {
+// 	      echo " Ressource X, status:".$vat["status"]."!=EVST_REJECT";
+	      $displayEvent = true;
+	    }
+	  } else {
+// 	    echo " (vat(status)=".$vat["status"]." showrefused=$showrefused)";
+	    if ($vat["status"]!=EVST_REJECT || $showrefused==1) {
+// 	      echo " Moi, showrefused=$showrefused status:".$vat["status"]."!=EVST_REJECT";
+	      $displayEvent = true;
+	    }
+	  }
 	}
+// 	echo "<br>";
       }
     }
 

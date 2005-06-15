@@ -1,12 +1,35 @@
-[IF WAITRV]
-<br>
-<table width="100%" cellspacing="0" cellpadding="0">
-<tr class="WEvTitle"><td colspan="3">[TEXT:waiting rv] ([RVCOUNT])</td></tr>
-[BLOCK RVLIST]
-<tr  valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'"  title="[wrvfulldescr]">
-<td>[calev_start]</td>
-<td>[calev_owner]</td>
-<td>[calev_evtitle]</td>
+<!-- Rendez-vous en attente -->
+<!-- POPUP DIVISION -->
+[IFNOT intoolbar][JS:REF][ENDIF intoolbar]
+<script type="text/javascript"> 
+[IFNOT intoolbar][JS:CODE][ENDIF intoolbar]
+var CEventTime = 0;
+var CEventId = -1;
+var CEventText = '';
+</script>
+<div  style="display:none" id="waitpopup" class="wgcalpopup">
+<a href="#" id="viewevent" onclick="ViewEvent('[CORE_STANDURL]',CEventId); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evview.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:view this]</a>
+<a href="#" id="gotoperiod" onclick="loadPeriod('[CORE_STANDURL]', CEventTime); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evdate.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:goto this period]</a>
+<a class="separator"></a>
+<a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 2); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evaccept.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
+<a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 3); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evrefuse.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
+<a class="separator"></a>
+<a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+</div> 
+<!-- end POPUP DIVISION -->
+
+<table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td [IF intoolbar]onclick="WGCalChangeVisibility('waitrv');"[ENDIF intoolbar] align="left">[TEXT:waiting rv] ([RVCOUNT])</td>
+[IF intoolbar]<td align="right"><input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></td>[ENDIF intoolbar]
 </tr>
-[ENDBLOCK RVLIST]</table>
-<br>[ENDIF WAITRV]
+</table>
+
+<div id='waitrv' class="wToolArea" style="[IF intoolbar]height:[zonealertsize]px; [ENDIF intoolbar]overflow:auto; display:[vwaitrv]">
+[BLOCK WAITRV]
+<div id="evt[wrvid]" class="WGCwrvdefault" style="cursor:crosshair; border-left:5px solid [wrvcolor]" 
+     onmouseover="this.className = 'WGCwrvover'; " 
+     onmouseout="this.className = 'WGCwrvdefault'"
+     onContextMenu="CEventTime=[tsdate]; CEventId=[wrvid]; CEventText='[wrvtitle]'; openMenu(event,'waitpopup',[waitrg]);return false" 
+     onclick="CEventId=[wrvid]; CEventText='[wrvtitle]';ViewEvent('[CORE_STANDURL]',[wrvid]);" >&nbsp;<img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle]</div>[ENDBLOCK WAITRV]
+</div>

@@ -333,6 +333,17 @@ function saveEvent() {
   return false;
 }
 
+function GetTitle(evt) {
+  evt = (evt) ? evt : ((event) ? event : null );
+  var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
+  var ftitle = document.getElementById('rvtitle');
+  if ((cc == 13)  && (ftitle.value != "")) {
+    saveEvent();
+    return false;
+  }
+  return true;
+}
+
 function cancelEvent(text) {
   ok = confirm(text); 
   if (ok) self.close();

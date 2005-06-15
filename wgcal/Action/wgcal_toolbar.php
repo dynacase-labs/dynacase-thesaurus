@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.36 2005/06/15 17:32:38 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.37 2005/06/15 17:36:59 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -40,6 +40,7 @@ function wgcal_toolbar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_toolbar.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_waitzone.js");
 
 
   $action->lay->set("MyFreedomId", $action->user->fid);

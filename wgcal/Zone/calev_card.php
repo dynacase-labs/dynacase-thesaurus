@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.25 2005/06/14 15:47:14 marc Exp $
+ * @version $Id: calev_card.php,v 1.26 2005/06/15 17:32:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -82,7 +82,6 @@ function calev_card(&$action) {
 
   if ($private) $title = $pretitle." "._("confidential event");
   else $title = $pretitle." ".$ev->getValue("CALEV_EVTITLE");
-  //if (strlen($title)>40) $rtitle = substr($title,0,39)."<br>".substr($title,40,79);
   $action->lay->set("TITLE", $title);
   
 
@@ -167,7 +166,7 @@ function calev_card(&$action) {
 
   showIcons($action, $ev, $private, $me_attendee);
 
-  ev_showattendees($action, $ev, $display_me, "lightgrey");
+  ev_showattendees($action, $ev, $ressd, "lightgrey");
 
   $nota = str_replace("\n", "<br>", $ev->getValue("CALEV_EVNOTE"));
   if ($nota!="" && !$private) {
@@ -215,35 +214,30 @@ function addIcons(&$ia, $icol)
   $ia[count($ia)] = $ricons[$icol];
 }
 
-function ev_showattendees(&$action, &$ev, $display_me, $dcolor) {
+function ev_showattendees(&$action, &$ev, $ressd, $dcolor) {
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $globalstate = $dcolor;
-  $headSet = false;
   $d = new Doc($dbaccess);
-  $tress = $ev->getTValue("CALEV_ATTID");
-  if (count($tress)>1) {
+  $headSet = false;
+
+  if ( (count($ressd)==1 && !isset($ressd[$action->user->fid])) 
+       || count($ressd)>1 ) {
     $states = CAL_getEventStates($dbaccess,"");
     $action->lay->set("attdisplay","inline");
     $t = array();
-    $tresst = $ev->getTValue("CALEV_ATTTITLE");
-    $tresse = $ev->getTValue("CALEV_ATTSTATE");
-    $tressg = $ev->getTValue("CALEV_ATTGROUP");
     $a = 0;
-    foreach ($tress as $k => $v) {
-      if ($tressg[$k] == -1) {
-	if ($v == $action->user->fid && $tresse[$k] == EVST_REJECT)  {
-	  $globalstate = "black";
+    foreach ($ressd as $k => $v) {
+      if ($v["group"] == -1) {
+	if ($k == $action->user->fid) {
 	  $headSet = true;
-	} else if ($tresse[$k] != EVST_ACCEPT && $tresse[$k] != EVST_REJECT) {
-	  if ($v == $action->user->fid) $globalstate = "red";
-	  else if ($globalstate != "red") $globalstate = "orange";
-	  $headSet = true;
+	  $globalstate = WGCalGetColorState($v["state"]);
 	}
-	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
+	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $k);
 	$t[$a]["atticon"] = $d->GetIcon($attru["icon"]);
-	$t[$a]["atttitle"] = $tresst[$k];
-	$t[$a]["attnamestyle"] = ($tresse[$k] != EVST_REJECT ? "none" : "line-through");
-	$t[$a]["attstate"] = $states[$tresse[$k]];
+	$t[$a]["atttitle"] = $attru["title"];
+	$t[$a]["attnamestyle"] = ($v["state"] != EVST_REJECT ? "none" : "line-through");
+	$t[$a]["attstate"] = $states[$v["state"]];
 	$a++;
       }
     }
@@ -251,9 +245,9 @@ function ev_showattendees(&$action, &$ev, $display_me, $dcolor) {
   } else {
     $action->lay->set("attdisplay","none");
   }
-    $action->lay->set("evglobalstate", $globalstate);
-    $action->lay->set("headSet", $headSet);
-    $action->lay->set("borderColor", "grey");
+  $action->lay->set("evglobalstate", $globalstate);
+  $action->lay->set("headSet", $headSet);
+  $action->lay->set("borderColor", "grey");
 }
 
 ?>

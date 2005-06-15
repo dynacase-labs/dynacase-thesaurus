@@ -225,24 +225,7 @@ function WGCalSaveToolsVisibility() {
   usetparam('WGCAL_U_TOOLSSTATE', s, 'wgcal_hidden', 'WGCAL_HIDDEN');
 }
                                                                                                                    
- 
-
-   
-
-function setwrvalert() {
-  rf = document.getElementById('alertwrv');
-  if (rf.checked) val = 1;
-  else val = 0;
-  usetparam("WGCAL_U_WRVALERT", val, '', '');
-}
- 
-
-function ViewEvent(urlroot, cevent) {
-  subwindow(250, 350,'ViewEvent', urlroot+'&app=WGCAL&action=WGCAL_VIEWEVENT&cev='+cevent)
-  return;
-}
-
-function SetEventState(cevent, state) {
+ function SetEventState(cevent, state) {
   frm = document.getElementById('eventstate');
   seeev = document.getElementById('evt'+cevent);
   cevid = document.getElementById('cev');

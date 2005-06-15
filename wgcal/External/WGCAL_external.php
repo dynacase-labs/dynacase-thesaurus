@@ -27,16 +27,16 @@ function WGCalGetRessourceFamilies($dbaccess) {
 /*
  ** Return event states in attribute value format
  */
-global $EventStateDescr;
 define(EVST_NEW, 0);
 define(EVST_READ, 1);
 define(EVST_ACCEPT, 2);
 define(EVST_REJECT, 3);
 define(EVST_TBC, 4);
+global $EventStateDescr;
 $EventStateDescr = array( EVST_NEW => array( _("new"), "red" ),
 			  EVST_READ => array( _("read"), "orange" ),
 			  EVST_ACCEPT => array( _("accept"), "#0dff00" ),
-			  EVST_REJECT => array( _("reject"), "grey" ),
+			  EVST_REJECT => array( _("reject"), "black" ),
 			  EVST_TBC => array( _("to be confirmed"), "yellow" ) );
 
 function CAL_getEventStates($dbaccess, $fmt="A") {

@@ -109,7 +109,6 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
   }
 }
 
-
 function mytoto(name, value, target, taction)
  {
    usetparam(name, value, target, taction);
