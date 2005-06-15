@@ -20,7 +20,7 @@ var oygrid; // grid y reference
 var ocdday;
 var isFixed=false;
 
-function placeEvt(idx,line,subline,x,w) {
+function placeEvt(idx,line,subline,x,w,offset,doff) {
   var dw=maxw*zoomx;
   var dih=(dh+mdh)*zoomy;
   var oimg= document.getElementById('bar'+idx);
@@ -30,18 +30,19 @@ function placeEvt(idx,line,subline,x,w) {
     oimg.style.left=rw+bx+(x-mstart)*dw/mdelta;
     h=eh+by+(subline*dih);
     if (h>maxh) maxh=h;
-    oimg.style.top=h;
+    if (doff==0) oimg.style.top=h;
+    else oimg.style.top=h+(dh*zoomy/(doff+1))*offset;
     //oimg.width=(w)*dw/(mend-mstart);
     //oimg.height=dih;
     if (w < 0)  oimg.style.width=100; 
     else  oimg.style.width=(w)*dw/mdelta;
-    oimg.style.height=dh*zoomy;
+    oimg.style.height=dh*zoomy/(doff+1);
     oimg.style.display='';
     
     ores.style.top=h;
     ores.style.left=bx;
     ores.style.width=rw;
-    ores.style.height=dh*zoomy;
+    ores.style.height=(dh*zoomy);
     ores.style.display='';
 
     onxgrid=oxgrid.cloneNode(true);
@@ -77,7 +78,7 @@ function placeEvents() {
     ocdday.removeChild(ocdday.childNodes[0]);
   }
   for (i=0;i<tevents.length;i++) {
-    placeEvt(tevents[i][0],tevents[i][1],tevents[i][2],tevents[i][3],tevents[i][4]);
+    placeEvt(tevents[i][0],tevents[i][1],tevents[i][2],tevents[i][3],tevents[i][4],tevents[i][6],tevents[i][7]);
   }
   dmilli=document.getElementById('bgmilli');
   if (dmilli) {
@@ -406,11 +407,11 @@ function viewdesc(event,idx) {
       dd.style.display='';
       GetXY(event);
       //      dd.innerHTML=Xpos+'+'+Ypos;           
-      dbar=document.getElementById('bar'+tevents[idx][0]);
+      dbar=document.getElementById('bar'+tevents[tidx[idx]][0]);
       if (dbar) {
 	dd.style.backgroundColor=dbar.style.backgroundColor;
 	dd.style.borderColor=dbar.style.backgroundColor;
-	dd.innerHTML=tevents[idx][5];
+	dd.innerHTML=tevents[tidx[idx]][5];
 	w=getObjectWidth(dd);
 	w2=getObjectWidth(document.body);
 
@@ -454,5 +455,106 @@ function subwinevt(w,h,name,url) {
     else subwindow(w,h,ename,url);
   } else { 
     subwindow(w,h,ename,url);
+  }
+}
+
+
+function eventsort(a,b) {
+  if (a[2] != b[2]) return a[2]-b[2];
+  return a[3]-b[3];
+}
+
+var toffset=new Array();
+var tidx=new Array(); // new index for event
+function eventoffset() {
+  var po=0,pr=0;
+  var px=0;
+  var k,kk;
+  var line=1;
+  
+  tevents.sort(eventsort);
+
+  for (k=0;k<tevents.length;k++) {
+    tidx[parseInt(tevents[k][0])]=k;
+    tevents[k][5]=tevents[k][5]+'<h1>'+k+'</h1>';
+    
+    xi=tevents[k][3];
+    wi=tevents[k][4];
+    li=tevents[k][2];
+    tevents[k][6]=0;
+    tevents[k][7]=0;
+    if (li > line) { // change reinit : lien
+      if (po > 0) {
+	kk=0;
+	for (ki=(k-pr-1);ki<k;ki++) {
+	  if (tevents[ki][6]==0) tevents[ki][6]=kk;
+	  kk++;
+	  tevents[ki][7]=po;
+	}
+      }
+      po=0;
+      pr=0;
+      px=0;
+    }
+
+    line=li;
+
+    //    alert(xi+','+wi+','+px+','+(xi+wi));
+    if (xi < px) {
+      
+	kk=0;
+	fk=false;
+	for (ki=(k-po-1);ki<k;ki++) {	  
+	  if (xi >= (tevents[ki][3]+tevents[ki][4])) {
+	    tevents[k][6]=kk+0.001;	    
+	    fk=true;
+	    //alert (k+' for '+kk);
+	    break;
+	  }
+	  kk++;
+	}
+	if (!fk) po++;
+	pr++;
+    } else {
+      if (pr > 0) {
+	kk=0;
+	//alert((k-pr)+'--'+(k)+'--po='+po);
+	for (ki=(k-pr-1);ki<k;ki++) {
+	  if (tevents[ki][6]==0) tevents[ki][6]=kk;
+	  kk++;
+	  tevents[ki][7]=po;
+	}
+      }
+      po=0; 
+      pr=0;      
+      
+    }
+    px=xi+wi;
+
+    //tevents[k][2]=po;
+  }
+  if (po > 0) {
+	kk=0;
+	//	alert((k-po-1)+'--'+(k));
+	for (ki=(k-po-1);ki<k;ki++) {
+	  if (tevents[ki][6]==0) tevents[ki][6]=kk;
+	  kk++;
+	  tevents[ki][7]=po;
+	}
+      }
+  
+
+    for (k=0;k<tevents.length;k++) {
+       tevents[k][5]=tevents[k][5]+'<h1>PO:'+tevents[k][6]+'-'+tevents[k][7]+'</h1>';
+    }
+}
+function initoffset() {
+  var k;
+  
+
+  for (k=0;k<tevents.length;k++) {
+    tidx[parseInt(tevents[k][0])]=k;    
+    tevents[k][6]=0;
+    tevents[k][7]=0;
   }
 }
