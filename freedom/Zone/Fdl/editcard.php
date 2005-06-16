@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.51 2005/06/07 16:07:13 eric Exp $
+ * @version $Id: editcard.php,v 1.52 2005/06/16 14:00:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.51 2005/06/07 16:07:13 eric Exp $
+// $Id: editcard.php,v 1.52 2005/06/16 14:00:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,6 +49,7 @@ function editcard(&$action) {
   $zonebodycard = GetHttpVars("zone"); // define view action
   $usefor = GetHttpVars("usefor"); // default values for a document
   $vid = GetHttpVars("vid"); // special controlled view
+  $mskid = GetHttpVars("mskid"); // special mask
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   editmode($action);
@@ -106,7 +107,12 @@ function editcard(&$action) {
     $tview = $cvdoc->getView($vid);
     $doc->setMask($tview["CV_MSKID"]);
     if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
+  } else if ($mskid > 0) {
+    $mdoc=new Doc($dbaccess,$mskid);
+    if ($mdoc->control('view')=="")  $doc->setMask($mskid);
   }
+
+  
 
   if (GetHttpVars("viewconstraint")=="Y") { // from modcard function if constraint error
     
