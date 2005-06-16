@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.18 2005/05/13 16:06:07 eric Exp $
+// $Id: FDL_init.php.in,v 1.19 2005/06/16 12:12:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,6 +70,16 @@ $app_const= array(
   "SOCIETY_PHONE"   =>array("val"=>"00 00 00 00",
 			   "global"=>"Y",
 			   "descr"=>N_("phone of our society")),
+  "FDL_CTRLKEY"   =>array("val"=>"yes",
+			  "global"=>"Y",
+			  "user"=>"Y",
+			  "descr"=>N_("use ctrl key in popup menu"),
+			  "kind"=>"enum(yes|no)"),
+  "FDL_VIEWALTERN"   =>array("val"=>"yes",
+			  "global"=>"Y",
+			  "user"=>"Y",
+			  "descr"=>N_("view altern color in document fieldset"),
+			  "kind"=>"enum(yes|no)"),
   "MVIEW_GEO"   =>array("val"=>"",
 			"global"=>"Y",
 			"user"=>"Y",
