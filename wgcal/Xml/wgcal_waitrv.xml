@@ -1,18 +1,23 @@
 <!-- Rendez-vous en attente -->
 <!-- POPUP DIVISION -->
-[IFNOT intoolbar][JS:REF][ENDIF intoolbar]
+[JS:REF]
 <script type="text/javascript"> 
-[IFNOT intoolbar][JS:CODE][ENDIF intoolbar]
+[JS:CODE]
 var CEventTime = 0;
 var CEventId = -1;
 var CEventText = '';
 </script>
+<form style="display:inline; visibility:hidden" id="feventstate" target="wgcal_toolbar" name="feventstate" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE">
+     <input id="cev" name="cev" type="hidden" value="-1">
+     <input id="st" name="st" type="hidden" value="-1">
+     <input id="ra" name="ra" type="hidden" value="WGCAL_TOOLBARw">
+</form>
 <div  style="display:none" id="waitpopup" class="wgcalpopup">
 <a href="#" id="viewevent" onclick="ViewEvent('[CORE_STANDURL]',CEventId); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evview.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:view this]</a>
 <a href="#" id="gotoperiod" onclick="loadPeriod('[CORE_STANDURL]', CEventTime); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evdate.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:goto this period]</a>
 <a class="separator"></a>
-<a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 2); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evaccept.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
-<a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 3); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evrefuse.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
+<a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 2, '[RTARGET]', '[RACTION]'); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evaccept.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
+<a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] '+CEventText+' ?'); if (ok) SetEventState(CEventId, 3, '[RTARGET]', '[RACTION]'); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evrefuse.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
 <a class="separator"></a>
 <a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> 
@@ -21,7 +26,7 @@ var CEventText = '';
 <table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
 <tr>
 <td [IF intoolbar]onclick="WGCalChangeVisibility('waitrv');"[ENDIF intoolbar] align="left">[TEXT:waiting rv] ([RVCOUNT])</td>
-[IF intoolbar]<td align="right"><input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]"></td>[ENDIF intoolbar]
+<td align="right"><input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert('[RTARGET]', '[RACTION]')" [alertwrv] title="[TEXT:alert for new event ?]"></td>
 </tr>
 </table>
 

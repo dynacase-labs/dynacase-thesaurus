@@ -1,10 +1,5 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <div id="toolbarmain style="display:none">
-<form id="eventstate" target="wgcal_toolbar" name="feventstate" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE">
-     <input id="cev" name="cev" type="hidden" value="-1">
-     <input id="st" name="st" type="hidden" value="-1">
-     <input id="st" name="ra" type="hidden" value="WGCAL_TOOLBAR">
-</form>
 <form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 
 <form id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE">
@@ -19,7 +14,7 @@
 </div>
 
 <!-- Rendez-vous en attente -->
-[ZONE WGCAL:WGCAL_WAITRV?tb=Y]
+[ZONE WGCAL:WGCAL_WAITRV?tb=Y&RTARGET=wgcal_toolbar&RACTION=WGCAL_TOOLBAR]
 
 
  

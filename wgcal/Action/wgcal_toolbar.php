@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.37 2005/06/15 17:36:59 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.38 2005/06/16 05:30:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -40,7 +40,6 @@ function wgcal_toolbar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_toolbar.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal_waitzone.js");
 
 
   $action->lay->set("MyFreedomId", $action->user->fid);
@@ -55,11 +54,6 @@ function wgcal_toolbar(&$action) {
     $action->lay->set("lsyncstyle", ((time()-$lsync)>(24*3600*7)?"color:red":""));
   }
     
-//   $cssfile = $action->GetLayoutFile("calendar-default.css");
-//   $csslay = new Layout($cssfile,$action);
-//   $action->parent->AddCssCode($csslay->gen());
-
-  _waitrv();
   _navigator($action);
   _listress($action);
 
@@ -82,80 +76,6 @@ function wgcal_toolbar(&$action) {
 }
 
 
-function _seewaitrv(&$wrv) {
-  global $action;
-
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $rvtextl =  20;
-  $today = date2db(time()-(24*3600*7), false)." 00:00:00";
-  $filter[] = "(calev_start > '".$today."' ) AND (calev_attid ~* '".$action->user->fid."')";
-  $irv = count($wrv);
-  $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, 
-		      $action->user->id, "TABLE", getIdFromName($dbaccess,"CALEVENT"));
-
-  foreach ($rdoc as $k => $v)  {
-    $doc = new Doc($action->GetParam("FREEDOM_DB"), $v["id"]);
-    $attid = $doc->getTValue("CALEV_ATTID");
-    $attst = $doc->getTValue("CALEV_ATTSTATE");
-    $state = -1;
-    foreach ($attid as $ka => $va) {
-      if ($va==$action->user->fid && ($attst[$ka]==EVST_NEW||$attst[$ka]==EVST_READ||$attst[$ka]==EVST_TBC)) $state = $attst[$ka]; 
-    }
-    if ($state != -1) {
-      $label = WGCalGetLabelState($state); 
-      $wrv[$irv]["wrvfontstyle"] = ""; 
-      $wrv[$irv]["wrvcolor"] = WGCalGetColorState($state); 
-      $wrv[$irv]["wrvid"] = $v["id"];
-      if (strlen($v["calev_evtitle"])>$rvtextl) $wrv[$irv]["wrvtitle"] = addslashes(substr($v["calev_evtitle"],0,$rvtextl)."...");
-      else $wrv[$irv]["wrvtitle"] = addslashes($v["calev_evtitle"]);
-      $wrv[$irv]["wrvfulldescr"] = "[".$label."] " 
-	. substr($v["calev_start"],0,16)." : ".$v["calev_evtitle"]." (".$v["calev_owner"].")";
-      $wrv[$irv]["wrvicon"] = $doc->GetIcon($v["icon"]);
-      $wrv[$irv]["tsdate"] = dbdate2ts($v["calev_start"]);
-      $irv++;
-    }
-  }
-}
-
-function _waitrv() {
-  global $action;
-  $trv = array();
-
-  // search NEW rv
-  _seewaitrv($trv);
-
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  $action->lay->set("zonealertsize", $action->GetParam("WGCAL_U_ZWRVALERTSIZE", 100));
-  $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
-  $action->lay->set("alertwrv", "checked");
-  if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");
-
-  // Init popup
-  include_once("FDL/popup_util.php");
-  popupInit('waitpopup',  array('acceptevent',  'refuseevent', 'viewevent', 'gotoperiod', 'cancelevent'));
-  foreach ($trv as $k => $v) {
-    PopupActive('waitpopup', $k, 'acceptevent');
-    PopupActive('waitpopup', $k, 'refuseevent');
-    PopupActive('waitpopup', $k, 'viewevent');
-    PopupActive('waitpopup', $k, 'gotoperiod');
-    PopupActive('waitpopup', $k, 'cancelevent');
-    $trv[$k]["waitrg"] = $k;
-  }
-  popupGen(count($trv));
-  $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
-    
-
-
-  $rd=getIdFromName($dbaccess,"WG_WAITRV");
-  $action->lay->SetBlockData("WAITRV", null);
-  $action->lay->set("RVCOUNT", count($trv));
-  if (count($trv)>0) {
-    $action->lay->SetBlockData("WAITRV", $trv);
-    if ($alertfornewevent>0) AddWarningMsg(_("You have waiting events").". (".count($trv).")"); 
-  }
-  
-}
 
 function _navigator(&$action) {
 
@@ -196,6 +116,7 @@ function _listress(&$action)
   if (!$cuser) $lress[count($lress)] = $action->user->fid."%1%yellow";
 
   // Init popup
+  $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
   include_once("FDL/popup_util.php");
   popupInit('resspopup',  array('displayress',  'changeresscolor', 'removeress', 'onlyme', 'invertress', 'displayallr', 'hideallr', 'cancelress'));
   foreach ($lress as $k => $v) {

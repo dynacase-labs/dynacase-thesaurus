@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: todo.php,v 1.5 2005/05/30 07:18:28 marc Exp $
+ * @version $Id: todo.php,v 1.6 2005/06/16 05:30:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -66,6 +66,8 @@ function todo(&$action) {
     } else if ($cdate<($today+($todowarn*24*3600))) {
       $td[$itd]["warning"] = true;
       $td[$itd]["colorTodo"] = "orange";
+    } else {
+      $td[$itd]["colorTodo"] = "#00ff00";
     }
     $itd++;
   }

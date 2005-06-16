@@ -199,42 +199,5 @@ function saveRessources() {
   return;
 }
 
-
-// --------------------------------------------------------
-
-function WGCalChangeVisibility(tool) {
-  el = document.getElementById(tool);
-  if (el.style.display=='') {
-    el.style.display = 'none';
-  } else {
-    el.style.display = '';
-  }
-  WGCalSaveToolsVisibility();
-  return;
-}
-
-function WGCalSaveToolsVisibility() {
-  var s='';
-  var i=0;
-  for (i=0; i<toolList.length; i++) {
-    el = document.getElementById(toolList[i]);
-    v = (el.style.display == '' ? 1 : 0 );
-    s += (s==''?'':'|');
-    s +=  toolList[i]+'%'+v;
-  }
-  usetparam('WGCAL_U_TOOLSSTATE', s, 'wgcal_hidden', 'WGCAL_HIDDEN');
-}
-                                                                                                                   
- function SetEventState(cevent, state) {
-  frm = document.getElementById('eventstate');
-  seeev = document.getElementById('evt'+cevent);
-  cevid = document.getElementById('cev');
-  cevid.value = cevent;
-  evst = document.getElementById('st');
-  evst.value = state;
-  frm.submit();
-  return;
-}
-
-  
+                                                                                                                  
  

@@ -37,7 +37,7 @@ $EventStateDescr = array( EVST_NEW => array( _("new"), "red" ),
 			  EVST_READ => array( _("read"), "orange" ),
 			  EVST_ACCEPT => array( _("accept"), "#0dff00" ),
 			  EVST_REJECT => array( _("reject"), "black" ),
-			  EVST_TBC => array( _("to be confirmed"), "yellow" ) );
+			  EVST_TBC => array( _("to be confirmed"), "red" ) );
 
 function CAL_getEventStates($dbaccess, $fmt="A") {
   return WGCalGetState($dbaccess, $fmt);
