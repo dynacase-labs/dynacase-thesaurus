@@ -98,8 +98,8 @@ addEvent(window,"load",focusFirst);
 <div id="fixspanfoot" style="display:[ddivfoot];visibility:hidden;padding:0px;margin:0px;"></div>
 <table id="fixtablefoot" class="[tablefoot]"   cellspacing="0" width="100%">
 <tfoot >
-[IFNOT NOFORM]
-[ZONE FDL:EDITSTATE]
+[IFNOT NOFORM][IFNOT NOSAVE]
+[ZONE FDL:EDITSTATE][ENDIF NOSAVE]
 [ENDIF NOFORM]
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 [IF FOOT]
@@ -114,8 +114,9 @@ addEvent(window,"load",focusFirst);
 <input type="submit" title="[wadesc]" 
         value="[walabel]" onclick="document.modifydoc.action='[CORE_STANDURL]&app=[wapplication]&action=[waction]'"> 
  [ENDBLOCK WACTION]
+[IFNOT NOSAVE]
 <input id="iQuicksave" type="button" style="display:none" onmouseout="viewquick(event,false)" value="[TEXT:Quick Save]" onclick="quicksave();return false">
-<input id="iSubmit" type="submit" value="[editaction]" onmouseover="viewquick(event,true)"  ><input id="iCancel" type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[id]'"> 
+<input id="iSubmit" type="submit" value="[editaction]" onmouseover="viewquick(event,true)"  ><input id="iCancel" type="button" value="[TEXT:Cancel]" onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[id]'">[ENDIF NOSAVE]
 <input type="hidden" name="catgid" >
 <input type="hidden" name="noconstraint" value="N">
   </td>
