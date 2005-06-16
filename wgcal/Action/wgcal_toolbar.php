@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.38 2005/06/16 05:30:25 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.39 2005/06/16 17:33:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -53,7 +53,7 @@ function wgcal_toolbar(&$action) {
     $action->lay->set("lastsync", substr(WSyncTs2Outlook($lsync),0,16));
     $action->lay->set("lsyncstyle", ((time()-$lsync)>(24*3600*7)?"color:red":""));
   }
-    
+
   _navigator($action);
   _listress($action);
 

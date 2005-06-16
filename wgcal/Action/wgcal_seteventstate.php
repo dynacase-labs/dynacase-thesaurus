@@ -36,7 +36,12 @@ function wgcal_seteventstate(&$action) {
       $err = $event->PostModify();
       if ($err!="") AddWarningMsg("$err");
     }
-    sendRv($action, $event, 0, ucfirst($action->user->lastname)." ".ucfirst($action->user->firstname)." : "._("state set to ").WGCalGetLabelState($evstate));
+
+    $uw = new Doc($dbaccess, $event->getValue("calev_ownerid"));
+    $wuid = $uw->getValue("us_whatid");
+    if ($action->parent->param->GetUParam("WGCAL_U_MAILCHGSTATE", $wuid) == 1) {
+      sendRv($action, $event, 0, ucfirst($action->user->lastname)." ".ucfirst($action->user->firstname)." : "._("state set to ").WGCalGetLabelState($evstate));
+    }
     $event->AddComment(_("state set to ").WGCalGetLabelState($evstate));
     $event->enableEditControl();
   }

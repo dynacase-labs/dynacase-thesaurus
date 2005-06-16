@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.7 2005/06/05 09:02:09 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.8 2005/06/16 17:33:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -17,6 +17,7 @@ include_once("EXTERNALS/WGCAL_external.php");
 function wgcal_prefs_others(&$action) {
   
   $optchk = array(
+		  "mailstate" => array(_("attendees change state mail"), "WGCAL_U_MAILCHGSTATE", "wgcal_hidden", "WGCAL_HIDDEN"),
 		  "mailcc" => array(_("send me event mail copy"), "WGCAL_U_RVMAILCC", "wgcal_hidden", "WGCAL_HIDDEN"),
 		  "conflict" => array(_("check for conflicts"), "WGCAL_U_CHECKCONFLICT", "wgcal_hidden", "WGCAL_HIDDEN"),
 		  "dispref" => array(_("display refused meetings"), "WGCAL_U_DISPLAYREFUSED", "wgcal_calendar", "WGCAL_CALENDAR"),

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.33 2005/06/05 09:02:09 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.34 2005/06/16 17:33:30 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,7 +55,8 @@ array(
 "WGCAL_U_USEPREFRESSOURCES" => array( "kind" => "static", "val"=>"1", "descr"=>N_("use prefered ressource for event setting"), "user"=>"Y"),
 "WGCAL_U_PREFRESSOURCES" => array("kind"=>"static", "val"=>"", "descr"=>N_("my prefered contacts"), "user"=>"Y"),
 
-"WGCAL_U_RVMAILCC" => array("kind"=>"static", "val"=>"", "descr"=>N_("send me event mail copy"), "user"=>"Y"),
+"WGCAL_U_RVMAILCC" => array("kind"=>"static", "val"=>"0", "descr"=>N_("send me event mail copy"), "user"=>"Y"),
+"WGCAL_U_MAILCHGSTATE" => array("kind"=>"static", "val"=>"1", "descr"=>N_("attendees change state mail"), "user"=>"Y"),
 "WGCAL_U_DISPLAYREFUSED" => array("kind"=>"static", "val"=>"0", "descr"=>N_("displayed refused events"), "user"=>"Y"),
 "WGCAL_U_CHECKCONFLICT" => array("kind"=>"static", "val"=>"1", "descr"=>N_("check for conflicts"), "user"=>"Y"),
 
