@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.35 2005/01/14 17:54:40 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.36 2005/06/16 12:13:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -332,7 +332,7 @@ Class Dir extends PDir
     $qf->dirid=$this->initid; // the reference folder is the initial id
     $qf->query="";
     foreach ($tdocids as $k=>$docid) {
-      $tcopy[]["childid"]=$docid;     
+      $tcopy[$docid]["childid"]=$docid;     
     }
 
     $err=$qf->Adds($tcopy,true);
