@@ -122,13 +122,14 @@ TYPE;C;;;;;;;;;;;
 ICON;dmail.gif;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;MAIL_FR;;Adresses;N;Y;frame;10;F;;;;
-ATTR;MAIL_FROM;MAIL_FR;de;N;Y;text;20;W;;;;
-ATTR;MAIL_TO;MAIL_FR;à;N;Y;text;30;W;Y;;fdl.php;lmail(D,MAIL_TO):MAIL_TO
-ATTR;MAIL_CC;MAIL_FR;copie à;N;Y;text;40;W;;;fdl.php;lmail(D,MAIL_CC):MAIL_CC
-ATTR;MAIL_SUBJECT;MAIL_FR;sujet;N;Y;text;50;W;;;;
-ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;60;F;;;;
-ATTR;MAIL_CM;MAIL_FR_CM;Commentaire;N;Y;longtext;60;W;;;;
-ATTR;MAIL_FORMAT;MAIL_FR_CM;Format;N;Y;enum;70;W;;;;html|HTML,pdf|PDF,htmlpdf|HTML & PDF
+ATTR;MAIL_FROM;MAIL_FR;De;N;Y;text;20;R;;;;
+ATTR;MAIL_DEST;MAIL_FR;Destinataires;N;Y;array;30;;;;;
+ATTR;MAIL_COPYMODE;MAIL_DEST;;N;Y;enum;40;;;;;to|Pour,cc|Cc,bcc|Bcc
+ATTR;MAIL_RECIP;MAIL_DEST;destinataire;N;Y;text;50;W;;;fdl.php;lmail(D,MAIL_RECIP):MAIL_RECIP
+ATTR;MAIL_SUBJECT;MAIL_FR;sujet;N;Y;text;60;W;;;;
+ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;70;F;;;;
+ATTR;MAIL_CM;MAIL_FR_CM;Commentaire;N;Y;longtext;70;W;;;;
+ATTR;MAIL_FORMAT;MAIL_FR_CM;Format;N;Y;enum;80;W;;;;html|HTML,pdf|PDF,htmlpdf|HTML & PDF
 END;0;;;;;;;;;;;
 // famille recherche;;;id;class;name;;;;;;;
 ;;;;;;;;;;;;
