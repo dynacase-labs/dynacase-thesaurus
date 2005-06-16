@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.66 2005/05/12 08:34:27 eric Exp $
+ * @version $Id: freedom_util.php,v 1.67 2005/06/16 15:13:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -95,6 +95,7 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
   }
   $fromid="";
   $gen=""; // path GEN or not
+  if (! is_numeric($id)) $id=getIdFromName($dbaccess,$id);
   $id=intval($id);
   if ($id > 0) {
 
