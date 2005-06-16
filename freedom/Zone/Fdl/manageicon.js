@@ -197,7 +197,7 @@ function trackKey(event) {
 }
 
 function addToBasket(event,rtarget,dirid,folio) {
-  if (!dirid) dirid=[FREEDOM_IDBASKET];
+  if (!dirid) dirid='[FREEDOM_IDBASKET]';
   if (!rtarget) rtarget='basket';
   var url='[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&dirid='+dirid+'&docid=';
   var bsend=false;
