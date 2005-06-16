@@ -16,16 +16,16 @@ function wgcal_storeevent(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+  $oldrv= false;
   $err = "";
   $newevent = false;
-  $comment = "";
   $id  = GetHttpVars("eventid", -1);
   if ($id==-1) {
     $event = createDoc($dbaccess, "CALEVENT");
     $newevent = true;
-    $comment = _("event creation");
   } else {
     $event = new Doc($dbaccess, $id);
+    $oldrv = $event->getValues();
   }
   
   $owner = GetHttpVars("ownerid", -1);
@@ -60,11 +60,10 @@ function wgcal_storeevent(&$action) {
     $ott = ($ott==""?0:$ott);
     $ostart = $event->getValue("CALEV_START");
     $oend = $event->getValue("CALEV_END");
-    if ($ott!=$htype || $ostart!=$start || $oend!=$end) $comment = _("date modification");
   }
   $event->setValue("CALEV_TIMETYPE", $htype);
-  $event->setValue("CALEV_START", $start);
-  $event->setValue("CALEV_END", $end);
+  $event->setValue("CALEV_START", $start." CEST");
+  $event->setValue("CALEV_END", $end." CEST");
   
   $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
   
@@ -188,9 +187,6 @@ function wgcal_storeevent(&$action) {
 
   if (!$event->IsAffected()) {
     $err = $event->Add();
-    $msg = _("event creation information message");
-  } else {
-    $msg = _("event modification information message");
   }
   if ($err!="") {
      AddWarningMsg("$err");
@@ -203,22 +199,59 @@ function wgcal_storeevent(&$action) {
         if ($err!="") AddWarningMsg("$err");
      }
   }
+
+  // Gestion du calendrier d'appartenance
   if ($oldcal != $calid && !$newevent) {
     if ($oldcal!=-1) {
       $cal = new Doc($dbaccess, $oldcal);
       $cal->DelFile($event->id);
-      $event->AddComment(_("remove event from calendar ".$cal->title));
+      $event->AddComment(_("remove event from calendar")." ".$cal->title);
     }
     $cal = new Doc($dbaccess, $calid);
     if ($cal->isAlive()) {
       $cal->AddFile($event->id);
-      $event->AddComment(_("insert event in calendar $caltitle"));
+      $event->AddComment(_("insert event in calendar")." ".$caltitle);
     }
   }
-  $event->AddComment(($comment==""?_("change content "):$comment));
-  $changed = true;
-  sendRv($action, $event, 2, $msg);
 
+  if (is_array($oldrv)) {
+    $newrv = $event->getValues();
+    $change = rvDiff($oldrv, $newrv);
+  }
+
+  // 1) Creation => envoi d'un mail à tout les participants (sauf proprio)
+  // 2) Modification de l'heure, répétition => envoi d'un mail à tout les participants et reset des acceptations
+  // 3) Modification de l'acceptation => envoi d'un mail au proprio D'ICI CA VA ETRE DUR...
+  // Modification du contenu => rien
+  // Modification de la liste des participants => rien
+  
+  $comment = "Unknown modification";
+  $mail_who = -1;
+  if ($oldrv==false) {
+    $mail_msg = _("event creation information message");
+    $mail_who = 2;
+    $comment = _("event creation");
+  } else {
+    if ($change["hours"]) {
+    $mail_msg = _("event time modification message");
+    $mail_who = 2;
+    $comment = _("event modification time");
+    resetAcceptStatus($event);
+    } else {
+      if ($change["attendees"]) {
+	$comment = _("event modification attendees list");
+      } else {
+	if ($change["status"]) {
+	  $mail_msg = _("event acceptation status message");
+	  $mail_who = 0;
+	  $comment = _("event modification acceptation status");
+	}
+      }
+    }
+  }
+  if ($comment!="") $event->AddComment($comment);
+  if ($mail_who!=-1) sendRv($action, $event, $mail_who, $mail_msg);
+  
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 
@@ -229,6 +262,72 @@ function wgcal_getArrayVal($key, $def=null) {
   return $v;
 }
 
+function rvDiff( $old, $new) {
+  $diff = array();
+  foreach ($old as $ko => $vo) {
+    if (!isset($new[$ko])) {
+      $diff[$ko] = "D";
+    } else {
+      if ($vo!=$new[$ko]) $diff[$ko] = "M";
+    }
+  }
+  foreach ($new as $ko => $vo) {
+    if (!isset($new[$ko])) $diff[$ko] = "A";
+  }
 
-
+  $result = array( "content" => false, 
+		   "hours" => false, 
+		   "attendees" => false, 
+		   "status" => false, 
+		   "others" => false);
+  foreach ($diff as $k => $v) {
+    switch ($k) {
+    case "calev_evtitle":      
+    case "calev_evnote":
+      $result["content"] = true;
+      break;
+    case "calev_start":
+    case "calev_end":
+    case "calev_timetype":
+    case "calev_frequency":
+    case "calev_repeatmode":
+    case "calev_repeatweekday":
+    case "calev_repeatmonth":
+    case "calev_repeatuntil":
+    case "calev_repeatuntildate":
+    case "calev_excludedate":
+      $result["hours"] = true;
+      break;
+    case "calev_attid":
+      $result["attendees"] = true;
+      break;
+    case "calev_attstate":
+      $result["status"] = true;
+      break;
+    default:
+      $result["others"] = true;
+    }
+  }
+  return $result;
+}
+  
+function resetAcceptStatus(&$event) {
+  global $action;
+  $att_ids = $event->getTValue("CALEV_ATTID");
+  if (count($att_ids)>0) {
+    $att_sta = $event->getTValue("CALEV_ATTSTATE");
+    $att_grp = $event->getTValue("CALEV_ATTGROUP");
+    foreach ($att_ids as $k => $v) {
+      if ($att_grp[$k]==-1) {
+	if ($v == $action->user->fid) $att_sta[$k] = EVST_ACCEPT;
+	else $att_sta[$k] = EVST_NEW;
+      }
+    }
+    $event->setValue("CALEV_ATTSTATE", $att_sta);
+    $event->Modify();
+    if ($err=="") $event->PostModify();
+    if ($err!="") AddWarningMsg("$err");
+  }
+}
+      
 ?>

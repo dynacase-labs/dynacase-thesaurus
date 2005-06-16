@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-09 16:15+0200\n"
+"POT-Creation-Date: 2005-06-16 12:02+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -59,39 +59,45 @@ msgstr "Recherche d'évènement"
 msgid "state set to "
 msgstr "Rendez-vous "
 
-msgid "event creation"
-msgstr "Création de l'évènement"
-
-msgid "date modification"
-msgstr "Modification de la date"
-
 msgid "main calendar"
 msgstr "Calendrier public"
 
+msgid "remove event from calendar"
+msgstr "Suppression de l'évènement du calendrier"
+
+msgid "insert event in calendar"
+msgstr "Ajout de l'évènement dans le calendrier"
+
 msgid "event creation information message"
-msgstr ""
+msgstr "Vous avez été convié au rendez-vous ci-dessous."
 "Une personne conviée a modifié l'état d'acception du rendez-vous ci-dessous."
 
-msgid "event modification information message"
-msgstr "Le rendez-vous ci-dessous a été modifié."
+msgid "event creation"
+msgstr "Création de l'évènement"
 
-msgid "remove event from calendar "
-msgstr "Suppression de l'évènement du calendrier "
+msgid "event time modification message"
+msgstr "L'heure du rendez-vous ci-dessous a été modifiée (ou sa répétition)."
 
-msgid "insert event in calendar $caltitle"
-msgstr "Ajout de l'évènement dans le calendrier "
+msgid "event modification time"
+msgstr "Modification de l'heure / de la répétition"
 
-msgid "change content "
-msgstr "Modification du contenu"
+msgid "event modification attendees list"
+msgstr "Modification de la liste des participants"
+
+msgid "event acceptation status message"
+msgstr "Une personne conviée a modifié l'état d'acception du rendez-vous ci-dessous."
+
+msgid "event modification acceptation status"
+msgstr "Modification des acceptations"
 
 msgid "all the day"
 msgstr "Toute la journée"
 
-msgid "You have waiting events"
-msgstr "Vous avez des rendez-vous en attente"
-
 msgid "delete repeat occurrence for "
 msgstr "Suppression de l'occurrence du "
+
+msgid "You have waiting events"
+msgstr "Vous avez des rendez-vous en attente"
 
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
@@ -194,6 +200,9 @@ msgstr "Sélectionner la ressource pour l'affichage"
 
 msgid "init ressource selection"
 msgstr "Réinitialiser la liste des ressources"
+
+msgid "see the waiting rv"
+msgstr "Rendez-vous en attente"
 
 msgid "calendar generic view"
 msgstr "Vue agenda"
@@ -718,30 +727,6 @@ msgstr "cliquer pour raffraichir la barre d'outil"
 msgid "last sync"
 msgstr "Dernière synchro outlook"
 
-msgid "view this"
-msgstr "Afficher"
-
-msgid "accept event"
-msgstr "accepter cet évènement"
-
-msgid "accept this"
-msgstr "Accepter"
-
-msgid "refuse event"
-msgstr "refuser cet évènement :"
-
-msgid "reject this"
-msgstr "Refuser"
-
-msgid "goto this period"
-msgstr "Aller à cette date"
-
-msgid "close menu"
-msgstr "Fermer"
-
-msgid "waiting rv"
-msgstr "Rendez-vous en attente"
-
 msgid "date selector"
 msgstr "Selecteur de date"
 
@@ -778,6 +763,9 @@ msgstr "Tout afficher"
 msgid "hide all ressources"
 msgstr "Tout masquer"
 
+msgid "close menu"
+msgstr "Fermer"
+
 msgid "my todos..."
 msgstr "Mes tâches..."
 
@@ -811,8 +799,32 @@ msgstr "Téléphone mobile"
 msgid "mail"
 msgstr "Adresse mail"
 
+msgid "view this"
+msgstr "Afficher"
+
+msgid "goto this period"
+msgstr "Aller à cette date"
+
+msgid "accept event"
+msgstr "accepter cet évènement"
+
+msgid "accept this"
+msgstr "Accepter"
+
+msgid "refuse event"
+msgstr "refuser cet évènement :"
+
+msgid "reject this"
+msgstr "Refuser"
+
+msgid "waiting rv"
+msgstr "Rendez-vous en attente"
+
 msgid "attendees"
 msgstr "Personnes conviées"
+
+msgid "note"
+msgstr "Note"
 
 msgid "owner"
 msgstr "Propriétaire"
@@ -822,9 +834,6 @@ msgstr "Calendrier"
 
 msgid "modified"
 msgstr "modifié le"
-
-msgid "note"
-msgstr "Note"
 
 msgid "to be confirm"
 msgstr "à confirmer"
@@ -1003,6 +1012,12 @@ msgstr "Options des tâches"
 msgid "see contacts"
 msgstr "Contacts"
 
+#~ msgid "date modification"
+#~ msgstr "Modification de la date"
+
+#~ msgid "change content "
+#~ msgstr "Modification du contenu"
+
 #~ msgid "advanced search"
 #~ msgstr "Recherche avancée"
 
@@ -1035,11 +1050,6 @@ msgstr "Contacts"
 
 #~ msgid "enter words here"
 #~ msgstr "entrer les mots recherchés"
-
-#~ msgid "event acceptation state information message"
-#~ msgstr ""
-#~ "Une personne conviée a modifié l'état d'acception du rendez-vous ci-"
-#~ "dessous."
 
 #~ msgid "event proposal"
 #~ msgstr "Proposition de rendez-vous"
