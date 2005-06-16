@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.11 2005/02/08 11:34:37 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.12 2005/06/16 15:07:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.11 2005/02/08 11:34:37 eric Exp $
+// $Id: Method.Mask.php,v 1.12 2005/06/16 15:07:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -125,6 +125,7 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
     
   $tattr = $doc->GetFieldAttributes();
   $tattr = $doc->GetNormalAttributes();
+  $tattr += $doc->GetActionAttributes();
   foreach($tattr as $k=>$attr) {
     
     if ((isset($attr->fieldSet))&&
@@ -169,6 +170,7 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
 
 
     $tmask[$k]["framelabel"]=$attr->fieldSet->labelText;
+    if ($attr->waction!="") $tmask[$k]["framelabel"]=_("Action");
 
   }
 
@@ -240,10 +242,10 @@ function editmask() {
   //  -------------------- NORMAL ----------------------
   $tattr = $doc->GetNormalAttributes();
   $tattr += $doc->GetFieldAttributes();
-  
+  $tattr += $doc->GetActionAttributes();
   uasort($tattr,"tordered"); 
   foreach($tattr as $k=>$attr) {
-    if ($attr->usefor!="N") continue;
+    if ($attr->usefor=="Q") continue; // not parameters
     $newelem[$k]["attrid"]=$attr->id;
     $newelem[$k]["attrname"]=$attr->labelText;
     $newelem[$k]["visibility"]=$labelvis[$attr->visibility];
@@ -262,7 +264,7 @@ function editmask() {
 
 
     $newelem[$k]["framelabel"]=$attr->fieldSet->labelText;
-
+    if ($attr->waction!="") $newelem[$k]["framelabel"]=_("Action");
 
     reset($selectvis);
     while(list($kopt,$opt) = each($selectvis))  {
