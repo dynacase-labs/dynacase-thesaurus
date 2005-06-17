@@ -6,24 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-07 17:06+0100\n"
-"PO-Revision-Date: 2005-01-07 17:10+0100\n"
+"POT-Creation-Date: 2005-06-17 07:12+0000\n"
+"PO-Revision-Date: 2005-06-17 09:12+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "change period from [%s %s] to [%s %s]"
-msgstr ""
-
-#, c-format
-msgid "Changes from document \"%s\" [%d]"
-msgstr ""
-
-msgid "DATE ERROR"
-msgstr "ERREUR DE DATE"
 
 msgid "use what gate"
 msgstr ""
@@ -31,8 +20,53 @@ msgstr ""
 msgid "preferential doc gate id"
 msgstr ""
 
-msgid "all families events"
-msgstr "Tous les familles"
+msgid "freeevent"
+msgstr ""
+
+msgid "event ressources"
+msgstr "ressources événement"
+
+msgid "Parameters"
+msgstr "Paramètres"
+
+msgid "send search"
+msgstr "Lancer la recherche"
+
+msgid "ressources"
+msgstr "ressources"
+
+msgid "Criteria"
+msgstr "Critères"
+
+msgid "planner"
+msgstr "Planification"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "previous year (365 days before)"
+msgstr "année précédente (365 jours avant)"
+
+msgid "next year (365 days after)"
+msgstr "année suivante (365 jours après)"
+
+msgid "previous month (30 days before)"
+msgstr "mois précédent (30 jours avant)"
+
+msgid "next month (30 days after)"
+msgstr "mois suivant (30 jours après)"
+
+msgid "previous week"
+msgstr "semaine précédente"
+
+msgid "next week"
+msgstr "semaine suivante"
+
+msgid "previous day"
+msgstr "jour précédent"
+
+msgid "next day"
+msgstr "jour suivant"
 
 msgid "Allperiod"
 msgstr "Période maximale"
@@ -47,25 +81,37 @@ msgid "Change day period"
 msgstr "Changement de la période"
 
 msgid "zoom x2"
-msgstr ""
+msgstr "zoom x2"
+
+msgid "zoom x1.5"
+msgstr "zoom 50%"
 
 msgid "zoom 0"
-msgstr ""
+msgstr "pas de zoom"
 
 msgid "zoom /2"
-msgstr ""
+msgstr "zoom -50%"
 
-msgid "Criteria"
-msgstr "Critères"
+msgid "zoom /1.5"
+msgstr "zoom -25%"
 
-msgid "planner"
-msgstr "Planification"
+msgid "all families events"
+msgstr "Tous les familles"
 
-msgid "Parameters"
-msgstr "Paramètres"
+msgid "view planner"
+msgstr "voir la planification"
 
-msgid "send search"
-msgstr "Lancer la recherche"
+msgid "DATE ERROR"
+msgstr "ERREUR DE DATE"
 
-msgid "Monday"
-msgstr "Lundi"
+#, c-format
+msgid "Change period from [%s %s] to [%s %s]"
+msgstr "Changement de la période de [%s %s] vers [%s %s]"
+
+#, c-format
+msgid "Changes from document \"%s\" [%d]"
+msgstr "Changement à partir du document \"%s\" [%d]"
+
+#, fuzzy
+#~ msgid "days"
+#~ msgstr "Lundi"

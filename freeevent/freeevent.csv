@@ -1,10 +1,10 @@
 //FAM;contrôle de vues(CVDOC);<specid>;<fldid>;titre;description;family id;famille;vues;id création vues par défaut;id vues;label;création vue;type;zone;id masque;masque;family id;famille
 ORDER;CVDOC;;;ba_title;cv_desc;cv_famid;cv_fam;cv_t_views;cv_idcview;cv_idview;cv_lview;cv_lcview;cv_kview;cv_zview;cv_mskid;cv_msk;dpdoc_famid;dpdoc_fam
-DOC;CVDOC;CVDENVENT;;Détail des recherches évènement;;33;recherche événement;;;detail\nres;Détails\nPar ressources;;VEDIT\nVCONS;FREEDOM:EDITDSEARCH\nFREEEVENT:PLANNER?byres=Y;\n;\n;;
+DOC;CVDOC;CVDENVENT;;Détail des recherches évènement;;33;recherche événement;;;detail\nres\nevt;Détails\nPar ressources\nPar événement;;VEDIT\nVCONS\nVCONS;FREEDOM:EDITDSEARCH\nFREEEVENT:PLANNER?byres=Y\nFREEEVENT:PLANNER?byres=N;\n\n;\n\n;;
 ;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;
 DOC;PDOC;EVENT_PROFILE;;Evénement généré;;;;;;;;;;;;;;
-PROFIL;EVENT_PROFILE;;;view=2;view=82;;;;;;;;;;;;;
+PROFIL;EVENT_PROFILE;;;view=2;;;;;;;;;;;;;;
 // famille portail;;;id;class;name;;;;;;;
 BEGIN;0;événement;34;;EVENT;;;;;;;
 TYPE;C;;;;;;;;;;;
@@ -31,7 +31,7 @@ ATTR;EVT_IDINITIATOR;EVT_FR_IDENT;id document référent;N;N;docid;130;H;;;;::getT
 ATTR;EVT_INITIATOR;EVT_FR_IDENT;référent;N;N;text;140;W;;%S%app=FDL&action=FDL_CARD&id=%EVT_IDINITIATOR%;;
 ATTR;EVT_TRANSFT;EVT_FR_IDENT;fonction de transfert;N;N;text;150;R;;;;
 ATTR;EVT_ITRANSFT;EVT_FR_IDENT;fonction de transfert inverse;N;N;text;160;R;;;;
-;;;;;;;;;;;;
+ATTR;EVT_ICON;EVT_FR_IDENT;icone;N;N;image;170;R;;;;::getEventIcon()
 ;;;;;;;;;;;;
 ;;;;;;;;;;;;
 END;0;;;;;;;;;;;
@@ -50,20 +50,22 @@ ATTR;DCAL_IDPRODUCER;DCAL_FR_SEARCH;id producteur;N;N;docid;430;H;;;;
 ATTR;DCAL_PRODUCER;DCAL_FR_SEARCH;producteur;N;N;text;440;W;;%S%&app=FDL&action=FDL_CARD&id=%DCAL_IDPRODUCER%;event.php;[hlist]getEventProducers(D):DCAL_IDPRODUCER,DCAL_PRODUCER
 ATTR;SE_FAM;DCAL_FR_SEARCH;famille;N;Y;text;450;W;;%S%&app=FDL&action=FDL_CARD&id=%SE_FAMID%;fdl.php;[hlist]lfamilies(D,,EVENT):SE_FAMID,SE_FAM
 ATTR;DCAL_FR_RES;;ressources impactées;N;N;frame;500;W;;;;
-ATTR;DCAL_IDFRES;DCAL_FR_RES;id famille ressources;N;N;docid;30;H;;;;
-ATTR;DCAL_FRES;DCAL_FR_RES;famille ressource;N;N;text;10;O;;%S%&app=FDL&action=FDL_CARD&id=%DCAL_IDFRES%;event.php;[hlist]getFamRessource(D):DCAL_IDFRES,DCAL_FRES
-ATTR;DCAL_T_RES;DCAL_FR_RES;ressources;N;N;array;20;W;;;;
-ATTR;DCAL_IDRES;DCAL_T_RES;id ressouce;N;N;docid;30;H;;;;
-ATTR;DCAL_RES;DCAL_T_RES;ressource;N;N;text;40;W;;%S%&app=FDL&action=FDL_CARD&id=%DCAL_IDRES%;event.php;getRessource(D,DCAL_IDFRES,DCAL_RES):DCAL_IDRES,DCAL_RES
-;;;;;;;;;;;;
-ATTR;DCAL_FR_PRESENT;;présentation;N;N;frame;520;W;;;;
-ATTR;DCAL_COLORIDX;DCAL_FR_PRESENT;couleurs;N;N;enum;530;W;;;-;ir|ressource,eid|événement,fid|producteur,subtype|type
-ATTR;DCAL_LUMINANCE;DCAL_FR_PRESENT;luminance;N;N;enum;540;W;;;-;0\.6|foncé,0\.7|vive,0\.8|normal,0\.9|pastel
-ATTR;DCAL_ORDERIDX1;DCAL_FR_PRESENT;trié par;N;N;enum;550;W;;;-;absx|date de début,absw|durée,res|ressource,fid|producteur,subtype|type
-ATTR;DCAL_ORDERDESC1;DCAL_FR_PRESENT;sens du tri;N;N;enum;560;W;;;-;[bool]ASC|ascendant,DESC|descendant
-ATTR;DCAL_ORDERIDX2;DCAL_FR_PRESENT;puis par;N;N;enum;570;W;;;-; ,|rien,absx|date de début,absw|durée,ir|ressource,fid|producteur,subtype|type
-ATTR;DCAL_ORDERDESC2;DCAL_FR_PRESENT;sens du tri;N;N;enum;580;W;;;-;[bool]ASC|ascendant,DESC|descendant
-;;;;;;;;;;;;
+ATTR;DCAL_IDFRES;DCAL_FR_RES;id famille ressources;N;N;docid;510;H;;;;
+ATTR;DCAL_FRES;DCAL_FR_RES;famille ressource;N;N;text;520;O;;%S%&app=FDL&action=FDL_CARD&id=%DCAL_IDFRES%;event.php;[hlist]getFamRessource(D):DCAL_IDFRES,DCAL_FRES
+ATTR;DCAL_T_RES;DCAL_FR_RES;ressources;N;N;array;530;W;;;;
+ATTR;DCAL_IDRES;DCAL_T_RES;id ressouce;N;N;docid;540;H;;;;
+ATTR;DCAL_RES;DCAL_T_RES;ressource;N;N;text;550;W;;%S%&app=FDL&action=FDL_CARD&id=%DCAL_IDRES%;event.php;getRessource(D,DCAL_IDFRES,DCAL_RES):DCAL_IDRES,DCAL_RES
+ATTR;DCAL_VIEWONLYRES;DCAL_FR_RES;voir les ressources sélectionnées;N;N;enum;560;W;;;-;[bool]all|voir aussi les ressources participantes,only|voir seulement les ressources sélectionnées
+ATTR;DCAL_FR_PRESENT;;présentation;N;N;frame;570;W;;;;
+ATTR;DCAL_COLORIDX;DCAL_FR_PRESENT;couleurs;N;N;enum;580;W;;;-;ir|ressource,eid|événement,fid|producteur,subtype|type
+ATTR;DCAL_LUMINANCE;DCAL_FR_PRESENT;luminance;N;N;enum;590;W;;;-;0\.6|foncé,0\.7|vive,0\.8|normal,0\.9|pastel
+ATTR;DCAL_ORDERIDX1;DCAL_FR_PRESENT;trié par;N;N;enum;600;W;;;-;absx|date de début,absw|durée,res|ressource,fid|producteur,subtype|type
+ATTR;DCAL_ORDERDESC1;DCAL_FR_PRESENT;sens du tri;N;N;enum;610;W;;;-;[bool]ASC|ascendant,DESC|descendant
+ATTR;DCAL_ORDERIDX2;DCAL_FR_PRESENT;puis par;N;N;enum;620;W;;;-; ,|rien,absx|date de début,absw|durée,ir|ressource,fid|producteur,subtype|type
+ATTR;DCAL_ORDERDESC2;DCAL_FR_PRESENT;sens du tri;N;N;enum;630;W;;;-;[bool]ASC|ascendant,DESC|descendant
+ATTR;DCAL_GROUPBY;DCAL_FR_PRESENT;groupement;N;N;enum;640;W;;;-;BYRES|par ressource,BYEVT|par événement
+ATTR;DCAL_PRESTITLE;DCAL_FR_PRESENT;voir le titre;N;N;enum;650;W;;;-;INLINE|à l'intérieur,LEFT|à gauche (si groupement par événement),NONE|invisible
+ATTR;DCAL_PRESICON;DCAL_FR_PRESENT;voir les icones;N;N;enum;660;W;;;-;INLINE|à l'intérieur,NONE|invisible
 END;;;;;;;;;;;;
 // famille portail;;;id;class;name;;;;;;;
 BEGIN;DIR;dossier événements;35;;SCALENDAR;;;;;;;
