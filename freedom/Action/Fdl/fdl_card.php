@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.7 2005/06/09 12:17:31 eric Exp $
+ * @version $Id: fdl_card.php,v 1.8 2005/06/17 07:50:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -37,7 +37,9 @@ function fdl_card(&$action) {
   $latest = GetHttpVars("latest");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  if (intval($docid) == 0) $action->exitError(sprintf(_("reference must be a number not '%s'"),$docid));
+  if ($docid=="") $action->exitError(_("no document reference"));
+  if (! is_numeric($docid)) $docid=getIdFromName($dbaccess,$docid);
+  if (intval($docid) == 0) $action->exitError(sprintf(_("unknow logical reference '%s'"),GetHttpVars("id")));
   $doc = new Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
 
