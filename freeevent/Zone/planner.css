@@ -162,3 +162,40 @@ DIV.description {
 	left:0px;
 	top:0px;
 }
+
+TABLE.tinputs TR {
+	height:20px;
+}
+TABLE.tinputs TD {
+	overflow:hidden;
+}
+#bpyear, #bnyear {
+  background-color:gold;
+}
+#bnweek {
+  background-color:wheat;
+}
+#bpweek {
+  background-color:lightyellow;
+}
+#bnmonth {
+  background-color:yellow;
+}
+#bpmonth {
+  background-color:orange;
+}
+#bnday {
+  background-color:lightblue;
+}
+#bpday {
+  background-color:cornflowerblue;
+}
+BUTTON.bnav {
+  [IFNOT ISIE]background-image:url('[IMG:7hi.png]');[ENDIF ISIE]
+  [IF ISIE]filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:7hi.png]',sizingMethod='scale');[ENDIF ISIE]
+  font-size:7pt;		
+  cursor:pointer;
+}
+BUTTON.bnav:hover {
+	background-image:none;
+}

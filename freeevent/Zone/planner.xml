@@ -12,12 +12,20 @@ addEvent(window,"load",placeEvents);
 </script>
 
 
-<div id="binter" style="position:absolute;display:none">
-<input onclick="allcal()" title="[TEXT:Allperiod]"  type="image" src="[IMG:forback.gif]"></input>
-<input onclick="isFixed=true;placeEvents();style.visibility='hidden'" type="image" src="[IMG:pins.gif]" title="[TEXT:Fixbar]" ></input><br>
-<input id="nperiod" value="[dday100]" title="[TEXT:Period in day]" type="text" size="2" ></input>
-<input onclick="resizecal()" title="[TEXT:Change day period]" type="image" src="[IMG:forward.gif]"></input>
+<div id="byear" style="position:absolute;display:none;" align="right"><button class="bnav" id="bpyear" onclick="moveabscal(-365)" title="[TEXT:previous year (365 days before)]">&lt;</button><button class="bnav" id="bnyear" onclick="moveabscal(365)" title="[TEXT:next year (365 days after)]">&gt;</button></div>
+<div id="bmonth" style="position:absolute;display:none" align="right"><button class="bnav" id="bpmonth" onclick="moveabscal(-30)" title="[TEXT:previous month (30 days before)]">&lt;</button><button class="bnav" id="bnmonth" onclick="moveabscal(30)" title="[TEXT:next month (30 days after)]">&gt;</button></div>
+<div id="bweek" style="position:absolute;display:none" align="right"><button class="bnav" id="bpweek" onclick="moveabscal(-7)" title="[TEXT:previous week]">&lt;</button><button class="bnav" id="bnweek" onclick="moveabscal(7)" title="[TEXT:next week]">&gt;</button></div>
+<div id="bday" style="position:absolute;display:none" align="right"><button class="bnav" id="bpday" onclick="moveabscal(-1)" title="[TEXT:previous day]">&lt;</button><button class="bnav" id="bnday" onclick="moveabscal(1)" title="[TEXT:next day]">&gt;</button></div>
+
+<div id="binter" style="position:absolute;display:none;width:auto;">
+<table cellspacing=0 class="tinputs" >
+<tr><td><input onclick="allcal()" title="[TEXT:Allperiod]"  type="image" src="[IMG:forback.gif]"></input></td>
+   <td><input onclick="isFixed=true;placeEvents();style.visibility='hidden'" type="image" src="[IMG:pins.gif]" title="[TEXT:Fixbar]" ></input></td>   </tr>
+<tr><td><input id="nperiod" value="[dday100]" title="[TEXT:Period in day]" type="text" size="2" ></input></td>
+   <td><input onclick="resizecal()" title="[TEXT:Change day period]" type="image" src="[IMG:forward.gif]"></input></td></tr>
+</table>
 </div>
+
 <div id="dday"  name="dday" style="display:none" onclick="viewcal(this.id)"  >XX</div>
 
 <div id="dhour" name="dhour" title="HH" style="position:absolute;left=0px;top=0px;display:none;"><table class="rowright24" cellspacing=0 width="100%" cols="24"><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr></table></div>
@@ -27,22 +35,19 @@ addEvent(window,"load",placeEvents);
 
 <table id="tcalhead" width="100%" border="1" style="background-color:transparent">
 <thead>
-<tr><td  align="left">[begdate]<button onclick="movecal(-100)" title="[dday100] [TEXT:days]">&lt;&lt;&lt;</button><button onclick="movecal(-50)" title="[dday50] [TEXT:days]">&lt;&lt;</button><button onclick="movecal(-10)" title="[dday10] [TEXT:days]">&lt;</button></td>
+<tr><td  align="left">[begdate]</td>
 <td><button onclick="zoomx=zoomx*2;placeEvents();" title="[TEXT:zoom x2]">&rarr;</button>
 <button onclick="zoomy=zoomy*1.5;placeEvents();" title="[TEXT:zoom x1.5]">&darr;</button>
 <button onclick="zoomx=1;zoomy=1;placeEvents();"title="[TEXT:zoom 0]" >0</button>
 <button onclick="zoomx=zoomx/2;placeEvents();" title="[TEXT:zoom /2]">&larr;</button>
 <button onclick="zoomy=zoomy/1.5;placeEvents();" title="[TEXT:zoom /1.5]">&uarr;</button></td>
-<td align="right">
-<button onclick="movecal(10)" title="[dday10] [TEXT:days]">&gt;</button>
-<button onclick="movecal(50)" title="[dday50] [TEXT:days]">&gt;&gt;</button>
-<button onclick="movecal(100)" title="[dday100] [TEXT:days]">&gt;&gt;&gt;</button>[enddate]</td></tr>
+<td align="right">[enddate]</td></tr>
 </thead>
 </table>
 <div id="bgmilli"   class="fond">
 [BLOCK BAR]
 <div id="res[idx]" class="ressource" style="display:none;background-color:[color];" [IFNOT byres][IF inleft] onclick="showrot()"[ENDIF inleft]onmouseout="unviewdesc(event)" onmouseover="viewdesc(event,[idx])"[ENDIF byres]><span name="evtres"><b>[res]</b></span>[IFNOT byres]<span name="evttitle"> <i>[divtitle2]</i></span>[ENDIF byres]</div>
-<div id="bar[idx]" class="event" style="display:none;background-color:[color];"     onclick="subwinevt([FDL_VD2SIZE],[FDL_HD2SIZE],'detailevt','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')" onmouseout="unviewdesc(event)" onmouseover="viewdesc(event,[idx])"><img  align="right" src="[evticon]" height="100%"><span style="font-size:7pt">[divtitle]</span></div>
+<div id="bar[idx]" class="event" style="display:none;background-color:[color];"     onclick="subwinevt([FDL_VD2SIZE],[FDL_HD2SIZE],'detailevt','[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[rid]')" onmouseout="unviewdesc(event)" onmouseover="viewdesc(event,[idx])">[IF icoinline]<img  align="right" src="[evticon]" height="100%">[ENDIF icoinline]<span style="font-size:7pt">[divtitle]</span></div>
 <script>
 tevents[[idx]]=['[idx]',[line],[subline],[absx],[absw],'[desc]'];
 </script>

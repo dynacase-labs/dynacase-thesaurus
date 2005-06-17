@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.22 2005/06/15 16:25:17 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.23 2005/06/17 06:42:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -179,7 +179,9 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
   $delta=$mend-$mstart;
   $titleinline=($this->getValue("dcal_prestitle","INLINE")=="INLINE");
   $titleinleft=($this->getValue("dcal_prestitle","INLINE")=="LEFT");
+  $iconinline=($this->getValue("dcal_presicon","INLINE")=="INLINE");
   $this->lay->set("inleft",$titleinleft);
+  $this->lay->set("icoinline",$iconinline);
   $this->lay->set("dday100",round($delta));
   $this->lay->set("dday50",round($delta*0.5));
   $this->lay->set("dday10",round($delta*0.1));
@@ -205,7 +207,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 		      //"subline"=>$colorredid[$ir],
 		      "ir"=>"$ir",
 		      "idx"=>$sub,		      
-		      "evticon"=>$this->getIcon($v["evt_icon"]),
+		      "evticon"=>($iconinline)?$this->getIcon($v["evt_icon"]):'',
 		      "rid"=>getv($v,"evt_idinitiator"),
 		      "fid"=>getv($v,"evt_frominitiatorid"),
 		      "eid"=>getv($v,"id"),
