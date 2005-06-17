@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.93 2005/04/13 11:12:06 eric Exp $
+ * @version $Id: editutil.php,v 1.94 2005/06/17 09:28:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,9 +50,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 		
   //if (($value == "") && ($docid==0)) {
     // only for create doc because can be a security failure 
-  if ($value == "") 
-    $value = GetHttpVars($attrid); 
-    //
+    if ($value == "")     $value = GetHttpVars($attrid); 
+
 
   if ($visibility == "H") {
     $input="<input  type=\"hidden\" name=\"".$attrin."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";    
@@ -676,7 +675,13 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	
 	if ($visible) $nbcolattr++;
 	$tval[$k]=$doc->getTValue($k);
-	$nbitem=count($tval[$k]);
+	$nbitem=count($tval[$k]);	
+	if ($nbitem==0) {
+	  // try http parameters
+	  $tval[$k]=GetHttpVars($k);
+	  if (($tval[$k] != "") && (! is_array($tval[$k]))) $tval[$k]=array(GetHttpVars($k));
+	  $nbitem=count($tval[$k]);	
+	}
 	if ($nbitem==0) {
 	  // add first range
 	  if ($oattr->format != "empty") {
