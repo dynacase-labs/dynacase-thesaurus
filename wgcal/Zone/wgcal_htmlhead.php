@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.6 2005/06/18 04:30:47 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.7 2005/06/18 05:54:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.6 2005/06/18 04:30:47 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.7 2005/06/18 05:54:38 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -19,13 +19,20 @@ include_once('Class.Application.php');
 
 function wgcal_htmlhead(&$action) {
 
+  global $_SERVER;
 
-  $reload = GetHttpVars("reload", 0);
-
-  if ($reload>0) {
-    $action->lay->set("reload", true);
-    $action->lay->set("reloadtime", $reload);
-  } else $action->lay->set("reload", false);
+  $refresh = GetHttpVars("refresh", 0);
+  if ($refresh>0) {
+    $action->lay->set("refresh", true);
+    $action->lay->set("refresh_time", $refresh);
+    $url = ($_SERVER["SERVER_PORT"] == 443 ? "https" : "http") ."://"
+      .    $_SERVER["SERVER_NAME"]
+      .    ":".$_SERVER["SERVER_PORT"]
+      .    $_SERVER["REQUEST_URI"];
+    $action->lay->set("refresh_url", $url);
+  } else {
+    $action->lay->set("refresh", false);
+  }
 
   $sTitle = GetHttpVars("S", "");
   $winW = GetHttpVars("W", 0);
@@ -51,14 +58,5 @@ function wgcal_htmlhead(&$action) {
   $theme = $action->getParam("WGCAL_U_THEME", "default");
   $action->lay->set("theme", $theme);
   
-  if (GetHttpVars("f",0)==1) {
-    $r = $action->getParam("WGCAL_U_REFRESH_T", 0);
-    if ($r==1) {
-      $t[0]["refreshurl"] = "[CORE_STANDURL]&app=WGCAL&action=WGCAL_TOOLBAR&f=1";
-      $t[0]["refreshdur"] = "10";
-    }
-    $action->lay->setBlockData("autorefresh", $t);
-  } 
-    
 }
 ?>

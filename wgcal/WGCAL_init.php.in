@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.34 2005/06/16 17:33:30 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.35 2005/06/18 05:54:38 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,8 +70,6 @@ array(
 "WGCAL_U_RVDEFDUR" => array("kind"=>"static", "val"=>"60", "descr"=>N_("meeting default duration"),"user"=>"Y"),
 "WGCAL_U_MINCUSED" => array("kind"=>"static", "val"=>"15", "descr"=>N_("minutes increment used for event setting"),"user"=>"Y"),
 
-"WGCAL_U_REFRESH_T" => array("kind"=>"static", "val"=>"0", "descr"=>N_("refresh toolbar"),"user"=>"Y"),
-
 "WGCAL_U_TODOORDER" => array("kind"=>"static", "val"=>"desc", "descr"=>N_("order todos"),"user"=>"Y"),
 "WGCAL_U_TODODAYS" => array("kind"=>"static", "val"=>"7", "descr"=>N_("view todos for ... days"),"user"=>"Y"),
 "WGCAL_U_TODOWARN" => array("kind"=>"static", "val"=>"2", "descr"=>N_("warn for todo having a date in the ... days"),"user"=>"Y"),
@@ -81,6 +79,7 @@ array(
 "WGCAL_U_TBSEARCH" => array("kind"=>"static", "val"=>"0", "descr"=>N_("display search"),"user"=>"Y"),
 "WGCAL_U_TBTODOS" => array("kind"=>"static", "val"=>"1", "descr"=>N_("display todos"),"user"=>"Y"),
 "WGCAL_U_TBCONTACTS" => array("kind"=>"static", "val"=>"0", "descr"=>N_("display contacts"),"user"=>"Y"),
+"WGCAL_U_RELOADTOOLBAR" => array("kind"=>"static", "val"=>"0", "descr"=>N_("toolbar refresh time"),"user"=>"Y"),
 
 
 // Synchro 
