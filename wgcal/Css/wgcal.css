@@ -80,7 +80,7 @@ TD {
 
 /* Zone d'affichage des infos mois, semaine et jours */
 .wMainMenu {
-  cursor:pointer;
+  cursor:default;
   background-color : [WTH_COLOR_2];
   border : 1px outset [WTH_COLOR_1];
   font-size: [WTH_FONTSIZE_SMALL]pt;
@@ -342,8 +342,6 @@ TD {
   height:auto;
 }
 
-
-
 /* The main calendar widget.  DIV containing a table. */
 
 .calendar {
@@ -596,6 +594,21 @@ TD {
   color: [WTH_COLOR_3];
 }
 
+.MenuInactive {
+  font-weight : bold;
+  border : 1px outset [WTH_TEXTCOLOR_1];
+  cursor:pointer;
+}
+.MenuActive {
+  font-weight : bold;
+  border : 1px inset [WTH_TEXTCOLOR_1];
+  cursor:pointer;
+}
+.MenuSelected {
+  font-weight : bold;
+  border : 1px  outset [WTH_TEXTCOLOR_1];
+  cursor:pointer;
+}
 
 
 .wgcalpopup {

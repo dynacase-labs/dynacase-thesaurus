@@ -3,7 +3,7 @@
   <title>[TEXT:freedom groupware calendar][IF bstitle]::[ENDIF bstitle][SubTitle]</title>
   <script language="JavaScript">[IF resize]window.resizeTo([winW],[winH]);[ENDIF resize]</script>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  
-  [BLOCK autorefresh]<meta htt-equiv="refresh" content="[refreshdur];[refreshurl]" target="_self">[ENDBLOCK autorefresh]
+  [IF reload]<meta http-equiv="refresh" content="[reloadtime];[refreshurl]" target="_self">[ENDBLOCK autorefresh]
   <link rel="icon" HREF="WGCAL/Images/wgcal.ico" >
   <link rel="SHORTCUT" HREF="WGCAL/Images/wgcal.ico" >
   <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS&theme=[theme]" >

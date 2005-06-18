@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.5 2005/06/07 16:05:36 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.6 2005/06/18 04:30:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.5 2005/06/07 16:05:36 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.6 2005/06/18 04:30:47 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -19,6 +19,13 @@ include_once('Class.Application.php');
 
 function wgcal_htmlhead(&$action) {
 
+
+  $reload = GetHttpVars("reload", 0);
+
+  if ($reload>0) {
+    $action->lay->set("reload", true);
+    $action->lay->set("reloadtime", $reload);
+  } else $action->lay->set("reload", false);
 
   $sTitle = GetHttpVars("S", "");
   $winW = GetHttpVars("W", 0);

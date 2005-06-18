@@ -1,4 +1,4 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD]
+[ZONE WGCAL:WGCAL_HTMLHEAD?reload=[reload]]
 <div id="toolbarmain style="display:none">
 <form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 

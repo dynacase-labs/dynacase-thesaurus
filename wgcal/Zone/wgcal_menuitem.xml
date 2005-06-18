@@ -1,0 +1,3 @@
+[BLOCK MITEMS][IF SEP]<a class="separator"></a>[ENDIF SEP][IFNOT SEP]
+<a href="#" id="[key]" onclick="[IF jscode][jsc][ENDIF jscode][IF launch]activate(this, '[act]', '[tgt]')[ENDIF launch]; closeMenu('[menu]')">
+[IF POPUPICONS]<img style="border:0px" src="[IMG:[ico]]" height="12px">&nbsp;[ENDIF POPUPICONS][txt]</a>[ENDIF SEP][ENDBLOCK MITEMS]

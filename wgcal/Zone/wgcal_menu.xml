@@ -1,36 +1,38 @@
-<!-- Popup Options 
-<div  style="z-index:3000; display:none" id="wgcal_m_options" class="wgcalpopup">
-<a href="#" id="download_sync" onclick="activate(this,'[CORE_ABSURL]/WGCAL/synchronizer.zip'); closeMenu('wgcal_m_options')">[IF POPUPICONS]<img style="border:0px" src="[IMG:synchro.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:Outlook synchronizer]</a>
+<!-- Menu Bar -->
+[JS:REF]
+<script type="text/javascript"> 
+[JS:CODE]
+</script>
+[BLOCK MENU]
+<!-- POPUP MENUS -->
+<div  style="z-index:3000; display:none" id="[menu]" class="wgcalpopup">
+[MITEM]
 <a class="separator"></a>
-<a href="#" id="close_wgcal_m_options" onclick="closeMenu('wgcal_m_options')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+<a href="#" id="close_[menu]" onclick="closeMenu('[menu]')">[IF POPUPICONS]
+<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div>
- End of Popup Options -->
+[ENDBLOCK MENU]
 
-
-<table cellspacing="0" cellpadding="0"  border="0" width="100%" style="position:fixed;  z-index:500;">
+<table cellspacing="0" cellpadding="0"width="100%" style="position:fixed;  z-index:500;">
 <tr>
-<!-- 
-<td align="left" width="50" class="wMainMenu">&nbsp;File</td>
-<td align="left" width="50" class="wMainMenu"
-  onClick="openMenu(event,'wgcal_m_options', 1); return false" >&nbsp;Options&nbsp;</td>
--->
-<td class="wMainMenu"></td>
-<!-- 
-<td align="center" class="wMainMenu" width="50" >
-<img height="12" style="cursor:pointer" title="[TEXT:add a calendar]" onclick="subwindow(60, 400, 'Add a Calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CREATECALENDAR');" src="[IMG:wgcal-addcalendar.gif]" 
-></td>
--->
+<td align="left" class="wMainMenu">
+<table style="cursor:default; border:0px"  id="barmenu" width="50%" cellspacing="0" cellpadding="0"><tr><td>
+[BLOCK DMENU]<span class="MenuInactive" style="padding: 0px 10pt 0px 3px" onMouseOver="ActiveMenu(this)" onMouseOut="DeactiveMenu(this)" onClick="closeAllMenu();selectMenu(this);openMenuXY(event, '[menu]',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false">[label]</span>[ENDBLOCK DMENU]
+</td></tr></table>
+
+</td>
+
 
 <td class="wMainMenu" align="center" width="30" title="[TEXT:view/hide week-end]">
-<input style="cursor:pointer"  type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></td>
+<input style="cursor:pointer"  id="wesh" type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></td>
 
 
-<td align="center" class="wMainMenu" width="80">
+<td align="center" class="wMainMenu" width="60">
 <img height="12" style="cursor:pointer" title="[TEXT:week view]"  onclick="setDaysViewed(7);" src="[IMG:oneweek.gif]">
 <img height="12" style="cursor:pointer" title="[TEXT:two week view]"  onclick="setDaysViewed(14);" src="[IMG:twoweek.gif]">
 <img height="12" style="cursor:pointer" title="[TEXT:month text view]" onclick="setDaysViewed(-1);" src="[IMG:wm-viewtext.gif]">
 </td>
-<td align="right" width="50" class="wMainMenu">
+<td align="center" width="40" class="wMainMenu">
 <img height="12" title="[TEXT:print view]"  style="cursor:pointer" onclick="parent.wgcal_calendar.print()" src="[IMG:wm-print.gif]">
 <img id="menu_prefs" title="[TEXT:change preferences]" style="cursor:pointer" onclick="subwindow(300, 500, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS');" src="[IMG:wgcal-prefs.gif]" height="12" >
 &nbsp;</td>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-16 19:34+0200\n"
+"POT-Creation-Date: 2005-06-17 16:13+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -376,6 +376,60 @@ msgstr "M'avertir pour les tâches dans "
 
 msgid "set todo default date to today more "
 msgstr "Position la date par défaut à aujourd'hui plus "
+
+msgid "event menu"
+msgstr "Evènements"
+
+msgid "m_txt_event_new"
+msgstr "Nouveau rendez-vous"
+
+msgid "m_txt_todo_new"
+msgstr "Nouvelle tâche"
+
+msgid "m_txt_todo_viewall"
+msgstr "Toutes les tâches"
+
+msgid "view menu"
+msgstr "Affichage"
+
+msgid "m_txt_view_showhidewe"
+msgstr "Afficher/cacher les WE"
+
+msgid "m_txt_view_week"
+msgstr "Une semaine"
+
+msgid "m_txt_twoview_week"
+msgstr "Deux semaines"
+
+msgid "m_txt_view_monthtext"
+msgstr "Un mois"
+
+msgid "calendar menu"
+msgstr "Calendriers"
+
+msgid "m_txt_calendar_new"
+msgstr "Nouveau"
+
+msgid "m_calendar_manage"
+msgstr "Gérer"
+
+msgid "tools menu"
+msgstr "Outils"
+
+msgid "m_txt_tools_preferences"
+msgstr "Préférences"
+
+msgid "m_txt_print"
+msgstr "Imprimer"
+
+msgid "m_txt_synchronizer"
+msgstr "Télécharger l'outil de synchro Outlook"
+
+msgid "m_txt_newtheme"
+msgstr "Ajouter un thème"
+
+msgid "not yet implemented"
+msgstr "Cette fonction n'est pas encore disponible."
 
 msgid "Attendees list"
 msgstr "Personnes conviées"
@@ -885,12 +939,6 @@ msgstr "Enlever la ressource"
 msgid "change color for ressource"
 msgstr "Modifier la couleur du calendrier"
 
-msgid "Outlook synchronizer"
-msgstr "Télécharger l'outil de synchro Outlook"
-
-msgid "add a calendar"
-msgstr "Ajout d'un calendrier"
-
 msgid "view/hide week-end"
 msgstr "Afficher / cacher les week-end"
 
@@ -1017,6 +1065,9 @@ msgstr "Options des tâches"
 msgid "see contacts"
 msgstr "Contacts"
 
+#~ msgid "add a calendar"
+#~ msgstr "Ajout d'un calendrier"
+
 #~ msgid "date modification"
 #~ msgstr "Modification de la date"
 
@@ -1025,9 +1076,6 @@ msgstr "Contacts"
 
 #~ msgid "advanced search"
 #~ msgstr "Recherche avancée"
-
-#~ msgid "print"
-#~ msgstr "Imprimer"
 
 #~ msgid "repeat"
 #~ msgstr "répétition"

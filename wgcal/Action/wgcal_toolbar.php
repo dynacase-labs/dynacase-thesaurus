@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.39 2005/06/16 17:33:31 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.40 2005/06/18 04:30:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -19,6 +19,8 @@ include_once("EXTERNALS/WGCAL_external.php");
 
 function wgcal_toolbar(&$action) {
 
+  $action->lay->set("reload",$action->getParam("WGCAL_U_RELOADTOOLBAR", 0));
+  
   if ($action->getParam("WGCAL_U_TBCONTACTS",0)) $action->lay->set("SHOWCONTACTS", true);
   else $action->lay->set("SHOWCONTACTS", false);
 

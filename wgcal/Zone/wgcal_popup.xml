@@ -25,11 +25,11 @@ closeMenu('calpopup')">[label]</a>[ENDBLOCK POPUPITEMS]
 <a href="#" id="deleterv" onclick="ok =confirm('[TEXT:confirm delete for this event] ?'); if (ok) activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT&ev='+EvSelected,'');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evdelete.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:delete this]</a>
 
-<a href="#" id="historyrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_HISTO&ev='+EvSelected,'wgcal_history');closeMenu('calpopup')" >
+<a href="#" id="historyrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_HISTO&id='+EvSelected,'wgcal_history');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evhistory.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:history]</a>
 
 <a class="separator"></a>
-<a href="#" id="cancelrv" onclick="closeMenu('calpopup')"  >[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+<a href="#" id="cancelrv" onclick="closeMenu('calpopup')"  >[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="15px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 
 </div> <!-- end POPUP DIVISION -->
 
