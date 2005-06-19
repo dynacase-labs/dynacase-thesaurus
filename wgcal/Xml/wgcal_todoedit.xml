@@ -1,19 +1,17 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
+[ZONE WGCAL:WGCAL_HTMLHEAD]
 <form id="storetodo" name="storetodo" method="POST" target="wgcal_toolbar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOSTORE"> 
 <input type="hidden" id="idtodo" name="idtodo" value="[todoId]">
 <table id="vnatt" cellspacing="0" cellpadding="0" width="100%">
-<tr><td colspan="2">&nbsp;</td></tr>
+<tr><td class="wMonthTextTitle" style="font-size:80%">[TEXT:edit todo]</td></tr>
 <tr>
-  <td align="center" rowspan="2" width="40px"><img heigth="30px" src="[IMG:todo.gif]"></td>
-  <td align="center" >
-        <input onfocus="document.getElementById('errTitle').style.display='none'; this.style.background='';" 
-               class="Mandatory" id="title" name="title" size="40" type="text" title="[TEXT:enter todo title]" 
+  <td style="padding:3px" align="center"><input onfocus="document.getElementById('errTitle').style.display='none'; this.style.background='';" 
+               class="Mandatory" id="title" name="title" size="20" type="text" title="[TEXT:enter todo title]" 
                value="[todoTitle]">
-<div id="errTitle" name="errTitle" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:give a title]</div>
+<div id="errTitle" name="errTitle" style="width:100%; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:give a title]</div>
   </td>
 </tr>
 <tr>
-  <td align="center" >[TEXT:todo date limit]<span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="todoDate" style="cursor:pointer;"
+  <td align="center">[TEXT:todo date limit]<span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="todoDate" style="cursor:pointer;"
       title="[TEXT:click here to set the todo limit date]">
       <img src="WGCAL/Images/wm-refreshcal.gif" height="15" >&nbsp;<span id="Tstart">[todoDateT]</span></span>
       <input type="hidden" value="[todoDateV]" id="Dstart" name="Dstart">
@@ -29,16 +27,25 @@ weekNumbers:false,
 firstDay:1 }  );
 </script></td>
 </tr>
-<tr><td colspan="2">&nbsp;</td></tr>
-<tr><td align="center" colspan="2"><textarea cols="40" title="[TEXT:todo note]" rows="3" id="note" name="note">[todoNote]</textarea></td></tr>
-<tr><td colspan="2">&nbsp;</td></tr>
-<tr><td colspan="2" align="right"><img src="[IMG:wm-save.gif]" id="btnSave"
-  height="20" title="[TEXT:save todo]" class="WGCalAction" onclick="TodoSave();"><img src="[IMG:wm-close.gif]" id="btnCancel"
-  height="20" title="[TEXT:cancel]" class="WGCalAction" onclick="if (confirm('[TEXT: cancel modifications]')) window.close();">
+<tr><td style="padding:3px" align="center"><textarea cols="25" title="[TEXT:todo note]" rows="2" id="note" name="note">[todoNote]</textarea></td></tr>
+<tr><td class="wMonthTextTitle" align="right">
+<img src="[IMG:wm-save.gif]" class="wSmallButton"  id="btnSave"  height="12" title="[TEXT:save todo]" onclick="TodoSave();">
+<img src="[IMG:wm-close.gif]" class="wSmallButton" id="btnCancel" height="12" title="[TEXT:cancel]" onclick="TodoAbort()">
 </td></tr>
 </table>
 </form>
 <script type="text/javascript">
+function TodoAbort() {
+  if (confirm('[TEXT: cancel modifications]')) {
+    var ti = document.getElementById('title');
+    var tn = document.getElementById('note');
+    ti.value = '';
+    tn.value = '';
+    parent.document.getElementById('itodo').style.visibility='hidden';
+    parent.document.getElementById('itodo').style.display='none';
+  }
+  return false;
+}
 function TodoSave() {
   var fs = document.getElementById('storetodo');
   var ti = document.getElementById('title');
@@ -49,6 +56,8 @@ function TodoSave() {
   }
   fs.submit();
   window.close();
+  parent.document.getElementById('itodo').style.visibility='hidden';
+  parent.document.getElementById('itodo').style.display='none';
   return false;
 }
 </script>

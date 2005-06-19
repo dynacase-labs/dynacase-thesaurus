@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.41 2005/06/18 05:54:38 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.42 2005/06/19 17:37:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -16,6 +16,7 @@ include_once('FDL/Lib.Dir.php');
 include_once("WGCAL/Lib.WGCal.php");
 include_once("osync/Lib.WgcalSync.php");
 include_once("EXTERNALS/WGCAL_external.php");
+include_once('Lib.wTools.php');
 
 function wgcal_toolbar(&$action) {
 
@@ -47,6 +48,8 @@ function wgcal_toolbar(&$action) {
   $action->lay->set("MyFreedomId", $action->user->fid);
   $action->lay->set("owner", $action->user->lastname." ".$action->user->firstname);
   $action->lay->set("today", strftime("%a %d %b, %H:%M", time()));
+
+  // Set last outlook syncro date
   $db = WSyncGetAdminDb();
   $lsync = GetLastSyncDate($db);
   if ($lsync=="") $action->lay->set("LSYNC", false);
@@ -56,25 +59,14 @@ function wgcal_toolbar(&$action) {
     $action->lay->set("lsyncstyle", ((time()-$lsync)>(24*3600*7)?"color:red":""));
   }
 
+
   _navigator($action);
+
   _listress($action);
 
-  // Set initial visibility
-  $all =  explode("|", $action->GetParam("WGCAL_U_TOOLSSTATE", ""));
-  $state = array();
-  foreach ($all as $k => $v) {
-    $t = explode("%",$v);
-    $state[$t[0]] = ($t[1]==0?"none":"");
-  }
-  $toolList = array( 'inav', 'vvical', 'waitrv', 'todo');
-  foreach ($toolList as $k => $v ) {
-    if (isset($state[$v])) $vis = $state[$v];
-    else $vis = 1;
-    $action->lay->set("v".$v, $vis);
-  }
 
-  $todoviewday = $action->getParam("WGCAL_U_TODODAYS", 7);
-  $action->lay->set("tododays", $todoviewday);
+  // how many days for todos ?
+  $action->lay->set("tododays", $action->getParam("WGCAL_U_TODODAYS", 7));
 }
 
 
@@ -92,6 +84,8 @@ function _navigator(&$action) {
   $cye = $cy + 5;
   $action->lay->set("YSTART", $cys);
   $action->lay->set("YSTOP",$cye );
+
+  setToolsLayout($action, 'nav');
 }
 
 
@@ -148,6 +142,7 @@ function _listress(&$action)
       
       $i++;
     }
+    setToolsLayout($action, 'cals');
   }
 
   popupGen(count($t));

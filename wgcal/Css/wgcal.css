@@ -269,7 +269,21 @@ TD {
   background-color : [WTH_COLOR_2];
   font-weight : bold;
   border : 2px outset [WTH_COLOR_2];
-  cursor:pointer;
+  cursor:default;
+  height : 22px;
+}
+.wToolButtonUnselect {
+  background-color : [WTH_COLOR_2];
+  font-weight : bold;
+  border : 2px inset [WTH_COLOR_2];
+  cursor:default;
+  height : 22px;
+}
+.wToolButtonSelect {
+  background-color : [WTH_COLOR_2];
+  font-weight : bold;
+  border : 2px outset [WTH_COLOR_2];
+  cursor:default;
   height : 22px;
 }
 .wToolButtonOver {
@@ -332,6 +346,15 @@ TD {
   cursor:pointer;
   font-size: [WTH_FONTSIZE_SMALL]pt;
   color : [WTH_TEXTCOLOR_1];
+}
+
+.wSmallButton {
+ cursor:pointer; 
+ border: 1px outset;
+}
+.wSmallButtonPushed {
+ cursor:pointer; 
+ border: 1px inset;
 }
 
 
@@ -641,7 +664,6 @@ TD {
   font-size: [WTH_FONTSIZE_POPUP]pt;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  text-transform:capitalize;
   font-family: [WTH_FONTLIST_POPUP];
   font-weight: none;
 }
@@ -673,7 +695,6 @@ TD {
 
 .wgcalpopup a.separator,
 .wgcalpopup a.separator:hover {
-  color: [WTH_COLOR_3];
   border-bottom : 1px dotted [WTH_COLOR_3];
   display: block;
 }

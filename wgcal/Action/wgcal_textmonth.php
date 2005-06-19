@@ -2,6 +2,7 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/Lib.WGCal.php");
+include_once("WGCAL/Lib.wTools.php");
 
 function wgcal_textmonth(&$action) 
 {
@@ -29,7 +30,7 @@ function wgcal_textmonth(&$action)
 
   // Search all event for this month
   $viewme=false;
-  $ress = WGCalGetRessDisplayed($action);
+  $ress = wGetRessDisplayed();
   $events = array();
   $tr=array(); 
   $ire=0;
@@ -43,7 +44,7 @@ function wgcal_textmonth(&$action)
   }
   $d1 = "".$year."-".$month."-01 00:00:00";
   $d2 = "".$year."-".$month."-".$lastday." 23:59:59";
-  $tevents = WGCalGetAgendaEvents($action, $tr, $d1, $d2);
+  $tevents = WGCalGetAgendaEvents($action, $tr, $d1, $d2, true);
 
   $action->lay->setBlockData("CARDS", $tevents);
 
@@ -66,7 +67,18 @@ function wgcal_textmonth(&$action)
       $tdays[$id]->events[$tdays[$id]->ecount]["START"] = $s;
       $tdays[$id]->events[$tdays[$id]->ecount]["END"] = $e;
       $tdays[$id]->events[$tdays[$id]->ecount]["H"] = $htype;
-      $tdays[$id]->events[$tdays[$id]->ecount]["TITLE"] = $ev->getValue("CALEV_EVTITLE");
+
+      // matrice de ressource affichée / présentes dans le RV
+      $ressd = wgcalGetRessourcesMatrix($ev->id);
+      $myid = $action->user->fid;
+      $ownerid = $ev->getValue("CALEV_OWNERID");
+      $conf    = $ev->getValue("CALEV_VISIBILITY");
+      if ($ownerid == $myid) $private = false;
+      else if (isset($ressd[$myid])) $private = false;
+      else if ($conf==0) $private = false;
+      else $private = true;
+
+      $tdays[$id]->events[$tdays[$id]->ecount]["TITLE"] = ($private ? _("confidential event") : $ev->getValue("CALEV_EVTITLE") );
       if ($ev->getValue("CALEV_OWNERID") == $action->user->fid) $tdays[$id]->events[$tdays[$id]->ecount]["showOwner"] = false;
       else $tdays[$id]->events[$tdays[$id]->ecount]["showOwner"] = true;
       $tdays[$id]->events[$tdays[$id]->ecount]["owner"] = $ev->getValue("CALEV_OWNER");
@@ -77,6 +89,11 @@ function wgcal_textmonth(&$action)
   $displayWE = ($action->GetParam("WGCAL_U_VIEWWEEKEND", "yes") == "yes" ? true : false);
   $dayperline  = ($displayWE ? 7 : 5);
 
+  // matrice de ressource affichée / présentes dans le RV
+  $ressd = wgcalGetRessourcesMatrix($ev->id);
+
+  $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
+  $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
 
   $h = new Layout("WGCAL/Layout/textevent.xml", $action );
   $startdisplay = false;
@@ -109,6 +126,8 @@ function wgcal_textmonth(&$action)
 	$daylabel = strftime("%A",$tscday);
 	$d = array();
 	$h->set("daynum",$daynum);
+	$h->set("timeb", $tscday + ($hstart)*3600);
+	$h->set("timee", $tscday + ($hstart+1)*3600);
 	$h->set("daylabel",$daylabel);
 	if ($tdays[$cday]->ecount > 0) {
 	  usort($tdays[$cday]->events, cmpEvents);

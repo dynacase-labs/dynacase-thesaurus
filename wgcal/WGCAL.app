@@ -35,6 +35,7 @@ $action_desc = array (
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_MENUBAR", "short_name" =>N_("menubar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_USETPARAM", "short_name" =>N_("set user param"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCHICAL", "short_name" =>N_("search calendar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCH", "short_name" =>N_("search event"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_ASEARCH", "short_name" =>N_("advanced search event"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_ASEARCHQUERY", "short_name" =>N_("advanced search event"), "toc" => "N", "root" =>"N"),
@@ -80,6 +81,7 @@ $action_desc = array (
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SELECTRESS", "short_name" =>N_("select ressource for display"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_INITRESSOURCES", "short_name" =>N_("init ressource selection"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_ADDTOPREFCALS", "short_name" =>N_("add to prefered calendars"), "toc" => "N", "root" =>"N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_WAITRV", "short_name" =>N_("see the waiting rv"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_GVIEW", "short_name" =>N_("calendar generic view"), "toc" => "N", "root" =>"N"),

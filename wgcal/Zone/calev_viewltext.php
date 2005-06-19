@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_viewltext.php,v 1.3 2005/06/05 09:02:09 marc Exp $
+ * @version $Id: calev_viewltext.php,v 1.4 2005/06/19 17:37:34 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -89,12 +89,12 @@ function addIcons2(&$ia, $icol)
 {
 
   $ricons = array(
-     "CONFID" => array( "iconsrc" => "WGCAL/Images/wm-confidential.png", "icontitle" => "[TEXT:confidential event]" ),
-     "INVIT" => array( "iconsrc" => "WGCAL/Images/wm-invitation.png", "icontitle" => "[TEXT:invitation]" ),
-     "VIS_PRIV" => array( "iconsrc" => "WGCAL/Images/wm-private.png", "icontitle" => "[TEXT:visibility private]" ),
-     "VIS_GRP" => array( "iconsrc" => "WGCAL/Images/wm-privgroup.png", "icontitle" => "[TEXT:visibility group]" ),
-     "REPEAT" => array( "iconsrc" => "WGCAL/Images/wm-repeat.png", "icontitle" => "[TEXT:repeat event]" ),
-     "GROUP" => array( "iconsrc" => "WGCAL/Images/wm-attendees.png", "icontitle" => "[TEXT:with attendees]" )
+     "CONFID" => array( "iconsrc" => "WGCAL/Images/wm-confidential.gif", "icontitle" => "[TEXT:confidential event]" ),
+     "INVIT" => array( "iconsrc" => "WGCAL/Images/wm-invitation.gif", "icontitle" => "[TEXT:invitation]" ),
+     "VIS_PRIV" => array( "iconsrc" => "WGCAL/Images/wm-private.gif", "icontitle" => "[TEXT:visibility private]" ),
+     "VIS_GRP" => array( "iconsrc" => "WGCAL/Images/wm-privgroup.gif", "icontitle" => "[TEXT:visibility group]" ),
+     "REPEAT" => array( "iconsrc" => "WGCAL/Images/wm-repeat.gif", "icontitle" => "[TEXT:repeat event]" ),
+     "GROUP" => array( "iconsrc" => "WGCAL/Images/wm-attendees.gif", "icontitle" => "[TEXT:with attendees]" )
   );
 
   $ia[count($ia)] = $ricons[$icol];

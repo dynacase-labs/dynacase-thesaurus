@@ -21,16 +21,16 @@ var CEventText = '';
 <a class="separator"></a>
 <a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> 
-<!-- end POPUP DIVISION -->
+<!-- end POPUP DIVISION [bwaitrv] -->
 
-<table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
+<table id="bwaitrv" class="[bwaitrv]" width="100%" cellspacing="0" cellpadding="0">
 <tr>
 <td [IF intoolbar]onclick="WGCalChangeVisibility('waitrv');"[ENDIF intoolbar] align="left">[TEXT:waiting rv] ([RVCOUNT])</td>
-<td align="right"><input type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert('[RTARGET]', '[RACTION]')" [alertwrv] title="[TEXT:alert for new event ?]"></td>
+<td align="right"><input style="cursor:pointer" type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert('[RTARGET]', '[RACTION]')" [alertwrv] title="[TEXT:alert for new event ?]"></td>
 </tr>
 </table>
 
-<div id='waitrv' class="wToolArea" style="[IF intoolbar]height:[zonealertsize]px; [ENDIF intoolbar]overflow:auto; display:[vwaitrv]">
+<div id='vwaitrv' class="wToolArea" style="[IF intoolbar]height:[zonealertsize]px; [ENDIF intoolbar]overflow:auto; display:[vwaitrv]">
 [BLOCK WAITRV]
 <div id="evt[wrvid]" class="WGCwrvdefault" style="cursor:crosshair; border-left:5px solid [wrvcolor]" 
      onmouseover="this.className = 'WGCwrvover'; " 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.42 2005/06/14 15:47:14 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.43 2005/06/19 17:37:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -14,26 +14,50 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/Lib.WGCal.php");
+include_once("WGCAL/Lib.wTools.php");
 
 define("SEC_PER_DAY", 24*3600);
 define("SEC_PER_HOUR", 3600);
 define("SEC_PER_MIN", 60);
 
-function printhdiv($h, $hdiv, $hd) {
-  $sd = $h."H";
-  $sh = "00";
-  $sh = sprintf("%d",((60/$hdiv)*$hd));
-  if (strlen($sh) == 1) $sh = "0".$sh;
-  return $sd.$sh;
-}
-
-// function d2s($t, $f="%x %X") {
-//   return strftime($f, $t - 7200);
-// }
 function wgcal_calendar(&$action) {
 
-  $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
+
+  // Check for standalone mode 
+  $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
+  
+  // Init start time
+  $ts = GetHttpVars("ts", 0);
+  $stdate = $ts;
+  if ($stdate == 0) $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
+  $sdate = WGCalGetDayFromTs($stdate); 
+
+  // Init the ressources
+  $res = GetHttpVars("res", "");
+  if ($res!="") {
+    $ress = explode("|", $res);
+    foreach ($ress as $kr => $vr) {
+      if ($vr>0) $tr[$vr] = $vr;
+    }
+  } else {  
+    $ress = wGetRessDisplayed();
+    $tr=array(); 
+    $ire=0;
+    foreach ($ress as $kr=>$vr) {
+      if ($vr->id>0) $tr[$vr->id] = $vr->id;
+    }
+  }
+  // Init the view mode (month, week, ...)
+  $vm = GetHttpVars("vm", "");
+  if ($vm=="" || !is_int($vm)) $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
+
+  $dayperweek = $vm;
   if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
+
+  $action->lay->set("sm", $sm);
+  $action->lay->set("vm", $vm);
+  $action->lay->set("ts", $ts);
+  $action->lay->set("res", $res);
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
@@ -42,6 +66,7 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
 
+  $action->lay->set("standAlone", $sm);
 
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
   if ($swe!="yes") {
@@ -52,7 +77,6 @@ function wgcal_calendar(&$action) {
   $hcolsize = 5;
   $colsize = round((100 - $hcolsize) / $ndays);
 
-  $sdate = WGCalGetDayFromTs($action->GetParam("WGCAL_U_CALCURDATE", time()));
   $cdate = WGCalGetDayFromTs(time());
   $firstWeekDay = WGCalGetFirstDayOfWeek($sdate);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
@@ -190,13 +214,6 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
 
-  $viewme=false;
-  $ress = WGCalGetRessDisplayed($action);
-  $tr=array(); 
-  $ire=0;
-  foreach ($ress as $kr=>$vr) {
-    if ($vr->id>0) $tr[$vr->id] = $vr->id;
-  }
   $events = array();
   $events = WGCalGetAgendaEvents( $action,
 				  $tr, 
@@ -208,5 +225,13 @@ function wgcal_calendar(&$action) {
 
 }
 
+
+function printhdiv($h, $hdiv, $hd) {
+  $sd = $h."H";
+  $sh = "00";
+  $sh = sprintf("%d",((60/$hdiv)*$hd));
+  if (strlen($sh) == 1) $sh = "0".$sh;
+  return $sd.$sh;
+}
 
 ?>

@@ -1,17 +1,21 @@
 [IFNOT standalone]
-<table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
+<table id="btodo" class="[btodo]" width="100%" cellspacing="0" cellpadding="0">
 <tr>
 <td onclick="WGCalChangeVisibility('todo');" align="left">[TEXT:my todo] ([todocount])</td>
 <td align="right" width="50">
-<img id="allTodo" style="cursor:pointer;" onclick="subwindow(300, 400, 'AllTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ALLTODO');" height="15" src="[IMG:todo-all.gif]" title="[TEXT:view all todo]">
-<img id="addTodo" style="cursor:pointer;" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT');" height="15" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">
+<img id="allTodo" class="wSmallButton" onclick="subwindow(300, 400, 'AllTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ALLTODO');" height="15" src="[IMG:todo-all.gif]" title="[TEXT:view all todo]">
+<img id="addTodo" class="wSmallButton" onclick="sic=document.getElementById('itodo'); if (sic.style.visibility!='hidden') { this.className='wSmallButton'; sic.style.display = 'none'; sic.style.visibility = 'hidden'; } else { this.className='wSmallButtonPushed'; sic.src = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=-1'; sic.style.display = ''; sic.style.visibility = 'visible'; } " height="15" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">
 </td></tr>
 </table>
-<div id="todo" style="display:[vtodo]" class="wToolArea">[ENDIF standalone]
+<div id="vtodo" style="display:[vtodo]" class="wToolArea">[ENDIF standalone]
 
-<div style="display:none"><form id="tododone" target="wgcal_toolbar" name="tododone" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE">
+<div style="display:none"><form id="tododone" name="tododone" method="POST"  
+[IF standalone]target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE&t=WGCAL_ALLTODO">[ENDIF standalone]
+[IFNOT standalone]target="wgcal_toolbar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE&t=WGCAL_TOOLBAR">[ENDIF standalone]
 <input type="hidden" value="-1" name="idtodo" id="idtodo">
 </form></div>
+<iframe id="itodo" style="border:0; width:100%; height:auto; position:relative; display:none; visibility:hidden;" src="about:blank">
+</iframe>
 
 [IFNOT Todos]<div class="WGCRessDefault"[TEXT: no todo]</div>[ENDIF Todos]
 
@@ -23,7 +27,7 @@
   <td width="15"><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px"
            title="[TEXT:todo done]" height="12" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();"></td>
   <td id="[idTodo]" style="border-left:3px solid [colorTodo];" 
-      onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=[idTodo]');">&nbsp;[sTextTodo]</td>
+      onClick="st=document.getElementById('itodo'); st.src = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=[idTodo]'; st.style.display = ''; st.style.visibility = 'visible';">&nbsp;[sTextTodo]</td>
   <td onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=[idTodo]');" align="right">([dateTodo])</td>
 </tr>
 </table>

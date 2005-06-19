@@ -50,14 +50,14 @@
 <div style="padding:2em;">
 
 [IF CF]
-<table  style="border:thin outset grey;" align="center" width="100%" cellspacing="0" cellpadding="2px"><tr>
+<table  style="border:thin inset;" align="center" width="100%" cellspacing="0" cellpadding="2px"><tr>
 <tr><td class="wMonthTextTitle">[TEXT:there are conflicts with events (see after)].</td></tr>
 [BLOCK CONFLICTS]
 <tr><td class="WGCRessDefault" style="width:100%" onmouseover="HideElt(this); ShowElt(this,[ID]);" onmouseout="HideElt(this);">
 [ZONE [VIEWLTEXT]?id=[ID]]</td></tr>[ENDBLOCK CONFLICTS]
 <tr><td width="100%" class="wMonthTextTitle" align="right">
-<img src="WGCAL/Images/wm-modifyevent.png" height="15" title="[TEXT:modify event]" class="WGCalAction" onclick="processConflict();">&nbsp;&nbsp;
-<img src="WGCAL/Images/wm-ignoreconf.png" height="15" title="[TEXT:ignore conflict]" class="WGCalAction" onclick="ignoreConflict();">&nbsp;&nbsp;
+<img src="WGCAL/Images/wm-accept.gif" height="15" title="[TEXT:modify event]" class="WGCalAction" onclick="processConflict();">&nbsp;&nbsp;
+<img src="WGCAL/Images/wm-cancel.gif" height="15" title="[TEXT:ignore conflict]" class="WGCalAction" onclick="ignoreConflict();">&nbsp;&nbsp;
 </td>
 </tr></table>[ENDIF CF]
 

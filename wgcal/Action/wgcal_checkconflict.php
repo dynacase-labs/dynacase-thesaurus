@@ -3,6 +3,7 @@
 include_once("WHAT/Lib.Common.php");
 include_once("FDL/Class.Doc.php");
 include_once("FDL/mailcard.php");
+include_once("WGCAL/Lib.wTools.php");
 include_once("WGCAL/Lib.WGCal.php");
 
 function wgcal_checkconflict(&$action) {
@@ -54,11 +55,9 @@ function wgcal_checkconflict(&$action) {
     $trl = GroupExplode($action, $v);
     $nrl = array_merge($nrl, $trl);
   }
-  $tevtmp = WGCalGetAgendaEvents($action, $nrl, $start, $end);
-    
+  $tevtmp = WGCalGetAgendaEvents($action, $nrl, $start, $end, true);
   $tev = array();
   foreach ($tevtmp as $k=>$v) {
-    // $line[]["line"] = "[".$v["RG"]." id=".$v["ID"]." debut=".$v["TSSTART"]." fin=".$v["TSEND"]." owner=".$v["IDP"];
     if ($v["IDP"]!=$event) $tev[] = $v;
   }
   $action->lay->setBlockData("CARDS", $tev);

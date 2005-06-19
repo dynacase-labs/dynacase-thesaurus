@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.1 2005/06/16 05:30:25 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.2 2005/06/19 17:37:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -13,6 +13,7 @@
 
 include_once("FDL/Class.Doc.php");
 include_once('FDL/Lib.Dir.php');
+include_once('Lib.wTools.php');
 include_once("WGCAL/Lib.WGCal.php");
 include_once("osync/Lib.WgcalSync.php");
 include_once("EXTERNALS/WGCAL_external.php");
@@ -92,6 +93,9 @@ function wgcal_waitrv(&$action) {
     $action->lay->SetBlockData("WAITRV", null);
     $action->lay->set("RVCOUNT", "0");
   }
+
+  setToolsLayout($action, 'waitrv');
+
   
 }
 

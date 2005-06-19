@@ -1,4 +1,4 @@
-<div  width="100%" class="wMonthTextDayTitle">
+<div  width="100%" class="wMonthTextDayTitle"  onclick="ClickCalendarCell('[CORE_STANDURL]',0,[timeb], [timee]);">
 <span width="30%" class="wMonthTextTitlePrevNext" align="left">&nbsp;[daynum]&nbsp;</span>
 <span width="70%" style="font-size:80%; text-align:right">[daylabel]</span>
 </div>

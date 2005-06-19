@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.40 2005/06/15 17:32:38 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.41 2005/06/19 17:37:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,6 +12,7 @@
  */
 include_once("FDL/mailcard.php");
 include_once("osync/Class.WSyncDate.php");
+include_once("WGCAL/Lib.wTools.php");
 include_once("EXTERNALS/WGCAL_external.php");
 
 define("SEC_PER_DAY", 24*3600);
@@ -103,22 +104,6 @@ function wgcalGetRessourcesMatrix($id=-1) {
   return $ressd;
 }
 
-function WGCalGetRessDisplayed(&$action) {
-  $r = array();
-  $ir = 0;
-  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
-  while (list($k,$v) = each($cals)) {
-    if ($v!="") {
-      $tc = explode("%", $v);
-      if ($tc[0] != "" && $tc[1] == 1) {
-	$r[$ir]->id = $tc[0];
-	$r[$ir]->color = $tc[2]; 
-	$ir++;
-      }
-    }
-  }
-  return $r;
-}
 
 function WGCalGetDayFromTs($ts) 
 {
@@ -152,8 +137,7 @@ function WGCalGetFirstDayOfMonth($ts) {
  	return strftime("%u", $ts);
 }
       	
-function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="") 
-{
+function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="", $nofilter=false) {
 
   include_once('FDL/popup_util.php');
 
@@ -175,7 +159,7 @@ function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="")
   }
   $idfamref = implode("|", $fti);
 
-//   echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
+//      echo "reid=$reid d1=[$d1] d2=[$d2] idres=[$idres] idfamref=[$idfamref]<br>";
 
   setHttpVar("idfamref", $idfamref);
   $dre=new Doc($dbaccess,$reid);
@@ -201,11 +185,10 @@ function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="")
  		   "TSEND" => $end, 
 		   "END" => localFrenchDateToUnixTs($end), 
 		   "IDC" =>  $v["evt_idcreator"] );
-
     $displayEvent = true;
 
     // Traitement de refus => spécifique à CALEVENT
-    if ($v["evt_frominitiatorid"] == $rvfamid) {
+    if ($v["evt_frominitiatorid"] == $rvfamid && !$nofilter) {
 
       $displayEvent = false;
       
@@ -222,23 +205,23 @@ function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="")
       
       foreach ($attinfo as $kat => $vat) {
 	
-// 	echo "(me:".$action->user->fid.") [".$v["id"]."] Ressource #$kat affichée:".($vat["display"]?"oui":"non");
+//  	echo "(me:".$action->user->fid.") [".$v["id"]."] Ressource #$kat affichée:".($vat["display"]?"oui":"non");
 	if ($vat["display"]) {
 
 	  if ($action->user->fid!=$kat) {
 	    if ($vat["status"]!=EVST_REJECT) {
-// 	      echo " Ressource X, status:".$vat["status"]."!=EVST_REJECT";
+//  	      echo " Ressource X, status:".$vat["status"]."!=EVST_REJECT";
 	      $displayEvent = true;
 	    }
 	  } else {
-// 	    echo " (vat(status)=".$vat["status"]." showrefused=$showrefused)";
+//  	    echo " (vat(status)=".$vat["status"]." showrefused=$showrefused)";
 	    if ($vat["status"]!=EVST_REJECT || $showrefused==1) {
-// 	      echo " Moi, showrefused=$showrefused status:".$vat["status"]."!=EVST_REJECT";
+//  	      echo " Moi, showrefused=$showrefused status:".$vat["status"]."!=EVST_REJECT";
 	      $displayEvent = true;
 	    }
 	  }
 	}
-// 	echo "<br>";
+//  	echo "<br>";
       }
     }
 
@@ -451,7 +434,7 @@ function GroupExplode(&$action, $gid) {
  
 function WGCalEvSetColor(&$action, &$event) {
 
-  $dress = WGCalGetRessDisplayed($action);
+  $dress = wGetRessDisplayed();
 
   // the current user is event owner ?
   $idcolor = ($action->user->fid == $event["evt_idcreator"] ? $event["evt_idcreator"] : -1);

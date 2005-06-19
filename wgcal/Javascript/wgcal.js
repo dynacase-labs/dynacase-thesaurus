@@ -140,11 +140,14 @@ var isNetscape = navigator.appName=="Netscape";
 // --------------------------------------------------------
 
 function WGCalChangeVisibility(tool) {
-  el = document.getElementById(tool);
+  el = document.getElementById('v'+tool);
+  bel = document.getElementById('b'+tool);
   if (el.style.display=='') {
     el.style.display = 'none';
+    bel.className = 'wToolButtonSelect';
   } else {
     el.style.display = '';
+    bel.className = 'wToolButtonUnselect';
   }
   WGCalSaveToolsVisibility();
   return;
@@ -154,10 +157,12 @@ function WGCalSaveToolsVisibility() {
   var s='';
   var i=0;
   for (i=0; i<toolList.length; i++) {
-    el = document.getElementById(toolList[i]);
-    v = (el.style.display == '' ? 1 : 0 );
-    s += (s==''?'':'|');
-    s +=  toolList[i]+'%'+v;
+    el = document.getElementById('v'+toolList[i]);
+    if (el) {
+      v = (el.style.display == '' ? 1 : 0 );
+      s += (s==''?'':'|');
+      s +=  toolList[i]+'%'+v;
+    }
   }
   usetparam('WGCAL_U_TOOLSSTATE', s, 'wgcal_hidden', 'WGCAL_HIDDEN');
 }

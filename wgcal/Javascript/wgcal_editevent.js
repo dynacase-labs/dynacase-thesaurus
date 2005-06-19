@@ -130,30 +130,36 @@ function ChangeNoHour() {
   }
   return;
 }
-     
 function SetSelectedItem(from, to) {
    var f = document.getElementById(from);
    var to = document.getElementById(to);
    for (i=0; i<f.options.length; i++) {
      if (f.options[i].selected) {
        to.value = f.options[i].value;
-       if (to.value>0) {
-	 deleteAttendee(-1);
-	 document.getElementById('fullattendees').style.display = 'none';
-       } else {
-	 document.getElementById('fullattendees').style.display = '';
-	 showt = false;
-	 for (i=0; i<attendeesList.length; i++) {
-	   if (attendeesList[i].id != -1) showt = true;
-	 }
-	 if (showt) {
-	   document.getElementById('tabress').style.display = '';
-	   document.getElementById('viewplan').style.display = '';
-	   document.getElementById('delall').style.display = '';
-	 }
-       }
      }
    }
+   if (from=='rvcalendar') {
+     if (to.value>0) HideShowAtt(false);
+     else HideShowAtt(true);
+   }
+}
+
+function HideShowAtt(show) {
+  if (!show) {
+    deleteAttendee(-1);
+    document.getElementById('fullattendees').style.display = 'none';
+  } else {
+    document.getElementById('fullattendees').style.display = '';
+    showt = false;
+    for (i=0; i<attendeesList.length; i++) {
+      if (attendeesList[i].id != -1) showt = true;
+    }
+    if (showt) {
+      document.getElementById('tabress').style.display = '';
+      document.getElementById('viewplan').style.display = '';
+      document.getElementById('delall').style.display = '';
+    }
+  }
 }
 
 function ChangeAllDay() {

@@ -13,7 +13,7 @@ function wgcal_tododone(&$action) {
     $todo = new Doc($db, $id);
     if ($todo->isAlive()) $todo->delete();
   }
-  redirect($action, "WGCAL", "WGCAL_TOOLBAR");
+  redirect($action, "WGCAL", GetHttpVars("t", "WGCAL_ALLTODO"));
 }
 
 

@@ -17,7 +17,7 @@
 [IF styleTABLE]
 <table width="100%" cellspacing="0">
 [BLOCK btime]
-<tr><td colspan="3" class="WEvDays">[date]</td></tr>[BLOCK devents[date]]
+<tr><td colspan="3" class="WEvDays">[tdate]</td></tr>[BLOCK devents[date]]
 <tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'" title="[date] [start][IF isHour]-[ENDIF isHour][end], [title]">
 <td width="25px"><img width="25px" border="0" src="[icon]"></td>
 <td width="1%"  nowrap><span style="font-size:80%;">[start][IF isHour] -  [ENDIF isHour][end]</span>

@@ -7,7 +7,7 @@
 
 <form id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
 </div>
-<div title="[TEXT:click here to refresh toolbar]" onclick="document.location.reload(true)" class="wWhoAmI">
+<div style="left:0%;top:0%;" title="[TEXT:click here to refresh toolbar]" onclick="document.location.reload(true)" class="wWhoAmI">
 <table width="100%" cellspacing="0">
 <tr>
 <td align="center"><img src="[IMG:wm-reloadsync.gif]" height="20px">
@@ -22,13 +22,13 @@
 
  
 <!-- NAVIGATOR  -->
-<table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'"    width="100%" cellspacing="0" cellpadding="0">
-<tr>
-<td onclick="WGCalChangeVisibility('inav');" align="left">[TEXT:date selector]</td>
-<td align="right"><input id="chk2cal" type="checkbox" onclick="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v;" title="[TEXT:display two months]"></td>
+<table id="bnav" class="[bnav]" width="100%" cellspacing="0" cellpadding="0">
+<tr valign="center">
+<td id="inav" align="left" onclick="WGCalChangeVisibility('nav');">[TEXT:date selector]</td>
+<td align="right"><input id="chk2cal" type="checkbox" onclick="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v;" title="[TEXT:display two months]" style="cursor:pointer"></td>
 </tr>
 </table>
-<div align="center" class="wToolArea" width="100%" id="inav" style="overflow:auto; display:[vinav]">
+<div align="center" class="wToolArea" width="100%" id="vnav" style="overflow:auto; display:[vnav]">
 <script type="text/javascript">Calendar.setup({
         ifFormat       :    '%s',       // format of the input field
         showsTime      :    false,            // will display a time selector
@@ -36,7 +36,7 @@
         firstDay       :    1,
         date           :    new Date([CmTIME]),
         weekNumbers    :    true,
-        flat           :    'inav',
+        flat           :    'vnav',
         range          :    [ [YSTART] , [YSTOP] ],
         flatCallback   :    WGCalSetDate,
         step           :    1              
@@ -56,16 +56,19 @@
 
 <!-- LISTE DES AGENDAS -->
 
-<table class="wToolButton" onmouseover="this.className='wToolButtonOver'" onmouseout="this.className='wToolButton'" width="100%" cellspacing="0" cellpadding="0">
-<tr>
-<td onclick="WGCalChangeVisibility('vvical');" align="left">[TEXT:calendar selector]</td>
+<table id="bcals" class="[bcals]"  width="100%" cellspacing="0" cellpadding="0">
+<tr valign="center">
+<td id="icals" onclick="WGCalChangeVisibility('cals');" align="left">[TEXT:calendar selector]</td>
 <td align="right">
-<img id="resssel" style="cursor:pointer;" onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15" src="[IMG:wm-attendees.gif]" title="[TEXT:modify the list]">
-<img id="resssel" style="cursor:pointer;" onclick="document.getElementById('updatecal').submit();" height="15" src="[IMG:wm-refreshcal.gif]" title="[TEXT:update calendar]">
+<img id="caldiraccess" class="wSmallButton"  onclick="sic=document.getElementById('icalselframe'); if (sic.style.visibility!='hidden') { this.className='wSmallButton'; sic.style.display = 'none'; sic.style.visibility = 'hidden'; } else { sic.src='[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHICAL'; this.className='wSmallButtonPushed'; sic.style.display = ''; sic.style.visibility = 'visible'; } "
+ height="15" src="[IMG:wm-caldirectaccess.gif]" title="[TEXT:calendar direct access]">
+<img id="resssel" class="wSmallButton"  onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&updt=memoress');" height="15" src="[IMG:wm-attendees.gif]" title="[TEXT:modify the list]">
+<img id="resssel" class="wSmallButton" onclick="document.getElementById('updatecal').submit();" height="15" src="[IMG:wm-refreshcal.gif]" title="[TEXT:update calendar]">
 </td>
 </tr>
 </table>
-
+<iframe id="icalselframe" style="border:0; width:100%; height:auto; position:relative; display:none; visibility:hidden;" src="about:blank">
+</iframe>
 
 <!-- POPUP DIVISION -->
 
@@ -90,7 +93,7 @@
 <img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> <!-- end POPUP DIVISION -->
 
-<div id="vvical" style="display:[vvvical]" width="100%" class="wToolArea" >
+<div id="vcals" style="display:[vcals]" width="100%" class="wToolArea" >
 <table width="100%" cellspacing="0" cellpadding="0">
 <thead></thead>
 <tbody id="tabress">
@@ -126,7 +129,7 @@
 
 <script type="text/javascript">
 
-var  toolList = new Array( 'inav', 'vvical', 'waitrv', 'todo' [IF SHOWCONTACTS],'contacts'[ENDIF SHOWCONTACTS]);
+var  toolList = new Array( 'nav', 'cals', 'waitrv', 'todo', 'contacts');
 
 [BLOCK L_RESS]
 InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]');[ENDBLOCK L_RESS]

@@ -166,17 +166,13 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tr>
 <td align="left">
 [BLOCK EMPTY][nop]&nbsp;&nbsp;
-<a href="mailto:[mailadd]"><img src="[IMG:wm-mail.gif]" 
-  height="20" title="[TEXT:mail to contacts]" class="WGCalAction" style="border:0px"></a>
-<img src="[IMG:wm-delete.gif]" 
-  height="20" title="[TEXT:delete]" class="WGCalAction" onclick="deleteEvent('[TEXT: delete this event]');">
+<a href="mailto:[mailadd]"><img src="[IMG:wm-mail.gif]" height="15" title="[TEXT:mail to contacts]" class="wSmallButton"></a>
+<img src="[IMG:wm-delete.gif]" height="15" title="[TEXT:delete]" class="wSmallButton" onclick="deleteEvent('[TEXT: delete this event]');">
 [ENDBLOCK EMPTY]
 </td>
 <td align="right">
-<img src="[IMG:wm-save.gif]" id="btnSave"
-  height="20" title="[TEXT:save]" class="WGCalAction" onclick="saveEvent();">
-<img src="[IMG:wm-close.gif]" id="btnCancel"
-  height="20" title="[TEXT:cancel]" class="WGCalAction" onclick="cancelEvent('[TEXT: cancel modifications]');">
+<img src="[IMG:wm-accept.gif]" id="btnSave" height="15" title="[TEXT:save]" class="wSmallButton" onclick="saveEvent();">
+<img src="[IMG:wm-cancel.gif]" id="btnCancel" height="15" title="[TEXT:cancel]" class="wSmallButton" onclick="cancelEvent('[TEXT: cancel modifications]');">
 </td></tr></table>
 
 

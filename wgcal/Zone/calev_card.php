@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.26 2005/06/15 17:32:38 marc Exp $
+ * @version $Id: calev_card.php,v 1.27 2005/06/19 17:37:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -29,15 +29,19 @@ function calev_card(&$action) {
   $mode  = GetHttpVars("m", "");
   $action->lay->set("mode", ($mode=="v"?"":"none"));
 
-//   $pretitle = "";
+  // matrice de ressource affichée / présentes dans le RV
+  $ressd = wgcalGetRessourcesMatrix($ev->id);
+
+  //   $pretitle = "";
   $myid = $action->user->fid;
   $ownerid = $ev->getValue("CALEV_OWNERID");
   $conf    = $ev->getValue("CALEV_VISIBILITY");
-  $private = ((($ownerid != $myid) && ($conf!=0)) ? true : false );
-  $tpriv = array();
+  if ($ownerid == $myid) $private = false;
+  else if (isset($ressd[$myid])) $private = false;
+  else if ($conf==0) $private = false;
+  else $private = true;
 
   $action->lay->set("ID",    $ev->id);
-  $tpriv[0]["ID"] = $ev->id;
   
 //   $pretitle = $evref.":".$ev->id."::";
 
@@ -90,20 +94,18 @@ function calev_card(&$action) {
   $tressg = $ev->getTValue("CALEV_ATTGROUP");
 
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
-  $ressd = wgcalGetRessourcesMatrix($ev->id);
-
 // Si je suis convié / j'ai refusé / affichable => Ma couleur
 // Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
 // Si le propriétaire n'est pas affichable => Couleur du premier convié qui est affichable et pas refusé.... 
   $event_color = "";
   if (isset($ressd[$myid]) 
       && (($ressd[$myid]["state"]==EVST_REJECT && $showrefused==1) || $ressd[$myid]["state"]!=EVST_REJECT )
-      && $ressd[$myid]["displayed"]) 
+      && $ressd[$myid]["displayed"]) {
     $event_color = $ressd[$myid]["color"];
-  else {
-    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT &&  $ressd[$ownerid]["displayed"]) 
-      $event_color = $ressd[$myid]["color"];
-    else {
+  } else {
+    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT &&  $ressd[$ownerid]["displayed"]) {
+      $event_color = $ressd[$ownerid]["color"];
+    } else {
       while ((list($k,$v) = each($ressd)) && $event_color=="") {
 	if ($v["state"]!=EVST_REJECT) $event_color = $v["color"];
       }
@@ -122,9 +124,6 @@ function calev_card(&$action) {
 
   $textcolor = "black";
   $action->lay->set("textcolor", $textcolor);
-
-  if ($private && !$display_me) $action->lay->SetBlockData("ISCONF", null);
-  else $action->lay->SetBlockData("ISCONF", $tpriv);
 
   // repeat informations
   $action->lay->set("repeatdisplay", "none");
@@ -166,7 +165,7 @@ function calev_card(&$action) {
 
   showIcons($action, $ev, $private, $me_attendee);
 
-  ev_showattendees($action, $ev, $ressd, "lightgrey");
+  ev_showattendees($action, $ev, $ressd, $private, "lightgrey");
 
   $nota = str_replace("\n", "<br>", $ev->getValue("CALEV_EVNOTE"));
   if ($nota!="" && !$private) {
@@ -214,15 +213,15 @@ function addIcons(&$ia, $icol)
   $ia[count($ia)] = $ricons[$icol];
 }
 
-function ev_showattendees(&$action, &$ev, $ressd, $dcolor) {
+function ev_showattendees(&$action, &$ev, $ressd, $private, $dcolor) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $globalstate = $dcolor;
   $d = new Doc($dbaccess);
   $headSet = false;
 
-  if ( (count($ressd)==1 && !isset($ressd[$action->user->fid])) 
-       || count($ressd)>1 ) {
+  if ( !$private && ((count($ressd)==1 && !isset($ressd[$action->user->fid])) 
+       || count($ressd)>1 )) {
     $states = CAL_getEventStates($dbaccess,"");
     $action->lay->set("attdisplay","inline");
     $t = array();
