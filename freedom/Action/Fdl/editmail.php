@@ -3,7 +3,7 @@
  * Edition to send mail
  *
  * @author Anakeen 2000 
- * @version $Id: editmail.php,v 1.11 2005/06/17 09:28:52 eric Exp $
+ * @version $Id: editmail.php,v 1.12 2005/06/20 13:43:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,12 +28,12 @@ function editmail(&$action) {
 
   // for compliance with old notation
   if ($to != "") {
-    $ts[]=$to;
-    $tt[]="to";
+    $ts=explode(",",$to);
+    $tt=array_fill(0,count($ts),"to");
   }
   if ($cc != "") {
-    $ts[]=$cc;
-    $tt[]="cc";
+    $ts[]=explode(",",$cc);
+    $tt[]=array_fill(0,count($ts),"cc");
   }
   setHttpVar("mail_recip",$ts);
   setHttpVar("mail_copymode",$tt);
