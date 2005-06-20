@@ -41,7 +41,7 @@ function wgcal_todostore(&$action) {
         if ($err!="") AddWarningMsg("$err");
      }
   }
-  redirect($action, "WGCAL", "WGCAL_TOOLBAR");
+  redirect($action, "WGCAL", (GetHttpVars("act","WGCAL_HIDDEN")));
 }
 
 

@@ -2,5 +2,4 @@
 $theme->WTH_FONTSIZE_NORMAL = "12";
 $theme->WTH_FONTSIZE_BIG = "16";
 $theme->WTH_FONTSIZE_SMALL = "10";
-$theme->WTH_TOOLBARW = "250";
 ?>

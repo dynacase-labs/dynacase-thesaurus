@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_histo.php,v 1.3 2005/06/18 04:30:47 marc Exp $
+ * @version $Id: calev_histo.php,v 1.4 2005/06/20 16:07:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -17,7 +17,6 @@ function calev_histo(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $ev = GetHttpVars("id", -1);
-  print_r2($ev);
   if ($ev==-1) $evid = -1;
   else {
     $evtmp = new Doc($dbaccess, $ev);

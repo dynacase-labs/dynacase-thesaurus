@@ -185,7 +185,6 @@ function removeRessource() {
   }
 }
 
-   
 function saveRessources() {
   var rlist= "";
   rsList = "";
@@ -199,5 +198,8 @@ function saveRessources() {
   return;
 }
 
-                                                                                                                  
- 
+function SaveFrameWidth() {
+  var w=getFrameWidth(window);
+  usetparam("WGCAL_U_TOOLBARSZ", w, 'wgcal_hidden', 'WGCAL_HIDDEN');
+  return;
+}

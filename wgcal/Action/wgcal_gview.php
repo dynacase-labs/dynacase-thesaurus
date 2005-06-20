@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.9 2005/06/19 17:37:33 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.10 2005/06/20 16:07:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -95,7 +95,7 @@ function wgcal_gview(&$action) {
 	$doctmp = new Doc($dbaccess, $v["evt_idinitiator"]);
 
 	$day = substr($v["evt_begdate"],0,10);
-	$tday = strftime("%A %d %b",dbdate2ts($v["evt_begdate"]));
+	$tday = strftime("%A %d %B",dbdate2ts($v["evt_begdate"]));
       
 	if (!isset($btime[$day]["cnt"])) {
 	  $btime[$day]["date"] = $day;

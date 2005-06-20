@@ -2,13 +2,13 @@
 <head>
   <title>[TEXT:freedom groupware calendar]</title>
 </head>
-<frameset name="wgcal" id="wgcal" frameborder="on" bordercolor="white" border="0"
+<frameset name="wgcal" id="wgcal" frameborder="yes" framespacing="3" border="3" bordercolor="[bordercolor]" border="0"
 resize cols="[toolbarwidth]pt,*">
 
   <frame id="wgcal_toolbar" name="wgcal_toolbar" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TOOLBAR" 
          scrolling="no">
 
-  <frameset name="wgcal_frmain" id="wgcal_frmain" frameborder="0" framespacing="0" rows="*,0pt">
+  <frameset name="wgcal_frmain" id="wgcal_frmain" frameborder="no" framespacing="0" border="0" rows="*,0pt">
     <frame name="wgcal_calendar" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_HIDDEN" scrolling="none">
     <frame name="wgcal_hidden"   src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_HIDDEN" style="border-style:none" scrolling="needed">
   </frameset>

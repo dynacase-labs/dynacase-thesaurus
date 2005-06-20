@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.6 2005/06/18 04:30:47 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.7 2005/06/20 16:07:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -59,7 +59,7 @@ function wgcal_menu(&$action) {
 			 "items" => array( array( 
 						 "key" => "m_view_showhidewe", 
 						 "txt" => _("m_txt_view_showhidewe"), 
-						 "jsc" => "s=(document.getElementById('wesh').checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');",
+						 "jsc" => "s=(document.getElementById('wesh').checked? 'no' : 'yes'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');",
 						 "ico" => "oneweek.gif",
 						 "rig" => "WGCAL_USER"
 						 ),

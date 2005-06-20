@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.35 2005/06/18 05:54:38 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.36 2005/06/20 16:07:31 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -80,6 +80,7 @@ array(
 "WGCAL_U_TBTODOS" => array("kind"=>"static", "val"=>"1", "descr"=>N_("display todos"),"user"=>"Y"),
 "WGCAL_U_TBCONTACTS" => array("kind"=>"static", "val"=>"0", "descr"=>N_("display contacts"),"user"=>"Y"),
 "WGCAL_U_RELOADTOOLBAR" => array("kind"=>"static", "val"=>"0", "descr"=>N_("toolbar refresh time"),"user"=>"Y"),
+"WGCAL_U_TOOLBARSZ" => array("kind"=>"static", "val"=>"250", "descr"=>N_("toolbar size"),"user"=>"Y"),
 
 
 // Synchro 

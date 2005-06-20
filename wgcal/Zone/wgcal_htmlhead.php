@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.7 2005/06/18 05:54:38 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.8 2005/06/20 16:07:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.7 2005/06/18 05:54:38 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.8 2005/06/20 16:07:31 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -21,6 +21,7 @@ function wgcal_htmlhead(&$action) {
 
   global $_SERVER;
 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $refresh = GetHttpVars("refresh", 0);
   if ($refresh>0) {
     $action->lay->set("refresh", true);

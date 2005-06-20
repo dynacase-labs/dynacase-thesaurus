@@ -5,7 +5,7 @@
 [IF styleFIELDSET][BLOCK btime]<fieldset><legend class="WEvDays">[date]</legend>
 <table width="100%" cellspacing="0">
 [BLOCK devents[date]]<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'" title="[date] [start][IF isHour]-[ENDIF isHour][end], [title]">
-<td width="25px"><img width="25px" border="0" src="[icon]"></td>
+<td width="25px"><img width="15px" border="0" src="[icon]"></td>
 <td  style="border-bottom:1px solid [bcolor]" nowrap><span>[start][IF isHour] -  [ENDIF isHour][end]</span>
 [IF showowner]<br><span style="font-size:80%; font-style:italic">([owner])</span>[ENDIF showowner]
 </td>

@@ -7,7 +7,7 @@
 
 <form id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
 </div>
-<div style="left:0%;top:0%;" title="[TEXT:click here to refresh toolbar]" onclick="document.location.reload(true)" class="wWhoAmI">
+<div style="left:0%;top:0%;" title="[TEXT:click here to refresh toolbar]" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
 <table width="100%" cellspacing="0">
 <tr>
 <td align="center"><img src="[IMG:wm-reloadsync.gif]" height="20px">
@@ -67,7 +67,7 @@
 </td>
 </tr>
 </table>
-<iframe id="icalselframe" style="border:0; width:100%; height:auto; position:relative; display:none; visibility:hidden;" src="about:blank">
+<iframe id="icalselframe" style="border:2px outset; width:98%; height:auto; position:relative; display:none; visibility:hidden;" src="about:blank">
 </iframe>
 
 <!-- POPUP DIVISION -->

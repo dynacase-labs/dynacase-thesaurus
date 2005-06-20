@@ -4,12 +4,13 @@
 <td onclick="WGCalChangeVisibility('todo');" align="left">[TEXT:my todo] ([todocount])</td>
 <td align="right" width="50">
 <img id="allTodo" class="wSmallButton" onclick="subwindow(300, 400, 'AllTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ALLTODO');" height="15" src="[IMG:todo-all.gif]" title="[TEXT:view all todo]">
-<img id="addTodo" class="wSmallButton" onclick="sic=document.getElementById('itodo'); if (sic.style.visibility!='hidden') { this.className='wSmallButton'; sic.style.display = 'none'; sic.style.visibility = 'hidden'; } else { this.className='wSmallButtonPushed'; sic.src = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=-1'; sic.style.display = ''; sic.style.visibility = 'visible'; } " height="15" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">
+<img id="addTodo" class="wSmallButton" onclick="sic=document.getElementById('itodo'); if (sic.style.visibility!='hidden') { this.className='wSmallButton'; sic.style.display = 'none'; sic.style.visibility = 'hidden'; } else { this.className='wSmallButtonPushed'; sic.src = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=-1&target=wgcal_toolbar&act=WGCAL_TOOLBAR'; sic.style.display = ''; sic.style.visibility = 'visible'; } " height="15" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">
 </td></tr>
 </table>
 <div id="vtodo" style="display:[vtodo]" class="wToolArea">[ENDIF standalone]
 
-<div style="display:none"><form id="tododone" name="tododone" method="POST"  
+<div style="display:none">
+<form id="tododone" name="tododone" method="POST"  
 [IF standalone]target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE&t=WGCAL_ALLTODO">[ENDIF standalone]
 [IFNOT standalone]target="wgcal_toolbar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE&t=WGCAL_TOOLBAR">[ENDIF standalone]
 <input type="hidden" value="-1" name="idtodo" id="idtodo">

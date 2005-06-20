@@ -1,5 +1,9 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD?S=[TEXT:my todos...]&W=250&H=300]
-<table cellspacing="0" cellpadding="0" width="100%"><tr><td class="wMonthTextTitle" align="left">[TEXT:my todos...]</td></tr></table>
+[ZONE WGCAL:WGCAL_HTMLHEAD?RZ=H&S=[TEXT:my todos...]]
+<table cellspacing="0" cellpadding="0" width="100%"><tr>
+<td class="wMonthTextTitle" align="left">[TEXT:my todos...]</td>
+<td class="wMonthTextTitle" align="right"><img id="addTodo" class="wSmallButton" onclick="sic=document.getElementById('itodo'); if (sic.style.visibility!='hidden') { this.className='wSmallButton'; sic.style.display = 'none'; sic.style.visibility = 'hidden'; } else { this.className='wSmallButtonPushed'; sic.src = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&idtodo=-1&target=AllTodo&act=WGCAL_ALLTODO'; sic.style.display = ''; sic.style.visibility = 'visible'; } " height="15" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]"></td>
+</tr>
+</tr></table>
 
 [ZONE WGCAL:TODO?S=1&dtodo=-1]
 

@@ -1,5 +1,5 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-<form id="storetodo" name="storetodo" method="POST" target="wgcal_toolbar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOSTORE"> 
+<form id="storetodo" name="storetodo" method="POST" target="[target]" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOSTORE&act=[act]"> 
 <input type="hidden" id="idtodo" name="idtodo" value="[todoId]">
 <table id="vnatt" cellspacing="0" cellpadding="0" width="100%">
 <tr><td class="wMonthTextTitle" style="font-size:80%">[TEXT:edit todo]</td></tr>

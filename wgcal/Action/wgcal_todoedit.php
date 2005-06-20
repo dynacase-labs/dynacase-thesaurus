@@ -19,6 +19,9 @@ function wgcal_todoedit(&$action) {
   $date  = date2db(time() + ($action->getParam("WGCAL_U_TODODEFLIMIT", 7) * (24*3600)));
   $note = "";
 
+  $action->lay->set("target", GetHttpVars("target", "_self"));
+  $action->lay->set("act", GetHttpVars("act", "WGCAL_ALLTODO"));
+
   $id = GetHttpVars("idtodo", -1);
   if ($id!=-1) {
     $todo = new Doc($db, $id);
@@ -32,6 +35,7 @@ function wgcal_todoedit(&$action) {
     }
   }
   
+  $action->lay->set("action", GetHttpVars("act", ""));
   $action->lay->set("todoId", $id);
   $action->lay->set("todoTitle", $title);
   $action->lay->set("todoNote", $note);
