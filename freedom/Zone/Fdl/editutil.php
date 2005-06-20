@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.94 2005/06/17 09:28:52 eric Exp $
+ * @version $Id: editutil.php,v 1.95 2005/06/20 13:32:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,7 +50,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 		
   //if (($value == "") && ($docid==0)) {
     // only for create doc because can be a security failure 
-    if ($value == "")     $value = GetHttpVars($attrid); 
+  if (($value == "")&&(!$oattr->inArray()))     $value = GetHttpVars($attrid); 
 
 
   if ($visibility == "H") {
