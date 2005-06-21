@@ -40,9 +40,10 @@ function wgcal_todoedit(&$action) {
   $action->lay->set("todoTitle", $title);
   $action->lay->set("todoNote", $note);
   
-  $action->lay->set("todoDateV", dbdate2ts($date));
-  $action->lay->set("todoDateMs", (dbdate2ts($date)*1000));
-  $action->lay->set("todoDateT", substr($date,0,11));
+  $dbd = w_dbdate2ts($date);
+  $action->lay->set("todoDateV",  $dbd);
+  $action->lay->set("todoDateMs",($dbd*1000));
+  $action->lay->set("todoDateT", w_strftime($dbd,WD_FMT_DAYFTEXT));
 }
 
 

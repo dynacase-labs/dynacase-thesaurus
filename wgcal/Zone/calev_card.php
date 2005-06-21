@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.28 2005/06/21 15:47:10 marc Exp $
+ * @version $Id: calev_card.php,v 1.29 2005/06/21 17:17:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -58,24 +58,24 @@ function calev_card(&$action) {
   switch($ev->getValue("CALEV_TIMETYPE",0)) {
 
   case 1: 
-    $action->lay->set("D_HR",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYSTEXT));
+    $action->lay->set("D_HR",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYLTEXT));
     $action->lay->set("D_LR",_("no hour")); 
     break;
 
   case 2: 
-    $action->lay->set("D_HR",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYSTEXT));
+    $action->lay->set("D_HR",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYLTEXT));
     $action->lay->set("D_LR",_("all the day")); 
     break;
 
   default:
     
     if ($ldend!=$ldstart) {
-      $action->lay->set("D_HL",w_strftime(w_dbdate2ts($ldstart),WD_FMT_DAYSTEXT).", ");
-      $action->lay->set("D_LL",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYSTEXT).", ");
+      $action->lay->set("D_HL",w_strftime(w_dbdate2ts($ldstart),WD_FMT_DAYLTEXT).", ");
+      $action->lay->set("D_LL",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYLTEXT).", ");
       $action->lay->set("D_HR",$lstart);
       $action->lay->set("D_LR",$lend);
     } else {
-      $action->lay->set("D_HR",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYSTEXT));
+      $action->lay->set("D_HR",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYLTEXT));
       $action->lay->set("D_LR",$lstart." - ".$lend);
     }
   }

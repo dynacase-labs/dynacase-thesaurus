@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: todo.php,v 1.7 2005/06/19 17:37:34 marc Exp $
+ * @version $Id: todo.php,v 1.8 2005/06/21 17:17:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -46,8 +46,8 @@ function todo(&$action) {
     $td[$itd]["colorTodo"] = "transparent";
     $td[$itd]["sTextTodo"] = (strlen($v["todo_title"])>$todoshort ? substr($v["todo_title"],0,$todoshort)."..." : $v["todo_title"]);
     $td[$itd]["jsTextTodo"] = str_replace("'", "\'", $td[$itd]["sTextTodo"]);
-    $td[$itd]["lTextTodo"] = substr($v["todo_date"],0,11)." : ".$v["todo_title"];
-    $td[$itd]["dateTodo"] = substr($v["todo_date"],0,5);
+    $td[$itd]["lTextTodo"] = "[".w_strftime(w_dbdate2ts($v["todo_date"]),WD_FMT_DAYFTEXT)."] ".$v["todo_title"];
+    $td[$itd]["dateTodo"] = w_strftime(w_dbdate2ts($v["todo_date"]),WD_FMT_DAYSTEXT);
 
     $cdate = dbdate2ts($v["todo_date"]);
     $td[$itd]["warning"] = false;

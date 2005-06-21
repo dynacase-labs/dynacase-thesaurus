@@ -26,17 +26,22 @@ function w_ts2dbdate($d) {
   return date("d/m/Y H:i:s", $d);
 }
 
-define(WD_FMT_DAYSTEXT, 1);
-function w_strftime($ts, $fmt) {
+define(WD_FMT_DAYSTEXT, 1); // Day Short 
+define(WD_FMT_DAYLTEXT, 2); // Day Long
+define(WD_FMT_DAYFTEXT, 3); // Day Full
+function w_strftime($ts, $fmt=0, $ucw=true) {
   global $action;
 
   switch ($fmt) {
-  case WD_FMT_DAYSTEXT: $fms = "%A %d %B"; break;
+  case WD_FMT_DAYSTEXT: $fms = "%a %d %b"; break;
+  case WD_FMT_DAYLTEXT: $fms = "%A %d %B"; break;
+  case WD_FMT_DAYFTEXT: $fms = "%A %d %B %Y"; break;
   default: $fms = "%d/%m/%Y %H:%M"; break;
   }
   $locz = array("C", $action->getParam("WGCAL_U_LANG", "fr_FR"));
   $x = setlocale(LC_TIME, "$z");
-  return strftime($fms,$ts);
+  $dr = ($ucw?ucwords(strftime($fms,$ts)):strftime($fms,$ts));
+  return $dr;
 }
 
 // ----------------------------------------------------

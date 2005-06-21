@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.47 2005/06/13 10:39:28 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.48 2005/06/21 17:17:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,7 +15,7 @@ include_once("FDL/Lib.Util.php");
 include_once("FDL/Class.Doc.php");
 include_once("EXTERNALS/WGCAL_external.php");
 include_once("WGCAL/Lib.WGCal.php");
-
+include_once("WGCAL/Lib.wTools.php");
 
 function wgcal_editevent(&$action) {
 
@@ -193,7 +193,7 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   $lstart = gmmktime(0,0,0,$start_m,$start_d,$start_y);
   $action->lay->set("START", $lstart);
   $action->lay->set("mSTART", $lstart*1000);
-  $action->lay->set("STARTREAD", gmdate("D d F Y", $lstart));
+  $action->lay->set("STARTREAD", w_strftime($lstart, WD_FMT_DAYFTEXT));
   $action->lay->set("H_START", gmdate("H", $dstart));
   $th = array();
 //   for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
@@ -221,7 +221,7 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   $lend = gmmktime(0,0,0,$end_m,$end_d,$end_y);
   $action->lay->set("END", $lend);
   $action->lay->set("mEND", $lend*1000);
-  $action->lay->set("ENDREAD", gmdate("D d F Y", $lend));
+  $action->lay->set("ENDREAD", w_strftime($lend, WD_FMT_DAYFTEXT));
   $action->lay->set("H_END", gmdate("H", $dend));
   $action->lay->set("M_END", gmdate("i", $dend));
   $action->lay->set("FEND", $dend);
@@ -369,7 +369,7 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
   $action->lay->set("D_RUNTIL_DATE", ($runtil==1?"checked":""));
   $action->lay->set("RUNUNTIL_DATE_DISPLAY", ($runtil==1?"":"none"));
   
-  $action->lay->set("uDate", gmdate("D d F Y", $runtildate));
+  $action->lay->set("uDate", w_strftime($runtildate, WD_FMT_DAYLTEXT));
   $action->lay->set("umDate", $runtildate*1000);
   
 
@@ -379,7 +379,7 @@ function EventSetRepeat(&$action, $rmode, $rday, $rmonthdate, $runtil,
     foreach ($recxlude as $kd => $vd) {
       if ($vd!="" && $vd>0) {
         $ld = dbdate2ts($vd);
-        $rx[$ide]["rDate"] = gmdate("D d F Y", $ld);
+        $rx[$ide]["rDate"] = w_strftime($ld, WD_FMT_DAYFTEXT);
         $rx[$ide]["mDate"] = $ld;
         $rx[$ide]["iDate"] = $i;
 	$ide++;
