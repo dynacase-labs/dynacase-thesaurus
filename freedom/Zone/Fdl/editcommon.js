@@ -644,13 +644,13 @@ function chtime(nid) {
   var mm=document.getElementById('mm'+nid);
   var shh,smm,ihh,imm;
   if (t && hh && mm) {
-    ihh=parseInt(hh.value)%24;
+    ihh=parseInt(hh.value * 1)%24;
     if (isNaN(ihh)) ihh=0;
     if (ihh < 10) shh='0'+ihh.toString();
     else shh=ihh.toString();
     hh.value=shh;
 
-    imm=parseInt(mm.value)%60;
+    imm=parseInt(mm.value * 1)%60;
     if (isNaN(imm)) imm=0;
     if (imm < 10) smm='0'+imm.toString();
     else smm=imm.toString();
