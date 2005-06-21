@@ -3,14 +3,14 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: set_recpattern_sync.php,v 1.3 2005/05/20 16:07:08 marc Exp $
+ * @version $Id: set_recpattern_sync.php,v 1.4 2005/06/21 09:50:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
  */
  /**
  */
-include_once("WGCAL/Lib.WgcalSync.php");
+include_once("Lib.WgcalSync.php");
 include_once("FDL/Class.Doc.php");
 
 $evid = GetHttpVars("id", -1);

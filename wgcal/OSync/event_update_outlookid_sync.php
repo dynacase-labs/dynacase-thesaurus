@@ -3,15 +3,15 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: event_update_outlookid_sync.php,v 1.4 2005/05/19 16:01:22 marc Exp $
+ * @version $Id: event_update_outlookid_sync.php,v 1.5 2005/06/21 09:50:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
  */
  /**
  */
-include_once("WGCAL/Lib.WgcalSync.php");
-include_once("WGCAL/Class.WSyncIds.php");
+include_once("Lib.WgcalSync.php");
+include_once("Class.WSyncIds.php");
 
 $action = WSyncAuthent();
 $oid = GetHttpVars("olook_id", -1);

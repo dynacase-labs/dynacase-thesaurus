@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: event_update_sync.php,v 1.1 2005/05/20 16:07:32 marc Exp $
+ * @version $Id: event_update_sync.php,v 1.2 2005/06/21 09:50:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -14,9 +14,9 @@ include_once("WHAT/Lib.Http.php");
 include_once("FDL/Lib.Dir.php");
 include_once("FDL/freedom_util.php");
 include_once("WGCAL/Lib.WGCal.php");
-include_once("WGCAL/Lib.WgcalSync.php");
-include_once("WGCAL/Class.WSyncDate.php");
-include_once("WGCAL/Class.WSyncIds.php");
+include_once("Lib.WgcalSync.php");
+include_once("Class.WSyncDate.php");
+include_once("Class.WSyncIds.php");
 
 // event_update_sync.php?event_id=103825&date_debut=16/05/2005&time_debut=12:00:00&duration=60&access=P&priority=1&name=er&description=
 

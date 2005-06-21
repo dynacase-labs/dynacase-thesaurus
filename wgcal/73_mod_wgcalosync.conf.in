@@ -1,11 +1,12 @@
-<Directory @prefix@/WGCAL>
+Alias /whatsync @prefix@/osync
+<Directory @prefix@/osync>
     php_value include_path ".:@prefix@:@prefix@/WHAT:/home/httpd/advGraph:/usr/share/pear"
     php_value session.use_cookies 1
     php_value session.name "session"
     php_value session.use_trans_sid 0
     php_value post_max_size "80M"
     AddType application/x-httpd-php .php
-    DirectoryIndex  check_version.php
+    DirectoryIndex  index.php
     ErrorDocument 401 /what/expire/tryexpire.html
     AuthType Basic
     AuthName 'WHAT Connection'
@@ -14,4 +15,3 @@
     AuthPAM_Service httpd
     Require valid-user
 </Directory>
-Alias /whatsync @prefix@/osync

@@ -1,5 +1,6 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <script type="text/javascript">
+var ressId = 0;
 var rlist = new Array();
 [BLOCK jsRlist]
 rlist[[id]] = ['[titlejs]', '[icon]'];[ENDBLOCK jsRlist]

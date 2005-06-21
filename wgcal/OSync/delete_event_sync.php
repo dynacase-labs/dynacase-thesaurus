@@ -3,14 +3,14 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: delete_event_sync.php,v 1.3 2005/05/19 16:01:22 marc Exp $
+ * @version $Id: delete_event_sync.php,v 1.4 2005/06/21 09:50:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
  */
  /**
  */
-include_once("WGCAL/Lib.WgcalSync.php");
+include_once("Lib.WgcalSync.php");
 include_once("FDL/Class.Doc.php");
 
 $evid = GetHttpVars("event_id", -1);

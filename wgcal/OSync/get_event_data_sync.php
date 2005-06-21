@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: get_event_data_sync.php,v 1.6 2005/05/20 16:07:08 marc Exp $
+ * @version $Id: get_event_data_sync.php,v 1.7 2005/06/21 09:50:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -14,9 +14,9 @@ include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.Doc.php");
 include_once("FDL/freedom_util.php");
 include_once("WGCAL/Lib.WGCal.php");
-include_once("WGCAL/Lib.WgcalSync.php");
-include_once("WGCAL/Class.WSyncDate.php");
-include_once("WGCAL/Class.WSyncIds.php");
+include_once("Lib.WgcalSync.php");
+include_once("Class.WSyncDate.php");
+include_once("Class.WSyncIds.php");
 include_once("WGCAL/WGCAL_external.php");
 
 $action = WSyncAuthent();
