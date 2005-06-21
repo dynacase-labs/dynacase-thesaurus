@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.36 2005/06/20 16:07:31 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.37 2005/06/21 15:47:10 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,6 +27,8 @@ global $app_const;
 $app_const = 
 array(
   
+"WGCAL_U_LANG" => array( "kind"=>"static", "user"=>"Y", "val"=>"fr_FR", "descr"=>N_("lang")),
+
 "WGCAL_U_CURDAY" => array( "kind"=>"static", "user"=>"Y", "val"=>"#EAF1FF", "descr"=>N_("current day color")),
 "WGCAL_U_WEDAY" => array("kind"=>"static", "user"=>"Y", "val"=>"#EAEAEA", "descr"=>N_("week end days color")),
 "WGCAL_U_SELDAY" => array("kind"=>"static", "user"=>"Y", "val"=>"#FFFAEA", "descr"=>N_("selected day color")),

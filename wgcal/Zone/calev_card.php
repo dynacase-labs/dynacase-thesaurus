@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.27 2005/06/19 17:37:33 marc Exp $
+ * @version $Id: calev_card.php,v 1.28 2005/06/21 15:47:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -44,40 +44,41 @@ function calev_card(&$action) {
   $action->lay->set("ID",    $ev->id);
   
 //   $pretitle = $evref.":".$ev->id."::";
+  
+  $action->lay->set("D_HL","");
+  $action->lay->set("D_HR","");
+  $action->lay->set("D_LL","");
+  $action->lay->set("D_LR","");
 
-  $ldstart = $ldend = $lstart = $lend = $lrhs = $lrhe = ""; 
+  $ldstart = substr($ev->getValue("CALEV_START"),0,10);
+  $lstart = substr($ev->getValue("CALEV_START"),11,5);
+  $ldend = substr($ev->getValue("CALEV_END"),0,10);
+  $lend = substr($ev->getValue("CALEV_END"),11,5);
+
   switch($ev->getValue("CALEV_TIMETYPE",0)) {
+
   case 1: 
-    $ldstart = $lrhs = _("no hour"); 
-    $ldend = substr($ev->getValue("CALEV_END"),0,10);
+    $action->lay->set("D_HR",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYSTEXT));
+    $action->lay->set("D_LR",_("no hour")); 
     break;
+
   case 2: 
-    $ldstart = $lrhs = _("all the day"); 
-    $ldend = substr($ev->getValue("CALEV_END"),0,10);
+    $action->lay->set("D_HR",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYSTEXT));
+    $action->lay->set("D_LR",_("all the day")); 
     break;
+
   default:
     
-    $ldstart = substr($ev->getValue("CALEV_START"),0,10);
-    $lstart = substr($ev->getValue("CALEV_START"),11,5);
-    $ldend = substr($ev->getValue("CALEV_END"),0,10);
-    $lend = substr($ev->getValue("CALEV_END"),11,5);
     if ($ldend!=$ldstart) {
-      $lrhs = substr($ev->getValue("CALEV_START"),0,5)." ";
-      $lrhe = substr($ev->getValue("CALEV_END"),0,5)." ";
+      $action->lay->set("D_HL",w_strftime(w_dbdate2ts($ldstart),WD_FMT_DAYSTEXT).", ");
+      $action->lay->set("D_LL",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYSTEXT).", ");
+      $action->lay->set("D_HR",$lstart);
+      $action->lay->set("D_LR",$lend);
+    } else {
+      $action->lay->set("D_HR",w_strftime(w_dbdate2ts($ldend),WD_FMT_DAYSTEXT));
+      $action->lay->set("D_LR",$lstart." - ".$lend);
     }
-    $lrhs .= substr($ev->getValue("CALEV_START"),11,5);
-    $lrhe .= substr($ev->getValue("CALEV_END"),11,5);
   }
-  $cardheight = "100%";
-  $action->lay->set("cardheight", $cardheight);
-  $action->lay->set("DSTART", $ldstart);
-  $action->lay->set("START", $lstart);
-  if ($ldstart == $ldend ) $ldend = "";
-  $action->lay->set("DEND",   $ldend);
-  $action->lay->set("END",   $lend);
-  $action->lay->set("RHOURS", $lrhs);
-  $action->lay->set("RHOURE", $lrhe);
-
   $action->lay->set("iconevent", $ev->getIcon($ev->icon));
 
   $action->lay->set("owner", $ev->getValue("CALEV_OWNER"));
@@ -93,10 +94,10 @@ function calev_card(&$action) {
   $tresse = $ev->getTValue("CALEV_ATTSTATE");
   $tressg = $ev->getTValue("CALEV_ATTGROUP");
 
+  // Si je suis convié / j'ai refusé / affichable => Ma couleur
+  // Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
+  // Si le propriétaire n'est pas affichable => Couleur du premier convié qui est affichable et pas refusé.... 
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
-// Si je suis convié / j'ai refusé / affichable => Ma couleur
-// Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
-// Si le propriétaire n'est pas affichable => Couleur du premier convié qui est affichable et pas refusé.... 
   $event_color = "";
   if (isset($ressd[$myid]) 
       && (($ressd[$myid]["state"]==EVST_REJECT && $showrefused==1) || $ressd[$myid]["state"]!=EVST_REJECT )
