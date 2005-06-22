@@ -124,8 +124,11 @@ function openMenu(event, menuid, itemid) {
   cy=(window.event)?window.event.clientY:event.clientY;
   h1=getObjectHeight(el);
   hf=getFrameHeight();
-  if (cy+h1 > hf) y=y-h1+4;
-    
+  if (cy+h1 > hf) {
+    y=y-h1+4;
+    if (cy-h1 < 0) y=0;
+  }
+  if (h1 > hf) y=0;
     el.style.left = x2 + "px";
     el.style.top  = y + "px";
     el.style.display = "none";
