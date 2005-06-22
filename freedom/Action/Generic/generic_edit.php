@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.37 2005/06/16 12:11:27 eric Exp $
+ * @version $Id: generic_edit.php,v 1.38 2005/06/22 16:13:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -148,7 +148,7 @@ function generic_edit(&$action) {
   
   $listattr = $doc->GetActionAttributes();
   foreach ($listattr as $k => $v) {
-    if ($v["visibility"] != "H") {
+    if ($v->mvisibility != "H") {
       $taction[$k]=array("wadesc"=>$v->labelText,
 			 "walabel"=>ucfirst($v->labelText),
 			 "waction"=>$v->waction,
