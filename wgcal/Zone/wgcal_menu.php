@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.7 2005/06/20 16:07:31 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.8 2005/06/22 16:37:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -113,6 +113,13 @@ function wgcal_menu(&$action) {
 			 "right" => "WGCAL_USER",
 			 "items" => array( 
 					  array( 
+						"key" => "m_print",
+						"txt" => _("m_txt_print"), 
+						"jsc" => "parent.wgcal_calendar.print()",
+						"ico" => "wm-print.gif",
+						"rig" => "WGCAL_USER" 
+						),
+					  array( 
 						 "key" => "m_tools_preferences", 
 						 "txt" => _("m_txt_tools_preferences"), 
 						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS",
@@ -121,10 +128,19 @@ function wgcal_menu(&$action) {
 						 "rig" => "WGCAL_USER"
 						 ),
 					  array( 
-						"key" => "m_print",
-						"txt" => _("m_txt_print"), 
-						"jsc" => "parent.wgcal_calendar.print()",
-						"ico" => "wm-print.gif",
+						"key" => "m_newtheme",
+						"txt" => _("m_txt_newtheme"), 
+						"ico" => "wm-newtheme.gif",
+						"jsc" => "alert('".addslashes(_("not yet implemented"))."')",
+						"rig" => "WGCAL_ADMIN" 
+						),
+					  array( "key" => "separator" ),
+					  array( 
+						"key" => "m_conf_synchro",
+						"txt" => _("m_txt_confsynch"), 
+						"act" => "[CORE_ABSURL]/osync/index.php",
+						"tgt" => "wgcal_uploadsync",
+						"ico" => "wm-help.gif",
 						"rig" => "WGCAL_USER" 
 						),
 					  array( 
@@ -134,13 +150,6 @@ function wgcal_menu(&$action) {
 						"tgt" => "wgcal_uploadsync",
 						"ico" => "wm-reloadsync.gif",
 						"rig" => "WGCAL_USER" 
-						),
-					  array( 
-						"key" => "m_newtheme",
-						"txt" => _("m_txt_newtheme"), 
-						"ico" => "wm-newtheme.gif",
-						"jsc" => "alert('".addslashes(_("not yet implemented"))."')",
-						"rig" => "WGCAL_ADMIN" 
 						),
 					  array( "key" => "separator" ),
 					  array( 
