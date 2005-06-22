@@ -6,6 +6,11 @@ include_once("WGCAL/Lib.wTools.php");
 
 function wgcal_textmonth(&$action) 
 {
+
+
+  $td_height = 80;
+  $title_len = 40;
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
@@ -29,18 +34,12 @@ function wgcal_textmonth(&$action)
   $nextmonth = strftime("%B", $nextmontht);
 
   // Search all event for this month
-  $viewme=false;
   $ress = wGetRessDisplayed();
   $events = array();
   $tr=array(); 
   $ire=0;
   foreach ($ress as $kr=>$vr) {
     if ($vr->id>0) $tr[$ire++] = $vr->id;
-    if ($vr->id==$action->user->fid) $viewme=true;
-  }
-  if ($viewme) {
-    $grp = WGCalGetRGroups($action, $action->user->id);
-    foreach ($grp as $kr=>$vr) $tr[$ire++] = $vr;
   }
   $d1 = "".$year."-".$month."-01 00:00:00";
   $d2 = "".$year."-".$month."-".$lastday." 23:59:59";
@@ -143,7 +142,8 @@ function wgcal_textmonth(&$action)
 	    if ($tdays[$cday]->events[$ie]["H"]==1) $d[$ie]["hours"] = "("._("no hour").")";
 	    if ($tdays[$cday]->events[$ie]["H"]==2) $d[$ie]["hours"] = "("._("all the day").")";
 
-	    $d[$ie]["title"] = $st.$tdays[$cday]->events[$ie]["TITLE"];
+	    $rt = $st.$tdays[$cday]->events[$ie]["TITLE"];
+	    $d[$ie]["title"] = (strlen($rt)>$title_len?substr($rt,0,$title_len)." ...":$rt);
 	    $d[$ie]["id"] = $tdays[$cday]->events[$ie]["ID"];
 	    $d[$ie]["TSSTART"] = $tdays[$cday]->events[$ie]["TSSTART"];
 	    $d[$ie]["RG"] = $tdays[$cday]->events[$ie]["RG"];
@@ -153,10 +153,10 @@ function wgcal_textmonth(&$action)
 	  }
 	}
 	$h->SetBlockData("HLine", $d);
-	$hday[$li]["line"] .= "<td class=\"wMonthTextTD\">".$h->gen()."</td>";
+	$hday[$li]["line"] .= "<td height=\"".$td_height."px\" class=\"wMonthTextTD\">".$h->gen()."</td>";
 	$cday++; 
       } else {
-	$hday[$li]["line"] .= "<td class=\"wMonthTextTDUnused\">&nbsp;</td>";
+	$hday[$li]["line"] .= "<td height=\"".$td_height."px\" class=\"wMonthTextTDUnused\">&nbsp;</td>";
 	if ($cday>$lastday) $alldaysdone = true;
       }
     }

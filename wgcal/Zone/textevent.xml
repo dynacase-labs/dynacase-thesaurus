@@ -4,11 +4,8 @@
 </div>
 [BLOCK HLine]<div class="WEvDefault"  
 onclick="subwindow(400, 650, 'EditEvent[id]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_[action]&id=[id]');" 
-  onmouseover="this.className='WEvOver'; WGCalEvOnMouseOver(event, '[id]');" 
-  onmouseout="this.className='WEvDefault';WGCalEvOnMouseOut(event, '[id]');" 
-  onContextMenu="SetCurrentEvent([id], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
-  onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([id], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
-  style="cursor:crosshair" >
-<span style="font-size:90%; text-decoration:underline">[hours]</span>&nbsp;
-<span style="font-weight:bold;">[title]</span>
-[IF showOwner]&nbsp;<span style="font-size:80%; font-decoration:italic;">([owner])</span>[ENDIF showOwner]</div>[ENDBLOCK HLine]<br>
+onmouseover="this.className='WEvOver'; WGCalEvOnMouseOver(event, '[id]');" 
+onmouseout="this.className='WEvDefault';WGCalEvOnMouseOut(event, '[id]');" 
+onContextMenu="SetCurrentEvent([id], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
+onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([id], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
+style="cursor:crosshair" ><span style="font-size:90%; text-decoration:underline">[hours]</span>&nbsp;<span style="font-weight:bold;">[title]</span>[IF showOwner]&nbsp;<span style="font-size:80%; font-decoration:italic;">([owner])</span>[ENDIF showOwner]</div>[ENDBLOCK HLine]

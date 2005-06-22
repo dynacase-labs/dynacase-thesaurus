@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.29 2005/06/21 17:17:56 marc Exp $
+ * @version $Id: calev_card.php,v 1.30 2005/06/22 16:14:34 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -225,6 +225,11 @@ function ev_showattendees(&$action, &$ev, $ressd, $private, $dcolor) {
        || count($ressd)>1 )) {
     $states = CAL_getEventStates($dbaccess,"");
     $action->lay->set("attdisplay","inline");
+
+    $attoncol = 5;
+    $cola = (count($ressd)> $attoncol ? 2 : 1);
+    $curcol = 1;
+
     $t = array();
     $a = 0;
     foreach ($ressd as $k => $v) {
@@ -234,11 +239,13 @@ function ev_showattendees(&$action, &$ev, $ressd, $private, $dcolor) {
 	  $globalstate = WGCalGetColorState($v["state"]);
 	}
 	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $k);
-	$t[$a]["atticon"] = $d->GetIcon($attru["icon"]);
-	$t[$a]["atttitle"] = $attru["title"];
-	$t[$a]["attnamestyle"] = ($v["state"] != EVST_REJECT ? "none" : "line-through");
-	$t[$a]["attstate"] = $states[$v["state"]];
-	$a++;
+	$t[$a]["atticon$curcol"] = $d->GetIcon($attru["icon"]);
+	$t[$a]["atttitle$curcol"] = $attru["title"];
+	$t[$a]["attnamestyle$curcol"] = ($v["state"] != EVST_REJECT ? "none" : "line-through");
+	$t[$a]["attstate$curcol"] = $states[$v["state"]];
+	$t[$a]["TWOCOL"] = ($cola==2 && (count($ressd)>($cola*($a+1)))? true : false );
+	if ($curcol == $cola) $a++;
+	$curcol = ($curcol==$cola ? 1 : $cola );
       }
     }
     $action->lay->setBlockData("attlist",$t);
