@@ -3,7 +3,7 @@
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocGroup.php,v 1.12 2005/02/01 16:23:25 eric Exp $
+ * @version $Id: Method.DocGroup.php,v 1.13 2005/06/23 10:08:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -149,8 +149,13 @@ function SetGroupMail($nomail=false) {
   }
  
 
-  $this->SetValue("GRP_IDRUSER", array_keys($tgmembers));
-  $this->SetValue("GRP_RUSER",$tgmembers);
+  if (count($tgmembers) >0) {
+    $this->SetValue("GRP_IDRUSER", array_keys($tgmembers));
+    $this->SetValue("GRP_RUSER",$tgmembers);
+  } else {
+    $this->DeleteValue("GRP_IDRUSER");
+    $this->DeleteValue("GRP_RUSER");
+  }
 
   if (!$nomail) $this->SetValue("GRP_MAIL", $gmail);
 
@@ -202,6 +207,7 @@ function refreshMembers() {
 		  "0", "ALL", array(), 
 		  1, 
 		  "TABLE", "USER");
+
   if (count($tu) > 0) {
     foreach ($tu as $k=>$v) {
       $tmemid[]=$v["id"];
