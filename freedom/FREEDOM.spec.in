@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.74 2005/06/23 14:30:14 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.75 2005/06/23 15:51:04 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -14,7 +14,7 @@ Summary: The Freedom Management Module
 Name: @PACKAGE@
 Version: @VERSION@
 Release: @RELEASE@
-Copyright: GPL
+License: GPL
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
 # post-2.2.0 fix (can go away with next release):
