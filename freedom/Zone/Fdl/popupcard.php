@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.48 2005/06/09 12:18:17 eric Exp $
+ * @version $Id: popupcard.php,v 1.49 2005/06/23 08:35:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -302,7 +302,7 @@ function popupcard(&$action) {
   if ($noctrlkey) {
     popupNoCtrlKey();
     $tsubmenu["ctrlkey"]=array("idmenu"=>"ctrlkey",
-				"labelmenu"=>_("more..."));
+				"labelmenu"=>_("others..."));
   }
 
   popupfam($action,$tsubmenu);
