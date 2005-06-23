@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.53 2005/06/17 07:51:33 eric Exp $
+ * @version $Id: editcard.php,v 1.54 2005/06/23 08:10:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.53 2005/06/17 07:51:33 eric Exp $
+// $Id: editcard.php,v 1.54 2005/06/23 08:10:49 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -107,12 +107,12 @@ function editcard(&$action) {
     $tview = $cvdoc->getView($vid);
     $doc->setMask($tview["CV_MSKID"]);
     if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
-  } else if ($mskid != "") {
+  }  
+
+  if (($vid == "")&&($mskid != "")) {
     $mdoc=new Doc($dbaccess,$mskid);
     if ($mdoc->isAlive() && ($mdoc->control('view')==""))  $doc->setMask($mdoc->id);
   }
-
-  
 
   if (GetHttpVars("viewconstraint")=="Y") { // from modcard function if constraint error
     
