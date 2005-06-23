@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.38 2005/06/22 16:13:49 eric Exp $
+ * @version $Id: generic_edit.php,v 1.39 2005/06/23 07:54:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,6 +32,7 @@ function generic_edit(&$action) {
   $zonebodycard = GetHttpVars("zone"); // define view action
 
   $vid = GetHttpVars("vid"); // special controlled view
+  $mskid = GetHttpVars("mskid"); // special mask
 
   $action->lay->Set("vid", $vid);
   // Set the globals elements
@@ -84,9 +85,12 @@ function generic_edit(&$action) {
       $tview = $cvdoc->getView($vid);
       $doc->setMask($tview["CV_MSKID"]);
       if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
-    }
+    }  
   }
-
+  if (($vid == "")&&($mskid != "")) {
+    $mdoc=new Doc($dbaccess,$mskid);
+    if ($mdoc->isAlive() && ($mdoc->control('view')==""))  $doc->setMask($mdoc->id);
+  }
 
   if ($zonebodycard == "") $zonebodycard = $doc->defaultedit;
   $action->lay->Set("HEAD", (! ereg("[A-Z]+:[^:]+:[T|S|U|V]", $zonebodycard, $reg)));
@@ -148,7 +152,7 @@ function generic_edit(&$action) {
   
   $listattr = $doc->GetActionAttributes();
   foreach ($listattr as $k => $v) {
-    if ($v->mvisibility != "H") {
+    if (($v->mvisibility != "H")&&($v->mvisibility != "O")) {
       $taction[$k]=array("wadesc"=>$v->labelText,
 			 "walabel"=>ucfirst($v->labelText),
 			 "waction"=>$v->waction,

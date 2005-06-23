@@ -3,7 +3,7 @@
  * popup for portfolio list
  *
  * @author Anakeen 2000 
- * @version $Id: popupfolio.php,v 1.7 2005/04/07 12:15:49 eric Exp $
+ * @version $Id: popupfolio.php,v 1.8 2005/06/23 07:54:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -38,8 +38,10 @@ function popupfolio(&$action) {
 
   if ($dir->doctype == "D") {
     Popupactive('popupfolio',$kdiv,'newdoc');
-    Popupactive('popupfolio',$kdiv,'insertbasket');
-    Popupactive('popupfolio',$kdiv,'searchinsert');
+    if ($dir->control("modify") == "") {
+      Popupactive('popupfolio',$kdiv,'insertbasket');
+      Popupactive('popupfolio',$kdiv,'searchinsert');
+    }
     if ($dir->usefor  != "G") {
       Popupactive('popupfolio',$kdiv,'newgc');
       Popupactive('popupfolio',$kdiv,'newsgc');
