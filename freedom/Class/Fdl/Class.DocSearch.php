@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.28 2005/06/08 08:37:29 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.29 2005/06/23 14:03:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,7 +31,6 @@ Class DocSearch extends PDocSearch {
   }
 
   function AddQuery($tquery) {
-    //print "AddQuery($query)";
     // insert query in search document
     if (is_array($tquery)) $query=implode(";\n",$tquery);
     else $query=$tquery;
@@ -53,8 +52,16 @@ Class DocSearch extends PDocSearch {
       $this->setValue("SE_SQLSELECT",$query);
       $err=$this->modify();
     }
+
     return $err;
     
+  }
+
+  /**
+   * return true if the search has parameters
+   */
+  function isParameterizable() {
+    return false;
   }
 
   function GetQueryOld() {
@@ -165,9 +172,10 @@ Class DocSearch extends PDocSearch {
 
   function SpecRefresh() {
     $err="";
-    if (! $this->isStaticSql()) {
-      $query=$this->getQuery();
 
+    if (! $this->isStaticSql()) {
+      if (! $this->isParameterizable()) $query=$this->getQuery();
+      else $query='select id from doc where false';
       $err=$this->AddQuery($query);
     }
     return $err;
