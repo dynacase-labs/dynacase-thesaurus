@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.75 2005/06/07 16:07:53 eric Exp $
+ * $Id: freedom.css,v 1.76 2005/06/24 11:16:44 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -419,6 +419,10 @@ TR.dash TD {
    border-color : [CORE_BGCOLOR];
 }
 
+TR.selecta TD{
+  background:[CORE_BGCOLORHIGH]!important;
+  border-style : solid;
+} 
 
 TR.select {
   background:[CORE_BGCOLORALTERN]!important;
