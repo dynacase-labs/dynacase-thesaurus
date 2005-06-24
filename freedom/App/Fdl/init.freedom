@@ -129,7 +129,7 @@ ICON;dmail.gif;;;;;;;;;;;
 ATTR;MAIL_FR;;Adresses;N;Y;frame;10;F;;;;
 ATTR;MAIL_FROM;MAIL_FR;De;N;Y;text;20;R;;;;
 ATTR;MAIL_DEST;MAIL_FR;Destinataires;N;Y;array;30;;;;;
-ATTR;MAIL_COPYMODE;MAIL_DEST;;N;Y;enum;40;;;;;to|Pour,cc|Cc,bcc|Bcc
+ATTR;MAIL_COPYMODE;MAIL_DEST;;N;Y;enum;40;;;;;to|À,cc|Cc,bcc|Bcc
 ATTR;MAIL_RECIP;MAIL_DEST;destinataire;N;Y;text;50;W;;;fdl.php;lmail(D,MAIL_RECIP):MAIL_RECIP
 ATTR;MAIL_SUBJECT;MAIL_FR;sujet;N;Y;text;60;W;;;;
 ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;70;F;;;;
