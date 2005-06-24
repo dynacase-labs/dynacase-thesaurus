@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-23 08:05+0200\n"
+"POT-Creation-Date: 2005-06-24 12:27+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -109,6 +109,9 @@ msgstr "Agenda de groupe"
 
 msgid "admin access"
 msgstr "Acces administrateur"
+
+msgid "allow outlook sync."
+msgstr ""
 
 msgid "user access"
 msgstr "Access utilisateur"
@@ -333,7 +336,7 @@ msgid "display todos"
 msgstr "Afficher les tâches"
 
 msgid "toolbar refresh time"
-msgstr "durée de rafraichissement de la barre d'outil"
+msgstr "Intervallle de rafraichissement de la barre d'outil"
 
 msgid "never"
 msgstr "Jamais"
@@ -618,6 +621,12 @@ msgstr "Ajouter les ressources affichées"
 msgid "use displayed ressources"
 msgstr "ressources affichées"
 
+msgid "add selected ressources"
+msgstr "Ajouter les ressources selectionnées"
+
+msgid "use selected ressources"
+msgstr "ressources selectionnées"
+
 msgid "ressources advanced search"
 msgstr "Recherche avancée de contact"
 
@@ -828,15 +837,6 @@ msgstr "Personnes conviées"
 msgid "note"
 msgstr "Note"
 
-msgid "owner"
-msgstr "Propriétaire"
-
-msgid "incalendar"
-msgstr "Calendrier"
-
-msgid "modified"
-msgstr "modifié le"
-
 msgid "to be confirm"
 msgstr "à confirmer"
 
@@ -1017,6 +1017,9 @@ msgstr "Options des tâches"
 msgid "see contacts"
 msgstr "Contacts"
 
+msgid "lang"
+msgstr "Language"
+
 msgid "current day color"
 msgstr "couleur du jour courant"
 
@@ -1098,6 +1101,9 @@ msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
 msgid "display contacts"
 msgstr "Afficher les contacts"
 
+msgid "toolbar size"
+msgstr "Largeur de la barre d'outils"
+
 msgid "last sync date for Outlook"
 msgstr "Date de la dernière synchro Outlook"
 
@@ -1115,6 +1121,15 @@ msgstr "Famille des producteurs des évènements affichés"
 
 msgid "Sync Version Needed"
 msgstr "Version du synchroniseur attendue"
+
+#~ msgid "owner"
+#~ msgstr "Propriétaire"
+
+#~ msgid "incalendar"
+#~ msgstr "Calendrier"
+
+#~ msgid "modified"
+#~ msgstr "modifié le"
 
 #~ msgid "refresh toolbar"
 #~ msgstr "Raffraichir la barre d'outil"

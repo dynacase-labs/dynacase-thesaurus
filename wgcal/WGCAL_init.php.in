@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.37 2005/06/21 15:47:10 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.38 2005/06/24 14:40:49 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -49,7 +49,7 @@ array(
 
 "WGCAL_U_TOOLSSTATE" => array("kind"=>"static", "val"=>"", "descr"=>N_("tool display state"), "user"=>"Y"),
 "WGCAL_U_WRVALERT" => array("kind"=>"static", "val"=>"1", "descr"=>N_("alert for new event ?"), "user"=>"Y"),
-"WGCAL_U_ZWRVALERTSIZE" => array("kind"=>"static", "val"=>"100", "descr"=>N_("new event zone size"), "user"=>"Y"),
+// "WGCAL_U_ZWRVALERTSIZE" => array("kind"=>"static", "val"=>"100", "descr"=>N_("new event zone size"), "user"=>"Y"),
 
 "WGCAL_U_CALCURDATE" => array("kind"=>"static", "val" => "", "descr"=>N_("Current displayed date"), "user"=>"Y"),
 "WGCAL_U_RESSDISPLAYED" => array("kind"=>"static",  "val" => "", "descr"=>N_("WGCAL_U_RESSDISPLAYED"), "user"=>"Y"),
@@ -70,7 +70,7 @@ array(
 "WGCAL_U_HSUSED" => array("kind"=>"static", "val"=>"0", "descr"=>N_("start hour used for event setting"),"user"=>"Y"),
 "WGCAL_U_HEUSED" => array("kind"=>"static", "val"=>"23", "descr"=>N_("end hour used for event setting"),"user"=>"Y"),
 "WGCAL_U_RVDEFDUR" => array("kind"=>"static", "val"=>"60", "descr"=>N_("meeting default duration"),"user"=>"Y"),
-"WGCAL_U_MINCUSED" => array("kind"=>"static", "val"=>"15", "descr"=>N_("minutes increment used for event setting"),"user"=>"Y"),
+"WGCAL_U_MINCUSED" => array("kind"=>"static", "val"=>"5", "descr"=>N_("minutes increment used for event setting"),"user"=>"Y"),
 
 "WGCAL_U_TODOORDER" => array("kind"=>"static", "val"=>"desc", "descr"=>N_("order todos"),"user"=>"Y"),
 "WGCAL_U_TODODAYS" => array("kind"=>"static", "val"=>"7", "descr"=>N_("view todos for ... days"),"user"=>"Y"),

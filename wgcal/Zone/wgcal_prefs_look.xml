@@ -11,7 +11,7 @@
 
 <tr><td width="10%"></td><td align="right">[TEXT:fonts size] : </td><td><select style="cursor:pointer" id="fontsz" onchange="mytoto('WGCAL_U_FONTSZ', this.options[this.selectedIndex].value, 'wgcal_toolbar', 'WGCAL_TOOLBAR'); document.location.reload(true);">[BLOCK FONTSZ]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK FONTSZ]</select></td></tr>
 
-<tr><td width="10%"></td><td align="right">[TEXT:waiting rv window size] : </td><td><select style="cursor:pointer" id="theme" onchange="mytoto('WGCAL_U_ZWRVALERTSIZE', this.options[this.selectedIndex].value, 'wgcal_toolbar', 'WGCAL_TOOLBAR');">[BLOCK ZRVWS]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK ZRVWS]</select></td></tr>
+<!-- tr><td width="10%"></td><td align="right">[TEXT:waiting rv window size] : </td><td><select style="cursor:pointer" id="theme" onchange="mytoto('WGCAL_U_ZWRVALERTSIZE', this.options[this.selectedIndex].value, 'wgcal_toolbar', 'WGCAL_TOOLBAR');">[BLOCK ZRVWS]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK ZRVWS]</select></td></tr -->
 
 
 <tr class="wTextActive"><td colspan="3">[TEXT:information popup management]</td></tr>

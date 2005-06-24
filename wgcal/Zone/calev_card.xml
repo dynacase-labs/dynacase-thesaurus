@@ -15,8 +15,8 @@
   <td valign="top"> 
   <table cellpadding="0" cellspacing="0" border="0" width="auto">
     <tr><td colspan="2">&nbsp;</td></tr>
-    <tr><td align="right" style="font-weight:bold">[D_HL]</td><td align="right" style="font-weight:bold">[D_HR]</td></tr>
-    <tr><td align="right" style="font-weight:bold">[D_LL]</td><td align="right" style="font-weight:bold">[D_LR]</td></tr>
+    <tr><td nowrap align="right" style="font-weight:bold">[D_HL]</td><td nowrap align="right" style="font-weight:bold">[D_HR]</td></tr>
+    <tr><td nowrap align="right" style="font-weight:bold">[D_LL]</td><td nowrap align="right" style="font-weight:bold">[D_LR]</td></tr>
   </table>
   <table style="display:[repeatdisplay]" cellpadding="0" cellspacing="0" border="0" width="auto">
     <tr><td></td></tr>
@@ -25,15 +25,12 @@
   </table>
   </td>
   <td valign="top">
-  <fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend><div><!--  style="height:100px; overflow:hidden;"-->
+  <fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend>
 <table cellpadding="0" cellspacing="0" border="0">
 [BLOCK attlist]<tr>
 <td nowrap><img height="15" src="[atticon1]"><span style="text-decoration:[attnamestyle1]">[atttitle1]</span>&nbsp;<span style="font-style:italic">([attstate1])</span></td>
-[IF TWOCOL]<td nowrap><img height="15" src="[atticon2]"><span style="text-decoration:[attnamestyle2]">[atttitle2]</span>&nbsp;<span style="font-style:italic">([attstate2])</span></td>[ENDIF TWOCOL]</tr>[ENDBLOCK attlist]
+[IF TWOCOL]<td>&nbsp;&nbsp;&nbsp;</td><td nowrap><img height="15" src="[atticon2]"><span style="text-decoration:[attnamestyle2]">[atttitle2]</span>&nbsp;<span style="font-style:italic">([attstate2])</span></td>[ENDIF TWOCOL]</tr>[ENDBLOCK attlist]
 </table>
-
-<!-- [BLOCK attlist]<div><img height="15" src="[atticon]"><span style="text-decoration:[attnamestyle]">[atttitle]</span>&nbsp;<span style="font-style:italic">([attstate])</span></div>
-[ENDBLOCK attlist] --></div>
   </fieldset></td>
 </tr>
 
@@ -44,11 +41,8 @@
 </tr>
 
 <tr>
- <td valign="top">
-<!-- <span style="font-style:italic">[TEXT:owner]</span> : [owner]<br>
-<span style="font-style:italic">[TEXT:incalendar]</span> : [incalendar]<br>
-<span style="font-size:80% font-style:italic">[TEXT:modified]</span>: [modifdate]<br> -->
-<span style="font-size:80%; font-style:italic">[owner] [modifdate]</span>
+ <td colspan="2" valign="top">
+<span style="font-size:80%; font-style:italic">[owner] ([incalendar]) [modifdate]</span>
   </td>
 </tr>
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.12 2005/06/07 16:05:36 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.13 2005/06/24 14:40:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,15 +30,15 @@ function GetFilesByExt($dir=".", $ext="") {
 
 function wgcal_prefs_look(&$action) {
   
-  $zwrvs = array( 50 => _("small"), 100 => _("medium"), 150 => _("large"));
-  $opt = array(); $i = 0;
-  foreach ($zwrvs as $k => $v) {
-    $opt[$i]["optvalue"] = $k;
-    $opt[$i]["optdescr"] = $v;
-    $opt[$i]["optselect"] = ($k==$action->GetParam("WGCAL_U_ZWRVALERTSIZE") ? "selected" : "");
-    $i++;
-  }
-  $action->lay->SetBlockData("ZRVWS", $opt);
+//   $zwrvs = array( 50 => _("small"), 100 => _("medium"), 150 => _("large"));
+//   $opt = array(); $i = 0;
+//   foreach ($zwrvs as $k => $v) {
+//     $opt[$i]["optvalue"] = $k;
+//     $opt[$i]["optdescr"] = $v;
+//     $opt[$i]["optselect"] = ($k==$action->GetParam("WGCAL_U_ZWRVALERTSIZE") ? "selected" : "");
+//     $i++;
+//   }
+//   $action->lay->SetBlockData("ZRVWS", $opt);
 
   $zwrvs = array( 30 => _("small"), 40 => _("medium"), 50 => _("large"));
   $opt = array(); $i = 0;

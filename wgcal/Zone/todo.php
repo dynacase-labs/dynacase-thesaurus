@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: todo.php,v 1.8 2005/06/21 17:17:56 marc Exp $
+ * @version $Id: todo.php,v 1.9 2005/06/24 14:40:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -30,9 +30,9 @@ function todo(&$action) {
 
   $filter = array();
   $filter[] = "todo_idowner=".$action->user->fid;
-  $start = date2db(0,true);
+  $start = w_ts2dbdate(0,true);
   if ($todoviewday>0) {
-    $stop = date2db(time()+($todoviewday * 24 * 3600),true);
+    $stop = w_ts2dbdate(time()+($todoviewday * 24 * 3600),true);
     $filter[] = "todo_date < '".$stop."'";
   } 
 
@@ -49,7 +49,7 @@ function todo(&$action) {
     $td[$itd]["lTextTodo"] = "[".w_strftime(w_dbdate2ts($v["todo_date"]),WD_FMT_DAYFTEXT)."] ".$v["todo_title"];
     $td[$itd]["dateTodo"] = w_strftime(w_dbdate2ts($v["todo_date"]),WD_FMT_DAYSTEXT);
 
-    $cdate = dbdate2ts($v["todo_date"]);
+    $cdate = w_dbdate2ts($v["todo_date"]);
     $td[$itd]["warning"] = false;
     $td[$itd]["alert"] = false;
     

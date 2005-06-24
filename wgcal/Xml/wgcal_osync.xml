@@ -1,0 +1,21 @@
+[ZONE WGCAL:HTMLHEAD]
+<table style="border:2px inset green;">
+<tr><th colspan="3">Mire de controle de l'outil de synchronisation Outlook/Agenda de groupe</th></tr>
+<tr><td align="right">Serveur </td><td>:</td><td>[server_name] ([server_address])</td></tr>
+<tr><td align="right">Client </td><td>:</td><td>[remote_addr]</td></tr>
+<tr><td align="right">Utilisateur </td><td>:</td><td>[php_auth_user] / [php_auth_pw]</td></tr>
+<tr><td align="right">Version </td><td>:</td><td>[version]</td></tr></table>
+<br><br>
+<table style="border:2px inset green;">
+[IF HasPrivilege]
+<tr><th colspan="3">Configuration de votre synchroniseur</th></tr>
+<tr><td align="right">Serveur</td><td>:</td><td> [server_name]</td></tr>
+<tr><td align="right">Utilisateur</td><td>:</td><td> [php_auth_user]</td></tr>
+<tr><td align="right">Mot de passe</td><td>:</td><td>[php_auth_pw]</td></tr>
+<tr><td align="right">Période</td><td>:</td><td>Nombre de mois synchronisé avant la date du jour</td></tr>
+[ENDIF HasPrivilege]
+[IFNOT HasPrivilege]
+<tr><th colspan="3">Vous n'avez pas les droits nécessaire pour utiliser la synchronisation Outlook</th></tr>
+[ENDIF HasPrivilege]
+</table>
+[ZONE WGCAL:HTMLFOOT]

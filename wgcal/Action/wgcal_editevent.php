@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.48 2005/06/21 17:17:56 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.49 2005/06/24 14:40:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -468,6 +468,7 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
   $dress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
   $tdress = explode("|", $dress);
   $to = array(); $ito = 0;
+  $ts = array(); $its = 0;
   foreach ($tdress as $k => $v) {
     if ($v=="") continue;
     $tx = explode("%", $v);
@@ -477,9 +478,15 @@ function EventAddAttendees(&$action, $ownerid, $attendees = array(), $attendeesS
     $to[$ito]["resstitle"] = addslashes($res->getTitle());
     $to[$ito]["ressid"] = $tx[0];
     $to[$ito]["ressico"] = $res->getIcon();
+    if ($tx[1] == 1) {
+      $ts[$its] = $to[$ito];
+      $ts[$its]["idress"] = $its;
+      $its++;
+    }
     $ito++;
   }
   $action->lay->setBlockData("DRESS", $to);
+  $action->lay->setBlockData("SRESS", $ts);
 
     
     

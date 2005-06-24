@@ -91,6 +91,7 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_PREFS", "short_name" =>N_("user preferences"), "toc" => "N", "root" =>"N"),
 
 
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_OSYNC", "toc" => "N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_APROPOS", "toc" => "N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_HIDDEN", "toc" => "N")

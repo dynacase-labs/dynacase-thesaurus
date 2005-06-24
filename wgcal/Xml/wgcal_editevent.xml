@@ -221,6 +221,10 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <span id="dress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add displayed ressources]">&nbsp;[TEXT:use displayed ressources]</span>
 </td></tr>
 
+<tr><td nowrap>
+<span id="sress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add selected ressources]">&nbsp;[TEXT:use selected ressources]</span>
+</td></tr>
+
 <tr><td>&nbsp;</td></tr>
 
 
@@ -232,13 +236,13 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <table cellspacing="0" cellpadding="0" width="100%">
 <tr><td width="100%" align="left">
 
-   <img id="address" style="cursor:pointer;" height="20" onclick="ViewRessourceHelper('[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');"; title="[TEXT:ressources advanced search]" src="[IMG:wm-moreressources.gif]">
+   <img id="address" class="wSmallButton" style="cursor:pointer;" height="20" onclick="if (this.className!='wSmallButton') this.className='wSmallButton'; else this.className='wSmallButtonPushed'; ViewRessourceHelper('[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');"; title="[TEXT:ressources advanced search]" src="[IMG:wm-moreressources.gif]">
 
-   <img id="viewplan" style="display:[voneatt]; cursor:pointer;" height="20"
+   <img id="viewplan" class="wSmallButton" style="display:[voneatt];" height="20"
           onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T?idfamref=[idfamref]&byres=Y&id=[planid]');";
           src="[IMG:wm-planner.gif]" title="[TEXT:vew disponibility]">
 
-   <img id="delall" style="display:[voneatt]; cursor:pointer;" height="20"
+   <img id="delall" class="wSmallButton" style="display:[voneatt]; cursor:pointer;" height="20"
           onclick="ok=confirm('[TEXT:confirm delete all attendees]'); if (ok) deleteAttendee(-1);";
           src="[IMG:wm-delete.gif]" title="[TEXT:delete all attendees]">
 </td></tr>
@@ -271,6 +275,8 @@ var DisplayedRess = new Array();[BLOCK DRESS]
 DisplayedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBLOCK DRESS]
 var PreferedRess = new Array( );[BLOCK PRESS]
 PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBLOCK PRESS]
+var SelectedRess = new Array( );[BLOCK SRESS]
+SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBLOCK SRESS]
 </script>
 
 </div>

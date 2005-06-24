@@ -2,7 +2,7 @@
 <script type="text/javascript">
 
   var myframe = parent.wgcal_conflict;
-  alert(myframe);
+  //alert(myframe);
   myframe.close();
 
   var IdOpened = -1;

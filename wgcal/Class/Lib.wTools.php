@@ -22,8 +22,13 @@ function w_dbdate2ts($dbtime) {
 		w_dbyea($dbtime));
 }
 
-function w_ts2dbdate($d) {
-  return date("d/m/Y H:i:s", $d);
+function ts2db($t, $f="H:i d/m/Y") {
+  return gmdate($f, $t);
+}
+
+function w_ts2dbdate($d, $h=true) {
+  $fm = ($h ? "d/m/Y H:i:s" : "d/m/Y" );
+  return date($fm, $d);
 }
 
 define(WD_FMT_DAYSTEXT, 1); // Day Short 
