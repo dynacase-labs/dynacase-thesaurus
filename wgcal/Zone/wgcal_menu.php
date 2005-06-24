@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.8 2005/06/22 16:37:06 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.9 2005/06/24 04:30:44 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -149,7 +149,7 @@ function wgcal_menu(&$action) {
 						"act" => "[CORE_ABSURL]/osync/synchroniser.zip",
 						"tgt" => "wgcal_uploadsync",
 						"ico" => "wm-reloadsync.gif",
-						"rig" => "WGCAL_USER" 
+						"rig" => "WGCAL_OSYNC" 
 						),
 					  array( "key" => "separator" ),
 					  array( 

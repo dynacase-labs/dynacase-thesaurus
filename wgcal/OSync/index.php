@@ -22,12 +22,18 @@ $version = $action->GetParam("WGCAL_SYNCVERSION","0");
 <tr><td align="right">Version </td><td>:</td><td> <?php echo $version; ?></td></tr></table>
 <br><br>
 <table style="border:2px inset green;">
+<?php 
+include_once("WGCAL/Lib.wTools.php");
+echo "Droit(WGCAL_OSYNC) : ".$wPbool($action->HasPermission("WGCAL_OSYNC"))."<br>";
+  if ($action->HasPermission("WGCAL_OSYNC")) {
+?>
 <tr><th colspan="3">Configuration de votre synchroniseur</th></tr>
 <tr><td align="right">Serveur</td><td>:</td><td> <?php echo $SERVER_NAME; ?></td></tr>
 <tr><td align="right">Utilisateur</td><td>:</td><td> <?php global $PHP_AUTH_USER; echo $PHP_AUTH_USER; ?></td></tr>
 <tr><td align="right">Mot de passe</td><td>:</td><td>**********</td></tr>
 <tr><td align="right">Période</td><td>:</td><td>Nombre de mois synchronisé avant la date du jour</td></tr>
-
-
+<?php } else { ?>
+<tr><th colspan="3">Vous n'avez pas les droits nécessaire pour utiliser la synchronisation Outlook</th></tr>
+<?php } ?>
 </table>
 </html>

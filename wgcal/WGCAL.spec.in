@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.14 2005/06/20 16:07:31 marc Exp $
+#  $Id: WGCAL.spec.in,v 1.15 2005/06/24 04:30:44 marc Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -48,8 +48,8 @@ install  $RPM_BUILD_ROOT/%{destdir}/%{name}/73_mod_wgcalosync.conf $RPM_BUILD_RO
 %{destdir}/wstop
 cd %{destdir}/FDL
 ln -sf ../@PACKAGE@/Class*php .
-cd %{destdir}/EXTERNALS
 ln -sf ../@PACKAGE@/Method*php .
+cd %{destdir}/EXTERNALS
 ln -sf ../@PACKAGE@/*external.php .
 cd -
 
