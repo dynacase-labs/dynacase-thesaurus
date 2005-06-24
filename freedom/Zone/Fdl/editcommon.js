@@ -1043,7 +1043,7 @@ function selecttr(o,tr) {
     if (ti[i].id && document.getElementById('exp'+ti[i].id)) document.getElementById('exp'+ti[i].id).style.display='none';
   }
   if (seltr) {
-    seltr.style.backgroundColor='';
+    seltr.className='';
     
   }   
   o=o.previousSibling;
@@ -1053,7 +1053,7 @@ function selecttr(o,tr) {
 
   seltr=tr;
 
-  seltr.style.backgroundColor='[CORE_BGCOLORHIGH]';
+  seltr.className='selecta';
 
 
   return;  
@@ -1063,7 +1063,7 @@ function selecttr(o,tr) {
 function unseltr() {
 
   if (seltr) {
-    seltr.style.backgroundColor='';
+    seltr.className='';
     
     visibilityinsert('insertup','hidden');
   }
@@ -1073,7 +1073,7 @@ function unseltr() {
 
   return;  
 }
-
+var specMovetr=null;
 function movetr(tr) {
 
   var trnode= seltr;
@@ -1405,6 +1405,7 @@ function trackKeys(event,onlystop)
       duptr();
       stop=true;
     }
+    
     if (((intKeyCode == 68)||(intKeyCode == 100)) && (altKey || ctrlKey)) {
       // Ctrl-D
        delseltr();
@@ -1441,7 +1442,6 @@ function trackKeys(event,onlystop)
 
   if ( stop) {
     stopPropagation(event);
-    
     return false;
   } 
     
@@ -1473,7 +1473,18 @@ function adraggo(event) {
   }
 }
 
+function increaselongtext(oid) {
+  var o=document.getElementById(oid);
+  var ip=document.getElementById('exp'+oid);
 
+  if (o) {
+    if ((o.scrollHeight-3) > o.clientHeight) {
+      o.rows=9;
+      if (ip) ip.style.display='';
+    }
+    
+  }
+}
 function adrag(event,o) {
   sdrag(event); // in case of already in drag
   GetXY(event);

@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.95 2005/06/20 13:32:42 eric Exp $
+ * @version $Id: editutil.php,v 1.96 2005/06/24 11:15:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -161,7 +161,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       $rows=2;
       if ($action->Read("navigator","")=="NETSCAPE") $rows--;
       $expid="exp".$attridk;
-      $input="<textarea $oc wrap=\"virtual\" onclick=\"this.rows=9;document.getElementById('$expid').style.display='';\"  class=\"fullresize\" rows=$rows name=\"".
+      $input="<textarea $oc wrap=\"virtual\" onclick=\"increaselongtext('$attridk')\"  class=\"fullresize\" rows=$rows name=\"".
 	$attrin."\" ";
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
