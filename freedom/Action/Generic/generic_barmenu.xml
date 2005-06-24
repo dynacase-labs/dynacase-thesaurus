@@ -115,7 +115,7 @@ function SendSearch(e) {
      else keyCode = e.which;
 
      if (keyCode==13) {
-        document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&dirid=[dirid][pds]&catg=[catg]&keyword='+document.getElementById('keyword').value;
+        document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid][pds]&catg=[catg]&keyword='+document.getElementById('keyword').value;
      }
 }
 
@@ -162,7 +162,7 @@ function SendSearch(e) {
 <a  id="cview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=column&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Column mode]</a>
 <a  id="isplit" href="#" onClick="invertSplit(event,true);closeAllMenu();return false">[TEXT:Invert split]</a>
 <a  id="memosearch" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'fhidden','[CORE_STANDURL]app=GENERIC&action=GENERIC_MEMOSEARCH&famid=[famid]&psearchid=[catg]');closeAllMenu()">[TEXT:memosearch]</a>
-<a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]');closeAllMenu()">[TEXT:Freedom]</a>
+<a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Freedom]</a>
 </div>
 
 

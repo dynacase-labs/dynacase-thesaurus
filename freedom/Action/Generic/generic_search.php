@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.25 2005/06/08 08:37:30 eric Exp $
+ * @version $Id: generic_search.php,v 1.26 2005/06/24 11:14:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -81,7 +81,7 @@ function generic_search(&$action) {
 
   $sdoc-> AddQuery($query);
 
-  redirect($action,GetHttpVars("app"),"GENERIC_LIST$pds&dirid=".$sdoc->id."&catg=$catgid");
+  redirect($action,GetHttpVars("app"),"GENERIC_LIST$pds&famid=$famid&dirid=".$sdoc->id."&catg=$catgid");
   
   
 }
