@@ -40,18 +40,18 @@ function wgcal_storeevent(&$action) {
   
   $ds = GetHttpVars("Fstart", 0);
   $de = GetHttpVars("Fend", 0);
-  $start = date2db($ds);
-  $end = date2db($de);
+  $start = w_ts2dbdate($ds);
+  $end = w_ts2dbdate($de);
   $htype = 0;
   if (GetHttpVars("nohour", "") == "on") {
     $htype = 1;
-    $start = date2db($ds, false) . " 00:00";
-    $end = date2db($de, false) . " 00:00";
+    $start = w_ts2dbdate($ds, false) . " 00:00";
+    $end = w_ts2dbdate($de, false) . " 00:00";
   }
   if (GetHttpVars("allday", "") == "on") {
     $htype = 2;
-    $start = date2db($ds, false)." 00:00";
-    $end = date2db($ds, false)." 23:59";
+    $start = w_ts2dbdate($ds, false)." 00:00";
+    $end = w_ts2dbdate($ds, false)." 23:59";
   }
   $start .= ":00";
   $end .= ":00";
@@ -98,12 +98,12 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_REPEATMONTH", GetHttpVars("rmonth", 0));
   $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
   $date = GetHttpVars("Vruntildate");
-  if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", date2db($date));
+  if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", w_ts2dbdate($date));
   $excl = GetHttpVars("excludedate", "");
   $event->deleteValue("CALEV_EXCLUDEDATE");
   if ($excl != "") {
     $excludedate = explode("|",$excl);
-    foreach ($excludedate as $kd => $vd) if ($vd>0 && $vd!="") $tex[] = date2db($vd);
+    foreach ($excludedate as $kd => $vd) if ($vd>0 && $vd!="") $tex[] = w_ts2dbdate($vd);
     $event->setValue("CALEV_EXCLUDEDATE", $tex);
   }
   

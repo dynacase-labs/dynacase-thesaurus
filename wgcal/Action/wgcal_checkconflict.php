@@ -29,18 +29,18 @@ function wgcal_checkconflict(&$action) {
 
   $ds = GetHttpVars("Fstart", 0);
   $de = GetHttpVars("Fend", 0);
-  $start = date2db(($ds+60));
-  $end = date2db(($de-60));
+  $start = w_ts2dbdate(($ds+60));
+  $end = w_ts2dbdate(($de-60));
   $htype = 0;
   if (GetHttpVars("nohour", "") == "on") {
     $htype = 1;
-    $start = date2db($ds, false) . " 00:00";
-    $end = date2db($de, false) . " 00:00";
+    $start = w_ts2dbdate($ds, false) . " 00:00";
+    $end = w_ts2dbdate($de, false) . " 00:00";
   }
   if (GetHttpVars("allday", "") == "on") {
     $htype = 2;
-    $start = date2db($ds, false)." 00:01";
-    $end = date2db($ds, false)." 23:59";
+    $start = w_ts2dbdate($ds, false)." 00:01";
+    $end = w_ts2dbdate($ds, false)." 23:59";
   }
   $withme = GetHttpVars("withMe", "off");
   $attendees = array();

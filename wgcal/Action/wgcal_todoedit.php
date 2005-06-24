@@ -2,6 +2,7 @@
 
 include_once("WHAT/Lib.Common.php");
 include_once("FDL/Class.Doc.php");
+include_once('WGCAL/Lib.wTools.php');
 include_once('WGCAL/Lib.WGCal.php');
 
 function wgcal_todoedit(&$action) {
@@ -16,7 +17,7 @@ function wgcal_todoedit(&$action) {
   $db = $action->getParam("FREEDOM_DB");
 
   $title = "";
-  $date  = date2db(time() + ($action->getParam("WGCAL_U_TODODEFLIMIT", 7) * (24*3600)));
+  $date  = w_ts2dbdate(time() + ($action->getParam("WGCAL_U_TODODEFLIMIT", 7) * (24*3600)));
   $note = "";
 
   $action->lay->set("target", GetHttpVars("target", "_self"));
