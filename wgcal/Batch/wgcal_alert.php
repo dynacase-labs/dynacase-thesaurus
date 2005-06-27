@@ -4,7 +4,7 @@
  * Looks for rendez-vous alert !
  *
  * @author Anakeen 2004
- * @version $Id: wgcal_alert.php,v 1.1 2005/06/24 14:40:49 marc Exp $
+ * @version $Id: wgcal_alert.php,v 1.2 2005/06/27 09:40:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,8 +32,7 @@ setHttpVar("idfamref", $idfamref);
 $curtime = time();
 $nextime = $curtime + INTERVAL - 1;
 
-$d1 = ts2db($curtime); 
-// $d2 = ts2db($nextime);
+$d1 = w_datets2db($curtime); 
 $d2 = "23:59 10/10/9999";
 
 TRACE("idres=[] idfamref=[$idfamref] d1=[$d1] d2=[$d2]");

@@ -40,21 +40,19 @@ function wgcal_storeevent(&$action) {
   
   $ds = GetHttpVars("Fstart", 0);
   $de = GetHttpVars("Fend", 0);
-  $start = w_ts2dbdate($ds);
-  $end = w_ts2dbdate($de);
+  $start = w_datets2db($ds);
+  $end = w_datets2db($de);
   $htype = 0;
   if (GetHttpVars("nohour", "") == "on") {
     $htype = 1;
-    $start = w_ts2dbdate($ds, false) . " 00:00";
-    $end = w_ts2dbdate($de, false) . " 00:00";
+    $start = w_datets2db($ds, false) . " 00:00";
+    $end = w_datets2db($de, false) . " 00:00:00";
   }
   if (GetHttpVars("allday", "") == "on") {
     $htype = 2;
-    $start = w_ts2dbdate($ds, false)." 00:00";
-    $end = w_ts2dbdate($ds, false)." 23:59";
+    $start = w_datets2db($ds, false)." 00:00:00";
+    $end = w_datets2db($ds, false)." 23:59:59";
   }
-  $start .= ":00";
-  $end .= ":00";
   if (!$newevent) {
     $ott = $event->getValue("CALEV_TIMETYPE"); 
     $ott = ($ott==""?0:$ott);
@@ -62,8 +60,8 @@ function wgcal_storeevent(&$action) {
     $oend = $event->getValue("CALEV_END");
   }
   $event->setValue("CALEV_TIMETYPE", $htype);
-  $event->setValue("CALEV_START", $start." CEST");
-  $event->setValue("CALEV_END", $end." CEST");
+  $event->setValue("CALEV_START", $start);
+  $event->setValue("CALEV_END", $end);
   
   $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
   
@@ -98,12 +96,12 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_REPEATMONTH", GetHttpVars("rmonth", 0));
   $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
   $date = GetHttpVars("Vruntildate");
-  if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", w_ts2dbdate($date));
+  if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", w_datets2db($date));
   $excl = GetHttpVars("excludedate", "");
   $event->deleteValue("CALEV_EXCLUDEDATE");
   if ($excl != "") {
     $excludedate = explode("|",$excl);
-    foreach ($excludedate as $kd => $vd) if ($vd>0 && $vd!="") $tex[] = w_ts2dbdate($vd);
+    foreach ($excludedate as $kd => $vd) if ($vd>0 && $vd!="") $tex[] = w_datets2db($vd);
     $event->setValue("CALEV_EXCLUDEDATE", $tex);
   }
   

@@ -2,7 +2,7 @@
 <span width="30%" class="wMonthTextTitlePrevNext" align="left">&nbsp;[daynum]&nbsp;</span>
 <span width="70%" style="font-size:80%; text-align:right">[daylabel]</span>
 </div>
-[BLOCK HLine]<div class="WEvDefault"  
+[BLOCK HLine]<div class="WEvDefault" style="border-left : 3px solid [resscolor]" 
 onclick="subwindow(400, 650, 'EditEvent[id]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_[action]&id=[id]');" 
 onmouseover="this.className='WEvOver'; WGCalEvOnMouseOver(event, '[id]');" 
 onmouseout="this.className='WEvDefault';WGCalEvOnMouseOut(event, '[id]');" 

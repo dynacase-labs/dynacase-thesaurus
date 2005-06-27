@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: todo.php,v 1.9 2005/06/24 14:40:49 marc Exp $
+ * @version $Id: todo.php,v 1.10 2005/06/27 09:40:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -30,9 +30,9 @@ function todo(&$action) {
 
   $filter = array();
   $filter[] = "todo_idowner=".$action->user->fid;
-  $start = w_ts2dbdate(0,true);
+  $start = w_datets2db(0,true);
   if ($todoviewday>0) {
-    $stop = w_ts2dbdate(time()+($todoviewday * 24 * 3600),true);
+    $stop = w_datets2db(time()+($todoviewday * 24 * 3600),true);
     $filter[] = "todo_date < '".$stop."'";
   } 
 

@@ -26,10 +26,12 @@ function ts2db($t, $f="H:i d/m/Y") {
   return gmdate($f, $t);
 }
 
-function w_ts2dbdate($d, $h=true) {
-  $fm = ($h ? "d/m/Y H:i:s" : "d/m/Y" );
-  return date($fm, $d);
+function w_datets2db($d, $hm = true) {  	 
+  $fmt = ($hm ? "d/m/Y H:i" : "d/m/Y" ); 	 
+  $s = gmdate($fmt, $d); 	 
+  return $s; 	 
 }
+
 
 define(WD_FMT_DAYSTEXT, 1); // Day Short 
 define(WD_FMT_DAYLTEXT, 2); // Day Long

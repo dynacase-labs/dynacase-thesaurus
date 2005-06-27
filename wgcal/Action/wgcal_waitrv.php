@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.3 2005/06/24 14:40:49 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.4 2005/06/27 09:40:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -34,7 +34,7 @@ function wgcal_waitrv(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_waitzone.js");
 
   $rvtextl =  20;
-  $today = w_ts2dbdate(time()-(24*3600*7), false)." 00:00:00";
+  $today = w_datets2db(time()-(24*3600*7), false)." 00:00:00";
   $filter[] = "(calev_start > '".$today."' ) AND (calev_attid ~* '".$action->user->fid."')";
   $irv = count($wrv);
   $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, 
