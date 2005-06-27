@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.96 2005/06/24 11:15:43 eric Exp $
+ * @version $Id: editutil.php,v 1.97 2005/06/27 07:17:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -678,8 +678,8 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	$nbitem=count($tval[$k]);	
 	if ($nbitem==0) {
 	  // try http parameters
-	  $tval[$k]=GetHttpVars($k);
-	  if (($tval[$k] != "") && (! is_array($tval[$k]))) $tval[$k]=array(GetHttpVars($k));
+	  $tval[$k]=GetHttpVars($k,array());
+	  if (($tval[$k] != "") && (! is_array($tval[$k]))) $tval[$k]=array(GetHttpVars($k));	 
 	  $nbitem=count($tval[$k]);	
 	}
 	if ($nbitem==0) {
