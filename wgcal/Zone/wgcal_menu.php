@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.10 2005/06/24 14:40:49 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.11 2005/06/27 17:01:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -134,14 +134,14 @@ function wgcal_menu(&$action) {
 						"jsc" => "alert('".addslashes(_("not yet implemented"))."')",
 						"rig" => "WGCAL_ADMIN" 
 						),
-					  array( "key" => "separator" ),
+					  array( "key" => "separator", "rig" => "WGCAL_OSYNC" ),
 					  array( 
 						"key" => "m_conf_synchro",
 						"txt" => _("m_txt_confsynch"), 
 						"act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_OSYNC",
 						"tgt" => "wgcal_uploadsync",
 						"ico" => "wm-help.gif",
-						"rig" => "WGCAL_USER" 
+						"rig" => "WGCAL_OSYNC" 
 						),
 					  array( 
 						"key" => "m_upload_synchronizer",
@@ -186,6 +186,7 @@ function wgcal_menu(&$action) {
     $items = array();
     $imi = 0;
     foreach ($vm["items"] as $kmi => $vmi) {
+      if (!$action->HasPermission($vmi["rig"])) continue;
       if ($vmi["key"] != "separator") $litems[$imi] = $vmi["key"];
       $items[$imi] = $vmi;
       $items[$imi]["SEP"] = ($vmi["key"] == "separator" ? true : false);
@@ -196,7 +197,6 @@ function wgcal_menu(&$action) {
       $imi++;
     }
     $litems[$imi] = "close_".$vm["menu"];
-//     print_r2($items);
     $mLay->SetBlockData("MITEMS", $items);
     $bmenus[$imenu]["MITEM"] =  $mLay->Gen();
 

@@ -40,18 +40,18 @@ function wgcal_storeevent(&$action) {
   
   $ds = GetHttpVars("Fstart", 0);
   $de = GetHttpVars("Fend", 0);
-  $start = w_datets2db($ds);
-  $end = w_datets2db($de);
+  $start = w_datets2db($ds).":00 CEST";
+  $end = w_datets2db($de).":00 CEST";
   $htype = 0;
   if (GetHttpVars("nohour", "") == "on") {
     $htype = 1;
-    $start = w_datets2db($ds, false) . " 00:00";
-    $end = w_datets2db($de, false) . " 00:00:00";
+    $start = w_datets2db($ds, false) . " 00:00:00 CEST";
+    $end = w_datets2db($de, false) . " 00:00:00 CEST";
   }
   if (GetHttpVars("allday", "") == "on") {
     $htype = 2;
-    $start = w_datets2db($ds, false)." 00:00:00";
-    $end = w_datets2db($ds, false)." 23:59:59";
+    $start = w_datets2db($ds, false)." 00:00:00 CEST";
+    $end = w_datets2db($ds, false)." 23:59:59 CEST";
   }
   if (!$newevent) {
     $ott = $event->getValue("CALEV_TIMETYPE"); 
@@ -186,15 +186,13 @@ function wgcal_storeevent(&$action) {
   if (!$event->IsAffected()) {
     $err = $event->Add();
   }
-  if ($err!="") {
-     AddWarningMsg("$err");
-  } else {
+  if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
+  else {
      $err = $event->Modify();
-     if ($err!="") {
-        AddWarningMsg("$err");
-     } else {
+     if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
+     else {
         $err = $event->PostModify();
-        if ($err!="") AddWarningMsg("$err");
+        if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
      }
   }
 
@@ -223,7 +221,7 @@ function wgcal_storeevent(&$action) {
   // Modification du contenu => rien
   // Modification de la liste des participants => rien
   
-  $comment = "Unknown modification";
+  $mail_msg = $comment = "";
   $mail_who = -1;
   if ($oldrv==false) {
     $mail_msg = _("event creation information message");
@@ -231,10 +229,10 @@ function wgcal_storeevent(&$action) {
     $comment = _("event creation");
   } else {
     if ($change["hours"]) {
-    $mail_msg = _("event time modification message");
-    $mail_who = 2;
-    $comment = _("event modification time");
-    resetAcceptStatus($event);
+      $mail_msg = _("event time modification message");
+      $mail_who = 2;
+      $comment = _("event modification time");
+      resetAcceptStatus($event);
     } else {
       if ($change["attendees"]) {
 	$comment = _("event modification attendees list");
@@ -322,9 +320,9 @@ function resetAcceptStatus(&$event) {
       }
     }
     $event->setValue("CALEV_ATTSTATE", $att_sta);
-    $event->Modify();
-    if ($err=="") $event->PostModify();
-    if ($err!="") AddWarningMsg("$err");
+    $err = $event->Modify();
+    if ($err=="") $err = $event->PostModify();
+    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
   }
 }
       

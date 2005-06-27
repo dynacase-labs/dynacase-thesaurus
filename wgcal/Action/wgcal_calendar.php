@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.44 2005/06/21 17:17:56 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.45 2005/06/27 17:01:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,6 +30,7 @@ function wgcal_calendar(&$action) {
   $ts = GetHttpVars("ts", 0);
   $stdate = $ts;
   if ($stdate == 0) $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
+  if (!$sm) $action->parent->param->set("WGCAL_U_CALCURDATE", $stdate, PARAM_USER.$action->user->id, $action->parent->id);
   $sdate = WGCalGetDayFromTs($stdate); 
 
   // Init the ressources

@@ -129,10 +129,10 @@ function vuvRessource() {
     ressourceList[idx][2] = 0;
     rstyle = 'WGCRessDefault';
   } else {
-    ressListChg = true;
     ressourceList[idx][2] = 1;
     rstyle = 'WGCRessSelected';
   }
+  ressListChg = true;
   document.getElementById(CRessId).className = rstyle;
   saveRessources();
   return;

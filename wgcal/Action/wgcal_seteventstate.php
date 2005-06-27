@@ -40,7 +40,7 @@ function wgcal_seteventstate(&$action) {
     $uw = new Doc($dbaccess, $event->getValue("calev_ownerid"));
     $wuid = $uw->getValue("us_whatid");
     if ($action->parent->param->GetUParam("WGCAL_U_MAILCHGSTATE", $wuid) == 1) {
-      sendRv($action, $event, 0, ucfirst($action->user->lastname)." ".ucfirst($action->user->firstname)." : "._("state set to ").WGCalGetLabelState($evstate));
+      sendRv($action, $event, 0, _("state set to ").WGCalGetLabelState($evstate)." par ".ucfirst($action->user->lastname)." ".ucfirst($action->user->firstname));
     }
     $event->AddComment(_("state set to ").WGCalGetLabelState($evstate));
     $event->enableEditControl();

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-24 12:27+0200\n"
+"POT-Creation-Date: 2005-06-27 16:27+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -69,9 +69,7 @@ msgid "insert event in calendar"
 msgstr "Ajout de l'évènement dans le calendrier"
 
 msgid "event creation information message"
-msgstr ""
-"Vous avez été convié au rendez-vous ci-dessous.Une personne conviée a "
-"modifié l'état d'acception du rendez-vous ci-dessous."
+msgstr "Vous avez été convié au rendez-vous ci-dessous."
 
 msgid "event creation"
 msgstr "Création de l'évènement"
@@ -118,6 +116,9 @@ msgstr "Access utilisateur"
 
 msgid "no access"
 msgstr "Pas d'accès"
+
+msgid "invisible"
+msgstr ""
 
 msgid "css manager"
 msgstr "Gestion des CSS"
@@ -1017,110 +1018,107 @@ msgstr "Options des tâches"
 msgid "see contacts"
 msgstr "Contacts"
 
-msgid "lang"
-msgstr "Language"
+#~ msgid "lang"
+#~ msgstr "Language"
 
-msgid "current day color"
-msgstr "couleur du jour courant"
+#~ msgid "current day color"
+#~ msgstr "couleur du jour courant"
 
-msgid "week end days color"
-msgstr "couleur des jours de week-end"
+#~ msgid "week end days color"
+#~ msgstr "couleur des jours de week-end"
 
-msgid "selected day color"
-msgstr "couleur du jour sélectionné"
+#~ msgid "selected day color"
+#~ msgstr "couleur du jour sélectionné"
 
-msgid "title line height"
-msgstr "Hauteur de la ligne de titre"
+#~ msgid "title line height"
+#~ msgstr "Hauteur de la ligne de titre"
 
-msgid "hour lines height"
-msgstr "Hauteur des lignes d'heure"
+#~ msgid "hour lines height"
+#~ msgstr "Hauteur des lignes d'heure"
 
-msgid "hour in day column width"
-msgstr "Largeur des colonne des jours"
+#~ msgid "hour in day column width"
+#~ msgstr "Largeur des colonne des jours"
 
-msgid "menu icons height"
-msgstr "Hauteur des icones"
+#~ msgid "menu icons height"
+#~ msgstr "Hauteur des icones"
 
-msgid "display week end"
-msgstr "Affichage des week-end"
+#~ msgid "display week end"
+#~ msgstr "Affichage des week-end"
 
-msgid "view count days"
-msgstr "Nombre de jours affichés"
+#~ msgid "view count days"
+#~ msgstr "Nombre de jours affichés"
 
-msgid "hour division"
-msgstr "Division de l'heure"
+#~ msgid "hour division"
+#~ msgstr "Division de l'heure"
 
-msgid "tool display state"
-msgstr "Etat d'affiche de l'outil"
+#~ msgid "tool display state"
+#~ msgstr "Etat d'affiche de l'outil"
 
-msgid "new event zone size"
-msgstr "Hauteur de la zone des évènements en attente"
+#~ msgid "new event zone size"
+#~ msgstr "Hauteur de la zone des évènements en attente"
 
-msgid "Current displayed date"
-msgstr "Date courante affichée"
+#~ msgid "Current displayed date"
+#~ msgstr "Date courante affichée"
 
-msgid "WGCAL_U_RESSDISPLAYED"
-msgstr "Ressource affichées"
+#~ msgid "WGCAL_U_RESSDISPLAYED"
+#~ msgstr "Ressource affichées"
 
-msgid "use prefered ressource for event setting"
-msgstr "Utiliser mes contacts préférés pour les rendez-vous"
+#~ msgid "use prefered ressource for event setting"
+#~ msgstr "Utiliser mes contacts préférés pour les rendez-vous"
 
-msgid "displayed refused events"
-msgstr "Afficher les évènements refusé :"
+#~ msgid "displayed refused events"
+#~ msgstr "Afficher les évènements refusé :"
 
-msgid "show icons in resume"
-msgstr "Afficher les icones et les heures sur l'agenda"
+#~ msgid "show icons in resume"
+#~ msgstr "Afficher les icones et les heures sur l'agenda"
 
-msgid "alt postion is fixed"
-msgstr "Position des popup fixe"
+#~ msgid "alt postion is fixed"
+#~ msgstr "Position des popup fixe"
 
-msgid "general theme"
-msgstr "Thème"
+#~ msgid "general theme"
+#~ msgstr "Thème"
 
-msgid "start hour used for event setting"
-msgstr "Heure de début utilsée pour la saisie de RV"
+#~ msgid "start hour used for event setting"
+#~ msgstr "Heure de début utilsée pour la saisie de RV"
 
-msgid "end hour used for event setting"
-msgstr "Heure de fin utilsée pour la saisie de RV"
+#~ msgid "end hour used for event setting"
+#~ msgstr "Heure de fin utilsée pour la saisie de RV"
 
-msgid "minutes increment used for event setting"
-msgstr "Incrément pour les minutes en saisie de RV"
+#~ msgid "minutes increment used for event setting"
+#~ msgstr "Incrément pour les minutes en saisie de RV"
 
-msgid "order todos"
-msgstr "Tri des tâches"
+#~ msgid "order todos"
+#~ msgstr "Tri des tâches"
 
-msgid "view todos for ... days"
-msgstr "Afficher les tâches pour ... jours"
+#~ msgid "view todos for ... days"
+#~ msgstr "Afficher les tâches pour ... jours"
 
-msgid "warn for todo having a date in the ... days"
-msgstr "M'avertir pour les tâches à faire durant les ... jours "
+#~ msgid "warn for todo having a date in the ... days"
+#~ msgstr "M'avertir pour les tâches à faire durant les ... jours "
 
-msgid "set todo date to today + ... days"
-msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
+#~ msgid "set todo date to today + ... days"
+#~ msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
 
-msgid "display contacts"
-msgstr "Afficher les contacts"
+#~ msgid "display contacts"
+#~ msgstr "Afficher les contacts"
 
-msgid "toolbar size"
-msgstr "Largeur de la barre d'outils"
+#~ msgid "toolbar size"
+#~ msgstr "Largeur de la barre d'outils"
 
-msgid "last sync date for Outlook"
-msgstr "Date de la dernière synchro Outlook"
+#~ msgid "last sync date for Outlook"
+#~ msgstr "Date de la dernière synchro Outlook"
 
-msgid "last sync date for WGCal"
-msgstr ""
+#~ msgid "mails send"
+#~ msgstr "Envoi des mails"
 
-msgid "mails send"
-msgstr "Envoi des mails"
+#~ msgid "mail title mark"
+#~ msgstr "Marquage (Sujet) des mails émis"
 
-msgid "mail title mark"
-msgstr "Marquage (Sujet) des mails émis"
+#~ msgid "viewed events (from producters)"
+#~ msgstr "Famille des producteurs des évènements affichés"
 
-msgid "viewed events (from producters)"
-msgstr "Famille des producteurs des évènements affichés"
-
-msgid "Sync Version Needed"
-msgstr "Version du synchroniseur attendue"
+#~ msgid "Sync Version Needed"
+#~ msgstr "Version du synchroniseur attendue"
 
 #~ msgid "owner"
 #~ msgstr "Propriétaire"

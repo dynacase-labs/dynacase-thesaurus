@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.42 2005/06/24 14:40:49 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.43 2005/06/27 17:01:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -384,12 +384,21 @@ function sendRv(&$action, &$event, $sendto=0, $reason="") {
  }
 
      
- if ($to!="") {
-   sendCard($action, $event->id, $to, $cc,
-	    $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->title,
-	    "WGCAL:MAILRV?ev=$event->id:S&msg=$reason",
-	    true, "", $from, $bcc, $format="html", false );
- }
+  if ($to!="") {
+    //echo "to= [$to] cc=[$cc] subject=[".$action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->title."] zone=["."WGCAL:MAILRV?ev=$event->id:S&msg=$reason"."] from=[".$from."] bcc=[".$bcc."]<br>";
+    sendCard($action, 
+	     $event->id, 
+	     $to, 
+	     $cc,
+	     $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->title,
+	     "WGCAL:MAILRV?ev=$event->id:S&msg=$reason",
+	     true, 
+	     "", 
+	     $from, 
+	     $bcc, 
+	     "html", 
+	     false );
+  }
 }
 
 function GetCalEvent($dbaccess, $ev, $cev) {
