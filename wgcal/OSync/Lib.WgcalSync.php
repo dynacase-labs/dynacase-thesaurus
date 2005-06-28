@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005 
- * @version $Id: Lib.WgcalSync.php,v 1.6 2005/06/24 04:30:44 marc Exp $
+ * @version $Id: Lib.WgcalSync.php,v 1.7 2005/06/28 17:33:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -177,7 +177,7 @@ function WSyncInitEvent(&$dbdata,
     $event->setValue("CALEV_TIMETYPE", 2);
   } else {
     $sfin = WSyncMSdate2Timestamp($s_date, $s_time) + ($dur * 60);
-    $event->setValue("CALEV_END", date2db($sfin));
+    $event->setValue("CALEV_END", w_datets2db($sfin));
     $event->setValue("CALEV_TIMETYPE", 0);
   }
 

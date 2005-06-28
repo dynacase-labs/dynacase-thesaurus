@@ -4,6 +4,7 @@ include_once("WHAT/Lib.Common.php");
 include_once("FDL/Class.Doc.php");
 include_once("EXTERNALS/WGCAL_external.php");
 include_once("WGCAL/Lib.WGCal.php");
+include_once("WGCAL/Lib.wTools.php");
 
 function wgcal_todostore(&$action) {
 
@@ -12,7 +13,7 @@ function wgcal_todostore(&$action) {
   $id = GetHttpVars("idtodo", -1);
   $title = GetHttpVars("title", -1);
   $fdate = GetHttpVars("Dstart", 0);
-  $date = substr(date2db($fdate),0,11)." 00:00";
+  $date = substr(w_datets2db($fdate),0,11)." 00:00:00 CEST";
   $note =GetHttpVars("note");
 
   if ($id == -1) {

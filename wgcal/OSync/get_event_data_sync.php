@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: get_event_data_sync.php,v 1.7 2005/06/21 09:50:21 marc Exp $
+ * @version $Id: get_event_data_sync.php,v 1.8 2005/06/28 17:33:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -30,7 +30,7 @@ else {
   echo "<h4>Debug mode on</h4>";
 }
 
-$ds = GetHttpVars("debut_sync_date", date2db(time(), true));
+$ds = GetHttpVars("debut_sync_date", w_datets2db(time(), true));
 if ($ds=="") return;
 $start_date = WSyncMSdate2Db($ds);
 
