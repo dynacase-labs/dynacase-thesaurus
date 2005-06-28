@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.30 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.31 2005/06/28 13:53:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,13 +20,13 @@ include_once("FDL/Lib.Dir.php");
 Class DocSearch extends PDocSearch {
   
 
-  var $defDoctype='S';
-  var $defaultedit= "FREEDOM:EDITSEARCH";
+  public $defDoctype='S';
+  public $defaultedit= "FREEDOM:EDITSEARCH";
 
 
   function DocSearch($dbaccess='', $id='',$res='',$dbid=0) {
 
-    PDocSearch::PDocSearch($dbaccess, $id, $res, $dbid);
+    PDocSearch::__construct($dbaccess, $id, $res, $dbid);
     if (((! isset($this->fromid))) || ($this->fromid == "")) $this->fromid = FAM_SEARCH;
   }
 

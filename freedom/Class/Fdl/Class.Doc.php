@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.255 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.256 2005/06/28 13:53:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -437,6 +437,7 @@ create unique index i_docir on doc(initid, revision);";
 	if ($err != "") return ($err); 
       }
       if ($this->locked == -1) $this->lmodify='N';
+
       $this->RefreshTitle();
       if ($this->hasChanged) {
 	if (chop($this->title) == "") $this->title =_("untitle document");
@@ -1386,7 +1387,6 @@ create unique index i_docir on doc(initid, revision);";
 	else $title1.= $this->GetValue($v->id)." ";
       }
     }
-
     if (chop($title1) != "")  $this->title = substr(chop(str_replace("\n"," ",$title1)),0,255);// restric to 256 char
 
   }
@@ -1495,7 +1495,6 @@ create unique index i_docir on doc(initid, revision);";
       }
     }
       
-
     if (is_array($value)) {
       $value = $this->_array2val($value);
     }
@@ -1504,6 +1503,7 @@ create unique index i_docir on doc(initid, revision);";
       $attrid = strtolower($attrid);
 
       $oattr=$this->GetAttribute($attrid);
+      if ($oattr === false) return sprintf(_("attribute %s unknow in family %s [%d]"),$attrid, $this->title, $this->id);
       if ($oattr->mvisibility=="I") return sprintf(_("no permission to modify this attribute %s"),$attrid);
       if ($value == " ") {
 	$value=""; // erase value
@@ -1519,7 +1519,7 @@ create unique index i_docir on doc(initid, revision);";
 
 	if  ($this->$attrid != $value) 	  {
 	  $this->hasChanged=true;
-	  //print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
+	  //	  print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
 	
 	}
 

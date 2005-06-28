@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.46 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.47 2005/06/28 13:53:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -60,7 +60,7 @@ Class WDoc extends Doc {
 
 
     // don't use Doc constructor because it could call this constructor => infinitive loop
-    DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);
+    DocCtrl::__construct($dbaccess, $id, $res, $dbid);
 
     $this->postConstructor();
   }

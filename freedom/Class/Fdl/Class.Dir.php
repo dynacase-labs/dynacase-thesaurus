@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.37 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.38 2005/06/28 13:53:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -107,7 +107,6 @@ Class Dir extends PDir
     if ($err!= "") return $err;
 
     $err=$this->exec_query("delete from fld where dirid=".$this->initid);
-    $this->ClearCacheIndex("querydir");
     return $err;
 
   }
@@ -166,17 +165,14 @@ Class Dir extends PDir
    * @param bool $noprepost if true if the virtuals methods {@link preInsertDoc()} and {@link postInsertDoc()} are not called
    * @return string error message, if no error empty string
    */
-  function AddFile($docid, $mode="latest",$noprepost=false) {
-    
+  function AddFile($docid, $mode="latest",$noprepost=false) {    
     // need this privilege
     $err = $this->Control("modify");
     if ($err!= "") return $err;
 
     // use pre virtual method
     if (!$noprepost) $err=$this->preInsertDoc($docid);
-    if ($err!= "") return $err;
-    
-
+    if ($err!= "") return $err;    
 
     // verify if doc family is autorized
     $doc= new_Doc($this->dbaccess, $docid);
@@ -210,6 +206,7 @@ Class Dir extends PDir
 
       // add default folder privilege to the doc
       if ($doc->profid == 0) { // only if no privilège yet
+	
 	switch ($doc->defProfFamId) {
 	case FAM_ACCESSDOC:
 	  $profid=$this->getValue("FLD_PDOCID",0);

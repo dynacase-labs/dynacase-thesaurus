@@ -3,7 +3,7 @@
  *  Control view Class Document
  *
  * @author Anakeen 2003
- * @version $Id: Class.CVDoc.php,v 1.5 2004/08/09 16:23:27 eric Exp $
+ * @version $Id: Class.CVDoc.php,v 1.6 2005/06/28 13:53:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -48,7 +48,7 @@ Class CVDoc extends Doc {
 
 
     // don't use Doc constructor because it could call this constructor => infinitive loop
-    DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);
+    DocCtrl::__construct($dbaccess, $id, $res, $dbid);
 
     $this->setAcls();
   }

@@ -65,7 +65,7 @@ end;
 
      var $fromid=[docid];
 
-   function Doc[docid] ($dbaccess='', $id='',$res='',$dbid=0) {
+   function __construct ($dbaccess='', $id='',$res='',$dbid=0) {
     $this->attributes = new ADoc[docid]();
     
 

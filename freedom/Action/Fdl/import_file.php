@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.91 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: import_file.php,v 1.92 2005/06/28 13:53:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -23,7 +23,6 @@ function add_import_file(&$action, $fimport="") {
   // -----------------------------------
   global $_FILES;
   $gerr=""; // general errors 
-
   if (intval(ini_get("max_execution_time")) < 300) ini_set("max_execution_time", 300);
   $dirid = GetHttpVars("dirid",10); // directory to place imported doc 
   $analyze = (GetHttpVars("analyze","N")=="Y"); // just analyze
@@ -39,11 +38,11 @@ function add_import_file(&$action, $fimport="") {
       if ($fimport != "")      $fdoc = fopen($fimport,"r");
       else $fdoc = fopen(GetHttpVars("file"),"r");
     }
-
   if (! $fdoc) $action->exitError(_("no import file specified"));
   $nline=0;
   while ($data = fgetcsv ($fdoc, 50000, ";")) {
     $nline++;
+
   // return structure
     $num = count ($data);
     if ($num < 1) continue;
@@ -329,11 +328,11 @@ function add_import_file(&$action, $fimport="") {
 	    $tcr[$nline]["err"]=$err;
 	  }
 
-	  if (($err=="") && (get_class($fa) == "fieldsetattribute")) {
+	  if (($err=="") && (strtolower(get_class($fa)) == "fieldsetattribute")) {
 	    $frameid=$fa->id;
 	    // import attributes included in fieldset
 	    foreach($fi->attributes->attr as $k=>$v) {
-	      if (get_class($v) == "normalattribute") {
+	      if (strtolower(get_class($v)) == "normalattribute") {
 		
 		if ($v->fieldSet->id == $frameid) {
 		  $tcr[$nline]["msg"].="\n".sprintf(_("copy attribute %s from %s"),$v->id,$data[3]);
@@ -492,13 +491,11 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	     "action"=>" ");
   // like : DOC;120;...
   $err="";
-
   if (is_numeric($data[1]))   $fromid = $data[1];
   else $fromid = getFamIdFromName($dbaccess,$data[1]);
   $doc = createDoc($dbaccess, $fromid);
   if (! $doc) return;
  
-
   $msg =""; // information message
   $doc->fromid = $fromid;
   $tcr["familyid"]=$doc->fromid;
@@ -520,17 +517,13 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     $msg .= $err . sprintf(_("update id [%d] "),$doc->id);
     
   }
-  
-    
+      
   if ($err != "") {
     global $nline, $gerr;
     $gerr="\nline $nline:".$err;
     $tcr["err"]=$err;
     return false;
-  }
-
-  
-
+  }  
 
   if (count($torder) == 0) {
     $lattr = $doc->GetImportAttributes();
@@ -540,7 +533,6 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   }
 
   $iattr = 4; // begin in 5th column
-
   foreach ($torder as $attrid) {
     if (isset($lattr[$attrid])) {
       $attr=$lattr[$attrid];
@@ -737,6 +729,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       }
     } else if ($ndirid ==  0) {
       if ($dirid > 0) {
+
 	$dir = new_Doc($dbaccess, $dirid);
 	if ($dir->isAlive() && method_exists($dir,"AddFile")) {
 	  $tcr["folderid"]=$dir->id;
@@ -747,10 +740,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       }
     }
     $tcr["msg"]=$msg;
-  }
-  
-  
-
+  }    
 
   return $tcr;
 }

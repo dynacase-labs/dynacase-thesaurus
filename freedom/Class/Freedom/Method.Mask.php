@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.13 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.14 2005/06/28 13:53:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.13 2005/06/28 08:37:46 eric Exp $
+// $Id: Method.Mask.php,v 1.14 2005/06/28 13:53:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -253,7 +253,7 @@ function editmask() {
     $newelem[$k]["wneed"]=($attr->needed)?"bold":"normal";
     $newelem[$k]["neweltid"]=$k;
     
-    if (($attr->type=="array") || (get_class($attr) == "fieldsetattribute"))$newelem[$k]["fieldweight"]="bold";
+    if (($attr->type=="array") || (strtolower(get_class($attr)) == "fieldsetattribute"))$newelem[$k]["fieldweight"]="bold";
     else $newelem[$k]["fieldweight"]="";
 
     if ($attr->docid == $docid) {

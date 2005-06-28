@@ -67,7 +67,7 @@ return true;
 
 
 end;
-' language 'plpgsql' with (iscachable);
+' language 'plpgsql' ;
 
 create or replace function computegperm(int, int) 
 returns int as '
@@ -94,7 +94,7 @@ begin
 
    return uperm;
 end;
-' language 'plpgsql' with (iscachable);
+' language 'plpgsql';
 
 
 
@@ -132,7 +132,7 @@ begin
 
    return uperm;
 end;
-' language 'plpgsql' with (iscachable);
+' language 'plpgsql' ;
 
 create or replace function hasviewprivilege(int, int) 
 returns bool as '
@@ -147,7 +147,7 @@ begin
 
    return ((uperm & 2) != 0);
 end;
-' language 'plpgsql' with (iscachable);
+' language 'plpgsql';
 
 
 create or replace function hasdocprivilege(int, int, int) 
@@ -164,37 +164,12 @@ begin
 
    return ((uperm & a_pos) = a_pos);
 end;
-' language 'plpgsql' with (iscachable);
-
-
-create or replace function getdocvalues(int) 
-returns varchar as '
-declare 
-  arg_doc alias for $1;
-  rvalue docvalue%ROWTYPE;
-  values text;
-begin
-values := '''';
-for rvalue in select  * from docvalue where  (docid=arg_doc)  loop
-	values := values || ''['' || rvalue.attrid || '';;'' || rvalue.value || '']'';
-end loop;
-return values;
-end;
-' language 'plpgsql';
+' language 'plpgsql' ;
 
 
 
 
 
-create or replace function deletevalues() 
-returns trigger as '
-declare 
-begin
---delete from docvalue where docid=OLD.id;
---delete from docperm where docid=OLD.id;
-return OLD;
-end;
-' language 'plpgsql';
 
 
 create or replace function resetvalues() 
