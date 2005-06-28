@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.11 2005/05/19 12:22:32 eric Exp $
+ * @version $Id: exportfile.php,v 1.12 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,7 +33,7 @@ function exportfile(&$action)
 
   if ($vaultid == 0) {
 
-    $doc= new Doc($dbaccess,$docid);
+    $doc= new_Doc($dbaccess,$docid);
     // ADD CONTROL ACCESS HERE
     $err = $doc->control("view");
     if ($err != "") $action->exiterror($err);
@@ -73,7 +73,7 @@ function exportfirstfile(&$action)
   $docid = GetHttpVars("docid",0);
 
 
-    $doc= new Doc($dbaccess,$docid);
+    $doc= new_Doc($dbaccess,$docid);
   // ADD CONTROL ACCESS HERE
     $err = $doc->control("view");
     if ($err != "") $action->exiterror($err);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.PDocSearch.php,v 1.7 2005/06/07 13:33:03 eric Exp $
+ * @version $Id: Class.PDocSearch.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Class.PDocSearch.php,v 1.7 2005/06/07 13:33:03 eric Exp $
+// $Id: Class.PDocSearch.php,v 1.8 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Fdl/Class.PDocSearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,7 +34,7 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 
-$CLASS_CONTACT_PHP = '$Id: Class.PDocSearch.php,v 1.7 2005/06/07 13:33:03 eric Exp $';
+$CLASS_CONTACT_PHP = '$Id: Class.PDocSearch.php,v 1.8 2005/06/28 08:37:46 eric Exp $';
 
 
 include_once("FDL/Class.Doc.php");
@@ -55,10 +55,10 @@ Class PDocSearch extends Doc
   
   
 
-  function PDocSearch($dbaccess='', $id='',$res='',$dbid=0) {
+  function __construct($dbaccess='', $id='',$res='',$dbid=0) {
 
     // don't use Doc constructor because it could call this constructor => infinitive loop
-     DocCtrl::DocCtrl($dbaccess, $id, $res, $dbid);
+     DocCtrl::__construct($dbaccess, $id, $res, $dbid);
   }
 
 }

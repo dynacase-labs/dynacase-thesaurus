@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewxml.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: viewxml.php,v 1.4 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewxml.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+// $Id: viewxml.php,v 1.4 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/viewxml.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -53,7 +53,7 @@ function viewxml(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   $xml=$doc->toxml(true,$docid);
   //$doc->fromxml($xml);
   //$xml=$doc->viewdtd();

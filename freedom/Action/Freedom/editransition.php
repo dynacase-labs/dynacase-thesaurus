@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editransition.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: editransition.php,v 1.3 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editransition.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+// $Id: editransition.php,v 1.3 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editransition.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,7 @@ function editransition(&$action){
   $action->lay->set("id",$docid);
  
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
  
 
 

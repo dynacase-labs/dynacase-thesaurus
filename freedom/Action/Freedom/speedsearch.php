@@ -3,7 +3,7 @@
  * Speed Search
  *
  * @author Anakeen 2000 
- * @version $Id: speedsearch.php,v 1.4 2005/02/17 07:52:21 eric Exp $
+ * @version $Id: speedsearch.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -37,7 +37,7 @@ function speedsearch(&$action) {
 
     $selectclass=array();
     while (list($k,$cid)= each ($tidsfam)) {
-      $cdoc= new Doc($dbaccess, $cid);
+      $cdoc= new_Doc($dbaccess, $cid);
      
 	$selectclass[$k]["idcdoc"]=$cdoc->initid;
 	$selectclass[$k]["classname"]=$cdoc->title;

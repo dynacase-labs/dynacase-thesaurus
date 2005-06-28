@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: migr_sql2.0.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: migr_sql2.0.php,v 1.4 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -51,7 +51,7 @@ function migrTables() {
 
   if ($query->nb > 0)	{
 
-    $doc = new Doc($dbaccess);
+    $doc = new_Doc($dbaccess);
     $fields = implode(",",$doc->fields);
     //-------------------------
     // first part sql familly table

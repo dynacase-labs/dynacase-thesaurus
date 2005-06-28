@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.PostIt.php,v 1.4 2005/02/15 15:47:56 eric Exp $
+ * @version $Id: Method.PostIt.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,7 +50,7 @@ function editpostit() {
 function PostModify() {
   $docid= $this->getValue("PIT_IDADOC");
   if ($docid > 0) {
-    $doc= new Doc($this->dbaccess, $docid);
+    $doc= new_Doc($this->dbaccess, $docid);
     if (intval($doc->postitid) == 0) {
       $doc->disableEditControl();
       $doc->postitid=$this->id;
@@ -95,8 +95,8 @@ function PostModify() {
 function PostDelete() {
   $docid= $this->getValue("PIT_IDADOC");
   if ($docid > 0) {
-    $doc= new Doc($this->dbaccess, $docid);
-    if ($doc->locked == -1) $doc= new Doc($this->dbaccess, $doc->latestId());
+    $doc= new_Doc($this->dbaccess, $docid);
+    if ($doc->locked == -1) $doc= new_Doc($this->dbaccess, $doc->latestId());
     if (intval($doc->postitid) > 0) {
       $doc->disableEditControl();
       $doc->postitid=0;

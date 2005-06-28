@@ -3,7 +3,7 @@
  * Modify a document
  *
  * @author Anakeen 2000 
- * @version $Id: modoption.php,v 1.1 2004/11/19 09:55:05 eric Exp $
+ * @version $Id: modoption.php,v 1.2 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,7 +31,7 @@ function modoption(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc = new Doc($dbaccess,$docid);
+  $doc = new_Doc($dbaccess,$docid);
   if (!$doc->isAlive()) $action->exitError(sprintf(_("modoption: document [%d] is not alive"),$docid));
 
   

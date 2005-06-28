@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_editimport.php,v 1.6 2005/02/15 15:49:45 eric Exp $
+ * @version $Id: freedom_editimport.php,v 1.7 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -40,7 +40,7 @@ function freedom_editimport(&$action) {
 
   $selectclass=array();
 
-  $doc = new Doc($dbaccess, $classid);
+  $doc = new_Doc($dbaccess, $classid);
   $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
 
   while (list($k,$cdoc)= each ($tclassdoc)) {

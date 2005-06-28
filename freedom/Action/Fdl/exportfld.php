@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.17 2004/08/09 07:57:34 eric Exp $
+ * @version $Id: exportfld.php,v 1.18 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -24,7 +24,7 @@ function exportfld(&$action, $aflid="0", $famid="")
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $fldid = GetHttpVars("id",$aflid);
   $wprof = (GetHttpVars("wprof","N")=="Y"); // with profil
-  $fld = new Doc($dbaccess, $fldid);
+  $fld = new_Doc($dbaccess, $fldid);
   if ($famid=="") $famid=GetHttpVars("famid");
   $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE",$famid);
     usort($tdoc,"orderbyfromid");
@@ -99,7 +99,7 @@ function exportfld(&$action, $aflid="0", $famid="")
 
       if ($wprof && ($doc->profid == $doc->id)) {
 	// import its profile
-	$doc = new Doc($dbaccess,$doc->id); // needed to have special acls
+	$doc = new_Doc($dbaccess,$doc->id); // needed to have special acls
 	$q= new QueryDb($dbaccess,"DocPerm");
 	$q->AddQuery("docid=".$doc->profid);
 	$acls=$q->Query(0,0,"TABLE");

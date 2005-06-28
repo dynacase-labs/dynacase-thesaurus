@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.78 2005/06/07 13:33:03 eric Exp $
+ * @version $Id: modcard.php,v 1.79 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,7 +66,7 @@ function modcard(&$action, &$ndocid) {
     {
       
       // initialise object
-      $doc = new Doc($dbaccess, $docid);
+      $doc = new_Doc($dbaccess, $docid);
       
       $err = $doc->lock(true); // autolock
       if ($err != "")   $action->ExitError($err);
@@ -82,7 +82,7 @@ function modcard(&$action, &$ndocid) {
   // apply specified mask
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
-    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $cvdoc= new_Doc($dbaccess, $doc->cvid);
     $cvdoc->Set($doc);
     $err = $cvdoc->control($vid); // control special view
     if ($err != "") $action->exitError($err);
@@ -161,7 +161,7 @@ function modcard(&$action, &$ndocid) {
 
 	  if ($doc->wid > 0) {
 	    if ($newstate != "-") {
-	      $wdoc = new Doc($dbaccess,$doc->wid);
+	      $wdoc = new_Doc($dbaccess,$doc->wid);
 	
 	      $wdoc->Set($doc);
 	      setPostVars($wdoc);
@@ -366,7 +366,7 @@ function specialmodcard(&$action,$usefor) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $classid=GetHttpVars("classid",0);
   
-  $cdoc = new Doc($dbaccess, $classid); // family doc
+  $cdoc = new_Doc($dbaccess, $classid); // family doc
 
  
 

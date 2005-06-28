@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.38 2005/04/01 17:21:56 eric Exp $
+ * @version $Id: FDL_external.php,v 1.39 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,7 +42,7 @@ function vault_filename($th, $fileid) {
  */
 function gettitle($dbaccess, $docid) {
 
-  $doc=new Doc($dbaccess, $docid);
+  $doc=new_Doc($dbaccess, $docid);
   if ($doc->isAffected())  return array($doc->title);
   return array("?"," "); // suppress
 }
@@ -54,7 +54,7 @@ function linkenum($famid,$attrid) {
   
   $dbaccess=getParam("FREEDOM_DB");
   if (! is_numeric($famid)) $famid=getFamIdFromName($dbaccess,$famid);
-  $soc = new Doc($dbaccess, $famid);
+  $soc = new_Doc($dbaccess, $famid);
   if ($soc->isAffected()) {
     $a = $soc->getAttribute($attrid);
     return $a->phpfunc;
@@ -99,7 +99,7 @@ function lfamilies($dbaccess, $name='',$subfam="") {
     $tinter = GetClassesDoc($dbaccess, $action->user->id,0,"TABLE");
   } else {
     if (! is_numeric($subfam)) $subfam=getFamIdFromName($dbaccess,$subfam);
-    $cdoc = new Doc($dbaccess,$subfam);
+    $cdoc = new_Doc($dbaccess,$subfam);
     $tinter = $cdoc->GetChildFam();
     $tinter[]=get_object_vars($cdoc);
   }
@@ -242,7 +242,7 @@ function lmask($dbaccess, $name, $maskfamid="") {
 
   $filter=array();
   if ($maskfamid > 0) {
-    $mdoc = new Doc($dbaccess,$maskfamid);
+    $mdoc = new_Doc($dbaccess,$maskfamid);
     $chdoc=$mdoc->GetFromDoc();
     $filter[]=GetSqlCond($chdoc,"msk_famid");
     //    $filter[]="msk_famid='$maskfamid'"; // when workflow will have attribut to say the compatible families
@@ -267,7 +267,7 @@ function lzone_($dbaccess, $tview, $famid ="") {
 
   $filter=array();
   if ($famid > 0) {
-    $fdoc = new Doc($dbaccess,$famid);
+    $fdoc = new_Doc($dbaccess,$famid);
     $cdoc=createDoc($dbaccess,$famid,false);
     if ($tview == "VEDIT") $tz=$cdoc->eviews;
     else $tz=$cdoc->cviews;
@@ -275,7 +275,7 @@ function lzone_($dbaccess, $tview, $famid ="") {
     $tz = array_merge($oz,$tz);
     
   } else {
-    $fdoc = new Doc($dbaccess);
+    $fdoc = new_Doc($dbaccess);
     if ($tview == "VEDIT") $tz=$fdoc->eviews;
     else $tz=$fdoc->cviews;
   }

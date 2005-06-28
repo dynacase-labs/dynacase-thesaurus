@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_editcatg.php,v 1.4 2004/05/06 09:31:20 eric Exp $
+ * @version $Id: generic_editcatg.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,7 +28,7 @@ function generic_editcatg(&$action) {
   $famid = GetHttpVars("fid"); // family id
 
   $action->lay->set("aid",$aid);
-  $doc = new Doc($dbaccess, $famid);
+  $doc = new_Doc($dbaccess, $famid);
 
   $err = $doc->control("edit"); // need edit permission
   if ($err != "") $action->exitError($err);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_addcatg.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_addcatg.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_addcatg.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_addcatg.php,v 1.8 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_addcatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,9 +65,9 @@ function generic_addcatg(&$action) {
   
 
   if ($dirid > 0)  {
-    $fld = new Doc($dbaccess, $dirid);
+    $fld = new_Doc($dbaccess, $dirid);
 
-    $doc= new Doc($dbaccess, $ndocid);
+    $doc= new_Doc($dbaccess, $ndocid);
     
     $fld->AddFile($doc->id);
     

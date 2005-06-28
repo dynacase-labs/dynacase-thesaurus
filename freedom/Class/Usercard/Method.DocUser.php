@@ -3,7 +3,7 @@
  * Persons & LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.31 2005/02/01 16:23:24 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.32 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -60,7 +60,7 @@ function SpecRefresh() {
   $this->AddParamRefresh("US_IDSOCIETY,US_SOCADDR","US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX,US_COUNTRY,US_SPHONE,US_SFAX");
   $this->AddParamRefresh("US_IDSOCIETY","US_SCATG,US_JOB");
 
-  $doc=new Doc($this->dbaccess, $this->getValue("US_IDSOCIETY"));
+  $doc=new_Doc($this->dbaccess, $this->getValue("US_IDSOCIETY"));
   if ($doc->isAlive()) {
     if ($this->getValue("US_SOCADDR") != "") {
       $this->setValue("US_WORKADDR",$doc->getValue("SI_ADDR"," "));

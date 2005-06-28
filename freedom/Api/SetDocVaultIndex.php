@@ -3,7 +3,7 @@
  * Construct vault index database
  *
  * @author Anakeen 2004
- * @version $Id: SetDocVaultIndex.php,v 1.2 2005/03/30 17:42:09 eric Exp $
+ * @version $Id: SetDocVaultIndex.php,v 1.3 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,7 +32,7 @@ if ($dbaccess == "") {
 
 $dvi = new DocVaultIndex($dbaccess);
 
-$doc = new Doc($dbaccess);
+$doc = new_Doc($dbaccess);
 $doc->exec_query("select * from doc where id > 0 and doctype!='Z'");
 $idoc = $doc->numrows();
 
@@ -43,7 +43,7 @@ loclog("Doc/Vault Index contains ".$dvi->numrows()." associations");
 
 for ($c=0; $c < $idoc; $c++) {
   $row = $doc->fetch_array($c,PGSQL_ASSOC);
-  $tdoc = new Doc($dbaccess, $row["id"]);
+  $tdoc = new_Doc($dbaccess, $row["id"]);
   UpdateVaultIndex($c, $tdoc, $dvi);
   unset($tdoc);
 }

@@ -3,7 +3,7 @@
  * PortFolio Methods
  *
  * @author Anakeen 2003
- * @version $Id: Method.PortFolio.php,v 1.10 2005/05/03 16:55:22 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.11 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -27,7 +27,7 @@ function PostCreated() {
 
 
   if ($ddocid > 0) {
-    $ddoc = new Doc($this->dbaccess,$ddocid);
+    $ddoc = new_Doc($this->dbaccess,$ddocid);
     $child = getChildDir($this->dbaccess,$this->userid,$ddoc->initid, false,"LIST");
 
 
@@ -47,7 +47,7 @@ function PostCreated() {
 }
 
 function postInsertDoc($docid,$multiple=false) { 
-  $doc = new Doc($this->dbaccess,$docid);
+  $doc = new_Doc($this->dbaccess,$docid);
   if ($doc->doctype == "S") {    
 	$doc->setValue("SE_IDCFLD",$this->initid);
 	$doc->refresh();
@@ -68,7 +68,7 @@ function getContent($controlview=true,$filter=array(),$insertguide=false) {
     $todoc=array();
     foreach ($tdoc as $k=>$v) {
       if (($v["doctype"] == "D")||($v["doctype"] == "S")) {
-	$dir=new Doc($this->dbaccess,$v["id"]);
+	$dir=new_Doc($this->dbaccess,$v["id"]);
 	$todoc=array_merge($todoc,$dir->getContent($controlview,$filter));
 	unset($tdoc[$k]);
       }

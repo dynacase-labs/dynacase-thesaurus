@@ -3,7 +3,7 @@
  * Import CSV
  *
  * @author Anakeen 2004
- * @version $Id: generic_importcsv.php,v 1.14 2005/04/12 14:28:01 eric Exp $
+ * @version $Id: generic_importcsv.php,v 1.15 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -68,7 +68,7 @@ function generic_importcsv(&$action) {
 
   $fdoc = fopen($vcardfile,"r");
   if (! $fdoc) $action->exitError(_("no csv import file specified"));
-  $dir = new Doc($dbaccess, getDefFld($action));
+  $dir = new_Doc($dbaccess, getDefFld($action));
 
   if ($analyze) $action->lay->set("importresult",_("import analysis result"));
   else $action->lay->set("importresult",_("import results"));
@@ -101,7 +101,7 @@ function generic_importcsv(&$action) {
 		
 	    foreach($category as $k=>$v) {
 		  
-	      $catg = new Doc($dbaccess, $v);
+	      $catg = new_Doc($dbaccess, $v);
 	      $err=$catg->AddFile($cr[$line]["id"]);
 	      $cr[$line]["err"].=$err;
 	      if ($err == "") $cr[$line]["msg"].=sprintf(_("Add it in %s folder"),$catg->title);

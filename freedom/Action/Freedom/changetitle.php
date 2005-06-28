@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: changetitle.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: changetitle.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: changetitle.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+// $Id: changetitle.php,v 1.5 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/changetitle.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,7 @@ function changetitle(&$action)
 
   $action->lay->Set("docid",$docid);
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
 
   if ($ntitle != "") {
     $doc->title=$ntitle;

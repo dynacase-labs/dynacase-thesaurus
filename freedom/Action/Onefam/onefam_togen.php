@@ -3,7 +3,7 @@
  * Redirector for generic
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_togen.php,v 1.6 2004/08/12 10:24:27 eric Exp $
+ * @version $Id: onefam_togen.php,v 1.7 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,7 +35,7 @@ function onefam_togen(&$action)
     $gaction="ONEFAM_GENROOT&famid=$famid";
   }
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc ($dbaccess, $famid);
+  $doc = new_Doc($dbaccess, $famid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("Family (#%d) is not referenced"),$famid));
   $action->Register("DEFAULT_FAMILY", $famid);
 

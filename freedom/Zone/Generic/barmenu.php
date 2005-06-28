@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.33 2005/06/07 13:33:03 eric Exp $
+ * @version $Id: barmenu.php,v 1.34 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,12 +40,12 @@ function barmenu(&$action) {
 
   $famid = getDefFam($action);
   
-  $fdoc= new Doc( $dbaccess, $famid);
+  $fdoc= new_Doc( $dbaccess, $famid);
 
 
   
-  if ($catg>1)   $fld=new Doc($dbaccess, $catg);
-  else  $fld=new Doc($dbaccess, $dirid);
+  if ($catg>1)   $fld=new_Doc($dbaccess, $catg);
+  else  $fld=new_Doc($dbaccess, $dirid);
 
   $action->lay->set("pds",$fld->urlWhatEncodeSpec("")); // parameters for searches
 
@@ -160,7 +160,7 @@ function barmenu(&$action) {
   }
 
 
-  $homefld = new Doc( $dbaccess, getDefFld($action));
+  $homefld = new_Doc( $dbaccess, getDefFld($action));
 
 
 

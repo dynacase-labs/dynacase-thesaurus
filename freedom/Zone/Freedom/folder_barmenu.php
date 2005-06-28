@@ -3,7 +3,7 @@
  * Folder barmenu
  *
  * @author Anakeen 2000 
- * @version $Id: folder_barmenu.php,v 1.7 2005/04/13 11:12:06 eric Exp $
+ * @version $Id: folder_barmenu.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -31,7 +31,7 @@ function folder_barmenu(&$action) {
   $dirid=GetHttpVars("dirid");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $dir = new Doc($dbaccess, $dirid);
+  $dir = new_Doc($dbaccess, $dirid);
 
 
   $action->lay->set("title",$dir->getTitle());

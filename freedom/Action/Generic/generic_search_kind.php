@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search_kind.php,v 1.11 2005/03/03 17:14:13 eric Exp $
+ * @version $Id: generic_search_kind.php,v 1.12 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.11 2005/03/03 17:14:13 eric Exp $
+// $Id: generic_search_kind.php,v 1.12 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,13 +58,13 @@ function generic_search_kind(&$action) {
 
 
   $famid = getDefFam($action);
-  $fdoc = new Doc($dbaccess, $famid);
+  $fdoc = new_Doc($dbaccess, $famid);
 
   $attr = $fdoc->getAttribute($aid);
   $enum=$attr->getEnum();
   $kindname=$enum[$kid];
 
-  $dir = new Doc($dbaccess, $dirid);
+  $dir = new_Doc($dbaccess, $dirid);
 
   $sdoc = createDoc($dbaccess,5); //new DocSearch($dbaccess);
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)

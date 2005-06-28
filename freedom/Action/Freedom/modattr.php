@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.23 2005/03/23 10:30:47 eric Exp $
+ * @version $Id: modattr.php,v 1.24 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -65,7 +65,7 @@ function modattr(&$action) {
       $doc->profid = "0"; // NO PROFILE ACCESS
 
       if (GetHttpVars("classid") >0) {
-	$cdoc = new Doc($dbaccess,GetHttpVars("classid") );
+	$cdoc = new_Doc($dbaccess,GetHttpVars("classid") );
 	$doc->classname = "";
 	$doc->profid = $cdoc->cprofid; // inherit father profile
       }
@@ -79,7 +79,7 @@ function modattr(&$action) {
     {
 
       // initialise object
-      $doc = new Doc($dbaccess,$docid);
+      $doc = new_Doc($dbaccess,$docid);
       
       $doc->lock(true);
       // test object permission before modify values (no access control on values yet)

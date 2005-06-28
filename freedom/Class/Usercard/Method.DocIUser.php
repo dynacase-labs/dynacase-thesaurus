@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.24 2005/02/01 16:23:24 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.25 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -91,7 +91,7 @@ function GetOtherGroups() {
 function refreshParentGroup() {
   $tgid=$this->getTValue("US_IDGROUP");
   foreach ($tgid as $gid) {
-    $gdoc=new Doc($this->dbaccess,$gid);
+    $gdoc=new_Doc($this->dbaccess,$gid);
     if ($gdoc->isAlive()) {
       $gdoc->insertGroups();
     }

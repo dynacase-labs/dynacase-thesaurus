@@ -3,7 +3,7 @@
  * View imported tar
  *
  * @author Anakeen 2004
- * @version $Id: freedom_ana_tar.php,v 1.4 2005/02/08 11:34:37 eric Exp $
+ * @version $Id: freedom_ana_tar.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -74,7 +74,7 @@ function analyze_tar(&$action,$selfile) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $selectclass=array();
 
-  $doc = new Doc($dbaccess, $classid);
+  $doc = new_Doc($dbaccess, $classid);
   $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,0,"TABLE");
 
   foreach ($tclassdoc as $k=>$cdoc) {
@@ -98,7 +98,7 @@ function analyze_tar(&$action,$selfile) {
 
   $untardir= getTarExtractDir($action,$selfile);
   
-  $dir = new Doc($dbaccess,$dirid);
+  $dir = new_Doc($dbaccess,$dirid);
   $dirtitle=$dir->title;
   if (! method_exists($dir,"addfile")) {
     $action->AddWarningMsg(sprintf(_("The document <%s> is not a folder"),$dirtitle));
@@ -129,7 +129,7 @@ function analyze_tar(&$action,$selfile) {
   if ($tr) {
   foreach ($tr as $k=>$v) {
     if ($v["familyid"]>0) {
-      $f=new Doc($dbaccess,$v["familyid"]);
+      $f=new_Doc($dbaccess,$v["familyid"]);
       $tr[$k]["familyname"]=$f->title;
       $tr[$k]["foldername"]=$dirtitle.'/'.substr($v["foldername"],strposn($v["foldername"],'/',6));
       

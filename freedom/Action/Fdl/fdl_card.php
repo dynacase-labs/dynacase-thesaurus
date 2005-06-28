@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.9 2005/06/22 16:13:49 eric Exp $
+ * @version $Id: fdl_card.php,v 1.10 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,7 +40,7 @@ function fdl_card(&$action) {
   if ($docid=="") $action->exitError(_("no document reference"));
   if (! is_numeric($docid)) $docid=getIdFromName($dbaccess,$docid);
   if (intval($docid) == 0) $action->exitError(sprintf(_("unknow logical reference '%s'"),GetHttpVars("id")));
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
 
   if (($latest == "Y") && ($doc->locked == -1)) {

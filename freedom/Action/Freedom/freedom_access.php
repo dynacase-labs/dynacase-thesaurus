@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_access.php,v 1.6 2004/02/09 16:46:15 eric Exp $
+ * @version $Id: freedom_access.php,v 1.7 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_access.php,v 1.6 2004/02/09 16:46:15 eric Exp $
+// $Id: freedom_access.php,v 1.7 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_access.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,7 @@ function freedom_access(&$action) {
 
 
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
 
   // test if current user can view ACL 
   $err = $doc->Control("viewacl");

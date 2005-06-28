@@ -3,7 +3,7 @@
  * Generate Layout to edit array (table)
  *
  * @author Anakeen 2005
- * @version $Id: editarray.php,v 1.1 2005/02/18 15:42:35 eric Exp $
+ * @version $Id: editarray.php,v 1.2 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -37,11 +37,11 @@ function editarray(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if ($docid == 0) $doc = createDoc($dbaccess, $classid);
-  else $doc = new Doc($dbaccess, $docid);
+  else $doc = new_Doc($dbaccess, $docid);
 
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
-    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $cvdoc= new_Doc($dbaccess, $doc->cvid);
     $tview = $cvdoc->getView($vid);
       if ($tview)  $doc->setMask($tview["CV_MSKID"]);
   }

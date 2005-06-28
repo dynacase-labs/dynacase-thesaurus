@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewacl.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: viewacl.php,v 1.4 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewacl.php,v 1.3 2003/08/18 15:47:04 eric Exp $
+// $Id: viewacl.php,v 1.4 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewacl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -52,7 +52,7 @@ function viewacl(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc=new Doc($dbaccess, $docid);
+  $doc=new_Doc($dbaccess, $docid);
 
   //-------------------
 

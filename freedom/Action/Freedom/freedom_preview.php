@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_preview.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_preview.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_preview.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_preview.php,v 1.8 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_preview.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function freedom_preview(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if ($docid > 0) {
-    $doc = new Doc($dbaccess, $docid);
+    $doc = new_Doc($dbaccess, $docid);
 
     $action->lay->Set("TITLE",$doc->title);
     $ndoc= duplicate($action, 0, $docid, true); // temporary document
@@ -70,7 +70,7 @@ function freedom_preview(&$action) {
   $err = modcard($action, $ndocid); // ndocid change if new doc
 
    
-  $tdoc = new Doc($dbaccess, $ndocid);
+  $tdoc = new_Doc($dbaccess, $ndocid);
   $tdoc->modify();
   //if ($err != "")  $action-> ExitError($err);
 

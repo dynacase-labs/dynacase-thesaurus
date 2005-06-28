@@ -3,7 +3,7 @@
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocGroup.php,v 1.13 2005/06/23 10:08:20 eric Exp $
+ * @version $Id: Method.DocGroup.php,v 1.14 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -126,7 +126,7 @@ function SetGroupMail($nomail=false) {
    
     while (list($k,$v) = each($tiduser)) {
 
-      $udoc = new doc($this->dbaccess,$v);
+      $udoc = new_Doc($this->dbaccess,$v);
       if ($udoc && $udoc->isAlive()) {
 	if (!$nomail) {
 	  $mail = $udoc->getValue("GRP_MAIL");

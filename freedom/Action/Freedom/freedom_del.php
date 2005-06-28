@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_del.php,v 1.9 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_del.php,v 1.10 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_del.php,v 1.9 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_del.php,v 1.10 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_del.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function freedom_del(&$action) {
   if ( $docid == "" )
     return;
 
-  $doc= new Doc($dbaccess, $docid);
+  $doc= new_Doc($dbaccess, $docid);
   
   // must unlocked before
   $err=$doc->CanLockFile();

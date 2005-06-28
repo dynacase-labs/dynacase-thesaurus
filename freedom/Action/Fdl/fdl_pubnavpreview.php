@@ -3,7 +3,7 @@
  * Emailing
  *
  * @author Anakeen 2005
- * @version $Id: fdl_pubnavpreview.php,v 1.1 2005/05/03 16:55:22 eric Exp $
+ * @version $Id: fdl_pubnavpreview.php,v 1.2 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,7 +34,7 @@ function fdl_pubnavpreview(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   $t=$doc->getContent(true,array(),true);
   if ($fromedit) {
     $doc = $doc->copy(true,false);

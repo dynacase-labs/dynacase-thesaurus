@@ -3,7 +3,7 @@
  * Verify constraint on special attribute
  *
  * @author Anakeen 2003
- * @version $Id: vconstraint.php,v 1.4 2004/11/12 11:19:27 eric Exp $
+ * @version $Id: vconstraint.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -30,7 +30,7 @@ function vconstraint(&$action) {
 
 
   if ($docid > 0) {
-    $doc = new Doc($dbaccess, $docid);
+    $doc = new_Doc($dbaccess, $docid);
 
 
     

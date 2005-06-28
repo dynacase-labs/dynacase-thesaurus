@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.21 2005/06/07 13:33:03 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.22 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -88,7 +88,7 @@ Class DocCtrl extends DbObj
 			);
 
   // --------------------------------------------------------------------
-  function DocCtrl ($dbaccess='', $id='',$res='',$dbid=0) {
+  function __construct($dbaccess='', $id='',$res='',$dbid=0) {
     // --------------------------------------------------------------------
 
     global $action; // necessary to see information about user privilege
@@ -96,7 +96,7 @@ Class DocCtrl extends DbObj
     if (isset($action)) {
       $this->userid=$action->parent->user->id;
     }
-    DbObj::DbObj($dbaccess, $id,$res,$dbid);      
+    parent::__construct($dbaccess, $id,$res,$dbid);      
   }
 
   function isControlled() {
@@ -144,7 +144,7 @@ Class DocCtrl extends DbObj
     $this->profid = $profid;
     if (($profid > 0) && ($profid != $this->id)) {
       // make sure that the profil is activated
-      $pdoc=new Doc($this->dbaccess, $profid);
+      $pdoc=new_Doc($this->dbaccess, $profid);
       if ($pdoc->getValue("DPDOC_FAMID") > 0) {
 	// dynamic profil
 	$this->dprofid = $profid;
@@ -165,7 +165,7 @@ Class DocCtrl extends DbObj
     if ($dprofid == 0) $dprofid=$this->dprofid;
     if ($dprofid == 0) return;
     
-    $pdoc=new Doc($this->dbaccess, $dprofid);
+    $pdoc=new_Doc($this->dbaccess, $dprofid);
     $pfamid=  $pdoc->getValue("DPDOC_FAMID");
     if ($pfamid > 0) {
       if ($this->profid != $this->id) {
@@ -254,7 +254,7 @@ Class DocCtrl extends DbObj
       $vg = new VGroup($this->dbaccess,strtolower($uid));
       if (! $vg->isAffected()) {
 	// try to add 
-	$ddoc=new Doc($this->dbaccess, $this->getValue("dpdoc_famid"));
+	$ddoc=new_Doc($this->dbaccess, $this->getValue("dpdoc_famid"));
 	$oa=$ddoc->getAttribute($uid);
 	if ($oa->type=="docid") {
 	  $vg->id=$oa->id;

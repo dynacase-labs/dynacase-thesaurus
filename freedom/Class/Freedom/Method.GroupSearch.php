@@ -3,7 +3,7 @@
  * Grouped searches
  *
  * @author Anakeen 2004
- * @version $Id: Method.GroupSearch.php,v 1.2 2004/06/17 14:49:34 eric Exp $
+ * @version $Id: Method.GroupSearch.php,v 1.3 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -25,7 +25,7 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   $wsql=array();
   $query[]="select * from doc1 limit 0;"; // null query
   foreach ($tidsearch as $k=>$v) {
-    $doc = new Doc($this->dbaccess,$v);
+    $doc = new_Doc($this->dbaccess,$v);
     
     if (method_exists($doc,"getQuery")) {
       $doc->setValue("SE_IDCFLD",$this->getValue("SE_IDCFLD"));

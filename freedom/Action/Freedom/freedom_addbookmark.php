@@ -3,7 +3,7 @@
  * Add folder in user bookmarks
  *
  * @author Anakeen 2005 
- * @version $Id: freedom_addbookmark.php,v 1.2 2005/03/30 12:03:31 eric Exp $
+ * @version $Id: freedom_addbookmark.php,v 1.3 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,7 +32,7 @@ function freedom_addbookmark(&$action) {
     $tid[$id]=$label;
   }
   // add new folder
-  $doc= new Doc($dbaccess,$dirid);
+  $doc= new_Doc($dbaccess,$dirid);
   if ($doc->isAlive()) {
     $tid[$doc->initid]=$doc->title;
   } else {

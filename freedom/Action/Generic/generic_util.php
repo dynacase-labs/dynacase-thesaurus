@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.20 2005/03/25 17:09:41 eric Exp $
+ * @version $Id: generic_util.php,v 1.21 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.20 2005/03/25 17:09:41 eric Exp $
+// $Id: generic_util.php,v 1.21 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -168,7 +168,7 @@ function getChildCatg($docid, $level,$notfldsearch=false,$maxlevel=2) {
 // -----------------------------------
 function getSqlFrom($dbaccess, $docid) {
   // -----------------------------------
-  $fdoc= new Doc( $dbaccess, $docid);
+  $fdoc= new_Doc( $dbaccess, $docid);
   $child= $fdoc->GetChildFam();
   return GetSqlCond(array_merge(array($docid),array_keys($fdoc->GetChildFam())),"fromid");
   

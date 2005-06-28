@@ -3,7 +3,7 @@
  * Modification of documents
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_mod.php,v 1.22 2004/06/23 14:13:07 eric Exp $
+ * @version $Id: freedom_mod.php,v 1.23 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -37,14 +37,14 @@ function freedom_mod(&$action) {
   if ($err != "")  $action->AddWarningMsg($err);
   else {
   
-    $doc= new Doc($dbaccess, $ndocid);
+    $doc= new_Doc($dbaccess, $ndocid);
     if ($docid > 0) $action->AddLogMsg(sprintf(_("%s has been modified"),$doc->title));
 
   
     if  ($docid == 0) {
       AddLogMsg(sprintf(_("%s has been created"),$doc->title));
       if ($dirid > 0) {
-	$fld = new Doc($dbaccess, $dirid);    
+	$fld = new_Doc($dbaccess, $dirid);    
 	if ($fld->doctype != 'D') $dirid=0;
       }
 
@@ -62,7 +62,7 @@ function freedom_mod(&$action) {
 	$cdoc = $doc->getFamDoc();
 	if ($cdoc->dfldid>0)  {
 	  $dirid=$cdoc->dfldid;
-	  $fld = new Doc($dbaccess,$dirid); 
+	  $fld = new_Doc($dbaccess,$dirid); 
 	  $err=$fld->AddFile($doc->id);
 	  if ($err != "") {
 	    $action->AddLogMsg($err);
@@ -75,7 +75,7 @@ function freedom_mod(&$action) {
       // third try in home folder
 
       if ($dirid == 0) {
-	$fld = new Doc($dbaccess,UNCLASS_FLD);
+	$fld = new_Doc($dbaccess,UNCLASS_FLD);
 	$home = $fld->getHome();
       
 	if ($home->id > 0) $fld = $home; 

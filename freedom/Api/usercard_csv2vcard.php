@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_csv2vcard.php,v 1.4 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: usercard_csv2vcard.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,7 +31,7 @@ if ($dbaccess == "") {
 
 
 
-  $doc = new Doc($dbaccess,getFamIdFromName($dbaccess,"USER"));
+  $doc = new_Doc($dbaccess,getFamIdFromName($dbaccess,"USER"));
 
   $lattr = $doc->GetNormalAttributes();
   $format = "DOC;".$doc->id.";<special id>;<special dirid>; ";

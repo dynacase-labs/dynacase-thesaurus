@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.22 2004/08/10 07:11:05 caroline Exp $
+ * @version $Id: Class.DocFam.php,v 1.23 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,7 +35,7 @@ create unique index idx_idfam on docfam(id);";
 
   var $attr;
 
-  function DocFam ($dbaccess='', $id='',$res='',$dbid=0) {
+  function __construct($dbaccess='', $id='',$res='',$dbid=0) {
 
     $this->fields["dfldid"] ="dfldid";
     $this->fields["cfldid"] ="cfldid";
@@ -46,7 +46,7 @@ create unique index idx_idfam on docfam(id);";
     $this->fields["defval"]="defval";
     $this->fields["param"]="param";
     $this->fields["schar"]="schar"; // specials characteristics R : revised on each modification
-    PFam::PFam($dbaccess, $id, $res, $dbid);
+    parent::__construct($dbaccess, $id, $res, $dbid);
      
     $this->doctype='C';
     if (($this->id > 0)&& ($this->isAffected())) {
@@ -80,7 +80,7 @@ create unique index idx_idfam on docfam(id);";
       switch ($v) {
       case cprofid:
 	if ($this->$v > 0) {
-	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $tdoc = new_Doc($this->dbaccess,$this->$v);
 	  $this->lay->set("cproftitle",$tdoc->title);
 	  $this->lay->set("cprofdisplay","");
 	} else {
@@ -89,7 +89,7 @@ create unique index idx_idfam on docfam(id);";
 	break;
       case cfldid:
 	if ($this->$v > 0) {
-	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $tdoc = new_Doc($this->dbaccess,$this->$v);
 	  $this->lay->set("cfldtitle",$tdoc->title);
 	  $this->lay->set("cflddisplay","");
 	} else {
@@ -98,7 +98,7 @@ create unique index idx_idfam on docfam(id);";
 	break;
       case dfldid:
 	if ($this->$v > 0) {
-	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $tdoc = new_Doc($this->dbaccess,$this->$v);
 	  $this->lay->set("dfldtitle",$tdoc->title);
 	  $this->lay->set("dflddisplay","");
 	} else {
@@ -107,7 +107,7 @@ create unique index idx_idfam on docfam(id);";
 	break;
       case wid:
 	if ($this->$v > 0) {
-	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $tdoc = new_Doc($this->dbaccess,$this->$v);
 	  $this->lay->set("wtitle",$tdoc->title);
 	  $this->lay->set("wdisplay","");
 	} else {
@@ -116,7 +116,7 @@ create unique index idx_idfam on docfam(id);";
 	break;
       case ccvid:
 	if ($this->$v > 0) {
-	  $tdoc = new Doc($this->dbaccess,$this->$v);
+	  $tdoc = new_Doc($this->dbaccess,$this->$v);
 	  $this->lay->set("cvtitle",$tdoc->title);
 	  $this->lay->set("cvdisplay","");
 	} else {

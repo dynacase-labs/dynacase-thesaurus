@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_dedit.php,v 1.6 2004/01/27 13:19:56 eric Exp $
+ * @version $Id: freedom_dedit.php,v 1.7 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: freedom_dedit.php,v 1.6 2004/01/27 13:19:56 eric Exp $
+// $Id: freedom_dedit.php,v 1.7 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_dedit.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,7 +53,7 @@ function freedom_dedit(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
    if ($docid > 0) {
 
-     $doc= new Doc($dbaccess, $docid);
+     $doc= new_Doc($dbaccess, $docid);
 
      if (!$doc->isAlive()) {
        // the doesn't exist

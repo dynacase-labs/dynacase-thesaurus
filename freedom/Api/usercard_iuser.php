@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.11 2004/08/12 07:00:06 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.12 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -108,7 +108,7 @@ if ($query->nb > 0)	{
 	    print "$reste)";printf( _("%s migrated\n"),$title);
 	    $fid=$tdoc[0]->id;
 	  }	else {
-	    $udoc= new Doc($dbaccess,$tdoc[0]->id);
+	    $udoc= new_Doc($dbaccess,$tdoc[0]->id);
 	    $udoc->setValue("US_WHATID",$v["id"]);
 	    $udoc->refresh();
 	    $udoc->RefreshDocUser();

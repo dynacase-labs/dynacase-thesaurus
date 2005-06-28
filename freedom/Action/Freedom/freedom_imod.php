@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_imod.php,v 1.5 2005/03/08 17:53:56 eric Exp $
+ * @version $Id: freedom_imod.php,v 1.6 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_imod.php,v 1.5 2005/03/08 17:53:56 eric Exp $
+// $Id: freedom_imod.php,v 1.6 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_imod.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -72,7 +72,7 @@ function freedom_imod(&$action) {
   if ($err != "")  $action-> ExitError($err);
 
 
-  $idoc= new Doc($dbaccess,$idoc->id);
+  $idoc= new_Doc($dbaccess,$idoc->id);
 
    
   $idoc->RefreshTitle();

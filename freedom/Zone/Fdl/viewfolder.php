@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.68 2005/06/13 09:14:50 eric Exp $
+ * @version $Id: viewfolder.php,v 1.69 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,7 +50,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   
 
 
-  $dir = new Doc($dbaccess,$dirid);
+  $dir = new_Doc($dbaccess,$dirid);
 
   $dirid=$dir->id;  // use initial id for directories
   $distinct=false;

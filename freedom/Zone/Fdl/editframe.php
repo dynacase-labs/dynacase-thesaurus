@@ -3,7 +3,7 @@
  * Generate Layout to edit frame (fieldset)
  *
  * @author Anakeen 2000 
- * @version $Id: editframe.php,v 1.21 2005/04/07 12:09:30 eric Exp $
+ * @version $Id: editframe.php,v 1.22 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,11 +38,11 @@ function editframe(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if ($docid == 0) $doc = createDoc($dbaccess, $classid);
-  else $doc = new Doc($dbaccess, $docid);
+  else $doc = new_Doc($dbaccess, $docid);
 
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
-    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $cvdoc= new_Doc($dbaccess, $doc->cvid);
     $tview = $cvdoc->getView($vid);
       if ($tview)  $doc->setMask($tview["CV_MSKID"]);
   }

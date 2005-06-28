@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.90 2005/05/31 14:53:25 eric Exp $
+ * @version $Id: import_file.php,v 1.91 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -122,10 +122,10 @@ function add_import_file(&$action, $fimport="") {
       }
       if (isset($data[2])) {
 	if  ($data[2] > 0) { // dirid
-	  $dir = new Doc($dbaccess, $data[2]);
+	  $dir = new_Doc($dbaccess, $data[2]);
 	  if ($dir->isAlive())	  $dir->AddFile($doc->id);
 	} else if ($data[2] ==  0) {
-	  $dir = new Doc($dbaccess, $dirid);
+	  $dir = new_Doc($dbaccess, $dirid);
 	  if ((method_exists($dir,"AddFile")) &&
 	      ($dir->isAlive()))	$dir->AddFile($doc->id);
 	}
@@ -154,7 +154,7 @@ function add_import_file(&$action, $fimport="") {
 
       if  ($data[1] > 0) {
 	$tcr[$nline]["id"]=$data[1];
-	$doc = new Doc($dbaccess, $data[1]);
+	$doc = new_Doc($dbaccess, $data[1]);
 	if (! $doc -> isAffected()) {
 	  $doc = createDoc($dbaccess,5);
 	  if (!$analyze) {
@@ -188,10 +188,10 @@ function add_import_file(&$action, $fimport="") {
 	}
 
 	if ($data[2] > 0) { // dirid
-	  $dir = new Doc($dbaccess, $data[2]);
+	  $dir = new_Doc($dbaccess, $data[2]);
 	  $dir->AddFile($doc->id);
 	} else if ($data[2] ==  0) {
-	  $dir = new Doc($dbaccess, $dirid);
+	  $dir = new_Doc($dbaccess, $dirid);
 	  $dir->AddFile($doc->id);
 	}
       }
@@ -312,7 +312,7 @@ function add_import_file(&$action, $fimport="") {
       // import attribute definition from another family
       $fiid=$data[3];
       if (! is_numeric($fiid))    $fiid =  getFamIdFromName($dbaccess,$fiid);
-      $fi=new Doc($dbaccess,$fiid);
+      $fi=new_Doc($dbaccess,$fiid);
       if ($fi->isAffected()) {
 	$fa=$fi->getAttribute($data[1]);
 	if ($fa) {
@@ -414,7 +414,7 @@ function add_import_file(&$action, $fimport="") {
       if (! ($pid>0)) $tcr[$nline]["err"]=sprintf(_("profil id unkonow %s"),$data[1]);
       else {
 
-	$pdoc = new Doc($dbaccess, $pid);
+	$pdoc = new_Doc($dbaccess, $pid);
 	if ($pdoc->isAlive()) {
 	  $tcr[$nline]["msg"]=sprintf(_("change profil %s"),$data[1]);	  
 	  if ($analyze) continue;
@@ -728,7 +728,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     else $ndirid=getIdFromName($dbaccess,$data[3],2);
 
     if ($ndirid > 0) { // dirid
-      $dir = new Doc($dbaccess, $ndirid);
+      $dir = new_Doc($dbaccess, $ndirid);
       if ($dir->isAffected()) {
 	$tcr["folderid"]=$dir->id;
 	$tcr["foldername"]=dirname($ldir)."/".$dir->title;
@@ -737,7 +737,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       }
     } else if ($ndirid ==  0) {
       if ($dirid > 0) {
-	$dir = new Doc($dbaccess, $dirid);
+	$dir = new_Doc($dbaccess, $dirid);
 	if ($dir->isAlive() && method_exists($dir,"AddFile")) {
 	  $tcr["folderid"]=$dir->id;
 	  $tcr["foldername"]=dirname($ldir)."/".$dir->title;

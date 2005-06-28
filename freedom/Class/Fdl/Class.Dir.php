@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.36 2005/06/16 12:13:20 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.37 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -30,7 +30,7 @@ Class Dir extends PDir
   var $defDoctype='D';
 
   function Dir($dbaccess='', $id='',$res='',$dbid=0) {
-    PDir::PDir($dbaccess, $id, $res, $dbid);
+    parent::__construct($dbaccess, $id, $res, $dbid);
     if ($this->fromid == "") $this->fromid= FAM_DIR;
   }
 
@@ -179,7 +179,7 @@ Class Dir extends PDir
 
 
     // verify if doc family is autorized
-    $doc= new Doc($this->dbaccess, $docid);
+    $doc= new_Doc($this->dbaccess, $docid);
     
 
     if (! $this->isAuthorized($doc->fromid)) return sprintf(_("Cannot add %s in %s folder, restriction set to add this kind of document"),  $doc->title ,$this->title);
@@ -346,7 +346,7 @@ Class Dir extends PDir
       
     $tableid = array();
   
-    $doc = new Doc($this->dbaccess, $docid);
+    $doc = new_Doc($this->dbaccess, $docid);
     $query = new QueryDb($this->dbaccess,"QueryDir");
     $query -> AddQuery("dirid=".$this->id);
     $query -> AddQuery("((childid=$docid) and (qtype='F')) OR ((childid={$doc->initid}) and (qtype='S'))");
@@ -385,7 +385,7 @@ Class Dir extends PDir
     if (!$noprepost)    $err=$this->preUnlinkDoc($docid);
     if ($err!= "") return $err;
    
-    $doc = new Doc($this->dbaccess,$docid);
+    $doc = new_Doc($this->dbaccess,$docid);
     $docid=$doc->initid;
     
     //if (count($qids) == 0) $err = sprintf(_("cannot delete link : link not found for doc %d in folder %d"),$docid, $this->initid);

@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Method.FullTextSearch.php,v 1.8 2005/02/08 11:34:37 eric Exp $
+ * @version $Id: Method.FullTextSearch.php,v 1.9 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -68,7 +68,7 @@ function GetFullTextResultDocs ($dbaccess,
 
   global $action;
   $tdocs = array();
-  $fulltextsearch = new Doc($dbaccess, $dirid);
+  $fulltextsearch = new_Doc($dbaccess, $dirid);
 
   $s_rcount = $action->GetParam("FREEDOM_FULLTEXT_RESULT", 100); 
 
@@ -115,7 +115,7 @@ function GetFullTextResultDocs ($dbaccess,
         $r = $dvi->GetDocId($vid);
         if (is_array($r) && count($r)>0) {
 	  while (list($k, $v) = each($r)) {
-	    $ndoc = new Doc($dbaccess, $v->docid);
+	    $ndoc = new_Doc($dbaccess, $v->docid);
 	    if ($ndoc->id>0) {
 	      if (  ($latest=="fixed" && $ndoc->locked==-1 && $ndoc->lmodify=="L")
 		    || ($latest=="yes" && $ndoc->locked!=-1)

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: revision.php,v 1.8 2005/01/14 17:58:47 eric Exp $
+ * @version $Id: revision.php,v 1.9 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: revision.php,v 1.8 2005/01/14 17:58:47 eric Exp $
+// $Id: revision.php,v 1.9 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/revision.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,7 +43,7 @@ function revision(&$action)
   $docid = GetHttpVars("id",0);
   $comment = GetHttpVars("comment",_("no comment"));
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
 
   $err = $doc->CanUpdateDoc();
   if ($err != "") $action->ExitError($err);

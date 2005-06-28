@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.49 2005/06/09 12:18:17 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.50 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -269,7 +269,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
 
   $msg="";
   $GEN=getGen($dbaccess);
-  $doc = new Doc($dbaccess);
+  $doc = new_Doc($dbaccess);
   $err = $doc->exec_query("SELECT oid FROM pg_class where relname='doc".$docid."';");
   if ($doc->numrows() == 0) {
     $msg .= "Create table doc".$docid."\n";
@@ -357,7 +357,8 @@ function PgUpdateFamilly($dbaccess, $docid) {
       }
     }
 
-    $ncdoc=new Doc($dbaccess,$docid);
+    $ncdoc=new_Doc($dbaccess,$docid);
+    print_r2($ncdoc);
     if ((in_array(2,$ncdoc->attributes->fromids)) && ($ncdoc->usefor=="N")) {
       // its a folder
       $ncdoc->usefor="F";
@@ -393,7 +394,7 @@ function activateTrigger($dbaccess, $docid) {
     $msg=$cdoc->exec_query($cdoc->sqltcreate,1);
   //  print $cdoc->sqltcreate;
     $sqlcmds = explode(";",$cdoc->SqlTrigger());
-    $cdoc = new Doc($dbaccess, $docid);
+    $cdoc = new_Doc($dbaccess, $docid);
   //  print $cdoc->SqlTrigger();
     while (list($k,$sqlquery)=each($sqlcmds)) {
       if ($sqlquery != "") $msg=$cdoc->exec_query($sqlquery,1);

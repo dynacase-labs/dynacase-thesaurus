@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.37 2004/11/03 17:45:02 eric Exp $
+ * @version $Id: enum_choice.php,v 1.38 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -30,7 +30,7 @@ function enum_choice(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
   $oattr= $doc->GetAttribute($attrid);
   if (! $oattr) 
     $action->exitError(sprintf(_("unknown attribute %s"), $attrid));

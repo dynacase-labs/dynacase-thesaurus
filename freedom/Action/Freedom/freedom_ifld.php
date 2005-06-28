@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_ifld.php,v 1.6 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: freedom_ifld.php,v 1.7 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_ifld.php,v 1.6 2003/08/18 15:47:03 eric Exp $
+// $Id: freedom_ifld.php,v 1.7 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_ifld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,7 +46,7 @@ function freedom_ifld(&$action) {
 
   $docid = GetHttpVars("id");
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
 
   $lfather = array_reverse(fatherFld($dbaccess,$doc->initid));
 
@@ -86,7 +86,7 @@ function fatherFld($dbaccess,$docid,$level=0,$lfldid=array(),$lcdoc=array()) {
       if (! in_array($v["dirid"], $lfldid)) { 
 	// avoid infinite recursion
 	  
-	  $fld = new Doc($dbaccess, $v["dirid"]);
+	  $fld = new_Doc($dbaccess, $v["dirid"]);
 	if ($fld->Control("view") == "") { 
 	  // permission view folder
 	    

@@ -3,7 +3,7 @@
  * Duplicate a document
  *
  * @author Anakeen 2000 
- * @version $Id: duplicate.php,v 1.13 2005/06/07 16:07:13 eric Exp $
+ * @version $Id: duplicate.php,v 1.14 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -30,7 +30,7 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
 
 
   // test if doc with values
-  $doc= new Doc($dbaccess, $docid);
+  $doc= new_Doc($dbaccess, $docid);
 
   if ($doc->isConfidential())  redirect($action,"FDL","FDL_CONFIDENTIAL&id=".$doc->id);
   
@@ -63,7 +63,7 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
   // add to the same folder
   
   if (($dirid > 0) && ($copy->id > 0)) {
-    $fld = new Doc($dbaccess, $dirid);
+    $fld = new_Doc($dbaccess, $dirid);
 
     
     $err = $fld->AddFile($copy->id);

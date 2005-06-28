@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.100 2005/06/07 13:33:03 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.101 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -106,7 +106,7 @@ function getSqlSearchDoc($dbaccess,
     //-------------------------------------------
 
     
-    if (! is_array($dirid))    $fld = new Doc($dbaccess, $dirid);
+    if (! is_array($dirid))    $fld = new_Doc($dbaccess, $dirid);
 
     if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
 
@@ -167,7 +167,7 @@ function getSqlSearchDoc($dbaccess,
 	    
 	  // $sqlM=$ldocsearch[0]["query"];
 
-	  $fld=new Doc($dbaccess,$dirid);
+	  $fld=new_Doc($dbaccess,$dirid);
 	  $tsqlM=$fld->getQuery();
 	  foreach ($tsqlM as $sqlM) {
 	    if ($sqlM != false) {
@@ -215,7 +215,7 @@ function getChildDocError($dbaccess,
     // in a specific folder
     //-------------------------------------------
 
-    if (! is_array($dirid))    $fld = new Doc($dbaccess, $dirid);
+    if (! is_array($dirid))    $fld = new_Doc($dbaccess, $dirid);
     if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
 
 
@@ -237,7 +237,7 @@ function getChildDocError($dbaccess,
 	case "M": // complex query
 	    
 
-	  $fld=new Doc($dbaccess,$dirid);
+	  $fld=new_Doc($dbaccess,$dirid);
 	  $tsqlM=$fld->getQuery();
 	  foreach ($tsqlM as $sqlM) {
 
@@ -283,7 +283,7 @@ function getChildDoc($dbaccess,
   if ($fromid==0) $fromid="";
   if (($fromid=="") && ($dirid!=0)&&($qtype=="TABLE")) {
 
-    $fld = new Doc($dbaccess, $dirid);
+    $fld = new_Doc($dbaccess, $dirid);
 
     // In case of full text search, execute specific code
     if ($fld->fromid == getFamIdFromName($dbaccess,"FTEXTSEARCH")) 
@@ -406,7 +406,7 @@ function getMSearchDoc($dbaccess,$dirid,
 		       $userid=1, 
 		       $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
  
-  $sdoc= new Doc($dbaccess, $dirid);
+  $sdoc= new_Doc($dbaccess, $dirid);
 
   $tidsearch=$sdoc->getTValue("SEG_IDCOND");
   $tdoc=array();
@@ -459,7 +459,7 @@ function getKindDoc($dbaccess,
   if ($userid==0) $userid=$action->user->id;
   
   $famid= getFamIdFromName($dbaccess,$famname);
-  $fdoc = new Doc($dbaccess, $famid);
+  $fdoc = new_Doc($dbaccess, $famid);
 
   // searches for all fathers kind
   $a = $fdoc->getAttribute($aid);
@@ -650,7 +650,7 @@ function GetProfileDoc($dbaccess,$docid,$defProfFamId="")
   global $action;
   $filter=array();
   
-  $doc=new Doc($dbaccess,$docid);
+  $doc=new_Doc($dbaccess,$docid);
   $chdoc=$doc->GetFromDoc();
   if ($defProfFamId=="") $defProfFamId=$doc->defProfFamId;
   

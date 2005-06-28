@@ -3,7 +3,7 @@
  * Apply sort by family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_usort.php,v 1.4 2005/05/19 13:28:21 eric Exp $
+ * @version $Id: generic_usort.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,7 +50,7 @@ function setUsort(&$action, $aorder) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-  $fdoc= new Doc( $dbaccess, $famid);
+  $fdoc= new_Doc( $dbaccess, $famid);
 
   $pu = $action->GetParam("GENERIC_USORT");
   $tr=array();

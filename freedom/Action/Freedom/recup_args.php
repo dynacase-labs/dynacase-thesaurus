@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: recup_args.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: recup_args.php,v 1.3 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: recup_args.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+// $Id: recup_args.php,v 1.3 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/recup_args.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,7 +63,7 @@ function recup_args(&$action){
   //printf($docid);
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   //print_r($doc);
 
   if ($doc->GetValue("act_type")==1){//action de type action

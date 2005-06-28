@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_importvcard.php,v 1.14 2004/03/25 11:10:09 eric Exp $
+ * @version $Id: usercard_importvcard.php,v 1.15 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: usercard_importvcard.php,v 1.14 2004/03/25 11:10:09 eric Exp $
+// $Id: usercard_importvcard.php,v 1.15 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_importvcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -70,7 +70,7 @@ function usercard_importvcard(&$action) {
       $vcardfile = GetHttpVars("file"); 
     }
   if (! $vcard_import-> Open($vcardfile)) $action->exitError(_("no vcard file specified"));
-  $dir = new Doc($dbaccess, getDefFld($action));
+  $dir = new_Doc($dbaccess, getDefFld($action));
 
   $tvalue=array();
 
@@ -111,7 +111,7 @@ function usercard_importvcard(&$action) {
 		
 		while(list($k,$v) = each($category)) {
 		  
-		  $catg = new Doc($dbaccess, $v);
+		  $catg = new_Doc($dbaccess, $v);
 		  $catg->AddFile($doc->id);
 		}
 	      }

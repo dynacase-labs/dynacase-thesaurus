@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editwdoc.php,v 1.3 2003/12/12 15:45:25 eric Exp $
+ * @version $Id: editwdoc.php,v 1.4 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editwdoc.php,v 1.3 2003/12/12 15:45:25 eric Exp $
+// $Id: editwdoc.php,v 1.4 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editwdoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function editwdoc(&$action) {
  
 
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
 
   $action->lay->Set("doctitle",$doc->title);
   $sqlfilters=array();

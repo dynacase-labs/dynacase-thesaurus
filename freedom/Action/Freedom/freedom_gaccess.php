@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.7 2005/03/01 17:15:41 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_gaccess.php,v 1.7 2005/03/01 17:15:41 eric Exp $
+// $Id: freedom_gaccess.php,v 1.8 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_gaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,7 +59,7 @@ function freedom_gaccess(&$action) {
 
 
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   $err= $doc->control("viewacl");
   if ($err != "") $action->exitError($err);
 
@@ -152,7 +152,7 @@ function freedom_gaccess(&$action) {
   if ($doc->getValue("DPDOC_FAMID") > 0) {
     
    
-    $pdoc = new Doc($dbaccess , $doc->getValue("DPDOC_FAMID"));
+    $pdoc = new_Doc($dbaccess , $doc->getValue("DPDOC_FAMID"));
     $pattr = $pdoc->GetProfilAttributes();
     foreach($pattr as $k=>$v) {
 

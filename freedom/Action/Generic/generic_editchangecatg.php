@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_editchangecatg.php,v 1.9 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_editchangecatg.php,v 1.10 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_editchangecatg.php,v 1.9 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_editchangecatg.php,v 1.10 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_editchangecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -48,9 +48,9 @@ function generic_editchangecatg(&$action) {
 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Doc( $dbaccess,getDefFld($action) );
+  $homefld = new_Doc( $dbaccess,getDefFld($action) );
 
-  $doc = new Doc($dbaccess,$docid);
+  $doc = new_Doc($dbaccess,$docid);
   $action->lay->Set("username",$doc->title);
 
 

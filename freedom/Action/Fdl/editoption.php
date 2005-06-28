@@ -3,7 +3,7 @@
  * Edition of option sttribute for a document
  *
  * @author Anakeen 2004
- * @version $Id: editoption.php,v 1.1 2004/11/19 09:55:05 eric Exp $
+ * @version $Id: editoption.php,v 1.2 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -123,7 +123,7 @@ function getdocoption(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
    
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
   if (! $doc->isAlive()) return false;
   $fdoc=$doc->getFamDoc();
   $fdoc->opt=$valopt;

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: adddirfile.php,v 1.14 2005/04/07 12:43:07 eric Exp $
+ * @version $Id: adddirfile.php,v 1.15 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: adddirfile.php,v 1.14 2005/04/07 12:43:07 eric Exp $
+// $Id: adddirfile.php,v 1.15 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/adddirfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,8 +57,8 @@ function adddirfile(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc= new Doc($dbaccess, $docid);
-  $dir= new Doc($dbaccess, $dirid);
+  $doc= new_Doc($dbaccess, $docid);
+  $dir= new_Doc($dbaccess, $dirid);
 
   $err = $dir->AddFile($docid, $mode);
   

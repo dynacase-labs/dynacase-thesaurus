@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_card.php,v 1.6 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_card.php,v 1.7 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_card.php,v 1.6 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_card.php,v 1.7 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_card.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,7 @@ function generic_card(&$action) {
     // set title
   $docid = GetHttpVars("id");
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
 
   $action->lay->Set("TITLE",$doc->title);

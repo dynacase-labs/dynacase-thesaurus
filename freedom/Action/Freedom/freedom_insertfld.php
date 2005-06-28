@@ -3,7 +3,7 @@
  * insert the documents of $dirid in folder $id
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_insertfld.php,v 1.7 2005/04/05 17:29:38 eric Exp $
+ * @version $Id: freedom_insertfld.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -34,7 +34,7 @@ function freedom_insertfld(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc= new Doc($dbaccess, $docid);
+  $doc= new_Doc($dbaccess, $docid);
 
   $err="";
 
@@ -49,7 +49,7 @@ function freedom_insertfld(&$action) {
   if ($err != "") $action->addWarningMsg($err);
   
   if ($clean) {
-    $sfld = new Doc($dbaccess,$dirid );
+    $sfld = new_Doc($dbaccess,$dirid );
     $sfld->Clear();
   }
 

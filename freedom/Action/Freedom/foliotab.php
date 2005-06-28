@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: foliotab.php,v 1.6 2004/06/11 16:09:23 eric Exp $
+ * @version $Id: foliotab.php,v 1.7 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: foliotab.php,v 1.6 2004/06/11 16:09:23 eric Exp $
+// $Id: foliotab.php,v 1.7 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/foliotab.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,7 +57,7 @@ function foliotab(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
  
-  $doc = new Doc($dbaccess,$docid);
+  $doc = new_Doc($dbaccess,$docid);
   $action->lay->set("docid",$docid);
   $action->lay->set("dirid",$doc->initid);
   $action->lay->set("title",$doc->title);

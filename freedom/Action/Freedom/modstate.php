@@ -3,7 +3,7 @@
  * Document State modification
  *
  * @author Anakeen 2000 
- * @version $Id: modstate.php,v 1.7 2004/09/22 16:16:39 eric Exp $
+ * @version $Id: modstate.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -39,7 +39,7 @@ function modstate(&$action) {
   
   
   // initialise object
-    $doc = new Doc($dbaccess,$docid);
+    $doc = new_Doc($dbaccess,$docid);
   
   
 
@@ -48,7 +48,7 @@ function modstate(&$action) {
  
   if ($doc->wid > 0) {
     if ($state != "-") {
-      $wdoc = new Doc($dbaccess,$doc->wid);
+      $wdoc = new_Doc($dbaccess,$doc->wid);
       $wdoc->Set($doc);
       setPostVars($wdoc);
       $err=$wdoc->ChangeState($state,$comment,$force);

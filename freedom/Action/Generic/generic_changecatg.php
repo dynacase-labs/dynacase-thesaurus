@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_changecatg.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: generic_changecatg.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_changecatg.php,v 1.7 2003/08/18 15:47:03 eric Exp $
+// $Id: generic_changecatg.php,v 1.8 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_changecatg.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,13 +58,13 @@ function generic_changecatg(&$action) {
 
    if (is_array($dirids)) {
      while (list($k,$dirid) = each($dirids)) {	
-       $fld = new Doc($dbaccess, $dirid);
+       $fld = new_Doc($dbaccess, $dirid);
        $fld->AddFile($docid);
      }
    }
    if (is_array($ndirids)) {
      while (list($k,$dirid) = each($ndirids)) {	
-       $fld = new Doc($dbaccess, $dirid);
+       $fld = new_Doc($dbaccess, $dirid);
        $err = $fld->DelFile($docid);
 
      }

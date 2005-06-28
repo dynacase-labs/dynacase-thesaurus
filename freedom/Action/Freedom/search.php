@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: search.php,v 1.22 2005/04/06 16:38:58 eric Exp $
+ * @version $Id: search.php,v 1.23 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.22 2005/04/06 16:38:58 eric Exp $
+// $Id: search.php,v 1.23 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,7 +58,7 @@ function search(&$action) {
 
   if ($classid == 0) {
     if ($docid > 0) {
-      $doc = new Doc($dbaccess, $docid);
+      $doc = new_Doc($dbaccess, $docid);
       $classid=$doc->fromid;
     }
     else {

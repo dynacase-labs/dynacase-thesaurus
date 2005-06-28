@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: changeicon.php,v 1.6 2004/08/05 09:47:21 eric Exp $
+ * @version $Id: changeicon.php,v 1.7 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: changeicon.php,v 1.6 2004/08/05 09:47:21 eric Exp $
+// $Id: changeicon.php,v 1.7 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/changeicon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,6 +34,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: changeicon.php,v $
+// Revision 1.7  2005/06/28 08:37:46  eric
+// PHP5 change new_doc
+//
 // Revision 1.6  2004/08/05 09:47:21  eric
 // For multibase
 //
@@ -90,7 +93,7 @@ function changeicon(&$action)
 
   $action->lay->Set("docid",$docid);
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
 
   //print_r($_FILES);
   $fileinfo = $_FILES["ifile"];

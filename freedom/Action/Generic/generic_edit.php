@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.39 2005/06/23 07:54:51 eric Exp $
+ * @version $Id: generic_edit.php,v 1.40 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,7 +43,7 @@ function generic_edit(&$action) {
   if ($docid == 0)
     {
     if ($classid > 0) {
-      $cdoc= new Doc($dbaccess,$classid);
+      $cdoc= new_Doc($dbaccess,$classid);
       if ($cdoc->control('create') != "") $action->exitError(sprintf(_("no privilege to create this kind (%s) of document"),$cdoc->title));
       if ($cdoc->control('icreate') != "") $action->exitError(sprintf(_("no privilege to create interactivaly this kind (%s) of document"),$cdoc->title));
       $action->lay->Set("TITLE", sprintf(_("creation %s"),$cdoc->title));
@@ -61,7 +61,7 @@ function generic_edit(&$action) {
   else
     {    
 
-      $doc= new Doc ($dbaccess,$docid);
+      $doc= new_Doc($dbaccess,$docid);
      
       $err = $doc->lock(true); // autolock
       if ($err != "")   $action->ExitError($err);
@@ -78,7 +78,7 @@ function generic_edit(&$action) {
   if ($zonebodycard == "") {
     if (($vid != "") && ($doc->cvid > 0)) {
       // special controlled view
-      $cvdoc= new Doc($dbaccess, $doc->cvid);
+      $cvdoc= new_Doc($dbaccess, $doc->cvid);
       $cvdoc->set($doc);
       $err = $cvdoc->control($vid); // control special view
       if ($err != "") $action->exitError($err);
@@ -88,7 +88,7 @@ function generic_edit(&$action) {
     }  
   }
   if (($vid == "")&&($mskid != "")) {
-    $mdoc=new Doc($dbaccess,$mskid);
+    $mdoc=new_Doc($dbaccess,$mskid);
     if ($mdoc->isAlive() && ($mdoc->control('view')==""))  $doc->setMask($mdoc->id);
   }
 

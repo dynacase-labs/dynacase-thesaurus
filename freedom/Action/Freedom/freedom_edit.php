@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.31 2005/06/07 13:33:03 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.32 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -43,7 +43,7 @@ function freedom_edit(&$action) {
   if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
    
   if ($docid > 0) {
-    $doc= new Doc($dbaccess,$docid);
+    $doc= new_Doc($dbaccess,$docid);
     if (! $doc->isAlive()) $action->exitError(sprintf(_("document id %d not found"),$docid));
     $fdoc =  $doc->getFamDoc();
     $tclassdoc[$doc->fromid] = array("id"=> $fdoc->id,
@@ -51,7 +51,7 @@ function freedom_edit(&$action) {
   } else {
     // new document select special classes
     if ($dirid > 0) {
-      $dir = new Doc($dbaccess, $dirid);
+      $dir = new_Doc($dbaccess, $dirid);
       if (method_exists($dir,"isAuthorized")) {	
 	if ($dir->isAuthorized($classid)) { 
 	  // verify if classid is possible
@@ -72,7 +72,7 @@ function freedom_edit(&$action) {
       if ($onlysubfam) {
 	
 	if (! is_numeric($onlysubfam))  $onlysubfam = getFamIdFromName($dbaccess,$onlysubfam);
-	$cdoc = new Doc($dbaccess,$onlysubfam);
+	$cdoc = new_Doc($dbaccess,$onlysubfam);
 	$tclassdoc = $cdoc->GetChildFam();
 	$first = current($tclassdoc);
 	if ($classid=="") $classid = $first["id"];
@@ -165,7 +165,7 @@ function freedom_edit(&$action) {
   // compute the changed state
   $tstate= array();
   if ($doc->wid > 0) {
-    $wdoc = new Doc($dbaccess,$doc->wid);
+    $wdoc = new_Doc($dbaccess,$doc->wid);
     $wdoc->Set($doc);
     $fstate = $wdoc->GetFollowingStates();
     $action->lay->Set("initstatevalue",$doc->state );

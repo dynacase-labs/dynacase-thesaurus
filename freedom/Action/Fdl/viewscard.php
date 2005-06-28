@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewscard.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: viewscard.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewscard.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+// $Id: viewscard.php,v 1.5 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/viewscard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,7 +55,7 @@ function viewscard(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   $err = $doc->control("view");
   if ($err != "") $action->exitError($err);
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;

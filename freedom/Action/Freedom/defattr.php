@@ -3,7 +3,7 @@
  * Display family attributes
  *
  * @author Anakeen 2000 
- * @version $Id: defattr.php,v 1.22 2005/03/23 10:30:47 eric Exp $
+ * @version $Id: defattr.php,v 1.23 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -31,7 +31,7 @@ function defattr(&$action)
   $action->lay->Set("docid",$docid);
   $action->lay->Set("dirid",$dirid);
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
   // build values type array
   $odocattr= new DocAttr($dbaccess);
 
@@ -42,7 +42,7 @@ function defattr(&$action)
   if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
   else
     // to show inherit attributes
-    if (($docid == 0) && ($classid > 0)) $doc=new Doc($dbaccess,$classid); // the doc inherit from chosen class
+    if (($docid == 0) && ($classid > 0)) $doc=new_Doc($dbaccess,$classid); // the doc inherit from chosen class
 
   $selectclass=array();
   $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");

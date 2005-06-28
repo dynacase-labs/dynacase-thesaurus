@@ -3,7 +3,7 @@
  * list available families
  *
  * @author Anakeen 2003
- * @version $Id: onefam_list.php,v 1.9 2004/06/03 15:32:31 eric Exp $
+ * @version $Id: onefam_list.php,v 1.10 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -48,7 +48,7 @@ function getTableFamilyList($idsfam) {
     $dbaccess = GetParam("FREEDOM_DB");
 
     foreach ($tidsfam as $k=>$cid) {
-      $cdoc= new Doc($dbaccess, $cid);
+      $cdoc= new_Doc($dbaccess, $cid);
       if ($cdoc->dfldid > 0) {
 
 	$selectclass[$k]["idcdoc"]=$cdoc->initid;

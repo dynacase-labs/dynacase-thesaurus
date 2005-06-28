@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.49 2005/06/23 08:35:44 eric Exp $
+ * @version $Id: popupcard.php,v 1.50 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -24,7 +24,7 @@ function popupcard(&$action) {
   $headers = (GetHttpVars("props",'N') == "Y"); // view doc properties
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   $kdiv=1; // only one division
 
   $action->lay->Set("id", $docid);
@@ -173,7 +173,7 @@ function popupcard(&$action) {
 
   if ($doc->locked != -1) {
     if ($doc->wid > 0) {
-      $wdoc=new Doc($doc->dbaccess, $doc->wid);
+      $wdoc=new_Doc($doc->dbaccess, $doc->wid);
       if ($wdoc->isAlive()) {
 	$wdoc->Set($doc);
 	if (count($wdoc->GetFollowingStates()) > 0)  popupActive('popupcard',$kdiv,'editstate');
@@ -242,7 +242,7 @@ function popupcard(&$action) {
 
   if ($doc->cvid > 0 ) {
 
-    $cvdoc = new Doc($doc->dbaccess, $doc->cvid);
+    $cvdoc = new_Doc($doc->dbaccess, $doc->cvid);
     $cvdoc->set($doc);
     $ti = $cvdoc->getTValue("CV_IDVIEW");
     $tl = $cvdoc->getTValue("CV_LVIEW");

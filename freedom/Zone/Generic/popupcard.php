@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: popupcard.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupcard.php,v 1.7 2003/08/18 15:47:04 eric Exp $
+// $Id: popupcard.php,v 1.8 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Generic/popupcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,7 @@ function popupcard(&$action) {
   $headers = (GetHttpVars("head",'no') == "yes");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   $kdiv=1; // only one division
 
   $action->lay->Set("id", $docid);
@@ -91,7 +91,7 @@ function popupcard(&$action) {
       popupInactive('popupcard',$kdiv,'chgcatg'); 
     }
     if ($doc->wid > 0) {
-      $wdoc=new Doc($doc->dbaccess, $doc->wid);
+      $wdoc=new_Doc($doc->dbaccess, $doc->wid);
       $wdoc->Set($doc);
       if (count($wdoc->GetFollowingStates()) > 0) popupActive('popupcard',$kdiv,'editstate');
       else popupInactive('popupcard',$kdiv,'editstate'); 

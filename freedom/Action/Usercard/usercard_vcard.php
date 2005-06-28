@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_vcard.php,v 1.8 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: usercard_vcard.php,v 1.9 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: usercard_vcard.php,v 1.8 2003/08/18 15:47:04 eric Exp $
+// $Id: usercard_vcard.php,v 1.9 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Usercard/usercard_vcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -53,7 +53,7 @@ function usercard_vcard(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   
   $doc->GetValues();
   

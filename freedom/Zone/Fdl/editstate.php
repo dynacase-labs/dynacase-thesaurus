@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.14 2004/10/27 15:36:27 eric Exp $
+ * @version $Id: editstate.php,v 1.15 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -45,7 +45,7 @@ function editstate(&$action) {
 	
 	
     // when modification 
-    $doc= new Doc($dbaccess,$docid);
+    $doc= new_Doc($dbaccess,$docid);
 	
   }
   $action->lay->set("tstates","");
@@ -59,7 +59,7 @@ function editstate(&$action) {
   
     if ($doc->wid > 0) {
       // compute the changed state
-      $wdoc = new Doc($dbaccess,$doc->wid);
+      $wdoc = new_Doc($dbaccess,$doc->wid);
       $wdoc->Set($doc);
 
 

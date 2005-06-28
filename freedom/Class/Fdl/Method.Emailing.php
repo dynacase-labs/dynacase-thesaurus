@@ -7,7 +7,7 @@ function fdl_pubsendmail($target="_self",$ulink=true,$abstract=false) {
 
   $uid=getHttpVars("uid");
   if ($uid) {
-    $udoc=new Doc($this->dbaccess,$uid);
+    $udoc=new_Doc($this->dbaccess,$uid);
     if ($udoc->isAlive()) {
       $listattr = $udoc->GetNormalAttributes();
       $atarget=""; // must not be mail the same bacuse it is not the doc itself

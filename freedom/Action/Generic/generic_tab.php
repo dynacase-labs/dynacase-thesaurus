@@ -3,7 +3,7 @@
  * List document of a category
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.21 2005/03/03 17:14:13 eric Exp $
+ * @version $Id: generic_tab.php,v 1.22 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -57,7 +57,7 @@ function generic_tab(&$action) {
 
 
 
-  $dir = new Doc($dbaccess, $dirid);
+  $dir = new_Doc($dbaccess, $dirid);
 
   // control open
   if ($dir->defDoctype=='S') $aclctrl="execute";

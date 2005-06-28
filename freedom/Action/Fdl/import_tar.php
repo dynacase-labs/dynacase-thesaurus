@@ -3,7 +3,7 @@
  * Import Set of documents and files with directories
  *
  * @author Anakeen 2000 
- * @version $Id: import_tar.php,v 1.3 2004/09/29 08:16:53 eric Exp $
+ * @version $Id: import_tar.php,v 1.4 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -84,7 +84,7 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,$dfldid=2,
       $ffileattr=$defaultdoc->GetFirstFileAttributes();
   
       if ($dirid > 0) {
-	$dir = new Doc($dbaccess,$dirid);
+	$dir = new_Doc($dbaccess,$dirid);
       }
 
       $nfile=0;

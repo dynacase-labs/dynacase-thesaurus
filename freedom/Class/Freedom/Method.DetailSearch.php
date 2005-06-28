@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.35 2005/05/19 13:33:54 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.36 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -223,7 +223,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
 
   if ((count($tkey) > 1) || ($tkey[0] != "")) {
 
-    $fdoc=new Doc($this->dbaccess, $this->getValue("SE_FAMID",1));
+    $fdoc=new_Doc($this->dbaccess, $this->getValue("SE_FAMID",1));
     $zpi=$fdoc->GetNormalAttributes();
     $zpi["state"]->labelText=_("state");
     $zpi["title"]->labelText=_("doctitle");
@@ -324,7 +324,7 @@ function editdsearch() {
 		   "attrname" => $v);
   }
 
-  $fdoc=new Doc($this->dbaccess, $famid);
+  $fdoc=new_Doc($this->dbaccess, $famid);
   $zpi=$fdoc->GetNormalAttributes();
 
   while (list($k,$v) = each($zpi)) {
@@ -356,7 +356,7 @@ function editdsearch() {
   //-----------------------------------------------
   // display state
   if ($fdoc->wid > 0) {
-    $wdoc=new Doc ($this->dbaccess, $fdoc->wid);
+    $wdoc=new_Doc($this->dbaccess, $fdoc->wid);
     $states=$wdoc->getStates();
 
     $tstates=array();

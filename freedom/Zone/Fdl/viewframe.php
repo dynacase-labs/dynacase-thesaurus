@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.17 2004/05/13 16:17:15 eric Exp $
+ * @version $Id: viewframe.php,v 1.18 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.17 2004/05/13 16:17:15 eric Exp $
+// $Id: viewframe.php,v 1.18 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,10 +63,10 @@ function viewframe(&$action) {
   
   $action->lay->Set("cursor",$ulink?"crosshair":"inherit");
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
-    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $cvdoc= new_Doc($dbaccess, $doc->cvid);
     $tview = $cvdoc->getView($vid);
    
     $doc->setMask($tview["CV_MSKID"]);

@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.15 2004/10/04 09:17:36 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.16 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -68,7 +68,7 @@ function laddrsoc($dbaccess, $idc) {
   //'laddrsoc(D,US_IDSOCIETY):US_SOCADDR,US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_CEDEX,US_COUNTRY
 
 
-  $doc = new Doc($dbaccess, $idc);
+  $doc = new_Doc($dbaccess, $idc);
   $tr=array();
   if ($doc->isAffected()) {
     $tr[] = array("adresse société",
@@ -98,7 +98,7 @@ function laddrsoc($dbaccess, $idc) {
   
 }
 function getSphone($dbaccess, $idc) {
-  $doc = new Doc($dbaccess, $idc);
+  $doc = new_Doc($dbaccess, $idc);
 
   $tr=array();
   if ($doc->isAlive()) {
@@ -109,7 +109,7 @@ function getSphone($dbaccess, $idc) {
   
 }
 function getSFax($dbaccess, $idc) {
-  $doc = new Doc($dbaccess, $idc);
+  $doc = new_Doc($dbaccess, $idc);
 
   $tr=array();
   if ($doc->isAlive()) {
@@ -164,7 +164,7 @@ function lpersonnesociety( $dbaccess, $idsociety, $name="" ) {
 // identification société
 function gsociety($dbaccess, $idc) {     
   //gsociety(D,US_IDSOCIETY):US_SOCIETY
-  $doc = new Doc($dbaccess, $idc);
+  $doc = new_Doc($dbaccess, $idc);
   $cl = array($doc->title);
 
   return ($cl);
@@ -174,7 +174,7 @@ function gsociety($dbaccess, $idc) {
 // get enum list from society document
 function enumscatg() {
   $dbaccess=getParam("FREEDOM_DB");
-  $soc = new Doc($dbaccess, 124);
+  $soc = new_Doc($dbaccess, 124);
 
   if ($soc->isAffected()) {
     $a = $soc->getAttribute("si_catg");
@@ -187,7 +187,7 @@ function members($dbaccess, $groupid, $name="") {
   $tr = array();
 
 
-  $doc  = new Doc($dbaccess, $groupid);
+  $doc  = new_Doc($dbaccess, $groupid);
 
   if ($doc->isAlive()) {
     $tmembers= $doc->getTvalue("GRP_RUSER");

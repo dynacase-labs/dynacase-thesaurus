@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_groups.php,v 1.7 2004/08/10 07:55:10 eric Exp $
+ * @version $Id: freedom_groups.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,7 +31,7 @@ if ($dbaccess == "") {
   exit;
 }
 
-$doc = new Doc($dbaccess);
+$doc = new_Doc($dbaccess);
 $dbname=getDbName($dbaccess);
 $dbuser=getDbUser($dbaccess);
 $dbank=getDbName(getDbAccess());

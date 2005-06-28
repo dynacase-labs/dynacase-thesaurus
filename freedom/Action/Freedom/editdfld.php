@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editdfld.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: editdfld.php,v 1.6 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editdfld.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+// $Id: editdfld.php,v 1.6 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editdfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,7 +51,7 @@ function editdfld(&$action) {
  
 
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
 
   $action->lay->Set("doctitle",$doc->title);
   $sqlfilters=array();

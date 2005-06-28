@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.12 2005/06/16 15:07:29 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.13 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.12 2005/06/16 15:07:29 eric Exp $
+// $Id: Method.Mask.php,v 1.13 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -78,7 +78,7 @@ function getCVisibilities() {
   $tvisid = $this->getTValue("MSK_VISIBILITIES");
   $tattrid = $this->getTValue("MSK_ATTRIDS");
   $docid = $this->getValue("MSK_FAMID",1);
-  $doc= new Doc($this->dbaccess,$docid);
+  $doc= new_Doc($this->dbaccess,$docid);
 
   $tsvis = $this->getVisibilities();
   $tvisibilities=array();
@@ -113,7 +113,7 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
 
   $this->lay->Set("docid",$docid);
 
-  $doc= new Doc($this->dbaccess,$docid);
+  $doc= new_Doc($this->dbaccess,$docid);
 
 
   // display current values
@@ -186,7 +186,7 @@ function editmask() {
 
   $this->lay->Set("docid",$docid);
 
-  $doc= new Doc($this->dbaccess,$docid);
+  $doc= new_Doc($this->dbaccess,$docid);
 
 
   $tvisibilities=$this->getVisibilities();

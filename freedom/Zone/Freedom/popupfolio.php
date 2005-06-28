@@ -3,7 +3,7 @@
  * popup for portfolio list
  *
  * @author Anakeen 2000 
- * @version $Id: popupfolio.php,v 1.8 2005/06/23 07:54:51 eric Exp $
+ * @version $Id: popupfolio.php,v 1.9 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -23,7 +23,7 @@ function popupfolio(&$action) {
 
   $kdiv=1; // only one division
 
-  $dir = new Doc($dbaccess,$dirid);
+  $dir = new_Doc($dbaccess,$dirid);
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
   // definition of popup menu

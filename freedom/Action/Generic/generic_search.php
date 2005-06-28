@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.26 2005/06/24 11:14:28 eric Exp $
+ * @version $Id: generic_search.php,v 1.27 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,13 +40,13 @@ function generic_search(&$action) {
 
   if ($keyword[0]!=">") {
     $dirid=$catgid; 
-    $doc = new Doc($dbaccess, $dirid);
+    $doc = new_Doc($dbaccess, $dirid);
     $pds=$doc->urlWhatEncodeSpec("");
   } else {  // search sub searches   
     $keyword=substr($keyword,1);
-    $catg = new Doc($dbaccess,$catgid );
+    $catg = new_Doc($dbaccess,$catgid );
     $pds=$catg->urlWhatEncodeSpec("");
-    $doc = new Doc($dbaccess, $dirid);
+    $doc = new_Doc($dbaccess, $dirid);
   }
 
 
@@ -92,7 +92,7 @@ function setUkey(&$action, $key) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-  $fdoc= new Doc( $dbaccess, $famid);
+  $fdoc= new_Doc( $dbaccess, $famid);
 
   $pu = $action->GetParam("GENE_LATESTTXTSEARCH");
   $tr=array();

@@ -3,7 +3,7 @@
  * Return Help Files
  *
  * @author Anakeen 2000 
- * @version $Id: family_help.php,v 1.1 2004/08/24 13:36:37 eric Exp $
+ * @version $Id: family_help.php,v 1.2 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -33,7 +33,7 @@ function getFamilyHelpFile(&$action,$docid) {
   if (! is_numeric($docid))  $docid = getFamIdFromName($dbaccess,$docid);
   $dbaccess = $action->GetParam("FREEDOM_DB");
  
-  $doc = new Doc($dbaccess,$docid);
+  $doc = new_Doc($dbaccess,$docid);
   if ($doc->isAlive()) {
     $name = $doc->name;
     if ($name != "") {

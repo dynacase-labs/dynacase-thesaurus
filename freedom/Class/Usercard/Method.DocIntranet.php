@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.8 2005/02/01 16:23:24 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.9 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -191,7 +191,7 @@ function getDocUser($wid) {
   $u= new User("",$wid);
   if ($u->isAffected()) {
     if ($u->fid > 0) {
-      $du=new Doc($this->dbaccess,$u->fid);
+      $du=new_Doc($this->dbaccess,$u->fid);
       if ($du->isAlive()) return $du;
     }
   }

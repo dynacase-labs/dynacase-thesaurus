@@ -3,7 +3,7 @@
  * Import document from CSV file
  *
  * @author Anakeen 2004
- * @version $Id: generic_editimport.php,v 1.14 2005/02/15 15:49:44 eric Exp $
+ * @version $Id: generic_editimport.php,v 1.15 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,7 +27,7 @@ function generic_editimport(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/selectbox.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $homefld = new Doc( $dbaccess, getDefFld($action));
+  $homefld = new_Doc( $dbaccess, getDefFld($action));
 
   
   $stree=array();
@@ -42,12 +42,12 @@ function generic_editimport(&$action) {
 
 
   // spec for csv file
-  $doc=new Doc($dbaccess, $famid);
+  $doc=new_Doc($dbaccess, $famid);
   if ($doc->name != "") $famname=$doc->name;
   else $famname=$doc->id;
   if ($doc->ccvid > 0) {
     // special controlled view
-    $cvdoc= new Doc($dbaccess, $doc->ccvid);
+    $cvdoc= new_Doc($dbaccess, $doc->ccvid);
     $cvid=$cvdoc->getValue("CV_IDCVIEW");
     if ($cvid) {
       $err = $cvdoc->control($cvid); // control special view

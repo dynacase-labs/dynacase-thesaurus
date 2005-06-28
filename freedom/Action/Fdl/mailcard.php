@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.54 2005/06/17 09:58:23 eric Exp $
+ * @version $Id: mailcard.php,v 1.55 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.54 2005/06/17 09:58:23 eric Exp $
+// $Id: mailcard.php,v 1.55 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -46,7 +46,7 @@ function mailcard(&$action) {
   $cr = GetHttpVars("cr"); // want a status
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
 
   // control sending
   $err=$doc->control('send');
@@ -116,10 +116,10 @@ function sendmailcard(&$action) {
     $docid = GetHttpVars("id"); 
   
     $dbaccess = $action->GetParam("FREEDOM_DB");
-    $doc = new Doc($dbaccess, $docid);
+    $doc = new_Doc($dbaccess, $docid);
     if ($doc->wid > 0) {
       if ($state != "-") {
-	$wdoc = new Doc($dbaccess,$doc->wid);
+	$wdoc = new_Doc($dbaccess,$doc->wid);
 	$wdoc->Set($doc);
 	$err=$wdoc->ChangeState($state,_("email sended"),true);
 	if ($err != "")  $action-> ExitError($err);
@@ -166,7 +166,7 @@ function sendCard(&$action,
   if (GetHttpVars("_mail_format") == "") setHttpVar("_mail_format",$format);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
 
   $ftitle = str_replace(array(" ","/"), "_",$doc->title);
   $ftitle = str_replace("'", "",$ftitle);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: revcomment.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: revcomment.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: revcomment.php,v 1.4 2003/08/18 15:47:03 eric Exp $
+// $Id: revcomment.php,v 1.5 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/revcomment.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -43,7 +43,7 @@ function revcomment(&$action)
   $docid = GetHttpVars("id",0);
 
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
 
 
   $err= $doc -> lock(true); // auto lock

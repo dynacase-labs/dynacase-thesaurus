@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.54 2005/06/23 08:10:49 eric Exp $
+ * @version $Id: editcard.php,v 1.55 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.54 2005/06/23 08:10:49 eric Exp $
+// $Id: editcard.php,v 1.55 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,7 +65,7 @@ function editcard(&$action) {
     }
   } else { // modify document
     
-    $doc= new Doc($dbaccess,$docid);
+    $doc= new_Doc($dbaccess,$docid);
     if ($doc->isConfidential()) {      
       redirect($action,"FDL",
 	       "FDL_CONFIDENTIAL&&id=".$doc->id);
@@ -93,7 +93,7 @@ function editcard(&$action) {
   
   if ($doc->cvid > 0) {
     // special controlled view
-    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $cvdoc= new_Doc($dbaccess, $doc->cvid);
     $cvdoc->set($doc);
     if (($docid == 0) && ($vid == "")) {
       // search default create view     
@@ -110,7 +110,7 @@ function editcard(&$action) {
   }  
 
   if (($vid == "")&&($mskid != "")) {
-    $mdoc=new Doc($dbaccess,$mskid);
+    $mdoc=new_Doc($dbaccess,$mskid);
     if ($mdoc->isAlive() && ($mdoc->control('view')==""))  $doc->setMask($mdoc->id);
   }
 

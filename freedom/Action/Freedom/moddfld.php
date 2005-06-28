@@ -3,7 +3,7 @@
  * Change default folder for family
  *
  * @author Anakeen 2000 
- * @version $Id: moddfld.php,v 1.7 2004/10/04 08:18:45 eric Exp $
+ * @version $Id: moddfld.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -39,7 +39,7 @@ function moddfld(&$action) {
   
   
   // initialise object
-  $doc = new Doc($dbaccess,$docid);
+  $doc = new_Doc($dbaccess,$docid);
 
   // create folder if auto 
   if ($newfolder) {

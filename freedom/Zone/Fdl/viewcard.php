@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.59 2005/06/13 09:14:50 eric Exp $
+ * @version $Id: viewcard.php,v 1.60 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -70,7 +70,7 @@ function viewcard(&$action) {
      $action->lay->set("refreshfld",  GetHttpVars("refreshfld"));
    }
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
 
   $err = $doc->control("view");
@@ -83,7 +83,7 @@ function viewcard(&$action) {
 
   if (($vid != "") && ($doc->cvid > 0)) {
     // special controlled view
-    $cvdoc= new Doc($dbaccess, $doc->cvid);
+    $cvdoc= new_Doc($dbaccess, $doc->cvid);
     $cvdoc->set($doc);
     
     $err = $cvdoc->control($vid); // control special view
@@ -182,7 +182,7 @@ function viewcard(&$action) {
   }
   $action->lay->Set("profid", abs($doc->profid));
   if ((abs($doc->profid) > 0) && ($doc->profid != $doc->id)) {
-    $pdoc = new Doc($dbaccess, abs($doc->profid));
+    $pdoc = new_Doc($dbaccess, abs($doc->profid));
     $action->lay->Set("profile", $pdoc->title);
     $action->lay->Set("displaylprof", "inherit");
     $action->lay->Set("displayprof", "none");
@@ -209,7 +209,7 @@ function viewcard(&$action) {
     $action->lay->Set("displaylcv", "none");
     $action->lay->Set("displaycv", "");
   } else {
-    $cvdoc = new Doc($dbaccess, abs($doc->cvid));
+    $cvdoc = new_Doc($dbaccess, abs($doc->cvid));
     $action->lay->Set("cview", $cvdoc->title);
     $action->lay->Set("cvid", $cvdoc->id);
     $action->lay->Set("displaylcv", "");

@@ -3,7 +3,7 @@
  * Profil edition
  *
  * @author Anakeen 2000 
- * @version $Id: editprof.php,v 1.16 2005/06/17 10:09:06 eric Exp $
+ * @version $Id: editprof.php,v 1.17 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -32,7 +32,7 @@ function editprof(&$action)
   else  $action->lay->Set("TITLE",_("change profile"));
 
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
   // build values type array
 
   // control view acl

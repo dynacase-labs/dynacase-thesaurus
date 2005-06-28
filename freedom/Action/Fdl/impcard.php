@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: impcard.php,v 1.5 2004/11/19 09:55:05 eric Exp $
+ * @version $Id: impcard.php,v 1.6 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -37,7 +37,7 @@ function impcard(&$action) {
     $doc=getdocoption($action);
     $docid=$doc->id;
   } else {
-    $doc = new Doc($dbaccess, $docid);
+    $doc = new_Doc($dbaccess, $docid);
   }
   $action->lay->set("TITLE",$doc->title);  
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;

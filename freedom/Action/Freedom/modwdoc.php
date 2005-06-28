@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modwdoc.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: modwdoc.php,v 1.4 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modwdoc.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+// $Id: modwdoc.php,v 1.4 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modwdoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,7 +60,7 @@ function modwdoc(&$action) {
   
   
   // initialise object
-  $doc = new Doc($dbaccess,$docid);
+  $doc = new_Doc($dbaccess,$docid);
   $doc->wid = $wid; // new default workflow
   
   
@@ -78,7 +78,7 @@ function modwdoc(&$action) {
   // update document already created to be conform to new workflow
   $doc->exec_query("update doc".$doc->id." set wid=$wid");
 
-  $wdoc= new Doc($dbaccess,$wid);
+  $wdoc= new_Doc($dbaccess,$wid);
   $firststate=$wdoc->firstState;
   $doc->exec_query("update doc".$doc->id." set state='$firststate' where state is null or state=''");
   

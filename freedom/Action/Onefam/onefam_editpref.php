@@ -3,7 +3,7 @@
  * Edit preferences for onefam list
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_editpref.php,v 1.8 2005/01/24 16:14:24 eric Exp $
+ * @version $Id: onefam_editpref.php,v 1.9 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,7 +33,7 @@ function onefam_editpref(&$action,$idsattr="ONEFAM_IDS",$modaction="ONEFAM_MODPR
 
   $openfam=$action->getParam("ONEFAM_FAMOPEN");
   $action->lay->set("openfirst",$openfam);
-  $doc = new Doc($dbaccess);
+  $doc = new_Doc($dbaccess);
 
   $selectclass=array();
   if (is_array($tcdoc)) {

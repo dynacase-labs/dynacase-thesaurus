@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.22 2005/04/12 14:25:30 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.23 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -84,7 +84,7 @@ function RefreshGroup() {
 function refreshParentGroup() {
   $tgid=$this->getTValue("GRP_IDPGROUP");
   foreach ($tgid as $gid) {
-    $gdoc=new Doc($this->dbaccess,$gid);
+    $gdoc=new_Doc($this->dbaccess,$gid);
     if ($gdoc->isAlive()) {
       $gdoc->insertGroups();
     }
@@ -136,7 +136,7 @@ function postInsertDoc($docid,$multiple) {
   if ($multiple == false) {
     $gid = $this->getValue("US_WHATID");
     if ($gid > 0) {
-      $du = new doc($this->dbaccess,$docid);
+      $du = new_Doc($this->dbaccess,$docid);
       $uid = $du->getValue("us_whatid");
       if ($uid > 0) {
 	$g = new Group("",$uid);
@@ -167,7 +167,7 @@ function postMInsertDoc($tdocid) {
 
     $g = new Group("",$uid);
     foreach ($tdocid as $k=>$docid) {
-      $du = new doc($this->dbaccess,$docid);
+      $du = new_Doc($this->dbaccess,$docid);
       $uid = $du->getValue("us_whatid");
       if ($uid > 0) {
 	$g->iduser=$uid;
@@ -190,7 +190,7 @@ function postUnlinkDoc($docid) {
   $err="";
   $gid = $this->getValue("US_WHATID");
   if ($gid > 0) {
-      $du = new doc($this->dbaccess,$docid);
+      $du = new_Doc($this->dbaccess,$docid);
       $uid = $du->getValue("us_whatid");
       if ($uid > 0) {
 	$g = new Group("",$gid);

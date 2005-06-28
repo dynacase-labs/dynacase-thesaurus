@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: workflow_init.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: workflow_init.php,v 1.4 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: workflow_init.php,v 1.3 2003/08/18 15:47:03 eric Exp $
+// $Id: workflow_init.php,v 1.4 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/workflow_init.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,7 +51,7 @@ function workflow_init(&$action) {
 
   
     
-  $wdoc = new Doc($dbaccess,$docid);
+  $wdoc = new_Doc($dbaccess,$docid);
   $wdoc->CreateProfileAttribute();
   if ($wdoc->doctype=='C') $cid = $wdoc->id;
   else $cid= $wdoc->fromid;

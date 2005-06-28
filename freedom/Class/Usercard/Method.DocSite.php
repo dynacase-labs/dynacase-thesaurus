@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocSite.php,v 1.4 2004/01/14 16:01:09 eric Exp $
+ * @version $Id: Method.DocSite.php,v 1.5 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.DocSite.php,v 1.4 2004/01/14 16:01:09 eric Exp $
+// $Id: Method.DocSite.php,v 1.5 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Method.DocSite.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,7 +38,7 @@
 function PostModify() {
   // refresh mother society
   $ids = $this->getValue("SI_IDSOC");
-  $soc= new Doc($this->dbaccess, $ids);
+  $soc= new_Doc($this->dbaccess, $ids);
   if ($soc->isAlive())   $soc->refresh();
 
 

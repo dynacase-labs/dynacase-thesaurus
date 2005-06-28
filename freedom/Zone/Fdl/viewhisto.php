@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.11 2004/12/01 08:06:21 eric Exp $
+ * @version $Id: viewhisto.php,v 1.12 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,7 +27,7 @@ function viewhisto(&$action)
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
   $action->lay->Set("title",$doc->title);
   $action->lay->Set("target",$target);
   $action->lay->Set("VIEWAPP",$viewapp);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: expandfld.php,v 1.16 2005/03/29 18:40:21 eric Exp $
+ * @version $Id: expandfld.php,v 1.17 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.16 2005/03/29 18:40:21 eric Exp $
+// $Id: expandfld.php,v 1.17 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -50,7 +50,7 @@ function expandfld(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $dirid=GetHttpVars("dirid",9); // root directory
   $inavmode=GetHttpVars("inavmode"); // root directory
-  $dir = new Doc($dbaccess, $dirid);
+  $dir = new_Doc($dbaccess, $dirid);
   $navigate=$action->getParam('FREEDOM_VIEWFRAME'); // standard navigation
   
   $action->lay->Set("dirid", $dirid);

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.254 2005/06/07 16:07:13 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.255 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -16,7 +16,6 @@
 include_once("Class.QueryDb.php");
 include_once("FDL/Class.DocCtrl.php");
 include_once("FDL/freedom_util.php");
-include_once("FDL/Class.DocValue.php");
 include_once("FDL/Class.DocVaultIndex.php");
 include_once("FDL/Class.DocAttr.php");
 include_once('FDL/Class.ADoc.php');
@@ -47,7 +46,7 @@ define ("MAXGDOCS", 20);
  */
 Class Doc extends DocCtrl
 {
-  var $fields = array ( "id",
+  public $fields = array ( "id",
 			"owner",
 			"title",
 			"revision",
@@ -75,34 +74,34 @@ Class Doc extends DocCtrl
 
   /**
    * identificator of the document
-   * @var int
+   * @public int
    */
-  var $id;
+  public $id;
   /**
    * user identificator for the creator
-   * @var int
+   * @public int
    */
-  var $owner;
+  public $owner;
   /**
    * the title of the document
-   * @var string
+   * @public string
    */
-  var $title;
+  public $title;
   /**
    * number of the revision. First is zero
-   * @var int
+   * @public int
    */
-  var $revision;
+  public $revision;
   /**
    * identificator of the first revision document
-   * @var int
+   * @public int
    */
-  var $initid;
+  public $initid;
   /**
    * identificator of the family document
-   * @var int
+   * @public int
    */
-  var $fromid;
+  public $fromid;
   /**
    * the type of document
    *
@@ -115,129 +114,129 @@ Class Doc extends DocCtrl
    * W : workflow document
    * Z : zombie document
    *
-   * @var char
+   * @public char
    */
-  var $doctype;
+  public $doctype;
   /**
    * user identificator for the locker
-   * @var int
+   * @public int
    */
-  var $locked;
+  public $locked;
   /**
    * filename or vault id for the icon
-   * @var string
+   * @public string
    */
-  var $icon;
+  public $icon;
   /**
    * set to 'Y' if the document has been modify until last revision
-   * @var char
+   * @public char
    */
-  var $lmodify;
+  public $lmodify;
   /**
    * identificator of the profil document
-   * @var int
+   * @public int
    */
-  var $profid;
+  public $profid;
   /**
    * to precise a special use of the document
-   * @var char
+   * @public char
    */
-  var $usefor;
+  public $usefor;
   /**
    * date of the last modification (the revision date for fixed docuemnt)
-   * @var int
+   * @public int
    */
-  var $revdate;
+  public $revdate;
   /**
    * comment for the history
-   * @var string
+   * @public string
    */
-  var $comment;
+  public $comment;
   /**
    * class name in case of special family (only set in family document)
-   * @var string
+   * @public string
    */
-  var $classname;
+  public $classname;
   /**
    * state of the document if it is associated with a workflow
-   * @var string
+   * @public string
    */
-  var $state;
+  public $state;
   /**
    * identificator of the workflow document
    * 
    * if 0 then no workflow
-   * @var int
+   * @public int
    */
-  var $wid;
+  public $wid;
   /**
    * identificator of the control view document
    * 
    * if 0 then no special control view
-   * @var int
+   * @public int
    */
-  var $cvid;
+  public $cvid;
   /**
    * string identificator of the document
    * 
-   * @var string
+   * @public string
    */
-  var $name;
+  public $name;
   /**
    * identificator of the mask document
    * 
    * if 0 then no mask
-   * @var int
+   * @public int
    */
-  var $mid=0;
+  public $mid=0;
   /**
    * identificator of dynamic profil
    * 
    * if 0 then no dynamic profil
-   * @var int
+   * @public int
    */
-  var $dprofid=0;
+  public $dprofid=0;
   /**
    * applications tag 
    * use by specifics applications to search documents by these tags
    * 
-   * @var string
+   * @public string
    */
-  var $atag;
+  public $atag;
   /**
    * confidential level
    * if not 0 this document is confidential, only user with the permission 'confidential' can read this
    * 
-   * @var int
+   * @public int
    */
-  var $confidential;
+  public $confidential;
 
   /**
    * identification of special views
    * 
-   * @var array
+   * @public array
    */
-  var $cviews=array("FDL:VIEWBODYCARD",
+  public $cviews=array("FDL:VIEWBODYCARD",
 		    "FDL:VIEWABSTRACTCARD",
 		    "FDL:VIEWTHUMBCARD");
-  var $eviews=array("FDL:EDITBODYCARD");
+  public $eviews=array("FDL:EDITBODYCARD");
 
 
 
-  var $id_fields = array ("id");
+  public $id_fields = array ("id");
 
-  var $dbtable = "doc";
+  public $dbtable = "doc";
 
-  var $order_by="title, revision desc";
+  public $order_by="title, revision desc";
 
-  var $fulltextfields = array ("title");
+  public $fulltextfields = array ("title");
 
   /**
    * default family id for the profil access
-   * @var int
+   * @public int
    */
-  var $defProfFamId=FAM_ACCESSDOC;
-  var $sqlcreate = "
+  public $defProfFamId=FAM_ACCESSDOC;
+  public $sqlcreate = "
 create table doc ( id int not null,
                    primary key (id),
                    owner int,
@@ -280,55 +279,55 @@ create unique index i_docir on doc(initid, revision);";
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
   
-  var $obj_acl = array (); // set by childs classes
+  public $obj_acl = array (); // set by childs classes
 
   // --------------------------------------------------------------------
 
   /**
    * default view to view card
-   * @var string
+   * @public string
    */
-  var $defaultview= "FDL:VIEWBODYCARD";
+  public $defaultview= "FDL:VIEWBODYCARD";
   /**
    * default view to edit card
-   * @var string
+   * @public string
    */
-  var $defaultedit = "FDL:EDITBODYCARD";
+  public $defaultedit = "FDL:EDITBODYCARD";
   /**
    * default view for abstract card
-   * @var string 
+   * @public string 
    */
-  var $defaultabstract = "FDL:VIEWABSTRACTCARD";
+  public $defaultabstract = "FDL:VIEWABSTRACTCARD";
   /**
    * for email : the same as $defaultview by default
-   * @var string 
+   * @public string 
    */
-  var $defaultmview = ""; 
+  public $defaultmview = ""; 
  
 
   // --------------------------------------------------------------------
 
  
 
-  var $defDoctype='F';
+  public $defDoctype='F';
 
   /**
    * to indicate values modification
-   * @var bool 
+   * @public bool 
    * @access private
    */
-  var $hasChanged=false; 
+  public $hasChanged=false; 
 
-  var $isCacheble= false;
+  public $isCacheble= false;
 
-  var $paramRefresh=array();
+  public $paramRefresh=array();
 
   /**
    * optimize: compute mask in needed only
-   * @var bool 
+   * @public bool 
    * @access private
    */
-  var $_maskApplied=false; // optimize: compute mask if needed only
+  private $_maskApplied=false; // optimize: compute mask if needed only
  
   /** 
    * Document Constructor
@@ -337,9 +336,8 @@ create unique index i_docir on doc(initid, revision);";
    * @see newDoc()
    * @return void
    */
-  function Doc($dbaccess='', $id='',$res='',$dbid=0) {
-    newDoc($this,$dbaccess, $id, $res, $dbid);
-	   
+  function __construct($dbaccess='', $id='',$res='',$dbid=0) {
+    DocCtrl::__construct($dbaccess, $id,$res,$dbid);
     if (! isset($this->attributes->attr)) $this->attributes->attr=array();
   }
 
@@ -418,7 +416,7 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->revision==0) $this->Addcomment(_("creation"));
 
       if ($this->wid > 0) {
-	$wdoc = new Doc($this->dbaccess,$this->wid);
+	$wdoc = new_Doc($this->dbaccess,$this->wid);
 	$wdoc->Set($this); // set first state
       }
       return $err;
@@ -680,7 +678,7 @@ create unique index i_docir on doc(initid, revision);";
    * @return Doc
    */
   function getFamDoc() {
-    if (! isset($this->famdoc)||($this->famdoc->id != $this->fromid)) $this->famdoc= new Doc($this->dbaccess, $this->fromid);
+    if (! isset($this->famdoc)||($this->famdoc->id != $this->fromid)) $this->famdoc= new_Doc($this->dbaccess, $this->fromid);
     return $this->famdoc;
   }
 
@@ -962,7 +960,7 @@ create unique index i_docir on doc(initid, revision);";
    */
   function GetRevisions($type="LIST") {
     // Return the document revision 
-    $query = new QueryDb($this->dbaccess, get_class($this));
+    $query = new QueryDb($this->dbaccess, strtolower(get_class($this)));
 
       
     //$query->AddQuery("revision <= ".$this->revision);
@@ -979,7 +977,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($this->id == "") return false;
     if ($this->locked != -1) return $this->id;
     
-    $query = new QueryDb($this->dbaccess, get_class($this));
+    $query = new QueryDb($this->dbaccess, strtolower(get_class($this)));
 
     $query->AddQuery("initid = ".$this->initid);
     $query->AddQuery("locked != -1");
@@ -1066,7 +1064,7 @@ create unique index i_docir on doc(initid, revision);";
     if ($mid == 0) {
       if (($this->wid > 0) && ($this->wid != $this->id)) {
 	// search mask from workflow
-	$wdoc=new Doc($this->dbaccess,$this->wid);
+	$wdoc=new_Doc($this->dbaccess,$this->wid);
 	if ($wdoc->isAlive()) {
 	  if ($this->id == 0) {	  
 	    $wdoc->set($this);
@@ -1077,7 +1075,7 @@ create unique index i_docir on doc(initid, revision);";
     }
     if ($mid > 0) { 
 
-      $mdoc = new Doc($this->dbaccess,$mid );
+      $mdoc = new_Doc($this->dbaccess,$mid );
       if ($mdoc->isAlive()) {
 	$tvis = $mdoc->getCVisibilities();
 	  
@@ -1129,7 +1127,7 @@ create unique index i_docir on doc(initid, revision);";
       $tsa=array();
            
       foreach($this->attributes->attr as $k=>$v) {
-	if (get_class($v) == "fieldsetattribute")  $tsa[$v->id]=$v;
+	if (strtolower(get_class($v)) == "fieldsetattribute")  $tsa[$v->id]=$v;
       }
       return $tsa;      
     }
@@ -1143,7 +1141,7 @@ create unique index i_docir on doc(initid, revision);";
       $tsa=array();
            
       foreach($this->attributes->attr as $k=>$v) {
-	if (get_class($v) == "actionattribute")  $tsa[$v->id]=$v;
+	if (strtolower(get_class($v)) == "actionattribute")  $tsa[$v->id]=$v;
       }
       return $tsa;      
     }
@@ -1159,7 +1157,7 @@ create unique index i_docir on doc(initid, revision);";
 
       if (isset($this->attributes->attr)) {
 	foreach($this->attributes->attr as $k=>$v) {
-	  if ((get_class($v) == "normalattribute")&&($v->isInAbstract)) $tsa[$v->id]=$v;
+	  if ((strtolower(get_class($v)) == "normalattribute")&&($v->isInAbstract)) $tsa[$v->id]=$v;
 	}
       }
       return $tsa;      
@@ -1177,7 +1175,7 @@ create unique index i_docir on doc(initid, revision);";
     $tsa=array();
     if (isset($this->attributes->attr)) {
       foreach($this->attributes->attr as $k=>$v) {
-	if ((get_class($v) == "normalattribute") && ($v->isInTitle)) $tsa[$v->id]=$v;      
+	if ((strtolower(get_class($v)) == "normalattribute") && ($v->isInTitle)) $tsa[$v->id]=$v;      
       }
     }
     return $tsa;
@@ -1193,7 +1191,7 @@ create unique index i_docir on doc(initid, revision);";
     $tsa=array();
     if (isset($this->attributes->attr)) {
       foreach($this->attributes->attr as $k=>$v) {
-	if ((get_class($v) == "normalattribute") && ($v->type=="docid") && (!$v->inArray())) $tsa[$v->id]=$v;      
+	if ((strtolower(get_class($v)) == "normalattribute") && ($v->type=="docid") && (!$v->inArray())) $tsa[$v->id]=$v;      
       }
     }
     return $tsa;
@@ -1212,7 +1210,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
       foreach($this->attributes->attr as $k=>$v) {
-	if ((get_class($v) == "normalattribute") && (!$v->inArray()) && 
+	if ((strtolower(get_class($v)) == "normalattribute") && (!$v->inArray()) && 
 	    ($v->mvisibility != "I" )) {  // I means not editable
 	  if ((($this->usefor=="Q") && ($v->usefor=="Q")) ||
 	      (($this->usefor!="Q") && 
@@ -1248,7 +1246,7 @@ create unique index i_docir on doc(initid, revision);";
       
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
-	if ((get_class($v) == "normalattribute") && (($v->type == "image") || 
+	if ((strtolower(get_class($v)) == "normalattribute") && (($v->type == "image") || 
 						     ($v->type == "file"))) $tsa[$v->id]=$v;
       }
       return $tsa;      
@@ -1265,7 +1263,7 @@ create unique index i_docir on doc(initid, revision);";
       
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
-	if (((get_class($v) == "menuattribute"))&&($v->visibility != 'H')) $tsa[$v->id]=$v;
+	if (((strtolower(get_class($v)) == "menuattribute"))&&($v->visibility != 'H')) $tsa[$v->id]=$v;
 	  
 	
       }
@@ -1284,7 +1282,7 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->usefor != 'D') { // not applicable for default document
 	reset($this->attributes->attr);
 	while (list($k,$v) = each($this->attributes->attr)) {
-	  if ((get_class($v) == "normalattribute") && ($v->needed) && ($v->usefor!='Q')) $tsa[$v->id]=$v;      
+	  if ((strtolower(get_class($v)) == "normalattribute") && ($v->needed) && ($v->usefor!='Q')) $tsa[$v->id]=$v;      
 	}
       }
       return $tsa;
@@ -1310,7 +1308,7 @@ create unique index i_docir on doc(initid, revision);";
 	reset($this->attributes->attr);
 	while (list($k,$v) = each($this->attributes->attr)) {
 	  
-	  if (get_class($v) == "normalattribute")  {
+	  if (strtolower(get_class($v)) == "normalattribute")  {
 	    if (($v->type != "image") &&($v->type != "file"))  $tsa[$v->id]=$v;
 	  }
 	}
@@ -1331,7 +1329,7 @@ create unique index i_docir on doc(initid, revision);";
 
       foreach($tattr as $k=>$v) {
 
-	if ((get_class($v) == "normalattribute") && 
+	if ((strtolower(get_class($v)) == "normalattribute") && 
 	    (($v->mvisibility == "W") || ($v->mvisibility == "O") || ($v->type == "docid")) &&
 	    ($v->type != "array")  ) {
 	  
@@ -1593,11 +1591,11 @@ create unique index i_docir on doc(initid, revision);";
     while(list($k,$v) = each($tattrid)) { 
       $docid= $doc->getValue($v);
       if ($docid == "") return $def;
-      $doc = new Doc($this->dbaccess, $docid);
+      $doc = new_Doc($this->dbaccess, $docid);
       if ($latest) {
 	if ($doc->locked == -1) { // it is revised document
 	  $ldocid = $doc->latestId();
-	  if ($ldocid != $doc->id) $doc = new Doc($this->dbaccess, $ldocid);
+	  if ($ldocid != $doc->id) $doc = new_Doc($this->dbaccess, $ldocid);
 	}
       }
 
@@ -1874,7 +1872,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
   function translate($docid, $translate) {
-    $doc = new Doc($this->dbaccess, $docid);
+    $doc = new_Doc($this->dbaccess, $docid);
     if ($doc->isAlive()) {      
       while(list($afrom,$ato) = each($translate)) {
 	$this->setValue($ato, $doc->getValue($afrom));
@@ -1977,7 +1975,7 @@ create unique index i_docir on doc(initid, revision);";
 
 	return  $action->GetImageUrl("doc.gif");
       }
-      //$fdoc = new doc(newDoc($this->dbaccess, $this->fromid);
+      //$fdoc = new_Doc(newDoc($this->dbaccess, $this->fromid);
     
       return  $action->GetImageUrl("doc.gif");
       // don't recursivity to increase speed
@@ -2341,7 +2339,7 @@ create unique index i_docir on doc(initid, revision);";
 	    if ($idocid>0) {
 	      //$lay = new Layout("FDL/Layout/viewadoc.xml", $action);
 	      //$lay->set("id",$idocid);
-	      $idoc = new Doc($this->dbaccess,$idocid);
+	      $idoc = new_Doc($this->dbaccess,$idocid);
 	      $htmlval =$idoc->viewDoc("FDL:VIEWTHUMBCARD:T","finfo");
 
 	      //$htmlval =$lay->gen(); 
@@ -2488,7 +2486,7 @@ create unique index i_docir on doc(initid, revision);";
   // --------------------------------------------------------------------
   function SqlTrigger($drop=false) {
 
-    if (get_class($this) == "docfam") {
+    if (strtolower(get_class($this)) == "docfam") {
       $cid = "fam";
     } else {
       if ($this->doctype == 'C') return;
@@ -3186,7 +3184,7 @@ create unique index i_docir on doc(initid, revision);";
     $title=$this->title;
     $fromid=$this->fromid;
     $dbaccess = $action->GetParam("FREEDOM_DB");
-    $fam_doc=new Doc($this->dbaccess,$this->fromid);
+    $fam_doc=new_Doc($this->dbaccess,$this->fromid);
     $name=str_replace(" ","_",$fam_doc->title);
 
 
@@ -3575,7 +3573,7 @@ create unique index i_docir on doc(initid, revision);";
     // gettitle(D,SI_IDSOC):SI_SOCIETY,SI_IDSOC
 
     $this->AddParamRefresh("$nameId","$nameTitle");
-    $doc=new Doc($this->dbaccess, $this->getValue($nameId));
+    $doc=new_Doc($this->dbaccess, $this->getValue($nameId));
     if ($doc->isAlive())  $this->setValue($nameTitle,$doc->title);
     else {
       // suppress
@@ -3650,7 +3648,7 @@ create unique index i_docir on doc(initid, revision);";
    */
   function getDocValue($docid, $attrid) {
     if (intval($docid) > 0) {
-      $doc = new Doc($this->dbaccess, $docid);
+      $doc = new_Doc($this->dbaccess, $docid);
       if ($doc->isAlive()) {
 	return $doc->getRValue($attrid);
       }
@@ -3665,7 +3663,7 @@ create unique index i_docir on doc(initid, revision);";
    */
   function getDocProp($docid, $propid) {
     if (intval($docid) > 0) {
-      $doc = new Doc($this->dbaccess, $docid);
+      $doc = new_Doc($this->dbaccess, $docid);
       if ($doc->isAlive()) {
 	return $doc->$propid;
       }
@@ -3717,7 +3715,7 @@ create unique index i_docir on doc(initid, revision);";
    * @return int
    */
   function getMyAttribute($idattr) {
-    $mydoc=new Doc($this->dbaccess,$this->getUserId());
+    $mydoc=new_Doc($this->dbaccess,$this->getUserId());
 
     return $mydoc->getValue($idattr);
   }

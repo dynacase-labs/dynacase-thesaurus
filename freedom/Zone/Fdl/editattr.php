@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editattr.php,v 1.9 2003/08/18 15:47:04 eric Exp $
+ * @version $Id: editattr.php,v 1.10 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editattr.php,v 1.9 2003/08/18 15:47:04 eric Exp $
+// $Id: editattr.php,v 1.10 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editattr.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,8 +56,8 @@ function editattr(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  if ($docid == 0) $doc = new Doc($dbaccess, $classid);
-  else $doc = new Doc($dbaccess, $docid);
+  if ($docid == 0) $doc = new_Doc($dbaccess, $classid);
+  else $doc = new_Doc($dbaccess, $docid);
 
   $doc->lay=$action->lay;
   $doc->editattr();

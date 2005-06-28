@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.12 2005/06/09 12:18:17 eric Exp $
+ * @version $Id: popupfam.php,v 1.13 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.12 2005/06/09 12:18:17 eric Exp $
+// $Id: popupfam.php,v 1.13 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,7 @@ function popupfam(&$action,&$tsubmenu) {
 
   $action->lay->Set("SEP",false);
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
 
   if ($doc->doctype=="C") return; // not for familly
 

@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.45 2005/03/03 17:15:03 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.46 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -342,12 +342,12 @@ Class WDoc extends Doc {
   
 
   function changeStateOfDocid($docid, $newstate, $comment="") {
-    $cmd= new Doc($this->dbaccess, $docid);
+    $cmd= new_Doc($this->dbaccess, $docid);
     $cmdid=$cmd->latestId(); // get the latest
-    $cmd= new Doc($this->dbaccess,$cmdid );
+    $cmd= new_Doc($this->dbaccess,$cmdid );
     
     if ($cmd->wid > 0) {
-      $wdoc = new Doc($this->dbaccess,$cmd->wid);
+      $wdoc = new_Doc($this->dbaccess,$cmd->wid);
 
       if (!$wdoc) $err=sprintf(_("cannot change state of document #%d to %s"),$cmd->wid,$newstate);
       if ($err != "")  return $err;

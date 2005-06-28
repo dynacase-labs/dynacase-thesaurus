@@ -3,7 +3,7 @@
  * Apply document methods
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_method.php,v 1.3 2005/05/19 13:25:06 eric Exp $
+ * @version $Id: fdl_method.php,v 1.4 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,7 +22,7 @@ function fdl_method(&$action)
   $method = GetHttpVars("method");
 
 
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
 
   
   if ($doc && $doc->isAlive()) {

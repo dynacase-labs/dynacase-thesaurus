@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.20 2005/01/28 17:07:40 eric Exp $
+ * @version $Id: generic_list.php,v 1.21 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,7 +39,7 @@ function generic_list(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $dir = new Doc($dbaccess,$dirid);
+  $dir = new_Doc($dbaccess,$dirid);
   $action->lay->Set("fldtitle",$dir->getTitle());
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("tab",$tab);

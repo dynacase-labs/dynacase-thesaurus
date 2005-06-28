@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.68 2005/06/17 07:51:33 eric Exp $
+ * @version $Id: freedom_util.php,v 1.69 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,7 +75,7 @@ function GetSqlCond($Table, $column, $integer=false)
  * 
  * @return bool false if error occured
  */
-function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
+function newDoc__obsolete(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
 
   global $gdocs;// optimize for speed
 
@@ -137,7 +137,74 @@ function newDoc(&$doc,$dbaccess, $id='',$res='',$dbid=0) {
     return (true);
   }
 } 
+/**
+ * return document object in type concordance
+ * @param string $dbaccess database specification
+ * @param int $id identificator of the object
+ * @global array optimize for speed 
+ * 
+ * @return Doc object
+ */
+function new_Doc($dbaccess, $id='') {
 
+  global $gdocs;// optimize for speed
+
+  
+  if ($dbaccess=="") {
+    // don't test if file exist or must be searched in include_path 
+    $dbaccess=getDbAccess();
+           
+  }
+  //    print("doctype:".$res["doctype"]);
+  $classname="";
+  if (($id == '') ) {
+    include_once("FDL/Class.DocFile.php");
+    $doc=new DocFile($dbaccess);
+
+    return ($doc);
+  }
+  $fromid="";
+  $gen=""; // path GEN or not
+  if (! is_numeric($id)) $id=getIdFromName($dbaccess,$id);
+
+  $id=intval($id);
+  if ($id > 0) {
+
+    if (isset($gdocs[$id])) {
+      $doc = $gdocs[$id]; // optimize for speed
+      return $doc;
+    }
+  
+
+    $fromid= getFromId($dbaccess,$id);
+    if ($fromid > 0) {
+      $classname= "Doc$fromid";
+      $gen=getGen($dbaccess);
+    }else if ($fromid == -1) $classname="DocFam"; 
+    
+
+    
+  } else if ($res != '') {
+    $fromid=$res["fromid"];
+    $doctype=$res["doctype"];
+    if ($doctype=="C") $classname= "DocFam"; 
+    else if ($fromid > 0) {$classname= "Doc".$res["fromid"];$gen=getGen($dbaccess);}
+    else  $classname=$res["classname"];
+  }
+	    
+  if ($classname != "") {
+    include_once("FDL$gen/Class.$classname.php");
+    $doc=new $classname($dbaccess, $id);
+    if (($id > 0) && (count($gdocs) < MAXGDOCS))    $gdocs[$id]=&$doc;
+
+    return ($doc);
+  } else {
+    include_once("FDL/Class.DocFile.php");
+    $doc=new DocFile($dbaccess, $id);
+
+    return ($doc);
+  }
+} 
 
 /**
  * create a new document object in type concordance
@@ -184,7 +251,7 @@ function createDoc($dbaccess,$fromid,$control=true) {
     return ($doc);
     
   }
-  return new Doc($dbaccess);
+  return new_Doc($dbaccess);
 
 }
 /**

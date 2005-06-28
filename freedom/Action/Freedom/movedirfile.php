@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: movedirfile.php,v 1.9 2004/06/11 16:13:19 eric Exp $
+ * @version $Id: movedirfile.php,v 1.10 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -32,10 +32,10 @@ function movedirfile(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
 
   // add before suppress
-  $dir= new Doc($dbaccess, $todirid);
+  $dir= new_Doc($dbaccess, $todirid);
   $err = $dir->AddFile($docid);
   if ($err != "") $action->exitError($err);
 
@@ -43,7 +43,7 @@ function movedirfile(&$action) {
 			     $doc->title,
 			     $dir->title));
 
-  $dir= new Doc($dbaccess, $fromdirid);
+  $dir= new_Doc($dbaccess, $fromdirid);
   if (method_exists($dir,"DelFile")) {
     $err = $dir->DelFile($docid);
     if ($err != "") $action->exitError($err);

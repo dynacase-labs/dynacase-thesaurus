@@ -3,7 +3,7 @@
  * Historique view
  *
  * @author Anakeen 2000 
- * @version $Id: histo.php,v 1.6 2004/01/14 14:22:29 eric Exp $
+ * @version $Id: histo.php,v 1.7 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -21,7 +21,7 @@ function histo(&$action)
   $docid = GetHttpVars("id",0);
 
   
-  $doc= new Doc($dbaccess,$docid);
+  $doc= new_Doc($dbaccess,$docid);
   $action->lay->Set("title",$doc->title);
   
 }

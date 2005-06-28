@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modprof.php,v 1.14 2004/02/09 16:46:15 eric Exp $
+ * @version $Id: modprof.php,v 1.15 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.14 2004/02/09 16:46:15 eric Exp $
+// $Id: modprof.php,v 1.15 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,7 +61,7 @@ function modprof(&$action) {
   
   
   // initialise object
-  $doc = new Doc($dbaccess,$docid);
+  $doc = new_Doc($dbaccess,$docid);
 
   // control modify acl
   $err= $doc->Control("modifyacl");

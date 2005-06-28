@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: deldirfile.php,v 1.13 2005/04/07 12:43:07 eric Exp $
+ * @version $Id: deldirfile.php,v 1.14 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -35,14 +35,14 @@ function deldirfile(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-  $dir = new Doc($dbaccess,$dirid);// use initial id for directories
+  $dir = new_Doc($dbaccess,$dirid);// use initial id for directories
   $err = $dir->DelFile($docid);
   if ($err != "") $action->exitError($err);
 
   
 
   if ($folio) {
-    $doc= new Doc($dbaccess, $docid);
+    $doc= new_Doc($dbaccess, $docid);
     $refreshtab=(($doc->doctype == "F")?"N":"Y");
     redirect($action,"FREEDOM","FOLIOLIST&refreshtab=$refreshtab&dirid=".$dir->initid);
   } else  redirect($action,"FREEDOM","FREEDOM_VIEW&dirid=".$dir->initid);

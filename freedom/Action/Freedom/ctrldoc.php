@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: ctrldoc.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: ctrldoc.php,v 1.6 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: ctrldoc.php,v 1.5 2003/08/18 15:47:03 eric Exp $
+// $Id: ctrldoc.php,v 1.6 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/ctrldoc.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,7 +60,7 @@ function ctrldoc(&$action) {
   $docid = GetHttpVars("id");
 
 
-  $doc = new Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid);
 
   $doc->SetControl();
 

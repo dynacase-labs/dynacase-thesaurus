@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: search_fulltext.php,v 1.7 2005/02/08 11:34:37 eric Exp $
+ * @version $Id: search_fulltext.php,v 1.8 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: search_fulltext.php,v 1.7 2005/02/08 11:34:37 eric Exp $
+// $Id: search_fulltext.php,v 1.8 2005/06/28 08:37:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search_fulltext.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -202,7 +202,7 @@ function search_fulltext(&$action) {
   $nbseedoc = $nbdoc = 0;
   reset($doclist);
   while(list($kd,$vd) = each($doclist)) {
-    $doc = new Doc($dbaccess, $kd);
+    $doc = new_Doc($dbaccess, $kd);
     $nbseedoc++;
     $k = $nbdoc;
     $nbdoc++; // one more visible doc

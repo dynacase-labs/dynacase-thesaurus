@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.29 2005/06/23 14:03:40 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.30 2005/06/28 08:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -192,7 +192,7 @@ Class DocSearch extends PDocSearch {
     $famid=$this->getValue("se_famid");
     $classid=0;
     if ($dirid > 0) {
-      $dir = new Doc($this->dbaccess, $dirid);
+      $dir = new_Doc($this->dbaccess, $dirid);
       if (method_exists($dir,"isAuthorized")) {	
 	if ($dir->isAuthorized($classid)) { 
 	  // verify if classid is possible
