@@ -52,6 +52,58 @@ function w_strftime($ts, $fmt=0, $ucw=true) {
 }
 
 // ----------------------------------------------------
+// Groups....
+// ----------------------------------------------------
+function  wGetGroups() {
+  global $action;
+  $tgroups = array();
+  $grps = $action->getParam("WGCAL_USEDGROUPS", "");
+  if ($grps!="") {
+    $tg = explode("|", $grps);
+    foreach ($tg as $kg => $vg) {
+      if ($vg!="") $tgroups[$vg] = $vg;
+    }
+  }
+  return $tgroups;
+}
+
+function  wSetGroups($tgroups) {
+  global $action;
+  $tgroups = array();
+  $tg = implode("|", $tgroups);
+  foreach ($tg as $kg => $vg) {
+    if ($vg!="") $tgroups[$vg] = $vg;
+  }
+  $action->parent->param->Set("WGCAL_USEDGROUPS", $tgroups);
+  return;
+}
+  
+function wAddGroups($gfid) {
+  global $action;
+  $tg = wGetGroups();
+  $tg[$gfid] = $gfid;
+  wSetGroups($tg);
+  return true;
+}
+
+function wDelGroups($gfid) {
+  global $action;
+  $tg = wGetGroups();
+  foreach ($tg as $kg => $vg) {
+    if (isset($tg[$gfid])) $tg[$gfid] = "";
+  }
+  wSetGroups($tg);
+  return true;
+}
+
+function wGroupIsUsed($gfid) {
+  global $action;
+  $tg = wGetGroups();
+  return isset($tg[$gfid]);
+}
+
+
+// ----------------------------------------------------
 // Others....
 // ----------------------------------------------------
 function wPbool($b) {

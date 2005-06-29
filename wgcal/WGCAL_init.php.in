@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.38 2005/06/24 14:40:49 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.39 2005/06/29 17:48:08 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -100,6 +100,9 @@ array(
 "WGCAL_G_VFAM" => array("val"=>"CALEVENT", "descr"=>N_("viewed events (from producters)")),
 
 "WGCAL_SYNCVERSION" => array("val"=>"2.0", "descr"=>N_("Sync Version Needed")),
+
+"WGCAL_USEDGROUPS" => array("val"=>"", "descr"=>N_("used groups")),
+
 
 "VERSION" => "@VERSION@-@RELEASE@",
 "INIT" => "yes"
