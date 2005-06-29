@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.75 2005/06/23 15:51:04 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.76 2005/06/29 15:00:57 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -32,10 +32,10 @@ The FREEDOM (Free Document Object Model) module is use to manage document in int
 %package LIB
 Summary: libraries of FREEDOM module
 Group: Applications/Web
-Requires: php >= 4.1
+Requires: php >= 5.0
 Requires: php-gd
 Requires: php-calendar
-Requires: postgresql >= 7.3
+Requires: postgresql >= 8.0
 Requires: html2ps
 Requires: ghostscript
 Requires: ghostscript-fonts-std
@@ -47,10 +47,10 @@ Requires: tar
 Requires: unzip
 Requires: bzip2
 PreReq: vixie-cron
-PreReq: WHAT >= 1.2.1
-Prereq: VAULT >= 0.0.6
+PreReq: WHAT >= 2.0.0
+Prereq: VAULT >= 2.0.0
 Prereq: gettext
-Prereq: php-cgi >= 4.0.2
+Prereq: php-cgi 
 Conflicts: ROAMING < 0.0.5
 Conflicts: AFFMON < 0.2.5
 

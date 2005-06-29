@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.256 2005/06/28 13:53:13 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.257 2005/06/29 15:00:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -915,7 +915,8 @@ create unique index i_docir on doc(initid, revision);";
       $this->fathers=array();
       if ($this->fromid > 0) {
 	$fdoc= $this->getFamDoc();
-	$this->fathers=array_merge($this->fromid, $fdoc->GetFathersDoc());
+	$this->fathers=$fdoc->GetFathersDoc();
+	array_push($this->fathers,$this->fromid);
       }
     }
     return $this->fathers;
@@ -1128,7 +1129,7 @@ create unique index i_docir on doc(initid, revision);";
       $tsa=array();
            
       foreach($this->attributes->attr as $k=>$v) {
-	if (strtolower(get_class($v)) == "fieldsetattribute")  $tsa[$v->id]=$v;
+	if (get_class($v) == "FieldSetAttribute")  $tsa[$v->id]=$v;
       }
       return $tsa;      
     }
@@ -1142,7 +1143,7 @@ create unique index i_docir on doc(initid, revision);";
       $tsa=array();
            
       foreach($this->attributes->attr as $k=>$v) {
-	if (strtolower(get_class($v)) == "actionattribute")  $tsa[$v->id]=$v;
+	if (get_class($v) == "ActionAttribute")  $tsa[$v->id]=$v;
       }
       return $tsa;      
     }
@@ -1158,7 +1159,7 @@ create unique index i_docir on doc(initid, revision);";
 
       if (isset($this->attributes->attr)) {
 	foreach($this->attributes->attr as $k=>$v) {
-	  if ((strtolower(get_class($v)) == "normalattribute")&&($v->isInAbstract)) $tsa[$v->id]=$v;
+	  if ((get_class($v) == "NormalAttribute")&&($v->isInAbstract)) $tsa[$v->id]=$v;
 	}
       }
       return $tsa;      
@@ -1176,7 +1177,7 @@ create unique index i_docir on doc(initid, revision);";
     $tsa=array();
     if (isset($this->attributes->attr)) {
       foreach($this->attributes->attr as $k=>$v) {
-	if ((strtolower(get_class($v)) == "normalattribute") && ($v->isInTitle)) $tsa[$v->id]=$v;      
+	if ((get_class($v) == "NormalAttribute") && ($v->isInTitle)) $tsa[$v->id]=$v;      
       }
     }
     return $tsa;
@@ -1192,7 +1193,7 @@ create unique index i_docir on doc(initid, revision);";
     $tsa=array();
     if (isset($this->attributes->attr)) {
       foreach($this->attributes->attr as $k=>$v) {
-	if ((strtolower(get_class($v)) == "normalattribute") && ($v->type=="docid") && (!$v->inArray())) $tsa[$v->id]=$v;      
+	if ((get_class($v) == "NormalAttribute") && ($v->type=="docid") && (!$v->inArray())) $tsa[$v->id]=$v;      
       }
     }
     return $tsa;
@@ -1211,7 +1212,7 @@ create unique index i_docir on doc(initid, revision);";
 
 
       foreach($this->attributes->attr as $k=>$v) {
-	if ((strtolower(get_class($v)) == "normalattribute") && (!$v->inArray()) && 
+	if ((get_class($v) == "NormalAttribute") && (!$v->inArray()) && 
 	    ($v->mvisibility != "I" )) {  // I means not editable
 	  if ((($this->usefor=="Q") && ($v->usefor=="Q")) ||
 	      (($this->usefor!="Q") && 
@@ -1247,7 +1248,7 @@ create unique index i_docir on doc(initid, revision);";
       
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
-	if ((strtolower(get_class($v)) == "normalattribute") && (($v->type == "image") || 
+	if ((get_class($v) == "NormalAttribute") && (($v->type == "image") || 
 						     ($v->type == "file"))) $tsa[$v->id]=$v;
       }
       return $tsa;      
@@ -1264,7 +1265,7 @@ create unique index i_docir on doc(initid, revision);";
       
       reset($this->attributes->attr);
       while (list($k,$v) = each($this->attributes->attr)) {
-	if (((strtolower(get_class($v)) == "menuattribute"))&&($v->visibility != 'H')) $tsa[$v->id]=$v;
+	if (((get_class($v) == "MenuAttribute"))&&($v->visibility != 'H')) $tsa[$v->id]=$v;
 	  
 	
       }
@@ -1283,7 +1284,7 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->usefor != 'D') { // not applicable for default document
 	reset($this->attributes->attr);
 	while (list($k,$v) = each($this->attributes->attr)) {
-	  if ((strtolower(get_class($v)) == "normalattribute") && ($v->needed) && ($v->usefor!='Q')) $tsa[$v->id]=$v;      
+	  if ((get_class($v) == "NormalAttribute") && ($v->needed) && ($v->usefor!='Q')) $tsa[$v->id]=$v;      
 	}
       }
       return $tsa;
@@ -1309,7 +1310,7 @@ create unique index i_docir on doc(initid, revision);";
 	reset($this->attributes->attr);
 	while (list($k,$v) = each($this->attributes->attr)) {
 	  
-	  if (strtolower(get_class($v)) == "normalattribute")  {
+	  if (get_class($v) == "NormalAttribute")  {
 	    if (($v->type != "image") &&($v->type != "file"))  $tsa[$v->id]=$v;
 	  }
 	}
@@ -1330,7 +1331,7 @@ create unique index i_docir on doc(initid, revision);";
 
       foreach($tattr as $k=>$v) {
 
-	if ((strtolower(get_class($v)) == "normalattribute") && 
+	if ((get_class($v) == "NormalAttribute") && 
 	    (($v->mvisibility == "W") || ($v->mvisibility == "O") || ($v->type == "docid")) &&
 	    ($v->type != "array")  ) {
 	  
@@ -1534,25 +1535,26 @@ create unique index i_docir on doc(initid, revision);";
 	    if ($avalue != "") {
 	    if ($oattr) {
 	      switch($oattr->type) {
-	      case docid:
+	      case 'docid':
 		if  (!is_numeric($avalue)) {		  
 		  $tvalues[$kvalue]=getIdFromName($this->dbaccess,$avalue);
 		}
 		break;
-	      case double:
-	      case money:
+	      case 'double':
+	      case 'money':
 		$tvalues[$kvalue]=str_replace(",",".",$avalue);
 		$tvalues[$kvalue]=str_replace(" ","",$tvalues[$kvalue]);
 		$tvalues[$kvalue]=round(doubleval($tvalues[$kvalue]),2);
 		break;
-	      case integer:
+	      case 'integer':
+	      case 'int':
 		$tvalues[$kvalue]=intval($avalue);
 		break;
-	      case time:
+	      case 'time':
 		list($hh,$mm) = explode(":",$avalue);
 		$tvalues[$kvalue]=sprintf("%02d:%02d",intval($hh)%24,intval($mm)%60);
 		break;
-	      case date:
+	      case 'date':
 		list($dd,$mm,$yy) = explode("/",$avalue);
 		if (($mm == 0) || ($dd == 0)) list($yy,$mm,$dd) = explode("-",$avalue); // iso8601
 		$yy = intval($yy);
@@ -2486,7 +2488,7 @@ create unique index i_docir on doc(initid, revision);";
   // --------------------------------------------------------------------
   function SqlTrigger($drop=false) {
 
-    if (strtolower(get_class($this)) == "docfam") {
+    if (get_class($this) == "DocFam") {
       $cid = "fam";
     } else {
       if ($this->doctype == 'C') return;

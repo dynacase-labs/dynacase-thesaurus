@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.15 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: editstate.php,v 1.16 2005/06/29 15:00:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -97,7 +97,7 @@ function editstate(&$action) {
 	$tstate[$k]["transid"] = $tk;
 	if (is_array($tr["ask"]))  $tjsaskes[] = "['".implode("','",$tr["ask"])."']";
 	else $tjsaskes[] = "[]";
-	$taskes= array_merge($taskes,$tr["ask"]);
+	if (is_array($tr["ask"])) $taskes= array_merge($taskes,$tr["ask"]);
 	$tjsstate[]=$v;
 	$tjstransid[]=$tk;
       }

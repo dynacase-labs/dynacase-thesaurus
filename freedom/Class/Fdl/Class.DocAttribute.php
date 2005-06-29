@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.25 2005/06/28 13:53:13 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.26 2005/06/29 15:00:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -47,7 +47,7 @@ Class BasicAttribute {
    * to see if an attribute is n item of an array
    */
   function inArray() {
-    if (strtolower(get_class($this)) == "normalattribute") {
+    if (get_class($this) == "NormalAttribute") {
       if ($this->fieldSet->type=="array") return true;
     }
     return false;
