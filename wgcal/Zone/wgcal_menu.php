@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.11 2005/06/27 17:01:56 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.12 2005/06/29 07:07:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -168,6 +168,19 @@ function wgcal_menu(&$action) {
 						"rig" => "WGCAL_USER" 
 						)
 					  )
+			 ),
+                  array( "menu"  => "m_admin",
+			 "label" => _("administration menu"),
+			 "right" => "WGCAL_ADMIN",
+			 "items" => array( array( 
+						 "key" => "m_choosegroups", 
+						 "txt" => _("m_txt_choosegroups"), 
+						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHOOSEGROUPS",
+						 "tgt" => "wgcal_choosegroups", 
+						 "ico" => "wgcal_choosegroups.gif",
+						 "rig" => "WGCAL_ADMIN"
+						 )
+					   )
 			 )
 		  );
   $mLay = new Layout($action->GetLayoutFile("wgcal_menuitem.xml"),$action);
