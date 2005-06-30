@@ -1,5 +1,5 @@
 <?php
-
+include_once("Class.Param.php");
 
 
 
@@ -54,13 +54,19 @@ function w_strftime($ts, $fmt=0, $ucw=true) {
 // ----------------------------------------------------
 // Groups....
 // ----------------------------------------------------
+function wPrintGroups() {
+  global $action;
+  print_r2(wGetGroups());
+}
+
 function  wGetGroups() {
   global $action;
-  $tgroups = array();
-  $grps = $action->getParam("WGCAL_USEDGROUPS", "");
-  if ($grps!="") {
-    $tg = explode("|", $grps);
-    foreach ($tg as $kg => $vg) {
+  $param = new Param($action->dbaccess, array("WGCAL_USEDGROUPS", PARAM_APP, $action->parent->id));
+  $tgroups = false;
+  if ($param->val!="") {
+    $tga = explode("|", $param->val);
+    $tgroups = array();
+    foreach ($tga as $kg => $vg) {
       if ($vg!="") $tgroups[$vg] = $vg;
     }
   }
@@ -69,12 +75,8 @@ function  wGetGroups() {
 
 function  wSetGroups($tgroups) {
   global $action;
-  $tgroups = array();
   $tg = implode("|", $tgroups);
-  foreach ($tg as $kg => $vg) {
-    if ($vg!="") $tgroups[$vg] = $vg;
-  }
-  $action->parent->param->Set("WGCAL_USEDGROUPS", $tgroups);
+  $action->parent->param->Set("WGCAL_USEDGROUPS", $tg, PARAM_APP, $action->parent->id);
   return;
 }
   
