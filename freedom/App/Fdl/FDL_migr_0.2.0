@@ -46,7 +46,7 @@ echo "update doc set profid=-profid where profid > 0 and profid not in (select d
 
 echo "VACUUM FULL ANALYZE;" | psql freedom anakeen
 
-psql anakeen anakeen -f $pubdir/FDL/FDL_migr_0.2.0-2.sql
+psql $dbpsql -f $pubdir/FDL/FDL_migr_0.2.0-2.sql
 
 # refresh queries
 $pubdir/wsh.php  --api=freedom_refresh --famid=5

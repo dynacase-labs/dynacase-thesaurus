@@ -9,6 +9,6 @@ pubdir="/home/httpd/what";
 
 
 
-echo "update paramv set appid=(select id from application where name ='FDL') where name in ('SOCIETY_COORD','SOCIETY_LOGO','SOCIETY_NAME','SOCIETY_TOWN','SOCIETY_PHONE');" | psql anakeen anakeen
-echo "update paramdef set appid=(select id from application where name ='FDL') where name in ('SOCIETY_COORD','SOCIETY_LOGO','SOCIETY_NAME','SOCIETY_TOWN','SOCIETY_PHONE');" | psql anakeen anakeen
+echo "update paramv set appid=(select id from application where name ='FDL') where name in ('SOCIETY_COORD','SOCIETY_LOGO','SOCIETY_NAME','SOCIETY_TOWN','SOCIETY_PHONE');" | psql $dbpsql
+echo "update paramdef set appid=(select id from application where name ='FDL') where name in ('SOCIETY_COORD','SOCIETY_LOGO','SOCIETY_NAME','SOCIETY_TOWN','SOCIETY_PHONE');" | psql $dbpsql
 echo "alter table doc add column postitid int;" | psql freedom anakeen

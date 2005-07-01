@@ -3,7 +3,7 @@
  
 
 pubdir="/home/httpd/what";
-echo "update paramdef set isglob='N' where name ~'ONEFAM_*IDS';;" | psql anakeen anakeen
+echo "update paramdef set isglob='N' where name ~'ONEFAM_*IDS';;" | psql $dbpsql
 echo "delete from docattr where id like '% ' and str_replace(id,' ','') in (select id from docattr);" | psql freedom anakeen
 echo "update  docattr set id=str_replace(id,' ','') where id like '% ' ;" | psql freedom anakeen
 echo "DELETE from docattr where id='rep_style';" | psql freedom anakeen

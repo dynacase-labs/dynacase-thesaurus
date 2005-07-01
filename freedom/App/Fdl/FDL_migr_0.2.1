@@ -6,8 +6,8 @@ pubdir="/home/httpd/what";
 
 echo "create sequence seq_id_tdoc start 1000000000;" | psql freedom anakeen
 echo "ALTER TABLE docfam ADD COLUMN cfldid int;" | psql freedom anakeen
-echo "delete from paramv where name='DEFAULT_FLD';" | psql anakeen anakeen
-echo "delete from paramdef where name='DEFAULT_FLD';" | psql anakeen anakeen
+echo "delete from paramv where name='DEFAULT_FLD';" | psql $dbpsql
+echo "delete from paramdef where name='DEFAULT_FLD';" | psql $dbpsql
 echo "delete from docattr where id ~ '[A-Z]+';" | psql freedom anakeen
 echo "update docattr set phpfile='' where phpfunc like 'gettitle%';" | psql freedom anakeen
 echo "update docattr set phpfunc='' where phpfunc like 'gettitle%';" | psql freedom anakeen

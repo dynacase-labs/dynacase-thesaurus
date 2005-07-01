@@ -10,4 +10,4 @@ psql freedom anakeen -f $pubdir/WHAT/getprivilege.sql
 
 echo "alter table doc add column dprofid int;" | psql freedom anakeen
 
-echo "insert into permission (select id_user,p1.id_application,acl.id from permission p1, acl where acl.name='FREEDOM_GED' and id_acl in (select id from acl where name = 'FREEDOM') and acl.id_application = p1.id_application);" | psql anakeen anakeen
+echo "insert into permission (select id_user,p1.id_application,acl.id from permission p1, acl where acl.name='FREEDOM_GED' and id_acl in (select id from acl where name = 'FREEDOM') and acl.id_application = p1.id_application);" | psql $dbpsql
