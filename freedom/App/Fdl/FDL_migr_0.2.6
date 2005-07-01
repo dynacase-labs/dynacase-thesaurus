@@ -8,5 +8,5 @@ pubdir="/home/httpd/what";
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocFam
 
 
-/usr/bin/php -q $pubdir/FDL/FDL_migr_0.2.6.php | psql freedom anakeen
+/usr/bin/php -q $pubdir/FDL/FDL_migr_0.2.6.php | psql $dbfree
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 pubdir="/home/httpd/what";
 
-echo "alter table doc add column confidential int" | psql freedom anakeen
+echo "alter table doc add column confidential int" | psql $dbfree
 # icreate = create
-echo "update docperm set upacl = upacl | 64 where docid in (SELECT distinct(profid) from docfam where profid > 0) and (upacl & 32)=32;" | psql freedom anakeen
-echo "delete from docattr where docid = (select id from docfam where name='MAIL')" | psql freedom anakeen
+echo "update docperm set upacl = upacl | 64 where docid in (SELECT distinct(profid) from docfam where profid > 0) and (upacl & 32)=32;" | psql $dbfree
+echo "delete from docattr where docid = (select id from docfam where name='MAIL')" | psql $dbfree

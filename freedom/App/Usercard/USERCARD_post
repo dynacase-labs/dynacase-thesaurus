@@ -1,15 +1,13 @@
 #!/bin/bash
 
 pubdir="/home/httpd/what";
-dbfree="freedom";
-dbname="anakeen"
 
 if [ "$dbanakeen" = "" ]; then
     dbname="anakeen"
 else
     dbname=$dbanakeen
 fi
-dbfree=`$pubdir/wsh.php --api=get_param --param=FREEDOM_DB | sed -e 's/^.*dbname[[:space:]]*=[[:space:]]*\([[:alnum:]]*\).*$/\1/'`
+
 echo $dbname $dbfree
 #------------------------------
 #post installation
@@ -20,7 +18,7 @@ if [ "$1" = "I" ] ; then
   $pubdir/wsh.php   --app=USERCARD --action=USERCARD_INIT 
 #  su - postgres -c "psql $dbfree anakeen -f $pubdir/USERCARD/init.sql"
   $pubdir/wsh.php --api=freedom_import --file=$pubdir/USERCARD/userinit.csv
-  su - postgres -c "psql $dbfree anakeen -f $pubdir/API/freedom_clean.sql"
+  su - postgres -c "psql $dbfree  -f $pubdir/API/freedom_clean.sql"
   $pubdir/wsh.php   --api=usercard_iuser
 fi
 

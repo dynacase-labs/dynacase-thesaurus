@@ -8,4 +8,4 @@ pubdir="/home/httpd/what";
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocAttr
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocFam
 
-$pubdir/wsh.php --api=fdl_trigger --trigger=Y --docid=-1 | psql freedom anakeen
+$pubdir/wsh.php --api=fdl_trigger --trigger=Y --docid=-1 | psql $dbfree

@@ -3,13 +3,13 @@
  
 
 pubdir="/home/httpd/what";
-echo "alter table doc add column cvid int;" | psql freedom anakeen
-echo "alter table doc add column name text;" | psql freedom anakeen
-echo "alter table docfam add column ccvid int;" | psql freedom anakeen
+echo "alter table doc add column cvid int;" | psql $dbfree
+echo "alter table doc add column name text;" | psql $dbfree
+echo "alter table docfam add column ccvid int;" | psql $dbfree
 
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocAttr
 
 $pubdir/wsh.php --api=fdl_adoc 
 $pubdir/wsh.php --api=fdl_adoc 
-$pubdir/wsh.php --api=fdl_trigger | psql freedom anakeen
-$pubdir/wsh.php --api=fdl_trigger --trigger=Y | psql freedom anakeen
+$pubdir/wsh.php --api=fdl_trigger | psql $dbfree
+$pubdir/wsh.php --api=fdl_trigger --trigger=Y | psql $dbfree

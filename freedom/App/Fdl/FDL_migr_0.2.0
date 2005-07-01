@@ -9,23 +9,23 @@ pubdir="/home/httpd/what";
 
     
 
-psql freedom anakeen -f $pubdir/FDL/FDL_migr_0.2.0.sql
+psql $dbfree -f $pubdir/FDL/FDL_migr_0.2.0.sql
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=Doc
 
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocFam
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=QueryDir
 
 
-psql freedom anakeen -f $pubdir/FDL/fdl.sql
+psql $dbfree -f $pubdir/FDL/fdl.sql
 
 # creation des class PHP
 
-echo "insert into docfam (id, owner, title, revision, initid, fromid, doctype, locked, icon, lmodify, profid, usefor, revdate, comment, classname, state, wid)  select id, owner, title, revision, initid, fromid, doctype, locked, icon, lmodify, profid, usefor, revdate, comment, classname, state, wid from only doc where  doctype='C';delete from only doc where  doctype='C';" | psql freedom anakeen
+echo "insert into docfam (id, owner, title, revision, initid, fromid, doctype, locked, icon, lmodify, profid, usefor, revdate, comment, classname, state, wid)  select id, owner, title, revision, initid, fromid, doctype, locked, icon, lmodify, profid, usefor, revdate, comment, classname, state, wid from only doc where  doctype='C';delete from only doc where  doctype='C';" | psql $dbfree
 $pubdir/wsh.php --api=fdl_adoc 
 
-$pubdir/wsh.php --api=migr_sql2.0 --table=yes | psql freedom anakeen
+$pubdir/wsh.php --api=migr_sql2.0 --table=yes | psql $dbfree
 
-psql freedom anakeen -f $pubdir/FDL/FDL_migr_0.2.0-1.sql
+psql $dbfree -f $pubdir/FDL/FDL_migr_0.2.0-1.sql
 
 
 
@@ -33,18 +33,18 @@ psql freedom anakeen -f $pubdir/FDL/FDL_migr_0.2.0-1.sql
 # creation des class PHP (2ème passe)
 $pubdir/wsh.php --api=fdl_adoc 
 # creation des fonctions de trigger
-#$pubdir/wsh.php --api=fdl_trigger  | psql freedom anakeen
+#$pubdir/wsh.php --api=fdl_trigger  | psql $dbfree
 # activation des triggers
-#$pubdir/wsh.php --api=fdl_trigger --trigger=yes | psql freedom anakeen
+#$pubdir/wsh.php --api=fdl_trigger --trigger=yes | psql $dbfree
 
 #migration des permissions
-echo "update doc set profid=0  where id=profid and profid not in (select id_obj from operm);" | psql freedom anakeen
+echo "update doc set profid=0  where id=profid and profid not in (select id_obj from operm);" | psql $dbfree
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocPerm
 $pubdir/wsh.php --api=migr_sql2.0 --perm=yes 
-echo "update doc set profid=-profid where profid > 0 and profid not in (select docid from docperm);" | psql freedom anakeen
+echo "update doc set profid=-profid where profid > 0 and profid not in (select docid from docperm);" | psql $dbfree
 
 
-echo "VACUUM FULL ANALYZE;" | psql freedom anakeen
+echo "VACUUM FULL ANALYZE;" | psql $dbfree
 
 psql $dbpsql -f $pubdir/FDL/FDL_migr_0.2.0-2.sql
 

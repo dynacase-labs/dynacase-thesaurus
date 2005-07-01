@@ -3,12 +3,12 @@
 
 # Share group table between anakeen database and freedom database
 
-echo "drop table groups" | psql freedom anakeen
-su - postgres -c "pg_dump -t groups anakeen  | psql freedom anakeen"
+echo "drop table groups" | psql $dbfree
+su - postgres -c "pg_dump -t groups anakeen  | psql $dbfree"
 
 ankgrp=`echo "select relfilenode from pg_class where relname='groups';"  | psql anakeen anakeen | tail -3 | head -1 | sed -e"s/ //g"`
 
-freegrp=`echo "select relfilenode from pg_class where relname='groups';"  | psql freedom anakeen | tail -3 | head -1 | sed -e"s/ //g"`
+freegrp=`echo "select relfilenode from pg_class where relname='groups';"  | psql $dbfree | tail -3 | head -1 | sed -e"s/ //g"`
 
 ankdb=`echo "select oid from pg_database where datname='anakeen'" | psql anakeen anakeen | tail -3 | head -1 | sed -e"s/ //g"`
 freedb=`echo "select oid from pg_database where datname='freedom'" | psql anakeen anakeen | tail -3 | head -1 | sed -e"s/ //g"`
@@ -29,10 +29,10 @@ fi
 
 
 #copy application and acl table from anakeen to freedom
-echo "drop table application" | psql freedom anakeen
-su - postgres -c "pg_dump -t application anakeen | psql freedom anakeen"
-echo "drop table acl" | psql freedom anakeen
-su - postgres -c "pg_dump -t acl anakeen | psql freedom anakeen"
+echo "drop table application" | psql $dbfree
+su - postgres -c "pg_dump -t application anakeen | psql $dbfree"
+echo "drop table acl" | psql $dbfree
+su - postgres -c "pg_dump -t acl anakeen | psql $dbfree"
 #delete unused rows
-echo "delete from application where objectclass != 'Y' or objectclass isnull" | psql freedom anakeen
-echo "delete from acl  where id_application not in (select id from application)" | psql freedom anakeen
+echo "delete from application where objectclass != 'Y' or objectclass isnull" | psql $dbfree
+echo "delete from acl  where id_application not in (select id from application)" | psql $dbfree

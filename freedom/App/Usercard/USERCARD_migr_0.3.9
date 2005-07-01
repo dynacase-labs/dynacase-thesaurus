@@ -4,29 +4,29 @@ pubdir="/home/httpd/what";
 
 
 
-echo "ALTER TABLE doc129 drop grp_users;" | psql freedom anakeen
-echo "ALTER TABLE doc129 drop grp_parent;" | psql freedom anakeen
-echo "ALTER TABLE doc129 drop grp_rusers;" | psql freedom anakeen
-echo "ALTER TABLE doc129 drop grp_groups;" | psql freedom anakeen
-echo "ALTER TABLE doc127 rename grp_login to us_login;" | psql freedom anakeen
-echo "ALTER TABLE doc127 rename grp_whatid to us_whatid;" | psql freedom anakeen
+echo "ALTER TABLE doc129 drop grp_users;" | psql $dbfree
+echo "ALTER TABLE doc129 drop grp_parent;" | psql $dbfree
+echo "ALTER TABLE doc129 drop grp_rusers;" | psql $dbfree
+echo "ALTER TABLE doc129 drop grp_groups;" | psql $dbfree
+echo "ALTER TABLE doc127 rename grp_login to us_login;" | psql $dbfree
+echo "ALTER TABLE doc127 rename grp_whatid to us_whatid;" | psql $dbfree
 
 pg_dump -a -D -t doc127 -U anakeen freedom > /tmp/group.db
 pg_dump -a -D -t doc129 -U anakeen freedom >> /tmp/group.db
-echo "drop table doc127;drop table doc129;" | psql freedom anakeen
-echo "delete from docattr where docid in (127,129);" | psql freedom anakeen
-echo "delete from docfam where id in (127,129);" | psql freedom anakeen
+echo "drop table doc127;drop table doc129;" | psql $dbfree
+echo "delete from docattr where docid in (127,129);" | psql $dbfree
+echo "delete from docfam where id in (127,129);" | psql $dbfree
 $pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
 $pubdir/FDL/FDL_post U
 
-psql freedom anakeen -f $pubdir/USERCARD/init.sql
-#psql freedom anakeen -f $pubdir/API/freedom_clean.sql
+psql $dbfree -f $pubdir/USERCARD/init.sql
+#psql $dbfree -f $pubdir/API/freedom_clean.sql
 
-echo "delete from docfrom;insert INTO docfrom (id, fromid) select id, fromid from doc;update docfrom set fromid=-1 where id in (select id from docfam);"  | psql freedom anakeen
+echo "delete from docfrom;insert INTO docfrom (id, fromid) select id, fromid from doc;update docfrom set fromid=-1 where id in (select id from docfam);"  | psql $dbfree
 
-echo "UPDATE docfam set profid=511 where profid=0;"  | psql freedom anakeen
+echo "UPDATE docfam set profid=511 where profid=0;"  | psql $dbfree
 
-psql freedom anakeen -f /tmp/group.db
+psql $dbfree -f /tmp/group.db
 
-echo "update doc129 set doctype='D' ;" | psql freedom anakeen
-echo "update doc128 set cvid=508,dprofid=509,profid=id;update doc127 set cvid=501,profid=505;"  | psql freedom anakeen
+echo "update doc129 set doctype='D' ;" | psql $dbfree
+echo "update doc128 set cvid=508,dprofid=509,profid=id;update doc127 set cvid=501,profid=505;"  | psql $dbfree

@@ -4,10 +4,10 @@
 
 pubdir="/home/httpd/what";
 
-psql freedom anakeen -f $pubdir/WHAT/getprivilege.sql
+psql $dbfree -f $pubdir/WHAT/getprivilege.sql
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=VGroup
 /usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --class=Group
 
-echo "alter table doc add column dprofid int;" | psql freedom anakeen
+echo "alter table doc add column dprofid int;" | psql $dbfree
 
 echo "insert into permission (select id_user,p1.id_application,acl.id from permission p1, acl where acl.name='FREEDOM_GED' and id_acl in (select id from acl where name = 'FREEDOM') and acl.id_application = p1.id_application);" | psql $dbpsql

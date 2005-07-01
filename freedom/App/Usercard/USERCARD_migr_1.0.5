@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pubdir="/home/httpd/what";
-echo "delete from docattr where docid=120 and id='us_privcard'" | psql freedom anakeen
+echo "delete from docattr where docid=120 and id='us_privcard'" | psql $dbfree
 echo "delete from paramv where name='USER_CONFIDENTIAL'" | psql anakeen anakeen
 echo "delete from paramdef where name='USER_CONFIDENTIAL'" | psql anakeen anakeen
 

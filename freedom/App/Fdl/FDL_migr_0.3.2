@@ -4,12 +4,12 @@
 
 pubdir="/home/httpd/what";
 
-echo "create table docfrom ( id int not null, primary key (id), fromid int);" | psql freedom anakeen
-echo "insert INTO docfrom (id, fromid) select id, fromid from doc;" | psql freedom anakeen
-echo "update docfrom set fromid=-1 where id in (select id from docfam);" | psql freedom anakeen
+echo "create table docfrom ( id int not null, primary key (id), fromid int);" | psql $dbfree
+echo "insert INTO docfrom (id, fromid) select id, fromid from doc;" | psql $dbfree
+echo "update docfrom set fromid=-1 where id in (select id from docfam);" | psql $dbfree
 
-$pubdir/wsh.php --api=fdl_pkey  | psql freedom anakeen
+$pubdir/wsh.php --api=fdl_pkey  | psql $dbfree
 
 
-psql freedom anakeen -f $pubdir/FDL/fdl.sql
-$pubdir/wsh.php --api=fdl_trigger --trigger=Y | psql freedom anakeen
+psql $dbfree -f $pubdir/FDL/fdl.sql
+$pubdir/wsh.php --api=fdl_trigger --trigger=Y | psql $dbfree
