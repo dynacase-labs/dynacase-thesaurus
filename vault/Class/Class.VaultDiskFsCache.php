@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFsCache.php,v 1.1 2001/11/16 09:57:01 marc Exp $
+// $Id: Class.VaultDiskFsCache.php,v 1.2 2005/07/01 09:11:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFsCache.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskFsCache.php,v $
+// Revision 1.2  2005/07/01 09:11:19  eric
+// PHP5
+//
 // Revision 1.1  2001/11/16 09:57:01  marc
 // V0_0_1 Initial release, see CHANGELOG
 //
@@ -31,9 +34,9 @@ include_once("VAULT/Class.VaultDiskFs.php");
 
 Class VaultDiskFsCache extends VaultDiskFs {
 
-  function VaultDiskFsCache($vault, $arch='', $id_fs='') {
+  function __construct($vault, $arch='', $id_fs='') {
     $this->specific = "cache";
-    VaultDiskFs::VaultDiskFs($vault, $arch, $id_fs);
+    parent::__construct($vault, $arch, $id_fs);
   }
 
 }

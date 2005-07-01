@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.7 2004/06/30 07:32:06 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.8 2005/07/01 09:11:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -16,10 +16,9 @@ include_once("Class.Log.php");
 
 Class VaultFile {
 
-  function VaultFile($access, $vaultname="Sample", $idf=-1) {
+  function __construct($access, $vaultname="Sample", $idf=-1) {
 
     if (!include("VAULT/".$vaultname.".vault")) {
-      $this = NULL;
       return;
     }
     if (!isset($chrono)) $this->chrono = FALSE;

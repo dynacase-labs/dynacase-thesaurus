@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.7 2004/10/25 08:54:00 marc Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.8 2005/07/01 09:11:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -18,13 +18,13 @@ include_once("VAULT/Lib.VaultCommon.php");
 Class VaultFileDisk extends DbObj {
 
   // --------------------------------------------------------------------
-  function VaultFileDisk($vault, $arch='', $idf='') {
+  function __construct($vault, $arch='', $idf='') {
     // --------------------------------------------------------------------     
     $this->vault = $vault;
     $this->arch = $arch;
     $this->id_fs = '';
     $this->id_dir = '';
-    DbObj::DbObj($vault->dbaccess, $idf);
+    DbObj::__construct($vault->dbaccess, $idf);
     if ($this->storage == 1) {
       $this->fs = new VaultDiskFsStorage($this->vault, $this->arch, $this->id_fs);
     } else {

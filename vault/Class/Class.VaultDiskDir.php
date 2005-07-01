@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskDir.php,v 1.3 2002/02/06 17:19:58 eric Exp $
+// $Id: Class.VaultDiskDir.php,v 1.4 2005/07/01 09:11:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskDir.php,v $
+// Revision 1.4  2005/07/01 09:11:19  eric
+// PHP5
+//
 // Revision 1.3  2002/02/06 17:19:58  eric
 // correction de tous les query : resultat par table
 //
@@ -37,12 +40,12 @@ include_once("Class.QueryDb.php");
 
 Class VaultDiskDir extends DbObj {
 
-  var $fields = array ( "id_dir", "id_fs", "free_entries", "l_path" );
-  var $id_fields = array ("id_dir");
-  var $dbtable_tmpl = "vaultdiskdir%s";
-  var $order_by="";
-  var $seq_tmpl="seq_id_vaultdiskdir%s";
-  var $sqlcreate_tmpl = "
+  public $fields = array ( "id_dir", "id_fs", "free_entries", "l_path" );
+  public $id_fields = array ("id_dir");
+  public $dbtable_tmpl = "vaultdiskdir%s";
+  public $order_by="";
+  public $seq_tmpl="seq_id_vaultdiskdir%s";
+  public $sqlcreate_tmpl = "
            create table vaultdiskdir%s  ( id_dir     int not null,
                                  primary key (id_dir),
 				 id_fs          int,
@@ -52,14 +55,14 @@ Class VaultDiskDir extends DbObj {
            create sequence seq_id_vaultdiskdir%s start 10";
 
   // --------------------------------------------------------------------
-  function VaultDiskDir($vault, $def='', $id_dir='') {
+  function __construct($vault, $def='', $id_dir='') {
   // --------------------------------------------------------------------
     $this->specific = $def;
     $this->dbtable = sprintf($this->dbtable_tmpl, $this->specific);
     $this->sqlcreate = sprintf($this->sqlcreate_tmpl, $this->specific, $this->specific);
     $this->seq = sprintf($this->seq_tmpl, $this->specific);
     $this->vault = $vault;
-    DbObj::DbObj($this->vault->dbaccess, $id_dir);
+    parent::__construct($this->vault->dbaccess, $id_dir);
   }
 
   // --------------------------------------------------------------------
@@ -77,7 +80,6 @@ Class VaultDiskDir extends DbObj {
     } else {
       $this->vault->logger->error("Vault dirs full");
       return(_("no empty vault dir found"));
-      $this = FALSE;
     }
     return "";
   }

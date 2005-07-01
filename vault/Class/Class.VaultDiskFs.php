@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.5 2004/04/22 15:26:32 marc Exp $
+// $Id: Class.VaultDiskFs.php,v 1.6 2005/07/01 09:11:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskFs.php,v $
+// Revision 1.6  2005/07/01 09:11:19  eric
+// PHP5
+//
 // Revision 1.5  2004/04/22 15:26:32  marc
 // int -> int8 pour tailles disques
 //
@@ -69,13 +72,13 @@ Class VaultDiskFs extends DbObj {
            create sequence seq_id_vaultdiskfs%s start 10;";
 
   // --------------------------------------------------------------------
-  function VaultDiskFs($vault, $arch='', $id_fs='') {
+  function __construct($vault, $arch='', $id_fs='') {
   // --------------------------------------------------------------------
     $this->dbtable = sprintf($this->dbtable_tmpl, $this->specific);
     $this->sqlcreate = sprintf($this->sqlcreate_tmpl, $this->specific, $this->specific);
     $this->seq = sprintf($this->seq_tmpl, $this->specific);
     $this->vault = $vault;
-    DbObj::DbObj($this->vault->dbaccess, $id_fs);
+    parent::__construct($this->vault->dbaccess, $id_fs);
     $this->arch = $arch;
     $this->InitArch();
   }
