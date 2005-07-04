@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.26 2005/07/04 14:27:32 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.27 2005/07/04 16:06:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -234,7 +234,9 @@ function PostModify() {
     // tranfert extern mail if no login specified yet
     if ($this->getValue("us_login")=="-") {
       $this->setValue("US_IDDOMAIN","0");
-      $this->setValue("us_mail",$this->getValue("us_extmail"));
+      $email=$this->getValue("us_extmail");
+      if (($email != "")&&($email[0]!="<")) $this->setValue("us_mail",$this->getValue("us_extmail"));
+      else $this->deleteValue("us_mail");
     }
   }
 
