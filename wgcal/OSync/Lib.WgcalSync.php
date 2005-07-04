@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005 
- * @version $Id: Lib.WgcalSync.php,v 1.7 2005/06/28 17:33:29 marc Exp $
+ * @version $Id: Lib.WgcalSync.php,v 1.8 2005/07/04 15:23:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -40,13 +40,10 @@ function WSyncAuthent() {
   }
   $action = new Action();
   $action->Set("",$app);
-print "Droit(WGCAL_OSYNC) : ".$action->HasPermission("WGCAL_OSYNC")."<br>";
-echo __FILE__."::".__LINE__."<br>";
-exit;
-  if (!$action->HasPermission("WGCAL_OSYNC")) {
-    echo "<pre>User doesn't have required privilege</pre>";
-    exit;
-  }
+  //if (!$action->HasPermission("WGCAL_OSYNC")) {
+    //echo "<pre>User doesn't have required privilege</pre>";
+    //exit;
+  //}
   return $action;
 }
    
