@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.25 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.26 2005/07/04 14:27:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -48,7 +48,7 @@ function SpecRefresh() {
       $user = $this->getWUser();
       if (! $user->isAffected()) return sprintf(_("user #%d does not exist"), $iduser);
     } else {
-      return _("user has not identificator");
+      if ($this->getValue("us_login")!='-') $err= _("user has not identificator");
     }
     return $err;
 }
@@ -159,7 +159,7 @@ function RefreshDocUser() {
     } else     {
       $err= sprintf(_("user %d does not exist"),$wid);
     }
-  }
+  } 
   
   
   return $err;
@@ -187,49 +187,56 @@ function PostModify() {
   $login=$this->GetValue("US_LOGIN");
   $extmail=$this->GetValue("US_EXTMAIL");
 
-  // compute expire for epoch
+  if ($login != "-") {
+    // compute expire for epoch
   
-  $expiresd=$this->GetValue("US_EXPIRESD");
-  $expirest=$this->GetValue("US_EXPIREST","00:00");
-   //convert date 
-  $expdate=$expiresd." ".$expirest.":00";
-  $expires=0;
-  if ($expdate != "") {
-	if (ereg("([0-9][0-9])/([0-9][0-9])/(2[0-9][0-9][0-9]) ([0-2][0-9]):([0-5][0-9]):([0-5][0-9])", 
-		 $expdate, $reg)) {   
-	  $expires=mktime($reg[4],$reg[5],$reg[6],$reg[2],$reg[1],$reg[3]);
-	}
+    $expiresd=$this->GetValue("US_EXPIRESD");
+    $expirest=$this->GetValue("US_EXPIREST","00:00");
+    //convert date 
+    $expdate=$expiresd." ".$expirest.":00";
+    $expires=0;
+    if ($expdate != "") {
+      if (ereg("([0-9][0-9])/([0-9][0-9])/(2[0-9][0-9][0-9]) ([0-2][0-9]):([0-5][0-9]):([0-5][0-9])", 
+	       $expdate, $reg)) {   
+	$expires=mktime($reg[4],$reg[5],$reg[6],$reg[2],$reg[1],$reg[3]);
+      }
       
-  }
+    }
 
 
-  $iddomain=$this->GetValue("US_IDDOMAIN");
-  $domain=$this->GetValue("US_DOMAIN");
+    $iddomain=$this->GetValue("US_IDDOMAIN");
+    $domain=$this->GetValue("US_DOMAIN");
 
-  $fid=$this->id;        
-  $user=$this->getWUser();
-  if ($user)  $err=$this->setGroups();
-  else $user=new User(""); // create new user
-  $err.=$user->SetUsers($fid,$lname,$fname,$expires,$passdelay,
-		       $login,$status,$pwd1,$pwd2,
-		       $iddomain,$extmail);  
-  if ($err=="") { 
-    if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {
-      if (($pwd != $user->password) && (strlen($pwd>12))) {
-	$user->password=$pwd;
-	$err=$user->modify();
+    $fid=$this->id;        
+    $user=$this->getWUser();
+    if ($user)  $err=$this->setGroups();
+    else $user=new User(""); // create new user
+    $err.=$user->SetUsers($fid,$lname,$fname,$expires,$passdelay,
+			  $login,$status,$pwd1,$pwd2,
+			  $iddomain,$extmail);  
+    if ($err=="") { 
+      if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {
+	if (($pwd != $user->password) && (strlen($pwd>12))) {
+	  $user->password=$pwd;
+	  $err=$user->modify();
+	}
       }
     }
-  }
  
-  if ($err=="") {
-    $this->setValue("US_WHATID",$user->id);
-    $this->RefreshDocUser();
-    $this->modify(true,array("us_whatid"));
-    $this->refreshParentGroup();
-  } 
+    if ($err=="") {
+      $this->setValue("US_WHATID",$user->id);
+      $this->RefreshDocUser();
+      $this->modify(true,array("us_whatid"));
+      $this->refreshParentGroup();
+    } 
 
-  
+  } else { 
+    // tranfert extern mail if no login specified yet
+    if ($this->getValue("us_login")=="-") {
+      $this->setValue("US_IDDOMAIN","0");
+      $this->setValue("us_mail",$this->getValue("us_extmail"));
+    }
+  }
 
 
   return $err;
@@ -248,13 +255,16 @@ function PostDelete() {
                                                                                       
 
                                                                                       
-function ConstraintPassword($pwd1,$pwd2) {
-  $sug=array();     
-  if (($pwd1 == "")&&($this->id =="")) {
-    $err= _("passwords must not be empty");
-  }  else  if ($pwd1<>$pwd2) {
+function ConstraintPassword($pwd1,$pwd2,$login) {
+  $sug=array();
+  $err="";
+
+  if ($pwd1<>$pwd2) {
     $err= _("the 2 passwords are not the same");
-  }      
+  }  else if (($pwd1 == "")&&($this->getValue("us_whatid") == "")) {
+    if ($login != "-") $err= _("passwords must not be empty");
+  }    
+  
                                                                                       
   return array("err"=>$err,
 	       "sug"=>$sug);                                                                              

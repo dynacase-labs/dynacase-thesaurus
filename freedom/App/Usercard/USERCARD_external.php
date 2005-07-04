@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.16 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.17 2005/07/04 14:27:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -223,7 +223,7 @@ function getdomainiuser()
       $v->name="externe";
       $v->iddomain="0";
       $extmail="";
-      $automail="";
+      $automail=" ";
      } 
     $tab[$k] = array($v->name,$v->iddomain,$v->name,$extmail,$automail);  
   }                                                

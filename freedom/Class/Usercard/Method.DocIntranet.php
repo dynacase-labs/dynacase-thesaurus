@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.10 2005/06/28 13:53:13 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.11 2005/07/04 14:27:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -18,24 +18,24 @@
  * @return array 2 items $err & $sug for view result of the constraint
  */
 function ConstraintLogin($login,$iddomain) {
-  $sug=array();
+  $sug=array("-");
   $id=$this->GetValue("US_WHATID");
   $user=new User("",$id);
                                          
-  if ($login == "") $err= _("the login must not be empty");
-  else {
-    if (!ereg("^[a-z][-_a-z0-9\.]*[a-z0-9]+$", $login)) {$err= _("the login syntax is like : john.doe");}
-
- //    if ($user->isAffected()) $iddomain=$user->iddomain;
-//     else $iddomain=1;
-  
-
+  if ($login == "") {
+    $err= _("the login must not be empty");
+  } else if ($login == "-") {
+  } else {
+    if (!ereg("^[a-z][-_a-z0-9\.]*[a-z0-9]+$", $login)) {
+      $err= _("the login syntax is like : john.doe");
+    }  
     $q=new QueryDb("","User");
     $q->AddQuery("login='$login'");
     $q->AddQuery("id != $id");
     $q->AddQuery("iddomain=$iddomain");
     $q->Query(0,0,"TABLE");
     if ($q->nb > 0) $err= _("login yet use");
+    if ($err=="") $sug=array();
   }
   return array("err"=>$err,"sug"=>$sug);
 }
