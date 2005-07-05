@@ -2,6 +2,9 @@
 include_once("Class.Param.php");
 
 
+define(SEC_PER_DAY, 24*3600);
+define(SEC_PER_HOUR,3600);
+define(SEC_PER_MIN, 60);
 
 // ----------------------------------------------------
 // Date and time format
@@ -50,6 +53,43 @@ function w_strftime($ts, $fmt=0, $ucw=true) {
   $dr = ($ucw?ucwords(strftime($fms,$ts)):strftime($fms,$ts));
   return $dr;
 }
+
+/* 
+ * Return timestamp for first week day 
+ */
+function w_GetFirstDayOfWeek($ts) 
+{
+	if ($ts<=0) return false;
+ 	$iday  = strftime("%u",$ts);
+	$dt = 1-$iday;
+        $tsfwd = $ts - (($iday-1) * SEC_PER_DAY);
+	$dd = strftime("%d", $tsfwd);
+ 	$mm = strftime("%m", $tsfwd);
+ 	$yy = strftime("%Y", $tsfwd);
+	$fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
+	return $fwdt;
+}
+
+function w_GetDayFromTs($ts) 
+{
+  if ($ts<=0) return false;
+  $dd = strftime("%d", $ts);
+  $mm = strftime("%m", $ts);
+  $yy = strftime("%Y", $ts);
+  $fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
+  return $fwdt;
+}
+
+function w_DaysInMonth($ts) 
+{
+  $timepieces = getdate($ts);
+  $thisYear          = $timepieces["year"];
+  $thisMonth        = $timepieces["mon"];
+  for($thisDay=1;checkdate($thisMonth,$thisDay,$thisYear);$thisDay++);
+  return ($thisDay-1);
+} 
+
+
 
 // ----------------------------------------------------
 // Groups....

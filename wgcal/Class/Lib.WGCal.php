@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.43 2005/06/27 17:01:56 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.44 2005/07/05 04:54:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -105,27 +105,6 @@ function wgcalGetRessourcesMatrix($id=-1) {
 }
 
 
-function WGCalGetDayFromTs($ts) 
-{
-  if ($ts<=0) return false;
-  $dd = strftime("%d", $ts);
-  $mm = strftime("%m", $ts);
-  $yy = strftime("%Y", $ts);
-  $fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
-  return $fwdt;
-}
-
-function WGCalGetFirstDayOfWeek($ts) {
-	if ($ts<=0) return false;
- 	$iday  = strftime("%u",$ts);
-	$dt = 1-$iday;
-        $tsfwd = $ts - (($iday-1) * SEC_PER_DAY);
-	$dd = strftime("%d", $tsfwd);
- 	$mm = strftime("%m", $tsfwd);
- 	$yy = strftime("%Y", $tsfwd);
-	$fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
-	return $fwdt;
-}
 function WGCalGetFirstDayOfMonth($ts) {
 	if ($ts<=0) return false;
  	$mm = strftime("%m", $ts);
@@ -287,15 +266,6 @@ function WGCalGetAgendaEvents(&$action,$displress,$d1="",$d2="", $nofilter=false
   return $tout;
 }
        	
-function WGCalDaysInMonth($ts) 
-{
-  $timepieces = getdate($ts);
-  $thisYear          = $timepieces["year"];
-  $thisMonth        = $timepieces["mon"];
-  for($thisDay=1;checkdate($thisMonth,$thisDay,$thisYear);$thisDay++);
-  return ($thisDay-1);
-} 
-
 function dbdate2ts($dbtime) {
   $sec = substr($dbtime,17,2);
   $min = substr($dbtime,14,2);

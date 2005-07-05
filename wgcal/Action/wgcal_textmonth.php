@@ -27,7 +27,7 @@ function wgcal_textmonth(&$action)
   $firstDay = strftime("%u", $firstMonthDay);
   $month = strftime("%m", $ctime);
   $year  = strftime("%Y", $ctime);
-  $lastday =  WGCalDaysInMonth($ctime);
+  $lastday =  w_DaysInMonth($ctime);
   $prevmontht = $firstMonthDay-(24*3600);
   $prevmonth = strftime("%B", $prevmontht);
   $nextmontht =  (24*3600)+mktime(0,0,0, $month+1, 1, $year);

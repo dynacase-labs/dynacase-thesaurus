@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.45 2005/06/27 17:01:56 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.46 2005/07/05 04:54:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -16,10 +16,6 @@ include_once("FDL/Class.Doc.php");
 include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/Lib.wTools.php");
 
-define("SEC_PER_DAY", 24*3600);
-define("SEC_PER_HOUR", 3600);
-define("SEC_PER_MIN", 60);
-
 function wgcal_calendar(&$action) {
 
 
@@ -31,7 +27,7 @@ function wgcal_calendar(&$action) {
   $stdate = $ts;
   if ($stdate == 0) $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
   if (!$sm) $action->parent->param->set("WGCAL_U_CALCURDATE", $stdate, PARAM_USER.$action->user->id, $action->parent->id);
-  $sdate = WGCalGetDayFromTs($stdate); 
+  $sdate = w_GetDayFromTs($stdate); 
 
   // Init the ressources
   $res = GetHttpVars("res", "");
@@ -79,7 +75,7 @@ function wgcal_calendar(&$action) {
   $colsize = round((100 - $hcolsize) / $ndays);
 
   $cdate = WGCalGetDayFromTs(time());
-  $firstWeekDay = WGCalGetFirstDayOfWeek($sdate);
+  $firstWeekDay = w_GetFirstDayOfWeek($sdate);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $pafter = $sdate + ($ndays * SEC_PER_DAY);
   $pbefore = $sdate - ($ndays * SEC_PER_DAY);
