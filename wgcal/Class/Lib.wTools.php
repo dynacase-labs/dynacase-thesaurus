@@ -46,6 +46,7 @@ function w_strftime($ts, $fmt=0, $ucw=true) {
   case WD_FMT_DAYSTEXT: $fms = "%a %d %b"; break;
   case WD_FMT_DAYLTEXT: $fms = "%A %d %B"; break;
   case WD_FMT_DAYFTEXT: $fms = "%A %d %B %Y"; break;
+  case WD_FMT_QSEARCH: $fms = "%Y-%m-%d %H:%M:%S"; break;
   default: $fms = "%d/%m/%Y %H:%M"; break;
   }
   $locz = array("C", $action->getParam("WGCAL_U_LANG", "fr_FR"));
@@ -186,5 +187,19 @@ function wGetRessDisplayed() {
   return $r;
 }
 
+
+global $aTrace;
+$aTrace = array();
+function addTrace($s) {
+  global $aTrace;
+  $aTrace[count($aTrace)] = $s;
+}
+
+function showTrace() {
+  global $aTrace;
+  echo '<div style="bgcolor:yellow; color:black; border:2px ouset">';
+  foreach ($aTrace as $k => $v) echo $v."<br>";
+  echo "<div>";
+}
 
 ?>
