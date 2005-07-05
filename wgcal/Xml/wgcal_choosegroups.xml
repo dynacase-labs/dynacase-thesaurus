@@ -1,0 +1,36 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
+<form id="delgrp" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELGROUPS"><input type="hidden" value="-1" id="delgfid" name="delgfid"></form>
+<form id="addgrp" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_ADDGROUPS"><input type="hidden" value="-1" id="addgfid" name="addgfid"></form>
+
+<script type="text/javascript"> 
+function changeGrp(grp) {
+  var cGrp = document.getElementById('d'+grp);
+  if (cGrp.className!='WGCRessSelected') {
+  if (!cGrp) return;
+    var ff = document.getElementById('addgrp');  
+    var igrp = document.getElementById('addgfid');
+    cGrp.className = 'WGCRessSelected';
+  } else {
+    var ff = document.getElementById('delgrp');  
+    var igrp = document.getElementById('delgfid');
+    cGrp.className = 'WGCRessDefault';
+  }
+  igrp.value = grp;
+  ff.submit();
+  return false;
+}
+</script>
+<div class="wMonthTextTitle" align="left">[TEXT:agenda groups selection]</div>
+
+<div>[BLOCK groups]
+<div id="d[gfid]" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" width="98%" 
+onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
+onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'"  
+title="[TEXT:click to add/remove group] [gtitle]"
+onclick="changeGrp([gfid])"><img src="[gicon]"  border="0" height="15px">[gtitle]</div>[ENDBLOCK groups]
+</div>
+
+<table cellspacing="0" cellpadding="0" width="100%"><tr><td class="wMonthTextTitle"  align="right">
+<img src="[IMG:wm-close.gif]" id="btnCancel" height="12px" title="[TEXT:cancel]" class="WGCalAction" onclick="window.close();"></td></tr></table>
+
+[ZONE WGCAL:WGCAL_HTMLFOOT]

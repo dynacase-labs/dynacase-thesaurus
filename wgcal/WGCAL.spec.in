@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.17 2005/06/27 09:40:38 marc Exp $
+#  $Id: WGCAL.spec.in,v 1.18 2005/07/05 03:03:44 marc Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -76,9 +76,16 @@ cd -
 
 %{destdir}/EXTERNALS/*
 
+%{destdir}/API/*
+
 %{destdir}/locale/*
 
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/httpd/httpd.conf/73_mod_wgcalosync.conf
+
+/home/httpd/what/API/migr_wcal_to_ngcal.php
+   /home/httpd/what/API/migrcal1.sql
+   /home/httpd/what/API/migrcal2.sql
+   /home/httpd/what/API/migrcal3.sql
 
 
 
