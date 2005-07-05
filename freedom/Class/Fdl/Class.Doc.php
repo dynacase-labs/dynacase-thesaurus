@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.257 2005/06/29 15:00:57 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.258 2005/07/05 08:07:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2146,8 +2146,29 @@ create unique index i_docir on doc(initid, revision);";
     if (count($v) == 0) return "";
     return implode("\n", $v);
   }
-  
-  
+  /**
+   * return an html anchor to a document
+   * @param int $id identificator of document
+   * @param string $target window target
+   * @param bool $htmllink must be true else return nothing
+   * @return string the html anchor
+   */
+  function getDocAnchor($id,$target="_self",$htmllink=true) {
+    $a="";
+    if ($htmllink) {
+      $title=$this->getTitle($id);
+      
+      if ($title == "") {
+	$a="<a>".sprintf(_("unknown document id %s"),$id)."</a>";
+      } else {
+	$u=getParam("CORE_STANDURL");
+	$ul="$u&app=FDL&action=FDL_CARD&latest=Y&id=$id";
+	$a="<a oncontextmenu=\"popdoc(event,'$ul');return false;\" href=\"$ul\">$title</a>";
+      }
+      
+    }
+    return $a;
+  }
   function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true, $index=-1) {
     global $action;
     
@@ -2268,9 +2289,13 @@ create unique index i_docir on doc(initid, revision);";
 	     }
 	
 	  break;
-	case "longtext": 	  
-	  $htmlval=str_replace(array("[","$"),array("&#091;","&#036;"),nl2br(htmlentities(stripslashes(str_replace("<BR>",
-											"\n",$avalue)))));
+	case "longtext":  
+	  $bvalue=nl2br(htmlentities(stripslashes(str_replace("<BR>","\n",$avalue))));
+
+	  $bvalue = preg_replace("/\[ADOC ([^\]]*)\]/e",
+                         "\$this->getDocAnchor('\\1',\"$target\",$htmllink)",
+                         $bvalue);	  
+	  $htmlval=str_replace(array("[","$"),array("&#091;","&#036;"),$bvalue);
 	  break;
 	case "password": 
 	  $htmlval=ereg_replace(".", "*", htmlentities(stripslashes($avalue)));
@@ -2369,8 +2394,10 @@ create unique index i_docir on doc(initid, revision);";
 	  break;
 	
 	case htmltext:  
-	  $htmlval="<DIV>$avalue</DIV>";
-	
+	  $avalue = preg_replace("/\[ADOC ([^\]]*)\]/e",
+                         "\$this->getDocAnchor('\\1',\"$target\",$htmllink)",
+                         $avalue);
+	  $htmlval="<DIV>$avalue</DIV>";	
 	  break;
 	case time:  
 	  $htmlval=substr($avalue,0,5); // do not display second
@@ -3604,11 +3631,11 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->isConfidential())  return _("confidential document");      
       return $this->getSpecTitle();
     }
-    if (! is_numeric($id)) return ""; 
-    
-    $t = getTDoc($this->dbaccess,$id);
-    if ($t)    return $t["title"];
-
+    if (! is_numeric($id)) $id=getIdFromName($this->baccess,$id);
+    if ($id > 0) {    
+      $t = getTDoc($this->dbaccess,$id);
+      if ($t)    return $t["title"];
+    }
     return " "; // delete title
   }
 
