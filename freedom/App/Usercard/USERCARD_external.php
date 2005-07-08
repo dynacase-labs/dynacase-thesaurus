@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.17 2005/07/04 14:27:32 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.18 2005/07/08 15:29:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -207,7 +207,7 @@ function members($dbaccess, $groupid, $name="") {
 //get domain of IUSER
 function getdomainiuser()
 {
-  $dbaccess=GetParam("CORE_USERDB");
+  $dbaccess=GetParam("CORE_DB");
   $tab=array();                                                 
   $domain=new Domain($dbaccess);                  
   $domain->ListAll(-1);                          
@@ -233,7 +233,7 @@ function getdomainiuser()
 //get domain for group
 function getdomainigroup()
 {
-  $dbaccess=GetParam("CORE_USERDB");
+  $dbaccess=GetParam("CORE_DB");
   $tab=array();                                                 
   $domain=new Domain($dbaccess);                  
   $domain->ListAll(0);                          
