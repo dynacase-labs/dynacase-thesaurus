@@ -26,6 +26,9 @@ function ComputeTime(id) {
   document.getElementById('tUstart').style.display = 'none';
   document.getElementById('tUend').style.display = 'none';
 
+  var allday = document.getElementById('allday');
+  var nohour = document.getElementById('nohour');
+
   var startTime = document.getElementById('Fstart');
   var endTime = document.getElementById('Fend');
 
@@ -40,19 +43,20 @@ function ComputeTime(id) {
   oldtime = fullTime.value;
   ftime = parseInt(daysTime.value) + (parseInt(htval) * 3600) + (parseInt(mtval) * 60);
 
-  if (id=='start') {
-    var diffT = endTime.value - ftime;
-    if (endTime.value - ftime < 0) {
-      document.getElementById('tUtime').style.display = '';
-      return;
+  if (!allday.checked && !nohour.checked) {
+    if (id=='start') {
+      var diffT = endTime.value - ftime;
+      if (endTime.value - ftime < 0) {
+	document.getElementById('tUtime').style.display = '';
+	return;
+      }
     }
-  }
-
-  if (id=='end') {
-    var diffT = ftime - startTime.value;
-    if (ftime - startTime.value< 0) {
-      document.getElementById('tUtime').style.display = '';
-      return;
+    if (id=='end') {
+      var diffT = ftime - startTime.value;
+      if (ftime - startTime.value< 0) {
+	document.getElementById('tUtime').style.display = '';
+	return;
+      }
     }
   }
 

@@ -46,7 +46,7 @@ function wgcal_storeevent(&$action) {
   if (GetHttpVars("nohour", "") == "on") {
     $htype = 1;
     $start = w_datets2db($ds, false) . " 00:00:00 CEST";
-    $end = w_datets2db($de, false) . " 00:00:00 CEST";
+    $end = w_datets2db($ds, false) . " 00:00:00 CEST";
   }
   if (GetHttpVars("allday", "") == "on") {
     $htype = 2;
