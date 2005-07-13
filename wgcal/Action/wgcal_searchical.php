@@ -16,10 +16,16 @@ function wgcal_searchical(&$action) {
     // Init popup
     $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
     include_once("FDL/popup_util.php");
-    popupInit('mRess',  array('radd', 'rcalendar', 'rprefered', 'rvprefered', 'rclose'));
+    popupInit('mRess',  array('radd', 'rcalendar', 'rprefered', 'rclose'));
 
     $total = 0;
-    $filter[0] = "title ~* '".$sical."'";
+    $words = explode(" ", $sical);
+    $sstr = "";
+    foreach ($words as $kw => $vw) {
+      $sstr .= (strlen($sstr)>0 ?  " OR " : "");
+      $sstr .= "title ~* '".$vw."'";
+    }
+    $filter[0] = $sstr;
     $dbaccess = $action->getParam("FREEDOM_DB");
     $cfams = WGCalGetRessourceFamilies($dbaccess);
     foreach ($cfams as $kf => $vf) {
@@ -40,7 +46,6 @@ function wgcal_searchical(&$action) {
 	  PopupActive('mRess', $vd["id"], 'radd');
 	  PopupActive('mRess', $vd["id"], 'rcalendar');
 	  PopupActive('mRess', $vd["id"], 'rprefered');
-	  PopupActive('mRess', $vd["id"], 'rvprefered');
 	  PopupActive('mRess', $vd["id"], 'rclose');
 	  
 	  $total ++;

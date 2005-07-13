@@ -80,6 +80,8 @@
 <a href="#" id="removeress" onclick="removeRessource(CRessId); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="[IMG:wm-ressdelete.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
 <a class="separator"></a>
+<a href="#" id="rvprefered" onclick="subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&res=[rplist]'); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-viewprefered.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:view my prefered]</a>
+<a class="separator"></a>
 <a href="#" id="onlyme" onclick="showHideAllRess(CRessId); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="[IMG:wm-onlyme.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display only this]</a>
 <a href="#" id="invertress" onclick="showHideAllRess(-2); closeMenu('resspopup')">[IF POPUPICONS]

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.42 2005/06/19 17:37:33 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.43 2005/07/13 16:03:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -111,10 +111,21 @@ function _listress(&$action)
 
   if (!$cuser) $lress[count($lress)] = $action->user->fid."%1%yellow";
 
+  $contacts = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
+  $tcontacts = explode("|", $contacts);
+  $rplist = "";
+  if (count($tcontacts)>0) {
+    foreach ($tcontacts as $kc => $vc) {
+      if ($vc=="") continue;
+      $rplist .= (strlen($rplist)>0?"|":"").$vc;
+    }
+  }
+  $action->lay->set("rplist", $rplist);
+
   // Init popup
   $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
   include_once("FDL/popup_util.php");
-  popupInit('resspopup',  array('displayress',  'changeresscolor', 'removeress', 'onlyme', 'invertress', 'displayallr', 'hideallr', 'cancelress'));
+  popupInit('resspopup',  array('displayress',  'changeresscolor', 'removeress', 'onlyme', 'rvprefered', 'invertress', 'displayallr', 'hideallr', 'cancelress'));
   foreach ($lress as $k => $v) {
     $tt = explode("%", $v);
     $rid = $tt[0];
@@ -136,6 +147,7 @@ function _listress(&$action)
       PopupActive('resspopup', $rd->id, 'changeresscolor');
       PopupActive('resspopup', $rd->id, 'hideallr');
       PopupActive('resspopup', $rd->id, 'displayallr');
+      PopupActive('resspopup', $rd->id, 'rvprefered');
       PopupActive('resspopup', $rd->id, 'onlyme');
       PopupActive('resspopup', $rd->id, 'invertress');
       PopupActive('resspopup', $rd->id, 'cancelress');
