@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.10 2005/06/20 16:07:31 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.11 2005/07/18 17:21:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -62,7 +62,7 @@ function wgcal_gview(&$action) {
   $evfilter = array();
   $ff = "";
   if ($title!="") {
-    if ($filteron == "" || $filteron == "title") $ff = "(evt_title ~* '".$title."')";
+    if ($filteron == "" || $filteron == "title") $ff = "(title ~* '".$title."')";
     if ($filteron == "" || $filteron == "desc") {
       $ff .= ($ff == "" ? "" : " or ");
       $ff .= "(evt_desc ~* '".$title."')";

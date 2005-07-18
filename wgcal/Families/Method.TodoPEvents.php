@@ -13,7 +13,6 @@ function postModify() {
 
 
 function  setEventSpec(&$e) {
-  $e->setValue("EVT_TITLE", $this->getValue("TODO_TITLE"));
   $sdate = strftime("%d/%m/%Y %H:%M %Z",time());
   $e->setValue("EVT_BEGDATE", $sdate);
 }

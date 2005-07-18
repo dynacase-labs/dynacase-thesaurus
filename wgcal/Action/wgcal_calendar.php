@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.46 2005/07/05 04:54:09 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.47 2005/07/18 17:21:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -74,7 +74,7 @@ function wgcal_calendar(&$action) {
   $hcolsize = 5;
   $colsize = round((100 - $hcolsize) / $ndays);
 
-  $cdate = WGCalGetDayFromTs(time());
+  $cdate = w_GetDayFromTs(time());
   $firstWeekDay = w_GetFirstDayOfWeek($sdate);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $pafter = $sdate + ($ndays * SEC_PER_DAY);

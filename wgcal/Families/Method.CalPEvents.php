@@ -25,7 +25,6 @@ function getEventRessources() {
 
 function  setEventSpec(&$e) {
   include_once('EXTERNALS/WGCAL_external.php');
-  $e->setValue("EVT_TITLE", $this->getValue("CALEV_EVTITLE"));
   $e->setValue("EVT_IDCREATOR", $this->getValue("CALEV_OWNERID"));
   $e->setValue("EVT_CREATOR", $this->getValue("CALEV_OWNER"));
   $e->setValue("EVT_DESC", $this->getValue("CALEV_EVNOTE"));
