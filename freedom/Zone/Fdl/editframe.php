@@ -3,7 +3,7 @@
  * Generate Layout to edit frame (fieldset)
  *
  * @author Anakeen 2000 
- * @version $Id: editframe.php,v 1.22 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: editframe.php,v 1.23 2005/07/19 09:48:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -49,7 +49,10 @@ function editframe(&$action) {
   
   $listattr = $doc->GetNormalAttributes();
     
-    
+  if (GetHttpVars("viewconstraint")=="Y") { // from modcard function if constraint error    
+    include_once("FDL/modcard.php");  
+    setPostVars($doc); // HTTP VARS comes from previous edition    
+  }
 
     
   $thval = array();

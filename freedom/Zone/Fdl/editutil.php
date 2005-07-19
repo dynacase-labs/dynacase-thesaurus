@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.97 2005/06/27 07:17:43 eric Exp $
+ * @version $Id: editutil.php,v 1.98 2005/07/19 09:48:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -25,13 +25,12 @@ include_once("VAULT/Class.VaultFile.php");
 function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
   global $action;
 
-
   $docid=intval($doc->id);
-  if ($docid== 0) intval($docid=$doc->fromid);
+  if ($docid== 0) $docid=intval($doc->fromid);
   $attrtype=$oattr->type;
 
 
- $alone=$oattr->isAlone; // set by method caller in special case to display alone
+  $alone=$oattr->isAlone; // set by method caller in special case to display alone
 
 
   $attrid=$oattr->id;

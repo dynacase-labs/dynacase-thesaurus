@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.258 2005/07/05 08:07:32 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.259 2005/07/19 09:48:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -3631,12 +3631,13 @@ create unique index i_docir on doc(initid, revision);";
       if ($this->isConfidential())  return _("confidential document");      
       return $this->getSpecTitle();
     }
-    if (! is_numeric($id)) $id=getIdFromName($this->baccess,$id);
+    if (! is_numeric($id)) $id=getIdFromName($this->dbaccess,$id);
     if ($id > 0) {    
       $t = getTDoc($this->dbaccess,$id);
       if ($t)    return $t["title"];
+      return " "; // delete title
     }
-    return " "; // delete title
+    return ""; 
   }
 
   /**
