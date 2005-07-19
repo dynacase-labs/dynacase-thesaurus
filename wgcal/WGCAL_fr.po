@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-27 16:27+0200\n"
+"POT-Creation-Date: 2005-07-19 08:33+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -109,7 +109,7 @@ msgid "admin access"
 msgstr "Acces administrateur"
 
 msgid "allow outlook sync."
-msgstr ""
+msgstr "Autorise la synchronisation Outlook"
 
 msgid "user access"
 msgstr "Access utilisateur"
@@ -118,7 +118,7 @@ msgid "no access"
 msgstr "Pas d'accès"
 
 msgid "invisible"
-msgstr ""
+msgstr "Affiche les fonctions invisibles (en développement)"
 
 msgid "css manager"
 msgstr "Gestion des CSS"
@@ -246,8 +246,14 @@ msgstr "refusé"
 msgid "to be confirmed"
 msgstr "à confirmer"
 
+msgid "public"
+msgstr "Public"
+
+msgid "private"
+msgstr "Privé"
+
 msgid "My public calendar"
-msgstr "mon calendrier public"
+msgstr "Mon calendrier public"
 
 msgid "dayly"
 msgstr "journalière"
@@ -450,26 +456,32 @@ msgstr "Imprimer"
 msgid "m_txt_tools_preferences"
 msgstr "Préférences"
 
-msgid "m_txt_newtheme"
-msgstr "Ajouter un thème"
-
-msgid "not yet implemented"
-msgstr "Cette fonction n'est pas encore disponible."
-
 msgid "m_txt_confsynch"
 msgstr "Configuration de la synchro Outlook"
 
 msgid "m_txt_synchronizer"
 msgstr "Télécharger l'outil de synchro Outlook"
 
+msgid "administration menu"
+msgstr "Administration"
+
+msgid "m_txt_choosegroups"
+msgstr "Choix des groupes"
+
+msgid "m_txt_newtheme"
+msgstr "Ajouter un thème"
+
+msgid "not yet implemented"
+msgstr "Cette fonction n'est pas encore disponible."
+
+msgid "Attendees list"
+msgstr "Personnes conviées"
+
 msgid "created from outlook"
 msgstr "Créé à partir d'Outlook oid="
 
 msgid "outlook modification"
 msgstr "Modification depuis Outlook"
-
-msgid "Attendees list"
-msgstr "Personnes conviées"
 
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
@@ -733,6 +745,9 @@ msgstr "Couleur"
 msgid "remove this ressource"
 msgstr "Enlever"
 
+msgid "view my prefered"
+msgstr "Calendriers des contacts préférés"
+
 msgid "display only this"
 msgstr "Afficher seul"
 
@@ -787,14 +802,11 @@ msgstr "Ajouter aux calendriers"
 msgid "add to prefered"
 msgstr "Ajouter aux contacts préférés"
 
-msgid "view my prefered"
-msgstr "Calendriers des contacts préférés"
-
 msgid "search cal"
 msgstr "Calendrier"
 
-msgid "max"
-msgstr "max"
+msgid "limit display to"
+msgstr "Affichage limité à "
 
 msgid "display calendar (m-left-btn) and more... (m-right-btn)"
 msgstr "(m-left-btn) affiche le calendrier et plus avec (m-right-btn)"
@@ -807,6 +819,12 @@ msgstr "Téléphone mobile"
 
 msgid "mail"
 msgstr "Adresse mail"
+
+msgid "agenda groups selection"
+msgstr "Sélection de calendrier"
+
+msgid "click to add/remove group"
+msgstr "Cliquer pour ajouter/supprimer le groupe"
 
 msgid "view this"
 msgstr "Afficher"
@@ -1018,107 +1036,116 @@ msgstr "Options des tâches"
 msgid "see contacts"
 msgstr "Contacts"
 
-#~ msgid "lang"
-#~ msgstr "Language"
+msgid "lang"
+msgstr "Language"
 
-#~ msgid "current day color"
-#~ msgstr "couleur du jour courant"
+msgid "current day color"
+msgstr "couleur du jour courant"
 
-#~ msgid "week end days color"
-#~ msgstr "couleur des jours de week-end"
+msgid "week end days color"
+msgstr "couleur des jours de week-end"
 
-#~ msgid "selected day color"
-#~ msgstr "couleur du jour sélectionné"
+msgid "selected day color"
+msgstr "couleur du jour sélectionné"
 
-#~ msgid "title line height"
-#~ msgstr "Hauteur de la ligne de titre"
+msgid "title line height"
+msgstr "Hauteur de la ligne de titre"
 
-#~ msgid "hour lines height"
-#~ msgstr "Hauteur des lignes d'heure"
+msgid "hour lines height"
+msgstr "Hauteur des lignes d'heure"
 
-#~ msgid "hour in day column width"
-#~ msgstr "Largeur des colonne des jours"
+msgid "hour in day column width"
+msgstr "Largeur des colonne des jours"
 
-#~ msgid "menu icons height"
-#~ msgstr "Hauteur des icones"
+msgid "menu icons height"
+msgstr "Hauteur des icones"
 
-#~ msgid "display week end"
-#~ msgstr "Affichage des week-end"
+msgid "display week end"
+msgstr "Affichage des week-end"
 
-#~ msgid "view count days"
-#~ msgstr "Nombre de jours affichés"
+msgid "view count days"
+msgstr "Nombre de jours affichés"
 
-#~ msgid "hour division"
-#~ msgstr "Division de l'heure"
+msgid "hour division"
+msgstr "Division de l'heure"
 
-#~ msgid "tool display state"
-#~ msgstr "Etat d'affiche de l'outil"
+msgid "tool display state"
+msgstr "Etat d'affiche de l'outil"
+
+msgid "Current displayed date"
+msgstr "Date courante affichée"
+
+msgid "WGCAL_U_RESSDISPLAYED"
+msgstr "Ressource affichées"
+
+msgid "use prefered ressource for event setting"
+msgstr "Utiliser mes contacts préférés pour les rendez-vous"
+
+msgid "displayed refused events"
+msgstr "Afficher les évènements refusé :"
+
+msgid "show icons in resume"
+msgstr "Afficher les icones et les heures sur l'agenda"
+
+msgid "alt postion is fixed"
+msgstr "Position des popup fixe"
+
+msgid "general theme"
+msgstr "Thème"
+
+msgid "start hour used for event setting"
+msgstr "Heure de début utilsée pour la saisie de RV"
+
+msgid "end hour used for event setting"
+msgstr "Heure de fin utilsée pour la saisie de RV"
+
+msgid "minutes increment used for event setting"
+msgstr "Incrément pour les minutes en saisie de RV"
+
+msgid "order todos"
+msgstr "Tri des tâches"
+
+msgid "view todos for ... days"
+msgstr "Afficher les tâches pour ... jours"
+
+msgid "warn for todo having a date in the ... days"
+msgstr "M'avertir pour les tâches à faire durant les ... jours "
+
+msgid "set todo date to today + ... days"
+msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
+
+msgid "display contacts"
+msgstr "Afficher les contacts"
+
+msgid "toolbar size"
+msgstr "Largeur de la barre d'outils"
+
+msgid "last sync date for Outlook"
+msgstr "Date de la dernière synchro Outlook"
+
+msgid "last sync date for WGCal"
+msgstr "Date de la dernière synchro Outlook"
+
+msgid "mails send"
+msgstr "Envoi des mails"
+
+msgid "mail title mark"
+msgstr "Marquage (Sujet) des mails émis"
+
+msgid "viewed events (from producters)"
+msgstr "Famille des producteurs des évènements affichés"
+
+msgid "Sync Version Needed"
+msgstr "Version du synchroniseur attendue"
+
+msgid "used groups"
+msgstr "Groupes utilisés"
+
+#~ msgid "max"
+#~ msgstr "max"
 
 #~ msgid "new event zone size"
 #~ msgstr "Hauteur de la zone des évènements en attente"
-
-#~ msgid "Current displayed date"
-#~ msgstr "Date courante affichée"
-
-#~ msgid "WGCAL_U_RESSDISPLAYED"
-#~ msgstr "Ressource affichées"
-
-#~ msgid "use prefered ressource for event setting"
-#~ msgstr "Utiliser mes contacts préférés pour les rendez-vous"
-
-#~ msgid "displayed refused events"
-#~ msgstr "Afficher les évènements refusé :"
-
-#~ msgid "show icons in resume"
-#~ msgstr "Afficher les icones et les heures sur l'agenda"
-
-#~ msgid "alt postion is fixed"
-#~ msgstr "Position des popup fixe"
-
-#~ msgid "general theme"
-#~ msgstr "Thème"
-
-#~ msgid "start hour used for event setting"
-#~ msgstr "Heure de début utilsée pour la saisie de RV"
-
-#~ msgid "end hour used for event setting"
-#~ msgstr "Heure de fin utilsée pour la saisie de RV"
-
-#~ msgid "minutes increment used for event setting"
-#~ msgstr "Incrément pour les minutes en saisie de RV"
-
-#~ msgid "order todos"
-#~ msgstr "Tri des tâches"
-
-#~ msgid "view todos for ... days"
-#~ msgstr "Afficher les tâches pour ... jours"
-
-#~ msgid "warn for todo having a date in the ... days"
-#~ msgstr "M'avertir pour les tâches à faire durant les ... jours "
-
-#~ msgid "set todo date to today + ... days"
-#~ msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
-
-#~ msgid "display contacts"
-#~ msgstr "Afficher les contacts"
-
-#~ msgid "toolbar size"
-#~ msgstr "Largeur de la barre d'outils"
-
-#~ msgid "last sync date for Outlook"
-#~ msgstr "Date de la dernière synchro Outlook"
-
-#~ msgid "mails send"
-#~ msgstr "Envoi des mails"
-
-#~ msgid "mail title mark"
-#~ msgstr "Marquage (Sujet) des mails émis"
-
-#~ msgid "viewed events (from producters)"
-#~ msgstr "Famille des producteurs des évènements affichés"
-
-#~ msgid "Sync Version Needed"
-#~ msgstr "Version du synchroniseur attendue"
 
 #~ msgid "owner"
 #~ msgstr "Propriétaire"

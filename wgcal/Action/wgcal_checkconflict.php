@@ -23,7 +23,6 @@ function wgcal_checkconflict(&$action) {
 
   if ($alreadyChecked || !$checkForConflict) {
     $action->lay->set("NOCF", true);
-    $action->lay->set("CF", false);
     return;
   }
 
@@ -57,16 +56,21 @@ function wgcal_checkconflict(&$action) {
   }
   $tevtmp = WGCalGetAgendaEvents($action, $nrl, $start, $end, true);
   $tev = array();
-  foreach ($tevtmp as $k=>$v) {
-    if ($v["IDP"]!=$event) $tev[] = $v;
+  if (count($tevtmp)>0) {
+    $myid = $action->user->fid;
+    $ressd = wgcalGetRessourcesMatrix($event);
+    foreach ($tevtmp as $k=>$v) {
+      $ressd = wgcalGetRessourcesMatrix($v["IDP"]);
+      if ($v["IDP"]!=$event && (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT)) $tev[] = $v;
+    }
+    $action->lay->setBlockData("CARDS", $tev);
+    $action->lay->set("NOCF", (count($tev)>0 ? false : true));
+    $action->lay->SetBlockData("CONFLICTS", $tev);
   }
-  $action->lay->setBlockData("CARDS", $tev);
-  $action->lay->set("CF", (count($tev)>0 ? true : false));
-  $action->lay->set("NOCF", (count($tev)>0 ? false : true));
-  $action->lay->SetBlockData("CONFLICTS", $tev);
-
   if (count($tev)==0) $action->lay->set("NOCF", true);
   else $action->lay->set("NOCF", false);
+  
+//   $action->lay->set("NOCF", false);
 
   return;
 }

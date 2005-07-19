@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.44 2005/07/05 04:54:09 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.45 2005/07/19 09:33:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -84,6 +84,8 @@ function wgcalGetRessourcesMatrix($id=-1) {
   $ressd = array();
   foreach ($tress as $k => $v) {
     if (!(isset($ressd[$v]) && $tressg[$k]==-1)) {
+      $ressd[$v]["id"] = $id;
+      $ressd[$v]["title"] = $event->getTitle();
       $ressd[$v]["state"] = $tresse[$k];
       $ressd[$v]["color"] = "white";
       $ressd[$v]["displayed"] = false;
