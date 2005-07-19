@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: VAULT.spec.in,v 1.6 2003/03/07 09:53:05 eric Exp $
+#  $Id: VAULT.spec.in,v 1.7 2005/07/19 07:26:47 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -14,7 +14,7 @@ Summary: The What Vault Management
 Name: @PACKAGE@
 Version: @VERSION@
 Release: @RELEASE@
-Copyright: GPL
+License: GPL
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
 # post-2.2.0 fix (can go away with next release):
