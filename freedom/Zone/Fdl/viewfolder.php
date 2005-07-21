@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.69 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: viewfolder.php,v 1.70 2005/07/21 10:03:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -149,13 +149,13 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	    $tcdoc[$zdoc["fromid"]]=createDoc($dbaccess,$zdoc["fromid"],false);	 
 	  }
 	  $doc=&$tcdoc[$zdoc["fromid"]];
-	  $doc->ResetMoreValues();$doc->GetMoreValues();
 	}
+	
       }
 
-      if ($column==1) $doc->ResetMoreValues();
-      $doc->Affect($zdoc);
-      if ($column==1) $doc->GetMoreValues();
+     
+      $doc->Affect($zdoc,(($column==1)||($with_abstract )));
+      
       if ($doc->isConfidential()) continue;
       $nbseedoc++;
 
