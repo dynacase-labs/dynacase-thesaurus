@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.60 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: viewcard.php,v 1.61 2005/07/21 15:52:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -130,6 +130,7 @@ function viewcard(&$action) {
   $action->lay->set("LGTEXTERROR", strlen($err));
   $action->lay->set("TEXTERROR", nl2br($err));
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard,$target,$ulink,$abstract));
+  $action->lay->set("hasrevision",($doc->revision > 0));
   
  
 
