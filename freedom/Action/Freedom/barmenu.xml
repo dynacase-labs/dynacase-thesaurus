@@ -34,7 +34,7 @@ function SendSearchId(e,id) {
 [TEXT:Bookmarks]
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());document.getElementById('searchid').focus();document.getElementById('searchid').select();return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:Search]

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.259 2005/07/19 09:48:06 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.260 2005/07/21 15:54:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -230,6 +230,7 @@ Class Doc extends DocCtrl
   public $order_by="title, revision desc";
 
   public $fulltextfields = array ("title");
+  private $mvalues = array();
 
   /**
    * default family id for the profil access
@@ -864,9 +865,11 @@ create unique index i_docir on doc(initid, revision);";
   /** 
    * Adaptation of affect Method from DbObj because of inheritance table
    * this function is call from QueryDb and all fields can not be instanciate
+   * @param array $array the data array
+   * @param bool $more add values from values attributes needed only if cast document
    * @return void
    */
-  function Affect($array) { 
+  function Affect($array,$more=false) { 
     $this->ofields = $this->fields;
     $this->fields=array();
     unset($this->uperm); // force recompute privileges
@@ -877,7 +880,10 @@ create unique index i_docir on doc(initid, revision);";
       }
     }
     $this->Complete();
-   
+    if ($more) {
+       $this->ResetMoreValues();
+       $this->GetMoreValues();
+    }
     $this->isset = true;
   }
   /** 
