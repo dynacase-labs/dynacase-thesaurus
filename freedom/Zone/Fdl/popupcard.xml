@@ -53,7 +53,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=ADDDIRFILE&dirid=[FREEDOM_IDBASKET]&docid=[id]','basket');closeMenu('popupcard');">[TEXT:Add to basket]</a>
 
 <a href="#" id="addpostit"     
-    onclick="postit('[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=27&pit_idadoc=[id]',50,50,300,200);closeMenu('popupcard');">[TEXT:Add postit]</a>
+    onclick="postit('[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=27&pit_title=[dtitle]&pit_idadoc=[id]',50,50,300,200);closeMenu('popupcard');">[TEXT:Add postit]</a>
 
 <a href="#" id="toxml"     
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=VIEWXML&id=[id]','finfo');closeMenu('popupcard');">[TEXT:View XML]</a>
@@ -92,7 +92,7 @@
 
 <!-- ------------ common latest --------------------- -->
 <a href="#" id="delete"     
-    onclick="if ((this.className == 'menuItem') || (this.className == 'menuItemCtrl'))  {ok =confirm('[TEXT:delconfirm] [deltitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_DEL&id=[id]','');}closeMenu('popupcard');">
+    onclick="if ((this.className == 'menuItem') || (this.className == 'menuItemCtrl'))  {ok =confirm('[TEXT:delconfirm] [dtitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_DEL&id=[id]','');}closeMenu('popupcard');">
 [TEXT:Delete]</a>
 
 

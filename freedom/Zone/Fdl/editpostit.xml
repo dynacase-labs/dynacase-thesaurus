@@ -1,5 +1,6 @@
 
 [V_PIT_IDADOC]
+[V_PIT_TITLE]
 
 <select onchange="colorsel2(this)" id="pit_ncolor" name="_pit_ncolor">
 <option value="#f7f58c" onmouseover="colorsel(this)" style="background-color:#f7f58c">Jaune</option>

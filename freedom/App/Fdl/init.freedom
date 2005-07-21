@@ -357,6 +357,7 @@ ICON;postit.gif;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 ;;;;;;;;;;;;;
 ATTR;PIT_FR_TEXT;;Texte;N;N;frame;0;W;;;;;
+ATTR;PIT_TITLE;PIT_FR_TEXT;Titre;Y;N;text;1;H;;;;;
 ATTR;PIT_TCOM;PIT_FR_TEXT;Commentaires;N;N;array;10;W;;;;;
 ATTR;PIT_COM;PIT_TCOM;commentaire;N;N;longtext;20;W;;;;;
 ATTR;PIT_DATE;PIT_TCOM;date;N;N;date;30;R;;;;;
