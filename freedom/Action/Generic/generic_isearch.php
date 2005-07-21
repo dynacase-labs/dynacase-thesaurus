@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_isearch.php,v 1.8 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_isearch.php,v 1.9 2005/07/21 15:53:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_isearch.php,v 1.8 2005/06/28 08:37:46 eric Exp $
+// $Id: generic_isearch.php,v 1.9 2005/07/21 15:53:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_isearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -51,6 +51,7 @@ function generic_isearch(&$action) {
   // Get all the params      
   $docid=GetHttpVars("id"); // id doc to search
   $famid=GetHttpVars("famid",0); // restriction of search
+  $viewone=GetHttpVars("viewone"); // 
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -85,7 +86,7 @@ function generic_isearch(&$action) {
 			 $famid, 
 			 $sqlfilter);
   $sdoc-> AddQuery($query);
-  redirect($action,"FREEDOM","FREEDOM_VIEW&dirid=".$sdoc->id);
+  redirect($action,"FREEDOM","FREEDOM_VIEW&viewone=$viewone&dirid=".$sdoc->id);
   // redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&famid=$famid&catg=0");
   
   
