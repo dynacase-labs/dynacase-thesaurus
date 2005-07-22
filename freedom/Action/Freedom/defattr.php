@@ -3,7 +3,7 @@
  * Display family attributes
  *
  * @author Anakeen 2000 
- * @version $Id: defattr.php,v 1.23 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: defattr.php,v 1.24 2005/07/22 16:16:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -127,16 +127,15 @@ function defattr(&$action)
 
     //    ------------------------------------------
     //  -------------------- MENU ----------------------
-    $tattr = $doc->GetMenuAttributes();
-   
-    reset($tattr);
-    while (list($k,$attr)= each ($tattr)) {
+    $tattr = $doc->GetMenuAttributes();   
+
+    foreach ($tattr as $k=>$attr) {
       if ($attr->docid > 0) {
 	$newelem[$k]["attrid"]=$attr->id;
 	$newelem[$k]["attrname"]=$attr->labelText;
 	$newelem[$k]["neweltid"]=$k;
 	$newelem[$k]["visibility"]=$attr->visibility;
-	$newelem[$k]["typevalue"]="menu";
+	$newelem[$k]["typevalue"]=$attr->type;
 	$newelem[$k]["order"]=$attr->ordered;
 	$newelem[$k]["disabledid"]="disabled";
 	$newelem[$k]["options"]=$attr->options;
@@ -157,6 +156,41 @@ function defattr(&$action)
       $newelem[$k]["titcheck"]="";
       }	  
       $ka++;
+
+    }
+
+    //    ------------------------------------------
+    //  -------------------- Action ----------------------
+    $tattr = $doc->GetActionAttributes();   
+
+    foreach ($tattr as $k=>$attr) {
+      if ($attr->docid > 0) {
+	$newelem[$k]["attrid"]=$attr->id;
+	$newelem[$k]["attrname"]=$attr->labelText;
+	$newelem[$k]["neweltid"]=$k;
+	$newelem[$k]["visibility"]=$attr->visibility;
+	$newelem[$k]["typevalue"]=$attr->type;
+	$newelem[$k]["order"]=$attr->ordered;
+	$newelem[$k]["disabledid"]="disabled";
+	$newelem[$k]["options"]=$attr->options;
+	$newelem[$k]["SELECTFRAME"]="SELECTFRAME_$k";
+	if ($attr->docid == $docid) {
+	  $newelem[$k]["disabled"]="";
+	} else {
+	  $newelem[$k]["disabled"]="disabled";
+	}
+
+      $newelem[$k]["link"]=$attr->link;
+      $newelem[$k]["phpfile"]=$attr->wapplication;
+      $newelem[$k]["phpfunc"]=$attr->waction;
+	// unused be necessary for layout
+      $newelem[$k]["phpconstraint"]="";
+      $newelem[$k]["elink"]="";
+      $newelem[$k]["abscheck"]="";
+      $newelem[$k]["titcheck"]="";
+      }	  
+      $ka++;
+
     }
 
     //    ------------------------------------------

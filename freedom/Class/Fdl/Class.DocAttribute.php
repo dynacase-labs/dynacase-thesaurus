@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.26 2005/06/29 15:00:57 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.27 2005/07/22 16:16:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -19,8 +19,9 @@ Class BasicAttribute {
   var $labelText;
   var $visibility; // W, R, H, O, M, I
   var $options;
+  var $type; // text, longtext, date, file, ...
 
-  function BasicAttribute($id, $docid, $label ) {
+  function __construct($id, $docid, $label ) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
@@ -57,7 +58,6 @@ Class BasicAttribute {
 
 Class NormalAttribute extends BasicAttribute {
   var $needed; // Y / N
-  var $type; // text, longtext, date, file, ...
   var $format; // C format
   var $eformat; // format for edition : list,vcheck,hcheck
   var $repeat; // true if is a repeatable attribute
@@ -71,7 +71,7 @@ Class NormalAttribute extends BasicAttribute {
   var $ordered;
   var $phpconstraint; // special constraint set
   var $usefor; // = Q if parameters
-  function NormalAttribute($id, $docid, $label, $type, $format, $repeat, $order, $link,
+  function __construct($id, $docid, $label, $type, $format, $repeat, $order, $link,
 			   $visibility, $needed,$isInTitle,$isInAbstract,
 			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint="",$usefor="",$eformat="",$options="") {
     $this->id=$id;
@@ -171,12 +171,13 @@ Class NormalAttribute extends BasicAttribute {
 
 Class FieldSetAttribute extends BasicAttribute {
 
-  function FieldSetAttribute($id, $docid, $label, $visibility="",$usefor="" ) {
+  function __construct($id, $docid, $label, $visibility="",$usefor="" ) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
     $this->visibility=$visibility;
     $this->usefor=$usefor;
+    $this->type="frame";
   }
 }
 
@@ -185,7 +186,7 @@ Class MenuAttribute extends BasicAttribute {
   var $ordered;
   var $precond; // pre-condition to activate menu
 
-  function MenuAttribute($id, $docid, $label, $order, $link, $visibility="", $precond="",$options="") {
+  function __construct($id, $docid, $label, $order, $link, $visibility="", $precond="",$options="") {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
@@ -193,6 +194,7 @@ Class MenuAttribute extends BasicAttribute {
     $this->link=$link;
     $this->visibility=$visibility;
     $this->options=$options;
+    $this->type="menu";
 
   }
 
@@ -203,13 +205,15 @@ Class ActionAttribute extends BasicAttribute {
   var $wapplication; // the what application name
   var $waction; // the what action name
   var $ordered;
-  function ActionAttribute($id, $docid, $label, $order,$visibility="",$wapplication="",$waction="" ) {
+  function __construct($id, $docid, $label, $order,$visibility="",$wapplication="",$waction="" ) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
     $this->visibility=$visibility;
+    $this->ordered=$order;
     $this->waction=$waction;
     $this->wapplication=$wapplication;
+    $this->type="action";
   }
 }
 ?>
