@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.260 2005/07/21 15:54:08 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.261 2005/07/26 10:18:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1469,7 +1469,6 @@ create unique index i_docir on doc(initid, revision);";
          
     return $def;
   }
-  //-------------------------------------------------------------------
 
   /**
    * return the value of an list attribute document
@@ -1477,6 +1476,7 @@ create unique index i_docir on doc(initid, revision);";
    * the attribute must be in an array or of a type '*list' like enumlist or textlist
    * @param string $idAttr identificator of list attribute 
    * @param string $def default value returned if attribute not found or if is empty
+   * @param string $index the values for $index row (default value -1 means all values)
    * @return array the list of attribute values 
    */
   function GetTValue($idAttr, $def="",$index=-1)  { 
@@ -1490,8 +1490,50 @@ create unique index i_docir on doc(initid, revision);";
     if (isset($t[$index])) return $t[$index];
     else return $def;
   }
-  //-------------------------------------------------------------------
 
+  /**
+   * return the array of values for an array attribute
+   *
+   * the attribute must  an array type
+   * @param string $idAttr identificator of array attribute 
+   * @param string $index the values for $index row (default value -1 means all values)
+   * @return array all values of array order by rows (return false if not an array attribute)
+   */
+  function GetAValues($idAttr, $index=-1)  { 
+    $a=$this->getAttribute($idAttr);
+    if ($a->type=="array") {
+      $ta=$this->attributes->getArrayElements($a->id);
+      //init transpose
+      $c=count($this->getTValue(current(array_keys($ta)))); // number of rows for first index
+      $ti=array();
+      for ($i=0;$i<$c;$i++) {
+	$ti[$i]=array();
+      }
+      // transpose
+      foreach($ta as $k=>$v) {
+	$tv[$k]=$this->getTValue($k);
+	$ix=count($tv[$k]);
+	for ($i=0;$i<$ix;$i++) {	 
+	  $ti[$i]+=array($k=>$tv[$k][$i]);
+	}
+      }
+      if ($index==-1) return $ti;
+      else return $ti[$index];
+    }
+    return false;        
+  }
+
+  /**
+   * affect value for $attrid attribute
+   *
+   * the affectation is only in object. To set modification in database the modify method must be 
+   * call after modification
+   * If value is empty no modification are set. To reset a value use Doc::DeleteValue method.
+   * an array can be use as value for values which are in arrays
+   * @param string $idAttr identificator of attribute 
+   * @param string $value new value for the attribute
+   * @return string error message, if no error empty string
+   */
   function SetValue($attrid, $value) {
     // control edit before set values
 	  
@@ -1935,7 +1977,7 @@ create unique index i_docir on doc(initid, revision);";
    * the explicit unlock, unlock in all case (if CanUnLockFile)
    * @param bool $auto if true it is a automatic unlock 
    * 
-   * @return string error message, if no error empty string, if message
+   * @return string error message, if no error empty string
    * @see Doc::CanUnLockFile()
    * @see Doc::lock()
    */
