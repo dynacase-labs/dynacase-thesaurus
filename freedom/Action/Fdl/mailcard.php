@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.55 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: mailcard.php,v 1.56 2005/07/26 10:14:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.55 2005/06/28 08:37:46 eric Exp $
+// $Id: mailcard.php,v 1.56 2005/07/26 10:14:16 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -55,7 +55,7 @@ function mailcard(&$action) {
   $mailto = "";
   $mailcc = "";
   $mailbcc = "";
-  $mailfrom = GetHttpVars("_mail_from", "freedom");
+  $mailfrom = GetHttpVars("_mail_from");
 
 
   $mt = GetHttpVars("_mail_to","");
