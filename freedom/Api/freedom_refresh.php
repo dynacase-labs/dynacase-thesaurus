@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_refresh.php,v 1.13 2005/01/14 17:55:03 eric Exp $
+ * @version $Id: freedom_refresh.php,v 1.14 2005/07/26 10:10:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -72,23 +72,20 @@ if ($query->nb > 0)	{
     if ($arg != "") $targ[]=$arg;
   }
   else  $usemethod=false;
-  while(list($k,$v) = each($table1)) 
-	    { 
-	      if ($v["fromid"] != $doc->fromid) {
-		if (! isset($fdoc[$v["fromid"]])) $fdoc[$v["fromid"]] = createDoc($dbaccess,$v["fromid"],false);
-		$doc=&$fdoc[$v["fromid"]];$usemethod=false;
-		if ($method && (method_exists ($doc,$method))) $usemethod=true;
-		
-	      }
-	      $doc->Affect($v);
-	      print $card-$k.")".$doc->title . "\n";
-	      if ($usemethod) call_user_method_array ($method, $doc, $targ);
-	      $doc->refresh();
-	      $doc->refreshTitle();
-	      $doc->Modify();
 
-	    }	  
-}      
-    
+  foreach($table1 as $k=>$v)  { 
+    $doc=getDocObject($dbaccess,$v);
+    $usemethod= ($method && (method_exists ($doc,$method)));
+		
+    print $card-$k.")".$doc->title." ".(($usemethod)?"(use $method)":"")."\n";
+    //print $card-$k.")".$doc->title ." - ".$doc->fromid." - ".get_class($doc)." - " .round(memory_get_usage()/1024)."\n";
+    if ($usemethod) call_user_method_array ($method, $doc, $targ);
+    $doc->refresh();
+    $doc->refreshTitle();
+    $doc->Modify();
+
+  }	  
+ }      
+
 
 ?>
