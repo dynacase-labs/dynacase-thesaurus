@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.51 2005/06/28 13:53:13 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.52 2005/07/28 16:47:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -80,7 +80,22 @@ function AttrToPhp($dbaccess, $tdoc) {
       if ($v->visibility == "M") $v->type="menu"; // old notation compliant
       switch ($v->type) {
       case "menu": // menu
+	if (substr($v->link,0,2)=="::") {
+	  if (ereg("::([^\(]+)\(([^\)]*)\)",$v->link, $reg)) {
+	    /*
+	    $iattr = explode(",",$reg[2]);
+	    $iattr2 = $iattr;
+	    $tiattr=array();
+	    while(list($ka,$va) = each($iattr))   {
+	      $tiattr[]= array("niarg"=>trim($va));
+	      if ($va[0] == "'") unset($iattr2[$ka]); // not really attribute
+	      
+	      }*/
+	    $method=$reg[1];
+	    $v->link="%S%app=FDL&action=FDL_METHOD&id=%I%&method=$method";	    
+	  }
 	
+	}
 	  $tmenu[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
 					     "label"=>str_replace("\"","\\\"",$v->labeltext),
 					     "order"=>intval($v->ordered),
