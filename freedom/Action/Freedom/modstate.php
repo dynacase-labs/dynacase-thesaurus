@@ -3,7 +3,7 @@
  * Document State modification
  *
  * @author Anakeen 2000 
- * @version $Id: modstate.php,v 1.8 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: modstate.php,v 1.9 2005/07/28 16:47:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -53,8 +53,12 @@ function modstate(&$action) {
       setPostVars($wdoc);
       $err=$wdoc->ChangeState($state,$comment,$force);
       if ($err != "")  $action->AddWarningMsg($err);
+      else $action->info(sprintf("Change state %s [%d] : %s",$doc->title,$doc->id,$state));
     } else {
-      if ($comment != "") $doc->addComment($comment);
+      if ($comment != "") {
+	$doc->addComment($comment); 
+	$action->log->info(sprintf("Add comment %s [%d] : %s",$doc->title,$doc->id,$comment));
+      }
     }
   } else {
     $action->AddLogMsg(sprintf(_("the document %s is not related to a workflow"),$doc->title));

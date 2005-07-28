@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Search document
  *
  * @author Anakeen 2000 
- * @version $Id: search.php,v 1.23 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: search.php,v 1.24 2005/07/28 16:47:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: search.php,v 1.23 2005/06/28 08:37:46 eric Exp $
+// $Id: search.php,v 1.24 2005/07/28 16:47:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,7 +45,13 @@ include_once("FDL/freedom_util.php");
 include_once("FDL/modcard.php");
 
 
-// -----------------------------------
+/**
+ * Search document 
+ * @param Action &$action current action
+ * @global keyword Http var : word to search in any values
+ * @global famid Http var : restrict to this family identioficator
+ * @global viewone Http var : (Y|N) if Y direct view document detail if only one returned
+ */
 function search(&$action) {
   // -----------------------------------
 

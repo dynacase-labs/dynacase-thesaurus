@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.261 2005/07/26 10:18:36 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.262 2005/07/28 16:47:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -995,12 +995,9 @@ create unique index i_docir on doc(initid, revision);";
   }
 
   // return the string label text for a id
-  function GetLabel($idAttr)
-    {
-
+  function GetLabel($idAttr)  {
       if (isset($this->attributes->attr[$idAttr])) return $this->attributes->attr[$idAttr]->labelText;
       return _("unknow attribute");
-
     }
 
   
@@ -1010,15 +1007,12 @@ create unique index i_docir on doc(initid, revision);";
    * @param string $idAttr attribute identificator
    * @return DocAttribute
    */
-  function GetAttribute($idAttr)
-    {      
+  function GetAttribute($idAttr)   {      
       if (!$this->_maskApplied) $this->ApplyMask();
       $idAttr = strtolower($idAttr);
       if (isset($this->attributes->attr[$idAttr])) return $this->attributes->attr[$idAttr];
      
-
       return false;
-
     }
 
   /**
@@ -1026,8 +1020,7 @@ create unique index i_docir on doc(initid, revision);";
    * the attribute can be defined in fathers
    * @return array DocAttribute
    */
-  function GetAttributes() 
-    {     
+  function GetAttributes()     {     
       if (!$this->_maskApplied) $this->ApplyMask();
       reset($this->attributes->attr);
       return $this->attributes->attr;
@@ -2311,6 +2304,7 @@ create unique index i_docir on doc(initid, revision);";
 	    if ($index >= 0) $htmlval.="+$index";
 	    $htmlval.=  "\">".$fname."</A>";
 	  } else {
+	    if ($info) {
 	    $umime = trim(`file -ib $info->path`);
 	    $size=round($info->size/1024)._("AbbrKbyte");
 	    $utarget= ($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
@@ -2319,6 +2313,7 @@ create unique index i_docir on doc(initid, revision);";
 	      "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
 	      ."\">".$fname.
 	      "</A>";
+	    }
 	    /*
 	    
 	    $htmlval.=" <A onmousedown=\"document.noselect=true;\" target=\"_blank\" type=\"$mime\" href=\"".
@@ -2453,6 +2448,13 @@ create unique index i_docir on doc(initid, revision);";
 	  break;
 	case timestamp:  
 	  $htmlval=substr($avalue,0,16); // do not display second
+	
+	  break;
+	case ifile:  
+	  $lay = new Layout("FDL/Layout/viewifile.xml", $action);
+	  $lay->set("aid",$oattr->id);
+	  $lay->set("id",$this->id);
+	  $htmlval =$lay->gen(); 
 	
 	  break;
 

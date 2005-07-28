@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.28 2005/06/13 09:15:07 eric Exp $
+// $Id: FDL.app,v 1.29 2005/07/28 16:47:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -150,6 +150,11 @@ $action_desc = array (
   array( 
    "name"		=>"FDL_CARD",
    "short_name"		=>N_("view card"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"FDL_GETVALUE",
+   "short_name"		=>N_("get value of an attribute"),
    "acl"		=>"NORMAL"
   ) ,
   array( 

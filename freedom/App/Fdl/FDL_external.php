@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.39 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: FDL_external.php,v 1.40 2005/07/28 16:47:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -351,4 +351,42 @@ function laction($dbaccess, $famid, $name,$type) {
   return lfamilly($dbaccess, $famid,$name,0,$filter);
 }
 
+/**
+ * return list of what application
+ */
+function lapplications($n="") {
+  $q=new QueryDb("","Application");
+
+  $tr = array();
+  if ($n != "") $q->AddQuery("name ~* '$n'");
+  $la=$q->Query(0,0,"TABLE");
+  foreach ($la as $k=>$v) {
+     $tr[] = array($v["name"].":".$v["short_name"],
+		    $v["name"]);
+  }
+  return $tr;
+}
+/**
+ * return list of what action for one application
+ */
+function lactions($app,$n="") {
+  $tr = array();
+  $q=new QueryDb("","Application"); 
+  $q->AddQuery("name = '$app'");
+  $la=$q->Query(0,0,"TABLE");
+  if ($q->nb == 1) {
+    $appid=$la[0]["id"];
+    if ($appid > 0) {
+      $q=new QueryDb("","Action");
+      $q->AddQuery("id_application = $appid");      
+      if ($n != "") $q->AddQuery("name ~* '$n'");
+      $la=$q->Query(0,0,"TABLE");
+      foreach ($la as $k=>$v) {
+	$tr[] = array($v["name"].":"._($v["short_name"]),
+		      $v["name"]);
+      }
+    }
+  }
+  return $tr;
+}
 ?>

@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.22 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.23 2005/07/28 16:47:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -379,29 +379,29 @@ Class DocCtrl extends DbObj
 
     $err="";
     $sug=array(); // suggestions
-    if (! ereg("^[0-9]{2}/[0-9]{2}/[0-9]{4}$", $date)) {       
-      $err= _("the date syntax must be like : DD/MM/AAAA");
+    if ($date != "") {
+      if (! ereg("^[0-9]{2}/[0-9]{2}/[0-9]{4}", $date)) {       
+	$err= _("the date syntax must be like : DD/MM/AAAA");
 
-    } else {
+      } else {
 
-      list($dd,$mm,$yy) = explode("/",$date);
-      $yy = intval($yy);
-      $mm = intval($mm); 
-      $dd = intval($dd); 
-      $ti = mktime(0,0,0,$mm,$dd+1,$yy);
-      if ($ti < time()) {  
-	$err= sprintf(_("the date %s is in the past: today is %s"),
-		      date ("d/m/Y", mktime(0,0,0,$mm,$dd,$yy)),
-		      date ("d/m/Y",time()));
-	$sug[]=date ("d/m/Y",time());
+	list($dd,$mm,$yy) = explode("/",$date);
+	$yy = intval($yy);
+	$mm = intval($mm); 
+	$dd = intval($dd); 
+	$ti = mktime(0,0,0,$mm,$dd+1,$yy);
+	if ($ti < time()) {  
+	  $err= sprintf(_("the date %s is in the past: today is %s"),
+			date ("d/m/Y", mktime(0,0,0,$mm,$dd,$yy)),
+			date ("d/m/Y",time()));
+	  $sug[]=date ("d/m/Y",time());
 		      
 	
-      } 
+	} 
+      }
     }
-
     return array("err"=>$err,
 		 "sug"=>$sug);
-
   }
 
 }
