@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.10 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: fdl_card.php,v 1.11 2005/07/29 16:08:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,7 +20,7 @@ include_once("FDL/Class.Dir.php");
  * View a document
  * @param Action &$action current action
  * @global docid Http var : document identificator to see
- * @global latest Http var : (Y|N) if Y force view latest revision
+ * @global latest Http var : (Y|N|L|P) if Y force view latest revision, L : latest fixed revision, P : previous revision
  * @global abstract Http var : (Y|N) if Y view only abstract attribute
  * @global props Http var : (Y|N) if Y view properties also
  * @global zonebodycard Http var : if set, view other specific representation
@@ -46,6 +46,15 @@ function fdl_card(&$action) {
   if (($latest == "Y") && ($doc->locked == -1)) {
     // get latest revision
     SetHttpVar("id",$doc->latestId());
+  } 
+  if (($latest == "L") && ($doc->lmodify != 'L')) {
+    // get latest fixed revision
+    SetHttpVar("id",$doc->latestId(true));
+  }
+  if (($latest == "P") && ($doc->revision > 0)) {
+    // get previous fixed revision
+    $pdoc = getRevTDoc($dbaccess, $doc->initid,$doc->revision-1);
+    SetHttpVar("id",$pdoc["id"]);
   }
 
 
