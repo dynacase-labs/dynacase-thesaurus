@@ -43,4 +43,24 @@ function bgCommand() {
   
 }
 
+
+function getNextExecDate() {
+  $ndh=$this->getValue("exec_handnextdate");
+
+  return $ndh;
+}
+function getPrevExecDate() {
+  if ($this->revision > 0) {
+    $pid=$this->latestId(true);
+    $td=getTDoc($this->dbaccess,$pid);
+    $ndh=getv($td,"exec_date");
+
+    return $ndh;
+  }  
+}
+
+function isLatestExec() {
+  if ($this->locked == -1) return MENU_INVISIBLE;
+  return  MENU_ACTIVE;
+}
 ?>
