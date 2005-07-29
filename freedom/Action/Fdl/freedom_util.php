@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.70 2005/07/26 10:10:35 eric Exp $
+ * @version $Id: freedom_util.php,v 1.71 2005/07/29 16:08:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -426,7 +426,35 @@ function getLatestTDoc($dbaccess, $initid,$sqlfilters=array()) {
   }
   return false;  
 } 
+/**
+ * return doc array of specific revision of document initid
+ *
+ * @param string $dbaccess database specification
+ * @param string $initid initial identificator of the  document 
+ * @param int $rev revision number
+ * @return array values array if found. False if initid not avalaible
+ */
+function getRevTDoc($dbaccess, $initid,$rev) {
+  global $action;
 
+  if (!($initid > 0)) return false;
+  $dbid=getDbid($dbaccess);   
+  $table="doc";
+  $fromid= getFromId($dbaccess, $initid);
+  if ($fromid > 0) $table="doc$fromid";
+  else if ($fromid == -1) $table="docfam";
+    
+
+
+  $userid=$action->user->id;
+  $result = pg_exec($dbid,"select *,getuperm($userid,profid) as uperm  from only $table where initid=$initid and revision=$rev;");
+  if (pg_numrows ($result) > 0) {
+    $arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
+
+    return $arr;
+  }
+  return false;  
+} 
 /**
  * Create default folder for a family with default constraint
  *
