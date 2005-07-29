@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.27 2005/07/22 16:16:43 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.28 2005/07/29 16:20:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -194,6 +194,7 @@ Class MenuAttribute extends BasicAttribute {
     $this->link=$link;
     $this->visibility=$visibility;
     $this->options=$options;
+    $this->precond=$precond;
     $this->type="menu";
 
   }

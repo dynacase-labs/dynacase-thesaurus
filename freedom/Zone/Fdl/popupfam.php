@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.13 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: popupfam.php,v 1.14 2005/07/29 16:20:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.13 2005/06/28 08:37:46 eric Exp $
+// $Id: popupfam.php,v 1.14 2005/07/29 16:20:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,6 +90,20 @@ function popupfam(&$action,&$tsubmenu) {
     $tlink[$k]["confirm"]=$confirm?"true":"false";
     $tlink[$k]["control"]=$control;
     $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
+    $tlink[$k]["visibility"]=MENU_ACTIVE;
+    if ($v->precond != "") {
+      if (substr($v->precond,0,2)=="::") {
+	if (ereg("::([^\(]+)\(([^\)]*)\)",$v->precond, $reg)) {
+	  $method=$reg[1];
+	  if (method_exists($doc,$method)) {
+	    $tiargs=array();
+	    $res=call_user_method_array($method,$doc,$tiargs);
+
+	    $tlink[$k]["visibility"]=$res;
+	  }
+	}
+      }
+    }
     $tmenu[$km++] = $v->id;
     popupAddItem('popupcard',  $v->id); 
   }
@@ -110,12 +124,22 @@ function popupfam(&$action,&$tsubmenu) {
   }
 
 
-
   while(list($k,$v) = each($tmenu)) {
-    if ($tlink[$v]["url"] != "") {
-      if ($tlink[$v]["control"]) PopupCtrlActive('popupcard',$kdiv,$v);
-      else Popupactive('popupcard',$kdiv,$v);
-    } else PopupInactive('popupcard',$kdiv,$v);
+
+    if ($tlink[$v]["visibility"]==MENU_INVISIBLE) {
+      Popupinvisible('popupcard',$kdiv,$v);
+    } else {
+      if ($tlink[$v]["url"] != "") {
+	if ($tlink[$v]["visibility"]==MENU_INACTIVE) {
+	  if ($tlink[$v]["control"])  PopupCtrlInactive('popupcard',$kdiv,$v);     
+	  else  PopupInactive('popupcard',$kdiv,$v);
+	} else {
+	  if ($tlink[$v]["control"])  PopupCtrlActive('popupcard',$kdiv,$v);     
+	  else  Popupactive('popupcard',$kdiv,$v);
+	}
+	
+      } else PopupInactive('popupcard',$kdiv,$v);
+  }
   }
 
   
