@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.262 2005/07/28 16:47:51 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.263 2005/07/29 16:16:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,6 +35,9 @@ define ("FAM_ACCESSDIR", 4);
 define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 define ("FAM_ACCESSFAM", 23);
+define ("MENU_ACTIVE", 1);
+define ("MENU_INVISIBLE", -1);
+define ("MENU_INACTIVE", -2);
 /**#@-*/
 /**
  * max cache document
@@ -980,17 +983,23 @@ create unique index i_docir on doc(initid, revision);";
     return $rev;
   }
 
-  // get Latest Id
-  function latestId() {
+  /** get Latest Id of document
+   * 
+   * @param bool $fixed if true latest fixed revision
+   * @return int identificator of latest revision
+   */
+  function latestId($fixed=false) {
     if ($this->id == "") return false;
-    if ($this->locked != -1) return $this->id;
+    if (($this->locked != -1) && (!$fixed)) return $this->id;
+    if ($fixed && ($this->lmodify == "L")) return $this->id;
     
     $query = new QueryDb($this->dbaccess, strtolower(get_class($this)));
-
     $query->AddQuery("initid = ".$this->initid);
-    $query->AddQuery("locked != -1");
+    if ($fixed) $query->AddQuery("lmodify = 'L'");
+    else  $query->AddQuery("locked != -1");
       
     $rev= $query->Query(0,0,"TABLE");
+
     return $rev[0]["id"];
   }
 
@@ -2477,7 +2486,7 @@ create unique index i_docir on doc(initid, revision);";
 	if ($hlink[0] == "[") {
 	  if (ereg('\[(.*)\](.*)', $hlink, $reg)) {   
 	    $hlink=$reg[2];
-	    $ititle=addslashes($reg[1]);
+	    $ititle=str_replace("\"","'",$reg[1]);
 	  }
 	}
 	if ($ulink = $this->urlWhatEncode( $hlink, $kvalue)) {
