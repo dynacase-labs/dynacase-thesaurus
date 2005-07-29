@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.23 2005/07/28 16:47:51 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.24 2005/07/29 16:20:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -372,7 +372,7 @@ Class DocCtrl extends DbObj
 
   }
   /** 
-   * return true if the date is in the future
+   * return true if the date is in the future (one day after at less)
    * @param string date date JJ/MM/AAAA
    */
   function isFutureDate($date) {

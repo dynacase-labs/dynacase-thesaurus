@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.11 2005/04/05 14:39:33 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.12 2005/07/29 16:21:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -47,6 +47,12 @@ function StringDateToJD($sdate) {
   return $jd;
 }
 
+/**
+ * convert French date to Julian day
+ * the seconds are ignored
+ * @param string $fdate DD/MM/YYYY HH:MM
+ * @return float julian day (return false if incorrect date)
+ */
 function FrenchDateToJD($fdate) { 
 if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$reg)) {   
    return cal2jd("CE",  $reg[3], $reg[2], $reg[1], $reg[4],$reg[5] , 0 );
@@ -54,16 +60,26 @@ if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)
  return false;
 }
 
+/**
+ * convert French date to unix timestamp
+ * date must be > 01/01/1970 and < 2038
+ * @param string $fdate DD/MM/YYYY HH:MM
+ * @return float number of second since epoch (return -1 if incorrect date)
+ */
 function FrenchDateToUnixTs($fdate) {
   if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$r)) {   
-    $ds = mktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
-    $dt = strftime("%s", $ds);
+    $dt = mktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
   } else {
     $dt = -1;
   }
   return $dt;
 }
-
+/**
+ * convert iso8601 date to Julian day
+ * the seconds are ignored
+ * @param string $isodate YYYY-MM-DD HH:MM
+ * @return float julian day (return false if incorrect date)
+ */
 function Iso8601ToJD($isodate) {
  if (preg_match("/^(\d\d\d\d)-(\d\d)-(\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/",$isodate ,$reg)) {   
    return cal2jd("CE",  $reg[1], $reg[2], $reg[3], $reg[4],$reg[5] , 0 );
@@ -129,7 +145,7 @@ function cal2jd( $era, $y, $m, $d, $h, $mn, $s ) {
 
 /**
  * return the day of the week (1 id Monday, 7 is Sunday)
- * @param float julian date
+ * @param float $jd julian date
  * @return int
  */
 function jdWeekDay($jd) {
@@ -143,7 +159,7 @@ function jdWeekDay($jd) {
 
 /**
  * return the number of the week in year
- * @param float julian date
+ * @param float $jd julian date
  * @return int between 1 and 53
  */
 function jdWeekNumber($jd) {
@@ -154,6 +170,13 @@ function jdWeekNumber($jd) {
     $wn = floor($d1 / 7) + 1;
     return($wn);
 }
+
+/**
+ * return date in string format
+ * @param float $jd julian date
+ * @param string $dformat the format (default iso8601)
+ * @return string the formatted date
+ */
 function jd2cal( $jd,$dformat='' ) {
 
 
