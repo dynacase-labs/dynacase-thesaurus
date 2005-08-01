@@ -42,7 +42,9 @@
 
 <tr>
  <td colspan="2" valign="top">
-<span style="font-size:80%; font-style:italic">[owner] ([incalendar]) [modifdate]</span>
+<span style="font-size:80%; font-style:italic">[owner] [incalendar] [modifdate]
+[IF ShowCategories]<br>[TEXT:category] : [category][ENDIF ShowCategories]
+</span>
   </td>
 </tr>
 

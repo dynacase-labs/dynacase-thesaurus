@@ -13,6 +13,7 @@
 <input type="hidden" id="evstatus" name="evstatus" value="[evstatus]">
 <input type="hidden" id="evcalendar" name="evcalendar" value="[evcalendar]">
 <input type="hidden" id="evconfidentiality" name="evconfidentiality" value="[evconfidentiality]">
+<input type="hidden" id="evcategory" name="evcategory" value="[evcategory]">
 <input type="hidden" id="attendees" name="attendees" value="">
 <input type="hidden" id="excludedate" name="excludedate" value="">
 
@@ -132,6 +133,15 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tr><td align="center" colspan="3"><textarea cols="40" title="[TEXT:rv note]" rows="3" id="rvnote" name="rvnote" [DESCRRO]>[DESCR]</textarea></td></tr>
 
 <tr><td colspan="3">&nbsp;</td></tr>
+
+[IF ShowCategories]
+<tr>
+<td  align="right">[TEXT:category]&nbsp;:&nbsp;</td>
+<td colspan="2"><select id="rvcategory" onchange="SetSelectedItem('rvcategory', 'evcategory')">[BLOCK RVCATEGORY]<option value="[value]" [selected]>[descr][ENDBLOCK RVCATEGORY]</select>
+</td>
+</tr>
+[ENDIF ShowCategories]
+
 
 <tr>
 <td  align="right">[TEXT:confidentiality]&nbsp;:&nbsp;</td>

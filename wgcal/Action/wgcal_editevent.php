@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.49 2005/06/24 14:40:49 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.50 2005/08/01 14:50:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -82,6 +82,7 @@ function wgcal_editevent(&$action) {
     $attendees = $event->getTValue("CALEV_ATTID", array());
     $attendeesState = $event->getTValue("CALEV_ATTSTATE", array());
     $attendeesGroup = $event->getTValue("CALEV_ATTGROUP", array());
+    $evcategory = $event->getValue("CALEV_CATEGORY");
     $evstatus = EVST_READ;
     $mailadd = "";
     $withme = false;
@@ -128,6 +129,7 @@ function wgcal_editevent(&$action) {
     $evruntild = $timee + (7*24*3600);
     $evrexcld  = array();
     $evstatus = EVST_ACCEPT;
+    $evcategory = 0;
     $withme = true;
     $attendees = array( );
     $attendeesState = array( );
@@ -158,12 +160,29 @@ function wgcal_editevent(&$action) {
   EventSetStatus($action, $evstatus, $withme, $onlyme, $rostatus);
   EventSetAlarm($action, $evalarm, $evalarmt, $ro);
   EventSetRepeat($action, $evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld, $ro);
+  EventSetCategory($action, $evcategory);
   EventAddAttendees($action, $ownerid, $attendees, $attendeesState, $attendeesGroup, $withme, $ro, $onlyme);
   EventSetOwner($action, $ownerid, $ownertitle);
 
   return;  
 }    
 
+function EventSetCategory(&$action, $evcategory) {
+  $show = ($action->getParam("WGCAL_G_SHOWCATEGORIES",0)==1 ? true : false);
+  $action->lay->set("evcategory", $evcategory);
+  $action->lay->set("ShowCategories", $show);
+  if ($show) {
+    $catg = wGetCategories();
+    $tcat = array(); $ntc = 0;
+    foreach ($catg as $k => $v) {
+      $tcat[$ntc]["value"] = $k;
+      $tcat[$ntc]["descr"] = $v;
+      $tcat[$ntc]["selected"] = ($k == $evcategory ? "selected" : "");
+      $ntc++;
+    }
+    $action->lay->setBlockData("RVCATEGORY", $tcat);
+  }
+}
 
 function EventSetTitle(&$action, $title, $ro) {
   $action->lay->set("TITLE", $title);

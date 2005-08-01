@@ -187,6 +187,14 @@ function wGetRessDisplayed() {
   return $r;
 }
 
+function wGetCategories() {
+  global $action;
+  $freedomdb = $action->getParam("FREEDOM_DB");
+  $dt = new Doc($freedomdb, "CALEVENT");
+  $ctg = $dt->GetAttribute("CALEV_CATEGORY");
+  $enum = $ctg->getEnum();
+  return $enum;
+}
 
 global $aTrace;
 $aTrace = array();

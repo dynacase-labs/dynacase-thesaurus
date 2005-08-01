@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-19 08:33+0200\n"
+"POT-Creation-Date: 2005-08-01 16:44+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -465,6 +465,9 @@ msgstr "Télécharger l'outil de synchro Outlook"
 msgid "administration menu"
 msgstr "Administration"
 
+msgid "m_txt_choosecategories"
+msgstr "Edition des catégories"
+
 msgid "m_txt_choosegroups"
 msgstr "Choix des groupes"
 
@@ -573,6 +576,9 @@ msgstr "mise à jour de la date de de fin"
 
 msgid "rv note"
 msgstr "Note"
+
+msgid "category"
+msgstr "Catégorie"
 
 msgid "confidentiality"
 msgstr "Confidentialité"
@@ -1125,6 +1131,9 @@ msgstr "Date de la dernière synchro Outlook"
 
 msgid "last sync date for WGCal"
 msgstr "Date de la dernière synchro Outlook"
+
+msgid "show rv categories"
+msgstr "Utiliser les catégories de RV"
 
 msgid "mails send"
 msgstr "Envoi des mails"

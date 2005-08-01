@@ -37,6 +37,7 @@ function wgcal_storeevent(&$action) {
 
   $event->setValue("CALEV_EVTITLE", GetHttpVars("rvtitle"));
   $event->setValue("CALEV_EVNOTE", GetHttpVars("rvnote", ""));
+  $event->setValue("CALEV_CATEGORY", GetHttpVars("evcategory", 0));
   
   $ds = GetHttpVars("Fstart", 0);
   $de = GetHttpVars("Fend", 0);

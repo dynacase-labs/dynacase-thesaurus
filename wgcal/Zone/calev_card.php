@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.30 2005/06/22 16:14:34 marc Exp $
+ * @version $Id: calev_card.php,v 1.31 2005/08/01 14:50:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -82,8 +82,22 @@ function calev_card(&$action) {
   $action->lay->set("iconevent", $ev->getIcon($ev->icon));
 
   $action->lay->set("owner", $ev->getValue("CALEV_OWNER"));
-  $action->lay->set("modifdate", strftime("%d/%m/%y %H:%M",$ev->revdate));
-  $action->lay->set("incalendar", $ev->getValue("CALEV_EVCALENDAR"));
+  $action->lay->set("ShowCategories", false);
+    $action->lay->set("modifdate", "");
+    $action->lay->set("incalendar", "");
+  if (!$private) {
+    $action->lay->set("modifdate", strftime("%d/%m/%y %H:%M",$ev->revdate));
+    $action->lay->set("incalendar", $ev->getValue("CALEV_EVCALENDAR"));
+    $show = ($action->getParam("WGCAL_G_SHOWCATEGORIES",0)==1 ? true : false);
+    if ($show) {
+      $action->lay->set("ShowCategories", $show);
+      $catg = wGetCategories();
+      $cat = $ev->getValue("CALEV_CATEGORY");
+      if (isset($catg[$cat])) $tc = $catg[$cat];
+      else $tc = "";
+      $action->lay->set("category", $tc);
+    }
+  }
 
   if ($private) $title = $pretitle." "._("confidential event");
   else $title = $pretitle." ".$ev->getValue("CALEV_EVTITLE");

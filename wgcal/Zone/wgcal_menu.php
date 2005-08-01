@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.13 2005/06/29 17:48:08 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.14 2005/08/01 14:50:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -26,8 +26,7 @@ function wgcal_menu(&$action) {
   $menus = array( array( "menu"  => "m_event",
 			 "label" => _("event menu"),
 			 "right" => "WGCAL_USER",
-			 "items" => array( array( 
-						 "key" => "m_event_new", 
+			 "items" => array( array( "key" => "m_event_new", 
 						 "txt" => _("m_txt_event_new"), 
 						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_EDITEVENT&id=-1",
 						 "tgt" => "wgcal_edit", 
@@ -166,20 +165,28 @@ function wgcal_menu(&$action) {
 			 "label" => _("administration menu"),
 			 "right" => "WGCAL_ADMIN",
 			 "items" => array( array( 
+						 "key" => "m_choosecategories", 
+						 "txt" => _("m_txt_choosecategories"), 
+						 "act" => "[CORE_STANDURL]app=GENERIC&action=GENERIC_EDITCATG&fid=CALEVENT&aid=calev_category",
+						 "tgt" => "wgcal_choosecategories", 
+						 "ico" => "wgcal_choosecategories.gif",
+						 "rig" => "WGCAL_ADMIN"
+						 ),
+					   array( 
 						 "key" => "m_choosegroups", 
 						 "txt" => _("m_txt_choosegroups"), 
 						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHOOSEGROUPS",
 						 "tgt" => "wgcal_choosegroups", 
 						 "ico" => "wgcal_choosegroups.gif",
-						 "rig" => "WGCAL_ADMIN"
+						 "rig" => "WGCAL_HIDDEN"
 						 ),
-	        		           array( 
+					   array( 
 						 "key" => "m_newtheme",
 						 "txt" => _("m_txt_newtheme"), 
 						 "ico" => "wm-newtheme.gif",
 						 "jsc" => "alert('".addslashes(_("not yet implemented"))."')",
-						 "rig" => "WGCAL_ADMIN" 
-						 ),
+						 "rig" => "WGCAL_HIDDEN" 
+						 )
 					   )
 			 )
 		  );
