@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.263 2005/07/29 16:16:07 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.264 2005/08/02 16:11:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -986,13 +986,15 @@ create unique index i_docir on doc(initid, revision);";
   /** get Latest Id of document
    * 
    * @param bool $fixed if true latest fixed revision
+   * @param bool $forcequery if true force recompute of id (use it in case of modification by another program)
    * @return int identificator of latest revision
    */
-  function latestId($fixed=false) {
+  function latestId($fixed=false,$forcequery=false) {
     if ($this->id == "") return false;
-    if (($this->locked != -1) && (!$fixed)) return $this->id;
-    if ($fixed && ($this->lmodify == "L")) return $this->id;
-    
+    if (!$forcequery) {
+      if (($this->locked != -1) && (!$fixed)) return $this->id;
+      if ($fixed && ($this->lmodify == "L")) return $this->id;
+    }
     $query = new QueryDb($this->dbaccess, strtolower(get_class($this)));
     $query->AddQuery("initid = ".$this->initid);
     if ($fixed) $query->AddQuery("lmodify = 'L'");
@@ -1601,8 +1603,14 @@ create unique index i_docir on doc(initid, revision);";
 		$tvalues[$kvalue]=intval($avalue);
 		break;
 	      case 'time':
-		list($hh,$mm) = explode(":",$avalue);
-		$tvalues[$kvalue]=sprintf("%02d:%02d",intval($hh)%24,intval($mm)%60);
+		$tt=explode(":",$avalue);
+		if (count($tt)==2) {
+		  list($hh,$mm) = $tt;
+		  $tvalues[$kvalue]=sprintf("%02d:%02d",intval($hh)%24,intval($mm)%60);
+		} else if (count($tt)==3) {
+		  list($hh,$mm,$ss) = $tt;
+		  $tvalues[$kvalue]=sprintf("%02d:%02d:%02d",intval($hh)%24,intval($mm)%60,intval($ss)%60);		  
+		}
 		break;
 	      case 'date':
 		list($dd,$mm,$yy) = explode("/",$avalue);
@@ -2452,7 +2460,12 @@ create unique index i_docir on doc(initid, revision);";
 	  $htmlval="<DIV>$avalue</DIV>";	
 	  break;
 	case time:  
-	  $htmlval=substr($avalue,0,5); // do not display second
+	  if ($aformat!="") {
+	    $htmlval=strftime($aformat,strtotime($avalue));
+	    $aformat="";
+	  } else {
+	    $htmlval=substr($avalue,0,5); // do not display second
+	  }
 	
 	  break;
 	case timestamp:  
@@ -3723,11 +3736,11 @@ create unique index i_docir on doc(initid, revision);";
   function getTimeDate($hourdelta=0) {
     $delta = abs(intval($hourdelta));
     if ($hourdelta > 0) {
-      return date("d/m/Y %G:H",strtotime ("+$delta hour"));
+      return date("d/m/Y H:i",strtotime ("+$delta hour"));
     } else if ($hourdelta < 0) {
-      return date("d/m/Y %G:H",strtotime ("-$delta hour"));
+      return date("d/m/Y H:i",strtotime ("-$delta hour"));
     }
-    return date("d/m/Y %G:H");
+    return date("d/m/Y H:i");
   }
 
   /**
