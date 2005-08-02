@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * Methods for emailing family
+ *
+ * @author Anakeen 2005
+ * @version $Id: Method.Emailing.php,v 1.6 2005/08/02 16:14:52 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
 var $defaultedit= "FDL:FDL_PUBEDIT";
 var $defaultmview= "FDL:FDL_PUBVIEWMAIL:T";
 function fdl_pubsendmail($target="_self",$ulink=true,$abstract=false) {

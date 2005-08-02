@@ -1,8 +1,19 @@
 <?php
-
+/**
+ * Method for processes family
+ *
+ * @author Anakeen 2005
+ * @version $Id: Method.Execute.php,v 1.3 2005/08/02 16:14:52 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
 
   /**
    * execute the action describe in the object
+   * @return int shell status (0 means OK).
    */
 function bgExecute() {
   $cmd= getWshCmd(true);
@@ -14,7 +25,7 @@ function bgExecute() {
   system($cmd,$status);
   if ($status==0) AddWarningMsg(sprintf(_("Process %s [%d] executed"),$this->title,$this->id));
   else AddWarningMsg(sprintf(_("Error : Process %s [%d]: status %d"),$this->title,$this->id,$status));
-				
+  return $status;
   
 }
 
@@ -46,6 +57,7 @@ function bgCommand() {
 
 function getNextExecDate() {
   $ndh=$this->getValue("exec_handnextdate");
+  if ($ndh=="") $ndh=" ";
 
   return $ndh;
 }
