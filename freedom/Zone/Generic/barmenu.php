@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.34 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: barmenu.php,v 1.35 2005/08/02 16:10:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -78,9 +78,9 @@ function barmenu(&$action) {
   $lattr = $fdoc->getNormalAttributes();
   
   $tkind=array();
-  while (list($k,$a) = each($lattr)) {
+  while (list($k,$a) = each($lattr)) {    
     if ((($a->type == "enum") || ($a->type == "enumlist")) &&
-	($a->phpfile != "-")) {
+	(($a->phpfile != "-")&&($a->getOption("bmenu")!="no"))) {
       
       $tkind[]=array("kindname"=>$a->labelText,
 		     "kindid"=>$a->id,
