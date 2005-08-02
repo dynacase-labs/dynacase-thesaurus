@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.93 2005/07/26 10:13:08 eric Exp $
+ * @version $Id: import_file.php,v 1.94 2005/08/02 16:09:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -378,22 +378,22 @@ function add_import_file(&$action, $fimport="") {
 	$oattr->title = ($data[4] == "Y")?"Y":"N";
 	$oattr->abstract = ($data[5] == "Y")?"Y":"N";
       }
-      if (((($data[11]!="")&&($data[11]!="-")) || (($data[6] != "enum")  && ($data[6] != "enumlist"))) || 
-	  ($oattr->phpfunc == "")) $oattr->phpfunc = $data[12]; // don(t modify  enum possibilities
+     
       $oattr->type = $data[6];
 
       $oattr->ordered = $data[7];
-      $oattr->visibility = ($oattr->type=="frame")&&($data[8]!="H")&&($data[8]!="R")?"F":$data[8];
+      $oattr->visibility = $data[8];
       $oattr->needed =  ($data[9]=="Y")?"Y":"N";
       $oattr->link = $data[10];
       $oattr->phpfile = $data[11];
       if (isset($data[13])) $oattr->elink = $data[13];
       if (isset($data[14])) $oattr->phpconstraint = $data[14];
       if (isset($data[15])) $oattr->options = $data[15];
-	  
-      if ($oattr->isAffected()) $err =$oattr ->Modify();
-      else    $err = $oattr ->Add();
-      //    if ($err != "") $err = $oattr ->Modify();
+      if (((($data[11]!="")&&($data[11]!="-")) || (($data[6] != "enum")  && ($data[6] != "enumlist"))) || 
+	  ($oattr->phpfunc == "") || (strpos($oattr->options,"system=yes")!==false)) $oattr->phpfunc = $data[12]; // don(t modify  enum possibilities
+      if ($oattr->isAffected()) $err =$oattr->Modify();
+      else    $err = $oattr->Add();
+
       
       $tcr[$nline]["err"].=$err;
 
