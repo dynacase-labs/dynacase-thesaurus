@@ -136,39 +136,39 @@ ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;70;F;;;;
 ATTR;MAIL_CM;MAIL_FR_CM;Commentaire;N;Y;longtext;70;W;;;;
 ATTR;MAIL_FORMAT;MAIL_FR_CM;Format;N;Y;enum;80;W;;;;html|HTML,pdf|PDF,htmlpdf|HTML & PDF
 END;0;;;;;;;;;;;
-// famille recherche;;;id;class;name;;;;;;;
-;;;;;;;;;;;;
-BEGIN;BASE;recherche;5;DocSearch;SEARCH;;;;;;;
-TYPE;C;;;;;;;;;;;
-ICON;search.gif;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-ATTR;GUI_COLOR;FR_BASIC;couleur intercalaire;N;N;color;30;O;;;;
-ATTR;SE_MEMO;FR_BASIC;à utiliser dans les menus;N;N;enum;40;W;;;-;[bool]no|non,yes|oui
-ATTR;SE_CRIT;;critère;N;N;frame;0;W;;;;
-ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;100;W;;;;
-ATTR;SE_LATEST;SE_CRIT;dernière révision;N;N;enum;110;W;;;-;yes|oui,no|non,fixed|figé
-ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;N;enum;120;W;;;-;[bool]no|non,yes|oui
-ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;130;W;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFAM%;fdl.php;lfamilies(D,SE_FAM):SE_FAMID,SE_FAM
-ATTR;SE_FAMID;SE_CRIT;fid amille;N;N;docid;140;H;;;;
-ATTR;SE_CFLD;SE_CRIT;à partir du dossier;N;N;text;150;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFLD%;;
-ATTR;SE_IDFLD;SE_CRIT;dossier racine;N;N;docid;160;H;;;;
-ATTR;SE_SUBLEVEL;SE_CRIT;profondeur de recherche;N;N;int;170;H;;;;
-ATTR;SE_SQLSELECT;SE_CRIT;requête sql;N;N;text;180;H;;;;
-ATTR;SE_IDCFLD;SE_CRIT;id dossier père courant;N;N;docid;190;H;;;;::getTitle(SE_IDCFLD):SE_CFLD
-ATTR;SE_CFLD;SE_CRIT;dossier père courant;N;N;text;200;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDCFLD%;;
-ATTR;SE_OPEN;;ouvrir;N;N;menu;20;R;;%S%app=FREEDOM&action=FREEDOM_VIEW&dirid=%I%;;
-ATTR;SE_OPENFOLIO;;ouvrir comme une chemise;N;N;menu;30;R;;C%S%app=FREEDOM&action=OPENFOLIO&id=%I%;;
-;;;;;;;;;;;;
-;;;;;;;;;;;;
-END;0;;;;;;;;;;;
-;;;;;;;;;;;;
-//SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;;
-;;;;;;;;;;;;
-SEARCH;11;9;les familles;select * from docfam where doctype='C';;;;;;;;
-SEARCH;12;9;les profils;select * from doc where doctype ='P';;;;;;;;
-SEARCH;13;9;les maisons;select * from doc2 where (owner < 0) and (locked != -1);;;;;;;;
-SEARCH;14;9;la poubelle;select * from doc where doctype ='Z';;;;;;;;
-SEARCH;22;9;les cycles;select * from doc20 where doctype='W';;;;;;;;
+// famille recherche;;;id;class;name;;;;;;;;;;
+;;;;;;;;;;;;;;;
+BEGIN;BASE;recherche;5;DocSearch;SEARCH;;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;;
+ICON;search.gif;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
+ATTR;GUI_COLOR;FR_BASIC;couleur intercalaire;N;N;color;30;O;;;;;;;
+ATTR;SE_MEMO;FR_BASIC;à utiliser dans les menus;N;N;enum;40;W;;;;[bool]no|non,yes|oui;;;bmenu=no|system=yes
+ATTR;SE_CRIT;;critère;N;N;frame;0;W;;;;;;;
+ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;100;W;;;;;;;
+ATTR;SE_LATEST;SE_CRIT;dernière révision;N;N;enum;110;W;;;;yes|oui,no|non,fixed|dernière figé,allfixed|sans la courante;;;bmenu=no|system=yes
+ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;N;enum;120;W;;;;[bool]no|non,yes|oui;;;bmenu=no|system=yes
+ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;130;W;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFAM%;fdl.php;lfamilies(D,SE_FAM):SE_FAMID,SE_FAM;;;
+ATTR;SE_FAMID;SE_CRIT;fid amille;N;N;docid;140;H;;;;;;;
+ATTR;SE_CFLD;SE_CRIT;à partir du dossier;N;N;text;150;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFLD%;;;;;
+ATTR;SE_IDFLD;SE_CRIT;dossier racine;N;N;docid;160;H;;;;;;;
+ATTR;SE_SUBLEVEL;SE_CRIT;profondeur de recherche;N;N;int;170;H;;;;;;;
+ATTR;SE_SQLSELECT;SE_CRIT;requête sql;N;N;text;180;H;;;;;;;
+ATTR;SE_IDCFLD;SE_CRIT;id dossier père courant;N;N;docid;190;H;;;;::getTitle(SE_IDCFLD):SE_CFLD;;;
+ATTR;SE_CFLD;SE_CRIT;dossier père courant;N;N;text;200;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDCFLD%;;;;;
+ATTR;SE_OPEN;;ouvrir;N;N;menu;20;R;;%S%app=FREEDOM&action=FREEDOM_VIEW&dirid=%I%;;;;;
+ATTR;SE_OPENFOLIO;;ouvrir comme une chemise;N;N;menu;30;R;;C%S%app=FREEDOM&action=OPENFOLIO&id=%I%;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+END;0;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+//SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+SEARCH;11;9;les familles;select * from docfam where doctype='C';;;;;;;;;;;
+SEARCH;12;9;les profils;select * from doc where doctype ='P';;;;;;;;;;;
+SEARCH;13;9;les maisons;select * from doc2 where (owner < 0) and (locked != -1);;;;;;;;;;;
+SEARCH;14;9;la poubelle;select * from doc where doctype ='Z';;;;;;;;;;;
+SEARCH;22;9;les cycles;select * from doc20 where doctype='W';;;;;;;;;;;
 // recherche détaillée;fromid;;id;class;name;;;;;;;
 ;;;;;;;;;;;;
 BEGIN;SEARCH;recherche groupée;31;;MSEARCH;;;;;;;
