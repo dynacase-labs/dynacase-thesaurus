@@ -3,7 +3,7 @@
  * Display family attributes
  *
  * @author Anakeen 2000 
- * @version $Id: defattr.php,v 1.24 2005/07/22 16:16:43 eric Exp $
+ * @version $Id: defattr.php,v 1.25 2005/08/02 16:16:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -147,9 +147,9 @@ function defattr(&$action)
 	}
 
       $newelem[$k]["link"]=$attr->link;
+      $newelem[$k]["phpfunc"]=$attr->precond;;
 	// unused be necessary for layout
       $newelem[$k]["phpfile"]="";
-      $newelem[$k]["phpfunc"]="";
       $newelem[$k]["phpconstraint"]="";
       $newelem[$k]["elink"]="";
       $newelem[$k]["abscheck"]="";
