@@ -1,12 +1,16 @@
---------------------------------------------------------------------------
-1.0.5
---------------------------------------------------------------------------
+<1.0.6> ------------------------------------------------------------------
+- Correction de l'algo de choix des couleurs d'affichage
+- Edition, recherche directe : click sur la loupe réactivé
+- Theme number : plus clair
+- Ajout du droit manager
+- Carte RV : si le propriétaire est seul => pas d'affichage des participants
+- Date de la synchro outlook affichée ou non selon les préférences utilisateurs.
+- Modification de l'icone d'acces direct au calendrier des personnes
+
+<1.0.5> ------------------------------------------------------------------
 Ajout des catégories
 
-
---------------------------------------------------------------------------
-1.0.4
---------------------------------------------------------------------------
+<1.0.4> ------------------------------------------------------------------
 Correction synchro (config apache /  répertoire d'include)
 Bug JS script / IE
 Bug RV sans heure changement de journée lors de l'édition

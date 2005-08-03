@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-01 16:44+0200\n"
+"POT-Creation-Date: 2005-08-03 12:13+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -96,6 +96,9 @@ msgstr "Evènement confidentiel"
 msgid "all the day"
 msgstr "Toute la journée"
 
+msgid "no sync made"
+msgstr "jamais synchronisé"
+
 msgid "delete repeat occurrence for "
 msgstr "Suppression de l'occurrence du "
 
@@ -107,6 +110,9 @@ msgstr "Agenda de groupe"
 
 msgid "admin access"
 msgstr "Acces administrateur"
+
+msgid "manager"
+msgstr "Super utilisateur"
 
 msgid "allow outlook sync."
 msgstr "Autorise la synchronisation Outlook"
@@ -383,6 +389,9 @@ msgstr "2 semaines"
 
 msgid "month"
 msgstr "Mois"
+
+msgid "display last sync date"
+msgstr "Afficher la date de la dernière synchro Outlook"
 
 msgid "order todo "
 msgstr "Classement des tâches"
@@ -1008,6 +1017,9 @@ msgstr "Configuration de la barre d'outils"
 
 msgid "portal"
 msgstr "Portail"
+
+msgid "osync params"
+msgstr "Synchronisation Outlook"
 
 msgid "my todo"
 msgstr "Mes tâches"

@@ -210,8 +210,8 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <table id="vnatt" cellspacing="0" cellpadding="0" width="100%">
 
-<tr><td><input class="textBorder" id="stmptext" onkeypress="return SearchIUser(event);" type="text" size="15" value="" title="[TEXT:search for a contact...]"></input>
-<img id="stmpbutton" style="cursor:pointer;" onclick="SearchIUser(document.getElementById('stmptext').value)" height="10" src="[IMG:wm-searchiuser.gif]" title="[TEXT:search]">
+<tr><td><input class="textBorder" id="stmptext" onkeypress="return SearchIUser(event, false);" type="text" size="15" value="" title="[TEXT:search for a contact...]"></input>
+<img id="stmpbutton" style="cursor:pointer;" onclick="SearchIUser(event, true)" height="10" src="[IMG:wm-searchiuser.gif]" title="[TEXT:search]">
 </td></tr>
 
 <tr><td>&nbsp;</td></tr>

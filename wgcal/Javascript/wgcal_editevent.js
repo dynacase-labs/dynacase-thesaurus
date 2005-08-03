@@ -556,16 +556,16 @@ function ViewRessourceHelper(url) {
 }
   
 
-function SearchIUser(evt) {
+function SearchIUser(evt, force) {
   evt = (evt) ? evt : ((event) ? event : null );
   var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
   var nitem = document.getElementById('stmptext');
-  if ((cc == 13)  && (nitem.value != "")) {
+  if (force || ((cc == 13)  && (nitem.value != ""))) {
     var fvl = document.getElementById('fgetiuser');
     var val = document.getElementById('iusertext');
     val.value = nitem.value;
     fvl.submit();
-    nitem.value = '';
+    if (nitem) nitem.value = '';
     return false;
   }
   return true;

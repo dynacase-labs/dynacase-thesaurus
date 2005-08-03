@@ -7,7 +7,7 @@ $theme->WTH_TEXTCOLOR_1           =  "#5B5D5D";  // Foncé
 $theme->WTH_TEXTCOLOR_2           =  "#E8EDED";    // Clair
 
 $theme->WTH_COLOR_1               =  "#E5EAEA";  // Clair
-$theme->WTH_COLOR_2               =  "#B8BCBC";  // Moyen
+$theme->WTH_COLOR_2               =  "#DFDFDF";  // Moyen
 $theme->WTH_COLOR_3               =  "#505252";  // Foncé
 $theme->WTH_ALERT                 =  "red";
 

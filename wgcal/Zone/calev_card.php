@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.31 2005/08/01 14:50:31 marc Exp $
+ * @version $Id: calev_card.php,v 1.32 2005/08/03 10:40:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -110,7 +110,7 @@ function calev_card(&$action) {
 
   // Si je suis convié / j'ai refusé / affichable => Ma couleur
   // Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
-  // Si le propriétaire n'est pas affichable => Couleur du premier convié qui est affichable et pas refusé.... 
+  // Si le propriétaire n'est pas affichable => Couleur du premier convié ET AFFICHE et pas refusé.... 
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
   $event_color = "";
   if (isset($ressd[$myid]) 
@@ -122,14 +122,14 @@ function calev_card(&$action) {
       $event_color = $ressd[$ownerid]["color"];
     } else {
       while ((list($k,$v) = each($ressd)) && $event_color=="") {
-	if ($v["state"]!=EVST_REJECT) $event_color = $v["color"];
+	if ($v["state"]!=EVST_REJECT && $v["displayed"]) $event_color = $v["color"];
       }
     }
   }
     
   $me_attendee = (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT &&  $ressd[$myid]["displayed"]);
 
-  $bgnew = "white";
+  $bgnew = WGCalGetColorState(EVST_ACCEPT);
   $bgresumecolor = $bgcolor = $event_color;
   if (isset($ressd[$myid]) && $ressd[$myid]["displayed"]) $bgnew = WGCalGetColorState($ressd[$myid]["state"]);
 
@@ -235,8 +235,16 @@ function ev_showattendees(&$action, &$ev, $ressd, $private, $dcolor) {
   $d = new Doc($dbaccess);
   $headSet = false;
 
-  if ( !$private && ((count($ressd)==1 && !isset($ressd[$action->user->fid])) 
-       || count($ressd)>1 )) {
+  $show = true;
+  if ($private) $show = false;
+  else {
+    if (count($ressd)==1) {
+      $ownerid = $ev->getValue("CALEV_OWNERID");
+      if (isset($ressd[$ownerid])) $show = false;
+    }
+  }
+
+  if ($show) {
     $states = CAL_getEventStates($dbaccess,"");
     $action->lay->set("attdisplay","inline");
 

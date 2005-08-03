@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.14 2005/08/01 14:50:31 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.15 2005/08/03 10:40:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -163,14 +163,14 @@ function wgcal_menu(&$action) {
 			 ),
                   array( "menu"  => "m_admin",
 			 "label" => _("administration menu"),
-			 "right" => "WGCAL_ADMIN",
+			 "right" => "WGCAL_MGR",
 			 "items" => array( array( 
 						 "key" => "m_choosecategories", 
 						 "txt" => _("m_txt_choosecategories"), 
 						 "act" => "[CORE_STANDURL]app=GENERIC&action=GENERIC_EDITCATG&fid=CALEVENT&aid=calev_category",
 						 "tgt" => "wgcal_choosecategories", 
 						 "ico" => "wgcal_choosecategories.gif",
-						 "rig" => "WGCAL_ADMIN"
+						 "rig" => "WGCAL_MGR"
 						 ),
 					   array( 
 						 "key" => "m_choosegroups", 

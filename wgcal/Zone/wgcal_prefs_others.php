@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.9 2005/06/18 05:54:38 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.10 2005/08/03 10:40:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -60,6 +60,9 @@ function wgcal_prefs_others(&$action) {
 					       "month"   => _("month"))
 					)
 		      );
+  $osync = array(
+		  "viewdate" => array(_("display last sync date"), "WGCAL_U_OSYNCVDATE", "wgcal_hidden", "WGCAL_HIDDEN")
+		  );
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $toptchk = array(); 
@@ -132,6 +135,19 @@ function wgcal_prefs_others(&$action) {
   }
   $action->lay->SetBlockData("PORTAL", $toptchk);
 
+  // Osync
+  $toptchk = array(); 
+  $io = 0;
+  foreach ($osync as $ko => $vo) {
+    $toptchk[$io]["idoption"] = $ko;
+    $toptchk[$io]["textoption"] = $vo[0];
+    $toptchk[$io]["paramoption"] = $vo[1];
+    $toptchk[$io]["trefresh"] = $vo[2];
+    $toptchk[$io]["arefresh"] = $vo[3];
+    $toptchk[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
+    $io++;
+  }
+  $action->lay->SetBlockData("OSYNC", $toptchk);
 
   return;
 }

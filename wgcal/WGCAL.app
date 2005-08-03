@@ -13,6 +13,7 @@ $app_desc= array (
 
 $app_acl = array (
   array ( "name" => "WGCAL_ADMIN", "description" => N_("admin access"), "group_default"  => "N" ),
+  array ( "name" => "WGCAL_MGR",   "description" => N_("manager"), "group_default"  => "N" ),
   array ( "name" => "WGCAL_OSYNC", "description" => N_("allow outlook sync."), "group_default"  => "N" ),
   array ( "name" => "WGCAL_USER",  "description" => N_("user access"), "group_default"  => "N" ),
   array ( "name" => "WGCAL_NONE",  "description" => N_("no access"), "group_default"  => "Y" ),

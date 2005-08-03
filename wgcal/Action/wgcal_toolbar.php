@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.43 2005/07/13 16:03:10 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.44 2005/08/03 10:40:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -50,16 +50,20 @@ function wgcal_toolbar(&$action) {
   $action->lay->set("today", strftime("%a %d %b, %H:%M", time()));
 
   // Set last outlook syncro date
-  $db = WSyncGetAdminDb();
-  $lsync = GetLastSyncDate($db);
-  if ($lsync=="") $action->lay->set("LSYNC", false);
-  else {
+  $action->lay->set("LSYNC", false);
+  if ($action->getParam("WGCAL_U_OSYNCVDATE",1)) {
     $action->lay->set("LSYNC", true);
-    $action->lay->set("lastsync", substr(WSyncTs2Outlook($lsync),0,16));
-    $action->lay->set("lsyncstyle", ((time()-$lsync)>(24*3600*7)?"color:red":""));
+    $db = WSyncGetAdminDb();
+    $lsync = GetLastSyncDate($db);
+    if ($lsync!="") {
+      $action->lay->set("lastsync", substr(WSyncTs2Outlook($lsync),0,16));
+      $action->lay->set("lsyncstyle", ((time()-$lsync)>(24*3600*7)?"color:red":""));
+    } else {
+      $action->lay->set("lastsync", _("no sync made"));
+      $action->lay->set("lsyncstyle", "");
+    }
   }
-
-
+  
   _navigator($action);
 
   _listress($action);
