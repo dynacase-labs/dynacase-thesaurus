@@ -1,5 +1,11 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD?W=600&H=500]
 
+[IF ShowUsers]<div class="wToolButtonSelect" align="center" style="padding:2pt; margin:4pt" width="100%">
+<form id="cUserPref" name="cUserPref" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS&upref=1">
+[TEXT:change user preferences for ] : <select id="uid" name="uid" onchange="this.form.submit();">[BLOCK Users]<option value="[uid]" [uselected]>[utext][ENDBLOCK Users]</select>
+</form>
+</div>[ENDIF ShowUsers]
+
 <script type="text/javascript">
 var Zone = new Array();
 [BLOCK ZoneJS]Zone[[izone]] = '[tzone]';
@@ -19,6 +25,6 @@ function SetZone(iz) {
 <img id="b[tzone]" src="WGCAL/Images/wm-[tzone].gif" height="22" title="[dzone]" style="border:0px; cursor:pointer;" onClick="SetZone('[tzone]');" >[ENDBLOCK ZoneIcons]
 
 
-[BLOCK ZoneXml]<div id="p[tzone]" style="display:[vzone]">[ZONE WGCAL:WGCAL_PREFS_[azone]]</div>[ENDBLOCK ZoneXml]
+[BLOCK ZoneXml]<div id="p[tzone]" style="display:[vzone]">[ZONE WGCAL:WGCAL_PREFS_[azone]?uid=[uid]]</div>[ENDBLOCK ZoneXml]
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

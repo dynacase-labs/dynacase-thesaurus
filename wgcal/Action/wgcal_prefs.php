@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs.php,v 1.4 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: wgcal_prefs.php,v 1.5 2005/08/03 16:35:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -25,6 +25,26 @@ function wgcal_prefs(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_prefs.js");
 
+  $userspref = GetHttpVars("upref", 0);
+  $userid = GetHttpVars("uid", $action->user->id);
+  if ($userspref>0) {
+    $action->lay->set("ShowUsers", true);
+    $tusers = array(); $nu = 0;
+    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $families = getFamIdFromName($dbaccess, "IUSER");
+
+    $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", array(), $action->user->id, "TABLE", $families);
+    foreach ($rdoc as $k => $v) {
+      $tusers[$nu]["uid"] = $v["us_whatid"];
+      $tusers[$nu]["utext"] = ucwords(strtolower($v["title"]));
+      $tusers[$nu]["uselected"] = ($v["us_whatid"] == $userid ? "selected" : "");
+      $nu++;
+    } 
+    $action->lay->SetBlockData("Users", $tusers);
+  } else {
+    $action->lay->set("ShowUsers", false);
+  }
+
   $Zone = array( "look" => N_("look preferences"), 
 		 "contacts" => N_("my prefered contacts"), 
 		 "todopref" => N_("todo preferences"), 
@@ -33,11 +53,13 @@ function wgcal_prefs(&$action) {
   $tz = array();
   $itz = 0;
   foreach ($Zone as $kz => $vz) {
+    if ($kz=="contacts" && $userspref!=0) continue;
     $tz[$itz]["izone"] = $itz;
     $tz[$itz]["tzone"] = $kz;
     $tz[$itz]["dzone"] = $vz;
     $tz[$itz]["azone"] = strtoupper($kz);
     $tz[$itz]["vzone"] = ($itz==0?"":"none");
+    $tz[$itz]["uid"] = $userid;
     $itz++;
   }
   $action->lay->SetBlockData("ZoneJS", $tz);

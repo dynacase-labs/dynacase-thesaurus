@@ -186,7 +186,7 @@ function WGCalSetDate(calendar)
   var ts = calendar.date.print("%s");
   
   if (calendar.dateClicked) {
-    usetparam("WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
+    usetparam(-1, "WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
   }
 }
 

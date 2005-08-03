@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.13 2005/06/24 14:40:49 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.14 2005/08/03 16:35:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,22 +30,16 @@ function GetFilesByExt($dir=".", $ext="") {
 
 function wgcal_prefs_look(&$action) {
   
-//   $zwrvs = array( 50 => _("small"), 100 => _("medium"), 150 => _("large"));
-//   $opt = array(); $i = 0;
-//   foreach ($zwrvs as $k => $v) {
-//     $opt[$i]["optvalue"] = $k;
-//     $opt[$i]["optdescr"] = $v;
-//     $opt[$i]["optselect"] = ($k==$action->GetParam("WGCAL_U_ZWRVALERTSIZE") ? "selected" : "");
-//     $i++;
-//   }
-//   $action->lay->SetBlockData("ZRVWS", $opt);
+
+  $uid = GetHttpVars("uid", $action->user->id);
+  $action->lay->set("uid", $uid);
 
   $zwrvs = array( 30 => _("small"), 40 => _("medium"), 50 => _("large"));
   $opt = array(); $i = 0;
   foreach ($zwrvs as $k => $v) {
     $opt[$i]["optvalue"] = $k;
     $opt[$i]["optdescr"] = $v;
-    $opt[$i]["optselect"] = ($k==$action->GetParam("WGCAL_U_HLINEHOURS") ? "selected" : "");
+    $opt[$i]["optselect"] = ($k==$action->parent->param->GetUParam("WGCAL_U_HLINEHOURS", $uid) ? "selected" : "");
     $i++;
   }
   $action->lay->SetBlockData("HDIVSZ", $opt);
@@ -67,7 +61,7 @@ function wgcal_prefs_look(&$action) {
   foreach ($themes as $k => $v) {
     $opt[$i]["optvalue"] = $v["name"];
     $opt[$i]["optdescr"] = $v["descr"];
-    $opt[$i]["optselect"] = ($v["name"]==$action->GetParam("WGCAL_U_THEME") ? "selected" : "");
+    $opt[$i]["optselect"] = ($v["name"]==$action->parent->param->GetUParam("WGCAL_U_THEME", $uid) ? "selected" : "");
     $i++;
   }
   $action->lay->SetBlockData("THEME", $opt);
@@ -88,7 +82,7 @@ function wgcal_prefs_look(&$action) {
   foreach ($fontsz as $k => $v) {
     $opt[$i]["optvalue"] = $v["name"];
     $opt[$i]["optdescr"] = $v["descr"];
-    $opt[$i]["optselect"] = ($v["name"]==$action->GetParam("WGCAL_U_FONTSZ") ? "selected" : "");
+    $opt[$i]["optselect"] = ($v["name"]==$action->parent->param->GetUParam("WGCAL_U_FONTSZ", $uid) ? "selected" : "");
     $i++;
   }
   $action->lay->SetBlockData("FONTSZ", $opt);
@@ -107,7 +101,7 @@ function wgcal_prefs_look(&$action) {
     $toptchk[$io]["paramoption"] = $vo[1];
     $toptchk[$io]["trefresh"] = $vo[2];
     $toptchk[$io]["arefresh"] = $vo[3];
-    $toptchk[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
+    $toptchk[$io]["stateoption"] = ($action->parent->param->GetUParam($vo[1], $uid) == 1 ? "checked" : "");
     $io++;
   }
   $action->lay->SetBlockData("OPTCHK", $toptchk);
@@ -121,7 +115,7 @@ function wgcal_prefs_look(&$action) {
   foreach ($popuppos as $k => $v) {
     $opt[$i]["optvalue"] = $k;
     $opt[$i]["optdescr"] = $v;
-    $opt[$i]["optselect"] = ($k==$action->GetParam("WGCAL_U_ALTFIXED") ? "selected" : "");
+    $opt[$i]["optselect"] = ($k==$action->parent->param->GetUParam("WGCAL_U_ALTFIXED", $uid) ? "selected" : "");
     $i++;
   }
   $action->lay->SetBlockData("ALTPOS", $opt);
@@ -134,7 +128,7 @@ function wgcal_prefs_look(&$action) {
   foreach ($popuptimer as $k => $v) {
     $opt[$i]["optvalue"] = $k;
     $opt[$i]["optdescr"] = $v;
-    $opt[$i]["optselect"] = ($k==$action->GetParam("WGCAL_U_ALTTIMER") ? "selected" : "");
+    $opt[$i]["optselect"] = ($k==$action->parent->param->GetUParam("WGCAL_U_ALTTIMER", $uid) ? "selected" : "");
     $i++;
   }
   $action->lay->SetBlockData("ALTTIMER", $opt);
@@ -143,7 +137,7 @@ function wgcal_prefs_look(&$action) {
   for ($i=0; $i<13; $i++) {
     $opt[$i]["optvalue"] = $i;
     $opt[$i]["optdescr"] = $i."H00";
-    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_STARTHOUR") ? "selected" : "");
+    $opt[$i]["optselect"] = ($i==$action->parent->param->GetUParam("WGCAL_U_STARTHOUR", $uid) ? "selected" : "");
   }
   $action->lay->SetBlockData("SH", $opt);
 
@@ -151,7 +145,7 @@ function wgcal_prefs_look(&$action) {
   for ($i=13; $i<24; $i++) {
     $opt[$i]["optvalue"] = $i;
     $opt[$i]["optdescr"] = $i."H00";
-    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_STOPHOUR") ? "selected" : "");
+    $opt[$i]["optselect"] = ($i==$action->parent->param->GetUParam("WGCAL_U_STOPHOUR", $uid) ? "selected" : "");
   }
   $action->lay->SetBlockData("EH", $opt);
  
@@ -160,14 +154,14 @@ function wgcal_prefs_look(&$action) {
   for ($i=0; $i<=23; $i++) {
     $opt[$i]["optvalue"] = $i;
     $opt[$i]["optdescr"] = $i."H";
-    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_HSUSED",7) ? "selected" : "");
+    $opt[$i]["optselect"] = ($i==$action->parent->param->GetUParam("WGCAL_U_HSUSED",$uid,7) ? "selected" : "");
   }
   $action->lay->SetBlockData("HSUSED", $opt);
   $opt = array(); $i = 0;
   for ($i=0; $i<=23; $i++) {
     $opt[$i]["optvalue"] = $i;
     $opt[$i]["optdescr"] = $i."H";
-    $opt[$i]["optselect"] = ($i==$action->GetParam("WGCAL_U_HEUSED",23) ? "selected" : "");
+    $opt[$i]["optselect"] = ($i==$action->parent->param->GetUParam("WGCAL_U_HEUSED", $uid, 23) ? "selected" : "");
   }
   $action->lay->SetBlockData("HEUSED", $opt);
 
@@ -176,7 +170,7 @@ function wgcal_prefs_look(&$action) {
   foreach ($minc as $k => $v) { 
     $opt[$i]["optvalue"] = $v;
     $opt[$i]["optdescr"] = $k;
-    $opt[$i]["optselect"] = ($v==$action->GetParam("WGCAL_U_RVDEFDUR",60) ? "selected" : "");
+    $opt[$i]["optselect"] = ($v==$action->parent->param->GetUParam("WGCAL_U_RVDEFDUR", $uid, 60) ? "selected" : "");
     $i++;
   }
   $action->lay->SetBlockData("RVDEFDUR", $opt);
@@ -186,7 +180,7 @@ function wgcal_prefs_look(&$action) {
   foreach ($minc as $k => $v) {
     $opt[$i]["optvalue"] = $v;
     $opt[$i]["optdescr"] = $v." min.";
-    $opt[$i]["optselect"] = ($v==$action->GetParam("WGCAL_U_MINCUSED",15) ? "selected" : "");
+    $opt[$i]["optselect"] = ($v==$action->parent->param->GetUParam("WGCAL_U_MINCUSED",$uid, 15) ? "selected" : "");
     $i++;
   }
   $action->lay->SetBlockData("MINCUSED", $opt);

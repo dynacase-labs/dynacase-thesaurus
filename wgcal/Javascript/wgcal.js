@@ -18,18 +18,18 @@ function getY(e) {
 
 
 function setDaysViewed(ndays) {
-  usetparam("WGCAL_U_VIEW", "week", '', '');
-  usetparam("WGCAL_U_DAYSVIEWED", ndays, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
+  usetparam(-1, "WGCAL_U_VIEW", "week", '', '');
+  usetparam(-1, "WGCAL_U_DAYSVIEWED", ndays, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
 }
 function setTextView(sh) {
-  usetparam("WGCAL_U_VIEW", "text", '', '');
+  usetparam(-1, "WGCAL_U_VIEW", "text", '', '');
   p = '';
   v = '';
   if (sh>0) {
     p = "WGCAL_U_CALCURDATE";
     v = sh;
   }
-  usetparam(p, v, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TEXTMONTH');
+  usetparam(-1, p, v, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TEXTMONTH');
 }
 
 
@@ -109,17 +109,22 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
   }
 }
 
+function changeUPref(uid, name, value, target, taction) {
+   usetparam(uid, name, value, target, taction);
+}
+
 function mytoto(name, value, target, taction)
  {
-   usetparam(name, value, target, taction);
+   usetparam(-1, name, value, target, taction);
 }
 
 // --------------------------------------------------------
-function usetparam(name, value, updatetarget, updateaction) 
+function usetparam(uid, name, value, updatetarget, updateaction) 
 {
   fset = document.getElementById('usetparam');
   taction = document.getElementById('taction');
   if (name!='') {
+    document.getElementById('uid').value = uid;
     document.getElementById('pname').value = name;
     document.getElementById('pvalue').value = value;
   }
@@ -129,7 +134,9 @@ function usetparam(name, value, updatetarget, updateaction)
   }
   taction.value = updateaction;
   fset.target = updatetarget;
-  //alert(' name='+name+' value='+value+' target='+updatetarget+' action='+updateaction);
+
+  //alert('USETPARAM['+document.getElementById('uid').value+'] '+document.getElementById('pname').value+'='+document.getElementById('pvalue').value+' [-->'+fset.target+'::'+taction.value+']');
+
   fset.submit();
 }
 
@@ -164,6 +171,6 @@ function WGCalSaveToolsVisibility() {
       s +=  toolList[i]+'%'+v;
     }
   }
-  usetparam('WGCAL_U_TOOLSSTATE', s, 'wgcal_hidden', 'WGCAL_HIDDEN');
+  usetparam(-1, 'WGCAL_U_TOOLSSTATE', s, 'wgcal_hidden', 'WGCAL_HIDDEN');
 }
                                                                                                                    

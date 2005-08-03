@@ -13,10 +13,10 @@ function getContactPos(rid) {
 function addRessource(rid, rtitle, ricon, rstate) {
   idx = getContactPos(rid);
   if (idx!=-1) return;
-  InsertPrefContact( rtitle, rid, ricon, true);
+  InsertPrefContact( -1, rtitle, rid, ricon, true);
 }
 
-function InsertPrefContact(rdescr, rid, ricon, saveIt) {
+function InsertPrefContact(uid, rdescr, rid, ricon, saveIt) {
   var nTr;
   var tab;
 
@@ -43,41 +43,41 @@ function InsertPrefContact(rdescr, rid, ricon, saveIt) {
   PrefContactsList[idx][0] = rid;
   PrefContactsList[idx][1] = ricon;
   PrefContactsList[idx][2] = rdescr;
-  if (saveIt) saveContacts();
+  if (saveIt) saveContacts(uid);
 }
 
-function deleteContact(rid) {
+function deleteContact(uid, rid) {
   var eltRess;
   idx = getContactPos(rid);
   if (idx!=-1) PrefContactsList[idx][0] = -1;
   eltRess = document.getElementById('tr'+rid);
   if (!eltRess) return;
   eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
-  saveContacts();
+  saveContacts(uid);
 }
 
-function saveContacts() {
+function saveContacts(uid) {
   var rlist= "";
   for (i=0; i<PrefContactsList.length;i++) {
     if (PrefContactsList[i][0] != -1 ) 
       rlist += PrefContactsList[i][0]+"|";
   }
-  usetparam("WGCAL_U_PREFRESSOURCES", rlist, 'wgcal_hidden', 'WGCAL_HIDDEN');
+  usetparam(uid, "WGCAL_U_PREFRESSOURCES", rlist, 'wgcal_hidden', 'WGCAL_HIDDEN');
   return;
 }
 
 
-function UseContactInRv() {
+function UseContactInRv(uid) {
   ckb = document.getElementById('usecontact');
   ckb.checked = (ckb.checked ? "" : "checked" );
-  if (ckb.checked) usetparam("WGCAL_U_USEPREFRESSOURCES", 1, 'wgcal_hidden', 'WGCAL_HIDDEN');
-  else usetparam("WGCAL_U_USEPREFRESSOURCES", 0, 'wgcal_hidden', 'WGCAL_HIDDEN');
+  if (ckb.checked) usetparam(uid, "WGCAL_U_USEPREFRESSOURCES", 1, 'wgcal_hidden', 'WGCAL_HIDDEN');
+  else usetparam(uid, "WGCAL_U_USEPREFRESSOURCES", 0, 'wgcal_hidden', 'WGCAL_HIDDEN');
 }
 
-function SetChkPref(opt, prm, target, action) {
+function SetChkPref(uid, opt, prm, target, action) {
   ckb = document.getElementById(opt);
   if (!ckb) return;
   ckb.checked = (ckb.checked ? "" : "checked" );
-    if (ckb.checked) usetparam(prm, 1, target, action);
-  else usetparam(prm, 0, target, action);
+    if (ckb.checked) usetparam(uid, prm, 1, target, action);
+  else usetparam(uid, prm, 0, target, action);
 }

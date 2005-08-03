@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.15 2005/08/03 10:40:39 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.16 2005/08/03 16:35:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -132,7 +132,7 @@ function wgcal_menu(&$action) {
 						"txt" => _("m_txt_confsynch"), 
 						"act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_OSYNC",
 						"tgt" => "wgcal_uploadsync",
-						"ico" => "wm-help.gif",
+						"ico" => "wgcal-osyncinfo.gif",
 						"rig" => "WGCAL_OSYNC" 
 						),
 					  array( 
@@ -140,7 +140,7 @@ function wgcal_menu(&$action) {
 						"txt" => _("m_txt_synchronizer"), 
 						"act" => "[CORE_ABSURL]/osync/synchroniser.zip",
 						"tgt" => "wgcal_uploadsync",
-						"ico" => "wm-reloadsync.gif",
+						"ico" => "wgcal-osyncdownload.gif",
 						"rig" => "WGCAL_OSYNC" 
 						),
 					  array( "key" => "separator" ),
@@ -172,6 +172,16 @@ function wgcal_menu(&$action) {
 						 "ico" => "wgcal_choosecategories.gif",
 						 "rig" => "WGCAL_MGR"
 						 ),
+					   array( "key" => "separator" ),
+					   array( 
+						 "key" => "m_userspref", 
+						 "txt" => _("m_txt_userspref"), 
+						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS&upref=1",
+						 "tgt" => "wgcal_userspref", 
+						 "ico" => "wgcal_userspref.gif",
+						 "rig" => "WGCAL_ADMIN"
+						 ),
+					  array( "key" => "separator" ),
 					   array( 
 						 "key" => "m_choosegroups", 
 						 "txt" => _("m_txt_choosegroups"), 

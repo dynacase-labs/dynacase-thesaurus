@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.10 2005/08/03 10:40:39 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.11 2005/08/03 16:35:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -64,6 +64,8 @@ function wgcal_prefs_others(&$action) {
 		  "viewdate" => array(_("display last sync date"), "WGCAL_U_OSYNCVDATE", "wgcal_hidden", "WGCAL_HIDDEN")
 		  );
 
+  $uid = GetHttpVars("uid", $action->user->id);
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $toptchk = array(); 
   $io = 0;
@@ -73,7 +75,8 @@ function wgcal_prefs_others(&$action) {
     $toptchk[$io]["paramoption"] = $vo[1];
     $toptchk[$io]["trefresh"] = $vo[2];
     $toptchk[$io]["arefresh"] = $vo[3];
-    $toptchk[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
+    $toptchk[$io]["stateoption"] = ($action->parent->param->GetUParam($vo[1], $uid) == 1 ? "checked" : "");
+    $toptchk[$io]["uid"] = $uid;
     $io++;
   }
   $action->lay->SetBlockData("MAILOPTCHK", $toptchk);
@@ -86,7 +89,8 @@ function wgcal_prefs_others(&$action) {
     $tb[$io]["paramoption"] = $vo[1];
     $tb[$io]["trefresh"] = $vo[2];
     $tb[$io]["arefresh"] = $vo[3];
-    $tb[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
+    $tb[$io]["stateoption"] = ($action->parent->param->GetUParam($vo[1], $uid) == 1 ? "checked" : "");
+    $tb[$io]["uid"] = $uid;
     $io++;
   }
   $action->lay->SetBlockData("TOOLBARTOOLS", $tb);
@@ -94,13 +98,14 @@ function wgcal_prefs_others(&$action) {
   $toptchk = array(); 
   $io = 0;
   foreach ($toolbaropt as $ko => $vo) {
-    $cVal = $action->GetParam($vo[1]);
+    $cVal = $action->parent->param->GetUParam($vo[1], $uid);
     $toptchk[$io]["iSel"] = $ko;
     $toptchk[$io]["iText"] = $vo[0];
     $toptchk[$io]["iVar"] = $vo[1];
     $toptchk[$io]["iVal"] = $cVal;
     $toptchk[$io]["iFrame"] = $vo[2];
     $toptchk[$io]["iAction"] = $vo[3];
+    $toptchk[$io]["uid"] = $uid;
     $opt = array();
     foreach ($vo[4] as $k => $v) {
       $opt[] = array( "iOptText" => $v,
@@ -117,13 +122,14 @@ function wgcal_prefs_others(&$action) {
   $toptchk = array(); 
   $io = 0;
   foreach ($portal as $ko => $vo) {
-    $cVal = $action->GetParam($vo[1]);
+    $cVal = $action->parent->param->GetUParam($vo[1], $uid);
     $toptchk[$io]["iSel"] = $ko;
     $toptchk[$io]["iText"] = $vo[0];
     $toptchk[$io]["iVar"] = $vo[1];
     $toptchk[$io]["iVal"] = $cVal;
     $toptchk[$io]["iFrame"] = $vo[2];
     $toptchk[$io]["iAction"] = $vo[3];
+    $toptchk[$io]["uid"] = $uid;
     $opt = array();
     foreach ($vo[4] as $k => $v) {
       $opt[] = array( "iOptText" => $v,
@@ -144,7 +150,8 @@ function wgcal_prefs_others(&$action) {
     $toptchk[$io]["paramoption"] = $vo[1];
     $toptchk[$io]["trefresh"] = $vo[2];
     $toptchk[$io]["arefresh"] = $vo[3];
-    $toptchk[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
+    $toptchk[$io]["stateoption"] = ($action->parent->param->GetUParam($vo[1], $uid) == 1 ? "checked" : "");
+    $toptchk[$io]["uid"] = $uid;
     $io++;
   }
   $action->lay->SetBlockData("OSYNC", $toptchk);

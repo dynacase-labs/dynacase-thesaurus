@@ -29,7 +29,7 @@ function killwins() {
 
 
 function loadPeriod(urlroot, ts) {
-    usetparam("WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', urlroot+'&app=WGCAL&action=WGCAL_CALENDAR');
+    usetparam(-1, "WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', urlroot+'&app=WGCAL&action=WGCAL_CALENDAR');
 }
 
 
@@ -199,9 +199,9 @@ function saveRessources() {
     }
   }
   if (ressListChg) {
-    usetparam("WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
+    usetparam(-1, "WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
   } else {
-    usetparam("WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_hidden', 'WGCAL_HIDDEN');
+    usetparam(-1, "WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_hidden', 'WGCAL_HIDDEN');
   }
   ressListChg = false;
   return;
@@ -209,6 +209,6 @@ function saveRessources() {
 
 function SaveFrameWidth() {
   var w=getFrameWidth(window);
-  usetparam("WGCAL_U_TOOLBARSZ", w, 'wgcal_hidden', 'WGCAL_HIDDEN');
+  usetparam(-1, "WGCAL_U_TOOLBARSZ", w, 'wgcal_hidden', 'WGCAL_HIDDEN');
   return;
 }

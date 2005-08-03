@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-03 12:13+0200\n"
+"POT-Creation-Date: 2005-08-03 17:04+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -477,6 +477,9 @@ msgstr "Administration"
 msgid "m_txt_choosecategories"
 msgstr "Edition des catégories"
 
+msgid "m_txt_userspref"
+msgstr "Préférences utilisateurs"
+
 msgid "m_txt_choosegroups"
 msgstr "Choix des groupes"
 
@@ -720,6 +723,10 @@ msgstr "Jours exclus"
 
 msgid "del selected dates"
 msgstr "Supprimer les jours sélectionnés"
+
+#, fuzzy
+msgid "change user preferences for "
+msgstr "Modifier les préférences"
 
 msgid "searched families"
 msgstr "Rechercher dans les familles..."
@@ -967,9 +974,6 @@ msgstr "Thème utilisé"
 msgid "fonts size"
 msgstr "Taille de la police"
 
-msgid "waiting rv window size"
-msgstr "Taille de la zone d'affichage de évènement en attente"
-
 msgid "information popup management"
 msgstr "Gestion de l'affichage des détails des rendez-vous (pop-up)"
 
@@ -1161,6 +1165,9 @@ msgstr "Version du synchroniseur attendue"
 
 msgid "used groups"
 msgstr "Groupes utilisés"
+
+#~ msgid "waiting rv window size"
+#~ msgstr "Taille de la zone d'affichage de évènement en attente"
 
 #~ msgid "max"
 #~ msgstr "max"

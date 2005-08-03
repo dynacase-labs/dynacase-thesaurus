@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_todopref.php,v 1.4 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: wgcal_prefs_todopref.php,v 1.5 2005/08/03 16:35:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -48,16 +48,18 @@ function wgcal_prefs_todopref(&$action) {
 		  );
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $uid = GetHttpVars("uid", $action->user->id);
   $toptchk = array(); 
   $io = 0;
   foreach ($optchk as $ko => $vo) {
-    $cVal = $action->GetParam($vo[1]);
+    $cVal = $action->parent->param->GetUParam($vo[1], $uid);
     $toptchk[$io]["iSel"] = $ko;
     $toptchk[$io]["iText"] = $vo[0];
     $toptchk[$io]["iVar"] = $vo[1];
     $toptchk[$io]["iVal"] = $cVal;
     $toptchk[$io]["iFrame"] = $vo[2];
     $toptchk[$io]["iAction"] = $vo[3];
+    $toptchk[$io]["uid"] = $uid;
     $opt = array();
     foreach ($vo[4] as $k => $v) {
       $opt[] = array( "iOptText" => $v,
