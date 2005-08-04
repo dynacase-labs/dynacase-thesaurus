@@ -2,7 +2,7 @@ function setwrvalert(target, action) {
   rf = document.getElementById('alertwrv');
   if (rf.checked) val = 1;
   else val = 0;
-  usetparam("WGCAL_U_WRVALERT", val,target, action) ;
+  usetparam(-1, "WGCAL_U_WRVALERT", val,target, action) ;
 }
 
 

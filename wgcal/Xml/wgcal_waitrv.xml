@@ -10,7 +10,7 @@ var CEventText = '';
 <form style="display:inline; visibility:hidden" id="feventstate" target="wgcal_toolbar" name="feventstate" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE">
      <input id="cev" name="cev" type="hidden" value="-1">
      <input id="st" name="st" type="hidden" value="-1">
-     <input id="ra" name="ra" type="hidden" value="WGCAL_TOOLBARw">
+     <input id="ra" name="ra" type="hidden" value="WGCAL_TOOLBAR">
 </form>
 <div  style="display:none" id="waitpopup" class="wgcalpopup">
 <a href="#" id="viewevent" onclick="ViewEvent('[CORE_STANDURL]',CEventId); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evview.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:view this]</a>
