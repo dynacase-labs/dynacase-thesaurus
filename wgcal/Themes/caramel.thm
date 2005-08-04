@@ -1,0 +1,22 @@
+<?php
+$theme->Descr  = "Caramel";
+
+$theme->WTH_BGIMG                 =  "#fffbf0"; //url('WGCAL/Images/caramel-bg.png')";
+
+$theme->WTH_TEXTCOLOR_1           =  "#7e4100";
+$theme->WTH_TEXTCOLOR_2           =  "#b98a1a";
+
+$theme->WTH_COLOR_1               =  "#fff8f0";
+$theme->WTH_COLOR_2               =  "#ffefd9";  
+$theme->WTH_COLOR_3               =  "#ede6bc";
+$theme->WTH_ALERT                 =  "#c54534";
+
+$theme->WTH_COLOR_TOOL            =  "#e5d1b6";
+
+$theme->WTH_CALWEEKEND            =  "red"; //"#fff4e8";
+$theme->WTH_CALTODAY              =  "#fbf1d8";
+
+$theme->WTH_FONTSIZE_POPUP        =  $theme->WTH_FONTSIZE_SMALL;
+$theme->WTH_COLOR_POPUP           =  $theme->WTH_COLOR_1;
+
+?>

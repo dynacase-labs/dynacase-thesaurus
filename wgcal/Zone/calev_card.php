@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.32 2005/08/03 10:40:39 marc Exp $
+ * @version $Id: calev_card.php,v 1.33 2005/08/04 10:13:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -81,12 +81,16 @@ function calev_card(&$action) {
   }
   $action->lay->set("iconevent", $ev->getIcon($ev->icon));
 
-  $action->lay->set("owner", $ev->getValue("CALEV_OWNER"));
+  $action->lay->set("owner", ucwords(strtolower($ev->getValue("CALEV_OWNER"))));
   $action->lay->set("ShowCategories", false);
-    $action->lay->set("modifdate", "");
-    $action->lay->set("incalendar", "");
+  $action->lay->set("ShowDate", false);
+  $action->lay->set("modifdate", "");
+  $action->lay->set("ShowCalendar", false);
+  $action->lay->set("incalendar", "");
   if (!$private) {
-    $action->lay->set("modifdate", strftime("%d/%m/%y %H:%M",$ev->revdate));
+    $action->lay->set("ShowDate", true);
+    $action->lay->set("modifdate", strftime("%d %B %y %H:%M",$ev->revdate));
+  $action->lay->set("ShowCalendar", true);
     $action->lay->set("incalendar", $ev->getValue("CALEV_EVCALENDAR"));
     $show = ($action->getParam("WGCAL_G_SHOWCATEGORIES",0)==1 ? true : false);
     if ($show) {
@@ -262,7 +266,7 @@ function ev_showattendees(&$action, &$ev, $ressd, $private, $dcolor) {
 	}
 	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $k);
 	$t[$a]["atticon$curcol"] = $d->GetIcon($attru["icon"]);
-	$t[$a]["atttitle$curcol"] = $attru["title"];
+	$t[$a]["atttitle$curcol"] = ucwords(strtolower($attru["title"]));
 	$t[$a]["attnamestyle$curcol"] = ($v["state"] != EVST_REJECT ? "none" : "line-through");
 	$t[$a]["attstate$curcol"] = $states[$v["state"]];
 	$t[$a]["TWOCOL"] = ($cola==2 && (count($ressd)>($cola*($a+1)))? true : false );

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.4 2005/06/07 16:05:36 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.5 2005/08/04 10:13:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,6 +12,7 @@
  */
 include_once('FDL/Lib.Dir.php');
 include_once("EXTERNALS/WGCAL_external.php");
+include_once("WGCAL/Lib.wTools.php");
 
 
 function wgcal_searchiuser(&$action) {
@@ -28,7 +29,7 @@ function wgcal_searchiuser(&$action) {
     if ($action->user->id != $v["id"]) {
       $t[$i]["attId"] = $v["id"];
       $t[$i]["attIcon"] = $doc->GetIcon($v["icon"]);
-      $t[$i]["attTitle"] = $v["title"];
+      $t[$i]["attTitle"] = ucwords(strtolower($v["title"]));
       $t[$i]["attState"] = EVST_NEW;
       $t[$i]["attLabel"] = WGCalGetLabelState(EVST_NEW);
       $t[$i]["attColor"] = WGCalGetColorState(EVST_NEW);
@@ -36,6 +37,9 @@ function wgcal_searchiuser(&$action) {
       $i++;
     }
   }
-  if (count($t)>0) $action->lay->SetBlockData("RESSLIST", $t);
+  if (count($t)>0) {
+    wUSort($t, "attTitle");
+    $action->lay->SetBlockData("RESSLIST", $t);
+  }
 }
 ?>

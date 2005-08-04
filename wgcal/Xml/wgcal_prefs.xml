@@ -2,7 +2,7 @@
 
 [IF ShowUsers]<div class="wToolButtonSelect" align="center" style="padding:2pt; margin:4pt" width="100%">
 <form id="cUserPref" name="cUserPref" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS&upref=1">
-[TEXT:change user preferences for ] : <select id="uid" name="uid" onchange="this.form.submit();">[BLOCK Users]<option value="[uid]" [uselected]>[utext][ENDBLOCK Users]</select>
+[TEXT:change user preferences for] : <select id="uid" name="uid" onchange="this.form.submit();">[BLOCK Users]<option value="[uid]" [uselected]>[utext][ENDBLOCK Users]</select>
 </form>
 </div>[ENDIF ShowUsers]
 

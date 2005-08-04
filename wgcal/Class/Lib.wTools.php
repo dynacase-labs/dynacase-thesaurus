@@ -210,4 +210,17 @@ function showTrace() {
   echo "<div>";
 }
 
+
+function wUSort(&$ar, $field) {
+  global $fsort;
+  $fsort = $field;
+  usort($ar, wUSortCmp);
+  return;
+}
+
+function wUSortCmp(&$a, &$b) {
+  global $fsort;
+  return (strcmp($a[$fsort], $b[$fsort]));
+}
+  
 ?>

@@ -8,10 +8,10 @@ $theme->WTH_TEXTCOLOR_2           =  "snow";
 
 $theme->WTH_COLOR_1               =  "snow";
 $theme->WTH_COLOR_2               =  "#EFE2FF";
-$theme->WTH_COLOR_3               =  "#D851B9";
+$theme->WTH_COLOR_3               =  "#d7bbd7";
 $theme->WTH_ALERT                 =  "red";
 
-// Calendar specific colors
+$theme->WTH_COLOR_TOOL            =  "#dfc4f1";
 $theme->WTH_CALWEEKEND            =  "#EFE2FF";
 $theme->WTH_CALTODAY              =  "white";
 

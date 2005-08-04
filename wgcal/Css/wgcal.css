@@ -81,7 +81,7 @@ TD {
 /* Zone d'affichage des infos mois, semaine et jours */
 .wMainMenu {
   cursor:default;
-  background-color : [WTH_COLOR_2];
+  background-color : [WTH_COLOR_TOOL];
   border : 1px outset [WTH_COLOR_1];
   font-size: [WTH_FONTSIZE_SMALL]pt;
 }
@@ -95,7 +95,7 @@ TD {
 .WGCAL_PeriodSelected {
   font-size: [WTH_FONTSIZE_SMALL]pt;
   background-color : [WTH_COLOR_3];
-  color : [WTH_COLOR_1];
+  color : [WTH_TEXTCOLOR_1];
   border : 1px outset [WTH_COLOR_1];
   font-weight: bold;
 }
@@ -253,23 +253,23 @@ TD {
 }
 
 .wToolButton {
-  background-color : [WTH_COLOR_2];
+  background-color : [WTH_COLOR_TOOL];
   font-weight : bold;
   border : 2px outset [WTH_COLOR_2];
   cursor:default;
   height : 22px;
 }
 .wToolButtonUnselect {
-  background-color : [WTH_COLOR_2];
+  background-color : [WTH_COLOR_TOOL];
   font-weight : bold;
-  border : 2px inset [WTH_COLOR_2];
+  border : 2px outset [WTH_COLOR_2];
   cursor:default;
   height : 22px;
 }
 .wToolButtonSelect {
-  background-color : [WTH_COLOR_2];
+  background-color : [WTH_COLOR_TOOL];
   font-weight : bold;
-  border : 2px outset [WTH_COLOR_2];
+  border : 2px inset [WTH_COLOR_2];
   cursor:default;
   height : 22px;
 }
@@ -347,7 +347,7 @@ TD {
 
 /* event Css */
 .wEvBack {
-  background : url('CORE/Images/bg.gif'); 
+  background : [WTH_BGIMG]; 
   border : 4px solid white; 
   height:auto;
 }

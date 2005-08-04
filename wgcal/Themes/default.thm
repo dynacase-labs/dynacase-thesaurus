@@ -12,6 +12,7 @@ $theme->WTH_COLOR_3               =  "#A7C7D8";  // Foncé
 $theme->WTH_ALERT                 =  "red";
 
 // Calendar specific colors
+$theme->WTH_COLOR_TOOL            =  "#9fcdf7";
 $theme->WTH_CALWEEKEND            =  "#F0E8FF";
 $theme->WTH_CALTODAY              =  "#eef4f9";
 

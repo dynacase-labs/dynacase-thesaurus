@@ -10,6 +10,5 @@ function wgcal_usetparam(&$action) {
     $action->parent->param->set($pname, $pvalue, PARAM_USER.$uid, $action->parent->id);
   }
   if ($taction!="") redirect($action, $action->parent->name, $taction);
-
 }
 ?>

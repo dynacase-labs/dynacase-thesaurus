@@ -8,10 +8,10 @@ $theme->WTH_TEXTCOLOR_2           =  "#E8EDED";    // Clair
 
 $theme->WTH_COLOR_1               =  "#E5EAEA";  // Clair
 $theme->WTH_COLOR_2               =  "#DFDFDF";  // Moyen
-$theme->WTH_COLOR_3               =  "#505252";  // Foncé
+$theme->WTH_COLOR_3               =  "#dcdcdc";
 $theme->WTH_ALERT                 =  "red";
 
-// Calendar specific colors
+$theme->WTH_COLOR_TOOL            =  "#cddbdd";
 $theme->WTH_CALWEEKEND            =  "#F0E8FF";
 $theme->WTH_CALTODAY              =  "#eef4f9";
 

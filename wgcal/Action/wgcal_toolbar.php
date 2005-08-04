@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.44 2005/08/03 10:40:39 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.45 2005/08/04 10:13:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -141,7 +141,7 @@ function _listress(&$action)
       else PopupActive('resspopup', $rd->id, 'removeress');
       $t[$i]["RG"] = $i;
       $t[$i]["RID"] = $rd->id;
-      $t[$i]["RDESCR"] = addslashes($rd->getTitle());
+      $t[$i]["RDESCR"] = addslashes(ucwords(strtolower($rd->getTitle())));
       $t[$i]["RICON"] =  $rd->getIcon();
       $t[$i]["RCOLOR"] = $cid;
       $t[$i]["RSTATE"] = $sid;
@@ -162,7 +162,9 @@ function _listress(&$action)
   }
 
   popupGen(count($t));
+  wUSort($t, "RDESCR"); 
   $action->lay->SetBlockData("L_RESS", $t);
 
 }
+
 ?>

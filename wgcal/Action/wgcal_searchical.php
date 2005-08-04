@@ -1,6 +1,7 @@
 <?php
 include_once("EXTERNALS/WGCAL_external.php");
 include_once('FDL/popup_util.php');
+include_once('WGCAL/Lib.wTools.php');
 
 function wgcal_searchical(&$action) {
   $sical = GetHttpVars("sical", "");
@@ -39,8 +40,8 @@ function wgcal_searchical(&$action) {
 	  $rlist[$vd["id"]]["fid"] = $vf["id"];
 	  $rlist[$vd["id"]]["id"] = $vd["id"];
 	  $rlist[$vd["id"]]["icon"] = Doc::GetIcon($vd["icon"]);
-	  $rlist[$vd["id"]]["title"] = $vd["title"];
-	  $rlist[$vd["id"]]["titlejs"] = addslashes($vd["title"]);
+	  $rlist[$vd["id"]]["title"] = ucwords(strtolower($vd["title"]));
+	  $rlist[$vd["id"]]["titlejs"] = addslashes(ucwords(strtolower($vd["title"])));
 
 	  // Active menu items
 	  PopupActive('mRess', $vd["id"], 'radd');
@@ -53,6 +54,7 @@ function wgcal_searchical(&$action) {
       }
     }
     if (count($rlist)>0) {
+      wUSort($rlist, "title");
       popupGen(count($rlist));
       $contacts = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
       $tcontacts = explode("|", $contacts);
