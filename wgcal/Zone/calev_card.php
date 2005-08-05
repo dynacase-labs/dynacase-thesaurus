@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.33 2005/08/04 10:13:48 marc Exp $
+ * @version $Id: calev_card.php,v 1.34 2005/08/05 15:24:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -40,6 +40,26 @@ function calev_card(&$action) {
   else if (isset($ressd[$myid])) $private = false;
   else if ($conf==0) $private = false;
   else $private = true;
+
+  $visgroup = false;
+  $glist = "";
+  if ($conf==2) {
+    $visgroup = true;
+    $ogrp = $ev->getValue("CALEV_CONFGROUPS");
+    $t = explode("|", $ogrp);
+    foreach ($t as $k => $v ) {
+      if ($v!="") {
+	$g  = new Doc($dbaccess, $v);
+	$glist .= ($glist=="" ? "" : ", " ) . ucwords(strtolower($g->title));
+      }
+    }
+  }
+  $action->lay->set("ShowGroups", $visgroup);
+  $action->lay->set("groups", $glist);
+  
+      
+    
+    
 
   $action->lay->set("ID",    $ev->id);
   

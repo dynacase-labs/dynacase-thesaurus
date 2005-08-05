@@ -13,6 +13,7 @@
 <input type="hidden" id="evstatus" name="evstatus" value="[evstatus]">
 <input type="hidden" id="evcalendar" name="evcalendar" value="[evcalendar]">
 <input type="hidden" id="evconfidentiality" name="evconfidentiality" value="[evconfidentiality]">
+<input type="hidden" id="evconfgroups" name="evconfgroups" value="[evconfgroups]">
 <input type="hidden" id="evcategory" name="evcategory" value="[evcategory]">
 <input type="hidden" id="attendees" name="attendees" value="">
 <input type="hidden" id="excludedate" name="excludedate" value="">
@@ -145,7 +146,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <tr>
 <td  align="right">[TEXT:confidentiality]&nbsp;:&nbsp;</td>
-<td colspan="2"><select id="rvconfid" onchange="SetSelectedItem('rvconfid', 'evconfidentiality')" [rvvisro]>[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]</select>
+<td colspan="2"><select id="rvconfid" onchange="SetSelectedItem('rvconfid', 'evconfidentiality')">[BLOCK RVCONFID]<option value="[value]" [selected]>[descr][ENDBLOCK RVCONFID]</select>
 </td>
 </tr>
 
@@ -199,6 +200,9 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <img id="butevrepeatzone" src="[IMG:wm-repeat.gif]" class="WGCalZoneDefault"
     height="22"  title="[TEXT:manage repeat]" style="border:0px" 
     onClick="SwitchZone('evrepeatzone'); autoHresize(); autoVresize();" >
+<img id="butevgroups" src="[IMG:wgcal_choosegroups.gif]" class="WGCalZoneDefault"
+    height="22"  title="[TEXT:manage groups]" style="display:[vis_groups]; border:0px" 
+    onClick="SwitchZone('evgroups'); autoHresize(); autoVresize();" >
 </legend>
 
 
@@ -389,6 +393,15 @@ Calendar.setup(
 
 </div> <!-- end of repeat zone -->
 
+<div id="evgroups" style="display:none">
+[BLOCK groups]<div id="d[gfid]" style="margin:2px" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
+onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'" title="[TEXT:click to selec/unselect group] [gtitle]" 
+onclick="changeVisGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>[ENDBLOCK groups]
+</div>
+<script type="text/javascript">
+[BLOCK GLIST]
+glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
+</script>
 </fieldset>
 </td></tr></table>
 
@@ -410,6 +423,11 @@ document.getElementById('rvtitle').focus();
 <div id="grp[RID]" style="display:none;" class="wEvBack"><div class="wMonthTextTitle"><img width="20px" height="20px" align="absbottom" src="[groupicon]"> [grouptitle]</div>[BLOCK [GROUPCONTENT]]
 <div><img height="15" src="[atticon]"><span style="text-decoration:[attnamestyle]">[atttitle]</span>&nbsp;<span style="font-style:italic">([attstate])</span></div>[ENDBLOCK [GROUPCONTENT]]
 </div>[ENDBLOCK GROUPS]
+
+<script type="text/javascript">
+[BLOCK GLIST]
+glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
+</script>
 
 <iframe name="wgcal_conflict" id="wgcal_conflict" style="position:absolute;left:1%;top:1%;width:98%;height:98%;border:1px dotted red;display:none" marginwidth="0" marginheight="0">
 </iframe>

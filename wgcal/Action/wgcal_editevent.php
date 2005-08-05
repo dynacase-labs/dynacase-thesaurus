@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_editevent.php,v 1.51 2005/08/04 10:13:48 marc Exp $
+ * @version $Id: wgcal_editevent.php,v 1.52 2005/08/05 15:24:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -71,6 +71,7 @@ function wgcal_editevent(&$action) {
     $evfreq   = $event->getValue("CALEV_FREQUENCY", 1);
     $evcal    = $event->getValue("CALEV_EVCALENDARID", -1);
     $evvis    = $event->getValue("CALEV_VISIBILITY", 0);
+    $ogrp = $event->getValue("CALEV_CONFGROUPS");
     $evalarm  = $event->getValue("CALEV_EVALARM", 0);
     $evalarmt = $event->getValue("CALEV_EVALARMTIME", 0);
     $evrepeat = $event->getValue("CALEV_REPEATMODE", 0);
@@ -120,6 +121,7 @@ function wgcal_editevent(&$action) {
     $evfreq   = 1;
     $evcal    = -1;
     $evvis    = 0;
+    $ogrp    = "-";
     $evalarm  = 0;
     $evalarmt = -1;
     $evrepeat = 0;
@@ -155,7 +157,7 @@ function wgcal_editevent(&$action) {
   EventSetTitle($action, $evtitle, $ro);
   EventSetDescr($action, $evnote, $ro);  
   EventSetDate($action, $evstart, $evend, $evtype, $ro);
-  EventSetVisibility($action, $evvis, $ro);
+  EventSetVisibility($action, $evvis, $ogrp, $ro);
   EventSetCalendar($action, $evcal, $ro);
   EventSetStatus($action, $evstatus, $withme, $onlyme, $rostatus);
   EventSetAlarm($action, $evalarm, $evalarmt, $ro);
@@ -270,8 +272,9 @@ function EventSetDate(&$action,  $dstart, $dend, $type, $ro)
   $action->lay->set("DATEVIS", (($allday || $nohour)?"none":""));
 }
 
-function EventSetVisibility(&$action, $vis, $ro) {
-  $avis = CAL_getEventVisibilities($action->GetParam("FREEDOM_DB"), "");
+function EventSetVisibility(&$action, $vis, $ogrp, $ro) {
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $avis = CAL_getEventVisibilities($dbaccess, "");
   $ic = 0;
   $action->lay->set("evconfidentiality", $vis);
   foreach ($avis as $k => $v) {
@@ -281,7 +284,43 @@ function EventSetVisibility(&$action, $vis, $ro) {
     $ic++;
   }
   $action->lay->SetBlockData("RVCONFID", $tconf);
-  $action->lay->set("rvvisro", ($ro?"disabled":""));
+  if ($vis==2) $action->lay->set("vis_groups", "");
+  else $action->lay->set("vis_groups", "none");
+
+  $og = false;
+  if ($ogrp!="-") {
+    $og = true;
+    $tg = explode("|", $ogrp);
+    $ugrp = array();
+    foreach ($tg as $k => $v ) {
+      if ($v!="") $ugrp[$v] = $v;
+    }
+  }
+  
+  // Display groups
+  $glist = "";
+  $u_groups = wGetUserGroups();
+  $gjs = array(); $igjs=0;
+  $igroups = array(); $ig=0;
+  foreach ($u_groups as $k => $v) {
+    $gr = new Doc($dbaccess, $k);
+    $igroups[$ig]["gfid"] = $gr->id;
+    $igroups[$ig]["gid"] = $gr->getValue("us_whatid");
+    $igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));
+    $igroups[$ig]["gicon"] = $gr->GetIcon();
+    $igroups[$ig]["gjstitle"] = addslashes(ucwords(strtolower($gr->title)));
+    $igroups[$ig]["gisused"] = ($og ? isset($ugrp[$gr->id]) : $v["sel"]);
+    if ($igroups[$ig]["gisused"]) {
+      $glist .= (strlen($glist)>0 ? "|" : "") . $gr->id;
+      $gjs[$igjs]["igroup"] = $igjs;
+      $gjs[$igjs]["gfid"] = $gr->id;
+      $igjs++;
+    }    
+    $ig++;
+  }  
+  $action->lay->set("evconfgroups", $glist);
+  $action->lay->setBlockData("groups", $igroups);
+  $action->lay->setBlockData("GLIST", $gjs);
 }
   
 function EventSetCalendar(&$action, $cal, $ro) {
@@ -302,7 +341,6 @@ function EventSetCalendar(&$action, $cal, $ro) {
 function EventSetStatus(&$action, $status, $withme, $onlyme, $ro) {
   $acal = WGCalGetState($action->GetParam("FREEDOM_DB"), "");
   $action->lay->set("evstatus", $status);
-  ////echo "Mode ".($ro?"ro":"rw")." OnlyMe=".($onlyme?"T":"F")." Withme=".($withme?"T":"F")." Status=".WGCalGetLabelState($status)."<br>";
   $ic = 0;
   if ($ro) {
     $tconf[$ic]["iState"] = $ic;

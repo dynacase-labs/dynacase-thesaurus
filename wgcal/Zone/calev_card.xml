@@ -44,7 +44,7 @@
  <td colspan="2" valign="top">
 <span style="font-size:80%; font-style:italic">[owner][IF ShowDate] - [modifdate][ENDIF ShowDate]
 [IF ShowCalendar]<br>[TEXT:in calendar] : [incalendar][ENDIF ShowCalendar][IF ShowCategories] - [TEXT:category] : [category][ENDIF ShowCategories]
-</span>
+[IF ShowGroups]<br>[TEXT:view groups] : [groups][ENDIF ShowGroups]</span>
   </td>
 </tr>
 

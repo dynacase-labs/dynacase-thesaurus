@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-04 12:15+0200\n"
+"POT-Creation-Date: 2005-08-05 16:53+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -522,24 +522,6 @@ msgstr "Date de fin"
 msgid "search"
 msgstr "Rechercher"
 
-msgid "new rendez-vous"
-msgstr "Nouveau rendez-vous"
-
-msgid "Cancel"
-msgstr "Annuler"
-
-msgid "prev period"
-msgstr "Période précédente"
-
-msgid "current period"
-msgstr "Période courante"
-
-msgid "next period"
-msgstr "Période suivante"
-
-msgid "change hours division"
-msgstr "Division de l'heure"
-
 msgid "there are conflicts with events (see after)"
 msgstr "Cet évènement est en conflit avec ceux ci-dessous"
 
@@ -627,6 +609,9 @@ msgstr "Réunion"
 
 msgid "manage repeat"
 msgstr "Gérer les répétitions"
+
+msgid "manage groups"
+msgstr "Gérer les groupes"
 
 msgid "search for a contact..."
 msgstr "Recherche un contact..."
@@ -723,6 +708,9 @@ msgstr "Jours exclus"
 
 msgid "del selected dates"
 msgstr "Supprimer les jours sélectionnés"
+
+msgid "click to selec/unselect group"
+msgstr "Cliquer pour sélectionner/déselectionner le groupe "
 
 msgid "change user preferences for"
 msgstr "Modifier les préférences utilisateur pour "
@@ -842,7 +830,7 @@ msgid "mail"
 msgstr "Adresse mail"
 
 msgid "agenda groups selection"
-msgstr "Sélection de calendrier"
+msgstr "Sélection des groupes visibles dans l'application Agenda"
 
 msgid "click to add/remove group"
 msgstr "Cliquer pour ajouter/supprimer le groupe"
@@ -871,6 +859,24 @@ msgstr "Rendez-vous en attente"
 msgid "alert for new event ?"
 msgstr "me prévenir pour les évènements en attente"
 
+msgid "new rendez-vous"
+msgstr "Nouveau rendez-vous"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "prev period"
+msgstr "Période précédente"
+
+msgid "current period"
+msgstr "Période courante"
+
+msgid "next period"
+msgstr "Période suivante"
+
+msgid "change hours division"
+msgstr "Division de l'heure"
+
 msgid "attendees"
 msgstr "Personnes conviées"
 
@@ -879,6 +885,9 @@ msgstr "Note"
 
 msgid "in calendar"
 msgstr "Calendrier"
+
+msgid "view groups"
+msgstr "Visibles pour les groupes"
 
 msgid "to be confirm"
 msgstr "à confirmer"
@@ -958,11 +967,14 @@ msgstr "Confirmez-vous la suppression de cet évènement"
 msgid "delete this"
 msgstr "Supprimer"
 
+msgid "my prefered contacts and groups"
+msgstr "Mes contacts et groupes préférés"
+
 msgid "add prefered contact"
 msgstr "Ajout d'un contact préféré"
 
-msgid "use for event creation"
-msgstr "Utiliser les ressources pour les rendez-vous"
+msgid "my groups"
+msgstr "Mes groupes"
 
 msgid " interface look"
 msgstr "Aspect et comportement de l'interface"
@@ -1167,6 +1179,9 @@ msgstr "Version du synchroniseur attendue"
 
 msgid "used groups"
 msgstr "Groupes utilisés"
+
+#~ msgid "use for event creation"
+#~ msgstr "Utiliser les ressources pour les rendez-vous"
 
 #~ msgid "waiting rv window size"
 #~ msgstr "Taille de la zone d'affichage de évènement en attente"

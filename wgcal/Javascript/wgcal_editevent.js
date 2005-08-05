@@ -149,6 +149,17 @@ function SetSelectedItem(from, to) {
      if (to.value>0) HideShowAtt(false);
      else HideShowAtt(true);
    }
+   if (from=='rvconfid') {
+     bg = document.getElementById('butevgroups');
+     zg = document.getElementById('evgroups');
+     if (to.value==2) {
+       bg.style.display = '';
+       SwitchZone('evgroups'); 
+     } else {
+       bg.style.display = 'none';
+       SwitchZone('evattendees');
+     }
+   }
 }
 
 function HideShowAtt(show) {
@@ -199,7 +210,7 @@ function ChangeAllDay() {
 
 function SwitchZone(view) {
 
-  var zones = new Array ( 'evattendees', 'evrepeatzone');
+  var zones = new Array ( 'evattendees', 'evrepeatzone', 'evgroups');
 
   for (zx in zones) {
     z = zones[zx];
@@ -570,4 +581,28 @@ function SearchIUser(evt, force) {
   }
   return true;
 }
+// RV group visibility
+var glist = new Array();
+function  changeVisGrp(grp) {
+
+  var grpList = '';
+  var cGrp = document.getElementById('d'+grp);
+  if (!cGrp) return;
+  if (cGrp.className!='WGCRessSelected') {
+    glist[glist.length] = grp;
+    cGrp.className = 'WGCRessSelected';
+  } else {
+    for (i=0; i<glist.length;i++) {
+      if (glist[i] == grp) glist[i] = -1;
+    }
+    cGrp.className = 'WGCRessDefault';
+  }
   
+  for (i=0; i<glist.length;i++) {
+    if (glist[i] != -1) {
+      grpList += glist[i]+'|';
+    }
+  }
+  document.getElementById('evconfgroups').value = grpList;
+  return false;
+}

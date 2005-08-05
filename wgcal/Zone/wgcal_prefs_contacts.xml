@@ -1,27 +1,63 @@
-<h4>[TEXT:my prefered contacts]</h4>
-<table width="100%" style="margin:0px;"><tr>
-<td><fieldset>
-<legend>
+<h4>[TEXT:my prefered contacts and groups]</h4>
+<table width="100%" style="margin:0px;"><tr valign="top">
+<td width="50%">
+<fieldset><legend>
 <span onmouseover="this.className='wTextActive'" 
       onmouseout="this.className='wTextNormal'" 
       onclick="picker = subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN')"><img height="22" src="WGCAL/Images/wm-newcontact.gif"> [TEXT:add prefered contact]</span></legend>
 
-<table width="100%" style="margin:0px;"><tr>
+<table width="100%" style="margin:0px;">
 <thead></thead>
 <tbody id="tabress">
 <tr style="display:none" id="trsample">
-  <td><img style="cursor:pointer;border:0px" height="15"  src="[IMG:wm-delete.gif]" onclick="suppress = confirm('[TEXT:supress ressource]'); if (suppress) deleteContact(-1, '%RID%');" title="[TEXT:suppress ressource] %RDESCR%"></td>
-  <td id="%RID%" name="%RID%" ><img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%<span id="cp%RID%" style="display:none"></span></td>
-</tr>
-</table>
-</fielset></td>
-<!--
-<td><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="UseContactInRv();" title="[TEXT:use for event creation]"><input id="usecontact" name="usecontact" type="checkbox" style="cursor:pointer;" onclick="UseContactInRv();" [usecontactstate]>[TEXT:use for event creation]</span>
-</td>
- -->
-</tr><tfoot></tfoot></table>
+  <td id="%RID%" name="%RID%" title="[TEXT:suppress ressource] %RDESCR%" onclick="suppress = confirm('[TEXT:supress ressource]'); if (suppress) deleteContact(-1, '%RID%');" class="WGCRessDefault" onmouseover="this.className='WGCRessOver';" onmouseout="this.className='WGCRessDefault'"><img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%<span id="cp%RID%" style="display:none"></span></td>
 
+
+</fieldset></td>
+</tr><tfoot></tfoot></table>
+</td>
+<td width="50%"><fieldset><legend><img width="20px" height="20px" align="absbottom" src="[IMG:wgcal_choosegroups.gif]">&nbsp;[TEXT:my groups]</legend>
+<div style="margin-left:20px; margin-right:20px; border:1px outset white">
+[BLOCK groups]<div id="d[gfid]" style="margin:2px" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
+onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'" title="[TEXT:click to selec/unselect group] [gtitle]" 
+onclick="changeUserGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>[ENDBLOCK groups]
+</div>
+</fieldset></td>
+</table>
+
+<form id="setugroups" target="wgcal_hidden" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETUGROUPS"><input type="hidden" value="" id="ugroups" name="ugroups"></form>
 <script type="text/javascript">
+
 [BLOCK L_RESS]InsertPrefContact(-1, '[RDESCR]', '[RID]', '[RICON]', false);
 [ENDBLOCK L_RESS]
+
+var glist = new Array();
+[BLOCK GLIST]
+glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
+
+function changeUserGrp(grp) {
+
+  var grpList = '';
+  var cGrp = document.getElementById('d'+grp);
+  if (!cGrp) return;
+  if (cGrp.className!='WGCRessSelected') {
+    glist[glist.length] = grp;
+    cGrp.className = 'WGCRessSelected';
+  } else {
+    for (i=0; i<glist.length;i++) {
+      if (glist[i] == grp) glist[i] = -1;
+    }
+    cGrp.className = 'WGCRessDefault';
+  }
+  
+  for (i=0; i<glist.length;i++) {
+    if (glist[i] != -1) {
+      grpList += glist[i]+'|';
+    }
+  }
+  document.getElementById('ugroups').value = grpList;
+//   alert('liste des groupes : '+document.getElementById('ugroups').value);
+  document.getElementById('setugroups').submit();
+  return false;
+}
 </script>

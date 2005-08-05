@@ -1,33 +1,47 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
-<form id="delgrp" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELGROUPS"><input type="hidden" value="-1" id="delgfid" name="delgfid"></form>
-<form id="addgrp" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_ADDGROUPS"><input type="hidden" value="-1" id="addgfid" name="addgfid"></form>
+<form id="setgroups" target="wgcal_hidden" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETGROUPS">
+<input type="hidden" value="-1" id="groups" name="groups">
+</form>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
+var glist = new Array();
+[BLOCK GLIST]
+glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
+
 function changeGrp(grp) {
+
+  var grpList = '';
   var cGrp = document.getElementById('d'+grp);
-  if (cGrp.className!='WGCRessSelected') {
   if (!cGrp) return;
-    var ff = document.getElementById('addgrp');  
-    var igrp = document.getElementById('addgfid');
+  if (cGrp.className!='WGCRessSelected') {
+    glist[glist.length] = grp;
     cGrp.className = 'WGCRessSelected';
   } else {
-    var ff = document.getElementById('delgrp');  
-    var igrp = document.getElementById('delgfid');
+    for (i=0; i<glist.length;i++) {
+      if (glist[i] == grp) glist[i] = -1;
+    }
     cGrp.className = 'WGCRessDefault';
   }
-  igrp.value = grp;
-  ff.submit();
+  
+  for (i=0; i<glist.length;i++) {
+    if (glist[i] != -1) {
+      grpList += glist[i]+'|';
+    }
+  }
+//   alert('liste des groupes : '+grpList);
+  document.getElementById('groups').value = grpList;
+  document.getElementById('setgroups').submit();
   return false;
 }
 </script>
 <div class="wMonthTextTitle" align="left">[TEXT:agenda groups selection]</div>
 
-<div>[BLOCK groups]
-<div id="d[gfid]" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" width="98%" 
+<div style="margin:20px; border:1px outset white">[BLOCK groups]
+<div id="d[gfid]" style="margin:2px" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]"
 onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
 onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'"  
 title="[TEXT:click to add/remove group] [gtitle]"
-onclick="changeGrp([gfid])"><img src="[gicon]"  border="0" height="15px">[gtitle]</div>[ENDBLOCK groups]
+onclick="changeGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>[ENDBLOCK groups]
 </div>
 
 <table cellspacing="0" cellpadding="0" width="100%"><tr><td class="wMonthTextTitle"  align="right">

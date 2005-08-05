@@ -7,6 +7,9 @@ DOC;DCALENDAR;WG_AGENDA;;Mon agenda;yes;;EVENT;;;;;;;and\nand;evt_idres\nevt_fro
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 BEGIN;120;utilisateur;128;;IUSER;;;;;;;;;;;;;;;;;;;;;;;
 TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_FGROUPS;;Groupes Agenda;N;N;frame;10100;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_GROUPS;US_WGCAL_FGROUPS;Mes groupes;N;N;array;10110;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_GID;US_WGCAL_GROUPS;Group Id;N;N;docid;10120;H;;;;;;;;;;;;;;;;;;;;
 END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //BEGIN;129;groupe intranet;127;;IGROUP;;;;;;;;;;;;;;;;;;;;;;;
@@ -50,6 +53,7 @@ ATTR;CALEV_END;CALEV_EVENT;Date de fin;N;Y;timestamp;120;R;;;;;
 ATTR;CALEV_TIMETYPE;CALEV_EVENT;Mode;N;N;enum;130;R;;;-;[hcheck]0|times,1|no time,2|all day;
 ATTR;CALEV_FREQUENCY;CALEV_EVENT;Fréquence;N;N;integer;140;R;;;;;
 ATTR;CALEV_CATEGORY;CALEV_EVENT;Catégorie;N;N;enum;150;R;;;;0|none;
+ATTR;CALEV_CONFGROUPS;CALEV_EVENT;Groupe en visibilité;N;N;text;160;R;;;;;
 ;;;;;;;;;;;;;
 ATTR;CALEV_REPEAT;;Répétition;N;N;frame;300;;;;;;
 ATTR;CALEV_REPEATMODE;CALEV_REPEAT;Mode;N;N;enum;310;R;;;-;[hcheck]0|none,1|daily,2|weekly,3|monthly,4|yearly;
