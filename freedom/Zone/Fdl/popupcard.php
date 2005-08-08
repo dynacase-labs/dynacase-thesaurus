@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.51 2005/07/21 10:03:52 eric Exp $
+ * @version $Id: popupcard.php,v 1.52 2005/08/08 16:04:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -208,8 +208,9 @@ function popupcard(&$action) {
     popupInvisible('popupcard',$kdiv,'editdoc');
     popupInvisible('popupcard',$kdiv,'editstate'); 
     popupInvisible('popupcard',$kdiv,'delete');
+    popupInvisible('popupcard',$kdiv,'duplicate');
     if ($doc->dfldid == 0)  popupInactive('popupcard',$kdiv,'editcfld');
-  }
+  } 
 
   // if ($doc->doctype == "S") popupInvisible('popupcard',$kdiv,'editdoc'); 
 
