@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.PostIt.php,v 1.5 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Method.PostIt.php,v 1.6 2005/08/08 16:02:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -37,7 +37,7 @@ function viewpostit($target="_self",$ulink=true,$abstract=false) {
 			 "color"=>$tcolor[$k]);
   }
 
- 
+  $this->lay->set("EMPTY",count($tcomment)==0);
   // Out
 
 
@@ -104,5 +104,11 @@ function PostDelete() {
       $doc->enableEditControl();
     }
   }
+}
+
+function preCreated() {
+  
+  $tcomment = $this->getTvalue("PIT_COM");
+  if (count($tcomment==0)) return (_("no message : post-it creation aborted"));
 }
 ?>
