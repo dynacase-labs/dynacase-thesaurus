@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.264 2005/08/02 16:11:26 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.265 2005/08/08 16:08:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -545,6 +545,11 @@ create unique index i_docir on doc(initid, revision);";
     if ($this->fromid  == $fromid) return false; // no convert if not needed
     $cdoc = createDoc($this->dbaccess, $fromid);
     if (! $cdoc) return false;
+
+    $f1doc=$this->getFamDoc();
+    $f1from=$f1doc->title."[".$f1doc->id."]";
+    $f2doc=$cdoc->getFamDoc();
+    $f2from=$f2doc->title."[".$f2doc->id."]";
     
     $cdoc->id = $this->id;
     $cdoc->initid=$this->initid;
@@ -568,6 +573,8 @@ create unique index i_docir on doc(initid, revision);";
     }
 
     $err=$cdoc->Modify();
+    $cdoc->AddComment(sprintf(_("convertion from %s to %s family"),$f1from,$f2from));
+			      
     
     return $cdoc;
     
@@ -2108,58 +2115,60 @@ create unique index i_docir on doc(initid, revision);";
     global $action;
     $dbaccess = $action->GetParam("FREEDOM_DB");
     $urllink="";
-    for ($i=0; $i < strlen($link); $i++) {
+    $mi=strlen($link);
+    for ($i=0; $i < $mi; $i++) {
       switch ($link[$i]) {
       
       case '%' :
 	$i++;
-	if ($link[$i+1] == "%") { 
-	  // special link
-	    
-	  switch ($link[$i]) {
-	  case "B": // baseurl	  
-	    $urllink.=$action->GetParam("CORE_BASEURL");	      
-	    break;
-
-	  case "S": // standurl	  
-	    $urllink.=$action->GetParam("CORE_STANDURL");	      
-	    break;
-
-	  case "I": // id	  
-	    $urllink.=$this->id;	      
-	    break;
-
-	  case "T": // title  
-	    $urllink.=$this->title;	      
-	    break;	    	    
-
-	  default:
-	      
-	    break;
-	  }
-	  $i++; // skip end '%'
+	if ($link[$i] == "%") { 
+	  $urllink.= "%"; // %% is %
 	} else {
-	  
-	  $sattrid="";
-	  while ($link[$i] != "%" ) {
-	    $sattrid.= $link[$i];
-	    $i++;
-	  }
-	  $oa=$this->GetAttribute($sattrid);
-	  if (($k >= 0)&&($oa && $oa->inArray())) {
-	    $tval= $this->GetTValue($sattrid);
-	    $ovalue = chop($tval[$k]);
-	  } else {
-	    $ovalue = $this->GetValue($sattrid);
-	  }
-	  if ($ovalue == "") return false;
-	  //$urllink.=urlencode($ovalue); // encode because url values must be encoded
-	  //$urllink.=urlencode($ovalue); // not encode cause url will became invalid
-	  if ($ovalue[0]=='[') $urllink.=urlencode($ovalue);
-	  else $urllink.=($ovalue); // not encode cause url will became invalid
+	  if ($link[$i+1] == "%") { 
+	    // special link
+	    
+	    switch ($link[$i]) {
+	    case "B": // baseurl	  
+	      $urllink.=$action->GetParam("CORE_BASEURL");	      
+	      break;
 
+	    case "S": // standurl	  
+	      $urllink.=$action->GetParam("CORE_STANDURL");	      
+	      break;
+
+	    case "I": // id	  
+	      $urllink.=$this->id;	      
+	      break;
+
+	    case "T": // title  
+	      $urllink.=$this->title;	      
+	      break;	    	    
+
+	    default:
+	      
+	      break;
+	    }
+	    $i++; // skip end '%'
+	  } else {
 	  
-	  
+	    $sattrid="";
+	    while (($i < $mi) && ($link[$i] != "%" )) {
+	      $sattrid.= $link[$i];
+	      $i++;
+	    }
+	    $oa=$this->GetAttribute($sattrid);
+	    if (($k >= 0)&&($oa && $oa->inArray())) {
+	      $tval= $this->GetTValue($sattrid);
+	      $ovalue = chop($tval[$k]);
+	    } else {
+	      $ovalue = $this->GetValue($sattrid);
+	    }
+	    if ($ovalue == "") return false;
+	    //$urllink.=urlencode($ovalue); // encode because url values must be encoded
+	    //$urllink.=urlencode($ovalue); // not encode cause url will became invalid
+	    if ($ovalue[0]=='[') $urllink.=urlencode($ovalue);
+	    else $urllink.=($ovalue); // not encode cause url will became invalid	  	  
+	  }
 	}
 	break;
 
@@ -2186,6 +2195,7 @@ create unique index i_docir on doc(initid, revision);";
       }
     }
     $urllink=$this->urlWhatEncodeSpec($urllink); // complete in special case families
+
     return (chop($urllink));
     
   }
@@ -2381,18 +2391,18 @@ create unique index i_docir on doc(initid, revision);";
 	  $lay->set("caption",$oattr->labelText);
 
 	  $emptyarray=true;
+	  $nbitem=0;
 	  while (list($k, $v) = each($ta)) {
 	    if (($v->mvisibility=="H")||($v->mvisibility=="O")) continue;
 	    $talabel[] = array("alabel"=>$v->labelText);	
 	    $tval[$k]=$this->getTValue($k);
+	    $nbitem= max($nbitem,count($tval[$k]));
 	    if ($emptyarray && ($this->getValue($k)!="")) $emptyarray=false;
 	   
 	  }
 	  $lay->setBlockData("TATTR",$talabel);
-	  if (! $emptyarray) {
+	  if (! $emptyarray) {	    
 	    
-	    reset($tval);
-	    $nbitem= count(current($tval));
 	    if ($nbitem > 10) $lay->set("caption",$oattr->labelText." ($nbitem)");
 	    else $lay->set("caption",$oattr->labelText);
 	    $tvattr = array();
@@ -2459,6 +2469,14 @@ create unique index i_docir on doc(initid, revision);";
                          $avalue);
 	  $htmlval="<DIV>$avalue</DIV>";	
 	  break;
+	case date:  
+	  if ($aformat!="") {
+	    $htmlval=strftime($aformat,strtotime($avalue));
+	    $aformat="";
+	  } else {
+	    $htmlval=$avalue; 
+	  }	
+	  break;
 	case time:  
 	  if ($aformat!="") {
 	    $htmlval=strftime($aformat,strtotime($avalue));
@@ -2468,8 +2486,13 @@ create unique index i_docir on doc(initid, revision);";
 	  }
 	
 	  break;
-	case timestamp:  
-	  $htmlval=substr($avalue,0,16); // do not display second
+	case timestamp:   
+	  if ($aformat!="") {
+	    $htmlval=strftime($aformat,strtotime($avalue));
+	    $aformat="";
+	  } else {
+	    $htmlval=substr($avalue,0,16); // do not display second
+	  }
 	
 	  break;
 	case ifile:  
@@ -2731,7 +2754,7 @@ create unique index i_docir on doc(initid, revision);";
    * @param bool $onlyopt if true only optionnal attributes are displayed
    */
   function viewbodycard($target="_self",$ulink=true,$abstract=false,$onlyopt=false) {
-
+    global $action;
   
     $frames= array();
   
@@ -2823,6 +2846,7 @@ create unique index i_docir on doc(initid, revision);";
 	  {	      
 	  case "image": 		  
 	    $tableimage[$nbimg]["imgsrc"]=$htmlvalue;
+	    $tableimage[$nbimg]["itarget"]=($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
 	    if (strstr($htmlvalue,'index.php'))   $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue."&height=80";
 	    else $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue;
 	    break;
@@ -3689,9 +3713,9 @@ create unique index i_docir on doc(initid, revision);";
     return "";
   }
 
-  //같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같
+  //----------------------------------------------------------------------
   //   USUAL METHODS USE FOR CALCULATED ATTRIBUTES OR FUNCTION SEARCHES
-  //같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같같
+  //----------------------------------------------------------------------
   // ALL THESE METHODS NAME MUST BEGIN WITH 'GET'
 
   /**
