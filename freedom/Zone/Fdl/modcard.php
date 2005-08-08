@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.79 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: modcard.php,v 1.80 2005/08/08 16:03:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -196,6 +196,7 @@ function setPostVars(&$doc) {
   global $_POST;
   global $_FILES;
   $err="";
+
   foreach ($_POST as $k=>$v)    {
       
       if ($k[0] == "_") // freedom attributes  begin with  _
@@ -205,7 +206,8 @@ function setPostVars(&$doc) {
 	    if (isset($v["-1"])) {
 	      unset($v["-1"]);	     
 	    }
-	    $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
+	    if ((count($v)==0) || ((count($v)==1) && (chop($v[0])==""))) $value=" "; // delete column
+	    else $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
 	  }
 	  else $value = stripslashes($v);
 
