@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.11 2005/07/29 16:08:02 eric Exp $
+ * @version $Id: fdl_card.php,v 1.12 2005/08/08 15:56:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -19,7 +19,7 @@ include_once("FDL/Class.Dir.php");
 /**
  * View a document
  * @param Action &$action current action
- * @global docid Http var : document identificator to see
+ * @global id Http var : document identificator to see
  * @global latest Http var : (Y|N|L|P) if Y force view latest revision, L : latest fixed revision, P : previous revision
  * @global abstract Http var : (Y|N) if Y view only abstract attribute
  * @global props Http var : (Y|N) if Y view properties also
