@@ -3,7 +3,7 @@
  * Profil edition
  *
  * @author Anakeen 2000 
- * @version $Id: editprof.php,v 1.17 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: editprof.php,v 1.18 2005/08/08 15:59:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -100,9 +100,13 @@ function editprof(&$action)
       
     
   }
+  if (($doc->doctype != 'C')&&($doc->doctype != "P")) {
 
-  setControlView($action,$doc,$createp);
-
+    setControlView($action,$doc,$createp);
+    $action->lay->set("CV",true);
+  } else {
+    $action->lay->set("CV",false);
+  }
 }
 
 

@@ -47,8 +47,8 @@
  <td >
    <span class="FREEDOMTextTitle">[doctitle]</span>
   </td> 
-  <td  align="right"><span class="FREEDOMText">[TEXT:profile access] : </span></td><td>
-   <select name="profid" >   
+  <td  align="right"><span class="FREEDOMText">[TEXT:profile access] : </span></td>
+  <td><select name="profid" >   
            <option VALUE="0">[TEXT:no profile]</option>      
          [BLOCK SELECTPROF]
            <option VALUE="[idpdoc]" [selected]>[profname]</option>   
@@ -57,24 +57,25 @@
     </select>
    </td>
 </tr>
-
+[IF CV]
 <tr class="FREEDOMBack1">
  <td >
    <span class="FREEDOMTextTitle">&nbsp;</span>
   </td> 
-  <td  align="right"><span class="FREEDOMText">[TEXT:view control] : </span></td><td>
-   <select name="cvid" >   
+  <td  align="right"><span class="FREEDOMText">[TEXT:view control] : </span></td>
+  <td><select name="cvid" >   
            <option VALUE="0">[TEXT:no control]</option>      
          [BLOCK SELECTCV]
            <option VALUE="[id]" [selcv]>[title]</option>   
-         [ENDBLOCK SELECTCV]
-          
+         [ENDBLOCK SELECTCV]          
     </select>
    </td>
 </tr>
+[ENDIF CV]
 <tr class="FREEDOMBack1">
-  <td colspan="3" class = "tdstyle">
+  <td colspan="3"  align="right" class = "tdstyle">
  <input type="submit" value="[TEXT:Validate]"> 
+ <input type="button" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[docid]'">
   </td>
 </tr>
 </table>
