@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.94 2005/08/02 16:09:52 eric Exp $
+ * @version $Id: import_file.php,v 1.95 2005/08/08 15:58:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,7 +43,7 @@ function add_import_file(&$action, $fimport="") {
   while ($data = fgetcsv ($fdoc, 50000, ";")) {
     $nline++;
 
-    $data=array_map("utf8_decode",$data);
+    if (isUTF8($data))    $data=array_map("utf8_decode",$data);
   // return structure
     $num = count ($data);
     if ($num < 1) continue;
@@ -792,5 +792,40 @@ function AddVaultFile($dbaccess,$path,$analyze,&$vid) {
   return false;
 }
 
-
+/**
+ * Returns <kbd>true</kbd> if the string or array of string is encoded in UTF8.
+ *
+ * Example of use. If you want to know if a file is saved in UTF8 format :
+ * <code> $array = file('one file.txt');
+ * $isUTF8 = isUTF8($array);
+ * if (!$isUTF8) --> we need to apply utf8_encode() to be in UTF8
+ * else --> we are in UTF8 :)
+ * </code>
+ * @param mixed A string, or an array from a file() function.
+ * @return boolean
+ */
+function isUTF8($string)
+{
+  if (is_array($string))   return seems_utf8(implode('', $string));      
+  else return seems_utf8($string);    
+}
+/**
+ * Returns <kbd>true</kbd> if the string  is encoded in UTF8.
+ *
+ * @param mixed $Str string
+ * @return boolean
+ */
+function seems_utf8($Str) {
+ for ($i=0; $i<strlen($Str); $i++) {
+  if (ord($Str[$i]) < 0x80) $n=0; # 0bbbbbbb
+  elseif ((ord($Str[$i]) & 0xE0) == 0xC0) $n=1; # 110bbbbb
+  elseif ((ord($Str[$i]) & 0xF0) == 0xE0) $n=2; # 1110bbbb
+  elseif ((ord($Str[$i]) & 0xF0) == 0xF0) $n=3; # 1111bbbb
+  else return false; # Does not match any model
+  for ($j=0; $j<$n; $j++) { # n octets that match 10bbbbbb follow ?
+   if ((++$i == strlen($Str)) || ((ord($Str[$i]) & 0xC0) != 0x80)) return false;
+  }
+ }
+ return true;
+}
 ?>
