@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.98 2005/07/19 09:48:06 eric Exp $
+ * @version $Id: editutil.php,v 1.99 2005/08/08 16:12:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -64,7 +64,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 
   // output change with type
   switch ($attrtype)  {		      
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     case "image": 
       if (ereg ("(.*)\|(.*)", $value, $reg)) {
 			  
@@ -106,7 +106,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       $input .= " > "; 
       break;
 		      
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     case "file": 
       if (ereg ("(.*)\|(.*)", $value, $reg)) {
 			  
@@ -155,7 +155,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       $input .= " > "; 
       break;
 		      
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     case "longtext": 
       $rows=2;
       if ($action->Read("navigator","")=="NETSCAPE") $rows--;
@@ -171,7 +171,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
     
     
       break;
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     case "htmltext": 
       $expid="exp".$attrid;
       $input="<textarea $oc  style=\"width:100%\" rows=\"20\"   name=\"".
@@ -187,7 +187,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       $input .= "<script >var editor$attridk = new HTMLArea('$attridk');setTimeout(\"editor$attridk.generate()\",500)</script>";
     
       break;
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     case "idoc":
 
       $input.=getLayIdoc($doc,$oattr,$attridk,$attrin,$value);
@@ -195,7 +195,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       break;
       
 
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     case "array": 
 
       $lay = new Layout("FDL/Layout/editarray.xml", $action);
@@ -204,7 +204,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       $input =$lay->gen(); 
       break;
 		      
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     case "doc": 
 
       $lay = new Layout("FDL/Layout/editadoc.xml", $action);
@@ -214,7 +214,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       else $lay->set("disabled","");
       $input =$lay->gen(); 
       break;		
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
  
      
     case "enum": 
@@ -265,7 +265,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 		      
 
 		      
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
 			
     case "color": 
       $input="<input size=7  style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
@@ -282,7 +282,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       }
       break;      
 		      
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
 			
     case "date": 
       $lay = new Layout("FDL/Layout/editdate.xml", $action);
@@ -301,7 +301,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       if ($doc->usefor != 'D') 	$lay->setBlockData("CONTROLCAL",array(array("zou")));
       $input =$lay->gen(); 
       break;     
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
 			
     case "timestamp": 
       $lay = new Layout("FDL/Layout/edittimestamp.xml", $action);
@@ -316,7 +316,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       $input =$lay->gen(); 
       break;
 		      
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
 			
     case "time": 
       $isDisabled="";
@@ -331,7 +331,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 
       break;      
 		      
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     case "password" : 
       // don't see the value
       $input="<input $oc class=\"fullresize\" type=\"password\" name=\"".$attrin."\" value=\""."\"";
@@ -343,7 +343,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       $input .= " > "; 
       break;
 
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     case "option": 
 
       $lay = new Layout("FDL/Layout/editdocoption.xml", $action);
@@ -352,7 +352,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       else $lay->set("disabled","");
       $input =$lay->gen(); 
       break;
-      //같같같같같같같같같같같같같같같같같같같같
+      //----------------------------------------
     default : 
     
       if (($oattr->repeat)&&(!$oattr->inArray())) { // textlist
