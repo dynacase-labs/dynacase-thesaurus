@@ -3,7 +3,7 @@
  * Import document from CSV file
  *
  * @author Anakeen 2004
- * @version $Id: generic_editimport.php,v 1.15 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_editimport.php,v 1.16 2005/08/08 16:00:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,7 +31,7 @@ function generic_editimport(&$action) {
 
   
   $stree=array();
-  if ($homefld->id > 0)  $stree=getChildCatg($homefld->id, 1,true);
+  if ($homefld->id > 0)  $stree=getChildCatg($homefld->id, 1,true,4);
 
   reset($stree);
   
