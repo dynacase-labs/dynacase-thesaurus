@@ -1,5 +1,7 @@
 <?php
 include_once("Class.Param.php");
+include_once("FDL/freedom_util.php");
+include_once("FDL/Lib.Dir.php");
 
 
 define(SEC_PER_DAY, 24*3600);
@@ -232,6 +234,46 @@ function wGetUserGroups() {
   }
 
   return $u_rgroups;
+}
+
+
+function MonAgenda() 
+{
+  global $action;
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $rq=getChildDoc($dbaccess,0,0,1,array("owner = -".$action->user->id),
+		  $action->user->id, "LIST", "DIR");
+  if (count($rq)>0)  {
+    $home = $rq[0];
+  } else {
+    $home = NULL;
+  }
+
+  $mycalendar = _("My calendar");
+  $calname = "UDCAL".$action->user->id;
+
+  $mcal = new Doc($dbaccess, getIdFromName($dbaccess, $calname)); 
+  if (!$mcal->isAffected()) {
+    $mcal = createDoc($dbaccess,"DCALENDAR");
+    if (!$mcal) $action->exitError(_("Can't create : ").$mycalendar);
+    $mcal->setTitle($mycalendar. "(".ucwords(strtolower($action->user->firstname.' '.$action->user->lastname)).")");
+    $mcal->owner = $action->user->id;
+    $mcal->icon = 'mycal.gif';
+    // The request
+    $mcal->name = $calname;
+    $mcal->setValue("se_ols", array( "and", "and"));
+    $mcal->setValue("se_attrids", array( "evt_idres", "evt_frominitiatorid"));
+    $mcal->setValue("se_funcs", array( '~y', '~*' ));
+    $mcal->setValue("se_keys", array( '?idres', '?idfamref' ));
+    $mcal->Add();
+    $mcal->PostModify();
+    $mcal->Modify();
+    if ($home!=NULL) {
+      $home->AddFile($mcal->id);
+    }
+  }
+
 }
 
 ?>

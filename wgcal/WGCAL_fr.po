@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-05 16:53+0200\n"
+"POT-Creation-Date: 2005-08-08 17:24+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -236,6 +236,12 @@ msgstr "Vue mensuelle texte"
 
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
+
+msgid "My calendar"
+msgstr "Mon agenda"
+
+msgid "Can't create : "
+msgstr "Erreur de création de l'agenda : "
 
 msgid "new"
 msgstr "nouveau"
