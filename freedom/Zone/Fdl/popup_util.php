@@ -3,7 +3,7 @@
  * Utilities functions to generate popup menu
  *
  * @author Anakeen 2000 
- * @version $Id: popup_util.php,v 1.13 2005/06/09 12:18:17 eric Exp $
+ * @version $Id: popup_util.php,v 1.14 2005/08/08 16:04:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -44,6 +44,7 @@ function popupInit($name, $items) {
   $tmenus[$name]["name"] = $name;
   $tmenus[$name]["nbmitem"] = count($menuitems[$name]);
   $tmenus[$name]["menulabel"]="['".implode("','",$tsubmenu[$name])."']";
+  $tmenus[$name]["nbdiv"]="";
 
 }
 
@@ -228,7 +229,6 @@ function popupGen($kdiv="nothing") {
       $tmenus[$name]["nbdiv"]=$nbdiv;
       $tmenus[$name]["menulabel"]="['".implode("','",$tsubmenu[$name])."']";
     }
-
     $lpopup->SetBlockData("MENUACCESS", $tma);
     $lpopup->SetBlockData("MENUS", $tmenus);
     if (isset($tcmenus)) $tcmenus=array_merge($tcmenus, $tmenus);
