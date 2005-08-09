@@ -4,7 +4,7 @@ TD {
 background:[CORE_BGCOLOR];
 }
 fieldset div{
-  font-size: 120%;
+  font-size: [fontsize]%;
   font-weight: bold;
   cursor:crosshair;
 }

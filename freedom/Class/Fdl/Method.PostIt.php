@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.PostIt.php,v 1.6 2005/08/08 16:02:01 eric Exp $
+ * @version $Id: Method.PostIt.php,v 1.7 2005/08/09 08:58:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,7 +28,10 @@ function viewpostit($target="_self",$ulink=true,$abstract=false) {
   $tdate = $this->getTvalue("PIT_DATE");
   $tcolor = $this->getTvalue("PIT_COLOR");
 
-
+  $nbcar=strlen($this->getvalue("PIT_COM"));
+  if ($nbcar < 60) $fontsize=120;
+  elseif ($nbcar < 200) $fontsize=100;
+  else  $fontsize=80;
   $tlaycomment=array();
   while (list($k,$v) = each($tcomment)) {
     $tlaycomment[]=array("comments"=>$v,
@@ -38,6 +41,7 @@ function viewpostit($target="_self",$ulink=true,$abstract=false) {
   }
 
   $this->lay->set("EMPTY",count($tcomment)==0);
+  $this->lay->set("fontsize",$fontsize);
   // Out
 
 
@@ -108,7 +112,7 @@ function PostDelete() {
 
 function preCreated() {
   
-  $tcomment = $this->getTvalue("PIT_COM");
-  if (count($tcomment==0)) return (_("no message : post-it creation aborted"));
+  $tcomment = $this->getValue("PIT_NCOM");
+  if ($tcomment=="") return (_("no message : post-it creation aborted"));
 }
 ?>
