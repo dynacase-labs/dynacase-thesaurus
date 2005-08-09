@@ -92,7 +92,7 @@
 
 <!-- ------------ common latest --------------------- -->
 <a href="#" id="delete"     
-    onclick="if ((this.className == 'menuItem') || (this.className == 'menuItemCtrl'))  {ok =confirm('[TEXT:delconfirm] [dtitle]'); if (ok) activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_DEL&id=[id]','');}closeMenu('popupcard');">
+    onclick="if ((this.className == 'menuItem') || (this.className == 'menuItemCtrl'))  {ok =confirm('[TEXT:delconfirm] [dtitle] ([ftitle])'); if (ok) activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_DEL&id=[id]','');}closeMenu('popupcard');">
 [TEXT:Delete]</a>
 
 

@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.52 2005/08/08 16:04:41 eric Exp $
+ * @version $Id: popupcard.php,v 1.53 2005/08/09 08:57:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -26,8 +26,10 @@ function popupcard(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new_Doc($dbaccess, $docid);
   $kdiv=1; // only one division
+  $fdoc=getTDoc($dbaccess,$doc->fromid);
 
   $action->lay->Set("id", $docid);
+  $action->lay->Set("ftitle", addslashes($fdoc["title"]));
   $action->lay->Set("profid", $doc->profid);
   $action->lay->Set("ddocid", $doc->ddocid); // default doc id for pre-inserted values
   include_once("FDL/popup_util.php");
