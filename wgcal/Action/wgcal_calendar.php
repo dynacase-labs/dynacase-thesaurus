@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.47 2005/07/18 17:21:25 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.48 2005/08/09 16:48:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,25 +15,37 @@
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/Lib.wTools.php");
+include_once('FDL/popup_util.php');
+include_once('WHAT/Lib.Common.php');
 
 function wgcal_calendar(&$action) {
 
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $debug = GetHttpVars("debug", 0);
 
   // Check for standalone mode 
   $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
   
-  // Init start time
-  $ts = GetHttpVars("ts", 0);
-  $stdate = $ts;
-  if ($stdate == 0) $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
-  if (!$sm) $action->parent->param->set("WGCAL_U_CALCURDATE", $stdate, PARAM_USER.$action->user->id, $action->parent->id);
-  $sdate = w_GetDayFromTs($stdate); 
+  // Event search
+  // qev =  query event
+  // famref = family producer
+  // ress = ressources
+
+  $qev = GetHttpVars("qev", getIdFromName($dbaccess,"WG_AGENDA"));
+
+  $famr = GetHttpVars("famref", $action->getParam("WGCAL_G_VFAM", "CALEVENT"));
+  $ft = explode("|", $famr);
+  $fti = array();
+  foreach ($ft as $k => $v)     $fti[] = (is_numeric($v) ? $v : getIdFromName($dbaccess, $v));
+  $idfamref = implode("|", $fti);
+  setHttpVar("idfamref", $idfamref);
 
   // Init the ressources
-  $res = GetHttpVars("res", "");
+  $res = GetHttpVars("ress", "");
   if ($res!="") {
     $ress = explode("|", $res);
-    foreach ($ress as $kr => $vr) {
+     foreach ($ress as $kr => $vr) {
       if ($vr>0) $tr[$vr] = $vr;
     }
   } else {  
@@ -44,12 +56,147 @@ function wgcal_calendar(&$action) {
       if ($vr->id>0) $tr[$vr->id] = $vr->id;
     }
   }
-  // Init the view mode (month, week, ...)
+  $idres = implode("|", $tr);
+  setHttpVar("idres",$idres);
+  
+  // Init start time, view mode (month, week, ...)
   $vm = GetHttpVars("vm", "");
   if ($vm=="" || !is_int($vm)) $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
-
   $dayperweek = $vm;
   if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
+  $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
+  if ($swe!="yes") {
+    $ndays = $dayperweek - 2;
+  } else {
+    $ndays = $dayperweek;
+  }
+
+  $ts = GetHttpVars("ts", 0);
+  $stdate = $ts;
+  if ($stdate == 0) $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
+  if (!$sm) $action->parent->param->set("WGCAL_U_CALCURDATE", $stdate, PARAM_USER.$action->user->id, $action->parent->id);
+  $sdate = w_GetDayFromTs($stdate); 
+  $firstWeekDay = w_GetFirstDayOfWeek($sdate);
+  $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
+
+  if ($debug==1) AddWarningMsg("Query = [$qev]   Producters = [$idfamref] Ressources = [$idres] Dates = [".ts2db($firstWeekDay, "Y-m-d H:i:s").",".ts2db($edate, "Y-m-d H:i:s")."]");
+
+  $events = array();
+  $dre=new Doc($dbaccess, $qev);
+  $events = $dre->getEvents(ts2db($firstWeekDay, "Y-m-d H:i:s"), ts2db($edate, "Y-m-d H:i:s"));
+
+  // Post process search results ------------------------------------------------------------------------------------
+  $tout=array(); 
+  $first = false;
+  popupInit('calpopup',  array('editrv', 'deloccur', 'viewrv', 'deleterv',
+                               'acceptrv', 'rejectrv', 'tbcrv', 'historyrv',
+                               'cancelrv'));
+  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
+  $rvfamid = getIdFromName($dbaccess, "CALEVENT");
+  foreach ($events as $k=>$v) {
+    $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
+    $item = array( "ID" => $v["id"], 
+		   "IDP" => $v["evt_idinitiator"], 
+ 		   "START" => localFrenchDateToUnixTs($v["evt_begdate"]),
+  		   "TSSTART" => $v["evt_begdate"],
+ 		   "TSEND" => $end, 
+		   "END" => localFrenchDateToUnixTs($end), 
+		   "IDC" =>  $v["evt_idcreator"] );
+    $displayEvent = true;
+
+    // Traitement de refus => spécifique à CALEVENT
+    if ($v["evt_frominitiatorid"] == $rvfamid && !$nofilter) {
+
+      $displayEvent = false;
+      
+      // Affichage
+      // - si une ressource affiché est dedans et pas refusé
+      // - si une ressource affiché est dedans et pas refusé
+      $attlist  = Doc::_val2array($v["evfc_listattid"]);
+      $attrstat = Doc::_val2array($v["evfc_listattst"]);
+      $attinfo = array();
+      foreach ($attlist as $kat => $vat) {
+	$attinfo[$vat]["status"] = $attrstat[$kat];
+	$attinfo[$vat]["display"] = isset($tr[$vat]);
+      }
+      
+      foreach ($attinfo as $kat => $vat) {
+	
+	if ($vat["display"]) {
+	  if ($action->user->fid!=$kat) {
+	    if ($vat["status"]!=EVST_REJECT) {
+	      $displayEvent = true;
+	    }
+	  } else {
+	    if ($vat["status"]!=EVST_REJECT || $showrefused==1) {
+	      $displayEvent = true;
+	    }
+	  }
+	}
+      }
+    }
+
+    if ($displayEvent) { 
+
+      $n = new Doc($dbaccess, $v["id"]);  
+      $item["RESUME"] = $n->calVResume;
+      $item["VIEW"] = $n->calVCard;
+      $item["VIEWLTEXT"] = $n->calVLongText;
+      $item["VIEWSTEXT"] = $n->calVShortText;
+      $item["RG"] = count($tout);
+      
+      PopupInvisible('calpopup',$item["RG"], 'acceptrv');
+      PopupInvisible('calpopup',$item["RG"], 'rejectrv');
+      PopupInvisible('calpopup',$item["RG"], 'tbcrv');
+      PopupInactive('calpopup',$item["RG"], 'historyrv');
+      PopupActive('calpopup',$item["RG"], 'viewrv');
+      PopupInvisible('calpopup',$item["RG"], 'deloccur');
+      PopupActive('calpopup',$item["RG"], 'cancelrv');
+      PopupInactive('calpopup',$item["RG"], 'editrv');
+      PopupInactive('calpopup',$item["RG"], 'deleterv');
+      $action->lay->set("popupState",false);
+      
+      if ($action->user->fid == $v["evt_idcreator"]) {
+	if ($v["evfc_repeatmode"] > 0) PopupActive('calpopup',$item["RG"], 'deloccur');
+	PopupActive('calpopup',$item["RG"], 'editrv');
+	PopupActive('calpopup',$item["RG"], 'deleterv');
+	$item["action"] = "EDITEVENT";
+      }	else {
+ 	$item["action"] = "VIEWEVENT";
+      }
+      
+      $withme = false;
+      $attr = Doc::_val2array($v["evfc_listattid"]);
+      $attrst = Doc::_val2array($v["evfc_listattst"]);
+      if (count($attr)>1) {
+	foreach ($attr as $ka => $va) {
+	  if ($va==$action->user->fid) {
+	    $withme = true;
+	    $mystate = $attrst[$ka];
+	  }
+	}
+      }
+      
+      $conf = $v["evfc_visibility"];
+      $private = ((($v["evt_idcreator"] != $action->user->fid) && ($conf!=0)) ? true : false );
+      if (!$private) PopupActive('calpopup',$item["RG"], 'historyrv');
+      else PopupInactive('calpopup',$item["RG"], 'viewrv');
+      
+      if ($withme) {
+        $action->lay->set("popupState",true);
+        if ($mystate!=2) PopupActive('calpopup',$item["RG"], 'acceptrv');
+        if ($mystate!=3) PopupActive('calpopup',$item["RG"], 'rejectrv');
+        if ($mystate!=4) PopupActive('calpopup',$item["RG"], 'tbcrv');
+      }
+      
+      $tout[] = $item;
+    }
+  }
+  popupGen(count($tout));
+  $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
+    
+
+  // Display results ------------------------------------------------------------------------------------
 
   $action->lay->set("sm", $sm);
   $action->lay->set("vm", $vm);
@@ -65,18 +212,10 @@ function wgcal_calendar(&$action) {
 
   $action->lay->set("standAlone", $sm);
 
-  $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
-  if ($swe!="yes") {
-    $ndays = $dayperweek - 2;
-  } else {
-    $ndays = $dayperweek;
-  }
   $hcolsize = 5;
   $colsize = round((100 - $hcolsize) / $ndays);
 
   $cdate = w_GetDayFromTs(time());
-  $firstWeekDay = w_GetFirstDayOfWeek($sdate);
-  $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $pafter = $sdate + ($ndays * SEC_PER_DAY);
   $pbefore = $sdate - ($ndays * SEC_PER_DAY);
 
@@ -210,14 +349,8 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
 
-  $events = array();
-  $events = WGCalGetAgendaEvents( $action,
-				  $tr, 
-				  ts2db($firstWeekDay, "Y-m-d H:i:s"),
-				  ts2db($edate, "Y-m-d H:i:s") );
-  
-  $action->lay->SetBlockData("EVENTS", $events);
-  $action->lay->SetBlockData("EVENTSSC", $events);
+  $action->lay->SetBlockData("EVENTS", $tout);
+  $action->lay->SetBlockData("EVENTSSC", $tout);
 
 }
 

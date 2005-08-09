@@ -257,15 +257,15 @@ function MonAgenda()
   if (!$mcal->isAffected()) {
     $mcal = createDoc($dbaccess,"DCALENDAR");
     if (!$mcal) $action->exitError(_("Can't create : ").$mycalendar);
-    $mcal->setTitle($mycalendar. "(".ucwords(strtolower($action->user->firstname.' '.$action->user->lastname)).")");
+    $mcal->setTitle($mycalendar. " (".ucwords(strtolower($action->user->firstname.' '.$action->user->lastname)).")");
     $mcal->owner = $action->user->id;
     $mcal->icon = 'mycal.gif';
-    // The request
     $mcal->name = $calname;
+    $mcal->setValue("se_famid", getFamIdFromName($dbaccess, "EVENT"));
     $mcal->setValue("se_ols", array( "and", "and"));
     $mcal->setValue("se_attrids", array( "evt_idres", "evt_frominitiatorid"));
     $mcal->setValue("se_funcs", array( '~y', '~*' ));
-    $mcal->setValue("se_keys", array( '?idres', '?idfamref' ));
+    $mcal->setValue("se_keys", array( $action->user->fid, getFamIdFromName($dbaccess, "CALEVENT") ));
     $mcal->Add();
     $mcal->PostModify();
     $mcal->Modify();
