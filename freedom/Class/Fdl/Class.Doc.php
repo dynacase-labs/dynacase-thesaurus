@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.265 2005/08/08 16:08:21 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.266 2005/08/10 10:41:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -320,7 +320,7 @@ create unique index i_docir on doc(initid, revision);";
    * @public bool 
    * @access private
    */
-  public $hasChanged=false; 
+  private $hasChanged=false; 
 
   public $isCacheble= false;
 
@@ -354,15 +354,14 @@ create unique index i_docir on doc(initid, revision);";
    * 
    * @return void
    */
-  function PostInsert()
-    // --------------------------------------------------------------------    
-    {
+  function PostInsert()  {
       // controlled will be set explicitly
       //$this->SetControl();
 
       if (($this->revision == 0) && ($this->doctype != "T")) {
 	// increment family sequence
 	$this->nextSequence();
+	$this->Addcomment(_("creation"));
       }
       $this->Select($this->id);
       $this->modify(true,array("lmodify"),true); // to force execute sql trigger
@@ -399,6 +398,7 @@ create unique index i_docir on doc(initid, revision);";
       // set default values
 
       if ($this->initid == "") $this->initid=$this->id;
+      $this->RefreshTitle();
       if (chop($this->title) == "") {
 	$fdoc=$this->getFamDoc();
 	$this->title =sprintf(_("untitle %s %d"),$fdoc->title,$this->initid);
@@ -417,7 +417,6 @@ create unique index i_docir on doc(initid, revision);";
       // set creation date
       $date = gettimeofday();
       $this->revdate = $date['sec'];
-      if ($this->revision==0) $this->Addcomment(_("creation"));
 
       if ($this->wid > 0) {
 	$wdoc = new_Doc($this->dbaccess,$this->wid);
@@ -1892,9 +1891,11 @@ create unique index i_docir on doc(initid, revision);";
    * the profil of the copy is the default profil according to his family
    * the copy is not locked and if it is related to a workflow, his state is the first state
    * @param bool $temporary if true the document create is a temporary document
+   * @param bool $control if false don't control acl create (generaly use when temporary is true)
+   * @param bool $linkfld if true and document is a folder then document included in folder are also inserte in the copy 
    * @return Doc in case of error return a string that indicate the error
    */
-  function Copy($temporary=false,$control=true) {
+  function Copy($temporary=false,$control=true,$linkfld=false) {
 
     $copy=createDoc($this->dbaccess, $this->fromid, $control);
     if (! is_object($copy)) return false;
@@ -1923,6 +1924,9 @@ create unique index i_docir on doc(initid, revision);";
     if ($err != "") AddWarningMsg($err);
 
     $copy->Modify();
+    if ($linkfld && method_exists($copy,"insertFolder")) {
+      $copy->insertFolder($this->initid);
+    }
 
     return $copy;
   }
@@ -2310,7 +2314,6 @@ create unique index i_docir on doc(initid, revision);";
 	      $htmlval=$action->GetImageUrl($avalue);
 	    }
 	  }
-	      
 	  break;
 	case "file": 
 	  $vid="";
@@ -2471,7 +2474,7 @@ create unique index i_docir on doc(initid, revision);";
 	  break;
 	case date:  
 	  if ($aformat!="") {
-	    $htmlval=strftime($aformat,strtotime($avalue));
+	    $htmlval=strftime($aformat,FrenchDateToUnixTs($avalue));
 	    $aformat="";
 	  } else {
 	    $htmlval=$avalue; 
@@ -2488,7 +2491,7 @@ create unique index i_docir on doc(initid, revision);";
 	  break;
 	case timestamp:   
 	  if ($aformat!="") {
-	    $htmlval=strftime($aformat,strtotime($avalue));
+	    $htmlval=strftime($aformat,FrenchDateToUnixTs($avalue));
 	    $aformat="";
 	  } else {
 	    $htmlval=substr($avalue,0,16); // do not display second
