@@ -1294,8 +1294,10 @@ function preview(faction,ntarget) {
       var nt=document.getElementById('newtxt');
       disabledInput(nt,true);
     }
-    target='preview';
+    target=ntarget;
     action=faction;
+
+    submittextarea();
     submit();
     target=editTarget;
     action=editAction;
