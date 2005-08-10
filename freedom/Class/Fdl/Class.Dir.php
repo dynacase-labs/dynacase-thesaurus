@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.38 2005/06/28 13:53:13 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.39 2005/08/10 10:30:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -205,7 +205,7 @@ Class Dir extends PDir
       AddLogMsg(sprintf(_("Add %s in %s folder"), $doc->title, $this->title));
 
       // add default folder privilege to the doc
-      if ($doc->profid == 0) { // only if no privilège yet
+      if ($doc->profid == 0) { // only if no privilege yet
 	
 	switch ($doc->defProfFamId) {
 	case FAM_ACCESSDOC:
@@ -219,7 +219,7 @@ Class Dir extends PDir
 	  $profid=$this->getValue("FLD_PDIRID",0);
 	  if ($profid > 0) {
 	    $doc->setProfil($profid);
-	    // copy default privilège if not set
+	    // copy default privilege if not set
 	    if ($doc->getValue("FLD_PDIRID") == "") {
 	      $doc->setValue("FLD_PDIRID", $this->getValue("FLD_PDIRID"));
 	      $doc->setValue("FLD_PDIR", $this->getValue("FLD_PDIR"));
@@ -316,7 +316,7 @@ Class Dir extends PDir
    * be carreful : not verify restriction folders
    * to be use when many include (verification constraint must ne set before by caller)
    *
-   * @param array doc identificator document  for the insertion  
+   * @param array $tdocids identificator documents  for the insertion  
    * @return string error message, if no error empty string
    */
   function QuickInsertMSDocId($tdocids) {
@@ -333,6 +333,26 @@ Class Dir extends PDir
     }
 
     $err=$qf->Adds($tcopy,true);
+    
+    return $err;
+  }
+  /**
+   * insert all static document which are included in $docid in this folder
+   * be carreful : not verify restriction folders
+   * to be use when many include (verification constraint must ne set before by caller)
+   *
+   * @param int $docid identificator document  for the insertion  (must be initial id)
+   * @return string error message, if no error empty string
+   */
+  function insertFolder($docid) {
+    if (!is_numeric($docid)) return sprintf(_("Dir::insertFolder identificator [%s] must be numeric"),$docid);
+    // need this privilege
+    $err = $this->Control("modify");
+    if ($err!= "") return $err;
+    
+
+    $err=$this->exec_Query(sprintf("insert INTO fld (select %d,query,childid,qtype from fld where dirid=%d);",$this->initid,$docid));
+    
     
     return $err;
   }
