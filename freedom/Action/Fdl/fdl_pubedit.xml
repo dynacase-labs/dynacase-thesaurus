@@ -15,12 +15,10 @@ HTMLArea.Config.prototype.ConfigIuser = function () {
 [ZONE FDL:EDITFRAME?frameid=PUBM_FR_IDENT]
 
 <tr class="FREEDOMBack1"><td colspan="2" align="center"> 
-COUCOU
 [V_PUBM_BGIMG]
 <input type="button" onclick="editorpubm_body.insertHTML('<hr>');return false" value="H">
 </td></tr>
 <tr class="FREEDOMBack1"><td colspan="2" align="center"> 
-COUCOU
 [V_PUBM_BODY]
 </td></tr>
 [ZONE FDL:EDITFRAME?frameid=PUBM_FR_ATT]
