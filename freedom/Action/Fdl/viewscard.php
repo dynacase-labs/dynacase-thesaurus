@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * View standalone document (without popup menu)
  *
  * @author Anakeen 2000 
- * @version $Id: viewscard.php,v 1.5 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: viewscard.php,v 1.6 2005/08/10 10:23:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewscard.php,v 1.5 2005/06/28 08:37:46 eric Exp $
+// $Id: viewscard.php,v 1.6 2005/08/10 10:23:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/viewscard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,10 +37,18 @@
 include_once("FDL/Class.Doc.php");
 
 
-// -----------------------------------
-// -----------------------------------
+/**
+ * View a document without standard header and footer. It is display in raw format
+ * @param Action &$action current action
+ * @global id Http var : document identificator to see
+ * @global latest Http var : (Y|N) if Y force view latest revision
+ * @global abstract Http var : (Y|N) if Y view only abstract attribute
+ * @global zonebodycard Http var : if set, view other specific representation
+ * @global vid Http var : if set, view represention describe in view control (can be use only if doc has controlled view)
+ * @global ulink Http var : (Y|N)if N hyperlink are disabled
+ * @global target Http var : is set target of hyperlink can change (default _self)
+ */
 function viewscard(&$action) {
-  // -----------------------------------
 
   // GetAllParameters
   $docid = GetHttpVars("id");
@@ -49,15 +57,30 @@ function viewscard(&$action) {
   $ulink = (GetHttpVars("ulink",'Y') == "Y"); // add url link
   $target = GetHttpVars("target"); // may be mail
   $wedit = (GetHttpVars("wedit")=="Y"); // send to be view by word editor
+  $fromedit = (GetHttpVars("fromedit","N")=="Y"); // need to compose temporary doc
+  $latest = GetHttpVars("latest");
 
   // Set the globals elements
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-
   $doc = new_Doc($dbaccess, $docid);
+  if (($latest == "Y") && ($doc->locked == -1)) {
+    // get latest revision
+    $docid=$doc->latestId();
+    $doc = new_Doc($dbaccess, $docid);
+    SetHttpVar("id",$docid);
+  } 
   $err = $doc->control("view");
   if ($err != "") $action->exitError($err);
+  if ($fromedit) {
+    include_once("FDL/modcard.php");
+
+    $doc = $doc->copy(true,false,true);
+    $err=setPostVars($doc);
+    $doc->modify();
+    setHttpVar("id",$doc->id);
+  } 
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
   if ($zonebodycard == "") $action->exitError(_("no zone specified"));
 
