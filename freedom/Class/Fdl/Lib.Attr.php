@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.52 2005/07/28 16:47:30 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.53 2005/08/10 10:31:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -115,6 +115,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 					    "visibility"=>$v->visibility,
 					    "label"=>str_replace("\"","\\\"",$v->labeltext),
 					     "order"=>intval($v->ordered),
+					     "options"=>str_replace("\"","\\\"",$v->options),
 					     "wapplication"=>$v->phpfile,
 					     "waction"=>$v->phpfunc);
 	break;
