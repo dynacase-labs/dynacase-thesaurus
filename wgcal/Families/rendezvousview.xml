@@ -1,0 +1,50 @@
+<div style="width:auto;height:auto;" class="wEvBack">
+<table width="100%" cellpadding="2px" cellspacing="0" border="0">
+<tr>
+  <td width="15" style="border: 1px outset; background-color:[bgstate]" valign="top" rowspan="4">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]</td>
+  <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white; border: 1px outset;">
+    <table  width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td align="left"><span style="color:[textcolor];font-size:120%; font-weight:bold">[TITLE]</span></td>
+      <td align="right"><img src="[iconevent]" height="20"></td>
+    </tr></table>
+ </td>
+</tr>
+
+<tr>
+  <td valign="top"> 
+  <table cellpadding="0" cellspacing="0" border="0" width="auto">
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr><td nowrap align="right" style="font-weight:bold">[D_HL]</td><td nowrap align="right" style="font-weight:bold">[D_HR]</td></tr>
+    <tr><td nowrap align="right" style="font-weight:bold">[D_LL]</td><td nowrap align="right" style="font-weight:bold">[D_LR]</td></tr>
+  </table>
+  <table style="display:[repeatdisplay]" cellpadding="0" cellspacing="0" border="0" width="auto">
+    <tr><td></td></tr>
+    <tr><td>[repeatinfos]</td></tr>
+    <tr><td>[repeatuntil]</td></tr>
+  </table>
+  </td>
+  <td valign="top">
+  <fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend>
+<table cellpadding="0" cellspacing="0" border="0">
+[BLOCK attlist]<tr>
+<td nowrap><img height="15" src="[atticon1]"><span style="text-decoration:[attnamestyle1]">[atttitle1]</span>&nbsp;<span style="font-style:italic">([attstate1])</span></td>
+[IF TWOCOL]<td>&nbsp;&nbsp;&nbsp;</td><td nowrap><img height="15" src="[atticon2]"><span style="text-decoration:[attnamestyle2]">[atttitle2]</span>&nbsp;<span style="font-style:italic">([attstate2])</span></td>[ENDIF TWOCOL]</tr>[ENDBLOCK attlist]
+</table>
+  </fieldset></td>
+</tr>
+
+<tr style="display:[displaynote]">
+ <td colspan="2" valign="top">
+ <span style="font-weight:bold">[TEXT:note] : </span><div style="border: 1px inset; padding:5px; margin:5px; width:auto">[NOTE]</div>
+ </td>
+</tr>
+
+<tr>
+ <td colspan="2" valign="top">
+<span style="font-size:80%; font-style:italic">[owner][IF ShowDate] - [modifdate][ENDIF ShowDate]
+[IF ShowCalendar]<br>[TEXT:in calendar] : [incalendar][ENDIF ShowCalendar][IF ShowCategories] - [TEXT:category] : [category][ENDIF ShowCategories]
+[IF ShowGroups]<br>[TEXT:view groups] : [groups][ENDIF ShowGroups]</span>
+  </td>
+</tr>
+</table>
+</div>

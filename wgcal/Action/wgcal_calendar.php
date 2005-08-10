@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.48 2005/08/09 16:48:02 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.49 2005/08/10 14:13:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -84,7 +84,6 @@ function wgcal_calendar(&$action) {
   $events = array();
   $dre=new Doc($dbaccess, $qev);
   $events = $dre->getEvents(ts2db($firstWeekDay, "Y-m-d H:i:s"), ts2db($edate, "Y-m-d H:i:s"));
-
   // Post process search results ------------------------------------------------------------------------------------
   $tout=array(); 
   $first = false;
@@ -95,12 +94,11 @@ function wgcal_calendar(&$action) {
   $rvfamid = getIdFromName($dbaccess, "CALEVENT");
   foreach ($events as $k=>$v) {
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
-    $item = array( "ID" => $v["id"], 
-		   "IDP" => $v["evt_idinitiator"], 
- 		   "START" => localFrenchDateToUnixTs($v["evt_begdate"]),
-  		   "TSSTART" => $v["evt_begdate"],
- 		   "TSEND" => $end, 
+    $item = array( "ID" => $v["id"],
+		   "START" => localFrenchDateToUnixTs($v["evt_begdate"]),
+		   "TSSTART" => $v["evt_begdate"],
 		   "END" => localFrenchDateToUnixTs($end), 
+		   "IDP" =>  $v["evt_idinitiator"],
 		   "IDC" =>  $v["evt_idcreator"] );
     $displayEvent = true;
 
@@ -139,11 +137,10 @@ function wgcal_calendar(&$action) {
     if ($displayEvent) { 
 
       $n = new Doc($dbaccess, $v["id"]);  
-      $item["RESUME"] = $n->calVResume;
-      $item["VIEW"] = $n->calVCard;
-      $item["VIEWLTEXT"] = $n->calVLongText;
-      $item["VIEWSTEXT"] = $n->calVShortText;
       $item["RG"] = count($tout);
+      $d = new Doc($dbaccess, $v["evt_idinitiator"]);
+      $item["EvRCard"] = $d->viewDoc($d->defaultabstract);
+      $item["EvPCard"] = $d->viewDoc($d->defaultview);
       
       PopupInvisible('calpopup',$item["RG"], 'acceptrv');
       PopupInvisible('calpopup',$item["RG"], 'rejectrv');
@@ -160,9 +157,9 @@ function wgcal_calendar(&$action) {
 	if ($v["evfc_repeatmode"] > 0) PopupActive('calpopup',$item["RG"], 'deloccur');
 	PopupActive('calpopup',$item["RG"], 'editrv');
 	PopupActive('calpopup',$item["RG"], 'deleterv');
-	$item["action"] = "EDITEVENT";
+	$item["EditCard"] = true;
       }	else {
- 	$item["action"] = "VIEWEVENT";
+ 	$item["EditCard"] = false;
       }
       
       $withme = false;

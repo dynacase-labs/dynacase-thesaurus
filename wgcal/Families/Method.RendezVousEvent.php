@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.CalEvent.php,v 1.15 2005/04/25 19:02:20 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.1 2005/08/10 14:13:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage

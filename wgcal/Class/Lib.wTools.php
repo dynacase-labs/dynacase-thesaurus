@@ -276,4 +276,37 @@ function MonAgenda()
 
 }
 
+
+function wgcalGetRessourcesMatrix(&$event) {
+  global $action;
+
+  $tress  = $event->getTValue("CALEV_ATTID");
+  $tresse = $event->getTValue("CALEV_ATTSTATE");
+  $tressg = $event->getTValue("CALEV_ATTGROUP");
+
+  $ressd = array();
+  foreach ($tress as $k => $v) {
+    if (!(isset($ressd[$v]) && $tressg[$k]==-1)) {
+      $ressd[$v]["id"] = $id;
+      $ressd[$v]["title"] = ucwords(strtolower($event->getTitle()));
+      $ressd[$v]["state"] = $tresse[$k];
+      $ressd[$v]["color"] = "white";
+      $ressd[$v]["displayed"] = false;
+      $ressd[$v]["group"] = $tressg[$k];
+    }
+  }
+
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+  while (list($k,$v) = each($cals)) {
+    if ($v!="") {
+      $tc = explode("%", $v);
+      if ($tc[0] != "" && isset($ressd[$tc[0]])) {
+	$ressd[$tc[0]]["displayed"] = ($tc[1] == 1 ? true : false );
+	$ressd[$tc[0]]["color"] = $tc[2];
+      }
+    }
+  }
+  return $ressd;
+}
+
 ?>

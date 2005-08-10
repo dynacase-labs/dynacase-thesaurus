@@ -36,16 +36,15 @@
 
 [ZONE WGCAL:WGCAL_POPUP]
 [BLOCK EVENTS]
-<div id="evt[RG]"     
-  onclick="subwindow(400, 650, 'ViewEvent[ID]', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_[action]&id=[ID]');"
+<div id="evt[RG]"
+  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF EditCard]WGCAL&action=WGCAL_EDITEVENT[ENDIF EditCard][IFNOT EditCard]FDL&action=IMPCARD[ENDIF EditCard]&id=[IDP]');"
   onmouseover="WGCalEvOnMouseOver(event, '[RG]');" 
   onmouseout="WGCalEvOnMouseOut(event, '[RG]');" 
-  onContextMenu="SetCurrentEvent([ID], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
-  onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([ID], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
-  style="cursor:crosshair; margin:0px; border:0px; display:none;overflow:hidden;">[ZONE [RESUME]?id=[ID]]</div>
+  onContextMenu="SetCurrentEvent([IDP], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
+  onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([IDP], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
+  style="cursor:crosshair; margin:0px; border:0px; display:none;overflow:hidden;">[EvRCard]</div>
 
-<div id="evtc[RG]" style=" display:none; border:1px outset; background-color:white');">
-[ZONE [VIEW]?id=[ID]]</div>
+<div id="evtc[RG]" style=" display:none; border:1px outset; background-color:white');">[EvPCard]</div>
 [ENDBLOCK EVENTS]
 
 
