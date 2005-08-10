@@ -3,7 +3,7 @@
  * Methods for emailing family
  *
  * @author Anakeen 2005
- * @version $Id: Method.Emailing.php,v 1.6 2005/08/02 16:14:52 eric Exp $
+ * @version $Id: Method.Emailing.php,v 1.7 2005/08/10 10:29:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -23,8 +23,8 @@ function fdl_pubsendmail($target="_self",$ulink=true,$abstract=false) {
       $atarget=""; // must not be mail the same bacuse it is not the doc itself
       foreach($listattr as $k=>$v) {
 	$value=$udoc->getValue($v->id);
-
-	if ($value) $this->lay->Set(strtoupper($v->id),$udoc->GetHtmlValue($v,$value,$atarget,$ulink));
+	
+	if ($value || ($v->type=="image")) $this->lay->Set(strtoupper($v->id),$udoc->GetHtmlValue($v,$value,$atarget,$ulink));
 	else $this->lay->Set(strtoupper($v->id),false);
       }  
     }
