@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.40 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_edit.php,v 1.41 2005/08/10 10:23:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -156,6 +156,7 @@ function generic_edit(&$action) {
       $taction[$k]=array("wadesc"=>$v->labelText,
 			 "walabel"=>ucfirst($v->labelText),
 			 "waction"=>$v->waction,
+			 "wtarget"=>$v->id,
 			 "wapplication"=>$v->wapplication);
     }
   }

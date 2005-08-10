@@ -111,8 +111,8 @@ addEvent(window,"load",focusFirst);
  <input type="submit" title="[TEXT:override constraints]" style="display:[boverdisplay]" value="[editaction]!" onclick="document.modifydoc.noconstraint.value='Y';return true"> 
  [ENDBLOCK INPUTCONSTRAINT]
  [BLOCK WACTION]
-<input type="submit" title="[wadesc]" 
-        value="[walabel]" onclick="document.modifydoc.action='[CORE_STANDURL]&app=[wapplication]&action=[waction]'"> 
+<input type="button" title="[wadesc]" 
+        value="[walabel]" onclick="preview('[CORE_STANDURL]&app=[wapplication]&action=[waction]&fromedit=Y','[wtarget]');return false"> 
  [ENDBLOCK WACTION]
 [IFNOT NOSAVE]
 <input id="iQuicksave" type="button" style="display:none" onmouseout="viewquick(event,false)" value="[TEXT:Quick Save]" onclick="quicksave();return false">
