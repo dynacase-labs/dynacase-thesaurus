@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.28 2005/07/29 16:20:09 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.29 2005/08/10 10:31:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -206,7 +206,7 @@ Class ActionAttribute extends BasicAttribute {
   var $wapplication; // the what application name
   var $waction; // the what action name
   var $ordered;
-  function __construct($id, $docid, $label, $order,$visibility="",$wapplication="",$waction="" ) {
+  function __construct($id, $docid, $label, $order,$visibility="",$wapplication="",$waction="",$options="" ) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
@@ -214,7 +214,15 @@ Class ActionAttribute extends BasicAttribute {
     $this->ordered=$order;
     $this->waction=$waction;
     $this->wapplication=$wapplication;
+    $this->options=$options;
     $this->type="action";
+  }
+  function getLink($docid) {
+    $l=getParam("CORE_STANDURL");
+    $l.="&app=".$this->wapplication;
+    $l.="&action=".$this->waction;
+    $l.="&id=".$docid;
+    return $l;
   }
 }
 ?>
