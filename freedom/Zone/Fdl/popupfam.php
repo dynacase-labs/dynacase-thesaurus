@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.14 2005/07/29 16:20:09 eric Exp $
+ * @version $Id: popupfam.php,v 1.15 2005/08/10 10:24:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.14 2005/07/29 16:20:09 eric Exp $
+// $Id: popupfam.php,v 1.15 2005/08/10 10:24:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,6 +58,7 @@ function popupfam(&$action,&$tsubmenu) {
 
 
 
+  // -------------------- Menu menu ------------------
   $lmenu = $doc->GetMenuAttributes();
   if (! $lmenu) return;
 
@@ -91,6 +92,7 @@ function popupfam(&$action,&$tsubmenu) {
     $tlink[$k]["control"]=$control;
     $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
     $tlink[$k]["visibility"]=MENU_ACTIVE;
+    $tlink[$k]["barmenu"] = ($v->getOption("barmenu")=="yes")?"true":"false";
     if ($v->precond != "") {
       if (substr($v->precond,0,2)=="::") {
 	if (ereg("::([^\(]+)\(([^\)]*)\)",$v->precond, $reg)) {
@@ -107,12 +109,53 @@ function popupfam(&$action,&$tsubmenu) {
     $tmenu[$km++] = $v->id;
     popupAddItem('popupcard',  $v->id); 
   }
+
+  // -------------------- Menu action ------------------
+  $lactions=$doc->GetActionAttributes();
+  foreach($lactions as $k=>$v) {
+    if ($v->getOption("submenu")!="") {
+      $confirm=false;
+      $control=false;
+      $v->link=$v->getLink($doc->id);
+
+      if ($v->link[0] == '?') { 
+	$v->link=substr($v->link,1);
+	$confirm=true;
+      }
+      if ($v->link[0] == 'C') { 
+	$v->link=substr($v->link,1);
+	$control=true;
+      }
+      if (ereg('\[(.*)\](.*)', $v->link, $reg)) {      
+	$v->link=$reg[2];
+	$tlink[$k]["target"] = $reg[1];
+      } else {
+	$tlink[$k]["target"] = $v->id;
+      }
+      $tlink[$k]["barmenu"] = ($v->getOption("barmenu")=="yes")?"true":"false";
+      $tlink[$k]["idlink"] = $v->id;
+      $tlink[$k]["descr"] = $v->labelText;
+      $tlink[$k]["url"] = addslashes($doc->urlWhatEncode($v->link));
+      $tlink[$k]["confirm"]=$confirm?"true":"false";
+      $tlink[$k]["control"]=$control;
+      $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
+      $tlink[$k]["visibility"]=MENU_ACTIVE;
+      
+      $tmenu[$km++] = $v->id;
+      popupAddItem('popupcard',  $v->id); 
+    }
+  }
+
+
+
   if (count($tmenu) ==  0) return;
   // ---------------------------
   // definition of popup menu
 
   // ---------------------------
   // definition of sub popup menu);  
+  $lmenu=array_merge($lmenu,$lactions);
+
   foreach($lmenu as $k=>$v) {   
     $sm=$v->getOption("submenu");
     if ($sm != "") {
