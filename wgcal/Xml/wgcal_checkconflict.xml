@@ -54,7 +54,7 @@
 <tr><td class="wMonthTextTitle">[TEXT:there are conflicts with events (see after)].</td></tr>
 [BLOCK CONFLICTS]
 <tr><td class="WGCRessDefault" style="width:100%" onmouseover="HideElt(this); ShowElt(this,[ID]);" onmouseout="HideElt(this);">
-[ZONE [VIEWLTEXT]?id=[ID]]</td></tr>[ENDBLOCK CONFLICTS]
+[EvRCard]</td></tr>[ENDBLOCK CONFLICTS]
 <tr><td width="100%" class="wMonthTextTitle" align="right">
 <img src="[IMG:wm-cancel.gif]" height="15" title="[TEXT:modify event]" class="WGCalAction" onclick="processConflict();">&nbsp;&nbsp;
 <img src="[IMG:wm-accept.gif]" height="15" title="[TEXT:ignore conflict]" class="WGCalAction" onclick="ignoreConflict();">&nbsp;&nbsp;
@@ -62,7 +62,7 @@
 </tr></table>[ENDIF NOCF]
 
 [BLOCK CARDS]
-<div id="evtc[ID]" style="display:none; border:1px outset; background-color:white');">[ZONE [VIEW]?id=[ID]]</div>[ENDBLOCK CARDS]
+<div id="evtc[ID]" style="display:none; border:1px outset; background-color:white');">[EvPCard]</div>[ENDBLOCK CARDS]
 
 </div>
 [ZONE WGCAL:WGCAL_HTMLFOOT]

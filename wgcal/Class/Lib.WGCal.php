@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.48 2005/08/10 14:13:21 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.49 2005/08/11 17:01:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -55,7 +55,7 @@ function WGCalToolSwitchState(&$action, $tool) {
     if ($val!="") $val .= "|";
     $val = $tool."%1";
   }
-  $action->parent->param->set("WGCAL_U_TOOLSSTATE", $val, PARAM_USER.$action->user->id, $action->parent->id);
+  $action->parent->param->set("WGCAL_U_TOOLSSTATE", $val, PARAM_USER.$action->user->id, $action->parent->GetIdFromName("WGCAL"));
 }
 
 function WGCalToolIsVisible( &$action,  $tool ) {

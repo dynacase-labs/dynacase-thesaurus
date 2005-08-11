@@ -39,11 +39,8 @@ $EventStateDescr = array( EVST_NEW => array( _("new"), "red" ),
 			  EVST_REJECT => array( _("reject"), "black" ),
 			  EVST_TBC => array( _("to be confirmed"), "red" ) );
 
-function CAL_getEventStates($dbaccess, $fmt="A") {
-  return WGCalGetState($dbaccess, $fmt);
-}
 
-function WGCalGetState($dbaccess, $fmt="A") {
+function WGCalGetState($fmt="A") {
   global $EventStateDescr;
   foreach ($EventStateDescr as $k => $v ) $evstate[] = $v[0];
   return array2attrval($evstate, $fmt);

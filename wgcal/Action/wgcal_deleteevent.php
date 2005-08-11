@@ -7,13 +7,10 @@ function wgcal_deleteevent(&$action, $optev=-1) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $evi = GetHttpVars("ev", -1);
-  $cev = GetHttpVars("cev", -1);
-  if ($evi==-1 && $cev==-1 && $optev!=-1) $cev = $optev;
-  $event = GetCalEvent($dbaccess, $evi, $cev);
-  if (!$event) {
-    $action->AddMsgWarning("No event # $evi $cev ");
-    
+  $evi = GetHttpVars("id", -1);
+  $event = new Doc($dbaccess, $evi);
+  if (!$event->isAffected()) {
+    AddWarningMsg("No event # $evi $cev ");
   } else {
     if ($event->isAlive()) {
       $err = $event->Delete();

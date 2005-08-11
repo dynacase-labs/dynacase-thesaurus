@@ -9,7 +9,7 @@ var $eventFamily       = "EVENT_FROM_CAL";
 var $defaultview = "WGCAL:RENDEZVOUSVIEW:T";
 var $defaultabstract = "WGCAL:RENDEZVOUSRESUME:T";
 
-var $defaultedit = "WGCAL:RENDEZVOUSEDIT:S";
+var $defaultedit = "WGCAL:RENDEZVOUSEDIT:U";
 
 function postModify() {
   $err = $this->setEvent(); 
@@ -104,7 +104,7 @@ function RendezVousView() {
   $dbaccess = $this->dbaccess;
 
   // matrice de ressource affichée / présentes dans le RV
-  $ressd = wgcalGetRessourcesMatrix($this);
+  $ressd = wgcalGetRessourcesMatrix($this->id);
 
   $this->lay->set("ID",    $this->id);
   $myid = $action->user->fid;
@@ -341,7 +341,7 @@ function ev_showattendees($ressd, $private, $dcolor) {
   }
 
   if ($show) {
-    $states = CAL_getEventStates($this->dbaccess,"");
+    $states = WGCalGetState("");
     $this->lay->set("attdisplay","inline");
 
     $attoncol = 5;
@@ -417,6 +417,7 @@ function RendezVousEdit() {
   $timee = GetHttpVars("te", $times + ($action->getParam("WGCAL_U_RVDEFDUR", 60) * 60));
 
   if ($this->isAffected()) {
+    $eventid = $this->id;
     $ownerid = $this->getValue("CALEV_OWNERID", "");
     $ownertitle = $this->getValue("CALEV_OWNER", "");
     $evtitle  = $this->getValue("CALEV_EVTITLE", "");
@@ -468,6 +469,7 @@ function RendezVousEdit() {
       }
     }
   } else {
+    $eventid = -1;
     $mailadd = "";
     $evtitle  = "";
     $evnote   = "";
@@ -499,7 +501,7 @@ function RendezVousEdit() {
     $ro = false;
   }
 
-  $this->lay->set("EVENTID", $evid);
+  $this->lay->set("EVENTID", $eventid);
   if ($evid==-1 || $ro) {
     $this->lay->setBlockData("EMPTY", null);
   } else {
@@ -700,7 +702,7 @@ function EventSetCalendar($cal, $ro) {
 function EventSetStatus($status, $withme, $onlyme, $ro) {
   include_once('WGCAL/Lib.WGCal.php');
   global $action;
-  $acal = WGCalGetState($action->GetParam("FREEDOM_DB"), "");
+  $acal = WGCalGetState("");
   $this->lay->set("evstatus", $status);
   $ic = 0;
   if ($ro) {

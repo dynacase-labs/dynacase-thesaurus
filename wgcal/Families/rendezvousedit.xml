@@ -429,9 +429,7 @@ document.getElementById('rvtitle').focus();
 glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
 </script>
 
-<iframe name="wgcal_conflict" id="wgcal_conflict" style="position:absolute;left:1%;top:1%;width:98%;height:98%;border:1px dotted red;display:none" marginwidth="0" marginheight="0">
-</iframe>
-
+<iframe name="wgcal_conflict" id="wgcal_conflict" style="position:absolute;left:1%;top:1%;width:98%;height:98%;border:1px dotted red;display:none" marginwidth="0" marginheight="0"></iframe>
 <iframe name="wgcal_iuser" id="wgcal_iuser" style="display:none"></iframe>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

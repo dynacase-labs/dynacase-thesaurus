@@ -104,10 +104,10 @@ function wPrintGroups() {
 
 function  wGetGroups() {
   global $action;
-  $param = new Param($action->dbaccess, array("WGCAL_USEDGROUPS", PARAM_APP, $action->parent->id));
+  $p = new Param($action->dbaccess, array("WGCAL_USEDGROUPS", PARAM_APP, $action->parent->GetIdFromName("WGCAL")));
   $tgroups = false;
-  if ($param->val!="") {
-    $tga = explode("|", $param->val);
+  if ($p->val!="") {
+    $tga = explode("|", $p->val);
     $tgroups = array();
     foreach ($tga as $kg => $vg) {
       if ($vg!="") $tgroups[$vg] = $vg;
@@ -118,7 +118,7 @@ function  wGetGroups() {
 
 function  wSetGroups($groups) {
   global $action;
-  $action->parent->param->Set("WGCAL_USEDGROUPS", $groups, PARAM_APP, $action->parent->id);
+  $action->parent->param->Set("WGCAL_USEDGROUPS", $groups, PARAM_APP, $action->parent->GetIdFromName("WGCAL"));
   return;
 }
   
@@ -277,9 +277,11 @@ function MonAgenda()
 }
 
 
-function wgcalGetRessourcesMatrix(&$event) {
+function wgcalGetRessourcesMatrix($ev) {
   global $action;
-
+  
+  $event = new Doc($action->getParam("FREEDOM_DB"), $ev);
+  
   $tress  = $event->getTValue("CALEV_ATTID");
   $tresse = $event->getTValue("CALEV_ATTSTATE");
   $tressg = $event->getTValue("CALEV_ATTGROUP");

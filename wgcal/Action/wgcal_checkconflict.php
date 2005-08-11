@@ -54,24 +54,45 @@ function wgcal_checkconflict(&$action) {
     $trl = GroupExplode($action, $v);
     $nrl = array_merge($nrl, $trl);
   }
-  $tevtmp = WGCalGetAgendaEvents($action, $nrl, $start, $end, true);
+  $idres = implode("|", $nrl);
+  setHttpVar("idres",$idres);
+
+  $dbaccess = $action->getParam("FREEDOM_DB");
+  $qev = getIdFromName($dbaccess,"WG_AGENDA");
+  $dre=new Doc($dbaccess, $qev);
+
+  $famr = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
+  $ft = explode("|", $famr);
+  $fti = array();
+  foreach ($ft as $k => $v)     $fti[] = (is_numeric($v) ? $v : getIdFromName($dbaccess, $v));
+  $idfamref = implode("|", $fti);
+  setHttpVar("idfamref", $idfamref);
+
+  $tevtmp = array();
+  $tevtmp = $dre->getEvents($start, $end);
   $tev = array();
+  $itev = 0;
   if (count($tevtmp)>0) {
     $myid = $action->user->fid;
-    $ressd = wgcalGetRessourcesMatrix($event);
     foreach ($tevtmp as $k=>$v) {
-      $ressd = wgcalGetRessourcesMatrix($v["IDP"]);
-      if ($v["IDP"]!=$event && (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT)) $tev[] = $v;
+      $ressd = wgcalGetRessourcesMatrix($v["evt_idinitiator"]);
+//       echo "event=$event curev=".$v["evt_idinitiator"]." ressd[$myid]=".$ressd[$myid]." ressd[$myid][state]=".$ressd[$myid]["state"]."<br>";
+      if ($v["evt_idinitiator"]!=$event && (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT)) {
+	$d = new Doc($dbaccess, $v["evt_idinitiator"]);
+	$tev[$itev]["ID"] = $itev;
+	$tev[$itev]["EvRCard"] = $d->viewDoc($d->defaultabstract);
+	$tev[$itev]["EvPCard"] = $d->viewDoc($d->defaultview);
+	$itev++;
+      }
     }
     $action->lay->setBlockData("CARDS", $tev);
     $action->lay->set("NOCF", (count($tev)>0 ? false : true));
     $action->lay->SetBlockData("CONFLICTS", $tev);
   }
+//   print_r2($tev);
   if (count($tev)==0) $action->lay->set("NOCF", true);
   else $action->lay->set("NOCF", false);
   
-//   $action->lay->set("NOCF", false);
-
   return;
 }
 ?>

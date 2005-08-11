@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.49 2005/08/10 14:13:21 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.50 2005/08/11 17:01:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -84,6 +84,7 @@ function wgcal_calendar(&$action) {
   $events = array();
   $dre=new Doc($dbaccess, $qev);
   $events = $dre->getEvents(ts2db($firstWeekDay, "Y-m-d H:i:s"), ts2db($edate, "Y-m-d H:i:s"));
+
   // Post process search results ------------------------------------------------------------------------------------
   $tout=array(); 
   $first = false;

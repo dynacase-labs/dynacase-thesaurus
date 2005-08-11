@@ -20,7 +20,7 @@ function wgcal_storeevent(&$action) {
   $err = "";
   $newevent = false;
   $id  = GetHttpVars("eventid", -1);
-  if ($id==-1) {
+  if ($id==-1 || $id=="") {
     $event = createDoc($dbaccess, "CALEVENT");
     $newevent = true;
   } else {

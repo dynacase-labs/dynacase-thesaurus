@@ -7,7 +7,7 @@ function setwrvalert(target, action) {
 
 
 function ViewEvent(urlroot, cevent) {
-  subwindow(250, 350,'ViewEvent', urlroot+'&app=WGCAL&action=WGCAL_VIEWEVENT&cev='+cevent)
+  subwindow(250, 350,'ViewEvent', urlroot+'&app=FDL&action=IMPCARD&id='+cevent)
   return;
 }
 

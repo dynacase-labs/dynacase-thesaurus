@@ -37,7 +37,7 @@
 [ZONE WGCAL:WGCAL_POPUP]
 [BLOCK EVENTS]
 <div id="evt[RG]"
-  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF EditCard]WGCAL&action=WGCAL_EDITEVENT[ENDIF EditCard][IFNOT EditCard]FDL&action=IMPCARD[ENDIF EditCard]&id=[IDP]');"
+  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF EditCard]GENERIC&action=GENERIC_EDIT[ENDIF EditCard][IFNOT EditCard]FDL&action=IMPCARD[ENDIF EditCard]&id=[IDP]');"
   onmouseover="WGCalEvOnMouseOver(event, '[RG]');" 
   onmouseout="WGCalEvOnMouseOut(event, '[RG]');" 
   onContextMenu="SetCurrentEvent([IDP], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
