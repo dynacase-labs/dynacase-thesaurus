@@ -7,11 +7,11 @@ closeMenu('calpopup')">[label]</a>[ENDBLOCK POPUPITEMS]
 <!-- a class="separator"></a -->
 
 
-<a href="#" id="acceptrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=2','');closeMenu('calpopup')" >
+<a href="#" id="acceptrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+EvSelected+'&st=2','');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evaccept.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
-<a href="#" id="rejectrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=3','');closeMenu('calpopup')" >
+<a href="#" id="rejectrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+EvSelected+'&st=3','');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evrefuse.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
-<a href="#" id="tbcrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&ev='+EvSelected+'&st=4','');closeMenu('calpopup')" >
+<a href="#" id="tbcrv" onclick="activate(this,'[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+EvSelected+'&st=4','');closeMenu('calpopup')" >
 [IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evconfirm.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:to be confirm this]</a>
 
 <a class="separator"></a>

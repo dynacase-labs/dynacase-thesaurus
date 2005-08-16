@@ -8,13 +8,13 @@ include_once("WGCAL/Lib.WGCal.php");
 function wgcal_seteventstate(&$action) {
 
   $db = $action->getParam("FREEDOM_DB");
-  $evi = GetHttpVars("ev", -1);
-  $cev = GetHttpVars("cev", -1);
-  $raction = GetHttpVars("ra", "WGCAL_CALENDAR");
-  $event = GetCalEvent($db, $evi, $cev);
+  $evi = GetHttpVars("id", -1);
+  $event = new Doc($db, $evi);
   $evstate  = GetHttpVars("st", -1);
-  if (!$event || $evstate==-1) return;
 
+  if (!$event->isAffected() || $evstate==-1) return;
+
+  $raction = GetHttpVars("ra", "WGCAL_CALENDAR");
   $found = false;
   $ress = "";
   $att_id    = $event->getTValue("CALEV_ATTID", array());
@@ -27,6 +27,7 @@ function wgcal_seteventstate(&$action) {
       $ress = $att_title[$ka];
     }
   }
+
   if ($found) {
     $event->disableEditControl();
     $event->setValue("CALEV_ATTSTATE", $att_state); 

@@ -6,8 +6,10 @@ var $eventAttDesc      = "CALEV_TITLE";
 var $eventAttCode      = "RV";
 var $eventFamily       = "EVENT_FROM_CAL";
 
-var $defaultview = "WGCAL:RENDEZVOUSVIEW:T";
-var $defaultabstract = "WGCAL:RENDEZVOUSRESUME:T";
+var $defaultview      = "WGCAL:RENDEZVOUSVIEW:T";
+var $defaultabstract  = "WGCAL:RENDEZVOUSRESUME:T";
+var $defaultshorttext = "WGCAL:RENDEZVOUSRESUME:T";
+var $defaultlongtext  = "WGCAL:RENDEZVOUSRESUME:T";
 
 var $defaultedit = "WGCAL:RENDEZVOUSEDIT:U";
 

@@ -44,8 +44,7 @@
   onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([IDP], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
   style="cursor:crosshair; margin:0px; border:0px; display:none;overflow:hidden;">[EvRCard]</div>
 
-<div id="evtc[RG]" style=" display:none; border:1px outset; background-color:white');">[EvPCard]</div>
-[ENDBLOCK EVENTS]
+<div id="evtc[RG]" style=" display:none; border:1px outset; background-color:white');">[EvPCard]</div>[ENDBLOCK EVENTS]
 
 
 <script type="text/javascript"> 

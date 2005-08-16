@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.50 2005/08/11 17:01:21 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.51 2005/08/16 17:27:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,6 +20,8 @@ include_once('WHAT/Lib.Common.php');
 
 function wgcal_calendar(&$action) {
 
+  if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $debug = GetHttpVars("debug", 0);
@@ -27,49 +29,15 @@ function wgcal_calendar(&$action) {
   // Check for standalone mode 
   $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
   
-  // Event search
-  // qev =  query event
-  // famref = family producer
-  // ress = ressources
-
-  $qev = GetHttpVars("qev", getIdFromName($dbaccess,"WG_AGENDA"));
-
-  $famr = GetHttpVars("famref", $action->getParam("WGCAL_G_VFAM", "CALEVENT"));
-  $ft = explode("|", $famr);
-  $fti = array();
-  foreach ($ft as $k => $v)     $fti[] = (is_numeric($v) ? $v : getIdFromName($dbaccess, $v));
-  $idfamref = implode("|", $fti);
-  setHttpVar("idfamref", $idfamref);
-
-  // Init the ressources
-  $res = GetHttpVars("ress", "");
-  if ($res!="") {
-    $ress = explode("|", $res);
-     foreach ($ress as $kr => $vr) {
-      if ($vr>0) $tr[$vr] = $vr;
-    }
-  } else {  
-    $ress = wGetRessDisplayed();
-    $tr=array(); 
-    $ire=0;
-    foreach ($ress as $kr=>$vr) {
-      if ($vr->id>0) $tr[$vr->id] = $vr->id;
-    }
-  }
-  $idres = implode("|", $tr);
-  setHttpVar("idres",$idres);
-  
-  // Init start time, view mode (month, week, ...)
+//   // Init start time, view mode (month, week, ...)
   $vm = GetHttpVars("vm", "");
   if ($vm=="" || !is_int($vm)) $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   $dayperweek = $vm;
   if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
+
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
-  if ($swe!="yes") {
-    $ndays = $dayperweek - 2;
-  } else {
-    $ndays = $dayperweek;
-  }
+  if ($swe!="yes") $ndays = $dayperweek - 2;
+  else $ndays = $dayperweek;
 
   $ts = GetHttpVars("ts", 0);
   $stdate = $ts;
@@ -79,120 +47,8 @@ function wgcal_calendar(&$action) {
   $firstWeekDay = w_GetFirstDayOfWeek($sdate);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
 
-  if ($debug==1) AddWarningMsg("Query = [$qev]   Producters = [$idfamref] Ressources = [$idres] Dates = [".ts2db($firstWeekDay, "Y-m-d H:i:s").",".ts2db($edate, "Y-m-d H:i:s")."]");
+  $tout = wGetEvents(ts2db($firstWeekDay, "Y-m-d H:i:s"), ts2db($edate, "Y-m-d H:i:s"));
 
-  $events = array();
-  $dre=new Doc($dbaccess, $qev);
-  $events = $dre->getEvents(ts2db($firstWeekDay, "Y-m-d H:i:s"), ts2db($edate, "Y-m-d H:i:s"));
-
-  // Post process search results ------------------------------------------------------------------------------------
-  $tout=array(); 
-  $first = false;
-  popupInit('calpopup',  array('editrv', 'deloccur', 'viewrv', 'deleterv',
-                               'acceptrv', 'rejectrv', 'tbcrv', 'historyrv',
-                               'cancelrv'));
-  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
-  $rvfamid = getIdFromName($dbaccess, "CALEVENT");
-  foreach ($events as $k=>$v) {
-    $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
-    $item = array( "ID" => $v["id"],
-		   "START" => localFrenchDateToUnixTs($v["evt_begdate"]),
-		   "TSSTART" => $v["evt_begdate"],
-		   "END" => localFrenchDateToUnixTs($end), 
-		   "IDP" =>  $v["evt_idinitiator"],
-		   "IDC" =>  $v["evt_idcreator"] );
-    $displayEvent = true;
-
-    // Traitement de refus => spécifique à CALEVENT
-    if ($v["evt_frominitiatorid"] == $rvfamid && !$nofilter) {
-
-      $displayEvent = false;
-      
-      // Affichage
-      // - si une ressource affiché est dedans et pas refusé
-      // - si une ressource affiché est dedans et pas refusé
-      $attlist  = Doc::_val2array($v["evfc_listattid"]);
-      $attrstat = Doc::_val2array($v["evfc_listattst"]);
-      $attinfo = array();
-      foreach ($attlist as $kat => $vat) {
-	$attinfo[$vat]["status"] = $attrstat[$kat];
-	$attinfo[$vat]["display"] = isset($tr[$vat]);
-      }
-      
-      foreach ($attinfo as $kat => $vat) {
-	
-	if ($vat["display"]) {
-	  if ($action->user->fid!=$kat) {
-	    if ($vat["status"]!=EVST_REJECT) {
-	      $displayEvent = true;
-	    }
-	  } else {
-	    if ($vat["status"]!=EVST_REJECT || $showrefused==1) {
-	      $displayEvent = true;
-	    }
-	  }
-	}
-      }
-    }
-
-    if ($displayEvent) { 
-
-      $n = new Doc($dbaccess, $v["id"]);  
-      $item["RG"] = count($tout);
-      $d = new Doc($dbaccess, $v["evt_idinitiator"]);
-      $item["EvRCard"] = $d->viewDoc($d->defaultabstract);
-      $item["EvPCard"] = $d->viewDoc($d->defaultview);
-      
-      PopupInvisible('calpopup',$item["RG"], 'acceptrv');
-      PopupInvisible('calpopup',$item["RG"], 'rejectrv');
-      PopupInvisible('calpopup',$item["RG"], 'tbcrv');
-      PopupInactive('calpopup',$item["RG"], 'historyrv');
-      PopupActive('calpopup',$item["RG"], 'viewrv');
-      PopupInvisible('calpopup',$item["RG"], 'deloccur');
-      PopupActive('calpopup',$item["RG"], 'cancelrv');
-      PopupInactive('calpopup',$item["RG"], 'editrv');
-      PopupInactive('calpopup',$item["RG"], 'deleterv');
-      $action->lay->set("popupState",false);
-      
-      if ($action->user->fid == $v["evt_idcreator"]) {
-	if ($v["evfc_repeatmode"] > 0) PopupActive('calpopup',$item["RG"], 'deloccur');
-	PopupActive('calpopup',$item["RG"], 'editrv');
-	PopupActive('calpopup',$item["RG"], 'deleterv');
-	$item["EditCard"] = true;
-      }	else {
- 	$item["EditCard"] = false;
-      }
-      
-      $withme = false;
-      $attr = Doc::_val2array($v["evfc_listattid"]);
-      $attrst = Doc::_val2array($v["evfc_listattst"]);
-      if (count($attr)>1) {
-	foreach ($attr as $ka => $va) {
-	  if ($va==$action->user->fid) {
-	    $withme = true;
-	    $mystate = $attrst[$ka];
-	  }
-	}
-      }
-      
-      $conf = $v["evfc_visibility"];
-      $private = ((($v["evt_idcreator"] != $action->user->fid) && ($conf!=0)) ? true : false );
-      if (!$private) PopupActive('calpopup',$item["RG"], 'historyrv');
-      else PopupInactive('calpopup',$item["RG"], 'viewrv');
-      
-      if ($withme) {
-        $action->lay->set("popupState",true);
-        if ($mystate!=2) PopupActive('calpopup',$item["RG"], 'acceptrv');
-        if ($mystate!=3) PopupActive('calpopup',$item["RG"], 'rejectrv');
-        if ($mystate!=4) PopupActive('calpopup',$item["RG"], 'tbcrv');
-      }
-      
-      $tout[] = $item;
-    }
-  }
-  popupGen(count($tout));
-  $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
-    
 
   // Display results ------------------------------------------------------------------------------------
 

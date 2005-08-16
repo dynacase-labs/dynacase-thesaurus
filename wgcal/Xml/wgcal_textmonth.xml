@@ -14,7 +14,8 @@ onclick="setTextView([prevmontht]);">[[prevmonth]]</td>
 </table>
 
 [ZONE WGCAL:WGCAL_POPUP]
+
 [BLOCK CARDS]
-<div id="evtc[ID]" style="display:none; border:1px outset; background-color:white');">[ZONE [VIEW]?id=[ID]]</div>[ENDBLOCK CARDS]
+<div id="evtc[RG]" style=" display:none; border:1px outset; background-color:white');">[EvPCard]</div>[ENDBLOCK CARDS]
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

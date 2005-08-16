@@ -1,5 +1,1 @@
-[IF headSet]<div id="evth[ID]" style="border:0px; background-color:[evglobalstate];border-top-width:3px;  border-top-style:solid; border-top-color:[evglobalstate]; "></div>[ENDIF headSet]
-<div id="evta[ID]" style="background-color:[bgresumecolor]; border:1px solid [borderColor]; height:100%; width:100%; color:[textcolor]; text-transform:lowercase;">
-[BLOCK icons]<img style="border:0px" src="[iconsrc]" width="15">[ENDBLOCK icons]
-[TITLE]
-</div>
+<div style="border:0px; border-left-width:3px; border-left-style:solid; border-left-color:[IFNOT headSet][bgresumecolor][ENDIF headSet][IF headSet][evglobalstate][ENDIF headSet]; background-color:[bgresumecolor]; height:100%; color:[textcolor]; text-transform:lowercase;">&nbsp;[BLOCK icons]<img style="border:0px" src="[iconsrc]" width="15">[ENDBLOCK icons]&nbsp;[TITLE]</div>
