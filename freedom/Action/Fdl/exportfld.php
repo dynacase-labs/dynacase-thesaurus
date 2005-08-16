@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.18 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: exportfld.php,v 1.19 2005/08/16 07:46:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -53,9 +53,7 @@ function exportfld(&$action, $aflid="0", $famid="")
     reset($tdoc);
 
     while (list($k,$zdoc)= each ($tdoc)) {
-      $doc->ResetMoreValues();
-      $doc->Affect($zdoc);
-      $doc->GetMoreValues();
+      $doc->Affect($zdoc,true);
 
       if ($prevfromid != $doc->fromid) {
 	$adoc = $doc->getFamDoc();

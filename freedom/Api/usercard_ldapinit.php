@@ -3,7 +3,7 @@
  * Initiate LDAP database
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.10 2004/10/13 15:45:00 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.11 2005/08/16 07:46:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -56,12 +56,9 @@ $reste=$total;
 foreach($ldoc as $k=>$tdoc) {
   if (getv($tdoc,"us_whatid")=="") $doc=$udoc;  
   else $doc=$uidoc;
-
-    $doc->ResetMoreValues();
-    $doc->Affect($tdoc);
-    $doc->GetMoreValues();
-    $priv=$doc->GetValue("US_PRIVCARD");
-    $err="";
+  $doc->Affect($tdoc,true);
+  $priv=$doc->GetValue("US_PRIVCARD");
+  $err="";
 
     // update LDAP only no private card
       $doc->SetLdapParam();

@@ -3,7 +3,7 @@
  * PortFolio Methods
  *
  * @author Anakeen 2003
- * @version $Id: Method.PortFolio.php,v 1.11 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.12 2005/08/16 07:47:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -28,19 +28,14 @@ function PostCreated() {
 
   if ($ddocid > 0) {
     $ddoc = new_Doc($this->dbaccess,$ddocid);
-    $child = getChildDir($this->dbaccess,$this->userid,$ddoc->initid, false,"LIST");
+    $child = getChildDir($this->dbaccess,$this->userid,$ddoc->initid, false,"TABLE");
 
+    foreach($child as $k=>$tdoc) {
+      $doc=getDocObject($this->dbaccess,$tdoc);
+      $copy=$doc->Copy();
+      if (! is_object($copy)) return $copy;
 
-    reset($child);
-    while (list($k,$doc) = each($child)) {
-      //if ($doc->usefor == "G") {
-	$doc->getMoreValues();
-	$copy=$doc->Copy();
-	if (! is_object($copy)) return $copy;
-
-	$err.=$this->AddFile($copy->id);
-
-	//      }
+      $err.=$this->AddFile($copy->id);
     }
   }
   return $err;
