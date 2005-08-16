@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.23 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.24 2005/08/16 07:47:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -138,7 +138,7 @@ create unique index idx_idfam on docfam(id);";
    * @param string $def default value if parameter not found or if it is null
    * @return string parameter value
    */
-  function getParamValue($idp, $def="") {
+  final public function getParamValue($idp, $def="") {
     return $this->getXValue("param",$idp,$def);
     
   }
