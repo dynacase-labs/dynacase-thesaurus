@@ -4,6 +4,9 @@ include_once("WGCAL/Lib.WGCal.php");
 
 function wgcal_portal(&$action) {
 
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $period = $action->GetParam("WGCAL_U_PORTALPERIOD", "week");

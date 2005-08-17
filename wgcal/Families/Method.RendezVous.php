@@ -8,7 +8,7 @@ var $eventFamily       = "EVENT_FROM_CAL";
 
 var $defaultview      = "WGCAL:RENDEZVOUSVIEW:T";
 var $defaultabstract  = "WGCAL:RENDEZVOUSRESUME:T";
-var $defaultshorttext = "WGCAL:RENDEZVOUSRESUME:T";
+var $defaultshorttext = "WGCAL:RENDEZVOUSSHORTTEXT:T";
 var $defaultlongtext  = "WGCAL:RENDEZVOUSRESUME:T";
 
 var $defaultedit = "WGCAL:RENDEZVOUSEDIT:U";
@@ -199,29 +199,10 @@ function RendezVousView() {
   $tresse = $this->getTValue("CALEV_ATTSTATE");
   $tressg = $this->getTValue("CALEV_ATTGROUP");
   
-  // Si je suis convié / j'ai refusé / affichable => Ma couleur
-  // Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
-  // Si le propriétaire n'est pas affichable => Couleur du premier convié ET AFFICHE et pas refusé.... 
-  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
-  $event_color = "";
-  if (isset($ressd[$myid]) 
-      && (($ressd[$myid]["state"]==EVST_REJECT && $showrefused==1) || $ressd[$myid]["state"]!=EVST_REJECT )
-      && $ressd[$myid]["displayed"]) {
-    $event_color = $ressd[$myid]["color"];
-  } else {
-    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT &&  $ressd[$ownerid]["displayed"]) {
-      $event_color = $ressd[$ownerid]["color"];
-    } else {
-      while ((list($k,$v) = each($ressd)) && $event_color=="") {
-	if ($v["state"]!=EVST_REJECT && $v["displayed"]) $event_color = $v["color"];
-      }
-    }
-  }
-  
   $me_attendee = (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT &&  $ressd[$myid]["displayed"]);
 
   $bgnew = WGCalGetColorState(EVST_ACCEPT);
-  $bgresumecolor = $bgcolor = $event_color;
+  $bgresumecolor = $bgcolor = $this->evColorByOwner();
   if (isset($ressd[$myid]) && $ressd[$myid]["displayed"]) $bgnew = WGCalGetColorState($ressd[$myid]["state"]);
 
   $this->lay->set("bgstate", $bgnew);
@@ -325,7 +306,7 @@ function addIcons(&$ia, $icol)
   $ia[count($ia)] = $ricons[$icol];
 }
 
-function ev_showattendees($ressd, $private, $dcolor) {
+function ev_showattendees($ressd, $private, $dcolor="lightgrey") {
   include_once('WGCAL/Lib.WGCal.php');
   global $action;
 
@@ -359,7 +340,7 @@ function ev_showattendees($ressd, $private, $dcolor) {
 	  $globalstate = WGCalGetColorState($v["state"]);
 	}
 	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $k);
-	$t[$a]["atticon$curcol"] = $d->GetIcon($attru["icon"]);
+ 	$t[$a]["atticon$curcol"] = $d->GetIcon($attru["icon"]);
 	$t[$a]["atttitle$curcol"] = ucwords(strtolower($attru["title"]));
 	$t[$a]["attnamestyle$curcol"] = ($v["state"] != EVST_REJECT ? "none" : "line-through");
 	$t[$a]["attstate$curcol"] = $states[$v["state"]];
@@ -381,6 +362,61 @@ function ev_showattendees($ressd, $private, $dcolor) {
 function RendezVousResume() {
   $this->RendezVousView();
 }
+
+function RendezVousShortText() {
+
+  include_once('WGCAL/Lib.WGCal.php');
+  global $action;
+
+  $ressd = wgcalGetRessourcesMatrix($this->id);
+
+  $myid = $action->user->fid;
+  $ownerid = $this->getValue("CALEV_OWNERID");
+  $conf    = $this->getValue("CALEV_VISIBILITY");
+  if ($ownerid == $myid) $private = false;
+  else if (isset($ressd[$myid])) $private = false;
+  else if ($conf==0) $private = false;
+  else $private = true;
+
+  $ownertitle = "";
+  $showowner = false;
+  if ($this->getValue("calev_ownerid") != $action->user->fid) {
+    $ownertitle = $this->getValue("calev_owner");
+    $showowner = true;
+  }
+  $this->lay->set("showowner", $showowner);
+  $this->lay->set("ownertitle", $ownertitle);
+
+  if ($private) {
+    $title = _("confidential event");
+    $headSet = false;
+  } else {
+    $title = $this->getValue("CALEV_EVTITLE");
+  }
+  $this->lay->set("TITLE", $title);
+  $this->lay->set("headSet", $headSet);
+
+  $bgresumecolor = $this->evColorByOwner();
+  $this->lay->set("bgresumecolor", $bgresumecolor);
+  $this->ev_showattendees($ressd, $private,$bgresumecolor);
+
+  $lstart = substr($this->getValue("CALEV_START"),11,5);
+  $lend = substr($this->getValue("CALEV_END"),11,5);
+  
+  switch($this->getValue("CALEV_TIMETYPE",0)) {
+  case 1: 
+    $this->lay->set("textdate","("._("no hour").")"); 
+    break;
+
+  case 2: 
+    $this->lay->set("textdate","("._("all the day").")"); 
+    break;
+
+  default:
+      $this->lay->set("textdate", $lstart." - ".$lend);
+  }
+}
+
 
 
 function RendezVousEdit() {
@@ -929,4 +965,31 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   }
   wUSort($to, "resstitle");
   $this->lay->setBlockData("PRESS", $to);
+}
+
+function evColorByOwner() {
+
+  global $action;
+  $ressd = wgcalGetRessourcesMatrix($this->id);
+  $myid = $action->user->fid;
+
+  // Si je suis convié / j'ai refusé / affichable => Ma couleur
+  // Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
+  // Si le propriétaire n'est pas affichable => Couleur du premier convié ET AFFICHE et pas refusé.... 
+  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
+  $event_color = "";
+  if (isset($ressd[$myid]) 
+      && (($ressd[$myid]["state"]==EVST_REJECT && $showrefused==1) || $ressd[$myid]["state"]!=EVST_REJECT )
+      && $ressd[$myid]["displayed"]) {
+    $event_color = $ressd[$myid]["color"];
+  } else {
+    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT &&  $ressd[$ownerid]["displayed"]) {
+      $event_color = $ressd[$ownerid]["color"];
+    } else {
+      while ((list($k,$v) = each($ressd)) && $event_color=="") {
+	if ($v["state"]!=EVST_REJECT && $v["displayed"]) $event_color = $v["color"];
+      }
+    }
+  }
+  return $event_color;
 }

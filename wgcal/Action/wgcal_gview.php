@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.11 2005/07/18 17:21:25 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.12 2005/08/17 16:58:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -14,6 +14,8 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/Lib.WGCal.php");
+include_once('FDL/popup_util.php');
+include_once('WHAT/Lib.Common.php');
 
 function wgcal_gview(&$action) {
   global $order;
@@ -21,7 +23,6 @@ function wgcal_gview(&$action) {
   $themef = GetHttpVars("theme", $action->getParam("WGCAL_U_THEME", "default"));
   @include_once("WGCAL/Themes/default.thm");
   @include_once("WGCAL/Themes/".$themef.".thm");
-
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -38,12 +39,6 @@ function wgcal_gview(&$action) {
   $explode = ((GetHttpVars("explode", "") == 1)? true : false);
   $standalone = (GetHttpVars("standalone", "Y")=="Y" ? true : false);
   
-  $action->lay->set("styleFIELDSET", false);
-  $action->lay->set("styleTABLE", false);
-  if (GetHttpVars("mode","") == "FIELDSET") $action->lay->set("styleFIELDSET", true);
-  else $action->lay->set("styleTABLE", true);
-
-//     echo "search ds=$ds de=$de order=$order explode=".($explode?"true":"false")." title=$title filteron=$filteron famids=$famids ressids=$ressids<br>";
 
   // Set producer families
   if ($famids=="") {
@@ -72,93 +67,47 @@ function wgcal_gview(&$action) {
   $reid=getIdFromName($dbaccess,"WG_AGENDA");
   $dre = new Doc($dbaccess,$reid);
   $edre = array();
-  $edre = $dre->getEvents($ds,$de, true, $evfilter);
+  $edre = wGetEvents($ds, $de);
+  foreach ($edre as $k => $v) {
 
+    $d = substr($v["TSSTART"],0,2);
+    $m = substr($v["TSSTART"],3,2);
+    $y = substr($v["TSSTART"],6,4);
 
-  $calevent = getIdFromName($dbaccess,"CALEVENT");
-
-  if (count($edre)>0) {
-
-    foreach ($edre as $k => $v) {
-      
-      $refused = false;
-      if ($v["evt_frominitiatorid"] == $calevent ) {
-	$attr = Doc::_val2array($v["evfc_rejectattid"]);
-	foreach ($attr as $kat => $vat) {
-	  if ($action->user->fid == $vat) $refused = true;
-	}
-      }
-      
-
-      if (!$refused) {
-
-	$doctmp = new Doc($dbaccess, $v["evt_idinitiator"]);
-
-	$day = substr($v["evt_begdate"],0,10);
-	$tday = strftime("%A %d %B",dbdate2ts($v["evt_begdate"]));
-      
-	if (!isset($btime[$day]["cnt"])) {
-	  $btime[$day]["date"] = $day;
-	  $btime[$day]["tdate"] = $tday;
-	  $btime[$day]["cnt"] = 0;
-	  $devents[$day] = array();
-	}
-	$i = $btime[$day]["cnt"];
-      
-      
-	$j = count($devents[$day]);
-	$hs = substr($v["evt_begdate"],11,5);
-	$he = substr(($v["evfc_realenddate"]==""?$v["evt_enddate"]:$v["evfc_realenddate"]),11,5);
-	if ($hs == $he) {
-	  $devents[$day][$j]["start"] = _("no hour");
-	  $devents[$day][$j]["end"] = "";
-	  $devents[$day][$j]["isHour"] = false;
-	} else if ($hs == "00:00" && $he == "23:59") {
-	  $devents[$day][$j]["start"] = _("all the day");
-	  $devents[$day][$j]["end"] = "";
-	  $devents[$day][$j]["isHour"] = false;
-	} else {
-	  $devents[$day][$j]["isHour"] = true;
-	  $devents[$day][$j]["start"] = $hs;
-	  $devents[$day][$j]["end"] = $he;
-	}
-	$devents[$day][$j]["id"] = $v["id"];
-	$devents[$day][$j]["fid"] = $v["evfc_idinitiator"];
-	$devents[$day][$j]["date"] = $day;
-	$devents[$day][$j]["title"] = $v["title"];
-	$devents[$day][$j]["desc"] = $v["evt_desc"];
-	if ($v["evt_desc"]=!"") $devents[$day][$j]["HaveDesc"] = true;
-	else $devents[$day][$j]["HaveDesc"] = false;
-	  $devents[$day][$j]["owner"] = $v["evt_creator"];
-	if ($v["evt_idcreator"] == $action->user->fid) $devents[$day][$j]["showowner"] = false;
-	else $devents[$day][$j]["showowner"] = true;
-	$devents[$day][$j]["icon"] = $doctmp->GetIcon($v["icon"]);     
-	$btime[$day]["cnt"]++;
-      }
+    $day = strftime("%d %B %Y",mktime(0,0,0,$m,$d,$y));
+  
+    if (!isset($btime[$day]["cnt"])) {
+      $btime[$day]["date"] = $day;
+      $btime[$day]["cnt"] = 0;
+      $devents[$day] = array();
     }
-    if (count($btime)>0) {
-      uasort($btime, "daySort");
-      $action->lay->setBlockData("btime", $btime);
-      if (count($devents)>0) {
-	foreach ($devents as $k => $v) { 
-	  uasort($devents[$k], "evSort");
-	  $action->lay->setBlockData("devents$k", $devents[$k]);
-	}
-	$action->lay->set("noresult", false);
-      } else {
-	$action->lay->set("noresult", true);
+    $i = $btime[$day]["cnt"];
+    $j = count($devents[$day]);
+    if ($action->GetParam("WGCAL_U_PORTALSTYLE", "TABLE")== "FIELDSET") $devents[$day][$j]["EvCard"] = $v["EvRCard"];
+    else $devents[$day][$j]["EvCard"] = $v["EvSTCard"];
+    $devents[$day][$j]["IDP"] = $v["IDP"];
+    $devents[$day][$j]["TSSTART"] = $v["TSSTART"];
+    $devents[$day][$j]["RG"] = $v["RG"];
+  }
+
+  if (count($btime)>0) {
+    uasort($btime, "daySort");
+    $action->lay->setBlockData("btime", $btime);
+    if (count($devents)>0) {
+      foreach ($devents as $k => $v) { 
+	uasort($devents[$k], "evSort");
+	$action->lay->setBlockData("devents$k", $devents[$k]);
       }
+      $action->lay->set("noresult", false);
     } else {
-	$action->lay->set("noresult", true);
+      $action->lay->set("noresult", true);
     }
   } else {
     $action->lay->set("noresult", true);
-    $action->lay->setBlockData("btime", null);
-    $btime = array();
   }
   $action->lay->set("standalone", $standalone);
   $action->lay->set("title", $title);
-  
+
 }
 
 function daySort($a, $b) {
