@@ -34,6 +34,7 @@
 <td colspan="3" align="center"> 
 
 <fieldset><legend>[TEXT:Conditions]</legend>
+<table><tr><td>[V_SE_OL]</td></tr></table>
 <table border=0 width="100%">
 <thead>
 
@@ -43,12 +44,7 @@
   <img width="10px" height="10px" title="[TEXT:down]" align="bottom" onclick="downart(this)" src="[IMG:down.gif]">
   <img title="[TEXT:delete]" onclick="delart(this)" src="[IMG:delete.gif]">
 </td>
-<td class="und">
-  <select  name="_se_ols[]" >
-  [BLOCK OL]
-     <option  value="[olid]">[olname]</option>
-  [ENDBLOCK OL]
-  </select></td>
+
 <td class="und" >
   <select  name="_se_attrids[]" >
   [BLOCK ATTR]
@@ -82,12 +78,6 @@
   <img width="10px" height="10px" title="[TEXT:down]" align="bottom" onclick="downart(this)" src="[IMG:down.gif]">
   <img title="[TEXT:delete]" onclick="delart(this)" src="[IMG:delete.gif]">
 </td>
-<td class="und">
-  <select  name="_se_ols[]" >
-  [BLOCK OL2]
-     <option  value="[olid]">[olname]</option>
-  [ENDBLOCK OL2]
-  </select></td>
 <td class="und" >
   <select  name="_se_attrids[]" >
  
@@ -109,7 +99,6 @@
 </tr>
 <tr class="FREEDOMBack2">
 <td>&nbsp;</td>
-<td>[L_SE_OLS]</td>
 <td>[L_SE_ATTRIDS]</td>
 <td>[L_SE_FUNCS]</td>
 <td>[L_SE_KEYS]</td>
@@ -121,12 +110,7 @@
   <img width="10px" height="10px" title="[TEXT:up]" align="top" onclick="upart(this)" src="[IMG:up.gif]">
   <img width="10px" height="10px" title="[TEXT:down]" align="bottom" onclick="downart(this)" src="[IMG:down.gif]">
   <img title="[TEXT:delete]" onclick="delart(this)" src="[IMG:delete.gif]"></td>
-  <td><select  name="_se_ols[]" >
-  [BLOCK [OLCOND]]
-     <option [ol_selected] value="[ol_id]">[ol_name]</option>
-  [ENDBLOCK [OLCOND]]
-  </select>
-</td>
+  
 
 <td class="und" >
   <select  name="_se_attrids[]" >

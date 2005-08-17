@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.36 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.37 2005/08/17 09:12:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -90,8 +90,7 @@ function getSqlCond($col,$op,$val="") {
  * return array of sql filter needed to search wanted document
  */
 function getSqlDetailFilter() {  
-
-  $tol = $this->getTValue("SE_OLS");
+  $ol = $this->getValue("SE_OL");  
   $tkey = $this->getTValue("SE_KEYS");
   $taid = $this->getTValue("SE_ATTRIDS");
   $tf = $this->getTValue("SE_FUNCS");
@@ -117,13 +116,14 @@ function getSqlDetailFilter() {
       }
     }
     
-    foreach ($tol as $k=>$v) {
+    foreach ($taid as $k=>$v) {
       $cond1=$this->getSqlCond($taid[$k],trim($tf[$k]),$tkey[$k]);
-      if ($cond == "") $tol[$k]="";;
-      if ($cond1!="") $cond.=$tol[$k].$cond1." ";
+      if ($cond == "") $cond=$cond1." ";
+      elseif ($cond1!="") $cond.=$ol.$cond1." ";
 
     }
   }
+
   return $cond;
 }
 
@@ -213,10 +213,10 @@ function getSpecTitle() {
 
 function viewdsearch($target="_self",$ulink=true,$abstract=false) {
   // Compute value to be inserted in a  layout
-   $this->editattr();
+   $this->viewattr();
   //-----------------------------------------------
   // display already condition written
-  $tol = $this->getTValue("SE_OLS");
+  
   $tkey = $this->getTValue("SE_KEYS");
   $taid = $this->getTValue("SE_ATTRIDS");
   $tf = $this->getTValue("SE_FUNCS");
@@ -231,10 +231,9 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
     $zpi["owner"]->labelText=_("id owner");
     $zpi["values"]->labelText=_("any values");
   
-    $tol[0]=" ";
+
     foreach ($tkey as $k=>$v) {
-      $tcond[]["condition"]=sprintf("%s %s %s %s",
-				    _($tol[$k]),
+      $tcond[]["condition"]=sprintf("%s %s %s",				    
 				    $zpi[$taid[$k]]->labelText,
 				    _($this->top[$tf[$k]]["label"]),
  				    ($tkey[$k]!="")?_($tkey[$k]):$tkey[$k]);
@@ -341,12 +340,6 @@ function editdsearch() {
   $this->lay->SetBlockData("FUNC", $tfunc);
   $this->lay->SetBlockData("FUNC2", $tfunc);
 
-  while (list($k,$v) = each($this->tol)) {
-    $tol[]=array("olid"=> $k,
-		 "olname" => _($v));
-  }
-  $this->lay->SetBlockData("OL", $tol);
-  $this->lay->SetBlockData("OL2", $tol);
 
 
   if ($this->getValue("SE_LATEST") == "no")     $this->lay->Set("select_all","selected");
