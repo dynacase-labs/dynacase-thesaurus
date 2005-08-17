@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.71 2005/07/29 16:08:57 eric Exp $
+ * @version $Id: freedom_util.php,v 1.72 2005/08/17 09:08:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -389,8 +389,10 @@ function getDocFromUserId($dbaccess,$userid) {
 function ComputeVisibility($vis, $fvis) {
   if ($vis == "I") return $vis;
   if ($fvis == "H") return $fvis;
-  if (($fvis == "R") && ($vis == "W") ) return $fvis;
+  if (($fvis == "R") && (($vis == "W")||($vis == "O")) ) return $fvis;
   if (($fvis == "R") && ($vis == "O")) return "H";
+  if (($fvis == "O") && ($vis == "W")) return $fvis;
+  if (($fvis == "S") && (($vis == "W")||($vis == "O"))) return $fvis;
 
   return $vis;
 
