@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.267 2005/08/16 07:47:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.268 2005/08/17 09:07:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2214,7 +2214,7 @@ final public function PostInsert()  {
   /**
    * virtual method must be use in child families if needed complete url
    */
-  final public function urlWhatEncodeSpec($l) {return $l;}
+  public function urlWhatEncodeSpec($l) {return $l;}
 
   public static function _val2array($v) {
     return explode("\n", str_replace("\r","",$v));
@@ -2548,6 +2548,10 @@ final public function PostInsert()  {
 	    else $abegin.= $ulink;
 	    $abegin.="\">";
 	  } else {
+	    $ltarget=$oattr->getOption("ltarget");
+	    if ($ltarget != "") $target=$ltarget;
+	    $ltitle=$oattr->getOption("ltitle");
+	    if ($ltitle != "") $ititle=str_replace("\"","'",$ltitle);
 	    $abegin="<A target=\"$target\" title=\"$ititle\" onmousedown=\"document.noselect=true;\" href=\"";
 	    $abegin.= $ulink."\" ";;
 	    if ($htmllink > 1){
@@ -2595,7 +2599,7 @@ final public function PostInsert()  {
    * @param string $aclname identificator of the privilige to test
    * @return string empty means access granted else it is an error message (access unavailable)
    */
-  final public function Control ($aclname) {
+  public function Control ($aclname) {
     // -------------------------------------------------------------------- 
     if (($this->IsAffected()) ) {	
       
@@ -2810,7 +2814,7 @@ final public function PostInsert()  {
       if ($htmlvalue !== "") // to define when change frame
 	{
 	  if ( $currentFrameId != $attr->fieldSet->id) {	    
-	    if (($currentFrameId != "") && ($attr->fieldSet->visibility != "H")) $changeframe=true;
+	    if (($currentFrameId != "") && ($attr->fieldSet->mvisibility != "H")) $changeframe=true;
 	  }
 	}
 	
@@ -2866,7 +2870,7 @@ final public function PostInsert()  {
 		
 	  }
 
-	if (($attr->fieldSet->visibility!="H")&&($htmlvalue!=="")) $currentFrameId = $attr->fieldSet->id;
+	if (($attr->fieldSet->mvisibility!="H")&&($htmlvalue!=="")) $currentFrameId = $attr->fieldSet->id;
 
 
 	
@@ -3835,7 +3839,7 @@ final public function PostInsert()  {
    * @return int
    */
   public static function getUserId() {
-    return $this->userDocId();
+    return Doc::userDocId();
   }
 
 
