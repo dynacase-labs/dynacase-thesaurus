@@ -114,6 +114,19 @@ function copy_clip(meintext)
    return false;
 }
 
+function shiftPushed(event) {  
+  if (!event) event=window.event;
+  return event.shiftKey;
+}
+function altPushed(event) {  
+  if (!event) event=window.event;
+  return event.altKey;
+}
+function ctrlPushed(event) {  
+  if (!event) event=window.event;
+  return event.ctrlKey;
+}
+
 
 function trackMenuKey(event)
 {

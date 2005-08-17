@@ -1,21 +1,25 @@
 function popdoc(event,url) {
 
   if (event) event.cancelBubble=true;     
-
-  var dpopdoc = document.getElementById('POPDOC_s');
-  var fpopdoc;
-  if (! dpopdoc) {
-    new popUp([mgeox], [mgeoy], [mgeow], [mgeoh], 'POPDOC', url, 'white', '#00385c', '16pt serif', '[TEXT:mini view]', '[CORE_FGCOLOR]', '[CORE_TEXTBGCOLOR]', '[CORE_BGCOLORALTERN]', '[CORE_BGCOLORALTERN]', '[CORE_BGCOLORALTERN]', true, true, true, true, true, false);
-    
+  if (ctrlPushed(event)) {
+    subwindow([FDL_HD2SIZE],[FDL_VD2SIZE],'wpopdoc',url);
   } else {
-    if ((getObjectTop(dpopdoc) < document.body.scrollTop) || 
-	(getObjectTop(dpopdoc) > (getInsideWindowHeight() +document.body.scrollTop))	){
-      // popup is not visible in scrolled window => move to visible part
-      movePopup('POPDOC' ,[mgeox], [mgeoy]+document.body.scrollTop);
-    } 
-    changecontent( 'POPDOC' , url );
-    showbox( 'POPDOC');
 
+    var dpopdoc = document.getElementById('POPDOC_s');
+    var fpopdoc;
+    if (! dpopdoc) {
+      new popUp([mgeox], [mgeoy], [mgeow], [mgeoh], 'POPDOC', url, 'white', '#00385c', '16pt serif', '[TEXT:mini view]', '[CORE_FGCOLOR]', '[CORE_TEXTBGCOLOR]', '[CORE_BGCOLORALTERN]', '[CORE_BGCOLORALTERN]', '[CORE_BGCOLORALTERN]', true, true, true, true, true, false);
+    
+    } else {
+      if ((getObjectTop(dpopdoc) < document.body.scrollTop) || 
+	  (getObjectTop(dpopdoc) > (getInsideWindowHeight() +document.body.scrollTop))	){
+	// popup is not visible in scrolled window => move to visible part
+	movePopup('POPDOC' ,[mgeox], [mgeoy]+document.body.scrollTop);
+      } 
+      changecontent( 'POPDOC' , url );
+      showbox( 'POPDOC');
+
+    }
   }
 }
 
