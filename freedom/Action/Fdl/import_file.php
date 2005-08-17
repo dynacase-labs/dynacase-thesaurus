@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.95 2005/08/08 15:58:24 eric Exp $
+ * @version $Id: import_file.php,v 1.96 2005/08/17 09:09:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -373,9 +373,9 @@ function add_import_file(&$action, $fimport="") {
       $oattr->frameid = trim(strtolower($data[2]));
       $oattr->labeltext=$data[3];
 
+      $oattr->title = ($data[4] == "Y")?"Y":"N";
       if (! $oattr->isAffected()) { 
 	// don't change config by admin
-	$oattr->title = ($data[4] == "Y")?"Y":"N";
 	$oattr->abstract = ($data[5] == "Y")?"Y":"N";
       }
      
