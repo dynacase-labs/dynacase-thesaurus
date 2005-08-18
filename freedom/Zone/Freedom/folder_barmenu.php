@@ -3,7 +3,7 @@
  * Folder barmenu
  *
  * @author Anakeen 2000 
- * @version $Id: folder_barmenu.php,v 1.8 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: folder_barmenu.php,v 1.9 2005/08/18 09:18:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -29,11 +29,13 @@ function folder_barmenu(&$action) {
   // Get all the params 
   $nbdoc=GetHttpVars("nbdoc");
   $dirid=GetHttpVars("dirid");
+  $target=GetHttpVars("target"); // target for hyperlinks
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $dir = new_Doc($dbaccess, $dirid);
 
 
+  $action->lay->Set("wtarget",$target);
   $action->lay->set("title",$dir->getTitle());
   $action->lay->set("pds",$dir->urlWhatEncodeSpec(""));  // parameters for searches
   if ($nbdoc > 1)  $action->lay->set("nbdoc",sprintf(_("%d documents"),$nbdoc));

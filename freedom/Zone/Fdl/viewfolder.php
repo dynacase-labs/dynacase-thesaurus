@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.70 2005/07/21 10:03:30 eric Exp $
+ * @version $Id: viewfolder.php,v 1.71 2005/08/18 09:17:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -287,7 +287,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  // search abstract attribute for freedom item
 	  $doc->ApplyMask(); // apply mask attribute
 	  if ($with_abstract === 2 ){    
-	    $tdoc[$k]["ABSTRACTVALUES"]=getAbstractDetail($doc);	  
+	    $tdoc[$k]["ABSTRACTVALUES"]=getAbstractDetail($doc,$target);	  
 	  } else {
 	    $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");	
 	    $tdoc[$k]["LOrR"]=($k%2==0)?"left":"right";  
@@ -382,6 +382,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $action->lay->Set("prev",$startpage-1);
 
   $action->lay->Set("nbdoc",$nbdoc);
+  $action->lay->Set("wtarget",$target);
 
 
 
@@ -405,13 +406,13 @@ function orderbytitle($a, $b) {
    return strcasecmp($a["title"],$b["title"]);
 }
 
-function getAbstractDetail(&$doc) {
+function getAbstractDetail(&$doc,$target) {
   $tout=array();
   $lattr=$doc->GetAbstractAttributes();
   $emptytableabstract=array();
 
   foreach($lattr as $ka=>$attr)  {	
-    $val = $doc->GetHtmlAttrValue($ka,"fdoc");
+    $val = $doc->GetHtmlAttrValue($ka,$target);
 
     //$taname[$attr->id]["aname"]=_($attr->labelText);
     if ($val) $tout[] = $val;

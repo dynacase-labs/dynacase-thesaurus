@@ -51,7 +51,7 @@ addEvent(window,"load",function al1() {alterrow('terrible','[CORE_BGCOLORALTERN]
                     [BLOCK TABLEBODY]
 <tr  id="d[divid]"
      class="unselect"
-     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
+     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid],'[wtarget]');" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
      onmouseover="oselect([id])"  onmouseout="ounselect()"

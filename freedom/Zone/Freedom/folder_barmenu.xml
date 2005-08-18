@@ -31,10 +31,10 @@
 <!-- ------------ MENU VIEW  --------------------- -->
 <div  id="viewmenu" class="popup">
   
-<a  id="vlist" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_LIST&dirid=[dirid][pds]';closeAllMenu()">[TEXT:list]</a>
-<a  id="vdetail" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_LISTDETAIL&dirid=[dirid][pds]';closeAllMenu()">[TEXT:detail]</a>
-<a  id="vicon" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ICONS&dirid=[dirid][pds]';closeAllMenu()">[TEXT:icon]</a>
-<a  id="vcol" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_COLUMN&dirid=[dirid][pds]';closeAllMenu()">[TEXT:column]</a>
+<a  id="vlist" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_LIST&memo=Y&target=[wtarget]&dirid=[dirid][pds]';closeAllMenu()">[TEXT:list]</a>
+<a  id="vdetail" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_LISTDETAIL&memo=Y&target=[wtarget]&dirid=[dirid][pds]';closeAllMenu()">[TEXT:detail]</a>
+<a  id="vicon" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ICONS&memo=Y&target=[wtarget]&dirid=[dirid][pds]';closeAllMenu()">[TEXT:icon]</a>
+<a  id="vcol" href="#" onClick="location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_COLUMN&memo=Y&target=[wtarget]&dirid=[dirid][pds]';closeAllMenu()">[TEXT:column]</a>
 </div>
 
 <!-- ------------ MENU TOOL --------------------- -->

@@ -40,7 +40,7 @@
                              [BLOCK TABLEBODY]
 <div class="icon" id="d[divid]"  >
 <IMG class="unselect" id="i[divid]"
-     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);" 
+     onMouseDown="select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid],'[wtarget]');" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
      onmouseover="oselect([id])"  onmouseout="ounselect()"

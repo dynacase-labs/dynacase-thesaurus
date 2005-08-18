@@ -48,7 +48,7 @@ addEvent(window,"load",function al1() {alterrow('terrible','[CORE_BGCOLORALTERN]
                     [BLOCK TABLEBODY]
 <tbody id="d[divid]"
      class="unselect"
-     onMouseDown="if (! document.noselect) {select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid]);}document.noselect=false;" 
+     onMouseDown="if (! document.noselect) {select(this,[id],[divid]);openMenuOrProperties(event,'popuplist',[divid],'[wtarget]');}document.noselect=false;" 
      onContextMenu="openMenu(event,'popuplist',[divid]);return false" 
      onDblClick="if ([isfld]) openFld([id]); else sendFirstFile([id]);return false"
      onmouseover="oselect([id])"  onmouseout="ounselect()"

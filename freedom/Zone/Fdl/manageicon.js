@@ -120,7 +120,8 @@ function openMenuOrAbstract(event) {
 }
 
 
-function openMenuOrProperties(event,menuid,itemid,target) {
+function openMenuOrProperties(event,menuid,itemid,wtarget) {
+  var target;
   if (window.event) {
     shiftKey = window.event.shiftKey
       button=window.event.button;
@@ -135,12 +136,14 @@ function openMenuOrProperties(event,menuid,itemid,target) {
       addToBasket(event,'ffoliolist',parent.parent.ffoliolist.document.dirid,true);
     } else {
 
-      if (! docTarget) docTarget='fdoc';
+      if (wtarget) target=wtarget;
+      else if (docTarget)  target=docTarget;
+      else target='fdoc';
   
       if (shiftKey ) {
 	openMenu(event,menuid, itemid);
       } else {
-	subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],docTarget,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id='+docid);
+	subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],target,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id='+docid);
       }
     }
   }

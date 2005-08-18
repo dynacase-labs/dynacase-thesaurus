@@ -3,7 +3,7 @@
  * Definition of bar menu for folder navigation
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.14 2005/04/13 11:12:06 eric Exp $
+ * @version $Id: barmenu.php,v 1.15 2005/08/18 09:16:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -29,7 +29,7 @@ function barmenu(&$action) {
   popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','newwf','newact'));
   popupInit("searchmenu", array( 'speedsearch','newsearch','newdsearch','newsearchfulltext'));
  
-  popupInit("helpmenu", array('help','import','importtar'));
+  popupInit("helpmenu", array('help','import','importtar','planexec'));
 
   $tmark=array();
   $tid=array();
@@ -64,12 +64,14 @@ function barmenu(&$action) {
   if ($action->HasPermission("FREEDOM_MASTER")) {
     popupActive("helpmenu",1,'import'); 
     popupActive("helpmenu",1,'importtar'); 
+    popupActive("helpmenu",1,'planexec'); 
     popupActive("newmenu",1,'newact'); 
     popupActive("newmenu",1,'newfam');
     popupActive("newmenu",1,'newwf'); 
   } else {
     popupInvisible("helpmenu",1,'import');
     popupInvisible("helpmenu",1,'importtar');
+    popupInvisible("helpmenu",1,'planexec');
     popupInvisible("newmenu",1,'newfam');
     popupInvisible("newmenu",1,'newact'); 
     popupInvisible("newmenu",1,'newwf'); 
