@@ -2,6 +2,7 @@
 include_once("Class.Param.php");
 include_once("FDL/freedom_util.php");
 include_once("FDL/Lib.Dir.php");
+include_once("EXTERNALS/WGCAL_external.php");
 
 
 define(SEC_PER_DAY, 24*3600);
@@ -313,16 +314,11 @@ function wgcalGetRessourcesMatrix($ev) {
 
 
 
-function wGetEvents($d1, $d2) {
+function wGetEvents($d1, $d2, $filter=array()) {
 
   global $action;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  // Event search
-  // qev =  query event
-  // famref = family producer
-  // ress = ressources
 
   $qev = GetHttpVars("qev", getIdFromName($dbaccess,"WG_AGENDA"));
 
@@ -351,7 +347,7 @@ function wGetEvents($d1, $d2) {
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
   
-  if ($debug==1) AddWarningMsg("Query = [$qev]   Producters = [$idfamref] Ressources = [$idres] Dates = [".$d1.",".$d2."]");
+//    AddWarningMsg("Query = [$qev]   Producters = [$idfamref] Ressources = [$idres] Dates = [".$d1.",".$d2."]");
 
   $events = array();
   $dre=new Doc($dbaccess, $qev);
@@ -377,12 +373,11 @@ function wGetEvents($d1, $d2) {
     $displayEvent = true;
 
     // Traitement de refus => spécifique à CALEVENT
-    if ($v["evt_frominitiatorid"] == $rvfamid && !$nofilter) {
+    if ($v["evt_frominitiatorid"] == $rvfamid) {
 
       $displayEvent = false;
       
       // Affichage
-      // - si une ressource affiché est dedans et pas refusé
       // - si une ressource affiché est dedans et pas refusé
       $attlist  = Doc::_val2array($v["evfc_listattid"]);
       $attrstat = Doc::_val2array($v["evfc_listattst"]);
@@ -407,7 +402,6 @@ function wGetEvents($d1, $d2) {
 	}
       }
     }
-
     if ($displayEvent) { 
 
       $n = new Doc($dbaccess, $v["id"]);  
@@ -461,7 +455,6 @@ function wGetEvents($d1, $d2) {
         if ($mystate!=3) PopupActive('calpopup',$item["RG"], 'rejectrv');
         if ($mystate!=4) PopupActive('calpopup',$item["RG"], 'tbcrv');
       }
-      
       $tout[] = $item;
     }
   }

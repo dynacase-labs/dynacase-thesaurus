@@ -27,13 +27,21 @@ function wgcal_textmonth(&$action)
   $ctime = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $firstMonthDay  = WGCalGetFirstDayOfMonth($ctime);
   $firstDay = strftime("%u", $firstMonthDay);
+
   $month = strftime("%m", $ctime);
   $year  = strftime("%Y", $ctime);
   $lastday =  w_DaysInMonth($ctime);
+
   $prevmontht = $firstMonthDay-(24*3600);
   $prevmonth = strftime("%B", $prevmontht);
   $nextmontht =  (24*3600)+mktime(0,0,0, $month+1, 1, $year);
   $nextmonth = strftime("%B", $nextmontht);
+
+  $prevyeart = mktime(0,0,0, $month, 1, $year-1);
+  $prevyear = strftime("%Y", $prevyeart);
+
+  $nextyeart = mktime(0,0,0, $month, 1, $year+1);
+  $nextyear = strftime("%Y", $nextyeart);
 
   // Search all event for this month
 
@@ -75,6 +83,10 @@ function wgcal_textmonth(&$action)
   $action->lay->set("prevmonth",$prevmonth);
   $action->lay->set("nextmonth",$nextmonth);
   $action->lay->set("nextmontht",$nextmontht);
+  $action->lay->set("prevyeart", $prevyeart);
+  $action->lay->set("prevyear", $prevyear);
+  $action->lay->set("nextyeart", $nextyeart);
+  $action->lay->set("nextyear", $nextyear);
   $action->lay->set("titlespan",($dayperline-2));
   $action->lay->set("dayperline",$dayperline-1);
   $li = 0;

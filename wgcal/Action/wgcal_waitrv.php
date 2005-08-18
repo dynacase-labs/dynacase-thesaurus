@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.4 2005/06/27 09:40:38 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.5 2005/08/18 16:44:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -33,7 +33,7 @@ function wgcal_waitrv(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_waitzone.js");
 
-  $rvtextl =  20;
+  $rvtextl =  30;
   $today = w_datets2db(time()-(24*3600*7), false)." 00:00:00";
   $filter[] = "(calev_start > '".$today."' ) AND (calev_attid ~* '".$action->user->fid."')";
   $irv = count($wrv);
@@ -53,12 +53,12 @@ function wgcal_waitrv(&$action) {
       $wrv[$irv]["wrvfontstyle"] = ""; 
       $wrv[$irv]["wrvcolor"] = WGCalGetColorState($state); 
       $wrv[$irv]["wrvid"] = $v["id"];
-      if (strlen($v["calev_evtitle"])>$rvtextl) $wrv[$irv]["wrvtitle"] = addslashes(substr($v["calev_evtitle"],0,$rvtextl)."...");
-      else $wrv[$irv]["wrvtitle"] = addslashes($v["calev_evtitle"]);
-      $wrv[$irv]["wrvfulldescr"] = "[".$label."] " 
-	. substr($v["calev_start"],0,16)." : ".$v["calev_evtitle"]." (".$v["calev_owner"].")";
+      $wrv[$irv]["wrvtitlejs"] = addslashes($v["calev_evtitle"]);
+     if (strlen($v["calev_evtitle"])>$rvtextl) $wrv[$irv]["wrvtitle"] = substr($v["calev_evtitle"],0,$rvtextl)."...";
+      else $wrv[$irv]["wrvtitle"] = $v["calev_evtitle"];
       $wrv[$irv]["wrvicon"] = $doc->GetIcon($v["icon"]);
       $wrv[$irv]["tsdate"] = w_dbdate2ts($v["calev_start"]);
+      $wrv[$irv]["owner"] = ucwords(strtolower($v["calev_owner"]));
       $irv++;
     }
   }

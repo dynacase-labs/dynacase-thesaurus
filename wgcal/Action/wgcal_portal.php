@@ -1,21 +1,23 @@
 <?php
 
 include_once("WGCAL/Lib.WGCal.php");
+include_once('WHAT/Lib.Http.php');
+include_once('WGCAL/wgcal_gview.php');
 
 function wgcal_portal(&$action) {
-
+  
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
-
+  
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
+  
   $period = $action->GetParam("WGCAL_U_PORTALPERIOD", "week");
-
+  
   switch($period) {
-    case "3days": $delta = 24*3600*3; break;
-    case "2weeks": $delta = 24*3600*14; break;
-    case "month": $delta = 24*3600*31; break;
-    default: $delta = 24*3600*7;
+  case "3days": $delta = 24*3600*3; break;
+  case "2weeks": $delta = 24*3600*14; break;
+  case "month": $delta = 24*3600*31; break;
+  default: $delta = 24*3600*7;
   }
   $ctime = time();
   $start = ts2db($ctime, "Y-m-d H:i:s");
@@ -24,20 +26,15 @@ function wgcal_portal(&$action) {
   $action->lay->set("period", $period);
   $action->lay->set($period."sel", "selected");
   $action->lay->set("periodtext", _($period));
-  $action->lay->set("tds", substr($start,0,11));
-  $action->lay->set("tde", substr($end,0,11));
-
-  $ress[] = $action->user->fid;
-  if ($viewme) {
-    $grp = WGCalGetRGroups($action, $action->user->id);
-    foreach ($grp as $kr=>$vr) $ress[] = $vr;
-  }
-  setHttpVar("ds", $start);
-  setHttpVar("de", $end);
-  setHttpVar("rlist", implode("|",$ress));
-  setHttpVar("explode", true);
-  setHttpVar("mode", $action->GetParam("WGCAL_U_PORTALSTYLE", "TABLE"));
-  setHttpVar("standalone", "N");
+  $action->lay->set("tds", strftime("%d %B %Y",$ctime));
+  $action->lay->set("tde", strftime("%d %B %Y",($ctime+$delta)));
   
+  $ress = $action->user->fid;
+
+  setHttpVar("rvfs_withme",1);
+  setHttpVar("rvfs_int",$start."=".$end);
+  setHttpVar("standalone",0);
+  
+  wgcal_gview($action);
 }
 ?>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-08 17:24+0200\n"
+"POT-Creation-Date: 2005-08-18 10:47+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -15,27 +15,6 @@ msgstr "Pas d'heure"
 
 msgid "event deletion information message"
 msgstr "Le rendez-vous suivant a été supprimé."
-
-msgid "monday"
-msgstr "Lundi"
-
-msgid "tuesday"
-msgstr "Mardi"
-
-msgid "wenesday"
-msgstr "Mercredi"
-
-msgid "thursday"
-msgstr "Jeudi"
-
-msgid "friday"
-msgstr "Vendredi"
-
-msgid "saturday"
-msgstr "Samedi"
-
-msgid "sunday"
-msgstr "Dimanche"
 
 msgid "look preferences"
 msgstr "Aspect et comportement de l'interface"
@@ -89,9 +68,6 @@ msgstr ""
 
 msgid "event modification acceptation status"
 msgstr "Modification des acceptations"
-
-msgid "confidential event"
-msgstr "Evènement confidentiel"
 
 msgid "all the day"
 msgstr "Toute la journée"
@@ -231,6 +207,10 @@ msgstr "Vue agenda"
 msgid "calendar view"
 msgstr "Vue agenda"
 
+#, fuzzy
+msgid "event card"
+msgstr "Recherche d'évènement"
+
 msgid "month text"
 msgstr "Vue mensuelle texte"
 
@@ -266,6 +246,30 @@ msgstr "Privé"
 
 msgid "My public calendar"
 msgstr "Mon calendrier public"
+
+msgid "confidential event"
+msgstr "Evènement confidentiel"
+
+msgid "monday"
+msgstr "Lundi"
+
+msgid "tuesday"
+msgstr "Mardi"
+
+msgid "wenesday"
+msgstr "Mercredi"
+
+msgid "thursday"
+msgstr "Jeudi"
+
+msgid "friday"
+msgstr "Vendredi"
+
+msgid "saturday"
+msgstr "Samedi"
+
+msgid "sunday"
+msgstr "Dimanche"
 
 msgid "dayly"
 msgstr "journalière"
@@ -504,50 +508,20 @@ msgstr "Créé à partir d'Outlook oid="
 msgid "outlook modification"
 msgstr "Modification depuis Outlook"
 
-msgid " invalid ressource id"
-msgstr "Identifiant de ressource invalide"
+msgid "attendees"
+msgstr "Personnes conviées"
 
-msgid "freedom groupware calendar"
-msgstr "Agenda de groupe Freedom"
+msgid "note"
+msgstr "Note"
 
-msgid "search phrase"
-msgstr "Texte recherché"
+msgid "in calendar"
+msgstr "Calendrier"
 
-msgid "between"
-msgstr "entre"
+msgid "category"
+msgstr "Catégorie"
 
-msgid "start date"
-msgstr "Date de début"
-
-msgid "and"
-msgstr "et"
-
-msgid "end date"
-msgstr "Date de fin"
-
-msgid "search"
-msgstr "Rechercher"
-
-msgid "there are conflicts with events (see after)"
-msgstr "Cet évènement est en conflit avec ceux ci-dessous"
-
-msgid "modify event"
-msgstr "Modifier le rendez-vous"
-
-msgid "ignore conflict"
-msgstr "Ignorer les conflits"
-
-msgid "calendar creation"
-msgstr "Sélection des calendriers"
-
-msgid "Enter new calendar name"
-msgstr "Nom du calendrier"
-
-msgid "enter new calendar name"
-msgstr "Entrer ici le nom du calendrier"
-
-msgid "create calendar"
-msgstr "Création d'un calendrier"
+msgid "view groups"
+msgstr "Visibles pour les groupes"
 
 msgid "event description"
 msgstr "Description de l'évènement"
@@ -558,8 +532,14 @@ msgstr "Titre"
 msgid "give a title"
 msgstr "saississez un titre"
 
+msgid "start date"
+msgstr "Date de début"
+
 msgid "click here to enter the start date"
 msgstr "cliquer pour choisir la date de début"
+
+msgid "end date"
+msgstr "Date de fin"
 
 msgid "click here to enter the end date"
 msgstr "cliquer pour choisir la date de fin"
@@ -576,9 +556,6 @@ msgstr "mise à jour de la date de de fin"
 
 msgid "rv note"
 msgstr "Note"
-
-msgid "category"
-msgstr "Catégorie"
 
 msgid "confidentiality"
 msgstr "Confidentialité"
@@ -621,6 +598,9 @@ msgstr "Gérer les groupes"
 
 msgid "search for a contact..."
 msgstr "Recherche un contact..."
+
+msgid "search"
+msgstr "Rechercher"
 
 msgid "I participe to this meeting"
 msgstr "je participe à la réunion"
@@ -718,6 +698,54 @@ msgstr "Supprimer les jours sélectionnés"
 msgid "click to selec/unselect group"
 msgstr "Cliquer pour sélectionner/déselectionner le groupe "
 
+msgid " invalid ressource id"
+msgstr "Identifiant de ressource invalide"
+
+msgid " portal for Agenda de Groupe"
+msgstr "Portail de l'Agenda de Groupe"
+
+msgid "planned event"
+msgstr "Rendez-vous prévus"
+
+msgid "from date"
+msgstr "du"
+
+msgid "to date"
+msgstr "au"
+
+msgid "freedom groupware calendar"
+msgstr "Agenda de groupe Freedom"
+
+msgid "search phrase"
+msgstr "Texte recherché"
+
+msgid "between"
+msgstr "entre"
+
+msgid "and"
+msgstr "et"
+
+msgid "there are conflicts with events (see after)"
+msgstr "Cet évènement est en conflit avec ceux ci-dessous"
+
+msgid "modify event"
+msgstr "Modifier le rendez-vous"
+
+msgid "ignore conflict"
+msgstr "Ignorer les conflits"
+
+msgid "calendar creation"
+msgstr "Sélection des calendriers"
+
+msgid "Enter new calendar name"
+msgstr "Nom du calendrier"
+
+msgid "enter new calendar name"
+msgstr "Entrer ici le nom du calendrier"
+
+msgid "create calendar"
+msgstr "Création d'un calendrier"
+
 msgid "change user preferences for"
 msgstr "Modifier les préférences utilisateur pour "
 
@@ -802,8 +830,8 @@ msgstr "Note"
 msgid "save todo"
 msgstr "Sauvegarder la tâche"
 
-msgid "search result for"
-msgstr "Résultat de la recherche pour "
+msgid "search result"
+msgstr "Résultat de la recherche"
 
 msgid "no event"
 msgstr "Pas d'évènement."
@@ -848,13 +876,13 @@ msgid "goto this period"
 msgstr "Aller à cette date"
 
 msgid "accept event"
-msgstr "accepter cet évènement"
+msgstr "Accepter cet évènement"
 
 msgid "accept this"
 msgstr "Accepter"
 
 msgid "refuse event"
-msgstr "refuser cet évènement :"
+msgstr "Refuser cet évènement"
 
 msgid "reject this"
 msgstr "Refuser"
@@ -882,18 +910,6 @@ msgstr "Période suivante"
 
 msgid "change hours division"
 msgstr "Division de l'heure"
-
-msgid "attendees"
-msgstr "Personnes conviées"
-
-msgid "note"
-msgstr "Note"
-
-msgid "in calendar"
-msgstr "Calendrier"
-
-msgid "view groups"
-msgstr "Visibles pour les groupes"
 
 msgid "to be confirm"
 msgstr "à confirmer"

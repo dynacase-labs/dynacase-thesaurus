@@ -100,6 +100,7 @@ function mailrv() {
 function RendezVousView() {
 
   include_once('WGCAL/Lib.WGCal.php');
+  include_once('EXTERNALS/WGCAL_external.php');
 
   global $action;
 
@@ -307,6 +308,7 @@ function addIcons(&$ia, $icol)
 }
 
 function ev_showattendees($ressd, $private, $dcolor="lightgrey") {
+  include_once('EXTERNALS/WGCAL_external.php');
   include_once('WGCAL/Lib.WGCal.php');
   global $action;
 
@@ -421,6 +423,7 @@ function RendezVousShortText() {
 
 function RendezVousEdit() {
   global $action;
+  include_once('EXTERNALS/WGCAL_external.php');
   include_once('WGCAL/Lib.wTools.php');
 
   $fq = getIdFromName($db, "WG_AGENDA");
@@ -547,13 +550,14 @@ function RendezVousEdit() {
     $this->lay->set("mailadd", $mailadd);
   }    
   $this->lay->set("DFMT", "%A %d %b %Y");
+  
+  $this->lay->set("evstatus", $evstatus);
 
   $this->EventSetTitle($evtitle, $ro);
   $this->EventSetDescr($evnote, $ro);  
   $this->EventSetDate($evstart, $evend, $evtype, $ro);
   $this->EventSetVisibility($evvis, $ogrp, $ro);
   $this->EventSetCalendar($evcal, $ro);
-  $this->EventSetStatus($evstatus, $withme, $onlyme, $rostatus);
   $this->EventSetAlarm($evalarm, $evalarmt, $ro);
   $this->EventSetRepeat($evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld, $ro);
   $this->EventSetCategory($evcategory);
@@ -565,7 +569,8 @@ function RendezVousEdit() {
 
 function EventSetCategory(&$action, $evcategory) {
   global $action;
-  $show = ($action->getParam("WGCAL_G_SHOWCATEGORIES",0)==1 ? true : false);
+  include_once("WGCAL/Lib.wTools.php");
+  $show = ($action->GetParam("WGCAL_G_SHOWCATEGORIES", 0) ==1 ? true : false);
   $this->lay->set("evcategory", $evcategory);
   $this->lay->set("ShowCategories", $show);
   if ($show) {
@@ -737,35 +742,6 @@ function EventSetCalendar($cal, $ro) {
   $this->lay->set("fullattendees", ($cal==-1?"":"none"));
 }
 
-function EventSetStatus($status, $withme, $onlyme, $ro) {
-  include_once('WGCAL/Lib.WGCal.php');
-  global $action;
-  $acal = WGCalGetState("");
-  $this->lay->set("evstatus", $status);
-  $ic = 0;
-  if ($ro) {
-    $tconf[$ic]["iState"] = $ic;
-    $tconf[$ic]["vState"] = $status;
-    $tconf[$ic]["rState"] = "disabled";
-    $tconf[$ic]["tState"] = WGCalGetLabelState($status);
-    $tconf[$ic]["cState"] = WGCalGetColorState($status);
-    $tconf[$ic]["sState"] = "checked";
-  } else {
-    foreach ($acal as $k => $v) {
-      if ($k==EVST_NEW || $k==EVST_READ) continue;
-      $tconf[$ic]["iState"] = $k;
-      $tconf[$ic]["vState"] = $k;
-      $tconf[$ic]["rState"] = "";
-      $tconf[$ic]["tState"] = WGCalGetLabelState($k);
-      $tconf[$ic]["cState"] = WGCalGetColorState($k);
-      $tconf[$ic]["sState"] = ($k==$status ? "checked" : "");
-      $ic++;
-    }
-  }
-  $this->lay->set("vStatus", ($withme&&!$onlyme ? "visible" : "hidden")); 
-  $this->lay->SetBlockData("STATUSZ", $tconf);
-  $this->lay->set("cState", WGCalGetColorState($status));
-}
   
 function EventSetAlarm($alarm, $alarmt, $ro) {
 

@@ -3,10 +3,15 @@
 <br>
 <table  style="border:thin outset grey;" align="center" width="100%" cellspacing="0" cellpadding="2px">
 <tr>
-<td class="wMonthTextTitlePrevNext" align="left" width="10%" 
-onclick="setTextView([prevmontht]);">[[prevmonth]]</td>
+<td nowrap class="wMonthTextTitlePrevNext" align="left" width="20%">
+  <span onclick="setTextView([prevyeart]);">[[prevyear]]</span>
+  <span onclick="setTextView([prevmontht]);">[[prevmonth]]</span>
+</td>
 <td class="wMonthTextTitle" align="center" colspan="[titlespan]">[month]</td>
-<td class="wMonthTextTitlePrevNext" align="left" width="10%" onclick="setTextView([nextmontht]);">[[nextmonth]]</td></tr>
+<td nowrap class="wMonthTextTitlePrevNext" align="right" width="20%">
+  <span onclick="setTextView([nextmontht]);">[[nextmonth]]</span>
+  <span onclick="setTextView([nextyeart]);">[[nextyear]]</span>
+</td></tr>
 </table>
 <table  style="border:thin outset grey;" align="center" width="100%" cellspacing="0" cellpadding="2px">
 [BLOCK DLINE]<tr valign="top">[line]</tr>[ENDBLOCK DLINE]

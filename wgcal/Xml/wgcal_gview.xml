@@ -1,11 +1,15 @@
-[IF standalone][ZONE WGCAL:WGCAL_HTMLHEAD][ENDIF standalone]
-[IF standalone]<div width="100%" class="WEvTitle">[TEXT:search result for] "[title]"</div>[ENDIF standalone]
+[IF standalone]
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+<table width="100%" class="wToolButtonUnselect" cellspacing="0" cellpadding="0"><tr><td>[TEXT:search result]</td></tr></tr></table>
+[ENDIF standalone]
+
 [IF noresult]<div width="100%" class="WEvDays">[TEXT:no event]</div>[ENDIF noresult]
 
 [BLOCK btime]<fieldset><legend class="WEvDays">[date]</legend>
 <table width="100%" cellspacing="0">
-[BLOCK devents[date]]
-<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onmouseout="this.className='WEvDefault'"><td onContextMenu="SetCurrentEvent([IDP], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false">[EvCard]</td></tr>[ENDBLOCK devents[date]]</table></fieldset>[ENDBLOCK btime]
+[BLOCK devents[date]]<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onclick="subwindow(400, 650, 'ViewEvent[id]', '[CORE_STANDURL]&app=[IF EditCard]GENERIC&action=GENERIC_EDIT[ENDIF EditCard][IFNOT EditCard]FDL&action=IMPCARD[ENDIF EditCard]&id=[id]');" onmouseout="this.className='WEvDefault'">
+<td onContextMenu="SetCurrentEvent([id], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([id], '[TSSTART]');openMenu(event,'calpopup',[RG])}">[EvCard]</td>
+</tr>[ENDBLOCK devents[date]]</table></fieldset>[ENDBLOCK btime]
 
 [ZONE WGCAL:WGCAL_POPUP]
 
