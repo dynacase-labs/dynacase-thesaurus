@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.25 2005/08/18 09:19:27 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.26 2005/08/18 15:26:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -413,7 +413,10 @@ Class DocCtrl extends DbObj
   static public function canExecute($appname,$actname) {
     global $action;
     
-    return $action->canExecute($appname,$actname);
+    $err= $action->canExecute($actname,$appname);
+
+    if ($err == "") return MENU_ACTIVE;
+    return MENU_INVISIBLE;
   }
 
 }
