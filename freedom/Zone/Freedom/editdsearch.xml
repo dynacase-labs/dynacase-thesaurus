@@ -25,12 +25,12 @@
 <tr class="FREEDOMBack1">
   <td>&nbsp</td>
   <td class="FREEDOMLabel" align="right">
-      <label for="latest"> [TEXT:only latest revision]&nbsp;:</label></td>
+      <label for="latest"> [L_SE_LATEST]&nbsp;:</label></td>
   <td   >[V_SE_LATEST]  </td>
 </tr>
 
 
-<tr class="FREEDOMBack1">
+<tr class="FREEDOMBack1"
 <td colspan="3" align="center"> 
 
 <fieldset><legend>[TEXT:Conditions]</legend>
