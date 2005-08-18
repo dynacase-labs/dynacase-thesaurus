@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.15 2005/08/10 10:24:47 eric Exp $
+ * @version $Id: popupfam.php,v 1.16 2005/08/18 15:27:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.15 2005/08/10 10:24:47 eric Exp $
+// $Id: popupfam.php,v 1.16 2005/08/18 15:27:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,8 +69,7 @@ function popupfam(&$action,&$tsubmenu) {
     
     $confirm=false;
     $control=false;
-
-
+    if ($v->getOption("onlyglobal")=="Y") continue;
     if ($v->link[0] == '?') { 
       $v->link=substr($v->link,1);
       $confirm=true;
@@ -93,19 +92,8 @@ function popupfam(&$action,&$tsubmenu) {
     $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
     $tlink[$k]["visibility"]=MENU_ACTIVE;
     $tlink[$k]["barmenu"] = ($v->getOption("barmenu")=="yes")?"true":"false";
-    if ($v->precond != "") {
-      if (substr($v->precond,0,2)=="::") {
-	if (ereg("::([^\(]+)\(([^\)]*)\)",$v->precond, $reg)) {
-	  $method=$reg[1];
-	  if (method_exists($doc,$method)) {
-	    $tiargs=array();
-	    $res=call_user_method_array($method,$doc,$tiargs);
-
-	    $tlink[$k]["visibility"]=$res;
-	  }
-	}
-      }
-    }
+    if ($v->precond != "") $tlink[$k]["visibility"]=$doc->ApplyMethod($v->precond,MENU_ACTIVE);
+    
     $tmenu[$km++] = $v->id;
     popupAddItem('popupcard',  $v->id); 
   }
@@ -190,5 +178,5 @@ function popupfam(&$action,&$tsubmenu) {
   if ($noctrlkey) popupNoCtrlKey();            
 
   $action->lay->SetBlockData("ADDLINK",$tlink);
-  $action->lay->Set("SEP",true);// to see separatot
+  $action->lay->Set("SEP",true);// to see separator
 }

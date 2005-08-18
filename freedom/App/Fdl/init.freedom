@@ -16,18 +16,18 @@ ATTR;BA_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;
 ATTR;GUI_COLOR;FR_BASIC;couleur intercalaire;N;N;color;30;O;;;;;
 ATTR;FLD_FR_REST;;Restrictions;N;N;frame;0;R;;;;;
 ATTR;FLD_ALLBUT;FLD_FR_REST;tout ou rien;N;N;enum;1000;W;;;-;0|tout sauf,1|seulement;
-ATTR;FLD_TFAM;FLD_FR_REST;familles filtrées;N;N;array;1005;W;;;;;
+ATTR;FLD_TFAM;FLD_FR_REST;familles filtrÃ©es;N;N;array;1005;W;;;;;
 ATTR;FLD_FAM;FLD_TFAM;familles;N;N;text;1010;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_FAMIDS%;fdl.php;lfamilies(D,FLD_FAM):FLD_FAMIDS,FLD_FAM;
 ATTR;FLD_FAMIDS;FLD_TFAM;id familles;N;N;docid;1020;H;;;;;
-ATTR;FLD_FR_PROF;;Profils par défaut;N;N;frame;0;R;;;;;
-ATTR;FLD_PDOC;FLD_FR_PROF;profil par défaut de document;N;N;text;1030;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDOCID%;fdl.php;lfamilly(D,PDOC,FLD_PDOC):FLD_PDOCID,FLD_PDOC;
-ATTR;FLD_PDOCID;FLD_FR_PROF;id profil par défaut de document;N;N;docid;1040;H;;;;;
-ATTR;FLD_PDIR;FLD_FR_PROF;profil par défaut de dossier;N;N;text;1050;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDIRID%;fdl.php;lfamilly(D,PDIR,FLD_PDIR):FLD_PDIRID,FLD_PDIR;
-ATTR;FLD_PDIRID;FLD_FR_PROF;id profil par défaut de dossier;N;N;docid;1060;H;;;;;
+ATTR;FLD_FR_PROF;;Profils par dÃ©faut;N;N;frame;0;R;;;;;
+ATTR;FLD_PDOC;FLD_FR_PROF;profil par dÃ©faut de document;N;N;text;1030;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDOCID%;fdl.php;lfamilly(D,PDOC,FLD_PDOC):FLD_PDOCID,FLD_PDOC;
+ATTR;FLD_PDOCID;FLD_FR_PROF;id profil par dÃ©faut de document;N;N;docid;1040;H;;;;;
+ATTR;FLD_PDIR;FLD_FR_PROF;profil par dÃ©faut de dossier;N;N;text;1050;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDIRID%;fdl.php;lfamilly(D,PDIR,FLD_PDIR):FLD_PDIRID,FLD_PDIR;
+ATTR;FLD_PDIRID;FLD_FR_PROF;id profil par dÃ©faut de dossier;N;N;docid;1060;H;;;;;
 ;;;;;;;;;;;;;
 ATTR;FLD_ROOT;;nouvelle racine;N;N;menu;10;R;;C[ffolder]%S%app=FREEDOM&action=FOLDERS&dirid=%I%;;;
 ATTR;FLD_OPEN;;ouvrir;N;N;menu;20;R;;%S%app=FREEDOM&action=FREEDOM_VIEW&dirid=%I%;;;
-ATTR;FLD_COPYBASKET;;insérer le porte-document;N;N;menu;30;R;;C%S%app=FREEDOM&action=FREEDOM_INSERTFLD&id=%I%&dirid={FREEDOM_IDBASKET}&clean=Y;;;
+ATTR;FLD_COPYBASKET;;insÃ©rer le porte-document;N;N;menu;30;R;;C%S%app=FREEDOM&action=FREEDOM_INSERTFLD&id=%I%&dirid={FREEDOM_IDBASKET}&clean=Y;;;
 ATTR;FLD_OPENFOLIO;;ouvrir comme une chemise;N;N;menu;40;R;;C%S%app=FREEDOM&action=OPENFOLIO&id=%I%;;;
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
@@ -35,7 +35,7 @@ END;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;;
 DOC;2;9;;racine;;;;;;;;;
-DOC;2;10;9;import;Documents importés lors d'installation;;;;;;;;
+DOC;2;10;9;import;Documents importÃ©s lors d'installation;;;;;;;;
 // famille chemise;;;id;class;name;;;;;;;;
 BEGIN;2;chemise;17;;PORTFOLIO;;;;;;;;
 TYPE;C;;;;;;;;;;;;
@@ -55,7 +55,7 @@ TYPE;C;;;;;;;;;;;;
 ICON;basket.gif;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
-ATTR;FLD_COPYBASKET;FLD_FR_PROF;insérer le porte-document;N;N;menu;20;H;;;;;
+ATTR;FLD_COPYBASKET;FLD_FR_PROF;insÃ©rer le porte-document;N;N;menu;20;H;;;;;
 ATTR;FLD_CLEAR;;vider;N;N;menu;20;M;;[basket]%S%app=FREEDOM&action=FREEDOM_CLEARFLD&id=%I%;;;
 END;1;-1;;;;;;;;;;;
 // famille cycle;;;id;class;name;;;;;;;;;
@@ -88,15 +88,15 @@ ATTR;MSK_FR_REST;;Famille;N;N;frame;0;F;;;;;;
 ATTR;MSK_FAMID;MSK_FR_REST;id familles;N;N;docid;10;H;;;;::getTitle(MSK_FAMID):MSK_FAM;;
 ATTR;MSK_FAM;MSK_FR_REST;familles;Y;N;text;20;W;Y;%S%app=FDL&action=FDL_CARD&id=%MSK_FAMID%;fdl.php;lfamilies(D,MSK_FAM):MSK_FAMID,MSK_FAM;;
 ATTR;MSK_ATTRIDS;MSK_FR_REST;attrid;N;N;textlist;30;H;;;;;;
-ATTR;MSK_VISIBILITIES;MSK_FR_REST;visibilité;N;N;textlist;40;H;;;;;;
+ATTR;MSK_VISIBILITIES;MSK_FR_REST;visibilitÃ©;N;N;textlist;40;H;;;;;;
 ATTR;MSK_NEEDEEDS;MSK_FR_REST;obligatoire;N;N;textlist;50;H;;;;;;
 ;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
 END;1;-1;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
-// famille contrôle de vues;;;id;class;name;;;;;;;;;
-BEGIN;1;contrôle de vues;28;CVDoc;CVDOC;;;;;;;;;
+// famille contrÃ´le de vues;;;id;class;name;;;;;;;;;
+BEGIN;1;contrÃ´le de vues;28;CVDoc;CVDOC;;;;;;;;;
 TYPE;C;;;;;;;;;;;;;
 ICON;cview.gif;;;;;;;;;;;;;
 PROFID;510;;;;;;;;;;;;;
@@ -112,9 +112,9 @@ ATTR;CV_KVIEW;CV_T_VIEWS;type;N;N;enum;130;W;;;-;VCONS|Consultation,VEDIT|Editio
 ATTR;CV_ZVIEW;CV_T_VIEWS;zone;N;N;text;140;W;;;fdl.php;lzone(D,CV_KVIEW,CV_FAMID):CV_ZVIEW;;
 ATTR;CV_MSKID;CV_T_VIEWS;id masque;N;N;docid;150;H;;;;::getTitle(CV_MSKID):CV_MSK;;
 ATTR;CV_MSK;CV_T_VIEWS;masque;N;N;text;160;W;N;%S%app=FDL&action=FDL_CARD&id=%CV_MSKID%;fdl.php;lmask(D,CV_MSK,CV_FAMID):CV_MSKID,CV_MSK;;
-ATTR;CV_FR_DEFAULT;;vues par défauts;N;N;frame;100;W;;;;;;
-ATTR;CV_IDCVIEW;CV_FR_DEFAULT;id création vues par défaut;N;N;text;110;H;;;;::nothing(CV_IDCVIEW):CV_LCVIEW;;
-ATTR;CV_LCVIEW;CV_FR_DEFAULT;création vue;N;N;text;120;W;;;fdl.php;lview(CV_IDVIEW,CV_LVIEW):CV_IDCVIEW,CV_LCVIEW;;
+ATTR;CV_FR_DEFAULT;;vues par dÃ©fauts;N;N;frame;100;W;;;;;;
+ATTR;CV_IDCVIEW;CV_FR_DEFAULT;id crÃ©ation vues par dÃ©faut;N;N;text;110;H;;;;::nothing(CV_IDCVIEW):CV_LCVIEW;;
+ATTR;CV_LCVIEW;CV_FR_DEFAULT;crÃ©ation vue;N;N;text;120;W;;;fdl.php;lview(CV_IDVIEW,CV_LVIEW):CV_IDCVIEW,CV_LCVIEW;;
 ;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
 ATTR;DPDOC_FR_DYN;;dynamique;N;N;frame;200;W;;;;;;
@@ -129,7 +129,7 @@ ICON;dmail.gif;;;;;;;;;;;
 ATTR;MAIL_FR;;Adresses;N;Y;frame;10;F;;;;
 ATTR;MAIL_FROM;MAIL_FR;De;N;Y;text;20;R;;;;
 ATTR;MAIL_DEST;MAIL_FR;Destinataires;N;Y;array;30;;;;;
-ATTR;MAIL_COPYMODE;MAIL_DEST;;N;Y;enum;40;;;;;to|À,cc|Cc,bcc|Bcc
+ATTR;MAIL_COPYMODE;MAIL_DEST;;N;Y;enum;40;;;;;to|Ã€,cc|Cc,bcc|Bcc
 ATTR;MAIL_RECIP;MAIL_DEST;destinataire;N;Y;text;50;W;;;fdl.php;lmail(D,MAIL_RECIP):MAIL_RECIP
 ATTR;MAIL_SUBJECT;MAIL_FR;sujet;N;Y;text;60;W;;;;
 ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;70;F;;;;
@@ -143,41 +143,41 @@ TYPE;C;;;;;;;;;;;;;;
 ICON;search.gif;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
 ATTR;GUI_COLOR;FR_BASIC;couleur intercalaire;N;N;color;30;O;;;;;;;
-ATTR;SE_MEMO;FR_BASIC;à utiliser dans les menus;N;N;enum;40;W;;;;[bool]no|non,yes|oui;;;bmenu=no|system=yes
-ATTR;SE_CRIT;;critère;N;N;frame;0;W;;;;;;;
+ATTR;SE_MEMO;FR_BASIC;Ã  utiliser dans les menus;N;N;enum;40;W;;;;[bool]no|non,yes|oui;;;bmenu=no|system=yes
+ATTR;SE_CRIT;;critÃ¨re;N;N;frame;0;W;;;;;;;
 ATTR;SE_KEY;SE_CRIT;mot-clef;N;Y;text;100;W;;;;;;;
-ATTR;SE_LATEST;SE_CRIT;révision;N;N;enum;110;W;;;;yes|courante,no|toutes les révisions,fixed|dernière révision,allfixed|sans la courante;;;bmenu=no|system=yes
-ATTR;SE_CASE;SE_CRIT;différence majuscule/minuscule;N;N;enum;120;W;;;;[bool]no|non,yes|oui;;;bmenu=no|system=yes
+ATTR;SE_LATEST;SE_CRIT;rÃ©vision;N;N;enum;110;W;;;;yes|courante,no|toutes les rÃ©visions,fixed|derniÃ¨re rÃ©vision,allfixed|sans la courante;;;bmenu=no|system=yes
+ATTR;SE_CASE;SE_CRIT;diffÃ©rence majuscule/minuscule;N;N;enum;120;W;;;;[bool]no|non,yes|oui;;;bmenu=no|system=yes
 ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;130;W;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFAM%;fdl.php;lfamilies(D,SE_FAM):SE_FAMID,SE_FAM;;;
 ATTR;SE_FAMID;SE_CRIT;fid amille;N;N;docid;140;H;;;;;;;
-ATTR;SE_CFLD;SE_CRIT;à partir du dossier;N;N;text;150;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFLD%;;;;;
+ATTR;SE_CFLD;SE_CRIT;Ã  partir du dossier;N;N;text;150;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFLD%;;;;;
 ATTR;SE_IDFLD;SE_CRIT;dossier racine;N;N;docid;160;H;;;;;;;
 ATTR;SE_SUBLEVEL;SE_CRIT;profondeur de recherche;N;N;int;170;H;;;;;;;
-ATTR;SE_SQLSELECT;SE_CRIT;requête sql;N;N;text;180;H;;;;;;;
-ATTR;SE_IDCFLD;SE_CRIT;id dossier père courant;N;N;docid;190;H;;;;::getTitle(SE_IDCFLD):SE_CFLD;;;
-ATTR;SE_CFLD;SE_CRIT;dossier père courant;N;N;text;200;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDCFLD%;;;;;
+ATTR;SE_SQLSELECT;SE_CRIT;requÃªte sql;N;N;text;180;H;;;;;;;
+ATTR;SE_IDCFLD;SE_CRIT;id dossier pÃ¨re courant;N;N;docid;190;H;;;;::getTitle(SE_IDCFLD):SE_CFLD;;;
+ATTR;SE_CFLD;SE_CRIT;dossier pÃ¨re courant;N;N;text;200;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDCFLD%;;;;;
 ATTR;SE_OPEN;;ouvrir;N;N;menu;20;R;;%S%app=FREEDOM&action=FREEDOM_VIEW&dirid=%I%;;;;;
 ATTR;SE_OPENFOLIO;;ouvrir comme une chemise;N;N;menu;30;R;;C%S%app=FREEDOM&action=OPENFOLIO&id=%I%;;;;;
 ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 END;0;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
-//SEARCH;<special id>;<special dir id>;titre;requête;;;;;;;;;;;
+//SEARCH;<special id>;<special dir id>;titre;requÃªte;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 SEARCH;11;9;les familles;select * from docfam where doctype='C';;;;;;;;;;;
 SEARCH;12;9;les profils;select * from doc where doctype ='P';;;;;;;;;;;
 SEARCH;13;9;les maisons;select * from doc2 where (owner < 0) and (locked != -1);;;;;;;;;;;
 SEARCH;14;9;la poubelle;select * from doc where doctype ='Z';;;;;;;;;;;
 SEARCH;22;9;les cycles;select * from doc20 where doctype='W';;;;;;;;;;;
-// recherche détaillée;fromid;;id;class;name;;;;;;;
+// recherche dÃ©taillÃ©e;fromid;;id;class;name;;;;;;;
 ;;;;;;;;;;;;
-BEGIN;SEARCH;recherche groupée;31;;MSEARCH;;;;;;;
+BEGIN;SEARCH;recherche groupÃ©e;31;;MSEARCH;;;;;;;
 TYPE;C;;;;;;;;;;;
 ICON;searchm.gif;;;;;;;;;;;
 METHOD;Method.GroupSearch.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ;;;;;;;;;;;;
-ATTR;SE_CRIT;;critère;N;N;frame;0;H;;;;
+ATTR;SE_CRIT;;critÃ¨re;N;N;frame;0;H;;;;
 ;;;;;;;;;;;;
 ATTR;SE_FR_SEARCHES;;les recherches;N;N;frame;100;W;;;;
 ATTR;SEG_T_COND;SE_FR_SEARCHES;ensemble de recherche;N;N;array;110;W;;;;
@@ -186,45 +186,45 @@ ATTR;SEG_COND;SEG_T_COND;recherche;N;N;doc("SEG_IDCOND");130;W;;%S%app=FDL&actio
 ;;;;;;;;;;;;
 ;;;;;;;;;;;;
 END;0;;;;;;;;;;;
-// recherche détaillée;fromid;;id;class;name;;;;;;;;;;
+// recherche dÃ©taillÃ©e;fromid;;id;class;name;;;;;;;;;;
 ;;;;;;;;;;;;;;;
-BEGIN;SEARCH;recherche détaillée;16;;DSEARCH;;;;;;;;;;
+BEGIN;SEARCH;recherche dÃ©taillÃ©e;16;;DSEARCH;;;;;;;;;;
 TYPE;C;;;;;;;;;;;;;;
 ICON;searchd.gif;;;;;;;;;;;;;;
 METHOD;Method.DetailSearch.php;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
 ATTR;SE_FR_DETAIL;;Conditions;N;N;frame;0;W;;;;;;;
-ATTR;SE_OL;SE_FR_DETAIL;opérateur logique;N;N;enum;300;W;;;;[hcheck]and|satisfait toutes les conditions,or|satisfait au moins une condition;;;system=yes|bmenu=no
+ATTR;SE_OL;SE_FR_DETAIL;opÃ©rateur logique;N;N;enum;300;W;;;;[hcheck]and|satisfait toutes les conditions,or|satisfait au moins une condition;;;system=yes|bmenu=no
 ATTR;SE_T_DETAIL;SE_FR_DETAIL;Conditions;N;N;array;310;W;;;;;;;
 ATTR;SE_ATTRIDS;SE_T_DETAIL;attributs;N;N;text;320;W;;;;;;;
 ATTR;SE_FUNCS;SE_T_DETAIL;fonctions;N;N;text;330;W;;;;;;;
 ATTR;SE_KEYS;SE_T_DETAIL;mot-clefs;N;N;text;340;W;;;;;;;
 ;;;;;;;;;;;;;;;
 END;0;;;;;;;;;;;;;;
-// recherche détaillée;fromid;;id;class;name;;;;;;;;;;
+// recherche dÃ©taillÃ©e;fromid;;id;class;name;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 BEGIN;DSEARCH;rapport;25;;REPORT;;;;;;;;;;
 TYPE;C;;;;;;;;;;;;;;
 ICON;report.gif;;;;;;;;;;;;;;
 METHOD;Method.Report.php;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constarint;options
-ATTR;REP_FR_PRESENTATION;;Présentation;N;N;frame;0;F;;;;;;;
+ATTR;REP_FR_PRESENTATION;;PrÃ©sentation;N;N;frame;0;F;;;;;;;
 ATTR;REP_CAPTION;REP_FR_PRESENTATION;description;N;Y;longtext;200;W;;;;;;;
 ATTR;REP_SORT;REP_FR_PRESENTATION;tri;N;N;text;210;W;;;fdl.php;getSortAttr(D,SE_FAMID,REP_SORT):REP_IDSORT,REP_SORT;;;
 ATTR;REP_IDSORT;REP_FR_PRESENTATION;id tri;N;N;text;220;H;;;;;;;
 ATTR;REP_ORDERSORT;REP_FR_PRESENTATION;ordre;N;N;enum;230;W;;;;asc|ascendant,desc|descendant;;;system=yes,bmenu=no
-ATTR;REP_LIMIT;REP_FR_PRESENTATION;limite;N;N;int;240;W;;;;;;;elabel=nombre maximum de documents retournés|esize=3
+ATTR;REP_LIMIT;REP_FR_PRESENTATION;limite;N;N;int;240;W;;;;;;;elabel=nombre maximum de documents retournÃ©s|esize=3
 ATTR;REP_TCOLS;REP_FR_PRESENTATION;Colonnes;N;N;array;250;W;;;;;;;
 ATTR;REP_LCOLS;REP_TCOLS;label;N;N;text;260;W;;;fdl.php;getDocAttr(D,SE_FAMID,REP_LCOLS):REP_IDCOLS,REP_LCOLS;;;
 ATTR;REP_IDCOLS;REP_TCOLS;id colonnes;N;N;text;270;H;;;;;;;
 ATTR;REP_COLORS;REP_TCOLS;couleur;N;N;color;280;W;;;;;;;
 ATTR;REP_FOOTS;REP_TCOLS;pied de tableau;N;N;enum;290;W;;;-;NONE| ,SUM|Somme,MOY|Moyenne,CARD|Cardinal;;;
-ATTR;REP_STYLE;REP_FR_PRESENTATION;style;N;N;enum;300;W;;;-;reportHBlue|Bleu horizontal,reportVGreen|Vert vertical,reportHYellow|Jaune horizontal,reportHInverse|Inverse vidéo;;;
+ATTR;REP_STYLE;REP_FR_PRESENTATION;style;N;N;enum;300;W;;;-;reportHBlue|Bleu horizontal,reportVGreen|Vert vertical,reportHYellow|Jaune horizontal,reportHInverse|Inverse vidÃ©o;;;
 ATTR;REP_EXCEL; ;vers tableur;N;N;menu;10;W;;%S%app=FDL&action=IMPCARD&props=N&id=%I%&ulink=N&ext=xls&mime=application/ms-excel;;;;;
 ATTR;REP_IMP; ;version imprimable;N;N;menu;20;W;;%S%app=FDL&action=IMPCARD&props=N&id=%I%&ulink=N;;;;;
 ATTR;REP_CSV; ;version csv;N;N;menu;20;W;;C%S%app=FDL&action=EXPORTFLD&id=%I%;;;;;
 END;0;;;;;;;;;;;;;;
-// recherche détaillée;fromid;;id;class;name;;;;;;;;
+// recherche dÃ©taillÃ©e;fromid;;id;class;name;;;;;;;;
 ;;;;;;;;;;;;;
 BEGIN;2;intercalaire;18;;GUIDECARD;;;;;;;;
 TYPE;C;;;;;;;;;;;;
@@ -237,7 +237,7 @@ USEFOR;G;;;;;;;;;;;;
 END;0;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
-// recherche détaillée;fromid;;id;class;name;;;;;;;;
+// recherche dÃ©taillÃ©e;fromid;;id;class;name;;;;;;;;
 ;;;;;;;;;;;;;
 BEGIN;16;intercalaire dynamique;19;;SGUIDECARD;;;;;;;;
 TYPE;C;;;;;;;;;;;;
@@ -298,8 +298,8 @@ ATTR;FI_FRDESC;;description;N;N;frame;;F;;;;
 ATTR;FI_TITLE;FI_FRDESC;titre;Y;N;text;10;R;;;;
 ATTR;FI_TITLEW;FI_FRDESC;titre;N;N;text;15;O;;;;
 ATTR;FI_SUBJECT;FI_FRDESC;sujet;N;Y;text;20;W;;;;
-ATTR;FI_KEYWORD;FI_FRDESC;mots-clés;N;N;text;30;W;;;;
-ATTR;FI_DESCRIPTION;FI_FRDESC;résumé;N;N;longtext;40;W;;;;
+ATTR;FI_KEYWORD;FI_FRDESC;mots-clÃ©s;N;N;text;30;W;;;;
+ATTR;FI_DESCRIPTION;FI_FRDESC;rÃ©sumÃ©;N;N;longtext;40;W;;;;
 ;;;;;;;;;;;;
 ;;;;;;;;;;;;
 ;;;;;;;;;;;;
@@ -323,8 +323,8 @@ ATTR;IMG_TITLE;IMG_FRFILE;titre;Y;N;text;10;R;;;;
 ;;;;;;;;;;;;
 ATTR;IMG_FILE;IMG_FRFILE;image;N;Y;image;20;W;Y;;;
 ATTR;IMG_DESCRIPTION;IMG_FRFILE;description;N;Y;longtext;30;W;;;;
-ATTR;IMG_FR_CHAR;;caractéristiques;N;N;frame;;F;;;;
-ATTR;IMG_CATG;IMG_FR_CHAR;catégorie;N;N;enum;30;W;;;;1|photo,2|dessin,1.1|paysage,1.2|portrait
+ATTR;IMG_FR_CHAR;;caractÃ©ristiques;N;N;frame;;F;;;;
+ATTR;IMG_CATG;IMG_FR_CHAR;catÃ©gorie;N;N;enum;30;W;;;;1|photo,2|dessin,1.1|paysage,1.2|portrait
 END;-;9;;;;;;;;;;
 ;;;;;;;;;;;;
 // famille texte;;;id;class;name;;;;;;;
@@ -347,8 +347,8 @@ METHOD;Method.FullTextSearch.php;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
 ATTR;SE_KEY;idattr;mot-clef;N;Y;text;100;N;;;;
 ATTR;FTS_SEARCH;;Recherche plein texte;N;N;frame;1000;F;;;;
-ATTR;FTS_WHERE;FTS_SEARCH;Chercher les mots;N;Y;enum;1010;W;;;;WHITIN|contenant,ENTIRE|entiers,BEGIN|commençant par,ENDING|finissant par
-ATTR;FTS_LOGICAL;FTS_SEARCH;Chercher...;N;Y;enum;1020;W;;;;ONE|Un des mots,ALL|Tous,PHRASE|La phrase entière
+ATTR;FTS_WHERE;FTS_SEARCH;Chercher les mots;N;Y;enum;1010;W;;;;WHITIN|contenant,ENTIRE|entiers,BEGIN|commenÃ§ant par,ENDING|finissant par
+ATTR;FTS_LOGICAL;FTS_SEARCH;Chercher...;N;Y;enum;1020;W;;;;ONE|Un des mots,ALL|Tous,PHRASE|La phrase entiÃ¨re
 END;0;;;;;;;;;;;
 // famille dossier;;;id;class;name;;;;;;;;
 BEGIN;0;post it;27;;POSTIT;;;;;;;;
@@ -367,10 +367,10 @@ ATTR;PIT_IDUSER;PIT_TCOM;id utilisateur;N;N;docid;40;H;;;;::getTitle(PIT_IDUSER)
 ATTR;PIT_USER;PIT_TCOM;utilisateur;N;N;text;50;R;;%S%app=FDL&action=FDL_CARD&id=%PIT_IDUSER%;fdl.php;lfamilly(D,IUSER,PIT_USER):PIT_IDUSER,PIT_USER;
 ATTR;PIT_COLOR;PIT_TCOM;couleur;N;N;color;60;W;;;;;
 ATTR;PIT_FR_DOC;;Attachement;N;N;frame;70;W;;;;;
-ATTR;PIT_IDADOC;PIT_FR_DOC;id doc attaché;N;N;docid;80;H;;;;::getTitle(PIT_IDADOC):PIT_ADOC;
-ATTR;PIT_ADOC;PIT_FR_DOC;doc attaché;N;N;text;90;R;;%S%app=FDL&action=FDL_CARD&id=%PIT_IDADOC%;;;
-ATTR;PIT_VIEWDOC;;voir le document associé;N;N;menu;100;M;;%S%app=FDL&action=FDL_CARD&id=%PIT_IDADOC%;;;
-ATTR;PIT_FR_EDIT;;édition;N;N;frame;110;H;;;;;
+ATTR;PIT_IDADOC;PIT_FR_DOC;id doc attachÃ©;N;N;docid;80;H;;;;::getTitle(PIT_IDADOC):PIT_ADOC;
+ATTR;PIT_ADOC;PIT_FR_DOC;doc attachÃ©;N;N;text;90;R;;%S%app=FDL&action=FDL_CARD&id=%PIT_IDADOC%;;;
+ATTR;PIT_VIEWDOC;;voir le document associÃ©;N;N;menu;100;M;;%S%app=FDL&action=FDL_CARD&id=%PIT_IDADOC%;;;
+ATTR;PIT_FR_EDIT;;Ã©dition;N;N;frame;110;H;;;;;
 ATTR;PIT_NCOM;PIT_FR_EDIT;Nouveau commentaire;N;N;longtext;120;O;;;;;
 ATTR;PIT_NCOLOR;PIT_FR_EDIT;Nouvelle couleur;N;N;color;130;O;;;;;
 ATTR;PIT_MOD;;Modifier le contenu;N;N;menu;10;R;;%S%app=GENERIC&action=GENERIC_EDIT&id=%I%&zone=FDL:EDITBODYCARD:T;;;
@@ -379,10 +379,10 @@ DEFAULT;PIT_IDUSER;::userDocId();;;;;;;;;;;
 DEFAULT;PIT_COLOR;#FFFFCC;;;;;;;;;;;
 END;;;;;;;;;;;;;
 // controle de vue pour le dossier;;;;;;;;;;;;;;;;;;
-//FAM;masque de saisie(MASK);<specid>;<fldid>;titre;id familles;familles;attrid;visibilité;obligatoire;;;;;;;;;
+//FAM;masque de saisie(MASK);<specid>;<fldid>;titre;id familles;familles;attrid;visibilitÃ©;obligatoire;;;;;;;;;
 ORDER;MASK;;;ba_title;msk_famid;msk_fam;msk_attrids;msk_visibilities;msk_needeeds;;;;;;;;;
 DOC;MASK;mskfld;;Restrictions;2;dossier;fld_fr_prof\nfld_fr_rest\nfr_basic\nba_title\nba_desc\ngui_color\nfld_allbut\nfld_tfam\nfld_fam\nfld_famids\nfld_pdoc\nfld_pdocid\nfld_pdir\nfld_pdirid;W\nW\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-;-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-;;;;;;;;;
-//FAM;contrôle de vues(CVDOC);<specid>;<fldid>;titre;description;family id;famille;vues;id création vues par défaut;id vues;label;création vue;type;zone;id masque;masque;family id;famille
+//FAM;contrÃ´le de vues(CVDOC);<specid>;<fldid>;titre;description;family id;famille;vues;id crÃ©ation vues par dÃ©faut;id vues;label;crÃ©ation vue;type;zone;id masque;masque;family id;famille
 ORDER;CVDOC;;;ba_title;cv_desc;cv_famid;cv_fam;cv_t_views;cv_idcview;cv_idview;cv_lview;cv_lcview;cv_kview;cv_zview;cv_mskid;cv_msk;dpdoc_famid;dpdoc_fam
 DOC;CVDOC;cvfld;;Restrictions;;2;dossier;;;RESTRICT;Restriction;;VEDIT;FDL:EDITBODYCARD;mskfld;;;
 ;;;;;;;;;;;;;;;;;;

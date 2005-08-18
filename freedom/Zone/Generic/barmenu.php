@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.35 2005/08/02 16:10:18 eric Exp $
+ * @version $Id: barmenu.php,v 1.36 2005/08/18 15:27:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -118,6 +118,23 @@ function barmenu(&$action) {
   popupInit("newmenu",  $tnewmenu   );
 
   popupInit("helpmenu", array('help','imvcard','folders','memosearch','isplit','cview','aview'));
+
+  $lmenu = $fdoc->GetMenuAttributes();
+  foreach($lmenu as $k=>$v) {    
+    if ($v->getOption("global")=="Y") {
+      $tmenu[$k]=array("mid"=>$v->id,
+		       "mtitle"=>$v->labelText,
+		       "murl"=>addslashes($fdoc->urlWhatEncode($v->link)));
+    
+      popupAddItem('helpmenu',  $v->id);
+      if ($v->precond != "") $vis=$fdoc->ApplyMethod($v->precond,MENU_ACTIVE);
+      if ($vis==MENU_ACTIVE)  popupActive("helpmenu",1,$v->id); 
+    }    
+  }
+
+  $action->lay->setBlockData("FAMMENU",$tmenu);
+  
+
 
 
   if ($action->HasPermission("GENERIC"))  {

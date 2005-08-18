@@ -1,47 +1,47 @@
-// ;fromid;titre;id;class;name;;;;;;;;
-BEGIN;0;personne;120;;USER;;;;;;;;
-TYPE;C;;;;;;;;;;;;
-DFLDID;121;;;;;;;;;;;;
-ICON;personne.gif;;;;;;;;;;;;
-SCHAR;S;;;;;;;;;;;;
-METHOD;Method.DocUser.php;;;;;;;;;;;;
-METHOD;+Method.DocLDAP.php;;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
-ATTR;US_FR_IDENT;;Etat civil;N;N;frame;10;W;;;;;
-ATTR;US_CIVILITY;US_FR_IDENT;civilité;N;N;enum;10;W;Y;;-; | ,Monsieur|Monsieur,Madame|Madame,Mademoiselle|Mademoiselle,Docteur|Docteur,Professeur|Professeur;
-ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;W;Y;;;;
-ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;W;;;;;
-ATTR;US_PHOTO;US_FR_IDENT;photographie;N;N;image;40;W;;;;;
-ATTR;US_INITIALS;US_FR_IDENT;initiales;N;N;text;50;W;;;;;
-ATTR;US_FR_COORD;;Coordonnées;N;N;frame;60;W;;;;;
-ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;W;;mailto:%US_MAIL%;;;
-ATTR;US_PHONE;US_FR_COORD;téléphone;N;Y;text;80;R;;;;;
-ATTR;US_PPHONE;US_FR_COORD;téléphone direct;N;N;text;90;O;;;usercard.php;getSphone(D,US_IDSOCIETY):US_PPHONE;
-ATTR;US_INTPHONE;US_FR_COORD;n°poste;N;N;text;100;W;;;;;
-ATTR;US_PFAX;US_FR_COORD;fax direct;N;N;text;110;O;;;usercard.php;getSFax(D,US_IDSOCIETY):US_PFAX;
-ATTR;US_FAX;US_FR_COORD;fax;N;N;text;120;R;;;;;
-ATTR;US_MOBILE;US_FR_COORD;mobile;N;N;text;130;W;;;;;
-ATTR;US_FR_SOC;;Société;N;N;frame;1000;W;;;;;
-ATTR;US_IDSOCIETY;US_FR_SOC;id société;N;N;docid;1010;H;;;;;
-ATTR;US_SOCADDR;US_FR_SOC;même adresse ?;N;N;text;1020;H;;;;;
-ATTR;US_SOCIETY;US_FR_SOC;site société;N;Y;text;1030;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%
-ATTR;US_TYPE;US_FR_SOC;fonction;N;N;enumlist;1040;W;;;;directeur|directeur,commercial|commercial,respinf|responsable informatique,respachat|responsable achat,respliv|responsable livraison,chefserv|chef de service;
-ATTR;US_JOB;US_FR_SOC;métier;N;N;longtext;1050;W;;;;;
-ATTR;US_ROLE;US_FR_SOC;rôle;N;N;longtext;1060;W;;;;;
-ATTR;US_WORKADDR;US_FR_SOC;adresse;N;N;longtext;1070;W;;;usercard.php;laddrsoc(D,US_IDSOCIETY):US_SOCADDR,US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX,US_COUNTRY;
-ATTR;US_WORKPOSTALCODE;US_FR_SOC;code postal;N;N;text;1080;W;;;;;
-ATTR;US_WORKTOWN;US_FR_SOC;ville;N;N;text;1090;W;;;;;
-ATTR;US_COUNTRY;US_FR_SOC;pays;N;N;text;1100;W;;;;;
-ATTR;US_WORKCEDEX;US_FR_SOC;cedex;N;N;text;1110;W;;;;;
-ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;1120;W;;http://%US_WORKWEB%;;;
-ATTR;US_SCATG;US_FR_SOC;catégorie;N;N;enumlist;1130;W;;;usercard.php;enumscatg();
-ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1140;W;;;-;W|carte publique - accès écriture,R|carte publique - accès lecture,P|carte privée,S|spécifique;
-ATTR;US_VCARD;US_FR_SOC;Vcard;N;N;menu;0;M;;%S%&app=USERCARD&action=USERCARD_VCARD&id=%I%;;;
-;;;;;;;;;;;;;
-DEFAULT;US_PRIVCARD;W;;;;;;;;;;;
-;;;;;;;;;;;;;
-END;0;;;;;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;;;
+BEGIN;0;personne;120;;USER;;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;;
+DFLDID;121;;;;;;;;;;;;;;
+ICON;personne.gif;;;;;;;;;;;;;;
+SCHAR;S;;;;;;;;;;;;;;
+METHOD;Method.DocUser.php;;;;;;;;;;;;;;
+METHOD;+Method.DocLDAP.php;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;options
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;;;
+ATTR;US_FR_IDENT;;Etat civil;N;N;frame;10;W;;;;;;;
+ATTR;US_CIVILITY;US_FR_IDENT;civilitÃ©;N;N;enum;10;W;Y;;-; | ,Monsieur|Monsieur,Madame|Madame,Mademoiselle|Mademoiselle,Docteur|Docteur,Professeur|Professeur;;;
+ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;W;Y;;;;;;
+ATTR;US_FNAME;US_FR_IDENT;prÃ©nom;Y;N;text;30;W;;;;;;;
+ATTR;US_PHOTO;US_FR_IDENT;photographie;N;N;image;40;W;;;;;;;
+ATTR;US_INITIALS;US_FR_IDENT;initiales;N;N;text;50;W;;;;;;;
+ATTR;US_FR_COORD;;CoordonnÃ©es;N;N;frame;60;W;;;;;;;
+ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;W;;mailto:%US_MAIL%;;;;;
+ATTR;US_PHONE;US_FR_COORD;tÃ©lÃ©phone;N;Y;text;80;R;;;;;;;
+ATTR;US_PPHONE;US_FR_COORD;tÃ©lÃ©phone direct;N;N;text;90;O;;;usercard.php;getSphone(D,US_IDSOCIETY):US_PPHONE;;;
+ATTR;US_INTPHONE;US_FR_COORD;nÂ°poste;N;N;text;100;W;;;;;;;
+ATTR;US_PFAX;US_FR_COORD;fax direct;N;N;text;110;O;;;usercard.php;getSFax(D,US_IDSOCIETY):US_PFAX;;;
+ATTR;US_FAX;US_FR_COORD;fax;N;N;text;120;R;;;;;;;
+ATTR;US_MOBILE;US_FR_COORD;mobile;N;N;text;130;W;;;;;;;
+ATTR;US_FR_SOC;;SociÃ©tÃ©;N;N;frame;1000;W;;;;;;;
+ATTR;US_IDSOCIETY;US_FR_SOC;id sociÃ©tÃ©;N;N;docid;1010;H;;;;;;;
+ATTR;US_SOCADDR;US_FR_SOC;mÃªme adresse ?;N;N;text;1020;H;;;;;;;
+ATTR;US_SOCIETY;US_FR_SOC;site sociÃ©tÃ©;N;Y;text;1030;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%;;
+ATTR;US_TYPE;US_FR_SOC;fonction;N;N;enumlist;1040;W;;;;directeur|directeur,commercial|commercial,respinf|responsable informatique,respachat|responsable achat,respliv|responsable livraison,chefserv|chef de service;;;
+ATTR;US_JOB;US_FR_SOC;mÃ©tier;N;N;longtext;1050;W;;;;;;;
+ATTR;US_ROLE;US_FR_SOC;rÃ´le;N;N;longtext;1060;W;;;;;;;
+ATTR;US_WORKADDR;US_FR_SOC;adresse;N;N;longtext;1070;W;;;usercard.php;laddrsoc(D,US_IDSOCIETY):US_SOCADDR,US_WORKADDR,US_WORKTOWN,US_WORKPOSTALCODE,US_WORKWEB,US_WORKCEDEX,US_COUNTRY;;;
+ATTR;US_WORKPOSTALCODE;US_FR_SOC;code postal;N;N;text;1080;W;;;;;;;
+ATTR;US_WORKTOWN;US_FR_SOC;ville;N;N;text;1090;W;;;;;;;
+ATTR;US_COUNTRY;US_FR_SOC;pays;N;N;text;1100;W;;;;;;;
+ATTR;US_WORKCEDEX;US_FR_SOC;cedex;N;N;text;1110;W;;;;;;;
+ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;1120;W;;http://%US_WORKWEB%;;;;;
+ATTR;US_SCATG;US_FR_SOC;catÃ©gorie;N;N;enumlist;1130;W;;;usercard.php;enumscatg();;;
+ATTR;US_PRIVCARD;US_FR_SOC;confidentialitÃ©;N;N;enum;1140;W;;;-;W|carte publique - accÃ¨s Ã©criture,R|carte publique - accÃ¨s lecture,P|carte privÃ©e,S|spÃ©cifique;;;
+ATTR;US_VCARD;;Vcard;N;N;menu;0;W;;%S%&app=USERCARD&action=USERCARD_VCARD&id=%I%;;;;;
+ATTR;US_INITLDAP;;Initialisation LDAP;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_LDAPINIT;;::canExecute(FUSERS,FUSERS_LDAPINIT);;;global=Y|onlyglobal=Y
+DEFAULT;US_PRIVCARD;W;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+END;0;;;;;;;;;;;;;;
 // ;fromid;titre;id;class;name;;;;;;;;
 BEGIN;DIR;groupe;129;;GROUP;;;;;;;;
 TYPE;C;;;;;;;;;;;;
@@ -51,7 +51,7 @@ METHOD;Method.DocGroup.php;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 ATTR;GRP_FR_IDENT;;Identification;N;N;frame;100;W;;;;;
 ATTR;GRP_NAME;GRP_FR_IDENT;nom;Y;N;text;105;W;Y;;;;
-ATTR;GRP_ROLE;GRP_FR_IDENT;rôle;N;N;longtext;115;W;;;;;
+ATTR;GRP_ROLE;GRP_FR_IDENT;rÃ´le;N;N;longtext;115;W;;;;;
 ATTR;GRP_MAIL;GRP_FR_IDENT;mail;N;Y;text;125;R;;mailto:%GRP_MAIL%;;;
 ATTR;GRP_TYPE;GRP_FR_IDENT;fonction;N;N;enum;135;W;;;;none| ,service|service,desk|bureau;
 ATTR;GRP_FR;;Description;N;N;frame;500;W;;;;;
@@ -71,7 +71,7 @@ ATTR;GRP_REFRESH;;Raffraichir;N;N;menu;0;M;;[_self]%S%app=FDL&action=FDL_METHOD&
 ATTR;FR_BASIC;;basique;N;N;frame;0;H;;;;;
 ATTR;BA_TITLE;FR_BASIC;titre;N;N;text;1;H;N;;;;
 ATTR;FLD_FR_REST;;Restrictions;N;N;frame;0;H;;;;;
-ATTR;FLD_FR_PROF;;Profils par défaut;N;N;frame;0;H;;;;;
+ATTR;FLD_FR_PROF;;Profils par dÃ©faut;N;N;frame;0;H;;;;;
 DEFAULT;FLD_FAMIDS;129\n120;;;;;;;;;;;
 DEFAULT;FLD_FAM;groupe\npersonne;;;;;;;;;;;
 DEFAULT;FLD_ALLBUT;1;;;;;;;;;;;
@@ -98,24 +98,24 @@ ATTR;US_WHATID;US_FR_INTRANET;identifiant;N;N;text;240;R;;;;;;;
 ATTR;US_GROUPS;US_FR_INTRANET;groupes d'appartenance;N;N;array;250;R;;;;;;;
 ATTR;US_GROUP;US_GROUPS;groupe;N;N;text;260;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDGROUP%;fdl.php;lfamilly(D,{GROUP},US_GROUP):US_IDGROUP,US_GROUP;;;
 ATTR;US_IDGROUP;US_GROUPS;id groupe;N;N;docid;270;H;;;;;;;
-ATTR;US_STATUS;US_FR_INTRANET;état;N;N;enum;280;R;;;;A|activé,D|désactivé;;;
+ATTR;US_STATUS;US_FR_INTRANET;Ã©tat;N;N;enum;280;R;;;;A|activÃ©,D|dÃ©sactivÃ©;;;
 ATTR;US_EXPIRES;US_FR_INTRANET;date d'expiration epoch;N;N;int;290;H;;;;;;;
-ATTR;US_DAYDELAY;US_FR_INTRANET;délai d'expiration en jours;N;N;int;300;R;;;;;;;elabel=mettre -1 pour annuler l'expiration
+ATTR;US_DAYDELAY;US_FR_INTRANET;dÃ©lai d'expiration en jours;N;N;int;300;R;;;;;;;elabel=mettre -1 pour annuler l'expiration
 ATTR;US_EXPIRESD;US_FR_INTRANET;date d'expiration;N;N;date;310;R;;;;;;::ConstraintExpires(US_EXPIRESD,US_EXPIREST,US_DAYDELAY);
 ATTR;US_EXPIREST;US_FR_INTRANET;heure d'expiration;N;N;time;320;R;;;;;;;
-ATTR;US_PASSDELAY;US_FR_INTRANET;délai d'expiration epoch;N;N;int;330;H;;;;;;;
+ATTR;US_PASSDELAY;US_FR_INTRANET;dÃ©lai d'expiration epoch;N;N;int;330;H;;;;;;;
 ATTR;US_IDDOMAIN;US_FR_INTRANET;id domaine;N;N;int;340;H;Y;;;;;;
 ATTR;US_DOMAIN;US_FR_INTRANET;domaine;N;N;text;350;R;Y;;usercard.php;[list]getdomainiuser():US_IDDOMAIN,US_DOMAIN,US_EXTMAIL,US_AUTOMAIL;;;
 ATTR;US_AUTOMAIL;US_FR_INTRANET;mail auto ?;N;N;text;350;H;;;;;;;
 ATTR;US_EXTMAIL;US_FR_INTRANET;mail externe;N;N;text;360;O;;;;;;::parseMail(US_EXTMAIL);
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;R;Y;;;;;;
-ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;R;Y;;;;;;
+ATTR;US_FNAME;US_FR_IDENT;prÃ©nom;Y;N;text;30;R;Y;;;;;;
 ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;::parseMail(US_MAIL);
 ;;;;;;;;;;;;;;;
 ATTR;US_SERVICE;US_FR_SOC;service;N;N;text;1042;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDSERVICE%;fdl.php;lkfamily(D,IGROUP,grp_type,service,US_SERVICE):US_IDSERVICE,US_SERVICE;;;
 ATTR;US_IDSERVICE;US_FR_SOC;service id;N;N;docid;1041;H;;;;;;;
-ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1051;H;;;-;;;;
-;;;;;;;;;;;;;;;
+ATTR;US_PRIVCARD;US_FR_SOC;confidentialitÃ©;N;N;enum;1051;H;;;-;;;;
+ATTR;US_INITUSER;;Raffraichir les utilisateurs;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_IUSER;;::canExecute(FUSERS,FUSERS_IUSER);;;global=Y|onlyglobal=Y
 END;0;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
@@ -186,7 +186,7 @@ ATTR;GRP_DESC;GRP_FR_ACCOUNT;description;N;N;text;310;W;;;;;;
 ;;;;;;;;;;;;;;
 END;0;;;;;;;;;;;;;
 // ;fromid;titre;id;class;name;;;;;;;;;
-BEGIN;0;société;124;;SOCIETY;;;;;;;;;
+BEGIN;0;sociÃ©tÃ©;124;;SOCIETY;;;;;;;;;
 TYPE;C;;;;;;;;;;;;;
 DFLDID;auto;;;;;;;;;;;;;
 ICON;societe.gif;;;;;;;;;;;;;
@@ -195,12 +195,12 @@ METHOD;+Method.DocSociety.php;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
 ATTR;SI_FR_IDENT;;Identification;N;N;frame;10;W;;;;;;
 ATTR;SI_SOCIETY;SI_FR_IDENT;raison sociale;Y;N;text;20;W;Y;;;;;
-ATTR;SI_CATG;SI_FR_IDENT;catégorie;N;N;enumlist;30;W;;;;constructor|Constructeur,client|Client,furnisher|Fournisseur;;
-ATTR;SI_JOB;SI_FR_IDENT;métier;N;N;longtext;40;W;;;;;;
+ATTR;SI_CATG;SI_FR_IDENT;catÃ©gorie;N;N;enumlist;30;W;;;;constructor|Constructeur,client|Client,furnisher|Fournisseur;;
+ATTR;SI_JOB;SI_FR_IDENT;mÃ©tier;N;N;longtext;40;W;;;;;;
 ATTR;SI_DESCR;SI_FR_IDENT;description;N;N;longtext;50;W;;;;;;
-ATTR;SI_FR_COORD;;Coordonnées;N;N;frame;60;W;;;;;;
+ATTR;SI_FR_COORD;;CoordonnÃ©es;N;N;frame;60;W;;;;;;
 ATTR;SI_MAIL;SI_FR_COORD;mail;N;Y;text;70;W;;mailto:%SI_MAIL%;;;;::parsemail(SI_MAIL)
-ATTR;SI_PHONE;SI_FR_COORD;téléphone;N;Y;text;80;W;;;;;;
+ATTR;SI_PHONE;SI_FR_COORD;tÃ©lÃ©phone;N;Y;text;80;W;;;;;;
 ATTR;SI_MOBILE;SI_FR_COORD;mobile;N;N;text;90;W;;;;;;
 ATTR;SI_FAX;SI_FR_COORD;fax;N;N;text;100;W;;;;;;
 ATTR;SI_ADDR;SI_FR_COORD;adresse;N;N;longtext;110;W;;;;;;
@@ -223,8 +223,8 @@ METHOD;Method.DocSite.php;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;needed;link;phpfile;phpfunc;elink
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
-ATTR;SI_IDSOC;SI_FR_IDENT;id société;N;N;text;11;H;N;;;::getTitle(SI_IDSOC):SI_SOCIETY;
-ATTR;SI_SOCIETY;SI_FR_IDENT;société;Y;N;text;31;W;Y;%S%&app=FDL&action=FDL_CARD&id=%SI_IDSOC%;usercard.php;lsociety(D,SI_SOCIETY):SI_IDSOC,SI_SOCIETY;%S%app=USERCARD&action=GENERIC_EDIT&id=%SI_IDSOC%&classid={SOCIETY}&si_society=%SI_SOCIETY%
+ATTR;SI_IDSOC;SI_FR_IDENT;id sociÃ©tÃ©;N;N;text;11;H;N;;;::getTitle(SI_IDSOC):SI_SOCIETY;
+ATTR;SI_SOCIETY;SI_FR_IDENT;sociÃ©tÃ©;Y;N;text;31;W;Y;%S%&app=FDL&action=FDL_CARD&id=%SI_IDSOC%;usercard.php;lsociety(D,SI_SOCIETY):SI_IDSOC,SI_SOCIETY;%S%app=USERCARD&action=GENERIC_EDIT&id=%SI_IDSOC%&classid={SOCIETY}&si_society=%SI_SOCIETY%
 ATTR;SI_LOCAL;SI_FR_IDENT;nom;Y;N;text;32;W;N;;;;
 ATTR;SI_TOWN;SI_FR_COORD;ville;Y;N;text;130;W;Y;;;;
 END;0;;;;;;;;;;;;
@@ -232,4 +232,4 @@ END;0;;;;;;;;;;;;
 //DOC;Famille;<special id>;<special dirid>;titre
 DOC;2;121;;carnet d'adresses
 // creation requete all users;;;;
-//SEARCH;<special id>;<special dir id>;titre;requête
+//SEARCH;<special id>;<special dir id>;titre;requÃªte
