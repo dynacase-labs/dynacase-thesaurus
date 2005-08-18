@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.72 2005/08/17 09:08:47 eric Exp $
+ * @version $Id: freedom_util.php,v 1.73 2005/08/18 13:49:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -234,7 +234,7 @@ function getTDoc($dbaccess, $id,$sqlfilters=array()) {
   if ($SQLDEBUG) {
        global $TSQLDELAY;
        $SQLDELAY+=microtime_diff(microtime(),$sqlt1);// to test delay of request
-       $TSQLDELAY[]="t=>".microtime_diff(microtime(),$sqlt1)."s=>$sql";
+       $TSQLDELAY[]=array("t"=>sprintf("%.04f",microtime_diff(microtime(),$sqlt1)),"s"=>$sql);
   }
   if (($result) && (pg_numrows ($result) > 0)) {
     $arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
@@ -389,7 +389,7 @@ function getDocFromUserId($dbaccess,$userid) {
 function ComputeVisibility($vis, $fvis) {
   if ($vis == "I") return $vis;
   if ($fvis == "H") return $fvis;
-  if (($fvis == "R") && (($vis == "W")||($vis == "O")) ) return $fvis;
+  if (($fvis == "R") && ($vis == "W")) return $fvis;
   if (($fvis == "R") && ($vis == "O")) return "H";
   if (($fvis == "O") && ($vis == "W")) return $fvis;
   if (($fvis == "S") && (($vis == "W")||($vis == "O"))) return $fvis;
