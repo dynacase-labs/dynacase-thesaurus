@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.101 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.102 2005/08/18 09:18:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -343,7 +343,7 @@ function getChildDoc($dbaccess,
 	{
 	  $tretdocs=array_merge($tretdocs,$tableq);
 	}
-      // print "<HR>".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B>";
+      // print "<HR><div style=\"border:red 1px inset;background-color:lightyellow\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
     } else {
       // error in query          
@@ -615,7 +615,6 @@ function GetClassesDoc($dbaccess,$userid,$classid=0,$qtype="LIST")
      // --------------------------------------------------------------------
 {
   $query = new QueryDb($dbaccess,"DocFam");
-  
   
   $query->AddQuery("doctype='C'");
   
