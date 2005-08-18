@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.24 2005/07/29 16:20:31 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.25 2005/08/18 09:19:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -345,7 +345,7 @@ Class DocCtrl extends DbObj
 //   }
 
 
-  function parseMail($Email) {   
+  static public function parseMail($Email) {   
     $sug=array(); // suggestions
     $err="";
 
@@ -375,7 +375,7 @@ Class DocCtrl extends DbObj
    * return true if the date is in the future (one day after at less)
    * @param string date date JJ/MM/AAAA
    */
-  function isFutureDate($date) {
+  static public function isFutureDate($date) {
 
     $err="";
     $sug=array(); // suggestions
@@ -402,6 +402,18 @@ Class DocCtrl extends DbObj
     }
     return array("err"=>$err,
 		 "sug"=>$sug);
+  }
+/** 
+   * return true if user can execute the specified action
+   * @param string $appname application name
+   * @param string $actname action name
+   * @return bool
+   *
+   */
+  static public function canExecute($appname,$actname) {
+    global $action;
+    
+    return $action->canExecute($appname,$actname);
   }
 
 }
