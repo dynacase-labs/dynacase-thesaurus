@@ -3,7 +3,7 @@
  * Methods for emailing family
  *
  * @author Anakeen 2005
- * @version $Id: Method.Emailing.php,v 1.7 2005/08/10 10:29:04 eric Exp $
+ * @version $Id: Method.Emailing.php,v 1.8 2005/08/18 09:17:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,7 @@
  /**
  */
 var $defaultedit= "FDL:FDL_PUBEDIT";
-var $defaultmview= "FDL:FDL_PUBVIEWMAIL:T";
+var $defaultmview= "FDL:FDL_PUBMAIL:T";
 function fdl_pubsendmail($target="_self",$ulink=true,$abstract=false) {
   $this->viewdefaultcard($target,$ulink,$abstract);
 
@@ -35,7 +35,8 @@ function fdl_pubprintone($target="_self",$ulink=true,$abstract=false) {
 }
 function fdl_pubedit() {
   $this->editattr();
-  $udoc=createDoc($this->dbaccess,"USER",false);
+  $famid=$this->getValue("PUBM_IDFAM","USER");
+  $udoc=createDoc($this->dbaccess,$famid,false);
   $listattr = $udoc->GetNormalAttributes();  
   foreach($listattr as $k=>$v) {
     $tatt[$k]=array("aid"=>"[".strtoupper($k)."]",
@@ -54,6 +55,7 @@ function fdl_pubedit() {
     }
     
   }
+  $this->lay->set("famattr",sprintf(_("%s attribute"),$this->getValue("pubm_fam","personne")));
   $this->lay->setBlockData("ATTR",$tatt);
   
 
@@ -79,7 +81,7 @@ function fdl_pubprint($target="_self",$ulink=true,$abstract=false) {
     $t=$this->getBatchDocs();
   }
   
-  if (preg_match("/\[us_[a-z0-9_]+\]/i",$body)) {
+  if (preg_match("/\[[a-z]+_[a-z0-9_]+\]/i",$body)) {
     foreach ($t as $k=>$v) {
       $zoneu=$zonebodycard."?uid=".$v["id"];
       $tlay[]=array("doc"=>$this->viewDoc($zoneu,"",true),
@@ -100,6 +102,15 @@ function fdl_pubprint($target="_self",$ulink=true,$abstract=false) {
   $this->lay->set("BGIMG",$this->getHtmlAttrValue("pubm_bgimg"));
 }
 
+/**
+ * Fusion all document to be displayed
+ * idem as fdl_pubprint but without new page
+ * @param Action &$action current action
+ * @global uid Http var : user document id (if not all use rpresent in folder)
+ */
+function fdl_pubdisplay($target="_self",$ulink=true,$abstract=false) {
+  return $this->fdl_pubprint($target,$ulink,$abstract);
+}
 function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
   include_once("FDL/mailcard.php");
   global $action;
@@ -107,11 +118,12 @@ function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
   $body=$this->getValue("pubm_body");
 
   $t=$this->getBatchDocs();
+  $mailattr=strtolower($this->getValue("PÜBM_MAILATT","us_mail"));
 
   $zonebodycard="FDL:FDL_PUBSENDMAIL:S";
-  if (preg_match("/\[us_[a-z0-9_]+\]/i",$body)) {
+  if (preg_match("/\[[a-z]+_[a-z0-9_]+\]/i",$body)) {
     foreach ($t as $k=>$v) {
-      $mail=getv($v,"us_mail");
+      $mail=getv($v,$mailattr);
       if ($mail != "") {
 	$zoneu=$zonebodycard."?uid=".$v["id"];
 	$to=$mail;	
@@ -125,7 +137,7 @@ function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
   } else {
     $tmail=array();
     foreach ($t as $k=>$v) {
-      $mail=getv($v,"us_mail");
+      $mail=getv($v,$mailattr);
       if ($mail != "") $tmail[]=$mail;
     }
     $to="";

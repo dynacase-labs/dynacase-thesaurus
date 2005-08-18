@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.32 2005/04/13 11:12:06 eric Exp $
+// $Id: FREEDOM.app,v 1.33 2005/08/18 09:19:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,7 +36,10 @@ $app_desc = array (
 $app_acl = array (
   array(
    "name"               =>"FREEDOM_MASTER",
-   "description"        =>N_("Access Management Database")),
+   "description"        =>N_("Access Families Management")),
+  array(
+   "name"               =>"FREEDOM_ADMIN",
+   "description"        =>N_("Access Batch Management")),
   array(
    "name"               =>"FREEDOM",
    "description"        =>N_("Access To My Own account"),
@@ -447,6 +450,11 @@ array(
    "name"		=>"FREEDOM_ADDBOOKMARK",
    "short_name"		=>N_("add folder in bookmark"),
    "acl"		=>"FREEDOM"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_PLANEXEC",
+   "short_name"		=>N_("processes execution plan"),
+   "acl"		=>"FREEDOM_ADMIN"
   ) 
                       );
    

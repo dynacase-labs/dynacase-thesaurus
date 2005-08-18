@@ -1,7 +1,7 @@
 <script>
 HTMLArea.Config.prototype.ConfigIuser = function () {
 	this.iuserattribute = {
-		"[TEXT:User Attribute]":           ''
+		"[famattr]":           ''
 		[BLOCK ATTR],"[alabel]":'[aid]'
 		[ENDBLOCK ATTR]
 	};
