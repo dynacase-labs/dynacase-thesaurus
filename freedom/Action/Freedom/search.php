@@ -3,7 +3,7 @@
  * Search document
  *
  * @author Anakeen 2000 
- * @version $Id: search.php,v 1.24 2005/07/28 16:47:51 eric Exp $
+ * @version $Id: search.php,v 1.25 2005/08/18 09:20:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,28 +11,6 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: search.php,v 1.24 2005/07/28 16:47:51 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 
 
@@ -51,6 +29,7 @@ include_once("FDL/modcard.php");
  * @global keyword Http var : word to search in any values
  * @global famid Http var : restrict to this family identioficator
  * @global viewone Http var : (Y|N) if Y direct view document detail if only one returned
+ * @global view Http var : display mode : icon|column|list
  */
 function search(&$action) {
   // -----------------------------------
@@ -59,6 +38,8 @@ function search(&$action) {
   $classid=GetHttpVars("classid",0);
   $keyword=GetHttpVars("_se_key",GetHttpVars("keyword")); // keyword to search
   $viewone=GetHttpVars("viewone"); // direct view if only one Y|N
+  $target=GetHttpVars("target"); // target window when click on document
+  $view=GetHttpVars("view"); // display mode : icon|column|list
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -98,7 +79,7 @@ function search(&$action) {
   $err = modcard($action, $ndocid); // ndocid change if new doc
     
   
-  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&viewone=$viewone&dirid=".$ndoc->id,
+  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&view=$view&target=$target&viewone=$viewone&dirid=".$ndoc->id,
 	   $action->GetParam("CORE_STANDURL"));
   
   
