@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.268 2005/08/17 09:07:47 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.269 2005/08/18 09:19:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -36,8 +36,8 @@ define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 define ("FAM_ACCESSFAM", 23);
 define ("MENU_ACTIVE", 1);
-define ("MENU_INVISIBLE", -1);
-define ("MENU_INACTIVE", -2);
+define ("MENU_INVISIBLE", 0);
+define ("MENU_INACTIVE", -1);
 /**#@-*/
 /**
  * max cache document
