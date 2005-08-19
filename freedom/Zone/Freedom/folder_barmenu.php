@@ -3,7 +3,7 @@
  * Folder barmenu
  *
  * @author Anakeen 2000 
- * @version $Id: folder_barmenu.php,v 1.9 2005/08/18 09:18:19 eric Exp $
+ * @version $Id: folder_barmenu.php,v 1.10 2005/08/19 16:13:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -44,7 +44,7 @@ function folder_barmenu(&$action) {
   $action->lay->set("dirid",$dirid);
 
   popupInit("viewmenu",	array('vlist','vicon','vcol','vdetail'));
-  popupInit("toolmenu", array('tobasket','insertbasket','clear','props'));
+  popupInit("toolmenu", array('tobasket','insertbasket','clear','props','openfolio'));
 
 
 
@@ -65,6 +65,7 @@ function folder_barmenu(&$action) {
     popupInvisible("toolmenu",1,'clear');
   }
   popupActive("toolmenu",1,'props');
+  popupActive("toolmenu",1,'openfolio');
 
 
   popupGen(1);

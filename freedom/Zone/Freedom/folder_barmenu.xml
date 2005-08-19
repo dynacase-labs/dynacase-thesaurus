@@ -41,6 +41,8 @@
 <div  id="toolmenu" class="popup">
      <a  id="props" href="#" onClick="activate(this,'[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[dirid]','fdoc');closeAllMenu();">[TEXT:Properties]</a>
   <a id="tobasket"  href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_INSERTFLD&dirid=[dirid]&id=[FREEDOM_IDBASKET][pds]','basket');closeAllMenu()" >[TEXT:All To basket]</a>
+  <a id="openfolio"  href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=OPENFOLIO&id=[dirid]','folio[dirid]');closeAllMenu()" >[TEXT:Open in folio]</a>
+     
   <a id="insertbasket"  href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_INSERTFLD&dirid=[FREEDOM_IDBASKET]&id=[dirid]&clean=Y[pds]','_self');closeAllMenu()" >[TEXT:Basket to here]</a>
      <a  id="clear" href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_CLEARFLD&id=[dirid]','basket');closeAllMenu();">[TEXT:Clear Folder]</a>
 </div>
