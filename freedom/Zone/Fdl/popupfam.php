@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.16 2005/08/18 15:27:15 eric Exp $
+ * @version $Id: popupfam.php,v 1.17 2005/08/19 16:15:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,6 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: popupfam.php,v 1.16 2005/08/18 15:27:15 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/popupfam.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 include_once("FDL/Class.Doc.php");
 // -----------------------------------
@@ -47,7 +25,7 @@ function popupfam(&$action,&$tsubmenu) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new_Doc($dbaccess, $docid);
 
-  if ($doc->doctype=="C") return; // not for familly
+  //  if ($doc->doctype=="C") return; // not for familly
 
 
   $kdiv=1; // only one division
@@ -69,21 +47,25 @@ function popupfam(&$action,&$tsubmenu) {
     
     $confirm=false;
     $control=false;
-    if ($v->getOption("onlyglobal")=="Y") continue;
+    if (($v->getOption("onlyglobal")=="yes") && ($doc->doctype!="C")) continue;
+    if (($v->getOption("global")!="yes") && ($doc->doctype=="C")) continue;
     if ($v->link[0] == '?') { 
       $v->link=substr($v->link,1);
       $confirm=true;
     }
+    if ($v->getOption("lconfirm")=="yes") $confirm=true;
     if ($v->link[0] == 'C') { 
       $v->link=substr($v->link,1);
       $control=true;
     }
+    if ($v->getOption("lcontrol")=="yes") $control=true;
     if (ereg('\[(.*)\](.*)', $v->link, $reg)) {      
       $v->link=$reg[2];
       $tlink[$k]["target"] = $reg[1];
     } else {
       $tlink[$k]["target"] = $v->id;
-    }
+    } 
+    if ($v->getOption("ltarget")!="") $tlink[$k]["target"] = $v->getOption("ltarget");
     $tlink[$k]["idlink"] = $v->id;
     $tlink[$k]["descr"] = $v->labelText;
     $tlink[$k]["url"] = addslashes($doc->urlWhatEncode($v->link));
