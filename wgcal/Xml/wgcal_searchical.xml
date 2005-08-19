@@ -20,7 +20,7 @@ function SelectRessource(id) {
 
 </script>
 <div  style="display:none" id="mRess" class="wgcalpopup">
-<a href="#" id="rcalendar" onclick="subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&res='+ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-refreshcal.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:view calendar]</a>
+<a href="#" id="rcalendar" onclick="subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress='+ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-refreshcal.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:view calendar]</a>
 <a href="#" id="radd" onclick="SelectRessource(ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-attendees.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:add to viewed calendars]</a>
 <a href="#" id="rprefered" onclick="subwindow(450, 700, 'wgcal_hidden', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ADDTOPREFCALS&id='+ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-newcontact.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:add to prefered]</a>
 <a class="separator"></a>
@@ -39,7 +39,7 @@ function SelectRessource(id) {
 <td nowrap id="[id]" class="WGCRessDefault" style="cursor:crosshair" 
     onmouseover="if (this.className=='WGCRessSelected') return; this.className='WGCRessOver'" 
     onmouseout="if (this.className=='WGCRessSelected') return; this.className='WGCRessDefault'"
-    onclick="ressId=[id]; subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&res='+ressId);"
+    onclick="ressId=[id]; subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress='+ressId);"
     onContextMenu="ressId=[id]; openMenu(event,'mRess', [id]); return false"
     title="[title] : [TEXT:display calendar (m-left-btn) and more... (m-right-btn)]">
 &nbsp;<img height="15px" align="absbottom" src="[icon]">&nbsp;[title]<td>

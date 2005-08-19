@@ -34,6 +34,7 @@ function wgcal_portal(&$action) {
   setHttpVar("rvfs_withme",1);
   setHttpVar("rvfs_int",$start."=".$end);
   setHttpVar("standalone",0);
+  setHttpVar("explode",1);
   
   wgcal_gview($action);
 }

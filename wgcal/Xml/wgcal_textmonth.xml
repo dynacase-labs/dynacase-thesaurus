@@ -21,6 +21,6 @@
 [ZONE WGCAL:WGCAL_POPUP]
 
 [BLOCK CARDS]
-<div id="evtc[RG]" style=" display:none; border:1px outset; background-color:white');">[EvPCard]</div>[ENDBLOCK CARDS]
+<div id="evtc[RG]" style=" display:none; border:1px outset; padding:3px; background-color:white');">[EvPCard]</div>[ENDBLOCK CARDS]
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

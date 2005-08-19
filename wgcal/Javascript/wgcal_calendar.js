@@ -158,6 +158,8 @@ function ShowEvInfos() {
     if (w>(ww/2)) {
       evtc.style.width = (ww/2)+'px';
     }
+    evtc.style.display = ''; 
+//     alert('(x,y)=('+evtc.style.left+','+evtc.style.top+') w='+evtc.style.width);
   }
   ResetSetTimerOnMO();
 }
@@ -558,8 +560,8 @@ function WGCalDisplayEvent(cEv, ncol) {
   // Compute X coord
   delta = cWidth / ncol;
   eE.style.left = startX + head + ((cEv.col-1) * delta) + "px";
-  eE.style.width = xw+"px";
-  eE.style.height = (h-1)+"px";
+  eE.style.width = (xw-2)+"px";
+  eE.style.height = (h-2)+"px";
   eE.style.position = 'absolute';
   eE.style.display = '';
 

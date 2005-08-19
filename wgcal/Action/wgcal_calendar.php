@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.51 2005/08/16 17:27:39 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.52 2005/08/19 17:21:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -25,6 +25,9 @@ function wgcal_calendar(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $debug = GetHttpVars("debug", 0);
+
+  $ress = GetHttpVars("ress", "");
+  setHttpVar("ress", $ress);
 
   // Check for standalone mode 
   $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
@@ -48,14 +51,27 @@ function wgcal_calendar(&$action) {
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
 
   $tout = wGetEvents(ts2db($firstWeekDay, "Y-m-d H:i:s"), ts2db($edate, "Y-m-d H:i:s"));
-
+  
+  $popuplist = array();
+  foreach ($tout as $k => $v) {
+    $d = new Doc($dbaccess, $v["IDP"]);  
+    $tout[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
+    $tout[$k]["EvRCard"] = $d->viewDoc($d->defaultabstract);
+    $tout[$k]["edit"] = $d->RvHavePermission($action->user->fid,'E');
+    if (!isset($popuplist[$d->popup_name])) {
+      $popuplist[$d->popup_name] = true;
+      popupInit($d->popup_name,  $d->popup_item);
+    }
+    $d->RvSetPopup($k);
+  }
+  popupGen(count($tout));
 
   // Display results ------------------------------------------------------------------------------------
 
   $action->lay->set("sm", $sm);
   $action->lay->set("vm", $vm);
   $action->lay->set("ts", $ts);
-  $action->lay->set("res", $res);
+  $action->lay->set("ress", $ress);
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");

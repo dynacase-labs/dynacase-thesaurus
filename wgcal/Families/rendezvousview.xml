@@ -1,5 +1,4 @@
-<div style="width:auto;height:auto;" class="wEvBack">
-<table width="100%" cellpadding="2px" cellspacing="0" border="0">
+<table width="auto" cellspacing="0" border="0">
 <tr>
   <td width="15" style="border: 1px outset; background-color:[bgstate]" valign="top" rowspan="4">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]</td>
   <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white; border: 1px outset;">
@@ -47,4 +46,3 @@
   </td>
 </tr>
 </table>
-</div>

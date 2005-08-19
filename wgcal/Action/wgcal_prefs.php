@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs.php,v 1.5 2005/08/03 16:35:13 marc Exp $
+ * @version $Id: wgcal_prefs.php,v 1.6 2005/08/19 17:21:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -45,22 +45,25 @@ function wgcal_prefs(&$action) {
     $action->lay->set("ShowUsers", false);
   }
 
-  $Zone = array( "look" => N_("look preferences"), 
-		 "contacts" => N_("my prefered contacts"), 
-		 "todopref" => N_("todo preferences"), 
-		 "others" => N_("other preferences"));
+  $Zone = array( "look" => array(N_("look preferences"),"WGCAL_USER"), 
+		 "contacts" => array(N_("my prefered contacts"),"WGCAL_USER"), 
+		 "todopref" => array(N_("todo preferences"),"WGCAL_USER"), 
+		 "vcal" => array(N_("agenda visibility"),"WGCAL_VCAL"), 
+		 "others" => array(N_("other preferences"),"WGCAL_USER"));
 
   $tz = array();
   $itz = 0;
   foreach ($Zone as $kz => $vz) {
-    if ($kz=="contacts" && $userspref!=0) continue;
-    $tz[$itz]["izone"] = $itz;
-    $tz[$itz]["tzone"] = $kz;
-    $tz[$itz]["dzone"] = $vz;
-    $tz[$itz]["azone"] = strtoupper($kz);
-    $tz[$itz]["vzone"] = ($itz==0?"":"none");
-    $tz[$itz]["uid"] = $userid;
-    $itz++;
+    if ($action->HasPermission($vz[1])) {
+      if ($kz=="contacts" && $userspref!=0) continue;
+      $tz[$itz]["izone"] = $itz;
+      $tz[$itz]["tzone"] = $kz;
+      $tz[$itz]["dzone"] = $vz[0];
+      $tz[$itz]["azone"] = strtoupper($kz);
+      $tz[$itz]["vzone"] = ($itz==0?"":"none");
+      $tz[$itz]["uid"] = $userid;
+      $itz++;
+    }
   }
   $action->lay->SetBlockData("ZoneJS", $tz);
   $action->lay->SetBlockData("ZoneIcons", $tz);

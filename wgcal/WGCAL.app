@@ -15,6 +15,7 @@ $app_acl = array (
   array ( "name" => "WGCAL_ADMIN", "description" => N_("admin access"), "group_default"  => "N" ),
   array ( "name" => "WGCAL_MGR",   "description" => N_("manager"), "group_default"  => "N" ),
   array ( "name" => "WGCAL_OSYNC", "description" => N_("allow outlook sync."), "group_default"  => "N" ),
+  array ( "name" => "WGCAL_VCAL",  "description" => N_("allow to manage calendar visibility"), "group_default"  => "N" ),
   array ( "name" => "WGCAL_USER",  "description" => N_("user access"), "group_default"  => "N" ),
   array ( "name" => "WGCAL_NONE",  "description" => N_("no access"), "group_default"  => "Y" ),
   array ( "name" => "WGCAL_HIDDEN", "description" => N_("invisible"), "group_default"  => "N" )
@@ -101,9 +102,10 @@ $action_desc = array (
 
   array( "acl" => "WGCAL_ADMIN", "name" => "WGCAL_CHOOSEGROUPS", "toc" => "N"),
   array( "acl" => "WGCAL_ADMIN", "name" => "WGCAL_SETGROUPS", "toc" => "N"),
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETUGROUPS", "toc" => "N"),
+  array( "acl" => "WGCAL_USER",  "name" => "WGCAL_SETUGROUPS", "toc" => "N"),
+  array( "acl" => "WGCAL_VCAL",  "name" => "WGCAL_VCALMODE", "toc" => "N"),
 
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_HIDDEN", "toc" => "N")
+  array( "acl" => "WGCAL_USER",  "name" => "WGCAL_HIDDEN", "toc" => "N")
 
 );
 

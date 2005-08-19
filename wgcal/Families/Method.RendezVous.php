@@ -13,6 +13,19 @@ var $defaultlongtext  = "WGCAL:RENDEZVOUSRESUME:T";
 
 var $defaultedit = "WGCAL:RENDEZVOUSEDIT:U";
 
+var $popup_name = 'calpopup';
+var $popup_item = array('editrv', 
+			'deloccur', 
+			'viewrv', 
+			'deleterv',
+			'acceptrv', 
+			'rejectrv', 
+			'tbcrv', 
+			'historyrv',
+			'cancelrv' );
+var $popup_zone = "WGCAL:WGCAL_POPUP";
+
+
 function postModify() {
   $err = $this->setEvent(); 
   if ($err!="") print_r2($err);
@@ -394,6 +407,7 @@ function RendezVousShortText() {
     $headSet = false;
   } else {
     $title = $this->getValue("CALEV_EVTITLE");
+    if (strlen($title)>30) $title = substr($title,0,30)."...";
   }
   $this->lay->set("TITLE", $title);
   $this->lay->set("headSet", $headSet);
@@ -967,5 +981,82 @@ function evColorByOwner() {
       }
     }
   }
+  $event_color = ($event_color!=""?$event_color:"#d2f5f7");
   return $event_color;
+}
+
+function RvSetPopup($rg) {
+
+  global $action;
+
+  PopupInvisible($this->popup_name,$rg, 'acceptrv');
+  PopupInvisible($this->popup_name,$rg, 'rejectrv');
+  PopupInvisible($this->popup_name,$rg, 'tbcrv');
+  PopupInactive($this->popup_name,$rg, 'historyrv');
+  PopupInactive($this->popup_name,$rg, 'viewrv');
+  PopupInvisible($this->popup_name,$rg, 'deloccur');
+  PopupInactive($this->popup_name,$rg, 'editrv');
+  PopupInactive($this->popup_name,$rg, 'deleterv');
+  PopupActive($this->popup_name,$rg, 'cancelrv');
+
+  $mine = ($action->user->fid == $this->getValue("calev_ownerid") ? true : false);
+  $confidential = ($this->getValue("calev_visibility")>0 ? true : false );
+  $withme = false;
+  $mystate = $this->RvAttendeeState($action->user->fid);
+  if ($mystate > -1) $withme = true;
+
+  PopupActive($this->popup_name,$rg, 'viewrv');
+  if (!$confidential || $mine) {
+    if ($mine) {
+      if ($this->getValue("calev_repeatmode") > 0) PopupActive($this->popup_name,$rg, 'deloccur');
+      PopupActive($this->popup_name,$rg, 'editrv');
+      PopupActive($this->popup_name,$rg, 'deleterv');
+    }
+    PopupActive($this->popup_name,$rg, 'historyrv');
+  } else {
+    if ($mine || $withme) {
+      PopupActive($this->popup_name,$rg, 'historyrv');
+    }
+  }
+  if ($withme) {
+    if ($mystate!=2) PopupActive($this->popup_name,$rg, 'acceptrv');
+    if ($mystate!=3) PopupActive($this->popup_name,$rg, 'rejectrv');
+    if ($mystate!=4) PopupActive($this->popup_name,$rg, 'tbcrv');
+  }
+}
+
+function RvAttendeeState($ufid) {
+  $state = -1;
+  $attr = $this->getTValue("calev_attid");
+  $attrst = $this->getTValue("calev_attstate");
+  if (count($attr)>1) {
+    foreach ($attr as $ka => $va) {
+      if ($va==$ufid) {
+	$state = $attrst[$ka];
+      }
+    }
+  }
+  return $state;
+}
+
+// R : read
+// E : Edit
+// D : Delete
+// S : Change State
+function RvHavePermission($ufid=-1, $r="R") {
+  global $action;
+  $ufid = ($ufid==-1 ? $action->user->fid : $ufid);
+  $hr = false;
+  switch($r) {
+  case 'R':
+  case 'S':
+    $hr = ($this->RvAttendeeState($ufid)>-1 ? true : false);
+    break;
+  case 'E':
+  case 'D':
+    $hr = ($ufid == $this->getValue("calev_ownerid") ? true : false);
+    break;
+  default: $hr = false;
+  }
+  return $hr;
 }

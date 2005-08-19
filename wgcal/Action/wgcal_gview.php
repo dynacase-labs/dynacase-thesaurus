@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.13 2005/08/18 16:44:02 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.14 2005/08/19 17:21:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -19,6 +19,7 @@ include_once('WHAT/Lib.Common.php');
 
 function wgcal_gview(&$action) {
   global $_POST, $_GET, $ZONE_ARGS;
+  global $order;
 
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
@@ -36,16 +37,12 @@ function wgcal_gview(&$action) {
   }
   $filter = array();
   if (count($ff)>0) {
-    $i = 0;
-    $filter[$i] = "";
     foreach ($ff as $k => $v) {
       switch ($k) {
       case 'int':
 	$dd = explode("=", $v);
 	break;
       case 'withme' :
-	$filter[0] .= (strlen($filter[0])>0 ? " or " : "" ) ."evt_idcreator = ".$action->user->fid;
-	$filter[0] .= (strlen($filter[0])>0 ? " or " : "" ) ."evtfc_listattid ~* '".$action->user->fid."'";
 	setHttpVar("ress", $action->user->fid);
 	break; 
       case 'title': 
@@ -70,11 +67,10 @@ function wgcal_gview(&$action) {
 
   $action->lay->set("bcolor", $theme->WTH_COLOR_2);
 
-  $order   = GetHttpVars("order", "D"); // C chocolatine D Decroissant
   $menu    = GetHttpVars("menu", 1); 
   $famids  = GetHttpVars("famids", ""); 
-  $explode = ((GetHttpVars("explode", "") == 1)? true : false);
-  $twin = GetHttpVars("twin","???");
+  $order   = GetHttpVars("order", "C"); // C chocolatine D Decroissant
+  $explode = ((GetHttpVars("explode", 0) == 0)? false : true);
 
   // Set producer families
   if ($famids=="") {
@@ -87,14 +83,14 @@ function wgcal_gview(&$action) {
   setHttpVar("idfamref", $idfamref);
 
   $edre = array();
-  $edre = wGetEvents($dd[0], $dd[1]) ; //, $filter);
+  $edre = wGetEvents($dd[0], $dd[1], $explode, $filter); 
   if (count($edre) > 0) {
+    $popuplist = array();
     foreach ($edre as $k => $v) {
-      if (!isset($drv[$v["IDP"]])) {
-	$drv[$v["IDP"]] = new Doc($dbacess, $v["IDP"]);
-// 	echo "(".$v["ID"]."::".$v["IDP"].") id = ".$drv[$v["IDP"]]->id." tsstart = ".$drv[$v["IDP"]]->getValue("calev_start")."<br>";
-      }
-      if ($drv[$v["IDP"]]->id=="") continue;
+
+      if (!isset($drv[$v["IDP"]])) $drv[$v["IDP"]] = new Doc($dbaccess, $v["IDP"]);
+      if ($drv[$v["IDP"]]->id == "") continue;
+
       $d = substr($v["TSSTART"],0,2);
       $m = substr($v["TSSTART"],3,2);
       $y = substr($v["TSSTART"],6,4);
@@ -108,16 +104,22 @@ function wgcal_gview(&$action) {
 	$btime[$day]["cnt"] = 0;
 	$devents[$day] = array();
       }
+      if (!isset($popuplist[$drv[$v["IDP"]]->popup_name])) {
+	$popuplist[$drv[$v["IDP"]]->popup_name] = true;
+	popupInit($drv[$v["IDP"]]->popup_name,  $drv[$v["IDP"]]->popup_item);
+      }
+      $drv[$v["IDP"]]->RvSetPopup($k);
+
       $i = $btime[$day]["cnt"];
       $j = count($devents[$day]);
-//       if ($action->GetParam("WGCAL_U_PORTALSTYLE", "TABLE")== "TABLE") $devents[$day][$j]["EvCard"] = $drv[$v["IDP"]]->viewdoc($drv[$v["IDP"]]->defaultshorttext);
-//       else $devents[$day][$j]["EvCard"] = $drv[$v["IDP"]]->viewdoc($drv[$v["IDP"]]->defaultlongtext);
-      $devents[$day][$j]["EvCard"] = $v["EvRCard"];
-      $devents[$day][$j]["EditCard"] = ($action->user->fid==$drv[$v["IDP"]]->getValue("calev_ownerid")?true:false);
+
+      $devents[$day][$j]["EvCard"] = $drv[$v["IDP"]]->viewdoc($drv[$v["IDP"]]->defaultshorttext);
+      $devents[$day][$j]["edit"] = $drv[$v["IDP"]]->RvHavePermission($action->user->fid,'E');
       $devents[$day][$j]["id"] = $drv[$v["IDP"]]->id;
       $devents[$day][$j]["TSSTART"] = $drv[$v["IDP"]]->getValue("calev_start");
-      $devents[$day][$j]["RG"] = $k;
+      $devents[$day][$j]["RG"] = $v["RG"];
     }
+    popupGen(count($tout));
   }
 
   if (count($btime)>0) {
@@ -141,7 +143,9 @@ function wgcal_gview(&$action) {
 }
 
 function daySort($a, $b) {
+  global $order;
   if ($a["sdate"] == $b["sdate"]) $r = 0;
+  else if ($order=='C') $r = (($a["sdate"] < $b["sdate"]) ? -1 : 1);
   else $r = (($a["sdate"] > $b["sdate"]) ? -1 : 1);
   return $r;
 }

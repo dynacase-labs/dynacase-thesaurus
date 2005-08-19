@@ -4,12 +4,17 @@
 //BEGIN;0;personne;120;;USER;;;;;;;;;;;;;;;;;;;;;;;
 //TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;;;;;;;;;;;;;;;
 BEGIN;120;utilisateur;128;;IUSER;;;;;;;;;;;;;;;;;;;;;;;
 TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ATTR;US_WGCAL_FGROUPS;;Groupes Agenda;N;N;frame;10100;H;;;;;;;;;;;;;;;;;;;;
 ATTR;US_WGCAL_GROUPS;US_WGCAL_FGROUPS;Mes groupes;N;N;array;10110;H;;;;;;;;;;;;;;;;;;;;
 ATTR;US_WGCAL_GID;US_WGCAL_GROUPS;Group Id;N;N;docid;10120;H;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRP;;Groupe pour lesquels mon agenda est visible;N;N;frame;10130;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRPMODE;US_WGCAL_VCALGRP;Tous ou pas ?;N;N;enum;10140;H;;;-;[hcheck]0|All,1|Groups;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRPLIST;US_WGCAL_VCALGRP;Les groupes;N;N;array;10140;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRPID;US_WGCAL_VCALGRPLIST;Group Id;N;N;docid;10150;H;;;;;;;;;;;;;;;;;;;;
 END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //BEGIN;129;groupe intranet;127;;IGROUP;;;;;;;;;;;;;;;;;;;;;;;

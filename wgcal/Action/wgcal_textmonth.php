@@ -49,6 +49,20 @@ function wgcal_textmonth(&$action)
   $d2 = "".$year."-".$month."-".$lastday." 23:59:59";
   $tevents = wGetEvents($d1, $d2);
 
+  $popuplist = array();
+  foreach ($tevents as $k => $v) {
+    $d = new Doc($dbaccess, $v["IDP"]);  
+    $tevents[$k]["EvSTCard"] = $d->viewDoc($d->defaultshorttext);
+    $tevents[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
+    $tevents[$k]["edit"] = $d->RvHavePermission($action->user->fid,'E');
+    if (!isset($popuplist[$d->popup_name])) {
+      $popuplist[$d->popup_name] = true;
+      popupInit($d->popup_name,  $d->popup_item);
+    }
+    $d->RvSetPopup($k);
+  }
+  popupGen(count($tout));
+
   $action->lay->setBlockData("CARDS", $tevents);
 
   $tdays = array();
@@ -135,7 +149,7 @@ function wgcal_textmonth(&$action)
 	    $d[$ie]["TSSTART"] = $tdays[$cday]->events[$ie]["TSSTART"];
 	    $d[$ie]["RG"] = $tdays[$cday]->events[$ie]["RG"];
 	    $d[$ie]["IDP"] = $tdays[$cday]->events[$ie]["IDP"];
-	    $d[$ie]["EditCard"] = $tdays[$cday]->events[$ie]["EditCard"];
+	    $d[$ie]["edit"] = $tdays[$cday]->events[$ie]["edit"];
 	  }
 	}
 	$h->SetBlockData("HLine", $d);

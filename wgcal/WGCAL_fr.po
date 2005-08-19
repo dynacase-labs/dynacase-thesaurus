@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-18 10:47+0200\n"
+"POT-Creation-Date: 2005-08-19 10:23+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -784,6 +784,9 @@ msgstr "Afficher/Masquer"
 
 msgid "change color for this ressource"
 msgstr "Couleur"
+
+msgid "view his calendar"
+msgstr "Voir son agenda"
 
 msgid "remove this ressource"
 msgstr "Enlever"

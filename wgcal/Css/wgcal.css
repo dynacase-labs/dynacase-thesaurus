@@ -344,6 +344,16 @@ TD {
  border: 1px inset;
 }
 
+.wEvResume {
+  cursor:crosshair; 
+  margin:0px; 
+  border-top-width:1px; 
+  border-top-color:#d1d2db; 
+  border-top-style:solid; 
+  border-left-width:1px; 
+  border-left-color:#d1d2db; 
+  border-left-style:solid; 
+}
 
 /* event Css */
 .wEvBack {
@@ -356,7 +366,7 @@ TD {
 
 .calendar {
   position: relative;
-  display: none;
+  display: none; 
   cursor: default;
   font-size: [WTH_FONTSIZE_SMALL]pt;
 }

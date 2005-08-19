@@ -73,26 +73,34 @@
 <!-- POPUP DIVISION -->
 
 <div  style="display:none" id="resspopup" class="wgcalpopup">
+
 <a href="#" id="displayress" onclick="vuvRessource(); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="[IMG:wm-ressshowhide.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:show/hide this ressource]</a>
-<a href="#" id="changeresscolor" onclick="showColorPicker(event, CRessId); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="[IMG:wm-resscolor.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:change color for this ressource]</a>
-<a href="#" id="removeress" onclick="removeRessource(CRessId); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="[IMG:wm-ressdelete.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
+
+<a href="#" id="changeresscolor" onclick="showColorPicker(event, CRessId); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-resscolor.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:change color for this ressource]</a>
+
+<a href="#" id="rcalendar" onclick="subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress='+CRessId); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:mycal.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:view his calendar]</a>
+
+<a href="#" id="onlyme" onclick="showHideAllRess(CRessId); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-onlyme.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display only this]</a>
+
+<a href="#" id="removeress" onclick="removeRessource(CRessId); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-ressdelete.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:remove this ressource]</a>
+
 <a class="separator"></a>
-<a href="#" id="rvprefered" onclick="subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&res=[rplist]'); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-viewprefered.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:view my prefered]</a>
+
+<a href="#" id="rvprefered" onclick="subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=[rplist]'); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-viewprefered.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:view my prefered]</a>
+
 <a class="separator"></a>
-<a href="#" id="onlyme" onclick="showHideAllRess(CRessId); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="[IMG:wm-onlyme.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display only this]</a>
-<a href="#" id="invertress" onclick="showHideAllRess(-2); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="[IMG:wm-ressinvert.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:invert selection]</a>
-<a href="#" id="displayallr" onclick="showHideAllRess(0); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="[IMG:wm-ressdisplayall.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display all ressources]</a>
-<a href="#" id="hideallr" onclick="showHideAllRess(-1); closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="[IMG:wm-resshideall.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:hide all ressources]</a>
+
+<a href="#" id="invertress" onclick="showHideAllRess(-2); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-ressinvert.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:invert selection]</a>
+
+<a href="#" id="displayallr" onclick="showHideAllRess(0); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-ressdisplayall.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:display all ressources]</a>
+
+<a href="#" id="hideallr" onclick="showHideAllRess(-1); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-resshideall.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:hide all ressources]</a>
+
 <a class="separator"></a>
-<a href="#" id="cancelress" onclick="closeMenu('resspopup')">[IF POPUPICONS]
-<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+
+<a href="#" id="cancelress" onclick="closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+
 </div> <!-- end POPUP DIVISION -->
 
 <div id="vcals" style="display:[vcals]" width="100%" class="wToolArea" >

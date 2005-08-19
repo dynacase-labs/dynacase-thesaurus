@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.45 2005/08/04 10:13:48 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.46 2005/08/19 17:21:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -129,7 +129,7 @@ function _listress(&$action)
   // Init popup
   $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
   include_once("FDL/popup_util.php");
-  popupInit('resspopup',  array('displayress',  'changeresscolor', 'removeress', 'onlyme', 'rvprefered', 'invertress', 'displayallr', 'hideallr', 'cancelress'));
+  popupInit('resspopup',  array('displayress', 'rcalendar', 'changeresscolor', 'removeress', 'onlyme', 'rvprefered', 'invertress', 'displayallr', 'hideallr', 'cancelress'));
   foreach ($lress as $k => $v) {
     $tt = explode("%", $v);
     $rid = $tt[0];
@@ -149,11 +149,13 @@ function _listress(&$action)
       else $t[$i]["RSTYLE"] = "WGCRessDefault";
       PopupActive('resspopup', $rd->id, 'displayress');
       PopupActive('resspopup', $rd->id, 'changeresscolor');
-      PopupActive('resspopup', $rd->id, 'hideallr');
-      PopupActive('resspopup', $rd->id, 'displayallr');
-      PopupActive('resspopup', $rd->id, 'rvprefered');
+      PopupActive('resspopup', $rd->id, 'rcalendar');
+      PopupActive('resspopup', $rd->id, 'removeress');
       PopupActive('resspopup', $rd->id, 'onlyme');
+      PopupActive('resspopup', $rd->id, 'rvprefered');
       PopupActive('resspopup', $rd->id, 'invertress');
+      PopupActive('resspopup', $rd->id, 'displayallr');
+      PopupActive('resspopup', $rd->id, 'hideallr');
       PopupActive('resspopup', $rd->id, 'cancelress');
       
       $i++;

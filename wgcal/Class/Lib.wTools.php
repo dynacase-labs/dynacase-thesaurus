@@ -314,7 +314,7 @@ function wgcalGetRessourcesMatrix($ev) {
 
 
 
-function wGetEvents($d1, $d2, $filter=array()) {
+function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
 
   global $action;
 
@@ -347,18 +347,15 @@ function wGetEvents($d1, $d2, $filter=array()) {
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
   
-//    AddWarningMsg("Query = [$qev]   Producters = [$idfamref] Ressources = [$idres] Dates = [".$d1.",".$d2."]");
+    //    AddWarningMsg("Query = [$qev]   Producters = [$idfamref] Ressources = [$idres] Dates = [".$d1.",".$d2."]");
 
   $events = array();
   $dre=new Doc($dbaccess, $qev);
-  $events = $dre->getEvents($d1, $d2);
+  $events = $dre->getEvents($d1, $d2, $explode, $filter);
 
   // Post process search results ------------------------------------------------------------------------------------
   $tout=array(); 
   $first = false;
-  popupInit('calpopup',  array('editrv', 'deloccur', 'viewrv', 'deleterv',
-                               'acceptrv', 'rejectrv', 'tbcrv', 'historyrv',
-                               'cancelrv'));
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
   $rvfamid = getIdFromName($dbaccess, "CALEVENT");
   foreach ($events as $k=>$v) {
@@ -402,64 +399,12 @@ function wGetEvents($d1, $d2, $filter=array()) {
 	}
       }
     }
-    if ($displayEvent) { 
 
-      $n = new Doc($dbaccess, $v["id"]);  
+    if ($displayEvent) { 
       $item["RG"] = count($tout);
-      $d = new Doc($dbaccess, $v["evt_idinitiator"]);
-      $item["EvRCard"] = $d->viewDoc($d->defaultabstract);
-      $item["EvPCard"] = $d->viewDoc($d->defaultview);
-      $item["EvSTCard"] = $d->viewDoc($d->defaultshorttext);
-      $item["EvLTCard"] = $d->viewDoc($d->defaultlongtext);
-      
-      PopupInvisible('calpopup',$item["RG"], 'acceptrv');
-      PopupInvisible('calpopup',$item["RG"], 'rejectrv');
-      PopupInvisible('calpopup',$item["RG"], 'tbcrv');
-      PopupInactive('calpopup',$item["RG"], 'historyrv');
-      PopupActive('calpopup',$item["RG"], 'viewrv');
-      PopupInvisible('calpopup',$item["RG"], 'deloccur');
-      PopupActive('calpopup',$item["RG"], 'cancelrv');
-      PopupInactive('calpopup',$item["RG"], 'editrv');
-      PopupInactive('calpopup',$item["RG"], 'deleterv');
-      $action->lay->set("popupState",false);
-      
-      if ($action->user->fid == $v["evt_idcreator"]) {
-	if ($v["evfc_repeatmode"] > 0) PopupActive('calpopup',$item["RG"], 'deloccur');
-	PopupActive('calpopup',$item["RG"], 'editrv');
-	PopupActive('calpopup',$item["RG"], 'deleterv');
-	$item["EditCard"] = true;
-      }	else {
- 	$item["EditCard"] = false;
-      }
-      
-      $withme = false;
-      $attr = Doc::_val2array($v["evfc_listattid"]);
-      $attrst = Doc::_val2array($v["evfc_listattst"]);
-      if (count($attr)>1) {
-	foreach ($attr as $ka => $va) {
-	  if ($va==$action->user->fid) {
-	    $withme = true;
-	    $mystate = $attrst[$ka];
-	  }
-	}
-      }
-      
-      $conf = $v["evfc_visibility"];
-      $private = ((($v["evt_idcreator"] != $action->user->fid) && ($conf!=0)) ? true : false );
-      if (!$private) PopupActive('calpopup',$item["RG"], 'historyrv');
-      else PopupInactive('calpopup',$item["RG"], 'viewrv');
-      
-      if ($withme) {
-        $action->lay->set("popupState",true);
-        if ($mystate!=2) PopupActive('calpopup',$item["RG"], 'acceptrv');
-        if ($mystate!=3) PopupActive('calpopup',$item["RG"], 'rejectrv');
-        if ($mystate!=4) PopupActive('calpopup',$item["RG"], 'tbcrv');
-      }
       $tout[] = $item;
     }
   }
-  popupGen(count($tout));
-  $action->lay->SetBlockData("SEP",array(array("zou")));// to see separator
    
   return $tout;
 }
