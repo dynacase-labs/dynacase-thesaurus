@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.33 2005/08/18 09:19:56 eric Exp $
+// $Id: FREEDOM.app,v 1.34 2005/08/19 16:15:00 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -455,6 +455,16 @@ array(
    "name"		=>"FREEDOM_PLANEXEC",
    "short_name"		=>N_("processes execution plan"),
    "acl"		=>"FREEDOM_ADMIN"
+  )  ,
+  array( 
+   "name"		=>"FREEDOM_PROCESSTOEXEC",
+   "short_name"		=>N_("creation processes"),
+   "acl"		=>"FREEDOM_ADMIN"
+  )  ,
+  array( 
+   "name"		=>"FREEDOM_SEARCHPROCESS",
+   "short_name"		=>N_("search processes"),
+   "acl"		=>"FREEDOM"
   ) 
                       );
    
