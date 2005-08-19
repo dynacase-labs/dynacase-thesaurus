@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.36 2005/08/18 15:27:15 eric Exp $
+ * @version $Id: barmenu.php,v 1.37 2005/08/19 16:13:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -121,7 +121,7 @@ function barmenu(&$action) {
 
   $lmenu = $fdoc->GetMenuAttributes();
   foreach($lmenu as $k=>$v) {    
-    if ($v->getOption("global")=="Y") {
+    if ($v->getOption("global")=="yes") {
       $tmenu[$k]=array("mid"=>$v->id,
 		       "mtitle"=>$v->labelText,
 		       "murl"=>addslashes($fdoc->urlWhatEncode($v->link)));

@@ -38,7 +38,7 @@ ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;1120;W;;http://%US_WORKWEB%;;;;;
 ATTR;US_SCATG;US_FR_SOC;catégorie;N;N;enumlist;1130;W;;;usercard.php;enumscatg();;;
 ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1140;W;;;-;W|carte publique - accès écriture,R|carte publique - accès lecture,P|carte privée,S|spécifique;;;
 ATTR;US_VCARD;;Vcard;N;N;menu;0;W;;%S%&app=USERCARD&action=USERCARD_VCARD&id=%I%;;;;;
-ATTR;US_INITLDAP;;Initialisation LDAP;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_LDAPINIT;;::canExecute(FUSERS,FUSERS_LDAPINIT);;;global=Y|onlyglobal=Y
+ATTR;US_INITLDAP;;Initialisation LDAP;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_LDAPINIT;;::canExecute(FUSERS,FUSERS_LDAPINIT);;;global=yes|onlyglobal=yes|confirm=yes
 DEFAULT;US_PRIVCARD;W;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 END;0;;;;;;;;;;;;;;
@@ -115,7 +115,7 @@ ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;::parseMail(US_
 ATTR;US_SERVICE;US_FR_SOC;service;N;N;text;1042;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDSERVICE%;fdl.php;lkfamily(D,IGROUP,grp_type,service,US_SERVICE):US_IDSERVICE,US_SERVICE;;;
 ATTR;US_IDSERVICE;US_FR_SOC;service id;N;N;docid;1041;H;;;;;;;
 ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1051;H;;;-;;;;
-ATTR;US_INITUSER;;Raffraichir les utilisateurs;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_IUSER;;::canExecute(FUSERS,FUSERS_IUSER);;;global=Y|onlyglobal=Y
+ATTR;US_INITUSER;;Raffraichir les utilisateurs;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_IUSER;;::canExecute(FUSERS,FUSERS_IUSER);;;global=yes|onlyglobal=yes|confirm=yes
 END;0;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
