@@ -3,7 +3,7 @@
  * Method for processes family
  *
  * @author Anakeen 2005
- * @version $Id: Method.Execute.php,v 1.3 2005/08/02 16:14:52 eric Exp $
+ * @version $Id: Method.Execute.php,v 1.4 2005/08/19 16:14:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -15,12 +15,13 @@
    * execute the action describe in the object
    * @return int shell status (0 means OK).
    */
-function bgExecute() {
+function bgExecute($comment="") {
   $cmd= getWshCmd(true);
   $cmd.= " --api=fdl_execute";
   $cmd.= " --docid=".$this->id;
   
   $cmd.= " --userid=".$this->user->id;
+  if ($comment != "") $cmd.= " --comment=".base64_encode($comment); // prevent hack
   
   system($cmd,$status);
   if ($status==0) AddWarningMsg(sprintf(_("Process %s [%d] executed"),$this->title,$this->id));

@@ -3,7 +3,7 @@
  * Execute Freedom Processes
  *
  * @author Anakeen 2005
- * @version $Id: fdl_execute.php,v 1.2 2005/08/02 16:17:20 eric Exp $
+ * @version $Id: fdl_execute.php,v 1.3 2005/08/19 16:14:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,6 +35,7 @@ if ($dbaccess == "") {
 
 
 $docid = GetHttpVars("docid",0); // special docid
+$comment = base64_decode(GetHttpVars("comment")); // additionnal comment
 if (($docid==0) && (! is_numeric($docid)))  $docid   =  getFamIdFromName($dbaccess,$docid);
 
 
@@ -54,7 +55,6 @@ if ($docid > 0) {
   system($cmd,$statut);
   $m2=microtime_diff(microtime(),$m1);
   $ms=gmstrftime("%H:%M:%S",$m2);
-  print "ms=$ms($m2)";
 
 
   if (file_exists($fout)) {
@@ -73,6 +73,7 @@ if ($docid > 0) {
   $doc->setValue("exec_state",(($statut==0)?"OK":$statut));
   $err=$doc->modify();
   if ($err == "") {
+    if ($comment != "") $doc->AddComment($comment);
     $err=$doc->AddRevision(sprintf(_("execution done %s"),$statut));
     if ($err == "") {
       $doc->deleteValue("exec_elapsed");
@@ -80,6 +81,7 @@ if ($docid > 0) {
       $doc->deleteValue("exec_detaillog");
       $doc->deleteValue("exec_date");
       $doc->deleteValue("exec_state");
+      $doc->refresh();
       $err=$doc->modify();
     }    
   }

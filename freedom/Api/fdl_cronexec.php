@@ -3,7 +3,7 @@
  *  Execute Freedom Processes when needed
  *
  * @author Anakeen 2005
- * @version $Id: fdl_cronexec.php,v 1.1 2005/08/02 16:17:20 eric Exp $
+ * @version $Id: fdl_cronexec.php,v 1.2 2005/08/19 16:14:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,7 +40,7 @@ $tle=getChildDoc($dbaccess,0,0,"ALL",$filters,1,"TABLE","EXEC");
 
 foreach ($tle as $k=>$v) {
   $de=getDocObject($dbaccess,$v);
-  $status=$de->bgExecute();
+  $status=$de->bgExecute(_("freedom cron try execute"));
 
   $de=new_Doc($dbaccess,$de->latestId(false,true));
   print $de->exec_handnextdate;
