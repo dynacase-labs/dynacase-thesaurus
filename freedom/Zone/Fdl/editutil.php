@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.99 2005/08/08 16:12:18 eric Exp $
+ * @version $Id: editutil.php,v 1.100 2005/08/19 16:13:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -510,7 +510,9 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 
 	  $jsfunc="subwindowm(300,500,'$target','$url');";
 	}
-     
+	
+	if ($oattr->getOption("elsymbol") != "") $isymbol=$oattr->getOption("elsymbol");
+	if ($oattr->getOption("eltitle") != "") $ititle=str_replace("\"","'",$oattr->getOption("eltitle"));
 	$input.="<input type=\"button\" value=\"$isymbol\"".
 	  " title=\"".$ititle."\"".
 	  " onclick=\"$jsfunc;";
@@ -678,7 +680,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	if ($nbitem==0) {
 	  // try http parameters
 	  $tval[$k]=GetHttpVars($k,array());
-	  if (($tval[$k] != "") && (! is_array($tval[$k]))) $tval[$k]=array(GetHttpVars($k));	 
+	  if (($tval[$k] != "") && (! is_array($tval[$k]))) $tval[$k]=$doc->_val2array(GetHttpVars($k));	 
 	  $nbitem=count($tval[$k]);	
 	}
 	if ($nbitem==0) {
