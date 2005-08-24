@@ -394,13 +394,13 @@ Calendar.setup(
 </div> <!-- end of repeat zone -->
 
 <div id="evgroups" style="display:none">
-[BLOCK groups]<div id="d[gfid]" style="margin:2px" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
+[BLOCK groups]<div id="d[gid]" style="margin:2px" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
 onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'" title="[TEXT:click to selec/unselect group] [gtitle]" 
-onclick="changeVisGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>[ENDBLOCK groups]
+onclick="changeVisGrp([gid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>[ENDBLOCK groups]
 </div>
 <script type="text/javascript">
-[BLOCK GLIST]
-glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
+[BLOCK VGLIST]
+glist[[igroup]] = [gid];[ENDBLOCK VGLIST]
 </script>
 </fieldset>
 </td></tr></table>
@@ -426,7 +426,7 @@ document.getElementById('rvtitle').focus();
 
 <script type="text/javascript">
 [BLOCK GLIST]
-glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
+glist[[igroup]] = [gid];[ENDBLOCK GLIST]
 </script>
 
 <iframe name="wgcal_conflict" id="wgcal_conflict" style="position:absolute;left:1%;top:1%;width:98%;height:98%;border:1px dotted red;display:none" marginwidth="0" marginheight="0"></iframe>

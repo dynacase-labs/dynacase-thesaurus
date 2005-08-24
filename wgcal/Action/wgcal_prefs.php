@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs.php,v 1.6 2005/08/19 17:21:33 marc Exp $
+ * @version $Id: wgcal_prefs.php,v 1.7 2005/08/24 17:36:19 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -48,8 +48,10 @@ function wgcal_prefs(&$action) {
   $Zone = array( "look" => array(N_("look preferences"),"WGCAL_USER"), 
 		 "contacts" => array(N_("my prefered contacts"),"WGCAL_USER"), 
 		 "todopref" => array(N_("todo preferences"),"WGCAL_USER"), 
-		 "vcal" => array(N_("agenda visibility"),"WGCAL_VCAL"), 
-		 "others" => array(N_("other preferences"),"WGCAL_USER"));
+		 "agendaview" => array(N_("agenda visibility"),"WGCAL_VCAL"), 
+		 "delegate" => array(N_("agenda delegation"),"WGCAL_VCAL"), 
+		 "others" => array(N_("other preferences"),"WGCAL_USER")
+		 );
 
   $tz = array();
   $itz = 0;

@@ -22,6 +22,8 @@ function wgcal_storeevent(&$action) {
   $id  = GetHttpVars("eventid", -1);
   if ($id==-1 || $id=="") {
     $event = createDoc($dbaccess, "CALEVENT");
+    $err = $event->Add();
+    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
     $newevent = true;
   } else {
     $event = new Doc($dbaccess, $id);
@@ -112,16 +114,19 @@ function wgcal_storeevent(&$action) {
 
   // --------------------------------------------------------------------------------------------------
   // Attendees
+  // --------------------------------------------------------------------------------------------------
   $udbaccess = $action->GetParam("COREUSER_DB");
   $ugrp = new User($udbaccess);
   $groupfid = getIdFromName($dbaccess, "GROUP");
   $igroupfid = getIdFromName($dbaccess, "IGROUP");
 
   $oldatt_id    = $event->getTValue("CALEV_ATTID", array());
+  $oldatt_wid   = $event->getTValue("CALEV_ATTWID", array());
   $oldatt_state = $event->getTValue("CALEV_ATTSTATE", array());
   $oldatt_group = $event->getTValue("CALEV_ATTGROUP", array());
 
   $attendeesid    = array();
+  $attendeeswid    = array();
   $attendeesname  = array();
   $attendeesstate = array();
   $attendeesgroup = array();
@@ -154,13 +159,13 @@ function wgcal_storeevent(&$action) {
 	$iatt++;
       }
     }
-    //     print_r2($nattl);
   
    foreach ($nattl as $ka => $va) {
       if ($va<=0||$va=="") continue;
       $att = new Doc($dbaccess, $va["fid"]);
       $attendeesid[$attcnt]  = $att->id;
-      $attendeesname[$attcnt]  = $att->title;
+      $attendeeswid[$attcnt]  = $att->getValue("us_whatid");
+      $attendeesname[$attcnt]  = $att->getTitle();
       $attendeesgroup[$attcnt] = $va["fgid"];
       $attendeesstate[$attcnt] = 0;
       if ($att->id == $action->user->fid) $attendeesstate[$attcnt] = $evstatus;
@@ -177,28 +182,124 @@ function wgcal_storeevent(&$action) {
   if ($withme == "on" && $owner==$action->user->fid) {
     $attendeesname[$attcnt] = $action->user->lastname." ".$action->user->firstname;
     $attendeesid[$attcnt] = $action->user->fid;
+    $attendeeswid[$attcnt] = $action->user->id;
     $attendeesstate[$attcnt] = $evstatus;
     $attendeesgroup[$attcnt] = -1;
   }
     
   $event->setValue("CALEV_ATTID", $attendeesid); 
+  $event->setValue("CALEV_ATTWID", $attendeeswid); 
   $event->setValue("CALEV_ATTTITLE", $attendeesname); 
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
   $event->setValue("CALEV_ATTGROUP", $attendeesgroup); 
     
-
-  if (!$event->IsAffected()) {
-    $err = $event->Add();
-  }
+  $event->SetProfil($event->id);
+ 
+  $err = $event->Modify();
   if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
   else {
-     $err = $event->Modify();
-     if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
-     else {
-        $err = $event->PostModify();
-        if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
-     }
+    $err = $event->PostModify();
+    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
   }
+
+
+  // Get ACLs
+  // print_r2($event->acls);
+  define("R_READ",0);
+  define("R_WRITE", 1);
+  define("R_CONFIDENTIAL", 5);
+  $aclv = array( R_READ => 1, R_WRITE => 2, R_CONFIDENTIAL => 10);
+  
+  $userf = new_Doc($dbaccess, $action->user->fid);
+  $acl = array();
+  
+  // User agenda visibility
+  $vcalrestrict = false;
+  $vcal = array();
+  if ($userf->getValue("us_wgcal_vcalgrpmode") == 1) {
+    $vcalrestrict = true;
+    $tvcal = $userf->getTValue("us_wgcal_vcalgrpwid");
+    foreach ($tvcal as $k => $v) $vcal[$v] = $v;
+  } else {
+    $vcal[2] = 2;
+  }
+  
+  $tcfg = explode("|", $confg);
+  $rvcgroup = array();
+  foreach ($tcfg as $k => $v) {
+    if ($v!="")  $rvcgroup[$v] = $v;
+  }
+
+
+      
+  $sdeb = "confidentiality=[$conf] \n";
+  $acls = array();
+  switch ($conf) {
+
+    // Private : confidential for groups that can read my agenda
+    //           read for attendees
+    case 1:
+    foreach ($vcal as $k => $v) {
+      $acls[$k] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
+      $sdeb .= "(private::vcal) g[$k]:R_CONFIDENTIAL\n"; 
+    }
+    foreach ($attendeeswid as $k => $v) {
+      if ($v != $action->user->id) {
+	$acls[$v] = array( R_READ => $aclv[R_READ] );
+	$sdeb .= "(private::att) g[$v]:R_READ\n"; 
+      }
+    }
+    break;
+    
+    // Groups : read for selected groups for this event
+    //          confidential for group that can read my agenda
+    //          read for attendees
+    case 2: 
+    foreach ($vcal as $k => $v) {
+      $acls[$k] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
+      $sdeb .= "(groups::vcal) g[$k]:R_CONFIDENTIAL\n"; 
+    }
+    foreach ($rvcgroup as $k => $v) {
+      $acls[$k] = array( R_READ => $aclv[R_READ] );
+      $sdeb .= "(groups::mygrp) g[$k]:R_READ\n"; 
+    }
+    foreach ($attendeeswid as $k => $v) {
+      if ($v != $action->user->id) {
+	$acls[$v] = array( R_READ => $aclv[R_READ] );
+	$sdeb .= "(groups::att) u[$v]:R_READ\n"; 
+      }
+    }
+    break;
+  default: 
+    // public : read for groups that can read my agenda
+    //          read for attendees
+    foreach ($vcal as $k => $v) {
+      $acls[$k] =  array( R_READ => $aclv[R_READ] );
+      $sdeb .= "(public::vcal) g[$k]:R_READ\n"; 
+    }
+    foreach ($attendeeswid as $k => $v) {
+      if ($v != $action->user->id) {
+	$acls[$v] = array( R_READ => $aclv[R_READ] );
+	$sdeb .= "(groups::att) u[$v]:R_READ\n"; 
+      }
+    }
+  }
+  
+  foreach ($acls as $user => $uacl) {
+    $perm = new DocPerm($dbaccess, array($event->id,$user));
+    $perm->UnsetControl();
+    foreach ($uacl as $k => $v) {
+      if (intval($v) > 0)  {
+	$sdeb .= " user=$user acl $k set to $v\n";
+	$perm->SetControlP($v);
+      }
+    }
+    if ($perm->isAffected()) $perm ->modify();
+    else $perm->Add();
+  }
+
+//   AddWarningMsg(  $sdeb );
+
 
   // Gestion du calendrier d'appartenance
   if ($oldcal != $calid && !$newevent) {
@@ -315,6 +416,7 @@ function resetAcceptStatus(&$event) {
   global $action;
   $att_ids = $event->getTValue("CALEV_ATTID");
   if (count($att_ids)>0) {
+    $att_wid = $event->getTValue("CALEV_ATTWID");
     $att_sta = $event->getTValue("CALEV_ATTSTATE");
     $att_grp = $event->getTValue("CALEV_ATTGROUP");
     foreach ($att_ids as $k => $v) {

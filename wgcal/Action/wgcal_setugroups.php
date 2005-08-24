@@ -9,13 +9,27 @@ function wgcal_setugroups(&$action)
   $user->deleteValue("us_wgcal_gid");
   if ($gfid!="") {
     $tgv = array();
+    $tgvw = array();
+    $tgvname = array();
     $tg = explode("|",  $gfid);
     foreach ($tg as $k => $v) {
-      if ($v!="") $tgv[] = $v;
+      if ($v!="") {
+	$tgv[] = $v;
+	$dg = new Doc($action->getParam("FREEDOM_DB"), $v);
+	$tgvw[] = $dg->getValue("us_whatid");
+	$tgvname[] = $dg->getTitle();
+      }
     }
-    if (count($tgv)>0) $user->setValue("us_wgcal_gid", $tgv);
+    if (count($tgv)>0) {
+      $user->setValue("us_wgcal_gid", $tgv);
+      $user->setValue("us_wgcal_gwid", $tgvw);
+      $user->setValue("us_wgcal_gname", $tgvname);
+    }
   }
   $user->Modify();
+  print_r2($tgv);
+  print_r2($tgvw);
+  print_r2($tgvname);
 }
 
 ?>

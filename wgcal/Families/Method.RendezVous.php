@@ -70,6 +70,7 @@ function  setEventSpec(&$e) {
 
 
   $tattid = $this->getTValue("CALEV_ATTID");
+  $tattwid = $this->getTValue("CALEV_ATTWID");
   $tattst = $this->getTValue("CALEV_ATTSTATE");
   $tattgp = $this->getTValue("CALEV_ATTGROUP");
   $nattid = array(); $nattst = array(); $iatt = 0;
@@ -92,12 +93,14 @@ function  setEventSpec(&$e) {
  else $e->setValue("EVFC_REJECTATTID", $rejattid);  
 
   $e->setValue("EVFC_CALENDARID", $this->getValue("CALEV_EVCALENDARID"));
-
-  // Propagate RV profil to events
-  //$e->setProfil($this->dprofid );
+  
+  $e->SetProfil($this->profid);
 }
 
 
+/*
+ *
+ */
 function mailrv() {
   $this->lay->set("rvid", $this->id);
 
@@ -110,6 +113,9 @@ function mailrv() {
 
 }
 
+/*
+ *
+ */
 function RendezVousView() {
 
   include_once('WGCAL/Lib.WGCal.php');
@@ -139,7 +145,8 @@ function RendezVousView() {
     $t = explode("|", $ogrp);
     foreach ($t as $k => $v ) {
       if ($v!="") {
-	$g  = new Doc($dbaccess, $v);
+	$du = getDocFromUserId($this->dbaccess, $v);
+	$g  = new Doc($dbaccess, $du->id);
 	$glist .= ($glist=="" ? "" : ", " ) . ucwords(strtolower($g->title));
       }
     }
@@ -210,6 +217,7 @@ function RendezVousView() {
   $this->lay->set("TITLE", $title);
   
   $tress  = $this->getTValue("CALEV_ATTID");
+  $tress  = $this->getTValue("CALEV_ATTWID");
   $tresse = $this->getTValue("CALEV_ATTSTATE");
   $tressg = $this->getTValue("CALEV_ATTGROUP");
   
@@ -275,6 +283,9 @@ function RendezVousView() {
   }    
 }
 
+/*
+ *
+ */
 function showIcons($private, $withme) {
   global $action;
   $icons = array();
@@ -295,6 +306,9 @@ function showIcons($private, $withme) {
   $this->lay->SetBlockData("icons", $icons);
 }
 
+/*
+ *
+ */
 function addIcons(&$ia, $icol)
 {
   global $action;
@@ -320,6 +334,9 @@ function addIcons(&$ia, $icol)
   $ia[count($ia)] = $ricons[$icol];
 }
 
+/*
+ *
+ */
 function ev_showattendees($ressd, $private, $dcolor="lightgrey") {
   include_once('EXTERNALS/WGCAL_external.php');
   include_once('WGCAL/Lib.WGCal.php');
@@ -374,10 +391,16 @@ function ev_showattendees($ressd, $private, $dcolor="lightgrey") {
 }
 
 
+/*
+ *
+ */
 function RendezVousResume() {
   $this->RendezVousView();
 }
 
+/*
+ *
+ */
 function RendezVousShortText() {
 
   include_once('WGCAL/Lib.WGCal.php');
@@ -435,6 +458,9 @@ function RendezVousShortText() {
 
 
 
+/*
+ *
+ */
 function RendezVousEdit() {
   global $action;
   include_once('EXTERNALS/WGCAL_external.php');
@@ -493,6 +519,7 @@ function RendezVousEdit() {
     $evruntild = w_dbdate2ts($this->getValue("CALEV_REPEATUNTILDATE"));
     $evrexcld  = $this->getTValue("CALEV_EXCLUDEDATE", array());
     $attendees = $this->getTValue("CALEV_ATTID", array());
+    $attendeesWid = $this->getTValue("CALEV_ATTWID", array());
     $attendeesState = $this->getTValue("CALEV_ATTSTATE", array());
     $attendeesGroup = $this->getTValue("CALEV_ATTGROUP", array());
     $evcategory = $this->getValue("CALEV_CATEGORY");
@@ -725,18 +752,18 @@ function EventSetVisibility($vis, $ogrp, $ro) {
     $igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));
     $igroups[$ig]["gicon"] = $gr->GetIcon();
     $igroups[$ig]["gjstitle"] = addslashes(ucwords(strtolower($gr->title)));
-    $igroups[$ig]["gisused"] = ($og ? isset($ugrp[$gr->id]) : $v["sel"]);
+    $igroups[$ig]["gisused"] = ($og ? isset($ugrp[$gr->getValue("us_whatid")]) : $v["sel"]);
     if ($igroups[$ig]["gisused"]) {
       $glist .= (strlen($glist)>0 ? "|" : "") . $gr->id;
       $gjs[$igjs]["igroup"] = $igjs;
-      $gjs[$igjs]["gfid"] = $gr->id;
+      $gjs[$igjs]["gid"] = $gr->getValue("us_whatid");;
       $igjs++;
     }    
     $ig++;
   }  
   $this->lay->set("evconfgroups", $glist);
   $this->lay->setBlockData("groups", $igroups);
-  $this->lay->setBlockData("GLIST", $gjs);
+  $this->lay->setBlockData("VGLIST", $gjs);
 }
   
 function EventSetCalendar($cal, $ro) {

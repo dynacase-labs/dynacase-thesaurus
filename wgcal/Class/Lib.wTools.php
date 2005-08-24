@@ -243,8 +243,8 @@ function MonAgenda()
   global $action;
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $rq=getChildDoc($dbaccess,0,0,1,array("owner = -".$action->user->id),
-		  $action->user->id, "LIST", "DIR");
+  $rq=getChildDoc($dbaccess,0,0,1,array("(agd_oid = ".$action->user->id." and agd_omain = 1)"),
+		  $action->user->id, "LIST", "AGENDA");
   if (count($rq)>0)  {
     $home = $rq[0];
   } else {
@@ -347,7 +347,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
   $idres = implode("|", $tr);
   setHttpVar("idres",$idres);
   
-    //    AddWarningMsg("Query = [$qev]   Producters = [$idfamref] Ressources = [$idres] Dates = [".$d1.",".$d2."]");
+  $sdebug = "Query = [$qev]\n\t- Producters = [$idfamref]\n\t- Ressources = [$idres]\n\t- Dates = [".$d1.",".$d2."]\n";
 
   $events = array();
   $dre=new Doc($dbaccess, $qev);
@@ -360,6 +360,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
   $rvfamid = getIdFromName($dbaccess, "CALEVENT");
   foreach ($events as $k=>$v) {
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
+  $sdebug .= "[".$v["evt_frominitiatorid"]."::".$v["evt_idinitiator"]."] title=[".$v["evt_title"]."]";
     $item = array( "ID" => $v["id"],
 		   "TSSTART" => $v["evt_begdate"],
 		   "TSEND" => $end,
@@ -400,11 +401,13 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
       }
     }
 
+  $sdebug .= " display=[".($displayEvent?"true":"false")."]\n";
     if ($displayEvent) { 
       $item["RG"] = count($tout);
       $tout[] = $item;
     }
-  }
+  } 
+//    AddWarningMsg($sdebug);
    
   return $tout;
 }

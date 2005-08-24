@@ -1,22 +1,27 @@
 [IF showvcal]<h4>[TEXT:my agenda visibility]</h4>
 
-<fieldset><legend><img width="20px" height="20px" align="absbottom" src="[WGCAL/Images/myvcal.gif]">&nbsp;[TEXT:my agenda is visible by...]</legend>
+<fieldset><legend>[TEXT:my agenda is visible by...]</legend>
 
 <input type="radio" id="gall" name="gall" value="0" onchange="changeCalGrpVis(this)" [IF allsel]checked[ENDIF allsel]>[TEXT:all groups]<br>
+[IF showgroups]
 <input type="radio" id="gall" name="gall" value="1" onchange="changeCalGrpVis(this)" [IFNOT allsel]checked[ENDIF allsel]>[TEXT:only this groups]<br>
 
 <div id="glistd" style="display:[vgroup]; margin-left:20px; margin-right:20px; border:1px outset white">
-[BLOCK groups]
-<div id="vcd[gfid]" style="margin:2px" 
-     class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" 
-     onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
-     onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'" 
-     title="[TEXT:click to selec/unselect group] [gtitle]" 
-     onclick="changeCalGrpList([gfid])">&nbsp;&nbsp;<img src="[gicon]"  
-     border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>[ENDBLOCK groups]
+<table width="100%" border="0" style="padding:1em;" cellspacing="0">
+[BLOCK cgroups]
+<tr title="[TEXT:click to selec/unselect group] [gtitle]">
+  <td align="left" 
+      id="vcd[gfid]" 
+      class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" 
+      onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
+      onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'" 
+      align="center">&nbsp;&nbsp;<img src="[gicon]" border="0" height="15px">&nbsp;&nbsp;<input id="w[gfid]" style="visibility:[gwvisibility]" title="[TEXT:select to give write access / unselect for read only]" onclick="saveCalGrpList();" type="checkbox" value=[gwrite] [gwriteselected]>&nbsp;&nbsp;
+      <span onclick="changeCalGrpList([gfid])">[gtitle]</span></td>
+</tr>[ENDBLOCK cgroups]</table>
 </div>
+[ENDIF showgroups]
 </fieldset>
-<form id="vcalmode" target="wgcal_hiddenx" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_VCALMODE">
+<form id="vcalmodef" target="wgcal_hidden" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_VCALMODE">
 <input type="hidden" value="[vcalmode]"   id="vcalmode" name="vcalmode">
 <input type="hidden" value="[vcalgroups]" id="vcalgroups" name="vcalgroups">
 </form>
@@ -25,46 +30,57 @@
 [BLOCK L_RESS]InsertPrefContact(-1, '[RDESCR]', '[RID]', '[RICON]', false);
 [ENDBLOCK L_RESS]
 
-var glist = new Array();
-[BLOCK GLIST]
-glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
+var gclist = new Array();
+[BLOCK GCLIST]
+gclist[[igroup]] = [gfid];[ENDBLOCK GCLIST]
 
 function changeCalGrpVis(elt) {
-  var gmode = document.getElementById('vcalmode');
   var glistd = document.getElementById('glistd');
   if (elt.value == 0) {
     glistd.style.display = 'none';
-    gmode.value = 0;
+    document.getElementById('vcalmode').value = 0;
   }
   if (elt.value == 1) {
     glistd.style.display = '';
-    gmode.value = 1;
+    document.getElementById('vcalmode').value = 1;
   }
-  document.getElementById('vcalmode').submit();
+  document.getElementById('vcalmodef').submit();
   return false;
 }  
 
 function changeCalGrpList(grp) {
-  var grpList = '';
   var cGrp = document.getElementById('vcd'+grp);
+  var gmode = document.getElementById('w'+grp);
   if (!cGrp) return;
   if (cGrp.className!='WGCRessSelected') {
-    glist[glist.length] = grp;
+    gclist[gclist.length] = grp;
     cGrp.className = 'WGCRessSelected';
+    gmode.style.visibility = 'visible';
   } else {
-    for (i=0; i<glist.length;i++) {
-      if (glist[i] == grp) glist[i] = -1;
+    for (i=0; i<gclist.length;i++) {
+      if (gclist[i] == grp) gclist[i] = -1;
     }
     cGrp.className = 'WGCRessDefault';
-  }  
-  for (i=0; i<glist.length;i++) {
-    if (glist[i] != -1) {
-      grpList += glist[i]+'|';
+    gmode.style.visibility = 'hidden';
+  }
+  saveCalGrpList();
+  return false;
+}
+
+function saveCalGrpList() {
+  var i;
+  var grpList = '';
+  for (i=0; i<gclist.length;i++) {
+    if (gclist[i] != -1) {
+      var mg = document.getElementById('w'+gclist[i]);
+      if (mg.checked) vmg=1;
+      else vmg = 0;
+      grpList += gclist[i]+'%'+vmg+'|';
     }
   }
   document.getElementById('vcalgroups').value = grpList;
-  document.getElementById('vcalmode').submit();
-  return false;
+  document.getElementById('vcalmodef').submit();
 }
+			   
 </script>
 [ENDIF showvcal]

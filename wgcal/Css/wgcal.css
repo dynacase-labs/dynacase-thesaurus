@@ -187,7 +187,7 @@ TD {
   background-color : white;
 }
 .WGCRessOver {
-  border : 1px outset [WTH_COLOR_1];
+  border : 1px outset [WTH_COLOR_3];
   cursor:pointer;
 }
 .WGCRessDefault {

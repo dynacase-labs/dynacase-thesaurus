@@ -1,0 +1,37 @@
+[IF shodelegate]
+<h4>[TEXT:my delegations]</h4>
+
+<table width="100%" style="margin:0px;">
+<tr valign="top"><td width="50%">
+
+<fieldset><legend>[TEXT:I delegate to...]</legend>
+
+<table width="100%" style="margin:0px;">
+[BLOCK duser]<tr id="tr[duid]" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'">
+<!-- td><img src="[duicon]"  border="0" height="15px"></td -->
+<td><img src="[IMG:wm-delete.gif]" onclick="if (confirm('[TEXT:suppress delegation for] [dujsname]')) delegateRemove([duid]);"></tr>
+<td><input type="radio" id="md[duid]" name="md[duid]" onchange="delegateChangeMode(this, [duid])" [IF dall]checked[ENDIF dall]></td>
+<td>[duname]</td>
+</tr>[BLOCK duser]
+</table>
+</fieldset>
+
+</td><td width="50%">
+
+<fieldset><legend>[TEXT:search a user...]</legend>
+
+
+</fieldset>
+
+</td></tr>
+</table>
+
+<form id="delegate" target="wgcal_hidden" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELEGATE">
+<input type="hidden" value="" id="dlist" name="dlist" value="">
+</form>
+
+<script type="text/javascript">
+var dUser = new Array();
+[BLOCK djsuser]dUser[[duid]] = [dumode];
+[ENDBLOCK djsuser]
+</script>[ENDIF shodelegate]

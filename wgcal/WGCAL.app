@@ -103,6 +103,7 @@ $action_desc = array (
   array( "acl" => "WGCAL_ADMIN", "name" => "WGCAL_CHOOSEGROUPS", "toc" => "N"),
   array( "acl" => "WGCAL_ADMIN", "name" => "WGCAL_SETGROUPS", "toc" => "N"),
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_SETUGROUPS", "toc" => "N"),
+  array( "acl" => "WGCAL_USER",  "name" => "WGCAL_DELEGATE", "toc" => "N"),
   array( "acl" => "WGCAL_VCAL",  "name" => "WGCAL_VCALMODE", "toc" => "N"),
 
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_HIDDEN", "toc" => "N")

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-19 10:23+0200\n"
+"POT-Creation-Date: 2005-08-23 08:22+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -24,6 +24,9 @@ msgstr "Mes contacts préférés"
 
 msgid "todo preferences"
 msgstr "Préférences des tâches"
+
+msgid "agenda visibility"
+msgstr "Visibilité de l'agenda"
 
 msgid "other preferences"
 msgstr "Autres préférences"
@@ -92,6 +95,9 @@ msgstr "Super utilisateur"
 
 msgid "allow outlook sync."
 msgstr "Autorise la synchronisation Outlook"
+
+msgid "allow to manage calendar visibility"
+msgstr "Autorise la gestion de la visibilité de son calendrier"
 
 msgid "user access"
 msgstr "Access utilisateur"
@@ -207,7 +213,6 @@ msgstr "Vue agenda"
 msgid "calendar view"
 msgstr "Vue agenda"
 
-#, fuzzy
 msgid "event card"
 msgstr "Recherche d'évènement"
 
@@ -788,14 +793,14 @@ msgstr "Couleur"
 msgid "view his calendar"
 msgstr "Voir son agenda"
 
+msgid "display only this"
+msgstr "Afficher seul"
+
 msgid "remove this ressource"
 msgstr "Enlever"
 
 msgid "view my prefered"
 msgstr "Calendriers des contacts préférés"
-
-msgid "display only this"
-msgstr "Afficher seul"
 
 msgid "invert selection"
 msgstr "Inverser la sélection"
@@ -1096,6 +1101,21 @@ msgstr "Options des tâches"
 
 msgid "see contacts"
 msgstr "Contacts"
+
+msgid "my agenda visibility"
+msgstr "Visibilité de mon calendrier"
+
+msgid "my agenda is visible by..."
+msgstr "Mon agenda est visible pour les groupes..."
+
+msgid "all groups"
+msgstr "Tous les groupes"
+
+msgid "only this groups"
+msgstr "Seulement les groupes..."
+
+msgid "select to give write access / unselect for read only"
+msgstr "Sélectionner pour donner l'accès en écriture (lecture seule sinon)"
 
 msgid "lang"
 msgstr "Language"
