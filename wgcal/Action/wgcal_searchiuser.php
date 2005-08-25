@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.5 2005/08/04 10:13:48 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.6 2005/08/25 16:02:16 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -21,9 +21,11 @@ function wgcal_searchiuser(&$action) {
   $families = getFamIdFromName($dbaccess, "IUSER");
   $doc = new Doc($dbaccess);
   
+  $proto = GetHttpVars("proto", "default");
+  $limit = GetHttpVars("lim", 25);
   $filter = array( );
   $filter[] = "title ~* '".GetHttpVars("iusertext", "")."'";
-  $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, $action->user->id, "TABLE", $families);
+  $rdoc = GetChildDoc($dbaccess, 0, 0, $limit, $filter, $action->user->id, "TABLE", $families);
   $t = array(); $i = 0;
   foreach ($rdoc as $k => $v) {
     if ($action->user->id != $v["id"]) {
@@ -37,9 +39,8 @@ function wgcal_searchiuser(&$action) {
       $i++;
     }
   }
-  if (count($t)>0) {
-    wUSort($t, "attTitle");
-    $action->lay->SetBlockData("RESSLIST", $t);
-  }
+  if (count($t)>0) wUSort($t, "attTitle");
+  $action->lay->set("proto", $proto);
+  $action->lay->SetBlockData("LP$proto", $t);
 }
 ?>

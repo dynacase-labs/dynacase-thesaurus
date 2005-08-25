@@ -1,6 +1,21 @@
-[IF showvcal]<h4>[TEXT:my agenda visibility]</h4>
+<h4>[TEXT:confidentiality]</h4>
 
-<fieldset><legend>[TEXT:my agenda is visible by...]</legend>
+<fieldset><legend>[TEXT:event default confidentiality...]</legend>
+[TEXT:default confidentiality for new event is set] <select onchange="changeUPref('[uid]','WGCAL_U_RVDEFCONF', this.options[this.selectedIndex].value, 'wgcal_hidden', 'WGCAL_HIDDEN'); if (this.options[this.selectedIndex].value == 2) document.getElementById('fshowgroups').style.display = ''; else document.getElementById('fshowgroups').style.display = 'none';">
+[BLOCK evdefconf]<option value="[value]" [selected]>[descr]
+[ENDBLOCK evdefconf]</select>
+
+<fieldset id="fshowgroups" style="display:[fshowgroupsd]"><legend><img width="20px" height="20px" align="absbottom" src="[IMG:wgcal_choosegroups.gif]">&nbsp;[TEXT:my groups]</legend>
+<div style="margin-left:20px; margin-right:20px; border:1px outset white">
+[BLOCK groups]<div id="d[gfid]" style="margin:2px" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
+onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'" title="[TEXT:click to selec/unselect group] [gtitle]" 
+onclick="changeUserGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>[ENDBLOCK groups]
+</div>
+</fieldset>
+
+</fieldset>
+
+[IF showvcal]<fieldset><legend>[TEXT:my agenda is visible by...]</legend>
 
 <input type="radio" id="gall" name="gall" value="0" onchange="changeCalGrpVis(this)" [IF allsel]checked[ENDIF allsel]>[TEXT:all groups]<br>
 [IF showgroups]
@@ -25,10 +40,43 @@
 <input type="hidden" value="[vcalmode]"   id="vcalmode" name="vcalmode">
 <input type="hidden" value="[vcalgroups]" id="vcalgroups" name="vcalgroups">
 </form>
+<form id="setugroups" target="wgcal_hidden" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETUGROUPS"><input type="hidden" value="" id="ugroups" name="ugroups"></form>
+
 <script type="text/javascript">
 
 [BLOCK L_RESS]InsertPrefContact(-1, '[RDESCR]', '[RID]', '[RICON]', false);
 [ENDBLOCK L_RESS]
+
+var glist = new Array();
+[BLOCK GLIST]
+glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
+
+function changeUserGrp(grp) {
+
+  var grpList = '';
+  var cGrp = document.getElementById('d'+grp);
+  if (!cGrp) return;
+  if (cGrp.className!='WGCRessSelected') {
+    glist[glist.length] = grp;
+    cGrp.className = 'WGCRessSelected';
+  } else {
+    for (i=0; i<glist.length;i++) {
+      if (glist[i] == grp) glist[i] = -1;
+    }
+    cGrp.className = 'WGCRessDefault';
+  }
+  
+  for (i=0; i<glist.length;i++) {
+    if (glist[i] != -1) {
+      grpList += glist[i]+'|';
+    }
+  }
+  document.getElementById('ugroups').value = grpList;
+//   alert('liste des groupes : '+document.getElementById('ugroups').value);
+  document.getElementById('setugroups').submit();
+  return false;
+}
+
 
 var gclist = new Array();
 [BLOCK GCLIST]

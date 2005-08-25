@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.42 2005/08/18 16:44:02 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.43 2005/08/25 16:02:16 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -76,6 +76,8 @@ array(
 "WGCAL_U_TODODAYS" => array("kind"=>"static", "val"=>"7", "descr"=>N_("view todos for ... days"),"user"=>"Y"),
 "WGCAL_U_TODOWARN" => array("kind"=>"static", "val"=>"2", "descr"=>N_("warn for todo having a date in the ... days"),"user"=>"Y"),
 "WGCAL_U_TODODEFLIMIT" => array("kind"=>"static", "val"=>"7", "descr"=>N_("set todo date to today + ... days"),"user"=>"Y"),
+
+"WGCAL_U_RVDEFCONF" => array("kind"=>"static", "val"=>"0", "descr"=>N_("default confidentiality for new event"),"user"=>"Y"),
 
 // Toolbar content
 "WGCAL_U_TBSEARCH" => array("kind"=>"static", "val"=>"0", "descr"=>N_("display search"),"user"=>"Y"),

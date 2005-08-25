@@ -30,10 +30,12 @@
 <table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
 <tr><td width="45%" valign="top">
 
+<table width="100%" cellspacing="0"><tr>
+<td valign="bottom" align="left"><img src="[IMG:wgcal-small.gif]"  height="30px" title="[TEXT:event description]" style="border:0px" ></td>
+<td valign="bottom" align="right">[IF mforuser]<select onchange="document.getElementById('ownerid').value = this.options[this.selectedIndex].value; alert('Set owner to '+document.getElementById('ownerid').value)">[BLOCK foruser]<option value="[forufid]">[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]</td>
+</tr></table>
+
 <fieldset width="100%">
-<legend>
-<img src="[IMG:wgcal-small.gif]"  height="22" title="[TEXT:event description]" style="border:0px" >
-</legend>
 
 <table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-23 08:22+0200\n"
+"POT-Creation-Date: 2005-08-25 17:36+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -27,6 +27,9 @@ msgstr "Préférences des tâches"
 
 msgid "agenda visibility"
 msgstr "Visibilité de l'agenda"
+
+msgid "agenda delegation"
+msgstr "Délégation de mon agenda"
 
 msgid "other preferences"
 msgstr "Autres préférences"
@@ -997,14 +1000,8 @@ msgstr "Confirmez-vous la suppression de cet évènement"
 msgid "delete this"
 msgstr "Supprimer"
 
-msgid "my prefered contacts and groups"
-msgstr "Mes contacts et groupes préférés"
-
 msgid "add prefered contact"
 msgstr "Ajout d'un contact préféré"
-
-msgid "my groups"
-msgstr "Mes groupes"
 
 msgid " interface look"
 msgstr "Aspect et comportement de l'interface"
@@ -1102,8 +1099,41 @@ msgstr "Options des tâches"
 msgid "see contacts"
 msgstr "Contacts"
 
-msgid "my agenda visibility"
-msgstr "Visibilité de mon calendrier"
+msgid "my delegations"
+msgstr "Mes délégations"
+
+msgid ""
+"send me a mail for all action -edition, approvement,...- done by delegation"
+msgstr "Je veux recevoir un mail pour tout les actions déléguées effectuées"
+
+msgid "I delegate to..."
+msgstr "Délégation pour..."
+
+msgid "suppress delegation"
+msgstr "Supprimer la délégation"
+
+msgid "suppress delegation for"
+msgstr "Supprimer la délégation pour "
+
+msgid "give all permissions (edition and approvment)"
+msgstr "Donner tous les droits (édition et acceptations)"
+
+msgid "add delegation ..."
+msgstr "Ajout d'une délégation..."
+
+msgid "result limited to"
+msgstr "résultat limité à"
+
+msgid "event default confidentiality..."
+msgstr "Confidentialité par défaut pour les rendez-vous"
+
+msgid "default confidentiality for new event is set"
+msgstr ""
+"La confidentialité par défaut pour les nouveaux rendez-vous est positionnée "
+"à "
+
+msgid "my groups"
+msgstr "Mes groupes"
 
 msgid "my agenda is visible by..."
 msgstr "Mon agenda est visible pour les groupes..."
@@ -1195,6 +1225,9 @@ msgstr "M'avertir pour les tâches à faire durant les ... jours "
 msgid "set todo date to today + ... days"
 msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
 
+msgid "default confidentiality for new event"
+msgstr "confidentialité par défaut pour les nouveau rv"
+
 msgid "display contacts"
 msgstr "Afficher les contacts"
 
@@ -1224,6 +1257,12 @@ msgstr "Version du synchroniseur attendue"
 
 msgid "used groups"
 msgstr "Groupes utilisés"
+
+#~ msgid "my prefered contacts and groups"
+#~ msgstr "Mes contacts et groupes préférés"
+
+#~ msgid "my agenda visibility"
+#~ msgstr "Visibilité de mon calendrier"
 
 #~ msgid "use for event creation"
 #~ msgstr "Utiliser les ressources pour les rendez-vous"
@@ -1378,9 +1417,6 @@ msgstr "Groupes utilisés"
 
 #~ msgid "hour"
 #~ msgstr "heure"
-
-#~ msgid "save ressource selection"
-#~ msgstr "Sauvegarder la liste des ressources"
 
 #~ msgid "set color for calendar"
 #~ msgstr "Sélection de la couleur de visualisation"

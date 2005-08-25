@@ -214,6 +214,7 @@ function wgcal_storeevent(&$action) {
   $acl = array();
   
   // User agenda visibility
+
   $vcalrestrict = false;
   $vcal = array();
   if ($userf->getValue("us_wgcal_vcalgrpmode") == 1) {
@@ -238,6 +239,7 @@ function wgcal_storeevent(&$action) {
 
     // Private : confidential for groups that can read my agenda
     //           read for attendees
+    //           confidential for attendees groups
     case 1:
     foreach ($vcal as $k => $v) {
       $acls[$k] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
@@ -254,6 +256,7 @@ function wgcal_storeevent(&$action) {
     // Groups : read for selected groups for this event
     //          confidential for group that can read my agenda
     //          read for attendees
+    //           confidential for attendees groups
     case 2: 
     foreach ($vcal as $k => $v) {
       $acls[$k] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
@@ -273,6 +276,7 @@ function wgcal_storeevent(&$action) {
   default: 
     // public : read for groups that can read my agenda
     //          read for attendees
+    //          read for attendees groups
     foreach ($vcal as $k => $v) {
       $acls[$k] =  array( R_READ => $aclv[R_READ] );
       $sdeb .= "(public::vcal) g[$k]:R_READ\n"; 

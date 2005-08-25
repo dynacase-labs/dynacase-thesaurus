@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_contacts.php,v 1.4 2005/08/05 15:24:35 marc Exp $
+ * @version $Id: wgcal_prefs_contacts.php,v 1.5 2005/08/25 16:02:16 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -41,30 +41,6 @@ function wgcal_prefs_contacts(&$action) {
   }
   $action->lay->SetBlockData("L_RESS", $tco);
 
-  // Groups list
-  
-  $u_rgroups = wGetUserGroups();
-
-  $gjs = array(); $igjs=0;
-  $igroups = array(); $ig=0;
-  foreach ($u_rgroups as $k => $v) {
-    $gr = new Doc($dbaccess, $k);
-    $igroups[$ig]["gfid"] = $gr->id;
-    $igroups[$ig]["gid"] = $gr->getValue("us_whatid");
-    $igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));
-    $igroups[$ig]["gicon"] = $gr->GetIcon();
-    $igroups[$ig]["gjstitle"] = addslashes(ucwords(strtolower($gr->title)));
-    $igroups[$ig]["gisused"] = $v["sel"];
-    if ($v["sel"]) {
-      $gjs[$igjs]["igroup"] = $igjs;
-      $gjs[$igjs]["gfid"] = $gr->id;
-      $igjs++;
-    }    
-    $ig++;
-  }  
-  $action->lay->setBlockData("groups", $igroups);
-  $action->lay->setBlockData("GLIST", $gjs);
-  
   return;
 }
 ?>

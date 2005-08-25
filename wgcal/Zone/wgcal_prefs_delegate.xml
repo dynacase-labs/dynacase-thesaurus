@@ -1,37 +1,170 @@
-[IF shodelegate]
+[IF showdelegate]
 <h4>[TEXT:my delegations]</h4>
 
+<div id="dmailmediv" onclick="mailDelegate();" style="display:none; padding:2px;" 
+     class="[IF dmail]WGCRessSelected[ENDIF dmail][IFNOT dmail]WGCRessOver[ENDIF dmail]"><img src="[IMG:wm-mail.gif]" height="15px">&nbsp;&nbsp;[TEXT:send me a mail for all action -edition, approvement,...- done by delegation]</div>
+
 <table width="100%" style="margin:0px;">
-<tr valign="top"><td width="50%">
+<tr valign="top"><td width="70%">
 
 <fieldset><legend>[TEXT:I delegate to...]</legend>
 
 <table width="100%" style="margin:0px;">
-[BLOCK duser]<tr id="tr[duid]" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'">
-<!-- td><img src="[duicon]"  border="0" height="15px"></td -->
-<td><img src="[IMG:wm-delete.gif]" onclick="if (confirm('[TEXT:suppress delegation for] [dujsname]')) delegateRemove([duid]);"></tr>
-<td><input type="radio" id="md[duid]" name="md[duid]" onchange="delegateChangeMode(this, [duid])" [IF dall]checked[ENDIF dall]></td>
-<td>[duname]</td>
-</tr>[BLOCK duser]
+<thead></thead><tbody id="dtab">
+<tr style="display:none;" id="dtrsample"><td class="WGCRessDefault" onmouseover="this.className='WGCRessSelected'" onmouseout="this.className='WGCRessDefault'">
+<img src="[IMG:wm-delete.gif]" height="15px" title="[TEXT:suppress delegation]" onclick="if (confirm('[TEXT:suppress delegation for] %duname%')) removeDelegate(%duid%);">&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" id="md%duid%" name="md%duid%" title="[TEXT:give all permissions (edition and approvment)]" onchange="delegateChangeMode(%duid%)">&nbsp;
+%duname%</td>
+</tbody>
+<tfoot><tr><td></td></tr></tfoot>
 </table>
 </fieldset>
 
-</td><td width="50%">
+</td><td width="30%">
 
-<fieldset><legend>[TEXT:search a user...]</legend>
+<fieldset border="0"><legend>[TEXT:add delegation ...]</legend>
 
+<div>
+<input class="textBorder" id="dusearchtext" onkeypress="return dSearchIUser(event, false);" type="text" size="15" value="" title="[TEXT:search for a contact...]"></input>
+<img id="dusearchbut" style="cursor:pointer;" onclick="dSearchIUser(event, true)" height="10" src="[IMG:wm-searchiuser.gif]" title="[TEXT:search]"><br>
+([TEXT:result limited to] [uslimit])
+<div>
 
+<form id="fgetdiuser" target="wgcal_diuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&proto=duser&lim=[uslimit]">
+<input id="diuser" name="iusertext" type="hidden">
+</form>
+<iframe name="wgcal_diuser" id="wgcal_diuser" style="display:none"></iframe>
 </fieldset>
 
 </td></tr>
 </table>
 
-<form id="delegate" target="wgcal_hidden" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELEGATE">
-<input type="hidden" value="" id="dlist" name="dlist" value="">
+<form id="delegate" target="wgcal_diuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELEGATE">
+<input type="hidden" id="dlist" name="dlist" value="-1">
+<input type="hidden" id="dmail" name="dmail" value="[IF dmail]1[ENDIF dmail][IFNOT dmail]0[ENDIF dmail]">
 </form>
 
 <script type="text/javascript">
 var dUser = new Array();
-[BLOCK djsuser]dUser[[duid]] = [dumode];
-[ENDBLOCK djsuser]
-</script>[ENDIF shodelegate]
+
+[BLOCK dadduser]addUDelegate([duid], '[duname]', [dall], false);
+[ENDBLOCK dadduser]
+
+function dSearchIUser(evt, force) {
+  evt = (evt) ? evt : ((event) ? event : null );
+  var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
+  var nitem = document.getElementById('dusearchtext');
+  if (force || ((cc == 13)  && (nitem.value != ""))) {
+    var fvl = document.getElementById('fgetdiuser');
+    var val = document.getElementById('diuser');
+    val.value = nitem.value;
+    fvl.submit();
+    //if (nitem) nitem.value = '';
+    return false;
+  }
+  return true;
+}
+
+
+function existDelegate(id) {
+  for (var i = 0; i<dUser.length; i++) {
+     if (dUser[i][0]==id && (dUser[i][1]==1 || dUser[i][1]==0)) return true;
+  }
+  return false;
+}
+
+function addUDelegate(id, name, mode, save) {
+  var tab;
+  var nTr;
+
+  if (existDelegate(id)) return;
+
+  var ic = dUser.length;
+  dUser[ic] = new Array();
+  dUser[ic][0] = id;
+  dUser[ic][1] = mode;
+
+
+  tab = document.getElementById('dtab');
+  if (!tab) {
+    alert('dtab not defined');
+    return;
+  }
+
+  with (document.getElementById('dtrsample')) {
+    style.display = '';
+    nTr = cloneNode(true);
+    style.display = 'none';
+  }
+  nTr.id = 'dutr'+id;
+  mynodereplacestr(nTr, '%duid%', id);
+  mynodereplacestr(nTr, '%duname%', name);
+  nTr.style.display = '';
+  tab.appendChild(nTr);
+  document.getElementById('md'+id).checked = (mode == 1 ? true : false );
+  if (isDelegate())  document.getElementById('dmailmediv').style.display = '';
+  if (save) saveDelegate();
+}
+
+function removeDelegate(id) {
+  var ctr;
+  for (var i = 0; i<dUser.length; i++) {
+    if (dUser[i][0]==id) dUser[i][1] = -1;
+  }
+  ctr = document.getElementById('dutr'+id);
+  ctr.parentNode.deleteRow(ctr.sectionRowIndex);
+  if (!isDelegate()) document.getElementById('dmailmediv').style.display = 'none';
+  saveDelegate();
+  return false;
+}
+
+function isDelegate() {
+  var one = false;
+  for (var i = 0; i<dUser.length && one == false; i++) {
+    if (dUser[i][1]==1 || dUser[i][1]==0) one = true;
+  }
+  return one;
+}
+
+function delegateChangeMode(id) {
+  for (var i = 0; i<dUser.length; i++) {
+    if (dUser[i][0]==id) {
+      if (dUser[i][1] == 0) dUser[i][1] = 1;
+      else if (dUser[i][1] = 1) dUser[i][1] = 0;
+    }
+  }
+  saveDelegate();
+  return false;
+}
+
+function mailDelegate() {
+  var fdelmail = document.getElementById('dmail');
+  var fdivmail = document.getElementById('dmailmediv');
+  if (fdelmail.value==0) {
+    fdelmail.value = 1;
+    fdivmail.className = 'WGCRessSelected';
+  } else if (fdelmail.value==1) {
+    fdelmail.value = 0;
+    fdivmail.className = 'WGCRessOver';
+  }
+  saveDelegate();
+  return false;
+}
+
+function saveDelegate() {
+  var fdel = document.getElementById('delegate');
+  var fdelul = document.getElementById('dlist');
+  var fdelmail = document.getElementById('dmail');
+  var sdUser = '';
+  for (var i = 0; i<dUser.length; i++) {
+    if (dUser[i][1]==0 || dUser[i][1]==1) {
+      sdUser += dUser[i][0] + '%' + dUser[i][1] + '|';
+    }
+  }
+  fdelul.value = sdUser;
+//   alert('User delegation list = ['+sdUser+']\nMail me = '+fdelmail.value);
+  fdel.submit();
+  return false;
+}
+
+</script>[ENDIF showdelegate]

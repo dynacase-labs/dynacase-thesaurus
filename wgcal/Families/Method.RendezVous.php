@@ -289,7 +289,7 @@ function RendezVousView() {
 function showIcons($private, $withme) {
   global $action;
   $icons = array();
-  $sico = $action->GetParam("WGCAL_U_RESUMEICON", 0);
+  $sico = $this->getWgcalUParam("WGCAL_U_RESUMEICON", 0);
   if ($sico == 1) {
   if ($private) {
     $this->addIcons($icons, "CONFID");
@@ -465,6 +465,7 @@ function RendezVousEdit() {
   global $action;
   include_once('EXTERNALS/WGCAL_external.php');
   include_once('WGCAL/Lib.wTools.php');
+  include_once('FDL/freedom_util.php');
 
   $fq = getIdFromName($db, "WG_AGENDA");
   $rvf = getIdFromName($db, "CALEVENT");
@@ -495,7 +496,7 @@ function RendezVousEdit() {
 
   $nh = GetHttpVars("nh", 0);
   $times = GetHttpVars("ts", time());
-  $timee = GetHttpVars("te", $times + ($action->getParam("WGCAL_U_RVDEFDUR", 60) * 60));
+  $timee = GetHttpVars("te", $times + ($this->getWgcalUParam("WGCAL_U_RVDEFDUR", 60) * 60));
 
   if ($this->isAffected()) {
     $eventid = $this->id;
@@ -560,7 +561,8 @@ function RendezVousEdit() {
     $evtype   = $nh;
     $evfreq   = 1;
     $evcal    = -1;
-    $evvis    = 0;
+    $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
+    echo "vis default = ".$evvis." for uid= ".$action->user->id."<br>";
     $ogrp    = "-";
     $evalarm  = 0;
     $evalarmt = -1;
@@ -603,7 +605,24 @@ function RendezVousEdit() {
   $this->EventSetRepeat($evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld, $ro);
   $this->EventSetCategory($evcategory);
   $this->EventAddAttendees($ownerid, $attendees, $attendeesState, $attendeesGroup, $withme, $ro, $onlyme);
-  $this->EventSetOwner($ownerid, $ownertitle);
+
+
+  // Compute delegation
+  $this->lay->set("ownerid", $ownerid);
+  $this->lay->set("ownertitle", $ownertitle);
+  $filter[] = "( us_wgcal_dguid ~* '^".$action->user->fid."$' or us_wgcal_dguid ~* '^".$action->user->fid."\n' )";
+  $dusers = GetChildDoc($this->dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "IUSER");
+  $tdusers = array();
+  if (count($dusers)>0) {
+    $this->lay->set("mforuser", true);
+    $tdusers[] = array( "forufid" => $action->user->fid, "foruname" => ucwords(strtolower($action->user->lastname." ".$action->user->firstname)) );
+    foreach ($dusers as $k => $v) {
+      if ($v!="") $tdusers[] = array( "forufid" => $v["id"], "foruname" => ucwords(strtolower($v["title"])) );
+    }
+    $this->lay->setBlockData("foruser", $tdusers);
+  } else {
+    $this->lay->set("mforuser", false);
+  }    
 
   return;  
 }    
@@ -667,7 +686,7 @@ function EventSetDate($dstart, $dend, $type, $ro)
   }
   $this->lay->setBlockData("SHSEL", $th);
   $th = array();
-  $incm = $action->getParam("WGCAL_U_MINCUSED",15);
+  $incm = $this->getWgcalUParam("WGCAL_U_MINCUSED",15);
   for ($h=0; $h<60; $h+=$incm) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
@@ -697,7 +716,7 @@ function EventSetDate($dstart, $dend, $type, $ro)
   }
   $this->lay->setBlockData("EHSEL", $th);
   $th = array();
-  for ($h=0; $h<60; $h+=$action->getParam("WGCAL_U_MINCUSED",15)) {
+  for ($h=0; $h<60; $h+=$this->getWgcalUParam("WGCAL_U_MINCUSED",15)) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
     $th[$h]["optselect"] = ($h>=gmdate("i", $dend-60) && $h<=gmdate("i", $dend+240)?"selected":"");
@@ -867,10 +886,6 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   
 }
 
-function EventSetOwner($ownerid, $ownertitle) {
-  $this->lay->set("ownerid", $ownerid);
-  $this->lay->set("ownertitle", $ownertitle);
-}
 
 function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = array(), $attendeesGroup = array(), $withme=true, $ro=false, $onlyme) {
 //echo "ownerid = $ownerid cuser = ".$action->user->fid." withme = ".($withme?"T":"F")."<br>";
@@ -941,7 +956,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   $this->lay->setBlockData("ADD_RESS", $att);
   $this->lay->set("attendeesro", ($ro?"none":""));
 
-  $dress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
+  $dress = $this->getWgcalUParam("WGCAL_U_RESSDISPLAYED", "");
   $tdress = explode("|", $dress);
   $to = array(); $ito = 0;
   $ts = array(); $its = 0;
@@ -968,7 +983,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
 
     
     
-  $dress = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
+  $dress = $this->getWgcalUParam("WGCAL_U_PREFRESSOURCES", "");
   $tdress = explode("|", $dress);
   $to = array(); $ito = 0;
   foreach ($tdress as $k => $v) {
@@ -993,7 +1008,7 @@ function evColorByOwner() {
   // Si je suis convié / j'ai refusé / affichable => Ma couleur
   // Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
   // Si le propriétaire n'est pas affichable => Couleur du premier convié ET AFFICHE et pas refusé.... 
-  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
+  $showrefused = $this->getWgcalUParam("WGCAL_U_DISPLAYREFUSED", 0);
   $event_color = "";
   if (isset($ressd[$myid]) 
       && (($ressd[$myid]["state"]==EVST_REJECT && $showrefused==1) || $ressd[$myid]["state"]!=EVST_REJECT )
@@ -1086,4 +1101,12 @@ function RvHavePermission($ufid=-1, $r="R") {
   default: $hr = false;
   }
   return $hr;
+}
+
+
+function getWgcalUParam($pname, $def="", $uid=-1) {
+  global $action;
+  $uid = ($uid==-1 ? $action->user->id : $uid);
+  $r = $action->parent->param->getUParam($pname, $uid, $action->parent->GetIdFromName("WGCAL"));
+  return ($r=="" ? $def : $r);
 }

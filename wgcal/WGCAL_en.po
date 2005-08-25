@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-23 08:22+0200\n"
+"POT-Creation-Date: 2005-08-25 17:36+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -26,6 +26,9 @@ msgid "todo preferences"
 msgstr ""
 
 msgid "agenda visibility"
+msgstr ""
+
+msgid "agenda delegation"
 msgstr ""
 
 msgid "other preferences"
@@ -995,13 +998,7 @@ msgstr ""
 msgid "delete this"
 msgstr ""
 
-msgid "my prefered contacts and groups"
-msgstr ""
-
 msgid "add prefered contact"
-msgstr ""
-
-msgid "my groups"
 msgstr ""
 
 msgid " interface look"
@@ -1100,7 +1097,38 @@ msgstr ""
 msgid "see contacts"
 msgstr ""
 
-msgid "my agenda visibility"
+msgid "my delegations"
+msgstr ""
+
+msgid ""
+"send me a mail for all action -edition, approvement,...- done by delegation"
+msgstr ""
+
+msgid "I delegate to..."
+msgstr ""
+
+msgid "suppress delegation"
+msgstr ""
+
+msgid "suppress delegation for"
+msgstr ""
+
+msgid "give all permissions (edition and approvment)"
+msgstr ""
+
+msgid "add delegation ..."
+msgstr ""
+
+msgid "result limited to"
+msgstr ""
+
+msgid "event default confidentiality..."
+msgstr ""
+
+msgid "default confidentiality for new event is set"
+msgstr ""
+
+msgid "my groups"
 msgstr ""
 
 msgid "my agenda is visible by..."
@@ -1191,6 +1219,9 @@ msgid "warn for todo having a date in the ... days"
 msgstr ""
 
 msgid "set todo date to today + ... days"
+msgstr ""
+
+msgid "default confidentiality for new event"
 msgstr ""
 
 msgid "display contacts"

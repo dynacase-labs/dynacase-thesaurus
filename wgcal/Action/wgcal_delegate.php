@@ -6,11 +6,11 @@ include_once('FDL/Class.Doc.php');
 function wgcal_delegate(&$action) 
 {
   $dlist = GetHttpVars("dlist", "");
+  $dmail = GetHttpVars("dmail", -1);
 
-  echo "dlist = [$dlist]<br>";
-
+  $user = new Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
+  if ($dmail!=-1) $user->setValue("us_wgcal_dgmail", $dmail);
   if ($dlist!="") {
-    $user = new Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
     if (!$user->isAffected()) AddWarningMsg(__FILE__."::".__FILE__."> User !");
     $user->deleteValue("us_wgcal_dguname");
     $user->deleteValue("us_wgcal_dguid");
@@ -22,7 +22,6 @@ function wgcal_delegate(&$action)
       foreach ($tg as $k => $v) {
 	if ($v!="") {
 	  $st = explode("%", $v);
-	  echo " u=".$st[0]." mode=".$st[1]."<br>";
 	  $dg_uid[] = $st[0];
 	  $dg_umode[] = $st[1];
 	  $udg = new Doc($action->getParam("FREEDOM_DB"), $st[0]);
@@ -35,14 +34,10 @@ function wgcal_delegate(&$action)
 	$user->setValue("us_wgcal_dguid", $dg_uid);
 	$user->setValue("us_wgcal_dguwid", $dg_uwid);
 	$user->setValue("us_wgcal_dgumode", $dg_umode);
-	print_r2($dg_name);
-	print_r2($dg_uid);
-	print_r2($dg_uwid);
-	print_r2($dg_umode);
       }
     }
-    $user->Modify();
   }
+  $user->Modify();
 }
 
 ?>
