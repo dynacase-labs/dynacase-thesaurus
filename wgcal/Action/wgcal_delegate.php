@@ -7,7 +7,6 @@ function wgcal_delegate(&$action)
 {
   $dlist = GetHttpVars("dlist", "");
   $dmail = GetHttpVars("dmail", -1);
-
   $user = new Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
   if ($dmail!=-1) $user->setValue("us_wgcal_dgmail", $dmail);
   if ($dlist!="") {

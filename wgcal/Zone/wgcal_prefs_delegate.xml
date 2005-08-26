@@ -30,7 +30,7 @@
 ([TEXT:result limited to] [uslimit])
 <div>
 
-<form id="fgetdiuser" target="wgcal_diuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&proto=duser&lim=[uslimit]">
+<form id="fgetdiuser" target="wgcal_diuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&proto=duser&sgrp=1&lim=[uslimit]">
 <input id="diuser" name="iusertext" type="hidden">
 </form>
 <iframe name="wgcal_diuser" id="wgcal_diuser" style="display:none"></iframe>
@@ -120,7 +120,9 @@ function removeDelegate(id) {
 
 function isDelegate() {
   var one = false;
+  var sm = '';
   for (var i = 0; i<dUser.length && one == false; i++) {
+    sm += 'u='+dUser[i][0]+'    val='+dUser[i][1];
     if (dUser[i][1]==1 || dUser[i][1]==0) one = true;
   }
   return one;
@@ -155,14 +157,15 @@ function saveDelegate() {
   var fdel = document.getElementById('delegate');
   var fdelul = document.getElementById('dlist');
   var fdelmail = document.getElementById('dmail');
-  var sdUser = '';
+  var sduser = '';
   for (var i = 0; i<dUser.length; i++) {
     if (dUser[i][1]==0 || dUser[i][1]==1) {
-      sdUser += dUser[i][0] + '%' + dUser[i][1] + '|';
+      sduser += dUser[i][0] + '%' + dUser[i][1] + '|';
     }
   }
-  fdelul.value = sdUser;
-//   alert('User delegation list = ['+sdUser+']\nMail me = '+fdelmail.value);
+  if (sduser=='') sduser='-';
+  fdelul.value = sduser;
+//   alert('User delegation list = ['+sduser+']\nMail me = '+fdelmail.value);
   fdel.submit();
   return false;
 }

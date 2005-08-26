@@ -32,7 +32,7 @@
 
 <table width="100%" cellspacing="0"><tr>
 <td valign="bottom" align="left"><img src="[IMG:wgcal-small.gif]"  height="30px" title="[TEXT:event description]" style="border:0px" ></td>
-<td valign="bottom" align="right">[IF mforuser]<select onchange="document.getElementById('ownerid').value = this.options[this.selectedIndex].value; alert('Set owner to '+document.getElementById('ownerid').value)">[BLOCK foruser]<option value="[forufid]">[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]</td>
+<td valign="bottom" align="right">[IF mforuser]<select onchange="document.getElementById('ownerid').value = this.options[this.selectedIndex].value; document.getElementById('ownertitle').value = this.options[this.selectedIndex].text; alert('[TEXT:you set the event owner to] '+this.options[this.selectedIndex].text);">[BLOCK foruser]<option value="[forufid]">[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]</td>
 </tr></table>
 
 <fieldset width="100%">

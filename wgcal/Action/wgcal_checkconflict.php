@@ -18,6 +18,7 @@ function wgcal_checkconflict(&$action) {
   $db = $action->getParam("FREEDOM_DB");
 
   $checkForConflict = ($action->getParam("WGCAL_U_CHECKCONFLICT", 1)==1?true:false);
+  $ownerid = GetHttpVars("ownerid");
   $alreadyChecked = (GetHttpVars("cfchecked",0)==1?true:false);
   $event = (GetHttpVars("eventid",-1));
 
@@ -45,7 +46,7 @@ function wgcal_checkconflict(&$action) {
   $attendees = array();
   $attl = GetHttpVars("attendees", "");
   if ($attl!="") $attendees = explode("|", $attl);
-  if ($withme) $attendees[count($attendees)] = $action->user->fid;
+  if ($withme) $attendees[count($attendees)] = $ownerid;
   
   $conflict = array();
   
@@ -73,11 +74,9 @@ function wgcal_checkconflict(&$action) {
   $tev = array();
   $itev = 0;
   if (count($tevtmp)>0) {
-    $myid = $action->user->fid;
     foreach ($tevtmp as $k=>$v) {
       $ressd = wgcalGetRessourcesMatrix($v["evt_idinitiator"]);
-//       echo "event=$event curev=".$v["evt_idinitiator"]." ressd[$myid]=".$ressd[$myid]." ressd[$myid][state]=".$ressd[$myid]["state"]."<br>";
-      if ($v["evt_idinitiator"]!=$event && (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT)) {
+      if ($v["evt_idinitiator"]!=$event && (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT)) {
 	$d = new Doc($dbaccess, $v["evt_idinitiator"]);
 	$tev[$itev]["ID"] = $itev;
 	$tev[$itev]["EvRCard"] = $d->viewDoc($d->defaultabstract);
@@ -89,7 +88,6 @@ function wgcal_checkconflict(&$action) {
     $action->lay->set("NOCF", (count($tev)>0 ? false : true));
     $action->lay->SetBlockData("CONFLICTS", $tev);
   }
-//   print_r2($tev);
   if (count($tev)==0) $action->lay->set("NOCF", true);
   else $action->lay->set("NOCF", false);
   

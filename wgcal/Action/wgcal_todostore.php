@@ -18,7 +18,7 @@ function wgcal_todostore(&$action) {
 
   if ($id == -1) {
     $todo = createDoc($db, "TODO");
-   } else {
+  } else {
     $todo = new Doc($db, $id);
   }
 
@@ -32,15 +32,16 @@ function wgcal_todostore(&$action) {
   
   if (!$todo->IsAffected()) $err = $todo->Add();
   if ($err!="") {
-     AddWarningMsg("$err");
+    AddWarningMsg("$err");
   } else {
-     $err = $todo->Modify();
-     if ($err!="") {
-        AddWarningMsg("$err");
-     } else {
-        $err = $todo->PostModify();
-        if ($err!="") AddWarningMsg("$err");
-     }
+    $todo->SetProfil($todo->id);
+    $err = $todo->Modify();
+    if ($err!="") {
+      AddWarningMsg("$err");
+    } else {
+      $err = $todo->PostModify();
+      if ($err!="") AddWarningMsg("$err");
+    }
   }
   redirect($action, "WGCAL", (GetHttpVars("act","WGCAL_HIDDEN")));
 }

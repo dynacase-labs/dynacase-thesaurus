@@ -130,6 +130,36 @@ function wGroupIsUsed($gfid) {
   return isset($tg[$gfid]);
 }
 
+function wGetUserGroups($fid=-1) {
+  global $action;
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  
+  $fid = ($fid==-1 ? $action->user->fid : $fid);
+
+  // get wgcal used groups
+  $wgcal_groups = wGetGroups();
+
+  // get user groups
+  $user = new Doc($dbaccess, $fid);
+  $user_groups = $user->getTValue("us_idgroup");
+
+  // compute user real groups (user groups used in Agenda)
+  $u_rgroups = array();
+  foreach ($user_groups as $kg => $vg) {
+    if (isset($wgcal_groups[$vg])) {
+      $u_rgroups[$vg]["gid"] = $vg;
+      $u_rgroups[$vg]["sel"] = false;
+    }
+  }
+  
+  $tg = $user->getTValue("us_wgcal_gid");
+  foreach ($tg as $kg => $vg) {
+    if (isset($u_rgroups[$vg])) $u_rgroups[$vg]["sel"] = true;
+  }
+
+  return $u_rgroups;
+}
+
 
 // ----------------------------------------------------
 // Others....
@@ -208,34 +238,6 @@ function wUSortCmp(&$a, &$b) {
   return (strcmp($a[$fsort], $b[$fsort]));
 }
   
-
-function wGetUserGroups() {
-  global $action;
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  // get wgcal selected groups
-  $wgcal_groups = wGetGroups();
-
-  // get user groups
-  $user = new Doc($dbaccess, $action->user->fid);
-  $user_groups = $user->getTValue("us_idgroup");
-
-  // compute user real groups (user groups used in Agenda)
-  $u_rgroups = array();
-  foreach ($user_groups as $kg => $vg) {
-    if (isset($wgcal_groups[$vg])) {
-      $u_rgroups[$vg]["gid"] = $vg;
-      $u_rgroups[$vg]["sel"] = false;
-    }
-  }
-  
-  $tg = $user->getTValue("us_wgcal_gid");
-  foreach ($tg as $kg => $vg) {
-    if (isset($u_rgroups[$vg])) $u_rgroups[$vg]["sel"] = true;
-  }
-
-  return $u_rgroups;
-}
 
 
 function MonAgenda() 

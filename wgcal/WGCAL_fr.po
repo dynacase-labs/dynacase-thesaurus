@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-25 17:36+0200\n"
+"POT-Creation-Date: 2005-08-26 16:10+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -533,6 +533,9 @@ msgstr "Visibles pour les groupes"
 
 msgid "event description"
 msgstr "Description de l'évènement"
+
+msgid "you set the event owner to"
+msgstr "Vous prenez un rendez-vous pour"
 
 msgid "rv title"
 msgstr "Titre"

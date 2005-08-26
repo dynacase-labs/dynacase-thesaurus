@@ -562,7 +562,6 @@ function RendezVousEdit() {
     $evfreq   = 1;
     $evcal    = -1;
     $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
-    echo "vis default = ".$evvis." for uid= ".$action->user->id."<br>";
     $ogrp    = "-";
     $evalarm  = 0;
     $evalarmt = -1;
@@ -773,7 +772,7 @@ function EventSetVisibility($vis, $ogrp, $ro) {
     $igroups[$ig]["gjstitle"] = addslashes(ucwords(strtolower($gr->title)));
     $igroups[$ig]["gisused"] = ($og ? isset($ugrp[$gr->getValue("us_whatid")]) : $v["sel"]);
     if ($igroups[$ig]["gisused"]) {
-      $glist .= (strlen($glist)>0 ? "|" : "") . $gr->id;
+      $glist .= (strlen($glist)>0 ? "|" : "") . $gr->getValue("us_whatid");
       $gjs[$igjs]["igroup"] = $igjs;
       $gjs[$igjs]["gid"] = $gr->getValue("us_whatid");;
       $igjs++;

@@ -31,7 +31,10 @@ function wgcal_storeevent(&$action) {
   }
   
   $owner = GetHttpVars("ownerid", -1);
+  $down = getTDoc($dbaccess, $owner);
+  $ownerwid = $down["us_whatid"];
   $ownertitle = GetHttpVars("ownertitle", "");
+
   $event->setValue("CALEV_OWNERID", $owner);
   $event->setValue("CALEV_OWNER", $ownertitle);
 
@@ -160,16 +163,16 @@ function wgcal_storeevent(&$action) {
       }
     }
   
-   foreach ($nattl as $ka => $va) {
+    $withme = GetHttpVars("withMe", "off");
+    foreach ($nattl as $ka => $va) {
       if ($va<=0||$va=="") continue;
-      $att = new Doc($dbaccess, $va["fid"]);
-      $attendeesid[$attcnt]  = $att->id;
-      $attendeeswid[$attcnt]  = $att->getValue("us_whatid");
-      $attendeesname[$attcnt]  = $att->getTitle();
-      $attendeesgroup[$attcnt] = $va["fgid"];
-      $attendeesstate[$attcnt] = 0;
-      if ($att->id == $action->user->fid) $attendeesstate[$attcnt] = $evstatus;
-      else {
+      if ($va["fid"] != $owner) {
+	$att = new Doc($dbaccess, $va["fid"]);
+	$attendeesid[$attcnt]  = $att->id;
+	$attendeeswid[$attcnt]  = $att->getValue("us_whatid");
+	$attendeesname[$attcnt]  = $att->getTitle();
+	$attendeesgroup[$attcnt] = $va["fgid"];
+	$attendeesstate[$attcnt] = 0;
 	foreach ($oldatt_id as $ko => $vo) {
 	  if ($vo == $va["fid"]) $attendeesstate[$attcnt] = $oldatt_state[$ko];
 	}
@@ -178,11 +181,10 @@ function wgcal_storeevent(&$action) {
     }
   }
   
-  $withme = GetHttpVars("withMe", "off");
-  if ($withme == "on" && $owner==$action->user->fid) {
-    $attendeesname[$attcnt] = $action->user->lastname." ".$action->user->firstname;
-    $attendeesid[$attcnt] = $action->user->fid;
-    $attendeeswid[$attcnt] = $action->user->id;
+  if ($withme == "on") {
+    $attendeesname[$attcnt] = $ownertitle;
+    $attendeesid[$attcnt] = $owner;
+    $attendeeswid[$attcnt] = $ownerwid;
     $attendeesstate[$attcnt] = $evstatus;
     $attendeesgroup[$attcnt] = -1;
   }
@@ -207,12 +209,15 @@ function wgcal_storeevent(&$action) {
   // print_r2($event->acls);
   define("R_READ",0);
   define("R_WRITE", 1);
+  define("R_DELETE", 2);
   define("R_CONFIDENTIAL", 5);
-  $aclv = array( R_READ => 1, R_WRITE => 2, R_CONFIDENTIAL => 10);
+  $aclv = array( R_READ => 1, R_WRITE => 2, R_DELETE => 3, R_CONFIDENTIAL => 10);
   
-  $userf = new_Doc($dbaccess, $action->user->fid);
+  $userf = new_Doc($dbaccess, $owner);
   $acl = array();
   
+  $sdeb = "confidentiality=[$conf] \n";
+
   // User agenda visibility
 
   $vcalrestrict = false;
@@ -232,32 +237,49 @@ function wgcal_storeevent(&$action) {
   }
 
 
-      
-  $sdeb = "confidentiality=[$conf] \n";
+  // foreach attendees (except owner) get agenda groups
+  $attgrps = array();
+  foreach ($attendeesid as $k => $v) {
+    $ugrp = wGetUserGroups($v);
+    if (count($ugrp)>0) {
+      foreach ($ugrp as $kg => $vg) {
+	$thisg = getTDoc($dbaccess, $kg);
+	if (!isset($rvcgroup[$thisg["us_whatid"]])) {
+	  $attgrps[$thisg["us_whatid"]] = $thisg["us_whatid"];
+	}
+      }
+    }
+  }
+
+  
   $acls = array();
   switch ($conf) {
-
+    
+  case 1:
     // Private : confidential for groups that can read my agenda
     //           read for attendees
     //           confidential for attendees groups
-    case 1:
     foreach ($vcal as $k => $v) {
       $acls[$k] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
       $sdeb .= "(private::vcal) g[$k]:R_CONFIDENTIAL\n"; 
     }
     foreach ($attendeeswid as $k => $v) {
-      if ($v != $action->user->id) {
+      if ($v != $ownerwid) {
 	$acls[$v] = array( R_READ => $aclv[R_READ] );
 	$sdeb .= "(private::att) g[$v]:R_READ\n"; 
       }
     }
+    foreach ($attgrps as $k => $v) {
+      $acls[$v] = array( R_CONFIDENTIEL => $aclv[R_CONFIDENTIEL] );
+      $sdeb .= "(private::attgroups) ag[$v]:R_CONFIDENTIEL\n"; 
+    }
     break;
     
+  case 2: 
     // Groups : read for selected groups for this event
     //          confidential for group that can read my agenda
     //          read for attendees
     //           confidential for attendees groups
-    case 2: 
     foreach ($vcal as $k => $v) {
       $acls[$k] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
       $sdeb .= "(groups::vcal) g[$k]:R_CONFIDENTIAL\n"; 
@@ -267,10 +289,14 @@ function wgcal_storeevent(&$action) {
       $sdeb .= "(groups::mygrp) g[$k]:R_READ\n"; 
     }
     foreach ($attendeeswid as $k => $v) {
-      if ($v != $action->user->id) {
+      if ($v != $ownerwid) {
 	$acls[$v] = array( R_READ => $aclv[R_READ] );
 	$sdeb .= "(groups::att) u[$v]:R_READ\n"; 
       }
+    }
+    foreach ($attgrps as $k => $v) {
+      $acls[$v] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
+      $sdeb .= "(groups::attgroups) ag[$v]:R_CONFIDENTIEL\n"; 
     }
     break;
   default: 
@@ -282,28 +308,40 @@ function wgcal_storeevent(&$action) {
       $sdeb .= "(public::vcal) g[$k]:R_READ\n"; 
     }
     foreach ($attendeeswid as $k => $v) {
-      if ($v != $action->user->id) {
+      if ($v != $ownerwid) {
 	$acls[$v] = array( R_READ => $aclv[R_READ] );
-	$sdeb .= "(groups::att) u[$v]:R_READ\n"; 
-      }
+	$sdeb .= "(public::att) u[$v]:R_READ\n"; 
+     }
+    }
+    foreach ($attgrps as $k => $v) {
+      $acls[$v] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
+      $sdeb .= "(public::attgroups) ag[$v]:R_CONFIDENTIAL\n"; 
     }
   }
-  
+
+  if ($ownerwid != $action->user->id) {
+    $acls[$ownerwid] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL],
+			      R_READ => $aclv[R_READ],
+			      R_WRITE => $aclv[R_WRITE],
+			      R_DELETE => $aclv[R_DELETE] );
+  }
+
+   
   foreach ($acls as $user => $uacl) {
     $perm = new DocPerm($dbaccess, array($event->id,$user));
     $perm->UnsetControl();
     foreach ($uacl as $k => $v) {
+      $sdeb .= " user=$user acl $k set to $v\n";
       if (intval($v) > 0)  {
-	$sdeb .= " user=$user acl $k set to $v\n";
 	$perm->SetControlP($v);
-      }
+	}
     }
     if ($perm->isAffected()) $perm ->modify();
     else $perm->Add();
   }
-
-//   AddWarningMsg(  $sdeb );
-
+  
+  AddWarningMsg(  $sdeb );
+  
 
   // Gestion du calendrier d'appartenance
   if ($oldcal != $calid && !$newevent) {
@@ -360,12 +398,6 @@ function wgcal_storeevent(&$action) {
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 
-function wgcal_getArrayVal($key, $def=null) {
-  $v = $def;
-  $a = GetHttpVars($key, array());
-  if (count($a)>0) $v = $a[0];
-  return $v;
-}
 
 function rvDiff( $old, $new) {
   $diff = array();
@@ -425,7 +457,7 @@ function resetAcceptStatus(&$event) {
     $att_grp = $event->getTValue("CALEV_ATTGROUP");
     foreach ($att_ids as $k => $v) {
       if ($att_grp[$k]==-1) {
-	if ($v == $action->user->fid) $att_sta[$k] = EVST_ACCEPT;
+	if ($v == $event->getValue("calev_ownerid")) $att_sta[$k] = EVST_ACCEPT;
 	else $att_sta[$k] = EVST_NEW;
       }
     }
