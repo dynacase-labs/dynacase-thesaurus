@@ -118,6 +118,7 @@ function wgcal_storeevent(&$action) {
   // --------------------------------------------------------------------------------------------------
   // Attendees
   // --------------------------------------------------------------------------------------------------
+  $withme = GetHttpVars("evwithme", 1);
   $udbaccess = $action->GetParam("COREUSER_DB");
   $ugrp = new User($udbaccess);
   $groupfid = getIdFromName($dbaccess, "GROUP");
@@ -163,7 +164,6 @@ function wgcal_storeevent(&$action) {
       }
     }
   
-    $withme = GetHttpVars("withMe", "off");
     foreach ($nattl as $ka => $va) {
       if ($va<=0||$va=="") continue;
       if ($va["fid"] != $owner) {
@@ -180,8 +180,7 @@ function wgcal_storeevent(&$action) {
       $attcnt++;
     }
   }
-  
-  if ($withme == "on") {
+  if ($withme == 1) {
     $attendeesname[$attcnt] = $ownertitle;
     $attendeesid[$attcnt] = $owner;
     $attendeeswid[$attcnt] = $ownerwid;

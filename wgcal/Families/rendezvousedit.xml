@@ -11,6 +11,7 @@
 <input type="hidden" id="ownerid" name="ownerid" value="[ownerid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
 <input type="hidden" id="evstatus" name="evstatus" value="[evstatus]">
+<input type="hidden" id="evwithme" name="evwithme" value="[evwithme]">
 <input type="hidden" id="evcalendar" name="evcalendar" value="[evcalendar]">
 <input type="hidden" id="evconfidentiality" name="evconfidentiality" value="[evconfidentiality]">
 <input type="hidden" id="evconfgroups" name="evconfgroups" value="[evconfgroups]">

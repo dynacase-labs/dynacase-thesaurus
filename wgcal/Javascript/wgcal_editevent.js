@@ -506,6 +506,7 @@ function ShowHideStatus() {
   if (ROMode) return;
   evch = document.getElementById('withMe');
   evch.checked = (evch.checked ? "" : "checked" );
+  document.getElementById('evwithme').value = (evch.checked ? 1 : 0);
 }
   
 function setStatus(st, cst) {

@@ -594,6 +594,8 @@ function RendezVousEdit() {
   $this->lay->set("DFMT", "%A %d %b %Y");
   
   $this->lay->set("evstatus", $evstatus);
+  $this->lay->set("WITHME", ($withme?"checked":""));
+  $this->lay->set("evwithme", ($withme?"1":"0"));
 
   $this->EventSetTitle($evtitle, $ro);
   $this->EventSetDescr($evnote, $ro);  
@@ -946,11 +948,9 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   if ($ro) $this->lay->set("voneatt", "none");
 
   $this->lay->set("vnatt", "none");
-  $this->lay->set("WITHME", "");
   $this->lay->set("WITHMERO", ($ro?"disabled":""));
   if ($ownerid==$action->user->fid) {
     if (!$onlyme) $this->lay->set("vnatt", "");
-    $this->lay->set("WITHME", ($withme?"checked":""));
   }
   $this->lay->setBlockData("ADD_RESS", $att);
   $this->lay->set("attendeesro", ($ro?"none":""));

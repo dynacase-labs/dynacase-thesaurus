@@ -327,8 +327,9 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
   $famr = GetHttpVars("famref", $action->getParam("WGCAL_G_VFAM", "CALEVENT"));
   $ft = explode("|", $famr);
   $fti = array();
-  foreach ($ft as $k => $v)     $fti[] = (is_numeric($v) ? $v : getIdFromName($dbaccess, $v));
-  $idfamref = implode("|", $fti);
+//   foreach ($ft as $k => $v)     $fti[] = (is_numeric($v) ? $v : getIdFromName($dbaccess, $v));
+//   $idfamref = implode("|", $fti);
+  $idfamref = "1010";
   setHttpVar("idfamref", $idfamref);
 
   // Init the ressources
@@ -409,7 +410,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
       $tout[] = $item;
     }
   } 
-//    AddWarningMsg($sdebug);
+    AddWarningMsg($sdebug);
    
   return $tout;
 }

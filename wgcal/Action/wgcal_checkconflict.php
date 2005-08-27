@@ -42,11 +42,11 @@ function wgcal_checkconflict(&$action) {
     $start = w_datets2db($ds, false)." 00:00:00";
     $end = w_datets2db($ds, false)." 23:59:59";
   }
-  $withme = GetHttpVars("withMe", "off");
+  $withme = GetHttpVars("evwithme", "1");
   $attendees = array();
   $attl = GetHttpVars("attendees", "");
   if ($attl!="") $attendees = explode("|", $attl);
-  if ($withme) $attendees[count($attendees)] = $ownerid;
+  if ($withme==1) $attendees[count($attendees)] = $ownerid;
   
   $conflict = array();
   
