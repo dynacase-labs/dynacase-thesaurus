@@ -466,9 +466,9 @@ function RendezVousEdit() {
   include_once('EXTERNALS/WGCAL_external.php');
   include_once('WGCAL/Lib.wTools.php');
   include_once('FDL/freedom_util.php');
-
-  $fq = getIdFromName($db, "WG_AGENDA");
-  $rvf = getIdFromName($db, "CALEVENT");
+  
+  $fq = getIdFromName($this->dbaccess, "WG_AGENDA");
+  $rvf = getIdFromName($this->dbaccess, "CALEVENT");
   $fref = $action->getParam("WGCAL_G_VFAM", $rvf);
   $this->lay->set("planid", $fq);
   $this->lay->set("idfamref", $fref);
@@ -597,8 +597,9 @@ function RendezVousEdit() {
   $this->lay->set("WITHME", ($withme?"checked":""));
   $this->lay->set("evwithme", ($withme?"1":"0"));
 
-  $this->EventSetTitle($evtitle, $ro);
-  $this->EventSetDescr($evnote, $ro);  
+  $this->lay->set("TITLE", $evtitle);
+  $this->lay->set("DESCR", $evnote);
+
   $this->EventSetDate($evstart, $evend, $evtype, $ro);
   $this->EventSetVisibility($evvis, $ogrp, $ro);
   $this->EventSetCalendar($evcal, $ro);
@@ -628,7 +629,7 @@ function RendezVousEdit() {
   return;  
 }    
 
-function EventSetCategory(&$action, $evcategory) {
+function EventSetCategory($evcategory) {
   global $action;
   include_once("WGCAL/Lib.wTools.php");
   $show = ($action->GetParam("WGCAL_G_SHOWCATEGORIES", 0) ==1 ? true : false);
@@ -646,16 +647,6 @@ function EventSetCategory(&$action, $evcategory) {
     $this->lay->setBlockData("RVCATEGORY", $tcat);
   }
 }
-
-function EventSetTitle($title, $ro) {
-  $this->lay->set("TITLE", $title);
-  $this->lay->set("TITLERO", ($ro?"readonly":""));
-}
-function EventSetDescr($text, $ro) {
-  $this->lay->set("DESCR", $text);
-  $this->lay->set("DESCRRO", ($ro?"readonly":""));
-}
-
 
 function EventSetDate($dstart, $dend, $type, $ro) 
 {

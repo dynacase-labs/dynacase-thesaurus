@@ -20,7 +20,7 @@ function w_dbmon($dbtime) { return substr($dbtime,3,2); }
 function w_dbyea($dbtime) { return substr($dbtime,6,4); }
 
 function w_dbdate2ts($dbtime) {
-  return mktime(w_dbhou($dbtime), 
+  return gmmktime(w_dbhou($dbtime), 
 		w_dbmin($dbtime), 
 		w_dbsec($dbtime), 
 		w_dbmon($dbtime), 

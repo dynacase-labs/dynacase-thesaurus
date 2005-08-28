@@ -4,13 +4,13 @@
 </form>
 
 <script type="text/javascript">
+var grpChanged = false;
 var glist = new Array();
 [BLOCK GLIST]
 glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
 
-function changeGrp(grp) {
-
-  var grpList = '';
+function changeGrp(grp) 
+{
   var cGrp = document.getElementById('d'+grp);
   if (!cGrp) return;
   if (cGrp.className!='WGCRessSelected') {
@@ -22,17 +22,33 @@ function changeGrp(grp) {
     }
     cGrp.className = 'WGCRessDefault';
   }
-  
+  grpChanged = true;
+  return false;
+}
+
+function saveGrp() 
+{
+  var grpList = '';
   for (i=0; i<glist.length;i++) {
     if (glist[i] != -1) {
       grpList += glist[i]+'|';
     }
   }
-//   alert('liste des groupes : '+grpList);
   document.getElementById('groups').value = grpList;
   document.getElementById('setgroups').submit();
+  grpChanged = false;
   return false;
 }
+
+function checkGrp()
+{
+  if (grpChanged) {
+    if (confirm('[TEXT:groups are changed, save the list ?]')) {
+      saveGrp();
+    }
+  }
+}
+
 </script>
 <div class="wMonthTextTitle" align="left">[TEXT:agenda groups selection]</div>
 
@@ -45,6 +61,7 @@ onclick="changeGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="1
 </div>
 
 <table cellspacing="0" cellpadding="0" width="100%"><tr><td class="wMonthTextTitle"  align="right">
-<img src="[IMG:wm-close.gif]" id="btnCancel" height="12px" title="[TEXT:cancel]" class="WGCalAction" onclick="window.close();"></td></tr></table>
+<img src="[IMG:wm-save.gif]" id="btnApply" height="12px" title="[TEXT:save]" class="WGCalAction" onclick="saveGrp();">
+<img src="[IMG:wm-close.gif]" id="btnCancel" height="12px" title="[TEXT:cancel]" class="WGCalAction" onclick="checkGrp(); window.close();"></td></tr></table>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

@@ -26,7 +26,7 @@ function wgcal_storeevent(&$action) {
     if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
     $newevent = true;
   } else {
-    $event = new Doc($dbaccess, $id);
+    $event = new_Doc($dbaccess, $id);
     $oldrv = $event->getValues();
   }
   
@@ -77,7 +77,7 @@ function wgcal_storeevent(&$action) {
   else $oldcal = -1;
   $event->setValue("CALEV_EVCALENDARID", $calid);
   if ($calid != -1) {
-    $cal = new Doc($dbaccess, $calid);
+    $cal = new_Doc($dbaccess, $calid);
     $caltitle = $cal->title;
   }
   $event->setValue("CALEV_EVCALENDAR", $caltitle);
@@ -141,7 +141,7 @@ function wgcal_storeevent(&$action) {
   if ($attl!="") {
     $attendees = explode("|", $attl);
     foreach ($attendees as $ka => $va) {
-      $att = new Doc($dbaccess, $va);
+      $att = new_Doc($dbaccess, $va);
       if ($att->fromid==$groupfid || $att->fromid==$igroupfid) {
 	$nattl[$iatt]["fid"] = $att->id;
 	$nattl[$iatt]["fgid"] = -1;
@@ -156,7 +156,7 @@ function wgcal_storeevent(&$action) {
     }
     // Look at others attendees
     foreach ($attendees as $ka => $va) {
-      $att = new Doc($dbaccess, $va);
+      $att = new_Doc($dbaccess, $va);
       if ($att->fromid!=$groupfid && $att->fromid!=$igroupfid) {
 	$nattl[$iatt]["fid"] = $att->id;
 	$nattl[$iatt]["fgid"] = -1;
@@ -167,7 +167,7 @@ function wgcal_storeevent(&$action) {
     foreach ($nattl as $ka => $va) {
       if ($va<=0||$va=="") continue;
       if ($va["fid"] != $owner) {
-	$att = new Doc($dbaccess, $va["fid"]);
+	$att = new_Doc($dbaccess, $va["fid"]);
 	$attendeesid[$attcnt]  = $att->id;
 	$attendeeswid[$attcnt]  = $att->getValue("us_whatid");
 	$attendeesname[$attcnt]  = $att->getTitle();
@@ -195,33 +195,41 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_ATTGROUP", $attendeesgroup); 
     
   $event->SetProfil($event->id);
- 
+  
   $err = $event->Modify();
   if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
   else {
     $err = $event->PostModify();
     if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
   }
+  
 
-
-  // Get ACLs
-  // print_r2($event->acls);
-  define("R_READ",0);
-  define("R_WRITE", 1);
-  define("R_DELETE", 2);
-  define("R_CONFIDENTIAL", 5);
-  $aclv = array( R_READ => 1, R_WRITE => 2, R_DELETE => 3, R_CONFIDENTIAL => 10);
+  // [init] => 0 (control initialized)
+  // [view] => 1 (view document)
+  // [send] => 4 (send document)
+  // [edit] => 2 (edit document)
+  // [delete] => 3 (delete document)
+  // [open] => 5 (open folder)
+  // [execute] => 5 (execute search)
+  // [modify] => 6 (modify folder)
+  // [viewacl] => 7 (view acl)
+  // [modifyacl] => 8 (modify acl)
+  // [create] => 5 (create doc)
+  // [unlock] => 9 (unlock unowner locked doc)
+  // [icreate] => 6 (create doc manually)
+  // [confidential]   define("R_READ",0);
   
   $userf = new_Doc($dbaccess, $owner);
   $acl = array();
   
-  $sdeb = "confidentiality=[$conf] \n";
+  $sdeb = "confidentiality=[$conf] agenda conf=". $userf->getValue("us_wgcal_vcalgrpmode")."\n";
 
   // User agenda visibility
 
   $vcalrestrict = false;
   $vcal = array();
-  if ($userf->getValue("us_wgcal_vcalgrpmode") == 1) {
+  $calgvis = $userf->getValue("us_wgcal_vcalgrpmode");
+  if ($calgvis == 1) {
     $vcalrestrict = true;
     $tvcal = $userf->getTValue("us_wgcal_vcalgrpwid");
     foreach ($tvcal as $k => $v) $vcal[$v] = $v;
@@ -251,81 +259,107 @@ function wgcal_storeevent(&$action) {
   }
 
   
+
+  $aclv["conf"]  = array( "confidential" => $event->dacls["confidential"]["pos"] );
+  $aclv["read"]  = array( "view" => $event->dacls["view"]["pos"] );
+  $aclv["att"] = array( "view" => $event->dacls["view"]["pos"],
+			"execute" => $event->dacls["execute"]["pos"] );
+  $aclv["owner"] = array( "view" => $event->dacls["view"]["pos"],
+			  "send" => $event->dacls["send"]["pos"],
+			  "edit" => $event->dacls["edit"]["pos"],
+			  "delete" => $event->dacls["delete"]["pos"],
+			  "execute" => $event->dacls["execute"]["pos"],
+			  "viewacl" => $event->dacls["viewacl"]["pos"],
+			  "modifyacl" => $event->dacls["modifyacl"]["pos"] );
+  $aclv["unsetowner"] = array( "view" => 0,
+			       "send" => 0,
+			       "edit" => 0,
+			       "delete" => 0,
+			       "execute" => 0,
+			       "viewacl" => 0,
+			       "modifyacl" => 0);
+
   $acls = array();
-  switch ($conf) {
-    
-  case 1:
-    // Private : confidential for groups that can read my agenda
-    //           read for attendees
-    //           confidential for attendees groups
-    foreach ($vcal as $k => $v) {
-      $acls[$k] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
-      $sdeb .= "(private::vcal) g[$k]:R_CONFIDENTIAL\n"; 
-    }
-    foreach ($attendeeswid as $k => $v) {
-      if ($v != $ownerwid) {
-	$acls[$v] = array( R_READ => $aclv[R_READ] );
-	$sdeb .= "(private::att) g[$v]:R_READ\n"; 
-      }
-    }
-    foreach ($attgrps as $k => $v) {
-      $acls[$v] = array( R_CONFIDENTIEL => $aclv[R_CONFIDENTIEL] );
-      $sdeb .= "(private::attgroups) ag[$v]:R_CONFIDENTIEL\n"; 
-    }
-    break;
-    
-  case 2: 
-    // Groups : read for selected groups for this event
-    //          confidential for group that can read my agenda
-    //          read for attendees
-    //           confidential for attendees groups
-    foreach ($vcal as $k => $v) {
-      $acls[$k] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
-      $sdeb .= "(groups::vcal) g[$k]:R_CONFIDENTIAL\n"; 
-    }
-    foreach ($rvcgroup as $k => $v) {
-      $acls[$k] = array( R_READ => $aclv[R_READ] );
-      $sdeb .= "(groups::mygrp) g[$k]:R_READ\n"; 
-    }
-    foreach ($attendeeswid as $k => $v) {
-      if ($v != $ownerwid) {
-	$acls[$v] = array( R_READ => $aclv[R_READ] );
-	$sdeb .= "(groups::att) u[$v]:R_READ\n"; 
-      }
-    }
-    foreach ($attgrps as $k => $v) {
-      $acls[$v] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
-      $sdeb .= "(groups::attgroups) ag[$v]:R_CONFIDENTIEL\n"; 
-    }
-    break;
-  default: 
-    // public : read for groups that can read my agenda
-    //          read for attendees
-    //          read for attendees groups
-    foreach ($vcal as $k => $v) {
-      $acls[$k] =  array( R_READ => $aclv[R_READ] );
-      $sdeb .= "(public::vcal) g[$k]:R_READ\n"; 
-    }
-    foreach ($attendeeswid as $k => $v) {
-      if ($v != $ownerwid) {
-	$acls[$v] = array( R_READ => $aclv[R_READ] );
-	$sdeb .= "(public::att) u[$v]:R_READ\n"; 
-     }
-    }
-    foreach ($attgrps as $k => $v) {
-      $acls[$v] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL] );
-      $sdeb .= "(public::attgroups) ag[$v]:R_CONFIDENTIAL\n"; 
-    }
-  }
 
+  $acls[$ownerwid] = $aclv["owner"];
+  $sdeb .= "Owner[$k]:owner mode\n"; 
   if ($ownerwid != $action->user->id) {
-    $acls[$ownerwid] = array( R_CONFIDENTIAL => $aclv[R_CONFIDENTIAL],
-			      R_READ => $aclv[R_READ],
-			      R_WRITE => $aclv[R_WRITE],
-			      R_DELETE => $aclv[R_DELETE] );
+    $acls[$action->user->id] = $aclv["unsetowner"];
+    $sdeb .= "Current User[".$action->user->id."]:unset all right\n"; 
   }
+  foreach ($attendeeswid as $k => $v) {
+    if ($v != $ownerwid) {
+      $acls[$v] = $aclv["att"];
+      $sdeb .= "Attendee[$v]:attendee mode\n"; 
+    }
+  }
+  
 
-   
+  switch ($conf) 
+    {
+    case 1: // Private
+      // my calendar groups   : Confidential
+      // attendees            : Read
+      // attendees groups     : Confidential
+      // others               : Confidential if my calendar is visible else None
+      foreach ($vcal as $k => $v) {
+	$acls[$k] = $aclv["conf"] ;
+	$sdeb .= "(private::vcal) g[$k]:Confidential\n"; 
+      }
+      foreach ($attgrps as $k => $v) {
+	$acls[$v] = $aclv["conf"];
+	$sdeb .= "(private::attgroups) ag[$v]:Confidential\n"; 
+      }
+      if ($calgvis==0) {
+	$acls[2] = $aclv["conf"];
+	$sdeb .= "(private::others) ag[$v]:Confidential\n"; 
+      }
+      break;
+      
+    case 2: // My groups
+      // calendar groups      : Confidential
+      // event groups         : Read
+      // attendees            : Read
+      // attendees groups     : Confidential
+      // others               : None
+      foreach ($vcal as $k => $v) {
+	$acls[$k] = $aclv["conf"];
+	$sdeb .= "(groups::vcal) g[$k]:Confidential\n"; 
+      }
+      foreach ($rvcgroup as $k => $v) {
+	$acls[$k] = $aclv["read"];
+	$sdeb .= "(groups::mygrp) g[$k]:Read\n"; 
+      }
+      foreach ($attgrps as $k => $v) {
+	$acls[$v] = $aclv["conf"];
+	$sdeb .= "(groups::attgroups) ag[$v]:Confidential\n"; 
+      }
+      break;
+    default: // Public
+      //                        PUBLIC        GROUPS
+      // event groups         : Read          Read
+      // attendees            : Read          Read
+      // attendees groups     : Read          Confidential
+      // others               : Read          None
+      foreach ($vcal as $k => $v) {
+	$acls[$k] =  $aclv["read"];
+	$sdeb .= "(public::vcal) g[$k]:Read\n"; 
+      }
+      foreach ($attgrps as $k => $v) {
+	if ($calgvis==0) {
+	  $acls[$v] = $aclv["read"];
+	  $sdeb .= "(public::attgroups) ag[$v]:Read\n"; 
+	} else {
+	  $acls[$v] = $aclv["conf"];
+	  $sdeb .= "(public::attgroups) ag[$v]:Confidential\n"; 
+	}
+      }
+      if ($calgvis==0) {
+	$acls[2] = $aclv["read"];
+	$sdeb .= "(public::others) ag[$v]:Read\n"; 
+      }
+    }
+  
   foreach ($acls as $user => $uacl) {
     $perm = new DocPerm($dbaccess, array($event->id,$user));
     $perm->UnsetControl();
@@ -333,7 +367,9 @@ function wgcal_storeevent(&$action) {
       $sdeb .= " user=$user acl $k set to $v\n";
       if (intval($v) > 0)  {
 	$perm->SetControlP($v);
-	}
+      } else {
+	$perm->SetControlU($v);
+      }	
     }
     if ($perm->isAffected()) $perm ->modify();
     else $perm->Add();
@@ -345,11 +381,11 @@ function wgcal_storeevent(&$action) {
   // Gestion du calendrier d'appartenance
   if ($oldcal != $calid && !$newevent) {
     if ($oldcal!=-1) {
-      $cal = new Doc($dbaccess, $oldcal);
+      $cal = new_Doc($dbaccess, $oldcal);
       $cal->DelFile($event->id);
       $event->AddComment(_("remove event from calendar")." ".$cal->title);
     }
-    $cal = new Doc($dbaccess, $calid);
+    $cal = new_Doc($dbaccess, $calid);
     if ($cal->isAlive()) {
       $cal->AddFile($event->id);
       $event->AddComment(_("insert event in calendar")." ".$caltitle);
