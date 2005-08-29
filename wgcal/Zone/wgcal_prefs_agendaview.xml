@@ -48,8 +48,33 @@ onclick="changeUserGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" heigh
 [ENDBLOCK L_RESS]
 
 var glist = new Array();
-[BLOCK GLIST]
-glist[[igroup]] = [gfid];[ENDBLOCK GLIST]
+[BLOCK GLIST]glist[[igroup]] = [gfid];
+[ENDBLOCK GLIST]
+[IF GInit]InitGroups();[ENDIF GInit]
+
+function countOfUserGrp() {
+  var cug = 0;
+  for (var i=0; i<glist.length;i++) {
+    if (glist[i] != -1) cug++;
+  }
+  return cug;
+}
+  
+
+function InitGroups() {
+  var grpList = '';
+  for (var i=0; i<glist.length;i++) {
+    if (glist[i]!=-1) {
+      var cGrp = document.getElementById('d'+glist[i]);
+      cGrp.className = 'WGCRessSelected';
+      grpList += glist[i]+'|';
+    }
+  }
+  document.getElementById('ugroups').value = grpList;
+  document.getElementById('setugroups').submit();
+  return false;
+}
+
 
 function changeUserGrp(grp) {
 
@@ -60,6 +85,10 @@ function changeUserGrp(grp) {
     glist[glist.length] = grp;
     cGrp.className = 'WGCRessSelected';
   } else {
+    if (countOfUserGrp()==1) {
+      alert('[TEXT:you must have one group at least]');
+      return false;
+    }
     for (i=0; i<glist.length;i++) {
       if (glist[i] == grp) glist[i] = -1;
     }
@@ -79,8 +108,8 @@ function changeUserGrp(grp) {
 
 
 var gclist = new Array();
-[BLOCK GCLIST]
-gclist[[igroup]] = [gfid];[ENDBLOCK GCLIST]
+[BLOCK GCLIST]gclist[[igroup]] = [gfid];[ENDBLOCK GCLIST]
+[IF cginit]saveCalGrpList();[ENDIF cginit]
 
 function changeCalGrpVis(elt) {
   var glistd = document.getElementById('glistd');
@@ -103,6 +132,7 @@ function changeCalGrpList(grp) {
   if (cGrp.className!='WGCRessSelected') {
     gclist[gclist.length] = grp;
     cGrp.className = 'WGCRessSelected';
+    gmode.checked = true;
     gmode.style.visibility = 'visible';
   } else {
     for (i=0; i<gclist.length;i++) {

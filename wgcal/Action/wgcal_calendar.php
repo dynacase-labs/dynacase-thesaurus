@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.52 2005/08/19 17:21:33 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.53 2005/08/29 17:35:15 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -23,8 +23,6 @@ function wgcal_calendar(&$action) {
   if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  $debug = GetHttpVars("debug", 0);
 
   $ress = GetHttpVars("ress", "");
   setHttpVar("ress", $ress);
@@ -51,18 +49,26 @@ function wgcal_calendar(&$action) {
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
 
   $tout = wGetEvents(ts2db($firstWeekDay, "Y-m-d H:i:s"), ts2db($edate, "Y-m-d H:i:s"));
-  
+
   $popuplist = array();
   foreach ($tout as $k => $v) {
+    $IsRV = ($v["FIDP"]==getIdFromName($dbaccess,"CALEVENT") ? true : false);
+    $tout[$k]["vRv"] = true;
     $d = new Doc($dbaccess, $v["IDP"]);  
     $tout[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
     $tout[$k]["EvRCard"] = $d->viewDoc($d->defaultabstract);
-    $tout[$k]["edit"] = $d->RvHavePermission($action->user->fid,'E');
-    if (!isset($popuplist[$d->popup_name])) {
-      $popuplist[$d->popup_name] = true;
-      popupInit($d->popup_name,  $d->popup_item);
+    if ($IsRV) {
+      $tout[$k]["edit"] = $d->RvHavePermission($action->user->fid,'E');
+      $tout[$k]["vRv"] = true;
+      if (!isset($popuplist[$d->popup_name])) {
+	$popuplist[$d->popup_name] = true;
+	popupInit($d->popup_name,  $d->popup_item);
+      }
+      $d->RvSetPopup($k);
+    } else {
+      $tout[$k]["edit"] = false;
+      $tout[$k]["vRv"] = false;
     }
-    $d->RvSetPopup($k);
   }
   popupGen(count($tout));
 
@@ -82,8 +88,9 @@ function wgcal_calendar(&$action) {
 
   $action->lay->set("standAlone", $sm);
 
-  $hcolsize = 5;
-  $colsize = round((100 - $hcolsize) / $ndays);
+  $Hcolsize = 5;
+  $action->lay->set("hcolsize", $Hcolsize);
+  $colsize = floor((100-$Hcolsize) / ($ndays));
 
   $cdate = w_GetDayFromTs(time());
   $pafter = $sdate + ($ndays * SEC_PER_DAY);
@@ -136,7 +143,8 @@ function wgcal_calendar(&$action) {
       $class[$i] = "WGCAL_Day";
     } else {
       $classh[$i] = "WGCAL_DayLine"; 
-      if ($i==5||$i==6) $class[$i] = "WGCAL_DayWE";
+      $iwe = $i % 7;
+      if ($iwe==5 || $iwe==6) $class[$i] = "WGCAL_DayWE";
       else $class[$i] = "WGCAL_Day";
     }
     $t[$i]["IDD"] = $i;
@@ -174,7 +182,7 @@ function wgcal_calendar(&$action) {
 	if ($id>6) $mo = $id;
 	else $mo = $id % 7;
 	$tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
-	$tcell[$itc]["colsize"] = $colsize;
+	$tcell[$itc]["colsize"] = ($i==0?$Hcolsize:$colsize);
 	$tcell[$itc]["urlroot"] = $urlroot;
 	$tcell[$itc]["times"] = $firstWeekDay + ($id*SEC_PER_DAY)+($h*SEC_PER_HOUR) + ($hd*$mdiv);
 	$tcell[$itc]["timee"] = $tcell[$itc]["times"] + (($hd==0?1:$hd) * $mdiv);

@@ -9,6 +9,7 @@
 
 <div id="root">
 <table style="z-index:2000;" width="100%" cellspacing="0" border="0" id="week">
+
   <tr height="[WGCAL_U_HLINETITLE]px">
     <td align="center" colspan="[colspan]">
       <table width="100%"  cellspacing="0" border="0"><tr>
@@ -25,19 +26,25 @@
           onclick="document.location = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pafter]&sm=[sm]&vm=[vm]&ress=[ress]';"
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-nperiod.gif]" height="12"></td>
       <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
-      <td align="center" class="WGCAL_Period" width="50" title="[TEXT:change hours division]">[IFNOT standAlone]<select style="cursor:pointer;" id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select>[ENDIF standAlone]</td>
-      </tr></table> 
+      <td align="center" width="50" title="[TEXT:change hours division]">[IFNOT standAlone]<select style="cursor:pointer;" id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select>[ENDIF standAlone]</td>
+      </tr>
+      </table> 
      </td>
- </tr>    
+ </tr>
+    
  <tr height="[WGCAL_U_HLINETITLE]px">
-    <td class="WGCAL_Period"></td>[BLOCK DAYS_LINE]<td id="D[IDD]" width="[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times]);">[LABEL]</td>[ENDBLOCK DAYS_LINE]</tr>
-[BLOCK HOURS]<tr height="[HLINEHOURS]px"><td id="L[LID]" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]</tr>[ENDBLOCK HOURS]
+    <td width="[hcolsize]%" class="WGCAL_Period"></td>
+    [BLOCK DAYS_LINE]<td id="D[IDD]" width="[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times]);">[LABEL]</td>[ENDBLOCK DAYS_LINE]
+ </tr>
+[BLOCK HOURS]<tr height="[HLINEHOURS]px">
+<td id="L[LID]" width="[hcolsize]%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]
+</tr>[ENDBLOCK HOURS]
 </table>[ZONE WGCAL:WGCAL_INFOS]</div>
 
 [ZONE WGCAL:WGCAL_POPUP]
 [BLOCK EVENTS]
 <div id="evt[RG]"
-  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=IMPCARD[ENDIF edit]&id=[IDP]');"
+  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=[ENDIF edit][IF vRv]IMPCARD[ENDIF vRv][IFNOT vRv]FDL_CARD[ENDIF vRv]&id=[IDP]');"
   onmouseover="WGCalEvOnMouseOver(event, '[RG]');" 
   onmouseout="WGCalEvOnMouseOut(event, '[RG]');" 
   onContextMenu="SetCurrentEvent([IDP], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 

@@ -324,12 +324,15 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
 
   $qev = GetHttpVars("qev", getIdFromName($dbaccess,"WG_AGENDA"));
 
-  $famr = GetHttpVars("famref", $action->getParam("WGCAL_G_VFAM", "CALEVENT"));
-  $ft = explode("|", $famr);
+  $fl =  $action->getParam("WGCAL_G_VFAM", "CALEVENT");
+  $famr = GetHttpVars("famref", $fl);
+  $famrt = explode("|", $famr);
   $fti = array();
-//   foreach ($ft as $k => $v)     $fti[] = (is_numeric($v) ? $v : getIdFromName($dbaccess, $v));
-//   $idfamref = implode("|", $fti);
-  $idfamref = "1010";
+  foreach ($famrt as $k => $v) {
+    $fti[] = (is_int($v) ? $v : getIdFromName($dbaccess, chop($v)));
+  }
+  $idfamref = implode("|", $fti);
+  //  $idfamref = getIdFromName($dbaccess,"CALEVENT")."|".getIdFromName($dbaccess,"ABSENCE");;
   setHttpVar("idfamref", $idfamref);
 
   // Init the ressources
@@ -370,6 +373,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
 		   "START" => localFrenchDateToUnixTs($v["evt_begdate"]),
 		   "END" => localFrenchDateToUnixTs($end), 
 		   "IDP" =>  $v["evt_idinitiator"],
+		   "FIDP" => $v["evt_frominitiatorid"],
 		   "IDC" =>  $v["evt_idcreator"] );
     $displayEvent = true;
 

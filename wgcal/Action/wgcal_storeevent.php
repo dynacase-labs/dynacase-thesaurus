@@ -222,7 +222,12 @@ function wgcal_storeevent(&$action) {
   $userf = new_Doc($dbaccess, $owner);
   $acl = array();
   
-  $sdeb = "confidentiality=[$conf] agenda conf=". $userf->getValue("us_wgcal_vcalgrpmode")."\n";
+  switch ($conf) {
+  case 1 : $ct = "private"; break;
+  case 2 : $ct = "groups"; break;
+  default: $ct = "public";
+  }
+  $sdeb = "RV Confidentiality=[$ct], Agenda visibility:".($userf->getValue("us_wgcal_vcalgrpmode")==1?"Groups":"Public")."\n";
 
   // User agenda visibility
 
@@ -232,7 +237,7 @@ function wgcal_storeevent(&$action) {
   if ($calgvis == 1) {
     $vcalrestrict = true;
     $tvcal = $userf->getTValue("us_wgcal_vcalgrpwid");
-    foreach ($tvcal as $k => $v) $vcal[$v] = $v;
+    foreach ($tvcal as $k => $v) $vcal[$v] = $v; 
   } else {
     $vcal[2] = 2;
   }
@@ -240,7 +245,7 @@ function wgcal_storeevent(&$action) {
   $tcfg = explode("|", $confg);
   $rvcgroup = array();
   foreach ($tcfg as $k => $v) {
-    if ($v!="")  $rvcgroup[$v] = $v;
+    if ($v!="") $rvcgroup[$v] = $v;
   }
 
 
@@ -281,98 +286,72 @@ function wgcal_storeevent(&$action) {
 
   $acls = array();
 
-  $acls[$ownerwid] = $aclv["owner"];
-  $sdeb .= "Owner[$k]:owner mode\n"; 
   if ($ownerwid != $action->user->id) {
     $acls[$action->user->id] = $aclv["unsetowner"];
-    $sdeb .= "Current User[".$action->user->id."]:unset all right\n"; 
+    $acls[$ownerwid] = $aclv["owner"];
   }
   foreach ($attendeeswid as $k => $v) {
     if ($v != $ownerwid) {
       $acls[$v] = $aclv["att"];
-      $sdeb .= "Attendee[$v]:attendee mode\n"; 
     }
   }
   
 
-  switch ($conf) 
-    {
-    case 1: // Private
-      // my calendar groups   : Confidential
-      // attendees            : Read
-      // attendees groups     : Confidential
-      // others               : Confidential if my calendar is visible else None
-      foreach ($vcal as $k => $v) {
-	$acls[$k] = $aclv["conf"] ;
-	$sdeb .= "(private::vcal) g[$k]:Confidential\n"; 
-      }
-      foreach ($attgrps as $k => $v) {
-	$acls[$v] = $aclv["conf"];
-	$sdeb .= "(private::attgroups) ag[$v]:Confidential\n"; 
-      }
-      if ($calgvis==0) {
-	$acls[2] = $aclv["conf"];
-	$sdeb .= "(private::others) ag[$v]:Confidential\n"; 
-      }
-      break;
-      
-    case 2: // My groups
-      // calendar groups      : Confidential
-      // event groups         : Read
-      // attendees            : Read
-      // attendees groups     : Confidential
-      // others               : None
-      foreach ($vcal as $k => $v) {
-	$acls[$k] = $aclv["conf"];
-	$sdeb .= "(groups::vcal) g[$k]:Confidential\n"; 
-      }
-      foreach ($rvcgroup as $k => $v) {
-	$acls[$k] = $aclv["read"];
-	$sdeb .= "(groups::mygrp) g[$k]:Read\n"; 
-      }
-      foreach ($attgrps as $k => $v) {
-	$acls[$v] = $aclv["conf"];
-	$sdeb .= "(groups::attgroups) ag[$v]:Confidential\n"; 
-      }
-      break;
-    default: // Public
-      //                        PUBLIC        GROUPS
-      // event groups         : Read          Read
-      // attendees            : Read          Read
-      // attendees groups     : Read          Confidential
-      // others               : Read          None
-      foreach ($vcal as $k => $v) {
-	$acls[$k] =  $aclv["read"];
-	$sdeb .= "(public::vcal) g[$k]:Read\n"; 
-      }
-      foreach ($attgrps as $k => $v) {
-	if ($calgvis==0) {
-	  $acls[$v] = $aclv["read"];
-	  $sdeb .= "(public::attgroups) ag[$v]:Read\n"; 
-	} else {
-	  $acls[$v] = $aclv["conf"];
-	  $sdeb .= "(public::attgroups) ag[$v]:Confidential\n"; 
-	}
-      }
-      if ($calgvis==0) {
-	$acls[2] = $aclv["read"];
-	$sdeb .= "(public::others) ag[$v]:Read\n"; 
-      }
+  switch ($conf) {
+  case 1: // Private
+    // my calendar groups   : Confidential
+    // attendees            : Read
+    // attendees groups     : Confidential
+    // others               : Confidential if my calendar is visible else None
+    foreach ($vcal as $k => $v) $acls[$k] = $aclv["conf"] ;
+    foreach ($attgrps as $k => $v) $acls[$k] = $aclv["conf"];
+    if ($calgvis==0) $acls[2] = $aclv["conf"];
+    break;
+    
+  case 2: // My groups
+    // calendar groups      : Confidential
+    // event groups         : Read
+    // attendees            : Read
+    // attendees groups     : Confidential
+    // others               : None
+    foreach ($vcal as $k => $v) $acls[$k] = $aclv["conf"];
+    foreach ($rvcgroup as $k => $v) $acls[$k] = $aclv["read"];
+    foreach ($attgrps as $k => $v) $acls[$k] = $aclv["conf"];
+    break;
+    
+  default: // Public
+    //                        PUBLIC        GROUPS
+    // event groups         : Read          Read
+    // attendees            : Read          Read
+    // attendees groups     : Read          Confidential
+    // others               : Read          None
+    foreach ($vcal as $k => $v) $acls[$k] =  $aclv["read"];
+    foreach ($attgrps as $k => $v) {
+      if ($calgvis==0)  $acls[$k] = $aclv["read"];
+      else $acls[$k] = $aclv["conf"];
     }
+    if ($calgvis==0) $acls[2] = $aclv["read"];
+  }
   
   foreach ($acls as $user => $uacl) {
+
+    $dt = getDocFromUserId($dbaccess,$user);
+    $sdeb .= "[".$dt->GetTitle()."($user)] = ";
+
     $perm = new DocPerm($dbaccess, array($event->id,$user));
+
     $perm->UnsetControl();
     foreach ($uacl as $k => $v) {
-      $sdeb .= " user=$user acl $k set to $v\n";
+      $sdeb .= "[$k=>$v] ";
       if (intval($v) > 0)  {
 	$perm->SetControlP($v);
       } else {
-	$perm->SetControlU($v);
+	$perm->SetControlN($v);
       }	
     }
     if ($perm->isAffected()) $perm ->modify();
     else $perm->Add();
+    $sdeb .= "\n";
   }
   
   AddWarningMsg(  $sdeb );

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_agendaview.php,v 1.3 2005/08/25 16:02:16 marc Exp $
+ * @version $Id: wgcal_prefs_agendaview.php,v 1.4 2005/08/29 17:35:15 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -45,8 +45,8 @@ function wgcal_prefs_agendaview(&$action) {
   
   $u_rgroups = wGetUserGroups();
 
-  $gjs = array(); $igjs=0;
   $igroups = array(); $ig=0;
+  $onsel = false;
   foreach ($u_rgroups as $k => $v) {
     $gr = new Doc($dbaccess, $k);
     $igroups[$ig]["gfid"] = $gr->id;
@@ -55,13 +55,21 @@ function wgcal_prefs_agendaview(&$action) {
     $igroups[$ig]["gicon"] = $gr->GetIcon();
     $igroups[$ig]["gjstitle"] = addslashes(ucwords(strtolower($gr->title)));
     $igroups[$ig]["gisused"] = $v["sel"];
-    if ($v["sel"]) {
-      $gjs[$igjs]["igroup"] = $igjs;
-      $gjs[$igjs]["gfid"] = $gr->id;
-      $igjs++;
-    }    
+    if ($v["sel"]) $onsel = true;
     $ig++;
   }  
+
+  $gjs = array(); $igjs=0;
+  foreach ($igroups as $k => $v) {
+    if ($v["gisused"] || !$onsel) {
+      $gjs[$igjs]["igroup"] = $igjs;
+      $gjs[$igjs]["gfid"] = $v["gfid"];
+      $igroups[$k]["gisused"] = true;
+     $igjs++;
+    }
+  }
+
+  $action->lay->set("GInit", !$onsel);
   $action->lay->setBlockData("groups", $igroups);
   $action->lay->setBlockData("GLIST", $gjs);
   
@@ -105,11 +113,12 @@ function wgcal_prefs_agendaview(&$action) {
       }
     }
 
-    $gjs = array(); $igjs=0;
     $igroups = array(); $ig=0;
+    $action->lay->set("cginit", false);
     if (count($u_rgroups)>0) {
 
       $action->lay->set("showgroups", true);
+      $onesel = false;
       foreach ($u_rgroups as $k => $v) {
 	$gr = new Doc($dbaccess, $k);
 	$igroups[$ig]["gfid"] = $gr->id;
@@ -120,15 +129,25 @@ function wgcal_prefs_agendaview(&$action) {
 	$igroups[$ig]["gisused"] = $v["sel"];
 	$igroups[$ig]["gwriteselected"] = ($v["wri"] ? "checked" : "");
 	$igroups[$ig]["gwvisibility"] = ($v["sel"] ? "visible" : "hidden");
-	if ($v["sel"]) {
+	if ($v["sel"]) $onesel = true;
+	$ig++;
+      }
+
+      $gjs = array(); $igjs=0;
+      foreach ($igroups as $k => $v) {
+	if ($v["gisused"] || !$onesel) {
 	  $gjs[$igjs]["igroup"] = $igjs;
-	  $gjs[$igjs]["gfid"] = $gr->id;
-	  $gjs[$igjs]["gmode"] = ($v["wri"] ? "true" : "false");
-	  
+	  $gjs[$igjs]["gfid"] = $v["gfid"];
+	  $gjs[$igjs]["gmode"] = "true";
+	  if (!$onesel) {
+	    $igroups[$k]["gisused"] = true;
+	    $igroups[$k]["gwriteselected"] = "checked";
+	    $igroups[$k]["gwvisibility"] = "visible";
+	  }
 	  $igjs++;
 	}    
-	$ig++;
-      }  
+      } 
+      $action->lay->set("cginit", !$onesel);
     }
     $action->lay->setBlockData("cgroups", $igroups);
     $action->lay->setBlockData("GCLIST", $gjs);

@@ -256,7 +256,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
    <img id="address" class="wSmallButton" style="cursor:pointer;" height="20" onclick="if (this.className!='wSmallButton') this.className='wSmallButton'; else this.className='wSmallButtonPushed'; ViewRessourceHelper('[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');"; title="[TEXT:ressources advanced search]" src="[IMG:wm-moreressources.gif]">
 
    <img id="viewplan" class="wSmallButton" style="display:[voneatt];" height="20"
-          onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T?idfamref=[idfamref]&byres=Y&id=[planid]');";
+          onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T&idfamref=[idfamref]&byres=Y&id=[planid]');";
           src="[IMG:wm-planner.gif]" title="[TEXT:vew disponibility]">
 
    <img id="delall" class="wSmallButton" style="display:[voneatt]; cursor:pointer;" height="20"

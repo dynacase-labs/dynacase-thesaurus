@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.7 2005/08/26 15:59:06 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.8 2005/08/29 17:35:15 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -46,7 +46,7 @@ function wgcal_searchiuser(&$action) {
     if ($action->user->id != $v["id"]) {
       $t[$i]["attId"] = $v["id"];
       $t[$i]["attIcon"] = $doc->GetIcon($v["icon"]);
-      $t[$i]["attTitle"] = ucwords(strtolower($v["title"]));
+      $t[$i]["attTitle"] = ucwords(strtolower(addslashes(($v["title"])));
       $t[$i]["attState"] = EVST_NEW;
       $t[$i]["attLabel"] = WGCalGetLabelState(EVST_NEW);
       $t[$i]["attColor"] = WGCalGetColorState(EVST_NEW);

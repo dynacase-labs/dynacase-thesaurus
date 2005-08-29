@@ -25,6 +25,9 @@ var $popup_item = array('editrv',
 			'cancelrv' );
 var $popup_zone = "WGCAL:WGCAL_POPUP";
 
+function SetTitle() {
+  $this->setValue($this->getValue("calev_evtitle"));
+}
 
 function postModify() {
   $err = $this->setEvent(); 
@@ -288,51 +291,40 @@ function RendezVousView() {
  */
 function showIcons($private, $withme) {
   global $action;
+  $ricons = array( "CONFID" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
+				      "icontitle" => _("icon text confidential event") ),
+		   "INVIT" => array( "iconsrc" => $action->getImageUrl("wm-invitation.gif"), 
+				     "icontitle" => _("icon text invitation") ),
+		   "VIS_PRIV" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), 
+					"icontitle" => _("icon text visibility private") ),
+		   "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), 
+				       "icontitle" => _("icon text visibility group") ),
+		   "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-repeat.gif"), 
+				      "icontitle" => _("icon text repeat event") ),
+		   "CAL_PRIVATE" => array( "iconsrc" => $action->getImageUrl("wm-privatecalendar.gif"), 
+					   "icontitle" => _("icon text private calendar") ),
+		   "ALARM" => array( "iconsrc" => $action->getImageUrl("wm-alarm.gif"), 
+				     "icontitle" => _("icon text alarm") ),
+		   "GROUP" => array( "iconsrc" => $action->getImageUrl("wm-attendees.gif"), 
+				     "icontitle" => _("icon text with attendees") )
+		   );
   $icons = array();
   $sico = $this->getWgcalUParam("WGCAL_U_RESUMEICON", 0);
   if ($sico == 1) {
-  if ($private) {
-    $this->addIcons($icons, "CONFID");
-  } else {
-    if ($this->getValue("CALEV_EVCALENDARID") > -1)  $this->addIcons($icons, "CAL_PRIVATE");
-    if ($this->getValue("CALEV_VISIBILITY") == 1)  $this->addIcons($icons, "VIS_PRIV");
-    if ($this->getValue("CALEV_VISIBILITY") == 2)  $this->addIcons($icons, "VIS_GRP");
-    if ($this->getValue("CALEV_REPEATMODE") != 0)  $this->addIcons($icons, "REPEAT");
-    if ((count($this->getTValue("CALEV_ATTID"))>1))  $this->addIcons($icons, "GROUP");
-    if ($withme && ($this->getValue("CALEV_OWNERID") != $action->user->fid)) $this->addIcons($icons, "INVIT");
-    if ($this->getValue("CALEV_EVALARMTIME") > 0) $this->addIcons($icons, "ALARM");
-  }
+    if ($private)  $icons[] = $ricons["CONFID"];
+    else {
+      if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = $ricons["CAL_PRIVATE"];
+      if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = $ricons["VIS_PRIV"];
+      if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = $ricons["VIS_GRP"];
+      if ($this->getValue("CALEV_REPEATMODE") != 0)  $icons[] = $ricons["REPEAT"];
+      if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = $ricons["GROUP"];
+      if ($withme && ($this->getValue("CALEV_OWNERID") != $action->user->fid)) $icons[] = $ricons["INVIT"];
+      if ($this->getValue("CALEV_EVALARMTIME") > 0) $icons[] = $ricons["ALARM"];
+    }
   }
   $this->lay->SetBlockData("icons", $icons);
 }
 
-/*
- *
- */
-function addIcons(&$ia, $icol)
-{
-  global $action;
-
-  $ricons = array(
-     "CONFID" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
-			"icontitle" => "[TEXT:confidential event]" ),
-     "INVIT" => array( "iconsrc" => $action->getImageUrl("wm-invitation.gif"), 
-		       "icontitle" => "[TEXT:invitation]" ),
-     "VIS_PRIV" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), 
-			  "icontitle" => "[TEXT:visibility private]" ),
-     "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), 
-			 "icontitle" => "[TEXT:visibility group]" ),
-     "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-repeat.gif"), 
-			"icontitle" => "[TEXT:repeat event]" ),
-     "CAL_PRIVATE" => array( "iconsrc" => $action->getImageUrl("wm-privatecalendar.gif"), 
-			     "icontitle" => "[TEXT:private calendar]" ),
-     "ALARM" => array( "iconsrc" => $action->getImageUrl("wm-alarm.gif"), 
-		       "icontitle" => "[TEXT:alarm]" ),
-     "GROUP" => array( "iconsrc" => $action->getImageUrl("wm-attendees.gif"), 
-		       "icontitle" => "[TEXT:with attendees]" )
-  );
-  $ia[count($ia)] = $ricons[$icol];
-}
 
 /*
  *
@@ -469,9 +461,14 @@ function RendezVousEdit() {
   
   $fq = getIdFromName($this->dbaccess, "WG_AGENDA");
   $rvf = getIdFromName($this->dbaccess, "CALEVENT");
-  $fref = $action->getParam("WGCAL_G_VFAM", $rvf);
+ 
   $this->lay->set("planid", $fq);
-  $this->lay->set("idfamref", $fref);
+  $fref = $action->getParam("WGCAL_G_VFAM", $rvf);
+  $if = array();
+  foreach (explode("|",$fref) as $k => $v) {
+    $if[] = getIdFromName($this->dbaccess, $v);
+  }
+  $this->lay->set("idfamref", implode("|", $if));
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");

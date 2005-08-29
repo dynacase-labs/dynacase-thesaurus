@@ -162,7 +162,7 @@ TD {
 	border-right-color: [WTH_COLOR_3];
 	border-right-style: dotted;
 	border-right-width: 1px;
-        background-color : [WTH_COLOR_1];
+        background-color : [WTH_CALWEEKEND];
 }
 .WGCAL_DayCur {
 	border-bottom: 1px dotted [WTH_COLOR_3];
@@ -345,6 +345,7 @@ TD {
 }
 
 .wEvResume {
+  background-color: #d1d2db;
   cursor:crosshair; 
   margin:0px; 
   border-top-width:1px; 

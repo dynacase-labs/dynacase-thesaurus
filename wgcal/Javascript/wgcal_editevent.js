@@ -489,9 +489,20 @@ function viewattdispo(url) {
   
   var td = new Date();
   td.setTime(rvs*1000);
-  js = cal_to_jd( "CE", td.getFullYear(), td.getMonth()+1, td.getDate(), td.getHours(), td.getMinutes(), td.getSeconds() );
+  var ye  = parseFloat(td.getFullYear());
+  var mo  = parseFloat(td.getMonth()) + 1.0;
+  var da  = parseFloat(td.getDate());
+  var ho  = 0; // parseFloat(td.getHours());
+  var mn  = 0; // parseFloat(td.getMinutes());
+  var se  = 0; // parseFloat(td.getSeconds());
+  
+  var sdb =  '';
+//   sdb += 'Year:'+ye+' Month:'+mo+' Day:'+da+' Hour:'+ho+' Min:'+mn+' Sec:'+se+'\n';
+  js = cal_to_jd( "CEST", ye, mo, da, ho, mn, se);
   je = parseFloat(js) + 14.0;
-//    alert('ViewDispo '+url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
+//   sdb += 'A l\'envers : ['+jd_to_cal(js,'-')+','+jd_to_cal(je,'-')+']\n';
+//    sdb += 'ViewDispo '+url+'&jdstart='+js+'&jdend='+je+'&idres='+rll;
+//   alert(sdb);
   subwindow(300, 700, 'ViewDispo', url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
 }
 

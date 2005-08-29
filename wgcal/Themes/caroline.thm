@@ -12,8 +12,8 @@ $theme->WTH_COLOR_3               =  "#d7bbd7";
 $theme->WTH_ALERT                 =  "red";
 
 $theme->WTH_COLOR_TOOL            =  "#dfc4f1";
-$theme->WTH_CALWEEKEND            =  "#EFE2FF";
-$theme->WTH_CALTODAY              =  "white";
+$theme->WTH_CALWEEKEND            =  "#ece5ed";
+$theme->WTH_CALTODAY              =  "#fef6ff";
 
 $theme->WTH_FONTSIZE_POPUP        =  $theme->WTH_FONTSIZE_SMALL;
 $theme->WTH_COLOR_POPUP           =  $theme->WTH_COLOR_1;
