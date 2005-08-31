@@ -22,7 +22,8 @@ var $popup_item = array('editrv',
 			'rejectrv', 
 			'tbcrv', 
 			'historyrv',
-			'cancelrv' );
+			'cancelrv',
+			'showaccess' );
 var $popup_zone = "WGCAL:WGCAL_POPUP";
 
 function SetTitle() {
@@ -120,11 +121,8 @@ function mailrv() {
  *
  */
 
-function UHaveAccess($r) {
-  $err = $this->Control($r);
-  //AddWarningMsg("No access [$r] to doc [".$this->id."] : [$err]\n");
-  return ($err=="" ? true : false);
-}
+function UHaveAccess($r) { return ($this->Control($r)=="" ? true : false ); }
+
   
 function RendezVousView() {
 
@@ -143,10 +141,6 @@ function RendezVousView() {
   $myid = $action->user->fid;
   $ownerid = $this->getValue("CALEV_OWNERID");
   $conf    = $this->getValue("CALEV_VISIBILITY");
-//   if ($ownerid == $myid) $private = false;
-//   else if (isset($ressd[$myid])) $private = false;
-//   else if ($conf!=1) $private = false;
-//   else $private = true;
   $private = $this->isConfidential();
 
   $visgroup = false;
@@ -227,7 +221,8 @@ function RendezVousView() {
   } else {
     $title =_("confidential event");
   }
-  $this->lay->set("TITLE", ($showid ? "(".$this->id.") " : "" ).$title);
+  if (wDebugMode()) $title = ($showid ? "(".$this->id.") " : "" ) . $title;
+  $this->lay->set("TITLE", $title);
   
   $tress  = $this->getTValue("CALEV_ATTID");
   $tress  = $this->getTValue("CALEV_ATTWID");
@@ -413,10 +408,7 @@ function RendezVousShortText() {
   $myid = $action->user->fid;
   $ownerid = $this->getValue("CALEV_OWNERID");
   $conf    = $this->getValue("CALEV_VISIBILITY");
-  if ($ownerid == $myid) $private = false;
-  else if (isset($ressd[$myid])) $private = false;
-  else if ($conf==0) $private = false;
-  else $private = true;
+  $private = $this->isConfidential();
 
   $ownertitle = "";
   $showowner = false;
@@ -1024,29 +1016,32 @@ function evColorByOwner() {
 }
 
 function RvSetPopup($rg) {
-
+  include_once('WGCAL/Lib.wTools.php');
   global $action;
 
   PopupInvisible($this->popup_name,$rg, 'acceptrv');
   PopupInvisible($this->popup_name,$rg, 'rejectrv');
   PopupInvisible($this->popup_name,$rg, 'tbcrv');
-  PopupInactive($this->popup_name,$rg, 'historyrv');
-  PopupInactive($this->popup_name,$rg, 'viewrv');
+  PopupInvisible($this->popup_name,$rg, 'historyrv');
+  PopupInvisible($this->popup_name,$rg, 'viewrv');
   PopupInvisible($this->popup_name,$rg, 'deloccur');
-  PopupInactive($this->popup_name,$rg, 'editrv');
-  PopupInactive($this->popup_name,$rg, 'deleterv');
+  PopupInvisible($this->popup_name,$rg, 'editrv');
+  PopupInvisible($this->popup_name,$rg, 'deleterv');
   PopupActive($this->popup_name,$rg, 'cancelrv');
+  PopupInvisible($this->popup_name,$rg, 'showaccess');
 
-  if ($this->UHaveAccess("view")) {
+  if (wDebugMode())   if ($this->UHaveAccess('viewacl')) PopupActive($this->popup_name,$rg, 'showaccess');
+  
+  if ($this->UHaveAccess("confidential") || ($this->confidential==0 && $this->UHaveAccess("view")) ) {
     PopupActive($this->popup_name,$rg, 'historyrv');
     PopupActive($this->popup_name,$rg, 'viewrv');
   }
 
   if ($this->UHaveAccess("execute")) {
     $mystate = $this->RvAttendeeState($action->user->fid);
-    if ($mystate!=2) PopupActive($this->popup_name,$rg, 'acceptrv');
-    if ($mystate!=3) PopupActive($this->popup_name,$rg, 'rejectrv');
-    if ($mystate!=4) PopupActive($this->popup_name,$rg, 'tbcrv');
+    if ($mystate>-1 && $mystate!=2) PopupActive($this->popup_name,$rg, 'acceptrv');
+    if ($mystate>-1 && $mystate!=3) PopupActive($this->popup_name,$rg, 'rejectrv');
+    if ($mystate>-1 && $mystate!=4) PopupActive($this->popup_name,$rg, 'tbcrv');
   }
 
   if ($this->UHaveAccess("edit")) {
@@ -1055,33 +1050,9 @@ function RvSetPopup($rg) {
     
   if ($this->UHaveAccess("delete")) {
     PopupActive($this->popup_name,$rg, 'deleterv');
-    PopupActive($this->popup_name,$rg, 'deloccur');
+    if ($this->getValue("calev_repeatmode") > 0) PopupActive($this->popup_name,$rg, 'deloccur');
   }
       
-//   $mine = ($action->user->fid == $this->getValue("calev_ownerid") ? true : false);
-//   $confidential = ($this->getValue("calev_visibility")>0 ? true : false );
-//   $withme = false;
-//   $mystate = $this->RvAttendeeState($action->user->fid);
-//   if ($mystate > -1) $withme = true;
-
-//   PopupActive($this->popup_name,$rg, 'viewrv');
-//   if (!$confidential || $mine) {
-//     if ($mine) {
-//       if ($this->getValue("calev_repeatmode") > 0) PopupActive($this->popup_name,$rg, 'deloccur');
-//       PopupActive($this->popup_name,$rg, 'editrv');
-//       PopupActive($this->popup_name,$rg, 'deleterv');
-//     }
-//     PopupActive($this->popup_name,$rg, 'historyrv');
-//   } else {
-//     if ($mine || $withme) {
-//       PopupActive($this->popup_name,$rg, 'historyrv');
-//     }
-//   }
-//   if ($withme) {
-//     if ($mystate!=2) PopupActive($this->popup_name,$rg, 'acceptrv');
-//     if ($mystate!=3) PopupActive($this->popup_name,$rg, 'rejectrv');
-//     if ($mystate!=4) PopupActive($this->popup_name,$rg, 'tbcrv');
-//   }
 }
 
 function RvAttendeeState($ufid) {
@@ -1096,28 +1067,6 @@ function RvAttendeeState($ufid) {
     }
   }
   return $state;
-}
-
-// R : read
-// E : Edit
-// D : Delete
-// S : Change State
-function RvHavePermission($ufid=-1, $r="R") {
-  global $action;
-  $ufid = ($ufid==-1 ? $action->user->fid : $ufid);
-  $hr = false;
-  switch($r) {
-  case 'R':
-  case 'S':
-    $hr = ($this->RvAttendeeState($ufid)>-1 ? true : false);
-    break;
-  case 'E':
-  case 'D':
-    $hr = ($ufid == $this->getValue("calev_ownerid") ? true : false);
-    break;
-  default: $hr = false;
-  }
-  return $hr;
 }
 
 

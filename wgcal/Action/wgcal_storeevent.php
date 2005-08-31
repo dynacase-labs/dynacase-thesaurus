@@ -270,15 +270,23 @@ function wgcal_storeevent(&$action) {
   
   $aclv = array();
 
-  $aclv["all"] = array( "view"=>"view", "confidential"=>"confidential", "send"=>"send", "edit"=>"edit", 
-			"delete"=>"delete", "execute"=>"execute", "viewacl"=>"viewacl", "modifyacl"=>"modifyacl");
+  $aclv["all"] = array( "view"=>"view", 
+			"confidential"=>"confidential", 
+			"send"=>"send", 
+			"edit"=>"edit", 
+			"delete"=>"delete", 
+			"execute"=>"execute", 
+			"viewacl"=>"viewacl", 
+			"modifyacl"=>"modifyacl");
   $aclv["none"] = array();
-
   $aclv["read"] = array( "view"=>"view");
-  $aclv["read_state"] = array( "view"=>"view", "execute"=>"execute");
-  
-  $aclv["read_conf"] = array( "view"=>"view", "confidential"=>"confidential");
-  $aclv["read_conf_state"] = array( "view"=>"view", "confidential"=>"confidential", "execute"=>"execute");
+  $aclv["read_state"] = array( "view"=>"view", 
+			       "execute"=>"execute");
+  $aclv["read_conf"] = array( "view"=>"view", 
+			      "confidential"=>"confidential");
+  $aclv["read_conf_state"] = array( "view"=>"view", 
+				    "confidential"=>"confidential", 
+				    "execute"=>"execute");
 
   
   $aclvals = array();
@@ -322,7 +330,7 @@ function wgcal_storeevent(&$action) {
     foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"];
     foreach ($rvcgroup as $k => $v) $acls[$k] = $aclvals["read_conf"];
     foreach ($attgrps as $k => $v) $acls[$k] = $aclvals["read"];
-    $acls[2] = $aclvals["none"];
+    $acls[2] = $aclvals["read"];
     break;
     
   default: // Public

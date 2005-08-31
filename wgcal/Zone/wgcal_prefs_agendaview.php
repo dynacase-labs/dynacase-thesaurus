@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_agendaview.php,v 1.4 2005/08/29 17:35:15 marc Exp $
+ * @version $Id: wgcal_prefs_agendaview.php,v 1.5 2005/08/31 16:59:41 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -76,6 +76,7 @@ function wgcal_prefs_agendaview(&$action) {
 
   // Agenda visibility
 
+  $action->lay->set("cginit", false);
   if (!$action->HasPermission("WGCAL_VCAL")) {
 
     $action->lay->set("showvcal", false);
@@ -114,7 +115,6 @@ function wgcal_prefs_agendaview(&$action) {
     }
 
     $igroups = array(); $ig=0;
-    $action->lay->set("cginit", false);
     if (count($u_rgroups)>0) {
 
       $action->lay->set("showgroups", true);

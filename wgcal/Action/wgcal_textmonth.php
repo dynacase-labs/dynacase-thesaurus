@@ -54,7 +54,7 @@ function wgcal_textmonth(&$action)
     $d = new Doc($dbaccess, $v["IDP"]);  
     $tevents[$k]["EvSTCard"] = $d->viewDoc($d->defaultshorttext);
     $tevents[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
-    $tevents[$k]["edit"] = $d->RvHavePermission($action->user->fid,'E');
+    $tevents[$k]["edit"] = ($d->Control("edit")==""?true:false);
     if (!isset($popuplist[$d->popup_name])) {
       $popuplist[$d->popup_name] = true;
       popupInit($d->popup_name,  $d->popup_item);

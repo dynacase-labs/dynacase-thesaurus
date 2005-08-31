@@ -12,7 +12,7 @@ $theme->WTH_COLOR_3               =  "#dcdcdc";
 $theme->WTH_ALERT                 =  "red";
 
 $theme->WTH_COLOR_TOOL            =  "#cddbdd";
-$theme->WTH_CALWEEKEND            =  "#F0E8FF";
+$theme->WTH_CALWEEKEND            =  "#E5EAEA";
 $theme->WTH_CALTODAY              =  "#eef4f9";
 
 ?>

@@ -36,6 +36,7 @@ onclick="changeUserGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" heigh
 </div>
 [ENDIF showgroups]
 </fieldset>
+[ENDIF showvcal]
 <form id="vcalmodef" target="wgcal_hidden" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_VCALMODE">
 <input type="hidden" value="[vcalmode]"   id="vcalmode" name="vcalmode">
 <input type="hidden" value="[vcalgroups]" id="vcalgroups" name="vcalgroups">
@@ -161,4 +162,3 @@ function saveCalGrpList() {
 }
 			   
 </script>
-[ENDIF showvcal]

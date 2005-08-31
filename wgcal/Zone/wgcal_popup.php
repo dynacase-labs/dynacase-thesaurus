@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_popup.php,v 1.4 2005/05/31 10:27:06 marc Exp $
+ * @version $Id: wgcal_popup.php,v 1.5 2005/08/31 16:59:41 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -11,6 +11,7 @@
  /**
  */
 include_once("WGCAL/Lib.WGCal.php");
+include_once("WGCAL/Lib.wTools.php");
 include_once("EXTERNALS/WGCAL_external.php");
 
 function wgcal_popup(&$action) {
@@ -39,6 +40,7 @@ function wgcal_popup(&$action) {
     } 
   }
   $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
+  $action->lay->set("DebugMode", wDebugMode());
 }
 
 

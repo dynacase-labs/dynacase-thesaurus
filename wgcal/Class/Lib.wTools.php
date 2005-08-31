@@ -19,6 +19,11 @@ function w_dbday($dbtime) { return substr($dbtime,0,2); }
 function w_dbmon($dbtime) { return substr($dbtime,3,2); }
 function w_dbyea($dbtime) { return substr($dbtime,6,4); }
 
+
+function wDebugMode() {
+  return file_exists("WGCAL/wgcal.debug");
+}
+
 function w_dbdate2ts($dbtime) {
   return gmmktime(w_dbhou($dbtime), 
 		w_dbmin($dbtime), 
@@ -229,7 +234,7 @@ function showTrace() {
 function wUSort(&$ar, $field) {
   global $fsort;
   $fsort = $field;
-  usort($ar, wUSortCmp);
+  if (count($ar)>0) usort($ar, wUSortCmp);
   return;
 }
 
