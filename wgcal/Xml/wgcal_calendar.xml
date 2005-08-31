@@ -44,7 +44,7 @@
 [ZONE WGCAL:WGCAL_POPUP]
 [BLOCK EVENTS]
 <div id="evt[RG]"
-  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=[ENDIF edit][IF vRv]IMPCARD[ENDIF vRv][IFNOT vRv]FDL_CARD[ENDIF vRv]&id=[IDP]');"
+  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=[IF vRv]IMPCARD[ENDIF vRv][IFNOT vRv]FDL_CARD[ENDIF vRv][ENDIF edit]&id=[IDP]');"
   onmouseover="WGCalEvOnMouseOver(event, '[RG]');" 
   onmouseout="WGCalEvOnMouseOut(event, '[RG]');" 
   onContextMenu="SetCurrentEvent([IDP], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 

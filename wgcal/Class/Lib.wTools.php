@@ -414,7 +414,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
       $tout[] = $item;
     }
   } 
-    AddWarningMsg($sdebug);
+//     AddWarningMsg($sdebug);
    
   return $tout;
 }

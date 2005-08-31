@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-29 15:33+0200\n"
+"POT-Creation-Date: 2005-08-30 06:54+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -306,15 +306,14 @@ msgstr "il y a des jours exclus"
 msgid "icon text confidential event"
 msgstr "Rendez-vous confidentiel"
 
-#, fuzzy
 msgid "icon text invitation"
-msgstr "Réunion"
+msgstr "Invitation"
 
 msgid "icon text visibility private"
 msgstr "Privé"
 
 msgid "icon text visibility group"
-msgstr "Visible pour les groupes"
+msgstr "Visible "
 
 msgid "icon text repeat event"
 msgstr "Rendez-vous répétitif"

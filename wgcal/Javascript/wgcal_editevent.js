@@ -618,3 +618,25 @@ function  changeVisGrp(grp) {
   document.getElementById('evconfgroups').value = grpList;
   return false;
 }
+
+function alternImage(imgid, src1, src2) {
+  var elt = document.getElementById(imgid);
+  if (!elt) return false;
+  alert('source = ['+elt.src+']  (src1=['+src1+'] src2=['+src2+'])');
+  if (elt.src == src1) elt.src = src2;
+  else elt.src = src1;
+  return true;
+}
+
+function showHideElt(elt) {
+  var elt = document.getElementById(elt);
+  if (!elt) return false;
+  if (arguments.length==1) undisplay='none';
+  else undisplay = arguments[1];
+  if (elt.style.display == '') {
+    elt.style.display = undisplay;
+  } else {
+    elt.style.display = '';
+  }
+  return true;
+}

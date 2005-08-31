@@ -84,7 +84,8 @@ function wgcal_storeevent(&$action) {
 
   $conf = GetHttpVars("evconfidentiality", 0);
   $event->setValue("CALEV_VISIBILITY", $conf);
-  if ($conf==1) $event->setprofil(getIdFromName($dbaccess, "RV_PRIVATE"));
+  $event->setValue("confidential", ($conf>0 ? "1" : "0"));
+
   $confg = GetHttpVars("evconfgroups", 0);
   $event->setValue("CALEV_CONFGROUPS", $confg);
   
@@ -194,14 +195,17 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
   $event->setValue("CALEV_ATTGROUP", $attendeesgroup); 
     
-  $event->SetProfil($event->id);
-  
   $err = $event->Modify();
-  if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
+  if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");
   else {
     $err = $event->PostModify();
-    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
+    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");
   }
+  
+  $event->SetControl();
+  $event->profid = $event->id;
+  $err = $event->Modify();
+  if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");
   
 
   // [init] => 0 (control initialized)
@@ -227,7 +231,7 @@ function wgcal_storeevent(&$action) {
   case 2 : $ct = "groups"; break;
   default: $ct = "public";
   }
-  $sdeb = "RV Confidentiality=[$ct], Agenda visibility:".($userf->getValue("us_wgcal_vcalgrpmode")==1?"Groups":"Public")."\n";
+  $sdeb = "Confidential=".$event->getValue("confidential")."\nRV Confidentiality=[$ct]\nAgenda visibility:".($userf->getValue("us_wgcal_vcalgrpmode")==1?"Groups":"Public")."\n";
 
   // User agenda visibility
 
@@ -264,73 +268,71 @@ function wgcal_storeevent(&$action) {
   }
 
   
+  $aclv = array();
 
-  $aclv["conf"]  = array( "confidential" => $event->dacls["confidential"]["pos"] );
-  $aclv["read"]  = array( "view" => $event->dacls["view"]["pos"] );
-  $aclv["att"] = array( "view" => $event->dacls["view"]["pos"],
-			"execute" => $event->dacls["execute"]["pos"] );
-  $aclv["owner"] = array( "view" => $event->dacls["view"]["pos"],
-			  "send" => $event->dacls["send"]["pos"],
-			  "edit" => $event->dacls["edit"]["pos"],
-			  "delete" => $event->dacls["delete"]["pos"],
-			  "execute" => $event->dacls["execute"]["pos"],
-			  "viewacl" => $event->dacls["viewacl"]["pos"],
-			  "modifyacl" => $event->dacls["modifyacl"]["pos"] );
-  $aclv["unsetowner"] = array( "view" => 0,
-			       "send" => 0,
-			       "edit" => 0,
-			       "delete" => 0,
-			       "execute" => 0,
-			       "viewacl" => 0,
-			       "modifyacl" => 0);
+  $aclv["all"] = array( "view"=>"view", "confidential"=>"confidential", "send"=>"send", "edit"=>"edit", 
+			"delete"=>"delete", "execute"=>"execute", "viewacl"=>"viewacl", "modifyacl"=>"modifyacl");
+  $aclv["none"] = array();
+
+  $aclv["read"] = array( "view"=>"view");
+  $aclv["read_state"] = array( "view"=>"view", "execute"=>"execute");
+  
+  $aclv["read_conf"] = array( "view"=>"view", "confidential"=>"confidential");
+  $aclv["read_conf_state"] = array( "view"=>"view", "confidential"=>"confidential", "execute"=>"execute");
+
+  
+  $aclvals = array();
+  foreach ($aclv as $ka => $va) {
+    foreach ($aclv["all"] as $kr => $vr) {
+      if (isset($va[$kr])) $aclvals[$ka][$kr] = $event->dacls[$kr]["pos"];
+      else $aclvals[$ka][$kr] = 0;
+    }
+  }
+
+//   $aclv["readconf"]  = array( "view" => $event->dacls["view"]["pos"], 
+// 			      "confidential" => $event->dacls["confidential"]["pos"],
+// 			      "view" => 0,
+// 			      "send" => 0,
+// 			      "edit" => 0,
+// 			       "delete" => 0,
+// 			       "execute" => 0,
+// 			       "viewacl" => 0,
+// 			       "modifyacl" => 0);
 
   $acls = array();
 
-  if ($ownerwid != $action->user->id) {
-    $acls[$action->user->id] = $aclv["unsetowner"];
-    $acls[$ownerwid] = $aclv["owner"];
-  }
+  if ($ownerwid != $action->user->id) $acls[$action->user->id] = $aclvals["none"];
+  $acls[$ownerwid] = $aclvals["all"];
   foreach ($attendeeswid as $k => $v) {
     if ($v != $ownerwid) {
-      $acls[$v] = $aclv["att"];
+      $acls[$v] = $aclvals["read_conf_state"];
     }
   }
   
 
   switch ($conf) {
   case 1: // Private
-    // my calendar groups   : Confidential
-    // attendees            : Read
-    // attendees groups     : Confidential
-    // others               : Confidential if my calendar is visible else None
-    foreach ($vcal as $k => $v) $acls[$k] = $aclv["conf"] ;
-    foreach ($attgrps as $k => $v) $acls[$k] = $aclv["conf"];
-    if ($calgvis==0) $acls[2] = $aclv["conf"];
+    foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"] ;
+    foreach ($attgrps as $k => $v) $acls[$k] = $aclvals["read"];
+    if ($calgvis==0) $acls[2] = $aclvals["read"];
+    else $acls[2] = $aclvals["none"];
     break;
     
   case 2: // My groups
-    // calendar groups      : Confidential
-    // event groups         : Read
-    // attendees            : Read
-    // attendees groups     : Confidential
-    // others               : None
-    foreach ($vcal as $k => $v) $acls[$k] = $aclv["conf"];
-    foreach ($rvcgroup as $k => $v) $acls[$k] = $aclv["read"];
-    foreach ($attgrps as $k => $v) $acls[$k] = $aclv["conf"];
+    foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"];
+    foreach ($rvcgroup as $k => $v) $acls[$k] = $aclvals["read_conf"];
+    foreach ($attgrps as $k => $v) $acls[$k] = $aclvals["read"];
+    $acls[2] = $aclvals["none"];
     break;
     
   default: // Public
-    //                        PUBLIC        GROUPS
-    // event groups         : Read          Read
-    // attendees            : Read          Read
-    // attendees groups     : Read          Confidential
-    // others               : Read          None
-    foreach ($vcal as $k => $v) $acls[$k] =  $aclv["read"];
+    foreach ($vcal as $k => $v) $acls[$k] =  $aclvals["read"];
     foreach ($attgrps as $k => $v) {
-      if ($calgvis==0)  $acls[$k] = $aclv["read"];
-      else $acls[$k] = $aclv["conf"];
+      if ($calgvis==0)  $acls[$k] = $aclvals["read"];
+      else $acls[$k] = $aclvals["read"];
     }
-    if ($calgvis==0) $acls[2] = $aclv["read"];
+    if ($calgvis==0)     $acls[2] = $aclvals["read"];
+    else $acls[2] = $aclvals["none"];
   }
   
   foreach ($acls as $user => $uacl) {
@@ -342,7 +344,7 @@ function wgcal_storeevent(&$action) {
 
     $perm->UnsetControl();
     foreach ($uacl as $k => $v) {
-      $sdeb .= "[$k=>$v] ";
+      $sdeb .= "$k:$v ";
       if (intval($v) > 0)  {
 	$perm->SetControlP($v);
       } else {
