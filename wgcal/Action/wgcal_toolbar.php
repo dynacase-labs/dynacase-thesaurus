@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.46 2005/08/19 17:21:33 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.47 2005/09/01 16:48:27 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -136,7 +136,9 @@ function _listress(&$action)
     $sid = ($tt[1]!="" ? $tt[1] : 0);
     $cid = ($tt[2]!="" ? $tt[2] : "blue");
     $rd = new Doc($dbaccess, $rid);
-    if ($rd->IsAffected()) {
+    if (!$rd->IsAffected()) continue;
+    $haveVis =wUserHaveCalVis($rid, 0);
+    if ($rid==$action->user->fid || $haveVis) {
       if ($rd->id == $action->user->fid) PopupInactive('resspopup', $rd->id, 'removeress');
       else PopupActive('resspopup', $rd->id, 'removeress');
       $t[$i]["RG"] = $i;
@@ -145,6 +147,8 @@ function _listress(&$action)
       $t[$i]["RICON"] =  $rd->getIcon();
       $t[$i]["RCOLOR"] = $cid;
       $t[$i]["RSTATE"] = $sid;
+      if ($rd->id == $action->user->fid) $t[$i]["ROMODE"] = "false";
+      else $t[$i]["ROMODE"] =  (wUserHaveCalVis($rid, 1) ? "false" : "true" );
       if ($sid==1) $t[$i]["RSTYLE"] = "WGCRessSelected";
       else $t[$i]["RSTYLE"] = "WGCRessDefault";
       PopupActive('resspopup', $rd->id, 'displayress');

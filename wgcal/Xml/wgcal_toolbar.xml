@@ -115,7 +115,7 @@
     onmouseout="if (this.className=='WGCRessSelected') return; this.className='WGCRessDefault'"
     onclick="CRessId=this.id; vuvRessource();"
     onContextMenu="CRessId=this.id; openMenu(event,'resspopup', CRessId); return false">
-&nbsp;<img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
+&nbsp;<img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%&nbsp;<img id="imro%RID%" height="10px" align="absbottom" title="[TEXT:read only calendar]" src="[IMG:wm-readonly.gif]">
 </td>
 </tr>
 </tbody>
@@ -142,7 +142,7 @@
 var  toolList = new Array( 'nav', 'cals', 'waitrv', 'todo', 'contacts');
 
 [BLOCK L_RESS]
-InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]');[ENDBLOCK L_RESS]
+InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]', [ROMODE]);[ENDBLOCK L_RESS]
 var MyFreedomId = [MyFreedomId];
 saveRessources();
 

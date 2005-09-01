@@ -112,6 +112,13 @@ var gclist = new Array();
 [BLOCK GCLIST]gclist[[igroup]] = [gfid];[ENDBLOCK GCLIST]
 [IF cginit]saveCalGrpList();[ENDIF cginit]
 
+function countOfGrpVis() {
+  var cug = 0;
+  for (var i=0; i<gclist.length;i++) {
+    if (gclist[i] != -1) cug++;
+  }
+  return cug;
+}
 function changeCalGrpVis(elt) {
   var glistd = document.getElementById('glistd');
   if (elt.value == 0) {
@@ -136,6 +143,10 @@ function changeCalGrpList(grp) {
     gmode.checked = true;
     gmode.style.visibility = 'visible';
   } else {
+    if (countOfGrpVis()==1) {
+      alert('[TEXT:you must have one group at least]');
+      return false;
+    }
     for (i=0; i<gclist.length;i++) {
       if (gclist[i] == grp) gclist[i] = -1;
     }

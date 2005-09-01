@@ -1,5 +1,6 @@
 <?php
 include_once("Class.Param.php");
+include_once("WGCAL/Class.UCalVis.php");
 include_once("FDL/freedom_util.php");
 include_once("FDL/Lib.Dir.php");
 include_once("EXTERNALS/WGCAL_external.php");
@@ -423,5 +424,48 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
    
   return $tout;
 }
+
+function wSpeedWFidGroups($t="IGROUP") {
+  global $action;
+  $twf = array();
+  $query = new QueryDb($dbaccess,"USER");
+  $twfid = $query->Query(0,0,"TABLE", "select id,fid from users where isgroup='Y'");
+  foreach ($twfid as $k => $v) {
+    $twf["byWid"][$v["id"]] = $v["fid"];
+    $twf["byFid"][$v["fid"]] = $v["id"];
+  }
+  return $twf;
+}
+  
+/*
+ * 
+ */
+function wSearchUserCal($ufid=-1, $uGroups=array(2), $mode=0, $filter="", $lim=25) {
+  global $action;
+
+  $tc = wSpeedWFidGroups();
+  $ntg = array();
+  foreach ($uGroups as $k => $v) $ntg[] = $tc["byWid"][$v];
+
+  $uv = new UCalVis($action->getParam("FREEDOM_DB"));
+  $lUcal = $uv->getCalVisForGroups($ufid, $uGroups, 0, $mode, $filter, $lim);
+
+  return $lUcal;
+}
+
+/*
+ * 
+ */
+function wUserHaveCalVis($calownerfid, $mode=0) {
+  global $action;
+  $tg = wGetUserGroups();
+  foreach ($tg as $k => $v) $mygroups[] = $k;
+  $lUc = wSearchUserCal($action->user->fid, $mygroups, $mode);
+  foreach ($lUc as $k => $v)  {
+    if ($v["id"]==$calownerfid) return true;
+  }
+  return false; 
+}
+  
 
 ?>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-30 06:54+0200\n"
+"POT-Creation-Date: 2005-09-01 17:57+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -840,6 +840,9 @@ msgid "hide all ressources"
 msgstr ""
 
 msgid "close menu"
+msgstr ""
+
+msgid "read only calendar"
 msgstr ""
 
 msgid "my todos..."

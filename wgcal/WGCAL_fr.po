@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-30 06:54+0200\n"
+"POT-Creation-Date: 2005-09-01 17:57+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -844,6 +844,9 @@ msgstr "Tout masquer"
 msgid "close menu"
 msgstr "Fermer"
 
+msgid "read only calendar"
+msgstr "Agenda en lecture seule" 
+
 msgid "my todos..."
 msgstr "Mes tâches..."
 
@@ -1317,9 +1320,6 @@ msgstr "Groupes utilisés"
 
 #~ msgid "refresh toolbar"
 #~ msgstr "Raffraichir la barre d'outil"
-
-#~ msgid "add a calendar"
-#~ msgstr "Ajout d'un calendrier"
 
 #~ msgid "date modification"
 #~ msgstr "Modification de la date"

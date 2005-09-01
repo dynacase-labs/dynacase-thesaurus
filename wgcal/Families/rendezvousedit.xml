@@ -1,7 +1,7 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="cev" name="cev" value="[EVENTID]"> </form>
 
-<form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER">
+<form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1">
 <input id="iusertext" name="iusertext" type="hidden">
 </form>
 
@@ -253,7 +253,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <table cellspacing="0" cellpadding="0" width="100%">
 <tr><td width="100%" align="left">
 
-   <img id="address" class="wSmallButton" style="cursor:pointer;" height="20" onclick="if (this.className!='wSmallButton') this.className='wSmallButton'; else this.className='wSmallButtonPushed'; ViewRessourceHelper('[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN');"; title="[TEXT:ressources advanced search]" src="[IMG:wm-moreressources.gif]">
+   <img id="address" class="wSmallButton" style="cursor:pointer;" height="20" onclick="if (this.className!='wSmallButton') this.className='wSmallButton'; else this.className='wSmallButtonPushed'; ViewRessourceHelper('[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&wre=1');"; title="[TEXT:ressources advanced search]" src="[IMG:wm-moreressources.gif]">
 
    <img id="viewplan" class="wSmallButton" style="display:[voneatt];" height="20"
           onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T&idfamref=[idfamref]&byres=Y&id=[planid]');";

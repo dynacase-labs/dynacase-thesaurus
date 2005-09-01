@@ -952,6 +952,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
     if ($v=="") continue;
     $tx = explode("%", $v);
     if ($tx[0]=="" || $tx[0]==$action->user->fid) continue;
+    if (!wUserHaveCalVis($tx[0], 1)) continue;
     $res = new Doc($dbaccess, $tx[0]);
     $to[$ito]["idress"] = $ito;
     $to[$ito]["resstitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));
@@ -976,6 +977,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   $to = array(); $ito = 0;
   foreach ($tdress as $k => $v) {
     if ($v=="" || $v==$action->user->fid) continue;
+    if (!wUserHaveCalVis($v, 1)) continue;
     $res = new Doc($dbaccess, $v);
     $to[$ito]["idress"] = $ito;
     $to[$ito]["resstitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));

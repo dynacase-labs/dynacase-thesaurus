@@ -27,9 +27,6 @@ function wgcal_setugroups(&$action)
     }
   }
   $user->Modify();
-  print_r2($tgv);
-  print_r2($tgvw);
-  print_r2($tgvname);
 }
 
 ?>

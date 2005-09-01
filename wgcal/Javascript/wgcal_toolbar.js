@@ -46,15 +46,15 @@ function getRessourcePos(rid) {
   return idx;
 }
  
-function addRessource(rid, rtitle, ricon, rstate) {
+function addRessource(rid, rtitle, ricon, rstate, romode) {
   idx = getRessourcePos(rid);
   if (idx!=-1) return;
-  InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', 0 );
+  InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', 0, romode );
   tdiv['resspopup'][rid]=[1,1,1,1];
   saveRessources();
 }
 
-function storeRessource(id, color, display, icon, descr, style) {
+function storeRessource(id, color, display, icon, descr, style, romode) {
   idx = getRessourcePos(id);
   if (idx==-1)  {
     idx = ressourceList.length;
@@ -66,6 +66,7 @@ function storeRessource(id, color, display, icon, descr, style) {
   ressourceList[idx][3] = icon;
   ressourceList[idx][4] = descr;
   ressourceList[idx][5] = style;
+  ressourceList[idx][6] = romode;
   if (ressourceList[idx][2] == 1) rsList += ressourceList[idx][0]+'|';
 }
 
@@ -86,7 +87,7 @@ function printRessource(i) {
   return m;
 }
 
-function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate ) {
+function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate, romode ) {
   var nTr;
   var tab;
 
@@ -112,7 +113,9 @@ function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate ) {
   tab.appendChild(nTr);
   document.getElementById('cp'+rid).style.background = rcolor;
   document.getElementById(rid).className = rstyle;
-  storeRessource(rid, rcolor, rstate, ricon, rdescr, rstyle);
+  if (romode) document.getElementById('imro'+rid).style.display = '';
+  else document.getElementById('imro'+rid).style.display = 'none';
+  storeRessource(rid, rcolor, rstate, ricon, rdescr, rstyle, romode);
 }
 
 var CRessId = -1;

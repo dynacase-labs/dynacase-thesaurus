@@ -2,12 +2,12 @@
 
 <script type="text/javascript">
 
-function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
+function SelectRessource(fid, ftitle, ficon, st, tst, cst, romode) {
   var e;
   try {
-    top.opener.addRessource(fid, ftitle, ficon, 0, tst, cst);
+    top.opener.addRessource(fid, ftitle, ficon, 0, tst, cst, romode);
   } catch(e) {
-    top.window.addRessource(fid, ftitle, ficon, 0, tst, cst, 1)
+    top.window.addRessource(fid, ftitle, ficon, 0, tst, cst, 1, romode)
   } ;
   elt = document.getElementById(fid);
   elt.style.display = 'none';
@@ -20,9 +20,9 @@ function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
 <div id="[RESSID]"  class="WGCRessDefault" title="[RESSTITLE]"
      onmouseover="WGCalChangeClass(event, '[RESSID]', 'WGCFamSelected', 'WGCRessOver');" 
      onmouseout="WGCalChangeClass(event, '[RESSID]', 'WGCFamSelected', 'WGCRessDefault');"
-     onclick="SelectRessource('[RESSID]', '[RESSTITLEJS]', '[RESSICON]', '[STATE]', '[TSTATE]', '[CSTATE]');" >
+     onclick="SelectRessource('[RESSID]', '[RESSTITLEJS]', '[RESSICON]', '[STATE]', '[TSTATE]', '[CSTATE]', [ROMODE]);" >
   <img height="15"  src="[RESSICON]" title="[RESSTITLE]"/>[RESSTITLE]
 </div>[ENDBLOCK RESSOURCES]
-</fieldset>
+</fieldset> 
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

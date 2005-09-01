@@ -47,7 +47,7 @@ function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
 
 </script>
 
-<form id="fgettext" target="wgcal_mresspicker_list" name="fgettext" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKERLIST&updt=[updt]">
+<form id="fgettext" target="wgcal_mresspicker_list" name="fgettext" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKERLIST&updt=[updt]&wre=[wre]">
 <fieldset><legend>[TEXT:searched families]</legend>
 [BLOCK FAMRESS]
 <div id="[FAMID]"  class="WGCRessDefault" style="height:50%; overflow:auto"

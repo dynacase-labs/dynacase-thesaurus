@@ -92,10 +92,10 @@ function getRessourcePos(rid) {
   return idx;
 }
  
-function addRessource(rid, rtitle, ricon) {
+function addRessource(rid, rtitle, ricon, romode) {
   idx = getRessourcePos(rid);
   if (idx!=-1) return;
-  InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault' );
+  InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', romode );
   ressourcesChange = 1;
 }
 
@@ -139,7 +139,7 @@ function printRessource(i) {
   return m;
 }
    
-function InsertRessource( rdescr, rid, ricon, rcolor, rstyle ) {
+function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, romode=false ) {
   var nTr;
   var tab;
 
@@ -167,6 +167,8 @@ function InsertRessource( rdescr, rid, ricon, rcolor, rstyle ) {
   tab.appendChild(nTr);
   storeRessource(rid, rcolor, 0, ricon, rdescr, rstyle);
   document.getElementById('cp'+rid).style.bgcolor = rcolor;
+  if (romode) document.getElementById('imro'+rid).style.display = '';
+  else document.getElementById('imro'+rid).style.display = 'none';
 }
 
 function setRessourceState(rid) {
@@ -246,7 +248,8 @@ function updateCalendar() {
     onclick="setRessourceState('%RID%'); document.getElementById('%RID%').className = 'WGCRessSelected';"  
     onmouseover="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessOver');" 
     onmouseout="WGCalChangeClass(event, '%RID%', 'WGCRessSelected', 'WGCRessDefault');">
-    <img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%</span>
+    <img id="im%RID%" width="20px" height="20px" align="absbottom" src="%RICON%">
+    <img id="imro%RID%" height="20px" align="absbottom" src="[IMG:wm-reazdonly.gif]">&nbsp;%RDESCR%</span>
 </td>
 <td>&nbsp;</td>
 <td><span id="cp%RID%" style="border:1px solid %RESCOLOR%;" onClick="showColorPicker(event, 'cp%RID%', '%RID%');" title="[TEXT:change color for ressource] %RDESCR%">&nbsp;%RESCOLOR%&nbsp;</span></td>
@@ -260,6 +263,6 @@ function updateCalendar() {
 
 <script type="text/javascript">
 [BLOCK L_RESS]
-InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]');[ENDBLOCK L_RESS]
+InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[ROMODE]');[ENDBLOCK L_RESS]
 </script>
 
