@@ -361,7 +361,7 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBL
       }
     );
    </script></span>
-<div>[TEXT:frequency] <input id="rfrequency" class="textBorder" name="rfrequency" size="1" type="text" value="[FREQVALUE]" readonly [repeatdis]></div>
+<div style="display:none">[TEXT:frequency] <input id="rfrequency" class="textBorder" name="rfrequency" size="1" type="text" value="[FREQVALUE]" readonly [repeatdis]></div>
 <hr>
 
 <fieldset><legend>[TEXT:exclude days]</legend>

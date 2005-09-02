@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.15 2005/08/31 16:59:41 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.16 2005/09/02 16:25:15 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -114,7 +114,7 @@ function wgcal_gview(&$action) {
       $j = count($devents[$day]);
 
       $devents[$day][$j]["EvCard"] = $drv[$v["IDP"]]->viewdoc($drv[$v["IDP"]]->defaultshorttext);
-      $devents[$day][$j]["edit"] = ($drv[$v["IDP"]]->Control("edit")=="":true:false);
+      $devents[$day][$j]["edit"] = ($drv[$v["IDP"]]->Control("edit")=="" ? true : false);
       $devents[$day][$j]["id"] = $drv[$v["IDP"]]->id;
       $devents[$day][$j]["TSSTART"] = $drv[$v["IDP"]]->getValue("calev_start");
       $devents[$day][$j]["RG"] = $v["RG"];
@@ -150,6 +150,6 @@ function daySort($a, $b) {
   return $r;
 }
 function evSort($a, $b) {
-  return strcmp($a["start"], $b["start"]);
+  return strcmp($a["TSSTART"], $b["TSSTART"]);
 }
 ?>

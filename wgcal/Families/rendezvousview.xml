@@ -4,7 +4,7 @@
   <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white; border: 1px outset;">
     <table  width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
       <td align="left"><span style="color:[textcolor];font-size:120%; font-weight:bold">[TITLE]</span></td>
-      <td align="right"><img src="[iconevent]" height="20"></td>
+      <td align="right"><img src="[iconevent]" border="0px" height="20"></td>
     </tr></table>
  </td>
 </tr>

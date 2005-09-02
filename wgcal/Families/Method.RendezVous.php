@@ -114,6 +114,7 @@ function mailrv() {
   $this->lay->set("rvtitle", GetHttpVars("msg", ""));
   $this->lay->set("dstart", substr($this->getValue("CALEV_START"),0,16));
   $this->lay->set("dend", substr($this->getValue("CALEV_END"),0,16));
+  $this->lay->set("EvPCard", $this->viewdoc($this->defaultview));
 
 }
 

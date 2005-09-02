@@ -364,7 +364,7 @@ function wgcal_storeevent(&$action) {
     $sdeb .= "\n";
   }
   
-  AddWarningMsg(  $sdeb );
+//   AddWarningMsg(  $sdeb );
   
 
   // Gestion du calendrier d'appartenance
@@ -441,7 +441,9 @@ function rvDiff( $old, $new) {
 		   "attendees" => false, 
 		   "status" => false, 
 		   "others" => false);
+//   $sdb = "Modifié : \n";
   foreach ($diff as $k => $v) {
+//     $sdb .= "- $k [$v]\n";
     switch ($k) {
     case "calev_evtitle":      
     case "calev_evnote":
@@ -454,7 +456,7 @@ function rvDiff( $old, $new) {
     case "calev_repeatmode":
     case "calev_repeatweekday":
     case "calev_repeatmonth":
-    case "calev_repeatuntil":
+//     case "calev_repeatuntil":
     case "calev_repeatuntildate":
     case "calev_excludedate":
       $result["hours"] = true;
@@ -469,6 +471,7 @@ function rvDiff( $old, $new) {
       $result["others"] = true;
     }
   }
+//   AddWarningMsg(  $sdb );
   return $result;
 }
   

@@ -30,15 +30,14 @@ function wgcal_todostore(&$action) {
   $todo->setValue("todo_date", $date);
   $todo->setValue("todo_note", $note);
   
+  $err = "";
   if (!$todo->IsAffected()) $err = $todo->Add();
-  if ($err!="") {
-    AddWarningMsg("$err");
-  } else {
+  if ($err!="")  AddWarningMsg("$err");
+  else {
     $todo->SetProfil($todo->id);
     $err = $todo->Modify();
-    if ($err!="") {
-      AddWarningMsg("$err");
-    } else {
+    if ($err!="") AddWarningMsg("$err");
+    else {
       $err = $todo->PostModify();
       if ($err!="") AddWarningMsg("$err");
     }

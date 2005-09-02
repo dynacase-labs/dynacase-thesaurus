@@ -1,9 +1,6 @@
 <html>
 <head>
-   <style type="text/css">
-[ZONE CORE:GENCSS?layout=WGCAL:WGCAL_CSS?theme=[theme]]
-   </style>
-
+   <style type="text/css">[ZONE CORE:GENCSS?layout=WGCAL:WGCAL_CSS?theme=[theme]]</style>
 </head>
 <body>
 
@@ -11,7 +8,9 @@
 [rvtitle]<br/>
 </div>
 <a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">
-<div style="width:auto;height:auto;">[ZONE WGCAL:CALEV_CARD?id=-1&cev=[rvid]&mode=v]</div></a>
+<div style="margin:5px; width:auto;height:auto;">
+[EvPCard]
+</div></a>
 <hr> <a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">Il est accessible depuis l'agenda de groupe.</a>
 </body>
 </html>

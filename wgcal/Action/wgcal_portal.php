@@ -9,17 +9,19 @@ function wgcal_portal(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   
+  $dr   = GetHttpVars("dr", 0); // Test drift
+ 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   $period = $action->GetParam("WGCAL_U_PORTALPERIOD", "week");
   
   switch($period) {
-  case "3days": $delta = 24*3600*3; break;
-  case "2weeks": $delta = 24*3600*14; break;
-  case "month": $delta = 24*3600*31; break;
-  default: $delta = 24*3600*7;
+  case "3days": $delta = 24*3600*4; break;
+  case "2weeks": $delta = 24*3600*15; break;
+  case "month": $delta = 24*3600*32; break;
+  default: $delta = 24*3600*8;
   }
-  $ctime = time();
+  $ctime = time() - ($dr*24*3600) ;
   $start = ts2db($ctime, "Y-m-d H:i:s");
   $end = ts2db(($ctime+$delta), "Y-m-d H:i:s");
   
