@@ -40,7 +40,7 @@ AC_DEFINE_UNQUOTED(PLATFORM, $PLATFORM)
 
 
 dnl Check the commandline
-
+BACKEND=postgres
 AC_ARG_WITH(postgres,  \
            [--with-postgres         use PostgreSQL],\
             test "x$withval" != "xno" && BACKEND=postgres)
