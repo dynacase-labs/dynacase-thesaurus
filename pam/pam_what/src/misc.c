@@ -128,6 +128,7 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
   int retval;
   static whatuser_t lwu;
   char status[16]; /* the status of user */
+  int i,j;
   
   /* load the options */
   /*
@@ -163,7 +164,11 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
   }
   
   /* user can be composed : user@zou.com  */
-  strcpy(userdomaintmp, userdomain);
+
+  /* add slashes */
+  PQescapeString(userdomaintmp, userdomain, strlen(userdomain));
+  
+
   stok=strtok(userdomaintmp,"@");
   if (stok) {
     if (strlen(stok) >= (LUSER)) {

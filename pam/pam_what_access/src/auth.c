@@ -209,7 +209,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   }
 
   /* user can be composed : user@zou.com  */
-  strcpy(userdomaintmp, userdomain);
+  PQescapeString(userdomaintmp, userdomain, strlen(userdomain));
 
   stok=strtok(userdomaintmp,"@");  
 

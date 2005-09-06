@@ -1,9 +1,9 @@
-# $Revision: 1.10 $, $Date: 2004/12/13 11:49:00 $
+# $Revision: 1.11 $, $Date: 2005/09/06 09:40:00 $
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what_access
-Version:	0.3.2
-Release:	2
+Version:	0.3.3
+Release:	1
 License:	GPL or BSD
 Group:		Base
 Source0:	ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what_access.spec,v $
+Revision 1.11  2005/09/06 09:40:00  eric
+security prevent sql inject
+
 Revision 1.10  2004/12/13 11:49:00  eric
 correct _ in login
 
