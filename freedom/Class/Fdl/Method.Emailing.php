@@ -3,7 +3,7 @@
  * Methods for emailing family
  *
  * @author Anakeen 2005
- * @version $Id: Method.Emailing.php,v 1.8 2005/08/18 09:17:32 eric Exp $
+ * @version $Id: Method.Emailing.php,v 1.9 2005/09/09 16:24:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -78,7 +78,7 @@ function fdl_pubprint($target="_self",$ulink=true,$abstract=false) {
   if ($udocid > 0) {
     $t[]=getTDoc($this->dbaccess,$udocid);
   } else {
-    $t=$this->getBatchDocs();
+    $t=$this->getContent();
   }
   
   if (preg_match("/\[[a-z]+_[a-z0-9_]+\]/i",$body)) {
@@ -117,7 +117,7 @@ function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
   $subject=$this->getValue("pubm_title");
   $body=$this->getValue("pubm_body");
 
-  $t=$this->getBatchDocs();
+  $t=$this->getContent();
   $mailattr=strtolower($this->getValue("PÜBM_MAILATT","us_mail"));
 
   $zonebodycard="FDL:FDL_PUBSENDMAIL:S";
@@ -164,7 +164,7 @@ function fdl_pubpreview($target="_self",$ulink=true,$abstract=false) {
  */
 function fdl_pubnavpreview($target="_self",$ulink=true,$abstract=false) {
 
-  $t=$this->getBatchDocs();
+  $t=$this->getContent();
     
   foreach ($t as $k=>$v) {
     $tlay[]=array("udocid"=>$v["id"],

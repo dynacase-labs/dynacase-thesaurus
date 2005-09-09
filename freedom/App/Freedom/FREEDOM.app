@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.34 2005/08/19 16:15:00 eric Exp $
+// $Id: FREEDOM.app,v 1.35 2005/09/09 16:25:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -65,6 +65,11 @@ $action_desc = array (
    "name"		=>"FREEDOM_LIST",
    "short_name"		=>N_("Freedoms list"),
    "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"BATCHEXEC",
+   "short_name"		=>N_("batch execution"),
+   "acl"		=>"FREEDOM_ADMIN"
   ) ,
   array( 
    "name"		=>"FREEDOM_COLUMN",
