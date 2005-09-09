@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.24 2005/08/16 07:47:34 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.25 2005/09/09 16:24:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,7 +66,15 @@ create unique index idx_idfam on docfam(id);";
     include_once("FDL/Lib.Attr.php");
     return refreshPhpPgDoc($this->dbaccess, $this->id);
   }
-
+  function preCreated() {
+    $cdoc=$this->getFamDoc();
+    if ($cdoc->isAlive() ) {
+     if (! $this->ccvid) $this->ccvid=$cdoc->ccvid;
+     if (! $this->cprofid) $this->cprofid=$cdoc->cprofid;
+     if (! $this->defval) $this->defval=$cdoc->defval;
+     if (! $this->schar) $this->schar=$cdoc->schar;
+    }
+  }
 
   // -----------------------------------
   function viewfamcard($target="_self",$ulink=true,$abstract=false) {
