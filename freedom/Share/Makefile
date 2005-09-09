@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.4 2005/07/21 15:52:46 eric Exp $
+# $Id: Makefile,v 1.5 2005/09/09 06:56:13 eric Exp $
 # ============================================
 
 SUBDIR= htmlarea jscalendar
@@ -17,7 +17,7 @@ $(pubdir)/jscalendar :
 	cp -r jscalendar $(pubdir)
 
 $(pubdir)/php2V2 :
-	cp -f php2V2 $(pubdir)/Api
+	cp -f php2V2 $(pubdir)/API
 
 
 
