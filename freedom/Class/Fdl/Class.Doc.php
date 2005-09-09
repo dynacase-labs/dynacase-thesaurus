@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.269 2005/08/18 09:19:10 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.270 2005/09/09 16:25:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -617,8 +617,8 @@ final public function PostInsert()  {
     
     if ($this->locked == -1) {
       
-      $err = sprintf(_("cannot lock file %s (rev %d) : fixed. Get the latest version"), 
-		     $this->title,$this->revision);
+      $err = sprintf(_("cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"), 
+		     $this->title,$this->id,$this->revision);
     }  else {
       if ($this->userid == 1) return ""; // admin can do anything
       if ($this->locked == 0) $err = $this-> Control( "edit");
@@ -626,8 +626,8 @@ final public function PostInsert()  {
       else {
 	if ( abs($this->locked) != $this->userid) {
 	  $user = new User("", $this->locked);
-	  $err = sprintf(_("cannot lock file %s (rev %d): already locked by %s."), 
-			 $this->title,$this->revision,$user->firstname." ".$user->lastname);
+	  $err = sprintf(_("cannot lock file %s [%d] : already locked by %s."), 
+			 $this->title,$this->id,$user->firstname." ".$user->lastname);
 	}   else  {      
 	  $err = $this-> Control( "edit");
 	}
