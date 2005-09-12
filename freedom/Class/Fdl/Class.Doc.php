@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.270 2005/09/09 16:25:18 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.271 2005/09/12 16:33:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1825,7 +1825,7 @@ final public function PostInsert()  {
 
     if ($this->comment != '') $this->comment = $commentdate."\n".$this->comment;
     else $this->comment = $commentdate;
-    $this->modify(true,array("comment"),true);
+    if ($this->isAlive()) $this->modify(true,array("comment"),true);
   }
 
   /**

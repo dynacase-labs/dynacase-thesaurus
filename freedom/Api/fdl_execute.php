@@ -3,7 +3,7 @@
  * Execute Freedom Processes
  *
  * @author Anakeen 2005
- * @version $Id: fdl_execute.php,v 1.3 2005/08/19 16:14:31 eric Exp $
+ * @version $Id: fdl_execute.php,v 1.4 2005/09/12 16:33:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,7 +46,8 @@ if ($docid > 0) {
   if ($doc->locked == -1) { // it is revised document
     $doc=new_Doc($dbaccess,$doc->latestId());
   }
-  $cmd=$doc->bgCommand();
+  
+  $cmd=$doc->bgCommand($action->user->id==1);
   $f=uniqid("/tmp/fexe");
   $fout="$f.out";
   $ferr="$f.err";
@@ -71,16 +72,20 @@ if ($docid > 0) {
   $doc->setValue("exec_elapsed",$ms);
   $doc->setValue("exec_date",date("d/m/Y H:i "));
   $doc->setValue("exec_state",(($statut==0)?"OK":$statut));
+  $puserid=$doc->getValue("exec_iduser"); // default exec user
+  $doc->setValue("exec_iduser",$doc->getExecUserID());
+  $doc->refresh();
   $err=$doc->modify();
   if ($err == "") {
     if ($comment != "") $doc->AddComment($comment);
-    $err=$doc->AddRevision(sprintf(_("execution done %s"),$statut));
+    $err=$doc->AddRevision(sprintf(_("execution by %s done %s"),$doc->getTitle($doc->getExecUserID()),$statut));
     if ($err == "") {
       $doc->deleteValue("exec_elapsed");
       $doc->deleteValue("exec_detail");
       $doc->deleteValue("exec_detaillog");
       $doc->deleteValue("exec_date");
       $doc->deleteValue("exec_state");
+      $doc->setValue("exec_iduser",$puserid);
       $doc->refresh();
       $err=$doc->modify();
     }    

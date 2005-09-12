@@ -1,0 +1,25 @@
+[ZONE CORE:HTMLHEAD?title=[TEXT:Batch Choose]]
+
+<style type="text/css">
+DIV.batch {
+  border:2px outset black;
+  float:left;
+  text-align:center;
+  cursor:pointer;
+  width:100px;
+  overhide : hidden;
+  margin: 3px;
+}
+DIV.batch:hover {
+  border:2px inset black;
+  background:[CORE_BGCOLORALTERN];
+}
+   </style>
+
+
+[BLOCK BATCHFAMS]
+<div class="batch" onclick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ADDBATCH&dirid=[dirid]&bid=[id]'">
+<img width="48px" height="48px" src="[iconsrc]"><br><b>[title]</b><br><i>[actions]</i></div>
+[ENDBLOCK BATCHFAMS]
+
+[ZONE CORE:HTMLFOOT]

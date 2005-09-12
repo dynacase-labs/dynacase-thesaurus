@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.35 2005/09/09 16:25:46 eric Exp $
+// $Id: FREEDOM.app,v 1.36 2005/09/12 16:33:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -69,6 +69,16 @@ $action_desc = array (
   array( 
    "name"		=>"BATCHEXEC",
    "short_name"		=>N_("batch execution"),
+   "acl"		=>"FREEDOM_ADMIN"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_APPLYBATCH",
+   "short_name"		=>N_("construct batch document"),
+   "acl"		=>"FREEDOM_ADMIN"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_ADDBATCH",
+   "short_name"		=>N_("add batch document"),
    "acl"		=>"FREEDOM_ADMIN"
   ) ,
   array( 
