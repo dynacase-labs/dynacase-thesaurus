@@ -292,14 +292,15 @@ function wgcalGetRessourcesMatrix($ev) {
   $event = new Doc($action->getParam("FREEDOM_DB"), $ev);
   
   $tress  = $event->getTValue("CALEV_ATTID");
+  $tresst = $event->getTValue("CALEV_ATTTITLE");
   $tresse = $event->getTValue("CALEV_ATTSTATE");
   $tressg = $event->getTValue("CALEV_ATTGROUP");
 
   $ressd = array();
   foreach ($tress as $k => $v) {
     if (!(isset($ressd[$v]) && $tressg[$k]==-1)) {
-      $ressd[$v]["id"] = $id;
-      $ressd[$v]["title"] = ucwords(strtolower($event->getTitle()));
+      $ressd[$v]["id"] = $event->id;
+      $ressd[$v]["title"] = $tresst[$k];
       $ressd[$v]["state"] = $tresse[$k];
       $ressd[$v]["color"] = "white";
       $ressd[$v]["displayed"] = false;

@@ -995,6 +995,7 @@ function evColorByOwner() {
   global $action;
   $ressd = wgcalGetRessourcesMatrix($this->id);
   $myid = $action->user->fid;
+  $ownerid = $this->getValue("CALEV_OWNERID");
 
   // Si je suis convié / j'ai refusé / affichable => Ma couleur
   // Si le propriétaire est dans les affichables / pas refusé => Couleur du propriétaire
@@ -1010,7 +1011,9 @@ function evColorByOwner() {
       $event_color = $ressd[$ownerid]["color"];
     } else {
       while ((list($k,$v) = each($ressd)) && $event_color=="") {
-	if ($v["state"]!=EVST_REJECT && $v["displayed"]) $event_color = $v["color"];
+	if ($v["state"]!=EVST_REJECT && $v["displayed"]) {
+	  $event_color = $v["color"];
+	}
       }
     }
   }
