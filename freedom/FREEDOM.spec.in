@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.77 2005/09/13 14:22:08 yannick Exp $
+#  $Id: FREEDOM.spec.in,v 1.78 2005/09/13 16:47:55 yannick Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -43,11 +43,17 @@ Summary: libraries of FREEDOM module
 Group: Applications/Web
 Requires: php >= 5.0
 Requires: php-gd
+%if %{cerbere}
 Requires: php-calendar
+%endif
 Requires: postgresql >= 8.0
 Requires: html2ps
 Requires: ghostscript
+%if %{cerbere}
 Requires: ghostscript-fonts-std
+%else
+Requires: ghostscript-fonts
+%endif
 Requires: libjpeg-devel
 Requires: netpbm
 Requires: netpbm-progs
@@ -59,7 +65,11 @@ PreReq: vixie-cron
 PreReq: WHAT >= 2.0.0
 Prereq: VAULT >= 2.0.0
 Prereq: gettext
+%if %{cerbere}
 Prereq: php-cgi 
+%else
+Prereq: php
+%endif
 Conflicts: ROAMING < 0.0.5
 Conflicts: AFFMON < 0.2.5
 
@@ -70,9 +80,12 @@ The FREEDOM LIBS is necessary to use functionnality of the FREEDOM module
 Summary: user card management
 Group: Applications/Web
 Requires: php-ldap
-Requires: openldap-devel
+%if %{cerbere}
 Requires: openldap-servers
 Requires: openldap-backend-ldbm
+%else
+Requires: openldap-servers
+%endif
 PreReq: WHAT
 PreReq: @PACKAGE@-LIB = %{version}
 PreReq: @PACKAGE@ = %{version}
@@ -149,7 +162,11 @@ cd -
 
 
 %files LIB
+%if %{cerbere}
 %defattr(-,http,http)
+%else
+%defattr(-,apache,apache)
+%endif
 %dir %{destdir}/FDLGEN
 %defattr(-,root,root)
 %dir %{destdir}/FDL

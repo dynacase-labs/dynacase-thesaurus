@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.15 2005/09/13 14:22:08 yannick Exp $
+# $Id: Makefile.in,v 1.16 2005/09/13 16:47:55 yannick Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -46,6 +46,7 @@ clean:
               App/Freedom/FREEDOM_post \
               App/Fdl/FDL_init.php \
               App/Fdl/FDL_post \
+	      App/Usercard/USERCARD_post \
               App/Generic/GENERIC_init.php App/Usercard/USERCARD_init.php \
 	      App/Fusers/FUSERS_init.php App/Onefam/ONEFAM_init.php
               
