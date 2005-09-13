@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pubdir="/home/httpd/what";
+pubdir="@prefix@";
 
 #------------------------------
 #post installation
