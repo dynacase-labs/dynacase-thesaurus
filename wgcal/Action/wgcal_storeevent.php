@@ -46,18 +46,18 @@ function wgcal_storeevent(&$action) {
   
   $ds = GetHttpVars("Fstart", 0);
   $de = GetHttpVars("Fend", 0);
-  $start = w_datets2db($ds).":00 CEST";
-  $end = w_datets2db($de).":00 CEST";
+  $start = w_datets2db($ds).":00";
+  $end = w_datets2db($de).":00";
   $htype = 0;
   if (GetHttpVars("nohour", "") == "on") {
     $htype = 1;
-    $start = w_datets2db($ds, false) . " 00:00:00 CEST";
-    $end = w_datets2db($ds, false) . " 00:00:00 CEST";
+    $start = w_datets2db($ds, false) . " 00:00:00";
+    $end = w_datets2db($ds, false) . " 00:00:00";
   }
   if (GetHttpVars("allday", "") == "on") {
     $htype = 2;
-    $start = w_datets2db($ds, false)." 00:00:00 CEST";
-    $end = w_datets2db($ds, false)." 23:59:59 CEST";
+    $start = w_datets2db($ds, false)." 00:00:00";
+    $end = w_datets2db($ds, false)." 23:59:59";
   }
   if (!$newevent) {
     $ott = $event->getValue("CALEV_TIMETYPE"); 

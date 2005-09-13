@@ -181,13 +181,8 @@ function WGCalEvOnMouseOut(ev, id) {
 // --------------------------------------------------------
 function WGCalSetDate(calendar)
 {  
-  var y = calendar.date.getUTCFullYear();
-  var m = calendar.date.getUTCMonth();     // integer, 0..11
-  var d = calendar.date.getUTCDate();
-  var w = calendar.date.getWeekNumber();
-  var ts = calendar.date.print("%s");
-  
   if (calendar.dateClicked) {
+    var ts = calendar.date.print("%s");
     usetparam(-1, "WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
   }
 }

@@ -15,9 +15,9 @@ function swstate(s) {
 
 
 function ShowDate(ts) {
-  var d = new Date();
-  d.setTime((parseInt(ts) * 1000));
-  t = d.getUTCHours()+':'+d.getUTCMinutes()+' '+d.getUTCDate()+'/'+parseInt(d.getUTCMonth()+1)+'/'+d.getUTCFullYear();
+  var da = new Date();
+  da.setTime((parseInt(ts) * 1000));
+  t = da.getUTCHours()+':'+da.getUTCMinutes()+' '+da.getUTCDate()+'/'+parseInt(da.getUTCMonth()+1)+'/'+da.getUTCFullYear();
   return 'TS : '+ts+' : '+t;
 }
 
@@ -87,16 +87,16 @@ function UpdateTime(elt, time) {
   var fullTime = document.getElementById('F'+elt);
 
 
-   var d = new Date();
+   var da = new Date();
    uTime = parseInt(time);
-   d.setTime(uTime*1000);
+   da.setTime(uTime*1000);
 
 
-   minuTime.value = d.getUTCMinutes();
-   hourTime.value = d.getUTCHours();
-   fullTime.value = d.getTime();
-   daysTime.value = d.getUTCSeconds();
-   alert(' min='+d.getUTCMinutes()+' hours='+d.getUTCHours()+' day='+d.getUTCDate()+' month='+d.getUTCMonth()+' year='+d.getUTCFullYear()+' timestamp='+d.getUTCSeconds()+' utimestamp='+d.getTime());
+   minuTime.value = da.getUTCMinutes();
+   hourTime.value = da.getUTCHours();
+   fullTime.value = da.getTime();
+   daysTime.value = da.getUTCSeconds();
+   //alert(' min='+d.getUTCMinutes()+' hours='+d.getUTCHours()+' day='+d.getUTCDate()+' month='+d.getUTCMonth()+' year='+d.getUTCFullYear()+' timestamp='+d.getUTCSeconds()+' utimestamp='+d.getTime());
 }
 
 
@@ -390,10 +390,6 @@ function addExclDate() {
 
   var jdate = new Date();
   jdate.setTime(ndate*1000);
-  var y = jdate.getUTCFullYear();
-  var m = jdate.getUTCMonth();     // integer, 0..11
-  var d = jdate.getUTCDate();
-  var ts = calendar.date.print("%s");
 
   nOpt.id = 'exdate'+ExcludeDate;
   nOpt.value = ndate;

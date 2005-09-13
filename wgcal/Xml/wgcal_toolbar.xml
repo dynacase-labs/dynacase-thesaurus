@@ -30,17 +30,15 @@
 </table>
 <div align="center" class="wToolArea" width="100%" id="vnav" style="overflow:auto; display:[vnav]">
 <script type="text/javascript">Calendar.setup({
-        ifFormat       :    '%s',       // format of the input field
+        ifFormat       :    "%s",       // format of the input field
         showsTime      :    false,            // will display a time selector
-        singleClick    :    false,           // double-click mode
         firstDay       :    1,
         date           :    new Date([CmTIME]),
         weekNumbers    :    true,
-        flat           :    'vnav',
-        range          :    [ [YSTART] , [YSTOP] ],
-        flatCallback   :    WGCalSetDate,
-        step           :    1              
-    });</script><div align="center" width=100%" id="cal2" style="display:none"><script type="text/javascript">Calendar.setup({
+        flat           :    "vnav",
+        flatCallback   :    WGCalSetDate   
+    });</script>
+<div align="center" width=100%" id="cal2" style="display:none"><script type="text/javascript">Calendar.setup({
         ifFormat       :    '%s',       // format of the input field
         showsTime      :    false,            // will display a time selector
         singleClick    :    false,           // double-click mode
@@ -48,9 +46,7 @@
         date           :    new Date([Cm2TIME]),
         weekNumbers    :    true,
         flat           :    'cal2',
-        range          :    [ [YSTART] , [YSTOP] ],
-        flatCallback   :    WGCalSetDate,
-        step           :    1              
+        flatCallback   :    WGCalSetDate   
     });</script></div>
 </div>
 

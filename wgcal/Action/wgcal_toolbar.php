@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.47 2005/09/01 16:48:27 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.48 2005/09/13 16:07:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -31,9 +31,6 @@ function wgcal_toolbar(&$action) {
   if ($action->getParam("WGCAL_U_TBTODOS",1)) $action->lay->set("SHOWTODOS", true);
   else $action->lay->set("SHOWTODOS", false);
 
-  $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
-  $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
-  $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
@@ -43,6 +40,9 @@ function wgcal_toolbar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_toolbar.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
 
 
   $action->lay->set("MyFreedomId", $action->user->fid);
