@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.14 2004/08/24 13:36:37 eric Exp $
+# $Id: Makefile.in,v 1.15 2005/09/13 14:22:08 yannick Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -38,3 +38,17 @@ $(rootprefix)/etc/cron.daily/$(PACKAGE).cron:$(PACKAGE).cron $(rootprefix)/etc/c
 $(pubdir)/$(applib)/FREEDOM.vault : FREEDOM.vault
 	cp $< $(pubdir)/$(applib)/$<
 publish: $(pubdir)/$(applib)  $(pubdir)/$(applib)/FREEDOM.vault $(rootprefix)/etc/cron.daily/$(PACKAGE).cron
+
+clean:
+	rm -f *.*~ config.* Makefile configure $(PACKAGE).spec \
+              $(PACKAGE)-$(VERSION).tar.gz \
+              App/Freedom/FREEDOM_init.php \
+              App/Freedom/FREEDOM_post \
+              App/Fdl/FDL_init.php \
+              App/Fdl/FDL_post \
+              App/Generic/GENERIC_init.php App/Usercard/USERCARD_init.php \
+	      App/Fusers/FUSERS_init.php App/Onefam/ONEFAM_init.php
+              
+              
+              
+

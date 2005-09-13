@@ -1,19 +1,28 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.76 2005/06/29 15:00:57 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.77 2005/09/13 14:22:08 yannick Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
 
-%define apachedir /etc/httpd
+%define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+
+%if %{cerbere}
 %define destdir /home/httpd/what
+%else
+%define destdir /usr/share/what
+%endif
 
 Summary: The Freedom Management Module
 Name: @PACKAGE@
 Version: @VERSION@
+%if %{cerbere}
 Release: @RELEASE@
+%else
+Release: @RELEASE@fc
+%endif
 License: GPL
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -22,7 +31,7 @@ Vendor: Anakeen
 URL: http://www.anakeen.com/
 Packager: Yannick Le Briquer <yannick.lebriquer@anakeen.com>
 BuildArchitectures: noarch
-BuildRoot: /tmp/anakeen-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-root-%(id -u -n)
 PreReq: @PACKAGE@-LIB = %{version}
 Requires: @PACKAGE@-USERCARD
 %description
@@ -80,7 +89,8 @@ The user card module allow to view & edit user card and to insert them in a LDAP
 
 %install
 autoconf
-./configure  --with-pubrule=`pwd`
+./configure  --with-pubrule=`pwd` \
+	     --prefix=%{destdir}
 make  pubdir=$RPM_BUILD_ROOT%{destdir}
 
 %clean
