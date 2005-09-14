@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.9 2005/09/01 16:48:27 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.10 2005/09/14 16:10:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -22,6 +22,7 @@ function wgcal_searchiuser(&$action) {
   $families = getFamIdFromName($dbaccess, "IUSER");
   $doc = new Doc($dbaccess);
   
+  $cuser = GetHttpVars("cuser", $action->user->fid);
   $proto = GetHttpVars("proto", "default");
   $limit = GetHttpVars("lim", 25);
 
@@ -35,11 +36,11 @@ function wgcal_searchiuser(&$action) {
   foreach ($tg as $k => $v) $mygroups[] = $k;
 
 
-  $rdoc = wSearchUserCal(-1, $mygroups, $wre, GetHttpVars("iusertext", ""));
+  $rdoc = wSearchUserCal($cuser, $mygroups, $wre, GetHttpVars("iusertext", ""));
   
   $t = array(); $i = 0;
   foreach ($rdoc as $k => $v) {
-    if ($action->user->id != $v["id"]) {
+    if ($cuser != $v["id"]) {
       $t[$i]["attId"] = $v["id"];
       $t[$i]["attIcon"] = $doc->GetIcon($v["icon"]);
       $t[$i]["attTitle"] = ucwords(strtolower(addslashes(($v["title"]))));

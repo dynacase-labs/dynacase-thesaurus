@@ -21,6 +21,9 @@ var $popup_item = array('editrv',
 			'acceptrv', 
 			'rejectrv', 
 			'tbcrv', 
+			'dacceptrv', 
+			'drejectrv', 
+			'dtbcrv', 
 			'historyrv',
 			'cancelrv',
 			'showaccess' );
@@ -527,30 +530,27 @@ function RendezVousEdit() {
     $evstatus = EVST_READ;
     $mailadd = "";
     $withme = false;
-    $onlyme = true;
     foreach ($attendees as $k => $v) {
-      if ($v == $action->user->fid) {
+      if ($v == $ownerid) {
 	$evstatus = ($evstatus == EVST_NEW ? EVST_READ : $attendeesState[$k]);
 	$withme = true;
       } else {
-        $onlyme = false;
 	$u = new Doc($action->GetParam("FREEDOM_DB"), $v);
 	$m = $u->getValue("US_MAIL");
 	if ($m) $mailadd .= ($mailadd==""?"":", ").$u->getValue("US_FNAME")." ".$u->getValue("US_LNAME")." <".$m.">";
       }
     }
-    $rwstatus = false;
-    $ro = true;
-    // Compute ro mode & rostatus mode
-    if ($action->user->fid == $ownerid) {
-      $rostatus = false;
-      $ro = false;
-    } else {
-      $rostatus = true;
-      foreach ($attendees as $k => $v) {
-        if ($action->user->fid == $v) $rostatus = false;
-      }
-    }
+    $ro = false;
+
+//     $ro = true;
+//     // Compute ro mode & rostatus mode
+//     if ($action->user->fid == $ownerid) {
+//       $ro = false;
+//     } else {
+//       foreach ($attendees as $k => $v) {
+//         if ($action->user->fid == $v) $rostatus = false;
+//       }
+//     }
   } else {
     $eventid = -1;
     $mailadd = "";
@@ -580,7 +580,6 @@ function RendezVousEdit() {
     $ownerid = $action->user->fid;
     $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
     $ownertitle = $attru["title"];
-    $rostatus = true;
     $ro = false;
   }
 
@@ -600,31 +599,50 @@ function RendezVousEdit() {
   $this->lay->set("TITLE", $evtitle);
   $this->lay->set("DESCR", $evnote);
 
+  $this->lay->set("ownerid", $ownerid);
+  $this->lay->set("ownertitle", $ownertitle);
+
+  // Compute delegation
+  $ownerlist = array();
+  $this->lay->set("mforuser", false);
+  $this->lay->set("mforusermod", false);
+  if ($eventid == -1) {
+    $filter[]="( us_wgcal_dguid ~ '\\\\\\\\y(".$action->user->fid.")\\\\\\\\y' )";
+    $dusers = GetChildDoc($this->dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "IUSER");
+    $tdusers = array();
+    if (count($dusers)>0) {
+      $this->lay->set("mforuser", true);
+      $tdusers[] = array( "forufid" => $action->user->fid, 
+			  "foruname" => ucwords(strtolower($action->user->lastname." ".$action->user->firstname)), 
+			  "foruselected" => ($ownerid==$action->user->fid ? "selected" : ""));
+      $ownerlist[$action->user->fid] = $action->user->fid;
+      foreach ($dusers as $k => $v) {
+	if ($v!="") {
+	  $tdusers[] = array( "forufid" => $v["id"], 
+			      "foruname" => ucwords(strtolower($v["title"])),
+			      "foruselected" => ($ownerid==$v["id"] ? "selected" : ""));
+	  $ownerlist[$v["id"]] = $v["id"];
+	}
+      }
+      $this->lay->setBlockData("foruser", $tdusers);
+    } else {
+      $this->lay->set("mforuser", false);
+    }    
+  } else {
+    if ($ownerid != $action->user->fid) {
+      $this->lay->set("mforusermod", true);
+      $this->lay->set("foruname", $ownertitle);
+      $ownerlist[$ownerid] = $ownerid;
+    }
+  }
+
   $this->EventSetDate($evstart, $evend, $evtype, $ro);
-  $this->EventSetVisibility($evvis, $ogrp, $ro);
+  $this->EventSetVisibility($ownerid, $ownerlist, $evvis, $ogrp, $ro);
   $this->EventSetCalendar($evcal, $ro);
   $this->EventSetAlarm($evalarm, $evalarmt, $ro);
   $this->EventSetRepeat($evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld, $ro);
   $this->EventSetCategory($evcategory);
-  $this->EventAddAttendees($ownerid, $attendees, $attendeesState, $attendeesGroup, $withme, $ro, $onlyme);
-
-
-  // Compute delegation
-  $this->lay->set("ownerid", $ownerid);
-  $this->lay->set("ownertitle", $ownertitle);
-  $filter[] = "( us_wgcal_dguid ~* '^".$action->user->fid."$' or us_wgcal_dguid ~* '^".$action->user->fid."\n' )";
-  $dusers = GetChildDoc($this->dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "IUSER");
-  $tdusers = array();
-  if (count($dusers)>0) {
-    $this->lay->set("mforuser", true);
-    $tdusers[] = array( "forufid" => $action->user->fid, "foruname" => ucwords(strtolower($action->user->lastname." ".$action->user->firstname)) );
-    foreach ($dusers as $k => $v) {
-      if ($v!="") $tdusers[] = array( "forufid" => $v["id"], "foruname" => ucwords(strtolower($v["title"])) );
-    }
-    $this->lay->setBlockData("foruser", $tdusers);
-  } else {
-    $this->lay->set("mforuser", false);
-  }    
+  $this->EventAddAttendees($ownerid, $attendees, $attendeesState, $attendeesGroup, $withme, $ro);
 
   return;  
 }    
@@ -725,7 +743,7 @@ function EventSetDate($dstart, $dend, $type, $ro)
   $this->lay->set("DATEVIS", (($allday || $nohour)?"none":""));
 }
 
-function EventSetVisibility($vis, $ogrp, $ro) {
+function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp, $ro) {
   include_once('WGCAL/Lib.WGCal.php');
   global $action;
   $avis = CAL_getEventVisibilities($this->dbaccess, "");
@@ -752,28 +770,43 @@ function EventSetVisibility($vis, $ogrp, $ro) {
   }
   
   // Display groups
-  $glist = "";
-  $u_groups = wGetUserGroups();
-  $gjs = array(); $igjs=0;
-  $igroups = array(); $ig=0;
-  foreach ($u_groups as $k => $v) {
-    $gr = new Doc($this->dbaccess, $k);
-    $igroups[$ig]["gfid"] = $gr->id;
-    $igroups[$ig]["gid"] = $gr->getValue("us_whatid");
-    $igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));
-    $igroups[$ig]["gicon"] = $gr->GetIcon();
-    $igroups[$ig]["gjstitle"] = addslashes(ucwords(strtolower($gr->title)));
-    $igroups[$ig]["gisused"] = ($og ? isset($ugrp[$gr->getValue("us_whatid")]) : $v["sel"]);
-    if ($igroups[$ig]["gisused"]) {
-      $glist .= (strlen($glist)>0 ? "|" : "") . $gr->getValue("us_whatid");
-      $gjs[$igjs]["igroup"] = $igjs;
-      $gjs[$igjs]["gid"] = $gr->getValue("us_whatid");;
-      $igjs++;
-    }    
-    $ig++;
-  }  
+  $allgroups = array(); $iall=0;
+  foreach ($ownerlist as $ko => $vo) {
+    $glist = "";
+    $u_groups = wGetUserGroups($ko);
+    $gjs = array(); $igjs=0;
+    $igroups = array(); $ig=0;
+    foreach ($u_groups as $k => $v) {
+      $gr = new Doc($this->dbaccess, $k);
+      $igroups[$ig]["gowner"] = $ko;
+      $igroups[$ig]["gfid"] = $gr->id;
+      $igroups[$ig]["gid"] = $gr->getValue("us_whatid");
+      $igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));
+      $igroups[$ig]["gicon"] = $gr->GetIcon();
+      $igroups[$ig]["gjstitle"] = addslashes(ucwords(strtolower($gr->title)));
+      $igroups[$ig]["gisused"] = ($og ? isset($ugrp[$gr->getValue("us_whatid")]) : $v["sel"]);
+      if ($igroups[$ig]["gisused"]) {
+	$glist .= (strlen($glist)>0 ? "|" : "") . $gr->getValue("us_whatid");
+	$gjs[$igjs]["igroup"] = $igjs;
+	$gjs[$igjs]["gid"] = $gr->getValue("us_whatid");;
+	$igjs++;
+      }    
+      $ig++;
+    }  
+    $allgroups[$iall]["grange"] = $iall;
+    $allgroups[$iall]["gownerid"] = $ko;
+    $allgroups[$iall]["gownerdispl"] = ($ownerid==$ko?"":"none");
+    $allgroups[$iall]["groups"] = $igroups;
+    $allgroups[$iall]["jsgroups"] = $gjs;
+    $iall++;
+  }
   $this->lay->set("evconfgroups", $glist);
-  $this->lay->setBlockData("groups", $igroups);
+  $this->lay->setBlockData("allgroups", $allgroups);
+  $this->lay->setBlockData("jsOwnerList", $allgroups);
+  foreach ($allgroups as $kg => $vg) {
+    $this->lay->setBlockData($vg["gownerid"], $vg["groups"]);
+    $this->lay->setBlockData("js".$vg["gownerid"], $vg["jsgroups"]);
+  }
   $this->lay->setBlockData("VGLIST", $gjs);
 }
   
@@ -879,7 +912,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
 }
 
 
-function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = array(), $attendeesGroup = array(), $withme=true, $ro=false, $onlyme) {
+function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = array(), $attendeesGroup = array(), $withme=true, $ro=false) {
   global  $action;
   $udbaccess = $action->GetParam("COREUSER_DB");
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -889,8 +922,12 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   $att = array();
   $a = 0;
   $tallgrp = array(); $grp = 0;
+  $inatt = false;
   foreach ($attendees as $k => $v) {
-    if ($v == "" || $v==0 || ($ownerid==$action->user->fid&&$action->user->fid==$v) ) continue;
+    if ($v == "" || $v==0 || $ownerid==$v) {
+      $inatt = true;
+      continue;
+    }
     if ($attendeesGroup[$k] != -1) continue;
     $res = new Doc($dbaccess, $v);
     $att[$a]["attId"]    = $v;
@@ -952,7 +989,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   foreach ($tdress as $k => $v) {
     if ($v=="") continue;
     $tx = explode("%", $v);
-    if ($tx[0]=="" || $tx[0]==$action->user->fid) continue;
+    if ($tx[0]=="" || $tx[0]==$ownerid) continue;
     if (!wUserHaveCalVis($tx[0], 1)) continue;
     $res = new Doc($dbaccess, $tx[0]);
     $to[$ito]["idress"] = $ito;
@@ -977,7 +1014,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   $tdress = explode("|", $dress);
   $to = array(); $ito = 0;
   foreach ($tdress as $k => $v) {
-    if ($v=="" || $v==$action->user->fid) continue;
+    if ($v=="" || $v==$ownerid) continue;
     if (!wUserHaveCalVis($v, 1)) continue;
     $res = new Doc($dbaccess, $v);
     $to[$ito]["idress"] = $ito;
@@ -1028,6 +1065,9 @@ function RvSetPopup($rg) {
   PopupInvisible($this->popup_name,$rg, 'acceptrv');
   PopupInvisible($this->popup_name,$rg, 'rejectrv');
   PopupInvisible($this->popup_name,$rg, 'tbcrv');
+  PopupInvisible($this->popup_name,$rg, 'dacceptrv');
+  PopupInvisible($this->popup_name,$rg, 'drejectrv');
+  PopupInvisible($this->popup_name,$rg, 'dtbcrv');
   PopupInvisible($this->popup_name,$rg, 'historyrv');
   PopupInvisible($this->popup_name,$rg, 'viewrv');
   PopupInvisible($this->popup_name,$rg, 'deloccur');
@@ -1035,6 +1075,28 @@ function RvSetPopup($rg) {
   PopupInvisible($this->popup_name,$rg, 'deleterv');
   PopupActive($this->popup_name,$rg, 'cancelrv');
   PopupInvisible($this->popup_name,$rg, 'showaccess');
+
+  // Delegation for acceptation
+  $delegate = false;
+  $filter[]="(id = ".$this->getValue("calev_ownerid")." ) and ( us_wgcal_dguid ~ '\\\\\\\\y(".$action->user->fid.")\\\\\\\\y' )";
+  $dusers = GetChildDoc($this->dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "IUSER");
+  if (count($dusers)>0) {
+    foreach ($dusers as $k => $v) {
+      $duid = Doc::_val2array($v["us_wgcal_dguid"]);
+      $dumode = Doc::_val2array($v["us_wgcal_dgumode"]);
+      foreach ($duid as $ku => $vu) {
+	if ($vu == $action->user->fid && $dumode[$ku] == 1) $delegate = true; 
+      }
+    }
+  }
+
+  if ($delegate) {
+    $ownerstate = $this->RvAttendeeState($this->getValue("calev_ownerid"));
+    if ($ownerstate>-1 && $ownerstate!=2) PopupActive($this->popup_name,$rg, 'dacceptrv');
+    if ($ownerstate>-1 && $ownerstate!=3) PopupActive($this->popup_name,$rg, 'drejectrv');
+    if ($ownerstate>-1 && $ownerstate!=4) PopupActive($this->popup_name,$rg, 'dtbcrv');
+  }
+
 
   if (wDebugMode())   if ($this->UHaveAccess('viewacl')) PopupActive($this->popup_name,$rg, 'showaccess');
   

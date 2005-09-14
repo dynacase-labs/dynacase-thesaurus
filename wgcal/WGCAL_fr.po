@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-01 17:57+0200\n"
+"POT-Creation-Date: 2005-09-14 16:13+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -561,6 +561,12 @@ msgstr "Description de l'évènement"
 msgid "you set the event owner to"
 msgstr "Vous prenez un rendez-vous pour"
 
+msgid "by delegation"
+msgstr "Par délégation"
+
+msgid "you work by delegation on an event for"
+msgstr "Vous éditez un rendez-vous par délégation pour"
+
 msgid "rv title"
 msgstr "Titre"
 
@@ -733,6 +739,9 @@ msgstr "Supprimer les jours sélectionnés"
 msgid "click to selec/unselect group"
 msgstr "Cliquer pour sélectionner/déselectionner le groupe "
 
+msgid "you must have one group at least"
+msgstr "Vous devez sélectionner au moins un groupe !"
+
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
 
@@ -845,7 +854,7 @@ msgid "close menu"
 msgstr "Fermer"
 
 msgid "read only calendar"
-msgstr "Agenda en lecture seule" 
+msgstr "Agenda en lecture seule"
 
 msgid "my todos..."
 msgstr "Mes tâches..."
@@ -1021,6 +1030,15 @@ msgstr "Modifier les préférences"
 msgid "to be confirm this"
 msgstr "A Confirmer"
 
+msgid "accept this for owner"
+msgstr "Accepter (pour le propriétaire)"
+
+msgid "reject this for owner"
+msgstr "Refuser (pour le propriétaire)"
+
+msgid "to be confirm this for owner"
+msgstr "A Confirmer (pour le propriétaire)"
+
 msgid "edit this"
 msgstr "Editer"
 
@@ -1179,9 +1197,6 @@ msgstr "Seulement les groupes..."
 
 msgid "select to give write access / unselect for read only"
 msgstr "Sélectionner pour donner l'accès en écriture (lecture seule sinon)"
-
-msgid "you must have one group at least"
-msgstr "Vous devez sélectionner au moins un groupe !"
 
 msgid "lang"
 msgstr "Language"

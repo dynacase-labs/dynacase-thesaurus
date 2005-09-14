@@ -558,8 +558,10 @@ function RessourceSelect(idr) {
   relt = document.getElementById(idr);
   if (attendeesList[idx].select) {
     document.getElementById(attendeesList[idx].id).className = classSelected;
+    document.getElementById(attendeesList[idx].id).style.textDecoration = 'none';
   } else {
     document.getElementById(attendeesList[idx].id).className = classUnSelected;
+    document.getElementById(attendeesList[idx].id).style.textDecoration = 'line-through';
   }
 }
 
@@ -589,26 +591,55 @@ function SearchIUser(evt, force) {
   }
   return true;
 }
-// RV group visibility
-var glist = new Array();
-function  changeVisGrp(grp) {
 
+// RV group visibility
+
+function checkOneSelect(gowner) {
+  var gsel = 0;
+  for (i=0; i<gownerlist[gowner].length;i++) {
+    if (gownerlist[gowner][i] != -1) gsel++;
+  }
+  if (gsel<=1) {
+   alert(alertMsgOne);
+   return false;
+  }
+  return true;
+}
+
+function SetGroupsForOwner(own) {
+
+  for (i=0; i<owners.length; i++) {
+    document.getElementById('showg'+owners[i]).style.display = 'none';
+  }
+  document.getElementById('showg'+own).style.display = '';
+}
+
+function  changeVisGrp(gowner, grp) 
+{
   var grpList = '';
-  var cGrp = document.getElementById('d'+grp);
+  var cGrp = document.getElementById('o'+gowner+'d'+grp);
+  var i;
   if (!cGrp) return;
   if (cGrp.className!='WGCRessSelected') {
-    glist[glist.length] = grp;
+    gownerlist[gowner][gownerlist[gowner].length] = grp;
     cGrp.className = 'WGCRessSelected';
   } else {
-    for (i=0; i<glist.length;i++) {
-      if (glist[i] == grp) glist[i] = -1;
+    if (!checkOneSelect(gowner)) return;
+    for (i=0; i<gownerlist[gowner].length;i++) {
+      if (gownerlist[gowner][i] == grp)  gownerlist[gowner][i] = -1;
     }
     cGrp.className = 'WGCRessDefault';
   }
-  
-  for (i=0; i<glist.length;i++) {
-    if (glist[i] != -1) {
-      grpList += glist[i]+'|';
+  SetGroupsList(gowner);
+  return false;
+}
+
+function  SetGroupsList(gowner) 
+{
+  var grpList = '';
+  for (i=0; i<gownerlist[gowner].length;i++) {
+    if (gownerlist[gowner][i] != -1) {
+      grpList += gownerlist[gowner][i]+'|';
     }
   }
   document.getElementById('evconfgroups').value = grpList;

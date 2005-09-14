@@ -1,7 +1,7 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="cev" name="cev" value="[EVENTID]"> </form>
 
-<form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1">
+<form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1&cuser=[ownerid]">
 <input id="iusertext" name="iusertext" type="hidden">
 </form>
 
@@ -33,8 +33,12 @@
 
 <table width="100%" cellspacing="0"><tr>
 <td valign="bottom" align="left"><img src="[IMG:wgcal-small.gif]"  height="30px" title="[TEXT:event description]" style="border:0px" ></td>
-<td valign="bottom" align="right">[IF mforuser]<select onchange="document.getElementById('ownerid').value = this.options[this.selectedIndex].value; document.getElementById('ownertitle').value = this.options[this.selectedIndex].text; alert('[TEXT:you set the event owner to] '+this.options[this.selectedIndex].text);">[BLOCK foruser]<option value="[forufid]">[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]</td>
+<td valign="bottom" align="right">
+[IF mforuser]<select onchange="document.getElementById('ownerid').value = this.options[this.selectedIndex].value; document.getElementById('ownertitle').value = this.options[this.selectedIndex].text; alert('[TEXT:you set the event owner to] '+this.options[this.selectedIndex].text); SetGroupsForOwner(this.options[this.selectedIndex].value);SetGroupsList(this.options[this.selectedIndex].value)">[BLOCK foruser]<option value="[forufid]" [foruselected]>[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]
+[IF mforusermod]<span class="wgUserDelegate">[foruname] ([TEXT:by delegation])</span>[ENDIF mforusermod]</td>
 </tr></table>
+
+[IF mforusermod]<div id="alertdelegate" onclick="this.style.display='none'" style="font-size:140%; background-color:white; margin: 2em; padding:1em; border:4px inset red; color:red; position:absolute">[TEXT:you work by delegation on an event for] [foruname]</div>[ENDIF mforusermod]
 
 <fieldset width="100%">
 
@@ -397,13 +401,24 @@ Calendar.setup(
 </div> <!-- end of repeat zone -->
 
 <div id="evgroups" style="display:none">
-[BLOCK groups]<div id="d[gid]" style="margin:2px" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" 
-onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'" title="[TEXT:click to selec/unselect group] [gtitle]" 
-onclick="changeVisGrp([gid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>[ENDBLOCK groups]
+
+[BLOCK allgroups]<span id="showg[gownerid]" style="display:[gownerdispl]">
+[BLOCK [gownerid]]<div id="o[gowner]d[gid]" style="margin:2px" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'" title="[TEXT:click to selec/unselect group] [gtitle]" onclick="changeVisGrp([gowner],[gid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>
+[ENDBLOCK [gownerid]]</span>[ENDBLOCK allgroups]
+
 </div>
 <script type="text/javascript">
-[BLOCK VGLIST]
-glist[[igroup]] = [gid];[ENDBLOCK VGLIST]
+var alertMsgOne = "[TEXT:you must have one group at least]";
+var gownerlist = new Array();
+var owners = new Array();
+[BLOCK jsOwnerList]
+owners[[grange]] = [gownerid];
+gownerlist[[gownerid]] = new Array();
+[BLOCK js[gownerid]]gownerlist[[gownerid]][[igroup]] = [gid]; [ENDBLOCK js[gownerid]]
+[ENDBLOCK jsOwnerList]
+SetGroupsForOwner([ownerid]);
+SetGroupsList([ownerid]);
+  
 </script>
 </fieldset>
 </td></tr></table>

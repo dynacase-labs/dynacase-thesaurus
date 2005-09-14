@@ -226,12 +226,19 @@ function wgcal_storeevent(&$action) {
   $userf = new_Doc($dbaccess, $owner);
   $acl = array();
   
-  switch ($conf) {
-  case 1 : $ct = "private"; break;
-  case 2 : $ct = "groups"; break;
-  default: $ct = "public";
+  $sdeb = "Confidential=".$event->getValue("confidential")."\nRV Confidentiality=[$conf]\nAgenda visibility:".($userf->getValue("us_wgcal_vcalgrpmode")==1?"Groups":"Public")."\n";
+
+
+  // Delegation case
+  $dmode = -1; // No delegation
+  if ($owner != $action->user->fid) {
+    $duid = $userf->getTValue("us_wgcal_dguid");
+    $dumode = $userf->getTValue("us_wgcal_dgumode");
+    foreach ($duid as $k=>$v) {
+      if ($v == $action->user->fid) $dmode = $dumode[$k];
+    }
   }
-  $sdeb = "Confidential=".$event->getValue("confidential")."\nRV Confidentiality=[$ct]\nAgenda visibility:".($userf->getValue("us_wgcal_vcalgrpmode")==1?"Groups":"Public")."\n";
+
 
   // User agenda visibility
 
@@ -276,9 +283,17 @@ function wgcal_storeevent(&$action) {
 			"edit"=>"edit", 
 			"delete"=>"delete", 
 			"execute"=>"execute", 
+			"unlock"=>"unlock",
 			"viewacl"=>"viewacl", 
 			"modifyacl"=>"modifyacl");
   $aclv["none"] = array();
+  $aclv["edit"] = array( "edit"=>"edit", 
+			 "unlock"=>"unlock",
+			 "execute"=>"execute", 
+			 "viewacl"=>"viewacl", 
+			 "modifyacl"=>"modifyacl",
+			 "confidential"=>"confidential",
+			 "view"=>"view" );
   $aclv["read"] = array( "view"=>"view");
   $aclv["read_state"] = array( "view"=>"view", 
 			       "execute"=>"execute");
@@ -297,15 +312,6 @@ function wgcal_storeevent(&$action) {
     }
   }
 
-//   $aclv["readconf"]  = array( "view" => $event->dacls["view"]["pos"], 
-// 			      "confidential" => $event->dacls["confidential"]["pos"],
-// 			      "view" => 0,
-// 			      "send" => 0,
-// 			      "edit" => 0,
-// 			       "delete" => 0,
-// 			       "execute" => 0,
-// 			       "viewacl" => 0,
-// 			       "modifyacl" => 0);
 
   $acls = array();
 
@@ -315,6 +321,14 @@ function wgcal_storeevent(&$action) {
     if ($v != $ownerwid) {
       $acls[$v] = $aclvals["read_conf_state"];
     }
+  }
+  switch ($dmode) {
+  case 0: // delegation for edition only
+    $acls[$action->user->id] = $aclvals["edit"];
+    break;
+  case 1: // full delegation
+    $acls[$action->user->id] = $aclvals["all"];
+    break;
   }
   
 
@@ -359,7 +373,7 @@ function wgcal_storeevent(&$action) {
 	$perm->SetControlN($v);
       }	
     }
-    if ($perm->isAffected()) $perm ->modify();
+    if ($perm->isAffected()) $perm->modify();
     else $perm->Add();
     $sdeb .= "\n";
   }
@@ -419,6 +433,8 @@ function wgcal_storeevent(&$action) {
   if ($comment!="") $event->AddComment($comment);
   if ($mail_who!=-1) sendRv($action, $event, $mail_who, $mail_msg);
   
+  $event->unlock(true);
+
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 

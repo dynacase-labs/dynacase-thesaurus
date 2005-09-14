@@ -9,12 +9,15 @@ function wgcal_seteventstate(&$action) {
 
   $db = $action->getParam("FREEDOM_DB");
   $evi = GetHttpVars("id", -1);
+  $forowner = GetHttpVars("owner", 0);
   $event = new Doc($db, $evi);
   $evstate  = GetHttpVars("st", -1);
 
   if (!$event->isAffected() || $evstate==-1) {
     AddWarningMsg("wgcal_seteventstate: error, can't find event #$evi");
   } else {
+
+    $attchange = ($forowner==1 ? $event->getValue("calev_ownerid") : $action->user->fid );
 
     $raction = GetHttpVars("ra", "WGCAL_CALENDAR");
     $found = false;
@@ -23,7 +26,7 @@ function wgcal_seteventstate(&$action) {
     $att_state = $event->getTValue("CALEV_ATTSTATE", array());
     $att_title = $event->getTValue("CALEV_ATTTITLE", array());
     foreach ($att_id as $ka => $va) {
-      if ($va == $action->user->fid) {
+      if ($va == $attchange) {
 	$found = true;
 	$att_state[$ka] = $evstate;
 	$ress = $att_title[$ka];

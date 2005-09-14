@@ -356,6 +356,13 @@ TD {
   border-left-style:solid; 
 }
 
+.wgUserDelegate {
+	border : 2px inset;
+	font-weight: bold; 
+	background-color: [WTH_COLOR_2];
+	padding: 1px; 
+}
+
 /* event Css */
 .wEvBack {
   background : [WTH_BGIMG]; 
