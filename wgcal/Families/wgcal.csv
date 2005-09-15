@@ -1,9 +1,9 @@
 //FAM;recherche événement(DCALENDAR);<specid>;<fldid>;titre;dernière révision;différence majuscule/minuscule;fid amille;dossier racine;profondeur de recherche;requête sql;id dossier père courant;dossier père courant;Conditions;opérateurs logiques;attributs;fonctions;mot-clefs;texte;texte opérateur;id producteur;producteur;famille;couleurs;luminance;trié par;sens du tri;puis par;sens du tri
 //ORDER;DCALENDAR;;;ba_title;se_latest;se_case;se_famid;se_idfld;se_sublevel;se_sqlselect;se_idcfld;se_cfld;se_t_detail;se_ols;se_attrids;se_funcs;se_keys;dcal_text;dcal_textop;dcal_idproducer;dcal_producer;se_fam;dcal_coloridx;dcal_luminance;dcal_orderidx1;dcal_orderdesc1;dcal_orderidx2;dcal_orderdesc2
 //DOC;DCALENDAR;WG_AGENDA;;Mon agenda;yes;;EVENT;;;;;;;and\nand;evt_idres\nevt_frominitiatorid;~y\n~*;?idres\n?idfamref;;~*;;Tous les familles;événement;ir;0.6;absx;ASC;;ASC
-//BEGIN;0;personne;120;;USER;;;;;;;;;;;;;;;;;;;;;;;
-//TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+BEGIN;0;personne;120;;USER;;;;;;;;;;;;;;;;;;;;;;;
+TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
+END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;;;;;;;;;;;;;;;
 BEGIN;120;utilisateur;128;;IUSER;;;;;;;;;;;;;;;;;;;;;;;
 TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;

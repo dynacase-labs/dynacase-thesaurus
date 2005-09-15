@@ -48,12 +48,14 @@ function WGCalGetState($fmt="A") {
 
 function WGCalGetLabelState($state) {
   global $EventStateDescr;
+  if ($state==-1) return "";
   if ($state>=count($EventStateDescr)) return _('unknown');
   else return $EventStateDescr[$state][0];
 }
 
 function WGCalGetColorState($state) {
   global $EventStateDescr;
+  if ($state==-1) return "transparent";
   if ($state>=count($EventStateDescr)) return "lightgrey";
   else return $EventStateDescr[$state][1];
 }

@@ -382,6 +382,7 @@ function ev_showattendees($ressd, $private, $dcolor="lightgrey") {
 	}
 	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $k);
  	$t[$a]["atticon$curcol"] = $d->GetIcon($attru["icon"]);
+	$t[$a]["attcolor$curcol"] = WGCalGetColorState($v["state"]);
 	$t[$a]["atttitle$curcol"] = ucwords(strtolower($attru["title"]));
 	$t[$a]["attnamestyle$curcol"] = ($v["state"] != EVST_REJECT ? "none" : "line-through");
 	$t[$a]["attstate$curcol"] = $states[$v["state"]];

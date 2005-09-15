@@ -5,12 +5,13 @@
 <body>
 
 <div>Bonjour,<br/><br/>
-[rvtitle]<br/>
+[rvtitle]
+<br/>
 </div>
 <a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">
 <div style="margin:5px; width:auto;height:auto;">
 [EvPCard]
 </div></a>
-<hr> <a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">Il est accessible depuis l'agenda de groupe.</a>
+<hr>Depuis l'Intranet Césam, il accessible via <a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">l'agenda de groupe Freedom</a>.
 </body>
 </html>

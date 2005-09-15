@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.2 2005/09/02 16:25:15 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.3 2005/09/15 15:58:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -26,6 +26,7 @@ var $calPopupMenu = array(
 
 function explodeEvt($d1, $d2) {
   include_once("FDL/Lib.Util.php");  
+  include_once("WGCAL/Lib.wTools.php");    
   $eve = array();
 
   $jd1 = ($d1==""?0:Iso8601ToJD($d1));

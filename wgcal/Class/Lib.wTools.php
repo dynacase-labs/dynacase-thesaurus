@@ -455,9 +455,11 @@ function wSpeedWFidGroups($t="IGROUP") {
 /*
  * 
  */
-function wSearchUserCal($ufid=-1, $uGroups=array(2), $mode=0, $filter="", $lim=25) {
+function wSearchUserCal($ufid=-1, $uGroups, $mode=0, $filter="", $lim=25) {
   global $action;
 
+  if (count($uGroups)==0) $uGroups[] = 2;
+ 
   $tc = wSpeedWFidGroups();
   $ntg = array();
   foreach ($uGroups as $k => $v) $ntg[] = $tc["byWid"][$v];

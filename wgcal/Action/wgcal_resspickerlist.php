@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspickerlist.php,v 1.9 2005/09/01 16:48:27 marc Exp $
+ * @version $Id: wgcal_resspickerlist.php,v 1.10 2005/09/15 15:58:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -47,9 +47,9 @@ function wgcal_resspickerlist(&$action) {
 	$t[$v["id"]]["RESSICON"] = $doc->GetIcon($v["icon"]);
 	$t[$v["id"]]["RESSTITLEJS"] = addslashes(ucwords(strtolower($v["title"])));
 	$t[$v["id"]]["RESSTITLE"] = ucwords(strtolower($v["title"]));
-	$t[$v["id"]]["STATE"] = EVST_NEW;
-	$t[$v["id"]]["TSTATE"] = WGCalGetLabelState(EVST_NEW);
-	$t[$v["id"]]["CSTATE"] = WGCalGetColorState(EVST_NEW);
+	$t[$v["id"]]["STATE"] = ($v["fromid"]==128 ? EVST_NEW : -1);
+	$t[$v["id"]]["TSTATE"] = ($v["fromid"]==128 ? WGCalGetLabelState(EVST_NEW) : "");
+	$t[$v["id"]]["CSTATE"] = ($v["fromid"]==128 ? WGCalGetColorState(EVST_NEW) : "transparent");
 	$t[$v["id"]]["ROMODE"] = "true";
       }
     }

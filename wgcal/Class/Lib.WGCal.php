@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.50 2005/09/15 10:44:25 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.51 2005/09/15 15:58:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -168,7 +168,7 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="") {
  // Compute From:
  $fid = $event->getValue("CALEV_OWNERID");
  $uid = new Doc($action->GetParam("FREEDOM_DB"), $fid);
- $from = $uid->getValue("TITLE")." <".getMailAddr($uid->getValue("US_WHATID")).">";
+ $from = $uid->getValue("TITLE")." <".$uid->getValue("us_mail").">";
  if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) $bcc = $from;
 
 
@@ -180,7 +180,7 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="") {
      if ($v != $action->user->fid ) {
        $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
        $fullname = $u->getValue("TITLE");
-       $mail = getMailAddr($u->getValue("US_WHATID"));
+       $mail = $u->getValue("us_mail");
        if ($mail!="") $to .= ($to==""?"":", ").$fullname." <".$mail.">";
      }
    }
@@ -203,7 +203,7 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="") {
 	     $bcc, 
 	     "html", 
 	     false );
-//     AddWarningMsg("Mail: event(".$event->getValue("calev_evtitle").") From=[$from] To=[$to] Cc=[$cc] Bcc=[$bcc] Msg=[$reason]");
+//      AddWarningMsg("Mail: event(".$event->getValue("calev_evtitle").") From=[$from] To=[$to] Cc=[$cc] Bcc=[$bcc] Msg=[$reason]");
   }
 }
 

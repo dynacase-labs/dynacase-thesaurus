@@ -207,7 +207,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <fieldset>
 <legend>
-<img id="butevattendees" src="[IMG:wm-attendees.gif]" class="WGCalZoneSelected"
+<img id="butevattendees" src="[IMG:wm-caldirectaccess.gif]" class="WGCalZoneSelected"
     height="22" title="[TEXT:meeting]" style="border:0px" 
     onClick="SwitchZone('evattendees'); autoHresize(); autoVresize();" >
 <img id="butevrepeatzone" src="[IMG:wm-repeat.gif]" class="WGCalZoneDefault"

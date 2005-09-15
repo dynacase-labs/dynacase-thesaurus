@@ -186,11 +186,15 @@ function wgcal_storeevent(&$action) {
 	$attendeeswid[$attcnt]  = $att->getValue("us_whatid");
 	$attendeesname[$attcnt]  = $att->getTitle();
 	$attendeesgroup[$attcnt] = $va["fgid"];
-	$attendeesstate[$attcnt] = 0;
-	foreach ($oldatt_id as $ko => $vo) {
-	  if ($vo == $va["fid"]) $attendeesstate[$attcnt] = $oldatt_state[$ko];
+	if ($att->fromid==128) {
+	  $attendeesstate[$attcnt] = 0;
+	  foreach ($oldatt_id as $ko => $vo) {
+	    if ($vo == $va["fid"]) $attendeesstate[$attcnt] = $oldatt_state[$ko];
+	  }
+	} else {
+	  $attendeesstate[$attcnt] = -1;
 	}
-      }
+     }
       $attcnt++;
     }
   }
@@ -264,12 +268,14 @@ function wgcal_storeevent(&$action) {
   // foreach attendees (except owner) get agenda groups
   $attgrps = array();
   foreach ($attendeesid as $k => $v) {
-    $ugrp = wGetUserGroups($v);
-    if (count($ugrp)>0) {
-      foreach ($ugrp as $kg => $vg) {
-	$thisg = getTDoc($dbaccess, $kg);
-	if (!isset($rvcgroup[$thisg["us_whatid"]])) {
-	  $attgrps[$thisg["us_whatid"]] = $thisg["us_whatid"];
+    if ($attendeesstate[$k]!=-1) {
+      $ugrp = wGetUserGroups($v);
+      if (count($ugrp)>0) {
+	foreach ($ugrp as $kg => $vg) {
+	  $thisg = getTDoc($dbaccess, $kg);
+	  if (!isset($rvcgroup[$thisg["us_whatid"]])) {
+	    $attgrps[$thisg["us_whatid"]] = $thisg["us_whatid"];
+	  }
 	}
       }
     }
@@ -318,7 +324,9 @@ function wgcal_storeevent(&$action) {
 
   // Attendees -> read, confidential and execute at least
   foreach ($attendeeswid as $k => $v) {
-    if ($v!=$ownerwid && $v!=$creatorwid) $acls[$v] = $aclvals["read_conf_state"];
+    if ($attendeesstate[$k]!=-1) {
+      if ($v!=$ownerwid && $v!=$creatorwid) $acls[$v] = $aclvals["read_conf_state"];
+    }
   }
 
   // Owner, creator and delegate ==> owner rights
@@ -530,7 +538,9 @@ function resetAcceptStatus(&$event) {
     foreach ($att_ids as $k => $v) {
       if ($att_grp[$k]==-1) {
 	if ($v == $event->getValue("calev_ownerid")) $att_sta[$k] = EVST_ACCEPT;
-	else $att_sta[$k] = EVST_NEW;
+	else {
+	  if ($att_sta[$k] != -1) $att_sta[$k] = EVST_NEW;
+	}
       }
     }
     $event->setValue("CALEV_ATTSTATE", $att_sta);
