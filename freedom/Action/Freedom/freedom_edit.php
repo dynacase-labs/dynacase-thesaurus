@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.32 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.33 2005/09/15 07:56:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -41,7 +41,7 @@ function freedom_edit(&$action) {
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
   if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
-   
+  
   if ($docid > 0) {
     $doc= new_Doc($dbaccess,$docid);
     if (! $doc->isAlive()) $action->exitError(sprintf(_("document id %d not found"),$docid));
@@ -90,11 +90,12 @@ function freedom_edit(&$action) {
 
   $selectclass=array();
   
- 
-  foreach ($tclassdoc as $k=>$cdoc) {
-    $selectclass[$k]["idcdoc"]=$cdoc["id"];
-    $selectclass[$k]["classname"]=$cdoc["title"];
-    $selectclass[$k]["selected"]="";
+  if ($tclassdoc) {
+    foreach ($tclassdoc as $k=>$cdoc) {
+      $selectclass[$k]["idcdoc"]=$cdoc["id"];
+      $selectclass[$k]["classname"]=$cdoc["title"];
+      $selectclass[$k]["selected"]="";
+    }
   }
 
   // add no inherit for class document
