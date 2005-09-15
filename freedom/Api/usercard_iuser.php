@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.12 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.13 2005/09/15 07:54:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -159,6 +159,8 @@ if ($query->nb > 0)	{
     wbar($reste,$card,$title);    
   }	  
 
+  $doc->exec_query("update doc127 set name='GADMIN' where us_whatid=4");
+  $doc->exec_query("update doc127 set name='GDEFAULT' where us_whatid=2");
 }      
     
 
