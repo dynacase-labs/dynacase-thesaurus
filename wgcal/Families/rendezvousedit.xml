@@ -1,14 +1,20 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
+
+<script type="text/javascript"> var closeMsg = '[TEXT: cancel modifications]';</script>
+
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="cev" name="cev" value="[EVENTID]"> </form>
 
 <form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1&cuser=[ownerid]">
 <input id="iusertext" name="iusertext" type="hidden">
 </form>
 
+<form id="unlockevent" name="unlockevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[EVENTID]"></form>
+
 <form id="editevent" name="editevent" method="POST" target="wgcal_conflict" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHECKCONFLICT">
 <input type="hidden" id="cfchecked" name="cfchecked" value="0">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 <input type="hidden" id="ownerid" name="ownerid" value="[ownerid]">
+<input type="hidden" id="creatorid" name="creatorid" value="[creatorid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
 <input type="hidden" id="evstatus" name="evstatus" value="[evstatus]">
 <input type="hidden" id="evwithme" name="evwithme" value="[evwithme]">
@@ -34,7 +40,7 @@
 <table width="100%" cellspacing="0"><tr>
 <td valign="bottom" align="left"><img src="[IMG:wgcal-small.gif]"  height="30px" title="[TEXT:event description]" style="border:0px" ></td>
 <td valign="bottom" align="right">
-[IF mforuser]<select onchange="document.getElementById('ownerid').value = this.options[this.selectedIndex].value; document.getElementById('ownertitle').value = this.options[this.selectedIndex].text; alert('[TEXT:you set the event owner to] '+this.options[this.selectedIndex].text); SetGroupsForOwner(this.options[this.selectedIndex].value);SetGroupsList(this.options[this.selectedIndex].value)">[BLOCK foruser]<option value="[forufid]" [foruselected]>[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]
+[IF mforuser]<select onchange="document.getElementById('ownerid').value = this.options[this.selectedIndex].value; document.getElementById('ownertitle').value = this.options[this.selectedIndex].text; alert('[TEXT:you set the event owner to] '+this.options[this.selectedIndex].text); SetGroupsForOwner(this.options[this.selectedIndex].value); SetGroupsList(this.options[this.selectedIndex].value);">[BLOCK foruser]<option value="[forufid]" [foruselected]>[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]
 [IF mforusermod]<span class="wgUserDelegate">[foruname] ([TEXT:by delegation])</span>[ENDIF mforusermod]</td>
 </tr></table>
 
@@ -190,7 +196,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 </td>
 <td align="right">
 <img src="[IMG:wm-accept.gif]" id="btnSave" height="15" title="[TEXT:save]" class="wSmallButton" onclick="saveEvent();">
-<img src="[IMG:wm-cancel.gif]" id="btnCancel" height="15" title="[TEXT:cancel]" class="wSmallButton" onclick="cancelEvent('[TEXT: cancel modifications]');">
+<img src="[IMG:wm-cancel.gif]" id="btnCancel" height="15" title="[TEXT:cancel]" class="wSmallButton" onclick="cancelEvent(false);">
 </td></tr></table>
 
 

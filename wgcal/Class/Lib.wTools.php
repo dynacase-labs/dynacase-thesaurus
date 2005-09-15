@@ -286,6 +286,20 @@ function MonAgenda()
 }
 
 
+function  wgcalGetRColor($r=-1) {
+  global $action;
+  $color = "red";
+  $r = ($r==-1 ? $action->user->fid : $r);
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+  while (list($k,$v) = each($cals)) {
+    if ($v!="") {
+      $tc = explode("%", $v);
+      if ($tc[0] != "" && $tc[0]==$r) $color = $tc[2];
+    }
+  }
+  return $color;
+}
+
 function wgcalGetRessourcesMatrix($ev) {
   global $action;
   

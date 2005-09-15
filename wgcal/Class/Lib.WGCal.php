@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.49 2005/08/11 17:01:21 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.50 2005/09/15 10:44:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -159,7 +159,7 @@ function WGCalGetRGroups(&$action, $uid) {
  *         = 1: mail is send to all attendees
  *         = 2: mail is send to all attendees except to the owner
  */
-function sendRv(&$action, &$event, $sendto=0, $reason="") {
+function sendRv(&$action, &$event, $sendto=0, $title, $reason="") {
  
  if ($action->getParam("WGCAL_G_SENDMAILS", 0)==0) return;
 
@@ -191,12 +191,11 @@ function sendRv(&$action, &$event, $sendto=0, $reason="") {
 
      
   if ($to!="") {
-    //echo "to= [$to] cc=[$cc] subject=[".$action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->title."] zone=["."WGCAL:MAILRV?ev=$event->id:S&msg=$reason"."] from=[".$from."] bcc=[".$bcc."]<br>";
     sendCard($action, 
 	     $event->id, 
 	     $to, 
 	     $cc,
-	     $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->title,
+	     $title,
 	     "WGCAL:MAILRV?ev=$event->id:S&msg=$reason",
 	     true, 
 	     "", 
@@ -204,6 +203,7 @@ function sendRv(&$action, &$event, $sendto=0, $reason="") {
 	     $bcc, 
 	     "html", 
 	     false );
+//     AddWarningMsg("Mail: event(".$event->getValue("calev_evtitle").") From=[$from] To=[$to] Cc=[$cc] Bcc=[$bcc] Msg=[$reason]");
   }
 }
 

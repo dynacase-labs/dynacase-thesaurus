@@ -341,10 +341,14 @@ function attkillwins() {
   if (attpicker != null) attpicker.close();
 }
 
+
+var InSave = false;
+
 function saveEvent() {
   var fs = document.getElementById('editevent');
   var ti = document.getElementById('rvtitle');
   var refi = document.getElementById('editevent');
+  InSave = true;
   if (ti.value=='') {
     ti.style.background = 'red';
     document.getElementById('errTitle').style.display='';
@@ -367,9 +371,14 @@ function GetTitle(evt) {
   return true;
 }
 
-function cancelEvent(text) {
-  ok = confirm(text); 
-  if (ok) self.close();
+function cancelEvent(force) {
+  if (InSave) return;
+  var ok = false;
+  if (!force) ok = confirm(closeMsg); 
+  if (ok || force) {
+    document.getElementById('unlockevent').submit();
+    self.close();
+  }
 }
 
 function deleteEvent(text) {

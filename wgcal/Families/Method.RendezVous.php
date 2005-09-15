@@ -200,7 +200,9 @@ function RendezVousView() {
   }
   $this->lay->set("iconevent", $this->getIcon($this->icon));
 
-  $this->lay->set("owner", ucwords(strtolower($this->getValue("CALEV_OWNER"))));
+  $otitle = ucwords(strtolower($this->getValue("CALEV_OWNER")));
+  if ($this->getValue("calev_ownerid")!=$this->getValue("calev_creatorid") && $this->getValue("calev_creatorid")>0) $otitle .= " (".$this->getValue("calev_creator").")";
+  $this->lay->set("owner", $otitle);
   $this->lay->set("ShowCategories", false);
   $this->lay->set("ShowDate", false);
   $this->lay->set("modifdate", "");
@@ -238,6 +240,12 @@ function RendezVousView() {
   $bgnew = WGCalGetColorState(EVST_ACCEPT);
   $bgresumecolor = $bgcolor = $this->evColorByOwner();
   if (isset($ressd[$myid]) && $ressd[$myid]["displayed"]) $bgnew = WGCalGetColorState($ressd[$myid]["state"]);
+  $this->lay->set("MeCreator", false);
+  if ($this->getValue("calev_ownerid")!=$this->getValue("calev_creatorid") && $this->getValue("calev_creatorid")==$action->user->fid) {
+    $mycolor = wgcalGetRColor($action->user->fid);
+    $this->lay->set("mycolor", $mycolor);
+    $this->lay->set("MeCreator", true);
+  }
 
   $this->lay->set("bgstate", $bgnew);
   $this->lay->set("bgcolor", $bgcolor);
@@ -308,7 +316,7 @@ function showIcons($private, $withme) {
 					"icontitle" => _("icon text visibility private") ),
 		   "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), 
 				       "icontitle" => _("icon text visibility group") ),
-		   "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-repeat.gif"), 
+		   "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-icorepeat.gif"), 
 				      "icontitle" => _("icon text repeat event") ),
 		   "CAL_PRIVATE" => array( "iconsrc" => $action->getImageUrl("wm-privatecalendar.gif"), 
 					   "icontitle" => _("icon text private calendar") ),
@@ -465,6 +473,7 @@ function RendezVousEdit() {
   include_once('WGCAL/Lib.wTools.php');
   include_once('FDL/freedom_util.php');
   
+
   $fq = getIdFromName($this->dbaccess, "WG_AGENDA");
   $rvf = getIdFromName($this->dbaccess, "CALEVENT");
  
@@ -501,87 +510,88 @@ function RendezVousEdit() {
   $times = GetHttpVars("ts", time());
   $timee = GetHttpVars("te", $times + ($this->getWgcalUParam("WGCAL_U_RVDEFDUR", 60) * 60));
 
-  if ($this->isAffected()) {
-    $eventid = $this->id;
-    $ownerid = $this->getValue("CALEV_OWNERID", "");
-    $ownertitle = $this->getValue("CALEV_OWNER", "");
-    $evtitle  = $this->getValue("CALEV_EVTITLE", "");
-    $evnote   = $this->getValue("CALEV_EVNOTE", "");
-    $evstart  = w_dbdate2ts($this->getValue("CALEV_START", ""));
-    $evend    = w_dbdate2ts($this->getValue("CALEV_END", ""));
-    $evtype   = $this->getValue("CALEV_TIMETYPE", "");
-    $evfreq   = $this->getValue("CALEV_FREQUENCY", 1);
-    $evcal    = $this->getValue("CALEV_EVCALENDARID", -1);
-    $evvis    = $this->getValue("CALEV_VISIBILITY", 0);
-    $ogrp = $this->getValue("CALEV_CONFGROUPS");
-    $evalarm  = $this->getValue("CALEV_EVALARM", 0);
-    $evalarmt = $this->getValue("CALEV_EVALARMTIME", 0);
-    $evrepeat = $this->getValue("CALEV_REPEATMODE", 0);
-    $evrweekd = $this->getTValue("CALEV_REPEATWEEKDAY", 0);
-    $evrmonth = $this->getValue("CALEV_REPEATMONTH", 0);
-    $evruntil = $this->getValue("CALEV_REPEATUNTIL", 0);
-    $evruntild = w_dbdate2ts($this->getValue("CALEV_REPEATUNTILDATE"));
-    $evrexcld  = $this->getTValue("CALEV_EXCLUDEDATE", array());
-    $attendees = $this->getTValue("CALEV_ATTID", array());
-    $attendeesWid = $this->getTValue("CALEV_ATTWID", array());
-    $attendeesState = $this->getTValue("CALEV_ATTSTATE", array());
-    $attendeesGroup = $this->getTValue("CALEV_ATTGROUP", array());
-    $evcategory = $this->getValue("CALEV_CATEGORY");
-    $evstatus = EVST_READ;
-    $mailadd = "";
-    $withme = false;
-    foreach ($attendees as $k => $v) {
-      if ($v == $ownerid) {
-	$evstatus = ($evstatus == EVST_NEW ? EVST_READ : $attendeesState[$k]);
-	$withme = true;
-      } else {
-	$u = new Doc($action->GetParam("FREEDOM_DB"), $v);
-	$m = $u->getValue("US_MAIL");
-	if ($m) $mailadd .= ($mailadd==""?"":", ").$u->getValue("US_FNAME")." ".$u->getValue("US_LNAME")." <".$m.">";
-      }
-    }
-    $ro = false;
+  if ($this->isAffected()) 
+    {
 
-//     $ro = true;
-//     // Compute ro mode & rostatus mode
-//     if ($action->user->fid == $ownerid) {
-//       $ro = false;
-//     } else {
-//       foreach ($attendees as $k => $v) {
-//         if ($action->user->fid == $v) $rostatus = false;
-//       }
-//     }
-  } else {
-    $eventid = -1;
-    $mailadd = "";
-    $evtitle  = "";
-    $evnote   = "";
-    $evstart  = $times;
-    $evend    = $timee;
-    $evtype   = $nh;
-    $evfreq   = 1;
-    $evcal    = -1;
-    $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
-    $ogrp    = "-";
-    $evalarm  = 0;
-    $evalarmt = -1;
-    $evrepeat = 0;
-    $evrweekd = array();
-    $evrmonth = 0;
-    $evruntil = -1;
-    $evruntild = $timee + (7*24*3600);
-    $evrexcld  = array();
-    $evstatus = EVST_ACCEPT;
-    $evcategory = 0;
-    $withme = true;
-    $attendees = array( );
-    $attendeesState = array( );
-    $attendeesGroup = array( );
-    $ownerid = $action->user->fid;
-    $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
-    $ownertitle = $attru["title"];
-    $ro = false;
-  }
+      setHttpVar("HUL", "cancelEvent(true)");
+      setHttpVar("HBUL", "cancelEvent(true)");
+
+      $eventid = $this->id;
+      $ownerid = $this->getValue("CALEV_OWNERID", "");
+      $ownertitle = $this->getValue("CALEV_OWNER", "");
+      $creatorid = $this->getValue("CALEV_CREATORID", $ownerid);
+      $evtitle  = $this->getValue("CALEV_EVTITLE", "");
+      $evnote   = $this->getValue("CALEV_EVNOTE", "");
+      $evstart  = w_dbdate2ts($this->getValue("CALEV_START", ""));
+      $evend    = w_dbdate2ts($this->getValue("CALEV_END", ""));
+      $evtype   = $this->getValue("CALEV_TIMETYPE", "");
+      $evfreq   = $this->getValue("CALEV_FREQUENCY", 1);
+      $evcal    = $this->getValue("CALEV_EVCALENDARID", -1);
+      $evvis    = $this->getValue("CALEV_VISIBILITY", 0);
+      $ogrp = $this->getValue("CALEV_CONFGROUPS");
+      $evalarm  = $this->getValue("CALEV_EVALARM", 0);
+      $evalarmt = $this->getValue("CALEV_EVALARMTIME", 0);
+      $evrepeat = $this->getValue("CALEV_REPEATMODE", 0);
+      $evrweekd = $this->getTValue("CALEV_REPEATWEEKDAY", 0);
+      $evrmonth = $this->getValue("CALEV_REPEATMONTH", 0);
+      $evruntil = $this->getValue("CALEV_REPEATUNTIL", 0);
+      $evruntild = w_dbdate2ts($this->getValue("CALEV_REPEATUNTILDATE"));
+      $evrexcld  = $this->getTValue("CALEV_EXCLUDEDATE", array());
+      $attendees = $this->getTValue("CALEV_ATTID", array());
+      $attendeesWid = $this->getTValue("CALEV_ATTWID", array());
+      $attendeesState = $this->getTValue("CALEV_ATTSTATE", array());
+      $attendeesGroup = $this->getTValue("CALEV_ATTGROUP", array());
+      $evcategory = $this->getValue("CALEV_CATEGORY");
+      $evstatus = EVST_READ;
+      $mailadd = "";
+      $withme = false;
+      foreach ($attendees as $k => $v) {
+	if ($v == $ownerid) {
+	  $evstatus = ($evstatus == EVST_NEW ? EVST_READ : $attendeesState[$k]);
+	  $withme = true;
+	} else {
+	  $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
+	  $m = $u->getValue("US_MAIL");
+	  if ($m) $mailadd .= ($mailadd==""?"":", ").$u->getValue("US_FNAME")." ".$u->getValue("US_LNAME")." <".$m.">";
+	}
+      }
+      $ro = false;
+      
+    } 
+  else 
+    {
+      $eventid = -1;
+      $mailadd = "";
+      $evtitle  = "";
+      $evnote   = "";
+      $evstart  = $times;
+      $evend    = $timee;
+      $evtype   = $nh;
+      $evfreq   = 1;
+      $evcal    = -1;
+      $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
+      $ogrp    = "-";
+      $evalarm  = 0;
+      $evalarmt = -1;
+      $evrepeat = 0;
+      $evrweekd = array();
+      $evrmonth = 0;
+      $evruntil = -1;
+      $evruntild = $timee + (7*24*3600);
+      $evrexcld  = array();
+      $evstatus = EVST_ACCEPT;
+      $evcategory = 0;
+      $withme = true;
+      $attendees = array( );
+      $attendeesState = array( );
+      $attendeesGroup = array( );
+      $ownerid = $action->user->fid;
+      $creatorid = $action->user->fid;
+      $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
+      $ownertitle = $attru["title"];
+      $ro = false;
+
+    }
 
   $this->lay->set("EVENTID", $eventid);
   if ($evid==-1 || $ro) {
@@ -601,6 +611,7 @@ function RendezVousEdit() {
 
   $this->lay->set("ownerid", $ownerid);
   $this->lay->set("ownertitle", $ownertitle);
+  $this->lay->set("creatorid", $creatorid);
 
   // Compute delegation
   $ownerlist = array();
@@ -1077,7 +1088,7 @@ function RvSetPopup($rg) {
   PopupInvisible($this->popup_name,$rg, 'showaccess');
 
   // Delegation for acceptation
-  $delegate = false;
+  $delegate = -1;
   $filter[]="(id = ".$this->getValue("calev_ownerid")." ) and ( us_wgcal_dguid ~ '\\\\\\\\y(".$action->user->fid.")\\\\\\\\y' )";
   $dusers = GetChildDoc($this->dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "IUSER");
   if (count($dusers)>0) {
@@ -1085,12 +1096,12 @@ function RvSetPopup($rg) {
       $duid = Doc::_val2array($v["us_wgcal_dguid"]);
       $dumode = Doc::_val2array($v["us_wgcal_dgumode"]);
       foreach ($duid as $ku => $vu) {
-	if ($vu == $action->user->fid && $dumode[$ku] == 1) $delegate = true; 
+	if ($vu == $action->user->fid ) $delegate =  $dumode[$ku];
       }
     }
   }
 
-  if ($delegate) {
+  if ($delegate==1 || ($delegate==0 && ($this->getValue("calev_creatorid")==$action->user->fid))) {
     $ownerstate = $this->RvAttendeeState($this->getValue("calev_ownerid"));
     if ($ownerstate>-1 && $ownerstate!=2) PopupActive($this->popup_name,$rg, 'dacceptrv');
     if ($ownerstate>-1 && $ownerstate!=3) PopupActive($this->popup_name,$rg, 'drejectrv');

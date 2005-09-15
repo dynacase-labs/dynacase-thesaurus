@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-14 16:13+0200\n"
+"POT-Creation-Date: 2005-09-15 11:56+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -74,6 +74,9 @@ msgstr ""
 
 msgid "event modification acceptation status"
 msgstr "Modification des acceptations"
+
+msgid "event set/change by"
+msgstr "Ce rendez-vous a été positionné ou modifié par"
 
 msgid "all the day"
 msgstr "Toute la journée"
@@ -555,6 +558,9 @@ msgstr "Catégorie"
 msgid "view groups"
 msgstr "Visibles pour les groupes"
 
+msgid " cancel modifications"
+msgstr "Annuler les éventuelles modifications"
+
 msgid "event description"
 msgstr "Description de l'évènement"
 
@@ -624,9 +630,6 @@ msgstr "Sauver"
 
 msgid "cancel"
 msgstr "Annuler"
-
-msgid " cancel modifications"
-msgstr "Annuler les éventuelles modifications"
 
 msgid "meeting"
 msgstr "Réunion"
@@ -1166,8 +1169,8 @@ msgstr "Supprimer la délégation"
 msgid "suppress delegation for"
 msgstr "Supprimer la délégation pour "
 
-msgid "give all permissions (edition and approvment)"
-msgstr "Donner tous les droits (édition et acceptations)"
+msgid "selected : delegate all my event to this person"
+msgstr ""
 
 msgid "add delegation ..."
 msgstr "Ajout d'une délégation..."
@@ -1308,6 +1311,12 @@ msgstr "Version du synchroniseur attendue"
 
 msgid "used groups"
 msgstr "Groupes utilisés"
+
+#~ msgid "only for events set by this person"
+#~ msgstr "délégation pour les seuls rendez-vous créé par cette personne"
+
+#~ msgid "give all permissions (edition and approvment)"
+#~ msgstr "Donner tous les droits (édition et acceptations)"
 
 #~ msgid "my prefered contacts and groups"
 #~ msgstr "Mes contacts et groupes préférés"

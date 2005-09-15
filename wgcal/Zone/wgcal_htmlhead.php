@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.8 2005/06/20 16:07:31 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.9 2005/09/15 10:44:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.8 2005/06/20 16:07:31 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.9 2005/09/15 10:44:25 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -58,6 +58,11 @@ function wgcal_htmlhead(&$action) {
   
   $theme = $action->getParam("WGCAL_U_THEME", "default");
   $action->lay->set("theme", $theme);
+  
+  $unload_hand = GetHttpVars("HUL", "");
+  $berforeunload_hand = GetHttpVars("HBUL", "");
+  $action->lay->set("onUnLoad", $unload_hand);
+  $action->lay->set("onbeforeunload", $berforeunload_hand);
   
 }
 ?>

@@ -38,6 +38,19 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_OWNERID", $owner);
   $event->setValue("CALEV_OWNER", $ownertitle);
 
+  $creatorid = GetHttpVars("creatorid", -1); 
+  if ($owner==$creatorid) {
+    $creatorid = $owner;
+    $creatorwid = $ownerwid;
+    $creatortitle = $ownertitle;
+  } else {
+    $dcrea = getTDoc($dbaccess, $creatorid);
+    $creatorwid = $dcrea["us_whatid"];
+    $creatortitle = $dcrea["title"];
+  }
+  $event->setValue("calev_creatorid", $creatorid);
+  $event->setValue("calev_creator", $creatortitle);
+
   $evstatus = GetHttpVars("evstatus", EVST_NEW);
 
   $event->setValue("CALEV_EVTITLE", GetHttpVars("rvtitle"));
@@ -229,19 +242,7 @@ function wgcal_storeevent(&$action) {
   $sdeb = "Confidential=".$event->getValue("confidential")."\nRV Confidentiality=[$conf]\nAgenda visibility:".($userf->getValue("us_wgcal_vcalgrpmode")==1?"Groups":"Public")."\n";
 
 
-  // Delegation case
-  $dmode = -1; // No delegation
-  if ($owner != $action->user->fid) {
-    $duid = $userf->getTValue("us_wgcal_dguid");
-    $dumode = $userf->getTValue("us_wgcal_dgumode");
-    foreach ($duid as $k=>$v) {
-      if ($v == $action->user->fid) $dmode = $dumode[$k];
-    }
-  }
-
-
   // User agenda visibility
-
   $vcalrestrict = false;
   $vcal = array();
   $calgvis = $userf->getValue("us_wgcal_vcalgrpmode");
@@ -315,22 +316,21 @@ function wgcal_storeevent(&$action) {
 
   $acls = array();
 
-  if ($ownerwid != $action->user->id) $acls[$action->user->id] = $aclvals["none"];
-  $acls[$ownerwid] = $aclvals["all"];
+  // Attendees -> read, confidential and execute at least
   foreach ($attendeeswid as $k => $v) {
-    if ($v != $ownerwid) {
-      $acls[$v] = $aclvals["read_conf_state"];
-    }
+    if ($v!=$ownerwid && $v!=$creatorwid) $acls[$v] = $aclvals["read_conf_state"];
   }
-  switch ($dmode) {
-  case 0: // delegation for edition only
-    $acls[$action->user->id] = $aclvals["edit"];
-    break;
-  case 1: // full delegation
-    $acls[$action->user->id] = $aclvals["all"];
-    break;
+
+  // Owner, creator and delegate ==> owner rights
+  $calownermode = array();
+  $acls[$ownerwid] = $aclvals["all"];
+  if ($creatorid!=$owner) $acls[$creatorwid] = $aclvals["all"];
+  $duid = $userf->getTValue("us_wgcal_dguid");
+  $duwid = $userf->getTValue("us_wgcal_dguwid");
+  $dumode = $userf->getTValue("us_wgcal_dgumode");
+  foreach ($duid as $k=>$v) {
+    if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["all"];
   }
-  
 
   switch ($conf) {
   case 1: // Private
@@ -358,7 +358,7 @@ function wgcal_storeevent(&$action) {
   }
   
   foreach ($acls as $user => $uacl) {
-
+    
     $dt = getDocFromUserId($dbaccess,$user);
     $sdeb .= "[".$dt->GetTitle()."($user)] = ";
 
@@ -378,7 +378,7 @@ function wgcal_storeevent(&$action) {
     $sdeb .= "\n";
   }
   
-//   AddWarningMsg(  $sdeb );
+//    AddWarningMsg(  $sdeb );
   
 
   // Gestion du calendrier d'appartenance
@@ -408,7 +408,8 @@ function wgcal_storeevent(&$action) {
   
   $mail_msg = $comment = "";
   $mail_who = -1;
-  if ($oldrv==false) {
+
+  if ($newevent) {
     $mail_msg = _("event creation information message");
     $mail_who = 2;
     $comment = _("event creation");
@@ -431,8 +432,16 @@ function wgcal_storeevent(&$action) {
     }
   }
   if ($comment!="") $event->AddComment($comment);
-  if ($mail_who!=-1) sendRv($action, $event, $mail_who, $mail_msg);
+  if ($mail_who!=-1) {
+    $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->getValue("calev_evtitle");
+    sendRv($action, $event, $mail_who, $title, $mail_msg);
+  }
   
+  if ($action->user->fid!=$owner && $mail_who!=-1) {
+    $title = "[Agenda $creatortitle] ".$event->getValue("calev_evtitle");
+    sendRv($action, $event, 0, $title, _("event set/change by")." ".$creatortitle." -- ".$mail_msg);
+  }
+
   $event->unlock(true);
 
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
@@ -445,7 +454,11 @@ function rvDiff( $old, $new) {
     if (!isset($new[$ko])) {
       $diff[$ko] = "D";
     } else {
-      if ($vo!=$new[$ko]) $diff[$ko] = "M";
+      if (strcmp($ko,"calev_start")==0 || strcmp($ko,"calev_end")==0) 
+	{
+	  if (strcmp(substr($vo, 0, 16), substr($new[$ko], 0, 16))!=0) $diff[$ko] = "M";
+	}	
+      else if ($vo!=$new[$ko]) $diff[$ko] = "M";
     }
   }
   foreach ($new as $ko => $vo) {
@@ -457,9 +470,25 @@ function rvDiff( $old, $new) {
 		   "attendees" => false, 
 		   "status" => false, 
 		   "others" => false);
+
 //   $sdb = "Modifié : \n";
-  foreach ($diff as $k => $v) {
-//     $sdb .= "- $k [$v]\n";
+
+   foreach ($diff as $k => $v) {
+
+//      $sdb .= "- $k [$v] ";
+//      switch($v) {
+//      case "D":
+//        $sdb .= " old=(".$old[$k].") new=()";
+//        break;
+//      case "M":
+//        $sdb .= " old=(".$old[$k].") new=(".$new[$k].")";
+//        break;
+//      case "A":
+//        $sdb .= " old=() new=(".$new[$k].")";
+//        break;
+//      }
+//      $sdb .= "\n";
+		
     switch ($k) {
     case "calev_evtitle":      
     case "calev_evnote":
@@ -487,7 +516,7 @@ function rvDiff( $old, $new) {
       $result["others"] = true;
     }
   }
-//   AddWarningMsg(  $sdb );
+//    AddWarningMsg(  $sdb );
   return $result;
 }
   

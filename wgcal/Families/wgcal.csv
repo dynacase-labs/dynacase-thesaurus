@@ -1,210 +1,212 @@
-//FAM:recherche événement(DCALENDAR):<specid>:<fldid>:titre:dernière révision:différence majuscule/minuscule:fid amille:dossier racine:profondeur de recherche:requête sql:id dossier père courant:dossier père courant:Conditions:opérateurs logiques:attributs:fonctions:mot-clefs:texte:texte opérateur:id producteur:producteur:famille:couleurs:luminance:trié par:sens du tri:puis par:sens du tri
-//ORDER:DCALENDAR:::ba_title:se_latest:se_case:se_famid:se_idfld:se_sublevel:se_sqlselect:se_idcfld:se_cfld:se_t_detail:se_ols:se_attrids:se_funcs:se_keys:dcal_text:dcal_textop:dcal_idproducer:dcal_producer:se_fam:dcal_coloridx:dcal_luminance:dcal_orderidx1:dcal_orderdesc1:dcal_orderidx2:dcal_orderdesc2
-//DOC:DCALENDAR:WG_AGENDA::Mon agenda:yes::EVENT:::::::and\nand:evt_idres\nevt_frominitiatorid:~y\n~*:?idres\n?idfamref::~*::Tous les familles:événement:ir:0.6:absx:ASC::ASC
-//BEGIN:0:personne:120::USER:::::::::::::::::::::::
-//TAG:R:::::::::::::::::::::::::::
-//END::::::::::::::::::::::::::::
-//:idattr:idframe:label:T:A:type:ord:vis:need:link:phpfile:phpfunc:elink:::::::::::::::
-BEGIN:120:utilisateur:128::IUSER:::::::::::::::::::::::
-TAG:R:::::::::::::::::::::::::::
-ATTR:US_WGCAL_FGROUPS::Prefered goups:N:N:frame:10100:H::::::::::::::::::::
-ATTR:US_WGCAL_GROUPS:US_WGCAL_FGROUPS:Group List:N:N:array:10110:H::::::::::::::::::::
-ATTR:US_WGCAL_GNAME:US_WGCAL_GROUPS:Name:N:N:text:10110:H::::::::::::::::::::
-ATTR:US_WGCAL_GID:US_WGCAL_GROUPS:Id:N:N:docid:10120:H::::::::::::::::::::
-ATTR:US_WGCAL_GWID:US_WGCAL_GROUPS:What Id:N:N:integer:10130:H::::::::::::::::::::
-::::::::::::::::::::::::::::
-ATTR:US_WGCAL_VCALGRP::Visible For Groups:N:N:frame:10130:H::::::::::::::::::::
-ATTR:US_WGCAL_VCALGRPMODE:US_WGCAL_VCALGRP:All or Group List:N:N:enum:10140:H:::-:[hcheck]0|All,1|Groups::::::::::::::::
-ATTR:US_WGCAL_VCALGRPLIST:US_WGCAL_VCALGRP:Groups:N:N:array:10140:H::::::::::::::::::::
-ATTR:US_WGCAL_VCALGRPNAME:US_WGCAL_VCALGRPLIST:Group Name:N:N:text:10150:H::::::::::::::::::::
-ATTR:US_WGCAL_VCALGRPID:US_WGCAL_VCALGRPLIST:Group Id:N:N:docid:10150:H::::::::::::::::::::
-ATTR:US_WGCAL_VCALGRPWID:US_WGCAL_VCALGRPLIST:Group What Id:N:N:integer:10160:H::::::::::::::::::::
-ATTR:US_WGCAL_VCALGRPWRITE:US_WGCAL_VCALGRPLIST:Write enabled:N:N:enum:10170:H:::-:[hcheck]0|No,1|Yes::::::::::::::::
-::::::::::::::::::::::::::::
-ATTR:US_WGCAL_DGFRAME::Delegate:N:N:frame:10170:H::::::::::::::::::::
-ATTR:US_WGCAL_DGMAIL:US_WGCAL_DGFRAME:Send mail on delegate action:N:N:enum:10180:H:::-:[hchec]0|No,1|Yes::::::::::::::::
-ATTR:US_WGCAL_DGULIST:US_WGCAL_DGFRAME:Delegate User List:N:N:array:10190:H::::::::::::::::::::
-ATTR:US_WGCAL_DGUNAME:US_WGCAL_DGULIST:User Name:N:N:text:10200:H::::::::::::::::::::
-ATTR:US_WGCAL_DGUID:US_WGCAL_DGULIST:User Id:N:N:docid:10210:H::::::::::::::::::::
-ATTR:US_WGCAL_DGUWID:US_WGCAL_DGULIST:User Wid:N:N:integer:10220:H::::::::::::::::::::
-ATTR:US_WGCAL_DGUMODE:US_WGCAL_DGULIST:User Mode:N:N:enum:10230:H:::-:[hchec]0|Set RV,1|Like owner::::::::::::::::
-END::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::
-//BEGIN:129:groupe intranet:127::IGROUP:::::::::::::::::::::::
-//TAG:R:::::::::::::::::::::::::::
-//END::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::
-//CONTROLE DE VUE::::::::::::::::::::::::::::
-//FAM:masque de saisie(MASK):<specid>:<fldid>:titre:id familles:familles:attrid:visibilité:obligatoire:::::::::::::::::::
-//ORDER:MASK:::ba_title:msk_famid:msk_fam:msk_attrids:msk_visibilities:msk_needeeds:::::::::::::::::::
-//DOC:MASK:MASKADMIN::masque admin:CALEVENT:Rendez-vous:calev_event\ncalev_repeat\ncalev_attendees\ncalev_ownerid\ncalev_owner\ncalev_evtitle\ncalev_evnote\ncalev_evcalendarid\ncalev_evcalendar\ncalev_visibility\ncalev_evstatus\ncalev_evalarm\ncalev_evalarmtime\ncalev_start\ncalev_end\ncalev_timetype\ncalev_frequency\ncalev_repeatmode\ncalev_repeatweekday\ncalev_repeatmonth\ncalev_repeatuntil\ncalev_repeatuntildate\ncalev_t_excludedate\ncalev_excludedate\ncalev_t_attendees\ncalev_attid\ncalev_atttitle\ncalev_attstate\ncalev_attgroup:W\nW\nW\n-\nW\nW\nW\n-\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\n-\nW\nW\nW:-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-:::::::::::::::::::
-::::::::::::::::::::::::::::
-//FAM:contrôle de vues(CVDOC):<specid>:<fldid>:titre:description:family id:famille:vues:id création vues par défaut:id vues:label:création vue:type:zone:id masque:masque:family id:famille::::::::::
-//ORDER:CVDOC:::ba_title:cv_desc:cv_famid:cv_fam:cv_t_views:cv_idcview:cv_idview:cv_lview:cv_lcview:cv_kview:cv_zview:cv_mskid:cv_msk:dpdoc_famid:dpdoc_fam::::::::::
-//DOC:CVDOC:CVRDVADMIN::Contrôle de vue pour les rendez-vous:Admin peut voir tous les attributs:CALEVENT:Rendez-vous:::ADMIN:administration::VEDIT:FDL:EDITBODYCARD:MASKADMIN:masque admin Rendez-vous::::::::::::
-// :fromid:titre:id:class:name::::::::
-BEGIN:0:Rendez-vous:::CALEVENT::::::::
-TYPE:C::::::::::::
-DFLDID:::::::::::::
-WID:::::::::::::
-ICON:wgcal-small.gif::::::::::::
-TAG:P::::::::::::
-METHOD:::::::::::::
-METHOD:*Method.PEvents.php::::::::::::
-METHOD:+Method.RendezVous.php::::::::::::
-//CVID:CVRDVADMIN::::::::::::
-//:idattr:idframe:label:T:A:type:ord:vis:need:link:phpfile:phpfunc:elink
-ATTR:CALEV_EVENT::Description:N:N:frame:10::::::
-ATTR:CALEV_OWNERID:CALEV_EVENT:Propriétaire Id:N:N:docid:20:H:::::
-ATTR:CALEV_OWNER:CALEV_EVENT:Propriétaire:N:Y:text:20:R::%S%app=FDL&action=FDL_CARD&id=%CALEV_OWNERID%:WGCAL_external.php:CAL_getRessourcesOwner(D,CALEV_OWNER):CALEV_OWNERID,CALEV_OWNER:
-ATTR:CALEV_EVTITLE:CALEV_EVENT:Titre:Y:Y:text:30:R:::::
-ATTR:CALEV_EVNOTE:CALEV_EVENT:Description:N:N:longtext:40:R:::::
-ATTR:CALEV_EVCALENDARID:CALEV_EVENT:Calendar Id:N:N:docid:50:H:::::
-ATTR:CALEV_EVCALENDAR:CALEV_EVENT:Agenda:N:N:text:60:R::%S%app=FDL&action=FDL_CARD&id=%CALEV_CELENDARID%:::
-ATTR:CALEV_VISIBILITY:CALEV_EVENT:Visibilité:N:N:enum:70:R:::WGCAL_external.php:[hcheck]CAL_getEventVisibilities(D):
-ATTR:CALEV_EVSTATUS:CALEV_EVENT:Status:N:N:enum:80:R:::WGCAL_external.php:[hcheck]WGCalGetStates():
-ATTR:CALEV_EVALARM:CALEV_EVENT:Alarme:N:N:enum:90:R:::-:[bool]0|unset,1|set:
-ATTR:CALEV_EVALARMTIME:CALEV_EVENT:Délai de l'alarme:N:N:integer:100:R:::::
-ATTR:CALEV_START:CALEV_EVENT:Date de début:N:Y:timestamp:110:R:::::
-ATTR:CALEV_END:CALEV_EVENT:Date de fin:N:Y:timestamp:120:R:::::
-ATTR:CALEV_TIMETYPE:CALEV_EVENT:Mode:N:N:enum:130:R:::-:[hcheck]0|times,1|no time,2|all day:
-ATTR:CALEV_FREQUENCY:CALEV_EVENT:Fréquence:N:N:integer:140:R:::::
-ATTR:CALEV_CATEGORY:CALEV_EVENT:Catégorie:N:N:enum:150:R::::0|none:
-ATTR:CALEV_CONFGROUPS:CALEV_EVENT:Groupe en visibilité:N:N:text:160:R:::::
-:::::::::::::
-ATTR:CALEV_REPEAT::Répétition:N:N:frame:300::::::
-ATTR:CALEV_REPEATMODE:CALEV_REPEAT:Mode:N:N:enum:310:R:::-:[hcheck]0|none,1|daily,2|weekly,3|monthly,4|yearly:
-ATTR:CALEV_REPEATWEEKDAY:CALEV_REPEAT:Jour de la semaine:N:N:enumlist:320:R:::-:[hcheck]0|Monday,1|Tuesday,2|wenesday,3|thurday,4|Friday,5|Saturday,6|Sunday:
-ATTR:CALEV_REPEATMONTH:CALEV_REPEAT:Jour ou Date:N:N:enum:330:R:::-:[hcheck]0|by date,1|by day:
-ATTR:CALEV_REPEATUNTIL:CALEV_REPEAT:Répéter jusqu'à:N:N:enum:340:R:::-:[hcheck]0|infinite,1|date:
-ATTR:CALEV_REPEATUNTILDATE:CALEV_REPEAT:Date:N:N:timestamp:350:R:::::
-ATTR:CALEV_T_EXCLUDEDATE:CALEV_REPEAT:Dates exclues:N:N:array:360:R:::::
-ATTR:CALEV_EXCLUDEDATE:CALEV_T_EXCLUDEDATE:Dates exclues:N:N:timestamp:370:R:::::
-:::::::::::::
-ATTR:CALEV_ATTENDEES::Invites:N:N:frame:500::::::
-ATTR:CALEV_T_ATTENDEES:CALEV_ATTENDEES::N:N:array:510:R:::::
-ATTR:CALEV_ATTID:CALEV_T_ATTENDEES:Attendee ressource id:N:N:docid:520:H:::::
-ATTR:CALEV_ATTWID:CALEV_T_ATTENDEES:Attendee ressource what id:N:N:integer:530:H:::::
-ATTR:CALEV_ATTTITLE:CALEV_T_ATTENDEES:Invités:N:N:text:540:R::%S%app=FDL&action=FDL_CARD&id=%CALEV_ATTID%:WGCAL_external.php:CAL_getRessources(D,CALEV_ATTTITLE):CALEV_ATTID,CALEV_ATTTITLE:
-ATTR:CALEV_ATTSTATE:CALEV_T_ATTENDEES:Acceptation:N:N:enum:550:R:::WGCAL_external.php:[hcheck]WGCalGetStates():
-ATTR:CALEV_ATTGROUP:CALEV_T_ATTENDEES:Groupe d'appartenance:N:N:integer:560:R:::::
-:::::::::::::
-:::::::::::::
-// ATTR:CALEV_M_EDIT::Editer le RV:N:N:menu:1000:M::%S%app=WGCAL&action=WGCAL_EDITEVENT&evt=%I%:::
-:::::::::::::
-END:::::::::::::
-:::::::::::::
-:::::::::::::
-// :fromid:titre:id:class:name::::::::
-BEGIN:EVENT:Evènements calendrier:::EVENT_FROM_CAL::::::::
-METHOD:Method.RendezVousEvent.php::::::::::::
-ICON:wgcal_event.gif::::::::::::
-//CPROFID:EVENTFROMCAL_PROFILE::::::::::::
-//CVID:EVENT_PROFILE::::::::::::
-//:::::::1000::::::
-ATTR:EVFC_REPEAT::Répétition:N:N:frame:1010:R:::::
-ATTR:EVFC_REALENDDATE:EVFC_REPEAT:Date de fin réelle:N:N:timestamp:1020:R:::::
-ATTR:EVFC_REPEATMODE:EVFC_REPEAT:Mode:N:N:enum:1030:R:::-:[hcheck]0|none,1|daily,2|weekly,3|monthly,4|yearly:
-ATTR:EVFC_REPEATWEEKDAY:EVFC_REPEAT:Jour de la semaine:N:N:enumlist:1040:R:::-:[hcheck]0|Monday,1|Tuesday,2|wenesday,3|thurday,4|Friday,5|Saturday,6|Sunday:
-ATTR:EVFC_REPEATMONTH:EVFC_REPEAT:Jour ou Date:N:N:enum:1050:R:::-:[hcheck]0|by date,1|by day:
-ATTR:EVFC_REPEATUNTIL:EVFC_REPEAT:Répéter jusqu'à:N:N:enum:1060:R:::-:[hcheck]0|infinite,1|date:
-ATTR:EVFC_REPEATUNTILDATE:EVFC_REPEAT:Date:N:N:timestamp:1070:R:::::
-ATTR:EVFC_T_EXCLUDEDATE:EVFC_REPEAT:Dates exclues:N:N:array:1080:R:::::
-ATTR:EVFC_EXCLUDEDATE:EVFC_T_EXCLUDEDATE:Date:N:N:timestamp:1090:R:::::
-ATTR:EVFC_REPEATFREQ:EVFC_REPEAT:Fréquence:N:N:integer:1100:R:::::
-:::::::::::::
-:::::::::::::
-ATTR:EVFC_OTHERS::Autre:N:N:frame:1130:R:::::
-ATTR:EVFC_REJECATT:EVFC_OTHERS:Conviés ayant rejeté le rv:N:N:array:1110:R:::::
-ATTR:EVFC_REJECTATTID:EVFC_REJECATT:Ressource Id:N:N:docid:1120:R:::::
-ATTR:EVFC_LISTATT:EVFC_OTHERS:Conviés:N:N:array:1140:R:::::
-ATTR:EVFC_LISTATTID:EVFC_LISTATT:Ressource Id:N:N:docid:1150:R:::::
-ATTR:EVFC_LISTATTST:EVFC_LISTATT:Ressource status:N:N:integer:1160:R:::::
-ATTR:EVFC_VISIBILITY:EVFC_OTHERS:Visibilité:N:N:enum:1170:R:::::
-ATTR:EVFC_CALENDARID:EVFC_OTHERS:Calendrier:N:N:docid:1180:R:::::
-ATTR:EVFC_ALARMTIME:EVFC_OTHERS:Alarm before:N:N:integer:1190:R:::::
-END:::::::::::::
-:::::::::::::
-// :fromid:titre:id:class:name::::::::
-BEGIN:0:Tâches:::TODO::::::::
-TYPE:C::::::::::::
-DFLDID:::::::::::::
-WID:::::::::::::
-ICON:todo.gif::::::::::::
-TAG:P::::::::::::
-METHOD:::::::::::::
-METHOD:*Method.PEvents.php::::::::::::
-METHOD:+Method.TodoPEvents.php::::::::::::
-//:idattr:idframe:label:T:A:type:ord:vis:need:link:phpfile:phpfunc:elink
-ATTR:TODO_DESCRIPTION::Description:N:N:frame:10::::::
-ATTR:TODO_IDOWNER:TODO_DESCRIPTION:Id Propriétaire:Y:Y:docid:10:H:::::
-ATTR:TODO_OWNER:TODO_DESCRIPTION:Propriétaire:Y:Y:text:20:W::%S%app=FDL&action=FDL_CARD&id=%TODO_IDOWNER%:::
-ATTR:TODO_TITLE:TODO_DESCRIPTION:Titre:Y:Y:text:30:W:Y::::
-ATTR:TODO_DATE:TODO_DESCRIPTION:Date & Heure butée:Y:Y:timestamp:40:W:Y::::
-ATTR:TODO_NOTE:TODO_DESCRIPTION:Note:Y:Y:longtext:50:W:::::
-DEFAULT:TODO_IDOWNER:::userDocid():::::::::::
-DEFAULT:TODO_OWNER:::getTitle(TODO_IDOWNER):::::::::::
-END:::::::::::::
-:::::::::::::
-:::::::::::::
-// :fromid:titre:id:class:name::::::::
-BEGIN:EVENT:Evènements tâche:::EVENT_TODO::::::::
-ICON:event_todo.png::::::::::::
-METHOD:Method.TodoEvent.php::::::::::::
-END:::::::::::::
-// :fromid:titre:id:class:name::::::::
-BEGIN:0:Salles:::ROOMS::::::::
-TYPE:C::::::::::::
-DFLDID:::::::::::::
-WID:::::::::::::
-ICON:rooms.gif::::::::::::
-TAG:R::::::::::::
-//:idattr:idframe:label:T:A:type:ord:vis:need:link:phpfile:phpfunc:elink
-ATTR:ROOM_MAIN::Salle:N:N:frame:10::::::
-ATTR:ROOM_NAME:ROOM_MAIN:Nom:Y:Y:text:20:W:::::
-ATTR:ROOM_DESCRIPTION:ROOM_MAIN:Description:N:N:longtext:30:W:::::
-:::::::::::::
-ATTR:ROOM_LOCALISATION::Localisation:N:N:frame:300::::::
-ATTR:ROOM_SITEID:ROOM_LOCALISATION:Site Id:N:N:text:310:H::::::getTitle(ROOM_SITEID):ROOM_SITE:
-ATTR:ROOM_SITE:ROOM_LOCALISATION:Site:N:N:text:320:W::[rooms]%S%app=FDL&action=FDL_CARD&id=%ROOM_SITEID%:fdl.php:lfamilly(D,{SITE},ROOM_SITE):ROOM_SITEID,ROOM_SITE:
-ATTR:ROOM_BUILDING:ROOM_LOCALISATION:Bâtiment:N:N:text:330:W:::::
-ATTR:ROOM_FLOOR:ROOM_LOCALISATION:Etage:N:N:integer:340:W:::::
-ATTR:ROOM_NUMBER:ROOM_LOCALISATION:Numéro:N:N:integer:350:W:::::
-:::::::::::::
-ATTR:ROOM_INFORMATIONS::Informations:N:N:frame:500::::::
-ATTR:ROOM_SITTEDPLACES:ROOM_INFORMATIONS:Places assises:N:N:int:510:W:::::
-ATTR:ROOM_PHONE:ROOM_INFORMATIONS:Numero de téléphone:N:N:text:520:W:::::
-ATTR:ROOM_RESPONSABLE:ROOM_INFORMATIONS:Responsable:N:N:text:530:W::[rooms]%S%app=FDL&action=FDL_CARD&id=%ROOM_RESPONSABLEID%:fdl.php:lfamilly(D,{IUSER},ROOM_RESPONSABLE):ROOM_RESPONSABLEID,ROOM_RESPONSABLE:
-ATTR:ROOM_RESPONSABLEID:ROOM_INFORMATIONS:Resp Id:N:N:docid:540:H::::::getTitle(ROOM_RESPONSABLEID):ROOM_RESPONSABLE:
-:::::::::::::
-DEFAULT:ROOM_RESPONSABLEID:::userDocId():::::::::::
-DEFAULT:ROOM_RESPONSABLE:::getTitle(ROOM_RESPONSABLEID):::::::::::
-END:::::::::::::
-:::::::::::::
-// :fromid:titre:id:class:name::::::::
-BEGIN:0:Véhicule:::VEHICLE::::::::
-TYPE:C::::::::::::
-DFLDID:::::::::::::
-WID:::::::::::::
-ICON:vehicle.gif::::::::::::
-TAG:R::::::::::::
-//:idattr:idframe:label:T:A:type:ord:vis:need:link:phpfile:phpfunc:elink
-ATTR:VEHICLE_DESCR::Véhicle:N:N:frame:10::::::
-ATTR:VEHICLE_MARQ:VEHICLE_DESCR:Marque:Y:Y:text:20:W:::::
-ATTR:VEHICLE_DESCR:VEHICLE_DESCR:Modèle:Y:Y:text:30:W:::::
-ATTR:VEHICLE_NUMBER:VEHICLE_DESCR:Immatriculation:N:N:text:40:W:::::
-:::::::::::::
-ATTR:VEHICLE_CARACTERS::Caractéristiques:N:N:frame:100::::::
-ATTR:VEHICLE_HP:VEHICLE_CARACTERS:Puissance fiscale:N:N:integer:110:H:::::
-ATTR:VEHICLE_SITPLACE:VEHICLE_CARACTERS:Places assises:N:N:integer:120:W:::::
-ATTR:VEHICLE_VOLUTIL:VEHICLE_CARACTERS:Volume utile:N:N:integer:130:W:::::
-ATTR:VEHICLE_LONGUTIL:VEHICLE_CARACTERS:Longueur utile:N:N:integer:140:W:::::
-:::::::::::::
-ATTR:VEHICLE_AFFECTATION::Affectation:N:N:frame:200::::::
-ATTR:VEHICLE_RESPONSABLE:VEHICLE_AFFECTATION:Responsable:N:N:text:210:W::[rooms]%S%app=FDL&action=FDL_CARD&id=%VEHICLE_RESPONSABLEID%:fdl.php:lfamilly(D,{IUSER},VEHICLE_RESPONSABLE):VEHICLE_RESPONSABLEID,VEHICLE_RESPONSABLE:
-ATTR:VEHICLE_RESPONSABLEID:VEHICLE_AFFECTATION:Resp Id:N:N:docid:220:H::::::getTitle(VEHICLE_RESPONSABLEID):VEHICLE_RESPONSABLE:
-:::::::::::::
-DEFAULT:VEHICLE_RESPONSABLEID:::userDocId():::::::::::
-DEFAULT:VEHICLE_RESPONSABLE:::getTitle(VEHICLE_RESPONSABLEID):::::::::::
-END:::::::::::::
+//FAM;recherche événement(DCALENDAR);<specid>;<fldid>;titre;dernière révision;différence majuscule/minuscule;fid amille;dossier racine;profondeur de recherche;requête sql;id dossier père courant;dossier père courant;Conditions;opérateurs logiques;attributs;fonctions;mot-clefs;texte;texte opérateur;id producteur;producteur;famille;couleurs;luminance;trié par;sens du tri;puis par;sens du tri
+//ORDER;DCALENDAR;;;ba_title;se_latest;se_case;se_famid;se_idfld;se_sublevel;se_sqlselect;se_idcfld;se_cfld;se_t_detail;se_ols;se_attrids;se_funcs;se_keys;dcal_text;dcal_textop;dcal_idproducer;dcal_producer;se_fam;dcal_coloridx;dcal_luminance;dcal_orderidx1;dcal_orderdesc1;dcal_orderidx2;dcal_orderdesc2
+//DOC;DCALENDAR;WG_AGENDA;;Mon agenda;yes;;EVENT;;;;;;;and\nand;evt_idres\nevt_frominitiatorid;~y\n~*;?idres\n?idfamref;;~*;;Tous les familles;événement;ir;0.6;absx;ASC;;ASC
+//BEGIN;0;personne;120;;USER;;;;;;;;;;;;;;;;;;;;;;;
+//TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;;;;;;;;;;;;;;;
+BEGIN;120;utilisateur;128;;IUSER;;;;;;;;;;;;;;;;;;;;;;;
+TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_FGROUPS;;Prefered goups;N;N;frame;10100;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_GROUPS;US_WGCAL_FGROUPS;Group List;N;N;array;10110;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_GNAME;US_WGCAL_GROUPS;Name;N;N;text;10110;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_GID;US_WGCAL_GROUPS;Id;N;N;docid;10120;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_GWID;US_WGCAL_GROUPS;What Id;N;N;integer;10130;H;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRP;;Visible For Groups;N;N;frame;10130;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRPMODE;US_WGCAL_VCALGRP;All or Group List;N;N;enum;10140;H;;;-;[hcheck]0|All,1|Groups;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRPLIST;US_WGCAL_VCALGRP;Groups;N;N;array;10140;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRPNAME;US_WGCAL_VCALGRPLIST;Group Name;N;N;text;10150;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRPID;US_WGCAL_VCALGRPLIST;Group Id;N;N;docid;10150;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRPWID;US_WGCAL_VCALGRPLIST;Group What Id;N;N;integer;10160;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_VCALGRPWRITE;US_WGCAL_VCALGRPLIST;Write enabled;N;N;enum;10170;H;;;-;[hcheck]0|No,1|Yes;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_DGFRAME;;Delegate;N;N;frame;10170;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_DGMAIL;US_WGCAL_DGFRAME;Send mail on delegate action;N;N;enum;10180;H;;;-;[hchec]0|No,1|Yes;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_DGULIST;US_WGCAL_DGFRAME;Delegate User List;N;N;array;10190;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_DGUNAME;US_WGCAL_DGULIST;User Name;N;N;text;10200;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_DGUID;US_WGCAL_DGULIST;User Id;N;N;docid;10210;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_DGUWID;US_WGCAL_DGULIST;User Wid;N;N;integer;10220;H;;;;;;;;;;;;;;;;;;;;
+ATTR;US_WGCAL_DGUMODE;US_WGCAL_DGULIST;User Mode;N;N;enum;10230;H;;;-;[hchec]0|Set RV,1|Like owner;;;;;;;;;;;;;;;;
+END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//BEGIN;129;groupe intranet;127;;IGROUP;;;;;;;;;;;;;;;;;;;;;;;
+//TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//CONTROLE DE VUE;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//FAM;masque de saisie(MASK);<specid>;<fldid>;titre;id familles;familles;attrid;visibilité;obligatoire;;;;;;;;;;;;;;;;;;;
+//ORDER;MASK;;;ba_title;msk_famid;msk_fam;msk_attrids;msk_visibilities;msk_needeeds;;;;;;;;;;;;;;;;;;;
+//DOC;MASK;MASKADMIN;;masque admin;CALEVENT;Rendez-vous;calev_event\ncalev_repeat\ncalev_attendees\ncalev_ownerid\ncalev_owner\ncalev_evtitle\ncalev_evnote\ncalev_evcalendarid\ncalev_evcalendar\ncalev_visibility\ncalev_evstatus\ncalev_evalarm\ncalev_evalarmtime\ncalev_start\ncalev_end\ncalev_timetype\ncalev_frequency\ncalev_repeatmode\ncalev_repeatweekday\ncalev_repeatmonth\ncalev_repeatuntil\ncalev_repeatuntildate\ncalev_t_excludedate\ncalev_excludedate\ncalev_t_attendees\ncalev_attid\ncalev_atttitle\ncalev_attstate\ncalev_attgroup;W\nW\nW\n-\nW\nW\nW\n-\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\nW\n-\nW\nW\nW;-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//FAM;contrôle de vues(CVDOC);<specid>;<fldid>;titre;description;family id;famille;vues;id création vues par défaut;id vues;label;création vue;type;zone;id masque;masque;family id;famille;;;;;;;;;;
+//ORDER;CVDOC;;;ba_title;cv_desc;cv_famid;cv_fam;cv_t_views;cv_idcview;cv_idview;cv_lview;cv_lcview;cv_kview;cv_zview;cv_mskid;cv_msk;dpdoc_famid;dpdoc_fam;;;;;;;;;;
+//DOC;CVDOC;CVRDVADMIN;;Contrôle de vue pour les rendez-vous;Admin peut voir tous les attributs;CALEVENT;Rendez-vous;;;ADMIN;administration;;VEDIT;FDL:EDITBODYCARD;MASKADMIN;masque admin Rendez-vous;;;;;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
+BEGIN;0;Rendez-vous;;;CALEVENT;;;;;;;;
+TYPE;C;;;;;;;;;;;;
+DFLDID;;;;;;;;;;;;;
+WID;;;;;;;;;;;;;
+ICON;wgcal-small.gif;;;;;;;;;;;;
+TAG;P;;;;;;;;;;;;
+METHOD;;;;;;;;;;;;;
+METHOD;*Method.PEvents.php;;;;;;;;;;;;
+METHOD;+Method.RendezVous.php;;;;;;;;;;;;
+//CVID;CVRDVADMIN;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
+ATTR;CALEV_EVENT;;Description;N;N;frame;10;;;;;;
+ATTR;CALEV_OWNERID;CALEV_EVENT;Propriétaire Id;N;N;docid;20;H;;;;;
+ATTR;CALEV_OWNER;CALEV_EVENT;Propriétaire;N;Y;text;30;R;;%S%app=FDL&action=FDL_CARD&id=%CALEV_OWNERID%;WGCAL_external.php;CAL_getRessourcesOwner(D,CALEV_OWNER):CALEV_OWNERID,CALEV_OWNER;
+ATTR;CALEV_CREATORID;CALEV_EVENT;Créateur Id;N;N;docid;40;H;;;;;
+ATTR;CALEV_CREATOR;CALEV_EVENT;Créateur;N;N;text;50;R;;%S%app=FDL&action=FDL_CARD&id=%CALEV_CREATORID%;WGCAL_external.php;CAL_getRessourcesOwner(D,CALEV_CREATOR):CALEV_CREATORID,CALEV_CREATOR;
+ATTR;CALEV_EVTITLE;CALEV_EVENT;Titre;Y;Y;text;60;R;;;;;
+ATTR;CALEV_EVNOTE;CALEV_EVENT;Description;N;N;longtext;70;R;;;;;
+ATTR;CALEV_EVCALENDARID;CALEV_EVENT;Calendar Id;N;N;docid;80;H;;;;;
+ATTR;CALEV_EVCALENDAR;CALEV_EVENT;Agenda;N;N;text;90;R;;%S%app=FDL&action=FDL_CARD&id=%CALEV_CELENDARID%;;;
+ATTR;CALEV_VISIBILITY;CALEV_EVENT;Visibilité;N;N;enum;100;R;;;WGCAL_external.php;[hcheck]CAL_getEventVisibilities(D);
+ATTR;CALEV_EVSTATUS;CALEV_EVENT;Status;N;N;enum;110;R;;;WGCAL_external.php;[hcheck]WGCalGetStates();
+ATTR;CALEV_EVALARM;CALEV_EVENT;Alarme;N;N;enum;120;R;;;-;[bool]0|unset,1|set;
+ATTR;CALEV_EVALARMTIME;CALEV_EVENT;Délai de l'alarme;N;N;integer;130;R;;;;;
+ATTR;CALEV_START;CALEV_EVENT;Date de début;N;Y;timestamp;140;R;;;;;
+ATTR;CALEV_END;CALEV_EVENT;Date de fin;N;Y;timestamp;150;R;;;;;
+ATTR;CALEV_TIMETYPE;CALEV_EVENT;Mode;N;N;enum;160;R;;;-;[hcheck]0|times,1|no time,2|all day;
+ATTR;CALEV_FREQUENCY;CALEV_EVENT;Fréquence;N;N;integer;170;R;;;;;
+ATTR;CALEV_CATEGORY;CALEV_EVENT;Catégorie;N;N;enum;150;R;;;;0|none;
+ATTR;CALEV_CONFGROUPS;CALEV_EVENT;Groupe en visibilité;N;N;text;160;R;;;;;
+;;;;;;;;;;;;;
+ATTR;CALEV_REPEAT;;Répétition;N;N;frame;300;;;;;;
+ATTR;CALEV_REPEATMODE;CALEV_REPEAT;Mode;N;N;enum;310;R;;;-;[hcheck]0|none,1|daily,2|weekly,3|monthly,4|yearly;
+ATTR;CALEV_REPEATWEEKDAY;CALEV_REPEAT;Jour de la semaine;N;N;enumlist;320;R;;;-;[hcheck]0|Monday,1|Tuesday,2|wenesday,3|thurday,4|Friday,5|Saturday,6|Sunday;
+ATTR;CALEV_REPEATMONTH;CALEV_REPEAT;Jour ou Date;N;N;enum;330;R;;;-;[hcheck]0|by date,1|by day;
+ATTR;CALEV_REPEATUNTIL;CALEV_REPEAT;Répéter jusqu'à;N;N;enum;340;R;;;-;[hcheck]0|infinite,1|date;
+ATTR;CALEV_REPEATUNTILDATE;CALEV_REPEAT;Date;N;N;timestamp;350;R;;;;;
+ATTR;CALEV_T_EXCLUDEDATE;CALEV_REPEAT;Dates exclues;N;N;array;360;R;;;;;
+ATTR;CALEV_EXCLUDEDATE;CALEV_T_EXCLUDEDATE;Dates exclues;N;N;timestamp;370;R;;;;;
+;;;;;;;;;;;;;
+ATTR;CALEV_ATTENDEES;;Invites;N;N;frame;500;;;;;;
+ATTR;CALEV_T_ATTENDEES;CALEV_ATTENDEES;;N;N;array;510;R;;;;;
+ATTR;CALEV_ATTID;CALEV_T_ATTENDEES;Attendee ressource id;N;N;docid;520;H;;;;;
+ATTR;CALEV_ATTWID;CALEV_T_ATTENDEES;Attendee ressource what id;N;N;integer;530;H;;;;;
+ATTR;CALEV_ATTTITLE;CALEV_T_ATTENDEES;Invités;N;N;text;540;R;;%S%app=FDL&action=FDL_CARD&id=%CALEV_ATTID%;WGCAL_external.php;CAL_getRessources(D,CALEV_ATTTITLE):CALEV_ATTID,CALEV_ATTTITLE;
+ATTR;CALEV_ATTSTATE;CALEV_T_ATTENDEES;Acceptation;N;N;enum;550;R;;;WGCAL_external.php;[hcheck]WGCalGetStates();
+ATTR;CALEV_ATTGROUP;CALEV_T_ATTENDEES;Groupe d'appartenance;N;N;integer;560;R;;;;;
+;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+// ATTR;CALEV_M_EDIT;;Editer le RV;N;N;menu;1000;M;;%S%app=WGCAL&action=WGCAL_EDITEVENT&evt=%I%;;;
+;;;;;;;;;;;;;
+END;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
+BEGIN;EVENT;Evènements calendrier;;;EVENT_FROM_CAL;;;;;;;;
+METHOD;Method.RendezVousEvent.php;;;;;;;;;;;;
+ICON;wgcal_event.gif;;;;;;;;;;;;
+//CPROFID;EVENTFROMCAL_PROFILE;;;;;;;;;;;;
+//CVID;EVENT_PROFILE;;;;;;;;;;;;
+//;;;;;;;1000;;;;;;
+ATTR;EVFC_REPEAT;;Répétition;N;N;frame;1010;R;;;;;
+ATTR;EVFC_REALENDDATE;EVFC_REPEAT;Date de fin réelle;N;N;timestamp;1020;R;;;;;
+ATTR;EVFC_REPEATMODE;EVFC_REPEAT;Mode;N;N;enum;1030;R;;;-;[hcheck]0|none,1|daily,2|weekly,3|monthly,4|yearly;
+ATTR;EVFC_REPEATWEEKDAY;EVFC_REPEAT;Jour de la semaine;N;N;enumlist;1040;R;;;-;[hcheck]0|Monday,1|Tuesday,2|wenesday,3|thurday,4|Friday,5|Saturday,6|Sunday;
+ATTR;EVFC_REPEATMONTH;EVFC_REPEAT;Jour ou Date;N;N;enum;1050;R;;;-;[hcheck]0|by date,1|by day;
+ATTR;EVFC_REPEATUNTIL;EVFC_REPEAT;Répéter jusqu'à;N;N;enum;1060;R;;;-;[hcheck]0|infinite,1|date;
+ATTR;EVFC_REPEATUNTILDATE;EVFC_REPEAT;Date;N;N;timestamp;1070;R;;;;;
+ATTR;EVFC_T_EXCLUDEDATE;EVFC_REPEAT;Dates exclues;N;N;array;1080;R;;;;;
+ATTR;EVFC_EXCLUDEDATE;EVFC_T_EXCLUDEDATE;Date;N;N;timestamp;1090;R;;;;;
+ATTR;EVFC_REPEATFREQ;EVFC_REPEAT;Fréquence;N;N;integer;1100;R;;;;;
+;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+ATTR;EVFC_OTHERS;;Autre;N;N;frame;1130;R;;;;;
+ATTR;EVFC_REJECATT;EVFC_OTHERS;Conviés ayant rejeté le rv;N;N;array;1110;R;;;;;
+ATTR;EVFC_REJECTATTID;EVFC_REJECATT;Ressource Id;N;N;docid;1120;R;;;;;
+ATTR;EVFC_LISTATT;EVFC_OTHERS;Conviés;N;N;array;1140;R;;;;;
+ATTR;EVFC_LISTATTID;EVFC_LISTATT;Ressource Id;N;N;docid;1150;R;;;;;
+ATTR;EVFC_LISTATTST;EVFC_LISTATT;Ressource status;N;N;integer;1160;R;;;;;
+ATTR;EVFC_VISIBILITY;EVFC_OTHERS;Visibilité;N;N;enum;1170;R;;;;;
+ATTR;EVFC_CALENDARID;EVFC_OTHERS;Calendrier;N;N;docid;1180;R;;;;;
+ATTR;EVFC_ALARMTIME;EVFC_OTHERS;Alarm before;N;N;integer;1190;R;;;;;
+END;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
+BEGIN;0;Tâches;;;TODO;;;;;;;;
+TYPE;C;;;;;;;;;;;;
+DFLDID;;;;;;;;;;;;;
+WID;;;;;;;;;;;;;
+ICON;todo.gif;;;;;;;;;;;;
+TAG;P;;;;;;;;;;;;
+METHOD;;;;;;;;;;;;;
+METHOD;*Method.PEvents.php;;;;;;;;;;;;
+METHOD;+Method.TodoPEvents.php;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
+ATTR;TODO_DESCRIPTION;;Description;N;N;frame;10;;;;;;
+ATTR;TODO_IDOWNER;TODO_DESCRIPTION;Id Propriétaire;Y;Y;docid;10;H;;;;;
+ATTR;TODO_OWNER;TODO_DESCRIPTION;Propriétaire;Y;Y;text;20;W;;%S%app=FDL&action=FDL_CARD&id=%TODO_IDOWNER%;;;
+ATTR;TODO_TITLE;TODO_DESCRIPTION;Titre;Y;Y;text;30;W;Y;;;;
+ATTR;TODO_DATE;TODO_DESCRIPTION;Date & Heure butée;Y;Y;timestamp;40;W;Y;;;;
+ATTR;TODO_NOTE;TODO_DESCRIPTION;Note;Y;Y;longtext;50;W;;;;;
+DEFAULT;TODO_IDOWNER;::userDocid();;;;;;;;;;;
+DEFAULT;TODO_OWNER;::getTitle(TODO_IDOWNER);;;;;;;;;;;
+END;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
+BEGIN;EVENT;Evènements tâche;;;EVENT_TODO;;;;;;;;
+ICON;event_todo.png;;;;;;;;;;;;
+METHOD;Method.TodoEvent.php;;;;;;;;;;;;
+END;;;;;;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
+BEGIN;0;Salles;;;ROOMS;;;;;;;;
+TYPE;C;;;;;;;;;;;;
+DFLDID;;;;;;;;;;;;;
+WID;;;;;;;;;;;;;
+ICON;rooms.gif;;;;;;;;;;;;
+TAG;R;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
+ATTR;ROOM_MAIN;;Salle;N;N;frame;10;;;;;;
+ATTR;ROOM_NAME;ROOM_MAIN;Nom;Y;Y;text;20;W;;;;;
+ATTR;ROOM_DESCRIPTION;ROOM_MAIN;Description;N;N;longtext;30;W;;;;;
+;;;;;;;;;;;;;
+ATTR;ROOM_LOCALISATION;;Localisation;N;N;frame;300;;;;;;
+ATTR;ROOM_SITEID;ROOM_LOCALISATION;Site Id;N;N;text;310;H;;;;::getTitle(ROOM_SITEID):ROOM_SITE;
+ATTR;ROOM_SITE;ROOM_LOCALISATION;Site;N;N;text;320;W;;[rooms]%S%app=FDL&action=FDL_CARD&id=%ROOM_SITEID%;fdl.php;lfamilly(D,{SITE},ROOM_SITE):ROOM_SITEID,ROOM_SITE;
+ATTR;ROOM_BUILDING;ROOM_LOCALISATION;Bâtiment;N;N;text;330;W;;;;;
+ATTR;ROOM_FLOOR;ROOM_LOCALISATION;Etage;N;N;integer;340;W;;;;;
+ATTR;ROOM_NUMBER;ROOM_LOCALISATION;Numéro;N;N;integer;350;W;;;;;
+;;;;;;;;;;;;;
+ATTR;ROOM_INFORMATIONS;;Informations;N;N;frame;500;;;;;;
+ATTR;ROOM_SITTEDPLACES;ROOM_INFORMATIONS;Places assises;N;N;int;510;W;;;;;
+ATTR;ROOM_PHONE;ROOM_INFORMATIONS;Numero de téléphone;N;N;text;520;W;;;;;
+ATTR;ROOM_RESPONSABLE;ROOM_INFORMATIONS;Responsable;N;N;text;530;W;;[rooms]%S%app=FDL&action=FDL_CARD&id=%ROOM_RESPONSABLEID%;fdl.php;lfamilly(D,{IUSER},ROOM_RESPONSABLE):ROOM_RESPONSABLEID,ROOM_RESPONSABLE;
+ATTR;ROOM_RESPONSABLEID;ROOM_INFORMATIONS;Resp Id;N;N;docid;540;H;;;;::getTitle(ROOM_RESPONSABLEID):ROOM_RESPONSABLE;
+;;;;;;;;;;;;;
+DEFAULT;ROOM_RESPONSABLEID;::userDocId();;;;;;;;;;;
+DEFAULT;ROOM_RESPONSABLE;::getTitle(ROOM_RESPONSABLEID);;;;;;;;;;;
+END;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
+BEGIN;0;Véhicule;;;VEHICLE;;;;;;;;
+TYPE;C;;;;;;;;;;;;
+DFLDID;;;;;;;;;;;;;
+WID;;;;;;;;;;;;;
+ICON;vehicle.gif;;;;;;;;;;;;
+TAG;R;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
+ATTR;VEHICLE_DESCR;;Véhicle;N;N;frame;10;;;;;;
+ATTR;VEHICLE_MARQ;VEHICLE_DESCR;Marque;Y;Y;text;20;W;;;;;
+ATTR;VEHICLE_DESCR;VEHICLE_DESCR;Modèle;Y;Y;text;30;W;;;;;
+ATTR;VEHICLE_NUMBER;VEHICLE_DESCR;Immatriculation;N;N;text;40;W;;;;;
+;;;;;;;;;;;;;
+ATTR;VEHICLE_CARACTERS;;Caractéristiques;N;N;frame;100;;;;;;
+ATTR;VEHICLE_HP;VEHICLE_CARACTERS;Puissance fiscale;N;N;integer;110;H;;;;;
+ATTR;VEHICLE_SITPLACE;VEHICLE_CARACTERS;Places assises;N;N;integer;120;W;;;;;
+ATTR;VEHICLE_VOLUTIL;VEHICLE_CARACTERS;Volume utile;N;N;integer;130;W;;;;;
+ATTR;VEHICLE_LONGUTIL;VEHICLE_CARACTERS;Longueur utile;N;N;integer;140;W;;;;;
+;;;;;;;;;;;;;
+ATTR;VEHICLE_AFFECTATION;;Affectation;N;N;frame;200;;;;;;
+ATTR;VEHICLE_RESPONSABLE;VEHICLE_AFFECTATION;Responsable;N;N;text;210;W;;[rooms]%S%app=FDL&action=FDL_CARD&id=%VEHICLE_RESPONSABLEID%;fdl.php;lfamilly(D,{IUSER},VEHICLE_RESPONSABLE):VEHICLE_RESPONSABLEID,VEHICLE_RESPONSABLE;
+ATTR;VEHICLE_RESPONSABLEID;VEHICLE_AFFECTATION;Resp Id;N;N;docid;220;H;;;;::getTitle(VEHICLE_RESPONSABLEID):VEHICLE_RESPONSABLE;
+;;;;;;;;;;;;;
+DEFAULT;VEHICLE_RESPONSABLEID;::userDocId();;;;;;;;;;;
+DEFAULT;VEHICLE_RESPONSABLE;::getTitle(VEHICLE_RESPONSABLEID);;;;;;;;;;;
+END;;;;;;;;;;;;;

@@ -13,7 +13,7 @@
 <thead></thead><tbody id="dtab">
 <tr style="display:none;" id="dtrsample"><td class="WGCRessDefault" onmouseover="this.className='WGCRessSelected'" onmouseout="this.className='WGCRessDefault'">
 <img src="[IMG:wm-delete.gif]" height="15px" title="[TEXT:suppress delegation]" onclick="if (confirm('[TEXT:suppress delegation for] %duname%')) removeDelegate(%duid%);">&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="checkbox" id="md%duid%" name="md%duid%" title="[TEXT:give all permissions (edition and approvment)]" onchange="delegateChangeMode(%duid%)">&nbsp;
+<input type="checkbox" id="md%duid%" name="md%duid%" title="[TEXT:selected : delegate all my event to this person]" onchange="delegateChangeMode(%duid%)">&nbsp;
 %duname%</td>
 </tbody>
 <tfoot><tr><td></td></tr></tfoot>
