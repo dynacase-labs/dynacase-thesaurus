@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.39 2005/08/10 10:30:22 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.40 2005/09/15 07:55:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -64,7 +64,7 @@ Class Dir extends PDir
 
       $privlocked->title=(_("locked document of ").$home ->title);
       $privlocked->Add();
-      $privlocked->AddQuery("select * from doc where (doctype!='Z') ".
+      $privlocked->AddQuery("select * from doc where (doctype!='Z') and".
 			    " (locked=".$this->userid.") ");
       $home -> AddFile($privlocked->id); 
 
