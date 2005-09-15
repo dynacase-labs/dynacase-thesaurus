@@ -5,10 +5,21 @@ DIV.batch {
   border:2px outset black;
   float:left;
   text-align:center;
-  cursor:pointer;
   width:100px;
+  height:200px;
   overhide : hidden;
   margin: 3px;
+}
+
+DIV.batch BUTTON {
+  background:[CORE_BGCOLORALTERN];
+  cursor:pointer;
+}
+DIV.batch BUTTON:hover {
+  border:2px inset black;
+  background:[CORE_FGCOLOR];
+  color:[CORE_TEXTBGCOLOR];
+  cursor:pointer;
 }
 DIV.batch:hover {
   border:2px inset black;
@@ -18,8 +29,11 @@ DIV.batch:hover {
 
 
 [BLOCK BATCHFAMS]
-<div class="batch" onclick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ADDBATCH&dirid=[dirid]&bid=[id]'">
-<img width="48px" height="48px" src="[iconsrc]"><br><b>[title]</b><br><i>[actions]</i></div>
+<div class="batch" ><div style="height:170px">
+<img width="48px" height="48px" src="[iconsrc]"><br><b>[title]</b><br><i>[actions]</i><br></div>
+<button onclick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ADDBATCH&linkdir=N&dirid=[dirid]&bid=[id]'" title="[TEXT:Copy the containt of folder in batch document]" style="width:40%">Copy</button>
+<button onclick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_ADDBATCH&linkdir=Y&dirid=[dirid]&bid=[id]'" title="[TEXT:Copy the reference of folder in batch document]" style="width:40%">Link</button>
+</div>
 [ENDBLOCK BATCHFAMS]
 
 [ZONE CORE:HTMLFOOT]
