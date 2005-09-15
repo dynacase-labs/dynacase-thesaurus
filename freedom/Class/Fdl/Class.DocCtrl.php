@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.26 2005/08/18 15:26:37 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.27 2005/09/15 07:55:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -319,7 +319,7 @@ Class DocCtrl extends DbObj
    */
   function ControlUp($uperm, $aclname) {
     if (isset($this->dacls[$aclname])) {
-      return (($uperm & (1 << ($this->dacls[$aclname]["pos"] ))) != 0 )?"":sprintf(_("no privilege %s"),$aclname);
+      return (($uperm & (1 << ($this->dacls[$aclname]["pos"] ))) != 0 )?"":sprintf(_("no privilege %s for %s |%d]"),$aclname,$this->title,$this->id);
     } else {
       return sprintf(_("unknow privilege %s"),$aclname);
     }
