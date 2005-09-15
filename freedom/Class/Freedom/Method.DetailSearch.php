@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.37 2005/08/17 09:12:00 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.38 2005/09/15 07:52:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -95,6 +95,16 @@ function getSqlDetailFilter() {
   $taid = $this->getTValue("SE_ATTRIDS");
   $tf = $this->getTValue("SE_FUNCS");
   
+  if ($ol == "") {
+    // try in old version
+    $ols=$this->getTValue("SE_OLS");  
+    $ol=current($ols);
+    if ($ol) {
+      $this->setValue("SE_OL",$ol);
+      $this->modify();
+    }
+  }
+
   $cond="";
   if ((count($taid) > 1) || ($taid[0] != "")) {
     // special loop for revdate
