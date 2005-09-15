@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.32 2005/08/02 16:15:39 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.33 2005/09/15 07:49:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -78,6 +78,10 @@ Class DocSearch extends PDocSearch {
     return "";
   }
 
+  /**
+   * return SQL query(ies) needed to search documents
+   * @return array string
+   */
   function getQuery() {
     if (! $this->isStaticSql()) {
       $query= $this->ComputeQuery($this->getValue("se_key"),
