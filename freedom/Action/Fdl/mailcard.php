@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.56 2005/07/26 10:14:16 eric Exp $
+ * @version $Id: mailcard.php,v 1.57 2005/09/16 13:29:59 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.56 2005/07/26 10:14:16 eric Exp $
+// $Id: mailcard.php,v 1.57 2005/09/16 13:29:59 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -139,7 +139,8 @@ function sendCard(&$action,
 		  $from="",
 		  $bcc="",
 		  $format="html", // define view action
-		  $sendercopy=true // true : a copy is send to the sender according to the Freedom user parameter 
+		  $sendercopy=true, // true : a copy is send to the sender according to the Freedom user parameter 
+		  $addfiles = array()
 		  ) {
 
   // -----------------------------------
@@ -396,6 +397,32 @@ function sendCard(&$action,
     
     }
   
+    // Other files, 
+    if (count($addfiles)>0) 
+      {
+	foreach ($addfiles as $kf => $vf) 
+	  {
+	    if (count($vf)==3) 
+	      {
+		$fview = $vf[0];
+		$fname = $vf[1];
+		$fmime = $vf[2];
+		
+		$fgen = $doc->viewDoc($fview, "mail");
+		$fpname = "/tmp/".str_replace(array(" ","/","(",")"), "_", uniqid($doc->id).$fname);
+		if ($fp = fopen($fpname, 'w')) {
+		  fwrite($fp, $fgen);
+		  fclose($fp);
+		}
+		$fpst = stat($fpname);
+		if (is_array($fpst) && $fpst["size"]>0) {
+		  $cmd .= " -n -e 'base64' -m '".$fmime.";\\n\\tname=\"".$fname."\"' ".
+		    "-i '<".$fname.">'  -f '".$fpname."'";
+		}
+	      }
+	  }
+      }
+
 
   if (ereg("pdf",$format, $reg)) {
     // try PDF 
