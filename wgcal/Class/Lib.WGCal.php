@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.51 2005/09/15 15:58:11 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.52 2005/09/16 17:58:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -159,7 +159,7 @@ function WGCalGetRGroups(&$action, $uid) {
  *         = 1: mail is send to all attendees
  *         = 2: mail is send to all attendees except to the owner
  */
-function sendRv(&$action, &$event, $sendto=0, $title, $reason="") {
+function sendRv(&$action, &$event, $sendto=0, $title, $reason="", $sendvcs=false) {
  
  if ($action->getParam("WGCAL_G_SENDMAILS", 0)==0) return;
 
@@ -168,7 +168,7 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="") {
  // Compute From:
  $fid = $event->getValue("CALEV_OWNERID");
  $uid = new Doc($action->GetParam("FREEDOM_DB"), $fid);
- $from = $uid->getValue("TITLE")." <".$uid->getValue("us_mail").">";
+ $from = addslashes($uid->getValue("TITLE"))." <".$uid->getValue("us_mail").">";
  if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) $bcc = $from;
 
 
@@ -181,16 +181,20 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="") {
        $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
        $fullname = $u->getValue("TITLE");
        $mail = $u->getValue("us_mail");
-       if ($mail!="") $to .= ($to==""?"":", ").$fullname." <".$mail.">";
+       if ($mail!="") $to .= ($to==""?"":", ").addslashes($fullname)." <".$mail.">";
      }
    }
  }
  if ($sendto==0 || $sendto==1) {
-   $to .= ($to==""?"":", ").$uid->getValue("TITLE")." <".getMailAddr($uid->getValue("US_WHATID")).">";
+   $to .= ($to==""?"":", ").addslashes($uid->getValue("TITLE"))." <".getMailAddr($uid->getValue("US_WHATID")).">";
  }
 
-     
-  if ($to!="") {
+ $afiles = array();
+ if ($sendvcs) 
+   $afiles = array(array($event->vcalendarview,"FreedomEvent-".$event->id."-".time().".vcs", "text/x-vcalendar" ));
+		
+ 
+ if ($to!="") {
     sendCard($action, 
 	     $event->id, 
 	     $to, 
@@ -202,7 +206,8 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="") {
 	     $from, 
 	     $bcc, 
 	     "html", 
-	     false );
+	     false,
+	     $afiles );
 //      AddWarningMsg("Mail: event(".$event->getValue("calev_evtitle").") From=[$from] To=[$to] Cc=[$cc] Bcc=[$bcc] Msg=[$reason]");
   }
 }

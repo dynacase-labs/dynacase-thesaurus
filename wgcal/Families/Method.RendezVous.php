@@ -13,6 +13,8 @@ var $defaultlongtext  = "WGCAL:RENDEZVOUSRESUME:T";
 
 var $defaultedit = "WGCAL:RENDEZVOUSEDIT:U";
 
+var $vcalendarview = "WGCAL:VCALENDAR:U";
+
 var $popup_name = 'calpopup';
 var $popup_item = array('editrv', 
 			'deloccur', 
@@ -118,9 +120,49 @@ function mailrv() {
   $this->lay->set("dstart", substr($this->getValue("CALEV_START"),0,16));
   $this->lay->set("dend", substr($this->getValue("CALEV_END"),0,16));
   $this->lay->set("EvPCard", $this->viewdoc($this->defaultview));
-
 }
 
+function vcalendar() {
+  $uo = new Doc($this->dbaccess, $this->getValue("CALEV_OWNERID"));
+
+  $v = new Param($action->dbaccess, array("VERSION", PARAM_APP, $action->parent->id));
+  $this->lay->set("version", $v->val);
+
+  $this->lay->set("owner_mail", $uo->getValue("us_mail"));
+  $this->lay->set("s_date", $this->_WsetDate($this->getValue("calev_start")));
+  $this->lay->set("s_hour", $this->_WsetHour($this->getValue("calev_start")));
+  $this->lay->set("e_date", $this->_WsetDate($this->getValue("calev_end")));
+  $this->lay->set("e_hour", $this->_WsetHour($this->getValue("calev_end")));
+  $this->lay->set("uid", $this->_WsetUid());
+  $this->lay->set("c_date", $this->_WsetDate(w_datets2db($this->revdate)));
+  $this->lay->set("c_hoursec", $this->_WsetHour(w_datets2db($this->revdate), true));
+  $note = $this->getValue("calev_evnote");
+  $note = str_replace("\n", "", str_replace("\r", "", $note));
+  $this->lay->set("description", $note);
+  $tress  = $this->getTValue("calev_attid");
+  $attlist = "";
+  foreach ($tress as $kr => $vr) {
+    $dr = getTDoc($this->dbaccess,$vr);
+    $attlist .= (strlen($attlist)>0 ? ", " : "") . ucwords(strtolower($dr["title"]));
+  }
+  $this->lay->set("attendees", $attlist);
+  $this->lay->set("title", $this->getValue("calev_evtitle"));
+}
+
+function _WsetDate($d="") {
+  $r = "";
+  if ($d!="") $r = substr($d,6,4).substr($d,3,2).substr($d,0,2);
+  return $r;
+}
+function _WsetHour($d="", $long=false) {
+  $r = "";
+  if ($d!="") $r = substr($d,11,2).substr($d,14,2).($long?substr($d,17,2):"");
+  return $r;
+}
+function _WsetUid() {
+  return "FREEDOM:WGCAL-".time()."-".$this->id."-".$this->_WsetDate($this->getValue("calev_start")).$this->_WsetHour($this->getValue("calev_start"), true).$this->_WsetDate($this->getValue("calev_end")).$this->_WsetHour($this->getValue("calev_end"));
+}
+  
 /*
  *
  */
@@ -644,8 +686,8 @@ function RendezVousEdit() {
     if ($ownerid != $action->user->fid) {
       $this->lay->set("mforusermod", true);
       $this->lay->set("foruname", $ownertitle);
-      $ownerlist[$ownerid] = $ownerid;
     }
+    $ownerlist[$ownerid] = $ownerid;
   }
 
   $this->EventSetDate($evstart, $evend, $evtype, $ro);
@@ -945,7 +987,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
     $att[$a]["attId"]    = $v;
     $att[$a]["attSelect"]    = "true";
     $att[$a]["attState"] = $attendeesState[$k];
-    $att[$a]["attTitle"] = ucwords(strtolower(($res->getTitle())));
+    $att[$a]["attTitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));
     $att[$a]["attIcon"]  = $res->GetIcon();
     if ($res->fromid==$groupfid || $res->fromid==$igroupfid) {
       $ulist = $ugrp->GetUsersGroupList($res->getValue("US_WHATID"));
@@ -954,7 +996,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
 	$rg = new Doc($dbaccess, $vu["fid"]);
         if ($rg->fromid==$groupfid || $rg->fromid==$igroupfid) continue;
 	$tugrp[$rgrp]["atticon"] = $rg->GetIcon();;
-	$tugrp[$rgrp]["atttitle"] = ucwords(strtolower(($rg->getTitle())));
+	$tugrp[$rgrp]["atttitle"] = addslashes(ucwords(strtolower(($rg->getTitle()))));
 	$cstate = "?";
 	foreach ($attendees as $katt => $vatt) {
 	  if ($vatt==$rg->id) $cstate = WGCalGetLabelState($attendeesState[$katt]);
@@ -966,7 +1008,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
       $this->lay->SetBlockData($tallgrp[$grp]["GROUPCONTENT"], $tugrp);
       $tallgrp[$grp]["RID"] = $v;
       $tallgrp[$grp]["groupicon"] = $res->getIcon();
-      $tallgrp[$grp]["grouptitle"] = ucwords(strtolower(($res->getTitle())));
+      $tallgrp[$grp]["grouptitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));
       $grp++;
       $att[$a]["attLabel"] = "";
       $att[$a]["attColor"] = "transparent";

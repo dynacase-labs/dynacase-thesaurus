@@ -442,7 +442,7 @@ function wgcal_storeevent(&$action) {
   if ($comment!="") $event->AddComment($comment);
   if ($mail_who!=-1) {
     $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->getValue("calev_evtitle");
-    sendRv($action, $event, $mail_who, $title, $mail_msg);
+    sendRv($action, $event, $mail_who, $title, $mail_msg, true);
   }
   
   if ($action->user->fid!=$owner && $mail_who!=-1) {
