@@ -3,7 +3,7 @@
  * Import document descriptions
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_import.php,v 1.10 2005/01/14 17:58:15 eric Exp $
+ * @version $Id: freedom_import.php,v 1.11 2005/09/16 13:22:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -23,7 +23,7 @@ function freedom_import(&$action) {
   // -----------------------------------
   if (ini_get("max_execution_time") < 180) ini_set("max_execution_time",180); // 3 minutes
 
-  $cr=add_import_file(&$action); 
+  $cr=add_import_file($action); 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
   foreach ($cr as $k=>$v) {

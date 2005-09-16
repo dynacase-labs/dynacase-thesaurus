@@ -3,7 +3,7 @@
  * Methods for emailing family
  *
  * @author Anakeen 2005
- * @version $Id: Method.Emailing.php,v 1.9 2005/09/09 16:24:36 eric Exp $
+ * @version $Id: Method.Emailing.php,v 1.10 2005/09/16 13:23:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -128,7 +128,7 @@ function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
 	$zoneu=$zonebodycard."?uid=".$v["id"];
 	$to=$mail;	
 	$cc="";
-	$err=sendCard(&$action,
+	$err=sendCard($action,
 		      $this->id,
 		      $to,$cc,$subject,
 		      $zoneu);
@@ -143,7 +143,7 @@ function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
     $to="";
     $bcc=implode(",",$tmail);
     $cc="";
-    $err=sendCard(&$action,
+    $err=sendCard($action,
 		  $this->id,
 		  $to,$cc,$subject,
 		  $zonebodycard,false,"","",$bcc);
