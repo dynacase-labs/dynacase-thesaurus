@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.27 2005/09/15 07:55:42 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.28 2005/09/16 13:23:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -96,6 +96,7 @@ Class DocCtrl extends DbObj
     if (isset($action)) {
       $this->userid=$action->parent->user->id;
     }
+    if (! isset($this->attributes->attr)) $this->attributes->attr=array();
     parent::__construct($dbaccess, $id,$res,$dbid);      
   }
 

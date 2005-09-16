@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.271 2005/09/12 16:33:55 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.272 2005/09/16 13:23:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -333,18 +333,7 @@ create unique index i_docir on doc(initid, revision);";
    */
   private $_maskApplied=false; // optimize: compute mask if needed only
  
-  /** 
-   * Document Constructor
-   * 
-   * @see DbObj::DbObj()
-   * @see newDoc()
-   * @return void
-   */
-  function __construct($dbaccess='', $id='',$res='',$dbid=0) {
-    DocCtrl::__construct($dbaccess, $id,$res,$dbid);
-    if (! isset($this->attributes->attr)) $this->attributes->attr=array();
-  }
-
+ 
 
 
 
@@ -959,7 +948,6 @@ final public function PostInsert()  {
       $query->AddQuery("fromid = ".$id);
       if ($controlcreate) $query->AddQuery("hasdocprivilege(".$this->userid.",profid,".(1<<intval(POS_CREATE)).")");
       $table1 = $query->Query(0,0,"TABLE");
-      
       if ($table1) {
 	while (list($k,$v) = each($table1)) {
 	  $this->childs[$v["id"]]=$v;
