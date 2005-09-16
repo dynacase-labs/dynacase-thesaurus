@@ -3,7 +3,7 @@
  * Execute Freedom Processes
  *
  * @author Anakeen 2005
- * @version $Id: fdl_execute.php,v 1.4 2005/09/12 16:33:55 eric Exp $
+ * @version $Id: fdl_execute.php,v 1.5 2005/09/16 13:23:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -89,9 +89,9 @@ if ($docid > 0) {
       $doc->refresh();
       $err=$doc->modify();
     }    
-  }
+  } 
   
-  
+  if ($err!="")  exit(1);
  }
 
     
