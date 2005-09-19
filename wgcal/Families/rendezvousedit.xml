@@ -4,8 +4,9 @@
 
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="cev" name="cev" value="[EVENTID]"> </form>
 
-<form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1&cuser=[ownerid]">
+<form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1">
 <input id="iusertext" name="iusertext" type="hidden">
+<input id="icuser" name="cuser" type="hidden" value="[ownerid]">
 </form>
 
 <form id="unlockevent" name="unlockevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[EVENTID]"></form>
@@ -40,7 +41,7 @@
 <table width="100%" cellspacing="0"><tr>
 <td valign="bottom" align="left"><img src="[IMG:wgcal-small.gif]"  height="30px" title="[TEXT:event description]" style="border:0px" ></td>
 <td valign="bottom" align="right">
-[IF mforuser]<select onchange="document.getElementById('ownerid').value = this.options[this.selectedIndex].value; document.getElementById('ownertitle').value = this.options[this.selectedIndex].text; alert('[TEXT:you set the event owner to] '+this.options[this.selectedIndex].text); SetGroupsForOwner(this.options[this.selectedIndex].value); SetGroupsList(this.options[this.selectedIndex].value);">[BLOCK foruser]<option value="[forufid]" [foruselected]>[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]
+[IF mforuser]<select onchange="document.getElementById('icuser').value = this.options[this.selectedIndex].value; document.getElementById('ownerid').value = this.options[this.selectedIndex].value; document.getElementById('ownertitle').value = this.options[this.selectedIndex].text; alert('[TEXT:you set the event owner to] '+this.options[this.selectedIndex].text); SetGroupsForOwner(this.options[this.selectedIndex].value); SetGroupsList(this.options[this.selectedIndex].value);">[BLOCK foruser]<option value="[forufid]" [foruselected]>[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]
 [IF mforusermod]<span class="wgUserDelegate">[foruname] ([TEXT:by delegation])</span>[ENDIF mforusermod]</td>
 </tr></table>
 
@@ -75,7 +76,7 @@
       showsTime    : false,
       button       : "Bstart",
       date         : new Date([mSTART]),
-      weekNumbers  : false,
+      weekNumbers  : true,
       firstDay     : 1
     }
   );
@@ -105,7 +106,7 @@
       showsTime    : false,
       button       : "Bend",
       date         : new Date([mEND]),
-      weekNumbers  : false,
+      weekNumbers  : true,
       firstDay     : 1
     }
   );

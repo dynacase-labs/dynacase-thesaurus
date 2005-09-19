@@ -353,7 +353,6 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
     $fti[] = (is_int($v) ? $v : getIdFromName($dbaccess, chop($v)));
   }
   $idfamref = implode("|", $fti);
-  //  $idfamref = getIdFromName($dbaccess,"CALEVENT")."|".getIdFromName($dbaccess,"ABSENCE");;
   setHttpVar("idfamref", $idfamref);
 
   // Init the ressources
@@ -435,7 +434,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
       $tout[] = $item;
     }
   } 
-//     AddWarningMsg($sdebug);
+//      AddWarningMsg($sdebug);
    
   return $tout;
 }

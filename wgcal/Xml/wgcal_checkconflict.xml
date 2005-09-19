@@ -3,7 +3,7 @@
 
   var myframe = parent.document.getElementById('wgcal_conflict');
   [IF NOCF]ignoreConflict();[ENDIF NOCF]
-  [IFNOT NOCF] myframe.style.display = '';[ENDIF NOCF]
+  [IFNOT NOCF] if (myframe) myframe.style.display = '';[ENDIF NOCF]
 
 
   var IdOpened = -1;

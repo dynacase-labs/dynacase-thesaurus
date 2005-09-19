@@ -17,30 +17,27 @@ function wgcal_checkconflict(&$action) {
 
   $db = $action->getParam("FREEDOM_DB");
 
-  $checkForConflict = ($action->getParam("WGCAL_U_CHECKCONFLICT", 1)==1?true:false);
+  $checkForConflict = $action->getParam("WGCAL_U_CHECKCONFLICT", 1);
   $ownerid = GetHttpVars("ownerid");
-  $alreadyChecked = (GetHttpVars("cfchecked",0)==1?true:false);
+  $alreadyChecked = GetHttpVars("cfchecked",0);
   $event = (GetHttpVars("eventid",-1));
 
-  if ($alreadyChecked || !$checkForConflict) {
+  if ($alreadyChecked==1 || $checkForConflict==0) {
     $action->lay->set("NOCF", true);
     return;
   }
-
+   
   $ds = GetHttpVars("Fstart", 0);
   $de = GetHttpVars("Fend", 0);
-  $start = w_datets2db(($ds+60));
-  $end = w_datets2db(($de-60));
-  $htype = 0;
+  $start = ts2db(($ds+60), "Y-m-d H:i:s");
+  $end = ts2db(($de-60), "Y-m-d H:i:s");
   if (GetHttpVars("nohour", "") == "on") {
-    $htype = 1;
-    $start = w_datets2db($ds, false) . " 00:00:00";
-    $end = w_datets2db($ds, false) . " 00:00:00";
+    $start = ts2db(($ds+60), "Y-m-d 00:00:00");
+    $end = ts2db(($ds-60), "Y-m-d 00:00:00");
   }
   if (GetHttpVars("allday", "") == "on") {
-    $htype = 2;
-    $start = w_datets2db($ds, false)." 00:00:00";
-    $end = w_datets2db($ds, false)." 23:59:59";
+    $start = ts2db(($ds+60), "Y-m-d 00:00:00");
+    $end = ts2db(($ds-60), "Y-m-d 23:59:59");
   }
   $withme = GetHttpVars("evwithme", "1");
   $attendees = array();
@@ -56,28 +53,18 @@ function wgcal_checkconflict(&$action) {
     $nrl = array_merge($nrl, $trl);
   }
   $idres = implode("|", $nrl);
-  setHttpVar("idres",$idres);
+  setHttpVar("ress",$idres);
 
-  $dbaccess = $action->getParam("FREEDOM_DB");
-  $qev = getIdFromName($dbaccess,"WG_AGENDA");
-  $dre=new Doc($dbaccess, $qev);
-
-  $famr = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
-  $ft = explode("|", $famr);
-  $fti = array();
-  foreach ($ft as $k => $v)     $fti[] = (is_numeric($v) ? $v : getIdFromName($dbaccess, $v));
-  $idfamref = implode("|", $fti);
-  setHttpVar("idfamref", $idfamref);
-
-  $tevtmp = array();
-  $tevtmp = $dre->getEvents($start, $end);
+  $tevtmp = wGetEvents($start, $end);
   $tev = array();
   $itev = 0;
   if (count($tevtmp)>0) {
     foreach ($tevtmp as $k=>$v) {
-      $ressd = wgcalGetRessourcesMatrix($v["evt_idinitiator"]);
-      if ($v["evt_idinitiator"]!=$event && (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT)) {
-	$d = new Doc($dbaccess, $v["evt_idinitiator"]);
+      $ressd = wgcalGetRessourcesMatrix($v["IDP"]);
+//       if ($v["IDP"]!=$event && (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT)) {
+      if ($v["IDP"]!=$event) {
+	if ((isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]==EVST_REJECT)) continue;
+	$d = new Doc($dbaccess, $v["IDP"]);
 	$tev[$itev]["ID"] = $itev;
 	$tev[$itev]["EvRCard"] = $d->viewDoc($d->defaultabstract);
 	$tev[$itev]["EvPCard"] = $d->viewDoc($d->defaultview);

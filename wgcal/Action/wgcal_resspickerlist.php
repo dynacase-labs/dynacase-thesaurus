@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspickerlist.php,v 1.11 2005/09/16 17:58:10 marc Exp $
+ * @version $Id: wgcal_resspickerlist.php,v 1.12 2005/09/19 16:31:04 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -32,7 +32,8 @@ function wgcal_resspickerlist(&$action) {
   if ($title!="") $filter[0] = "title ~* '".$title."'";
   $fam = explode("|", $families);
   foreach ($fam as $kf => $vfi) { 
-    $vf = getIdFromName($action->GetParam("FREEDOM_DB"), $vfi);
+    if ($vfi == "" ) continue;
+    $vf = (is_numeric($vfi) ? $vfi : getIdFromName($action->GetParam("FREEDOM_DB"), $vfi));
     if ($vf == "" ) continue;
     $filter[1] = "fromid=$vf";
     if ($vf=="IUSER" || $vf==getIdFromName($action->GetParam("FREEDOM_DB"), "IUSER")) {

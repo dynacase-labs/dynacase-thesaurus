@@ -1127,7 +1127,7 @@ function RvSetPopup($rg) {
   PopupInvisible($this->popup_name,$rg, 'deloccur');
   PopupInvisible($this->popup_name,$rg, 'editrv');
   PopupInvisible($this->popup_name,$rg, 'deleterv');
-  PopupActive($this->popup_name,$rg, 'cancelrv');
+  PopupInvisible($this->popup_name,$rg, 'cancelrv');
   PopupInvisible($this->popup_name,$rg, 'showaccess');
 
   // Delegation for acceptation
@@ -1197,4 +1197,175 @@ function getWgcalUParam($pname, $def="", $uid=-1) {
   $uid = ($uid==-1 ? $action->user->id : $uid);
   $r = $action->parent->param->getUParam($pname, $uid, $action->parent->GetIdFromName("WGCAL"));
   return ($r=="" ? $def : $r);
+}
+
+
+
+function setRvAccessibility() {
+
+  define("DEFGROUP", 2);
+
+  if (!$this->isAffected()) return;
+
+  $aclv = array();
+  $aclv["all"] = array( "view"=>"view", 
+			"confidential"=>"confidential", 
+			"send"=>"send", 
+			"edit"=>"edit", 
+			"delete"=>"delete", 
+			"execute"=>"execute", 
+			"unlock"=>"unlock",
+			"viewacl"=>"viewacl", 
+			"modifyacl"=>"modifyacl");
+  $aclv["none"] = array();
+  $aclv["edit"] = array( "edit"=>"edit", 
+			 "unlock"=>"unlock",
+			 "execute"=>"execute", 
+			 "viewacl"=>"viewacl", 
+			 "modifyacl"=>"modifyacl",
+			 "confidential"=>"confidential",
+			 "view"=>"view" );
+  $aclv["read"] = array( "view"=>"view");
+  $aclv["read_state"] = array( "view"=>"view", 
+			       "execute"=>"execute");
+  $aclv["read_conf"] = array( "view"=>"view", 
+			      "confidential"=>"confidential");
+  $aclv["read_conf_state"] = array( "view"=>"view", 
+				    "confidential"=>"confidential", 
+				    "execute"=>"execute");
+
+  $acl = array();
+  
+  
+  if ($this->profid==0) {
+    $this->disableEditControl();
+    $this->SetProfil($this->id);
+    $err = $this->Modify();
+    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");
+    $this->enableEditControl();
+  }  
+
+  $ownerid = $this->getValue("calev_ownerid");
+  $creatorid = $this->getValue("calev_creatorid");
+  $userf = getTDoc($this->dbaccess, $ownerid);
+  $ownerwid = $userf["us_whatid"];
+  $dcrea = getTDoc($this->dbaccess, $creatorid);
+  $creatorwid = $dcrea["us_whatid"];
+ 
+  $conf    = $this->getValue("calev_visibility");
+  
+  $sdeb = "Confidential=".$this->getValue("confidential")."\nRV Confidentiality=[$conf]\nAgenda visibility:".($userf["us_wgcal_vcalgrpmode"]==1?"Groups":"Public")."\n";
+  
+  
+  // User agenda visibility
+  $vcalrestrict = false;
+  $vcal = array();
+  $calgvis = $userf["us_wgcal_vcalgrpmode"];
+  if ($calgvis == 1) {
+    $vcalrestrict = true;
+    $tvcal = $userf["us_wgcal_vcalgrpwid"];
+    foreach ($tvcal as $k => $v) $vcal[$v] = $v; 
+  } else {
+    $vcal[DEFGROUP] = DEFGROUP;
+  }
+  
+  $tcfg = explode("|", $this->getValue("calev_confgroups", ""));
+  $rvcgroup = array();
+  foreach ($tcfg as $k => $v) {
+    if ($v!="") $rvcgroup[$v] = $v;
+  }
+  
+  
+  // foreach attendees (except owner) get agenda groups
+  $attendeesid = $this->getTValue("calev_attid");
+  $attendeeswid = $this->getTValue("calev_attwid");
+  $attendeesstate = $this->getTValue("calev_attstate");
+  $attgrps = array();
+  foreach ($attendeesid as $k => $v) {
+    if ($attendeesstate[$k]!=-1) {
+      $ugrp = wGetUserGroups($v);
+      if (count($ugrp)>0) {
+	foreach ($ugrp as $kg => $vg) {
+	  $thisg = getTDoc($this->dbaccess, $kg);
+	  if (!isset($rvcgroup[$thisg["us_whatid"]])) {
+	    $attgrps[$thisg["us_whatid"]] = $thisg["us_whatid"];
+	  }
+	}
+      }
+    }
+  }
+
+  $aclvals = array();
+  foreach ($aclv as $ka => $va) {
+    foreach ($aclv["all"] as $kr => $vr) {
+      if (isset($va[$kr])) $aclvals[$ka][$kr] = $this->dacls[$kr]["pos"];
+      else $aclvals[$ka][$kr] = 0;
+    }
+  }
+
+
+  $acls = array();
+
+  // Attendees -> read, confidential and execute at least
+  foreach ($attendeeswid as $k => $v) {
+    if ($attendeesstate[$k]!=-1) {
+      if ($v!=$ownerwid && $v!=$creatorwid) $acls[$v] = $aclvals["read_conf_state"];
+    }
+  }
+
+  // Owner, creator and delegate ==> owner rights
+  $acls[$ownerwid] = $aclvals["all"];
+  if ($creatorid!=$ownerid) $acls[$creatorwid] = $aclvals["all"];
+  $duid = $userf["us_wgcal_dguid"];
+  if (count($duid)>0) {
+    $duwid = $userf["us_wgcal_dguwid"];
+    $dumode = $userf["us_wgcal_dgumode"];
+    foreach ($duid as $k=>$v) {
+      if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["all"];
+    }
+  }
+ 
+  switch ($conf) {
+  case 1: // Private
+    foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"] ;
+    foreach ($attgrps as $k => $v) $acls[$k] = $aclvals["read"];
+    if ($calgvis==0) $acls[2] = $aclvals["read"];
+    else $acls[2] = $aclvals["none"];
+    break;
+    
+  case 2: // My groups
+    foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"];
+    foreach ($rvcgroup as $k => $v) $acls[$k] = $aclvals["read_conf"];
+    foreach ($attgrps as $k => $v) $acls[$k] = $aclvals["read"];
+    $acls[2] = $aclvals["read"];
+    break;
+    
+  default: // Public
+    foreach ($vcal as $k => $v) $acls[$k] =  $aclvals["read"];
+    foreach ($attgrps as $k => $v) {
+      if ($calgvis==0)  $acls[$k] = $aclvals["read"];
+      else $acls[$k] = $aclvals["read"];
+    }
+    if ($calgvis==0)     $acls[2] = $aclvals["read"];
+    else $acls[2] = $aclvals["none"];
+  }
+  
+  foreach ($acls as $user => $uacl) {
+    $dt = getDocFromUserId($this->dbaccess,$user);
+    $sdeb .= "[".$dt->GetTitle()."($user)] = ";
+    $perm = new DocPerm($this->dbaccess, array($this->profid,$user));
+    $perm->UnsetControl();
+    foreach ($uacl as $k => $v) {
+      $sdeb .= "$k:$v ";
+      if (intval($v) > 0)  {
+	$perm->SetControlP($v);
+      } else {
+	$perm->SetControlN($v);
+      }	
+    }
+    if ($perm->isAffected()) $perm->modify();
+    else $perm->Add();
+    $sdeb .= "\n";
+  }
+//     AddWarningMsg(  $sdeb );
 }

@@ -36,7 +36,7 @@
         date           :    new Date([CmTIME]),
         weekNumbers    :    true,
         flat           :    "vnav",
-        flatCallback   :    WGCalSetDate   
+        flatCallback   :    WGCalSetDate
     });</script>
 <div align="center" width=100%" id="cal2" style="display:none"><script type="text/javascript">Calendar.setup({
         ifFormat       :    '%s',       // format of the input field

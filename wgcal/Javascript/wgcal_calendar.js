@@ -179,10 +179,10 @@ function WGCalEvOnMouseOut(ev, id) {
  
 
 // --------------------------------------------------------
-function WGCalSetDate(calendar)
-{  
-  if (calendar.dateClicked) {
-    var ts = calendar.date.print("%s");
+function WGCalSetDate(cc)
+{ 
+  if (cc.dateClicked) {
+    var ts = cc.date.print("%s");
     usetparam(-1, "WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
   }
 }
@@ -201,11 +201,13 @@ function SetCurrentEvent(id, cd) {
 
 // --------------------------------------------------------
 function ClickCalendarCell(urlroot, nh,times,timee) {
+  closeMenu('calpopup');
   subwindow(400, 700, 'EditEvent', urlroot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times);
 }
 
 // --------------------------------------------------------
 function OverCalendarCell(ev, elt, lref, cref) {
+  closeMenu('calpopup');
   WGCalCleanAllFullView();
   elt.className = 'WGCAL_PeriodSelected'; //WGCAL_DayLineOver';
   document.getElementById(lref).className = 'WGCAL_PeriodSelected';
