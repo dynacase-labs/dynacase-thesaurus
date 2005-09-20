@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.28 2005/09/16 13:23:03 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.29 2005/09/20 09:17:16 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -112,6 +112,20 @@ Class DocCtrl extends DbObj
       $this->profid = "0";      
       $this->modify();
   }
+
+  /**
+   * Unset all Acl for document (for everybody)
+   *
+   */
+  function RemoveControl() {
+    if ($this->id == $this->profid) {
+      // inhibated all doc references this profil
+      $this->exec_query("delete from docperm where docid=".$this->id);
+    }
+    $this->modify();
+  }
+
+
   /**
    * activate access specific control 
    * @param bool $userctrl if true add all acls for current user
