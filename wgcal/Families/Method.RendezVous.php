@@ -31,9 +31,6 @@ var $popup_item = array('editrv',
 			'showaccess' );
 var $popup_zone = "WGCAL:WGCAL_POPUP";
 
-function SetTitle() {
-  $this->setValue($this->getValue("calev_evtitle"));
-}
 
 function postModify() {
   $err = $this->setEvent(); 
@@ -98,12 +95,12 @@ function  setEventSpec(&$e) {
     $e->setValue("EVFC_LISTATTID", $nattid);
     $e->setValue("EVFC_LISTATTST", $nattst);  
   }
- if (count($rejattid)==0)  $e->deleteValue("EVFC_REJECTATTID");  
- else $e->setValue("EVFC_REJECTATTID", $rejattid);  
+  if (count($rejattid)==0)  $e->deleteValue("EVFC_REJECTATTID");  
+  else $e->setValue("EVFC_REJECTATTID", $rejattid);  
 
   $e->setValue("EVFC_CALENDARID", $this->getValue("CALEV_EVCALENDARID"));
   
-  $e->SetProfil($this->profid);
+  $e->SetProfil($this->id);
 }
 
 
@@ -1200,10 +1197,37 @@ function getWgcalUParam($pname, $def="", $uid=-1) {
 }
 
 
+function resetAcceptStatus() {
+  include_once("WGCAL/Lib.WGCal.php");
+  $att_ids = $this->getTValue("CALEV_ATTID");
+  if (count($att_ids)>0) {
+    $att_wid = $this->getTValue("CALEV_ATTWID");
+    $att_sta = $this->getTValue("CALEV_ATTSTATE");
+    $att_grp = $this->getTValue("CALEV_ATTGROUP");
+    foreach ($att_ids as $k => $v) {
+      if ($att_grp[$k]==-1) {
+	if ($v == $this->getValue("calev_ownerid")) $att_sta[$k] = EVST_ACCEPT;
+	else {
+	  if ($att_sta[$k] != -1) $att_sta[$k] = EVST_NEW;
+	}
+      }
+    }
+    $this->setValue("CALEV_ATTSTATE", $att_sta);
+    $err = $this->Modify();
+    if ($err=="") $err = $this->PostModify();
+    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
+  }
+}
+      
 
-function setRvAccessibility() {
+function setAccessibility() {
+
+  include_once("WGCAL/Lib.wTools.php");
 
   define("DEFGROUP", 2);
+
+  // Force profil and acl setting
+  $fprof = GetHttpVars("fprof", 0);
 
   if (!$this->isAffected()) return;
 
@@ -1236,10 +1260,13 @@ function setRvAccessibility() {
 
   $acl = array();
   
-  
-  if ($this->profid==0) {
+
+  if ($fprof==1) echo "Force profil setting...";
+
+  if ($this->profid==0 || $fprof==1) {
     $this->disableEditControl();
     $this->SetProfil($this->id);
+    $this->SetControl();
     $err = $this->Modify();
     if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");
     $this->enableEditControl();
@@ -1306,6 +1333,31 @@ function setRvAccessibility() {
 
   $acls = array();
 
+  switch ($conf) {
+  case 1: // Private
+    if ($calgvis==0) $acls[2] = $aclvals["read"];
+    else $acls[2] = $aclvals["none"];
+    foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"] ;
+    foreach ($attgrps as $k => $v) $acls[$k] = $aclvals["read"];
+    break;
+    
+  case 2: // My groups
+    $acls[2] = $aclvals["read"];
+    foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"];
+    foreach ($attgrps as $k => $v) $acls[$k] = $aclvals["read"];
+    foreach ($rvcgroup as $k => $v) $acls[$k] = $aclvals["read_conf"];
+    break;
+    
+  default: // Public
+    if ($calgvis==0)     $acls[2] = $aclvals["read"];
+    else $acls[2] = $aclvals["none"];
+    foreach ($vcal as $k => $v) $acls[$k] =  $aclvals["read"];
+    foreach ($attgrps as $k => $v) {
+      if ($calgvis==0)  $acls[$k] = $aclvals["read"];
+      else $acls[$k] = $aclvals["read"];
+    }
+  }
+  
   // Attendees -> read, confidential and execute at least
   foreach ($attendeeswid as $k => $v) {
     if ($attendeesstate[$k]!=-1) {
@@ -1324,37 +1376,14 @@ function setRvAccessibility() {
       if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["all"];
     }
   }
+
+
  
-  switch ($conf) {
-  case 1: // Private
-    foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"] ;
-    foreach ($attgrps as $k => $v) $acls[$k] = $aclvals["read"];
-    if ($calgvis==0) $acls[2] = $aclvals["read"];
-    else $acls[2] = $aclvals["none"];
-    break;
-    
-  case 2: // My groups
-    foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"];
-    foreach ($rvcgroup as $k => $v) $acls[$k] = $aclvals["read_conf"];
-    foreach ($attgrps as $k => $v) $acls[$k] = $aclvals["read"];
-    $acls[2] = $aclvals["read"];
-    break;
-    
-  default: // Public
-    foreach ($vcal as $k => $v) $acls[$k] =  $aclvals["read"];
-    foreach ($attgrps as $k => $v) {
-      if ($calgvis==0)  $acls[$k] = $aclvals["read"];
-      else $acls[$k] = $aclvals["read"];
-    }
-    if ($calgvis==0)     $acls[2] = $aclvals["read"];
-    else $acls[2] = $aclvals["none"];
-  }
-  
+  $this->RemoveControl();
   foreach ($acls as $user => $uacl) {
     $dt = getDocFromUserId($this->dbaccess,$user);
     $sdeb .= "[".$dt->GetTitle()."($user)] = ";
-    $perm = new DocPerm($this->dbaccess, array($this->profid,$user));
-    $perm->UnsetControl();
+    $perm = new DocPerm($this->dbaccess, array($this->id,$user));
     foreach ($uacl as $k => $v) {
       $sdeb .= "$k:$v ";
       if (intval($v) > 0)  {
@@ -1363,9 +1392,12 @@ function setRvAccessibility() {
 	$perm->SetControlN($v);
       }	
     }
-    if ($perm->isAffected()) $perm->modify();
-    else $perm->Add();
+    if ($perm->isAffected()) 
+      $perm->modify();
+    else 
+      $perm->Add();
     $sdeb .= "\n";
   }
 //     AddWarningMsg(  $sdeb );
+//  echo   $sdeb;
 }

@@ -220,7 +220,7 @@ function wgcal_storeevent(&$action) {
   }
   
 
-  $event->setRvAccessibility();
+  $event->setAccessibility();
 
 
   // Gestion du calendrier d'appartenance
@@ -260,7 +260,7 @@ function wgcal_storeevent(&$action) {
       $mail_msg = _("event time modification message");
       $mail_who = 2;
       $comment = _("event modification time");
-      resetAcceptStatus($event);
+      $event->resetAcceptStatus();
     } else {
       if ($change["attendees"]) {
 	$comment = _("event modification attendees list");
@@ -362,26 +362,5 @@ function rvDiff( $old, $new) {
   return $result;
 }
   
-function resetAcceptStatus(&$event) {
-  global $action;
-  $att_ids = $event->getTValue("CALEV_ATTID");
-  if (count($att_ids)>0) {
-    $att_wid = $event->getTValue("CALEV_ATTWID");
-    $att_sta = $event->getTValue("CALEV_ATTSTATE");
-    $att_grp = $event->getTValue("CALEV_ATTGROUP");
-    foreach ($att_ids as $k => $v) {
-      if ($att_grp[$k]==-1) {
-	if ($v == $event->getValue("calev_ownerid")) $att_sta[$k] = EVST_ACCEPT;
-	else {
-	  if ($att_sta[$k] != -1) $att_sta[$k] = EVST_NEW;
-	}
-      }
-    }
-    $event->setValue("CALEV_ATTSTATE", $att_sta);
-    $err = $event->Modify();
-    if ($err=="") $err = $event->PostModify();
-    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__.">$err");
-  }
-}
       
 ?>
