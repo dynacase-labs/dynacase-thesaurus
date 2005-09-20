@@ -92,7 +92,7 @@ function CAL_getContacts($dbaccess, $filter) {
   $famcontact = array ( "USER", "IUSER" );
   foreach ($famcontact as $kf => $vf) $f[] = getFamIdFromName($dbaccess, $vf);
 
-  $dtmp = new Doc($dbaccess);
+  $dtmp = new_Doc($dbaccess);
 
   $afilter[] = array();
   if ($filter!="") $afilter[] = "title ~* '".$filter."'";
@@ -120,7 +120,7 @@ function CAL_getRessources($dbaccess, $filterTitle) {
   global $action;
   $r = array();
   $fam = WGCalGetRessourceFamilies($dbaccess);
-  $doc = new Doc($dbaccess);
+  $doc = new_Doc($dbaccess);
   $filter = array( );
   if ($filterTitle!="") $filter[] = "title ~* '".$filterTitle."'";
   foreach ($fam as $kf => $vf) { 
@@ -142,7 +142,7 @@ function CAL_getRessourcesOwner($dbaccess, $filterTitle) {
   global $action;
   $r = array();
   $fam = WGCalGetRessourceFamilies($dbaccess);
-  $doc = new Doc($dbaccess);
+  $doc = new_Doc($dbaccess);
   $filter = array( );
   if ($filterTitle!="") $filter[] = "title ~* '".$filterTitle."'";
   foreach ($fam as $kf => $vf) { 

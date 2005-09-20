@@ -30,6 +30,7 @@ function wgcal_searchical(&$action) {
 	$rlist[$vd["id"]]["icon"] = Doc::GetIcon($vd["icon"]);
 	$rlist[$vd["id"]]["title"] = ucwords(strtolower($vd["title"]));
 	$rlist[$vd["id"]]["titlejs"] = addslashes(ucwords(strtolower($vd["title"])));
+	$rlist[$vd["id"]]["romode"] = (wGetUserCalAccessMode($vd)==1?"false":"true");
 
 	// Active menu items
 	PopupActive('mRess', $vd["id"], 'radd');

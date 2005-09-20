@@ -32,7 +32,7 @@ function wgcal_listress(&$action)
       $sid = ($tt[1]!="" ? $tt[1] : 0);
       $cid = ($tt[2]!="" ? $tt[2] : "blue");
       if ($rid == $action->user->fid) $found = true;
-      $rd = new Doc($dbaccess, $rid);
+      $rd = new_Doc($dbaccess, $rid);
       if ($rd->IsAffected()) {
 	$t[$i]["RID"] = $rd->id;
 	$t[$i]["RDESCR"] = $rd->title;
@@ -45,7 +45,7 @@ function wgcal_listress(&$action)
     }
   }
   if (!$found) {
-    $rd = new Doc($dbaccess, $action->user->fid);
+    $rd = new_Doc($dbaccess, $action->user->fid);
     $t[$i]["RID"] = $rd->id;
     $t[$i]["RDESCR"] = $rd->title;
     $t[$i]["RICON"] = $rd->getIcon();

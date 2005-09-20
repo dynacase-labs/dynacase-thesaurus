@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_contacts.php,v 1.5 2005/08/25 16:02:16 marc Exp $
+ * @version $Id: wgcal_prefs_contacts.php,v 1.6 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -31,7 +31,7 @@ function wgcal_prefs_contacts(&$action) {
   if (count($tcontacts)>0) {
     foreach ($tcontacts as $kc => $vc) {
       if ($vc=="") continue;
-      $rd = new Doc($dbaccess, $vc);
+      $rd = new_Doc($dbaccess, $vc);
       if ($rd->IsAffected() && $rd->id != $action->user->fid) {
 	$tco[$kc]["RDESCR"]= ucwords(strtolower($rd->title));
 	$tco[$kc]["RID"]= $rd->id;

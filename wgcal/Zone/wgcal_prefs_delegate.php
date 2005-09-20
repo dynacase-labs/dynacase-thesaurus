@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_delegate.php,v 1.2 2005/08/25 16:02:16 marc Exp $
+ * @version $Id: wgcal_prefs_delegate.php,v 1.3 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -23,7 +23,7 @@ function wgcal_prefs_delegate(&$action) {
   $action->lay->set("showdelegate", true);
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
-  $user = new Doc($dbaccess, $action->user->fid);
+  $user = new_Doc($dbaccess, $action->user->fid);
 
   $dg_mail  = ($user->getValue("us_wgcal_dgmail", 0) == 1 ? true : false);
   $dg_uid   = $user->getTValue("us_wgcal_dguid");

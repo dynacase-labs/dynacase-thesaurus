@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.52 2005/09/16 17:58:10 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.53 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -95,7 +95,7 @@ function WGCalGetAgendaEvents(&$action,$reid, $d1="",$d2="", $nofilter=false) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
-  $dre=new Doc($dbaccess,$reid);
+  $dre=new_Doc($dbaccess,$reid);
   $edre = array();
   $edre=$dre->getEvents($d1,$d2);
 
@@ -165,9 +165,11 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="", $sendvcs=false
 
  $to = $from = $cc = $bcc = "";
 
+ $sendtoext = ($event->getValue("calev_attextmail", 0)==1 ? true : false);
+
  // Compute From:
  $fid = $event->getValue("CALEV_OWNERID");
- $uid = new Doc($action->GetParam("FREEDOM_DB"), $fid);
+ $uid = new_Doc($action->GetParam("FREEDOM_DB"), $fid);
  $from = addslashes($uid->getValue("TITLE"))." <".$uid->getValue("us_mail").">";
  if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) $bcc = $from;
 
@@ -177,8 +179,8 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="", $sendvcs=false
  if ($sendto==1 || $sendto==2) {
    $attid = $event->getTValue("CALEV_ATTID", array()); 
    foreach ($attid as $k => $v) {
-     if ($v != $action->user->fid ) {
-       $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
+     if ($v != $action->user->fid && ($v["fromid"]!=128 && $sendtoext)) {
+       $u = new_Doc($action->GetParam("FREEDOM_DB"), $v);
        $fullname = $u->getValue("TITLE");
        $mail = $u->getValue("us_mail");
        if ($mail!="") $to .= ($to==""?"":", ").addslashes($fullname)." <".$mail.">";
@@ -218,11 +220,11 @@ function GetCalEvent($dbaccess, $ev, $cev) {
   if ($ev==-1) {
     $evid = $cev;
   } else {
-    $evtmp = new Doc($dbaccess, $ev);
+    $evtmp = new_Doc($dbaccess, $ev);
     $evid = $evtmp->getValue("evt_idinitiator");
   }
   if ($evid<1) return false;
-  $nev = new Doc($dbaccess, $evid);
+  $nev = new_Doc($dbaccess, $evid);
   return $nev;
 }
 
@@ -232,7 +234,7 @@ function GroupExplode(&$action, $gid) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $groupfid = getIdFromName($dbaccess, "GROUP");
   $igroupfid = getIdFromName($dbaccess, "IGROUP");
-  $g = new Doc($dbaccess, $gid);
+  $g = new_Doc($dbaccess, $gid);
   if ($g->fromid!=$groupfid && $g->fromid!=$igroupfid) return array($gid);
 
   $udbaccess = $action->GetParam("COREUSER_DB");

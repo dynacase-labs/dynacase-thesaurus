@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.10 2005/09/14 16:10:29 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.11 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,7 +20,7 @@ function wgcal_searchiuser(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $families = getFamIdFromName($dbaccess, "IUSER");
-  $doc = new Doc($dbaccess);
+  $doc = new_Doc($dbaccess);
   
   $cuser = GetHttpVars("cuser", $action->user->fid);
   $proto = GetHttpVars("proto", "default");

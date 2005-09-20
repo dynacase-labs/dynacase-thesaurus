@@ -289,8 +289,8 @@ function getAttendeeIdx(aid) {
       
 function SetModeRo(b) { ROMode = b; }
 
-function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor, rselect) {
-  if (getAttendeeIdx(rid)!=-1) return;
+function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor, rselect, ro) {
+  if (getAttendeeIdx(rid)!=-1 || ro) return;
   var idx = attendeesList.length;
   attendeesList[idx] = new Object();
   attendeesList[idx].id = rid;
@@ -518,11 +518,10 @@ function clickB(idb) {
   return true;
 }
 
-function ShowHideStatus() {
-  if (ROMode) return;
-  evch = document.getElementById('withMe');
+function ShowHideStatus(s, v) {
+  var evch = document.getElementById(s);
   evch.checked = (evch.checked ? "" : "checked" );
-  document.getElementById('evwithme').value = (evch.checked ? 1 : 0);
+  document.getElementById(v).value = (evch.checked ? 1 : 0);
 }
   
 function setStatus(st, cst) {
@@ -551,7 +550,7 @@ function ViewGroup(ev,st) {
 function ImportRessources(elt, tress) {
   var i;
   for (i=0; i<tress.length; i++) {
-    addRessource(tress[i][0], tress[i][1], tress[i][2], '0', 'nouveau', 'red', true);
+    addRessource(tress[i][0], tress[i][1], tress[i][2], '0', 'nouveau', 'red', true, false);
   }
 }
 

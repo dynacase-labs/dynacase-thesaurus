@@ -46,11 +46,11 @@ function getRessourcePos(rid) {
   return idx;
 }
  
-function addRessource(rid, rtitle, ricon, rstate, romode) {
+function addRessource(rid, rtitle, ricon, rstate, rcolor, rselect, ro) {
   idx = getRessourcePos(rid);
   if (idx!=-1) return;
-  InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', 0, romode );
-  tdiv['resspopup'][rid]=[1,1,1,1];
+  InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', 0, ro);
+  tdiv['resspopup'][rid]=[1,1,1,1,1,1,1,1,1,1];
   saveRessources();
 }
 

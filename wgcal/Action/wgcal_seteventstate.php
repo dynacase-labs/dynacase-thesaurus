@@ -10,7 +10,7 @@ function wgcal_seteventstate(&$action) {
   $db = $action->getParam("FREEDOM_DB");
   $evi = GetHttpVars("id", -1);
   $forowner = GetHttpVars("owner", 0);
-  $event = new Doc($db, $evi);
+  $event = new_Doc($db, $evi);
   $evstate  = GetHttpVars("st", -1);
 
   if (!$event->isAffected() || $evstate==-1) {
@@ -43,7 +43,7 @@ function wgcal_seteventstate(&$action) {
 	if ($err!="") AddWarningMsg("$err");
       }
 
-      $uw = new Doc($dbaccess, $event->getValue("calev_ownerid"));
+      $uw = new_Doc($dbaccess, $event->getValue("calev_ownerid"));
       $wuid = $uw->getValue("us_whatid");
       if ($action->parent->param->GetUParam("WGCAL_U_MAILCHGSTATE", $wuid) == 1) {
 	sendRv($action, $event, 0, _("state set to ").WGCalGetLabelState($evstate)." par ".ucfirst($action->user->lastname)." ".ucfirst($action->user->firstname));

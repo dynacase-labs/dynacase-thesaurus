@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.16 2005/09/02 16:25:15 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.17 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -88,7 +88,7 @@ function wgcal_gview(&$action) {
     $popuplist = array();
     foreach ($edre as $k => $v) {
 
-      if (!isset($drv[$v["IDP"]])) $drv[$v["IDP"]] = new Doc($dbaccess, $v["IDP"]);
+      if (!isset($drv[$v["IDP"]])) $drv[$v["IDP"]] = new_Doc($dbaccess, $v["IDP"]);
       if ($drv[$v["IDP"]]->id == "") continue;
 
       $d = substr($v["TSSTART"],0,2);

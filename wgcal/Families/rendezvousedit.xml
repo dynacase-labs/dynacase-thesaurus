@@ -18,6 +18,8 @@
 <input type="hidden" id="creatorid" name="creatorid" value="[creatorid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
 <input type="hidden" id="evstatus" name="evstatus" value="[evstatus]">
+<input type="hidden" id="evmailext" name="evmailext" value="[evmailext]">
+<input type="hidden" id="evconvocation" name="evconvocation" value="[evconvocation]">
 <input type="hidden" id="evwithme" name="evwithme" value="[evwithme]">
 <input type="hidden" id="evcalendar" name="evcalendar" value="[evcalendar]">
 <input type="hidden" id="evconfidentiality" name="evconfidentiality" value="[evconfidentiality]">
@@ -235,7 +237,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tr><td>&nbsp;</td></tr>
 
 <tr><td nowrap>
-<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus();" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus();" [WITHME] [WITHMERO]>[TEXT:I participe...]</span>
+<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME] [WITHMERO]>[TEXT:I participe...]</span>
 </td></tr>
 
 <tr><td>&nbsp;</td></tr>
@@ -255,6 +257,15 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <tr><td>&nbsp;</td></tr>
 
+<tr><td>
+<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus('mconvo', 'evconvocation');" title="[TEXT:select for a convocation]"><input id="mconvo" name="mconvo" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mconvo', 'evconvocation');" [mconvo]>[TEXT:convocation...]</span>
+</td></tr>
+
+<tr><td>&nbsp;</td></tr>
+
+[IF SendMailToExternal]<tr><td>
+<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus('mext', 'evmailext');" title="[TEXT:mail to external contact]"><input id="mext" name="mext" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mext', 'evmailext');" [mailtoexternals]>[TEXT:mail to externals...]</span>
+</td></tr>[ENDIF SendMailToExternal]
 
 </table>
 
@@ -273,7 +284,9 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
    <img id="delall" class="wSmallButton" style="display:[voneatt]; cursor:pointer;" height="20"
           onclick="ok=confirm('[TEXT:confirm delete all attendees]'); if (ok) deleteAttendee(-1);";
           src="[IMG:wm-delete.gif]" title="[TEXT:delete all attendees]">
-</td></tr>
+</td>
+
+</tr>
 </table>
 
 <div style="height:100%; width:100%; overflow:auto" id="attlist">
@@ -289,12 +302,11 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <td nowrap style="cursor:pointer" id="%RID%" title="%RDESCR%, [TEXT:click on ressource to select/unselect]"
     onmouseover="ViewGroup(this,true);"  onmouseout="ViewGroup(this,false);"
     onclick="RessourceSelect('%RID%');">
-    <img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%
-  </td>
+    <img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%&nbsp;
+</td>
 </tr>
 </tbody>
 </table>
-
 </div>
 </td></tr></table>
 

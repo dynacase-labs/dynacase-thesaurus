@@ -3,16 +3,17 @@
 var ressId = 0;
 var rlist = new Array();
 [BLOCK jsRlist]
-rlist[[id]] = ['[titlejs]', '[icon]'];[ENDBLOCK jsRlist]
+rlist[[id]] = ['[titlejs]', '[icon]', [romode]];[ENDBLOCK jsRlist]
 
 function SelectRessource(id) {
   var e;
   var title = rlist[id][0];
   var icon = rlist[id][1];
+  var romode = rlist[id][1];
   try {
-    parent.window.addRessource(id, title, icon, 0);
+    parent.window.addRessource(id, title, icon, 0, '', 0, romode);
   } catch(e) {
-    top.window.addRessource(id, title, icon, 0)
+    top.window.addRessource(id, title, icon, 0, '', 0, romode)
   } ;
   elt = document.getElementById(id);
   elt.style.display = 'none';

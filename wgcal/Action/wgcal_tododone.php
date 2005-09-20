@@ -10,7 +10,7 @@ function wgcal_tododone(&$action) {
   $db = $action->getParam("FREEDOM_DB");
   $id = GetHttpVars("idtodo", -1);
   if ($id!=-1) {
-    $todo = new Doc($db, $id);
+    $todo = new_Doc($db, $id);
     if ($todo->isAlive()) $todo->delete();
   }
   redirect($action, "WGCAL", GetHttpVars("t", "WGCAL_ALLTODO"));

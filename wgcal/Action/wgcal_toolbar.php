@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.48 2005/09/13 16:07:46 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.49 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -135,7 +135,7 @@ function _listress(&$action)
     $rid = $tt[0];
     $sid = ($tt[1]!="" ? $tt[1] : 0);
     $cid = ($tt[2]!="" ? $tt[2] : "blue");
-    $rd = new Doc($dbaccess, $rid);
+    $rd = new_Doc($dbaccess, $rid);
     if (!$rd->IsAffected()) continue;
     $haveVis =wUserHaveCalVis($rid, 0);
     if ($rid==$action->user->fid || $haveVis) {

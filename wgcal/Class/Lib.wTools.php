@@ -146,7 +146,7 @@ function wGetUserGroups($fid=-1) {
   $wgcal_groups = wGetGroups();
 
   // get user groups
-  $user = new Doc($dbaccess, $fid);
+  $user = new_Doc($dbaccess, $fid);
   $user_groups = $user->getTValue("us_idgroup");
 
   // compute user real groups (user groups used in Agenda)
@@ -211,7 +211,7 @@ function wGetRessDisplayed() {
 function wGetCategories() {
   global $action;
   $freedomdb = $action->getParam("FREEDOM_DB");
-  $dt = new Doc($freedomdb, "CALEVENT");
+  $dt = new_Doc($freedomdb, "CALEVENT");
   $ctg = $dt->GetAttribute("CALEV_CATEGORY");
   $enum = $ctg->getEnum();
   return $enum;
@@ -262,7 +262,7 @@ function MonAgenda()
   $mycalendar = _("My calendar");
   $calname = "UDCAL".$action->user->id;
 
-  $mcal = new Doc($dbaccess, getIdFromName($dbaccess, $calname)); 
+  $mcal = new_Doc($dbaccess, getIdFromName($dbaccess, $calname)); 
   if (!$mcal->isAffected()) {
     $mcal = createDoc($dbaccess,"DCALENDAR");
     if (!$mcal) $action->exitError(_("Can't create : ").$mycalendar);
@@ -303,7 +303,7 @@ function  wgcalGetRColor($r=-1) {
 function wgcalGetRessourcesMatrix($ev) {
   global $action;
   
-  $event = new Doc($action->getParam("FREEDOM_DB"), $ev);
+  $event = new_Doc($action->getParam("FREEDOM_DB"), $ev);
   
   $tress  = $event->getTValue("CALEV_ATTID");
   $tresst = $event->getTValue("CALEV_ATTTITLE");
@@ -376,7 +376,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
   $sdebug = "Query = [$qev]\n\t- Producters = [$idfamref]\n\t- Ressources = [$idres]\n\t- Dates = [".$d1.",".$d2."]\n";
 
   $events = array();
-  $dre=new Doc($dbaccess, $qev);
+  $dre=new_Doc($dbaccess, $qev);
   $events = $dre->getEvents($d1, $d2, $explode, $filter);
 
   // Post process search results ------------------------------------------------------------------------------------
@@ -484,4 +484,27 @@ function wUserHaveCalVis($calownerfid, $mode=0) {
 }
   
 
+/*
+ * Return -1 = no access, 0 = read access or 1 = write access
+ */
+function wGetUserCalAccessMode($tuser) {
+  $mode = -1;
+  $gli = Doc::_val2array($tuser["us_wgcal_vcalgrpid"]);
+  $glm = Doc::_val2array($tuser["us_wgcal_vcalgrpwrite"]);
+  if ($tuser["us_wgcal_vcalgrpmode"]==1 && count($tuser["us_wgcal_vcalgrpid"])>0) {
+    $mygroups = wGetUserGroups();
+//     echo "Mes groupes : "; print_r2($mygroups);
+//     echo "Groupes du cal de ".$tuser["title"]."<br>"; 
+    foreach ($gli as $k => $v) {
+//       echo "id: $v mode = ".$glm[$k]."<br>";
+      if (($mode<1)  && isset($mygroups[$v])) $mode = $glm[$k];
+    }
+  } else {
+    $mode = 1;
+  }
+//   echo "Mode = $mode<br>";
+  return $mode;
+}
+
+  
 ?>

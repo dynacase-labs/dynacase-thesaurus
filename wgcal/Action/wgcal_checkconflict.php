@@ -64,7 +64,7 @@ function wgcal_checkconflict(&$action) {
 //       if ($v["IDP"]!=$event && (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT)) {
       if ($v["IDP"]!=$event) {
 	if ((isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]==EVST_REJECT)) continue;
-	$d = new Doc($dbaccess, $v["IDP"]);
+	$d = new_Doc($dbaccess, $v["IDP"]);
 	$tev[$itev]["ID"] = $itev;
 	$tev[$itev]["EvRCard"] = $d->viewDoc($d->defaultabstract);
 	$tev[$itev]["EvPCard"] = $d->viewDoc($d->defaultview);

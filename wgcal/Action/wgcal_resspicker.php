@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.15 2005/09/15 15:58:11 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.16 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -25,7 +25,7 @@ function wgcal_resspicker(&$action) {
   if (count($tcontacts)>0) {
     foreach ($tcontacts as $kc => $vc) {
       if ($vc=="") continue;
-      $rd = new Doc($dbaccess, $vc);
+      $rd = new_Doc($dbaccess, $vc);
       $tc[$kc]["ID"] = $rd->id;
       $tc[$kc]["ICON"] = $rd->GetIcon();
       $tc[$kc]["TITLE"] = addslashes($rd->title);
@@ -39,7 +39,7 @@ function wgcal_resspicker(&$action) {
   // Get classses used for ressource
   $rclass = WGCalGetRessourceFamilies($dbaccess);
   $i = 0;
-  $df = new Doc($dbaccess);
+  $df = new_Doc($dbaccess);
   foreach ($rclass as $k => $v) {
     $t[$i]["FAMID"] = $v["id"];
     $t[$i]["FAMICON"] = $df->GetIcon($v["icon"]);
@@ -50,7 +50,7 @@ function wgcal_resspicker(&$action) {
 
   // Add statics calendars 
   //   $t[$i]["FAMID"] = getIdFromName($dbaccess,"SCALENDAR");
-  //   $df = new Doc($dbaccess, $t[$i]["FAMID"]);
+  //   $df = new_Doc($dbaccess, $t[$i]["FAMID"]);
   //   $t[$i]["FAMICON"] = $df->GetIcon();
   //   $t[$i]["FAMTITLE"] = _("my calendars");
   //   $t[$i]["FAMSEL"] = "false";

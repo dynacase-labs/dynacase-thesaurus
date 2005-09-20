@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_popup.php,v 1.5 2005/08/31 16:59:41 marc Exp $
+ * @version $Id: wgcal_popup.php,v 1.6 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -20,7 +20,7 @@ function wgcal_popup(&$action) {
   $ev = GetHttpVars("ev", -1);
   if ($ev>0) {
     $action->lay->set("id", $ev);
-    $n = new Doc($dbaccess, $ev);
+    $n = new_Doc($dbaccess, $ev);
     $t = array();
     if (isset($n->calPopupMenu) && is_array($n->calPopupMenu)) {
       foreach($n->calPopupMenu as $k => $v) {

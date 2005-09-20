@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_view.php,v 1.2 2005/07/05 10:04:59 marc Exp $
+ * @version $Id: wgcal_view.php,v 1.3 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -50,7 +50,7 @@ function wgcal_view(&$action)
   $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
 
   $events = array();
-  $qevents = new Doc($dbaccess, $qid);
+  $qevents = new_Doc($dbaccess, $qid);
   if (method_exists($qevents, "getEvents")) {
     $ds = ($ts_start!="" ? w_strftime($ts_start, WD_FMT_QSEARCH) : "");
     $de = ($ts_end!="" ? w_strftime($ts_end, WD_FMT_QSEARCH) : "");

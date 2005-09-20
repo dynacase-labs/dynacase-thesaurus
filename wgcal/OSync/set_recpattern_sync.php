@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: set_recpattern_sync.php,v 1.4 2005/06/21 09:50:21 marc Exp $
+ * @version $Id: set_recpattern_sync.php,v 1.5 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -24,7 +24,7 @@ if ($evid==-1) return;
 $action = WSyncAuthent();
 $db = WSyncGetDataDb();
 
-$event = new Doc($db, $evid);
+$event = new_Doc($db, $evid);
 if (!$event->IsAffected()) exit;
 
 

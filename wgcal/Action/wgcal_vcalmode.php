@@ -12,7 +12,7 @@ function wgcal_vcalmode(&$action)
 
   $defaultGroup = 2;
   
-  $user = new Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
+  $user = new_Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
   $user->setValue("us_wgcal_vcalgrpmode", $vcalmode);
   $user->deleteValue("us_wgcal_vcalgrpid");
   $user->deleteValue("us_wgcal_vcalgrpwid");
@@ -28,7 +28,7 @@ function wgcal_vcalmode(&$action)
 	$st = explode("%", $v);
 	$tgvid[] = $st[0];
 	$tgvmode[] = $st[1];
-	$dg = new Doc($action->getParam("FREEDOM_DB"), $st[0]);
+	$dg = new_Doc($action->getParam("FREEDOM_DB"), $st[0]);
 	$tgvname[] = $dg->getTitle();
 	$tgvwid[] = $dg->getValue("us_whatid");
       }

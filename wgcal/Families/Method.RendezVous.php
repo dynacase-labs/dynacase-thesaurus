@@ -38,7 +38,7 @@ function postModify() {
 }
 
 function getEventOwner() {
-  $uo = new Doc($this->dbaccess, $this->getValue("CALEV_OWNERID"));
+  $uo = new_Doc($this->dbaccess, $this->getValue("CALEV_OWNERID"));
   return $uo->getValue("us_whatid");
 }
 
@@ -110,7 +110,7 @@ function  setEventSpec(&$e) {
 function mailrv() {
   $this->lay->set("rvid", $this->id);
 
-  $uo = new Doc($dbaccess, $this->getValue("CALEV_OWNERID"));
+  $uo = new_Doc($dbaccess, $this->getValue("CALEV_OWNERID"));
   $this->lay->set("rvowner", $uo->title);
 
   $this->lay->set("rvtitle", GetHttpVars("msg", ""));
@@ -120,7 +120,7 @@ function mailrv() {
 }
 
 function vcalendar() {
-  $uo = new Doc($this->dbaccess, $this->getValue("CALEV_OWNERID"));
+  $uo = new_Doc($this->dbaccess, $this->getValue("CALEV_OWNERID"));
 
   $v = new Param($action->dbaccess, array("VERSION", PARAM_APP, $action->parent->id));
   $this->lay->set("version", $v->val);
@@ -195,7 +195,7 @@ function RendezVousView() {
     foreach ($t as $k => $v ) {
       if ($v!="") {
 	$du = getDocFromUserId($this->dbaccess, $v);
-	$g  = new Doc($dbaccess, $du->id);
+	$g  = new_Doc($dbaccess, $du->id);
 	$glist .= ($glist=="" ? "" : ", " ) . ucwords(strtolower($g->title));
       }
     }
@@ -391,7 +391,7 @@ function ev_showattendees($ressd, $private, $dcolor="lightgrey") {
   global $action;
 
   $globalstate = $dcolor;
-  $d = new Doc($this->dbaccess);
+  $d = new_Doc($this->dbaccess);
   $headSet = false;
 
   $show = true;
@@ -590,7 +590,7 @@ function RendezVousEdit() {
 	  $evstatus = ($evstatus == EVST_NEW ? EVST_READ : $attendeesState[$k]);
 	  $withme = true;
 	} else {
-	  $u = new Doc($action->GetParam("FREEDOM_DB"), $v);
+	  $u = new_Doc($action->GetParam("FREEDOM_DB"), $v);
 	  $m = $u->getValue("US_MAIL");
 	  if ($m) $mailadd .= ($mailadd==""?"":", ").$u->getValue("US_FNAME")." ".$u->getValue("US_LNAME")." <".$m.">";
 	}
@@ -828,7 +828,7 @@ function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp, $ro) {
     $gjs = array(); $igjs=0;
     $igroups = array(); $ig=0;
     foreach ($u_groups as $k => $v) {
-      $gr = new Doc($this->dbaccess, $k);
+      $gr = new_Doc($this->dbaccess, $k);
       $igroups[$ig]["gowner"] = $ko;
       $igroups[$ig]["gfid"] = $gr->id;
       $igroups[$ig]["gid"] = $gr->getValue("us_whatid");
@@ -967,6 +967,24 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   global  $action;
   $udbaccess = $action->GetParam("COREUSER_DB");
   $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $sendmext = ($action->GetParam("WGCAL_G_SENDMAILS_EXTERN", 0) == 1 ? true : false);
+  $this->lay->set("SendMailToExternal", $sendmext);
+  $this->lay->set("mailtoexternals", "");
+  $this->lay->set("evmailext", 0);
+  if ($sendmext && $this->getValue("calev_attextmail", 0)==1) {
+    $this->lay->set("mailtoexternals", "checked");
+    $this->lay->set("evmailext", 1);
+  }
+
+  $this->lay->set("mconvo", "");
+  $this->lay->set("evconvocation", 0);
+  if ($this->getValue("calev_convocation", 0)==1) {
+    $this->lay->set("mconvo", "checked");
+    $this->lay->set("evconvocation", 1);
+  }
+
+  
   $ugrp = new User($udbaccess);
   $groupfid = getIdFromName($dbaccess, "GROUP");
   $igroupfid = getIdFromName($dbaccess, "IGROUP");
@@ -980,7 +998,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
       continue;
     }
     if ($attendeesGroup[$k] != -1) continue;
-    $res = new Doc($dbaccess, $v);
+    $res = new_Doc($dbaccess, $v);
     $att[$a]["attId"]    = $v;
     $att[$a]["attSelect"]    = "true";
     $att[$a]["attState"] = $attendeesState[$k];
@@ -990,7 +1008,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
       $ulist = $ugrp->GetUsersGroupList($res->getValue("US_WHATID"));
       $tugrp = array(); $rgrp = 0;
       foreach ($ulist as $ku=>$vu) {
-	$rg = new Doc($dbaccess, $vu["fid"]);
+	$rg = new_Doc($dbaccess, $vu["fid"]);
         if ($rg->fromid==$groupfid || $rg->fromid==$igroupfid) continue;
 	$tugrp[$rgrp]["atticon"] = $rg->GetIcon();;
 	$tugrp[$rgrp]["atttitle"] = addslashes(ucwords(strtolower(($rg->getTitle()))));
@@ -1042,7 +1060,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
     $tx = explode("%", $v);
     if ($tx[0]=="" || $tx[0]==$ownerid) continue;
     if (!wUserHaveCalVis($tx[0], 1)) continue;
-    $res = new Doc($dbaccess, $tx[0]);
+    $res = new_Doc($dbaccess, $tx[0]);
     $to[$ito]["idress"] = $ito;
     $to[$ito]["resstitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));
     $to[$ito]["ressid"] = $tx[0];
@@ -1067,7 +1085,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   foreach ($tdress as $k => $v) {
     if ($v=="" || $v==$ownerid) continue;
     if (!wUserHaveCalVis($v, 1)) continue;
-    $res = new Doc($dbaccess, $v);
+    $res = new_Doc($dbaccess, $v);
     $to[$ito]["idress"] = $ito;
     $to[$ito]["resstitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));
     $to[$ito]["ressid"] = $v;

@@ -7,7 +7,7 @@ function wgcal_delegate(&$action)
 {
   $dlist = GetHttpVars("dlist", "");
   $dmail = GetHttpVars("dmail", -1);
-  $user = new Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
+  $user = new_Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
   if ($dmail!=-1) $user->setValue("us_wgcal_dgmail", $dmail);
   if ($dlist!="") {
     if (!$user->isAffected()) AddWarningMsg(__FILE__."::".__FILE__."> User !");
@@ -23,7 +23,7 @@ function wgcal_delegate(&$action)
 	  $st = explode("%", $v);
 	  $dg_uid[] = $st[0];
 	  $dg_umode[] = $st[1];
-	  $udg = new Doc($action->getParam("FREEDOM_DB"), $st[0]);
+	  $udg = new_Doc($action->getParam("FREEDOM_DB"), $st[0]);
 	  $dg_name[] = $udg->getTitle();
 	  $dg_uwid[] = $udg->getValue("us_whatid");
 	}

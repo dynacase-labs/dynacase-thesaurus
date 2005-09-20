@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.55 2005/08/31 16:59:41 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.56 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -53,7 +53,7 @@ function wgcal_calendar(&$action) {
   $popuplist = array();
   foreach ($tout as $k => $v) {
     $IsRV = ($v["FIDP"]==getIdFromName($dbaccess,"CALEVENT") ? true : false);
-    $d = new Doc($dbaccess, $v["IDP"]);  
+    $d = new_Doc($dbaccess, $v["IDP"]);  
     $tout[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
     $tout[$k]["EvRCard"] = $d->viewDoc($d->defaultabstract);
     if ($IsRV) {

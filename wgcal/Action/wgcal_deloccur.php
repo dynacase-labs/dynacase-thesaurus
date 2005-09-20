@@ -10,7 +10,7 @@ function wgcal_deloccur(&$action) {
   $db = $action->getParam("FREEDOM_DB");
   $occ  = GetHttpVars("evocc", "");
   $evi = GetHttpVars("id", -1);
-  $event = new Doc($db, $evi);
+  $event = new_Doc($db, $evi);
   if ($event->isAffected() && $occ!="") {
     $tocc = $event->getTValue("CALEV_EXCLUDEDATE");
     $tnocc = array();

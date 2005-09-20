@@ -14,13 +14,13 @@
 </td></tr>
 </table>
 <table  style="border:thin outset grey;" align="center" width="100%" cellspacing="0" cellpadding="2px">
-[BLOCK DLINE]<tr valign="top">[line]</tr>[ENDBLOCK DLINE]
+[BLOCK DLINE]<tr  valign="top">[line]</tr>[ENDBLOCK DLINE]
 <tr><td colspan="[dayperline]">[ZONE WGCAL:WGCAL_INFOS]</td></tr>
 </table>
 
 [ZONE WGCAL:WGCAL_POPUP]
 
 [BLOCK CARDS]
-<div id="evtc[RG]" style=" display:none; border:1px outset; padding:3px; background-color:white');">[EvPCard]</div>[ENDBLOCK CARDS]
+<div id="evtc[RG]" style=" display:none; border:1px outset; padding:3px; background-color:white">[EvPCard]</div>[ENDBLOCK CARDS]
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

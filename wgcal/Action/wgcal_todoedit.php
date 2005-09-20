@@ -25,7 +25,7 @@ function wgcal_todoedit(&$action) {
 
   $id = GetHttpVars("idtodo", -1);
   if ($id!=-1) {
-    $todo = new Doc($db, $id);
+    $todo = new_Doc($db, $id);
     if ($todo->isAlive()) {
       $id = $todo->id;
       $title = $todo->getValue("todo_title");

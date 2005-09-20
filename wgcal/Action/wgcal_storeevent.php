@@ -132,6 +132,11 @@ function wgcal_storeevent(&$action) {
   // --------------------------------------------------------------------------------------------------
   // Attendees
   // --------------------------------------------------------------------------------------------------
+  $convoc = GetHttpVars("evconvocation",0);
+  $event->setValue("calev_convocation", $convoc);
+
+  $event->setValue("calev_attextmail", GetHttpVars("evmailext",0));
+
   $withme = GetHttpVars("evwithme", 1);
   $udbaccess = $action->GetParam("COREUSER_DB");
   $ugrp = new User($udbaccess);
@@ -186,13 +191,17 @@ function wgcal_storeevent(&$action) {
 	$attendeeswid[$attcnt]  = $att->getValue("us_whatid");
 	$attendeesname[$attcnt]  = $att->getTitle();
 	$attendeesgroup[$attcnt] = $va["fgid"];
-	if ($att->fromid==128) {
-	  $attendeesstate[$attcnt] = 0;
-	  foreach ($oldatt_id as $ko => $vo) {
-	    if ($vo == $va["fid"]) $attendeesstate[$attcnt] = $oldatt_state[$ko];
-	  }
-	} else {
+	if ($convoc==1) {
 	  $attendeesstate[$attcnt] = -1;
+	} else {
+	  if ($att->fromid==128) {
+	    $attendeesstate[$attcnt] = 0;
+	    foreach ($oldatt_id as $ko => $vo) {
+	      if ($vo == $va["fid"]) $attendeesstate[$attcnt] = $oldatt_state[$ko];
+	    }
+	  } else {
+	    $attendeesstate[$attcnt] = -1;
+	  }
 	}
      }
       $attcnt++;

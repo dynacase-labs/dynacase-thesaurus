@@ -19,7 +19,7 @@ function wgcal_todostore(&$action) {
   if ($id == -1) {
     $todo = createDoc($db, "TODO");
   } else {
-    $todo = new Doc($db, $id);
+    $todo = new_Doc($db, $id);
   }
 
   $todo->setValue("todo_idowner", $action->user->fid);

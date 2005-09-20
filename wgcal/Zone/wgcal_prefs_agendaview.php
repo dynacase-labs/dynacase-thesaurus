@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_agendaview.php,v 1.5 2005/08/31 16:59:41 marc Exp $
+ * @version $Id: wgcal_prefs_agendaview.php,v 1.6 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -48,7 +48,7 @@ function wgcal_prefs_agendaview(&$action) {
   $igroups = array(); $ig=0;
   $onsel = false;
   foreach ($u_rgroups as $k => $v) {
-    $gr = new Doc($dbaccess, $k);
+    $gr = new_Doc($dbaccess, $k);
     $igroups[$ig]["gfid"] = $gr->id;
     $igroups[$ig]["gid"] = $gr->getValue("us_whatid");
     $igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));
@@ -85,7 +85,7 @@ function wgcal_prefs_agendaview(&$action) {
 
     $action->lay->set("showgroups", false);
     $action->lay->set("showvcal", true);
-    $user = new Doc($dbaccess, $action->user->fid);
+    $user = new_Doc($dbaccess, $action->user->fid);
 
     $vcalmode = $user->getValue("us_wgcal_vcalgrpmode");
     $vcalgrp  = $user->getTValue("us_wgcal_vcalgrpid");
@@ -120,7 +120,7 @@ function wgcal_prefs_agendaview(&$action) {
       $action->lay->set("showgroups", true);
       $onesel = false;
       foreach ($u_rgroups as $k => $v) {
-	$gr = new Doc($dbaccess, $k);
+	$gr = new_Doc($dbaccess, $k);
 	$igroups[$ig]["gfid"] = $gr->id;
 	$igroups[$ig]["gid"] = $gr->getValue("us_whatid");
 	$igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));

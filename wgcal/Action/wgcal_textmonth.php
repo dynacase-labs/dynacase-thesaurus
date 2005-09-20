@@ -51,7 +51,7 @@ function wgcal_textmonth(&$action)
 
   $popuplist = array();
   foreach ($tevents as $k => $v) {
-    $d = new Doc($dbaccess, $v["IDP"]);  
+    $d = new_Doc($dbaccess, $v["IDP"]);  
     $tevents[$k]["EvSTCard"] = $d->viewDoc($d->defaultshorttext);
     $tevents[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
     $tevents[$k]["edit"] = ($d->Control("edit")==""?true:false);
@@ -153,10 +153,10 @@ function wgcal_textmonth(&$action)
 	  }
 	}
 	$h->SetBlockData("HLine", $d);
-	$hday[$li]["line"] .= "<td height=\"".$td_height."px\" class=\"wMonthTextTD\">".$h->gen()."</td>";
+	$hday[$li]["line"] .= "<td onmouseover=\"closeAllMenu();\" height=\"".$td_height."px\" class=\"wMonthTextTD\">".$h->gen()."</td>";
 	$cday++; 
       } else {
-	$hday[$li]["line"] .= "<td height=\"".$td_height."px\" class=\"wMonthTextTDUnused\">&nbsp;</td>";
+	$hday[$li]["line"] .= "<td onmouseover=\"closeAllMenu();\" height=\"".$td_height."px\" class=\"wMonthTextTDUnused\">&nbsp;</td>"; 
 	if ($cday>$lastday) $alldaysdone = true;
       }
     }

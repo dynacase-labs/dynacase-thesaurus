@@ -4,7 +4,7 @@
  * Looks for rendez-vous alert !
  *
  * @author Anakeen 2004
- * @version $Id: wgcal_alert.php,v 1.2 2005/06/27 09:40:38 marc Exp $
+ * @version $Id: wgcal_alert.php,v 1.3 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,7 +39,7 @@ TRACE("idres=[] idfamref=[$idfamref] d1=[$d1] d2=[$d2]");
 
 $filter = array ( "evfc_alartime > 0");
 // Recherche de tout les events avec alarme qui vérifie a <= (H-x) < (a+i)
-$dre = new Doc($dbfreedom, $reid);
+$dre = new_Doc($dbfreedom, $reid);
 //   print_r2($dre);
 $tev = array();
 $tev = $dre->getEvents($d1,$d2, true, $filter);

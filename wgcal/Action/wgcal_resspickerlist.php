@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspickerlist.php,v 1.12 2005/09/19 16:31:04 marc Exp $
+ * @version $Id: wgcal_resspickerlist.php,v 1.13 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -26,7 +26,7 @@ function wgcal_resspickerlist(&$action) {
 
   if ($families == "") return;
 
-  $doc = new Doc($action->GetParam("FREEDOM_DB"));
+  $doc = new_Doc($action->GetParam("FREEDOM_DB"));
   $filter = array( );
   $if = 0;
   if ($title!="") $filter[0] = "title ~* '".$title."'";
@@ -50,10 +50,17 @@ function wgcal_resspickerlist(&$action) {
 	$t[$v["id"]]["RESSICON"] = $doc->GetIcon($v["icon"]);
 	$t[$v["id"]]["RESSTITLEJS"] = addslashes(ucwords(strtolower($v["title"])));
 	$t[$v["id"]]["RESSTITLE"] = ucwords(strtolower($v["title"]));
-	$t[$v["id"]]["STATE"] = ($v["fromid"]==128 ? EVST_NEW : -1);
-	$t[$v["id"]]["TSTATE"] = ($v["fromid"]==128 ? WGCalGetLabelState(EVST_NEW) : "");
-	$t[$v["id"]]["CSTATE"] = ($v["fromid"]==128 ? WGCalGetColorState(EVST_NEW) : "transparent");
-	$t[$v["id"]]["ROMODE"] = "true";
+
+	$t[$v["id"]]["STATE"] = -1;
+	$t[$v["id"]]["TSTATE"] = "";
+	$t[$v["id"]]["CSTATE"] = "transparent";
+	$t[$v["id"]]["ROMODE"] = "false";
+	if ($v["fromid"]==128) {
+	  $t[$v["id"]]["STATE"] = EVST_NEW;
+	  $t[$v["id"]]["TSTATE"] = WGCalGetLabelState(EVST_NEW);
+	  $t[$v["id"]]["CSTATE"] = WGCalGetColorState(EVST_NEW);
+	  $t[$v["id"]]["ROMODE"] = (wGetUserCalAccessMode($v)==1?"false":"true");
+	}
       }
     }
   }

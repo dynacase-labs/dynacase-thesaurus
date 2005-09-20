@@ -5,7 +5,7 @@ include_once('FDL/Class.Doc.php');
 function wgcal_setugroups(&$action) 
 {
   $gfid = GetHttpVars("ugroups", "");
-  $user = new Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
+  $user = new_Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
   $user->deleteValue("us_wgcal_gid");
   if ($gfid!="") {
     $tgv = array();
@@ -15,7 +15,7 @@ function wgcal_setugroups(&$action)
     foreach ($tg as $k => $v) {
       if ($v!="") {
 	$tgv[] = $v;
-	$dg = new Doc($action->getParam("FREEDOM_DB"), $v);
+	$dg = new_Doc($action->getParam("FREEDOM_DB"), $v);
 	$tgvw[] = $dg->getValue("us_whatid");
 	$tgvname[] = $dg->getTitle();
       }

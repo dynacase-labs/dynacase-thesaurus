@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: event_update_sync.php,v 1.2 2005/06/21 09:50:21 marc Exp $
+ * @version $Id: event_update_sync.php,v 1.3 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -34,7 +34,7 @@ $action = WSyncAuthent();
 $dbdata = WSyncGetDataDb();
 $dbadm = WSyncGetAdminDb();
 
-$event = new Doc($dbdata, $evid);
+$event = new_Doc($dbdata, $evid);
 if (!$event->isAlive()) return;
 
 

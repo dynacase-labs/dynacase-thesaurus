@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.34 2005/08/05 15:24:35 marc Exp $
+ * @version $Id: calev_card.php,v 1.35 2005/09/20 17:14:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -49,7 +49,7 @@ function calev_card(&$action) {
     $t = explode("|", $ogrp);
     foreach ($t as $k => $v ) {
       if ($v!="") {
-	$g  = new Doc($dbaccess, $v);
+	$g  = new_Doc($dbaccess, $v);
 	$glist .= ($glist=="" ? "" : ", " ) . ucwords(strtolower($g->title));
       }
     }
@@ -256,7 +256,7 @@ function ev_showattendees(&$action, &$ev, $ressd, $private, $dcolor) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $globalstate = $dcolor;
-  $d = new Doc($dbaccess);
+  $d = new_Doc($dbaccess);
   $headSet = false;
 
   $show = true;
