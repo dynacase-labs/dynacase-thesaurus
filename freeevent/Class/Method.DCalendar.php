@@ -3,16 +3,16 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.23 2005/06/17 06:42:06 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.24 2005/09/20 12:43:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
  /**
  */
-var $eviews=array("FREEEVENT:EDITCALENDAR");
-var $cviews=array("FREEEVENT:PLANNER","FREEEVENT:VIEWCALENDAR");
-var $defaultedit="FREEEVENT:EDITCALENDAR";
-var $defaultview="FREEEVENT:PLANNER";
+public $eviews=array("FREEEVENT:EDITCALENDAR");
+public $cviews=array("FREEEVENT:PLANNER","FREEEVENT:VIEWCALENDAR");
+public $defaultedit="FREEEVENT:EDITCALENDAR";
+public $defaultview="FREEEVENT:PLANNER";
 function postCreated() {
   if ($this->getValue("SE_FAMID") == "")  $this->setValue("SE_FAMID",getFamIdFromName($this->dbaccess,"EVENT"));
 }
@@ -42,9 +42,7 @@ function getEvents($d1="",$d2="",$exploded=true,$filter=array()) {
 		if (! isset($fdoc[$v["fromid"]])) $fdoc[$v["fromid"]] = createDoc($this->dbaccess,$v["fromid"],false);
 		$doc=&$fdoc[$v["fromid"]];		
 	      }
-	      $doc->ResetMoreValues();
-	      $doc->Affect($v);
-	      $doc->GetMoreValues();
+	      $doc->Affect($v,true);
 	      $tevtx1=$doc->explodeEvt($d1,$d2);
 	      //	      $tevx+=$tevtx1;
 	      $tevx=array_merge($tevx,$tevtx1);
