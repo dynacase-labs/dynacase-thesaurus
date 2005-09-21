@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.16 2005/09/13 16:47:55 yannick Exp $
+# $Id: Makefile.in,v 1.17 2005/09/21 12:40:04 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -49,7 +49,3 @@ clean:
 	      App/Usercard/USERCARD_post \
               App/Generic/GENERIC_init.php App/Usercard/USERCARD_init.php \
 	      App/Fusers/FUSERS_init.php App/Onefam/ONEFAM_init.php
-              
-              
-              
-
