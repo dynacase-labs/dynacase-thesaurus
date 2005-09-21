@@ -252,7 +252,7 @@ function popUp(x,y,w,h,cid,text,bgcolor,textcolor,fontstyleset,title,titlecolor,
       var titlebar=new subBox(2,2,tw,20,titlecolor,cid+'_t');
       titlebar.style.overflow="hidden";
       titlebar.style.cursor="move";
-
+      titlebar.style.backgroundImage="url('Images/brushed.png')";
       var bsavegeo=(noDecoration)?'<img style="display:none" src="Images/byellow.gif" id="'+cid+'_max">':'<img style="cursor:default" src="Images/byellow.gif" id="'+cid+'_max">';
       var tmp=(isresize)?'<img style="cursor:default" src="Images/bgreen.gif"  id="'+cid+'_min">'+bsavegeo:'';
       titlebar.innerHTML='<span id="'+cid+'_ti" style="position:absolute; left:3px; top:1px; font:bold 10pt sans-serif; color:'+titletextcolor+'; height:18px; overflow:hidden; clip-height:16px;">'+title+'</span><div id="'+cid+'_btt" style="position:absolute; width:48px; height:16px; left:'+(tw-48)+'px; top:2px; text-align:right">'+tmp+'<img style="cursor:default" src="Images/bred.gif"  id="'+cid+'_cls"></div>';

@@ -31,7 +31,7 @@ function postit(url,x,y,w,h) {
   if (!h) h=200;
   var dpostit = document.getElementById('POSTIT_s');
   if (! dpostit) {
-    new popUp(x, y, w, h, 'POSTIT', url, '#faff77', '#00385c', '16pt serif', '[TEXT:post it]', 'transparent', '[CORE_BGCOLORALTERN]', 'transparent', 'transparent', '#faff77', true, true, true, true, true, false,true);
+    new popUp(x, y, w, h, 'POSTIT', url, '#faff77', '#00385c', '16pt serif', '[TEXT:post it]', 'yellow', '[CORE_BGCOLORALTERN]', 'transparent', 'transparent', '#faff77', true, true, true, true, true, false,true);
     
   } else {
     if ((getObjectTop(dpostit) < document.body.scrollTop) || 
