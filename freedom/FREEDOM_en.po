@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-16 14:52+0200\n"
+"POT-Creation-Date: 2005-09-21 10:57+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -325,6 +325,18 @@ msgstr ""
 msgid "workflow_init :: workflow id %s not found"
 msgstr ""
 
+#, fuzzy, c-format
+msgid "unknown batch document %s"
+msgstr "Modify"
+
+#, c-format
+msgid "unknown folder document %s"
+msgstr ""
+
+#, c-format
+msgid "no privilege to create this kind (%s) of document"
+msgstr ""
+
 #, c-format
 msgid ""
 "batcexec aborted\n"
@@ -400,16 +412,8 @@ msgid "document"
 msgstr "Import"
 
 #, fuzzy, c-format
-msgid "unknown batch document %s"
+msgid "batch from %s folder"
 msgstr "Modify"
-
-#, c-format
-msgid "unknown folder document %s"
-msgstr ""
-
-#, c-format
-msgid "no privilege to create this kind (%s) of document"
-msgstr ""
 
 msgid "folder is not valid: bookmark unchanged"
 msgstr ""
@@ -538,6 +542,10 @@ msgstr ""
 
 #, c-format
 msgid "%s has been created"
+msgstr ""
+
+#, c-format
+msgid "no action found for %s document"
 msgstr ""
 
 msgid "related search aborted : no parameter found"
@@ -709,11 +717,11 @@ msgstr ""
 msgid "no vcard file specified"
 msgstr ""
 
-#, c-format
-msgid "execution by %s done %s"
+msgid "freedom cron try execute"
 msgstr ""
 
-msgid "freedom cron try execute"
+#, c-format
+msgid "execution by %s done %s"
 msgstr ""
 
 #, fuzzy, c-format
@@ -942,27 +950,6 @@ msgstr "Identity"
 #, fuzzy
 msgid "short_name"
 msgstr "Delete"
-
-#, fuzzy
-msgid "root folder id"
-msgstr "Modify"
-
-msgid "enabled/disabled full text search"
-msgstr ""
-
-msgid "id of the basket folder"
-msgstr ""
-
-msgid "directory to upload archive"
-msgstr ""
-
-#, fuzzy
-msgid "mode to navigate in folders"
-msgstr "Modify"
-
-#, fuzzy
-msgid "bookmark folders"
-msgstr "Modify"
 
 #, fuzzy
 msgid "Documents management"
@@ -1239,6 +1226,31 @@ msgstr "Edit"
 msgid "search processes"
 msgstr "Start search"
 
+#, fuzzy
+msgid "root folder id"
+msgstr "Modify"
+
+msgid "enabled/disabled full text search"
+msgstr ""
+
+msgid "id of the basket folder"
+msgstr ""
+
+msgid "directory to upload archive"
+msgstr ""
+
+#, fuzzy
+msgid "mode to navigate in folders"
+msgstr "Modify"
+
+#, fuzzy
+msgid "bookmark folders"
+msgstr "Modify"
+
+#, fuzzy
+msgid "choose action from batch document"
+msgstr "Delete"
+
 msgid "Users"
 msgstr ""
 
@@ -1499,6 +1511,57 @@ msgstr ""
 msgid "LDAP activated"
 msgstr ""
 
+#, c-format
+msgid "Process %s [%d] executed"
+msgstr ""
+
+#, c-format
+msgid "Error : Process %s [%d]: status %d"
+msgstr ""
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+#, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr ""
+
 #, fuzzy
 msgid "creation"
 msgstr "Edit"
@@ -1725,56 +1788,6 @@ msgstr ""
 msgid "the date %s is in the past: today is %s"
 msgstr ""
 
-#, fuzzy, c-format
-msgid "%s attribute"
-msgstr "Update Title Cards"
-
-msgid "no available persons found"
-msgstr ""
-
-#, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
 msgid "not perm for admin"
 msgstr ""
 
@@ -1867,12 +1880,11 @@ msgstr ""
 msgid "request not found"
 msgstr ""
 
-#, c-format
-msgid "Process %s [%d] executed"
-msgstr ""
+#, fuzzy, c-format
+msgid "%s attribute"
+msgstr "Update Title Cards"
 
-#, c-format
-msgid "Error : Process %s [%d]: status %d"
+msgid "no available persons found"
 msgstr ""
 
 msgid "no message : post-it creation aborted"
@@ -2256,6 +2268,18 @@ msgstr ""
 msgid "workflow has been recomposed"
 msgstr ""
 
+msgid "Batch Choose"
+msgstr ""
+
+msgid "Copy the containt of folder in batch document"
+msgstr ""
+
+msgid "Copy the reference of folder in batch document"
+msgstr ""
+
+msgid "Processes to exec"
+msgstr ""
+
 #, fuzzy
 msgid "Creation"
 msgstr "Edit"
@@ -2613,14 +2637,12 @@ msgstr "Start search"
 msgid "err"
 msgstr ""
 
-msgid "Batch Choose"
+msgid "A_Copy"
 msgstr ""
 
-msgid "Copy the containt of folder in batch document"
-msgstr ""
-
-msgid "Copy the reference of folder in batch document"
-msgstr ""
+#, fuzzy
+msgid "A_Link"
+msgstr "Delete"
 
 msgid "Changes will be loosed if you continue"
 msgstr ""
@@ -2767,9 +2789,6 @@ msgstr "Import"
 msgid "Processes plan"
 msgstr ""
 
-msgid "Processes to exec"
-msgstr ""
-
 #, fuzzy
 msgid "Archives"
 msgstr "Import"
@@ -2850,6 +2869,9 @@ msgstr "Start search"
 #, fuzzy
 msgid "restrict to preferred families"
 msgstr "Modify"
+
+msgid "Create a new  process document"
+msgstr ""
 
 msgid "Refresh users characteristics from system"
 msgstr ""
@@ -3142,6 +3164,13 @@ msgstr ""
 
 msgid "Pages Jaunes"
 msgstr ""
+
+msgid "mini view"
+msgstr ""
+
+#, fuzzy
+msgid "post it"
+msgstr "Import"
 
 #, fuzzy
 msgid "fromdate"
@@ -3458,13 +3487,6 @@ msgstr "Delete"
 #, fuzzy
 msgid "reference for this revision"
 msgstr "Organisation"
-
-msgid "mini view"
-msgstr ""
-
-#, fuzzy
-msgid "post it"
-msgstr "Import"
 
 #, fuzzy
 msgid "Familly Document"

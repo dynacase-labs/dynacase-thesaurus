@@ -3,7 +3,7 @@
  * Method for processes family
  *
  * @author Anakeen 2005
- * @version $Id: Method.Execute.php,v 1.5 2005/09/12 16:33:55 eric Exp $
+ * @version $Id: Method.Execute.php,v 1.6 2005/09/21 13:07:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -69,9 +69,23 @@ function bgCommand($masteruserid=false) {
 function getExecUserID() {
   return $this->execuserid;
 }
+/**
+ * return the next date to execute process
+ * @return date
+ */
 function getNextExecDate() {
   $ndh=$this->getValue("exec_handnextdate");
-  if ($ndh=="") $ndh=" ";
+  if ($ndh=="") {
+    $nday=$this->getValue("exec_periodday",0);
+    $nhour=$this->getValue("exec_periodhour",0);
+    $nmin=$this->getValue("exec_periodmin",0);
+    if (($nday+$nhour+$nmin) > 0) {
+      $ndh=$this->getDate($nday,$nhour,$nmin);
+    } else {
+      $ndh=" ";
+    }
+    
+  }
 
   return $ndh;
 }

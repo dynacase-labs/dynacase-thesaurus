@@ -3,7 +3,7 @@
  * Use to help to the construction of batch document
  *
  * @author Anakeen 2005
- * @version $Id: freedom_applybatch.php,v 1.1 2005/09/12 16:33:55 eric Exp $
+ * @version $Id: freedom_applybatch.php,v 1.2 2005/09/21 13:07:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -29,7 +29,8 @@ function freedom_applybatch(&$action) {
   $dirid = GetHttpVars("id"); 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $bdoc=new_Doc($dbaccess,"BATCH");
-
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+ 
   $tb=$bdoc->getChildFam();
   $q=new QueryDb($dbaccess, "docAttr");
   foreach ($tb as $k=>$v) {
