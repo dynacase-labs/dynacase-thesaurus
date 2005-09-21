@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.272 2005/09/16 13:23:03 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.273 2005/09/21 12:37:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -3743,14 +3743,32 @@ final public function PostInsert()  {
    * @param int $daydelta to have the current date more or less day (-1 means yesterday, 1 tomorrow)
    * @return string DD/MM/YYYY
    */
- public static function getDate($daydelta=0) {
+  public static function getDate($daydelta=0,$dayhour="",$daymin="") {
     $delta = abs(intval($daydelta));
     if ($daydelta > 0) {
-      return date("d/m/Y",strtotime ("+$delta day"));
+      $nd =strtotime ("+$delta day");
     } else if ($daydelta < 0) {
-      return date("d/m/Y",strtotime ("-$delta day"));
+       $nd =strtotime ("-$delta day");
+    } else {
+      $nd =time();
     }
-    return date("d/m/Y");
+
+    if ($dayhour==="")  return date("d/m/Y",$nd);
+    else {
+      $delta=abs(intval($dayhour));
+      if ($dayhour > 0) {
+	$nd =strtotime ("+$delta hour",$nd);
+      } else if ($dayhour < 0) {
+	$nd = strtotime ("-$delta hour",$nd);
+      }
+      $delta=abs(intval($daymin));
+      if ($daymin > 0) {
+	$nd =strtotime ("+$delta min",$nd);
+      } else if ($daymin < 0) {
+	$nd = strtotime ("-$delta min",$nd);
+      }
+    }
+    return date("d/m/Y H:i",$nd);
   }
 
 
