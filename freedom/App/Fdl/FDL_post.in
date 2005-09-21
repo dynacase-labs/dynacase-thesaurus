@@ -38,7 +38,7 @@ if [ "$1" = "I" ] ; then
 
   #prepare VAULT directories
   mkdir -p /var/freedom
-  chown http: /var/freedom
+  chown @HTTPUSER@: /var/freedom
 
   DBFREENAME=`echo $dbfreename | tr [a-z] [A-Z]`
   if [ ! -f $pubdir/VAULT/$DBFREENAME.vault ]; then

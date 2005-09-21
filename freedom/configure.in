@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.12 2005/09/13 16:47:55 yannick Exp $)
+AC_REVISION($Id: configure.in,v 1.13 2005/09/21 12:35:46 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -54,6 +54,11 @@ DBPORT=5432
 AC_ARG_WITH(dbport,
 [  --with-dbport=port number  the database port (default 5432)], DBPORT=$withval)
 
+AC_SUBST(HTTPUSER)
+HTTPUSER=http
+AC_ARG_WITH(httpuser,
+[  --with-httpuser=user id for httpd process (default http)], HTTPUSER=$withval)
+
 
 AC_OUTPUT(Makefile \
 	App/Freedom/FREEDOM_init.php  \
@@ -68,4 +73,5 @@ AC_OUTPUT(Makefile \
 	Api/SetDocVaultIndex.php \
 	App/Fdl/FDL_post \
 	FREEDOM.cron \
+	FREEDOM.vault \
         FREEDOM.spec)

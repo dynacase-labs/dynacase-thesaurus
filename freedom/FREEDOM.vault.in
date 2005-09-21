@@ -4,8 +4,8 @@
 $chrono = FALSE;
 
 // Vault username and group 
-$u_owner = "http";
-$g_owner = "http";
+$u_owner = "@HTTPUSER@";
+$g_owner = "@HTTPUSER@";
 
 // Vault file & directory mode
 $f_mode = 0600;
