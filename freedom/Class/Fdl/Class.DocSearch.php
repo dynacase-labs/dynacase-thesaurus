@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.33 2005/09/15 07:49:42 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.34 2005/09/21 16:02:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -244,12 +244,13 @@ Class DocSearch extends PDocSearch {
    * return document includes in search folder
    * @param bool $controlview if false all document are returned else only visible for current user  document are return
    * @param array $filter to add list sql filter for selected document
+   * @param int $famid family identificator to restrict search 
    * @return array array of document array
    */
-  function getContent($controlview=true,$filter=array()) {
+  function getContent($controlview=true,$filter=array(),$famid="") {
     if ($controlview) $uid=$this->userid;
     else $uid=1;
-    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, "TABLE");
+    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, "TABLE",$famid);
     return $tdoc;
     
   }

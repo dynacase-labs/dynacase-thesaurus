@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.40 2005/09/15 07:55:21 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.41 2005/09/21 16:02:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -507,13 +507,14 @@ Class Dir extends PDir
    * return document includes in folder
    * @param bool $controlview if false all document are returned else only visible for current user  document are return
    * @param array $filter to add list sql filter for selected document
+   * @param int $famid family identificator to restrict search 
    * @return array array of document array
    */
-  function getContent($controlview=true,$filter=array()) {
+  function getContent($controlview=true,$filter=array(),$famid="") {
     include_once("FDL/Lib.Dir.php");
     if ($controlview) $uid=$this->userid;
     else $uid=1;
-    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, "TABLE");
+    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, "TABLE",$famid="");
     return $tdoc;
     
   }

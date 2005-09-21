@@ -3,7 +3,7 @@
  * PortFolio Methods
  *
  * @author Anakeen 2003
- * @version $Id: Method.PortFolio.php,v 1.12 2005/08/16 07:47:43 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.13 2005/09/21 16:02:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -54,11 +54,12 @@ function postInsertDoc($docid,$multiple=false) {
    * return document includes in portfolio an in each of its guide or searched inside portfolio
    * @param bool $controlview if false all document are returned else only visible for current user  document are return
    * @param array $filter to add list sql filter for selected document
+   * @param int $famid family identificator to restrict search 
    * @param bool $insertguide if true merge each content of guide else same as a normal folder
    * @return array array of document array
    */
-function getContent($controlview=true,$filter=array(),$insertguide=false) {
-  $tdoc=Dir::getContent($controlview,$filter);
+function getContent($controlview=true,$filter=array(),$famid="",$insertguide=false) {
+  $tdoc=Dir::getContent($controlview,$filter,$famid);
   if ($insertguide) {
     $todoc=array();
     foreach ($tdoc as $k=>$v) {
