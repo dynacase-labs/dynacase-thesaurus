@@ -42,13 +42,13 @@ Class [docNameIndirect] extends [RedirectDocParent] {
 Class Doc[docid] extends [DocParent] {
    //  family : [title]
 
-   var $dbtable="doc[docid]";
-   var $dbseq="seq_doc[docid]";
-   var $sqlcreate = array("create table doc[docid] ([sattr]) inherits (doc[fromid]);",
+   public $dbtable="doc[docid]";
+   public $dbseq="seq_doc[docid]";
+   public $sqlcreate = array("create table doc[docid] ([sattr]) inherits (doc[fromid]);",
      "create sequence seq_doc[docid] start 1;",
      "alter TABLE doc[docid] ADD primary key (id);",
      "select setval('seq_doc[docid]', count(distinct initid)+1, false )  from only doc[docid];");
-   var $sqltcreate =
+   public $sqltcreate =
      "CREATE OR REPLACE FUNCTION upval[docid]() RETURNS trigger AS '
 declare	
 begin
@@ -63,7 +63,7 @@ NEW.attrids := NEW.attrids || ''£'';
 end;
 ' LANGUAGE 'plpgsql'; "; // sql trigger
 
-     var $fromid=[docid];
+     public $fromid=[docid];
 
    function __construct ($dbaccess='', $id='',$res='',$dbid=0) {
     $this->attributes = new ADoc[docid]();
