@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.53 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.54 2005/09/21 16:44:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -179,11 +179,13 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="", $sendvcs=false
  if ($sendto==1 || $sendto==2) {
    $attid = $event->getTValue("CALEV_ATTID", array()); 
    foreach ($attid as $k => $v) {
-     if ($v != $action->user->fid && ($v["fromid"]!=128 && $sendtoext)) {
+     if ($v != $action->user->fid) {
        $u = new_Doc($action->GetParam("FREEDOM_DB"), $v);
-       $fullname = $u->getValue("TITLE");
-       $mail = $u->getValue("us_mail");
-       if ($mail!="") $to .= ($to==""?"":", ").addslashes($fullname)." <".$mail.">";
+       if (($u->fromid!=128 && $sendtoext) || $u->fromid==128) {
+	 $fullname = $u->getValue("TITLE");
+	 $mail = $u->getValue("us_mail");
+	 if ($mail!="") $to .= ($to==""?"":", ").addslashes($fullname)." <".$mail.">";
+       }
      }
    }
  }

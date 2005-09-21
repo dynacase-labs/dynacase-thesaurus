@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.56 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.57 2005/09/21 16:44:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -49,7 +49,6 @@ function wgcal_calendar(&$action) {
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
 
   $tout = wGetEvents(ts2db($firstWeekDay, "Y-m-d H:i:s"), ts2db($edate, "Y-m-d H:i:s"));
-
   $popuplist = array();
   foreach ($tout as $k => $v) {
     $IsRV = ($v["FIDP"]==getIdFromName($dbaccess,"CALEVENT") ? true : false);
@@ -150,7 +149,8 @@ function wgcal_calendar(&$action) {
     $t[$i]["IDD"] = $i;
     $t[$i]["colsize"] = $colsize;
     $t[$i]["CSS"] = $classh[$i];
-    $t[$i]["LABEL"] = w_strftime($firstWeekDay+($i*SEC_PER_DAY), WD_FMT_DAYLTEXT);
+    $t[$i]["LABEL1"] = w_strftime($firstWeekDay+($i*SEC_PER_DAY), WD_FMT_TDAY);
+    $t[$i]["LABEL2"] = w_strftime($firstWeekDay+($i*SEC_PER_DAY), WD_FMT_TMONTH);
     $t[$i]["times"] = $tabdays[$i]["vstart"] ;
     $t[$i]["timee"] = $t[$i]["times"] +  SEC_PER_HOUR;
   }

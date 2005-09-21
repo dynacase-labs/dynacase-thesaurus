@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.3 2005/09/15 15:58:11 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.4 2005/09/21 16:44:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -164,7 +164,6 @@ function explodeEvt($d1, $d2) {
     break;
     
   }
-print_r2($sdeb);
 //   AddWarningMsg($sdeb);
   return $eve;
 }
@@ -177,9 +176,15 @@ function CalEvIsExclude($excl, $date) {
 }
 
 function CalEvDupEvent($ref, $start, $end) {
+  include_once("WGCAL/Lib.wTools.php");
   $e = $ref;
   $e["evt_begdate"] = $start;
   $e["evt_enddate"] = $e["evfc_realenddate"] = $end;
+  if ($ref["evfc_evalarm"]==1) {
+    $htime = w_dbdate2ts($e["evt_begdate"]);
+    $hd = ($e["evfc_alarmd"] * 3600 * 24)  + ($e["evfc_alarmh"] * 3600) + ($e["evfc_alarmm"] * 60);
+    $e["evfc_alarmtime"] = w_datets2db($htime - $hd);
+  }
   return $e;
 }
 

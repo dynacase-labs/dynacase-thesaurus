@@ -96,18 +96,35 @@ function UpdateTime(elt, time) {
    hourTime.value = da.getUTCHours();
    fullTime.value = da.getTime();
    daysTime.value = da.getUTCSeconds();
-   //alert(' min='+d.getUTCMinutes()+' hours='+d.getUTCHours()+' day='+d.getUTCDate()+' month='+d.getUTCMonth()+' year='+d.getUTCFullYear()+' timestamp='+d.getUTCSeconds()+' utimestamp='+d.getTime());
 }
 
 
 function ChangeAlarm() {
-  if (ROMode) return;
   chk = document.getElementById('AlarmCheck');
   alrm = document.getElementById('AlarmVis');
   chk.checked =  (chk.checked ? "" : "checked" );
-  if (chk.checked) alrm.style.visibility = 'visible';
-  else alrm.style.visibility = 'hidden';
+  if (chk.checked) {
+    alrm.style.visibility = 'visible';
+    document.getElementById('evalarmst').value = 1;
+  } else {
+    alrm.style.visibility = 'hidden';
+    document.getElementById('evalarmst').value = 0;
+  }
+  return;
 }
+
+function changeAlarmT() {
+  var dd = document.getElementById('alarmday');
+  var hh = document.getElementById('alarmhour');
+  var mm = document.getElementById('alarmmin');
+
+  document.getElementById('evalarmd').value = dd.options[dd.selectedIndex].value;
+  document.getElementById('evalarmh').value = hh.options[hh.selectedIndex].value;
+  document.getElementById('evalarmm').value = mm.options[mm.selectedIndex].value;
+
+  return;
+}
+
 
 
 

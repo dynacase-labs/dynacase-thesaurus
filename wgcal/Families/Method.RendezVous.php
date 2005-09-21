@@ -48,6 +48,7 @@ function getEventRessources() {
 
 function  setEventSpec(&$e) {
   include_once('EXTERNALS/WGCAL_external.php');
+  include_once('WGCAL/Lib.wTools.php');
   $e->setValue("EVT_IDCREATOR", $this->getValue("CALEV_OWNERID"));
   $e->setValue("EVT_CREATOR", $this->getValue("CALEV_OWNER"));
   $e->setValue("EVT_DESC", $this->getValue("CALEV_EVNOTE"));
@@ -59,7 +60,19 @@ function  setEventSpec(&$e) {
   $e->setValue("EVFC_REPEATMONTH", $this->getValue("CALEV_REPEATMONTH"));
   $e->setValue("EVFC_REPEATUNTIL", $this->getValue("CALEV_REPEATUNTIL"));
   $e->setValue("EVFC_REPEATUNTILDATE", $this->getValue("CALEV_REPEATUNTILDATE"));
-  $e->setValue("EVFC_ALARMTIME", $this->getValue("CALEV_ALARMTIME"));
+  
+  if ($this->getValue("calev_evalarm", 0)==1) {
+    $htime = w_dbdate2ts($this->getValue("calev_start"));
+    $hd = ($this->getValue("calev_evalarmday", 0) * 3600 * 24)
+      + ($this->getValue("calev_evalarmhour", 0) * 3600)
+      + ($this->getValue("calev_evalarmmin", 0) * 60);
+    $e->setValue("evfc_alarmtime", w_datets2db($htime - $hd));
+  }
+  $e->setValue("evfc_alarm", $this->getValue("calev_evalarm", 0));
+  $e->setValue("evfc_alarmd", $this->getValue("calev_evalarmday", 0));
+  $e->setValue("evfc_alarmh", $this->getValue("calev_evalarmhour", 0));
+  $e->setValue("evfc_alarmm", $this->getValue("calev_evalarmmin", 0));
+    
   $tv = $this->getTValue("CALEV_EXCLUDEDATE");
   $e->deleteValue("EVFC_EXCLUDEDATE");
   if (count($tv)>0) {
@@ -207,7 +220,6 @@ function RendezVousView() {
   $this->lay->set("D_HR","");
   $this->lay->set("D_LL","");
   $this->lay->set("D_LR","");
-
   $ldstart = substr($this->getValue("CALEV_START"),0,10);
   $lstart = substr($this->getValue("CALEV_START"),11,5);
   $ldend = substr($this->getValue("CALEV_END"),0,10);
@@ -276,9 +288,9 @@ function RendezVousView() {
   
   $me_attendee = (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT &&  $ressd[$myid]["displayed"]);
 
-  $bgnew = WGCalGetColorState(EVST_ACCEPT);
-  $bgresumecolor = $bgcolor = $this->evColorByOwner();
-  if (isset($ressd[$myid]) && $ressd[$myid]["displayed"]) $bgnew = WGCalGetColorState($ressd[$myid]["state"]);
+  
+  $bgnew =  $bgresumecolor = $bgcolor = $this->evColorByOwner();
+  if (isset($ressd[$myid]) && $ressd[$myid]["displayed"] && $ressd[$myid]["state"]!=-1) $bgnew = WGCalGetColorState($ressd[$myid]["state"], $bgnew);
   $this->lay->set("MeCreator", false);
   if ($this->getValue("calev_ownerid")!=$this->getValue("calev_creatorid") && $this->getValue("calev_creatorid")==$action->user->fid) {
     $mycolor = wgcalGetRColor($action->user->fid);
@@ -331,7 +343,7 @@ function RendezVousView() {
       
   $this->showIcons($private, $me_attendee);
 
-  $this->ev_showattendees($ressd, $private, "lightgrey");
+  $this->ev_showattendees($ressd, $private, $bgresumecolor);
 
   $nota = str_replace("\n", "<br>", $this->getValue("CALEV_EVNOTE"));
   if ($nota!="" && !$private) {
@@ -375,7 +387,7 @@ function showIcons($private, $withme) {
       if ($this->getValue("CALEV_REPEATMODE") != 0)  $icons[] = $ricons["REPEAT"];
       if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = $ricons["GROUP"];
       if ($withme && ($this->getValue("CALEV_OWNERID") != $action->user->fid)) $icons[] = $ricons["INVIT"];
-      if ($this->getValue("CALEV_EVALARMTIME") > 0) $icons[] = $ricons["ALARM"];
+      if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = $ricons["ALARM"];
     }
   }
   $this->lay->SetBlockData("icons", $icons);
@@ -385,7 +397,7 @@ function showIcons($private, $withme) {
 /*
  *
  */
-function ev_showattendees($ressd, $private, $dcolor="lightgrey") {
+function ev_showattendees($ressd, $private, $dcolor="") {
   include_once('EXTERNALS/WGCAL_external.php');
   include_once('WGCAL/Lib.WGCal.php');
   global $action;
@@ -417,7 +429,7 @@ function ev_showattendees($ressd, $private, $dcolor="lightgrey") {
       if ($v["group"] == -1) {
 	if ($k == $action->user->fid) {
 	  $headSet = true;
-	  $globalstate = WGCalGetColorState($v["state"]);
+	  $globalstate = WGCalGetColorState($v["state"], $globalstate);
 	}
 	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $k);
  	$t[$a]["atticon$curcol"] = $d->GetIcon($attru["icon"]);
@@ -569,8 +581,6 @@ function RendezVousEdit() {
       $evcal    = $this->getValue("CALEV_EVCALENDARID", -1);
       $evvis    = $this->getValue("CALEV_VISIBILITY", 0);
       $ogrp = $this->getValue("CALEV_CONFGROUPS");
-      $evalarm  = $this->getValue("CALEV_EVALARM", 0);
-      $evalarmt = $this->getValue("CALEV_EVALARMTIME", 0);
       $evrepeat = $this->getValue("CALEV_REPEATMODE", 0);
       $evrweekd = $this->getTValue("CALEV_REPEATWEEKDAY", 0);
       $evrmonth = $this->getValue("CALEV_REPEATMONTH", 0);
@@ -611,8 +621,6 @@ function RendezVousEdit() {
       $evcal    = -1;
       $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
       $ogrp    = "-";
-      $evalarm  = 0;
-      $evalarmt = -1;
       $evrepeat = 0;
       $evrweekd = array();
       $evrmonth = 0;
@@ -690,7 +698,7 @@ function RendezVousEdit() {
   $this->EventSetDate($evstart, $evend, $evtype, $ro);
   $this->EventSetVisibility($ownerid, $ownerlist, $evvis, $ogrp, $ro);
   $this->EventSetCalendar($evcal, $ro);
-  $this->EventSetAlarm($evalarm, $evalarmt, $ro);
+  $this->EventSetAlarm();
   $this->EventSetRepeat($evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld, $ro);
   $this->EventSetCategory($evcategory);
   $this->EventAddAttendees($ownerid, $attendees, $attendeesState, $attendeesGroup, $withme, $ro);
@@ -879,33 +887,33 @@ function EventSetCalendar($cal, $ro) {
 }
 
   
-function EventSetAlarm($alarm, $alarmt, $ro) {
+function EventSetAlarm() {
 
-  $this->lay->set("ALARMCHK", ($alarm?"checked":""));
-  $this->lay->set("ALARMRO", ($ro?"disabled":""));
-  $this->lay->set("ALRMVIS", ($alarm?"visible":"hidden"));
+  $alarm_set = $this->getValue("calev_evalarm", 0);
+  $this->lay->set("evalarmst", $alarm_set);
+  $alarm_d   = $this->getValue("calev_evalarmday", 0);
+  $this->lay->set("evalarmd",$alarm_d);
+  $alarm_h   = $this->getValue("calev_evalarmhour", 1);
+  $this->lay->set("evalarmh",$alarm_h);
+  $alarm_m   = $this->getValue("calev_evalarmmin", 0);
+  $this->lay->set("evalarmm",$alarm_m);
 
-  if ($alarmt>0) {
-    $H = floor($alarmt / 60);
-    $M = $alarmt - ($H * 60);
-  } else {
-    $H = 1;
-    $M = 0;
-  }
+  $this->lay->set("ALARMCHK", ($alarm_set==1?"checked":""));
+  $this->lay->set("ALRMVIS", ($alarm_set==1?"visible":"hidden"));
+
+  for ($d=0; $d<5; $d++) 
+    $da[] = array("ALRMPERIOD_V"=>$d,"ALRMPERIOD_S"=>($alarm_d==$d ? "selected" : ""));
+  $this->lay->SetBlockData("ALARM_DA", $da);
+
+
+  for ($hour=0; $hour<24; $hour++) 
+    $h[] = array( "ALRMPERIOD_V"=>$hour, "ALRMPERIOD_S"=>($alarm_h==$hour?"selected":""));
+  $this->lay->SetBlockData("ALARM_HR", $h);
 
   $inc = 15;
-  for ($min=0; $min<60; $min+=$inc) {
-    $r = ($min==0?0:($min/$inc));
-    $m[$r]["ALRMPERIOD_V"] = $min;
-    $m[$r]["ALRMPERIOD_S"] = ($M>=$min && $min<($min+$inc)?"selected":"");
-  } 
+  for ($min=0; $min<60; $min+=$inc) 
+    $m[] = array( "ALRMPERIOD_V" => $min, "ALRMPERIOD_S" => ($alarm_m==$m ? "selected" : "" ));
   $this->lay->SetBlockData("ALARM_MIN", $m);
-
-  for ($hour=0; $hour<24; $hour++) {
-    $h[$hour]["ALRMPERIOD_V"] = $hour;
-    $h[$hour]["ALRMPERIOD_S"] = ($H==$hour?"selected":"");
-  } 
-  $this->lay->SetBlockData("ALARM_HR", $h);
 }
 
 function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
@@ -1223,11 +1231,9 @@ function resetAcceptStatus() {
     $att_sta = $this->getTValue("CALEV_ATTSTATE");
     $att_grp = $this->getTValue("CALEV_ATTGROUP");
     foreach ($att_ids as $k => $v) {
-      if ($att_grp[$k]==-1) {
+      if ($att_grp[$k]==-1 && $att_sta[$k] != -1) {
 	if ($v == $this->getValue("calev_ownerid")) $att_sta[$k] = EVST_ACCEPT;
-	else {
-	  if ($att_sta[$k] != -1) $att_sta[$k] = EVST_NEW;
-	}
+	else $att_sta[$k] = EVST_NEW;
       }
     }
     $this->setValue("CALEV_ATTSTATE", $att_sta);
@@ -1279,7 +1285,7 @@ function setAccessibility() {
   $acl = array();
   
 
-  if ($fprof==1) echo "Force profil setting...";
+//   if ($fprof==1) echo "Force profil setting...";
 
   if ($this->profid==0 || $fprof==1) {
     $this->disableEditControl();

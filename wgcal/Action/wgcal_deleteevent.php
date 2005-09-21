@@ -18,7 +18,8 @@ function wgcal_deleteevent(&$action, $optev=-1) {
       $err = $event->postDelete();
       if ($err!="") AddWarningMsg("$err");
     }
-    sendRv($action, $event, 2, _("event deletion information message"));
+    $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->getValue("calev_evtitle");
+    sendRv($action, $event, 2, $title, _("event deletion information message"));
   }
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }

@@ -53,11 +53,12 @@ function WGCalGetLabelState($state) {
   else return $EventStateDescr[$state][0];
 }
 
-function WGCalGetColorState($state) {
+function WGCalGetColorState($state, $def="transparent") {
   global $EventStateDescr;
-  if ($state==-1) return "transparent";
+  if ($state==-1) return $def;
   if ($state>=count($EventStateDescr)) return "lightgrey";
   else return $EventStateDescr[$state][1];
+  return "red"; // pas normal
 }
 
 /*

@@ -102,15 +102,10 @@ function wgcal_storeevent(&$action) {
   $confg = GetHttpVars("evconfgroups", 0);
   $event->setValue("CALEV_CONFGROUPS", $confg);
   
-  $event->setValue("CALEV_EVALARM", (GetHttpVars("AlarmCheck", "")=="on"?1:0));
-  if (GetHttpVars("AlarmCheck", "")=="on") {
-    $event->setValue("CALEV_EVALARM", 1);
-    $alarm = GetHttpVars("alarmhour", 0)*60 + GetHttpVars("alarmmin", 0);
-    $event->setValue("CALEV_EVALARMTIME", ($alarm>0?$alarm:60));
-  } else {
-    $event->setValue("CALEV_EVALARM", 0);
-    $event->setValue("CALEV_EVALARMTIME", 0);
-  }
+  $event->setValue("calev_evalarm", GetHttpVars("evalarmst",0));
+  $event->setValue("calev_evalarmday", GetHttpVars("evalarmd",0));
+  $event->setValue("calev_evalarmhour", GetHttpVars("evalarmh",1));
+  $event->setValue("calev_evalarmmin", GetHttpVars("evalarmm",0));
   
   // repeat 
   $rmode = GetHttpVars("repeattype", 0);
@@ -149,7 +144,7 @@ function wgcal_storeevent(&$action) {
   $oldatt_group = $event->getTValue("CALEV_ATTGROUP", array());
 
   $attendeesid    = array();
-  $attendeeswid    = array();
+  $attendeeswid   = array();
   $attendeesname  = array();
   $attendeesstate = array();
   $attendeesgroup = array();
@@ -211,7 +206,7 @@ function wgcal_storeevent(&$action) {
     $attendeesname[$attcnt] = $ownertitle;
     $attendeesid[$attcnt] = $owner;
     $attendeeswid[$attcnt] = $ownerwid;
-    $attendeesstate[$attcnt] = $evstatus;
+    $attendeesstate[$attcnt] = ($convoc==1 ? -1 : $evstatus);
     $attendeesgroup[$attcnt] = -1;
   }
     
@@ -223,10 +218,8 @@ function wgcal_storeevent(&$action) {
     
   $err = $event->Modify();
   if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");
-  else {
-    $err = $event->PostModify();
-    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");
-  }
+  $err = $event->PostModify();
+  if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");
   
 
   $event->setAccessibility();
@@ -322,24 +315,9 @@ function rvDiff( $old, $new) {
 		   "status" => false, 
 		   "others" => false);
 
-//   $sdb = "Modifié : \n";
 
    foreach ($diff as $k => $v) {
 
-//      $sdb .= "- $k [$v] ";
-//      switch($v) {
-//      case "D":
-//        $sdb .= " old=(".$old[$k].") new=()";
-//        break;
-//      case "M":
-//        $sdb .= " old=(".$old[$k].") new=(".$new[$k].")";
-//        break;
-//      case "A":
-//        $sdb .= " old=() new=(".$new[$k].")";
-//        break;
-//      }
-//      $sdb .= "\n";
-		
     switch ($k) {
     case "calev_evtitle":      
     case "calev_evnote":
@@ -367,7 +345,6 @@ function rvDiff( $old, $new) {
       $result["others"] = true;
     }
   }
-//    AddWarningMsg(  $sdb );
   return $result;
 }
   

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-15 11:56+0200\n"
+"POT-Creation-Date: 2005-09-21 09:21+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -673,6 +673,18 @@ msgstr "Ajouter les ressources selectionnées"
 msgid "use selected ressources"
 msgstr "ressources selectionnées"
 
+msgid "select for a convocation"
+msgstr "Cochez la case pour convoquer les contacts..."
+
+msgid "convocation..."
+msgstr "Convocation"
+
+msgid "mail to external contact"
+msgstr "Cochez la case pour expédier un mail aux contacts extérieurs"
+
+msgid "mail to externals..."
+msgstr "Mail pour les extérieurs"
+
 msgid "ressources advanced search"
 msgstr "Recherche avancée de contact"
 
@@ -1299,6 +1311,9 @@ msgstr "Utiliser les catégories de RV"
 
 msgid "mails send"
 msgstr "Envoi des mails"
+
+msgid "mails send to externals"
+msgstr "Envoi des mails aux contacts extérieurs"
 
 msgid "mail title mark"
 msgstr "Marquage (Sujet) des mails émis"

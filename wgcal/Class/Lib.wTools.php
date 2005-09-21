@@ -48,10 +48,14 @@ function w_datets2db($d, $hm = true) {
 define(WD_FMT_DAYSTEXT, 1); // Day Short 
 define(WD_FMT_DAYLTEXT, 2); // Day Long
 define(WD_FMT_DAYFTEXT, 3); // Day Full
+define(WD_FMT_TDAY, 4); // Day Full
+define(WD_FMT_TMONTH, 5); // YDay Full
 function w_strftime($ts, $fmt=0, $ucw=true) {
   global $action;
 
   switch ($fmt) {
+  case WD_FMT_TDAY: $fms = "%A %d"; break;
+  case WD_FMT_TMONTH: $fms = "%B"; break;
   case WD_FMT_DAYSTEXT: $fms = "%a %d %b"; break;
   case WD_FMT_DAYLTEXT: $fms = "%A %d %B"; break;
   case WD_FMT_DAYFTEXT: $fms = "%A %d %B %Y"; break;
@@ -337,10 +341,11 @@ function wgcalGetRessourcesMatrix($ev) {
 
 
 
-function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
+function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="") {
 
+  include_once("WGCAL/Lib.WGCal.php");
   global $action;
-
+ 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $qev = GetHttpVars("qev", getIdFromName($dbaccess,"WG_AGENDA"));
@@ -357,39 +362,46 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
 
   // Init the ressources
   $res = GetHttpVars("ress", "");
-  if ($res!="") {
-    $ress = explode("|", $res);
-     foreach ($ress as $kr => $vr) {
-      if ($vr>0) $tr[$vr] = $vr;
+  if ($res!="x") {
+    if ($res!="") {
+      $ress = explode("|", $res);
+      foreach ($ress as $kr => $vr) {
+	if ($vr>0) $tr[$vr] = $vr;
+      }
+    } else {  
+      $ress = wGetRessDisplayed();
+      $tr=array(); 
+      $ire=0;
+      foreach ($ress as $kr=>$vr) {
+	if ($vr->id>0) $tr[$vr->id] = $vr->id;
+      }
     }
-  } else {  
-    $ress = wGetRessDisplayed();
-    $tr=array(); 
-    $ire=0;
-    foreach ($ress as $kr=>$vr) {
-      if ($vr->id>0) $tr[$vr->id] = $vr->id;
-    }
+    $idres = implode("|", $tr);
+    setHttpVar("idres",$idres);
+  } else {
+    setHttpVar("idres","|");
   }
-  $idres = implode("|", $tr);
-  setHttpVar("idres",$idres);
   
   $sdebug = "Query = [$qev]\n\t- Producters = [$idfamref]\n\t- Ressources = [$idres]\n\t- Dates = [".$d1.",".$d2."]\n";
 
   $events = array();
   $dre=new_Doc($dbaccess, $qev);
+//   if ($famid!="") $dre->setValue("se_famid", getIdFromName($dbaccess, $famid));
+//   echo "famid= $famid";
   $events = $dre->getEvents($d1, $d2, $explode, $filter);
 
-  // Post process search results ------------------------------------------------------------------------------------
+  // Post process search results --------------
   $tout=array(); 
   $first = false;
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
   $rvfamid = getIdFromName($dbaccess, "CALEVENT");
   foreach ($events as $k=>$v) {
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
-  $sdebug .= "[".$v["evt_frominitiatorid"]."::".$v["evt_idinitiator"]."] title=[".$v["evt_title"]."]";
+    $sdebug .= "[".$v["evt_frominitiatorid"]."::".$v["evt_idinitiator"]."] title=[".$v["evt_title"]."]";
     $item = array( "ID" => $v["id"],
 		   "TSSTART" => $v["evt_begdate"],
 		   "TSEND" => $end,
+// 		   "__event" => $v,
 		   "START" => localFrenchDateToUnixTs($v["evt_begdate"]),
 		   "END" => localFrenchDateToUnixTs($end), 
 		   "IDP" =>  $v["evt_idinitiator"],
@@ -428,15 +440,15 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array()) {
       }
     }
 
-  $sdebug .= " display=[".($displayEvent?"true":"false")."]\n";
+    $sdebug .= " display=[".($displayEvent?"true":"false")."]\n";
     if ($displayEvent) { 
       $item["RG"] = count($tout);
       $tout[] = $item;
     }
   } 
-//      AddWarningMsg($sdebug);
-   
-  return $tout;
+  //      AddWarningMsg($sdebug);
+  echo      "$sdebug";
+ return $tout;
 }
 
 function wSpeedWFidGroups($t="IGROUP") {
@@ -493,16 +505,12 @@ function wGetUserCalAccessMode($tuser) {
   $glm = Doc::_val2array($tuser["us_wgcal_vcalgrpwrite"]);
   if ($tuser["us_wgcal_vcalgrpmode"]==1 && count($tuser["us_wgcal_vcalgrpid"])>0) {
     $mygroups = wGetUserGroups();
-//     echo "Mes groupes : "; print_r2($mygroups);
-//     echo "Groupes du cal de ".$tuser["title"]."<br>"; 
     foreach ($gli as $k => $v) {
-//       echo "id: $v mode = ".$glm[$k]."<br>";
       if (($mode<1)  && isset($mygroups[$v])) $mode = $glm[$k];
     }
   } else {
     $mode = 1;
   }
-//   echo "Mode = $mode<br>";
   return $mode;
 }
 

@@ -27,6 +27,11 @@
 <input type="hidden" id="evcategory" name="evcategory" value="[evcategory]">
 <input type="hidden" id="attendees" name="attendees" value="">
 <input type="hidden" id="excludedate" name="excludedate" value="">
+<input type="hidden" id="evalarmst" name="evalarmst" value="[evalarmst]">
+<input type="hidden" id="evalarmd" name="evalarmd" value="[evalarmd]">
+<input type="hidden" id="evalarmh" name="evalarmh" value="[evalarmh]">
+<input type="hidden" id="evalarmm" name="evalarmm" value="[evalarmm]">
+
 
 
 
@@ -176,11 +181,10 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <td align="right"><span style="cursor:pointer" onclick="ChangeAlarm()" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
 <td colspan="2" >
 <span id="AlarmVis" style="visibility:[ALRMVIS]">
-<select id="alarmhour" name="alarmhour" [ALARMRO]>[BLOCK ALARM_HR]
-<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_HR]
-</select>h&nbsp; <select id="alarmmin" name="alarmmin" [ALARMRO]>[BLOCK ALARM_MIN]
-<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_MIN]
-</select>mn&nbsp;[TEXT:before]
+<select id="alarmday" name="alarmdayhour" onchange="changeAlarmT()">[BLOCK ALARM_DA]<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_DA]</select>d
+<select id="alarmhour" name="alarmhour" onchange="changeAlarmT()">[BLOCK ALARM_HR]<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_HR]</select>h&nbsp;
+<select id="alarmmin" name="alarmmin"  onchange="changeAlarmT()">[BLOCK ALARM_MIN]<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_MIN]</select>mn&nbsp;
+[TEXT:before]
 </span>
 </td>
 </tr>
