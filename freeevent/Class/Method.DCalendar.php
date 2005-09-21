@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.24 2005/09/20 12:43:00 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.25 2005/09/21 16:08:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -34,15 +34,8 @@ function getEvents($d1="",$d2="",$exploded=true,$filter=array()) {
   if (!$exploded) return $tev;
   $tevx=array();
   $fdoc=array();
-  $fevtid=getFamIdFromName($this->dbaccess,"EVENT");
-  $fdoc[$fevtid]=createDoc($this->dbaccess,"EVENT",false);
-  $doc=&$fdoc[$fevtid];
-  foreach ($tev as $k=>$v) {
-	      if ($v["fromid"] != $doc->fromid) {
-		if (! isset($fdoc[$v["fromid"]])) $fdoc[$v["fromid"]] = createDoc($this->dbaccess,$v["fromid"],false);
-		$doc=&$fdoc[$v["fromid"]];		
-	      }
-	      $doc->Affect($v,true);
+  foreach ($tev as $k=>$v) {	      
+	      $doc=getDocObject($v);
 	      $tevtx1=$doc->explodeEvt($d1,$d2);
 	      //	      $tevx+=$tevtx1;
 	      $tevx=array_merge($tevx,$tevtx1);
