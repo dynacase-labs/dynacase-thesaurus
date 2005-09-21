@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.29 2005/08/10 10:31:53 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.30 2005/09/21 12:38:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -14,12 +14,12 @@
 
 
 Class BasicAttribute {
-  var $id;
-  var $docid;
-  var $labelText;
-  var $visibility; // W, R, H, O, M, I
-  var $options;
-  var $type; // text, longtext, date, file, ...
+  public $id;
+  public $docid;
+  public $labelText;
+  public $visibility; // W, R, H, O, M, I
+  public $options;
+  public $type; // text, longtext, date, file, ...
 
   function __construct($id, $docid, $label ) {
     $this->id=$id;
@@ -57,20 +57,20 @@ Class BasicAttribute {
 }
 
 Class NormalAttribute extends BasicAttribute {
-  var $needed; // Y / N
-  var $format; // C format
-  var $eformat; // format for edition : list,vcheck,hcheck
-  var $repeat; // true if is a repeatable attribute
-  var $isInTitle;
-  var $isInAbstract;
-  var $fieldSet; // field set object
-  var $link; // hypertext link
-  var $phpfile;
-  var $phpfunc;
-  var $elink; // extra link
-  var $ordered;
-  var $phpconstraint; // special constraint set
-  var $usefor; // = Q if parameters
+  public $needed; // Y / N
+  public $format; // C format
+  public $eformat; // format for edition : list,vcheck,hcheck
+  public $repeat; // true if is a repeatable attribute
+  public $isInTitle;
+  public $isInAbstract;
+  public $fieldSet; // field set object
+  public $link; // hypertext link
+  public $phpfile;
+  public $phpfunc;
+  public $elink; // extra link
+  public $ordered;
+  public $phpconstraint; // special constraint set
+  public $usefor; // = Q if parameters
   function __construct($id, $docid, $label, $type, $format, $repeat, $order, $link,
 			   $visibility, $needed,$isInTitle,$isInAbstract,
 			   &$fieldSet,$phpfile,$phpfunc,$elink,$phpconstraint="",$usefor="",$eformat="",$options="") {
@@ -182,9 +182,9 @@ Class FieldSetAttribute extends BasicAttribute {
 }
 
 Class MenuAttribute extends BasicAttribute {
-  var $link; // hypertext link
-  var $ordered;
-  var $precond; // pre-condition to activate menu
+  public $link; // hypertext link
+  public $ordered;
+  public $precond; // pre-condition to activate menu
 
   function __construct($id, $docid, $label, $order, $link, $visibility="", $precond="",$options="") {
     $this->id=$id;
@@ -203,9 +203,9 @@ Class MenuAttribute extends BasicAttribute {
 
 Class ActionAttribute extends BasicAttribute {
 
-  var $wapplication; // the what application name
-  var $waction; // the what action name
-  var $ordered;
+  public $wapplication; // the what application name
+  public $waction; // the what action name
+  public $ordered;
   function __construct($id, $docid, $label, $order,$visibility="",$wapplication="",$waction="",$options="" ) {
     $this->id=$id;
     $this->docid=$docid;
@@ -219,9 +219,16 @@ Class ActionAttribute extends BasicAttribute {
   }
   function getLink($docid) {
     $l=getParam("CORE_STANDURL");
-    $l.="&app=".$this->wapplication;
-    $l.="&action=".$this->waction;
-    $l.="&id=".$docid;
+    $batch=($this->getOption("batchfolder")=="yes");
+    if ($batch) {
+      $l.="&app=FREEDOM&action=BATCHEXEC&sapp=".$this->wapplication;
+      $l.="&saction=".$this->waction;
+      $l.="&id=".$docid;
+    } else {
+      $l.="&app=".$this->wapplication;
+      $l.="&action=".$this->waction;
+      $l.="&id=".$docid;
+    }
     return $l;
   }
 }
