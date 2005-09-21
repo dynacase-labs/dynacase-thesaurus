@@ -180,7 +180,7 @@ function viewhome(event) {
 
 <!-- ------------------ BAR MENU ------------------ -->
 [ZONE [APPNAME]:BARMENU]
-<br style="margin:4px">
+<div style="padding:0px;margin-top:30px"></div>
 
 <!-- ------------ POPUP DIVISION --------------------- -->
 <div  id="popfld" class="popup">
