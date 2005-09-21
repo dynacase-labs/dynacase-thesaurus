@@ -4,7 +4,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calvcard.php,v 1.1 2005/03/18 09:21:38 marc Exp $
+ * @version $Id: calvcard.php,v 1.2 2005/09/21 08:43:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -18,7 +18,7 @@ function calvcard(&$action) {
   setHttpVar("ev", $evi);
   calvresume($action);
 
-  $ev = new Doc($dbaccess, $evi);
+  $ev = new_Doc($dbaccess, $evi);
 
   $action->lay->set("id", $ev->id);
   $action->lay->set("description", $ev->getValue("evt_descr"));
@@ -27,7 +27,7 @@ function calvcard(&$action) {
   if ($ev->getValue("evt_idres") != "") {
     $tress = $ev->getTValue("evt_idres");
     foreach ($tress as $k => $v) {
-      $rd = new Doc($dbaccess, $v);
+      $rd = new_Doc($dbaccess, $v);
       $to[$ito++]["rtitle"] = $rd->title;
     }
   }

@@ -3,7 +3,7 @@
  * Produce events methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.PEvents.php,v 1.13 2005/06/15 16:25:17 eric Exp $
+ * @version $Id: Method.PEvents.php,v 1.14 2005/09/21 08:43:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -82,7 +82,7 @@ function pEventDefault() {
     // search if already created
     $tevt = getChildDoc($this->dbaccess, 0 ,0,1, $filter,1, "TABLE",$this->eventFamily);
     if (count($tevt) > 0) {
-      $evt=new Doc($this->dbaccess,$tevt[0]["id"]);
+      $evt=new_Doc($this->dbaccess,$tevt[0]["id"]);
     }    
   }
   //  if (($this->control("edit")=="")||(isset($this->withoutControl))) { // can modify only if can modify productor
@@ -143,7 +143,7 @@ function dEventDefault() {
     // search if already created
     $tevt = getChildDoc($this->dbaccess, 0 ,0,1, $filter,1, "TABLE",$this->eventFamily);
     if (count($tevt) > 0) {
-      $evt=new Doc($this->dbaccess,$tevt[0]["id"]);
+      $evt=new_Doc($this->dbaccess,$tevt[0]["id"]);
     }    
   }
   if ($evt->isAlive()) {
