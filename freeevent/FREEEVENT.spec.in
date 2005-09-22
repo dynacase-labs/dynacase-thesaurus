@@ -1,20 +1,33 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEEVENT.spec.in,v 1.5 2005/04/05 15:13:55 eric Exp $
+#  $Id: FREEEVENT.spec.in,v 1.6 2005/09/22 08:18:33 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
 
 %define apachedir /etc/httpd
+%define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+
+%if %{cerbere}
 %define destdir /home/httpd/what
+%define httpuser http
+%else
+%define destdir /usr/share/what
+%define httpuser apache
+%endif
+
 
 Summary: The Freedom Event Package
 Name: @PACKAGE@
 Version: @VERSION@
+%if %{cerbere}
 Release: @RELEASE@
-Copyright: GPL
+%else
+Release: @RELEASE@fc
+%endif
+License: GPL
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
 Vendor: Anakeen           
@@ -22,8 +35,8 @@ URL: http://www.anakeen.com/
 Packager: Eric Brison <eric.brison@anakeen.com>
 BuildArchitectures: noarch
 BuildRoot: /tmp/anakeen-root
-Requires: FREEDOM-LIB >= 1.2.5
-Requires: WHAT >= 1.1.7
+Requires: FREEDOM-LIB >= 2.0.0
+Requires: WHAT >= 2.0.0
 
 %description
 This package offers the freedom engine to process events
