@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.57 2005/09/16 13:29:59 marc Exp $
+ * @version $Id: mailcard.php,v 1.58 2005/09/22 08:09:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.57 2005/09/16 13:29:59 marc Exp $
+// $Id: mailcard.php,v 1.58 2005/09/22 08:09:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -193,9 +193,7 @@ function sendCard(&$action,
   }
   if ($from == "") {
     $from=getMailAddr($action->user->id);
-    if ($from == "")  $from = $action->user->login;
-    
-    $bcc .="\\nReturn-Path:$from";
+    if ($from == "")  $from = $action->user->login;    
   }
 
   if ($from != "") {    
@@ -442,6 +440,7 @@ function sendCard(&$action,
   $cmd = "export LANG=C;".$cmd;
   system ($cmd, $status);
 
+    print ("<br>$cmd<br>");
   $err="";
   if ($status == 0)  {
     $doc->addcomment(sprintf(_("sended to %s"), $to));
