@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.37 2005/08/19 16:13:59 eric Exp $
+ * @version $Id: barmenu.php,v 1.38 2005/09/22 08:08:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -122,8 +122,11 @@ function barmenu(&$action) {
   $lmenu = $fdoc->GetMenuAttributes();
   foreach($lmenu as $k=>$v) {    
     if ($v->getOption("global")=="yes") {
+      $confirm=($v->getOption("lconfirm")=="yes");
       $tmenu[$k]=array("mid"=>$v->id,
 		       "mtitle"=>$v->labelText,
+		       "confirm"=>($confirm)?"true":"false",
+		       "tconfirm"=>($confirm)?sprintf(_("Sure %s ?"),addslashes($v->labelText)):"",
 		       "murl"=>addslashes($fdoc->urlWhatEncode($v->link)));
     
       popupAddItem('helpmenu',  $v->id);

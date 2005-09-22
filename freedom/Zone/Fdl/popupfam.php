@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.17 2005/08/19 16:15:31 eric Exp $
+ * @version $Id: popupfam.php,v 1.18 2005/09/22 08:08:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -87,15 +87,10 @@ function popupfam(&$action,&$tsubmenu) {
       $confirm=false;
       $control=false;
       $v->link=$v->getLink($doc->id);
+      if ($v->getOption("lconfirm")=="yes") $confirm=true;
+      if ($v->getOption("lcontrol")=="yes") $control=true;
 
-      if ($v->link[0] == '?') { 
-	$v->link=substr($v->link,1);
-	$confirm=true;
-      }
-      if ($v->link[0] == 'C') { 
-	$v->link=substr($v->link,1);
-	$control=true;
-      }
+      
       if (ereg('\[(.*)\](.*)', $v->link, $reg)) {      
 	$v->link=$reg[2];
 	$tlink[$k]["target"] = $reg[1];

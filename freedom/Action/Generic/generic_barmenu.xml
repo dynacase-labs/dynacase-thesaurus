@@ -163,7 +163,7 @@ function SendSearch(e) {
 <a  id="isplit" href="#" onClick="invertSplit(event,true);closeAllMenu();return false">[TEXT:Invert split]</a>
 <a  id="memosearch" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'fhidden','[CORE_STANDURL]app=GENERIC&action=GENERIC_MEMOSEARCH&famid=[famid]&psearchid=[catg]');closeAllMenu()">[TEXT:memosearch]</a>
 <a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Freedom]</a><a class="separator"></a>
-[BLOCK FAMMENU]<a  id="[mid]" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'[mid]','[murl]');closeAllMenu()">[mtitle]</a>
+[BLOCK FAMMENU]<a  id="[mid]" href="#" onClick="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'[mid]','[murl]');closeAllMenu()">[mtitle]</a>
 [ENDBLOCK FAMMENU]
 </div>
 
