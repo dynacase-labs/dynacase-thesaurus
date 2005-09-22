@@ -341,7 +341,7 @@ function wgcalGetRessourcesMatrix($ev) {
 
 
 
-function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="") {
+function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM_CAL") {
 
   include_once("WGCAL/Lib.WGCal.php");
   global $action;
@@ -386,8 +386,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="") {
 
   $events = array();
   $dre=new_Doc($dbaccess, $qev);
-//   if ($famid!="") $dre->setValue("se_famid", getIdFromName($dbaccess, $famid));
-//   echo "famid= $famid";
+  $dre->setValue("se_famid", getIdFromName($dbaccess, $famid));
   $events = $dre->getEvents($d1, $d2, $explode, $filter);
 
   // Post process search results --------------
@@ -447,7 +446,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="") {
     }
   } 
   //      AddWarningMsg($sdebug);
-  echo      "$sdebug";
+//   echo      "$sdebug";
  return $tout;
 }
 

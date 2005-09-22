@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_todopref.php,v 1.5 2005/08/03 16:35:13 marc Exp $
+ * @version $Id: wgcal_prefs_todopref.php,v 1.6 2005/09/22 08:22:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -21,8 +21,8 @@ function wgcal_prefs_todopref(&$action) {
 					"WGCAL_U_TODOORDER", 
 					"wgcal_toolbar", 
 					"WGCAL_TOOLBAR", 
-					array( "desc"  => _("todo desc"),
-					       "asc"   => _("todo asc"))),
+					array( "desc"  => _("todo asc"),
+					       "asc"   => _("todo desc"))),
 		  "seetodofor" => array(_("display todos for "), 
 					"WGCAL_U_TODODAYS", 
 					"wgcal_toolbar", 

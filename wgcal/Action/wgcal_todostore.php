@@ -32,17 +32,24 @@ function wgcal_todostore(&$action) {
   
   $err = "";
   if (!$todo->IsAffected()) $err = $todo->Add();
-  if ($err!="")  AddWarningMsg("$err");
+  if ($err!="")  AddWarningMsg(__FILE__."::".__LINE__."$err");
   else {
-    $todo->SetProfil($todo->id);
     $err = $todo->Modify();
-    if ($err!="") AddWarningMsg("$err");
+    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."$err");
     else {
       $err = $todo->PostModify();
-      if ($err!="") AddWarningMsg("$err");
+      if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."$err");
     }
   }
-  redirect($action, "WGCAL", (GetHttpVars("act","WGCAL_HIDDEN")));
+  if ($todo->profid==0) {
+    $todo->disableEditControl();
+    $todo->SetProfil($todo->id);
+    $todo->SetControl();
+    $err = $todo->Modify();
+    if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");
+    $todo->enableEditControl();
+  }  
+  redirect($action, "WGCAL", "WGCAL_TODOVIEW");
 }
 
 

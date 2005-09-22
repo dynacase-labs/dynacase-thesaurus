@@ -1,0 +1,34 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+<table id="btodo" class="[btodo]" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td onclick="idelt=getElementById('vtodo'); if (idelt.style.display!='') idelt.style.display=''; else idelt.style.display='none'; " align="left">[TEXT:my todo] ([todocount])</td>
+<td align="right" width="50">
+<img id="addTodo" class="wSmallButton" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=-1');" height="15" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">
+</td></tr>
+</table>
+<iframe id="itodo" style="border:0; width:100%; height:auto; position:relative; display:none; visibility:hidden;" src="about:blank">
+</iframe>
+<div id="vtodo" style="display:[vtodo]" class="wToolArea">
+<div style="display:none">
+<form id="tododone" name="tododone" method="POST" target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE">
+<input type="hidden" value="-1" name="idtodo" id="idtodo">
+</form></div>
+
+[IFNOT Todos]<div class="WGCRessDefault"[TEXT: no todo]</div>[ENDIF Todos]
+
+[BLOCK TodoList]
+<div class="WGCRessDefault" width="98%" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'">
+<table width="100%" cellspacing="0px" cellpadding="0%">
+<tr class="WGCRessDefault" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'"
+    title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
+  <td width="15"><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px"
+           title="[TEXT:todo done]" height="15" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();"></td>
+  <td id="[idTodo]" style="border-left:3px solid [colorTodo];" 
+      onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=[idTodo]');" align="left">&nbsp;[sTextTodo]</td>
+  <td onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=[idTodo]');" align="right">([dateTodo])</td>
+</tr>
+</table>
+</div>
+[ENDBLOCK TodoList]
+</div>
+[ZONE WGCAL:WGCAL_HTMLFOOT]

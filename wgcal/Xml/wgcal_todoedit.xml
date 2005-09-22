@@ -37,12 +37,7 @@ firstDay:1 }  );
 <script type="text/javascript">
 function TodoAbort() {
   if (confirm('[TEXT: cancel modifications]')) {
-    var ti = document.getElementById('title');
-    var tn = document.getElementById('note');
-    ti.value = '';
-    tn.value = '';
-    parent.document.getElementById('itodo').style.visibility='hidden';
-    parent.document.getElementById('itodo').style.display='none';
+    window.close();
   }
   return false;
 }
@@ -56,8 +51,6 @@ function TodoSave() {
   }
   fs.submit();
   window.close();
-  parent.document.getElementById('itodo').style.visibility='hidden';
-  parent.document.getElementById('itodo').style.display='none';
   return false;
 }
 </script>

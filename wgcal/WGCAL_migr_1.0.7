@@ -1,0 +1,15 @@
+#!/bin/bash
+
+pubdir="/home/httpd/what"
+
+dbhost=127.0.0.1
+dbname=freedom
+dbuser=anakeen
+
+sqlcommand="pgsql -h $dbhost $dbname $dbuser"
+
+# /usr/bin/php -q $pubdir/API/updateclass.php --dbname=$dbname --appc=WGCAL --class=UCalVis
+# echo "INSERT INTO ucalvis (ucalvis_ufid,ucalvis_uwid)  select distinct id,us_whatid::integer from doc128 where us_whatid notnull" | $sqlcommand
+# echo "UPDATE ucalvis set ucalvis_ucal=0,ucalvis_gwid=2,ucalvis_gfid=(select id from doc127 where us_whatid=2),ucalvis_mode=1" | $sqlcommand
+
+echo "See "$0" for migration...."

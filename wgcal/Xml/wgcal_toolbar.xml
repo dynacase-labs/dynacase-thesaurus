@@ -128,8 +128,9 @@
 
 
 <!-- todo zone -->
-[IF SHOWTODOS] [ZONE WGCAL:TODO?dtodo=[tododays]] [ENDIF SHOWTODOS]
-
+<iframe id="icaltodo" name="icaltodo" style="border:0px; width:100%; height:auto; position:relative;" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOVIEW&dtodo=[tododays]">
+</iframe>
+ 
 [IF SHOWCONTACTS] [ZONE WGCAL:CONTACTS] [ENDIF SHOWCONTACTS]
 
 

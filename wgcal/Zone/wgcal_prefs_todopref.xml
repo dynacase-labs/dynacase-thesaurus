@@ -6,7 +6,7 @@
 [BLOCK SELECT]<tr>
 <td align="right" width="60%">[iText] </td>
 <td>
-<select style="cursor:pointer" id="[iSel]" onchange="changeUPref('[uid]', '[iVar]', this.options[this.selectedIndex].value, 'wgcal_toolbar', 'WGCAL_TOOLBAR');">
+<select style="cursor:pointer" id="[iSel]" onchange="changeUPref('[uid]', '[iVar]', this.options[this.selectedIndex].value, 'icaltodo', 'WGCAL_TODOVIEW');">
 [BLOCK OPT[iSel]]<option value="[iOptVal]" [iOptSel]>[iOptText][ENDBLOCK OPT[iSel]]
 </select>
 </td>
