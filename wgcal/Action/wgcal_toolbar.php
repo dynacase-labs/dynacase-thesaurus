@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.49 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.50 2005/09/22 16:47:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -136,6 +136,7 @@ function _listress(&$action)
     $sid = ($tt[1]!="" ? $tt[1] : 0);
     $cid = ($tt[2]!="" ? $tt[2] : "blue");
     $rd = new_Doc($dbaccess, $rid);
+    $trd = getTDoc($dbaccess, $rid);
     if (!$rd->IsAffected()) continue;
     $haveVis =wUserHaveCalVis($rid, 0);
     if ($rid==$action->user->fid || $haveVis) {
@@ -148,7 +149,7 @@ function _listress(&$action)
       $t[$i]["RCOLOR"] = $cid;
       $t[$i]["RSTATE"] = $sid;
       if ($rd->id == $action->user->fid) $t[$i]["ROMODE"] = "false";
-      else $t[$i]["ROMODE"] =  (wUserHaveCalVis($rid, 1) ? "false" : "true" );
+      else $t[$i]["ROMODE"] =  (wGetUserCalAccessMode($trd)==1 ? "false" : "true" );;
       if ($sid==1) $t[$i]["RSTYLE"] = "WGCRessSelected";
       else $t[$i]["RSTYLE"] = "WGCRessDefault";
       PopupActive('resspopup', $rd->id, 'displayress');

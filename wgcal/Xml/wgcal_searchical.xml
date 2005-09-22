@@ -9,7 +9,7 @@ function SelectRessource(id) {
   var e;
   var title = rlist[id][0];
   var icon = rlist[id][1];
-  var romode = rlist[id][1];
+  var romode = rlist[id][2];
   try {
     parent.window.addRessource(id, title, icon, 0, '', 0, romode);
   } catch(e) {

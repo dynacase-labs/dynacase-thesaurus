@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.11 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.12 2005/09/22 16:47:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -36,7 +36,7 @@ function wgcal_searchiuser(&$action) {
   foreach ($tg as $k => $v) $mygroups[] = $k;
 
 
-  $rdoc = wSearchUserCal($cuser, $mygroups, $wre, GetHttpVars("iusertext", ""));
+  $rdoc = wSearchUserCal($cuser, $mygroups, 0, GetHttpVars("iusertext", ""));
   
   $t = array(); $i = 0;
   foreach ($rdoc as $k => $v) {
@@ -48,6 +48,7 @@ function wgcal_searchiuser(&$action) {
       $t[$i]["attLabel"] = WGCalGetLabelState(EVST_NEW);
       $t[$i]["attColor"] = WGCalGetColorState(EVST_NEW);
       $t[$i]["attSelect"] = "true";
+      $t[$i]["romode"] = (wGetUserCalAccessMode($vd)==1?"false":"true");
       $i++;
     }
   }

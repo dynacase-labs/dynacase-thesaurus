@@ -805,18 +805,6 @@ function EventSetDate($dstart, $dend, $type, $ro)
 function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp, $ro) {
   include_once('WGCAL/Lib.WGCal.php');
   global $action;
-  $avis = CAL_getEventVisibilities($this->dbaccess, "");
-  $ic = 0;
-  $this->lay->set("evconfidentiality", $vis);
-  foreach ($avis as $k => $v) {
-    $tconf[$ic]["value"] = $k;
-    $tconf[$ic]["descr"] = $v;
-    $tconf[$ic]["selected"] = ($vis==$k?"selected":"");
-    $ic++;
-  }
-  $this->lay->SetBlockData("RVCONFID", $tconf);
-  if ($vis==2) $this->lay->set("vis_groups", "");
-  else $this->lay->set("vis_groups", "none");
 
   $og = false;
   if ($ogrp!="-") {
@@ -829,35 +817,39 @@ function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp, $ro) {
   }
   
   // Display groups
+  $none = true;
   $allgroups = array(); $iall=0;
   foreach ($ownerlist as $ko => $vo) {
     $glist = "";
     $u_groups = wGetUserGroups($ko);
-    $gjs = array(); $igjs=0;
-    $igroups = array(); $ig=0;
-    foreach ($u_groups as $k => $v) {
-      $gr = new_Doc($this->dbaccess, $k);
-      $igroups[$ig]["gowner"] = $ko;
-      $igroups[$ig]["gfid"] = $gr->id;
-      $igroups[$ig]["gid"] = $gr->getValue("us_whatid");
-      $igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));
-      $igroups[$ig]["gicon"] = $gr->GetIcon();
-      $igroups[$ig]["gjstitle"] = addslashes(ucwords(strtolower($gr->title)));
-      $igroups[$ig]["gisused"] = ($og ? isset($ugrp[$gr->getValue("us_whatid")]) : $v["sel"]);
-      if ($igroups[$ig]["gisused"]) {
-	$glist .= (strlen($glist)>0 ? "|" : "") . $gr->getValue("us_whatid");
-	$gjs[$igjs]["igroup"] = $igjs;
-	$gjs[$igjs]["gid"] = $gr->getValue("us_whatid");;
-	$igjs++;
-      }    
-      $ig++;
-    }  
-    $allgroups[$iall]["grange"] = $iall;
-    $allgroups[$iall]["gownerid"] = $ko;
-    $allgroups[$iall]["gownerdispl"] = ($ownerid==$ko?"":"none");
-    $allgroups[$iall]["groups"] = $igroups;
-    $allgroups[$iall]["jsgroups"] = $gjs;
-    $iall++;
+    if (count($u_groups)>0) {
+      $gjs = array(); $igjs=0;
+      $igroups = array(); $ig=0;
+      foreach ($u_groups as $k => $v) {
+        $gr = new_Doc($this->dbaccess, $k);
+        $igroups[$ig]["gowner"] = $ko;
+        $igroups[$ig]["gfid"] = $gr->id;
+        $igroups[$ig]["gid"] = $gr->getValue("us_whatid");
+        $igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));
+        $igroups[$ig]["gicon"] = $gr->GetIcon();
+        $igroups[$ig]["gjstitle"] = addslashes(ucwords(strtolower($gr->title)));
+        $igroups[$ig]["gisused"] = ($og ? isset($ugrp[$gr->getValue("us_whatid")]) : $v["sel"]);
+        if ($igroups[$ig]["gisused"]) {
+	  $glist .= (strlen($glist)>0 ? "|" : "") . $gr->getValue("us_whatid");
+	  $gjs[$igjs]["igroup"] = $igjs;
+	  $gjs[$igjs]["gid"] = $gr->getValue("us_whatid");;
+	  $igjs++;
+        }    
+        $ig++;
+      }  
+      $allgroups[$iall]["grange"] = $iall;
+      $allgroups[$iall]["gownerid"] = $ko;
+      $allgroups[$iall]["gownerdispl"] = ($ownerid==$ko?"":"none");
+      $allgroups[$iall]["groups"] = $igroups;
+      $allgroups[$iall]["jsgroups"] = $gjs;
+      $iall++;
+      $none = false;
+    }    
   }
   $this->lay->set("evconfgroups", $glist);
   $this->lay->setBlockData("allgroups", $allgroups);
@@ -867,6 +859,21 @@ function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp, $ro) {
     $this->lay->setBlockData("js".$vg["gownerid"], $vg["jsgroups"]);
   }
   $this->lay->setBlockData("VGLIST", $gjs);
+
+  $avis = CAL_getEventVisibilities($this->dbaccess, "");
+  $ic = 0;
+  $this->lay->set("evconfidentiality", $vis);
+  foreach ($avis as $k => $v) {
+    if ($none && $k==2) continue;
+    $tconf[$ic]["value"] = $k;
+    $tconf[$ic]["descr"] = $v;
+    $tconf[$ic]["selected"] = ($vis==$k?"selected":"");
+    $ic++;
+  }
+  $this->lay->SetBlockData("RVCONFID", $tconf);
+  if ($vis==2) $this->lay->set("vis_groups", "");
+  else $this->lay->set("vis_groups", "none");
+
 }
   
 function EventSetCalendar($cal, $ro) {
@@ -1067,7 +1074,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
     if ($v=="") continue;
     $tx = explode("%", $v);
     if ($tx[0]=="" || $tx[0]==$ownerid) continue;
-    if (!wUserHaveCalVis($tx[0], 1)) continue;
+    if (wGetiUserCalAccessMode($tx[0]) != 1) continue;
     $res = new_Doc($dbaccess, $tx[0]);
     $to[$ito]["idress"] = $ito;
     $to[$ito]["resstitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));
@@ -1314,7 +1321,7 @@ function setAccessibility() {
   $calgvis = $userf["us_wgcal_vcalgrpmode"];
   if ($calgvis == 1) {
     $vcalrestrict = true;
-    $tvcal = $userf["us_wgcal_vcalgrpwid"];
+    $tvcal = Doc::_val2array($userf["us_wgcal_vcalgrpwid"]);
     foreach ($tvcal as $k => $v) $vcal[$v] = $v; 
   } else {
     $vcal[DEFGROUP] = DEFGROUP;
@@ -1392,10 +1399,10 @@ function setAccessibility() {
   // Owner, creator and delegate ==> owner rights
   $acls[$ownerwid] = $aclvals["all"];
   if ($creatorid!=$ownerid) $acls[$creatorwid] = $aclvals["all"];
-  $duid = $userf["us_wgcal_dguid"];
+  $duid = Doc::_val2array($userf["us_wgcal_dguid"]);
   if (count($duid)>0) {
-    $duwid = $userf["us_wgcal_dguwid"];
-    $dumode = $userf["us_wgcal_dgumode"];
+    $duwid = Doc::_val2array($userf["us_wgcal_dguwid"]);
+    $dumode = Doc::_val2array($userf["us_wgcal_dgumode"]);
     foreach ($duid as $k=>$v) {
       if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["all"];
     }
@@ -1405,23 +1412,25 @@ function setAccessibility() {
  
   $this->RemoveControl();
   foreach ($acls as $user => $uacl) {
-    $dt = getDocFromUserId($this->dbaccess,$user);
-    $sdeb .= "[".$dt->GetTitle()."($user)] = ";
-    $perm = new DocPerm($this->dbaccess, array($this->id,$user));
-    foreach ($uacl as $k => $v) {
-      $sdeb .= "$k:$v ";
-      if (intval($v) > 0)  {
-	$perm->SetControlP($v);
-      } else {
-	$perm->SetControlN($v);
-      }	
+    if ($user!="") {
+      $dt = getDocFromUserId($this->dbaccess,$user);
+      $sdeb .= "[".$dt->GetTitle()."($user)] = ";
+      $perm = new DocPerm($this->dbaccess, array($this->id,$user));
+      $perm->UnSetControl();
+      foreach ($uacl as $k => $v) {
+	$sdeb .= "$k:$v ";
+	if (intval($v) > 0)  {
+	  $perm->SetControlP($v);
+	} else {
+	  $perm->SetControlN($v);
+	}	
+      }
+      if ($perm->isAffected()) 
+	$perm->modify();
+      else 
+	$perm->Add();
+      $sdeb .= "\n";
     }
-    if ($perm->isAffected()) 
-      $perm->modify();
-    else 
-      $perm->Add();
-    $sdeb .= "\n";
   }
 //     AddWarningMsg(  $sdeb );
-//  echo   $sdeb;
 }

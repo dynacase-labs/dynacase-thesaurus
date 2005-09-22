@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_agendaview.php,v 1.6 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: wgcal_prefs_agendaview.php,v 1.7 2005/09/22 16:47:50 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -24,22 +24,6 @@ function wgcal_prefs_agendaview(&$action) {
   $uid = GetHttpVars("uid", $action->user->id);
   $action->lay->set("uid", $uid);
 
-  // default visibility for new event
-
-  $ic= 0; 
-  $avis = CAL_getEventVisibilities($dbaccess, "");
-  foreach ($avis as $k => $v) {
-    $tconf[$ic]["value"] = $k;
-    $tconf[$ic]["descr"] = $v;
-    $tconf[$ic]["selected"] = ($action->getParam("WGCAL_U_RVDEFCONF",0)==$k?"selected":"");
-    $ic++;
-  }
-  $action->lay->SetBlockData("evdefconf", $tconf);
-  if ($action->getParam("WGCAL_U_RVDEFCONF",0)==2) {
-    $action->lay->set("fshowgroupsd", "");
-  } else {
-    $action->lay->set("fshowgroupsd", "none");
-  }
     
   // Groups list
   
@@ -49,6 +33,7 @@ function wgcal_prefs_agendaview(&$action) {
   $onsel = false;
   foreach ($u_rgroups as $k => $v) {
     $gr = new_Doc($dbaccess, $k);
+    if (!$gr->isAffected()) continue;
     $igroups[$ig]["gfid"] = $gr->id;
     $igroups[$ig]["gid"] = $gr->getValue("us_whatid");
     $igroups[$ig]["gtitle"] = ucwords(strtolower($gr->title));
@@ -74,6 +59,23 @@ function wgcal_prefs_agendaview(&$action) {
   $action->lay->setBlockData("GLIST", $gjs);
   
 
+  // default visibility for new event
+
+  $ic= 0; 
+  $avis = CAL_getEventVisibilities($dbaccess, "");
+  foreach ($avis as $k => $v) {
+    if (count($igroups)==0 && $k==2) continue;
+    $tconf[$ic]["value"] = $k;
+    $tconf[$ic]["descr"] = $v;
+    $tconf[$ic]["selected"] = ($action->getParam("WGCAL_U_RVDEFCONF",0)==$k?"selected":"");
+    $ic++;
+  }
+  $action->lay->SetBlockData("evdefconf", $tconf);
+  if ($action->getParam("WGCAL_U_RVDEFCONF",0)==2) {
+    $action->lay->set("fshowgroupsd", "");
+  } else {
+    $action->lay->set("fshowgroupsd", "none");
+  }
   // Agenda visibility
 
   $action->lay->set("cginit", false);

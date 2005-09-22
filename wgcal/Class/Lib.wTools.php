@@ -499,18 +499,24 @@ function wUserHaveCalVis($calownerfid, $mode=0) {
  * Return -1 = no access, 0 = read access or 1 = write access
  */
 function wGetUserCalAccessMode($tuser) {
-  $mode = -1;
-  $gli = Doc::_val2array($tuser["us_wgcal_vcalgrpid"]);
-  $glm = Doc::_val2array($tuser["us_wgcal_vcalgrpwrite"]);
-  if ($tuser["us_wgcal_vcalgrpmode"]==1 && count($tuser["us_wgcal_vcalgrpid"])>0) {
-    $mygroups = wGetUserGroups();
-    foreach ($gli as $k => $v) {
-      if (($mode<1)  && isset($mygroups[$v])) $mode = $glm[$k];
+  $mode = 1;
+  if ($tuser["us_wgcal_vcalgrpid"] != "") {
+    $mode = -1;
+    $gli = Doc::_val2array($tuser["us_wgcal_vcalgrpid"]);
+    $glm = Doc::_val2array($tuser["us_wgcal_vcalgrpwrite"]);
+    if ($tuser["us_wgcal_vcalgrpmode"]==1 && count($tuser["us_wgcal_vcalgrpid"])>0) {
+      $mygroups = wGetUserGroups();
+      foreach ($gli as $k => $v) {
+        if (($mode<1)  && isset($mygroups[$v])) $mode = $glm[$k];
+      }
     }
-  } else {
-    $mode = 1;
   }
   return $mode;
+}
+function wGetiUserCalAccessMode($fid) {
+  global $action;
+  $tuser = getTDoc($action->getParam("FREEDOM_DB"), $fid); 
+  return wGetUserCalAccessMode($tuser);
 }
 
   

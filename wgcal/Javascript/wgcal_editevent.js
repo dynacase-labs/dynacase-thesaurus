@@ -631,12 +631,14 @@ function checkOneSelect(gowner) {
   return true;
 }
 
-function SetGroupsForOwner(own) {
-
+function SetGroupsForOwner(own) 
+{
   for (i=0; i<owners.length; i++) {
-    document.getElementById('showg'+owners[i]).style.display = 'none';
+    if (document.getElementById('showg'+owners[i])) {
+      document.getElementById('showg'+owners[i]).style.display = 'none';
+      if (own==owners[i]) document.getElementById('showg'+own).style.display = '';
+    }
   }
-  document.getElementById('showg'+own).style.display = '';
 }
 
 function  changeVisGrp(gowner, grp) 
@@ -661,6 +663,7 @@ function  changeVisGrp(gowner, grp)
 
 function  SetGroupsList(gowner) 
 {
+  if (gownerlist.length==0) return;
   var grpList = '';
   for (i=0; i<gownerlist[gowner].length;i++) {
     if (gownerlist[gowner][i] != -1) {
