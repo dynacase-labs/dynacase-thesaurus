@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.25 2005/09/21 16:08:09 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.26 2005/09/22 07:44:07 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -22,9 +22,10 @@ function postCreated() {
  * 
  * @param date $d1 begin date in iso8601 format YYYY-MM-DD HH:MM
  * @param date $d2 end date in iso8601 format
+ * @param int famid [=EVENT] to limit search on this family
  * @return array array of event. These events returned are not objects but only a array of variables.
  */
-function getEvents($d1="",$d2="",$exploded=true,$filter=array()) {
+function getEvents($d1="",$d2="",$exploded=true,$filter=array(), $famid="EVENT") {
   if ($d2=="")$filter[]="evt_begdate is not null";
   else $filter[]="evt_begdate <= '$d2'";
   if ($d1=="") $filter[]="evt_enddate is not null";
@@ -35,7 +36,7 @@ function getEvents($d1="",$d2="",$exploded=true,$filter=array()) {
   $tevx=array();
   $fdoc=array();
   foreach ($tev as $k=>$v) {	      
-	      $doc=getDocObject($v);
+	      $doc=getDocObject($this->dbaccess, $v);
 	      $tevtx1=$doc->explodeEvt($d1,$d2);
 	      //	      $tevx+=$tevtx1;
 	      $tevx=array_merge($tevx,$tevtx1);
