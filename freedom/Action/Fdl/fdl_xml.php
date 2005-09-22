@@ -3,7 +3,7 @@
  * XML Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_xml.php,v 1.2 2005/03/21 09:50:43 eric Exp $
+ * @version $Id: fdl_xml.php,v 1.3 2005/09/22 16:34:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -23,7 +23,7 @@
  * @return Doc the document (view like a temporary document);
  */
 function fromxml($dbaccess,$xml,$famid,$encoded=false){
-  if ($encoded) $xml=base64_decode(trim($xml));
+  if ($encoded) $xml=base64_decode(($xml));
   $xml2="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";  
   $xml2.=str_replace("<BR>","<BR/>",$xml);
   $idoc= createDoc($dbaccess,$famid,false);///new doc
@@ -38,25 +38,25 @@ function _fromxml($xml,&$idoc){
   global $action;
   $fp = $xml;
   global $value; //used to stock value of one attribut (is string type)
-  $value="";
   global $tabvalues; //used to stock document attribute values
-  $tabvalues=array();
   global $is_array;
-  $is_array=false;
   global $i;
   global $depth_index;
   global $title;// 
-  $depth_index=0;//used for knowing the curent xml level. 0 at the begining
-  $i=0;
   global $attr_idoc;// used for idoc attribute (idoc and idoclist)
-  $attr_idoc=false;
   global $list;// used for list attribute (textlist and idoclist)
   global $tempidoc;//is need to acces to $idoc in startElement() 
+
   $tempidoc=$idoc;
   $list=array();
-
+  $depth_index=0;//used for knowing the curent xml level. 0 at the begining
+  $i=0;
+  $attr_idoc=false;
+  $value="";
+  $tabvalues=array();
+  $is_array=false;
     
-  $xml_parser = xml_parser_create();
+  $xml_parser = xml_parser_create("ISO-8859-1");
   // use case-folding so we are sure to find the tag in $map_array
   xml_parser_set_option($xml_parser, XML_OPTION_CASE_FOLDING, true);
   xml_set_element_handler($xml_parser, "startElement", "endElement");
@@ -149,9 +149,7 @@ function startElement($parser, $name, $attrs) {
     // $attr_idoc=false;
     $is_array= $attribute->inArray();
     if ($attribute->type=="idoc"){ $attr_idoc=true;}
-    if ($attribute->repeat){ $is_array=true;}
-		
-
+    if ($attribute->repeat){ $is_array=true;}		
   }
 }
 
@@ -168,6 +166,7 @@ function endElement($parser, $name) {
   global $attr_idoc;
   global $is_array;
       
+  $value=trim($value);
    
   if ($depth_index==3){
     if (!$is_array){//case of single attribut
