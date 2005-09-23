@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.47 2005/06/28 13:53:13 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.48 2005/09/23 14:42:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,7 +66,7 @@ Class WDoc extends Doc {
   }
 
   function Set(&$doc) {
-    if (! isset($this->doc) ) {
+    if ((! isset($this->doc)) || ($this->doc->id != $doc->id) ) {
       $this->doc= &$doc;
       if (($doc->doctype!='C')&&($doc->state == "")) {	
 	$doc->state=$this->firstState;
