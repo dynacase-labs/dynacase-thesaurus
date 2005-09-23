@@ -3,7 +3,7 @@
  * Methods for emailing family
  *
  * @author Anakeen 2005
- * @version $Id: Method.Emailing.php,v 1.10 2005/09/16 13:23:16 eric Exp $
+ * @version $Id: Method.Emailing.php,v 1.11 2005/09/23 07:50:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -120,6 +120,8 @@ function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
   $t=$this->getContent();
   $mailattr=strtolower($this->getValue("PÜBM_MAILATT","us_mail"));
 
+
+  $tout=array();
   $zonebodycard="FDL:FDL_PUBSENDMAIL:S";
   if (preg_match("/\[[a-z]+_[a-z0-9_]+\]/i",$body)) {
     foreach ($t as $k=>$v) {
@@ -132,6 +134,10 @@ function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
 		      $this->id,
 		      $to,$cc,$subject,
 		      $zoneu);
+	$tout[]=array("name"=>$v["title"],
+		      "mailto"=>$to,
+		      "color"=>($err)?"#ea4c4c":"#7df89d",
+		      "status"=>($err)?$err:"OK");
       }
     }
   } else {
@@ -147,8 +153,14 @@ function fdl_pubmail($target="_self",$ulink=true,$abstract=false) {
 		  $this->id,
 		  $to,$cc,$subject,
 		  $zonebodycard,false,"","",$bcc);
+    $tout[]=array("name"=>"-",
+		  "mailto"=>$bcc,
+		  "color"=>($err)?"#ea4c4c":"#7df89d",
+		  "status"=>($err)?$err:"OK");
   }
   if ($err) $action->AddWarningMsg($err);
+  $this->lay->setBlockData("MAILS",$tout);
+  $this->viewattr($target,$ulink,$abstract);
 }
 /**
  * Preview of each document to be printed

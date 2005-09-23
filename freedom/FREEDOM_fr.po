@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-21 10:57+0200\n"
-"PO-Revision-Date: 2005-09-21 10:57+0200\n"
+"POT-Creation-Date: 2005-09-22 11:21+0200\n"
+"PO-Revision-Date: 2005-09-22 11:23+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -315,18 +315,6 @@ msgid "workflow_init :: workflow id %s not found"
 msgstr "workflow_init :: cycle id %s pas trouvé"
 
 #, c-format
-msgid "unknown batch document %s"
-msgstr "document lot inconnu %s"
-
-#, c-format
-msgid "unknown folder document %s"
-msgstr "dossier inconnu %s"
-
-#, c-format
-msgid "no privilege to create this kind (%s) of document"
-msgstr "vous n'avez pas la permission de créer ce type (%s) de document "
-
-#, c-format
 msgid ""
 "batcexec aborted\n"
 "document [%s] not found"
@@ -394,6 +382,18 @@ msgstr "documents"
 
 msgid "document"
 msgstr "document"
+
+#, c-format
+msgid "unknown batch document %s"
+msgstr "document lot inconnu %s"
+
+#, c-format
+msgid "unknown folder document %s"
+msgstr "dossier inconnu %s"
+
+#, c-format
+msgid "no privilege to create this kind (%s) of document"
+msgstr "vous n'avez pas la permission de créer ce type (%s) de document "
 
 #, c-format
 msgid "batch from %s folder"
@@ -702,6 +702,1301 @@ msgstr "la famille (%d) n'est pas référencée"
 msgid "no vcard file specified"
 msgstr "pas de fichier vcard spécifié"
 
+msgid "Status for sending mail"
+msgstr "Compte-rendu du publipostage"
+
+msgid "username"
+msgstr "Nom"
+
+msgid "address"
+msgstr "adresse"
+
+msgid "mailstatus"
+msgstr "Status"
+
+msgid "mail edition"
+msgstr "édition de mail"
+
+msgid "Send the email and change document state to"
+msgstr "Envoi du email et changement d'état vers"
+
+msgid "send mail"
+msgstr "envoyer le mail"
+
+msgid "Change the document state to"
+msgstr "changer l'état du document en"
+
+msgid "confirm manually send"
+msgstr "Envoi manuel"
+
+msgid "cancel"
+msgstr "Annuler"
+
+msgid "edition: "
+msgstr "éditer"
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "view constraints"
+msgstr "voir les contraintes"
+
+msgid "Constraints"
+msgstr "Contraintes"
+
+msgid "override constraints"
+msgstr "outrepasser les contraintes"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Attribute not found"
+msgstr "Attribut non trouvé"
+
+msgid " choose value"
+msgstr " choisir une valeur"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "it is the last"
+msgstr "dernier"
+
+msgid "it is the first"
+msgstr "premier"
+
+msgid "PubliPreview"
+msgstr "prévisualisation"
+
+msgid "Properties:"
+msgstr "Propriétés:"
+
+msgid "option: "
+msgstr "option: "
+
+msgid "Constraint test"
+msgstr "test des contraintes"
+
+msgid "suggestions"
+msgstr "suggestions"
+
+msgid "workflow has been recomposed"
+msgstr "le cycle de vie a été regénéré"
+
+msgid "Creation"
+msgstr "Création"
+
+msgid "Bookmarks"
+msgstr "Signets"
+
+msgid "Search"
+msgstr "Recherche"
+
+msgid "Tools"
+msgstr "Outils"
+
+msgid "Document"
+msgstr "Document"
+
+msgid "Folder"
+msgstr "Dossier"
+
+msgid "BatchProcess"
+msgstr "Traitement par lot"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Family"
+msgstr "Famille"
+
+msgid "Workflow"
+msgstr "Cycle de vie"
+
+msgid "add to bookmarks"
+msgstr "Marquer ce dossier"
+
+msgid "manage bookmarks"
+msgstr "Gérer les signets"
+
+msgid "speed"
+msgstr "rapide"
+
+msgid "simple"
+msgstr "Simple"
+
+msgid "detailled"
+msgstr "détaillée"
+
+msgid "fulltext"
+msgstr "plein texte"
+
+msgid "Ref"
+msgstr "Réf"
+
+msgid "help"
+msgstr "Aide"
+
+msgid "Import documents"
+msgstr "Importer des documents"
+
+msgid "Import Tar"
+msgstr "Importation Archive"
+
+msgid "exec plan"
+msgstr "Planification des processus"
+
+msgid "Attributes definition"
+msgstr "définition des attributs"
+
+msgid "inherit from"
+msgstr "hérite de"
+
+msgid "no document family"
+msgstr "Aucune famille de document"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "order"
+msgstr "ordre"
+
+msgid "name"
+msgstr "Nom"
+
+msgid "type"
+msgstr "type"
+
+msgid "frame"
+msgstr "fenêtre"
+
+msgid "A?"
+msgstr "R?"
+
+msgid "T?"
+msgstr "T?"
+
+msgid "N?"
+msgstr "O?"
+
+msgid "Vi"
+msgstr "Vi"
+
+msgid "Link"
+msgstr "Lien"
+
+msgid "file"
+msgstr "fichier"
+
+msgid "func"
+msgstr "ft"
+
+msgid "elink"
+msgstr "extra Lien"
+
+msgid "constraint"
+msgstr "contrainte"
+
+msgid "options"
+msgstr "options"
+
+msgid "Validate"
+msgstr "Valider"
+
+msgid "search document"
+msgstr "Recherche de documents"
+
+msgid "keyword"
+msgstr "mot-clef"
+
+msgid "only latest revision"
+msgstr "seulement la dernière révision"
+
+msgid "from current folder"
+msgstr "à partir du dossier courant"
+
+msgid "case sensitive"
+msgstr " tenir compte de la casse"
+
+msgid "familly"
+msgstr "famille"
+
+msgid "any familly"
+msgstr "toute famille"
+
+msgid "folders"
+msgstr "dossiers"
+
+msgid "save query in current folder"
+msgstr "sauver la requête dans le dossier courant"
+
+msgid "search title"
+msgstr "titre de la recherche"
+
+msgid " send search"
+msgstr "Lancer la recherche"
+
+msgid " cancel"
+msgstr " annuler"
+
+msgid "search fulltext"
+msgstr "recherche plein texte"
+
+msgid " search words"
+msgstr "texte à rechercher"
+
+msgid " match"
+msgstr "chercher"
+
+msgid " search for"
+msgstr "trouver les mots"
+
+msgid " only latest revision"
+msgstr " seulement la dernière révision"
+
+msgid " familly"
+msgstr " famille"
+
+msgid " view files"
+msgstr "afficher les fichiers attachés"
+
+msgid "no folder"
+msgstr "pas de dossier"
+
+msgid "Create New"
+msgstr "Créer un nouveau"
+
+msgid "profile access"
+msgstr "Profil d'accès"
+
+msgid "no profile"
+msgstr "Pas de profil"
+
+msgid "specific control"
+msgstr "Contrôle dédié"
+
+msgid "view control"
+msgstr "contrôle de vue"
+
+msgid "no control"
+msgstr "pas de contrôle"
+
+msgid "Choose Worflow"
+msgstr "Cycle de vie"
+
+msgid "workflow"
+msgstr "cycle de vie"
+
+msgid "no workflow"
+msgstr "pas de cycle de vie"
+
+msgid "Properties"
+msgstr "Propriétés"
+
+msgid "Export"
+msgstr "Exporter"
+
+msgid "Create subfolder"
+msgstr "Créer un dossier"
+
+msgid "Refresh folder"
+msgstr "Actualiser"
+
+msgid "Copy reference"
+msgstr "Copier la référence"
+
+msgid "Move reference"
+msgstr "Déplacer la référence"
+
+msgid " folder containt"
+msgstr " contenu du dossier"
+
+msgid "PortFolio search"
+msgstr "Recherche dans la chemise"
+
+msgid "PortFolio"
+msgstr "Chemise"
+
+msgid "Detail Permissions"
+msgstr "Détail des droits"
+
+msgid "updatetitle"
+msgstr "Mise à jour des titres"
+
+msgid "updateldap"
+msgstr "Mise à jour du serveur LDAP"
+
+msgid "Import Result"
+msgstr "Résultat de l'importation"
+
+msgid "Analyze Archive"
+msgstr "Analyse de l'archive"
+
+msgid "Options import"
+msgstr "Options d'importation"
+
+msgid "default file family"
+msgstr "famille fichier par défaut"
+
+msgid "default folder family"
+msgstr "famille répertoire par défaut"
+
+msgid "Only CSV"
+msgstr "Seul fichier CSV"
+
+msgid "Add top folder"
+msgstr "Ajouter un dossier racine"
+
+msgid "Analyze"
+msgstr "Analyse"
+
+msgid "Import Direct"
+msgstr "Importer direct"
+
+msgid "Lauch Import"
+msgstr "Lancer l'import"
+
+msgid "report to (mail address)"
+msgstr "rapport à (email)"
+
+msgid "Analysis Results"
+msgstr "Résultat de l'analyse"
+
+msgid "foldername"
+msgstr "dossier"
+
+msgid "filename"
+msgstr "fichier"
+
+msgid "familyname"
+msgstr "famille"
+
+msgid "err"
+msgstr "err"
+
+msgid "Batch Choose"
+msgstr "Choix de lots"
+
+msgid "Copy the containt of folder in batch document"
+msgstr "Insérer le contenu du dossier dans le lot"
+
+msgid "A_Copy"
+msgstr "Copier"
+
+msgid "Copy the reference of folder in batch document"
+msgstr "Copier la référence au dossier dans le lot"
+
+msgid "A_Link"
+msgstr "Lier"
+
+msgid "Changes will be loosed if you continue"
+msgstr "Les modifications seront perdues si vous continuez"
+
+msgid "Import Documents"
+msgstr " Importer des documents"
+
+msgid "Description of the import format"
+msgstr "Description du format d'import"
+
+msgid "for"
+msgstr "pour"
+
+msgid "specific import"
+msgstr "Import spécifique"
+
+msgid "import file:"
+msgstr "Fichier à importer :"
+
+msgid "policy if same title"
+msgstr "politique si même titre"
+
+msgid "Update document if has permission else ignored"
+msgstr ""
+"Mets à jour le document si permission accordée sinon modification ignorée"
+
+msgid "Add new document (similar document)"
+msgstr "Ajout nouveau document (document similaire)"
+
+msgid "Keep original document"
+msgstr "Garde le document original"
+
+msgid "Direct Import"
+msgstr "Import direct"
+
+msgid "Import document description"
+msgstr "Importer la description d'un document"
+
+msgid "Background Import"
+msgstr "Import en tache de fond"
+
+msgid "proceed background import"
+msgstr "Effectuer l'import en tache de fond"
+
+msgid "Import Archive"
+msgstr "Importer une archive"
+
+msgid "Archive import"
+msgstr "Import d'archives"
+
+msgid "Supported format"
+msgstr "Formats supportés"
+
+msgid "compressed tar"
+msgstr "Tar compressé"
+
+msgid "Zip File"
+msgstr "Fichier Zip"
+
+msgid "Upload archive"
+msgstr "Télécharger l'archive"
+
+msgid "View Archives"
+msgstr "Voir les archives"
+
+msgid "Go to Archives"
+msgstr "Aller aux archives"
+
+msgid "Choose visibles families"
+msgstr "Choix des familles visibles"
+
+msgid "Change State"
+msgstr "Changer d'état"
+
+msgid "Freedom"
+msgstr "Freedom"
+
+msgid "Permissions"
+msgstr "Droits"
+
+msgid "Quick Save"
+msgstr "Sauver vite"
+
+msgid "access path folder list:"
+msgstr "liste des chemins d'accès"
+
+msgid "Access Path Folder List"
+msgstr "Liste des chemins d'accès"
+
+msgid "Result Import Documents"
+msgstr " Résultat de l'importation de documents"
+
+msgid "documents to examine"
+msgstr "documents à prendre en compte"
+
+msgid "line"
+msgstr "ligne"
+
+msgid "doctitle"
+msgstr "titre"
+
+msgid "id"
+msgstr "id"
+
+msgid "message"
+msgstr "message"
+
+msgid "changes"
+msgstr "modifications"
+
+msgid "error"
+msgstr "erreur"
+
+msgid "Archive import in progress"
+msgstr "Import de l'archive en cours"
+
+msgid "Result Import TAR Documents"
+msgstr "Résultat de l'importation d'archives"
+
+msgid "View Archive"
+msgstr "Voir l'archive"
+
+msgid "Processes plan"
+msgstr "Planification des processus"
+
+msgid "Processes to exec"
+msgstr "Processus à exécuter"
+
+msgid "Archives"
+msgstr "Archives"
+
+msgid "Choose Archive"
+msgstr "Choisir l'archive"
+
+msgid "delete archive"
+msgstr "supprimer l'archive"
+
+msgid " history"
+msgstr " historique"
+
+msgid "view properties"
+msgstr "voir les propriétés"
+
+msgid "edit document"
+msgstr " éditer le document"
+
+msgid "duplicate document"
+msgstr " dupliquer le document"
+
+msgid "link document"
+msgstr "référencer le document"
+
+msgid "Add to basket"
+msgstr "Ajouter au porte-documents"
+
+msgid "access path list"
+msgstr "liste des chemin d'accès"
+
+msgid "delete link"
+msgstr "supprimer la référence"
+
+msgid " change icon"
+msgstr " changer d'icone"
+
+msgid " lauch importation"
+msgstr " importer"
+
+msgid " change title"
+msgstr " Changer de titre"
+
+msgid "Change title"
+msgstr "Changer de titre"
+
+msgid " comment for revision"
+msgstr " commentaire de révision"
+
+msgid " revise document"
+msgstr "réviser le document"
+
+msgid "founded"
+msgstr "nombre de document(s) trouvé(s)"
+
+msgid "search time"
+msgstr "durée de la recherche"
+
+msgid "total count"
+msgstr "nombre total de fichiers indexés"
+
+msgid "informations"
+msgstr "informations"
+
+msgid "more families"
+msgstr "toutes les familles"
+
+msgid "restrict to preferred families"
+msgstr "restriction aux familles préférées"
+
+msgid "choose preferred families"
+msgstr "Choix des familles préférées"
+
+msgid "Batch Action Choose"
+msgstr "Choix des actions pour un traitement"
+
+msgid "Create a new  process document"
+msgstr "Créer un nouveau document processus"
+
+msgid "Refresh users characteristics from system"
+msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
+
+msgid "Refersh users may take long time. Sure ?"
+msgstr ""
+"Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
+
+msgid "Refresh users"
+msgstr "Actualiser les utilisateurs"
+
+msgid "Refresh LDAP"
+msgstr "Actualiser LDAP"
+
+msgid "Refresh LDAP may take long time. Sure ?"
+msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
+
+msgid "Generic Management"
+msgstr "Gestion générique"
+
+msgid "Sort"
+msgstr "Tri"
+
+msgid "All document"
+msgstr "tous les documents"
+
+msgid "Edit kind"
+msgstr " éditer une catégorie"
+
+msgid "invert order"
+msgstr "ordre inverse"
+
+msgid "Help"
+msgstr "Aide"
+
+msgid "Import file"
+msgstr "Fichier à importer"
+
+msgid "Abstract card"
+msgstr "Carte résumé"
+
+msgid "Column mode"
+msgstr "Mode colonne"
+
+msgid "Invert split"
+msgstr "Inverser le découpage"
+
+msgid "memosearch"
+msgstr "mémo recherche"
+
+msgid "level"
+msgstr "niveau"
+
+msgid "reference"
+msgstr "référence"
+
+msgid "labeltext"
+msgstr "désignation"
+
+msgid "upk"
+msgstr "monter"
+
+msgid "downk"
+msgstr "descendre"
+
+msgid "previous level"
+msgstr "niveau inférieur"
+
+msgid "next level"
+msgstr "niveau supérieur"
+
+msgid "add"
+msgstr "ajout"
+
+msgid "delete"
+msgstr "supprimer"
+
+msgid "modify"
+msgstr "Modifier"
+
+msgid "change category"
+msgstr "changer de catégorie"
+
+msgid "Choose new categories"
+msgstr "Choisissez de nouvelles catégories"
+
+msgid "import edition"
+msgstr "édition de l'importation"
+
+msgid "Import CSV"
+msgstr "Importation CSV"
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "CSV specification file"
+msgstr "Spécification fichier CSV"
+
+msgid "The separator field is the semicolon(;)"
+msgstr "Le séparateur de colonne est le point-virgule ';'"
+
+msgid ""
+"The first four fields must not be change, they identified the card structure"
+msgstr ""
+"Les quatre premiers champs ne doivent pas être modifiés, ils identifient la "
+"structure de la carte"
+
+msgid "Only one line by document is authorized"
+msgstr "Une seule ligne par document est autorisée"
+
+msgid ""
+"If an attribut is a multiline string, use the \\ n characters to specify the "
+"new line"
+msgstr ""
+"Si un attribut est multi-ligne, utilisez les caractères \\n pour indiquer le "
+"saut de ligne"
+
+msgid "if you want to change order of column"
+msgstr "pour changer l'ordre des colonnes"
+
+msgid "column order"
+msgstr "ordre des colonnes"
+
+msgid "View all attributes ?"
+msgstr "Voulez vous voir tous les attributs ?"
+
+msgid "Be carreful."
+msgstr "Attention."
+
+msgid "Certain attribute can be not use for import"
+msgstr "Certain attribut peuvent ne pas servir lors de l\\'import"
+
+msgid "view all columns"
+msgstr "voir toutes les colonnes"
+
+msgid "suppress column"
+msgstr "suppression de colonnes"
+
+msgid "add column"
+msgstr "ajout de colonnes"
+
+msgid "to insert document in sub folder"
+msgstr "pour insérer les documents dans des sous dossiers"
+
+msgid "policy"
+msgstr "politique"
+
+msgid "policy if same keys"
+msgstr "politique si même clef"
+
+msgid "import keys"
+msgstr "clefs d'import"
+
+msgid "no key2"
+msgstr "pas de clef"
+
+msgid "values use for new document (not for update)"
+msgstr ""
+"valeurs utilisées pour les nouveaux documents (pas pour la mise à jour)"
+
+msgid "default import values"
+msgstr "Valeurs par défaut pour l'import"
+
+msgid "Import description file"
+msgstr "Fichier de description de l'import"
+
+msgid "Analyze only"
+msgstr "Analyse seulement"
+
+msgid "add category"
+msgstr "ajout de catégorie"
+
+msgid "Choose a father category"
+msgstr "Choisissez une catégorie père"
+
+msgid "no father category (its a top category)"
+msgstr "pas de catégorie père (catégorie primaire)"
+
+msgid "new category"
+msgstr "Nouvelle catégorie"
+
+msgid "add new category"
+msgstr "ajout nouvelle catégorie"
+
+msgid "toedit"
+msgstr "éditer"
+
+msgid "set as first family view"
+msgstr "enregistrer la famille comme la première à voir"
+
+msgid "open first family"
+msgstr " Ouverte en premier"
+
+msgid "No family first"
+msgstr "Pas de famille ouverte par défaut"
+
+msgid "master choose families"
+msgstr "choix des familles administratives"
+
+msgid "choose user families"
+msgstr "Choix des familles personnelles"
+
+msgid "Import vcard"
+msgstr "Importation Vcard"
+
+msgid "Import from"
+msgstr "Importation à partir de"
+
+msgid "VCARD"
+msgstr "VCARD"
+
+msgid "category"
+msgstr "catégorie"
+
+msgid "visibility"
+msgstr "visibilité"
+
+msgid "private card"
+msgstr "carte privée"
+
+msgid "public card - read access"
+msgstr "carte publique - accès lecture"
+
+msgid "public card - write access"
+msgstr "carte publique - accès écriture"
+
+msgid "Add new card (duplicate title)"
+msgstr "Ajout nouvelle carte (titre dupliqué)"
+
+msgid "Replace address book card if has permission else duplicate"
+msgstr "Remplace la carte si permission accordée sinon duplication"
+
+msgid "Keep address book card"
+msgstr "Garde la carte originale"
+
+msgid "Vcard example"
+msgstr "Exemple de Vcard"
+
+msgid "Only one line by personn is authorized"
+msgstr "Une seule ligne par personne est autorisée"
+
+msgid "user"
+msgstr "personne"
+
+msgid "society"
+msgstr "société"
+
+msgid "iuser"
+msgstr "utilisateur"
+
+#, fuzzy
+msgid "voir ses contacts"
+msgstr "voir les contraintes"
+
+msgid "all condition"
+msgstr "toutes conditions"
+
+msgid "ToSearch"
+msgstr "Rechercher"
+
+#, fuzzy
+msgid "Init"
+msgstr "Incident"
+
+msgid "Add"
+msgstr "Ajout"
+
+msgid "Pages blanches"
+msgstr ""
+
+#, fuzzy
+msgid "Pages Jaunes"
+msgstr "Valeurs des paramètres"
+
+msgid "fromdate"
+msgstr "date de début"
+
+msgid "todate"
+msgstr "date de fin"
+
+msgid "today"
+msgstr "aujourd'hui"
+
+msgid "view abstract card"
+msgstr "Carte résumé"
+
+msgid "delete selected"
+msgstr "supprimer la sélection"
+
+msgid "select"
+msgstr "sélectionner"
+
+msgid "unselect"
+msgstr "déselectionner"
+
+msgid "duplicate"
+msgstr "Dupliquer"
+
+msgid "enumerate input not found"
+msgstr "entrée énumérée non trouvé"
+
+msgid "these needed attributes are empty"
+msgstr "Ces attributs obligatoires sont vides :"
+
+msgid "NOT Clear"
+msgstr "Non effacé"
+
+msgid "Save changes ?"
+msgstr "Sauver les changements ?"
+
+msgid "Data cannot be saved"
+msgstr "Les données ne peuvent être sauvées"
+
+msgid "changeCheckBoolClasses Error"
+msgstr "Erreur changeCheckBoolClasses"
+
+msgid "no trash image"
+msgstr "image de la poubelle non trouvée"
+
+msgid "vconstraint input not found id="
+msgstr "entrée vconstraint non trouvé id="
+
+msgid "Choose document before set options"
+msgstr "Choisissez un document avant de choisir les options"
+
+msgid "quick save not possible"
+msgstr "Sauvegarde rapide impossible"
+
+msgid "manual date"
+msgstr "Date manuelle"
+
+msgid "clear inputs"
+msgstr "effacer entrée(s)"
+
+msgid ""
+"Master document has been closed.\n"
+"Close window ?"
+msgstr ""
+"Le document maître a été fermé.\n"
+"Voulez-vous fermer la fenêtre ?"
+
+msgid "state"
+msgstr "état"
+
+msgid "to"
+msgstr "vers"
+
+msgid "unchanged"
+msgstr "inchangé"
+
+msgid "revision comment"
+msgstr "commentaire de révision"
+
+msgid "Tounchanged"
+msgstr "Sauver"
+
+msgid "no change state"
+msgstr "Pas de changement d'état"
+
+msgid "revision comment for autorevision"
+msgstr " commentaire de révision pour révision automatique"
+
+msgid "Transition parameters"
+msgstr "Paramètres pour le changement d'état"
+
+msgid "Confidential Document"
+msgstr "Document confidentiel"
+
+msgid "Restricted Access"
+msgstr "Accès restreint"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgid "Friday"
+msgstr "Vendredi"
+
+msgid "Saturday"
+msgstr "Samedi"
+
+msgid "Sunday"
+msgstr "Dimanche"
+
+msgid "January"
+msgstr "Janvier"
+
+msgid "February"
+msgstr "Février"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "Avril"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Juin"
+
+msgid "July"
+msgstr "Juillet"
+
+msgid "August"
+msgstr "Août"
+
+msgid "September"
+msgstr "Septembre"
+
+msgid "October"
+msgstr "Octobre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Décembre"
+
+msgid "View headers"
+msgstr "Voir entête"
+
+msgid "View latest"
+msgstr "révision courante"
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "Change state"
+msgstr "Changer d'état"
+
+msgid "View all properties"
+msgstr "Voir toutes les propriétés"
+
+msgid "Special view"
+msgstr "Vues spéciales"
+
+msgid "Special edit"
+msgstr "Éditions spéciales"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Revise"
+msgstr "Réviser"
+
+msgid "Change profile"
+msgstr "Changer de profil"
+
+msgid "History"
+msgstr "Historique"
+
+msgid "Confirm"
+msgstr "Confirmez"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+msgid "goaccess"
+msgstr "accessibilités..."
+
+msgid "Add postit"
+msgstr "Ajouter un post-it"
+
+msgid "View XML"
+msgstr "Voir XML"
+
+msgid "Search linked documents"
+msgstr "Recherche des documents liés"
+
+msgid "Edit attributes"
+msgstr "Éditer les attributs"
+
+msgid "Set default values"
+msgstr "Valeurs par défaut"
+
+msgid "Parameters values"
+msgstr "Valeurs des paramètres"
+
+msgid "Rename"
+msgstr "Renommer"
+
+msgid "Change creation profile"
+msgstr "Changer de profil par défaut"
+
+msgid "Change default folder"
+msgstr "Changer dossier par défaut"
+
+msgid "Change current folder"
+msgstr "Changer dossier courant"
+
+msgid "Choose workflow"
+msgstr "Choisir un cycle"
+
+msgid "delconfirm"
+msgstr "Voulez-vous supprimer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "mail"
+msgstr "mail"
+
+msgid "senddoc"
+msgstr "envoyer"
+
+msgid "wordedit"
+msgstr "édition par traitement de texte"
+
+msgid "print"
+msgstr "imprimer"
+
+msgid "family manual"
+msgstr "Manuel de description de famille"
+
+msgid "author"
+msgstr "auteur"
+
+msgid "locked by"
+msgstr "verrouillé par"
+
+msgid "revision"
+msgstr "révision"
+
+msgid "revision date"
+msgstr "date de révision"
+
+msgid " profile access"
+msgstr " profil d'accès"
+
+msgid "control view"
+msgstr "contrôle de vues"
+
+msgid "initial reference"
+msgstr "référence initiale"
+
+msgid "reference for this revision"
+msgstr "référence de la dernière révision"
+
+msgid "mini view"
+msgstr "mini vue"
+
+msgid "post it"
+msgstr "post-it"
+
+msgid "Familly Document"
+msgstr "Famille de document"
+
+msgid "created profile"
+msgstr "Profil crée"
+
+msgid "created control view"
+msgstr "contrôle de vue de création"
+
+msgid "current folder"
+msgstr "dossier courant"
+
+msgid "rev"
+msgstr "rev"
+
+msgid " date"
+msgstr " date"
+
+msgid "revised by"
+msgstr "révisé par"
+
+msgid "open in new window"
+msgstr "Ouvrir dans une nouvelle fenêtre"
+
+msgid "Empty Post-It"
+msgstr "Post-It vide"
+
+msgid "Conditions"
+msgstr "Conditions"
+
+msgid "up"
+msgstr "monter"
+
+msgid "down"
+msgstr "descendre"
+
+msgid "function examples"
+msgstr "exemples de fonctions"
+
+msgid "my id"
+msgstr "mon identificateur"
+
+msgid "my last name"
+msgstr "mon nom de famille"
+
+msgid "yesterday"
+msgstr "hier"
+
+msgid "tomorrow"
+msgstr "demain"
+
+msgid "addcond"
+msgstr "attributs"
+
+msgid "addstate"
+msgstr "état"
+
+msgid "fieldset"
+msgstr "cadre"
+
+msgid "attrname"
+msgstr "Nom"
+
+msgid "new visibility"
+msgstr "nouvelle visibilité"
+
+msgid "new needed"
+msgstr "Nouvelle obligation"
+
+msgid "default visibility"
+msgstr "visibilité par défaut"
+
+msgid "Search criteria"
+msgstr "Critères de recherche"
+
+msgid "View"
+msgstr "Affichage"
+
+msgid "list"
+msgstr "Liste"
+
+msgid "detail"
+msgstr "détaillé"
+
+msgid "icon"
+msgstr "Icone"
+
+msgid "column"
+msgstr "colonne"
+
+msgid "All To basket"
+msgstr "Tout insérer dans le porte-documents"
+
+msgid "Open in folio"
+msgstr "Ouvrir dans une chemise"
+
+msgid "Basket to here"
+msgstr "Insérer le porte-documents"
+
+msgid "Create a batch"
+msgstr "Créer un traitement"
+
+msgid "Clear Folder"
+msgstr "Vider le dossier"
+
+msgid "new guide-card"
+msgstr "Nouvel intercalaire"
+
+msgid "new search guide-card"
+msgstr "Nouveau filtre"
+
+msgid "Search to insert"
+msgstr "Recherche pour l'insertion"
+
+msgid "Details"
+msgstr "Détails"
+
+msgid "Parameters"
+msgstr "Paramètres"
+
+msgid "Change category"
+msgstr "Changer de catégorie"
+
+msgid "View properties"
+msgstr "Voir les propriétés"
+
+msgid "Select group appartenance"
+msgstr "Selectionner les groupes d'appartenance"
+
+msgid "expand all"
+msgstr "déplier tout"
+
+msgid "collapse all"
+msgstr "replier tout"
+
+msgid "view detail"
+msgstr "voir détails"
+
+msgid "loop detected. You must undo this selection"
+msgstr "Boucle détectée. Vous devez annuler votre sélection"
+
+msgid "confidentiality"
+msgstr "confidentialité"
+
+msgid "(private)"
+msgstr "(privé)"
+
 msgid "freedom cron try execute"
 msgstr "Cron Freedom essai d'execution"
 
@@ -897,20 +2192,29 @@ msgstr "géométrie de la mini vue       "
 msgid "file %d"
 msgstr "fichier %d"
 
-msgid "doctitle"
-msgstr "titre"
-
 msgid "revdate"
 msgstr "date de modification"
 
-msgid "revision"
-msgstr "révision"
-
-msgid "state"
-msgstr "état"
-
 msgid "short_name"
 msgstr "nom court"
+
+msgid "root folder id"
+msgstr "Identificateur du dossier racine"
+
+msgid "enabled/disabled full text search"
+msgstr "autoriser la recherche plein texte"
+
+msgid "id of the basket folder"
+msgstr "identifiant du porte-documents"
+
+msgid "directory to upload archive"
+msgstr "Répertoire de stockage de l'archive"
+
+msgid "mode to navigate in folders"
+msgstr "mode de navigation pour les dossiers"
+
+msgid "bookmark folders"
+msgstr "signets des dossiers"
 
 msgid "Documents management"
 msgstr "Gestion documentaire"
@@ -941,6 +2245,9 @@ msgstr "traitement d'un lot"
 
 msgid "construct batch document"
 msgstr "construction d'un document lot"
+
+msgid "choose action from batch document"
+msgstr "choix d'une action à partir d'un traitement"
 
 msgid "add batch document"
 msgstr "Ajout d'un document lot"
@@ -1026,9 +2333,6 @@ msgstr "barre de menu"
 msgid "Freedoms card"
 msgstr "fiche Freedom"
 
-msgid "duplicate document"
-msgstr " dupliquer le document"
-
 msgid "attributes definitions"
 msgstr "définition des attributs"
 
@@ -1082,9 +2386,6 @@ msgstr "changement du titre de famille"
 
 msgid "query icon"
 msgstr "requête icone"
-
-msgid "search document"
-msgstr "Recherche de documents"
 
 msgid "search document criteria"
 msgstr "critères de recherche de document"
@@ -1146,9 +2447,6 @@ msgstr "Ouvrir la chemise"
 msgid "portfolio tab"
 msgstr "onglets chemise"
 
-msgid "choose preferred families"
-msgstr "Choix des familles préférées"
-
 msgid "modify preferred families"
 msgstr "modifier les familles préférées"
 
@@ -1163,27 +2461,6 @@ msgstr "création de processus"
 
 msgid "search processes"
 msgstr "recherche de processus"
-
-msgid "root folder id"
-msgstr "Identificateur du dossier racine"
-
-msgid "enabled/disabled full text search"
-msgstr "autoriser la recherche plein texte"
-
-msgid "id of the basket folder"
-msgstr "identifiant du porte-documents"
-
-msgid "directory to upload archive"
-msgstr "Répertoire de stockage de l'archive"
-
-msgid "mode to navigate in folders"
-msgstr "mode de navigation pour les dossiers"
-
-msgid "bookmark folders"
-msgstr "signets des dossiers"
-
-msgid "choose action from batch document"
-msgstr "choix d'une action à partir d'un traitement"
 
 msgid "Users"
 msgstr "Utilisateurs"
@@ -1264,12 +2541,6 @@ msgstr "Recherche inversée"
 msgid "duplication"
 msgstr "duplication"
 
-msgid "delete"
-msgstr "supprimer"
-
-msgid "add category"
-msgstr "ajout de catégorie"
-
 msgid "change king in enum attribute"
 msgstr "changer la catégorie d'un attribut énuméré"
 
@@ -1281,9 +2552,6 @@ msgstr "éditer pour l'ajout ou modification de catégorie"
 
 msgid "edit to change category"
 msgstr "édition pour changer de catégorie"
-
-msgid "change category"
-msgstr "changer de catégorie"
 
 msgid "modification or creation"
 msgstr "modification ou création"
@@ -1391,7 +2659,7 @@ msgid "search usercard"
 msgstr "recherche de personne"
 
 msgid "tab usercard"
-msgstr ""
+msgstr "onglets carnet d'adresses"
 
 msgid "usercard home page"
 msgstr "Annuaire"
@@ -1419,18 +2687,6 @@ msgstr "mot de passe administrateur LDAP"
 
 msgid "LDAP activated"
 msgstr "Activation LDAP"
-
-#, c-format
-msgid "Process %s [%d] executed"
-msgstr "Processus %s [%d] exécuté"
-
-#, c-format
-msgid "Error : Process %s [%d]: status %d"
-msgstr "Erreur : Processus %s [%d]: status %d"
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
 
 msgid "locked document of "
 msgstr "documents verrouillés par "
@@ -1586,6 +2842,10 @@ msgstr "nouvelle %s"
 msgid "confidential document"
 msgstr "document confidentiel"
 
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
+
 msgid "view document"
 msgstr "voir le document"
 
@@ -1597,9 +2857,6 @@ msgstr "envoyer le document"
 
 msgid "send"
 msgstr "envoyer"
-
-msgid "edit document"
-msgstr " éditer le document"
 
 msgid "edit"
 msgstr "éditer"
@@ -1621,9 +2878,6 @@ msgstr "execute"
 
 msgid "modify folder"
 msgstr "modifier le contenu du dossier"
-
-msgid "modify"
-msgstr "Modifier"
 
 msgid "view acl"
 msgstr "voir les droits"
@@ -1789,6 +3043,14 @@ msgstr "attribut %s"
 
 msgid "no available persons found"
 msgstr "pas de personnes valides trouvées"
+
+#, c-format
+msgid "Process %s [%d] executed"
+msgstr "Processus %s [%d] exécuté"
+
+#, c-format
+msgid "Error : Process %s [%d]: status %d"
+msgstr "Erreur : Processus %s [%d]: status %d"
 
 msgid "no message : post-it creation aborted"
 msgstr "pas de message : création de post-it abandonné"
@@ -1970,9 +3232,6 @@ msgstr "choix de couleur"
 msgid "choose inputs"
 msgstr "choisir une valeur"
 
-msgid "clear inputs"
-msgstr "effacer entrée(s)"
-
 msgid "add inputs"
 msgstr "ajouter entrée"
 
@@ -2049,9 +3308,6 @@ msgstr "personne"
 msgid "no access control"
 msgstr "pas de contrôle d'accès"
 
-msgid "specific control"
-msgstr "Contrôle dédié"
-
 msgid "dynamic control"
 msgstr "contrôle dynamique"
 
@@ -2077,1247 +3333,6 @@ msgstr "%d document"
 
 msgid "createdate"
 msgstr "date de création"
-
-msgid "mail edition"
-msgstr "édition de mail"
-
-msgid "Send the email and change document state to"
-msgstr "Envoi du email et changement d'état vers"
-
-msgid "send mail"
-msgstr "envoyer le mail"
-
-msgid "Change the document state to"
-msgstr "changer l'état du document en"
-
-msgid "confirm manually send"
-msgstr "Envoi manuel"
-
-msgid "cancel"
-msgstr "Annuler"
-
-msgid "edition: "
-msgstr "éditer"
-
-msgid "Ok"
-msgstr "Ok"
-
-msgid "view constraints"
-msgstr "voir les contraintes"
-
-msgid "Constraints"
-msgstr "Contraintes"
-
-msgid "override constraints"
-msgstr "outrepasser les contraintes"
-
-msgid "Cancel"
-msgstr "Annuler"
-
-msgid "Attribute not found"
-msgstr "Attribut non trouvé"
-
-msgid " choose value"
-msgstr " choisir une valeur"
-
-msgid "Close"
-msgstr "Fermer"
-
-msgid "it is the last"
-msgstr "dernier"
-
-msgid "it is the first"
-msgstr "premier"
-
-msgid "PubliPreview"
-msgstr "prévisualisation"
-
-msgid "Properties:"
-msgstr "Propriétés:"
-
-msgid "option: "
-msgstr "option: "
-
-msgid "Constraint test"
-msgstr "test des contraintes"
-
-msgid "suggestions"
-msgstr "suggestions"
-
-msgid "workflow has been recomposed"
-msgstr "le cycle de vie a été regénéré"
-
-msgid "Batch Choose"
-msgstr "Choix de lots"
-
-msgid "Copy the containt of folder in batch document"
-msgstr "Insérer le contenu du dossier dans le lot"
-
-msgid "Copy the reference of folder in batch document"
-msgstr "Copier la référence au dossier dans le lot"
-
-msgid "Processes to exec"
-msgstr "Processus à exécuter"
-
-msgid "Creation"
-msgstr "Création"
-
-msgid "Bookmarks"
-msgstr "Signets"
-
-msgid "Search"
-msgstr "Recherche"
-
-msgid "Tools"
-msgstr "Outils"
-
-msgid "Document"
-msgstr "Document"
-
-msgid "Folder"
-msgstr "Dossier"
-
-msgid "BatchProcess"
-msgstr "Traitement par lot"
-
-msgid "Profile"
-msgstr "Profil"
-
-msgid "Family"
-msgstr "Famille"
-
-msgid "Workflow"
-msgstr "Cycle de vie"
-
-msgid "add to bookmarks"
-msgstr "Marquer ce dossier"
-
-msgid "manage bookmarks"
-msgstr "Gérer les signets"
-
-msgid "speed"
-msgstr "rapide"
-
-msgid "simple"
-msgstr "Simple"
-
-msgid "detailled"
-msgstr "détaillée"
-
-msgid "fulltext"
-msgstr "plein texte"
-
-msgid "Ref"
-msgstr "Réf"
-
-msgid "help"
-msgstr "Aide"
-
-msgid "Import documents"
-msgstr "Importer des documents"
-
-msgid "Import Tar"
-msgstr "Importation Archive"
-
-msgid "exec plan"
-msgstr "Planification des processus"
-
-msgid "Attributes definition"
-msgstr "définition des attributs"
-
-msgid "inherit from"
-msgstr "hérite de"
-
-msgid "no document family"
-msgstr "Aucune famille de document"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "order"
-msgstr "ordre"
-
-msgid "name"
-msgstr "Nom"
-
-msgid "type"
-msgstr "type"
-
-msgid "frame"
-msgstr "fenêtre"
-
-msgid "A?"
-msgstr "R?"
-
-msgid "T?"
-msgstr "T?"
-
-msgid "N?"
-msgstr "O?"
-
-msgid "Vi"
-msgstr "Vi"
-
-msgid "Link"
-msgstr "Lien"
-
-msgid "file"
-msgstr "fichier"
-
-msgid "func"
-msgstr "ft"
-
-msgid "elink"
-msgstr "extra Lien"
-
-msgid "constraint"
-msgstr "contrainte"
-
-msgid "options"
-msgstr "options"
-
-msgid "Validate"
-msgstr "Valider"
-
-msgid "keyword"
-msgstr "mot-clef"
-
-msgid "only latest revision"
-msgstr "seulement la dernière révision"
-
-msgid "from current folder"
-msgstr "à partir du dossier courant"
-
-msgid "case sensitive"
-msgstr " tenir compte de la casse"
-
-msgid "familly"
-msgstr "famille"
-
-msgid "any familly"
-msgstr "toute famille"
-
-msgid "folders"
-msgstr "dossiers"
-
-msgid "save query in current folder"
-msgstr "sauver la requête dans le dossier courant"
-
-msgid "search title"
-msgstr "titre de la recherche"
-
-msgid " send search"
-msgstr "Lancer la recherche"
-
-msgid " cancel"
-msgstr " annuler"
-
-msgid "search fulltext"
-msgstr "recherche plein texte"
-
-msgid " search words"
-msgstr "texte à rechercher"
-
-msgid " match"
-msgstr "chercher"
-
-msgid " search for"
-msgstr "trouver les mots"
-
-msgid " only latest revision"
-msgstr " seulement la dernière révision"
-
-msgid " familly"
-msgstr " famille"
-
-msgid " view files"
-msgstr "afficher les fichiers attachés"
-
-msgid "no folder"
-msgstr "pas de dossier"
-
-msgid "Create New"
-msgstr "Créer un nouveau"
-
-msgid "profile access"
-msgstr "Profil d'accès"
-
-msgid "no profile"
-msgstr "Pas de profil"
-
-msgid "view control"
-msgstr "contrôle de vue"
-
-msgid "no control"
-msgstr "pas de contrôle"
-
-msgid "Choose Worflow"
-msgstr "Cycle de vie"
-
-msgid "workflow"
-msgstr "cycle de vie"
-
-msgid "no workflow"
-msgstr "pas de cycle de vie"
-
-msgid "Properties"
-msgstr "Propriétés"
-
-msgid "Export"
-msgstr "Exporter"
-
-msgid "Create subfolder"
-msgstr "Créer un dossier"
-
-msgid "Refresh folder"
-msgstr "Actualiser"
-
-msgid "Copy reference"
-msgstr "Copier la référence"
-
-msgid "Move reference"
-msgstr "Déplacer la référence"
-
-msgid " folder containt"
-msgstr " contenu du dossier"
-
-msgid "PortFolio search"
-msgstr "Recherche dans la chemise"
-
-msgid "PortFolio"
-msgstr "Chemise"
-
-msgid "Detail Permissions"
-msgstr "Détail des droits"
-
-msgid "updatetitle"
-msgstr "Mise à jour des titres"
-
-msgid "updateldap"
-msgstr "Mise à jour du serveur LDAP"
-
-msgid "Import Result"
-msgstr "Résultat de l'importation"
-
-msgid "Analyze Archive"
-msgstr "Analyse de l'archive"
-
-msgid "Options import"
-msgstr "Options d'importation"
-
-msgid "default file family"
-msgstr "famille fichier par défaut"
-
-msgid "default folder family"
-msgstr "famille répertoire par défaut"
-
-msgid "Only CSV"
-msgstr "Seul fichier CSV"
-
-msgid "Add top folder"
-msgstr "Ajouter un dossier racine"
-
-msgid "Analyze"
-msgstr "Analyse"
-
-msgid "Import Direct"
-msgstr "Importer direct"
-
-msgid "Lauch Import"
-msgstr "Lancer l'import"
-
-msgid "report to (mail address)"
-msgstr "rapport à (email)"
-
-msgid "Analysis Results"
-msgstr "Résultat de l'analyse"
-
-msgid "foldername"
-msgstr "dossier"
-
-msgid "filename"
-msgstr "fichier"
-
-msgid "familyname"
-msgstr "famille"
-
-msgid "err"
-msgstr "err"
-
-msgid "A_Copy"
-msgstr "Copier"
-
-msgid "A_Link"
-msgstr "Lier"
-
-msgid "Changes will be loosed if you continue"
-msgstr "Les modifications seront perdues si vous continuez"
-
-msgid "Import Documents"
-msgstr " Importer des documents"
-
-msgid "Description of the import format"
-msgstr "Description du format d'import"
-
-msgid "for"
-msgstr "pour"
-
-msgid "specific import"
-msgstr "Import spécifique"
-
-msgid "import file:"
-msgstr "Fichier à importer :"
-
-msgid "policy if same title"
-msgstr "politique si même titre"
-
-msgid "Update document if has permission else ignored"
-msgstr ""
-"Mets à jour le document si permission accordée sinon modification ignorée"
-
-msgid "Add new document (similar document)"
-msgstr "Ajout nouveau document (document similaire)"
-
-msgid "Keep original document"
-msgstr "Garde le document original"
-
-msgid "Direct Import"
-msgstr "Import direct"
-
-msgid "Import document description"
-msgstr "Importer la description d'un document"
-
-msgid "Background Import"
-msgstr "Import en tache de fond"
-
-msgid "proceed background import"
-msgstr "Effectuer l'import en tache de fond"
-
-msgid "Import Archive"
-msgstr "Importer une archive"
-
-msgid "Archive import"
-msgstr "Import d'archives"
-
-msgid "Supported format"
-msgstr "Formats supportés"
-
-msgid "compressed tar"
-msgstr "Tar compressé"
-
-msgid "Zip File"
-msgstr "Fichier Zip"
-
-msgid "Upload archive"
-msgstr "Télécharger l'archive"
-
-msgid "View Archives"
-msgstr "Voir les archives"
-
-msgid "Go to Archives"
-msgstr "Aller aux archives"
-
-msgid "Choose visibles families"
-msgstr "Choix des familles visibles"
-
-msgid "Change State"
-msgstr "Changer d'état"
-
-msgid "Freedom"
-msgstr "Freedom"
-
-msgid "Permissions"
-msgstr "Droits"
-
-msgid "Quick Save"
-msgstr "Sauver vite"
-
-msgid "access path folder list:"
-msgstr "liste des chemins d'accès"
-
-msgid "Access Path Folder List"
-msgstr "Liste des chemins d'accès"
-
-msgid "Result Import Documents"
-msgstr " Résultat de l'importation de documents"
-
-msgid "documents to examine"
-msgstr "documents à prendre en compte"
-
-msgid "line"
-msgstr "ligne"
-
-msgid "id"
-msgstr "id"
-
-msgid "message"
-msgstr "message"
-
-msgid "changes"
-msgstr "modifications"
-
-msgid "error"
-msgstr "erreur"
-
-msgid "Archive import in progress"
-msgstr "Import de l'archive en cours"
-
-msgid "Result Import TAR Documents"
-msgstr "Résultat de l'importation d'archives"
-
-msgid "View Archive"
-msgstr "Voir l'archive"
-
-msgid "Processes plan"
-msgstr "Planification des processus"
-
-msgid "Archives"
-msgstr "Archives"
-
-msgid "Choose Archive"
-msgstr "Choisir l'archive"
-
-msgid "delete archive"
-msgstr "supprimer l'archive"
-
-msgid " history"
-msgstr " historique"
-
-msgid "view properties"
-msgstr "voir les propriétés"
-
-msgid "link document"
-msgstr "référencer le document"
-
-msgid "Add to basket"
-msgstr "Ajouter au porte-documents"
-
-msgid "access path list"
-msgstr "liste des chemin d'accès"
-
-msgid "delete link"
-msgstr "supprimer la référence"
-
-msgid " change icon"
-msgstr " changer d'icone"
-
-msgid " lauch importation"
-msgstr " importer"
-
-msgid " change title"
-msgstr " Changer de titre"
-
-msgid "Change title"
-msgstr "Changer de titre"
-
-msgid " comment for revision"
-msgstr " commentaire de révision"
-
-msgid " revise document"
-msgstr "réviser le document"
-
-msgid "founded"
-msgstr "nombre de document(s) trouvé(s)"
-
-msgid "search time"
-msgstr "durée de la recherche"
-
-msgid "total count"
-msgstr "nombre total de fichiers indexés"
-
-msgid "informations"
-msgstr "informations"
-
-msgid "more families"
-msgstr "toutes les familles"
-
-msgid "restrict to preferred families"
-msgstr "restriction aux familles préférées"
-
-msgid "Create a new  process document"
-msgstr "Créer un nouveau document processus"
-
-msgid "Refresh users characteristics from system"
-msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
-
-msgid "Refersh users may take long time. Sure ?"
-msgstr ""
-"Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
-
-msgid "Refresh users"
-msgstr "Actualiser les utilisateurs"
-
-msgid "Refresh LDAP"
-msgstr "Actualiser LDAP"
-
-msgid "Refresh LDAP may take long time. Sure ?"
-msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
-
-msgid "Generic Management"
-msgstr "Gestion générique"
-
-msgid "Sort"
-msgstr "Tri"
-
-msgid "All document"
-msgstr "tous les documents"
-
-msgid "Edit kind"
-msgstr " éditer une catégorie"
-
-msgid "invert order"
-msgstr "ordre inverse"
-
-msgid "Help"
-msgstr "Aide"
-
-msgid "Import file"
-msgstr "Fichier à importer"
-
-msgid "Abstract card"
-msgstr "Carte résumé"
-
-msgid "Column mode"
-msgstr "Mode colonne"
-
-msgid "Invert split"
-msgstr "Inverser le découpage"
-
-msgid "memosearch"
-msgstr "mémo recherche"
-
-msgid "level"
-msgstr "niveau"
-
-msgid "reference"
-msgstr "référence"
-
-msgid "labeltext"
-msgstr "désignation"
-
-msgid "upk"
-msgstr "monter"
-
-msgid "downk"
-msgstr "descendre"
-
-msgid "previous level"
-msgstr "niveau inférieur"
-
-msgid "next level"
-msgstr "niveau supérieur"
-
-msgid "add"
-msgstr "ajout"
-
-msgid "Choose new categories"
-msgstr "Choisissez de nouvelles catégories"
-
-msgid "import edition"
-msgstr "édition de l'importation"
-
-msgid "Import CSV"
-msgstr "Importation CSV"
-
-msgid "CSV"
-msgstr "CSV"
-
-msgid "CSV specification file"
-msgstr "Spécification fichier CSV"
-
-msgid "The separator field is the semicolon(;)"
-msgstr "Le séparateur de colonne est le point-virgule ';'"
-
-msgid ""
-"The first four fields must not be change, they identified the card structure"
-msgstr ""
-"Les quatre premiers champs ne doivent pas être modifiés, ils identifient la "
-"structure de la carte"
-
-msgid "Only one line by document is authorized"
-msgstr "Une seule ligne par document est autorisée"
-
-msgid ""
-"If an attribut is a multiline string, use the \\ n characters to specify the "
-"new line"
-msgstr ""
-"Si un attribut est multi-ligne, utilisez les caractères \\n pour indiquer le "
-"saut de ligne"
-
-msgid "if you want to change order of column"
-msgstr "pour changer l'ordre des colonnes"
-
-msgid "column order"
-msgstr "ordre des colonnes"
-
-msgid "View all attributes ?"
-msgstr "Voulez vous voir tous les attributs ?"
-
-msgid "Be carreful."
-msgstr "Attention."
-
-msgid "Certain attribute can be not use for import"
-msgstr "Certain attribut peuvent ne pas servir lors de l\\'import"
-
-msgid "view all columns"
-msgstr "voir toutes les colonnes"
-
-msgid "suppress column"
-msgstr "suppression de colonnes"
-
-msgid "add column"
-msgstr "ajout de colonnes"
-
-msgid "to insert document in sub folder"
-msgstr "pour insérer les documents dans des sous dossiers"
-
-msgid "policy"
-msgstr "politique"
-
-msgid "policy if same keys"
-msgstr "politique si même clef"
-
-msgid "import keys"
-msgstr "clefs d'import"
-
-msgid "no key2"
-msgstr "pas de clef"
-
-msgid "values use for new document (not for update)"
-msgstr ""
-"valeurs utilisées pour les nouveaux documents (pas pour la mise à jour)"
-
-msgid "default import values"
-msgstr "Valeurs par défaut pour l'import"
-
-msgid "Import description file"
-msgstr "Fichier de description de l'import"
-
-msgid "Analyze only"
-msgstr "Analyse seulement"
-
-msgid "Choose a father category"
-msgstr "Choisissez une catégorie père"
-
-msgid "no father category (its a top category)"
-msgstr "pas de catégorie père (catégorie primaire)"
-
-msgid "new category"
-msgstr "Nouvelle catégorie"
-
-msgid "add new category"
-msgstr "ajout nouvelle catégorie"
-
-msgid "toedit"
-msgstr "éditer"
-
-msgid "set as first family view"
-msgstr "enregistrer la famille comme la première à voir"
-
-msgid "open first family"
-msgstr " Ouverte en premier"
-
-msgid "No family first"
-msgstr "Pas de famille ouverte par défaut"
-
-msgid "master choose families"
-msgstr "choix des familles administratives"
-
-msgid "choose user families"
-msgstr "Choix des familles personnelles"
-
-msgid "Import vcard"
-msgstr "Importation Vcard"
-
-msgid "Import from"
-msgstr "Importation à partir de"
-
-msgid "VCARD"
-msgstr "VCARD"
-
-msgid "category"
-msgstr "catégorie"
-
-msgid "visibility"
-msgstr "visibilité"
-
-msgid "private card"
-msgstr "carte privée"
-
-msgid "public card - read access"
-msgstr "carte publique - accès lecture"
-
-msgid "public card - write access"
-msgstr "carte publique - accès écriture"
-
-msgid "Add new card (duplicate title)"
-msgstr "Ajout nouvelle carte (titre dupliqué)"
-
-msgid "Replace address book card if has permission else duplicate"
-msgstr "Remplace la carte si permission accordée sinon duplication"
-
-msgid "Keep address book card"
-msgstr "Garde la carte originale"
-
-msgid "Vcard example"
-msgstr "Exemple de Vcard"
-
-msgid "Only one line by personn is authorized"
-msgstr "Une seule ligne par personne est autorisée"
-
-msgid "user"
-msgstr "personne"
-
-msgid "society"
-msgstr "société"
-
-msgid "iuser"
-msgstr "utilisateur"
-
-#, fuzzy
-msgid "voir ses contacts"
-msgstr "voir les contraintes"
-
-msgid "all condition"
-msgstr "toutes conditions"
-
-msgid "ToSearch"
-msgstr "Rechercher"
-
-#, fuzzy
-msgid "Init"
-msgstr "Incident"
-
-msgid "Add"
-msgstr "Ajout"
-
-msgid "Pages blanches"
-msgstr ""
-
-#, fuzzy
-msgid "Pages Jaunes"
-msgstr "Valeurs des paramètres"
-
-msgid "mini view"
-msgstr "mini vue"
-
-msgid "post it"
-msgstr "post-it"
-
-msgid "fromdate"
-msgstr "date de début"
-
-msgid "todate"
-msgstr "date de fin"
-
-msgid "today"
-msgstr "aujourd'hui"
-
-msgid "view abstract card"
-msgstr "Carte résumé"
-
-msgid "delete selected"
-msgstr "supprimer la sélection"
-
-msgid "select"
-msgstr "sélectionner"
-
-msgid "unselect"
-msgstr "déselectionner"
-
-msgid "duplicate"
-msgstr "Dupliquer"
-
-msgid "enumerate input not found"
-msgstr "entrée énumérée non trouvé"
-
-msgid "these needed attributes are empty"
-msgstr "Ces attributs obligatoires sont vides :"
-
-msgid "NOT Clear"
-msgstr "Non effacé"
-
-msgid "Save changes ?"
-msgstr "Sauver les changements ?"
-
-msgid "Data cannot be saved"
-msgstr "Les données ne peuvent être sauvées"
-
-msgid "changeCheckBoolClasses Error"
-msgstr "Erreur changeCheckBoolClasses"
-
-msgid "no trash image"
-msgstr "image de la poubelle non trouvée"
-
-msgid "vconstraint input not found id="
-msgstr "entrée vconstraint non trouvé id="
-
-msgid "Choose document before set options"
-msgstr "Choisissez un document avant de choisir les options"
-
-msgid "quick save not possible"
-msgstr "Sauvegarde rapide impossible"
-
-msgid "manual date"
-msgstr "Date manuelle"
-
-msgid ""
-"Master document has been closed.\n"
-"Close window ?"
-msgstr ""
-"Le document maître a été fermé.\n"
-"Voulez-vous fermer la fenêtre ?"
-
-msgid "to"
-msgstr "vers"
-
-msgid "unchanged"
-msgstr "inchangé"
-
-msgid "revision comment"
-msgstr "commentaire de révision"
-
-msgid "Tounchanged"
-msgstr "Sauver"
-
-msgid "no change state"
-msgstr "Pas de changement d'état"
-
-msgid "revision comment for autorevision"
-msgstr " commentaire de révision pour révision automatique"
-
-msgid "Transition parameters"
-msgstr "Paramètres pour le changement d'état"
-
-msgid "Confidential Document"
-msgstr "Document confidentiel"
-
-msgid "Restricted Access"
-msgstr "Accès restreint"
-
-msgid "Monday"
-msgstr "Lundi"
-
-msgid "Tuesday"
-msgstr "Mardi"
-
-msgid "Wednesday"
-msgstr "Mercredi"
-
-msgid "Thursday"
-msgstr "Jeudi"
-
-msgid "Friday"
-msgstr "Vendredi"
-
-msgid "Saturday"
-msgstr "Samedi"
-
-msgid "Sunday"
-msgstr "Dimanche"
-
-msgid "January"
-msgstr "Janvier"
-
-msgid "February"
-msgstr "Février"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "Avril"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Juin"
-
-msgid "July"
-msgstr "Juillet"
-
-msgid "August"
-msgstr "Août"
-
-msgid "September"
-msgstr "Septembre"
-
-msgid "October"
-msgstr "Octobre"
-
-msgid "November"
-msgstr "Novembre"
-
-msgid "December"
-msgstr "Décembre"
-
-msgid "View headers"
-msgstr "Voir entête"
-
-msgid "View latest"
-msgstr "révision courante"
-
-msgid "Edit"
-msgstr "Éditer"
-
-msgid "Lock"
-msgstr "Verrouiller"
-
-msgid "Change state"
-msgstr "Changer d'état"
-
-msgid "View all properties"
-msgstr "Voir toutes les propriétés"
-
-msgid "Special view"
-msgstr "Vues spéciales"
-
-msgid "Special edit"
-msgstr "Éditions spéciales"
-
-msgid "Unlock"
-msgstr "Déverrouiller"
-
-msgid "Revise"
-msgstr "Réviser"
-
-msgid "Change profile"
-msgstr "Changer de profil"
-
-msgid "History"
-msgstr "Historique"
-
-msgid "Confirm"
-msgstr "Confirmez"
-
-msgid "Duplicate"
-msgstr "Dupliquer"
-
-msgid "goaccess"
-msgstr "accessibilités..."
-
-msgid "Add postit"
-msgstr "Ajouter un post-it"
-
-msgid "View XML"
-msgstr "Voir XML"
-
-msgid "Search linked documents"
-msgstr "Recherche des documents liés"
-
-msgid "Edit attributes"
-msgstr "Éditer les attributs"
-
-msgid "Set default values"
-msgstr "Valeurs par défaut"
-
-msgid "Parameters values"
-msgstr "Valeurs des paramètres"
-
-msgid "Rename"
-msgstr "Renommer"
-
-msgid "Change creation profile"
-msgstr "Changer de profil par défaut"
-
-msgid "Change default folder"
-msgstr "Changer dossier par défaut"
-
-msgid "Change current folder"
-msgstr "Changer dossier courant"
-
-msgid "Choose workflow"
-msgstr "Choisir un cycle"
-
-msgid "delconfirm"
-msgstr "Voulez-vous supprimer"
-
-msgid "Delete"
-msgstr "Supprimer"
-
-msgid "mail"
-msgstr "mail"
-
-msgid "senddoc"
-msgstr "envoyer"
-
-msgid "wordedit"
-msgstr "édition par traitement de texte"
-
-msgid "print"
-msgstr "imprimer"
-
-msgid "family manual"
-msgstr "Manuel de description de famille"
-
-msgid "author"
-msgstr "auteur"
-
-msgid "locked by"
-msgstr "verrouillé par"
-
-msgid "revision date"
-msgstr "date de révision"
-
-msgid " profile access"
-msgstr " profil d'accès"
-
-msgid "control view"
-msgstr "contrôle de vues"
-
-msgid "initial reference"
-msgstr "référence initiale"
-
-msgid "reference for this revision"
-msgstr "référence de la dernière révision"
-
-msgid "Familly Document"
-msgstr "Famille de document"
-
-msgid "created profile"
-msgstr "Profil crée"
-
-msgid "created control view"
-msgstr "contrôle de vue de création"
-
-msgid "current folder"
-msgstr "dossier courant"
-
-msgid "rev"
-msgstr "rev"
-
-msgid " date"
-msgstr " date"
-
-msgid "revised by"
-msgstr "révisé par"
-
-msgid "open in new window"
-msgstr "Ouvrir dans une nouvelle fenêtre"
-
-msgid "Empty Post-It"
-msgstr "Post-It vide"
-
-msgid "Conditions"
-msgstr "Conditions"
-
-msgid "up"
-msgstr "monter"
-
-msgid "down"
-msgstr "descendre"
-
-msgid "function examples"
-msgstr "exemples de fonctions"
-
-msgid "my id"
-msgstr "mon identificateur"
-
-msgid "my last name"
-msgstr "mon nom de famille"
-
-msgid "yesterday"
-msgstr "hier"
-
-msgid "tomorrow"
-msgstr "demain"
-
-msgid "addcond"
-msgstr "attributs"
-
-msgid "addstate"
-msgstr "état"
-
-msgid "fieldset"
-msgstr "cadre"
-
-msgid "attrname"
-msgstr "Nom"
-
-msgid "new visibility"
-msgstr "nouvelle visibilité"
-
-msgid "new needed"
-msgstr "Nouvelle obligation"
-
-msgid "default visibility"
-msgstr "visibilité par défaut"
-
-msgid "Search criteria"
-msgstr "Critères de recherche"
-
-msgid "View"
-msgstr "Affichage"
-
-msgid "list"
-msgstr "Liste"
-
-msgid "detail"
-msgstr "détaillé"
-
-msgid "icon"
-msgstr "Icone"
-
-msgid "column"
-msgstr "colonne"
-
-msgid "All To basket"
-msgstr "Tout insérer dans le porte-documents"
-
-msgid "Open in folio"
-msgstr "Ouvrir dans une chemise"
-
-msgid "Basket to here"
-msgstr "Insérer le porte-documents"
-
-msgid "Create a batch"
-msgstr "Créer un traitement"
-
-msgid "Clear Folder"
-msgstr "Vider le dossier"
-
-msgid "new guide-card"
-msgstr "Nouvel intercalaire"
-
-msgid "new search guide-card"
-msgstr "Nouveau filtre"
-
-msgid "Search to insert"
-msgstr "Recherche pour l'insertion"
-
-msgid "Details"
-msgstr "Détails"
-
-msgid "Parameters"
-msgstr "Paramètres"
-
-msgid "Change category"
-msgstr "Changer de catégorie"
-
-msgid "View properties"
-msgstr "Voir les propriétés"
-
-msgid "Select group appartenance"
-msgstr "Selectionner les groupes d'appartenance"
-
-msgid "expand all"
-msgstr "déplier tout"
-
-msgid "collapse all"
-msgstr "replier tout"
-
-msgid "view detail"
-msgstr "voir détails"
-
-msgid "loop detected. You must undo this selection"
-msgstr "Boucle détectée. Vous devez annuler votre sélection"
-
-msgid "confidentiality"
-msgstr "confidentialité"
-
-msgid "(private)"
-msgstr "(privé)"
 
 #~ msgid "bilan cannot be perform : %s society not found"
 #~ msgstr "Le bilan ne peut être produit : la société %s n'a pas été trouvée"
