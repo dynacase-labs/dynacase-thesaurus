@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: impcard.php,v 1.6 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: impcard.php,v 1.7 2005/09/23 07:48:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -49,7 +49,7 @@ function impcard(&$action) {
     // change layout
     include_once("FDL/viewscard.php");
     $action->lay = new Layout(getLayoutFile("FDL","viewscard.xml"),$action);
-    viewscard(&$action); 
+    viewscard($action); 
     
   }
 
