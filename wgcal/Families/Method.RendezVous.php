@@ -1250,6 +1250,19 @@ function resetAcceptStatus() {
   }
 }
       
+function APISetAccess() {
+   setHttpVar("fprof",1);
+   $this->setConfidentiality();
+   $this->setAccessibility();
+}
+
+function setConfidentiality() {
+   if ($this->isAffected()) {
+     if ($this->getValue("calev_visibility")>0 ) $this->confidential = 1;
+     else $this->confidential = 0;
+     $this->Modify();
+   }
+}
 
 function setAccessibility() {
 
@@ -1409,7 +1422,6 @@ function setAccessibility() {
   }
 
 
- 
   $this->RemoveControl();
   foreach ($acls as $user => $uacl) {
     if ($user!="") {
