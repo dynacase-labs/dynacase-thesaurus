@@ -43,7 +43,7 @@ function SelectRessource(id) {
     onclick="ressId=[id]; subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress='+ressId);"
     onContextMenu="ressId=[id]; openMenu(event,'mRess', [id]); return false"
     title="[title] : [TEXT:display calendar (m-left-btn) and more... (m-right-btn)]">
-&nbsp;<img height="15px" align="absbottom" src="[icon]">&nbsp;[title]<td>
+&nbsp;<img height="15px" align="absbottom" src="[icon]">&nbsp;[title][IF romode]&nbsp;<img height="10px" align="absbottom" title="[TEXT:read only calendar]" src="[IMG:wm-readonly.gif]">[ENDIF romode]<td>
 </tr>[ENDBLOCK rlist]
 </table>[ENDIF showrlist]
 [ZONE WGCAL:WGCAL_HTMLFOOT]

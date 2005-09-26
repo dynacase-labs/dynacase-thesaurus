@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-21 09:21+0200\n"
+"POT-Creation-Date: 2005-09-26 15:25+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -228,11 +228,12 @@ msgstr "Vue mensuelle texte"
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
 
-msgid "My calendar"
-msgstr "Mon agenda"
+#, fuzzy
+msgid "alert"
+msgstr "La date butée est dépassée"
 
-msgid "Can't create : "
-msgstr "Erreur de création de l'agenda : "
+msgid "public calendar"
+msgstr "Mon agenda public"
 
 msgid "new"
 msgstr "nouveau"
@@ -441,11 +442,11 @@ msgstr "Afficher la date de la dernière synchro Outlook"
 msgid "order todo "
 msgstr "Classement des tâches"
 
-msgid "todo desc"
-msgstr "Les premières en début de liste"
-
 msgid "todo asc"
 msgstr "Les dernières en début de liste"
+
+msgid "todo desc"
+msgstr "Les premières en début de liste"
 
 msgid "display todos for "
 msgstr "Afficher les tâches sur "
@@ -805,6 +806,30 @@ msgstr "Entrer ici le nom du calendrier"
 msgid "create calendar"
 msgstr "Création d'un calendrier"
 
+msgid "my todo"
+msgstr "Mes tâches"
+
+msgid "add a todo"
+msgstr "Ajout d'une nouvelle tâche"
+
+msgid " no todo"
+msgstr "Pas de tâches"
+
+msgid "todo warning"
+msgstr "Attention date butée"
+
+msgid "todo alert"
+msgstr "La date butée est dépassée"
+
+msgid "todo done"
+msgstr "Tâche terminée"
+
+msgid "todo"
+msgstr "Tâche"
+
+msgid "set to done"
+msgstr "Marquer la tâche comme terminée"
+
 msgid "change user preferences for"
 msgstr "Modifier les préférences utilisateur pour "
 
@@ -873,9 +898,6 @@ msgstr "Agenda en lecture seule"
 
 msgid "my todos..."
 msgstr "Mes tâches..."
-
-msgid "add a todo"
-msgstr "Ajout d'une nouvelle tâche"
 
 msgid "edit todo"
 msgstr "Editer la tâche"
@@ -1132,30 +1154,6 @@ msgstr "Portail"
 msgid "osync params"
 msgstr "Synchronisation Outlook"
 
-msgid "my todo"
-msgstr "Mes tâches"
-
-msgid "view all todo"
-msgstr "Afficher toutes les tâches"
-
-msgid " no todo"
-msgstr "Pas de tâches"
-
-msgid "todo warning"
-msgstr "Attention date butée"
-
-msgid "todo alert"
-msgstr "La date butée est dépassée"
-
-msgid "todo done"
-msgstr "Tâche terminée"
-
-msgid "todo"
-msgstr "Tâche"
-
-msgid "set to done"
-msgstr "Marquer la tâche comme terminée"
-
 msgid "todos..."
 msgstr "Tâches..."
 
@@ -1326,6 +1324,19 @@ msgstr "Version du synchroniseur attendue"
 
 msgid "used groups"
 msgstr "Groupes utilisés"
+
+#, fuzzy
+#~ msgid "private calendar"
+#~ msgstr "Création d'un calendrier"
+
+#~ msgid "My calendar"
+#~ msgstr "Mon agenda"
+
+#~ msgid "Can't create : "
+#~ msgstr "Erreur de création de l'agenda : "
+
+#~ msgid "view all todo"
+#~ msgstr "Afficher toutes les tâches"
 
 #~ msgid "only for events set by this person"
 #~ msgstr "délégation pour les seuls rendez-vous créé par cette personne"

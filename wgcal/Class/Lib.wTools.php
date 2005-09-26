@@ -250,44 +250,6 @@ function wUSortCmp(&$a, &$b) {
   
 
 
-function MonAgenda() 
-{
-  global $action;
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  $rq=getChildDoc($dbaccess,0,0,1,array("(agd_oid = ".$action->user->id." and agd_omain = 1)"),
-		  $action->user->id, "LIST", "AGENDA");
-  if (count($rq)>0)  {
-    $home = $rq[0];
-  } else {
-    $home = NULL;
-  }
-
-  $mycalendar = _("My calendar");
-  $calname = "UDCAL".$action->user->id;
-
-  $mcal = new_Doc($dbaccess, getIdFromName($dbaccess, $calname)); 
-  if (!$mcal->isAffected()) {
-    $mcal = createDoc($dbaccess,"DCALENDAR");
-    if (!$mcal) $action->exitError(_("Can't create : ").$mycalendar);
-    $mcal->setTitle($mycalendar. " (".ucwords(strtolower($action->user->firstname.' '.$action->user->lastname)).")");
-    $mcal->owner = $action->user->id;
-    $mcal->icon = 'mycal.gif';
-    $mcal->name = $calname;
-    $mcal->setValue("se_famid", getFamIdFromName($dbaccess, "EVENT"));
-    $mcal->setValue("se_ols", array( "and", "and"));
-    $mcal->setValue("se_attrids", array( "evt_idres", "evt_frominitiatorid"));
-    $mcal->setValue("se_funcs", array( '~y', '~*' ));
-    $mcal->setValue("se_keys", array( $action->user->fid, getFamIdFromName($dbaccess, "CALEVENT") ));
-    $mcal->Add();
-    $mcal->PostModify();
-    $mcal->Modify();
-    if ($home!=NULL) {
-      $home->AddFile($mcal->id);
-    }
-  }
-
-}
 
 
 function  wgcalGetRColor($r=-1) {

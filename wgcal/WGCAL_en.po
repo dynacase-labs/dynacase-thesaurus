@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-21 09:21+0200\n"
+"POT-Creation-Date: 2005-09-26 15:25+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -227,10 +227,10 @@ msgstr ""
 msgid "user preferences"
 msgstr ""
 
-msgid "My calendar"
+msgid "alert"
 msgstr ""
 
-msgid "Can't create : "
+msgid "public calendar"
 msgstr ""
 
 msgid "new"
@@ -440,10 +440,10 @@ msgstr ""
 msgid "order todo "
 msgstr ""
 
-msgid "todo desc"
+msgid "todo asc"
 msgstr ""
 
-msgid "todo asc"
+msgid "todo desc"
 msgstr ""
 
 msgid "display todos for "
@@ -803,6 +803,30 @@ msgstr ""
 msgid "create calendar"
 msgstr ""
 
+msgid "my todo"
+msgstr ""
+
+msgid "add a todo"
+msgstr ""
+
+msgid " no todo"
+msgstr ""
+
+msgid "todo warning"
+msgstr ""
+
+msgid "todo alert"
+msgstr ""
+
+msgid "todo done"
+msgstr ""
+
+msgid "todo"
+msgstr ""
+
+msgid "set to done"
+msgstr ""
+
 msgid "change user preferences for"
 msgstr ""
 
@@ -870,9 +894,6 @@ msgid "read only calendar"
 msgstr ""
 
 msgid "my todos..."
-msgstr ""
-
-msgid "add a todo"
 msgstr ""
 
 msgid "edit todo"
@@ -1128,30 +1149,6 @@ msgid "portal"
 msgstr ""
 
 msgid "osync params"
-msgstr ""
-
-msgid "my todo"
-msgstr ""
-
-msgid "view all todo"
-msgstr ""
-
-msgid " no todo"
-msgstr ""
-
-msgid "todo warning"
-msgstr ""
-
-msgid "todo alert"
-msgstr ""
-
-msgid "todo done"
-msgstr ""
-
-msgid "todo"
-msgstr ""
-
-msgid "set to done"
 msgstr ""
 
 msgid "todos..."

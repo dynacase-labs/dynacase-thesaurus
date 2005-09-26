@@ -2,6 +2,7 @@
 include_once("EXTERNALS/WGCAL_external.php");
 include_once('FDL/popup_util.php');
 include_once('WGCAL/Lib.wTools.php');
+include_once('WGCAL/Lib.Agenda.php');
 
 function wgcal_searchical(&$action) {
   $sical = GetHttpVars("sical", "");
@@ -19,24 +20,32 @@ function wgcal_searchical(&$action) {
     include_once("FDL/popup_util.php");
     popupInit('mRess',  array('radd', 'rcalendar', 'rprefered', 'rclose'));
 
-
-    $tg = wGetUserGroups();
-    foreach ($tg as $k => $v) $mygroups[] = $k;
-    $rdoc = wSearchUserCal(-1, $mygroups, 0, $sical, $max);
+    $filter[0] = "title ~* '".$sical."'";
+    $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, $max, $filter, 
+			  $action->user->id, "TABLE", getIdFromName($action->GetParam("FREEDOM_DB"), "IUSER"));
     foreach ($rdoc as $kd => $vd) {
-      if (!isset($rlist[$vd["id"]])) {
-	$rlist[$vd["id"]]["fid"] = $vf["id"];
-	$rlist[$vd["id"]]["id"] = $vd["id"];
-	$rlist[$vd["id"]]["icon"] = Doc::GetIcon($vd["icon"]);
-	$rlist[$vd["id"]]["title"] = ucwords(strtolower($vd["title"]));
-	$rlist[$vd["id"]]["titlejs"] = addslashes(ucwords(strtolower($vd["title"])));
-	$rlist[$vd["id"]]["romode"] = (wGetUserCalAccessMode($vd)==1?"false":"true");
+      if ($action->user->fid!=$vd["id"] && !isset($rlist[$vd["id"]])) {
+	$tc = getUserCalendar(true, $vd["id"]);
+	$writeaccess = $readaccess = false;
+	if (count($tc)==1) {
+	  $cal = new_Doc($action->GetParam("FREEDOM_DB"), $tc[0]["id"]);
+	  $readaccess = ($cal->Control("execute")==""?true:false);
+	  $writeaccess = ($cal->Control("invite")==""?true:false);
+	  if ($writeaccess || $readaccess) {
+	    $rlist[$vd["id"]]["fid"] = $vf["id"];
+	    $rlist[$vd["id"]]["id"] = $vd["id"];
+	    $rlist[$vd["id"]]["icon"] = Doc::GetIcon($vd["icon"]);
+	    $rlist[$vd["id"]]["title"] = ucwords(strtolower($vd["title"]));
+	    $rlist[$vd["id"]]["titlejs"] = addslashes(ucwords(strtolower($vd["title"])));
+	    $rlist[$vd["id"]]["romode"] = ($writeaccess?"false":"true");
 
-	// Active menu items
-	PopupActive('mRess', $vd["id"], 'radd');
-	PopupActive('mRess', $vd["id"], 'rcalendar');
-	PopupActive('mRess', $vd["id"], 'rprefered');
-	PopupActive('mRess', $vd["id"], 'rclose');
+	    // Active menu items
+	    PopupActive('mRess', $vd["id"], 'radd');
+	    PopupActive('mRess', $vd["id"], 'rcalendar');
+	    PopupActive('mRess', $vd["id"], 'rprefered');
+	    PopupActive('mRess', $vd["id"], 'rclose');
+	  }
+	}
       }
     }
     if (count($rlist)>0) {
