@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskDir.php,v 1.4 2005/07/01 09:11:19 eric Exp $
+// $Id: Class.VaultDiskDir.php,v 1.5 2005/09/27 13:33:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Class.VaultDiskDir.php,v $
+// Revision 1.5  2005/09/27 13:33:52  eric
+// correct missing ?>
+//
 // Revision 1.4  2005/07/01 09:11:19  eric
 // PHP5
 //
@@ -124,8 +127,4 @@ Class VaultDiskDir extends DbObj {
 
 }
 
-
-
-
-
-
+?>

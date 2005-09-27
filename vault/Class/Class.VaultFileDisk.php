@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.8 2005/07/01 09:11:19 eric Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.9 2005/09/27 13:33:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -182,3 +182,4 @@ Class VaultFileDisk extends DbObj {
 
 } // End Class.VaultFileDisk.php 
 
+?>

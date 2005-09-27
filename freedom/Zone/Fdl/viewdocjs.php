@@ -3,7 +3,7 @@
  * javascript utilities for view document
  *
  * @author Anakeen 2005
- * @version $Id: viewdocjs.php,v 1.1 2005/03/04 17:18:47 eric Exp $
+ * @version $Id: viewdocjs.php,v 1.2 2005/09/27 13:37:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,4 +29,4 @@ function viewdocjs(&$action) {
     $action->lay->set("mgeow","300");
     $action->lay->set("mgeoh","200");
   }
-}
+?>

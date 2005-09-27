@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.VaultCommon.php,v 1.3 2004/03/16 14:02:52 eric Exp $
+// $Id: Lib.VaultCommon.php,v 1.4 2005/09/27 13:33:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Lib.VaultCommon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: Lib.VaultCommon.php,v $
+// Revision 1.4  2005/09/27 13:33:52  eric
+// correct missing ?>
+//
 // Revision 1.3  2004/03/16 14:02:52  eric
 // correction for extension file
 //
@@ -46,3 +49,4 @@ function vaultfilename($fspath, $name, $id) {
 }  
 
 
+?>

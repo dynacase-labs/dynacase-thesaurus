@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.48 2005/09/23 14:42:00 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.49 2005/09/27 13:37:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -45,7 +45,7 @@ Class WDoc extends Doc {
   var $firstState=""; // first state in workflow
   var $viewnext="list"; // view interface as select list may be (list|button)
   var $nosave=array(); // states where it is not permitted to save and stay (force next state)
-  function WDoc($dbaccess='', $id='',$res='',$dbid=0) {
+  function __construct($dbaccess='', $id='',$res='',$dbid=0) {
     // first construct acl array
 
     $ka = POS_WF;

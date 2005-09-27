@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.18 2005/09/22 08:08:36 eric Exp $
+ * @version $Id: popupfam.php,v 1.19 2005/09/27 13:37:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -157,3 +157,4 @@ function popupfam(&$action,&$tsubmenu) {
   $action->lay->SetBlockData("ADDLINK",$tlink);
   $action->lay->Set("SEP",true);// to see separator
 }
+?>

@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.8 2005/07/01 09:11:19 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.9 2005/09/27 13:33:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -166,3 +166,4 @@ Class VaultFile {
   }
 
 }
+?>

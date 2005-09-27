@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.53 2005/08/09 08:57:57 eric Exp $
+ * @version $Id: popupcard.php,v 1.54 2005/09/27 13:37:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -345,3 +345,4 @@ function popupcard(&$action) {
   popupGen();
 
 }
+?>
