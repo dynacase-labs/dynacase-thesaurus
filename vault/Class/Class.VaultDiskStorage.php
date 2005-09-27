@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskStorage.php,v 1.2 2005/09/27 13:33:52 eric Exp $
+// $Id: Class.VaultDiskStorage.php,v 1.3 2005/09/27 16:46:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskStorage.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,12 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.VaultDiskStorage.php,v $
-// Revision 1.2  2005/09/27 13:33:52  eric
-// correct missing ?>
-//
-// Revision 1.1  2001/11/16 09:57:01  marc
-// V0_0_1 Initial release, see CHANGELOG
+
 //
 //
 // ---------------------------------------------------------------

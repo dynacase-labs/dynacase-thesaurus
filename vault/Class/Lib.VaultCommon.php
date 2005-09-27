@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.VaultCommon.php,v 1.4 2005/09/27 13:33:52 eric Exp $
+// $Id: Lib.VaultCommon.php,v 1.5 2005/09/27 16:46:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Lib.VaultCommon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,20 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Lib.VaultCommon.php,v $
-// Revision 1.4  2005/09/27 13:33:52  eric
-// correct missing ?>
-//
-// Revision 1.3  2004/03/16 14:02:52  eric
-// correction for extension file
-//
-// Revision 1.2  2002/08/06 16:51:03  marc
-// 0.0.3-2, see ChangeLog
-//
-// Revision 1.1  2002/08/01 17:42:39  marc
-// Version 0.0.3 release 1 see changelog
-//
-// ---------------------------------------------------------------
+
 
 // ---------------------------------------------------------
 function fileextension($filename, $ext="nop") {

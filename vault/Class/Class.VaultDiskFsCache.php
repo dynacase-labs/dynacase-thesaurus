@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFsCache.php,v 1.4 2005/09/27 16:46:24 eric Exp $
+// $Id: Class.VaultDiskFsCache.php,v 1.5 2005/09/27 16:50:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFsCache.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,7 +21,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-/
+
 //
 //
 // ---------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.7 2005/09/27 13:33:52 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.8 2005/09/27 16:46:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -21,27 +21,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
-// $Log: Class.VaultDiskFs.php,v $
-// Revision 1.7  2005/09/27 13:33:52  eric
-// correct missing ?>
+
 //
-// Revision 1.6  2005/07/01 09:11:19  eric
-// PHP5
-//
-// Revision 1.5  2004/04/22 15:26:32  marc
-// int -> int8 pour tailles disques
-//
-// Revision 1.4  2004/03/16 14:02:52  eric
-// correction for extension file
-//
-// Revision 1.3  2002/02/06 17:19:58  eric
-// correction de tous les query : resultat par table
-//
-// Revision 1.2  2001/11/16 15:05:23  marc
-// Release 0.0.2, see CHANGELOG
-//
-// Revision 1.1  2001/11/16 09:57:01  marc
-// V0_0_1 Initial release, see CHANGELOG
 //
 //
 // ---------------------------------------------------------------
