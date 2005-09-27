@@ -3,7 +3,7 @@
  * to cache rseult one hour
  *
  * @author Anakeen 2005
- * @version $Id: cacheone.php,v 1.1 2005/03/04 17:16:13 eric Exp $
+ * @version $Id: cacheone.php,v 1.2 2005/09/27 14:25:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -17,3 +17,4 @@ function cacheone(&$action) {
   
   setHeaderCache();
 }
+?>
