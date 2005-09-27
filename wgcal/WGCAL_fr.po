@@ -852,7 +852,7 @@ msgid "display two months"
 msgstr "afficher 2 mois"
 
 msgid "calendar selector"
-msgstr "Sélection du calendrier"
+msgstr "Sélection des agendas"
 
 msgid "calendar direct access"
 msgstr "Accès direct aux calendriers"
@@ -933,7 +933,7 @@ msgid "add to prefered"
 msgstr "Ajouter aux contacts préférés"
 
 msgid "search cal"
-msgstr "Calendrier"
+msgstr "Agenda"
 
 msgid "limit display to"
 msgstr "Affichage limité à "

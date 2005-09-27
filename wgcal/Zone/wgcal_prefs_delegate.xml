@@ -29,7 +29,7 @@
 <img id="dusearchbut" style="cursor:pointer;" onclick="dSearchIUser(event, true)" height="10" src="[IMG:wm-searchiuser.gif]" title="[TEXT:search]"><br>
 ([TEXT:result limited to] [uslimit])
 <div>
-
+ 
 <form id="fgetdiuser" target="wgcal_diuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&proto=duser&sgrp=1&lim=[uslimit]">
 <input id="diuser" name="iusertext" type="hidden">
 </form>
@@ -76,7 +76,7 @@ function existDelegate(id) {
 function addUDelegate(id, name, mode, save) {
   var tab;
   var nTr;
-
+//   alert('add id='+id+' name='+name+' mode='+mode+' save='+save);
   if (existDelegate(id)) return;
 
   var ic = dUser.length;
@@ -165,7 +165,7 @@ function saveDelegate() {
   }
   if (sduser=='') sduser='-';
   fdelul.value = sduser;
-//   alert('User delegation list = ['+sduser+']\nMail me = '+fdelmail.value);
+//    alert('User delegation list = ['+sduser+']\nMail me = '+fdelmail.value);
   fdel.submit();
   return false;
 }

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_agendaview.php,v 1.7 2005/09/22 16:47:50 marc Exp $
+ * @version $Id: wgcal_prefs_agendaview.php,v 1.8 2005/09/27 15:29:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -14,6 +14,7 @@ include_once('FDL/Lib.Dir.php');
 include_once("EXTERNALS/WGCAL_external.php");
 include_once('WGCAL/Lib.wTools.php');
 include_once('WGCAL/Lib.WGCal.php');
+include_once('WGCAL/Lib.Agenda.php');
 include_once('FDL/Class.Doc.php');
 
 
@@ -24,7 +25,8 @@ function wgcal_prefs_agendaview(&$action) {
   $uid = GetHttpVars("uid", $action->user->id);
   $action->lay->set("uid", $uid);
 
-    
+  $duser = getDocFromUserId($dbaccess,$uid);
+     
   // Groups list
   
   $u_rgroups = wGetUserGroups();
@@ -76,6 +78,10 @@ function wgcal_prefs_agendaview(&$action) {
   } else {
     $action->lay->set("fshowgroupsd", "none");
   }
+
+
+
+
   // Agenda visibility
 
   $action->lay->set("cginit", false);
@@ -85,13 +91,14 @@ function wgcal_prefs_agendaview(&$action) {
 
   } else {
 
+    $ucal = getUserPublicAgenda($duser->id, false);
+    $action->lay->set("vcalid", $ucal->id);
     $action->lay->set("showgroups", false);
     $action->lay->set("showvcal", true);
-    $user = new_Doc($dbaccess, $action->user->fid);
 
-    $vcalmode = $user->getValue("us_wgcal_vcalgrpmode");
-    $vcalgrp  = $user->getTValue("us_wgcal_vcalgrpid");
-    $vcalgrpw  = $user->getTValue("us_wgcal_vcalgrpwrite");
+    $vcalmode = $ucal->getValue("agd_vgroupmode");
+    $vcalgrp  = $ucal->getTValue("agd_vgroupfid");
+    $vcalgrpw  = $ucal->getTValue("agd_vgrouprw");
     $action->lay->set("allsel", ($vcalmode==1 ? false : true));
     $action->lay->set("vgroup", ($vcalmode==1 ? "" : "none"));
     $action->lay->set("vcalmode", ($vcalmode==1 ? 1 : 0));
@@ -99,7 +106,7 @@ function wgcal_prefs_agendaview(&$action) {
 
     // compute user real groups (user groups used in Agenda)
     $wgcal_groups = wGetGroups();
-    $user_groups = $user->getTValue("us_idgroup");
+    $user_groups = $duser->getTValue("us_idgroup");
     $u_rgroups = array();
     foreach ($user_groups as $kg => $vg) {
       if (isset($wgcal_groups[$vg])) {

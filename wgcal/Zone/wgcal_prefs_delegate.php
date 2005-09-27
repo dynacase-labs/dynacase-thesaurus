@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_delegate.php,v 1.3 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: wgcal_prefs_delegate.php,v 1.4 2005/09/27 15:29:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -24,18 +24,19 @@ function wgcal_prefs_delegate(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   $user = new_Doc($dbaccess, $action->user->fid);
+  $dcal = getUserPublicAgenda($user->id, false);
 
-  $dg_mail  = ($user->getValue("us_wgcal_dgmail", 0) == 1 ? true : false);
-  $dg_uid   = $user->getTValue("us_wgcal_dguid");
-  $dg_name  = $user->getTValue("us_wgcal_dguname");
-  $dg_uwid  = $user->getTValue("us_wgcal_dguwid");
-  $dg_umode = $user->getTValue("us_wgcal_dgumode");
+  $dg_mail  = ($dcal->getValue("agd_dmail", 0) == 1 ? true : false);
+  $dg_fid   = $dcal->getTValue("agd_dfid");
+  $dg_name  = $dcal->getTValue("agd_dname");
+  $dg_wid   = $dcal->getTValue("agd_dwid");
+  $dg_umode = $dcal->getTValue("agd_dmode");
   
   $duser = array();
-  foreach ($dg_uid as $k => $v) {
+  foreach ($dg_fid as $k => $v) {
     if ($v!="") {
       $duser[] = array( "durg" => $k,
-			"duid" => $dg_uid[$k], 
+			"duid" => $v, 
 			"duname" => ucwords(addSlashes($dg_name[$k])),
 			"dall" => $dg_umode[$k] );
     }

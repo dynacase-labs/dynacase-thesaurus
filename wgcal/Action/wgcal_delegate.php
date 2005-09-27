@@ -1,20 +1,26 @@
 <?php
 
 include_once('WGCAL/Lib.wTools.php');
+include_once('WGCAL/Lib.Agenda.php');
 include_once('FDL/Class.Doc.php');
 
 function wgcal_delegate(&$action) 
 {
   $dlist = GetHttpVars("dlist", "");
   $dmail = GetHttpVars("dmail", -1);
+
+
+//   echo "dlist=[$dlist] dmail=[$dmail]<br>"; return;
+
   $user = new_Doc($action->getParam("FREEDOM_DB"), $action->user->fid);
-  if ($dmail!=-1) $user->setValue("us_wgcal_dgmail", $dmail);
+  $dcal = getUserPublicAgenda($user->id, false);
+  if ($dmail!=-1) $dcal->setValue("agd_dmail", $dmail);
   if ($dlist!="") {
-    if (!$user->isAffected()) AddWarningMsg(__FILE__."::".__FILE__."> User !");
-    $user->deleteValue("us_wgcal_dguname");
-    $user->deleteValue("us_wgcal_dguid");
-    $user->deleteValue("us_wgcal_dguwid");
-    $user->deleteValue("us_wgcal_dgumode");
+    if (!$dcal->isAffected()) AddWarningMsg(__FILE__."::".__FILE__."> Calendar !");
+    $dcal->deleteValue("agd_dname");
+    $dcal->deleteValue("agd_dfid");
+    $dcal->deleteValue("agd_dwid");
+    $dcal->deleteValue("agd_dmode");
     if ($dlist!="-") {
       $dg_name = $dg_uid = $dg_uwid = $dg_umode = array();
       $tg = explode("|", $dlist );
@@ -29,14 +35,17 @@ function wgcal_delegate(&$action)
 	}
       }
       if (count($dg_uid)>0) {
-	$user->setValue("us_wgcal_dguname", $dg_name);
-	$user->setValue("us_wgcal_dguid", $dg_uid);
-	$user->setValue("us_wgcal_dguwid", $dg_uwid);
-	$user->setValue("us_wgcal_dgumode", $dg_umode);
+	print_r2($dg_name);
+	$dcal->setValue("agd_dname", $dg_name);
+	$dcal->setValue("agd_dfid", $dg_uid);
+	$dcal->setValue("agd_dwid", $dg_uwid);
+	$dcal->setValue("agd_dmode", $dg_umode);
       }
     }
   }
-  $user->Modify();
+
+  $dcal->Modify();
+  $dcal->ComputeAccess();
 }
 
 ?>

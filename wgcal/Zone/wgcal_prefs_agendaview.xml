@@ -20,7 +20,7 @@ onclick="changeUserGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" heigh
 <input type="radio" id="gall" name="gall" value="0" onchange="changeCalGrpVis(this)" [IF allsel]checked[ENDIF allsel]>[TEXT:all groups]<br>
 [IF showgroups]
 <input type="radio" id="gall" name="gall" value="1" onchange="changeCalGrpVis(this)" [IFNOT allsel]checked[ENDIF allsel]>[TEXT:only this groups]<br>
-
+ 
 <div id="glistd" style="display:[vgroup]; margin-left:20px; margin-right:20px; border:1px outset white">
 <table width="100%" border="0" style="padding:1em;" cellspacing="0">
 [BLOCK cgroups]
@@ -40,10 +40,11 @@ onclick="changeUserGrp([gfid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" heigh
 <form id="vcalmodef" target="wgcal_hidden" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_VCALMODE">
 <input type="hidden" value="[vcalmode]"   id="vcalmode" name="vcalmode">
 <input type="hidden" value="[vcalgroups]" id="vcalgroups" name="vcalgroups">
+<input type="hidden" value="[vcalid]" id="vcalid" name="vcalid">
 </form>
 <form id="setugroups" target="wgcal_hidden" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETUGROUPS"><input type="hidden" value="" id="ugroups" name="ugroups"></form>
 
-<script type="text/javascript">
+<script type="text/javascript"> 
 
 [BLOCK L_RESS]InsertPrefContact(-1, '[RDESCR]', '[RID]', '[RICON]', false);
 [ENDBLOCK L_RESS]

@@ -25,26 +25,26 @@ function wgcal_searchical(&$action) {
 			  $action->user->id, "TABLE", getIdFromName($action->GetParam("FREEDOM_DB"), "IUSER"));
     foreach ($rdoc as $kd => $vd) {
       if ($action->user->fid!=$vd["id"] && !isset($rlist[$vd["id"]])) {
-	$tc = getUserCalendar(true, $vd["id"]);
-	$writeaccess = $readaccess = false;
-	if (count($tc)==1) {
+	$tc = getUserAgenda($vd["id"]);
+	$writeaccess = $readaccess = true;
+	if ($tc) {
 	  $cal = new_Doc($action->GetParam("FREEDOM_DB"), $tc[0]["id"]);
 	  $readaccess = ($cal->Control("execute")==""?true:false);
 	  $writeaccess = ($cal->Control("invite")==""?true:false);
-	  if ($writeaccess || $readaccess) {
-	    $rlist[$vd["id"]]["fid"] = $vf["id"];
-	    $rlist[$vd["id"]]["id"] = $vd["id"];
-	    $rlist[$vd["id"]]["icon"] = Doc::GetIcon($vd["icon"]);
-	    $rlist[$vd["id"]]["title"] = ucwords(strtolower($vd["title"]));
-	    $rlist[$vd["id"]]["titlejs"] = addslashes(ucwords(strtolower($vd["title"])));
-	    $rlist[$vd["id"]]["romode"] = ($writeaccess?"false":"true");
-
-	    // Active menu items
-	    PopupActive('mRess', $vd["id"], 'radd');
-	    PopupActive('mRess', $vd["id"], 'rcalendar');
-	    PopupActive('mRess', $vd["id"], 'rprefered');
-	    PopupActive('mRess', $vd["id"], 'rclose');
-	  }
+	}
+	if ($writeaccess || $readaccess) {
+	  $rlist[$vd["id"]]["fid"] = $vf["id"];
+	  $rlist[$vd["id"]]["id"] = $vd["id"];
+	  $rlist[$vd["id"]]["icon"] = Doc::GetIcon($vd["icon"]);
+	  $rlist[$vd["id"]]["title"] = ucwords(strtolower($vd["title"]));
+	  $rlist[$vd["id"]]["titlejs"] = addslashes(ucwords(strtolower($vd["title"])));
+	  $rlist[$vd["id"]]["romode"] = ($writeaccess?false:true);
+	  
+	  // Active menu items
+	  PopupActive('mRess', $vd["id"], 'radd');
+	  PopupActive('mRess', $vd["id"], 'rcalendar');
+	  PopupActive('mRess', $vd["id"], 'rprefered');
+	  PopupActive('mRess', $vd["id"], 'rclose');
 	}
       }
     }

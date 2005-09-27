@@ -523,6 +523,7 @@ function RendezVousEdit() {
   global $action;
   include_once('EXTERNALS/WGCAL_external.php');
   include_once('WGCAL/Lib.wTools.php');
+  include_once('WGCAL/Lib.Agenda.php');
   include_once('FDL/freedom_util.php');
   
 
@@ -666,21 +667,21 @@ function RendezVousEdit() {
   $this->lay->set("mforuser", false);
   $this->lay->set("mforusermod", false);
   if ($eventid == -1) {
-    $filter[]="( us_wgcal_dguid ~ '\\\\\\\\y(".$action->user->fid.")\\\\\\\\y' )";
-    $dusers = GetChildDoc($this->dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "IUSER");
+    $dcal = myDelegation();
     $tdusers = array();
-    if (count($dusers)>0) {
+    if (count($dcal)>0) {
       $this->lay->set("mforuser", true);
       $tdusers[] = array( "forufid" => $action->user->fid, 
 			  "foruname" => ucwords(strtolower($action->user->lastname." ".$action->user->firstname)), 
 			  "foruselected" => ($ownerid==$action->user->fid ? "selected" : ""));
       $ownerlist[$action->user->fid] = $action->user->fid;
-      foreach ($dusers as $k => $v) {
+      foreach ($dcal as $k => $v) {
 	if ($v!="") {
-	  $tdusers[] = array( "forufid" => $v["id"], 
-			      "foruname" => ucwords(strtolower($v["title"])),
-			      "foruselected" => ($ownerid==$v["id"] ? "selected" : ""));
-	  $ownerlist[$v["id"]] = $v["id"];
+	  $dcaluser = getTDoc($this->dbaccess, $v["agd_oid"]);
+	  $tdusers[] = array( "forufid" => $dcaluser["id"], 
+			      "foruname" => ucwords(strtolower($dcaluser["title"])),
+			      "foruselected" => ($ownerid==$dcaluser["id"] ? "selected" : ""));
+	  $ownerlist[$dcaluser["id"]] = $v["id"];
 	}
       }
       $this->lay->setBlockData("foruser", $tdusers);
@@ -1074,7 +1075,10 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
     if ($v=="") continue;
     $tx = explode("%", $v);
     if ($tx[0]=="" || $tx[0]==$ownerid) continue;
-    if (wGetiUserCalAccessMode($tx[0]) != 1) continue;
+
+    $cal = getUserPublicAgenda($tx[0], false);
+    if (!$cal || ($cal->Control("invite") != "")) continue;
+
     $res = new_Doc($dbaccess, $tx[0]);
     $to[$ito]["idress"] = $ito;
     $to[$ito]["resstitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));
@@ -1099,7 +1103,8 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   $to = array(); $ito = 0;
   foreach ($tdress as $k => $v) {
     if ($v=="" || $v==$ownerid) continue;
-    if (!wUserHaveCalVis($v, 1)) continue;
+    $cal = getUserPublicAgenda($v, false);
+    if (!$cal || ($cal->Control("invite") != "")) continue;
     $res = new_Doc($dbaccess, $v);
     $to[$ito]["idress"] = $ito;
     $to[$ito]["resstitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));

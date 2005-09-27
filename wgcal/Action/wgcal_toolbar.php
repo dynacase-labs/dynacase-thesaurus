@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.50 2005/09/22 16:47:49 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.51 2005/09/27 15:29:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -16,7 +16,8 @@ include_once('FDL/Lib.Dir.php');
 include_once("WGCAL/Lib.WGCal.php");
 include_once("osync/Lib.WgcalSync.php");
 include_once("EXTERNALS/WGCAL_external.php");
-include_once('Lib.wTools.php');
+include_once('WGCAL/Lib.wTools.php');
+include_once('WGCAL/Lib.Agenda.php');
 
 function wgcal_toolbar(&$action) {
 
@@ -138,8 +139,13 @@ function _listress(&$action)
     $rd = new_Doc($dbaccess, $rid);
     $trd = getTDoc($dbaccess, $rid);
     if (!$rd->IsAffected()) continue;
-    $haveVis =wUserHaveCalVis($rid, 0);
-    if ($rid==$action->user->fid || $haveVis) {
+    $writeaccess = $readaccess = false;
+    $cal = getUserPublicAgenda($rid, false);
+    if ($cal && $cal->isAffected()) {
+      $writeaccess = ($cal->Control("invite")==""?true:false);
+      $readaccess = ($cal->Control("execute")==""?true:false);
+    }
+    if ($writeaccess || $readaccess || $rd->id == $action->user->fid) {
       if ($rd->id == $action->user->fid) PopupInactive('resspopup', $rd->id, 'removeress');
       else PopupActive('resspopup', $rd->id, 'removeress');
       $t[$i]["RG"] = $i;
@@ -149,7 +155,7 @@ function _listress(&$action)
       $t[$i]["RCOLOR"] = $cid;
       $t[$i]["RSTATE"] = $sid;
       if ($rd->id == $action->user->fid) $t[$i]["ROMODE"] = "false";
-      else $t[$i]["ROMODE"] =  (wGetUserCalAccessMode($trd)==1 ? "false" : "true" );;
+      else $t[$i]["ROMODE"] =  ($writeaccess ? "false" : "true" );;
       if ($sid==1) $t[$i]["RSTYLE"] = "WGCRessSelected";
       else $t[$i]["RSTYLE"] = "WGCRessDefault";
       PopupActive('resspopup', $rd->id, 'displayress');
