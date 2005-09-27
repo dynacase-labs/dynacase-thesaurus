@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.273 2005/09/21 12:37:06 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.274 2005/09/27 16:16:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -963,14 +963,14 @@ final public function PostInsert()  {
   /**
    * return all revision documents
    */
-  final public function GetRevisions($type="LIST") {
+  final public function GetRevisions($type="LIST",$limit=200) {
     // Return the document revision 
     $query = new QueryDb($this->dbaccess, strtolower(get_class($this)));
 
       
     //$query->AddQuery("revision <= ".$this->revision);
     $query->AddQuery("initid = ".$this->initid);
-    $query->order_by="revision DESC";
+    $query->order_by="revision DESC LIMIT $limit";
       
     $rev= $query->Query(0,0,$type);
     if ($query->nb == 0) return array();

@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.12 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: viewhisto.php,v 1.13 2005/09/27 16:16:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,10 +33,11 @@ function viewhisto(&$action)
   $action->lay->Set("VIEWAPP",$viewapp);
   $action->lay->Set("VIEWACT",$viewact);
 
-  $ldoc = $doc->GetRevisions();
+  $ldoc = $doc->GetRevisions("TABLE");
 
   $trdoc= array();
-  while(list($k,$rdoc) = each($ldoc)) {
+  while(list($k,$zdoc) = each($ldoc)) {
+    $rdoc=getDocObject($dbaccess,$zdoc);
     $owner = new User("", $rdoc->owner);
     $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
     $trdoc[$k]["revision"]= $rdoc->revision;

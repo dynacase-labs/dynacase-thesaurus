@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: expandfld.php,v 1.17 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: expandfld.php,v 1.18 2005/09/27 16:16:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: expandfld.php,v 1.17 2005/06/28 08:37:46 eric Exp $
+// $Id: expandfld.php,v 1.18 2005/09/27 16:16:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/expandfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -132,3 +132,4 @@ function expandfld(&$action) {
   // display popup js
     popupGen($nbfolders);
 }
+?>
