@@ -6,36 +6,45 @@ function MonAgenda()
   include_once("FDL/Class.Dir.php");
   global $action;
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  
-  $rq=getChildDoc($dbaccess,0,0,1,array("(agd_oid = ".$action->user->fid." and agd_omain = 1)"), $action->user->id, "LIST", "AGENDA");
+
+  $fid = GetHttpVars("fid", $action->user->fid);
+
+  $rq=getChildDoc($dbaccess,0,0,1,array("(agd_oid = ".$fid." and agd_omain = 1)"), 1, "LIST", "AGENDA");
   if (count($rq)>0)  $cal = $rq[0];
   else  $cal = false;
 
   if (!$cal) {
 
-    $cal = createDoc($dbaccess,"AGENDA");
+    $user = new_Doc($dbaccess, $fid);
+    if ($user->IsAffected()) {
 
-    $mycalendar = _("public calendar");
-    $cal->setTitle(ucwords(strtolower($action->user->firstname.' '.$action->user->lastname))." (".$mycalendar.")");
-    $cal->setValue("agd_oname", $mycalendar);
-    $cal->setValue("agd_oid", $action->user->fid);
-    $cal->setValue("agd_omain", 1);
+      $cal = createDoc($dbaccess,"AGENDA");
 
-    $cal->setValue("se_famid", getFamIdFromName($dbaccess, "EVENT_FROM_CAL"));
-    $cal->setValue("se_ols", array( "and", "and"));
-    $cal->setValue("se_attrids", array( "evt_idres", "evt_frominitiatorid"));
-    $cal->setValue("se_funcs", array( '~y', '~*' ));
-    $cal->setValue("se_keys", array( $action->user->fid, getFamIdFromName($dbaccess, "CALEVENT") ));
+      $mycalendar = _("public calendar");
+      $cal->owner =  $user->id;
+      $cal->setValue("agd_oname", ucwords(strtolower($user->getValue("title"))));
+      $cal->setTitle(ucwords(strtolower($user->getValue("title")))." [".$mycalendar."]");
+      $cal->setValue("agd_oid", $user->id);
+      $cal->setValue("agd_owid", $user->getValue("us_whatid"));
+      $cal->setValue("agd_omain", 1);
 
-    $cal->Add();
-    $cal->PostModify();
-    $cal->Modify();
+      $cal->setValue("se_famid", getFamIdFromName($dbaccess, "EVENT_FROM_CAL"));
+      $cal->setValue("se_ols", array( "and", "and"));
+      $cal->setValue("se_attrids", array( "evt_idres", "evt_frominitiatorid"));
+      $cal->setValue("se_funcs", array( '~y', '~*' ));
+      $cal->setValue("se_keys", array( $fid, getFamIdFromName($dbaccess, "CALEVENT") ));
 
-    $cal->SetDefaultAccess();
+      $cal->Add();
+      $cal->PostModify();
+      $cal->Modify();
 
-    $homefld = new Dir( $dbaccess);
-    $homefld = $homefld->GetHome();
-    $homefld->AddFile($cal->id);
+      $cal->ComputeAccess();
+
+      $rq=getChildDoc($dbaccess, 0, 0, 1, array("owner = -". $user->getValue("us_whatid")), $user->getValue("us_whatid"), "LIST", "DIR");      
+      if (count($rq)>0) {
+	$rq[0]->AddFile($cal->id);
+      }
+    }
   }
     
   return $cal;

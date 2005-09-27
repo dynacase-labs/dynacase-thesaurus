@@ -1,0 +1,3 @@
+#!/bin/bash
+wsh --api=wgcal_initpubuser
+wsh --api=freedom_refresh --famid=CALEVENT --method=APISetAccess

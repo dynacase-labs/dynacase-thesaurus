@@ -2,7 +2,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.Agenda.php,v 1.1 2005/09/27 15:29:35 marc Exp $
+ * @version $Id: Method.Agenda.php,v 1.2 2005/09/27 16:47:37 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage
@@ -27,11 +27,16 @@ function SetDefaultAccess() {
 function ComputeAccess() {
 
   $this->disableEditControl();
+
+  if ($this->id != $this->profid) {
+    $this->SetProfil($this->id);
+  }
+    
   $this->RemoveControl();
 
   // Owner visibility
   foreach ($this->acls as $ka => $va) {
-    $this->AddControl($this->getValue("owner"), $va);
+    $this->AddControl($this->getValue("agd_owid"), $va);
   }
     
   // Delegate visibility
