@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.10 2005/05/12 12:06:26 caroline Exp $
+// $Id: USERCARD.app,v 1.11 2005/09/28 15:36:56 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,8 +70,45 @@ $action_desc = array (
    "name"               =>"USERCARD_ROOT",
    "short_name"         =>N_("usercard home page"),
    "acl"                =>"GENERIC_READ",
-   "root"		=>"Y"
+  ),
+
+  array(
+   "name"               =>"FADDBOOK_FRAME",
+   "short_name"         =>N_("address book frame page"),
+   "acl"                =>"GENERIC_READ",
+   "root"               =>"Y"
+  ),
+  array(
+   "name"               =>"FADDBOOK_MAIN",
+   "short_name"         =>N_("address book main page"),
+   "acl"                =>"GENERIC_READ",
+   "root"               =>"N"
+  ),
+  array(
+   "name"               =>"FADDBOOK_SPEEDSEARCH",
+   "short_name"         =>N_("address book speed search"),
+   "acl"                =>"GENERIC_READ",
+   "root"		=>"N"
+  ),
+  array(
+   "name"               =>"FADDBOOK_PREFERED",
+   "short_name"         =>N_("address book prefered contacts"),
+   "acl"                =>"GENERIC_READ",
+   "root"		=>"N"
+  ),
+  array(
+   "name"               =>"FADDBOOK_ADDPREFERED",
+   "short_name"         =>N_("address book add a prefered contacts"),
+   "acl"                =>"GENERIC_READ",
+   "root"               =>"N"
+  ),
+  array(
+   "name"               =>"FADDBOOK_DELPREFERED",
+   "short_name"         =>N_("address book add a prefered contacts"),
+   "acl"                =>"GENERIC_READ",
+   "root"               =>"N"
   )
+
 
 );
    

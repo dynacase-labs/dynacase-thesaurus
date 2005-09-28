@@ -1,0 +1,59 @@
+<html>
+
+<head>
+
+[ZONE FDL:HTMLHEAD]
+
+<script type="text/javascript">
+function sendform(evt) {
+  evt = (evt) ? evt : ((event) ? event : null );
+  var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
+  if (cc == 13) {
+    document.getElementById('suser').submit();
+    return false;
+  }
+  return true;
+}
+
+</script>
+
+</head>
+
+<body class="freedom">
+<form id="addpref" name="addpref" method="POST" target="faddbook_main_hidden" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_ADDPREFERED">
+<input type="hidden" name="cid" id="cid" value="-1">
+</form>
+<form id="suserv" name="suserv" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN"></form>
+<form id="suser" name="suser" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN">
+<input type="hidden" name="sp" id="sp" value="[sp]">
+<input type="hidden" name="lp" id="sp" value="[lp]">
+<table class="tablesimple" width="90%" cellspacing="0">
+
+<tr class="select"><td class="tlist" colspan="[colspan]">
+[IF PrevPage]<img title="Page précédente" style="cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">[ENDIF PrevPage]
+<img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
+[IF NextPage]<img title="Page suivante" style="cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">[ENDIF NextPage]
+</td></tr>
+
+<tr class="select"><td class="tlist">
+[BLOCK COLS]<td nowrap class="tlist"><input name="rqi_[id]" type="text" style="border:0px;[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';this.style.color='[IF filter]red;[ENDIF filter]'" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">
+</td>[ENDBLOCK COLS]<tr>
+
+[BLOCK DLines]<tr title="[title]" class="unselect"><td  class="tlist" align="right"><img title="[TEXT:add to prefered]" height="16" style="cursor:pointer; border:0" src="[icop]" onclick="document.getElementById('cid').value=[cid]; document.getElementById('addpref').submit(); if (window.parent.faddbook_prefered) window.parent.faddbook_prefered.location.reload();"></td>[BLOCK C[Line]]<td onclick="subwindow(300, 400, '[TEXT:view detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[cid]'); " class="tlist">[content]</td>[ENDBLOCK C[Line]]</tr>
+[ENDBLOCK DLines]
+
+<tr class="select"><td  class="tlist" colspan="[colspan]">
+[IF PrevPage]<img title="Page précédente" style="cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">[ENDIF PrevPage]
+<img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
+[IF NextPage]<img title="Page suivante" style="cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">[ENDIF NextPage]
+</td></tr>
+
+</table>
+
+</form>
+
+<iframe name="faddbook_main_hidden" id="faddbook_main_hidden" style="display:none"></iframe>
+
+</body>
+</html>
+      

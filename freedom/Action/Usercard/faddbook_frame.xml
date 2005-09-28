@@ -1,0 +1,14 @@
+<html>
+<head>
+  <title>[TEXT:freedom address book]</title>
+</head>
+<frameset name="faddbook" id="faddbook" frameborder="no" framespacing="0" border="0"  border="0" resize cols="200pt,*">
+
+  <frameset border="0"   name="faddbook_left" id="faddbook_left" frameborder="no" framespacing="0" rows="50%,50%">
+    <frame name="faddbook_speedsearch" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH" scrolling="no">
+    <frame name="faddbook_prefered"    src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_PREFERED" style="border-style:none" scrolling="no">
+  </frameset>
+
+  <frame id="faddbook_main" name="faddbook_main" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN" scrolling="no">
+
+</html>
