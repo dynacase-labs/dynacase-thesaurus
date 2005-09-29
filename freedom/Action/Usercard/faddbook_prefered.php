@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: faddbook_prefered.php,v 1.1 2005/09/28 15:36:56 marc Exp $
+ * @version $Id: faddbook_prefered.php,v 1.2 2005/09/29 16:29:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -24,10 +24,12 @@ function faddbook_prefered(&$action) {
   $cu = array();
   foreach ($tc as $k => $v) {
     if ($v=="") continue;
-    $cc = getTDoc($dbaccess, $v);
-    $cu[] = array( "id" => $cc["id"], 
-		   "icon" => Doc::GetIcon($cc["icon"]),
-		   "title" => ucwords(strtolower($cc["title"])) );
+    $cc = new_Doc($dbaccess, $v);
+    $cu[] = array( "id" => $cc->id, 
+		   "resume" => $cc->viewDoc($cc->faddbook_resume),
+		   "icon" => $cc->getIcon(),
+		   "title" => ucwords(strtolower($cc->title)),
+		   "jstitle" => addslashes(ucwords(strtolower($cc->title))) );
   }
   $action->lay->setBlockData("Contacts", $cu);
 }

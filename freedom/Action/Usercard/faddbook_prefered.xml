@@ -2,24 +2,35 @@
 
 <head>
 
-[ZONE FDL:HTMLHEAD]
+<!-- [ ZONE FDL:HTMLHEAD] -->
+
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS">
+[JS:REF]
 
 <script type="text/javascript">
+[JS:CODE]
 </script>
 
 </head>
-<body class="freedom">
+<body>
 
-<form id="delpref" name="delpref" method="POST" target="faddbook_pref_hidden" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_DELPREFERED">
+<form style="display:none" id="delpref" name="delpref" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_DELPREFERED">
 <input type="hidden" name="cid" id="cid" value="-1">
 </form>
 
 <table width="100%" cellspacing="0">
 <tr><td colspan="2" class="tocitem0on">[TEXT:my prefered contacts]</td></tr>
 
-[BLOCK Contacts]<tr><td onclick="subwindow(300, 400, '[TEXT:view detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]');"><img height="16" style="border:0" src="[icon]">&nbsp;[title]</td>
-<td><img title="[TEXT:delete from prefered]" height="12" style="cursor:pointer; border:0" src="[IMG:faddbook_delpref.gif]" onclick="if (confirm('[TEXT:confirm delete] [title]')) { document.getElementById('cid').value=[id]; document.getElementById('delpref').submit(); location.reload(); }"></td></tr>
-[ENDBLOCK Contacts]
+[BLOCK Contacts]<tr>
+<td onmouseover="document.getElementById('res[id]').style.display=''" 
+    onmouseout="document.getElementById('res[id]').style.display='none'" 
+    onclick="subwindow(300, 400, '[TEXT:view detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]');">
+<img height="16" style="border:0" src="[icon]">&nbsp;[title]</td>
+<td><img title="[TEXT:delete from prefered]" height="10" style="cursor:pointer; border:0" src="[IMG:faddbook_delpref.gif]" onclick="if (confirm('[TEXT:confirm delete] [jstitle]')) { document.getElementById('cid').value=[id]; document.getElementById('delpref').submit(); location.reload(); }"></td>
+</tr>
+<tr id="res[id]" style="display:none" onclick="document.getElementById('res[id]').style.display='none'"><td colspan="2">
+<div width="95%" style="border:1px solid;">[resume]</div>
+</td></tr>[ENDBLOCK Contacts]
 </table>
 
 <iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none"></iframe>

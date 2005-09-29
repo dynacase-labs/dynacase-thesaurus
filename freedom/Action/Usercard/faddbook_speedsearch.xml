@@ -2,9 +2,14 @@
 
 <head>
 
-[ZONE FDL:HTMLHEAD]
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS">
+
+[JS:REF]
 
 <script type="text/javascript">
+
+[JS:CODE]
+
 var isfirst=[first];
 var sChange=false;
 function sendform(evt) {
@@ -31,13 +36,11 @@ function sendform(evt) {
 <input type="hidden" id="first" value="[first]">
 <input size="16" onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';" onclick="if (isfirst) this.value=''" type="text" name="vtext" id="vtext" value="[vtext]">
 <img height="16" style="position:relative; left:-20px; top:2px;" src="[IMG:faddbook_search.gif]">
-</td></tr>
+<input type="checkbox" name="sallf" title="[TEXT:search in all contact fields]"></td></tr>
+</table>
 
 [IF Result]
-[BLOCK Contacts]<tr><td onclick="subwindow(300, 400, '[TEXT:view detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]');"><img height="16" style="border:0" src="[icon]">&nbsp;[title]</td>
-</tr>
-[ENDBLOCK Contacts][ENDIF Result]
-</table>
+[BLOCK Contacts]<div width="95%" style="border:1px solid;">[resume]</div>[ENDBLOCK Contacts][ENDIF Result]
 
 <iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none"></iframe>
 </body>

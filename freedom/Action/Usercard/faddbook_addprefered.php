@@ -16,5 +16,5 @@ function faddbook_addprefered(&$action) {
     echo "FADDBOOK_PREFERED (apres) = [".$stc."]<br>";
     $action->parent->param->set("FADDBOOK_PREFERED", $stc, PARAM_USER.$action->user->id, $action->parent->id);
   }
-  return;
+  Redirect($action, "USERCARD", "FADDBOOK_MAIN");
 }

@@ -2,9 +2,15 @@
 
 <head>
 
-[ZONE FDL:HTMLHEAD]
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS">
+<!-- [ZONE FDL:HTMLHEAD] -->
+
+[JS:REF]
 
 <script type="text/javascript">
+
+[JS:CODE]
+
 function sendform(evt) {
   evt = (evt) ? evt : ((event) ? event : null );
   var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
@@ -15,14 +21,28 @@ function sendform(evt) {
   return true;
 }
 
+function manageCols() {
+  subwindow(600, 200, 'colums', '[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAINCOLS');
+}
+
 </script>
 
 </head>
 
 <body class="freedom">
-<form id="addpref" name="addpref" method="POST" target="faddbook_main_hidden" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_ADDPREFERED">
+
+<form style="display:none" id="setline" name="setline" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SETUPARAM">
+<input type="hidden" name="pname" id="pname" value="FADDBOOK_MAINLINE">
+<input type="hidden" name="pvalue" id="pvalue" value="[linep]">
+<input type="hidden" name="rapp" value="USERCARD">
+<input type="hidden" name="raction" value="FADDBOOK_MAIN">
+</form>
+
+
+<form style="display:none" id="addpref" name="addpref" method="POST" target="faddbook_prefered" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_ADDPREFERED">
 <input type="hidden" name="cid" id="cid" value="-1">
 </form>
+
 <form id="suserv" name="suserv" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN"></form>
 <form id="suser" name="suser" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN">
 <input type="hidden" name="sp" id="sp" value="[sp]">
@@ -30,22 +50,26 @@ function sendform(evt) {
 <table class="tablesimple" width="90%" cellspacing="0">
 
 <tr class="select"><td class="tlist" colspan="[colspan]">
-[IF PrevPage]<img title="Page précédente" style="cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">[ENDIF PrevPage]
+<img title="Page précédente" style="visibility:[IF PrevPage]visible[ENDIF PrevPage][IFNOT PrevPage]hidden[ENDIF PrevPage]; cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">
 <img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
-[IF NextPage]<img title="Page suivante" style="cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">[ENDIF NextPage]
+<img title="Page suivante" style="visibility:[IF NextPage]visible[ENDIF NextPage][IFNOT NextPage]hidden[ENDIF NextPage]; cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">
+
+<select name="linepp" onchange="getElementById('pvalue').value=this.options[this.selectedIndex].value; getElementById('setline').submit();">[BLOCK BLine]<option value="[count]" [init]>[count][ENDBLOCK BLine]</select>
+
 </td></tr>
 
-<tr class="select"><td class="tlist">
+<tr class="select">
+<td class="tlist"><img title="[TEXT:manage columns]" style="cursor:pointer; border:0" src="[IMG:faddbook_cols.gif]" height="16" onclick="manageCols()"></td>
 [BLOCK COLS]<td nowrap class="tlist"><input name="rqi_[id]" type="text" style="border:0px;[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';this.style.color='[IF filter]red;[ENDIF filter]'" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">
 </td>[ENDBLOCK COLS]<tr>
 
-[BLOCK DLines]<tr title="[title]" class="unselect"><td  class="tlist" align="right"><img title="[TEXT:add to prefered]" height="16" style="cursor:pointer; border:0" src="[icop]" onclick="document.getElementById('cid').value=[cid]; document.getElementById('addpref').submit(); if (window.parent.faddbook_prefered) window.parent.faddbook_prefered.location.reload();"></td>[BLOCK C[Line]]<td onclick="subwindow(300, 400, '[TEXT:view detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[cid]'); " class="tlist">[content]</td>[ENDBLOCK C[Line]]</tr>
+[BLOCK DLines]<tr title="[title]" class="unselect"><td  class="tlist" align="right"><img title="[TEXT:add to prefered]" height="16" style="cursor:pointer; border:0" src="[icop]" onclick="document.getElementById('cid').value=[cid]; document.getElementById('addpref').submit(); if (window.parent.faddbook_prefered) window.parent.faddbook_prefered.location.reload();"></td>[BLOCK C[Line]]<td onclick="subwindow(300, 400, '[TEXT:detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[cid]'); " class="tlist">[content]</td>[ENDBLOCK C[Line]]</tr>
 [ENDBLOCK DLines]
 
 <tr class="select"><td  class="tlist" colspan="[colspan]">
-[IF PrevPage]<img title="Page précédente" style="cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">[ENDIF PrevPage]
+<img title="Page précédente" style="visibility:[IF PrevPage]visible[ENDIF PrevPage][IFNOT PrevPage]hidden[ENDIF PrevPage]; cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">
 <img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
-[IF NextPage]<img title="Page suivante" style="cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">[ENDIF NextPage]
+<img title="Page suivante" style="visibility:[IF NextPage]visible[ENDIF NextPage][IFNOT NextPage]hidden[ENDIF NextPage]; cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">
 </td></tr>
 
 </table>
