@@ -1,35 +1,29 @@
 <html>
-
 <head>
-
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS">
-[<!-- ZONE FDL:HTMLHEAD] -->
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=USERCARD&action=FADDBOOK_CSS">
 [JS:REF]
 <script type="text/javascript">
 [JS:CODE]
 </script>
 
 </head>
-<body class="freedom">
+<body class="fabbody">
 
 <form id="maincols" name="maincols" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAINCOLS">
 <input type="hidden" id="resetcols" name="resetcols" value="0">
 
+<div class="fabzone">[TEXT:choose colums]</div>
+
 <table width="100%" cellspacing="0">
-<tr><td class="tocitem0on">[TEXT:choose colums]</td></tr>
-<tr><td class="tocitem0on">[TEXT:list] / [TEXT:resume] / [TEXT:label]</td></tr>
 
-[BLOCK Columns]<tr><td>
-<input title="[label] : [TEXT:add in list]" type="checkbox" name="faddb_cols_l_[id]" [l_view]>
-<!-- <input title="[label] : [TEXT:add in resume]" type="checkbox" name="faddb_cols_r_[id]" [r_view]> -->
-[label]
-</td></tr>[ENDBLOCK Columns]
+[BLOCK Columns]<tr><td><input title="[TEXT:select to view colum] [label]" type="checkbox" name="faddb_cols_l_[id]" [l_view]>[label]</td></tr>[ENDBLOCK Columns]
 
-<tr><td align="right" class="tocitem0on">
+</table>
+
+<div class="fabzone">
 <img title="[TEXT:reset to default]" style="border:0; cursor:pointer;" height="16" src="[IMG:faddbook_reset.gif]" onclick="document.getElementById('resetcols').value=1; document.getElementById('maincols').submit()">
 <img title="[TEXT:save modifications]" style="border:0; cursor:pointer;" height="16" src="[IMG:faddbook_accept.gif]" onclick="document.getElementById('maincols').submit()">
-</td></tr>
-</table>
+</div>
 
 </form>
 <iframe name="faddbook_maincols_hidden" id="faddbook_maincols_hidden" style="display:none"></iframe>

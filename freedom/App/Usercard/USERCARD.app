@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.12 2005/09/29 16:29:12 marc Exp $
+// $Id: USERCARD.app,v 1.13 2005/09/30 16:54:45 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -72,6 +72,12 @@ $action_desc = array (
    "acl"                =>"GENERIC_READ",
   ),
 
+  array(
+   "name"               =>"FADDBOOK_CSS",
+   "short_name"         =>N_("address book css"),
+   "acl"                =>"GENERIC_READ",
+   "root"               =>"N"
+  ),
   array(
    "name"               =>"FADDBOOK_SETUPARAM",
    "short_name"         =>N_("address book set user param"),

@@ -2,8 +2,7 @@
 
 <head>
 
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS">
-<!-- [ZONE FDL:HTMLHEAD] -->
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=USERCARD&action=FADDBOOK_CSS">
 
 [JS:REF]
 
@@ -29,7 +28,7 @@ function manageCols() {
 
 </head>
 
-<body class="freedom">
+<body class="fabbody">
 
 <form style="display:none" id="setline" name="setline" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SETUPARAM">
 <input type="hidden" name="pname" id="pname" value="FADDBOOK_MAINLINE">
@@ -47,32 +46,56 @@ function manageCols() {
 <form id="suser" name="suser" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN">
 <input type="hidden" name="sp" id="sp" value="[sp]">
 <input type="hidden" name="lp" id="sp" value="[lp]">
-<table class="tablesimple" width="90%" cellspacing="0">
 
-<tr class="select"><td class="tlist" colspan="[colspan]">
+
+<div class="fabzone">
+<table border="0" width="100%"><tr>
+<td width="30%">
 <img title="Page précédente" style="visibility:[IF PrevPage]visible[ENDIF PrevPage][IFNOT PrevPage]hidden[ENDIF PrevPage]; cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">
 <img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
 <img title="Page suivante" style="visibility:[IF NextPage]visible[ENDIF NextPage][IFNOT NextPage]hidden[ENDIF NextPage]; cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">
+</td>
 
+<td class="fabzone">[TEXT:line per page : ]
 <select name="linepp" onchange="getElementById('pvalue').value=this.options[this.selectedIndex].value; getElementById('setline').submit();">[BLOCK BLine]<option value="[count]" [init]>[count][ENDBLOCK BLine]</select>
+</td>
+<tr></table>
 
-</td></tr>
+</div>
 
-<tr class="select">
-<td class="tlist"><img title="[TEXT:manage columns]" style="cursor:pointer; border:0" src="[IMG:faddbook_cols.gif]" height="16" onclick="manageCols()"></td>
-[BLOCK COLS]<td nowrap class="tlist"><input name="rqi_[id]" type="text" style="border:0px;[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';this.style.color='[IF filter]red;[ENDIF filter]'" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">
-</td>[ENDBLOCK COLS]<tr>
 
-[BLOCK DLines]<tr title="[title]" class="unselect"><td  class="tlist" align="right"><img title="[TEXT:add to prefered]" height="16" style="cursor:pointer; border:0" src="[icop]" onclick="document.getElementById('cid').value=[cid]; document.getElementById('addpref').submit(); if (window.parent.faddbook_prefered) window.parent.faddbook_prefered.location.reload();"></td>[BLOCK C[Line]]<td onclick="subwindow(300, 400, '[TEXT:detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[cid]'); " class="tlist">[content]</td>[ENDBLOCK C[Line]]</tr>
+
+<table width="98%" align="center" cellspacing="0">
+
+
+<tr class="fabzone">
+
+<td><img title="[TEXT:manage columns]" style="cursor:pointer; border:0" src="[IMG:faddbook_cols.gif]" height="16px" onclick="manageCols()"></td>
+[BLOCK COLS]<td nowrap>
+[IF ATTimage][label][ENDIF ATTimage]
+[IF ATTnormal]<input name="rqi_[id]" type="text" style="border:0px;[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';this.style.color='[IF filter]red;[ENDIF filter]'" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">[ENDIF ATTnormal]
+</td>[ENDBLOCK COLS]</tr>
+
+[BLOCK DLines]<tr title="[title]"  class="fabcontact" onmouseover="this.className='fabcontactsel'" onmouseout="this.className='fabcontact'" ><td nowrap align="center"><img title="[TEXT:add to prefered]" height="16" style="cursor:pointer; border:0" src="[icop]" onclick="document.getElementById('cid').value=[cid]; document.getElementById('addpref').submit(); if (window.parent.faddbook_prefered) window.parent.faddbook_prefered.location.reload();"></td>[BLOCK C[Line]]<td nowrap onclick="subwindow(300, 400, '[TEXT:detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[cid]'); ">[IF ATTimage]<img border="0" height="16" src="[content]">[ENDIF ATTimage][IF ATTnormal][content][ENDIF ATTnormal]</td>[ENDBLOCK C[Line]]</tr>
 [ENDBLOCK DLines]
 
-<tr class="select"><td  class="tlist" colspan="[colspan]">
+
+</table>
+
+<div class="fabzone">
+<table border="0" width="100%"><tr>
+<td width="30%">
 <img title="Page précédente" style="visibility:[IF PrevPage]visible[ENDIF PrevPage][IFNOT PrevPage]hidden[ENDIF PrevPage]; cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">
 <img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
 <img title="Page suivante" style="visibility:[IF NextPage]visible[ENDIF NextPage][IFNOT NextPage]hidden[ENDIF NextPage]; cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">
-</td></tr>
+</td>
 
-</table>
+<td class="fabzone">[TEXT:line per page : ]
+<select name="linepp" onchange="getElementById('pvalue').value=this.options[this.selectedIndex].value; getElementById('setline').submit();">[BLOCK BLine]<option value="[count]" [init]>[count][ENDBLOCK BLine]</select>
+</td>
+<tr></table>
+
+</div>
 
 </form>
 

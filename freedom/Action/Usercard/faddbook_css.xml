@@ -1,0 +1,98 @@
+.fabbody {
+padding : 0px;
+margin : 0px;
+font-family: lucida, arial, sans;
+background: [CORE_BGCOLOR]; 
+color: [CORE_TEXTFGCOLOR];
+font-size : 8pt;
+}
+
+TABLE TR TD {
+padding : 0px;
+margin : 0px;
+font-family: lucida, arial, sans;
+font-size : 8pt;
+}
+
+
+input {
+font-size : 8pt;
+border : 1px solid lightgrey;
+}
+
+DIV.fabzone, TR.fabzone TD {
+  background-color: [CORE_BGCOLORALTERN];
+  border: 2px outset;
+  padding : 2px;
+  font-weight : bold;
+}
+
+.fabcontact, TR.fabcontact TD {
+  cursor: crosshair;
+  border-style: outset none inset none;
+  border-color: lightgrey;
+  border-width: 1px;
+  empty-cells: show;
+}
+.fabcontactsel, TR.fabcontactsel TD {
+  cursor: pointer;
+  border-width: 1px;
+  border-color: lightgrey;
+  border-style: inset none outset none;
+  background-color: [CORE_BGCOLORHIGH];
+  empty-cells: show;
+}
+
+DIV.fabcontact {
+  cursor: crosshair;
+  border-style: outset;
+  border-color: lightgrey;
+  border-width: 1px;
+  empty-cells: show;
+}
+DIV.fabcontactsel {
+  cursor: pointer;
+  border-width: 1px;
+  border-color: lightgrey;
+  border-style: inset;
+  background-color: [CORE_BGCOLORHIGH];
+  empty-cells: show;
+}
+A:hover {
+background-color:[CORE_BGCOLORHIGH]
+}
+
+A {
+}
+
+
+/* Resume card */
+
+DIV.fabresume {
+cursor:pointer;
+-moz-border-radius: 8;
+margin:0pt;
+padding:3pt;
+border-width : 2px;
+border-style : outset;
+border-color : [CORE_BGCOLORALTERN];
+}
+DIV.fabresume:hover {
+border-style : inset;
+background-color: white;
+}
+
+.fabresumetitle {
+font-weight : bold;
+font-variant: small-caps;
+font-size : 110%;
+} 
+
+.fabresumesoc {
+font-style: italic;
+text-transform : lowercase;
+}
+.fabresumesoc:first-letter {
+text-transform:capitalize;
+}
+  

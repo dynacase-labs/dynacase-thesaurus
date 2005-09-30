@@ -1,39 +1,71 @@
 <html>
-
 <head>
-
-<!-- [ ZONE FDL:HTMLHEAD] -->
-
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS">
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=USERCARD&action=FADDBOOK_CSS">
 [JS:REF]
 
 <script type="text/javascript">
 [JS:CODE]
+
+
+var timeValue = 500;
+var currentElt = '';
+var timerId = -1;
+
+function displayResumeCard() {
+  var idr = 'res'+currentElt;
+  var idl = 'l'+currentElt;
+  var celt = document.getElementById(idr);
+  if (!celt) return false;
+  document.getElementById(idr).style.display = '';
+  document.getElementById(idl).style.display = 'none';
+  return true;
+}
+
+function hideResumeCard(elt) {
+  var idr = 'res'+elt;
+  var idl = 'l'+elt;
+  var celt = document.getElementById(idr);
+  if (!celt) return false;
+  document.getElementById(idr).style.display = 'none';
+  document.getElementById(idl).style.display = '';
+  return true;
+}
+
+function initTimer(elt) {
+  if (currentElt == elt) return true;
+  resetTimer();
+  currentElt = elt;
+  timerId = self.setTimeout("displayResumeCard()", timeValue);
+  return true;
+}
+
+function resetTimer() {
+  if (timerId!=-1) clearTimeout(timerId);
+  timerId = -1;
+  currentElt = '';
+}
+  
 </script>
 
 </head>
-<body>
+<body class="fabbody">
 
 <form style="display:none" id="delpref" name="delpref" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_DELPREFERED">
 <input type="hidden" name="cid" id="cid" value="-1">
 </form>
 
-<table width="100%" cellspacing="0">
-<tr><td colspan="2" class="tocitem0on">[TEXT:my prefered contacts]</td></tr>
 
-[BLOCK Contacts]<tr>
-<td onmouseover="document.getElementById('res[id]').style.display=''" 
-    onmouseout="document.getElementById('res[id]').style.display='none'" 
-    onclick="subwindow(300, 400, '[TEXT:view detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]');">
-<img height="16" style="border:0" src="[icon]">&nbsp;[title]</td>
-<td><img title="[TEXT:delete from prefered]" height="10" style="cursor:pointer; border:0" src="[IMG:faddbook_delpref.gif]" onclick="if (confirm('[TEXT:confirm delete] [jstitle]')) { document.getElementById('cid').value=[id]; document.getElementById('delpref').submit(); location.reload(); }"></td>
-</tr>
-<tr id="res[id]" style="display:none" onclick="document.getElementById('res[id]').style.display='none'"><td colspan="2">
-<div width="95%" style="border:1px solid;">[resume]</div>
-</td></tr>[ENDBLOCK Contacts]
-</table>
+<div class="fabzone" onclick="location.reload()">[TEXT:my prefered contacts]</div>
+
+
+[BLOCK Contacts]
+<div style="margin:0px 15px 0px 15px;" class="fabcontact" id="l[id]" onmouseover="this.className='fabcontactsel'; initTimer([id]);" onmouseout="this.className='fabcontact'; resetTimer();" onclick="subwindow(300, 400, '[TEXT:view detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]'); this.className='fabcontact'" >
+&nbsp;<img title="[TEXT:delete from prefered]" height="6" style="cursor:pointer; border:0" src="[IMG:faddbook_delpref.gif]" onclick="if (confirm('[TEXT:confirm delete] [jstitle]')) { document.getElementById('cid').value=[id]; document.getElementById('delpref').submit(); location.reload(); }">&nbsp;<img height="16" style="border:0" src="[icon]">&nbsp;[title]
+</div>
+<div id="res[id]" style="display:none" onclick="hideResumeCard([id]); document.getElementById('l[id]').className='fabcontact'" width="95%">[resume]</div>
+[ENDBLOCK Contacts]
+
 
 <iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none"></iframe>
 </body>
 </html>
-      

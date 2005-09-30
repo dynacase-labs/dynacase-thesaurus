@@ -39,7 +39,7 @@ function faddbook_maincols(&$action) {
 	if ($ncols[$k]["l"]!="") $cols[$k]["l"] = $ncols[$k]["l"];
 	if ($ncols[$k]["r"]!="") $cols[$k]["r"] = $ncols[$k]["r"];
       }
-      $allcol[] = $k."%".$cols[$k]["l"]."%".$cols[$k]["r"];
+      if ($cols[$k]["l"]==1) $allcol[] = $k."%".$cols[$k]["l"];
     }
     $scol = implode("|", $allcol);
     $action->parent->param->set("FADDBOOK_MAINCOLS", $scol, PARAM_USER.$action->user->id, $action->parent->id);

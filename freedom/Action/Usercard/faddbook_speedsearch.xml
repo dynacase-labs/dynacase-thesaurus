@@ -1,15 +1,9 @@
 <html>
-
 <head>
-
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS">
-
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=USERCARD&action=FADDBOOK_CSS">
 [JS:REF]
-
 <script type="text/javascript">
-
 [JS:CODE]
-
 var isfirst=[first];
 var sChange=false;
 function sendform(evt) {
@@ -25,22 +19,14 @@ function sendform(evt) {
   return true;
 }
 </script>
-
 </head>
-<body class="freedom">
-
+<body class="fabbody">
 <form id="suser" name="suser" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH">
-<table width="100%" cellspacing="0">
-<tr><td colspan="2" class="tocitem0on">
-&nbsp;<img align="absmiddle" height="16" style="border:0" src="[icon]">&nbsp;
 <input type="hidden" id="first" value="[first]">
-<input size="16" onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';" onclick="if (isfirst) this.value=''" type="text" name="vtext" id="vtext" value="[vtext]">
-<img height="16" style="position:relative; left:-20px; top:2px;" src="[IMG:faddbook_search.gif]">
-<input type="checkbox" name="sallf" title="[TEXT:search in all contact fields]"></td></tr>
-</table>
+<div class="fabzone" width="100%"><img align="absmiddle" height="16" style="border:0" src="[icon]">&nbsp;<input size="15" onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';" onclick="if (isfirst) this.value=''" type="text" name="vtext" id="vtext" value="[vtext]"><img height="16" style="position:relative; left:-20px; top:2px;" src="[IMG:faddbook_search.gif]"><input style="border:0px" type="checkbox" name="sallf" title="[TEXT:search in all contact fields]"></div>
 
-[IF Result]
-[BLOCK Contacts]<div width="95%" style="border:1px solid;">[resume]</div>[ENDBLOCK Contacts][ENDIF Result]
+[IF Result][BLOCK Contacts]
+<span onclick="subwindow(300, 400, '[TEXT:view_detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]');">[resume]</span>[ENDBLOCK Contacts][ENDIF Result]
 
 <iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none"></iframe>
 </body>

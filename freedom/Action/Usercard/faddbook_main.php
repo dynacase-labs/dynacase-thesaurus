@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.2 2005/09/29 16:29:12 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.3 2005/09/30 16:54:45 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -40,8 +40,9 @@ function faddbook_main(&$action)
   $action->lay->set("sp", $pstart);
   $action->lay->set("lp", $lpage);
 
+  $sfam = $action->getParam("DEFAULT_FAMILY");
 
-  $dfam = createDoc($dbaccess, "USER",  false);
+  $dfam = createDoc($dbaccess, $sfam,  false);
   $fattr = $dfam->GetAttributes();
 
   // Get user configuration
@@ -68,7 +69,7 @@ function faddbook_main(&$action)
     $filter[] = "( title ~* '".$rqi_form["__ititle"]."' ) ";
     $sf = $rqi_form["__ititle"];
   }
-  $td[] = array( "id" => "__ititle", "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true) );
+  $td[] = array( "ATTimage" => false, "ATTnormal" => true, "id" => "__ititle", "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true) );
   $cols++;
 
   $vattr = array();
@@ -77,28 +78,44 @@ function faddbook_main(&$action)
       if (isset($ucols[$v->id]) && isset($ucols[$v->id]["l"]) && $ucols[$v->id]["l"]==1) {
 	$sf = "";
 	$clabel = ucwords(strtolower($v->labelText));
-	$vattr[] = $v->id;
+	$vattr[] = $v;
+	$attimage = $attnormal = false;
+	switch ($v->type) {
+	case "image":  $attimage = true; break;
+	default:  $attnormal = true;
+	}
 	if (isset($rqi_form[$v->id]) && $rqi_form[$v->id]!="" && $rqi_form[$v->id] != $clabel) {
+	  $attimage = $attnormal = false;
 	  $filter[] = "( ".$v->id." ~* '".$rqi_form[$v->id]."' ) ";
 	  $sf = $rqi_form[$v->id];
 	} 
-	$td[] = array( "id" => $v->id, "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true) );
+	$td[] = array( "ATTimage" => $attimage, "ATTnormal" => $attnormal, "id" => $v->id, "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true) );
 	$cols++;
       }		    
     }
+//     print_r2($td);
     $action->lay->SetBlockData("COLS", $td);
   }
-//  getChildDoc  (string $dbaccess, array $dirid, [string $start = "0"], [string $slice = "ALL"], [array $sqlfilters = array()], [int $userid = 1], [string $qtype = "LIST"], [int $fromid = ""], [bool $distinct = false], [string $orderby = "title"], [bool $latest = true])
 
   $psearch = $pstart * $lpage;
   $fsearch = $psearch + $lpage + 1;
-  $cl = $rq=getChildDoc($dbaccess, 0, $psearch, $fsearch, $filter, $action->user->id, "TABLE", "USER", true);
+  $cl = $rq=getChildDoc($dbaccess, 0, $psearch, $fsearch, $filter, $action->user->id, "TABLE", $sfam, true);
   $dline = array(); $il = 0;
   foreach ($cl as $k => $v) {
     if ($il>=$lpage) continue;
     $dcol = array();
-    $dcol[] = array( "content" =>  ucwords(strtolower($v["title"])));
-    foreach ($vattr as $ka => $va) $dcol[] = array( "content" => $v[$va], "cid" => $v["id"]);
+    $ddoc=getDocObject($dbaccess,$v);
+    $dcol[] = array( "content" =>  ucwords(strtolower($v["title"])), "ATTimage" => false, "ATTnormal" => true,);
+    foreach ($vattr as $ka => $va) {
+
+      $attimage = $attnormal = false;
+      switch ($va->type) {
+      case "image":  $attimage = true; break;
+      default:  $attnormal = "normal";
+      }
+      $dcol[] = array( "content" =>  $ddoc->GetHtmlAttrValue($va->id, "faddbook_blanck", false),
+		       "cid" => $v["id"], "ATTimage" => $attimage, "ATTnormal" => $attnormal );
+    }
     $dline[$il]["cid"] = $v["id"];
     $dline[$il]["title"] = ucwords(strtolower($v["title"]));
     $dline[$il]["Line"] = $il;
