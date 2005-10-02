@@ -1,0 +1,39 @@
+<html>
+<head>
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=USERCARD&action=FADDBOOK_CSS">
+[JS:REF]
+
+<script type="text/javascript">
+
+[JS:CODE]
+
+var lOnglet = [ 'contact', 'society' ];
+
+function showInfo(id) {
+  var elt;
+  for (var i=0; i<lOnglet.length; i++) {
+    if (elt = document.getElementById(lOnglet[i])) {
+      elt.style.display = 'none';
+      document.getElementById('o'+lOnglet[i]).className = 'fabog';
+      if (lOnglet[i]==id) {
+	elt.style.display = '';
+	document.getElementById('o'+lOnglet[i]).className = 'fabogsel';
+      }	
+    }
+  }
+  return true;
+}
+
+</script>
+
+</head>
+<body class="fabbody">
+
+<div class="fabcard">
+
+Vide pour l'instant
+
+
+</div>
+</body>
+</html>
