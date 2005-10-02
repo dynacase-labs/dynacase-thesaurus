@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.3 2005/09/30 16:54:45 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.4 2005/10/02 12:34:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -85,7 +85,6 @@ function faddbook_main(&$action)
 	default:  $attnormal = true;
 	}
 	if (isset($rqi_form[$v->id]) && $rqi_form[$v->id]!="" && $rqi_form[$v->id] != $clabel) {
-	  $attimage = $attnormal = false;
 	  $filter[] = "( ".$v->id." ~* '".$rqi_form[$v->id]."' ) ";
 	  $sf = $rqi_form[$v->id];
 	} 
@@ -114,9 +113,10 @@ function faddbook_main(&$action)
       default:  $attnormal = "normal";
       }
       $dcol[] = array( "content" =>  $ddoc->GetHtmlAttrValue($va->id, "faddbook_blanck", false),
-		       "cid" => $v["id"], "ATTimage" => $attimage, "ATTnormal" => $attnormal );
+		       "cid" => $v["id"], "ATTimage" => $attimage, "ATTnormal" => $attnormal, "fabzone" => $ddoc->faddbook_card );
     }
     $dline[$il]["cid"] = $v["id"];
+    $dline[$il]["fabzone"] = $ddoc->faddbook_card;
     $dline[$il]["title"] = ucwords(strtolower($v["title"]));
     $dline[$il]["Line"] = $il;
     $dline[$il]["icop"] = Doc::GetIcon($v["icon"]);
@@ -124,7 +124,7 @@ function faddbook_main(&$action)
     $il++;
   }
   $action->lay->setBlockData("DLines", $dline);
-  $action->lay->set("colspan", $cols+1);
+  $action->lay->set("colspan", ($cols-1));
   
   $action->lay->set("NextPage", false);
   $action->lay->set("PrevPage", false);

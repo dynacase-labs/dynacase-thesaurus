@@ -26,7 +26,7 @@ function sendform(evt) {
 <div class="fabzone" width="100%"><img align="absmiddle" height="16" style="border:0" src="[icon]">&nbsp;<input size="15" onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';" onclick="if (isfirst) this.value=''" type="text" name="vtext" id="vtext" value="[vtext]"><img height="16" style="position:relative; left:-20px; top:2px;" src="[IMG:faddbook_search.gif]"><input style="border:0px" type="checkbox" name="sallf" title="[TEXT:search in all contact fields]"></div>
 
 [IF Result][BLOCK Contacts]
-<span onclick="subwindow(300, 400, '[TEXT:view_detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]');">[resume]</span>[ENDBLOCK Contacts][ENDIF Result]
+<span onclick="subwindow(300, 400, '[TEXT:view_detail][id]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]&zone=[fabzone]');">[resume]</span>[ENDBLOCK Contacts][ENDIF Result]
 
 <iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none"></iframe>
 </body>

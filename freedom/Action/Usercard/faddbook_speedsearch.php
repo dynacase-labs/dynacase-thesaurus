@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_speedsearch.php,v 1.3 2005/09/30 16:54:45 marc Exp $
+ * @version $Id: faddbook_speedsearch.php,v 1.4 2005/10/02 12:34:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -42,7 +42,7 @@ function faddbook_speedsearch(&$action)
   $rq = getChildDoc($dbaccess, 0, 0, 25, $filter, $action->user->id, "LIST", $sfam, true, "title");
   $cu = array();
   foreach ($rq as $k => $v) {
-    $cu[] = array( "id" => $v->id, "resume" => $v->viewdoc($v->faddbook_resume));
+    $cu[] = array( "id" => $v->id, "fabzone" => $v->faddbook_card, "resume" => $v->viewdoc($v->faddbook_resume));
   }
   if (count($cu)>0) $action->lay->set("Result", true);
   $action->lay->setBlockData("Contacts", $cu);

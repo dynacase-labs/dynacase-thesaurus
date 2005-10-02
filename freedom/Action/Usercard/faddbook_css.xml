@@ -1,6 +1,5 @@
 .fabbody {
-padding : 0px;
-margin : 0px;
+margin : 5px;
 font-family: lucida, arial, sans;
 background: [CORE_BGCOLOR]; 
 color: [CORE_TEXTFGCOLOR];
@@ -16,21 +15,36 @@ font-size : 8pt;
 
 
 input {
+background-color: [CORE_BGCOLORALTERN];
 font-size : 8pt;
-border : 1px solid lightgrey;
+border-style: thin;
+border-color: [CORE_BGCOLORHIGH];
+border-width: 1px;
+margin:2px;
 }
 
 DIV.fabzone, TR.fabzone TD {
   background-color: [CORE_BGCOLORALTERN];
-  border: 2px outset;
-  padding : 2px;
+  border-style: outset none outset none;
+  border-color: [CORE_BGCOLORALTERN];
+  border-width: 1px;
+  font-weight : bold;
+}
+
+TR.fabheadlist TD {
+  valign:absmiddle;
+  background-color: [CORE_BGCOLORALTERN];
+  border-style: inset none inset none;
+  border-color: [CORE_BGCOLORALTERN];
+  border-width: 1px;
+  margin : 2px;
   font-weight : bold;
 }
 
 .fabcontact, TR.fabcontact TD {
   cursor: crosshair;
   border-style: outset none inset none;
-  border-color: lightgrey;
+  border-color: [CORE_BGCOLORHIGH];
   border-width: 1px;
   empty-cells: show;
 }
@@ -66,7 +80,7 @@ A {
 }
 
 
-/* Resume card */
+/*    Resume card */
 
 DIV.fabresume {
 cursor:pointer;
@@ -96,3 +110,90 @@ text-transform : lowercase;
 text-transform:capitalize;
 }
   
+/* Carte */
+
+DIV.fabcard {
+cursor:pointer;
+-moz-border-radius: 8;
+margin:0pt;
+padding:5pt;
+border-width : 2px;
+border-style : outset;
+border-color : [CORE_BGCOLORALTERN];
+}
+
+.fabctitlep {
+padding:10px 0px 0px 10px;
+} 
+
+.fabctitle {
+font-weight : bold;
+font-variant: small-caps;
+font-size : 200%;
+} 
+.fabcsoc {
+font-weight : bold;
+font-variant: small-caps;
+font-size : 160%;
+} 
+
+.fabcrub {
+font-size : 120%;
+font-weight : bold;
+}
+.fabcrubbigger {
+font-weight : bold;
+font-size : 140%;
+}
+.fabccom {
+}
+
+.fabcciv {
+font-style: italic;
+text-transform : lowercase;
+font-size : 120%;
+}
+.fabcciv:first-letter {
+text-transform:capitalize;
+}
+
+.fabcaddress {
+padding:10px 0px 0px 0px;
+font-style: italic;
+text-transform : lowercase;
+font-size : 120%;
+border-width : 1px;
+border-style :  none none solid none;
+}
+
+.fabogcontent {
+padding:2px;
+border-width : 1px;
+border-style : outset;
+border-color : [CORE_BGCOLORALTERN];
+}
+.fabogdetail {
+padding: 0px 10px 0px 10px;
+border-width : 1px;
+border-style : none  none none solid;
+border-color : [CORE_BGCOLORALTERN];
+}
+.fabog {
+border-width : 1px;
+border-style : outset;
+cursor:pointer;
+}
+.fabogover {
+border-width : 1px;
+border-style : inset;
+border-color : [CORE_BGCOLORALTERN];
+background-color : [CORE_BGCOLORALTERN];
+cursor:pointer;
+}
+.fabogsel {
+border-width : 2px;
+border-style : inset none inset none;
+border-color : [CORE_BGCOLORHIGH];
+background-color : [CORE_BGCOLORHIGH];
+cursor:pointer;
+}

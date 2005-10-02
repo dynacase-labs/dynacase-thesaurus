@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: faddbook_prefered.php,v 1.2 2005/09/29 16:29:12 marc Exp $
+ * @version $Id: faddbook_prefered.php,v 1.3 2005/10/02 12:34:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -21,6 +21,10 @@ function faddbook_prefered(&$action) {
   $cpref = $action->getParam("FADDBOOK_PREFERED", "");
   $tc = explode("|", $cpref);
 
+  $sfam = $action->getParam("DEFAULT_FAMILY");
+  $fam = new_Doc($dbaccess, $sfam);
+  $action->lay->set("icon", $fam->getIcon());
+
   $cu = array();
   foreach ($tc as $k => $v) {
     if ($v=="") continue;
@@ -29,8 +33,14 @@ function faddbook_prefered(&$action) {
 		   "resume" => $cc->viewDoc($cc->faddbook_resume),
 		   "icon" => $cc->getIcon(),
 		   "title" => ucwords(strtolower($cc->title)),
+		   "fabzone" => $cc->faddbook_card,
 		   "jstitle" => addslashes(ucwords(strtolower($cc->title))) );
   }
+  usort($cu,  "sortmya");
   $action->lay->setBlockData("Contacts", $cu);
 }
+function sortmya($a, $b) {
+  return strcmp($a["title"], $b["title"]);
+}
+
 ?>

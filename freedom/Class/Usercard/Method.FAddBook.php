@@ -1,8 +1,8 @@
 
-var $faddbook_card = "USERCARD:FADDBOOK_CARD";
-var $faddbook_resume = "USERCARD:FADDBOOK_RESUME";
+var $faddbook_card = "USERCARD:FADDBOOK_CARD:T";
+var $faddbook_resume = "USERCARD:FADDBOOK_RESUME:S";
 
-function faddbook_resume()
+function faddbook_resume($onlyresume=true)
 {
 
   global $action;
@@ -16,10 +16,6 @@ function faddbook_resume()
     $imgu = $this->GetHtmlValue($this->getAttribute("us_photo"), $img);
     $this->lay->set("photo", $imgu);
   }
-
-  $civ = $this->getValue("us_civility");
-  $this->lay->set("hasCiv", ($civ!="" ? true : false));
-  $this->lay->set("civilite", $civ);
 
   $this->lay->set("nom", $this->getValue("us_lname"));
   $this->lay->set("prenom", $this->getValue("us_fname"));
@@ -52,7 +48,3 @@ function faddbook_resume()
    
 }
 
-function faddbook_card() 
-{
-
-}

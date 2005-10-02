@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-22 11:21+0200\n"
+"POT-Creation-Date: 2005-10-02 14:13+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -717,20 +717,6 @@ msgstr ""
 msgid "no vcard file specified"
 msgstr ""
 
-msgid "Status for sending mail"
-msgstr ""
-
-#, fuzzy
-msgid "username"
-msgstr "Lastname"
-
-#, fuzzy
-msgid "address"
-msgstr "Add new contact card"
-
-msgid "mailstatus"
-msgstr ""
-
 #, fuzzy
 msgid "mail edition"
 msgstr "Edit"
@@ -787,15 +773,6 @@ msgstr "Start search"
 #, fuzzy
 msgid "Close"
 msgstr "Create"
-
-msgid "it is the last"
-msgstr ""
-
-msgid "it is the first"
-msgstr ""
-
-msgid "PubliPreview"
-msgstr ""
 
 msgid "Properties:"
 msgstr ""
@@ -1747,6 +1724,86 @@ msgstr ""
 msgid "Pages Jaunes"
 msgstr ""
 
+msgid "line per page : "
+msgstr ""
+
+#, fuzzy
+msgid "manage columns"
+msgstr "Add new contact card"
+
+#, fuzzy
+msgid "filter on"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "add to prefered"
+msgstr "Modify"
+
+#, fuzzy
+msgid "detail"
+msgstr "Email"
+
+msgid "freedom address book"
+msgstr ""
+
+#, fuzzy
+msgid "my prefered contacts"
+msgstr "Modify"
+
+#, fuzzy
+msgid "confirm delete"
+msgstr "Delete"
+
+#, fuzzy
+msgid "delete from prefered"
+msgstr "Delete"
+
+#, fuzzy
+msgid "view detail"
+msgstr "Start search"
+
+msgid "search in all contact fields"
+msgstr ""
+
+#, fuzzy
+msgid "view_detail"
+msgstr "Start search"
+
+#, fuzzy
+msgid "choose colums"
+msgstr "Start search"
+
+msgid "select to view colum"
+msgstr ""
+
+msgid "reset to default"
+msgstr ""
+
+#, fuzzy
+msgid "save modifications"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "contact"
+msgstr "Edit"
+
+#, fuzzy
+msgid "address"
+msgstr "Add new contact card"
+
+msgid "cedex"
+msgstr ""
+
+msgid "other infos"
+msgstr ""
+
+msgid "web"
+msgstr ""
+
+#, fuzzy
+msgid "categorie"
+msgstr "Category"
+
 #, fuzzy
 msgid "fromdate"
 msgstr "Edit"
@@ -2115,6 +2172,25 @@ msgstr ""
 msgid "Empty Post-It"
 msgstr ""
 
+msgid "Status for sending mail"
+msgstr ""
+
+#, fuzzy
+msgid "username"
+msgstr "Lastname"
+
+msgid "mailstatus"
+msgstr ""
+
+msgid "it is the last"
+msgstr ""
+
+msgid "it is the first"
+msgstr ""
+
+msgid "PubliPreview"
+msgstr ""
+
 #, fuzzy
 msgid "Conditions"
 msgstr "Edit"
@@ -2180,10 +2256,6 @@ msgid "list"
 msgstr ""
 
 #, fuzzy
-msgid "detail"
-msgstr "Email"
-
-#, fuzzy
 msgid "icon"
 msgstr "Edit"
 
@@ -2243,10 +2315,6 @@ msgstr ""
 
 msgid "collapse all"
 msgstr ""
-
-#, fuzzy
-msgid "view detail"
-msgstr "Start search"
 
 msgid "loop detected. You must undo this selection"
 msgstr ""
@@ -2995,6 +3063,32 @@ msgstr ""
 msgid "usercard home page"
 msgstr ""
 
+#, fuzzy
+msgid "address book css"
+msgstr "Add new contact card"
+
+msgid "address book set user param"
+msgstr ""
+
+msgid "address book choose main view column"
+msgstr ""
+
+msgid "address book frame page"
+msgstr ""
+
+msgid "address book main page"
+msgstr ""
+
+#, fuzzy
+msgid "address book speed search"
+msgstr "Start search"
+
+msgid "address book prefered contacts"
+msgstr ""
+
+msgid "address book add a prefered contacts"
+msgstr ""
+
 msgid "mail will be calculated from domain"
 msgstr ""
 
@@ -3020,6 +3114,17 @@ msgstr ""
 
 msgid "LDAP activated"
 msgstr ""
+
+msgid "main view line displayed"
+msgstr ""
+
+#, fuzzy
+msgid "prefered contacts"
+msgstr "Start search"
+
+#, fuzzy
+msgid "main view columns"
+msgstr "Start search"
 
 #, fuzzy
 msgid "locked document of "
