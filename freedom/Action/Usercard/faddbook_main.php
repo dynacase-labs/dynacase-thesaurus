@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.4 2005/10/02 12:34:29 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.5 2005/10/02 14:27:59 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -40,8 +40,8 @@ function faddbook_main(&$action)
   $action->lay->set("sp", $pstart);
   $action->lay->set("lp", $lpage);
 
-  $sfam = $action->getParam("DEFAULT_FAMILY");
-
+  $sfam = GetHttpVars("dfam", $action->getParam("DEFAULT_FAMILY"));
+  $action->lay->set("dfam", $sfam);
   $dfam = createDoc($dbaccess, $sfam,  false);
   $fattr = $dfam->GetAttributes();
 
@@ -53,7 +53,7 @@ function faddbook_main(&$action)
     foreach ($tccols as $k => $v) {
       if ($v=="") continue;
       $x = explode("%",$v);
-      $ucols[$x[0]] = array( "l" => $x[1], "r" => $x[2] );
+      if ($sfam==$x[0]) $ucols[$x[1]] =  1;
     }
   }
     
@@ -75,7 +75,7 @@ function faddbook_main(&$action)
   $vattr = array();
   foreach ($fattr as $k => $v) {
     if ($v->type!="menu" && $v->type!="frame") {
-      if (isset($ucols[$v->id]) && isset($ucols[$v->id]["l"]) && $ucols[$v->id]["l"]==1) {
+      if (isset($ucols[$v->id]) && $ucols[$v->id]==1) {
 	$sf = "";
 	$clabel = ucwords(strtolower($v->labelText));
 	$vattr[] = $v;
@@ -92,7 +92,6 @@ function faddbook_main(&$action)
 	$cols++;
       }		    
     }
-//     print_r2($td);
     $action->lay->SetBlockData("COLS", $td);
   }
 
@@ -104,7 +103,8 @@ function faddbook_main(&$action)
     if ($il>=$lpage) continue;
     $dcol = array();
     $ddoc=getDocObject($dbaccess,$v);
-    $dcol[] = array( "content" =>  ucwords(strtolower($v["title"])), "ATTimage" => false, "ATTnormal" => true,);
+    $dcol[] = array( "content" =>  ucwords(strtolower($v["title"])), "ATTimage" => false, "ATTnormal" => true);
+    $pzone = (isset($ddoc->faddbook_card)?$ddoc->faddbook_card:$ddoc->defaultview);
     foreach ($vattr as $ka => $va) {
 
       $attimage = $attnormal = false;
@@ -113,10 +113,10 @@ function faddbook_main(&$action)
       default:  $attnormal = "normal";
       }
       $dcol[] = array( "content" =>  $ddoc->GetHtmlAttrValue($va->id, "faddbook_blanck", false),
-		       "cid" => $v["id"], "ATTimage" => $attimage, "ATTnormal" => $attnormal, "fabzone" => $ddoc->faddbook_card );
+		       "cid" => $v["id"], "ATTimage" => $attimage, "ATTnormal" => $attnormal, "fabzone" => $pzone );
     }
     $dline[$il]["cid"] = $v["id"];
-    $dline[$il]["fabzone"] = $ddoc->faddbook_card;
+    $dline[$il]["fabzone"] = $pzone;
     $dline[$il]["title"] = ucwords(strtolower($v["title"]));
     $dline[$il]["Line"] = $il;
     $dline[$il]["icop"] = Doc::GetIcon($v["icon"]);

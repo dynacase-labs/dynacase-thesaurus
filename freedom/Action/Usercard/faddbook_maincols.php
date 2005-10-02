@@ -7,54 +7,64 @@ function faddbook_maincols(&$action) {
   global $_GET,$_POST,$ZONE_ARGS;
   $dbaccess = $action->getParam("FREEDOM_DB");
 
+  // Get default visibilty => Abstract view from freedom
+  $sfam = GetHttpVars("dfam", $action->getParam("DEFAULT_FAMILY"));
+  $action->lay->set("dfam", $sfam);
+  $dnfam = new_Doc($dbaccess, $sfam);
+  $action->lay->set("dfamname", $dnfam->title);
+
   $reset = GetHttpVars("resetcols", 0);
 
   $ncols = array();
+  $prefix = "faddb_cols_";
   if ($reset!=1) {
     foreach ($_POST as $k => $v) {
-      if (substr($k,0,11)!="faddb_cols_") continue;
-      $id = substr($k, 13);
-      $vie = substr($k, 11, 1);
-      $ncols[$id][$vie] = ($v=="on"?1:0);
+      if (substr($k,0,strlen($prefix))!=$prefix) continue;
+      $id = substr($k,strlen($prefix));
+      $ncols[$sfam][$id] = ($v=="on"?1:0);
     }
   }
 
-  // Get default visibilty => Abstract view from freedom
-  $dfam = createDoc($dbaccess, "USER",  false);
+  $dfam = createDoc($dbaccess, $sfam,  false);
   $fattr = $dfam->GetAttributes();
   $cols = array();
   foreach ($fattr as $k => $v) {
     if ($v->type!="menu" && $v->type!="frame" && $v->visibility!="H" && $v->visibility!="O" && $v->visibility!="I") {
-      $cols[$v->id] = array( "l"=>($v->isInAbstract==1?1:0) , "r"=>($v->isInAbstract==1?1:0) ,
-                       "order" => $v->ordered, "label" => $v->labelText);
+      $cols[$v->id] = array( "l"=>($v->isInAbstract==1?1:0), "order" => $v->ordered, "label" => $v->labelText);
     }
   }
 
+  $pc = $action->getParam("FADDBOOK_MAINCOLS", "");
   if (count($ncols)>0 || $reset==1) { // Modified state
 
     $allcol = array();
     foreach ($cols as $k => $v) {
-      if ($reset!=1) $cols[$k]["l"] = $cols[$k]["r"] = 0;
-      if (isset($ncols[$k])) {
-	if ($ncols[$k]["l"]!="") $cols[$k]["l"] = $ncols[$k]["l"];
-	if ($ncols[$k]["r"]!="") $cols[$k]["r"] = $ncols[$k]["r"];
+      if ($reset!=1) $cols[$k]["l"] = 0;
+      if (isset($ncols[$sfam][$k])) $cols[$k]["l"] = ($ncols[$sfam][$k]!=""?$ncols[$sfam][$k]:0);
+      if ($cols[$k]["l"]==1) $allcol[] = $sfam."%".$k;
+    }
+//     AddWarningMsg("FADDBOOK_MAINCOLS = [$scol]");
+
+    if ($pc!="") {
+      $tccols = explode("|",  $pc);
+      foreach ($tccols as $k => $v) {
+	if ($v=="") continue;
+	$x = explode("%",$v);
+	if ($x[0]!=$sfam) $allcol[] = $x[0]."%".$x[1];
       }
-      if ($cols[$k]["l"]==1) $allcol[] = $k."%".$cols[$k]["l"];
     }
     $scol = implode("|", $allcol);
     $action->parent->param->set("FADDBOOK_MAINCOLS", $scol, PARAM_USER.$action->user->id, $action->parent->id);
     
   } else { // User initial state
     
-    $pc = $action->getParam("FADDBOOK_MAINCOLS", "");
     if ($pc!="") {
       $tccols = explode("|",  $pc);
       foreach ($tccols as $k => $v) {
 	if ($v=="") continue;
 	$x = explode("%",$v);
-	if (isset($cols[$x[0]])) {
-	  if (isset($cols[$x[0]]["l"])) $cols[$x[0]]["l"] = $x[1];
-	  if (isset($cols[$x[0]]["r"])) $cols[$x[0]]["r"] = $x[2];
+	if ($x[0]==$sfam && isset($cols[$x[1]])) {
+	  $cols[$x[1]]["l"] = 1;
 	}
       }
     }
@@ -64,7 +74,6 @@ function faddbook_maincols(&$action) {
     $vcols[] = array( "id" => $k,
 		      "label" => $v["label"],
 		      "pos" => $v["order"],
-		      "r_view" => ($v["r"] == 1 ? "checked" : ""),
 		      "l_view" => ($v["l"] == 1 ? "checked" : "")
 		      );
   }

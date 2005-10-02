@@ -9,6 +9,9 @@
     <frame name="faddbook_speedsearch" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH" scrolling="needed">
   </frameset>
 
-  <frame id="faddbook_main" name="faddbook_main" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN" scrolling="needed">
+  <frameset border="3"   name="faddbook_right" id="faddbook_right" frameborder="yes" resize framespacing="0" rows="60%,*">
+    <frame id="faddbook_user" name="faddbook_user" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN&dfam=USER" scrolling="needed">
+    <frame id="faddbook_society" name="faddbook_society" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN&dfam=SOCIETY" scrolling="needed">
+  </frameset>
 
 </html>
