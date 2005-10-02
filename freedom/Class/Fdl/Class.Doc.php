@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.274 2005/09/27 16:16:50 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.275 2005/10/02 12:34:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -3004,7 +3004,10 @@ final public function PostInsert()  {
       if (($v->mvisibility == "H") || (($abstract) && (! $v->isInAbstract ))) {
 	$this->lay->Set("V_".strtoupper($v->id),"");
 	$this->lay->Set("L_".strtoupper($v->id),"");
+	$this->lay->Set("S_".strtoupper($v->id),false);
       } else {
+	$this->lay->Set("S_".strtoupper($v->id),($value==""?false:true));
+	
 	$this->lay->Set("V_".strtoupper($v->id),$this->GetHtmlValue($v,$value,$target,$ulink));
 	$this->lay->Set("L_".strtoupper($v->id),$v->labelText);
       }
