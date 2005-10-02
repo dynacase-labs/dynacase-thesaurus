@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.5 2005/10/02 14:27:59 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.6 2005/10/02 14:34:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -42,6 +42,7 @@ function faddbook_main(&$action)
 
   $sfam = GetHttpVars("dfam", $action->getParam("DEFAULT_FAMILY"));
   $action->lay->set("dfam", $sfam);
+  $dnfam = new_Doc($dbaccess, $sfam);
   $dfam = createDoc($dbaccess, $sfam,  false);
   $fattr = $dfam->GetAttributes();
 
@@ -64,7 +65,7 @@ function faddbook_main(&$action)
   $filter = array();
   $td = array();
   $sf = "";
-  $clabel = ucwords(strtolower("personne"));
+  $clabel = ucwords(strtolower($dnfam->title));
   if (isset($rqi_form["__ititle"]) && $rqi_form["__ititle"]!="" && $rqi_form["__ititle"] != $clabel) {
     $filter[] = "( title ~* '".$rqi_form["__ititle"]."' ) ";
     $sf = $rqi_form["__ititle"];
