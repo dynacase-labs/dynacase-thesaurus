@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.14 2005/10/03 08:48:39 eric Exp $
+// $Id: USERCARD.app,v 1.15 2005/10/03 09:08:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,101 +29,110 @@ $app_desc = array (
 "icon"		=>"usercard.png",	//Icon
 "displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"childof"	=>"GENERIC"			//
+"childof"	=>""			//
 );
 
 
+$app_acl = array (
+  
+  array(
+   "name"               =>"USERCARD_MASTER",
+   "description"        =>N_("Access To Import Contacts"),
+   "group_default"       =>"N"),
+  array(
+   "name"               =>"USERCARD_READ",
+   "description"        =>N_("Access To View Address Book"),
+   "group_default"       =>"Y")
+);
 
 $action_desc = array (
   
   array( 
    "name"		=>"USERCARD_VCARD",
    "short_name"		=>N_("view as vcard"),
-   "acl"		=>"GENERIC_READ"
+   "acl"		=>"USERCARD_READ"
   ) ,
   array( 
    "name"		=>"USERCARD_INIT",
    "short_name"		=>N_("initialisation"),
-   "acl"		=>"GENERIC_READ"
+   "acl"		=>"USERCARD_READ"
   )  ,
   array( 
    "name"		=>"USERCARD_IMPORTVCARD",
    "short_name"		=>N_("import vcard"),
    "layout"		=>"generic_import.xml",
-   "acl"		=>"GENERIC_MASTER"
-  ),
-                                                                                                                                                         
-                                                                                                                                                             
- array(
+   "acl"		=>"USERCARD_MASTER"
+  ),                                                            
+  array(
    "name"               =>"USERCARD_SEARCH",
    "short_name"         =>N_("search usercard"),
-   "acl"                =>"GENERIC_READ"
+   "acl"                =>"USERCARD_READ"
   ),
-
   array(
    "name"               =>"USERCARD_TAB",
    "short_name"         =>N_("tab usercard"),
-   "acl"                =>"GENERIC_READ"
+   "acl"                =>"USERCARD_READ"
   ),
 
   array(
    "name"               =>"USERCARD_ROOT",
    "short_name"         =>N_("usercard home page"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
+   "root"               =>"N"
   ),
 
   array(
    "name"               =>"FADDBOOK_CSS",
    "short_name"         =>N_("address book css"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
    "root"               =>"N"
   ),
   array(
    "name"               =>"FADDBOOK_SETUPARAM",
    "short_name"         =>N_("address book set user param"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
    "root"               =>"N"
   ),
   array(
    "name"               =>"FADDBOOK_MAINCOLS",
    "short_name"         =>N_("address book choose main view column"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
    "root"               =>"N"
   ),
   array(
    "name"               =>"FADDBOOK_FRAME",
    "short_name"         =>N_("address book frame page"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
    "root"               =>"Y"
   ),
   array(
    "name"               =>"FADDBOOK_MAIN",
    "short_name"         =>N_("address book main page"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
    "root"               =>"N"
   ),
   array(
    "name"               =>"FADDBOOK_SPEEDSEARCH",
    "short_name"         =>N_("address book speed search"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
    "root"		=>"N"
   ),
   array(
    "name"               =>"FADDBOOK_PREFERED",
    "short_name"         =>N_("address book prefered contacts"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
    "root"		=>"N"
   ),
   array(
    "name"               =>"FADDBOOK_ADDPREFERED",
    "short_name"         =>N_("address book add a prefered contacts"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
    "root"               =>"N"
   ),
   array(
    "name"               =>"FADDBOOK_DELPREFERED",
    "short_name"         =>N_("address book add a prefered contacts"),
-   "acl"                =>"GENERIC_READ",
+   "acl"                =>"USERCARD_READ",
    "root"               =>"N"
   )
 
