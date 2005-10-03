@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.13 2005/09/30 16:54:45 marc Exp $
+// $Id: USERCARD.app,v 1.14 2005/10/03 08:48:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,7 +26,7 @@ $app_desc = array (
 "short_name"	=>N_("User Card"),		//Short name
 "description"	=>N_("User Card Management"),//long description
 "access_free"	=>"N",			//Access free ? (Y,N)
-"icon"		=>"usercard.gif",	//Icon
+"icon"		=>"usercard.png",	//Icon
 "displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
 "childof"	=>"GENERIC"			//
