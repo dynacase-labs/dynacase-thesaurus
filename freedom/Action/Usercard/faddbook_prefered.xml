@@ -51,11 +51,14 @@ function resetTimer() {
 <body class="fabbody">
 
 <form style="display:none" id="delpref" name="delpref" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_DELPREFERED">
-<input type="hidden" name="cid" id="cid" value="-1">
+<input type="hidden" name="cid" id="cid" value="0">
 </form>
 
+<table  width="100%" cellspacing="0"><tr>
+<td><div class="fabzone"><img onclick="location.reload()" title="[TEXT:click to reload favorites]" style="cursor:pointer" align="absmiddle" height="16" style="border:0" src="[IMG:faddbook_ico_favorite.png]">&nbsp;[TEXT:my favorites]</div></td>
+<td width="20px"><div class="fabzone"><img style="cursor:pointer" title="[TEXT:delete all favorites]" onclick="if (confirm('[TEXT:confirm delete all favorite]')) { getElementById('cid').value=-2;getElementById('delpref').submit(); };"  align="absmiddle" height="16" style="border:0" src="[IMG:faddbook_ico_deletefavorite.png]"></td>
+</tr></table>
 
-<div class="fabzone" onclick="location.reload()"><img align="absmiddle" height="16" style="border:0" src="[IMG:faddbook_ico_favorite.png]">&nbsp;[TEXT:my favorites]</div>
 
 
 [BLOCK Contacts]

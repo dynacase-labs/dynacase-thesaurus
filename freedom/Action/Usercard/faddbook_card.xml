@@ -47,7 +47,7 @@ function showInfo(id) {
 <tr valign="top">
 
 <td align="center">
-<div class="fabogcontent">
+<div class="fabogcontent" height="100%">
 <div id="ocontact" class="fabogsel" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover'" onclick="showInfo('contact')">[TEXT:contact]</div>
 <div id="osociety" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover'" onclick="showInfo('society')">[TEXT:society]</div>
 </div>

@@ -28,7 +28,6 @@ DIV.fabzone, TR.fabzone TD {
   border-style: outset none outset none;
   border-color: [CORE_BGCOLORALTERN];
   border-width: 1px;
-  font-weight : bold;
 }
 
 TR.fabheadlist TD {
@@ -39,6 +38,19 @@ TR.fabheadlist TD {
   border-width: 1px;
   margin : 2px;
   font-weight : bold;
+}
+
+IMG.fabbutsel {
+  border-style: inset;
+  border-color: [CORE_BGCOLORHIGH];
+  border-width: 1px;
+  cursor:pointer;
+}
+IMG.fabbutunsel {
+  border-style: outset;
+  border-color: [CORE_BGCOLORHIGH];
+  border-width: 1px;
+  cursor:pointer;
 }
 
 .fabcontact, TR.fabcontact TD {

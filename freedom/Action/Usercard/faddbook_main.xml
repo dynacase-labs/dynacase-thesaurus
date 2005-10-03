@@ -47,11 +47,18 @@ function manageCols() {
 
 <table width="100%" align="center" cellspacing="0">
 <tr class="fabzone">
-<td colspan="2"><img title="Page précédente" style="visibility:[IF PrevPage]visible[ENDIF PrevPage][IFNOT PrevPage]hidden[ENDIF PrevPage]; cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">
+<td colspan="[colspan]">
+
+<table width="100%" align="center" cellspacing="0">
+<td><img title="Page précédente" style="visibility:[IF PrevPage]visible[ENDIF PrevPage][IFNOT PrevPage]hidden[ENDIF PrevPage]; cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">
 <img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
 <img title="Page suivante" style="visibility:[IF NextPage]visible[ENDIF NextPage][IFNOT NextPage]hidden[ENDIF NextPage]; cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">
 </td>
-<td  colspan="[colspan]" class="fabzone">[TEXT:lignes par page] : <select name="linepp" onchange="getElementById('pvalue').value=this.options[this.selectedIndex].value; getElementById('setline').submit();">[BLOCK BLine]<option value="[count]" [init]>[count][ENDBLOCK BLine]</select>
+<td><span style="font-weight:bold">[famsearch]</span></td>
+<td class="fabzone">[TEXT:lignes par page] : <select name="linepp" onchange="getElementById('pvalue').value=this.options[this.selectedIndex].value; getElementById('setline').submit();">[BLOCK BLine]<option value="[count]" [init]>[count][ENDBLOCK BLine]</select></td>
+</tr>
+</table>
+
 </td>
 </tr>
 
@@ -66,16 +73,6 @@ function manageCols() {
 [ENDBLOCK DLines]
 
 
-<!-- tr class="fabzone">
-<td colspan="2">
-<img title="Page précédente" style="visibility:[IF PrevPage]visible[ENDIF PrevPage][IFNOT PrevPage]hidden[ENDIF PrevPage]; cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">
-<img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
-<img title="Page suivante" style="visibility:[IF NextPage]visible[ENDIF NextPage][IFNOT NextPage]hidden[ENDIF NextPage]; cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">
-</td>
-
-<td colspan="[colspan]" class="fabzone">[TEXT:line per page : ]
-<select name="linepp" onchange="getElementById('pvalue').value=this.options[this.selectedIndex].value; getElementById('setline').submit();">[BLOCK BLine]<option value="[count]" [init]>[count][ENDBLOCK BLine]</select>
-</td></tr -->
 
 </table>
 

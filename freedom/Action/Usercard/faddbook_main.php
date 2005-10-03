@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.6 2005/10/02 14:34:58 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.7 2005/10/03 07:36:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -43,6 +43,7 @@ function faddbook_main(&$action)
   $sfam = GetHttpVars("dfam", $action->getParam("DEFAULT_FAMILY"));
   $action->lay->set("dfam", $sfam);
   $dnfam = new_Doc($dbaccess, $sfam);
+  $action->lay->set("famsearch", ucwords(strtolower($dnfam->title)));
   $dfam = createDoc($dbaccess, $sfam,  false);
   $fattr = $dfam->GetAttributes();
 
@@ -125,7 +126,7 @@ function faddbook_main(&$action)
     $il++;
   }
   $action->lay->setBlockData("DLines", $dline);
-  $action->lay->set("colspan", ($cols-1));
+  $action->lay->set("colspan", ($cols+2));
   
   $action->lay->set("NextPage", false);
   $action->lay->set("PrevPage", false);

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-02 14:13+0200\n"
+"POT-Creation-Date: 2005-10-03 09:03+0200\n"
 "PO-Revision-Date: 2005-09-22 11:23+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -1546,7 +1546,7 @@ msgstr ""
 msgid "Pages Jaunes"
 msgstr "Valeurs des paramètres"
 
-msgid "line per page : "
+msgid "lignes par page"
 msgstr ""
 
 msgid "manage columns"
@@ -1566,8 +1566,17 @@ msgstr "détaillé"
 msgid "freedom address book"
 msgstr "Garde la carte originale"
 
-msgid "my prefered contacts"
-msgstr "Mes contacts préférés"
+msgid "click to reload favorites"
+msgstr ""
+
+msgid "my favorites"
+msgstr "Mes préférés..."
+
+msgid "delete all favorites"
+msgstr "Suppression des préférés (tous)"
+
+msgid "confirm delete all favorite"
+msgstr "Confirmez la suppression de tout les préférés"
 
 msgid "confirm delete"
 msgstr "Confirmez la suppression de"
@@ -1578,13 +1587,11 @@ msgstr "supprimer des contacts préférés"
 msgid "view detail"
 msgstr "voir détails"
 
-#, fuzzy
 msgid "search in all contact fields"
-msgstr "recherche incident %s"
+msgstr "recherche dans tout les champs"
 
-#, fuzzy
 msgid "view_detail"
-msgstr "voir détails"
+msgstr "détails"
 
 msgid "choose colums"
 msgstr "Choix des colonnes affichées"
@@ -1592,16 +1599,15 @@ msgstr "Choix des colonnes affichées"
 msgid "select to view colum"
 msgstr ""
 
-msgid "reset to default"
-msgstr ""
-
 #, fuzzy
 msgid "save modifications"
 msgstr "Modification de documents"
 
-#, fuzzy
+msgid "reset to default"
+msgstr ""
+
 msgid "contact"
-msgstr "Contrats"
+msgstr "Contact..."
 
 msgid "address"
 msgstr "Adresse..."
@@ -1617,6 +1623,12 @@ msgstr "Web"
 
 msgid "categorie"
 msgstr "Catégorie"
+
+msgid "other"
+msgstr "Autres..."
+
+msgid "other sites"
+msgstr "Autres sites..."
 
 msgid "fromdate"
 msgstr "date de début"
@@ -2727,34 +2739,29 @@ msgstr "onglets carnet d'adresses"
 msgid "usercard home page"
 msgstr "Annuaire"
 
-#, fuzzy
 msgid "address book css"
-msgstr "Garde la carte originale"
+msgstr "CSS carnet d'adresse"
 
-#, fuzzy
 msgid "address book set user param"
-msgstr "Garde la carte originale"
+msgstr "Adress book : position du p. utilisteur"
 
 msgid "address book choose main view column"
 msgstr ""
 
-#, fuzzy
 msgid "address book frame page"
-msgstr "Garde la carte originale"
+msgstr "Adress book : frames"
 
-#, fuzzy
 msgid "address book main page"
-msgstr "Garde la carte originale"
+msgstr "Adress book : page principale"
 
-#, fuzzy
 msgid "address book speed search"
-msgstr "Garde la carte originale"
+msgstr "Adress book : recherche rapide"
 
 msgid "address book prefered contacts"
-msgstr ""
+msgstr "Adress book : préférés"
 
 msgid "address book add a prefered contacts"
-msgstr ""
+msgstr "Adress book : ajout d'un préféré"
 
 msgid "mail will be calculated from domain"
 msgstr "l'adresse email sera calculée à partir du domaine"
@@ -2783,13 +2790,11 @@ msgstr "Activation LDAP"
 msgid "main view line displayed"
 msgstr ""
 
-#, fuzzy
 msgid "prefered contacts"
-msgstr "Recherche préférée"
+msgstr "Préférés"
 
-#, fuzzy
 msgid "main view columns"
-msgstr "voir toutes les colonnes"
+msgstr "Vue principale"
 
 msgid "locked document of "
 msgstr "documents verrouillés par "
@@ -3436,6 +3441,9 @@ msgstr "%d document"
 
 msgid "createdate"
 msgstr "date de création"
+
+#~ msgid "my prefered contacts"
+#~ msgstr "Mes contacts préférés"
 
 #~ msgid "bilan cannot be perform : %s society not found"
 #~ msgstr "Le bilan ne peut être produit : la société %s n'a pas été trouvée"
