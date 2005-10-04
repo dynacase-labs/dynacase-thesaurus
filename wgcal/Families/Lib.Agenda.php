@@ -40,10 +40,10 @@ function MonAgenda()
 
       $cal->ComputeAccess();
 
-      $rq=getChildDoc($dbaccess, 0, 0, 1, array("owner = -". $user->getValue("us_whatid")), $user->getValue("us_whatid"), "LIST", "DIR");      
-      if (count($rq)>0) {
-	$rq[0]->AddFile($cal->id);
-      }
+      //$rq=getChildDoc($dbaccess, 0, 0, 1, array("owner = -". $user->getValue("us_whatid")), $user->getValue("us_whatid"), "LIST", "DIR");      
+      //if (count($rq)>0) {
+	//$rq[0]->AddFile($cal->id);
+      //}
     }
   }
     
