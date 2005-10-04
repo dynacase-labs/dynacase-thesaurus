@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_agendaview.php,v 1.8 2005/09/27 15:29:36 marc Exp $
+ * @version $Id: wgcal_prefs_agendaview.php,v 1.9 2005/10/04 15:42:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -164,3 +164,4 @@ function wgcal_prefs_agendaview(&$action) {
   return;
 
 }
+?>

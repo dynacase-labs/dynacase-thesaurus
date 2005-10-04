@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_histo.php,v 1.6 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: calev_histo.php,v 1.7 2005/10/04 15:42:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -28,3 +28,4 @@ function calev_histo(&$action) {
   $action->lay->setBlockData("HISTO", $line);
 
 }
+?>

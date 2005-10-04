@@ -693,8 +693,8 @@ function RendezVousEdit() {
       $this->lay->set("mforusermod", true);
       $this->lay->set("foruname", $ownertitle);
     }
-    $ownerlist[$ownerid] = $ownerid;
   }
+  $ownerlist[$ownerid] = $ownerid;
 
   $this->EventSetDate($evstart, $evend, $evtype, $ro);
   $this->EventSetVisibility($ownerid, $ownerlist, $evvis, $ogrp, $ro);
@@ -710,7 +710,7 @@ function RendezVousEdit() {
 function EventSetCategory($evcategory) {
   global $action;
   include_once("WGCAL/Lib.wTools.php");
-  $show = ($action->GetParam("WGCAL_G_SHOWCATEGORIES", 0) ==1 ? true : false);
+  $show = true; // ($action->GetParam("WGCAL_G_SHOWCATEGORIES", 0) ==1 ? true : false);
   $this->lay->set("evcategory", $evcategory);
   $this->lay->set("ShowCategories", $show);
   if ($show) {

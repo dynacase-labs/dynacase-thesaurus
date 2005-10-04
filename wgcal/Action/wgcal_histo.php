@@ -7,3 +7,4 @@ function wgcal_histo(&$action) {
   $action->lay->set("id", $id);
 
 }
+?>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.17 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.18 2005/10/04 15:42:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -26,13 +26,13 @@ function wgcal_gview(&$action) {
 
   // Set a filter
   $ff = array();
-  foreach ($_POST as $k => $v) {
+  if (count($_POST)>0) foreach ($_POST as $k => $v) {
     if (substr($k,0,5)=='rvfs_') $ff[substr($k,5)] = $v;
   }
-  foreach ($_GET as $k => $v) {
+  if (count($_GET)>0) foreach ($_GET as $k => $v) {
     if (substr($k,0,5)=='rvfs_') $ff[substr($k,5)] = $v;
   }
-  foreach ($ZONE_ARGS as $k => $v) {
+  if (count($ZONE_ARGS)>0) foreach ($ZONE_ARGS as $k => $v) {
     if (substr($k,0,5)=='rvfs_') $ff[substr($k,5)] = $v;
   }
   $filter = array();
