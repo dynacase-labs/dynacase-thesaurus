@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.15 2005/10/03 09:08:24 eric Exp $
+// $Id: USERCARD.app,v 1.16 2005/10/04 07:09:57 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,6 +38,10 @@ $app_acl = array (
   array(
    "name"               =>"USERCARD_MASTER",
    "description"        =>N_("Access To Import Contacts"),
+   "group_default"       =>"N"),
+  array(
+   "name"               =>"USERCARD_MANAGER",
+   "description"        =>N_("Access To Manage Address Book"),
    "group_default"       =>"N"),
   array(
    "name"               =>"USERCARD_READ",

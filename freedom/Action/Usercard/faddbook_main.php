@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.7 2005/10/03 07:36:14 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.8 2005/10/04 07:09:57 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -27,6 +27,7 @@ function faddbook_main(&$action)
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
   $pstart = GetHttpVars("sp", 0);
+  $action->lay->set("isManager", ($action->parent->Haspermission("USERCARD","USERCARD_MANAGER")==1?true:false));
 
   // Init page lines
   $lpage = $action->getParam("FADDBOOK_MAINLINE", 25);
@@ -58,7 +59,6 @@ function faddbook_main(&$action)
       if ($sfam==$x[0]) $ucols[$x[1]] =  1;
     }
   }
-    
 
   $orderby = "title";
 

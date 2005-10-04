@@ -54,6 +54,7 @@ function faddbook_maincols(&$action) {
       }
     }
     $scol = implode("|", $allcol);
+    if ($action->user->id==1) $action->parent->param->Set("FADDBOOK_MAINCOLS",$scol,PARAM_APP,$action->parent->id);
     $action->parent->param->set("FADDBOOK_MAINCOLS", $scol, PARAM_USER.$action->user->id, $action->parent->id);
     
   } else { // User initial state

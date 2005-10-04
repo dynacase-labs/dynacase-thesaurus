@@ -190,9 +190,14 @@ border-width : 1px;
 border-style : none  none none solid;
 border-color : [CORE_BGCOLORALTERN];
 }
+
+
 .fabog {
 border-width : 1px;
-border-style : outset;
+border-style :outset;
+border-color : [CORE_BGCOLORALTERN];
+background-color : [CORE_BGCOLORALTERN];
+color : [CORE_BGCOLORHIGH];
 cursor:pointer;
 }
 .fabogover {
@@ -200,12 +205,16 @@ border-width : 1px;
 border-style : inset;
 border-color : [CORE_BGCOLORALTERN];
 background-color : [CORE_BGCOLORALTERN];
+color : [CORE_BGCOLORHIGH];
 cursor:pointer;
 }
 .fabogsel {
-border-width : 2px;
-border-style : inset none inset none;
-border-color : [CORE_BGCOLORHIGH];
-background-color : [CORE_BGCOLORHIGH];
+border-width : 1px;
+border-style : inset;
+border-color : [CORE_BGCOLORALTERN];
+background-color : [CORE_BGCOLORALTERN];
 cursor:pointer;
+}
+.fabogover:first-letter, .fabog:first-letter, .fabogsel:first-letter {
+text-transform:capitalize;
 }

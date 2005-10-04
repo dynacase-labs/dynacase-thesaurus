@@ -46,12 +46,10 @@ function showInfo(id) {
 <tr><td></td><td><div height="30px">&nbsp;</div></td></tr>
 <tr valign="top">
 
-<td align="center">
-<div class="fabogcontent">
+<td class="fabogcontent" align="center">
 <div id="ocontact" class="fabogsel" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover'" onclick="showInfo('contact')">[TEXT:contact]</div>
 <div id="oaddress" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover'" onclick="showInfo('address')">[TEXT:address]</div>
 <div id="oother" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover'" onclick="showInfo('other')">[TEXT:other]</div>
-</div>
 </td>
 
 <td>
