@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_clean.php,v 1.5 2004/03/25 11:10:09 eric Exp $
+ * @version $Id: freedom_clean.php,v 1.6 2005/10/05 17:01:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,7 +31,8 @@ if ($dbaccess == "") {
 global $_SERVER;
 $dir=dirname($_SERVER["argv"][0]);
 
+$dbfree=php2DbSql($dbaccess);
+system("psql $dbfree -f ".$dir."/API/freedom_clean.sql"); 
 
-system("psql freedom anakeen -f ".$dir."/API/freedom_clean.sql"); 
 
 ?>
