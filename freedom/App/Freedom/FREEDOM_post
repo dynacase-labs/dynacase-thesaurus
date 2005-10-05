@@ -1,13 +1,16 @@
 #!/bin/bash
-
-pubdir="@prefix@";
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 
 #------------------------------
 #post installation
 #------------------------------
 if [ "$1" = "I" ] ; then
     # add plug in footer
-  $pubdir/wsh.php --app=APPMNG --action=PARAM_MOD --appid=1 --aname=CORE_PLUGZONE --atype=G --val=FREEDOM:SPEEDSEARCH
+  $wpub/wsh.php --app=APPMNG --action=PARAM_MOD --appid=1 --aname=CORE_PLUGZONE --atype=G --val=FREEDOM:SPEEDSEARCH
 
   
 fi

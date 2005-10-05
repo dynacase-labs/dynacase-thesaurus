@@ -1,7 +1,10 @@
 #!/bin/bash
 
- 
-pubdir="/home/httpd/what";
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi 
 # ajout sequence doc temporaire
 
 
@@ -21,5 +24,5 @@ update doc120 set us_catg=str_replace(us_catg,'2','furnisher');" | psql $dbfree
 
 
 # add sequences
-$pubdir/wsh.php --api=fdl_adoc
-$pubdir/wsh.php --api=fdl_trigger | psql $dbfree
+$wpub/wsh.php --api=fdl_adoc
+$wpub/wsh.php --api=fdl_trigger | psql $dbfree

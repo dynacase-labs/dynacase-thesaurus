@@ -1,6 +1,10 @@
 #!/bin/bash
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 
-pubdir="/home/httpd/what";
 echo "delete from docattr where docid=120;" | psql $dbfree
 
 

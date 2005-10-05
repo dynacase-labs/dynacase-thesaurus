@@ -1,5 +1,9 @@
 #!/bin/bash
-
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 
 echo "update fld set query= str_replace(query,'Z\')','x\') and')  where query ~ 'Z\'\\\\)  \\\\(lo';" | psql $dbfree
 echo "update fld set query= str_replace(query,'\'x\')','\'Z\')')  where query ~ 'x\'\\\\)';" | psql $dbfree

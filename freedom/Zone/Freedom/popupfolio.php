@@ -3,7 +3,7 @@
  * popup for portfolio list
  *
  * @author Anakeen 2000 
- * @version $Id: popupfolio.php,v 1.9 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: popupfolio.php,v 1.10 2005/10/05 14:37:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -58,3 +58,4 @@ function popupfolio(&$action) {
 
   setFamidInLayout($action);
 }
+?>

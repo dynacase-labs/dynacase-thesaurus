@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.13 2005/09/21 12:35:46 eric Exp $)
+AC_REVISION($Id: configure.in,v 1.14 2005/10/05 14:37:58 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -62,16 +62,13 @@ AC_ARG_WITH(httpuser,
 
 AC_OUTPUT(Makefile \
 	App/Freedom/FREEDOM_init.php  \
-	App/Freedom/FREEDOM_post  \
 	App/Fdl/FDL_init.php \
 	App/Generic/GENERIC_init.php \
 	App/Usercard/USERCARD_init.php \
-	App/Usercard/USERCARD_post \
 	App/Fusers/FUSERS_init.php \
         App/Onefam/ONEFAM_init.php \
 	Api/VaultExamine.php \
 	Api/SetDocVaultIndex.php \
-	App/Fdl/FDL_post \
 	FREEDOM.cron \
 	FREEDOM.vault \
         FREEDOM.spec)

@@ -1,8 +1,12 @@
 #!/bin/bash
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 
-pubdir="/home/httpd/what";
-/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=Doc
-/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocAttr
+/usr/bin/php -q $wpub/API/updateclass.php --dbname=freedom --appc=FDL --class=Doc
+/usr/bin/php -q $wpub/API/updateclass.php --dbname=freedom --appc=FDL --class=DocAttr
 
 
 echo "update doc set classname='PDoc' where useforprof and classname='DocFile';" | psql $dbfree

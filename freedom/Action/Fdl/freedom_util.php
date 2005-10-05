@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.73 2005/08/18 13:49:00 eric Exp $
+ * @version $Id: freedom_util.php,v 1.74 2005/10/05 14:37:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -123,7 +123,7 @@ function new_Doc($dbaccess, $id='') {
   if ($classname != "") {
     include_once("FDL$gen/Class.$classname.php");
     $doc=new $classname($dbaccess, $id);
-    if (($id > 0) && (count($gdocs) < MAXGDOCS))    $gdocs[$id]=&$doc;
+    if (($id > 0) && ($doc->doctype!='W') && (count($gdocs) < MAXGDOCS))    $gdocs[$id]=&$doc;
 
     return ($doc);
   } else {

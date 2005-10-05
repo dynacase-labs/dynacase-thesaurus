@@ -1,5 +1,9 @@
 #!/bin/bash
-pubdir="/home/httpd/what";
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 echo "create table docname ( name text not null,  primary key (name),   id int, fromid int);" | psql $dbfree
 
 echo "UPDATE doc set name = null where name = '';" | psql $dbfree

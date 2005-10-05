@@ -1,12 +1,14 @@
 #!/bin/bash
 
- 
-
-pubdir="/home/httpd/what";
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 
 # add default attribute
-/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=DocFam
+/usr/bin/php -q $wpub/API/updateclass.php --dbname=freedom --appc=FDL --class=DocFam
 
 
-/usr/bin/php -q $pubdir/FDL/FDL_migr_0.2.6.php | psql $dbfree
+/usr/bin/php -q $wpub/FDL/FDL_migr_0.2.6.php | psql $dbfree
 

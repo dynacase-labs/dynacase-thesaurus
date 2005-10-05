@@ -3,7 +3,7 @@
  * Use to help to the construction of batch document
  *
  * @author Anakeen 2005
- * @version $Id: freedom_applybatch.php,v 1.3 2005/09/23 15:32:02 eric Exp $
+ * @version $Id: freedom_applybatch.php,v 1.4 2005/10/05 14:37:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -36,14 +36,20 @@ function freedom_applybatch(&$action) {
   foreach ($tb as $k=>$v) {
     $tb[$k]["iconsrc"]=$bdoc->getIcon($v["icon"]);
 
+    $adoc="Adoc".$v["id"];
+    $fa=new ADoc$adoc;
+    print_r2($fa);
+
     $q->resetQuery();
     $q->AddQuery("docid=".$v["id"]);
     $q->AddQuery("type='action'");
     $q->AddQuery("docid=".$v["id"]);
     $la=$q->Query(0,0,"TABLE");
     $ta=array();
-    foreach ($la as $ka=>$va) {
-      $ta[]=$va["labeltext"];
+    if ($la) {
+      foreach ($la as $ka=>$va) {
+	$ta[]=$va["labeltext"];
+      }
     }
     $tb[$k]["actions"]=implode(",<br>",$ta);
 

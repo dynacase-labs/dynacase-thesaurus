@@ -3,7 +3,7 @@
  * Edition to send mail
  *
  * @author Anakeen 2000 
- * @version $Id: editmail.php,v 1.14 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: editmail.php,v 1.15 2005/10/05 14:37:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -60,3 +60,4 @@ function editmail(&$action) {
   $action->lay->Set("title",$doc->title);
   
 }
+?>

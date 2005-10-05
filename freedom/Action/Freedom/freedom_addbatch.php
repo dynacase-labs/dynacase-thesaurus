@@ -3,7 +3,7 @@
  * Creation of batch document from folder
  *
  * @author Anakeen 2005
- * @version $Id: freedom_addbatch.php,v 1.2 2005/09/21 13:07:19 eric Exp $
+ * @version $Id: freedom_addbatch.php,v 1.3 2005/10/05 14:37:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -61,3 +61,4 @@ function freedom_addbatch(&$action) {
 	   $action->GetParam("CORE_STANDURL"));
 
 }
+?>

@@ -1,12 +1,14 @@
- #!/bin/bash
-
+#!/bin/bash
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
  
 
-pubdir="/home/httpd/what";
-
-psql $dbfree -f $pubdir/WHAT/getprivilege.sql
-/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --appc=FDL --class=VGroup
-/usr/bin/php -q $pubdir/API/updateclass.php --dbname=freedom --class=Group
+psql $dbfree -f $wpub/WHAT/getprivilege.sql
+/usr/bin/php -q $wpub/API/updateclass.php --dbname=freedom --appc=FDL --class=VGroup
+/usr/bin/php -q $wpub/API/updateclass.php --dbname=freedom --class=Group
 
 echo "alter table doc add column dprofid int;" | psql $dbfree
 

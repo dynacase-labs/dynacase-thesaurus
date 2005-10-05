@@ -1,7 +1,9 @@
 #!/bin/bash
-
-pubdir="/home/httpd/what";
-
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 
 
 echo "ALTER TABLE doc129 drop grp_users;" | psql $dbfree
@@ -16,11 +18,11 @@ pg_dump -a -D -t doc129 -U anakeen freedom >> /tmp/group.db
 echo "drop table doc127;drop table doc129;" | psql $dbfree
 echo "delete from docattr where docid in (127,129);" | psql $dbfree
 echo "delete from docfam where id in (127,129);" | psql $dbfree
-$pubdir/wsh.php --app=USERCARD --action=USERCARD_INIT 
-$pubdir/FDL/FDL_post U
+$wpub/wsh.php --app=USERCARD --action=USERCARD_INIT 
+$wpub/FDL/FDL_post U
 
-psql $dbfree -f $pubdir/USERCARD/init.sql
-#psql $dbfree -f $pubdir/API/freedom_clean.sql
+psql $dbfree -f $wpub/USERCARD/init.sql
+#psql $dbfree -f $wpub/API/freedom_clean.sql
 
 echo "delete from docfrom;insert INTO docfrom (id, fromid) select id, fromid from doc;update docfrom set fromid=-1 where id in (select id from docfam);"  | psql $dbfree
 
