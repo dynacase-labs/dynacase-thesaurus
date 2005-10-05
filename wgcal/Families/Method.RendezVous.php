@@ -1216,7 +1216,8 @@ function RvAttendeeState($ufid) {
   $state = -1;
   $attr = $this->getTValue("calev_attid");
   $attrst = $this->getTValue("calev_attstate");
-  if (count($attr)>1) {
+  $ownerfid = $this->getTValue("calev_ownerid");
+  if (count($attr)==1 && $ownerfid!=$attr[0]) {
     foreach ($attr as $ka => $va) {
       if ($va==$ufid) {
 	$state = $attrst[$ka];

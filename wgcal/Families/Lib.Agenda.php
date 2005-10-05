@@ -84,3 +84,4 @@ function myDelegation($fid=-1) {
   $dcal = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "AGENDA");
   return $dcal;
 }
+?>
