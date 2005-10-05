@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-03 09:03+0200\n"
+"POT-Creation-Date: 2005-10-05 18:18+0200\n"
 "PO-Revision-Date: 2005-09-22 11:23+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -1546,6 +1546,9 @@ msgstr ""
 msgid "Pages Jaunes"
 msgstr "Valeurs des paramètres"
 
+msgid "click here to create a new"
+msgstr "Création...."
+
 msgid "lignes par page"
 msgstr ""
 
@@ -1629,6 +1632,22 @@ msgstr "Autres..."
 
 msgid "other sites"
 msgstr "Autres sites..."
+
+#, fuzzy
+msgid "freedom current style"
+msgstr "à partir du dossier courant"
+
+#, fuzzy
+msgid "delconfirmparam"
+msgstr "Voulez-vous supprimer"
+
+#, fuzzy
+msgid "update demo zone"
+msgstr "mis à jour"
+
+#, fuzzy
+msgid "create new style with this parameters"
+msgstr "Paramètres pour le changement d'état"
 
 msgid "fromdate"
 msgstr "date de début"
@@ -2726,6 +2745,17 @@ msgstr "Carnet d'adresses"
 
 msgid "User Card Management"
 msgstr "Carnet d'adresses"
+
+#, fuzzy
+msgid "Access To Import Contacts"
+msgstr "Accès à mon compte"
+
+#, fuzzy
+msgid "Access To Manage Address Book"
+msgstr "Accès en l'interface principale"
+
+msgid "Access To View Address Book"
+msgstr ""
 
 msgid "import vcard"
 msgstr "Importation Vcard"

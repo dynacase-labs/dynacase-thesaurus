@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.8 2005/10/04 07:09:57 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.9 2005/10/05 16:27:19 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -44,6 +44,7 @@ function faddbook_main(&$action)
   $sfam = GetHttpVars("dfam", $action->getParam("DEFAULT_FAMILY"));
   $action->lay->set("dfam", $sfam);
   $dnfam = new_Doc($dbaccess, $sfam);
+  $action->lay->set("famid", $dnfam->id);
   $action->lay->set("famsearch", ucwords(strtolower($dnfam->title)));
   $dfam = createDoc($dbaccess, $sfam,  false);
   $fattr = $dfam->GetAttributes();
