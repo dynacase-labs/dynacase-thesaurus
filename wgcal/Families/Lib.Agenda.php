@@ -84,4 +84,25 @@ function myDelegation($fid=-1) {
   $dcal = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "AGENDA");
   return $dcal;
 }
-?>
+
+function hasDelegation($agendaownerfid, $fid=-1) {
+  global $action;
+  $delegate = -1;
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $fid = ($fid!=-1 ? $fid : $action->user->fid);  
+  $filter[]="( agd_oid=".$agendaownerfid.") and ( agd_dfid ~ '\\\y(".$fid.")\\\y' ) and ( agd_omain=1 )";
+  $dagenda = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "AGENDA");
+  if (count($dagenda)) {
+    foreach ($dagenda as $k => $v) {
+      $duid = Doc::_val2array($v["agd_dfid"]);
+      $dmode = Doc::_val2array($v["agd_dmode"]);
+      foreach ($duid as $ku => $vu) {
+        if ($vu == $fid ) $delegate =  $dmode[$ku];
+      }
+    }
+  }
+  return $delegate;
+}
+
+
+?> 

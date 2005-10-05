@@ -1149,6 +1149,7 @@ function evColorByOwner() {
 
 function RvSetPopup($rg) {
   include_once('WGCAL/Lib.wTools.php');
+  include_once('WGCAL/Lib.Agenda.php');
   global $action;
 
   PopupInvisible($this->popup_name,$rg, 'acceptrv');
@@ -1165,20 +1166,7 @@ function RvSetPopup($rg) {
   PopupInvisible($this->popup_name,$rg, 'cancelrv');
   PopupInvisible($this->popup_name,$rg, 'showaccess');
 
-  // Delegation for acceptation
-  $delegate = -1;
-  $filter[]="(id = ".$this->getValue("calev_ownerid")." ) and ( us_wgcal_dguid ~ '\\\\\\\\y(".$action->user->fid.")\\\\\\\\y' )";
-  $dusers = GetChildDoc($this->dbaccess, 0, 0, "ALL", $filter, 1, "TABLE", "IUSER");
-  if (count($dusers)>0) {
-    foreach ($dusers as $k => $v) {
-      $duid = Doc::_val2array($v["us_wgcal_dguid"]);
-      $dumode = Doc::_val2array($v["us_wgcal_dgumode"]);
-      foreach ($duid as $ku => $vu) {
-	if ($vu == $action->user->fid ) $delegate =  $dumode[$ku];
-      }
-    }
-  }
-
+  $delegate = hasDelegation($this->getValue("calev_ownerid"));
   if ($delegate==1 || ($delegate==0 && ($this->getValue("calev_creatorid")==$action->user->fid))) {
     $ownerstate = $this->RvAttendeeState($this->getValue("calev_ownerid"));
     if ($ownerstate>-1 && $ownerstate!=2) PopupActive($this->popup_name,$rg, 'dacceptrv');
@@ -1213,11 +1201,12 @@ function RvSetPopup($rg) {
 }
 
 function RvAttendeeState($ufid) {
-  $state = -1;
+  $state = -1;  
   $attr = $this->getTValue("calev_attid");
   $attrst = $this->getTValue("calev_attstate");
-  $ownerfid = $this->getTValue("calev_ownerid");
-  if (count($attr)==1 && $ownerfid!=$attr[0]) {
+  $ownerfid = $this->getValue("calev_ownerid");
+  if (count($attr)==1 && $ownerfid==$attr[0]) return $state;
+  if (count($attr)>0) {
     foreach ($attr as $ka => $va) {
       if ($va==$ufid) {
 	$state = $attrst[$ka];
