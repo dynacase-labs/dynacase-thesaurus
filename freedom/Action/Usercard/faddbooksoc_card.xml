@@ -1,6 +1,8 @@
 <html>
 <head>
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=USERCARD&action=FADDBOOK_CSS">
+
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS&layout=USERCARD:faddbook.css">
+<link rel="shortcut icon" href="FDL/Images/logo16.ico">
 [JS:REF]
 
 <script type="text/javascript">

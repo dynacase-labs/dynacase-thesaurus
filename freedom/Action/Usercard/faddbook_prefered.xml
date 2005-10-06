@@ -1,6 +1,7 @@
 <html>
 <head>
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=USERCARD&action=FADDBOOK_CSS">
+<link rel="shortcut icon" href="FDL/Images/logo16.ico">
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS&layout=USERCARD:faddbook.css">
 [JS:REF]
 
 <script type="text/javascript">
@@ -50,7 +51,7 @@ function resetTimer() {
 </head>
 <body class="fabbody">
 
-<form style="display:none" id="delpref" name="delpref" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_DELPREFERED">
+<form style="display:none" id="delpref" name="delpref" method="POST" target="_self" action="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_DELPREFERED">
 <input type="hidden" name="cid" id="cid" value="0">
 </form>
 

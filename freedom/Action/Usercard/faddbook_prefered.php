@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: faddbook_prefered.php,v 1.4 2005/10/02 14:27:59 marc Exp $
+ * @version $Id: faddbook_prefered.php,v 1.5 2005/10/06 13:18:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,7 +30,7 @@ function faddbook_prefered(&$action) {
     if ($v=="") continue;
     $cc = new_Doc($dbaccess, $v);
     $cu[] = array( "id" => $cc->id, 
-		   "resume" => $cc->viewDoc((isset($cc->faddbook_resume)?$cc->faddbook_resume:$cc->defaultabstract)),
+		   "resume" => $cc->viewDoc((isset($cc->faddbook_resume)?$cc->faddbook_resume:"FDL:VIEWTHUMBCARD")),
 		   "icon" => $cc->getIcon(),
 		   "title" => ucwords(strtolower($cc->title)),
 		   "fabzone" => (isset($cc->faddbook_card)?$cc->faddbook_card:$cc->defaultview),

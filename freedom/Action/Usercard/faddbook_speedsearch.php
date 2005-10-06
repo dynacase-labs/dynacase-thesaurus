@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_speedsearch.php,v 1.6 2005/10/03 07:36:14 marc Exp $
+ * @version $Id: faddbook_speedsearch.php,v 1.7 2005/10/06 13:18:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -36,20 +36,24 @@ function faddbook_speedsearch(&$action)
   $action->lay->set("ssoc", $searchsoc);
   $action->lay->set("SOCSEL", ($searchsoc==1?true:false));
 
-  $sfam = GetHttpVars("dfam", $action->getParam("DEFAULT_FAMILY"));
-  $action->lay->set("dfam", $sfam);
-  $fam = new_Doc($dbaccess, $sfam);
-  $action->lay->set("iconuser", $fam->getIcon());
-  $famsoc = new_Doc($dbaccess, "SOCIETY");
-  $action->lay->set("iconsociety", $famsoc->getIcon());
+  $sfam1 = GetHttpVars("dfam", $action->getParam("USERCARD_FIRSTFAM"));
+  $action->lay->set("dfam", $sfam1);
+  $fam1 = new_Doc($dbaccess, $sfam1);
+  $action->lay->set("icon1", $fam1->getIcon());
+
+  $sfam2 = $action->getParam("USERCARD_SECONDFAM");
+  if ($sfam2) {
+    $fam2 = new_Doc($dbaccess, $sfam2);
+    $action->lay->set("icon2", $fam2->getIcon());
+  }
   $action->lay->set("Result", false);
   $action->lay->set("bCount", false);
   $action->lay->set("Count", "-");
 
 
   $searchfam = array();
-  if ($searchuser==1) $searchfam[] = "USER";
-  if ($searchsoc==1) $searchfam[] = "SOCIETY";
+  if ($searchuser==1) $searchfam[] = $sfam1;
+  if ($sfam2 && ($searchsoc==1)) $searchfam[] = $sfam2;
 
   if (count($searchfam)==0 || $vtext=="") return;
 
@@ -58,11 +62,12 @@ function faddbook_speedsearch(&$action)
   $filter[] = "(title ~* '$opf".$vtext."')";
   $cu = array();
   foreach ($searchfam as $ks => $vs) {
-    $rq = getChildDoc($dbaccess, 0, 0, 25, $filter, $action->user->id, "LIST", $vs, true, "title");
+    $rq = getChildDoc($dbaccess, 0, 0, 25, $filter, $action->user->id, "TABLE", $vs, true, "title");
     foreach ($rq as $k => $v) {
-      $pzabstract = (isset($v->faddbook_resume)?$v->faddbook_resume:$v->defaultabstract);
-      $pzcard = (isset($v->faddbook_card)?$v->faddbook_card:$v->defaultview);
-      $cu[] = array( "id" => $v->id, "title" => $v->title, "fabzone" => $pzcard, "resume" => $v->viewdoc($pzabstract));
+      $vo=getDocObject($dbaccess,$v);
+      $pzabstract = isset($vo->faddbook_resume)?$vo->faddbook_resume:"FDL:VIEWTHUMBCARD";
+      $pzcard = (isset($vo->faddbook_card)?$vo->faddbook_card:$vo->defaultview);
+      $cu[] = array( "id" => $vo->id, "title" => $vo->title, "fabzone" => $pzcard, "resume" => $vo->viewdoc($pzabstract));
     }
   }
   if (count($cu)>0) {

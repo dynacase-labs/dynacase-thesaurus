@@ -4,14 +4,12 @@
 </head>
 <frameset name="faddbook" id="faddbook" frameborder="yes" framespacing="0" border="3" resize cols="220pt,*">
 
-  <frameset border="3"   name="faddbook_left" id="faddbook_left" frameborder="yes" resize framespacing="0" rows="70%,*">
-    <frame name="faddbook_prefered"    src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_PREFERED" style="border-style:none" scrolling="needed">
-    <frame name="faddbook_speedsearch" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH" scrolling="needed">
-  </frameset>
-
-  <frameset border="3"   name="faddbook_right" id="faddbook_right" frameborder="yes" resize framespacing="0" rows="60%,*">
-    <frame id="faddbook_user" name="faddbook_user" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN&dfam=USER" scrolling="needed">
-    <frame id="faddbook_society" name="faddbook_society" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN&dfam=SOCIETY" scrolling="needed">
-  </frameset>
+    <frame name="faddbook_prefered"    src="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_PREFERED" style="border-style:none" scrolling="needed">
+[IF HasF2]
+  <frameset border="3"   name="faddbook_right" id="faddbook_right" frameborder="yes" resize framespacing="0" rows="60%,*">[ENDIF HasF2]
+    <frame id="faddbook_user" name="faddbook_user" src="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_MAIN&dfam=[F1]" scrolling="needed">
+[IF HasF2]
+    <frame id="faddbook_society" name="faddbook_society" src="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_MAIN&dfam=[F2]" scrolling="needed">
+  </frameset>[ENDIF HasF2]
 
 </html>

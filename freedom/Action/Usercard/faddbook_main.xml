@@ -1,8 +1,9 @@
 <html>
 
 <head>
+<link rel="shortcut icon" href="FDL/Images/logo16.ico">
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS&layout=USERCARD:faddbook.css">
 
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=USERCARD&action=FADDBOOK_CSS">
 
 [JS:REF]
 
@@ -21,7 +22,7 @@ function sendform(evt) {
 }
 
 function manageCols() {
-  subwindow(600, 200, 'colums', '[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAINCOLS&dfam=[dfam]');
+  subwindow(600, 200, 'colums', '[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_MAINCOLS&dfam=[dfam]');
 }
 
 </script>
@@ -30,20 +31,20 @@ function manageCols() {
 
 <body class="fabbody">
 
-<form style="display:none" id="setline" name="setline" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SETUPARAM">
+<form style="display:none" id="setline" name="setline" method="POST" target="_self" action="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_SETUPARAM">
 <input type="hidden" name="pname" id="pname" value="FADDBOOK_MAINLINE">
 <input type="hidden" name="pvalue" id="pvalue" value="[linep]">
-<input type="hidden" name="rapp" value="USERCARD">
+<input type="hidden" name="rapp" value="[APPNAME]">
 <input type="hidden" name="raction" value="FADDBOOK_MAIN">
 </form>
 
 
-<form style="display:none" id="addpref" name="addpref" method="POST" target="faddbook_prefered" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_ADDPREFERED">
+<form style="display:none" id="addpref" name="addpref" method="POST" target="faddbook_prefered" action="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_ADDPREFERED">
 <input type="hidden" name="cid" id="cid" value="-1">
 </form>
 
-<form style="display:none" id="suserv" name="suserv" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN&dfam=[dfam]"></form>
-<form id="suser" name="suser" method="POST" target="_self" action="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN&dfam=[dfam]">
+<form style="display:none" id="suserv" name="suserv" method="POST" target="_self" action="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_MAIN&dfam=[dfam]"></form>
+<form id="suser" name="suser" method="POST" target="_self" action="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_MAIN&dfam=[dfam]">
 
 <table width="100%" align="center" cellspacing="0">
 <tr class="fabzone">
@@ -54,7 +55,7 @@ function manageCols() {
 <img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
 <img title="Page suivante" style="visibility:[IF NextPage]visible[ENDIF NextPage][IFNOT NextPage]hidden[ENDIF NextPage]; cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">
 </td>
-<td><span style="font-weight:bold; border:1px outset; cursor:pointer" title="[TEXT:click here to create a new]" onmouseover="this.className='fabcontactsel'" onmouseout="this.className=''"   onclick="subwindow(300, 400, 'newdoc', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=[famid]');">[famsearch]&nbsp;<img src="[IMG:faddbook_ico_newdoc.png]" border="0"></span></td>
+<td><span style="font-weight:bold; border:1px outset; cursor:pointer" title="[TEXT:click here to create a new]" onmouseover="this.className='fabcontactsel'" onmouseout="this.className=''"   onclick="subwindow(300, 400, 'newdoc', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=[famid]');">[famsearch]&nbsp;<img width="16px" src="[IMG:faddbook_ico_newdoc.png]" border="0"></span></td>
 <td class="fabzone">[TEXT:lignes par page] : <select name="linepp" onchange="getElementById('pvalue').value=this.options[this.selectedIndex].value; getElementById('setline').submit();">[BLOCK BLine]<option value="[count]" [init]>[count][ENDBLOCK BLine]</select></td>
 </tr>
 </table>

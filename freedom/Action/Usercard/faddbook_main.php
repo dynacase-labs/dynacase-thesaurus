@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.9 2005/10/05 16:27:19 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.10 2005/10/06 13:18:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -16,7 +16,7 @@ include_once("FDL/Lib.Dir.php");
 
 function faddbook_main(&$action) 
 { 
-  global $_GET,$_POST,$ZONE_ARGS;
+  global $_POST;
 
   $rqi_form = array();
   foreach ($_POST as $k => $v) {
@@ -41,7 +41,7 @@ function faddbook_main(&$action)
   $action->lay->set("sp", $pstart);
   $action->lay->set("lp", $lpage);
 
-  $sfam = GetHttpVars("dfam", $action->getParam("DEFAULT_FAMILY"));
+  $sfam = GetHttpVars("dfam", $action->getParam("USERCARD_FIRSTFAM"));
   $action->lay->set("dfam", $sfam);
   $dnfam = new_Doc($dbaccess, $sfam);
   $action->lay->set("famid", $dnfam->id);
