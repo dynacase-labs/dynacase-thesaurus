@@ -2,10 +2,7 @@
 var $faddbook_card = "USERCARD:FADDBOOK_CARD:T";
 var $faddbook_resume = "USERCARD:FADDBOOK_RESUME:S";
 
-function faddbook_resume($onlyresume=true)
-{
-
-  global $action;
+function faddbook_resume($target="finfo",$ulink=true,$abstract="Y") {
 
   $imgu = "";
   $img = $this->getValue("us_photo");
@@ -44,7 +41,29 @@ function faddbook_resume($onlyresume=true)
   $this->lay->set("msnid", $msn);
   $this->lay->set("hasMsn", ($msn!="" ? true : false));
 
+  
   return;
    
 }
 
+
+function faddbook_card($target="finfo",$ulink=true,$abstract="Y") {
+  // list of attributes displayed directly in layout
+  $ta=array("us_workweb","us_photo","us_lname","us_fname","us_society","us_civility","us_mail","us_phone","us_mobile","us_fax","us_intphone","us_workaddr","us_workcedex","us_country","us_workpostalcode","us_worktown");
+  
+
+  $this->viewdefaultcard($target,$ulink,$abstract);
+  $la=$this->getAttributes();
+  $to=array();
+  foreach ($la as $k=>$v) {
+    $va=$this->getValue($v->id);
+    if (($va) && (! in_array($v->id,$ta))){
+      if (($v->mvisibility == "R") || ($v->mvisibility == "W")) {
+	$to[]=array("lothers"=>$v->labelText,
+		    "vothers"=>$this->getHtmlValue($v,$va,$target,$ulink));
+      }
+    }
+  }
+  $this->lay->setBlockData("OTHERS",$to);
+  
+}

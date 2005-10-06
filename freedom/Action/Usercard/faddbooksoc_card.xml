@@ -37,7 +37,7 @@ function showInfo(id) {
 
 <tr>
 <td width="80px" align="center">
-<img src="[IMG:societe.gif]" width="40px">
+<img src="[logo]" width="[wlogo]px">
 </td>
 <td>
 <div class="fabctitlep">[IF S_SI_SOCIETY]<span class="fabctitle">[V_SI_SOCIETY]</span>&nbsp;[ENDIF S_SI_SOCIETY]</div>
@@ -49,9 +49,9 @@ function showInfo(id) {
 <tr valign="top">
 
 <td class="fabogcontent" align="center">
-<div id="ocontact" class="fabogsel" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover'" onclick="showInfo('contact')">[TEXT:contact]</div>
-<div id="oaddress" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover'" onclick="showInfo('address')">[TEXT:address]</div>
-<div id="oother" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover'" onclick="showInfo('other')">[TEXT:other]</div>
+<div id="ocontact" class="fabogsel" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('contact')">[TEXT:contact]</div>
+<div id="oaddress" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('address')">[TEXT:address]</div>
+<div id="oother" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('other')">[TEXT:other]</div>
 </td>
 
 <td>
@@ -99,7 +99,7 @@ function showInfo(id) {
 [IF S_SI_ADDR]<tr><td></td>
 <td colspan="2"><span class="fabcrub">[V_SI_ADDR]</span></td></tr>[ENDIF S_SI_ADDR]
 <tr><td></td>
-<td colspan="2"><span class="fabcrub">[IF S_SI_POSTCODE][V_SI_POSTCODE] [ENDIF S_SI_POSTCODE][V_SI_TOWN][IF S_SI_CEDEX]</span><span class="fabccom"> [TEXT:cedex] </span> <span class="fabcrub">[V_SI_CEDEX]</span>[ENDIF S_SI_CEDEX]</td></tr>
+<td colspan="2"><span class="fabcrub">[IF S_SI_POSTCODE][V_SI_POSTCODE] [ENDIF S_SI_POSTCODE][V_SI_TOWN][IF S_SI_CEDEX]</span> <span class="fabcrub">[V_SI_CEDEX]</span>[ENDIF S_SI_CEDEX]</td></tr>
 [IF S_SI_COUNTRY]<tr><td></td><td colspan="2"><span class="fabcrub">[V_SI_COUNTRY]</span></td></tr>[ENDIF S_SI_COUNTRY]
 
 
@@ -112,21 +112,11 @@ function showInfo(id) {
 
 <div style="display:none"  class="fabogdetail" id="other"><table width="100%">
 
-[IF S_SI_CATG]<tr>
-<td align="right"><span class="fabccom">[L_SI_CATG]</span></td>
+[BLOCK OTHERS]<tr>
+<td align="right"><span class="fabccom">[lothers]</span></td>
 <td align="center"><span class="fabccom">:</span></td>
-<td align="left"><span class="fabcrub">[V_SI_CATG]</span></td>
-</tr>[ENDIF S_SI_CATG]
-[IF S_SI_JOB]<tr>
-<td align="right"><span class="fabccom">[L_SI_JOB]</span></td>
-<td align="center"><span class="fabccom">:</span></td>
-<td align="left"><span class="fabcrub">[V_SI_JOB]</span></td>
-</tr>[ENDIF S_SI_JOB]
-[IF S_SI_DESCR]<tr valign="top">
-<td align="right"><span class="fabccom">[L_SI_DESCR]</span></td>
-<td align="center"><span class="fabccom">:</span></td>
-<td align="left"><span class="fabcrub">[V_SI_DESCR]</span></td>
-</tr>[ENDIF S_SI_DESCR]
+<td align="left"><span class="fabcrub">[vothers]</span></td>
+</tr>[ENDBLOCK OTHERS]
 
 <tr><td colspan="3">&nbsp;</td><tr>
 
