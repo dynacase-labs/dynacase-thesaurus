@@ -51,7 +51,7 @@ function showInfo(id) {
 
 <div id="ocontact" class="fabogsel" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('contact')">[TEXT:contact]</div>
 <div id="osociety" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('society')">[TEXT:society]</div>
-<div id="oothers" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('others')">[TEXT:others]</div>
+<div id="oothers" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('others')">[TEXT:other]</div>
 
 </td>
 
