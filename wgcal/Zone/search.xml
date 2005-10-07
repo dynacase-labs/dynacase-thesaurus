@@ -1,4 +1,4 @@
-<div class="wToolButton" valign="center" style="height:auto; width:100%">
+<div class="wToolButtonUnselect" valign="center" style="height:auto; width:100%">
 <form style="display:inline" id="fsearch" name="fsearch"target="wgcal_search" method="POST" action="[CORE_STANDURL]&sole=Y&app=WGCAL&action=WGCAL_GVIEW" 
       onsubmit="subwindow(400, 400, 'searchresult', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_GVIEW&rvfs_desc='+this.title.value+'&rvfs_title='+this.title.value+'&rvfs_ress='+(document.getElementById('mineonly').checked ? rsList : MyFreedomId )+'&explode=1&order=C'); return false;" >
 [TEXT:Search] : 
