@@ -3,6 +3,8 @@ ORDER;DCALENDAR;;;ba_title;se_latest;se_case;se_famid;se_idfld;se_sublevel;se_sq
 DOC;DCALENDAR;WG_AGENDA;;Mon agenda;yes;;EVENT;;;;;;;and\nand;evt_idres\nevt_frominitiatorid;~y\n~*;?idres\n?idfamref;;~*;;Tous les familles;événement;ir;0.6;absx;ASC;;ASC
 BEGIN;0;personne;120;;USER;;;;;;;;;;;;;;;;;;;;;;;
 TAG;R;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ATTR;US_VIEWAGENDA;;Voir son agenda;N;N;menu;0;W;;%S%&app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=%I%;;;;;;;;;;;;;;;;;;
+ATTR;US_NRENDEZVOUS;;Convier à un RV;N;N;menu;0;W;;%S%&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&wress=%I%;;;;;;;;;;;;;;;;;;
 END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;;;;;;;;;;;;;;;
 BEGIN;120;utilisateur;128;;IUSER;;;;;;;;;;;;;;;;;;;;;;;
@@ -12,7 +14,6 @@ ATTR;US_WGCAL_GROUPS;US_WGCAL_FGROUPS;Group List;N;N;array;10110;H;;;;;;;;;;;;;;
 ATTR;US_WGCAL_GNAME;US_WGCAL_GROUPS;Name;N;N;text;10110;H;;;;;;;;;;;;;;;;;;;;
 ATTR;US_WGCAL_GID;US_WGCAL_GROUPS;Id;N;N;docid;10120;H;;;;;;;;;;;;;;;;;;;;
 ATTR;US_WGCAL_GWID;US_WGCAL_GROUPS;What Id;N;N;integer;10130;H;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 END;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //BEGIN;129;groupe intranet;127;;IGROUP;;;;;;;;;;;;;;;;;;;;;;;

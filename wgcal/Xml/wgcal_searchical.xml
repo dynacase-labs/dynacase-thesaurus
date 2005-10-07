@@ -22,6 +22,7 @@ function SelectRessource(id) {
 </script>
 <div  style="display:none" id="mRess" class="wgcalpopup">
 <a href="#" id="rcalendar" onclick="subwindow(450, 700, 'iCalendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress='+ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-refreshcal.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:view calendar]</a>
+<a href="#" id="rrendezvous" onclick="subwindow(450, 700, 'iNrv', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&wress='+ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wgcal-small.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:m_txt_event_new]</a>
 <a href="#" id="radd" onclick="SelectRessource(ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-attendees.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:add to viewed calendars]</a>
 <a href="#" id="rprefered" onclick="subwindow(450, 700, 'wgcal_hidden', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ADDTOPREFCALS&id='+ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-newcontact.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:add to prefered]</a>
 <a class="separator"></a>

@@ -562,6 +562,7 @@ function RendezVousEdit() {
   $nh = GetHttpVars("nh", 0);
   $times = GetHttpVars("ts", time());
   $timee = GetHttpVars("te", $times + ($this->getWgcalUParam("WGCAL_U_RVDEFDUR", 60) * 60));
+  $withress = GetHttpVars("wress", "");
 
   if ($this->isAffected()) 
     {
@@ -634,6 +635,17 @@ function RendezVousEdit() {
       $attendees = array( );
       $attendeesState = array( );
       $attendeesGroup = array( );
+      if ($withress!="") {
+	$tress = explode("|", $withress);
+        foreach ($tress as $k => $v) {
+          if ($v=="") continue;
+          $u = GetTDoc($action->GetParam("FREEDOM_DB"), $v);
+          $attendees[] = $v;
+          $attendeesState[] = EVST_NEW;
+          $attendeesWid = $u["us_whatid"];
+          $attendeesGroup[] = -1;
+        }
+      }
       $ownerid = $action->user->fid;
       $creatorid = $action->user->fid;
       $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
