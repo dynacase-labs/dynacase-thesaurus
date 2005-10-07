@@ -9,7 +9,7 @@
 
 [JS:CODE]
 
-var lOnglet = [ 'contact', 'address', 'other' ];
+var lOnglet = [ 'contact', 'address' [IF HasOthers],'other'[ENDIF HasOthers] ];
 
 function showInfo(id) {
   var elt;
@@ -37,7 +37,7 @@ function showInfo(id) {
 
 <tr>
 <td width="80px" align="center">
-<img src="[logo]" width="[wlogo]px">
+<img [IF HasLogo]onmouseover="this.className='zoom';"  onmouseout="this.className='';"[ENDIF HasLogo] src="[logo]" width="[wlogo]px">
 </td>
 <td>
 <div class="fabctitlep">[IF S_SI_SOCIETY]<span class="fabctitle">[V_SI_SOCIETY]</span>&nbsp;[ENDIF S_SI_SOCIETY]</div>
@@ -49,9 +49,10 @@ function showInfo(id) {
 <tr valign="top">
 
 <td class="fabogcontent" align="center">
-<div id="ocontact" class="fabogsel" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('contact')">[TEXT:contact]</div>
-<div id="oaddress" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('address')">[TEXT:address]</div>
-<div id="oother" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('other')">[TEXT:other]</div>
+<div id="ocontact" class="fabogsel" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';" onclick="showInfo('contact')">[TEXT:contact]</div>
+<div id="oaddress" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';" onclick="showInfo('address')">[TEXT:address]</div>
+[IF HasOthers]
+<div id="oother" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';" onclick="showInfo('other')">[TEXT:other]</div>[ENDIF HasOthers]
 </td>
 
 <td>

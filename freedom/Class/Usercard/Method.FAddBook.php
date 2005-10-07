@@ -58,7 +58,7 @@ function faddbook_card($target="finfo",$ulink=true,$abstract="Y") {
   foreach ($la as $k=>$v) {
     $va=$this->getValue($v->id);
     if (($va) && (! in_array($v->id,$ta))){
-      if (($v->mvisibility == "R") || ($v->mvisibility == "W")) {
+      if (($v->isInAbstract) && (($v->mvisibility == "R") || ($v->mvisibility == "W"))) {
 	$to[]=array("lothers"=>$v->labelText,
 		    "vothers"=>$this->getHtmlValue($v,$va,$target,$ulink));
       }

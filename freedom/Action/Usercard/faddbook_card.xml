@@ -49,9 +49,9 @@ function showInfo(id) {
 
 <td class="fabogcontent" align="center">
 
-<div id="ocontact" class="fabogsel" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('contact')">[TEXT:contact]</div>
-<div id="osociety" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('society')">[TEXT:society]</div>
-<div id="oothers" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';showInfo('others')">[TEXT:other]</div>
+<div id="ocontact" class="fabogsel" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';" onclick="showInfo('contact')">[TEXT:contact]</div>
+<div id="osociety" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';" onclick="showInfo('society')">[TEXT:society]</div>
+<div id="oothers" class="fabog" onmouseout="if (this.className!='fabogsel') this.className='fabog'" onmouseover="if (this.className!='fabogsel') this.className='fabogover';" onclick="showInfo('others')">[TEXT:other]</div>
 
 </td>
 

@@ -13,7 +13,12 @@ font-family: lucida, arial, sans;
 font-size : 8pt;
 }
 
-
+IMG.zoom {
+	position:absolute;
+	left:0;
+	top:0;
+	width:auto;
+}
 input {
 background-color: [CORE_BGCOLORALTERN];
 font-size : 8pt;
