@@ -1,13 +1,7 @@
-<html>
-<head>
 
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS&layout=USERCARD:faddbook.css">
-<link rel="shortcut icon" href="FDL/Images/logo16.ico">
-[JS:REF]
 
 <script type="text/javascript">
 
-[JS:CODE]
 
 var lOnglet = [ 'contact', 'address' [IF HasOthers],'other'[ENDIF HasOthers] ];
 
@@ -28,8 +22,6 @@ function showInfo(id) {
 
 </script>
 
-</head>
-<body class="fabbody">
 
 <div class="fabcard">
 
@@ -128,5 +120,3 @@ function showInfo(id) {
 
 
 </div>
-</body>
-</html>

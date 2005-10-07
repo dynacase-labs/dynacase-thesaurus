@@ -1,6 +1,6 @@
 
-var $faddbook_card = "USERCARD:FADDBOOK_CARD:T";
-var $faddbook_resume = "USERCARD:FADDBOOK_RESUME:S";
+var $faddbook_card = "USERCARD:FADDBOOK_CARD:U";
+var $faddbook_resume = "USERCARD:FADDBOOK_RESUME:T";
 
 function faddbook_resume($target="finfo",$ulink=true,$abstract="Y") {
 
@@ -49,6 +49,10 @@ function faddbook_resume($target="finfo",$ulink=true,$abstract="Y") {
 
 function faddbook_card($target="finfo",$ulink=true,$abstract="Y") {
   // list of attributes displayed directly in layout
+  global $action;
+  $action->parent->AddCssRef("USERCARD:faddbook.css",true);
+
+  
   $ta=array("us_workweb","us_photo","us_lname","us_fname","us_society","us_civility","us_mail","us_phone","us_mobile","us_fax","us_intphone","us_workaddr","us_workcedex","us_country","us_workpostalcode","us_worktown");
   
 

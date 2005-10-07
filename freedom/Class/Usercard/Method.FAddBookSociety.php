@@ -1,7 +1,10 @@
-var $faddbook_card = "USERCARD:FADDBOOKSOC_CARD:T";
+var $faddbook_card = "USERCARD:FADDBOOKSOC_CARD:U";
 var $faddbook_resume = "USERCARD:FADDBOOKSOC_RESUME:T";
 
 function faddbooksoc_card($target="finfo",$ulink=true,$abstract="Y") {
+  global $action;
+  $action->parent->AddCssRef("USERCARD:faddbook.css",true);
+
   // list of attributes displayed directly in layout
   $ta=array("si_logo","si_society","si_town","si_mail","si_phone","si_mobile","si_fax","si_web","si_addr","si_cedex","si_country","si_postcode");
   

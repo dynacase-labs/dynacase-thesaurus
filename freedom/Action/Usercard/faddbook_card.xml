@@ -1,12 +1,7 @@
-<html>
-<head>
-<link rel="shortcut icon" href="FDL/Images/logo16.ico">
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS&layout=USERCARD:faddbook.css">
-[JS:REF]
+
 
 <script type="text/javascript">
 
-[JS:CODE]
 
 var lOnglet = [ 'contact', 'society', 'others' ];
 
@@ -27,9 +22,7 @@ function showInfo(id) {
 
 </script>
 
-</head>
-<body class="fabbody">
-
+[ZONE FDL:POPUPCARD]
 <div class="fabcard">
 
 <table width="100%" cellspacing="0" border="0">
@@ -121,5 +114,3 @@ function showInfo(id) {
 </td>
 </tr></table>
 
-</body>
-</html>

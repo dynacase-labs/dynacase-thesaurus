@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.275 2005/10/02 12:34:12 marc Exp $
+ * @version $Id: Class.Doc.php,v 1.276 2005/10/07 12:40:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2655,6 +2655,16 @@ final public function PostInsert()  {
   }
   }
 
+  /** 
+   * return the character in third part of zone
+   * @return char
+   */
+  public function getZoneOption($zone="") {
+    if ($zone=="") $zone=$this->defaultview;
+    if (ereg("([A-Z_-]+):([^:]+):{0,1}([A-Z]{0,1})", $zone, $reg)) {
+      return $reg[3];
+    }
+  }
   /**
    * set default values define in family document
    * the format of the string which define default values is like

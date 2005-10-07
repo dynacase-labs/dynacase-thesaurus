@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.61 2005/07/21 15:52:36 eric Exp $
+ * @version $Id: viewcard.php,v 1.62 2005/10/07 12:40:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -115,7 +115,7 @@ function viewcard(&$action) {
   if ($doc->defaultmview != "") $action->lay->set("mzone", $doc->defaultmview);
   else $action->lay->set("mzone", $zonebodycard);
   // with doc head ?
-  if (GetHttpVars("dochead")=="")   $dochead=  (! ereg("[A-Z]+:[^:]+:T", $zonebodycard, $reg))||$props;
+  if (GetHttpVars("dochead")=="")   $dochead=  (! ereg("[A-Z]+:[^:]+:[T|U]", $zonebodycard, $reg))||$props;
   else $dochead = (GetHttpVars("dochead",'Y') == "Y");
 
   

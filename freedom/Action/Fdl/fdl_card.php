@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.13 2005/08/10 10:15:32 eric Exp $
+ * @version $Id: fdl_card.php,v 1.14 2005/10/07 12:40:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,6 +35,9 @@ function fdl_card(&$action) {
   
   $docid = GetHttpVars("id");
   $latest = GetHttpVars("latest");
+  $zone = GetHttpVars("zone");
+  $ulink = (GetHttpVars("ulink",'2')); // add url link
+  $target = GetHttpVars("target"); // may be mail
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if ($docid=="") $action->exitError(_("no document reference"));
@@ -61,20 +64,26 @@ function fdl_card(&$action) {
   $action->lay->Set("TITLE",$doc->title);
   $action->lay->Set("id",$docid);
 
-  $listattr = $doc->GetActionAttributes();
-  $taction=array();
-  foreach ($listattr as $k => $v) {
-    if ($v->mvisibility != "H") {
-      if ($v->getOption("submenu")=="") {
-	$taction[$k]=array("wadesc"=>$v->labelText,
-			   "walabel"=>ucfirst($v->labelText),
-			   "wtarget"=>$v->id,
-			   "wlink"=>$v->getLink($doc->latestId()));
+  $zo=$doc->getZoneOption($zone);
+  if ($zo=="S") {
+    $action->lay = new Layout(getLayoutFile("FDL","viewscard.xml"),$action);
+    $action->lay->set("ZONESCARD",$doc->viewdoc($zone,$target,$ulink));
+  } else {
+    $action->lay->set("nocss",($zo=="U"));
+    $listattr = $doc->GetActionAttributes();
+    $taction=array();
+    foreach ($listattr as $k => $v) {
+      if ($v->mvisibility != "H") {
+	if ($v->getOption("submenu")=="") {
+	  $taction[$k]=array("wadesc"=>$v->labelText,
+			     "walabel"=>ucfirst($v->labelText),
+			     "wtarget"=>$v->id,
+			     "wlink"=>$v->getLink($doc->latestId()));
+	}
       }
     }
+    $action->lay->setBlockData("WACTION",$taction);
+    $action->lay->set("VALTERN",($action->GetParam("FDL_VIEWALTERN","yes")=="yes"));
   }
-  $action->lay->setBlockData("WACTION",$taction);
-  $action->lay->set("VALTERN",($action->GetParam("FDL_VIEWALTERN","yes")=="yes"));
 }
-
 ?>
