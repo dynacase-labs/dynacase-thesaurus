@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.276 2005/10/07 12:40:59 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.277 2005/10/07 14:07:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,6 +38,12 @@ define ("FAM_ACCESSFAM", 23);
 define ("MENU_ACTIVE", 1);
 define ("MENU_INVISIBLE", 0);
 define ("MENU_INACTIVE", -1);
+
+define('POPUP_INACTIVE',0);
+define('POPUP_ACTIVE',1);
+define('POPUP_CTRLACTIVE',3);
+define('POPUP_CTRLINACTIVE',4);
+define('POPUP_INVISIBLE',2);
 /**#@-*/
 /**
  * max cache document
@@ -309,7 +315,11 @@ create unique index i_docir on doc(initid, revision);";
   public $defaultmview = ""; 
  
 
-  // --------------------------------------------------------------------
+  /**
+   * use when family wants to define a special context menu
+   * @public array
+   */
+  public $specialmenu=array();
 
  
 

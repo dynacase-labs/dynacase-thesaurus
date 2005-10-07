@@ -3,7 +3,7 @@
  * Utilities functions to generate popup menu
  *
  * @author Anakeen 2000 
- * @version $Id: popup_util.php,v 1.14 2005/08/08 16:04:10 eric Exp $
+ * @version $Id: popup_util.php,v 1.15 2005/10/07 14:07:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 
-
+include_once("FDL/Class.Doc.php");
 
 
 
@@ -107,12 +107,6 @@ function popupGetSubItems($name,$mlabel) {
   }
   return $ti;
 }
-
-define('POPUP_INACTIVE',0);
-define('POPUP_ACTIVE',1);
-define('POPUP_CTRLACTIVE',3);
-define('POPUP_CTRLINACTIVE',4);
-define('POPUP_INVISIBLE',2);
 function popupActive($name,$k, $nameid) {
   global $tmenuaccess;
   global $$nameid;
@@ -155,9 +149,11 @@ function popupCtrlInactive($name,$k, $nameid) {
 function popupGetAccessItem($name,$k, $nameid) {
   global $tmenuaccess;
   global $$nameid;
-  return ($tmenuaccess[$name][$k][$$nameid]);
-  
+  return ($tmenuaccess[$name][$k][$$nameid]);  
 }
+
+
+
   function vcompare($a, $b) {
     $na = intval(substr($a,1));
     $nb = intval(substr($b,1));
@@ -180,6 +176,36 @@ function popupNoCtrlKey() {
   }
   
 }
+
+
+function popupGetAccess($popname) {
+  global $tmenuaccess;
+  global $menuitems;
+
+  $ta=$tmenuaccess[$popname][1];
+  
+  array_shift($ta);
+  $ti=$menuitems[$popname];
+  foreach ($ta as $v) {
+    $tu[current($ti)]=$v;
+    next($ti);
+  }
+  return $tu;
+}
+
+function popupSetAccess($popname,$ta) {
+  global $tmenuaccess;
+  global $menuitems;
+
+  $ti=$menuitems[$popname];  
+  foreach ($ta as $i=>$a) {
+    $kt=array_keys($ti,$i);
+    if (count($kt)==1) {
+      $k=$kt[0];
+      $tmenuaccess[$popname][1]["v$k"]=$a;
+    }
+  }
+}
 function popupGen($kdiv="nothing") {  
   global $tmenuaccess;
   global $menuitems;
@@ -188,7 +214,7 @@ function popupGen($kdiv="nothing") {
   static $first=1;
   global $tcmenus; // closeAll menu
   global $tsubmenu;
-
+ 
 
   if ($first) {
     // static part    

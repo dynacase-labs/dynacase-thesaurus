@@ -1,6 +1,7 @@
-
-var $faddbook_card = "USERCARD:FADDBOOK_CARD:U";
-var $faddbook_resume = "USERCARD:FADDBOOK_RESUME:T";
+<?php
+public $faddbook_card = "USERCARD:FADDBOOK_CARD:U";
+public $faddbook_resume = "USERCARD:FADDBOOK_RESUME:T";
+public $specialmenu=array("menuab");
 
 function faddbook_resume($target="finfo",$ulink=true,$abstract="Y") {
 
@@ -51,7 +52,7 @@ function faddbook_card($target="finfo",$ulink=true,$abstract="Y") {
   // list of attributes displayed directly in layout
   global $action;
   $action->parent->AddCssRef("USERCARD:faddbook.css",true);
-
+  setHttpVar("specialmenu","menuab");
   
   $ta=array("us_workweb","us_photo","us_lname","us_fname","us_society","us_civility","us_mail","us_phone","us_mobile","us_fax","us_intphone","us_workaddr","us_workcedex","us_country","us_workpostalcode","us_worktown");
   
@@ -71,3 +72,9 @@ function faddbook_card($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->setBlockData("OTHERS",$to);
   
 }
+
+function menuab(&$ta) {
+  $ta["histo"]=POPUP_ACTIVE;
+  $ta["sedit"]=POPUP_INVISIBLE;
+}
+?>

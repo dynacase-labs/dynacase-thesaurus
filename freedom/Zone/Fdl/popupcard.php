@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.54 2005/09/27 13:37:16 eric Exp $
+ * @version $Id: popupcard.php,v 1.55 2005/10/07 14:07:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,6 +22,7 @@ function popupcard(&$action) {
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");
   $headers = (GetHttpVars("props",'N') == "Y"); // view doc properties
+  $specialmenu = GetHttpVars("specialmenu"); // view doc properties
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new_Doc($dbaccess, $docid);
@@ -340,7 +341,14 @@ function popupcard(&$action) {
   $action->lay->SetBlockData("SUBMENU",$tsubmenu);
   $action->lay->SetBlockData("SUBDIVMENU",$tsubmenu);
 
-
+  if (($specialmenu!="") && (in_array($specialmenu,$doc->specialmenu))) {
+    if (method_exists($doc,$specialmenu)) {
+      
+      $tu=popupGetAccess("popupcard");
+      $doc->$specialmenu($tu);
+      popupSetAccess("popupcard",$tu);
+    }
+  }
 
   popupGen();
 
