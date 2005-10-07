@@ -255,21 +255,21 @@ TD {
 .wToolButton {
   background-color : [WTH_COLOR_TOOL];
   font-weight : bold;
-  border : 2px outset [WTH_COLOR_2];
+  border : 1px outset [WTH_COLOR_2];
   cursor:default;
   height : 22px;
 }
 .wToolButtonUnselect {
   background-color : [WTH_COLOR_TOOL];
   font-weight : bold;
-  border : 2px outset [WTH_COLOR_2];
+  border : 1px outset [WTH_COLOR_2];
   cursor:default;
   height : 22px;
 }
 .wToolButtonSelect {
   background-color : [WTH_COLOR_TOOL];
   font-weight : bold;
-  border : 2px inset [WTH_COLOR_2];
+  border : 1px inset [WTH_COLOR_2];
   cursor:default;
   height : 22px;
 }

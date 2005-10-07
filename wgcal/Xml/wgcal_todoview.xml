@@ -1,7 +1,7 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <table id="btodo" class="[btodo]" width="100%" cellspacing="0" cellpadding="0">
 <tr>
-<td onclick="idelt=getElementById('vtodo'); if (idelt.style.display!='') idelt.style.display=''; else idelt.style.display='none'; " align="left">[TEXT:my todo] ([todocount])</td>
+<td onclick="idb=getElementById('btodo'); idelt=getElementById('vtodo'); if (idelt.style.display!='') { idb.className='wToolButtonUnselect'; idelt.style.display=''; } else { idb.className='wToolButtonSelect'; idelt.style.display='none'; }" align="left">[TEXT:my todo] ([todocount])</td>
 <td align="right" width="50">
 <img id="addTodo" class="wSmallButton" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=-1');" height="15" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">
 </td></tr>

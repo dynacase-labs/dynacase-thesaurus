@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.51 2005/09/27 15:29:35 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.52 2005/10/07 10:17:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -28,6 +28,10 @@ function wgcal_toolbar(&$action) {
 
   if ($action->getParam("WGCAL_U_TBSEARCH",0)) $action->lay->set("SHOWSEARCH", true);
   else $action->lay->set("SHOWSEARCH", false);
+
+  $action->lay->set("VContactSTop", ($action->getParam("WGCAL_U_CONTACSEARCH",0)==1 ? true : false ));
+  $action->lay->set("VContactSBottom", ($action->getParam("WGCAL_U_CONTACSEARCH",0)==2 ? true : false ));
+
 
   if ($action->getParam("WGCAL_U_TBTODOS",1)) $action->lay->set("SHOWTODOS", true);
   else $action->lay->set("SHOWTODOS", false);

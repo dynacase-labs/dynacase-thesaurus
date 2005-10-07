@@ -1,4 +1,4 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD?refresh=[refresh]]
+[ZONE WGCAL:WGCAL_HTMLHEAD?HBUL=SaveFrameWidth()&refresh=[refresh]]
 <div id="toolbarmain style="display:none">
 <form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 
@@ -20,7 +20,8 @@
 [ZONE WGCAL:WGCAL_WAITRV?tb=Y&RTARGET=wgcal_toolbar&RACTION=WGCAL_TOOLBAR]
 
 
- 
+ [IF VContactSTop]<iframe id="contactss" name="contactss" style="border:0px; width:100%; height:auto; position:relative;" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH"></iframe>[ENDIF VContactSTop]
+
 <!-- NAVIGATOR  -->
 <table id="bnav" class="[bnav]" width="100%" cellspacing="0" cellpadding="0">
 <tr valign="center">
@@ -131,7 +132,7 @@
 <iframe id="icaltodo" name="icaltodo" style="border:0px; width:100%; height:auto; position:relative;" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOVIEW&dtodo=[tododays]">
 </iframe>
  
-[IF SHOWCONTACTS] [ZONE WGCAL:CONTACTS] [ENDIF SHOWCONTACTS]
+[IF VContactSBottom]<iframe id="contactss" name="contactss" style="border:0px; width:100%; height:auto; position:relative;" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH"></iframe>[ENDIF VContactSBottom]
 
 
 <script type="text/javascript">

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-26 15:25+0200\n"
+"POT-Creation-Date: 2005-10-05 18:37+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -232,9 +232,6 @@ msgstr "Préférence de l'utilisateur"
 msgid "alert"
 msgstr "La date butée est dépassée"
 
-msgid "public calendar"
-msgstr "Mon agenda public"
-
 msgid "new"
 msgstr "nouveau"
 
@@ -258,6 +255,18 @@ msgstr "Privé"
 
 msgid "My public calendar"
 msgstr "Mon calendrier public"
+
+#, fuzzy
+msgid "invite"
+msgstr "Vue principale"
+
+#, fuzzy
+msgid "delegate"
+msgstr "Supprimer"
+
+#, fuzzy
+msgid "pdelegate"
+msgstr "Supprimer"
 
 msgid "confidential event"
 msgstr "Evènement confidentiel"
@@ -330,6 +339,9 @@ msgstr "Rendez-vous avec alarme"
 
 msgid "icon text with attendees"
 msgstr "Réunion"
+
+msgid "public calendar"
+msgstr "Mon agenda public"
 
 msgid "small"
 msgstr "Petite"
@@ -411,6 +423,18 @@ msgstr "10 minutes"
 
 msgid "20 minutes"
 msgstr "20 minutes"
+
+msgid "contact search position"
+msgstr "Recherche rapide carnet d'adresse"
+
+msgid "search not displayed"
+msgstr "non affichée"
+
+msgid "search displayed on top"
+msgstr "Affichée en haut"
+
+msgid "search displayed on bottom"
+msgstr "Affichée en bas"
 
 msgid "portal look"
 msgstr "Style du portail"
@@ -839,6 +863,9 @@ msgstr "Rechercher dans les familles..."
 msgid "found ressources"
 msgstr "Ressources trouvées"
 
+msgid "read only calendar"
+msgstr "Agenda en lecture seule"
+
 msgid "click here to refresh toolbar"
 msgstr "cliquer pour raffraichir la barre d'outil"
 
@@ -892,9 +919,6 @@ msgstr "Tout masquer"
 
 msgid "close menu"
 msgstr "Fermer"
-
-msgid "read only calendar"
-msgstr "Agenda en lecture seule"
 
 msgid "my todos..."
 msgstr "Mes tâches..."
