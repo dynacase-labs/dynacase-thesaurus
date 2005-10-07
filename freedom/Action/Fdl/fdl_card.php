@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.14 2005/10/07 12:40:59 eric Exp $
+ * @version $Id: fdl_card.php,v 1.15 2005/10/07 14:59:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -65,7 +65,7 @@ function fdl_card(&$action) {
   $action->lay->Set("id",$docid);
 
   $zo=$doc->getZoneOption($zone);
-  if ($zo=="S") {
+  if ($zo=="Sxxxxxxxxx") { // on patiente à cause de proposition
     $action->lay = new Layout(getLayoutFile("FDL","viewscard.xml"),$action);
     $action->lay->set("ZONESCARD",$doc->viewdoc($zone,$target,$ulink));
   } else {
