@@ -78,9 +78,10 @@ function faddbook_card($target="finfo",$ulink=true,$abstract="Y") {
 }
 
 function menuab(&$ta) {
+  global $action;
   foreach ($ta as $k => $v) $ta[$k] = POPUP_INVISIBLE;
+  $ta["us_viewagenda"] =  $ta["us_nrendezvous"] = POPUP_INACTIVE;
   if ($this->fromid == getIdFromName($this->dbaccess, "IUSER")) $ta["us_viewagenda"] = POPUP_ACTIVE;
-  else $ta["us_viewagenda"] = POPUP_INACTIVE;
-  $ta["us_nrendezvous"]= POPUP_ACTIVE;
+  if ($action->user->fid!=$this->id) $ta["us_nrendezvous"]= POPUP_ACTIVE;
 }
 ?>
