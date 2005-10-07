@@ -1,10 +1,14 @@
 <?php
 public $faddbook_card = "USERCARD:FADDBOOK_CARD:U";
-public $faddbook_resume = "USERCARD:FADDBOOK_RESUME:T";
+public $faddbook_resume = "USERCARD:FADDBOOK_RESUME:U";
 public $specialmenu=array("menuab");
 
 function faddbook_resume($target="finfo",$ulink=true,$abstract="Y") {
 
+  global $action;
+  $action->parent->AddCssRef("USERCARD:faddbook.css",true);
+  setHttpVar("specialmenu","menuab");
+  
   $imgu = "";
   $img = $this->getValue("us_photo");
   if ($img=="") {
@@ -74,7 +78,9 @@ function faddbook_card($target="finfo",$ulink=true,$abstract="Y") {
 }
 
 function menuab(&$ta) {
-  $ta["histo"]=POPUP_ACTIVE;
-  $ta["sedit"]=POPUP_INVISIBLE;
+  foreach ($ta as $k => $v) $ta[$k] = POPUP_INVISIBLE;
+  if ($this->fromid == getIdFromName($this->dbaccess, "IUSER")) $ta["us_viewagenda"] = POPUP_ACTIVE;
+  else $ta["us_viewagenda"] = POPUP_INACTIVE;
+  $ta["us_nrendezvous"]= POPUP_ACTIVE;
 }
 ?>
