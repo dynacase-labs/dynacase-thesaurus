@@ -406,7 +406,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
       $tout[] = $item;
     }
   } 
-  //      AddWarningMsg($sdebug);
+//         AddWarningMsg($sdebug);
 //   echo      "$sdebug";
  return $tout;
 }

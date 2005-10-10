@@ -350,12 +350,12 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBL
 [BLOCK D_RWEEKDISPLAY]<span onclick="clickB('rweekday[dayn]')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="rweekday[]" value="[dayn]" [rdstate] [repeatdis]>[tDay]</span>[IF weekend]<br>[ENDIF weekend][ENDBLOCK D_RWEEKDISPLAY]
   </div>
 
-  <div id="d_rmonth" style="left:10%; display:[D_RMONTH]">
+  <div id="d_rmonth" style="left:10%; display:[D_RMONTH]"><!-- 
    [TEXT:month repetition] : <br>
     <span onclick="clickB('rmonth0')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rmonth0')"  type="radio" id="rmonth0" name="rmonth" value="0" [repeatdis] [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
     <span onclick="clickB('rmonth1')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rmonth1')"  type="radio" id="rmonth1" name="rmonth" value="1" [repeatdis] [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
     <br>
-  </div>
+   --></div>
 
 </div>
 

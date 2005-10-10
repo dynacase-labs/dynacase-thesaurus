@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.4 2005/09/21 16:44:31 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.5 2005/10/10 07:01:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -75,10 +75,10 @@ function explodeEvt($d1, $d2) {
 
   $sdeb = "";
 
+  $ix = 0;
   switch ($e->mode) {
     
   case 1: // daily repeat
-    $ix = 0;
     for ($iday=$start; $iday<=$stop; $iday++) {
       if (!$this->CalEvIsExclude($e->exclude, $iday)) {
 	$hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
@@ -91,7 +91,6 @@ function explodeEvt($d1, $d2) {
 
   case 2: // weekly repeat
     $ref = get_object_vars($this);
-    $ix = 0;
     for ($iday=$start; $iday<=$stop; $iday++) {
       if (!$this->CalEvIsExclude($e->exclude, $iday)) {
         $cday = jdWeekDay($iday);
@@ -109,23 +108,34 @@ function explodeEvt($d1, $d2) {
 
   case 3: // monthly repeat submode 0=by date 1=by day
 
+
     $sdate = jd2cal($start, 'FrenchLong');
-    $dsdate = substr($sdate, 0, 2);
-    $rsdate = substr($sdate, 2);
-    $s_lmd = w_DaysInMonth(w_dbdate2ts($sdate));
-    
+    $csmonth = substr($sdate, 3, 2);
+    $csyear = substr($sdate, 6, 4);
+
+    $rs_ho = substr($e->ds, 11, 2);
+    $rs_mi = substr($e->ds, 14, 2);
+    $rs_da = substr($e->ds, 0, 2);
+    $rs_mo = substr($e->ds, 3, 2);
+    $rs_ye = substr($e->ds, 6, 4);
+    $rs = cal2jd("", $csyear, $csmonth, $rs_da, $rs_ho, $rs_mi, 0);
+
     $edate = jd2cal($stop, 'FrenchLong');
-    $dedate = substr($edate, 0, 2);
-    $redate = substr($sdate, 2);
-    
+    $cemonth = substr($edate, 3, 2);
+    $ceyear = substr($edate, 6, 4);
+
+    $re_ho = substr($e->de, 11, 2);
+    $re_mi = substr($e->de, 14, 2);
+    $re_da = substr($e->de, 0, 2);
+    $re_mo = substr($e->de, 3, 2);
+    $re_ye = substr($e->de, 6, 4);
+    $re = cal2jd("", $ceyear, $cemonth, $re_da, $re_ho, $re_mi, 0);
+
     if ($e->month==0) {
 
-      $csday = substr($e->ds,0,2);
-      $ceday = substr($e->de,0,2);
-
-      if ($csday>=$dsdate &&  $csday<=$s_lmd) {
-	$nstart = $csday.$rsdate;
-	$nend  = $csday.$redate;
+      if ($rs<=$stop && $re>=$start) {
+	$nstart = jd2cal($rs, 'FrenchLong');
+	$nend  = jd2cal($re, 'FrenchLong');
 	$eve[$ix] = $this->CalEvDupEvent($ref, $nstart, $nend);
 	$ix++;
       }
