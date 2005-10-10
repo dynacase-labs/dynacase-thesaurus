@@ -35,7 +35,7 @@ function manageCols() {
 <input type="hidden" name="pname" id="pname" value="FADDBOOK_MAINLINE">
 <input type="hidden" name="pvalue" id="pvalue" value="[linep]">
 <input type="hidden" name="rapp" value="[APPNAME]">
-<input type="hidden" name="raction" value="FADDBOOK_MAIN">
+<input type="hidden" name="raction" value="FADDBOOK_MAIN&dfam=[dfam]">
 </form>
 
 
