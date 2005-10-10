@@ -208,6 +208,7 @@ function RendezVousView() {
     foreach ($t as $k => $v ) {
       if ($v!="") {
 	$du = getDocFromUserId($this->dbaccess, $v);
+        if (!$du) continue;
 	$g  = new_Doc($dbaccess, $du->id);
 	$glist .= ($glist=="" ? "" : ", " ) . ucwords(strtolower($g->title));
       }
@@ -1433,6 +1434,7 @@ function setAccessibility() {
   foreach ($acls as $user => $uacl) {
     if ($user!="") {
       $dt = getDocFromUserId($this->dbaccess,$user);
+      if (!$dt) continue;
       $sdeb .= "[".$dt->GetTitle()."($user)] = ";
       $perm = new DocPerm($this->dbaccess, array($this->id,$user));
       $perm->UnSetControl();
