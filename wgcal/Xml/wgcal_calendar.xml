@@ -26,7 +26,7 @@
           onclick="document.location = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pafter]&sm=[sm]&vm=[vm]&ress=[ress]';"
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-nperiod.gif]" height="12"></td>
       <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
-      <td align="center" width="50" title="[TEXT:change hours division]">[IFNOT standAlone]<select style="cursor:pointer;" id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select>[ENDIF standAlone]&nbsp;</td>
+      <td class="WGCAL_Period" align="center" width="50" title="[TEXT:change hours division]">[IFNOT standAlone]<select style="cursor:pointer;" id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select>[ENDIF standAlone][IF standAlone]&nbsp;[ENDIF standAlone]</td>
       </tr>
       </table> 
      </td>
