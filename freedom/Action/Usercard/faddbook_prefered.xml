@@ -7,45 +7,19 @@
 <script type="text/javascript">
 [JS:CODE]
 
-
-var timeValue = 500;
-var currentElt = '';
-var timerId = -1;
-
-function displayResumeCard() {
-  var idr = 'res'+currentElt;
-  var idl = 'l'+currentElt;
-  var celt = document.getElementById(idr);
-  if (!celt) return false;
-  document.getElementById(idr).style.display = '';
-  document.getElementById(idl).style.display = 'none';
-  return true;
-}
-
-function hideResumeCard(elt) {
+function showHideResumeCard(elt) {
   var idr = 'res'+elt;
   var idl = 'l'+elt;
   var celt = document.getElementById(idr);
   if (!celt) return false;
-  document.getElementById(idr).style.display = 'none';
-  document.getElementById(idl).style.display = '';
-  return true;
+  if (celt.style.display!='') {
+    document.getElementById(idr).style.display = '';
+    document.getElementById(idl).className = 'fabcontactsel';
+  } else {
+    document.getElementById(idr).style.display = 'none';
+    document.getElementById(idl).className = 'fabcontact';
+  }
 }
-
-function initTimer(elt) {
-  if (currentElt == elt) return true;
-  resetTimer();
-  currentElt = elt;
-  timerId = self.setTimeout("displayResumeCard()", timeValue);
-  return true;
-}
-
-function resetTimer() {
-  if (timerId!=-1) clearTimeout(timerId);
-  timerId = -1;
-  currentElt = '';
-}
-  
 </script>
 
 </head>
@@ -67,9 +41,9 @@ function resetTimer() {
 <table width="100%" cellspacing="0">
 <td width="12px" align="center" onclick="if (confirm('[TEXT:confirm delete] [jstitle]')) { document.getElementById('cid').value=[id]; document.getElementById('delpref').submit(); }" title="[TEXT:delete from prefered]"><img height="6" style="cursor:pointer; border:0" src="[IMG:faddbook_delpref.gif]"></td>
 <td width="20px" align="center"><img height="16" style="border:0" src="[icon]"></td>
-<td align="left" onmouseover="document.getElementById('l[id]').className='fabcontactsel'; initTimer([id]);" onmouseout="document.getElementById('l[id]').className='fabcontact'; resetTimer();" onclick="subwindow(300, 400, '[TEXT:view detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]&zone=[fabzone]'); document.getElementById('l[id]').className='fabcontact'" >[title]</td>
+<td align="left" onclick="showHideResumeCard([id]);">[title]</td>
 </tr></table></div>
-<div colspan="2" id="res[id]" style="margin:0px 5px 0px 5px; display:none" onclick="hideResumeCard([id]); document.getElementById('l[id]').className='fabcontact'" width="95%">[resume]</div>
+<div colspan="2" id="res[id]" style="margin:0px 5px 0px 5px; display:none" onclick="subwindow(300, 400, '[TEXT:view detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]&zone=[fabzone]'); " width="95%">[resume]</div>
 [ENDBLOCK Contacts]
 
 <iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none"></iframe>

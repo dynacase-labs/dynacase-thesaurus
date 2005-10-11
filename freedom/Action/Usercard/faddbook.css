@@ -81,6 +81,13 @@ DIV.fabcontact {
   border-width: 1px;
   empty-cells: show;
 }
+DIV.fabcontact:hover {
+  cursor: crosshair;
+  border-style: inset;
+  border-color: lightgrey;
+  border-width: 1px;
+  empty-cells: show;
+}
 DIV.fabcontactsel {
   cursor: pointer;
   border-width: 1px;
