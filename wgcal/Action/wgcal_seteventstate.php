@@ -13,6 +13,10 @@ function wgcal_seteventstate(&$action) {
   $event = new_Doc($db, $evi);
   $evstate  = GetHttpVars("st", -1);
 
+  global $_SERVER;
+  // print_r2($_SERVER);
+  // [HTTP_REFERER] => http://obeone.tlse.i-cesam.com/what/index.php?sole=Y&&app=WGCAL&action=WGCAL_PORTAL
+
   if (!$event->isAffected() || $evstate==-1) {
     AddWarningMsg("wgcal_seteventstate: error, can't find event #$evi");
   } else {
@@ -52,7 +56,8 @@ function wgcal_seteventstate(&$action) {
       $event->enableEditControl();
     }
   }
-  redirect($action, "WGCAL", $raction);
+  Header("Location: ".$_SERVER["HTTP_REFERER"]);
+//   redirect($action, "WGCAL", $raction);
 }
 
 

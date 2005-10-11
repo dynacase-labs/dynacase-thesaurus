@@ -7,6 +7,8 @@ include_once("WGCAL/Lib.WGCal.php");
 
 function wgcal_storeevent(&$action) {
 
+  global $_SERVER;
+
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
@@ -288,7 +290,8 @@ function wgcal_storeevent(&$action) {
 
   $event->unlock(true);
 
-  redirect($action, "WGCAL", "WGCAL_CALENDAR");
+  Header("Location: ".$_SERVER["HTTP_REFERER"]);
+//   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 
 
