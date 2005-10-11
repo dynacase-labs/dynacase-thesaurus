@@ -625,7 +625,7 @@ function RendezVousEdit() {
       $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
       $ogrp    = "-";
       $evrepeat = 0;
-      $evrweekd = array();
+      $evrweekd = array( (strftime("%u", time())-1));
       $evrmonth = 0;
       $evruntil = -1;
       $evruntild = $timee + (7*24*3600);

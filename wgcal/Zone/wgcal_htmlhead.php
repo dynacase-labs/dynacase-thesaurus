@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.9 2005/09/15 10:44:25 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.10 2005/10/11 15:53:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.9 2005/09/15 10:44:25 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.10 2005/10/11 15:53:56 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -20,6 +20,23 @@ include_once('Class.Application.php');
 function wgcal_htmlhead(&$action) {
 
   global $_SERVER;
+
+  // Themes ----------------------------------------------------------
+  $themes = array();
+  $themedir = "WGCAL/Themes";
+  $ith=0;
+  $list = GetFilesByExt($themedir, ".thm");
+  $flist = GetFilesByExt($themedir, ".fsz");
+  foreach ($list as $k => $v) {
+    foreach ($flist as $kf => $vf) {
+      $themes[] = array( "theme" => $v, 
+			 "font" =>  $vf,
+			 "title" => "$v ($vf fonts)");
+    }
+  }
+//   $action->lay->setBlockData("OTHEMES", $themes);
+   $action->lay->setBlockData("OTHEMES", null);
+
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $refresh = GetHttpVars("refresh", 0);
@@ -65,4 +82,21 @@ function wgcal_htmlhead(&$action) {
   $action->lay->set("onbeforeunload", $berforeunload_hand);
   
 }
+
+// 2 fois .... dans pref !
+function GetFilesByExt($dir=".", $ext="") {
+  $flist = array();
+  if ($dh = opendir($dir)) {
+    while (($file = readdir($dh)) !== false) {
+      $fn  = basename($file);
+      $fne = basename($file, $ext);
+      if ($fne!="." && $fne!=".." && $fn == $fne.$ext) {
+        $flist[] = $fne;
+      }
+    }
+    closedir($dh);
+  }
+  return $flist;
+}
+
 ?>

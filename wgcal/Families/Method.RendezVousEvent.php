@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.6 2005/10/10 19:40:08 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.7 2005/10/11 15:53:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -37,49 +37,40 @@ function explodeEvt($d1, $d2) {
     return $eve;
   }
 
+  $sdeb = "";
+
   $jd1 = ($d1==""?0:Iso8601ToJD($d1));
   $jd2 = ($d2==""?5000000:Iso8601ToJD($d2));
+  $sdeb .= "Periode [".$this->__trcJdDate($jd1).":".$this->__trcJdDate($jd2)."\n";
 
-  // check start and end date
-  $e->ds = $this->getValue("evt_begdate");
-  $e->de = ($this->getValue("evfc_realenddate")==""?$this->getValue("evt_enddate"):$this->getValue("evfc_realenddate"));
-  $e->jdds = StringDateToJD($e->ds);
-  $e->jdde = StringDateToJD($e->de);
+  $jdDateStart = StringDateToJD($this->getValue("evt_begdate"));
+  $jdDateEnd   = StringDateToJD($this->getValue("evfc_realenddate"));
+  $jdDuration = $jdDateEnd - $jdDateStart;
+  $jdREndDate  = StringDateToJD($this->getValue("evt_enddate"));
+  $sdeb .= "Event Start:".$this->__trcJdDate($jdDateStart)." End:".$this->__trcJdDate($jdDateEnd)." RealEndDate:".$this->__trcJdDate($jdREndDate)." Dur".$this->__trcJdDate($jdDuration)."\n";
 
-
-  // really produce event ?
-  $e->mode      = $this->getValue("evfc_repeatmode");
-  $e->freq      = $this->getValue("evfc_repeatfreq");
-  $e->weekday   = $this->getTValue("evfc_repeatweekday");
-  $e->untildate = ($this->getValue("evfc_repeatuntil")==0 ? 5000001 :  StringDateToJD($this->getValue("evfc_repeatuntildate")));
-  $e->untildate = ($e->untildate > $jd2 ? $jd2 : $e->untildate);
-  $e->exclude = array();
-
-
-  if ($e->untildate<$jd1 || $e->jdds>$jd2 ) {
+  if ($this->getValue("evfc_repeatmode")==0 || $jdREndDate<$jd1 || $jdDateStart>$jd2 ) {
     return array();
   }
 
-  $start = ($e->jdds < $jd1 ? $jd1 : $e->jdds);
-  $stop = $e->untildate;
+  // $freq      = $this->getValue("evfc_repeatfreq");
 
-  $hstart = substr($e->ds,11,5);
-  $hend   = substr($e->de,11,5);
-
-  $sdeb = "";
 
   $ix = 0;
-  switch ($e->mode) {
+  switch ($this->getValue("evfc_repeatmode")) {
     
   case 1: // daily repeat
 
+    $start = ($jdDateStart>$jd1 ? $jdDateStart : $jd1);
+    $stop = ($jdREndDate<$jd2 ?  $jdREndDate : $jd2);
+    $hstart = substr($this->getValue("evt_begdate"), 11, 5);
+  
     for ($iday=$start; $iday<=$stop; $iday++) {
       if (!$this->CalEvIsExclude(jd2cal($iday, 'FrenchLong'))) {
-	$hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart.":00";
-	$he = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hend.":00";
+	$hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
 	$jdhs = StringDateToJD($hs);
-	$jdhe = StringDateToJD($he);
-	if ($jdhs<$jd2 && $jdhe>$jd1) {
+	$he = jd2cal(($jdhs+$jdDuration), 'FrenchLong');
+	if ($jdhs<$jd2 && ($jdhs+$jdDuration)>$jd1) {
 	  $eve[$ix] = $this->CalEvDupEvent($ref, $hs, $he);
 	  $ix++;
 	}
@@ -89,26 +80,43 @@ function explodeEvt($d1, $d2) {
 
   case 2: // weekly repeat
 
+    
+    $start = ($jdDateStart>$jd1 ? $jdDateStart : $jd1);
+    $stop = ($jdREndDate<$jd2 ?  $jdREndDate : $jd2);
+    $hstart = substr($this->getValue("evt_begdate"), 11, 5);
+
+
     for ($iday=$start; $iday<=$stop; $iday++) {
-      if (!$this->CalEvIsExclude(jd2cal($iday, 'FrenchLong'))) {
-        $cday = jdWeekDay($iday);
-        foreach ($e->weekday as $kd => $vd) {
-          if ($vd == $cday-1) {
-	    $hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
-	    $he = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hend;
-	    $jdhs = StringDateToJD($hs);
-	    $jdhe = StringDateToJD($he);
-	    if ($jdhs<$jd2 && $jdhe>$jd1) {
-	      $eve[$ix] = $this->CalEvDupEvent($ref, $hs, $he);
-	      $ix++;
-	    }
-          }
-        }
+      if ($this->CalEvIsExclude(jd2cal($iday, 'FrenchLong'))) continue;
+      $cday = jdWeekDay($iday);
+      $hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
+      $jdhs = StringDateToJD($hs);
+      $he = jd2cal(($jdhs+$jdDuration), 'FrenchLong');
+      $jStart = jdWeekDay($jdhs);
+      $jStop  = jdWeekDay(($jdhs+$jdDuration));
+      $thisDay = false;
+
+      foreach ($this->getTValue("evfc_repeatweekday") as $kd => $vd) {
+        if ($vd == ($jStart - 1)) $thisDay = true;
       }
+      if (!$thisDay) continue;
+      if ($cday!=$jStart && $cday!=$jStop) continue;
+
+     if ($jdhs<$jd2 && ($jdhs+$jdDuration)>$jd1) {
+        $eve[$ix] = $this->CalEvDupEvent($ref, $hs, $he);
+     }
     }
     break;
 
+
+
+
   case 3: // monthly repeat submode 0=by date 1=by day
+
+    $start = ($jdDateStart>$jd1 ? $jdDateStart : $jd1);
+    $stop = ($jdREndDate<$jd2 ?  $jdREndDate : $jd2);
+
+//     $sdeb .= "Date Debut:".$this->__trcJdDate($start).". Fin:".$this->__trcJdDate($stop)."\n";
 
     $refstartday = substr(jd2cal($start, 'FrenchLong'), 0, 2);
     $csmonth = substr(jd2cal($start, 'FrenchLong'), 3, 2);
@@ -118,38 +126,25 @@ function explodeEvt($d1, $d2) {
     $cemonth = substr(jd2cal($stop, 'FrenchLong'), 3, 2);
     $ceyear = substr(jd2cal($stop, 'FrenchLong'), 6, 4);
 
-    $sdate = $this->getValue("evt_begdate"); 
-//     $csmonth = substr($sdate, 3, 2);
-//     $csyear = substr($sdate, 6, 4);
-
-    $rs_ho = substr($e->ds, 11, 2);
-    $rs_mi = substr($e->ds, 14, 2);
-    $rs_da = substr($e->ds, 0, 2);
-    $rs_mo = substr($e->ds, 3, 2);
-    $rs_ye = substr($e->ds, 6, 4);
+    $ds = $this->getValue("evt_begdate");
+    $rs_ho = substr($ds, 11, 2);
+    $rs_mi = substr($ds, 14, 2);
+    $rs_da = substr($ds, 0, 2);
+    $rs_mo = substr($ds, 3, 2);
+    $rs_ye = substr($ds, 6, 4);
     if ($rs_da<$refstartday) $csmonth++;
     if ($csmonth>12) { $csmonth=1; $csyear++; }
-    $rs = cal2jd("", $csyear, $csmonth, $rs_da, $rs_ho, $rs_mi, 0);
+    $rs = cal2jd("CE", $csyear, $csmonth, $rs_da, $rs_ho, $rs_mi, 0);
 
-    $edate = ($this->getValue("evfc_realenddate")==""?$this->getValue("evt_enddate"):$this->getValue("evfc_realenddate")) ; //jd2cal($stop, 'FrenchLong');
-    $re_ho = substr($e->de, 11, 2);
-    $re_mi = substr($e->de, 14, 2);
-    $re_da = substr($e->de, 0, 2);
-    $re_mo = substr($e->de, 3, 2);
-    $re_ye = substr($e->de, 6, 4);
-    if ($re_da<$refstopday) $cemonth++;
-    if ($cemonth>12) { $cemonth = 0; $ceyear++; }
-    $re = cal2jd("", $csyear, $csmonth, $re_da, $re_ho, $re_mi, 0);
+    $re = $rs + $jdDuration;
 
+//     $sdeb .= "A PRODUIRE ? : [".$this->__trcJdDate($rs).":".$this->__trcJdDate($re)."]\n";
     if ($this->getValue("evfc_repeatmonth")!=1) {
-//      echo "D: $rs $rs_da/$csmonth/$csyear $rs_ho:$rs_mi<br>"; 
-//      echo "E: $re $re_da/$cemonth/$ceyear $re_ho:$re_mi<br>"; 
-//      echo "Rd: $start ".jd2cal($start, 'FrenchLong')."<br>";
-//      echo "Re: $stop  ".jd2cal($stop, 'FrenchLong')."<br>";
       if ($rs<=$stop && $re>=$start) {
 	$nstart = jd2cal($rs, 'FrenchLong');
 	$nend  = jd2cal($re, 'FrenchLong');
  	if (!$this->CalEvIsExclude($nstart)) {
+//           $sdeb .= "Evt prod : [".$this->__trcJdDate($jdhs).":".$this->__trcJdDate($jdhs+$jdDuration)."]\n";
 	  $eve[$ix] = $this->CalEvDupEvent($ref, $nstart, $nend);
 	  $ix++;
  	}
@@ -177,19 +172,35 @@ function explodeEvt($d1, $d2) {
     break;
 
   case 4: // yearly repeat
+    $ds = $this->getValue("evt_begdate");
+    $start = ($jdDateStart>$jd1 ? $jdDateStart : $jd1);
+    $stop = ($jdREndDate<$jd2 ?  $jdREndDate : $jd2);
     $cyear = substr(jd2cal($start, 'FrenchLong'),6,4);
-    $rday = substr($e->ds,0,6) . $cyear . substr($e->ds,10,6);
+    $rday = substr($ds,0,6) . $cyear . substr($ds,10,6);
     $jdrday = StringDateToJD($rday);
     if ($jdrday>=$start && $jdrday<=$stop) {
       $hs = substr($rday,0,10)." ".$hstart;
-      $he = substr($rday,0,10)." ".$hend;
+      $jdhs = StringDateToJD($hs);
+      $he = jd2cal($jdhs + $jdDuration, 'FrenchLong');
       $eve[$ix] = $this->CalEvDupEvent($ref, $hs, $he);
       $ix++;
+    }
+    $cnyear = substr(jd2cal($stop, 'FrenchLong'),6,4);
+    if ($cnyear!=$cyear) {
+      $rday = substr($ds,0,6) . $cnyear . substr($ds,10,6);
+      $jdrday = StringDateToJD($rday);
+      if ($jdrday>=$start && $jdrday<=$stop) {
+        $hs = substr($rday,0,10)." ".$hstart;
+        $jdhs = StringDateToJD($hs);
+         $he = jd2cal($jdhs + $jdDuration, 'FrenchLong');
+        $eve[$ix] = $this->CalEvDupEvent($ref, $hs, $he);
+        $ix++;
+      }
     }
     break;
     
   }
-//   AddWarningMsg($sdeb);
+//    AddWarningMsg($sdeb);
   return $eve;
 }
 
@@ -220,6 +231,14 @@ function CalEvDupEvent($ref, $start, $end) {
 
 
 
-function JDRoundDay($jd) {
-  return(floor($jd+0.5));
+function __trcJdDate($jd) {
+  return "($jd) ".jd2cal($jd, 'FrenchLong');
+}
+
+function getJs2DateField($fdate="") {
+  // Db 30/08/2005 11:00:00 CEST
+  if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$r)) {
+    return $r;
+  }
+  return false;
 }
