@@ -84,7 +84,6 @@ function menuab(&$ta) {
 	$k!="duplicate" &&
 	$k!="histo" &&
         $k!="delete" ) $ta[$k] = POPUP_INVISIBLE;
- $ta[$k] = POPUP_INVISIBLE;
   }
   $ta["us_viewagenda"] =  $ta["us_nrendezvous"] = POPUP_INACTIVE;
   if ($this->fromid == getIdFromName($this->dbaccess, "IUSER")) $ta["us_viewagenda"] = POPUP_ACTIVE;
