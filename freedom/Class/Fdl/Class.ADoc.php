@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.ADoc.php,v 1.9 2005/06/29 15:00:57 eric Exp $
+ * @version $Id: Class.ADoc.php,v 1.10 2005/10/11 12:51:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,6 +42,15 @@ Class ADoc  {
       return $tsa;      
     } 
 
+   public function GetActionAttributes() {      
+      $tsa=array();
+           
+      foreach($this->attr as $k=>$v) {
+	if (get_class($v) == "ActionAttribute")  $tsa[$v->id]=$v;
+      }
+      return $tsa;      
+    }
+   
    function getParamAttributes()
     {      
       $tsa=array();

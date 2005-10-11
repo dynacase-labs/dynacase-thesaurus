@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocLDAP.php,v 1.2 2005/04/05 18:44:49 eric Exp $
+ * @version $Id: Method.DocLDAP.php,v 1.3 2005/10/11 12:51:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -201,8 +201,9 @@ function getLDAPtitle() {
 	if ($ds)
 	  {
 	    ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
-	    $dn = "cn=".$this->id.",".$this->racine;
-
+	    if (! isset($infoldap["uid"])) $infoldap["uid"]=$this->id;
+	    $dn = "uid=".$infoldap["uid"].",".$this->racine;
+	    
 	    if (@ldap_bind($ds, $this->rootdn, $this->rootpw))
 	      {
 
