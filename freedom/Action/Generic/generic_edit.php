@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.41 2005/08/10 10:23:39 eric Exp $
+ * @version $Id: generic_edit.php,v 1.42 2005/10/11 14:19:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -19,7 +19,15 @@ include_once("FDL/Class.Doc.php");
 include_once("Class.QueryDb.php");
 include_once("GENERIC/generic_util.php"); 
 
-// -----------------------------------
+/**
+ * Edit a document
+ * @param Action &$action current action
+ * @global id Http var : document identificator to see
+ * @global zone Http var : if set, special edit with special zone 
+ * @global rzone Http var : if set, to return view with special zone 
+ * @global vid Http var : if set, edit represention describe in view control (can be use only if doc has controlled view)
+ * @global mskid Http var : is set special mask applied for edition
+ */
 function generic_edit(&$action) {
   // -----------------------------------
 
@@ -30,11 +38,13 @@ function generic_edit(&$action) {
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
   $usefor = GetHttpVars("usefor"); // default values for a document
   $zonebodycard = GetHttpVars("zone"); // define view action
+  $rzone = GetHttpVars("rzone"); // special zone when finish edition
 
   $vid = GetHttpVars("vid"); // special controlled view
   $mskid = GetHttpVars("mskid"); // special mask
 
   $action->lay->Set("vid", $vid);
+  $action->lay->Set("rzone", $rzone);
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
    

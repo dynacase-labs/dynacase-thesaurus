@@ -75,6 +75,7 @@ addEvent(window,"load",focusFirst);
 <INPUT TYPE="hidden" name="id" value="[id]"></input>
 <INPUT TYPE="hidden" name="dirid" value="[dirid]"></input>
 <input type="hidden" name="vid" value="[vid]">
+<input type="hidden" name="rzone" value="[rzone]">
 <input type="hidden" name="noredirect" value="0">
 [IF HEAD]
 <table id="fixtablehead" class="[tablehead]"   cellspacing="0" width="100%">

@@ -12,7 +12,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id=[id]','');closeMenu('popupcard')"  >[TEXT:View latest]</a>
 
 <a href="#" id="editdoc"     
-    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&id=[id]','');closeMenu('popupcard')"  >[TEXT:Edit]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&rzone=[zone]&id=[id]','');closeMenu('popupcard')"  >[TEXT:Edit]</a>
 
 <a href="#" id="lockdoc" 
     onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=LOCKFILE&id=[id]','');closeMenu('popupcard')"  >[TEXT:Lock]</a>
