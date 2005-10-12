@@ -290,8 +290,8 @@ function wgcal_storeevent(&$action) {
 
   $event->unlock(true);
 
-  Header("Location: ".$_SERVER["HTTP_REFERER"]);
-//   redirect($action, "WGCAL", "WGCAL_CALENDAR");
+//   Header("Location: ".$_SERVER["HTTP_REFERER"]);
+   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 
 
