@@ -330,3 +330,12 @@ function alterfieldset(tid,co,by) {
     }
   }
 }
+
+function addBookmark(url,title) {
+       if ( isNetscape ){
+           window.sidebar.addPanel(title,url,"");
+       }
+       else {
+           window.external.AddFavorite(title,url);
+       }
+ }
