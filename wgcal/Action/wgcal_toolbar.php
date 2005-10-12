@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.53 2005/10/07 15:33:29 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.54 2005/10/12 07:55:16 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -141,13 +141,16 @@ function _listress(&$action)
     $sid = ($tt[1]!="" ? $tt[1] : 0);
     $cid = ($tt[2]!="" ? $tt[2] : "blue");
     $rd = new_Doc($dbaccess, $rid);
-    $trd = getTDoc($dbaccess, $rid);
     if (!$rd->IsAffected()) continue;
     $writeaccess = $readaccess = false;
-    $cal = getUserPublicAgenda($rid, false);
-    if ($cal && $cal->isAffected()) {
-      $writeaccess = ($cal->Control("invite")==""?true:false);
-      $readaccess = ($cal->Control("execute")==""?true:false);
+    if ($rd->fromid==getFamIdFromName($dbaccess, "IUSER")) {
+      $cal = getUserPublicAgenda($rid, false);
+      if ($cal && $cal->isAffected()) {
+	$writeaccess = ($cal->Control("invite")==""?true:false);
+	$readaccess = ($cal->Control("execute")==""?true:false);
+      }
+    } else {
+      $writeaccess = $readaccess = true;
     }
     if ($writeaccess || $readaccess || $rd->id == $action->user->fid) {
       if ($rd->id == $action->user->fid) PopupInactive('resspopup', $rd->id, 'removeress');
