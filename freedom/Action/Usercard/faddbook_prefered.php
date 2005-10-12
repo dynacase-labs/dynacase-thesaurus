@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: faddbook_prefered.php,v 1.5 2005/10/06 13:18:42 eric Exp $
+ * @version $Id: faddbook_prefered.php,v 1.6 2005/10/12 08:03:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,6 +15,7 @@ include_once("FDL/Class.Doc.php");
 
 function faddbook_prefered(&$action) {
 
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $dbaccess = $action->getParam("FREEDOM_DB");
 

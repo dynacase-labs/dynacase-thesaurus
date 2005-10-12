@@ -30,8 +30,10 @@ function showHideResumeCard(elt) {
 </form>
 
 <table  width="100%" cellspacing="0"><tr>
-<td><div class="fabzone"><img onclick="location.reload()" title="[TEXT:click to reload favorites]" style="cursor:pointer" align="absmiddle" height="16" style="border:0" src="[IMG:faddbook_ico_favorite.png]">&nbsp;[TEXT:my favorites]</div></td>
-<td width="20px"><div class="fabzone"><img style="cursor:pointer" title="[TEXT:delete all favorites]" onclick="if (confirm('[TEXT:confirm delete all favorite]')) { getElementById('cid').value=-2;getElementById('delpref').submit(); };"  align="absmiddle" height="16" style="border:0" src="[IMG:faddbook_ico_deletefavorite.png]"></td>
+<td><div class="fabzone"><img onclick="location.reload()" title="[TEXT:click to reload favorites]" style="cursor:pointer;border:none" align="absmiddle" height="16"  src="[IMG:faddbook_ico_favorite.png]">&nbsp;[TEXT:my favorites]</div></td>
+<td align="right"><div class="fabzone"><img style="cursor:pointer;border:none" title="[TEXT:delete all favorites]" onclick="if (confirm('[TEXT:confirm delete all favorite]')) { getElementById('cid').value=-2;getElementById('delpref').submit(); };"  align="absmiddle" height="16"  src="[IMG:faddbook_ico_deletefavorite.png]">
+<a href="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_SPEEDSEARCH" target="_search"><img  title="[TEXT:quick search]" style="cursor:pointer;border:none" align="absmiddle" height="16" style="border:0" src="[IMG:faddbook_search.gif]"></a>
+</td>
 </tr></table>
 
 
