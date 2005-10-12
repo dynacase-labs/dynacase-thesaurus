@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.26 2005/09/22 07:44:07 marc Exp $
+ * @version $Id: Method.DCalendar.php,v 1.27 2005/10/12 15:31:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -207,7 +207,7 @@ function planner($target="finfo",$ulink=true,$abstract="Y") {
 		      "subtype"=>getv($v,"evt_code"),
 		      "divtitle"=>($titleinline)?(((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"]):'',
 		      "divtitle2"=>($titleinleft)?(((($v["m2"]-$v["m1"])>0)?'':_("DATE ERROR")).$v["title"]):'',
-		      "desc"=>str_replace(array("\n","\r","'"),array("<br/>","","&quot;"),((sprintf("<img src=\"%s\" style=\"float:left\"><b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",
+		      "desc"=>str_replace(array("\n","\r","'"),array("<br/>","","&quot;"),((sprintf("<img src=\"%s\" style=\"float:left;width:48px\"><b>%s</b></br><i>%s</i><br/>%s - %s<br/>%s",
 												 $this->getIcon(getv($v,"evt_icon")),
 												 $v["title"],
 												 
