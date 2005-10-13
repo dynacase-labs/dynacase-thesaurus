@@ -196,7 +196,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <table width="100%" style="margin-top: 0em;">
 <tr>
 <td align="left">
-[IF sendMail]<a href="[mailcommand]"><img src="[IMG:wm-mail.gif]" height="15" title="[TEXT:mail to contacts]" class="wSmallButton"></a>[ENDIF sendMail]
+[IF sendMail]<img src="[IMG:wm-mail.gif]" height="15" title="[TEXT:mail to contacts]" class="wSmallButton" onclick="[mailcommand]">[ENDIF sendMail]
 [IFNOT newEvent]<img src="[IMG:wm-delete.gif]" height="15" title="[TEXT:delete]" class="wSmallButton" onclick="deleteEvent('[TEXT: delete this event]');">[ENDIF newEvent]&nbsp;
 </td>
 <td align="right">

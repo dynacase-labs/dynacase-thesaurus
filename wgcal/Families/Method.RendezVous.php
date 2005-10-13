@@ -662,7 +662,8 @@ function RendezVousEdit() {
   
   $this->lay->set("sendMail", false);
   if ($mailadd!="") {
-    $mailcommand = sprintf($action->getParam("WGCAL_G_MAILTO", "mailto:%s"), $mailadd);
+    $command = $action->getParam("WGCAL_G_MAILTO", "mailto:%TO%");
+    $mailcommand = str_replace(array("%TO%", "%SUBJECT%"), array($mailadd, $evtitle), $command);
     $this->lay->set("mailcommand", $mailcommand);
     $this->lay->set("sendMail", true);
   }
