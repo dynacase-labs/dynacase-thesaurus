@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.14 2005/08/03 16:35:13 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.15 2005/10/13 14:11:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,21 +12,8 @@
  */
 include_once('FDL/Lib.Dir.php');
 include_once("EXTERNALS/WGCAL_external.php");
+include_once("WGCAL/Lib.wTools.php");
 
-function GetFilesByExt($dir=".", $ext="") {
-  $flist = array();
-  if ($dh = opendir($dir)) {
-    while (($file = readdir($dh)) !== false) {
-      $fn  = basename($file); 
-      $fne = basename($file, $ext); 
-      if ($fne!="." && $fne!=".." && $fn == $fne.$ext) {
-        $flist[] = $fne;
-      }
-    }
-    closedir($dh);
-  }
-  return $flist;
-}
 
 function wgcal_prefs_look(&$action) {
   

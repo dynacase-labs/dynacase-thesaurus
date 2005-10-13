@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.10 2005/10/11 15:53:56 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.11 2005/10/13 14:11:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,11 +11,12 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.10 2005/10/11 15:53:56 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.11 2005/10/13 14:11:54 marc Exp $
 
 
 include_once('Class.QueryDb.php');
 include_once('Class.Application.php');
+include_once('WGCAL/Lib.wTools.php');
 
 function wgcal_htmlhead(&$action) {
 
@@ -81,22 +82,6 @@ function wgcal_htmlhead(&$action) {
   $action->lay->set("onUnLoad", $unload_hand);
   $action->lay->set("onbeforeunload", $berforeunload_hand);
   
-}
-
-// 2 fois .... dans pref !
-function GetFilesByExt($dir=".", $ext="") {
-  $flist = array();
-  if ($dh = opendir($dir)) {
-    while (($file = readdir($dh)) !== false) {
-      $fn  = basename($file);
-      $fne = basename($file, $ext);
-      if ($fne!="." && $fne!=".." && $fn == $fne.$ext) {
-        $flist[] = $fne;
-      }
-    }
-    closedir($dh);
-  }
-  return $flist;
 }
 
 ?>

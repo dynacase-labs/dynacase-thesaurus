@@ -413,4 +413,19 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
 }
 
 
+function GetFilesByExt($dir=".", $ext="") {
+  $flist = array();
+  if ($dh = opendir($dir)) {
+    while (($file = readdir($dh)) !== false) {
+      $fn  = basename($file);
+      $fne = basename($file, $ext);
+      if ($fne!="." && $fne!=".." && $fn == $fne.$ext) {
+        $flist[] = $fne;
+      }
+    }
+    closedir($dh);
+  }
+  return $flist;
+}
+
 ?>
