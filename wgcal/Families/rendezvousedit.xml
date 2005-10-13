@@ -2,7 +2,7 @@
 
 <script type="text/javascript"> var closeMsg = '[TEXT: cancel modifications]';</script>
 
-<form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="cev" name="cev" value="[EVENTID]"> </form>
+<form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="id" name="id" value="[EVENTID]"> </form>
 
 <form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1">
 <input id="iusertext" name="iusertext" type="hidden">
@@ -196,10 +196,8 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <table width="100%" style="margin-top: 0em;">
 <tr>
 <td align="left">
-[BLOCK EMPTY][nop]&nbsp;&nbsp;
-<a href="mailto:[mailadd]"><img src="[IMG:wm-mail.gif]" height="15" title="[TEXT:mail to contacts]" class="wSmallButton"></a>
-<img src="[IMG:wm-delete.gif]" height="15" title="[TEXT:delete]" class="wSmallButton" onclick="deleteEvent('[TEXT: delete this event]');">
-[ENDBLOCK EMPTY]
+[IF sendMail]<a href="[mailcommand]"><img src="[IMG:wm-mail.gif]" height="15" title="[TEXT:mail to contacts]" class="wSmallButton"></a>[ENDIF sendMail]
+[IFNOT newEvent]<img src="[IMG:wm-delete.gif]" height="15" title="[TEXT:delete]" class="wSmallButton" onclick="deleteEvent('[TEXT: delete this event]');">[ENDIF newEvent]&nbsp;
 </td>
 <td align="right">
 <img src="[IMG:wm-accept.gif]" id="btnSave" height="15" title="[TEXT:save]" class="wSmallButton" onclick="saveEvent();">
@@ -246,18 +244,18 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <tr><td>&nbsp;</td></tr>
 
-<tr><td nowrap>
+[IF hasPrefered]<tr><td nowrap>
 <span id="press" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add my prefered ressource]">&nbsp;[TEXT:use my prefered ressource]</span>
-</td></tr>
+</td></tr>[ENDIF hasPrefered]
 
 
-<tr><td nowrap>
+[IF hasDisplayed]<tr><td nowrap>
 <span id="dress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add displayed ressources]">&nbsp;[TEXT:use displayed ressources]</span>
-</td></tr>
+</td></tr>[ENDIF hasDisplayed]
 
-<tr><td nowrap>
+[IF hasSelected]<tr><td nowrap>
 <span id="sress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add selected ressources]">&nbsp;[TEXT:use selected ressources]</span>
-</td></tr>
+</td></tr>[ENDIF hasSelected]
 
 <tr><td>&nbsp;</td></tr>
 

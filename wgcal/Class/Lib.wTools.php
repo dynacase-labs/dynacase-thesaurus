@@ -21,7 +21,8 @@ function w_dbyea($dbtime) { return substr($dbtime,6,4); }
 
 
 function wDebugMode() {
-  return file_exists("WGCAL/wgcal.debug");
+  global $action;
+  return (file_exists("WGCAL/wgcal.debug") && $action->user->id==1);
 }
 
 function w_dbdate2ts($dbtime) {

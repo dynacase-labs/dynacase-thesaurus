@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.13 2005/09/27 15:29:35 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.14 2005/10/13 09:29:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,7 +20,6 @@ include_once("WGCAL/Lib.Agenda.php");
 function wgcal_searchiuser(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $families = getFamIdFromName($dbaccess, "IUSER");
   $doc = new_Doc($dbaccess);
   
   $cuser = GetHttpVars("cuser", $action->user->fid);
@@ -30,19 +29,19 @@ function wgcal_searchiuser(&$action) {
   $sgrp = GetHttpVars("sgrp", 0); // 1 : Only user in my groups
   $sgrp = ($sgrp!=0 && $sgrp!=1 ? 0 : $sgrp);
 
+  $iuserfam = getFamIdFromName($dbaccess, "IUSER");
   $filter[0] = "title ~* '".GetHttpVars("iusertext", "")."'";
-  $filter[1] = "fromid=128";
+  $filter[1] = "fromid=$iuserfam";
   $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, $limit, $filter, 
-		      $action->user->id, "TABLE", getIdFromName($dbaccess, "IUSER"));
+		      $action->user->id, "TABLE", $iuserfam );
   $t = array(); $i = 0;
   foreach ($rdoc as $k => $v) {
     if ($cuser != $v["id"]) {
-      $cal = getUserPublicAgenda($v["id"], false);
-      if ($cal && $cal->isAffected()) {
-	$writeaccess = ($cal->Control("invite")==""?true:false);
-      } else {
-	$writeaccess = false;
-      }
+      if ($v["fromid"] == $iuserfam) {
+	$cal = getUserPublicAgenda($v["id"], false);
+	if ($cal && $cal->isAffected())  $writeaccess = ($cal->Control("invite")==""?true:false);
+	else $writeaccess = false;
+      } else $writeaccess = true;
       if ($writeaccess) {
 	$t[$i]["attId"] = $v["id"];
 	$t[$i]["attIcon"] = $doc->GetIcon($v["icon"]);

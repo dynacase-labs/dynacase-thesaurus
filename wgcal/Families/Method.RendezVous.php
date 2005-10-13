@@ -656,12 +656,17 @@ function RendezVousEdit() {
     }
 
   $this->lay->set("EVENTID", $eventid);
-  if ($evid==-1 || $ro) {
-    $this->lay->setBlockData("EMPTY", null);
-  } else {
-    $this->lay->setBlockData("EMPTY", array( array("nop" => "", "eventid" => $evid) ));
-    $this->lay->set("mailadd", $mailadd);
-  }    
+
+  $this->lay->set("newEvent", false);
+  if ($eventid==-1) $this->lay->set("newEvent", true);
+  
+  $this->lay->set("sendMail", false);
+  if ($mailadd!="") {
+    $mailcommand = sprintf($action->getParam("WGCAL_G_MAILTO", "mailto:%s"), $mailadd);
+    $this->lay->set("mailcommand", $mailcommand);
+    $this->lay->set("sendMail", true);
+  }
+
   $this->lay->set("DFMT", "%A %d %b %Y");
   
   $this->lay->set("evstatus", $evstatus);
@@ -1080,6 +1085,8 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   $this->lay->setBlockData("ADD_RESS", $att);
   $this->lay->set("attendeesro", ($ro?"none":""));
 
+  $iuserfam = getFamIdFromName($dbaccess, "IUSER");
+    
   $dress = $this->getWgcalUParam("WGCAL_U_RESSDISPLAYED", "");
   $tdress = explode("|", $dress);
   $to = array(); $ito = 0;
@@ -1088,45 +1095,75 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
     if ($v=="") continue;
     $tx = explode("%", $v);
     if ($tx[0]=="" || $tx[0]==$ownerid) continue;
-
-    $cal = getUserPublicAgenda($tx[0], false);
-    if (!$cal || ($cal->Control("invite") != "")) continue;
-
-    $res = new_Doc($dbaccess, $tx[0]);
-    $to[$ito]["idress"] = $ito;
-    $to[$ito]["resstitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));
-    $to[$ito]["ressid"] = $tx[0];
-    $to[$ito]["ressico"] = $res->getIcon();
-    if ($tx[1] == 1) {
-      $ts[$its] = $to[$ito];
-      $ts[$its]["idress"] = $its;
-      $its++;
+    $ress = getTDoc($this->dbaccess, $tx[0]);
+    if ($ress["fromid"] == $iuserfam) {
+      $cal = getUserPublicAgenda($ress["id"], false);
+      $view = true;
+      if (!$cal || ($cal->Control("invite") != "")) $view = false;
+    } else {
+      $view = true;
     }
-    $ito++;
+    if ($view) {
+      $to[$ito]["idress"] = $ito;
+      $to[$ito]["resstitle"] = addslashes(ucwords(strtolower($ress["title"])));
+      $to[$ito]["ressid"] = $ress["id"];
+      $to[$ito]["ressico"] = Doc::GetIcon($ress["icon"]);
+      if ($tx[1] == 1) {
+	$ts[$its] = $to[$ito];
+	$ts[$its]["idress"] = $its;
+	$its++;
+      }
+      $ito++;
+    }
   }
-  wUSort($to, "resstitle");
-  $this->lay->setBlockData("DRESS", $to);
-  wUSort($ts, "resstitle");
-  $this->lay->setBlockData("SRESS", $ts);
+  if (count($to)>0) {
+    wUSort($to, "resstitle");
+    $this->lay->setBlockData("DRESS", $to);
+    $this->lay->set("hasDisplayed", true);
+  } else {
+    $this->lay->setBlockData("DRESS", null);
+    $this->lay->set("hasDisplayed", false);
+  }
+  if (count($ts)>0) {
+    wUSort($ts, "resstitle");
+    $this->lay->setBlockData("SRESS", $ts);
+    $this->lay->set("hasSelected", true);
+  } else {
+    $this->lay->setBlockData("SRESS", null);
+    $this->lay->set("hasSelected", false);
+  }
 
-    
     
   $dress = $this->getWgcalUParam("WGCAL_U_PREFRESSOURCES", "");
   $tdress = explode("|", $dress);
   $to = array(); $ito = 0;
   foreach ($tdress as $k => $v) {
     if ($v=="" || $v==$ownerid) continue;
-    $cal = getUserPublicAgenda($v, false);
-    if (!$cal || ($cal->Control("invite") != "")) continue;
-    $res = new_Doc($dbaccess, $v);
-    $to[$ito]["idress"] = $ito;
-    $to[$ito]["resstitle"] = addslashes(ucwords(strtolower(($res->getTitle()))));
-    $to[$ito]["ressid"] = $v;
-    $to[$ito]["ressico"] = $res->getIcon();
-    $ito++;
+    $ress = getTDoc($this->dbaccess, $v);
+    if ($ress["fromid"] == $iuserfam) {
+      $cal = getUserPublicAgenda($ress["id"], false);
+      $view = true;
+      if (!$cal || ($cal->Control("invite") != "")) $view = false;
+    } else {
+      $view = true;
+    }
+    if ($view) {
+      $res = new_Doc($dbaccess, $v);
+      $to[$ito]["idress"] = $ito;
+      $to[$ito]["resstitle"] = addslashes(ucwords(strtolower($ress["title"])));
+      $to[$ito]["ressid"] = $ress["id"];
+      $to[$ito]["ressico"] = Doc::GetIcon($ress["icon"]);
+      $ito++;
+    }
   }
-  wUSort($to, "resstitle");
-  $this->lay->setBlockData("PRESS", $to);
+  if (count($to)>0) {
+    wUSort($to, "resstitle");
+    $this->lay->setBlockData("PRESS", $to);
+    $this->lay->set("hasPrefered", true);
+  } else {
+    $this->lay->setBlockData("PRESS", null);
+    $this->lay->set("hasPrefered", false);
+  }
 }
 
 function evColorByOwner() {

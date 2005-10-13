@@ -22,7 +22,7 @@ function wgcal_deleteevent(&$action, $optev=-1) {
     $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->getValue("calev_evtitle");
     sendRv($action, $event, 2, $title, _("event deletion information message"));
   }
-  Header("Location: ".$_SERVER["HTTP_REFERER"]);
-//   redirect($action, "WGCAL", "WGCAL_CALENDAR");
+//   Header("Location: ".$_SERVER["HTTP_REFERER"]);
+   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 ?>
