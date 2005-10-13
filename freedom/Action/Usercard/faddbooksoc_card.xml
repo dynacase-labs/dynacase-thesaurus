@@ -2,24 +2,9 @@
 
 <script type="text/javascript">
 
-
 var lOnglet = [ 'contact', 'address' [IF HasOthers],'other'[ENDIF HasOthers] ];
 
-function showInfo(id) {
-  var elt;
-  for (var i=0; i<lOnglet.length; i++) {
-    if (elt = document.getElementById(lOnglet[i])) {
-      elt.style.display = 'none';
-      document.getElementById('o'+lOnglet[i]).className = 'fabog';
-      if (lOnglet[i]==id) {
-	elt.style.display = '';
-	document.getElementById('o'+lOnglet[i]).className = 'fabogsel';
-      }	
-    }
-  }
-  return true;
-}
-
+addEvent(window,"load",viewFirstTab);
 </script>
 
 
@@ -103,17 +88,18 @@ function showInfo(id) {
 </table>
 </div>
 
-<div style="display:none"  class="fabogdetail" id="other"><table width="100%">
-
-[BLOCK OTHERS]<tr>
-<td align="right"><span class="fabccom">[lothers]</span></td>
-<td align="center"><span class="fabccom">:</span></td>
-<td align="left"><span class="fabcrub">[vothers]</span></td>
-</tr>[ENDBLOCK OTHERS]
-
-<tr><td colspan="3">&nbsp;</td><tr>
-
-</table></div>
+<div style="display:none"  class="fabogdetail" id="other">
+<div id="ttabs" class="tabh">
+[BLOCK TABS]
+<span  onclick="showAttributes(event,this,[aids])">[tabtitle]</span>
+[ENDBLOCK TABS]</div><br/><br/>
+<table class="tab" width="100%" id="tothers">
+[BLOCK OTHERS]
+<tr class="tro" id="[aid]">[IFNOT isarray]<td width="30%" align="right" ><span class="fabccom">[lothers]&nbsp;:</span></td>[ENDIF isarray]<td [IF isarray]colspan="2"[ENDIF isarray]><span class="fabcrub">[vothers]</span></td></tr>
+[ENDBLOCK OTHERS]
+</table>
+</div>
+</div>
 
 </td></tr>
 </table>

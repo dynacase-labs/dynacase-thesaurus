@@ -3,16 +3,35 @@ margin : 2px;
 font-family: lucida, arial, sans;
 background: [CORE_BGCOLOR]; 
 color: [CORE_TEXTFGCOLOR];
-font-size : 8pt;
+font-size : [CORE_FONTBASESIZE];
 }
 
 TABLE TR TD {
 padding : 0px;
 margin : 0px;
 font-family: lucida, arial, sans;
-font-size : 8pt;
+font-size : 70%;
 }
-
+TH {
+padding : 0px;
+margin : 0px;
+font-family: lucida, arial, sans;
+font-size : 70%;
+font-weight : bold;
+text-align:left;
+  border-style: none  none solid none;
+  border-color: [CORE_BGCOLORALTERN];
+  border-width: 1px;
+}
+FIELDSET {
+  -moz-border-radius: 8;
+}
+LEGEND {
+  font-size : 80%; 
+  font-weight : bold;
+  background-color: [CORE_BGCOLORALTERN];
+  -moz-border-radius: 8;
+}
 IMG.zoom {
 	position:absolute;
 	left:0;
@@ -21,7 +40,7 @@ IMG.zoom {
 }
 input {
 background-color: [CORE_BGCOLORALTERN];
-font-size : 8pt;
+font-size : 80%;
 border-style: thin;
 border-color: [CORE_BGCOLORHIGH];
 border-width: 1px;
@@ -137,13 +156,13 @@ text-transform:capitalize;
 /* Carte */
 
 DIV.fabcard {
-cursor:pointer;
 -moz-border-radius: 8;
 margin:0pt;
 padding:5pt;
 border-width : 2px;
 border-style : outset;
 border-color : [CORE_BGCOLORALTERN];
+background-color: white;
 }
 
 .fabctitlep {
@@ -209,7 +228,6 @@ border-width : 1px;
 border-style :outset;
 border-color : [CORE_BGCOLORALTERN];
 background-color : [CORE_BGCOLORALTERN];
-color : [CORE_BGCOLORHIGH];
 cursor:pointer;
 }
 .fabogover {
@@ -217,16 +235,82 @@ border-width : 1px;
 border-style : inset;
 border-color : [CORE_BGCOLORALTERN];
 background-color : [CORE_BGCOLORALTERN];
-color : [CORE_BGCOLORHIGH];
 cursor:pointer;
 }
 .fabogsel {
 border-width : 1px;
 border-style : inset;
 border-color : [CORE_BGCOLORALTERN];
-background-color : [CORE_BGCOLORALTERN];
+  background : [CORE_FGCOLOR];
+  color : [CORE_TEXTBGCOLOR];
 cursor:pointer;
 }
 .fabogover:first-letter, .fabog:first-letter, .fabogsel:first-letter {
 text-transform:capitalize;
+}
+
+TABLE.tab {
+	border-width : 1px;
+	border-style :  solid none solid none;
+	clear:both;
+}
+TABLE.tab TD {
+	vertical-align:top;
+}
+DIV.tabh SPAN  {
+  -moz-border-radius: 8 8 0 0;	
+  border-width : 1px;
+  border-style :outset;
+  border-color : [CORE_BGCOLORALTERN];
+  background-color : [CORE_BGCOLORALTERN];
+  padding:2px;
+  cursor:pointer;
+  float:left;
+}
+DIV.tabh SPAN:first-letter  {
+  text-transform:capitalize;	
+}
+DIV.tabh SPAN.tabsel {
+  background : [CORE_FGCOLOR];
+  color : [CORE_TEXTBGCOLOR];
+}
+
+DIV.tabh SPAN:hover {
+  border-width : 1px;
+  border-style :outset;
+  border-color : [CORE_BGCOLORALTERN];
+  background-color : [CORE_BGCOLORHIGH];
+  cursor:pointer;	
+}
+
+A:link, A:visited {
+  color: [CORE_ACOLOR];
+  font-family: [CORE_FONTLIST1];
+  text-decoration: none;
+}
+A {
+  color: [CORE_ACOLOR];
+  cursor:pointer  
+}
+.COREError {
+  color: [CORE_ERRORCOLOR];
+  font-weight: bold;
+  padding:20px;
+  background-color:#F0F0F0;
+  [IF ISIE]filter:alpha(opacity=80);[ENDIF ISIE]
+  -moz-opacity:.5;
+  border:solid 1px;
+  text-align:center;
+}
+.CORETextError {
+  [IF ISIE]filter:alpha(opacity=100);[ENDIF ISIE]
+  -moz-opacity:.99;
+}
+.COREErrorBg {
+  color: [CORE_ERRORCOLOR];
+  font-weight: bold;
+  padding:20px;
+  background:[CORE_BGCOLOR];
+  border:solid 1px;
+  text-align:center;
 }

@@ -5,20 +5,8 @@
 
 var lOnglet = [ 'contact', 'society', 'others' ];
 
-function showInfo(id) {
-  var elt;
-  for (var i=0; i<lOnglet.length; i++) {
-    if (elt = document.getElementById(lOnglet[i])) {
-      elt.style.display = 'none';
-      document.getElementById('o'+lOnglet[i]).className = 'fabog';
-      if (lOnglet[i]==id) {
-	elt.style.display = '';
-	document.getElementById('o'+lOnglet[i]).className = 'fabogsel';
-      }	
-    }
-  }
-  return true;
-}
+
+addEvent(window,"load",viewFirstTab);
 
 </script>
 
@@ -59,21 +47,21 @@ function showInfo(id) {
 
 <tr><td colspan="3">&nbsp;</td><tr>
 
-[IF S_US_PHONE]<tr>
+[IF S_US_PPHONE]<tr>
 <td align="right"><span class="fabccom">[L_US_PHONE]</span></td>
 <td align="center"><span class="fabccom">:</span></td>
-<td align="left"><span class="fabcrub">[V_US_PHONE]</span></td>
-</tr>[ENDIF S_US_PHONE]
+<td align="left"><span class="fabcrub">[V_US_PPHONE]</span></td>
+</tr>[ENDIF S_US_PPHONE]
 [IF S_US_MOBILE]<tr>
 <td align="right"><span class="fabccom">[L_US_MOBILE]</span></td>
 <td align="center"><span class="fabccom">:</span></td>
 <td align="left"><span class="fabcrub">[V_US_MOBILE]</span></td>
 </tr>[ENDIF S_US_MOBILE]
-[IF S_US_FAX]<tr>
+[IF S_US_PFAX]<tr>
 <td align="right"><span class="fabccom">[L_US_FAX]</span></td>
 <td align="center"><span class="fabccom">:</span></td>
-<td align="left"><span class="fabcrub">[V_US_FAX]</span></td>
-</tr>[ENDIF S_US_FAX]
+<td align="left"><span class="fabcrub">[V_US_PFAX]</span></td>
+</tr>[ENDIF S_US_PFAX]
 
 [IF S_US_INTPHONE]
 <tr><td colspan="3">&nbsp;</td><tr>
@@ -106,8 +94,15 @@ function showInfo(id) {
 
 </table>
 </div>
-<div class="fabogdetail" id="others" style="display:none"><table width="100%">[BLOCK OTHERS]<tr><td></td>
-<td align="right"><span class="fabccom">[lothers]&nbsp;:</span></td><td><span class="fabcrub">[vothers]</span></td></tr>
+
+<div class="fabogdetail" id="others" style="display:none">
+<div id="ttabs" class="tabh">
+[BLOCK TABS]
+<span  onclick="showAttributes(event,this,[aids])">[tabtitle]</span>
+[ENDBLOCK TABS]</div>
+<table class="tab" width="100%" id="tothers">
+[BLOCK OTHERS]
+<tr class="tro" id="[aid]">[IFNOT isarray]<td width="30%" align="right" ><span class="fabccom">[lothers]&nbsp;:</span></td>[ENDIF isarray]<td [IF isarray]colspan="2"[ENDIF isarray]><span class="fabcrub">[vothers]</span></td></tr>
 [ENDBLOCK OTHERS]
 </table>
 </div>

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.278 2005/10/11 12:51:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.279 2005/10/13 16:28:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2575,7 +2575,7 @@ final public function PostInsert()  {
       $thtmlval[$kvalue]=$abegin.$htmlval.$aend;
     }
     
-    return implode("<BR>",$thtmlval);
+    return implode(", ",$thtmlval);
   }
   
   final public function GetHtmlAttrValue($attrid, $target="_self",$htmllink=2) {

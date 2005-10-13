@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.38 2005/09/15 07:52:42 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.39 2005/10/13 16:28:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -98,7 +98,7 @@ function getSqlDetailFilter() {
   if ($ol == "") {
     // try in old version
     $ols=$this->getTValue("SE_OLS");  
-    $ol=current($ols);
+    $ol=$ols[1];
     if ($ol) {
       $this->setValue("SE_OL",$ol);
       $this->modify();

@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.96 2005/08/17 09:09:47 eric Exp $
+ * @version $Id: import_file.php,v 1.97 2005/10/13 16:28:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,7 +42,6 @@ function add_import_file(&$action, $fimport="") {
   $nline=0;
   while ($data = fgetcsv ($fdoc, 50000, ";")) {
     $nline++;
-
     if (isUTF8($data))    $data=array_map("utf8_decode",$data);
   // return structure
     $num = count ($data);
