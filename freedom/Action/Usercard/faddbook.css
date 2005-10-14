@@ -115,12 +115,7 @@ DIV.fabcontactsel {
   background-color: [CORE_BGCOLORHIGH];
   empty-cells: show;
 }
-A:hover {
-background-color:[CORE_BGCOLORHIGH]
-}
 
-A {
-}
 
 
 /*    Resume card */
@@ -228,6 +223,8 @@ border-width : 1px;
 border-style :outset;
 border-color : [CORE_BGCOLORALTERN];
 background-color : [CORE_BGCOLORALTERN];
+[IFNOT ISIE]  background-image:url('[IMG:tabvig.png]'); [ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
 cursor:pointer;
 }
 .fabogover {
@@ -235,14 +232,18 @@ border-width : 1px;
 border-style : inset;
 border-color : [CORE_BGCOLORALTERN];
 background-color : [CORE_BGCOLORALTERN];
+[IFNOT ISIE]  background-image:url('[IMG:tabvig.png]'); [ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
 cursor:pointer;
 }
 .fabogsel {
 border-width : 1px;
 border-style : inset;
 border-color : [CORE_BGCOLORALTERN];
-  background : [CORE_FGCOLOR];
+  background-color : [CORE_FGCOLOR];
   color : [CORE_TEXTBGCOLOR];
+[IFNOT ISIE]  background-image:url('[IMG:tabvig.png]'); [ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
 cursor:pointer;
 }
 .fabogover:first-letter, .fabog:first-letter, .fabogsel:first-letter {
@@ -262,6 +263,9 @@ DIV.tabh SPAN  {
   border-width : 1px;
   border-style :outset;
   border-color : [CORE_BGCOLORALTERN];
+
+[IFNOT ISIE]  background-image:url('[IMG:tabvig.png]'); [ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
   background-color : [CORE_BGCOLORALTERN];
   padding:2px;
   cursor:pointer;
@@ -271,7 +275,7 @@ DIV.tabh SPAN:first-letter  {
   text-transform:capitalize;	
 }
 DIV.tabh SPAN.tabsel {
-  background : [CORE_FGCOLOR];
+  background-color : [CORE_FGCOLOR];
   color : [CORE_TEXTBGCOLOR];
 }
 
@@ -281,6 +285,11 @@ DIV.tabh SPAN:hover {
   border-color : [CORE_BGCOLORALTERN];
   background-color : [CORE_BGCOLORHIGH];
   cursor:pointer;	
+
+}
+
+A:hover {
+background-color:[CORE_BGCOLORHIGH]
 }
 
 A:link, A:visited {
