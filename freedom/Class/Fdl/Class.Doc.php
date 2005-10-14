@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.279 2005/10/13 16:28:24 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.280 2005/10/14 16:17:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2072,11 +2072,41 @@ final public function PostInsert()  {
     $this->icon = $icon;
     $this->Modify();
   }
-
+  /**
+   * declare a dependance between several attributes
+   * @param array $in attributes id use for compute $out attributes
+   * @param array $out attributes id calculated by $in attributes
+   */
   final public function AddParamRefresh($in,$out) {
     // to know which attribut must be disabled in edit mode
     $this->paramRefresh[]=array("in"=>explode(",",strtolower($in)),
 				"out"=>explode(",",strtolower($out)));
+  }
+
+  /** 
+   * compute new visibility with depended attributes
+   * @return array of visibilities computed with dependance between attributes
+   */
+  public function getRefreshVisibility() {
+    $tv=array();
+    foreach ($this->attributes->attr as $k=>$v) {
+      $tv[$v->id]=$v->mvisibility;      
+    }
+    foreach ($this->paramRefresh as $k=>$v) {
+      reset($v["in"]);
+      $val=true;
+      while ($val && (list($ka, $va) = each($v["in"]))) {
+	$val=$this->getValue($va);
+      }
+      if ($val) {
+	foreach ($v["out"] as $oa) {
+	  if (($tv[$oa]=="W") || ($tv[$oa]=="O"))
+	    $tv[$oa]="S";
+	}
+      }
+    }
+        
+    return $tv;
   }
 
   /**
@@ -2649,16 +2679,18 @@ final public function PostInsert()  {
     return $sql;
   }
 
+  /*
+   * transform hidden to writted attribut for default document
+   */
   final public function SetDefaultAttributes() {
-  // transform hidden to writted attribut for default document
-  if ($this->usefor == "D") {
-    $listattr = $this->GetAttributes();
-    while (list($i,$attr) = each($listattr)) {
-      if (($attr->mvisibility == "H") || ($attr->mvisibility == "R") || ($attr->mvisibility == "S")) {
-	$this->attributes->attr[$i]->mvisibility="W";
+    if ($this->usefor == "D") {
+      $listattr = $this->GetAttributes();
+      while (list($i,$attr) = each($listattr)) {
+	if (($attr->mvisibility == "H") || ($attr->mvisibility == "R") || ($attr->mvisibility == "S")) {
+	  $this->attributes->attr[$i]->mvisibility="W";
+	}
       }
     }
-  }
   }
 
   /** 
