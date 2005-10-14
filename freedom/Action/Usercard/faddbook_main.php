@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.14 2005/10/14 13:21:19 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.15 2005/10/14 14:12:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -134,6 +134,7 @@ function faddbook_main(&$action)
       }
     $action->lay->setBlockData("C$il", $dcol);
     $dline[$il]["cid"] = $v["id"];
+    $dline[$il]["fabzone"] = $pzone;
     $dline[$il]["canChange"] = $attchange;
     $dline[$il]["fabzone"] = $pzone;
     $dline[$il]["title"] = ucwords(strtolower($v["title"]));
