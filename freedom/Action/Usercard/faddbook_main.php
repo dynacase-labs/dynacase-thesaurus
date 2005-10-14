@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.11 2005/10/11 12:23:40 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.12 2005/10/14 09:45:34 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -28,6 +28,16 @@ function faddbook_main(&$action)
 
   $pstart = GetHttpVars("sp", 0);
   $action->lay->set("isManager", ($action->parent->Haspermission("USERCARD","USERCARD_MANAGER")==1?true:false));
+
+  $chattr = GetHttpVars("chgAttr", "");
+  $chid   = GetHttpVars("chgId", "");
+  $chval  = GetHttpVars("chgValue", "");
+  if ($chattr!="" && $chid!="") {
+    $mdoc = new_Doc($dbaccess, $chid);
+    $mdoc->setValue($chattr, $chval);
+    $err=$mdoc->Modify();
+    if ($err=="") AddWarningMsg($mdoc->title." modifié (".$mdoc->getAttribute($chattr)->labelText." : ".$chval.")");
+  }
 
   // Init page lines
   $lpage = $action->getParam("FADDBOOK_MAINLINE", 25);
@@ -106,24 +116,26 @@ function faddbook_main(&$action)
     if ($il>=$lpage) continue;
     $dcol = array();
     $ddoc=getDocObject($dbaccess,$v);
-    $dcol[] = array( "content" =>  ucwords(strtolower($v["title"])), "ATTimage" => false, "ATTnormal" => true);
+    $attchange = ($ddoc->Control("edit") == "" ?  true : false);
+    $dcol[] = array( "ATTchange" => false, "ATTname" => "", "content" =>  ucwords(strtolower($v["title"])), "ATTimage" => false, "ATTnormal" => true);
     $pzone = (isset($ddoc->faddbook_card)?$ddoc->faddbook_card:$ddoc->defaultview);
-    foreach ($vattr as $ka => $va) {
-
-      $attimage = $attnormal = false;
-      switch ($va->type) {
-      case "image":  $attimage = true; break;
-      default:  $attnormal = "normal";
+    foreach ($vattr as $ka => $va) 
+      {
+	$attimage = $attnormal = false;
+	switch ($va->type) {
+	case "image":  $attimage = true; break;
+	default:  $attnormal = true;
+	}
+	$dcol[] = array( "ATTchange" => $attchange, "content" =>  $ddoc->GetHtmlAttrValue($va->id, "faddbook_blanck", false),
+			 "cid" => $v["id"], "ATTimage" => $attimage, "ATTnormal" => $attnormal, "fabzone" => $pzone, "ATTname" => $va->id );
       }
-      $dcol[] = array( "content" =>  $ddoc->GetHtmlAttrValue($va->id, "faddbook_blanck", false),
-		       "cid" => $v["id"], "ATTimage" => $attimage, "ATTnormal" => $attnormal, "fabzone" => $pzone );
-    }
+    $action->lay->setBlockData("C$il", $dcol);
     $dline[$il]["cid"] = $v["id"];
+    $dline[$il]["canChange"] = $attchange;
     $dline[$il]["fabzone"] = $pzone;
     $dline[$il]["title"] = ucwords(strtolower($v["title"]));
     $dline[$il]["Line"] = $il;
     $dline[$il]["icop"] = Doc::GetIcon($v["icon"]);
-    $action->lay->setBlockData("C$il", $dcol);
     $il++;
   }
   $action->lay->setBlockData("DLines", $dline);

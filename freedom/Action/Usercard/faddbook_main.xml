@@ -25,6 +25,28 @@ function manageCols() {
   subwindow(600, 200, 'colums', '[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_MAINCOLS&dfam=[dfam]');
 }
 
+
+
+var InitValue="*%$";
+
+function changeContact(evt, cid, attr) {
+  evt = (evt) ? evt : ((event) ? event : null );
+  var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
+  var nitem = document.getElementById('fmc_'+attr+'_'+cid);
+  if ((cc == 13)  && (nitem.value != "")) {
+    var fvl = document.getElementById('suser');
+    var attrN = document.getElementById('chgAttr');
+    var attrV = document.getElementById('chgValue');
+    var attrI = document.getElementById('chgId');
+    attrN.value = attr;
+    attrV.value = nitem.value;
+    attrI.value = cid;
+    fvl.submit();
+    return false;
+  }
+  return true;
+} 
+
 </script>
 
 </head>
@@ -70,7 +92,15 @@ function manageCols() {
 [IF ATTimage][label][ENDIF ATTimage]
 [IF ATTnormal]<input name="rqi_[id]" type="text" style="[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';this.style.color='[IF filter]red;[ENDIF filter]'" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">[ENDIF ATTnormal]</td>[ENDBLOCK COLS]</tr>
 
-[BLOCK DLines]<tr title="[title]"  class="fabcontact"  onmouseover="this.className='fabcontactsel'" onmouseout="this.className='fabcontact'" ><td nowrap align="center"><img title="[TEXT:add to prefered]" height="16" style="cursor:pointer; border:0" src="[icop]" onclick="document.getElementById('cid').value=[cid]; document.getElementById('addpref').submit();"></td>[BLOCK C[Line]]<td nowrap onclick="subwindow(300, 400, '[TEXT:detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[cid]&zone=[fabzone]'); ">[IF ATTimage]<img border="0" height="16" src="[content]">[ENDIF ATTimage][IF ATTnormal][content][ENDIF ATTnormal]&nbsp;</td>[ENDBLOCK C[Line]]</tr>
+[BLOCK DLines]<tr title="[title]"  class="fabcontact"    
+onmouseover="this.className='fabcontactsel'; document.getElementById('p[cid]').style.visibility = 'visible'; document.getElementById('e[cid]').style.visibility = [IF canChange]'visible'[ENDIF canChange][IFNOT canChange]'hidden'[ENDIF canChange];" 
+onmouseout="this.className='fabcontact'; document.getElementById('p[cid]').style.visibility = 'hidden'; document.getElementById('e[cid]').style.visibility = 'hidden';" >
+<td nowrap align="center">
+<img id="e[cid]" title="[TEXT:edit contact card]" height="12" style="visibility:hidden; cursor:pointer; border:0" src="[icop]" onclick="subwindow(300, 400, 'editdoc[cid]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&docid=[cid]');">
+<img id="p[cid]" title="[TEXT:add to prefered]" height="14" style="visibility:hidden; cursor:pointer; border:0" src="[IMG:faddbook_ico_favorite.png]" onclick="document.getElementById('cid').value=[cid]; document.getElementById('addpref').submit();">&nbsp;</td>
+[BLOCK C[Line]]
+<td nowrap  ondblclick="subwindow(300, 400, '[TEXT:detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[cid]&zone=[fabzone]'); ">[IF ATTimage]<img border="0" height="16" src="[content]">[ENDIF ATTimage][IF ATTnormal][IF ATTchange]<input onblur="if (InitValue!='*%$') { this.value=InitValue; InitValue='*%$'; };  this.className='inputInactive';"; onclick="InitValue=this.value; this.className='inputActive';" onkeypress="return changeContact(event, '[cid]', '[ATTname]');" id="fmc_[ATTname]_[cid]" class="inputInactive" value="[content]">[ENDIF ATTchange][IFNOT ATTchange][content][ENDIF ATTchange][ENDIF ATTnormal]&nbsp;</td>[ENDBLOCK C[Line]]
+</tr>
 [ENDBLOCK DLines]
 
 
@@ -81,6 +111,9 @@ function manageCols() {
 <input type="hidden" name="sp" id="sp" value="[sp]">
 <input type="hidden" name="lp" id="sp" value="[lp]">
 <input type="hidden" name="dfam" id="dfam" value="[dfam]">
+<input type="hidden" name="chgAttr" id="chgAttr" value="">
+<input type="hidden" name="chgValue" id="chgValue" value="">
+<input type="hidden" name="chgId" id="chgId" value="-1">
 
 </form>
 
