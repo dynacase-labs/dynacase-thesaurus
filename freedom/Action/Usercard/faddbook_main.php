@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.13 2005/10/14 13:01:37 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.14 2005/10/14 13:21:19 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -129,7 +129,7 @@ function faddbook_main(&$action)
 	case "image":  $attimage = true; break;
 	default:  $attnormal = true;
 	}
-	$dcol[] = array( "ATTchange" => $attchange, "content" =>  $ddoc->GetHtmlAttrValue($va->id, "faddbook_blanck", false),
+	$dcol[] = array( "ATTchange" => false, "content" =>  $ddoc->GetHtmlAttrValue($va->id, "faddbook_blanck", false),
 			 "cid" => $v["id"], "ATTimage" => $attimage, "ATTnormal" => $attnormal, "fabzone" => $pzone, "ATTname" => $va->id );
       }
     $action->lay->setBlockData("C$il", $dcol);
