@@ -277,7 +277,7 @@ function getAltern(c,l) {
   }
   if (validcolor) {
     hsl=RGB2HSL (r, g, b);
-   
+    if (hsl[0] < 128) l=l-200; // dark color
     // trgb=HSL2RGB (hsl[0],hsl[1], hsl[2]);
     trgb=HSL2RGB (hsl[0],hsl[1], l);
     for (i=0;i<3;i++) {
