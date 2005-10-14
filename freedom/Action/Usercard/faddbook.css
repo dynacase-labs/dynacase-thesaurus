@@ -40,7 +40,7 @@ IMG.zoom {
 }
 input {
 background-color: [CORE_BGCOLORALTERN];
-font-size : 80%;
+font-size : 100%;
 border-style: thin;
 border-color: [CORE_BGCOLORHIGH];
 border-width: 1px;

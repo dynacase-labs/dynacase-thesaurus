@@ -41,7 +41,7 @@ function showHideResumeCard(elt) {
 [BLOCK Contacts]
 <div class="fabcontact" id="l[id]">
 <table width="100%" cellspacing="0">
-<td width="12px" align="center" onclick="if (confirm('[TEXT:confirm delete] [jstitle]')) { document.getElementById('cid').value=[id]; document.getElementById('delpref').submit(); }" title="[TEXT:delete from prefered]"><img height="6" style="cursor:pointer; border:0" src="[IMG:faddbook_delpref.gif]"></td>
+<td width="12px" align="center" onclick="if (confirm('[jstitle] : [TEXT:confirm delete]')) { document.getElementById('cid').value=[id]; document.getElementById('delpref').submit(); }" title="[TEXT:delete from prefered]"><img height="6" style="cursor:pointer; border:0" src="[IMG:faddbook_delpref.gif]"></td>
 <td width="20px" align="center"><img height="16" style="border:0" src="[icon]"></td>
 <td align="left" onclick="showHideResumeCard([id]);">[title]</td>
 </tr></table></div>

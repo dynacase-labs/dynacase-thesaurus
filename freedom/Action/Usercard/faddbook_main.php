@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.12 2005/10/14 09:45:34 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.13 2005/10/14 13:01:37 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -51,6 +51,8 @@ function faddbook_main(&$action)
   $action->lay->set("sp", $pstart);
   $action->lay->set("lp", $lpage);
 
+  $sfullsearch = (GetHttpVars("sfullsearch", "") == "on" ? true : false);
+
   $sfam = GetHttpVars("dfam", $action->getParam("USERCARD_FIRSTFAM"));
   $action->lay->set("dfam", $sfam);
   $dnfam = new_Doc($dbaccess, $sfam);
@@ -79,10 +81,11 @@ function faddbook_main(&$action)
   $sf = "";
   $clabel = ucwords(strtolower($dnfam->title));
   if (isset($rqi_form["__ititle"]) && $rqi_form["__ititle"]!="" && $rqi_form["__ititle"] != $clabel) {
-    $filter[] = "( title ~* '".$rqi_form["__ititle"]."' ) ";
+    if ($sfullsearch) $filter[] = "( title ~* '".$rqi_form["__ititle"]."' ) ";
+    else $filter[] = "( title ~* '^".$rqi_form["__ititle"]."' ) ";
     $sf = $rqi_form["__ititle"];
   }
-  $td[] = array( "ATTimage" => false, "ATTnormal" => true, "id" => "__ititle", "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true) );
+  $td[] = array( "ATTimage" => false, "ATTnormal" => true, "id" => "__ititle", "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true), "firstCol" => true );
   $cols++;
 
   $vattr = array();
@@ -101,7 +104,7 @@ function faddbook_main(&$action)
 	  $filter[] = "( ".$v->id." ~* '".$rqi_form[$v->id]."' ) ";
 	  $sf = $rqi_form[$v->id];
 	} 
-	$td[] = array( "ATTimage" => $attimage, "ATTnormal" => $attnormal, "id" => $v->id, "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true) );
+	$td[] = array( "ATTimage" => $attimage, "ATTnormal" => $attnormal, "id" => $v->id, "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true), "firstCol" => false);
 	$cols++;
       }		    
     }

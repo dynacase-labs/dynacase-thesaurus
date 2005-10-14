@@ -87,16 +87,16 @@ function changeContact(evt, cid, attr) {
 
 <tr class="fabheadlist">
 
-<td width="20px">[IF isManager]<img title="[TEXT:manage columns]" style="cursor:pointer; border:0" src="[IMG:faddbook_cols.gif]" height="16px" onclick="manageCols()">[ENDIF isManager]</td>
+<td width="20px"><img title="[TEXT:manage columns]" style="visibility:[IF isManager]visible[ENDIF isManager][IFNOT isManager]hidden[ENDIF isManager];cursor:pointer; border:0" src="[IMG:faddbook_cols.gif]" height="16px" onclick="manageCols()"></td>
 [BLOCK COLS]<td nowrap>
 [IF ATTimage][label][ENDIF ATTimage]
-[IF ATTnormal]<input name="rqi_[id]" type="text" style="[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';this.style.color='[IF filter]red;[ENDIF filter]'" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">[ENDIF ATTnormal]</td>[ENDBLOCK COLS]</tr>
+[IF ATTnormal][IF firstCol]<input type="checkbox" name="sfullsearch" title="[TEXT:search all containing]">[ENDIF firstCol]<input name="rqi_[id]" type="text" style="[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';this.style.color='[IF filter]red;[ENDIF filter]'" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">[ENDIF ATTnormal]</td>[ENDBLOCK COLS]</tr>
 
 [BLOCK DLines]<tr title="[title]"  class="fabcontact"    
 onmouseover="this.className='fabcontactsel'; document.getElementById('p[cid]').style.visibility = 'visible'; document.getElementById('e[cid]').style.visibility = [IF canChange]'visible'[ENDIF canChange][IFNOT canChange]'hidden'[ENDIF canChange];" 
 onmouseout="this.className='fabcontact'; document.getElementById('p[cid]').style.visibility = 'hidden'; document.getElementById('e[cid]').style.visibility = 'hidden';" >
 <td nowrap align="center">
-<img id="e[cid]" title="[TEXT:edit contact card]" height="12" style="visibility:hidden; cursor:pointer; border:0" src="[icop]" onclick="subwindow(300, 400, 'editdoc[cid]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&docid=[cid]');">
+<img id="e[cid]" title="[TEXT:edit contact card]" height="12" style="visibility:hidden; cursor:pointer; border:0" src="[icop]" onclick="subwindow(300, 400, 'editdoc[cid]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&rzone=USERCARD:FADDBOOK_CARD:U&id=[cid]');">
 <img id="p[cid]" title="[TEXT:add to prefered]" height="14" style="visibility:hidden; cursor:pointer; border:0" src="[IMG:faddbook_ico_favorite.png]" onclick="document.getElementById('cid').value=[cid]; document.getElementById('addpref').submit();">&nbsp;</td>
 [BLOCK C[Line]]
 <td nowrap  ondblclick="subwindow(300, 400, '[TEXT:detail]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[cid]&zone=[fabzone]'); ">[IF ATTimage]<img border="0" height="16" src="[content]">[ENDIF ATTimage][IF ATTnormal][IF ATTchange]<input onblur="if (InitValue!='*%$') { this.value=InitValue; InitValue='*%$'; };  this.className='inputInactive';"; onclick="InitValue=this.value; this.className='inputActive';" onkeypress="return changeContact(event, '[cid]', '[ATTname]');" id="fmc_[ATTname]_[cid]" class="inputInactive" value="[content]">[ENDIF ATTchange][IFNOT ATTchange][content][ENDIF ATTchange][ENDIF ATTnormal]&nbsp;</td>[ENDBLOCK C[Line]]
