@@ -47,6 +47,26 @@ border-width: 1px;
 margin:2px;
 }
 
+.inputInactive {
+  cursor: pointer;
+  border-width: 0px;
+  border-style: none none none none;
+  background-color: transparent;
+  font-family: lucida, arial, sans;
+  font-size : 100%;
+  color: [CORE_TEXTFGCOLOR];
+}
+
+.inputActive {
+  cursor: pointer;
+  border-width: 1px;
+  border-color: black;
+  font-family: lucida, arial, sans;
+  font-size : 100%;
+  color: [CORE_TEXTFGCOLOR];
+}
+
+
 DIV.fabzone, TR.fabzone TD {
   background-color: [CORE_BGCOLORALTERN];
   border-style: outset none outset none;
