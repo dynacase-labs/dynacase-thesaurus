@@ -20,7 +20,7 @@
     display:none;
   }
 }
-a.menuItem, a:visited.menuItem {
+a.menuItem:link, a.menuItem:visited {
   color: [CORE_TEXTBGCOLOR];
   cursor: default;
   display: block;
@@ -32,7 +32,7 @@ a.menuItem, a:visited.menuItem {
   text-transform:capitalize;
 }
 
-a.menuItemCtrl, a:visited.menuItemCtrl {
+a.menuItemCtrl:link, a.menuItemCtrl:visited {
   color: [CORE_TEXTBGCOLOR];
   border-style:none  none none outset;
   border-width:3px;
@@ -81,7 +81,7 @@ a.menuItemDisabled:hover,a.menuItemCtrlDisabled:hover {
   text-decoration: none;	
 }
 
-a.menuItemDisabled, a.menuItemCtrlDisabled { 
+a.menuItemDisabled, a.menuItemDisabled:link,a.menuItemDisabled:visited,a.menuItemCtrlDisabled,a.menuItemCtrlDisabled:link,a.menuItemCtrlDisabled:visited { 
   color: [CORE_BGCOLORALTERN];
   cursor: default;
   display: block;
@@ -92,7 +92,7 @@ a.menuItemDisabled, a.menuItemCtrlDisabled {
   padding: 2px 12px 2px 8px;
   text-decoration: none;
 }
-a.menuItemCtrlDisabled {
+a.menuItemCtrlDisabled:link {
   border-style:none none none outset;
   border-width:3px;
   border-color:[CORE_BGCOLORALTERN];
