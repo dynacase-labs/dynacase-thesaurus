@@ -151,7 +151,7 @@ border-color : [CORE_BGCOLORALTERN];
 }
 DIV.fabresume:hover {
 border-style : inset;
-background-color: white;
+background-color: [CORE_BGCELLCOLOR];
 }
 
 .fabresumetitle {
@@ -166,7 +166,7 @@ text-transform : lowercase;
 }
 [IFNOT ISIE]
 .fabresumesoc:first-letter {
-text-transform:capitalize;[ENDIF ISIE]
+text-transform:capitalize;
 }[ENDIF ISIE]
   
 /* Carte */
@@ -178,7 +178,7 @@ padding:5pt;
 border-width : 2px;
 border-style : outset;
 border-color : [CORE_BGCOLORALTERN];
-background-color: white;
+background-color: [CORE_BGCELLCOLOR];
 }
 
 .fabctitlep {
@@ -245,7 +245,8 @@ border-width : 1px;
 border-style :outset;
 border-color : [CORE_BGCOLORALTERN];
 [IFNOT ISIE]background-image:url('[IMG:tabvig.png]');[ENDIF ISIE]
-[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale'); float:right;width:100%;
+  text-transform:capitalize;[ENDIF ISIE]
 background-color : [CORE_BGCOLORALTERN];
 cursor:pointer;
 }
@@ -255,7 +256,8 @@ border-style : inset;
 border-color : [CORE_BGCOLORALTERN];
 background-color : [CORE_BGCOLORALTERN];
 [IFNOT ISIE]  background-image:url('[IMG:tabvig.png]'); [ENDIF ISIE]
-[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale'); float:right;width:100%;
+  text-transform:capitalize;[ENDIF ISIE]
 cursor:pointer;
 }
 .fabogsel {
@@ -265,7 +267,8 @@ border-color : [CORE_BGCOLORALTERN];
   background-color : [CORE_FGCOLOR];
   color : [CORE_TEXTBGCOLOR];
 [IFNOT ISIE]  background-image:url('[IMG:tabvig.png]'); [ENDIF ISIE]
-[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale'); float:right;width:100%;
+  text-transform:capitalize;[ENDIF ISIE]
 cursor:pointer;
 }
 [IFNOT ISIE]

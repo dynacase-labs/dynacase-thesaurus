@@ -21,7 +21,7 @@ addEvent(window,"load",viewFirstTab);
 </td>
 <td>
 <div class="fabctitlep">[IF S_US_CIVILITY]<span class="fabcciv">[V_US_CIVILITY]</span>&nbsp;[ENDIF S_US_CIVILITY][IF S_US_FNAME]<span class="fabctitle">[V_US_FNAME]</span>&nbsp;[ENDIF S_US_FNAME]<span class="fabctitle">[V_US_LNAME]</span></div>
-[IF S_US_SOCIETY]<div class="fabctitlep"><span class="fabcsoc"><a href="[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=USERCARD:FADDBOOKSOC_CARD:T&id=[US_IDSOCIETY]">[US_SOCIETY]</a></span></div>[ENDIF S_US_SOCIETY]
+[IF S_US_SOCIETY]<div class="fabctitlep"><span class="fabcsoc"><a href="[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=USERCARD:FADDBOOKSOC_CARD:U&id=[US_IDSOCIETY]">[US_SOCIETY]</a></span></div>[ENDIF S_US_SOCIETY]
 </td></tr>
 
 <tr><td></td><td><div height="30px">&nbsp;</div></td></tr>
