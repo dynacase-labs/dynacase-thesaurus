@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.17 2005/10/07 15:33:29 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.18 2005/10/17 06:59:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -172,6 +172,14 @@ function wgcal_menu(&$action) {
 						 "ico" => "wgcal_choosecategories.gif",
 						 "rig" => "WGCAL_MGR"
 						 ),
+                                           array(
+                                                 "key" => "m_roomscars",
+                                                 "txt" => _("m_txt_roomscars"),
+                                                 "act" => "[CORE_STANDURL]app=WGCAL&action=WGCAL_ROOMSCARS",
+                                                 "tgt" => "wgcal_roomscars",
+                                                 "ico" => "vehicle.gif",
+                                                 "rig" => "WGCAL_MGR"
+                                                 ),
 					   array( "key" => "separator" ),
 					   array( 
 						 "key" => "m_userspref", 

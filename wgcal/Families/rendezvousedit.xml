@@ -314,11 +314,11 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <script type="text/javascript">
 var DisplayedRess = new Array();[BLOCK DRESS]
-DisplayedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBLOCK DRESS]
+DisplayedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ressst]');[ENDBLOCK DRESS]
 var PreferedRess = new Array( );[BLOCK PRESS]
-PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBLOCK PRESS]
+PreferedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ressst]');[ENDBLOCK PRESS]
 var SelectedRess = new Array( );[BLOCK SRESS]
-SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]');[ENDBLOCK SRESS]
+SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ressst]');[ENDBLOCK SRESS]
 </script>
 
 </div>

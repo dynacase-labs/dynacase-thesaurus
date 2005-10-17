@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.16 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.17 2005/10/17 06:59:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,6 +20,8 @@ function wgcal_resspicker(&$action) {
   $wre = GetHttpVars("wre", 0);      // 1 : Only Write enabled calendar
   $action->lay->set("wre", $wre);
 
+  $fiuser = getIdFromName($dbaccess, "IUSER");
+
   $contacts = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
   $tcontacts = explode("|", $contacts);
   if (count($tcontacts)>0) {
@@ -29,9 +31,15 @@ function wgcal_resspicker(&$action) {
       $tc[$kc]["ID"] = $rd->id;
       $tc[$kc]["ICON"] = $rd->GetIcon();
       $tc[$kc]["TITLE"] = addslashes($rd->title);
-      $tc[$kc]["STATE"] = EVST_NEW;
-      $tc[$kc]["TSTATE"] = WGCalGetLabelState(EVST_NEW);
-      $tc[$kc]["CSTATE"] = WGCalGetColorState(EVST_NEW);
+      if ($rd->fromid==$fiuser) {
+        $tc[$kc]["STATE"] = EVST_NEW;
+        $tc[$kc]["TSTATE"] = WGCalGetLabelState(EVST_NEW);
+        $tc[$kc]["CSTATE"] = WGCalGetColorState(EVST_NEW);
+      } else {
+        $tc[$kc]["STATE"] = -1;
+        $tc[$kc]["TSTATE"] = "";
+        $tc[$kc]["CSTATE"] = "";
+      }
     }
   }
   $action->lay->SetBlockData("PREFCONTACT", $tc);

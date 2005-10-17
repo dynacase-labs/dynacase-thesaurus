@@ -1109,6 +1109,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
       $to[$ito]["resstitle"] = addslashes(ucwords(strtolower($ress["title"])));
       $to[$ito]["ressid"] = $ress["id"];
       $to[$ito]["ressico"] = Doc::GetIcon($ress["icon"]);
+      $to[$ito]["ressst"] = ( $ress["fromid"]==$iuserfam?0:-1);
       if ($tx[1] == 1) {
 	$ts[$its] = $to[$ito];
 	$ts[$its]["idress"] = $its;
@@ -1149,11 +1150,11 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
       $view = true;
     }
     if ($view) {
-      $res = new_Doc($dbaccess, $v);
       $to[$ito]["idress"] = $ito;
       $to[$ito]["resstitle"] = addslashes(ucwords(strtolower($ress["title"])));
       $to[$ito]["ressid"] = $ress["id"];
       $to[$ito]["ressico"] = Doc::GetIcon($ress["icon"]);
+      $to[$ito]["ressst"] = ( $ress["fromid"]==$iuserfam?0:-1);
       $ito++;
     }
   }

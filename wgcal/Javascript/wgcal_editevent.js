@@ -567,7 +567,9 @@ function ViewGroup(ev,st) {
 function ImportRessources(elt, tress) {
   var i;
   for (i=0; i<tress.length; i++) {
-    addRessource(tress[i][0], tress[i][1], tress[i][2], '0', 'nouveau', 'red', true, false);
+    $col = 'red';
+    if (tress[i][3]==-1) $col = 'transparent';
+    addRessource(tress[i][0], tress[i][1], tress[i][2], tress[i][3], 'nouveau', $col, true, false);
   }
 }
 
