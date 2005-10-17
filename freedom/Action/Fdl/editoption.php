@@ -3,7 +3,7 @@
  * Edition of option sttribute for a document
  *
  * @author Anakeen 2004
- * @version $Id: editoption.php,v 1.2 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: editoption.php,v 1.3 2005/10/17 14:02:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,7 +34,7 @@ function editoption(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
    
 
-  $doc= getdocoption(&$action);
+  $doc= getdocoption($action);
 
 
   $action->lay->Set("iconsrc", $doc->geticon());
@@ -99,7 +99,7 @@ function viewoption(&$action) {
   // Get All Parameters
 
   $zonebodycard = GetHttpVars("zone","FDL:VIEWOPTCARD:T"); // define view action
-  $doc= getdocoption(&$action);
+  $doc= getdocoption($action);
   if ($doc) {
     $zonedoc=$doc->viewDoc($zonebodycard);
   
