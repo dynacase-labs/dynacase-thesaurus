@@ -164,9 +164,10 @@ font-size : 110%;
 font-style: italic;
 text-transform : lowercase;
 }
+[IFNOT ISIE]
 .fabresumesoc:first-letter {
-text-transform:capitalize;
-}
+text-transform:capitalize;[ENDIF ISIE]
+}[ENDIF ISIE]
   
 /* Carte */
 
@@ -211,9 +212,10 @@ font-style: italic;
 text-transform : lowercase;
 font-size : 120%;
 }
+[IFNOT ISIE]
 .fabcciv:first-letter {
 text-transform:capitalize;
-}
+}[ENDIF ISIE]
 
 .fabcaddress {
 padding:10px 0px 0px 0px;
@@ -242,9 +244,9 @@ border-color : [CORE_BGCOLORALTERN];
 border-width : 1px;
 border-style :outset;
 border-color : [CORE_BGCOLORALTERN];
-background-color : [CORE_BGCOLORALTERN];
-[IFNOT ISIE]  background-image:url('[IMG:tabvig.png]'); [ENDIF ISIE]
+[IFNOT ISIE]background-image:url('[IMG:tabvig.png]');[ENDIF ISIE]
 [IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
+background-color : [CORE_BGCOLORALTERN];
 cursor:pointer;
 }
 .fabogover {
@@ -266,9 +268,10 @@ border-color : [CORE_BGCOLORALTERN];
 [IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
 cursor:pointer;
 }
+[IFNOT ISIE]
 .fabogover:first-letter, .fabog:first-letter, .fabogsel:first-letter {
 text-transform:capitalize;
-}
+}[ENDIF ISIE]
 
 TABLE.tab {
 	border-width : 1px;
@@ -283,7 +286,6 @@ DIV.tabh SPAN  {
   border-width : 1px;
   border-style :outset;
   border-color : [CORE_BGCOLORALTERN];
-
 [IFNOT ISIE]  background-image:url('[IMG:tabvig.png]'); [ENDIF ISIE]
 [IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
   background-color : [CORE_BGCOLORALTERN];
@@ -291,9 +293,9 @@ DIV.tabh SPAN  {
   cursor:pointer;
   float:left;
 }
-DIV.tabh SPAN:first-letter  {
+[IFNOT ISIE]DIV.tabh SPAN:first-letter  {
   text-transform:capitalize;	
-}
+}[ENDIF ISIE]
 DIV.tabh SPAN.tabsel {
   background-color : [CORE_FGCOLOR];
   color : [CORE_TEXTBGCOLOR];
@@ -309,7 +311,7 @@ DIV.tabh SPAN:hover {
 }
 
 A:hover {
-background-color:[CORE_BGCOLORHIGH]
+background-color:[CORE_BGCOLORHIGH];
 }
 
 A:link, A:visited {
@@ -319,7 +321,7 @@ A:link, A:visited {
 }
 A {
   color: [CORE_ACOLOR];
-  cursor:pointer  
+  cursor:pointer;
 }
 .COREError {
   color: [CORE_ERRORCOLOR];
