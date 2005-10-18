@@ -220,6 +220,11 @@ function wGetCategories() {
   $enum = $ctg->getEnum();
   return $enum;
 }
+function wGetCategorieColor($cat) {
+  $col = array( "#00FF66", "#990099", "#FF3366", "#0066FF", "#CC99FF", "#CC99FF", "#FFFF00", "#66FF66", "#FF9933" );
+  if ($cat<0 || $cat>count($col)) return $col[count($col)-1];
+  return $col[$cat];
+}
 
 global $aTrace;
 $aTrace = array();

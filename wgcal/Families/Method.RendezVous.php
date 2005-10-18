@@ -266,6 +266,7 @@ function RendezVousView() {
     $this->lay->set("modifdate", strftime("%d %B %y %H:%M",$this->revdate));
     $this->lay->set("ShowCalendar", true);
     $this->lay->set("incalendar", $this->getValue("CALEV_EVCALENDAR"));
+    $hasCat = false;
     $show = ($action->getParam("WGCAL_G_SHOWCATEGORIES",0)==1 ? true : false);
     if ($show) {
       $this->lay->set("ShowCategories", $show);
@@ -274,7 +275,10 @@ function RendezVousView() {
       if (isset($catg[$cat])) $tc = $catg[$cat];
       else $tc = "";
       $this->lay->set("category", $tc);
+      $this->lay->set("catcolor", wGetCategorieColor($cat));
+      $hasCat = ($cat==0?false:true);
     }
+    $this->lay->set("hasCat", $hasCat);
     $title = $this->getValue("CALEV_EVTITLE");
   } else {
     $title =_("confidential event");
