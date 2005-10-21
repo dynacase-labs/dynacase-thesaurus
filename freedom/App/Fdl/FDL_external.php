@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.40 2005/07/28 16:47:51 eric Exp $
+ * @version $Id: FDL_external.php,v 1.41 2005/10/21 15:26:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,6 +75,7 @@ function lmail( $dbaccess, $name) {
     $filter[]="(title ~* '$name') or (us_mail ~* '$name')";
   }
 
+  $filter[] = "us_mail is not null";
   $famid=getFamIdFromName($dbaccess,"USER");
 
   $tinter = getChildDoc($dbaccess, 0,0,100, $filter,$action->user->id,"LIST",$famid);
@@ -84,7 +85,7 @@ function lmail( $dbaccess, $name) {
   while(list($k,$v) = each($tinter)) {
             
     $mail = $v->getValue("US_MAIL");
-    if ($mail != "")  $tr[] = array($v->title ,$v->title." <$mail>",$v->id);
+    $tr[] = array($v->title ,$v->title." <$mail>",$v->id);
     
   }
   return $tr;  
