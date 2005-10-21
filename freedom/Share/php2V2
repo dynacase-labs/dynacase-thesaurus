@@ -1,2 +1,6 @@
 #!/bin/bash
-perl -pi.bak -0 -e 's/new\s+doc\s*\(/new_Doc(/gi;' $*
+for i in $*; do    
+  if [ ! -h $i ] ; then
+      perl -pi.bak -0 -e 's/new\s+doc\s*\(/new_Doc(/gi;' $i
+  fi
+done
