@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.103 2005/09/15 07:50:32 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.104 2005/10/27 14:37:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -343,7 +343,7 @@ function getChildDoc($dbaccess,
 	{
 	  $tretdocs=array_merge($tretdocs,$tableq);
 	}
-      // print "<HR><div style=\"border:red 1px inset;background-color:lightyellow\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+      // print "<HR><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
     } else {
       // error in query          
