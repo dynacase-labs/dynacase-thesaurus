@@ -5,6 +5,6 @@ if [ "$dbpsql" == "" ]; then
    wchoose -b
 fi
 
-echo "update users set firstname='' where  isgroup = 'Y';update users set isgroup = 'N' where isgroup is null;" | psql anakeen anakeen
+echo "update users set firstname='' where  isgroup = 'Y';update users set isgroup = 'N' where isgroup is null;" | psql $dbpsql
 
 echo "ALTER TABLE fld DROP COLUMN id;" | psql $dbfree
