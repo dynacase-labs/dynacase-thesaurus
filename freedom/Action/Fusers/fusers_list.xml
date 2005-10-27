@@ -1,0 +1,78 @@
+[ZONE FDL:HTMLHEAD?title=[TEXT:users list]]
+
+<script>
+function selecttab(t,id) {
+  var o;
+  var ltr;
+   o=document.getElementById('DGroups');
+   if (o) o.style.display='none';
+   o=document.getElementById('DUsers');
+   if (o) o.style.display='none';
+   o=document.getElementById(id);
+   if (o) { o.style.display='';
+     
+     ltr=o.parentNode.getElementsByTagName('span');
+     for (var i=0;i<ltr.length ;i++)       ltr[i].className='';
+     
+     t.className='tabsel';
+   }
+}
+function viewdoc(id) {
+  subwindow(100,100,'finfo','[CORE_STANDURL]&app=FDL&action=FDL_CARD&id='+id)
+}
+function focuskey() {
+  var o=document.getElementById("kid");
+  if (o) {
+    o.focus();
+    o.select();
+  }
+  [IF viewone]viewdoc('[idone]');[ENDIF viewone]
+    
+}
+addEvent(window,"load",focuskey);
+
+</script>
+<style>
+TABLE.tableborder TBODY TR:hover {
+  background-color:[CORE_BGCOLORHIGH]!important;
+}
+TABLE.tableborder TBODY TR TD{
+  cursor:pointer;
+}
+</style>
+
+<div  class="tabh">
+<span  class="tabsel" onclick="selecttab(this,'DUsers');"><img width="14"  src="[IMG:ipersonne.gif]">[TEXT:Users]</span>
+<span  onclick="selecttab(this,'DGroups');refreshTree('gtree');"><img width="14"  src="[IMG:igroup.gif]">[TEXT:Groups]</span>
+</div>
+
+<div style="width:100%;clear:both;border:[CORE_BGCOLORALTERN] solid 1px"></div>
+
+
+
+<div id="DUsers">
+<form  style="display:inline"       
+       method="POST" ENCTYPE="multipart/form-data" 
+       action="[CORE_STANDURL]&app=[APPNAME]&action=FUSERS_LIST" >
+<input id="kid" type="text" name="keyword" value="[key]">
+</form>
+<button onclick="subwindow(100,100,'finfo','[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=IUSER')">[TEXT:Create new user]</button>
+<table width="100%" class="tableborder"><thead><tr><th>[TEXT:Lastname]</th><th>[TEXT:Firstname]</th><th>[TEXT:Login]</th><tr></thead>
+<tbody id='tbodyusers'>[BLOCK USERS]
+<tr  id="d[id]"  onclick="viewdoc('[id]')" > <td>[us_lname]</td><td>[us_fname]</td><td>[us_login]</td></tr>
+[ENDBLOCK USERS]
+</tbody><script>alterrow('tbodyusers','[CORE_BGCOLORALTERN]');</script>
+</table>
+</div>
+<div id="DGroups" style="display:none">
+<button onclick="subwindow(100,100,'finfo','[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=IGROUP')">[TEXT:Create new group]</button>
+<UL id="gtree" class="mktree">[BLOCK LI]<LI name="LI[id]" >
+<img class="click" title="[TEXT:view detail] ([login]@[domain])"  src="[IMG:igroup.gif]" width="12px" onclick="viewdoc('[fid]')"><a target="finfo" href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW&dirid=[fid]"><span  title="[login]@[domain]" id="SPAN[id]" name="SPAN[id]">[firstname] [lastname]</span></A>
+[SUBUL]</LI>[ENDBLOCK LI]</UL>
+
+
+
+
+</div>
+
+[ZONE FDL:HTMLFOOT]
