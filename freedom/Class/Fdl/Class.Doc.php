@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.281 2005/10/17 16:02:56 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.282 2005/10/27 08:40:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -878,6 +878,7 @@ final public function PostInsert()  {
    * @return void
    */
   final public function Affect($array,$more=false) { 
+    if ($more)  $this->ResetMoreValues();
     $this->ofields = $this->fields;
     $this->fields=array();
     unset($this->uperm); // force recompute privileges
@@ -888,10 +889,8 @@ final public function PostInsert()  {
       }
     }
     $this->Complete();
-    if ($more) {
-       $this->ResetMoreValues();
-       $this->GetMoreValues();
-    }
+    if ($more)  $this->GetMoreValues();
+      
     $this->isset = true;
   }
   /** 
@@ -3300,6 +3299,7 @@ final public function PostInsert()  {
       // Set the table value elements
       $value = chop($this->GetValue($v->id));
 			
+      if ($v->mvisibility=="R") $v->mvisibility="H"; // don't see in edit mode
       $this->lay->Set("V_".strtoupper($v->id),
 		      getHtmlInput($this,
 				   $v, 
