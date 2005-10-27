@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.97 2005/10/13 16:28:24 eric Exp $
+ * @version $Id: import_file.php,v 1.98 2005/10/27 14:28:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,8 +40,11 @@ function add_import_file(&$action, $fimport="") {
     }
   if (! $fdoc) $action->exitError(_("no import file specified"));
   $nline=0;
-  while ($data = fgetcsv ($fdoc, 50000, ";")) {
+  while (!feof($fdoc)) { 
+    $buffer = fgets($fdoc, 4096);
+    $data=explode(";",$buffer);   
     $nline++;
+
     if (isUTF8($data))    $data=array_map("utf8_decode",$data);
   // return structure
     $num = count ($data);
@@ -442,6 +445,52 @@ function add_import_file(&$action, $fimport="") {
 	}
       }
       
+      break;
+    case "ACCESS":
+      if (is_numeric($data[1]))   $wid = $data[1];
+      else {
+	$pid =  getIdFromName($dbaccess,$data[1],3);
+	$tdoc=getTDoc($dbaccess,$pid);
+	$wid=getv($tdoc,"us_whatid");
+      }
+      $idapp=$action->parent->GetIdFromName($data[2]);
+      if ($idapp == 0) {
+	$tcr[$nline]["err"]=sprintf(_("%s application not exists"),$data[2]);
+      } else {
+	$tcr[$nline]["msg"]="user #$wid";
+	array_shift($data);
+	array_shift($data);
+	array_shift($data);
+	$q=new QueryDb("","Acl");
+	$q->AddQuery("id_application=$idapp");
+	$la=$q->Query(0,0,"TABLE");
+	if (!$la) {
+	  $tcr[$nline]["err"]=sprintf(_("%s application has no aclss"),$data[2]);
+	} else {
+	  $tacl=array();
+	  foreach ($la as $k=>$v) {
+	    $tacl[$v["name"]]=$v["id"];
+	  }
+
+	  $p=new Permission();
+	  $p->id_user=$wid;
+	  $p->id_application=$idapp;
+	  foreach ($data as $v) {
+	    $v=trim($v);
+	    if ($v!="") {
+	      if ($analyze) continue;
+	      if (isset($tacl[$v])) {
+		$p->id_acl=$tacl[$v];
+		$err=$p->Add();
+		if ($err) $tcr[$nline]["err"].="\n$err";
+		else 	$tcr[$nline]["msg"].="\n".sprintf(_("add acl %s"),$v);
+	      } else {
+		$tcr[$nline]["err"].="\n".sprintf(_("unknow acl %s"),$v);
+	      }
+	    }
+	  }
+	}
+      }
       break;
     default:
       // uninterpreted line
