@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.55 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: editcard.php,v 1.56 2005/10/27 14:35:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.55 2005/06/28 08:37:46 eric Exp $
+// $Id: editcard.php,v 1.56 2005/10/27 14:35:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -99,6 +99,26 @@ function editcard(&$action) {
       // search default create view     
       $vid = $cvdoc->getValue("CV_IDCVIEW");
     }
+    if ($vid == "") {
+	// search preferred view
+	$tv=$cvdoc->getAValues("CV_T_VIEWS");
+
+	// sort
+	usort($tv,"cmp_cvorder2");
+
+	foreach ($tv as $k=>$v) {
+	  if ($v["cv_order"]>0) {
+	    if ($v["cv_kview"]=="VEDIT") {
+	      $err = $cvdoc->control($v["cv_idview"]); // control special view
+	      if ($err == "") {
+		$vid=$v["cv_idview"];
+		setHttpVar("vid",$vid);
+		break;
+	      }
+	    }
+	  }
+	}	
+      }
   }
   
   if (($vid != "") && ($doc->cvid > 0)) {
@@ -187,5 +207,12 @@ function moreone($v) {
   return (strlen($v) > 1);
 }
 
+function cmp_cvorder2($a, $b)
+{
+   if ($a["cv_order"] == $b["cv_order"]) {
+       return 0;
+   }
+   return ($a["cv_order"] < $b["cv_order"]) ? -1 : 1;
+}
 
 ?>

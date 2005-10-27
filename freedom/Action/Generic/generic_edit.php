@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.42 2005/10/11 14:19:45 eric Exp $
+ * @version $Id: generic_edit.php,v 1.43 2005/10/27 14:35:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -86,16 +86,40 @@ function generic_edit(&$action) {
     
   $action->lay->Set("STITLE",addslashes($action->lay->get("TITLE"))); 
   if ($zonebodycard == "") {
-    if (($vid != "") && ($doc->cvid > 0)) {
-      // special controlled view
+    if ($doc->cvid > 0) {
       $cvdoc= new_Doc($dbaccess, $doc->cvid);
       $cvdoc->set($doc);
-      $err = $cvdoc->control($vid); // control special view
-      if ($err != "") $action->exitError($err);
-      $tview = $cvdoc->getView($vid);
-      $doc->setMask($tview["CV_MSKID"]);
-      if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
-    }  
+      if ($vid == "") {
+	// search preferred view
+	$tv=$cvdoc->getAValues("CV_T_VIEWS");
+
+	// sort
+	usort($tv,"cmp_cvorder");
+
+	foreach ($tv as $k=>$v) {
+	  if ($v["cv_order"]>0) {
+	    if ($v["cv_kview"]=="VEDIT") {
+	      $err = $cvdoc->control($v["cv_idview"]); // control special view
+	      if ($err == "") {
+		$vid=$v["cv_idview"];
+		setHttpVar("vid",$vid);
+		break;
+	      }
+	    }
+	  }
+	}
+	
+      }
+      
+      if ($vid != "") {
+	// special controlled view
+	$err = $cvdoc->control($vid); // control special view
+	if ($err != "") $action->exitError($err);
+	$tview = $cvdoc->getView($vid);
+	$doc->setMask($tview["CV_MSKID"]);
+	if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
+      }  
+    }
   }
   if (($vid == "")&&($mskid != "")) {
     $mdoc=new_Doc($dbaccess,$mskid);
@@ -180,5 +204,13 @@ function generic_edit(&$action) {
   $action->lay->Set("id", $docid);
     
 
+}
+
+function cmp_cvorder($a, $b)
+{
+   if ($a["cv_order"] == $b["cv_order"]) {
+       return 0;
+   }
+   return ($a["cv_order"] < $b["cv_order"]) ? -1 : 1;
 }
 ?>
