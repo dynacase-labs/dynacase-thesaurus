@@ -277,7 +277,7 @@ function getAltern(c,l) {
   }
   if (validcolor) {
     hsl=RGB2HSL (r, g, b);
-    if (hsl[0] < 128) l=l-200; // dark color
+    if (hsl[2] < 102) l=l-200; // dark color
     // trgb=HSL2RGB (hsl[0],hsl[1], hsl[2]);
     trgb=HSL2RGB (hsl[0],hsl[1], l);
     for (i=0;i<3;i++) {
@@ -339,3 +339,21 @@ function addBookmark(url,title) {
            window.external.AddFavorite(title,url);
        }
  }
+var prevclass=false;
+function showDiv(th,id) {
+  var o=document.getElementById(id);
+  var l;
+  if (o) {
+    if (!prevclass) prevclass=o.className;
+    l=o.parentNode.childNodes;
+    for (var i=0;i<l.length;i++) {
+      if ((l[i].nodeName == o.nodeName)&&(l[i].className == o.className)) l[i].style.display='none';      
+    }
+    l=th.parentNode.childNodes;
+    for (var i=0;i<l.length;i++) {
+      if (l[i].nodeName == th.nodeName) l[i].className='';      
+    }
+    o.style.display='';    
+    th.className='tabsel';
+  }
+}
