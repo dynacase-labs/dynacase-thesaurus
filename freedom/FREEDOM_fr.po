@@ -6,19 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-14 14:17+0200\n"
-"PO-Revision-Date: 2005-09-22 11:23+0200\n"
+"POT-Creation-Date: 2005-10-27 14:45+0200\n"
+"PO-Revision-Date: 2005-10-27 14:52+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-msgid "no family"
-msgstr "pas de famille"
-
-msgid "click to change option"
-msgstr "Cliquez pour changer les options"
 
 #, c-format
 msgid "unknown attribute %s"
@@ -34,6 +28,16 @@ msgstr "le fichier externe %s ne peut être lu"
 
 #, c-format
 msgid "the pluggins function description '%s' is not conform"
+msgstr "La description de la fonction externe '%s' est incorrecte"
+
+msgid "no family"
+msgstr "pas de famille"
+
+msgid "click to change option"
+msgstr "Cliquez pour changer les options"
+
+#, fuzzy, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
 msgstr "La description de la fonction externe '%s' est incorrecte"
 
 msgid "no file referenced"
@@ -1200,6 +1204,24 @@ msgstr "actualisation des attributs intranet des utilisateurs"
 msgid "refresh ldap entries"
 msgstr "actualiser les entrées du LDAP"
 
+msgid "To create and modify users and groups"
+msgstr "Pour créer et modifier des utilisateurs et des groups"
+
+msgid "Access to user refresh function"
+msgstr "Accès aux fonctions de raffraichissement des utilisateurs"
+
+msgid "address book frame page"
+msgstr "Adress book : frames"
+
+msgid "fusers root window"
+msgstr "fuser fenêtre principale"
+
+msgid "fusers list window"
+msgstr "fuser fenetre liste"
+
+msgid "fusers view/edit window"
+msgstr "fuser voir/éditer"
+
 msgid "default document family"
 msgstr "famille de document par défaut"
 
@@ -1384,16 +1406,14 @@ msgstr "Carnet d'adresses"
 msgid "User Card Management"
 msgstr "Carnet d'adresses"
 
-#, fuzzy
 msgid "Access To Import Contacts"
-msgstr "Accès à mon compte"
+msgstr "Accès à l'importation des utilisateurs"
 
-#, fuzzy
 msgid "Access To Manage Address Book"
-msgstr "Accès en l'interface principale"
+msgstr "Accès à la gestion du carnet d'adresses"
 
 msgid "Access To View Address Book"
-msgstr ""
+msgstr "Accès pour voir le carnet d'adresses"
 
 msgid "import vcard"
 msgstr "Importation Vcard"
@@ -1414,10 +1434,7 @@ msgid "address book set user param"
 msgstr "Adress book : position du p. utilisteur"
 
 msgid "address book choose main view column"
-msgstr ""
-
-msgid "address book frame page"
-msgstr "Adress book : frames"
+msgstr "Carnet d'adresse : choisir les colonnes"
 
 msgid "address book main page"
 msgstr "Adress book : page principale"
@@ -1455,13 +1472,11 @@ msgstr "mot de passe administrateur LDAP"
 msgid "LDAP activated"
 msgstr "Activation LDAP"
 
-#, fuzzy
 msgid "first family used"
-msgstr " Ouverte en premier"
+msgstr "première famille utilisée"
 
-#, fuzzy
 msgid "second family used"
-msgstr "id famille site"
+msgstr "seconde famille utilisée"
 
 msgid "main view line displayed"
 msgstr ""
@@ -1471,6 +1486,12 @@ msgstr "Préférés"
 
 msgid "main view columns"
 msgstr "Vue principale"
+
+msgid "uncomplete request"
+msgstr "requête incomplète"
+
+msgid "request not found"
+msgstr "requête non trouvée"
 
 msgid "locked document of "
 msgstr "documents verrouillés par "
@@ -1821,12 +1842,6 @@ msgstr "vers privé"
 msgid "Twprocess_public"
 msgstr "vers public"
 
-msgid "uncomplete request"
-msgstr "requête incomplète"
-
-msgid "request not found"
-msgstr "requête non trouvée"
-
 #, c-format
 msgid "%s attribute"
 msgstr "attribut %s"
@@ -1917,21 +1932,6 @@ msgstr "N"
 msgid "Action"
 msgstr "Action"
 
-#, c-format
-msgid "group #%d does not exist"
-msgstr "le groupe n°%d n'existe pas"
-
-msgid "group has not identificator"
-msgstr "Le groupe n'a pas d'identificateur"
-
-#, c-format
-msgid "group %d does not exist"
-msgstr "le groupe n°%d n'existe pas"
-
-#, c-format
-msgid "Group %s not exist"
-msgstr "le groupe n°%s n'existe pas"
-
 msgid "user is desactivated"
 msgstr "l'utilisateur est désactivé"
 
@@ -1956,6 +1956,21 @@ msgid "Expiration delay must not be 0 to keep expiration date"
 msgstr ""
 "Le délai d'expiration doit être supérieur à zéro pour avoir une date "
 "d'expiration"
+
+#, c-format
+msgid "group #%d does not exist"
+msgstr "le groupe n°%d n'existe pas"
+
+msgid "group has not identificator"
+msgstr "Le groupe n'a pas d'identificateur"
+
+#, c-format
+msgid "group %d does not exist"
+msgstr "le groupe n°%d n'existe pas"
+
+#, c-format
+msgid "Group %s not exist"
+msgstr "le groupe n°%s n'existe pas"
 
 msgid "the login must not be empty"
 msgstr "Le login ne doit pas être vide"
@@ -1984,27 +1999,6 @@ msgstr "Le server LDAP n'a pas pu être contacté"
 
 msgid "direct"
 msgstr "direct"
-
-#, c-format
-msgid "period from %s to %s"
-msgstr "période du %s au %s"
-
-#, c-format
-msgid "the end date (%s) is before the begin date (%s)"
-msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
-
-msgid "this kind of document cannot be duplicate"
-msgstr "ce type de document ne peut être dupliqué"
-
-msgid "duplication of"
-msgstr "duplication de"
-
-#, c-format
-msgid "new duplicate document is named : %s"
-msgstr "la duplication est nommée : %s"
-
-msgid "To"
-msgstr "Vers"
 
 msgid "error in filename"
 msgstr "erreur dans le nom de fichier"
@@ -2035,6 +2029,27 @@ msgstr "elinkEncode :  attribut non trouvé %s"
 #, c-format
 msgid "create new %s"
 msgstr "créé par %s"
+
+#, c-format
+msgid "period from %s to %s"
+msgstr "période du %s au %s"
+
+#, c-format
+msgid "the end date (%s) is before the begin date (%s)"
+msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
+
+msgid "this kind of document cannot be duplicate"
+msgstr "ce type de document ne peut être dupliqué"
+
+msgid "duplication of"
+msgstr "duplication de"
+
+#, c-format
+msgid "new duplicate document is named : %s"
+msgstr "la duplication est nommée : %s"
+
+msgid "To"
+msgstr "Vers"
 
 msgid ""
 "Some constraint attribute are not respected.\n"
@@ -2683,6 +2698,30 @@ msgstr "Choix des actions pour un traitement"
 msgid "Create a new  process document"
 msgstr "Créer un nouveau document processus"
 
+msgid "users list"
+msgstr "liste des utilisateurs"
+
+msgid "Groups"
+msgstr "Groupes"
+
+msgid "Create new user"
+msgstr "Créer un nouvel utilisateur"
+
+msgid "Lastname"
+msgstr "Nom"
+
+msgid "Firstname"
+msgstr "Prénom"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Create new group"
+msgstr "Créer un nouveau groupe"
+
+msgid "view detail"
+msgstr "voir détails"
+
 msgid "Refresh users characteristics from system"
 msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
 
@@ -2872,6 +2911,54 @@ msgstr "choix des familles administratives"
 msgid "choose user families"
 msgstr "Choix des familles personnelles"
 
+msgid "contact"
+msgstr "Contact..."
+
+msgid "society"
+msgstr "société"
+
+msgid "other"
+msgstr "Autres..."
+
+msgid "address"
+msgstr "Adresse..."
+
+msgid "other infos"
+msgstr "Autres informations..."
+
+msgid "web"
+msgstr "Web"
+
+msgid "categorie"
+msgstr "Catégorie"
+
+msgid "other sites"
+msgstr "Autres sites..."
+
+msgid "click here to create a new"
+msgstr "Création...."
+
+msgid "lignes par page"
+msgstr ""
+
+msgid "manage columns"
+msgstr "Gérer les colonnes"
+
+msgid "search all containing"
+msgstr "rechercher tous ceux contenant..."
+
+msgid "filter on"
+msgstr "Filtrer sur"
+
+msgid "edit contact card"
+msgstr "éditer la fiche"
+
+msgid "add to prefered"
+msgstr "ajouter à mes préférés"
+
+msgid "detail"
+msgstr "détaillé"
+
 msgid "Import vcard"
 msgstr "Importation Vcard"
 
@@ -2914,9 +3001,6 @@ msgstr "Une seule ligne par personne est autorisée"
 msgid "user"
 msgstr "personne"
 
-msgid "society"
-msgstr "société"
-
 msgid "iuser"
 msgstr "utilisateur"
 
@@ -2930,9 +3014,8 @@ msgstr "toutes conditions"
 msgid "ToSearch"
 msgstr "Rechercher"
 
-#, fuzzy
 msgid "Init"
-msgstr "Incident"
+msgstr "Init"
 
 msgid "Add"
 msgstr "Ajout"
@@ -2944,32 +3027,20 @@ msgstr ""
 msgid "Pages Jaunes"
 msgstr "Valeurs des paramètres"
 
-msgid "click here to create a new"
-msgstr "Création...."
-
-msgid "lignes par page"
-msgstr ""
-
-msgid "manage columns"
-msgstr "Gérer les colonnes"
-
-msgid "search all containing"
-msgstr "rechercher tous ceux contenant..."
-
-msgid "filter on"
-msgstr "Filtrer sur"
-
-msgid "edit contact card"
-msgstr "éditer la fiche"
-
-msgid "add to prefered"
-msgstr "ajouter à mes préférés"
-
-msgid "detail"
-msgstr "détaillé"
-
 msgid "freedom address book"
 msgstr "Carnet d'Adresses Freedom"
+
+msgid "choose colums"
+msgstr "Choix des colonnes affichées"
+
+msgid "select to view colum"
+msgstr "selection pour voir les colonnes"
+
+msgid "save modifications"
+msgstr "sauver les modifications"
+
+msgid "reset to default"
+msgstr "configuration par défaut"
 
 msgid "click to reload favorites"
 msgstr "Cliquer ici pour raffraichir mes favoris"
@@ -3001,79 +3072,6 @@ msgstr "recherche dans tout les champs"
 msgid "view_detail"
 msgstr "détails"
 
-msgid "choose colums"
-msgstr "Choix des colonnes affichées"
-
-msgid "select to view colum"
-msgstr ""
-
-msgid "save modifications"
-msgstr "sauver les modifications"
-
-msgid "reset to default"
-msgstr "configuration par défaut"
-
-msgid "contact"
-msgstr "Contact..."
-
-msgid "other"
-msgstr "Autres..."
-
-msgid "address"
-msgstr "Adresse..."
-
-msgid "other infos"
-msgstr "Autres informations..."
-
-msgid "web"
-msgstr "Web"
-
-msgid "categorie"
-msgstr "Catégorie"
-
-msgid "other sites"
-msgstr "Autres sites..."
-
-#, fuzzy
-msgid "freedom current style"
-msgstr "à partir du dossier courant"
-
-#, fuzzy
-msgid "delconfirmparam"
-msgstr "Voulez-vous supprimer"
-
-#, fuzzy
-msgid "update demo zone"
-msgstr "mis à jour"
-
-#, fuzzy
-msgid "create new style with this parameters"
-msgstr "Paramètres pour le changement d'état"
-
-msgid "fromdate"
-msgstr "date de début"
-
-msgid "todate"
-msgstr "date de fin"
-
-msgid "today"
-msgstr "aujourd'hui"
-
-msgid "view abstract card"
-msgstr "Carte résumé"
-
-msgid "delete selected"
-msgstr "supprimer la sélection"
-
-msgid "select"
-msgstr "sélectionner"
-
-msgid "unselect"
-msgstr "déselectionner"
-
-msgid "duplicate"
-msgstr "Dupliquer"
-
 msgid "enumerate input not found"
 msgstr "entrée énumérée non trouvé"
 
@@ -3103,6 +3101,30 @@ msgstr "Choisissez un document avant de choisir les options"
 
 msgid "quick save not possible"
 msgstr "Sauvegarde rapide impossible"
+
+msgid "fromdate"
+msgstr "date de début"
+
+msgid "todate"
+msgstr "date de fin"
+
+msgid "today"
+msgstr "aujourd'hui"
+
+msgid "view abstract card"
+msgstr "Carte résumé"
+
+msgid "delete selected"
+msgstr "supprimer la sélection"
+
+msgid "select"
+msgstr "sélectionner"
+
+msgid "unselect"
+msgstr "déselectionner"
+
+msgid "duplicate"
+msgstr "Dupliquer"
 
 msgid "manual date"
 msgstr "Date manuelle"
@@ -3369,6 +3391,33 @@ msgstr "premier"
 msgid "PubliPreview"
 msgstr "prévisualisation"
 
+msgid "View"
+msgstr "Affichage"
+
+msgid "list"
+msgstr "Liste"
+
+msgid "icon"
+msgstr "Icone"
+
+msgid "column"
+msgstr "colonne"
+
+msgid "All To basket"
+msgstr "Tout insérer dans le porte-documents"
+
+msgid "Open in folio"
+msgstr "Ouvrir dans une chemise"
+
+msgid "Basket to here"
+msgstr "Insérer le porte-documents"
+
+msgid "Create a batch"
+msgstr "Créer un traitement"
+
+msgid "Clear Folder"
+msgstr "Vider le dossier"
+
 msgid "Conditions"
 msgstr "Conditions"
 
@@ -3417,33 +3466,6 @@ msgstr "visibilité par défaut"
 msgid "Search criteria"
 msgstr "Critères de recherche"
 
-msgid "View"
-msgstr "Affichage"
-
-msgid "list"
-msgstr "Liste"
-
-msgid "icon"
-msgstr "Icone"
-
-msgid "column"
-msgstr "colonne"
-
-msgid "All To basket"
-msgstr "Tout insérer dans le porte-documents"
-
-msgid "Open in folio"
-msgstr "Ouvrir dans une chemise"
-
-msgid "Basket to here"
-msgstr "Insérer le porte-documents"
-
-msgid "Create a batch"
-msgstr "Créer un traitement"
-
-msgid "Clear Folder"
-msgstr "Vider le dossier"
-
 msgid "new guide-card"
 msgstr "Nouvel intercalaire"
 
@@ -3474,9 +3496,6 @@ msgstr "déplier tout"
 msgid "collapse all"
 msgstr "replier tout"
 
-msgid "view detail"
-msgstr "voir détails"
-
 msgid "loop detected. You must undo this selection"
 msgstr "Boucle détectée. Vous devez annuler votre sélection"
 
@@ -3485,6 +3504,56 @@ msgstr "confidentialité"
 
 msgid "(private)"
 msgstr "(privé)"
+
+msgid "System"
+msgstr "Système"
+
+msgid "Group"
+msgstr "Groupe"
+
+msgid "Coordonates"
+msgstr "Coordonnées"
+
+msgid "Others"
+msgstr "Autres"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "Society"
+msgstr "Société"
+
+msgid "phones"
+msgstr "Téléphones"
+
+msgid "Members"
+msgstr "Membres"
+
+msgid "number of members"
+msgstr "Nombre de membres"
+
+msgid "Person"
+msgstr "Personne"
+
+#, fuzzy
+msgid "nomail"
+msgstr "pas d'email"
+
+#, fuzzy
+#~ msgid "freedom current style"
+#~ msgstr "à partir du dossier courant"
+
+#, fuzzy
+#~ msgid "delconfirmparam"
+#~ msgstr "Voulez-vous supprimer"
+
+#, fuzzy
+#~ msgid "update demo zone"
+#~ msgstr "mis à jour"
+
+#, fuzzy
+#~ msgid "create new style with this parameters"
+#~ msgstr "Paramètres pour le changement d'état"
 
 #~ msgid "cedex"
 #~ msgstr "cédex"
@@ -3850,9 +3919,6 @@ msgstr "(privé)"
 #~ msgid "Sales Out"
 #~ msgstr "Ventes"
 
-#~ msgid "site"
-#~ msgstr "site"
-
 #~ msgid "designation"
 #~ msgstr "désignation"
 
@@ -4215,9 +4281,6 @@ msgstr "(privé)"
 
 #~ msgid "department"
 #~ msgstr "Département"
-
-#~ msgid "phone"
-#~ msgstr "Téléphone"
 
 #~ msgid "fax"
 #~ msgstr "Fax"

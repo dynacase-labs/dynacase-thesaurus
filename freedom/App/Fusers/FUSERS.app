@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FUSERS.app,v 1.2 2004/08/12 10:24:27 eric Exp $
+// $Id: FUSERS.app,v 1.3 2005/10/27 14:38:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fusers/FUSERS.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,26 +29,55 @@ $app_desc = array (
 "icon"		=>"fusers.gif",	//Icon
 "displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"childof"	=>"ONEFAM"			//
+"childof"	=>"USERCARD"			//
 );
 
+$app_acl = array (
+  
+  array(
+   "name"               =>"FUSERS",
+   "description"        =>N_("To create and modify users and groups"),
+   "group_default"       =>"Y"),
+ 
+  array(
+   "name"               =>"FUSERS_MASTER",
+   "description"        =>N_("Access to user refresh function"),
+   "group_default"       =>"N"),
+);
 $action_desc = array (
+	array(
+	      "name"               =>"FADDBOOK_FRAME",
+	      "short_name" 	        =>N_("address book frame page"),
+	      "acl"                	=>"USERCARD_READ",
+	      "root"               =>"N"		
+	      ),
 		      array( 
-			    "name"		=>"FUSERS_ADMIN",
-			    "short_name"		=>N_("administrative tools"),
-			    "acl"		=>"ONEFAM_MASTER"
+			    "name"		=>"FUSERS_ROOT",
+			    "short_name"		=>N_("fusers root window"),
+			    "acl"		=>"FUSERS",
+			    "root"		=>"Y"
+			    ),
+		      array( 
+			    "name"		=>"FUSERS_LIST",
+			    "short_name"		=>N_("fusers list window"),
+			    "acl"		=>"FUSERS"
+			    ),
+		      array( 
+			    "name"		=>"FUSERS_VIEW",
+			    "short_name"		=>N_("fusers view/edit window"),
+			    "acl"		=>"FUSERS"
 			    ),
 		      array( 
 			    "name"		=>"FUSERS_IUSER",
 			    "short_name"		=>N_("refresh users intranet attributes"),
-			    "acl"		=>"ONEFAM_MASTER"
+			    "acl"		=>"FUSERS_MASTER"
 			    ),
 		      array( 
 			    "name"		=>"FUSERS_LDAPINIT",
 			    "short_name"		=>N_("refresh ldap entries"),
 			    "script"           => "fusers_iuser.php",
 			    "function"           =>"fusers_ldapinit",
-			    "acl"		=>"ONEFAM_MASTER"
+			    "acl"		=>"FUSERS_MASTER"
 			    )
 		      );
    

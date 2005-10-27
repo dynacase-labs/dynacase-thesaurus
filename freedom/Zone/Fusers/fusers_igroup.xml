@@ -1,16 +1,7 @@
 
 
-<script type="text/javascript">
+<script type="text/javascript">addEvent(window,"load",viewFirstTab);</script>
 
-
-var lOnglet = [ 'contact', 'society', 'others' ];
-
-
-addEvent(window,"load",viewFirstTab);
-
-</script>
-
-[ZONE FDL:POPUPCARD]
 <div class="fabcard">
 
 <table width="100%" cellspacing="0" border="0"><tr>

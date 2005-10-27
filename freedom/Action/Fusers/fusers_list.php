@@ -3,7 +3,7 @@
  * display users and groups list
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_list.php,v 1.1 2005/10/27 05:50:14 eric Exp $
+ * @version $Id: fusers_list.php,v 1.2 2005/10/27 14:40:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -18,6 +18,8 @@ function fusers_list(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $slice=25;
@@ -68,7 +70,7 @@ function fusers_list(&$action) {
     foreach ($mgroups as $k=>$v) {
 	$cgroup=fusers_getChildsGroup($v["id"],$groups);
 	$tgroup[$k]=$v;
-	$tgroup[$k]["SUBUL"]=$cgroup;
+	$tgroup[$k]["SUBUL"]=$cgroup;	
       $groupuniq[$v["id"]]=$v;
       $groupuniq[$v["id"]]["checkbox"]="";
       if (in_array($v["id"],$ugroup)) $groupuniq[$v["id"]]["checkbox"]="checked";
@@ -77,6 +79,7 @@ function fusers_list(&$action) {
   $action->lay->setBlockData("LI",$tgroup);
   $action->lay->setBlockData("SELECTGROUP",$groupuniq);
 
+  $action->lay->set("expand", (count($groups) < 15));
 }
 
 /**

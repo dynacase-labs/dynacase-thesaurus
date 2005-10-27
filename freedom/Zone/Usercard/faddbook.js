@@ -31,7 +31,7 @@ function showAttributes(event,o,tid) {
     }    
   }
   for (i=0; i<tid.length; i++) {
-    if (elt = document.getElementById(tid[i])) {
+    if (elt = document.getElementById('TR'+tid[i])) {
       elt.style.display = '';
     }
   }

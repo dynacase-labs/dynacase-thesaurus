@@ -3,14 +3,17 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.27 2005/07/04 16:06:40 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.28 2005/10/27 14:36:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
  */
  /**
  */
+var $cviews=array("FUSERS:FUSERS_IUSER");
 var $eviews=array("USERCARD:CHOOSEGROUP");
+var $defaultview="FUSERS:FUSERS_IUSER:T";
+var $defaultedit="FUSERS:FUSERS_EIUSER:T";
   var $exportLdap = array(
 
 		      // posixAccount
@@ -209,12 +212,15 @@ function PostModify() {
 
     $fid=$this->id;        
     $user=$this->getWUser();
-    if ($user)  $err=$this->setGroups();
-    else $user=new User(""); // create new user
+    if (!$user) {
+      $user=new User(""); // create new user
+      $this->wuser=&$user;
+    }
     $err.=$user->SetUsers($fid,$lname,$fname,$expires,$passdelay,
 			  $login,$status,$pwd1,$pwd2,
 			  $iddomain,$extmail);  
     if ($err=="") { 
+      if ($user)  $err=$this->setGroups();
       if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {
 	if (($pwd != $user->password) && (strlen($pwd>12))) {
 	  $user->password=$pwd;
@@ -284,8 +290,106 @@ function ConstraintExpires($expiresd,$expirest,$daydelay) {
 }
 
 
+function fusers_iuser($target="finfo",$ulink=true,$abstract="Y") {
+  global $action;
+  //setHttpVar("specialmenu","menuab");
+  $this->viewdefaultcard($target,$ulink,$abstract);
+  $action->parent->AddCssRef("USERCARD:faddbook.css",true);
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/USERCARD/Layout/faddbook.js");
 
+  
+  // list of attributes displayed directly in layout
+  $ta=array("us_workweb","us_photo","us_lname","us_fname","us_society","us_civility","us_mail","us_phone","us_mobile","us_fax","us_intphone","us_workaddr","us_workcedex","us_country","us_workpostalcode","us_worktown","us_groups","us_whatid","us_state","us_login","us_status","us_domain","us_expiresd","us_expirest","us_daydelay");
+  //$ta["ident"]=array("us_lo
 
+  $la=$this->getAttributes();
+  $to=array();
+  $tabs=array();
+  foreach ($la as $k=>$v) {
+    $va=$this->getValue($v->id);
+    if (($va || ($v->type=="array")) && (! in_array($v->id,$ta)) &&(!$v->inArray()) ) {
+	  
+     if ((($v->mvisibility == "R") || ($v->mvisibility == "W"))) {
+	if ($v->type=="array") {
+	  $hv=$this->getHtmlValue($v,$va,$target,$ulink);
+	  if ($hv) {
+	    $to[]=array("lothers"=>$v->labelText,
+		      "aid"=>$v->id,
+		      "vothers"=>$hv,
+		      "isarray"=>true);	
+	    $tabs[$v->fieldSet->labelText][]=$v->id;
+	  }
+	} else {
+	  $to[]=array("lothers"=>$v->labelText,
+		      "aid"=>$v->id,
+		      "vothers"=>$this->getHtmlValue($v,$va,$target,$ulink),
+		      "isarray"=>false);
+	$tabs[$v->fieldSet->labelText][]=$v->id;
+	}
+      }
+    }
+  }
+  $this->lay->setBlockData("OTHERS",$to);
+  $this->lay->set("HasOTHERS",(count($to)>0));
+  $this->lay->set("HasDOMAIN",($this->getValue("US_IDDOMAIN")>9));
+  $this->lay->set("HasDPassword",($this->getValue("US_DAYDELAY")!=""));
+  $ltabs=array();
+  foreach ($tabs as $k=>$v) {
+    $ltabs[$k]=array("tabtitle"=>$k,
+		     "aids"=>"['".implode("','",$v)."']");
+  }
+  $this->lay->setBlockData("TABS",$ltabs);
+}
 
+function fusers_eiuser() {
+  global $action;
+  $this->editattr();
+  $action->parent->AddCssRef("USERCARD:faddbook.css",true);
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/USERCARD/Layout/faddbook.js");
+
+  
+  // list of attributes displayed directly in layout
+  $ta=array("us_workweb","us_photo","us_lname","us_fname","us_society","us_civility","us_mail","us_phone","us_mobile","us_fax","us_intphone","us_workaddr","us_workcedex","us_country","us_workpostalcode","us_worktown","us_groups","us_whatid","us_state","us_login","us_status","us_domain","us_iddomain","us_expiresd","us_expirest","us_daydelay","us_passwd1","us_passwd2","us_extmail","us_role","us_scatg","us_pfax","us_pphone","us_job","us_type","us_initials","us_service","us_idservice");
+  //$ta["ident"]=array("us_lo
+
+  $la=$this->getNormalAttributes();
+
+  $this->lay->set("editgroup",($la["us_group"]->mvisibility=="W"));
+
+  $to=array();
+  $tabs=array();
+  foreach ($la as $k=>$v) {
+    $va=$this->getValue($v->id);
+    if (!$v->inArray() && (! in_array($v->id,$ta)))  {	      
+      if ((($v->mvisibility == "W") || ($v->mvisibility == "O"))) {
+	if ($v->type=="array") {
+	  $hv=getHtmlInput($this,$v,$va);
+	  if ($hv) {
+	    $to[]=array("lothers"=>$v->labelText,
+		      "aid"=>$v->id,
+		      "vothers"=>$hv,
+		      "isarray"=>true);	
+	    $tabs[$v->fieldSet->labelText][]=$v->id;
+	  }
+	} else {
+	  $to[]=array("lothers"=>$v->labelText,
+		      "aid"=>$v->id,
+		      "vothers"=>getHtmlInput($this,$v,$va),
+		      "isarray"=>false);
+	$tabs[$v->fieldSet->labelText][]=$v->id;
+	}
+      }
+    }
+  }
+  $this->lay->setBlockData("OTHERS",$to);
+  $this->lay->set("HasOTHERS",(count($to)>0));
+  $ltabs=array();
+  foreach ($tabs as $k=>$v) {
+    $ltabs[$k]=array("tabtitle"=>$k,
+		     "aids"=>"['".implode("','",$v)."']");
+  }
+  $this->lay->setBlockData("TABS",$ltabs);
+  $this->viewprop();
+}
 
 ?>

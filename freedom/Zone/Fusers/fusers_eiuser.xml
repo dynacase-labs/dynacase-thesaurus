@@ -11,7 +11,7 @@ addEvent(window,"load",viewFirstTab);
 
 <table><tr><td><span class="fablabel">[L_US_CIVILITY]&nbsp;:&nbsp;</span><br/>[V_US_CIVILITY]</td>
            <td><span class="fablabel">[L_US_FNAME]&nbsp;:&nbsp;</span><br/>[V_US_FNAME]</td>
-	   <td><span class="fablabel">[L_US_LNAME]&nbsp;:&nbsp;</span><br/>[V_US_LNAME]</td></tr></table>
+	   <td><span class="fablabel">[L_US_LNAME]&nbsp;:&nbsp;</span><br/>[V_US_LNAME][V_US_WHATID]</td></tr></table>
 
 
 
@@ -23,7 +23,6 @@ addEvent(window,"load",viewFirstTab);
 <div class="tab" ></div>
 <div class="do" id="dsystem" >
 <table><tr><td><span class="fablabel">[L_US_LOGIN]&nbsp;:&nbsp;</span>[V_US_LOGIN]</td>
-           <td><span class="fablabel">[L_US_WHATID]&nbsp;:&nbsp;</span>[V_US_WHATID]</td>
 	   <td><span class="fablabel">[L_US_STATUS]&nbsp;:&nbsp;</span>[V_US_STATUS]</td></tr></table>
 
 <fieldset style="width:400px"><legend>[TEXT:Password]</legend>

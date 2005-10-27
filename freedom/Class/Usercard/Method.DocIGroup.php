@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.23 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.24 2005/10/27 14:36:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,10 @@
  */
 
 
+var $cviews=array("FUSERS:FUSERS_IGROUP");
 var $eviews=array("USERCARD:CHOOSEGROUP");
+var $defaultview="FUSERS:FUSERS_IGROUP:T";
+var $defaultedit="FUSERS:FUSERS_EIGROUP:T";
 var $exportLdap = array(
 		      // posixGroup
 			"gidNumber" => "GRP_GIDNUMBER",                        
@@ -98,12 +101,15 @@ function PostModify() {
 
   $fid=$this->id;        
   $user=$this->getWUser();
-  if (!$user) $user=new User(""); // create new user
-  $err=$this->setGroups();
+  if (!$user) {
+      $user=new User(""); // create new user
+      $this->wuser=&$user;
+    }
   $err.=$user->SetGroups($fid,$gname,
 			 $login,
 			 $iddomain);   
   if ($err=="") {
+    if ($user)  $err=$this->setGroups();
     $this->setValue("US_WHATID",$user->id);
     $this->modify(true,array("us_whatid"));
     
@@ -425,6 +431,105 @@ function ComputeGroup() {
   
 }
 
+function fusers_igroup($target="finfo",$ulink=true,$abstract="Y") {
+  global $action;
+  //setHttpVar("specialmenu","menuab");
+  $this->viewdefaultcard($target,$ulink,$abstract);
+  $action->parent->AddCssRef("USERCARD:faddbook.css",true);
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/USERCARD/Layout/faddbook.js");
 
+  
+  // list of attributes displayed directly in layout
+  $ta=array("grp_groups","grp_rusers","grp_users","grp_parent","us_login","us_whatid","grp_mail","us_iddomain","us_domain","grp_name","grp_role","grp_type");
+  //$ta["ident"]=array("us_lo
 
+  $la=$this->getAttributes();
+  $to=array();
+  $tabs=array();
+  foreach ($la as $k=>$v) {
+    $va=$this->getValue($v->id);
+    if (($va || ($v->type=="array")) && (! in_array($v->id,$ta)) &&(!$v->inArray()) ) {
+	  
+     if ((($v->mvisibility == "R") || ($v->mvisibility == "W"))) {
+	if ($v->type=="array") {
+	  $hv=$this->getHtmlValue($v,$va,$target,$ulink);
+	  if ($hv) {
+	    $to[]=array("lothers"=>$v->labelText,
+		      "aid"=>$v->id,
+		      "vothers"=>$hv,
+		      "isarray"=>true);	
+	    $tabs[$v->fieldSet->labelText][]=$v->id;
+	  }
+	} else {
+	  $to[]=array("lothers"=>$v->labelText,
+		      "aid"=>$v->id,
+		      "vothers"=>$this->getHtmlValue($v,$va,$target,$ulink),
+		      "isarray"=>false);
+	$tabs[$v->fieldSet->labelText][]=$v->id;
+	}
+      }
+    }
+  }
+  $this->lay->setBlockData("OTHERS",$to);
+  $this->lay->set("HasOTHERS",(count($to)>0));
+  $ltabs=array();
+  foreach ($tabs as $k=>$v) {
+    $ltabs[$k]=array("tabtitle"=>$k,
+		     "aids"=>"['".implode("','",$v)."']");
+  }
+  $this->lay->setBlockData("TABS",$ltabs);
+  $this->lay->set("ICON",$this->getIcon());
+  $this->lay->set("nmembers",count($this->getTValue("GRP_IDUSER")));
+  $this->lay->set("HasDOMAIN",($this->getValue("US_IDDOMAIN")>9));
+}
+function fusers_eigroup() {
+  global $action;
+  $this->editattr();
+  $action->parent->AddCssRef("USERCARD:faddbook.css",true);
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/USERCARD/Layout/faddbook.js");
+
+  
+  // list of attributes displayed directly in layout
+  $ta=array("us_login","us_whatid","grp_mail","us_iddomain","us_domain","grp_name","grp_role","grp_type");
+  //$ta["ident"]=array("us_lo
+
+  $la=$this->getNormalAttributes();
+  $to=array();
+  $tabs=array();
+  foreach ($la as $k=>$v) {
+    $va=$this->getValue($v->id);
+    if (!$v->inArray() && (! in_array($v->id,$ta)))  {
+	  
+    
+      if ((($v->mvisibility == "W") || ($v->mvisibility == "O"))) {
+	if ($v->type=="array") {
+	  $hv=getHtmlInput($this,$v,$va);
+	  if ($hv) {
+	    $to[]=array("lothers"=>$v->labelText,
+		      "aid"=>$v->id,
+		      "vothers"=>$hv,
+		      "isarray"=>true);	
+	    $tabs[$v->fieldSet->labelText][]=$v->id;
+	  }
+	} else {
+	  $to[]=array("lothers"=>$v->labelText,
+		      "aid"=>$v->id,
+		      "vothers"=>getHtmlInput($this,$v,$va),
+		      "isarray"=>false);
+	$tabs[$v->fieldSet->labelText][]=$v->id;
+	}
+      }
+    }
+  }
+  $this->lay->setBlockData("OTHERS",$to);
+  $ltabs=array();
+  foreach ($tabs as $k=>$v) {
+    $ltabs[$k]=array("tabtitle"=>$k,
+		     "aids"=>"['".implode("','",$v)."']");
+  }
+  $this->lay->setBlockData("TABS",$ltabs);
+  $this->viewprop();
+  $this->lay->set("HasOTHERS",(count($to)>0));
+  $this->lay->set("ICON",$this->getIcon());
+}
 ?>

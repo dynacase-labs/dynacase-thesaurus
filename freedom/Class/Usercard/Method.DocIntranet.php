@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.11 2005/07/04 14:27:32 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.12 2005/10/27 14:36:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -68,10 +68,13 @@ function ChooseGroup($target="_self",$ulink=true,$abstract=false) {
   if ($iduser > 0) {
     $user = $this->getWUser();
     if (! $user->isAffected()) return sprintf(_("user #%d does not exist"), $iduser);
-  } else return _("user has not identificator");
+    $ugroup=$user->GetGroupsId();
+  } else {
+    $user=new User();
+    $ugroup=array("2"); // default what group
+  }
 
-  $this->lay->set("wid",$iduser);
-  $ugroup=$user->GetGroupsId();
+  $this->lay->set("wid",($iduser=="")?"0":$iduser);
     
   $q2= new queryDb("","User");
   $groups=$q2->Query(0,0,"TABLE","select users.*, groups.idgroup, domain.name as domain from users, groups, domain where users.id = groups.iduser and users.iddomain=domain.iddomain and users.isgroup='Y'");

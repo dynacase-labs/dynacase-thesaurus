@@ -61,6 +61,12 @@ function collapseTree(treeId) {
 	expandCollapseList(ul,nodeClosedClass);
 }
 
+// Full refresh a tree with a given ID
+function refreshTree(treeId) {
+	var ul = document.getElementById(treeId);
+	if (ul == null) { return false; }
+	refreshCollapseList(ul,nodeOpenClass);
+}
 // Expands enough nodes to expose an LI with a given ID
 function expandToItem(treeId,itemId) {
 	var ul = document.getElementById(treeId);
@@ -85,6 +91,7 @@ function expandCollapseList(ul,cName,itemId) {
 		var item = ul.childNodes[itemi];
 		if (itemId!=null && item.id==itemId) { return true; }
 		if (item.nodeName == "LI") {
+		  item.firstChild.className=nodeLinkClass;
 			// Iterate things in this LI
 			var subLists = false;
 			for (var sitemi=0;sitemi<item.childNodes.length;sitemi++) {
@@ -105,6 +112,30 @@ function expandCollapseList(ul,cName,itemId) {
 	}
 }
 
+function refreshCollapseList(ul,cName,itemId) {
+	if (!ul.childNodes || ul.childNodes.length==0) { return false; }
+	// Iterate LIs
+	for (var itemi=0;itemi<ul.childNodes.length;itemi++) {
+		var item = ul.childNodes[itemi];
+		if (itemId!=null && item.id==itemId) { return true; }
+		if (item.nodeName == "LI") {
+		  item.firstChild.className=nodeLinkClass;
+			// Iterate things in this LI
+			var subLists = false;
+			for (var sitemi=0;sitemi<item.childNodes.length;sitemi++) {
+				var sitem = item.childNodes[sitemi];
+				if (sitem.nodeName=="UL") {
+					subLists = true;
+					var ret = refreshCollapseList(sitem,cName,itemId);
+					if (itemId!=null && ret) {					  
+						return true;
+					}
+				}
+			}
+			
+		}
+	}
+}
 // Search the document for UL elements with the correct CLASS name, then process them
 function convertTrees() {
 	setDefault("treeClass","mktree");
@@ -138,6 +169,7 @@ function processList(ul) {
 	// Iterate LIs
 	for (var itemi=0;itemi<ul.childNodes.length;itemi++) {
 		var item = ul.childNodes[itemi];
+		
 		if (item.nodeName == "LI") {
 			// Iterate things in this LI
 			var subLists = false;
@@ -176,8 +208,7 @@ function processList(ul) {
 				// No sublists, so it's just a bullet node
 				item.className = nodeBulletClass;
 				s.onclick = function () { return false; }
-			}
-			s.appendChild(document.createTextNode(t));
+			}			s.appendChild(document.createTextNode(t));
 			item.insertBefore(s,item.firstChild);
 		}
 	}

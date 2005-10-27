@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.77 2005/06/28 13:53:13 eric Exp $
+ * $Id: freedom.css,v 1.78 2005/10/27 14:44:29 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -539,6 +539,7 @@ SPAN.selected {
   background-image:url('[IMG:buttongreen.png]');
   color:black;
   border-style: none;
+  font-size:80%;
   height:20px;
   padding:1px;
   -moz-border-radius:25px;
@@ -546,15 +547,16 @@ SPAN.selected {
 
 SPAN.unselected {
   cursor: pointer;
-  background-image:url('[IMG:buttongrey.png]');
-  color:black;
+ color:[CORE_TEXTFGCOLOR];
   border-style: none;
   padding:1px;
   height:20px;
+  font-size:80%;
   -moz-border-radius:25px;
 }
 SPAN.hselected {
   cursor: pointer;
+  font-size:80%;
   background-color:lightblue;
   background-image:url('[IMG:buttonblue.png]');
   color:black;
@@ -565,6 +567,7 @@ SPAN.hselected {
 }
 SPAN.wselected {
   cursor: pointer;
+  font-size:80%;
   background-color:lightblue;
   background-image:url('[IMG:buttonred.png]');
   color:black;
@@ -574,35 +577,67 @@ SPAN.wselected {
   -moz-border-radius:25px;
 }
 SPAN.selected:hover, SPAN.unselected:hover, SPAN.hselected:hover{
-  color:darkgreen;
+  color:[CORE_BGCOLORHIGH];
   -moz-border-radius:25px;	
 }
 
 SPAN.checked, TR.checked {
         background: [CORE_BGCOLORALTERN]; 	
 }
+
+DIV.tabh SPAN  {
+  -moz-border-radius: 8 8 0 0;	
+  border-width : 1px;
+  border-style :outset;
+  border-color : [CORE_BGCOLORALTERN];
+[IFNOT ISIE]  background-image:url('[IMG:tabvig.png]'); [ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
+  background-color : [CORE_BGCOLORALTERN];
+  padding:2px;
+  cursor:pointer;
+  float:left;
+}
+[IFNOT ISIE]DIV.tabh SPAN:first-letter  {
+  text-transform:capitalize;	
+}[ENDIF ISIE]
+DIV.tabh SPAN.tabsel, .divsel{
+  background-color : [CORE_FGCOLOR];
+  color : [CORE_TEXTBGCOLOR];
+}
+
+DIV.tabh SPAN:hover {
+  border-width : 1px;
+  border-style :outset;
+  border-color : [CORE_BGCOLORALTERN];
+  background-color : [CORE_BGCOLORHIGH];
+  cursor:pointer;	
+
+}
+
 /* Put this inside a @media qualifier so Netscape 4 ignores it */
-@media screen { 
+
 	/* Turn off list bullets */
 	ul.mktree  li { list-style: none; } 
 	/* Control how "spaced out" the tree is */
-	ul.mktree, ul.mktree ul , ul.mktree li { margin-left:10px; }
+	ul.mktree, ul.mktree ul { margin-left:10px; }
 	/* Provide space for our own "bullet" inside the LI */
-	ul.mktree  li           .bullet { padding-left: 15px; }
+ul.mktree  li           .bullet { padding-left: 15px; }
 	/* Show "bullets" in the links, depending on the class of the LI that the link's in */
-	ul.mktree  li.liOpen    .bullet { cursor: pointer; background: url([IMG:minus.gif])  center left no-repeat; }
-	ul.mktree  li.liClosed  .bullet { cursor: pointer; background: url([IMG:plus.gif])   center left no-repeat; }
-	ul.mktree  li.liBullet  .bullet { cursor: default; background: url([IMG:bullet.gif]) center left no-repeat; }
+ul.mktree  li.liOpen  .bullet    { cursor: pointer; background: url([IMG:minus.gif])  center left no-repeat; }
+ul.mktree  li.liClosed  .bullet { cursor: pointer; background: url([IMG:plus.gif])   center left no-repeat; }
+	ul.mktree  li.liBullet  .bullet  { cursor: default; background: url([IMG:bullet.gif]) center left no-repeat; }
 	/* Sublists are visible or not based on class of parent LI */
 	ul.mktree  li.liOpen    ul { display: block; }
 	ul.mktree  li.liClosed  ul { display: none; }
 	ul.mktree img  { cursor: pointer;}
 	/* Format menu items differently depending on what level of the tree they are in */
+[IFNOT ISIE]	ul.mktree  li { margin-left:-40px; }[ENDIF ISIE]
+[IF ISIE]	ul.mktree  li { margin-left:0px; }[ENDIF ISIE]
 	/*ul.mktree  li { font-size: 12pt; }
 	ul.mktree  li ul li { font-size: 10pt; }
 	ul.mktree  li ul li ul li { font-size: 8pt; }
 	ul.mktree  ul li ul li ul li li { font-size: 6pt; }*/
-}
+
 
 /*--------------------------*/
 /* report CSS */

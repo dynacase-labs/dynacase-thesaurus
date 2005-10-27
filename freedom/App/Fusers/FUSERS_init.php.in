@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FUSERS_init.php.in,v 1.1 2004/08/09 08:07:06 eric Exp $
+// $Id: FUSERS_init.php.in,v 1.2 2005/10/27 14:38:15 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fusers/FUSERS_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,8 @@ $app_const= array(
   "INIT" => "yes",
   "VERSION"			=>"@VERSION@-@RELEASE@",
 
-  "ONEFAM_MIDS" => "128,127"
+  "USERCARD_FIRSTFAM" => "IUSER",
+  "USERCARD_SECONDFAM" => "IGROUP"
 );
 
 

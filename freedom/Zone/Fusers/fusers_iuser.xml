@@ -2,15 +2,10 @@
 
 <script type="text/javascript">
 
-
-var lOnglet = [ 'contact', 'society', 'others' ];
-
-
 addEvent(window,"load",viewFirstTab);
 
 </script>
 
-[ZONE FDL:POPUPCARD]
 <div class="fabcard">
 
 <table width="100%" cellspacing="0" border="0">
@@ -34,21 +29,21 @@ addEvent(window,"load",viewFirstTab);
 <span  class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
 <span  onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>
 <span  onclick="showDiv(this,'dcivil')">[TEXT:Coordonates]</span>
-<span  onclick="showDiv(this,'dothers')">[TEXT:Others]</span></div>
+[IF HasOTHERS]<span  onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
 <div class="tab" ></div>
 <div class="do" id="dsystem" >
 <span class="fablabel">[L_US_LOGIN]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_LOGIN]</span>, <span class="fablabel">[L_US_WHATID]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_WHATID]</span>, <span class="fablabel">[L_US_STATUS]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_STATUS]</span>
-
-<fieldset style="width:120px"><legend>[TEXT:Password]</legend>
+[IF HasDPassword]
+<fieldset style="width:220px"><legend>[TEXT:Password]</legend>
 <span class="fablabel">[L_US_EXPIRESD]</span>  <span class="fabvalue">[V_US_EXPIRESD] [V_US_EXPIREST]</span>
 <span class="fablabel">[L_US_DAYDELAY]</span> <span class="fabvalue">[V_US_DAYDELAY]</span>
 
 
 </fieldset>
+[ENDIF HasDPassword]<br/>
+[IF HasDOMAIN]<span class="fablabel">[L_US_DOMAIN]</span>&nbsp;:&nbsp;<span class="fabvalue">[V_US_DOMAIN]</span>[ENDIF HasDOMAIN]
 
-<span class="fablabel">[L_US_DOMAIN]</span>&nbsp;:&nbsp;<span class="fabvalue">[V_US_DOMAIN]</span>
-
-<span class="fablabel">[L_US_MAIL]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_MAIL]</span>
+<span class="fablabel">[L_US_MAIL]&nbsp;:&nbsp;</span><span class="fabvalue">[IF S_US_MAIL][V_US_MAIL][ENDIF S_US_MAIL][IFNOT S_US_MAIL][TEXT:nomail][ENDIF S_US_MAIL]</span>
 </div>
 <div class="do"id="dgroup" style="display:none">
 <div style="width:300px">
@@ -57,7 +52,7 @@ addEvent(window,"load",viewFirstTab);
 </div>
 <div class="do"id="dcivil" style="display:none">
 <div align="center" style="width:300px">
-<span class="fablabel">[TEXT:Society]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_SOCIETY]</span>
+[IF S_US_SOCIETY]<span class="fablabel">[TEXT:Society]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_SOCIETY]</span>[ENDIF S_US_SOCIETY]
 <table width="100%"><tr>
   <td><div  class="fabcaddress">[TEXT:phones]</div><div>&nbsp;</div></td>
   <td><div  class="fabcaddress">[TEXT:address]</div><div>&nbsp;</div></td>
