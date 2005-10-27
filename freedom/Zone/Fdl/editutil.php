@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.100 2005/08/19 16:13:13 eric Exp $
+ * @version $Id: editutil.php,v 1.101 2005/10/27 14:43:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,7 +29,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
   if ($docid== 0) $docid=intval($doc->fromid);
   $attrtype=$oattr->type;
 
-
+  $usephpfunc=true;
   $alone=$oattr->isAlone; // set by method caller in special case to display alone
 
 
@@ -378,7 +378,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	    if ($oattr->eformat=="hlist") $lay->set("atype","hidden");
 	    else $lay->set("atype","text");
 	    $input =$lay->gen(); 
-	    $oattr->phpfunc=false; // disabled default input help
+	    $usephpfunc=false; // disabled default input help
 	  }  else {
 	    $oattr->eformat = ""; // restore default display
 	  }
@@ -403,7 +403,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
   
   if ($oattr->type != "array") {
     if  ($visibility != "S") {
-      if (($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
+      if ($usephpfunc && ($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
 	$phpfunc=$oattr->phpfunc;
 	// capture title
 	$ititle=_("choose inputs");
