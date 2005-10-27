@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.ADoc.php,v 1.10 2005/10/11 12:51:34 eric Exp $
+ * @version $Id: Class.ADoc.php,v 1.11 2005/10/27 14:37:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,7 +28,12 @@ Class ADoc  {
      
      return false;
    }
-
+   /**
+    * get attributes ids
+    */
+   function getAttrIds($id) {
+     return array_keys($this->attr);
+   }
    function GetNormalAttributes($onlyopt=false)
     {      
       $tsa=array();
