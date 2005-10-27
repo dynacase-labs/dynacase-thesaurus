@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.15 2005/10/14 14:12:54 marc Exp $
+ * @version $Id: faddbook_main.php,v 1.16 2005/10/27 14:40:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -14,6 +14,18 @@
 include_once("FDL/freedom_util.php");
 include_once("FDL/Lib.Dir.php");
 
+/**
+ * View list of document for a same family
+ * @param Action &$action current action
+ * @global chgAttr Http var : 
+ * @global chgId Http var : 
+ * @global chgValue Http var : 
+ * @global usedefaultview Http var : (Y|N) set Y if detail doc must be displayed with default view
+ * @global etarget Http var : window target when edit doc
+ * @global target Http var : window target when view doc
+ * @global dirid Http var : folder/search id to restric searches
+ * @global cols Http var : attributes id for column like : us_fname|us_lname
+ */
 function faddbook_main(&$action) 
 { 
   global $_POST;
@@ -27,18 +39,23 @@ function faddbook_main(&$action)
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
   $pstart = GetHttpVars("sp", 0);
-  $action->lay->set("isManager", ($action->parent->Haspermission("USERCARD","USERCARD_MANAGER")==1?true:false));
+  $action->lay->set("choosecolumn", ($action->parent->Haspermission("USERCARD","USERCARD_MANAGER")==1?true:false));
 
   $chattr = GetHttpVars("chgAttr", "");
   $chid   = GetHttpVars("chgId", "");
   $chval  = GetHttpVars("chgValue", "");
+  $usedefaultview  = (GetHttpVars("usedefaultview","N")=="Y");
+  $etarget  = GetHttpVars("etarget");
+  $target  = GetHttpVars("target","finfo");
+  $dirid  = GetHttpVars("dirid"); // restrict search
+  $cols  = GetHttpVars("cols"); // specific cols
   if ($chattr!="" && $chid!="") {
     $mdoc = new_Doc($dbaccess, $chid);
     $mdoc->setValue($chattr, $chval);
     $err=$mdoc->Modify();
     if ($err=="") AddWarningMsg($mdoc->title." modifié (".$mdoc->getAttribute($chattr)->labelText." : ".$chval.")");
   }
-
+  $action->lay->set("viewpref",($cols==""));
   // Init page lines
   $lpage = $action->getParam("FADDBOOK_MAINLINE", 25);
   $action->lay->set("linep", $lpage);
@@ -50,6 +67,10 @@ function faddbook_main(&$action)
 
   $action->lay->set("sp", $pstart);
   $action->lay->set("lp", $lpage);
+  $action->lay->set("target", $target);
+  $action->lay->set("dirid", $dirid);
+  $action->lay->set("etarget", $etarget);
+  $action->lay->set("usedefaultview", GetHttpVars("usedefaultview"));
 
   $sfullsearch = (GetHttpVars("sfullsearch", "") == "on" ? true : false);
 
@@ -62,14 +83,20 @@ function faddbook_main(&$action)
   $fattr = $dfam->GetAttributes();
 
   // Get user configuration
-  $pc = $action->getParam("FADDBOOK_MAINCOLS", "");
   $ucols = array();
-  if ($pc!="") {
-    $tccols = explode("|",  $pc);
-    foreach ($tccols as $k => $v) {
-      if ($v=="") continue;
-      $x = explode("%",$v);
-      if ($sfam==$x[0]) $ucols[$x[1]] =  1;
+  if ($cols) {
+    $tccols = explode("|",  $cols);
+    foreach ($tccols as $k => $v)  $ucols[$v] =  1;   
+    $action->lay->set("choosecolumn", false); // don't see choose column
+  } else {
+    $pc = $action->getParam("FADDBOOK_MAINCOLS", "");
+    if ($pc!="") {
+      $tccols = explode("|",  $pc);
+      foreach ($tccols as $k => $v) {
+	if ($v=="") continue;
+	$x = explode("%",$v);
+	if ($sfam==$x[0]) $ucols[$x[1]] =  1;
+      }
     }
   }
 
@@ -85,7 +112,7 @@ function faddbook_main(&$action)
     else $filter[] = "( title ~* '^".$rqi_form["__ititle"]."' ) ";
     $sf = $rqi_form["__ititle"];
   }
-  $td[] = array( "ATTimage" => false, "ATTnormal" => true, "id" => "__ititle", "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true), "firstCol" => true );
+  $td[] = array( "ATTimage" => false, "ATTnormal" => true, "id" => "__ititle", "label" => ($sf==""?$clabel:"$sf"), "filter" => ($sf==""?false:true), "firstCol" => false );
   $cols++;
 
   $vattr = array();
@@ -113,7 +140,7 @@ function faddbook_main(&$action)
 
   $psearch = $pstart * $lpage;
   $fsearch = $psearch + $lpage + 1;
-  $cl = $rq=getChildDoc($dbaccess, 0, $psearch, $fsearch, $filter, $action->user->id, "TABLE", $sfam);
+  $cl = $rq=getChildDoc($dbaccess, $dirid, $psearch, $fsearch, $filter, $action->user->id, "TABLE", $sfam);
   $dline = array(); $il = 0;
   foreach ($cl as $k => $v) {
     if ($il>=$lpage) continue;
@@ -121,7 +148,7 @@ function faddbook_main(&$action)
     $ddoc=getDocObject($dbaccess,$v);
     $attchange = ($ddoc->Control("edit") == "" ?  true : false);
     $dcol[] = array( "ATTchange" => false, "ATTname" => "", "content" =>  ucwords(strtolower($v["title"])), "ATTimage" => false, "ATTnormal" => true);
-    $pzone = (isset($ddoc->faddbook_card)?$ddoc->faddbook_card:$ddoc->defaultview);
+    $pzone = ((!$usedefaultview)&& isset($ddoc->faddbook_card))?$ddoc->faddbook_card:$ddoc->defaultview;
     foreach ($vattr as $ka => $va) 
       {
 	$attimage = $attnormal = false;
@@ -130,18 +157,24 @@ function faddbook_main(&$action)
 	default:  $attnormal = true;
 	}
 	$dcol[] = array( "ATTchange" => false, "content" =>  $ddoc->GetHtmlAttrValue($va->id, "faddbook_blanck", false),
-			 "cid" => $v["id"], "ATTimage" => $attimage, "ATTnormal" => $attnormal, "fabzone" => $pzone, "ATTname" => $va->id );
+			 "cid" => $v["id"], 
+			 "ATTimage" => $attimage, 
+			 "ATTnormal" => $attnormal, 
+			 "fabzone" => $pzone, 
+			 "ATTname" => $va->id );
       }
     $action->lay->setBlockData("C$il", $dcol);
     $dline[$il]["cid"] = $v["id"];
     $dline[$il]["fabzone"] = $pzone;
     $dline[$il]["canChange"] = $attchange;
     $dline[$il]["fabzone"] = $pzone;
+    $dline[$il]["etarget"] = ($etarget)?$etarget:"edit".$v["id"];
     $dline[$il]["title"] = ucwords(strtolower($v["title"]));
     $dline[$il]["Line"] = $il;
     $dline[$il]["icop"] = Doc::GetIcon($v["icon"]);
     $il++;
   }
+
   $action->lay->setBlockData("DLines", $dline);
   $action->lay->set("colspan", ($cols+2));
   
@@ -155,6 +188,11 @@ function faddbook_main(&$action)
     $action->lay->set("PrevPage", true);
     $action->lay->set("sp", ($pstart-1));
     $action->lay->set("pprev", ($pstart-1));
+  }
+  $action->lay->set("dirtitle","");
+  if ($dirid > 0) {
+    $fdoc=new_doc($dbaccess,$dirid);
+    $action->lay->set("dirtitle",$fdoc->title);
   }
 
 }

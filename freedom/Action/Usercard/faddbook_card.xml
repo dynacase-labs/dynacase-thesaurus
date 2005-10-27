@@ -102,7 +102,7 @@ addEvent(window,"load",viewFirstTab);
 [ENDBLOCK TABS]</div>
 <table class="tab" width="100%" id="tothers">
 [BLOCK OTHERS]
-<tr class="tro" id="[aid]">[IFNOT isarray]<td width="30%" align="right" ><span class="fabccom">[lothers]&nbsp;:</span></td>[ENDIF isarray]<td [IF isarray]colspan="2"[ENDIF isarray]><span class="fabcrub">[vothers]</span></td></tr>
+<tr class="tro" id="TR[aid]">[IFNOT isarray]<td width="30%" align="right" ><span class="fabccom">[lothers]&nbsp;:</span></td>[ENDIF isarray]<td [IF isarray]colspan="2"[ENDIF isarray]><span class="fabcrub">[vothers]</span></td></tr>
 [ENDBLOCK OTHERS]
 </table>
 </div>

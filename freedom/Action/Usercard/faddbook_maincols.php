@@ -59,14 +59,17 @@ function faddbook_maincols(&$action) {
     
   } else { // User initial state
     
-    if ($pc!="") {
+    if ($pc!="") { 
       $tccols = explode("|",  $pc);
+      // reset first
+      foreach ($cols as $k => $v) $cols[$k]["l"]=0;
+                  
       foreach ($tccols as $k => $v) {
 	if ($v=="") continue;
 	$x = explode("%",$v);
 	if ($x[0]==$sfam && isset($cols[$x[1]])) {
 	  $cols[$x[1]]["l"] = 1;
-	}
+	} 
       }
     }
   }

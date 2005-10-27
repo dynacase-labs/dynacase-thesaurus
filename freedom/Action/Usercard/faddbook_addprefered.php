@@ -13,6 +13,6 @@ function faddbook_addprefered(&$action) {
     $stc = implode("|", $tc);
     $action->parent->param->set("FADDBOOK_PREFERED", $stc, PARAM_USER.$action->user->id, $action->parent->id);
   }
-  Redirect($action, "USERCARD", "FADDBOOK_PREFERED");
+  Redirect($action, $action->parent->name, "FADDBOOK_PREFERED");
 }
 ?>

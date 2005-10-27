@@ -38,14 +38,7 @@ IMG.zoom {
 	top:0;
 	width:auto;
 }
-input {
-background-color: [CORE_BGCOLORALTERN];
-font-size : 100%;
-border-style: thin;
-border-color: [CORE_BGCOLORHIGH];
-border-width: 1px;
-margin:2px;
-}
+
 
 .inputInactive {
   cursor: pointer;
@@ -204,7 +197,13 @@ font-weight : bold;
 font-weight : bold;
 font-size : 140%;
 }
-.fabccom {
+.fabccom {   
+}
+.fablabel {
+ 
+}
+.fabvalue {
+font-weight : bold; 
 }
 
 .fabcciv {
@@ -281,6 +280,11 @@ TABLE.tab {
 	border-style :  solid none solid none;
 	clear:both;
 }
+DIV.tab {
+	border-width : 1px;
+	border-style :  solid none none none;
+	clear:both;
+}
 TABLE.tab TD {
 	vertical-align:top;
 }
@@ -310,7 +314,6 @@ DIV.tabh SPAN:hover {
   border-color : [CORE_BGCOLORALTERN];
   background-color : [CORE_BGCOLORHIGH];
   cursor:pointer;	
-
 }
 
 A:hover {
