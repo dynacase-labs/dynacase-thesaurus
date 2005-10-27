@@ -4,7 +4,7 @@
 <thead>
 <tr>
 
-<td class="CORETblHead" onClick="closeAllMenu();" width="50%" ><div style="max-height:30px;overflow:hidden"><B>[title]</B> [nbdoc]</div></td>
+<td class="CORETblHead" onClick="closeAllMenu();" width="50%" ><div class="headtitle" style="max-height:30px;overflow:hidden">[title] - [nbdoc]</div></td>
 <td  class="MenuInactive"  width="25%" 
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="ActiveMenu(this)"
