@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.38 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: enum_choice.php,v 1.39 2005/10/27 14:27:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -120,8 +120,9 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
     $action->exitError(sprintf(_("the external pluggin file %s cannot be read"), $oattr->phpfile));
   }
   $phpfunc=$oattr->phpfunc;
-  if (! ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg))
-    $action->exitError(sprintf(_("the pluggins function description '%s' is not conform"), $phpfunc));
+  if (! ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg)) {    
+    $action->exitError(sprintf(_("the pluggins function description '%s' is not conform for %s attribut"), $phpfunc,$oattr->id));
+  }
   $rargids = split(",",$reg[3]); // return args
 
   // change parameters familly
