@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.282 2005/10/27 08:40:48 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.283 2005/10/28 15:13:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -3038,7 +3038,7 @@ final public function PostInsert()  {
 
     // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
 
-    while (list($k,$v) = each($listattr)) {
+    foreach($listattr as $k=>$v) {
 
 
       $value = chop($this->GetValue($v->id));
@@ -3306,6 +3306,7 @@ final public function PostInsert()  {
 				   $value));
       if ($v->needed == "Y") $this->lay->Set("L_".strtoupper($v->id),"<B>".$v->labelText."</B>");
       else $this->lay->Set("L_".strtoupper($v->id),$v->labelText);
+      $this->lay->Set("W_".strtoupper($v->id),($v->mvisibility!="H"));
       
     }
   
