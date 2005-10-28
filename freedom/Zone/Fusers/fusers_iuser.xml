@@ -1,7 +1,9 @@
 
 
 <script type="text/javascript">
-
+function editTab(tab) {
+  document.location.href= '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&id=[ID]&tab='+tab;
+}
 addEvent(window,"load",viewFirstTab);
 
 </script>
@@ -26,10 +28,10 @@ addEvent(window,"load",viewFirstTab);
 
 
 <div  class="tabh">
-<span  class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
-<span  onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>
-<span  onclick="showDiv(this,'dcivil')">[TEXT:Coordonates]</span>
-[IF HasOTHERS]<span  onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
+<span  [IF CanEdit]title="[TEXT:double click to edit]" ondblclick="editTab('')"[ENDIF CanEdit] class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
+<span  [IF CanEdit]title="[TEXT:double click to edit]" ondblclick="editTab('tabgroup')"[ENDIF CanEdit] onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>
+<span  [IF CanEdit]title="[TEXT:double click to edit]" ondblclick="editTab('tabcoord')"[ENDIF CanEdit] onclick="showDiv(this,'dcoord')">[TEXT:Coordonates]</span>
+[IF HasOTHERS]<span [IF CanEdit]title="[TEXT:double click to edit]" ondblclick="editTab('tabother')"[ENDIF CanEdit] onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
 <div class="tab" ></div>
 <div class="do" id="dsystem" >
 <span class="fablabel">[L_US_LOGIN]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_LOGIN]</span>, <span class="fablabel">[L_US_WHATID]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_WHATID]</span>, <span class="fablabel">[L_US_STATUS]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_STATUS]</span>
@@ -50,7 +52,7 @@ addEvent(window,"load",viewFirstTab);
 <span class="fabvalue">[V_US_GROUPS]</span>
 </div>
 </div>
-<div class="do"id="dcivil" style="display:none">
+<div class="do"id="dcoord" style="display:none">
 <div align="center" style="width:300px">
 [IF S_US_SOCIETY]<span class="fablabel">[TEXT:Society]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_SOCIETY]</span>[ENDIF S_US_SOCIETY]
 <table width="100%"><tr>

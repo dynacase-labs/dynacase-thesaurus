@@ -45,8 +45,18 @@ function viewFirstTab(event) {
   if (to) {
     ltr=to.getElementsByTagName('span');
     if (ltr.length > 0) {
-      ltr[0].onclick.apply(null,[event]);
+      ltr[0].onclick.apply(ltr[0],[event]);
       ltr[0].className='tabsel';
     }
   }
 }
+function viewTab(event,idtab) {
+  var o;
+
+  o=document.getElementById(idtab);
+  if (o) {
+	o.onclick.apply(o,[event]);
+	o.className='tabsel';
+  }
+}
+

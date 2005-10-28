@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.12 2005/10/27 14:36:07 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.13 2005/10/28 15:14:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -168,8 +168,11 @@ function setGroups() {
 	if ($aerr=="") {
 	  // delete in folder group
 	  $gdoc=$this->getDocUser($gid);
-	  $gdoc->deleteMember($this->id);
-	  $tgid[$gid]=$gid;
+	  if (! method_exists($gdoc,"deleteMember")) AddWarningMsg("no group $gid/".$gdoc->id);
+	  else {
+	    $gdoc->deleteMember($this->id);
+	    $tgid[$gid]=$gid;
+	  }
 	  
 	}
 

@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.24 2005/10/27 14:36:07 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.25 2005/10/28 15:14:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -481,18 +481,20 @@ function fusers_igroup($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->set("ICON",$this->getIcon());
   $this->lay->set("nmembers",count($this->getTValue("GRP_IDUSER")));
   $this->lay->set("HasDOMAIN",($this->getValue("US_IDDOMAIN")>9));
+  $this->lay->set("CanEdit",($this->control("edit")==""));
 }
 function fusers_eigroup() {
   global $action;
   $this->editattr();
   $action->parent->AddCssRef("USERCARD:faddbook.css",true);
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/USERCARD/Layout/faddbook.js");
+  $firsttab=getHttpVars("tab"); // first tab displayed
 
   
   // list of attributes displayed directly in layout
   $ta=array("us_login","us_whatid","grp_mail","us_iddomain","us_domain","grp_name","grp_role","grp_type");
-  //$ta["ident"]=array("us_lo
 
+  $this->lay->set("firsttab",$firsttab);
   $la=$this->getNormalAttributes();
   $to=array();
   $tabs=array();

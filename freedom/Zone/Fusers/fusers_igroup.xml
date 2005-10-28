@@ -1,6 +1,10 @@
 
 
-<script type="text/javascript">addEvent(window,"load",viewFirstTab);</script>
+<script type="text/javascript">
+function editTab(event,tab) {
+  document.location.href= '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&id=[ID]&tab='+tab;   
+}
+addEvent(window,"load",viewFirstTab);</script>
 
 <div class="fabcard">
 
@@ -20,10 +24,10 @@
 
 
 <div  class="tabh">
-<span  class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
-<span  onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>
-<span  onclick="showDiv(this,'dmembers')">[TEXT:Members]</span>
-<span  onclick="showDiv(this,'dcoord')">[TEXT:Coordonates]</span>
+<span  [IF CanEdit]title="[TEXT:double click to edit]" ondblclick="editTab(event,'');"[ENDIF CanEdit] class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
+<span  [IF CanEdit]title="[TEXT:double click to edit]" ondblclick="editTab(event,'tabgroup')"[ENDIF CanEdit] onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>
+<span  [IF CanEdit]title="[TEXT:double click to edit]" ondblclick="editTab(event,'')"[ENDIF CanEdit] onclick="showDiv(this,'dmembers')">[TEXT:Members]</span>
+<span  [IF CanEdit]title="[TEXT:double click to edit]" ondblclick="editTab(event,'tabother')"[ENDIF CanEdit] onclick="showDiv(this,'dcoord')">[TEXT:Coordonates]</span>
 [IF HasOTHERS]<span  onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
 <div class="tab" ></div>
 <div class="do" id="dsystem" >

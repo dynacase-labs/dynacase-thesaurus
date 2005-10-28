@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.28 2005/10/27 14:36:07 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.29 2005/10/28 15:14:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -339,6 +339,7 @@ function fusers_iuser($target="finfo",$ulink=true,$abstract="Y") {
 		     "aids"=>"['".implode("','",$v)."']");
   }
   $this->lay->setBlockData("TABS",$ltabs);
+  $this->lay->set("CanEdit",($this->control("edit")==""));
 }
 
 function fusers_eiuser() {
@@ -346,7 +347,7 @@ function fusers_eiuser() {
   $this->editattr();
   $action->parent->AddCssRef("USERCARD:faddbook.css",true);
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/USERCARD/Layout/faddbook.js");
-
+  $firsttab=getHttpVars("tab"); // first tab displayed
   
   // list of attributes displayed directly in layout
   $ta=array("us_workweb","us_photo","us_lname","us_fname","us_society","us_civility","us_mail","us_phone","us_mobile","us_fax","us_intphone","us_workaddr","us_workcedex","us_country","us_workpostalcode","us_worktown","us_groups","us_whatid","us_state","us_login","us_status","us_domain","us_iddomain","us_expiresd","us_expirest","us_daydelay","us_passwd1","us_passwd2","us_extmail","us_role","us_scatg","us_pfax","us_pphone","us_job","us_type","us_initials","us_service","us_idservice");
@@ -355,7 +356,7 @@ function fusers_eiuser() {
   $la=$this->getNormalAttributes();
 
   $this->lay->set("editgroup",($la["us_group"]->mvisibility=="W"));
-
+  $this->lay->set("firsttab",$firsttab);
   $to=array();
   $tabs=array();
   foreach ($la as $k=>$v) {

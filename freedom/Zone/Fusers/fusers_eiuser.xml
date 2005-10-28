@@ -1,7 +1,13 @@
 
 
 <script type="text/javascript">
-addEvent(window,"load",viewFirstTab);
+
+[IF firsttab]
+addEvent(window,"load",function al(event) {viewTab(event,'[firsttab]');});
+[ENDIF firsttab][IFNOT firsttab]
+addEvent(window,"load",function al(event) {viewTab(event,'tabsystem');});
+[ENDIF firsttab]
+ addEvent(window,"load",viewFirstTab);
 </script>
 
 <div class="fabcard">
@@ -9,33 +15,33 @@ addEvent(window,"load",viewFirstTab);
 
 
 
-<table><tr><td><span class="fablabel">[L_US_CIVILITY]&nbsp;:&nbsp;</span><br/>[V_US_CIVILITY]</td>
+<table style="width:400px"><tr><td><span class="fablabel">[L_US_CIVILITY]&nbsp;:&nbsp;</span><br/>[V_US_CIVILITY]</td>
            <td><span class="fablabel">[L_US_FNAME]&nbsp;:&nbsp;</span><br/>[V_US_FNAME]</td>
 	   <td><span class="fablabel">[L_US_LNAME]&nbsp;:&nbsp;</span><br/>[V_US_LNAME][V_US_WHATID]</td></tr></table>
 
 
 
-<div  class="tabh" >
-<span  class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
-[IF editgroup]<span  onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>[ENDIF editgroup]
-<span  onclick="showDiv(this,'dcoord')">[TEXT:Coordonates]</span>
-[IF HasOTHERS]<span  onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
+<div  id="tabs" class="tabh" >
+<span id="tabsystem"  class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
+[IF editgroup]<span id="tabgroup" onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>[ENDIF editgroup]
+<span id="tabcoord"  onclick="showDiv(this,'dcoord')">[TEXT:Coordonates]</span>
+[IF HasOTHERS]<span id="tabother" onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
 <div class="tab" ></div>
-<div class="do" id="dsystem" >
-<table><tr><td><span class="fablabel">[L_US_LOGIN]&nbsp;:&nbsp;</span>[V_US_LOGIN]</td>
+<div class="do" id="dsystem" style="display:none">
+[IF W_US_LOGIN]<table><tr><td><span class="fablabel">[L_US_LOGIN]&nbsp;:&nbsp;</span>[V_US_LOGIN]</td>
 	   <td><span class="fablabel">[L_US_STATUS]&nbsp;:&nbsp;</span>[V_US_STATUS]</td></tr></table>
-
+[ENDIF W_US_LOGIN]
 <fieldset style="width:400px"><legend>[TEXT:Password]</legend>
-<table width="100%">
-<tr><td colspan="2"><span class="fablabel">[L_US_PASSWD1]</span>[V_US_PASSWD1]</td></tr>
-<tr><td colspan="2"><span class="fablabel">[L_US_PASSWD2]</span>[V_US_PASSWD2]</td></tr>
-<tr><td><span class="fablabel">[L_US_EXPIRESD]</span>[V_US_EXPIRESD] [V_US_EXPIREST]</td></tr>
-<tr><td colspan="2"><span class="fablabel">[L_US_DAYDELAY]</span>[V_US_DAYDELAY]</td></tr>
+<table >
+<tr><td colspan="2"><span class="fablabel">[L_US_PASSWD1]&nbsp;:&nbsp;</td><td colspan="2"></span>[V_US_PASSWD1]</td></tr>
+<tr><td colspan="2"><span class="fablabel">[L_US_PASSWD2]&nbsp;:&nbsp;</td><td colspan="2"></span>[V_US_PASSWD2]</td></tr>
+[IF W_US_EXPIRESD]<tr><td><span class="fablabel">[L_US_EXPIRESD]</span>&nbsp;:&nbsp;</td><td>[V_US_EXPIRESD][V_US_EXPIREST]</td></tr>
+<tr><td colspan="2"><span class="fablabel">[L_US_DAYDELAY]</span>&nbsp;:&nbsp;</td><td colspan="2">[V_US_DAYDELAY]</td></tr>[ENDIF W_US_EXPIRESD]
 </table>
 
 </fieldset>
 
-<span class="fablabel">[L_US_DOMAIN]</span>&nbsp;:&nbsp;[V_US_DOMAIN]
+[IF W_US_DOMAIN]<br/><span class="fablabel">[L_US_DOMAIN]</span>&nbsp;:&nbsp;[V_US_DOMAIN][ENDIF W_US_DOMAIN]
 
 <span class="fablabel">[L_US_MAIL]&nbsp;:&nbsp;</span>[V_US_EXTMAIL]
 [V_US_AUTOMAIL][V_US_IDDOMAIN]
@@ -48,7 +54,7 @@ addEvent(window,"load",viewFirstTab);
 
 
 <div class="do"id="dcoord" style="display:none">
-<div align="center" style="width:800px">
+<div align="center" style="width:700px">
 <table><tr><th style="width:50%">[TEXT:Person]</th><th style="width:50%">[TEXT:Society]</th></tr>
 <tr><td>
    <table>

@@ -1,7 +1,12 @@
 
 
 <script type="text/javascript">
-addEvent(window,"load",viewFirstTab);
+[IF firsttab]
+addEvent(window,"load",function al(event) {viewTab(event,'[firsttab]');});
+[ENDIF firsttab][IFNOT firsttab]
+addEvent(window,"load",function al(event) {viewTab(event,'tabsystem');});
+[ENDIF firsttab]
+ addEvent(window,"load",viewFirstTab);
 </script>
 
 <div class="fabcard">
@@ -21,11 +26,11 @@ addEvent(window,"load",viewFirstTab);
 
 
 <div  class="tabh" >
-<span  class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
-<span  onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>
-[IF HasOTHERS]<span  onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
+<span id="tabsystem" class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
+<span id="tabgroup" onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>
+[IF HasOTHERS]<span id="tabother" onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
 <div class="tab" ></div>
-<div class="do" id="dsystem" >
+<div class="do" id="dsystem" style="display:none">
 <table>
 <tr><td align="right"><span class="fablabel">[L_US_LOGIN]&nbsp;:&nbsp;</span></td><td>[V_US_LOGIN][V_US_WHATID]</td></tr>
 <tr><td align="right"><span class="fablabel">[L_US_DOMAIN]</span>&nbsp;:&nbsp;</td><td>[V_US_DOMAIN][V_US_IDDOMAIN]</td></tr>

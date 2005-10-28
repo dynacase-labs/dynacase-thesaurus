@@ -109,8 +109,8 @@ ATTR;US_IDDOMAIN;US_FR_INTRANET;id domaine;N;N;int;340;H;Y;;;;;;
 ATTR;US_DOMAIN;US_FR_INTRANET;domaine;N;N;text;350;R;Y;;usercard.php;[hlist]getdomainiuser():US_IDDOMAIN,US_DOMAIN,US_EXTMAIL,US_AUTOMAIL;;;
 ATTR;US_AUTOMAIL;US_FR_INTRANET;mail auto ?;N;N;text;350;H;;;;;;;
 ATTR;US_EXTMAIL;US_FR_INTRANET;mail externe;N;N;text;360;O;;;;;;::parseMail(US_EXTMAIL);esize=30
-ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;R;Y;;;;;;
-ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;R;Y;;;;;;
+ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;S;Y;;;;;;
+ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;S;Y;;;;;;
 ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;::parseMail(US_MAIL);
 ;;;;;;;;;;;;;;;
 ATTR;US_SERVICE;US_FR_SOC;service;N;N;text;1042;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDSERVICE%;fdl.php;lkfamily(D,IGROUP,grp_type,service,US_SERVICE):US_IDSERVICE,US_SERVICE;;;
