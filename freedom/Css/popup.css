@@ -20,7 +20,7 @@
     display:none;
   }
 }
-a.menuItem:link, a.menuItem:visited {
+a.menuItem, a.menuItem:link, a.menuItem:visited {
   color: [CORE_TEXTBGCOLOR];
   cursor: default;
   display: block;
