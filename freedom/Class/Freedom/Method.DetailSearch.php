@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.39 2005/10/13 16:28:24 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.40 2005/10/28 15:14:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,12 +15,13 @@
 
 
 var $defaultedit= "FREEDOM:EDITDSEARCH";#N_("include") N_("equal") N_("equal") _("not equal") N_("is empty") N_("is not empty") N_("one value equal")
-var $defaultview= "FREEDOM:VIEWDSEARCH"; #N_("not include") N_("not equal") N_("&gt; or equal") N_("&lt; or equal")
+var $defaultview= "FREEDOM:VIEWDSEARCH"; #N_("not include") N_("begin by") N_("not equal") N_("&gt; or equal") N_("&lt; or equal")
 
 
 
 var $top=array("~*"=>array("label"=>"include"),
-	       "=" => array("label"=>"equal"),            
+	       "=" => array("label"=>"equal"),    
+	       "~^" => array("label"=>"begin by"),            
 	       "!=" => array("label"=>"not equal"),       
 	       "!~*" => array("label"=>"not include"),       
 	       ">" => array("label"=>"&gt;",
@@ -73,6 +74,9 @@ function getSqlCond($col,$op,$val="") {
 	break;
       case "~*":
 	if (trim($val) != "") $cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
+	break;
+      case "~^":
+	if (trim($val) != "") $cond .= " ".$col."~* '^".pg_escape_string(trim($val))."' ";
 	break;
       case "~y":
 	if (! is_array($val)) $val=$this->_val2array($val);
