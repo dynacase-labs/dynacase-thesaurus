@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.56 2005/10/11 14:19:45 eric Exp $
+ * @version $Id: popupcard.php,v 1.57 2005/10/28 15:16:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -254,29 +254,31 @@ function popupcard(&$action) {
     $tz = $cvdoc->getTValue("CV_ZVIEW");
     $tk = $cvdoc->getTValue("CV_KVIEW");
     $tm = $cvdoc->getTValue("CV_MSKID");
+    $td = $cvdoc->getTValue("CV_DISPLAYED");
 
 
     $tv=array(); // consult array views
     $te=array(); // edit array views
     if (count($tk) > 0)  {
       foreach ($tk as $k=>$v) {
-	if ($tz[$k] != "") {
-      
-	  if ($ti[$k]=="") $cvk="CV$k";
-	  else $cvk=$ti[$k];
-	  if ($v == "VEDIT") {
-	    if (($clf)||($cud)) {	    
+	if ($td[$k] != "no") {
+	  if ($tz[$k] != "") {	  
+	    if ($ti[$k]=="") $cvk="CV$k";
+	    else $cvk=$ti[$k];
+	    if ($v == "VEDIT") {
+	      if (($clf)||($cud)) {	    
+		if ($cvdoc->control($cvk) == "") {
+		  $te[$cvk] = array("idview"   => $cvk,
+				    "zoneview" => $tz[$k],
+				    "txtview"  => $tl[$k]);
+		}
+	      }
+	    } else {      
 	      if ($cvdoc->control($cvk) == "") {
-		$te[$cvk] = array("idview"   => $cvk,
+		$tv[$cvk] = array("idview"   => $cvk,
 				  "zoneview" => $tz[$k],
 				  "txtview"  => $tl[$k]);
 	      }
-	    }
-	  } else {      
-	    if ($cvdoc->control($cvk) == "") {
-	      $tv[$cvk] = array("idview"   => $cvk,
-				"zoneview" => $tz[$k],
-				"txtview"  => $tl[$k]);
 	    }
 	  }
 	}
