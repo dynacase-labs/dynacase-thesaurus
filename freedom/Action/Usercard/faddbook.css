@@ -9,13 +9,11 @@ font-size : [CORE_FONTBASESIZE];
 TABLE TR TD {
 padding : 0px;
 margin : 0px;
-font-family: lucida, arial, sans;
 font-size : 70%;
 }
 TH {
 padding : 0px;
 margin : 0px;
-font-family: lucida, arial, sans;
 font-size : 70%;
 font-weight : bold;
 text-align:left;
@@ -45,7 +43,6 @@ IMG.zoom {
   border-width: 0px;
   border-style: none none none none;
   background-color: transparent;
-  font-family: lucida, arial, sans;
   font-size : 100%;
   color: [CORE_TEXTFGCOLOR];
 }
@@ -54,7 +51,6 @@ IMG.zoom {
   cursor: pointer;
   border-width: 1px;
   border-color: black;
-  font-family: lucida, arial, sans;
   font-size : 100%;
   color: [CORE_TEXTFGCOLOR];
 }
@@ -178,7 +174,7 @@ background-color: [CORE_BGCELLCOLOR];
 padding:10px 0px 0px 10px;
 } 
 
-.fabctitle {
+SPAN.fabctitle, .fabctitle {
 font-weight : bold;
 font-variant: small-caps;
 font-size : 200%;
@@ -189,7 +185,7 @@ font-variant: small-caps;
 font-size : 160%;
 } 
 
-.fabcrub {
+SPAN.fabcrub, .fabcrub {
 font-size : 120%;
 font-weight : bold;
 }
@@ -202,7 +198,7 @@ font-size : 140%;
 .fablabel {
  
 }
-.fabvalue {
+SPAN.fabvalue, .fabvalue {
 font-weight : bold; 
 }
 

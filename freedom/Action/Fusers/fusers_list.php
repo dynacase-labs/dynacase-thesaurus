@@ -3,7 +3,7 @@
  * display users and groups list
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_list.php,v 1.2 2005/10/27 14:40:35 eric Exp $
+ * @version $Id: fusers_list.php,v 1.3 2005/10/28 15:12:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -14,7 +14,6 @@
 include_once("FDL/Lib.Dir.php");
 function fusers_list(&$action) {
 
-  $key=getHttpVars("keyword");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
@@ -22,26 +21,9 @@ function fusers_list(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $slice=25;
-  $start=0;
-  $sqlfilters=array();
-  // view user list
+ 
 
-  if ($key != "") {
-    $tkey=explode(" ",$key);
-    foreach ($tkey as $k=>$v) {
-      $sqlfilters[]="values ~* '".pg_escape_string($v)."'";
-    }
-    
-
-  }
-  $action->lay->set("key",$key);
-  $tu = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"TABLE","IUSER");
-  $action->lay->setBlockData("USERS",$tu);
-
-
-  $action->lay->set("viewone",(count($tu) == 1));
-  if (count($tu) == 1) $action->lay->set("idone",$tu[0]["id"]);
+ 
 
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/mktree.js");

@@ -46,6 +46,15 @@ function changeContact(evt, cid, attr) {
   }
   return true;
 } 
+function fviewdoc(id) {
+  subwindow(300, 400, '[target]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&zone=[fabzone]&id='+id)
+}
+[IF idone]
+function viewfirst() {
+  fviewdoc('[idone]');
+}
+addEvent(window,"load",viewfirst);
+[ENDIF idone]
 </script>
 
 </head>
@@ -69,7 +78,9 @@ function changeContact(evt, cid, attr) {
 <input type="hidden" name="dirid" value="[dirid]">
 <input type="hidden" name="target" value="[target]">
 <input type="hidden" name="etarget" value="[etarget]">
+<input type="hidden" name="viewone" value="[viewone]">
 <input type="hidden" name="usedefaultview" value="[usedefaultview]">
+<input type="hidden" name="cols" value="[cols]">
 <table width="100%" align="center" cellspacing="0">
 <tr class="fabzone">
 <td colspan="[colspan]">
@@ -101,7 +112,7 @@ onmouseout="this.className='fabcontact'; [IF viewpref]document.getElementById('p
 <img id="e[cid]" title="[TEXT:edit contact card]" height="14" style="visibility:hidden; cursor:pointer; border:0" src="[icop]" onclick="subwindow(300, 400, '[etarget]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&rzone=[fabzone]:U&id=[cid]');">
 [IF viewpref]<img id="p[cid]" title="[TEXT:add to prefered]" height="12" style="visibility:hidden; cursor:pointer; border:0" src="[IMG:faddbook_ico_favorite.png]" onclick="document.getElementById('cid').value=[cid]; document.getElementById('addpref').submit();">[ENDIF viewpref]&nbsp;</td>
 [BLOCK C[Line]]
-<td nowrap  onclick="subwindow(300, 400, '[target]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[cid]&zone=[fabzone]'); ">[IF ATTimage]<img border="0" height="16" src="[content]">[ENDIF ATTimage][IF ATTnormal][IF ATTchange]<input onblur="if (InitValue!='*%$') { this.value=InitValue; InitValue='*%$'; };  this.className='inputInactive';"; onclick="InitValue=this.value; this.className='inputActive';" onkeypress="return changeContact(event, '[cid]', '[ATTname]');" id="fmc_[ATTname]_[cid]" class="inputInactive" value="[content]">[ENDIF ATTchange][IFNOT ATTchange][content][ENDIF ATTchange][ENDIF ATTnormal]&nbsp;</td>[ENDBLOCK C[Line]]
+<td nowrap  onclick="fviewdoc('[cid]'); ">[IF ATTimage]<img border="0" height="16" src="[content]">[ENDIF ATTimage][IF ATTnormal][IF ATTchange]<input onblur="if (InitValue!='*%$') { this.value=InitValue; InitValue='*%$'; };  this.className='inputInactive';"; onclick="InitValue=this.value; this.className='inputActive';" onkeypress="return changeContact(event, '[cid]', '[ATTname]');" id="fmc_[ATTname]_[cid]" class="inputInactive" value="[content]">[ENDIF ATTchange][IFNOT ATTchange][content][ENDIF ATTchange][ENDIF ATTnormal]&nbsp;</td>[ENDBLOCK C[Line]]
 </tr>
 [ENDBLOCK DLines]
 

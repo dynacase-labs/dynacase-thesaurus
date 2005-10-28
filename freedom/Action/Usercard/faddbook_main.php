@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.16 2005/10/27 14:40:18 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.17 2005/10/28 15:12:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -25,6 +25,7 @@ include_once("FDL/Lib.Dir.php");
  * @global target Http var : window target when view doc
  * @global dirid Http var : folder/search id to restric searches
  * @global cols Http var : attributes id for column like : us_fname|us_lname
+ * @global viewone Http var : (Y|N) set Y if want display detail doc if only one found
  */
 function faddbook_main(&$action) 
 { 
@@ -45,6 +46,8 @@ function faddbook_main(&$action)
   $chid   = GetHttpVars("chgId", "");
   $chval  = GetHttpVars("chgValue", "");
   $usedefaultview  = (GetHttpVars("usedefaultview","N")=="Y");
+  $viewone  = (GetHttpVars("viewone","N")=="Y");
+
   $etarget  = GetHttpVars("etarget");
   $target  = GetHttpVars("target","finfo");
   $dirid  = GetHttpVars("dirid"); // restrict search
@@ -65,12 +68,15 @@ function faddbook_main(&$action)
   }
   $action->lay->setBlockData("BLine", $tl);
 
+  // propagate HTTP vars parameters
   $action->lay->set("sp", $pstart);
   $action->lay->set("lp", $lpage);
   $action->lay->set("target", $target);
   $action->lay->set("dirid", $dirid);
   $action->lay->set("etarget", $etarget);
   $action->lay->set("usedefaultview", GetHttpVars("usedefaultview"));
+  $action->lay->set("viewone", GetHttpVars("viewone"));
+  $action->lay->set("cols", GetHttpVars("cols"));
 
   $sfullsearch = (GetHttpVars("sfullsearch", "") == "on" ? true : false);
 
@@ -142,13 +148,16 @@ function faddbook_main(&$action)
   $fsearch = $psearch + $lpage + 1;
   $cl = $rq=getChildDoc($dbaccess, $dirid, $psearch, $fsearch, $filter, $action->user->id, "TABLE", $sfam);
   $dline = array(); $il = 0;
+
+
+  $action->lay->set("idone",($viewone && (count($cl)==1))?$cl[0]["id"]:false);
+
   foreach ($cl as $k => $v) {
     if ($il>=$lpage) continue;
     $dcol = array();
     $ddoc=getDocObject($dbaccess,$v);
     $attchange = ($ddoc->Control("edit") == "" ?  true : false);
     $dcol[] = array( "ATTchange" => false, "ATTname" => "", "content" =>  ucwords(strtolower($v["title"])), "ATTimage" => false, "ATTnormal" => true);
-    $pzone = ((!$usedefaultview)&& isset($ddoc->faddbook_card))?$ddoc->faddbook_card:$ddoc->defaultview;
     foreach ($vattr as $ka => $va) 
       {
 	$attimage = $attnormal = false;
@@ -160,7 +169,6 @@ function faddbook_main(&$action)
 			 "cid" => $v["id"], 
 			 "ATTimage" => $attimage, 
 			 "ATTnormal" => $attnormal, 
-			 "fabzone" => $pzone, 
 			 "ATTname" => $va->id );
       }
     $action->lay->setBlockData("C$il", $dcol);
@@ -174,6 +182,8 @@ function faddbook_main(&$action)
     $dline[$il]["icop"] = Doc::GetIcon($v["icon"]);
     $il++;
   }
+  $pzone = ((!$usedefaultview)&& isset($ddoc->faddbook_card))?$ddoc->faddbook_card:$ddoc->defaultview;
+  $action->lay->set("fabzone", $pzone);
 
   $action->lay->setBlockData("DLines", $dline);
   $action->lay->set("colspan", ($cols+2));
