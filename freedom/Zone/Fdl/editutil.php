@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.101 2005/10/27 14:43:09 eric Exp $
+ * @version $Id: editutil.php,v 1.102 2005/10/28 15:15:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -334,7 +334,10 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       //----------------------------------------
     case "password" : 
       // don't see the value
-      $input="<input $oc class=\"fullresize\" type=\"password\" name=\"".$attrin."\" value=\""."\"";
+      $eopt="class=\"fullresize\" ";
+      $esize=$oattr->getOption("esize");
+      if ($esize > 0) $eopt="size=$esize";
+      $input="<input $oc $eopt type=\"password\" name=\"".$attrin."\" value=\""."\"";
       $input .= " id=\"".$attridk."\" "; 
 
 
