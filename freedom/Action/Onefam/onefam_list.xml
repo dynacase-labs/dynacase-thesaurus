@@ -24,9 +24,13 @@ function imgborder() {
 var selimg=null;
 function sendgeneric(event,th,docid) {
   var wfgtop;
-  if (selimg != null) selimg.className='iconone';
+  if (selimg != null) {
+    selimg.className='iconone';
+    selimg.style.width=[izpx];
+  }
   th.className='icononesel';
   selimg=th;
+  selimg.style.width=[izpx]-4;
     if (parent.faminfo.flist) {
       parent.faminfo.flist.location.href='[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_TOGEN&gonlylist=yes&famid='+docid;
     } else {
@@ -40,11 +44,11 @@ function sendgeneric(event,th,docid) {
 
 <body >
 [BLOCK SELECTMASTER]
-<img 
+<img style="width:[izpx]"
      src="[iconsrc]"  
      onclick="sendgeneric(event,this,'[idcdoc]');"
-     onmouseover="if (this.className != 'icononesel') this.className='icononehi'"
-     onmouseout="if (this.className != 'icononesel') this.className='iconone'"
+     onmouseover="if (this.className != 'icononesel') {this.className='icononehi';this.style.width=[izpx]-4;}"
+     onmouseout="if (this.className != 'icononesel') {this.className='iconone';this.style.width=[izpx]}"
      class="iconone"
      alt="[ftitle]"
      title="[ftitle]">
@@ -52,7 +56,7 @@ function sendgeneric(event,th,docid) {
 
 [BLOCK CHOOSEMASTERFAMILIES]
 <BR>
-<input style="float:left;width:54px"  type="button" value="+" 
+<input style="float:left;width:[izpx]px"  type="button" value="+" 
        title="[TEXT:master choose families]" 
        onclick="subwindow(250,350,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITMASTERPREF')">
 [ENDBLOCK CHOOSEMASTERFAMILIES]
@@ -60,18 +64,18 @@ function sendgeneric(event,th,docid) {
 <BR><BR><br><HR style="float:left;" width="100%"><br >
 [ENDBLOCK SEPARATOR]
 [BLOCK SELECTUSER]
-<img 
+<img style="width:[izpx]"
      src="[iconsrc]"  
      onclick="sendgeneric(event,this,'[idcdoc]');"
-     onmouseover="if (this.className != 'icononesel') this.className='icononehi'"
-     onmouseout="if (this.className != 'icononesel') this.className='iconone'"
+     onmouseover="if (this.className != 'icononesel') {this.className='icononehi';this.style.width=[izpx]-4;}"
+     onmouseout="if (this.className != 'icononesel') {this.className='iconone';this.style.width=[izpx]}"
      class="iconone"
      alt="[ftitle]"
      title="[ftitle]">
 [ENDBLOCK SELECTUSER]
 <BR>
 [BLOCK CHOOSEUSERFAMILIES]
-<input style="float:left;width:54px" type="button" value="+" 
+<input style="float:left;width:[izpx]px" type="button" value="+" 
        title="[TEXT:choose user families]" 
        onclick="subwindow(250,350,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITPREF')">
 [ENDBLOCK CHOOSEUSERFAMILIES]

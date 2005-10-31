@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.78 2005/10/27 14:44:29 eric Exp $
+ * $Id: freedom.css,v 1.79 2005/10/31 15:09:01 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -168,8 +168,6 @@ IMG.iconone {
   border-width: 0px;
   float:left;
   cursor:pointer;
-  width:54;
-  height:54;
 }
 IMG.icononesel {
   border-style: outset;
@@ -178,8 +176,6 @@ IMG.icononesel {
   background-color:[CORE_BGCOLORALTERN];
   float:left;
   cursor:pointer;
-  width:50;
-  height:50;
 }
 IMG.icononehi {
   border-style: inset;
@@ -188,8 +184,6 @@ IMG.icononehi {
   background-color:[CORE_BGCOLORHIGH];
   float:left;
   cursor:pointer;
-  width:50;
-  height:50;
 }
 
 TD.und {

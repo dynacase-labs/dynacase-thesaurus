@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_root.php,v 1.4 2005/01/21 17:42:04 eric Exp $
+ * @version $Id: onefam_root.php,v 1.5 2005/10/31 15:09:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -19,7 +19,13 @@ function onefam_root(&$action) {
   $delta=20;
   if ($action->read("navigator") == "EXPLORER") $delta=50;
   
-  $action->lay->set("wcols",56*$nbcol+$delta);
+  $iz=$action->getParam("CORE_ICONSIZE");
+  if ($iz == "small") {
+    $izpx=42;
+  } else {
+    $izpx=56;	
+  }
+  $action->lay->set("wcols",$izpx*$nbcol+$delta);
   $action->lay->set("Title",_($action->parent->short_name));
  
   

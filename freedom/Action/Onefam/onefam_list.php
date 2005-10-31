@@ -3,7 +3,7 @@
  * list available families
  *
  * @author Anakeen 2003
- * @version $Id: onefam_list.php,v 1.10 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: onefam_list.php,v 1.11 2005/10/31 15:09:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -37,6 +37,13 @@ function onefam_list(&$action) {
   if ($action->HasPermission("ONEFAM_MASTER"))  {
     $action->lay->SetBlockData("CHOOSEMASTERFAMILIES", array(array("zou")));    
   }
+  $iz=$action->getParam("CORE_ICONSIZE");
+  if ($iz == "small") {
+    $izpx=40;
+  } else {
+    $izpx=54;	
+  }
+  $action->lay->set("izpx",$izpx);
 }
 
 
