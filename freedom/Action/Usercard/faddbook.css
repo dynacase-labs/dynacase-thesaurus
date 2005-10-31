@@ -325,25 +325,26 @@ A {
   color: [CORE_ACOLOR];
   cursor:pointer;
 }
+
 .COREError {
   color: [CORE_ERRORCOLOR];
   font-weight: bold;
   padding:20px;
-  background-color:#F0F0F0;
-  [IF ISIE]filter:alpha(opacity=80);[ENDIF ISIE]
-  -moz-opacity:.5;
+
+[IFNOT ISIE]background-image:url('Images/op20.png');[ENDIF ISIE]
+  [IF ISIE]filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='Images/op20.png',sizingMethod='scale');float:left;[ENDIF ISIE]
   border:solid 1px;
   text-align:center;
 }
 .CORETextError {
-  [IF ISIE]filter:alpha(opacity=100);[ENDIF ISIE]
-  -moz-opacity:.99;
+
 }
 .COREErrorBg {
   color: [CORE_ERRORCOLOR];
   font-weight: bold;
   padding:20px;
-  background:[CORE_BGCOLOR];
+  background-color:[CORE_BGCOLOR];
+
   border:solid 1px;
   text-align:center;
 }
