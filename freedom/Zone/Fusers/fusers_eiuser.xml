@@ -24,7 +24,7 @@ addEvent(window,"load",function al(event) {viewTab(event,'tabsystem');});
 <div  id="tabs" class="tabh" >
 <span id="tabsystem"  class="tabsel" onclick="showDiv(this,'dsystem')">[TEXT:System]</span>
 [IF editgroup]<span id="tabgroup" onclick="showDiv(this,'dgroup')">[TEXT:Group]</span>[ENDIF editgroup]
-<span id="tabcoord"  onclick="showDiv(this,'dcoord')">[TEXT:Coordonates]</span>
+<span id="tabcoord"  onclick="showDiv(this,'dcoord');autoVresize()">[TEXT:Coordonates]</span>
 [IF HasOTHERS]<span id="tabother" onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
 <div class="tab" ></div>
 <div class="do" id="dsystem" style="display:none">
