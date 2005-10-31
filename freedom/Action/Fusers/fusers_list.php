@@ -3,7 +3,7 @@
  * display users and groups list
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_list.php,v 1.3 2005/10/28 15:12:24 eric Exp $
+ * @version $Id: fusers_list.php,v 1.4 2005/10/31 11:48:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -28,6 +28,7 @@ function fusers_list(&$action) {
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/mktree.js");
 
+  $action->lay->set("isMaster", $action->parent->Haspermission("FUSERS_MASTER"));
 
 
 
