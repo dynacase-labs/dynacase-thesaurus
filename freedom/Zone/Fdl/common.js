@@ -247,7 +247,7 @@ function HSL2RGB (h, s, l)
 }
 
 function getHSL(c) {
-
+  var ot=document.getElementById('terriblecolor');
   if (c.substr(0,1) == "#") {
     r=parseInt('0x'+c.substr(1,2));
     g=parseInt('0x'+c.substr(3,2));
@@ -278,7 +278,6 @@ function getHSL(c) {
 }
 function getAltern(c,ct,l) {
 
-  var ot=document.getElementById('terriblecolor');
   var r,g,b;
   var validcolor=false;
   var rgb;
