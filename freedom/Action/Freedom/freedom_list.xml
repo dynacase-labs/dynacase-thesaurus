@@ -24,7 +24,7 @@
   <!--
     [JS:CODE]
     document.dirid='[dirid]';
-addEvent(window,"load",function al1() {alterrow('terrible','[CORE_BGCOLORALTERN]');});
+addEvent(window,"load",function al1() {alterrow('terrible','[CORE_BGCOLORALTERN]','[CORE_TEXTFGCOLOR]');});
 
 
 -->

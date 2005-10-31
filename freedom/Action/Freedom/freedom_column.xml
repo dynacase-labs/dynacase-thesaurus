@@ -76,7 +76,7 @@ TH {
 </tr>
 [ENDBLOCK [blockvalue]]
 </tbody>
-<script>alterrow('tbody[fid]','[CORE_BGCOLORALTERN]');</script>
+<script>alterrow('tbody[fid]','[CORE_BGCOLORALTERN]','[CORE_TEXTFGCOLOR]');</script>
 </table>
                     [ENDBLOCK TABLEBODY]
 

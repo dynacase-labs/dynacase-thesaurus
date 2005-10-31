@@ -246,13 +246,7 @@ function HSL2RGB (h, s, l)
   return new Array (red, green, blue);
 }
 
-
-function getAltern(c,l) {
-
-  var ot=document.getElementById('terriblecolor');
-  var r,g,b;
-  var validcolor=false;
-  var rgb;
+function getHSL(c) {
 
   if (c.substr(0,1) == "#") {
     r=parseInt('0x'+c.substr(1,2));
@@ -275,9 +269,26 @@ function getAltern(c,l) {
       validcolor=true;    
     }
   }
+
+
   if (validcolor) {
-    hsl=RGB2HSL (r, g, b);
-    if (hsl[2] < 102) l=l-200; // dark color
+    return RGB2HSL (r, g, b);
+  }
+  return false;
+}
+function getAltern(c,ct,l) {
+
+  var ot=document.getElementById('terriblecolor');
+  var r,g,b;
+  var validcolor=false;
+  var rgb;
+
+  hsl= getHSL(c);
+  
+
+  if (hsl) {
+    dhsl=getHSL(ct);
+    if (dhsl[2] > 128) l=l-200; // dark color
     // trgb=HSL2RGB (hsl[0],hsl[1], hsl[2]);
     trgb=HSL2RGB (hsl[0],hsl[1], l);
     for (i=0;i<3;i++) {
@@ -289,9 +300,9 @@ function getAltern(c,l) {
 }
 
 // altern color in a table between rows
-function alterrow(tid,co,by) {
-  var c1=getAltern(co,240);
-  var c2=getAltern(co,250);
+function alterrow(tid,co,cot,by) {
+  var c1=getAltern(co,cot,240);
+  var c2=getAltern(co,cot,250);
   var c=[c1,c2];
   var t=document.getElementById(tid);
   if (t) {
@@ -304,10 +315,10 @@ function alterrow(tid,co,by) {
   }
 }
 
-function alterfieldset(tid,co,by) {
+function alterfieldset(tid,co,cot,by) {
   if (!isNetscape) return; // not nice on IE
-  var c1=getAltern(co,240);
-  var c2=getAltern(co,250);
+  var c1=getAltern(co,cot,240);
+  var c2=getAltern(co,cot,250);
   var c=[c1,c2];
   var ci=0;
   var t=document.getElementById(tid);
