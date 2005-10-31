@@ -240,8 +240,9 @@ END;0;;;;;;;;;;;;
 DOC;2;121;;carnet d'adresses;;;;;
 // creation requete all users;;;;;;;;;
 //SEARCH;<special id>;<special dir id>;titre;requête;;;;;
-;;;;;;;;;
+DOC;IGROUP;GDEFAULT;121;;;;;;
 ;;;;;;;;;
 ;userid;app name;acl name;acl name;acl name;acl name;acl name;acl name;acl name
 ACCESS;4;FUSERS;FUSERS;USERCARD_READ;USERCARD_MANAGER;;;;
 ACCESS;2;USERCARD;USERCARD_READ;;;;;;
+ACCESS;4;GENERIC;GENERIC_MASTER;;;;;;
