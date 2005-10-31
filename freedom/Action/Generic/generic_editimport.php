@@ -3,7 +3,7 @@
  * Import document from CSV file
  *
  * @author Anakeen 2004
- * @version $Id: generic_editimport.php,v 1.16 2005/08/08 16:00:23 eric Exp $
+ * @version $Id: generic_editimport.php,v 1.17 2005/10/31 11:49:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,6 +43,7 @@ function generic_editimport(&$action) {
 
   // spec for csv file
   $doc=new_Doc($dbaccess, $famid);
+  $famid=$doc->id;
   if ($doc->name != "") $famname=$doc->name;
   else $famname=$doc->id;
   if ($doc->ccvid > 0) {
