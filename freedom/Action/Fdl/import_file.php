@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.98 2005/10/27 14:28:09 eric Exp $
+ * @version $Id: import_file.php,v 1.99 2005/10/31 15:09:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -41,8 +41,8 @@ function add_import_file(&$action, $fimport="") {
   if (! $fdoc) $action->exitError(_("no import file specified"));
   $nline=0;
   while (!feof($fdoc)) { 
-    $buffer = fgets($fdoc, 4096);
-    $data=explode(";",$buffer);   
+    $buffer = rtrim(fgets($fdoc, 4096));
+    $data=explode(";",$buffer);
     $nline++;
 
     if (isUTF8($data))    $data=array_map("utf8_decode",$data);
@@ -395,7 +395,7 @@ function add_import_file(&$action, $fimport="") {
 	  ($oattr->phpfunc == "") || (strpos($oattr->options,"system=yes")!==false)) $oattr->phpfunc = $data[12]; // don(t modify  enum possibilities
       if ($oattr->isAffected()) $err =$oattr->Modify();
       else    $err = $oattr->Add();
-
+      print_r($data);
       
       $tcr[$nline]["err"].=$err;
 
