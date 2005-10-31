@@ -215,7 +215,7 @@ ATTR;REP_FR_PRESENTATION;;Présentation;N;N;frame;0;F;;;;;;;
 ATTR;REP_CAPTION;REP_FR_PRESENTATION;description;N;Y;longtext;200;W;;;;;;;
 ATTR;REP_SORT;REP_FR_PRESENTATION;tri;N;N;text;210;W;;;fdl.php;getSortAttr(D,SE_FAMID,REP_SORT):REP_IDSORT,REP_SORT;;;
 ATTR;REP_IDSORT;REP_FR_PRESENTATION;id tri;N;N;text;220;H;;;;;;;
-ATTR;REP_ORDERSORT;REP_FR_PRESENTATION;ordre;N;N;enum;230;W;;;;asc|ascendant,desc|descendant;;;system=yes,bmenu=no
+ATTR;REP_ORDERSORT;REP_FR_PRESENTATION;ordre;N;N;enum;230;W;;;;asc|ascendant,desc|descendant;;;system=yes|bmenu=no
 ATTR;REP_LIMIT;REP_FR_PRESENTATION;limite;N;N;int;240;W;;;;;;;elabel=nombre maximum de documents retournés|esize=3
 ATTR;REP_TCOLS;REP_FR_PRESENTATION;Colonnes;N;N;array;250;W;;;;;;;
 ATTR;REP_LCOLS;REP_TCOLS;label;N;N;text;260;W;;;fdl.php;getDocAttr(D,SE_FAMID,REP_LCOLS):REP_IDCOLS,REP_LCOLS;;;
