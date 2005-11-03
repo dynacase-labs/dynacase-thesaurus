@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.99 2005/10/31 15:09:26 eric Exp $
+ * @version $Id: import_file.php,v 1.100 2005/11/03 08:16:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -78,6 +78,7 @@ function add_import_file(&$action, $fimport="") {
 	  if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
 	  if (is_numeric($data[1]))   $doc->fromid = $data[1];
 	  else $doc->fromid = getFamIdFromName($dbaccess,$data[1]);
+	  if (isset($data[5])) $doc->name = $data[5]; // internal name
 	  $err = $doc->Add();
 
 	}
@@ -95,8 +96,8 @@ function add_import_file(&$action, $fimport="") {
      
       
       if (isset($data[4])) $doc->classname = $data[4]; // new classname for familly
-
       if (isset($data[5])) $doc->name = $data[5]; // internal name
+
 
       $tcr[$nline]["err"].=$err;
 
@@ -395,7 +396,6 @@ function add_import_file(&$action, $fimport="") {
 	  ($oattr->phpfunc == "") || (strpos($oattr->options,"system=yes")!==false)) $oattr->phpfunc = $data[12]; // don(t modify  enum possibilities
       if ($oattr->isAffected()) $err =$oattr->Modify();
       else    $err = $oattr->Add();
-      print_r($data);
       
       $tcr[$nline]["err"].=$err;
 
