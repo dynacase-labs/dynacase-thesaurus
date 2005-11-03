@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.43 2005/10/27 14:35:28 eric Exp $
+ * @version $Id: generic_edit.php,v 1.44 2005/11/03 08:16:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,8 +50,8 @@ function generic_edit(&$action) {
    
 
 
-  if ($docid == 0)
-    {
+  if (($docid === 0) || ($docid === ""))
+    {     
     if ($classid > 0) {
       $cdoc= new_Doc($dbaccess,$classid);
       if ($cdoc->control('create') != "") $action->exitError(sprintf(_("no privilege to create this kind (%s) of document"),$cdoc->title));
@@ -72,7 +72,8 @@ function generic_edit(&$action) {
     {    
 
       $doc= new_Doc($dbaccess,$docid);
-     
+      $docid=$doc->id;
+      setHttpVar("id",$doc->id);
       $err = $doc->lock(true); // autolock
       if ($err != "")   $action->ExitError($err);
 
