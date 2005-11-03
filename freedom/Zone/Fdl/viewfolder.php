@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.71 2005/08/18 09:17:51 eric Exp $
+ * @version $Id: viewfolder.php,v 1.72 2005/11/03 08:17:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -71,6 +71,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
 
 
+  $action->lay->set("VALTERN",($action->GetParam("FDL_VIEWALTERN","yes")=="yes"));
 
 
   if ($dirid == "")  {

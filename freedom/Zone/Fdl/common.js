@@ -307,9 +307,23 @@ function alterrow(tid,co,cot,by) {
   if (t) {
     var ttr=t.getElementsByTagName('tr');  
     if (by) by2=2*by;
+    
     for (var i=0;i<ttr.length;i++) {
       if (!by) ttr[i].style.backgroundColor=c[(i%2)];
       else ttr[i].style.backgroundColor=c[parseInt((i % by2)/by)];
+    }
+  }
+}
+// altern color in a table between rows
+function opalterrow(tid,by) {
+  var c=["url('Images/op10.png')","url('Images/op20.png')"];
+  var t=document.getElementById(tid);
+  if (t) {
+    var ttr=t.getElementsByTagName('tr');  
+    if (by) by2=2*by;
+    for (var i=0;i<ttr.length;i++) {
+      if (!by) ttr[i].style.backgroundImage=c[(i%2)];
+      else ttr[i].style.backgroundImage=c[parseInt((i % by2)/by)];
     }
   }
 }

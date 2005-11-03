@@ -22,7 +22,13 @@
   <!--
     [JS:CODE]
     document.dirid='[dirid]';
+
+[IF VALTERN]
 addEvent(window,"load",function al1() {alterrow('terrible','[CORE_BGCOLORALTERN]','[CORE_TEXTFGCOLOR]',2);});
+[ENDIF VALTERN]
+[IFNOT VALTERN]
+addEvent(window,"load",function al1() {opalterrow('terrible',2);});
+[ENDIF VALTERN]
 
 -->
 </script>   
