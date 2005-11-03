@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.80 2005/10/31 16:08:54 eric Exp $
+ * $Id: freedom.css,v 1.81 2005/11/03 08:27:38 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -293,7 +293,7 @@ TABLE.tablehead {
 .onglet {
    font-size: 50%;
   background-image:url('[IMG:tab.png]');
-  color:[CORE_TEXTFGCOLOR];
+  color:black;
   cursor: pointer;
   border-style: none;
   align: center;
@@ -302,7 +302,7 @@ TABLE.tablehead {
 .ongleth {
    font-size: 50%;
   background-image:url('[IMG:tabh.png]');
-  color:[CORE_TEXTFGCOLOR];
+  color:white;
   cursor: pointer;
   border-style: none;
 }
@@ -311,7 +311,7 @@ TABLE.tablehead {
    font-size: 50%;
   cursor: pointer;
   background-image:url('[IMG:tabh.png]');
-  color:[CORE_TEXTBGCOLOR];
+  color:black;
   border-style: none;
 }
 
