@@ -321,9 +321,25 @@ function opalterrow(tid,by) {
   if (t) {
     var ttr=t.getElementsByTagName('tr');  
     if (by) by2=2*by;
-    for (var i=0;i<ttr.length;i++) {
-      if (!by) ttr[i].style.backgroundImage=c[(i%2)];
-      else ttr[i].style.backgroundImage=c[parseInt((i % by2)/by)];
+
+    if (isNetscape) {
+      for (var i=0;i<ttr.length;i++) {
+	if (!by) ttr[i].style.backgroundImage=c[(i%2)];
+	else ttr[i].style.backgroundImage=c[parseInt((i % by2)/by)];
+      }
+    } else {
+//       c=["Images/op10.png","Images/op20.png"];
+//       for (var i=0;i<ttr.length;i++) {
+// 	//img.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" +img.src+"',sizingMethod='scale') ";
+// 	ttr[i].style.float='left';
+// 	if (!by) ttr[i].style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(enable=true,src='" +c[(i%2)]+"',sizingMethod='scale') ";
+// 	else ttr[i].style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" +c[parseInt((i % by2)/by)]+"',sizingMethod='scale') ";
+
+	
+      //   }
+     
+
+
     }
   }
 }
