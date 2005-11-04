@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE eventlist [
 <!ELEMENT eventlist (event)+>
-<!ELEMENT event (content, menu)>
+<!ELEMENT event (title, content, menu)>
+<!ELEMENT title (#PCDATA)>
 <!ELEMENT content (#PCDATA)>
 <!ELEMENT menu (item)+>
 <!ELEMENT item (#PCDATA)>
