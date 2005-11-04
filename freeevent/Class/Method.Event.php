@@ -3,7 +3,7 @@
  * Event Class
  *
  * @author Anakeen 2005
- * @version $Id: Method.Event.php,v 1.8 2005/06/15 16:25:17 eric Exp $
+ * @version $Id: Method.Event.php,v 1.9 2005/11/04 11:25:18 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -16,6 +16,8 @@ var $calVLongText   = "FREEEVENT:CALVLONGTEXT";
 var $calVShortText  = "FREEEVENT:CALVSHORTTEXT";
 
 var $calPopupMenu = array();
+
+var $evXml =  "FREEEVENT:EVXML";
 
 /**
  * return all atomic event found in period between $d1 and $d2 for this event
@@ -40,6 +42,49 @@ function getEventIcon() {
   $eicon=$this->getValue("EVT_ICON");
   if ($eicon=="")  return $this->getValue("EVT_FROMINITIATORICON");
   return "";
+}
+
+function evXml() {
+
+  $view = GetHttpVars("vxml", "R");
+  $this->lay->set("xmlResume", true);
+  $this->lay->set("xmlCard", true);
+  switch ($view) {
+  case "C": $this->XmlCard(); break;
+  default: $this->XmlResume();
+  }
+  
+}
+
+function XmlCard() {
+  $this->lay->set("xmlCard", true);
+}
+
+function XmlResume() {
+  global $action;
+  $this->lay->set("id", $this->id);
+  $this->lay->set("title", $this->parseContent($this->getValue("evt_title")));
+  $this->lay->set("dmode", 0);
+  $this->lay->set("time", FrenchDateToUnixTs($this->getValue("evt_begdate")));
+  $dur = FrenchDateToUnixTs($this->getValue("evt_enddate")) - FrenchDateToUnixTs($this->getValue("evt_begdate"));
+  $dur = ($dur<0 ? -$dur : $dur);
+  $this->lay->set("duration", $dur);
+
+  // Menus
+  $urlbase = $action->getParam("CORE_SSTANDURL");
+  $menus = array();
+  $menus[] = array( "muse" => 1,
+		    "mtype" => "ACTION",
+		    "mlabel" => $this->parseContent("Afficher"),
+		    "mtarget" => "evdisplay",
+		    "micon" => "",
+		    "maction" => $this->parseContent("$urlbase&sole=Y&app=FDL&action=FDL_CARD&zone=EVXML&view=F&id=".$this->id));
+  $this->lay->setBlockData("MENUITEM", $menus);
+  $this->lay->set("xmlResume", true);
+}
+
+function parseContent($ct) {
+  return htmlentities($ct);  // ereg_replace( "&", "&amp;", $ct);
 }
 
 ?>
