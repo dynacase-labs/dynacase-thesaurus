@@ -3,7 +3,7 @@
  * View standalone document (without popup menu)
  *
  * @author Anakeen 2000 
- * @version $Id: viewscard.php,v 1.7 2005/11/04 09:53:14 marc Exp $
+ * @version $Id: viewscard.php,v 1.8 2005/11/04 15:38:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewscard.php,v 1.7 2005/11/04 09:53:14 marc Exp $
+// $Id: viewscard.php,v 1.8 2005/11/04 15:38:29 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/viewscard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,6 +60,7 @@ function viewscard(&$action) {
   $fromedit = (GetHttpVars("fromedit","N")=="Y"); // need to compose temporary doc
   $latest = GetHttpVars("latest");
   $tmime = GetHttpVars("tmime", "");  // type mime
+  $charset = GetHttpVars("chset", "UTF-8");  // charset
 
   // Set the globals elements
 
@@ -109,7 +110,7 @@ function viewscard(&$action) {
   }
 
   if ($tmime!="") {
-    header("Content-Type: $tmime");
+    header("Content-Type: $tmime; charset=$charset");
     print $action->lay->gen();
     exit;
   }
