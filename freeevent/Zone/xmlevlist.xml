@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE eventlist [
+<!ELEMENT eventlist (event)+>
+<!ELEMENT event (content, menu)>
+<!ELEMENT content (#PCDATA)>
+<!ELEMENT menu (item)+>
+<!ELEMENT item (#PCDATA)>
+]>
+<eventlist start="[start]" end="[end]" readablestart="[fstart]" readableend="[fend]">
+[BLOCK EVENTS][cevent]
+[ENDBLOCK EVENTS]
+</eventlist>

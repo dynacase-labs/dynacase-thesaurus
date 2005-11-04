@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.27 2005/10/12 15:31:39 eric Exp $
+ * @version $Id: Method.DCalendar.php,v 1.28 2005/11/04 15:18:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -13,6 +13,8 @@ public $eviews=array("FREEEVENT:EDITCALENDAR");
 public $cviews=array("FREEEVENT:PLANNER","FREEEVENT:VIEWCALENDAR");
 public $defaultedit="FREEEVENT:EDITCALENDAR";
 public $defaultview="FREEEVENT:PLANNER";
+public $xmlview="FREEEVENT:XMLEVLIST";
+
 function postCreated() {
   if ($this->getValue("SE_FAMID") == "")  $this->setValue("SE_FAMID",getFamIdFromName($this->dbaccess,"EVENT"));
 }
@@ -325,5 +327,26 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,$distinct,$latest=="yes");
 
   return $query;
+}
+
+
+function XmlEvList($target="finfo",$ulink=true,$abstract="N") {
+  $d1 = GetHttpVars("ts",time() - (24*3600*30));
+  $d2 = GetHttpVars("te",time() + (24*3600*30));
+  $sd1 = strftime("%d/%m/%Y %H:%M", $d1);
+  $sd2 = strftime("%d/%m/%Y %H:%M", $d2);
+  $tevt = array();
+  $tevt=$this->getEvents($sd1,$sd2);
+  $evt = array();
+  foreach ($tevt as $k=>$v) {
+    $ev = getDocObject($this->dbaccess, $v);
+    $evt[]["cevent"] = $ev->viewdoc($ev->evXml);
+  }
+  $this->lay->set("fstart", $sd1);
+  $this->lay->set("fend", $sd2);
+  $this->lay->set("start", $d1);
+  $this->lay->set("end", $d2);
+  $this->lay->setBlockData("EVENTS", $evt);
+  return;
 }
 ?>

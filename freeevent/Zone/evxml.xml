@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-[IF xmlResume]<!DOCTYPE event [
-<!ELEMENT event (content, menu)>
-<!ELEMENT content (#PCDATA)>
-<!ELEMENT menu (item)+>
-<!ELEMENT item (#PCDATA)>
-]>
-<event id="[id]" rid="evt[id]" dmode="[dmode]" time="[time]" duration="[duration]" title="[title]">
+[IF xmlResume]<event id="[id]" rid="evt[id]" dmode="[dmode]" time="[time]" duration="[duration]"><title>[title]</title>
 <content><div id="evt[id]" class="evXmlResume">[title]</div></content>
 <menu>[BLOCK MENUITEM]
 <item default="[muse]" type="[mtype]" action="[maction]" target="[mtarget]">[mlabel]</item>[ENDBLOCK MENUITEM]
