@@ -145,20 +145,20 @@ MCalMenu.hideMenu = function() {
 
 // --------------------------------------------------------------------------------------
 // Display menu mid at pointer position 
-MCalMenu.currentCal = null;
-MCalMenu.currentId = -1;
-MCalMenu.currentVHandler = '';
-MCalMenu.showMenu = function(ev, mid, cal, id, evh) {
+MCalMenu.HandlerCtx = '';
+MCalMenu.HandlerFunc = '';
+MCalMenu.HandlerArgs = new Array;
+MCalMenu.showMenu = function(e, mid, handlercontext, hfunction, hargs) {
   if (!document.getElementById(mid)) return false;
-  MCalMenu.currentCal = cal;
-  MCalMenu.currentId = id;
-  MCalMenu.currentVHandler = evh;
+  MCalMenu.HandlerCtx = handlercontext;
+  MCalMenu.HandlerFunc = hfunction;
+  MCalMenu.HandlerArgs = hargs;
   MCalMenu.stopTempo(mid);
-  var evcoord = mcalEventXY(ev);
+  var evcoord = mcalEventXY(e);
   document.getElementById(mid).style.left = parseInt(evcoord.x-25);
   document.getElementById(mid).style.top = parseInt(evcoord.y-5);
   document.getElementById(mid).style.display = '';
-  mcalCancelEvent(ev);
+  mcalCancelEvent(e);
 }
 
 // --------------------------------------------------------------------------------------
@@ -192,29 +192,24 @@ MCalMenu.activateItem = function(event, mid, iid) {
     var cm = document.__mcalmenus[mid];
     if (!cm[iid]) alert('Pas d\item '+iid+' dans le menu '+mid);
     else {
+
       var pscript = mcalParseReq(cm[iid].ascript, [ 'EID'], [ MCalMenu.currentId ] );
-//       alert(cm[iid].amode);
-      switch (parseInt(cm[iid].amode)) {
-      case 0: 
-	// Default handler to vie element, if is set
-	if (MCalMenu.currentVHandler && MCalMenu.currentVHandler!='') eval(MCalMenu.currentVHandler);
-	break;
-      case 1: 
-	// Create new window....
-	window.open( pscript, cm[iid].atarget);
-	break;
-      case 2: 
-	eval(pscript); 
-	break;
-      }
+      eval(MCalMenu.HandlerFunc)(event, 
+				 parseInt(cm[iid].amode),
+				 cm[iid].atype,
+				 pscript,
+				 cm[iid].atarget,
+				 MCalMenu.HandlerCtx, 
+				 MCalMenu.HandlerArgs );
+
     }
   } else {
     var ret = false;
     alert('Pas de menu '+mid);
   }
-  MCalMenu.currentCal = null;
-  MCalMenu.currentId = -1;
-  MCalMenu.currentVHandler = '';
+  MCalMenu.HandlerCtx = '';
+  MCalMenu.HandlerFunc = '';
+  MCalMenu.HandlerArgs = [];
   MCalMenu.hideMenu();
   return ret;
 }
@@ -222,35 +217,35 @@ MCalMenu.activateItem = function(event, mid, iid) {
    
 // --------------------------------------------------------------------------------------
 // Attach menu to element
-MCalMenu.prototype.attachToElt = function(elt, cal, id, evhandler, viewhandler) {
+//   MCalMenu.prototype.attachToElt = function(elt, cal, id, evhandler, viewhandler) {
+  MCalMenu.prototype.attachToElt = function(elt, handmode, handlerFunction, handlerArgs) {
+
   var thismenu = this.menuId;
-   var eid = id;
-   var ecal = cal;
-   var evh  = viewhandler;
+  var targs = new Array;
+ 
+//   var str='';
+//   for (var ia=0; ia<handlerArgs.length; ia++)  str += handlerArgs[ia]+' ';
+//   alert(str);
+
+//   for (var ia=0; ia<handlerArgs.length; ia++) targs[targs.length] = arguments[ia];
+
   if (document.getElementById(elt)) {
     var elti = document.getElementById(elt);
-    switch (evhandler) {
+    switch (handmode) {
       
     case 'click' : 
-      mcalAddEvent(elti, 
-		   'click', 
-		   function cev(e) { 
-	                   var lmenu = thismenu; 
-			   if (e.button==2) MCalMenu.showMenu(e, thismenu, cal, id); 
-			   if (e.button==0) MCalMenu.defaultMenu(e, thismenu, cal, id); },
-		   true );
       break;
       
     default: //case 'contextmenu' :
-      mcalAddEvent(elti, 
-		   'contextmenu', 
-		   function cev(e) { 
-	             var lmenu = thismenu; 
-		     var lid = id; 
-		     var lcal = cal; 
-		     var levh = evh; 
-		     MCalMenu.showMenu(e, lmenu, lcal, lid, levh); }, 
-		   true);
+      mcalAddEvent( elti, 
+		    'contextmenu', 
+		    function cev(e) { 
+		      var lmenu = thismenu; 
+		      var hmode = handmode; 
+		      var hfunction = handlerFunction;
+		      var hargs = handlerArgs;
+		      MCalMenu.showMenu(e, lmenu, hmode, hfunction, hargs); }, 
+		    true);
     }
 
   } else {

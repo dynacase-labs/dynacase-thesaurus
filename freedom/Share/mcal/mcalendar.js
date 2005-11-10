@@ -3,58 +3,103 @@
 
 function MCalendar(instance, server, tsparam, teparam) 
 {
-  this.CalRootElt = instance; // element where i am inserted
-  this.CalDaysCount = 7;            // number of days displayed
-  this.CalHoursPerDay = 10;         // number of time by day
-  var cd = new Date();             
-  this.CalOriginalTime = this.CalInitTime = cd.getTime();  // Init time = current time
-  this.CalDayStartHour = 8;         // First hour for day
-  this.CalShowWeekEnd = true;       // Show / hide week end
-  this.CalHourHSize = 'auto';       // or px;
-  this.CalHourWSize = 'auto';       // or H px;
-  this.CalCtrlKeyClick = false;     // ctrl-click handler on calendar
-  this.CalKTitleHourW = 35;         // Hours title width
-  this.CalKTitleDayH = 20;          // Days title width
-  this.showTitleBar = true;
-  this.showNavButton = true;
-  this.Title = 'MCalendar (c) Marc &lt;marc.claverie (@) gmail.com&gt;';
-
-  
-  this.serverMethod = Array();
-  this.serverMethod['allevents'] = server[0];
-  this.serverMethod['evdetail'] = server[1];
-
-  this.dayCss = '';
-  this.dayCurrentCss = '';
-  this.dayWeekEndCss = '';
-  this.daynhCss = '';
-  this.dayTitleCss = '';
-
-  // Some properties computed
-  this.Dim = { x:0, y:0, w:0, z:0 };
-  this.CalPeriod = new Array();
-  this.CalRealDaysCount = 0;
-  this.CalZonePStart = '';
-  this.CalZonePEnd = '';
-  this.CalPixelForMinute = 0;
-  this.CalHourHeight = 0;
-  this.CalHourWidth = 0;
-  
-  this.xborder = 1;
-  this.yborder = 1;
-
-  this.TEvent = new Array();
-  this.EventTime = 0;
-      
-  this.Message = new Array();
-  
   if (!document.__mcal) document.__mcal = new Array;
-  document.__mcal[this.CalRootElt] = this;
 
-  this.menus = new Array();
+  if (document.__mcal[instance]) {
+    
+    this.CalRootElt = document.__mcal[instance].CalRootElt;
+    this.CalDaysCount = document.__mcal[instance].CalDaysCount;
+    this.CalHoursPerDay = document.__mcal[instance].CalHoursPerDay;
+    this.CalOriginalTime = document.__mcal[instance].CalOriginalTime;
+    this.CalDayStartHour = document.__mcal[instance].CalDayStartHour;
+    this.CalShowWeekEnd = document.__mcal[instance].CalShowWeekEnd;
+    this.CalHourHSize = document.__mcal[instance].CalHourHSize;
+    this.CalHourWSize = document.__mcal[instance].CalHourWSize;
+    this.CalCtrlKeyClick = document.__mcal[instance].CalCtrlKeyClick;
+    this.CalKTitleHourW = document.__mcal[instance].CalKTitleHourW;
+    this.CalKTitleDayH = document.__mcal[instance].CalKTitleDayH;
+    this.showTitleBar = document.__mcal[instance].showTitleBar;
+    this.showNavButton = document.__mcal[instance].showNavButton;
+    this.Title = document.__mcal[instance].Title;
+    this.serverMethod = document.__mcal[instance].serverMethod;
+    this.serverMethod['allevents'] = document.__mcal[instance].serverMethod['allevents'];
+    this.serverMethod['evdetail'] = document.__mcal[instance].serverMethod['evdetail'];
+    this.dayCss = document.__mcal[instance].dayCss;
+    this.dayCurrentCss = document.__mcal[instance].dayCurrentCss;
+    this.dayWeekEndCss = document.__mcal[instance].dayWeekEndCss;
+    this.daynhCss = document.__mcal[instance].daynhCss;
+    this.dayTitleCss = document.__mcal[instance].dayTitleCss;
+    this.Dim = document.__mcal[instance].Dim;
+    this.CalPeriod = document.__mcal[instance].CalPeriod;
+    this.CalRealDaysCount = document.__mcal[instance].CalRealDaysCount;
+    this.CalZonePStart = document.__mcal[instance].CalZonePStart;
+    this.CalZonePEnd = document.__mcal[instance].CalZonePEnd;
+    this.CalPixelForMinute = document.__mcal[instance].CalPixelForMinute;
+    this.CalHourHeight = document.__mcal[instance].CalHourHeight;
+    this.CalHourWidth = document.__mcal[instance].CalHourWidth;
+    this.xborder = document.__mcal[instance].xborder;
+    this.yborder = document.__mcal[instance].yborder;
+    this.TEvent = document.__mcal[instance].TEvent;
+    this.EventTime = document.__mcal[instance].EventTime;
+    this.Message = document.__mcal[instance].Message;
+    this.menus = document.__mcal[instance].menus;
+    this.isComputed = document.__mcal[instance].isComputed;
+    this.debug = document.__mcal[instance].debug;
+
+  } else {
+
+    this.CalRootElt = instance; // element where i am inserted
+    this.CalDaysCount = 7;            // number of days displayed
+    this.CalHoursPerDay = 10;         // number of time by day
+    var cd = new Date();             
+    this.CalOriginalTime = this.CalInitTime = cd.getTime();  // Init time = current time
+    this.CalDayStartHour = 8;         // First hour for day
+    this.CalShowWeekEnd = true;       // Show / hide week end
+    this.CalHourHSize = 'auto';       // or px;
+    this.CalHourWSize = 'auto';       // or H px;
+    this.CalCtrlKeyClick = false;     // ctrl-click handler on calendar
+    this.CalKTitleHourW = 35;         // Hours title width
+    this.CalKTitleDayH = 20;          // Days title width
+    this.showTitleBar = true;
+    this.showNavButton = true;
+    this.Title = 'MCalendar (c) Marc &lt;marc.claverie (@) gmail.com&gt;';
+    
+    
+    this.serverMethod = Array();
+    this.serverMethod['allevents'] = server[0];
+    this.serverMethod['evdetail'] = server[1];
+    
+    this.dayCss = '';
+    this.dayCurrentCss = '';
+    this.dayWeekEndCss = '';
+    this.daynhCss = '';
+    this.dayTitleCss = '';
+    
+    // Some properties computed
+    this.Dim = { x:0, y:0, w:0, z:0 };
+    this.CalPeriod = new Array();
+    this.CalRealDaysCount = 0;
+    this.CalZonePStart = '';
+    this.CalZonePEnd = '';
+    this.CalPixelForMinute = 0;
+    this.CalHourHeight = 0;
+    this.CalHourWidth = 0;
+    
+    this.xborder = 1;
+    this.yborder = 1;
+    
+    this.TEvent = new Array();
+    this.EventTime = 0;
+    
+    this.Message = new Array();
   
-  this.isComputed = false;
-  this.debug = false; // true;
+    this.menus = new Array();
+
+    document.__mcal[this.CalRootElt] = this;
+
+    this.isComputed = false;
+    this.debug = false; // true;
+  }
 }
 
 
@@ -658,10 +703,11 @@ MCalendar.prototype.__showEvent = function(ie)
       if (usemenu) {
 	if (!document.getElementById(this.TEvent[ie].menu.ref)) this.menus[this.TEvent[ie].menu.ref].create();
 	this.menus[this.TEvent[ie].menu.ref].attachToElt( '__ev_'+ie+'_d_'+id, 
-							  this.CalRootElt, 
-							  this.TEvent[ie].id, 
 							  'contextmenu',
-							  "document.__mcal."+this.CalRootElt+".__showDetail(event, "+this.TEvent[ie].id+", '"+this.TEvent[ie].rid+"')" );
+							  'MCalendar.GHandler',
+							  [ this.CalRootElt, this.TEvent[ie].id ] );
+// ,
+// 							  "document.__mcal."+this.CalRootElt+".__showDetail(event, "+this.TEvent[ie].id+", '"+this.TEvent[ie].rid+"')" );
       }
 
     }
@@ -934,4 +980,79 @@ MCalendar.prototype.Resize = function()
 }
 
 
+
+MCalendar.reloadEvent = function(event, calendar, eid) {
+  alert('MCalendar.reloadEvent: event calendar eid');
+}
+MCalendar.reloadAllEvents = function(event, calendar) {
+  alert('MCalendar.reloadAllEvents: event calendar ');
+}
+MCalendar.deleteEvent = function(event, calendar, eid) {
+  alert('MCalendar.deleteEvent: event calendar eid');
+}
+
+MCalendar.GHandler  = function(event, mode, type, action, target, hmode, hparam) {
+    
+  var calendar = hparam[0];
+  var eid = hparam[1]
+//   var str = '';
+//   str = 'MCalendar.GHandler( event='+event+' mode='+mode+' type='+type+' action='+action+' target='+target;
+//   str += ' handlermode='+hmode+' hanlerparam=[ ';
+//   for (var ia=0; ia<hparam.length; ia++) str += hparam[ia]+' ';
+//   str += '] )';
+//   alert(str);
+//   return;
+
+  var uret = MCalendar.UserHandler(event, calendar, eid, mode, action, target);
+  if (uret) uret = MCalendar.SystemHandler(event, calendar, eid, type);
+  return uret;
+}
+
+
+MCalendar.SystemHandler  = function(event, calendar, eid, type ) {
+
+  switch (parseInt(type)) {
+    
+    case 0 : // none
+    break;
+
+    case 1: // reload event
+    break;
+
+    case 2: // reload all event
+    break;
+
+    case 3: // delete event
+    break;
+    
+  }
+    
+}
+
+MCalendar.UserHandler = function(event, calendar, eid, type, action, target ) {
+  if (!action && action=='') return false;
+  var pscript = mcalParseReq(action, [ 'ECAL', 'EID'], [ calendar, eid ] );
+  var st = false;
+  switch (parseInt(type)) {
+
+  case 0:
+//     st = default();
+    break;
+
+  case 1: // Create new window....
+    window.open( pscript, target);
+    st = true;
+    break;
+
+  case 2: // JS function call with standard arguments : event, calendar and id
+    st = eval(pscript)(event, calendar, eid);
+    break;
+
+  case 3: // Full user spec JS function call
+    st = eval(pscript);
+    break;
+    
+  }
+  return st;
+}
 

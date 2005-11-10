@@ -81,6 +81,17 @@ html {background-color:#eeeeee}
 <!-- div id="calendarRoot2" style="top:10px; left:450px; width:400px; height:400px; position:absolute"></div -->
 
 <script type="text/javascript">
+
+
+    function mhandler(event, cal, evid) {
+      var ts = '';
+      for (var ia=0; ia<arguments.length; ia++) {
+	ts += arguments[ia]+' ';
+      }
+      alert(ts);
+    }
+
+
     var sm = [ 'mcalendar-rep.php?ts=%TS%&te=%TE%', 'mcalendar_detail.php?id=%EVID%' ];
     var cal = new MCalendar('calendarRoot', sm);
 
