@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.8 2005/09/27 16:46:24 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.9 2005/11/10 16:01:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -119,8 +119,8 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
     if ($this->Exists( $this->r_path)) return (_("File System already exists"));
     $res = $this->exec_query("select nextval ('".$this->seq."')");
-    $arr = $this->fetch_array (0);
-    $this->id_fs = $arr[0];
+    $arr = $this->fetch_array(0);
+    $this->id_fs = $arr["nextval"];
     return '';
   }
 

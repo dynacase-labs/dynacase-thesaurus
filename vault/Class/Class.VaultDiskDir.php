@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskDir.php,v 1.6 2005/09/27 16:46:24 eric Exp $
+// $Id: Class.VaultDiskDir.php,v 1.7 2005/11/10 16:01:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -77,8 +77,8 @@ Class VaultDiskDir extends DbObj {
   // --------------------------------------------------------------------
     if ($this->Exists( $this->l_path, $this->id_fs)) return (_("Directory already exists"));
     $res = $this->exec_query("select nextval ('".$this->seq."')");
-    $arr = $this->fetch_array (0);
-    $this->id_dir = $arr[0];
+    $arr = $this->fetch_array(0);
+    $this->id_dir = $arr["nextval"];
     return '';
   }
 

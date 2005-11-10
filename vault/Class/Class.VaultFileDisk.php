@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.9 2005/09/27 13:33:52 eric Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.10 2005/11/10 16:01:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -36,8 +36,8 @@ Class VaultFileDisk extends DbObj {
   function PreInsert() {
   // --------------------------------------------------------------------
     $res = $this->exec_query("select nextval ('".$this->seq."')");
-    $arr = $this->fetch_array (0);
-    $this->id_file = $arr[0];
+    $arr = $this->fetch_array(0);
+    $this->id_file = $arr["nextval"];
     return '';
   }
 
