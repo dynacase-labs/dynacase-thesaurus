@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.53 2005/08/10 10:31:25 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.54 2005/11/10 15:56:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -374,7 +374,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
     }
 
     $ncdoc=new_Doc($dbaccess,$docid);
-    if ((in_array(2,$ncdoc->attributes->fromids)) && ($ncdoc->usefor=="N")) {
+    if (isset($ncdoc->attributes->fromids)&& (in_array(2,$ncdoc->attributes->fromids)) && ($ncdoc->usefor=="N")) {
       // its a folder
       $ncdoc->usefor="F";
       print "\nchange usefor to F\n";
