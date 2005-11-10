@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.17 2005/10/28 15:12:24 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.18 2005/11/10 16:00:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -104,6 +104,14 @@ function faddbook_main(&$action)
 	if ($sfam==$x[0]) $ucols[$x[1]] =  1;
       }
     }
+    if (count($ucols)==0) {
+      // default abstract
+      $la=$dnfam->getAbstractAttributes();
+      foreach ($la as $k => $v) {
+	if (($v->mvisibility != 'H') && ($v->mvisibility != 'I'))  $ucols[$v->id]=1;
+      }	
+    }
+    
   }
 
   $orderby = "title";
