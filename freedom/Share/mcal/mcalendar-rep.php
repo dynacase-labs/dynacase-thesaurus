@@ -62,6 +62,11 @@ echo '    <label>Test JS handler</label>';
 echo '    <description>Menu permettant de tester le handler JS</description>';
 echo '    <action aid="evt_menu_read" amode="2" aevent="0" atarget="" ascript="mhandler" />';
 echo '   </item>';
+echo '  <item id="evt_menu_delete" status="2" type="1">';
+echo '    <label>Supprimer</label>';
+echo '    <description>Suppression de cet evenement</description>';
+echo '    <action aid="evt_menu_delete" aevent="3" amode="2" atarget="" ascript="mhandler" />';
+echo '  </item>';
 echo '  <item id="evt_menu_test2" status="2" type="1">';
 echo '    <label>Free</label>';
 echo '    <description>Visiter le site de Free</description>';
@@ -70,26 +75,10 @@ echo '   </item>';
 echo '</menu>';
 
 foreach ($events as $k => $v) {
-  echo '<event id="'.$k.'" rid="evt'.$k.'" cid="evc'.$k.'" dmode="1" time="'.$v["time"].'" duration="'.$v["dura"].'">';
+  echo '<event id="'.$k.'" rid="evc'.$k.'" cid="evc'.$k.'" dmode="1" time="'.$v["time"].'" duration="'.$v["dura"].'">';
   echo '<menuref id="evt_menu" use="1,1" />';
   echo '<title>'.getTitle($k).'</title>';
   echo '<content>'.getContent($k,$v).'</content>';
-//   echo '<menu>';
-
-//   // <item>
-//   // default -> 1 action activated on mouse over 2 action activated on click
-//   // target  =  "_self" an "WxH" window sized
-//   // type = Title | Separator | JScript | Action | 
-//    echo '<item default="0" type="Action" label="Accepter" target="fhidden" action="http://....wgcal_accept.php&amp;id=1223"></item>';
-//    echo '<item default="0" type="Action" label="Refuser" target="fhidden" action="http://....wgcal_refuse.php&amp;id=1223"></item>';
-//    echo '<item default="0" type="Separator" label="" target="" action=""></item>';
-//    echo '<item default="1" type="Action" label="Afficher" target="300x150" action="http://....wgcal_view.php&amp;id=1223"></item>';
-//    echo '<item default="0" type="Action" label="Editer" target="300x150" action="http://....wgcal_edit.php&amp;id=1223"></item>';
-//    echo '<item default="0" type="Action" label="Supprimer" target="fhidden" action="http://....wgcal_delete.php&amp;id=1223"></item>';
-//    echo '<item default="0" type="Separator" label="" target="" action=""></item>';
-//    echo '<item default="0" type="Action" label="Historique" target="400x200" action="http://....wgcal_histo.php&amp;id=1223"></item>';
-  
-//   echo '</menu>';
   echo '</event>';
 }
 echo '</eventdesc>';

@@ -114,10 +114,11 @@ mcalShowError = function(m) { mcalShow(m, 'red', 'white', '__mcalerror'); }
 mcalShowTrace = function(m) { mcalShow(m, 'yellow', 'black', '__mcaltrace'); }
 
 mcalShow = function(m,fg,bg,elt) {
-  var attr = [
-    { id:'onclick', val:'this.style.display=\'none\'' },
-  ];
+  var attr = [ ];
+//     { id:'onclick', val:'this.style.display=\'none\'' },
+//   ];
   var style = [
+     { id:'font-size', val:'11' },
      { id:'overflow', val:'auto' },
      { id:'margin', val:'3em' },
      { id:'padding', val:'3em' },
@@ -125,8 +126,8 @@ mcalShow = function(m,fg,bg,elt) {
      { id:'background-color', val:bg },
      { id:'color', val:fg },
   ];
-  var ct = '<div style="margin:3px; background-color:'+fg+'; color:'+bg+'; font-weight:bold; width:95%">Click to Close</div>'+m;
-  mcalDrawRectAbsolute(elt, '', 0, 0, 500, 200, 10000, m, true, ct, attr, style);
+  var ct = '<div onclick="this.parentNode.style.display=\'none\'" style="margin:3px; background-color:'+fg+'; color:'+bg+'; font-weight:bold; width:95%">Click to Close</div>'+m;
+  mcalDrawRectAbsolute(elt, '', 0, 0, 500, 'auto', 10000, m, true, ct, attr, style);
 }
     
 

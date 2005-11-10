@@ -193,11 +193,10 @@ MCalMenu.activateItem = function(event, mid, iid) {
     if (!cm[iid]) alert('Pas d\item '+iid+' dans le menu '+mid);
     else {
 
-      var pscript = mcalParseReq(cm[iid].ascript, [ 'EID'], [ MCalMenu.currentId ] );
       eval(MCalMenu.HandlerFunc)(event, 
 				 parseInt(cm[iid].amode),
-				 cm[iid].atype,
-				 pscript,
+				 parseInt(cm[iid].aevent),
+				 cm[iid].ascript,
 				 cm[iid].atarget,
 				 MCalMenu.HandlerCtx, 
 				 MCalMenu.HandlerArgs );
@@ -223,12 +222,6 @@ MCalMenu.activateItem = function(event, mid, iid) {
   var thismenu = this.menuId;
   var targs = new Array;
  
-//   var str='';
-//   for (var ia=0; ia<handlerArgs.length; ia++)  str += handlerArgs[ia]+' ';
-//   alert(str);
-
-//   for (var ia=0; ia<handlerArgs.length; ia++) targs[targs.length] = arguments[ia];
-
   if (document.getElementById(elt)) {
     var elti = document.getElementById(elt);
     switch (handmode) {
