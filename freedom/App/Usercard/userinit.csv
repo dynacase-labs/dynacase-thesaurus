@@ -31,3 +31,4 @@ DOC;CVDOC;508;1144;Confidentiel;;128;utilisateur;;EUSER;Admin edit;VEDIT;FUSERS:
 PROFIL;508;;;view=2;EUSER=4;;;;;;;;;;;;;;;
 DOC;CVDOC;501;1144;Administration;;127;groupe intranet;;ADMIN\nMEMBERS\nCG\nRESTRICT;Administration\nDétail membres\nGroupes\nRestriction;VEDIT\nVCONS\nVEDIT\nVEDIT;FDL:EDITBODYCARD\nFDL:VIEWBODYCARD\nUSERCARD:CHOOSEGROUP\nFDL:EDITBODYCARD;502\n503\n\n513;Administration groupe intranet\nmembres groupe intranet\n\nRestrictions groupe intranet;;yes\nyes\nyes\nyes;ADMIN;;administration;
 PROFIL;501;;;view=2;MEMBERS=2;edit=4;ADMIN=4;CG=4;RESTRICT=4;;;;;;;;;;;
+#DOC;IGROUP;GDEFAULT;121;;;;;;;;;;;;;;;;;;

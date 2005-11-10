@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.17 2005/09/21 12:40:04 eric Exp $
+# $Id: Makefile.in,v 1.18 2005/11/10 16:00:20 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -29,6 +29,9 @@ DISTFILES = $(SUBDIR) \
 $(pubdir)/$(applib) :
 	mkdir -p $@
 
+$(rootprefix)/var/freedom:
+	mkdir -p $@
+
 $(rootprefix)/etc/cron.daily:
 	mkdir -p $@
 
@@ -37,7 +40,7 @@ $(rootprefix)/etc/cron.daily/$(PACKAGE).cron:$(PACKAGE).cron $(rootprefix)/etc/c
 
 $(pubdir)/$(applib)/FREEDOM.vault : FREEDOM.vault
 	cp $< $(pubdir)/$(applib)/$<
-publish: $(pubdir)/$(applib)  $(pubdir)/$(applib)/FREEDOM.vault $(rootprefix)/etc/cron.daily/$(PACKAGE).cron
+publish: $(pubdir)/$(applib)  $(pubdir)/$(applib)/FREEDOM.vault $(rootprefix)/etc/cron.daily/$(PACKAGE).cron $(rootprefix)/var/freedom
 
 clean:
 	rm -f *.*~ config.* Makefile configure $(PACKAGE).spec \

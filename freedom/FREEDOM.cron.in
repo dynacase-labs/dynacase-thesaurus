@@ -1,8 +1,8 @@
 #!/bin/sh
 # ---------------------------------------------------------
-# $Id: FREEDOM.cron.in,v 1.1 2005/09/13 12:52:28 yannick Exp $
+# $Id: FREEDOM.cron.in,v 1.2 2005/11/10 16:00:36 eric Exp $
 # 
 # Distribued under GPL 2 licence terms
 # ---------------------------------------------------------
 
-psql freedom anakeen -f @prefix@/API/freedom_clean.sql > /dev/null
+psql freedom anakeen -f @prefix@/API/freedom_realclean.sql > /dev/null

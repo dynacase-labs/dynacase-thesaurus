@@ -17,16 +17,19 @@ echo $dbname $dbfreename
 if [ "$1" = "I" ] ; then
 
   echo "Create $dbfreename database"
-  su - postgres -c "createdb --encoding LATIN1 $dbfreename" 2>&1 >>/dev/null
-  
+  createdb --username=postgres --encoding LATIN1 $dbfreename
+   if [ $? != 0 ] ; then
+    log "cannot create db $dbfreename"
+    exit 1
+  fi
   if [ -f /usr/lib/pgsql/plpgsql.so ]; then
-      su - postgres -c "createlang --dbname=$dbfreename --pglib=/usr/lib/pgsql plpgsql" 2>&1 >>/dev/null
+     createlang --username=postgres --dbname=$dbfreename --pglib=/usr/lib/pgsql plpgsql 
   else
-      su - postgres -c "createlang --dbname=$dbfreename --pglib=/usr/lib/postgresql plpgsql" 2>&1 >>/dev/null
+     createlang --username=postgres --dbname=$dbfreename --pglib=/usr/lib/postgresql plpgsql
   fi
   
-  su - postgres -c "psql $dbfreename -f $wpub/WHAT/getprivilege.sql"
-  su - postgres -c "psql $dbfreename anakeen -f $wpub/FDL/fdl.sql"
+  psql $dbfreename anakeen -f $wpub/WHAT/getprivilege.sql
+  psql $dbfreename anakeen -f $wpub/FDL/fdl.sql
   /usr/bin/php -q $wpub/API/updateclass.php --dbname=$dbfreename --appc=FDL --class=Doc
   /usr/bin/php -q $wpub/API/updateclass.php --dbname=$dbfreename --appc=FDL --class=DocPerm
   /usr/bin/php -q $wpub/API/updateclass.php --dbname=$dbfreename --appc=FDL --class=VGroup
@@ -34,9 +37,6 @@ if [ "$1" = "I" ] ; then
   #copy postgres group table
   $wpub/wsh.php --api=freedom_groups
 
-  #prepare VAULT directories
-  mkdir -p /var/freedom
-  chown @HTTPUSER@: /var/freedom
 
   DBFREENAME=`echo $dbfreename | tr [a-z] [A-Z]`
   if [ ! -f $wpub/VAULT/$DBFREENAME.vault ]; then
