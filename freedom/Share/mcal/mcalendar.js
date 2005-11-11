@@ -46,6 +46,8 @@ function MCalendar(instance, server, tsparam, teparam)
     this.menus = document.__mcal[instance].menus;
     this.isComputed = document.__mcal[instance].isComputed;
     this.debug = document.__mcal[instance].debug;
+    this.lastGetDate = document.__mcal[instance].lastGetDate;
+    this.lastRequest = document.__mcal[instance].lastRequest;
 
   } else {
 
@@ -97,19 +99,23 @@ function MCalendar(instance, server, tsparam, teparam)
   
     this.menus = new Array();
 
-    document.__mcal[this.CalRootElt] = this;
-
+    this.lastGetDate = 0;
+    this.lastRequest = '';
     this.isComputed = false;
     this.debug = false; // true;
+
+    document.__mcal[this.CalRootElt] = this;
   }
 }
 
 
 MCalendar.prototype.__deleteElt = function(ev) {
-  if (!this.TEventElt) return;
-  for (var ielt=0; ielt<this.TEventElt.length; ielt++) {
-    if (this.TEventElt[ielt].ref==ev && document.getElementById(this.TEventElt[ielt].id)) {
-      var e = document.getElementById(this.TEventElt[ielt].id);
+  if (!this.TEvent[ev].mode) return false;
+  var mode = this.TEvent[ev].mode;
+  if (!this.TEventElt[mode]) return;
+  for (var ielt=0; ielt<this.TEventElt[mode].length; ielt++) {
+    if (this.TEventElt[mode][ielt].ref==ev && document.getElementById(this.TEventElt[mode][ielt].id)) {
+      var e = document.getElementById(this.TEventElt[mode][ielt].id);
       e.parentNode.removeChild(e);
     }
   }
@@ -163,9 +169,9 @@ MCalendar.prototype.Compute = function()
   else this.CalHourWidth = this.CalHourWSize;
   
   var aattr = [ 
-    { id:'onclick', val:"if (event.shiftKey) alert('la grosse edition'); else if (event.ctrlKey) document.__mcal["+this.CalRootElt+"].ViewMessage(); else document.__mcal["+this.CalRootElt+"].initNewEvent(event)" },
-      { id:'onmouseover', val:"this.style.zIndex = 10000;" },
-      { id:'onmouseout', val:"this.style.zIndex = 2000;" },
+    { id:'onclick', val:"if (event.shiftKey) alert('la grosse edition'); else if (event.ctrlKey) document.__mcal["+this.CalRootElt+"].ViewMessage(); else document.__mcal."+this.CalRootElt+".initNewEvent(event)" },
+      { id:'onmouseover', val:"" },
+      { id:'onmouseout', val:"" },
   ];
   var astyle = [
     { id:'background-color', val:'' },
@@ -219,6 +225,7 @@ MCalendar.prototype.__getEvents = function()
 	var menus = xmlDomTree.getElements("menu");
 	var id;
 	var rid;
+	var evstatus;
 	var dmode;
 	var etime;
 	var duration;
@@ -301,6 +308,7 @@ MCalendar.prototype.__getEvents = function()
 	  id = events[ie].getAttribute("id");
 	  rid = events[ie].getAttribute("rid");
 	  idcard = events[ie].getAttribute("cid");
+	  status = events[ie].getAttribute("status"); // C change D delete 
 	  dmode = events[ie].getAttribute("dmode");
 	  etime = events[ie].getAttribute("time");
 	  duration = events[ie].getAttribute("duration");
@@ -321,6 +329,7 @@ MCalendar.prototype.__getEvents = function()
 	  content = events[ie].getElements("content")[0];
 	  tstyle = content.getElements('styleinfo')[0];
 	  styles = tstyle.getElements('style');
+	  vstyles = [];
 	  for (var ist=0; ist<styles.length; ist++) {
 	    vstyles[vstyles.length] = { id:styles[ist].getAttribute('id'), val:styles[ist].getAttribute('val') };
 	  }
@@ -339,11 +348,17 @@ MCalendar.prototype.__getEvents = function()
       }
     }
   }
-  this.__showMessage('<img style="vertical-align:middle; border:0; height:15" src="mcalendar-waitserver.gif">&nbsp;<span style="vertical-align:middle;">Interrogation du serveur...</span>');
-//   this.__showMessage("Interrogation du serveur...");
+  var debugs = '(';
   var zTs = Math.round(this.CalPeriod[0].ds.getTime()/1000);
   var zTe = Math.round(this.CalPeriod[(this.CalPeriod.length-1)].de.getTime()/1000);
-  var serverreq = mcalParseReq( this.serverMethod['allevents'], [ 'TS', 'TE'], [ zTs, zTe ]);
+  var dld = new Date;
+  var ldate = this.lastGetDate;
+  if (this.serverMethod['allevents']!=this.lastRequest) ldate=0;
+  var serverreq = mcalParseReq( this.serverMethod['allevents'], [ 'TS', 'TE', 'LR' ], [ zTs, zTe, ldate ]);
+  this.lastRequest = this.serverMethod['allevents'];
+  this.lastGetDate = Math.floor(dld.getTime()/1000);
+  debugs += 'request=['+this.lastRequest+'] last date=['+ldate+'])';
+  this.__showMessage('<img style="vertical-align:middle; border:0; height:15" src="mcalendar-waitserver.gif">&nbsp;<span style="vertical-align:middle;">Interrogation du serveur...'+debugs+'</span>');
   rq.open("GET", serverreq, true);
   rq.send(null);
 }
@@ -524,8 +539,16 @@ MCalendar.prototype.__getEventById = function(idev) {
 { 
   var idx = this.__getEventById(id);
   if (!idx) idx = this.TEvent.length;
-  this.TEvent[idx] = { id:id, idcard:idcard, rid:rid, mode:dmode, time:time, duration:duration, 
-		       title:title, content:content, style:style, menu:menu };
+  this.TEvent[idx] = { id:id, 
+		       idcard:idcard, 
+		       rid:rid, 
+		       mode:(dmode>=0||dmode<=2?dmode:1), 
+		       time:time, 
+		       duration:duration, 
+		       title:title, 
+		       content:content, 
+		       style:style, 
+		       menu:menu };
 }
 
 MCalendar.prototype.__printEvent = function(iev) 
@@ -573,22 +596,39 @@ MCalendar.prototype.__deleteEvent = function(iev, deleteEntry) {
 MCalendar.prototype.__displayEvents = function() {
   var ie=0;
 
+  // reset event element
+  this.TEventElt[0] = [];
+  this.TEventElt[1] = [];
+  this.TEventElt[2] = [];
   this.__computeRealElt();
-  this.TEventElt.sort(sortRealElt);
-//   trc += "Before<br>";
-//   for (var ie=0; ie<this.TEventElt.length; ie++) {
-//     trc += "["+this.TEvent[this.TEventElt[ie].ref].id+"] "+this.TEventElt[ie].id+" co { x="+this.TEventElt[ie].co.x+" y="+this.TEventElt[ie].co.y+" w="+this.TEventElt[ie].co.w+" c.h="+this.TEventElt[ie].co.h+" c.day"+this.TEventElt[ie].co.day+" c.offset="+this.TEventElt[ie].co.offset+" c.doffset="+this.TEventElt[ie].co.doffset+"}<br>"; 
-//   }
+  this.TEventElt[1].sort(sortRealElt);
   this.eventoffset();
-//   trc += "After<br>";
-  for (var ie=0; ie<this.TEventElt.length; ie++) {
-    trc += "["+this.TEvent[this.TEventElt[ie].ref].id+"] "+this.TEventElt[ie].id+" co { x="+this.TEventElt[ie].co.x+" y="+this.TEventElt[ie].co.y+" w="+this.TEventElt[ie].co.w+" c.h="+this.TEventElt[ie].co.h+" c.day"+this.TEventElt[ie].co.day+" c.offset="+this.TEventElt[ie].co.offset+" c.doffset="+this.TEventElt[ie].co.doffset+"}<br>"; 
+  var trc = '';
+  trc += '<table border="1" style="font-size:11; width:90%">';
+  trc += '<tr><td>id</td><td>elt</td><td>x</td><td>w</td><td>y</td><td>h</td><td>y+h</td><td>day</td><td>off</td><td>div</td><td>woff</td></tr>'
+  for (var ie=0; ie<this.TEventElt[1].length; ie++) {
+    
+    this.TEventElt[1][ie].co.x = parseInt(this.TEventElt[1][ie].co.x);
+    this.TEventElt[1][ie].co.w = parseInt(this.TEventElt[1][ie].co.w);
+    this.TEventElt[1][ie].co.y = parseInt(this.TEventElt[1][ie].co.y);
+    this.TEventElt[1][ie].co.h = parseInt(this.TEventElt[1][ie].co.h);
+
+    trc += "<tr><td>"+this.TEvent[this.TEventElt[1][ie].ref].id+"</td><td>"+this.TEventElt[1][ie].id+"</td><td>"+this.TEventElt[1][ie].co.x+"</td><td>"+this.TEventElt[1][ie].co.w+"</td><td>"+this.TEventElt[1][ie].co.y+"</td><td>"+this.TEventElt[1][ie].co.h+"</td><td>"+parseInt(this.TEventElt[1][ie].co.y+this.TEventElt[1][ie].co.h)+"</td><td>"+this.TEventElt[1][ie].co.day+"</td><td>"+this.TEventElt[1][ie].co.offset+"</td><td>"+this.TEventElt[1][ie].co.doffset+"</td><td>"+this.TEventElt[1][ie].co.woffset+"</td></tr>"; 
+    
+
   }
-  for (ie=0; ie<this.TEventElt.length; ie++) {
-    this.__displayEventElt(ie);
+  trc += "</table>";
+  if (this.TEventElt[0]) {
+    for (ie=0; ie<this.TEventElt[0].length; ie++) this.__displayEventElt(0, ie);
+  }
+  if (this.TEventElt[1]) {
+    for (ie=0; ie<this.TEventElt[1].length; ie++) this.__displayEventElt(1, ie);
+  }
+  if (this.TEventElt[2]) {
+    for (ie=0; ie<this.TEventElt[2].length; ie++) this.__displayEventElt(2, ie);
   }
 
-   mcalShowTrace(trc);
+//      mcalShowTrace(trc);
 }
 
 
@@ -599,7 +639,6 @@ function in_array(e,t) {
   return false;
 }
 
-var trc = "";
 MCalendar.prototype.__computeRealElt= function() {
 
   var start, duration, ostart, oend;
@@ -611,7 +650,6 @@ MCalendar.prototype.__computeRealElt= function() {
   var mode;
   var celt;
    
-  if (!this.TEventElt) this.TEventElt = new Array;
 
   for (var ie=0; ie<this.TEvent.length; ie++) {
 
@@ -669,22 +707,30 @@ MCalendar.prototype.__computeRealElt= function() {
 	coorde = mcalGetZoneCoord(eelt);
 	coorde.y = coorde.y + (emin * this.CalPixelForMinute);
 	
-	co = { x : coords.x, 
-	       y : coords.y, 
-	       w : coords.w, 
-	       h : (coorde.y - coords.y), 
+	co = { x : parseInt(coords.x), 
+	       y : parseInt(coords.y), 
+	       w : parseInt(coords.w), 
+	       h : parseInt(coorde.y - coords.y), 
 	       z : (mode==0?1800:2000),
 	       day : id,
 	       offset : 0, // 6 eric
 	       doffset : 0 }; // 7 eric
 	
-	celt = this.TEventElt.length;
-	this.TEventElt[celt] = { ref : ie, id : '__ev_'+ie+'_d_'+id, co:co };
-	
+
+	if (!this.TEventElt[mode]) this.TEventElt[mode] = new Array;
+	celt = this.TEventElt[mode].length;
+	this.TEventElt[mode][celt] = { ref : ie, id : '__ev_'+ie+'_d_'+id, co:co };
       }
     }
   }
   return;
+}
+
+MCalendar.prototype.__eventEltExist = function(mode, elt) {
+  if (!this.TEventElt[mode]) return false;
+  for (var ie=0; ie<this.TEventElt[mode].length; ie++) {
+    if (this.TEventElt[mode][ie].id == elt) return ie;
+  }
 }
 
 MCalendar.prototype.AdjustEventTime = function(time) 
@@ -724,10 +770,10 @@ MCalendar.prototype.AdjustEventTime = function(time)
 }
 
 
-MCalendar.prototype.__displayEventElt = function(ie) 
+MCalendar.prototype.__displayEventElt = function(mode, ie) 
 {
 
-  var evRef = this.TEventElt[ie].ref;
+  var evRef = this.TEventElt[mode][ie].ref;
   var content = this.TEvent[evRef].content;
   var id = this.TEvent[evRef].id;
   var rid = this.TEvent[evRef].rid;
@@ -745,37 +791,35 @@ MCalendar.prototype.__displayEventElt = function(ie)
   var usemenu = false;
   var evAttr = new Array;
   evAttr = [
-      { id:'onclick', 	val:'if (event.shiftKey) alert("shift"); else if (event.ctrlKey) alert("ctrl"); else document.__mcal.'+this.CalRootElt+'.__showDetail(event, \''+id+'\',\''+idcard+'\')' },
-      { id:'title', val:'click to show details' }
+    { id:'onclick', val:'if (event.shiftKey) alert("shift"); else if (event.ctrlKey) alert("ctrl"); else document.__mcal.'+this.CalRootElt+'.__showDetail(event, \''+id+'\',\''+idcard+'\')' },
+    { id:'title', val:this.TEvent[evRef].title+' (click to show details)' },
+    { id:'onmouseover', val:'' },
+    { id:'onmouseout', val:'' }
   ];
   if (this.TEvent[evRef].menu.ref && this.menus[this.TEvent[evRef].menu.ref]) usemenu = true;
   
-  //       var co = { x:(coords.x+(mode==0?1:4)), 
-// 		 y:coords.y, 
-// 		 w:(coords.w-(mode==0?4:10)), 
-// 		 h:(H-2), 
-// 		 z:(mode==0?1800:2000),
-// 		 offset:0, // 6 eric
-// 		 doffset:0 }; // 7 eric
 
-  if (this.TEventElt[ie].co.doffset==0) {
-    x = this.TEventElt[ie].co.x;
-    w = this.TEventElt[ie].co.w;
-  } else {
-    var elt = 'd'+(this.TEventElt[ie].co.day+1)+'h1';
-    var co = mcalGetZoneCoord(elt);
-    w = (this.TEventElt[ie].co.w / (this.TEventElt[ie].co.doffset+1));
-    x = this.TEventElt[ie].co.x + (w * this.TEventElt[ie].co.offset);
+  var calealacon = 2;
+  x = this.TEventElt[mode][ie].co.x + (mode==0?1:calealacon);
+  w = this.TEventElt[mode][ie].co.w - (mode==0?5:(2*calealacon)+3);
+ 
+  if (this.TEventElt[mode][ie].co.doffset!=0) {
+    var wdiv = Math.floor(w / (this.TEventElt[mode][ie].co.doffset+1));
+    x = x + ((wdiv+1) * this.TEventElt[mode][ie].co.offset);
+      w = Math.floor(w / (this.TEventElt[mode][ie].co.doffset+1));
+//     if (this.TEventElt[mode][ie].co.woffset==0)
+//       w = Math.floor(w / (this.TEventElt[mode][ie].co.doffset+1));
+//     else 
+//       w = wdiv * ((this.TEventElt[mode][ie].co.doffset+1) - this.TEventElt[mode][ie].co.offset);
   }
-  mcalDrawRectAbsolute( this.TEventElt[ie].id,
+
+  mcalDrawRectAbsolute( this.TEventElt[mode][ie].id,
 			this.CalRootElt, 
   			x, 
-			//this.TEventElt[ie].co.x, 
-			this.TEventElt[ie].co.y, 
+			this.TEventElt[mode][ie].co.y, 
 			w,
-			//this.TEventElt[ie].co.w, 
-			this.TEventElt[ie].co.h, 
-			this.TEventElt[ie].co.z, 
+			Math.floor(this.TEventElt[mode][ie].co.h), 
+			this.TEventElt[mode][ie].co.z, 
 			'',
 			true, 
 			content, 
@@ -783,7 +827,7 @@ MCalendar.prototype.__displayEventElt = function(ie)
   
   if (usemenu) {
     if (!document.getElementById(this.TEvent[evRef].menu.ref)) this.menus[this.TEvent[evRef].menu.ref].create();
-    this.menus[this.TEvent[evRef].menu.ref].attachToElt( this.TEventElt[ie].id, 
+    this.menus[this.TEvent[evRef].menu.ref].attachToElt( this.TEventElt[mode][ie].id, 
 							 'contextmenu',
 							 'MCalendar.GHandler',
 							 [ this.CalRootElt, this.TEvent[evRef].id, this.TEvent[evRef].rid ] );
@@ -795,87 +839,82 @@ MCalendar.prototype.__displayEventElt = function(ie)
 // ----------------------------------------------------------------------------
 
 var toffset=new Array();
-var tidx=new Array(); // new index for event
 MCalendar.prototype.eventoffset = function() {
   var po=0;
   var px=0;
   var pk=0;
   var k,kk,cl;
-  var col=1;
+  var col=0;
   var ts=new Array();
-  
-  for (k=0;k<this.TEventElt.length;k++) {
-    tidx[parseInt(this.TEventElt[k].ref)]=k;
+  var sl;
+
+  for (k=0;k<this.TEventElt[1].length;k++) {
     
-    yi=this.TEventElt[k].co.y;
-    hi=(this.TEventElt[k].co.h - this.TEventElt[k].co.y);
-    cl=this.TEventElt[k].co.day;
-    this.TEventElt[k].co.offset=0;
-    this.TEventElt[k].co.doffset=0;
+    yi = this.TEventElt[1][k].co.y;
+    hi = this.TEventElt[1][k].co.h;
+    cl = this.TEventElt[1][k].co.day;
+    this.TEventElt[1][k].co.offset=0;
+    this.TEventElt[1][k].co.doffset=0;
+    this.TEventElt[1][k].co.woffset=0;
+//     this.TEventElt[1][k].co.pound = 100*(this.TEventElt[1][k].co.h + this.TEventElt[1][k].co.y) - this.TEventElt[1][k].co.y;
     if (cl > col) { // change column : reinit
-      if (po > 0) {
-	this.initpo(pk,k,po);
-      }
+      if (po > 0) this.initpo(pk,k,po);
       po=0;
       px=0;
       pk=k;
     }
-
     col=cl;
-
 
     sl=false; // same event group ?
     for (ki=pk;ki<k;ki++) {
-      if (yi < (this.TEventElt[ki].co.h)) {
+      if (yi <= (this.TEventElt[1][ki].co.y + this.TEventElt[1][ki].co.h)) {
 	sl=true;
-	break;
+	break; 
       }
     }
+   if (sl) {      
+     kk=0;
+     var fk = false;
+     ts = [];
+     this.TEventElt[1][k].co.offset = po+1;
+     for (ki=k-1;ki>=pk;ki--) {
+       if (! in_array(this.TEventElt[1][ki].co.offset,ts) ) {
+	 if (   yi >= (this.TEventElt[1][ki].co.y + this.TEventElt[1][ki].co.h) 
+		&& this.TEventElt[1][k].co.offset>this.TEventElt[1][ki].co.offset) {
+	   // try to place in highter subline
+	   this.TEventElt[1][k].co.offset = this.TEventElt[1][ki].co.offset;//+0.001;
+	   this.TEventElt[1][k].co.woffset = 1;
+	   fk=true;
+	   //  	      break;
+	 }
+	 ts.push(this.TEventElt[1][ki].co.offset);
+       }
+       kk++;
+     }
+     if (!fk) po++;
 
-    if (sl) {      
-	kk=0;
-	fk=false;
-	ts=[];
-	this.TEventElt[k].co.offset=po+1;
-	for (ki=k-1;ki>=pk;ki--) {
-	  if (! in_array(this.TEventElt[ki].co.offset,ts) ) {
-	    if (yi >= this.TEventElt[ki].co.h) {
-	      // try to place in highter subline
-	      this.TEventElt[k].co.offset=this.TEventElt[ki].co.offset;//+0.001;
-	      fk=true;
-	      //	    alert(ki);alert(ts);
-	      break;
-	    }
-	    ts.push(this.TEventElt[ki].co.offset);
-	  }
-	  kk++;
-	}
-
-	if (!fk) po++;
-    } else {
-      // new subline
-      this.initpo(pk,k,po);
-      po=0; 
-      pk=k;
-    }
-    px=yi+hi;
-
+   } else {
+     // new subline
+     this.initpo(pk,k,po);
+     po=0; 
+     pk=k;
+   }
+   px=yi+hi;
   }
-  if (po > 0) {
-    this.initpo(pk,k,po);
-
-  }
+  if (po > 0) this.initpo(pk,k,po);
 }
 
 MCalendar.prototype.initpo = function(p1,p2,po) {
   for (var ki=p1;ki<p2;ki++) {
-    this.TEventElt[ki].co.doffset=po;
+    this.TEventElt[1][ki].co.doffset=po;
   }
 }
 
 function sortRealElt(a,b) {
-  if (a.co.day != b.co.day) return a.co.day - b.co.day;
-  return a.co.x - b.co.x;
+  if (a.co.x != b.co.x) return a.co.x - b.co.x;
+  if (a.co.y < b.co.y) return -1;
+  if (a.co.y==b.co.y) return b.co.h - a.co.h;
+  return 1;
 }
 
 
@@ -1011,6 +1050,8 @@ MCalendar.prototype.initNewEvent = function(e)
   var ff = document.getElementById('inputzone');
   ff.style.top = cc.y;
   ff.style.left = cc.x;
+  ff.style.width = this.CalHourWidth;
+  ff.style.overflow = 'hidden';
   ff.style.display = '';
   
   document.getElementById('evtitle').style.background = '';

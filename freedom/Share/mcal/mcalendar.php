@@ -23,23 +23,23 @@ html {background-color:#eeeeee}
      font-size:9px;
      position : relative;
      border-style:  outset;
-     border-color: orange; 
+     border-color: #FFF2DB; 
      border-width: 1px;
   }
 
   .dayh {
      text-align:center;
      font-weight: bold;
-     background-color:orange;
+     background-color:#F1D998;
      border-style:  outset;
-     border-color: orange;
+     border-color: #FFF2DB;
      border-width: 1px;
   }
 
- .day0 { background-color:  #f6f7e8; }
- .day1 { background-color:  #f8f9e9; }
- .dayc { background-color:  #f6e8f7; }
- .daynh { background-color: #EFEFEF; }
+ .day0 { background-color:  #F8F1FB; }
+ .day1 { background-color:  #F8F1FB; }
+ .dayc { background-color:  #F2FFDB; }
+ .daynh { background-color: #EAE9C1; }
  .daywe0 { background-color: #edeff7; }
  .daywe1 { background-color: #eff1f9; }
 

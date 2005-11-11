@@ -73,6 +73,7 @@ mcalDrawRectAbsolute = function(id, father, x, y, w, h, z, c, v, t, oAttr, oStyl
     style.top = y;
     style.width = w;
     style.height = h;
+    style.zIndex = z;
     if (c!='') className = c;
     style.display = (v?'':'none');
   }

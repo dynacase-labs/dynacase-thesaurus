@@ -29,7 +29,7 @@ function MCalMenu( mid, menu, style ) {
   }
 
   // param
-  this.zIndex = 500;
+  this.zIndex = 5000;
   this.menuReactivity = 500;
   this.setIcons = true;
   this.menuWidth = (this.setIcons?90:70);

@@ -3,17 +3,32 @@
 global $_GET;
 $startp = $_GET["ts"];
 $endp = $_GET["te"];
- 
-// sleep(2);
+$lastreq = $_GET["LR"];
 
-$events = array( 100 =>array( "time" => $startp + (8*3600), "dura" => 3600 ),
-                 101 =>array( "time" => $startp + (34*3600), "dura" => 1800 ),
-                 1011 =>array( "time" => $startp + (34*3600) + 1800, "dura" => 1800 ),
-                 1012 =>array( "time" => $startp + (48*3600), "dura" => (24*3600)-1 ),
-                 102 =>array( "time" => $startp + (110*3600), "dura" => 5400),
-                 1022 =>array( "time" => $startp + (110*3600), "dura" => 3600),
-                 1021 =>array( "time" => $startp + (110*3600), "dura" => 0),
- 		 103 =>array( "time" => $startp + (130*3600), "dura" => 26*3600),
+//  sleep(5);
+
+$events = array(  100 =>array( "time" => $startp + (8*3600), "dura" => 3600, "mode"=> 1 ),
+		  1001 =>array( "time" => $startp + (34*3600) - 1800, "dura" => 3400, "mode"=> 1 ),
+		  1002 =>array( "time" => $startp + (34*3600) - 1800, "dura" => 5*3600, "mode"=> 1 ),
+		  1003 =>array( "time" => $startp + (36*3600) - 1800, "dura" => 3600, "mode"=> 1 ),
+		  101 =>array( "time" => $startp + (34*3600), "dura" => 1800 , "mode"=> 1),
+		  1011 =>array( "time" => $startp + (34*3600) + 1800, "dura" => 1800 , "mode"=> 1),
+		  1013 =>array( "time" => $startp + (34*3600) + 1800 + 2000, "dura" => 6600 , "mode"=> 1),
+		  1012 =>array( "time" => $startp + (48*3600), "dura" => (24*3600)-1, "mode"=> 1 ),
+		  102 =>array( "time" => $startp + (110*3600), "dura" => 5400, "mode"=> 1),
+		  1022 =>array( "time" => $startp + (110*3600), "dura" => 3600, "mode"=> 1),
+		  1021 =>array( "time" => $startp + (110*3600), "dura" => 0, "mode"=> 1),
+		  1023 =>array( "time" => $startp + (96*3600), "dura" => (3600*20), "mode"=> 0),
+		  103 =>array( "time" => $startp + (130*3600), "dura" => 26*3600, "mode"=> 1),
+		 );
+
+// $events = array(  1001 =>array( "time" => $startp + (34*3600) - 1800, "dura" => 3400 ),
+//                  1002 =>array( "time" => $startp + (34*3600) - 1800, "dura" => 5*3600 ),
+//                  1003 =>array( "time" => $startp + (36*3600) - 1800, "dura" => 3600 ),
+//                  101 =>array( "time" => $startp + (34*3600), "dura" => 1800 ),
+//                  1011 =>array( "time" => $startp + (34*3600) + 1800, "dura" => 1800 ),
+// 		 );
+
 // 		 200 =>array( "time" => $startp + (8*3600), "dura" => 3600 ),
 //                  201 =>array( "time" => $startp + (34*3600), "dura" => 1800 ),
 //                  2011 =>array( "time" => $startp + (34*3600) + 1800, "dura" => 1800 ),
@@ -35,7 +50,6 @@ $events = array( 100 =>array( "time" => $startp + (8*3600), "dura" => 3600 ),
 //                  402 =>array( "time" => $startp + (110*3600), "dura" => 5400),
 //                  4021 =>array( "time" => $startp + (110*3600), "dura" => 0),
 // 		 403 =>array( "time" => $startp + (130*3600), "dura" => 26*3600)
-		 );
 header("Content-Type: text/xml");
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 
@@ -75,7 +89,7 @@ echo '   </item>';
 echo '</menu>';
 
 foreach ($events as $k => $v) {
-  echo '<event id="'.$k.'" rid="evc'.$k.'" cid="evc'.$k.'" dmode="1" time="'.$v["time"].'" duration="'.$v["dura"].'">';
+  echo '<event id="'.$k.'" rid="evc'.$k.'" cid="evc'.$k.'" dmode="'.(isset($v["mode"])?$v["mode"]:1).'" time="'.$v["time"].'" duration="'.$v["dura"].'">';
   echo '<menuref id="evt_menu" use="1,1" />';
   echo '<title>'.getTitle($k).'</title>';
   echo '<content>'.getContent($k,$v).'</content>';
@@ -88,17 +102,18 @@ function getTitle($x) {
   return "Event number $x";
 }
 function getContent($x,$v) {
+  $color = array( 0 => "#eef1ed", 1 => "#DCE5FF" );
   $r = '<styleinfo>';
-  $r .= '<style id="background-color" val="yellow"/>';
-  $r .= '<style id="color" val="blue"/>';
-  $r .= '<style id="border" val="1px solid blue"/>';
+  $r .= '<style id="background-color" val="'.(isset($v["mode"])?$color[$v["mode"]]:$color[1]).'"/>';
+  $r .= '<style id="color" val="marron"/>';
+  $r .= '<style id="border" val="1px solid #8B96AA"/>';
   $r .= '</styleinfo>';
   $r .= '<chtml>';
   $r .= '<img style="vertical-align:middle; width:14" src="defico.png"/>';
   $r .= '<img style="vertical-align:middle; width:14" src="defico.png"/>';
   $r .= '<img style="vertical-align:middle; width:14" src="defico.png"/>';
-  $r .= '<span style="font-weight:bold; vertical-align:middle">'.getTitle($x).'</span>';
-  $r .= '<div>'.strftime("%d/%m/%y %H:%M",$v["time"]).' - '.strftime("%d/%m/%y %H:%M",($v["time"] + $v["dura"])).'</div>';
+  $r .= '<span style="vertical-align:middle">'.getTitle($x).' ('.(isset($v["mode"])?$v["mode"]:1).')</span>';
+  $r .= '<div>'.strftime("%H:%M",$v["time"]).' - '.strftime("%H:%M",($v["time"] + $v["dura"])).'</div>';
   $r .= '</chtml>';
   return $r;
 }
