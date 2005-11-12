@@ -319,7 +319,7 @@ MCalendar.prototype.__getEvents = function()
 	  var ref = menuref[0].getAttribute('id');
 	  if (!ref || !instance.menus[ref]) mcalShowError('Event['+(ie+1)+'], menu reference : attribute id empty or referenced menu '+(ref?ref:'')+' does not exist');
 	  else {
-	    var sref = new String(menuref[0].getAttribute('id'));
+	    var sref = new String(menuref[0].getAttribute('use'));
 	    if (!sref) mcalShowError('Event['+(ie+1)+'], menu reference : use attribute missing or empty');
 	    else {
 	      evmenu = { ref:ref, use:sref.split(',') };
@@ -826,8 +826,9 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
 			evAttr, evStyle);
   
   if (usemenu) {
-    if (!document.getElementById(this.TEvent[evRef].menu.ref)) this.menus[this.TEvent[evRef].menu.ref].create();
-    this.menus[this.TEvent[evRef].menu.ref].attachToElt( this.TEventElt[mode][ie].id, 
+//     if (!document.getElementById(this.TEvent[evRef].menu.ref)) this.menus[this.TEvent[evRef].menu.ref].create();
+    this.menus[this.TEvent[evRef].menu.ref].attachToElt( this.TEventElt[mode][ie].id,
+							 this.TEvent[evRef].menu.use,
 							 'contextmenu',
 							 'MCalendar.GHandler',
 							 [ this.CalRootElt, this.TEvent[evRef].id, this.TEvent[evRef].rid ] );

@@ -56,7 +56,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 echo '<eventdesc>';
 
 echo '<menu id="evt_menu">';
-echo '<style font="Arial,Helvetica,sans-serif" size="9" fgcolor="#000081" bgcolor="#E9E3FF" afgcolor="" abgcolor="#C2C5F9" tfgcolor="white" tbgcolor="#000081" />';
+// echo '<style font="Arial,Helvetica,sans-serif" size="9" fgcolor="#000081" bgcolor="#E9E3FF" afgcolor="" abgcolor="#C2C5F9" tfgcolor="white" tbgcolor="#000081" />';
 echo '  <item id="evt_menu_title" status="2" type="0">';
 echo '    <label>Menu evenement</label>';
 echo '    <description>Menu evenement</description>';
@@ -90,7 +90,7 @@ echo '</menu>';
 
 foreach ($events as $k => $v) {
   echo '<event id="'.$k.'" rid="evc'.$k.'" cid="evc'.$k.'" dmode="'.(isset($v["mode"])?$v["mode"]:1).'" time="'.$v["time"].'" duration="'.$v["dura"].'">';
-  echo '<menuref id="evt_menu" use="1,1" />';
+  echo '<menuref id="evt_menu" use="'.(isset($v["mode"]) && $v["mode"]==0?0:1).',1,1,1,2,1" />';
   echo '<title>'.getTitle($k).'</title>';
   echo '<content>'.getContent($k,$v).'</content>';
   echo '</event>';
