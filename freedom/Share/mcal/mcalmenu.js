@@ -160,7 +160,7 @@ MCalMenu.showMenu = function(e, mid, items, handlercontext, hfunction, hargs) {
   MCalMenu.HandlerArgs = hargs;
   MCalMenu.stopTempo(mid);
   var evcoord = mcalEventXY(e);
-  cm.__displayMenu(evcoord.x - 20, evcoord.y - 10,items);
+  cm.__displayMenu(evcoord.x, evcoord.y, items);
   mcalCancelEvent(e);
 }
 
@@ -191,7 +191,6 @@ MCalMenu.activateItem = function(event, mid, iid) {
    
 // --------------------------------------------------------------------------------------
 // Attach menu to element
-//   MCalMenu.prototype.attachToElt = function(elt, cal, id, evhandler, viewhandler) {
 MCalMenu.prototype.attachToElt = function(elt, useitem, handmode, handlerFunction, handlerArgs) {
 
   var thismenu = this.menuId;
@@ -202,7 +201,16 @@ MCalMenu.prototype.attachToElt = function(elt, useitem, handmode, handlerFunctio
     switch (handmode) {
       
     case 'click' : 
-      break;
+       mcalAddEvent( elti, 
+		    'click', 
+		    function cev(e) { 
+		      var lmenu = thismenu; 
+		      var hmode = handmode; 
+		      var hfunction = handlerFunction;
+		      var hargs = handlerArgs;
+		      MCalMenu.showMenu(e, lmenu, items, hmode, hfunction, hargs); }, 
+		    true);
+     break;
       
     default: //case 'contextmenu' :
       mcalAddEvent( elti, 
@@ -237,10 +245,10 @@ MCalMenu.prototype.__displayMenu = function(xinit, yinit, items) {
 
   this.__undisplayMenu();
 
-  var x = xinit;
-  var y = yinit;
+  var x = xinit - 20;
+  var y = yinit - 10;
   var w = this.menuWidth - (2*this.yBorder);
-  var h = this.menuHeight;
+  var h = [ this.menuHeight , this.menuHeight, 1 ];
   
   var normalTopEffect; // Computed according to item position
   var normalBottomEffect; // Computed according to item position
@@ -248,9 +256,23 @@ MCalMenu.prototype.__displayMenu = function(xinit, yinit, items) {
   var normalRightEffect = this.border+'px outset '+this.bgColor;
   var overEffect = this.border+'px outset '+this.bgAltColor;
   
+  // Compute menu real size
+  var rh = 0;
+  for (var num=0; num<this.menuItem.length; num++ ) {    
+    if (items[num]!=0) this.menuItem[num].typerh += h[this.menuItem[num].type] + 2;
+  }
+  // correct position the menu according to available space
+  var ww = getFrameWidth();
+  var wh = getFrameHeight();
+
+  if ((rh+y)>=wh) y = wh - rh - 10; 
+  
+  if (x-20<0) x=xinit;
+  if ((w+x)>=ww) x = ww - w; 
+  
   for (var num=0; num<this.menuItem.length; num++ ) {
     
-    if (items[num] && items[num]==0) {
+    if (items[num]==0) {
       
       // hidden...
 
@@ -274,12 +296,15 @@ MCalMenu.prototype.__displayMenu = function(xinit, yinit, items) {
       normalBottomEffect = this.border+'px '+(num==(this.menuItem.length-1)?'outset':'solid')+' '+this.bgColor;
       
       var mistyle = [ 
+	{ id:'overflow', val:'hidden' },
 	{ id:'z-index', val:this.zIndex },
 	{ id:'cursor', val:'pointer' },
 	{ id:'border-top', val:normalTopEffect },
 	{ id:'border-bottom', val:normalBottomEffect },
 	{ id:'border-left', val:normalLeftEffect },
 	{ id:'border-right', val:normalRightEffect },
+	{ id:'padding-top', val:'2' },
+	{ id:'padding-left', val:'6' },
 	{ id:'display', val:'' },
 	];
       
@@ -300,7 +325,7 @@ MCalMenu.prototype.__displayMenu = function(xinit, yinit, items) {
       
       
       var mclick = mover = mout = '';
-      if (m.type==1 && items[num]==1) {
+      if (m.type==1 && ((items[num] && items[num]==1) || !items[num])) {
 	mover = "this.style.color='"+this.altColor+"'; this.style.background = '"+this.bgAltColor+"'; this.style.border='"+ overEffect +"'";
 	mout = "this.style.color='"+this.color+"'; this.style.background = '"+this.bgColor+"'; this.style.borderTop='" + normalTopEffect +"'; this.style.borderBottom='" + normalBottomEffect +"'; this.style.borderLeft='" + normalLeftEffect +"'; this.style.borderRight='" + normalRightEffect +"';"; 
 	mclick = "MCalMenu.activateItem(event, '"+this.menuId+"', "+num+");";
@@ -312,8 +337,8 @@ MCalMenu.prototype.__displayMenu = function(xinit, yinit, items) {
 	{ id:'onclick', val:mclick } ];
       
       // Draw menu in this.menuName element father...
-      mcalDrawRectAbsolute(this.menuId+'_item'+num, '', x, y, w, h, this.zIndex, '', true, itext, miattr, mistyle); 
-      y += h + (2*this.yBorder);
+      mcalDrawRectAbsolute(this.menuId+'_item'+num, '', x, y, w, h[m.type], this.zIndex, '', true, itext, miattr, mistyle); 
+      y += h[m.type] + (2*this.yBorder) + 2;
       
     }
   }

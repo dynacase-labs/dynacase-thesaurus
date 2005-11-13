@@ -35,6 +35,14 @@ html {background-color:#eeeeee}
      border-color: #FFF2DB;
      border-width: 1px;
   }
+  .dayhover {
+     text-align:center;
+     font-weight: bold;
+     background-color:orange;
+     border-style:  inset;
+     border-color: #FFF2DB;
+     border-width: 1px;
+  }
 
  .day0 { background-color:  #F8F1FB; }
  .day1 { background-color:  #F8F1FB; }
@@ -77,7 +85,7 @@ html {background-color:#eeeeee}
 <script type="text/javascript" src="/test/mcalendar.js"></script>
 </head>
 <body>
-<div id="calendarRoot" style="top:0px; left:0px; width:90%; height:90%; position:absolute"></div>
+<div id="calendarRoot" style="top:0px; left:0px; width:95%; height:90%; position:absolute"></div>
 <!-- div id="calendarRoot2" style="top:10px; left:450px; width:400px; height:400px; position:absolute"></div -->
 
 <script type="text/javascript">
@@ -91,12 +99,21 @@ html {background-color:#eeeeee}
       alert(ts);
     }
 
+  var menu = [
+    { id:'newevent', label:'Nouveau RV', desc:'Nouveau rendez-vous, heure courante', status:2, type:1,
+      icon:'mcalendar-new.gif', onmouse:'', amode:2, aevent:0, 
+      atarget:'', ascript:'mhandler', aevent:0 },
+    { id:'newevent', label:'RV toute la journée', desc:'Nouveau rendez-vous, toute la journée', status:2, type:1,
+      icon:'mcalendar-new.gif', onmouse:'', amode:2, aevent:0, 
+      atarget:'', ascript:'mhandler', aevent:0 },
+    ];
 
     var sm = [ 'mcalendar-rep.php?ts=%TS%&te=%TE%', 'mcalendar_detail.php?id=%EVID%' ];
-    var cal = new MCalendar('calendarRoot', sm);
 
-      cal.CalDaysCount = 7;
-      cal.CalHoursPerDay = 10;
+    var cal = new MCalendar('calendarRoot', sm, menu);
+
+    cal.CalDaysCount = 7;
+    cal.CalHoursPerDay = 10;
 
     cal.dayBaseCss = 'day';
     cal.dayCss = [ 'day0', 'day1' ];

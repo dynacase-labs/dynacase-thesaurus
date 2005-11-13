@@ -1,7 +1,7 @@
 // This source IS NOT DISTRIBUTED UNDER FREE LICENSE (like GPL or Artistic...)
 // For any usage -commercial, private or other- you have to pay Marc Claverie.
 
-function MCalendar(instance, server, tsparam, teparam) 
+function MCalendar(instance, server, hmenu, style) 
 {
   if (!document.__mcal) document.__mcal = new Array;
 
@@ -48,6 +48,7 @@ function MCalendar(instance, server, tsparam, teparam)
     this.debug = document.__mcal[instance].debug;
     this.lastGetDate = document.__mcal[instance].lastGetDate;
     this.lastRequest = document.__mcal[instance].lastRequest;
+    this.hMenu = document.__mcal[instance].lastRequest;
 
   } else {
 
@@ -63,7 +64,7 @@ function MCalendar(instance, server, tsparam, teparam)
     this.CalCtrlKeyClick = false;     // ctrl-click handler on calendar
     this.CalKTitleHourW = 35;         // Hours title width
     this.CalKTitleDayH = 20;          // Days title width
-    this.showTitleBar = true;
+    this.showTitleBar = false;
     this.showNavButton = true;
     this.Title = 'MCalendar (c) Marc &lt;marc.claverie (@) gmail.com&gt;';
     
@@ -103,6 +104,26 @@ function MCalendar(instance, server, tsparam, teparam)
     this.lastRequest = '';
     this.isComputed = false;
     this.debug = false; // true;
+
+    this.hMenu = hmenu;
+
+    if (style) this.style = style;
+    else {
+      this.style = new Object;
+      this.style.fontSize = '9';
+      this.style.fontFam  = 'Tahoma,Arial,Helvetica,sans-serif';
+      this.style.background = 'white';
+      this.style.foreground = 'black';
+      this.style.currentDayBackground = '#F2FFDB';
+      this.style.titleBackground = '#F1D998';
+      this.style.titleBackgroundOver = 'orange';
+      this.style.oddDayBackground = '#F8F1FB';
+      this.style.evenDayBackground = '#F8F1FB';
+      this.style.oddDayWEBackground = '#edeff7';
+      this.style.evenDayWEBackground = '#eff1f9';
+    }
+  
+  
 
     document.__mcal[this.CalRootElt] = this;
   }
@@ -168,22 +189,13 @@ MCalendar.prototype.Compute = function()
   if (this.CalHourWSize=='auto') this.CalHourWidth = Math.floor( (this.Dim.w-(this.CalKTitleHourW+(2*this.xborder))) / this.CalDisplayedDaysCount);
   else this.CalHourWidth = this.CalHourWSize;
   
-  var aattr = [ 
-    { id:'onclick', val:"if (event.shiftKey) alert('la grosse edition'); else if (event.ctrlKey) document.__mcal["+this.CalRootElt+"].ViewMessage(); else document.__mcal."+this.CalRootElt+".initNewEvent(event)" },
-      { id:'onmouseover', val:"" },
-      { id:'onmouseout', val:"" },
-  ];
-  var astyle = [
-    { id:'background-color', val:'' },
-    { id:'display', val:'' }  ];
-	  	
   mcalDrawRectAbsolute('__MCal'+this.CalRootElt, 
 			this.CalRootElt, 
 			this.Dim.x, 
 			this.Dim.y, 
 			this.Dim.w , 
 			this.Dim.h, 
-			1000, '', false, '', aattr, astyle);
+			1000, '', false, '', false, false);
   this.isComputed = true;
 
   return;
@@ -416,16 +428,52 @@ MCalendar.prototype.__display = function() {
 	
   if (!this.isComputed) this.Compute();
   
+  // System menus
+  var tmenu = [
+    { id:'title', label:'Calendrier', type:0 },
+    { id:'weekend', label:'show/hide we', desc:'display or undisplay week-end zone', status:2, type:1,
+      icon:'mcalendar-showhidewe.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.ShowHideWeekEnd();', aevent:0 },
+    { id:'sep0', type:2 },
+    { id:'nextperiod', label:'Avancer', desc:'Afficher la période suivante', status:2, type:1,
+      icon:'mcalendar-next.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoNextPeriod();', aevent:0 },
+    { id:'prevperiod', label:'Reculer', desc:'Afficher la période précédente', status:2, type:1,
+      icon:'mcalendar-prev.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoPrevPeriod();', aevent:0 },
+    { id:'currentperiod', label:'Revenir', desc:'Afficher la période initiale', status:2, type:1,
+      icon:'mcalendar-current.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoCurrentPeriod();', aevent:0 },
+    { id:'sep1', type:2 },
+    { id:'resize', label:'resize', desc:'resize calendar', status:2, type:1,
+      icon:'mcalendar-resize.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.Resize();', aevent:0 }
+    ];
+  var style = { bg:'#F8F1FB', fg:'black', tbg:'#F1D998', tfg:'black', abg:'#EAE9C1', afg:'black' };
+  var calmenu = new MCalMenu( '__gmenu', tmenu, style );
+  var hmenu = false;
+  if (this.hMenu) hmenu = new MCalMenu('__ghmenu' , this.hMenu, style );
+
+
   var ip;
-  var dclass = '';
   var eltn = '';
   var cx, cy, cw, ch;
   var idh, ida;
-  var dayXPos = 0;
+  var dayXPos = 1;
   var dayOfWeek = -1;
   var totalW = 0; 
   var hide = false;
  
+  var style = [ 
+    { id:'cursor', val:'pointer' },
+    { id:'font-size', val: parseInt(this.style.fontSize) },
+    { id:'font-family', val: this.style.fontFam },
+    { id:'position', val: 'absolute' },
+    { id:'border-style', val: 'outset' },
+    { id:'border-width', val: '1px' },
+    { id:'border-color', val: this.style.currentDayBackground },
+    ];
+
   for (ida=0; ida<this.CalDaysCount+1; ida++) {
     if (ida>0) {
       ip = ida-1;
@@ -447,46 +495,43 @@ MCalendar.prototype.__display = function() {
       dayOfWeek = -1;
     }
     
-    if (ida==0) {
-      dayXPos = (hide?0:1);
-      cw = (hide?0:this.CalKTitleHourW);
-    } else if (ida==1) {
-      dayXPos += (hide?0:this.CalKTitleHourW+(2*this.xborder));
-      cw = (hide?0:this.CalHourWidth);
-    } else {
-      dayXPos += (hide?0:this.CalHourWidth + (2*this.xborder));
-      cw = (hide?0:this.CalHourWidth);
-    }
+    if (ida==0) cw = this.CalKTitleHourW;
+    else cw = (hide?0:this.CalHourWidth);
 
     for (idh=0; idh<(this.CalHoursPerDay+3); idh++) {
-      dclass = this.dayBaseCss;
-      if (ida>0 && (idh==1 || idh==(this.CalHoursPerDay+2))) 
-	dclass += " "+this.daynhCss;
-      else if (ida==0 || idh==0) 
-	dclass += " "+this.dayTitleCss;
-      else if (ida>0 && (this.CalPeriod[ip].ds.toLocaleDateString() == today.toLocaleDateString())) 
-	dclass += " "+this.dayCurrentCss;
-      else if ((dayOfWeek==6 || dayOfWeek==0) && ida!=0)  
-	dclass += " "+this.dayWeekEndCss[(ida%2)];
-      else 
-	dclass += ' '+this.dayCss[(ida%2)];
       
       idel = 'd'+ida+'h'+idh;
-      eltn = '';
+      eltn = '' ;
       if (ida==0 && idh==0) {
 	if (this.showNavButton) {
-	  eltn = '<img width="10" title="" src="mcalendar-prev.png" onclick="document.__mcal.'+this.CalRootElt+'.gotoPrevPeriod();" style="border:0; cursor:pointer">';
-	  eltn += '<img width="10" title="" src="mcalendar-current.png" onclick="document.__mcal.'+this.CalRootElt+'.gotoCurrentPeriod();" style="border:0; cursor:pointer">';
-	  eltn += '<img width="10" title="" src="mcalendar-next.png" onclick="document.__mcal.'+this.CalRootElt+'.gotoNextPeriod();" style="border:0; cursor:pointer">';
+ 	  eltn += '<img width="16" title="" src="mcalendar-gmenu.png">';
 	} else {
 	  eltn = '';
 	}
       }
+
+      // Set style
+      if (ida==0 || idh==0) {
+	style[style.length] = { id:'background-color', val:this.style.titleBackground };
+	style[style.length] = { id:'text-align', val:'center' };
+	style[style.length] = { id:'font-weight', val:'bold' };
+      } else {
+	if (dayOfWeek==6 || dayOfWeek==0) {
+	  if ((ida%2)==0) style[style.length] = { id:'background-color', val:this.style.evenDayWEBackground };
+	  else style[style.length] = { id:'background-color', val:this.style.oddDayWEBackground };
+	} else {
+	  if ((ida%2)==0) style[style.length] = { id:'background-color', val:this.style.evenDayBackground };
+	  else style[style.length] = { id:'background-color', val:this.style.oddDayBackground };
+	}
+      }
+	
+
       if (ida>0 && idh==0) {
 	  eltn += this.CalGetDayOfWeekLabel(this.CalPeriod[ip].ds.getDay())
 	    +     ' ' + this.CalPeriod[ip].ds.getDate()
-	    +     ' ' + this.CalGetMonthLabel(this.CalPeriod[ip].ds.getMonth())
-	    }
+	    +     ' ' + this.CalGetMonthLabel(this.CalPeriod[ip].ds.getMonth());
+      }
+      
       if (ida==0 && idh>1 && idh<=this.CalHoursPerDay+1) eltn += this.CalDayStartHour + (idh-2)+ 'h00';    
       if (ida>0) {
 	var title = this.CalPeriod[ip].ds.toLocaleDateString() 
@@ -502,9 +547,20 @@ MCalendar.prototype.__display = function() {
 	ch = this.CalHourHeight;
       }
       
-      var attr = [ { id:'title', val:title } ];
-      mcalDrawRectAbsolute(idel, this.CalRootElt, dayXPos,cy,cw,ch, 500, dclass, (hide?false:true), eltn, attr);
+      var attr = [ 
+	{ id:'title', val:title },
+ 	{ id:'onmouseover', val:"document.getElementById('d"+ida+"h"+idh+"').style.border = '1px inset "+this.style.currentDayBackground+"'; document.getElementById('d0h"+idh+"').style.backgroundColor = '"+this.style.titleBackgroundOver+"'; document.getElementById('d"+ida+"h0').style.backgroundColor = '"+this.style.titleBackgroundOver+"';" },
+ 	{ id:'onmouseout', val:"document.getElementById('d"+ida+"h"+idh+"').style.border = '1px outset "+this.style.currentDayBackground+"'; document.getElementById('d0h"+idh+"').style.backgroundColor = '"+this.style.titleBackground+"'; document.getElementById('d"+ida+"h0').style.backgroundColor = '"+this.style.titleBackground+"';" },
+	];
+      mcalDrawRectAbsolute(idel, this.CalRootElt, dayXPos,cy,cw,ch, 500, '', (hide?false:true), eltn, attr, style);
+      if (ida==0 && idh==0) 
+	calmenu.attachToElt( idel, [ 0 ], 'click', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
+      else if (ida==0 || idh==0)
+	calmenu.attachToElt( idel, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
+      else 
+	hmenu.attachToElt( idel, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0, (this.CalPeriod[ip].ds.getTime() + (idh-2)*3600*1000), (this.CalPeriod[ip].ds.getTime() + (idh-1)*3600*1000) ]);
     }
+    if (!hide) dayXPos += cw;
   }  
   if (this.showTitleBar) this.__drawTitleBar();
 
@@ -562,11 +618,6 @@ MCalendar.prototype.__printEvent = function(iev)
   +     '\t\tDate = '+this.sDT(de)+' ('+this.TEvent[iev].time+')<br>'
   +     '\t\tDuree = '+this.TEvent[iev].duration+'<br>'
   +     '\t\tMode d\'affichage = '+this.TEvent[iev].mode+'<br>';
-  // var menu = this.TEvent[iev].a;
-  // for (var ix=0; ix<menu.length; ix++) {
-            //maccesst[maccesst.length] = { def:defaultv, typ:type, lab:label, tar:target, act:action };
-    // pev += '\t\t [menu='+menu[ix].lab+' ['+menu[ix].def+'] '+menu[ix].act+' ('+menu[ix].type+') --> '+menu[ix].tar+']\n';
-  // } 
   pev += '}';
   mcalShowTrace(pev);
 }
@@ -826,7 +877,6 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
 			evAttr, evStyle);
   
   if (usemenu) {
-//     if (!document.getElementById(this.TEvent[evRef].menu.ref)) this.menus[this.TEvent[evRef].menu.ref].create();
     this.menus[this.TEvent[evRef].menu.ref].attachToElt( this.TEventElt[mode][ie].id,
 							 this.TEvent[evRef].menu.use,
 							 'contextmenu',
@@ -1207,7 +1257,10 @@ MCalendar.GHandler  = function(event, mode, type, action, target, hmode, hparam)
   var eid = hparam[1]
   var eidcard = hparam[2]
 
-  MCalendar.UserHandler(event, calendar, eid, eidcard, mode, action, target);
+  var oparam = new Array;
+  for (var ip=3; ip<hparam.length; ip++) oparam[oparam.length] = hparam[ip];
+
+  MCalendar.UserHandler(event, calendar, eid, eidcard, mode, action, target, oparam);
   MCalendar.SystemHandler(event, calendar, eid, type);
   return;
 }
@@ -1232,7 +1285,7 @@ MCalendar.SystemHandler  = function(event, calendar, eid, type ) {
     
 }
 
-MCalendar.UserHandler = function(event, calendar, eid, eidcard, type, action, target ) {
+  MCalendar.UserHandler = function(event, calendar, eid, eidcard, type, action, target, oparam ) {
   if (!action && action=='') return false;
   var pscript = mcalParseReq(action, [ 'ECAL', 'EID', 'EICARD' ], [ calendar, eid, eidcard ] );
   switch (parseInt(type)) {
@@ -1247,7 +1300,7 @@ MCalendar.UserHandler = function(event, calendar, eid, eidcard, type, action, ta
     break;
 
   case 2: // JS function call with standard arguments : event, calendar and id
-    eval(pscript)(event, calendar, eid, eidcard);
+    eval(pscript)(event, calendar, eid, eidcard, oparam);
     break;
 
   case 3: // Full user spec JS function call
