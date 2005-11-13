@@ -196,6 +196,32 @@ MCalendar.prototype.Compute = function()
 			this.Dim.w , 
 			this.Dim.h, 
 			1000, '', false, '', false, false);
+  // System menus
+  var tmenu = [
+    { id:'title', label:'Calendrier', type:0 },
+    { id:'weekend', label:'show/hide we', desc:'display or undisplay week-end zone', status:2, type:1,
+      icon:'mcalendar-showhidewe.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.ShowHideWeekEnd();', aevent:0 },
+    { id:'sep0', type:2 },
+    { id:'nextperiod', label:'Avancer', desc:'Afficher la période suivante', status:2, type:1,
+      icon:'mcalendar-next.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoNextPeriod();', aevent:0 },
+    { id:'prevperiod', label:'Reculer', desc:'Afficher la période précédente', status:2, type:1,
+      icon:'mcalendar-prev.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoPrevPeriod();', aevent:0 },
+    { id:'currentperiod', label:'Revenir', desc:'Afficher la période initiale', status:2, type:1,
+      icon:'mcalendar-current.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoCurrentPeriod();', aevent:0 },
+    { id:'sep1', type:2 },
+    { id:'resize', label:'resize', desc:'resize calendar', status:2, type:1,
+      icon:'mcalendar-resize.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.Resize();', aevent:0 }
+    ];
+  var style = { bg:'#F8F1FB', fg:'black', tbg:'#F1D998', tfg:'black', abg:'#EAE9C1', afg:'black' };
+  this.calmenu = new MCalMenu( '__gmenu', tmenu, style );
+  this.hourmenu = false;
+  if (this.hMenu) this.hourmenu = new MCalMenu('__ghmenu' , this.hMenu, style );
+
   this.isComputed = true;
 
   return;
@@ -428,32 +454,6 @@ MCalendar.prototype.__display = function() {
 	
   if (!this.isComputed) this.Compute();
   
-  // System menus
-  var tmenu = [
-    { id:'title', label:'Calendrier', type:0 },
-    { id:'weekend', label:'show/hide we', desc:'display or undisplay week-end zone', status:2, type:1,
-      icon:'mcalendar-showhidewe.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.ShowHideWeekEnd();', aevent:0 },
-    { id:'sep0', type:2 },
-    { id:'nextperiod', label:'Avancer', desc:'Afficher la période suivante', status:2, type:1,
-      icon:'mcalendar-next.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoNextPeriod();', aevent:0 },
-    { id:'prevperiod', label:'Reculer', desc:'Afficher la période précédente', status:2, type:1,
-      icon:'mcalendar-prev.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoPrevPeriod();', aevent:0 },
-    { id:'currentperiod', label:'Revenir', desc:'Afficher la période initiale', status:2, type:1,
-      icon:'mcalendar-current.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoCurrentPeriod();', aevent:0 },
-    { id:'sep1', type:2 },
-    { id:'resize', label:'resize', desc:'resize calendar', status:2, type:1,
-      icon:'mcalendar-resize.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.Resize();', aevent:0 }
-    ];
-  var style = { bg:'#F8F1FB', fg:'black', tbg:'#F1D998', tfg:'black', abg:'#EAE9C1', afg:'black' };
-  var calmenu = new MCalMenu( '__gmenu', tmenu, style );
-  var hmenu = false;
-  if (this.hMenu) hmenu = new MCalMenu('__ghmenu' , this.hMenu, style );
-
 
   var ip;
   var eltn = '';
@@ -549,11 +549,11 @@ MCalendar.prototype.__display = function() {
 	];
       mcalDrawRectAbsolute(idel, this.CalRootElt, dayXPos,cy,cw,ch, 500, '', (hide?false:true), eltn, attr, style);
       if (ida==0 && idh==0) 
-	calmenu.attachToElt( idel, [ 0 ], 'click', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
+	this.calmenu.attachToElt( idel, [ 0 ], 'click', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
       else if (ida==0 || idh==0)
-	calmenu.attachToElt( idel, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
+	this.calmenu.attachToElt( idel, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
       else 
-	hmenu.attachToElt( idel, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0, (this.CalPeriod[ip].ds.getTime() + (idh-2)*3600*1000), (this.CalPeriod[ip].ds.getTime() + (idh-1)*3600*1000) ]);
+	if (this.hourmenu) this.hourmenu.attachToElt( idel, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0, (this.CalPeriod[ip].ds.getTime() + (idh-2)*3600*1000), (this.CalPeriod[ip].ds.getTime() + (idh-1)*3600*1000) ]);
     }
     if (!hide) dayXPos += cw;
   }  
