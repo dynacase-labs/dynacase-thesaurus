@@ -502,12 +502,8 @@ MCalendar.prototype.__display = function() {
       
       idel = 'd'+ida+'h'+idh;
       eltn = '' ;
-      if (ida==0 && idh==0) {
-	if (this.showNavButton) {
- 	  eltn += '<img width="16" title="" src="mcalendar-gmenu.png">';
-	} else {
-	  eltn = '';
-	}
+      if (this.showNavButton) {
+	if (ida==0 && idh==0) eltn += '<img width="16" title="" src="mcalendar-gmenu.png">';
       }
 
       // Set style
@@ -540,15 +536,14 @@ MCalendar.prototype.__display = function() {
       }
       
       if (idh==0) {
-	cy = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder)+1:0);
+	cy = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder)+1:1);
 	ch = this.CalKTitleDayH;
       } else {
-	cy = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder):0) + (this.CalKTitleDayH+(2*this.yborder)) + ((idh-1) * (this.CalHourHeight+(2*this.yborder)));
+	cy = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder):1) + (this.CalKTitleDayH+(2*this.yborder)) + ((idh-1) * (this.CalHourHeight+(2*this.yborder)));
 	ch = this.CalHourHeight;
       }
       
       var attr = [ 
-	{ id:'title', val:title },
  	{ id:'onmouseover', val:"document.getElementById('d"+ida+"h"+idh+"').style.border = '1px inset "+this.style.currentDayBackground+"'; document.getElementById('d0h"+idh+"').style.backgroundColor = '"+this.style.titleBackgroundOver+"'; document.getElementById('d"+ida+"h0').style.backgroundColor = '"+this.style.titleBackgroundOver+"';" },
  	{ id:'onmouseout', val:"document.getElementById('d"+ida+"h"+idh+"').style.border = '1px outset "+this.style.currentDayBackground+"'; document.getElementById('d0h"+idh+"').style.backgroundColor = '"+this.style.titleBackground+"'; document.getElementById('d"+ida+"h0').style.backgroundColor = '"+this.style.titleBackground+"';" },
 	];

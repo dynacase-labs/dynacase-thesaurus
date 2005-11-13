@@ -18,38 +18,6 @@ html {background-color:#eeeeee}
     border-width: 0px;
   }
 
-  .day {
-     background-color:white;
-     font-size:9px;
-     position : relative;
-     border-style:  outset;
-     border-color: #FFF2DB; 
-     border-width: 1px;
-  }
-
-  .dayh {
-     text-align:center;
-     font-weight: bold;
-     background-color:#F1D998;
-     border-style:  outset;
-     border-color: #FFF2DB;
-     border-width: 1px;
-  }
-  .dayhover {
-     text-align:center;
-     font-weight: bold;
-     background-color:orange;
-     border-style:  inset;
-     border-color: #FFF2DB;
-     border-width: 1px;
-  }
-
- .day0 { background-color:  #F8F1FB; }
- .day1 { background-color:  #F8F1FB; }
- .dayc { background-color:  #F2FFDB; }
- .daynh { background-color: #EAE9C1; }
- .daywe0 { background-color: #edeff7; }
- .daywe1 { background-color: #eff1f9; }
 
  .inputzone {
     background-color:white;
