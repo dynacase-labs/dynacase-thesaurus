@@ -1,7 +1,7 @@
 // This source IS NOT DISTRIBUTED UNDER FREE LICENSE (like GPL or Artistic...)
 // For any usage -commercial, private or other- you have to pay Marc Claverie.
 
-function MCalendar(instance, server, hmenu, style) 
+function MCalendar(instance, serverAction, hmenu, style) 
 {
   if (!document.__mcal) document.__mcal = new Array;
 
@@ -21,9 +21,9 @@ function MCalendar(instance, server, hmenu, style)
     this.showTitleBar = document.__mcal[instance].showTitleBar;
     this.showNavButton = document.__mcal[instance].showNavButton;
     this.Title = document.__mcal[instance].Title;
+
     this.serverMethod = document.__mcal[instance].serverMethod;
-    this.serverMethod['allevents'] = document.__mcal[instance].serverMethod['allevents'];
-    this.serverMethod['evdetail'] = document.__mcal[instance].serverMethod['evdetail'];
+
     this.dayCss = document.__mcal[instance].dayCss;
     this.dayCurrentCss = document.__mcal[instance].dayCurrentCss;
     this.dayWeekEndCss = document.__mcal[instance].dayWeekEndCss;
@@ -68,10 +68,13 @@ function MCalendar(instance, server, hmenu, style)
     this.showNavButton = true;
     this.Title = 'MCalendar (c) Marc &lt;marc.claverie (@) gmail.com&gt;';
     
-    
     this.serverMethod = Array();
-    this.serverMethod['allevents'] = server[0];
-    this.serverMethod['evdetail'] = server[1];
+    var ok = false;
+    if (serverAction) {
+      for (var ia=0; ia<serverAction.length; ia++) {
+	this.serverMethod[serverAction[ia].id] = serverAction[ia].request;
+      }
+    }
     
     this.dayCss = '';
     this.dayCurrentCss = '';
@@ -229,7 +232,7 @@ MCalendar.prototype.Compute = function()
 
 MCalendar.prototype.__getEvents = function() 
 {
-  if (!this.serverMethod['allevents']) return;
+  if (!this.serverMethod['getevents']) return;
   var rq;
   try {
     rq = new XMLHttpRequest();
@@ -373,8 +376,13 @@ MCalendar.prototype.__getEvents = function()
 	  }
 	  var hcontent = content.getElements('chtml')[0];
 	  tcontent = hcontent.getUnderlyingXMLText();
-
-          instance.AddEvent(id, idcard, rid, dmode, parseInt(etime*1000), parseInt(duration*1000), title[0].getText(), tcontent, vstyles, evmenu);
+	  var tcontent2 = hcontent.getElements();
+	  scontent = '';
+	  for (var iet=0; iet<tcontent2.length; iet++) {
+	    scontent += tcontent2[iet].getUnderlyingXMLText();
+	  }
+          instance.AddEvent(id, idcard, rid, dmode, parseInt(etime*1000), parseInt(duration*1000), 
+			    title[0].getText(), scontent, vstyles, evmenu);
 	}
 	instance.__hideMessage();
         if (instance.TEvent.length>0) instance.__displayEvents();
@@ -382,7 +390,7 @@ MCalendar.prototype.__getEvents = function()
         instance.__hideMessage();
         var zTs = Math.round(instance.CalPeriod[0].ds.getTime()/1000);
         var zTe = Math.round(instance.CalPeriod[(instance.CalPeriod.length-1)].de.getTime()/1000);
-        mcalShowError("Can't get serveur response (XML datas) ["+rq.statusText+"]<br>Http request = "+this.serverMethod['allevents']);
+        mcalShowError("Can't get serveur response (XML datas) ["+rq.statusText+"]<br>Http request = "+this.serverMethod['getevents']);
       }
     }
   }
@@ -391,12 +399,12 @@ MCalendar.prototype.__getEvents = function()
   var zTe = Math.round(this.CalPeriod[(this.CalPeriod.length-1)].de.getTime()/1000);
   var dld = new Date;
   var ldate = this.lastGetDate;
-  if (this.serverMethod['allevents']!=this.lastRequest) ldate=0;
-  var serverreq = mcalParseReq( this.serverMethod['allevents'], [ 'TS', 'TE', 'LR' ], [ zTs, zTe, ldate ]);
-  this.lastRequest = this.serverMethod['allevents'];
+  if (this.serverMethod['getevents']!=this.lastRequest) ldate=0;
+  var serverreq = mcalParseReq( this.serverMethod['getevents'], [ 'TS', 'TE', 'LR' ], [ zTs, zTe, ldate ]);
+  this.lastRequest = this.serverMethod['getevents'];
   this.lastGetDate = Math.floor(dld.getTime()/1000);
   debugs += 'request=['+this.lastRequest+'] last date=['+ldate+'])';
-  this.__showMessage('<img style="vertical-align:middle; border:0; height:15" src="mcalendar-waitserver.gif">&nbsp;<span style="vertical-align:middle;">Interrogation du serveur...'+debugs+'</span>');
+  MCalendar.__waitingServer();
   rq.open("GET", serverreq, true);
   rq.send(null);
 }
@@ -415,11 +423,11 @@ MCalendar.prototype.__drawTitleBar = function()
 }
 
 
-MCalendar.prototype.__showMessage = function(info) {
-  if (this.debug) {
-    var dt = new Date()
-    this.start = dt.getTime();
-  }
+MCalendar.__waitingServer = function() {
+  MCalendar.__showMessage('<img style="vertical-align:middle; border:0; height:15" src="mcalendar-waitserver.gif">&nbsp;<span style="vertical-align:middle;">Interrogation du serveur...</span>');
+}
+
+MCalendar.__showMessage = function(info) {
   var style = [
      { id:'overflow', val:'hidden' },
      { id:'margin', val:'1px' },
@@ -463,16 +471,7 @@ MCalendar.prototype.__display = function() {
   var dayOfWeek = -1;
   var totalW = 0; 
   var hide = false;
- 
-  var style = [ 
-    { id:'cursor', val:'pointer' },
-    { id:'font-size', val: parseInt(this.style.fontSize) },
-    { id:'font-family', val: this.style.fontFam },
-    { id:'position', val: 'absolute' },
-    { id:'border-style', val: 'outset' },
-    { id:'border-width', val: '1px' },
-    { id:'border-color', val: this.style.currentDayBackground },
-    ];
+  var style = new Array;
 
   for (ida=0; ida<this.CalDaysCount+1; ida++) {
     if (ida>0) {
@@ -500,6 +499,15 @@ MCalendar.prototype.__display = function() {
 
     for (idh=0; idh<(this.CalHoursPerDay+3); idh++) {
       
+      style = [ 
+	  { id:'cursor', val:'pointer' },
+	  { id:'font-size', val: parseInt(this.style.fontSize) },
+	  { id:'font-family', val: this.style.fontFam },
+	  { id:'position', val: 'absolute' },
+	  { id:'border-style', val: 'outset' },
+	  { id:'border-width', val: '1px' },
+	  { id:'border-color', val: this.style.currentDayBackground },
+	  ];
       idel = 'd'+ida+'h'+idh;
       eltn = '' ;
       if (this.showNavButton) {
@@ -515,13 +523,14 @@ MCalendar.prototype.__display = function() {
 	if (dayOfWeek==6 || dayOfWeek==0) {
 	  if ((ida%2)==0) style[style.length] = { id:'background-color', val:this.style.evenDayWEBackground };
 	  else style[style.length] = { id:'background-color', val:this.style.oddDayWEBackground };
+	}  else if (ida>0 && (this.CalPeriod[ip].ds.toLocaleDateString() == today.toLocaleDateString())) {
+	  style[style.length] = { id:'background-color', val:this.style.currentDayBackground };
 	} else {
 	  if ((ida%2)==0) style[style.length] = { id:'background-color', val:this.style.evenDayBackground };
 	  else style[style.length] = { id:'background-color', val:this.style.oddDayBackground };
 	}
       }
 	
-
       if (ida>0 && idh==0) {
 	  eltn += this.CalGetDayOfWeekLabel(this.CalPeriod[ip].ds.getDay())
 	    +     ' ' + this.CalPeriod[ip].ds.getDate()
@@ -538,6 +547,9 @@ MCalendar.prototype.__display = function() {
       if (idh==0) {
 	cy = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder)+1:1);
 	ch = this.CalKTitleDayH;
+	if (ida>0 && (this.CalPeriod[(ida-1)].ds.toLocaleDateString() == today.toLocaleDateString())) {
+	  style[style.length] = { id:'text-decoration', val:'underline' };
+	} 
       } else {
 	cy = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder):1) + (this.CalKTitleDayH+(2*this.yborder)) + ((idh-1) * (this.CalHourHeight+(2*this.yborder)));
 	ch = this.CalHourHeight;
@@ -1012,8 +1024,8 @@ MCalendar.prototype.__showDetail = function(event, idev, ridev) {
 	}
       }
     }
-    this.__showMessage('<img style="vertical-align:middle; border:0; height:15" src="mcalendar-waitserver.gif">&nbsp;<span style="vertical-align:middle;">Interrogation du serveur...</span>');
-    var serverreq = mcalParseReq( this.serverMethod['evdetail'], [ 'EVID' ], [ idev ]);
+    MCalendar.__waitingServer();
+    var serverreq = mcalParseReq( this.serverMethod['eventcard'], [ 'EVID' ], [ idev ]);
     rq.open("GET", serverreq, true);
     rq.send(null);
   }

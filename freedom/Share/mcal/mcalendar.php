@@ -67,7 +67,7 @@ html {background-color:#eeeeee}
       alert(ts);
     }
 
-  var menu = [
+var menu = [
     { id:'newevent', label:'Nouveau RV', desc:'Nouveau rendez-vous, heure courante', status:2, type:1,
       icon:'mcalendar-new.gif', onmouse:'', amode:2, aevent:0, 
       atarget:'', ascript:'mhandler', aevent:0 },
@@ -76,7 +76,12 @@ html {background-color:#eeeeee}
       atarget:'', ascript:'mhandler', aevent:0 },
     ];
 
-    var sm = [ 'mcalendar-rep.php?ts=%TS%&te=%TE%', 'mcalendar_detail.php?id=%EVID%' ];
+var sm = [ 
+    { id:'getevents', request:'mcalendar-rep.php?ts=%TS%&te=%TE%&' },
+    { id:'geteventsdiff', request:'mcalendar-rep.php?ts=%TS%&te=%TE%&lr=%LR%' },
+    { id:'eventresume', request:'mcalendar_resume.php?id=%EVID%' },
+    { id:'eventcard', request:'mcalendar_detail.php?id=%EVID%' },
+    ];
 
     var cal = new MCalendar('calendarRoot', sm, menu);
 
