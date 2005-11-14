@@ -9,7 +9,7 @@ Alias /whatsync @prefix@/osync
     DirectoryIndex  index.php
     ErrorDocument 401 /what/expire/tryexpire.html
     AuthType Basic
-    AuthName 'WHAT Connection'
+    AuthName 'FREEDOM Connection'
     AuthPAM_Enabled  on
     AuthPAM_FallThrough off
     AuthPAM_Service httpd
