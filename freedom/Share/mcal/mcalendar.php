@@ -42,15 +42,20 @@ html {background-color:#eeeeee}
     overflow : hidden;
   }
 </style>
-<script type="text/javascript" src="/test/jslib/geometry.js"></script>
-<script type="text/javascript" src="/test/jslib/DHTMLapi.js"></script>
-<script type="text/javascript" src="/test/jslib/AnchorPosition.js"></script>
 
-<script type="text/javascript" src="/test/jslib/jsXMLParser/xmldom.js"></script>
+<?php
+$rwhat = '/what/WHAT/Layout/';
+echo '
+<script type="text/javascript" src="'.$rwhat.'geometry.js"></script>
+<script type="text/javascript" src="'.$rwhat.'DHTMLapi.js"></script>
+<script type="text/javascript" src="'.$rwhat.'AnchorPosition.js"></script>
+<script type="text/javascript" src="'.$rmcal.'xmldom.js"></script>
+<script type="text/javascript" src="'.$rmcal.'/test/mcallib.js"></script>
+<script type="text/javascript" src="'.$rmcal.'/test/mcalmenu.js"></script>
+<script type="text/javascript" src="'.$rmcal.'/test/mcalendar.js"></script>
+';
+?>
 
-<script type="text/javascript" src="/test/mcallib.js"></script>
-<script type="text/javascript" src="/test/mcalmenu.js"></script>
-<script type="text/javascript" src="/test/mcalendar.js"></script>
 </head>
 <body>
 <div id="calendarRoot" style="top:0px; left:0px; width:95%; height:90%; position:absolute"></div>
