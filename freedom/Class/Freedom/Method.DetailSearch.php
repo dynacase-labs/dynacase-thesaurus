@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.40 2005/10/28 15:14:12 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.41 2005/11/14 13:34:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -108,7 +108,7 @@ function getSqlDetailFilter() {
       $this->modify();
     }
   }
-
+  if ($ol == "") $ol="and";
   $cond="";
   if ((count($taid) > 1) || ($taid[0] != "")) {
     // special loop for revdate
