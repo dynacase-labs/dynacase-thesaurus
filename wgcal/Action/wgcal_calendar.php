@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.57 2005/09/21 16:44:31 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.58 2005/11/14 13:01:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -54,7 +54,7 @@ function wgcal_calendar(&$action) {
     $IsRV = ($v["FIDP"]==getIdFromName($dbaccess,"CALEVENT") ? true : false);
     $d = new_Doc($dbaccess, $v["IDP"]);  
     $tout[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
-    $tout[$k]["EvRCard"] = $d->viewDoc($d->defaultabstract);
+    $tout[$k]["EvRCard"] = $d->viewDoc(($d->defaultabstract=="FDL:VIEWABSTRACTCARD")?"FDL:VIEWTHUMBCARD":$d->defaultabstract);
     if ($IsRV) {
       $tout[$k]["vRv"] = true;
       $tout[$k]["edit"] = ($d->Control("edit")==""?true:false);

@@ -1,18 +1,31 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.22 2005/10/17 09:06:50 marc Exp $
+#  $Id: WGCAL.spec.in,v 1.23 2005/11/14 13:01:53 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
 
+%define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+%if %{cerbere}
 %define destdir /home/httpd/what
+%define httpuser http
+%define apacheconfdir /etc/httpd/httpd.conf
+%else
+%define destdir /usr/share/what
+%define apacheconfdir /etc/httpd/conf.d
+%define httpuser apache
+%endif
 
 Summary: The Freedom Workgroup Calendar
 Name: @PACKAGE@
 Version: @VERSION@
+%if %{cerbere}
 Release: @RELEASE@
+%else
+Release: @RELEASE@fc
+%endif
 License: GPL
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -35,10 +48,13 @@ The Freedom Workgroup Calendar
 
 %install
 autoconf
-./configure --with-pubrule=`pwd`
+./configure  --with-pubrule=`pwd` \
+	     --with-httpuser=%{httpuser} \
+	     --with-apacheconfdir=%{apacheconfdir} \
+	     --prefix=%{destdir}
 make  pubdir=$RPM_BUILD_ROOT%{destdir} 
-install -d $RPM_BUILD_ROOT/etc/httpd/httpd.conf
-install  $RPM_BUILD_ROOT/%{destdir}/%{name}/73_mod_wgcalosync.conf $RPM_BUILD_ROOT/etc/httpd/httpd.conf/73_mod_wgcalosync.conf
+install -d $RPM_BUILD_ROOT/%{apacheconfdir}
+install  $RPM_BUILD_ROOT/%{destdir}/%{name}/73_mod_wgcalosync.conf $RPM_BUILD_ROOT/%{apacheconfdir}/73_mod_wgcalosync.conf
 
 
 %clean
@@ -53,20 +69,19 @@ cd %{destdir}/EXTERNALS
 ln -sf ../@PACKAGE@/*external.php .
 cd %{destdir}/API
 ln -sf ../@PACKAGE@/wgcal_alert.php .
-cd -
+cd - > /dev/null
 
 
 
 
 %preun
 %postun
-%{destdir}/wstop
 
 
 
 %files
 
-%defattr(-,root,root)
+%defattr(-,%{httpuser},%{httpuser})
 
 %dir %{destdir}/%{name}
 %{destdir}/%{name}/*
@@ -80,12 +95,12 @@ cd -
 
 %{destdir}/locale/*
 
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/httpd/httpd.conf/73_mod_wgcalosync.conf
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{apacheconfdir}/73_mod_wgcalosync.conf
 
-/home/httpd/what/API/migr_wcal_to_ngcal.php
-   /home/httpd/what/API/migrcal1.sql
-   /home/httpd/what/API/migrcal2.sql
-   /home/httpd/what/API/migrcal3.sql
+%{destdir}/API/migr_wcal_to_ngcal.php
+%{destdir}/API/migrcal1.sql
+%{destdir}/API/migrcal2.sql
+%{destdir}/API/migrcal3.sql
 
 
 

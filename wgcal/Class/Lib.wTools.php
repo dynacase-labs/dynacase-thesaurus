@@ -308,7 +308,7 @@ function wgcalGetRessourcesMatrix($ev) {
 
 
 
-function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM_CAL") {
+function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
 
   include_once("WGCAL/Lib.WGCal.php");
   global $action;
@@ -318,6 +318,8 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
   $qev = GetHttpVars("qev", getIdFromName($dbaccess,"WG_AGENDA"));
 
   $fl =  $action->getParam("WGCAL_G_VFAM", "CALEVENT");
+
+
   $famr = GetHttpVars("famref", $fl);
   $famrt = explode("|", $famr);
   $fti = array();
@@ -325,6 +327,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
     $fti[] = (is_int($v) ? $v : getIdFromName($dbaccess, chop($v)));
   }
   $idfamref = implode("|", $fti);
+  if ($idfamref=="") $idfamref=" ";
   setHttpVar("idfamref", $idfamref);
 
   // Init the ressources

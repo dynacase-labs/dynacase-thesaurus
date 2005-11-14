@@ -29,7 +29,7 @@ function MonAgenda()
       $cal->setValue("agd_omain", 1);
 
       $cal->setValue("se_famid", getFamIdFromName($dbaccess, "EVENT_FROM_CAL"));
-      $cal->setValue("se_ols", array( "and", "and"));
+      $cal->setValue("se_ol", "and");
       $cal->setValue("se_attrids", array( "evt_idres", "evt_frominitiatorid"));
       $cal->setValue("se_funcs", array( '~y', '~*' ));
       $cal->setValue("se_keys", array( $fid, getFamIdFromName($dbaccess, "CALEVENT") ));

@@ -16,6 +16,8 @@ if [ "$1" = "U" ] ; then
 
   $pubdir/wsh.php --api=freedom_import --file=$pubdir/WGCAL/wgcal.csv
   
+  $pubdir/wsh --api=wgcal_initpubuser
+  $pubdir/wsh --api=freedom_refresh --famid=CALEVENT --method=APISetAccess
 
 fi
 
