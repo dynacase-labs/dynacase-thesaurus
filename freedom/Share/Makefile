@@ -1,8 +1,8 @@
 # ============================================
-# $Id: Makefile,v 1.5 2005/09/09 06:56:13 eric Exp $
+# $Id: Makefile,v 1.6 2005/11/14 11:15:48 marc Exp $
 # ============================================
 
-SUBDIR= htmlarea jscalendar
+SUBDIR= htmlarea jscalendar mcal jsXMLParser
 appname=$(applib)
 
 include $(utildir)/PubRule
