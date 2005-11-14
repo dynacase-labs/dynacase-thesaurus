@@ -1,3 +1,7 @@
 #!/bin/bash
-pubdir="/home/httpd/what";
-echo "UPDATE doc34 SET evt_icon = evt_frominitiatoricon;" | psql freedom anakeen
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
+echo "UPDATE doc34 SET evt_icon = evt_frominitiatoricon;" | psql $dbfree

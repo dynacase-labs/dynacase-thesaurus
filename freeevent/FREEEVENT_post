@@ -1,7 +1,10 @@
 #!/bin/bash
 
-pubdir="/home/httpd/what";
-
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 #------------------------------
 #post installation
 #------------------------------
@@ -14,7 +17,7 @@ fi
 #------------------------------
 if [ "$1" = "U" ] ; then
 
-  $pubdir/wsh.php --api=freedom_import --file=$pubdir/FREEEVENT/freeevent.csv
+  $wpub/wsh.php --api=freedom_import --file=$wpub/FREEEVENT/freeevent.csv
   
 
 fi

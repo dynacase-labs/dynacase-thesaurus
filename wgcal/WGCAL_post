@@ -1,6 +1,9 @@
 #!/bin/bash
-
-pubdir="/home/httpd/what";
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 
 #------------------------------
 #post installation
@@ -14,10 +17,10 @@ fi
 #------------------------------
 if [ "$1" = "U" ] ; then
 
-  $pubdir/wsh.php --api=freedom_import --file=$pubdir/WGCAL/wgcal.csv
+  $wpub/wsh.php --api=freedom_import --file=$wpub/WGCAL/wgcal.csv
   
-  $pubdir/wsh.php --api=wgcal_initpubuser
-  $pubdir/wsh.php --api=freedom_refresh --famid=CALEVENT --method=APISetAccess
+  $wpub/wsh.php --api=wgcal_initpubuser
+  $wpub/wsh.php --api=freedom_refresh --famid=CALEVENT --method=APISetAccess
 
 fi
 
