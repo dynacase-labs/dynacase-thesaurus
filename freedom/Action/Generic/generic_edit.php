@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.44 2005/11/03 08:16:05 eric Exp $
+ * @version $Id: generic_edit.php,v 1.45 2005/11/14 13:34:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,7 +50,7 @@ function generic_edit(&$action) {
    
 
 
-  if (($docid === 0) || ($docid === ""))
+  if (($docid === 0) || ($docid === "") || ($docid === "0") )
     {     
     if ($classid > 0) {
       $cdoc= new_Doc($dbaccess,$classid);
