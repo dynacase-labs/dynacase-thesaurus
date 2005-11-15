@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: ONEFAM.app,v 1.4 2004/08/12 10:26:27 eric Exp $
+// $Id: ONEFAM.app,v 1.5 2005/11/15 12:58:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Onefam/ONEFAM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,8 @@ $app_desc = array (
 "icon"		=>"onefam.gif",		//Icon
 "displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"childof"	=>""			//
+"childof"	=>"",			//
+"iorder"	        =>110,                   // install order
 );
 
 $action_desc = array (

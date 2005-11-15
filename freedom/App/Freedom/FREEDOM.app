@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.37 2005/09/21 13:07:19 eric Exp $
+// $Id: FREEDOM.app,v 1.38 2005/11/15 12:58:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -30,7 +30,8 @@ $app_desc = array (
 "access_free"	=>"N",			//Access free ? (Y,N)
 "icon"		=>"freedom.gif",	//Icon
 "displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
-"with_frame"	=>"Y"			//Use multiframe ? (Y,N)
+"with_frame"	=>"Y",			//Use multiframe ? (Y,N)
+"iorder"        =>130
 );
 
 $app_acl = array (

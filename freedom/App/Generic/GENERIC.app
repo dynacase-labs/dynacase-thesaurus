@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.16 2005/01/28 17:07:59 eric Exp $
+// $Id: GENERIC.app,v 1.17 2005/11/15 12:58:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,8 @@ $app_desc = array (
 "icon"		=>"generic.gif",	//Icon
 "displayable"	=>"N",			//Should be displayed on an app list (Y,N)
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"childof"	=>""			//
+"childof"	=>"",			//
+"iorder"	        =>105,                   // install order
 );
 
 $app_acl = array (

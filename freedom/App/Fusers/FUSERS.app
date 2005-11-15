@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FUSERS.app,v 1.3 2005/10/27 14:38:15 eric Exp $
+// $Id: FUSERS.app,v 1.4 2005/11/15 12:58:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fusers/FUSERS.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,8 @@ $app_desc = array (
 "icon"		=>"fusers.gif",	//Icon
 "displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"childof"	=>"USERCARD"			//
+"childof"	=>"USERCARD",			//
+"iorder"	        =>120,                   // install order
 );
 
 $app_acl = array (

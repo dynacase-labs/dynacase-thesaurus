@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: VAULT.app,v 1.2 2005/07/29 08:15:31 eric Exp $
+// $Id: VAULT.app,v 1.3 2005/11/15 13:05:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/VAULT.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: VAULT.app,v $
+// Revision 1.3  2005/11/15 13:05:41  eric
+// application order
+//
 // Revision 1.2  2005/07/29 08:15:31  eric
 // add icon
 //
@@ -36,7 +39,8 @@ $app_desc = array (
 "access_free"	=>"N",			//Access free ? (Y,N)
 "icon"		=>"vault.gif",	//Icon
 "displayable"	=>"N",			//Should be displayed on an app list (Y,N)
-"with_frame"	=>"Y"			//Use multiframe ? (Y,N)
+"with_frame"	=>"Y",			//Use multiframe ? (Y,N)
+"iorder"        =>140
 );
 
 $app_acl = array (

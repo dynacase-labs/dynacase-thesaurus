@@ -8,7 +8,8 @@ $app_desc= array (
 "access_free"	=>"N",                    //Access type (ALL,RESTRICT)
 "icon"		=>"wgcal.gif",             //Icon
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"displayable"	=>"Y"                    //Should be displayed on an app list
+"displayable"	=>"Y",                    //Should be displayed on an app list
+"iorder"        =>150
 );
 
 $app_acl = array (

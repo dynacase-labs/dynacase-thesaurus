@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.16 2005/10/04 07:09:57 marc Exp $
+// $Id: USERCARD.app,v 1.17 2005/11/15 12:58:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,8 @@ $app_desc = array (
 "icon"		=>"usercard.png",	//Icon
 "displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
-"childof"	=>""			//
+"childof"	=>"",			//
+"iorder"	        =>100,                   // install order
 );
 
 
