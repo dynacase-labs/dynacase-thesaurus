@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.100 2005/11/03 08:16:42 eric Exp $
+ * @version $Id: import_file.php,v 1.101 2005/11/15 12:57:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -126,11 +126,10 @@ function add_import_file(&$action, $fimport="") {
       if (isset($data[2])) {
 	if  ($data[2] > 0) { // dirid
 	  $dir = new_Doc($dbaccess, $data[2]);
-	  if ($dir->isAlive())	  $dir->AddFile($doc->id);
+	  if ((method_exists($dir,"AddFile")) && $dir->isAlive())   $dir->AddFile($doc->id);
 	} else if ($data[2] ==  0) {
 	  $dir = new_Doc($dbaccess, $dirid);
-	  if ((method_exists($dir,"AddFile")) &&
-	      ($dir->isAlive()))	$dir->AddFile($doc->id);
+	  if ((method_exists($dir,"AddFile")) && ($dir->isAlive())) $dir->AddFile($doc->id);
 	}
       }
 
@@ -192,11 +191,8 @@ function add_import_file(&$action, $fimport="") {
 
 	if ($data[2] > 0) { // dirid
 	  $dir = new_Doc($dbaccess, $data[2]);
-	  $dir->AddFile($doc->id);
-	} else if ($data[2] ==  0) {
-	  $dir = new_Doc($dbaccess, $dirid);
-	  $dir->AddFile($doc->id);
-	}
+	  if ($dir->isAlive() && method_exists($dir,"AddFile")) $dir->AddFile($doc->id);
+	} 
       }
       $nbdoc++;
       break;
@@ -773,7 +769,11 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       if ($dir->isAffected()) {
 	$tcr["folderid"]=$dir->id;
 	$tcr["foldername"]=dirname($ldir)."/".$dir->title;
-	if (! $analyze) $tcr["err"].=$dir->AddFile($doc->id);
+	if (! $analyze) {	
+	  if ($dir->isAlive() && method_exists($dir,"AddFile")) {
+	    $tcr["err"].=$dir->AddFile($doc->id);
+	  }
+	}
 	$msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
       }
     } else if ($ndirid ==  0) {
@@ -783,7 +783,11 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	if ($dir->isAlive() && method_exists($dir,"AddFile")) {
 	  $tcr["folderid"]=$dir->id;
 	  $tcr["foldername"]=dirname($ldir)."/".$dir->title;
-	  if (! $analyze) $tcr["err"].=$dir->AddFile($doc->id);
+	  if (! $analyze) {	    
+	    if ($dir->isAlive() && method_exists($dir,"AddFile")) {
+	      $tcr["err"].=$dir->AddFile($doc->id);
+	    }
+	  }
 	  $msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
 	}
       }
