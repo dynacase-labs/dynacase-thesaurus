@@ -9,7 +9,10 @@ fi
 #post installation
 #------------------------------
 if [ "$1" = "I" ] ; then
-    echo
+  $wpub/wsh.php --api=freedom_import --file=$wpub/WGCAL/wgcal.csv
+  
+  $wpub/wsh.php --api=wgcal_initpubuser
+  $wpub/wsh.php --api=freedom_refresh --famid=CALEVENT --method=APISetAccess
 fi
 
 #------------------------------
@@ -18,9 +21,6 @@ fi
 if [ "$1" = "U" ] ; then
 
   $wpub/wsh.php --api=freedom_import --file=$wpub/WGCAL/wgcal.csv
-  
-  $wpub/wsh.php --api=wgcal_initpubuser
-  $wpub/wsh.php --api=freedom_refresh --famid=CALEVENT --method=APISetAccess
 
 fi
 
