@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEEVENT.app,v 1.2 2005/06/04 06:37:56 marc Exp $
+// $Id: FREEEVENT.app,v 1.3 2005/11/15 13:07:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freeevent/FREEEVENT.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: FREEEVENT.app,v $
+// Revision 1.3  2005/11/15 13:07:29  eric
+// application order
+//
 // Revision 1.2  2005/06/04 06:37:56  marc
 // Change application icon file
 //
@@ -52,7 +55,8 @@ $app_desc = array (
 "access_free"	=>"N",			//Access free ? (Y,N)
 "icon"		=>"event.gif",	//Icon
 "displayable"	=>"N",			//Should be displayed on an app list (Y,N)
-"with_frame"	=>"N"
+"with_frame"	=>"N",
+"iorder"        =>"100"
 );
 
    

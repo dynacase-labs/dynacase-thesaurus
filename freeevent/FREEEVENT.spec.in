@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEEVENT.spec.in,v 1.7 2005/11/14 13:17:58 eric Exp $
+#  $Id: FREEEVENT.spec.in,v 1.8 2005/11/15 13:07:29 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -49,7 +49,9 @@ This package offers the freedom engine to process events
 
 %install
 autoconf
-./configure --with-pubrule=`pwd`
+./configure --with-pubrule=`pwd`\
+	     --with-httpuser=%{httpuser} \
+	     --prefix=%{destdir}
 make  pubdir=$RPM_BUILD_ROOT%{destdir} 
 
 
@@ -60,7 +62,7 @@ make  pubdir=$RPM_BUILD_ROOT%{destdir}
 cd %{destdir}/FDL 
 ln -sf ../@PACKAGE@/Class*php .
 ln -sf ../@PACKAGE@/Method*php .
-cd -
+cd - >/dev/null
 %{destdir}/wstop
 
 
@@ -73,7 +75,7 @@ cd -
 
 
 %files
-%defattr(-,root,root)
+%defattr(-,%{httpuser},%{httpuser})
 %dir %{destdir}/%{name}
 %{destdir}/%{name}/*
 %{destdir}/EXTERNALS
