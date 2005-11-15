@@ -3,7 +3,7 @@
  * display users and groups list
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_list.php,v 1.4 2005/10/31 11:48:54 eric Exp $
+ * @version $Id: fusers_list.php,v 1.5 2005/11/15 12:58:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -50,6 +50,7 @@ function fusers_list(&$action) {
   }
   if (!$groups) $groups=array();
   if ($mgroups) {
+    uasort($mgroups,"cmpgroup");
     foreach ($mgroups as $k=>$v) {
 	$cgroup=fusers_getChildsGroup($v["id"],$groups);
 	$tgroup[$k]=$v;
@@ -62,7 +63,7 @@ function fusers_list(&$action) {
   $action->lay->setBlockData("LI",$tgroup);
   $action->lay->setBlockData("SELECTGROUP",$groupuniq);
 
-  $action->lay->set("expand", (count($groups) < 15));
+  $action->lay->set("expand", (count($groups) < 30));
 }
 
 /**
@@ -82,7 +83,12 @@ function fusers_getChildsGroup($id,$groups) {
   if (count($tlay)==0) return "";
   global $action;
   $lay = new Layout("FUSERS/Layout/fusers_ligroup.xml",$action);
+  
+  uasort($tlay,"cmpgroup");
   $lay->setBlockData("LI",$tlay);
   return $lay->gen();
+}
+function cmpgroup($a,$b) {
+	return strcasecmp($a['lastname'],$b['lastname']);
 }
 ?>
