@@ -47,6 +47,12 @@ function setDefault(name,val) {
 	}
 }
 
+setDefault("treeClass","mktree");
+setDefault("nodeClosedClass","liClosed");
+setDefault("nodeOpenClass","liOpen");
+setDefault("nodeBulletClass","liBullet");
+setDefault("nodeLinkClass","bullet");
+setDefault("preProcessTrees",true);
 // Full expands a tree with a given ID
 function expandTree(treeId) {
 	var ul = document.getElementById(treeId);
@@ -138,12 +144,6 @@ function refreshCollapseList(ul,cName,itemId) {
 }
 // Search the document for UL elements with the correct CLASS name, then process them
 function convertTrees() {
-	setDefault("treeClass","mktree");
-	setDefault("nodeClosedClass","liClosed");
-	setDefault("nodeOpenClass","liOpen");
-	setDefault("nodeBulletClass","liBullet");
-	setDefault("nodeLinkClass","bullet");
-	setDefault("preProcessTrees",true);
 	if (preProcessTrees) {
 		if (!document.createElement) { return; } // Without createElement, we can't do anything
 		uls = document.getElementsByTagName("ul");
